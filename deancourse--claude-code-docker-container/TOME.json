@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-docker-container",
+  "owner": "deancourse",
+  "repo": "claude-code-docker-container",
+  "description": "\u5728\u7db2\u8def\u53d7\u9650\u7684 Docker Dev Container \u88e1\u5b89\u5168\u57f7\u884c Claude Code\uff0c\u900f\u904e iptables/ipset \u9632\u706b\u7246\u767d\u540d\u55ae\u9650\u5236 AI Agent \u7684\u5c0d\u5916\u9023\u7dda\uff0c\u964d\u4f4e\u8cc7\u6599\u5916\u6d29\u8207\u8aa4\u64cd\u4f5c\u98a8\u96aa\u3002\u6539\u81ea Anthropic \u5b98\u65b9 .devcontainer \u53c3\u8003\u5be6\u4f5c\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/deancourse/claude-code-docker-container",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T02:45:35Z"
+}
