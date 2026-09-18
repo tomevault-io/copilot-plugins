@@ -1,0 +1,9 @@
+{
+  "name": "kanwarvig--traceforge-incident-lab",
+  "displayName": "traceforge-incident-lab",
+  "description": "Deterministic incident investigation and controlled recovery workbench",
+  "version": "1.0.0",
+  "author": "kanwarvig",
+  "homepage": "https://github.com/kanwarvig/traceforge-incident-lab",
+  "skills": []
+}
