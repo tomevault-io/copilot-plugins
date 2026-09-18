@@ -1,0 +1,132 @@
+## nosis
+
+> 本项目用于开发一个个人 AI Agent，支持 TUI 与可视化 GUI。开发时遵循以下要求。
+
+# AGENTS.md
+
+本项目用于开发一个个人 AI Agent，支持 TUI 与可视化 GUI。开发时遵循以下要求。
+
+## 1. 总体原则
+
+* 保持架构简单、清晰、可扩展，优先解决当前明确需求。
+* 不进行未经要求的功能扩展、兼容处理或过度抽象。
+* 不因潜在需求提前增加复杂的框架、配置层、防御逻辑或中间层。
+* 修改应聚焦任务本身，不顺带重构无关代码。
+* 优先复用现有实现，避免重复实现相同能力。
+
+## 2. 架构要求
+
+```text
+TUI (Ink + React) ──────┐
+                        ├─── Bridge ── Agent Core
+GUI (React) ── FastAPI ─┘
+```
+
+Bridge 以 `python -m interfaces.bridge` 作为独立进程运行，是前端与 Runtime 之间的唯一通道，两端用 newline-delimited JSON 交换协议消息。
+
+* 依赖方向单向：`interfaces/* → agent_core`；`agent_core` 不得 import `interfaces`。
+* 驱动 Agent、执行 Tool、发起审批只能经由 Bridge 协议，前端不得自行运行 Agent Loop 或 Tool 执行。
+* 前端对 Core 的复用仅限只读能力（如 Session 读取、Workspace 路径解析）；执行语义不得在前端复制。
+* TUI 和 GUI 仅作为交互层，共享同一套 Agent Runtime。
+* 授权、取消、Session 与 Tool 执行语义只实现一次，不得由两个前端各维护一套。
+* 保持清晰的依赖方向，避免模块间循环依赖。
+* 各层细节见 [README](README.md) 的文档导航；本文只记录约束与不变量。
+
+## 3. Agent Core 与 Bridge
+
+新增能力的落点由职责决定：
+
+* 影响所有前端共享的执行语义 → `agent_core`。
+* 只决定选择、装配、进程与协议 → `interfaces/bridge`。
+* 只影响单个前端的呈现与交互 → 对应前端；不得反向进入 Core。
+
+### 3.1 Agent Core：机制
+
+`agent_core` 提供与前端无关、可被复用的机制；它不知道前端存在，也不知道配置与进程从何而来：
+
+* Agent Loop、模型调用、错误处理与终止条件
+* 上下文管理与上下文压缩
+* Tool 调用与结果回灌
+* Session 状态
+* 执行事件输出
+* Tool 抽象、Tool Catalog 与调用时依赖注入
+* 子 Agent Runtime 与角色注册表
+* Provider 抽象、MCP 客户端机制
+
+约束：
+
+* Agent Loop 应保持显式、可理解和可测试，不隐藏关键执行流程。
+* 机制通过已有稳定接口暴露；不引入只服务某个前端的参数、事件或分支。
+* Core 不感知 TUI/GUI、终端、浏览器或协议消息。
+
+### 3.2 Bridge：Runtime 装配
+
+Bridge 是唯一把 Core 拼装成可运行 Runtime 的地方，负责：
+
+* 选择 Provider，读取 `provider_config.json` 与 `agent_config.json`
+* 组装 Tool Catalog、按角色 select、安装 `ToolPolicy`
+* MCP Server 生命周期
+* 子 Agent 角色注册表
+* Workspace 绑定、Session 存储位置、取消与持久化时机
+* 把 `AgentEvent` 翻译为协议消息，并转发用户输入与授权响应
+
+约束：
+
+* Bridge 不含 Agent 决策逻辑：Agent Loop、上下文压缩、结果回灌都属于 Core。
+* Runtime 装配只有一处实现；TUI 与 GUI 不得各建一套。
+* 协议消息的增改必须同时更新 `interfaces/bridge/protocol.py` 与 `interfaces/protocol/src/protocol.ts`。
+
+## 4. Tool 系统
+
+* 所有工具使用统一接口和注册机制。
+* Tool 本身只负责自身能力，不包含 Agent 决策逻辑。
+* Shell、文件修改等高风险能力必须经过权限控制层。
+* 不允许模型绕过 Tool 系统直接执行系统操作。
+* Tool 的输入、输出和错误应使用结构化数据。
+
+## 5. TUI 与 GUI
+
+* 前端只负责渲染协议消息与采集输入，不得在其中实现或改写 Agent 行为。
+* Agent 状态必须由结构化事件驱动，不得从自由文本中解析；如何渲染由各前端自行决定。
+* GUI 应重点展示对话、Tool 执行、状态和人工确认。
+
+## 6. Session 与状态
+
+* 对话和执行过程应围绕 Session 管理。
+* Session 状态不得依赖某个具体前端。
+* TUI 与 GUI 应能够读取和恢复同一类 Session。
+* 持久化数据与运行时对象分离。
+
+## 7. 代码要求
+
+* 优先小模块、明确职责和显式接口。
+* 避免无必要的设计模式和层级包装。
+* 不创建仅有一次调用、没有实际抽象价值的 wrapper。
+* 不为了“未来可能使用”添加当前没有消费者的接口。
+* 不保留无用兼容代码、废弃实现或重复逻辑。
+* 删除功能时直接删除相关实现，不添加解释性残留代码。
+* 注释解释必要的设计原因，不记录开发过程、争论过程或已删除方案。
+
+## 8. 开发行为约束
+
+实现需求时：
+
+1. 先理解现有架构和调用链。
+2. 找到最小且正确的修改范围。如有更优的解决方案可以重构相关模块而不是只做最小补丁。
+3. 优先修改已有实现，而不是新增平行实现，重构功能时不必兼容旧实现。
+4. 完成后检查是否引入重复逻辑、无用抽象或额外功能。
+5. 执行相关测试，并修复由本次修改直接导致的问题。
+
+除非明确要求，否则不要：
+
+* 改变无关 UI 或文案。
+* 增加新的配置项。
+* 增加旧版本兼容逻辑。
+* 增加 fallback、retry 或 defensive behavior。
+* 新建额外服务或框架层。
+* 扩大任务范围。
+* 将开发要求、内部约束或实现说明展示给最终用户。
+
+---
+> Source: [EvannZhongg/Nosis](https://github.com/EvannZhongg/Nosis) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-18 -->
