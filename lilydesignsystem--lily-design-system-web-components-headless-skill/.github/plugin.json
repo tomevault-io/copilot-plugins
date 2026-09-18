@@ -1,0 +1,9 @@
+{
+  "name": "lilydesignsystem--lily-design-system-web-components-headless-skill",
+  "displayName": "lily-design-system-web-components-headless-skill",
+  "description": "Lily Design System Claude Skill covering the partial (33/491) Web Components headless catalog for an AI coding agent",
+  "version": "1.0.0",
+  "author": "LilyDesignSystem",
+  "homepage": "https://github.com/LilyDesignSystem/lily-design-system-web-components-headless-skill",
+  "skills": []
+}
