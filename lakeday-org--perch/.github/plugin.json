@@ -1,0 +1,9 @@
+{
+  "name": "lakeday-org--perch",
+  "displayName": "perch",
+  "description": "Semantic code linting with Jev",
+  "version": "1.0.0",
+  "author": "lakeday-org",
+  "homepage": "https://github.com/lakeday-org/perch",
+  "skills": []
+}
