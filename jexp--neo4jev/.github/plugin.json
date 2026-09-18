@@ -1,0 +1,9 @@
+{
+  "name": "jexp--neo4jev",
+  "displayName": "neo4jev",
+  "description": "Typesafe.ai System One Model Jev navigating a Neo4j graph by using a classifier over neighbouring relationships",
+  "version": "1.0.0",
+  "author": "jexp",
+  "homepage": "https://github.com/jexp/neo4jev",
+  "skills": []
+}
