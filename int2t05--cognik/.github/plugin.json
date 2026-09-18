@@ -1,0 +1,9 @@
+{
+  "name": "int2t05--cognik",
+  "displayName": "Cognik",
+  "description": "Self-hosted AI knowledge base with a self-iterating agent \u2014 auto-captures, retrieves, and writes back knowledge without manual uploads",
+  "version": "1.0.0",
+  "author": "int2t05",
+  "homepage": "https://github.com/int2t05/Cognik",
+  "skills": []
+}
