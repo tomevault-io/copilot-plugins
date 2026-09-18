@@ -1,0 +1,9 @@
+{
+  "name": "vertopolkalf--codex-minibar",
+  "displayName": "codex-minibar",
+  "description": "Windows tray companion for monitoring ChatGPT Work/Codex usage limits without having to login.",
+  "version": "1.0.0",
+  "author": "vertopolkaLF",
+  "homepage": "https://github.com/vertopolkaLF/codex-minibar",
+  "skills": []
+}
