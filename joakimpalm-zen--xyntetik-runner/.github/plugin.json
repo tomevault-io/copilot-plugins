@@ -1,0 +1,9 @@
+{
+  "name": "joakimpalm-zen--xyntetik-runner",
+  "displayName": "xyntetik-runner",
+  "description": "Local inference you can prove. A single-binary GGUF engine in C: serves, scores, and trains LoRA through the quantized weights it deploys, byte-reproducibly. Tool calls survive the token limit; every ",
+  "version": "1.0.0",
+  "author": "Joakimpalm-Zen",
+  "homepage": "https://github.com/Joakimpalm-Zen/xyntetik-runner",
+  "skills": []
+}
