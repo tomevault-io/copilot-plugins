@@ -1,0 +1,9 @@
+{
+  "name": "indada--repopilot",
+  "displayName": "repopilot",
+  "description": "Self-hosted PR testing and repair agent built with the OpenAI Codex SDK. Checks repository rules, generates tests, and verifies fixes before proposing draft PRs.",
+  "version": "1.0.0",
+  "author": "indada",
+  "homepage": "https://github.com/indada/repopilot",
+  "skills": []
+}
