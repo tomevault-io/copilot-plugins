@@ -1,0 +1,9 @@
+{
+  "name": "sign-river--signriver-dlc-hub",
+  "displayName": "SignRiver-DLC-Hub",
+  "description": "A unified desktop application for managing DLC across multiple games.",
+  "version": "1.0.0",
+  "author": "sign-river",
+  "homepage": "https://github.com/sign-river/SignRiver-DLC-Hub",
+  "skills": []
+}
