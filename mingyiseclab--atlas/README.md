@@ -7,11 +7,11 @@ Open-source local AI Agent desktop app for authorized security assessment — El
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MingyiSecLab/Atlas](https://github.com/MingyiSecLab/Atlas).
+Original source: `CLAUDE.md` in [MingyiSecLab/Atlas](https://github.com/MingyiSecLab/Atlas).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
