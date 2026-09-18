@@ -1,0 +1,9 @@
+{
+  "name": "tylerbutler--trellis",
+  "displayName": "trellis",
+  "description": "A workspace management tool for multi-package Gleam projects.",
+  "version": "1.0.0",
+  "author": "tylerbutler",
+  "homepage": "https://github.com/tylerbutler/trellis",
+  "skills": []
+}
