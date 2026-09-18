@@ -1,0 +1,9 @@
+{
+  "name": "simpletibr--simplicio-loop-marketing",
+  "displayName": "simplicio-loop-marketing",
+  "description": "Provider-agnostic AI marketing engine. CLI that drops into any host project. Pipeline: brief -> script -> creative -> caption -> compliance -> publish -> metrics -> ads. Switch LLM/image/video provide",
+  "version": "1.0.0",
+  "author": "simpletibr",
+  "homepage": "https://github.com/simpletibr/simplicio-loop-marketing",
+  "skills": []
+}
