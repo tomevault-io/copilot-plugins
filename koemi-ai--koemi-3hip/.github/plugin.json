@@ -1,0 +1,9 @@
+{
+  "name": "koemi-ai--koemi-3hip",
+  "displayName": "Koemi-3HIP",
+  "description": " Koemi-3HIP is the open-source HERM Framework (Hierarchical Error-Refined Memory): a causal byte-level PyTorch model with bounded recurrent   state, associative memory, exact context recall, prefix ca",
+  "version": "1.0.0",
+  "author": "Koemi-AI",
+  "homepage": "https://github.com/Koemi-AI/Koemi-3HIP",
+  "skills": []
+}
