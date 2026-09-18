@@ -1,0 +1,9 @@
+{
+  "name": "octaviocriollo--hf-hub",
+  "displayName": "hf-hub",
+  "description": "Espejo de github.com/cjpais/hf-hub, rama cancellable-downloads, fijado para Spectrum Dicta. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "OctavioCriollo",
+  "homepage": "https://github.com/OctavioCriollo/hf-hub",
+  "skills": []
+}
