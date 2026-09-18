@@ -1,0 +1,9 @@
+{
+  "name": "tehguitarist--noamp-low-rider-di",
+  "displayName": "NoAmp-Low-Rider-DI",
+  "description": "Audio plugin based on the SansAmp Bass Driver DI using circuit analysis instead of captures.",
+  "version": "1.0.0",
+  "author": "tehguitarist",
+  "homepage": "https://github.com/tehguitarist/NoAmp-Low-Rider-DI",
+  "skills": []
+}
