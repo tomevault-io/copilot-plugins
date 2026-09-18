@@ -1,0 +1,9 @@
+{
+  "name": "unicodef1wn--grokbot-field-notes",
+  "displayName": "grokbot-field-notes",
+  "description": "Rules, playbooks, bot roles and a failure log from the xAI Grok Bot team's 72-hour live build. Drop AGENTS.md into your repo and go.",
+  "version": "1.0.0",
+  "author": "unicodef1wn",
+  "homepage": "https://github.com/unicodef1wn/grokbot-field-notes",
+  "skills": []
+}
