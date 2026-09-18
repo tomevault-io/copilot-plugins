@@ -1,0 +1,9 @@
+{
+  "name": "azimul-kabir--actua",
+  "displayName": "actua",
+  "description": "A native Android client for Actual Budget, built with Kotlin and Jetpack Compose.",
+  "version": "1.0.0",
+  "author": "azimul-kabir",
+  "homepage": "https://github.com/azimul-kabir/actua",
+  "skills": []
+}
