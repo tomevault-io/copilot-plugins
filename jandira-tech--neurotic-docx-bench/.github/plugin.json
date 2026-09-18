@@ -1,0 +1,9 @@
+{
+  "name": "jandira-tech--neurotic-docx-bench",
+  "displayName": "neurotic_docx_bench",
+  "description": "Six benchmarks to neurotically measure DOCX conversion and redlining against Microsoft Word",
+  "version": "1.0.0",
+  "author": "jandira-tech",
+  "homepage": "https://github.com/jandira-tech/neurotic_docx_bench",
+  "skills": []
+}
