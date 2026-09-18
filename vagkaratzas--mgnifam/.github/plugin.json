@@ -1,0 +1,9 @@
+{
+  "name": "vagkaratzas--mgnifam",
+  "displayName": "mgnifam",
+  "description": "Build protein families from sequence clusters by iterative HMM search over very large databases \u2014 streaming, deterministic, pyHMMER-based.",
+  "version": "1.0.0",
+  "author": "vagkaratzas",
+  "homepage": "https://github.com/vagkaratzas/mgnifam",
+  "skills": []
+}
