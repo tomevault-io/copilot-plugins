@@ -1,0 +1,9 @@
+{
+  "name": "austinmabry--openscrub",
+  "displayName": "OpenScrub",
+  "description": "Local, GPU-accelerated redaction for video & screen recordings \u2014 blur, black-box, or mosaic faces and/or any regex-matchable text. Human review, no cloud.",
+  "version": "1.0.0",
+  "author": "austinmabry",
+  "homepage": "https://github.com/austinmabry/OpenScrub",
+  "skills": []
+}
