@@ -1,0 +1,9 @@
+{
+  "name": "mindreset--read-pico-firmware",
+  "displayName": "read_pico_firmware",
+  "description": "Demo firmware for the Read Pico ESP32-S3 e-paper dev board",
+  "version": "1.0.0",
+  "author": "MindReset",
+  "homepage": "https://github.com/MindReset/read_pico_firmware",
+  "skills": []
+}
