@@ -4,7 +4,7 @@
   "repo": "wx-cli-again",
   "description": "WeChat local data CLI (query/decrypt/export) \u2014 fresh start from wx-cli",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jackwener/wx-cli-again",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T15:31:17Z"
+  "distributed_at": "2026-09-18T15:34:35Z"
 }
