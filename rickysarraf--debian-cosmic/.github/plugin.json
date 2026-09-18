@@ -1,0 +1,9 @@
+{
+  "name": "rickysarraf--debian-cosmic",
+  "displayName": "debian-cosmic",
+  "description": "The Debian COSMIC Desktop Brewery: Unified .deb and systemd-sysext delivery for Debian Testing/Sid.",
+  "version": "1.0.0",
+  "author": "rickysarraf",
+  "homepage": "https://github.com/rickysarraf/debian-cosmic",
+  "skills": []
+}
