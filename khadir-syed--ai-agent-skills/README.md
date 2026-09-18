@@ -7,11 +7,11 @@ Reusable AI skills for Codex, Claude Code & Copilot CLI — Markdown-only, safet
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [khadir-syed/ai-agent-skills](https://github.com/khadir-syed/ai-agent-skills).
+Original source: `AGENTS.md` in [khadir-syed/ai-agent-skills](https://github.com/khadir-syed/ai-agent-skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
