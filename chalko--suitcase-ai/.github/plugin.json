@@ -1,0 +1,9 @@
+{
+  "name": "chalko--suitcase-ai",
+  "displayName": "suitcase-ai",
+  "description": "Portable sovereign AI appliance & ultra-compact compute cluster for local LLM inference.",
+  "version": "1.0.0",
+  "author": "chalko",
+  "homepage": "https://github.com/chalko/suitcase-ai",
+  "skills": []
+}
