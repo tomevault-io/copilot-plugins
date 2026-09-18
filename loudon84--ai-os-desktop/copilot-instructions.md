@@ -1,40 +1,56 @@
-## hermes-renderer-structure
+## no-wait-skipped
 
-> Hermes Renderer feature-sliced 结构与页面组件写法
+> Prevent Cursor Agent from skipping waits and losing task context
 
 
-# Hermes Renderer Structure（v1.3）
+# No Wait Skipped Rule
 
-## 目录职责
+## Core Rules
 
-| 目录 | 职责 |
-|------|------|
-| `panels/`、`components/` | 壳层装配（Sidebar、Shell、RightPanel）— 无业务 API |
-| `pages/<Name>/` | 页面编排 + `components/` 子组件 |
-| `features/<domain>/` | hooks、mapper、filter、校验 |
-| `api/workApi.ts` | `window.hermesExperts` 封装 → `Work*` model |
-| `api/hermesDefaultApi.ts` | 本地 default profile（Chat 等） |
-| `model/` | 类型与状态枚举 |
-| `registry/hermes-pages.tsx` | lazy 页面注册 |
+1. Do not use parallel Explore tasks unless explicitly requested.
+2. Do not spawn sub-agents for repository exploration.
+3. Execute repository analysis sequentially.
+4. If a tool, search, file read, or terminal command is stopped, do not continue as if it succeeded.
+5. If "Wait skipped" happens, stop the task and write the failure reason to specs/current-agent-log.md.
+6. Never produce an implementation plan based on incomplete exploration.
+7. Do not ask the user to paste the full requirement again.
+8. Always resume from specs/current-agent-state.md.
 
-## 新增页面
+## Required Files
 
-只改：`constants.ts` → `hermes-pages.tsx` → `pages/` → i18n。详见 `05-page-registry.md`。
+For every non-trivial task, use:
 
-## 页面 UI 模板
+- specs/current-agent-task.md
+- specs/current-agent-state.md
+- specs/current-agent-log.md
 
-```tsx
-<div className="hermes-page hermes-<name>-page">
-  <header className="hermes-page__header">…</header>
-  {/* error: hermes-page__error | empty: hermes-page__empty | loading: hermes-page__loading */}
-</div>
-```
+## Execution Flow
 
-## 禁止
+1. Read specs/current-agent-task.md.
+2. Read specs/current-agent-state.md.
+3. Execute only the first pending stage.
+4. Mark completed stages as done.
+5. Mark failed stages as failed.
+6. After each stage, update specs/current-agent-state.md.
+7. Do not repeat stages marked as done.
 
-- pages 内 `window.hermesExperts` / 原始 IPC 类型
-- 新建全局 CSS 文件（扩展 `Hermes.css`）
-- 在 Shell/Sidebar 写 summon / list 等业务逻辑
+## Terminal Rules
+
+1. Do not run long-running dev servers.
+2. Do not run watch mode.
+3. Do not use paginated commands.
+4. Use non-interactive commands only.
+5. Prefer:
+   - git --no-pager log --oneline -n 20
+   - git diff --stat
+   - pnpm exec tsc --noEmit
+   - pnpm run lint
+6. Avoid:
+   - git log
+   - pnpm dev
+   - npm run dev
+   - docker compose up
+   - interactive installers
 
 ---
 > Source: [loudon84/ai-os-desktop](https://github.com/loudon84/ai-os-desktop) — distributed by [TomeVault](https://tomevault.io).
