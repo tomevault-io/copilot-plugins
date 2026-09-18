@@ -1,0 +1,9 @@
+{
+  "name": "martex-dev--martex-quant",
+  "displayName": "martex-quant",
+  "description": "Quantitative research platform for crypto: 120 pre-registered hypotheses, deflated-Sharpe validation, and a permanent ledger of everything that failed. Currently paper trading.",
+  "version": "1.0.0",
+  "author": "martex-dev",
+  "homepage": "https://github.com/martex-dev/martex-quant",
+  "skills": []
+}
