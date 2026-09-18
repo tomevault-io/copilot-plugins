@@ -1,0 +1,9 @@
+{
+  "name": "realsee-developer--realsee-astra-blender",
+  "displayName": "realsee-astra-blender",
+  "description": "Build editable Blender spaces from Realsee exports with GPT-6 Astra. English and Simplified Chinese tutorials, prompts, modeling code, and interactive previews.",
+  "version": "1.0.0",
+  "author": "realsee-developer",
+  "homepage": "https://github.com/realsee-developer/realsee-astra-blender",
+  "skills": []
+}
