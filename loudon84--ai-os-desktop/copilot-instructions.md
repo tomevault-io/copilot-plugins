@@ -1,39 +1,41 @@
-## 008-loudon-command-comments
+## codegraph
 
-> 禁止修改含 #command by loudon 的注释行与注释块（产品指令，软约束）
+> CodeGraph MCP usage guide — when to use which tool
 
+<!-- CODEGRAPH_START -->
+## CodeGraph
 
-# Loudon Command Comments（软约束）
+This project has a CodeGraph MCP server (`codegraph_*` tools) configured. CodeGraph is a tree-sitter-parsed knowledge graph of every symbol, edge, and file. Reads are sub-millisecond and return structural information grep cannot.
 
-## 识别标记
+### When to prefer codegraph over native search
 
-源码中出现以下标记（大小写不敏感）时，表示 **loudon 的产品指令注释**：
+Use codegraph for **structural** questions — what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
 
-- `#command by loudon`
-- `command by loudon`（同一注释内等价）
+| Question | Tool |
+|---|---|
+| "Where is X defined?" / "Find symbol named X" | `codegraph_search` |
+| "What calls function Y?" | `codegraph_callers` |
+| "What does Y call?" | `codegraph_callees` |
+| "What would break if I changed Z?" | `codegraph_impact` |
+| "Show me Y's signature / source / docstring" | `codegraph_node` |
+| "Give me focused context for a task/area" | `codegraph_context` |
+| "See several related symbols' source at once" | `codegraph_explore` |
+| "What files exist under path/" | `codegraph_files` |
+| "Is the index healthy?" | `codegraph_status` |
 
-常见写法：`//`、`/* */`、JSX `{/* */}`、`#`（Python/Shell）等。
+### Rules of thumb
 
-## 禁止（Agent 须遵守）
+- **Answer directly — don't delegate exploration.** For "how does X work" / architecture / trace questions, answer with 2-3 codegraph calls: `codegraph_context` first, then ONE `codegraph_explore` for the source of the symbols it surfaces. Codegraph IS the pre-built index, so spawning a separate file-reading sub-task/agent — or running a grep + read loop — repeats work codegraph already did and costs more for the same answer.
+- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep — that's slower, less accurate, and wastes context.
+- **Don't grep first** when looking up a symbol by name. `codegraph_search` is faster and returns kind + location + signature in one call.
+- **Don't chain `codegraph_search` + `codegraph_node`** when you just want context — `codegraph_context` is one call.
+- **Don't loop `codegraph_node` over many symbols** — one `codegraph_explore` call returns several symbols' source grouped in a single capped call, while each separate node/Read call re-reads the whole context and costs far more.
+- **Index lag**: the file watcher debounces ~500ms behind writes; don't re-query immediately after editing a file in the same turn.
 
-1. **禁止修改**带上述标记的**整行注释**（含标记行本身）。
-2. **禁止修改**以该标记为起点的**整块注释**（从含标记的注释起始到该注释闭合符为止，例如 `*/`、`*/}`）。
-3. **禁止**在重构、格式化、删 dead code、启用被注释代码、lint 自动修复时触碰上述区域。
-4. **禁止**将注释块解开为可执行代码，或删除/缩短/改写注释内的说明文字，除非用户 **loudon** 明确要求并指明文件与块。
+### If `.codegraph/` doesn't exist
 
-## 允许
-
-- 在**注释块之外**正常改业务代码。
-- 用户或 loudon 明确授权并点名文件与注释块时，方可改动该块。
-
-## 改前自检
-
-若计划中的 diff 会触及含 `#command by loudon` 的行或其注释块：
-
-- **停止**，不要提交该 diff。
-- 在回复中说明被锁定的文件与行号，请用户确认是否由 loudon 授权变更。
-
-本项目**无** CI / lock / 脚本自动校验；仅依赖本规则与 `AGENTS.md` 的说明约束 Agent 行为。
+The MCP server returns "not initialized." Ask the user: *"I notice this project doesn't have CodeGraph initialized. Want me to run `codegraph init -i` to build the index?"*
+<!-- CODEGRAPH_END -->
 
 ---
 > Source: [loudon84/ai-os-desktop](https://github.com/loudon84/ai-os-desktop) — distributed by [TomeVault](https://tomevault.io).
