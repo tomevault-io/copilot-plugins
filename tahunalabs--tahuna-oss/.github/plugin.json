@@ -1,0 +1,9 @@
+{
+  "name": "tahunalabs--tahuna-oss",
+  "displayName": "tahuna-oss",
+  "description": "Open-source, self-hostable GPU provisioning and ML training orchestration",
+  "version": "1.0.0",
+  "author": "TahunaLabs",
+  "homepage": "https://github.com/TahunaLabs/tahuna-oss",
+  "skills": []
+}
