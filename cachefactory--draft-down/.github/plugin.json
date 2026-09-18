@@ -1,0 +1,9 @@
+{
+  "name": "cachefactory--draft-down",
+  "displayName": "draft-down",
+  "description": "Browser + Electron 3D CAD application (TypeScript, React, Three.js)",
+  "version": "1.0.0",
+  "author": "CacheFactory",
+  "homepage": "https://github.com/CacheFactory/draft-down",
+  "skills": []
+}
