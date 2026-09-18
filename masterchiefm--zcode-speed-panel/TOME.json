@@ -1,0 +1,44 @@
+{
+  "name": "zcode-speed-panel",
+  "owner": "Masterchiefm",
+  "repo": "zcode-speed-panel",
+  "description": "ZCode \u5b9e\u65f6\u8f93\u51fa\u901f\u5ea6\u4eea\u8868\u76d8\uff1aIO \u5b9e\u6d4b\u5b9e\u65f6 t/s\u3001\u4eca\u65e5\u7528\u91cf\u7edf\u8ba1\u3001\u684c\u5ba0/\u8ff7\u4f60\u4eea\u8868/\u901f\u5ea6\u80f6\u56ca\u4e09\u79cd\u60ac\u6d6e\u7a97\uff08Tauri 2 + Rust\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Masterchiefm/zcode-speed-panel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T15:36:05Z"
+}
