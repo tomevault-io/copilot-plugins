@@ -1,0 +1,44 @@
+{
+  "name": "Folia",
+  "owner": "cat-xierluo",
+  "repo": "Folia",
+  "description": "\u9762\u5411\u77e5\u8bc6\u5de5\u4f5c\u8005\u7684 Markdown \u9605\u8bfb\u5668\uff0c\u652f\u6301 Word \u5bfc\u51fa\u548c HTML \u9884\u89c8",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cat-xierluo/Folia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T06:39:46Z"
+}
