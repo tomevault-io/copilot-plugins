@@ -1,0 +1,9 @@
+{
+  "name": "ecstra--acevoperf",
+  "displayName": "ACEvoPerf",
+  "description": "Fixes the VRAM crashes, missing icons and mushy textures in Assetto Corsa EVO.",
+  "version": "1.0.0",
+  "author": "ecstra",
+  "homepage": "https://github.com/ecstra/ACEvoPerf",
+  "skills": []
+}
