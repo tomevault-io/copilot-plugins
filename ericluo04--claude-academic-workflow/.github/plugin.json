@@ -1,0 +1,9 @@
+{
+  "name": "ericluo04--claude-academic-workflow",
+  "displayName": "claude-academic-workflow",
+  "description": "Academic research workflow for Claude Code: 20 skills covering causal inference (DiD, RDD, IV, synthetic control, field experiments, design triage, preregistration), paper reading, lit review, bib aud",
+  "version": "1.0.0",
+  "author": "ericluo04",
+  "homepage": "https://github.com/ericluo04/claude-academic-workflow",
+  "skills": []
+}
