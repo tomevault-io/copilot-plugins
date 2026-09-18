@@ -1,0 +1,44 @@
+{
+  "name": "body-harvest-recomp",
+  "owner": "danielgomesvieira2000",
+  "repo": "body-harvest-recomp",
+  "description": "Body Harvest: Recompiled - a native PC port of Body Harvest (N64) built with N64Recomp, RT64 and RecompFrontend. Bring your own ROM.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/danielgomesvieira2000/body-harvest-recomp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T16:34:24Z"
+}
