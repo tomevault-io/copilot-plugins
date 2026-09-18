@@ -1,0 +1,9 @@
+{
+  "name": "speakeasy-api--openapi-generation",
+  "displayName": "openapi-generation",
+  "description": "Open-source OpenAPI SDK generator for building production-ready client libraries. Available under AGPL-3.0; contact Speakeasy for commercial licensing options.",
+  "version": "1.0.0",
+  "author": "speakeasy-api",
+  "homepage": "https://github.com/speakeasy-api/openapi-generation",
+  "skills": []
+}
