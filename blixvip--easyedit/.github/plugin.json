@@ -1,0 +1,9 @@
+{
+  "name": "blixvip--easyedit",
+  "displayName": "easyedit",
+  "description": "Type a movie, get a captioned speech + beat-cut fan edit. Local-first, no API keys, works with your AI bot (Claude Code / Codex).",
+  "version": "1.0.0",
+  "author": "blixvip",
+  "homepage": "https://github.com/blixvip/easyedit",
+  "skills": []
+}
