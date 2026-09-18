@@ -1,38 +1,35 @@
-## 002-renderer-ui
+## 003-ipc-contract
 
-> React renderer UI stack, structure, and async panel conventions
+> IPC channel definition order and hermesAPI event cleanup requirements
 
 
-# Renderer UI Rules
+# IPC Contract Rules
 
-## Stack
+Before writing UI that needs backend data:
 
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- lucide-react icons
-- No direct Node.js access
+1. Define TypeScript interface in `src/shared/`
+2. Add `ipcMain.handle` in `src/main/index.ts` (or module registered from index)
+3. Add `hermesAPI` wrapper in `src/preload/index.ts`
+4. Add declaration in `src/preload/index.d.ts`
+5. Use the wrapper in Renderer
+6. Update `docs/API_CONTRACTS.md` when adding or changing channels
 
-## UI conventions
+## Never
 
-- Use screen-level components under `src/renderer/src/screens/`
-- Use feature components under `src/renderer/src/components/`
-- Keep components small and composable.
-- Separate data loading hooks from presentational components.
-- Every async panel must implement:
-  - loading state
-  - empty state
-  - error state
-  - retry action
+- Call `ipcRenderer` directly from Renderer.
 
-## Layout conventions
+## Event listeners
 
-- Desktop-first layout.
-- Left navigation width: 240–280px.
-- Main content max width for forms: 960–1120px.
-- Use card/grid layout for dashboard screens.
-- Avoid full-page unstructured forms.
-- Avoid nested scroll areas unless explicitly required.
+- All event listeners exposed by `hermesAPI` (and sibling preload APIs) must return unsubscribe functions.
+- Renderer components must cleanup listeners on unmount.
+
+```typescript
+// ✅ GOOD
+useEffect(() => {
+  const unsubscribe = window.hermesAPI.onInstallProgress(handler);
+  return unsubscribe;
+}, []);
+```
 
 ---
 > Source: [loudon84/ai-os-desktop](https://github.com/loudon84/ai-os-desktop) — distributed by [TomeVault](https://tomevault.io).
