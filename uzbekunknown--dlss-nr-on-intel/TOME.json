@@ -1,0 +1,44 @@
+{
+  "name": "dlss-nr-on-intel",
+  "owner": "Uzbekunknown",
+  "repo": "dlss-nr-on-intel",
+  "description": "DLSS 5 Neural Rendering on an Intel Xe2 iGPU: an independent reimplementation of the inference pass, running in a real game through a Vulkan layer. Code only. No NVIDIA binaries, no weights.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Uzbekunknown/dlss-nr-on-intel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T15:32:55Z"
+}
