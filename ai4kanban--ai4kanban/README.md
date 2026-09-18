@@ -7,11 +7,11 @@ Your AI project manager: agents plan and build, while you focus on ideas and mak
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ai4kanban/ai4kanban](https://github.com/ai4kanban/ai4kanban).
+Original source: `AGENTS.md` in [ai4kanban/ai4kanban](https://github.com/ai4kanban/ai4kanban).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
