@@ -1,0 +1,9 @@
+{
+  "name": "emersonfelipesp--proxbox-api",
+  "displayName": "proxbox-api",
+  "description": "Backend of NetBox Proxbox Plugin using FastAPI",
+  "version": "1.0.0",
+  "author": "emersonfelipesp",
+  "homepage": "https://github.com/emersonfelipesp/proxbox-api",
+  "skills": []
+}
