@@ -1,0 +1,44 @@
+{
+  "name": "jev-column-race",
+  "owner": "goodrahstar",
+  "repo": "jev-column-race",
+  "description": "Jev vs Gemini 3.8 Flash: labelling 1,000 app reviews, 4.1\u00d7 faster and 7\u00d7 cheaper",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/goodrahstar/jev-column-race",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T19:33:24Z"
+}
