@@ -1,56 +1,48 @@
-## no-wait-skipped
+## work-product
 
-> Prevent Cursor Agent from skipping waits and losing task context
+> Work 专家工作台（screens/Hermes）模块约束 — SMC Copilot 内 Work 域，非 WorkBuddy 品牌
 
 
-# No Wait Skipped Rule
+# Work Product Line（Work 域）
 
-## Core Rules
+## 产品身份
 
-1. Do not use parallel Explore tasks unless explicitly requested.
-2. Do not spawn sub-agents for repository exploration.
-3. Execute repository analysis sequentially.
-4. If a tool, search, file read, or terminal command is stopped, do not continue as if it succeeded.
-5. If "Wait skipped" happens, stop the task and write the failure reason to specs/current-agent-log.md.
-6. Never produce an implementation plan based on incomplete exploration.
-7. Do not ask the user to paste the full requirement again.
-8. Always resume from specs/current-agent-state.md.
+- **对外产品名**：SMC Copilot（不变）
+- **Work 域**：`src/renderer/src/screens/Hermes/` — Work 专家工作台（原 Local Hermes 产品概念）
+- **WorkBuddy（腾讯）**：仅 UX/流程参考；**禁止**作为代码标识符、Preload 全局名或对外品牌
 
-## Required Files
+## Renderer 分层
 
-For every non-trivial task, use:
+```text
+shell/     → 布局装配，不直接调 API
+registry/  → 页面元数据，无业务逻辑
+pages/     → 页面编排，调 feature hooks
+features/  → 数据获取、映射、校验、动作
+api/       → workApi.ts，封装 window.hermesExperts / window.hermesAPI
+model/     → Work* 域类型
+components/→ 纯展示，不调 API
+```
 
-- specs/current-agent-task.md
-- specs/current-agent-state.md
-- specs/current-agent-log.md
+## 硬性规则
 
-## Execution Flow
+1. **禁止** pages 直接调用 `window.hermesExperts` 或 `window.hermesAPI`
+2. **禁止** components 直接调 API 或读复杂 Context 业务状态
+3. **禁止** Renderer `fetch` nodeskclaw 或持有 token
+4. **禁止** 在 pages 内拼 JSON-RPC 原始 payload
+5. v1.3 **不新增** `window.work` Preload；使用 `api/workApi.ts`
+6. Run / Expert / Artifact 类型从 `model/` 导入，使用 `Work*` 前缀
 
-1. Read specs/current-agent-task.md.
-2. Read specs/current-agent-state.md.
-3. Execute only the first pending stage.
-4. Mark completed stages as done.
-5. Mark failed stages as failed.
-6. After each stage, update specs/current-agent-state.md.
-7. Do not repeat stages marked as done.
+## 新增能力流程
 
-## Terminal Rules
+1. Main 实现（已有 `hermes-experts/*` 优先复用）
+2. Preload `hermes-experts-api.ts`（v1.3 不新增全局对象）
+3. `api/workApi.ts` 语义封装 + `model/*` 映射
+4. `features/*` hook
+5. `pages/*` 消费
 
-1. Do not run long-running dev servers.
-2. Do not run watch mode.
-3. Do not use paginated commands.
-4. Use non-interactive commands only.
-5. Prefer:
-   - git --no-pager log --oneline -n 20
-   - git diff --stat
-   - pnpm exec tsc --noEmit
-   - pnpm run lint
-6. Avoid:
-   - git log
-   - pnpm dev
-   - npm run dev
-   - docker compose up
-   - interactive installers
+## AI Coding 任务粒度
+
+每次只改一个闭环（registry / sidebar / 单页 / workApi 子域），改后运行 `npm run typecheck`。
 
 ---
 > Source: [loudon84/ai-os-desktop](https://github.com/loudon84/ai-os-desktop) — distributed by [TomeVault](https://tomevault.io).
