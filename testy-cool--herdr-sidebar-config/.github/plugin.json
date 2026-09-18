@@ -1,0 +1,9 @@
+{
+  "name": "testy-cool--herdr-sidebar-config",
+  "displayName": "herdr-sidebar-config",
+  "description": "Workspace \u2192 tab \u2192 agent sidebar preset for Herdr, with compact single-tab groups, readable task labels, and provider icons.",
+  "version": "1.0.0",
+  "author": "testy-cool",
+  "homepage": "https://github.com/testy-cool/herdr-sidebar-config",
+  "skills": []
+}
