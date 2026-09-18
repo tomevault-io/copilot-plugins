@@ -4,7 +4,7 @@
   "repo": "proxbox-api",
   "description": "Backend of NetBox Proxbox Plugin using FastAPI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/emersonfelipesp/proxbox-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T16:38:52Z"
+  "distributed_at": "2026-09-18T16:39:47Z"
 }
