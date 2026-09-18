@@ -1,0 +1,44 @@
+{
+  "name": "Atlas",
+  "owner": "MingyiSecLab",
+  "repo": "Atlas",
+  "description": "Open-source local AI Agent desktop app for authorized security assessment \u2014 Electron + Mastra-powered runtime, visual pentest workflow, Kali sandbox, multi-provider LLM routing. \u672c\u5730 AI \u5b89\u5168\u8bc4\u4f30\u667a\u80fd\u4f53\u684c\u9762\u5e94\u7528",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MingyiSecLab/Atlas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T08:30:26Z"
+}
