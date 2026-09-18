@@ -1,0 +1,90 @@
+## conveyor
+
+> The factory's confirmed document corpus is the design authority: Requirements,
+
+# Conveyor — agent notes
+
+The factory's confirmed document corpus is the design authority: Requirements,
+System Design documents, and DEC-n decisions served through the workspace API
+and UI. Authority changes through propose-confirm revisions; decision
+supersession replaces the retired amendment process (DEC-12). Product overview
+and Roadmap reference documents are informative rather than normative. Current
+and historical phase status lives in the "Roadmap" reference document.
+
+## Conventions
+
+- Backend is Go everywhere: `net/http` + chi for the API and cobra for the CLI.
+  Persistence is pgx + sqlc for the relational schema; the durable queue is
+  the event log (`internal/eventlog`, driver `pglog`) through
+  `internal/queue/logqueue`. Do not introduce another persistence or queue
+  dependency.
+- The whole `internal/store/postgres/db/` package is maintained by hand
+  (`design-database`). `sqlc generate` cannot parse migration 035's
+  `{{task_states}}` template before rendering, so PostgreSQL integration tests
+  are the validation boundary for column and query changes.
+- `cmd/conveyor-shim` and the sandbox execution plane are retired and deleted.
+  Do not reintroduce them without confirmed corpus authority.
+- Traceability comments cite confirmed REQ-n/AC-n.m, DEC-n, and governing
+  System Design document IDs. The former specification-section citation
+  convention is retired.
+- `TODO(phase1)` was the blocking-gap marker; none may remain on the closed
+  Phase 1 baseline. `TODO(phase1-followup)` marks accepted deferred work.
+- Build/test: `make build`, `make vet`, `make fmt-check`, `make test`, and
+  `make test-integration`. `make test` is the ordinary local aggregate: Go
+  tests plus web typecheck, Biome lint/format checking, and Playwright. CI
+  reports the complete gate on every pull request; blocking merges requires
+  operator-enabled branch protection, which is unavailable on the current
+  GitHub plan. Its PostgreSQL service uses the CI-only
+  `make test-integration-ci` entrypoint.
+
+## Worktrees and branches
+
+Task branch names are assignments, not pre-created refs. Immediately after
+reading a work order, the implementing agent uses `conveyor checkout <task-id>`
+to resolve a dedicated sibling worktree and performs every edit, test, commit,
+and push there. Conveyor does not mutate the primary checkout or reset task
+history. Workspace context is explicit across REST, CLI, MCP, dispatch, and
+reconciliation; omission is compatible only for a singleton workspace.
+
+## Local planning & filing
+
+Planning documents (requirements, System Design, decisions, overviews) and task
+filing can be driven from an operator-side agent session, the headless twin of
+in-product planning. The canonical playbooks are
+[docs/playbooks/conveyor-planning.md](docs/playbooks/conveyor-planning.md) and
+[docs/playbooks/conveyor-task-filing.md](docs/playbooks/conveyor-task-filing.md);
+`.claude/skills/` wraps them for Claude Code, and `AGENTS.md` is a symlink to
+this file so Codex and other AGENTS.md-convention tools read the same guidance.
+Every push is a proposal — operators confirm; agents never perform
+operator-only acts.
+
+## Scope bars
+
+- Memory-store scope is defined by DEC-9.
+- Task priority, phase, assignment, and queue-order scope is defined by DEC-18.
+
+This repository maintains the Conveyor skill sources and uses `AGENTS.md ->
+CLAUDE.md`. Refresh its guidance directly in the task worktree with
+`conveyor --server 'https://conveyor.kidus.sh' --workspace 'demo' repo init --guidance-only`.
+This preserves the source skill wrappers and existing symlink. Deliver the
+updated guidance through the task's review lifecycle.
+<!-- conveyor:repo-init owner=v1 version=89d12b68 -->
+## Conveyor factory work
+
+Repository: `conveyor`. Base branch: `main`.
+Server: `https://conveyor.kidus.sh`. Workspace: `demo`.
+Select a native MCP connection whose endpoint matches this server and pass workspace `demo` on every call. MCP registration names vary by machine; registering MCP does not set CLI defaults.
+CLI example: `conveyor --server 'https://conveyor.kidus.sh' --workspace 'demo' task list`.
+Refresh this owned section and the project-scoped skills through ordinary task delivery with `conveyor --server 'https://conveyor.kidus.sh' --workspace 'demo' repo init`. To preserve maintained source skill wrappers, refresh only guidance with `conveyor --server 'https://conveyor.kidus.sh' --workspace 'demo' repo init --guidance-only`.
+On connection failure, report the failed endpoint and missing context. Do not infer a replacement host from localhost defaults, SSH configuration, or release instructions.
+
+The confirmed document corpus is the design authority: Requirements, System Design documents, and DEC-n decisions.
+Changes are filed as tasks through Conveyor.
+An agent edits only under a live claim in a task worktree resolved by `conveyor checkout <task-id>`, never on the base branch.
+Follow the `conveyor-plan` skill for planning, `conveyor-file-tasks` for filing tasks, and `conveyor-work` for task work.
+This section and the project-scoped skills are versioned with the CLI. Re-run `conveyor repo init` after an upgrade to refresh both, or use `conveyor repo init --guidance-only` to preserve maintained source skill wrappers.
+<!-- /conveyor:repo-init -->
+
+---
+> Source: [kidus-tiliksew/conveyor](https://github.com/kidus-tiliksew/conveyor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-18 -->
