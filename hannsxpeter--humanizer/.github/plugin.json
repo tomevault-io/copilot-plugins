@@ -1,0 +1,9 @@
+{
+  "name": "hannsxpeter--humanizer",
+  "displayName": "humanizer",
+  "description": "Pure-prompt skill that de-slops AI-sounding prose and rewrites it in a writer's voice, with faithfulness and restraint guards. Works with Claude Code, Cursor, Codex, Antigravity, Gemini, Pi Coder, Ope",
+  "version": "1.0.0",
+  "author": "hannsxpeter",
+  "homepage": "https://github.com/hannsxpeter/humanizer",
+  "skills": []
+}
