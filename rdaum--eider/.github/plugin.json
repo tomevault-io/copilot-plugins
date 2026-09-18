@@ -1,0 +1,9 @@
+{
+  "name": "rdaum--eider",
+  "displayName": "eider",
+  "description": "experiment in performant nvfp4 inference on DGX Spark",
+  "version": "1.0.0",
+  "author": "rdaum",
+  "homepage": "https://github.com/rdaum/eider",
+  "skills": []
+}
