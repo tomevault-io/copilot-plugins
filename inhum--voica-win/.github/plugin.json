@@ -1,0 +1,9 @@
+{
+  "name": "inhum--voica-win",
+  "displayName": "voica-win",
+  "description": "Dictation with punctuation for Windows \u2014 a tray app powered by Groq Whisper in the cloud or a fully offline local model (GigaAM).",
+  "version": "1.0.0",
+  "author": "Inhum",
+  "homepage": "https://github.com/Inhum/voica-win",
+  "skills": []
+}
