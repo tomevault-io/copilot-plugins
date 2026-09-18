@@ -7,14 +7,14 @@ Pure-prompt skill that de-slops AI-sounding prose and rewrites it in a writer's 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [hannsxpeter/humanizer](https://github.com/hannsxpeter/humanizer).
+Original source: `GEMINI.md` in [hannsxpeter/humanizer](https://github.com/hannsxpeter/humanizer).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [hannsxpeter/humanizer](https://github.com/hannsxpeter/humanizer) — a repo with 9+ stars on GitHub.
