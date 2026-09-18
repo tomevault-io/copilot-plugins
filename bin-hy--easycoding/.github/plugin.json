@@ -1,0 +1,9 @@
+{
+  "name": "bin-hy--easycoding",
+  "displayName": "EasyCoding",
+  "description": "code agent\uff0c\u5c1d\u8bd5\u5236\u4f5c\u4e00\u4e2a\u53ef\u7528\u6765coding\u7684agent\uff0c\u652f\u6301ReAct\u3001Plan\u7b49",
+  "version": "1.0.0",
+  "author": "Bin-hy",
+  "homepage": "https://github.com/Bin-hy/EasyCoding",
+  "skills": []
+}
