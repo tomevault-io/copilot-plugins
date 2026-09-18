@@ -7,11 +7,11 @@ Reproduction code for "A Single Neuron Is Sufficient to Bypass Safety Alignment 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [apple-aiml-research/ml-refusal-neurons](https://github.com/apple-aiml-research/ml-refusal-neurons).
+Original source: `AGENTS.md` in [apple-aiml-research/ml-refusal-neurons](https://github.com/apple-aiml-research/ml-refusal-neurons).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
