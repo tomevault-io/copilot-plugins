@@ -1,0 +1,9 @@
+{
+  "name": "aoreshkov--kotlin-lib-mcp",
+  "displayName": "kotlin-lib-mcp",
+  "description": "MCP server: gives your AI agent the real sources, public API and KDoc of any Maven/Gradle-published Kotlin or Java library",
+  "version": "1.0.0",
+  "author": "aoreshkov",
+  "homepage": "https://github.com/aoreshkov/kotlin-lib-mcp",
+  "skills": []
+}
