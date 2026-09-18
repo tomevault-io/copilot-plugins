@@ -7,11 +7,11 @@ Virtualized, sectioned and native reorder and drag-and-drop library for React Na
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [thiagobrez/react-native-reorderable](https://github.com/thiagobrez/react-native-reorderable).
+Original source: `AGENTS.md` in [thiagobrez/react-native-reorderable](https://github.com/thiagobrez/react-native-reorderable).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
