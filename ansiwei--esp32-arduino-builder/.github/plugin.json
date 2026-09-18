@@ -1,0 +1,9 @@
+{
+  "name": "ansiwei--esp32-arduino-builder",
+  "displayName": "esp32-arduino-builder",
+  "description": "ESP32 Arduino \u5168\u82af\u7247\u9759\u6001\u5e93\u81ea\u52a8\u7f16\u8bd1\u5e73\u53f0\uff08\u542b M5Stack/Seeed/Espressif \u677f\u5b50\uff09",
+  "version": "1.0.0",
+  "author": "AnSiwei",
+  "homepage": "https://github.com/AnSiwei/esp32-arduino-builder",
+  "skills": []
+}
