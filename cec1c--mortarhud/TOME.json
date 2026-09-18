@@ -1,0 +1,44 @@
+{
+  "name": "MortarHUD",
+  "owner": "Cec1c",
+  "repo": "MortarHUD",
+  "description": "\u300aWardogs\u300b\u8feb\u51fb\u70ae\u5750\u6807\u89e3\u7b97\u5916\u7f6e HUD\uff1a\u8bfb\u5c4f OCR \u8bc6\u522b\u6e38\u620f\u5730\u56fe\u5750\u6807\uff0c\u5b9e\u65f6\u89e3\u7b97\u65b9\u4f4d\u89d2\u4e0e\u8ddd\u79bb\u5e76\u663e\u793a\u5728\u900f\u660e\u7f6e\u9876 HUD \u4e0a\u3002Wardogs mortar HUD / artillery calculator\uff08Windows \u00b7 WPF \u00b7 .NET 10\uff09\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cec1c/MortarHUD",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T20:35:14Z"
+}
