@@ -1,0 +1,9 @@
+{
+  "name": "0xnatoshi--jev-codex-router",
+  "displayName": "jev-codex-router",
+  "description": "Per-turn model & reasoning routing for Codex, driven by Jev (TypeSafe System One): picks the model, thinking depth and speed mode for every turn.",
+  "version": "1.0.0",
+  "author": "0xNatoshi",
+  "homepage": "https://github.com/0xNatoshi/jev-codex-router",
+  "skills": []
+}
