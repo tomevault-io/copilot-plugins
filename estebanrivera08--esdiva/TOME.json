@@ -1,0 +1,44 @@
+{
+  "name": "eSDIva",
+  "owner": "EstebanRivera08",
+  "repo": "eSDIva",
+  "description": "Acoustic field simulator for ultrasound transducers, based on the Tupholme\u2013Stepanishen Spatial Impulse Response formulation and accelerated by the Sparse Delta Integration (SDI) method.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/EstebanRivera08/eSDIva",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-18T11:30:27Z"
+}
