@@ -1,0 +1,9 @@
+{
+  "name": "dannote--jev",
+  "displayName": "jev",
+  "description": "TypeSafe Jev for OTP: reply to Jev from a GenServer and pattern match on its answer",
+  "version": "1.0.0",
+  "author": "dannote",
+  "homepage": "https://github.com/dannote/jev",
+  "skills": []
+}
