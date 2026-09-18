@@ -7,11 +7,11 @@ Reclaim the macOS menu bar icons your MacBook notch hides. Pelmet is a free, ope
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ismatBabirli/pelmet](https://github.com/ismatBabirli/pelmet).
+Original source: `CLAUDE.md` in [ismatBabirli/pelmet](https://github.com/ismatBabirli/pelmet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
