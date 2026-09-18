@@ -1,0 +1,9 @@
+{
+  "name": "metiu1--tube-assistant",
+  "displayName": "tube-assistant",
+  "description": "Autonomous YouTube AI agent: LLM script, TTS voice, stock clips, FFmpeg editing, AI thumbnail, auto-upload \u2014 100% free, Telegram-controlled.",
+  "version": "1.0.0",
+  "author": "metiu1",
+  "homepage": "https://github.com/metiu1/tube-assistant",
+  "skills": []
+}
