@@ -1,0 +1,9 @@
+{
+  "name": "rthoms334--taxi-cam",
+  "displayName": "taxi-cam",
+  "description": "Nose-wheel and tail cameras on your PFD's in Microsoft Flight Simulator 2024. Supports the FlyByWire A380X and iniBuilds A350/A380, with TAXI button and keyboard controls.",
+  "version": "1.0.0",
+  "author": "rthoms334",
+  "homepage": "https://github.com/rthoms334/taxi-cam",
+  "skills": []
+}
