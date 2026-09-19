@@ -1,0 +1,9 @@
+{
+  "name": "vizuh--sabi",
+  "displayName": "sabi",
+  "description": "Adaptive inference scheduling for AI agents \u2014 per-round model, effort and provider routing for coding harnesses: a Command Code mod or a local OpenAI-compatible proxy.",
+  "version": "1.0.0",
+  "author": "vizuh",
+  "homepage": "https://github.com/vizuh/sabi",
+  "skills": []
+}
