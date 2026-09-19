@@ -1,0 +1,44 @@
+{
+  "name": "ZenTools",
+  "owner": "LANGTAOSHA-prog",
+  "repo": "ZenTools",
+  "description": "279 \u6b3e\u514d\u8d39\u5728\u7ebf\u5de5\u5177\u7bb1 \u2014 PDF/\u56fe\u7247/\u89c6\u9891/\u97f3\u9891/\u5f00\u53d1/AI/SEO \u7b49 13 \u5927\u7c7b\uff0c\u7eaf\u6d4f\u89c8\u5668\u672c\u5730\u5904\u7406\uff0c\u6587\u4ef6\u4e0d\u4e0a\u4f20\u670d\u52a1\u5668\u3002\u652f\u6301\u4e2d/\u82f1/\u65e5/\u8d8a\u56db\u8bed\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LANGTAOSHA-prog/ZenTools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T04:37:48Z"
+}
