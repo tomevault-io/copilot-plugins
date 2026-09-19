@@ -1,0 +1,9 @@
+{
+  "name": "artemnovichkov--iphone-duo-by-examples",
+  "displayName": "iPhone-Duo-by-Examples",
+  "description": "SwiftUI examples for the iPhone Duo (foldable iPhone) APIs in iOS 27.1: hinge, reserved regions, ArrangementView, vertical toolbar",
+  "version": "1.0.0",
+  "author": "artemnovichkov",
+  "homepage": "https://github.com/artemnovichkov/iPhone-Duo-by-Examples",
+  "skills": []
+}
