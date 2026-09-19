@@ -1,0 +1,32 @@
+## git-noreply-author
+
+> Git commit author is GitHub noreply (GH007). taracair@gmail.com may appear in the product.
+
+
+# Commit author is GitHub noreply
+
+This is a GitHub constraint, not a privacy rule. `taracair@gmail.com` is the
+public contact and may appear in the product (see `no-private-worlds.mdc`).
+
+Do not put `taracair@gmail.com` (or any other inbox) in `user.email`,
+`GIT_AUTHOR_EMAIL`, `GIT_COMMITTER_EMAIL`, or `git commit --author`. GitHub
+rejects the push (GH007) when that address is marked private on the account.
+
+## Do
+
+```sh
+git -c user.name=Taracair -c user.email=Taracair@users.noreply.github.com commit
+```
+
+`git -c` is per command. Do not run `git config user.email`.
+
+## Do not
+
+- Use Gmail as git author or committer (GH007). Using it in the app, Help,
+  README, or comments is fine.
+- Rewrite old commits to change the email unless the maintainer asks
+- `--no-verify` to skip the hook that checks this
+
+---
+> Source: [Taracair/BlowTorch2](https://github.com/Taracair/BlowTorch2) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-19 -->
