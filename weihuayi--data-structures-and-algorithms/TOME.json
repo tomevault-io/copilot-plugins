@@ -1,0 +1,44 @@
+{
+  "name": "data-structures-and-algorithms",
+  "owner": "weihuayi",
+  "repo": "data-structures-and-algorithms",
+  "description": "\u6570\u636e\u7ed3\u6784\u4e0e\u7b97\u6cd5\u8bfe\u7a0b\u4ed3\u5e93",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/weihuayi/data-structures-and-algorithms",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T14:33:56Z"
+}
