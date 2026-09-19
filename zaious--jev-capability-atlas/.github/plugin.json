@@ -1,0 +1,9 @@
+{
+  "name": "zaious--jev-capability-atlas",
+  "displayName": "jev-capability-atlas",
+  "description": "Independent, evidence-based map of when TypeSafe's Jev actually holds up vs. breaks down \u2014 real API-call receipts, not a leaderboard. \u4e2d\u6587\u70ba\u4e3b\u7684\u96d9\u8a9e repo\u3002",
+  "version": "1.0.0",
+  "author": "Zaious",
+  "homepage": "https://github.com/Zaious/jev-capability-atlas",
+  "skills": []
+}
