@@ -1,0 +1,9 @@
+{
+  "name": "selamiselvi--klemmbausteine-skill",
+  "displayName": "klemmbausteine-skill",
+  "description": "Tools and a skill for creating brick models, instructions, renders and sharing bundles with your own coding agent.",
+  "version": "1.0.0",
+  "author": "selamiselvi",
+  "homepage": "https://github.com/selamiselvi/klemmbausteine-skill",
+  "skills": []
+}
