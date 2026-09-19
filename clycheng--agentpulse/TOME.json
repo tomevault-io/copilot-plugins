@@ -1,0 +1,44 @@
+{
+  "name": "AgentPulse",
+  "owner": "Clycheng",
+  "repo": "AgentPulse",
+  "description": "\u5f00\u6e90\u300cAI \u516c\u53f8\u5de5\u4f5c\u53f0\u300d\uff1a\u96c7 AI \u5458\u5de5\u3001\u7fa4\u804a\u6d3e\u6d3b\u3001\u5148\u8ba8\u8bba\u518d\u6267\u884c\u3001\u9ad8\u98ce\u9669\u4f60\u62cd\u677f\u2014\u2014\u4e3a\u4e00\u4eba\u516c\u53f8\u4e0e\u81ea\u5a92\u4f53\u6253\u9020\u3002An open-source AI company workspace to hire AI employees and run them like a real company.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Clycheng/AgentPulse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T01:31:14Z"
+}
