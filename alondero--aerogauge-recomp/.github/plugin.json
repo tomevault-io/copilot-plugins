@@ -1,0 +1,9 @@
+{
+  "name": "alondero--aerogauge-recomp",
+  "displayName": "aerogauge-recomp",
+  "description": "A static recompilation of AeroGauge for the Nintendo N64",
+  "version": "1.0.0",
+  "author": "alondero",
+  "homepage": "https://github.com/alondero/aerogauge-recomp",
+  "skills": []
+}
