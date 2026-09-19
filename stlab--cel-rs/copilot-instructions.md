@@ -1,156 +1,94 @@
-## doc-comments
+## cel-rs
 
-> Standards for Rust documentation comments
+> This is an unreleased Rust 2024 workspace. Its public API is deliberately unstable: prefer
 
-This rule establishes standards for Rust documentation comments across all code.
+# cel-rs Copilot Instructions
 
-## General Principles
+## Workspace and commands
 
-Doc comments should be formatted with line comments (`///` or `//!`) in accordance with the [Rust Style Guide](https://doc.rust-lang.org/stable/style-guide/#doc-comments).
+This is an unreleased Rust 2024 workspace. Its public API is deliberately unstable: prefer
+clean redesigns over compatibility layers or incremental patches.
 
-All public and private components **must** have documentation following the conventions defined in [The RustDoc Book](https://doc.rust-lang.org/rustdoc/how-to-write-documentation.html).
+```bash
+# Format (required before committing; the pre-commit hook enforces it)
+cargo fmt --all
 
-## Structure
+# Build and test all workspace crates
+cargo build --workspace
+cargo test --workspace
+cargo test --doc --workspace
 
-### Summary Sentence
-- **Always** start with a single-line summary that describes **what** the item does
-- Use present tense ("Returns", "Creates", "Calculates" not "Will return", "Will create")
-- Be concise and direct
-- End with a period
+# Run a focused test
+cargo test -p adam-rs --lib planner::tests::execution_order_respects_producer_consumer_dependency
+# Or filter across workspace tests
+cargo test --workspace <test_name>
 
-### Additional Sections (when needed)
-These sections are only needed if they are not implied by the summary sentence.
-- Add blank line after summary before additional details
-- Use `# Arguments` for parameter descriptions
-- Use `# Returns` for complex return value explanations
-- Use `# Errors` to document error conditions
-- Use `# Panics` to document panic conditions
-- Use `# Safety` for unsafe functions
-
-## Specific Guidelines
-
-### Functions and Methods
-- Start with what the function **does** (not what it "will do")
-- Document preconditions that may cause errors or panics
-- Follow recommendations from [Better Code: Contracts](https://github.com/stlab/better-code/blob/main/better-code/src/chapter-2-contracts.md) adapted to Rust conventions
-- For grammar production parsers, the production itself is sufficient documentation
-
-**Good:**
-```rust
-/// `additive_expression = multiplicative_expression { ("+" | "-") multiplicative_expression }.`
-fn is_additive_expression(&mut self) -> Result<bool>
+# Lint all relevant targets; keep all three begin checks
+cargo clippy --workspace --exclude begin --all-targets -- -D warnings
+cargo clippy -p begin --no-default-features --all-targets -- -D warnings
+cargo clippy -p begin --all-targets -- -D warnings
 ```
 
-**Bad:**
-```rust
-/// This function will parse additive expressions
-fn is_additive_expression(&mut self) -> Result<bool>
-```
+CI currently builds and tests the workspace excluding `begin`, and checks `begin` with
+`--no-default-features`. Before opening a PR, run the complete commands above and ensure
+the plain build and test commands emit no warnings. Run `cargo doc --workspace --no-deps --lib`
+when changing library documentation.
 
-### Structs and Enums
-- Describe the purpose and role of the type
-- State any invariants
+Activate shared hooks after cloning with `git config core.hooksPath .githooks`. Make changes in
+a separate git worktree and never commit directly to `main`.
 
-**Good:**
-```rust
-/// A scope-based operation lookup with stack support.
-///
-/// Provides a stack of scopes for operation resolution, with built-in operations
-/// as the fallback. Scopes are searched in LIFO order (most recently pushed first).
-pub struct OpLookup { /* ... */ }
-```
+## Architecture
 
-### Traits
-- Describe what types implementing this trait represent
-- Document trait semantics and contracts
-- Provide examples of implementation
+- The root `cel-rs` crate is a façade that re-exports `cel-runtime`, `cel-parser`, and
+  `cel-rs-macros`.
+- `cel-runtime` is the stack-based evaluator. It layers `RawStack` (unsafe aligned storage),
+  `RawSegment` (operations and droppers), `DynSegment` (runtime type checks), and
+  `Segment<Args, Stack>` (compile-time checks via heterogeneous cons-cell type lists).
+  Operations use `opN`; fallible operations use `opNr`.
+- `cel-parser` turns proc-macro token streams through `LexLexer` and the recursive-descent
+  `CELParser` into `DynSegment`. `OpLookup` resolves custom scopes in LIFO order before static
+  built-ins, overloading by arity and `TypeId`. `cel-rs-macros` currently validates CEL at
+  compile time; it does not generate a native compiled CEL backend.
+- The property-model stack flows `cel-parser`/`cel-runtime` -> `adam-rs` -> `adam-lang` ->
+  `begin`. `adam-rs` plans and executes multi-way constraint relationships over type-erased
+  cells. `adam-lang` parses and type-checks sheets into live `adam-rs` graphs. `adam-lsp`
+  publishes adam-lang syntax and type diagnostics to the VS Code extension.
+- `begin` is the desktop-first Dioxus property-model environment, with graph visualization and
+  an Inspector. `editors/vscode-adam-lang` supplies `.adm2` syntax highlighting, formatting,
+  and diagnostics via `adam-lsp`. `xtask` owns repository maintenance commands such as
+  `cargo xtask fetch-assets` and `cargo xtask build-js`.
 
-### Modules
-- Use `//!` for module-level documentation
-- Provide comprehensive overview with context
-- Include examples demonstrating typical usage patterns
-- Serve as a tutorial for the module's components
+Read `docs/VISION.md` for roadmap, rationale, or cross-crate design direction. Dated feature
+designs live under `docs/superpowers/specs/`.
 
-**Good:**
-```rust
-//! Operation table for dynamically dispatching operations based on type signatures.
-//!
-//! This module provides a scope-based registry for operations that can be looked up
-//! based on an operation name (string) and the types of the operands.
-//!
-//! # Examples
-//! ```
-//! // Show typical usage
-//! ```
-```
+## Repository conventions
 
-### Type Aliases
-- Explain what the alias represents
-- Clarify why the alias exists (readability, semantics)
-
-### Constants
-- Describe what the constant represents
-- Include units or context if applicable
-
-## Error Documentation
-
-When functions can return errors:
-- List specific error conditions in `# Errors` section
-- Be explicit about **when** errors occur
-
-**Good:**
-```rust
-/// Looks up and applies an operation to the segment.
-///
-/// # Errors
-///
-/// Returns an error if no scope or built-in operation can handle the request.
-pub fn lookup(&self, name: &str, types: &[TypeId], segment: &mut DynSegment) -> Result<()>
-```
-
-## Panic Documentation
-
-When functions can panic:
-- Document **all** panic conditions in `# Panics` section
-- Be specific about what causes the panic
-
-**Good:**
-```rust
-/// Returns the TypeId for this signature.
-///
-/// # Panics
-///
-/// Panics if the type_id_index is out of bounds (should never happen for valid signatures).
-fn type_id(&self) -> TypeId
-```
-
-## Examples
-
-Include examples (`# Examples`) for:
-- Public APIs
-- Non-obvious usage patterns
-- Types with specific initialization requirements
-- Functions with multiple valid usage patterns
-
-Use triple backticks with `rust` for proper syntax highlighting.
-
-## Conciseness
-
-- Avoid redundant information (don't restate the obvious from signatures)
-- Focus on **why** and **when**, not just **what**
-- Keep it brief but complete
-
-## Cross-References
-
-- Use backticks for code elements: `TypeId`, `DynSegment`, `OpLookup`
-- Use `[Type]` for links to other documented items
-- Link to related functions/types when helpful
-
-## Special Cases
-
-- **Getters/Setters:** Brief description is sufficient ("Returns the X" / "Sets the X")
-- **Grammar Productions:** The production itself is sufficient for parser functions
-- **Internal/Private Items:** Documentation encouraged but not required; focus on public API clarity
+- For book prose, prefer direct active constructions with concrete subjects.
+  Replace indirect phrasing such as “The chapters are written...” with a clear
+  actor and action such as “Each chapter follows...”; preserve passive voice
+  when it states a precise language or implementation fact.
+- Write contract-style `///` documentation for every function. Use a present-tense summary
+  ending in a period; add non-obvious `- Precondition:` and `- Postcondition:` bullets,
+  `# Errors`, or `# Safety` as applicable. Document non-O(1) complexity. Public APIs need
+  `# Examples`; modules use `//!` tutorials. Parser functions document their grammar production.
+  Use `debug_assert!` for preconditions instead of documenting consequences of violations.
+- Derive unit tests from public contracts, not implementation details. Cover documented errors,
+  postconditions, and interface-implied edge cases; do not test unspecified precondition
+  violations.
+- Avoid avoidable heap allocation: pass `&str` and slices, prefer iterators or borrowed views,
+  and use generics or function pointers instead of trait objects when type erasure is not needed.
+  Signed integer arithmetic must use `checked_*`. Use `.op1r`/`.op2r` (and other `opNr`)
+  variants for operations that can fail.
+- Changes to `begin` UI require rendered verification, not only Cargo checks. Use the
+  `verifying-begin-ui` skill to serve the web build and inspect a screenshot/DOM; the normal
+  desktop WebView2 window is not headless-browser attachable.
+- `begin/assets/swc.js` is a committed bundle. Regenerate it only when updating Spectrum or its
+  bundle inputs with `cargo xtask build-js` (or `npm ci && npm run build` in `begin`), and commit
+  the resulting bundle with the package manifest/lockfile changes. Node is otherwise unnecessary
+  for building `begin`.
+- For the VS Code extension, run its Node commands from `editors/vscode-adam-lang`; use
+  `npm run compile` and `npm test` for extension changes. Build `adam-lsp` with
+  `cargo build -p adam-lsp` before exercising its diagnostics.
 
 ---
 > Source: [stlab/cel-rs](https://github.com/stlab/cel-rs) — distributed by [TomeVault](https://tomevault.io).
