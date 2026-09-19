@@ -7,11 +7,11 @@ ProofGate is a firewall for AI agents. It measures the blast radius of every act
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Karthik6412/proofgate](https://github.com/Karthik6412/proofgate).
+Original source: `CLAUDE.md` in [Karthik6412/proofgate](https://github.com/Karthik6412/proofgate).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
