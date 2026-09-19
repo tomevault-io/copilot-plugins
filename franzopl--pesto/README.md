@@ -7,11 +7,11 @@ Fast, lean Usenet poster in Rust: yEnc, NNTP, PAR2 and .nzb generation
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [franzopl/pesto](https://github.com/franzopl/pesto).
+Original source: `CLAUDE.md` in [franzopl/pesto](https://github.com/franzopl/pesto).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
