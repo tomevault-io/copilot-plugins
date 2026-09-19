@@ -1,0 +1,9 @@
+{
+  "name": "donadioqpfk--rustdesk",
+  "displayName": "rustdesk",
+  "description": "An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer.",
+  "version": "1.0.0",
+  "author": "DonadioQpFk",
+  "homepage": "https://github.com/DonadioQpFk/rustdesk",
+  "skills": []
+}
