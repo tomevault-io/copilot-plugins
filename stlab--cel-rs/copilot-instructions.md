@@ -1,89 +1,156 @@
-## avoid-heap-allocations
+## doc-comments
 
-> Prefer no heap allocations; use references, generics, and slices where possible
+> Standards for Rust documentation comments
 
-This rule encourages avoiding heap allocations and temporary copies, especially in hot paths and library code.
+This rule establishes standards for Rust documentation comments across all code.
 
-## General Principle
+## General Principles
 
-Prefer stack allocation, references, and fixed-size or slice-based APIs over heap allocation. Avoid allocating or cloning when a reference, generic, or slice would suffice.
+Doc comments should be formatted with line comments (`///` or `//!`) in accordance with the [Rust Style Guide](https://doc.rust-lang.org/stable/style-guide/#doc-comments).
 
-## Guidelines
+All public and private components **must** have documentation following the conventions defined in [The RustDoc Book](https://doc.rust-lang.org/rustdoc/how-to-write-documentation.html).
 
-### Prefer references over `clone()`
+## Structure
 
-- Do not call `.clone()` (or `.to_owned()`, `.to_string()`) just to satisfy a type when a reference (`&T`, `&str`) would work.
-- Pass `&str` or `&[T]` through call chains instead of cloning into `String` or `Vec<T>` unless ownership is required.
-- Use `Cow<'_, T>` when a function might need either borrowed or owned data.
+### Summary Sentence
+- **Always** start with a single-line summary that describes **what** the item does
+- Use present tense ("Returns", "Creates", "Calculates" not "Will return", "Will create")
+- Be concise and direct
+- End with a period
+
+### Additional Sections (when needed)
+These sections are only needed if they are not implied by the summary sentence.
+- Add blank line after summary before additional details
+- Use `# Arguments` for parameter descriptions
+- Use `# Returns` for complex return value explanations
+- Use `# Errors` to document error conditions
+- Use `# Panics` to document panic conditions
+- Use `# Safety` for unsafe functions
+
+## Specific Guidelines
+
+### Functions and Methods
+- Start with what the function **does** (not what it "will do")
+- Document preconditions that may cause errors or panics
+- Follow recommendations from [Better Code: Contracts](https://github.com/stlab/better-code/blob/main/better-code/src/chapter-2-contracts.md) adapted to Rust conventions
+- For grammar production parsers, the production itself is sufficient documentation
 
 **Good:**
 ```rust
-fn format_names(infos: &[StackInfo]) -> String {
-    let mut s = String::new();
-    for (i, info) in infos.iter().enumerate() {
-        if i > 0 { s.push_str(", "); }
-        s.push_str(&info.type_name);  // or take &str in API
-    }
-    s
-}
+/// `additive_expression = multiplicative_expression { ("+" | "-") multiplicative_expression }.`
+fn is_additive_expression(&mut self) -> Result<bool>
 ```
 
 **Bad:**
 ```rust
-let type_names: Vec<String> = infos.iter().map(|i| i.type_name.clone()).collect();
-format(type_names.join(", "))
+/// This function will parse additive expressions
+fn is_additive_expression(&mut self) -> Result<bool>
 ```
 
-### Prefer generics or function pointers over `Box<dyn Trait>`
-
-- Use generic parameters (`fn f<T: Trait>(t: T)`) or function pointers (`fn(fn(A) -> B)`) when the set of types or functions is known at compile time and you do not need runtime extensibility.
-- Reserve `Box<dyn Trait>` (or `&dyn Trait`) for cases where you truly need type erasure or a dynamic set of implementations.
+### Structs and Enums
+- Describe the purpose and role of the type
+- State any invariants
 
 **Good:**
 ```rust
-pub type ScopeFn = Box<dyn Fn(&str, &mut DynSegment, usize) -> Result<bool> + Send + Sync>;
-// Only when you need to store heterogeneous closures. Prefer:
-fn with_callback<F: Fn(&str, &mut DynSegment, usize) -> Result<bool>>(f: F) { ... }
+/// A scope-based operation lookup with stack support.
+///
+/// Provides a stack of scopes for operation resolution, with built-in operations
+/// as the fallback. Scopes are searched in LIFO order (most recently pushed first).
+pub struct OpLookup { /* ... */ }
 ```
 
-**Prefer when possible:**
-```rust
-fn apply<F>(f: F) where F: Fn(u32) -> u32 { ... }
-// or
-type OpFn = fn(&mut DynSegment) -> Result<()>;
-```
+### Traits
+- Describe what types implementing this trait represent
+- Document trait semantics and contracts
+- Provide examples of implementation
 
-### Prefer slices over `Vec` for read-only or temporary views
-
-- Take or return `&[T]` (or `&mut [T]` when modifying in place) instead of `Vec<T>` when the caller does not need ownership.
-- Avoid allocating a `Vec` only to pass a slice: e.g. use a block that borrows from the source so the borrow ends before the next use (`let ok = { let s = x.peek(); s.len() == n };`).
-- Use `slice.iter()` and work with references instead of collecting into a new `Vec` for matching or inspection.
+### Modules
+- Use `//!` for module-level documentation
+- Provide comprehensive overview with context
+- Include examples demonstrating typical usage patterns
+- Serve as a tutorial for the module's components
 
 **Good:**
 ```rust
-let matches = {
-    let top = segment.peek_stack_infos(num_operands);
-    top.len() == 2 && top[0].type_id == expected
-};
-if matches { segment.apply_op()?; }
+//! Operation table for dynamically dispatching operations based on type signatures.
+//!
+//! This module provides a scope-based registry for operations that can be looked up
+//! based on an operation name (string) and the types of the operands.
+//!
+//! # Examples
+//! ```
+//! // Show typical usage
+//! ```
 ```
 
-**Bad:**
+### Type Aliases
+- Explain what the alias represents
+- Clarify why the alias exists (readability, semantics)
+
+### Constants
+- Describe what the constant represents
+- Include units or context if applicable
+
+## Error Documentation
+
+When functions can return errors:
+- List specific error conditions in `# Errors` section
+- Be explicit about **when** errors occur
+
+**Good:**
 ```rust
-let type_ids: Vec<TypeId> = segment.peek_stack_infos(n).iter().map(|i| i.type_id).collect();
-if type_ids.len() == 2 && type_ids[0] == expected { ... }
+/// Looks up and applies an operation to the segment.
+///
+/// # Errors
+///
+/// Returns an error if no scope or built-in operation can handle the request.
+pub fn lookup(&self, name: &str, types: &[TypeId], segment: &mut DynSegment) -> Result<()>
 ```
 
-### Avoid unnecessary temporaries
+## Panic Documentation
 
-- Do not allocate a `Vec` or `String` just to build a single message or slice when a loop or iterator over the source can build the result directly (e.g. one `String` or no intermediate collection).
-- Prefer `impl Iterator<Item = &T>` or slice returns over returning a new `Vec` when the underlying data is already stored elsewhere.
+When functions can panic:
+- Document **all** panic conditions in `# Panics` section
+- Be specific about what causes the panic
 
-## Exceptions
+**Good:**
+```rust
+/// Returns the TypeId for this signature.
+///
+/// # Panics
+///
+/// Panics if the type_id_index is out of bounds (should never happen for valid signatures).
+fn type_id(&self) -> TypeId
+```
 
-- Use `Vec` when you need an owned, growable sequence or when an API requires ownership.
-- Use `Box<dyn Trait>` when you need type erasure, dynamic dispatch, or to store heterogeneous types in a collection.
-- Use `clone()` when you genuinely need an independent copy (e.g. to pass across thread boundaries or to store in a structure that outlives the source).
+## Examples
+
+Include examples (`# Examples`) for:
+- Public APIs
+- Non-obvious usage patterns
+- Types with specific initialization requirements
+- Functions with multiple valid usage patterns
+
+Use triple backticks with `rust` for proper syntax highlighting.
+
+## Conciseness
+
+- Avoid redundant information (don't restate the obvious from signatures)
+- Focus on **why** and **when**, not just **what**
+- Keep it brief but complete
+
+## Cross-References
+
+- Use backticks for code elements: `TypeId`, `DynSegment`, `OpLookup`
+- Use `[Type]` for links to other documented items
+- Link to related functions/types when helpful
+
+## Special Cases
+
+- **Getters/Setters:** Brief description is sufficient ("Returns the X" / "Sets the X")
+- **Grammar Productions:** The production itself is sufficient for parser functions
+- **Internal/Private Items:** Documentation encouraged but not required; focus on public API clarity
 
 ---
 > Source: [stlab/cel-rs](https://github.com/stlab/cel-rs) — distributed by [TomeVault](https://tomevault.io).
