@@ -4,7 +4,7 @@
   "repo": "go-wind-admin",
   "description": "",
   "type": "tome",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -71,5 +71,5 @@
   ],
   "source_url": "https://github.com/tx7do/go-wind-admin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T15:18:02Z"
+  "distributed_at": "2026-09-19T15:18:35Z"
 }
