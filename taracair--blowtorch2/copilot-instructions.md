@@ -1,31 +1,42 @@
-## git-noreply-author
+## no-private-worlds
 
-> Git commit author is GitHub noreply (GH007). taracair@gmail.com may appear in the product.
+> Do not put real MUDs, guilds, or players in the app or public tree. taracair@gmail.com is public contact.
 
 
-# Commit author is GitHub noreply
+# No private worlds in the product
 
-This is a GitHub constraint, not a privacy rule. `taracair@gmail.com` is the
-public contact and may appear in the product (see `no-private-worlds.mdc`).
+The GitHub tree is public. The APK is public. Do not put the maintainer's worlds,
+guilds, characters, hosts, or other private life into anything that ships or is
+tracked.
 
-Do not put `taracair@gmail.com` (or any other inbox) in `user.email`,
-`GIT_AUTHOR_EMAIL`, `GIT_COMMITTER_EMAIL`, or `git commit --author`. GitHub
-rejects the push (GH007) when that address is marked private on the account.
-
-## Do
-
-```sh
-git -c user.name=Taracair -c user.email=Taracair@users.noreply.github.com commit
-```
-
-`git -c` is per command. Do not run `git config user.email`.
+Public contact is **`taracair@gmail.com`** (and the GitHub name Taracair). It
+may appear in UI, Help, README, comments, and tests. It is not a secret.
 
 ## Do not
 
-- Use Gmail as git author or committer (GH007). Using it in the app, Help,
-  README, or comments is fine.
-- Rewrite old commits to change the email unless the maintainer asks
-- `--no-verify` to skip the hook that checks this
+- Name a live MUD, guild, or player in UI, Help, Starter Tutorial, default
+  settings, Lua, or comments/tests that git tracks
+- Use a real profile filename or host as a worked example
+- Write “the profile he plays” or similar
+
+```java
+// BAD — names the world they actually play
+// measured on world-a.xml (the profile he plays)
+assertEquals("world-a", world);
+
+// GOOD
+// measured on a live world (11 of 105 chunks)
+assertEquals("world-a", world);
+```
+
+## Do
+
+- Tests and comments: `world-a`, `example.org`, `a live world`, `an older profile`
+- Protocol **ids** stay as the wire sends them (`dns-org-hellmoo-status`).
+  Player-visible **labels** stay generic (`Vitals bar (hp, thirst, hunger, stress)`).
+- Put `taracair@gmail.com` where a contact address belongs. Git *author* is
+  still GitHub noreply (`git-noreply-author.mdc`) because GitHub rejects the
+  inbox on push (GH007) — that is not a privacy ban.
 
 ---
 > Source: [Taracair/BlowTorch2](https://github.com/Taracair/BlowTorch2) — distributed by [TomeVault](https://tomevault.io).
