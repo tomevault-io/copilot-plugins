@@ -1,0 +1,9 @@
+{
+  "name": "seattle-aquarium--underwater-auto-image-encoder",
+  "displayName": "underwater-auto-image-encoder",
+  "description": "An automated machine learning pipeline that replaces manual image editing for underwater GoPro images captured during ROV surveys",
+  "version": "1.0.0",
+  "author": "Seattle-Aquarium",
+  "homepage": "https://github.com/Seattle-Aquarium/underwater-auto-image-encoder",
+  "skills": []
+}
