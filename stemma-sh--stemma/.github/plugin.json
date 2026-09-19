@@ -1,0 +1,9 @@
+{
+  "name": "stemma-sh--stemma",
+  "displayName": "stemma",
+  "description": "Local-first DOCX editing for agents and automation, with native Microsoft Word tracked changes.",
+  "version": "1.0.0",
+  "author": "stemma-sh",
+  "homepage": "https://github.com/stemma-sh/stemma",
+  "skills": []
+}
