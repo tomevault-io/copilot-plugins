@@ -4,7 +4,7 @@
   "repo": "zt-shell",
   "description": "\u57fa\u4e8e Tauri 2 + Vue 3 + Rust \u6784\u5efa\u7684\u8de8\u5e73\u53f0\u684c\u9762\u7aef SSH \u5de5\u5177 ZTShell\uff0c\u9879\u76ee\u5b8c\u5168\u4f7f\u7528 AI \u5f00\u53d1\uff0c\u5e03\u5c40\u501f\u9274 FinalShell",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/z-hanzhe/zt-shell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T02:53:00Z"
+  "distributed_at": "2026-09-19T02:54:58Z"
 }
