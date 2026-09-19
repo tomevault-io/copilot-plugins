@@ -1,0 +1,9 @@
+{
+  "name": "liangpima--gin-admin",
+  "displayName": "Gin-Admin",
+  "description": "\u57fa\u4e8e Go + Gin + GORM + Vue3 + Element Plus\u7684\u4e2d\u5927\u578b\u4e1a\u52a1\u7cfb\u7edf\u540e\u53f0\u7ba1\u7406\u6846\u67b6\u3002",
+  "version": "1.0.0",
+  "author": "liangpima",
+  "homepage": "https://github.com/liangpima/Gin-Admin",
+  "skills": []
+}
