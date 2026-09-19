@@ -7,11 +7,11 @@ A hands-on workshop introducing AI and LLMs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [posit-dev/ai-intro](https://github.com/posit-dev/ai-intro).
+Original source: `AGENTS.md` in [posit-dev/ai-intro](https://github.com/posit-dev/ai-intro).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
