@@ -1,0 +1,9 @@
+{
+  "name": "zalando-incubator--agentic-identity-broker",
+  "displayName": "agentic-identity-broker",
+  "description": "Identity broker for AI agents with OAuth2 delegation and consent management",
+  "version": "1.0.0",
+  "author": "zalando-incubator",
+  "homepage": "https://github.com/zalando-incubator/agentic-identity-broker",
+  "skills": []
+}
