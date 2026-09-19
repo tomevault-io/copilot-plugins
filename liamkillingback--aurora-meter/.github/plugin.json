@@ -1,0 +1,9 @@
+{
+  "name": "liamkillingback--aurora-meter",
+  "displayName": "aurora-meter",
+  "description": "Real-time usage metering, plan entitlements, and Stripe-ready billing primitives for Phoenix.",
+  "version": "1.0.0",
+  "author": "liamkillingback",
+  "homepage": "https://github.com/liamkillingback/aurora-meter",
+  "skills": []
+}
