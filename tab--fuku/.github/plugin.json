@@ -1,0 +1,9 @@
+{
+  "name": "tab--fuku",
+  "displayName": "fuku",
+  "description": "lightweight CLI orchestrator for running and managing services in development environment",
+  "version": "1.0.0",
+  "author": "tab",
+  "homepage": "https://github.com/tab/fuku",
+  "skills": []
+}
