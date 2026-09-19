@@ -1,0 +1,9 @@
+{
+  "name": "atcol--hielo",
+  "displayName": "hielo",
+  "description": "A fast and modern tool for working with Iceberg tables",
+  "version": "1.0.0",
+  "author": "atcol",
+  "homepage": "https://github.com/atcol/hielo",
+  "skills": []
+}
