@@ -1,0 +1,9 @@
+{
+  "name": "leonardleroy--i-dont-believe-you",
+  "displayName": "i-dont-believe-you",
+  "description": "A skill to stop your coding agent from telling you it works when the diff says otherwise.",
+  "version": "1.0.0",
+  "author": "LeonardLeroy",
+  "homepage": "https://github.com/LeonardLeroy/i-dont-believe-you",
+  "skills": []
+}
