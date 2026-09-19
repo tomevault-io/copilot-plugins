@@ -4,7 +4,7 @@
   "repo": "go-wind-cms",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -39,13 +39,37 @@
   ],
   "skills": [
     {
-      "name": "go-wind-cms",
-      "path": "frontend/admin/.qoder/skills/scaffold-dev-guide/SKILL.md",
-      "github_url": "https://github.com/tx7do/go-wind-cms/tree/main/frontend/admin/.qoder/skills/scaffold-dev-guide/SKILL.md",
+      "name": "go-wind-admin",
+      "path": "backend/.qoder/skills/go-wind-admin-guide/SKILL.md",
+      "github_url": "https://github.com/tx7do/go-wind-cms/tree/main/backend/.qoder/skills/go-wind-admin-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-wind-admin",
+      "path": "frontend/admin/vue-vben/.qoder/skills/scaffold-dev-guide/SKILL.md",
+      "github_url": "https://github.com/tx7do/go-wind-cms/tree/main/frontend/admin/vue-vben/.qoder/skills/scaffold-dev-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-wind-admin",
+      "path": "frontend/admin/vue-element/.qoder/skills/gowind-admin-dev/SKILL.md",
+      "github_url": "https://github.com/tx7do/go-wind-cms/tree/main/frontend/admin/vue-element/.qoder/skills/gowind-admin-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-wind-admin",
+      "path": "frontend/admin/react/.qoder/skills/go-wind-admin-react-guide/SKILL.md",
+      "github_url": "https://github.com/tx7do/go-wind-cms/tree/main/frontend/admin/react/.qoder/skills/go-wind-admin-react-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-wind-admin",
+      "path": ".zcode/skills/add-crud-module/SKILL.md",
+      "github_url": "https://github.com/tx7do/go-wind-cms/tree/main/.zcode/skills/add-crud-module/SKILL.md",
       "description": ""
     }
   ],
   "source_url": "https://github.com/tx7do/go-wind-cms",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T02:37:08Z"
+  "distributed_at": "2026-09-19T15:15:40Z"
 }
