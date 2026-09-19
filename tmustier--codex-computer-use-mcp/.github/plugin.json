@@ -1,0 +1,9 @@
+{
+  "name": "tmustier--codex-computer-use-mcp",
+  "displayName": "codex-computer-use-mcp",
+  "description": "Background-safe MCP server for the signed Codex Computer Use broker on macOS. Works with all coding agents, optimised for optional Pi adapter",
+  "version": "1.0.0",
+  "author": "tmustier",
+  "homepage": "https://github.com/tmustier/codex-computer-use-mcp",
+  "skills": []
+}
