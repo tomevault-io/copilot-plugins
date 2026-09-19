@@ -1,0 +1,9 @@
+{
+  "name": "osolmaz--oomwrap",
+  "displayName": "oomwrap",
+  "description": "Wrap commands that might cause out-of-memory errors, and stop them before they freeze your machine",
+  "version": "1.0.0",
+  "author": "osolmaz",
+  "homepage": "https://github.com/osolmaz/oomwrap",
+  "skills": []
+}
