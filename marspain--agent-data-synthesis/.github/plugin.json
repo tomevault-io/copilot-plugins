@@ -1,0 +1,9 @@
+{
+  "name": "marspain--agent-data-synthesis",
+  "displayName": "agent_data_synthesis",
+  "description": "Local-first Python framework for generating, executing, validating, and packaging agent training data with executable state, tool evidence, lineage, replay checks, and release artifacts.",
+  "version": "1.0.0",
+  "author": "MarsPain",
+  "homepage": "https://github.com/MarsPain/agent_data_synthesis",
+  "skills": []
+}
