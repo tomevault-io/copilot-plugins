@@ -1,0 +1,9 @@
+{
+  "name": "jcodesmore--agent-recall",
+  "displayName": "agent-recall",
+  "description": "Let your AI agents find any conversation you've had across Claude Code, Codex, and OpenCode.",
+  "version": "1.0.0",
+  "author": "JCodesMore",
+  "homepage": "https://github.com/JCodesMore/agent-recall",
+  "skills": []
+}
