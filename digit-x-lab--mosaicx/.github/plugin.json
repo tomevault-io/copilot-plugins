@@ -1,0 +1,9 @@
+{
+  "name": "digit-x-lab--mosaicx",
+  "displayName": "MOSAICX",
+  "description": "Medical cOmputational Suite for Advanced Intelligent eXtraction of Healthcare data using local LLMs",
+  "version": "1.0.0",
+  "author": "DIGIT-X-Lab",
+  "homepage": "https://github.com/DIGIT-X-Lab/MOSAICX",
+  "skills": []
+}
