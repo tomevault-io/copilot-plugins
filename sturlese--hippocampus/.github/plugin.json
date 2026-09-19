@@ -1,0 +1,9 @@
+{
+  "name": "sturlese--hippocampus",
+  "displayName": "hippocampus",
+  "description": "A deliberately lite personal brain: Obsidian to browse, Claude Code or Codex for everything else. No vector DB, no embeddings, no MCP servers, no Obsidian plugins \u2014 markdown, one stdlib Python script ",
+  "version": "1.0.0",
+  "author": "sturlese",
+  "homepage": "https://github.com/sturlese/hippocampus",
+  "skills": []
+}
