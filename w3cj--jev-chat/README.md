@@ -7,11 +7,11 @@ A tool calling chat bot built with Jev and no LLM.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [w3cj/jev-chat](https://github.com/w3cj/jev-chat).
+Original source: `AGENTS.md` in [w3cj/jev-chat](https://github.com/w3cj/jev-chat).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
