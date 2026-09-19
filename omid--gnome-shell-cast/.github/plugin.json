@@ -1,0 +1,9 @@
+{
+  "name": "omid--gnome-shell-cast",
+  "displayName": "gnome-shell-cast",
+  "description": "GNOME Shell extension to cast your video/audio to Chromecast enabled deviced",
+  "version": "1.0.0",
+  "author": "omid",
+  "homepage": "https://github.com/omid/gnome-shell-cast",
+  "skills": []
+}
