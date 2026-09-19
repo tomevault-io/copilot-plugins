@@ -1,0 +1,9 @@
+{
+  "name": "luiggival08--toon-memory",
+  "displayName": "toon-memory",
+  "description": "MCP server giving AI coding agents offline, token-efficient persistent memory \u2014 recall decisions, patterns, and bugs across sessions with 68.5% fewer tokens than re-reading context. No LLM, no server;",
+  "version": "1.0.0",
+  "author": "LuiggiVal08",
+  "homepage": "https://github.com/LuiggiVal08/toon-memory",
+  "skills": []
+}
