@@ -4,7 +4,7 @@
   "repo": "proofgate",
   "description": "ProofGate is a firewall for AI agents. It measures the blast radius of every action before execution and blocks catastrophic mistakes with verifiable proof\u2014not promises.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Karthik6412/proofgate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T02:51:43Z"
+  "distributed_at": "2026-09-19T02:53:44Z"
 }
