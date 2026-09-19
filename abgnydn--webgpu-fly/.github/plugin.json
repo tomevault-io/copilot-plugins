@@ -1,0 +1,9 @@
+{
+  "name": "abgnydn--webgpu-fly",
+  "displayName": "webgpu-fly",
+  "description": "Realtime LIF simulation of FlyWire brain + MANC spine + flybody body, all in WebGPU/WASM in your browser.",
+  "version": "1.0.0",
+  "author": "abgnydn",
+  "homepage": "https://github.com/abgnydn/webgpu-fly",
+  "skills": []
+}
