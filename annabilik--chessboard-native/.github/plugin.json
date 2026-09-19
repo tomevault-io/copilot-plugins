@@ -1,0 +1,9 @@
+{
+  "name": "annabilik--chessboard-native",
+  "displayName": "chessboard-native",
+  "description": "Controlled, rules-free React Native chessboard component",
+  "version": "1.0.0",
+  "author": "annabilik",
+  "homepage": "https://github.com/annabilik/chessboard-native",
+  "skills": []
+}
