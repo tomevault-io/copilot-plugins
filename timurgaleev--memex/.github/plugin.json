@@ -1,0 +1,9 @@
+{
+  "name": "timurgaleev--memex",
+  "displayName": "memex",
+  "description": "Self-hosted personal AI knowledge brain -- hybrid (vector + keyword + entity-graph) search over your notes and code, served to any MCP agent (Claude Code, Cursor, Codex). One AWS account, zero telemet",
+  "version": "1.0.0",
+  "author": "timurgaleev",
+  "homepage": "https://github.com/timurgaleev/memex",
+  "skills": []
+}
