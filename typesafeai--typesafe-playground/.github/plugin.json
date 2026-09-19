@@ -1,0 +1,9 @@
+{
+  "name": "typesafeai--typesafe-playground",
+  "displayName": "typesafe-playground",
+  "description": "Community TypeSafe AI playground: 110 use cases, games, dilemmas and model challenges, with editable prompts, A/B comparisons and a mobile-friendly UI.",
+  "version": "1.0.0",
+  "author": "TypeSafeAI",
+  "homepage": "https://github.com/TypeSafeAI/typesafe-playground",
+  "skills": []
+}
