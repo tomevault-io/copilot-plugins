@@ -1,0 +1,9 @@
+{
+  "name": "sutro-sh--jev-align",
+  "displayName": "jev-align",
+  "description": "Align TypeSafe's Jev with your judgement using GEPA",
+  "version": "1.0.0",
+  "author": "sutro-sh",
+  "homepage": "https://github.com/sutro-sh/jev-align",
+  "skills": []
+}
