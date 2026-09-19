@@ -1,0 +1,9 @@
+{
+  "name": "brudarko--jev-mac-voice",
+  "displayName": "jev-mac-voice",
+  "description": "English full-duplex voice control for macOS with OpenAI Realtime, native Accessibility, and Jev.",
+  "version": "1.0.0",
+  "author": "brudarko",
+  "homepage": "https://github.com/brudarko/jev-mac-voice",
+  "skills": []
+}
