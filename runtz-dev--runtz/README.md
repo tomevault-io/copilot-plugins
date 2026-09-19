@@ -7,11 +7,11 @@ security scans made easy for developers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [runtz-dev/runtz](https://github.com/runtz-dev/runtz).
+Original source: `CLAUDE.md` in [runtz-dev/runtz](https://github.com/runtz-dev/runtz).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
