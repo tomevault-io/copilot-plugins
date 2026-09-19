@@ -4,7 +4,7 @@
   "repo": "ai-intro",
   "description": "A hands-on workshop introducing AI and LLMs",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/posit-dev/ai-intro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T14:31:10Z"
+  "distributed_at": "2026-09-19T14:32:40Z"
 }
