@@ -1,0 +1,44 @@
+{
+  "name": "herdr-pocket",
+  "owner": "weekitmo",
+  "repo": "herdr-pocket",
+  "description": "A Flutter client for herdr: a status board and live terminal for the coding agents on your own machines. Over SSH, with no bridge binary to install.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/weekitmo/herdr-pocket",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T09:30:21Z"
+}
