@@ -1,0 +1,9 @@
+{
+  "name": "markjinli--wx-cli-gui",
+  "displayName": "wx-cli-gui",
+  "description": "Python GUI wrapper for wx-cli \u2014 \u5fae\u4fe1\u672c\u5730\u6570\u636e\u53ef\u89c6\u5316\u5de5\u5177\uff0c\u57fa\u4e8e jackwener/wx-cli \u7684\u56fe\u5f62\u754c\u9762",
+  "version": "1.0.0",
+  "author": "Markjinli",
+  "homepage": "https://github.com/Markjinli/wx-cli-gui",
+  "skills": []
+}
