@@ -1,0 +1,9 @@
+{
+  "name": "w3cj--jev-chat",
+  "displayName": "jev-chat",
+  "description": "A tool calling chat bot built with Jev and no LLM.",
+  "version": "1.0.0",
+  "author": "w3cj",
+  "homepage": "https://github.com/w3cj/jev-chat",
+  "skills": []
+}
