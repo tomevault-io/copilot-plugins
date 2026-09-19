@@ -1,0 +1,9 @@
+{
+  "name": "jakeberesford--saga",
+  "displayName": "saga",
+  "description": "CLI to generate a narrative walkthrough of any diff",
+  "version": "1.0.0",
+  "author": "JakeBeresford",
+  "homepage": "https://github.com/JakeBeresford/saga",
+  "skills": []
+}
