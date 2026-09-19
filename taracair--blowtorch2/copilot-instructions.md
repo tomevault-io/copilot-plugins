@@ -1,44 +1,81 @@
-## starter-tutorial
+## subagent-review
 
-> Keep Starter Tutorial in sync when features change
+> When to spend a subagent on review, and when not to
 
 
-# Starter Tutorial stays current
+# Review
 
-When you change user-facing client features (`.commands`, buttons, triggers, aliases, timers, GMCP/MCP, Options, launcher, copy, reconnect, plugins), update the offline **Starter Tutorial** in the same change set when the lesson would otherwise be wrong or incomplete.
+Local checks first, always: `scripts/check.sh` (or `--tests` for the area
+touched). Fix failures before anything else. Most findings a reviewer would
+report are already in there and cost no tokens.
 
-If this rule did not attach (Java outside `function/`, Options UI, plugins) and the player-visible lesson would be wrong, still update the tutorial.
+## Default: one reviewer, after the change, before the commit
 
-## Canonical files
+Launch **one** Task. Do not set `subagent_type` to `bugbot`. Cursor pins that
+type to Composer 2.5 and **ignores** `model`, so passing Grok does not change
+what the UI shows. A `preToolUse` hook rewrites leftover `bugbot` launches;
+do not rely on the hook as the plan.
 
-- `BT_Free/assets/share/lua/5.1/startertutorial.lua` — topics / `.tutorial`
-- `BT_Free/assets/share/lua/5.1/buttonserver.lua` — starter pad (`STARTER_DEFAULT_BUTTONS`, accordion, align)
-- `BT_Free/assets/share/lua/5.1/buttonwindow.lua` — CLEAR → BACK placement, button UX demos
-- Plugin seed: `starter_tutorial` in `BT_Free/config/default_settings_{test,main}.xml`
-- Bump `BLOWTORCH_LUA_LIBS_VERSION` in `BT_Free/AndroidManifest.xml` when shipping Lua asset changes
+Use:
 
-## Lua traps (the build does not check syntax)
+- `subagent_type`: `generalPurpose`
+- `model`: `cursor-grok-4.6-xhigh` (required; never omit, never inherit, never
+  `composer-2.5`, never any `-fast` slug)
+- `description`: `Bugbot`
+- `prompt`: `Full Repository Path`, `Diff: uncommitted changes`, the trap
+  section for the area, and a short "what this is" (paths + a few sentences,
+  not a wave essay). Tell it to run `scripts/review-diff.sh` in that repo.
 
-Before committing Lua changes:
+Do **not** dump whole-tree `git diff`. Cursor Shell results omit the middle
+of large stdout. `scripts/review-diff.sh` prints a short index and writes
+hunks to `.scratch/review-diff/page-NN.txt`. Read every listed page. A
+one-page bundle that fits is also printed inline. Do not Read a 4000-line
+class hunting for the hunk.
 
-```sh
-luac5.1 -p BT_Free/assets/share/lua/5.1/*.lua
-```
+Triage, fix real findings, re-run until clean or until you hit something to
+report. Then commit.
 
-- Values from settings XML arrive as **strings** — `1 ~= "1"`.
-- In `buttonwindow.lua`, **"nothing selected" is `{}`, not `nil`**. A `== nil` check passes an empty table straight through.
-- `WhiteSpace extends Text` in `TextTree`, so `instanceof Text` catches whitespace too.
+Review **before** the commit. After `scripts/deploy.sh` the working tree is
+leftovers, not what shipped. To re-review a committed step: 
+`scripts/review-diff.sh HEAD`, never `Diff: uncommitted changes`.
 
-## What to update
+One logical change per review and per commit. A colour-bleed fix and a
+launcher pin are two reviews. A wave of unrelated fixes is what truncates
+the diff and picks the wrong trap section.
 
-- New or renamed `.command` → topic text + `TOPIC_ORDER` / help list if it is beginner-relevant
-- Button gestures / sets / `.loadset` / accordion → button lessons + demo pad labels/commands
-- Triggers / aliases / enable-disable UX → `triggers` / `aliases` topics (be honest about unfinished UI)
-- Do not invent APIs; keep tone practical and English (tutorial language)
+Docs and `.cursor/rules` edits: no subagent, self-check only.
 
-## Skip
+## Advisors before implementing: rarely
 
-Typo-only, pure refactors, or internal changes with no player-visible behavior.
+Two parallel advisors before writing code, only when **both** hold.
+Same launch as the reviewer: `generalPurpose` + `cursor-grok-4.6-xhigh`,
+never `bugbot`, never fast.
+
+- the change touches the binder, `static` state, settings serialisation, thread
+  ownership, or the Lua to Java boundary, **and**
+- the code being changed has no test covering the behaviour you are about to
+  alter (check `BTLib/src/test/` first, it is easy to miss)
+
+If there is a test, the test is the advisor, and it is cheaper and more reliable
+than an opinion. Extract, write a test that passes against the old behaviour,
+then change it. That is the evidence rule 5 asks for.
+
+"Touches 3+ files" is **not** a trigger on this codebase. Five classes are over
+4000 lines, so almost any real change spans subsystems. Using file count as the
+trigger made the expensive path the default path.
+
+## Give the reviewer a checklist, not the manual
+
+When a reviewer needs project context, point it at `docs/CODEBASE-TRAPS.md`, and
+only at the section for the area in the diff. Do not tell it to read
+`docs/ORCHESTRATION.md`; that is the method, not a checklist, and four subagents
+each pulling the whole thing in is how a small change costs a large session.
+
+## Reporting
+
+End a code task with: which subagent ran, findings fixed vs deferred, the result
+of `scripts/deploy.sh`, and what you did **not** verify. "Tests pass", "review
+clean", "APK installed". Not "works". Whether it works is decided on the phone.
 
 ---
 > Source: [Taracair/BlowTorch2](https://github.com/Taracair/BlowTorch2) — distributed by [TomeVault](https://tomevault.io).
