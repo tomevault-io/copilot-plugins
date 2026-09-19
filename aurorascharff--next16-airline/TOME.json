@@ -1,0 +1,44 @@
+{
+  "name": "next16-airline",
+  "owner": "aurorascharff",
+  "repo": "next16-airline",
+  "description": "An airline booking demo exploring Async React, Cache Components, Partial Prefetching, and View Transitions with Next.js 16.3, React 19, Tailwind CSS v4, and Prisma.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aurorascharff/next16-airline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T22:31:56Z"
+}
