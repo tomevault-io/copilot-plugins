@@ -4,7 +4,7 @@
   "repo": "hippocampus",
   "description": "A deliberately lite personal brain: Obsidian to browse, Claude Code or Codex for everything else. No vector DB, no embeddings, no MCP servers, no Obsidian plugins \u2014 markdown, one stdlib Python script and a link graph.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sturlese/hippocampus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T02:35:39Z"
+  "distributed_at": "2026-09-19T02:38:59Z"
 }
