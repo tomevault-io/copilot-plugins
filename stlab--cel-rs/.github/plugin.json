@@ -1,0 +1,9 @@
+{
+  "name": "stlab--cel-rs",
+  "displayName": "cel-rs",
+  "description": "WIP of library for type-safe concatenative languace",
+  "version": "1.0.0",
+  "author": "stlab",
+  "homepage": "https://github.com/stlab/cel-rs",
+  "skills": []
+}
