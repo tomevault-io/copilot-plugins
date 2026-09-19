@@ -7,11 +7,11 @@ Real-time usage metering, plan entitlements, and Stripe-ready billing primitives
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [liamkillingback/aurora-meter](https://github.com/liamkillingback/aurora-meter).
+Original source: `AGENTS.md` in [liamkillingback/aurora-meter](https://github.com/liamkillingback/aurora-meter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
