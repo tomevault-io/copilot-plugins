@@ -1,0 +1,9 @@
+{
+  "name": "phrmendes--bib-nvim",
+  "displayName": "bib.nvim",
+  "description": "A plugin to manage bibliography",
+  "version": "1.0.0",
+  "author": "phrmendes",
+  "homepage": "https://github.com/phrmendes/bib.nvim",
+  "skills": []
+}
