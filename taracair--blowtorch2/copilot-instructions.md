@@ -1,82 +1,44 @@
-## release-workflow
+## starter-tutorial
 
-> How a release is cut and named. Read when the maintainer asks for one.
+> Keep Starter Tutorial in sync when features change
 
 
-# Releasing
+# Starter Tutorial stays current
 
-Daily work is `staging` and is covered by `orchestration.mdc` and
-`docs/GUARDRAILS.md`. This file is only the part no script does: what a release
-is called and where it goes.
+When you change user-facing client features (`.commands`, buttons, triggers, aliases, timers, GMCP/MCP, Options, launcher, copy, reconnect, plugins), update the offline **Starter Tutorial** in the same change set when the lesson would otherwise be wrong or incomplete.
 
-Committing `staging` is routine and needs no permission. Pushing it is not:
-do **not** `git push` unless the maintainer asked for that push. `main` is
-not routine either: **work stays on `staging` until the maintainer says a
-release is being cut** (their words, 8 August: "staging jest do momentu
-release, wtedy proszę o main → release, a potem wracamy na staging"). A
-confirmed test APK means the work is good, not that it ships — do not offer
-the merge after every confirmation. Once a release is asked for, the
-`staging` → `main` merge is yours to do.
+If this rule did not attach (Java outside `function/`, Options UI, plugins) and the player-visible lesson would be wrong, still update the tutorial.
 
-Tags, GitHub releases and production APKs need asking every time.
+## Canonical files
 
-## Steps
+- `BT_Free/assets/share/lua/5.1/startertutorial.lua` — topics / `.tutorial`
+- `BT_Free/assets/share/lua/5.1/buttonserver.lua` — starter pad (`STARTER_DEFAULT_BUTTONS`, accordion, align)
+- `BT_Free/assets/share/lua/5.1/buttonwindow.lua` — CLEAR → BACK placement, button UX demos
+- Plugin seed: `starter_tutorial` in `BT_Free/config/default_settings_{test,main}.xml`
+- Bump `BLOWTORCH_LUA_LIBS_VERSION` in `BT_Free/AndroidManifest.xml` when shipping Lua asset changes
 
-1. Show the release notes first and wait for an OK.
-2. Bump `versionCode` / `versionName`.
-3. `BT_LOCAL_SIGN=1 ./gradlew :BT_Free:assembleProductionRelease`
-4. Tag `vX.Y.Z`, then `gh release create` on **Taracair/BlowTorch2**. Always pass
-   `-R Taracair/BlowTorch2`; the default `gh` remote may be upstream.
-5. After the release, sync `staging` with `main` (`ff-only` both ways as needed).
+## Lua traps (the build does not check syntax)
 
-## Asset name and body
+Before committing Lua changes:
 
-Match the **v2.1.10** scheme, not the raw Gradle output name. Copy
-`BT_Free/build/outputs/apk/production/release/BT_Free-production-release.apk` to
-`BlowTorch2-vX.Y.Z-production-release.apk` before uploading.
-
-Body: `## New Features`, `## Fixed`, optional `## Others`. It must end with
-
-```markdown
-## Notes
-- versionCode **NNN** / versionName **X.Y.Z**
+```sh
+luac5.1 -p BT_Free/assets/share/lua/5.1/*.lua
 ```
 
-Nothing else in Notes. No F-Droid URL, Discord, or Ko-fi — those are already on the README badges.
+- Values from settings XML arrive as **strings** — `1 ~= "1"`.
+- In `buttonwindow.lua`, **"nothing selected" is `{}`, not `nil`**. A `== nil` check passes an empty table straight through.
+- `WhiteSpace extends Text` in `TextTree`, so `instanceof Text` catches whitespace too.
 
-Player-facing notes accumulate in `docs/changelog_draft.md` (gitignored). Copy
-that into the release body when shipping.
+## What to update
 
-## How to write the notes
+- New or renamed `.command` → topic text + `TOPIC_ORDER` / help list if it is beginner-relevant
+- Button gestures / sets / `.loadset` / accordion → button lessons + demo pad labels/commands
+- Triggers / aliases / enable-disable UX → `triggers` / `aliases` topics (be honest about unfinished UI)
+- Do not invent APIs; keep tone practical and English (tutorial language)
 
-Baseline is the **last shipped tag** (`origin/main`). Run
-`git log origin/main..HEAD --oneline`. That is the changelog. Do not diff
-against an older tag once a newer one exists.
+## Skip
 
-Player-facing vs that tag only:
-
-- Do not re-list what the previous GitHub or Fastlane changelog already said.
-- No staging names (`was .lupa`). No “we tried X then fixed it”.
-- Did not exist for the player at the last tag → **New Features**. Broken then,
-  works now → **Fixed**.
-- One bullet per theme. Five suggestion switches are **Better suggestion
-  engine**, not five bullets. Example: you type `helmte` and get `helmet`.
-- Skip internal completer bookkeeping unless asked.
-- Fastlane `changelogs/NNN.txt` is three or four short store lines, same delta,
-  not a copy of the GitHub essay.
-
-Clear `changelog_draft.md` after the tag ships so the next draft cannot
-accumulate the last release.
-
-## Local APK copies
-
-The parent folder keeps exactly two fixed-name builds, refreshed after each
-build and never accumulated:
-
-- `../BlowTorch2-btTest-debug.apk`
-- `../BlowTorch2-production-release.apk`
-
-`scripts/deploy.sh` refreshes the first one itself.
+Typo-only, pure refactors, or internal changes with no player-visible behavior.
 
 ---
 > Source: [Taracair/BlowTorch2](https://github.com/Taracair/BlowTorch2) — distributed by [TomeVault](https://tomevault.io).
