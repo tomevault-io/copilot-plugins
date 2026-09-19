@@ -1,81 +1,121 @@
-## subagent-review
+## blowtorch2
 
-> When to spend a subagent on review, and when not to
+> Work on branch `staging`. The maintainer decides what ships.
 
+# CLAUDE.md
 
-# Review
+Work on branch `staging`. The maintainer decides what ships.
 
-Local checks first, always: `scripts/check.sh` (or `--tests` for the area
-touched). Fix failures before anything else. Most findings a reviewer would
-report are already in there and cost no tokens.
+## Six rules
 
-## Default: one reviewer, after the change, before the commit
+These are the ones that need judgment. Everything else that used to be on this
+list is now enforced by a script, so you do not have to remember it. See
+`docs/GUARDRAILS.md` for what is blocked and where.
 
-Launch **one** Task. Do not set `subagent_type` to `bugbot`. Cursor pins that
-type to Composer 2.5 and **ignores** `model`, so passing Grok does not change
-what the UI shows. A `preToolUse` hook rewrites leftover `bugbot` launches;
-do not rely on the hook as the plan.
+1. **Measure before you touch.** Reading this code has produced a confident,
+   wrong hypothesis at least six times. The device is the authority.
+2. **Say what you did not verify.** Every time. Never say "works" when you mean
+   "compiles" or "installed".
+3. **Do not guess mechanisms.** A measurement is a fact; the explanation for it
+   is a guess until checked, and a plausible wrong explanation in a durable
+   place is worse than none.
+4. **Fix the cause, not the symptom.** Remove the throw rather than quieten the
+   log. A wider `catch` moves the symptom away from the cause.
+5. **"Behaviour-preserving" needs an argument, not an assertion.** Show why the
+   output is identical, or extract, test against old behaviour, then delegate.
+6. **The second attempt is the signal.** Fixing the same failure in the same
+   place twice means the first fix was a guess. Stop at the third: read what the
+   API actually requires, then write one informed fix. If that still fails, go
+   back to the maintainer before a seventh approach. Ask two things out loud:
+   do they want what they said, and is what they said what you understood.
 
-Use:
+## Code comments
 
-- `subagent_type`: `generalPurpose`
-- `model`: `cursor-grok-4.6-xhigh` (required; never omit, never inherit, never
-  `composer-2.5`, never any `-fast` slug)
-- `description`: `Bugbot`
-- `prompt`: `Full Repository Path`, `Diff: uncommitted changes`, the trap
-  section for the area, and a short "what this is" (paths + a few sentences,
-  not a wave essay). Tell it to run `scripts/review-diff.sh` in that repo.
+Default: no comment. If one is useful, 1–2 lines. Keep measurements, API quirks,
+compatibility constraints, and "not measured". Do not guess a mechanism (rule 3),
+narrate the implementation, or write what the previous version did. When editing,
+condense only comments on the code you are already changing. No repo-wide sweep
+unless asked. Method: `docs/ORCHESTRATION.md` ("Comments are facts, not essays").
 
-Do **not** dump whole-tree `git diff`. Cursor Shell results omit the middle
-of large stdout. `scripts/review-diff.sh` prints a short index and writes
-hunks to `.scratch/review-diff/page-NN.txt`. Read every listed page. A
-one-page bundle that fits is also printed inline. Do not Read a 4000-line
-class hunting for the hunk.
+## Commands
 
-Triage, fix real findings, re-run until clean or until you hit something to
-report. Then commit.
+```sh
+scripts/check.sh          # everything checkable without a device; what CI runs
+scripts/deploy.sh         # test, build btTest debug, resolve serial, install -r
+scripts/adb-device.sh     # print a usable serial, nothing else
+```
 
-Review **before** the commit. After `scripts/deploy.sh` the working tree is
-leftovers, not what shipped. To re-review a committed step: 
-`scripts/review-diff.sh HEAD`, never `Diff: uncommitted changes`.
+Run `scripts/deploy.sh` before reporting a code step done, once per step, after
+its last commit. Report "installed", not "works". Do not resolve the adb serial
+by hand and never ask the maintainer for the wifi port; `scripts/adb-device.sh`
+finds it.
 
-One logical change per review and per commit. A colour-bleed fix and a
-launcher pin are two reviews. A wave of unrelated fixes is what truncates
-the diff and picks the wrong trap section.
+## Where things are
 
-Docs and `.cursor/rules` edits: no subagent, self-check only.
+| You need | Read |
+|---|---|
+| Why a change keeps failing in a way that makes no sense | `docs/CODEBASE-TRAPS.md` |
+| The working method behind the six rules | `docs/ORCHESTRATION.md` |
+| What is mechanically blocked and why | `docs/GUARDRAILS.md` |
+| Modules, packages, data flow | `docs/architecture.md` |
+| What already happened and how | `git log`, `git show`, `git blame` |
+| What is still to do | `docs/HANDOFF.md` if it exists locally |
 
-## Advisors before implementing: rarely
+Read `docs/CODEBASE-TRAPS.md` **before** touching any of: the UI to `:stellar`
+binder, `static` state, settings serialisation, thread ownership, the Lua to
+Java boundary. Those five areas are where reading the code confidently teaches
+you something false. Elsewhere, do not load it.
 
-Two parallel advisors before writing code, only when **both** hold.
-Same launch as the reviewer: `generalPurpose` + `cursor-grok-4.6-xhigh`,
-never `bugbot`, never fast.
+## Explain in examples
 
-- the change touches the binder, `static` state, settings serialisation, thread
-  ownership, or the Lua to Java boundary, **and**
-- the code being changed has no test covering the behaviour you are about to
-  alter (check `BTLib/src/test/` first, it is easy to miss)
+"You type `kk goblin` and the game receives `kill $1` instead of `kill goblin`"
+beats "unanchored aliases do not substitute captures". The maintainer is testing
+on a phone, not reading your diff.
 
-If there is a test, the test is the advisor, and it is cheaper and more reliable
-than an opinion. Extract, write a test that passes against the old behaviour,
-then change it. That is the evidence rule 5 asks for.
+Write to the maintainer in **Polish** — status, questions, release drafts —
+unless they switch language. Code, comments, commit messages and everything in
+`docs/` stay in English.
 
-"Touches 3+ files" is **not** a trigger on this codebase. Five classes are over
-4000 lines, so almost any real change spans subsystems. Using file count as the
-trigger made the expensive path the default path.
+## F-Droid
 
-## Give the reviewer a checklist, not the manual
+The production APK is on F-Droid (or in the inclusion MR). Do not add a
+`uses-permission`, a new foreground-service type, or change `applicationId`
+/ the launcher component without asking the maintainer first. A settings
+checkbox that uses an already-declared permission (`WAKE_LOCK`) is fine.
+Fastlane store text can change on the next tag; that is not a new permission.
 
-When a reviewer needs project context, point it at `docs/CODEBASE-TRAPS.md`, and
-only at the section for the area in the diff. Do not tell it to read
-`docs/ORCHESTRATION.md`; that is the method, not a checklist, and four subagents
-each pulling the whole thing in is how a small change costs a large session.
+## Commits
 
-## Reporting
+At the end of each turn that produced a complete change, commit on `staging`.
+Do **not** `git push` unless the maintainer asked for that push. Laptop copies
+are the maintainer's NAS backup, not GitHub. Message is one or two sentences
+on why, not a file list.
 
-End a code task with: which subagent ran, findings fixed vs deferred, the result
-of `scripts/deploy.sh`, and what you did **not** verify. "Tests pass", "review
-clean", "APK installed". Not "works". Whether it works is decided on the phone.
+Before a requested push: read `git log origin/staging..HEAD` (or `main..HEAD`
+if unpushed), and only push if those commits are ones they would want on
+GitHub — squash probe/revert noise and obvious split-steps first. Do not spam
+the remote with a commit per try.
+
+Say how many **unpushed** commits are on `staging` in the status to the
+maintainer (not every sentence; once per turn that committed, and whenever
+they ask what is waiting). `git rev-list --count origin/staging..HEAD`.
+
+One commit is one rollback point. Two unrelated fixes in one turn are two
+commits. Probes get their own commit. Do not commit a half-written file or
+an empty tree. This repo's rule wins over any editor default that says wait.
+
+`staging` is allowed to grow. `main` is the release branch and is only
+touched when the maintainer asks for a release. A confirmed test APK means
+the work is good, not that it ships — do not offer the merge after every
+confirmation. When a release is asked for, the `staging` → `main` merge is
+the agent's job.
+
+What still needs asking every time: tags, GitHub releases, production APKs. See
+`.cursor/rules/release-workflow.mdc`.
+
+A commit message is a claim. "Nothing reads this", "equivalent to the old path",
+"X already does this" are assertions about code somewhere else. Go and look
+before writing them down, and say how you know.
 
 ---
 > Source: [Taracair/BlowTorch2](https://github.com/Taracair/BlowTorch2) — distributed by [TomeVault](https://tomevault.io).
