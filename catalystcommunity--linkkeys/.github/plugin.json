@@ -1,0 +1,9 @@
+{
+  "name": "catalystcommunity--linkkeys",
+  "displayName": "linkkeys",
+  "description": "The reference spec and full implementation for an IDP, meant to be tools for digital identity for all ages",
+  "version": "1.0.0",
+  "author": "catalystcommunity",
+  "homepage": "https://github.com/catalystcommunity/linkkeys",
+  "skills": []
+}
