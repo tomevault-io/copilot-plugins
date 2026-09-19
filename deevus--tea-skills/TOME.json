@@ -4,7 +4,7 @@
   "repo": "tea-skills",
   "description": "Agent skills for Gitea/Forgejo issue, pull request, milestone, and label workflows using the tea CLI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/deevus/tea-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T03:17:02Z"
+  "distributed_at": "2026-09-19T03:19:13Z"
 }
