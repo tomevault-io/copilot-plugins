@@ -1,0 +1,9 @@
+{
+  "name": "sindendev--amazingdata",
+  "displayName": "AmazingData",
+  "description": "\u901a\u8fc7\u4e2d\u56fd\u94f6\u6cb3\u8bc1\u5238\u661f\u8000\u6570\u667a\uff08AmazingData\uff09SDK \u62c9\u53d6 A \u80a1\u5e02\u573a\u6570\u636e\uff0c\u5e76\u5c06\u7ed3\u679c\u5b58\u5165ClickHouse\u548c\u5199\u4e3a Parquet \u6587\u4ef6\u5b58\u5165S3",
+  "version": "1.0.0",
+  "author": "SindenDev",
+  "homepage": "https://github.com/SindenDev/AmazingData",
+  "skills": []
+}
