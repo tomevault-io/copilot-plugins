@@ -1,0 +1,9 @@
+{
+  "name": "startmeupai--swe-agents",
+  "displayName": "swe-agents",
+  "description": "Portable Codex, Claude Code, and GitHub Copilot agentic engineering reference",
+  "version": "1.0.0",
+  "author": "startmeupai",
+  "homepage": "https://github.com/startmeupai/swe-agents",
+  "skills": []
+}
