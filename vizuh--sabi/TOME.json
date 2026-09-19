@@ -1,0 +1,44 @@
+{
+  "name": "sabi",
+  "owner": "vizuh",
+  "repo": "sabi",
+  "description": "Adaptive inference scheduling for AI agents \u2014 per-round model, effort and provider routing for coding harnesses: a Command Code mod or a local OpenAI-compatible proxy.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vizuh/sabi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T20:34:52Z"
+}
