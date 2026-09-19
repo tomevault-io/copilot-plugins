@@ -1,0 +1,9 @@
+{
+  "name": "kerpopule--hermes-jev-skills",
+  "displayName": "hermes-jev-skills",
+  "description": "Jev-powered model routing, memory, compaction, skill selection, computer and browser use for Hermes agents (also Claude Code and Codex)",
+  "version": "1.0.0",
+  "author": "kerpopule",
+  "homepage": "https://github.com/kerpopule/hermes-jev-skills",
+  "skills": []
+}
