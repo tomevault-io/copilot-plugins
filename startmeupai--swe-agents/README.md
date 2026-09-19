@@ -7,11 +7,11 @@ Portable Codex, Claude Code, and GitHub Copilot agentic engineering reference
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [startmeupai/swe-agents](https://github.com/startmeupai/swe-agents).
+Original source: `AGENTS.md` in [startmeupai/swe-agents](https://github.com/startmeupai/swe-agents).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
