@@ -1,0 +1,9 @@
+{
+  "name": "fiersity--china-prefecture-crosswalk",
+  "displayName": "china-prefecture-crosswalk",
+  "description": "\u4e2d\u56fd\u57ce\u5e02\u884c\u653f\u533a\u5212\u6cbf\u9769\u67e5\u8be2\u5de5\u5177\u4e0e\u8d44\u6599\u5e93\uff0c\u6536\u5f551983\u5e74\u4ee5\u6765\u5730\u7ea7\u53ca\u53bf\u7ea7\u884c\u653f\u533a\u5212\u53d8\u66f4\u3001\u89c4\u8303\u540d\u79f0\u548c\u6765\u6e90\uff0c\u670d\u52a1\u4e2d\u56fd\u533a\u57df\u4e0e\u57ce\u5e02\u7814\u7a76\u3002",
+  "version": "1.0.0",
+  "author": "FIERsity",
+  "homepage": "https://github.com/FIERsity/china-prefecture-crosswalk",
+  "skills": []
+}
