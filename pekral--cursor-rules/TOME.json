@@ -1,0 +1,99 @@
+{
+  "name": "cursor-rules",
+  "owner": "pekral",
+  "repo": "cursor-rules",
+  "description": "PHP and Laravel Cursor rules \u2014 coding standards, testing, and conventions for the Cursor editor. Install via Composer.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "class-refactoring",
+      "path": "skills/class-refactoring",
+      "github_url": "https://github.com/pekral/cursor-rules/tree/main/skills/class-refactoring",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/pekral/cursor-rules/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review-github",
+      "path": "skills/code-review-github",
+      "github_url": "https://github.com/pekral/cursor-rules/tree/main/skills/code-review-github",
+      "description": ""
+    },
+    {
+      "name": "code-review-jira",
+      "path": "skills/code-review-jira",
+      "github_url": "https://github.com/pekral/cursor-rules/tree/main/skills/code-review-jira",
+      "description": ""
+    },
+    {
+      "name": "create-test",
+      "path": "skills/create-test",
+      "github_url": "https://github.com/pekral/cursor-rules/tree/main/skills/create-test",
+      "description": ""
+    },
+    {
+      "name": "resolve-bugsnag-issue",
+      "path": "skills/resolve-bugsnag-issue",
+      "github_url": "https://github.com/pekral/cursor-rules/tree/main/skills/resolve-bugsnag-issue",
+      "description": ""
+    },
+    {
+      "name": "resolve-github-issue",
+      "path": "skills/resolve-github-issue",
+      "github_url": "https://github.com/pekral/cursor-rules/tree/main/skills/resolve-github-issue",
+      "description": ""
+    },
+    {
+      "name": "resolve-jira-issue",
+      "path": "skills/resolve-jira-issue",
+      "github_url": "https://github.com/pekral/cursor-rules/tree/main/skills/resolve-jira-issue",
+      "description": ""
+    },
+    {
+      "name": "rewrite-tests-pest",
+      "path": "skills/rewrite-tests-pest",
+      "github_url": "https://github.com/pekral/cursor-rules/tree/main/skills/rewrite-tests-pest",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pekral/cursor-rules",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T08:30:20Z"
+}
