@@ -1,0 +1,44 @@
+{
+  "name": "boknows-text-image-template",
+  "owner": "boknowsworld",
+  "repo": "boknows-text-image-template",
+  "description": "\u901a\u7528\u6587\u5b57\u53d8\u56fe\u7247\u4f5c\u54c1\u96c6\u6a21\u677f \u00b7 Customize your title with Codex-generated mixed-media letter assets. Includes design rules, prompts and elastic interactions. Vanilla HTML/CSS/JS.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/boknowsworld/boknows-text-image-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T05:30:23Z"
+}
