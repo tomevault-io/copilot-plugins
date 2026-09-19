@@ -1,42 +1,112 @@
-## no-private-worlds
+## orchestration
 
-> Do not put real MUDs, guilds, or players in the app or public tree. taracair@gmail.com is public contact.
+> BlowTorch working agreement, short version
 
 
-# No private worlds in the product
+# BlowTorch working agreement
 
-The GitHub tree is public. The APK is public. Do not put the maintainer's worlds,
-guilds, characters, hosts, or other private life into anything that ships or is
-tracked.
+Work on branch `staging`. The maintainer decides what ships. Full version in
+`CLAUDE.md`; this file exists because Cursor needs the short list unconditionally
+present, not fetched.
 
-Public contact is **`taracair@gmail.com`** (and the GitHub name Taracair). It
-may appear in UI, Help, README, comments, and tests. It is not a secret.
+## Six rules
 
-## Do not
+The rest of what used to be here is enforced by scripts now. `docs/GUARDRAILS.md`
+lists what is blocked and where. If a guard blocks you, it is telling you a fact
+about this project, not being difficult.
 
-- Name a live MUD, guild, or player in UI, Help, Starter Tutorial, default
-  settings, Lua, or comments/tests that git tracks
-- Use a real profile filename or host as a worked example
-- Write “the profile he plays” or similar
+1. **Measure before you touch.** Reading this code has produced a confident,
+   wrong hypothesis at least six times. The device is the authority.
+2. **Say what you did not verify.** Every time. Never say "works" when you mean
+   "compiles" or "installed".
+3. **Do not guess mechanisms.** A measurement is a fact; the explanation for it
+   is a guess until checked, and a plausible wrong explanation in a durable
+   place is worse than none.
+4. **Fix the cause, not the symptom.** Remove the throw rather than quieten the
+   log. A wider `catch` moves the symptom away from the cause.
+5. **"Behaviour-preserving" needs an argument, not an assertion.** Show why the
+   output is identical, or extract, test against old behaviour, then delegate.
+6. **The second attempt is the signal.** Fixing the same failure in the same
+   place twice means the first fix was a guess. Stop at the third: read what the
+   API actually requires, then write one informed fix. If that still fails, go
+   back to the maintainer before a seventh approach. Ask two things out loud:
+   do they want what they said, and is what they said what you understood.
 
-```java
-// BAD — names the world they actually play
-// measured on world-a.xml (the profile he plays)
-assertEquals("world-a", world);
+## Code comments
 
-// GOOD
-// measured on a live world (11 of 105 chunks)
-assertEquals("world-a", world);
+Default: no comment. If one is useful, 1–2 lines. Keep measurements, API quirks,
+compatibility constraints, and "not measured". Do not guess a mechanism (rule 3),
+narrate the implementation, or write what the previous version did. When editing,
+condense only comments on the code you are already changing. No repo-wide sweep
+unless asked. Method: `docs/ORCHESTRATION.md` ("Comments are facts, not essays").
+
+## Commands
+
+```sh
+scripts/check.sh          # everything checkable without a device; what CI runs
+scripts/deploy.sh         # test, build btTest debug, resolve serial, install -r
+scripts/adb-device.sh     # print a usable serial, nothing else
 ```
 
-## Do
+Run `scripts/deploy.sh` before reporting a code step done, once per step, after
+its last commit. Report "installed", not "works". Do not resolve the adb serial
+by hand and never ask the maintainer for the wifi port; `scripts/adb-device.sh`
+finds it.
 
-- Tests and comments: `world-a`, `example.org`, `a live world`, `an older profile`
-- Protocol **ids** stay as the wire sends them (`dns-org-hellmoo-status`).
-  Player-visible **labels** stay generic (`Vitals bar (hp, thirst, hunger, stress)`).
-- Put `taracair@gmail.com` where a contact address belongs. Git *author* is
-  still GitHub noreply (`git-noreply-author.mdc`) because GitHub rejects the
-  inbox on push (GH007) — that is not a privacy ban.
+## Before you touch these five areas, read docs/CODEBASE-TRAPS.md
+
+UI to `:stellar` binder, `static` state, settings serialisation, thread
+ownership, the Lua to Java boundary. Those are where reading the code
+confidently teaches you something false. Elsewhere, do not load it.
+
+## Commits
+
+At the end of each turn that produced a complete change, commit on `staging`.
+Do **not** `git push` unless the maintainer asked for that push. Laptop copies
+are the maintainer's NAS backup, not GitHub. Message is one or two sentences
+on why, not a file list.
+
+Before a requested push: read `git log origin/staging..HEAD` (or `main..HEAD`
+if unpushed), and only push if those commits are ones they would want on
+GitHub — squash probe/revert noise and obvious split-steps first. Do not spam
+the remote with a commit per try.
+
+Say how many **unpushed** commits are on `staging` in the status to the
+maintainer (not every sentence; once per turn that committed, and whenever
+they ask what is waiting). `git rev-list --count origin/staging..HEAD`.
+
+One commit is one rollback point. Two unrelated fixes in one turn are two
+commits. Probes get their own commit. Do not commit a half-written file or
+an empty tree. This repo's rule wins over any editor default that says wait.
+
+`staging` is allowed to grow. `main` is the release branch and is only
+touched when the maintainer asks for a release. A confirmed test APK means
+the work is good, not that it ships — do not offer the merge after every
+confirmation. When a release is asked for, the `staging` → `main` merge is
+the agent's job.
+
+What still needs asking every time: tags, GitHub releases, production APKs. See
+`.cursor/rules/release-workflow.mdc`.
+
+A commit message is a claim. "Nothing reads this", "equivalent to the old path",
+"X already does this" are assertions about code somewhere else. Go and look
+before writing them down, and say how you know.
+
+## Explain in examples
+
+"You type `kk goblin` and the game receives `kill $1`" beats "unanchored aliases
+do not substitute captures".
+
+Write to the maintainer in **Polish** unless they switch language. Code,
+comments, commit messages and `docs/` stay in English.
+
+## F-Droid
+
+The production APK is on F-Droid (or in the inclusion MR). Do not add a
+`uses-permission`, a new foreground-service type, or change `applicationId`
+/ the launcher component without asking the maintainer first. A settings
+checkbox that uses an already-declared permission (`WAKE_LOCK`) is fine.
+Fastlane store text can change on the next tag; that is not a new permission.
 
 ---
 > Source: [Taracair/BlowTorch2](https://github.com/Taracair/BlowTorch2) — distributed by [TomeVault](https://tomevault.io).
