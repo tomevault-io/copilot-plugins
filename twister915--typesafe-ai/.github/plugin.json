@@ -1,0 +1,9 @@
+{
+  "name": "twister915--typesafe-ai",
+  "displayName": "typesafe-ai",
+  "description": "Typed TypeSafe AI clients for Rust, with async and blocking backends and observable retries.",
+  "version": "1.0.0",
+  "author": "Twister915",
+  "homepage": "https://github.com/Twister915/typesafe-ai",
+  "skills": []
+}
