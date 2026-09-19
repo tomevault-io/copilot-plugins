@@ -1,0 +1,46 @@
+{
+  "name": "pekral--cursor-rules",
+  "displayName": "cursor-rules",
+  "description": "PHP and Laravel Cursor rules \u2014 coding standards, testing, and conventions for the Cursor editor. Install via Composer.",
+  "version": "1.0.0",
+  "author": "pekral",
+  "homepage": "https://github.com/pekral/cursor-rules",
+  "skills": [
+    {
+      "name": "class-refactoring",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review-github",
+      "description": ""
+    },
+    {
+      "name": "code-review-jira",
+      "description": ""
+    },
+    {
+      "name": "create-test",
+      "description": ""
+    },
+    {
+      "name": "resolve-bugsnag-issue",
+      "description": ""
+    },
+    {
+      "name": "resolve-github-issue",
+      "description": ""
+    },
+    {
+      "name": "resolve-jira-issue",
+      "description": ""
+    },
+    {
+      "name": "rewrite-tests-pest",
+      "description": ""
+    }
+  ]
+}
