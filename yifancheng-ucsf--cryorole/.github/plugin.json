@@ -1,0 +1,9 @@
+{
+  "name": "yifancheng-ucsf--cryorole",
+  "displayName": "cryorole",
+  "description": "Analyze the relative orientation landscape in multi-domains complex in Cryo-EM",
+  "version": "1.0.0",
+  "author": "yifancheng-ucsf",
+  "homepage": "https://github.com/yifancheng-ucsf/cryorole",
+  "skills": []
+}
