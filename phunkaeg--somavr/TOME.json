@@ -4,7 +4,7 @@
   "repo": "SOMAVR",
   "description": "SomaVR mod - work-in-progress handover",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/phunkaeg/SOMAVR",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T08:31:45Z"
+  "distributed_at": "2026-09-19T08:32:29Z"
 }
