@@ -1,0 +1,9 @@
+{
+  "name": "kodestar--audiosilo-meta",
+  "displayName": "audiosilo-meta",
+  "description": "The open source audiobook database - community-maintained metadata for works, recordings, narrators, series and chapters (CC0). The repo is the database.",
+  "version": "1.0.0",
+  "author": "KodeStar",
+  "homepage": "https://github.com/KodeStar/audiosilo-meta",
+  "skills": []
+}
