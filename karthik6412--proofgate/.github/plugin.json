@@ -1,0 +1,9 @@
+{
+  "name": "karthik6412--proofgate",
+  "displayName": "proofgate",
+  "description": "ProofGate is a firewall for AI agents. It measures the blast radius of every action before execution and blocks catastrophic mistakes with verifiable proof\u2014not promises.",
+  "version": "1.0.0",
+  "author": "Karthik6412",
+  "homepage": "https://github.com/Karthik6412/proofgate",
+  "skills": []
+}
