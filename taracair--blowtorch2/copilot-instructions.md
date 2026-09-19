@@ -1,25 +1,82 @@
-## readme-voice
+## release-workflow
 
-> Keep README.md author voice; never polish or rewrite it
+> How a release is cut and named. Read when the maintainer asks for one.
 
 
-# README voice (do not rewrite)
+# Releasing
 
-`README.md` is the maintainer’s own public intro. **Do not rewrite, soften, or “professionalize” it.**
+Daily work is `staging` and is covered by `orchestration.mdc` and
+`docs/GUARDRAILS.md`. This file is only the part no script does: what a release
+is called and where it goes.
 
-## Locked voice (must stay)
+Committing `staging` is routine and needs no permission. Pushing it is not:
+do **not** `git push` unless the maintainer asked for that push. `main` is
+not routine either: **work stays on `staging` until the maintainer says a
+release is being cut** (their words, 8 August: "staging jest do momentu
+release, wtedy proszę o main → release, a potem wracamy na staging"). A
+confirmed test APK means the work is good, not that it ships — do not offer
+the merge after every confirmation. Once a release is asked for, the
+`staging` → `main` merge is yours to do.
 
-- Opening: first public repo / first bigger GitHub work (“Hello folks and beware! …”)
-- Honest LLM line: uses LLM for code/docs; still tests and decides what ships
-- Casual first-person tone presenting the fork
+Tags, GitHub releases and production APKs need asking every time.
 
-## Allowed edits only
+## Steps
 
-- Fact updates the user asked for (new commands, paths, build steps, package ids, links)
-- Fix broken links or clearly wrong technical facts
-- Never change the intro paragraphs or LLM disclosure unless the user explicitly rewrites them
+1. Show the release notes first and wait for an OK.
+2. Bump `versionCode` / `versionName`.
+3. `BT_LOCAL_SIGN=1 ./gradlew :BT_Free:assembleProductionRelease`
+4. Tag `vX.Y.Z`, then `gh release create` on **Taracair/BlowTorch2**. Always pass
+   `-R Taracair/BlowTorch2`; the default `gh` remote may be upstream.
+5. After the release, sync `staging` with `main` (`ff-only` both ways as needed).
 
-If docs need a more formal tone, put that in `docs/FDROID_README.md` / store metadata — **not** by replacing root `README.md`.
+## Asset name and body
+
+Match the **v2.1.10** scheme, not the raw Gradle output name. Copy
+`BT_Free/build/outputs/apk/production/release/BT_Free-production-release.apk` to
+`BlowTorch2-vX.Y.Z-production-release.apk` before uploading.
+
+Body: `## New Features`, `## Fixed`, optional `## Others`. It must end with
+
+```markdown
+## Notes
+- versionCode **NNN** / versionName **X.Y.Z**
+```
+
+Nothing else in Notes. No F-Droid URL, Discord, or Ko-fi — those are already on the README badges.
+
+Player-facing notes accumulate in `docs/changelog_draft.md` (gitignored). Copy
+that into the release body when shipping.
+
+## How to write the notes
+
+Baseline is the **last shipped tag** (`origin/main`). Run
+`git log origin/main..HEAD --oneline`. That is the changelog. Do not diff
+against an older tag once a newer one exists.
+
+Player-facing vs that tag only:
+
+- Do not re-list what the previous GitHub or Fastlane changelog already said.
+- No staging names (`was .lupa`). No “we tried X then fixed it”.
+- Did not exist for the player at the last tag → **New Features**. Broken then,
+  works now → **Fixed**.
+- One bullet per theme. Five suggestion switches are **Better suggestion
+  engine**, not five bullets. Example: you type `helmte` and get `helmet`.
+- Skip internal completer bookkeeping unless asked.
+- Fastlane `changelogs/NNN.txt` is three or four short store lines, same delta,
+  not a copy of the GitHub essay.
+
+Clear `changelog_draft.md` after the tag ships so the next draft cannot
+accumulate the last release.
+
+## Local APK copies
+
+The parent folder keeps exactly two fixed-name builds, refreshed after each
+build and never accumulated:
+
+- `../BlowTorch2-btTest-debug.apk`
+- `../BlowTorch2-production-release.apk`
+
+`scripts/deploy.sh` refreshes the first one itself.
 
 ---
 > Source: [Taracair/BlowTorch2](https://github.com/Taracair/BlowTorch2) — distributed by [TomeVault](https://tomevault.io).
