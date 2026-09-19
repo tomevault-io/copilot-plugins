@@ -1,0 +1,9 @@
+{
+  "name": "ekirschmann--warcounsel",
+  "displayName": "WarCounsel",
+  "description": "WarCounsel \u2014 combat meter and advisor for EverQuest Legends. Live DPS and overlay, 3D zone maps, and wiki-grounded spell and gear counsel. Reads your log; never touches the game.",
+  "version": "1.0.0",
+  "author": "EKirschmann",
+  "homepage": "https://github.com/EKirschmann/WarCounsel",
+  "skills": []
+}
