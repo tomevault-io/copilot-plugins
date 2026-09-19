@@ -4,7 +4,7 @@
   "repo": "jev-chat",
   "description": "A tool calling chat bot built with Jev and no LLM.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/w3cj/jev-chat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T03:11:59Z"
+  "distributed_at": "2026-09-19T03:14:16Z"
 }
