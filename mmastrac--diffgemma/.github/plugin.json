@@ -1,0 +1,9 @@
+{
+  "name": "mmastrac--diffgemma",
+  "displayName": "diffgemma",
+  "description": "A pure Rust implementation of Google's DiffusionGemma model",
+  "version": "1.0.0",
+  "author": "mmastrac",
+  "homepage": "https://github.com/mmastrac/diffgemma",
+  "skills": []
+}
