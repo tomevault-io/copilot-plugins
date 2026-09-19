@@ -1,0 +1,9 @@
+{
+  "name": "macanderson--stella",
+  "displayName": "stella",
+  "description": "A coding agent that builds it's own tools and mines it's own skills and always ships with receipts.",
+  "version": "1.0.0",
+  "author": "macanderson",
+  "homepage": "https://github.com/macanderson/stella",
+  "skills": []
+}
