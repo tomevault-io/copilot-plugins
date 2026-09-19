@@ -1,0 +1,9 @@
+{
+  "name": "sihai-li--experimental-data-management-platform",
+  "displayName": "experimental_data_management_platform",
+  "description": "Experimental data management platform: MAT validation, storage, querying, and authorized downloads",
+  "version": "1.0.0",
+  "author": "Sihai-Li",
+  "homepage": "https://github.com/Sihai-Li/experimental_data_management_platform",
+  "skills": []
+}
