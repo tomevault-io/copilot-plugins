@@ -1,0 +1,9 @@
+{
+  "name": "skeptrunedev--jev-recruiter",
+  "displayName": "jev-recruiter",
+  "description": "A Jev powered LinkedIn recruiting agent. Watch it browse relevant profiles, save links, and review evidence against your hiring brief.",
+  "version": "1.0.0",
+  "author": "skeptrunedev",
+  "homepage": "https://github.com/skeptrunedev/jev-recruiter",
+  "skills": []
+}
