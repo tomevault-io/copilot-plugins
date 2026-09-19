@@ -1,0 +1,44 @@
+{
+  "name": "china-prefecture-crosswalk",
+  "owner": "FIERsity",
+  "repo": "china-prefecture-crosswalk",
+  "description": "\u4e2d\u56fd\u57ce\u5e02\u884c\u653f\u533a\u5212\u6cbf\u9769\u67e5\u8be2\u5de5\u5177\u4e0e\u8d44\u6599\u5e93\uff0c\u6536\u5f551983\u5e74\u4ee5\u6765\u5730\u7ea7\u53ca\u53bf\u7ea7\u884c\u653f\u533a\u5212\u53d8\u66f4\u3001\u89c4\u8303\u540d\u79f0\u548c\u6765\u6e90\uff0c\u670d\u52a1\u4e2d\u56fd\u533a\u57df\u4e0e\u57ce\u5e02\u7814\u7a76\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FIERsity/china-prefecture-crosswalk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T03:12:46Z"
+}
