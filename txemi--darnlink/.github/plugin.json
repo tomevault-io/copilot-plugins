@@ -1,0 +1,9 @@
+{
+  "name": "txemi--darnlink",
+  "displayName": "darnlink",
+  "description": "Auto-healing Markdown links \u2014 anchor links to a UUID so they survive refactors: repair moved links, robustify plain ones. No database, editor-agnostic.",
+  "version": "1.0.0",
+  "author": "txemi",
+  "homepage": "https://github.com/txemi/darnlink",
+  "skills": []
+}
