@@ -1,0 +1,9 @@
+{
+  "name": "heman10x-ngu--openjev-verdict-2-0",
+  "displayName": "openJev-verdict-2.0",
+  "description": "Calibrated 151M Non-Autoregressive Decision Engine beating TypeSafe Jev & Laya on LocalLLaMA/typed-decisions (77.10% acc, 0.0636 Brier, 0.0144 ECE)",
+  "version": "1.0.0",
+  "author": "Heman10x-NGU",
+  "homepage": "https://github.com/Heman10x-NGU/openJev-verdict-2.0",
+  "skills": []
+}
