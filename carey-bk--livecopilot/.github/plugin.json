@@ -1,0 +1,9 @@
+{
+  "name": "carey-bk--livecopilot",
+  "displayName": "LiveCopilot",
+  "description": "Native macOS AI copilot with live transcription, local knowledge retrieval, Chinese/English UI and configurable analysis providers. Built with Swift/SwiftUI, derived from Stealth.",
+  "version": "1.0.0",
+  "author": "carey-bk",
+  "homepage": "https://github.com/carey-bk/LiveCopilot",
+  "skills": []
+}
