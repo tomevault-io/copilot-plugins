@@ -7,11 +7,11 @@ Open-source, self-hostable Rust runtime for running Cloud Agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [davidondrej/cloudroom-core](https://github.com/davidondrej/cloudroom-core).
+Original source: `CLAUDE.md` in [davidondrej/cloudroom-core](https://github.com/davidondrej/cloudroom-core).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
