@@ -1,0 +1,9 @@
+{
+  "name": "moritzwilksch--diffle",
+  "displayName": "diffle",
+  "description": "A web-based diff viewer with LSP support and GitHub integration.",
+  "version": "1.0.0",
+  "author": "moritzwilksch",
+  "homepage": "https://github.com/moritzwilksch/diffle",
+  "skills": []
+}
