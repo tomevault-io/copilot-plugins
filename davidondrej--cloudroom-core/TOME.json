@@ -4,7 +4,7 @@
   "repo": "cloudroom-core",
   "description": "Open-source, self-hostable Rust runtime for running Cloud Agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davidondrej/cloudroom-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T22:30:24Z"
+  "distributed_at": "2026-09-19T22:32:38Z"
 }
