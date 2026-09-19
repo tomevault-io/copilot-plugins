@@ -7,11 +7,11 @@ Identity broker for AI agents with OAuth2 delegation and consent management
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zalando-incubator/agentic-identity-broker](https://github.com/zalando-incubator/agentic-identity-broker).
+Original source: `CLAUDE.md` in [zalando-incubator/agentic-identity-broker](https://github.com/zalando-incubator/agentic-identity-broker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
