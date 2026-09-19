@@ -1,0 +1,9 @@
+{
+  "name": "sandroden--agentspy",
+  "displayName": "agentspy",
+  "description": "\"Educational tool for inspecting Claude Code \u2194 LLM communication via hooks and proxy",
+  "version": "1.0.0",
+  "author": "sandroden",
+  "homepage": "https://github.com/sandroden/agentspy",
+  "skills": []
+}
