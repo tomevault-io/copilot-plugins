@@ -1,0 +1,9 @@
+{
+  "name": "rte-france--atlas",
+  "displayName": "ATLAS",
+  "description": "A power market simulator for day-ahead, intraday and balancing markets in pure Python.",
+  "version": "1.0.0",
+  "author": "rte-france",
+  "homepage": "https://github.com/rte-france/ATLAS",
+  "skills": []
+}
