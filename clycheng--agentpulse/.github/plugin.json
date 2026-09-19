@@ -1,0 +1,9 @@
+{
+  "name": "clycheng--agentpulse",
+  "displayName": "AgentPulse",
+  "description": "\u5f00\u6e90\u300cAI \u516c\u53f8\u5de5\u4f5c\u53f0\u300d\uff1a\u96c7 AI \u5458\u5de5\u3001\u7fa4\u804a\u6d3e\u6d3b\u3001\u5148\u8ba8\u8bba\u518d\u6267\u884c\u3001\u9ad8\u98ce\u9669\u4f60\u62cd\u677f\u2014\u2014\u4e3a\u4e00\u4eba\u516c\u53f8\u4e0e\u81ea\u5a92\u4f53\u6253\u9020\u3002An open-source AI company workspace to hire AI employees and run them like a real company.",
+  "version": "1.0.0",
+  "author": "Clycheng",
+  "homepage": "https://github.com/Clycheng/AgentPulse",
+  "skills": []
+}
