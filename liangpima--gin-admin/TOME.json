@@ -1,0 +1,44 @@
+{
+  "name": "Gin-Admin",
+  "owner": "liangpima",
+  "repo": "Gin-Admin",
+  "description": "\u57fa\u4e8e Go + Gin + GORM + Vue3 + Element Plus\u7684\u4e2d\u5927\u578b\u4e1a\u52a1\u7cfb\u7edf\u540e\u53f0\u7ba1\u7406\u6846\u67b6\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liangpima/Gin-Admin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T01:30:26Z"
+}
