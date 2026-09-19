@@ -1,0 +1,9 @@
+{
+  "name": "atomic14--kicad-esp32-dev-boards",
+  "displayName": "kicad-esp32-dev-boards",
+  "description": "kicad-esp32-dev-boards",
+  "version": "1.0.0",
+  "author": "atomic14",
+  "homepage": "https://github.com/atomic14/kicad-esp32-dev-boards",
+  "skills": []
+}
