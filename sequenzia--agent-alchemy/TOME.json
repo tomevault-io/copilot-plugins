@@ -2,7 +2,7 @@
   "name": "agent-alchemy",
   "owner": "sequenzia",
   "repo": "agent-alchemy",
-  "description": "Agent Alchemy is a curated collection of plugins, apps, and extensions designed to elevate your agentic engineering workflows. Built for Claude Code and other AI coding agents, these tools help developers work smarter and ship faster.",
+  "description": "",
   "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -187,9 +187,1287 @@
       "path": "ported/20260310/full/core-tools/skills/language-patterns",
       "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/core-tools/skills/language-patterns",
       "description": ""
+    },
+    {
+      "name": "claude-code-teams",
+      "path": "claude/claude-tools/skills/claude-code-teams",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/claude-tools/skills/claude-code-teams",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/cs-tools/skills/solve/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/cs-tools/skills/solve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/cs-tools/skills/verify/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/cs-tools/skills/verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/tdd-tools/skills/tdd-cycle/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/tdd-tools/skills/tdd-cycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/sdd-tools/skills/run-tasks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/sdd-tools/skills/run-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/dev-tools/skills/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/release/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/cs-tools/skills/dp-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/cs-tools/skills/dp-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/git-tools/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/git-tools/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/sdd-tools/skills/create-spec/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/sdd-tools/skills/create-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/dev-tools/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/sdd-tools/skills/create-tasks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/sdd-tools/skills/create-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/sdd-tools/skills/analyze-spec/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/sdd-tools/skills/analyze-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/dev-tools/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/dev-tools/skills/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/sdd-tools/skills/execute-tasks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/sdd-tools/skills/execute-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/core-tools/skills/interview-me/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/interview-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/release/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/tdd-tools/skills/generate-tests/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/tdd-tools/skills/generate-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/plugin-tools/skills/port-master/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/plugin-tools/skills/port-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/core-tools/skills/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/cs-tools/skills/data-structures/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/cs-tools/skills/data-structures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/release/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/cs-tools/skills/graph-algorithms/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/cs-tools/skills/graph-algorithms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/tdd-tools/skills/create-tdd-tasks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/tdd-tools/skills/create-tdd-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/tdd-tools/skills/analyze-coverage/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/tdd-tools/skills/analyze-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/dev-tools/skills/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/opencode-tools/skills/oc-tool-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/opencode-tools/skills/oc-tool-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/dev-tools/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/cs-tools/skills/string-algorithms/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/cs-tools/skills/string-algorithms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/tdd-tools/skills/execute-tdd-tasks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/tdd-tools/skills/execute-tdd-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/dev-tools/skills/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/core-tools/skills/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/core-tools/skills/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/core-tools/skills/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/plugin-tools/skills/validate-adapter/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/plugin-tools/skills/validate-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/docs-writer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/docs-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/claude-tools/skills/claude-code-tasks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/claude-tools/skills/claude-code-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/claude-tools/skills/claude-code-teams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/claude-tools/skills/claude-code-teams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/core-tools/skills/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/opencode-tools/skills/oc-create-agent/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/opencode-tools/skills/oc-create-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/opencode-tools/skills/oc-update-agent/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/opencode-tools/skills/oc-update-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/opencode-tools/skills/oc-update-skill/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/opencode-tools/skills/oc-update-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/opencode-tools/skills/oc-create-skill/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/opencode-tools/skills/oc-create-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/plugin-tools/skills/dependency-checker/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/plugin-tools/skills/dependency-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/dev-tools/skills/release/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/dev-tools/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/release/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/dev-tools/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/code-explorer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/code-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/cs-tools/skills/math-and-combinatorics/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/cs-tools/skills/math-and-combinatorics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/plugin-tools/skills/bump-plugin-version/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/plugin-tools/skills/bump-plugin-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/dev-tools/skills/release-python-package/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/release-python-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/opencode-tools/skills/oc-update-command/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/opencode-tools/skills/oc-update-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/code-architect/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/code-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/opencode-tools/skills/oc-create-command/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/opencode-tools/skills/oc-create-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/cs-tools/skills/search-and-optimization/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/cs-tools/skills/search-and-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "claude/plugin-tools/skills/update-ported-plugin/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/plugin-tools/skills/update-ported-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/dev-tools/skills/release/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/dev-tools/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/release/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/lifecycle-hooks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/lifecycle-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/dev-tools/skills/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/dev-tools/skills/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/code-synthesizer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/code-synthesizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/git-tools/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/git-tools/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/git-tools/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/git-tools/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/bug-investigator/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/bug-investigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/docs-writer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/docs-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/dev-tools/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/dev-tools/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/changelog-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/changelog-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/lifecycle-hooks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/lifecycle-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/dev-tools/skills/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/dev-tools/skills/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/dev-tools/skills/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/dev-tools/skills/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/dev-tools/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/dev-tools/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/bug-killer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/bug-killer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/git-tools/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/git-tools/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/git-tools/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/git-tools/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/git-tools/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/git-tools/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/docs-writer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/docs-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/dev-tools/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/dev-tools/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-191444/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/dev-tools/skills/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/dev-tools/skills/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/dev-tools/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/dev-tools/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/docs-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/docs-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/core-tools/skills/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/core-tools/skills/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/core-tools/skills/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/core-tools/skills/code-explorer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/code-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-flat/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-flat/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/core-tools/skills/code-architect/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/code-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/lifecycle-hooks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/lifecycle-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/dev-tools/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/dev-tools/skills/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/core-tools/skills/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/core-tools/skills/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/core-tools/skills/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/core-tools/skills/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/core-tools/skills/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/dev-tools/skills/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/dev-tools/skills/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/core-tools/skills/code-explorer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/code-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/bug-investigator/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/bug-investigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/core-tools/skills/lifecycle-hooks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/lifecycle-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/core-tools/skills/code-synthesizer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/code-synthesizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/changelog-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/changelog-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/core-tools/skills/code-architect/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/code-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/dev-tools/skills/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/dev-tools/skills/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/lifecycle-hooks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/lifecycle-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/core-tools/skills/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/core-tools/skills/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/core-tools/skills/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/dev-tools/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/dev-tools/skills/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/all/skills-nested/release-python-package/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/all/skills-nested/release-python-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/dev-tools/skills/document-changes/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/dev-tools/skills/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/core-tools/skills/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/core-tools/skills/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/core-tools/skills/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/bug-investigator/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/bug-investigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/core-tools/skills/lifecycle-hooks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/core-tools/skills/lifecycle-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/core-tools/skills/lifecycle-hooks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/lifecycle-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/core-tools/skills/lifecycle-hooks/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/core-tools/skills/lifecycle-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/core-tools/skills/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/core-tools/skills/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/core-tools/skills/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/core-tools/skills/code-synthesizer/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/code-synthesizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/changelog-manager/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/changelog-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/dev-tools/skills/project-learnings/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/dev-tools/skills/project-learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/core-tools/skills/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/core-tools/skills/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/core-tools/skills/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/core-tools/skills/codebase-analysis/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/core-tools/skills/codebase-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/core-tools/skills/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/core-tools/skills/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/core-tools/skills/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/core-tools/skills/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/core-tools/skills/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/core-tools/skills/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/core-tools/skills/language-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/core-tools/skills/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/core-tools/skills/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/core-tools/skills/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/core-tools/skills/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/core-tools/skills/technical-diagrams/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/core-tools/skills/technical-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/full/dev-tools/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/dev-tools/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/flat/dev-tools/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/dev-tools/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/core-tools/skills/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/core-tools/skills/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/core-tools/skills/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/core-tools/skills/project-conventions/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/core-tools/skills/project-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260304-102613/dev-tools/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/dev-tools/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260305-085418/dev-tools/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/dev-tools/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "path": "ported/20260310/nested/dev-tools/skills/release-python-package/SKILL.md",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/dev-tools/skills/release-python-package/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/sequenzia/agent-alchemy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T15:37:29Z"
+  "distributed_at": "2026-09-19T12:38:07Z"
 }
