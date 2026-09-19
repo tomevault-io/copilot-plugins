@@ -1,0 +1,9 @@
+{
+  "name": "google--adk-recipes",
+  "displayName": "adk-recipes",
+  "description": "A collection of sample agents built with Agent Development Kit (ADK) ",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/adk-recipes",
+  "skills": []
+}
