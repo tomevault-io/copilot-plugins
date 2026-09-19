@@ -4,7 +4,7 @@
   "repo": "diffle",
   "description": "A web-based diff viewer with LSP support and GitHub integration.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moritzwilksch/diffle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T22:33:52Z"
+  "distributed_at": "2026-09-19T22:34:37Z"
 }
