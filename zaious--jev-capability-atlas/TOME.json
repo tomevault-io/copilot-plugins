@@ -1,0 +1,44 @@
+{
+  "name": "jev-capability-atlas",
+  "owner": "Zaious",
+  "repo": "jev-capability-atlas",
+  "description": "Independent, evidence-based map of when TypeSafe's Jev actually holds up vs. breaks down \u2014 real API-call receipts, not a leaderboard. \u4e2d\u6587\u70ba\u4e3b\u7684\u96d9\u8a9e repo\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Zaious/jev-capability-atlas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T09:31:08Z"
+}
