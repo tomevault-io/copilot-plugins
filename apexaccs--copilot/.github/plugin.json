@@ -1,0 +1,9 @@
+{
+  "name": "apexaccs--copilot",
+  "displayName": "copilot",
+  "description": "Apex Copilot CLI \u2014 AI coding agent",
+  "version": "1.0.0",
+  "author": "apexaccs",
+  "homepage": "https://github.com/apexaccs/copilot",
+  "skills": []
+}
