@@ -4,7 +4,7 @@
   "repo": "astralbeam",
   "description": "The agentic chat widget for your app",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AstralBeamAI/astralbeam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T02:55:31Z"
+  "distributed_at": "2026-09-19T02:57:42Z"
 }
