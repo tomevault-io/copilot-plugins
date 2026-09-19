@@ -1,0 +1,9 @@
+{
+  "name": "rhonstin--beellama-cmp90hx",
+  "displayName": "beellama-cmp90hx",
+  "description": "beellama.cpp fork with CMP 90HX (GA102, sm_86) optimizations: DP4A\u2192IMAD, FP32\u2192HFMA2 \u2014 +58-87% decode speed",
+  "version": "1.0.0",
+  "author": "Rhonstin",
+  "homepage": "https://github.com/Rhonstin/beellama-cmp90hx",
+  "skills": []
+}
