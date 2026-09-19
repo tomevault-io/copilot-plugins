@@ -1,0 +1,9 @@
+{
+  "name": "crawfordind--brain-portal",
+  "displayName": "brain-portal",
+  "description": "A self-hosted, AI-native personal knowledge base. Notes, tasks, projects and contacts, with an AI layer that reads what you already wrote. Next.js 16 + Turso + OpenRouter.",
+  "version": "1.0.0",
+  "author": "crawfordind",
+  "homepage": "https://github.com/crawfordind/brain-portal",
+  "skills": []
+}
