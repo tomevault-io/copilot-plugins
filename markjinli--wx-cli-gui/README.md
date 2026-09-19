@@ -7,11 +7,11 @@ Python GUI wrapper for wx-cli — 微信本地数据可视化工具，基于 jac
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Markjinli/wx-cli-gui](https://github.com/Markjinli/wx-cli-gui).
+Original source: `CLAUDE.md` in [Markjinli/wx-cli-gui](https://github.com/Markjinli/wx-cli-gui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
