@@ -1,7 +1,7 @@
 {
   "name": "sequenzia--agent-alchemy",
   "displayName": "agent-alchemy",
-  "description": "Agent Alchemy is a curated collection of plugins, apps, and extensions designed to elevate your agentic engineering workflows. Built for Claude Code and other AI coding agents, these tools help develo",
+  "description": "agent-alchemy",
   "version": "1.0.0",
   "author": "sequenzia",
   "homepage": "https://github.com/sequenzia/agent-alchemy",
@@ -104,6 +104,858 @@
     },
     {
       "name": "language-patterns",
+      "description": ""
+    },
+    {
+      "name": "claude-code-teams",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
+      "description": ""
+    },
+    {
+      "name": "agent-alchemy",
       "description": ""
     }
   ]
