@@ -1,0 +1,9 @@
+{
+  "name": "franzopl--pesto",
+  "displayName": "pesto",
+  "description": "Fast, lean Usenet poster in Rust: yEnc, NNTP, PAR2 and .nzb generation",
+  "version": "1.0.0",
+  "author": "franzopl",
+  "homepage": "https://github.com/franzopl/pesto",
+  "skills": []
+}
