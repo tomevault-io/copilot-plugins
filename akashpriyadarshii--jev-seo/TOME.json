@@ -4,7 +4,7 @@
   "repo": "jev-seo",
   "description": "100% free \u20b90 agent-first SEO & GEO CLI suite and MCP server in Rust replacing Semrush and OpenSEO via DuckDuckGo and TypeSafe Jev System One",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AkashPriyadarshii/jev-seo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-19T19:30:20Z"
+  "distributed_at": "2026-09-19T19:31:07Z"
 }
