@@ -1,0 +1,9 @@
+{
+  "name": "alexshpunt--explicit-edit-benchmark",
+  "displayName": "explicit-edit-benchmark",
+  "description": "Benchmark coding agents and agent harnesses on 226 deterministic file-editing tasks with byte-exact verification and a public leaderboard.",
+  "version": "1.0.0",
+  "author": "alexshpunt",
+  "homepage": "https://github.com/alexshpunt/explicit-edit-benchmark",
+  "skills": []
+}
