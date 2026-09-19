@@ -1,0 +1,9 @@
+{
+  "name": "navotvolkgroundup--sofit",
+  "displayName": "sofit",
+  "description": "Auto-generate chapters, Hebrew show notes, and pull-quotes for Hebrew podcasts (mp3/mp4) from a local transcript.",
+  "version": "1.0.0",
+  "author": "navotvolkgroundup",
+  "homepage": "https://github.com/navotvolkgroundup/sofit",
+  "skills": []
+}
