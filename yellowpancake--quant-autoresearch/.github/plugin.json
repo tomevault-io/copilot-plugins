@@ -1,0 +1,9 @@
+{
+  "name": "yellowpancake--quant-autoresearch",
+  "displayName": "quant-autoresearch",
+  "description": "A minimal framework for Agents to research quantitative strategies under a fixed evaluation protocol.",
+  "version": "1.0.0",
+  "author": "YellowPancake",
+  "homepage": "https://github.com/YellowPancake/quant-autoresearch",
+  "skills": []
+}
