@@ -7,11 +7,11 @@ A web-based diff viewer with LSP support and GitHub integration.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [moritzwilksch/diffle](https://github.com/moritzwilksch/diffle).
+Original source: `AGENTS.md` in [moritzwilksch/diffle](https://github.com/moritzwilksch/diffle).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
