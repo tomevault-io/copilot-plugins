@@ -1,0 +1,9 @@
+{
+  "name": "m-dwyer--digikit",
+  "displayName": "digikit",
+  "description": "Emulator and custom firmware tools for Elektron Digi boxes",
+  "version": "1.0.0",
+  "author": "m-dwyer",
+  "homepage": "https://github.com/m-dwyer/digikit",
+  "skills": []
+}
