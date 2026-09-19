@@ -1,0 +1,3827 @@
+## mantaui
+
+> generates on the box. Follows the same "MantaUI tools" pattern as the scheduler
+
+# AGENTS.md — context for future sessions
+
+MantaUI is an Electron desktop client for `claude`/opencode sessions running on a
+remote Linux box, reached **over HTTPS** (no SSH). Pipeline:
+**xterm.js (renderer)** ↔ **HTTP/WS** ↔ **manta-server (`src/server/`, on the box)**
+↔ **tmux + opencode** ↔ **claude**.
+
+**HTTP-only is the sole transport.** The desktop reaches the box via direct
+HTTPS to manta-server, authenticated with a `boxToken` obtained during pairing.
+No SSH, no mosh, no tunnels, no `-L` forwards, no ControlMaster — **the server
+IS the box**. The old SSH/PTY main-process transport (`src/main/pty.ts`,
+`src/main/opencode.ts`, the event tunnel, forward-heal) was deleted; only two
+transport modes remain (`src/shared/transport.mjs`): `http` (paired) and
+`onboarding` (pre-pairing). See "Desktop transport (HTTP-only)" below.
+
+The SAME manta-server serves the mobile/web front-end. Desktop and mobile are both
+thin clients over the identical `/rpc` + `/events` HTTP surface; the desktop adds
+only OS-integration bridges (clipboard, screenshot, file peek, notifications) via
+its Electron preload. See "Mobile / web client" below.
+
+**Runtime note (the code hasn't fully caught up to this yet):** once paired,
+`src/renderer/main.tsx` swaps `window.api` to `httpApi` (`/rpc` + `/events`), so
+EVERY renderer data call goes over HTTP. The Electron IPC path (`src/preload/` +
+`src/main/index.ts` handlers) is now vestigial for data — it carries only the
+pre-pairing `authClaim`/`authPair` channels plus the OS bridges. A large
+dead-surface removal is tracked in **BET-124** (docs/preload cleanup). The
+redundant `src/main/{schedule,secrets,webhook,sharedConfigSync}.ts` HTTPS
+clients are already deleted and the `Api` type now lives in `src/shared/api.ts`.
+Treat any `src/main/*` data client or IPC handler other than pairing + OS
+bridges as dead.
+
+See `README.md` for user-facing intro and `HANDOFF.md` for the most recent
+session-state snapshot.
+
+## NEVER STUB A CONTROL TO DO NOTHING
+
+**If the user can press it, it MUST do something. Every time. No exceptions
+outside tests.** A control that silently does nothing is the single most
+expensive defect this codebase produces, because it is indistinguishable from a
+broken backend, a broken build, and a broken app — so it gets reported as
+"X is broken", debugged everywhere except the button, and the real answer turns
+out to be that someone shipped an empty function on purpose.
+
+The three legal outcomes of a press are:
+
+1. **It does the thing** — and SAYS SO. An action whose result isn't visible on
+   screen has not communicated anything; a save that shows no confirmation is
+   read as a save that didn't happen (that exact bug: a working download
+   reported as broken, twice).
+2. **It fails, and says why** — an error the user can act on. "Couldn't save —
+   the file is still on the server, try again" is a real outcome. A swallowed
+   `catch {}` is not.
+3. **It isn't there.** If the current platform / mode / state genuinely cannot
+   perform the action, DON'T RENDER THE CONTROL (or render it disabled with a
+   reason in the title). A hidden button is honest; a dead one lies.
+
+What is explicitly BANNED:
+
+- `foo: async () => {}` in ANY client shim, adapter, or platform layer, for
+  anything a control invokes. **This is not a mobile-vs-desktop question.** The
+  desktop swaps `window.api` to `httpApi` once paired, so every "mobile-only"
+  no-op there is what the DESKTOP calls too — that is precisely how the download
+  path (BET-1156) and then `revealInFolder` (#1215) both shipped as dead
+  buttons while the real OS bridge sat right there in the preload, fully
+  implemented. If a capability exists on the current platform, DELEGATE to it;
+  if it doesn't, see outcome 3.
+- Fire-and-forget calls for a user action (`void doThing()`), which turn a
+  failure into a devtools-only rejection and a success into nothing at all.
+  Await the result and report BOTH branches — `saveToDownloads`
+  (`src/renderer/downloadFeedback.ts`) is the reference shape.
+- `catch {}` with a "non-fatal" comment on a user-initiated action. Non-fatal to
+  the PROGRAM, maybe; to the user it is the whole point of the click.
+- A TODO-shaped placeholder handler on a shipped control. Ship the control when
+  it works, not before.
+
+The ONE legitimate no-op is an EVENT SUBSCRIPTION for a signal a transport never
+emits (e.g. `onScreenshotDetected` on a phone: nothing fires it, so nothing is
+missing and no control is dead). That is a listener, not an action. Do not
+generalise it into a licence to stub actions — that generalisation is the bug.
+
+**Known outstanding violation** (fix it, don't copy it): `peekRemoteFile` in
+`httpApi.ts` falls through to an RPC no-op because no `ipcMain` handler was ever
+registered, so clicking an absolute path in the terminal does nothing at all.
+The comment there explains why it was left; the explanation is not a defence.
+
+## Layout
+
+- `src/server/` — **the core.** Node HTTP+WS server that runs **on the Linux
+  box** and owns everything: tmux, opencode, config, schedules, secrets,
+  webhooks, push, peers, serve-page. It's what both the desktop and the
+  mobile/web client talk to over HTTPS. Serves the React renderer built by
+  `build:mobile`. Module tree: `index.mjs` (entry + `/rpc` + `/events` + REST
+  `/api/*`), `rpc.mjs` (channel dispatch — the `window.api` contract server
+  side), `tmux.mjs`, `opencode.mjs` (HTTP proxy to opencode on `127.0.0.1:4096`
+  + SSE), `pty.mjs`, `events.mjs` (bus + SSE), `local.mjs` (config/git/fs),
+  `status.mjs`, `push.mjs`, `schedule.mjs`, `secrets.mjs`, `webhooks.mjs`,
+  `servePage.mjs`, `peers.mjs`, `outbox.mjs`, `auth.mjs`.
+- `src/renderer/` — React + xterm.js UI (desktop `App.tsx` + mobile
+  `MobileApp.tsx`). `Terminal.tsx` is the only place that owns an xterm
+  instance. `ChatPanel.tsx` is the entire chat-mode UI (~2285 LoC).
+  - `api/httpApi.ts` — implements the full `Api` contract over `/rpc` +
+    `/events`. **This is the live data path on BOTH desktop and mobile.**
+    `main.tsx` installs it as `window.api` when paired.
+  - `preloadAccess.ts` — the narrow `MantaPreload` interface: the ~9 OS bridges
+    the renderer reaches via `window.__mantaPreload` (clipboard, openExternal,
+    reveal, screenshot, file peek, desktop-notify, getPathForFile).
+  - `chatUtils.ts` — pure utility functions extracted for testability
+    (`formatTokens`, `formatDuration`, `ctxStageColor`, `filterCommands`,
+    `dedupeAgainstBuiltins`, `resolveContextLimit`, `classifyFinish`,
+    `describeTruncation`, `isTerminalTodo`, `allTodosTerminal`).
+    Import from here; don't redeclare them inline in ChatPanel.
+- `src/preload/` — Electron `contextBridge`. Exposes OS-integration bridges as
+  `window.__mantaPreload`. The `Api` type it used to own now lives in
+  `src/shared/api.ts`, which typechecks `httpApi`. NOTE: it still *declares*
+  ~30 methods but nearly all are dead in HTTP mode (their `ipcMain` handlers
+  were removed) — the runtime only needs the OS bridges + `authClaim`/`authPair`.
+  Exactly one declared method is dead: `peekRemoteFile`. See BET-124 / the
+  preload-shrink epic.
+- `src/main/` — Electron main process, now **OS-integration + pairing only**:
+  screenshot detector, clipboard, drag-drop, `desktopPresence.ts`,
+  `desktopNotify.ts`, `autoUpdate.ts`, `auth.ts` (pairing claim), `config.ts`
+  (local `{serverUrl, boxId, boxToken, projects}` store). It does NOT own tmux,
+  pty, or opencode anymore — those live in `src/server/`. `src/main/` holds
+  only `auth.ts`, `autoUpdate.ts`, `busConsumer.ts`, `capExecutor.ts`,
+  `config.ts`, `desktopNotify.ts`, `desktopPresence.ts`, `index.ts`,
+  `serverUpdateForwarder.ts`, `unpair.ts`, `windowChrome.ts`, plus `installer/`
+  and tests.
+- `src/shared/` — transport mode resolution (`transport.mjs`), plus pure logic
+  shared by renderer + server (`groq.mjs`, `subagentSync.mjs`,
+  `modelGuide.mjs`).
+
+## Native iOS app — see `mobile/native/AGENTS.md`
+
+The Swift/iOS client has its own agent guide at **`mobile/native/AGENTS.md`**: architecture,
+the xcodegen build model, how to verify Swift changes (there is no Swift toolchain on the Linux
+box), the Swift 6 concurrency rules, and the transcript-list crash history. Read it before
+touching anything under `mobile/native/`.
+
+## Build / run
+
+```
+npm install
+npm run typecheck
+npm test              # vitest (renderer) + node:test (src/server/*.test.mjs)
+npm run test:server   # node:test only (src/server/)
+npm run test:watch    # vitest watch mode (renderer only)
+npm run dev           # main-process AND preload changes need a full Ctrl+C + restart
+npm run mobile        # server on $MANTA_MOBILE_HOST:$MANTA_MOBILE_PORT (default 0.0.0.0:8787)
+```
+
+The preload bundle is built once at dev-server start; renderer HMR alone won't
+pick up new `window.api` methods. If you add an IPC channel and don't see it
+on `window.api`, you didn't restart.
+
+**BET-559 retired the mobile/web client and its bundle/publish pipeline.**
+The box no longer serves a web/PWA bundle, `src/server/index.mjs` no longer
+has a `PUBLIC_DIR`, and `build:mobile` / `mobile-bundle-deploy.yml` /
+self-update's bundle fetch are gone. The renderer (`src/renderer/`) is the
+desktop Electron app only; the native iOS client is `mobile/native`. The text
+below is the historical record of the retired bundle model.
+
+- **On a feature branch: just edit the source** (`ChatPanel.tsx`, `mobile.css`,
+  `src/renderer/**`, the service worker under `src/renderer/public/`). Do NOT
+  run `build:mobile` and commit `mobile/www/` — it's ignored, and committing it
+  is what used to make every two in-flight PRs conflict on the content-hashed
+  filenames + `index.html`'s `<script src>` (BET-118). If you want to preview on
+  a device before merge, `npm run build:mobile` locally and test — the output is
+  ignored, so nothing to un-stage.
+- **On merge to main: CI builds the bundle and publishes it as a release
+  ARTIFACT — it is NOT committed to git.** `.github/workflows/mobile-bundle-deploy.yml`
+  runs `build:mobile` on every push to `main` and uploads the result to the prod
+  release host as `releases/mobile-<gitsha>.tar.gz` + a `releases/mobile-latest.txt`
+  manifest (git sha + filename + sha256), scp'd over SSH with the same
+  `PROD_SSH_KEY` repo secret as `website-deploy.yml` (GitHub-hosted
+  `ubuntu-latest`). **No auto-PR, no commit to main, no
+  loop-guard** — the old `build-mobile-bundle.yml` (which committed the bundle
+  back through an auto-merged `chore(mobile): rebuild …` PR) was deleted because
+  committing generated bytes on every merge meant PR churn + CI minutes + build
+  artifacts in source history.
+  - **Two consumers fetch the bundle instead of relying on a git commit:**
+    - *Fresh install* (`scripts/install.sh`) already builds its own bundle via
+      `scripts/release/pack.mjs` (`npm run build:mobile`) inside the release
+      tarball — UNAFFECTED by this change.
+    - *Ongoing self-update* (`scripts/self-update.sh`) downloads + sha256-verifies
+      + extracts `mobile-latest.txt`'s tarball AFTER `git reset --hard origin/main`
+      (which now leaves NO `mobile/www/` since it's gitignored). The fetch is
+      NON-FATAL: if the release host is unreachable the box keeps its existing
+      `mobile/www/` and the server still runs. `MANTA_RELEASE_HOST` overrides the
+      host (default `https://mantaui.com`), same knob as install.sh.
+  - **Deploy stays "pull + restart, no Vite build on the box"** — the box never
+    runs `build:mobile`; it only downloads a prebuilt tarball. The workflow
+    serializes via a concurrency group so two quick merges don't race, and
+    verifies the published bundle is live + sha-matches before going green.
+
+Symptom if the bundle is stale on a device: the desktop Electron app shows your
+changes (it runs Vite live), but the phone PWA looks unchanged. On main this
+means the `mobile-bundle-deploy` workflow hasn't finished (or failed), OR the
+box's `self-update.sh` hasn't run since the publish — check the workflow run and
+`curl https://mantaui.com/releases/mobile-latest.txt` (its `git_sha` should match
+main's HEAD).
+**No server restart is needed** — manta-server reads the static files per-request
+and sends `no-store` on `index.html` (so the next PWA launch / hard-refresh
+pulls the new content-hashed JS/CSS automatically). The service worker does NO
+asset caching (`mobile/www/sw.js`), so it isn't the culprit. To see changes
+on-device: force-quit + reopen the iOS PWA (or hard-refresh the browser).
+Desktop is unaffected by this — only the mobile/web client serves from
+`mobile/www/`.
+
+**CI runs on fresh GitHub-hosted runners — free + unlimited, and in parallel.**
+MantaUI is a **PUBLIC** repo, so GitHub-hosted standard runner minutes are free
+and effectively unlimited, with **20 concurrent jobs**. On 2026-08-01 the repo
+dropped its last self-hosted runner (`manta-dev-runner`, the old single dev-box
+runner that serialized every job into one queue) and moved **every** workflow to
+`ubuntu-latest` (or `macos-14` / `windows-latest` where needed). Before the
+2026-07-27 pass a PR cost **13.2 minutes of exclusive runner time** across six
+jobs in three workflow files, four of them repeating the same checkout and
+`npm ci`; the one-runner queue that motivated that cost discipline is gone.
+
+Two non-minute caveats that still matter on a free public repo: **artifact +
+GitHub Packages storage is 500 MB (GitHub Free) and shared** — keep artifact
+retention short (e.g. 7d, not 90d) and prune old releases, because the
+`server-tarball`, `windows-desktop`, and `macos-install-smoke` jobs upload large
+artifacts — and Actions **cache** is 10 GB/repo. Minutes themselves aren't a
+budget.
+
+Everything lives in `.github/workflows/ci.yml` as **two** jobs:
+
+| Job | Required? | What |
+|---|---|---|
+| `typecheck-test` | **yes — the only one** | `npm run typecheck`, `npm test`, gitleaks secret scan, conditional dependency audit, advisory duplication sticky comment |
+| `duplication-gate` | no | strict jscpd gate; de-required 2026-07-02 (flaky at token boundaries) but still goes red as a signal |
+
+(The `E2E Smoke Test` job — Electron + Xvfb smoke under `xvfb-run -a` — was
+removed from `ci.yml`: it was flakier than the deterministic gates. Its script
+`scripts/check-e2e-smoke.sh` and `tests/e2e/**` stay in the repo, runnable
+locally.)
+
+The GATE-2 tamper-proof property still holds: `typecheck-test` runs on fresh,
+ephemeral GitHub-hosted runners (arguably *more* isolated than the maintainer's
+long-lived dev box), so the PM's `gh pr checks` check is still independent of
+whatever an implementer agent claims locally. Job names are unchanged, so
+`required-checks.json` and the `main` ruleset are untouched.
+
+What changed (mirrors tenanture TEN-618): `security-gates.yml` and
+`anti-spaghetti.yml` were deleted and their steps moved into `typecheck-test` —
+same detectors, same blocking semantics, three fewer runner slots. `node_modules`
+is cached on the lockfile hash and Playwright browsers on the same key, so
+`npm ci` and the browser download run only when the lockfile actually moves;
+that was the bulk of the waste. With jobs parallel, splitting a job out no longer
+queues other PRs — only keep a step a step when the logic is co-located.
+
+**`macos-install-smoke.yml`** (GitHub-hosted `macos-14`, Apple Silicon) installs
+the box END-TO-END the way a user does (`curl mantaui.com/install.sh | bash`) and asserts the macOS-only path
+actually works: LaunchAgents load and stay alive, manta-server + opencode answer
+on loopback, the tail prints a 6-digit pairing code, no `systemctl` advice is
+ever printed (BET-277), `manta pair` mints a fresh code, `/auth/claim` exchanges
+it for a real box token, that token drives a tmux RPC (which catches the launchd
+PATH trap — launchd agents do NOT inherit a login-shell PATH, so a Homebrew-only
+`tmux` is invisible to the server), and a re-install preserves the box identity.
+Triggers: manual, weekly cron, and PRs that touch `scripts/install*.{sh,mjs}` /
+`scripts/launchd/**` (those run the BRANCH copy of the script, deployed from the
+PR's own commit — install.sh resets `$MANTA_HOME` to `origin/main`, so without
+that a PR's server/plist changes would never be the ones under test). Gateway
+registration is stubbed to a dead loopback port for the INSTALLER, but the
+server re-registers itself on boot, so each run still leaves one throwaway
+`<box_id>.boxes.mantaui.com` A record on the prod zone.
+
+**Two environment traps this workflow found, both of which made a macOS box
+look installed-and-paired while being unusable.** Neither is reachable from a
+unit test; if you touch service definitions or tmux invocation, keep them in
+mind:
+
+- **A service gets no PATH.** launchd hands an agent
+  `/usr/bin:/bin:/usr/sbin:/sbin`; it does NOT inherit a login shell's PATH.
+  macOS ships no tmux, so tmux is always a Homebrew binary and was invisible to
+  manta-server — `tmux:new-session` 500'd with ENOENT while `listProjects`
+  swallowed the error and reported an empty box. Both plists now carry a PATH
+  rendered by `launchd_agent_path` in install.sh.
+- **A service gets no LOCALE, and tmux mangles its own output without one.**
+  Under a non-UTF-8 locale tmux sanitises "unprintable" bytes in `-F` output,
+  so the TAB field separator `src/server/tmux.mjs` relies on came back as `_`:
+  `list-sessions` reported the session name as `<name>_<attachedFlag>` and every
+  window line then failed to match a session and was silently dropped. Fixed at
+  the single tmux spawn point (`tmuxSpawnEnv`) rather than in a plist/unit, so
+  it holds under launchd, systemd, the nohup fallback and any hand-rolled
+  supervisor. **Linux was latently exposed too** — the systemd unit declares no
+  locale either; it only escaped because the box runs tmux 3.4.
+- **Windows SSH auth fails for non-Unix reasons.** The OpenSSH Agent service is
+  disabled by default on Windows 10/11, and PuTTYgen writes `.ppk` keys OpenSSH
+  cannot read. Both surface as a generic `Permission denied (publickey)` over SSH
+  with no hint of the real cause — a Windows user with an unconfigured agent or a
+  PuTTY-only key sees the preflight's auth-failed step and nothing more. The
+  installer's preflight now runs two LOCAL probes (`windows-agent` via `ssh-add -l`,
+  `key-format` via the `~/.ssh/id_*` file header) on `process.platform === 'win32'`
+  and surfaces a structured failure with the Windows-specific fix, but only when
+  auth already failed — a working Windows setup (unencrypted OpenSSH key, or a key
+  the agent already holds) must not be blocked by a stray `.ppk` file sitting
+  unused in `~/.ssh`. See `src/main/installer/preflight.ts` (BET-362).
+
+**`main` is governed by ONE system: the ruleset** (Settings → Rules → Rulesets →
+"main"). The legacy per-branch protection rule was deleted 2026-07-27 because
+GitHub enforces the UNION of both, so having two overlapping configs meant an
+edit in one screen silently did nothing — exactly what happened while shrinking
+the required checks. The ruleset also carries the guarantees the classic rule
+did not (no deletion, no force-push, PR required) and, unlike classic
+protection, is readable through the API with an ordinary token, so the sync rule
+below can actually be verified. Do not re-add a classic branch protection rule.
+
+Two rules that are load-bearing, not stylistic:
+
+- **The dependency audit runs on a PR only when that PR changes
+  `package.json`/`package-lock.json`.** Its result depends on the dependency
+  set, not on the PR's code, so auditing every PR re-measures `main` — and the
+  day a new upstream advisory lands, every open PR goes red at once through no
+  fault of its own. `dep-audit-nightly.yml` covers `main` daily instead, so an
+  advisory surfaces as one red run and one fix issue. tenanture hit the mass-red
+  failure five times (TEN-574/585/588/589/606) before splitting it this way.
+- **`required-checks.json` must stay in sync with the `main` branch ruleset's
+  required contexts.** They are two separate places (one in git, one in GitHub
+  config). Requiring a context no job produces blocks every PR forever, so when
+  changing job names update the ruleset FIRST, then merge the workflow change.
+
+The ruleset itself is deliberately **not strict** (branches need not be up to
+date with `main` before merging). Do not turn that on: with several agent PRs in
+flight it forces every merge to invalidate every other PR, which is O(N²) rebase
++ re-review + re-run churn. tenanture enabled it (TEN-386) and had to undo it
+(TEN-617).
+
+Git-synced (since 2026-05-16). Single source of truth:
+`git@github.com:antoinedc/MantaUI.git` (public). Both the remote dev box
+(`dev@157.90.224.92:/home/dev/projects/better-ui`) and the Mac are clones
+tracking `origin/main`. **No more rsync** — push from whichever side you
+worked on, `git pull` on the other before starting. Commit as you go;
+`git log` is the cross-session audit trail.
+
+## Keybindings
+
+Window-scoped, in `App.tsx`. xterm-internal handlers (⌘C/V/F/K) live in
+`Terminal.tsx` and only fire when the terminal has focus.
+
+| Shortcut    | Action                                       |
+| ----------- | -------------------------------------------- |
+| ⌘N          | New project (workspace)                      |
+| ⌘T          | New session in active project                |
+| ⌘1..9       | Jump to nth (project, window) in sidebar     |
+| ⌥⌘↑ / ⌥⌘↓ | Step prev/next session, wraps both ends     |
+| ⌘I          | Toggle the Artifacts panel (chat pane active only) |
+| ⌘,          | Open Settings                                |
+| ⇧⌘M         | Voice (chat composer): tap toggles recording on/off, hold is push-to-talk |
+
+The voice row is a capture-phase handler in `src/renderer/hooks/useVoice.ts`,
+not a window-scoped `App.tsx` one; while a take is active, `Enter` stops +
+sends, `Space` pauses/resumes (only when the composer textarea isn't focused),
+and `Esc` discards. The old no-shift binding was retired — it collided with the
+terminal's carriage return and sat on Wispr Flow's conflict list.
+
+Flat order for ⌘1..9 / ⌥⌘ navigation comes from `flatSessions(projects)` —
+the sidebar's top-down (project, window) tuple list. Don't reorder it without
+checking the keybind handler.
+
+## File transfer
+
+All file transfer is over HTTP to manta-server — no SSH, no scp, no ControlMaster.
+The server IS the box, so every operation is a direct `POST`/`GET` to
+`<serverUrl>/api/*` with `Authorization: Bearer <boxToken>`.
+
+**Drag in (upload).** Drop a file on the active terminal → `POST
+<serverUrl>/api/upload?session=<name>` streams the bytes straight to
+`~/.manta-uploads/<session>/<batch>/<file>` on the box. `webUtils.getPathForFile(file)`
+in the preload extracts the local path (Electron 31+ removed `File.path`, so the
+renderer can't read it directly). A window-level dragover/drop swallow in
+`App.tsx` keeps missed drops from navigating the renderer to `file://`. The
+absolute remote path is written into the PTY for claude to read.
+
+**Click out (peek).** xterm `LinkProvider` for absolute paths + an explicit
+click handler on `WebLinksAddon`. Path click → `GET
+<serverUrl>/api/peek?path=<abs>&session=<name>` streams the remote file bytes
+back → `__mantaPreload.peekRemoteFile` returns them to the renderer, which
+opens the file with the OS default app. URL click →
+`shell.openExternal`. **Don't rely on WebLinksAddon's default** — its
+`window.open` path gets denied by `setWindowOpenHandler` in `main/index.ts`, so
+URLs silently no-op.
+
+**Hourly cleanup** of `~/.manta-uploads/`: `find -mindepth 2 -maxdepth 2 -type d
+-mmin +N -exec rm -rf {} +` deletes per-batch `<ts>` directories, then prunes
+empty session dirs. Threshold is `uploadCleanupHours` in config (default 1,
+`0` disables). Sweep runs once at app load + every hour after; worst-case
+staleness ≈ `uploadCleanupHours + 1h`.
+
+**Agent → laptop push (outbox / download).** The reverse of drag-in: the remote
+AI sends a file via the `send_file` tool, which manta-server copies into
+`~/.manta-outbox/<sessionID>/` (the workspace-linked artifact mailbox; the AI
+keeps its working copy). MantaUI detects it and can pull it to the Mac's
+Downloads folder via `GET <serverUrl>/api/download?path=<relative>`.
+Detection is a 3s **outbox poller** (`pollOutboxOnce` → `GET /api/outbox?session=<name>`
+→ JSON listing) / the server-side `startOutboxPoller`, mirroring the screenshot
+Desktop watcher's philosophy (cheap periodic check, push a toast). The outbox is
+a **durable, TTL'd artifact store**, NOT a one-shot mailbox: files are
+**not deleted on download** (both `/api/download` and the artifacts panel's
+`/api/peek` leave the source in place), they're workspace-linked (the subdir is
+the opencode session id, so each artifacts panel shows only its conversation's
+files), and a server sweep (`expireArtifacts`, every 5 min) removes them once
+their TTL elapses (default 7 days). The poller keeps a `seenOutboxPaths` set
+(cleared on host change) reconciled against the live listing each tick so a
+require-confirm toast the user hasn't answered isn't re-offered every 3s.
+
+- **Trust flag `allowAgentPush`** (AppConfig, default OFF, Settings UI). ON =
+  download immediately + informational toast ("↓ name · saved to Downloads ·
+  Reveal"). OFF = a confirm toast ("AI sent you a file · Save / ×"); the
+  renderer's `saveAgentFile` calls `agentPullFile` on Save. Mirrors
+  `chatAutoAllow`'s shape but is a SEPARATE flag — writing to Downloads is a
+  different trust boundary than auto-allowing tool runs.
+- **`downloadsDir`** (AppConfig) overrides the destination; empty →
+  `app.getPath("downloads")`. Resolved in `resolveDownloadsDir()`.
+- **Toast** is a single global instance like the screenshot toast:
+  `agentFileToast` in the store, App.tsx owns the one `onAgentFileReady`
+  listener, the active ChatPanel renders it. De-dupe on collision via
+  `uniqueLocalPath` (`report.pdf` → `report (1).pdf`).
+- **`/api/download` is scoped to the user's HOME dir, not to the outbox
+  (BET-1195).** Inline media shown via `media_show` can sit at ANY path inside
+  home — the tool never copies it into the mailbox — so an outbox-only guard
+  meant a file the transcript happily DISPLAYED (`/api/peek`, already
+  home-scoped, same bearer) could not be SAVED: the download 403'd, the desktop
+  bridge returned `""`, and the renderer threw a bare "download failed". The two
+  routes now share one rule. This does not widen what an authenticated client
+  can read; it only stops display and download from disagreeing.
+- **Every download REPORTS ITSELF (BET-1198) — `saveToDownloads` in
+  `src/renderer/downloadFeedback.ts` is the one non-toast call site.** The
+  inline-media hover/preview Download and the artifacts row were previously
+  fire-and-forget: a success showed nothing and a failure showed only an
+  "Uncaught (in promise)" in devtools, so the two were indistinguishable from a
+  dead button — a WORKING save was reported as broken more than once. Rules:
+  desktop success → a confirmation toast naming the **full destination folder**
+  (`Saved dog.mp4 to /Users/x/Downloads`) + Reveal; mobile/web (`agentPullFile`
+  returns `""`) → silent ON PURPOSE, the browser owns that chrome; failure → an
+  error toast saying the file is still on the server. The agent-file toast keeps
+  its own Save→Reveal lifecycle but shares the copy via `savedToastMessage`.
+  Name the folder, never just "Downloads": `downloadsDir` makes that ambiguous.
+- **The AI sends files via the `send_file` tool** (`docs/opencode-tools/send-file.ts`,
+  a manta-native opencode tool like `serve_page`). It POSTs the file path + its
+  `context.sessionID` to `POST /api/outbox/push`, which copies the file into
+  `~/.manta-outbox/<sessionID>/` (workspace-linked) and hands it a TTL (default
+  7 days, or `ttlHours:0` for never). Install on the remote opencode host:
+  `cp <repo>/docs/opencode-tools/send-file.ts ~/.config/opencode/tools/send-file.ts`
+  plus the shared `manta-auth.ts` module it imports
+  (`cp <repo>/docs/opencode-tools/manta-auth.ts ~/.config/opencode/tools/manta-auth.ts`),
+  then restart `opencode-serve`. The legacy `/send-file` markdown command
+  (`docs/opencode-commands/send-file.md`) still works for a bare `cp` to the
+  root, but that path is NOT workspace-linked.
+- **Mobile** has no Mac Downloads folder (the server IS the box). A server-side
+  outbox poller (`src/server/outbox.mjs`, `startOutboxPoller` wired in
+  `index.mjs`) `readdir`s `~/.manta-outbox/` locally every 3s and publishes
+  `{kind:"agentFile"}` bus events; the httpApi shim's `onAgentFileReady`
+  subscribes to that kind. Every detection is a CONFIRM toast (`autoPulled:false`)
+  — there's no silent disk write to a phone/browser. Tapping Save calls
+  `agentPullFile`, which triggers a browser download via `GET /api/download`
+  (`src/server/index.mjs`, path-traversal-guarded to `~/.manta-outbox/`). The
+  download is **non-destructive** — the source stays until the TTL sweep
+  reclaims it. The mobile `agentPullFile`
+  returns `""` (no OS path to reveal) so the toast dismisses instead of showing
+  a dead "Reveal" button; `revealInFolder` is a no-op. `MobileApp.tsx` wires the
+  `onAgentFileReady` listener (mirror of `App.tsx`). Pure scan logic
+  (`createOutboxScanner`, `listOutbox`) is tested in `src/server/outbox.test.mjs`.
+
+## Mobile / web client (`src/server/`) — BET-559: web client retired
+
+Node HTTP+WS server that runs **on the Linux box** (no SSH hop). BET-559
+retired the web/PWA client that used to be served from `mobile/www/` (the
+React renderer built by `npm run build:mobile`) — the box no longer serves a
+web client. The native iOS client lives in `mobile/native` (Swift). The
+renderer (`src/renderer/`) is the DESKTOP Electron app only.
+
+**Server modules:**
+- `tmux.mjs` — tmux list/CRUD/config (pure, testable; `parseSessions` is
+  exported for tests)
+- `pty.mjs` — node-pty spawn registry keyed by projectName. `spawnRawPty`
+  used by the `/pty` WS path; `spawn` used by the RPC `pty:spawn` channel
+- `opencode.mjs` — opencode HTTP proxy to `127.0.0.1:4096` (no SSH layer).
+  `subscribeEvents` reconnects silently with 1.5s backoff
+- `events.mjs` — in-process `createBus()` + `GET /events` SSE endpoint
+- `rpc.mjs` — `POST /rpc/<channel>` dispatch; `buildHandlers({tmux,oc,pty,bus,local})`
+  maps all `window.api` channels
+- `local.mjs` — git worktrees, fs listing, JSON-file-backed config
+  (`~/.manta/config.json`). Desktop-only concepts (Mac clipboard, mosh,
+  scp peek) are documented no-ops
+- `status.mjs` — ports `src/main/status.ts` activity poller; same BUSY_RE /
+  subagent regexes, runs locally, publishes `WindowStatus[]` batches on bus
+
+**`window.api` shim** (`src/renderer/api/httpApi.ts`): implements the full
+`Api` contract over `/rpc` + `/events`. Installed in `main.tsx` only when
+`window.api` is absent (Electron preload not loaded). Server base read from
+`localStorage["manta_server"]`.
+
+**Trust mode (chatAutoAllow)**: the opencode pump in `index.mjs` reads
+`configGet()` per `permission.asked` event and auto-replies "always" when
+enabled — mirrors `src/main/index.ts` opencodeBusLoop. Config file is
+`~/.manta/config.json`; atomic writes (temp-rename pattern).
+
+**Auth (M1, live since 2026-07-02).** manta-server enforces
+`Authorization: Bearer <box_token>` on EVERY data route (`/rpc`, `/events`,
+`/pty`, `/api/*`, `/push/*`) — `src/server/auth.mjs`, gate wired in
+`index.mjs`. Only `/auth/pair` (loopback-only mint), `/auth/claim`, and
+`/hook/<token>` are exempt. Token store: `~/.manta/auth.json` (0600).
+Devices pair via a 6-digit one-time code (`curl -s
+http://127.0.0.1:8787/auth/pair` ON the box, then enter the code in the
+device's pairing screen); rollout runbook in `docs/auth-enforcement-rollout.md`.
+Escape hatch: `MANTA_AUTH_DISABLED=1` (temporary only). **GOTCHA — the
+MantaUI-native opencode tools (`docs/opencode-tools/*.ts`) must send this Bearer
+header too**: each tool's `boxToken()` reads `~/.manta/auth.json` directly
+(same box, same user) per call. When the gate first shipped the tools had no
+auth plumbing and EVERY tool call failed "unauthorized" — if you add a new MantaUI
+tool, copy the `boxToken()`/`authHeaders()` helpers, or it will 401.
+Browsers can't set headers on WS/EventSource, so `/events` + `/pty` (ONLY)
+also accept `?token=`. Default bind `127.0.0.1:8787`. Internet access is a
+**named Cloudflare tunnel on QUIC**, run by **systemd --user** on the box
+(`dev@157.90.224.92`), surviving reboots via `loginctl enable-linger dev`:
+
+- `~/.config/systemd/user/manta-server.service` → `node src/server/index.mjs`
+  (`MANTA_MOBILE_HOST=127.0.0.1`, port 8787).
+- `~/.config/systemd/user/manta-tunnel.service` (`Requires=manta-server`) →
+  `cloudflared tunnel --config ~/.cloudflared/config.yml run manta`.
+- Permanent URL: **https://app.mantaui.com** (named tunnel
+  `6cdca2ea-…`, zone `mantaui.com`). Stable across restarts — the iOS
+  PWA install stays valid.
+- Manage: `systemctl --user {status,restart} manta-tunnel manta-server`;
+  logs `journalctl --user -u manta-tunnel`.
+
+**QUIC, not http2.** The old `--protocol http2` quick-tunnel buffered SSE
+(`/events` connected but streamed zero bytes → UI never updated). The
+named tunnel uses `protocol: quic` in `~/.cloudflared/config.yml`, which
+streams SSE correctly (verified 2026-05-17, cloudflared 2026.5.0). The
+earlier "QUIC fails on this box" note was stale and is retired — do not
+reintroduce `--protocol http2`.
+
+**WS protocol** (`/pty?session=NAME&window=N&cols=&rows=`): unchanged.
+Client→server: `{type:"data",data}` or `{type:"resize",cols,rows}`.
+Server→client: raw PTY bytes.
+
+**Upload endpoint** (`POST /api/upload?session=NAME`): unchanged layout
+(`~/.manta-uploads/<session>/<batch>/<file>`).
+
+**Capacitor wrapper** (`mobile/`): Android APK + iOS scaffold. `npm run apk`
+in `mobile/` builds the debug APK. `mobile/sync-web.sh` runs `build:mobile`
+to refresh `mobile/www/`.
+
+**Mobile-native shell (RETIRED — BET-559):** the React drill-down shell
+previously in `src/renderer/mobile/` (`SessionListScreen` →
+`SessionScreen`, `MobileApp.tsx`) is gone. BET-559 retired the web/PWA
+client it belonged to; neither `src/renderer/mobile/` nor the `.mobile`-
+scoped `mobile/mobile.css` exists any more, and `main.tsx` renders `<App/>`
+only. The native iOS client lives in `mobile/native` (Swift).
+
+**Reshaping shared components for mobile (RETIRED — BET-559):** the
+`.mobile`-scoped CSS approach and the `manta-*` hook classes below applied
+to the web/PWA client that BET-559 retired and the `src/renderer/mobile/`
+shell it rendered — `mobile/mobile.css` no longer exists. BET-578 stripped
+the inert `manta-*` hooks this guidance used to recommend as precedent
+(`manta-session-toolbar`, `manta-stale-full`/`-min`, `manta-ctx-track`,
+`manta-session-branch`); do not reintroduce `manta-*` classes as mobile CSS
+hooks (see the "Mobile CSS hook-class contract — RETIRED" section).
+
+## Desktop transport (HTTP-only)
+
+The desktop Electron app no longer uses SSH to reach the box. Everything goes
+over direct HTTPS to manta-server, authenticated with a `boxToken` obtained during
+the pairing flow. No tunnels, no ControlMaster, no mosh.
+
+**Pairing → credentials:**
+1. User installs MantaUI on Mac, opens the app → full-screen onboarding modal.
+2. Enters the 6-digit pairing code (from `manta-pair` on the box or the
+   self-install script output).
+3. Desktop POSTs `<serverUrl>/auth/claim { code }` → server validates, returns
+   `{ boxId, boxToken }`. Desktop persists `{ serverUrl, boxId, boxToken }` to
+   `config.json` (`src/main/auth.ts`, `claimPairing`).
+4. All subsequent HTTP calls include `Authorization: Bearer <boxToken>`.
+
+**Transport layer:**
+- `src/main/index.ts` owns all IPC handlers. Each channel (`schedule:*`,
+  `secrets:*`, `webhook:*`, `sharedConfig:*`, `push:*`, `notify:*`, etc.)
+  routes to a `src/main/<module>.ts` client that does a plain `fetch` to
+  `<serverUrl>/api/<path>` with the Bearer token.
+- `src/renderer/api/httpApi.ts` implements the full `Api` contract for the
+  renderer: `/rpc/<channel>` for method calls, `EventSource` to `GET /events`
+  for SSE streaming. Same Bearer token auth.
+- `window.__mantaPreload` (from `src/preload/`) provides OS-integration bridges:
+  `peekRemoteFile` (file peek), `getPathForFile` (drag-drop paths), clipboard
+  access, screenshot detection, native file dialogs. These are Electron-only
+  and have no mobile equivalent.
+
+**What this replaces:** the old SSH `-L` tunnels (`-L 14096:127.0.0.1:4096` for
+opencode, `-L 18787:127.0.0.1:8787` for presence/schedules/secrets). The
+ControlMaster socket (`/tmp/bui-cm-*`), `forwardHeal.ts`, `runSshOnce`,
+`ensurePresenceForward`, and all scp-based file transfer are gone. The server
+IS the box — local execution, no hop.
+
+**Config schema (post-pairing):**
+```json
+{
+  "serverUrl": "https://app.mantaui.com",
+  "boxId": "<32-hex-char>",
+  "boxToken": "<32-hex-char>",
+  "projects": [{ "tmuxSession": "...", "defaultCwd": "..." }]
+}
+```
+Legacy SSH fields (`host`, `user`, `identityFile`, `transport`) are migrated
+out on load (`src/main/config.ts`).
+
+**Mode detection:** if `boxToken` is set → HTTP mode (normal). No fallback to
+SSH — the old `host`-based mode is fully removed.
+
+## Auto-rename (session titles) — BET-1018
+
+When `autoRenameSessions` is on, a chat-mode window gets its **first name on
+its first turn** from opencode's own session title **when opencode has one**
+(`GET /session`, read via `opencodeListSessions(cwd)` → `findSessionTitle`).
+A manta-created chat session is created with an EMPTY title, and opencode does
+NOT title it from the first message (verified live, 1.18.10) — so for a fresh
+window that title is "". The first-name path therefore **falls through to the
+title agent** (`opencodeGenerateTitle`) so the first turn still produces a
+sensible rename instead of keeping the creation-time first-word placeholder.
+If generation also fails/times out the effect retries on the next turn; never
+blank a window name.
+
+Subsequent **re-titles** (every `AUTO_RENAME_EVERY_N_TURNS` = 5 turns) run on
+opencode's **"title" agent** (`agent:"title"` in `generateSessionTitle`'s
+prompt_async body in `src/server/opencode.mjs`) — its own cheap naming model,
+not our main model — returning a clean short name. `sanitizeGeneratedTitle`
+stays as a safety net on both paths.
+
+**DO NOT add structured output to that prompt_async call.** Passing
+`{"format":{"type":"json_schema",…}}` is ACCEPTED on opencode 1.18.10, but
+opencode defaults `retryCount` and its own reader then rejects the whole
+session's message list with a permanent HTTP 400 — the entire transcript
+becomes unreadable, not just that one message. See the code comment at
+`generateSessionTitle`.
+
+Do not change `AUTO_RENAME_EVERY_N_TURNS` (cadence is a separate concern) and
+do not delete the throwaway-session mechanism (it's still how drift-tracking
+re-titles work — the session title is first-name-only and never updates).
+
+## Web Push notifications (`src/server/push.mjs`)
+
+Mobile gets native push (APNs via the gateway) for events it can't otherwise
+see when backgrounded: `permission.asked`, `question.asked`, `session.error`
+(always), and `session.idle` → "done" (only if the session was busy AND not
+being watched). The **server** decides whether to surface a notification, so
+suppression logic lives in `classifyPushEvent` / `firePush`.
+
+- **EVERY notification title is the session's `workspace / session-name`**
+  (tmux session / window name), resolved by `firePush` via
+  `buildSessionLabel(projects, sid)` over `tmux.listProjects()`. The lookup
+  runs for the four notifying types only (`permission.asked`, `question.asked`,
+  `session.error`, `session.idle`) — never for the streaming-event firehose.
+  The kind-specific context moves to the BODY, and each kind falls back to its
+  old descriptive title when the session isn't found in tmux.
+
+- **One notification per event (BET-1044).** Each opencode event arrives on
+  BOTH the global stream and the per-directory scoped one. `firePush` drops an
+  event whose id it has already seen via the shared `createSeenIdFilter`
+  (`src/server/seenIds.mjs`, the same filter `streamInterp.mjs` uses), so a
+  `session.error` notifies once, not twice.
+
+- **Cross-device routing = desktop presence + mobile focus (Discord rule).**
+  The desktop Electron app POSTs `/push/desktop-presence` direct HTTPS to
+  manta-server (`<serverUrl>/push/desktop-presence`, `Authorization: Bearer
+  <boxToken>`) every 30s, forever, while it runs. It reports raw observations
+  only — `{idleSeconds, lockedSeconds}` — with **all policy on the server**:
+  - **`desktopPresence.ts` only measures.** `idleSeconds` is system-wide input
+    idle (`powerMonitor.getSystemIdleTime()`); `lockedSeconds` is how long the
+    screen has been locked (null when unlocked). Window **focus is NOT an
+    input** — Manta's normal pattern is to start a turn then work in another
+    app on the same Mac, and a focus-based rule would call that "away" and buzz
+    the phone while the user sits in front of the machine. System-wide input
+    idle correctly reports "present" there (Slack/Teams measure system input,
+    not their own window's focus). Reporting forever also means "app open but
+    user idle" is never mistaken for "app quit" — the server's TTL notices a
+    real quit within ~90s.
+  - **The server turns those into ONE away instant.** `computeAwayAt` merges
+    the idle threshold (`IDLE_AWAY_MS` = 10 min) and the lock threshold
+    (`LOCK_AWAY_MS` = 5 min) into a single epoch instant with `min()` — the two
+    are one calculation, **not two timers**, so a machine that locks after 2
+    minutes crosses at lock+5min and the idle+10min rule doesn't fire
+    separately. `desktopState` then answers present / away / gone: *gone* = no
+    heartbeat within `PRESENCE_TTL_MS` (90s), *away* = past `awayAt`, *present*
+    = otherwise.
+  - The informational-tier router: `present` → desktop now + **defer** the
+    mobile push (parked until the user leaves the desk or the notification goes
+    stale at 30 min — never delivered to a phone in the user's hand); `away` →
+    desktop now + mobile now (the Mac is open, so the desktop notification is
+    there on return); `gone` → mobile only. The old flat 90s escalation timer is
+    replaced by one parked list + one 30s poller (`flushDeferredMobile` /
+    `startDeferredMobilePoller`), re-evaluated against the live `awayAt` — no
+    rescheduling as that instant moves. A lower incoming `idleSeconds` heartbeat
+    means "the user came back" and cancels all parked mobile pushes; a session
+    resuming / its ask being answered cancels by session. Invariant: the phone
+    receives at most ONE delivery per notification.
+  - **Blocking tier (permission/question/error/urgent notify) is unchanged:**
+    both devices immediately, mobile suppressed only when the phone is
+    foregrounded on that same session. Do not touch it.
+  - **EXCEPTION — `MessageAbortedError` never pushes.** `classifyPushEvent`'s
+    `session.error` branch returns `null` for `MessageAbortedError` (user abort
+    or the queued-message drain). Do NOT regress: the name-check is the server's
+    only signal. Regression test in `src/server/push.test.mjs`.
+  - Observability: the server logs `[push] desktop-presence idle=…s locked=…`
+    on each heartbeat and `[push] route kind=… sid=… → desktop=… mobileNow=…
+    deferMobile=…` on every decision — the load-bearing way to diagnose routing
+    in production. Keep them.
+
+## Scheduled prompts — MantaUI-native AI tool (`src/server/schedule.mjs`)
+
+The first **MantaUI-native opencode tool**: the remote AI can schedule a prompt to
+run later (once or on a recurring cron) in the SAME chat session. Full design +
+the reusable "MantaUI tools" pattern (for future tools like `ping`) is in
+`docs/manta-tools-scheduler.md`. Key facts:
+
+- **The AI's awareness comes from a GLOBAL opencode custom tool**, not MantaUI code.
+  `docs/opencode-tools/schedule.ts` is **COPIED** (not symlinked) into
+  `~/.config/opencode/tools/schedule.ts` on the box — **alongside the shared
+  `manta-auth.ts` module** it imports
+  (`docs/opencode-tools/manta-auth.ts` → `~/.config/opencode/tools/manta-auth.ts`);
+  opencode auto-loads it for
+  EVERY project/session/model. Multiple named exports → tools `schedule_create`,
+  `schedule_list`, `schedule_cancel`. A guidance blurb appended to
+  `~/.config/opencode/AGENTS.md` (from `docs/opencode-tools/AGENTS.md`) tells the
+  model when to reach for it. **DO NOT symlink the tool** — opencode resolves a
+  tool's imports relative to the file's REAL path, so a symlink back into the
+  repo (no `node_modules`) fails with `Cannot find module '@opencode-ai/plugin'`
+  and the tool silently never registers; a real copy resolves the import up the
+  tree to `~/.config/opencode/node_modules/`. **Install/update requires
+  `systemctl --user restart opencode-serve`** (opencode runs as that systemd
+  service, NOT a `manta-opencode` tmux session — that reference is stale) so it
+  re-scans `tools/`.
+- **The tool is a thin registrar** — it `fetch`es manta-server
+  (`127.0.0.1:8787/api/schedule`, same box, no SSH hop) and returns immediately.
+  `execute` must NOT sleep; the durable store + firing loop live server-side.
+- **Server-owned + durable.** Jobs in `~/.manta/schedule.json` (atomic
+  writes). `startSchedulePoller` ticks every 30s (`createScheduler`, outbox-
+  poller shape: inFlight guard + `timer.unref()`), fires due jobs via
+  `oc.sendPrompt({sessionId, text})` — the scheduled turn streams into the
+  user's open ChatPanel. Survives Mac-app-close / session-nav / reboot (systemd
+  + linger). Strictly more durable than Claude Code's session-scoped `/loop`.
+- **Cron is interpreted in box-LOCAL time.** `cronMatches`/`validateCron` are
+  pure (5-field, `* / - ,`, DOW 0/7=Sun, vixie either-match for DOM+DOW). The
+  model converts NL→cron itself. `lastFiredMinute` (minute-key) dedups within a
+  minute and means **no catch-up** for minutes missed while the box was off
+  (fire-once-when-due, like Claude Code). v1 has **no jitter / no 7-day
+  expiry** (single-user, one box).
+- **Management UI**: `ScheduledTasksCard` in `ChatPanel.tsx` (pinned card above
+  the composer, modeled on `PermissionCard` — a card, NOT a footer item, so it
+  renders on desktop AND mobile with no mobile-CSS edits). Opened by the
+  `⏰ schedules` button in `SessionToolbar` (desktop) or the `Scheduled tasks`
+  item in the mobile `⋯` sheet (`SessionScreen.tsx`), which dispatches a
+  `manta-open-schedules` window CustomEvent (the sheet is outside ChatPanel —
+  mirrors the `manta-scroll-to-question` bridge). **Freshness is refetch-driven**
+  (open + 10s open-poll), NOT a bus event: desktop's renderer isn't wired to the
+  server's in-process bus, so a `schedule.updated` event would only reach
+  mobile. manta-server still publishes `schedule.updated` (cheap) for a future
+  mobile optimization, but the UI does not depend on it. `describeCron` in
+  `chatUtils.ts` (pure, tested) renders human-readable cadence.
+- **Transport: `schedule:*` channels, NOT `opencode:*`** — schedules are a
+  MantaUI-SERVER concept. Desktop reaches the server store over direct HTTPS
+  (`<serverUrl>/api/schedule`, `src/main/schedule.ts`, mirrors
+  `sharedConfigSync`); mobile is in-process (`src/server/rpc.mjs` →
+  `schedule.mjs`). If the server is down, list/delete shows an error toast
+  but jobs **still fire** (server-owned). `window.api.scheduleList`/
+  `scheduleDelete` wired across all 6 sites (types, preload, httpApi, main
+  handler, rpc dispatch, impls).
+- Tests: `src/server/schedule.test.mjs` (cron + tick, 20) and `describeCron` in
+  `chatUtils.test.ts` (10). Pure logic only.
+
+## Serve page — MantaUI-native AI tool (`src/server/servePage.mjs`)
+
+The second **MantaUI-native opencode tool**: the remote AI can publish a standalone
+HTML page to a public URL so it's reachable from anywhere (esp. the machine
+running the MantaUI UI). Built for design previews / demos / mockups that opencode
+generates on the box. Follows the same "MantaUI tools" pattern as the scheduler
+(`docs/manta-tools-scheduler.md`). Key facts:
+
+- **Global opencode tool**, `docs/opencode-tools/serve-page.ts`, **COPIED** (not
+  symlinked — same `@opencode-ai/plugin` import-resolution gotcha as schedule)
+  to `~/.config/opencode/tools/serve-page.ts`, **plus the shared `manta-auth.ts`
+  module it imports** (`→ ~/.config/opencode/tools/manta-auth.ts`). Three named exports → tools
+  `serve_page`, `stop_page`, `list_pages`. Guidance appended to
+  `~/.config/opencode/AGENTS.md` from `docs/opencode-tools/AGENTS.md`.
+  **Install/update = `systemctl --user restart opencode-serve`.**
+- **Thin registrar** — `fetch`es manta-server `127.0.0.1:8787/api/serve-page`
+  (same box, no SSH hop), returns the public URL immediately. No long-running
+  work in `execute`.
+- **Server-owned + durable.** Registry in `~/.manta/serve-page.json`
+  (atomic writes). Source file is **COPIED** at register time into
+  `~/.manta/pages/<subdomain>/index.html` (stable snapshot — survives
+  `/tmp` cleanup; updating = re-call `serve_page` with the same subdomain).
+- **Served from manta-server itself, on a path, under the box's own
+  published hostname.** Public URL shape is
+  `https://<gateway_host>/pages/<subdomain>` (e.g.
+  `https://0123abc.boxes.mantaui.com/pages/preview`). The hostname is the
+  one Caddy already reverse-proxies to `127.0.0.1:8787` for the SPA, with an
+  automatic LE cert — nothing new to provision. `gateway_host` is read fresh
+  per call from `~/.manta/auth.json` via `publicBaseUrl()` in
+   `gatewayRegister.mjs`. **Resolution order (BET-349):** a Tailscale-mode
+   box's tailnet `serverUrl` in `~/.manta/ingress.json` wins, because a
+   tailnet box still registers with the gateway (for the APNs token) so it
+   HAS a `gateway_host` even though nothing listens on it — that hostname is
+   not evidence of public reachability; otherwise `gateway_host` from
+   `~/.manta/auth.json`; else `registerPage` fails loudly with a clear
+   error — never hands back a URL that would silently 404 (BET-343).
+- **Sandbox CSP is load-bearing.** Pages now share an origin with the SPA
+  (which keeps the box_token in localStorage), so the response carries
+  `Content-Security-Policy: sandbox allow-scripts allow-forms allow-popups
+  allow-modals` — *without* `allow-same-origin`, so the page lives in an
+  opaque origin and its scripts cannot read that storage or send
+  credentialed same-origin requests. Response headers also include
+  `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`, and
+  `Cache-Control: no-store`. See `pageResponseHeaders()` in
+  `src/server/servePage.mjs` (test pins the absence of `allow-same-origin`).
+  `/pages/...` is auth-exempt in `isExemptPath` — the box hostname itself is
+  a 128-bit unguessable label, and a visitor by definition holds no token.
+- **`isValidSubdomain`** (1-63 lowercase alphanumeric + hyphen, no
+  leading/trailing hyphen) is the path-traversal guard: the route handler
+  validates the slug against it before touching the filesystem, so a crafted
+  `/pages/../etc/passwd` can never escape `~/.manta/pages/`. Sub-paths
+  (`/pages/a/b`) → 404 JSON. The validator is also used as the registry
+  key, so every persisted subdomain is a safe single path segment.
+- **TTL expiry** (default 24h, `ttlHours:0` = never). `startCleanupPoller`
+  sweeps every 5 min (`createCleanupSweep`, injectable load/save/now, inFlight
+  guard + `timer.unref()`), `rm`-ing expired page dirs. `stop_page` deletes
+  immediately. `readPage()` (exported, I/O-injectable) also prunes a registry
+  entry whose on-disk file is missing — page dir may have been deleted
+  externally or swept — matching the file-server behaviour this replaced.
+- **No UI card (v1).** Unlike the scheduler there's no ChatPanel management
+  card yet — the AI lists/stops via the tools.
+- **No extra port, no separate file server, no Host-header routing, no
+  wildcard DNS record.** All of that was the old design (BET-343 replaced
+  it). The 127.0.0.1:20080 listener is gone; the `*.pages.<domain>` Caddy
+  block, OVH DNS-01 wildcard cert, and wildcard A-record on the prod zone
+  are retired out-of-band (manual maintainer step, not part of any PR).
+- Tests: `src/server/servePage.test.mjs` (`isValidSubdomain`, `pageUrl`,
+  `registerPage` empty-`baseUrl` guard, `readPage` prune-on-missing,
+  cleanup-sweep expiry, `pageResponseHeaders` CSP invariant). Pure logic
+  only — no live HTTP.
+
+## Peer awareness — MantaUI-native AI tool (`src/server/peers.mjs`)
+
+The third **MantaUI-native opencode tool**: an opencode session can see what OTHER
+sessions in the SAME workspace are doing AND send them messages. Use case: an
+agent notices files / `git status` changing under it and wants to know which
+other agent is working alongside it (so they don't collide), or wants to
+coordinate / hand off work to a peer. Same "MantaUI tools" pattern as
+schedule/serve-page (`docs/manta-tools-scheduler.md`). Key facts:
+
+- **Workspace = tmux session (MantaUI project); peers = sibling windows.** The crux
+  is the `@manta-session-id` tmux user-option, surfaced by `tmux.listProjects()`
+  as `window.opencodeSessionId`. `resolveWorkspace(projects, sessionID,
+  directory)` (pure) finds the caller's window — by sessionID first, falling
+  back to a `paneCurrentPath === directory` match (covers subagent children
+  whose window isn't stamped). `selectPeers` returns the sibling windows.
+- **Global opencode tool**, `docs/opencode-tools/peers.ts`, **COPIED** (not
+  symlinked — same `@opencode-ai/plugin` gotcha) to
+  `~/.config/opencode/tools/peers.ts`, **plus the shared `manta-auth.ts` module
+  it imports** (`→ ~/.config/opencode/tools/manta-auth.ts`). Three exports → `peers_list`,
+  `peers_inspect`, `peers_message`. Guidance appended to
+  `~/.config/opencode/AGENTS.md`.
+  **Install/update = `systemctl --user restart opencode-serve`.**
+- **Thin registrar** — `fetch`es manta-server (no SSH hop). `peers_list` /
+  `peers_inspect` GET `/api/peers?sessionID=&directory=[&target=]` (`target`
+  present → inspect one; absent → list all). `peers_message` POSTs
+  `/api/peers {sessionID, directory, target, message}`. No durable state: peer
+  data is computed live per call; messaging is fire-and-forget into the peer's
+  session.
+- **Per-peer data sources branch on window type:**
+  - chat-mode peer (`opencodeSessionId` set): `oc.listMessages` transcript +
+    `listPermissions`/`listQuestions`. Status via `classifyChatStatus`
+    (blocked-question > blocked-permission > working [last assistant turn has
+    no `time.completed`] > idle — best-effort, the server keeps no live
+    running flag). Activity via `describeChatActivity` (in-progress todo →
+    last assistant snippet → recent tool names).
+  - claude-TUI peer (`opencodeSessionId` null): `tmux capture-pane -S -40` +
+    `BUSY_RE` (copied from status.mjs — no coupling). `capture-pane` is BLANK
+    for chat-mode holder panes (`sleep infinity`), which is exactly why the
+    branch exists.
+  - git state (both): `git -C <cwd> status --porcelain` (`parseGitStatus`,
+    pure) + `oc.getVcsBranch(cwd)`. The uncommitted-file count is the headline
+    "another agent is touching files" signal.
+- **`peers_list`** → each peer's name, type, branch, gitChanges count, status,
+  one-line activity. **`peers_inspect(target)`** (by window name / index /
+  session id) → full git file list + branch, plus recent transcript turns +
+  todos (chat) or terminal pane tail (TUI).
+- **`peers_message(target, message)`** → injects `message` as a new user turn
+  into the target peer's opencode session via `oc.sendPrompt`. Chat-mode peers
+  ONLY — a claude-TUI peer (`opencodeSessionId` null) has no session to inject
+  into and is rejected. `sendPeerMessage` resolves the target the same way as
+  `inspectPeer` (name / index / session id), then wraps the body with
+  `formatPeerMessage` (pure) so the RECEIVER sees a `[Message from peer agent
+  session "<name>" in workspace "<ws>"]` prefix — the cross-session origin is
+  explicit and the receiver is told to reply via `peers_message`. The receiving
+  side needs no code: the wrapped text arrives as an ordinary user turn through
+  the normal SSE path. Guidance in `docs/opencode-tools/AGENTS.md` tells every
+  session it may receive such messages.
+- **No UI card, no durable store, no bus event** — purely a live AI-facing
+  read + message tool (v1). No `peers:*` window.api channels; the desktop
+  renderer doesn't consume it.
+- **Tool descriptions + the AGENTS.md blurb are deliberately cost-aware and
+  anti-reflex** (rewritten after a session called `peers_list` at task start and
+  needlessly woke an unrelated peer). Each `execute` is a read/wake with a token
+  cost — `peers_inspect` reads a transcript, `peers_message` WAKES a peer and
+  warms its (possibly stale) context. The guidance therefore forbids reflexive /
+  "situational awareness" use and requires CONCRETE present evidence of a
+  file-level collision (or an explicit user ask) before calling; questions
+  answerable from `git`/`gh`/CI/fs ("is main green?", "what shipped today?") must
+  NOT trigger a peer call. If you regenerate these descriptions, KEEP the cost
+  warning + the anti-pattern list — the naive "run peers_list first" framing is
+  what caused the waste.
+- Tests: `src/server/peers.test.mjs` (resolveWorkspace, selectPeers,
+  parseGitStatus, summarizeTranscript, classifyChatStatus, describeChatActivity,
+  recentTurns, formatPeerMessage, sendPeerMessage — 20). Pure logic only.
+
+## Notifications + the `notify` tool (`src/server/push.mjs`)
+
+The fourth **MantaUI-native opencode tool** and the first with a **desktop OS
+notification leg** alongside the existing mobile Web Push. Full design +
+routing matrix + scenarios in `docs/manta-tools-notify.md`. Key facts:
+
+- **manta-server is the SINGLE notification router.** Every notification —
+  automatic opencode event (`firePush`) OR an AI `notify` call (`fireNotify`) —
+  runs through the pure `routeNotification(payload, presence, now)` in
+  `push.mjs`, which decides desktop / mobile / both / escalation knowing BOTH
+  device presences. This is what guarantees **no duplicates**: one place sees
+  everything. It SUBSUMES the old "suppress mobile done while active on desktop"
+  rule (that's now just one row of the matrix).
+- **Two transports, one router.** Mobile leg = Web Push (unchanged). Desktop leg
+  = `setDesktopSink(fn)` (injected by `index.mjs`) publishes a `desktopNotify`
+  bus envelope; the Electron app (`src/main/desktopNotify.ts`) consumes
+  manta-server's `GET /events` SSE **over direct HTTPS to manta-server**,
+  relays the payload via `IPC.desktopNotify` → the renderer (`App.tsx`
+  `onDesktopNotify`) shows it with the `Notification` API. The desktop ignores
+  every other bus `kind` (it already gets opencode events from its own :4096
+  stream — re-consuming would double).
+- **The "am I viewing this session?" suppression is client-side on desktop.**
+  The server routes desktop-vs-mobile; the renderer does the final suppression
+  (focused AND `activeChatSessionId === payload.sessionId`) because it knows its
+  active session locally — no need to plumb it to the server. Mobile's
+  equivalent stays server-side (`/push/focus`) because a push can't be unsent.
+- **Tiers (Slack/Discord parity).** `notifTier`: **blocking**
+  (permission/question/error, or `notify` with `urgent:true`) → every device
+  now, no delay. **informational** ("done", normal `notify`) → desktop-first
+  ladder.
+- **Cross-device routing (desktop-first, then deferred mobile).** The desktop
+  reports raw observations (idle + lock) every 30s; the server merges the idle
+  (10 min) and lock (5 min) thresholds into ONE away instant via `computeAwayAt`
+  (a single `min()`, not two timers) and classifies `desktopState` as
+  present/away/gone (`PRESENCE_TTL_MS` = 90s). Informational tier: `present` →
+  desktop now + **defer** mobile (parked in `_deferredMobile`, delivered on a
+  30s `flushDeferredMobile` poll once away/gone, dropped stale after 30 min);
+  `away` → desktop now + mobile now; `gone` → mobile only. **Cancel** the parked
+  push when: a heartbeat reports lower `idleSeconds` (`setDesktopPresence` →
+  `cancelAllDeferredMobile`), the session resumes / its ask is answered
+  (`cancelDeferredMobileForSession` from the busy/reply branches in `firePush`),
+  or a same-`tag` re-notify supersedes. The phone receives at most ONE delivery
+  per notification.
+- **Blocking tier is unchanged:** both devices immediately, mobile suppressed
+  only when the phone is foregrounded on that same session.
+- **The `notify` tool** (`docs/opencode-tools/notify.ts`, COPIED to
+  `~/.config/opencode/tools/` plus the shared `manta-auth.ts` module it imports,
+  restart `opencode-serve`) is a thin registrar →
+  `POST /api/notify {message, title?, urgent?, sessionID}` → `fireNotify`.
+  Session-tied: carries `context.sessionID` so it deep-links + dedupes
+  (`tag:"notify-<sid>"`). The model does NOT pick the device — the router does.
+- **No UI card (v1).** No `notify:*` window.api channels — it's AI-facing +
+  server-routed. DND/quiet-hours deferred to v2.
+- Tests: `src/server/push.test.mjs` — `routeNotification` matrix (present /
+  away / gone × blocking / informational), `computeAwayAt`/`desktopState`, and
+  deferred flush/cancel/supersede. Pure logic only.
+
+## Secrets — MantaUI-native AI tool (`src/server/secrets.mjs`)
+
+The fifth **MantaUI-native opencode tool**: a secure key→value store so the user can
+hand a secret (a GitHub PAT, an API key…) to a working agent WITHOUT the value
+ever entering the AI transcript. Same "MantaUI tools" pattern as schedule/serve-page/
+peers/notify. Key facts:
+
+- **THE INVARIANT: the store NEVER returns a value to the agent.** A secret
+  leaks the instant its value lands in the agent's context (a tool result, a
+  command the agent types, or command OUTPUT it reads). So `secret_list` returns
+  NAMES + hints only, and `secret_provide` MATERIALIZES the value to a 0600 file
+  on the box and returns ONLY the path. The agent uses it by reference —
+  `git push https://x-access-token:$(cat <path>)@github.com/…` — so the value is
+  substituted by the shell at run time and never printed. There is deliberately
+  **no `secret_get` and no `secret_set` tool**: storing is a HUMAN action via the
+  UI (else the value would route through the transcript).
+- **Two namespaces.** `shared` (every session) + `session` (scoped to one
+  opencode `sessionID`; a session-scoped key SHADOWS a shared key of the same
+  name for that session). `visibleSecrets` / `resolveSecret` (pure, tested)
+  implement the resolution; session wins over shared.
+- **Global opencode tool**, `docs/opencode-tools/secrets.ts`, **COPIED** (not
+  symlinked — same `@opencode-ai/plugin` gotcha) to
+  `~/.config/opencode/tools/secrets.ts`, **plus the shared `manta-auth.ts` module
+  it imports** (`→ ~/.config/opencode/tools/manta-auth.ts`). Two exports → `secret_list`,
+  `secret_provide`. Guidance appended to `~/.config/opencode/AGENTS.md` from
+  `docs/opencode-tools/AGENTS.md` (## MantaUI secrets). **Install/update =
+  `systemctl --user restart opencode-serve`.**
+- **Thin registrar** — `fetch`es manta-server (no SSH hop). `secret_list` GETs
+  `/api/secrets?sessionID=`; `secret_provide` POSTs `/api/secrets/provide
+  {key, sessionID}` → `{path, key, hint}`.
+- **Server-owned + durable.** Store `~/.manta/secrets.json` (atomic write,
+  chmod 0600). Materialized value files under `~/.manta-secrets/` (dir 0700, files
+  0600): shared → `<key>`, session → `sessions/<sessionID>/<key>`. `deleteSecret`
+  also removes the materialized file so a deleted secret can't be re-read off
+  disk.
+- **UI card**: `SecretsCard` in `ChatPanel.tsx` (pinned card above the composer,
+  modeled on `ScheduledTasksCard` → renders desktop AND mobile, no mobile-CSS
+  edits). Opened by the `🔑 secrets` button in `SessionToolbar` (desktop) or the
+  `Secrets` item in the mobile `⋯` sheet (`SessionScreen.tsx` → `manta-open-secrets`
+  window CustomEvent). The card has an add/edit form (key + value [type=password]
+  + scope + hint) and a metadata-only list (the value is cleared from component
+  state on save and never re-displayed). Refetch-driven (open + 10s poll).
+- **Transport: `secrets:*` channels** (mirror schedule's). Desktop reaches the
+  server store over direct HTTPS (`<serverUrl>/api/secrets`,
+  `src/main/secrets.ts`); mobile is in-process (`src/server/rpc.mjs` →
+  `secrets.mjs`). `window.api.secretsList/secretsSet/secretsDelete` wired across
+  all 6 sites. **list returns metadata only**; the value travels renderer → box
+  on set and never comes back.
+- **Migration**: `scripts/migrate-secrets.mjs` consolidates secrets scattered in
+  credential files (gh `hosts.yml`, `~/.aws/credentials`, `~/.netrc`,
+  `~/.modal.toml`) into the store. LEAK-SAFE: it runs on the box, reads each
+  source locally, and POSTs the value straight to manta-server — values NEVER pass
+  through the AI transcript (the script prints only key names + sources). Dry-run
+  by default; `--apply` to import. Canonical credential files are left untouched.
+- Tests: `src/server/secrets.test.mjs` (isValidKey, visibleSecrets shadowing,
+  resolveSecret precedence, materializedPath, CRUD round-trip, provideSecret
+  writes 0600 + returns path-not-value — 21). Pure/IO-injected logic only.
+
+## Background delegation — MantaUI-native AI tool (`src/server/delegate.mjs`)
+
+The sixth **MantaUI-native opencode tool**: the remote AI can kick off a
+long-running task in a BACKGROUND opencode session (its own git worktree +
+chat-mode tmux window) so the main conversation is NOT blocked, and the
+result is delivered back as a separate later message when the job finishes.
+Same "MantaUI tools" pattern as schedule/serve-page/peers/notify/secrets
+(`docs/manta-tools-scheduler.md`). Key facts:
+
+**TERMINOLOGY — "subagent" means three different things, and conflating them
+sends you to the wrong half of the codebase.** All three are colloquially "a
+subagent"; only the third one is this section.
+
+| Term | Started by | Surface | Owns |
+|---|---|---|---|
+| **inline subagent** | the `task` tool (foreground) | the TRANSCRIPT — collapsed card, expand for the child's turns (see "Subagent rendering") | nothing: no tmux window, no worktree, no branch, and **no sidebar row, ever** |
+| **backgrounded subagent** | the `task` tool with `background: true` | a nested SIDEBAR ROW under the session that started it | its own opencode session + tmux window, but **no worktree** |
+| **background job**, a.k.a. **delegated subagent** | the `delegate` tool | a nested SIDEBAR ROW under the session that started it | its own opencode session, tmux window, git worktree + branch |
+
+All three coexist deliberately (the model picks per task) and nothing about
+one implies the other. So "delegated subagents don't show in the rail" is a
+bug report about THIS section, while "inline subagents don't show in the
+rail" is very likely someone looking at `task` children run in the
+foreground, which are working as designed — they never get a row. A
+backgrounded subagent and a background job DO both get a rail row now; the
+difference between those two is the worktree. When writing user-facing copy
+prefer **"background job"** for the `delegate` kind — the rail row, branch
+and worktree all belong to it.
+
+- **Global opencode tool**, `docs/opencode-tools/delegate.ts`, **COPIED** (not
+  symlinked — same `@opencode-ai/plugin` gotcha) to
+  `~/.config/opencode/tools/delegate.ts`, **plus the shared `manta-auth.ts` module
+  it imports** (`→ ~/.config/opencode/tools/manta-auth.ts`). Three exports → `delegate`,
+  `delegate_list`, `delegate_stop`. Guidance appended to
+  `~/.config/opencode/AGENTS.md` from `docs/opencode-tools/AGENTS.md`
+  (## MantaUI background delegation). **Install/update =
+  `systemctl --user restart opencode-serve`.**
+- **Thin registrar** — `fetch`es manta-server (no SSH hop). `delegate` POSTs
+  `/api/delegate {prompt, model?, sessionID, directory}` → `{ok, id, job}`;
+  `delegate_list` GETs `/api/delegate?sessionID=`; `delegate_stop` POSTs
+  `/api/delegate/:id/stop`. `execute` returns promptly; the engine owns the
+  lifecycle.
+- **Three-way mode selection is the model's choice.** `delegate`'s
+  description steers it: use the built-in `task` tool in the foreground when
+  you need the answer before you can continue, or with `background: true`
+  for long independent work that will not edit files; use `delegate` when
+  the work WILL edit files, since it is the only one that gets its own git
+  worktree and branch (see the TERMINOLOGY table above). Every job costs a
+  full extra model session, so the description forbids speculative fan-out
+  and nested jobs.
+- **The "you do NOT have the result yet" return string is load-bearing.**
+  `delegate` returns immediately with the job's name + id and an explicit
+  reminder that the result is NOT available yet and will arrive as a later
+  message — the model must not report or guess the job's findings before
+  then (this is the exact bug Claude Code had to fix). Do not soften it.
+- **Server-owned engine** (`src/server/delegate.mjs`, dependency-injected
+  pure logic + injected I/O, mirrors `capabilities.mjs`): startJob creates a
+  worktree → new chat-mode window (stamps `@manta-session-id`) → records the
+  job `running` → injects the opening prompt. Completion is detected from
+  the opencode event firehose via `observeEvent` (first idle AFTER a seen
+  busy, per-job `sawBusy` flag — stops a stray pre-prompt idle completing the
+  job instantly). `finishJob` assembles the result (last assistant text +
+  `filesChanged`) and delivers the completion to the parent session through
+  the shared prompt-delivery engine (`src/server/promptDelivery.mjs`), which
+  defers until the parent is idle so a notice never aborts the parent's turn.
+- **Cap of five concurrent `running` jobs** box-wide (`MAX_RUNNING_JOBS`);
+  a sixth is refused with a clear error (do not retry). No `queued` state —
+  a job either starts immediately or is refused. Running jobs older than 30
+  min become `failed "timed out after 30 minutes"` (sweeper). Terminal jobs
+  retained 7 days or 50 records, whichever bites first; the window +
+  worktree are NEVER removed by the sweeper — only by an explicit delete.
+- **No `peers`-style status/inspect tool here** — background jobs are
+  ordinary sibling sessions, so `peers_inspect` already covers "what is that
+  job doing", and the tool description says so. `delegate_list` is for
+  answering a user's "what's running?" question, not for waiting (do NOT
+  poll).
+- Jobs appear in the sidebar as ordinary sessions (their own window).
+- Tests: `src/server/delegate.test.mjs` (startJob undo-on-failure,
+  nesting/cap refusal, observeEvent completion ordering, finishJob result
+  assembly, buildJobPrompt/buildCompletionText, sweep retention, stop/delete
+  — pure/IO-injected logic only, no live HTTP/tmux).
+
+## App control — MantaUI-native AI tool (`src/server/appControl.mjs`)
+
+The seventh **MantaUI-native opencode tool**: an opencode session can drive
+the app the user is looking at — switch the model for its chat session, rename
+the session in the sidebar, compact it, or list the sessions in its workspace.
+Same "MantaUI tools" pattern as the other six (`docs/manta-tools-scheduler.md`).
+This ticket is the server half + tool registrar; the sibling ticket (BET-841)
+consumes the bus envelopes in the renderer.
+
+- **Global opencode tool**, `docs/opencode-tools/manta-app.ts`, **COPIED** (not
+  symlinked — same `@opencode-ai/plugin` gotcha) to
+  `~/.config/opencode/tools/manta-app.ts`, **plus the shared `manta-auth.ts` module
+  it imports** (`→ ~/.config/opencode/tools/manta-auth.ts`). Four exports → `manta_compact_session`,
+  `manta_switch_model`, `manta_rename_session`, `manta_list_sessions`. Guidance
+  appended to `~/.config/opencode/AGENTS.md`. **Install/update =
+  `systemctl --user restart opencode-serve`.**
+- **Thin registrar** — each `execute` POSTs `/api/app-control {action,
+  sessionID, directory, ...args}` (same box, no SSH hop) and returns promptly.
+  The `boxToken()` / `authHeaders()` helpers are copied verbatim (every `/api/*`
+  route is behind the bearer gate). Dispatch on `action`; unknown actions are
+  rejected by name with a message the model can act on, never a bare 500.
+- **Session resolution** — every action resolves the caller's window the way
+  `peers.mjs` does, via the shared `resolveWorkspace` (sessionID first, then a
+  `paneCurrentPath === directory` fallback). No second resolver. Pure logic,
+  injected I/O, no durable store — a live claim, computed per call.
+- **The four actions:**
+  - `compactSession` — calls the existing `oc.compactSession`. `{ok:true}`;
+    no bus event (opencode already emits `session.compacted` and the renderer
+    reacts).
+  - `switchModel({query})` — resolves the query against `oc.listModels()`
+    with the shared fuzzy matcher `fuzzyMatchModel` (moved to
+    `src/shared/modelGuide.mjs`; `suggestModels` powers the no-match error that
+    names the closest candidates for a retry). On a hit publishes `{action:
+    "switch-model", sessionId, providerID, modelID}`. **The model override is
+    renderer state** (per-session `localStorage`), so the server can't apply it
+    directly — the bus event is how it lands on the open ChatPanel.
+  - `renameSession({name})` — validates (1–40 chars, no `:` or control chars),
+    calls `tmux.renameWindow` (never shells out directly), publishes `{action:
+    "rename-session", sessionId, name}` so sidebars refresh without a poll.
+  - `listSessions` — read-only windows in the caller's workspace: name, index,
+    chat-mode flag, branch (best-effort), and whether it's the caller. No event.
+- **Bus** — ONE kind, `appControl`, with an `action` discriminator (not one
+  kind per action). Published through the existing bus in `index.mjs` as
+  `{kind:"appControl", payload}`; the renderer needs exactly one listener + one
+  switch. Payload is client-agnostic so the native client can adopt it later.
+- **Out of scope by design**: interrupt/abort of the current turn and
+  permission/question approval are NOT available through these tools — the
+  tool descriptions and guidance say so explicitly.
+- Tests: `src/server/appControl.test.mjs` (session resolution by id and
+  directory fallback, model fuzzy match + no-match candidate error, rename
+  validation accept/reject, unknown-action rejection, bus payload shape for
+  both publishing actions — pure/injected only, no live HTTP/tmux).
+
+## Manta Optimizer (`src/server/optimizer/`) — phase 1 shipped, phase 2 in flight
+
+The optimizer makes a paid plan last longer: it trims dead weight out of a
+conversation's history, paces spending against the quota windows that actually
+reset, compacts long-idle conversations before the user comes back to them, and
+folds all of that into the model router's existing cost stage. **Phase 1
+(BET-1332, merged) is OBSERVE-ONLY and always on**; phase 2 (BET-1346) is what
+actuates, and it is gated behind ONE user-facing switch.
+
+**Metrics are always on; actuation is not.** With the switch off the box still
+measures everything — the ledger read model, the masking counterfactual, the
+quota-window forecast, the measured cache TTL — so the dashboard has real
+numbers to show BEFORE the user ever turns anything on. That asymmetry is
+deliberate: an optimizer that can only prove its value after you trust it never
+earns the trust.
+
+**Phase 1 surface (shipped):**
+- `optimizer:summary` (`src/server/optimizer/summary.mjs`) — a memoized (60s,
+  in-flight-guarded) read model over the opencode message ledger. Degrades to
+  `{supported:false}` on a box with no Node 24 / no `opencode.db`, exactly like
+  `modelLedger`.
+- `counterfactual.mjs` + `POST /api/optimizer/counterfactual` — the
+  observe-mode masking store. A report REPLACES a session's entry (each report
+  is the full would-mask for that history, never an increment).
+- `forecast.mjs` — quota-window observation history + forecast-at-reset, tapped
+  at the usage poller's single publish point.
+- `ttl.mjs` — the measured effective prompt-cache TTL, and the verifier that
+  compares it against what opencode is CONFIGURED to send.
+- `OptimizerCard` in Settings → Models; the visual spec is committed at
+  `docs/optimizer/mockup.html` and is the artifact the UI is implemented
+  against, not a screenshot taken afterwards.
+
+**The switch (phase 2): "Manta optimized token usage", Settings → Models,
+DEFAULT OFF.** It replaces the three-way routing-preset control, and it gates
+ONLY the phase-2 behaviours. **It does NOT gate Auto routing.** Routing
+activation is `modelRouting.preset`, which the server defaults to `"balanced"`
+(`src/server/local.mjs`), so every box has routing active today; wiring the new
+switch into `routingActive()` would silently turn Auto OFF for everyone the
+moment the default-off switch shipped. The preset config key is retained and
+pinned at `"balanced"` precisely so that cannot happen — what used to be the
+`economy` preset is now reached dynamically through the eco level below.
+
+**The one user override is the model pick.** The existing manual-pick-beats-Auto
+contract is the whole override surface: no per-knob editing, no reset buttons,
+no approval queue. Changes that could affect answer quality ship inside their
+own guardrails (constraint-retention checks, re-fetch-churn limits) rather than
+behind a human confirmation, and the activity log is the trust surface —
+including the entries where the optimizer rolled its own change back.
+
+**Nothing phones home.** There are no fleet priors and no shared telemetry of
+any kind; every parameter the tuner learns is learned from this box's own
+history and stays on it.
+
+## Mouse mode — design decision, do not re-litigate
+
+**Mouse is ON through the whole pipeline (tmux + claude).** This matches what
+claude does in a native terminal: wheel scrolls claude's conversation,
+drag-select goes to claude.
+
+A previous design tried to turn mouse OFF in both tmux and claude so xterm.js
+could own selection and drag-select wouldn't snap. That broke wheel-scroll
+inside the claude TUI: xterm.js falls back to wheel→arrow keys in alt-screen,
+and claude treats up/down as prompt-history navigation. Claude even surfaces
+this with a "Scroll wheel is sending arrow keys · use PgUp/PgDn to scroll"
+hint, which is its way of telling you mouse forwarding is broken.
+
+Do NOT reintroduce:
+- `tmux set -g mouse off` overrides at attach time.
+- `CLAUDE_CODE_DISABLE_MOUSE=1` in the claude launch command.
+- xterm.js parser handlers that swallow DECSET 1000/1002/1003/1006 enables.
+
+If a user reports drag-select "snapping to bottom" while *in shell scrollback*
+(not the claude TUI), the culprit is usually a tmux `copy-pipe-and-cancel`
+binding on `MouseDragEnd1Pane`. `-and-cancel` exits copy mode, which snaps
+the viewport. That's a tmux-side rebinding (e.g. `copy-pipe-no-clear` plus
+`set-clipboard external`), not a MantaUI-side override. The claude TUI itself
+does not enter tmux copy mode for drags — claude has its own mouse tracking
+and tmux passes through.
+
+## Tmux config approach — drop-in, no surprises
+
+MantaUI does NOT modify `~/.tmux.conf` automatically. Settings shows config
+status read-only; `tmuxSetupConfig` exists but is opt-in via UI only.
+Backup at `~/.tmux.conf.pre-MantaUI` on the remote if it was ever modified.
+
+## State
+
+- **Source of truth**: tmux on the remote. `tmux list-sessions` + `list-windows -a`.
+- **Local config** (`<userData>/config.json`): `{serverUrl, boxId, boxToken, projects[{tmuxSession, defaultCwd}], chatAutoAllow, defaultModel, skillRegistryUrls, cacheTtl}`.
+- **No local sessions table.** Project = tmux session, app session = tmux window.
+
+## Patterns worth knowing
+
+- **New window / new chat-session cwd inheritance** — every code path that
+  creates a tmux window or an opencode session resolves the cwd through ONE
+  helper, `resolveProjectCwd(sessionName, inputCwd)` in `buildHandlers`
+  (`src/server/rpc.mjs`). It is the SOLE resolver — HTTP-only means there is no
+  longer a desktop-main copy (the old `src/main/index.ts` duplicate was deleted
+  with the SSH path). Applied by all four consumers: `tmux:new-session`,
+  `tmux:new-window`, `opencode:fork-session`, `opencode:clear-session`.
+  Precedence (BET-120): **explicit non-tilde cwd → stored project `defaultCwd`
+  in config → LIVE tmux session dir (`listProjects()` first-window pane path) →
+  `"~"`** as last resort. The live-tmux fallback matters because the stored
+  config (`~/.manta/config.json` `projects[]`) is only populated by the
+  desktop project-create flow and is empty/stale for sessions created any other
+  way — without it, every new window silently dropped into `$HOME`. **Renderer
+  must pass `cwd ?? ""`** (or omit it), NOT `cwd || "~"` — the literal tilde
+  would defeat the resolver. Tests: `src/server/rpc.test.mjs` covers empty /
+  tilde / explicit / stored-meta-precedence / live-tmux-fallback.
+  - **GOTCHA — opencode does NOT reject a tilde dir; it silently corrupts
+    it.** `resolveProjectCwd` deliberately returns a possibly-tilde path
+    (`~/projects/x`) — it picks *which* cwd, not an absolute one. opencode's
+    `session.create` requires an absolute directory and resolves a
+    tilde-relative one against its OWN server process cwd (the remote
+    `$HOME`), persisting the corrupt `/home/<user>/~/projects/x` into session
+    metadata forever. Expansion is therefore mandatory at the **single
+    creation chokepoint**, NOT in `resolveProjectCwd`: `createSession`
+    (`src/server/opencode.mjs`) expands a leading `~` itself via `expandTilde`
+    (from `src/shared/paths.mjs`) against the server process's own `$HOME` —
+    the renderer (desktop + mobile) reaches it the same way over `/rpc`.
+    `forkSession` is unaffected — it inherits the parent's directory from
+    opencode and passes no cwd. Regression tests:
+    `createSession expands a leading ~ …` in `src/server/opencode.test.mjs`
+    (red/green verified). Do NOT "simplify" by moving expansion back into a
+    caller — the chokepoint is what makes the corruption unreachable.
+  - **GOTCHA — tmux does NOT expand `~` either; it silently falls back to
+    `$HOME`.** `tmux new-window -c '~/foo'` and `tmux new-session -c '~/foo'`
+    BOTH accept the literal tilde but resolve it against the tmux server's
+    own cwd (typically `$HOME`) and exit code 0 — silently landing every
+    project created with the UI's default `~` cwd in the home directory.
+    This is the BET-307 tmux-side chokepoint: `tmux.mjs`'s
+    `resolveCwdOrThrow` is the single place a caller-supplied cwd becomes a
+    real directory handed to tmux or opencode. It expands `~` via the
+    shared `expandTilde` (now living in `src/shared/paths.mjs` — three
+    copies used to live in `tmux.mjs`, `opencode.mjs` and `pluginManifest.mjs`,
+    all deleted) and rejects a missing directory with a loud error before
+    any tmux call (and before any orphan opencode session is created in
+    chatMode). Applied at exactly three sites: `newSession`, `newWindow`,
+    and the exported `newWindowGetIndex` (which `rpc.mjs:363` calls
+    directly for fork-session). Regression test: `resolveCwdOrThrow` cases
+    in `src/server/tmux.test.mjs` + the `node -e` e2e in BET-307. Do NOT
+    "simplify" by passing the cwd through unchanged — the chokepoint is
+    what makes the silent `$HOME` fallback unreachable.
+- **HTTP 500-body contract (BET-1460) — classify every route by CONSUMER
+  before writing its error catch.** The contract is set by who reads the
+  body, decided once in BET-1460 and enforced by
+  `src/server/errorBodyContract.test.mjs`:
+  - **Class 1 — the 500 body can reach an END USER's screen** (chat panel
+    attachment chips, the CTO pane's toasts and load-error states, the iOS
+    composer). The body must be a SAFE HUMAN LITERAL and the underlying
+    error goes to `console.warn` server-side: write the 500 ONLY through
+    `respondSafe500(res, route, message, e)` from `src/server/safeApiError.mjs`
+    (the CTO family shares `CTO_SAFE_500_MESSAGE`; `/api/upload` is extracted
+    into `src/server/uploadRoute.mjs` on the `projectsRoute.mjs` pattern).
+    Never write `String(e?.message ?? e)` into a class-1 body — raw fs
+    paths and errno output on a user's screen is the leak BET-1454 fixed.
+  - **Class 2 — consumed only by an AI tool registrar / automation /
+    operator surface** (manta-native opencode tools relay the message
+    straight back to the model; the cap runner; Settings renders raw only
+    behind a `<details>` disclosure). Keep the raw body and put a
+    `// class-2 (BET-1460): …` marker comment on the catch — the gate test
+    asserts every remaining raw 500 carries one. Meaningful 400-class
+    bodies ("unknown action", "unauthorized") are untouched by this rule on
+    BOTH classes.
+  When adding a route, decide the class first; a class-1 conversion needs
+  the safe literal + warn, a class-2 route needs the marker comment.
+- **Queued message drain — abort at the next step boundary, then submit on
+  idle.** When the user submits while `running` is true, the text gets pushed
+  to `messageQueue` and the input clears. MantaUI does NOT wait for the whole
+  (possibly many-step) turn to finish: the moment a prompt is queued, the
+  next mid-turn **step boundary** triggers a **drain-abort**
+  (`maybeDrainQueuedPrompt` in ChatPanel, gated by `shouldAbortForQueuedDrain`
+  in `chatUtils.ts`) — `window.api.opencodeAbort` on the in-flight turn. The
+  abort flips the session idle, and the existing `[running, messageQueue]`
+  effect submits the queued prompt as a fresh turn via `submit()` (so slash
+  commands, attachments, and model resolution all go through the normal path).
+
+  **What counts as a "step boundary" — a COMPLETED TOOL PART, not
+  `session.next.step.ended`.** This is THE fix for "queued prompt waits for
+  the whole turn" (2026-06-19). The deployed opencode build does NOT emit the
+  `session.next.*` event family AT ALL — verified live by streaming `/event`
+  during a multi-tool turn: you only get `message.part.delta`,
+  `message.part.updated`, `session.status` (busy/idle), and a final
+  `session.idle`. The original trigger hooked onto `session.next.step.ended`
+  therefore never fired, so the drain silently fell back to full-idle. The
+  primary trigger is now a `message.part.updated` whose `properties.part` is a
+  `tool` part at `state.status === "completed" | "error"`
+  (`isToolStepBoundary`, pure + tested). The legacy `step.ended` block still
+  calls `maybeDrainQueuedPrompt` as a harmless fallback for any build that
+  DOES emit it (the helper is idempotent via `drainAbortRef`). If you ever see
+  the drain regress to "waits for whole turn", FIRST re-verify which events
+  opencode emits — do not assume `session.next.*` works.
+
+  The abort is made INVISIBLE to the user:
+  - `drainAbortRef` is set when the drain-abort POSTs. It guards re-entrancy
+    (several boundary events can arrive before the abort lands — only the
+    first fires) AND tags the resulting `MessageAbortedError`.
+  - The `session.error` handler swallows that error silently via
+    `isDrainAbortError(err.name, drainAbortRef.current)` — no `sendError`
+    banner. It just flips `running` false (safety net if `session.idle`
+    doesn't also fire) so the drain effect runs.
+  - The drain effect re-arms `drainAbortRef = false` before submitting, so a
+    SECOND queued item can again abort the freshly-submitted turn at its next
+    step boundary (FIFO, each interrupting at a tool boundary).
+
+  This REPLACES the older "drain ONLY on `session.idle`, never mid-turn"
+  rule. That rule existed because posting a prompt mid-turn WITHOUT a
+  preceding explicit abort makes opencode abort implicitly, surfacing a
+  `MessageAbortedError` banner + marking the assistant message aborted. The
+  fix is the explicit abort + `isDrainAbortError` suppression — NOT avoiding
+  mid-turn sends. Do NOT reintroduce an `idle`-only drain; the suppression
+  path is what keeps the swap clean. The partial assistant output generated
+  before the abort legitimately stays in the transcript (real work the model
+  did); only the abort *error/indication* is hidden. The predicates are pure +
+  tested in `chatUtils.test.ts`. ChatPanel is shared with mobile, so this
+  behavior applies on both transports (both implement `opencodeAbort`).
+
+  **The drain effect is the SOLE owner and lives in `useSseBus.ts` — do NOT
+  duplicate it.** The BET-64 hook extraction left an IDENTICAL
+  `[running, messageQueue]` drain effect in BOTH `useSseBus.ts` AND
+  `ChatPanel.tsx`. Both fired on the same `running→false` edge against the
+  shared `messageQueue` + `submitRef`, submitting the same queued prompt
+  **TWICE** ("queued message sent twice"). The ChatPanel copy was removed;
+  a `no double send` regression test in `useSseBus.test.tsx` guards it.
+
+  **Ordering inside the drain effect is load-bearing:** `setInput(queued)`
+  runs synchronously in the effect body, and ONLY the `submitRef.current()`
+  call is deferred to `setTimeout(0)`. `submit()` reads `input` from its
+  render closure (not a ref), so the deferred submit must run AFTER the
+  input-set re-render has reassigned `submitRef.current` to a fresh closure.
+  The hook version originally did `setInput(queued); submitRef.current()`
+  BOTH inside the timeout back-to-back — no re-render gap — so submit read
+  the stale empty input and **silently dropped the queued prompt**
+  (a contributor to "queued messages seem to wait / never send"). Do NOT
+  collapse `setInput` back into the timeout next to the submit call.
+- **TodoWrite checklist auto-dismissal** — when every item in the pinned
+  `ActiveTodos` is terminal (`completed` or `cancelled`) at the moment the
+  user submits their next prompt, `todosDismissed` flips true and the card
+  hides until opencode emits a fresh `todo.updated`. Without this, finished
+  checklists stayed pinned forever and read as "still active work". The
+  `allTodosTerminal()` predicate lives in `chatUtils.ts` (tested); the
+  dismissal state is local to `ChatPanel`. Reset triggers: session change,
+  any incoming `todo.updated`. Do NOT clear on idle/`session.idle` —
+  the user keeps the visual confirmation right up to their next turn.
+- **Model persistence across sessions** — model selection is per-session in
+  `localStorage` (`manta:chat:<sessionId>:model`). On `/clear`, the handler
+  captures the returned `newSessionId` and copies the current override into
+  the new key before calling `refresh()`. `modelOverride` initial state falls
+  back to `AppConfig.defaultModel` (from store) when no localStorage entry
+  exists, so new sessions pick up the global default automatically.
+- **One PTY per active project**, kept mounted across renders. Switching
+  between sessions inside a project uses `tmux select-window` over the
+  local tmux socket (no PTY reconnect).
+- **OSC 52 → Mac clipboard** via custom parser handler in `Terminal.tsx`
+  (xterm.js's built-in addon-clipboard doesn't work in Electron because
+  `navigator.clipboard.writeText` is gated on user gesture).
+- **ResizeObserver skips fit when container is hidden** (< 50px). Without
+  this, switching projects re-flows scrollback at min width.
+- **Active-effect resize dance** (`Terminal.tsx`) does wide-then-narrow on
+  re-activation to un-wrap lines cramped while hidden. Don't simplify this;
+  a naive shrink-then-restore doesn't actually coalesce wrapped lines.
+- **Shift+Enter → newline** in `Terminal.tsx`. xterm.js routes input through
+  a hidden textarea; the browser default for Shift+Enter there is to insert
+  `\n`, which the inner claude TUI then receives as submit. We catch the
+  event in `attachCustomKeyEventHandler`, call `preventDefault()` to kill
+  the textarea side, and manually `ptyWrite("\x1b\r")` — the same sequence
+  iTerm2's `/terminal-setup` sends. Don't drop the `preventDefault()`.
+- **Chat transcript pin-to-bottom — one explicit "following" state, not
+  derived from the live scroll position (BET-933).** BET-679 moved the
+  transcript to react-virtuoso; the v1–v4 hand-rolled machinery
+  (`pinnedToBottom`, `prevScrollHeight`, `wasAtBottomBeforeCommit`,
+  `classifyScrollForPin`) is gone. This issue removed Virtuoso's
+  `followOutput` / `atBottomStateChange` / `atBottomThreshold` because
+  `followOutput` reacts only to item-COUNT changes and therefore missed
+  every height change (tool cards as their output streams, streaming text,
+  the Footer's working indicator), silently detaching the transcript
+  mid-turn with no user input — and staying detached for the rest of the
+  turn.
+
+  The replacement is one explicit follow state owned by ChatPanel
+  (`followingRef` + its render mirror), turned OFF only by a scroll gesture
+  that moves UP (`classifyFollowOnScroll`, threshold in
+  `FOLLOW_THRESHOLD_PX`), and one auto-follow trigger
+  (`totalListHeightChanged` → `scrollElementToTail`). Content growth fires
+  no scroll event, so it can never flip the state.
+
+  **State the invariant plainly, because five generations of this code have
+  now got it wrong: never derive "should we follow" from "is the scroller
+  at the bottom". Content growing under the user changes the latter and
+  must not change the former.**
+
+  **A scroll event is not a user gesture either — that was generation six.**
+  A `scroll` event with a lower `scrollTop` was read as "the user dragged
+  up", but react-virtuoso writes to the scroller itself: its *upward
+  scrolling compensation* fires whenever a row above the viewport is
+  re-measured (plus the unshift/`deviation` corrections). A tool card
+  landing mid-turn re-measures its row, Virtuoso compensates, and the
+  transcript detached with no user input at all — the "every tool call
+  bounces me out and I have to click jump-to-latest" report. So the two
+  signals are now separate: WHERE the scroller is (the scroll event) and
+  WHETHER the user put it there. `classifyFollowOnScroll` takes a
+  `userIntent` argument and only returns `false` when both agree; intent is
+  a short window (`USER_SCROLL_INTENT_WINDOW_MS`) refreshed by wheel /
+  touch / keydown on the scroller, plus a held-pointer flag. Landing within
+  `FOLLOW_THRESHOLD_PX` of the bottom still re-attaches unconditionally.
+
+  **Pointer intent is "a button is held", NOT "the press landed on the
+  scrollbar" — the geometric test is a no-op on the primary platform.** The
+  obvious discriminator is `clientX > left + clientWidth` (the gutter the
+  scrollbar reserves). That works with classic scrollbars and never fires
+  under **overlay** scrollbars, the macOS default, where the bar is painted
+  OVER the content and `clientWidth` is the full border-box width — so a
+  Mac user could not detach by dragging the scrollbar at all, while Windows
+  could. Measured in headed Chromium (the probe is worth re-running before
+  changing this): classic reports `clientWidth` 385 / `offsetWidth` 400,
+  overlay reports 400 / 400, and BOTH dispatch `pointerdown` to the scroller
+  at the same `clientX`. In the same run every scroll of a thumb drag fired
+  with the button held and a plain content click fired none — so the button
+  state separates them in both modes. A press that never scrolled earns
+  nothing on release (`releaseUserScrollIntent`), which is what stops a
+  tool-card click from vouching for the compensation its own expansion
+  causes; a press that DID scroll earns the normal window, covering a quick
+  track click whose scrolls land after the release.
+
+  Two consequences worth knowing before editing this:
+  - **A programmatic scroll away from the tail must now detach EXPLICITLY.**
+    `scrollToMessage` (the artifacts / ⌘F deep-link jump) calls
+    `setFollowing(false)` itself; it used to rely on the resulting scroll-up
+    being mistaken for a gesture, which is exactly the mistake being fixed.
+  - **`stickToTail` writes twice, across a frame.** Virtuoso publishes
+    `totalListHeightChanged` synchronously inside the ResizeObserver tick,
+    while the list padding carrying part of that height is React state that
+    lands on a later commit — so the first write can read a pre-growth
+    `scrollHeight` and park short of the tail. The rAF write lands on the
+    real one. Both are guarded on the follow state.
+
+  Note the tail scroll is `scrollTop = scrollHeight`, not
+  `scrollToIndex({ index: "LAST" })`, because the Footer renders below the
+  last item.
+
+## New-project dialog (`Sidebar.tsx`)
+
+Two helpers run on the server via `local.listWorktrees(cwd)` and
+`local.listPathCompletions(cwd)` (HTTP `POST /rpc/local` → `src/server/local.mjs`),
+both executed locally on the Linux box. No SSH hop — the server IS the box.
+
+- **`listWorktrees(cwd)`** — `git worktree list --porcelain` in the given cwd.
+  If >1 worktree, the dialog pauses to show "Detected N git worktrees.
+  Open a session for each?" with Yes / Just main. On Yes, the first
+  worktree becomes the tmux session's initial window; the rest are added
+  as new windows. Each window's `cwd` is the worktree's own path.
+- **`listPathCompletions(cwd)`** — `ls -1Ap <parent> | grep '/$'`.
+  Powers the shell-style ghost-text autocomplete in the cwd input.
+
+Locked decisions for these flows:
+
+- **Window names use the worktree directory basename**, not the branch.
+  Antoine's worktree folders are already named meaningfully
+  (`ethernal`, `ethernal-marketing`); branch names lose that context.
+  See `worktreeName()` in `Sidebar.tsx`. Don't "fix" this back to branch.
+- **Autocomplete is shell-LCP, not first-match.** Single match → suggest
+  full path + `/` (so the next Tab descends). Multiple matches with a
+  longer common prefix → suggest the LCP only (never commit to one
+  ambiguous sibling). No suggestion when typed is already the LCP. The
+  reducer is in `refreshCwdSuggestion()`.
+- **Ghost-text rendering trick**: the wrapper `<div>` carries the
+  background + border, the `<input>` is `bg-transparent`, and an
+  absolute-positioned overlay sits between them with the typed prefix in
+  `invisible` and the suggestion tail in `text-text-faint`. Both input
+  and overlay use `font-mono` so the invisible prefix and the muted
+  tail align character-for-character with the caret. If you change the
+  font on one, change both — or alignment drifts a pixel per character.
+- The fan-out flow only fires on project create. There's no live
+  re-sync if worktrees come and go later (same scope as the "live
+  refresh polling" roadmap item).
+
+## Per-window activity poller (`src/server/status.mjs`)
+
+Runs **on the server** (the Linux box), not on the desktop. Polls every 2s via
+local `tmux list-windows -a` + `tmux capture-pane -p -S -40` for every window,
+then parses the captured text. No SSH hop — the server IS the box. Publishes
+`WindowStatus[]` batches on the in-process bus; the desktop consumes them over
+`GET /events` SSE.
+
+Detection rules — these are **heuristics over Claude's TUI rendering**, not
+a contract. They will break the next time Claude rewords its status line:
+
+- **Running** (`BUSY_RE`): a line matching
+  `^[✻✳✶✽✢·*]\s+\S+…[^\n]*\([^)\n]+·[^)\n]*\)` — spinner glyph + verb with
+  Unicode ellipsis + parens-with-`·`. The `^` anchor matters: assistant
+  messages and code blocks are always indented, so a chat reply that quotes
+  `✻ Ruminating… (10s · ...)` does not match.
+- **Done** (no match): same line becomes `✻ Cogitated for 39s` — past
+  tense, no ellipsis, no parens. Requiring `…` is what distinguishes live
+  from done.
+- **Subagents**: `^●\s+Task\(` lines whose next ⎿ child within 3 lines is
+  `⎿  Running…`. Other tool calls (Bash, Read, etc.) also briefly render
+  `⎿  Running…` but they don't get counted because their parent header is
+  not `Task(`. Column-0 anchor again — same self-reference trap.
+
+If the indicator goes dark across all windows after a Claude update, dump
+`tmux capture-pane -p -S -40 -t <session>:<idx>` while a window is busy and
+compare against the regexes. The bottom of an alt-screen has the spinner
+~10 lines above the input box, so a naive tail-line check misses it; the
+regex matches anywhere in the captured body.
+
+**Chat-mode windows are NOT served by this poller.** Their tmux pane runs
+`sleep infinity` (the holder); `capture-pane` returns blank output, BUSY_RE
+can't match, so the poller would silently report `running:false` forever
+for chat windows. Sidebar status for chat-mode flows through a separate
+path: an `onOpencodeEvent` subscription in `App.tsx` calls
+`setChatRunning(sessionId, running)` on `session.status` / `session.idle`
+and `setChatAttention(sessionId, kind)` on `question.asked` /
+`permission.asked` / `*.replied` / `*.rejected`. `applyStatusBatch`
+preserves chat windows' prior status across poller ticks (looking up
+`w.opencodeSessionId`) so the poller never clobbers the live SSE state.
+Attention kinds: `"idle"` (running→idle while user wasn't on the window,
+amber dot), `"question"` (Question tool blocked the turn, pulsing red
+dot + `?`), `"permission"` (permission.asked blocked a tool, pulsing red
+dot + `!`). `chatAutoAllow` suppresses `permission.asked` at the bus
+layer in both transports, so the sidebar naturally stays quiet in trust
+mode.
+
+## Chat-mode windows
+
+A second window type alongside the claude-TUI window. A tmux window running
+`sleep infinity` (holder pane) with MantaUI's own React `ChatPanel` overlaid on
+top, talking to an opencode session over HTTP (via manta-server).
+
+**Recognition**: presence of `@manta-session-id` tmux user-option on the window
+is THE signal the renderer uses to show `ChatPanel` instead of `Terminal`.
+
+**Conversation search (⌘F, BET-698) is ONE server-side SQLite query** over
+opencode's own store (`src/server/messageSearch.mjs` → `opencode:search-messages`),
+scoped to exactly the chat windows in the sidebar and covering each one's FULL
+history. The renderer (`src/renderer/SearchPalette.tsx`) holds no search logic —
+it sends `{ query, sessionIds }` (active session first, then every other chat
+window in sidebar order) and renders the flat returned hits grouped by session.
+This replaced the old client-side transcript-not download fan-out (which capped
+at 5 sessions per keystroke) and fixed the current-conversation tail-only gap. It
+requires the **Node 24 box runtime** (`node:sqlite`); on an older box the channel
+degrades to `{ supported:false }` and the palette shows "update the box". The DB
+handle is read-only, always.
+
+**Architecture** (HTTP-only — opencode session mgmt + SSE live server-side):
+- opencode runs as a `systemd --user` service (`opencode-serve`) on the Linux
+  box, port 4096, bound to 127.0.0.1. manta-server proxies it over HTTP
+  (`src/server/opencode.mjs`) — no SSH tunnel, no `-L` forward.
+- Renderer never talks to opencode directly — only via `window.api.*`, which is
+  `httpApi` (`/rpc` + `/events`) on both desktop and mobile.
+- **manta-server** owns the opencode SSE streams (`src/server/opencode.mjs`
+  `subscribeEvents` — global + one scoped `/event?directory=` stream per known
+  session directory) and republishes on its in-process bus; the renderer
+  consumes them via `GET /events`. ChatPanel filters by sessionID. (Historical:
+  the desktop main process used to own this SSE bus via `src/main/opencode.ts` +
+  `src/main/index.ts` over an SSH forward — that path is deleted.)
+- Anthropic auth via `opencode-claude-auth@latest` plugin in
+  `~/.config/opencode/opencode.jsonc` (Claude Max sub, `~/.claude/.credentials.json`).
+
+**Key files**:
+
+| File | What |
+|---|---|
+| `src/server/opencode.mjs` | opencode HTTP proxy, session mgmt, per-directory SSE streams (server-side, the sole owner) |
+| `src/server/tmux.mjs` | tmux CRUD, `restampSessionId` (`@manta-session-id`), chat-holder pane, `maybeCreateChatSession` |
+| `src/server/rpc.mjs` | `/rpc` channel dispatch — the `window.api` contract, server side; `resolveProjectCwd` |
+| `src/server/index.mjs` | manta-server entry: `/rpc`, `/events` SSE, REST `/api/*`, WS `/pty`, auth gate |
+| `src/renderer/api/httpApi.ts` | the live `window.api` on desktop + mobile (`/rpc` + `/events`) |
+| `src/renderer/ChatPanel.tsx` | entire chat UI (~2285 LoC), intentionally monolithic |
+| `src/renderer/App.tsx` | mounts ChatPanels keyed by session id; owns the `onOpencodeEvent` fan-out |
+
+**AppConfig additions**: `opencodePort` (default 14096), `chatAutoAllow`
+(auto-reply "always" to all permission requests — like `--dangerously-skip-permissions`).
+`chatAutoAllow` does NOT apply to Question tool requests — those always need
+explicit user choice. `defaultModel: { providerID, modelID }` — global default
+for all new and cleared sessions; settable in Settings; `null`/absent = opencode
+picks its own default. `skillRegistryUrls: string[]` — extra opencode skill
+registry URLs (Settings UI), persisted to `~/.manta/config.json` via the generic
+`configUpdate` channel.
+
+**opencode.jsonc writes go through exactly two writers (BET-1318).** Upserts go
+through opencode's own `PATCH /global/config` (BET-1019) — the writer lives in
+`src/server/providers.mjs` (`patchGlobalConfig` → `setProviders` /
+`setSubagents`). The endpoint owns both the in-memory config and the file, edits
+the `.jsonc` surgically, and **preserves `//` comments** (verified live). Note
+`PATCH /config` is INERT on 1.18.x (returns 200 but changes nothing): only
+`PATCH /global/config` works. Deletions go through `removeConfigKeys` (surgical
+jsonc-parser edit + mandatory opencode restart) — the PATCH endpoint has no
+delete semantics over HTTP (it deep-merges and rejects `null`), so a `remove`
+op (deactivating a subagent / deleting a provider endpoint / removing a
+reference) cannot be expressed through it; the restart is what stops a removed
+key resurrecting from opencode's stale in-memory config. There is no third
+writer. The default
+registry
+(`https://antoinedc.github.io/manta-skills`) ships in the opencode binary once
+the upstream PR (anomalyco/opencode#28068) lands; these are user-added extras.
+`cacheTtl: "5m" | "1h"` — Anthropic prompt cache TTL (default `"5m"`).
+Display-only: drives the stale-cache threshold on the SessionHeader context
+pill (a stale cache tints that pill warn and shows a Clear-session block in
+its popover — there is no separate cache pill; see the "Stale prompt-cache"
+section below). MantaUI does NOT set `cache_control.ttl` on any request.
+**NOT display-only: it changes the real wire TTL** by writing
+`options.cacheControl` into opencode's own config. The default is `"5m"`
+because that is what opencode sends when the key is absent, measured. Going
+1h→5m RESTARTS opencode and ends in-flight turns; going to 1h does not. See
+"Stale prompt-cache" for the wire evidence and the four opencode properties
+the implementation depends on.
+
+**v2-only endpoints** (used alongside the v1 base):
+- `GET /question` — list pending Question tool requests
+- `POST /question/{id}/reply` — body `{answers: string[][]}` (one array of selected
+  option labels per question)
+- `POST /question/{id}/reject` — dismiss without answering
+- `GET /vcs?directory=<cwd>` — `{branch?, default_branch?}` for the session
+  cwd. **MantaUI does NOT use this.** opencode caches the branch per-worker and
+  its internal watcher misses terminal-side `git checkout`s, so `/vcs`
+  returns stale data forever ("main" even when HEAD is on `feature/x`) and
+  the `vcs.branch.updated` SSE below never fires for those switches. The
+  `opencode:vcs-branch` IPC (`window.api.opencodeVcsBranch(directory)`)
+  bypasses opencode entirely: the server spawns
+  `git -C <cwd> branch --show-current` locally
+  (~30ms); the mobile server uses the same local spawn.
+  ChatPanel polls every 5s and on every submit, so terminal-side checkouts
+  reflect within one tick. If you ever need branch info elsewhere, use the
+  same IPC — never call `/vcs` directly.
+- SSE events consumed in ChatPanel's `onOpencodeEvent` handler beyond the
+  basics (`session.idle/status/error/compacted`, `message.part.*`, `permission.*`,
+  `question.*`):
+  - `session.next.step.ended` — live token/cost snapshot. `stepTokens` state
+    is preferred over the transcript-scraped `latestTokens` so the
+    SessionHeader context pill updates between tool calls, not just on
+    re-fetch. `properties.
+    finish` is classified via `classifyFinish()` into `"output-cap" |
+    "context-wall" | "tool-cutoff" | null` (covers Anthropic `max_tokens` /
+    `model_context_window_exceeded`, OpenAI `length`, Gemini `MAX_TOKENS`).
+    Non-null results land in `finishByMessageId: Map<messageID,
+    TruncationKind>` and render an inline orange `⚠ truncated (…)` pill
+    on the matching `MessageRow` next to the turn-duration footer.
+    `tool-cutoff` is promoted from `max_tokens` when the message's last
+    non-step part is a `tool` — silently-fatal case where the tool JSON is
+    incomplete; the badge tells the user a retry is needed. The legacy
+    `sendError` banner also fires (finish-aware copy via
+    `describeTruncation().label`), without clobbering a more-specific
+    `session.error`.
+  - `session.next.compaction.{started,delta,ended}` — drives the inline
+    `CompactionCard` above the running indicator. `.ended` holds the
+    "Compacted" confirmation for 2.5s then clears (the `session.compacted`
+    refetch has landed by then).
+  - `todo.updated` — `liveTodos` state, preferred over transcript-scraped
+    `activeTodos`. Lets the `ActiveTodos` card flip items between
+    in_progress/completed live.
+  - `vcs.branch.updated` — keeps the branch chip in SessionHeader's left
+    group current
+    when opencode itself notices a change (rare in practice: its watcher
+    misses terminal-side `git checkout`s — see the `/vcs` note above for
+    why we don't rely on this event). The handler is still wired because
+    when opencode DOES emit it, the value is correct, but the 5s poll +
+    submit refetch is the authoritative path. Properties have no
+    `sessionID` so the early sessionID filter at the top of
+    `onOpencodeEvent` short-circuits (undefined → falsy).
+  - On `todo.updated`, `todosDismissed` is reset to `false` so a fresh
+    TodoWrite resurfaces the card even if the prior list was user-dismissed.
+  - `session.status` with `type === "retry"` — drives the `RetryCard` above
+    the running indicator with `attempt`, `message`, and an optional
+    `action {title, message, label, link?}`. Cleared on next `busy`/`idle`.
+  - `command.executed` — fired right after opencode creates the user
+    message that holds an expanded slash-command template. Properties
+    `{name, arguments, messageID, sessionID}` populate `commandByMessageId:
+    Map<messageID, {name, arguments}>`. `MessageRow` reads the map and
+    swaps the user-text gray bar for `UserCommandBar` — a collapsed
+    `› ▸ /name args` row with a chevron that expands to the full template
+    body. Without this, invoking a large skill (e.g. gsd-*) dumped the
+    entire SKILL.md as the user's turn.
+
+The `QuestionCard` component (bottom of `ChatPanel.tsx`) renders above
+`PermissionCard`. Each card shows question header + body text, clickable option
+buttons (toggleable multi-select when `multiple:true`), an **always-shown**
+free-text input ("Or type your own answer…"), and Submit / Cancel. The
+free-text box is no longer gated on opencode's `custom:true` flag — the user
+can type a custom reply for ANY question (desktop + mobile, since mobile reuses
+this component). On submit, typed text is appended AFTER any selected option
+labels for that question (`buildQuestionAnswers` in `chatUtils.ts`, pure +
+tested), so a picked option and a typed clarification both reach the model;
+Enter in the input submits when the whole request is answerable. Submit is
+disabled until every question has at least one selection or non-empty typed
+text (`canSubmitQuestion`, also pure + tested).
+
+**Pattern: live-event state preferred over transcript-derived `useMemo`.**
+The transcript only refreshes on the 300ms debounced refetch — a long tool
+roundtrip leaves footers and cards stale until the next part arrives.
+Several `useMemo` selectors over `messages` now check a "live" state first
+and fall back to the message scan:
+- `latestTokens` prefers `stepTokens` (from `session.next.step.ended`)
+- `activeTodos` prefers `liveTodos` (from `todo.updated`)
+- `branch` is pure state (initial fetch + 5s poll + submit refetch +
+  best-effort `vcs.branch.updated`; see `/vcs` note above)
+- `finishByMessageId` is pure state (from `session.next.step.ended`'s
+  `properties.finish`) — survives refetch because the canonical messages
+  payload doesn't carry per-step finish metadata.
+- `commandByMessageId` is pure state (from `command.executed`) — same
+  reason: the canonical messages payload has no command-origin field, so
+  re-fetch can't restore the `/name args` collapsed view.
+When adding a new live-event consumer in ChatPanel, follow the same shape:
+`useState` reset on session change, set in the SSE handler, consumed via a
+`liveX ?? transcript-derived` selector. Don't try to mutate messages
+in-place — the canonical refetch will overwrite you.
+
+**ContextBar — lives in the SessionHeader (`SessionHeader.tsx`, the row at
+the top of the pane), not the composer footer.** What AGENTS.md calls the
+"context bar" is the context pill at the right of the session header: a mini
+segmented bar inside the pill plus a larger segmented bar + full breakdown in
+its click-to-open popover. The stale-cache warning is part of that same pill
+(see below), not a separate element.
+
+**ContextBar denominator is the active model's real `limit.context`**, not
+a hardcoded 200k. `resolveContextLimit(activeModel)` reads
+`model.limit.context` (Opus 4.7 = 1M, Sonnet 4 = 200k) so the bar reflects
+what the provider will actually accept; falls back to `ASSUMED_CONTEXT_TOKENS`
+(200k) only when no model is selected yet. Tooltip at ≥90% surfaces
+"consider /compact soon"; at 100% says "Compact recommended". If you add
+a new place that shows ctx %, use the same helper — don't reintroduce the
+200k hardcode.
+
+**ContextBar numerator = input + cache.read + cache.write** (all three
+Anthropic input buckets are disjoint and ALL consume the request's context
+window). Earlier code used `input + cache.read` and under-counted on
+cache-warming turns. Math + per-segment widths live in
+`computeContextBreakdown()` in `chatUtils.ts` (tested). The bar is
+SEGMENTED: fresh-input slice in the stage color, cache.write slice in
+amber (`#f59e0b`), cache.read slice in teal (`#0ea5a4`). (The older mobile-CSS
+hiding of the bar via a `span[class*="w-24"]` selector is gone — that
+`mobile.css` and the class were retired with BET-559/578; nothing hides the
+bar today.)
+
+**Stale prompt-cache — a warn-toned context pill plus a block in its
+popover.** There is no separate cache pill in the composer footer any more;
+staleness is surfaced entirely by the SessionHeader context pill (BET-415
+moved it into the header with the rest of session state). Anthropic's prompt
+cache has a sliding TTL (5m default, 1h opt-in via `cache_control.ttl`).
+When the session has been idle past the TTL, the next user message re-bills
+the entire cached prefix as `cache_creation_input_tokens` (full rate + 25%
+for 5m, 2× for 1h). The SessionHeader `ContextPill` (`SessionHeader.tsx`)
+renders when stale by flipping its pill tone from neutral to `warn` and, in
+the popover, showing a "cache went stale … clearing saves Nk tokens" block
+with a **Clear session** button. The warn state matches when:
+`!running && idleMs >= ttlMs && cachedTokens >= STALE_CACHE_MIN_TOKENS`
+(5k). The TTL is **NOT set by MantaUI** — MantaUI only predicts staleness
+from `AppConfig.cacheTtl` ("5m" | "1h", default **"5m"**, in Settings).
+
+**cacheTtl is a REAL setting — it changes what Anthropic is asked for, not
+just what the pill predicts (BET-1336).** opencode's `applyCaching()`
+(`packages/opencode/src/provider/transform.ts`) stamps its own cache
+breakpoints `{type:"ephemeral"}` with **no `ttl` field**, so left alone
+Anthropic applies its default 5-minute TTL — measured on the wire:
+`usage.cache_creation.ephemeral_5m_input_tokens: 4421`,
+`ephemeral_1h_input_tokens: 0`. That is why **"5m" is the default and is
+expressed as the config key being ABSENT**.
+
+**"1h" is applied by writing `options.cacheControl` into opencode's own
+config**, which opencode turns into a **top-level** `cache_control` on the
+request. Verified end-to-end through a real opencode turn (isolated proxy
+provider, 1.18.22): `TOP-LEVEL cache_control={"type":"ephemeral","ttl":"1h"}`,
+and Anthropic bills the write to `ephemeral_1h_input_tokens`. No beta header
+needed. The machinery is `selectCacheTtlTargets` / `planCacheTtlOps` /
+`syncCacheTtl` / `readCacheTtl` in `src/server/providers.mjs`, driven from the
+`config:update` and `config:get` channels in `rpc.mjs`.
+
+Four properties of opencode's logic that the implementation is shaped around —
+change any of them and this breaks:
+
+1. **`cacheControl` is a caching-MODE switch, not a TTL field.**
+   `usesAnthropicAutomaticCaching` (gated on `options.cacheControl !== undefined`
+   + `@ai-sdk/anthropic`) makes opencode SKIP its own breakpoints and hand
+   placement to Anthropic — measured as `block_breakpoints=0` on the wire.
+   **So "5m" must REMOVE the key, never write `ttl:"5m"`** — an explicit 5m
+   would silently flip every default user into automatic caching. There is
+   likewise no "off" value: `null` leaves opencode in automatic mode with no
+   `cache_control` on the wire, i.e. no caching at all.
+2. **The option is per-MODEL.** `ProviderTransform.options()` does not pass
+   provider-level options through, so there is no single global key; the
+   setting fans out over the Anthropic-SDK models of the CONNECTED providers
+   (15 on a stock Anthropic box). Only `@ai-sdk/anthropic` and
+   `@ai-sdk/google-vertex/anthropic` honour it — anything else would be a stray
+   option under the wrong providerOptions namespace, so the target set is exact.
+3. **Writing hot-applies; removing RESTARTS opencode.** `PATCH /global/config`
+   lands in the live config with no restart (verified). A removal has to go
+   through `removeConfigKeys`, which restarts `opencode-serve` — otherwise the
+   deleted key survives in opencode's in-memory config. That restart **ends
+   every in-flight turn box-wide**, so 1h→5m confirms with the user first and
+   `syncCacheTtl` reports `restarted` so a caller can say so. (Not theoretical:
+   it killed an agent's own turn mid-call during development.)
+4. **Reconciliation has a DIRECTION rule.** manta's stored value is the user's
+   INTENT, opencode's config is the mechanism. On read (`config:get`), stored
+   "1h" with opencode unset is APPLIED (a pure upsert, no restart) — that is
+   what carries a user who chose 1h before the setting was wired through.
+   Any other disagreement adopts opencode's value into the mirror, because
+   resolving it the other way would mean a restart, which a read must never do.
+
+**Still worth fixing upstream**: `applyCaching()` should accept a configurable
+`ttl` on the breakpoints it already writes, which would give a real TTL knob
+without the mode switch in (1) or the per-model fan-out in (2).
+
+**History note:** BET-1334 deleted this setting and replaced it with a TTL
+measured from the message ledger, on the reasoning that it asked users to
+guess another program's internals. That reasoning applied to the OLD
+display-only control and no longer holds — the control now SETS those
+internals rather than guessing them. BET-1336 reverted that removal and wired
+the control for real; do not re-remove it without a way for a user to actually
+choose a 1-hour cache.
+
+The predicate (`computeStaleCache`), TTL → ms (`selectCacheTtlMs`), and
+"last assistant completion" selector (`selectLastAssistantCompletion`)
+are pure + tested in `chatUtils.ts`. ChatPanel runs a 10s
+`setInterval` (gated on `!running && lastCompleted != null &&
+cachedTokens >= min`) to re-evaluate the predicate over time without
+remounting; same pattern as the RunningIndicator's 1s elapsed-time tick
+but coarser since staleness is a 5-min / 1-hr scale.
+
+**Composer meta row — what it actually owns today.** The composer
+(`InputArea.tsx`) below the session header owns COMPOSING only. Its meta
+footer row holds: the model picker (model + effort + fast-toggle, inside
+`ModelPicker`), the mic and attach buttons (input-mode affordances), and on
+the right the usage dial (`UsageDial`) plus the ⏰ schedules / 🔑 secrets /
+🪝 webhooks `SessionToolbar` buttons, with a transient voice/running status
+string ("transcribing… · esc cancels" / "recording · ⏎ send · ⇧⌘M stop ·
+space pause · esc cancel" / "esc · interrupt") appearing while voice or a turn is active.
+A trust toggle ("Permissions on — click to bypass" / "Bypassing permissions")
+sits on its own row beneath the footer. Status that describes the SESSION
+(branch, context pill, stale-cache warning, fork/compact/clear/delete) lives
+in the SessionHeader, not here — BET-415's organising split.
+
+**Buffered text-delta streaming.** opencode emits `message.part.delta`
+events ~character-by-character for text/reasoning parts. The naive
+"setMessages on every delta" policy produces visible markdown jitter:
+bullets appear before their content, code fences flash as inline-code
+before closing, Prism re-tokenizes a growing code block on every
+keystroke. Instead, deltas accumulate in `pendingDeltas: Map<partID,
+{messageID, field, text}>` (a ref in ChatPanel) and flush at section
+boundaries computed by the pure `findFlushBoundary(buffer)` helper in
+`chatUtils.ts`:
+
+- Paragraph breaks (`\n\n`) **outside** an open code block.
+- The newline immediately after a closing ` ``` ` fence (so whole code
+  blocks appear at once — no half-formed fence rendered as inline code).
+- The largest valid boundary wins (deepest flushable prefix).
+- 250ms max-age fallback (FLUSH_MAX_AGE_MS) so a single long paragraph
+  doesn't stall.
+
+Force-flushed on: `session.next.step.ended` (step narration complete —
+flush before next step starts), `message.part.updated` /
+`session.idle` / `session.status` / `session.compacted` /
+`session.error` / `message.updated` (BEFORE the refetch, otherwise the
+canonical-transcript pull races the buffer's max-age timer and the
+trailing paragraph gets discarded), and on session change / unmount.
+
+Race tolerance: if a delta arrives before the part's `message.part.updated`
+snapshot (so `mergeBufferedDeltas` reports the partID as unmatched), the
+flush scheduler triggers `scheduleRefetch()` and the buffered text waits
+for the next flush — the refetch creates the part in state, the next
+flush merges the buffer cleanly.
+
+Pure logic (`findFlushBoundary`, `mergeBufferedDeltas`) lives in
+`chatUtils.ts` with full unit-test coverage including the tricky cases
+(open code block suppresses `\n\n` boundaries, empty code block, multiple
+fences in one buffer, inline backticks don't toggle fence state).
+
+**Transcript row memoization — REQUIRED for input perf.** The chat
+input's `input` state lives in `ChatPanel`, so every keystroke
+re-renders the whole component. Without `React.memo` on transcript
+rows that cascade re-runs `react-markdown` + Prism for every assistant
+message — visibly laggy past ~50 messages. Memoized leaf components:
+`MessageRow`, `AssistantPart`, `MarkdownBody`, `CodeBlock`, `ToolCall`,
+`ToolOutput`, `ActiveTodos`, `UserCommandBar`. All use the default
+shallow comparator; props passed in `messages.map()` are either
+primitives or Map lookups from panel-scope `useMemo`s
+(`userCommandInfo`, `turnInfo`, `finishByMessageId`, `commandByMessageId`).
+**Do not build fresh objects inline inside `messages.map`** — the
+`{name, arguments}` cmdInfo literal used to do this and silently
+defeated the memo on every keystroke. `userCommandInfo` precomputes
+the Map once, the map callback just does an O(1) lookup. If you add
+a new prop to MessageRow, either make it primitive or back it with
+a memoized lookup; otherwise the keystroke lag returns.
+
+`@`-typeahead file lookup is debounced 80ms (`fileSearchTimer`) so a
+fast typist doesn't pile up parallel HTTP `opencodeFindFiles`
+requests; the seq guard remains so any stale response is discarded.
+
+**Typed `session.error` names.** The `session.error` handler switches on
+`err.name` to prepend a context-appropriate prefix before the raw message:
+`ProviderAuthError` → "Auth error: …", `ContextOverflowError` → "Context
+full — try /compact: …", `MessageOutputLengthError` → "Response truncated
+(hit output limit)", `StructuredOutputError`, `ApiError`. Add new branches
+when opencode introduces new error class names; unknown names fall through
+to the raw message.
+
+**Live tool output (bash tailing) — the messageID + debounce-starvation
+trap.** A running tool streams its stdout into `state.metadata.output` (NOT
+`state.output`, which only exists at `completed`); `resolveToolOutput`
+(`chatUtils.ts`) prefers `state.output` and falls back to the live
+`metadata.output` so `BashBody` tails a long command's latest lines. opencode
+emits a `message.part.updated` for the tool part every ~20-40ms as output
+grows (verified live against `/events`). Two bugs conspired to make this show
+nothing until the turn ended ("bash · running" with an empty body, then the
+whole output dumped at once on completion):
+
+- **messageID is at a DIFFERENT path per event type.** On
+  `message.part.updated` the id lives at `properties.part.messageID`; the
+  top-level `properties.messageID` is UNDEFINED (it's only set on
+  `message.updated`). The handler read only `props.messageID`, so
+  `message.part.updated` resolved to `""` and `spliceMessage("")` fell through
+  to a FULL `scheduleRefetch()` instead of the targeted per-message splice.
+  Fix: resolve `props.messageID ?? props.part.messageID ?? props.info.id`
+  (`useSseBus.ts`).
+- **The refetch debounce was starved.** Both `scheduleRefetch` and the
+  per-message `spliceMessage` are 300ms-debounced with a timer that RESETS on
+  every call. Because tool updates arrive every ~30ms — far faster than
+  300ms — the timer never fired until the stream paused (turn idle). Fix: a
+  per-message **max-wait guard** (`SPLICE_MAX_WAIT_MS = 250` in
+  `useTranscriptState.ts`) — if a message's splice has been pending longer
+  than the cap, the in-flight timer is allowed to fire instead of being reset,
+  so live output updates at a steady ~4Hz cap. `spliceTimers` +
+  `spliceFirstScheduledAt` are cleared on session change so a late timer can't
+  write a stale message into the new session.
+
+The renderer's render path (`resolveToolOutput` → `BashBody` →
+`ConnectorOutput` pin-to-bottom, memoized on the `part` reference) was already
+correct; the bug was purely event-routing + debounce, not rendering. The full
+pipeline (opencode → manta-server `/events` → RPC `opencode:message`) delivers
+`metadata.output` intact both mid-run and at completion — verified by
+streaming the box's opencode `/event` and manta-server `/events` during a slow
+`for i…; do echo; sleep 1; done`.
+
+**Per-project SSE scope** — every session-mutating POST
+(`prompt_async`, `command`, `fork`, `compact`) carries
+`?directory=<session.directory>` so opencode runs tools inside the project
+worktree. opencode's `/event` stream is ALSO scoped by `?directory=`: events
+from a scoped POST land only on the matching scoped subscription, NOT on
+the global stream. The event bus therefore opens **one `/event` stream per
+directory** in addition to the global stream.
+
+**Location (HTTP-only):** this machinery now lives entirely in manta-server —
+`src/server/opencode.mjs` (`subscribeEvents`, `sessionDirectoryCache`,
+`rememberSessionDirectory`) + `src/server/index.mjs` (the bus that spawns
+per-directory streams and republishes on `/events`). References below to
+`src/main/{index,opencode}.ts` are the deleted desktop-main equivalents, kept
+only to explain the shared contract and the historical "identical bug in both
+transports"; the surviving copy is the `src/server/*.mjs` one.
+
+- `sessionDirectoryCache` (`src/server/opencode.mjs`) maps `sessionId →
+  directory`; populated by `createSession`, `forkSession`, and `listSessions`
+  (via a side-effect loop), and lazy-filled by `GET /session/{id}` on miss.
+- `onSessionDirectoryAdded` lets the bus auto-spawn a stream whenever a new
+  directory shows up in the cache.
+- On startup the bus opens the global stream, replays
+  `knownSessionDirectories()`, and calls `opencodeListSessions(config)` to
+  prime the cache from server-side sessions (recovers from restarts).
+- **GOTCHA — every cache write MUST go through `rememberSessionDirectory`,
+  never a bare `sessionDirectoryCache.set`.** Only `rememberSessionDirectory`
+  fires the `onSessionDirectoryAdded` listeners; a bare `.set` populates the
+  map but the bus never learns to open the scoped stream. This was the exact
+  "SSE broken in *existing* sessions, fine in new ones" bug:
+  `getSessionDirectoryQuery`'s lazy-fetch branch used a bare `.set`, so an
+  existing/restored session resolved on its first prompt never opened its
+  scoped stream and every response event vanished. Fixed in BOTH transports
+  (`src/main/opencode.ts` + `src/server/opencode.mjs` had the identical
+  bug). Regression test: `sendPrompt lazy-fetch notifies directory
+  listeners …` in `src/server/opencode.test.mjs` (red/green verified).
+- **Readiness gate (desktop)** — even with the listener firing, the scoped
+  stream opens asynchronously while the prompt POST is already in flight.
+  `setDirectoryReadyGate` (registered by the bus in `src/main/index.ts`) lets
+  `getSessionDirectoryQuery` await the scoped subscription being live before
+  the scoped POST goes out. Bounded at 5s — a wedged server degrades to
+  "send anyway", never freezes the prompt. Readiness re-arms on stream
+  disconnect so reconnect-window prompts wait for the new subscription.
+- **Success-path instrumentation** — the bus logs `[opencode-bus] stream
+  CONNECTED dir=…`, the open-stream set, and a sampled per-dir event trace
+  (event#0, then every 50th) to the dev log. The earlier `debug(...)` commits
+  only logged the main-process cwd path, not SSE success — "nothing prints"
+  was undiagnosable. Keep this; it's how you tell "events flowing for a dir"
+  from "silent" (the bug signature).
+
+Symptom you'll see if this breaks again: user message shows optimistically,
+assistant turn stays blank forever, no JS errors. The transcript
+(`GET .../message`) shows the response was generated and persisted — it
+just never streams to the renderer because the matching scoped stream
+isn't open. Verify with
+`curl -sN 'http://127.0.0.1:4096/event?directory=<cwd>'` while a prompt is
+in flight: you should see `message.part.delta` frames.
+
+The mobile server (`src/server/opencode.mjs`) mirrors this with its own
+`sessionDirectoryCache` and `subscribeEvents()` that opens global + one
+scoped stream per known directory. Both code paths share the same contract;
+when changing one, change the other.
+- Sessions persist FileParts forever. A bad-mime FilePart (e.g. `application/json`)
+  in history causes every subsequent Anthropic call to fail. Fix:
+  `DELETE /session/{sid}/message/{mid}/part/{pid}` on each offender.
+- `/api/model` leaks `apiKey` — never forward it. Use `/provider` instead
+  (already done in `opencode.ts`).
+- The `/question` endpoint returns 404 on older opencode servers (pre-v2). The
+  fetch in ChatPanel is wrapped in `.catch(() => {})` — non-fatal.
+- `opencodeVcsBranch` returns `null` for non-git cwds, detached HEAD,
+  empty cwd, or transport failure. The renderer renders nothing for `null`
+  (the `⎇ <branch>` indicator is gated on truthy branch). Don't treat
+  `null` as an error.
+- `vcs.branch.updated` events carry no `sessionID` — they pass the
+  per-session filter by accident. Acceptable: there's only one branch per
+  cwd, but be aware if you ever scope event handling more strictly.
+
+## Subagent rendering (read-only, Phase 1)
+
+When the parent agent invokes the `task` tool, opencode spawns a CHILD
+session and runs the subagent inside it. The child's events flow on the
+**same scoped `/event?directory=` stream** as the parent (child inherits
+parent cwd), but with the child's `sessionID` — so the early sessionID
+filter in `onOpencodeEvent` would drop them. Phase 1 renders the subagent
+inline (collapsed by default, expand for full child transcript) without
+spawning a tmux window for it. Phase 2 ("Open as session") is the open
+work bullet at the bottom — promotes the child into its own chat-mode
+window.
+
+**Wire shape — verified live + against OpenAPI** (`/doc` endpoint, opencode
+v2):
+
+```js
+// Parent's task tool part:
+{ type: "tool", tool: "task", callID: "toolu_…", state: {
+    status: "pending" | "running" | "completed" | "error",
+    title: "Find skill loading code",        // opencode-generated
+    input: { description, prompt, subagent_type },
+    output: "I now have…",                    // present when completed
+    metadata: {
+      parentSessionId: "ses_parent",          // ourselves
+      sessionId:       "ses_child",           // ← child id, present from
+                                              //   first metadata write
+      model: { providerID, modelID },
+      truncated: false,
+    },
+    time: { start, end },                     // end set on completion
+} }
+```
+
+**Child id discovery — two converging sources:**
+1. `collectChildSessionIds(messages)` walks the transcript for
+   `state.metadata.sessionId` on every task part. Used to seed the
+   `childSessionIds` allowlist on initial fetch AND every refetch.
+2. `session.created` events whose `properties.info.parentID === sessionId`
+   add the new child id to the allowlist (covers the brief window before
+   the parent's task part is stamped). **GOTCHA — registration MUST run
+   BEFORE the per-session filter**, otherwise the filter drops the event
+   whose payload would register the child:
+   `EventSessionCreated.properties.sessionID` per opencode's OpenAPI is the
+   NEW child's id, which is not in the allowlist yet (this event is what
+   would add it). The pure `registerChildSessionFromCreated(ev, sessionId,
+   childIds)` helper handles registration and is called before
+   `shouldDropEventForSessionFilter(...)` in `onOpencodeEvent`. The
+   regression is locked in by `shouldDropEventForSessionFilter REGRESSION:
+   session.created for a new child …` in `chatUtils.test.ts`.
+
+**The sessionID filter** (`shouldDropEventForSessionFilter` in
+`chatUtils.ts`, called from `onOpencodeEvent`) is 3-state, not 2-state:
+- `evSessionID === sessionId` → main session event, normal handling.
+- `evSessionID ∈ childSessionIds` → CHILD event, routed to the subagent
+  branch (re-fetches the child's transcript when its card is expanded;
+  updates `liveChildStatus` on `session.idle` / `session.status`; triggers
+  a parent refetch so the task part's `state.status` flips).
+- otherwise → dropped (unless it's a self-filtering lifecycle event:
+  `question.*` / `permission.*`).
+
+**State pattern matches the "live-event preferred" rule** from the rest of
+ChatPanel:
+- `childSessionIds: Ref<Set<string>>` — allowlist consulted by the SSE
+  handler; a ref so the closure reads current value without resubscribing.
+- `childMessages: Map<childId, OpencodeMessage[]>` — lazily fetched on
+  first expand; refetched (300ms debounce) on subsequent SSE traffic
+  while expanded; ALSO refetched on re-expand when the child is still
+  running (the cached snapshot would otherwise be stale until the next
+  live event hits the now-expanded card).
+- `liveChildStatus: Map<childId, "running"|"idle">` — overrides the
+  parent's stale `state.status` snapshot for the header badge.
+- `expandedTasks: Set<childId>` + `expandedTasksRef` mirror — the SSE
+  handler gates per-child refetches on whether the card is expanded
+  (closed cards don't burn fetch traffic).
+
+**TaskContext** (provided by ChatPanel around the scroll container) is
+how `TaskBody` reads this state without breaking the existing
+MessageRow/AssistantPart/ToolCall/ToolBody memo chain. **Don't pass the
+context value as a prop** — `taskContextValue` is memoized for keystroke
+stability; provider value identity is what matters.
+
+**Sidebar `·N` indicator for chat-mode subagents** flows through a new
+`setChatSubagents(sessionId, count)` store action (mirrors
+`setChatRunning` / `setChatAttention`). ChatPanel pushes
+`countRunningSubagents(messages, liveChildStatus)` via a 1-effect
+derivation. The store no-ops when the count is unchanged (perf:
+ChatPanel re-derives on every message update, which is many per second
+during streaming). The TUI poller's regex can't see chat-mode panes
+(holder pane runs `sleep infinity`), so this is the **sole** update
+path for the chat-window `·N` count.
+
+**Helpers** (all pure + tested in `chatUtils.ts`):
+- `extractSubagentInfo(part)` — returns `SubagentInfo | null`. Null when
+  not a task part OR when `state.metadata.sessionId` isn't stamped yet
+  (the pre-stamp window). Brittle on the wire format — if a test on this
+  fails, opencode changed the task tool's metadata shape.
+- `collectChildSessionIds(messages)` — for seeding the allowlist.
+- `countRunningSubagents(messages, liveStatus)` — for the sidebar count.
+  Live `idle` overrides transcript `running` (covers the stale-snapshot
+  case); live `running` overrides transcript `completed` (covers the
+  refetch-race case); missing live falls back to transcript.
+- `summarizeChildSession(childMessages)` — `{toolCount, lastToolName,
+  tokens}` for the collapsed header.
+
+**What is NOT handled in Phase 1:**
+- Nested subagents (sub-subagents) render recursively today because
+  `TaskBody` re-enters the same `ToolBody` switch, but the second-level
+  collapsed header is visually identical to the first — could become
+  confusing on deep trees. No depth limit imposed.
+- Permission/question requests originating in a child session are NOT
+  surfaced in the parent's `PermissionCard` / `QuestionCard`. They reach
+  the renderer (we no longer drop them via the filter), but the existing
+  cards key on the parent's sessionId. Future: tag with "from subagent: X".
+- "Open as session" — see the open-work bullet at the bottom.
+
+## Voice / speech-to-text (Groq)
+
+Push-to-talk mic button in the chat input. Hold = record, release = send to
+transcription; tap toggles recording on/off. The transcript is inserted at
+the caret as plain dictation. **There is no command/classifier mode.** The
+former rules-first classifier, its Groq LLM fallback, `VoiceAction`
+dispatch, and the `manta-voice-app-action` `CustomEvent` were removed from
+the codebase — `src/shared/voiceClassifier.mjs` and the `voiceCommandModel`
+setting no longer exist. Do not reintroduce them.
+
+**Audio pipeline (identical on both transports):**
+1. `useVoiceRecorder` (`src/renderer/voice.ts`) drives a `MediaRecorder`
+   over `getUserMedia({audio:true})`. Mime selection prefers
+   `audio/webm;codecs=opus` (Chromium), falls back to `audio/mp4` (iOS
+   WKWebView — the only thing Apple ships).
+2. On release, `window.api.voiceTranscribe({buffer, mime})` ships the
+   `ArrayBuffer` to main/server. The mobile HTTP shim base64-encodes the
+   buffer because the RPC body is JSON; `rpc.mjs` decodes back to a
+   `Buffer`.
+3. `src/shared/groq.mjs` (a transcription-only client — it exports exactly
+   `filenameFor` and `transcribeAudio`, no chat/completions call) POSTs
+   multipart to `https://api.groq.com/openai/v1/audio/transcriptions`
+   with the configured key + model (default `whisper-large-v3-turbo`).
+
+The Groq API key stays on main/server — the renderer only ever sends audio
+bytes and receives the transcript back.
+
+**Settings:** `groqApiKey` (gates the mic button — empty = hidden) and
+`voiceTranscriptionModel`. Both live in AppConfig and the store; UI in
+`Settings.tsx` and `MobileSettings.tsx`. Stored plaintext, same as other
+MantaUI credentials.
+
+**Mobile permissions:** `RECORD_AUDIO` + `MODIFY_AUDIO_SETTINGS` in
+`mobile/android/.../AndroidManifest.xml`; `NSMicrophoneUsageDescription`
+in `mobile/ios/.../Info.plist`. Without these the first
+`getUserMedia({audio:true})` call insta-rejects with `NotAllowedError`
+before the OS prompt fires.
+
+**Pure helpers (tested):** recording + timing in `src/renderer/voice.ts`
+(tested by `src/renderer/voice.test.ts`): `VoicePhase`, `VoiceArtifact`,
+`elapsedReset/Current/Pause/Resume`, `nearLimitAt`, `isTooShort`,
+`pickRecorderMime`, `useVoiceRecorder`. (`fuzzyMatchModel` lives in
+`src/shared/modelGuide.mjs`, used by app control — it is not part of the
+recorder and is not exported from `voice.ts`.)
+
+**Locked decisions (recorder):**
+- **`MediaRecorder.start(250)` timeslice** — without it, iOS WKWebView
+  17.x sometimes delivers the final `dataavailable` AFTER `onstop`,
+  leaving an empty chunks array. 250ms forces periodic emission. The
+  chunks just concatenate in the Blob constructor.
+- **Cancel checked AFTER `getUserMedia` resolves** — a fast press
+  release (cancel before mic permission resolves) used to leave the
+  recorder running until the 60s `maxDurationMs` cap. We check
+  `cancelledRef.current` between the await and the recorder
+  construction; if true, tear the stream tracks down and bail.
+- **Phase guard uses a ref, not state** — `phaseRef.current` is
+  updated synchronously by `setPhaseSync` so two `pointerdown` events
+  inside the same React commit can't both pass the re-entrancy guard.
+- Batch transcription (no streaming) — Groq's HTTP API has no native
+  streaming STT endpoint and short clips return in ~200-500ms. Don't
+  reintroduce a chunked-streaming spike; it under-delivered vs the
+  added complexity in spike testing.
+
+## On-call CTO voice call (OpenAI Realtime)
+
+The OpenAI key lives in Settings → On-call CTO (`openaiApiKey`), stored in the
+box's config and never sent to the renderer. Narration uses the Groq key while
+the Realtime model authenticates with the OpenAI key — two deliberately separate
+credentials, each used where it belongs.
+
+## File upload paths (chat-mode)
+
+Three upload paths all land in `~/.manta-uploads/<session>/<ts>/` on the remote:
+
+1. **Drag-drop** — `image/*`, PDF, audio, video → FilePart chip.
+   Everything else → `@<abs-path>` text appended to textarea.
+2. **Paste** (`⌘V` in chat input) — intercepts `image/*` clipboard items,
+    calls `uploadBuffer` IPC (bytes → Mac tmpfile → HTTP `POST /api/upload`).
+    Same chip as drag-drop.
+3. **Screenshot detector** — two parallel paths in `main/index.ts`:
+   - *Clipboard poller* (500ms): fingerprints clipboard via `availableFormats()`
+     + image size. Fires on `⌘⇧Control+3/4`. Pushes `screenshotDetected` IPC.
+   - *Desktop watcher* (`fs.watch ~/Desktop`): matches
+     `Screenshot YYYY-MM-DD at HH.MM.SS.png`. Fires on `⌘⇧3/4`. 300ms settle
+     delay before pushing.
+   ChatPanel shows a toast: "Screenshot in clipboard" / "Screenshot: <name>"
+   with "Add to chat" (uploads + chip) and "×" dismiss.
+   **Do NOT add `document.hidden` check** — MantaUI loses focus during the screenshot
+   gesture so the event would always be dropped.
+
+`uploadBuffer` (`src/renderer/api/httpApi.ts`): POSTs the `ArrayBuffer` bytes
+straight to manta-server `POST /api/upload?session=<name>` with the Bearer token;
+the server writes `~/.manta-uploads/<session>/<batch>/<filename>` and returns the
+absolute remote path. (Historical: the deleted desktop-SSH `pty.ts` version
+staged a Mac tmpfile + scp + remote `mv`; HTTP-only sends bytes directly.)
+
+## Subagent management — auto-register + activation toggle (BET-123)
+
+Settings → AI tab → `SubagentsCard` (mounts after `ProvidersCard`; **desktop
+only**, same as BET-121 — not in `MobileSettings.tsx`). opencode's `task` tool
+has no `model` argument; the only way to run a subagent on a chosen model is a
+NAMED agent in `opencode.jsonc`'s `agent` key, dispatched via
+`task(subagent_type: "<name>")`. opencode re-scans `agent` **only at
+startup**, so a config write does nothing until opencode restarts (see the
+restart button below).
+
+**Maximally permissive, not opt-in.** Every model in
+`window.api.opencodeModels()` gets an `agent` block automatically; the user
+DEACTIVATES the ones they don't want, rather than hand-picking which to add.
+One row per model, sourced from the model list — NOT from the configured
+agent blocks — so a not-yet-registered model still shows up.
+
+- **Naming**: `deriveSubagentName(providerID, modelID, taken)` in
+  `src/shared/subagentSync.mjs` (pure, tested). Prefers the `modelGuide.mjs`
+  catalog family key (`haiku`, `sonnet`, `gpt-4o`, ...) via the exported
+  `familyKey()`; falls back to a slugified modelID, then providerID, then
+  `"model"`. Collisions get a numeric suffix (`-2`, `-3`, ...), case-
+  insensitive against the taken set.
+- **Deactivation = the agent block is ABSENT from opencode.jsonc**, not a
+  flag inside it (an `agent` block can't safely carry arbitrary MantaUI metadata
+  without risking opencode rejecting unknown keys). The set of deactivated
+  models is MantaUI-side state: `AppConfig.deactivatedSubagents: string[]`
+  (`"providerID/modelID"` strings), persisted through the EXISTING
+  `configGet`/`configUpdate` channels — no dedicated IPC channel was added
+  for this; it's exactly a plain config field, same as `skillRegistryUrls`.
+  NOT in `sharedConfig.mjs`'s `SHARED_CONFIG_KEYS` (device-local for now,
+  matching that module's device-local-by-default stance for anything not
+  explicitly listed there).
+- **Reconciliation**: `reconcileSubagents({models, existingAgents,
+  deactivated})` in `src/shared/subagentSync.mjs` (pure, tested) diffs the
+  model list against the configured blocks + the deactivated set →
+  `{upsert, remove}`. A model already registered is left untouched (preserves
+  a user-renamed name/description); a block whose `model` doesn't match any
+  known model is NEVER touched (a user's hand-made agent survives). The I/O
+  wrapper `syncSubagents({models, deactivated})` in `src/server/providers.mjs`
+  reads `opencode.jsonc`, reconciles, and applies via the EXISTING
+  `setSubagents` writer (the two config writers: upserts through
+  `PATCH /global/config`, deletions through `removeConfigKeys` + mandatory
+  opencode restart, see the AppConfig section above). A deactivated model's
+  block is removed from opencode.jsonc by that deletion path — the remove is
+  no longer a no-op. No-op diffs skip
+  the write
+  entirely, so it's safe to call on every card open AND every activation
+  toggle (`opencode:sync-subagents` RPC channel — mirrors `get`/`set-subagents`
+  1:1). Idempotent: running it twice against its own output is a no-op.
+- **Restart**: `opencode:restart` (`src/server/opencodeAdmin.mjs`,
+  `restartOpencode()`) was a no-op stub through BET-121; now runs
+  `systemctl --user restart opencode-serve` via `execFile` with a fixed argv
+  array (never a shell string — no injection surface, and none is possible
+  since the function takes no external input). This is opencode's OWN systemd
+  service, **separate from manta-server** — restarting it does not restart
+  manta-server, but it DOES drop every in-flight opencode turn across every
+  chat-mode window. The card's restart button is gated behind an explicit
+  confirm ("STOPS all running opencode sessions...") — restart is never
+  triggered automatically as a side effect of a subagent edit.
+  **Pre-existing callers**: `ProvidersCard.tsx` / `ProvidersStep.tsx` already
+  called `window.api.opencodeRestart()` after adding a provider (so `/provider`
+  re-auths) — that call was always a no-op before this ticket; it is now a
+  REAL restart with the same drop-all-sessions side effect. That's intentional
+  (the provider flow was designed around a working restart from the start),
+  not new scope creep — but be aware if you're debugging "why did opencode
+  restart" reports.
+- Desktop reaches all of this the same way as every other opencode/data
+  channel post-pairing: `window.api` is swapped to `httpApi` in `main.tsx`
+  (`/rpc` to manta-server), so there is no separate Electron `ipcMain.handle`
+  wiring for subagent channels — the `preload/index.ts` methods exist only as
+  the `Api` type source + a residual pre-HTTP-mode implementation.
+- Context-size badge (`Nk`) is `formatModelContextSize()` in `chatUtils.ts`
+  (tested) — the single source for the `Math.round(context/1000)k`
+  expression; `ModelPicker.tsx` and `SubagentsCard.tsx` both import it rather
+  than re-deriving.
+- Tests: `src/shared/subagentSync.test.ts` (naming + reconcile, 18),
+  `src/server/providers.test.mjs` `syncSubagents` describe block (7),
+  `src/server/opencodeAdmin.test.mjs` (restart, 3), `formatModelContextSize`
+   in `chatUtils.test.ts` (2). All pure/injected-I/O — no real opencode.jsonc
+   or systemctl call in the suite.
+
+## iOS crash reporting — Firebase Crashlytics (replaced PLCrashReporter)
+
+Crash capture for the native app (`mobile/native`) is **Firebase Crashlytics**.
+It replaced PLCrashReporter on 2026-08-13. Do not run both.
+
+- **Why not both.** Both install Mach exception handlers and compete for the
+  same task-level exception port. They chain unreliably and the loser silently
+  drops the crash — you get a crash reporter that is quiet exactly when it
+  matters. Firebase's own docs warn against a second reporter. If you want the
+  old box-upload behaviour back, REMOVE Crashlytics first.
+- **What was deleted**: `mobile/native/MantaUI/CrashReports.swift` (PLCrashReporter
+  capture + `uploadPending` → `POST /api/upload` into `~/.manta-uploads/crash/`)
+  and the `CrashReporter` SPM package. There is no longer a crash path to the
+  box; reports go to the Firebase console and are readable by an agent through
+  the Firebase MCP server's `crashlytics_*` tools.
+- **Wiring is one call**: `FirebaseApp.configure()` in `MantaUIApp.init()`.
+  Crashlytics installs its handlers as a side effect — there is no "start"
+  call, and no upload call anywhere. A crash is written on-device in the dying
+  process and sent by the SDK on the **next launch**.
+- **Three project.yml settings are load-bearing, and each fails silently-ish:**
+  - `OTHER_LDFLAGS: -ObjC` — without it the linker strips Firebase's Obj-C
+    categories and you get a runtime selector-not-found crash, not a link error.
+  - `DEBUG_INFORMATION_FORMAT: dwarf-with-dsym` on **base**, not just Release.
+    Xcode's Debug default is plain `dwarf`, which produces NO dSYM — and the
+    `ios-mantaui` plugin installs a **Debug** build, so the default would mean
+    every crash off the phone came back as raw addresses.
+  - The `Crashlytics dSYM upload` entry must stay in **`postBuildScripts`** so
+    it is the LAST build phase; Crashlytics cannot process dSYMs otherwise. Its
+    `inputFiles` list is not decoration — with User Script Sandboxing on, Xcode
+    only lets the script read files declared there.
+- **The phase calls `upload-symbols` DIRECTLY, not Firebase's documented
+  `Crashlytics/run` wrapper. Do not "fix" it back.** `run` was used first and
+  silently uploaded NOTHING: the phase executed, the build was green, and the
+  console still said "2 unprocessed crashes — upload 1 dSYM file", with no
+  upload line anywhere in a 7,441-line build log. `run` backgrounds its work, so
+  a failure inside it neither prints nor fails the build. The same
+  `upload-symbols` call run by hand against the same dSYM submitted both UUIDs
+  instantly. Observable beats documented.
+- **The two-UUID trap (`ENABLE_DEBUG_DYLIB`).** Xcode 16+ sets it YES for
+  Debug, splitting the binary: real code goes to `<name>.debug.dylib`, the main
+  executable becomes a stub, and the dSYM carries TWO arm64 slices with
+  different UUIDs. A crash references the **debug.dylib's** UUID, so uploading
+  only the `${PRODUCT_NAME}` slice leaves every Debug crash unsymbolicated —
+  which is exactly the state this shipped in first. Passing the whole `.dSYM`
+  BUNDLE makes `upload-symbols` walk both slices. Release is not split and
+  yields one slice, so one command covers both and there is no per-config
+  branch. **This never affected the Codemagic TestFlight path** (it archives
+  Release); it only ever broke local Debug device installs.
+- **On-demand upload**: the `ios-crashlytics-dsym` plugin (`action: upload`)
+  uploads the last device build's dSYM from the Mac and prints the submitted
+  UUIDs. Use it when a crash arrives unsymbolicated rather than rebuilding.
+  Note its `action: diagnose` prints `ENABLE_DEBUG_DYLIB` /
+  `ENABLE_USER_SCRIPT_SANDBOXING` / the SPM checkout contents — the three
+  things that determine whether the in-build phase can work at all.
+
+### Reading crashes from an agent session (Firebase MCP)
+
+Crashes are no longer uploaded to the box, so `~/.manta-uploads/crash/` is
+dead. Read them through the **`firebase` MCP server**, wired into the dev box's
+`~/.config/opencode/opencode.jsonc` and scoped `--only crashlytics` (8 tools
+instead of 25 — the rest are Firestore/Auth/deploy and cost context on every
+request).
+
+**Constants you need — none are discoverable from the tools:**
+
+| | |
+|---|---|
+| `appId` (**required on every call**) | `1:789525210372:ios:423827eb6f93a9c8b45c51` |
+| Firebase project | `manta-76416` (number `789525210372`) |
+| Bundle id | `com.antoinedc.mantaui` |
+
+Typical loop: `crashlytics_get_report` (`topIssues`) to find what is breaking →
+`crashlytics_get_issue` for one issue → `crashlytics_batch_get_events` with the
+issue's `sampleEvent` for the **symbolicated stack**, device, OS, memory, and
+`customKeys.crash_info_entry_0` (which carries the literal Swift fatal-error
+string with `file:line`). `crashlytics_update_issue` closes an issue.
+
+Four traps, each of which looks like "the data is missing":
+
+- **`topIssues` only returns OPEN issues.** A closed one comes back as "This
+  report response contains no results" — indistinguishable from a broken query.
+  `crashlytics_get_issue` returns it by id regardless of state. Check `state:`
+  before concluding anything is wrong. This wasted real time on 2026-08-13.
+- **Unprocessed crashes are invisible.** Until a matching dSYM is uploaded,
+  Crashlytics holds events and returns nothing through the API — the console
+  says "N unprocessed crashes, upload 1 dSYM file" but the API just looks
+  empty. If the API is empty and the console shows that banner, the problem is
+  symbols, not the query. Fix with the `ios-crashlytics-dsym` plugin.
+- **Processing is not instant.** Expect minutes between a dSYM upload and the
+  crash becoming queryable.
+- **Debug-build frames are attributed to `MantaUI.debug.dylib`**, not
+  `MantaUI` — that is the `ENABLE_DEBUG_DYLIB` split described above, not a
+  mis-symbolication.
+
+Auth is a read-scoped service-account key at
+`~/.config/gcloud/manta/manta-76416-sa.json` (0600). Never print it, and never
+copy it into `/tmp` (swept hourly). It requires the **Firebase Crashlytics API**
+to be enabled on the project — it is, since 2026-08-13; a `SERVICE_DISABLED`
+403 means someone turned it off.
+- **`GoogleService-Info.plist` is committed on purpose** and is excluded from
+  the `MantaUI` directory source entry, then re-added with an explicit
+  `buildPhase: resources`. It must land in Copy Bundle Resources or
+  `FirebaseApp.configure()` finds no options and traps at launch. It is
+  committed because the `ios-mantaui` build clone is force-reset to origin and
+  `git clean`s `mobile/native` — an untracked file would be wiped. The `AIza…`
+  key in it is a client identifier, not a secret (extractable from any IPA;
+  access is bounded by Firebase Security Rules / App Check).
+- **Bundle id must match the Firebase app exactly.** The first plist issued for
+  this was registered to `com.antoinedc.manta` while the app is
+  `com.antoinedc.mantaui`; that mismatch fails at configure time. Firebase app
+  id `1:789525210372:ios:423827eb6f93a9c8b45c51`, project `manta-76416`.
+- **Analytics is deliberately NOT linked.** It is optional for Crashlytics and
+  buys breadcrumb logs, at the cost of an analytics surface this app has no
+  other use for (`IS_ANALYTICS_ENABLED` is false in the plist). Add it as a
+  decision, not by reflex.
+- **Verifying it**: there is no test-crash button in the app — a `#if DEBUG`
+  one existed only to prove the integration (commit `ed8a682`) and was removed
+  once it had (`SettingsScreen.crashTestFooter`; restore from git if needed).
+  To re-verify, add a `fatalError(...)` behind a temporary control, or crash the
+  app any other way. Two rules make or break the test: the report uploads on the
+  **NEXT launch**, not the crashing one, and **only with the Xcode debugger
+  detached** — the debugger intercepts the signal and Crashlytics never sees it.
+  The plugin's `devicectl process launch` is detached, so a plugin install + tap
+  + reopen is a valid test. Proven end-to-end 2026-08-13: the crash symbolicated
+  to `SettingsScreen.swift:346` with the frame attributed to
+  `MantaUI.debug.dylib` — which is itself the evidence for the split-binary note
+  above.
+
+## iOS release / TestFlight (Codemagic — the WORKING mechanism)
+
+The iOS app (the Capacitor wrapper in `mobile/ios/`) ships to TestFlight via
+**Codemagic CI**, configured by **`codemagic.yaml`** at the repo root. This
+section is the hard-won record of what works and — just as important — the dead
+ends, so nobody re-walks them.
+
+**TL;DR of the pipeline:** push a git tag `ios-v*` → Codemagic clones the repo,
+builds the web bundle, syncs Capacitor, pods, **creates its own distribution
+cert + App Store profile via the App Store Connect API key**, archives the
+`App` scheme, and uploads to TestFlight. No Mac in the loop. The box can drive
+the whole thing (trigger + monitor) over the Codemagic + ASC REST APIs.
+
+### Why Codemagic, NOT Xcode Cloud (do not retry Xcode Cloud)
+
+Xcode Cloud was tried first and **abandoned after 10 failed build runs**. It
+built + signed the archive fine every time but could **NEVER authenticate to
+App Store Connect to UPLOAD** the binary. The build log (fetched from the
+`app-store-export-archive-logs` in Xcode Cloud's LOG_BUNDLE artifact) always
+ended with:
+
+```
+App Store Connect request for store configuration failed for account
+Session Proxy Provider … Unable to authenticate with App Store Connect
+(…DVTServicesSessionProviderCredentialITunesAuthenticationContextError Code=1)
+```
+
+This is a **known Xcode Cloud auth-session bug**. It survived: accepting the
+Program License Agreement, registering a device UDID, creating a
+distribution cert + profile by hand, re-saving the workflow, AND
+disconnecting/reconnecting the GitHub source. The `action_required` /
+"Preparing build for App Store Connect failed" status and the ITMS-90035
+emails were all downstream of this one auth failure (the ITMS-90035 signature
+errors specifically came from Xcode Cloud's throwaway **ad-hoc / development**
+side-exports, which are red herrings — the app-store export signed correctly).
+**Do not reintroduce an Xcode Cloud workflow.** The stale files it left
+(`mobile/ios/App/App.xcodeproj/xcshareddata/xcschemes/App.xcscheme` and
+`mobile/ios/App/ci_scripts/ci_post_clone.sh`) are harmless leftovers; the
+shared scheme is still needed by Codemagic, the `ci_scripts/` post-clone is
+Xcode-Cloud-only and unused by Codemagic (safe to delete).
+
+### App Store Connect facts (constants used everywhere)
+
+- **App name**: MantaUI. **ASC app Apple ID**: `6792363427`.
+- **Bundle id**: `com.antoinedc.mantaui` (was `com.antoinedc.MantaUI` originally —
+  renamed before anything shipped; the id is permanent post-release). Set in
+  `capacitor.config.json` `appId`, the iOS `PRODUCT_BUNDLE_IDENTIFIER` (both
+  Debug+Release configs), and the Android `applicationId`/`namespace`/
+  `MainActivity` package.
+- **On-device display name**: MantaUI (`CFBundleDisplayName` in
+  `mobile/ios/App/App/Info.plist` + `appName` in `capacitor.config.json`).
+- **Xcode target/scheme**: `App` (Capacitor convention — internal only, NOT
+  user-visible; do NOT rename it, that path throws "already taken by your team"
+  and breaks the scheme/pods/ci_scripts wiring).
+- **Team ID (seedId)**: `FSQ3HS4Z24`.
+
+### Signing — the crux, and every trap in order
+
+iOS code signing was THE blocker (every archive failure traced to it). The
+final working model, in `codemagic.yaml`'s "Set up code signing" step:
+
+1. `keychain initialize`
+2. **Generate an RSA private key ON the build machine**
+   (`ssh-keygen -t rsa -b 2048 -m PEM -f /tmp/dist_key -q -N ""`).
+3. **Create a distribution cert FROM that key** via the ASC API key
+   (`app-store-connect certificates create --type IOS_DISTRIBUTION
+   --certificate-key=@file:/tmp/dist_key --save`), falling back to
+   `certificates list … --save` if a cert already exists (max 2 distribution
+   certs/account).
+4. `app-store-connect fetch-signing-files "$BUNDLE_ID" --platform IOS
+   --type IOS_APP_STORE --certificate-key=@file:/tmp/dist_key --create` —
+   creates the App Store provisioning profile and assembles a usable p12.
+5. `keychain add-certificates`
+6. `xcode-project use-profiles --export-options-plist
+   "$CM_BUILD_DIR/export_options.plist"` — writes the profile specifier into
+   the Xcode project AND the export-options plist consumed by `build-ipa`.
+
+**THE ROOT-CAUSE LESSON — private-key custody.** A distribution certificate is
+only usable by whoever holds its **private key**. Every early failure
+("`Cannot save Signing Certificates without certificate private key`" →
+`use-profiles` finds `Provisioning Profiles: []` → xcodebuild `error: "App"
+requires a provisioning profile`) came from a cert whose private key was NOT on
+the Codemagic build machine. A cert created out-of-band (e.g. via the ASC API
+from the box, with the key on the box) is **worthless to Codemagic**. The build
+machine MUST generate the key and create the cert from it. This is step 2→3
+above and is the single most important thing in this section.
+
+**Dead ends that were tried and REMOVED (do not reintroduce):**
+- A declarative `environment: ios_signing:` block → resolves signing at
+  env-setup time (before scripts run) and fails "No matching profiles found"
+  when the profile doesn't exist yet. Removed; the script step creates it.
+- Hardcoding `PROVISIONING_PROFILE_SPECIFIER = "MantaUI App Store"` in the
+  Xcode project → the profile Codemagic installs on the machine isn't named
+  that, so xcodebuild errors "No profile … matching 'MantaUI App Store'".
+  Let `use-profiles` set the specifier instead.
+- `CODE_SIGN_STYLE = Automatic` in the project → conflicts with Codemagic's
+  Manual signing. The project's target Release config is now
+  `CODE_SIGN_STYLE = Manual` + `DEVELOPMENT_TEAM = FSQ3HS4Z24` +
+  `CODE_SIGN_IDENTITY[sdk=iphoneos*] = "Apple Distribution"` (no hardcoded
+  profile specifier — `use-profiles` fills it).
+- `--export-options-plist /tmp/export_options.plist` → wrong path;
+  `use-profiles` writes it to `$CM_BUILD_DIR/export_options.plist`. Both the
+  `use-profiles` and `build-ipa` calls must use the SAME `$CM_BUILD_DIR` path.
+
+### One-time human setup (already done, documented for re-setup)
+
+In the Codemagic web UI (codemagic.io):
+1. Connect the GitHub repo `antoinedc/MantaUI` as a Codemagic app.
+2. Team → Integrations → Developer Portal → add an **App Store Connect API
+   key** (Issuer ID + Key ID + the `.p8`). **GOTCHA: `codemagic.yaml` references
+   the integration by NAME** (`integrations: app_store_connect: <name>`). The
+   live integration is named **`APS Key`** — the YAML must match it exactly
+   (spaces + case). If you rename it in the UI, update the YAML.
+
+The ASC API key also lives in the MantaUI Secrets card (`ASC_API_KEY_P8`,
+`ASC_KEY_ID`, `ASC_ISSUER_ID`, scope `project:manta`) so the box can drive the
+ASC API directly. A `CODEMAGIC_API_KEY` secret (same scope) lets the box drive
+Codemagic's API.
+
+### Triggering a release (from the box, hands-off)
+
+`codemagic.yaml`'s `triggering:` builds on git tag `ios-v*`. The box can:
+- **Trigger by tag**: push `ios-v<version>` (the `ios-release-tag.yml` GitHub
+  Actions workflow auto-creates `ios-v<MARKETING_VERSION>` on merge to main —
+  reads `MARKETING_VERSION` from `project.pbxproj`; idempotent, only tags a new
+  version; `workflow_dispatch` force-tags with a build suffix).
+- **Trigger by Codemagic API** (what was used during bring-up — does NOT need a
+  tag, good for iterating):
+  ```
+  CMK=$(secret_provide CODEMAGIC_API_KEY)         # path, use by reference
+  curl -s -X POST -H "x-auth-token: $(cat $CMK)" -H "Content-Type: application/json" \
+    -d '{"appId":"6a5bfe08d7050a29d2f33802","workflowId":"ios-testflight","branch":"<branch>"}' \
+    https://api.codemagic.io/builds
+  ```
+  Codemagic app id: `6a5bfe08d7050a29d2f33802`. Workflow id: `ios-testflight`.
+
+### Monitoring a build (from the box — Codemagic API)
+
+The GitHub commit-status the way Xcode Cloud reported does NOT exist for
+Codemagic; use its REST API. `x-auth-token: <CODEMAGIC_API_KEY>` on every call.
+
+- Status + steps: `GET https://api.codemagic.io/builds/<buildId>` →
+  `build.status` (`queued|preparing|building|publishing|finished|failed`) and
+  `build.buildActions[]` (each `{name,status}`).
+- **Failure diagnosis — the step summary log is TRUNCATED.** For the real
+  xcodebuild error, download the build's artifact bundle
+  (`build.artefacts[0].url`, note British spelling `artefacts`), unzip, and
+  grep `App.log` (the full xcodebuild log) for
+  `error:|The following build commands failed|No profile|private key`. The
+  per-step `logUrl` (under `buildActions[].subactions[].logUrl`) is HTML and
+  only holds the wrapper summary — good for the "Set up code signing" step's
+  `use-profiles` output ("`Provisioning Profiles: []`" is the empty-profile
+  tell), but the archive error only lives in the artifact `App.log`.
+- **Authoritative success signal**: the ASC API, NOT Codemagic's status. Query
+  `GET https://api.appstoreconnect.apple.com/v1/builds?filter[app]=6792363427
+  &sort=-uploadedDate` (ES256 JWT signed with the ASC `.p8`; the box has a
+  working signer at `/tmp/opencode/asc.mjs` — reconstructs the PEM because the
+  Secrets card flattens the `.p8` newlines into spaces). `processingState:
+  VALID` on a build = it's really in App Store Connect. During bring-up every
+  Xcode-Cloud "Build N" number was a REJECTED upload, never an accepted build —
+  so "did it actually land?" must be checked against ASC, not the CI status.
+
+### Distributing to testers (App Store Connect, human step)
+
+Internal testing (fast, no review, ≤100 testers): ASC → MantaUI → TestFlight →
+add testers under Users and Access + assign to the Internal group. External
+testing (≤10,000, email or public link) requires a one-time Beta App Review of
+the first build.
+
+**Export compliance is answered in the binary and must stay that way.**
+`ITSAppUsesNonExemptEncryption=false` is set in
+`mobile/native/MantaUI/Info.plist` (the app speaks only standard HTTPS/TLS,
+which is exempt). Without that key the failure is misleading in a specific way
+that cost a debugging session on 2026-08-14: **every build script goes green,
+the `.ipa` uploads AND finishes processing, and only the post-build "App Store
+Connect distribution" task fails** with `422 The build is missing export
+compliance` — so the Codemagic run reads `status: finished` and its
+`buildActions` are all `success`. The failure lives ONLY in
+`build.appStoreConnectTasks[].status`, which is the field to check when a build
+looks green but nothing reaches testers. Answering the question by hand in the
+ASC UI is not a substitute: the automated TestFlight submission runs seconds
+after processing, long before a human sees it.
+
+### Versioning
+
+`MARKETING_VERSION` (CFBundleShortVersionString) lives in
+`mobile/native/project.yml` (the xcodegen source of truth; the pbxproj is
+derived from it). Bump it to ship a new TestFlight build; the auto-tag workflow
+keys off it. `CURRENT_PROJECT_VERSION` (build number) — Codemagic/ASC handle
+uniqueness. First shipped version: `1.0.1`.
+
+**The version line is CONTINUOUS across the Swift rewrite — do not reset it.**
+The Capacitor app shipped up to `1.0.16`; the native rewrite started its own
+`project.yml` at `0.1.0` and shipped `0.1.0`–`0.1.2`, which reads to a tester as
+the app going BACKWARDS (TestFlight sorts them below every build they already
+had, and the pre-release version list interleaves two unrelated trains). The
+line was rejoined at **`1.0.17`** on 2026-08-14. Anything numbered `0.x` is
+from that brief window — never bump into `0.x` again, and never "start fresh"
+on a rewrite: the users' install history is the thing being versioned, not the
+codebase's.
+
+## Release & CD pipeline — TAG-DRIVEN, one manual step
+
+**THE MODEL: agents merge to `main` → a human pushes ONE git tag → the matching
+release fires automatically.** Pushing the tag is the ONLY manual step. Every
+target verifies itself after deploying and fails RED if the result is stale /
+down, so "merged but never deployed" (the bug that left BET-174's
+`llms-install.md` 404 on prod for days) can't hide.
+
+**CRITICAL DISTINCTION: "done" in Multica ≠ deployed.** `multica-close-on-merge.yml`
+flips an issue to `done` the moment its PR merges to `main` — that says NOTHING
+about whether it reached prod. Merging is necessary but NOT sufficient; the
+deploy is the tag push. If someone reports "issue X is done but not live", the
+fix is almost always "it was merged but no release tag was pushed" — check the
+live URL / TestFlight against `main`, then push the right tag.
+
+### The six release targets (each its own tag prefix)
+
+| Tag prefix | Target | Runner | What fires | Config |
+|---|---|---|---|---|
+| `ios-v*` | iOS app → TestFlight | Codemagic `mac_mini_m2` | build + sign + notarize `.ipa` → TestFlight | `codemagic.yaml` `ios-testflight` |
+| `mac-v*` | macOS desktop → DMG | Codemagic `mac_mini_m2` | build + Developer ID sign → DMG → publish to `mantaui.com` | `codemagic.yaml` `mac-desktop` |
+| `win-v*` | Windows desktop → NSIS installer on a **GitHub Release** (not mantaui.com) | GitHub-hosted (`windows-latest`) | build `.exe` + `latest.yml`, attach the `.exe` to a prerelease on the tag | `.github/workflows/windows-desktop-build.yml` |
+| `web-v*` | marketing site + install assets | GitHub-hosted (`ubuntu-latest`) | scp `website/` + `install.sh` + `llms-install.md` → prod webroot (via `PROD_SSH_KEY` secret), verify | `.github/workflows/website-deploy.yml` |
+| `server-v*` | Linux box server tarball(s) → `mantaui.com/releases` | GitHub-hosted (`ubuntu-latest` x64 + `ubuntu-24.04-arm` matrix + `ubuntu-latest` publish) | build x64 + arm64 tarballs natively, merge the two per-arch sidecars via `scripts/release/merge-manifest.mjs`, scp both tarballs + the combined manifest to prod (via `PROD_SSH_KEY` secret), verify both arches (200 + sha256 drift) | `.github/workflows/server-tarball-deploy.yml` |
+| `relay-v*` | ~~relay service~~ (deprecated 2026-07; replaced by direct mode) | n/a | n/a | `.github/workflows/relay-deploy.yml` (deleted in BET-204) |
+| `gateway-v*` | push gateway service (APNs + DNS automation) | GitHub-hosted (`ubuntu-latest`) | `git pull /opt/manta` + restart `manta-gateway` (via `PROD_SSH_KEY` secret), health-poll `/healthz` | `.github/workflows/gateway-deploy.yml` |
+
+Tag-pattern filtering means only the matching workflow runs — an `ios-v*` tag
+never triggers a mac/web/gateway deploy and vice-versa. All targets live in
+the ONE monorepo; the tag prefix is what routes.
+
+**How to cut a release (all targets):**
+```
+# iOS — bump MARKETING_VERSION in project.pbxproj first, merge, then:
+git tag ios-v1.0.8 && git push origin ios-v1.0.8
+# (the ios-release-tag.yml workflow also AUTO-tags ios-v<MARKETING_VERSION> on
+#  merge to main, so iOS often needs no manual tag — just the version bump.)
+
+# Desktop — bump package.json version if you want, then:
+git tag mac-v0.0.2 && git push origin mac-v0.0.2
+
+# Windows desktop — bump package.json version if you want, then tag. The tag
+# publishes a PRERELEASE on GitHub with the .exe attached; nothing reaches
+# mantaui.com. (workflow_dispatch also works, but produces only an artifact.)
+git tag win-v0.0.13 && git push origin win-v0.0.13
+
+# Website / install.sh / llms-install.md:
+git tag web-v2 && git push origin web-v2
+
+# Linux box server tarballs (x64 + arm64):
+git tag server-v1 && git push origin server-v1
+
+# Push gateway (only when the gateway service code changed — APNs, DNS, store):
+git tag gateway-v2 && git push origin gateway-v2
+```
+`web-v1` / `relay-v1` are already used (bring-up tests for the now-deprecated
+relay) — real releases bump the number. Codemagic builds can ALSO be triggered
+by API without a tag (see the iOS section's "Triggering a release" for the
+`curl` + `CODEMAGIC_API_KEY` recipe) — useful for re-running a build without a
+version bump.
+
+**PUSH RELEASE TAGS ONE AT A TIME — NEVER MORE THAN THREE IN ONE PUSH.**
+GitHub silently drops the `push` event when a single push creates **more than
+three tags**: the refs are created, `git push` prints `[new tag]` for each, and
+**not one workflow runs**. Nothing anywhere reports an error — the only symptom
+is that `gh run list --workflow <target>.yml` shows no run for the new tag. This
+bit the 2026-07-28 release: `git push origin mac-v0.0.17 win-v0.0.15 server-v10
+web-v16` created all four tags and triggered zero deploys (Codemagic's own tag
+webhook was suppressed for the mac tag too, so it is not Actions-specific).
+
+A re-push of an already-existing tag is a no-op and fires nothing, so recovery
+is **delete the remote tag, then push it again alone**:
+
+```
+git push origin :refs/tags/<tag>   # delete remote
+git push origin <tag>              # re-push alone → event fires
+```
+
+Push each release tag in its own `git push`, and confirm each one actually
+started a run before pushing the next:
+`gh run list --workflow <target>.yml --limit 1`.
+
+### iOS (`ios-v*`) — Codemagic
+
+Full detail in "## iOS release / TestFlight". Summary: build+sign+notarize on a
+Codemagic M2 runner, upload to TestFlight via the ASC API key integration
+(`APS Key`). Signing gotcha: the account caps at 2 distribution certs per type;
+when maxed, the build's fresh-key `create` 409s and it can't find a usable cert
+→ archive fails "requires a provisioning profile". Fix: revoke stale certs via
+the ASC API (`/tmp/opencode/asc.mjs` on the box signs the JWT; a `DELETE
+/v1/certificates/<id>` frees a slot).
+
+Trigger chain: a version bump merged to `main` makes `ios-release-tag.yml`
+create `ios-v<MARKETING_VERSION>` and then CALL `codemagic-ios-trigger.yml`
+directly. The direct call is mandatory — GitHub creates no workflow run for a
+ref pushed with `GITHUB_TOKEN`, so that workflow's own tag-push trigger only
+ever covers a human `git push ios-v*`. Codemagic's own tag webhook is a third,
+unreliable path (it caught 1.0.12/1.0.13 within ~90s but dropped 1.0.10
+entirely) — treat it as a bonus, never the plan.
+
+### Desktop (`mac-v*`) — Codemagic + self-hosted publish
+
+`codemagic.yaml` `mac-desktop`. Runs `electron-vite build` → `electron-builder
+--mac`. Key facts, each a hard-won fix (do not regress):
+
+- **arm64 ONLY** (`electron-builder.yml` `mac.target.arch: [arm64]`) — halves
+  build + (if on) notarization time. Re-add `x64` only if an Intel tester needs it.
+- **BOTH a `dmg` AND a `zip` are built, and the ZIP is the one auto-update
+  needs.** The DMG is the human download; electron-updater cannot install from
+  it. Its macOS path hands the update to Squirrel.Mac, which only accepts a
+  zipped `.app`: `MacUpdater` resolves the artifact with
+  `findFile(files, "zip", ["pkg", "dmg"])` — **dmg is on the EXCLUDED list, not
+  a fallback** — and throws `ERR_UPDATER_ZIP_FILE_NOT_FOUND` when the feed has
+  none. `latest-mac.yml` shipped DMG-only from the start, so **every download
+  attempt on every Mac threw instantly and desktop auto-update never worked at
+  all**, from 0.0.x through 0.0.35. It was invisible because the message
+  contains no `checksum`/`signature`/permission keyword, so
+  `src/shared/updateError.mjs` classified it "transient" and swallowed it —
+  the same silence as the 0.0.13/0.0.14 checksum bug, a different cause, and it
+  hid *behind* that fix (a correct digest for an artifact the updater refuses to
+  read still installs nothing). Consequences while it was broken: `update-
+  downloaded` never fired, so the sidebar update dot and About's "Restart to
+  update" strip were both unreachable on macOS. Three guards now exist —
+  a `"feed"` class in the classifier (checked BEFORE integrity, because the real
+  message embeds the file list JSON and therefore contains the substring
+  `sha512`), a codemagic step that fails the build if the feed lists no `.zip`,
+  and a warning in `publish.sh`. **Do not drop the `zip` target to save build
+  time.** It is packed from the already-notarized `.app` and is not rewritten
+  afterwards (unlike the DMG, which the staple step rewrites — hence
+  `restamp-update-feed.mjs`), so its feed digest is correct as written and it
+  needs no separate notarization pass. It is uploaded to the update feed dir
+  only, never to `downloads/`.
+- **node-gyp needs `distutils`** — the runner's Python 3.12 removed it from
+  stdlib; the "Provide distutils" step `pip install "setuptools<81"` before
+  `npm ci` (electron-builder rebuilds native `node-pty`, which the DESKTOP app
+  doesn't even use — it's a `src/server/` dep — but the rebuild still runs).
+- **Signing via Codemagic `keychain` CLI, NOT electron-builder's own import.**
+  The "Import Developer ID cert into a Codemagic keychain" step does `keychain
+  initialize` + `keychain add-certificates`. Letting electron-builder import the
+  `.p12` into its own temp keychain made `codesign` HANG forever waiting on a
+  GUI unlock that never comes on CI (build stalled right after "signing …
+  Manta UI.app"). After the keychain step, CSC_LINK/CSC_KEY_PASSWORD are
+  UNSET so electron-builder auto-discovers the "Developer ID Application"
+  identity (`mac.identity`) from that keychain.
+- **NOTARIZATION IS ON** (`mac.notarize: true`). It is notarized TWICE, and both
+  passes are required: electron-builder notarizes + staples the **.app** inside
+  the bundle, and a separate workflow step signs, notarizes and staples the
+  **outer .dmg** — an un-notarized DMG fails Gatekeeper on download
+  ("source=no usable signature") even when the app inside it is fine. A "Verify
+  notarization" step gates the publish. electron-builder 25 reads the team id
+  from the `APPLE_TEAM_ID` env var — do NOT use `notarize.teamId`, it warns +
+  stalls; `APPLE_ID`/`APPLE_APP_SPECIFIC_PASSWORD`/`APPLE_TEAM_ID` live in the
+  Codemagic `mantaui` env group. A LOCAL `electron-builder --mac` with no
+  credentials will fail the notarize step — override with
+  `-c.mac.notarize=false` for a signed-only local build. (Historical: this was
+  OFF during the beta because the notarization queue added 20-40 min of
+  unpredictable latency and testers right-click → Open'd instead.)
+- **Publish to prod** (`Publish to mantaui.com` step): scp's the DMG +
+  `latest-mac.yml` to `/var/www/mantaui/{updates,downloads}` and refreshes
+  `Manta-latest.dmg` (arm64 preferred). Gated on `PROD_SSH_KEY` (base64 SSH key
+  in the Codemagic `mantaui` group) — no key → step no-ops and the DMG is only
+  in Codemagic artifacts. Public download: **https://mantaui.com/downloads/Manta-latest.dmg**;
+  electron-updater feed: `https://mantaui.com/updates/latest-mac.yml`.
+- **Codemagic env group is named `mantaui`** (single group holds CSC_LINK,
+  CSC_KEY_PASSWORD, APPLE_ID, APPLE_APP_SPECIFIC_PASSWORD, APPLE_TEAM_ID,
+  PROD_SSH_KEY). `codemagic.yaml` references it by that exact name — a mismatch
+  fails instantly with "unknown variable group(s)".
+- Desktop bundle id + icon: `appId: com.antoinedc.mantaui` (aligned with iOS,
+  `electron-builder.yml` + `app.setAppUserModelId`). Icon is the navy-square
+  manta mark (`assets/icon.icns` + `assets/icons/*.png`, regenerated from the
+  iOS AppIcon).
+
+### Checking for updates — two independent systems, one button
+
+The desktop app and the box update themselves through **completely separate
+mechanisms with separate manifests**, and conflating them is the main way to get
+lost here:
+
+| | Desktop app | Box server |
+|---|---|---|
+| Mechanism | electron-updater (Squirrel.Mac / NSIS) | `scripts/self-update.sh` |
+| Manifest | `updates/latest-mac.yml` (per-platform) | `updates/server.json` (detect) + `releases/manta-latest.txt` (apply) |
+| Compares | app version vs feed version | version (detect) / **git commit** (apply) |
+| Triggered by | `autoUpdateCheck` → `autoUpdateDownload` → `autoUpdateInstall` | `serverUpdateCheck` → `serverUpdateApply` |
+
+They can and routinely do disagree (as of 0.0.36 the box manifest was a version
+ahead of the desktop feed) — that is expected, not a bug.
+
+**Settings → About runs both in parallel behind one "Check for updates"
+button**, with `Promise.allSettled` so one leg failing still reports the other,
+and renders a tone-coded row per target. The tone is load-bearing: "up to date"
+and "couldn't check" both render as a sentence with no button, so without the
+colour they read identically — and a reassuring silence over a failed check is
+precisely how a permanently broken macOS updater passed for a healthy one.
+`describeDesktopUpdate` / `describeServerUpdate` (pure, in `chatUtils.ts`)
+encode this — note `supported:false` (dev build, or mobile with no updater) maps
+to **muted, never "ok"**: claiming a build is current is a statement about
+something that was never checked.
+
+Three rules that keep this honest:
+
+- **The check must be AWAITABLE, not event-derived.** `checkForUpdates()`
+  resolves with `{isUpdateAvailable, updateInfo}`. The `update-available` /
+  `update-not-available` events cannot answer a specific button press (the
+  not-available one was log-only), so an event-based button can only
+  timeout-and-guess.
+- **About never calls `serverUpdateApply()` itself.** Its "Update & restart"
+  button raises `onRequestServerUpdate` and `App.tsx` runs its existing flow —
+  the confirm dialog (which warns every running agent turn dies), the in-flight
+  and progress state, the 120s safety cap, and `isTransientUpdateNetworkError`
+  (without which a *successful* upgrade looks like a failure, since the box
+  restarts mid-RPC). A second call site would be a second, subtly different copy
+  of all of that.
+- **The on-demand server check is the poller's OWN tick**
+  (`startServerUpdatePoller` returns `{stop, check}`), not a second
+  fetch+compare. So a manual check that finds an update also raises the normal
+  banner and push (deduped per version), and the button and the banner can never
+  report different things. The dedup gates the SIDE EFFECTS only — the verdict is
+  always returned, so pressing twice answers twice.
+
+**Poll cadence: 30 min with a conditional GET, not 6h with a full fetch.**
+`defaultFetchManifest` sends `If-None-Match` and the website serves an ETag, so
+a poll that finds nothing is a bodyless 304 — twelve of those an hour move less
+data than one 200 every six hours did. The cadence is only the backstop for when
+nobody is looking (it still fires the push). Latency at the moment that actually
+matters comes from **checking on events, not on a clock**: the desktop runs a
+check when its connection goes live and on every reconnect, so opening the app
+surfaces a box release immediately. If you find yourself shortening the interval
+to improve responsiveness, add an event-driven check instead.
+
+Also note `createUpdateCheck`'s re-entrancy guard **joins** an in-flight tick
+rather than returning `{available:false}` early. The early return was safe while
+a 6h timer was the only caller and became a lie once a human could ask: a manual
+check landing during a poll would report "up to date" with nothing compared.
+
+### Windows desktop (`win-v*`) — GitHub-hosted, published as a GitHub Release
+
+`.github/workflows/windows-desktop-build.yml`, on `windows-latest`. Builds the
+NSIS installer that `electron-builder.yml`'s `win:` block has always described
+but that nothing ever built (`scripts/release/desktop.sh` passes `--mac
+--linux`, and the Codemagic desktop workflow runs on a Mac).
+
+- **A tag push publishes a GitHub Release; a manual dispatch does not.** The
+  tag job creates a **prerelease** on the tag and attaches the `.exe` (via `gh`,
+  no third-party action, no extra secret) — that release URL is the link you
+  hand a tester. Prerelease is deliberate: the installer is unsigned and must
+  not present itself as the project's latest official release. A dispatch run
+  has no tag, so it uploads a workflow artifact and stops. Re-running the same
+  tag re-uploads with `--clobber` rather than failing.
+- **The repo is private, so a release asset needs a GitHub account to
+  download.** That is the point — it is the internal channel. Nothing reaches
+  mantaui.com: no download-page link, and `latest.yml` is never uploaded to
+  `https://mantaui.com/updates/`, so a Windows build's auto-update check 404s.
+  `src/main/autoUpdate.ts` only `console.warn`s on error, so that is invisible
+  to the user — they simply never get an update and you re-send a release link.
+  Both gaps are blocked on code signing, not on effort: an unsigned installer
+  trips SmartScreen for every visitor. When an OV/EV certificate exists, add a
+  publish job modelled on `server-tarball-deploy.yml` (scp → verify 200 + sha)
+  and only then link it from the website.
+- **`latest.yml` is still built, and its absence fails the job**, so the
+  electron-updater feed is complete the day that happens.
+- The installer filename has **no space** (`Manta-UI-<version>-x64.exe`), unlike
+  the mac/linux artifacts: GitHub rewrites spaces in release-asset names to
+  dots, and `Manta.UI-…exe` is a confusing thing to download.
+- **electron-builder compiles nothing, and this is load-bearing.**
+  `electron-builder.yml` sets `npmRebuild: false` and excludes `node-pty` from
+  `files`. The desktop app imports exactly three packages at runtime
+  (`electron`, `electron-updater`, `yaml`) — all pure JS; `node-pty` is a BOX
+  SERVER dependency (`src/server/pty.mjs`, run by plain node) that the desktop
+  never loads, and rebuilding it against Electron's ABI was pure waste. If a
+  native dependency is ever added to the DESKTOP, `npmRebuild` must go back to
+  `true`. Note this does NOT make the repo toolchain-free: `npm ci` still
+  installs node-pty, whose own install script downloads a prebuilt binding and
+  falls back to `node-gyp rebuild` — which is why the Codemagic mac workflow's
+  `setuptools<81` step must stay.
+- **`postinstall` is `node scripts/postinstall.mjs`.** The old inline
+  `electron-rebuild … || true; bash …` could not run under `cmd.exe`, so
+  `npm ci` failed on Windows before anything was built. The rebuild half was
+  deleted rather than ported (see the bullet above); the script's only remaining
+  job is the macOS dev-bundle rename, and it can never fail an install.
+- Icon: `assets/icon.ico`, a multi-resolution (16→256) ICO generated by
+  `scripts/gen-icons.py` from the same rounded white tile as the macOS/iOS
+  icons. Windows applies no mask of its own, so the rounding is baked into the
+  bitmap. Regenerate icons with `python3 scripts/gen-icons.py` — it rewrites
+  every platform's icons deterministically, so an unrelated asset should show
+  no diff.
+- x64 only. Windows-on-ARM emulates x64 and there is no arm64 tester.
+
+### Website (`web-v*`) — GitHub-hosted, static file sync
+
+`.github/workflows/website-deploy.yml`. **WHY IT EXISTS:** Caddy on the prod box
+serves `/var/www/mantaui` (the WEBROOT), NOT the `/opt/manta` git clone — so a
+`git pull` on the box does NOTHING for the site; files must be COPIED into the
+webroot. Before this workflow that copy was a hand-run `scripts/release/publish.sh`
+step, which is exactly why merged site/install changes silently never went live.
+The workflow scp's `website/*.{html,png}` + `scripts/install.sh` +
+`llms-install.md` into the webroot, then VERIFIES each URL is 200 AND
+byte-matches the repo (`sha256`), failing red on any mismatch. Runs on
+GitHub-hosted `ubuntu-latest` (this repo is PUBLIC — free) and SSHes to prod
+with the `PROD_SSH_KEY` repo secret (private half of the deploy key; public
+half is in the prod box's `authorized_keys`), written to `/tmp/prod_key` (0600)
+per job. Verified assets: `/` (index), `privacy.html`, `terms.html`,
+`install.sh`, `llms-install.md`.
+
+### Push gateway (`gateway-v*`) — GitHub-hosted, pull + restart + health-check
+
+`.github/workflows/gateway-deploy.yml`. The gateway runs
+`node /opt/manta/src/gateway/index.mjs` as systemd `manta-gateway` on the prod
+box (`/opt/manta` is a clone tracking `origin/main`). Deploy = `git -C
+/opt/manta reset --hard origin/main` + `systemctl restart manta-gateway`, then
+health-poll `GET gateway.mantaui.com/healthz`: any 200 means "up"; a connection
+failure after ~30s of retries FAILS the workflow. **Kept SEPARATE from `web-v*`
+on purpose:** restarting the gateway only interrupts in-flight APNs deliveries
+(brief — APNs retries for the window), so a static website copy must never
+bounce it — only tag `gateway-v*` when gateway code the service runs actually
+changed. Same GitHub-hosted `ubuntu-latest` + `PROD_SSH_KEY` secret.
+
+The gateway is the ONLY thing the operated backend still does post-BET-198
+("drop the relay"): phones connect directly to `https://<box_id>.boxes.mantaui.com`
+(Caddy on the box reverse-proxies 127.0.0.1:8787), and the box fans out
+APNs via `POST gateway.mantaui.com/push` with a `gateway_token` it got back
+from `POST /register` at install time. Web Push (VAPID, for the PWA) stays
+box-local and unchanged — it doesn't touch the gateway.
+
+### Staging channel — ON DEMAND ONLY, never auto-fires (BET-371)
+
+A parallel `staging/` subtree on the SAME prod webroot (`/var/www/mantaui/staging/...`),
+served as `https://mantaui.com/staging/...` from the existing Caddy vhost —
+no new host, no DNS, no TLS cert. Staging is **manual-only**: it never fires on
+a push, merge, or tag. Tag triggers (`web-v*`, `server-v*`, `mac-v*`) keep
+meaning **prod**; staging is triggered by hand after the spec change lands.
+
+**URL layout** (one prefix, three artifact dirs, mirroring prod):
+| Artifact | prod destination | staging destination |
+|---|---|---|
+| `install.sh`, `llms-install.md` | `/var/www/mantaui/` | `/var/www/mantaui/staging/` |
+| server tarballs + manifest | `/var/www/mantaui/releases/` | `/var/www/mantaui/staging/releases/` |
+| desktop update feed + DMG | `/var/www/mantaui/updates/` | `/var/www/mantaui/staging/updates/` |
+| desktop canonical download | `Manta-latest.dmg` (under `downloads/`) | `Manta-Staging-latest.dmg` (under `staging/downloads/`) |
+
+**Triggers (three commands, no new workflow files):**
+```
+# Website — current main → /var/www/mantaui/staging
+gh workflow run website-deploy.yml -f channel=staging
+# Server tarballs — rebuilds all arches natively + publishes
+gh workflow run server-tarball-deploy.yml -f channel=staging
+# Desktop DMG — Codemagic REST API (no GitHub action); overrides MANTA_CHANNEL=staging
+CMK=$(secret_provide CODEMAGIC_API_KEY)
+curl -s -X POST -H "x-auth-token: $(cat $CMK)" -H "Content-Type: application/json" \
+  -d '{"appId":"6a5bfe08d7050a29d2f33802","workflowId":"mac-desktop","branch":"main",\
+       "environment":{"variables":{"MANTA_CHANNEL":"staging"}}}' \
+  https://api.codemagic.io/builds
+```
+Each workflow carries a `/staging/` guard step that fails RED if `channel=staging`
+and the resolved destination path lacks `/staging/` — a staging run that
+silently writes to prod is the only dangerous failure mode, and the guard makes
+it impossible rather than unlikely. The mac-desktop build's overlay
+(`electron-builder.staging.yml`, created in BET-370) changes appId +
+productName + URL scheme + update-feed URL + dmg filename so staging can
+install side-by-side with prod on the same Mac.
+
+### Staging TEST BOX — disposable, reset it freely
+
+`dev@135.181.255.249` (Hetzner `ubuntu-2gb-hel1-1`) is a **throwaway staging
+box** used to test the installer, pairing, and the mobile/desktop clients
+end-to-end against a real box that is NOT anyone's working machine. **It carries
+no work worth keeping: wipe it, re-install it, revoke its tokens, restart its
+services, change its config — no coordination needed.** Do NOT do any of that to
+the dev box (`dev@157.90.224.92`) or the prod box.
+
+- Installed the normal user way (`curl mantaui.com/install.sh | bash`), so it
+  is a plain box install at `~/manta` (runtime node at
+  `~/manta/runtime/node/bin/node`), NOT a git clone of this repo. There is no
+  `~/projects/better-ui` on it.
+- Services are `systemd --user`: `manta-server` (127.0.0.1:8787) and
+  `opencode-serve`. Restart with `systemctl --user restart manta-server`.
+- Public ingress is the standard gateway path: `~/.manta/ingress.json` is
+  `{"mode":"public"}` and `~/.manta/auth.json` carries `gateway_host`
+  `<box_id>.boxes.mantaui.com` — i.e. the box is reachable from a phone /
+  simulator over HTTPS with no tunnel. `GET /` returns **401** from outside;
+  that is the auth gate working, not a broken box.
+- Pair a client against it by minting a code ON the box —
+  `ssh dev@135.181.255.249 'curl -s http://127.0.0.1:8787/auth/pair'` — then
+  entering the code plus the `https://<box_id>.boxes.mantaui.com` server URL in
+  the client. `/auth/pair` is loopback-only by design, so the SSH hop is
+  mandatory.
+- Its SSH host key changes whenever it is reimaged. A
+  `REMOTE HOST IDENTIFICATION HAS CHANGED` warning for this IP is expected —
+  `ssh-keygen -R 135.181.255.249` and reconnect.
+
+### Prod box topology (why deploys are shaped this way)
+
+- **Prod box** `root@91.107.196.2` (Hetzner "manta"), zone `mantaui.com`.
+- **`/opt/manta`** = git clone tracking `origin/main`. The GATEWAY runs from
+  here. A `git pull` here updates gateway code (needs a service restart to take
+  effect) but does NOT update the served website.
+- **`/var/www/mantaui`** = Caddy WEBROOT, served statically per-request. Only
+  files explicitly copied here go live: `index.html`/`privacy.html`/`terms.html`
+  (from `website/`), `install.sh` (from `scripts/`), `llms-install.md`,
+  `Manta-latest.dmg` + `latest-mac.yml` (desktop), `releases/*` (tarballs).
+- **Caddyfile is NOT in the repo** — it lives only on the box (`/etc/caddy/`),
+  unversioned. `gateway.mantaui.com` (gateway) and one
+  `<box_id>.boxes.mantaui.com` per registered box have their own Caddy
+  blocks there. (The old dedicated serve-page vhost was retired in BET-343 —
+  pages now share the box's own hostname on the `/pages/<sub>` path, so no
+  wildcard DNS record, no OVH DNS-01 cert, no extra port.)
+- **`scripts/release/publish.sh`** is the OLDER manual all-in-one deploy
+  (tarball + desktop + server + install.sh, run from a laptop over
+  `MANTA_PROD_HOST`). The tag-driven workflows above supersede it for
+  site/gateway/desktop; the Linux box server tarball is now ALSO built by the
+  `server-v*`-tagged `.github/workflows/server-tarball-deploy.yml` workflow
+  (both x64 + arm64, built natively on a GitHub-hosted matrix + merged into a
+  single two-arch manifest before publish). `publish.sh` remains the manual
+  full-release path — the loop over `linux-x64`/`linux-arm64` covers the same
+  arches, and preflight refuses to publish unless BOTH are present.
+
+### A clean install runs the RELEASE's source, not `main`'s
+
+**A box's dependencies come from the release tarball and nowhere else** — it
+has no compiler and never runs an install step of its own. So the source tree
+must be the one those dependencies were built for. `install.sh` extracts the
+tarball, then re-materialises the full source from git at **the release's own
+commit** (`git_sha` in `RELEASE.json`), falling back to `origin/main` only for
+a tarball old enough to carry no stamp.
+
+It used to reset to `origin/main` unconditionally, which paired TODAY's source
+with the LAST RELEASE's dependencies. The consequence is worth stating plainly
+because nothing about it is visible from the repo: **from the moment any PR
+adds a dependency until the next release is published, EVERY clean install is
+broken — on prod as well as staging** — while already-installed boxes are
+perfectly fine, because their update path takes source and dependencies
+together from one tarball. The box dies on an unresolved import before it can
+bind, so the only symptom is the installer's "server did not become healthy"
+timeout pointing at `systemctl status`. That is what happened on 2026-08-15
+(the plan-page work added four packages).
+
+Two consequences to keep in mind:
+
+- **Merging does not ship server code to new boxes; publishing a release
+  does.** That was already true of existing boxes and is now uniformly true.
+- **A dependency added to `package.json` reaches a box only through a new
+  tarball.** No box ever resolves one at runtime.
+
+A preflight (`check_release_dependencies` in install.sh, `findMissingDependencies`
+in install-lib.mjs) backstops the rest of the class — a fork via
+`MANTA_REPO_URL`, a hand-run `git pull`, a half-extracted tarball — by naming
+the missing packages at install time instead of leaving a health timeout.
+
+### The public install path is all-or-nothing (BET-980)
+
+**An install either completes its chosen ingress path fully, or it fails —
+there is no degraded success.** A public-path box needs a Debian/Ubuntu-family
+distro AND the ability to run commands as root (real root or `sudo -n true`).
+Those two capability checks run in a **preflight (scripts/install.sh step 3.5)
+BEFORE the first mutation**, so a box that would finish unreachable instead
+refuses to start with nothing written and nothing to roll back. The tailscale
+and macOS paths never need root or a specific distro and are unaffected. Mid-
+path public failures (gateway registration, the DNS poll, the Caddy vhost
+write/reload) are all fatal too — `die`, never warn-and-continue — so the
+"Installed." banner and pairing block are only reachable on a genuinely
+complete install. Do not reintroduce a degrade-and-continue flag (the old
+degraded-success handling was deleted with this rule).
+
+### The sudo strategy machine + `~/.manta-sudo-pass` contract (BET-979)
+
+**How the installer runs commands as root.** All privileged calls in
+`scripts/install.sh` go through `sudo_priv`, which dispatches on a single
+`SUDO_STRATEGY` resolved ONCE in the 3.5 preflight (before the first
+mutation) by `resolve_sudo_strategy`:
+
+| Strategy | Condition |
+|---|---|
+| `root` | already `uid 0` — commands run bare |
+| `askpass` | `~/.manta-sudo-pass` exists — `sudo -A` ($SUDO_ASKPASS echoes the staged password) |
+| `nopasswd` | `sudo -n true` succeeds — `sudo -n` |
+| `tty` | a human's interactive terminal (`curl … \| bash`) — `sudo` reads the password from `/dev/tty` |
+| `none` | nothing usable — the public path refuses to start (BET-980's fatal) |
+
+The desktop installs with `MANTA_NONINTERACTIVE=1`, so strategy 4 (tty) is
+never taken from the app — it only ever uses root / askpass / nopasswd. The
+desktop's TS side mirrors this as `PreflightProbes.sudoAccess` (`root` |
+`nopasswd` | `password` | `none`); `password` means the desktop shows the
+sudo modal.
+
+**`~/.manta-sudo-pass` is a cross-process contract** between the desktop and
+install.sh — never persist it on the desktop, never log it, never put it in a
+`send()` payload. Flow: the desktop stages the password to the box over a
+**separate, short ssh call** (`WRITE_SUDO_PASS_CMD`, delivered via stdin, not
+argv so it is invisible to `ps`), then runs the install (`sudo_priv` →
+`askpass` sidesteps the forced-pty so sudo doesn't hang on a tty prompt via
+`-A`), then deletes it (`CLEAR_SUDO_PASS_CMD`, always — success, failure,
+cancel, decline, renderer disconnect). install.sh owns the SUDO_ASKPASS
+helper itself and also removes the file on an EXIT trap. The desktop never
+recreates the privileged call sites; `sudo_priv` is the only place that
+invokes sudo (plus the `sudo -n true` capability probe in the strategy
+resolver).
+
+### A release is identified by its COMMIT, not its version number
+
+**You do not need to bump `package.json` to ship a server release.** A box
+decides whether it is already running the published build by comparing the
+commit that build was made from — `git_sha`, stamped into both `RELEASE.json`
+(what the box is running) and `releases/manta-latest.txt` (what is published).
+Same commit → skip, no download. Different commit → update, even when both
+sides carry the same version string.
+
+This replaced a version-only comparison, which had a silent and expensive
+failure mode: a release cut without a version bump was indistinguishable from
+the installed one, so `self-update.sh` reported `already at <version>` and
+every box skipped a REAL update. Nothing errored, no workflow went red, and
+the only symptom was that the fix never appeared in production — which on
+2026-08-15 read as "the merged PR didn't work" and sent a debugging session
+after application code that was already correct.
+
+Consequences worth knowing:
+
+- **`version` is now purely a human/compatibility concern.** It still drives
+  the desktop↔box compatibility matrix (`src/shared/compatibility.mjs`), so
+  bump it for a real release; just don't rely on it to move code onto boxes.
+- **Two published releases may legitimately share a version.** Log lines
+  therefore print the commit alongside it — `0.0.29 → 0.0.29` alone reads like
+  a no-op.
+- **The decision is `release_is_current` in `scripts/lib/release.sh`** (pure,
+  unit-tested in `release.test.mjs`), not inline in `self-update.sh`. It falls
+  back to comparing versions when EITHER side has no commit — a box installed
+  before stamps existed, or a tarball packed outside a git checkout — so the
+  behaviour is never worse than before.
+- **Never publish a manifest whose `git_sha` covers only some arches.**
+  `merge-manifest.mjs` drops the key entirely unless every sidecar agreed, and
+  hard-fails if two arches report different commits. A partial stamp is worse
+  than none: a box whose own arch shipped unstamped would never match the
+  published sha and would reinstall the same tarball on every check, forever.
+- Two arches built from different commits is now a hard publish error rather
+  than something only a version mismatch could have caught.
+
+### Self-update also upgrades the opencode binary (BET-1016)
+
+opencode is no longer frozen at install time — `scripts/self-update.sh` now
+runs `opencode upgrade` (the CLI command on the installed binary) as part of
+every update, so a box stops drifting from whatever it was installed with
+(measured 2026-08-16: installed 1.18.10 vs latest upstream 1.18.18). Key facts:
+
+- **Non-fatal**: an offline box, a missing CLI, or a refused upgrade logs a
+  warning and continues — the box update must never be aborted by opencode
+  (dry-run rule: mirrors `refresh_opencode_tools()`).
+- **Runs BEFORE the packaged-install early exit**, and that early exit is now
+  conditional on BOTH the box being current AND opencode being unchanged —
+  otherwise an opencode-only upgrade would be swallowed by the cheap exit and
+  the upgraded (but un-restarted) binary would stay inert. The decision is
+  `should_skip_self_update` in `scripts/lib/release.sh` (pure, unit-tested
+  alongside `release_is_current`).
+- **opencode is unpinned by design** — never pin a version; the whole point is
+  following upstream.
+- **The upgrade is surfaced through the EXISTING shared update banner**: the
+  server maps opencode's `installation.update-available` event onto the same
+  `serverUpdateAvailable` bus event, dedup-gated per opencode version
+  (`createOpencodeUpdateForwarder` in `src/server/serverUpdate.mjs`). No second
+  banner variant, no new confirm copy — the existing "Update the box?" flow
+  already warns it restarts opencode and ends running agent turns, which is
+  exactly right for this.
+
+### The box tells Anthropic which Claude Code version it is (BET-1503)
+
+opencode reaches Anthropic through the `opencode-claude-auth` plugin, which
+authenticates **as Claude Code** and therefore sends a Claude Code version in
+its user-agent and billing headers. That version is HARDCODED in the plugin
+(`config.ccVersion`) and lags badly — a live box's cached `@latest` claimed
+`2.1.185`, and even the newest published plugin claims `2.1.217`.
+
+**Anthropic gates new models on a minimum client version and refuses anything
+below it.** So a stale claim makes a model the user is entitled to simply
+unusable, with an error that misdirects: *"Claude Code 2.1.185 does not support
+this model; version 2.1.251 or newer is required. Run 'claude update'"* — which
+sends the user to update a CLI that is already current and has nothing to do
+with it. That is the whole reason this exists; the box's real `claude` binary
+was 2.1.257 at the time.
+
+The plugin honours `ANTHROPIC_CLI_VERSION` from its environment, so the box
+sets it on the opencode service. Four things about how:
+
+- **The value is DERIVED, never pinned.** `resolve_anthropic_cli_version` in
+  `scripts/lib/release.sh` reads the box's own `claude --version` and uses it
+  when it meets `manta_claude_cli_version_floor`, else the floor. Since
+  self-update already keeps that CLI current (unpinned, upgraded every run),
+  the claim tracks it on its own. **Do not replace this with a constant** —
+  Anthropic raises the floor with every model launch, and a constant means a
+  release each time plus a window where every box is broken again. The floor is
+  only the fallback for a box with no CLI (install.sh no longer installs one —
+  the app does, lazily, on first Claude sign-in) or one older than the gate.
+- **Three supervisors must agree.** The systemd unit, the LaunchAgent plist and
+  install.sh's `nohup` fallback all set it, exactly like
+  `OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS` — otherwise behaviour would
+  depend on which one happened to start opencode. A test pins the templates and
+  install.sh's substitutions together, so a template that loses its placeholder
+  goes red instead of rendering a literal `@@ANTHROPIC_CLI_VERSION@@`.
+- **Existing boxes are patched IN PLACE, because self-update never re-renders
+  units.** `ensure_opencode_cli_version` edits the installed unit (or plist)
+  and reloads before the restart — same shape and same reasoning as
+  `ensure_server_kill_policy`. It is monotonic: a stale claim is replaced, a
+  higher one is never walked back. On macOS it uses PlistBuddy and must
+  bootout+bootstrap, since `launchctl kickstart -k` restarts the job from
+  launchd's STALE in-memory definition and would silently change nothing.
+- **self-update re-sources the lib after a payload swap.** The script sources
+  `release.sh` at the top — i.e. the copy from BEFORE the swap — so without the
+  re-source a helper shipped by the very release being installed would not be
+  defined, and the fix would land one update late. install.sh already had the
+  same re-source for the same reason.
+- **The resolver ships in install.sh's inline `curl | bash` fallback**, via
+  `HELPER_NAMES` in `scripts/sync-release-fallback.mjs`. Piped mode has no
+  local lib to source, so a resolver missing there would render an EMPTY value
+  on the primary install path. The patcher functions are deliberately absent
+  from that list: only self-update calls them, and it always sources the lib.
+
+If a model starts failing this way again, check what the box actually claims
+(`systemctl --user show opencode-serve -p Environment`) before touching
+anything else — and note the number in the error is the plugin's claim, never
+the CLI's real version.
+
+### Verifying a deploy actually landed
+
+Never trust "the workflow was green" alone for the FIRST run of a new pipeline —
+check the live artifact:
+```
+curl -s -o /dev/null -w "%{http_code}\n" https://mantaui.com/llms-install.md   # web
+curl -s -o /dev/null -w "%{http_code}\n" https://mantaui.com/downloads/Manta-latest.dmg  # desktop
+# server — there is NO `manta-latest-<arch>.tar.gz`; those URLs 404. The only
+# stable name is the manifest, which names the VERSIONED tarball per arch:
+curl -s https://mantaui.com/releases/manta-latest.txt   # version= + file_/sha256_ per arch
+curl -s -o /dev/null -w "%{http_code}\n" https://mantaui.com/releases/manta-<version>-linux-x64.tar.gz
+curl -fsS https://gateway.mantaui.com/healthz    # gateway → {"ok":true}
+node /tmp/opencode/asc.mjs   # (on the box) — ASC build state for iOS (VALID = really uploaded)
+```
+For byte-parity, `sha256sum` the live file vs the repo copy (the web workflow
+already does this and fails red on drift).
+
+## macOS box (BET-274) — design decisions, do not re-derive
+
+The installer supports macOS (Apple Silicon only) as a box OS alongside Linux.
+Don't re-litigate these — they're fixed by the BET-274 epic and a regression on
+any of them breaks the macOS path.
+
+- **Apple Silicon only.** `resolve_arch` in `scripts/install.sh` maps
+  `(uname -s=Darwin, uname -m=arm64)` → `darwin_arm64`; an Intel Mac
+  (`Darwin + x86_64`) dies immediately with a clear "Apple Silicon only"
+  message pointing at the desktop app. There is no `darwin-x64` build
+  target and there is no plan to add one.
+- **Service manager = `launchd` LaunchAgents, NOT systemd.** The two
+  services run as per-user LaunchAgents under
+  `~/Library/LaunchAgents/com.mantaui.{server,opencode}.plist`
+  (templates in `scripts/launchd/`). Loaded with `launchctl bootstrap
+  gui/$(id -u) <plist>`, restarted with
+  `launchctl kickstart -k gui/$(id -u)/<label>`. The Linux `systemd
+  --user` path is gated on `command -v systemctl`; macOS never has it,
+  so `install.sh` branches to `elif [ "$IS_MACOS" = "1" ]` for both
+  service installs. `self-update.sh` mirrors the same three-way branch
+  (`systemctl` → `launchctl` → manual warn). **LaunchAgents load at GUI
+  login and survive reboot as long as the user is logged in** — a
+  headless-never-logs-in Mac is unsupported (no `enable-linger` analog;
+  LaunchDaemon requires root and is out of scope).
+- **Loopback + Tailscale-only ingress.** The Caddy/apt/DNS/gateway-TLS
+  privileged section (install.sh 7.5 A/D/E) is gated on a single
+  `SKIP_PUBLIC_TLS` predicate, which merges the macOS case with the
+  existing tailscale case: both skip the public TLS sub-steps. **The
+  gateway-register sub-steps B/C STILL RUN on macOS** — they are
+  user-space and the gateway_token is still needed for APNs push.
+  `hostname -I` (BSD-incompatible), `ss -tlnH`, `loginctl
+  enable-linger`, and the Caddyfile `sed -i` (which is GNU-only) are
+  all inside OS-guarded blocks and macOS never reaches them. Confirmed
+  by the audit in BET-278 item #4. **Do not bypass the
+  `SKIP_PUBLIC_TLS` gate** — the macOS install dies on `:80`/`:443`
+  binding without sudo, and there's no path to making public TLS work
+  on macOS in v1.
+- **`darwin-arm64` tarball built on `macos-14` GitHub runner.** The
+  `server-tarball-deploy.yml` workflow matrix is
+  `[x64, arm64, darwin-arm64]`, with `runs-on` switching to
+  `macos-14` for the darwin leg. Cannot cross-compile: node-pty's
+  native ABI is host-tied, so the macOS build MUST run on a Mac.
+  Don't add a `darwin-x64` job — Apple Silicon Macs are the only ones
+  we ship a box for.
+- **Arch resolution single-source-of-truth.** Three files share the
+  same arch map and MUST stay in sync:
+  - `scripts/install.sh` `resolve_arch` → `linux_x64` | `linux_arm64` |
+    `darwin_arm64` (the underscore form is the manifest key).
+  - `scripts/release/pack.mjs` `resolveArch` → `{ key: "...", file: "..."
+    }`, where `file` is the hyphen form used in tarball filenames
+    AND nodejs.org's `node-v<v>-<file>.tar.gz` token
+    (`darwin-arm64`).
+  - The combined manifest (`file_darwin_arm64=` + `sha256_darwin_arm64=`
+    keys) emitted by `scripts/release/merge-manifest.mjs` and the
+    `server-v*` workflow.
+  If you rename or re-shape any of these three, do it in all three in
+  the same PR — `install.sh`'s `manifest_get "$manifest" "file_$ARCH_KEY"`
+  assumes the underscored key exists in the manifest, and the workflow's
+  matrix value is what the tarball filename uses.
+
+## Plugins — YAML manifests (v2, BET-189)
+
+User/AI-authored YAML manifests at `~/.manta/plugins/<name>.yaml` on the
+**machine the user wants to drive** (today: only the connected Mac —
+`host:"mac"` is the only accepted value). Replaces the v1 TypeScript handler
+model (BET-183/184/185): `src/main/handlers/iosBuild.ts` and the `HANDLERS`
+map are gone. A plugin is now one YAML file; the executor reads every
+`*.yaml` in the folder on startup + on every `fs.watch` burst and dispatches
+matching capabilities. The generic job spine (`src/server/capabilities.mjs`,
+`/api/cap*`, SSE envelopes, sweep, completion-notify) is **byte-identical**
+to v1 — v2 only changed what runs inside the executor.
+
+**Read first**: `docs/mantaui-plugins.md` (spec v3 — constants + the
+shared-manifest module + execution semantics) and
+`docs/plugins-authoring.md` (author-facing schema reference). Constants live
+in `mantaui-plugins.md` and there only.
+
+### Manifest schema + grammar limits
+
+- **One YAML file, validated by a shared module.**
+  `src/shared/pluginManifest.mjs` is the single source of truth — imported
+  by BOTH `src/main/capExecutor.ts` (the executor that reads manifests off
+  disk and runs them) and `src/server/plugins.mjs` (the in-memory registry
+  the renderer reads). Pure functions only, no `electron`/`node:fs` deps
+  beyond YAML parsing + `resolveCwd`'s existence check. Every public
+  function is unit-tested in `src/shared/pluginManifest.test.ts`.
+- **Grammar limits are deliberate — extensions are refused on principle.**
+  The `if:` expression has EXACTLY three forms (`inputs.<id>`,
+  `inputs.<id> == <token>`, `inputs.<id> != <token>`). No `${{ }}`, no
+  operators, no functions, no function-call forms. Unknown top-level or
+  per-step keys fail validation with `unknown key "<key>"` — typo
+  protection. If a use case seems to demand a new grammar form, that's a
+  MantaUI change, not a plugin change.
+- **`host` accepts ONLY `"mac"` in v2.** Anything else fails with
+  `host: only "mac" is supported`. Other hosts are not implemented;
+  adding them is a design decision.
+
+### Shared-module rule
+
+`src/shared/pluginManifest.mjs` is the only place that parses + validates
+manifests and computes `buildEnv`/`resolveCwd`/`evalIf`. **Never copy
+manifest logic into the executor or the server.** Adding a new validation
+rule there is reflected in every consumer and every test. The single
+exception is `host`-routing in the executor — `plugin.write` is a
+built-in that runs the same validator, writes the YAML to
+`~/.manta/plugins/<name>.yaml`, and rescans.
+
+### Hot reload + registry publish
+
+- The executor `fs.watch`es `~/.manta/plugins/` (500ms debounce) and
+  rescans on change, at startup, and on every SSE (re)connect.
+- After every scan, the executor PUTs `/api/plugins/registry` to
+  manta-server (Bearer auth, same header helper) with the current rows
+  — including INVALID manifests with their `error` so Settings and
+  `plugin_list` can show parse failures. Server keeps it in-memory only
+  (`src/server/plugins.mjs`); the executor republishes on every reconnect,
+  covering server restarts.
+- Adding/editing a YAML does NOT require restarting MantaUI or the
+  executor.
+
+### `plugin.write` built-in
+
+The only hard-coded capability in v2 is `plugin.write`: a `capability:"plugin.write"`
+job validates its YAML payload, writes `~/.manta/plugins/<name>.yaml`,
+rescans, and returns `{name, valid: true}` — or the validator errors
+verbatim. Everything else is a manifest lookup. The runner has NO
+`HANDLERS` map and NO `CapHandler`/`CapCtx` indirection — only a
+`plugin.write` branch and the manifest runner. Adding capability #N is
+writing one YAML file, not editing TypeScript.
+
+### Trust model (toggle only)
+
+The "Run plugins on this machine" toggle in **Settings → Plugins** (desktop
+only, `MobileSettings.tsx` untouched) is the ONLY gate. Default OFF. The
+executor gates itself at startup on `pluginsEnabled`. With the toggle
+OFF, the plugin system is dormant: no scan, no registry publish, no job
+dispatch. There is no per-plugin confirmation — every plugin under
+`~/.manta/plugins/` runs whatever commands it says. The folder is treated
+like `~/.ssh/authorized_keys`: only the user (or the AI on their explicit
+request) puts files there.
+
+The config rename `capExecutorEnabled` → `pluginsEnabled` is a one-time
+migration in `src/main/config.ts` (`src/shared/configMigration.mjs` is the
+electron-free, unit-tested core). The v1 fields `iosBuildRepoPath` /
+`iosSimulatorName` were DROPPED — there is no auto-generation of a
+manifest from the legacy fields; the user re-authors once via the AI.
+
+### Deletion of the TS handler layer (BET-189's hard rule)
+
+The deletion list at the bottom of BET-189 is a deliverable, not a
+suggestion. v1's `HANDLERS` map + `CapHandler` type consumers in
+`capExecutor.ts`, the per-plugin TypeScript handlers, and the v1 AI tool
+`ios_build` are gone. Re-adding ANY of them is the wrong fix — extend the
+shared manifest module instead. Adding a new executor host is a v3
+decision.
+
+### Sweep-alignment timeout cap (30 min)
+
+`parseTimeout` in `src/shared/pluginManifest.mjs` caps manifest timeouts
+at 30 minutes. The reason: the server sweep
+(`src/server/capabilities.mjs` `sweepCapJobs`) fails any `running` job at
+30 min; a longer manifest timeout would be killed by the sweep anyway, so
+raising the cap is impossible without raising the sweep (out of scope).
+The executor's own per-job abort is 25 min — below the cap on purpose so
+the Mac fails first and reports properly.
+
+### macOS PATH gotcha (still true)
+
+GUI-launched Electron apps do NOT inherit the user's shell PATH.
+`Homebrew`/`nvm`-installed `npm`/`npx`/`pod` are invisible to a spawned
+child and `exec` fails ENOENT even though the same command works in
+Terminal. `capExecutor`'s `exec` builds its env as
+`{...process.env, PATH: "/opt/homebrew/bin:/usr/local/bin:" + (process.env.PATH ?? "")}`
+(Apple Silicon + Intel Homebrew). The ENOENT rejection message tells the
+user to install via Homebrew — never silently swallow it.
+
+### busConsumer (one SSE code path, still true)
+
+`src/main/busConsumer.ts` is the ONLY SSE consumer in `src/main/`. Both
+`desktopNotify` (filter `kind === "desktopNotify"`) and `capExecutor`
+(filter `kind === "capJob"` + catch-up via `onConnect`) build on it. No
+module-level singletons — each `createBusConsumer` call owns its own
+state. `desktopNotify.ts` is ~40 lines; `capExecutor.ts` adds zero SSE
+plumbing of its own.
+
+## Mobile CSS hook-class contract (BET-415) — RETIRED (BET-559)
+
+BET-559 deleted `mobile/mobile.css` and the web/PWA client that consumed it.
+
+BET-578 stripped the hook classes that were genuinely dead (no mobile CSS, no
+desktop CSS, and no other consumer): `manta-composer-meta/-trust/-textarea`
+(InputArea), `manta-session-toolbar` (ComposerParts), `manta-ctx-track` and
+`manta-stale-full/-min` (ContextBar), `manta-session-crumb/-branch` and the
+bare `manta-session-menu` root + `manta-session-mode-toggle` hook (SessionHeader),
+and the bare `manta-model-picker` root (ModelPicker).
+
+The rest of the `manta-*` classes are **not** inert and were kept: the desktop
+visual gate (`tests/visual/screens.mjs`) uses them as popup-trigger selectors
+and surface-coverage markers (`assertSurfacesClosed` scans `[aria-haspopup]`
+elements for the `manta-` prefix). Do not strip these without reconciling the
+gate first:
+
+- `manta-composer` (InputArea wrapper) — gate region
+- `manta-model-picker-btn`, `manta-model-dropdown`, `manta-effort-picker-btn`,
+  `manta-effort-dropdown` (ModelPicker) — gate actions/regions + coverage
+- `manta-session-header`, `manta-ctx-pill`, `manta-ctx-popover`,
+  `manta-session-menu-trigger`, `manta-session-menu-dropdown` (SessionHeader) —
+  gate regions + coverage
+- `manta-composer-input-row`, `manta-recording` —
+  live desktop CSS in `src/renderer/index.css`
+- `manta-folder-picker` (FolderPickerModal) — gate region/snapshot
+
+Do not reintroduce `manta-*` classes as **mobile** CSS hooks: there is no
+mobile client selecting on them anymore.
+
+## Testing
+
+Two separate test suites — both run via `npm test`:
+
+**Renderer** (Vitest): `src/renderer/chatUtils.test.ts`. Pure utility
+functions only — no DOM, no Electron mocking. When adding logic to
+`ChatPanel.tsx` expressible as a pure function, extract to `chatUtils.ts`
+and add a test there. `vitest.config.ts` excludes `src/server/**`.
+
+**Server** (node:test): every `src/server/*.test.mjs`. Run standalone with
+`npm run test:server`. Pure logic
+only — no live tmux or opencode. Add tests for any new pure-parseable logic
+in the server modules.
+
+**THE SUITE RUNS ON A LIVE BOX — its state dirs are sandboxed, keep them that
+way.** The tests execute as the same user, on the same machine, as a running
+box, and this repo's CI runner IS the maintainer's dev box. Every server module
+resolves its store from the state home (`~/.manta/auth.json`,
+`secrets.json`, `schedule.json`, `webhooks.json`, `tmux-sessions.json`,
+`cap-jobs.json`, plus `~/.manta-uploads` / `-outbox` / `-secrets`), so an
+un-injected test writes PRODUCTION data. That is not hypothetical: an auth test
+built an engine without injecting `saveAuth`/`deleteAuth` and called `revoke()`
+with a matching token — the destructive path — so **every `npm test` deleted
+`~/.manta/auth.json` and minted a fresh box identity**. The running server kept
+the old token in memory, so the paired desktop/phone kept working while every
+manta-native AI tool (they re-read `auth.json` per call) started returning
+`unauthorized`, and the wiped `gateway_host`/`gateway_token` silently killed
+APNs fanout. It recurred on every CI run for days before anyone connected the
+two.
+
+Two layers now stand between a test and the live box; do not remove either:
+
+- **Injection discipline** (unchanged): a test that exercises persistence passes
+  its own writers/paths. `auth.test.mjs`'s `engine()` helper is the pattern —
+  every engine is built through it and stubs persistence by default.
+- **The sandbox** (the layer under it): `stateHome()` in `src/shared/paths.mjs`
+  honors `MANTA_STATE_HOME`, and both runners point it at a throwaway dir —
+  `node --import ./scripts/testSandbox.mjs --test …` in the `test` /
+  `test:server` scripts, and `test.env` in `vitest.config.ts`. Because module-
+  level `statePath(...)` constants are computed at import, the env MUST be set
+  before test modules load; that's the only reason the `--import` flag (not a
+  `beforeEach`) is used. Production never sets the var, so it resolves to
+  `$HOME` exactly as before — this is a test seam, not a configurable state dir.
+
+Canaries fail RED if the wiring is dropped: `stateSandbox.test.mjs` (asserts
+`MANTA_STATE_HOME` is set and that `auth.mjs`'s store resolved inside it) and
+the equivalent case in `src/shared/paths.test.ts` for vitest. **New state files
+must go through `statePath()` / `uploadRoot()` / `outboxRoot()` /
+`secretsRoot()`** — a fresh `join(homedir(), STATE_DIRNAME, …)` re-opens the
+hole for that store and no canary will notice.
+
+## Custom opencode commands
+
+Global commands (`~/.claude/commands/*.md`) are symlinked into
+`~/.config/opencode/commands/` so opencode's `/command` API picks them up.
+When adding a new command file: `ln -sf ~/.claude/commands/<name>.md ~/.config/opencode/commands/`
+then restart `opencode-serve` for opencode to reload.
+
+## Work tracking (Multica)
+
+MantaUI has a Multica workspace for structured issue dispatch to AI agents.
+
+- **Workspace**: https://multica.ai/better-ui (ID: `264c89bb-4659-4570-af7b-5f8daaf87985`)
+- **Agents** (all OpenCode runtime):
+  - `manta-dev` (ID: `ab49c3e2-0239-43cb-81cf-32d3ee9102f2`) — the single implementer, covers the full codebase
+  - `manta-pm` (ID: `df781c72-9408-47e3-be9e-cfa317ed6bc9`) — delivery coordinator / decomposer / merger
+  - `manta-reviewer` (ID: `f4605213-cc2e-4ab6-9e53-af6695174779`) — PR review gate
+  - `manta-ops` (ID: `b3f61b23-bceb-4cba-8404-574cff90ee5b`) — board liveness (autopilot PAUSED since 2026-07-21)
+- **Skill**: `verify-build-manta` (ID: `ef855df1-92f6-4cff-906f-80f8ab53b48e`) — runs `npm run typecheck && npm test`
+
+**The implementer was renamed `better-ui-dev` → `manta-dev`** (the agent id changed
+too — `87bf6d8f-…` is the retired one). Any doc, skill, or issue template still
+saying `better-ui-dev` is stale; `multica issue assign … --to better-ui-dev` no
+longer resolves.
+
+**Source of truth**: `.multica/` directory in this repo. Edit files there, commit, then push to Cloud.
+
+```bash
+# Push updated agent instructions
+multica agent update ab49c3e2-0239-43cb-81cf-32d3ee9102f2 \
+  --instructions "$(cat .multica/agents/manta-dev.md)"
+
+# Push updated skill
+multica skill update ef855df1-92f6-4cff-906f-80f8ab53b48e \
+  --content "$(sed '/^---$/,/^---$/d' .multica/skills/verify-build-manta/SKILL.md)"
+
+# Push updated workspace context
+multica workspace update 264c89bb-4659-4570-af7b-5f8daaf87985 \
+  --context-stdin < .multica/workspace-context.md
+
+# Create and assign an issue
+multica issue create --title "..." --description "..." --project <project-id> --priority medium
+multica issue assign <key> --to manta-dev
+
+# Check status
+multica daemon status
+multica runtime list
+```
+
+Full CLI cheat sheet: `/home/dev/projects/shared/multica/setup.md`
+
+### Board self-healing — two cron sweeps, one failure mode
+
+**Multica agents are event-triggered: a run starts when an issue is ASSIGNED to
+an agent. Nothing polls on their behalf.** Every "the board is stuck again"
+report so far traces back to that one fact — some transition was supposed to
+fire and didn't, and no amount of correct-looking status will make it fire
+later. Two deterministic CI sweeps close the loop. Neither is an agent, so
+neither can itself go quiet:
+
+| Sweep | Cadence | Fixes |
+|---|---|---|
+| `scripts/multica-unblock.mjs` (in `multica-close-on-merge.yml`) | hourly + after every merge | a `blocked` issue whose named blockers are all `done` → `todo` |
+| `scripts/multica-unstick.mjs` (`multica-unstick.yml`) | every 15 min (throttled — see below), plus on every PR opened / marked ready | an agent-assigned `todo`/`in_progress`/`in_review` issue with nothing in flight and a terminal (or missing) run → re-dispatched to whoever owes the next move |
+| `scripts/agent-branch-pr.mjs` (`agent-branch-pr.yml`) | on every push to `agent/**` or `multica/**` | a pushed agent branch with no pull request → one is opened for it |
+
+The two are complementary and never act on the same issue: unblock owns
+`blocked` and changes STATUS (plus the one assignment `next_owner` declares —
+see below); unstick owns the live statuses and changes ASSIGNMENT. Unstick's routing mirrors the pipeline — implementer → reviewer,
+reviewer → PM, stalled PM → re-run — and it refuses to act on human-assigned
+issues, on anything with a run in flight, or twice on one issue inside two
+hours. All the judgement is the pure `decideUnstick` / `screenIssue` pair,
+unit-tested in `scripts/multica-unstick.test.mjs`.
+
+**Why `todo` is in unstick's scope — the two sweeps would otherwise drop the
+work between them.** A STATUS change dispatches nothing (only an assignment or a
+comment does), so when unblock flips a `blocked` issue to `todo` it fixes the
+label and starts nobody. The `todo` rule re-fires that issue's existing
+assignment ~30 minutes later, which is what actually restarts the epic.
+
+**Sequencing a chain of children — `next_owner`, NOT a pre-assignment.**
+Assigning an issue DISPATCHES A RUN immediately, whatever its status (verified
+live 2026-08-02: assigning a `blocked` issue started an agent on it seconds
+later). So "who owns this next" and "start now" used to be the same act, leaving
+a PM sequencing an epic only two bad options — start an agent before its
+prerequisite exists, or leave the issue owned by nobody. **An unassigned issue is
+invisible to BOTH sweeps** (unblock only writes status; unstick skips anything
+not agent-assigned), so option two is a permanent silent stall: it is exactly
+how BET-556..559 sat untouched while the iOS epic stopped dead. Parking the
+issue on a HUMAN is the same dead end — unstick deliberately never pages an
+agent about work a person has taken.
+
+The fix is to keep the two apart. A queued child carries:
+
+```
+status:      blocked
+waiting_on:  "BET-555 (S3a) must be done — …"     ← its real blockers
+next_owner:  "macos"                               ← who starts it, later
+```
+
+unblock assigns `next_owner` at the moment the blockers clear, which is the one
+moment dispatch-on-assign is correct. No `next_owner` → status-only, exactly as
+before. An unresolvable name does NOT release the issue: it stays `blocked`
+(and so stays in scope for a corrected value) rather than becoming an unowned
+`todo` no sweep will ever revisit. Logic is the pure `resolveNextOwner`,
+unit-tested in `scripts/multica-unblock.test.mjs`.
+
+**`waiting_on` is machine-read — cite ONLY real blockers in it.** Every issue
+key in that field is a blocker. Naming the parent epic for context ("per BET-550
+stage order") deadlocks the child permanently: the epic cannot go `done` until
+its children do. Self-references are dropped; a parent's key is
+indistinguishable from a blocker's and is not. Rationale and stage ordering go
+in the DESCRIPTION. Always `node scripts/multica-unblock.mjs --dry-run
+--verbose` after editing a note — it prints the resolved blocker list per issue,
+which is how this trap was caught.
+
+**A branch is not a hand-off — CI opens the PR.** The `macos` worker is
+forbidden from opening pull requests (it runs on a daily-driver laptop holding
+signing certificates), and `.multica/agents/macos.md` declares the git branch to
+be "the hand-off medium" that the Linux agents consume. Nothing consumed it:
+BET-555 built cleanly, pushed `agent/macos/bbb581a9`, set itself `in_review`,
+and the iOS epic stalled behind a branch no one could review. `agent-branch-pr.yml`
+now carries ANY pushed `agent/**` / `multica/**` branch into a PR — which also
+covers a run that dies between its push and its hand-off (BET-569 died exactly
+there, leaving a green PR stuck as a draft). Two constraints on it:
+
+- **It must use `BUNDLE_PUSH_TOKEN`, not `GITHUB_TOKEN`.** GitHub suppresses
+  `pull_request` workflows for a PR opened with the default token, and `ci.yml`
+  runs only on `pull_request` + pushes to `main` — so such a PR would carry NO
+  checks while `typecheck-test` is the one required context. Permanently
+  unmergeable is a worse failure than the stranded branch it replaced.
+- **Multica links a PR by the key in its TITLE**, so the branch should be
+  `multica/<KEY>-<slug>`; the key is otherwise recovered from commit subjects,
+  and failing that the PR is opened unlinked with a warning.
+- **`on: push` reads the workflow file from the PUSHED BRANCH, not `main`** — so
+  a branch cut from a `main` that predates the workflow never triggers it. This
+  bit BET-556 minutes after the workflow landed. Self-resolving as branches move
+  forward; for an older branch use
+  `gh workflow run agent-branch-pr.yml -f branch=<branch>`, which runs `main`'s
+  copy. Applies to any branch-triggered workflow added here.
+
+**The 15-minute schedule is fiction — assume hours.** GitHub throttles cron
+hard: ticks 58-202 minutes apart on 2026-08-01, and a 66-minute gap on
+2026-08-02 while three finished issues sat idle. `multica-unstick.yml` therefore
+also runs on `pull_request` `opened`/`ready_for_review` — an implementer
+finishing merges nothing, so the merge-event trigger never fires for it and the
+throttled cron was the only thing left. Paired with `MULTICA_UNSTICK_PR_GRACE_MIN`
+(3 min when the issue has a live PR, vs the 30 the no-PR case still gets, since
+a terminal run plus a published PR is unambiguous), a dropped hand-off now
+routes in minutes. Fork PRs carry no secrets, so the job skips them.
+
+**These are backstops, not the mechanism.** Agents are still required to hand
+off explicitly (`.multica/skills/manta-pr-workflow/SKILL.md` step 10); the sweep
+costs 15-30 min of wall clock. A rising rate of unsticks (grep the workflow runs,
+or the `unstick_*` metadata on issues) means an agent is systematically dropping
+hand-offs — fix the agent, don't lean on the sweep.
+
+**GOTCHA — a comment on an agent-assigned issue DISPATCHES A RUN** (`kind:
+"comment"` in the task-run's attribution; verified live 2026-07-27). That is why
+unstick records its ledger in `unstick_last` / `unstick_action` /
+`unstick_reason` METADATA rather than the audit comment it originally posted:
+after a reassign the comment queued a second run of the agent it had just woken,
+and before a reassign it would wake the stalled agent being routed away from.
+Metadata writes are inert. Anything automated that touches an agent-assigned
+issue must account for this — a "harmless status comment" is an agent run.
+
+**A decomposition issue — one whose deliverable is other issues — has exactly
+one owner.** BET-484 and BET-475 both decomposed concurrently on 2026-08-01
+(two assignments, or an assignment plus a comment, fired two runs and produced
+two trees a human had to diff and cancel). Such an issue has one assignee and
+is never re-assigned or re-dispatched while a run is in flight; before
+decomposing, check whether the children already exist and stop rather than
+filing a second set. If two trees do exist, they are reconciled by a human, not
+by an agent picking one — an agent must not cancel another agent's issues.
+
+**`manta-ops` is NOT part of this.** It's an agent driven by a Multica autopilot
+that has been paused since 2026-07-21, so every recovery path its instructions
+describe (`manta-pm.md` cases D and E) currently routes to nobody. The CI
+sweeps exist precisely so board liveness doesn't depend on an agent being
+switched on.
+
+**Useful Multica REST endpoints** (all `Bearer $MULTICA_TOKEN`; the OpenAPI
+surface is undocumented, so these were mapped by proxying the CLI):
+
+```
+GET  /api/issues?workspace_id=&status=&limit=      → {issues:[…]}
+GET  /api/issues/BET-N                             → issue (id, status, assignee_id, metadata)
+GET  /api/issues/BET-N/task-runs?workspace_id=     → [run…]  (NOT /runs)
+GET  /api/issues/BET-N/pull-requests?workspace_id= → {pull_requests:[…]}  (state: draft|open|merged|closed)
+PUT  /api/issues/BET-N?workspace_id=               → {status} or {assignee_id, assignee_type}
+POST /api/issues/<uuid>/rerun?workspace_id=        → re-fire the current assignment
+PUT  /api/issues/<uuid>/metadata/<key>?workspace_id= → {value}
+POST /api/issues/BET-N/comments?workspace_id=      → {workspace_id, content}
+```
+
+Two traps that cost real debugging time: the comments route needs `workspace_id`
+on the QUERY STRING (a body-only workspace 400s) and its field is **`content`**,
+not `body` — the close-on-merge workflow shipped with both wrong plus a missing
+`MULTICA_TOKEN` env, so its "closed without merge" comment had never once
+posted. And `metadata` is not writable through a `PUT /issues/<key>` (it returns
+200 and silently discards it) — use the dedicated per-key route above.
+
+## Open work (as of 2026-05-18)
+
+- **Open subagent as its own chat-mode window.** Phase 1 ships read-only
+  inline subagent rendering (see "Subagent rendering" section above).
+  Phase 2 is the "Open as session" affordance: a button on the TaskBody
+  header that creates a fresh chat-mode tmux window stamped with the
+  child's existing opencode sessionId — no new opencode session. The
+  plumbing is server-side: `src/server/tmux.mjs` `newWindow` +
+  `maybeCreateChatSession` (add an `existingSessionId` short-circuit so it
+  stamps the child's id instead of creating a session); the
+  `opencode:fork-session` handler in `src/server/rpc.mjs` is the template to
+  copy minus the fork POST. Needs a new `opencode:adopt-session` `/rpc`
+  channel + httpApi method, ensuring `rememberSessionDirectory`
+  (`src/server/opencode.mjs`) runs so the per-directory SSE stream opens
+  before the renderer mounts the panel.
+- **Global model preference** — `AppConfig.defaultModel` (Settings UI, persisted to `config.json`). New sessions and `/clear` fall back to this when no per-session localStorage entry exists. `/clear` also carries the current per-session override forward to the new session id before refresh.
+- **Live refresh polling** — sidebar updates only on MantaUI's own actions.
+- **Command palette (⌘K)** — fuzzy switch + actions (~150 lines).
+- **Reconnect-on-drop UI** — HTTPS has no reconnect banner today.
+- **Mobile create flow** — `+` on the mobile session list currently only
+  re-syncs; the new-session/new-project modal (desktop `Sidebar.tsx`) is not
+  yet lifted into a mobile sheet.
+
+---
+> Source: [antoinedc/MantaUI](https://github.com/antoinedc/MantaUI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-19 -->
