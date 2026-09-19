@@ -1,0 +1,44 @@
+{
+  "name": "problem-um-green-037-primes-with-p-2-having-odd-omega-68f26a77",
+  "owner": "vibemathing",
+  "repo": "problem-um-green-037-primes-with-p-2-having-odd-omega-68f26a77",
+  "description": "Vibe Mathing single-problem candidate research: Primes with p-2 Having Odd Omega",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vibemathing/problem-um-green-037-primes-with-p-2-having-odd-omega-68f26a77",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T03:34:22Z"
+}
