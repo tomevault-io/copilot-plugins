@@ -1,0 +1,44 @@
+{
+  "name": "keycrash",
+  "owner": "Yuelioi",
+  "repo": "keycrash",
+  "description": "A Windows shortcut conflict detector / \u4e00\u6309\uff0c\u627e\u5230\u5feb\u6377\u952e\u51b2\u7a81",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Yuelioi/keycrash",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-19T16:32:41Z"
+}
