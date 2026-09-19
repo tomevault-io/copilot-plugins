@@ -7,11 +7,11 @@ A coding agent that builds it's own tools and mines it's own skills and always s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [macanderson/stella](https://github.com/macanderson/stella).
+Original source: `CLAUDE.md` in [macanderson/stella](https://github.com/macanderson/stella).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
