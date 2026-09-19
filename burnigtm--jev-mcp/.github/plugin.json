@@ -1,0 +1,9 @@
+{
+  "name": "burnigtm--jev-mcp",
+  "displayName": "jev-mcp",
+  "description": "MCP server that puts TypeSafe Jev on the coding loop in Cursor, Codex, and any MCP client",
+  "version": "1.0.0",
+  "author": "burnigtm",
+  "homepage": "https://github.com/burnigtm/jev-mcp",
+  "skills": []
+}
