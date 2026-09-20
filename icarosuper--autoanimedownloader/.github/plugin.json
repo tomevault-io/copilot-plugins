@@ -1,0 +1,9 @@
+{
+  "name": "icarosuper--autoanimedownloader",
+  "displayName": "AutoAnimeDownloader",
+  "description": "Self-hosted Go daemon that watches your Anilist list, finds episodes on Nyaa and downloads them with a built-in BitTorrent client + web UI",
+  "version": "1.0.0",
+  "author": "icarosuper",
+  "homepage": "https://github.com/icarosuper/AutoAnimeDownloader",
+  "skills": []
+}
