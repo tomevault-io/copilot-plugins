@@ -1,0 +1,9 @@
+{
+  "name": "tajchert--smallibre",
+  "displayName": "smallibre",
+  "description": "Small and modern version of Calibre for MacOS, native in Swift. Much smaller, core features.",
+  "version": "1.0.0",
+  "author": "tajchert",
+  "homepage": "https://github.com/tajchert/smallibre",
+  "skills": []
+}
