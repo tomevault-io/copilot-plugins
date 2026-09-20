@@ -1,534 +1,153 @@
-## ui-implementation
+## ui
 
-> UI implementation strategy and component architecture
+> User Interface of Everprompt
 
 
-# UI Implementation Strategy
+User Interface Instructions — EverPrompt
 
-## Design Philosophy
+Overview
 
-### 1. **Minimalism First**
+The UI must be minimal, scalable, and DB-ready.
+Default view: black canvas, centered Prompt Editor Card, and a right-edge Arc of labels (colored dots + tiny captions).
 
-- **Black Canvas**: Pure black background (#000000) for focus
-- **White Mode**: Clean white background (#FFFFFF) with subtle shadows
-- **Mode Toggle**: Elegant switch between dark/light modes
-- **Distraction-Free**: Only essential UI elements visible
+Clicking a label opens a Label Sheet side panel with prompts for that label. Selecting a prompt loads it into the editor.
 
-### 2. **Crafting-Focused Design**
+All components accept data props and must be able to scale with any number of labels (including zero). In the future, data will be fetched from an external DB.
 
-- **Large Text Area**: 80% of screen real estate for prompt editing
-- **Minimal Toolbar**: Only essential actions (Save, Copy, Share)
-- **Contextual UI**: UI appears only when needed
-- **Keyboard Shortcuts**: Power user efficiency
+**Key Design Principles:**
 
-## UI Architecture Decision
+- **Minimalism First**: Distraction-free prompt crafting experience
+- **n8n Community Focus**: UI optimized for automation developers
+- **Extensibility**: Plugin-ready component architecture
+- **Performance**: Fast, responsive, and accessible
+- **shadcn/ui Foundation**: Built on shadcn/ui components for consistency and customization
 
-### **Recommendation: HTML/CSS with React Components**
+⸻
 
-**Why NOT Canvas/Figma:**
+Screens & States
 
-- **Performance**: HTML/CSS is faster for text editing
-- **Accessibility**: Better screen reader support
-- **SEO**: Searchable content for public prompts
-- **Extensibility**: Easier to add features and plugins
-- **Mobile**: Better responsive behavior
-- **Development Speed**: Faster iteration and debugging
+Start View
+• Prompt Editor Card
+• Large textarea with autosave + debounce.
+• Top-right toolbar: Saved • Copy.
+• Right Arc (Labels)
+• SVG arc with colored dots.
+• Each dot = one label.
+• Tiny caption = first word of label name.
+• Arc auto-scales to number of labels (3–12 typical).
+• If labels > visibleCount → show “+ more” dot to open Label Sheet with all labels.
 
-**Why HTML/CSS:**
+Label Sheet
+• Opens as a right-side Sheet.
+• Header: label name + colored bullet + prompt count.
+• Search bar + sort options (Updated, Created, Title).
+• List of prompts:
+• Title (1 line).
+• Preview (2 lines).
+• Optional meta chips (future).
+• Row click → load prompt into editor + close sheet.
+• “All labels” and “Unlabeled” are valid label filters.
 
-- **Text Editing**: Superior text input and selection
-- **Copy/Paste**: Native browser functionality
-- **Search**: Built-in find functionality
-- **Accessibility**: Full keyboard navigation
-- **Performance**: Hardware-accelerated rendering
-- **Flexibility**: Easy to extend and customize
+Empty States
+• No labels → arc hidden, show hint “Add your first label”.
+• Label has no prompts → Sheet shows “No prompts yet”.
+• Unlabeled only → arc shows a single gray dot labeled “Unlabeled”.
 
-## Component Architecture
+⸻
 
-### 1. **Core Components**
+Components
 
-```typescript
-// Main layout component
-<EverPromptApp>
-  <PromptEditor />
-  <ArcLabels />
-  <LabelSheet />
-  <ModeToggle />
-</EverPromptApp>
+<PromptEditorCard />
 
-// Prompt editing component
-<PromptEditor>
-  <PromptTextarea />
-  <PromptToolbar />
-  <PromptMetadata />
-</PromptEditor>
+Props:
+• value: string
+• saving: boolean
+• onChange(value: string): void
+• onCopy(): void
 
-// Label navigation component
-<ArcLabels>
-  <LabelDot />
-  <LabelCaption />
-  <MoreButton />
-</ArcLabels>
+Implementation:
+• Built on shadcn/ui Card component
+• Uses shadcn/ui Textarea for content editing
+• shadcn/ui Button components for toolbar actions
+• Responsive design with shadcn/ui responsive utilities
 
-// Label management component
-<LabelSheet>
-  <LabelHeader />
-  <PromptList />
-  <SearchBar />
-  <SortControls />
-</LabelSheet>
-```
+<ArcLabels />
 
-### 2. **State Management**
+Props:
+• labels: Array<{ id: string; name: string; color: string; lastUsedAt?: number }>
+• visibleCount?: number
+• onLabelClick(labelId: string): void
+• geometry?: { radius?: number; arcDeg?: number; cx?: number; cy?: number }
+Behavior:
+• Sort labels by lastUsedAt desc, fallback name.
+• Captions = first word of name.
+• If too many labels, add “+ more” dot (labelId="**all**").
 
-```typescript
-interface AppState {
-  // UI State
-  mode: "dark" | "light";
-  currentPrompt: Prompt | null;
-  selectedLabel: string | null;
-  labelSheetOpen: boolean;
+<LabelSheet />
 
-  // Data State
-  prompts: Prompt[];
-  labels: Label[];
-  workspace: Workspace;
+Props:
+• open: boolean
+• label: { id: string; name: string; color?: string } | { id: "**all**", name: "All labels" }
+• prompts: Array<PromptSummary>
+• onOpenChange(open: boolean): void
+• onSelectPrompt(promptId: string): void
+• onSearch(term: string): void
 
-  // Editor State
-  editorContent: string;
-  isSaving: boolean;
-  lastSaved: Date | null;
+Implementation:
+• Built on shadcn/ui Sheet component
+• Uses shadcn/ui Input for search functionality
+• shadcn/ui Button components for actions
+• shadcn/ui Badge components for labels
+• Responsive design with shadcn/ui responsive utilities
+PromptSummary:
+
+{
+id: string
+title: string
+preview: string
+labelIds: string[]
+updatedAt: number
+createdAt: number
+meta?: Record<string, any> // extensible
 }
 
-// shadcn/ui Integration
-interface ShadcnUIState {
-  theme: "light" | "dark" | "system";
-  components: {
-    button: ButtonVariant;
-    card: CardVariant;
-    input: InputVariant;
-  };
-}
-```
+⸻
 
-## Visual Design System
+Event Flow 1. User clicks a dot in <ArcLabels />. 2. App sets LabelSheet.open = true and passes labelId. 3. Prompts for that label are loaded and displayed in <LabelSheet />. 4. User clicks a prompt row → prompt loads into <PromptEditorCard />, sheet closes.
 
-### 1. **Color Palette**
+⸻
 
-```css
-/* Dark Mode */
-:root {
-  --bg-primary: #000000;
-  --bg-secondary: #111111;
-  --text-primary: #ffffff;
-  --text-secondary: #888888;
-  --accent: #00ff88;
-  --border: #333333;
-}
+Accessibility
+• Each dot is a button with aria-label="Open label {name}".
+• Sheet rows keyboard-navigable; Enter opens.
+• Esc closes the sheet.
 
-/* Light Mode */
-:root[data-theme="light"] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #000000;
-  --text-secondary: #666666;
-  --accent: #0066cc;
-  --border: #e1e5e9;
-}
-```
+⸻
 
-### 2. **Typography**
+Responsiveness
+• Desktop ≥1280px: arc full radius, captions always visible.
+• Tablet 768–1279px: smaller arc, captions on hover/focus.
+• Mobile <768px: show only a few dots + “+ more” dot → opens Sheet full screen.
 
-```css
-/* Primary Font */
-.font-primary {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 400;
-  line-height: 1.6;
-}
+⸻
 
-/* Monospace for Code */
-.font-mono {
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-  font-weight: 400;
-  line-height: 1.5;
-}
+Visual Style
+• Background: pure black (#000).
+• Arc stroke: white @ 7% opacity.
+• Dot: label color, inner opaque + outer glow (15%).
+• Caption: white @ 70% opacity, font size 10–11px.
 
-/* Sizes */
-.text-xs {
-  font-size: 0.75rem;
-}
-.text-sm {
-  font-size: 0.875rem;
-}
-.text-base {
-  font-size: 1rem;
-}
-.text-lg {
-  font-size: 1.125rem;
-}
-.text-xl {
-  font-size: 1.25rem;
-}
-.text-2xl {
-  font-size: 1.5rem;
-}
-```
+⸻
 
-### 3. **Spacing System**
+Acceptance (for v0)
+• Start View renders with editor + arc, no runtime errors.
+• Arc adapts to labels[] length.
+• Clicking label opens Label Sheet with mock prompts.
+• Clicking prompt loads into editor + closes sheet.
+• “+ more” dot opens All Labels view.
+• Works with no labels or only Unlabeled.
 
-```css
-/* Consistent spacing scale */
-.space-1 {
-  margin: 0.25rem;
-}
-.space-2 {
-  margin: 0.5rem;
-}
-.space-3 {
-  margin: 0.75rem;
-}
-.space-4 {
-  margin: 1rem;
-}
-.space-6 {
-  margin: 1.5rem;
-}
-.space-8 {
-  margin: 2rem;
-}
-.space-12 {
-  margin: 3rem;
-}
-.space-16 {
-  margin: 4rem;
-}
-```
-
-## Responsive Design
-
-### 1. **Breakpoints**
-
-```css
-/* Mobile First Approach */
-@media (min-width: 640px) {
-  /* sm */
-}
-@media (min-width: 768px) {
-  /* md */
-}
-@media (min-width: 1024px) {
-  /* lg */
-}
-@media (min-width: 1280px) {
-  /* xl */
-}
-@media (min-width: 1536px) {
-  /* 2xl */
-}
-```
-
-### 2. **Layout Adaptations**
-
-```typescript
-// Mobile: Stack vertically
-<MobileLayout>
-  <PromptEditor />
-  <ArcLabels />
-</MobileLayout>
-
-// Tablet: Side-by-side with collapsible arc
-<TabletLayout>
-  <PromptEditor />
-  <CollapsibleArcLabels />
-</TabletLayout>
-
-// Desktop: Full arc with side panel
-<DesktopLayout>
-  <PromptEditor />
-  <ArcLabels />
-  <LabelSheet />
-</DesktopLayout>
-```
-
-## Animation & Interactions
-
-### 1. **Micro-Interactions**
-
-```css
-/* Smooth transitions */
-.transition {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Hover effects */
-.hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Focus states */
-.focus-ring:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-```
-
-### 2. **Loading States**
-
-```typescript
-// Skeleton loading for prompts
-<PromptSkeleton>
-  <div className="h-4 bg-gray-200 rounded animate-pulse" />
-  <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4" />
-</PromptSkeleton>
-
-// Saving indicator
-<SavingIndicator>
-  <div className="flex items-center gap-2">
-    <Spinner size="sm" />
-    <span>Saving...</span>
-  </div>
-</SavingIndicator>
-```
-
-## Accessibility
-
-### 1. **Keyboard Navigation**
-
-```typescript
-// Keyboard shortcuts
-const shortcuts = {
-  "Cmd+S": "save",
-  "Cmd+C": "copy",
-  "Cmd+K": "openSearch",
-  Escape: "closeModal",
-  Tab: "nextElement",
-  "Shift+Tab": "previousElement",
-};
-```
-
-### 2. **Screen Reader Support**
-
-```typescript
-// ARIA labels and descriptions
-<button
-  aria-label="Open label sheet"
-  aria-describedby="label-description"
->
-  <LabelIcon />
-</button>
-
-<div id="label-description">
-  Click to view all prompts in this label
-</div>
-```
-
-### 3. **Color Contrast**
-
-```css
-/* WCAG AA compliant contrast ratios */
-.text-primary {
-  color: #000000;
-} /* 21:1 on white */
-.text-secondary {
-  color: #666666;
-} /* 4.5:1 on white */
-.accent {
-  color: #0066cc;
-} /* 4.5:1 on white */
-```
-
-## Performance Optimization
-
-### 1. **Code Splitting**
-
-```typescript
-// Lazy load heavy components
-const LabelSheet = lazy(() => import("./LabelSheet"));
-const PromptEditor = lazy(() => import("./PromptEditor"));
-
-// Route-based splitting
-const routes = [
-  { path: "/", component: lazy(() => import("./HomePage")) },
-  { path: "/prompt/:id", component: lazy(() => import("./PromptPage")) },
-];
-```
-
-### 2. **Virtual Scrolling**
-
-```typescript
-// For large prompt lists
-<VirtualizedPromptList
-  items={prompts}
-  itemHeight={80}
-  containerHeight={400}
-  renderItem={({ item, index }) => <PromptItem key={item.id} prompt={item} />}
-/>
-```
-
-### 3. **Memoization**
-
-```typescript
-// Memoize expensive components
-const PromptEditor = memo(({ prompt, onChange }) => {
-  return (
-    <textarea
-      value={prompt.content}
-      onChange={onChange}
-      className="prompt-editor"
-    />
-  );
-});
-
-// Memoize expensive calculations
-const sortedLabels = useMemo(() => {
-  return labels.sort((a, b) => b.lastUsedAt - a.lastUsedAt);
-}, [labels]);
-```
-
-## Component Library
-
-### 1. **Base Components (shadcn/ui)**
-
-```typescript
-// Button component (shadcn/ui)
-interface ButtonProps {
-  variant:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link";
-  size: "default" | "sm" | "lg" | "icon";
-  disabled?: boolean;
-  loading?: boolean;
-  children: React.ReactNode;
-}
-
-// Input component (shadcn/ui)
-interface InputProps {
-  type: "text" | "email" | "password";
-  placeholder?: string;
-  value: string;
-  onChange: (value: string) => void;
-  error?: string;
-}
-
-// Card component (shadcn/ui)
-interface CardProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-// Sheet component (shadcn/ui)
-interface SheetProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  children: React.ReactNode;
-}
-```
-
-### 2. **Layout Components**
-
-```typescript
-// Container component
-interface ContainerProps {
-  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl";
-  padding?: "sm" | "md" | "lg";
-  children: React.ReactNode;
-}
-
-// Grid component
-interface GridProps {
-  cols: 1 | 2 | 3 | 4 | 6 | 12;
-  gap?: "sm" | "md" | "lg";
-  children: React.ReactNode;
-}
-```
-
-## Testing Strategy
-
-### 1. **Unit Tests**
-
-```typescript
-// Component testing
-describe("PromptEditor", () => {
-  it("should save content on change", () => {
-    const mockOnChange = jest.fn();
-    render(<PromptEditor onChange={mockOnChange} />);
-
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "New prompt content" },
-    });
-
-    expect(mockOnChange).toHaveBeenCalledWith("New prompt content");
-  });
-});
-```
-
-### 2. **Integration Tests**
-
-```typescript
-// User flow testing
-describe("Prompt Creation Flow", () => {
-  it("should create and save a new prompt", async () => {
-    render(<App />);
-
-    // Type in editor
-    await user.type(screen.getByRole("textbox"), "Test prompt");
-
-    // Click save
-    await user.click(screen.getByText("Save"));
-
-    // Verify prompt is saved
-    expect(screen.getByText("Saved")).toBeInTheDocument();
-  });
-});
-```
-
-### 3. **Visual Regression Tests**
-
-```typescript
-// Screenshot testing
-describe("Visual Regression", () => {
-  it("should match prompt editor snapshot", () => {
-    const { container } = render(<PromptEditor />);
-    expect(container).toMatchSnapshot();
-  });
-});
-```
-
-## Implementation Phases
-
-### Phase 1: Core UI (Week 1-2)
-
-- Basic layout and components
-- Dark/light mode toggle
-- Prompt editor with autosave
-- Simple label arc
-
-### Phase 2: Navigation (Week 3-4)
-
-- Label sheet implementation
-- Search and filtering
-- Keyboard shortcuts
-- Mobile responsiveness
-
-### Phase 3: Polish (Week 5-6)
-
-- Animations and transitions
-- Loading states
-- Error handling
-- Accessibility improvements
-
-### Phase 4: Advanced (Week 7-8)
-
-- Advanced editor features
-- Plugin system UI
-- Analytics dashboard
-- Performance optimization
+⸻
 
 ---
 > Source: [mitsue-eth/everprompt-n8n-shadcn](https://github.com/mitsue-eth/everprompt-n8n-shadcn) — distributed by [TomeVault](https://tomevault.io).
