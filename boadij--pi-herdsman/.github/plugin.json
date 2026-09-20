@@ -1,0 +1,9 @@
+{
+  "name": "boadij--pi-herdsman",
+  "displayName": "pi-herdsman",
+  "description": "Asynchronous Pi subagents and agent fleet orchestration with nested delegation, parallel execution, and supervision in herdr.",
+  "version": "1.0.0",
+  "author": "boadij",
+  "homepage": "https://github.com/boadij/pi-herdsman",
+  "skills": []
+}
