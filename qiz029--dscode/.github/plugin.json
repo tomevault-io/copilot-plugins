@@ -1,0 +1,9 @@
+{
+  "name": "qiz029--dscode",
+  "displayName": "dscode",
+  "description": "A DeepSeek coding agent harness: persistent shell, Ultra subagents, auto approval, Chrome MCP and session telemetry",
+  "version": "1.0.0",
+  "author": "qiz029",
+  "homepage": "https://github.com/qiz029/dscode",
+  "skills": []
+}
