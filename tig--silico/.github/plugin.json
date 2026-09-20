@@ -1,0 +1,9 @@
+{
+  "name": "tig--silico",
+  "displayName": "silico",
+  "description": "Silico makes building maintainable firmware for embedded devices simple using AI.",
+  "version": "1.0.0",
+  "author": "tig",
+  "homepage": "https://github.com/tig/silico",
+  "skills": []
+}
