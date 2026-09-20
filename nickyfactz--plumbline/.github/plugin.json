@@ -1,0 +1,9 @@
+{
+  "name": "nickyfactz--plumbline",
+  "displayName": "plumbline",
+  "description": "Plumbline is a lightweight engineering workflow plugin for Codex and Claude Code. It helps an agent move from product intent to useful implementation, verification, and current documentation without f",
+  "version": "1.0.0",
+  "author": "nickyfactz",
+  "homepage": "https://github.com/nickyfactz/plumbline",
+  "skills": []
+}
