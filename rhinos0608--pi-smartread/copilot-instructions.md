@@ -8,10 +8,10 @@ Pi-SmartRead is the Pi coding agent's code-intelligence extension — unified fi
 
 ## `/Users/rhinesharar/Pi-Workspace-Protocol`
 
-- **Package:** `@rhinos0608/pi-workspace-protocol` (pinned in `package.json` as `github:rhinos0608/Pi-Workspace-Protocol#v0.4.0`).
+- **Package:** `@rhinos0608/pi-workspace-protocol` (pinned in `package.json` as `github:rhinos0608/Pi-Workspace-Protocol#v0.5.0`).
 - **Purpose:** Versioned TypeScript contracts, SHA-256/id helpers, runtime validators, and an event-bus RPC layer for the SmartRead/SmartEdit inspect+patch protocol.
 - **What Pi-SmartRead consumes:**
-  - `src/inspect/inspect.ts` imports `PROTOCOL_SCHEMA_VERSION`, `hashSessionFilePath`, `inspectionIdFor`, `resourceIdFor`, `canonicalizeWorkspaceRoot`, `WorkspaceEvidenceEnvelope`, `InspectedResource`, `InspectMode` to build schema-3 evidence envelopes.
+  - `src/inspect/inspect.ts` imports `PROTOCOL_SCHEMA_VERSION`, `hashSessionFilePath`, `inspectionIdFor`, `resourceIdFor`, `canonicalizeWorkspaceRoot`, `WorkspaceEvidenceEnvelope`, `InspectedResource`, `InspectMode` to build schema-4 evidence envelopes.
   - `src/evidence/workspace-evidence-resolver.ts` imports `PROTOCOL_SCHEMA_VERSION`, `validateInspectionEnvelope`, `hashSessionFilePath`, `WorkspaceEvidenceEnvelope` to validate and cache published envelopes.
   - `src/read/read-many.ts` imports `canonicalizeWorkspaceRoot`, `hashSessionFilePath`, `inspectionIdFor`, `PROTOCOL_SCHEMA_VERSION`, `InspectedResource`, `WorkspaceEvidenceEnvelope` to build batch workspace-evidence envelopes from multi-file reads.
   - `src/mcp-registry.ts` imports `RPC_CHANNELS` to create the evidence resolver on the `inspectPatch` channel.
@@ -75,4 +75,4 @@ The canonical pattern is `tryCanonical(path)` which calls `realpathSync` with a 
 
 ---
 > Source: [rhinos0608/Pi-SmartRead](https://github.com/rhinos0608/Pi-SmartRead) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-20 -->
