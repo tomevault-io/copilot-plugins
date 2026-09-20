@@ -4,7 +4,7 @@
   "repo": "bulwark",
   "description": "A Linux host security scanner with a native CLI and desktop GUI \u2014 SSH/kernel/systemd hardening checks, real ClamAV scanning, file-integrity monitoring, and continuous background monitoring.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vietanhdev/bulwark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T02:48:53Z"
+  "distributed_at": "2026-09-20T03:08:02Z"
 }
