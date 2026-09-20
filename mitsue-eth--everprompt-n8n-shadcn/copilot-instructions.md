@@ -1,662 +1,492 @@
-## development-workflow
-
-> Development workflow, coding standards, and project organization
-
-
-# Development Workflow & Standards
-
-## Project Structure
-
-```
-everprompt-n8n/
-├── app/                          # Next.js App Router
-│   ├── (auth)/                   # Auth route group
-│   ├── (dashboard)/              # Dashboard route group
-│   ├── api/                      # API routes
-│   ├── globals.css               # Global styles
-│   ├── layout.tsx                # Root layout
-│   └── page.tsx                  # Home page
-├── components/                   # Reusable components
-│   ├── ui/                       # Base UI components
-│   ├── features/                 # Feature-specific components
-│   └── layout/                   # Layout components
-├── lib/                          # Utility functions
-│   ├── auth.ts                   # Authentication utilities
-│   ├── db.ts                     # Database utilities
-│   ├── utils.ts                  # General utilities
-│   └── validations.ts            # Zod schemas
-├── hooks/                        # Custom React hooks
-├── store/                        # Zustand stores
-├── types/                        # TypeScript type definitions
-├── constants/                    # Application constants
-├── styles/                       # Additional styles
-└── public/                       # Static assets
-```
-
-## Coding Standards
-
-### 1. **TypeScript Configuration**
-
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true
-  }
-}
-```
-
-### 2. **ESLint Configuration**
-
-```javascript
-// eslint.config.mjs
-export default [
-  {
-    rules: {
-      "@typescript-eslint/no-unused-vars": "error",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "react-hooks/exhaustive-deps": "error",
-      "prefer-const": "error",
-      "no-var": "error",
-    },
-  },
-];
-```
-
-### 3. **Prettier Configuration**
-
-```json
-{
-  "semi": true,
-  "trailingComma": "es5",
-  "singleQuote": true,
-  "printWidth": 80,
-  "tabWidth": 2,
-  "useTabs": false
-}
-```
-
-## Component Standards
-
-### 1. **Component Structure**
-
-```typescript
-// components/features/PromptEditor.tsx
-import React, { useState, useCallback } from "react";
-import { cn } from "@/lib/utils";
-
-interface PromptEditorProps {
-  value: string;
-  onChange: (value: string) => void;
-  onSave?: () => void;
-  className?: string;
-}
-
-export function PromptEditor({
-  value,
-  onChange,
-  onSave,
-  className,
-}: PromptEditorProps) {
-  const [isSaving, setIsSaving] = useState(false);
-
-  const handleSave = useCallback(async () => {
-    if (!onSave) return;
-
-    setIsSaving(true);
-    try {
-      await onSave();
-    } finally {
-      setIsSaving(false);
-    }
-  }, [onSave]);
-
-  return (
-    <div className={cn("prompt-editor", className)}>
-      <textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full h-full resize-none bg-transparent border-none outline-none"
-        placeholder="Start crafting your prompt..."
-      />
-      {onSave && (
-        <button
-          onClick={handleSave}
-          disabled={isSaving}
-          className="save-button"
-        >
-          {isSaving ? "Saving..." : "Save"}
-        </button>
-      )}
-    </div>
-  );
-}
-```
-
-### 2. **Hook Standards**
-
-```typescript
-// hooks/usePromptEditor.ts
-import { useState, useCallback, useEffect } from "react";
-import { debounce } from "lodash-es";
-
-interface UsePromptEditorOptions {
-  initialValue?: string;
-  onSave?: (value: string) => Promise<void>;
-  debounceMs?: number;
-}
-
-export function usePromptEditor({
-  initialValue = "",
-  onSave,
-  debounceMs = 1000,
-}: UsePromptEditorOptions = {}) {
-  const [value, setValue] = useState(initialValue);
-  const [isSaving, setIsSaving] = useState(false);
-  const [lastSaved, setLastSaved] = useState<Date | null>(null);
-
-  const debouncedSave = useCallback(
-    debounce(async (newValue: string) => {
-      if (!onSave) return;
-
-      setIsSaving(true);
-      try {
-        await onSave(newValue);
-        setLastSaved(new Date());
-      } catch (error) {
-        console.error("Failed to save prompt:", error);
-      } finally {
-        setIsSaving(false);
-      }
-    }, debounceMs),
-    [onSave, debounceMs]
-  );
-
-  const handleChange = useCallback(
-    (newValue: string) => {
-      setValue(newValue);
-      debouncedSave(newValue);
-    },
-    [debouncedSave]
-  );
-
-  return {
-    value,
-    setValue,
-    handleChange,
-    isSaving,
-    lastSaved,
-  };
-}
-```
-
-### 3. **API Route Standards**
-
-```typescript
-// app/api/prompts/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-import { getServerSession } from "next-auth";
-import { db } from "@/lib/db";
-
-const CreatePromptSchema = z.object({
-  title: z.string().min(1).max(255),
-  content: z.string().min(1),
-  labelIds: z.array(z.string().uuid()).optional(),
-  isPublic: z.boolean().optional().default(false),
-});
-
-export async function POST(request: NextRequest) {
-  try {
-    const session = await getServerSession();
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const body = await request.json();
-    const data = CreatePromptSchema.parse(body);
-
-    const prompt = await db.prompt.create({
-      data: {
-        ...data,
-        createdBy: session.user.id,
-        workspaceId: session.user.workspaceId,
-      },
-    });
-
-    return NextResponse.json(prompt);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: "Invalid input", details: error.errors },
-        { status: 400 }
-      );
-    }
-
-    console.error("Failed to create prompt:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
-  }
-}
-```
-
-## Database Standards
-
-### 1. **Prisma Schema Organization**
-
-```prisma
-// prisma/schema.prisma
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-// Core entities
-model Workspace {
-  id        String   @id @default(cuid())
-  name      String
-  slug      String   @unique
-  createdAt DateTime @default(now())
-
-  // Relations
-  members   WorkspaceMember[]
-  prompts   Prompt[]
-  labels    Label[]
-
-  @@map("workspaces")
-}
-
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  avatarUrl String?
-  createdAt DateTime @default(now())
-
-  // Relations
-  workspaces WorkspaceMember[]
-  prompts    Prompt[]
-  labels     Label[]
-
-  @@map("users")
-}
-
-// ... other models
-```
-
-### 2. **Database Utilities**
-
-```typescript
-// lib/db.ts
-import { PrismaClient } from "@prisma/client";
-
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
-
-export const db = globalForPrisma.prisma ?? new PrismaClient();
-
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
-```
-
-## Testing Standards
-
-### 1. **Test Structure**
-
-```typescript
-// __tests__/components/PromptEditor.test.tsx
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { PromptEditor } from "@/components/features/PromptEditor";
-
-describe("PromptEditor", () => {
-  it("should render with initial value", () => {
-    render(<PromptEditor value="Test prompt" onChange={jest.fn()} />);
-
-    expect(screen.getByDisplayValue("Test prompt")).toBeInTheDocument();
-  });
-
-  it("should call onChange when content changes", async () => {
-    const user = userEvent.setup();
-    const mockOnChange = jest.fn();
-
-    render(<PromptEditor value="" onChange={mockOnChange} />);
-
-    const textarea = screen.getByRole("textbox");
-    await user.type(textarea, "New content");
-
-    expect(mockOnChange).toHaveBeenCalledWith("New content");
-  });
-
-  it("should show saving state when onSave is called", async () => {
-    const mockOnSave = jest.fn().mockResolvedValue(undefined);
-
-    render(
-      <PromptEditor value="Test" onChange={jest.fn()} onSave={mockOnSave} />
-    );
-
-    const saveButton = screen.getByText("Save");
-    await userEvent.click(saveButton);
-
-    expect(screen.getByText("Saving...")).toBeInTheDocument();
-    await waitFor(() => {
-      expect(screen.getByText("Save")).toBeInTheDocument();
-    });
-  });
-});
-```
-
-### 2. **API Testing**
-
-```typescript
-// __tests__/api/prompts.test.ts
-import { POST } from "@/app/api/prompts/route";
-import { NextRequest } from "next/server";
-
-// Mock authentication
-jest.mock("next-auth", () => ({
-  getServerSession: jest.fn().mockResolvedValue({
-    user: { id: "user-1", workspaceId: "workspace-1" },
-  }),
-}));
-
-describe("/api/prompts", () => {
-  it("should create a new prompt", async () => {
-    const request = new NextRequest("http://localhost:3000/api/prompts", {
-      method: "POST",
-      body: JSON.stringify({
-        title: "Test Prompt",
-        content: "This is a test prompt",
-        isPublic: false,
-      }),
-    });
-
-    const response = await POST(request);
-    const data = await response.json();
-
-    expect(response.status).toBe(200);
-    expect(data.title).toBe("Test Prompt");
-    expect(data.content).toBe("This is a test prompt");
-  });
-
-  it("should return 401 for unauthenticated requests", async () => {
-    // Mock unauthenticated session
-    jest.mocked(getServerSession).mockResolvedValue(null);
-
-    const request = new NextRequest("http://localhost:3000/api/prompts", {
-      method: "POST",
-      body: JSON.stringify({
-        title: "Test Prompt",
-        content: "This is a test prompt",
-      }),
-    });
-
-    const response = await POST(request);
-    expect(response.status).toBe(401);
-  });
-});
-```
-
-## Git Workflow
-
-### 1. **Branch Strategy**
-
-```bash
-# Main branches
-main                    # Production-ready code
-develop                 # Integration branch
-
-# Feature branches
-feature/prompt-editor   # New features
-feature/n8n-integration # Feature development
-
-# Bug fix branches
-bugfix/save-button      # Bug fixes
-
-# Hotfix branches
-hotfix/critical-bug     # Critical production fixes
-```
-
-### 2. **Commit Standards**
-
-```bash
-# Commit message format
-<type>(<scope>): <description>
-
-# Examples
-feat(prompt): add autosave functionality
-fix(ui): resolve label arc positioning issue
-docs(api): update authentication endpoints
-test(prompt): add unit tests for editor component
-refactor(db): optimize prompt query performance
-```
-
-### 3. **Pull Request Template**
-
-```markdown
-## Description
-
-Brief description of changes
-
-## Type of Change
-
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change
-- [ ] Documentation update
-
-## Testing
-
-- [ ] Unit tests pass
-- [ ] Integration tests pass
-- [ ] Manual testing completed
-
-## Checklist
-
-- [ ] Code follows project standards
-- [ ] Self-review completed
-- [ ] Documentation updated
-- [ ] No console.log statements
-- [ ] No commented code
-```
-
-## Performance Standards
-
-### 1. **Bundle Size Limits**
-
-```javascript
-// next.config.js
-module.exports = {
-  experimental: {
-    bundleAnalyzer: {
-      enabled: process.env.ANALYZE === "true",
-    },
-  },
-  webpack: (config) => {
-    config.optimization.splitChunks = {
-      chunks: "all",
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          chunks: "all",
-        },
-      },
-    };
-    return config;
-  },
-};
-```
-
-### 2. **Performance Monitoring**
-
-```typescript
-// lib/analytics.ts
-export function trackPerformance(name: string, startTime: number) {
-  const duration = performance.now() - startTime;
-
-  if (process.env.NODE_ENV === "production") {
-    // Send to analytics service
-    analytics.track("performance", {
-      name,
-      duration,
-      timestamp: Date.now(),
-    });
-  }
-}
-
-// Usage
-const startTime = performance.now();
-// ... expensive operation
-trackPerformance("prompt-save", startTime);
-```
-
-## Security Standards
-
-### 1. **Input Validation**
-
-```typescript
-// lib/validations.ts
-import { z } from "zod";
-
-export const PromptSchema = z.object({
-  title: z
-    .string()
-    .min(1, "Title is required")
-    .max(255, "Title too long")
-    .regex(/^[a-zA-Z0-9\s\-_]+$/, "Invalid characters in title"),
-  content: z
-    .string()
-    .min(1, "Content is required")
-    .max(10000, "Content too long"),
-  isPublic: z.boolean().default(false),
-});
-
-export type PromptInput = z.infer<typeof PromptSchema>;
-```
-
-### 2. **Rate Limiting**
-
-```typescript
-// lib/rate-limit.ts
-import { NextRequest } from "next/server";
-
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-
-export function rateLimit(
-  request: NextRequest,
-  limit: number = 100,
-  windowMs: number = 60000
-): boolean {
-  const ip = request.ip ?? "unknown";
-  const now = Date.now();
-  const windowStart = now - windowMs;
-
-  const current = rateLimitMap.get(ip);
-
-  if (!current || current.resetTime < windowStart) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now });
-    return true;
-  }
-
-  if (current.count >= limit) {
-    return false;
-  }
-
-  current.count++;
-  return true;
-}
-```
-
-## Deployment Standards
-
-### 1. **Environment Configuration**
-
-```bash
-# .env.local
-DATABASE_URL="postgresql://..."
-NEXTAUTH_SECRET="..."
-NEXTAUTH_URL="http://localhost:3000"
-CLERK_PUBLISHABLE_KEY="..."
-CLERK_SECRET_KEY="..."
-```
-
-### 2. **Build Optimization**
-
-```javascript
-// next.config.js
-module.exports = {
-  output: "standalone",
-  images: {
-    domains: ["images.unsplash.com"],
-    formats: ["image/webp", "image/avif"],
-  },
-  experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ["lucide-react"],
-  },
-};
-```
-
-## Documentation Standards
-
-### 1. **Component Documentation**
-
-````typescript
-/**
- * PromptEditor - Main component for editing prompts
- *
- * @param value - Current prompt content
- * @param onChange - Callback when content changes
- * @param onSave - Optional save callback
- * @param className - Additional CSS classes
- *
- * @example
- * ```tsx
- * <PromptEditor
- *   value={prompt.content}
- *   onChange={setPromptContent}
- *   onSave={handleSave}
- * />
- * ```
- */
-export function PromptEditor({
-  value,
-  onChange,
-  onSave,
-  className,
-}: PromptEditorProps) {
-  // Component implementation
-}
-````
-
-### 2. **API Documentation**
-
-```typescript
-/**
- * @route POST /api/prompts
- * @description Create a new prompt
- * @access Private
- * @param {string} title - Prompt title (required)
- * @param {string} content - Prompt content (required)
- * @param {string[]} labelIds - Array of label IDs (optional)
- * @param {boolean} isPublic - Whether prompt is public (optional)
- * @returns {Prompt} Created prompt object
- */
-export async function POST(request: NextRequest) {
-  // Implementation
-}
-```
+## implementation-plan
+
+> Detailed implementation plan with phases, priorities, and milestones
+
+
+# EverPrompt Implementation Plan
+
+## Strategic Overview
+
+### 1. **Market Positioning**
+
+- **Primary Market**: n8n community (automation developers)
+- **Secondary Market**: AI prompt enthusiasts and content creators
+- **Tertiary Market**: General prompt management users
+
+### 2. **Competitive Advantages**
+
+- **n8n-First Design**: Built specifically for automation workflows
+- **Minimalist UI**: Distraction-free prompt crafting experience
+- **Community-Driven**: Curated content from n8n experts
+- **Extensible Architecture**: Plugin system for future growth
+
+### 3. **Success Metrics**
+
+- **User Growth**: 1,000 users in first 3 months
+- **Community Engagement**: 100+ community prompts in first month
+- **Retention**: 70% monthly retention rate
+- **Revenue**: €1,000 MRR by month 6 (200 paid users at €5/month)
+- **Cost Control**: <€200/month infrastructure costs
+
+## Phase 1: Foundation (Weeks 1-4)
+
+### Week 1: Project Setup & Core Infrastructure
+
+**Goals**: Establish development environment and basic architecture
+
+**Tasks**:
+
+- [ ] Set up Next.js 15 with App Router
+- [ ] Configure TypeScript, ESLint, Prettier
+- [ ] Set up Tailwind CSS 4 with custom theme
+- [ ] Implement basic authentication with Clerk
+- [ ] Set up Neon PostgreSQL database
+- [ ] Configure Prisma ORM with initial schema
+- [ ] Set up Vercel deployment pipeline
+
+**Deliverables**:
+
+- Working development environment
+- Basic authentication flow
+- Database schema implementation
+- CI/CD pipeline
+
+### Week 2: Core UI Components
+
+**Goals**: Build essential UI components for prompt management
+
+**Tasks**:
+
+- [ ] Create PromptEditor component with autosave
+- [ ] Implement ArcLabels navigation component
+- [ ] Build LabelSheet side panel
+- [ ] Add dark/light mode toggle
+- [ ] Implement responsive design
+- [ ] Add keyboard shortcuts
+
+**Deliverables**:
+
+- Functional prompt editor
+- Label navigation system
+- Mode switching capability
+- Mobile-responsive design
+
+### Week 3: Data Layer & API
+
+**Goals**: Implement core data operations and API endpoints
+
+**Tasks**:
+
+- [ ] Create prompt CRUD operations
+- [ ] Implement label management
+- [ ] Build workspace management
+- [ ] Add user authentication middleware
+- [ ] Implement data validation with Zod
+- [ ] Add error handling and logging
+
+**Deliverables**:
+
+- Complete API for prompts and labels
+- Data validation system
+- Error handling framework
+- User management system
+
+### Week 4: Integration & Testing
+
+**Goals**: Integrate all components and ensure stability
+
+**Tasks**:
+
+- [ ] Connect UI to API endpoints
+- [ ] Implement real-time saving
+- [ ] Add comprehensive error handling
+- [ ] Write unit and integration tests
+- [ ] Performance optimization
+- [ ] Accessibility improvements
+
+**Deliverables**:
+
+- Fully functional MVP
+- Test coverage >80%
+- Performance benchmarks
+- Accessibility compliance
+
+## Phase 2: n8n Integration (Weeks 5-8)
+
+### Week 5: n8n API Integration
+
+**Goals**: Connect EverPrompt with n8n workflows
+
+**Tasks**:
+
+- [ ] Research n8n API capabilities
+- [ ] Implement n8n authentication
+- [ ] Build workflow import/export
+- [ ] Create prompt injection system
+- [ ] Add n8n-specific prompt types
+- [ ] Implement variable system
+
+**Deliverables**:
+
+- n8n API client
+- Workflow integration
+- Prompt injection system
+- Variable management
+
+### Week 6: Community Library
+
+**Goals**: Build community-driven prompt sharing
+
+**Tasks**:
+
+- [ ] Create public prompt library
+- [ ] Implement prompt sharing system
+- [ ] Add rating and review system
+- [ ] Build search and filtering
+- [ ] Create prompt categories
+- [ ] Add community guidelines
+
+**Deliverables**:
+
+- Public prompt library
+- Sharing system
+- Community features
+- Search functionality
+
+### Week 7: Template System
+
+**Goals**: Create reusable prompt templates
+
+**Tasks**:
+
+- [ ] Design template structure
+- [ ] Implement template creation
+- [ ] Add template marketplace
+- [ ] Create template categories
+- [ ] Build template versioning
+- [ ] Add template documentation
+
+**Deliverables**:
+
+- Template system
+- Marketplace interface
+- Version control
+- Documentation system
+
+### Week 8: Analytics & Optimization
+
+**Goals**: Add analytics and optimize performance
+
+**Tasks**:
+
+- [ ] Implement usage analytics
+- [ ] Add performance monitoring
+- [ ] Create user dashboards
+- [ ] Optimize database queries
+- [ ] Add caching layer
+- [ ] Implement rate limiting
+
+**Deliverables**:
+
+- Analytics dashboard
+- Performance monitoring
+- Optimized queries
+- Caching system
+
+## Phase 3: Extensibility (Weeks 9-12)
+
+### Week 9: Plugin System
+
+**Goals**: Create extensible plugin architecture
+
+**Tasks**:
+
+- [ ] Design plugin API
+- [ ] Implement plugin registry
+- [ ] Create plugin lifecycle management
+- [ ] Add plugin configuration
+- [ ] Build plugin marketplace
+- [ ] Add plugin documentation
+
+**Deliverables**:
+
+- Plugin system
+- Registry management
+- Configuration system
+- Marketplace
+
+### Week 10: Advanced Features
+
+**Goals**: Add advanced prompt management features
+
+**Tasks**:
+
+- [ ] Implement prompt versioning
+- [ ] Add collaborative editing
+- [ ] Create prompt collections
+- [ ] Build advanced search
+- [ ] Add AI-powered suggestions
+- [ ] Implement prompt optimization
+
+**Deliverables**:
+
+- Version control
+- Collaboration features
+- Collections system
+- AI integration
+
+### Week 11: Mobile & Accessibility
+
+**Goals**: Ensure mobile compatibility and accessibility
+
+**Tasks**:
+
+- [ ] Optimize mobile experience
+- [ ] Add PWA capabilities
+- [ ] Implement offline support
+- [ ] Improve accessibility
+- [ ] Add screen reader support
+- [ ] Test with assistive technologies
+
+**Deliverables**:
+
+- Mobile-optimized UI
+- PWA functionality
+- Offline support
+- Accessibility compliance
+
+### Week 12: Security & Compliance
+
+**Goals**: Implement security measures and compliance
+
+**Tasks**:
+
+- [ ] Add security headers
+- [ ] Implement data encryption
+- [ ] Add audit logging
+- [ ] Create privacy controls
+- [ ] Add GDPR compliance
+- [ ] Implement backup system
+
+**Deliverables**:
+
+- Security framework
+- Compliance features
+- Audit system
+- Backup solution
+
+## Phase 4: Community & Scale (Weeks 13-16)
+
+### Week 13: Community Features
+
+**Goals**: Build community engagement features
+
+**Tasks**:
+
+- [ ] Add user profiles
+- [ ] Implement following system
+- [ ] Create discussion forums
+- [ ] Add notification system
+- [ ] Build reputation system
+- [ ] Add moderation tools
+
+**Deliverables**:
+
+- User profiles
+- Social features
+- Discussion system
+- Moderation tools
+
+### Week 14: Content Strategy
+
+**Goals**: Create content and educational resources
+
+**Tasks**:
+
+- [ ] Create onboarding tutorials
+- [ ] Build help documentation
+- [ ] Add video tutorials
+- [ ] Create best practices guide
+- [ ] Add prompt engineering tips
+- [ ] Build community challenges
+
+**Deliverables**:
+
+- Tutorial system
+- Documentation
+- Video content
+- Community challenges
+
+### Week 15: Monetization
+
+**Goals**: Implement revenue generation features
+
+**Tasks**:
+
+- [ ] Add subscription system
+- [ ] Implement payment processing
+- [ ] Create premium features
+- [ ] Add usage limits
+- [ ] Build billing dashboard
+- [ ] Add enterprise features
+
+**Deliverables**:
+
+- Subscription system
+- Payment processing
+- Premium features
+- Enterprise tools
+
+### Week 16: Launch Preparation
+
+**Goals**: Prepare for public launch
+
+**Tasks**:
+
+- [ ] Performance testing
+- [ ] Security audit
+- [ ] Load testing
+- [ ] Documentation review
+- [ ] Marketing preparation
+- [ ] Launch strategy
+
+**Deliverables**:
+
+- Production-ready system
+- Security audit report
+- Performance benchmarks
+- Launch materials
+
+## Technical Milestones
+
+### Month 1: MVP
+
+- [ ] Basic prompt CRUD
+- [ ] Label system
+- [ ] Simple UI
+- [ ] Authentication
+- [ ] Database setup
+
+### Month 2: n8n Integration
+
+- [ ] n8n API integration
+- [ ] Community library
+- [ ] Template system
+- [ ] Basic analytics
+
+### Month 3: Extensibility
+
+- [ ] Plugin system
+- [ ] Advanced features
+- [ ] Mobile optimization
+- [ ] Security implementation
+
+### Month 4: Community
+
+- [ ] Social features
+- [ ] Content strategy
+- [ ] Monetization
+- [ ] Public launch
+
+## Risk Mitigation
+
+### 1. **Technical Risks**
+
+- **Database Performance**: Implement caching and query optimization
+- **API Rate Limits**: Add rate limiting and retry logic
+- **Security Vulnerabilities**: Regular security audits and updates
+- **Scalability Issues**: Design for horizontal scaling from start
+
+### 2. **Market Risks**
+
+- **Competition**: Focus on n8n community differentiation
+- **User Adoption**: Strong onboarding and community building
+- **Feature Creep**: Stick to core value proposition
+- **Technical Debt**: Regular refactoring and code reviews
+
+### 3. **Business Risks**
+
+- **Revenue Generation**: Multiple monetization strategies
+- **User Retention**: Focus on community and value
+- **Content Quality**: Strong moderation and curation
+- **Legal Compliance**: GDPR and privacy compliance
+
+## Success Criteria
+
+### Phase 1 Success
+
+- [ ] 100 beta users
+- [ ] 500 prompts created
+- [ ] 95% uptime
+- [ ] <2s page load time
+
+### Phase 2 Success
+
+- [ ] 500 active users
+- [ ] 50 n8n integrations
+- [ ] 1000 community prompts
+- [ ] 4.5+ user rating
+
+### Phase 3 Success
+
+- [ ] 1000 active users
+- [ ] 10+ plugins
+- [ ] 5000 prompts
+- [ ] $1K MRR
+
+### Phase 4 Success
+
+- [ ] 5000 active users
+- [ ] 100+ n8n integrations
+- [ ] 10K community prompts
+- [ ] $10K MRR
+
+## Resource Requirements
+
+### Development Team
+
+- **Lead Developer**: Full-stack development
+- **UI/UX Designer**: Design and user experience
+- **DevOps Engineer**: Infrastructure and deployment
+- **Community Manager**: Content and community building
+
+### Infrastructure
+
+- **Hosting**: Vercel (Frontend) + Neon (Database)
+- **CDN**: Vercel Edge Network
+- **Monitoring**: Vercel Analytics + Sentry
+- **Email**: Resend for notifications
+
+### Budget Estimate
+
+- **Development**: $50K (4 months)
+- **Infrastructure**: $500/month
+- **Marketing**: $10K
+- **Legal/Compliance**: $5K
+- **Total**: ~$70K for first 6 months
+
+## Next Steps
+
+### Immediate Actions (This Week)
+
+1. Set up development environment
+2. Configure database and authentication
+3. Create basic UI components
+4. Implement core data operations
+
+### Short-term Goals (Next Month)
+
+1. Complete MVP development
+2. Test with n8n community
+3. Gather user feedback
+4. Iterate on core features
+
+### Long-term Vision (Next 6 Months)
+
+1. Build thriving n8n community
+2. Expand to broader AI automation market
+3. Develop enterprise features
+4. Scale to global platform
 
 ---
 > Source: [mitsue-eth/everprompt-n8n-shadcn](https://github.com/mitsue-eth/everprompt-n8n-shadcn) — distributed by [TomeVault](https://tomevault.io).
