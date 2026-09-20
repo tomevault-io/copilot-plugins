@@ -1,0 +1,104 @@
+## ready-for-agent
+
+> Talk to the user like a product owner: decisions, outcomes, and trade-offs, not
+
+## Communication style
+
+Talk to the user like a product owner: decisions, outcomes, and trade-offs, not
+implementation mechanics. Skip file paths, function names, and generated-code
+internals unless the user asks for them directly — save that detail for the
+code and commit messages, not the conversation.
+
+## Agent skills
+
+Skill content lives under `.agents/skills/<name>/SKILL.md` — the shared,
+multi-agent source of truth. Claude Code only discovers skills under
+`.claude/skills/`, so every skill directory there is a symlink back into
+`.agents/skills/` (e.g. `.claude/skills/tdd -> ../../.agents/skills/tdd`).
+When adding a new skill under `.agents/skills/`, add the matching symlink:
+`ln -s ../../.agents/skills/<name> .claude/skills/<name>`.
+
+### Issue tracker
+
+Issues live in GitHub Issues for berenddeboer/ready-for-agent (via `gh`). See `docs/agents/issue-tracker.md`.
+
+### Forge token scopes
+
+Minimum token scopes per Forge and lifecycle step (poll, push, Create
+PR, Mark PR Ready for Review, Watch, Merge PR, close-out) live in
+[docs/forge-token-scopes.md](docs/forge-token-scopes.md).
+
+### GitHub API notes
+
+Fine-grained GitHub PATs cannot call the Checks API (including GraphQL
+`statusCheckRollup.contexts`). That 403 is expected: the harness falls back to
+Actions jobs for terminal PR Status Check identity and downloads Actions job
+logs for Status Check Handoff diagnostics (`actions=write` for workflow
+reruns and job-log reads, `statuses=read`). Pushing or updating
+`.github/workflows/**` needs `workflows=write` (distinct from Actions write).
+
+### Triage labels
+
+Default labels: needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout (root CONTEXT.md + docs/adr/). See `docs/agents/domain.md`.
+
+### Domain ontology
+
+The Work Item lifecycle, every Step Run reason code, and the CONTEXT.md
+glossary are derived from a versioned ontology under `ontology/` (see
+`ontology/README.md`, `docs/adr/0044-ontology-derived-lifecycle-model.md`,
+and `docs/adr/0058-ontology-owns-step-run-reason-codes.md`). Domain changes
+start with an ontology edit and flow through codegen — never edit
+`packages/lifecycle-model/src/generated/work-item-state.ts`,
+`packages/lifecycle-model/src/generated/forge.ts`, or the state
+enums directly. Use the `ontology-change` skill when adding or changing
+lifecycle states, transitions, Step Run reason codes, Forge kinds, or glossary terms.
+
+<!-- effect-solutions:start -->
+
+## Effect
+
+- Before writing Effect code, run `bunx effect-solutions list` and then
+  `bunx effect-solutions <topic>...` for the relevant pattern.
+- Real Effect implementations are available under
+  `~/.local/share/effect-solutions/effect`; use them instead of guessing APIs.
+- Common topics: `services-and-layers`, `data-modeling`, `error-handling`,
+  `config`, `testing`, `cli`.
+
+<!-- effect-solutions:end -->
+
+<!-- nx configuration start-->
+<!-- Leave the start & end comments to automatically receive updates. -->
+
+# General Guidelines for working with Nx
+
+- For navigating/exploring the workspace, invoke the `nx-workspace` skill first - it has patterns for querying projects, targets, and dependencies
+- When running tasks (for example build, lint, test, e2e, etc.), always prefer running the task through `nx` (i.e. `nx affected` ideally) instead of using the underlying tooling directly
+- Prefix nx commands with the workspace's package manager (e.g., `bunx nx build`) - avoids using globally installed CLI
+- For Nx plugin best practices, check `node_modules/@nx/<plugin>/PLUGIN.md`. Not all plugins have this file - proceed without it if unavailable.
+- NEVER guess CLI flags - always check nx_docs or `--help` first when unsure
+
+## Scaffolding & Generators
+
+- For scaffolding tasks (creating apps, libs, project structure, setup), ALWAYS invoke the `nx-generate` skill FIRST before exploring or calling MCP tools
+
+## When to use nx_docs
+
+- USE for: advanced config options, unfamiliar flags, migration guides, plugin configuration, edge cases
+- DON'T USE for: basic generator syntax (`nx g @nx/react:app`), standard commands, things you already know
+- The `nx-generate` skill handles generator discovery internally - don't call nx_docs just to look up generator syntax
+
+
+<!-- nx configuration end-->
+
+## Nx project config
+
+Put Nx-specific config (`name`, custom targets like `test`/`migrate`/`serve`) in
+each package's `project.json`, not under an `"nx"` key in `package.json`.
+
+---
+> Source: [berenddeboer/ready-for-agent](https://github.com/berenddeboer/ready-for-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-20 -->
