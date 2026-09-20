@@ -1,0 +1,44 @@
+{
+  "name": "talos-plugin",
+  "owner": "WAINAO-Haaper",
+  "repo": "talos-plugin",
+  "description": "Obsidian \u539f\u751f\u4e2a\u4eba AI \u5de5\u4f5c\u53f0\uff1a\u5168\u5e93\u6001\u52bf\u3001\u5ba1\u6279\u6cbb\u7406\u3001DeepSeek/TALOS \u591a\u667a\u80fd\u4f53\u5bf9\u8bdd\u4e0e\u5c48\u539f Qwen Realtime \u8bed\u97f3\uff0c\u652f\u6301 macOS / Windows\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WAINAO-Haaper/talos-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T02:52:35Z"
+}
