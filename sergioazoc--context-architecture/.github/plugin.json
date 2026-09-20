@@ -1,0 +1,9 @@
+{
+  "name": "sergioazoc--context-architecture",
+  "displayName": "context-architecture",
+  "description": "Context Architecture is a software architecture for the age of AI agents: it structures a repository so that everything it claims about itself, its structure, its behavior, and who can change it, is l",
+  "version": "1.0.0",
+  "author": "sergioazoc",
+  "homepage": "https://github.com/sergioazoc/context-architecture",
+  "skills": []
+}
