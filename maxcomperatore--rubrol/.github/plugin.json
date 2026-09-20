@@ -1,0 +1,9 @@
+{
+  "name": "maxcomperatore--rubrol",
+  "displayName": "rubrol",
+  "description": "Sub-millisecond dynamic PDF/A document engine powered by Typst. Replaces Headless Chrome, Puppeteer & Gotenberg with 96% less memory. Native HTTP sidecar.",
+  "version": "1.0.0",
+  "author": "maxcomperatore",
+  "homepage": "https://github.com/maxcomperatore/rubrol",
+  "skills": []
+}
