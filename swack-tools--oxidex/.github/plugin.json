@@ -1,0 +1,9 @@
+{
+  "name": "swack-tools--oxidex",
+  "displayName": "oxidex",
+  "description": "Replicates exiftool but in rust, with some additional features.",
+  "version": "1.0.0",
+  "author": "swack-tools",
+  "homepage": "https://github.com/swack-tools/oxidex",
+  "skills": []
+}
