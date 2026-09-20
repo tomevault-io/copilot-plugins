@@ -1,41 +1,46 @@
-## coding-standards
+## core-backend
 
-> ZizkaDB invariants — always apply; full standards in docs/ai/
+> ZizkaDB FastAPI backend — Python/DB/Redis/security (CODING_STANDARDS §15-24)
 
 
-# ZizkaDB invariants (always apply)
+# ZizkaDB Core Backend — Agent Guide
 
-**Full team standards:** [docs/ai/CODING_STANDARDS.md](../../docs/ai/CODING_STANDARDS.md) (44 sections)  
-**Repo mapping:** [docs/ai/ZIZKADB_MAPPINGS.md](../../docs/ai/ZIZKADB_MAPPINGS.md)  
-**AI workflow:** [ai-workflow.mdc](./ai-workflow.mdc) · **Doc index:** [ai-knowledge-base.mdc](./ai-knowledge-base.mdc)
+**Read first:** `core/CLAUDE.md` · `docs/ai/ZIZKADB_MAPPINGS.md` · `docs/ai/CODING_STANDARDS.md` §15–24.
 
-## Critical invariants — never break
+## Auth dependency tree
 
-1. **Auth** (`core/api/deps.py`): SDK → `get_tenant`; dashboard → `require_dashboard_session`; per-agent → `get_tenant` + `assert_agent_allowed`. No `require_admin` in OSS.
-2. **Routes:** never rename `/v1/...` without `dashboard/lib/api.ts` + KB §17.3.
-3. **Entitlements:** only `core/services/entitlements.py::PLAN_ENTITLEMENTS`.
-4. **DDL:** idempotent only (`IF NOT EXISTS` / `IF EXISTS`) in `schema.sql` + `init_db()`.
-5. **Prod compose:** `infra/docker-compose.yml` — no `--reload` or source mounts (use `docker-compose.dev.yml`).
-6. **Self-host:** `ENV=production`, `NEXT_PUBLIC_DEV_MODE=false` on public deploys.
+| Route type | Dependency |
+|---|---|
+| SDK-callable (events, search, memory, telemetry) | `Depends(get_tenant)` |
+| Dashboard-only (keys, billing, settings, account, delete) | `Depends(require_dashboard_session)` |
+| Per-agent analytics + scoped SDK reads (`why`, `memory/context`, `memory/diff`, stats, sessions, baseline, report, token-*, suggestions) | `get_tenant` + `assert_agent_allowed` first line |
+| A2A `POST /v1/a2a/messages` | `get_tenant`; **scoped API key required** (tenant-wide/JWT → 403) |
 
-## Cross-cutting updates
+Never trust client-supplied tenant IDs (§24).
 
-| Change | Also update |
-|--------|-------------|
-| `/v1/` API shape | `dashboard/lib/api.ts` + KB §17.3 |
-| Auth / billing / signup | KB §7, §8, §18 |
-| DB schema | `schema.sql` + `init_db()` + KB §21 |
-| SDK release | `pyproject.toml`, `package.json`, `mcp/pyproject.toml`, `core/main.py version=` |
+## Layering (§15)
 
-## Verify before PR
+Route → validation → `core/services/*` → asyncpg `get_pool()` → PostgreSQL/Redis/Qdrant. No SQLAlchemy. No business logic blobs in routes.
+
+## Database (§16–17)
+
+- Idempotent DDL: `schema.sql` + `init_db()`; named files `002`, `004`, `005`.
+- Parameterized queries only; avoid N+1; paginate in SQL.
+
+## Redis (§18)
+
+Embedding cache + optional OTP rate limit. See `core/services/embeddings.py`.
+
+## Event pipeline
+
+`event_write.py`: Postgres (required) → Qdrant (best-effort).
+
+## Lint / test
 
 ```bash
-ruff check core/ sdk/python/ mcp/ integrations/
+ruff check core/
 pytest core/tests/ -m "not integration" -v
-cd dashboard && npm run lint && npm test && npm run build
 ```
-
-See `.cursor/skills/zizkadb-test/SKILL.md`. PR: [CONTRIBUTING.md](../../CONTRIBUTING.md). Maintainers: [docs/ai/MAINTAINER.md](../../docs/ai/MAINTAINER.md).
 
 ---
 > Source: [ZIZKA-AI-SL/ZizkaDB](https://github.com/ZIZKA-AI-SL/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
