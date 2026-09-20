@@ -1,0 +1,9 @@
+{
+  "name": "teamgdb--yakumo",
+  "displayName": "Yakumo",
+  "description": "Static recompilation of a PSP game into a native executable. Vulkan and SDL3. Bring your own copy of the game.",
+  "version": "1.0.0",
+  "author": "TeamGDB",
+  "homepage": "https://github.com/TeamGDB/Yakumo",
+  "skills": []
+}
