@@ -2,9 +2,9 @@
   "name": "obsidian_vault_pipeline",
   "owner": "fakechris",
   "repo": "obsidian_vault_pipeline",
-  "description": "A automatic pipeline that processing obsidian vault by llm from pinbord, obsidian Clipper etc.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fakechris/obsidian_vault_pipeline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T00:06:10Z"
+  "distributed_at": "2026-09-20T14:30:24Z"
 }
