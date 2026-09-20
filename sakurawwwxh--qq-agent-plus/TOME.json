@@ -1,0 +1,44 @@
+{
+  "name": "qq-agent-plus",
+  "owner": "sakurawwwxh",
+  "repo": "qq-agent-plus",
+  "description": "Linux QQ \u7fa4\u804a Agent\uff08OneBot v11\uff09\uff1a\u5206\u6761\u53d1\u8a00\u3001\u8d34\u7eb8\u7cfb\u7edf\u3001\u4e3b\u52a8\u53d1\u8a00\u4e0e\u5185\u7f6e\u8fd0\u7ef4\u547d\u4ee4",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sakurawwwxh/qq-agent-plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T12:33:01Z"
+}
