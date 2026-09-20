@@ -4,7 +4,7 @@
   "repo": "gst-accounting-software",
   "description": "Modern Indian GST accounting, inventory, and business operations SaaS",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shabanraza/gst-accounting-software",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T02:33:19Z"
+  "distributed_at": "2026-09-20T03:09:14Z"
 }
