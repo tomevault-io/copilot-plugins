@@ -1,0 +1,9 @@
+{
+  "name": "tallslab--threeforge",
+  "displayName": "threeforge",
+  "description": "Frame-budget compiler and diagnostics for three.js games: batches naive scenes, measures every frame cost, explains what to fix. CLI and MCP for AI agents",
+  "version": "1.0.0",
+  "author": "tallslab",
+  "homepage": "https://github.com/tallslab/threeforge",
+  "skills": []
+}
