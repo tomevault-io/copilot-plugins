@@ -1,0 +1,9 @@
+{
+  "name": "reveriebizarre--smooth-motion-for-rtx30",
+  "displayName": "Smooth-Motion-for-RTX30",
+  "description": "Unlocking NVIDIA Smooth Motion (DLSS Frame Generation) on Ampere (RTX 30 Series / SM86) via In-Memory Re-Hosting & Driver Interception",
+  "version": "1.0.0",
+  "author": "ReverieBizarre",
+  "homepage": "https://github.com/ReverieBizarre/Smooth-Motion-for-RTX30",
+  "skills": []
+}
