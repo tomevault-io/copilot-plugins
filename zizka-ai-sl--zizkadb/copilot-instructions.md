@@ -1,18 +1,40 @@
-## zizkadb
+## ai-knowledge-base
 
-> 1. [AGENTS.md](../AGENTS.md)
+> AI knowledge-base index — what to trust and keep in sync
 
-# ZizkaDB — GitHub Copilot Instructions
 
-Read in order:
+# AI Knowledge Base Index
 
-1. [AGENTS.md](../AGENTS.md)
-2. [docs/ai/CODING_STANDARDS.md](../docs/ai/CODING_STANDARDS.md) — full team standards (44 sections)
-3. [docs/ai/ZIZKADB_MAPPINGS.md](../docs/ai/ZIZKADB_MAPPINGS.md) — repo folder mapping
-4. [.cursor/rules/coding-standards.mdc](../.cursor/rules/coding-standards.mdc) — ZizkaDB invariants
-5. [CLAUDE.md](../CLAUDE.md) — stack map
+Use this map to pick the **right** source of truth. Prefer these over guessing from memory.
 
-Run tests before claiming done. OSS: no `/v1/admin` routes.
+## Canonical sources (trust these)
+
+| Document | Role |
+|---|---|
+| `AGENTS.md` | Repo-root entry for all AI tools |
+| `docs/ai/CODING_STANDARDS.md` | Full team engineering standards (44 sections) |
+| `docs/ai/ZIZKADB_MAPPINGS.md` | How standards map to this repo's folders |
+| `docs/ai/README.md` | AI-assisted development map |
+| `docs/ai/MAINTAINER.md` | Maintainer-only PR/issue metadata |
+| Root `CLAUDE.md` | Stack, module map, test commands |
+| `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` | Dashboard flows, API contract, per-screen behavior |
+| `core/CLAUDE.md` | Router map, auth tree, asyncpg patterns |
+| `examples/CLAUDE.md` | Runnable example agents |
+| `docs/adr/` | Architectural decisions (incl. ADR-008 AI workflow) |
+| `.cursor/rules/*.mdc` | Focused agent guides (always-on + globs) |
+| `.cursor/skills/zizkadb-*/SKILL.md` | Setup, test, release workflows |
+
+## OSS repo scope (important)
+
+This open-source tree ships the **tenant dashboard**, API, SDKs, MCP, and marketing/community surfaces. It does **not** include the managed-cloud **operator admin console** (`/admin`, `/v1/admin/*`). Do not implement admin routes here.
+
+## Keep docs accurate
+
+When your change affects behavior listed in a KB section, update that doc **in the same PR**.
+
+## Billing reality
+
+No Stripe/checkout gate. Signup uses `selectBillingPlan` after OTP. `billing_status_payload()` always returns `has_access: true`.
 
 ---
 > Source: [ZIZKA-AI-SL/ZizkaDB](https://github.com/ZIZKA-AI-SL/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
