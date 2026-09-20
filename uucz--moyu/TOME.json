@@ -1,0 +1,135 @@
+{
+  "name": "moyu",
+  "owner": "uucz",
+  "repo": "moyu",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "moyu",
+      "path": "codex/moyu/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/codex/moyu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "skills/moyu/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/skills/moyu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "opencode/moyu/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/opencode/moyu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "codex/moyu-en/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/codex/moyu-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "codebuddy/moyu/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/codebuddy/moyu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "skills/moyu-ja/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/skills/moyu-ja/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "skills/moyu-en/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/skills/moyu-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "skills/moyu-fr/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/skills/moyu-fr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "skills/moyu-ko/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/skills/moyu-ko/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "antigravity/moyu/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/antigravity/moyu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "opencode/moyu-en/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/opencode/moyu-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "skills/moyu-lite/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/skills/moyu-lite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "codebuddy/moyu-en/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/codebuddy/moyu-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "skills/moyu-strict/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/skills/moyu-strict/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moyu",
+      "path": "antigravity/moyu-en/SKILL.md",
+      "github_url": "https://github.com/uucz/moyu/tree/main/antigravity/moyu-en/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/uucz/moyu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T01:32:28Z"
+}
