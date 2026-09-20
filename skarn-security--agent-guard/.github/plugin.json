@@ -1,0 +1,9 @@
+{
+  "name": "skarn-security--agent-guard",
+  "displayName": "agent-guard",
+  "description": "Skarn plugins for Claude Code, Codex CLI, Gemini CLI, Grok Build, and Antigravity: audit skills, guard hooks, and MCP declarations that find leaked secrets and credentials in AI coding sessions, local",
+  "version": "1.0.0",
+  "author": "skarn-security",
+  "homepage": "https://github.com/skarn-security/agent-guard",
+  "skills": []
+}
