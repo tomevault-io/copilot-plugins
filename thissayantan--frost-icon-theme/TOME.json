@@ -1,0 +1,44 @@
+{
+  "name": "frost-icon-theme",
+  "owner": "thissayantan",
+  "repo": "frost-icon-theme",
+  "description": "Frosted-glass icon theme for Linux \u2014 folders, apps, 134 file types and status icons",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thissayantan/frost-icon-theme",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T06:41:36Z"
+}
