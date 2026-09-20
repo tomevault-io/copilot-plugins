@@ -1,0 +1,44 @@
+{
+  "name": "build-research-evidence",
+  "owner": "cpt13-g",
+  "repo": "build-research-evidence",
+  "description": "\u9762\u5411 AI/CS \u79d1\u7814\u7684\u591a Skill \u5b9e\u9a8c\u667a\u80fd\u4f53\uff1a\u52a9\u529b\u5168\u81ea\u52a8\u79d1\u7814\u5b9e\u9a8c\uff0c\u4ee5 Claim \u9a71\u52a8\u3001\u9aa8\u5e72\u5b9e\u9a8c\u4f18\u5148\u3001\u72ec\u7acb\u7ed3\u679c\u5ba1\u8ba1\u4e0e Evidence Freeze\uff0c\u628a\u53d1\u6563\u7684\u6a21\u578b\u80fd\u529b\u6536\u675f\u4e3a\u53ef\u8ffd\u6eaf\u3001\u53ef\u590d\u73b0\u3001\u53ef\u6536\u655b\u7684\u8bba\u6587\u8bc1\u636e\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cpt13-g/build-research-evidence",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T14:36:18Z"
+}
