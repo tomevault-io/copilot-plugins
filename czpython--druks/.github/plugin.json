@@ -1,0 +1,9 @@
+{
+  "name": "czpython--druks",
+  "displayName": "druks",
+  "description": "Autonomous software delivery on your own Claude/Codex subscriptions \u2014 durable runs, human gates, sandboxed agents. Druks is the self-hosted home for durable agent apps.",
+  "version": "1.0.0",
+  "author": "czpython",
+  "homepage": "https://github.com/czpython/druks",
+  "skills": []
+}
