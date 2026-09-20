@@ -1,0 +1,9 @@
+{
+  "name": "anandchowdhary--gpu-utils",
+  "displayName": "gpu-utils",
+  "description": "Tiny libraries for doing things in the browser with WebGPU",
+  "version": "1.0.0",
+  "author": "AnandChowdhary",
+  "homepage": "https://github.com/AnandChowdhary/gpu-utils",
+  "skills": []
+}
