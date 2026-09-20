@@ -1,0 +1,9 @@
+{
+  "name": "fidecastro--jevify",
+  "displayName": "jevify",
+  "description": "Supersimple way to serve LLMs as a Jev-like endpoint",
+  "version": "1.0.0",
+  "author": "fidecastro",
+  "homepage": "https://github.com/fidecastro/jevify",
+  "skills": []
+}
