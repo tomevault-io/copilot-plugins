@@ -1,492 +1,409 @@
-## implementation-plan
+## incremental-development
 
-> Detailed implementation plan with phases, priorities, and milestones
+> Incremental development approach with always-working builds and controlled changes
 
 
-# EverPrompt Implementation Plan
+# Incremental Development Strategy
 
-## Strategic Overview
+## Core Development Principles
 
-### 1. **Market Positioning**
+### 1. **Always-Working Builds**
 
-- **Primary Market**: n8n community (automation developers)
-- **Secondary Market**: AI prompt enthusiasts and content creators
-- **Tertiary Market**: General prompt management users
+- `pnpm run dev` must always work
+- Never break the development server
+- Incremental changes only
+- Test each change before proceeding
 
-### 2. **Competitive Advantages**
+### 2. **Controlled Development**
 
-- **n8n-First Design**: Built specifically for automation workflows
-- **Minimalist UI**: Distraction-free prompt crafting experience
-- **Community-Driven**: Curated content from n8n experts
-- **Extensible Architecture**: Plugin system for future growth
+- One feature at a time
+- Small, focused commits
+- Easy rollback capability
+- Clear progress tracking
+
+### 3. **Domain Strategy**
+
+- **Primary Domain**: everprompt.ai
+- **Development**: localhost:3000
+- **Staging**: staging.everprompt.ai (future)
+- **Production**: everprompt.ai
 
-### 3. **Success Metrics**
+## Development Workflow
 
-- **User Growth**: 1,000 users in first 3 months
-- **Community Engagement**: 100+ community prompts in first month
-- **Retention**: 70% monthly retention rate
-- **Revenue**: €1,000 MRR by month 6 (200 paid users at €5/month)
-- **Cost Control**: <€200/month infrastructure costs
+### **Git Strategy for Solo Developer**
+
+#### **Primary: Main Branch Development**
 
-## Phase 1: Foundation (Weeks 1-4)
+```bash
+# Work directly on main branch
+git checkout main
+# Make incremental changes
+git add .
+git commit -m "feat: add dark/light mode toggle"
+git push origin main
+```
 
-### Week 1: Project Setup & Core Infrastructure
+#### **Rollback Points Strategy**
 
-**Goals**: Establish development environment and basic architecture
+```bash
+# Create rollback points after each working feature
+git tag v0.1.0-working-basic-layout
+git tag v0.2.0-working-theme-toggle
+git tag v0.3.0-working-prompt-editor
 
-**Tasks**:
+# Rollback if needed
+git checkout v0.2.0-working-theme-toggle
+```
 
-- [ ] Set up Next.js 15 with App Router
-- [ ] Configure TypeScript, ESLint, Prettier
-- [ ] Set up Tailwind CSS 4 with custom theme
-- [ ] Implement basic authentication with Clerk
-- [ ] Set up Neon PostgreSQL database
-- [ ] Configure Prisma ORM with initial schema
-- [ ] Set up Vercel deployment pipeline
+#### **Feature Branches (Only for Major Features)**
 
-**Deliverables**:
+```bash
+# Only for complex features or experiments
+git checkout -b feature/prompt-editor
+# Make changes
+git add .
+git commit -m "feat: implement prompt editor"
+git push origin feature/prompt-editor
+# Merge when ready
+git checkout main
+git merge feature/prompt-editor
+git push origin main
+```
 
-- Working development environment
-- Basic authentication flow
-- Database schema implementation
-- CI/CD pipeline
+#### **When to Use Feature Branches:**
 
-### Week 2: Core UI Components
+- **Major experiments** (e.g., trying a new UI approach)
+- **Complex features** that might break the app
+- **Integration work** (e.g., adding authentication)
+- **Refactoring** that affects multiple files
+- **When you're unsure** if the approach will work
 
-**Goals**: Build essential UI components for prompt management
+#### **When to Use Main Branch:**
 
-**Tasks**:
+- **Small, incremental changes**
+- **UI tweaks and improvements**
+- **Bug fixes**
+- **Documentation updates**
+- **Configuration changes**
+- **Most development work**
 
-- [ ] Create PromptEditor component with autosave
-- [ ] Implement ArcLabels navigation component
-- [ ] Build LabelSheet side panel
-- [ ] Add dark/light mode toggle
-- [ ] Implement responsive design
-- [ ] Add keyboard shortcuts
+### **Phase 1: Foundation (Always Working)**
 
-**Deliverables**:
-
-- Functional prompt editor
-- Label navigation system
-- Mode switching capability
-- Mobile-responsive design
-
-### Week 3: Data Layer & API
-
-**Goals**: Implement core data operations and API endpoints
-
-**Tasks**:
-
-- [ ] Create prompt CRUD operations
-- [ ] Implement label management
-- [ ] Build workspace management
-- [ ] Add user authentication middleware
-- [ ] Implement data validation with Zod
-- [ ] Add error handling and logging
-
-**Deliverables**:
-
-- Complete API for prompts and labels
-- Data validation system
-- Error handling framework
-- User management system
-
-### Week 4: Integration & Testing
-
-**Goals**: Integrate all components and ensure stability
-
-**Tasks**:
-
-- [ ] Connect UI to API endpoints
-- [ ] Implement real-time saving
-- [ ] Add comprehensive error handling
-- [ ] Write unit and integration tests
-- [ ] Performance optimization
-- [ ] Accessibility improvements
-
-**Deliverables**:
-
-- Fully functional MVP
-- Test coverage >80%
-- Performance benchmarks
-- Accessibility compliance
-
-## Phase 2: n8n Integration (Weeks 5-8)
-
-### Week 5: n8n API Integration
-
-**Goals**: Connect EverPrompt with n8n workflows
-
-**Tasks**:
-
-- [ ] Research n8n API capabilities
-- [ ] Implement n8n authentication
-- [ ] Build workflow import/export
-- [ ] Create prompt injection system
-- [ ] Add n8n-specific prompt types
-- [ ] Implement variable system
-
-**Deliverables**:
-
-- n8n API client
-- Workflow integration
-- Prompt injection system
-- Variable management
-
-### Week 6: Community Library
-
-**Goals**: Build community-driven prompt sharing
-
-**Tasks**:
-
-- [ ] Create public prompt library
-- [ ] Implement prompt sharing system
-- [ ] Add rating and review system
-- [ ] Build search and filtering
-- [ ] Create prompt categories
-- [ ] Add community guidelines
-
-**Deliverables**:
-
-- Public prompt library
-- Sharing system
-- Community features
-- Search functionality
-
-### Week 7: Template System
-
-**Goals**: Create reusable prompt templates
-
-**Tasks**:
-
-- [ ] Design template structure
-- [ ] Implement template creation
-- [ ] Add template marketplace
-- [ ] Create template categories
-- [ ] Build template versioning
-- [ ] Add template documentation
-
-**Deliverables**:
-
-- Template system
-- Marketplace interface
-- Version control
-- Documentation system
-
-### Week 8: Analytics & Optimization
-
-**Goals**: Add analytics and optimize performance
-
-**Tasks**:
-
-- [ ] Implement usage analytics
-- [ ] Add performance monitoring
-- [ ] Create user dashboards
-- [ ] Optimize database queries
-- [ ] Add caching layer
-- [ ] Implement rate limiting
-
-**Deliverables**:
-
-- Analytics dashboard
-- Performance monitoring
-- Optimized queries
-- Caching system
-
-## Phase 3: Extensibility (Weeks 9-12)
-
-### Week 9: Plugin System
-
-**Goals**: Create extensible plugin architecture
-
-**Tasks**:
-
-- [ ] Design plugin API
-- [ ] Implement plugin registry
-- [ ] Create plugin lifecycle management
-- [ ] Add plugin configuration
-- [ ] Build plugin marketplace
-- [ ] Add plugin documentation
-
-**Deliverables**:
-
-- Plugin system
-- Registry management
-- Configuration system
-- Marketplace
-
-### Week 10: Advanced Features
-
-**Goals**: Add advanced prompt management features
-
-**Tasks**:
-
-- [ ] Implement prompt versioning
-- [ ] Add collaborative editing
-- [ ] Create prompt collections
-- [ ] Build advanced search
-- [ ] Add AI-powered suggestions
-- [ ] Implement prompt optimization
-
-**Deliverables**:
-
-- Version control
-- Collaboration features
-- Collections system
-- AI integration
-
-### Week 11: Mobile & Accessibility
-
-**Goals**: Ensure mobile compatibility and accessibility
-
-**Tasks**:
-
-- [ ] Optimize mobile experience
-- [ ] Add PWA capabilities
-- [ ] Implement offline support
-- [ ] Improve accessibility
-- [ ] Add screen reader support
-- [ ] Test with assistive technologies
-
-**Deliverables**:
-
-- Mobile-optimized UI
-- PWA functionality
-- Offline support
-- Accessibility compliance
-
-### Week 12: Security & Compliance
-
-**Goals**: Implement security measures and compliance
-
-**Tasks**:
-
-- [ ] Add security headers
-- [ ] Implement data encryption
-- [ ] Add audit logging
-- [ ] Create privacy controls
-- [ ] Add GDPR compliance
-- [ ] Implement backup system
-
-**Deliverables**:
-
-- Security framework
-- Compliance features
-- Audit system
-- Backup solution
-
-## Phase 4: Community & Scale (Weeks 13-16)
-
-### Week 13: Community Features
-
-**Goals**: Build community engagement features
-
-**Tasks**:
-
-- [ ] Add user profiles
-- [ ] Implement following system
-- [ ] Create discussion forums
-- [ ] Add notification system
-- [ ] Build reputation system
-- [ ] Add moderation tools
-
-**Deliverables**:
-
-- User profiles
-- Social features
-- Discussion system
-- Moderation tools
-
-### Week 14: Content Strategy
-
-**Goals**: Create content and educational resources
-
-**Tasks**:
-
-- [ ] Create onboarding tutorials
-- [ ] Build help documentation
-- [ ] Add video tutorials
-- [ ] Create best practices guide
-- [ ] Add prompt engineering tips
-- [ ] Build community challenges
-
-**Deliverables**:
-
-- Tutorial system
-- Documentation
-- Video content
-- Community challenges
-
-### Week 15: Monetization
-
-**Goals**: Implement revenue generation features
-
-**Tasks**:
-
-- [ ] Add subscription system
-- [ ] Implement payment processing
-- [ ] Create premium features
-- [ ] Add usage limits
-- [ ] Build billing dashboard
-- [ ] Add enterprise features
-
-**Deliverables**:
-
-- Subscription system
-- Payment processing
-- Premium features
-- Enterprise tools
-
-### Week 16: Launch Preparation
-
-**Goals**: Prepare for public launch
-
-**Tasks**:
-
-- [ ] Performance testing
-- [ ] Security audit
-- [ ] Load testing
-- [ ] Documentation review
-- [ ] Marketing preparation
-- [ ] Launch strategy
-
-**Deliverables**:
-
-- Production-ready system
-- Security audit report
-- Performance benchmarks
-- Launch materials
-
-## Technical Milestones
-
-### Month 1: MVP
-
-- [ ] Basic prompt CRUD
-- [ ] Label system
-- [ ] Simple UI
-- [ ] Authentication
-- [ ] Database setup
-
-### Month 2: n8n Integration
-
-- [ ] n8n API integration
-- [ ] Community library
-- [ ] Template system
-- [ ] Basic analytics
-
-### Month 3: Extensibility
-
-- [ ] Plugin system
-- [ ] Advanced features
-- [ ] Mobile optimization
-- [ ] Security implementation
-
-### Month 4: Community
-
-- [ ] Social features
-- [ ] Content strategy
-- [ ] Monetization
-- [ ] Public launch
-
-## Risk Mitigation
-
-### 1. **Technical Risks**
-
-- **Database Performance**: Implement caching and query optimization
-- **API Rate Limits**: Add rate limiting and retry logic
-- **Security Vulnerabilities**: Regular security audits and updates
-- **Scalability Issues**: Design for horizontal scaling from start
-
-### 2. **Market Risks**
-
-- **Competition**: Focus on n8n community differentiation
-- **User Adoption**: Strong onboarding and community building
-- **Feature Creep**: Stick to core value proposition
-- **Technical Debt**: Regular refactoring and code reviews
-
-### 3. **Business Risks**
-
-- **Revenue Generation**: Multiple monetization strategies
-- **User Retention**: Focus on community and value
-- **Content Quality**: Strong moderation and curation
-- **Legal Compliance**: GDPR and privacy compliance
-
-## Success Criteria
-
-### Phase 1 Success
-
-- [ ] 100 beta users
-- [ ] 500 prompts created
-- [ ] 95% uptime
-- [ ] <2s page load time
-
-### Phase 2 Success
-
-- [ ] 500 active users
-- [ ] 50 n8n integrations
-- [ ] 1000 community prompts
-- [ ] 4.5+ user rating
-
-### Phase 3 Success
-
-- [ ] 1000 active users
-- [ ] 10+ plugins
-- [ ] 5000 prompts
-- [ ] $1K MRR
-
-### Phase 4 Success
-
-- [ ] 5000 active users
-- [ ] 100+ n8n integrations
-- [ ] 10K community prompts
-- [ ] $10K MRR
-
-## Resource Requirements
-
-### Development Team
-
-- **Lead Developer**: Full-stack development
-- **UI/UX Designer**: Design and user experience
-- **DevOps Engineer**: Infrastructure and deployment
-- **Community Manager**: Content and community building
-
-### Infrastructure
-
-- **Hosting**: Vercel (Frontend) + Neon (Database)
-- **CDN**: Vercel Edge Network
-- **Monitoring**: Vercel Analytics + Sentry
-- **Email**: Resend for notifications
-
-### Budget Estimate
-
-- **Development**: $50K (4 months)
-- **Infrastructure**: $500/month
-- **Marketing**: $10K
-- **Legal/Compliance**: $5K
-- **Total**: ~$70K for first 6 months
-
-## Next Steps
-
-### Immediate Actions (This Week)
-
-1. Set up development environment
-2. Configure database and authentication
-3. Create basic UI components
-4. Implement core data operations
-
-### Short-term Goals (Next Month)
-
-1. Complete MVP development
-2. Test with n8n community
-3. Gather user feedback
-4. Iterate on core features
-
-### Long-term Vision (Next 6 Months)
-
-1. Build thriving n8n community
-2. Expand to broader AI automation market
-3. Develop enterprise features
-4. Scale to global platform
+```bash
+# Start with basic Next.js app
+pnpm run dev  # Must work immediately
+
+# Incremental changes:
+1. Basic layout ✅
+2. Dark/light mode toggle ✅
+3. Simple prompt editor ✅
+4. Basic label system ✅
+5. n8n JSON parser ✅
+```
+
+### **Phase 2: Core Features (One at a Time)**
+
+```bash
+# Each step must work before next:
+1. Authentication (Clerk) ✅
+2. Database setup (Neon + Prisma) ✅
+3. Prompt CRUD operations ✅
+4. Label management ✅
+5. Workflow collection system ✅
+```
+
+### **Phase 3: Advanced Features (Controlled)**
+
+```bash
+# Build on working foundation:
+1. Search and filtering ✅
+2. Public sharing ✅
+3. Payment integration (Stripe) ✅
+4. API endpoints ✅
+5. Mobile optimization ✅
+```
+
+## Commit Strategy
+
+### **Commit After Each Working Feature**
+
+```bash
+# Example commit pattern:
+git add .
+git commit -m "feat: add dark/light mode toggle
+
+- Implement theme switcher component
+- Add CSS variables for theme colors
+- Update layout to support theme switching
+- Test: pnpm run dev works ✅"
+```
+
+### **Major Milestone Commits**
+
+```bash
+# After completing major features:
+git commit -m "feat: complete MVP prompt editor
+
+- Working prompt editor with autosave
+- Dark/light mode toggle
+- Basic label system
+- n8n JSON parser integration
+- Ready for authentication phase
+
+Test: pnpm run dev works ✅
+Next: Add Clerk authentication"
+```
+
+## Development Checklist
+
+### **Before Each Change**
+
+- [ ] `pnpm run dev` works
+- [ ] No TypeScript errors
+- [ ] No console errors
+- [ ] Current feature is complete
+
+### **After Each Change**
+
+- [ ] `pnpm run dev` still works
+- [ ] Feature works as expected
+- [ ] No breaking changes
+- [ ] Commit the change
+
+### **Before Major Commits**
+
+- [ ] All features working
+- [ ] No linting errors
+- [ ] TypeScript compilation successful
+- [ ] Test in browser
+- [ ] Write descriptive commit message
+
+## File Organization
+
+### **Incremental File Structure**
+
+```
+everprompt-n8n/
+├── app/
+│   ├── page.tsx              # Home page (start here)
+│   ├── layout.tsx            # Root layout
+│   └── globals.css           # Global styles
+├── components/
+│   ├── ui/                   # Basic UI components
+│   ├── features/             # Feature components
+│   └── layout/               # Layout components
+├── lib/
+│   ├── utils.ts              # Utility functions
+│   ├── n8n-parser.ts         # n8n JSON parser
+│   └── db.ts                 # Database utilities
+└── .cursor/rules/            # Development rules
+```
+
+### **Component Development Order (shadcn/ui)**
+
+1. **Basic UI Components** (shadcn/ui Button, Input, Card, etc.)
+2. **Layout Components** (Header, Sidebar, etc.)
+3. **Feature Components** (PromptEditor with shadcn/ui Card, ArcLabels, etc.)
+4. **Page Components** (Home, Dashboard, etc.)
+5. **Integration Components** (Auth, Database, etc.)
+
+## Testing Strategy
+
+### **Development Testing**
+
+```bash
+# Always test these before committing:
+pnpm run dev          # Must work
+pnpm run build        # Must build successfully
+pnpm run lint         # Must pass linting
+pnpm run type-check   # Must pass TypeScript checks
+```
+
+### **Feature Testing**
+
+- **Manual testing** in browser
+- **Console error checking**
+- **Responsive design testing**
+- **Cross-browser compatibility**
+
+## Rollback Strategy
+
+### **Git Rollback Points**
+
+```bash
+# Create rollback points:
+git tag v0.1.0-working-basic-layout
+git tag v0.2.0-working-theme-toggle
+git tag v0.3.0-working-prompt-editor
+
+# Rollback if needed:
+git checkout v0.2.0-working-theme-toggle
+```
+
+### **Feature Flags**
+
+```typescript
+// Use feature flags for gradual rollout
+const FEATURES = {
+  AUTHENTICATION: process.env.NODE_ENV === "development",
+  PAYMENT: false, // Enable when ready
+  API: false, // Enable when ready
+  SHADCN_UI: true, // Always enabled - core UI library
+} as const;
+
+// shadcn/ui Component Configuration
+const SHADCN_CONFIG = {
+  theme: "light" | "dark" | "system",
+  components: {
+    button: "default",
+    card: "default",
+    input: "default",
+    sheet: "default",
+  },
+} as const;
+```
+
+## Domain Configuration
+
+### **everprompt.ai Setup**
+
+```typescript
+// next.config.ts
+const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/dashboard",
+        permanent: false,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "/api/:path*",
+      },
+    ];
+  },
+};
+```
+
+### **Environment Configuration**
+
+```bash
+# .env.local
+NEXT_PUBLIC_APP_URL=https://everprompt.ai
+NEXT_PUBLIC_APP_NAME=EverPrompt
+NEXT_PUBLIC_APP_DESCRIPTION="Prompt management for n8n workflows"
+```
+
+## Development Phases
+
+### **Phase 1: Basic Foundation (Week 1)**
+
+- [ ] Next.js 15 setup with App Router
+- [ ] Tailwind CSS 4 configuration
+- [ ] shadcn/ui components setup and configuration
+- [ ] Basic layout and components (shadcn/ui)
+- [ ] Dark/light mode toggle (shadcn/ui Switch)
+- [ ] TypeScript configuration
+
+### **Phase 2: Core Features (Week 2)**
+
+- [ ] Prompt editor component (shadcn/ui Card + Textarea)
+- [ ] Label system (arc navigation with shadcn/ui styling)
+- [ ] n8n JSON parser
+- [ ] Basic data management
+- [ ] Responsive design (shadcn/ui responsive utilities)
+
+### **Phase 3: Authentication (Week 3)**
+
+- [ ] Clerk integration
+- [ ] User authentication
+- [ ] Protected routes
+- [ ] User management
+- [ ] Workspace setup
+
+### **Phase 4: Database (Week 4)**
+
+- [ ] Neon PostgreSQL setup
+- [ ] Prisma ORM configuration
+- [ ] Database schema
+- [ ] CRUD operations
+- [ ] Data validation
+
+## Quality Assurance
+
+### **Code Quality**
+
+- **TypeScript strict mode** enabled
+- **ESLint rules** enforced
+- **Prettier formatting** applied
+- **Consistent naming** conventions
+
+### **Performance**
+
+- **Bundle size** monitoring
+- **Loading time** optimization
+- **Image optimization** (Next.js)
+- **Code splitting** (lazy loading)
+
+### **Security**
+
+- **Input validation** (Zod)
+- **SQL injection** prevention (Prisma)
+- **XSS protection** (React)
+- **CSRF protection** (Next.js)
+
+## Deployment Strategy
+
+### **Development**
+
+- **Local development** with `pnpm run dev`
+- **Hot reload** for instant feedback
+- **Error overlay** for debugging
+- **TypeScript checking** in real-time
+
+### **Staging (Future)**
+
+- **staging.everprompt.ai** for testing
+- **Preview deployments** for each PR
+- **Automated testing** before merge
+- **Performance monitoring**
+
+### **Production**
+
+- **everprompt.ai** for live users
+- **Automated deployments** from main branch
+- **Error monitoring** (Vercel Analytics)
+- **Performance tracking**
+
+## Success Metrics
+
+### **Development Success**
+
+- **Build time** < 30 seconds
+- **Hot reload** < 2 seconds
+- **TypeScript errors** = 0
+- **Linting errors** = 0
+
+### **Feature Success**
+
+- **User can create** a prompt
+- **User can organize** with labels
+- **User can upload** n8n workflow
+- **User can share** prompts
+
+### **Business Success**
+
+- **Break-even** at 9 paid users
+- **User retention** > 70%
+- **Community engagement** > 30%
+- **Revenue growth** month-over-month
+
+This incremental approach ensures you always have a working project while building towards your vision of the perfect n8n prompt management platform! 🚀
 
 ---
 > Source: [mitsue-eth/everprompt-n8n-shadcn](https://github.com/mitsue-eth/everprompt-n8n-shadcn) — distributed by [TomeVault](https://tomevault.io).
