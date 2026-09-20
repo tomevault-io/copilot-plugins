@@ -1,0 +1,9 @@
+{
+  "name": "sagar-tamang--sarvam-jev",
+  "displayName": "sarvam-jev",
+  "description": "Generation-free typed decisions on Indic LLMs. An open Jev-style inference engine on sarvam-1: constrained logit readout instead of autoregressive JSON. Runs client-side in the browser.",
+  "version": "1.0.0",
+  "author": "SAGAR-TAMANG",
+  "homepage": "https://github.com/SAGAR-TAMANG/sarvam-jev",
+  "skills": []
+}
