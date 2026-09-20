@@ -1,0 +1,9 @@
+{
+  "name": "srwhite59--hfdmrg-jl",
+  "displayName": "HFDMRG.jl",
+  "description": "Hartree\u2013Fock calculations with DMRG-style block sweeps in Julia.",
+  "version": "1.0.0",
+  "author": "srwhite59",
+  "homepage": "https://github.com/srwhite59/HFDMRG.jl",
+  "skills": []
+}
