@@ -1,0 +1,9 @@
+{
+  "name": "mupt-ai--self-bench",
+  "displayName": "self-bench",
+  "description": "Build Harbor evals from a GitHub repo",
+  "version": "1.0.0",
+  "author": "mupt-ai",
+  "homepage": "https://github.com/mupt-ai/self-bench",
+  "skills": []
+}
