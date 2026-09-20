@@ -1,0 +1,9 @@
+{
+  "name": "ifwu--cursor2response",
+  "displayName": "cursor2response",
+  "description": "Local Cursor gateway, Responses first, reusable SDK sessions, native steer, readable traces, and optional context overflow fallback.",
+  "version": "1.0.0",
+  "author": "iFwu",
+  "homepage": "https://github.com/iFwu/cursor2response",
+  "skills": []
+}
