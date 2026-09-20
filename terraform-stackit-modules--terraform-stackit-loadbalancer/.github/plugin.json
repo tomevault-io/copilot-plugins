@@ -1,0 +1,9 @@
+{
+  "name": "terraform-stackit-modules--terraform-stackit-loadbalancer",
+  "displayName": "terraform-stackit-loadbalancer",
+  "description": "Terraform module for STACKIT Load Balancer (L4/L7) with target pools and health checks.",
+  "version": "1.0.0",
+  "author": "terraform-stackit-modules",
+  "homepage": "https://github.com/terraform-stackit-modules/terraform-stackit-loadbalancer",
+  "skills": []
+}
