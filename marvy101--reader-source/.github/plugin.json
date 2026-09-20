@@ -1,0 +1,9 @@
+{
+  "name": "marvy101--reader-source",
+  "displayName": "reader-source",
+  "description": "Open-source native macOS AI reading workspace for PDF, EPUB, and TXT with highlights, notes, inline rewriting, book chat, browser panes, and local-first storage.",
+  "version": "1.0.0",
+  "author": "Marvy101",
+  "homepage": "https://github.com/Marvy101/reader-source",
+  "skills": []
+}
