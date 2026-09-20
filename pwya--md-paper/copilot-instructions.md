@@ -1,0 +1,46 @@
+## md-paper
+
+> > 中文速览:这是 md-paper 给【任何】AI 编程代理(Codex / OpenCode / Hermes Agent / Claude Code / …)的工作守则。Claude Code 有成熟保护钩子，Codex / OpenCode 可安装兼容适配层；**无论钩子是否存在，下面铁律始终是第一层约束**。
+
+# AGENTS.md — md-paper rules for AI agents · 跨工具代理守则
+
+> 中文速览:这是 md-paper 给【任何】AI 编程代理(Codex / OpenCode / Hermes Agent / Claude Code / …)的工作守则。Claude Code 有成熟保护钩子，Codex / OpenCode 可安装兼容适配层；**无论钩子是否存在，下面铁律始终是第一层约束**。
+
+## What this repo is
+
+md-paper revises Word manuscripts through a Markdown source of truth (`manuscript.md`), in five stages — each a standard Agent Skill (`<skill>/SKILL.md`, [agentskills.io](https://agentskills.io)-compatible):
+
+`md-unpack` (docx → manuscript.md) → `md-triage` (any revision intent → human-confirmed checklist) → `md-swarm` (batch revision) / `md-iterate` (single-spot revision) → `md-build` (manuscript.md → Word with live Zotero fields).
+
+- **Opened this repo to install?** Follow [INSTALL.md](INSTALL.md) step by step — it covers Claude Code, Codex, OpenCode, Hermes and generic agents.
+- **Working on a paper project that uses md-paper?** The rules below are binding in every session.
+
+## Iron rules — binding even when a harness hook is unavailable or incomplete
+
+1. **Never write `manuscript.md` directly.** Not with a file-edit tool, not with a script (`open(...,'w')`, `Set-Content`, `Out-File`, …). The ONLY writer is `md-swarm/apply_md_changeset.py` (`--dry-run` → apply → verify). In Claude Code a hook physically denies stray writes; in your harness nothing will stop you — so don't. (Measured incident: parallel direct writes left 1 surviving section and silently lost 38 citations.)
+2. **Citations are load-bearing.** Never delete or rewrite `[@citekey]` marks while editing prose — the apply gate refuses patches that drop citations; don't route around it. Never invent new keys that imitate existing ones: a manuscript full of `[@authorYear]`-looking keys may be an unreconciled *provisional* namespace, and imitation = fabrication.
+3. **The human gate is human-only.** `swarm/md_triage.md` carries the token `**人工确认：** 待确认`. Only the human flips it to `已确认`. Never flip or paraphrase it yourself.
+4. **Each stage's `SKILL.md` is the authoritative runbook.** Read it in full before running that stage; call the pipeline scripts exactly as written there — don't improvise replacements.
+5. **Windows + PowerShell is the supported entrypoint environment.** Default capture reads DOCX directly; actual layout validation, heading/page field calculation, Zotero Refresh, and legacy ingest need desktop Word. Encoding: `.py` / `.md` = UTF-8 no BOM, LF; `.ps1` containing Chinese = UTF-8 **with** BOM.
+
+## Format-preserving projects
+
+- Presence of `manifest/format_profile.json` selects the format engine. `md-unpack` defaults to `-Layout preserve`; `md-build` defaults to `-Mode rebuild`. Only genuine old projects without a profile or format bindings use the legacy route. Missing/damaged format data must be restored, never bypassed with legacy conversion.
+- For these projects, use `md-swarm/apply_formatted_changeset.py` (`--dry-run` → apply → verify). It validates a disposable candidate, then calls the original `apply_md_changeset.py` single writer. All original citation and human gates still apply. Never add bypass flags merely to make an edit pass.
+- Retain `custom-style` Div/Span scopes, native object/cell IDs, section markers, and encoded whitespace. Format names come from the project's `format_names.md`, backed by `md-build/formatting/names.json`. Do not guess title-page/abstract roles from content or track paragraph edit ancestry.
+- Use `format_docx.py styles/style/caption` for authorized formatting changes; read `md-build/format_settings.md`. Do not hand-edit captured XML or `format_profile.json`.
+- `rebuild` retains captured Zotero fields offline. Existing captured keys need no reconciliation; new items must use real Zotero keys and `live`, then Zotero Refresh in Word. Never fabricate a key matching the captured namespace.
+- Read `format_capture_report.md` and the **current** `build/format_result_<mode>.md`. A stale Word file is not evidence of success. Report unsupported items and distinguish structural checks from actual visual validation. Do not promise identical pagination after arbitrary edits.
+- Move/copy the entire paper project including `manifest/` and `media/`. Preserve original source snapshots; build into a separate output file. Per-machine junctions, Python dependencies, toolchain, fonts, and hook trust are installed separately.
+- When maintaining this repository, run the portable checks and the Windows format suite described in [TESTING.md](TESTING.md). Anonymous disposable fixtures may be used for regression tests; do not commit private manuscripts or bypass protection on real working papers.
+
+## Harness notes
+
+- **Skills discovery**: Codex reads `~/.codex/skills`; OpenCode natively reads `~/.claude/skills` (and `~/.config/opencode/skills`); Hermes Agent reads `~/.hermes/skills`. No skills mechanism at all? Just open `<skill>/SKILL.md` and follow it — they are plain Markdown runbooks. Install/linking: [INSTALL.md](INSTALL.md) Step 2.
+- **No parallel sub-agent tool?** Run md-swarm's drafting phase serially — one entry at a time, same patch contract, each draft still writes only its own `swarm/patches/*.json`. Collection / apply / verify are deterministic scripts and don't care.
+- **preflight**: `md-swarm/preflight.py` verifies Claude registration and cc-switch templates. In Codex/OpenCode it reports that this static audit is not applicable; use `probe_live_hooks.py` and require both real current-session actions to be explicitly denied. Layer 1 remains authoritative in every harness.
+- **Recommended**: copy this `AGENTS.md` into your paper project's root (or merge the Iron rules into the project's existing `AGENTS.md`), so every future session in that project sees these rules automatically.
+
+---
+> Source: [pwya/md-paper](https://github.com/pwya/md-paper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-20 -->
