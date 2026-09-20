@@ -1,0 +1,44 @@
+{
+  "name": "reader-source",
+  "owner": "Marvy101",
+  "repo": "reader-source",
+  "description": "Open-source native macOS AI reading workspace for PDF, EPUB, and TXT with highlights, notes, inline rewriting, book chat, browser panes, and local-first storage.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Marvy101/reader-source",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T01:30:21Z"
+}
