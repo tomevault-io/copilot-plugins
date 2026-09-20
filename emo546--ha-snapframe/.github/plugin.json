@@ -1,0 +1,9 @@
+{
+  "name": "emo546--ha-snapframe",
+  "displayName": "ha-snapframe",
+  "description": "Turn any old tablet or iPad into a smart digital photo frame for Home Assistant",
+  "version": "1.0.0",
+  "author": "emo546",
+  "homepage": "https://github.com/emo546/ha-snapframe",
+  "skills": []
+}
