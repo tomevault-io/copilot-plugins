@@ -1,0 +1,9 @@
+{
+  "name": "fazlerocks--jevmail",
+  "displayName": "jevmail",
+  "description": "Open-source AI email triage for Gmail. Sorts your inbox into Needs reply, Updates, Promos, Sales and Spam with Jev, TypeSafe AI's decision model, via Vercel AI Gateway. Read-only, runs locally, 1,000 ",
+  "version": "1.0.0",
+  "author": "fazlerocks",
+  "homepage": "https://github.com/fazlerocks/jevmail",
+  "skills": []
+}
