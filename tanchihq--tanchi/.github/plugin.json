@@ -1,0 +1,9 @@
+{
+  "name": "tanchihq--tanchi",
+  "displayName": "tanchi",
+  "description": "Autonomous B2B prospecting engine. The AI sources, researches and writes your outreach every evening, you review your queue in ten minutes. Open source, self-hostable.",
+  "version": "1.0.0",
+  "author": "tanchihq",
+  "homepage": "https://github.com/tanchihq/tanchi",
+  "skills": []
+}
