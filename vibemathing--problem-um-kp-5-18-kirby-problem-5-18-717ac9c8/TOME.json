@@ -1,0 +1,44 @@
+{
+  "name": "problem-um-kp-5.18-kirby-problem-5.18-717ac9c8",
+  "owner": "vibemathing",
+  "repo": "problem-um-kp-5.18-kirby-problem-5.18-717ac9c8",
+  "description": "Vibe Mathing single-problem candidate research: Kirby Problem 5.18",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vibemathing/problem-um-kp-5.18-kirby-problem-5.18-717ac9c8",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T04:38:17Z"
+}
