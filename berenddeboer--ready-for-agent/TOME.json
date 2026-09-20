@@ -4,7 +4,7 @@
   "repo": "ready-for-agent",
   "description": "Get to 150+ PRs a week by letting ready-for-agent do the babysitting of your clankers, while you do the valuable work",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/berenddeboer/ready-for-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T02:37:05Z"
+  "distributed_at": "2026-09-20T02:41:28Z"
 }
