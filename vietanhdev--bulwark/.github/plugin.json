@@ -1,0 +1,9 @@
+{
+  "name": "vietanhdev--bulwark",
+  "displayName": "bulwark",
+  "description": "A Linux host security scanner with a native CLI and desktop GUI \u2014 SSH/kernel/systemd hardening checks, real ClamAV scanning, file-integrity monitoring, and continuous background monitoring.",
+  "version": "1.0.0",
+  "author": "vietanhdev",
+  "homepage": "https://github.com/vietanhdev/bulwark",
+  "skills": []
+}
