@@ -1,0 +1,9 @@
+{
+  "name": "jcodesmore--ai-chrome-extension-template",
+  "displayName": "ai-chrome-extension-template",
+  "description": "Make any Chrome extension with AI agents \u2014 autonomous dev loop: plan, build, test in a real browser, iterate, package, release.",
+  "version": "1.0.0",
+  "author": "JCodesMore",
+  "homepage": "https://github.com/JCodesMore/ai-chrome-extension-template",
+  "skills": []
+}
