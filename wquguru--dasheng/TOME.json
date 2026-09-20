@@ -1,0 +1,44 @@
+{
+  "name": "dasheng",
+  "owner": "wquguru",
+  "repo": "dasheng",
+  "description": "\u5927\u58f0\u8bfb \u2014 R2T2 \u6d41\u5f0f ASR \u542c\uff0cJev \u9010\u8bcd\u5224\uff0c\u82f1\u6587\u6717\u8bfb\u8bc4\u5206",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wquguru/dasheng",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T23:32:26Z"
+}
