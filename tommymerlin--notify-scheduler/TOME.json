@@ -1,0 +1,44 @@
+{
+  "name": "Notify-Scheduler",
+  "owner": "TommyMerlin",
+  "repo": "Notify-Scheduler",
+  "description": "\u57fa\u4e8e ANotify \u5e93\u7684\u901a\u77e5\u5b9a\u65f6\u53d1\u9001\u7cfb\u7edf\uff0c\u652f\u6301\u591a\u79cd\u901a\u77e5\u6e20\u9053\u7684\u5b9a\u65f6\u548c\u91cd\u590d\u53d1\u9001",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TommyMerlin/Notify-Scheduler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T04:37:00Z"
+}
