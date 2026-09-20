@@ -1,0 +1,9 @@
+{
+  "name": "ergeaia--ergeaia-skills",
+  "displayName": "ErgeAIA-skills",
+  "description": "A curated collection of Agent Skills by ErgeAIA. Structured review, compliance validation, and more. Install any skill: npx skills add ErgeAIA/ErgeAIA-skills",
+  "version": "1.0.0",
+  "author": "ErgeAIA",
+  "homepage": "https://github.com/ErgeAIA/ErgeAIA-skills",
+  "skills": []
+}
