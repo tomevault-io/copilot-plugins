@@ -1,18 +1,34 @@
-## zizkadb
+## ai-workflow
 
-> 1. [AGENTS.md](../AGENTS.md)
+> AI implementation workflow — inspect, verify, senior review before PR
 
-# ZizkaDB — GitHub Copilot Instructions
 
-Read in order:
+# AI workflow (always apply)
 
-1. [AGENTS.md](../AGENTS.md)
-2. [docs/ai/CODING_STANDARDS.md](../docs/ai/CODING_STANDARDS.md) — full team standards (44 sections)
-3. [docs/ai/ZIZKADB_MAPPINGS.md](../docs/ai/ZIZKADB_MAPPINGS.md) — repo folder mapping
-4. [.cursor/rules/coding-standards.mdc](../.cursor/rules/coding-standards.mdc) — ZizkaDB invariants
-5. [CLAUDE.md](../CLAUDE.md) — stack map
+Full standards: [docs/ai/CODING_STANDARDS.md](../../docs/ai/CODING_STANDARDS.md) · Repo map: [docs/ai/ZIZKADB_MAPPINGS.md](../../docs/ai/ZIZKADB_MAPPINGS.md)
 
-Run tests before claiming done. OSS: no `/v1/admin` routes.
+## Lifecycle (every meaningful task)
+
+1. **Understand** — requirement, acceptance criteria, edge cases.
+2. **Inspect** — read relevant code, tests, KB/ADR, `lib/api.ts`, schema; search for reuse.
+3. **Impact** — list consumers, API contracts, DB, cache, auth, docs that could break.
+4. **Implement** — smallest clean diff; match [ZIZKADB_MAPPINGS.md](../../docs/ai/ZIZKADB_MAPPINGS.md).
+5. **Test** — run layer commands from [zizkadb-test skill](../skills/zizkadb-test/SKILL.md).
+6. **Document** — update canonical docs in the **same** PR when behavior changes.
+7. **Senior review** — review your own diff; fix before PR.
+8. **PR** — per [CONTRIBUTING.md](../../CONTRIBUTING.md): open a GitHub issue with the right label (`bug`, `enhancement`, `documentation`) before the branch; **PR description must start with `Fixes #N`** (issue mentioned in the body, not only the branch name); CI must pass.
+
+## Must not
+
+- Guess when the repo can be read; blindly overwrite files.
+- Claim tests/lint/build passed without running them.
+- Commit secrets; log API keys or tokens.
+- Modify unrelated files; speculative refactors.
+- Skip server-side authorization; trust client-supplied tenant IDs.
+
+## Definition of done
+
+Code works **and** is testable, scoped, and documented if contracts changed. See CODING_STANDARDS.md §44.
 
 ---
 > Source: [ZIZKA-AI-SL/ZizkaDB](https://github.com/ZIZKA-AI-SL/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
