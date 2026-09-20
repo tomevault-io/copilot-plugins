@@ -1,0 +1,9 @@
+{
+  "name": "heymi--aldus-palace",
+  "displayName": "aldus-palace",
+  "description": "A trustworthy context layer for AI that remembers, plans and acts \u2014 free text into typed commitments, decisions and memories, each with its evidence, in a SQLite file you own. MCP, HTTP, library and t",
+  "version": "1.0.0",
+  "author": "heymi",
+  "homepage": "https://github.com/heymi/aldus-palace",
+  "skills": []
+}
