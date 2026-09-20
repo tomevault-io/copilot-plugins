@@ -1,0 +1,9 @@
+{
+  "name": "bradgroux--youtube-transcript-minimal",
+  "displayName": "youtube-transcript-minimal",
+  "description": "A minimalist YouTube transcript downloader made for the agent era \u2014 one click gets any video\u2019s captions into Codex or Muse. No popups, ads, accounts, or third-party servers.",
+  "version": "1.0.0",
+  "author": "BradGroux",
+  "homepage": "https://github.com/BradGroux/youtube-transcript-minimal",
+  "skills": []
+}
