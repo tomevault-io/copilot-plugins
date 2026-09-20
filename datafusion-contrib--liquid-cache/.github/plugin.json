@@ -1,0 +1,9 @@
+{
+  "name": "datafusion-contrib--liquid-cache",
+  "displayName": "liquid-cache",
+  "description": "Pushdown cache for DataFusion",
+  "version": "1.0.0",
+  "author": "datafusion-contrib",
+  "homepage": "https://github.com/datafusion-contrib/liquid-cache",
+  "skills": []
+}
