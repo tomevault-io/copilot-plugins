@@ -1,0 +1,9 @@
+{
+  "name": "jdtzmn--port",
+  "displayName": "port",
+  "description": "Port CLI runs Docker Compose services in parallel Git worktrees\u2014no port conflicts, with Traefik-routed local branch domains.",
+  "version": "1.0.0",
+  "author": "jdtzmn",
+  "homepage": "https://github.com/jdtzmn/port",
+  "skills": []
+}
