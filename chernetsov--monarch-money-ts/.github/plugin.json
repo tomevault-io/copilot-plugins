@@ -1,0 +1,9 @@
+{
+  "name": "chernetsov--monarch-money-ts",
+  "displayName": "monarch-money-ts",
+  "description": "A modern unofficial TypeScript client for the Monarch Money API",
+  "version": "1.0.0",
+  "author": "chernetsov",
+  "homepage": "https://github.com/chernetsov/monarch-money-ts",
+  "skills": []
+}
