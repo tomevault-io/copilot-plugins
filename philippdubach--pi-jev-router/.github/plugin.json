@@ -1,0 +1,9 @@
+{
+  "name": "philippdubach--pi-jev-router",
+  "displayName": "pi-jev-router",
+  "description": "A minimal Pareto-optimal OpenRouter model router for pi, based on Jev",
+  "version": "1.0.0",
+  "author": "philippdubach",
+  "homepage": "https://github.com/philippdubach/pi-jev-router",
+  "skills": []
+}
