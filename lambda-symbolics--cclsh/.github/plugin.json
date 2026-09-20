@@ -1,0 +1,9 @@
+{
+  "name": "lambda-symbolics--cclsh",
+  "displayName": "cclsh",
+  "description": "Clozure CL Shell",
+  "version": "1.0.0",
+  "author": "lambda-symbolics",
+  "homepage": "https://github.com/lambda-symbolics/cclsh",
+  "skills": []
+}
