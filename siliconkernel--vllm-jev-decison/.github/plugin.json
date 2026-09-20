@@ -1,0 +1,9 @@
+{
+  "name": "siliconkernel--vllm-jev-decison",
+  "displayName": "vllm-jev-decison",
+  "description": "Classification-only typed decisions for vLLM: finite-schema candidate scoring, probabilities, and abstention. No generative fallback.",
+  "version": "1.0.0",
+  "author": "siliconkernel",
+  "homepage": "https://github.com/siliconkernel/vllm-jev-decison",
+  "skills": []
+}
