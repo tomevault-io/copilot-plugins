@@ -1,34 +1,29 @@
-## ai-workflow
+## backend-dashboard-contract
 
-> AI implementation workflow — inspect, verify, senior review before PR
+> Backend ↔ dashboard API contracts (CODING_STANDARDS §14, §31)
 
 
-# AI workflow (always apply)
+# Backend ↔ Dashboard Contract
 
-Full standards: [docs/ai/CODING_STANDARDS.md](../../docs/ai/CODING_STANDARDS.md) · Repo map: [docs/ai/ZIZKADB_MAPPINGS.md](../../docs/ai/ZIZKADB_MAPPINGS.md)
+Full endpoint map: `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` §17.3. Breaking changes: identify all consumers, update `dashboard/lib/api.ts`, tests, and KB in one PR (§31).
 
-## Lifecycle (every meaningful task)
+## Contracts (do not break silently)
 
-1. **Understand** — requirement, acceptance criteria, edge cases.
-2. **Inspect** — read relevant code, tests, KB/ADR, `lib/api.ts`, schema; search for reuse.
-3. **Impact** — list consumers, API contracts, DB, cache, auth, docs that could break.
-4. **Implement** — smallest clean diff; match [ZIZKADB_MAPPINGS.md](../../docs/ai/ZIZKADB_MAPPINGS.md).
-5. **Test** — run layer commands from [zizkadb-test skill](../skills/zizkadb-test/SKILL.md).
-6. **Document** — update canonical docs in the **same** PR when behavior changes.
-7. **Senior review** — review your own diff; fix before PR.
-8. **PR** — per [CONTRIBUTING.md](../../CONTRIBUTING.md): open a GitHub issue with the right label (`bug`, `enhancement`, `documentation`) before the branch; **PR description must start with `Fixes #N`** (issue mentioned in the body, not only the branch name); CI must pass.
+- **OTP verify** (`auth.py`): `{access_token, token_type, requires_plan_selection, requires_checkout, has_access, plan}` — always `has_access: true`, no checkout gate.
+- **Billing status** (`billing.py`): shape consumed by `TenantPlanBanner`; `has_access: true`, `enforced: false`.
+- **Auth** (`deps.py`): JWT vs API key vs dev key; `assert_agent_allowed` for scoped keys; dashboard routes JWT-only.
+- **Events** (`events.py`, `event_write.py`): SDK writes + dashboard reads — field renames hit both sides.
+- **Route paths** (`main.py`): fixed `/v1/...` in `lib/api.ts`.
+- **API key limits** (`entitlements.py` only): caps via `PLAN_ENTITLEMENTS`; kill switch `API_KEY_LIMITS_ENFORCED`.
+- **Demo requests** (`demo_requests.py`): public POST; honeypot + rate limit; **no OSS admin list endpoint**.
 
-## Must not
+## Data model
 
-- Guess when the repo can be read; blindly overwrite files.
-- Claim tests/lint/build passed without running them.
-- Commit secrets; log API keys or tokens.
-- Modify unrelated files; speculative refactors.
-- Skip server-side authorization; trust client-supplied tenant IDs.
+`schema.sql` + migrations `002`, `004`, `005` + `init_db()`. See KB §21.
 
-## Definition of done
+## Sync rule
 
-Code works **and** is testable, scoped, and documented if contracts changed. See CODING_STANDARDS.md §44.
+Contract or schema change → update KB §17.3, §18, §21 and `lib/api.ts` types in the same PR.
 
 ---
 > Source: [ZIZKA-AI-SL/ZizkaDB](https://github.com/ZIZKA-AI-SL/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
