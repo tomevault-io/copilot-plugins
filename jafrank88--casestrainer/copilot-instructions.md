@@ -1,50 +1,142 @@
-## extraction-testing
+## casestrainer
 
-> Citation extraction testing process and commands
+> **/archived_case_name_extraction.py
 
+# Cursor Configuration for CaseStrainer Project
+# This file tells Cursor which files to exclude from analysis
 
-# Extraction Testing Process
+# Exclude archived and deprecated files from Pylance analysis
+**/archived_case_name_extraction.py
+**/enhanced_extraction_utils.py
+**/comprehensive_validator_test.py
+**/unified_citation_processor.py
+**/unified_citation_processor_v2.py
+**/document_processing.py
+**/legal_case_extractor_enhanced.py
+**/legal_case_extractor_integrated.py
 
-When working with citation extraction or comparison scripts, use this process.
+# Exclude non-production directories
+**/venv/**
+**/venv_new/**
+**/venv2/**
+**/__pycache__/**
+**/node_modules/**
+**/citation_cache/**
+**/correction_cache/**
+**/casestrainer_sessions/**
+**/flask_session/**
+**/instance/**
+**/temp_uploads/**
+**/uploads/**
+**/backup_before_update/**
+**/archived/**
+**/archived_batch_files/**
+**/deprecated_scripts/**
+**/temp_logs/**
+**/test_logs/**
+**/logs/**
+**/data/backups/**
+**/data/logs/**
+**/docker/logs/**
+**/nginx/logs/**
+**/nginx/html/**
+**/nginx/ssl/**
+**/nginx/temp/**
+**/nginx/nginx/**
+**/scripts/logs/**
+**/scripts/uploads/**
+**/scripts/wa_briefs/**
+**/scripts/wa_briefs_results/**
+**/scripts/test_learning_data/**
+**/scripts/learning_data/**
+**/scripts/adaptive_results/**
+**/enhanced_results/**
+**/adaptive_results/**
+**/results/**
+**/reports/**
+**/sample_briefs/**
+**/test_files/**
+**/downloaded_briefs/**
+**/wa_briefs/**
+**/wa_briefs_text/**
+**/deployment_package/**
+**/temp-docker-dev/**
+**/temp-serve/**
+**/temp-vue/**
+**/temp-vue-app/**
+**/temp-vue-fix/**
+**/frontend/**
+**/word_addin/**
+**/models/**
+**/learning_data/**
+**/hyperscan/**
+**/python-hyperscan/**
+**/vcpkg/**
+**/cypress/**
+**/docker/html/**
+**/docker/ssl/**
+**/docker/uploads/**
+**/docker/src/**
+**/static/**
+**/templates/**
+**/ssl/**
+**/tests/**
+**/test/**
+**/testing/**
+**/spec/**
+**/specs/**
+**/fixtures/**
+**/mocks/**
+**/stubs/**
+**/typings/**
+**/types/**
+**/build/**
+**/dist/**
+**/target/**
+**/out/**
+**/bin/**
+**/obj/**
+**/Debug/**
+**/Release/**
+**/x64/**
+**/x86/**
+**/amd64/**
+**/i386/**
+**/lib/**
+**/libs/**
+**/include/**
+**/includes/**
+**/headers/**
+**/src/generated/**
+**/src/build/**
+**/src/dist/**
+**/src/temp/**
+**/src/cache/**
+**/src/logs/**
+**/src/backups/**
+**/src/archived/**
+**/src/deprecated/**
+**/src/legacy/**
+**/src/old/**
+**/src/experimental/**
+**/src/test/**
+**/src/tests/**
+**/src/testing/**
+**/src/mocks/**
+**/src/fixtures/**
+**/src/stubs/**
+**/src/typings/**
+**/src/types/**
 
-## Commands
-
-```bash
-# Extract only (saves to JSON; subprocess to avoid OOM)
-python scripts/run_extract_and_compare.py extract <pdf_path> <output.json>
-
-# Compare only (lightweight, no extraction)
-python scripts/run_extract_and_compare.py compare <expected.json> <actual.json>
-
-# Both: extract then compare
-python scripts/run_extract_and_compare.py both <pdf_path> <expected.json> [output.json]
-```
-
-## Key Paths
-
-- **Entry point:** `scripts/run_extract_and_compare.py`
-- **Extraction subprocess:** `scripts/_extract_pdf_to_json.py`
-- **Comparison logic:** `scripts/compare_extraction_to_expected.py`
-- **Expected fixtures:** `tests/fixtures/*_expected.json`
-
-## Expected Fixture Format
-
-```json
-{
-  "document_id": "short-id",
-  "expected_clusters": [
-    {
-      "expected_case_name": "Case Name v. Defendant",
-      "expected_citations": ["100 N.Y.2d 893", "100 NY2d 893"],
-      "expected_year": "2003"
-    }
-  ]
-}
-```
-
-## Full Documentation
-
-See `docs/EXTRACTION_TESTING_PROCESS.md` for detailed steps, troubleshooting, and fixture format.
+# Exclude non-Python file types
+**/*.md
+**/*.js
+**/*.ts
+**/*.json
+**/*.pyc
+**/*.map
+**/*.patch
+**/*.cmake 
 
 ---
 > Source: [jafrank88/CaseStrainer](https://github.com/jafrank88/CaseStrainer) — distributed by [TomeVault](https://tomevault.io).
