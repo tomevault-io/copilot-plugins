@@ -1,0 +1,9 @@
+{
+  "name": "valentynkit--jev-belay",
+  "displayName": "jev-belay",
+  "description": "Claude Code Stop hook that blocks an unverified done: reads the transcript for evidence, asks Jev once, fails open on everything else",
+  "version": "1.0.0",
+  "author": "valentynkit",
+  "homepage": "https://github.com/valentynkit/jev-belay",
+  "skills": []
+}
