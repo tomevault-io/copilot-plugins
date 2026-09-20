@@ -1,0 +1,44 @@
+{
+  "name": "jiujiastudy",
+  "owner": "jiujiastudy",
+  "repo": "jiujiastudy",
+  "description": "\u6551\u9a7e\uff1a\u7ed9\u7559\u5b66\u751f\u7684 Canvas \u5b66\u4e60\u624b\u5e10\u2014\u2014\u76ef deadline\u3001\u6392\u672c\u5468\u8be5\u5b66\u4ec0\u4e48\u3001\u6309\u72b6\u6001\u7ed9\u5efa\u8bae\u3002Agent Skill\uff0c\u88c5\u5728\u81ea\u5df1\u7535\u8111\u4e0a\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jiujiastudy/jiujiastudy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T16:35:10Z"
+}
