@@ -1,0 +1,9 @@
+{
+  "name": "ghuntley--preflight",
+  "displayName": "preflight",
+  "description": "A local proxy that scans LLM requests and attachments for secrets before they reach the model.",
+  "version": "1.0.0",
+  "author": "ghuntley",
+  "homepage": "https://github.com/ghuntley/preflight",
+  "skills": []
+}
