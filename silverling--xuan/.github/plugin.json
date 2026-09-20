@@ -1,0 +1,9 @@
+{
+  "name": "silverling--xuan",
+  "displayName": "xuan",
+  "description": "An image editor for Linux, inspired by Compositor and ported from it.",
+  "version": "1.0.0",
+  "author": "silverling",
+  "homepage": "https://github.com/silverling/xuan",
+  "skills": []
+}
