@@ -1,0 +1,9 @@
+{
+  "name": "sno-ai--sno-station",
+  "displayName": "sno-station",
+  "description": "Sno Station \u2014 your Claude Code and Codex working as one squad on your own machine. Shared encrypted memory, agent-to-agent messaging (Reach), squad skills for handoff and cross-vendor review, and a ni",
+  "version": "1.0.0",
+  "author": "sno-ai",
+  "homepage": "https://github.com/sno-ai/sno-station",
+  "skills": []
+}
