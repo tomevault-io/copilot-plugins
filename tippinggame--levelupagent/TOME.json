@@ -1,0 +1,44 @@
+{
+  "name": "LevelUpAgent",
+  "owner": "TippingGame",
+  "repo": "LevelUpAgent",
+  "description": "\u9762\u5411\u672c\u5730\u9879\u76ee\u7684\u8de8\u5e73\u53f0 AI Agent \u684c\u9762\u7aef\uff0c\u652f\u6301 OpenAI\u3001Claude\u3001Gemini\u3001Grok \u4e0e Antigravity\uff0c\u63d0\u4f9b\u591a\u9879\u76ee\u591a\u4f1a\u8bdd\u3001\u672c\u5730\u5de5\u5177\u3001MCP\u3001Skills\u3001Goal\u3001Git \u5ba1\u67e5\u53ca\u5206\u7ea7\u6743\u9650\u3002Cross-platform desktop AI agent for local projects with multi-provider models, conversations, tools, MCP, Skills, Goals, Git review, and tiered permissions.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TippingGame/LevelUpAgent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T03:02:10Z"
+}
