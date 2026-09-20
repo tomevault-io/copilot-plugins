@@ -1,0 +1,9 @@
+{
+  "name": "ueboxai--uebox",
+  "displayName": "uebox",
+  "description": "Open-source AI agent that operates the Unreal Editor \u2014 levels, blueprints, materials, C++.",
+  "version": "1.0.0",
+  "author": "ueboxai",
+  "homepage": "https://github.com/ueboxai/uebox",
+  "skills": []
+}
