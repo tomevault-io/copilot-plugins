@@ -1,0 +1,9 @@
+{
+  "name": "cognitionai--devin-outpost-k8s",
+  "displayName": "devin-outpost-k8s",
+  "description": "A reference implementation of Devin Outposts as a Kubernetes operator.",
+  "version": "1.0.0",
+  "author": "CognitionAI",
+  "homepage": "https://github.com/CognitionAI/devin-outpost-k8s",
+  "skills": []
+}
