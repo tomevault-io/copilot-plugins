@@ -1,0 +1,9 @@
+{
+  "name": "koomen--tinytown",
+  "displayName": "tinytown",
+  "description": "A pipeline for generating little 3D town miniatures and serving them in a browser",
+  "version": "1.0.0",
+  "author": "koomen",
+  "homepage": "https://github.com/koomen/tinytown",
+  "skills": []
+}
