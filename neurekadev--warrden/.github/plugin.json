@@ -1,0 +1,9 @@
+{
+  "name": "neurekadev--warrden",
+  "displayName": "warrden",
+  "description": "wArrden makes it easy to maintain your media libraries by finding missing or upgradeable content, as well as detecting and clearing stuck imports from supported arr queues.",
+  "version": "1.0.0",
+  "author": "neurekadev",
+  "homepage": "https://github.com/neurekadev/warrden",
+  "skills": []
+}
