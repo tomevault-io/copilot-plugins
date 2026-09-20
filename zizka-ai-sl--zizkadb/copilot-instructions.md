@@ -1,96 +1,95 @@
-## sdk-integrations-mcp
+## testing
 
-> ZizkaDB SDK (Python + TypeScript), integrations (LangChain/CrewAI), MCP server, and examples
+> ZizkaDB testing conventions — per-layer test commands, integration test setup, and test file map
 
 
-# ZizkaDB SDK, Integrations & MCP — Agent Guide
+# ZizkaDB Testing — Agent Guide
 
-**Read first:** [docs/ai/CODING_STANDARDS.md](../../docs/ai/CODING_STANDARDS.md) · [examples/CLAUDE.md](../../examples/CLAUDE.md) for runnable demos.
+## Per-layer test commands
 
-## Python SDK (`sdk/python/`)
-
-**Package:** `zizkadb-sdk` on PyPI. Always async — `async with ZizkaDB(...) as db:`. No sync constructor.
-
-```python
-async with ZizkaDB(api_key="zizkadb_live_...") as db:
-    event = await db.log(agent="my-bot", event="step", data={...})
-    chain = await db.why(event.event_id)
-```
-
-- Error types: `AuthError`, `AgentScopeError`, `NotFoundError` (`zizkadb/exceptions.py`)
-- CLI: `zizkadb init my-agent --template <name>` — templates in `zizkadb/templates/`
-- Analytics CLI: `zizkadb why`, `baseline`, `token-usage`, `token-opt` (see `zizkadb/cli.py`)
-- Tests: `pytest sdk/python/tests/ -v`
-
-## TypeScript SDK (`sdk/typescript/`)
-
-**Package:** `zizkadb-sdk` on npm. Sync constructor — `new ZizkaDB({ apiKey: '...' })`.
-
-```typescript
-const db = new ZizkaDB({ apiKey: 'zizkadb_live_...' })
-const event = await db.log({ agent: 'my-bot', event: 'step', data: {} })
-const baseline = await db.baseline({ agent: 'my-bot' })
-```
-
-- Analytics: `baseline()`, `tokenUsage()`, `tokenOptimization()` mirror Python SDK
-
-- **camelCase** everywhere: `parentId`, `eventId`, `sessionId` (Python SDK uses snake_case)
-- No LangChain or CrewAI adapters — TypeScript is HTTP-only
-- Tests: `npm test` inside `sdk/typescript/`
-
-## Integrations (`integrations/`)
-
-Three standalone packages: `zizkadb-langchain`, `zizkadb-crewai`, `zizkadb-livekit`. **Published on PyPI**.
-
-| Package | Class | Notes |
+| Layer | Command | Requires running stack? |
 |---|---|---|
-| `zizkadb-langchain` | `ZizkaDBCallbackHandler` | Duplicated in SDK — keep both in sync |
-| `zizkadb-crewai` | `ZizkaDBCrewLogger` | Duplicated in SDK — keep both in sync |
-| `zizkadb-livekit` | `ZizkaDBLiveKitObserver` | Standalone only — `integrations/livekit/` |
+| Python lint | `ruff check core/ sdk/python/ mcp/ integrations/` | No |
+| Core API unit | `pytest core/tests/ -m "not integration" -v` | No |
+| Core API integration | `ZIZKADB_RUN_INTEGRATION=1 pytest core/tests/ -m integration -v` | Yes |
+| Python SDK | `pytest sdk/python/tests/ -v` | No |
+| MCP server | `pytest mcp/tests/ -v` | No |
+| TypeScript SDK | `cd sdk/typescript && npm test` | No |
+| Dashboard | `cd dashboard && npm run lint && npm test && npm run build` | No |
 
-## MCP Server (`mcp/`)
+Vitest covers hooks, helpers (`lib/plans.ts`, `lib/api.ts`), and key components. See `dashboard/**/*.test.*`.
 
-**License: MIT** (the only module in this repo that is not AGPL-3.0).
+## Integration tests
 
+Integration tests need the full local stack running:
 ```bash
-uvx zizkadb-mcp
-# Env: ZIZKADB_HOST, ZIZKADB_API_KEY
-# On localhost: dev key auto-injected — no API key needed
+bash scripts/setup-local.sh          # start Postgres, Qdrant, Redis, API, dashboard
+ZIZKADB_RUN_INTEGRATION=1 pytest core/tests/test_integration_selfhost.py -v
 ```
 
-11 MCP tools in `zizkadb_mcp/server.py`: `log_event`, `search_memory`, `get_context`, `why`, `query_events`, `time_travel`, `get_baseline`, `get_token_usage`, `get_token_optimization`, `memory_diff`, `forget`.
+## Test file map (core/tests/)
 
-Tests: `pytest mcp/tests/ -v` (also runs in CI).
+| File | What it covers |
+|---|---|
+| `test_auth_flow.py` | OTP generation, JWT sign/verify, API key creation and auth |
+| `test_api_key_limit_endpoints.py` | Per-agent scoped key enforcement, tenant-wide key access |
+| `test_billing_status.py` | Billing status response shape, `has_access: True` stub |
+| `test_demo_requests.py` | Demo request form submission, honeypot, rate limiting |
+| `test_embedding_config.py` | Per-tenant embedding model configuration |
+| `test_embeddings.py` | Embedding generation + Redis cache |
+| `test_entitlements.py` | Plan cap checks, env-var override, kill switch |
+| `test_event_write.py` | Event ingestion pipeline (Postgres + Qdrant dual-write) |
+| `test_rate_limiting.py` | In-process rate limiter for community/demo/OTP routes |
+| `test_unit_memory_helpers.py` | `context_for`, `memory_diff`, `baseline` helper logic |
+| `test_smoke.py` | Live API health checks (`/health`, `/health/deep`) |
+| `test_integration_selfhost.py` | Full self-hosted stack integration |
+| `test_route_authz.py` | Scoped-key isolation on why(), list_agents, search |
+| `test_search.py` | Search tenant isolation for unassigned keys |
+| `test_delete_agent.py` | Qdrant vector purge on agent delete |
+| `test_events_at.py` | events/at row cap |
+| `test_community.py` | Community posts, honeypot, rate limit |
+| `test_marketing_subscriptions.py` | Marketing subscription create + honeypot |
+| `test_settings_auth.py` | Settings embeddings requires dashboard session |
+| `test_pg_pool_warn.py` | Postgres pool × workers warning (no live DB) |
+| `test_a2a.py` | `POST /v1/a2a/messages`: sender from scoped key, same-tenant recipient, 404 unknown, 403 tenant-wide/JWT |
+| `test_reports.py` | Per-agent report payload |
+| `test_suggestions.py` | Suggestions extractor / grounding |
+| `test_token_usage.py` | Token/cost aggregation |
+| `test_token_optimization.py` | Deterministic token-waste detectors |
+| `test_api_key_agent_bind.py` | First-use bind of a key to one agent |
+| `test_invalid_api_key.py` | Rejected / malformed API keys |
+| `test_tenant_isolation.py` | Cross-tenant read isolation |
+| `test_exceptions.py` | HTTP exception handlers |
+| `test_secret_fallback_security.py` | Secret fallback hardening |
+| `test_telemetry.py` | Anonymous usage telemetry |
 
-Cursor/Claude Desktop config: `.cursor/mcp.json.example`.
+## CI gates
 
-## Examples (`examples/`)
+Every PR runs via `.github/workflows/ci.yml`:
+1. `ruff check core sdk/python mcp integrations`
+2. `bash scripts/check-doc-drift.sh` — router count + AI doc alignment
+3. `pytest core/tests/ -m "not integration"` (unit only)
+4. `pytest sdk/python/tests/`
+5. `pytest mcp/tests/`
+6. `npm test` (TypeScript SDK)
+7. `cd dashboard && npm run lint && npm test && npm run build`
 
-See [`examples/CLAUDE.md`](../../examples/CLAUDE.md). Six self-contained examples, each with `.env.example`, entrypoint, `requirements.txt`, `README.md`:
-- `minimal-python/` — bare-minimum Python
-- `openai-agent/` — OpenAI function calling
-- `langchain-agent/` — LangChain with `ZizkaDBCallbackHandler`
-- `crewai-agent/` — CrewAI with `ZizkaDBCrewLogger`
-- `livekit-agent/` — LiveKit voice with `ZizkaDBLiveKitObserver`
-- `mcp-cursor/` — Cursor MCP config
+Optional (weekly / manual): `.github/workflows/integration.yml` — full stack integration with `ZIZKADB_RUN_INTEGRATION=1`.
 
-Import paths in examples use standalone package names:
-```python
-from zizkadb_langchain import ZizkaDBCallbackHandler  # correct
-# NOT: from zizkadb.integrations.langchain import ...  # internal path — wrong for examples
-```
+**A failing CI gate blocks merge.** Fix tests before pushing, not after.
 
-`@main` git URLs in `requirements.txt` are moving targets — note this in PRs that change example dependencies.
+## Adding new tests
 
-## Version bumps
+- Python tests: use `pytest` + `pytest-asyncio`. Fixtures in `core/tests/conftest.py`.
+- Mark integration tests: `@pytest.mark.integration`
+- TypeScript SDK: Vitest in `sdk/typescript/` (`npm test`)
+- MCP tests: pytest in `mcp/tests/test_server.py`
 
-Bump these four files together when releasing:
-- `sdk/python/pyproject.toml`
-- `sdk/typescript/package.json`
-- `mcp/pyproject.toml`
-- `core/main.py` (`version=`)
+## Definition of done (CODING_STANDARDS §26, §41, §44)
 
-See `.cursor/skills/zizkadb-release/SKILL.md` for the full release workflow.
+Before PR: run commands for layers you touched; do not claim pass without output. Meaningful tests for auth, contracts, regressions — not coverage theater.
+
+**Docs-only PRs:** `bash scripts/check-doc-drift.sh` when AI/router docs changed.
 
 ---
 > Source: [ZIZKA-AI-SL/ZizkaDB](https://github.com/ZIZKA-AI-SL/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
