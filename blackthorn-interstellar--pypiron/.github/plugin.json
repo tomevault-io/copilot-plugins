@@ -1,0 +1,9 @@
+{
+  "name": "blackthorn-interstellar--pypiron",
+  "displayName": "pypiron",
+  "description": "Ultra-fast, rock-solid PyPI server and mirror.",
+  "version": "1.0.0",
+  "author": "blackthorn-interstellar",
+  "homepage": "https://github.com/blackthorn-interstellar/pypiron",
+  "skills": []
+}
