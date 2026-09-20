@@ -1,0 +1,9 @@
+{
+  "name": "btsouth--ceiling",
+  "displayName": "ceiling",
+  "description": "A focused Windows AI capacity monitor for Codex, Claude, Cursor, Grok, Gemini, OpenCode, and Copilot.",
+  "version": "1.0.0",
+  "author": "btsouth",
+  "homepage": "https://github.com/btsouth/ceiling",
+  "skills": []
+}
