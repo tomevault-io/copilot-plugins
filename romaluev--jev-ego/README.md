@@ -7,13 +7,13 @@ Fast browser agent for ego lite. One TypeSafe request per step; an agent or Jev 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [romaluev/jev-ego](https://github.com/romaluev/jev-ego).
+Original source: `AGENTS.md` in [romaluev/jev-ego](https://github.com/romaluev/jev-ego).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
