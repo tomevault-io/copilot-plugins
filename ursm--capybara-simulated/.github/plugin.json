@@ -1,0 +1,9 @@
+{
+  "name": "ursm--capybara-simulated",
+  "displayName": "capybara-simulated",
+  "description": "Simulated browser environment with DOM, JavaScript, and CSS cascade\u2014without a rendering engine.",
+  "version": "1.0.0",
+  "author": "ursm",
+  "homepage": "https://github.com/ursm/capybara-simulated",
+  "skills": []
+}
