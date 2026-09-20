@@ -1,0 +1,44 @@
+{
+  "name": "netboot-android",
+  "owner": "sky22333",
+  "repo": "netboot-android",
+  "description": "\u4f7fAndroid\u624b\u673a\u80fd\u591f\u5145\u5f53USB \u542f\u52a8\u76d8\u6216PXE\u7f51\u7edc\u542f\u52a8\uff0cMake an Android phone provide PXE network booting or a USB boot drive.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sky22333/netboot-android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T13:31:12Z"
+}
