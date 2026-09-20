@@ -1,0 +1,9 @@
+{
+  "name": "gakonst--evm-bend",
+  "displayName": "evm-bend",
+  "description": "Correctness-first EVM interpreter in Bend targeting Amsterdam. Working interpreter; full conformance and proofs in progress.",
+  "version": "1.0.0",
+  "author": "gakonst",
+  "homepage": "https://github.com/gakonst/evm-bend",
+  "skills": []
+}
