@@ -1,0 +1,9 @@
+{
+  "name": "christinevall--ds-base-ui",
+  "displayName": "ds-base-ui",
+  "description": "Playground repo for designers learning AI design system workflows: a small, real design system on Base UI and React, in Storybook and mirrored to Figma.",
+  "version": "1.0.0",
+  "author": "christinevall",
+  "homepage": "https://github.com/christinevall/ds-base-ui",
+  "skills": []
+}
