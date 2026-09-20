@@ -7,11 +7,11 @@ A Linux host security scanner with a native CLI and desktop GUI — SSH/kernel/s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vietanhdev/bulwark](https://github.com/vietanhdev/bulwark).
+Original source: `AGENTS.md` in [vietanhdev/bulwark](https://github.com/vietanhdev/bulwark).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
