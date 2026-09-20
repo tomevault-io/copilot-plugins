@@ -1,46 +1,36 @@
-## core-backend
+## dashboard
 
-> ZizkaDB FastAPI backend — Python/DB/Redis/security (CODING_STANDARDS §15-24)
+> ZizkaDB dashboard — React/Next conventions (CODING_STANDARDS §5-14)
 
 
-# ZizkaDB Core Backend — Agent Guide
+# ZizkaDB Dashboard — Agent Guide
 
-**Read first:** `core/CLAUDE.md` · `docs/ai/ZIZKADB_MAPPINGS.md` · `docs/ai/CODING_STANDARDS.md` §15–24.
+**Read first:** `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` · `docs/ai/ZIZKADB_MAPPINGS.md` (feature → folder map) · `docs/ai/CODING_STANDARDS.md` §5–14, §20–22.
 
-## Auth dependency tree
+## Architecture (Component → Hook → apiFetch)
 
-| Route type | Dependency |
-|---|---|
-| SDK-callable (events, search, memory, telemetry) | `Depends(get_tenant)` |
-| Dashboard-only (keys, billing, settings, account, delete) | `Depends(require_dashboard_session)` |
-| Per-agent analytics + scoped SDK reads (`why`, `memory/context`, `memory/diff`, stats, sessions, baseline, report, token-*, suggestions) | `get_tenant` + `assert_agent_allowed` first line |
-| A2A `POST /v1/a2a/messages` | `get_tenant`; **scoped API key required** (tenant-wide/JWT → 403) |
+- Next.js 14 App Router; `'use client'` for interactive pages. TS `strict`, `@/*` alias. 2-space, single quotes, no semicolons.
+- **All HTTP via `lib/api.ts::apiFetch`** — never raw `fetch` in components (§13).
+- **No** React Query/SWR/Zustand/Context — local `useState`/`useEffect`; `useAgents()` pub/sub only (§9).
+- Extract hooks for reusable behavior; components compose UI (§6–8, §11).
+- Prefer derived state during render over unnecessary `useEffect` (§10). Guard effects with `cancelled` flags.
+- Handle loading, error, and empty states (§20). No `any`; avoid `@ts-ignore` (§12).
 
-Never trust client-supplied tenant IDs (§24).
+## Critical gotchas
 
-## Layering (§15)
+- **No payment gate.** Signup: plan → consent → OTP → `/dashboard`.
+- **Auth split:** middleware cookie + `localStorage`; sync via `setToken`/`clearToken`.
+- **Plan copy:** `lib/plans.ts` must match `PLAN_ENTITLEMENTS`.
+- **API key limits:** `useApiKeyQuota` — never hardcode caps.
+- Reports + Suggestions tabs: agent-scoped (`?agent=`); see `dashboard/CLAUDE.md`.
 
-Route → validation → `core/services/*` → asyncpg `get_pool()` → PostgreSQL/Redis/Qdrant. No SQLAlchemy. No business logic blobs in routes.
+## Testing
 
-## Database (§16–17)
+`cd dashboard && npm run lint && npm test && npm run build` (§26, §41).
 
-- Idempotent DDL: `schema.sql` + `init_db()`; named files `002`, `004`, `005`.
-- Parameterized queries only; avoid N+1; paginate in SQL.
+## Keep KB in sync
 
-## Redis (§18)
-
-Embedding cache + optional OTP rate limit. See `core/services/embeddings.py`.
-
-## Event pipeline
-
-`event_write.py`: Postgres (required) → Qdrant (best-effort).
-
-## Lint / test
-
-```bash
-ruff check core/
-pytest core/tests/ -m "not integration" -v
-```
+Update `DASHBOARD_KNOWLEDGE_BASE.md` (§7, §8, §17.3, §18–21) when changing flows, `lib/api.ts`, or backend contracts.
 
 ---
 > Source: [ZIZKA-AI-SL/ZizkaDB](https://github.com/ZIZKA-AI-SL/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
