@@ -4,7 +4,7 @@
   "repo": "Garrul",
   "description": "Self-hosted comments for static sites, Cloudflare Workers + D1 + KV + Turnstile, threaded, OAuth, embeddable widget",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KingPin/Garrul",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T06:30:23Z"
+  "distributed_at": "2026-09-20T06:31:10Z"
 }
