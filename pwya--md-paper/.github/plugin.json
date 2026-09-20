@@ -1,0 +1,9 @@
+{
+  "name": "pwya--md-paper",
+  "displayName": "md-paper",
+  "description": "Word-to-Markdown-to-Word revision workflow for academic manuscripts; keeps Zotero citations and cross-references live. Claude Code skills.",
+  "version": "1.0.0",
+  "author": "pwya",
+  "homepage": "https://github.com/pwya/md-paper",
+  "skills": []
+}
