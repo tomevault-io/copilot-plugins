@@ -1,0 +1,9 @@
+{
+  "name": "punktfunk--client-webos",
+  "displayName": "client-webos",
+  "description": "Native LG webOS TV client for punktfunk",
+  "version": "1.0.0",
+  "author": "punktfunk",
+  "homepage": "https://github.com/punktfunk/client-webos",
+  "skills": []
+}
