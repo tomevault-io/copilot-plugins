@@ -1,0 +1,44 @@
+{
+  "name": "rikkahub-sillytavern-android",
+  "owner": "MiaoWuNYA",
+  "repo": "rikkahub-sillytavern-android",
+  "description": "SillyTavern Android \u5b89\u5353\u9152\u9986\u5ba2\u6237\u7aef \u2014\u2014 \u539f\u751f\u91cd\u5199\uff0c\u65e0\u9700 Termux/Node.js\u3002\u89d2\u8272\u5361\u3001\u4e16\u754c\u4e66 Lorebook\u3001\u9884\u8bbe\u3001\u6b63\u5219\u3001\u5feb\u901f\u56de\u590d QR\u3001\u7f8e\u5316\u4e3b\u9898\u4e00\u952e\u5bfc\u5165\uff0c\u6309\u9152\u9986\u5b98\u65b9\u8bed\u4e49\u65e0\u635f\u517c\u5bb9\uff1b\u63d0\u793a\u8bcd\u524d\u7f00\u7f13\u5b58\u7701 token\u3001\u8bed\u4e49\u8bb0\u5fc6 RAG\u3001\u4e09\u5c42\u8bb0\u5fc6\u3001QuickJS \u63d2\u4ef6\u3001\u5fae\u4fe1 QQ Bot\u3001\u8c46\u5305 TTS \u8bed\u97f3\u901a\u8bdd",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MiaoWuNYA/rikkahub-sillytavern-android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T15:30:25Z"
+}
