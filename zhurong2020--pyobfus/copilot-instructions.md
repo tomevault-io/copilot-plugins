@@ -1,0 +1,175 @@
+## pyobfus
+
+> Canonical, tool-agnostic guide for AI coding agents (and humans) working **on**
+
+# AGENTS.md — pyobfus
+
+Canonical, tool-agnostic guide for AI coding agents (and humans) working **on**
+the pyobfus codebase. Tool-specific files defer here: `CLAUDE.md` imports this
+file; Cursor / Windsurf / Aider / Codex read `AGENTS.md` natively.
+
+> Looking to *use* pyobfus to protect your own code, not develop it? See the
+> [`pyobfus-review`](skills/pyobfus-review/SKILL.md) skill (read-only: should
+> we obfuscate this, and what breaks?), the
+> [`pyobfus-protect`](skills/pyobfus-protect/SKILL.md) skill (do it, and verify
+> the result), and the [`templates/ai-integration/`](templates/ai-integration/)
+> rule files instead.
+
+## What this project is
+
+pyobfus is an **AST-based Python code obfuscator** — framework-aware presets,
+reverse stack-trace mapping for AI-assisted debugging, and a machine-readable
+JSON CLI. A transparent, open-source alternative to PyArmor. The repo ships
+**two packages**:
+
+- `pyobfus/` — the obfuscator (CLI + library). Published as `pyobfus`.
+- `pyobfus_mcp/` — an MCP server exposing the tools to AI agents. Published as
+  `pyobfus-mcp`.
+
+Plus `pyobfus_pro/` (commercial, license-gated features) kept source-separated
+from the Apache-2.0 core.
+
+## Setup
+
+Use the repository-local **`venv/`** on WSL/Linux. Do **not** use `.venv/`:
+that directory is a Windows-side legacy environment and WSL cannot reliably run
+its executables. Either activate `venv/` first, or call tools through
+`venv/bin/...` directly.
+
+```bash
+python -m venv venv && source venv/bin/activate
+pip install -e ".[dev]"
+git config core.hooksPath .githooks   # once per clone — enables the pre-commit guard (PII + credentials)
+```
+
+## Build / test / lint — run before every commit
+
+```bash
+venv/bin/pytest tests/                 # core suite (run this and the two below separately)
+venv/bin/pytest pyobfus_mcp/tests/     # MCP server suite
+venv/bin/pytest integration_tests/     # end-to-end CLI
+venv/bin/black pyobfus/                # format
+venv/bin/ruff check pyobfus/           # lint
+venv/bin/mypy pyobfus/                 # type check
+```
+
+Note: the core and MCP test roots are collected as **separate** pytest
+invocations (CI runs them as separate jobs) — don't point one `pytest` at both
+roots at once.
+
+Tests must never read, write, or delete a developer's real pyobfus state under
+`~/.pyobfus` (notably `trial.json` and `license.json`) or place generated run
+counters in the real home directory. Bind module-level state paths and any
+generated-code `HOME` / `USERPROFILE` lookup to pytest's per-test `tmp_path`.
+The standard commands above must pass with the caller's normal HOME; requiring
+`HOME=/tmp/...` is a test-isolation regression, not an accepted prerequisite.
+
+**4th test root — `vscode-extension/`** (Node/npm, not pytest; independent
+package, see `docs/VSCODE_EXTENSION_PLAN.md`):
+
+```bash
+cd vscode-extension
+npm ci
+npm run lint          # eslint
+npm run typecheck     # tsc --noEmit
+npm run pretest       # esbuild + compile tests to out/
+PYOBFUS_PYTHON_PATH="$(cd .. && pwd)/venv/bin/python3" npm test
+```
+
+`npm test` needs a **resolvable interpreter with pyobfus actually
+installed** for the real-contract integration tests (`test/suite/
+integration.test.ts`) — without `PYOBFUS_PYTHON_PATH` set, interpreter
+resolution falls back to a bare `python3`/`python` on PATH (the
+`ms-python.python` extension isn't active inside the plain
+`@vscode/test-electron` test profile), which on a fresh machine likely
+doesn't have pyobfus installed and fails 4 of the tests with a "no module
+named pyobfus" error — not a real bug, just a missing env var. WSLg (or
+any real X server) is required for `@vscode/test-electron` to launch;
+`xvfb-run -a npm test` works too if there's no display available.
+
+CI runs this as a separate, path-filtered workflow
+(`.github/workflows/vscode-extension-ci.yml`, sets the same env var to
+`${{ env.pythonLocation }}/bin/python`), not as part of the Python
+`ci.yml` jobs above.
+
+Targets: Python **3.9–3.14** must all pass. (Python 3.8 was dropped in 0.5.0 —
+EOL 2024-10 — which removed the old `astunparse`/`@requires_py39` flakiness;
+`docs/PYTHON38_COMPATIBILITY.md` is retained only as historical record.)
+
+## Self-dogfooding boundary
+
+Use pyobfus itself for read-only analysis/reporting and exercise obfuscation on
+maintained canary fixtures or freshly built wheels; do not replace the public
+package sources with a self-obfuscated tree. A current checkout must not be the
+only verifier of artifacts it produced: pair it with the latest public release,
+normal Python tooling, independent schema validation, hosted attestations, and
+fresh-environment install tests as appropriate.
+
+Self-scan findings are initially audit evidence, not an automatic blocking
+gate. Do not exclude the whole `pyobfus/` tree or weaken a general detection
+merely to make the repository's own report green. Suppress intentional patterns
+only through a reviewed, precise rule with a technical reason; claim SARIF
+`baselineState` only after a complete comparison. See
+[`docs/SELF_DOGFOODING_BEST_PRACTICES.md`](docs/SELF_DOGFOODING_BEST_PRACTICES.md)
+for the staged policy and current baseline.
+
+## Repository layout
+
+```
+pyobfus/            # core obfuscator: cli.py, config.py, core/, transformers/
+pyobfus_mcp/        # MCP server (FastMCP): pyobfus_mcp/{server,tools,_security}.py
+pyobfus_pro/        # Pro edition (commercial license) — kept separate from core
+skills/             # agent skills (pyobfus-review, pyobfus-protect) + plugin marketplace
+templates/          # copy-in AI rule files + python-baseline bootstrap
+tests/ · pyobfus_mcp/tests/ · integration_tests/
+docs/               # CURRENT_PLAN_ZH.md (current plan), archived roadmap/TODO, threat model
+cloudflare-worker/  # Pro license verification Worker
+```
+
+## Conventions
+
+- **Stable JSON contract.** Every CLI mode and MCP tool returns a dict with
+  `status`, `ai_hint`, and (MCP) a machine-readable `next_tool` field. Don't
+  break these shapes without a version bump.
+- **Dual license, separated source.** Never move Pro logic into the Apache-2.0
+  core or vice-versa. Never commit Pro license keys or the Stripe webhook secret
+  to this public repo.
+- **Public repo.** This is `zhurong2020/pyobfus`, public. The pre-commit hook
+  runs two independent scans: a fixed set of personal identifiers, and
+  credential shapes (Open VSX / PyPI / GitHub / GitLab / npm / Anthropic /
+  OpenAI / AWS / Slack / Google tokens, PEM private keys). Keep both out of
+  code, commits, and docs. Each scan has its own bypass
+  (`PYOBFUS_ALLOW_PII=1` / `PYOBFUS_ALLOW_SECRET=1`) — waving through a
+  documented PII string does not wave through a token. Credential hits print
+  `file:line` only, never the value. If a blocked credential was ever real,
+  **rotate it**; deleting it from the file is not a rotation. Details:
+  `.githooks/README.md`.
+
+## 🟢 Patent gate — CLEARED 2026-06-17 (v0.5 Pro mechanisms now releasable)
+
+A subset of v0.5 Pro mechanisms was held back under an active patent application
+(申请号 202610712171X, priority date 2026-05-22). The gate condition — *patent
+formality correction resolved and application status clean* — **was met on
+2026-06-17** when CNIPA issued the 初步审查合格通知书 (preliminary examination
+passed). Priority is secured, so public disclosure of these mechanisms no longer
+risks the application.
+
+These mechanisms now ship to the public repo via a **controlled Phase 5 merge**
+(deliberate, one-time public disclosure) — see `docs/V0.5_RELEASE_PLAN.md`. Until
+that merge lands, still don't leak unreleased mechanism detail in incidental
+commits. The permanent rules remain: `pyobfus-legal/` never enters git (PII), and
+Pro/Core source stays separated. See `docs/CURRENT_PLAN_ZH.md` for current
+planning state and the archived `docs/POST_V0.4_TODO.md` § P1 for historical
+patent/release context.
+
+## Where to look next
+
+- **Current plan / daily source of truth**: [`docs/CURRENT_PLAN_ZH.md`](docs/CURRENT_PLAN_ZH.md).
+- **What to pick up next**: [`docs/TODO.md`](docs/TODO.md), ordered, with acceptance criteria.
+- **Historical detail**: [`docs/POST_V0.4_TODO.md`](docs/POST_V0.4_TODO.md) and [`docs/ROADMAP.md`](docs/ROADMAP.md) are archived context, not the primary cold-start entry.
+- **Contributing**: [`CONTRIBUTING.md`](CONTRIBUTING.md).
+- **Security policy**: [`SECURITY.md`](SECURITY.md).
+
+---
+> Source: [zhurong2020/pyobfus](https://github.com/zhurong2020/pyobfus) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-20 -->
