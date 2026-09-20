@@ -4,7 +4,7 @@
   "repo": "dilo",
   "description": "Dictado por voz offline, en espa\u00f1ol. Deja de tipear tus prompts: Dilo. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aacontn/dilo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T02:43:09Z"
+  "distributed_at": "2026-09-20T02:57:55Z"
 }
