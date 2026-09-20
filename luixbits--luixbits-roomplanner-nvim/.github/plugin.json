@@ -1,0 +1,9 @@
+{
+  "name": "luixbits--luixbits-roomplanner-nvim",
+  "displayName": "luixbits-roomplanner.nvim",
+  "description": "Terminal-native flat planning for Neovim with exact metric geometry and JSON/Norg storage.",
+  "version": "1.0.0",
+  "author": "LuixBits",
+  "homepage": "https://github.com/LuixBits/luixbits-roomplanner.nvim",
+  "skills": []
+}
