@@ -1,0 +1,44 @@
+{
+  "name": "youtube-transcript-minimal",
+  "owner": "BradGroux",
+  "repo": "youtube-transcript-minimal",
+  "description": "A minimalist YouTube transcript downloader made for the agent era \u2014 one click gets any video\u2019s captions into Codex or Muse. No popups, ads, accounts, or third-party servers.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BradGroux/youtube-transcript-minimal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T00:33:59Z"
+}
