@@ -7,11 +7,11 @@ Silico makes building maintainable firmware for embedded devices simple using AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tig/silico](https://github.com/tig/silico).
+Original source: `AGENTS.md` in [tig/silico](https://github.com/tig/silico).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
