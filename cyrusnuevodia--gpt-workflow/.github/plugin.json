@@ -1,0 +1,9 @@
+{
+  "name": "cyrusnuevodia--gpt-workflow",
+  "displayName": "gpt-workflow",
+  "description": "Deterministic multi-agent workflows",
+  "version": "1.0.0",
+  "author": "CyrusNuevoDia",
+  "homepage": "https://github.com/CyrusNuevoDia/gpt-workflow",
+  "skills": []
+}
