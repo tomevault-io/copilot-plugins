@@ -1,0 +1,9 @@
+{
+  "name": "pelydeng--dsh-plugin-manager",
+  "displayName": "dsh-plugin-manager",
+  "description": "Deploy and manage DeepSeek Harness apps with shared authentication, plugin packaging, and Docker deployment.",
+  "version": "1.0.0",
+  "author": "PelyDeng",
+  "homepage": "https://github.com/PelyDeng/dsh-plugin-manager",
+  "skills": []
+}
