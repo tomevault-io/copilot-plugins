@@ -7,11 +7,11 @@ Get to 150+ PRs a week by letting ready-for-agent do the babysitting of your cla
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [berenddeboer/ready-for-agent](https://github.com/berenddeboer/ready-for-agent).
+Original source: `AGENTS.md` in [berenddeboer/ready-for-agent](https://github.com/berenddeboer/ready-for-agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
