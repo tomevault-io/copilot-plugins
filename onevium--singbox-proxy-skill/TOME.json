@@ -4,7 +4,7 @@
   "repo": "singbox-proxy-skill",
   "description": "\u7ed9 Claude Code / AI \u5f00\u53d1\u5de5\u5177\u81ea\u5efa\u7a33\u5b9a IP \u2014\u2014 sing-box Shadowsocks \u4e2d\u8f6c + \u7f51\u9875\u7ba1\u7406\u9762\u677f + \u5b89\u5168\u52a0\u56fa\uff0c\u53ef\u94fe\u9759\u6001\u4f4f\u5b85\u51fa\u53e3 \u00b7 A self-hosted stable-IP proxy for Claude Code / Codex / Cursor & other AI tools",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Onevium/singbox-proxy-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T02:31:08Z"
+  "distributed_at": "2026-09-20T02:34:37Z"
 }
