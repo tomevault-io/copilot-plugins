@@ -1,0 +1,9 @@
+{
+  "name": "barkley-assistant--caduceus",
+  "displayName": "caduceus",
+  "description": "Caduceus is a Unix daemon, shipped as a Hermes plugin, that polls GitHub for labeled issues, runs your AI harness against them in isolated worktrees.",
+  "version": "1.0.0",
+  "author": "barkley-assistant",
+  "homepage": "https://github.com/barkley-assistant/caduceus",
+  "skills": []
+}
