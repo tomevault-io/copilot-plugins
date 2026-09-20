@@ -1,0 +1,44 @@
+{
+  "name": "Agent_Smith-Reloaded",
+  "owner": "6Morpheus6",
+  "repo": "Agent_Smith-Reloaded",
+  "description": "Local desktop coding assistant you can run with any local model. No API key required. It can read your project, edit files, run commands, verify results, and show you exactly what changed. Private remote access is possible as well, incl. sharing files across devices e.g. sending files to your mobile phone. (Min Requirements 24GB VRAM / 64GB RAM)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/6Morpheus6/Agent_Smith-Reloaded",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T03:26:10Z"
+}
