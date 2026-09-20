@@ -1,0 +1,9 @@
+{
+  "name": "wormalien--hub-cc",
+  "displayName": "hub-cc",
+  "description": "Local control plane for Claude Code on Windows and macOS: switch LLM gateways in one click behind a fixed endpoint, SSE keepalive proxies, key pools with live balances, GitHub accounts with TOTP, stat",
+  "version": "1.0.0",
+  "author": "WormAlien",
+  "homepage": "https://github.com/WormAlien/hub-cc",
+  "skills": []
+}
