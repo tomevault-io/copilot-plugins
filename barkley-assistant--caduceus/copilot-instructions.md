@@ -1,0 +1,64 @@
+## caduceus
+
+> These requirements apply to human and automated contributors.
+
+# AGENTS.md — Contributor Instructions
+
+These requirements apply to human and automated contributors.
+
+## Repository Boundaries
+
+- Keep this as one Rust crate producing the `caduceus` binary.
+- Keep Python in `plugin-assets/worker-bridge.py` and `tests/`.
+- Keep the Hermes plugin in `plugin.yaml`, `__init__.py`, and
+  `skills/caduceus/`. Hermes Agent v0.18.2 is the minimum host version.
+- Do not add top-level directories outside `.github/`,
+  `plugin-assets/`, `skills/`, `src/`, and `tests/` without approval.
+- Do not commit generated files.
+
+## Safety
+
+- Never edit daemon state, claim files, or transcripts directly. Use the
+  commands in the [State-Recovery wiki
+  page](https://github.com/barkley-assistant/caduceus/wiki/State-Recovery).
+- Never commit operator-generated prompt files or directories.
+- Do not add `todo!()`, `unimplemented!()`, or new `unsafe` production code.
+- Agent-created pull requests are merged autonomously (squash) once all
+  required checks pass; there is no human review gate.
+
+## Commits
+
+Every commit and merge commit follows
+[Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
+with a required, non-empty scope:
+
+```text
+<type>(<scope>): <description>
+```
+
+Type and scope are lowercase. The description is imperative, has no trailing
+period, and keeps the complete subject at 80 characters or fewer. For example:
+`feat(lang): add Polish language example`. Use the type and scope appropriate
+to the actual change; the example is not a prescribed value.
+
+Put tests in `tests/` as `<subject>_test.rs` or `<subject>_test.py`; do not add
+inline test modules under `src/`.
+
+Run before pushing:
+
+```bash
+cargo fmt --check
+cargo clippy --locked --all-targets -- -D warnings
+cargo test --locked --all-targets
+uv run pytest -q tests/plugin/ tests/integration/bridge_test.py
+```
+
+Run `uv sync` once after cloning to install the locked Python dependencies
+(Python 3.12, managed by the committed `uv.lock`).
+
+Use `rustfmt` and Ruff defaults. Keep Markdown links relative, tag fenced code
+blocks, and soft-wrap prose at 80 characters.
+
+---
+> Source: [barkley-assistant/caduceus](https://github.com/barkley-assistant/caduceus) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-20 -->
