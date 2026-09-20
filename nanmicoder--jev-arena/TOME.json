@@ -1,0 +1,44 @@
+{
+  "name": "jev-arena",
+  "owner": "NanmiCoder",
+  "repo": "jev-arena",
+  "description": "Jev \u6a21\u578b\u4ecb\u7ecd\u4e0e\u5b9e\u6d4b\uff1a\u901a\u8fc7 Choice / Score / Noul \u5c06\u81ea\u7136\u8bed\u8a00\u8f6c\u4e3a\u5e26\u7c7b\u578b\u7684\u5224\u65ad\u4e0e\u6982\u7387\uff0c\u7528\u4e8e\u5206\u7c7b\u3001\u8bc4\u5206\u548c\u8def\u7531\uff1b\u652f\u6301\u4e0e DeepSeek \u7b49\u6a21\u578b\u5bf9\u6bd4\u8bc4\u8bba\u6253\u6807\u3001\u901f\u5ea6\u4e0e\u7ed3\u679c\uff0c\u542b CSV/Excel \u5bfc\u5165\u3001\u539f\u901f\u56de\u653e\u4e0e\u79bb\u7ebf\u62a5\u544a\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NanmiCoder/jev-arena",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T07:33:04Z"
+}
