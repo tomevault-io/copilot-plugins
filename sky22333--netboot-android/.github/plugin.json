@@ -1,0 +1,9 @@
+{
+  "name": "sky22333--netboot-android",
+  "displayName": "netboot-android",
+  "description": "\u4f7fAndroid\u624b\u673a\u80fd\u591f\u5145\u5f53USB \u542f\u52a8\u76d8\u6216PXE\u7f51\u7edc\u542f\u52a8\uff0cMake an Android phone provide PXE network booting or a USB boot drive.",
+  "version": "1.0.0",
+  "author": "sky22333",
+  "homepage": "https://github.com/sky22333/netboot-android",
+  "skills": []
+}
