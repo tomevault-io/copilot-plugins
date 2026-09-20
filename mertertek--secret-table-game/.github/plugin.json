@@ -1,0 +1,9 @@
+{
+  "name": "mertertek--secret-table-game",
+  "displayName": "secret-table-game",
+  "description": "3D social-deduction game for 5-10 friends in the browser, based on the rules of Secret Hitler. First-person table, hand gestures, TR/EN. React + three.js + Supabase + Vercel.",
+  "version": "1.0.0",
+  "author": "mertertek",
+  "homepage": "https://github.com/mertertek/secret-table-game",
+  "skills": []
+}
