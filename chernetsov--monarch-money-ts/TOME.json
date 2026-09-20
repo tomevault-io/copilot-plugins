@@ -4,7 +4,7 @@
   "repo": "monarch-money-ts",
   "description": "A modern unofficial TypeScript client for the Monarch Money API",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chernetsov/monarch-money-ts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T14:37:02Z"
+  "distributed_at": "2026-09-20T14:42:10Z"
 }
