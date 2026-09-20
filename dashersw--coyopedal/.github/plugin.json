@@ -1,0 +1,9 @@
+{
+  "name": "dashersw--coyopedal",
+  "displayName": "coyopedal",
+  "description": "ESP32-S3 A2-Full NAM pedalboard with direct SD-card NAM loading and a Gea-compiled native frontend",
+  "version": "1.0.0",
+  "author": "dashersw",
+  "homepage": "https://github.com/dashersw/coyopedal",
+  "skills": []
+}
