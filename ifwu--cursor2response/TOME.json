@@ -1,0 +1,44 @@
+{
+  "name": "cursor2response",
+  "owner": "iFwu",
+  "repo": "cursor2response",
+  "description": "Local Cursor gateway, Responses first, reusable SDK sessions, native steer, readable traces, and optional context overflow fallback.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iFwu/cursor2response",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T10:34:31Z"
+}
