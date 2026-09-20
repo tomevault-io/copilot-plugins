@@ -4,7 +4,7 @@
   "repo": "jev-superpowers",
   "description": "Systematic software development framework for AI coding agents upgraded with TypeSafe Jev System One typed decisions",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AkashPriyadarshii/jev-superpowers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T22:30:26Z"
+  "distributed_at": "2026-09-20T22:31:13Z"
 }
