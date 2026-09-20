@@ -1,0 +1,9 @@
+{
+  "name": "gtechgovind--agento",
+  "displayName": "agento",
+  "description": "A Python agent runtime with context management, durable execution, tools, approvals, and multi-agent collaboration.",
+  "version": "1.0.0",
+  "author": "GtechGovind",
+  "homepage": "https://github.com/GtechGovind/agento",
+  "skills": []
+}
