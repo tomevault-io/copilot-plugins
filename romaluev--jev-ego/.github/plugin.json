@@ -1,0 +1,9 @@
+{
+  "name": "romaluev--jev-ego",
+  "displayName": "jev-ego",
+  "description": "Fast browser agent for ego lite. One TypeSafe request per step; an agent or Jev picks the move.",
+  "version": "1.0.0",
+  "author": "romaluev",
+  "homepage": "https://github.com/romaluev/jev-ego",
+  "skills": []
+}
