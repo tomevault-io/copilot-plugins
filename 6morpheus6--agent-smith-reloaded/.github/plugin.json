@@ -1,0 +1,9 @@
+{
+  "name": "6morpheus6--agent-smith-reloaded",
+  "displayName": "Agent_Smith-Reloaded",
+  "description": "Local desktop coding assistant you can run with any local model. No API key required. It can read your project, edit files, run commands, verify results, and show you exactly what changed. Private rem",
+  "version": "1.0.0",
+  "author": "6Morpheus6",
+  "homepage": "https://github.com/6Morpheus6/Agent_Smith-Reloaded",
+  "skills": []
+}
