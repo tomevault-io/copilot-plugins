@@ -1,0 +1,9 @@
+{
+  "name": "zizka-ai-sl--zizkadb",
+  "displayName": "ZizkaDB",
+  "description": "Audit trail database for AI agents. Tamper-evident, checksum-backed decision logs with session replay and time-travel debugging to support EU AI Act Article 12 record-keeping. Drift detection, MCP, Py",
+  "version": "1.0.0",
+  "author": "ZIZKA-AI-SL",
+  "homepage": "https://github.com/ZIZKA-AI-SL/ZizkaDB",
+  "skills": []
+}
