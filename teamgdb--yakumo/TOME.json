@@ -4,7 +4,7 @@
   "repo": "Yakumo",
   "description": "Static recompilation of a PSP game into a native executable. Vulkan and SDL3. Bring your own copy of the game.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TeamGDB/Yakumo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T12:30:53Z"
+  "distributed_at": "2026-09-20T12:37:30Z"
 }
