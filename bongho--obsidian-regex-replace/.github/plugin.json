@@ -1,0 +1,9 @@
+{
+  "name": "bongho--obsidian-regex-replace",
+  "displayName": "obsidian-regex-replace",
+  "description": "Find and replace text using regular expressions with real-time preview and match highlighting for Obsidian",
+  "version": "1.0.0",
+  "author": "bongho",
+  "homepage": "https://github.com/bongho/obsidian-regex-replace",
+  "skills": []
+}
