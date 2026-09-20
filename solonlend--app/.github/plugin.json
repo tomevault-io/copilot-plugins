@@ -1,0 +1,9 @@
+{
+  "name": "solonlend--app",
+  "displayName": "app",
+  "description": "Solon app \u2014 AGPL fork of Morpho Lite for tokenized-stock lending + leveraged LP on Robinhood Chain",
+  "version": "1.0.0",
+  "author": "solonlend",
+  "homepage": "https://github.com/solonlend/app",
+  "skills": []
+}
