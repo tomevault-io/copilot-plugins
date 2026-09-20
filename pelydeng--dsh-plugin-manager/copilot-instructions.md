@@ -1,0 +1,34 @@
+## dsh-plugin-manager
+
+> 公共库位于 `packages/*`，框架内置插件位于 `plugins/builtin/*`，私有/用户源码位于 `plugins/external/*`。依赖方向和公开接口见 [doc/architecture.md](doc/architecture.md)。
+
+# 开发约定
+
+公共库位于 `packages/*`，框架内置插件位于 `plugins/builtin/*`，私有/用户源码位于 `plugins/external/*`。依赖方向和公开接口见 [doc/architecture.md](doc/architecture.md)。
+
+- 修改前检查工作区，只提交任务文件。不得引入凭据、运行数据、生成归档或客户专属资源。
+- 开发阶段只在本地启动和验证，不自动部署服务器；用户明确要求发版到服务器后，才执行服务器发布。版本号在发版时统一确定，日常修改不自行升版。
+- 版本规则：大功能新增或修改升级次版本并将补丁号归零（如 `0.4.1 → 0.5.0`）；小功能更新、优化或修复升级补丁号（如 `0.4.1 → 0.4.2`）。公共框架作为一个发布单元，根 `package.json` 的 `version` 是唯一版本源；manager、kit、auth、example 同步使用该版本，不再分别升级。通过 `node scripts/version.mjs set <版本>` 设置并同步，提交前执行 `node scripts/version.mjs check`。定制插件与独立作者项目保留自己的版本；官方宿主版本不随框架同步。未经用户明确指定不得发布 `1.0.0` 及以上里程碑版本。
+- kit 不依赖管理器；管理器读取插件声明与归档，不导入业务源码。插件通过包名导入 kit，宿主运行实现保持外部依赖。
+- 业务应用只通过官方 `dsh` profile 启动，管理器负责安装和运维。
+- 项目路径由显式 root 解析，独立包不能从安装目录或 cwd 推测项目根。仓库入口仅转发参数。
+- `.local/data`、`.local/artifacts` 及备份不得由 clean 删除。已有目录必须显式沿用或按停写、备份、复制、校验流程迁移，保留原源。
+- 状态、锁和恢复规则只有一个实现；停写证据与锁分别核验，保护非受管依赖和用户 patch。
+- 官方 `deepseek-harness` 子模块保持独立依赖树和锁定版本。普通构建不修改或下载宿主源码。
+- 按改动选择必要检查，不把构建、类型检查和全套测试作为每次修改的固定步骤；发版时再执行所需构建、行为测试和独立安装包验证。真实宿主、模型替身、容器、浏览器和生产验证分别记录，不将跳过报告为通过。
+- 框架支持按需构建单个或任意多个插件：日常使用 `pnpm build --plugins "<ID列表>"`，打包使用 `pnpm package --plugins "<ID列表>"`（ID 用逗号分隔并加引号，避免 PowerShell 拆成数组）。站点内置插件固定全量构建、不复用旧成功记录；外部插件由作者打包成完整发布目录放入 incoming，缺包不表示停用、不自动挑版本、不构建作者源码。构建依赖须声明；失败后直接重新运行普通 build 从当前现场收敛，旧 `--resume`/`--recover`/`--rebuild-plugins` 已移除，具体约束见 `deploy/README.md`。
+- 源码部署支持干净宿主源码与显式不可变 `hostImage` 两种基底：前者核验检出身份，后者核验固定镜像摘要，均校验最终镜像身份；构建不下载宿主源码、不改写旧记录。
+- 插件自身目录内已纳入 Git 的常规 `.tgz` / `.tar.gz` 可作为 `file:` 构建输入；拒绝符号链接、目录、越界、未跟踪归档及 `link:`。私有 vendor 资源只保留在私有仓库，公共测试使用自造归档。
+- 含当前框架版本的文档以相邻 `.md.tmpl` 为编辑源，使用 `{{FRAMEWORK_VERSION}}`；运行 `node scripts/version.mjs sync` 更新已提交的 `.md`。历史版本与功能起始版本不替换。CI 只校验同步状态，不改写文件；完整规则见 [doc/versioning.md](doc/versioning.md)。
+- 文档和注释描述当前行为、必要约束和使用方式，删除过时路径、讨论过程及重复说明。设计文档、开发计划、评审与验收记录等过程材料存放在 `.local/{项目名}/docs/{文档类型}/`，按“设计、计划、评审、验收”等类型分类，文件使用 `YYYYMMDD-HHmmss-中文文档名称.md` 命名，不提交 Git；个人博客和推广材料放在仓库外。`doc/` 只保留当前项目资料。提交前运行 `git diff --cached --check`。
+- 优先复用 DSH 官方插件和已有接口，确认无法满足需求后再自行实现。
+- 问答插件通过 kit 的 `registerConversationTitles` 复用官方首句标题，监听持续到插件释放，不重复调用模型。只更新自己已有的 owner 索引，拒绝已删除或移除中的会话；自动结果不覆盖手动、分支和既有标题，可信用户明确改名可再次更新。标题可能晚于回答结束，前端等待必须有界。
+- 文档使用自然易懂的表达，先讲用途和操作，再解释必要术语；拆开过长段落，少用套话。保留准确的命令、字段、限制和来源，按需用表格或图表说明。
+
+- 外部产物是第一部署方式：作者独立项目用现有 pack 交付完整清单与归档，站点 incoming 是完整集合。精简部署包默认 archives，源码检出入口默认 source；漏包不表示停用，不自动挑版本，不构建作者源码。旧实例配置/数据路径不迁移。
+- 文档按主题维护唯一正文。固定公开片段通过 scripts/version.mjs 的 sync/check 生成，example build 不重复写 guide.md；保留随包离线正文、无模型 FAQ 入口和鉴权。原手工 CLI DELIVERY 与自动 build 路径分别说明。
+- 同包业务配置修正直接修改错误提示指出的原文件后运行普通 build；换修复包、宿主或工具由维护者准备新的完整输入。不得通过删锁、改状态或删数据绕过，健康通过不能代替登录授权和业务请求验证。
+
+---
+> Source: [PelyDeng/dsh-plugin-manager](https://github.com/PelyDeng/dsh-plugin-manager) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-20 -->
