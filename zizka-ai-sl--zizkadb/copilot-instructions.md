@@ -1,36 +1,91 @@
-## dashboard
+## infra-deploy
 
-> ZizkaDB dashboard — React/Next conventions (CODING_STANDARDS §5-14)
+> ZizkaDB infrastructure, Docker Compose, deployment, CI/CD, and scripts
 
 
-# ZizkaDB Dashboard — Agent Guide
+# ZizkaDB Infra & Deployment — Agent Guide
 
-**Read first:** `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` · `docs/ai/ZIZKADB_MAPPINGS.md` (feature → folder map) · `docs/ai/CODING_STANDARDS.md` §5–14, §20–22.
+## Docker Compose files
 
-## Architecture (Component → Hook → apiFetch)
+| File | Purpose |
+|---|---|
+| `infra/docker-compose.yml` | **Production base** — used by deploy script |
+| `infra/docker-compose.dev.yml` | Dev overlay — adds `--reload` + `../core:/app` volume mount |
+| `infra/docker-compose.oss.yml` | OSS quickstart — GHCR pre-built images |
+| `infra/docker-compose.quickstart.yml` | Remote quickstart (no clone required) |
+| `infra/docker-compose.dashboard.yml` | Dashboard-only overlay |
 
-- Next.js 14 App Router; `'use client'` for interactive pages. TS `strict`, `@/*` alias. 2-space, single quotes, no semicolons.
-- **All HTTP via `lib/api.ts::apiFetch`** — never raw `fetch` in components (§13).
-- **No** React Query/SWR/Zustand/Context — local `useState`/`useEffect`; `useAgents()` pub/sub only (§9).
-- Extract hooks for reusable behavior; components compose UI (§6–8, §11).
-- Prefer derived state during render over unnecessary `useEffect` (§10). Guard effects with `cancelled` flags.
-- Handle loading, error, and empty states (§20). No `any`; avoid `@ts-ignore` (§12).
+**Never add `--reload` or `../core:/app` volume mounts to `docker-compose.yml`** — those belong only in `docker-compose.dev.yml`. The production compose is also used to deploy managed cloud.
 
-## Critical gotchas
+Dev stack:
+```bash
+docker compose -f infra/docker-compose.yml -f infra/docker-compose.dev.yml up -d
+```
 
-- **No payment gate.** Signup: plan → consent → OTP → `/dashboard`.
-- **Auth split:** middleware cookie + `localStorage`; sync via `setToken`/`clearToken`.
-- **Plan copy:** `lib/plans.ts` must match `PLAN_ENTITLEMENTS`.
-- **API key limits:** `useApiKeyQuota` — never hardcode caps.
-- Reports + Suggestions tabs: agent-scoped (`?agent=`); see `dashboard/CLAUDE.md`.
+Production command in `docker-compose.yml`: `uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4`
 
-## Testing
+## Production deployment
 
-`cd dashboard && npm run lint && npm test && npm run build` (§26, §41).
+**Single EC2 instance** — no AWS ECS, EKS, Terraform, CodeDeploy, or buildspec files. Deploy is:
+```
+SSH → git pull → docker compose -f infra/docker-compose.yml up -d --build
+```
 
-## Keep KB in sync
+Script: `infra/deploy-production.sh`
 
-Update `DASHBOARD_KNOWLEDGE_BASE.md` (§7, §8, §17.3, §18–21) when changing flows, `lib/api.ts`, or backend contracts.
+## `DEPLOYMENT_MODE` — critical for self-hosters
+
+Defaults to `managed`. Self-hosters **must** set `DEPLOYMENT_MODE=self_hosted` in their `.env`, or plan entitlements resolve to `managed` plan caps instead of the self-hosted plan (1 API key cap).
+
+## Key environment variables
+
+Full list in `.env.example`. Most important:
+
+| Variable | Note |
+|---|---|
+| `DEPLOYMENT_MODE` | `managed` (default) or `self_hosted` |
+| `PUBLIC_API_URL` | Used by `core/api/community.py` for image URLs — NOT `API_URL` |
+| `FOUNDER_EMAIL` / `ADMIN_EMAIL` | Managed-cloud operator notifications (no `/v1/admin` router in OSS) |
+| `API_KEY_LIMITS_ENFORCED` | Kill switch for plan caps — defaults `false` |
+| `JWT_SECRET` | Must be changed from default — generate with `openssl rand -hex 32` |
+
+## CI/CD — three workflows
+
+| Workflow | Trigger | What it does |
+|---|---|---|
+| `.github/workflows/ci.yml` | PR + push to `main` | ruff, pytest (core + SDK + MCP), TS SDK tests, dashboard lint + **vitest** + build |
+| `.github/workflows/integration.yml` | Weekly cron + manual | Full Docker stack integration tests (`continue-on-error: true`) |
+| `.github/workflows/publish-images.yml` | Push `v*` tag or manual dispatch | Builds Docker images, pushes to GHCR, makes packages public |
+
+There is no AWS pipeline, no CodeDeploy, no ECS task definition.
+
+## Scripts map
+
+| Script | What it does |
+|---|---|
+| `scripts/setup-local.sh` | Start local dev stack (API + dashboard) |
+| `scripts/quickstart.sh` | OSS quickstart for cloned repo |
+| `scripts/quickstart-remote.sh` | OSS quickstart without cloning — downloads config only |
+| `scripts/verify-release.sh` | Pre-publish gate (must pass before `publish-packages.sh`) |
+| `scripts/publish-packages.sh` | Publish `zizkadb-sdk` (PyPI + npm) and `zizkadb-mcp` (PyPI) |
+| `scripts/publish-integrations.sh` | Publish `zizkadb-langchain`, `zizkadb-crewai`, `zizkadb-livekit` to PyPI |
+| `scripts/reset-local-db.sh` | Wipe local Docker volumes — LOCAL DEV ONLY, refuses in production |
+| `scripts/smoke-test.sh` | Smoke test against a running stack |
+| `scripts/check-doc-drift.sh` | Verify router count + AI doc files stay aligned (CI + pre-commit) |
+| `scripts/seed-support-bot-events.py` | Seed 50+ sessions for drift/baseline testing |
+| `scripts/github-setup.sh` | One-time repo init — already applied, kept for reference |
+
+## Security footguns for self-hosters
+
+**`NEXT_PUBLIC_DEV_MODE`** — must be `false` in any public-facing deployment. When `true`, the dashboard login page shows an "Open my dashboard" button that bypasses OTP authentication entirely. The default in `.env.example` is `true` (dev convenience); flip it before deploying.
+
+**`infra/.env` must never be committed to git** — `.gitignore` lists `.env` at the repo root but `infra/.env` has historically been tracked. If it appears in `git status` as tracked, run `git rm --cached infra/.env`, add `infra/.env` to `.gitignore`, and rotate all secrets in it. Once pushed to a public repo, secrets in git history are permanently compromised.
+
+**`ENV=production` is required for deployed instances** — without it, hardcoded dev API keys (`zizkadb_dev_local`, `agdb_dev_local`) are accepted as valid auth tokens. Always set `ENV=production` in `infra/.env` before exposing the API to the internet.
+
+## iCloud Drive warning
+
+**Never keep the repo inside `~/Desktop` or `~/Documents`** — iCloud syncs `.git/` and creates `filename 2` duplicate files in ref dirs (e.g., `refs/heads/main 2`), which are illegal git ref names and corrupt the repository. Move the repo to `~/code/` or add a `.nosync` suffix to opt out of iCloud sync.
 
 ---
 > Source: [ZIZKA-AI-SL/ZizkaDB](https://github.com/ZIZKA-AI-SL/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
