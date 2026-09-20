@@ -1,0 +1,9 @@
+{
+  "name": "redactiontools--redaction-tools",
+  "displayName": "redaction-tools",
+  "description": "A catalog of redaction tools",
+  "version": "1.0.0",
+  "author": "RedactionTools",
+  "homepage": "https://github.com/RedactionTools/redaction-tools",
+  "skills": []
+}
