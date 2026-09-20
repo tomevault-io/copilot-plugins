@@ -1,409 +1,310 @@
-## incremental-development
+## n8n-integration
 
-> Incremental development approach with always-working builds and controlled changes
+> n8n community integration and workflow-specific features
 
 
-# Incremental Development Strategy
+# n8n Community Integration Guidelines
 
-## Core Development Principles
+## n8n Community Focus Strategy
 
-### 1. **Always-Working Builds**
+### 1. **Target Audience Analysis**
 
-- `pnpm run dev` must always work
-- Never break the development server
-- Incremental changes only
-- Test each change before proceeding
+- **Primary**: n8n workflow developers and automation creators
+- **Secondary**: AI automation enthusiasts and content creators
+- **Tertiary**: General prompt management users
 
-### 2. **Controlled Development**
+### 2. **Community Needs Assessment**
 
-- One feature at a time
-- Small, focused commits
-- Easy rollback capability
-- Clear progress tracking
+- **System Prompts**: Complex, reusable system prompts for LLM nodes
+- **User Prompts**: Dynamic user input prompts for workflows
+- **Template Library**: Pre-built prompt templates for common use cases
+- **Version Control**: Track prompt evolution and effectiveness
+- **Sharing**: Community-driven prompt sharing and collaboration
 
-### 3. **Domain Strategy**
+### 3. **No-LLM Approach**
 
-- **Primary Domain**: everprompt.ai
-- **Development**: localhost:3000
-- **Staging**: staging.everprompt.ai (future)
-- **Production**: everprompt.ai
+- **JSON Parser**: Pure JavaScript parsing - no AI costs
+- **Rule-Based Categorization**: Regex and pattern matching
+- **Cost Control**: Predictable, low-cost operation
+- **Fast Processing**: Instant prompt extraction
 
-## Development Workflow
+## n8n-Specific Features
 
-### **Git Strategy for Solo Developer**
-
-#### **Primary: Main Branch Development**
-
-```bash
-# Work directly on main branch
-git checkout main
-# Make incremental changes
-git add .
-git commit -m "feat: add dark/light mode toggle"
-git push origin main
-```
-
-#### **Rollback Points Strategy**
-
-```bash
-# Create rollback points after each working feature
-git tag v0.1.0-working-basic-layout
-git tag v0.2.0-working-theme-toggle
-git tag v0.3.0-working-prompt-editor
-
-# Rollback if needed
-git checkout v0.2.0-working-theme-toggle
-```
-
-#### **Feature Branches (Only for Major Features)**
-
-```bash
-# Only for complex features or experiments
-git checkout -b feature/prompt-editor
-# Make changes
-git add .
-git commit -m "feat: implement prompt editor"
-git push origin feature/prompt-editor
-# Merge when ready
-git checkout main
-git merge feature/prompt-editor
-git push origin main
-```
-
-#### **When to Use Feature Branches:**
-
-- **Major experiments** (e.g., trying a new UI approach)
-- **Complex features** that might break the app
-- **Integration work** (e.g., adding authentication)
-- **Refactoring** that affects multiple files
-- **When you're unsure** if the approach will work
-
-#### **When to Use Main Branch:**
-
-- **Small, incremental changes**
-- **UI tweaks and improvements**
-- **Bug fixes**
-- **Documentation updates**
-- **Configuration changes**
-- **Most development work**
-
-### **Phase 1: Foundation (Always Working)**
-
-```bash
-# Start with basic Next.js app
-pnpm run dev  # Must work immediately
-
-# Incremental changes:
-1. Basic layout ✅
-2. Dark/light mode toggle ✅
-3. Simple prompt editor ✅
-4. Basic label system ✅
-5. n8n JSON parser ✅
-```
-
-### **Phase 2: Core Features (One at a Time)**
-
-```bash
-# Each step must work before next:
-1. Authentication (Clerk) ✅
-2. Database setup (Neon + Prisma) ✅
-3. Prompt CRUD operations ✅
-4. Label management ✅
-5. Workflow collection system ✅
-```
-
-### **Phase 3: Advanced Features (Controlled)**
-
-```bash
-# Build on working foundation:
-1. Search and filtering ✅
-2. Public sharing ✅
-3. Payment integration (Stripe) ✅
-4. API endpoints ✅
-5. Mobile optimization ✅
-```
-
-## Commit Strategy
-
-### **Commit After Each Working Feature**
-
-```bash
-# Example commit pattern:
-git add .
-git commit -m "feat: add dark/light mode toggle
-
-- Implement theme switcher component
-- Add CSS variables for theme colors
-- Update layout to support theme switching
-- Test: pnpm run dev works ✅"
-```
-
-### **Major Milestone Commits**
-
-```bash
-# After completing major features:
-git commit -m "feat: complete MVP prompt editor
-
-- Working prompt editor with autosave
-- Dark/light mode toggle
-- Basic label system
-- n8n JSON parser integration
-- Ready for authentication phase
-
-Test: pnpm run dev works ✅
-Next: Add Clerk authentication"
-```
-
-## Development Checklist
-
-### **Before Each Change**
-
-- [ ] `pnpm run dev` works
-- [ ] No TypeScript errors
-- [ ] No console errors
-- [ ] Current feature is complete
-
-### **After Each Change**
-
-- [ ] `pnpm run dev` still works
-- [ ] Feature works as expected
-- [ ] No breaking changes
-- [ ] Commit the change
-
-### **Before Major Commits**
-
-- [ ] All features working
-- [ ] No linting errors
-- [ ] TypeScript compilation successful
-- [ ] Test in browser
-- [ ] Write descriptive commit message
-
-## File Organization
-
-### **Incremental File Structure**
-
-```
-everprompt-n8n/
-├── app/
-│   ├── page.tsx              # Home page (start here)
-│   ├── layout.tsx            # Root layout
-│   └── globals.css           # Global styles
-├── components/
-│   ├── ui/                   # Basic UI components
-│   ├── features/             # Feature components
-│   └── layout/               # Layout components
-├── lib/
-│   ├── utils.ts              # Utility functions
-│   ├── n8n-parser.ts         # n8n JSON parser
-│   └── db.ts                 # Database utilities
-└── .cursor/rules/            # Development rules
-```
-
-### **Component Development Order (shadcn/ui)**
-
-1. **Basic UI Components** (shadcn/ui Button, Input, Card, etc.)
-2. **Layout Components** (Header, Sidebar, etc.)
-3. **Feature Components** (PromptEditor with shadcn/ui Card, ArcLabels, etc.)
-4. **Page Components** (Home, Dashboard, etc.)
-5. **Integration Components** (Auth, Database, etc.)
-
-## Testing Strategy
-
-### **Development Testing**
-
-```bash
-# Always test these before committing:
-pnpm run dev          # Must work
-pnpm run build        # Must build successfully
-pnpm run lint         # Must pass linting
-pnpm run type-check   # Must pass TypeScript checks
-```
-
-### **Feature Testing**
-
-- **Manual testing** in browser
-- **Console error checking**
-- **Responsive design testing**
-- **Cross-browser compatibility**
-
-## Rollback Strategy
-
-### **Git Rollback Points**
-
-```bash
-# Create rollback points:
-git tag v0.1.0-working-basic-layout
-git tag v0.2.0-working-theme-toggle
-git tag v0.3.0-working-prompt-editor
-
-# Rollback if needed:
-git checkout v0.2.0-working-theme-toggle
-```
-
-### **Feature Flags**
+### 1. **Workflow JSON Parser**
 
 ```typescript
-// Use feature flags for gradual rollout
-const FEATURES = {
-  AUTHENTICATION: process.env.NODE_ENV === "development",
-  PAYMENT: false, // Enable when ready
-  API: false, // Enable when ready
-  SHADCN_UI: true, // Always enabled - core UI library
-} as const;
+interface N8nWorkflowParser {
+  parseWorkflow(json: string): ParsedWorkflow;
+  extractPrompts(workflow: ParsedWorkflow): ExtractedPrompt[];
+  createCollection(
+    prompts: ExtractedPrompt[],
+    workflowName: string
+  ): PromptCollection;
+}
 
-// shadcn/ui Component Configuration
-const SHADCN_CONFIG = {
-  theme: "light" | "dark" | "system",
-  components: {
-    button: "default",
-    card: "default",
-    input: "default",
-    sheet: "default",
-  },
-} as const;
+interface ParsedWorkflow {
+  name: string;
+  nodes: WorkflowNode[];
+  connections: WorkflowConnection[];
+  metadata: WorkflowMetadata;
+}
 ```
 
-## Domain Configuration
+### 2. **Prompt Types for n8n**
 
-### **everprompt.ai Setup**
+- **System Prompts**: Instructions for AI behavior
+- **User Prompts**: Dynamic prompts with variables
+- **Template Prompts**: Reusable prompt structures
+- **Validation Prompts**: Input validation and error handling
+- **Response Prompts**: Output formatting and processing
+
+### 3. **Variable System**
 
 ```typescript
-// next.config.ts
-const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/dashboard",
-        permanent: false,
-      },
-    ];
-  },
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "/api/:path*",
-      },
-    ];
-  },
-};
+interface PromptVariable {
+  name: string;
+  type: "string" | "number" | "boolean" | "array" | "object";
+  required: boolean;
+  defaultValue?: any;
+  description: string;
+  validation?: {
+    min?: number;
+    max?: number;
+    pattern?: string;
+    enum?: string[];
+  };
+}
 ```
 
-### **Environment Configuration**
+## n8n Community Features
 
-```bash
-# .env.local
-NEXT_PUBLIC_APP_URL=https://everprompt.ai
-NEXT_PUBLIC_APP_NAME=EverPrompt
-NEXT_PUBLIC_APP_DESCRIPTION="Prompt management for n8n workflows"
+### 1. **Community Library**
+
+- **Curated Collections**: Best prompts for specific n8n use cases
+- **Category System**:
+  - Data Processing
+  - Content Generation
+  - Email Automation
+  - Social Media
+  - E-commerce
+  - Customer Support
+  - Analytics & Reporting
+
+### 2. **Template Marketplace**
+
+- **Free Templates**: Basic prompt templates for common tasks
+- **Premium Templates**: Advanced, tested templates with documentation
+- **Community Submissions**: User-contributed templates with moderation
+- **Expert Collections**: Curated by n8n experts and influencers
+
+### 3. **Integration Features**
+
+- **n8n API Integration**: Direct sync with n8n instances
+- **Webhook Support**: Real-time prompt updates in workflows
+- **Import/Export**: Seamless workflow integration
+- **Version Control**: Track prompt changes and rollback
+
+## n8n-Specific UI Components
+
+### 1. **Workflow Context Panel**
+
+```typescript
+interface WorkflowContextPanel {
+  workflowId: string;
+  nodeId: string;
+  availablePrompts: Prompt[];
+  selectedPrompt: Prompt | null;
+  variables: PromptVariable[];
+  onPromptSelect: (prompt: Prompt) => void;
+  onVariableChange: (variable: PromptVariable, value: any) => void;
+}
 ```
 
-## Development Phases
+### 2. **Prompt Preview with Variables**
 
-### **Phase 1: Basic Foundation (Week 1)**
+- Real-time preview with sample data
+- Variable substitution testing
+- Output format validation
+- Token count estimation
 
-- [ ] Next.js 15 setup with App Router
-- [ ] Tailwind CSS 4 configuration
-- [ ] shadcn/ui components setup and configuration
-- [ ] Basic layout and components (shadcn/ui)
-- [ ] Dark/light mode toggle (shadcn/ui Switch)
-- [ ] TypeScript configuration
+### 3. **n8n Node Integration**
 
-### **Phase 2: Core Features (Week 2)**
+- **LLM Node Integration**: Direct prompt injection
+- **HTTP Request Node**: API prompt templates
+- **Function Node**: Code generation prompts
+- **Switch Node**: Conditional prompt logic
 
-- [ ] Prompt editor component (shadcn/ui Card + Textarea)
-- [ ] Label system (arc navigation with shadcn/ui styling)
-- [ ] n8n JSON parser
-- [ ] Basic data management
-- [ ] Responsive design (shadcn/ui responsive utilities)
+## Community Engagement Strategy
 
-### **Phase 3: Authentication (Week 3)**
+### 1. **Content Strategy**
 
-- [ ] Clerk integration
-- [ ] User authentication
-- [ ] Protected routes
-- [ ] User management
-- [ ] Workspace setup
+- **YouTube Integration**: Direct integration with your automation channel
+- **Tutorial Prompts**: Step-by-step automation guides
+- **Best Practices**: Community-driven prompt optimization
+- **Case Studies**: Real-world automation examples
 
-### **Phase 4: Database (Week 4)**
+### 2. **Community Features**
 
-- [ ] Neon PostgreSQL setup
-- [ ] Prisma ORM configuration
-- [ ] Database schema
-- [ ] CRUD operations
-- [ ] Data validation
+- **Prompt Ratings**: Community-driven quality assessment
+- **Comments & Discussions**: Collaborative prompt development
+- **Fork & Merge**: Git-like prompt collaboration
+- **Collections**: User-curated prompt collections
 
-## Quality Assurance
+### 3. **Gamification**
 
-### **Code Quality**
+- **Contribution Points**: Reward community contributions
+- **Badges**: Recognition for prompt quality and usage
+- **Leaderboards**: Top contributors and most-used prompts
+- **Challenges**: Monthly prompt creation contests
 
-- **TypeScript strict mode** enabled
-- **ESLint rules** enforced
-- **Prettier formatting** applied
-- **Consistent naming** conventions
+## Technical Integration
 
-### **Performance**
+### 1. **n8n API Integration**
 
-- **Bundle size** monitoring
-- **Loading time** optimization
-- **Image optimization** (Next.js)
-- **Code splitting** (lazy loading)
+```typescript
+interface N8nApiClient {
+  getWorkflows(): Promise<Workflow[]>;
+  getWorkflow(id: string): Promise<Workflow>;
+  updateNodePrompt(nodeId: string, prompt: string): Promise<void>;
+  getNodeData(nodeId: string): Promise<NodeData>;
+  executeWorkflow(id: string): Promise<ExecutionResult>;
+}
+```
 
-### **Security**
+### 2. **Webhook System**
 
-- **Input validation** (Zod)
-- **SQL injection** prevention (Prisma)
-- **XSS protection** (React)
-- **CSRF protection** (Next.js)
+- **Prompt Update Webhooks**: Notify n8n when prompts change
+- **Workflow Execution Webhooks**: Track prompt usage
+- **Community Update Webhooks**: Notify about new community content
 
-## Deployment Strategy
+### 3. **Data Synchronization**
 
-### **Development**
+- **Bidirectional Sync**: Keep prompts and workflows in sync
+- **Conflict Resolution**: Handle simultaneous updates
+- **Offline Support**: Work with prompts offline, sync when online
+- **Version Management**: Track changes and maintain history
 
-- **Local development** with `pnpm run dev`
-- **Hot reload** for instant feedback
-- **Error overlay** for debugging
-- **TypeScript checking** in real-time
+## Community Content Strategy
 
-### **Staging (Future)**
+### 1. **Starter Templates**
 
-- **staging.everprompt.ai** for testing
-- **Preview deployments** for each PR
-- **Automated testing** before merge
-- **Performance monitoring**
+- **Basic Automation**: Simple workflow prompts
+- **Data Processing**: ETL and data transformation prompts
+- **Content Creation**: Blog posts, social media, emails
+- **Customer Service**: Support ticket handling, FAQ responses
+- **E-commerce**: Product descriptions, order processing
 
-### **Production**
+### 2. **Advanced Templates**
 
-- **everprompt.ai** for live users
-- **Automated deployments** from main branch
-- **Error monitoring** (Vercel Analytics)
-- **Performance tracking**
+- **Multi-step Workflows**: Complex automation sequences
+- **Conditional Logic**: Dynamic prompt selection
+- **Error Handling**: Robust error management prompts
+- **Performance Optimization**: Efficient prompt structures
+
+### 3. **Educational Content**
+
+- **Prompt Engineering**: Best practices and techniques
+- **n8n Integration**: How to use prompts effectively
+- **Use Case Studies**: Real-world automation examples
+- **Video Tutorials**: Step-by-step implementation guides
+
+## Monetization Strategy
+
+### 1. **Freemium Model**
+
+- **Free Tier**: Basic prompt management, limited templates
+- **Pro Tier**: Advanced features, unlimited prompts, priority support
+- **Enterprise Tier**: Custom integrations, advanced analytics, dedicated support
+
+### 2. **Community Revenue**
+
+- **Template Marketplace**: Revenue sharing with contributors
+- **Premium Collections**: Curated, high-quality prompt collections
+- **Custom Development**: Bespoke prompt solutions for businesses
+- **Training & Consulting**: Educational services and implementation help
+
+### 3. **Partnership Opportunities**
+
+- **n8n Partnership**: Official integration and co-marketing
+- **AI Service Providers**: Integration with OpenAI, Anthropic, etc.
+- **Automation Consultants**: Partner network for implementation
+- **Content Creators**: Revenue sharing for educational content
 
 ## Success Metrics
 
-### **Development Success**
+### 1. **Community Growth**
 
-- **Build time** < 30 seconds
-- **Hot reload** < 2 seconds
-- **TypeScript errors** = 0
-- **Linting errors** = 0
+- **User Registration**: Monthly active users
+- **Content Creation**: Prompts created per month
+- **Engagement**: Time spent in app, prompt usage
+- **Retention**: Monthly and yearly retention rates
 
-### **Feature Success**
+### 2. **n8n Integration**
 
-- **User can create** a prompt
-- **User can organize** with labels
-- **User can upload** n8n workflow
-- **User can share** prompts
+- **Workflow Connections**: Number of connected n8n instances
+- **Prompt Usage**: Prompts used in workflows
+- **Template Adoption**: Community template usage
+- **API Calls**: Integration activity metrics
 
-### **Business Success**
+### 3. **Business Impact**
 
-- **Break-even** at 9 paid users
-- **User retention** > 70%
-- **Community engagement** > 30%
-- **Revenue growth** month-over-month
+- **Revenue Growth**: Monthly recurring revenue
+- **Customer Satisfaction**: User feedback and ratings
+- **Market Penetration**: Share of n8n community
+- **Content Quality**: Prompt effectiveness metrics
 
-This incremental approach ensures you always have a working project while building towards your vision of the perfect n8n prompt management platform! 🚀
+## Implementation Roadmap
+
+### Phase 1: Foundation (Weeks 1-4)
+
+- Basic prompt management
+- n8n API integration
+- Community library structure
+- Basic sharing features
+
+### Phase 2: Community (Weeks 5-8)
+
+- Template marketplace
+- User contributions
+- Rating and review system
+- Basic analytics
+
+### Phase 3: Advanced Integration (Weeks 9-12)
+
+- Real-time synchronization
+- Advanced workflow features
+- Community challenges
+- Mobile optimization
+
+### Phase 4: Scale (Weeks 13-16)
+
+- Enterprise features
+- Advanced analytics
+- Partnership integrations
+- Global expansion
+
+## Community Guidelines
+
+### 1. **Content Standards**
+
+- **Quality**: High-quality, tested prompts only
+- **Documentation**: Clear descriptions and usage instructions
+- **Originality**: Original content or proper attribution
+- **Relevance**: n8n and automation-focused content
+
+### 2. **Moderation**
+
+- **Community Moderation**: User-driven content review
+- **Expert Review**: Technical validation by n8n experts
+- **Automated Filtering**: AI-powered content screening
+- **Appeal Process**: Fair review of moderation decisions
+
+### 3. **Support**
+
+- **Community Forums**: Peer-to-peer support
+- **Expert Help**: Direct access to n8n experts
+- **Documentation**: Comprehensive guides and tutorials
+- **Video Content**: Visual learning resources
 
 ---
 > Source: [mitsue-eth/everprompt-n8n-shadcn](https://github.com/mitsue-eth/everprompt-n8n-shadcn) — distributed by [TomeVault](https://tomevault.io).
