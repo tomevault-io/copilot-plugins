@@ -1,0 +1,9 @@
+{
+  "name": "qiantangcredit--heimdall-agent",
+  "displayName": "heimdall-agent",
+  "description": "An autonomous AI agent framework for authorized CTF and security labs",
+  "version": "1.0.0",
+  "author": "QiantangCredit",
+  "homepage": "https://github.com/QiantangCredit/heimdall-agent",
+  "skills": []
+}
