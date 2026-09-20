@@ -1,0 +1,44 @@
+{
+  "name": "Treasure",
+  "owner": "zewei94yomi",
+  "repo": "Treasure",
+  "description": "\u60ca\u9b42\u5bfb\u5b9d\u9e2d \u00b7 \u7f51\u9875\u7248\u672c\u5730\u53cc\u4eba\u641c\u6253\u64a4\u5bfb\u5b9d\u6e38\u620f\uff08\u4fef\u89c62D + \u89c6\u91ce/\u9634\u5f71\uff0c\u9e45\u9e2d\u6740\u98ce\u683c\uff09\u3002\u7eaf HTML5 Canvas + \u539f\u751f JS\uff0c\u96f6\u4f9d\u8d56\u3002\ud83e\udd86",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zewei94yomi/Treasure",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T02:50:22Z"
+}
