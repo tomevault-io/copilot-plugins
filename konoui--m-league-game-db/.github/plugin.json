@@ -1,0 +1,9 @@
+{
+  "name": "konoui--m-league-game-db",
+  "displayName": "m-league-game-db",
+  "description": "M \u30ea\u30fc\u30b0\u306e\u904e\u53bb\u8a66\u5408\u60c5\u5831/\u724c\u8b5c\u306e\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\uff08sqlite3\uff09\u306e\u30ea\u30dd\u30b8\u30c8\u30ea\u3067\u3059\u3002",
+  "version": "1.0.0",
+  "author": "konoui",
+  "homepage": "https://github.com/konoui/m-league-game-db",
+  "skills": []
+}
