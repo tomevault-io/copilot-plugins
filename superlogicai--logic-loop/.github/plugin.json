@@ -1,0 +1,9 @@
+{
+  "name": "superlogicai--logic-loop",
+  "displayName": "Logic-Loop",
+  "description": "Effortlessly switch between multiple concurrent AI coding agent terminal sessions (Agy, Claude, Codex, OpenCode, Dsh, and Pi) \u2014 a macOS app by Super Logic AI (early testing for Linux and Windows now a",
+  "version": "1.0.0",
+  "author": "SuperLogicAI",
+  "homepage": "https://github.com/SuperLogicAI/Logic-Loop",
+  "skills": []
+}
