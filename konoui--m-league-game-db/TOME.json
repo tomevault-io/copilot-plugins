@@ -1,0 +1,44 @@
+{
+  "name": "m-league-game-db",
+  "owner": "konoui",
+  "repo": "m-league-game-db",
+  "description": "M \u30ea\u30fc\u30b0\u306e\u904e\u53bb\u8a66\u5408\u60c5\u5831/\u724c\u8b5c\u306e\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\uff08sqlite3\uff09\u306e\u30ea\u30dd\u30b8\u30c8\u30ea\u3067\u3059\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/konoui/m-league-game-db",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T18:33:25Z"
+}
