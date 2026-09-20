@@ -1,29 +1,41 @@
-## backend-dashboard-contract
+## coding-standards
 
-> Backend ↔ dashboard API contracts (CODING_STANDARDS §14, §31)
+> ZizkaDB invariants — always apply; full standards in docs/ai/
 
 
-# Backend ↔ Dashboard Contract
+# ZizkaDB invariants (always apply)
 
-Full endpoint map: `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` §17.3. Breaking changes: identify all consumers, update `dashboard/lib/api.ts`, tests, and KB in one PR (§31).
+**Full team standards:** [docs/ai/CODING_STANDARDS.md](../../docs/ai/CODING_STANDARDS.md) (44 sections)  
+**Repo mapping:** [docs/ai/ZIZKADB_MAPPINGS.md](../../docs/ai/ZIZKADB_MAPPINGS.md)  
+**AI workflow:** [ai-workflow.mdc](./ai-workflow.mdc) · **Doc index:** [ai-knowledge-base.mdc](./ai-knowledge-base.mdc)
 
-## Contracts (do not break silently)
+## Critical invariants — never break
 
-- **OTP verify** (`auth.py`): `{access_token, token_type, requires_plan_selection, requires_checkout, has_access, plan}` — always `has_access: true`, no checkout gate.
-- **Billing status** (`billing.py`): shape consumed by `TenantPlanBanner`; `has_access: true`, `enforced: false`.
-- **Auth** (`deps.py`): JWT vs API key vs dev key; `assert_agent_allowed` for scoped keys; dashboard routes JWT-only.
-- **Events** (`events.py`, `event_write.py`): SDK writes + dashboard reads — field renames hit both sides.
-- **Route paths** (`main.py`): fixed `/v1/...` in `lib/api.ts`.
-- **API key limits** (`entitlements.py` only): caps via `PLAN_ENTITLEMENTS`; kill switch `API_KEY_LIMITS_ENFORCED`.
-- **Demo requests** (`demo_requests.py`): public POST; honeypot + rate limit; **no OSS admin list endpoint**.
+1. **Auth** (`core/api/deps.py`): SDK → `get_tenant`; dashboard → `require_dashboard_session`; per-agent → `get_tenant` + `assert_agent_allowed`. No `require_admin` in OSS.
+2. **Routes:** never rename `/v1/...` without `dashboard/lib/api.ts` + KB §17.3.
+3. **Entitlements:** only `core/services/entitlements.py::PLAN_ENTITLEMENTS`.
+4. **DDL:** idempotent only (`IF NOT EXISTS` / `IF EXISTS`) in `schema.sql` + `init_db()`.
+5. **Prod compose:** `infra/docker-compose.yml` — no `--reload` or source mounts (use `docker-compose.dev.yml`).
+6. **Self-host:** `ENV=production`, `NEXT_PUBLIC_DEV_MODE=false` on public deploys.
 
-## Data model
+## Cross-cutting updates
 
-`schema.sql` + migrations `002`, `004`, `005` + `init_db()`. See KB §21.
+| Change | Also update |
+|--------|-------------|
+| `/v1/` API shape | `dashboard/lib/api.ts` + KB §17.3 |
+| Auth / billing / signup | KB §7, §8, §18 |
+| DB schema | `schema.sql` + `init_db()` + KB §21 |
+| SDK release | `pyproject.toml`, `package.json`, `mcp/pyproject.toml`, `core/main.py version=` |
 
-## Sync rule
+## Verify before PR
 
-Contract or schema change → update KB §17.3, §18, §21 and `lib/api.ts` types in the same PR.
+```bash
+ruff check core/ sdk/python/ mcp/ integrations/
+pytest core/tests/ -m "not integration" -v
+cd dashboard && npm run lint && npm test && npm run build
+```
+
+See `.cursor/skills/zizkadb-test/SKILL.md`. PR: [CONTRIBUTING.md](../../CONTRIBUTING.md). Maintainers: [docs/ai/MAINTAINER.md](../../docs/ai/MAINTAINER.md).
 
 ---
 > Source: [ZIZKA-AI-SL/ZizkaDB](https://github.com/ZIZKA-AI-SL/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
