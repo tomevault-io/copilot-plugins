@@ -7,13 +7,13 @@ A trustworthy context layer for AI that remembers, plans and acts — free text 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [heymi/aldus-palace](https://github.com/heymi/aldus-palace).
+Original source: `.cursor/rules/*.mdc` in [heymi/aldus-palace](https://github.com/heymi/aldus-palace).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
