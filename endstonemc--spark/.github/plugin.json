@@ -1,0 +1,9 @@
+{
+  "name": "endstonemc--spark",
+  "displayName": "spark",
+  "description": "An implementation of the spark profiler for Endstone Servers",
+  "version": "1.0.0",
+  "author": "EndstoneMC",
+  "homepage": "https://github.com/EndstoneMC/spark",
+  "skills": []
+}
