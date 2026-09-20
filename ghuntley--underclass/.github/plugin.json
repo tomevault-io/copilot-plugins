@@ -1,0 +1,9 @@
+{
+  "name": "ghuntley--underclass",
+  "displayName": "underclass",
+  "description": "Local LLM proxy that pools multiple ChatGPT/Codex and GitHub Copilot subscriptions behind one OpenAI-compatible endpoint \u2014 sticky sessions, automatic quota failover, fail-fast saturation.",
+  "version": "1.0.0",
+  "author": "ghuntley",
+  "homepage": "https://github.com/ghuntley/underclass",
+  "skills": []
+}
