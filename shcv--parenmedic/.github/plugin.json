@@ -1,0 +1,9 @@
+{
+  "name": "shcv--parenmedic",
+  "displayName": "parenmedic",
+  "description": "A command-line tool for diagnosing and fixing parenthesis issues in Lisp code.",
+  "version": "1.0.0",
+  "author": "shcv",
+  "homepage": "https://github.com/shcv/parenmedic",
+  "skills": []
+}
