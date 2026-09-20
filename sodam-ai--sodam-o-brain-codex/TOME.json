@@ -1,0 +1,44 @@
+{
+  "name": "SoDam_O-Brain-Codex",
+  "owner": "sodam-ai",
+  "repo": "SoDam_O-Brain-Codex",
+  "description": "Codex \ub300\ud654\uc758 \uacb0\uc815\u00b7\uc81c\uc57d\u00b7\uc120\ud638\ub97c \ub85c\uceec SQLite\uc5d0 \uae30\uc5b5\ud558\uace0 \uac80\uc0c9\u00b72D/3D \uadf8\ub798\ud504\u00b7\ud0c0\uc784\ub77c\uc778\u00b7\ubc31\uc5c5\uc73c\ub85c \uad00\ub9ac\ud558\ub294 \ub85c\uceec \uc6b0\uc120 MCP \ud50c\ub7ec\uadf8\uc778",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sodam-ai/SoDam_O-Brain-Codex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T03:19:34Z"
+}
