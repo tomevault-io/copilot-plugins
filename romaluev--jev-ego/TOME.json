@@ -4,7 +4,7 @@
   "repo": "jev-ego",
   "description": "Fast browser agent for ego lite. One TypeSafe request per step; an agent or Jev picks the move.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/romaluev/jev-ego",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T12:32:27Z"
+  "distributed_at": "2026-09-20T12:35:58Z"
 }
