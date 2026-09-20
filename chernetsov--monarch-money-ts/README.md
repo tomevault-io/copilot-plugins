@@ -7,11 +7,11 @@ A modern unofficial TypeScript client for the Monarch Money API
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chernetsov/monarch-money-ts](https://github.com/chernetsov/monarch-money-ts).
+Original source: `AGENTS.md` in [chernetsov/monarch-money-ts](https://github.com/chernetsov/monarch-money-ts).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
