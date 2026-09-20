@@ -1,91 +1,96 @@
-## infra-deploy
+## sdk-integrations-mcp
 
-> ZizkaDB infrastructure, Docker Compose, deployment, CI/CD, and scripts
+> ZizkaDB SDK (Python + TypeScript), integrations (LangChain/CrewAI), MCP server, and examples
 
 
-# ZizkaDB Infra & Deployment — Agent Guide
+# ZizkaDB SDK, Integrations & MCP — Agent Guide
 
-## Docker Compose files
+**Read first:** [docs/ai/CODING_STANDARDS.md](../../docs/ai/CODING_STANDARDS.md) · [examples/CLAUDE.md](../../examples/CLAUDE.md) for runnable demos.
 
-| File | Purpose |
-|---|---|
-| `infra/docker-compose.yml` | **Production base** — used by deploy script |
-| `infra/docker-compose.dev.yml` | Dev overlay — adds `--reload` + `../core:/app` volume mount |
-| `infra/docker-compose.oss.yml` | OSS quickstart — GHCR pre-built images |
-| `infra/docker-compose.quickstart.yml` | Remote quickstart (no clone required) |
-| `infra/docker-compose.dashboard.yml` | Dashboard-only overlay |
+## Python SDK (`sdk/python/`)
 
-**Never add `--reload` or `../core:/app` volume mounts to `docker-compose.yml`** — those belong only in `docker-compose.dev.yml`. The production compose is also used to deploy managed cloud.
+**Package:** `zizkadb-sdk` on PyPI. Always async — `async with ZizkaDB(...) as db:`. No sync constructor.
 
-Dev stack:
-```bash
-docker compose -f infra/docker-compose.yml -f infra/docker-compose.dev.yml up -d
+```python
+async with ZizkaDB(api_key="zizkadb_live_...") as db:
+    event = await db.log(agent="my-bot", event="step", data={...})
+    chain = await db.why(event.event_id)
 ```
 
-Production command in `docker-compose.yml`: `uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4`
+- Error types: `AuthError`, `AgentScopeError`, `NotFoundError` (`zizkadb/exceptions.py`)
+- CLI: `zizkadb init my-agent --template <name>` — templates in `zizkadb/templates/`
+- Analytics CLI: `zizkadb why`, `baseline`, `token-usage`, `token-opt` (see `zizkadb/cli.py`)
+- Tests: `pytest sdk/python/tests/ -v`
 
-## Production deployment
+## TypeScript SDK (`sdk/typescript/`)
 
-**Single EC2 instance** — no AWS ECS, EKS, Terraform, CodeDeploy, or buildspec files. Deploy is:
+**Package:** `zizkadb-sdk` on npm. Sync constructor — `new ZizkaDB({ apiKey: '...' })`.
+
+```typescript
+const db = new ZizkaDB({ apiKey: 'zizkadb_live_...' })
+const event = await db.log({ agent: 'my-bot', event: 'step', data: {} })
+const baseline = await db.baseline({ agent: 'my-bot' })
 ```
-SSH → git pull → docker compose -f infra/docker-compose.yml up -d --build
-```
 
-Script: `infra/deploy-production.sh`
+- Analytics: `baseline()`, `tokenUsage()`, `tokenOptimization()` mirror Python SDK
 
-## `DEPLOYMENT_MODE` — critical for self-hosters
+- **camelCase** everywhere: `parentId`, `eventId`, `sessionId` (Python SDK uses snake_case)
+- No LangChain or CrewAI adapters — TypeScript is HTTP-only
+- Tests: `npm test` inside `sdk/typescript/`
 
-Defaults to `managed`. Self-hosters **must** set `DEPLOYMENT_MODE=self_hosted` in their `.env`, or plan entitlements resolve to `managed` plan caps instead of the self-hosted plan (1 API key cap).
+## Integrations (`integrations/`)
 
-## Key environment variables
+Three standalone packages: `zizkadb-langchain`, `zizkadb-crewai`, `zizkadb-livekit`. **Published on PyPI**.
 
-Full list in `.env.example`. Most important:
-
-| Variable | Note |
-|---|---|
-| `DEPLOYMENT_MODE` | `managed` (default) or `self_hosted` |
-| `PUBLIC_API_URL` | Used by `core/api/community.py` for image URLs — NOT `API_URL` |
-| `FOUNDER_EMAIL` / `ADMIN_EMAIL` | Managed-cloud operator notifications (no `/v1/admin` router in OSS) |
-| `API_KEY_LIMITS_ENFORCED` | Kill switch for plan caps — defaults `false` |
-| `JWT_SECRET` | Must be changed from default — generate with `openssl rand -hex 32` |
-
-## CI/CD — three workflows
-
-| Workflow | Trigger | What it does |
+| Package | Class | Notes |
 |---|---|---|
-| `.github/workflows/ci.yml` | PR + push to `main` | ruff, pytest (core + SDK + MCP), TS SDK tests, dashboard lint + **vitest** + build |
-| `.github/workflows/integration.yml` | Weekly cron + manual | Full Docker stack integration tests (`continue-on-error: true`) |
-| `.github/workflows/publish-images.yml` | Push `v*` tag or manual dispatch | Builds Docker images, pushes to GHCR, makes packages public |
+| `zizkadb-langchain` | `ZizkaDBCallbackHandler` | Duplicated in SDK — keep both in sync |
+| `zizkadb-crewai` | `ZizkaDBCrewLogger` | Duplicated in SDK — keep both in sync |
+| `zizkadb-livekit` | `ZizkaDBLiveKitObserver` | Standalone only — `integrations/livekit/` |
 
-There is no AWS pipeline, no CodeDeploy, no ECS task definition.
+## MCP Server (`mcp/`)
 
-## Scripts map
+**License: MIT** (the only module in this repo that is not AGPL-3.0).
 
-| Script | What it does |
-|---|---|
-| `scripts/setup-local.sh` | Start local dev stack (API + dashboard) |
-| `scripts/quickstart.sh` | OSS quickstart for cloned repo |
-| `scripts/quickstart-remote.sh` | OSS quickstart without cloning — downloads config only |
-| `scripts/verify-release.sh` | Pre-publish gate (must pass before `publish-packages.sh`) |
-| `scripts/publish-packages.sh` | Publish `zizkadb-sdk` (PyPI + npm) and `zizkadb-mcp` (PyPI) |
-| `scripts/publish-integrations.sh` | Publish `zizkadb-langchain`, `zizkadb-crewai`, `zizkadb-livekit` to PyPI |
-| `scripts/reset-local-db.sh` | Wipe local Docker volumes — LOCAL DEV ONLY, refuses in production |
-| `scripts/smoke-test.sh` | Smoke test against a running stack |
-| `scripts/check-doc-drift.sh` | Verify router count + AI doc files stay aligned (CI + pre-commit) |
-| `scripts/seed-support-bot-events.py` | Seed 50+ sessions for drift/baseline testing |
-| `scripts/github-setup.sh` | One-time repo init — already applied, kept for reference |
+```bash
+uvx zizkadb-mcp
+# Env: ZIZKADB_HOST, ZIZKADB_API_KEY
+# On localhost: dev key auto-injected — no API key needed
+```
 
-## Security footguns for self-hosters
+11 MCP tools in `zizkadb_mcp/server.py`: `log_event`, `search_memory`, `get_context`, `why`, `query_events`, `time_travel`, `get_baseline`, `get_token_usage`, `get_token_optimization`, `memory_diff`, `forget`.
 
-**`NEXT_PUBLIC_DEV_MODE`** — must be `false` in any public-facing deployment. When `true`, the dashboard login page shows an "Open my dashboard" button that bypasses OTP authentication entirely. The default in `.env.example` is `true` (dev convenience); flip it before deploying.
+Tests: `pytest mcp/tests/ -v` (also runs in CI).
 
-**`infra/.env` must never be committed to git** — `.gitignore` lists `.env` at the repo root but `infra/.env` has historically been tracked. If it appears in `git status` as tracked, run `git rm --cached infra/.env`, add `infra/.env` to `.gitignore`, and rotate all secrets in it. Once pushed to a public repo, secrets in git history are permanently compromised.
+Cursor/Claude Desktop config: `.cursor/mcp.json.example`.
 
-**`ENV=production` is required for deployed instances** — without it, hardcoded dev API keys (`zizkadb_dev_local`, `agdb_dev_local`) are accepted as valid auth tokens. Always set `ENV=production` in `infra/.env` before exposing the API to the internet.
+## Examples (`examples/`)
 
-## iCloud Drive warning
+See [`examples/CLAUDE.md`](../../examples/CLAUDE.md). Six self-contained examples, each with `.env.example`, entrypoint, `requirements.txt`, `README.md`:
+- `minimal-python/` — bare-minimum Python
+- `openai-agent/` — OpenAI function calling
+- `langchain-agent/` — LangChain with `ZizkaDBCallbackHandler`
+- `crewai-agent/` — CrewAI with `ZizkaDBCrewLogger`
+- `livekit-agent/` — LiveKit voice with `ZizkaDBLiveKitObserver`
+- `mcp-cursor/` — Cursor MCP config
 
-**Never keep the repo inside `~/Desktop` or `~/Documents`** — iCloud syncs `.git/` and creates `filename 2` duplicate files in ref dirs (e.g., `refs/heads/main 2`), which are illegal git ref names and corrupt the repository. Move the repo to `~/code/` or add a `.nosync` suffix to opt out of iCloud sync.
+Import paths in examples use standalone package names:
+```python
+from zizkadb_langchain import ZizkaDBCallbackHandler  # correct
+# NOT: from zizkadb.integrations.langchain import ...  # internal path — wrong for examples
+```
+
+`@main` git URLs in `requirements.txt` are moving targets — note this in PRs that change example dependencies.
+
+## Version bumps
+
+Bump these four files together when releasing:
+- `sdk/python/pyproject.toml`
+- `sdk/typescript/package.json`
+- `mcp/pyproject.toml`
+- `core/main.py` (`version=`)
+
+See `.cursor/skills/zizkadb-release/SKILL.md` for the full release workflow.
 
 ---
 > Source: [ZIZKA-AI-SL/ZizkaDB](https://github.com/ZIZKA-AI-SL/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
