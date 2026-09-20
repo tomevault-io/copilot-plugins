@@ -1,0 +1,9 @@
+{
+  "name": "surefirestudios--tldr",
+  "displayName": "tldr",
+  "description": "Too long; didn't read \u2014 for AI coding agents. A skill that makes Claude Code, Cursor, Codex, Gemini CLI and 16 more lead with a 3-line TL;DR and fold the detail instead of burying the answer. Measured",
+  "version": "1.0.0",
+  "author": "SurefireStudios",
+  "homepage": "https://github.com/SurefireStudios/tldr",
+  "skills": []
+}
