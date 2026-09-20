@@ -1,0 +1,9 @@
+{
+  "name": "sodam-ai--sodam-o-brain-codex",
+  "displayName": "SoDam_O-Brain-Codex",
+  "description": "Codex \ub300\ud654\uc758 \uacb0\uc815\u00b7\uc81c\uc57d\u00b7\uc120\ud638\ub97c \ub85c\uceec SQLite\uc5d0 \uae30\uc5b5\ud558\uace0 \uac80\uc0c9\u00b72D/3D \uadf8\ub798\ud504\u00b7\ud0c0\uc784\ub77c\uc778\u00b7\ubc31\uc5c5\uc73c\ub85c \uad00\ub9ac\ud558\ub294 \ub85c\uceec \uc6b0\uc120 MCP \ud50c\ub7ec\uadf8\uc778",
+  "version": "1.0.0",
+  "author": "sodam-ai",
+  "homepage": "https://github.com/sodam-ai/SoDam_O-Brain-Codex",
+  "skills": []
+}
