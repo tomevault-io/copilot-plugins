@@ -1,0 +1,9 @@
+{
+  "name": "fvadicamo--yt-dlp-api",
+  "displayName": "yt-dlp-api",
+  "description": "Production-ready REST API for video downloads and metadata extraction using yt-dlp",
+  "version": "1.0.0",
+  "author": "fvadicamo",
+  "homepage": "https://github.com/fvadicamo/yt-dlp-api",
+  "skills": []
+}
