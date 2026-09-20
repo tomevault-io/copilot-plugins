@@ -1,0 +1,44 @@
+{
+  "name": "cida",
+  "owner": "mizzlelover",
+  "repo": "cida",
+  "description": "\u8f9e\u8fbe C\u00edd\u00e1 \u00b7 \u73b0\u4ee3\u4e2d\u6587\u9ad8\u8d28\u91cf\u8868\u8fbe Skill\u3002\u8ba9 AI \u4f9d\u5faa\u4efb\u52a1\u76ee\u6807\u3001\u6587\u672c\u8bc1\u636e\u4e0e\u8bdd\u8bed\u673a\u5236\uff0c\u628a\u503c\u5f97\u8868\u8fbe\u7684\u601d\u60f3\u8bf4\u6e05\u695a\u3001\u8bf4\u81ea\u7136\u3001\u8bf4\u5f97\u6709\u5206\u5bf8\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mizzlelover/cida",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T15:32:00Z"
+}
