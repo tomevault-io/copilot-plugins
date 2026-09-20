@@ -1,0 +1,9 @@
+{
+  "name": "agnara-project--agnara-execution-runtime",
+  "displayName": "agnara-execution-runtime",
+  "description": "Agnara Historical Reference Application #005 demonstrating the execution runtime lifecycle in agnara==0.1.0a3. Explores ExecutionPlan compilation, Invocation, ExecutionContext, dependency resolution, ",
+  "version": "1.0.0",
+  "author": "agnara-project",
+  "homepage": "https://github.com/agnara-project/agnara-execution-runtime",
+  "skills": []
+}
