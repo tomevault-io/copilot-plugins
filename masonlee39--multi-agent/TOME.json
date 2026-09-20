@@ -1,0 +1,44 @@
+{
+  "name": "Multi-Agent",
+  "owner": "masonlee39",
+  "repo": "Multi-Agent",
+  "description": "One orchestration engine for multi-agent work: warm persistent sessions, a durable mailbox, no manager LLM in the loop \u2014 with per-task token accounting so speed and cost are measured, not assumed.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/masonlee39/Multi-Agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T07:31:04Z"
+}
