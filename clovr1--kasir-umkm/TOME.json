@@ -4,7 +4,7 @@
   "repo": "kasir-umkm",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clovr1/kasir-umkm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T03:04:20Z"
+  "distributed_at": "2026-09-20T03:35:36Z"
 }
