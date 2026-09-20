@@ -1,0 +1,9 @@
+{
+  "name": "masonlee39--multi-agent",
+  "displayName": "Multi-Agent",
+  "description": "One orchestration engine for multi-agent work: warm persistent sessions, a durable mailbox, no manager LLM in the loop \u2014 with per-task token accounting so speed and cost are measured, not assumed.",
+  "version": "1.0.0",
+  "author": "masonlee39",
+  "homepage": "https://github.com/masonlee39/Multi-Agent",
+  "skills": []
+}
