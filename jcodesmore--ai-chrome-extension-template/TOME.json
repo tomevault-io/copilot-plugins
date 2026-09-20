@@ -1,0 +1,44 @@
+{
+  "name": "ai-chrome-extension-template",
+  "owner": "JCodesMore",
+  "repo": "ai-chrome-extension-template",
+  "description": "Make any Chrome extension with AI agents \u2014 autonomous dev loop: plan, build, test in a real browser, iterate, package, release.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JCodesMore/ai-chrome-extension-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-20T03:06:34Z"
+}
