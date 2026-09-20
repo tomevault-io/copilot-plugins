@@ -1,0 +1,9 @@
+{
+  "name": "ephor--vision",
+  "displayName": "vision",
+  "description": "Local-first observability and API debugging for TypeScript. Live traces, contextual logs, schema-aware testing, and OTLP export for Elysia, Express, Fastify, Hono, and Next.js.",
+  "version": "1.0.0",
+  "author": "ephor",
+  "homepage": "https://github.com/ephor/vision",
+  "skills": []
+}
