@@ -1,0 +1,9 @@
+{
+  "name": "using-system--otelyssey",
+  "displayName": "otelyssey",
+  "description": "OpenTelemetry plugins for every coding agent, in the Agent Plugins format \u2014 a marketplace that runs itself: open an issue, the repository validates, reviews, lists and follows your plugin.",
+  "version": "1.0.0",
+  "author": "using-system",
+  "homepage": "https://github.com/using-system/otelyssey",
+  "skills": []
+}
