@@ -1,0 +1,9 @@
+{
+  "name": "kingpin--garrul",
+  "displayName": "Garrul",
+  "description": "Self-hosted comments for static sites, Cloudflare Workers + D1 + KV + Turnstile, threaded, OAuth, embeddable widget",
+  "version": "1.0.0",
+  "author": "KingPin",
+  "homepage": "https://github.com/KingPin/Garrul",
+  "skills": []
+}
