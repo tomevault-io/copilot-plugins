@@ -1,0 +1,9 @@
+{
+  "name": "pocket-stack--pocket-shell",
+  "displayName": "pocket-shell",
+  "description": "Pocket Shell explores interaction models for Pocket apps across different devices and form factors \u2014 from touchscreens to Nintendo 3DS and Sony PSP.",
+  "version": "1.0.0",
+  "author": "pocket-stack",
+  "homepage": "https://github.com/pocket-stack/pocket-shell",
+  "skills": []
+}
