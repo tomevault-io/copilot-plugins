@@ -4,7 +4,7 @@
   "repo": "cutlin",
   "description": "Cutlin - AI-Orchestrated Video Production Platform",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/c18229039407-arch/cutlin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-20T02:32:38Z"
+  "distributed_at": "2026-09-20T02:41:55Z"
 }
