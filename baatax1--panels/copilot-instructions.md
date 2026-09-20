@@ -1,97 +1,83 @@
-## bot-best-practices
+## panel-views-column-relationship
 
-> Every bot file must include a comprehensive header that provides:
+> For any task that relates to filtering of data in panels or views, or more broadly changing the configuration of columns in panels and views.
 
-# Bot Development Best Practices
+# Panel, Views, and Columns Relationship
 
-## Documentation Requirements
+## Overview
+Panels and views have different relationships with their columns. Understanding this distinction is critical when working with the UI and data management logic.
 
-Every bot file must include a comprehensive header that provides:
+## Panel-Column Relationship
 
-### Bot Name Format
-Use the format: `[Project][Source System] Main goal`
-- **Project**: Name of the Medplum project where the bot is deployed (use template placeholder if deployed across all projects)
-- **Source System**: The system that triggers or provides data for the bot
-  - For Medplum subscription events: Source system is implied and can be omitted
-  - Format becomes: `[Project] Main goal`
-- **Main goal**: Clear description of the bot's primary function
+### Master Column Definition
+- **Panels define a master list of columns** that serves as the authoritative source
+- This master list contains ALL columns that can be displayed in:
+  - The panel itself
+  - Any view derived from that panel
 
-### Required Documentation
-- **Triggering Event**: The specific event or type of event that triggers bot execution
-  - For Medplum subscription events: Use format `<Resource> subscription` (e.g., "Task subscription")
-  - For external events: Specify the exact event type and source
-- **FHIR Resources**: **EXHAUSTIVE** list of FHIR resources created or updated by the bot
-  - This is critical information for understanding bot impact and dependencies
-  - Include all resource types, even if modifications are minor
-  - For each resource, specify: operation type (Created/Updated/Deleted) and data scope (what fields are modified)
-  - **Use functional language**: Describe changes in business terms, not technical conditions
-- **Process Overview**: High-level description of the workflow executed by the bot
+### Panel Column Visibility
+- Panels can hide columns using the `display.visible` property
+- **Important**: Setting `display.visible = false` only affects visibility in the panel itself
+- Hidden columns in a panel can still be visible in derived views
 
-#### FHIR Resource Discovery Process
-To ensure completeness, systematically analyze:
-- **All resource operations**: Search for `createResource`, `updateResource`, `deleteResource`, `patchResource`
-- **Helper functions**: Check all functions called by the main handler
-- **Conditional logic**: Review all if/else branches for resource operations
-- **Error handling**: Include resource operations in error and cleanup code paths
+### Panel Column Filters
+- Panels can configure filters at the column level
+- **Critical**: Panel-level filters are ALWAYS applied when data is loaded, regardless of column visibility
+- These filters apply to:
+  - The panel itself (even if the column is hidden)
+  - All derived views (even if the column is not included in the view)
 
-## Race Condition Prevention
+## View-Column Relationship
 
-To minimize race conditions, bots must follow this strict execution pattern:
+### Column Selection
+- Views specify which columns to display by **referencing column IDs** from the panel's master list
+- Views do not define their own columns - they select from the panel's available columns
 
-1. **Fetch Phase**: Retrieve all additional data needed for processing
-2. **Transform Phase**: Process input data and additional data transformations
-3. **Update Phase**: Execute all FHIR store updates
+### View Column States
+- **No "hidden" state exists for view columns**
+- Columns are either:
+  - **Included**: Referenced by ID and displayed in the view
+  - **Not included**: Not referenced and not displayed in the view
 
-**Critical Rule**: Group all FHIR resource updates at the end of the main handler function.
+### View Column Filters
+- Views can define **additional filters** per column
+- These filters are applied **on top of** panel-level filters (additive)
+- **Automatic cleanup**: When a column is removed from a view, any filters defined on that column in the view are automatically removed
 
-## Safe FHIR Resource Updates
+## Key Differences Summary
 
-Choose one of these approaches for safe resource updates:
+| Aspect | Panel | View |
+|--------|-------|------|
+| Column Definition | Defines master list | References panel columns by ID |
+| Visibility Control | `display.visible` property | Include/exclude by ID reference |
+| Hidden State | Can hide columns while keeping them available | No hidden state - include or exclude only |
+| Filter Scope | Always applied (global to panel + views) | Additional filters on top of panel filters |
+| Filter Persistence | Persists regardless of visibility | Automatically removed when column excluded |
 
-### Option 1: Patch Operations (Preferred)
-Use patch operations to make targeted changes to specific fields in FHIR resources.
+## Common Mistakes to Avoid
 
-### Option 2: Update Operations
-When using update operations:
-1. Fetch a fresh copy of the resource immediately before updating
-2. Replace only the changed properties
-3. Preserve all other existing data
+1. **Don't confuse panel visibility with view inclusion**
+   - Panel: `display.visible = false` hides but keeps column available
+   - View: Column must be explicitly included by ID reference
 
-## Utility Functions
+2. **Don't assume hidden panel columns are filtered out**
+   - Panel filters apply even for hidden columns
+   - Data loading logic must respect panel filters regardless of visibility
 
-### Reference File
-The `@utility_functions.ts` file contains pure functions for common bot operations (e.g., nested merge of extensions).
+3. **Don't try to "hide" columns in views**
+   - Views don't have a hide mechanism
+   - Remove the column ID reference instead
 
-### Usage Requirements
-- **Medplum Imports Allowed**: Imports from the Medplum namespace (e.g., `@medplum/core`, `@medplum/fhirtypes`) are supported
-- **Custom Utility Functions**: Copy utility functions from `@utility_functions.ts` directly into your bot file (cannot be imported). When copying such a function make sure to include a reference to the utility file in the tsdoc.
-- **Version Verification**: Always verify that copied utility functions match the latest version in the reference file before deployment
+4. **Don't forget filter inheritance**
+   - View filters are additional, not replacement
+   - Panel filters + view filters are both applied
 
-### Best Practice
-Regularly check for updates to utility functions and update your bot implementations accordingly.
+## Implementation Notes
 
-## Logging Requirements
-
-Effective logging is critical for troubleshooting bot issues. Since logs are displayed in space-constrained tables, focus on essential information only.
-
-### Required Log Points
-
-1. **Process Start**: Log key input data needed to understand what the bot will process
-   - Include resource ID and relevant identifying information
-   - Example: `"Starting enrichment process for task ${task.id} with status '${task.status}'"`
-
-2. **Process Outcome**: Log the result with relevant metrics or error details
-   - **Success**: Include quantitative results and what was modified
-   - **Error**: Include resource ID and concise error message
-   - Examples:
-     - Success: `"Enrichment completed: processed 5 data points, added 3 connector inputs, updated patient"`
-     - Error: `"Enrichment failed for task ${task.id}: ${errorMessage}"`
-
-### Logging Guidelines
-- Keep messages concise but informative
-- Always include the primary resource ID for correlation
-- Use quantitative metrics when possible (counts, types of changes)
-- Avoid verbose descriptions - focus on actionable information
+- When implementing column visibility logic, check whether you're working with a panel or view context
+- For data loading, always apply panel-level filters first, then view-level filters
+- When modifying view columns, ensure proper cleanup of associated view-level filters
+- UI components should handle the different visibility models appropriately
 
 ---
 > Source: [baatax1/panels](https://github.com/baatax1/panels) — distributed by [TomeVault](https://tomevault.io).
