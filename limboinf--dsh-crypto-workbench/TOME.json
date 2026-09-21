@@ -1,0 +1,44 @@
+{
+  "name": "dsh-crypto-workbench",
+  "owner": "limboinf",
+  "repo": "dsh-crypto-workbench",
+  "description": "\u5408\u7ea6\u5b9e\u9a8c\u5ba4 \u2014\u2014 \u4e3b\u6d41\u5e01 USDT \u6c38\u7eed\u7684 AI \u8f85\u52a9\u4ea4\u6613\u5de5\u4f5c\u53f0\uff08DeepSeek Harness \u63d2\u4ef6\uff09\u3002\u4e2a\u4eba\u6f14\u793a\u9879\u76ee\uff0c\u4e0d\u6784\u6210\u4efb\u4f55\u6295\u8d44\u5efa\u8bae\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/limboinf/dsh-crypto-workbench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T18:32:08Z"
+}
