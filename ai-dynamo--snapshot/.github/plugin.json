@@ -1,0 +1,9 @@
+{
+  "name": "ai-dynamo--snapshot",
+  "displayName": "snapshot",
+  "description": "Snapshot gets GPU pods ready in seconds instead of minutes \u2014 by restoring a fully initialized GPU worker instead of starting one from scratch. Kubernetes-native checkpoint & restore that runs alongsid",
+  "version": "1.0.0",
+  "author": "ai-dynamo",
+  "homepage": "https://github.com/ai-dynamo/snapshot",
+  "skills": []
+}
