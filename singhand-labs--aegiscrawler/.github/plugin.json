@@ -1,0 +1,9 @@
+{
+  "name": "singhand-labs--aegiscrawler",
+  "displayName": "AegisCrawler",
+  "description": "Record once, replay forever \u2014 a production-grade browser data-collection platform. A PageResearch Agent extension turns real interactions into humanized DSL rules, a Go server schedules lease-based ta",
+  "version": "1.0.0",
+  "author": "singhand-labs",
+  "homepage": "https://github.com/singhand-labs/AegisCrawler",
+  "skills": []
+}
