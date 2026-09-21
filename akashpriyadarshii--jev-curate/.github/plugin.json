@@ -1,0 +1,9 @@
+{
+  "name": "akashpriyadarshii--jev-curate",
+  "displayName": "jev-curate",
+  "description": "High-throughput synthetic & pretraining dataset sifter powered by TypeSafe AI Jev (api.typesafe.ai). Stream, filter, and score Parquet & JSONL datasets at 1,500+ rows/sec using System One typed decisi",
+  "version": "1.0.0",
+  "author": "AkashPriyadarshii",
+  "homepage": "https://github.com/AkashPriyadarshii/jev-curate",
+  "skills": []
+}
