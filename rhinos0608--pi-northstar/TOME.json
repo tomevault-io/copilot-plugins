@@ -3,7 +3,7 @@
   "owner": "rhinos0608",
   "repo": "Pi-Northstar",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rhinos0608/Pi-Northstar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T22:30:23Z"
+  "distributed_at": "2026-09-21T22:31:08Z"
 }
