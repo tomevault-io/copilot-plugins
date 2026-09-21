@@ -4,7 +4,7 @@
   "repo": "pr-constellation",
   "description": "See how one change in a PR flows into the rest. Skip the noise.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LalitSinghRana/pr-constellation",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T03:16:12Z"
+  "distributed_at": "2026-09-21T03:39:17Z"
 }
