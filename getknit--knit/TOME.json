@@ -1,0 +1,44 @@
+{
+  "name": "knit",
+  "owner": "getknit",
+  "repo": "knit",
+  "description": "Offline, serverless, end-to-end-encrypted mesh messenger for Android \u2014 runs Wi-Fi Aware and Bluetooth LE simultaneously, with no servers and no Google Play Services.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/getknit/knit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T23:33:23Z"
+}
