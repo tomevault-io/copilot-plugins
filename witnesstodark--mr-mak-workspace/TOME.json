@@ -4,7 +4,7 @@
   "repo": "mr-mak-workspace",
   "description": "A local desktop workspace for Codex and Claude Code, with project reports, creative skills and optional voice.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/witnesstodark/mr-mak-workspace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T15:30:30Z"
+  "distributed_at": "2026-09-21T15:31:25Z"
 }
