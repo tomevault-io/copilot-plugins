@@ -1,0 +1,9 @@
+{
+  "name": "ahnafthaqeef--orchestrate-codex",
+  "displayName": "orchestrate-codex",
+  "description": "Native Codex orchestration skill with scout, researcher, coder, and architect roles and controlled escalation.",
+  "version": "1.0.0",
+  "author": "ahnafthaqeef",
+  "homepage": "https://github.com/ahnafthaqeef/orchestrate-codex",
+  "skills": []
+}
