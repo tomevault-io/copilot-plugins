@@ -1,0 +1,9 @@
+{
+  "name": "agent-labs-dev--fastbrowse",
+  "displayName": "fastbrowse",
+  "description": "A fast browser agent: Jev picks each action from what is on the page, an LLM reads and plans, and every claim in an answer cites a quote from the page.",
+  "version": "1.0.0",
+  "author": "agent-labs-dev",
+  "homepage": "https://github.com/agent-labs-dev/fastbrowse",
+  "skills": []
+}
