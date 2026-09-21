@@ -1,0 +1,44 @@
+{
+  "name": "anvilate",
+  "owner": "clay-good",
+  "repo": "anvilate",
+  "description": "Anvilate is an open-source, local-first design agent for mechanical engineers. Describe a part in plain English and receive a physics-validated, parametric STEP or DXF file that drops straight into CATIA, SolidWorks, NX, or AutoCAD, alongside the editable Python source code. ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/clay-good/anvilate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T02:37:47Z"
+}
