@@ -1,0 +1,9 @@
+{
+  "name": "leesk212--jev-cpu",
+  "displayName": "JEV-CPU",
+  "description": "Run SemIf (Jev-style semantic-if decisions) on a CPU \u2014 no GPU. Reads typed option probabilities straight from an open model in one forward pass, plus a web UI.",
+  "version": "1.0.0",
+  "author": "leesk212",
+  "homepage": "https://github.com/leesk212/JEV-CPU",
+  "skills": []
+}
