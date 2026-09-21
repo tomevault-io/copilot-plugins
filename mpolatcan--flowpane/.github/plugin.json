@@ -1,0 +1,9 @@
+{
+  "name": "mpolatcan--flowpane",
+  "displayName": "flowpane",
+  "description": "FlowPane \u2014 a live graph of a Claude Code workflow run, drawn in the pane beside the transcript",
+  "version": "1.0.0",
+  "author": "mpolatcan",
+  "homepage": "https://github.com/mpolatcan/flowpane",
+  "skills": []
+}
