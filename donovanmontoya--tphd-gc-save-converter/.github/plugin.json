@@ -1,0 +1,9 @@
+{
+  "name": "donovanmontoya--tphd-gc-save-converter",
+  "displayName": "TPHD-GC-Save-Converter",
+  "description": "Mapping and Converting Twilight Princess HD Saves to Gamecube GCI saves for Dolphin and Dusklight",
+  "version": "1.0.0",
+  "author": "DonovanMontoya",
+  "homepage": "https://github.com/DonovanMontoya/TPHD-GC-Save-Converter",
+  "skills": []
+}
