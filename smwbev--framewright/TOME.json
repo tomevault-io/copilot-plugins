@@ -4,7 +4,7 @@
   "repo": "framewright",
   "description": "Agent skill + template: short videos made entirely from code. One HTML file, every frame a pure function of (frame, seed, width). Claude Code, Codex, Gemini CLI, Cursor.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/smwbev/framewright",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T18:31:16Z"
+  "distributed_at": "2026-09-21T18:33:00Z"
 }
