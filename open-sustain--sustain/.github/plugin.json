@@ -1,0 +1,9 @@
+{
+  "name": "open-sustain--sustain",
+  "displayName": "sustain",
+  "description": "Audio player and library manager for Linux (Rust + GTK4) openly inspired by iTunes from the 2010s era",
+  "version": "1.0.0",
+  "author": "open-sustain",
+  "homepage": "https://github.com/open-sustain/sustain",
+  "skills": []
+}
