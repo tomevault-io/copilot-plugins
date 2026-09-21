@@ -1,0 +1,9 @@
+{
+  "name": "soralabsoss--ui",
+  "displayName": "ui",
+  "description": "Sora UI - Motion-first React primitives for shadcn/ui. Open-source registry \u2014 copy-paste components built with Motion, Tailwind, and GSAP.",
+  "version": "1.0.0",
+  "author": "SoraLabsOSS",
+  "homepage": "https://github.com/SoraLabsOSS/ui",
+  "skills": []
+}
