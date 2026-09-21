@@ -1,0 +1,9 @@
+{
+  "name": "ishizakahiroshi--many-ai-cli",
+  "displayName": "many-ai-cli",
+  "description": "Run Claude Code, Codex, Copilot, Cursor, and Grok CLIs in parallel \u2014 approve every session from one browser tab, even from your phone.",
+  "version": "1.0.0",
+  "author": "ishizakahiroshi",
+  "homepage": "https://github.com/ishizakahiroshi/many-ai-cli",
+  "skills": []
+}
