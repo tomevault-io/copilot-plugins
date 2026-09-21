@@ -1,0 +1,9 @@
+{
+  "name": "pollyglot--google-play-cli",
+  "displayName": "google-play-cli",
+  "description": "gplay: publish to Google Play from CI or a coding agent. One static binary, JSON output that mirrors the Play Developer API verbatim, semantic exit codes. Replaces Fastlane supply.",
+  "version": "1.0.0",
+  "author": "PollyGlot",
+  "homepage": "https://github.com/PollyGlot/google-play-cli",
+  "skills": []
+}
