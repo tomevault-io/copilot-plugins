@@ -1,14 +1,16 @@
-## flutter-sdk
+## lib-conventions
 
-> Maintainer uses FVM to switch Flutter SDKs — never upgrade the global install
+> Conventions when editing flutter_scale_kit library Dart code
 
 
-# Flutter SDK (this maintainer)
+# Library Dart
 
-The author switches Flutter with **FVM** (`fvm`). This repo is pinned in `.fvmrc` to **3.35.7** (newest SDK in their FVM cache).
-
-- Use `fvm flutter` / `fvm dart` in this project. Do **not** run `flutter upgrade` / `flutter channel` on `C:\Users\lemsa\Documents\flutter`.
-- Package floor stays Dart `^3.7.2` and Flutter `>=3.29.0` so older apps still resolve this package.
+- Public API = exports from `lib/flutter_scale_kit.dart`. New user-facing types must be exported there (or via an already-exported barrel such as `const_widgets.dart`).
+- SK widgets: scale through `ScaleValueFactory.resolve*` so raw doubles and `.w/.sp` both work without double scaling.
+- Use `ScaleManager.instance` / `ScaleValueFactory.instance`; do not construct parallel engines.
+- Deprecated names: `SKitTheme` → `ScaleKitDesignValues`, `SKitThemeValues` → `ScaleKitDesignValuesSet`. Do not reintroduce the old names in new code.
+- Keep `google_fonts` out of `pubspec.yaml`; `FontConfig` accepts caller-supplied font builders.
+- Prefer extending existing tests in `test/` over example-only verification.
 
 ---
 > Source: [fodilfliti/flutter_scale_kit](https://github.com/fodilfliti/flutter_scale_kit) — distributed by [TomeVault](https://tomevault.io).
