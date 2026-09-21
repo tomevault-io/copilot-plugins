@@ -4,7 +4,7 @@
   "repo": "three-ntc",
   "description": "Neural Texture Compression for ThreeJS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bhouston/three-ntc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T08:39:35Z"
+  "distributed_at": "2026-09-21T08:41:45Z"
 }
