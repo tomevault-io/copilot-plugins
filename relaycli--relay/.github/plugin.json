@@ -1,0 +1,9 @@
+{
+  "name": "relaycli--relay",
+  "displayName": "relay",
+  "description": "Open-source email CLI \u2709\ufe0f  Get programmatic access to your emails using our protocol-native (IMAP, SMTP) library. Alternatives to Gmail API, made with \u2764\ufe0f using Typer.",
+  "version": "1.0.0",
+  "author": "relaycli",
+  "homepage": "https://github.com/relaycli/relay",
+  "skills": []
+}
