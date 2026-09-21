@@ -1,0 +1,9 @@
+{
+  "name": "abogoyavlensky--lgx",
+  "displayName": "lgx",
+  "description": "A project and dependency manager for let-go. Fetch dependencies, run, build and test your app.",
+  "version": "1.0.0",
+  "author": "abogoyavlensky",
+  "homepage": "https://github.com/abogoyavlensky/lgx",
+  "skills": []
+}
