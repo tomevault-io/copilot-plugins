@@ -1,0 +1,44 @@
+{
+  "name": "vespyr",
+  "owner": "lalulali",
+  "repo": "vespyr",
+  "description": "A platform-agnostic, file-based multi-agent engine. Install 20 specialized AI personas directly into your repository. They plan, design, build, review, test, and ship \u2014 with structured memory that persists across sessions and two architectural moats no other framework combines.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lalulali/vespyr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T06:38:28Z"
+}
