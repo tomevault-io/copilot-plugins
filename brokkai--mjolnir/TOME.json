@@ -4,7 +4,7 @@
   "repo": "mjolnir",
   "description": "Manage Codex, Claude Code, Muse Code, Kimi Code, Grok Build, and DeepSeek Harness with durable sessions, isolated environments, quotas, and remote control. A Rust terminal and web control plane for Agent Client Protocol (ACP) coding agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BrokkAi/mjolnir",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T07:30:26Z"
+  "distributed_at": "2026-09-21T07:31:19Z"
 }
