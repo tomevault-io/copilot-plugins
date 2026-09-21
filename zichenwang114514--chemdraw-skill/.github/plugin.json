@@ -1,0 +1,9 @@
+{
+  "name": "zichenwang114514--chemdraw-skill",
+  "displayName": "chemdraw-skill",
+  "description": "ChemDraw Skill for any AI agent: editable chemical structures, SAR and substrate-scope figures, paper figure reconstruction, and ChemDraw automation via MCP or Python/CLI.",
+  "version": "1.0.0",
+  "author": "ZiChenWang114514",
+  "homepage": "https://github.com/ZiChenWang114514/chemdraw-skill",
+  "skills": []
+}
