@@ -4,7 +4,7 @@
   "repo": "bit-tables",
   "description": "AI\u65f6\u4ee3\u7684\u5168\u65b0\u6e38\u620f\u914d\u8868\u65b9\u5f0f",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xcoding1024/bit-tables",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T08:36:46Z"
+  "distributed_at": "2026-09-21T08:46:07Z"
 }
