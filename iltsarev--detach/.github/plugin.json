@@ -1,0 +1,9 @@
+{
+  "name": "iltsarev--detach",
+  "displayName": "detach",
+  "description": "Run Codex and Claude Code reliably in the background on macOS\u2014with a native dashboard, persistent tmux sessions, local checkpoints, recovery, notifications, and closed-lid support.",
+  "version": "1.0.0",
+  "author": "iltsarev",
+  "homepage": "https://github.com/iltsarev/detach",
+  "skills": []
+}
