@@ -1,0 +1,9 @@
+{
+  "name": "vapi-network--vapi-network",
+  "displayName": "vapi-network",
+  "description": "vAPI Network: one wallet, every x402 API. Non-custodial agent client, MCP server, CLI and gateway for Call, Tasks and Compute.",
+  "version": "1.0.0",
+  "author": "vAPI-Network",
+  "homepage": "https://github.com/vAPI-Network/vapi-network",
+  "skills": []
+}
