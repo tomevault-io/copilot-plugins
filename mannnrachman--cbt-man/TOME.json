@@ -4,7 +4,7 @@
   "repo": "cbt-man",
   "description": "CBT-MAN \u2014 Aplikasi Computer-Based Test untuk pendidikan (TanStack Start + React + Prisma + SQLite). Open source (MIT).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mannnrachman/cbt-man",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T03:08:38Z"
+  "distributed_at": "2026-09-21T03:28:29Z"
 }
