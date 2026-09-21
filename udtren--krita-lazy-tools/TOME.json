@@ -4,7 +4,7 @@
   "repo": "krita-lazy-tools",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/udtren/krita-lazy-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T14:31:21Z"
+  "distributed_at": "2026-09-21T14:45:04Z"
 }
