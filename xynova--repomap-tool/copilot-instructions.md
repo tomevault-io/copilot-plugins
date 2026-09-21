@@ -1,77 +1,68 @@
-## always-rules-0-ai
+## always-rules-1-setup
 
-> **ALWAYS provide step-by-step reasoning that:**
+> - **DO NOT** create new virtual environments
 
 
-# 🤖 **AI REASONING PROTOCOL**
+# Use Existing Setup - NO NEW VENVS
 
-## **Before Taking Any Setup Action:**
-**ALWAYS provide step-by-step reasoning that:**
-1. States what setup action you're about to take
-2. Explains which rules from this document apply
-3. Shows how you've considered those rules in your approach
-4. Outlines your specific plan and next steps
+## 🚫 FORBIDDEN ACTIONS:
+- **DO NOT** create new virtual environments
+- **DO NOT** use `python3 -m venv` 
+- **DO NOT** use `pip install --user`
+- **DO NOT** create `test_venv` or similar
+- **DO NOT** override existing dependencies
 
----
+## ✅ REQUIRED ACTIONS:
+- **ALWAYS** use the existing `venv/` directory
+- **ALWAYS** use `source venv/bin/activate` 
+- **ALWAYS** use `make install` if dependencies are missing
+- **ALWAYS** use `make test-unit` to run tests
+- **ALWAYS** work with the current setup
 
-## **CRITICAL LANGUAGE REQUIREMENTS**
+### **Dependency Management Workflow:**
+1.  **Modify `pyproject.toml`**: Add new runtime dependencies under `[project].dependencies` or development dependencies under `[project.optional-dependencies].dev`.
+2.  **Activate Virtual Environment**: Run `source .venv/bin/activate`.
+3.  **Install Dependencies**: Run `make install` (this will automatically use `uv` if available).
 
-### **English-Only Policy (MANDATORY):**
-- **MUST USE ENGLISH ONLY** - All code, comments, variables, functions, strings, and documentation
-- **DIRECTORIES AND PATHS** - All directory names, file paths, and system references must use English
-- **THINKING PROCESS** - All AI reasoning, explanations, and internal processing must use English
-- **NO EXCEPTIONS** - Never use non-English characters, words, or symbols anywhere
-- **AI EFFICIENCY** - Use simple, clear English for better AI processing
-- **CONSISTENCY** - Same English terms throughout the entire codebase
+## 🔧 EXISTING TOOLS:
+- **Makefile**: Contains all setup commands
+- **venv/**: Existing virtual environment
+- **make install**: Installs dependencies properly
+- **make test-unit**: Runs unit tests
+- **make clean**: Cleans up properly
 
-### **AI-Optimized English Standards:**
-- **Simple words** - Use basic English vocabulary
-- **Clear structure** - Write in short, direct sentences
-- **Standard terms** - Use common programming English words
-- **No slang** - Avoid informal language or abbreviations
-- **Consistent naming** - Same English word for same concept
+## 📋 WORKFLOW:
+1. **Check existing setup**: `ls venv/`
+2. **Activate existing venv**: `source venv/bin/activate`
+3. **Install if needed**: `make install`
+4. **Test**: `make test-unit`
+5. **Fix issues in existing code, don't rebuild infrastructure**
 
-### **Examples:**
-✅ **CORRECT:** `userName`, `getData()`, `// Get user information`  
-❌ **WRONG:** `nombreUsuario`, `obtenerDatos()`, `// Obtener información del usuario`  
-❌ **WRONG:** `user_name`, `get_data()`, `// Get user info` (inconsistent style)
+## 🎯 GOAL:
+**Working software using current setup, not rebuilding from scratch.**
 
----
+## ⚠️ REMEMBER:
+- The user wants **working software**
+- The user wants you to use the **current setup**
+- The user does **NOT** want new virtual environments
+- The user does **NOT** want dependency management changes
+- **FIX THE ACTUAL PROBLEMS, don't change the environment**
 
-## **CLONING LIBRARY SOURCE CODE FOR BETTER UNDERSTANDING AND INTERFACE DEVELOPMENT**
+## 🔍 WHEN TESTING:
+- Use `source venv/bin/activate && make test-unit`
+- If tests fail, fix the test logic, not the environment
+- If dependencies missing, use `make install`
+- **NEVER** create new venvs or change Python paths
 
-1. **When to Clone:**
-   - When you need to understand the internal structure of a library
-   - When you need to modify or extend a library's functionality
-   - When you need to debug a library's behavior
-   - When you need to integrate a library into your project
+## 💡 EXAMPLE CORRECT COMMAND:
+```bash
+source venv/bin/activate && make test-unit
+```
 
-2. **Where to Store Cloned Repositories:**
-   - Use a temporary folder (e.g., `tmp/`) for cloned repositories
-   - Keep cloned repositories organized by project or library name
-   - Use a version control system (e.g., Git) to manage cloned repositories
-
-3. **Specific Examples:**
-   - Letta library: `tmp/letta-library`
-   - TUI library: `tmp/tui-library`
-
-4. **Benefits and Expected Outcomes:**
-   - Better understanding of library code
-   - Ability to modify and extend library functionality
-   - Improved debugging capabilities
-   - Faster development of new features
-
-5. **DO and DON'T Guidelines:**
-   - **DO:**
-     - Clone only the necessary files and directories
-     - Keep cloned repositories up-to-date
-     - Use descriptive commit messages
-     - Document any changes made to the cloned code
-   - **DON'T:**
-     - Modify the original library files
-     - Commit directly to the original library repository
-     - Share cloned repositories publicly
-     - Modify or delete cloned repositories without permission
+## ❌ EXAMPLE WRONG COMMAND:
+```bash
+python3 -m venv test_venv  # NEVER DO THIS
+```
 
 ---
 > Source: [xynova/repomap-tool](https://github.com/xynova/repomap-tool) — distributed by [TomeVault](https://tomevault.io).
