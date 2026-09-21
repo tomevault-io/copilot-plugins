@@ -1,0 +1,9 @@
+{
+  "name": "henit-chobisa--deck",
+  "displayName": "deck",
+  "description": "A presentation surface for coding agents: real file:line ranges, narration, and flow diagrams you can play \u2014 instead of five paragraphs of prose. Walk it, comment, submit. Code review, architecture wa",
+  "version": "1.0.0",
+  "author": "henit-chobisa",
+  "homepage": "https://github.com/henit-chobisa/deck",
+  "skills": []
+}
