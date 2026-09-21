@@ -1,0 +1,9 @@
+{
+  "name": "juanbedoya1603--bi-agent-v2",
+  "displayName": "bi-agent-v2",
+  "description": "Asistente interno de BI con OpenAI Agents SDK, FastAPI y SQL Server",
+  "version": "1.0.0",
+  "author": "juanbedoya1603",
+  "homepage": "https://github.com/juanbedoya1603/bi-agent-v2",
+  "skills": []
+}
