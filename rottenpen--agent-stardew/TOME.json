@@ -1,0 +1,44 @@
+{
+  "name": "agent-stardew",
+  "owner": "rottenpen",
+  "repo": "agent-stardew",
+  "description": "\u661f\u9732\u8c37\u519c\u573a\u5c0f\u52a9\u624b\uff1aJev \u81ea\u4e3b\u6e38\u73a9\u3001dsh \u63d2\u4ef6\u3001\u72ec\u7acb CLI \u4e0e SMAPI Mod",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rottenpen/agent-stardew",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T10:32:53Z"
+}
