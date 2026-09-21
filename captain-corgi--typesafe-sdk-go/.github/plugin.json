@@ -1,0 +1,9 @@
+{
+  "name": "captain-corgi--typesafe-sdk-go",
+  "displayName": "typesafe-sdk-go",
+  "description": "Community TypeSafe SDK in Golang",
+  "version": "1.0.0",
+  "author": "captain-corgi",
+  "homepage": "https://github.com/captain-corgi/typesafe-sdk-go",
+  "skills": []
+}
