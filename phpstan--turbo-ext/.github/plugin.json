@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--turbo-ext",
+  "displayName": "turbo-ext",
+  "description": "[READ ONLY] Split of turbo-ext directory from phpstan-src repository. phpstan_turbo is a native acceleration extension for PHPStan.",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/turbo-ext",
+  "skills": []
+}
