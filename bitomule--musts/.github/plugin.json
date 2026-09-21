@@ -1,0 +1,9 @@
+{
+  "name": "bitomule--musts",
+  "displayName": "musts",
+  "description": "The validation loop that stops AI coding agents from claiming work is done before it actually is.",
+  "version": "1.0.0",
+  "author": "bitomule",
+  "homepage": "https://github.com/bitomule/musts",
+  "skills": []
+}
