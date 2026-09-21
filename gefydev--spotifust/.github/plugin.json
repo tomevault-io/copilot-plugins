@@ -1,0 +1,9 @@
+{
+  "name": "gefydev--spotifust",
+  "displayName": "spotifust",
+  "description": "Lightweight Spotify client built from scratch in Rust",
+  "version": "1.0.0",
+  "author": "gefydev",
+  "homepage": "https://github.com/gefydev/spotifust",
+  "skills": []
+}
