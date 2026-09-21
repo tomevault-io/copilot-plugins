@@ -1,0 +1,9 @@
+{
+  "name": "jodli--coffeeshottimer",
+  "displayName": "CoffeeShotTimer",
+  "description": "Espresso timer with analytics for home baristas",
+  "version": "1.0.0",
+  "author": "jodli",
+  "homepage": "https://github.com/jodli/CoffeeShotTimer",
+  "skills": []
+}
