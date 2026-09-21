@@ -1,0 +1,44 @@
+{
+  "name": "flutter-cn-overseas-app-skills",
+  "owner": "lh17708357536-gif",
+  "repo": "flutter-cn-overseas-app-skills",
+  "description": "\u4e2d\u56fd+\u6d77\u5916\u53cc\u5e02\u573a Flutter+NestJS \u591a\u5e73\u53f0 App \u5f00\u53d1 Agent Skills\uff1a\u4e09 flavor \u53d1\u5e03/\u7b2c\u4e09\u65b9\u767b\u5f55/\u6d4b\u8bd5/CI-CD/\u53ef\u89c2\u6d4b\u6027\uff0c\u9002\u914d Claude Code\u3001Codex \u7b49",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lh17708357536-gif/flutter-cn-overseas-app-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T03:00:47Z"
+}
