@@ -7,11 +7,11 @@ Not only an MCP that lets AI act like a human at the terminal — also a cross-p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [open-mcp-ai/Termcp](https://github.com/open-mcp-ai/Termcp).
+Original source: `CLAUDE.md` in [open-mcp-ai/Termcp](https://github.com/open-mcp-ai/Termcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
