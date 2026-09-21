@@ -1,0 +1,44 @@
+{
+  "name": "vapi-network",
+  "owner": "vAPI-Network",
+  "repo": "vapi-network",
+  "description": "vAPI Network: one wallet, every x402 API. Non-custodial agent client, MCP server, CLI and gateway for Call, Tasks and Compute.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vAPI-Network/vapi-network",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T14:41:31Z"
+}
