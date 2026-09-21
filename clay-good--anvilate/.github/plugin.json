@@ -1,0 +1,9 @@
+{
+  "name": "clay-good--anvilate",
+  "displayName": "anvilate",
+  "description": "Anvilate is an open-source, local-first design agent for mechanical engineers. Describe a part in plain English and receive a physics-validated, parametric STEP or DXF file that drops straight into CA",
+  "version": "1.0.0",
+  "author": "clay-good",
+  "homepage": "https://github.com/clay-good/anvilate",
+  "skills": []
+}
