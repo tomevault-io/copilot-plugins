@@ -1,0 +1,9 @@
+{
+  "name": "matrodrigs--shotcut-mcp",
+  "displayName": "shotcut-mcp",
+  "description": "Transactional MCP server for creating, editing, validating, previewing, and rendering Shotcut projects.",
+  "version": "1.0.0",
+  "author": "matrodrigs",
+  "homepage": "https://github.com/matrodrigs/shotcut-mcp",
+  "skills": []
+}
