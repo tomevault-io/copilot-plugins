@@ -1,0 +1,44 @@
+{
+  "name": "p2wlan",
+  "owner": "yhan-sun",
+  "repo": "p2wlan",
+  "description": "\u8de8\u5e73\u53f0 P2P \u865a\u62df\u5c40\u57df\u7f51(VirtualLAN)\u5de5\u5177\uff0c\u8ba9\u5f02\u5730\u8bbe\u5907\u50cf\u5728\u540c\u4e00\u5c40\u57df\u7f51\u4e2d\u4e92\u8054\u3002\u652f\u6301 NAT \u7a7f\u900f\u3001IPv6 \u76f4\u8fde\u3001\u623f\u95f4\u7ec4\u7f51\u4e0e Relay \u56de\u9000\uff0c\u8986\u76d6 Windows / macOS / Linux / Android\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yhan-sun/p2wlan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T23:34:11Z"
+}
