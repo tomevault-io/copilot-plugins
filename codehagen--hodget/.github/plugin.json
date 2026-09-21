@@ -1,0 +1,9 @@
+{
+  "name": "codehagen--hodget",
+  "displayName": "hodget",
+  "description": "An open-source AI hedge fund. A panel of AI analysts and quant models research tickers, each forms a view, and the portfolio layer turns those views into positions \u2014 with backtesting, risk controls an",
+  "version": "1.0.0",
+  "author": "Codehagen",
+  "homepage": "https://github.com/Codehagen/hodget",
+  "skills": []
+}
