@@ -4,7 +4,7 @@
   "repo": "jev-curate",
   "description": "High-throughput synthetic & pretraining dataset sifter powered by TypeSafe AI Jev (api.typesafe.ai). Stream, filter, and score Parquet & JSONL datasets at 1,500+ rows/sec using System One typed decisions (Choice, Score, Noul).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AkashPriyadarshii/jev-curate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T12:35:55Z"
+  "distributed_at": "2026-09-21T12:36:44Z"
 }
