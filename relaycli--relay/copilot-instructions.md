@@ -1,33 +1,21 @@
-## 010-overview
+## 011-user-journeys
 
-> This project's goal is to enable builders to create email-based apps
+> The users of this project are:
 
 
-# Project overview
-This project's goal is to enable builders to create email-based apps
+# User journeys
 
-## Success metrics
-- Reduction in time-to-zero-inbox for daily emails
-- Number of active users of email apps
+## User description
+The users of this project are:
+- professional developers experiencing vendor-locking with email solutions
+- hobbyist and builders focused on prototyping multiple ideas quickly
 
-## Functional requirements
-### General
-- Stay lean, keep a minimal set of well-picked dependencies. The leanest codebase can lead to the greatest achievements
-- Keep the codebase modular
-- Respect Don't Repeat Yourself (DRY) rules
 
-### Relay library
-- Handle email account management (IMAP, Gmail, Outlook)
-- Implements all common email operations that you can experience with email clients
-- Credentials are stored locally
-- The implementation should be optimized for speed and concept persistence
-
-### Relay CLI
-- Wrap the library in a CLI interface
-- The UI should be designed so that it becomes easy for developers to manage their emails using their terminal
-
-### Documentation
-- Fast track the installation, usage and contribution of users
+## Journey description
+- The user installs the CLI
+- They connect their main email account, entering their credentials
+- They fetch their first email
+- They give the CLI documentation to their coding LLM to perform tasks on it
 
 ---
 > Source: [relaycli/relay](https://github.com/relaycli/relay) — distributed by [TomeVault](https://tomevault.io).
