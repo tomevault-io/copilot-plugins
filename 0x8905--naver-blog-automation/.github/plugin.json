@@ -1,0 +1,9 @@
+{
+  "name": "0x8905--naver-blog-automation",
+  "displayName": "naver-blog-automation",
+  "description": "Draft, review, and optionally save posts to your own Naver blog. Frozen core + taste packs so any agent can fit it to its user.",
+  "version": "1.0.0",
+  "author": "0x8905",
+  "homepage": "https://github.com/0x8905/naver-blog-automation",
+  "skills": []
+}
