@@ -1,0 +1,9 @@
+{
+  "name": "lukstei--slop-grader",
+  "displayName": "slop-grader",
+  "description": "Jev-powered, rule-based grader for text files. Runs every rule against every line in parallel. No skimming, no missed lines.",
+  "version": "1.0.0",
+  "author": "lukstei",
+  "homepage": "https://github.com/lukstei/slop-grader",
+  "skills": []
+}
