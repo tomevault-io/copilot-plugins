@@ -4,7 +4,7 @@
   "repo": "raisonne-os",
   "description": "Open-source, self-hosted catalogue raisonne for artists who work on-chain.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/orkhan-art-web/raisonne-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T20:31:55Z"
+  "distributed_at": "2026-09-21T20:34:20Z"
 }
