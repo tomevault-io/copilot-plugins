@@ -1,0 +1,44 @@
+{
+  "name": "Face-Crypt-Cloud-Arabic",
+  "owner": "Ammar-1993",
+  "repo": "Face-Crypt-Cloud-Arabic",
+  "description": "A smart cloud-based facial recognition authentication system(Arabic), that replaces traditional passwords with secure, AI-powered biometric login. Includes a modern admin dashboard, comprehensive audit logging, and full Firebase integration for seamless user management and data security.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ammar-1993/Face-Crypt-Cloud-Arabic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T06:34:21Z"
+}
