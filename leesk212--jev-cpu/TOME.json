@@ -1,0 +1,44 @@
+{
+  "name": "JEV-CPU",
+  "owner": "leesk212",
+  "repo": "JEV-CPU",
+  "description": "Run SemIf (Jev-style semantic-if decisions) on a CPU \u2014 no GPU. Reads typed option probabilities straight from an open model in one forward pass, plus a web UI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/leesk212/JEV-CPU",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T04:49:22Z"
+}
