@@ -1,0 +1,9 @@
+{
+  "name": "smwbev--framewright",
+  "displayName": "framewright",
+  "description": "Agent skill + template: short videos made entirely from code. One HTML file, every frame a pure function of (frame, seed, width). Claude Code, Codex, Gemini CLI, Cursor.",
+  "version": "1.0.0",
+  "author": "smwbev",
+  "homepage": "https://github.com/smwbev/framewright",
+  "skills": []
+}
