@@ -1,0 +1,9 @@
+{
+  "name": "smaramwbc--statewave-personal-assistant",
+  "displayName": "statewave-personal-assistant",
+  "description": "FastAPI reference app for Statewave memory integration. Wraps every chat turn with get_context before the LLM call and record_episode after; seeded demo users show compiled facts and token-budgeted co",
+  "version": "1.0.0",
+  "author": "smaramwbc",
+  "homepage": "https://github.com/smaramwbc/statewave-personal-assistant",
+  "skills": []
+}
