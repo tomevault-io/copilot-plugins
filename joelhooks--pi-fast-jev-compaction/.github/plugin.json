@@ -1,0 +1,9 @@
+{
+  "name": "joelhooks--pi-fast-jev-compaction",
+  "displayName": "pi-fast-jev-compaction",
+  "description": "Pi extension: verbatim context compaction with TypeSafe Jev decisions",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/pi-fast-jev-compaction",
+  "skills": []
+}
