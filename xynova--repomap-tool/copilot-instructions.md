@@ -1,266 +1,220 @@
-## rules-for-python-coding
+## rules-for-testing
 
-> Python Coding Rules and Best Practices
+> Comprehensive testing and code quality rules with anti-cheating protocols
 
 
-# 🐍 **PYTHON CODING STANDARDS**
+# 🤖 **AI REASONING PROTOCOL**
 
-## 🎯 **CORE PRINCIPLES**
-- **DRY (Don't Repeat Yourself)**: Eliminate code duplication through abstraction and reuse
-- **Type Safety**: Full mypy compatibility with comprehensive type annotations
-- **Data Validation**: Use Pydantic models for all data structures and validation
-- **Code Quality**: Format with black, lint with flake8, type-check with mypy
-- **Modern Python**: Use Python 3.11+ features and best practices
+## **Before Taking Any Testing Action:**
+**ALWAYS provide step-by-step reasoning that:**
+1. States what testing action you're about to take
+2. Explains which rules from this document apply
+3. Shows how you've considered those rules in your approach
+4. Outlines your specific plan and next steps
 
-### **Language Standards:**
-- **ALWAYS** write all code (comments, variable names, function names, etc.) exclusively in English.
-- **NEVER** use non-English characters or words in any part of the codebase.
+---
 
-## 📝 **CODE FORMATTING REQUIREMENTS**
+# 🚫 **FORBIDDEN ACTIONS - ANTI-CHEATING PROTOCOLS**
 
-### **MANDATORY FORMATTING STEPS:**
-1. **ALWAYS** run `make format` before claiming work is complete
-2. **ALWAYS** run `make lint` to check for style issues
-3. **ALWAYS** run `make mypy` to verify type safety
-4. **NEVER** submit unformatted code
-5. **NEVER** ignore linting warnings or errors
+## **Testing Anti-Cheating Rules**
+- **DO NOT** create tests that mock core functionality to achieve coverage
+- **DO NOT** write tests that only verify return types without testing behavior
+- **DO NOT** create tests with hardcoded responses or fake data
+- **DO NOT** write tests that only cover happy paths without error conditions
+- **DO NOT** create trivial tests that test obvious functionality
+- **DO NOT** use mocks for internal business logic (only for external dependencies)
 
-### **Formatting Tools:**
-- **Black**: Code formatting (line length: 88 characters)
-- **Flake8**: Linting with custom rules for this project
-- **MyPy**: Static type checking with strict mode
-- **isort**: Import sorting (handled by black)
+## **Code Quality Anti-Cheating Rules**
+- **DO NOT** refactor by simply moving code around without real separation of concerns
+- **DO NOT** create modules with artificial separation (e.g., by line count only)
+- **DO NOT** implement placeholder logic that returns hardcoded values
+- **DO NOT** create fake implementations that don't perform real business logic
+- **DO NOT** use deprecated patterns without updating to modern alternatives
+- **DO NOT** create modules that can't be tested independently
 
-## 🔄 **DRY (DON'T REPEAT YOURSELF) PRINCIPLES**
+## **Integration Testing Anti-Cheating Rules**
+- **DO NOT** create integration tests that mock everything
+- **DO NOT** write integration tests that only verify CLI return codes
+- **DO NOT** create integration tests with fake file system operations
+- **DO NOT** write integration tests that skip error recovery scenarios
+- **DO NOT** create integration tests that don't validate real system behavior
 
-### **Code Reuse Requirements:**
-- **ALWAYS** extract common functionality into reusable functions/classes
-- **ALWAYS** use inheritance and composition to avoid duplication
-- **ALWAYS** create utility functions for repeated logic
-- **ALWAYS** use decorators for cross-cutting concerns
-- **NEVER** copy-paste code blocks
-- **NEVER** duplicate validation logic
-- **NEVER** repeat configuration patterns
+# ✅ **REQUIRED ACTIONS - QUALITY PROTOCOLS**
 
-### **DRY Implementation Patterns:**
-```python
-# ✅ GOOD: Reusable base class
-class BaseMatcher(ABC):
-    @abstractmethod
-    def match(self, query: str, identifiers: List[str]) -> List[MatchResult]:
-        pass
+## 🧪 **TESTING REQUIREMENTS:**
+- **ALWAYS** write comprehensive tests for new functionality
+- **NEVER** claim tests pass without actually running them
+- **NEVER** provide fake test solutions or incomplete test coverage
+- **ALWAYS** verify tests run successfully with `make test-unit`
+- **ALWAYS** fix failing tests before claiming success
+- **ALWAYS** test edge cases and error conditions
+- **ALWAYS** ensure test coverage for new code paths
+- **CLI TESTS ARE MANDATORY** - CLI is the primary UX, must be thoroughly tested
+- **ALWAYS** write tests that use real data and files when possible
+- **ALWAYS** include error condition testing (at least 20% of tests)
+- **ALWAYS** verify actual behavior, not just return types
+- **ALWAYS** include performance constraints in relevant tests
+- **ALWAYS** test with real project structures, not artificial ones
 
-# ✅ GOOD: Utility function
-def validate_threshold(value: float) -> float:
-    if not 0.0 <= value <= 1.0:
-        raise ValueError(f"Threshold must be between 0.0 and 1.0, got {value}")
-    return value
+## 📁 **FIXTURE REQUIREMENTS:**
+- **PREFER static shared fixtures** over dynamic test data generation
+- **USE existing test fixtures** from `tests/fixtures/` directory
+- **AVOID state-changing operations** in test fixtures (this software doesn't change state)
+- **REUSE fixture data** across multiple test cases for consistency
+- **CREATE static test files** that represent real project structures
+- **USE shared example data** that can be referenced by multiple tests
+- **AVOID generating test data** at runtime when static data suffices
+- **PREFER deterministic fixtures** that produce consistent results
+- **USE existing test repositories** like `tests/fixtures/test-repo/` for integration tests
 
-# ❌ BAD: Repeated validation logic
-def fuzzy_search(self, query: str) -> List[MatchResult]:
-    if not 0.0 <= self.threshold <= 1.0:  # Duplicated
-        raise ValueError("Invalid threshold")
-    # ...
+## 🔍 TESTING WORKFLOW:
+1. **Write tests first** for new functionality
+2. **Run tests immediately** after any code changes
+3. **Fix all failures** before proceeding
+4. **Verify end-to-end** functionality works
+5. **Never skip testing** - it's mandatory, not optional
 
-def semantic_search(self, query: str) -> List[MatchResult]:
-    if not 0.0 <= self.threshold <= 1.0:  # Duplicated
-        raise ValueError("Invalid threshold")
-    # ...
-```
+## 🐛 **DEBUG TEST NAMING CONVENTIONS:**
+- **ALWAYS** prefix debug/investigation tests with `ignore.test_*` 
+- **ALWAYS** use this naming pattern for temporary tests created to debug issues
+- **ALWAYS** ensure debug tests don't get captured in git commits
+- **EXAMPLES**: `ignore.test_debug_import_issue.py`, `ignore.test_investigate_parser.py`
+- **PURPOSE**: Keep formal test suite clean while allowing debugging investigations
 
-## 🏷️ **TYPE ANNOTATIONS & MYPY COMPATIBILITY**
+## ⚠️ **TESTING RULES:**
+- **NO FAKE SOLUTIONS**: Every test must actually pass
+- **NO SKIPPED TESTS**: All tests must run and pass
+- **NO PARTIAL COVERAGE**: Test all new code paths
+- **NO ASSUMPTIONS**: Verify everything works, don't guess
+- **NO CLI WITHOUT TESTS**: Every CLI command must have comprehensive tests
+- **NO FALSE CLAIMS**: Never claim 100% coverage without verifying actual numbers
+- **NO BS STATEMENTS**: Always be precise about what is actually tested vs. claimed
+- **NO OVER-MOCKING**: Tests must use real data and validate actual behavior
+- **NO PLACEHOLDER IMPLEMENTATIONS**: Business logic must be real, not fake
+- **NO SUPERFICIAL REFACTORING**: Modules must have real separation of concerns
 
-### **Type Annotation Requirements:**
-- **ALWAYS** annotate function parameters and return types
-- **ALWAYS** annotate class attributes
-- **ALWAYS** use `from __future__ import annotations` for forward references
-- **ALWAYS** use `typing` module for complex types
-- **ALWAYS** use `typing_extensions` for newer type features
-- **NEVER** use `Any` without explicit justification
-- **NEVER** ignore mypy errors
+## 🚀 FINAL VALIDATION REQUIREMENTS:
+- **ALWAYS** run `make ci` before finishing work
+- **ALWAYS** fix any CI errors before claiming completion
+- **ALWAYS** ensure good real coverage for all updates (>80% for new code)
+- **ALWAYS** verify integration tests pass (not just unit tests)
+- **ALWAYS** check that new functionality works end-to-end
+- **NEVER** finish work with failing CI or poor coverage
 
-### **Type Annotation Examples:**
-```python
-from __future__ import annotations
-from typing import List, Dict, Optional, Union, Protocol, TypeVar
-from typing_extensions import Self
+## 🖥️ CLI TESTING REQUIREMENTS:
+- **CLI IS THE UX**: Every CLI command must be thoroughly tested
+- **Command existence**: Test that all commands are registered and show help
+- **Option validation**: Test all command-line options and constraints
+- **Output formats**: Verify JSON, table, and text output work correctly
+- **Error handling**: Test invalid inputs, missing files, and error conditions
+- **Configuration integration**: Ensure CLI uses configuration correctly
+- **Real execution**: Use `click.testing.CliRunner` for actual CLI testing
+- **Progress handling**: Test with progress bars and ANSI escape codes
+- **Exit codes**: Verify correct exit codes for success/error conditions
+- **Edge cases**: Test boundary conditions and user error scenarios
 
-# ✅ GOOD: Comprehensive type annotations
-class SearchEngine:
-    def __init__(self, config: RepoMapConfig) -> None:
-        self.config: RepoMapConfig = config
-        self.cache: Dict[str, List[MatchResult]] = {}
-    
-    def search(
-        self, 
-        query: str, 
-        identifiers: List[str],
-        max_results: Optional[int] = None
-    ) -> List[MatchResult]:
-        # Implementation
-        pass
-    
-    def get_cache_stats(self) -> Dict[str, Union[int, float]]:
-        return {"size": len(self.cache), "hit_rate": 0.85}
+## 📊 COVERAGE REQUIREMENTS:
+- **New functionality**: Must have >70% test coverage
+- **Modified code**: Must maintain or improve existing coverage
+- **Integration points**: Must be tested with real scenarios
+- **Edge cases**: Must be covered for all new features
+- **Error conditions**: Must be tested for robustness
+- **CLI commands**: Must have 100% test coverage - no exceptions
 
-# ✅ GOOD: Generic types
-T = TypeVar('T')
+## 🎯 **COVERAGE ACCURACY RULES:**
+- **ALWAYS verify actual coverage numbers** before making claims
+- **NEVER claim 100% coverage** without running coverage tools
+- **BE SPECIFIC** about what is tested vs. what is claimed
+- **DISTINGUISH** between "new functionality coverage" and "overall module coverage"
+- **USE EXACT NUMBERS** when reporting coverage (e.g., "33% overall, 100% for new features")
 
-class Cache(Generic[T]):
-    def get(self, key: str) -> Optional[T]:
-        pass
-    
-    def set(self, key: str, value: T) -> None:
-        pass
+## 📊 **SUCCESS METRICS - NEGATIVE APPROACH**
 
-# ✅ GOOD: Protocol for duck typing
-class Matcher(Protocol):
-    def match(self, query: str, identifiers: List[str]) -> List[MatchResult]:
-        ...
-```
+### **Test Coverage Quality Gates**
+- **Integration test ratio**: ≥30% of new tests must be integration tests
+- **Error condition coverage**: ≥20% of new tests must test error conditions
+- **Real data usage**: ≥80% of new tests must use real data
+- **Mock usage**: ≤20% of new tests (only for external dependencies)
+- **Performance testing**: ≥15% of new tests must include performance constraints
 
-### **MyPy Configuration Compliance:**
-- **ALWAYS** use strict mode settings
-- **ALWAYS** handle `Optional` types explicitly
-- **ALWAYS** use `Union` types when multiple types are possible
-- **ALWAYS** use `Literal` types for string/enum-like values
-- **ALWAYS** use `Final` for constants
+### **Code Quality Gates**
+- **Module size**: ≤300 lines per module (no exceptions)
+- **Single responsibility**: ≥80% of modules must have single responsibility
+- **Independent testability**: ≥90% of modules must be testable independently
+- **Real implementation**: 0 placeholder or fake implementations
+- **Modern patterns**: 0 deprecated patterns remaining
 
-## 🏗️ **PYDANTIC MODEL REQUIREMENTS**
+### **Integration Test Quality Gates**
+- **E2E coverage**: ≥80% of workflows must have end-to-end tests
+- **Error coverage**: ≥30% of tests must cover error conditions
+- **Real system behavior**: ≥70% of tests must validate real system behavior
+- **Performance validation**: ≥20% of tests must include performance metrics
+- **Persistence validation**: ≥50% of tests must validate real persistence
 
-### **Data Model Standards:**
-- **ALWAYS** use Pydantic models for data validation
-- **ALWAYS** define field types and constraints
-- **ALWAYS** use validators for complex validation logic
-- **ALWAYS** use `model_config` for Pydantic v2 settings
-- **ALWAYS** use `Field()` for field metadata
-- **NEVER** use plain dataclasses for validated data
-- **NEVER** skip validation for user input
+## 🚨 **VALIDATION PROTOCOLS**
 
-### **Pydantic Model Examples:**
-```python
-from pydantic import BaseModel, Field, field_validator, ConfigDict
-from typing import List, Optional, Literal
-from enum import Enum
+### **Before Claiming Success - Verify:**
+1. **No over-mocking**: Check that tests use real data and don't mock core functionality
+2. **No fake implementations**: Verify that business logic is real, not placeholder
+3. **No superficial refactoring**: Ensure modules have real separation of concerns
+4. **No deprecated patterns**: Confirm modern patterns are used throughout
+5. **No trivial tests**: Verify tests cover meaningful scenarios, not obvious functionality
+6. **No missing error conditions**: Ensure error handling is comprehensive
 
-class MatchType(str, Enum):
-    FUZZY = "fuzzy"
-    SEMANTIC = "semantic"
-    HYBRID = "hybrid"
+### **Quality Validation Checklist**
+- [ ] Tests use real data/files, not mocks
+- [ ] Tests cover error conditions and edge cases
+- [ ] Tests verify actual behavior, not just return types
+- [ ] Modules have single responsibility and can be tested independently
+- [ ] Implementations perform real business logic, not placeholder functions
+- [ ] Integration tests validate real system behavior and persistence
+- [ ] Performance considerations are included where relevant
+- [ ] Modern patterns are used, deprecated patterns are eliminated
 
-class MatchResult(BaseModel):
-    model_config = ConfigDict(
-        str_strip_whitespace=True,
-        validate_assignment=True,
-        extra="forbid"
-    )
-    
-    identifier: str = Field(..., min_length=1, description="The matched identifier")
-    score: float = Field(..., ge=0.0, le=1.0, description="Match confidence score")
-    match_type: MatchType = Field(..., description="Type of matching used")
-    line_number: Optional[int] = Field(None, ge=1, description="Line number in source")
-    file_path: str = Field(..., description="Path to the source file")
-    
-    @field_validator('identifier')
-    @classmethod
-    def validate_identifier(cls, v: str) -> str:
-        if not v.strip():
-            raise ValueError("Identifier cannot be empty or whitespace only")
-        return v.strip()
+## 🔍 **ANTI-CHEATING DETECTION**
 
-class SearchRequest(BaseModel):
-    model_config = ConfigDict(
-        str_strip_whitespace=True,
-        validate_assignment=True
-    )
-    
-    query: str = Field(..., min_length=1, max_length=1000)
-    match_type: MatchType = Field(default=MatchType.FUZZY)
-    threshold: float = Field(default=0.7, ge=0.0, le=1.0)
-    max_results: int = Field(default=50, ge=1, le=1000)
-    project_path: Optional[str] = Field(None, description="Project root path")
-    
-    @field_validator('query')
-    @classmethod
-    def validate_query(cls, v: str) -> str:
-        if not v.strip():
-            raise ValueError("Query cannot be empty")
-        return v.strip()
-```
+### **Red Flags to Watch For:**
+- Tests that mock everything to achieve coverage
+- Implementations that always return the same hardcoded value
+- Refactoring that just moves code without real separation
+- Integration tests that only verify CLI return codes
+- Modules that can't be tested independently
+- Business logic that doesn't perform real calculations
+- Tests that only cover happy paths
+- Code that uses deprecated patterns without updating
 
-## 🏛️ **ARCHITECTURE PATTERNS**
+### **Quality Indicators:**
+- Tests that use real project files and data
+- Implementations that perform actual calculations and analysis
+- Modules with clear, single responsibilities
+- Integration tests that validate real system behavior
+- Error handling that covers multiple failure scenarios
+- Performance testing with real constraints
+- Modern patterns and up-to-date dependencies
 
-### **Class Design Principles:**
-- **ALWAYS** use single responsibility principle
-- **ALWAYS** prefer composition over inheritance
-- **ALWAYS** use dependency injection for testability
-- **ALWAYS** implement proper `__repr__` and `__str__` methods
-- **ALWAYS** use context managers for resource management
-- **NEVER** create god classes with multiple responsibilities
-- **NEVER** use global state
+## 🚨 **FAILURE CONDITIONS**
 
-### **Error Handling Standards:**
-```python
-from typing import NoReturn
-import logging
+**Any work FAILS if:**
+- Tests are over-mocked and don't test real functionality
+- Implementations are fake or placeholder
+- Refactoring is superficial without real separation
+- Integration tests don't validate real system behavior
+- Error conditions are not properly covered
+- Performance considerations are ignored
+- Deprecated patterns are not updated
+- Modules can't be tested independently
 
-# ✅ GOOD: Custom exception hierarchy
-class RepoMapError(Exception):
-    """Base exception for RepoMap tool."""
-    pass
+## 💡 **SUCCESS PATTERNS**
 
-class ValidationError(RepoMapError):
-    """Raised when data validation fails."""
-    pass
-
-class ConfigurationError(RepoMapError):
-    """Raised when configuration is invalid."""
-    pass
-
-# ✅ GOOD: Proper error handling with logging
-def process_file(file_path: Path) -> List[MatchResult]:
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-        return extract_identifiers(content)
-    except FileNotFoundError:
-        logger.error(f"File not found: {file_path}")
-        raise ValidationError(f"File not found: {file_path}")
-    except UnicodeDecodeError as e:
-        logger.error(f"Unicode decode error in {file_path}: {e}")
-        raise ValidationError(f"Invalid file encoding: {file_path}")
-
-### **Error Suppression Anti-Patterns:**
-
-- **NEVER** use `try/except/pass` - Completely ignores errors (security risk)
-- **NEVER** use `try/except/continue` without logging - Suppresses iteration errors  
-- **ALWAYS** log errors at appropriate levels instead of suppressing them
-- **ALWAYS** use specific exception types instead of blanket `Exception`
-- **NEVER** completely silence errors - Maintain observability for debugging
-
-**Examples:**
-```python
-# ❌ BAD (security risk):
-try:
-    operation()
-except Exception:
-    pass  # Error completely hidden
-
-# ❌ BAD (poor observability):  
-try:
-    operation() 
-except Exception:
-    continue  # Error suppressed during iteration
-
-# ✅ GOOD (secure and observable):
-try:
-    operation()
-except (SpecificError, ExpectedError) as e:
-    logger.debug(f"Operation failed gracefully: {e}")
-    # Handle or continue appropriately
-```
-
-### **Resource Management Standards:**
+**Work SUCCEEDS when:**
+- Tests use real data and validate actual behavior
+- Implementations perform real business logic
+- Modules have clear, single responsibilities
+- Integration tests validate real system behavior
+- Error handling is comprehensive
+- Performance is considered and tested
+- Modern patterns are used throughout
+- All modules can be tested independently
 
 ---
 > Source: [xynova/repomap-tool](https://github.com/xynova/repomap-tool) — distributed by [TomeVault](https://tomevault.io).
