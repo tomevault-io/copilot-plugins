@@ -1,0 +1,9 @@
+{
+  "name": "assistant-ui--riftri",
+  "displayName": "riftri",
+  "description": "Lightweight Git workspaces for parallel development.",
+  "version": "1.0.0",
+  "author": "assistant-ui",
+  "homepage": "https://github.com/assistant-ui/riftri",
+  "skills": []
+}
