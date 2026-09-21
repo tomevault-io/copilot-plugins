@@ -1,0 +1,44 @@
+{
+  "name": "statewave-personal-assistant",
+  "owner": "smaramwbc",
+  "repo": "statewave-personal-assistant",
+  "description": "FastAPI reference app for Statewave memory integration. Wraps every chat turn with get_context before the LLM call and record_episode after; seeded demo users show compiled facts and token-budgeted context. Self-hosted, Postgres + pgvector.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/smaramwbc/statewave-personal-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T02:42:03Z"
+}
