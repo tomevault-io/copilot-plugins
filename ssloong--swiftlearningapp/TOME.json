@@ -4,7 +4,7 @@
   "repo": "SwiftLearningApp",
   "description": "SwiftLearningApp \u662f\u4e00\u4e2a Swift \u8bed\u8a00\u5b66\u4e60\u5e94\u7528\uff0c\u4f7f\u7528 SwiftUI \u6784\u5efa\uff0c\u65e8\u5728\u5e2e\u52a9\u7528\u6237\u901a\u8fc7\u4ea4\u4e92\u5f0f\u8bfe\u7a0b\u5b66\u4e60 Swift \u7f16\u7a0b\u57fa\u7840\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SSLoong/SwiftLearningApp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T20:43:07Z"
+  "distributed_at": "2026-09-21T20:46:40Z"
 }
