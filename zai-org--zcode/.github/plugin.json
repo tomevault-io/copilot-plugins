@@ -1,0 +1,9 @@
+{
+  "name": "zai-org--zcode",
+  "displayName": "ZCode",
+  "description": "Z.ai's coding agent harness. Powerful, intelligent, extensible.",
+  "version": "1.0.0",
+  "author": "zai-org",
+  "homepage": "https://github.com/zai-org/ZCode",
+  "skills": []
+}
