@@ -1,0 +1,9 @@
+{
+  "name": "jpettitt--purpleair-local",
+  "displayName": "purpleair-local",
+  "description": "Home Assistant custom integration for local-only polling of PurpleAir PA-II sensors. No cloud, no API key.",
+  "version": "1.0.0",
+  "author": "jpettitt",
+  "homepage": "https://github.com/jpettitt/purpleair-local",
+  "skills": []
+}
