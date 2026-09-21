@@ -1,0 +1,9 @@
+{
+  "name": "schuettc--muster",
+  "displayName": "muster",
+  "description": "muster \u2014 local multi-agent coordination bus for coding agents (Claude Code + Codex). No copy/paste, subscription-only. muster.tools",
+  "version": "1.0.0",
+  "author": "schuettc",
+  "homepage": "https://github.com/schuettc/muster",
+  "skills": []
+}
