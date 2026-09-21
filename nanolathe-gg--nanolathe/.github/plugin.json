@@ -1,0 +1,9 @@
+{
+  "name": "nanolathe-gg--nanolathe",
+  "displayName": "nanolathe",
+  "description": "Total Annihilation engine reimplementation in Go.",
+  "version": "1.0.0",
+  "author": "nanolathe-gg",
+  "homepage": "https://github.com/nanolathe-gg/nanolathe",
+  "skills": []
+}
