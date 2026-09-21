@@ -1,0 +1,9 @@
+{
+  "name": "nunomaduro--static-php-builds",
+  "displayName": "static-php-builds",
+  "description": "Static PHP Builds provides precompiled PHP for mise.",
+  "version": "1.0.0",
+  "author": "nunomaduro",
+  "homepage": "https://github.com/nunomaduro/static-php-builds",
+  "skills": []
+}
