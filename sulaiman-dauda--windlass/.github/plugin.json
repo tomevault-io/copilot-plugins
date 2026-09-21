@@ -1,0 +1,9 @@
+{
+  "name": "sulaiman-dauda--windlass",
+  "displayName": "windlass",
+  "description": "Lightweight self-hosted Docker Compose control plane: projects, Git deployments, HTTPS domains, logs and backups. Wraps the real docker compose rather than replacing it, so your containers keep runnin",
+  "version": "1.0.0",
+  "author": "Sulaiman-Dauda",
+  "homepage": "https://github.com/Sulaiman-Dauda/windlass",
+  "skills": []
+}
