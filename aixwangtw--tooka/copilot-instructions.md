@@ -1,0 +1,53 @@
+## tooka
+
+> You are working on the **tooka framework** — the runtime, CLI, and tooling that ship to npm.
+
+# tooka — Framework Repo Guide
+
+You are working on the **tooka framework** — the runtime, CLI, and tooling that ship to npm.
+
+(Card-authoring guidance lives in the skills under `packages/core/skills/`, synced into `apps/studio/.claude/skills/` via `tooka sync:skills`. Use those only when editing files inside `apps/studio/slides/`.)
+
+## Layout
+
+pnpm + Turbo monorepo.
+
+| Path | Package | Role |
+| --- | --- | --- |
+| `packages/core` | `@tooka/core` | Everything published: viewer runtime + inspector (`src/app`, ships as raw source), Vite plugin + dev-server API (`src/vite`), `tooka` CLI — `dev` / `build` / `preview` / `companion` / `sync:skills` (`src/cli`), built-in agent skills (`skills/`). |
+| `apps/studio` | private | Local consumer of `@tooka/core` via `workspace:*`. Dogfood target — run `pnpm dev` here to exercise the framework. Card decks live in `slides/`, brand kits in `themes/`. |
+
+Shared config: `biome.json`, `turbo.json`, `pnpm-workspace.yaml`, `tsconfig` per package.
+
+## Workflow
+
+```bash
+pnpm dev          # turbo: runs studio against local core
+pnpm build        # build all packages
+pnpm typecheck    # tsc across the graph
+pnpm check        # biome (format + lint + organize imports)
+pnpm check:fix    # auto-fix what biome can
+pnpm test         # vitest
+```
+
+Filter to core: `pnpm core <script>`.
+
+## Hard rules
+
+- **Biome must pass before commit.** Run `pnpm check` (or `pnpm check:fix`). CI and the user's review both expect a clean tree.
+- **If `packages/core` changes, add a changeset.** Run `pnpm changeset`, pick the right bump (`patch` for fixes/polish, `minor` for new public API, `major` for breaking). `apps/studio` and root tooling do **not** need one.
+- **Changeset descriptions: short and direct.** One line, present-tense, what changed from a user's perspective. Match the tone of `.changeset/*.md` already in the repo. No paragraphs, no rationale, no "this PR…".
+  - Good: `Replace spinner with a hairline + sliding bar for slide and presenter loading states.`
+  - Bad: `This change introduces a new loading indicator because the previous spinner felt heavy and we wanted something more subtle for presentation contexts…`
+- Don't bump versions or edit `CHANGELOG.md` by hand — `changeset version` owns that.
+- Don't add dependencies casually. The `core` runtime ships to users; every dep inflates install size.
+- `packages/core/src/app/components/ui` is shadcn-generated and biome-ignored — leave it alone unless regenerating.
+- **Default to writing no comments.** Only add one when the WHY is non-obvious — a hidden constraint, a subtle invariant, a workaround for a specific bug, behavior that would surprise a reader. Don't explain WHAT the code does (well-named identifiers handle that), don't reference tasks/PRs/callers ("added for X", "used by Y"), don't write section-divider banners (`// ── Section ──`) or module-header descriptions, and don't leave commented-out code. If removing a comment wouldn't confuse a future reader, don't write it.
+
+## Releasing (reference)
+
+Publishing `@tooka/core` (via changesets) is triggered by the maintainer, not by agents.
+
+---
+> Source: [aixwangtw/tooka](https://github.com/aixwangtw/tooka) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-21 -->
