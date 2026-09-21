@@ -1,0 +1,44 @@
+{
+  "name": "pfQuest-Reforged",
+  "owner": "stevemcqueenz",
+  "repo": "pfQuest-Reforged",
+  "description": "pfQuest for WotLK 3.3.5a \u2014 quest helper & database browser with a complete Wrath database and a modernized UI. Companion to GW2 UI WotLK Reforged.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/stevemcqueenz/pfQuest-Reforged",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T03:01:32Z"
+}
