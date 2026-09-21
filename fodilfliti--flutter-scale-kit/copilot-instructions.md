@@ -1,30 +1,14 @@
-## flutter-scale-kit
+## flutter-sdk
 
-> How agents load Flutter Scale Kit context and where truth lives
+> Maintainer uses FVM to switch Flutter SDKs — never upgrade the global install
 
 
-# Flutter Scale Kit — session memory
+# Flutter SDK (this maintainer)
 
-This repo is the **flutter_scale_kit** pub package (responsive scaling). It is not an app.
+The author switches Flutter with **FVM** (`fvm`). This repo is pinned in `.fvmrc` to **3.35.7** (newest SDK in their FVM cache).
 
-## Where to look (in order)
-
-1. `spec/` — product, architecture, invariants, decisions. Start at `spec/README.md`.
-2. `lib/` — implementation truth.
-3. Codebase Memory MCP project **`flutter_scale_kit`** — symbols, callers, clusters. Index if `list_projects` does not list it.
-4. `CHANGELOG.md` — recent behavior.
-5. `README.md` — user docs only. Do not load the whole file into context.
-
-## Hard rules
-
-- Do not double-scale: SK widgets must `resolve*` already-marked `.w/.h/.sp` values.
-- Extension methods return FFI-safe plain doubles (Map tracker, never Expando on the number).
-- `ScaleValueCache` stays LRU-capped; clear cache + tracker together on resize.
-- Platform detection stays web/Wasm-safe (`kIsWeb` first).
-- If you change behavior, update `spec/` in the same change.
-- Device queries: `context.isMobile` = viewport **width** only (false on landscape phones). Use `isResponsiveMobile` / `isTypeOfMobile()` for scaling; `isMobilePlatform` for OS. Guide: `skills/flutter-scale-kit/device-classification.md`.
-- `designType` on `ScaleKitBuilder` is not wired — use `deviceTypeOverride` to force.
-- Sibling package `flutter_scale_theme_kit` is look-only. Do not import it from `lib/`. If a consumer app depends on it, merge via `createResponsiveTextTheme` on `appST.light` / `appST.dark`; do not use `ResponsiveThemeData.create` as the full theme.
+- Use `fvm flutter` / `fvm dart` in this project. Do **not** run `flutter upgrade` / `flutter channel` on `C:\Users\lemsa\Documents\flutter`.
+- Package floor stays Dart `^3.7.2` and Flutter `>=3.29.0` so older apps still resolve this package.
 
 ---
 > Source: [fodilfliti/flutter_scale_kit](https://github.com/fodilfliti/flutter_scale_kit) — distributed by [TomeVault](https://tomevault.io).
