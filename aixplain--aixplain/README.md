@@ -15,11 +15,7 @@ Original source: `AGENTS.md` in [aixplain/aiXplain](https://github.com/aixplain/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [aiXplain](https://github.com/aixplain/aiXplain/tree/main/skills/aixplain-agent-builder/SKILL.md)
-
-From [aixplain/aiXplain](https://github.com/aixplain/aiXplain) — a repo with 53+ stars on GitHub.
+From [aixplain/aiXplain](https://github.com/aixplain/aiXplain) — a repo with 54+ stars on GitHub.
 
 ---
 
