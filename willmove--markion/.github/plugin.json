@@ -1,0 +1,9 @@
+{
+  "name": "willmove--markion",
+  "displayName": "markion",
+  "description": "A blazing-fast native Markdown editor built with Rust and GPUI.",
+  "version": "1.0.0",
+  "author": "willmove",
+  "homepage": "https://github.com/willmove/markion",
+  "skills": []
+}
