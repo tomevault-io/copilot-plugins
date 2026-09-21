@@ -1,0 +1,9 @@
+{
+  "name": "radiumcn--inkwell",
+  "displayName": "inkwell",
+  "description": "\u514b\u5236\u3001\u4e13\u6ce8\u7684 Android \u5c0f\u8bf4\u9605\u8bfb\u5668\uff1a\u672c\u5730 txt/EPUB/MOBI \u9605\u8bfb + \u81ea\u5b9a\u4e49/Legado \u4e66\u6e90\u5728\u7ebf\u8ffd\u66f4 + WebDAV \u540c\u6b65\uff0cJetpack Compose \u5168\u81ea\u7ed8\u3002",
+  "version": "1.0.0",
+  "author": "radiumCN",
+  "homepage": "https://github.com/radiumCN/inkwell",
+  "skills": []
+}
