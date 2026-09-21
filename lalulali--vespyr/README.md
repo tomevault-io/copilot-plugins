@@ -7,11 +7,11 @@ A platform-agnostic, file-based multi-agent engine. Install 20 specialized AI pe
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lalulali/vespyr](https://github.com/lalulali/vespyr).
+Original source: `AGENTS.md` in [lalulali/vespyr](https://github.com/lalulali/vespyr).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
