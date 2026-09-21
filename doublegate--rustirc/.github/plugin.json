@@ -1,0 +1,9 @@
+{
+  "name": "doublegate--rustirc",
+  "displayName": "RustIRC",
+  "description": "... powerful, modern IRC client built in Rust that combines the best features of mIRC, HexChat, and WeeChat ...",
+  "version": "1.0.0",
+  "author": "doublegate",
+  "homepage": "https://github.com/doublegate/RustIRC",
+  "skills": []
+}
