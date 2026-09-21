@@ -1,0 +1,9 @@
+{
+  "name": "philphilphil--obsidian-track-changes",
+  "displayName": "obsidian-track-changes",
+  "description": "Review CriticMarkup suggestions in an Obsidian side panel. Accept, reject, or reply.",
+  "version": "1.0.0",
+  "author": "philphilphil",
+  "homepage": "https://github.com/philphilphil/obsidian-track-changes",
+  "skills": []
+}
