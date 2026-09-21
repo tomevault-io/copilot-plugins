@@ -1,29 +1,71 @@
-## no-changelog-in-product
+## bit-tables
 
-> 禁止把修改说明、实现细节或对比文案写进界面/代码/注释
+> 工作目录可能是配表根目录，或某一张表的子目录。用中文说明改动。改结构或数据后必须更新 `{id}_docs.md`。
 
+# 配表 Agent 约定
 
-# 文案与注释：只写当下事实
+工作目录可能是配表根目录，或某一张表的子目录。用中文说明改动。改结构或数据后必须更新 `{id}_docs.md`。
 
-- 界面文案只告诉用户**现在该做什么**，不要解释实现来源、历史改动，或与仓库某目录「相同」之类的对比。
-- 代码注释只说明**当前行为/约束**；不要写「改为…」「不再…」「与原先不同」「直接向…」这类修改记录。
-- 不要把 PR/对话里的变更说明塞进 hint、placeholder、按钮旁说明、错误文案或注释。
+## 目录
 
-```tsx
-// ❌ BAD — 像修改说明
-hint="将直接向该目录写入与仓库 demo 相同的内容（tables / src / res …）"
-
-// ✅ GOOD — 用户动作
-hint="选择要写入示例的目录"
+```text
+{root}/
+  item/
+    item_struct.yaml
+    item_data.yaml
+    item_editor.ts
+    item_checker.ts
+    item_export.ts
+    item_docs.md
+  combat/                 # 普通目录
+    skill/
+      skill_struct.yaml
+      ...
 ```
 
-```js
-// ❌ BAD
-// 直接向所选目录写入 demo 项目；配表根为 tables/
+- 表 id = 目录名：`^[a-z][a-z0-9_]{0,31}$`
+- 只有包含 `*_struct.yaml` 的目录才识别为配置表；其它目录是普通文件夹，左侧按文件树展示。可嵌套，如 `combat/skill`
+- `struct.yaml` 无统一 schema，推荐 `id` / `name` / `default_sheet` / `sheets[]`（每张 sheet 自带 `id` / `name` / `fields[]`），由该表 editor/checker/export 解释
+- sheet `id`：`^[a-z][a-z0-9_]{0,31}$`。无 `sheets` 时视为隐式 `main`，数据仍可用顶层 `rows`
+- 多 sheet 数据写在 `sheets.{id}.rows`。editor 按当前 sheet 的 `fields` + `rows` 画一页；checker / export 校整表，路径形如 `sheets.items.rows.0.id`
+- 枚举 sheet 设 `kind: enum`（字段推荐 `id`/`name`）。字段用 `enum: kinds` 或 `enum: other.kinds` 引用；存 id，下拉显示 name
+- `{id}_docs.md` 分三节：`## 结构`、`## 检查规则`、`## 导出规则`（导出规则须区分客户端与服务端）
 
-// ✅ GOOD（必要时）
-// 配表根为 tables/
+## 结构修改
+
+只改 `{id}_struct.yaml`、`{id}_editor.ts`、`{id}_checker.ts`、`{id}_export.ts`，并更新 `{id}_docs.md`。字段不兼容时才迁移 `{id}_data.yaml`。新建或补齐时必须一次生成五件套与 docs。仍兼容旧的 `*.js`。
+
+`editor.ts` 必须定义：
+
+```ts
+window.BitTableEditor = { mount(el, api) { /* api: getStruct/getData/getEnums/setData/save/askAI */ } };
 ```
+
+`checker.ts` 必须定义：
+
+```ts
+window.BitTableChecker = { check(data, struct, enums) { return { ok: true, errors: [{ path, message }] }; } };
+```
+
+`export.ts` 必须定义：
+
+```ts
+window.BitTableExporter = { export(data, struct) { return { client: [{ name, content }], server: [{ name, content }] }; } };
+```
+
+若配表根上一级有 `src/`（如 demo），可按需引用：`import { BitTableEditorBase } from "bit-tables.editor"`、`bit-tables.checker`、`bit-tables.export`、`bit-tables.dom`、`bit-tables.types`。无共享基类时写自包含脚本即可。
+
+枚举：sheet 设 `kind: enum`；字段 `enum: sheet` 或 `enum: table.sheet`；兼容旧 `options`。
+
+## 数据修改
+
+只改 `{id}_data.yaml`，不要改结构、编辑器、检查器或导出脚本。仍须核对并更新 `{id}_docs.md` 三节。
+
+## 禁止
+
+- 不要假设全项目统一 schema
+- 导出由该表 `{id}_export.ts`（或兼容的 `.js`）定义，不要发明统一导表格式、热更或共享流程。工作台只编排执行各表 exporter，客户端写入配表根上一级 `build/client/`，服务端写入 `build/server/`。导出规则文档须区分两端。
+- 不要把修改记录、实现对比（如「与仓库 demo 相同」「改为…」「不再…」）写进界面文案、代码注释或产品提示；文案只写当下用户动作与当前行为。
 
 ---
 > Source: [xcoding1024/bit-tables](https://github.com/xcoding1024/bit-tables) — distributed by [TomeVault](https://tomevault.io).
