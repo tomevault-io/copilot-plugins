@@ -4,7 +4,7 @@
   "repo": "G1-Emu",
   "description": "Nord Modular G1 emulado (68331 + DSP56303) para tocarlo desde Animatek NME",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/animatek/G1-Emu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T16:30:30Z"
+  "distributed_at": "2026-09-21T16:31:24Z"
 }
