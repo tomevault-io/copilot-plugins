@@ -4,7 +4,7 @@
   "repo": "aiXplain",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aixplain/aiXplain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T23:30:25Z"
+  "distributed_at": "2026-09-21T23:32:03Z"
 }
