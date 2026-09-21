@@ -1,0 +1,9 @@
+{
+  "name": "braiinsforge--bmc-main",
+  "displayName": "bmc-main",
+  "description": "Software for the Braiins Deck made by Braiins Forge s.r.o.",
+  "version": "1.0.0",
+  "author": "BraiinsForge",
+  "homepage": "https://github.com/BraiinsForge/bmc-main",
+  "skills": []
+}
