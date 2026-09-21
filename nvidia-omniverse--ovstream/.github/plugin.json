@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--ovstream",
+  "displayName": "ovstream",
+  "description": "Standalone C library with Python bindings for streaming video, audio, and input over WebRTC, RTSP, and SHM (shared-memory) transports.",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/ovstream",
+  "skills": []
+}
