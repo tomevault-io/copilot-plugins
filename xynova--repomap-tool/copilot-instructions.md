@@ -1,54 +1,266 @@
-## rules-for-docs
+## rules-for-python-coding
 
-> Documentation rules for RepoMap-Tool with reasoning protocols
+> Python Coding Rules and Best Practices
 
 
-# 🤖 **AI REASONING PROTOCOL**
+# 🐍 **PYTHON CODING STANDARDS**
 
-## **Before Taking Any Documentation Action:**
-**ALWAYS provide step-by-step reasoning that:**
-1. States what documentation action you're about to take
-2. Explains which rules from this document apply
-3. Shows how you've considered those rules in your approach
-4. Outlines your specific plan and next steps
+## 🎯 **CORE PRINCIPLES**
+- **DRY (Don't Repeat Yourself)**: Eliminate code duplication through abstraction and reuse
+- **Type Safety**: Full mypy compatibility with comprehensive type annotations
+- **Data Validation**: Use Pydantic models for all data structures and validation
+- **Code Quality**: Format with black, lint with flake8, type-check with mypy
+- **Modern Python**: Use Python 3.11+ features and best practices
 
----
+### **Language Standards:**
+- **ALWAYS** write all code (comments, variable names, function names, etc.) exclusively in English.
+- **NEVER** use non-English characters or words in any part of the codebase.
 
-# 📚 Documentation Rules for RepoMap-Tool
+## 📝 **CODE FORMATTING REQUIREMENTS**
 
-## General Documentation Principles
-- All new features, modules, and workflows **must** be documented in the `docs/` directory.
-- Documentation should be clear, concise, and actionable for both users and developers.
-- Every major architectural or workflow change requires an update to the relevant `actionplans/` or roadmap files.
+### **MANDATORY FORMATTING STEPS:**
+1. **ALWAYS** run `make format` before claiming work is complete
+2. **ALWAYS** run `make lint` to check for style issues
+3. **ALWAYS** run `make mypy` to verify type safety
+4. **NEVER** submit unformatted code
+5. **NEVER** ignore linting warnings or errors
 
-## Structure
-- **User Guides:** The `docs/` directory is for **user-facing documentation** - guides that help users understand how to use the tool and its features.
-- **Roadmaps:** High-level plans and phase breakdowns go in `docs/actionplans/`.
-- **Module Docs:** Each major module (e.g., `trees`, `dependencies`, `llm`, `context`) must have a corresponding markdown file describing its purpose, core classes, and usage.
-- **API/CLI Docs:** All user-facing commands and APIs must be documented with usage examples.
-- **Future Plans:** Optimizations and enhancements should be tracked in `future-optimizations.md`.
+### **Formatting Tools:**
+- **Black**: Code formatting (line length: 88 characters)
+- **Flake8**: Linting with custom rules for this project
+- **MyPy**: Static type checking with strict mode
+- **isort**: Import sorting (handled by black)
 
-**Important:** The `docs/` folder is NOT for tracking feature completion status or implementation details. It's for user guides and documentation that helps users understand how to use the tool.
+## 🔄 **DRY (DON'T REPEAT YOURSELF) PRINCIPLES**
 
-## Documentation Workflow
-1. **Before Implementation:** Update or create an action plan for the new feature or change.
-2. **During Implementation:** Maintain up-to-date module-level docs as code evolves.
-3. **After Implementation:** Ensure all new/changed functionality is reflected in the docs, including edge cases and limitations.
-4. **Testing Docs:** If new test strategies or coverage areas are introduced, document them in a `testing.md` or relevant section.
+### **Code Reuse Requirements:**
+- **ALWAYS** extract common functionality into reusable functions/classes
+- **ALWAYS** use inheritance and composition to avoid duplication
+- **ALWAYS** create utility functions for repeated logic
+- **ALWAYS** use decorators for cross-cutting concerns
+- **NEVER** copy-paste code blocks
+- **NEVER** duplicate validation logic
+- **NEVER** repeat configuration patterns
 
-## Review & Maintenance
-- Documentation changes must be reviewed alongside code in PRs.
-- Outdated docs should be updated or removed as part of refactoring.
-- All documentation must be kept in sync with the current codebase.
+### **DRY Implementation Patterns:**
+```python
+# ✅ GOOD: Reusable base class
+class BaseMatcher(ABC):
+    @abstractmethod
+    def match(self, query: str, identifiers: List[str]) -> List[MatchResult]:
+        pass
 
-## Style
-- Use clear section headings, bullet points, and code blocks for clarity.
-- Prefer practical examples over abstract descriptions.
-- Use consistent terminology matching the codebase.
+# ✅ GOOD: Utility function
+def validate_threshold(value: float) -> float:
+    if not 0.0 <= value <= 1.0:
+        raise ValueError(f"Threshold must be between 0.0 and 1.0, got {value}")
+    return value
 
-## Minimum Requirements
-- No new feature or module is considered "done" until its documentation is complete and reviewed.
-- All public APIs, CLI commands, and configuration options must be documented.
+# ❌ BAD: Repeated validation logic
+def fuzzy_search(self, query: str) -> List[MatchResult]:
+    if not 0.0 <= self.threshold <= 1.0:  # Duplicated
+        raise ValueError("Invalid threshold")
+    # ...
+
+def semantic_search(self, query: str) -> List[MatchResult]:
+    if not 0.0 <= self.threshold <= 1.0:  # Duplicated
+        raise ValueError("Invalid threshold")
+    # ...
+```
+
+## 🏷️ **TYPE ANNOTATIONS & MYPY COMPATIBILITY**
+
+### **Type Annotation Requirements:**
+- **ALWAYS** annotate function parameters and return types
+- **ALWAYS** annotate class attributes
+- **ALWAYS** use `from __future__ import annotations` for forward references
+- **ALWAYS** use `typing` module for complex types
+- **ALWAYS** use `typing_extensions` for newer type features
+- **NEVER** use `Any` without explicit justification
+- **NEVER** ignore mypy errors
+
+### **Type Annotation Examples:**
+```python
+from __future__ import annotations
+from typing import List, Dict, Optional, Union, Protocol, TypeVar
+from typing_extensions import Self
+
+# ✅ GOOD: Comprehensive type annotations
+class SearchEngine:
+    def __init__(self, config: RepoMapConfig) -> None:
+        self.config: RepoMapConfig = config
+        self.cache: Dict[str, List[MatchResult]] = {}
+    
+    def search(
+        self, 
+        query: str, 
+        identifiers: List[str],
+        max_results: Optional[int] = None
+    ) -> List[MatchResult]:
+        # Implementation
+        pass
+    
+    def get_cache_stats(self) -> Dict[str, Union[int, float]]:
+        return {"size": len(self.cache), "hit_rate": 0.85}
+
+# ✅ GOOD: Generic types
+T = TypeVar('T')
+
+class Cache(Generic[T]):
+    def get(self, key: str) -> Optional[T]:
+        pass
+    
+    def set(self, key: str, value: T) -> None:
+        pass
+
+# ✅ GOOD: Protocol for duck typing
+class Matcher(Protocol):
+    def match(self, query: str, identifiers: List[str]) -> List[MatchResult]:
+        ...
+```
+
+### **MyPy Configuration Compliance:**
+- **ALWAYS** use strict mode settings
+- **ALWAYS** handle `Optional` types explicitly
+- **ALWAYS** use `Union` types when multiple types are possible
+- **ALWAYS** use `Literal` types for string/enum-like values
+- **ALWAYS** use `Final` for constants
+
+## 🏗️ **PYDANTIC MODEL REQUIREMENTS**
+
+### **Data Model Standards:**
+- **ALWAYS** use Pydantic models for data validation
+- **ALWAYS** define field types and constraints
+- **ALWAYS** use validators for complex validation logic
+- **ALWAYS** use `model_config` for Pydantic v2 settings
+- **ALWAYS** use `Field()` for field metadata
+- **NEVER** use plain dataclasses for validated data
+- **NEVER** skip validation for user input
+
+### **Pydantic Model Examples:**
+```python
+from pydantic import BaseModel, Field, field_validator, ConfigDict
+from typing import List, Optional, Literal
+from enum import Enum
+
+class MatchType(str, Enum):
+    FUZZY = "fuzzy"
+    SEMANTIC = "semantic"
+    HYBRID = "hybrid"
+
+class MatchResult(BaseModel):
+    model_config = ConfigDict(
+        str_strip_whitespace=True,
+        validate_assignment=True,
+        extra="forbid"
+    )
+    
+    identifier: str = Field(..., min_length=1, description="The matched identifier")
+    score: float = Field(..., ge=0.0, le=1.0, description="Match confidence score")
+    match_type: MatchType = Field(..., description="Type of matching used")
+    line_number: Optional[int] = Field(None, ge=1, description="Line number in source")
+    file_path: str = Field(..., description="Path to the source file")
+    
+    @field_validator('identifier')
+    @classmethod
+    def validate_identifier(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("Identifier cannot be empty or whitespace only")
+        return v.strip()
+
+class SearchRequest(BaseModel):
+    model_config = ConfigDict(
+        str_strip_whitespace=True,
+        validate_assignment=True
+    )
+    
+    query: str = Field(..., min_length=1, max_length=1000)
+    match_type: MatchType = Field(default=MatchType.FUZZY)
+    threshold: float = Field(default=0.7, ge=0.0, le=1.0)
+    max_results: int = Field(default=50, ge=1, le=1000)
+    project_path: Optional[str] = Field(None, description="Project root path")
+    
+    @field_validator('query')
+    @classmethod
+    def validate_query(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("Query cannot be empty")
+        return v.strip()
+```
+
+## 🏛️ **ARCHITECTURE PATTERNS**
+
+### **Class Design Principles:**
+- **ALWAYS** use single responsibility principle
+- **ALWAYS** prefer composition over inheritance
+- **ALWAYS** use dependency injection for testability
+- **ALWAYS** implement proper `__repr__` and `__str__` methods
+- **ALWAYS** use context managers for resource management
+- **NEVER** create god classes with multiple responsibilities
+- **NEVER** use global state
+
+### **Error Handling Standards:**
+```python
+from typing import NoReturn
+import logging
+
+# ✅ GOOD: Custom exception hierarchy
+class RepoMapError(Exception):
+    """Base exception for RepoMap tool."""
+    pass
+
+class ValidationError(RepoMapError):
+    """Raised when data validation fails."""
+    pass
+
+class ConfigurationError(RepoMapError):
+    """Raised when configuration is invalid."""
+    pass
+
+# ✅ GOOD: Proper error handling with logging
+def process_file(file_path: Path) -> List[MatchResult]:
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        return extract_identifiers(content)
+    except FileNotFoundError:
+        logger.error(f"File not found: {file_path}")
+        raise ValidationError(f"File not found: {file_path}")
+    except UnicodeDecodeError as e:
+        logger.error(f"Unicode decode error in {file_path}: {e}")
+        raise ValidationError(f"Invalid file encoding: {file_path}")
+
+### **Error Suppression Anti-Patterns:**
+
+- **NEVER** use `try/except/pass` - Completely ignores errors (security risk)
+- **NEVER** use `try/except/continue` without logging - Suppresses iteration errors  
+- **ALWAYS** log errors at appropriate levels instead of suppressing them
+- **ALWAYS** use specific exception types instead of blanket `Exception`
+- **NEVER** completely silence errors - Maintain observability for debugging
+
+**Examples:**
+```python
+# ❌ BAD (security risk):
+try:
+    operation()
+except Exception:
+    pass  # Error completely hidden
+
+# ❌ BAD (poor observability):  
+try:
+    operation() 
+except Exception:
+    continue  # Error suppressed during iteration
+
+# ✅ GOOD (secure and observable):
+try:
+    operation()
+except (SpecificError, ExpectedError) as e:
+    logger.debug(f"Operation failed gracefully: {e}")
+    # Handle or continue appropriately
+```
+
+### **Resource Management Standards:**
 
 ---
 > Source: [xynova/repomap-tool](https://github.com/xynova/repomap-tool) — distributed by [TomeVault](https://tomevault.io).
