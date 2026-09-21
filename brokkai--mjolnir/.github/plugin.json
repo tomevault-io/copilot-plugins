@@ -1,0 +1,9 @@
+{
+  "name": "brokkai--mjolnir",
+  "displayName": "mjolnir",
+  "description": "Manage Codex, Claude Code, Muse Code, Kimi Code, Grok Build, and DeepSeek Harness with durable sessions, isolated environments, quotas, and remote control. A Rust terminal and web control plane for Ag",
+  "version": "1.0.0",
+  "author": "BrokkAi",
+  "homepage": "https://github.com/BrokkAi/mjolnir",
+  "skills": []
+}
