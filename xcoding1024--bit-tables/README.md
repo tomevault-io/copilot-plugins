@@ -7,13 +7,13 @@ AI时代的全新游戏配表方式
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [xcoding1024/bit-tables](https://github.com/xcoding1024/bit-tables).
+Original source: `AGENTS.md` in [xcoding1024/bit-tables](https://github.com/xcoding1024/bit-tables).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
