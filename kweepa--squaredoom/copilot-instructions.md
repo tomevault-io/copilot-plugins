@@ -1,0 +1,38 @@
+## vice-snapshot
+
+> Use a repo-root VICE snapshot newer than the D64 as live RAM/VIC truth when debugging
+
+
+# VICE snapshot before guessing
+
+When the user reports a visual, raster, colour, or “blank screen” bug (or points at a snapshot):
+
+1. Look in the **repo root** for `*.vsf` (usually `snap.vsf`). These files are gitignored; they still exist on disk.
+2. Compare **mtime** to `squaredoom.d64`. If the snapshot is **newer**, it is the machine the user just captured — dump RAM/VIC from it **before** changing code from screenshots or theory.
+3. If the snapshot is **older** than the D64 (or missing), it is stale. Do not treat it as the current build.
+
+## How to read it
+
+VICE snapshot: 37-byte file header (`VICE Snapshot File\x1a` + version + 16-byte machine name). **x64sc** (`C64SC`) then inserts a `VICE Version\x1a` blob — modules do **not** start at offset 37. Find modules by name (`MAINC64CPU`, `C64MEM`, …). Each module is `16-byte name`, major, minor, `size` little-endian **including** the 22-byte module header.
+
+- **`C64MEM`** payload (after the 22-byte header), matching VICE `c64memsnapshot.c` — **not** a `$01` marker then RAM. Byte 0 is the 6510 port data (often `$34` = `BANK_RAM` in play). Skipping one byte as a prefix misaligns every address.
+  - byte 0: CPU port data (`$01`)
+  - byte 1: CPU port dir (`$00`)
+  - byte 2: EXROM
+  - byte 3: GAME
+  - bytes 4 .. 4+65535: DRAM `$0000–$FFFF` (under-I/O at `$D000`, not VIC registers)
+  - v0.1 extra pport-falloff bytes after RAM — ignore them
+- **`VIC-II`**: name may be `VIC-II` or `VIC-IISC`. Use this for `$d011` / `$d016` / `$d018` / `$d020` / `$d021` / raster, not the RAM image.
+
+Dump the regions that match the bug (do not dump all 64K):
+
+| Mode | Typical |
+|------|---------|
+| Menu hires | matrix `$4000`, bitmap `$6000`, font cache `$4400`, sprites `$4800` |
+| Game char | screen `$C400`, charset DRAM `$D800` (only valid in RAM image; colour SRAM is not this) |
+
+If a newer snapshot exists and you skip it, you will misdiagnose (e.g. treating a screenshot glitch as a font bug when RAM shows a smashed cache).
+
+---
+> Source: [Kweepa/SquareDoom](https://github.com/Kweepa/SquareDoom) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-21 -->
