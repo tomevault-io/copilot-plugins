@@ -1,0 +1,9 @@
+{
+  "name": "buberlo--dsh-jev",
+  "displayName": "dsh-jev",
+  "description": "Jev-powered decision layer for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "buberlo",
+  "homepage": "https://github.com/buberlo/dsh-jev",
+  "skills": []
+}
