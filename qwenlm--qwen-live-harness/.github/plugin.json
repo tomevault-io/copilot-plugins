@@ -1,0 +1,9 @@
+{
+  "name": "qwenlm--qwen-live-harness",
+  "displayName": "Qwen-Live-Harness",
+  "description": "An open-source agent harness powered by the Qwen Omni Realtime API\u2014see, hear, and act, with built-in memory.",
+  "version": "1.0.0",
+  "author": "QwenLM",
+  "homepage": "https://github.com/QwenLM/Qwen-Live-Harness",
+  "skills": []
+}
