@@ -1,0 +1,9 @@
+{
+  "name": "dwim-sh--dwim",
+  "displayName": "dwim",
+  "description": "dwim is a coding agent that runs locally on your machine.",
+  "version": "1.0.0",
+  "author": "dwim-sh",
+  "homepage": "https://github.com/dwim-sh/dwim",
+  "skills": []
+}
