@@ -1,0 +1,9 @@
+{
+  "name": "ghuntley--nix-compact",
+  "displayName": "nix-compact",
+  "description": "Native compact Nix build output with full local logs, bounded diagnostics, and a flake interface",
+  "version": "1.0.0",
+  "author": "ghuntley",
+  "homepage": "https://github.com/ghuntley/nix-compact",
+  "skills": []
+}
