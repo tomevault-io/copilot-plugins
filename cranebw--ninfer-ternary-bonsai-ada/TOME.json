@@ -1,0 +1,44 @@
+{
+  "name": "ninfer-ternary-bonsai-ada",
+  "owner": "CraneBW",
+  "repo": "ninfer-ternary-bonsai-ada",
+  "description": "Ternary (2.125 bit/weight) Bonsai 2 27B on the NINFER engine \u2014 Ada sm_89, Linux. Derivative work of Neroued/ninfer; see README.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CraneBW/ninfer-ternary-bonsai-ada",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T09:30:27Z"
+}
