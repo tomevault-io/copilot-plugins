@@ -1,0 +1,9 @@
+{
+  "name": "limboinf--dsh-crypto-workbench",
+  "displayName": "dsh-crypto-workbench",
+  "description": "\u5408\u7ea6\u5b9e\u9a8c\u5ba4 \u2014\u2014 \u4e3b\u6d41\u5e01 USDT \u6c38\u7eed\u7684 AI \u8f85\u52a9\u4ea4\u6613\u5de5\u4f5c\u53f0\uff08DeepSeek Harness \u63d2\u4ef6\uff09\u3002\u4e2a\u4eba\u6f14\u793a\u9879\u76ee\uff0c\u4e0d\u6784\u6210\u4efb\u4f55\u6295\u8d44\u5efa\u8bae\u3002",
+  "version": "1.0.0",
+  "author": "limboinf",
+  "homepage": "https://github.com/limboinf/dsh-crypto-workbench",
+  "skills": []
+}
