@@ -1,0 +1,9 @@
+{
+  "name": "wfpiii--opnsense-observatory",
+  "displayName": "opnsense-observatory",
+  "description": "OpnSense/Mikrotik Observatory Platform",
+  "version": "1.0.0",
+  "author": "WFPIII",
+  "homepage": "https://github.com/WFPIII/opnsense-observatory",
+  "skills": []
+}
