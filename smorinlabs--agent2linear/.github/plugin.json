@@ -1,0 +1,9 @@
+{
+  "name": "smorinlabs--agent2linear",
+  "displayName": "agent2linear",
+  "description": "agent2linear is a command-line interface for Linear designed to work seamlessly with both humans and AI agents. Unlike Linear's web interface or standard APIs, agent2linear is built to minimize token ",
+  "version": "1.0.0",
+  "author": "smorinlabs",
+  "homepage": "https://github.com/smorinlabs/agent2linear",
+  "skills": []
+}
