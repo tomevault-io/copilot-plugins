@@ -1,0 +1,9 @@
+{
+  "name": "singhparshant--polymarket",
+  "displayName": "Polymarket",
+  "description": "Market making and arbitrage on Polymarket in Rust. Experiments.",
+  "version": "1.0.0",
+  "author": "singhparshant",
+  "homepage": "https://github.com/singhparshant/Polymarket",
+  "skills": []
+}
