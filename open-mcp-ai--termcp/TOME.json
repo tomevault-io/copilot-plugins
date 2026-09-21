@@ -1,10 +1,10 @@
 {
-  "name": "termcp",
+  "name": "Termcp",
   "owner": "open-mcp-ai",
-  "repo": "termcp",
-  "description": "termcp is an MCP server written in Go that exposes interactive programs to AI Agents as persistent SSH sessions, letting Agents continuously manage and drive them. On top of that, termcp ships a dedicated session management UI that gives you full visibility into the Agent's behavior. ",
+  "repo": "Termcp",
+  "description": "Not only an MCP that lets AI act like a human at the terminal \u2014 also a cross-platform AI-Native terminal management platform: local & remote hosts, one session layer for humans, Agents, and scripts.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/open-mcp-ai/termcp",
+  "source_url": "https://github.com/open-mcp-ai/Termcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T04:35:21Z"
+  "distributed_at": "2026-09-21T07:31:53Z"
 }
