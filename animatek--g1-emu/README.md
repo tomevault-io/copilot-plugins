@@ -7,11 +7,11 @@ Nord Modular G1 emulado (68331 + DSP56303) para tocarlo desde Animatek NME
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [animatek/G1-Emu](https://github.com/animatek/G1-Emu).
+Original source: `CLAUDE.md` in [animatek/G1-Emu](https://github.com/animatek/G1-Emu).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
