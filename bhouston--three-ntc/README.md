@@ -7,11 +7,11 @@ Neural Texture Compression for ThreeJS
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bhouston/three-ntc](https://github.com/bhouston/three-ntc).
+Original source: `AGENTS.md` in [bhouston/three-ntc](https://github.com/bhouston/three-ntc).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
