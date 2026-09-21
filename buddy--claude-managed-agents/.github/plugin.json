@@ -1,0 +1,9 @@
+{
+  "name": "buddy--claude-managed-agents",
+  "displayName": "claude-managed-agents",
+  "description": "Self-hosted Claude Managed Agents control plane on Buddy Sandboxes",
+  "version": "1.0.0",
+  "author": "buddy",
+  "homepage": "https://github.com/buddy/claude-managed-agents",
+  "skills": []
+}
