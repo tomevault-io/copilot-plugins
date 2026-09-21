@@ -4,7 +4,7 @@
   "repo": "Termcp",
   "description": "Not only an MCP that lets AI act like a human at the terminal \u2014 also a cross-platform AI-Native terminal management platform: local & remote hosts, one session layer for humans, Agents, and scripts.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/open-mcp-ai/Termcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T07:31:53Z"
+  "distributed_at": "2026-09-21T07:32:39Z"
 }
