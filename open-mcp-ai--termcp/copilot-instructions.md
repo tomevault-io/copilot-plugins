@@ -25,37 +25,32 @@ Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-
 
 ### Domain docs
 
-Single-context layout: `CONTEXT.md` + `docs/adr/` at repo root. See `docs/agents/domain.md`.
+Project docs live under `docs/` (`docs/mcp-tools.md`, `docs/api.md`, `docs/architecture.md`, `docs/design/`).
 
-## Multi-session parallel work
+## Driving termcp's MCP tools
 
-Agents using interactive-process MCP tools must follow these rules for non-blocking, multi-session operation.
+Working in this repo usually means driving termcp itself. The full tool
+reference is `docs/mcp-tools.md`; every running instance also serves its own
+docs (`resources/list` returns real `http://<origin>/api.md` and
+`http://<origin>/skills.md` URLs). Three invariants are cheap to keep in mind
+without being told:
 
-### Rules
+- **Turns are the scarce resource.** An MCP call costs 2–10 ms; an assistant
+  turn costs 6–9 s — ~1000×. Minimise *turns*, not calls: whatever one turn can
+  hold, keep it in one turn.
+- **One command = one batch.** `shell_input` (types) → `shell_key(enter)`
+  (executes) → `shell_output` (reads) is *tool semantics, not turn boundaries* —
+  run all three inside a single `mcpScript` turn, and let
+  `shell_output(timeout≤3)` do the only waiting there is. The loop is
+  input → execute → read → next input, with nothing in between.
+- **`shell_id` is the I/O target, `session_id` is the connection.** Every I/O
+  tool takes `shell_id`. One task gets one session (give it a `name`).
 
-1. **One task = one session.** Start a new session per independent task via `start_session`. Keep both `session_id` (connection) and `shell_id` (terminal I/O). Use the `name` param for tracking.
-2. **Never block on reads.** Always use `read_output` with `timeout` ≤ 3. A long timeout blocks the entire agent — other shells go unserviced.
-3. **Run a command as three calls.** `send_input(shell_id, text)` types only; `press_key(shell_id, key="enter")` executes; then `read_output(shell_id, timeout≤3)`. Do not put newlines in text.
-4. **Poll in rotation.** When managing N shells, loop through all of them: `read_output(timeout=1)` each, act on whichever has output, repeat.
-5. **Clean up.** `terminate_session(session_id)` closes the connection (cascades shells + forwards) and removes the session. Use `force=true` for immediate kill. `close_shell` only closes one channel.
-
-### Multi-agent shared shell
-
-When multiple agents need to observe the same process:
-
-1. Agent A: `start_session(...)` → session_id + shell_id, default reader_id=0
-2. Agent B: `register_reader(shell_id=...)` → gets its own reader_id
-3. Each agent calls `read_output(shell_id=..., reader_id=<theirs>)` — independent cursors, no output stealing
-4. Agent B leaves: `unregister_reader(shell_id=..., reader_id=...)`
-
-### Anti-patterns
-
-- ❌ `read_output(timeout=30)` — blocks 30s, other shells starve
-- ❌ Waiting for session A to finish before starting session B — start both, poll both
-- ❌ Multiple agents using the same reader_id — output gets consumed, others miss it
-- ❌ Using `session_id` for I/O tools — I/O is always `shell_id`
-- ❌ Relying on removed tools: `send_and_read`, `background_send`, `press_enter`, `forward_port`
+Split across turns only when a human must act first (credential prompt → read
+it, then `notify_user(level="warn", duration_seconds=0, session_id=...)`), a
+destructive action needs confirmation, or you must inspect intermediate state
+to decide the next step.
 
 ---
-> Source: [open-mcp-ai/termcp](https://github.com/open-mcp-ai/termcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
+> Source: [open-mcp-ai/Termcp](https://github.com/open-mcp-ai/Termcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-21 -->
