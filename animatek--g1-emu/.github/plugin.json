@@ -1,0 +1,9 @@
+{
+  "name": "animatek--g1-emu",
+  "displayName": "G1-Emu",
+  "description": "Nord Modular G1 emulado (68331 + DSP56303) para tocarlo desde Animatek NME",
+  "version": "1.0.0",
+  "author": "animatek",
+  "homepage": "https://github.com/animatek/G1-Emu",
+  "skills": []
+}
