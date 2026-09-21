@@ -1,0 +1,9 @@
+{
+  "name": "sermakarevich--harness",
+  "displayName": "harness",
+  "description": "An agent harness built step by step with LangGraph, as a tutorial series",
+  "version": "1.0.0",
+  "author": "sermakarevich",
+  "homepage": "https://github.com/sermakarevich/harness",
+  "skills": []
+}
