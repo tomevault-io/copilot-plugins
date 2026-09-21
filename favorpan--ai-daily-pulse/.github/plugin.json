@@ -1,0 +1,9 @@
+{
+  "name": "favorpan--ai-daily-pulse",
+  "displayName": "ai-daily-pulse",
+  "description": "Your AI radar for AI news \u2014 scores, filters, and summarizes 47+ RSS feeds into a daily Obsidian digest with trends and builder insights.",
+  "version": "1.0.0",
+  "author": "FavorPan",
+  "homepage": "https://github.com/FavorPan/ai-daily-pulse",
+  "skills": []
+}
