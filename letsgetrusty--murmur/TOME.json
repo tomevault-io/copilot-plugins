@@ -4,7 +4,7 @@
   "repo": "Murmur",
   "description": "Free, private, open-source voice dictation for developers. Built by Let's Get Rusty.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/letsgetrusty/Murmur",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T02:34:08Z"
+  "distributed_at": "2026-09-21T02:38:34Z"
 }
