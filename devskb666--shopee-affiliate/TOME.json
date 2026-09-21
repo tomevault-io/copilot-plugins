@@ -1,0 +1,44 @@
+{
+  "name": "Shopee-Affiliate",
+  "owner": "DEVSKB666",
+  "repo": "Shopee-Affiliate",
+  "description": "Shopee Affiliate - \u0e41\u0e0a\u0e23\u0e4c\u0e25\u0e34\u0e07\u0e04\u0e4c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DEVSKB666/Shopee-Affiliate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T04:36:30Z"
+}
