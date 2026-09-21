@@ -1,0 +1,9 @@
+{
+  "name": "llnl--boba",
+  "displayName": "BoBa",
+  "description": "BoBa Tensor Decomposition Library (C++)",
+  "version": "1.0.0",
+  "author": "llnl",
+  "homepage": "https://github.com/llnl/BoBa",
+  "skills": []
+}
