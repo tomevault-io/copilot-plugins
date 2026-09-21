@@ -1,0 +1,9 @@
+{
+  "name": "mo-n--dsh-provider-qoder",
+  "displayName": "dsh-provider-qoder",
+  "description": "DSH provider plugin for Qoder subscriptions.",
+  "version": "1.0.0",
+  "author": "mo-n",
+  "homepage": "https://github.com/mo-n/dsh-provider-qoder",
+  "skills": []
+}
