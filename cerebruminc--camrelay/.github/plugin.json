@@ -1,0 +1,9 @@
+{
+  "name": "cerebruminc--camrelay",
+  "displayName": "camrelay",
+  "description": "Use image and video fixtures as camera feeds in iOS Simulator and Android Emulator without changing your app.",
+  "version": "1.0.0",
+  "author": "cerebruminc",
+  "homepage": "https://github.com/cerebruminc/camrelay",
+  "skills": []
+}
