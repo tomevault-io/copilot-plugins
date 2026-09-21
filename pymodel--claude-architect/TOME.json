@@ -4,7 +4,7 @@
   "repo": "claude-architect",
   "description": "Claude Code delegates coding to isolated CLI agents it doesn't trust (Codex, OpenCode, Pi, Pythinker), freezes what they produce, verifies it independently, and merges only what a human approves.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PyModel/claude-architect",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T02:39:03Z"
+  "distributed_at": "2026-09-21T02:44:05Z"
 }
