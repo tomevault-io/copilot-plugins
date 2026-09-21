@@ -1,0 +1,9 @@
+{
+  "name": "arvelvale--orrery",
+  "displayName": "orrery",
+  "description": "A local-first cockpit for your AI coding agents: Claude Code, Kimi Code, DSH, Codex, OpenCode, Z Code and Antigravity sessions in one window \u2014 accurate token accounting, disk usage, session cleanup, a",
+  "version": "1.0.0",
+  "author": "arvelvale",
+  "homepage": "https://github.com/arvelvale/orrery",
+  "skills": []
+}
