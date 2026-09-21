@@ -1,0 +1,9 @@
+{
+  "name": "jekhov--jekhov",
+  "displayName": "jekhov",
+  "description": "Policy-bounded Jev target selection for resilient Playwright workflows",
+  "version": "1.0.0",
+  "author": "jekhov",
+  "homepage": "https://github.com/jekhov/jekhov",
+  "skills": []
+}
