@@ -1,0 +1,9 @@
+{
+  "name": "inaridiy--cf-open-agents-api",
+  "displayName": "CF-Open-Agents-API",
+  "description": "An open Agents API for Cloudflare Workers, with durable sessions, pluggable harnesses, and isolated execution.",
+  "version": "1.0.0",
+  "author": "inaridiy",
+  "homepage": "https://github.com/inaridiy/CF-Open-Agents-API",
+  "skills": []
+}
