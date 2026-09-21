@@ -1,0 +1,44 @@
+{
+  "name": "Acode-Desktop",
+  "owner": "crispvibe",
+  "repo": "Acode-Desktop",
+  "description": "acode \u662f\u4e00\u4e2a\u514d\u8d39\u5f00\u6e90\u7684 AI \u7f16\u7a0b\u5de5\u4f5c\u53f0\uff1aAI \u8dd1\u5728\u4f60\u7684\u7535\u8111\u4e0a\uff0c\u624b\u673a\u968f\u65f6\u968f\u5730\u8fde\u4e0a\u53bb\u6307\u6325\u5b83\u5e72\u6d3b\u3002\u540c\u4e00 Wi-Fi \u81ea\u52a8\u53d1\u73b0\uff0c\u51fa\u95e8\u5728\u5916\u626b\u7801\u76f4\u8fde\uff0c\u6570\u636e\u4e0d\u51fa\u8fd9\u4e24\u53f0\u8bbe\u5907\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/crispvibe/Acode-Desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T07:34:49Z"
+}
