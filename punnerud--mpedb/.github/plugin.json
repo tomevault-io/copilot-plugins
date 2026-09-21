@@ -1,0 +1,9 @@
+{
+  "name": "punnerud--mpedb",
+  "displayName": "mpedb",
+  "description": "Embedded multi-process shared-memory database in Rust: sqlite's serverless model + PostgreSQL-grade MVCC concurrency + rigid schema validation, with multi-database workspaces and cooperative row-level",
+  "version": "1.0.0",
+  "author": "punnerud",
+  "homepage": "https://github.com/punnerud/mpedb",
+  "skills": []
+}
