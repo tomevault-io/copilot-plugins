@@ -1,0 +1,44 @@
+{
+  "name": "inkwell",
+  "owner": "radiumCN",
+  "repo": "inkwell",
+  "description": "\u514b\u5236\u3001\u4e13\u6ce8\u7684 Android \u5c0f\u8bf4\u9605\u8bfb\u5668\uff1a\u672c\u5730 txt/EPUB/MOBI \u9605\u8bfb + \u81ea\u5b9a\u4e49/Legado \u4e66\u6e90\u5728\u7ebf\u8ffd\u66f4 + WebDAV \u540c\u6b65\uff0cJetpack Compose \u5168\u81ea\u7ed8\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/radiumCN/inkwell",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T02:50:01Z"
+}
