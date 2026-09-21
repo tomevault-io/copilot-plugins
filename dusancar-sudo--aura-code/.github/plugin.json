@@ -1,0 +1,9 @@
+{
+  "name": "dusancar-sudo--aura-code",
+  "displayName": "aura-code",
+  "description": "Aura \u2014 AI coding agent with persistent memory and TUI",
+  "version": "1.0.0",
+  "author": "DusanCar-sudo",
+  "homepage": "https://github.com/DusanCar-sudo/aura-code",
+  "skills": []
+}
