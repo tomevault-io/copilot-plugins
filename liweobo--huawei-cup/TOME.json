@@ -1,0 +1,44 @@
+{
+  "name": "huawei-cup",
+  "owner": "liweobo",
+  "repo": "huawei-cup",
+  "description": "\u534e\u4e3a\u676f\u6570\u5b66\u5efa\u6a21 Skill\uff1a\u8d5b\u9898\u5206\u6790\u3001\u6570\u636e\u5ba1\u8ba1\u3001\u5efa\u6a21\u9a8c\u8bc1\u4e0e\u8bba\u6587\u6d41\u7a0b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liweobo/huawei-cup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T12:39:32Z"
+}
