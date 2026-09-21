@@ -1,0 +1,9 @@
+{
+  "name": "keyboord01--sembol",
+  "displayName": "sembol",
+  "description": "Sembol \u2014 Passkey Wallet React Component Library for Stellar smart wallets (smart-account-kit + OpenZeppelin Smart Accounts)",
+  "version": "1.0.0",
+  "author": "keyboord01",
+  "homepage": "https://github.com/keyboord01/sembol",
+  "skills": []
+}
