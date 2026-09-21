@@ -1,0 +1,9 @@
+{
+  "name": "tuna-os--wootc",
+  "displayName": "wootc",
+  "description": "Windows bootc installer \u2014 install bootc-based Linux images from Windows without repartitioning",
+  "version": "1.0.0",
+  "author": "tuna-os",
+  "homepage": "https://github.com/tuna-os/wootc",
+  "skills": []
+}
