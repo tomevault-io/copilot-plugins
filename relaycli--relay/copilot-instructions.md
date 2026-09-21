@@ -1,24 +1,45 @@
-## 012-key-concepts
+## 020-structure
 
-> We need to keep the number of user-facing concepts to a minimum. Those concepts need to be persistent and in service of the product. Their core functions are:
+> The codebase includes several applications with separate tech stacks and folders: core library, and CLI.
 
 
-# Key concepts
+# Codebase structure
 
-We need to keep the number of user-facing concepts to a minimum. Those concepts need to be persistent and in service of the product. Their core functions are:
-- authentication and account management
-- core email interactions
-- make it easy & appealing for developers to build apps
+The codebase includes several applications with separate tech stacks and folders: core library, and CLI.
 
-Here are our main concepts:
-- email server: a VM that can run email interactions through a specific set of possible protocols
-- email provider: organization hosting email servers
-- email account: a domain-bound address to send and receive emails
-- email protocols: convention for interactions with an email account
-- email client: a GUI for interactions with email accounts
-- credentials: user-defined secrets that enable a connection to an email account
-- message: a single e-mail (body + headers), defined by its Message-ID or IMAP UID.
-- thread: all messages sharing References/In-Reply-To headers
+- `.github/`: GitHub CI configuration
+- `.cursor/rules`: rules for coding assistants
+- `.vscode`: IDE settings
+- `./relay`: core library for email management
+- `./tests`: test suite
+- `./docs`: project documentation
+- [Makefile](mdc:Makefile): high-level project commands
+- [.pre-commit-config.yaml](mdc:.pre-commit-config.yaml): pre-commit configuration file
+- [pyproject.toml](mdc:pyproject.toml): project configuration file
+- [uv.lock](mdc:uv.lock): lockfile for the Docker orchestration
+- [Dockerfile](mdc:Dockerfile): dockerfile
+- [README.md](mdc:README.md): readme
+- [CONTRIBUTING.md](mdc:CONTRIBUTING.md): contribution guide
+- [CODE_OF_CONDUCT.md](mdc:CODE_OF_CONDUCT.md): code of conduct
+- [LICENSE](mdc:LICENSE): license copy
+
+## Core library
+The core library is a Python library + CLI for sync and async email operations, organized as follows:
+- [exceptions.py](mdc:relay/exceptions.py): SDK-specific exceptions
+- `auth/`: authentication system (creds, oauth flow, secure storage)
+    - [account.py](mdc:relay/auth/account.py): email account management
+    - [credentials.py](mdc:relay/auth/credentials.py): credentials management
+    - [storage.py](mdc:relay/auth/storage.py): storage management
+- `models/`: data models (translatable to other languages)
+- `providers/`: email provider implementations
+    - [imap.py](mdc:relay/providers/imap.py): IMAP connection
+    - [smtp.py](mdc:relay/providers/smtp.py): SMTP connection
+    - [utils.py](mdc:relay/providers/utils.py): utilities
+- `cli/`: CLI
+    - [main.py](mdc:relay/cli/main.py): Typer app definition
+    - `commands/`
+        - [account.py](mdc:relay/cli/commands/account.py): account related commands
+        - [messages.py](mdc:relay/cli/commands/messages.py): messages related commands
 
 ---
 > Source: [relaycli/relay](https://github.com/relaycli/relay) — distributed by [TomeVault](https://tomevault.io).
