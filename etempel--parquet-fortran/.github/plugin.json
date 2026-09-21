@@ -1,0 +1,9 @@
+{
+  "name": "etempel--parquet-fortran",
+  "displayName": "parquet-fortran",
+  "description": "Fortran library for reading and writing Parquet files",
+  "version": "1.0.0",
+  "author": "etempel",
+  "homepage": "https://github.com/etempel/parquet-fortran",
+  "skills": []
+}
