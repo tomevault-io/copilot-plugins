@@ -1,0 +1,9 @@
+{
+  "name": "xcryzer01--macrodesk",
+  "displayName": "MacroDesk",
+  "description": "Browser-customizable ESP32-S3 touch macro deck for Fusion 360, OrcaSlicer, PrusaSlicer, Onshape, and Blender. No IDE required.",
+  "version": "1.0.0",
+  "author": "XCRYZER01",
+  "homepage": "https://github.com/XCRYZER01/MacroDesk",
+  "skills": []
+}
