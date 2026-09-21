@@ -1,0 +1,9 @@
+{
+  "name": "rizzo-ai-academy--rizzo-flow",
+  "displayName": "rizzo-flow",
+  "description": "The open, local take on Jev: typed decisions from an LLM, without generating a single token",
+  "version": "1.0.0",
+  "author": "Rizzo-AI-Academy",
+  "homepage": "https://github.com/Rizzo-AI-Academy/rizzo-flow",
+  "skills": []
+}
