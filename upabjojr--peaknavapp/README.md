@@ -7,11 +7,11 @@ PeakNav app for viewing earth mountains and paths in 3D
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Upabjojr/PeakNavApp](https://github.com/Upabjojr/PeakNavApp).
+Original source: `AGENTS.md` in [Upabjojr/PeakNavApp](https://github.com/Upabjojr/PeakNavApp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
