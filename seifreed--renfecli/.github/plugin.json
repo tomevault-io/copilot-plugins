@@ -1,0 +1,9 @@
+{
+  "name": "seifreed--renfecli",
+  "displayName": "renfecli",
+  "description": "CLI no oficial de Renfe, pensada tambi\u00e9n para agentes \u2014 horarios y tarifas reales de tren desde la terminal",
+  "version": "1.0.0",
+  "author": "seifreed",
+  "homepage": "https://github.com/seifreed/renfecli",
+  "skills": []
+}
