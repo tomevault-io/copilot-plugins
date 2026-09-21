@@ -1,0 +1,9 @@
+{
+  "name": "witnesstodark--mr-mak-workspace",
+  "displayName": "mr-mak-workspace",
+  "description": "A local desktop workspace for Codex and Claude Code, with project reports, creative skills and optional voice.",
+  "version": "1.0.0",
+  "author": "witnesstodark",
+  "homepage": "https://github.com/witnesstodark/mr-mak-workspace",
+  "skills": []
+}
