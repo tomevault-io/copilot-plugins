@@ -1,0 +1,9 @@
+{
+  "name": "dionysos-dev--pathcompletecertificates-jl",
+  "displayName": "PathCompleteCertificates.jl",
+  "description": "Path-complete certificates for switched systems: stability, optimal control and safety on a common graph structure.",
+  "version": "1.0.0",
+  "author": "dionysos-dev",
+  "homepage": "https://github.com/dionysos-dev/PathCompleteCertificates.jl",
+  "skills": []
+}
