@@ -1,0 +1,9 @@
+{
+  "name": "adrienbrault--qwen3-8-27b-rtx5090",
+  "displayName": "qwen3.8-27b-rtx5090",
+  "description": "Qwen3.8-27B on RTX 5090s \u2014 262K ctx, 1.4M-token KV pool, ~220 t/s code decode. NVFP4 + vLLM + sm120 patches, reproducible.",
+  "version": "1.0.0",
+  "author": "adrienbrault",
+  "homepage": "https://github.com/adrienbrault/qwen3.8-27b-rtx5090",
+  "skills": []
+}
