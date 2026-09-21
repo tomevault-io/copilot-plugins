@@ -7,11 +7,11 @@ Manage Codex, Claude Code, Muse Code, Kimi Code, Grok Build, and DeepSeek Harnes
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [BrokkAi/mjolnir](https://github.com/BrokkAi/mjolnir).
+Original source: `CLAUDE.md` in [BrokkAi/mjolnir](https://github.com/BrokkAi/mjolnir).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
