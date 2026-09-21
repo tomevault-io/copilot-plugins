@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "aixplain",
   "homepage": "https://github.com/aixplain/aiXplain",
-  "skills": [
-    {
-      "name": "aiXplain",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
