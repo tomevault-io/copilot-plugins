@@ -1,45 +1,26 @@
-## 020-structure
+## 030-tech-stack
 
-> The codebase includes several applications with separate tech stacks and folders: core library, and CLI.
+> This is a thorough description of technology choices for the project. We want to stay lean and avoid making project maintenance too complicated.
 
 
-# Codebase structure
+# Tech stack
 
-The codebase includes several applications with separate tech stacks and folders: core library, and CLI.
+This is a thorough description of technology choices for the project. We want to stay lean and avoid making project maintenance too complicated.
 
-- `.github/`: GitHub CI configuration
-- `.cursor/rules`: rules for coding assistants
-- `.vscode`: IDE settings
-- `./relay`: core library for email management
-- `./tests`: test suite
-- `./docs`: project documentation
-- [Makefile](mdc:Makefile): high-level project commands
-- [.pre-commit-config.yaml](mdc:.pre-commit-config.yaml): pre-commit configuration file
-- [pyproject.toml](mdc:pyproject.toml): project configuration file
-- [uv.lock](mdc:uv.lock): lockfile for the Docker orchestration
-- [Dockerfile](mdc:Dockerfile): dockerfile
-- [README.md](mdc:README.md): readme
-- [CONTRIBUTING.md](mdc:CONTRIBUTING.md): contribution guide
-- [CODE_OF_CONDUCT.md](mdc:CODE_OF_CONDUCT.md): code of conduct
-- [LICENSE](mdc:LICENSE): license copy
+## General
+- Makefile
 
 ## Core library
-The core library is a Python library + CLI for sync and async email operations, organized as follows:
-- [exceptions.py](mdc:relay/exceptions.py): SDK-specific exceptions
-- `auth/`: authentication system (creds, oauth flow, secure storage)
-    - [account.py](mdc:relay/auth/account.py): email account management
-    - [credentials.py](mdc:relay/auth/credentials.py): credentials management
-    - [storage.py](mdc:relay/auth/storage.py): storage management
-- `models/`: data models (translatable to other languages)
-- `providers/`: email provider implementations
-    - [imap.py](mdc:relay/providers/imap.py): IMAP connection
-    - [smtp.py](mdc:relay/providers/smtp.py): SMTP connection
-    - [utils.py](mdc:relay/providers/utils.py): utilities
-- `cli/`: CLI
-    - [main.py](mdc:relay/cli/main.py): Typer app definition
-    - `commands/`
-        - [account.py](mdc:relay/cli/commands/account.py): account related commands
-        - [messages.py](mdc:relay/cli/commands/messages.py): messages related commands
+- Python 3.11+
+- Pydantic for model validation
+- Typer for the CLI
+- uv for dependency management
+- ty for type checking
+- ruff for code styling & format
+- pytest as testing framework
+
+## Documentation
+- Mintlify
 
 ---
 > Source: [relaycli/relay](https://github.com/relaycli/relay) — distributed by [TomeVault](https://tomevault.io).
