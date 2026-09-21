@@ -1,0 +1,9 @@
+{
+  "name": "dapta-tech--dapta-forms",
+  "displayName": "dapta-forms",
+  "description": "Dapta Forms \u2014 open-source form & quiz builder (Next.js + NestJS + Drizzle)",
+  "version": "1.0.0",
+  "author": "Dapta-Tech",
+  "homepage": "https://github.com/Dapta-Tech/dapta-forms",
+  "skills": []
+}
