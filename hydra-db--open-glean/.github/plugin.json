@@ -1,0 +1,9 @@
+{
+  "name": "hydra-db--open-glean",
+  "displayName": "open-glean",
+  "description": "An open-source AI platform for knowledge work. Connect your apps, find answers, and get work done.",
+  "version": "1.0.0",
+  "author": "hydra-db",
+  "homepage": "https://github.com/hydra-db/open-glean",
+  "skills": []
+}
