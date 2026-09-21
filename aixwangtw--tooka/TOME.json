@@ -4,7 +4,7 @@
   "repo": "tooka",
   "description": "Write social cards as React components \u2014 tooka renders 1080\u00d71350 carousels, exports IG-ready PNGs, and one-click publishes to Facebook, Instagram, and Threads.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aixwangtw/tooka",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T02:44:34Z"
+  "distributed_at": "2026-09-21T02:49:32Z"
 }
