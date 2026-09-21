@@ -1,0 +1,9 @@
+{
+  "name": "microsoft-foundry--model-releases",
+  "displayName": "model-releases",
+  "description": "Track the latest model releases on Microsoft Foundry \u2014 with a changelog of announcements plus runnable capsules (README + notebook) per release, organized by publisher.",
+  "version": "1.0.0",
+  "author": "microsoft-foundry",
+  "homepage": "https://github.com/microsoft-foundry/model-releases",
+  "skills": []
+}
