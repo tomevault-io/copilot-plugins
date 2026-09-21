@@ -1,0 +1,9 @@
+{
+  "name": "theandersmadsen--humane-aipin-ghostlock",
+  "displayName": "humane-aipin-ghostlock",
+  "description": "Guarded, source-only Humane AI Pin root PoC for CVE-2026-43499",
+  "version": "1.0.0",
+  "author": "TheAndersMadsen",
+  "homepage": "https://github.com/TheAndersMadsen/humane-aipin-ghostlock",
+  "skills": []
+}
