@@ -1,0 +1,9 @@
+{
+  "name": "willem4130--claude-code-skills",
+  "displayName": "claude-code-skills",
+  "description": "Development playground and collection of custom skills for Claude Code - extending Claude with modular, reusable workflows",
+  "version": "1.0.0",
+  "author": "willem4130",
+  "homepage": "https://github.com/willem4130/claude-code-skills",
+  "skills": []
+}
