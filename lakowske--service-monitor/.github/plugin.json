@@ -1,0 +1,9 @@
+{
+  "name": "lakowske--service-monitor",
+  "displayName": "service-monitor",
+  "description": "A FastAPI-based service for monitoring the health and status of other services",
+  "version": "1.0.0",
+  "author": "lakowske",
+  "homepage": "https://github.com/lakowske/service-monitor",
+  "skills": []
+}
