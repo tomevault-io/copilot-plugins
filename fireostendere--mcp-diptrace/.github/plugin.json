@@ -1,0 +1,9 @@
+{
+  "name": "fireostendere--mcp-diptrace",
+  "displayName": "mcp_diptrace",
+  "description": "MCP server and live XML bridge for DipTrace",
+  "version": "1.0.0",
+  "author": "fireostendere",
+  "homepage": "https://github.com/fireostendere/mcp_diptrace",
+  "skills": []
+}
