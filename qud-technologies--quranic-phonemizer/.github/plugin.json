@@ -1,0 +1,9 @@
+{
+  "name": "qud-technologies--quranic-phonemizer",
+  "displayName": "quranic-phonemizer",
+  "description": "Quranic grapheme to phoneme (G2P) converter and tajweed annotator in hafs and warsh",
+  "version": "1.0.0",
+  "author": "QUD-Technologies",
+  "homepage": "https://github.com/QUD-Technologies/quranic-phonemizer",
+  "skills": []
+}
