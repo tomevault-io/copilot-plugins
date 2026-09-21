@@ -14,7 +14,7 @@ When sources disagree, use this order:
 2. Canonical registries and constants those paths derive from.
 3. This file for repository-wide engineering and security invariants.
 4. `README.md`, `.env.example`, and domain skills for user/agent guidance.
-5. `architecture.md`, `plan.md`, ADR drafts, comments, and residual modules as design/history evidence.
+5. `docs/architecture.md`, `docs/roadmap-ledger.md`, `docs/plans/`, ADR drafts, comments, and residual modules as design/history evidence.
 
 **Reachability beats module presence.** Trace from a registered CLI command, Pi tool, slash command, or broker entry point before claiming a path is live.
 
@@ -50,7 +50,7 @@ These invariants are repository-wide:
 
 Northstar has intentionally separate authority surfaces:
 
-- **CLI:** broad command vocabulary. The current tree exposes 28 stateless command IDs plus `broker.serve` and `jobs.status`.
+- **CLI:** broad command vocabulary. The current tree exposes 28 stateless command IDs plus the local/development stateful IDs `broker.serve`, `jobs.start`, `jobs.status`, `jobs.result`, and `jobs.cancel`.
 - **Pi native tools:** at most 9 model-facing tools, controlled by `PI_SEARCH_NATIVE_TOOLS`; unset/blank means zero.
 - **User slash commands:** setup/status/Chrome authorization flows that require operator intent and are not model tools.
 
@@ -81,11 +81,12 @@ Northstar has intentionally separate authority surfaces:
 | KG / graph / SPARQL | `src/knowledge/*`, `src/graph/*`, `src/diffbot/*`, `src/sparql/*` |
 | multimodal/vision | `src/media-vision/*` |
 | agent jobs/controller | `src/web/agent/*` |
-| leaf runtime wire contract | `src/runtime/runtime-rpc-protocol.ts` |
+| leaf runtime wire contract | `src/runtime/runtime-rpc-protocol.ts` (Northstar consumer mirror); `../pi-subagents/src/api/runtime-rpc.ts` (producer ground truth when co-installed) |
 | browser policy/session authority | `src/browser/*`, `src/chrome/*` |
 | desktop policy/state | `src/desktop/desktop-contract.ts`, `desktop-policy.ts`, `desktop-tools.ts` |
 | one-shot native/Python child envs | `src/process/native-child-env.ts`, `python-child-env.ts`, `mcp-client.ts` |
 | broker client/host/state seam | `src/runtime/broker-*` |
+| same-user local broker leaf runtime | `src/runtime/local-leaf-runtime.ts` |
 | native broker TCB | `rust/crates/northstar-broker/*` |
 | external-content framing | `src/core/untrusted-content.ts` |
 | per-domain agent/CLI guidance | `skills/*/SKILL.md` |
@@ -178,7 +179,24 @@ Important invariants:
 - verification/repair is bounded and may not regress grounding;
 - `PI_NORTHSTAR_AGENT_STEERING=0` must remain a valid evidence-only mode.
 
-Leaf runtime transport negotiation never bypasses domain validation. Exact provider/model identifiers, closed request/reply shapes, bounded fields, safe errors, and explicit settlement/cancellation remain part of the wire contract.
+### Leaf RPC contract
+
+`pi-subagents` is the producer of the co-installed leaf-runtime protocol. When both repos are present, `../pi-subagents/src/api/runtime-rpc.ts` is the ground truth for `subagents:runtime:v1`; `src/runtime/runtime-rpc-protocol.ts` is Northstar's self-contained consumer mirror. Server-side validation/negotiation additionally lives in `../pi-subagents/src/extension/runtime-rpc-schemas.ts` and `runtime-rpc.ts`. Compare against the producer before changing the mirror.
+
+Protocol invariants:
+
+- methods are `negotiate`, `start`, `status`, `result`, and `cancelAndSettle`;
+- exact `provider/model` only; thinking suffixes reject and negotiation never authorizes a fuzzy fallback;
+- request/reply shapes are closed and bounded; provider exception text never becomes a wire error;
+- the event bus is trusted co-installed extension plumbing, not an authenticated boundary; correlation fields are routing/observability metadata only;
+- v2 correlation requires a successful prior negotiation for the same model;
+- the current producer advertises `structured-v1`; attach `outputSchema` only after that dialect is negotiated. `outputModes` containing `json` alone is not sufficient;
+- absent/older schema negotiation means text JSON plus client-side parsing and the owning domain validator; transport schema validation never replaces domain validation;
+- cancellation is explicit and bounded through `cancelAndSettle`; a settlement contract breach makes the runtime unhealthy rather than inventing success.
+- producer readiness is fail-closed on unverified Pi host versions and can be explicitly disabled with `PI_SUBAGENTS_RUNTIME_RPC_DISABLED=1`; the current `pi-subagents` public contract lists host `0.85.1` as verified.
+- do not assume every producer/server-only bound must be copied into the consumer mirror. Sync client-relevant wire fields deliberately and test negotiation against the producer contract.
+
+`PI_NORTHSTAR_LEAF_MODEL` wires this co-installed bridge only for staged adaptive-agent steering. `src/runtime/local-leaf-runtime.ts`, used by local `jobs start`, is a separate same-user text-only runtime backed directly by the Pi AI model registry; do not conflate the two or make one silently substitute for the other.
 
 ## Browser, Chrome companion, and desktop
 
@@ -196,19 +214,29 @@ Media acquisition is not a Pi public tool. Keep platform evidence classes honest
 
 - YouTube search/hot use the official API and require `YOUTUBE_API_KEY`.
 - YouTube details can degrade to keyless oEmbed.
-- YouTube transcript has a separate unofficial keyless degraded path; do not call it official API success.
+- YouTube transcript has a separate unofficial keyless degraded path; do not call it official API success and do not route transcript through `yt-dlp`.
 - Bilibili uses its declared native/session adapters.
-- Do not introduce `yt-dlp` as an undeclared substitution for YouTube or Bilibili.
+- `yt-dlp` is permitted only on the separate fetch-time YouTube frame path: exact `PI_VISION_FETCH_VIDEO_FRAMES=1`, anonymous fixed argv, `--no-config`, no cookies/account credentials/proxy, and native-child environment isolation. Its registry actions remain empty.
 
-Vision is destination-specific and explicit opt-in. Configuring one destination does not authorize another. Cloud routes move admitted bytes/text off-machine. Private/authenticated GitHub content additionally requires exact `PI_VISION_PRIVATE_GITHUB_TRANSFER=1`.
+### Multimodal fetch invariants
 
-Synthetic model probes prove only that the configured endpoint/model answered the probe at that moment. They do not prove provider identity or later routing.
+- Normal PDF fetch is local-only through `unpdf`: 10 MiB, 50 pages, 50,000 characters, page-aware citations. Sparse/scanned pages warn; fetch must not silently upload a PDF to vision.
+- `PI_VISION_PDF_CLOUD_RENDER=1` is currently a reserved fail-closed flag because no PDF page-image renderer ships. Do not document it as working OCR/cloud rendering until that renderer is reachable.
+- Direct image fetch returns sniff-verified metadata by default. Description requires exact `PI_VISION_FETCH_DESCRIBE=1` plus a configured OpenAI-compatible or Gemini tier; generated description stays separate from fetched content.
+- YouTube keyframe analysis requires exact `PI_VISION_FETCH_VIDEO_FRAMES=1` plus a configured OpenAI-compatible or Gemini tier. Vision failures degrade toward transcript/metadata evidence, never toward an unconfigured provider.
+- OpenAI-compatible vision may be loopback or cloud and uses exact configured model IDs; the API key is optional so loopback endpoints can be keyless.
+- Gemini Developer/Vertex requires exact `PI_VISION_GEMINI_ENABLED=1`. Vertex additionally needs `GOOGLE_GENAI_USE_VERTEXAI=1`, project, location, and ADC. Keep model selection explicit via `PI_VISION_GEMINI_MODEL` when reproducibility matters.
+- Gemini Web is a separate disabled-default seam. Current fetch image/video analyzers do not select it; do not describe it as automatic fallback.
+
+Vision is destination-specific. Configuring one destination does not authorize another. A loopback OpenAI-compatible endpoint can keep image/keyframe analysis local; cloud routes move admitted bytes/text off-machine. Private/authenticated GitHub content additionally requires exact `PI_VISION_PRIVATE_GITHUB_TRANSFER=1` before any eligible cloud transfer.
+
+Synthetic probe helpers prove only that an endpoint/model answered the randomized probe at that moment. They do not prove provider identity or later routing, and the current fetch image/video hot paths do not invoke those probes before user bytes.
 
 ## Broker and stateful authority
 
-Before changing broker code, read `docs/adr/0010-gate-b-native-authority-boundary.md`, `plan.md` Gate B, and `docs/tier2-proof.md`.
+Before changing broker code, read `docs/adr/0010-gate-b-native-authority-boundary.md`, `docs/plans/2026-09-21-gate-b-native-authority-boundary.md`, `docs/roadmap-ledger.md`, and `docs/tier2-proof.md`.
 
-The working tree currently exposes `broker.serve` and `jobs.status` in CLI help, while the plan text still records them as unregistered. Executable reachability is current truth; release readiness is not. Tier-2 privileged proof/signing remains an open release gate until those artifacts are updated together.
+The working tree currently exposes `broker.serve` plus `jobs.start/status/result/cancel` in CLI help as a local/development surface. Executable reachability is current truth; production release readiness is not. `broker serve` is the only explicit starter; ordinary jobs commands must remain connect-only and never auto-spawn authority. Tier-2 privileged proof/signing and per-job isolation remain open release gates.
 
 Stateful rules include: authenticated client identity, replay/sequence protection, project scope, capability-scoped worker grants, strict endpoint ownership/mode checks, durable mutation receipts, and fail-closed handling of corrupt state/config. Unknown mutation outcome requires observation/reconciliation, not automatic replay.
 
@@ -250,7 +278,7 @@ Never claim coverage you did not run. Report unverified platform/privileged beha
 
 `.env.example` is the primary operator configuration catalogue, including privacy-sensitive opt-ins. Keep it synchronized with live configuration and do not scatter exhaustive variable lists across every document.
 
-`architecture.md`, `plan.md`, and ADRs may intentionally describe target or staged states. If they disagree with reachable code, do not rewrite reality to match the plan. Either update the stale planning document when in scope or label the mismatch.
+`docs/architecture.md`, `docs/roadmap-ledger.md`, `docs/plans/`, and ADRs may intentionally describe target or staged states. If they disagree with reachable code, do not rewrite reality to match the plan. Either update the stale planning document when in scope or label the mismatch.
 
 ## High-value references
 
@@ -258,11 +286,11 @@ Never claim coverage you did not run. Report unverified platform/privileged beha
 - `SKILL.md`: root agent router.
 - `skills/*/SKILL.md`: domain contracts.
 - `.env.example`: config catalogue.
-- `architecture.md`: architecture and authority model.
-- `plan.md`: redesign phases and release gates.
+- `docs/architecture.md`: architecture and authority model.
+- `docs/roadmap-ledger.md` + `docs/plans/`: redesign phases and release gates.
 - `docs/adr/`: focused decisions.
 - `docs/tier2-proof.md`: privileged broker proof plan.
-- `northstar-capability-matrix.md`: capability inventory.
+- `docs/northstar-capability-matrix.md`: capability inventory.
 
 When in doubt, prefer executable truth, narrow authority, explicit degradation, and less ambient context.
 
