@@ -1,0 +1,44 @@
+{
+  "name": "ai-offline-translator",
+  "owner": "kelegele",
+  "repo": "ai-offline-translator",
+  "description": "\u79bb\u7ebf\u7ffb\u8bd1 App - \u57fa\u4e8e Hy-MT1.5 \u5927\u6a21\u578b\u548c llama.cpp\uff0cmacOS + Android \u53cc\u5e73\u53f0\u539f\u751f\u63a8\u7406\uff0c\u65e0\u9700\u7f51\u7edc",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kelegele/ai-offline-translator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T06:46:57Z"
+}
