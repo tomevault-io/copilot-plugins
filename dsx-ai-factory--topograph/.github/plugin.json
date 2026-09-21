@@ -1,0 +1,9 @@
+{
+  "name": "dsx-ai-factory--topograph",
+  "displayName": "topograph",
+  "description": "A toolkit for discovering cluster network topology.",
+  "version": "1.0.0",
+  "author": "dsx-ai-factory",
+  "homepage": "https://github.com/dsx-ai-factory/topograph",
+  "skills": []
+}
