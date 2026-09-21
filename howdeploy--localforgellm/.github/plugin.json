@@ -1,0 +1,9 @@
+{
+  "name": "howdeploy--localforgellm",
+  "displayName": "LocalForgeLLM",
+  "description": "A framework that lets AI agents build and optimize your local AI stack, choosing MoE models, inference engines, quantization, and runtime settings to get the most from your hardware for your tasks.",
+  "version": "1.0.0",
+  "author": "howdeploy",
+  "homepage": "https://github.com/howdeploy/LocalForgeLLM",
+  "skills": []
+}
