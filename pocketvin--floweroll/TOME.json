@@ -1,0 +1,44 @@
+{
+  "name": "floweroll",
+  "owner": "pocketvin",
+  "repo": "floweroll",
+  "description": "\u82b1\u5377 / \u5c0f\u5377\uff1aiOS \u4e2a\u4eba\u6267\u884c\u52a9\u624b\uff0c\u7ed3\u5408\u6301\u4e45\u4efb\u52a1 Runtime\u3001LangGraph Planner\u3001\u539f\u751f\u80fd\u529b\u3001\u6587\u6863\u5904\u7406\u4e0e\u5f00\u53d1\u89c2\u5bdf\u53f0\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pocketvin/floweroll",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-21T21:31:21Z"
+}
