@@ -1,0 +1,9 @@
+{
+  "name": "xynova--repomap-tool",
+  "displayName": "repomap-tool",
+  "description": "A portable code analysis tool that leverages aider libraries to generate comprehensive code maps with fuzzy and semantic matching capabilities.",
+  "version": "1.0.0",
+  "author": "xynova",
+  "homepage": "https://github.com/xynova/repomap-tool",
+  "skills": []
+}
