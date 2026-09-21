@@ -7,11 +7,11 @@ Policy-bounded Jev target selection for resilient Playwright workflows
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jekhov/jekhov](https://github.com/jekhov/jekhov).
+Original source: `AGENTS.md` in [jekhov/jekhov](https://github.com/jekhov/jekhov).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
