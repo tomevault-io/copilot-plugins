@@ -7,11 +7,11 @@ A local desktop workspace for Codex and Claude Code, with project reports, creat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [witnesstodark/mr-mak-workspace](https://github.com/witnesstodark/mr-mak-workspace).
+Original source: `CLAUDE.md` in [witnesstodark/mr-mak-workspace](https://github.com/witnesstodark/mr-mak-workspace).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
