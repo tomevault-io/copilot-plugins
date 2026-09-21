@@ -1,0 +1,9 @@
+{
+  "name": "jiunshinn--serve-emu",
+  "displayName": "serve-emu",
+  "description": "The npx serve of Android devices: stream and control emulators or real devices from a browser for agentic mobile QA.",
+  "version": "1.0.0",
+  "author": "jiunshinn",
+  "homepage": "https://github.com/jiunshinn/serve-emu",
+  "skills": []
+}
