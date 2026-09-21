@@ -1,0 +1,9 @@
+{
+  "name": "kweepa--squaredoom",
+  "displayName": "SquareDoom",
+  "description": "Doom for C64, on a grid with floor heights",
+  "version": "1.0.0",
+  "author": "Kweepa",
+  "homepage": "https://github.com/Kweepa/SquareDoom",
+  "skills": []
+}
