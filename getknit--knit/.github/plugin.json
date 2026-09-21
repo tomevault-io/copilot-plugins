@@ -1,0 +1,9 @@
+{
+  "name": "getknit--knit",
+  "displayName": "knit",
+  "description": "Offline, serverless, end-to-end-encrypted mesh messenger for Android \u2014 runs Wi-Fi Aware and Bluetooth LE simultaneously, with no servers and no Google Play Services.",
+  "version": "1.0.0",
+  "author": "getknit",
+  "homepage": "https://github.com/getknit/knit",
+  "skills": []
+}
