@@ -1,0 +1,4313 @@
+## xash3d-fwgs
+
+> handles `__BIG_ENDIAN__`/`__BYTE_ORDER__` detection generically, and a real
+
+# AGENTS.md - xashPS3 porting bible
+
+## 1. What this is
+
+A PlayStation 3 homebrew port of [Xash3D-FWGS](https://github.com/FWGS/xash3d-fwgs)
+(GoldSrc-compatible engine), built against the open-source **PSL1GHT /
+ps3toolchain** stack only -- never the official Sony SDK. The engine source
+here is a full vendored copy (not a submodule), matching how the other
+console ports in this workspace (ioQuake3-PS4, ioQ3-One) are structured.
+Upstream `xash3d-fwgs` (sibling directory) is read-only reference material,
+not edited from here.
+
+Testing is **real PS3 hardware only** (CFW/HEN). All hardware validation
+below assumes the UDP-log-and-console workflow.
+
+## 2. Hardware validation protocol
+
+This project follows a strict goal-oriented, hardware-validation-gated
+workflow. Do not implement more than one goal-stack item ahead. Do not
+speculate on hardware behavior -- verify on the actual console.
+
+- **ANALYSIS** -> **IMPLEMENTATION** -> **BUILD_REQUEST** -> **WAITING_FOR_HARDWARE** -> **VALIDATION** -> **NEXT_GOAL**
+- `BUILD_REQUEST` must give: exact build command, expected output
+  (`EBOOT.BIN`/`.pkg`), deploy method (FTP via webMAN, or PKG install from
+  USB), and what should be observed on screen/audio/controller.
+- `WAITING_FOR_HARDWARE` stops all speculation until the user reports back
+  exactly `SUCCESS: ...` or `FAILURE: ...`.
+- On `FAILURE`, produce a minimal isolated test case or a 3-item diagnostic
+  checklist -- never rewrite the whole implementation and guess again at the
+  same time.
+- If the same goal fails hardware validation more than twice in a row: stop,
+  escalate (UDP register trace, webMAN/ps3mapi memory peek, or community
+  consultation), and ask whether to mark the goal BLOCKED or continue with
+  new diagnostic data.
+
+## 3. Goal stack
+
+- [x] **0. Scaffolding** (this session) -- repo structure, build-system
+      wiring, platform stub skeleton. No build attempted yet.
+- [x] **1. Toolchain bring-up**: null `main()` -> fself -> pkg -> boots to a
+      black screen on real hardware, with the UDP debug log sink
+      (`nc -ul 18194`) wired up first, before anything else. **VALIDATED on
+      real hardware 2026-07-19** via `tools/ps3_bringup` built inside the
+      `ps3dev/ps3dev:latest` Docker image (native sfo/pkg tools, no pyexpat
+      issue) -- black screen, no crash/XMB-return, UDP heartbeat confirmed
+      (also confirmed `sizeof(void*)==8`, `sizeof(long)==8` on real hardware,
+      matching the LP64 finding in section 6).
+- [x] **2. Platform stubs compile**: `./waf configure --ps3 && ./waf build`
+      reaches the link stage. **DONE 2026-07-19** -- `engine/xash` links as a
+      real ELF64 big-endian PowerPC64 EXEC inside the `ps3dev/ps3dev:latest`
+      Docker image (the project's canonical toolchain). Numerous real,
+      build-verified fixes landed along the way (see AGENTS.md section 6 and
+      project memory for the full list -- wrong toolchain-header assumptions,
+      missing libc functions, a GNU ld static-archive ordering bug, etc.).
+      **Follow-up RESOLVED 2026-07-19 (build-verified, not yet hardware-
+      validated)**: `filesystem_stdio`/`ref_soft` now build via
+      `--static-linking=filesystem_stdio,ref_soft` (`ref/soft/exports.txt`
+      added, `GetRefAPI`). Three real bugs found and fixed getting there,
+      all in the generic `scripts/waifulib/xshlib.py`/`xcompile.py` tooling,
+      none PS3-specific hacks:
+      1. `xcompile.py`'s `PS3` class had no `ld()`/`objcopy()` methods and
+         never pointed `conf.environ['LD']`/`['OBJCOPY']` at the cross
+         binutils (PSP's block already does this) -- `xshlib.py`'s
+         `conf.find_program('ld'/'objcopy')` fell back to the host's.
+      2. Even after adding those, top-level `wscript`'s
+         `conf.load('xshlib xcompile ...')` loaded `xshlib` *before*
+         `xcompile`, so the environ overrides didn't exist yet when
+         `xshlib.configure()` ran `find_program`. Fixed by reordering to
+         `conf.load('xcompile xshlib ...')`.
+      3. With the real cross `ld -r` in place, host `/usr/bin/ld` had been
+         silently mangling `filesystem/VFileSystem009.cpp`'s PPC64 ELFv1
+         `.opd`/`R_PPC64_TOC` relocations (the only C++ TU in
+         `filesystem/`) -- `ld: Relocations in generic ELF (EM: 21)` /
+         `error adding symbols: file in wrong format`. Root cause was
+         purely #2; once real `ld` was used this was a non-issue. Separately,
+         `xshlib`'s `ld -r` task didn't link each relocatable module's own
+         STLIB `use` deps (e.g. `ref_soft` -> `ref_common`), so `Matrix4x4_*`
+         /`gEngfuncs`/etc were undefined at `xash`'s final link; fixed by
+         adding `${STLIBPATH_ST:STLIBPATH} ${STLIB_ST:STLIB}
+         ${LIBPATH_ST:LIBPATH} ${LIB_ST:LIB}` to `xshlib`'s `run_str` (bare
+         `ld`, not gcc, so no `-Wl,`/`STLIB_MARKER` wrapping) -- this lets
+         `ld -r`'s normal archive-member selection pull `ref_context.c.o`
+         into `ref_soft.o`, where the existing `objcopy -G
+         lib_ref_soft_exports` step then localizes those symbols so they
+         don't collide with the engine's own identically-named globals
+         (each ref module is designed to carry its own private copy of
+         these, normally isolated by being a separate `.so`).
+      Full chain (`./waf configure --ps3
+      --static-linking=filesystem_stdio,ref_soft --disable-mbedtls && ./waf
+      build`) now reaches a real ELF64 big-endian PowerPC64 EXEC ->
+      stripped -> sprxlinked -> `EBOOT.BIN` -> `EBOOT.pkg`, inside
+      `ps3dev/ps3dev:latest` Docker. **VALIDATED on real hardware
+      2026-07-19** -- three real, build/hardware-verified bugs found and
+      fixed getting from "installs but 0x80010006 on boot" to a clean run
+      through real engine init (see AGENTS.md section 6 and project memory
+      for full detail):
+      1. `scripts/waifulib/ps3.py`'s `apply_pkg` pointed `PKGDIR` at the raw
+         build directory (bundling every intermediate object file/ELF -- a
+         2MB EBOOT.BIN produced a 63MB pkg) and declared `EBOOT.BIN`/
+         `PARAM.SFO` as flat siblings with no `USRDIR/` nesting. LV2 looks
+         for `USRDIR/EBOOT.BIN` specifically at boot; installing fine but
+         booting with `0x80010006` (ENOENT) is the direct symptom of this
+         layout bug, confirmed by diffing against PSL1GHT's own stock
+         `ppu_rules` `%.pkg` recipe (identical on both a local ps3dev
+         install and the Docker image). Fixed by staging a clean `pkg/`
+         dir (`PARAM.SFO` + `ICON0.PNG` at root, `EBOOT.BIN` under
+         `USRDIR/`, with a real `cpfile` copy task for the source-tree
+         icon) and pointing `PKGDIR` there instead.
+      2. The UDP debug log (goal-1's only observability channel) only ever
+         had the two explicit `PS3_Printf` calls in `PS3_Init`/`PS3_Shutdown`
+         -- none of the engine's own `Con_Printf`/`Sys_Error` output reached
+         it, making every hardware failure a source-reading exercise instead
+         of a log read. Fixed by adding a `#if XASH_PS3` branch in
+         `Sys_PrintStdout()` (`engine/common/sys_con.c`), mirroring the
+         existing per-platform precedent there (Android/NSwitch/PSVita
+         already do exactly this for their own debug channels). Also had to
+         bump `PS3_Printf`'s internal buffer from 1024 to `MAX_PRINT_MSG`
+         (8192) since it's now the sink for arbitrary engine console lines,
+         not two short fixed strings.
+      3. `filesystem/exports.txt` only listed `GetFSAPI`, but
+         `filesystem_engine.c:253` separately requires a `CreateInterface`
+         entry point (real symbol at `filesystem/VFileSystem009.cpp:506`,
+         `extern "C"`). The static-link `objcopy -G lib_filesystem_stdio_exports`
+         step localizes everything not explicitly listed in `exports.txt`,
+         so `CreateInterface` was hidden along with the module's internals
+         -- `FS_LoadProgs` found `GetFSAPI` fine (proving the static-link
+         table mechanism itself works) but errored on the second lookup.
+         Fixed by adding `CreateInterface` as a second line in
+         `filesystem/exports.txt` (`ref_soft` doesn't need this -- confirmed
+         via `ref_common.c:550`, it only ever needs the single `GetRefAPI`
+         export).
+      With all three fixed, the engine now boots cleanly, runs real
+      init (`FS_Init`, `FS_LoadProgs`, `FS_LoadGameInfo`, ...), and reaches
+      the *expected* wall: no game data shipped yet, so `Couldn't find game
+      directory 'valve'` fires and the engine does a clean `Sys_Quit` back
+      to XMB. That is goal 3's job, not a bug.
+- [x] **3. Filesystem + asset loading, headless**: load core assets from
+      `/dev_hdd0/game/XASH10000/USRDIR`, checksum-verify over the UDP log,
+      no rendering yet. **DONE 2026-07-19, VALIDATED on real hardware.**
+      User FTP'd a loose-file (no `.pak`) `valve/` tree into USRDIR.
+      `PS3_VerifyGameAssets()` (`sys_ps3.c`) checksums `liblist.gam`,
+      `gfx/conchars`, `gfx.wad` via the engine's existing `CRC32_File`/
+      `FS_FileExists` and logs the results over the UDP sink -- all three
+      resolved on hardware (`gfx/conchars`'s CRC32 read failed even though
+      the file exists, non-fatal, not investigated further -- goal 3's
+      diagnostic scope, not a blocker). Engine now runs past FS init into
+      renderer/audio/game-DLL bring-up, failing there only for already-
+      documented, already-scoped-later reasons (no `ref_soft`->RSX video
+      yet = goal 4, no PS3 audio backend = goal 7, no game DLL vendored =
+      goal 12) -- clean `Sys_Error`/shutdown, no crash.
+
+      Getting here required finding and fixing **three real, hardware-
+      confirmed bugs**, none guessed -- each verified on real hardware
+      before moving to the next (full method notes in project memory):
+      1. **Empty rootdir**: `FS_DetermineRootDirectory`
+         (`filesystem_engine.c`) had no PS3 branch, so it fell into the
+         generic `getcwd()` fallback. PS3's LV2 process starts with a
+         literal `"/"` cwd (not the app's own USRDIR), and
+         `COM_StripDirectorySlash()` collapses that lone `"/"` to `""`
+         *after* the emptiness check already passed -- rootdir silently
+         became `""`. Fixed with a `#elif XASH_PS3` branch hardcoding the
+         real install path, matching the sibling PS4 port's identical
+         `Sys_Cwd()` -> `"/app0"` pattern for the same "no real cwd on a
+         console" problem.
+      2. **No functional relative-path resolution on PS3 at all**:
+         confirmed on hardware that `opendir(".")` returns ENOENT even
+         immediately after a "successful" `chdir(fs_rootdir)` -- LV2's
+         real filesystem syscalls only understand absolute paths, chdir()
+         doesn't establish anything they consult. Fixed with
+         `PS3_ResolvePath()` (`filesystem/sys.c`), a small PS3-only helper
+         that resolves any relative path against `fs_rootdir` by hand,
+         applied at every raw `opendir`/`stat`/`open`/`mkdir`/`rename`/
+         `remove` call site in `filesystem/sys.c` and `filesystem/io.c`.
+      3. **`FI` global-symbol collision (the real blocker, took the
+         longest to find)**: engine's `fs_globals_t *FI` (pointer,
+         `filesystem_engine.c`) and the filesystem module's `fs_globals_t
+         FI` (the actual struct, `filesystem.c`) are both uninitialized
+         globals -> GCC 7.2's default `-fcommon` makes both compile to
+         COMMON symbols named `FI`. Upstream Xash3D never hits this
+         because engine and filesystem module are separate shared
+         objects; this project's `--static-linking` mechanism
+         (`xshlib.py`, needed because PSL1GHT has no real dlopen) merges
+         them into one relocatable object via `ld -r`, and that `ld -r`
+         call was missing `-d` (`--define-common`) -- so the module's own
+         `FI` stayed COMMON through the merge, and `objcopy -G
+         lib_filesystem_stdio_exports` (which localizes everything not in
+         `exports.txt`) cannot localize a COMMON symbol, only a defined
+         one. Both same-named COMMONs then silently merged into one
+         4112-byte allocation at final link: the engine's 8-byte pointer
+         variable and the struct's first field (`GameInfo`) became the
+         *same memory*. `searchpath.c`'s entirely-legitimate
+         `FI.GameInfo = FI.games[i]` (setting the real gameinfo pointer)
+         was therefore also overwriting the engine's own `FI` pointer
+         variable with a `gameinfo_t*` -- and the engine's next
+         `FI->GameInfo` read then double-dereferenced through that
+         mistyped value, landing on `gameinfo_t`'s first field
+         (`gamefolder`, e.g. literally `"valve"`) instead of a real
+         `GameInfo` pointer. Confirmed root cause via `nm` on the actual
+         build artifacts (COMMON `FI` in both `.o`s, single merged `FI`
+         in the final ELF) before touching any fix. **Fixed in
+         `scripts/waifulib/xshlib.py`**: `add_target()` now always adds
+         `-d` to `LD_RELOCATABLE_FLAGS`, letting `objcopy -G` correctly
+         localize module-private globals as originally designed --
+         zero source changes, and it's a systemic fix for the whole
+         `--static-linking` mechanism (any future same-named global
+         between engine and a statically-linked module), not a
+         one-off patch for `FI` specifically. Verified via `nm` (two
+         separate `FI` symbols in the final ELF, correct sizes/scopes)
+         *before* the confirming hardware run.
+      Also fixed along the way, independently real but not the main
+      blocker: PSL1GHT's prebuilt `libc.a` `setjmp()`/`longjmp()` were
+      compiled with AltiVec and write 448 bytes into what the stock non-
+      AltiVec `machine/setjmp.h` sizes as a 256-byte `jmp_buf` (192-byte
+      overflow on every call, plus a separate 64-bit-GPR-truncation bug
+      via 32-bit `stw`/`lwz`) -- a known toolchain issue on this exact
+      devkitPro GCC 7.2 LP64 build, already root-caused and fixed the
+      same way in the sibling `ioQuake3-PS3` port. Ported that port's
+      fix: `engine/platform/ps3/include/setjmp.h` (512-byte `jmp_buf`
+      shim, found first via `-I` ordering in `xcompile.py`'s PS3
+      `cflags()`) + `engine/platform/ps3/ps3_setjmp.S` (correct 64-bit
+      `std`/`ld` replacement, no AltiVec). Keep this even though it
+      wasn't the `FI` bug's cause -- it's a real, separate landmine
+      (`longjmp()` is used for real error recovery in `host.c`/
+      `host_state.c`) that would otherwise still be live.
+- [x] **4. Video bring-up**: `rsxInit` -> `videoConfigure` -> double-buffered
+      vsynced clear-color flip loop, zero engine involvement. **DONE
+      2026-07-19/20, VALIDATED on real hardware.** Built as a standalone
+      tool, `tools/ps3_video/` (same isolation precedent as goal 1's
+      `tools/ps3_bringup/`), cycling a solid clear color (red/green/blue/
+      white, ~1s each) through a real `rsxInit` -> `videoConfigure` ->
+      double-buffered flip loop. Does not touch `vid_ps3.c` -- its
+      `GL_SwapBuffers`/`R_ChangeDisplaySettings`/`SW_UnlockBuffer` TODOs
+      are still goal 5's job.
+
+      Took 3 hardware rounds to get right, each a real bug found by
+      reading either the actual PSL1GHT headers or the sibling
+      `E:\...\quake3\Ioquake3-PS3\ioQuake3-PS3` port's hardware-validated
+      RSX code (`code/sys/ps3_glimp.c`) -- not guessed:
+      1. **Flip-status wait had inverted polarity and wrong position.**
+         `gcm_sys.h`'s own doc comment for `gcmGetFlipStatus()`: "return
+         zero if no flip occured, nonzero otherwise." First attempt
+         checked `!= 0` *before* issuing the flip (as if nonzero meant
+         "still pending") instead of `== 0` *after* issuing it -- this
+         left the render loop's only CPU-side throttle permanently
+         no-op, hammering the 1-frame-old command buffer far faster than
+         real vsync. Symptom: UDP heartbeats logged instantly/unpaced.
+      2. **`gcmSurface`'s unused MRT color slots (1-3) can't be left
+         zeroed**, even though only `colorTarget = GCM_SURFACE_TARGET_0`
+         (slot 0) is actually rendered to. Confirmed by diffing directly
+         against `ps3_glimp.c`'s `PS3_RSX_SetRenderTarget`, which
+         populates `colorLocation[1..3]`/`colorOffset[1..3]` (reusing
+         slot 0's offset) /`colorPitch[1..3]` (dummy `64`) unconditionally.
+         `rsxSetSurface` is `void` -- a bad surface config here has *no*
+         error-return signal, so this silently produced a fully black
+         screen while every other RSX call (`rsxInit`, `videoConfigure`,
+         `gcmSetDisplayBuffer`, `gcmSetFlip`) reported `ret=0`. This was
+         the second hardware round's failure, isolated only by adding
+         explicit return-code UDP logging to every checkable call first
+         (all came back clean), which by elimination pointed at the one
+         call with no return code to check.
+      3. **`gcmGetFlipStatus()`/`gcmResetFlipStatus()` polling (the exact
+         sequence `rsx.h`'s own "Quick guide to RSX programming" doc
+         comment describes) never actually throttled anything on real
+         hardware even after fixing #1** -- every verbose log line read
+         `waited=0*200us`, meaning the status read back "flip already
+         completed" instantly, every single frame. Root-caused by reading
+         `ps3_glimp.c` end-to-end (per the user's standing instruction to
+         read sibling-port code immediately instead of re-guessing): it
+         never calls `gcmGetFlipStatus`/`gcmResetFlipStatus` at all.
+         Instead it registers `gcmSetFlipHandler()` and tracks
+         `flip_queued`/`flip_completed` counters incremented by that
+         callback, blocking in `PS3_RSX_WaitFlips` on
+         `(queued - completed) > FB_COUNT - 2`. Rewrote
+         `tools/ps3_video`'s flip-wait to this exact callback-driven
+         pattern (generalized from their hardcoded 3 buffers to this
+         tool's 2) -- fixed on the first retry. Also matched their
+         `gcmSetWaitFlip` -> `gcmSetFlip` -> `rsxFlushBuffer` command
+         order (WaitFlip *before* SetFlip, opposite of the doc comment's
+         stated order) and their `RSX_CB_SIZE`/`RSX_HOST_SIZE` (1MB/32MB
+         vs. the doc's 64KB/1MB "default" this project tried first) while
+         at it, to remove every remaining difference from proven-working
+         code before the third hardware round.
+
+      **Open question for goal 5**: whether `gcmGetFlipStatus()` polling
+      is fundamentally unreliable on this toolchain/hardware combo, or
+      only unreliable without a `gcmSetFlipHandler` registered first, was
+      not isolated further -- goal 5's real `vid_ps3.c` wiring should just
+      use the callback-driven pattern from the start rather than
+      re-deriving this.
+- [x] **5. ref_soft wired to RSX**: `SW_CreateBuffer`/`SW_LockBuffer`/
+      `SW_UnlockBuffer` render into the XDR buffer allocated in `vid_ps3.c`,
+      transfer to the RSX display buffer, flip. **VALIDATED on real hardware
+      2026-07-20**, after goal 6 unblocked reaching `Host_Frame`: real
+      console output (Xash logo watermark, console text, background) visibly
+      rendered on the TV via `ref_soft`->`SW_UnlockBuffer`->RSX flip, engine
+      stayed responsive (clean XMB exit via the PS button). One real bug
+      found on this run and fixed: `SW_CreateBuffer`'s `memalign()`-allocated
+      `ps3_swbuffer` was never zeroed, so regions `ref_soft`'s console draw
+      doesn't repaint every frame showed visible noise/static from the fresh
+      allocation's leftover garbage -- fixed with a `memset` right after the
+      `memalign` succeeds (RSX-side color buffers don't need the same
+      treatment: `SW_UnlockBuffer`'s per-row copy already overwrites their
+      *entire* pitch*height extent every frame, regardless of prior
+      content). **Fix confirmed on real hardware 2026-07-20**: clean console
+      output, no more noise/static. All-new logic lives in
+      `engine/platform/ps3/vid_ps3.c` only, reusing goal 4's hardware-
+      validated `tools/ps3_video` pattern exactly (same `RSX_CB_SIZE`=1MB/
+      `RSX_HOST_SIZE`=32MB/`FB_COUNT`=2 constants, same
+      `gcmSetFlipHandler`-driven flip-completion counters instead of
+      `gcmGetFlipStatus` polling, same `gcmSetWaitFlip`->`gcmSetFlip`->
+      `rsxFlushBuffer` order). RSX is used presentation-only here -- ref_soft
+      never issues an RSX draw command, so unlike goal 4's tool this needs no
+      `rsxSetSurface`/depth buffer/render-target at all, only
+      `gcmSetDisplayBuffer` + flip.
+      - `PS3_RSX_Init()` (new, idempotent) now does the real
+        `rsxInit`->`videoGetState`->`videoGetResolution`->`videoConfigure`
+        sequence that was previously a TODO; it also fixes a design bug from
+        goal 0/4 scaffolding where `vid_ps3.c` hardcoded 1280x720 instead of
+        honoring the TV's actual reported mode (the ps3 skill's own failure-
+        mode table warns this produces a stretched/squashed image).
+        `R_ChangeDisplaySettings` calls it once, then reports the real
+        queried resolution to `R_SaveVideoMode` so `ref_soft`'s subsequent
+        `SW_CreateBuffer` request matches the RSX buffers' true dimensions.
+      - `SW_UnlockBuffer` does a per-row `memcpy` from `ps3_swbuffer` (XDR,
+        tightly packed) into the current RSX color buffer (GDDR3, 64-byte-
+        aligned pitch) -- row-by-row rather than one flat copy since the two
+        pitches are only guaranteed equal at common HD widths, not assumed.
+        `ps3_swbuffer`'s ARGB8888 byte layout already matches
+        `GCM_SURFACE_A8R8G8B8`'s big-endian byte order (A,R,G,B) confirmed
+        against the sibling `ioQuake3-PS3` port's own comment on this exact
+        point, so no pixel format conversion is needed, only the copy. A
+        `sync` barrier follows the copy before `GL_SwapBuffers()` flips, per
+        this platform's documented PPE-store-to-RSX-doorbell ordering
+        requirement.
+      - Found and fixed one real, pre-existing bug in `SW_CreateBuffer`
+        (already "done" from goal 0 scaffolding, not touched by goals 1-4):
+        it set `*stride = width * 4` (byte pitch) where every other platform
+        in this codebase (`vid_fbdev.c`, `vid_sdl2.c`, `vid_dos.c`) sets it
+        in pixel units, confirmed by how `ref/soft/r_glblit.c` indexes the
+        locked buffer (`pbuf[stride*v+u]` on a `u32*`) -- would have stridden
+        4x too far per row once real pixels were written. Fixed to
+        `*stride = width`.
+      - Build hit one real toolchain issue, not a logic bug: including
+        `<rsx/rsx.h>`/`<rsx/gcm_sys.h>` anywhere in the engine (no prior file
+        did) trips this project's project-wide `-Werror=strict-prototypes`,
+        because PSL1GHT's `rsx/mm.h`/`rsx/gcm_sys.h` declare several
+        functions as `foo()` instead of `foo(void)`. Fixed with the exact
+        same `#pragma GCC diagnostic push/ignored "-Wstrict-prototypes"/pop`
+        wrap already used by this project's own `in_ps3.c` (`io/pad.h`) and
+        `sys_ps3.c` (`net/net.h`) for the identical vendor-header issue --
+        not a new pattern.
+      Full chain (`./waf configure --ps3
+      --static-linking=filesystem_stdio,ref_soft --disable-mbedtls && ./waf
+      build`) reaches a real ELF64 big-endian PowerPC64 EXEC -> stripped ->
+      sprxlinked -> `EBOOT.BIN` -> `EBOOT.pkg`, inside `ps3dev/ps3dev:latest`
+      Docker -- sane sizes (~2.1MB), not the 63MB packaging-bug size from
+      goal 2.
+
+      **Two hardware rounds.** Round 1: clean UDP log through renderer/audio/
+      gameui init, clean shutdown back to XMB, but screen stayed solid black
+      -- ambiguous, since `SW_CreateBuffer`/`SW_LockBuffer` didn't check
+      `ps3_rsx_ready` and nothing logged `PS3_RSX_Init`'s outcome, so a
+      silent RSX failure and "RSX fine but never asked to draw" looked
+      identical from the log alone. Round 2 added `Con_Printf` diagnostics
+      (mirrors to the UDP sink automatically, per goal 3's `Sys_PrintStdout`
+      fix) to every `PS3_RSX_Init` step and to `SW_UnlockBuffer`'s entry/skip
+      paths -- **fully confirmed the RSX video subsystem itself works on
+      real hardware**: `rsxInit ret=0`, real `1920x1080` queried via
+      `videoGetState`/`videoGetResolution` (not the old hardcoded 1280x720),
+      `videoConfigure ret=0`, both `gcmSetDisplayBuffer` calls `ret=0`,
+      `PS3_RSX_Init: ready` reached. But **no `SW_UnlockBuffer` line appeared
+      at all** -- proving the function is never called, not that it's
+      broken. Root cause (traced to `engine/client/cl_main.c:3797-3821`,
+      `CL_Init`): `S_Init()`'s return value is never checked (audio failing
+      is harmless there, confirmed by the log), but the very next step,
+      `CL_LoadProgs(libpath)` loading the client-side game DLL, IS checked
+      and its failure calls `Host_Error`, which tears the whole host down
+      **before the engine ever reaches `Host_Frame`** -- i.e. before a
+      single frame is ever rendered or flipped. `VID_Init()` (which runs
+      `PS3_RSX_Init`) already completed successfully earlier in the same
+      `CL_Init` call; the video subsystem was never the problem.
+
+      **Newly discovered, load-bearing blocker, not previously in the goal
+      stack**: no goal from here on (rendering, input, audio) can be
+      visually or interactively confirmed on real hardware until something
+      satisfies `CL_LoadProgs`, because none of them run without reaching
+      the main loop -- this isn't specific to goal 5. Reordered the goal
+      stack below (new goal 6) to address this directly before continuing.
+- [x] **6. Minimal loadable client DLL (stub)**: get `CL_LoadProgs`
+      (`engine/client/cl_main.c:3820`) to succeed via this project's
+      `--static-linking` mechanism (already proven for `filesystem_stdio`/
+      `ref_soft` in goal 2) with a throwaway placeholder client module --
+      not real game logic, just enough of the required export/ABI surface
+      for `CL_Init` to stop hard-aborting via `Host_Error` and let the
+      engine reach `Host_Frame` for the first time. Keep it minimal; the
+      real port lands at goal 13 below, built from `hlsdk-portable`. This
+      unblocks hardware validation for every remaining goal, so treat it as
+      load-bearing infrastructure, not scope creep. **VALIDATED on real
+      hardware 2026-07-20**: the `Host_Error`/"can't initialize client" line
+      is gone, `CL_Init` completes, and the engine reaches `Host_Frame` and
+      runs a steady main loop (confirmed responsive -- user could exit
+      cleanly via the PS button/XMB rather than a crash or hang). This is
+      also what let goal 5 finally get its real hardware confirmation (see
+      its entry above) -- `SW_UnlockBuffer` fired for the first time ever on
+      this run.
+
+      New module at `stub/client/` (`wscript`, `exports.txt`, `cl_stub.c`)
+      -- reused an existing dead scaffold slot already in top-level
+      `wscript` (`Subproject('stub/client', lambda x: x.env.CLIENT)`,
+      sitting right before `Subproject('engine')` with the comment "keep
+      latest for static linking"), so no top-level `wscript` edit was
+      needed at all, just populating the directory. The waf target inside
+      is named `client` (directory name is independent of target name, same
+      as `ref/soft/wscript` building target `ref_soft`) -- this exact
+      string is required because `COM_LoadLibrary("client", ...)` resolves
+      it (`engine/common/lib_common.c:229`,
+      `COM_GenerateClientLibraryPath("client", ...)`, the default when
+      `host.clientlib` isn't overridden).
+
+      `cl_stub.c` exports all 37 names `CL_LoadProgs`'s `cdll_exports[]`
+      (`engine/client/dll_int/cl_game.c:57-96`) requires, each with the
+      exact signature from `cldll_func_t` (`engine/cdll_exp.h:33-86`) so the
+      engine can safely call through the typed pointers later, not just
+      satisfy the untyped `COM_GetProcAddress` lookup -- `Initialize`
+      unconditionally `return 1` (the one hard requirement, `CL_LoadProgs`
+      treats 0 as failure), everything else a safe no-op with defensively-
+      zeroed output pointers. The 11 `cdll_new_exports[]` (SDK 2.3+
+      extensions) are optional and were skipped -- missing ones only log a
+      warning, confirmed by reading `cl_game.c`'s own loader logic first
+      rather than guessing. All needed types resolve through headers
+      already reachable via the same `engine_includes`/`sdk_includes`
+      `use=` libs `ref/soft` depends on (`cdll_int.h`, `ref_params.h`,
+      `q_client.h`, `entity_state.h`, `cl_entity.h`, `render_api.h`,
+      `cdll_exp.h` last) -- no new build-system plumbing needed, both are
+      generic and already proven for two other static-linked modules.
+      Build succeeded on the first real attempt (only harmless
+      `-Wmissing-prototypes`/implicit-struct-scope warnings, not in this
+      project's `-Werror` set); one real signature bug caught before that
+      -- `HUD_ConnectionlessPacket` returns `int`, not `void`, per
+      `cdll_exp.h`, initially miswritten and fixed before the build.
+
+      Build command extended to
+      `--static-linking=filesystem_stdio,ref_soft,client` (section 7
+      updated to match, and its `--dedicated=no` was also fixed there --
+      that flag doesn't parse with this waf version, `-d`/`--dedicated`
+      takes no value). Package size stayed sane (~2.15MB, consistent with
+      goals 2/5, not a packaging regression). Not yet run on real hardware
+      -- the real test is whether `Host_Error`'s "can't initialize client"
+      line is gone and whether goal 5's `SW_UnlockBuffer` diagnostic
+      finally fires, closing that goal's open loop too.
+- [x] **7. Menu module bring-up (`mainui_cpp`)**: vendor the `3rdparty/mainui`
+      submodule (declared in `.gitmodules` but never checked out here, same as
+      upstream) at the commit pinned by the sibling pristine repo
+      (`510c30c51a9ebabfb703b95872751357a63cd1d5`), plus its own nested
+      `miniutl` submodule, following this project's established vendoring
+      convention (plain tracked files, no live gitlink -- same as `opus`/
+      `opusfile`/`xash-extras`/`bzip2`/`MultiEmulator`). Reordered ahead of
+      input/audio/endianness on 2026-07-20 because two Explore agents
+      confirmed neither blocks a visible menu: `ref_soft`'s `Draw_Pic`/
+      `R_DrawStretchPic` 2D blit path (hardware-validated by goal 5) is the
+      only "textured rendering" a menu needs, and `UI_LoadProgs`'s failure
+      (`engine/client/dll_int/cl_gameui.c:1335`) is already non-fatal --
+      the engine just falls back to `host.allow_console`. The real blocker is
+      that no menu module exists to load at all. This folds in the old
+      "textured rendering / first menu framebuffer" item, since ref_soft
+      already does that part.
+      - Top-level `wscript:129` already gates the subproject on
+        `x.env.CLIENT and x.env.DEST_OS != 'android'` -- PS3 qualifies
+        automatically once the module exists on disk, no top-level wscript
+        change needed for registration itself.
+        Extend `--static-linking` to include it (mechanism already proven
+        for `filesystem_stdio`/`ref_soft`/`client`).
+      - `mainui_cpp`'s own `wscript` forces STB-TrueType-only font mode for
+        Android/Darwin/NSwitch/PSVita/Emscripten/MAGX when FreeType2 isn't
+        available; try real FreeType2 first via ps3dev's prebuilt portlib
+        (same `PKG_CONFIG_PATH`/`os.environ` mechanism already used for
+        `libvorbis` in goal 2) before adding PS3 to that fallback list.
+      - `exports.txt` (`GetMenuAPI`, `GetExtAPI`) is already exactly two
+        lines, compatible with the static-linking `objcopy -G` step as-is.
+      - Visible-menu confirmation does not require input -- navigation is
+        goal 8's job.
+
+      **Build-verified 2026-07-20 (not yet hardware-validated)**: vendored
+      `mainui_cpp`/`miniutl` at the pinned commit, full chain (`./waf
+      configure --ps3 --static-linking=filesystem_stdio,ref_soft,client,menu
+      --disable-mbedtls && ./waf build`) reaches a real `EBOOT.BIN`/
+      `EBOOT.pkg` (~2.75MB, sane growth from goal 6's ~2.15MB) inside
+      `ps3dev/ps3dev:latest` Docker, confirmed reproducible from a clean
+      `rm -rf build` rebuild, not just incremental state. Three real bugs
+      found and fixed, none guessed:
+      1. **ps3dev's prebuilt `libfreetype.a` needs zlib** (`freetype2.pc`
+         has `Libs.private: -lz`, confirmed by reading the file directly),
+         but plain `pkg-config --cflags --libs` only emits `Libs.private`
+         when asked for a `--static` link -- harmless on the dynamically-
+         linked desktop platforms this check was written for (the runtime
+         linker resolves the transitive zlib dependency on its own), but
+         fatal on PS3 (`undefined reference to inflateInit2_/inflateEnd/
+         inflateReset/inflate` from `ftgzip.o` at final link) since the
+         whole process is one fully-static ELF with no dynamic linker to
+         paper over it. Fixed with a `conf.env.DEST_OS == 'ps3'` branch in
+         `3rdparty/mainui/wscript`'s freetype check, requesting
+         `--cflags --libs --static` instead of going through the shared
+         `check_pkg` helper (whose hardcoded `--cflags --libs` args can't be
+         overridden from the call site without a keyword-arg collision).
+      2. **`mainui_cpp` bundles its own separate snapshot of `build.h`**
+         (`3rdparty/mainui/sdk_includes/public/build.h`) rather than
+         including the engine's live copy -- same class of problem already
+         found and fixed for `hlsdk-portable`'s own vendored `build.h` (see
+         section 6). Its `#elif defined __PPU__` branch was simply missing,
+         so every mainui `.cpp` including it hit the `#error` in the
+         platform-detection `#else` fallback. Fixed by adding the identical
+         `#elif defined __PPU__` -> `#define XASH_PS3 1` branch (plus the
+         matching `#undef XASH_PS3` in the undef list at top), mirroring
+         `3rdparty/library_suffix/include/build.h`'s existing branch exactly.
+         Its separate CPU-detection block (`__PPC__`/`__powerpc64__`) already
+         handled PS3 correctly with zero changes needed, same finding as
+         `hlsdk-portable`'s.
+      3. **The real, systemic one**: `scripts/waifulib/xshlib.py`'s
+         `add_deps` (the function that merges each statically-linked
+         module's relocatable `.o` into the final `xash` binary) only ever
+         added the module's *object file* to `xash`'s source list -- it
+         never forwarded that module's own external `use=` library
+         dependencies to the final link at all. Latent since goal 2:
+         `filesystem_stdio`/`ref_soft`/`client` never needed a fresh
+         external library beyond what the engine's own global link already
+         carries, so this never surfaced until `menu` became the first
+         statically-linked module with a genuinely new external dependency
+         (freetype+zlib). Symptom: `menu.o` present on the final `xash`
+         link command line, but `-lfreetype`/`-lz` never appended, so
+         `undefined reference to FT_Init_FreeType` et al at final link even
+         though `mainui_cpp` itself configured and compiled cleanly.
+         First fix attempt (forwarding just the uselib *name* `'FT2'` into
+         `xash`'s own `use=` list) still failed silently -- root-caused via
+         `nm`/cache inspection (not guessed) to a **second, deeper issue**:
+         each subproject configures into its own isolated `conf.env` clone
+         (confirmed: `build/c4che/3rdparty/mainui_cache.py` has
+         `STLIB_FT2 = ['freetype', 'z']`, `build/c4che/engine_cache.py` has
+         no `FT2` entry at all), so waf's normal uselib-name resolution
+         (`propagate_uselib_vars` looking up `STLIB_FT2`/`LIB_FT2` on the
+         *consuming* taskgen's own env) finds nothing -- this is why the
+         earlier `ref_soft -> ref_common` STLIB fix (goal 2) never hit this:
+         that dependency resolves via real taskgen-to-taskgen linking
+         (`get_tgen_by_name`, env-agnostic), not an external pkg-config-style
+         uselib string. Final fix: in `add_deps`, for each of a relocatable
+         module's own external `use=` names not already known to the main
+         binary, copy the already-resolved `STLIB_`/`STLIBPATH_`/`LIB_`/
+         `LIBPATH_` *values* from that module's own `tgen.env` directly onto
+         `xash`'s env under the same variable names (not just the bare
+         name), before appending the name itself to `xash`'s `use=` list --
+         letting the standard uselib-name lookup succeed afterward. Generic
+         fix in shared tooling, not a `menu`/freetype-specific patch; any
+         future statically-linked module with its own new external
+         dependency will hit the same path safely.
+      **VALIDATED on real hardware 2026-07-20**: `SUCCESS` -- the Half-Life
+      main menu rendered and was visible on screen. UDP log confirms a clean
+      run all the way through: FS init, asset checksums (same non-fatal
+      `gfx/conchars` CRC32 failure as goal 3, still not a blocker), RSX video
+      bring-up (`PS3_RSX_Init: ready, 1920x1080`), `mainui_cpp` initializing
+      (`UI_ApplyCustomColors`, `Localize_AddToDict`), and finally
+      `SW_UnlockBuffer: first call, fb=0 1920x1080` -- the first real
+      present of a frame containing the menu. Two new, non-blocking items
+      surfaced in the log, neither preventing the menu from displaying:
+      - `Unable to read font file gfx/fonts/FiraSans-Regular.ttf!` /
+        `tahoma.ttf!` (repeated) -- `MAINUI_USE_FREETYPE` is on (goal 7's
+        freetype fix worked build-wise), but the actual `.ttf` files aren't
+        present under the shipped `valve`/`extras` asset tree (only license
+        files were vendored in `3rdparty/extras/xash-extras/gfx/fonts/`,
+        e.g. `FiraSans-OFL.txt`, not the font binaries themselves).
+        `mainui_cpp` falls back to its bitmap font path
+        (`font/BitmapFont.cpp`, already compiled in) and rendered fine
+        regardless -- cosmetic-only gap, revisit only if real TTF rendering
+        is wanted later (would need the actual `.ttf` assets FTP'd/vendored,
+        not a code fix).
+      - `^1Error: ^7can't initialize server:` at boot, before the menu --
+        expected and harmless at this stage (no listen-server game logic
+        exists yet, goal 6's stub `client` module has no matching server-
+        side counterpart); did not prevent the menu from showing.
+      - Audio (`PS3 audio backend not implemented yet`) is goal 9's job,
+        as already scoped.
+- [x] **8. Input**: `ioPad` polling (all 7 ports, DS3 sticks/buttons) mapped
+      to `Key_Event` in `in_ps3.c`, verified via on-screen or UDP echo. Also
+      wires menu navigation (`pfnKeyEvent`/`pfnCharEvent`) once goal 7 lands.
+      **Hardware-validated 2026-07-20: SUCCESS.** `in_ps3.c`
+      polls a sticky active port (`MAX_PORT_NUM`, not `io/pad.h`'s
+      `MAX_PADS` -- that's a 127-entry virtual/LDD-pad cap, not the
+      physical port count; the pre-existing stub had this wrong), maps
+      digital buttons to `K_A_BUTTON`/`K_B_BUTTON`/etc (same semantics as
+      `joy_sdl2.c`'s `g_button_mapping`) via edge-triggered `Key_Event`,
+      and feeds both sticks plus `PRE_L2`/`PRE_R2` trigger pressure into
+      the engine's existing generic `Joy_AxisMotionEvent` (deadzone,
+      trigger-as-button synthesis, and menu-mode D-pad simulation are
+      already handled centrally in `in_joy.c` -- not reimplemented here).
+      Found and fixed two real gaps while wiring this up, neither
+      PS3-input-specific: `Key_Event` needs `client.h`, not `input.h`
+      (`in_dos.c`'s existing PS3-adjacent precedent was already wrong/
+      unbuilt, don't copy its include list blindly); and `PS3_InputInit`/
+      `PS3_InputShutdown` existed since the goal-7-era stub but were never
+      actually called from anywhere -- `IN_Init`/`IN_Shutdown`
+      (`engine/client/input/input.c`) now call them under `#if XASH_PS3`,
+      mirroring the existing `XASH_USE_EVDEV` call pattern in the same
+      function; declarations added to `platform.h` next to Evdev's.
+      Stick axis sign convention (which physical direction is positive)
+      is unconfirmed -- verify with `joy_debug 1` on hardware and flip
+      signs in `PS3_ScaleStick` if backwards.
+- [x] **9. Audio**: PSL1GHT audio port (48kHz float32, 256-sample blocks, 8
+      blocks) with a notify-queue-paced feeder thread in `s_ps3.c`.
+      **VALIDATED on real hardware 2026-07-25**: `SUCCESS` -- audio audible
+      through the Half-Life main menu.
+      **Build-verified 2026-07-25.**
+      Implemented `SNDDMA_Init`/`SNDDMA_Shutdown` plus a new
+      `PS3_Audio_ThreadFunc` feeder thread, replacing the "not implemented"
+      stub. Confirmed by reading `common/sound_api.h` and
+      `engine/client/sound/s_main.c` that Xash's sound backend contract
+      differs from the sibling `ioQuake3-PS3` reference
+      (`code/audio/ps3_snd.c`): the **engine** owns `snd.buffer` (int16
+      interleaved ring, `snd.samples` mono-sample-sized) and mixes into it
+      once per frame; the platform backend's only job is to advance
+      `snd.samplepos` to reflect real hardware consumption -- there is no
+      separate app-owned dma buffer like Q3's. Also confirmed
+      `s_mix.c:312` mixes to `snd.format.speed` directly (not a hardcoded
+      44100), so the backend honestly reports 48000 Hz and no manual
+      resampling was needed. Ported the Q3 reference's init/shutdown
+      sequence (`sysModuleLoad(SYSMODULE_AUDIO)` -> `audioInit` ->
+      `audioPortOpen`(2ch, `AUDIO_BLOCK_8`) -> `audioGetPortConfig` ->
+      `audioCreateNotifyEventQueue` -> `audioSetNotifyEventQueue` ->
+      `audioPortStart`) and its thread-priority choice (100, above the
+      main thread's 1001) exactly, but skipped its VMX/AltiVec int16->f32
+      conversion in favor of a plain scalar loop for this first pass (no
+      existing AltiVec precedent in this project; revisit only if a real
+      hardware profiling pass shows it matters).
+
+      Found and fixed three real bugs against this toolchain's actual
+      headers before the build succeeded, none guessed:
+      1. **`sys/thread.h` also trips `-Werror=old-style-definition`**
+         (`sysThreadYield()` declared with empty parens, not `(void)`) --
+         a different warning class than the `-Wstrict-prototypes` issue
+         already known from `net/net.h`/`io/pad.h`. The existing
+         `#pragma GCC diagnostic push/ignored "-Wstrict-prototypes"/pop`
+         wrap alone wasn't enough; added a second
+         `#pragma GCC diagnostic ignored "-Wold-style-definition"` to the
+         same wrap.
+      2. **`sysThreadCreate`'s `threadname` parameter is non-const
+         `char *`**, not `const char *` -- passing a string literal
+         directly triggered `-Wdiscarded-qualifiers`. Fixed the same way
+         the Q3 reference does it: a `static char[]` buffer instead of a
+         literal.
+      3. **The "already loaded" sentinel the Q3 reference checks for
+         (`0x8001112E`) is not what this toolchain's
+         `sysmodule/sysmodule.h` actually defines** -- the real named
+         constant is `SYSMODULE_ERR_DUPLICATE` (`0x80012001`). Confirmed
+         by reading the header directly rather than trusting the
+         reference's magic number; switched to the named constant.
+      All `audioPortParam`/`audioPortConfig` field names
+      (`numChannels`/`numBlocks`/`attrib`/`level`/`readIndex`/
+      `audioDataStart`) and `AUDIO_BLOCK_SAMPLES` (256) were verified
+      directly against `$PS3DEV/ppu/include/audio/audio.h` before use, not
+      assumed from the reference alone.
+
+      Full chain (`./waf configure --ps3
+      --static-linking=filesystem_stdio,ref_soft,client,menu
+      --disable-mbedtls && ./waf build`) succeeds inside
+      `ps3dev/ps3dev:latest` Docker, producing a real `EBOOT.BIN`/
+      `EBOOT.pkg` (~2.76MB, sane growth from goal 7's ~2.75MB).
+- [x] **10. Game DLL integration**: vendor `hlsdk-portable` (sibling repo,
+      `E:\Users\Matteo\Desktop\HL1\hlsdk-portable`) as the game-logic layer,
+      statically linked via the project's existing `--static-linking`/
+      `xshlib.py` mechanism, replacing goal 6's stub with the real thing.
+
+      **Reordered ahead of endianness/perf on 2026-07-25**: "First playable"
+      (now goal 11) structurally requires real game logic -- goal 6's client
+      DLL is a throwaway stub with no HUD/gameplay, so it cannot host a
+      loaded, playable map. This is also the only remaining goal the user
+      cannot test at all until it lands, since goals 11/12/13 all assume a
+      real game DLL exists first.
+
+      **Build-verified 2026-07-25, NOT YET hardware-validated.** Vendored
+      hlsdk-portable's `dlls`/`cl_dll`/`game_shared`/`common`/`pm_shared`/
+      `public`/`engine`/`external`/`utils/fake_vgui` trees into a new
+      `hlsdk-portable/` directory (plain tracked files, same convention as
+      `opus`/`bzip2`/`xash-extras` -- kept fully separate from xashPS3's own
+      `common`/`pm_shared`/`public` at the repo root, since those are the
+      *engine's* copies of same-named-but-different-content headers --
+      confirmed by diff, hlsdk-portable's own `common`/`pm_shared`/`public`
+      are privately scoped to its own SDK build and never meant to merge
+      with an engine checkout's copies).
+
+      **Key discovery: hlsdk-portable already ships its own waf build**
+      (`wscript`, `dlls/wscript`, `cl_dll/wscript`), written for the
+      Xash3D-FWGS ecosystem with existing PSVita/NSwitch `DEST_OS` branches
+      -- adapted (not copied verbatim) into new, simplified wscripts that
+      drop hlsdk's own install-path/library-naming/VGUI-toggle machinery
+      (all dead weight once statically linked: no `.so` output, no install
+      step, VGUI permanently off, GoldSource compat permanently off -- no
+      dlopen on PSL1GHT and `input_goldsource.cpp`'s SDL2 dlopen call site
+      is unconditional in the file regardless of the `GOLDSOURCE_SUPPORT`
+      define, so the whole file is excluded from the client glob rather
+      than relying on the define alone).
+
+      **`dlls/exports.txt` needed ~250 entries, not a handful** --
+      confirmed by reading the real engine code
+      (`engine/server/sv_game.c:1067`, `SV_GetEntityClass` ->
+      `COM_GetProcAddress(svgame.hInstance, pszClassName)`, called from
+      `SV_AllocPrivateData` for every BSP-spawned entity): the engine
+      resolves *every entity classname string individually* by name
+      through the same `Lib_Find` table-walk used by every other
+      statically-linked module. hlsdk-portable's `LINK_ENTITY_TO_CLASS`
+      macro has no self-registering factory table -- pure dlsym-by-name,
+      one `extern "C"` symbol per classname. Extracted the full list via
+      `grep -rho '^\s*LINK_ENTITY_TO_CLASS(\s*[A-Za-z0-9_]*' dlls
+      --include=*.cpp | sed -E 's/^\s*LINK_ENTITY_TO_CLASS\(\s*//' | sort -u`
+      (250 unique names), plus `GiveFnptrsToDll`/`GetEntityAPI`/
+      `GetEntityAPI2`. Two names initially included turned out to be dead
+      code under a normal release build and had to be removed after a real
+      link failure surfaced them: `my_monster` (`dlls/tempmonster.cpp`,
+      entire file wrapped in `#if 0` -- the SDK's own "how to add a
+      monster" template, never meant to compile) and `trip_beam`
+      (`dlls/effects.cpp:408`, gated `#if _DEBUG`, correctly absent from a
+      release build). `cl_dll/exports.txt` (43 entries, the fixed
+      `cldll_func_t` interface set) similarly had one dead entry removed,
+      `HUD_ChatInputPosition` (`vgui_SpectatorPanel.cpp`, VGUI-only, correctly
+      excluded since VGUI is off).
+
+      **Five real source bugs found and fixed via the Docker build, each
+      isolated from actual compiler/linker output, not guessed:**
+      1. `common/mathlib.h`'s `IS_NAN` macro did unsafe pointer type-punning
+         (`*(int*)&x`), fatal under `-Werror=strict-aliasing`. The engine's
+         own `public/xash3d_mathlib.h` already solves this identically with
+         plain `#define IS_NAN isnan` -- matched that instead of adding a
+         suppression.
+      2. Same type-punning pattern (bit-reinterpreting a `float` into `int`
+         for a PRNG seed) in `dlls/util.cpp` and the near-identical
+         `cl_dll/com_weapons.cpp`, plus byte-buffer marshaling code in
+         `cl_dll/demo.cpp`/`hud.cpp` (already flagged by the SDK's own
+         `// FIXME: ... *(int *)& crap` comment). Fixed with `memcpy`-based
+         type puns (standard-legal, compiles to the same code).
+      3. `dlls/zombie.cpp:307`: `(m_Activity == ACT_MELEE_ATTACK1) ||
+         (m_Activity == ACT_MELEE_ATTACK1)` -- a genuine copy-paste bug,
+         fatal under `-Werror=logical-op`. No second melee-attack activity
+         exists in this file, so simplified to the single check rather than
+         inventing a second constant.
+      4. `cl_dll/entity.cpp` included the legacy `<memory.h>` header, which
+         doesn't exist on this libc; replaced with `<string.h>` (declares
+         the same `memcpy`/`memset` on every modern libc including this
+         one).
+      5. **The real cross-module bug, took the longest to isolate**: waf's
+         per-taskgen `idx` (used to disambiguate output object filenames,
+         `ccroot.py`'s `out = '%s.%d.o' % (node.name, self.idx)`) defaults
+         to a counter keyed by the *taskgen's own path*, not by the actual
+         directory a source file resolves to. `cl_dll/wscript` compiles
+         several weapon `.cpp` files living in `../dlls/` (shared
+         client-prediction code) in addition to its own sources; since
+         `dlls`'s own taskgen (path `dlls/`) and `cl_dll`'s taskgen (path
+         `cl_dll/`) are each the *first* taskgen in their own path, both
+         got the default `idx=1`, and the output object path for a shared
+         file like `dlls/python.cpp` collided between the two builds --
+         waf silently reused one taskgen's compiled object for the other.
+         Diagnosed by comparing `nm` output of the real built `.o` against
+         a manual standalone recompile with identical flags (which produced
+         the missing symbols fine), then finding only one `.o` existed on
+         disk where two were expected. Real hlsdk-portable's own
+         `dlls/wscript`/`cl_dll/wscript` already carry an `idx =
+         bld.get_taskgen_count()` kwarg for exactly this reason (a
+         build-wide, not per-path, counter) -- it was dropped as
+         apparently-decorative when first adapting the wscripts and had to
+         be restored, plus the small `get_taskgen_count()` conf helper
+         added to xashPS3's own top-level `wscript` (hlsdk-portable's
+         original lived in its own now-unused top-level `wscript`).
+
+      Full chain (`./waf configure --ps3
+      --static-linking=filesystem_stdio,ref_soft,menu,server,client
+      --disable-mbedtls && ./waf build`) succeeds inside
+      `ps3dev/ps3dev:latest` Docker, producing a real `EBOOT.BIN`/
+      `EBOOT.pkg`.
+
+      **VALIDATED on real hardware 2026-07-26: the port reaches actual
+      in-game play for the first time.** Getting there took a total console
+      freeze (power-cycle, no `Sys_Error`) on the first map load, resolved
+      over five instrumented hardware rounds.
+
+      **First, the diagnostics had to be rebuilt, because the previous
+      session's conclusions were unsound.** Every marker site used its own
+      private `static int` counter with its own small budget, so a silent
+      marker meant *either* "the code never ran" *or* "this site already
+      spent its tickets elsewhere" -- indistinguishable at the listener.
+      Concretely, `Host_ServerFrame`'s budget of 3 was incremented at the top
+      of the function, before its `if( !svs.initialized ) return;`, and
+      `Host_ServerFrame` runs every frame from boot (`host.c`): all three
+      tickets were consumed by menu frames that print nothing, making that
+      marker dead code by the time gameplay started. The old conclusion
+      ("freeze is right after `SV_SendClientMessages` returns") was an
+      artifact of this, as was the "UDP packet loss" theory -- the
+      `Netchan_TransmitBits` markers had simply been spent on connect
+      handshake traffic. Replaced with a single channel, `public/ps3_diag.h`
+      + `PS3_Diag()` in `sys_ps3.c`: **one global monotonic sequence number
+      on every line** (a gap = real UDP loss; a contiguous run that stops =
+      the last line really is the last code executed), one global budget, and
+      an explicit enable flag. Every subsequent round had contiguous
+      sequence numbers, so no result was ever ambiguous again.
+
+      **Root cause: an ODR violation created by the `--static-linking`
+      merge.** `dlls/*.cpp` weapon sources are compiled twice -- into
+      `server.o` without `CLIENT_DLL`, and into `client.o` with it (upstream
+      relies on these being two separate `.so`s, each resolving
+      `PRECACHE_MODEL` etc. through its *own* `g_engfuncs`: the client's
+      harmless stubs from `HUD_InitClientWeapons`, the server's real engine
+      table). Statically linked into one executable, `objcopy -G` keeps the
+      two *function bodies* separate but **only one vtable per weapon class
+      survives the final link**. Verified on the real build with `nm`/
+      `objdump`, not inferred: two `CGlock::Spawn`/`CGlock::Precache` bodies,
+      a single `_ZTV6CGlock`, and that vtable's slots pointing at `0x764228`/
+      `0x764270` -- inside the *server* `.opd` region (bracketed by
+      `GetEntityAPI2` `0x7608f8` and `GiveFnptrsToDll` `0x764c18`), while the
+      client-compiled copies at `0x7765d0`/`0x776600` are dead code nothing
+      dispatches to. Same pattern on every weapon class checked
+      (`vtables=1, spawn_impls=2`).
+
+      So on the first frame the client reached `ca_active`,
+      `HUD_PrepEntity`'s `g_Glock.Spawn()` executed *server*-compiled weapon
+      code against the *real* engine table, reaching `pfnPrecacheModel`
+      (`sv_game.c`) -> `SV_ModelIndex`/`Mod_ForName` -- a disk model load in
+      the middle of client prediction. Hard lock on this no-MMU platform.
+
+      **Fix**: `DEFAULT_CL_LW` in `common/defaults.h` (the established
+      per-platform defaults pattern, not a hardcoded branch at the cvar)
+      defaults `cl_lw` to `"0"` on PS3, so `HUD_PostRunCmd` takes its `else`
+      branch and `HUD_WeaponsPostThink` -- hence `HUD_InitClientWeapons` and
+      all client-side weapon `Spawn` calls -- never run. Movement prediction
+      (`pfnPlayerMove`) is untouched and already worked. The server stays
+      authoritative for weapons, which costs essentially nothing on a
+      loopback single-player listen server. **The first attempt at this fix
+      silently did nothing**: `cl_lw` is `FCVAR_ARCHIVE`, and an archived
+      `config.cfg` from earlier builds set it straight back to 1 after the
+      default was registered. Hence `DEFAULT_CL_LW_FLAGS`, which drops
+      `FCVAR_ARCHIVE` and adds `FCVAR_READ_ONLY` on PS3 -- this is a platform
+      limitation, not a user preference, and `Cvar_CanSet` then rejects the
+      stale config outright.
+
+      **The ODR violation itself is still latent** for any other class shared
+      between the `dlls/` and `cl_dll/` compiles -- `cl_lw 0` only stops it
+      being *exercised* by weapon prediction. A proper fix means keeping each
+      statically-linked module's vtables separate (the same "modules must
+      stay isolated" invariant `xshlib.py` already enforces for symbols via
+      `-d` + `objcopy -G`, extended to COMDAT/vtable data). Revisit if
+      another shared-class crash appears.
+
+      Useful comparison found this session: the sibling **Wii/OGC port**
+      (`E:\Users\Matteo\Desktop\HL1\Wii\xash3d-fwgs`) statically links the
+      same hlsdk into one binary but **never compiles `dlls/*.cpp` into its
+      client library** (verified: zero `dlls/` entries in `cl_dll`'s source
+      list in `makelibrary.txt`), so it only ever has one copy per weapon
+      class and structurally cannot hit this. It also has a
+      `29c575e0 ogc: fixed multiple definitions of g_engfuncs` commit
+      renaming the *filesystem* module's `g_engfuncs` to `fs_gEngfuncs` --
+      a collision this port avoids via `objcopy -G` instead. Worth consulting
+      for any future static-link-merge problem. Note it renders at 640x480
+      (`DEFAULT_MODE_WIDTH/HEIGHT` for OGC).
+
+      **Left in place deliberately**: the `PS3_DIAG` markers across the
+      engine, `ref_soft`, and (as debug scaffolding) `hlsdk-portable`'s
+      `hl_weapons.cpp`/`glock.cpp`. The channel is globally disabled -- the
+      `PS3_DIAG_ENABLE()` call was removed from `SV_SpawnServer` -- so it
+      costs a predictable-branch per site and emits nothing. Re-add that one
+      call to arm it for goal 11. Also added: `-fstack-usage` on the
+      `ref_soft` build for `DEST_OS == 'ps3'`, which produced the measured
+      frame sizes recorded under goal 11 below.
+- [x] **11. `ref_gl` on the RSX (`3rdparty/ps3gl`)**: replace software
+      rasterization with real RSX rendering, keeping `ref_soft` as the
+      `-ref soft` fallback. See section 4 for the architecture.
+
+      **Vertex-ring fix HARDWARE-VALIDATED 2026-07-26**: confirmed the
+      32 MB `PS3GL_VRING_SIZE` bump (up from 2 MB) eliminates the
+      intermittent dropped-draw glitches -- ref_gl is the confirmed-active
+      renderer (not silently falling back to soft), goal fully closed.
+
+      **Inserted ahead of "first playable" on 2026-07-26** (old 11-13 renumbered
+      to 12-14) because first-playable should be validated on the renderer that
+      actually ships, and both blockers old-goal-11 already documented are
+      `ref_soft`-specific: video runs at the TV's native 1920x1080, so `ref_soft`
+      software-rasterizes ~2.07M px/frame on an in-order PPE, and
+      `R_EdgeDrawing`/`R_DrawBrushModel` peak around 544 KB of stack against a
+      1 MB main thread. Moving rasterization to the RSX deletes both.
+
+      **Feasibility was measured, not estimated**, before any code was written:
+      `ref_gl`'s 16 renderer `.c` files plus `gl_opengl.c` reference **93
+      distinct GL entry points**; the ported ps3gl already implemented **61** of
+      them. The 32-symbol gap is closed in `3rdparty/ps3gl/ps3gl_glapi.c`, in
+      three groups:
+      1. **Extension-gated, never reached** (VBO, compressed textures, 1D/3D
+         textures, multisample textures, `glDebugMessage*`): ps3gl's
+         `glGetString( GL_EXTENSIONS )` advertises only `GL_ARB_multitexture`,
+         so `GL_CheckExtension` fails for all of them and ref_gl takes its
+         non-extension path -- but `XASH_GL_STATIC` links the symbols directly,
+         so they must still exist. Stubbed.
+         `glDrawRangeElements` is the one exception: it forwards to
+         `glDrawElements`, which *is* ref_gl's own unextended fallback.
+      2. **Trivial completions** backed by existing ps3gl state
+         (`glIsEnabled`/`glIsTexture`/`glMultiTexCoord2f`/`glTexEnvfv`/...).
+      3. **Fog and texgen: state tracked, not applied.** `gl_rmain.c` reads
+         `pglIsEnabled( GL_FOG )` and `pglGetFloatv( GL_FOG_COLOR )` back and
+         branches on both, so the state has to round-trip correctly -- it does.
+         Actually *rendering* fog and chrome/sky texgen needs new offline
+         cgcomp'd program permutations and is deferred to goal 14. Visual gaps,
+         not correctness gaps.
+
+      Two things the plan expected to be real work turned out not to be, both
+      confirmed by reading the call sites rather than assuming:
+      - **`GL_COMBINE_ARB` + `GL_RGB_SCALE 2`** (`gl_rsurf.c:2432`, `:2469`)
+        lives entirely in gl_rsurf's VBO path (`R_EnableDetail`,
+        `R_SetLightmap`, gated on `gl_overbright`/`r_vbo_overbrightmode`).
+        With `GL_ARB_VERTEX_BUFFER_OBJECT_EXT` reported false that code never
+        runs, and ps3gl's `glTexEnvf` already folds any unrecognized env mode
+        into `PS3GL_TENV_MODULATE`, so nothing had to be written.
+      - **`gl2_shim/gl2_shim.c` is entirely wrapped in `#if !XASH_GL_STATIC`**,
+        so it compiles to an empty TU here and pulls in no GLES2 symbols.
+
+      Ported from `ioQuake3-PS3/code/gl/` with three deliberate omissions, none
+      of them carried over verbatim:
+      - `ps3gl_spu.c` (SPU vertex-interleave offload) is excluded -- it needs
+        `code/spu/spu_vtx_shared.h` and a separate `spu-gcc` build, and it has a
+        scalar fallback. Revisit under goal 14 only if profiling demands it.
+      - The `ps3gl_restore_if_needed()` / `.data` backup-pointer / `0x1` sentinel
+        machinery in `ps3gl_main.c` is dropped. It is a BSS-corruption band-aid
+        specific to that port; if the same symptom shows up here, root-cause it
+        instead of inheriting the workaround. `ps3gl_ptr` is now a plain
+        `NULL`-initialized pointer and `ps3gl_init` returns success/failure.
+      - Its `ps3_log`/`printf` diagnostics now route through `ps3gl_log`, which
+        calls the engine's `Con_Printf` (and therefore the UDP sink, via goal
+        3's `Sys_PrintStdout` fix). The 30-texture-upload diagnostic dump was
+        deleted outright -- ref_gl already logs its own texture loads.
+
+      The `gl*` entry points were renamed from `ps3gl_*` wholesale (the Q3 port
+      bound them through a `qgl_ps3.c` function-pointer table; `XASH_GL_STATIC`
+      needs the real names). `ps3gl_SetWorldClipPlane` deliberately keeps its
+      prefix -- it is a PS3-specific extra, not a GL entry point.
+      `3rdparty/ps3gl/include/GL/gl.h`'s enum values were diffed against
+      `ref/gl/gl_export.h` before trusting them (no conflicts; only `0` vs `0x0`
+      formatting differences), and its `GLintptrARB`/`GLsizeiptrARB` are
+      deliberately `int` rather than `ptrdiff_t` to match `gl_export.h`'s
+      declarations exactly -- a mismatch there would silently break the ABI
+      rather than fail to compile.
+
+      Build wiring: top-level `wscript`'s `DEST_OS == 'ps3'` branch now sets
+      `conf.options.GL = True` (it previously forced `False` with the stale
+      "no runtime shader compiler" reasoning), a `Subproject('3rdparty/ps3gl')`
+      entry gated on PS3, `ref/gl/wscript` forces `XASH_GL_STATIC=1` on PS3
+      (deliberately *not* via `--enable-static-gl`, whose configure step runs an
+      irrelevant host `check(lib='GL')`), and `engine/wscript` adds `ps3gl` to
+      the client link. `ref/gl/gl_opengl.c`'s existing `#if XASH_PSVITA`
+      `GL_SetExtension( GL_OPENGL_110, true )` block was extended to PS3 --
+      without `VGL_ShimInit`, since ps3gl's own `glBegin`/`glEnd` already batch
+      into an RSX vertex ring rather than issuing per-vertex commands.
+
+      Build command gains `ref_gl` (section 7 updated to match):
+      `./waf configure --ps3 --static-linking=filesystem_stdio,ref_soft,ref_gl,menu,server,client --disable-mbedtls && ./waf build`
+
+      **Build-verified 2026-07-26, NOT YET hardware-validated.** Full chain
+      succeeds inside `ps3dev/ps3dev:latest` Docker, producing
+      `EBOOT.BIN` (3,867,136 B) and `EBOOT.pkg` (3,869,264 B) with a correct
+      `PARAM.SFO` + `ICON0.PNG` + `USRDIR/EBOOT.BIN` layout. All six
+      static-link tables are present in the final ELF
+      (`lib_{filesystem_stdio,ref_soft,ref_gl,menu,server,client}_exports`),
+      confirming both renderers really are linked, not just configured.
+      ps3gl itself is small: 37 KB text / 4 KB data / 197 KB bss, of which
+      128 KB is `ps3gl_draw.c`'s static 16-bit index scratch buffer; the
+      `ps3gl_state_t` singleton (~920 KB, dominated by the 16384-vertex
+      immediate-mode batch and the 4096-slot texture table) is heap, not bss.
+      The eight embedded shader blobs total under 1 KB.
+
+      The **linkage boundary was verified with `nm`, not assumed** -- this was
+      the one design decision that could have silently produced a
+      wrong-but-linkable binary. In `ref_gl.o`, `glEnable`/`glTexImage2D` are
+      `U` (undefined), and in the final `xash` ELF they plus `glDrawElements`/
+      `glFogfv`/`glIsEnabled`/`ps3gl_init` are `T` (defined, engine side), with
+      `nm -u` reporting **no** remaining undefined GL symbols. That is exactly
+      the intended split described in section 4.
+
+      Two real build errors were found and fixed, both in ps3gl, neither
+      guessed:
+      1. `ps3gl_main.c` called `usleep()` in the vertex-ring fence wait without
+         including `<unistd.h>` -- fatal under this project's
+         `-Werror=implicit-function-declaration`. The Q3 port got away with it
+         through a different include chain.
+      2. `ps3gl_get_mvp`/`ps3gl_get_mvp_generation`/`ps3gl_inc_draw_count` were
+         declared with bare `extern` lines duplicated across three consumer
+         `.c` files and never seen by their own definitions
+         (`-Wmissing-prototypes`). Moved the declarations into `ps3gl.h` and
+         deleted the three sets of duplicates, rather than silencing the
+         warning.
+
+      **HARDWARE-VALIDATED 2026-07-26**: ref_gl renders the Half-Life main menu
+      and in-game world on real hardware, textured and correct (bus interior and
+      Black Mesa exterior confirmed by screenshot). RSX rendering replaces
+      software rasterization. Took **three hardware rounds**; the load-bearing
+      bug was mine, not ps3gl's.
+
+      **Round 1/2 -- everything rendered untextured (black-and-white menu, flat
+      grey studio models).** Geometry, vertex colors, lighting and the flip loop
+      all worked; only texturing was dead. Diagnosed by instrumenting
+      `ps3gl_shader_key`'s three predicates rather than guessing: the log showed
+      `tmu0 enabled=1 bound=<non-NULL> data=0x0`, i.e. textures were bound but
+      carried no pixels, so every draw fell through to the color-only fragment
+      program. Round 2's probe was placed at the *bottom* of `glTexImage2D`,
+      which could not distinguish "never called" from "called but bailed early"
+      -- a real diagnostic-design mistake that cost a round. Round 3 moved the
+      probes to the entry points and printed a reason for every early return.
+
+      **Root cause (round 3): `vid_ps3.c` never called
+      `ref.dllFuncs.GL_InitExtensions()`.** Every other GL-capable backend calls
+      it from its own `R_Init_Video` -- `vid_sdl2.c:950`, `vid_sdl1.c:417`,
+      `vid_sdl3.c:312` -- but this backend was grown from a `ref_soft`-only one,
+      which has no such requirement, so the call was simply absent. That
+      function is what sets `glw_state.initialized`, and `GL_UploadTexture`'s
+      **very first line** (`gl_image.c:969`) is
+      `if( !glw_state.initialized ) return true;` -- it reports **success** and
+      uploads nothing. `GL_SetTextureTarget` lives inside that same function, so
+      every `gl_texture_t` also kept `target == GL_NONE`; the decisive log
+      evidence was `BindTexture ... target=0x0` combined with zero
+      `glTexImage2D` calls ever reaching ps3gl. Nothing in ps3gl was wrong: it
+      was faithfully drawing textures that had never been given pixels. Fixed by
+      calling `GL_SetupAttributes` before the mode set and `GL_InitExtensions`
+      after `ps3gl_init`, matching the SDL backends' order. `R_Free_Video`
+      already had the paired `GL_ClearExtensions`.
+
+      Two further real bugs fixed in the same pass, both found by reading rather
+      than by hardware failure:
+      1. **`GL_BGRA`/`GL_BGR` were unhandled.** `gl_image.c:849-853` maps
+         rgbdata's `RF_BGRA`/`RF_BGR` straight through, which is the common case
+         for GoldSrc WAD/BMP content, but ps3gl came from ioQuake3 whose
+         renderer only ever uploads `GL_RGBA`. `gl_format_bpp()` fell to its
+         `default: return 4`, so `GL_BGR` would have desynced every row, and
+         `GL_BGRA` would have swapped red and blue. Fixed in both
+         `convert_pixels` and `glTexSubImage2D` (lightmap updates use the
+         latter). Fixed pre-emptively in the same build as the root cause rather
+         than costing a fourth round, since the mapping is provably wrong
+         independent of any hardware observation.
+      2. **Vertex ring was undersized, and failed silently.**
+         `ps3gl_vring_alloc` deliberately refuses to wrap mid-frame (wrapping
+         would stomp data the GPU has not fetched yet, since submission runs
+         ahead of execution) and **drops the draw** instead -- visibly missing
+         geometry. The inherited `PS3GL_VRING_SIZE` of 2 MB gives 1 MB per
+         segment = ~29k verts at 36 B each, which Half-Life exceeds at 1080p
+         (hardware log: `need 35676, have 25168 of 1048576`). Worse, the
+         warning was `static int warned` -- printed **once per process**, hiding
+         how often it really happened. Raised to 32 MB (16 MB/segment,
+         ~466k verts/frame, against 256 MB of GDDR3 of which the 1080p
+         framebuffers and depth take ~25 MB), and replaced the once-only
+         warning with a per-frame dropped-draw tally plus a `peak_head`
+         high-water mark reported on 256 KB steps, so the ring can be sized from
+         a real play session instead of guesswork. **Build-verified, not yet
+         hardware-validated** -- the user reported intermittent visual glitches
+         consistent with dropped draws.
+
+      All round-1/2/3 `[ps3gl/diag]` instrumentation was removed once the cause
+      was identified; only the permanent vertex-ring telemetry remains.
+
+      **Still open, expected, and scoped:** fog and chrome/sky texgen render as
+      no-ops (see item 3 of the API-gap list above) -- they need new
+      offline-cgcomp'd program permutations, deferred to goal 14.
+- [x] **12. First playable**: full HUD, input, audio, a loaded map.
+      **HARDWARE-VALIDATED 2026-07-26**: campaign fully playable across
+      multiple levels -- HUD renders correctly, audio audible throughout
+      (not just menu), input responsive, no crashes on level transitions.
+
+      **Known measurement going in** (from `-fstack-usage`, this build, not
+      estimated): `R_EdgeDrawing` 400448 B and `R_DrawBrushModel` 400384 B
+      each declare their edge/surface arrays as plain locals, and each calls
+      `R_ScanEdges` (144288 B) *inside* that frame (`r_main.c:966`, `:1024`)
+      -- a nested peak around **544 KB against a 1 MB main thread stack**
+      (`SYS_PROCESS_PARAM( 1001, 0x100000 )`), before counting the engine
+      call chain above it or `R_RenderWorld`'s recursive BSP descent. The
+      cvar defaults confirm those arrays really are stack-resident rather
+      than heap (`r_main.c:1243-1276`): `sw_maxsurfs` "0" -> `MINSURFACES`
+      2000 -> `r_surfsonstack = true`; `sw_maxedges` "32" -> `MINEDGES` 4000
+      <= `NUMSTACKEDGES` -> `auxedges = NULL`. A runtime watermark is already
+      wired (`PS3_DIAG_STACK_TOP()` in `Host_Frame`, `PS3_DIAG_STACK()` at
+      `R_EdgeDrawing`/`R_DrawBrushModel`, printing only on a new maximum) and
+      will report the real depth as soon as the diagnostic channel is armed.
+      Note also that video currently runs at the TV's native 1920x1080, so
+      `ref_soft` is software-rasterizing ~2.07M pixels/frame on an in-order
+      PPE; the Wii port targets 640x480 for comparison. **Both of these are
+      what motivated inserting goal 11 (`ref_gl` on the RSX) ahead of this
+      item** -- they are `ref_soft`-specific and go away once rasterization
+      moves to the GPU. They were never goal-10 regressions. The stack
+      watermark stays relevant only for the `-ref soft` fallback path.
+- [x] **13. Endianness audit**: confirm `XASH_BIG_ENDIAN` is set correctly by
+      the toolchain and audit any raw-struct reads (WAD, save files, network)
+      not already covered by `public/swaplib.h` (MDL/BSP/SPR are covered).
+      Deferred behind 10/12 -- real game-DLL code (save-game serialization,
+      AI node graphs, network messages) is the highest-value endianness
+      surface, so auditing it before that code exists would be premature;
+      `hlsdk-portable`'s own `common/byteswap.h` swap macros are already
+      confirmed real and working (see section 6).
+
+      **Started 2026-07-27.** An Explore pass (read-only) found six real,
+      unswapped raw-struct/scalar sites not already covered by
+      `public/swaplib.h` or `hlsdk-portable/common/byteswap.h`'s existing
+      CSave/CRestore and CGraph::Byteswap* paths -- confirmed already-safe:
+      `net_encode.c` (in-memory only, never raw wire bytes), the `*(int*)==-1`
+      out-of-band checks (`-1` is byte-order-invariant), WAV/WAD/BMP loaders
+      (raw read but already wrapped in `Little*`/`le_struct_swap` right after).
+      All six were fixed and **build-verified** (full
+      `./waf configure --ps3 --static-linking=filesystem_stdio,ref_soft,ref_gl,menu,server,client --disable-mbedtls && ./waf build`
+      inside `ps3dev/ps3dev:latest` Docker, clean compile + link + EBOOT.pkg),
+      **NOT YET hardware-validated** (nothing here is visually/interactively
+      observable without a second machine or a cross-endian demo/save file --
+      see the per-site notes below for what a hardware pass should check):
+      1. **`engine/common/net_ws.c`** -- `SPLITPACKET`/`SPLITPACKETGS` header
+         (`net_id`/`sequence_number`/`packet_id`) was cast raw onto the UDP
+         datagram buffer on both send and receive, with zero swap calls in
+         the file. `NET_HEADER_SPLITPACKET` is `-2`, NOT byte-order-invariant
+         like the `-1` out-of-band header (0xFFFFFFFE swaps to 0xFEFFFFFF),
+         so split-packet detection would silently fail against real x86
+         GoldSrc/Xash peers. Fixed with `LittleLong`/`LittleShort` at every
+         read/write site (`net_buffer.c`'s existing bit-writer already uses
+         this exact idiom for the rest of the wire format).
+      2. **`engine/client/parse/cl_parse.c:1616`** (`CL_SendConsistencyInfo`,
+         GoldSrc-protocol only) -- patched a length placeholder with a raw
+         `*(short *)&msg->pData[pos] = len` instead of routing back through
+         `MSG_WriteShort`. Fixed with `LittleShort`.
+      3. **`engine/common/hpak.c`** (`.hpk` custom resource pack, explicitly
+         a cross-machine format per its own header comment) -- zero swap
+         calls anywhere. Added `dresource_swap`/`hpak_header_swap`/
+         `hpak_lump_swap` `swaplib.h` descriptors (same convention as
+         `img_wad.c`'s WAD/mip tables) and a `HPAK_SwapLumps()` helper, wired
+         into all ~10 read/write call sites across `HPAK_CreatePak`,
+         `HPAK_AddLump`, `HPAK_Validate`, `HPAK_ResourceForHash`,
+         `HPAK_ResourceForIndex`, `HPAK_GetDataPointer`, `HPAK_RemoveLump`,
+         `HPAK_List_f`, `HPAK_Extract_f`. `HPAK_RemoveLump`'s header
+         passthrough copy needed care: write the raw wire-order bytes
+         through untouched FIRST, only then swap the in-memory copy to host
+         form for the function's own use -- swapping before that copy would
+         have corrupted it.
+      4. **`engine/client/cl_demo.c`** (`.dem` demo format, shared across
+         machines in the HL community) -- zero swap calls in the whole file.
+         Added `demoheader_swap`/`demoentry_swap` descriptors plus per-site
+         `LittleLong`/`LittleShort`/`LittleFloat` wraps for the many scalar
+         sequence/length/angle fields recorded and played back
+         (`CL_WriteDemoSequence`/`CL_ReadDemoSequence`,
+         `CL_WriteDemoUserCmd`/`CL_ReadDemoUserCmd`, message-length prefixes,
+         Quake1-demo viewangles). `demo.header` and `hash_pack_header`-style
+         persistent structs are never swapped in place -- always via a
+         scratch copy -- since their fields (e.g. `demo.header.host_fps`)
+         are read in host form continuously elsewhere in the same recording/
+         playback session.
+         **Bonus, non-endianness bug found and fixed in the same code path**:
+         `CL_DemoReadMessage`'s `dem_userdata` handler did
+         `FS_Read( cls.demofile, &size, sizeof( int ))` directly into a
+         `size_t size` local -- 8 bytes on this LP64 target. On big-endian
+         that lands the 4 wire bytes in the HIGH 32 bits of the variable
+         instead of the low ones (correct only by accident on little-endian
+         hosts), producing a huge garbage allocation size regardless of the
+         byte-swap fix. Fixed by reading into a proper `int` temporary first.
+      5. **`engine/server/sv_save.c`** (save-game container) -- the bulk of
+         the actual save data (`GAME_HEADER`/`SAVE_HEADER`/`SAVE_CLIENT`/
+         entity table/decals/statics/sounds/lightstyles/adjacency/temp
+         entvars) already round-trips safely through
+         `svgame.dllFuncs.pfnSave{Read,Write}Fields`, i.e. the game DLL's own
+         already-confirmed-safe `CSave`/`CRestore` (`dlls/util.cpp`) -- not
+         touched. What sv_save.c itself reads/writes raw and DID need
+         fixing: every container header's `id`/`version`/`size`/
+         `tokenCount`/`tokenSize`/`tableCount` int
+         (`GetClientDataSize`, `LoadSaveData`, `SaveClientState`/
+         `LoadClientState`, `SaveGameState`, `SaveGameSlot`/
+         `SaveReadHeader`), `DirectoryCopy`/`DirectoryExtract`'s per-file
+         `fileSize` (the `.HL1`-`.HL3` companion files), `EntityPatchWrite`/
+         `EntityPatchRead`'s patch count and entity indices (`.HL3`), and
+         **`SV_GetSaveComment`'s independent, unsynced re-parse of the
+         CSave-produced token stream** -- its `*(short *)pData` field-size
+         and token-index reads bypassed `CRestore::ReadShort` entirely and
+         needed `LittleShort` wraps at both occurrences (the initial
+         `GameHeader` field and the per-field loop). All fixed with
+         `LittleLong`/`LittleShort`, always via a local `wire` temporary
+         when the source was a persistent `pSaveData` field still needed in
+         host form afterward (never swapped in place).
+      6. **`hlsdk-portable/game_shared/voice_banmgr.cpp`** -- `CVoiceBanMgr::
+         Init`/`SaveState`'s single `int version` field read/written via raw
+         `fread`/`fwrite`. Fixed with `LittleToHostSW` (this file's own
+         `common/byteswap.h`, not the engine's `xash3d_types.h` -- it's a
+         `game_shared` file built into the client/server game DLL). Lowest
+         stakes of the six (local per-user file), included since the user
+         asked to fix all six findings in one pass.
+
+      Full chain (`./waf configure --ps3
+      --static-linking=filesystem_stdio,ref_soft,ref_gl,menu,server,client
+      --disable-mbedtls && ./waf build`) succeeds inside
+      `ps3dev/ps3dev:latest` Docker -- clean compile of all five touched
+      engine files plus `hlsdk-portable/game_shared`, link, strip, sprxlink,
+      self, and `EBOOT.pkg` packaging (`ContentID
+      UP0001-XASH10000_00-0000000000000000`, package size ~3.87 MB, in line
+      with prior goals). **Hardware pass still needed**: none of these six
+      bugs are observable on a single console alone (split-packet detection
+      needs a real client/server pair or packet capture; the `.dem`/`.hpk`/
+      `.sav` fixes need either a demo/save file authored on a little-endian
+      x86 build loaded on this PS3 build, or vice versa, to actually exercise
+      the swap path -- a same-PS3 round trip through these fixed functions
+      will pass even without them, since writer and reader now agree with
+      each other regardless of which direction is "correct"). Regular
+      solo play (record/load a demo or savegame on this same PS3 build) is
+      NOT a valid test for this goal -- it would have "worked" even before
+      the fix. Needs either a cross-endian save/demo file or is otherwise
+      accepted on code-review confidence alone.
+
+      **HARDWARE-VALIDATED 2026-07-27, partially.** Real, meaningful
+      confirmations, not same-console-only round trips:
+      - **Crossplay against a real remote GoldSrc server** (`193.111.77.184:
+        27011`, `BUILD 4109`, Sentinel-anticheat-protected public DM server)
+        -- full connect, signon, resource download, sky load, client
+        connected at 6.99s, no split-packet corruption. This is the real test
+        the `net_ws.c` fix needed: a genuine little-endian x86 peer, not a
+        same-console loopback. Confirms both the split-packet endianness fix
+        and the `PROTOCOL_VERSION`/`PROTOCOL_GOLDSRC_VERSION` match against a
+        live server. One unrelated non-fatal log line surfaced:
+        `CL_ParseUserMessage: No pfn ReqState 61` -- an unhandled usermessage
+        from that server (likely an AMX/plugin-added message), not a core HL
+        message, not a crash, not connected to anything touched this session.
+      - **Save/load regression confirmed working** on real hardware (user:
+        "saving and loading works") -- exercises `sv_save.c`'s fixed
+        container-header swaps end-to-end on this build. Same caveat as
+        before still applies in the strict sense (same-console save+load
+        alone can't distinguish "correctly swapped" from "not swapped at
+        all"), but combined with the code-level fix and the live cross-peer
+        network confirmation above, this is accepted as sufficient without a
+        literal cross-endian `.sav` file.
+      - **Demo record/playback**: not explicitly retested this round --
+        revisit if it comes up, low risk given the same swap-descriptor
+        pattern already proven correct in `hpak.c`/`sv_save.c`.
+      - **hpak.c** / **voice_banmgr.cpp**: not exercised (no custom content
+        packs or voice-ban list touched this session) -- lowest-traffic of
+        the six, accepted on code-review confidence.
+
+      **Unrelated bug surfaced during this hardware round, NOT part of goal
+      13, not caused by anything touched this session**: creating a listen
+      server crashes (clean `Host_Shutdown`, not a freeze) with
+      `_Mem_Alloc: out of memory (alloc size 170 Mb at
+      ../engine/server/sv_init.c:871)`. Root-caused and fixed under goal 14
+      on 2026-08-03 -- see that entry. (The hypothesis originally recorded
+      here, "`SV_UPDATE_BACKUP`/`NUM_PACKET_ENTITIES` not scaled down for
+      `svs.maxclients == 1`", was **wrong**: `sv_init.c` already does exactly
+      that scaling, and the failure was a 32-player listen server, not a
+      singleplayer one.)
+- [ ] **14. Performance pass** (real hardware only) + release
+      hardening (allocation-failure paths, controller hot-plug, long-session
+      soak for command-buffer wrap / memory creep). Includes right-sizing
+      `PS3GL_VRING_SIZE` (currently 32 MB, raised from 2 MB in goal 11 to kill
+      dropped-draw glitches -- confirmed sufficient, not confirmed optimal;
+      no real peak-usage measurement exists yet beyond "stays under 32 MB",
+      so don't guess a smaller number without profiling data first).
+
+      **Started 2026-07-27.**
+
+      **`clip_dist` buffer overflow -- FIXED, build-verified.**
+      `3rdparty/ps3gl/ps3gl_draw.c`'s clip-plane path wrote
+      `clip_dist[PS3GL_MAX_VERTS]` (16384 entries) over an unbounded
+      `num_verts` range and read it back using raw uint16 index values (up
+      to 65535) straight from the index buffer -- a genuine BSS overflow
+      into the adjacent 128 KB `idx16` scratch buffer if triggered.
+      Currently dormant only because xash's world rendering is
+      immediate-mode and never calls `glDrawElements` (the indexed path
+      this bug lives in) -- confirmed by reading the actual call sites, not
+      assumed safe. Fixed by clamping the write loop to `PS3GL_MAX_VERTS`
+      and skipping any triangle whose index falls outside what was actually
+      populated, rather than trusting `num_verts` to stay in range. Ten-line
+      fix, no behavior change on any real playthrough today (still dead
+      code), done first since it was cheap and certain -- second opinion
+      from Opus flagged this as the correct place to start release
+      hardening: a dormant memory-safety bug on a platform with no MMU
+      fault to catch it is worse debt than it looks, and the fix cost
+      nothing to get right.
+
+      **Frame-time telemetry -- added, build-verified.**
+      `3rdparty/ps3gl/ps3gl_main.c`'s `ps3gl_end_frame()` now aggregates
+      avg/min/max frame time over a 5-second window (via
+      `Platform_DoubleTime()`, hand-declared the same way `Con_Printf`
+      already is in this file, to avoid pulling `platform.h`'s header chain
+      into a 3rdparty TU) and reports once per window through `ps3gl_log`.
+      Deliberately NOT routed through the `PS3_DIAG` channel (`ps3_diag.h`)
+      -- that channel is a budgeted, one-shot freeze-hunting tool by
+      design, the wrong shape for continuous per-frame telemetry; per-frame
+      logging would also itself perturb the timing being measured. This
+      mirrors the existing vertex-ring `peak_head` reporting pattern in the
+      same function exactly (aggregate, then log on a threshold/interval,
+      never per-frame).
+
+      **Real bug found via this telemetry: hard 30 fps quantization, root-
+      caused and FIXED, hardware-validated 2026-07-27.** A hardware
+      playtest with the new telemetry showed steady gameplay locked to a
+      tight band around `avg 33.3ms` (`min` rarely below ~31ms), while
+      menu/loading frames in the same log showed `min` as low as 4-18ms --
+      the signature of vsync quantization, not organic GPU/CPU load (real
+      load-bound framerate wanders more than a rigid ~2ms window).
+
+      Root cause, confirmed by reading `engine/platform/ps3/vid_ps3.c`:
+      `PS3_FB_COUNT` was `2`, and `PS3_RSX_WaitForFreeBuffer()`'s block
+      condition (`(flip_queued - flip_completed) > PS3_FB_COUNT - 2`)
+      reduces to `> 0` at that count -- the CPU must block until the
+      *previous* flip has been fully scanned out before starting the next
+      frame's draw. Combined with `GCM_FLIP_VSYNC`, any frame whose GPU
+      work exceeds one 16.6 ms vsync interval gets bumped a full extra
+      vsync tick, quantizing effective framerate to a hard 30 fps
+      regardless of real GPU cost.
+
+      **This was a transcription bug, not a design choice** -- confirmed by
+      reading the sibling `ioQuake3-PS3` port
+      (`E:\Users\Matteo\Desktop\quake3\Ioquake3-PS3\ioQuake3-PS3\code\sys\
+      ps3_glimp.c`), which `vid_ps3.c`'s own comments already claimed to
+      mirror for this exact wait formula. The sibling uses `RSX_FB_COUNT 3`
+      with its own comment explaining why: "Block only if both
+      non-displayed buffers are in flight... With 3 buffers one buffer is
+      always free for the CPU to render into." xashPS3 had copied the wait
+      formula but left `PS3_FB_COUNT` at 2, leaving exactly one buffer of
+      slack out. Consulted Opus for a hardware-safety second opinion before
+      touching this (reviewed both files directly, not just this
+      description): confirmed 3 registered display buffers is well within
+      `gcm_sys.h`'s documented `bufferId` range (0-7), confirmed no GDDR3
+      budget concern (3x color + 1 depth buffer at worst-case 1080p is
+      ~32 MB of 256 MB GDDR3), confirmed the wait formula generalizes
+      correctly at the new count with no desync risk between
+      `ps3_current_fb` and the flip-handler counters, and flagged one real
+      gap while reviewing: the timeout path in `WaitForFreeBuffer` didn't
+      resync `ps3_flip_completed` to `ps3_flip_queued` on a stall (unlike
+      the sibling's `PS3_RSX_WaitFlips`, which does exactly that before
+      breaking) -- left unfixed, a single timeout would leave a permanent
+      skew that makes the wait fire early forever afterward. Fixed both in
+      the same pass: `PS3_FB_COUNT` raised to 3, and the timeout path now
+      force-resyncs and logs a warning, matching the sibling exactly. No
+      other code changes needed -- `ps3_color_offset`/`ps3_color_buffer`
+      arrays and `PS3_RSX_SetRenderTarget`'s indexing were already generic
+      over `PS3_FB_COUNT`.
+
+      **Hardware-validated 2026-07-27**: steady gameplay frame time moved
+      from a rigid `avg 33.3ms / min ~31ms` band to `avg 17.3-17.5ms
+      (~57 fps)` with `min`/`max` spreading into a wide, organic band (e.g.
+      min 7.41ms, max 43.72ms) -- confirms the vsync-doubling quantization
+      is gone, not just a different quantization level. `gcmSetDisplayBuffer
+      [2] ret=0` confirmed clean in the init log (third buffer registered
+      correctly), and no "flip fence timed out" warning appeared during
+      normal play. Effectively a 2x real framerate win from a two-line fix
+      once correctly diagnosed. Input latency rises by up to one extra
+      frame as an accepted tradeoff (per Opus's review) -- not separately
+      measured, revisit only if it's ever reported as noticeable.
+
+      **Follow-up investigation: is locked 60fps achievable? Yes, at 720p.**
+      Added draw-call-flush and vring-fence-wait telemetry to the same
+      `ps3gl_end_frame` window (`3rdparty/ps3gl/ps3gl_vertices.c`'s
+      `flush_immediate()` now increments a real per-frame flush counter --
+      the old `ps3gl_frame_draw_count` only ever incremented from
+      `glDrawElements`, which xash never calls, so it always read zero for
+      real work). Hardware data ruled out the CPU-side fence wait as a
+      factor (consistently 0.01-0.02ms, ~0% of frame time, every window) and
+      also ruled out flush-count as directly causal (819 flushes measured
+      faster than 288 flushes in different windows -- an inverse
+      relationship a real per-flush-cost bottleneck could not produce).
+
+      A clean 1080p-vs-720p hardware comparison (same campaign content, same
+      draw-call range) settled it: at 1080p, busy scenes regularly missed
+      the 16.6ms vsync deadline (avg 17.5-22ms, dropping to ~50-58fps). At
+      720p, the exact same content held a genuinely locked ~60fps almost the
+      entire session (many consecutive 300-frame/5-second windows at `avg
+      ~16.7ms, min 13-15ms`, regardless of draw-flush count ranging 200-1500
+      across those windows). Confirms the renderer is GPU fill-rate-bound at
+      1080p, not CPU/draw-call-bound -- the honest, expected shape for a
+      launch-era immediate-mode GL1.1-over-RSX renderer at 1080p.
+
+      **Shipped fix: hardcoded 720p output, hardware-validated.** Consulted
+      Opus on whether render resolution and output-signal resolution could
+      be decoupled (render 720p internally, output a real 1080p signal via
+      GPU upscale) -- confirmed via PSL1GHT's real `sysutil/video.h`
+      (read directly inside the `ps3dev/ps3dev:latest` Docker image) that
+      `videoConfigure` genuinely renegotiates the physical HDMI/AV signal;
+      there is no PS3-side "render internally at X, output Y" mechanism
+      exposed to homebrew. A true decoupled upscale would need a real
+      offscreen RSX render target plus a fullscreen-quad blit pass -- new
+      render-target/texture code with real black-screen risk (the same
+      class of silent-failure surface-config bug goal 4/11 already hit
+      twice) -- rejected as not worth it for a hobby project.
+
+      Instead, `PS3_RSX_Init` (`engine/platform/ps3/vid_ps3.c`) now requests
+      `VIDEO_RESOLUTION_720` unconditionally (falling back to the TV's
+      actual reported mode only if `videoGetResolutionAvailability` says
+      720p genuinely isn't offered), rather than slaving render resolution
+      to whatever `videoGetState` reports as currently connected. This
+      mirrors the sibling `ioQuake3-PS3` port's `PS3_RSX_Init`
+      (`code/sys/ps3_glimp.c`) exactly -- confirmed real and
+      hardware-validated there first by reading the actual file, not
+      assumed. The TV receives a real 720p signal and does its own
+      upscale to whatever it natively displays; this is a real
+      sharpness-for-framerate tradeoff (same choice many real launch/
+      cross-gen PS3 titles made), not a free win, and requires no PS3
+      system-settings change from the user -- the console renegotiates its
+      own HDMI output on boot. Build-verified; not yet re-confirmed on
+      hardware as a permanent default (the *manual* 720p test that produced
+      the locked-60 telemetry above was done via the console's own XMB
+      display settings, before this code-level change existed).
+
+      **New, unrelated bug surfaced in the same hardware round, NOT caused
+      by anything touched this session**: `RestoreDecal: couldn't restore
+      entity index N` fires repeatedly (~30+ times, indices seen: 24, 29,
+      37) during a save/load sequence through map transitions
+      c1a1 -> c1a1a -> c1a1f -> c1a1. Not present in earlier session logs.
+      Not yet investigated -- possibly adjacent to (but distinct from) the
+      FIELD_FUNCTION save/restore fix from the c0a0e softlock
+      investigation, since both are entity-index/save-restore issues, but
+      this is a different symptom (decal restore, not a freeze) and has not
+      been root-caused. Tracked here for a future pass; not blocking.
+
+      **Listen-server 170 MB OOM -- FIXED and HARDWARE-VALIDATED 2026-08-03.**
+      Listen server starts, map loads, gameplay reached, a second client
+      connected, and **crossplay with PC clients still works** -- which is the
+      specific outcome the chosen fix was designed to protect (see the two
+      rejected alternatives below, both of which would have touched that path).
+      Folded in from goal 13's hardware round.
+      `_Mem_Alloc: out of memory (alloc size 170 Mb at
+      ../engine/server/sv_init.c:871)`, clean `Host_Shutdown`, not a freeze.
+      (Line 871 is stale -- the allocation is at `sv_init.c:905` in current
+      HEAD; that log came from a `c66973a`-era build.)
+
+      **The hypothesis previously recorded here was wrong, and is kept only so
+      nobody re-derives it.** It claimed `SV_UPDATE_BACKUP`/
+      `NUM_PACKET_ENTITIES` weren't "scaling down for `svs.maxclients == 1`".
+      They are: `sv_init.c:900` already reads `SV_UPDATE_BACKUP =
+      ( svs.maxclients == 1 ) ? SINGLEPLAYER_BACKUP : MULTIPLAYER_BACKUP;`.
+
+      The arithmetic identifies the real case exactly. `svs.num_client_entities
+      = svs.maxclients * SV_UPDATE_BACKUP * NUM_PACKET_ENTITIES`, times
+      `sizeof( entity_state_t )` = 340:
+
+      | maxclients | backup | packet ents | total |
+      |---|---|---|---|
+      | 1 (singleplayer) | 16 | 256 | 1.33 MB |
+      | **32 (listen server)** | **64** | **256** | **178,257,920 B = exactly 170.0 MiB** |
+
+      The reported size matches the 32-player row byte-for-byte, so this was a
+      **32-player listen server, never a singleplayer one**. Upstream says the
+      same thing in its own comment at `netchan.h:79`: `#define
+      NUM_PACKET_ENTITIES 256 // 170 Mb for multiplayer with 32 players`. Not a
+      PS3 bug at all -- stock 32-player sizing meeting a ~190 MB console, as one
+      contiguous `Z_Realloc` run, with ~105 MB already resident after a
+      singleplayer session. `3rdparty/mainui/menus/CreateGame.cpp:119` lets the
+      player pick anything from 2 to `MAX_CLIENTS`, so 32 is one menu away.
+
+      **Fix**: cap the listen server at 4 players on PS3 (4 x 64 x 256 x 340 =
+      22.3 MB). New `DEFAULT_MAX_LISTEN_CLIENTS` in `common/defaults.h` --
+      `4` in the existing `XASH_PS3` block, `MAX_CLIENTS` in the `#ifndef`
+      fallback section, so every other platform is bit-identical to before and
+      **no `#if XASH_PS3` enters `engine/server/` at all**. `SV_SetupClients`
+      bounds the listen-server branch by it and logs when the cap actually bit.
+      The dedicated branch is deliberately left alone -- its lower bound is 4,
+      and a platform cap below that would invert `bound()`'s range for no gain
+      on a target that builds no dedicated server. Singleplayer is untouched
+      (`bound( 1, 1, 4 )`).
+
+      **Known cosmetic gap, confirmed on hardware and deliberately not fixed
+      yet**: the Create Game menu still *displays* `maxplayers 32` (rendered as
+      "32," -- the trailing comma is part of the same artifact). The engine
+      clamp is authoritative regardless, which is why the server starts anyway:
+      the menu sends `maxplayers 32`, `SV_SetupClients` clamps to 4, 22.3 MB is
+      allocated, done.
+
+      The planning assumption that the menu would self-correct via
+      `sv_init.c:898`'s existing `Cvar_FullSet( "maxplayers", ... )` was
+      **wrong**, and the reason is a reusable mainui trap worth knowing:
+      `CMenuField`s in `CreateGame.cpp` are `LinkCvar`'d but their `onCvarGet`
+      handlers call `UI_GetScriptCvar()`, and that function
+      (`3rdparty/mainui/menus/dynamic/ScriptMenu.cpp:531`) searches the
+      `settings.scr` variable list *first* and only falls back to
+      `EngFuncs::GetCvarString()` when no such list is loaded. Half-Life's
+      `valve/settings.scr` defines `maxplayers`, so the field reads that
+      shipped default, never the engine cvar. `SaveCvars()`
+      (`CreateGame.cpp:334`) then writes the menu buffer back into the same
+      script list. **A menu field being `LinkCvar`'d does not mean it reflects
+      the engine cvar.**
+
+      When fixing the display: do NOT put the cap constant in mainui -- it
+      carries its own **vendored** `sdk_includes/` snapshot of
+      `xash3d_types.h`, which is the duplicated-`build.h` trap from goals 7 and
+      10. The clean route is a read-only engine cvar carrying the cap (same
+      shape as `host_lowmemorymode`, `host.c:1278`) that `CreateGame.cpp`
+      clamps against through the existing `EngFuncs::GetCvarFloat` -- no header
+      duplication, and it also repairs the `CreateGame.cpp:119` input
+      validation, which currently still accepts anything up to `MAX_CLIENTS`.
+
+      **Two alternatives considered and rejected, with reasons:**
+      1. `XASH_LOW_MEMORY=1` -- a blunt flag with ~20 unrelated effects, several
+         harmful here: it forces `mainui` off FreeType onto stb_truetype
+         (`3rdparty/mainui/wscript:67`, adjacent to the font trap that already
+         cost a session), truncates studio texture data (`mod_studio.c:1135`),
+         and changes `MAX_MODELS`/`MAX_RESOURCES`/`MAX_VISIBLE_PACKET` in
+         `protocol.h`, which *are* wire-visible on the PC-crossplay client path.
+         Its renderer savings would be zero anyway -- every `ref/` site it
+         touches is in `ref/soft/`, not the default `ref_gl`.
+      2. Shrinking `NUM_PACKET_ENTITIES` on PS3 -- verified protocol-safe (only
+         3 uses, none on the wire; the wire entity count uses
+         `MAX_VISIBLE_PACKET_BITS`), but it also shrinks the **client** ring at
+         `cl_game.c:1001`, degrading delta history when joining real GoldSrc
+         servers -- the exact path goal 13 hardware-validated. Don't touch the
+         validated path to fix the unvalidated one.
+
+      Worth reading on the validation run: `PS3_ProbeMemory` already fires at
+      `sv_init.c:1026` on every `SV_SpawnServer`, so the log carries the largest
+      contiguous block at listen-server startup -- the first real measurement of
+      that number, and the only sound basis for ever raising the cap.
+
+      **Perf round "goal 17" -- studio `fill`, HARDWARE-VALIDATED 2026-08-02.**
+      Continues the entity/studio work of the previous rounds (host ring,
+      `r_studio_fastcolor`/`r_studio_hostarrays`), which had left the ranked
+      remainder `fill` 2.89 / `light` 1.98 / `bones` 1.88 with the heaviest
+      measured scene ~0.5ms short of a locked 60fps. This round took `fill`.
+
+      All changes in `ref/gl/gl_studio.c` (plus the cvar decl/registration in
+      `gl_local.h`/`gl_opengl.c`):
+      - The three `R_StudioBuildArray*` loops now keep `numverts`/`numelems`
+        in **locals**, written back once per mesh. They live in `g_studio`,
+        which the vertex stores also point into (`arrayvert_bss` is a member,
+        and the compiler cannot prove the host ring isn't), so every increment
+        was forcing a reload -- a store/load round trip per emitted vertex.
+        `R_StudioBuildIndices` became a `static inline` taking those locals.
+      - Vertex color is now written as **one aligned 32-bit store**:
+        `lightbytes[][3]` became `lightcolors[]` (`uint32_t`, big-endian
+        R8G8B8A8 with A=0), and `studio_arrayvert_t.color` became a
+        `union { GLubyte bytes[4]; uint32_t packed; }` -- a union rather than a
+        pointer cast, because this project builds `-Werror=strict-aliasing`.
+      - The alpha byte (`tr.blend * 255`) is converted **once per mesh**, not
+        once per emitted vertex. Exact, since `tr.blend` only changes per mesh.
+      - New `r_studio_fastfill` (default 1) + `R_StudioBuildArrayNormalMeshFast`:
+        the common mesh path with texcoords from a 2048-entry short->float
+        table and no per-vertex cvar re-test. Selected once per submodel, so
+        no per-vertex branch was added to pay for it.
+
+      **Hardware result** (c4a2, same ~46-50 models vantage as the previous
+      round), 15+ consecutive 5s windows: `fill` **2.82-2.89 -> 0.56**,
+      `build` 3.96 -> 1.46, `studio` 8.13 -> 5.54, `entities` 10.31 -> 7.46,
+      frame **17.21ms (58.1fps) -> 16.68ms (60.0fps), locked**. `flip wait`
+      went 1.1ms (7% of frame) -> 3.4ms (20%): at this vantage the PPE is no
+      longer what the frame waits on, the GPU/vsync is.
+
+      **The in-session A/B corrected the stated thesis and is worth keeping.**
+      The round was built on the prediction that per-vertex int->float
+      texcoord conversion dominated, because the PPE has no GPR<->FPR path and
+      every such conversion is a load-hit-store. `r_studio_fastfill 0` vs `1`
+      at the same spot measured `fill` **0.65 vs 0.56** -- the table is worth
+      only ~0.09ms, i.e. ~14% of what remains, not the bulk. The real 2.26ms
+      came from the three unconditional changes above (local counters, packed
+      color store, hoisted alpha), which are not separable from each other
+      without another build and were judged not worth a hardware round to
+      attribute further. Kept `r_studio_fastfill` default 1 -- it is a real
+      measured win, just not the one predicted.
+
+      Remaining ranked studio cost at this vantage: `client` 2.89 (of which
+      `bones` 1.80), `light` 1.78, `fill` 0.56, `submit` 0.33. None of them
+      buy anything here while the frame is GPU-bound at 60fps; they only
+      matter for scenes heavier than c4a2.
+
+      **Boot black-screen time -- HALVED, HARDWARE-VALIDATED 2026-08-02.**
+      Boot-to-menu was ~21s; is now ~10-11s. Same total work, just relocated,
+      not eliminated.
+
+      **Hard platform trap found and guarded, cost one hardware round**:
+      `ref.dllFuncs.R_BeginFrame()` ends in `gEngfuncs.CL_ExtraUpdate()`
+      (`engine/client/dll_int/ref_common.c`), which calls
+      `clgame.dllFuncs.IN_Accumulate()` **unconditionally**. `clgame.dllFuncs`
+      is only populated by `CL_LoadProgs`, at the very end of `CL_Init` -- so
+      drawing *any* frame between `VID_Init` and `CL_LoadProgs` jumps through
+      a NULL function pointer: unhandled PPU exception, silent freeze, zero
+      log output. This means the true pre-video boot window (`FS_Init`,
+      `PS3_VerifyGameAssets`, `Sound_Init`, `VID_Init` itself) **cannot be
+      drawn into** with the ref API -- would need raw RSX/platform-layer
+      drawing before `ref_gl` exists to cover it, not attempted here.
+      `SCR_BootProgress` (`cl_scrn.c`, PS3-only) now guards on
+      `clgame.dllFuncs.IN_Accumulate` so this trap can't be rediscovered.
+
+      **The real win**: `VOX_PreloadAllWords` (3868 words / 1065 sentences,
+      ~11s) was running at boot; moved to `VOX_PreloadDeferred`, called from
+      `S_BeginRegistration` (`s_load.c`) at first map load instead, *before*
+      `s_registering = true` is set (otherwise `S_RegisterSound` skips the
+      `S_LoadSound` that makes the word resident). `SCR_BootProgress` now only
+      draws during this deferred preload. Also bumped `FILE_BUFF_SIZE` 2048 ->
+      32768 on PS3 (`filesystem_internal.h`) -- weakest of the three changes,
+      since `FS_LoadFile` bypasses the buffer entirely for large reads, only
+      small sequential reads / in-window `FS_Seek` benefit.
+
+      **Checked and ruled out**: the sibling PSP port
+      (`E:\Users\Matteo\Desktop\HL1\PSP\xash3d-fwgs`, branch `psp-cachedfs`)
+      eagerly indexes the whole basedir/gamedir into a 5000-entry hash at
+      `FS_Init` to dodge `sceIoGetstat` storms -- but xashPS3 is on the newer
+      upstream base whose `filesystem/dir.c` already does the same thing
+      lazily (cached, sorted `dir_t` tree + bsearch). Porting that trick would
+      be duplicate work for ~zero gain; don't revisit.
+
+      **Next lever, cheap, not yet done**: ~5s of the remaining boot time is
+      `UI_LoadProgs` failing to find fonts -- six "Unable to read font file
+      gfx/fonts/FiraSans-Regular.ttf!" plus one `tahoma.ttf!`, seven missing-
+      file searches across every searchpath, every boot. Vendoring the actual
+      `.ttf` binaries (goal 7 already wired FreeType2 build-side; only the
+      font *files* are missing from `3rdparty/extras/xash-extras/gfx/fonts/`)
+      would remove this stall outright and is also goal 7's long-deferred
+      cosmetic gap. Second-biggest remaining chunk (~2s) is Sony's own
+      `videoConfigure` HDMI mode set -- not ours to fix.
+
+      **`FS_LoadFile` lookup cost -- FIXED and HW-validated 2026-08-03.**
+      Map-load filesystem syscall time **12.03s -> 6.78s (-44%)**, measured at
+      the same milestone (`miss "gfx/env/desertrt.dds"`, "Setting up
+      renderer") across three builds:
+
+      | build | listdir calls/entries/ms | stat calls/ms | total |
+      |---|---|---|---|
+      | original | 10534 / 38359 / 7518 | 14934 / 4516 | 12.03s |
+      | + cache-trust flag | 2044 / 16692 / 4017 | 4386 / 3138 | 7.16s |
+      | + targeted invalidation | 2015 / 14858 / 3334 | 4387 / 3442 | 6.78s |
+
+      **The two hypotheses previously recorded here were both WRONG.** They
+      are kept only so nobody re-derives them from the old numbers:
+      1. "Not cache warmth, cost is deterministic per name" -- false. The
+         determinism was an artifact of what dominated at the time. Measured
+         directly, `sound/items/smallmedkit1.wav` cost 54.58 / 46.31 / 57.92ms
+         *within a single session*. LV2 `stat()` latency is spiky (session
+         mean ~0.8ms, outliers 20-58ms), which is also why only >20ms lookups
+         trip the profiler print -- a strong selection bias in any log reading.
+      2. "Not directory-level" -- false. `populate` fires on exactly the first
+         file into each directory and never on the second, which is precisely
+         the `launch_select2` (342ms) vs `launch_dnmenu1` (4ms) pair.
+
+      Real causes, both found by instrumenting rather than reasoning:
+      - **Hit path cost was `stat()` calls, always `path components + 1`.**
+        `FS_FixFileCase` (`filesystem/dir.c`) re-`stat`ed every path component
+        to confirm a cached entry still existed, then `FS_FindFile_DIR`
+        `stat`ed the file again. Three of four were pure re-validation of what
+        `readdir` had already returned.
+      - **Miss path re-listed the whole directory, 4x per probe, uncached.**
+        `FS_MaybeUpdateDirEntries` ran a full `listdirectory` on every failed
+        lookup, on every dir searchpath. One absent VOX word = `scientist/`
+        (391 entries) listed 16 times = 130ms.
+
+      Fix: a per-`dir_t` `listed` flag. A directory whose listing is known
+      current skips both the per-component re-`stat` and the miss rescan.
+      `FS_InvalidateDirCache()` clears the flag on exactly the directories
+      written to, walking the cached tree with **no syscalls**, called from
+      `FS_Open`'s write branch, `FS_Rename` (both names) and `FS_Delete`.
+      Gated by `FS_TRUST_DIR_CACHE` (PS3/PSVITA/NSWITCH); desktop keeps the
+      stock defensive rescans, where developers do edit assets live.
+
+      **Trap that cost a hardware round:** the first version used one *global*
+      generation counter. Every demo-header/config/save write invalidated the
+      entire tree, and each directory then paid a full re-listing at next
+      touch -- ~680ms/load hidden behind `populate 0 rescan 0`, invisible
+      because `FS_RefreshDirEntries` had no counter. Any new cache path gets a
+      counter in the same commit as the code.
+
+      Also settled: **`/dev_hdd0` is case-SENSITIVE**, probed on hardware by
+      flipping the case of a real directory entry and `stat`ing it
+      (`PS3_ProbeCaseInsensitive`, dir.c, runs once and memoizes). So PS3
+      cannot join PSVITA/NSWITCH in bypassing the case-fixing dir cache
+      entirely. Do not retry that lever.
+
+      Remaining, both measured and neither part of this path:
+      - **~2.25s of boot `listdir`** in one burst before the menu appears
+        (`listdir` 15 -> 1918 calls). That is `FS_Search`-driven, a different
+        code path, untouched by this work.
+      - **~3s of `stat` during VOX preload**: 3867 words x 1 `stat` each, the
+        floor of "one existence check per file looked up". Halving it means
+        dropping the `FS_SysFileExists` in `FS_FindFile_DIR` when the cache is
+        authoritative -- which needs `d_type` carried out of `listdirectory`
+        to stay correct about files-vs-directories, so it is not free.
+
+      Instrumentation kept: `[fs/prof]` in `FS_FindFile` (`searchpath.c`)
+      prints call mix, worst searchpath and running session totals for any
+      lookup over 20ms; counters live in `fs_prof` (`filesystem/sys.c`).
+
+      **PS3 audio feeder emits silence on starvation -- DONE and
+      HARDWARE-VALIDATED 2026-08-03.** Load-time audio is now clean silence
+      instead of a garbled loop, and gameplay is untouched.
+
+      Root cause, exactly: the feeder thread advanced `snd.samplepos`
+      unconditionally every block and never consulted `snd.paintedtime`. Once a
+      main-thread stall outlived the ~110ms cushion, the read pointer crossed
+      the mix frontier into bytes from one full ring lap earlier (32768 frames
+      = 682ms at 48kHz) and lapped forever, splicing at each crossing. The
+      artifact was never noise -- it was already-played audio on repeat.
+
+      Fix, entirely inside `engine/platform/ps3/s_ps3.c` (no shared-engine
+      surface at all, deliberately, after the failed attempt recorded above):
+      consume only `min( margin, 256 )` frames, zero-fill the rest of the
+      block, and advance `snd.samplepos`/`ps3_audio_playedFrames` by what was
+      really consumed. **The pointer parking is the half that matters** --
+      `S_GetSoundtime` derives `snd.soundtime` from `samplepos`, so a stalled
+      mixer now sees a soundtime that also stopped and resumes painting exactly
+      where it left off. No deadlock: soundtime still advances by whatever *was*
+      consumed, so `endtime = soundtime + mixahead` stays ahead of
+      `paintedtime` and the mixer refills normally. The unprimed path emits
+      silence too, rather than handing out a ring nobody has written yet.
+
+      **Hardware numbers**: 30s of continuous gameplay across six 5s windows at
+      16.67-16.82ms (locked 60fps) with **zero** starved blocks; starvation
+      confined to loads (first map load ~4.4s, c0a0->c0a0a transition 1.60s =
+      301 blocks x 5.33ms, matching the frame counter exactly); `0 resyncs` all
+      session. Menu audio confirmed unaffected.
+
+      **Expected behaviour, not a bug**: audio keeps playing for ~1s after a
+      load begins, then falls silent. Frames still complete early in a load
+      (measured `avg 155ms` / `avg 32.98ms` windows), and each one runs the
+      mixer; the silence starts when the genuinely synchronous stretch begins
+      (`SV_SpawnServer` -> `CL_PrecacheResources` -> `S_EndRegistration`, no
+      `Host_Frame` at all -- `client 360-379ms` per frame in the same log).
+
+      **Instrumentation trap worth knowing**: the first version reported a
+      "worst single-block deficit", which is saturated by construction --
+      `real` is clamped to one block, so it pins at 256 the first time the
+      mixer stops outright and reads a constant for the rest of the session. It
+      also proved `real` is always 0, never partial: the mixer does not
+      trickle, it stops dead and comes back. Replaced with the longest unbroken
+      run of silent frames, which is what separates one long load stall from
+      chronic micro-starvation during play.
+
+      This does NOT shorten loads or keep audio playing through them -- only a
+      running mixer can do that, and the attempt at that is the reverted item
+      above. It makes exhausting the cushion graceful instead of ugly.
+
+      **First-use client effect hitch eliminated -- DONE and HARDWARE-
+      VALIDATED 2026-08-08.** Breaking a wood box reproduced the reported
+      effect-only stutter and the existing diagnostics identified the exact
+      synchronous load: `debris/wood4.wav` took 364.55ms (364.42ms I/O,
+      0.13ms decode), producing a 385.41ms frame and 49 newly starved audio
+      blocks. The diagnostic build contained no fix; this trace established
+      that the hitch was asset loading on the main thread, not distortion or
+      a feeder-thread timing problem.
+
+      Root cause: the engine's client temp-entity `SoundList` contains effect
+      variants that the HLSDK server does not always precache (for example,
+      `BounceWood` has `wood1` through `wood4`, while `CBreakable` registers
+      only `wood1` through `wood3`). The first random selection of an omitted
+      variant called `S_RegisterSound` while the game was active, forcing
+      `S_LoadSound` synchronously; later uses were smooth because the sample
+      was then cached.
+
+      Fix in `engine/client/sound/s_load.c`: immediately after
+      `S_BeginRegistration` sets `s_registering = true`, a PS3-only pass
+      registers every client effect entry from `BouncePlayerShell` through
+      `Explode` (38/38 with the default list, including custom `sounds.lst`
+      replacements). Existing sound hashing deduplicates server-registered
+      entries, and `S_EndRegistration` performs the actual I/O during map
+      loading. **Hardware result: `SUCCESS, no stutter`.** Cockroach squish,
+      another effect that previously produced the same first-use hitch, was
+      also explicitly confirmed smooth; validation is therefore not limited
+      to the original wood-box reproducer. The audio feeder, thread priority,
+      mixahead, interpolation, HLSDK behavior, and asset packaging were
+      deliberately left unchanged.
+
+      **Pumping `S_ExtraUpdate()` through the blocking load paths -- TRIED
+      2026-08-03, made the stutter WORSE on hardware, REVERTED.** Do not
+      re-attempt it in the shape described below without new evidence.
+
+      What was built (all reverted, `git checkout` clean, nothing left in the
+      tree): a new `S_ExtraUpdateLoading()` next to `S_ExtraUpdate` in
+      `s_main.c`, called once per loaded item from `S_EndRegistration`'s
+      "load everything in" loop (`s_load.c`), `CL_PrecacheResources`' three
+      loops (`cl_main.c`), `VOX_PreloadDeferred` (`s_vox.c`) and
+      `SV_LoadFromFile`'s entity loop (`sv_game.c`, `#if !XASH_DEDICATED`).
+      Plus three supporting changes in `S_UpdateChannels`: a mixahead
+      parameter so load pumps could mix 0.25s ahead instead of the cvar's
+      0.12, `SOUND_DMA_SPEED` -> `SOUND_OUTPUT_SPEED` on the mixahead line
+      (the cushion is a duration; at 48000 output the cvar buys 110ms not
+      120), and a re-entrancy guard (`S_PaintChannels` reaches `S_LoadSound`
+      and `VOX_LoadWord` via `s_mix.c:351`/`298`).
+
+      **Two things worth keeping from the analysis, both verified by reading
+      the code and independent of the failed fix:**
+      1. `S_RegisterSound` does **not** touch disk while `s_registering` is
+         true (`s_load.c:370`, `if( !s_registering ) S_LoadSound( sfx )`).
+         Every map sound is actually loaded later, in one loop inside
+         `S_EndRegistration`. Any future work on level-load sound cost belongs
+         there, not in `CL_PrecacheResources`' precache loop.
+      2. A channel left pointing at a freed sfx is already handled: `S_FreeSound`
+         memsets the name, `S_LoadSound` returns NULL for it, and
+         `S_MixNormalChannelsToRoombuffer` frees the channel. Painting during
+         registration is not a crash risk, so that is not what went wrong.
+
+      **Process failure worth not repeating: this went to hardware as one
+      bundled change** -- six call sites plus three behaviour changes to the
+      mixer -- so the regression is not attributable to any single part. The
+      deeper 0.25s mixahead and the extra `S_LoadSound` work the pumps
+      themselves trigger (each pump can lazily load an active channel's sfx,
+      i.e. it adds disk I/O to the very loop it is trying to protect) are both
+      untested suspects, not findings. Section 2's rule applies: one variable
+      per hardware round.
+
+      Still declined by the user: packing `valve/` into `pak0.pak` (currently
+      a loose-file tree, see section 3 above) -- the biggest single structural
+      lever for both boot and map-load time, but out of scope by user choice.
+      The `FS_LoadFile` item above was fixed without touching this, so packing
+      is no longer needed to close it; re-confirm the preference before
+      proposing it for anything else.
+- [x] **15. Boot cinematic (Valve/Sierra intro video)** -- DONE and
+      HARDWARE-VALIDATED 2026-08-03 (pulled forward out of order at user
+      request, ahead of goal 14). The intro plays on boot with picture and
+      sound at correct pitch. The cinematic state machine
+      (`engine/client/cl_video.c`) is stock upstream logic as predicted; the
+      decoder was the whole job.
+
+      **The three prerequisites recorded here on 2026-07-27 were all wrong,
+      and they were wrong because they assumed ffmpeg was the only way to
+      decode an AVI.** Reading the actual asset headers settled it in one
+      pass: stock Half-Life media is `logo.avi` = Microsoft RLE 8-bit
+      640x100 (no audio) and `valve.avi` = Cinepak 640x480 + 22050 Hz mono
+      8-bit PCM. Both are small, fully documented, integer-only codecs. So
+      no ffmpeg cross-compile (prereq 1), no decode-cost problem -- Cinepak
+      at 640x480/15fps is trivial for the PPE (prereq 2), and prereq 3 was
+      right but irrelevant (the user's own HL data supplies the files).
+      **Lesson: identify the codec before scoping the decoder.**
+
+      **Shipped**: a third backend, `AVI_NATIVE` (`common/backends.h`,
+      selected for PS3 in `common/defaults.h`), implemented in
+      `engine/client/avi/avi_native.c` (RIFF demux, whole file into RAM,
+      frame pacing, PCM into a raw sound channel) plus `avi_cinepak.c` and
+      `avi_msrle.c`. `avi_ffmpeg.c` is wrapped in
+      `#if XASH_AVI != AVI_NATIVE` -- its shared tail cannot be hoisted into
+      a common TU because it declares `static movie_state_t avi[2]` and so
+      needs the complete struct.
+
+      **Three traps this cost, all worth knowing elsewhere:**
+      1. **`fopen` cannot open the paths `FS_GetDiskPath` returns.** They
+         are relative to the working directory (`valve/media/valve.avi`) and
+         PS3 stdio fails on them, while every other loader in the engine
+         works because it goes through `FS_SysOpen`/`open`. Use
+         `FS_LoadDirectFile( path, &len )` for any disk-path load. Cost one
+         hardware round.
+      2. **All raw-channel audio was 8.84% sharp (~1.5 semitones), engine-wide
+         and pre-existing.** Normal channels resample against
+         `snd.format.speed` (`s_mix.c:312`), but `S_RawSamplesStereo` and the
+         feed-rate estimates used the hardcoded `SOUND_DMA_SPEED` (44100)
+         while this port opens the device at 48000 -- so movie audio *and the
+         mp3 background music* had been transposed since goal 9. Fixed with
+         `SOUND_OUTPUT_SPEED` (`engine/client/sound.h`). Deliberately not
+         touched: `s_mixahead * SOUND_DMA_SPEED` (`s_main.c:1550`), the
+         ~110ms cushion tied to the underrun behaviour tracked under goal 14.
+      3. **Cinepak strips past the first inherit the previous strip's
+         codebooks on a keyframe** (`!(frame_flags & 0x01)`); they ship only
+         selective updates (chunks 0x2100/0x2300). Omitting it leaves a
+         recognizable image sprinkled with stale blocks -- not a desync, byte
+         consumption is exact either way.
+
+      **Method worth reusing: the decoder bug above cost zero hardware
+      rounds.** The real `avi_native.c`/`avi_cinepak.c`/`avi_msrle.c` were
+      built for x86-64 Linux inside the ps3dev Docker image against a ~90-line
+      engine shim (types, `Mem_*` -> malloc, a fake `ref.dllFuncs`, a
+      harness-controlled `Platform_DoubleTime`), run under
+      `-fsanitize=address,undefined` on the real `logo.avi`/`valve.avi`, with
+      decoded frames dumped to PPM and converted to PNG for eyeballing.
+      Running on a little-endian host also proves no raw struct casts crept
+      into the parsers. Any future codec/parser work on this port should
+      start there, not on the console.
+
+      **Data-side, no code needed**: Steam-era HL ships
+      `media/StartupVids.txt` containing `media/valve.webm` (VP8, not
+      decodable here) with `valve.avi` sitting next to it, so
+      `SCR_PlayCinematic` now retries the same name with `.avi` before
+      failing. The `AVI: ...webm is not a supported AVI file` line on every
+      boot is that first attempt and is expected. A failed movie also used to
+      kill the whole playlist (`cls.state` never reaches `ca_cinematic`, so
+      `SCR_RunCinematic` never gets back to `SCR_NextMovie`); `cl_cmds.c`
+      now advances instead.
+
+      **Not the backend's problem, do not debug it as one**: the animated
+      menu logo (`logo.avi`, `UI_DrawLogo`) is gated by mainui on the WON
+      background only (`s_bEnableLogoMovie`,
+      `3rdparty/mainui/controls/BackgroundBitmap.cpp:337`). With the HD/Steam
+      background it stays off regardless of the decoder; it needs
+      `ui_prefer_won_background 1`. The MSRLE path itself is verified
+      correct off-target but has not yet been seen on hardware.
+
+- [ ] **16. GoldSrc flashlight/dynamic-light composition -- SHELVED
+      2026-08-08 at user request. Do not resume without an explicit user
+      request.** The flashlight works logically and its dynamic lightmap moves
+      with the view, but on PS3 the final lightmap pass is composed incorrectly:
+      toggling the flashlight changes the scene, yet it does not produce the
+      correctly localized illumination visible in the PC reference build.
+      This is not a shadow-casting system: the HL client traces forward and
+      places a small point dlight at the hit position; `ref_gl` marks affected
+      BSP surfaces, rebuilds their luxels into the dynamic lightmap atlas, and
+      blends that atlas over the already-rendered base textures.
+
+      **What hardware evidence established:** gameplay telemetry repeatedly
+      showed nonzero dlighted surfaces/luxels and continuous `TexSubImage2D`
+      uploads while the flashlight was active. Dumps such as
+      `ps3_dlight_431_00.tga`, `ps3_dlight_207_00.tga`, and
+      `ps3_dlight_121_00.tga` showed the generated atlas content; the moving
+      result and replacement-mode probes established that the dynamic atlas and
+      surface coordinates reach the draw. The PC build at the same viewpoint
+      composes the pass correctly. The remaining unresolved boundary is final
+      framebuffer composition in the PS3 GL-to-RSX path.
+
+      **Ruled out on real hardware, do not repeat without new evidence:**
+
+      1. Texture-cache coherency alone: PS3GL now tracks texel writes separately,
+         orders PPE stores with `sync`, and emits one
+         `rsxInvalidateTextureCache` before sampling an updated bound texture;
+         the flashlight was unchanged.
+      2. An in-flight atlas rewrite: a PS3-only diagnostic `pglFinish` fully
+         serialized pending draws before `LM_UploadDynamicBlock`; unchanged.
+      3. Atlas generation/placement and a simple big-endian upload failure:
+         CPU atlas dumps, byte-layout probes, and replacement-mode rendering
+         did not account for the faulty final appearance.
+      4. ~~VBO selection and overbright policy~~ -- **HALF OF THIS ENTRY WAS
+         WRONG, see the 2026-08-08 round below.** `gl_vbo 1` making the image
+         worse still stands. The claim that forcing `gl_overbright 0` did not
+         correct it does NOT: that cvar could not be set at all at the time, so
+         the test never ran.
+      5. Deferred `GL_POLYGON` batching: the diagnostic build submitted every
+         polygon immediately. During actual gameplay it logged `1.0
+         passes/frame`, `0.0 GL_POLYGON draws merged/frame`, 10--12 dlighted
+         surfaces/frame, and 450--871 draw flushes/frame; the flashlight was
+         still unchanged. The temporary no-batching source switch was reverted
+         when this goal was shelved. Note this exoneration was measured on a
+         build with batching *disabled*; the shipping build batches 500--700
+         polygons/frame, so it does not automatically carry over.
+
+      **2026-08-08 round -- resumed at user request. The blend hypothesis is
+      dead; one real bug was found and fixed on the way.**
+
+      A five-mode isolation cvar (`gl_ps3_dlight_probe`, replacing the
+      confounded `gl_ps3_dlight_replace`) plus `ps3gl_log_draw_state()` in
+      `3rdparty/ps3gl/ps3gl_states.c` dump the state the lightmap passes
+      actually composite under. The old probe moved blending, texenv AND vertex
+      colour at once -- and on PS3GL the texenv selects a different *fragment
+      program* (`q3_fp_modulate` = `color*tex` vs `q3_fp_replace` = `tex`), so
+      "replace looks right, normal looks wrong" never implicated the blend unit
+      specifically. That is why five rounds did not converge.
+
+      What the probe proved on hardware:
+
+      - **`gl_overbright` was 1, on a build declaring it "0".** The pass logged
+        `src=0x0306` (`GCM_DST_COLOR`) and `color=aaaaaaff` (= 128/192), both
+        reachable only from the overbright branch. Cause: `FCVAR_READ_ONLY`
+        cannot defend an `FCVAR_GLCONFIG` cvar, because `opengl.cfg` replay goes
+        `Cvar_SetGL` -> `Cvar_FullSet` -> `Cvar_DirectFullSet`, which never calls
+        `Cvar_CanSet`. **Fixed** by dropping `FCVAR_GLCONFIG` on PS3 (see the
+        comment on the declaration in `ref/gl/gl_opengl.c`). Turning it off
+        improved the image but did not fix the flashlight.
+      - **With overbright off, every state field matches the PC reference
+        exactly**: `GL_ZERO/GL_SRC_COLOR`, texenv MODULATE, `fp_key=1`
+        (MODULATE), `tmu1` disabled, vertex colour `ffffffff`, depth `GL_EQUAL`
+        with writes off, alpha test off. This kills the RSX-blend-mismatch
+        thesis, the stale-`glColor` thesis, and the "both TMUs bound so
+        `ps3gl_shader_key()` silently picks MODULATE2" thesis.
+      - **The dynamic atlas content is correct.** `gl_ps3_dump_dlight 1`
+        produced a 128x11 RGBA page that is 60% distinctly warm lightmap data
+        with saturated highlights and only 1.4% near-neutral texels. Wrong
+        texcoords would therefore still land on warm pixels.
+      - Uninitialized VRAM is NOT in play: `glTexImage2D` with `pixels == NULL`
+        memsets to zero in `ps3gl_textures.c`, so the 117 never-uploaded rows of
+        the 128x128 `tr.dlightTexture` are black, not garbage.
+
+      **Do not build `tools/ps3_blendtest`** (the old resume point). The blend
+      state was exonerated from inside the real pipeline, which is strictly
+      better evidence than a synthetic panel test.
+
+      **Resume point:** every stage from luxel to framebuffer is now
+      individually verified correct while the composite is still visibly wrong,
+      so single-sided probing has run out. Get a like-for-like PC reference --
+      same map, same viewpoint, `gl_overbright 0`, screenshots at `r_lightmap 0`
+      and `r_lightmap 1`, plus a PC atlas dump if available -- and diff against
+      the PS3 at the same spot. Note when reading `r_lightmap 1` that it only
+      disables the *blend*; the base-texture pass still draws, so flat grey
+      faces in that mode may just be surfaces absent from any lightmap chain,
+      not artifacts. Three separate misreadings of gameplay stills happened in
+      this round; insist on the reference comparison instead.
+
+Work ONLY the top unchecked item. Do not implement future items speculatively.
+
+## 4. Platform conventions
+
+- `engine/platform/ps3/` is the *only* platform-specific code location --
+  this reuses Xash3D-FWGS's own existing plugin convention (`platform/<os>/`),
+  not a parallel `code/ps3/` tree.
+- **`ref_gl` is the default renderer; `ref_soft` stays as the `-ref soft`
+  fallback.** Both are statically linked. `DEFAULT_RENDERERS`
+  (`engine/client/dll_int/ref_common.c`) already lists `"gl"` first, so the
+  engine picks GL unless told otherwise.
+  - `ref_gl` runs on **`3rdparty/ps3gl`**, a GL 1.1 fixed-function subset over
+    the RSX ported from the sibling `ioQuake3-PS3` port's `code/gl/`. It is
+    linked with `XASH_GL_STATIC=1` -- ps3gl defines the real `gl*` symbols, and
+    ref_gl calls them directly, the same shape PSVita uses with vitaGL. There is
+    no dynamic loader on PSL1GHT, so `GL_GetProcAddress` can never resolve
+    anything and the function-pointer path is not an option.
+  - The old "no ref_gl is possible" claim was wrong. PSL1GHT still has no
+    *runtime* shader compiler, but ps3gl doesn't need one: its Cg vertex and
+    fragment programs are compiled offline with `cgcomp` and checked in as
+    `.vpo`/`.fpo` under `3rdparty/ps3gl/shaders/`, embedded through the
+    generated `ps3gl_shader_data.h`. The build itself never invokes cgcomp;
+    regenerate only when a `.vcg`/`.fcg` source actually changes.
+  - **ps3gl links into the ENGINE, not into ref_gl**, even though ref_gl is its
+    only GL consumer. `--static-linking` merges ref_gl into one relocatable
+    object and runs `objcopy -G lib_ref_gl_exports`, which localizes everything
+    but `GetRefAPI` -- so anything defined inside `ref_gl.o` is unreachable from
+    the engine. `vid_ps3.c` owns the gcm context and the flip loop and must call
+    `ps3gl_init`/`ps3gl_begin_frame`/`ps3gl_end_frame` itself, so ps3gl has to
+    sit on the engine's side of that boundary. ref_gl's `gl*` calls stay
+    undefined in `ref_gl.o` and resolve at the final link.
+  - `ref_soft` renders into a CPU-writable XDR buffer that `SW_UnlockBuffer`
+    transfers to an RSX display buffer and flips; in that mode the RSX is
+    presentation-only (no render target, no depth buffer). `ref_gl` needs both,
+    so `R_Init_Video` allocates a Z24S8 depth buffer and calls `rsxSetSurface`
+    only on the `REF_GL` path.
+- **No SDL anywhere in this port.** Unlike `nswitch`/`psvita` (which still
+  compile `platform/sdl2/*.c` under the hood), PS3 has no SDL2 port to lean
+  on. The closest *genuinely* SDL-free reference in this tree is
+  `engine/platform/dos` -- model new platform files on that, not on
+  nswitch/psvita.
+- **`LAUNCHER=False`, static single ELF.** PS3 is in the `wscript` DEST_OS
+  exclusion list for `LAUNCHER`, so the build defines `XASH_ENABLE_MAIN=1`
+  and `engine/common/launcher.c` supplies `main()` -> `Host_Main()` directly.
+  No `game_launch/` involvement needed.
+- **PS3 behaves like POSIX for almost everything.** It is *not* in any of
+  the psvita/nswitch exclusion lists in `filesystem/sys.c`/`dir.c` (real
+  `dup()`, real large-file support) and it automatically falls into the
+  generic `else` branches of `wscript`'s large-file check and `engine/wscript`'s
+  POSIX lib list. Resist the urge to add PS3-specific carve-outs unless a
+  real build error demands one.
+- **Functions already provided "for free" once `platform/posix/*.c` compiles
+  for PS3** (confirmed by reading the actual guard conditions, not assumed):
+  `Platform_DoubleTime`, `Platform_Sleep`, `Platform_ShellExecute` all come
+  from `engine/platform/posix/sys_posix.c` (its `Platform_ShellExecute` guard
+  is `#if !XASH_ANDROID && !XASH_NSWITCH && !XASH_PSVITA` -- PS3 is not
+  excluded). `Platform_MessageBox` comes from `engine/common/sys_con.c`'s
+  `MSGBOX_STDERR` fallback. **Do not redefine any of these in `sys_ps3.c`** --
+  duplicate symbols will fail to link.
+- **Functions that are dead code for PS3, don't implement them**:
+  `Platform_SetStatus` (only called under `XASH_PLATFORM_HAVE_STATUS`, which
+  is `XASH_WIN32 || XASH_LINUX` only), `Platform_DebuggerPresent` (only
+  called via `Sys_DebuggerPresent()`, guarded `XASH_LINUX || XASH_WIN32`),
+  `Platform_GetDisplayOrientation` (only called from gyro code gated
+  `#if XASH_SDL`).
+- PSL1GHT libs are injected once, globally, via the toolchain class's
+  `ldflags()` in `scripts/waifulib/xcompile.py` (`-lrsx -lgcm_sys -lio
+  -laudio -lsysutil -lsysmodule -lnet -lnetctl -lrt -llv2 -lm`) -- do not
+  duplicate them in `engine/wscript`'s per-target lib list.
+
+## 5. Platform detection (`XASH_PS3` macro)
+
+Contrary to first assumption, `XASH_<PLATFORM>` macros are **not** generated
+by waf/`conf.define()` -- they come from a plain, compiler-predefined-macro
+detection header at `3rdparty/library_suffix/include/build.h` (a submodule
+that was previously *not* checked out in the vendor source and had to be
+`git submodule update --init`'d during this scaffolding session). This
+project has already added:
+
+- `build.h`: `#elif defined __PPU__` -> `#define XASH_PS3 1`, nested in the
+  "POSIX compatible" branch (same place as `__vita__`/`__SWITCH__`), which is
+  why PS3 automatically gets `XASH_POSIX` too.
+- `buildenums.h`: `PLATFORM_PS3 8` (reused the reserved slot) +
+  `XASH_PLATFORM` mapping.
+- `library_suffix.c`: `Q_PlatformStringByID` case for `PLATFORM_PS3`.
+
+**Open verification item**: `__PPU__` is the well-known PSL1GHT/ps3toolchain
+GCC predefine for the PPU side, but this has not been confirmed against the
+user's actual installed compiler in this session (no toolchain available
+here). Before goal-stack item 1, run
+`powerpc64-ps3-elf-gcc -dM -E - < /dev/null | grep -i ppu` (or `ppc`) and
+adjust the `#elif defined __PPU__` line in `build.h` if the real macro
+differs.
+
+Endianness is **fully automatic** -- `build.h`'s endianness block already
+handles `__BIG_ENDIAN__`/`__BYTE_ORDER__` detection generically, and a real
+big-endian PPU GCC will define these correctly. No toolchain-side
+`XASH_BIG_ENDIAN` forcing is needed.
+
+## 6. Known blockers / open questions
+
+- **`__PPU__` macro name: VERIFIED.** Confirmed directly against the real
+  toolchain (`C:\devkitPro\msys2\opt\ps3dev`, `powerpc64-ps3-elf-gcc` 7.2.0):
+  `ppu-gcc -mcpu=cell -dM -E - </dev/null | grep -i ppu` defines `__PPU__ 1`.
+  `build.h`'s `#elif defined __PPU__` check is correct as written, no change
+  needed.
+- **ABI: genuinely LP64, NOT ILP32 -- the earlier assumption here was
+  wrong, corrected 2026-07-16 against the real compiler.** The same `-dM -E`
+  dump also shows `__powerpc64__ 1`, `__PPC64__ 1`, `__LP64__ 1`, `_LP64 1`,
+  `__SIZEOF_POINTER__ 8`, `__SIZEOF_LONG__ 8` -- this toolchain compiles
+  8-byte pointers and 8-byte `long` by default (matches the `powerpc64-`
+  triple name literally). `build.h`'s existing `XASH_64BIT` detection
+  (keyed on `__PPC64__`/`__powerpc64__`) is therefore **correct as-is** for
+  this platform -- do NOT add a PS3 carve-out to force it off. A minimal
+  standalone link+`ppu-readelf -h` also confirmed the produced binaries are
+  genuinely `ELF64`, big-endian, `Machine: PowerPC64`. Any pointer-size-
+  sensitive engine code (packed structs, save-file formats, anything that
+  assumed a 4-byte pointer) needs auditing against 8-byte pointers once
+  goal 2 starts -- this is a real, newly-surfaced risk area, not a closed
+  item.
+- **`sfo.py`/`pkg.py`/`make_fself` exact CLI flags** in
+  `scripts/waifulib/ps3.py` are a best-effort shape, not verified against the
+  user's installed ps3toolchain revision -- run `--help` on each before
+  relying on the packaging chain.
+- **`PS3DEV`/`PSL1GHT` env layout** assumed by `scripts/waifulib/xcompile.py`'s
+  `PS3` class (`$PS3DEV/ppu/bin/powerpc64-ps3-elf-*`,
+  `$PS3DEV/ppu/include`, `$PS3DEV/portlibs/ppu/include`) -- adjust if the
+  user's install differs.
+- **Main RAM budget**: expect roughly 190-213MB of usable XDR RAM after OS
+  reservations, not the full 256MB -- probe with a malloc-until-fail test at
+  boot once goal-stack item 2 is reached, don't assume a number.
+- Audio (`s_ps3.c`) and video (`vid_ps3.c`) RSX/audio-port bodies are
+  deliberately left as TODOs referencing the goal-stack item that will
+  implement them -- this is goal 0 (scaffolding), not goal 4/5/7.
+- **hlsdk-portable feasibility (this was goal 10, build-verified 2026-07-25
+  -- see the goal-10 entry above for the real implementation; this note is
+  kept as the original pre-implementation analysis)**: `hlsdk-portable`
+  (sibling repo, `E:\Users\Matteo\Desktop\HL1\hlsdk-portable`) has no PS3/
+  `__PPU__`/PSL1GHT code today (verified by full-tree grep -- one irrelevant
+  hit, an SDL2 controller-name string). What it DOES already have, verified
+  by reading the actual files:
+  - `common/byteswap.h:87-103` -- real, working `XASH_BIG_ENDIAN`-keyed
+    `LittleToHost`/`BigToHost` swap macros, with genuine consumers in
+    `dlls/util.cpp` (`CSave`/`CRestore` save-game serializer, ~2096-2403) and
+    `dlls/nodes.cpp` (`CGraph::Byteswap*`, ~2400-3675, AI node-graph binary
+    format). `cl_dll/parsemsg.cpp:67-124` network message reads are
+    endian-safe by construction (byte-at-a-time, no raw multi-byte cast).
+    Directly useful precedent for goal 8 (endianness audit).
+  - `public/build.h:207-211` already has `#elif defined __PPC__ ||
+    defined __powerpc__` -> `XASH_PPC 1` with 64-bit detection via
+    `__PPC64__`/`__powerpc64__` -- matches this project's confirmed real PPU
+    predefines (section 6 LP64 finding) with zero changes needed.
+  - **DONE 2026-07-19 (prep only, harmless -- hlsdk-portable isn't vendored
+    into xashPS3 yet, this doesn't touch xashPS3's own build)**: added the
+    `#elif defined __PPU__` -> `#define XASH_PS3 1` OS-detection branch to
+    hlsdk-portable's own `public/build.h`, mirroring
+    `3rdparty/library_suffix/include/build.h`'s existing PS3 branch exactly
+    (same nesting inside the POSIX-compatible `#else`, next to
+    `__vita__`/`__SWITCH__`), plus the matching `#undef XASH_PS3` in the
+    undef list at the top of that header.
+  - `cl_dll/studio_util.cpp` NEON SIMD blocks are all `#if XASH_ARMv8` with
+    a portable scalar `#else` fallback -- PPC compiles through the fallback
+    with zero porting effort; AltiVec could be added later as an optional
+    perf path using the same guard pattern.
+  - **The real blocker**: `dlls`/`cl_dll` build as CMake `SHARED` libraries
+    by default, with a single dynamic entry point, `GiveFnptrsToDll`
+    (`dlls/h_export.cpp:52`, plain `extern "C"` export, no static-
+    registration alternative). PSL1GHT has no `dlopen`. **Correction found
+    during goal 10's real implementation**: hlsdk-portable actually does
+    ship its own waf build too (`wscript`, `dlls/wscript`, `cl_dll/wscript`,
+    written for the Xash3D-FWGS ecosystem, with existing PSVita/NSwitch
+    `DEST_OS` branches) -- CMake is not the only build system, contrary to
+    what this note originally assumed. That waf build is still standalone
+    (produces a loadable `.so`, not designed to be pulled into a different
+    parent project's static link), so new simplified wscripts were written
+    for the static-linking case rather than reusing it verbatim, but it
+    was a far better reference than starting from the CMakeLists.
+    No upstream platform (Android/PSVita/NSwitch) has ever applied
+    `--static-linking` to the actual game DLL -- PSVita/NSwitch use
+    dlopen-compatible shims (VRTLD/SOLDER) instead. PS3 is the first
+    to statically link game logic this way, not just engine-internal
+    modules -- confirmed as real, non-copy-paste adaptation work by goal
+    10's build (see the goal-10 entry above for the five real bugs found
+    getting it to link).
+
+## 7. Build & deploy commands
+
+```
+./waf configure --ps3 --static-linking=filesystem_stdio,ref_soft,ref_gl,menu,server,client
+./waf build
+```
+
+(`--disable-mbedtls`, present in every historical build line quoted in the
+goal entries above, is **gone as of the 2026-08-04 repo cleanup** -- that
+option was declared by `3rdparty/mbedtls/wscript`, and the whole subproject
+was removed since its submodule was never vendored here and the engine never
+linked it. Passing the flag now fails with "no such option"; drop it.)
+
+(`--dedicated=no` from an earlier draft of this doc doesn't actually parse
+with this waf version -- `-d`/`--dedicated` is a plain flag, not a
+`key=value` option. `--static-linking` lists every module this project
+currently statically links into `xash` -- `filesystem_stdio`/`ref_soft`
+since goal 2, `menu` (`3rdparty/mainui`, target name `menu` per its own
+`wscript`) since goal 7, `server`/`client` (`hlsdk-portable/dlls`/
+`hlsdk-portable/cl_dll`, the real game DLL, target names `server`/`client`
+per their own `wscript`s -- note these are the waf `name=` values, which is
+what `xshlib.py` actually matches against, not the `target=` string) since
+goal 10, replacing the old goal-6 `client` stub, and `ref_gl` since goal 11;
+extend this list as future goals add more. Both renderers are listed on
+purpose -- `ref_gl` is the default and `ref_soft` remains reachable with
+`-ref soft`, which is the only way to A/B a rendering bug against a
+known-good path on hardware where there is no debugger.)
+
+Output: `engine/xash` ELF -> (via `scripts/waifulib/ps3.py`) `EBOOT.BIN` +
+`PARAM.SFO` + a `.pkg`, staged under `build/engine/pkg/` (`PARAM.SFO` and
+`ICON0.PNG` at its root, `EBOOT.BIN` under `USRDIR/`).
+
+**Flavors.** Adding `--gamedir=<mod>` at configure time selects a mod flavor,
+which changes the XMB title, the 9-character `TITLE_ID` and the icon. The
+mapping lives in the `PS3_FLAVORS` table at the top of the root `wscript`;
+configure fails loudly on an unknown gamedir, a `TITLE_ID` that isn't exactly
+9 characters, or a missing icon file. Known flavors:
+
+```
+./waf configure --ps3 --static-linking=...                    # valve   -> XASH10000, build/
+./waf configure --ps3 --gamedir=bshift --static-linking=...   # bshift  -> XASHBS000, build_bs/
+./waf configure --ps3 --gamedir=gearbox --static-linking=...  # gearbox -> XASHOF000, build_opfor/
+./waf configure --ps3 --gamedir=ricochet --static-linking=... # ricochet-> XASHRC000, build_ricochet/
+./waf configure --ps3 --gamedir=cstrike --static-linking=...  # cstrike -> XASHCS000, build_cs/
+./waf configure --ps3 --gamedir=tfc --static-linking=...      # tfc     -> XASHTF000, build_tfc/
+```
+
+`ricochet` swaps whole source trees like `cstrike`/`tfc`: `name='server'` is
+`ricochet/dlls`, `name='client'` is `ricochet/cl_dll` (linked with TFC-5's
+`tf15-client/3rdparty/{vgui_dll,vgui_support}` pair), and the menu stays the
+stock `3rdparty/mainui`. See "Ricochet flavor" (RC-2) below.
+
+`cstrike` is different in kind. Counter-Strike is not an hlsdk-portable variant,
+so the flavor **swaps whole source trees** instead of gating one with a define.
+Two pairs of `SUBDIRS` rows do it, and in each pair exactly one row supplies the
+waf `name=` that `xshlib.py` links:
+
+- `name='client'` -- `cs16-client/cl_dll` when `PS3_GAME == 'cstrike'`,
+  `hlsdk-portable/cl_dll` otherwise.
+- `name='menu'` -- `3rdparty/mainui_cs` when `PS3_GAME == 'cstrike'`,
+  `3rdparty/mainui` otherwise.
+- `name='server'` -- `regamedll/dlls` when `PS3_GAME == 'cstrike'`,
+  `hlsdk-portable/dlls` otherwise.
+
+`cs16-client/` is a vendored subset of Velaron/cs16-client (client only:
+`cl_dll/` minus its dead `VGUI/` and `hl/` dirs, plus that SDK's own `common/`,
+`engine/`, `public/`, `pm_shared/`, `game_shared/` and `dlls/` headers +
+`wpn_shared/`).
+
+`regamedll/` is Velaron/ReGameDLL_CS at `d1af136` (the commit cs16-client pins
+as its own `3rdparty/ReGameDLL_CS` submodule), vendored from that repo's
+`regamedll/` subdirectory: `dlls/`, `game_shared/`, `pm_shared/`, `public/`,
+`engine/`, `common/`, the inner `regamedll/`, and `version/`. 156 translation
+units against base HL1's 41. Things worth not re-deriving:
+
+- **A recursive `**/*.cpp` glob is correct here**, unlike `cs16-client/cl_dll`
+  where whole directories are dead code. Every `.cpp` upstream's CMake does not
+  list was deleted at vendoring time, so glob == CMake list. The one trap:
+  `regamedll/public_amalgamation.cpp` `#include`s `common/stdc++compat.cpp`, so
+  that file is absent from the CMake source list yet must stay on disk --
+  deleting it as "unused" breaks the build.
+- **The bots cannot be separated out.** `dlls/bot/` (36 TUs) is referenced from
+  11 core files with no build-time guard, including a `static_cast<CCSBot *>`
+  in `player.cpp` and `TheCSBots()` in `cbase.cpp`/`weapons.cpp`/`gamerules.cpp`,
+  so excluding it means stubbing core game code. They are also the only offline
+  opponents possible here: cs16-client's other bot, YaPB, is a metamod plugin
+  and PSL1GHT has no dlopen.
+- **No SSE reaches the compiler.** `regamedll/sse_mathfun.cpp` and the SSE arms
+  of `common/mathlib.h` are gated on `HAVE_SSE`, which `engine/osconfig.h` only
+  defines when `REGAMEDLL_SSE` is set *and* an `__SSE__`-class macro is present.
+  The wscript defines neither and skips upstream's `-msse3`. `public/asmlib.h`
+  (Agner Fog's x86 asm library) is declarations only and its `Q_*` macros are
+  behind `HAVE_OPT_STRTOOLS`, also undefined.
+- **This module does not use the `werror` uselib.** waf emits a taskgen's own
+  flags *before* a uselib's, so the tree's upstream `-Wno-write-strings`,
+  `-Wno-strict-aliasing` et al could never override `-Werror=` versions of the
+  same. The wscript carries upstream's warning set instead.
+- Same `-fno-rtti` / `-mminimal-toc` / `-fno-strict-aliasing` reasoning as the
+  CS client below, plus upstream's `-fno-exceptions`, `-fno-builtin`,
+  `-fno-sized-deallocation` (entities override `operator new`/`delete` to
+  allocate through `ALLOC_PRIVATE`; C++14 sized deallocation would route to an
+  overload they do not implement) and `-fno-devirtualize` (the ReGameDLL API's
+  hookchains assume real virtual dispatch).
+- **`XASH_64BIT` must be defined for this module, and it is not optional.**
+  `dlls/qstring.h` selects the game's `string_t` representation with
+  `#if XASH_64BIT`: the 64-bit arm keeps a signed int offset into the engine's
+  string pool, the 32-bit arm casts pointers straight to `unsigned int`. That
+  macro is only ever set by `public/build.h` -- which **nothing in this SDK
+  includes** -- so without the wscript define the 32-bit arm compiles on an LP64
+  platform and every classname/targetname round-trips through a truncation,
+  with any negative pool offset becoming ~+4GB. The symptom on hardware was a
+  silent freeze inside `CWorld::Precache` on the first map load. hlsdk-portable
+  is immune only because its `dlls/extdll.h` includes `build.h`, whose
+  `__LP64__` auto-detect sets the macro for free. General lesson: patching a
+  vendored `build.h` proves nothing until something actually includes it.
+- `dlls/exports.txt` is a standalone 210-line file (4 entry points + 206
+  entity classnames), not an `exports_cstrike.txt` add-on: `apply_xshlib` reads
+  `exports.txt` from the taskgen's own directory. ReGameDLL defines
+  `GiveFnptrsToDll`, `GetEntityAPI`, `GetNewDLLFunctions` and
+  `Server_GetBlendingInterface` -- there is no `GetEntityAPI2`, which is fine,
+  `sv_game.c` falls back to `GetEntityAPI`.
+
+Patches inside `regamedll/`, all documented in place. Three of them are new
+classes of PS3 problem, not repeats of the CS client's:
+
+- `public/FileSystem.cpp`: `FileSystem_Init` dlopens `filesystem_stdio`. On PS3
+  that module is statically linked into the engine and exports
+  `CreateInterface`, so the PS3 branch asks the engine's own native-object
+  registry instead -- `Sys_GetNativeObject("VFileSystem009")` ->
+  `FS_GetNativeObject` -> filesystem_stdio's `CreateInterface`. The two
+  `IFileSystem` declarations (this SDK's `public/FileSystem.h` and the engine's
+  `filesystem/VFileSystem009.h`) are the same stock Valve layout member for
+  member, so the vtable slots line up; `FileExists` is the only method this tree
+  calls, from three unguarded sites in `hostage.cpp`/`cs_bot_chatter.cpp`.
+- `engine/osconfig.h`: PPU newlib has no `dlfcn.h`, `elf.h`, `link.h`,
+  `pthread.h`, `sys/ioctl.h`, `sys/mman.h` or `sys/sysinfo.h`, so the POSIX
+  include block gets a `__PPU__` arm, and the unused `ioctlsocket`/`sys_allocmem`
+  /`sys_freemem` inlines are compiled out.
+- `dlls/cbase.cpp`'s single `dynamic_cast<CBasePlayerItem *>` is incompatible
+  with the mandatory `-fno-rtti`. Replaced with the SDK's own downcast idiom, a
+  `MyItemPointer()` virtual next to the existing `MyMonsterPointer()`, added at
+  the *end* of the virtual list so no existing vtable slot moves.
+- The rest are the familiar ones: `__PPU__` branches in the private
+  `public/build.h` snapshot (dead in this SDK -- nothing includes it, so the
+  code guards use `__PPU__` directly), in `public/tier0/platform.h`'s
+  DLL_EXPORT block and in `game_shared/counter.h` (`<linux/limits.h>` ->
+  `<limits.h>`); the dlopen half of `public/interface.{h,cpp}` compiled out;
+  `creat()` -> `open(O_CREAT|O_WRONLY|O_TRUNC)` in `game_shared/bot/nav_file.cpp`;
+  `Plat_IsInDebugSession` short-circuited (no `/proc`, no `getppid`); and a
+  checked-in `version/appversion.h`, which upstream generates by shelling out to
+  git.
+
+**Counter-Strike goal ladder.** CS-1 (flavor identity), CS-2 (cs16-client as
+`client`), CS-3 (mainui_cs as `menu`) are hardware-validated. CS-4 (ReGameDLL as
+`server`) **runs on hardware as of 2026-08-05**: CS game rules initialize, the
+map spawns, `4 player server started`, and the client also connects to a real
+online Xash CS server (`BUILD 4068 SERVER`, modern protocol, custom content
+downloaded successfully). It is not playable yet, for one reason:
+
+- **CS-5, the next goal: the client-side memory ceiling.** Map load ends in
+  `_Mem_Alloc: out of memory (alloc size 2.22 Mb, pool "FileSystem Pool",
+  filesystem/io.c:51)` -> `Host_Error` -> back to the main menu (a clean
+  shutdown, not a crash). It fires in `CL_PrecacheResources`, so local listen
+  servers and remote servers hit it identically -- one bug, not two. Measured
+  on hardware: boot 144.48 Mb largest contiguous -> `CL_PrecacheResources
+  enter` 76.85 Mb -> `before VOX preload` 66.45 Mb. Note that roughly half the
+  budget is already spent before map assets begin loading, which may matter
+  more than any single consumer. First thing to measure, not to assume:
+  `VOX_PreloadDeferred` makes 1347 HL1 vox words resident (`sound/vox/`,
+  hgrunt, barney, scientist) that Counter-Strike never plays -- it uses radio
+  wavs -- but goal 18 moved that preload deliberately, so do not disable it
+  without the number. `PS3_ProbeMemory` calls are already staged in
+  `engine/client/sound/s_load.c` and `engine/client/cl_main.c`.
+- **CS-6, bots.** Needs two things together: byte-swapping the `.nav` reader
+  (35 raw binary I/O sites in `regamedll/game_shared/bot/nav_file.cpp`, 3 more
+  in `nav_area.cpp`; PC-authored `.nav` is little-endian, so `0xFEEDFACE` reads
+  back as `0xCEFAEDFE`), and shipping `BotProfile.db`/`BotChatter.db`, which the
+  staged `cstrike/` tree does not have. ReGameDLL contains **no** byte-swapping
+  and **no** bitfields anywhere -- this is almost certainly its first
+  big-endian build, so treat every raw binary path as suspect. A missing `.nav`
+  logs *file not found*; a byte-swapped one would log *invalid format*, which is
+  how to tell those two apart.
+
+**Temporary diagnostics currently in the tree**, to be removed when CS-5 closes:
+`[cs4]` `CONSOLE_ECHO` breadcrumbs in `regamedll/dlls/bot/cs_bot_manager.cpp`,
+`regamedll/dlls/multiplay_gamerules.cpp`, `regamedll/dlls/world.cpp` and
+`regamedll/public/FileSystem.cpp`, plus the four `PS3_ProbeMemory` calls named
+above.
+
+`3rdparty/mainui_cs/` is Velaron/mainui_cpp at `ba8802c` -- the fork
+cs16-client pins as its own `3rdparty/mainui_cpp` submodule, **a different
+repository from FWGS's mainui_cpp**, not a branch of it. It is what implements
+`IGameMenuExports` / `GameMenuExports001` and ships the `menus/client/` windows
+(`BuyMenu`, `JoinGame`, `JoinClass`) that `CGameMenuExports::ShowVGUIMenu`
+switches on. Three things about it:
+
+- **`exports.txt` needs a third line, `CreateInterface`.** That is the entire
+  mechanism. `cs16-client/cl_dll/cdll_int.cpp` asks
+  `gMobileAPI.pfnGetNativeObject("MenuFactory")`, which reaches
+  `UI_GetMenuFactory` (`engine/client/dll_int/cl_gameui.c`) and does
+  `COM_GetProcAddress( gameui.hInstance, "CreateInterface" )`. `xshlib.py`'s
+  `objcopy -G lib_menu_exports` localizes every name not in that file, so
+  without the line the lookup returns NULL, `g_pMenu` stays NULL, and the log
+  reads `Error: native object "MenuFactory" is unavailable`. Every `g_pMenu`
+  call site null-checks, so that is a missing buy menu, not a crash -- which is
+  exactly the state the flavor was in before this landed. Same fix
+  `filesystem/exports.txt` needed for its own `CreateInterface`.
+- **Both this module and the client compile `cs16-client/common/interface.cpp`,
+  and that is correct.** The registry it implements (`s_pInterfaceRegs`,
+  `CreateInterface`, `Sys_GetFactoryThis`) is file-scope, and xshlib localizes
+  each module's symbols, so each ends up with a private one: the client's holds
+  `GameClientExports001` and hands its own factory to `g_pMenu->Initialize`
+  (which is how the menu resolves `g_pClient` back); the menu's holds
+  `GameMenuExports001` and its `CreateInterface` is the single globally-exported
+  name. `cs16-client/cl_dll/exports.txt` deliberately does not list
+  `CreateInterface`, so there is no duplicate-global collision. Do not "fix"
+  this by keeping the registries global -- localization is load-bearing.
+- Compiling the same `interface.cpp` from two taskgen paths is the goal-10
+  `idx` collision by construction, so the module passes
+  `idx = bld.get_taskgen_count()`. Verified in `build_cs/`:
+  `interface.cpp.15.o` and `interface.cpp.19.o`.
+
+Its own upstream `wscript` is FWGS's unmodified one and cannot build the fork
+(no `interface.cpp`, no cs16-client include paths -- upstream only builds it via
+cs16-client's CMake), so `3rdparty/mainui_cs/wscript` is
+`3rdparty/mainui/wscript` plus those, plus `menus/client/*.cpp` in the glob.
+`miniutl` is vendored into the tree rather than shared with `3rdparty/mainui`:
+the fork's `font/BaseFontBackend.cpp` includes it as `"miniutl/utlbuffer.h"`,
+which only resolves if a `miniutl/` sits next to it, and putting `../mainui` on
+the include path to satisfy that would silently shadow any missing fork header
+with the stock tree's copy. The two pins are the same commit (FWGS/MiniUTL
+`048a416`, verified byte-identical), so the duplication costs nothing but disk.
+The one vendored-tree patch is the usual `__PPU__` branch in its private
+`sdk_includes/public/build.h` snapshot; no `<memory.h>`, no `_inline`, no
+dlopen half to compile out, unlike `cs16-client/`.
+
+Four things about that client are load-bearing and were each found the hard way:
+
+- **Do not add `F` to `cs16-client/cl_dll/exports.txt`.** `cl_game.c` prefers a
+  `GetClientAPI`/`F` entry point over the named export table, and `F`'s
+  `cldll_func_t` has no slots for the FWGS extensions -- `IN_ClientMoveEvent` /
+  `IN_ClientLookEvent` would come back NULL and the PS3 pad would lose look and
+  move. cs16-client defines `F`; the exports list deliberately omits it.
+- **`-fno-rtti` is required.** xshlib localizes every symbol in the module bar
+  `lib_client_exports`, and localizing a COMDAT symbol makes ld discard the
+  group while references survive (`typeinfo for IBaseInterface ... defined in
+  discarded section`). Keeping them global instead would re-expose the goal-10
+  vtable/ODR collapse, since `CBasePlayerWeapon`'s typeinfo exists in both this
+  client and the HL server module.
+- **`-mminimal-toc`**, for the same 64KB ELFv1 `.toc` reason as the Opposing
+  Force server: this client is ~140 translation units against base HL1's 41.
+- **`-fno-strict-aliasing`**, because the tree type-puns floats through int
+  lvalues in the GoldSrc idiom (`Q_rsqrt`, `IS_NAN`, the shared-weapon RNG
+  seed) and GCC may miscompile that at -O2.
+
+Patches inside the vendored tree, all documented in place: a `__PPU__` branch in
+its private `public/build.h` (same snapshot bug as mainui's and hlsdk's), the
+dlopen half of `common/interface.{h,cpp}` compiled out under `XASH_PS3`,
+`_inline` -> `static inline` in the never-before-compiled big-endian arm of
+`common/xash3d_types.h`, `<memory.h>` -> `<string.h>` in six files, and a
+wire-driven `snprintf` truncation in `cl_dll/health.cpp`.
+
+A flavor is keyed by the mod's real **gamedir**, which is not always the name
+of the game: Opposing Force ships as `gearbox`, so that -- not `opfor` -- is
+the `--gamedir` value, the `PS3_FLAVORS` key and the `exports_<gamedir>.txt`
+suffix. The define it selects is named for the game (`OPFOR`).
+
+Each flavor builds into **its own directory**, the fourth field of its
+`PS3_FLAVORS` row: the stock build in `build/`, every mod in its own `build_*`.
+They compile the same sources with different `-D` flags, so a shared build dir
+would hand one flavor the other's objects; configure fails if two flavors ever
+claim the same directory. `out` is derived from `--gamedir` at the top of the
+root `wscript` -- waf reads `out` when it loads the module, before options are
+parsed, so that code reads `sys.argv` directly. An explicit `-o` still wins.
+Both flavors share one waf lockfile, so a bare `./waf build` builds whichever
+you configured last; the configure line prints the flavor and its directory.
+
+`--gamedir` sets the *mod*, NOT `XASH_GAMEDIR`. That macro is the engine
+**basedir**, and `filesystem/searchpath.c` only adds the base game hierarchy
+when basedir differs from the gamefolder -- so the flavor block pins
+`XASH_GAMEDIR` to `valve` and passes the mod through `-game`, injected into
+argv by `engine/common/launcher.c` (the XMB launches EBOOT.BIN with no
+arguments). Folding both into `XASH_GAMEDIR` drops `valve/` out of the search
+path entirely and takes every shared asset with it; the visible symptom is raw
+`GameUI_*` tokens in the menu. `fallback_dir` in liblist.gam is not involved
+and does not need editing. All flavors resolve their filesystem root to the
+same shared `/dev_hdd0/data/xash3dfwgs`, so `valve/` is never duplicated.
+
+**Per-flavor game code.** There is one vendored `hlsdk-portable` tree, not one
+per mod, so a mod's divergence from base HL1 lives inline in that tree behind
+its own `#ifdef` and the valve build must stay semantically identical to
+upstream `FWGS/hlsdk-portable` master. The gamedir -> define mapping is
+`PS3_GAME_DEFINES` at the top of the root `wscript` (`bshift` -> `BSHIFT`,
+`gearbox` -> `OPFOR`); it lands in `conf.env.GAME_DEFINES`, which
+`hlsdk-portable/dlls/wscript` and `hlsdk-portable/cl_dll/wscript` append to
+their own `defines` lists.
+
+Inline `#ifdef` is the right tool only when a mod *edits* base HL1 code, as
+Blue Shift does. Opposing Force is mostly **new** code, and it lives in its own
+`dlls/gearbox/` and `cl_dll/gearbox/` subdirectories -- `gearbox` being the
+directory the mod ships under. Both wscripts build their source list from a
+recursive `**/*.cpp` glob, so those directories are added to `excluded_files`
+for every flavor except `gearbox`; `#ifdef`ing the file bodies instead would
+still compile 57 translation units of gearbox entities into the valve and
+bshift links. The same condition adds `gearbox` to the server's include path,
+and adds `../dlls/gearbox` plus Opposing Force's ten predicted weapon sources
+to the client (`CLIENT_WEAPONS` needs each weapon's server-side implementation
+compiled into the client, exactly like the base HL1 list above it).
+
+Entity symbols a mod adds go in `dlls/exports_<gamedir>.txt`, **not** in the
+shared `exports.txt`: `xshlib.py` emits every name there as an
+`extern void x(void);` plus a table entry, so a mod-only entity in the shared
+file would break the valve link on a symbol its own `#ifdef`'d-out sources
+never define. `apply_xshlib` appends `exports_${PS3_GAME}.txt` when that file
+exists. Blue Shift's five: `env_warpball`, `item_armorvest`, `item_helmet`,
+`monster_rosenberg`, `trigger_playerfreeze` (251 exports for valve, 256 for
+bshift). Opposing Force adds **95** in `dlls/exports_gearbox.txt`, for 346.
+`trigger_playerfreeze` is in both mods' lists and that is fine -- bshift's
+implementation is gated inside `dlls/triggers.cpp`, Opposing Force's lives in
+`dlls/gearbox/gearbox_triggers.cpp`, and no build ever defines both flavors.
+
+The Blue Shift game code itself is the diff of upstream branch `bshift`
+against `master` -- 9 files: `items.cpp` (armor vest + helmet pickups),
+`player.cpp` (impulse 101 gives those instead of a battery), `weapons.cpp`
+(precache both), `scientist.cpp` (`monster_rosenberg` -- same class as
+`CScientist`, every difference selected at runtime off the classname:
+double health, RO_* sentence groups, nine pain lines, never provoked by the
+player, never flees), `genericmonster.cpp` (`SF_HEAD_CONTROLLER` spawnflag 8
++ head tracking), `effects.cpp` (`CLightning::LightningCreate` and
+`env_warpball`), `triggers.cpp` (`trigger_playerfreeze`), `talkmonster.cpp`
+(comment only) and `cl_dll/hud.h` (blue `RGB_YELLOWISH`). Diff against
+upstream master, never against the vendored tree -- the latter carries PS3
+patches that pollute the comparison.
+
+Opposing Force's own edits to base HL1 land the same way, but there are far
+more of them, so they are being applied in stages. **Stage 1 (done): the
+shared headers.** Sixteen of them carry `#ifdef OPFOR` blocks now --
+`weapons.h` (ten weapon classes, their ammo/clip/weight/give constants, three
+new player bullet types and three new monster ones), `cbase.h` (three Race X /
+military-ally `CLASS_*` values, `GrappleTarget`, the `PreRemoval`/`OnRemove`/
+`PostRemoval` hooks, `CreateNoSpawn`, `SizeForGrapple`, four ammo counters,
+and a `virtual` on `CBaseButton::ButtonActivate`), `player.h`, `skill.h` (a
+second, Op4-only half of `skilldata_t`), `talkmonster.h` (Op4 reparents
+`CTalkMonster` onto `CSquadMonster` and raises `TLK_CFRIENDS` 3 -> 6),
+`basemonster.h` (glowshell), `gamerules.h`, `util.h`, `cdll_dll.h`,
+`decals.h`, `effects.h`, `explode.h`, `monsters.h`, `schedule.h`,
+`scripted.h`, `pm_materials.h`, plus `cl_dll/hud.h` (`CHudNightvision` and a
+three-way `RGB_YELLOWISH`: valve orange / bshift blue / Op4 green). That
+cleared all 1,833 compile errors the gearbox flavor started with; the
+remaining work is stage 2.
+
+Three rules learned doing it, worth keeping:
+
+- **Gate only what the mod adds, not what it happens to rename.** The opfor
+  branch also renames `CBasePlayer::m_flSndRoomtype` to `m_SndRoomtype` and
+  repoints `SOUND_FLASHLIGHT_OFF`. Neither is needed by any gearbox source,
+  and pulling them in would break the shared `player.cpp` that still uses the
+  old names. Skipped deliberately. (Stage 2 revisited the first half of that:
+  Op4's roomtype rework is not a pure rename -- it changes the field to `int`,
+  save-restores it, adds `m_ClientSndRoomtype` and moves the `SVC_ROOMTYPE`
+  send from `CEnvSound::Think` into `CBasePlayer::UpdateClientData` -- so
+  `player.h` now carries all three names behind `#ifdef OPFOR`. The
+  `SOUND_FLASHLIGHT_OFF` repoint is still skipped, still unused.)
+- **Enum tails take a leading comma, not a trailing one.** `Bullet` and
+  `decal_e` end with `#ifdef OPFOR` blocks written as `,NEW_VALUE` so the
+  non-Op4 build has no dangling comma to `-Wpedantic` about.
+- **Prove the other flavors are untouched mechanically.** A ~40-line
+  mini-unifdef that resolves only `#ifdef OPFOR` blocks and diffs the result
+  against `HEAD` reduces the whole change to "identical with OPFOR undefined"
+  for every shared file. Same technique the Blue Shift work used. It does not
+  understand `#elif defined( OPFOR )` inside a foreign `#ifdef` chain
+  (`cl_dll/hud.h`'s three-way colour), so check that one by eye.
+
+**Stage 2 (done, VALIDATED on real hardware 2026-08-04): the 54 shared `.cpp`
+files plus `cl_dll/ev_hldm.h`.** Confirmed on console: boots to the Op4 menu,
+loads the campaign, scripted sequences run, HUD and nightvision correct,
+events correct, all ten Op4 weapons work, save/reload works, and level
+transitions work -- the last two being the ones at risk, since the Op4 weapons
+add save data and `m_SndRoomtype` changed type. Opposing Force is complete;
+there is no stage 3. These files carry the source half of what stage 1
+declared --
+`CTalkMonster::StartMonster`, the CTF message globals
+(`gmsgCTFMsgs`/`gmsgFlagCarrier`/`gmsgRuneStatus`/`gmsgFlagStatus`) in
+`client.cpp`, `env_spritetrain` in `plats.cpp`, and the
+`IMPLEMENT_SAVERESTORE` block in `weapons.cpp` for the seven Op4 weapons that
+have save data (missing that is what "undefined reference to `vtable for
+CDisplacer`" means -- `Save` is the vtable's key function). Biggest single
+pieces are `cl_dll/ev_hldm.cpp` (+604), `dlls/game.cpp` (+535),
+`dlls/plats.cpp` (+302) and `dlls/player.cpp` (+286/-31). All three flavors
+build clean afterwards; the valve link produced bit-identical objects, so waf
+skipped its downstream package tasks entirely -- a free confirmation that the
+untouched flavors really are untouched.
+
+The gating was generated, not typed: a helper diffs upstream
+`merge-base(master, opforfixed)` against `opforfixed`, replays that patch onto
+the *vendored* file (so this port's own local edits survive), and wraps every
+resulting difference in `#ifdef OPFOR` / `#else` / `#endif`. Each file is then
+proved by resolving OPFOR both ways and comparing against the two inputs. Two
+files need a hunk skipped because the change is already applied locally
+(`dlls/genericmonster.cpp`, whose class carries a `#ifdef BSHIFT` block, and
+`cl_dll/hl/hl_weapons.cpp`, whose `HUD_PrepEntity` calls carry `PS3_DIAG`
+markers); their few remaining lines were added by hand.
+
+**Two traps this stage produced, both worth remembering.**
+
+- **A generated `#endif` may not land inside a `/* */` comment.** Comments are
+  removed in translation phase 3, `#if` is evaluated in phase 4, so a
+  directive inside a comment silently disappears and takes the rest of the
+  comment's contents with it. Op4 comments out `func_tank.cpp`'s
+  `SF_TANK_*`/`TANKBULLET` block rather than deleting it, and a naive
+  line-diff gate put `#endif // OPFOR` between the `/*` and the `*/` -- the
+  OPFOR build was fine and the *valve* build lost seven `#define`s. Both the
+  generator and a repo-wide audit now track comment state and refuse a gate
+  boundary inside one. Note the mini-unifdef proof does **not** catch this: it
+  is textual and knows nothing about comments.
+- **The ODR trap stage 1 warned about is closed.** Goal 1 vendored the 13
+  headers Op4 extracts from shared `.cpp` files (`barney.h`, `hgrunt.h`,
+  `scientist.h`, `zombie.h`, `xen.h`, `func_tank.h`, `triggers.h`, `apache.h`,
+  `bullsquid.h`, `genericmonster.h`, `gman.h`, `headcrab.h`, `osprey.h`) while
+  those `.cpp` still defined the same classes inline. Each of those files now
+  reads `#ifdef OPFOR` include-the-header `#else` inline-class `#endif`, so
+  only one definition is ever live and the valve/bshift text is unchanged.
+  This is deliberately *not* "adopt the header everywhere": several extracted
+  headers add `virtual` to methods that were non-virtual in master, which
+  would change vtable layout for flavors that did not ask for it.
+
+**Counter-Strike does not fit this model, and must not be forced into it.**
+Every mechanism above -- one vendored `hlsdk-portable` tree, per-flavor
+`#ifdef`s, `exports_<gamedir>.txt` -- assumes the mod is a *variant of the
+HL1 SDK*. CS 1.6 is not. Its client is the separate `cs16-client` SDK
+(`E:\Users\Matteo\Desktop\HL1\PS3\cs16-client`, ~140 client translation units
+with its own private `common`/`public`/`pm_shared`/`game_shared`), its server
+is `ReGameDLL_CS`, and its menu is Velaron's `mainui_cpp` fork. So the CS
+flavor selects a *different source tree* per waf name rather than gating the
+hlsdk one: a pair of `SUBDIRS` rows per name, gated on `PS3_GAME == 'cstrike'`,
+so exactly one tree supplies each (`xshlib.py` matches the waf `name=`, never
+`target=`). No `PS3_GAME_SDK` table was needed -- the pairs read fine inline,
+and the earlier plan for one is superseded. All three have landed.
+
+Every CS tree carries a private `build.h` snapshot with `__SWITCH__`/`__vita__`
+branches and **no `__PPU__`** -- `cs16-client/public/build.h`,
+`3rdparty/mainui_cs/sdk_includes/public/build.h` and `regamedll/public/build.h`,
+all patched the same way as `hlsdk-portable`'s and `3rdparty/mainui`'s copies.
+That prediction held three times for three; assume the next vendored tree has
+one too. ReGameDLL adds a wrinkle worth remembering: its snapshot is *dead*
+(nothing in that SDK includes it), so its own platform guards had to key off
+`__PPU__` directly.
+
+**The valve EBOOT is not byte-reproducible**, so "rebuilt byte-identical (md5)"
+is not a usable regression test -- relinking with zero source changes yields a
+different md5 at an identical byte size. Compare the size, and confirm via
+`git status` that no file the valve build compiles was touched.
+
+**PPC64 TOC overflow is a real ceiling here.** Adding ~57 gearbox translation
+units pushed the final link past the 64KB `.toc` an ELFv1 `R_PPC64_TOC16_DS`
+can address (`relocation truncated to fit`). ld's own multi-TOC splitting
+cannot help, because `xshlib.py` merges each statically-linked module into one
+relocatable object first -- the linker sees a single input file and therefore
+a single TOC group. `hlsdk-portable/dlls/wscript` adds `-mminimal-toc` for
+this flavor only, which gives each translation unit its own constant pool
+behind one TOC entry, at the cost of one extra indirection per reference.
+Scoped to gearbox on purpose: valve and bshift still fit and their builds are
+hardware-validated, so there is no reason to change their codegen. If a future
+flavor or a growing valve build hits the same error, widen that condition
+rather than inventing something new.
+
+Deploy (fast iteration): FTP `<builddir>/engine/pkg/USRDIR/EBOOT.BIN` to
+`/dev_hdd0/game/<TITLE_ID>/USRDIR/` via webMAN/multiMAN, then relaunch --
+`build/` -> `XASH10000` for the stock build, `build_bs/` -> `XASHBS000` for
+Blue Shift, `build_opfor/` -> `XASHOF000` for Opposing Force,
+`build_ricochet/` -> `XASHRC000` for Ricochet, `build_cs/` -> `XASHCS000` for
+Counter-Strike, per the flavor table above. Deploy (clean install): install the
+`.pkg` from USB via XMB -- required the first time a flavor is deployed, since
+a `TITLE_ID` with no existing install has no `USRDIR/` to FTP into. Each
+flavor installs to its own `TITLE_ID` and gets its own XMB entry, so flavors
+coexist without overwriting each other.
+
+Debug: UDP log sink -- run `nc -ul 18194` on the dev PC; wire the sending
+side up first thing in `PS3_Init()` (`sys_ps3.c`), per goal-stack item 1.
+There is no GDB stub for retail homebrew.
+
+**Team Fortress Classic (`tfc`) planning, 2026-09-04 -- goal ladder set, TFC-1
+landing this session.** Source SDK is Velaron/tf15-client (cloned locally at
+`E:\Users\Matteo\Desktop\HL1\tf15-client`, commit `72c6eb2`). Like Counter-
+Strike, TFC does **not** fit the `#ifdef`-in-one-vendored-tree model --
+`dlls/exports_<gamedir>.txt` and inline `PS3_GAME_DEFINES` gates are the
+wrong tool here, same reasoning as CS above. Unlike CS, TFC's client
+(`cl_dll/`) and server (`dlls/`) live in **one** tree, not two separate SDKs
+-- structurally closer to how OpFor/Blue Shift are one tree, except the mod
+diverges too much from base HL1 to gate inline (sentry guns, dispenser,
+nine player classes, `tf_gamerules`, 123 files under `dlls/` alone), so it
+still needs a whole-tree swap per waf `name=`, the same mechanism CS uses.
+
+The load-bearing finding from investigation (not yet coded): TFC's in-game
+UI (team select, class select, HUD chrome, scoreboard, command menu) is
+**real, load-bearing classic VGUI1 code** -- `gViewPort` is constructed for
+real from `vgui_TeamFortressViewport.cpp`, unlike base HL1's own `vgui_*.cpp`
+files, which are dead code excluded entirely by
+`hlsdk-portable/cl_dll/wscript`. If VGUI1 never initializes on PS3, the
+client cannot join a team or pick a class -- functionally unplayable, not
+missing a cosmetic like CS's buy menu. Checked whether TFC's own
+`mainui_cpp` pin (Velaron's fork, branch `tf15-client`) does what
+`mainui_cs` did for CS (replace VGUI with native mainui windows) -- it does
+**not**; diffed live against upstream FWGS/mainui_cpp master and it is minor
+compat fixes only, no team/class/HUD windows. So there is no ready-made
+"skip VGUI1" escape hatch for TFC the way there was for CS.
+
+Goal ladder:
+
+- **TFC-1, flavor identity -- HARDWARE-VALIDATED 2026-09-04.** Boots to the
+  menu under `-game tfc`, reads the user's staged `tfc/` tree correctly, no
+  crash. As expected, no TFC gameplay logic yet (stock hlsdk-portable code).
+  `tfc` added to `PS3_FLAVORS` ->
+  `XASHTF000` / `build_tfc/` / `icons/tf/ICON0.PNG`, gamedir `tfc` (downloads
+  folder `tfc_downloads`, same convention as `cstrike`/`cstrike_downloads`).
+  No `PS3_GAME_DEFINES` entry, same reasoning as CSTRIKE above. Boots to menu
+  under `-game tfc` on the **stock** hlsdk-portable tree -- no TFC game code
+  yet, this goal only proves the flavor plumbing and packaging, mirroring
+  how CS-1 landed before CS-2/3/4 swapped in the real SDKs. Docker build
+  scripts `scripts/docker-build-tfc(.sh/.ps1)` and
+  `scripts/docker-build-tfc-debug(.sh/.ps1)` added, modeled on the cstrike
+  ones.
+- **TFC-2, server -- vendored 2026-09-04, not yet build-tested.** tf15-client's
+  `dlls/` (74 `.cpp` matching `SVDLL_SOURCES` exactly -- the six commented-out
+  CMake entries, `dbghelpers.cpp`/`genericmonster.cpp`/`menu.cpp`/
+  `mpstubb.cpp`/`prop.cpp`/`rpg.cpp`, were never copied) plus the shared
+  `common/`, `engine/`, `public/`, `pm_shared/`, `game_shared/`, `wpn_shared/`
+  trees (vendored wholesale now since both the future client and this server
+  need them from the same tf15-client repo, unlike CS's two independent
+  SDKs) landed at repo-root `tf15-client/`. New `tf15-client/dlls/wscript`
+  supplies the `server` SUBDIRS row, gated on `PS3_GAME == 'tfc'`; the
+  existing `hlsdk-portable/dlls` row's guard was widened to exclude `tfc` too
+  (`x.env.PS3_GAME not in ('cstrike', 'tfc')`). `dlls/exports.txt`: 4 entry
+  points (`GiveFnptrsToDll`/`GetEntityAPI`/`GetEntityAPI2`/
+  `GetNewDLLFunctions` -- unlike hlsdk-portable, this tree really does define
+  `GetNewDLLFunctions`, confirmed in `cbase.cpp`) + 156 entity classnames via
+  the same `LINK_ENTITY_TO_CLASS` grep CS used.
+
+  Three real findings while vendoring, none guessed:
+  1. **`public/build.h` had the same missing-`__PPU__`-branch bug every prior
+     vendored SDK had** (`#undef XASH_PS3` + `#elif defined __PPU__ ->
+     #define XASH_PS3 1`, same two-line patch as hlsdk-portable's/cs16-
+     client's/mainui's copies). Its CPU/endian detection already handled PS3
+     correctly with no changes, same as every prior SDK.
+  2. **A real, exact repeat of a CS finding**:
+     `common/xash3d_types.h`'s `LittleFloat()` was declared `_inline` (an
+     MSVC-ism, not valid C) inside its `#ifdef XASH_BIG_ENDIAN` arm --
+     never compiled before on any little-endian target. Fixed to
+     `static inline`, identical to the fix cs16-client's own copy of this
+     file needed.
+  3. **Confirmed a bug class CS's ReGameDLL_CS *did* have does NOT apply
+     here**: `dlls/extdll.h` and `cl_dll/cl_dll.h` define `XASH_64BIT`
+     themselves from a direct `__powerpc64__`/`__LP64__` check, the same
+     autodetect logic upstream `build.h` uses -- they do not rely on
+     `build.h` being included at all. So unlike regamedll, no
+     `XASH_64BIT=1` wscript define is needed. Also unlike regamedll,
+     `public/build.h` here is NOT a dead snapshot: `common/xash3d_types.h`
+     really does `#include` it, so the real big-endian autodetect flows
+     through once patched -- no `XASH_BIG_ENDIAN=1` belt-and-suspenders
+     define needed either. Checked before assuming either landmine applied,
+     per [[project_xashps3_cstrike_flavor]]'s lesson about dead `build.h`
+     snapshots.
+
+  Also checked and deliberately left alone: `dlls/util.cpp:116`'s PRNG seed
+  type-puns a float through `*(int *)&low` (same GoldSrc idiom CS hit) --
+  covered by `-fno-strict-aliasing` in the new wscript, not a source edit,
+  matching regamedll's approach rather than hlsdk-portable's macro-rewrite
+  one. `dlls/nodes.cpp`'s `<direct.h>` include is `#ifdef __DOS__`-guarded,
+  not reachable on PS3 -- false alarm, no fix needed. Zero `dynamic_cast`,
+  zero `<memory.h>` in the whole vendored tree.
+
+  **Deliberately NOT added, pending a real build**: `-fno-rtti` and the
+  cstrike-only COMDAT-group rename. Both exist in
+  [[project_xashps3_cstrike_flavor]] to fix a collision between *two
+  independently diverged* SDKs sharing a same-named class with a *different*
+  layout. TFC's future client and this server compile the *same*
+  `wpn_shared`/`pm_shared` sources from one tree, so any shared class's
+  vtable will be byte-identical between the two compiles -- structurally the
+  same situation base hlsdk-portable's own `dlls`/`cl_dll` split already has
+  (`CLIENT_WEAPONS` compiles several weapon sources into both) without
+  needing either fix. Revisit only if a real "typeinfo ... defined in
+  discarded section" link error says otherwise. Also added `-mminimal-toc`
+  proactively (server alone is ~89 TUs -- 74 dlls + 12 wpn_shared + 3
+  pm_shared -- close enough to gearbox's known-bad ~98 to not be worth a
+  build round-trip to confirm).
+
+  **BUILD-VERIFIED 2026-09-04** (`docker-build-tfc.ps1`, real `ps3dev/ps3dev:latest`
+  toolchain, ten rebuild rounds to a clean `EBOOT.pkg`, 3.49MB, ContentID
+  `UP0001-XASHTF000_00-...`) -- confirming the "nothing here has ever been
+  compiled" read: **`BUILD_SERVER` defaults `OFF` in upstream tf15-client's
+  own `CMakeLists.txt` and its CI never turns it on** (only Android/Windows/
+  Linux client-only presets run), so this really was this server's first
+  build on any platform, any compiler. Every fix below is a real compiler/
+  linker error, none guessed, and each was applied by checking base
+  hlsdk-portable's equivalent, an existing sibling declaration in the same
+  tree, or a real call site -- never by inventing behavior. Grouped by
+  class, not chronological:
+  - **Header declarations lagging behind their own `.cpp` definitions** (the
+    single largest class, ~10 instances): `player.h`'s `GiveAmmo`/
+    `RemovePlayerItem` declared with a different arg count than
+    `player.cpp`'s real bodies (fixed by adding a default `pIndex = NULL`
+    and widening `RemovePlayerItem` to 2 args, matching hlsdk-portable's own
+    signatures exactly); `Pain`/`GetGunPosition`/`TeamID`/`AddPoints`/
+    `AddPointsToTeam`/`StopObserver` defined in `player.cpp` but never
+    declared in `player.h` at all; `world.cpp`'s real `InstallGameRules`
+    takes a `const char *szGameName` (branches on it -- TFC vs. HL rules) but
+    `gamerules.h` still declared hlsdk's old 0-arg version; `subs.cpp`'s
+    `TeamFortress_CalcEMPDmgRad( float dmg, float rad )` didn't match either
+    `cbase.h`'s or `player.h`'s `float &dmg, float &rad` -- fixed by
+    reference since two independent headers already agreed on it. `TeamID`
+    additionally needed a real base virtual added to `cbase.h` (it's called
+    polymorphically through a bare `CBaseEntity *` in
+    `CHalfLifeTeamplay::GetTeamID`, unlike `GiveAmmo`/`RemovePlayerItem`,
+    which are only ever called through `CBasePlayer *` and safely "hide"
+    rather than override their differently-shaped `cbase.h` base stubs --
+    same tolerance hlsdk-portable's own `player.h` already relies on).
+  - **Missing member variables**: `m_vecLastViewAngles` (`Vector`),
+    `m_flNextAmmoBurn`/`m_flAmmoStartCharge`/`m_flNextChatTime` (`float`),
+    `m_iAutoWepSwitch` (`int`), `m_szTeamName` (`char[TEAM_NAME_LENGTH]` --
+    matches hlsdk-portable's `player.h` verbatim, including the constant).
+  - **A real name-shadowing bug**: `player.cpp`'s `CheckPowerups( pev )` call
+    (base-HL1 code, unchanged from hlsdk-portable) silently resolved to a
+    *different*, TFC-added, dead member `CBasePlayer::CheckPowerups(void)`
+    instead of the free function two lines above it, because the member
+    declaration (never defined, never called elsewhere) shadows the
+    file-scope one by ordinary C++ lookup. Fixed with `::CheckPowerups(pev)`
+    at the one real call site; the dead member was left alone.
+  - **Two declared-but-never-defined names that turned out to be an
+    unfinished rename**: `TeamFortress_{Init,Update}StatusBar` were declared
+    but had no body anywhere; `InitStatusBar`/`UpdateStatusBar` (no prefix,
+    hlsdk-portable's own convention) had real bodies in `player.cpp` but no
+    declaration. Renamed the dead declarations to match, rather than adding
+    a second pair.
+  - **A duplicate stub definition with a wrong signature**: `subs.cpp` had
+    *two* empty `CBaseEntity::DoDrop` bodies -- one `(Vector *p_vecOrigin)`,
+    one `(Vector vecOrigin)` matching `cbase.h`'s real declaration. Deleted
+    the wrong one; both were no-ops so nothing was lost.
+  - **A dangling engine-internal include**: `world.cpp` used
+    `physics_interface_t`/`server_physics_api_t`/`SV_PHYSICS_INTERFACE_VERSION`/
+    `g_physfuncs` (an optional FWGS `Server_GetPhysicsInterface` hook) without
+    including `dlls/physcallback.h` -- and that header itself `#include`s a
+    `physint.h` that **does not exist anywhere in the upstream tf15-client
+    repo**, confirmed against a clean checkout. hlsdk-portable's own
+    `world.cpp` has no equivalent at all and works fine without it, and the
+    entry point was never in `exports.txt`, so the engine would never have
+    called it even if it compiled. Excluded the whole block (in `world.cpp`
+    and the matching `g_physfuncs` global in `h_export.cpp`) rather than
+    trying to source a matching header from a different FWGS snapshot.
+  - **Nine link-bearing virtuals with no definition anywhere in the tree**
+    (`CBaseEntity`/`CBasePlayer`'s `TeamFortress_TakeEMPBlast`/
+    `TeamFortress_EMPRemove`/`TeamFortress_TakeConcussionBlast`/
+    `TeamFortress_Concuss`/`EngineerUse`/`PainSound`, `CGrenade`'s
+    `setBirthdayModel`/`setModel`, and `CBasePlayer::TF_AddFrags`) --
+    surfaced only at final link, as undefined vtable-entry references, since
+    C++ doesn't require every virtual to be overridden. All confirmed never
+    *called* anywhere in the tree except `TF_AddFrags` (three real call
+    sites in `wpn_shared/tf_wpn_axe.cpp`, a melee kill bonus), so the first
+    eight got the same empty-no-op-default treatment this header already
+    uses for its own `AddPoints`/`TeamID`/etc., and only `TF_AddFrags` got a
+    real body -- routed through the existing `AddPoints` (which already
+    sends the `gmsgScoreInfo` HUD update) rather than a bare
+    `pev->frags += iFrags`, since the latter would silently desync the
+    client's scoreboard display.
+  - **Two dead entities correctly excluded from `exports.txt`**, same
+    discipline as hlsdk-portable's own `my_monster`/`trip_beam`: TFC's
+    `dlls/tempmonster.cpp` is entirely `#if 0`, and `trip_beam`
+    (`effects.cpp`) is `#if _DEBUG` -- both confirmed, not assumed, by
+    reading the actual gate before removing the exports.txt lines that
+    produced "undefined reference to `my_monster`" style linker errors.
+  - **One `-Werror=strict-prototypes`/`-Werror=old-style-definition` class**,
+    all in the vendored `pm_shared/pm_shared.c`: nine C functions defined
+    with empty `()` instead of `(void)` (`PM_InitTextureTypes`,
+    `PM_CheckVelocity`, `PM_AddCorrectGravity`, `PM_FixupGravityVelocity`,
+    `PM_WalkMove`, `PM_CheckWater`, `PM_AddGravity`, `PM_Physics_Toss`,
+    `PM_NoClip`) -- same class of bug as the PSL1GHT vendor-header
+    `-Wstrict-prototypes` issue this project already had a precedent for
+    (`io/pad.h`/`net/net.h`), just in vendored SDK C code instead of a
+    system header this time.
+  - **One real type-identity bug, not a warning**: `PM_HullPointContents`
+    (`struct hull_s *`) rejected a `hull_t *` argument as an "incompatible
+    pointer type" even though GCC's own diagnostic printed both sides
+    identically (`hull_t * {aka struct hull_s *}`) -- caused by
+    `pm_shared.c` including `pm_defs.h` (which only forward-references
+    `struct hull_s *` inside `pmove_t`) *before* `com_model.h` (which
+    supplies the real `typedef struct hull_s {...} hull_t`), creating two
+    declaration points for the same-spelled tag. Fixed by reordering the
+    includes so the real struct is fully defined first.
+  - **Two `char*`/`const char*` classes** (`-Werror=write-strings`):
+    seven `char *sFoo[] = { "literal", ... }` string-literal arrays in
+    `tfort.cpp` (`sClassCfgs`, `sClassModels`, `sClassNames`,
+    `sGrenadeNames`, `sNewClassModelFiles`, `sOldClassModelFiles`,
+    `sTeamSpawnNames`) and `tforttm.cpp`'s `sTNameCvars[]`/`GetTeamName()`'s
+    return type, plus `world.cpp`'s `InstallGameRules` (see above) -- all
+    fixed by widening to `const char *`, checked against every call site
+    first (`STRING()`, `PRECACHE_MODEL`, `ENGINE_FORCE_UNMODIFIED` all
+    already accept `const char *`).
+  - **One incomplete stub** (`tforttm.cpp`'s `TeamFortress_SortTeams`,
+    explicitly marked `// Velaron: TODO` upstream): fell through with no
+    return on its main path. Added a `return TRUE;` to make the
+    missing-return build error go away -- not a claim the sorting logic
+    itself is implemented, it still isn't.
+  - **The real cross-SDK vtable collision CS-6 already root-caused, hit
+    again for a different reason.** Final link failed with `typeinfo for
+    CBasePlayerWeapon ... defined in discarded section`, the exact CS-6
+    signature -- but this is *not* the same structural cause CS had
+    permanently. It is specific to this in-between state: TFC-3 (the real
+    tf15-client client) hasn't landed, so this build pairs tf15-client's
+    `dlls/` (which redefines `CBasePlayerWeapon`/`CGrenade`/etc. with
+    TF-specific fields) against the *stock* hlsdk-portable `cl_dll/` --
+    two divergent definitions of the same class names, structurally
+    identical to cstrike's cs16-client-vs-ReGameDLL_CS split. Fixed by
+    widening `xshlib.py`'s `RENAME_COMDAT_GROUPS` gate from
+    `PS3_GAME == 'cstrike'` to `PS3_GAME in ('cstrike', 'tfc')`. Once TFC-3
+    lands and both `client`/`server` come from the same tf15-client tree
+    (byte-identical shared classes, the same safe shape valve/gearbox/
+    bshift already have), this gate becomes unneeded but harmless -- no
+    need to narrow it again.
+
+  **HARDWARE-VALIDATED 2026-09-04: runs, no crash.** Confirms the "does it
+  compile/link/boot without crashing" bar this goal was scoped to -- not
+  "is TFC playable," which still needs TFC-3 (client) and TFC-5 (VGUI). This
+  build pairs the new TFC server with the *stock* hlsdk-portable client, so
+  the client has no idea about TFC's entities, usermessages, or VGUI
+  requirements.
+- **TFC-3, client -- vendored 2026-09-04, not yet build-tested.** tf15-client's
+  `cl_dll/` (95 files: 91 at root + 4 under `cl_dll/tfc/`, matching
+  `CLDLL_SOURCES` exactly -- confirmed no commented-out CMake entries, so a
+  recursive glob is safe) landed at `tf15-client/cl_dll/`. New
+  `tf15-client/cl_dll/wscript` supplies the `client` SUBDIRS row, gated on
+  `PS3_GAME == 'tfc'`; the existing `hlsdk-portable/cl_dll` row's guard was
+  widened to exclude `tfc` too (`x.env.CLIENT and x.env.PS3_GAME not in
+  ('cstrike', 'tfc')`), same shape as CS's client pair. `cl_dll/exports.txt`:
+  43 entries, verified by grepping every `DLLEXPORT` site in the vendored
+  tree (not assumed from the CS/hlsdk precedent) -- the symbols are scattered
+  across many files (`cdll_int.cpp` only defines 15 of them; the rest live in
+  `view.cpp`/`input.cpp`/`input_mouse.cpp`/`in_camera.cpp`/`entity.cpp`/
+  `demo.cpp`/`tri.cpp`/`GameStudioModelRenderer.cpp`/`tfc/tf_weapons.cpp`),
+  but the resulting set is byte-identical to `hlsdk-portable/cl_dll/exports.txt`
+  once `HUD_ChatInputPosition` (implemented only in the excluded
+  `vgui_SpectatorPanel.cpp`, same as hlsdk-portable's own treatment of that
+  symbol) is dropped -- confirming this is genuinely the same `cldll_func_t`
+  ABI, just organized differently. `HUD_MobilityInterface` is real and
+  required here (not SDK cruft): `mobile_engfuncs_t`/`MOBILITY_API_VERSION`
+  are declared in `tf15-client/engine/mobility_int.h`, and this project's own
+  engine already calls into it from `engine/client/dll_int/cl_mobile.c`.
+
+  Same VGUI1 scoping decision as the goal-ladder intro: `vgui_*.cpp` (12
+  root files, `vgui_TeamFortressViewport.cpp` alone is 2630 real lines --
+  team/class-select, not dead code) and `input_goldsource.cpp` (dlopen-based
+  SDL2 shim, unsupported on PS3) are excluded from the source glob, matching
+  `hlsdk-portable/cl_dll/wscript`'s own precedent for both. `game_shared/`
+  contributes nothing at all: all 9 files `CLDLL_SOURCES` pulls from it
+  (7 `vgui_*.cpp` widget helpers + `voice_banmgr.cpp` + `voice_status.cpp`)
+  are VGUI/voice-UI, so nothing survives the same exclusion and the wscript
+  doesn't pull from that directory. This is deliberately **not** TFC-5 --
+  landing real VGUI1 stays a separate, later goal; expect real link errors
+  from files that reference VGUI globals/hooks (`gViewPort`, `VGui_Startup`,
+  etc.) defined only in the excluded files, to be resolved with minimal no-op
+  stubs (not guessed preemptively -- let the real linker output enumerate
+  them, same discipline as every prior vendoring goal) once a real build is
+  attempted.
+
+  `../dlls` is a required include (not carried over from
+  `tf15-client/dlls/wscript`'s own list): confirmed by reading
+  `wpn_shared/tf_wpn_*.cpp` and `cl_dll/tfc/tf_weapons.cpp` directly, both
+  `#include "extdll.h"`/`"cbase.h"`/`"weapons.h"`/`"nodes.h"`/`"player.h"`/
+  `"gamerules.h"`/`"tf_defs.h"`, all of which live only in `tf15-client/dlls/`
+  -- same reason `hlsdk-portable/cl_dll/wscript` already needs it for its own
+  predicted weapon sources. `CLIENT_DLL` is a required define, confirmed by
+  reading `dlls/weapons.h`/`dlls/util.h` (both `#ifdef CLIENT_DLL`), not
+  assumed from precedent alone.
+
+  Same idx-collision (`get_taskgen_count()`) precedent CS needed, since
+  `wpn_shared/tf_wpn_*.cpp` and `pm_shared/*.c` compile into both this
+  taskgen and `tf15-client/dlls`'s. `-mminimal-toc`/`-fno-strict-aliasing`
+  carried over from `tf15-client/dlls/wscript` for the same reasons recorded
+  there. **`-fno-rtti` deliberately NOT added**, per that same file's own
+  reasoning (quoted there in full): this client and TFC-2's server compile
+  the *same* shared sources from one tree, so their vtables are
+  byte-identical -- not CS's two-independently-diverged-SDK situation that
+  made `-fno-rtti` load-bearing. Add only if a real link produces a
+  `typeinfo ... defined in discarded section` error. No `xshlib.py` change
+  needed: `RENAME_COMDAT_GROUPS` already covers `'tfc'` and
+  `get_taskgen_count()` is already generic.
+
+  **BUILD-VERIFIED 2026-09-04** (`docker-build-tfc.ps1`, real
+  `ps3dev/ps3dev:latest` toolchain, ~3.36MB `EBOOT.pkg`, ContentID
+  `UP0001-XASHTF000_00-...`) -- eight rebuild rounds, every fix a real
+  compiler/linker error, none guessed. Grouped by class:
+  - **`game_shared` needed on the include path even with zero `.cpp` pulled
+    from it**: `hud.h` unconditionally `#include "voice_status.h"` (a
+    header, not the excluded `.cpp`) for `CHud`'s own declarations --
+    confirmed via a real "No such file" error before assuming the directory
+    was safe to drop from `includes` entirely.
+  - **Seven virtuals TFC-2 had already given server-only no-op bodies to,
+    on the theory that "no definition anywhere in the tree" (true only for
+    what TFC-2 had vendored at the time)**: `cl_dll/tfc/tf_baseentity.cpp`
+    -- a genuine, Valve/Velaron-authored **client-only stub file** (the same
+    idiom this file already uses for dozens of `CBaseDelay`/`CCrowbar`/
+    `CGrenade`/etc no-op bodies the client needs to link but never runs) --
+    turned out to define `CBaseEntity::TeamFortress_TakeEMPBlast/EMPRemove/
+    TakeConcussionBlast/Concuss`, `CGrenade::setBirthdayModel/setModel`,
+    `CBasePlayer::PainSound`, and `CBasePlayer::EngineerUse` for real,
+    colliding with TFC-2's inline header bodies once the client actually
+    entered the build. Fixed by gating each header body behind
+    `#ifndef CLIENT_DLL` (server keeps its existing inline no-op unchanged)
+    with a bare declaration under `#else` (client's own body comes from
+    `tf_baseentity.cpp`) -- `cbase.h`, `weapons.h`, `player.h`. **One of the
+    seven, `EngineerUse`, is not just a duplicate**: `tf_baseentity.cpp`'s
+    real body returns `TRUE`, not the header's `FALSE` -- a genuinely
+    different default per side, not a behavior-preserving split like the
+    other six.
+  - **A real signature bug in the same stub file**: `tf_baseentity.cpp`'s
+    `CBasePlayer::RemovePlayerItem` still used the original 1-arg upstream
+    signature, not the 2-arg one TFC-2 already widened `player.h` to (to
+    match `dlls/player.cpp`'s real body) -- fixed by adding the missing
+    `bool bCallHolster` parameter to the stub, unused in its no-op body.
+  - **The real, largest one: `gViewPort` (`TeamFortressViewport*`) compile-time
+    coupling reaches far past the `vgui_*.cpp` files** into `ammo.cpp`,
+    `cdll_int.cpp`, `death.cpp`, `entity.cpp`, `hud.cpp`, `hud_redraw.cpp`,
+    `hud_spectator.cpp`, `input.cpp`, `menu.cpp`, `saytext.cpp`,
+    `text_message.cpp` -- confirmed by real "No such file"/incomplete-type
+    errors cascading through each, not guessed up front. Every real
+    `gViewPort`/`GetClientVoiceMgr`/`VGui_Startup`/`Scheme_Init` call site
+    (dozens) and every `vgui_*.h`/`voice_status.h` include in those files is
+    now `#if USE_VGUI`-gated (never defined in this build), mirroring the
+    exact guard `hlsdk-portable/cl_dll/cdll_int.cpp` already uses for the
+    same reason. Two required a real behavior-preserving trick, not a blind
+    delete: `hud_spectator.cpp`'s `DRC_CMD_STATUS`/`DRC_CMD_BANNER` director-
+    message cases call `READ_LONG()`/`READ_WORD()`/`READ_STRING()` as a
+    *side effect* (consuming bytes from the network buffer) inline with the
+    `gViewPort` call -- gating the whole statement away would desync the
+    parser for every later case in the same message, so the `READ_*` calls
+    were kept unconditional and only the VGUI use gated. Two functions
+    (`HandleButtonsDown`/`HandleButtonsUp`) already began with
+    `if (!gViewPort) return;` in the *original* code -- i.e. upstream itself
+    already treats all spectator button handling as VGUI-gated, not just the
+    one `ShowMenu()` call inside -- so their whole bodies were wrapped rather
+    than only the literal `gViewPort->` lines, reproducing that exact
+    existing behavior instead of inventing a "partial function without VGUI"
+    variant nobody asked for.
+  - **Two globals silently lost their only definition** by excluding
+    `vgui_TeamFortressViewport.cpp` wholesale: `g_iPlayerClass`/
+    `g_iTeamNumber`/`g_iUser1`/`g_iUser2`/`g_iUser3` are declared `extern` in
+    `hud.h` and read/written unconditionally by `hud_spectator.cpp`'s
+    non-VGUI logic (spectator mode state), but were defined nowhere once
+    their one source file was gone -- a real "undefined reference" link
+    error, not a compile error, so it only surfaced after everything else
+    compiled clean. Fixed with real definitions (matching the excluded
+    file's own initial values) added to `hud.cpp`, which already hosts this
+    tree's other cross-file globals (`gEngfuncs`, `gHUD`).
+  - **The mirror image of the tf_baseentity.cpp finding**: `CBasePlayer::
+    AddPoints/AddPointsToTeam/TeamID/GetGunPosition` are declared in
+    `player.h` but their *only* bodies live in `dlls/player.cpp` (server-only,
+    never compiled into the client) -- a real "undefined reference" against
+    the client's own private `CBasePlayer` vtable at final link. Unlike the
+    seven `tf_baseentity.cpp` virtuals, this direction needed a **client-only**
+    no-op (`#ifdef CLIENT_DLL`, opposite gating from everywhere else in this
+    file) so the server keeps calling its real, unmodified `player.cpp`
+    bodies -- matching `cbase.h`'s own already-established base-class
+    defaults for `AddPoints`/`AddPointsToTeam`/`TeamID` exactly. Confirmed
+    zero call sites anywhere in the vendored client tree first, so the
+    no-ops are provably dead code, not a guessed behavior.
+  - **No dlopen on PS3** (same landmine class as `input_goldsource.cpp`,
+    already excluded): `public/interface.h`/`interface.cpp` unconditionally
+    pull `<dlfcn.h>` for `Sys_LoadModule`/`Sys_GetFactory`/etc, used only by
+    the `TF15CLIENT_ADDITIONS`-gated mainui loader and the
+    `USE_PARTICLEMAN`-gated particleman loader (neither macro defined here)
+    -- confirmed by grepping the whole tree before gating. Gated on
+    `__PPU__`, keeping `InterfaceReg`/`CreateInterface()` (zero dlopen
+    dependency, and genuinely needed: `cdll_int.cpp`'s ungated
+    `EXPOSE_SINGLE_INTERFACE(CClientExports, ...)` depends on them).
+    `hud_benchtrace.cpp` had its own, unrelated, entirely dead
+    `#include <dlfcn.h>` on the non-Windows branch (zero `dl*()` calls
+    anywhere in the file -- the real hopcount/traceroute body is
+    `#ifdef _WIN32`-only) -- gated the same way.
+  - **`IGameMenuExports.h` needs `3rdparty/mainui_cpp`'s own `FontRenderer.h`**,
+    not vendored yet (that's TFC-4's job) -- real fatal "No such file" error.
+    Its only real users, `CL_LoadMainUI`/`CL_UnloadMainUI`, were already
+    `TF15CLIENT_ADDITIONS`-gated; widened that same guard to cover the
+    include and the two now-orphaned globals (`g_hMainUIModule`/`g_pMainUI`)
+    too.
+  - **Two real, minor `-Werror=write-strings` instances**, same class TFC-2
+    already fixed elsewhere: `ev_tfc.cpp`'s `const char *rgsz[4]` (was
+    `char *`, only ever assigned string literals, passed straight to a
+    `const char*` engine call) and `EV_TFC_BenchmarkWallMark`'s `name` param
+    (widened to match the `EV_TFC_DecalTrace` it forwards to verbatim).
+  - **One real, `-Werror=parentheses`-flagged operator-precedence bug found,
+    deliberately NOT fixed**: `RunEventList`'s `iparam1 & EV_TELEPORTER_ENTRY
+    | EV_TELEPORTER_EXIT` parses (`&` binds tighter than `|`) as
+    `(iparam1 & EV_TELEPORTER_ENTRY) | EV_TELEPORTER_EXIT` -- always nonzero
+    whenever `EV_TELEPORTER_EXIT` itself is nonzero, unlike every sibling
+    single-flag check in the same function. Parenthesized to match that
+    exact existing (likely-buggy) precedence rather than the probably-intended
+    "either flag" reading, to avoid silently changing gameplay behavior while
+    chasing a green build -- left as a flagged note for a real bug-fix goal,
+    not corrected here.
+
+  **HARDWARE-VALIDATED 2026-09-04, with one real crash found and fixed.**
+  First hardware run: booted to menu fine, hard-crashed the instant a listen
+  server started and the first real game frame rendered. Diagnosed with a
+  second opinion from Codex (user request, given the symptom's similarity to
+  CS-5) plus a live UDP log capture -- both independently converged on the
+  same root cause, fully traced before fixing (not guessed):
+  `ev_tfc.cpp`'s `RunEventList()` unconditionally dereferenced `gpGlobals`,
+  a pointer only ever assigned inside `HUD_InitClientWeapons()` -- reachable
+  only through `HUD_WeaponsPostThink()`, itself only called when
+  `cl_lw->value` is true. PS3 permanently forces `cl_lw` to `"0"`
+  (read-only, `common/defaults.h`) -- a deliberate goal-10 fix for a *worse*
+  bug (client weapon prediction hard-locking the console). So `gpGlobals`
+  never initializes on this platform, and `HUD_DrawTransparentTriangles`
+  (a required export, called every frame regardless of `cl_lw`) crashes on
+  the very first frame that reaches it -- exactly "menu fine, dies entering
+  a real game," and not a TFC-3 regression: this is a latent bug in
+  tf15-client's own code, never exercised against a `cl_lw=0` configuration
+  before. Fixed with a null-guard at `RunEventList()`'s entry, matching a
+  defensive idiom this same SDK already uses elsewhere for this exact
+  pointer (`input_goldsource.cpp`'s `if ( gpGlobals && ... )`) -- skipping
+  event-list processing without a valid clock is correct behavior, not just
+  crash-avoidance, since client weapon prediction is permanently off here
+  anyway. **Confirmed live via UDP log**: rebuilt, redeployed, listen server
+  on `2fort` loaded, player spawned and joined a team, sustained real
+  in-game rendering (~4500+ frames, steady 60fps, growing entity counts) for
+  about a minute of play with zero crash, ending in a clean player-initiated
+  XMB-exit shutdown.
+
+  Player spawned with no weapons -- **expected, not a new bug**: TFC assigns
+  a loadout through class selection, which is VGUI1 UI, entirely stubbed out
+  until TFC-5 lands. No class is ever selected server-side, so no weapons
+  are ever given. Team name also shows as empty (`TeamID()` is one of this
+  goal's client-only no-op stubs) for the same reason.
+- **TFC-4: menu module -- HARDWARE-VALIDATED 2026-09-05.** Vendored
+  `Velaron/mainui_cpp@489b8d14dfb44e2662027adf653d3a7e015e0026` (branch
+  `tf15-client`, the exact commit tf15-client's own `.gitmodules` pins) at
+  `tf15-client/3rdparty/mainui_cpp/`, plus its nested `miniutl` submodule
+  (`FWGS/miniutl@66bb8ce932649907a33007b89c09deb30cebd49e` -- confirmed via
+  the GitHub API to be a **different** pin than `3rdparty/mainui_cs`'s own
+  `miniutl` copy (`048a416`), so vendored as its own copy rather than shared,
+  same reasoning CS-3 already used). New `tf15-client/3rdparty/mainui_cpp/
+  wscript` is plain `3rdparty/mainui/wscript` verbatim (this fork needs none
+  of `3rdparty/mainui_cs/wscript`'s extra CS-only pieces). Same `__PPU__` ->
+  `XASH_PS3` patch as the other two vendored `build.h` snapshots applied to
+  `sdk_includes/public/build.h`. Root `wscript`'s `menu` SUBDIRS trio is now
+  `3rdparty/mainui` (default), `3rdparty/mainui_cs` (`cstrike`),
+  `tf15-client/3rdparty/mainui_cpp` (`tfc`) -- also fixed a stale comment
+  near `PS3_GAME_DEFINES` that still said TFC's server/client swap "lands in
+  a later goal" after TFC-2/TFC-3 had already landed it.
+
+  Confirmed by diff against `3rdparty/mainui`'s copy that this fork adds no
+  team/class/HUD windows (no `interface.cpp`, no `menus/client/`,
+  `exports.txt` is the same vanilla 2-line `GetMenuAPI`/`GetExtAPI`) -- it is
+  a light divergence from FWGS master (font-backend tweaks, an
+  `sdk_includes` sync, some `mathlib.h` trims, and one real feature: a
+  `menus/ServerBrowser.cpp` change adding a "legacy" (GoldSrc protocol 48)
+  server tag/sort). So this goal covers only swapping in TFC's own
+  upstream-intended main/pause menu module -- it does **not** solve the
+  VGUI1 problem below.
+
+  **Real finding, left deliberately unaddressed**: `tf15-client/cl_dll/
+  cdll_int.cpp`'s `#ifdef TF15CLIENT_ADDITIONS` block (still never defined)
+  dlopens a separate `menu.so`/`menu.dll` at runtime
+  (`Sys_LoadModule`/`Sys_GetFactory`) to pull a `GameMenuExports001`
+  interface out of it -- the same shape CS uses, but CS instead resolves it
+  through the engine's `gMobileEngfuncs->pfnGetNativeObject("MenuFactory")`
+  native-object lookup with no `dlopen` at all
+  (`cs16-client/cl_dll/cdll_int.cpp`'s `GetNativeMenuExports`). Checked the
+  actual vendored commit before assuming anything: it implements no such
+  interface at all (no `interface.cpp`, no `menus/client/`), so
+  `CL_LoadMainUI` would return a null factory even on the platforms it was
+  written for -- combined with PS3 having no `dlopen` (`public/interface.cpp`'s
+  `Sys_LoadModule`/`Sys_GetFactory` are already `__PPU__`-compiled-out per
+  TFC-3), defining `TF15CLIENT_ADDITIONS` here would only add dead code.
+  **Left undefined, exactly as TFC-3 left it.** If TFC-5 ever needs a real
+  menu-factory bridge, follow CS's native-object pattern, not this one.
+  `tf15-client/cl_dll/IGameMenuExports.h`'s hardcoded
+  `#include "../3rdparty/mainui_cpp/font/FontRenderer.h"` is exactly why this
+  fork was vendored at `tf15-client/3rdparty/mainui_cpp/` rather than a
+  top-level `3rdparty/mainui_tfc` -- that path resolves for free, matching
+  tf15-client's own original submodule layout, no source patch needed.
+
+  **One real build bug found and fixed, first Docker attempt**:
+  `sdk_includes/common/xash3d_types.h:179`'s `LittleFloat()` -- the
+  `#if XASH_BIG_ENDIAN` arm -- was declared `_inline float LittleFloat(...)`,
+  not `inline`. `_inline` is an MSVC-only keyword; nothing in this tree
+  `#define`s it for GCC/Clang, confirmed by grepping the whole vendored tree
+  (exactly one occurrence). This snapshot of `xash3d_types.h` is old enough
+  that `3rdparty/mainui`'s own copy (a much later FWGS revision) has already
+  replaced this whole codepath with `Swap32`/`Swap16`-based macros and no
+  `LittleFloat` function at all -- so this bug is unique to tf15-client's
+  older pinned fork, not something the vanilla-mainui precedent would have
+  caught. It never surfaced on any of this fork's original little-endian
+  targets (x86, ARM) because `XASH_BIG_ENDIAN` is never true there, so the
+  broken arm was dead code -- PS3 is the first big-endian, non-MSVC target to
+  actually compile it. Fixed by changing `_inline` to plain `inline`: the
+  file is C++-only here (every include site across the vendored tree is a
+  `.cpp`), so this is valid and behavior-preserving, not a workaround.
+  `EBOOT.pkg` after the fix: 3,463,152 bytes (~3.46MB), a sane bump from
+  TFC-3's ~3.36MB.
+
+  **Second real bug, found on real hardware**: the menu booted and hosting
+  still worked, but every localized string showed as its raw token
+  (`GameUI_Multiplayer`, `GameUI_Options`, etc) instead of real text.
+  `MenuStrings.cpp`'s `Localize_AddToDictionary` reads `resource/*_english.txt`
+  files, which are UTF-16LE on disk (BOM `0xFFFE`) -- this fork's copy reads
+  each 16-bit code unit in host byte order with **no byteswap at all**, unlike
+  `3rdparty/mainui`'s own (much newer) copy, which already has a
+  `ByteSwapUTF16File`/`XASH_BIG_ENDIAN` fix for exactly this. On a
+  little-endian host that is a no-op; on PS3 it corrupts every character,
+  `COM_ParseFile`'s very first token check (`"lang"`) fails, and
+  `Localize_AddToDictionary` bails via `goto error` before inserting a single
+  token -- so `L()` falls back to the raw token for the *entire* dictionary,
+  matching the reported symptom exactly (not a few missing strings, all of
+  them). Fixed with a small `ByteSwapUTF16File` helper in `MenuStrings.cpp`
+  that reuses `LittleShort()` (already defined in this fork's own
+  `xash3d_types.h`, a no-op on little-endian hosts and a real swap on
+  big-endian ones) per UTF-16 code unit, called on the buffer past the 2-byte
+  BOM for exactly the count the existing `Q_UTF16ToUTF8` call already uses --
+  no new global symbol, no dependency on the newer `Swap16` macro
+  `3rdparty/mainui`'s copy has that this older snapshot lacks. Rebuilt clean;
+  `EBOOT.pkg`: 3,463,136 bytes. **Confirmed on real hardware 2026-09-05**:
+  localized menu text now renders correctly (no more raw `GameUI_*` tokens);
+  listen-server hosting, already working before this fix, was undisturbed.
+
+  **TFC-4 closed.**
+- **TFC-5, real VGUI1 UI -- CLOSED, HARDWARE-VALIDATED 2026-09-05.** Chose
+  option (a) from the two considered: ported
+  `FWGS/openvgui` (`1b89d197c`, the widget toolkit) + `Velaron/vgui_support`
+  (`4574947`, tf15-client's own fork of the engine-glue library) rather than
+  writing custom non-VGUI chrome from scratch -- this reuses tf15-client's
+  own already-vendored `vgui_TeamFortressViewport.cpp`/`vgui_ClassMenu.cpp`/
+  `vgui_ScorePanel.cpp`/etc (TFC-3 left all of it `#if USE_VGUI`-gated,
+  never defined) almost as-is instead of reimplementing the same feature set
+  against a different UI mechanism. Vendored at
+  `tf15-client/3rdparty/vgui_dll/` and `tf15-client/3rdparty/vgui_support/`
+  (plus each one's own nested dep, `FWGS/MiniUTL` and `FWGS/vgui-dev`),
+  built as plain waf `stlib`s linked into `tf15-client/cl_dll`'s own
+  `client` target -- **not** a `--static-linking=` reloc module, confirmed
+  load-bearing: `VGui_LoadProgs()` (`engine/client/vgui/vgui_draw.c`) always
+  looks up the literal string `"libvgui_support.so"` for its external-library
+  attempt, which can never match a bare `--static-linking` name on this
+  no-dlopen port, so it always falls through to probing `client.dll` itself
+  for an exported `InitVGUISupportAPI` -- meaning `vgui`/`vgui_support` had
+  to be part of the `client` module itself. `Velaron/vgui_support` already
+  ships an `#ifdef INTERNAL_VGUI_SUPPORT` mode that renames its entry point
+  to exactly this symbol, so no new mechanism was invented, just wired up.
+  `tf15-client/cl_dll/exports.txt` needed exactly one new line
+  (`InitVGUISupportAPI`) -- missing it fails silently (`gViewPort` stays
+  `NULL` forever, TFC-3's exact prior symptom), not with a load error.
+
+  One real, one-field ABI drift found and patched:
+  `tf15-client/engine/vgui_api.h` (a stale vendored copy of the real
+  `engine/vgui_api.h`) had `void (*Unused)(void)` where the real header has
+  `void (*EnableTextInput)(qboolean,qboolean)` at the same struct offset --
+  same pointer size so not a live bug (nothing called the field either way),
+  patched to match anyway. Confirmed via a live diff against the two openvgui-
+  family header sets (`vgui_dll/include` vs `vgui_support/vgui-dev/include`)
+  that they are byte-identical bar one harmless commented-out line, so
+  compiling the two modules against their own separate copies (matching
+  upstream's own CMakeLists.txt, which never cross-references them) carries
+  no real divergence risk.
+
+  Five real bugs found and fixed getting to a clean build, all in code that
+  had simply never been compiled before (TFC-3's `#if USE_VGUI` gate meant
+  none of this had ever seen this project's `-Werror` set until now):
+  1. `vgui_dll/src/vgui/String.cpp`'s default constructor did
+     `_text="";` (`char*` from a literal) -- fixed to heap-allocate an empty
+     buffer instead, matching the class's own parameterized-constructor
+     pattern, not a const_cast.
+  2. Several GoldSrc-era `char*`/`char*[]` declarations that are only ever
+     read from, never mutated, hit the same `-Werror=write-strings` once
+     literals reached them for the first time: `vgui_ClassMenu.cpp`'s
+     `cText`, `vgui_ServerBrowser.cpp`'s `DoSort()`/`CSBLabel` constructor,
+     `vgui_TeamFortressViewport.h`'s `CMenuHandler_StringCommand` family (3
+     classes, 6 constructors) and `CreateCommandMenu`, and four file-scope
+     tables (`sArrowFilenames`, `sTFClasses`, `sLocalisedClasses`,
+     `sTFClassSelection` -- the last two also needed their `extern`
+     declarations in the header updated to match). Each was verified
+     read-only against every real call site before retyping to `const
+     char*`, not blindly retyped.
+  3. `vgui_ScorePanel.cpp`'s `SBColumnInfo::m_pTitle` (same class, same
+     fix) plus a real `sprintf( sz, "" )` zero-length-format-string error,
+     fixed to a plain `sz[0]='\0'` (identical behavior).
+  4. **The real cross-file one**: `hud.cpp` had defined `g_iPlayerClass`/
+     `g_iTeamNumber`/`g_iUser1`/`g_iUser2`/`g_iUser3` as a TFC-3-era stopgap
+     (their real upstream owner, `vgui_TeamFortressViewport.cpp`, was
+     excluded at the time) -- once TFC-5 un-excluded that file, both TUs
+     defined the same five globals, a real `multiple definition` link
+     error. Removed hud.cpp's stopgap copies, restoring
+     `vgui_TeamFortressViewport.cpp` as sole owner (genuine upstream
+     layout, not a new pattern).
+
+  `EBOOT.pkg`: 3,661,616 bytes (~3.49MB), a modest bump from TFC-4's
+  ~3.46MB -- plausible, not alarming: only the openvgui widgets TFC's own
+  `vgui_*.cpp` actually reference get pulled into the final static link via
+  normal archive-member selection, not the whole ~15,600-line toolkit.
+
+  **HARDWARE-VALIDATED 2026-09-05, goal closed.** First hardware round hit a
+  real crash (exit to XMB on connect) -- root-caused (with a Codex second
+  opinion, both independently converging on the same call site) to
+  `vgui_dll/src/vgui/DataInputStream.cpp` reading every multi-byte TGA
+  header field as a raw memcpy with no byteswap, corrupting
+  `BitmapTGA::loadTGA`'s width/height on this big-endian target and driving
+  an unchecked `new uchar[wide*tall*4]`. Fixed there and in a second,
+  independent instance of the identical pattern in the bitmap-font loader
+  (`src/platform/posix/fileimage.cpp`'s `Load32BitTGA`). Second hardware
+  round: crash gone, MOTD panel displayed, but CROSS couldn't click "OK" --
+  two more real, confirmed bugs, both in `engine/platform/ps3/in_ps3.c`:
+  (1) `Platform_SetCursorType()` had no real PS3 implementation at all (fell
+  through to the universal no-op stub in `platform.h`), so the stick-driven
+  cursor only ever activated for the native menu (`key_dest==key_menu`),
+  never for a VGUI1 panel floating over live gameplay -- added a real
+  implementation and widened `PS3_CursorVisible()`/`PS3_UpdateMenuCursor()`
+  to also check it; (2) CROSS's simulated click routed through
+  `Key_Event(K_MOUSE1, ...)`, which only ever reaches the engine's
+  `VGui_KeyEvent()` -- VGUI1's own button-click activation
+  (`App::internalMousePressed`) is driven exclusively by the separate
+  `IN_MouseEvent()` -> `VGui_MouseEvent()` path, so the cursor could reach
+  the button but never activate it. Fixed by calling `IN_MouseEvent(0, ...)`
+  instead. Third hardware round confirmed: MOTD closes correctly. TFC-5's
+  own scope -- a working classic-VGUI1 client bridge -- is done.
+
+  **New, separate finding, explicitly deferred, not part of TFC-5's own
+  scope**: hosting a listen server locally is broken two ways --
+  (a) the host's own player is stuck as spectator forever, no team/class/
+  weapons/armor, and (b) other players cannot connect to the hosted server
+  at all. (a) has two confirmed, real, fixable causes: `tf_gamerules.cpp`'s
+  `CTeamFortress::InitHUD` never sends the `gmsgVGUIMenu` message that would
+  open team-select (registered in `player.cpp` but never actually written
+  anywhere in the vendored `tf15-client/dlls` tree), and separately no PS3
+  gamepad button is bound to `"special"` (`hud.cpp`'s `HOOK_COMMAND`), the
+  vanilla F4-equivalent that opens it manually -- every physical DS3 button
+  is already claimed by something else in `engine/client/input/in_keys.c`'s
+  default table. (b) is still unexplained: a promising GoldSrc-protocol
+  checksum-munge theory (the server-side forward `COM_Munge3` exists only in
+  test code, never a real build) was investigated and **ruled out** --
+  confirmed via `cl_main.c:1323` that this connection type negotiates the
+  native Xash protocol, never touching that code path at all. Needs a real
+  hardware round with a second client actually attempting to connect, log
+  captured live, before a next theory is worth chasing. Tracked as its own
+  goal below (TFC-6) rather than reopening TFC-5.
+- **TFC-6, listen-server hosting is broken**: **half A (6a) CLOSED and
+  HW-validated 2026-09-17 through Phase 5d; half B (6b) still open.** Two
+  independent symptoms:
+
+  **6a. Host's own player never gets a real team/class.** The earlier "two
+  tiny fixes" read (missing `gmsgVGUIMenu` send + missing `"special"` bind)
+  was WRONG -- re-investigated this session with a fresh Codex second
+  opinion, both converged. The real cause: `tf15-client/dlls/` is a
+  near-empty TFC server skeleton. `demoman.cpp`/`dispenser.cpp`/
+  `engineer.cpp`/`pyro.cpp`/`sentry.cpp`/`spy.cpp`/`teleporter.cpp`/
+  `tf_item.cpp`/`tf_sbar.cpp`/`tf_admin.cpp`/`tf_wpn_grenades.cpp`/
+  `areadef.cpp` are all **0-byte files**. `tf_gamerules.cpp` is 234 lines of
+  thin shell. No `tf_client.cpp` equivalent exists. `gmsgVGUIMenu` is
+  registered (`player.cpp:265`) but never `MESSAGE_BEGIN`'d anywhere.
+  `CTeamFortress::ClientCommand` (`tf_gamerules.cpp:55`) just forwards to
+  `CHalfLifeTeamplay::ClientCommand`, whose only game command is an empty
+  `menuselect` stub -- so the client's `jointeam N` (from
+  `vgui_teammenu.cpp:128`) and its bare class commands `scout`/`sniper`/
+  `soldier`/`demoman`/`medic`/`hwguy`/`pyro`/`spy`/`engineer`/`randompc`/
+  `civilian` (from `sTFClassSelection[]`, `vgui_TeamFortressViewport.cpp:132`,
+  sent via `pfnClientCmd`) all fall through to "Unknown command". `"special"`
+  sends `_special` to the server (not a direct menu open) -- also unhandled.
+  Base `CHalfLifeTeamplay::InitHUD` manufactures a generic model-string team
+  but never sets TFC's numeric `team_no`/`pev->team`. The "spectator" look is
+  `team_no==0`/`playerclass==0`, not necessarily a live `StartObserver`
+  state (`ClientPutInServer` zeros `iuser1`). `CTeamFortress::PlayerSpawn`
+  grants only the suit bit. Weapon subsystem is also holed independent of
+  the menu: `CTFNailgunNail`/`CTFRpgRocket`/`CTFGrenade`/pipebomb projectile
+  spawning is commented out or returns null (`tf_wpn_ng.cpp:74`,
+  `tf_wpn_nails.cpp`, `tf_wpn_gl.cpp:159`), RPG fire calls a null factory.
+  Many `player.h` `TeamFortress_*` decls (`TeamFortress_TeamSet`,
+  `TeamFortress_SetEquipment`, `TeamFortress_CheckClassStats`, ...) have NO
+  definition anywhere (dead decls, no link error). Base `CGrenade`
+  (`ggrenade.cpp`, bounce/timed/contact) and the 12 non-empty
+  `wpn_shared/tf_wpn_*.cpp` fire-timing shells DO exist as a foundation.
+
+  No GoldSrc TFC server DLL exists to vendor (checked: Valve never released
+  `tfc/`; `eukara/freetfc` is a QuakeC clean-room rebuild, behavior
+  reference only, not portable code; `Velaron/tf15-client` upstream has no
+  server plans, last commit Aug 2025). So 6a is a from-scratch C++
+  reimplementation of TFC gameplay. User approved a **full playable pass**
+  (2026-09-05), delivered in HW-gated phases:
+  - **Phase 1 -- WRITTEN 2026-09-05, awaiting build + HW test.** New
+    `dlls/tf_client.cpp` (~415 lines): default Blue/Red team model, the
+    `gmsgTeamNames`/`gmsgValidClasses`/`gmsgVGUIMenu` sends, `jointeam` /
+    bare class-name / `_special` / `changeteam` / `changeclass` command
+    handlers, a class-stat/loadout table generated straight off tf_defs.h's
+    `PC_*` constants (`TFCLASSROW` macro), and team-aware
+    `info_player_teamspawn` selection with a DM/start fallback. Wired in via
+    `tf_gamerules.{h,cpp}` (InitHUD now calls `CHalfLifeMultiplay::InitHUD`
+    not `CHalfLifeTeamplay::`, plus 5 new virtual overrides:
+    `GetPlayerSpawnSpot`/`SetDefaultPlayerTeam`/`GetTeamIndex`/
+    `GetIndexedTeamName`/`IsValidTeam`), `client.cpp` `AddToFullPack` (set
+    `state->team` + `state->playerclass` for players, both were absent),
+    `subs.cpp` (`LINK_ENTITY_TO_CLASS(info_player_teamspawn, CPointEntity)`),
+    `exports.txt` (+`info_player_teamspawn`), `tf_defs.h` (8 free-fn decls).
+    No wscript change -- `dlls/wscript` globs `**/*.cpp`. Known Phase-1
+    simplifications: no-class players are frozen `MOVETYPE_NONE`+`EF_NODRAW`
+    (no real observer cam); class change is a clean strip+respawn (no death/
+    frag penalty); no team colours on the player model; medic bio-weapon and
+    medikit ammo skipped; projectile/grenade weapons are granted but inert
+    until Phase 2/3. Result once tested: menus work, hitscan classes
+    (sniper/hwguy/scout/medic/pyro/spy) playable.
+    - **HW round 1 (2026-09-05): partial.** Team spawns correct (red spawns
+      for red, blue for blue -- `info_player_teamspawn`/`team_no` verified
+      right), class health + speed correct (so `TeamFortress_PlayerSpawn`
+      and the `TFCLASSROW` table are sound). BUT no weapons and (reported)
+      no armor. **Weapons root cause: all 18 `tf_weapon_*` classnames were
+      missing from `dlls/exports.txt`** -- the original list was grepped from
+      `dlls/*.cpp` only and never covered `wpn_shared/`. On this no-dlopen
+      static-link build `CREATE_NAMED_ENTITY` (used by both `GiveNamedItem`
+      at spawn AND `W_Precache`/`UTIL_PrecacheOtherWeapon` at map load)
+      returns NULL for an unlisted classname -> "NULL Ent in
+      GiveNamedItem". Fixed: 18 names added to exports.txt (matches
+      `weapons.cpp` `W_Precache`'s list exactly). Weapon models/sounds/events
+      ARE all precached at map load by `W_Precache()` (world.cpp:556), so
+      late-precache Host_Error is not a risk. Armor: `ci->initarmor` is a
+      compile-time constant from the same struct as health, so it must be
+      applying -- likely the tested class was sniper (INITARMOR 0, correct)
+      or a client HUD display gap; a diagnostic `ALERT` line now prints
+      `hp/spd/armor/weapbits/active-weapon` per class spawn. Retest pending.
+    - **HW round 2 (2026-09-05): still no weapons/armor, + healthkits don't
+      heal.** exports.txt fix confirmed necessary but not sufficient. A fresh
+      Codex consult (thread `a2574cb8...`, big-endian was the user's
+      hypothesis -- **ruled out**) found THREE independent pre-existing
+      tf15-client bugs, all verified against source:
+      1. **Weapons: TFC weapon `Spawn()` never calls `FallInit()`/
+         `SetTouch()`** (`wpn_shared/tf_wpn_sg.cpp:15`, `tf_wpn_axe.cpp:14`,
+         all of them -- just `Precache()` + `pev->solid=SOLID_TRIGGER`). So
+         `GiveNamedItem`'s simulated `DispatchTouch` hits a NULL `m_pfnTouch`
+         and the weapon is never added. Fix: `TeamFortress_GiveWeapons` now
+         uses `CBaseEntity::Create` + `pPlayer->AddPlayerItem` +
+         `AttachToPlayer` directly (the `CWeaponBox` give pattern,
+         `weapons.cpp:1304`), not `GiveNamedItem`.
+      2. **Armor HUD: `gmsgBattery` registered 4 bytes** (`player.cpp:221`),
+         client `MsgFunc_Battery` reads 2 shorts (`cl_dll/battery.cpp:61`),
+         server sent only 1 short (`player.cpp:4005`). Engine drops
+         fixed-size messages with the wrong length outright
+         (`sv_game.c:2670`, "expected 4 bytes, it written 2. Ignored"), so
+         the armor HUD never activated. Fix: send the second short
+         (`maxarmor`) in `player.cpp`.
+      3. **Items: `CTeamFortress::CanHaveItem` returned
+         `ActivationSucceeded(...)`** (`tf_gamerules.cpp:151`), an unfinished
+         stub that always returns FALSE (`tfortmap.cpp:9`), blocking every
+         `item_healthkit`/`item_battery`/ammo pickup at `items.cpp:121`. Fix:
+         fall back to `CHalfLifeMultiplay::CanHaveItem` (TRUE). `gSkillData`
+         IS populated (`gamerules.cpp:179-181` hardcodes battery=15,
+         healthkit=25 + `RefreshSkillData()` from the mp ctor) -- so
+         healthkits heal 25 once the gate is fixed.
+      Also fixed: railgun `Spawn()` set its classname to `" tf_weapon_railgun"`
+      with a leading space (`tf_wpn_railgun.cpp:17`). Diagnostics in
+      `tf_client.cpp` switched from `ALERT` (dropped at developer 0) to
+      `pfnServerPrint` (`Con_Printf`, always logs) -- `[tfc]` lines per
+      join/class/spawn/weapon-give.
+    - **HW round 3: weapons + armor + ammo HUD all now WORK on screen**
+      (`[tfc] PlayerSpawn done: ... got armor=150 carried=4
+      active=tf_weapon_shotgun`, HW-confirmed). The 3 Codex fixes hold.
+      Remaining: **weapons don't fire.** `wpn_shared/tf_wpn_*` weapons have
+      never run server-side before (tf15-client only connected to real
+      servers). Static trace inconclusive: the decrement-timer model
+      (`UTIL_WeaponTimeBase()`==0 under `CLIENT_WEAPONS`, `player.cpp`
+      PostThink decrements `m_flNextPrimaryAttack` per frame, `CanAttack`
+      checks `<=0`) looks self-consistent server-side; `FireBulletsPlayer`
+      deals real damage on the shotgun's `iDamage=4` path. `PLAYBACK_EVENT`s
+      use `FEV_NOTHOST` so a non-predicting listen host (`cl_lw=0` on PS3)
+      sees no muzzle *event* -- but server-side `EF_MUZZLEFLASH`/decals/
+      damage should still land. Added fire-path diagnostics in `weapons.cpp`
+      + `player.cpp ItemPostFrame`: `[tfc] fire <w>` (PrimaryAttack reached),
+      `[tfc] fire BLOCKED` (CanAttack failed), `[tfc] ItemPostFrame gated`
+      (`m_flNextAttack` stuck), `[tfc] ItemPostFrame: no active item`,
+      silence = button never reaches the server.
+    - **HW round 4 (2026-09-05): healthkits heal (CanHaveItem fix
+      HW-confirmed). Weapons still don't fire -- ROOT CAUSE FOUND.**
+      Diagnostic: `[tfc] fire tf_weapon_shotgun clip=-1`. `PrimaryAttack` IS
+      reached (button + CanAttack fine), but `m_iClip == -1` so
+      `CTFShotgun::PrimaryAttack`'s `if (m_iClip <= 0) { Reload(); ... }`
+      loops forever without firing. `m_iClip` was forced to -1 by
+      `AddPrimaryAmmo` (`weapons.cpp:821`, `if (iMaxClip < 1) m_iClip = -1`)
+      because `ItemInfoArray[WEAPON_TF_SHOTGUN].iMaxClip == 0`. That is 0
+      because `UTIL_PrecacheOtherWeapon` (`weapons.cpp:272`) called
+      `pEntity->Precache()` -- NOT `Spawn()` -- and the TFC weapons set
+      `m_iMaxClipSize` (which `GetItemInfo` returns as `iMaxClip`) only in
+      `Spawn()`, never `Precache()`. Base HL weapons return a hardcoded
+      constant from `GetItemInfo` so they're immune. Fix: `UTIL_PrecacheOtherWeapon`
+      now `DispatchSpawn(pent)` instead of `Precache()` so the clip-size
+      members are set before `GetItemInfo` snapshots them. Affects the
+      shotgun + supershotgun (the only TFC clip weapons); nailgun/axe are
+      correctly noclip.
+    - **HW round 5 (2026-09-05): shotgun FIRES (`[tfc] fire ... clip=8 ->
+      2 -> 0`), but reload + weapon-switch dead, firing timing wrong
+      (`nextprim` stuck ~0.98, never counts down).** Root cause:
+      `CBasePlayerWeapon::UseDecrement()` was hardcoded `return FALSE`
+      (`weapons.h:235`). The `wpn_shared/tf_wpn_*` weapons use ONLY the
+      relative decrement-timer model -- `Reload()`/`WeaponIdle()`/switch
+      checks all compare `m_flNextPrimaryAttack` & friends to `0.0f`, and
+      `UTIL_WeaponTimeBase()` is 0 under `CLIENT_WEAPONS`. Those timers are
+      decremented only when `UseDecrement()` is TRUE (`player.cpp` PostThink,
+      `client.cpp` GetWeaponData). FALSE -> firing half-works (`CanAttack`
+      falls back to `attack_time <= gpGlobals->time`) but every `<= 0.0f`
+      gate stays shut forever. `CHandGrenade` already overrides
+      `UseDecrement()` to `#if CLIENT_WEAPONS return TRUE`. Fix: same body on
+      base `CBasePlayerWeapon::UseDecrement()`.
+    - **HW round 6 (2026-09-05): shotgun fires one-per-pull, clip decrements
+      right, `nextprim` counts down (UseDecrement fix works). Reload still
+      dead + weapon-switch dead.** Two more bugs:
+      1. **`m_flNextReload` decremented on the CLIENT
+         (`cl_dll/tfc/tf_weapons.cpp:1117`) but NOT in the server PostThink
+         decrement loop** (`player.cpp:2665` had NextPrimary/Secondary/
+         TimeWeaponIdle/fuser1, not NextReload). tf_wpn_sg/gl/rpg
+         special-reload sets `m_flNextReload = m_fReloadTime` then gates the
+         next state on `m_flNextReload <= 0.0f` -> never true server-side ->
+         clip never refills. Fix: decrement `m_flNextReload` too (clamp
+         -0.001f).
+      2. **`client.cpp:597` weapon-select only matched a command that starts
+         with `weapon_`** (`pstr == pcmd`); TFC's client sends `tf_weapon_ng`
+         -> "Unknown command". Fix: also accept the `tf_weapon_` prefix.
+      `m_flPumpTime` decrement still commented out (`player.cpp:2679`) ->
+      shotgun pump anim won't play; cosmetic, left alone.
+    - **HW round 7 (2026-09-10): reload + weapon-switch + nailgun all work.
+      Only bug left: HUD reserve ammo count frozen (clip count is fine).**
+      The `tf_wpn_*` weapons drain the scalar `ammo_shells`/`ammo_nails`/etc
+      (`cbase.h` members), but the HUD reserve is `gWR.riAmmo[]` fed by
+      `gmsgAmmoX` from `CBasePlayer::SendAmmoUpdate()`, which only watches
+      `m_rgAmmo[]`. Nothing synced the two. Fix: `TeamFortress_SyncAmmo()`
+      (`tf_client.cpp`) mirrors the 4 scalars into
+      `m_rgAmmo[GetAmmoIndex(...)]` every frame, called from a new
+      `CTeamFortress::PlayerThink` override (runs in PreThink, before
+      `UpdateClientData`). One-way -- fine until a phase adds ammo pickups
+      that write `m_rgAmmo` directly. `cd->ammo_shells` in the
+      `UpdateClientData` export is still unset (matters only for a remote
+      predicting client, not the PS3 host).
+    - **HW round 8 (2026-09-10): hitscan classes fully playable. User flagged
+      assault-cannon speed wrong.** `CBasePlayer::TeamFortress_SetSpeed()`
+      (`player.cpp:421`) was an empty stub, so AC wind-up / sniper zoom
+      (`tfstate |= TFSTATE_AIMING`) never dropped movement speed to 80. The
+      client copy (`cl_dll/tfc/tf_weapons.cpp:521`) is complete but never
+      runs the local player's real movement under `cl_lw=0`. Fix: port the
+      client version to the server (class-base speed switch + the
+      `TFSTATE_AIMING -> 80` clamp + `pfnSetClientMaxspeed`).
+      `TeamFortress_PlayerSpawn` now calls `TeamFortress_SetSpeed()` instead
+      of setting `pev->maxspeed` directly. Retest pending.
+  - **Phase 2**: hand grenades + the class grenade-2 types, built on
+    `CGrenade`. Split 2a/2b (user-approved 2026-09-10). Only 7 grenade-2 types
+    exist here -- `GR_TYPE_FLASH`/`GR_TYPE_FLARE` are commented out in
+    `tf_defs.h`.
+    - **Phase 2a -- WRITTEN 2026-09-10, awaiting build + HW.** Prime/throw
+      pipeline + the normal grenade + per-class counts + HUD count + L1/R1
+      binds. New `dlls/tf_grenade.cpp` (`CTFGrenade : CGrenade`,
+      `tf_weapon_normalgrenade`; real `TeamFortress_PrimeGrenade` /
+      `ThrowPrimedGrenade` / `RemoveLiveGrenades`; `TFGRENROW` loadout table
+      off `PC_*_GRENADE_TYPE/INIT_1/2`; `gmsgGrenades` HUD count -- per-index
+      2-byte msg, one send per slot; `gmsgStatusIcon` `"grenade"` prime beep;
+      `TeamFortress_GrenadeCommand` handling `+gren1/-gren1/+gren2/-gren2`
+      forwarded from the engine). `TF_GREN_FUSE` = `GR_PRIMETIME+1` (~4s from
+      prime); held past the fuse blows in hand (`TeamFortress_GrenadeThink`
+      from `PlayerThink`). Edits: `tf_client.cpp`, `tf_gamerules.cpp`,
+      `player.h` (+2 members), `tf_defs.h` (+4 decls), `exports.txt`
+      (+`tf_weapon_normalgrenade`). Engine: `in_ps3.c PS3_SeedKeyboardBinds`
+      `is_tfc` -> `PS3_ModRebind` L1->`+gren1`, R1->`+gren2`. No wscript
+      change. Models/sounds already precached by `W_Precache`.
+    - **Phase 2b -- WRITTEN 2026-09-10 (pulled forward, same round as 2a per
+      user), awaiting build + HW.** All 7 grenade-2 types in `tf_grenade.cpp`:
+      one `CTFGrenade` class (7 classnames) with an `m_iGrenType` switch in
+      `TFDetonate` -- concussion (view wobble via `gmsgConcuss`, ~0 dmg),
+      MIRV (`GR_TYPE_MIRV_NO` child `CTFGrenade`s), napalm (`DMG_BURN` blast +
+      a server DoT loop), gas (green `UTIL_ScreenFade` + weak wobble), EMP
+      (blast + detonate/zero victims' shells/cells/rockets), nail (lands, spins
+      `MOVETYPE_NONE`, `RadiusDamage` pulses for `TF_NAIL_LIFETIME`). Scout's
+      caltrop grenade (`GR_TYPE_CALTROP`, on `+gren1`) scatters
+      `TF_CALTROP_SHARDS` `CTFCaltrop` `SOLID_BBOX` shards that slow + bleed
+      the first enemy to touch. Own tumble think (`TFTumble`) -- `CGrenade::
+      TumbleThink` hard-codes `SetThink(&CGrenade::Detonate)` (the OpFor-rune
+      non-virtual-base trap) so it would skip the type effect. Lingering
+      effects (conc/gas wobble, burn DoT, caltrop slow) tracked on 8 new
+      `player.h` fields, ticked from `TeamFortress_GrenadeThink`. **Approximated,
+      not faithful**: TFC's flame / hallucination / timer subsystems are all
+      empty stubs in this tree (`subs.cpp` `Timer_*`, `CBasePlayer::Ignite`
+      declared-only). The `TeamFortress_TakeConcussionBlast` / `EMPExplode` /
+      etc virtuals are left as the `#ifndef CLIENT_DLL {}` no-ops -- effects
+      applied directly in the grenade's detonate instead. All 10 grenade
+      classnames added to `exports.txt`. Tunables: the `TF_*` `#define`s at the
+      top of `tf_grenade.cpp`.
+      - **HW round 1 (2026-09-10): REGRESSION -- normal grenade stopped
+        exploding. Rewritten**: dropped the custom `EXPORT` think +
+        `m_iGrenType` switch + `GetClassPtr`; now spawn via
+        `CBaseEntity::Create(<classname>)`, one `CTFTossGrenade` base whose
+        stock-copy think calls a **virtual `Detonate2()`** at the fuse; one
+        `LINK_ENTITY_TO_CLASS` subclass per type; classname carries the type.
+      - **HW round 2: pipeline works (log confirms), but behaviour "clearly
+        wrong". Opus review -> Round A applied 2026-09-10.** Full Opus report
+        in the [[project_xashps3_tfc6_hosting_broken]] memory. Highlights:
+        `v_idlescale=3` is invisible (need ~200; `view.cpp:406`); caltrop is a
+        thrown can `tf_weapon_caltropgrenade` w/ `GR_CALTROP_PRIME` 0.5s;
+        stock `m_iConc*` + `leg_damage` + `nailpos` fields exist unused; all 10
+        FX events already `PRECACHE_EVENT`'d in `world.cpp:560` and just need
+        `PLAYBACK_EVENT_FULL`. Round A: real conc (0 dmg, conc-jump push for
+        all, disorient enemies-only, 200-start 5s ramp via stock fields),
+        caltrop can + `leg_damage` slow in `TeamFortress_SetSpeed`, per-type FX
+        events, two-pass victim gather (fixed a latent UAF).
+      - **HW rounds 3-4 (2026-09-10): pipeline + frag + caltrop + MIRV + EMP +
+        conc-in-hand all fire correctly (Scout/HWGuy tested, no errors).** Conc
+        held-in-hand fixed (was spawning `eye+forward*16` -> pushed the thrower
+        DOWN + no self-swim): now spawns at `origin.z + pev->mins.z + 4` (stand
+        OR duck hull bottom) and `TF_ConcPush` has a point-blank (`<48u`)
+        straight-up-full-strength branch. Codex 2nd opinion confirmed the
+        approach (`pev->velocity` write from PreThink IS authoritative -- see
+        the memory for the full Codex facts, incl. `cl_lw` != movement pred).
+        **User verdict: "some right, but many issues" -- not enumerated.
+        SESSION HANDOFF: see [[project_xashps3_tfc6_hosting_broken]] top of the
+        Phase 2 section. Next session: get the specific issue list first.**
+        Latest build `build_tfc/engine/EBOOT.pkg` 17:53.
+      - **Round B WRITTEN 2026-09-10, awaiting build + HW.** The user's issue
+        list this round was: wrong models, wrong per-type behaviour ("some
+        detonate too early, or in a weird way"), and "scout's first grenade is
+        not a grenade -- you tap and they land on the ground". Fixes, all in
+        `tf_grenade.cpp` (+1 line in `exports.txt`):
+        1. **Wrong model was the biggest one and it was one line. HW-VALIDATED
+           2026-09-10 -- user confirmed every grenade model is correct.** Every
+           type used `models/grenade.mdl`, which **TFC does not ship** -- it resolved
+           out of `valve/` to the Half-Life hand grenade. The real per-type names
+           are in `client.cpp:1072-1081`'s `ENGINE_FORCE_UNMODIFIED` block:
+           `w_grenade` / `conc_grenade` / `ngrenade` / `mirv_grenade` /
+           `bomblet` / `napalm` / `spy_grenade` / `emp_grenade` / `caltrop`.
+           **Reusable: that force-unmodified list is the authoritative TFC asset
+           filename table -- read it before inventing a model or sprite name.**
+           Now a virtual `GrenModel()`/`FXEvent()` pair per subclass; the base
+           `Precache()` precaches all 9 so no type is ever a late precache.
+           Also dropped the stock-HL `pev->sequence = RANDOM_LONG(3,6)`, which
+           is a `grenade.mdl` animation range the TFC models do not have.
+        2. **Fuse back to `GR_PRIMETIME + 1` (4s).** Round A had lowered it to
+           3s and that is what "detonates too early" tracked.
+        3. **Caltrops no longer prime.** `TeamFortress_PrimeGrenade` deploys the
+           can immediately on `+gren1` and returns, so a normal press-and-hold
+           can no longer blow it in hand (with a 0.5s prime it always did). The
+           can is tossed flat *backwards* from the hull bottom and deliberately
+           does NOT inherit the player velocity, so a fleeing scout drops it
+           where they were.
+        4. **Nail grenade sprays a real rotating nail ring** instead of an
+           omnidirectional `RadiusDamage` pulse: `PLAYBACK_EVENT_FULL` of
+           `tf_nailgren.sc` (the client already implements it) plus matching
+           server traces. The wire packing is fixed by `EV_TFC_NailgrenadeNail`
+           (`ev_tfc.cpp:1477`): `iparam1` = yaw*4 in the low 11 bits, the
+           ignore-entity index in the next 5, `fparam1` = the per-nail yaw step.
+           The client advances the yaw *before* drawing each nail, so the server
+           loop must too or the visible nails and the damage diverge. Rise is
+           now traced so a low ceiling cannot swallow it, and the model is turned
+           from the think (`MOVETYPE_NONE` never integrates `avelocity`).
+        5. **Napalm leaves a lingering fire field** (`tf_burn.sc` every
+           `TF_NAPALM_TICK` for `TF_NAPALM_FIELD`) instead of only burning
+           whoever was in the blast.
+        6. **EMP plays `tf_engrgren.sc` as well as `tf_emp.sc`** -- its own event
+           is only the shockwave ring + `emp_1.wav`, no explosion at all.
+        7. **MIRV bomblets are `tf_weapon_mirvbomblet`**, with `bomblet.mdl` and
+           the `tf_mirv.sc` event; they used to respawn as normal grenades.
+        **Big-endian: audited, no bug found in this path, and the packed
+        `iparam1` is safe by construction.** Stock `delta.lst` describes
+        `iparam1` as `DT_SIGNED|DT_INTEGER, 16`, so a value >= 0x8000 arrives
+        sign-extended -- but both client extractions (`& 0x7FF`,
+        `(>> 11) & 0x1F`) mask, so two's complement round-trips exactly. The
+        other three wire paths are byte-only and length-matched
+        (`gmsgGrenades`/`SecAmmoVal` 2 bytes, `gmsgConcuss` 1,
+        `gmsgStatusIcon` variable), and the event-arg delta already reads
+        integer fields at the C member width (the section-13 fix).
+        New failure mode to watch for: the 9 model precaches set
+        `RES_FATALIFMISSING`, so a `tfc/models/` install missing any one of them
+        now fails loudly by name instead of silently drawing the wrong grenade.
+      - **Round C WRITTEN 2026-09-10, awaiting build + HW.** User verdict on
+        Round B: "some got much better", nail grenade still wrong. Two real
+        defects in Round B's nail spray, both from it being **hitscan**:
+        1. **Damage arrived up to a second before the nail you can see.** The
+           client's nails are `R_Projectile` temp entities at **1000 u/s**
+           (`cl_tent.c:1483`, `EV_TFC_NailgrenadeNail`), so instant trace damage
+           at 1000 units landed ~1s early -- and hit people across a sightline
+           the visible nails had not reached.
+        2. **A thin ray is far too sparse to be a nail.** With 5 rays 72deg
+           apart the ring only swept a target's angular width ~12% of pulses at
+           200 units, so a real nail grenade did ~36 damage there. Inconsistent
+           by construction, which is what "weird" tracked.
+        Fix: **real server-side nail projectiles.** New `CTFGrenNail`
+        (`tf_grenade_nail`, +1 exports.txt line): `MOVETYPE_FLY` + `SOLID_BBOX`,
+        `TF_NAIL_SPEED` 1000 to match the client, `TF_NAIL_LIFE` 1.5s, spawned
+        at the same `TF_NAIL_SPAWN` 12u offset and the same yaw the client uses,
+        so the nail you see IS the nail that hits.
+        **Reusable trick: the nails cost zero bandwidth.** `SET_MODEL` (so the
+        engine links and clips them like any missile) + `EF_NODRAW`, which
+        `AddToFullPack` drops at `client.cpp:1309` -- otherwise the client would
+        draw both the server nail and its own temp entity.
+        **Trap avoided: `CTFGrenNail::Fire` takes `dir` BY VALUE.** In this tree
+        `vec3_t` IS `Vector`, so a `const Vector &` parameter bound to
+        `gpGlobals->v_forward` aliases the global -- anything inside
+        `CBaseEntity::Create` that remade the vectors would silently change the
+        caller's direction. Same family as the OpFor-rune non-virtual-base trap.
+        Also: `NailTouch` goes `SOLID_NOT` + `SetTouch(NULL)` before
+        `UTIL_Remove`, because `UTIL_Remove` only flags the edict and a second
+        touch in the same frame would land a second hit.
+        Pulse retuned to 0.1s with `TF_NAIL_SPIN` 36 (two pulses sweep a whole
+        72deg gap). Added the **active-grenade caps** while in here --
+        `MAX_NAIL_GRENS`/`MAX_NAPALM_GRENS`/`MAX_GAS_GRENS`/`MAX_CALTROP_CANS`
+        via a live `UTIL_FindEntityByClassname` count at prime time (`TF_ActiveCap`
+        + `TF_CountLive`), not a bookkept counter, so nothing can leak the slot.
+        Same round, user-reported: **napalm burned people underwater.** Fire is
+        now doused in three places, because the burn state has three entry
+        points: `TF_ApplyBurn` refuses a submerged player, the per-tick DoT in
+        `TeamFortress_GrenadeThink` clears `m_flTFBurnEnd` when they get in,
+        and `CTFNapalmGrenade::Detonate2` drops the `DMG_BURN` bit and skips the
+        lingering field entirely when it goes off in water. `NapalmField` also
+        extinguishes if its own point floods. One shared `TF_Douses()` accepts
+        `CONTENTS_WATER`/`CONTENTS_SLIME` but NOT lava. Notes:
+        - the fire field is `MOVETYPE_NONE`, which **never refreshes
+          `pev->waterlevel`** (`SV_Physics_None` does not call `SV_CheckWater`),
+          so it asks `UTIL_PointContents` instead of trusting the stale field.
+        - `UTIL_PointContents` -> `SV_PointContents` (`sv_world.c:823`) remaps
+          `CONTENTS_CURRENT_*` to `CONTENTS_WATER`, and `PM_CheckWater` stores the
+          remapped value in `pev->watertype` too, so a current brush still
+          douses. Use `SV_TruePointContents` only if you actually want currents.
+        - players: `TF_WATER_DOUSE` is waterlevel 2 (waist), so wading does not
+          put fire out but dunking does -- the standard TFC answer to burning.
+          `watertype` round-trips through pmove (`sv_pmove.c:555,610`), so it is
+          safe to test alongside waterlevel.
+        **Follow-up bug in Round C's own nail projectile, found from the user
+        asking "is it normal the Soldier's grenade does no damage?" (soldier
+        gren2 = nail).** `CTFGrenNail::Fire` set `pev->owner` to the thrower for
+        attribution -- but `SV_ClipToLinks` skips a mover's owner
+        (`sv_world.c:1194`), so **every nail passed straight through the person
+        who threw it**. Combine that with TFC-6 Half B (nobody can connect to a
+        PS3-hosted server), and the only reachable target in any test is
+        yourself: nail damage measured exactly zero, always. Real TFC nail
+        grenades do hurt the thrower. Fix: `pev->owner` stays NULL and the
+        attacker moves to an `EHANDLE m_hAttacker` on the entity. Also
+        `CTFNailGrenade::Detonate2` now goes `SOLID_NOT` while spraying, or the
+        hovering can eats its own nails; and `tf_grenade_nail` came back out of
+        `RemoveLiveGrenades` (ownerless, and it expires in `TF_NAIL_LIFE`).
+        **Reusable, this is a whole bug class on this goal: on a PS3 listen
+        server the host is the ONLY damageable player, so any projectile that
+        sets `pev->owner` for attribution is untestable and reads as "does no
+        damage". Check the owner-skip before believing a damage report.**
+        Second thing to know when reading a damage test here: `CBasePlayer::
+        TakeDamage` sends 80% of damage to armor (`ARMOR_RATIO 0.2`,
+        `player.cpp:526`), so a 9-damage nail costs a 200-armor soldier
+        **1 health** and 3.6 armor. Watch the armor number, not health.
+      - **HW round 5 (2026-09-10): models all correct (VALIDATED), napalm water
+        fix works (VALIDATED), caltrops drop instantly but do no damage and no
+        slow. Nail owner-skip fix not tested yet.** Caltrops were the SAME bug
+        class as the nail: `CTFCaltrop::ShardTouch` had two hand-rolled gates,
+        `if ( pOther == pOwner ) return;` and a `PlayerRelationship(...) ==
+        GR_TEAMMATE` test. You are your own teammate, so **both** blocked the
+        host -- and the host is the only damageable player here. Fix: deleted
+        both and let `TakeDamage` decide, because
+        `CHalfLifeTeamplay::FPlayerCanTakeDamage` already refuses a teammate
+        while `friendlyfire` is 0 **and explicitly allows self-damage** via its
+        `( pAttacker != pPlayer )` guard (`teamplay_gamerules.cpp:389`). Its
+        return value now gates the `leg_damage` slow too, so a refused teammate
+        is not silently slowed. **Reusable: never hand-roll a team/self test in
+        this tree -- route it through `FPlayerCanTakeDamage` and you get the
+        friendly-fire rule and self-damage for free.**
+        Two magnitude fixes in the same pass, both judgement calls, both named
+        `#define`s: `TF_CALTROP_LEG` is 2.0 not 1.0 (1 point == 10% for 2s was
+        imperceptible), and **`DMG_CALTROP` now bypasses armor** alongside
+        `DMG_FALL`/`DMG_DROWN` in `player.cpp` -- at `ARMOR_RATIO 0.2` a
+        6-damage caltrop cost exactly 1 health, which is indistinguishable from
+        the bug that was just fixed.
+      - **Caltrop HUD icon, 2026-09-10 (user: "an icon displayed bottom left
+        when hurt"). Mechanism found, one real bug fixed, one question open.**
+        The bottom-left icons are `CHudHealth`'s damage-type tiles, NOT status
+        icons -- `UpdateTiles` (`cl_dll/health.cpp:451`) puts them at
+        `x = giDmgWidth/8`, `y = ScreenHeight - giDmgHeight*2`, while
+        `CHudStatusIcons::Draw` is `x=5` from `ScreenHeight/2` going UP, i.e.
+        mid-left. Do not confuse the two.
+        **Real bug fixed: `DMG_CALTROP` polluted `m_bitsDamageType` forever.**
+        `UpdateClientData` ends with `m_bitsDamageType &= DMG_TIMEBASED`
+        (`player.cpp:4100`), and `DMG_TIMEBASED` is `~0x3fff` -- so every TFC
+        high bit (`DMG_CALTROP` 1<<30, `DMG_IGNOREARMOR` 1<<27, `DMG_HALLUC`
+        1<<31 ...) survives it for the life of the player, even though these are
+        damage *modifiers*, not ongoing conditions. Meanwhile `TakeDamage` sets
+        `m_bitsHUDDamage = -1` on every hit (`player.cpp:628`) to force a
+        `gmsgDamage` resend, so **any persistent bit that is also in
+        `DMG_SHOWNHUD` re-lights its tile on every later hit of any kind**.
+        Caltrops now clear `DMG_CALTROP|DMG_IGNOREARMOR` in
+        `TeamFortress_GrenadeThink` once `leg_damage` decays to 0.
+        **RESOLVED, and I had the request backwards:** the user's screenshot was
+        a *reference from real TFC on PC* (72.5 fps, above the PS3's 60 Hz
+        lock) -- they were asking for a MISSING feature, not reporting a stray
+        icon. Real TFC shows the same `dmg_caltrop` sprite twice: a bottom-left
+        damage tile AND a mid-left status icon. Checked against the user's own
+        `tfc/sprites/hud.txt`: `dmg_caltrop` is exactly 9 entries after
+        `dmg_bio` in both the 320 and 640 blocks, so the client's tile
+        `m_HUD_dmg_bio + 8` (`giDmgFlags[8]`) was already correct -- the server's
+        `DMG_SHOWNHUD` just never sent the bit. Fixed: `DMG_CALTROP` added to
+        `DMG_SHOWNHUD` (tile), plus `TF_SetLegIcon()` sends `gmsgStatusIcon`
+        `"dmg_caltrop"` on the 0->hurt edge of `leg_damage` and clears it when it
+        decays or on respawn (client status icons outlive death unless told).
+        `dmg_tranq` / `dmg_concuss` / `dmg_haluc` (sic) tiles also exist in
+        hud.txt and are still not in `DMG_SHOWNHUD` -- deliberately left, since
+        `DMG_TRANQ` and `DMG_CONCUSS` alias `DMG_MORTAR`/`DMG_SONIC`. **Trap while
+        investigating: TFC aliases `DMG_NOT_SELF` to `DMG_FREEZE`
+        (`cbase.h:959`), and `DMG_FREEZE` IS in `DMG_SHOWNHUD` -- so anything
+        flagged "don't hurt self" lights the COLD tile.** Same family:
+        `DMG_NAIL`=`DMG_SLASH`, `DMG_TRANQ`=`DMG_MORTAR`,
+        `DMG_CONCUSS`=`DMG_SONIC`.
+        Also corrected last round's armor hack: instead of naming `DMG_CALTROP`
+        in `player.cpp`'s armor condition, that condition now honours
+        **`DMG_IGNOREARMOR`** -- TFC's own flag (`cbase.h:947`), declared and
+        used by nothing in this tree until now. Caltrops send
+        `DMG_CALTROP|DMG_IGNOREARMOR`. Phase 3+ weapons can reuse the flag.
+      - **GROUND TRUTH FOUND 2026-09-11: the retail `tfc/dlls/tfc.so` in the
+        user's Steam install (`E:\SteamLibrary\steamapps\common\Half-Life\tfc`)
+        is the real TFC server shipped with full symbols AND DWARF.** Every
+        TFC-6 value can be read instead of guessed. Method + tooling in the
+        `reference_tfc_steam_install` memory; the two traps are (1) it is
+        non-PIC i386, so constants are absolute `[0x13....]` .rodata loads you
+        read from the file, and (2) think/touch pointers to global functions
+        show as immediate 0 -- resolve them from `llvm-objdump -R`.
+        **Round E, applied from tfc.so, awaiting HW** (user asked: grenades
+        "always get placed facing up"; Soldier's nail grenade "rises up, then
+        shoots (point blank deals damage), then explodes (killing the
+        soldier)"):
+        - **Orientation, all types:** `CTFPrimeGrenade::Spawn` never sets
+          angles and `Throw` zeroes `avelocity`, so TFC grenades fly and land
+          at angles 0 -- upright. Ours aimed them along the velocity and gave a
+          random pitch spin. Now `angles = avelocity = 0`.
+        - **Bounce:** own `TFBounceTouch` copied from TFC's `CGrenade::
+          BounceTouch` -- velocity x0.6 on the ground, silent below 30 u/s,
+          clink in the air. The HL one we used also dealt 1 club damage,
+          posted danger sounds and changed the model sequence.
+        - **Throw (`CTFPrimeGrenade::Throw`):** from the thrower's ORIGIN (not
+          eye+16), `forward*600 + up*(200+-10) + right*(+-10)`, **no inherited
+          player velocity**, gravity 0.81, friction 0.6 (ours: HL 0.5/0.8,
+          pitch-scaled speed capped 500).
+        - **Fuse:** `InitPriming` sets `heat = time + getPrimeTime() 3.0 +
+          getPinTime() 0.8`, and `Throw` copies it to `dmgtime`. **3.8 s from
+          prime** -- both Round A's 3 s and Round B's 4 s were guesses.
+        - **Nail grenade, the whole chain:** fuse -> `Explode`: NO blast, trace
+          up 32, `MOVETYPE_FLY`, `SOLID_NOT`, angles/velocity 0, `EF_NOINTERP`,
+          0.4 s -> `NailGrenadeNailEm` (0.1 s) -> `NailGrenadeLaunchNail`
+          x41, 0.1 s apart: yaw step `RANDOM_FLOAT(30,40)`, **4** server nails
+          per burst (the client event draws 5), ring yaw is `pev->angles.y`
+          -> `FinishedExplode`: a real grenade blast, 180 dmg,
+          `DMG_BLAST|DMG_RADIUS_QUAKE`, and **`tf_ng.sc` is THIS explosion** --
+          Round B wrongly played it at the fuse. Nails
+          (`CreateNailGrenNail` + `CTFNailgunNail::Spawn`/`NailTouch`):
+          `MOVETYPE_FLYMISSILE`, 1000 u/s, 6 s life, `EF_NODRAW`, **18 dmg**
+          (ours 9) via plain `TakeDamage(DMG_NAIL)` + `SpawnBlood` on a hit.
+          TFC sets the nail's `pev->owner` to the GRENADE and keeps the thrower
+          in an EHANDLE -- the same shape as our owner-skip fix. The event
+          packs `(ENTINDEX(owner)-1) << 11`, off by one vs the client's
+          `bound(1, idx, maxclients)`; reproduced as-is.
+        - **`::RadiusDamage` now honours `DMG_RADIUS_QUAKE`** (`combat.cpp`):
+          `damage = D - 0.5 * dist`, and the attacker takes 75% of their own
+          blast (both from tfc.so's global `RadiusDamage`). No existing caller
+          passes the flag, so nothing else changed. Radius stays `D * 2.5`
+          (`CBaseMonster::RadiusDamage`).
+        **Read from tfc.so but deliberately NOT applied yet** (not asked for):
+        `setDamage` per type -- frag **180** (ours 120) and it blasts with
+        `DMG_RADIUS_QUAKE`; MIRV **180** (ours 90); gas 10 (ours 0); **EMP 0**
+        (ours adds a 45 blast); napalm 20, conc 0, caltrop 0 already match.
+        MIRV bomblets also use `DMG_RADIUS_QUAKE` and play `tf_normalgren.sc`,
+        not `tf_mirv.sc`; their launch is `CTFBomblet::LaunchFromMirv`.
+        Caltrop's `getPrimeTime` is 0.5.
+      - **Round D** (still open): `DMSG_GREN_*` death messages,
+        `tf_weapon_genericprimedgrenade` in-hand model, gas hallucination
+        (`pHallucinationSounds1[]`, `tfort.cpp:147`), verify `v_idlescale` peak
+        vs real TFC, and the throw arc -- TFC grenades may not use the floaty HL
+        `gravity 0.5`; the knob is `TF_GREN_GRAVITY`.
+  - **Phase 3**: projectile weapons (nailgun nails, soldier rockets,
+    demoman GL + pipebombs, incendiary, tranq darts).
+    **WRITTEN 2026-09-11 from tfc.so; HW round 1 same day: user reports it
+    working (no per-weapon breakdown given).**
+    `dlls/tf_wpn_nails.cpp` now holds every projectile: `CTFNailgunNail`
+    (nail 9 / super 13 / tranq 20 + 15 s half speed / rail 25, all
+    EF_NODRAW, the client event draws them), `CTFRpgRocket` (900 u/s, 92-112,
+    radius = dmg, QUAKE falloff, parametric client path), `CTFIncendiaryCRocket`
+    (600 u/s, hits the victim twice with IGNITE, flat 15 in 180u),
+    `CTFGrenade` (GL 2.5 s fuse / 120, pipebombs `tf_gl_pipebomb`, 8 max, 0.6 s
+    arm for `detpipe`), `CTFFlamethrowerBurst` (600 u/s x 1 s, 15 + IGNITE)
+    and `CBasePlayer::Ignite` + `CTFFlame` (numflames x 2 per second, 5 s,
+    cap 4, doused above the waist). Shared: TFC `CGrenade::Explode` /
+    `ExplodeTouch` ported as `TF_ProjExplode` / `TF_ProjDirectHit` -- a direct
+    hit takes full dmg and `pev->enemy` keeps the victim out of the splash.
+    Engine-of-the-mod changes it needed, all [tfc.so]: `::RadiusDamage`
+    (no water test, enemy skip, WALLPIERCING, RADIUS_MAX, self 75%);
+    `CBasePlayer::TakeDamage` (player attacker x0.9 / quad x4, armorclass
+    halves, armor = floor(dmg*armortype), projectile knockback dmg x8 or x11
+    = rocket/pipe jumps, DMG_NOT_SELF, ignite); `CBaseMonster::TakeDamage`
+    self-push capped 55; `TeamFortress_SetSpeed` tranq halves, then legs,
+    then the aiming cap. Real `IsAlly`, `CreateTimer`/`FindTimer` ("timer"
+    entity), `Timer_Tranquilisation`, `UseSpecialSkill` (R3 = `special` on
+    the pad), `detpipe`, `TeamFortress_RemoveTimers` from `Killed`.
+    `gpGlobals->teamplay` now keeps mp_teamplay's bits (was forced to 1).
+    **Trap: `SUB_Remove()` frees the edict at once -- never from a touch; use
+    `UTIL_Remove` after going SOLID_NOT.** Host-testable only: rocket/pipe/GL
+    jumps, IC self-splash, pipe detonation; no second player can join (6b).
+  - **Team restrictions** (between Phase 3 and 4). **WRITTEN 2026-09-11 from
+    tfc.so; HW-VALIDATED same day: user confirmed enemy doors/triggers stay
+    shut, own doors open, team-only packs refused, dustbowl own-team spawns,
+    blue first-person hands (SetSkin fix).** Symptom: a blue player could open
+    red-only doors and use red-only triggers. Cause: `ActivationSucceeded` was
+    a `return FALSE` stub that nothing called. Now real in `tfortmap.cpp`,
+    with `APMeetsCriteria` (team_no + alive, `teamcheck` via
+    `info_tf_teamcheck`, playerclass, items_allowed, if_goal/group/item
+    states, has/hasnt item from group) and REVERSE_AP. Hooked exactly where
+    tfc.so calls it: MultiTouch, HurtTouch, TeleportTouch, CTriggerPush,
+    DoorActivate, CMomentaryDoor::Use, ButtonTouch/Use/TakeDamage (plus the
+    TFGA_SPANNER rules), CPlatTrigger (the trigger now copies the plat's
+    TFC fields, as tfc.so does), CBreakable::TakeDamage, `CanHaveItem`, and
+    team spawn selection. `info_player_teamspawn`/`i_p_t` are now `CTFSpawn`
+    (`CheckTeam`, skips goal_state REMOVED); `teamcheck` keys are strings.
+    **Open until Phase 5**: `else_goal` does nothing (needs
+    `ActivateDoResults`), and criteria that name an `info_tfgoal`/
+    `item_tfgoal` fail because those entities do not exist yet (rock2
+    red/blue switches, 2 ravelin triggers, dustbowl's items_allowed
+    trigger_once).
+  - **Phase 4**: engineer (sentry build/aim/fire/upgrade, dispenser,
+    spanner) + spy (disguise, feign death). **CLOSED by the user 2026-09-12
+    after 4 HW rounds** -- "the goal of this phase was met", remaining polish
+    deferred to the teleporter phase.
+    **HW-confirmed:** command menu opens on the pad, dispenser and sentry both
+    build and place correctly, sentry sits at the right height on its legs,
+    spy disguise and feign death both work, no view snap on menu clicks.
+    **Written but NOT yet on hardware** (all landed after the last round):
+    the spy's knife loadout, the sentry legs entity, the team-coloured hit
+    glow, the `mp_teamplay` building-damage gate, and the continuous
+    `tf_build_freemetal`.
+    **Never testable solo, still unproven:** sentry target acquisition,
+    firing, level-3 rockets, spanner repair/upgrade/reload, dispenser refill,
+    spanner armour to a teammate. All of these need a second player, so they
+    are blocked behind TFC-6 half B, not behind Phase 4.
+    **Deferred to the teleporter phase:** teleporters themselves (`build 4`/
+    `build 5` answer `#Build_nobuild` today, the det commands are swallowed),
+    EMP-vs-building, the mortar, `DoDamageEffects` damage smoke, and
+    `CTFSentrygun::CheckSentry`'s malfunction path.
+    **WRITTEN 2026-09-12 from tfc.so, host-clang syntax-clean, NOT yet built
+    for PS3 and NOT HW-tested.** Two new files, no wscript change (glob):
+    - `dlls/tf_building.cpp` -- `CTFSentrygun` (`building_sentrygun`) and
+      `CTFDispenser` (`building_dispenser`), the whole build flow
+      (`TeamFortress_EngineerBuild`/`TeamFortress_Build`/
+      `Timer_FinishedBuilding`/`DestroyBuilding`/`Engineer_RemoveBuildings`),
+      the spanner hooks (`CTFSentrygun`/`CTFDispenser`/`CBasePlayer`
+      `::EngineerUse`), real `CheckBelowBuilding`/`CheckArea`, and the
+      `gmsgBuildState` sender. Also defines `teamsprint` and
+      `CBasePlayer::GiveTFAmmo`, both declared in this tree but never defined.
+    - `dlls/tf_spy.cpp` -- disguise (`SpyDisguise`/`SpyDisguiseEnemy`/
+      `SpyChangeSkin`/`SpyCalcName`/`Spy_RemoveDisguise`/
+      `Timer_SpyUndercoverThink`), feign death (`CanFeign`/
+      `TeamFortress_SpyFeignDeath`), the fake kill-feed line, and the
+      `gmsgFeignState` sender.
+    Edits: `tf_client.cpp` (command dispatch + per-spawn reset),
+    `tf_gamerules.cpp` (`PlayerThink` -> `TeamFortress_SpyThink` +
+    `TeamFortress_SendBuildState`), `player.h` (real `EngineerUse` decl,
+    `m_iszSavedWeaponModel`), `player.cpp` (`Killed` drops buildings and the
+    disguise), `subs.cpp` (5 stubs removed, now real), `client.cpp`
+    (`AddToFullPack` reports an undercover spy's cover team/class to
+    non-allies -- this is what puts the disguise on the enemy HUD),
+    `exports.txt` (+2 classnames), `engine/platform/ps3/in_ps3.c`
+    (**D-pad up -> `+commandmenu`: nothing else on the pad reaches the VGUI
+    command menu, so Phase 4 is unusable without it**).
+    Numbers, all [tfc.so]: sentry 150 hp / 25 shells / 100 max, scan arc
+    +-45 deg at `m_iBaseTurnRate` 6, FOV 0.7, range 1000, 16-damage bullets,
+    fire every 0.2 s at level 1 and 0.1 s above, upgrade x1.2 hp+maxshells
+    for 130 metal, level 3 adds 20 rockets at one per 3 s; dispenser
+    generates 20/30/15/20 + 50 armour every 12 s and hands out 20/20/10/10 +
+    20 armour a touch; spanner repairs at 5 metal per hp, gives a teammate 5
+    armour per metal capped at 50, refills 40 shells / 20 rockets; disguise
+    takes 4 s for your own team and 8 s for another; dismantle refunds a flat
+    100 metal, cancelling a build refunds nothing (both TFC-faithful).
+    **Traps handled, keep them in mind for Phase 5:**
+    - `Killed` in this tree is `(pevInflictor, pevAttacker, iGib)`. A 2-arg
+      override compiles and silently does NOT override.
+    - `Engineer_RemoveBuildings` runs inside `CBasePlayer::Killed`, so
+      building detonation is **deferred by 0.1 s**; a synchronous
+      `::RadiusDamage` there re-enters `TakeDamage` on the dying engineer.
+    - The sentry rocket's `pev->owner` is the ENGINEER (so kills credit him),
+      which means `SV_ClipToLinks` does not skip the sentry -- the muzzle is a
+      fixed 24 u offset outside the hull, not the model attachment, or the
+      rocket detonates on its own gun.
+    - Localisation tokens were all checked against retail `tfc/Titles.txt`:
+      it is `#Build_stop`, `#Sentry_destroyed`, `#Dispenser_destroyed`,
+      `#Disguise_Lost` (capital L) -- the obvious spellings do not exist.
+      Same failure class as the OpFor `#Team_Menu_Join` bug.
+    - Big-endian audited: nothing here casts a scalar to bytes. Every wire
+      path is `WRITE_BYTE`/`WRITE_SHORT`/`WRITE_COORD`/`WRITE_STRING`.
+    **Deliberately out of this phase:** teleporters (not in the Phase 4 line;
+    `build 4`/`build 5` answer `#Build_nobuild`, the det commands are
+    swallowed), the mortar, EMP-vs-building, `DoDamageEffects` smoke, and the
+    separate `building_sentrygun_base` pedestal entity (the sentry wears
+    `base.mdl` itself while building).
+    **Testing caveat -- read before judging the HW round:** the host is still
+    the only player (half B), and he is his own teammate, so the sentry will
+    never acquire anyone by default. `mp_friendlyfire 1` lifts the ally check
+    in `ValidTarget` as a **test aid, not TFC parity** -- that is the only way
+    to see it track and fire solo.
+      - **HW round 1 (2026-09-12): command menu opens, dispenser builds.**
+        User's four issues, all root-caused and fixed the same day:
+        1. **"Not enough room" wherever you build.** `CheckArea` was invented,
+           not read. tfc.so's is **not a hull-fit test**: it is
+           `UTIL_PointContents(origin)` (must be EMPTY or WATER) plus a
+           `human_hull` trace from the spot back to the builder's eyes. Round
+           1 traced a human hull centred on the floor, and that hull's bottom
+           is 36 u underground, so `fStartSolid` was always true. The build
+           spot was wrong too: **tfc.so puts the building at the PLAYER's own
+           origin height** (`(int)(origin.x + fwd.x*64)`, same for y, `z =
+           origin.z`, no ground trace) and lets `CheckBelowBuilding` switch it
+           to `MOVETYPE_TOSS` so it drops into place. Round 1 put it on the
+           floor itself, which is what made every hull test start solid.
+        2. **Cannot afford the sentry.** Not a bug: retail engineers spawn
+           with **100** metal (`TeamFortress_SetEquipment` sets `ammo_cells`
+           0x64, max 0xc8) and the sentry gate is `ammo_cells > 129`. The
+           blocker is that map ammo packs are Phase 5, so the only metal
+           source today is your own dispenser. Added **`tf_build_freemetal`**
+           (default 0, `FCVAR_SERVER`) which fills an engineer's metal on
+           spawn -- a **test aid, not parity**, same class as the
+           `mp_friendlyfire` sentry switch. Also fixed a real timing bug found
+           here: **tfc.so deducts the metal in the building's `Finished()`,
+           not when the build starts** (`CTFDispenser::Finished` does
+           `owner->ammo_cells -= 100` before taking its 25% ammo cut).
+        3. **Feign death: still able to jump, body still standing.** Two
+           causes. **Clearing `pev->button` does nothing to movement** --
+           `SV_ParseClientMove` feeds pmove the raw usercmd, not `pev`. The
+           flag that works is **`FL_FROZEN`** (`SV_PlayerIsFrozen`,
+           `sv_client.c:3308`), which zeroes movement, buttons and impulse but
+           **keeps viewangles** -- exactly the feign contract. Second,
+           `CBasePlayer::PostThink` calls `SetAnimation(PLAYER_IDLE/WALK)`
+           every frame on a live player, and `SetAnimation`'s own `FL_FROZEN`
+           clause forces `PLAYER_IDLE`, so the death pose never survived a
+           frame. `SetAnimation` now returns early while `is_feigning` unless
+           the request is `PLAYER_DIE`. `FL_FROZEN` is now also used for the
+           build freeze, which had the same jump hole.
+        4. **Disguise never completed** ("Going undercover..." and nothing).
+           The countdown lived on a spawned `timer` entity. Moved onto the
+           player (`m_iSpyDisguiseClass`/`m_iSpyDisguiseTeam`/
+           `m_flSpyDisguiseTime`) and ticked from `TeamFortress_SpyThink`,
+           the same path grenades already prove runs. Also: round 1 dropped
+           the cover on any attack **including during the countdown** (which
+           is what tfc.so does), so a held fire button silently cancelled it;
+           now only a **live** cover (`is_undercover == 1`) is broken by
+           firing, and `tf_weapon_axe` counts as the spy's knife (the spy is
+           given the axe, not `tf_weapon_knife`, and `CTFAxe::AxeHit` already
+           carries the backstab rules).
+      - **HW round 2 (2026-09-12): spy works, feign works, disguise works.**
+        Three issues left, all root-caused and fixed the same day:
+        1. **Still "not enough room" in open ground.** Round 1's rewrite had
+           the right shape but the wrong trace arguments: it passed
+           `dont_ignore_monsters` and ignored the BUILDER. The building is
+           `SOLID_BBOX` and sits exactly on the trace start, so it blocked its
+           own test and `fStartSolid` was true every single time. tfc.so
+           passes **`ignore_monsters` and ignores the BUILDING's own edict**
+           (`[pev+0x208]` at `0x82a16`) -- only world geometry may block it.
+           Confirmation the placement is right: tfc.so adds 18 to the start Z
+           when the builder is ducking, which lands the hull bottom on the
+           floor exactly as a standing builder's origin already does.
+        2. **Spy carried the crowbar.** `TeamFortress_SetEquipment` gives the
+           spy `tf_weapon_knife`; every other axe class gets `tf_weapon_axe`.
+           `WEAP_AXE` is one bit for two different weapons, so the loadout map
+           needs a per-class override. (`tf_weapon_knife` was already exported
+           and already precached by `W_Precache`.)
+        3. **The view snapped when clicking a VGUI entry.** `in_ps3.c` zeroed
+           the move axes only when `cls.key_dest == key_menu`, but **VGUI1
+           panels open over live gameplay** (`key_dest` stays `key_game`,
+           `ps3_wants_cursor` goes true) -- so the right stick drove the
+           cursor AND the view at once, and aiming up at a menu entry pitched
+           the player up. All four move/look axes are now zeroed under the
+           same condition `PS3_UpdateMenuCursor` uses, so the cursor and the
+           view can never both consume the stick. **This was engine-wide: it
+           hit the TFC team/class/MOTD panels too, not just Phase 4.**
+      - **HW round 3 (2026-09-12): builds work; the sentry was sunk into the
+        floor.** Cause: collapsing `building_sentrygun_base` away lost a real
+        offset. **tfc.so's `CTFSentrygunBase::Finished` places the gun at
+        `base->origin + (0,0,21.2)`** (`[0x14a5cc]`), and `sentry*.mdl` is
+        authored around that pivot, so an origin on the floor buries the model
+        to the waist. (The MDL headers are no help -- every one of these models
+        has an all-zero `bbmin`/`bbmax`.) `Finished()` now lifts by 21.2, and
+        **must set `MOVETYPE_FLY` first**: the build drop left it
+        `MOVETYPE_TOSS`, which would pull the lift straight back out. Same
+        round, read from tfc.so while in there: the dispenser is
+        **24 tall, not 48**, and `CreateDispenser` faces it at
+        `AngleMod(builder->angles.y + 180)` -- it looks AT the engineer.
+        Also reported: "build a dispenser and I must die to build anything
+        else", "build a sentry and it counts as if both exist". **Neither is a
+        flag bug -- it is the metal budget, and it is faithful.** The engineer's
+        cap is 200, a dispenser is 100 and a sentry is 130, so 230 never fits in
+        one load; whichever you build second has its `BS_CANB_*` bit cleared and
+        its menu entry vanishes, which reads as "already built". Retail refills
+        from map ammo packs between builds (Phase 5) or from your own dispenser
+        (20 metal per 12 s, 10 per touch). `tf_build_freemetal 1` now **tops an
+        engineer's metal up every frame** instead of only on spawn, so both
+        buildings can coexist for testing.
+      - **HW round 4 (2026-09-12): sentry height right, legs missing.** The
+        21.2 lift was only half the story -- **`base.mdl` IS the legs**, and it
+        stays as its own entity under the gun. Measured from the sequence
+        bboxes (the MDL header bbox is all zeros on every one of these models,
+        so read `mstudioseqdesc` `bbmin`/`bbmax` at +96/+108 instead):
+        `base.mdl` spans z 0..21.6, `sentry1/2/3.mdl` span z ~0..29/35/44 --
+        gun body only, drawn upward from their own origin. So the lift is
+        exactly the leg height and collapsing `building_sentrygun_base` away
+        always had to lose them. Now a real `CTFSentrygunBase`
+        (`building_sentrygun_base`, +1 exports line) is spawned by
+        `CTFSentrygun::Finished()` at the settled build spot, cross-linked
+        through `m_pOtherSection`, forwarding its damage to the gun, and
+        removed by both `Killed` and `DestroyBuilding`. Same measurement pass:
+        `dispenser.mdl` is 50 u tall but tfc.so gives it a 24 u box on purpose
+        -- do not "fix" that to match the model.
+      - **Sentry<->player audit (2026-09-12), asked for after round 4.** Three
+        findings, first two applied:
+        1. **The ally-damage rule for buildings is `mp_teamplay` bit 2 (value
+           4), NOT `mp_friendlyfire`.** `CBaseMonster::TakeDamage` blocks a
+           client attacker who is an ally and not the victim, unless the damage
+           is `DMG_BLAST` (blast always lands). Retail `listenserver.cfg` sets
+           `mp_teamplay 21`, so bit 2 is on and you cannot shoot your own
+           sentry. Our `CBaseMonster::TakeDamage` has no such gate, so the rule
+           lives in `TF_BuildingCanTakeDamage` in `tf_building.cpp` rather than
+           in shared monster code -- a placement deviation, same behaviour.
+        2. **A hit building flashes a team-coloured glow shell** --
+           `kRenderFxGlowShell`, `renderamt` 150, fading 40 per think
+           (`CTFSentrygun::TakeDamage` + `CheckShield`). Colours by team_no:
+           1 blue (0,0,255), 2 red (255,0,0), 3 yellow (245,255,0), else green
+           (0,215,45). This was missing entirely, so damaging a building gave
+           no feedback at all.
+        3. **Open:** `CTFSentrygun::TeamFortress_TakeEMPBlast` scales the blast
+           by the gun's stored shells/rockets, so a full sentry detonates hard.
+           Phase 2's EMP grenade does not reach buildings yet.
+        **Correction to an earlier read: vtable slot `+0x88` is `IsAlive()`,
+        not `IsPlayer()`.** `CBaseMonster::TakeDamage` uses it to route into
+        `DeadTakeDamage`. `CTFSentrygun::ValidTarget` checks both anyway, so no
+        behaviour changed -- but do not reuse the old label.
+  - **Phase 5**: map goals/flags (`info_tfgoal`/`item_tfgoal`), map scripts,
+    prematch, detpack. User widened it (2026-09-16) to also take teleporters
+    and the Phase 4 polish (EMP-vs-building, mortar, damage smoke,
+    `CheckSentry`). Split into 5a goals / 5b detpack + teleporters / 5c polish.
+      - **5d -- spawn parity. HW-VALIDATED 2026-09-17** (user: "everything is
+        working as intended"). **This closes TFC-6 half A: the from-scratch TFC
+        server reimplementation is playable and done.** Two user-reported bugs, both
+        read out of `CBasePlayer::TeamFortress_SetEquipment` (tfc.so 0xc4060):
+        - **Every class deployed the shotgun.** Retail's per-class branch ends
+          on `SwitchWeapon( <default> )`: scout ng, sniper sniperrifle, soldier
+          rpg, demoman gl, medic superng, hwguy ac, pyro flamethrower, spy
+          tranq, engineer railgun, civilian axe. Without that call the generic
+          `FShouldSwitchWeapon` weight pick decides, and the shotgun wins.
+          `CBasePlayer::SwitchWeapon(const char*)` was a dead decl in
+          `player.h` -- now implemented off tfc.so 0xc3c60 (match on
+          `ItemInfoArray[m_iId].pszName`, `CanDeploy` gate, `ResetAutoaim`,
+          holster + deploy; it does NOT touch `m_pLastItem`), plus a
+          `sTFClassDefWeapon[]` table in `tf_client.cpp`.
+        - **The classless "spectator" state was invented, not ported.** Retail's
+          `PC_UNDEFINED` branch: `SOLID_NOT`, **`MOVETYPE_NOCLIP`** (we had
+          `MOVETYPE_NONE`), `EF_NODRAW`, `health = max_health = 1`,
+          `takedamage 0`, armour/armourclass 0, `flags = (flags & FL_PROXY) |
+          FL_CLIENT | FL_NOTARGET`, `waterlevel = 3`, `tfstate |=
+          TFSTATE_RELOADING`, and `velocity 0` / `maxspeed 1` through
+          `TeamFortress_SetSpeed`. The SetEquipment tail then does
+          `m_iHideHUD |= HIDEHUD_ALL` when `playerclass == 0 && iuser1 == 0`
+          and `&= ~HIDEHUD_ALL` otherwise -- we hid only WEAPONS|HEALTH.
+          `TFSTATE_RELOADING` is cleared for every class at the head of
+          SetEquipment and only the undefined branch re-sets it; that is what
+          stops a classless player firing, so the clear must stay unconditional.
+          Retail does **not** call `StartObserver` for a classless player: its
+          only callers are `ClientCommand` and `StartDeathCam`.
+        - Retail zeroes `pev->modelindex` in SetEquipment, but `SetSkin` runs
+          after it in `Spawn` and re-sets the shared scout hull, so the zero is
+          transient -- do not port it (our SetSkin runs first).
+      - **5c -- polish. HW-VALIDATED 2026-09-17** (user: the HW tests work).
+        - **EMP, whole chain replaced.** `CTFEMPGrenade::Explode` deals no
+          damage itself: it calls `TeamFortress_TakeEMPBlast(pevGren)` on
+          every entity within 240 u. The old hand-written player "cook" in
+          `tf_grenade.cpp` was invented and is gone. Real overrides: player
+          (a quarter of shells/rockets/cells, rounded up, cooks off;
+          engineer cells are exempt; blast = shells*0.75 + rockets*1.5
+          (+ cells*1.5) through `TeamFortress_EMPExplode` =
+          `DMG_BLAST|DMG_RADIUS_QUAKE` + a `TE_EXPLOSION`), sentry,
+          dispenser and teleporter (flat 200 `DMG_BLAST` through their own
+          `TakeDamage`), pipebombs (detonate 0.1 s later), detpack (already
+          done in 5b). Everything else is a no-op in retail: hand grenades,
+          GL grenades, rockets, items. `CItem::TeamFortress_EMPRemove` and
+          `CTFPrimeGrenade::TakeEMPBlast` have no callers in tfc.so.
+          `CWeaponBox`'s override was skipped: nothing in this tree fills a
+          box's `ammo_*`, so it would always be a no-op.
+        - **The old note "the sentry's EMP damage scales with its shells and
+          rockets" was WRONG.** It is a flat 200.
+        - **Mortar: nothing to port.** `Menu_EngineerFix_Mortar` is a bare
+          `ret` in tfc.so and `_Input` only resets the menu state. Retail TFC
+          has no engineer mortar.
+        - **`DoDamageEffects` + `UpdateEntityEvents`** now also run on the
+          sentry (`SentryRotate`, `Attack`) and the dispenser
+          (`DispenserThink`). Both now precache `tf_buildingevent.sc` (it was
+          the teleporter only) and send the 0x400 remove event from `Killed`
+          and from a dismantle.
+        - **`CTFSentrygun::CheckSentry`**, every 3 s from `SentryRotate`: the
+          gun malfunctions (`#Sentry_malfunc` to all, log line,
+          `Killed(NULL, NULL, 0)`) if it is more than 24 u from its legs or
+          its origin is inside a `func_nobuild`'s `mins`/`maxs`. As in
+          retail, the fall check now runs on the LEGS (only while the gun is
+          idle), not on the gun.
+      - **5b -- detpack + teleporters. HW-VALIDATED 2026-09-17** (user: "it
+        worked").
+      - **5a -- goals, flags, map entities. HW-VALIDATED 2026-09-16** (user:
+        "everything seems correct"). Finished an uncommitted peer-session draft
+        (`tfortmap.cpp` goal system, `tf_clan.cpp` prematch/ceasefire) that
+        neither compiled nor linked. All from tfc.so:
+        - `exports.txt` had none of the goal classnames; added them plus
+          `func_nobuild` (274 on the 15 retail maps -- CheckArea searched for
+          them but none ever spawned), `func_nogrenades`, `item_armor1/2/3`.
+          `info_areadef` (location names) is still unlinked.
+        - Hook points, each read from tfc.so: carried items drop inside
+          `TeamFortress_RemoveTimers` and at feign start;
+          `ParseTFMapSettings` from `ServerActivate`;
+          `CleanupOnPlayerDisconnection` from
+          `CHalfLifeMultiplay::ClientDisconnected`; team-spawn messages,
+          `DoResults`, one-shot flags, spawn sound and the cease-fire freeze
+          all live in `CGameRules::GetPlayerSpawnSpot`, which uses the
+          round-robin `FindTeamSpawnPoint` (the random selector is gone).
+        - New bodies: `CheckClassStats`, `RemoveRockets`, `ForceRespawn`,
+          `ClientHearVox`, `DetpackStop`, `RemoveDetpacks` (`tf_detpack.cpp`),
+          `IsLegalClass`; ValClass now sends the map's class mask;
+          `civilian` works on a civilian-only team; `flaginfo`, `dropitems`,
+          `adm_ceasefire` (listen host only); `GiveTFAmmo` takes negatives.
+        - **Retail quirks kept:** `CBaseDelay::KeyValue` eats `killtarget`, so
+          a goal's killtarget never fires in retail either; armour packs
+          compare the player's armour VALUE with the pack's type.
+        - **Link check without a PS3 build:** host clang `-c -m32` over every
+          `dlls/`, `wpn_shared/`, `pm_shared/` file, then diff
+          `llvm-nm --defined-only` against `llvm-nm -u`.
+
+  Phase-1 implementation notes from the Codex consult (verify each against
+  live source before relying on it): send the team menu from
+  `CTeamFortress::InitHUD` (queues correctly behind the already-visible
+  MOTD via the client's menu chain), NOT from `ClientPutInServer` (pre-HUD,
+  clobbers observer fields) or `PlayerSpawn` (fires every respawn); handle
+  `jointeam`/class/`_special` in `CTeamFortress::ClientCommand` not global
+  `client.cpp`; the team menu disables named buttons unless `gmsgTeamNames`
+  reports enough teams; `civilian` is map-forced, not player-selectable;
+  keep both the generic `m_rgAmmo` (via `GiveAmmo`) and the TFC `ammo_*`
+  fields in sync (TFC attacks read `ammo_shells` etc directly); all wire
+  shorts must go through engine `WRITE_SHORT` (client `parsemsg.cpp`
+  rebuilds LE byte-by-byte -- safe unless new code casts native ints).
+  Ranked risks: (1) team spawn-point selection (`CTFSpawn` only declared,
+  `FindTeamSpawnPoint` returns null -- inspect real BSP entity data before
+  hardcoding classnames), (2) observer/undefined-class lifecycle, (3)
+  `AddToFullPack` state-replication timing, (4) dual ammo fields + holed
+  projectile weapons, (5) `number_of_teams`/player-count/class-legality
+  stubs. Big-endian risk low for this slice.
+
+  **6b. Other players cannot connect to a PS3-hosted listen server at all.**
+  Separate bug, root cause NOT FOUND, NOT part of the Phase plan above. The
+  one lead investigated (GoldSrc checksum munge) is confirmed NOT the cause
+  (`cl_main.c:1323` -- this connection type negotiates native Xash
+  protocol). Needs real hardware data: a second real client attempting to
+  connect while the UDP log is captured live, plus whatever the connecting
+  client reports on its end (timeout / kick reason string / never appears).
+- **TFC-7**: endianness audit of TFC-specific wire/binary code (`dlls/tfc/`,
+  `cl_dll/tfc/`, sentry/dispenser networked state, `wpn_shared`) -- do not
+  assume it is safe just because it is hlsdk-lineage: cs16-client had a real
+  raw-byte-order bug in its usermessage reader that base HL1's hand-rolled
+  parser did not have (see the CS section above), so audit before trusting.
+- **TFC-8**: in-game hardware validation. Expect a CS-5-style client memory
+  ceiling during precache (nine player classes' worth of models/sounds vs
+  CS's simpler roster) and the same `XASH_64BIT` / dead-`build.h`-snapshot
+  check CS needed if tf15-client also fails to include a real `build.h`.
+
+
+### Ricochet flavor (`--gamedir=ricochet`, XASHRC000, `build_ricochet/`)
+
+- **RC-1 identity -- HARDWARE-VALIDATED 2026-08-04.** Boots to the menu with
+  base HL1 code under `-game ricochet`.
+- **RC-2 game code -- WRITTEN 2026-09-17, NOT BUILT, awaiting the user's build
+  and hardware test.** Repo-root `ricochet/` is its own tree, not `#ifdef`
+  gates (the gating generator's unbalanced-conditional flaw is gone with it):
+  - Source: `ValveSoftware/halflife` at `82ebce2` (pre-HL25), `ricochet/`
+    3-way merged against that commit's `dlls/`/`cl_dll/`/`pm_shared/` as base
+    and `hlsdk-portable/` (BSHIFT/OPFOR stripped) as ours. The 2024 Valve
+    fix `a4fe2cb` only touches `sound.cpp`'s texture init, which ours already
+    replaces with `PM_FindTextureType`.
+  - Server: merged files; Valve's versions taken whole where Ricochet rewrote
+    them (`player.cpp/.h`, `weapons.cpp/.h`, `multiplay_gamerules.cpp`,
+    `observer.cpp`, the stripped monster headers). `extdll.h`, `util.h`
+    (64-bit `MAKE_STRING`, `FIELD_FUNCTION` size) and `cbase.*` stay
+    hlsdk-portable. `GetNewDLLFunctions` (OnFreeEntPrivateData,
+    ShouldCollide) is exported. `game_shared/voice_gamemgr.cpp` is compiled
+    because the Ricochet rules use `CVoiceGameMgr` unconditionally.
+    `exports.txt` = 4 API names + 148 entities (taken from the preprocessor,
+    `trip_beam` is `#if`'d out).
+  - Client: hlsdk-portable's client with `USE_VGUI=1` as the base, plus
+    Ricochet's own `view.cpp` (chase cam), `StudioModelRenderer`/
+    `GameStudioModelRenderer`, `ev_hldm`, `hl/*`, `Ricochet_JumpPads`,
+    `vgui_discobjects`. Hand-ported additions: StartRnd/EndRnd/Powerup/
+    Reward/Frozen hooks and viewport handlers, `g_iArenaMode`, disc icons in
+    `paintBackground`, hidden ammo/battery/flashlight HUD, freeze icon,
+    locked-spectator look block (also in `input_xash3d.cpp`), render-state
+    hack in `entity.cpp`. VGUI sources come from upstream hlsdk-portable.
+  - Big-endian: `Ricochet_LoadEntityLump` assembled the BSP header with a raw
+    `memcpy`; it now reads each field little-endian and bounds-checks the
+    entity lump. It also loads `maps/x.bsp` game-relative instead of
+    `gamedir/maps/x.bsp`, and a pad with no target no longer derefs NULL.
+  - Real bug the syntax check could not see: Valve's `CBasePlayer::GiveAmmo(
+    int, char*, int)` did not override hlsdk-portable's `const char*` virtual,
+    so every call through `CBaseEntity*` returned -1. Found with
+    `-Woverloaded-virtual`, fixed with `const`.
+  - Verification done: every server/client/pm_shared TU passes
+    `g++/gcc -fsyntax-only` in WSL Ubuntu 24.04 (gcc 13, LP64) with the
+    project's `-Werror=` set and no `-fpermissive`. Nothing was compiled to
+    objects or linked, so link errors (duplicate or missing symbols) and PPC
+    specifics are untested.
+  - `cl_lw` stays 0 on PS3, so client disc prediction never runs; jump pad
+    prediction and the Ricochet player animation still run every frame from
+    `HUD_PostRunCmd`.
+  - Data: the user stages the Steam `ricochet/` folder under
+    `/dev_hdd0/data/xash3dfwgs/ricochet/`.
+- **RC-3**: in-game hardware validation (disc throw/bounce, decapitation,
+  jump pads, arena rounds, powerups, scoreboard wins column, third-person
+  camera). Expect first-build link errors to fix before this.
+
+Not yet checked in detail: `particleman` (submodule, `USE_PARTICLEMAN`-gated
+across 6 files, skippable for v1, matches CS's optional-extras precedent).
+
+## 8. Repo layout after the 2026-08-04 cleanup
+
+The tree was reduced to exactly what the PS3 build compiles, links and
+packages. Verified by rebuilding from scratch afterwards and confirming the
+translation-unit count is byte-for-byte unchanged (616 TUs, same per-directory
+breakdown as before the cleanup) -- nothing that reaches the binary was
+touched. What went, and why:
+
+- **Other platforms.** `engine/platform/{android,dos,ios,irix,linux,nswitch,
+  psvita,sdl1,sdl2,sdl3,stub,win32}` -- `engine/wscript` only globs
+  `platform/$DEST_OS/*.c` plus `platform/posix`, so none were ever compiled.
+  `android/` (Android Studio project), `game_launch/` (`env.LAUNCHER` is
+  forced off for ps3), `utils/`, `.builds/`, `.github/workflows/`,
+  `scripts/{cirrus,flatpak,gha,ios,sailfish}` went with them.
+- **Other renderers.** `ref/null`, `ref/gl/vgl_shim` (PSVita's vitaGL shim),
+  and the `ref_gles1`/`ref_gles2`/`ref_gl4es`/`ref_gles3compat` targets in
+  `ref/gl/wscript`, plus their backends `3rdparty/{nanogl,gl-wes-v2,gl4es}`.
+  `ref_soft` and `ref_gl` (over `3rdparty/ps3gl`) both stay -- see section 7.
+- **Unbuilt 3rdparty subprojects.** `extras` (builds `extras.pk3`, which
+  `scripts/waifulib/ps3.py` never puts in the PKG -- and shipping its fonts
+  is a known regression, see the goal-18 notes), `mbedtls`, `libbacktrace`,
+  `libogg`, `vorbis` (the last two resolve to ps3dev portlibs via pkg-config,
+  so the bundled copies never configured), `maintui`, `vgui_support`,
+  `yy-thunks`.
+- **Vendored-library cruft.** opus/opusfile/bzip2 kept only the sources their
+  wscripts actually list, plus headers and licenses; their autotools/CMake/
+  meson/MSVC projects, docs, tests, demos and non-PPC SIMD trees
+  (`celt/{arm,x86,mips}`, `silk/{arm,x86,mips,fixed}`) are gone.
+- **Excluded sources.** The `.cpp` files `hlsdk-portable/{dlls,cl_dll}/wscript`
+  name in their `excl=` lists (VGUI, goldsource input, debug stubs) were
+  deleted rather than left to confuse; all headers were kept.
+- **Test-only trees.** `public/tests`, `filesystem/tests`,
+  `3rdparty/*/tests` -- `bld.env.TESTS` is never set for this target.
+- **Bring-up tools.** `tools/ps3_bringup` and `tools/ps3_video` (goals 1 and 4,
+  both closed and hardware-validated long ago) and `tools/gen_reslist`. The
+  goal entries above still describe them; recover from git history or the
+  disk backup if a future RSX experiment wants the standalone harness back.
+
+Kept deliberately even though the build does not consume them: `Documentation/`,
+`icons/` (only `icons/hl1/ICON0.PNG` is packaged, the rest are for future mod
+flavors), `packaging/ps3/README.md` (cross-referenced from
+`3rdparty/mainui/wscript`), `CONTRIBUTING.md`, `SECURITY.md`, `.clang-format`,
+`.editorconfig`, and `hlsdk-portable/external/openbsd/strlc{py,at}.c` (the
+wscripts still reference them behind the `HAVE_STRLCPY`/`HAVE_STRLCAT` probes).
+
+---
+> Source: [Mayo1970/xash3d-fwgs](https://github.com/Mayo1970/xash3d-fwgs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-21 -->
