@@ -1,0 +1,9 @@
+{
+  "name": "itsnin--spotlight",
+  "displayName": "spotlight",
+  "description": "A compact, keyboard-driven launcher for GNOME Shell, inspired by macOS Spotlight.",
+  "version": "1.0.0",
+  "author": "itsnin",
+  "homepage": "https://github.com/itsnin/spotlight",
+  "skills": []
+}
