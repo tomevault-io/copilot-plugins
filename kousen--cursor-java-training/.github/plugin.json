@@ -1,0 +1,9 @@
+{
+  "name": "kousen--cursor-java-training",
+  "displayName": "cursor-java-training",
+  "description": "Materials for a series of training courses using Cursor for Java development",
+  "version": "1.0.0",
+  "author": "kousen",
+  "homepage": "https://github.com/kousen/cursor-java-training",
+  "skills": []
+}
