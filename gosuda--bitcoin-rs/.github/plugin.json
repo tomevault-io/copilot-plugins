@@ -1,0 +1,9 @@
+{
+  "name": "gosuda--bitcoin-rs",
+  "displayName": "bitcoin-rs",
+  "description": "Bitcoin full independent blazingly-fast node in Rust, with a typed API for embedding inside Rust ecosystems",
+  "version": "1.0.0",
+  "author": "gosuda",
+  "homepage": "https://github.com/gosuda/bitcoin-rs",
+  "skills": []
+}
