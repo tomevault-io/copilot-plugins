@@ -1,0 +1,9 @@
+{
+  "name": "aarnott--shapeshift",
+  "displayName": "ShapeShift",
+  "description": "One .NET serializer for all formats that's ready for NativeAOT.",
+  "version": "1.0.0",
+  "author": "AArnott",
+  "homepage": "https://github.com/AArnott/ShapeShift",
+  "skills": []
+}
