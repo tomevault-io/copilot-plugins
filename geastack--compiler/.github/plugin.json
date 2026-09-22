@@ -1,0 +1,9 @@
+{
+  "name": "geastack--compiler",
+  "displayName": "compiler",
+  "description": "geatsc: the GeaStack TypeScript-to-C++ compiler. A clean-room rewrite built on one rule \u2014 a statically typed value that reaches a dynamic carrier is a defect, not a fallback.",
+  "version": "1.0.0",
+  "author": "geastack",
+  "homepage": "https://github.com/geastack/compiler",
+  "skills": []
+}
