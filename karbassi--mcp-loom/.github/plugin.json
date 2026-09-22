@@ -1,0 +1,9 @@
+{
+  "name": "karbassi--mcp-loom",
+  "displayName": "mcp-loom",
+  "description": "MCP server exposing 58 tools for Loom's GraphQL API. Works with Claude, Cursor, or any MCP client.",
+  "version": "1.0.0",
+  "author": "karbassi",
+  "homepage": "https://github.com/karbassi/mcp-loom",
+  "skills": []
+}
