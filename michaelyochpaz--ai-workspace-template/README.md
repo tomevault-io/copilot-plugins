@@ -7,11 +7,11 @@ A unified, multi-repo workspace for AI coding agents and developers.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MichaelYochpaz/ai-workspace-template](https://github.com/MichaelYochpaz/ai-workspace-template).
+Original source: `AGENTS.md` in [MichaelYochpaz/ai-workspace-template](https://github.com/MichaelYochpaz/ai-workspace-template).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
