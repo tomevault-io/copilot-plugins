@@ -1,0 +1,9 @@
+{
+  "name": "lshalgorithm--moe-spac",
+  "displayName": "MoE-SpAc",
+  "description": "Code for MoE-SpAc: Efficient MoE Inference Based on Speculative Activation Utility in Heterogeneous Edge Scenarios",
+  "version": "1.0.0",
+  "author": "lshAlgorithm",
+  "homepage": "https://github.com/lshAlgorithm/MoE-SpAc",
+  "skills": []
+}
