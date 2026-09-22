@@ -1,0 +1,9 @@
+{
+  "name": "sagemathinc--cocalc-ai",
+  "displayName": "cocalc-ai",
+  "description": "CoCalc.ai: Collaborative Calculation with AI",
+  "version": "1.0.0",
+  "author": "sagemathinc",
+  "homepage": "https://github.com/sagemathinc/cocalc-ai",
+  "skills": []
+}
