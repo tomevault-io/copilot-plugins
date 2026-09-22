@@ -4,7 +4,7 @@
   "repo": "xNet",
   "description": "Local-first infrastructure and app for user-owned data: offline-first sync, CRDT collaboration, typed schemas, and secure identity/permissions",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/crs48/xNet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T04:52:06Z"
+  "distributed_at": "2026-09-22T05:09:06Z"
 }
