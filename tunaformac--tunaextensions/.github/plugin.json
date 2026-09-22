@@ -1,0 +1,9 @@
+{
+  "name": "tunaformac--tunaextensions",
+  "displayName": "TunaExtensions",
+  "description": "First-party extensions for Tuna, the macOS launcher",
+  "version": "1.0.0",
+  "author": "tunaformac",
+  "homepage": "https://github.com/tunaformac/TunaExtensions",
+  "skills": []
+}
