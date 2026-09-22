@@ -1,0 +1,9 @@
+{
+  "name": "ddalcu--llmprobe",
+  "displayName": "llmprobe",
+  "description": "Conformance and capability test suite for LLM inference engines \u2014 surface coverage, spec conformance, model capability, and an MTP/performance benchmark.",
+  "version": "1.0.0",
+  "author": "ddalcu",
+  "homepage": "https://github.com/ddalcu/llmprobe",
+  "skills": []
+}
