@@ -4,7 +4,7 @@
   "repo": "ai-workspace-template",
   "description": "A unified, multi-repo workspace for AI coding agents and developers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MichaelYochpaz/ai-workspace-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T03:29:22Z"
+  "distributed_at": "2026-09-22T03:45:46Z"
 }
