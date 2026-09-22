@@ -1,0 +1,9 @@
+{
+  "name": "block--buzz-app",
+  "displayName": "buzz-app",
+  "description": "A new desktop/web app experience for buzz",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/buzz-app",
+  "skills": []
+}
