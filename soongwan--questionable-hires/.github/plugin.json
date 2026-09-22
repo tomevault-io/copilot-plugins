@@ -1,0 +1,9 @@
+{
+  "name": "soongwan--questionable-hires",
+  "displayName": "questionable-hires",
+  "description": "8 character-driven AI coding agent skills for Codex: debugging, code review, regression testing, and release checks. Weird, but employed. Install: npx skills add SoonGwan/questionable-hires",
+  "version": "1.0.0",
+  "author": "SoonGwan",
+  "homepage": "https://github.com/SoonGwan/questionable-hires",
+  "skills": []
+}
