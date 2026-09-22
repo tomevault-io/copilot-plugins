@@ -1,0 +1,9 @@
+{
+  "name": "kimseogyu--undocx",
+  "displayName": "undocx",
+  "description": "Extract clean, structured Markdown from DOCX for LLM and RAG contexts.",
+  "version": "1.0.0",
+  "author": "KimSeogyu",
+  "homepage": "https://github.com/KimSeogyu/undocx",
+  "skills": []
+}
