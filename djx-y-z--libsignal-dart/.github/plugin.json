@@ -1,0 +1,9 @@
+{
+  "name": "djx-y-z--libsignal-dart",
+  "displayName": "libsignal_dart",
+  "description": "Wrapper for libsignal, implementing the Signal Protocol for end-to-end encryption. Features Double Ratchet, X3DH, Sealed Sender, Group Messaging (SenderKey), and Kyber post-quantum key exchange. Optim",
+  "version": "1.0.0",
+  "author": "djx-y-z",
+  "homepage": "https://github.com/djx-y-z/libsignal_dart",
+  "skills": []
+}
