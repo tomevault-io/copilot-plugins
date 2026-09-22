@@ -4,7 +4,7 @@
   "repo": "overture-geocoder",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brad-richardson/overture-geocoder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T06:42:31Z"
+  "distributed_at": "2026-09-22T06:54:09Z"
 }
