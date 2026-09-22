@@ -1,0 +1,9 @@
+{
+  "name": "clickpm--acpagentclient",
+  "displayName": "AcpAgentClient",
+  "description": "Multi-agent ACP desktop client: Flutter shell, Rust core on the official agent-client-protocol SDK, self-designed frontend",
+  "version": "1.0.0",
+  "author": "ClickPM",
+  "homepage": "https://github.com/ClickPM/AcpAgentClient",
+  "skills": []
+}
