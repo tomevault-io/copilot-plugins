@@ -4,7 +4,7 @@
   "repo": "solana-microscope",
   "description": "Solana Microscope",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/solana-foundation/solana-microscope",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T16:31:40Z"
+  "distributed_at": "2026-09-22T16:32:34Z"
 }
