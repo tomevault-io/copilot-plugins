@@ -1,0 +1,9 @@
+{
+  "name": "s-smits--anabasis",
+  "displayName": "anabasis",
+  "description": "Anabasis: automatically solve hard-to-verify, domain-specific problems from one prompt.",
+  "version": "1.0.0",
+  "author": "s-smits",
+  "homepage": "https://github.com/s-smits/anabasis",
+  "skills": []
+}
