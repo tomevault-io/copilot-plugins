@@ -1,0 +1,44 @@
+{
+  "name": "Huaweibei-cool",
+  "owner": "siyunhao2025-beep",
+  "repo": "Huaweibei-cool",
+  "description": "\u84b8\u998f\u534e\u4e3a\u676f\uff0c\u52a9\u4f60\u62ff\u56fd\u4e00\uff01",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/siyunhao2025-beep/Huaweibei-cool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T04:35:32Z"
+}
