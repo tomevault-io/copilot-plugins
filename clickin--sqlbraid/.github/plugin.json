@@ -1,0 +1,9 @@
+{
+  "name": "clickin--sqlbraid",
+  "displayName": "SQLBraid",
+  "description": "Write SQL. Keep TypeScript. Skip the query-builder translation layer.",
+  "version": "1.0.0",
+  "author": "Clickin",
+  "homepage": "https://github.com/Clickin/SQLBraid",
+  "skills": []
+}
