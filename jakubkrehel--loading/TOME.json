@@ -4,7 +4,7 @@
   "repo": "loading",
   "description": "A lightweight library full of beautiful loading indicators for React.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jakubkrehel/loading",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T17:31:32Z"
+  "distributed_at": "2026-09-22T17:32:26Z"
 }
