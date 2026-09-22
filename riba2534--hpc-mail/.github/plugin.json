@@ -1,0 +1,9 @@
+{
+  "name": "riba2534--hpc-mail",
+  "displayName": "hpc-mail",
+  "description": "\u57fa\u4e8e Cloudflare Workers \u7684\u591a\u57df\u540d\u591a\u7528\u6237\u90ae\u7bb1\u7cfb\u7edf\uff1acatch-all \u6536\u4ef6\u3001\u9a8c\u8bc1\u7801\u81ea\u52a8\u63d0\u53d6\u3001\u5f00\u653e REST API\u3001AI Agent \u53cb\u597d",
+  "version": "1.0.0",
+  "author": "riba2534",
+  "homepage": "https://github.com/riba2534/hpc-mail",
+  "skills": []
+}
