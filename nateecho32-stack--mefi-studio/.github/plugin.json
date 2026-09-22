@@ -1,0 +1,9 @@
+{
+  "name": "nateecho32-stack--mefi-studio",
+  "displayName": "mefi-studio",
+  "description": "Mefi's Studio AI+ - A parallel agent environment for running and handling subagents, avoiding and handling multi agent file collisions, works with any provider you have",
+  "version": "1.0.0",
+  "author": "nateecho32-stack",
+  "homepage": "https://github.com/nateecho32-stack/mefi-studio",
+  "skills": []
+}
