@@ -1,0 +1,9 @@
+{
+  "name": "rorkai--rork-local",
+  "displayName": "rork-local",
+  "description": "Build, test & publish iOS apps directly in Claude Code, Codex, and Cursor",
+  "version": "1.0.0",
+  "author": "rorkai",
+  "homepage": "https://github.com/rorkai/rork-local",
+  "skills": []
+}
