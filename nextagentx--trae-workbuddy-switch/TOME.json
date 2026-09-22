@@ -1,0 +1,44 @@
+{
+  "name": "trae-workbuddy-switch",
+  "owner": "NextAgentX",
+  "repo": "trae-workbuddy-switch",
+  "description": "WorkBuddy / TraeWork \u56fd\u5185\u548c\u56fd\u9645\u7248\u8d26\u53f7\u5207\u6362\u684c\u9762 App\uff08Tauri\uff09\uff0c\u652f\u6301\u79ef\u5206\u5230\u671f\u76d1\u63a7\u4e0e\u7b7e\u5230\u3002  (WorkBuddy / TraeWork desktop app for switching between domestic and international accounts (Tauri), supports monitoring points expiration and check-in.)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NextAgentX/trae-workbuddy-switch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T22:35:21Z"
+}
