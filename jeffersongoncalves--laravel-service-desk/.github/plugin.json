@@ -1,0 +1,9 @@
+{
+  "name": "jeffersongoncalves--laravel-service-desk",
+  "displayName": "laravel-service-desk",
+  "description": "A complete, headless Service Desk package for Laravel featuring ticket management, SLA tracking, knowledge base, service catalog with approval workflows, and multi-channel email integration.",
+  "version": "1.0.0",
+  "author": "jeffersongoncalves",
+  "homepage": "https://github.com/jeffersongoncalves/laravel-service-desk",
+  "skills": []
+}
