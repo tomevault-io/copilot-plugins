@@ -1,0 +1,9 @@
+{
+  "name": "sealjay--mcp-whatsapp",
+  "displayName": "mcp-whatsapp",
+  "description": "Single-binary Go MCP server that wraps whatsmeow to expose a personal WhatsApp account as 42 MCP tools (messaging, groups, polls, media, privacy).",
+  "version": "1.0.0",
+  "author": "Sealjay",
+  "homepage": "https://github.com/Sealjay/mcp-whatsapp",
+  "skills": []
+}
