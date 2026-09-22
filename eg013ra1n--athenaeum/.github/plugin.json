@@ -1,0 +1,9 @@
+{
+  "name": "eg013ra1n--athenaeum",
+  "displayName": "athenaeum",
+  "description": "Catalog manager for astrophotographers \u2014 FITS/XISF metadata, frame-set clustering, calibration matching, master creation and export",
+  "version": "1.0.0",
+  "author": "eg013ra1n",
+  "homepage": "https://github.com/eg013ra1n/athenaeum",
+  "skills": []
+}
