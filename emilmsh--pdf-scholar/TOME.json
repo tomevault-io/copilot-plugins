@@ -4,7 +4,7 @@
   "repo": "pdf-scholar",
   "description": "A PDF reader and annotator for Windows and macOS, built for research. Free, MIT-licensed, and offline unless you ask a question.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/emilmsh/pdf-scholar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T02:58:59Z"
+  "distributed_at": "2026-09-22T03:03:47Z"
 }
