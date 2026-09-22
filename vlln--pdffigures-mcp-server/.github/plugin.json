@@ -1,0 +1,9 @@
+{
+  "name": "vlln--pdffigures-mcp-server",
+  "displayName": "pdffigures-mcp-server",
+  "description": "Extract figures and tables from PDF documents using this FastAPI-based service. The Figure Extractor API and MCP Server provides a straightforward HTTP interface for PDFFigures 2.0, a robust figure ex",
+  "version": "1.0.0",
+  "author": "vlln",
+  "homepage": "https://github.com/vlln/pdffigures-mcp-server",
+  "skills": []
+}
