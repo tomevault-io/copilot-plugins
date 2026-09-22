@@ -135,9 +135,9 @@ Distinguish these states:
 
 Do not collapse them into one `configured` boolean in user guidance when the distinction matters.
 
-Cookie import, browser login, and user-Chrome authorization are explicit operator actions. Startup, status probes, and bare auto-setup must not import cookies or create authenticated sessions to make health look better.
+Cookie import, browser login, and user-Chrome authorization are explicit operator actions. Startup, status probes, and the internal `reach_setup auto` action must not import cookies or create authenticated sessions to make health look better. Bare **user slash** `/reach-setup` is different: it is an explicit, interactive consent path and may import only the sessions the active setup contract declares.
 
-Current explicit Pi cookie consumers are Reddit, Bilibili, and YouTube. Other social adapters may own their own CLI/OpenCLI sessions. Do not infer that an environment token or imported browser cookie unlocks a backend unless the active adapter actually consumes it.
+Current normal Pi cookie-profile consumers are Reddit, Bilibili, and YouTube. Gemini Web uses a separate Google session snapshot only when its explicit setup/vision gates are enabled; do not treat that snapshot as a general cookie profile. Other social adapters may own their own CLI/OpenCLI sessions. Do not infer that an environment token or imported browser cookie unlocks a backend unless the active adapter actually consumes it.
 
 ## Contract discipline
 
@@ -196,7 +196,7 @@ Protocol invariants:
 - producer readiness is fail-closed on unverified Pi host versions and can be explicitly disabled with `PI_SUBAGENTS_RUNTIME_RPC_DISABLED=1`; the current `pi-subagents` public contract lists host `0.85.1` as verified.
 - do not assume every producer/server-only bound must be copied into the consumer mirror. Sync client-relevant wire fields deliberately and test negotiation against the producer contract.
 
-`PI_NORTHSTAR_LEAF_MODEL` wires this co-installed bridge only for staged adaptive-agent steering. `src/runtime/local-leaf-runtime.ts`, used by local `jobs start`, is a separate same-user text-only runtime backed directly by the Pi AI model registry; do not conflate the two or make one silently substitute for the other.
+Adaptive-agent steering resolves its exact leaf model through the unified operator selection (`PI_NORTHSTAR_MODEL` > `~/.pi-northstar/config.json`), with `PI_NORTHSTAR_LEAF_MODEL` retained only as the legacy last-resort fallback. Unified config defaults steering off until `/northstar agent on`; exact `PI_NORTHSTAR_AGENT_STEERING=0` still forces it off. `src/runtime/local-leaf-runtime.ts`, used by local broker jobs, is a separate same-user text-only runtime backed directly by the Pi AI model registry; `jobs start --model` remains an explicit per-job selection. Do not conflate the two runtimes or make one silently substitute for the other.
 
 ## Browser, Chrome companion, and desktop
 
@@ -220,13 +220,13 @@ Media acquisition is not a Pi public tool. Keep platform evidence classes honest
 
 ### Multimodal fetch invariants
 
-- Normal PDF fetch is local-only through `unpdf`: 10 MiB, 50 pages, 50,000 characters, page-aware citations. Sparse/scanned pages warn; fetch must not silently upload a PDF to vision.
+- Normal PDF fetch is local-only through `unpdf`: 20 MiB, 100 pages, 50,000 characters, page-aware citations. Sparse/scanned pages warn; fetch must not silently upload a PDF to vision.
 - `PI_VISION_PDF_CLOUD_RENDER=1` is currently a reserved fail-closed flag because no PDF page-image renderer ships. Do not document it as working OCR/cloud rendering until that renderer is reachable.
 - Direct image fetch returns sniff-verified metadata by default. Description requires exact `PI_VISION_FETCH_DESCRIBE=1` plus a configured OpenAI-compatible or Gemini tier; generated description stays separate from fetched content.
 - YouTube keyframe analysis requires exact `PI_VISION_FETCH_VIDEO_FRAMES=1` plus a configured OpenAI-compatible or Gemini tier. Vision failures degrade toward transcript/metadata evidence, never toward an unconfigured provider.
 - OpenAI-compatible vision may be loopback or cloud and uses exact configured model IDs; the API key is optional so loopback endpoints can be keyless.
 - Gemini Developer/Vertex requires exact `PI_VISION_GEMINI_ENABLED=1`. Vertex additionally needs `GOOGLE_GENAI_USE_VERTEXAI=1`, project, location, and ADC. Keep model selection explicit via `PI_VISION_GEMINI_MODEL` when reproducibility matters.
-- Gemini Web is a separate disabled-default seam. Current fetch image/video analyzers do not select it; do not describe it as automatic fallback.
+- Gemini Web is a separate disabled-default seam, not a general vision fallback. Fetch image/keyframe analyzers never select it. The full-file local-video fallback may reach it only when the direct Gemini tier is unavailable and both exact `PI_VISION_VIDEO_GEMINI=1` and `PI_VISION_GEMINI_WEB_ENABLED=1` are enabled, using a live authorized Chrome lease where possible or the explicitly imported isolated Google session. One configured destination never authorizes another.
 
 Vision is destination-specific. Configuring one destination does not authorize another. A loopback OpenAI-compatible endpoint can keep image/keyframe analysis local; cloud routes move admitted bytes/text off-machine. Private/authenticated GitHub content additionally requires exact `PI_VISION_PRIVATE_GITHUB_TRANSFER=1` before any eligible cloud transfer.
 
@@ -296,4 +296,4 @@ When in doubt, prefer executable truth, narrow authority, explicit degradation, 
 
 ---
 > Source: [rhinos0608/Pi-Northstar](https://github.com/rhinos0608/Pi-Northstar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-22 -->
