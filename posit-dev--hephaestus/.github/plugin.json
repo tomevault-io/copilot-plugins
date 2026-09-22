@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--hephaestus",
+  "displayName": "hephaestus",
+  "description": "Visualization focused rendering engine",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/hephaestus",
+  "skills": []
+}
