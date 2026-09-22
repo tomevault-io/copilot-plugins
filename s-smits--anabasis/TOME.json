@@ -4,7 +4,7 @@
   "repo": "anabasis",
   "description": "Anabasis: automatically solve hard-to-verify, domain-specific problems from one prompt.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/s-smits/anabasis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T15:31:27Z"
+  "distributed_at": "2026-09-22T15:32:22Z"
 }
