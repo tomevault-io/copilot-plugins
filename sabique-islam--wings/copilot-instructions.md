@@ -1,46 +1,133 @@
-## block-editor
+## code-style
 
-> BlockEditor and TipTap extension invariants — apply when editing editor code
+> You are contributing to an existing production codebase, not writing a coding challenge solution.
 
 
-# BlockEditor rules (strict)
+You are contributing to an existing production codebase, not writing a coding challenge solution.
 
-## Read before editing
-- `.cursor/skills/wings-block-editor/SKILL.md`
-- `.cursor/skills/wings-block-editor/pitfalls.md`
-- `.cursor/skills/wings-block-editor/extension-checklist.md`
+Your primary objective is to write code that another engineer can understand six months later with minimal effort.
 
-## Immutable config
-- StarterKit: `link: false`, `codeBlock: false`
-- Register `Link` exactly once (test: `registers Link exactly once`)
-- WritingExperience priority **200** — never 1000
-- Suggestion keys ONLY from `suggestionPluginKeys.ts`
-- Pass `pluginKey` **after** spread in `Suggestion({ ...options, pluginKey })`
-- Page mentions only when `getPages` defined (`pages.length > 0`)
+Core principles
 
-## React / lifecycle
-- Memoize `createBlockEditorExtensions()` in `useMemo`
-- `useEditor(..., [collabSession])` — minimal deps
-- `key={entry.id}` on BlockEditor — do not remove
-- Load via `resolveInitialEditorContent` — never inline JSON preference
-- Do not emit empty onChange on mount when props had content
+- Write obvious code before clever code.
+- Every abstraction must earn its existence.
+- Prefer deleting code over adding more.
+- Minimize cognitive load.
+- Optimize for maintainability first, performance second, unless performance is a stated requirement.
+- Follow existing project conventions instead of introducing new patterns.
 
-## Serialize → save chain
-Editor changes eventually reach `Index.handleChange` → `shouldBlockEmptySave` → `updateEntry`.
-If you change serialize timing or onChange behavior, read **wings-data-safety/code-paths.md**.
+Architecture
 
-## Before merge (mandatory)
-```bash
-bun run test:editor && bun run test:e2e
-```
-Editor PR without green Playwright is a production data-loss risk.
+- Keep modules focused on a single responsibility.
+- Separate business logic from infrastructure.
+- Avoid tightly coupling unrelated components.
+- Prefer composition over inheritance where appropriate.
+- Design APIs that are predictable rather than flexible for every possible future use case.
 
-## Crash signature → fix
-| Error | Fix |
-|-------|-----|
-| `suggestion$` duplicate plugin | Distinct keys + vite dedupe |
-| No `.ProseMirror` in E2E | ErrorBoundary — fix before ship |
-| Enter ignores slash menu | WritingExperience priority ≠ 200 |
+Consistency
+
+- Match the surrounding codebase's naming, formatting, project structure, and conventions.
+- Never introduce a different architectural style inside an existing project.
+- Preserve existing patterns unless there is a clear technical reason to change them.
+- Keep diffs as small as possible.
+
+Naming
+
+- Names should describe intent, not implementation.
+- Avoid abbreviations unless they are industry standard.
+- Avoid generic names like helper, util, manager, data, thing, temp, misc, processData, handleStuff.
+- Prefer names that read naturally.
+
+Functions
+
+- Each function should have one clear responsibility.
+- Functions should hide implementation details.
+- Avoid long parameter lists.
+- Return early instead of creating deep nesting.
+- Remove duplicated logic instead of copying it.
+
+Classes / Modules
+
+- Each module should expose a minimal public API.
+- Keep internal implementation private whenever possible.
+- Avoid "god objects."
+- Don't create classes that only wrap other classes.
+
+Error handling
+
+- Fail loudly when assumptions are violated.
+- Return useful errors.
+- Never silently swallow exceptions.
+- Handle expected failures explicitly.
+- Keep error messages actionable.
+
+State
+
+- Minimize mutable shared state.
+- Prefer explicit data flow over hidden side effects.
+- Avoid global state unless unavoidable.
+- Make dependencies explicit.
+
+Comments
+
+- Code should explain how.
+- Comments should explain why.
+- Remove comments that simply repeat the code.
+- Leave documentation only where future readers benefit.
+
+Dependencies
+
+- Avoid introducing new dependencies unless they provide significant value.
+- Prefer platform or standard library functionality where reasonable.
+- Don't replace simple code with a heavy framework.
+
+Performance
+
+- Don't micro-optimize.
+- Measure before optimizing.
+- Optimize bottlenecks, not guesses.
+- Avoid premature caching or complexity.
+
+Security
+
+- Treat all external input as untrusted.
+- Validate inputs.
+- Escape output where appropriate.
+- Never expose secrets.
+- Follow the principle of least privilege.
+
+Testing
+
+- Write code that is easy to test.
+- Separate pure logic from I/O.
+- Avoid hidden state that makes testing difficult.
+- Consider edge cases while implementing, not afterwards.
+
+Code reviews
+
+Before considering the implementation complete, ask yourself:
+
+- Is there a simpler implementation?
+- Am I introducing an unnecessary abstraction?
+- Will another engineer understand this without explanation?
+- Does this match the surrounding codebase?
+- Am I solving today's problem instead of a hypothetical future one?
+- Can any code be removed?
+
+When modifying existing code
+
+- Preserve behaviour unless a change is explicitly requested.
+- Minimize unrelated refactoring.
+- Do not rename files, variables, or functions purely for personal preference.
+- Explain significant architectural changes before making them.
+
+Communication
+
+- If requirements are ambiguous, ask concise clarifying questions instead of making assumptions.
+- State trade-offs when multiple reasonable approaches exist.
+- If something appears unsafe, brittle, or unnecessarily complex, explain why and propose a better alternative.
+
+The best code is often the code that never needed to exist. Prefer simple systems with clear data flow over clever abstractions and unnecessary indirection.
 
 ---
 > Source: [sabique-islam/wings](https://github.com/sabique-islam/wings) — distributed by [TomeVault](https://tomevault.io).
