@@ -1,0 +1,9 @@
+{
+  "name": "sakuracordapp--sakuracord",
+  "displayName": "SakuraCord",
+  "description": "A native macOS Discord client written in Swift and SwiftUI.",
+  "version": "1.0.0",
+  "author": "SakuraCordApp",
+  "homepage": "https://github.com/SakuraCordApp/SakuraCord",
+  "skills": []
+}
