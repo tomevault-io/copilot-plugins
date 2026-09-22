@@ -1,0 +1,9 @@
+{
+  "name": "waka--lexical-mermaid",
+  "displayName": "lexical-mermaid",
+  "description": "Mermaid plugin for Lexical Editor",
+  "version": "1.0.0",
+  "author": "waka",
+  "homepage": "https://github.com/waka/lexical-mermaid",
+  "skills": []
+}
