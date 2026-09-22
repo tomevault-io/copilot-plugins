@@ -4,7 +4,7 @@
   "repo": "tapirscan",
   "description": "Barcode scanning library for browsers and native applications",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kleinicke/tapirscan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T16:33:08Z"
+  "distributed_at": "2026-09-22T16:34:05Z"
 }
