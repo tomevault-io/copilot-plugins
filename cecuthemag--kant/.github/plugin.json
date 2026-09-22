@@ -1,0 +1,9 @@
+{
+  "name": "cecuthemag--kant",
+  "displayName": "Kant",
+  "description": "Serverless, end-to-end encrypted, peer-to-peer messenger built on libp2p + libsodium \u2014 no central message store.",
+  "version": "1.0.0",
+  "author": "CecuTheMag",
+  "homepage": "https://github.com/CecuTheMag/Kant",
+  "skills": []
+}
