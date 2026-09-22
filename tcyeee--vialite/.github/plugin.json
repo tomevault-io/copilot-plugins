@@ -1,0 +1,9 @@
+{
+  "name": "tcyeee--vialite",
+  "displayName": "vialite",
+  "description": "A native web configurator for Vial-protocol keyboards \u2014 edit keymaps, macros, tap dance, combos and lighting straight from Chrome/Edge over WebHID. No Qt, no WebAssembly, no install.",
+  "version": "1.0.0",
+  "author": "tcyeee",
+  "homepage": "https://github.com/tcyeee/vialite",
+  "skills": []
+}
