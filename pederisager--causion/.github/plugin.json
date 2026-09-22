@@ -1,0 +1,9 @@
+{
+  "name": "pederisager--causion",
+  "displayName": "causion",
+  "description": "An app for visualizing the expected consequences of changing variable values in a DAG. Gain an intuition for the relationship between correlation and causation. Created with ChatGPT. ",
+  "version": "1.0.0",
+  "author": "pederisager",
+  "homepage": "https://github.com/pederisager/causion",
+  "skills": []
+}
