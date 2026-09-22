@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--rust-proxy",
+  "displayName": "rust_proxy",
+  "description": "Targeted transparent proxy using iptables+ipset to route only selected domains (API providers, cloud services) through an upstream HTTP proxy without global system changes",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/rust_proxy",
+  "skills": []
+}
