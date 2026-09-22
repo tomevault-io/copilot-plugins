@@ -1,0 +1,44 @@
+{
+  "name": "dsh-pet-live2d",
+  "owner": "A8Chann",
+  "repo": "dsh-pet-live2d",
+  "description": "DSH Web GUI \u7684 Live2D \u684c\u5ba0\u63d2\u4ef6\uff1a\u53ef\u62d6\u52a8\u3001\u8ddf\u968f\u9f20\u6807\u3001\u8ddf\u7740\u4f1a\u8bdd\u72b6\u6001\u6362\u52a8\u4f5c\u4e0e\u8868\u60c5\uff0c\u53f3\u952e\u9762\u677f\u53ef\u6362\u88c5",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/A8Chann/dsh-pet-live2d",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T09:36:05Z"
+}
