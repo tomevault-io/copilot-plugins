@@ -1,0 +1,9 @@
+{
+  "name": "w00tzenheimer--feed",
+  "displayName": "feed",
+  "description": "An auto updating feed based on the folks I follow in case I miss something.",
+  "version": "1.0.0",
+  "author": "w00tzenheimer",
+  "homepage": "https://github.com/w00tzenheimer/feed",
+  "skills": []
+}
