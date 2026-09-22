@@ -1,0 +1,9 @@
+{
+  "name": "aarondfrancis--reservable",
+  "displayName": "reservable",
+  "description": "Eloquent model reservation/locking through Laravel's cache lock system.",
+  "version": "1.0.0",
+  "author": "aarondfrancis",
+  "homepage": "https://github.com/aarondfrancis/reservable",
+  "skills": []
+}
