@@ -1,0 +1,9 @@
+{
+  "name": "jim60105--worker-your-ip",
+  "displayName": "worker-your-ip",
+  "description": "A fast and cool Cloudflare Worker that displays your IP address, geolocation, and connection infos via well-designed APIs. (Cloudflare Worker)",
+  "version": "1.0.0",
+  "author": "jim60105",
+  "homepage": "https://github.com/jim60105/worker-your-ip",
+  "skills": []
+}
