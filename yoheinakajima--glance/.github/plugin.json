@@ -1,0 +1,9 @@
+{
+  "name": "yoheinakajima--glance",
+  "displayName": "glance",
+  "description": "Ask an open vision-language model typed questions about an image and get probabilities back, on your own machine.",
+  "version": "1.0.0",
+  "author": "yoheinakajima",
+  "homepage": "https://github.com/yoheinakajima/glance",
+  "skills": []
+}
