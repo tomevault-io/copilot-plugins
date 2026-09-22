@@ -1,0 +1,9 @@
+{
+  "name": "damionrashford--clean-shortcuts",
+  "displayName": "clean-shortcuts",
+  "description": "Build Apple Shortcuts in Swift. Result-builder DSL that compiles to signed .shortcut files for iPhone, iPad, Mac, and Apple Watch. YAML + JSON frontends, decompiler, on-device validator, live action d",
+  "version": "1.0.0",
+  "author": "damionrashford",
+  "homepage": "https://github.com/damionrashford/clean-shortcuts",
+  "skills": []
+}
