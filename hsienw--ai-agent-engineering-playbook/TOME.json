@@ -1,0 +1,44 @@
+{
+  "name": "ai-agent-engineering-playbook",
+  "owner": "HsienW",
+  "repo": "ai-agent-engineering-playbook",
+  "description": "\ud83d\udd28Reusable personal Agent Skills and practice-backed Q&A for AI Agent engineering, runtime reliability, multi-agent systems, evaluation, and AI-native frontend.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HsienW/ai-agent-engineering-playbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T02:54:09Z"
+}
