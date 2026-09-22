@@ -1,0 +1,44 @@
+{
+  "name": "jaba-ai",
+  "owner": "yazelin",
+  "repo": "jaba-ai",
+  "description": "\u5477\u7238 (Jaba) \u662f\u4e00\u500b\u6574\u5408 AI \u5c0d\u8a71\u529f\u80fd\u7684 LINE Bot \u7fa4\u7d44\u9ede\u9910\u7cfb\u7d71\uff0c\u8b93\u7fa4\u7d44\u6210\u54e1\u53ef\u4ee5\u900f\u904e\u81ea\u7136\u8a9e\u8a00\u9032\u884c\u9ede\u9910\uff0c\u4e26\u63d0\u4f9b\u5373\u6642\u770b\u677f\u548c\u7ba1\u7406\u5f8c\u53f0\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yazelin/jaba-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T08:45:45Z"
+}
