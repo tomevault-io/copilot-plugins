@@ -4,7 +4,7 @@
   "repo": "agential-skill",
   "description": "A cross-platform skill that makes AI coding agents generate minimal, editorial-grade   frontend UI instead of generic SaaS templates.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/talhairfandev/agential-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T20:30:26Z"
+  "distributed_at": "2026-09-22T20:32:15Z"
 }
