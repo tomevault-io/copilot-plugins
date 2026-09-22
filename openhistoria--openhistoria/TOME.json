@@ -4,7 +4,7 @@
   "repo": "OpenHistoria",
   "description": "A grand strategy sandbox game. Open source alternative to Pax Historia.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenHistoria/OpenHistoria",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T12:38:03Z"
+  "distributed_at": "2026-09-22T12:50:17Z"
 }
