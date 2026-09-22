@@ -1,0 +1,9 @@
+{
+  "name": "devstationtech--devstation",
+  "displayName": "devstation",
+  "description": "A topology-driven cockpit that provisions and manages homelab and development environments on Proxmox from one declarative model \u2014 shipped as a single binary.",
+  "version": "1.0.0",
+  "author": "devstationtech",
+  "homepage": "https://github.com/devstationtech/devstation",
+  "skills": []
+}
