@@ -1,0 +1,9 @@
+{
+  "name": "arvavit--equip",
+  "displayName": "equip",
+  "description": "Free, open-source LMS for Bible schools, ministries, and nonprofit educational programs. React + FastAPI + Supabase.",
+  "version": "1.0.0",
+  "author": "ArVaViT",
+  "homepage": "https://github.com/ArVaViT/equip",
+  "skills": []
+}
