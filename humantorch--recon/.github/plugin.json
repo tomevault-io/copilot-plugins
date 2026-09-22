@@ -1,0 +1,9 @@
+{
+  "name": "humantorch--recon",
+  "displayName": "Recon",
+  "description": "A markdown-based job search operating system, built on Claude Code. Your profile, search criteria, and pipeline live as version-controlled markdown on your machine, and a set of slash commands turn th",
+  "version": "1.0.0",
+  "author": "humantorch",
+  "homepage": "https://github.com/humantorch/Recon",
+  "skills": []
+}
