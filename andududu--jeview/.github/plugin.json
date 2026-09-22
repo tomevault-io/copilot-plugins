@@ -1,0 +1,9 @@
+{
+  "name": "andududu--jeview",
+  "displayName": "jeview",
+  "description": "An unofficial local visualizer for Jev (TypeSafe): a live view of every call your code makes. Not affiliated with TypeSafe AI.",
+  "version": "1.0.0",
+  "author": "andududu",
+  "homepage": "https://github.com/andududu/jeview",
+  "skills": []
+}
