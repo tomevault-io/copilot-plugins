@@ -1,0 +1,9 @@
+{
+  "name": "marc-moeller--aicms",
+  "displayName": "aicms",
+  "description": "AICMS \u2014 the AI-native CMS built for AI agents. AICMS lets an agent run 100% of your website: chat-driven editing, typed block content, beautiful starter themes. Open source, Next.js + Astro + Postgres",
+  "version": "1.0.0",
+  "author": "Marc-Moeller",
+  "homepage": "https://github.com/Marc-Moeller/aicms",
+  "skills": []
+}
