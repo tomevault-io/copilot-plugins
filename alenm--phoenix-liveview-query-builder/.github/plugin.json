@@ -1,0 +1,9 @@
+{
+  "name": "alenm--phoenix-liveview-query-builder",
+  "displayName": "phoenix-liveview-query-builder",
+  "description": "Progressive examples showing how to build query/filter interfaces in Phoenix LiveView",
+  "version": "1.0.0",
+  "author": "alenm",
+  "homepage": "https://github.com/alenm/phoenix-liveview-query-builder",
+  "skills": []
+}
