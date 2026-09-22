@@ -1,0 +1,9 @@
+{
+  "name": "emilmsh--pdf-scholar",
+  "displayName": "pdf-scholar",
+  "description": "A PDF reader and annotator for Windows and macOS, built for research. Free, MIT-licensed, and offline unless you ask a question.",
+  "version": "1.0.0",
+  "author": "emilmsh",
+  "homepage": "https://github.com/emilmsh/pdf-scholar",
+  "skills": []
+}
