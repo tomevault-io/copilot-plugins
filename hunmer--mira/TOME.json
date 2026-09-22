@@ -4,7 +4,7 @@
   "repo": "mira",
   "description": "\u524d\u540e\u7aef\u5206\u79bb\u7d20\u6750\u7ba1\u7406\u8f6f\u4ef6",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hunmer/mira",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T10:44:20Z"
+  "distributed_at": "2026-09-22T10:48:17Z"
 }
