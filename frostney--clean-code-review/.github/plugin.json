@@ -1,0 +1,9 @@
+{
+  "name": "frostney--clean-code-review",
+  "displayName": "clean-code-review",
+  "description": "Every code file in a pull request, judged against Uncle Bob's Clean Code by TypeSafe's Jev, then reviewed by Luna. Built on eve and Next.js.",
+  "version": "1.0.0",
+  "author": "frostney",
+  "homepage": "https://github.com/frostney/clean-code-review",
+  "skills": []
+}
