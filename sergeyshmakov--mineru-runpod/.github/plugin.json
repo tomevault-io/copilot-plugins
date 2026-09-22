@@ -1,0 +1,9 @@
+{
+  "name": "sergeyshmakov--mineru-runpod",
+  "displayName": "mineru-runpod",
+  "description": "\ud83d\udcc4 Serverless MinerU 2.5 Pro PDF parser on RunPod. Scales to zero. PDF \u2192 Markdown + JSON.",
+  "version": "1.0.0",
+  "author": "sergeyshmakov",
+  "homepage": "https://github.com/sergeyshmakov/mineru-runpod",
+  "skills": []
+}
