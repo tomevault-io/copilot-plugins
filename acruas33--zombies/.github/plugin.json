@@ -1,0 +1,9 @@
+{
+  "name": "acruas33--zombies",
+  "displayName": "Zombies",
+  "description": "A 2D Multiplayer Zombie Shooter made in C++ using OpenGL + some other libraries",
+  "version": "1.0.0",
+  "author": "Acruas33",
+  "homepage": "https://github.com/Acruas33/Zombies",
+  "skills": []
+}
