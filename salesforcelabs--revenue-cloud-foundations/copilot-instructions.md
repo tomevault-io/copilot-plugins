@@ -1,35 +1,42 @@
-## sfdmu-csv-data
+## sfdmu-export-json
 
-> SFDMU CSV data file conventions — composite key columns, header alignment, empty CSV handling
+> SFDMU v5 export.json editing rules — externalId format, operation selection, deleteOldData safety, object ordering
 
 
-# SFDMU CSV Data Rules
+# SFDMU v5 export.json Rules
 
 ## DO NOT
 
-- Include `Id` fields in CSV (export.json has `excludeIdsFromCSVFiles: true`)
-- Leave empty CSVs without `excluded: true` in export.json
-- Mismatch `$$` column headers with the `externalId` fields
+- Change `Upsert` to `Insert+deleteOldData` without user approval
+- Use `$$Field1$Field2` in `externalId` (v4 syntax — use `;`)
+- Leave empty CSVs without `excluded: true`
+- Put child objects before parent objects in the `objects` array
 
-## Composite Key Columns (`$$`)
-- Header format: `$$Field1$Parent.Field2` — values concatenate the referenced fields
-- `$$` columns must exactly match the `externalId` fields in the corresponding export.json
-- SFDMU v5 does NOT write `$$` columns during extraction — run `scripts/post_process_extraction.py` to add them
+## externalId Format
+- Use `;` delimiters: `Field1;Field2` — NOT `$$Field1$Field2` (v4 syntax)
+- Relationship traversals: `Parent.Field` (1-hop), `GrandParent.Parent.Field` (2-hop)
 
-## Header Alignment
-- CSV headers must match the SOQL SELECT fields in export.json
-- Relationship traversal headers use dot notation: `Product2.StockKeepingUnit`
-- Do not include `Id` fields (export.json has `excludeIdsFromCSVFiles: true`)
+## Operation Selection
+- **Upsert**: the default — works for direct fields AND relationship-traversal externalIds on the **5.6.4+ floor** (Bugs 3/5 fixed)
+- **Insert + deleteOldData: true**: NOT required for traversal externalIds on 5.6.4+ (that was the pre-5.6.4 workaround). Existing plans still carrying it migrate under the gated `sfdmu-v5-optimization` initiative, not ad hoc.
+- **Update**: Modifying existing records only
+- **Readonly**: Reference objects loaded by another plan
+- Never change Upsert → Insert+deleteOldData without a concrete current reason (Bugs 1/2/3/5 are fixed on 5.6.4+ — not valid reasons) and explicit user approval
+
+## v5 Bugs — one live on the 5.6.4 floor
+- Bug 4 (LIVE): `$$` composite notation fails in lookup reference columns (self-referential and cross-object) — use simple single-field references (non-destructive)
+- Bugs 1/2/3/5: FIXED at/below 5.6.4 (the floor). Do not apply their old Insert+deleteOldData/direct-field workarounds — Upsert matches on relationship traversals.
+
+## Object Ordering
+- Parent objects before child objects in the `objects` array
+- deleteOldData objects delete in reverse array order (last first)
+
+## SOQL Queries
+- ORDER BY fields must appear in SELECT
+- Relationship columns must match CSV header expectations
 
 ## Empty CSVs
-- An empty CSV (header only, no data rows) must have `excluded: true` in export.json
-- Without `excluded: true`, SFDMU treats empty CSV + `deleteOldData: true` as "delete all records"
-- Empty CSVs should still have the header row with a blank second line
-
-## Data Conventions
-- Boolean fields: `true` / `false` (lowercase)
-- Date fields: `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ss.SSSZ`
-- Lookup fields: Use the parent's externalId value, not the Salesforce ID
+- Mark `excluded: true` to prevent destructive delete-on-load
 
 ---
 > Source: [SalesforceLabs/revenue-cloud-foundations](https://github.com/SalesforceLabs/revenue-cloud-foundations) — distributed by [TomeVault](https://tomevault.io).
