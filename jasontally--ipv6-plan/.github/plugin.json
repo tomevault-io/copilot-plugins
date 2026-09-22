@@ -1,0 +1,9 @@
+{
+  "name": "jasontally--ipv6-plan",
+  "displayName": "IPv6-Plan",
+  "description": "A tool for visual planning of IPv6 subnets",
+  "version": "1.0.0",
+  "author": "jasontally",
+  "homepage": "https://github.com/jasontally/IPv6-Plan",
+  "skills": []
+}
