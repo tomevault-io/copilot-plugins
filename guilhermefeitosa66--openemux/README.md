@@ -7,11 +7,11 @@ Linux-native emulator frontend (GTK4/Python) inspired by OpenEmu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [guilhermefeitosa66/OpenEmux](https://github.com/guilhermefeitosa66/OpenEmux).
+Original source: `CLAUDE.md` in [guilhermefeitosa66/OpenEmux](https://github.com/guilhermefeitosa66/OpenEmux).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
