@@ -1,0 +1,133 @@
+## pi-agent-config
+
+> If an `ONBOARDING.md` file exists at the repo root, read it first for a code-derived overview before exploring.
+
+# Global Guidelines
+
+## Repo Overview
+
+If an `ONBOARDING.md` file exists at the repo root, read it first for a code-derived overview before exploring.
+
+If a `TERRAFORM_NOTES.md` file exists at the repo root (e.g. the `AWS_Accounts` /
+`AWS_Accounts-crm` worktrees), read it first — it holds that estate's layer layout,
+terraform version constraints, git rules, and pointers to per-topic docs.
+
+## Conversational Style
+
+- Keep answers short, concise, and technical. No fluff, no cheerful filler, no emojis in commits, issues, PR comments, or code.
+- When the user asks a question, answer it first — before making edits or running implementation commands.
+- When responding to user feedback or an analysis, explicitly say whether you agree or disagree before saying what you changed. Don't agree by default; if something is wrong, say so and why.
+
+## Code Quality
+
+- Read files in full before wide-ranging changes, before editing files you have not fully inspected, and when asked to investigate or audit. Don't rely on search snippets for broad changes — agentic search has low recall in large repos.
+- Keep complexity low. Inline single-use helpers rather than factoring out a function with one call site; don't introduce abstractions until they're needed; no copy-paste duplication.
+- Match the existing style and conventions of the file you're editing.
+- Always ask before removing functionality or code that appears intentional.
+- Where a rule can be enforced deterministically (linter, type-checker, formatter, shellcheck), run that after changes and fix all errors — soft guidance in this file alone gets ignored over long sessions.
+
+## Git & Secrets
+
+- Before any commit, make sure no secret is exposed. Scan the staged diff (`git diff --cached`) for API keys, tokens, passwords, private keys, and `.env`-style values. If anything looks like a credential, stop and ask before committing.
+- Never stage files that typically hold secrets (`.env`, `*.pem`, `*_token`, credential/key files) unless the user explicitly says to. Stage specific files rather than `git add .`.
+- Keep real secrets out of code and config — reference them via environment variables (e.g. `$AGNES_API_KEY`) or a `!cat ~/path` indirection, never inline literals.
+
+## Python Environment
+
+Use **uv** (`/usr/local/bin/uv`) for Python versions and venvs. Do NOT use system pip, pyenv, or conda.
+
+- **Create venvs**: `uv venv` or `uv venv --python 3.13` to pin a version
+- **Install deps**: `uv pip install -r requirements.txt`
+- **Run scripts**: `uv run python script.py`
+- **Installed Pythons**: 3.14.3, 3.13.12, 3.12.12, 3.11.14, 3.9.6 (system) — check with `uv python list --only-installed`
+- **Install new Python**: `uv python install 3.x`
+
+## Web Access
+
+**Default to Tavily first** for any networked task — the account has paid credits, so use it freely.
+
+- **Search the web** (discover URLs / info from a query): use `tavily-search` first. On a rate-limit or network error (e.g. 429), fall back to `brave-search`. Don't switch back and forth within one task.
+- **Read a known URL**: use `tavily-extract` first — LLM-optimized markdown, handles JS-rendered pages. Fall back to `web-access` (`curl` / `r.jina.ai`, or the CDP browser) for login-walled or anti-scraping pages (小红书/微信/Twitter etc.) where Tavily fails.
+- **Interactive / logged-in / JS-heavy** (click, fill, screenshot, scrape dynamic content, "the page I was just looking at"): use `web-access` — Tavily can't drive a browser.
+- **Escalate, don't blindly retry**: search → extract → browser. If a layer fails, move up the chain — a search miss may mean the target doesn't exist, not "try again."
+
+For browser-based `web-access` (CDP), Chrome and the proxy are on-demand. Run `skills/web-access/scripts/check-deps.mjs` first; if Chrome isn't connected, start it with the copied profile (Chrome 136+ refuses remote debugging on the default profile), then the proxy:
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 --user-data-dir="$HOME/.cdp-chrome-profile" &
+node skills/web-access/scripts/cdp-proxy.mjs &
+```
+
+## Interactive Terminals
+
+To drive an *interactive* terminal program (REPL, TUI, prompt-driven installer, repainting CLI), use the `boo-terminal` skill instead of guessing with `sleep`/pipes. boo (`/usr/local/bin/boo`) runs the program in a detached PTY that survives disconnects; read the rendered screen via `peek --json` after `wait`. See `skills/boo-terminal/SKILL.md`.
+
+- **Use boo when**: sending input to an interactive program and reading its screen back; the program needs a real TTY; or a long-running/remote session must survive detaching (e.g. `boo new s -d -- ssh host`, then drive it).
+- **Don't use boo for**: simple non-interactive commands — run those directly with bash/ssh.
+- The human uses tmux for their own work; the agent uses boo headlessly (`new -d` / `send` / `wait` / `peek --json` / `kill` — the prefix key never matters for automation).
+
+## Workflow Weight
+
+Default to plain conversation — no pipelines, no gates. Scale ceremony with vagueness and blast radius, not uniformly:
+
+- **Clear, scoped task**: just do it.
+- **Vague or large task**: discuss first ("give me options") or write a plan to `PLAN.md` / `spec.md` — a visible, editable file the human can touch, not a state machine. Get a nod, then execute in the same conversation.
+- **Subagents are for read-only fan-out** (investigation, research, triage, parallel critics) — not for role-separated build pipelines. For build work, stay in the main context.
+- **Verification over review**: prefer tests, typecheck, lint, and diff inspection as the quality gate. Spawn a critic only for high-stakes changes.
+- **Harness engineering**: when the human corrects a recurring mistake, propose adding a line here or a check script so it can't recur.
+
+## Model Cost Tiers
+
+Match model to task; don't burn frontier tokens on mechanical work. Prefer `kiro/*` models. (Kiro bills in credit multipliers; note gpt-5.6-sol at 2.40x is pricier than opus.)
+
+- **Cheap** (`kiro/gpt-5.6-luna` 0.10x, `kiro/minimax-m2.1` 0.15x, `kiro/minimax-m2.5` 0.25x, `kiro/claude-haiku-4.5` 0.40x, `kiro/glm-5` 0.50x): mechanical/maintenance work — renames, config tweaks, format fixes, bulk edits, log triage, summarization/rewriting, read-only investigation, and small scoped code changes. **Default for fan-out subagents: `kiro/gpt-5.6-luna`** (fall back to minimax-m2.1/m2.5 if luna misbehaves). Evaluated 2026-09 on code-trace, cross-file investigation, commit summarization, AND a real feature-with-tests write task: luna matched sonnet-5 with zero defects at ~1/13 the rate and fewest tokens; haiku burned 2.5x the tokens of minimax on the same investigation. Caveats: m2.1 writes correct code but failed gofmt (run gofmt after m2.1 write tasks); avoid `kiro/deepseek-3.2` for factual summaries (ordering errors).
+- **Mid** (`kiro/gpt-5.6-terra` 1.00x, `kiro/claude-sonnet-5` 1.30x): standard implementation against an existing plan or established pattern. On the write eval terra was the only model with a robustness nit (unguarded index) — prefer sonnet-5 for builder work; try luna first for small writes.
+- **Frontier** (`kiro/claude-opus-5` 2.20x, `kiro/gpt-5.6-sol` 2.40x): judgment work only — planning, architecture, first-task pattern-setting (prewalk), critique, user-facing prose.
+- **Prewalk (apply automatically, no need for the human to ask)**: when a build task has 3+ similar steps/nodes, spawn `builder-frontier` (opus) to implement the FIRST one and write pattern notes, then `builder` (sonnet) for the rest following that exemplar. Small tasks: just do them or spawn `builder` alone.
+
+## Subagents — use the `Agent` tool (DEFAULT)
+
+Spawn subagents with the built-in `Agent` tool (backed by the `@tintinweb/pi-subagents` extension). It already gives the human live visibility, so there is no need to route subagents through boo.
+
+- **Pass `run_in_background: true`** for anything the human may want to watch — that keeps the agent in the live widget above the editor (animated spinner, current tool activity, token/context counts). Foreground calls collapse the widget as soon as they finish.
+- The human watches via two native entry points:
+  - **Widget** (above the editor) — one glance shows every running subagent and what it is doing.
+  - **`/agents` → conversation viewer** — select an agent to open a live-scrolling overlay of its full transcript; scroll up to pause follow, press `x` `x` to stop it mid-run.
+- **`steer_subagent`** injects a message into a running agent to redirect it without restarting; the injected message and the agent's response are visible in the conversation viewer.
+- Run several in parallel as separate background `Agent` calls (the extension queues them, default concurrency 4).
+- Delegate only large, genuinely independent tracks of work (e.g. a wide multi-file investigation). Don't delegate what you can finish yourself in a handful of tool calls, and don't spawn subagents to verify or double-check your own work. If one subagent can do it, use one.
+- **The Agent tool's `isolation: "worktree"` is unreliable** (observed 2026-09: four "isolated" agents all ran in the main checkout and clobbered each other). For parallel write work, create worktrees manually (`git worktree add /tmp/wt-<name> <ref> --detach`) and hard-code the path in each agent's prompt ("Work ONLY inside /tmp/wt-x; cd there first"). Verify `git status` in the main checkout afterwards.
+- boo is **not** for subagents anymore — keep it for interactive terminal programs and long-lived/detachable sessions only (see the boo-terminal skill).
+
+## Code Walkthroughs (伴读)
+
+Prefer the `/reading <target>` command — it starts a harness that auto-opens every file the
+agent reads in an Otty split, so pane-opening is guaranteed by code, not by the model.
+
+When the user asks to be walked through code in plain language ("带我读", "walk me through",
+"伴读") without the command, suggest `/reading` once, then follow these rules:
+
+- Cite every code location as a bare `path:line` (e.g. `src/foo.py:87`) on its own line — Otty makes
+  these ⌘-clickable. Prefer `path:line` anchors over pasting long code blocks into chat.
+- Walk one function/block at a time, in dependency order (leaf utilities → callers → entry point).
+  After each unit, stop and wait for questions — do not dump the whole tour in one turn.
+- The user may reply with just a `path:line` — treat that as "explain this location": read the
+  surrounding code and explain it in context.
+- If reading mode is off (no harness), also open each file beside the user before discussing it:
+  `otty view <absolute-path> --right` (fall back to just citing paths if the command fails).
+
+## Dynamic Workflows
+
+For long-running, massively parallel, or adversarial tasks, consider the `dynamic-workflows` skill (orchestrates fresh-context subagents; plan in code, judgment delegated). Suggest the matching pattern before grinding through it in one context:
+
+- "do this for many items / steps" → fan-out-and-synthesize, or loop-until-done if the count is unknown
+- "I don't trust this result / verify this claim" → adversarial verification (or deep-research to verify each claim)
+- "give me options, pick the best" → generate-and-filter or tournament
+- "route by type first" → classify-and-act
+
+Don't over-apply: most ordinary coding tasks don't need it (it uses far more tokens). See `skills/dynamic-workflows/SKILL.md`.
+
+---
+> Source: [LEUNGUU/pi-agent-config](https://github.com/LEUNGUU/pi-agent-config) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-22 -->
