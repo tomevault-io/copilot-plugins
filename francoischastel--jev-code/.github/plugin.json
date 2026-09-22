@@ -1,0 +1,9 @@
+{
+  "name": "francoischastel--jev-code",
+  "displayName": "jev-code",
+  "description": "Jev, TypeSafe's System One classifier, as a tool inside Claude Code, Codex, Pi, and OpenCode: typed classify, check, score, rank, and ask, plus one-command setup.",
+  "version": "1.0.0",
+  "author": "FrancoisChastel",
+  "homepage": "https://github.com/FrancoisChastel/jev-code",
+  "skills": []
+}
