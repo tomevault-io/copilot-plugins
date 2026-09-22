@@ -1,100 +1,33 @@
-## context-plans
+## doc-review
 
-> Context Service plan JSON editing rules — additive format, canonical enums, scoped __c rule, Connect-vs-SObject-REST split, validate before apply
+> Reminder to verify documentation consistency after code changes — task names, flag tables, plan READMEs, generated references
 
 
-# Context Plan JSON Rules
+# Documentation Consistency Reminder
 
-Repo **plan JSON** consumed by `manage_context_definition` / `apply_context_*`
-(class `rlm_context_service.ManageContextDefinition`) and `ExtendStandardContext`.
-This is our additive format — **not** the MDAPI `.contextDefinition` file format
-under `force-app/main/default/contextDefinitions/`, and not a Salesforce-native
-artifact. Full guidance: `.cursor/skills/context-service/SKILL.md`
-(+ `data-model-and-api.md` for the authoritative schema).
+After editing files that match this rule, follow the doc-consistency skill
+at `.cursor/skills/doc-consistency/SKILL.md`.
 
-## Always
+## Quick checks
 
-- **Lint before applying** (offline, no org):
-  `python scripts/context_service/definition/validate_context_plan.py <manifest.json>` — must be 0 errors.
-- If you add/rename a recognized key, update the schema table in
-  `.cursor/skills/context-service/data-model-and-api.md` in the same change
-  (per `.cursor/skills/doc-consistency/SKILL.md`).
+1. **`cumulusci.yml`** — run `python scripts/ai/generate_cci_reference.py`
+   and commit updated reference files. If you renamed a task, grep for the
+   old name in `README.md`, `AGENTS.md`, `docs/`, and `.cursor/skills/`.
 
-## Format is additive-only
+2. **`tasks/*.py`** — check the task `description` in `cumulusci.yml` and
+   the generated CCI task reference for consistency with the class behavior.
 
-- A plan **adds/upserts** attributes, mappings, and tags onto a base. There is
-  **no per-artifact delete directive** — do not expect one. Deactivation is
-  whole-version (`deactivate_before`), off by default. Teardown (deactivate or
-  hard-delete a definition / custom artifacts) is a **separate, out-of-band**
-  step — `scripts/context_service/definition/delete_context.py`, not the plan
-  format. Deactivate before definition teardown; granular leaf-delete behavior is
-  endpoint-specific, so check the active-version matrix in
-  `.cursor/skills/context-service/authoring-and-lifecycle.md` first.
-- The plan format is **design-time only** — it defines a Context *Definition*.
-  Runtime *hydration* (loading records into a context instance) and *persistence*
-  (writing values back) are **not** expressed in a plan; they are handled at
-  runtime by the consuming engines, and can be exercised for
-  debugging/validation by the runtime helper scripts
-  (`context_session.py`, `build_hydration_data.py`, …) — see
-  `.cursor/skills/context-service/runtime-and-persistence.md`.
-- `deactivate_before` defaults to `false`; **adding new** attributes/tags/nodes
-  applies in place on an active version. But many **modify existing** operations
-  (flipping `isTransient`, re-pointing the default mapping) are blocked while
-  active (`RECORD_UPDATE_FAILED` "Cannot modify/delete an active context
-  definition", live-verified), and one Connect PATCH path is silently
-  destructive if it omits siblings. Set `deactivate_before: true` for a plan that
-  edits existing artifacts, or use
-  `scripts/context_service/definition/mutate_context.py --deactivate-first --reactivate`
-  for a one-off. See the skill before assuming any endpoint's active-version
-  behavior.
+3. **`export.json` / SFDMU CSVs** — update the plan's `README.md` in the
+   same commit. Run `python scripts/validate_sfdmu_v5_datasets.py`.
 
-## Canonical enums (Core UDD, v67.0)
+4. **`robot/**`** — check `robot-testing/SKILL.md` task tables and
+   `docs/guides/org-operations.md` troubleshooting if the suite name or behavior changed.
 
-- `dataType` ∈ {STRING, NUMBER, BOOLEAN, DATE, DATETIME, PERCENT, PICKLIST,
-  CURRENCY, REFERENCE, DOUBLE, INT, MAP, SELFREFERENCE, LOOKUP}
-- `fieldType` ∈ {INPUT, INPUTOUTPUT, OUTPUT, AGGREGATE}
-- `mappingType` ∈ {SOBJECT, CONTEXT}
+5. **`.cursor/skills/**`** — if adding a new skill or sub-file, follow
+   `.cursor/skills/skill-authoring/SKILL.md`; register top-level skills in
+   `AGENTS.md`, `.cursor/skills/README.md`, and the manifest when applicable.
 
-## `__c`-suffix rule (scoped)
-
-- Custom attribute/node/tag names added to a **standard/extended base** must end
-  with `__c` (validator ERROR otherwise). This is **platform-enforced at
-  creation**, not just a repo convention — a suffix-less custom artifact POST on
-  an extended base is rejected with `INVALID_API_INPUT` ("… must have an '__c'
-  suffix in an extended context definition"). The validator catches it offline.
-- **Skipped entirely for create-new definitions** (`"create": true`) — their
-  names are author-chosen and collide with nothing inherited.
-- Definition `developerName`s are exempt (legitimately `RLM_*Context`).
-
-## Mapping rules — Connect vs SObject REST
-
-- Simple SOBJECT mapping: `mappingName`, `contextNode`, `contextAttribute`,
-  `mappingType: SOBJECT`, `sObject`, `sObjectField`.
-- **Key-name asymmetry (easy trip):** a `mappingRules` entry names the node with
-  **`contextNode`**, but the matching `contextAttributesByName` entry names the
-  same node with **`nodeName`**. Mixing them up → the validator errors
-  `attribute missing required 'nodeName'`. To bind a new attribute to a field in
-  one plan, supply both: the attribute in `contextAttributesByName` (`nodeName`)
-  and the bind in `mappingRules` (`contextNode`).
-- **Relationship traversals** (`childSObject` / `childSObjectField`) are applied
-  via **SObject REST**, not the Connect PATCH (the PATCH rejects traversals and
-  wipes existing hydration on re-run). The task routes these automatically.
-- CONTEXT-to-CONTEXT rules need `sourceContextNode` / `sourceContextAttribute`
-  (+ `mappedContextDefinitionName`); at most **2 distinct referenced definitions**
-  (validator ERROR beyond that). A *referenced definition* is another whole
-  context linked in (e.g. `SalesTransactionContext` references
-  `AssetContext__stdctx`, shown as "Referenced Definitions" in Setup and as
-  `referenceContextDefinitions` in the GET). The link itself rides on
-  `ASSOCIATION`-intent mappings that carry **no** node/field bindings — they let
-  the engine cross between the two contexts (e.g. quote line ↔ asset). Inherited
-  reference links come from the standard base; do not hand-declare them.
-
-## Do not
-
-- Add `primaryDomainObject` / `primaryObject` — the create endpoint returns
-  `JSON_PARSER_ERROR` (validator ERROR).
-- Change a live definition consumed by a pricing procedure / expression set to
-  deactivated — it breaks the consumer (see `authoring-and-lifecycle.md`).
+For the full change-surface map, read `.cursor/skills/doc-consistency/SKILL.md`.
 
 ---
 > Source: [SalesforceLabs/revenue-cloud-foundations](https://github.com/SalesforceLabs/revenue-cloud-foundations) — distributed by [TomeVault](https://tomevault.io).
