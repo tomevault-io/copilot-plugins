@@ -1,0 +1,9 @@
+{
+  "name": "sattyamjjain--ferrumdeck",
+  "displayName": "ferrumdeck",
+  "description": "AgentOps control plane for AI agent execution. Rust policy plane, hash-chained audit, deny-by-default tool allowlists and budget enforcement, eval gating in CI. Single maintainer, moving fast, read th",
+  "version": "1.0.0",
+  "author": "sattyamjjain",
+  "homepage": "https://github.com/sattyamjjain/ferrumdeck",
+  "skills": []
+}
