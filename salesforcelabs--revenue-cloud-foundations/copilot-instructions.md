@@ -1,90 +1,100 @@
-## cci-task-definitions
+## context-plans
 
-> CumulusCI task and flow definition conventions — naming, groups, feature flags, flow/task authoring, YAML anchors
+> Context Service plan JSON editing rules — additive format, canonical enums, scoped __c rule, Connect-vs-SObject-REST split, validate before apply
 
 
-# CCI Task/Flow Definition Rules
+# Context Plan JSON Rules
 
-## After Editing
+Repo **plan JSON** consumed by `manage_context_definition` / `apply_context_*`
+(class `rlm_context_service.ManageContextDefinition`) and `ExtendStandardContext`.
+This is our additive format — **not** the MDAPI `.contextDefinition` file format
+under `force-app/main/default/contextDefinitions/`, and not a Salesforce-native
+artifact. Full guidance: `.cursor/skills/context-service/SKILL.md`
+(+ `data-model-and-api.md` for the authoritative schema).
 
-Regenerate the CCI skill reference files:
+## Always
 
-```bash
-python scripts/ai/generate_cci_reference.py
-```
+- **Lint before applying** (offline, no org):
+  `python scripts/context_service/definition/validate_context_plan.py <manifest.json>` — must be 0 errors.
+- If you add/rename a recognized key, update the schema table in
+  `.cursor/skills/context-service/data-model-and-api.md` in the same change
+  (per `.cursor/skills/doc-consistency/SKILL.md`).
 
-## DO NOT
+## Format is additive-only
 
-- Skip `group:` on tasks or flows
-- List excluded objects in task descriptions
-- Use `$$` syntax in `when:` conditions (use `project_config.project__custom__<flag>`)
-- Add steps to `prepare_rlm_org` before their dependencies are deployed
+- A plan **adds/upserts** attributes, mappings, and tags onto a base. There is
+  **no per-artifact delete directive** — do not expect one. Deactivation is
+  whole-version (`deactivate_before`), off by default. Teardown (deactivate or
+  hard-delete a definition / custom artifacts) is a **separate, out-of-band**
+  step — `scripts/context_service/definition/delete_context.py`, not the plan
+  format. Deactivate before definition teardown; granular leaf-delete behavior is
+  endpoint-specific, so check the active-version matrix in
+  `.cursor/skills/context-service/authoring-and-lifecycle.md` first.
+- The plan format is **design-time only** — it defines a Context *Definition*.
+  Runtime *hydration* (loading records into a context instance) and *persistence*
+  (writing values back) are **not** expressed in a plan; they are handled at
+  runtime by the consuming engines, and can be exercised for
+  debugging/validation by the runtime helper scripts
+  (`context_session.py`, `build_hydration_data.py`, …) — see
+  `.cursor/skills/context-service/runtime-and-persistence.md`.
+- `deactivate_before` defaults to `false`; **adding new** attributes/tags/nodes
+  applies in place on an active version. But many **modify existing** operations
+  (flipping `isTransient`, re-pointing the default mapping) are blocked while
+  active (`RECORD_UPDATE_FAILED` "Cannot modify/delete an active context
+  definition", live-verified), and one Connect PATCH path is silently
+  destructive if it omits siblings. Set `deactivate_before: true` for a plan that
+  edits existing artifacts, or use
+  `scripts/context_service/definition/mutate_context.py --deactivate-first --reactivate`
+  for a one-off. See the skill before assuming any endpoint's active-version
+  behavior.
 
-## Task Naming
+## Canonical enums (Core UDD, v67.0)
 
-| Pattern | Purpose |
-|---------|---------|
-| `insert_qb_{plan}_data` | Load a data plan |
-| `delete_qb_{plan}_data` | Delete plan data |
-| `extract_qb_{plan}_data` | Extract from org |
-| `test_qb_{plan}_idempotency` | Idempotency test |
-| `activate_{thing}` | Apex activation script |
-| `deploy_*` | Deploy metadata bundles |
-| `refresh_dt_*` | Refresh decision tables |
-| `manage_*` | Comprehensive management tasks |
+- `dataType` ∈ {STRING, NUMBER, BOOLEAN, DATE, DATETIME, PERCENT, PICKLIST,
+  CURRENCY, REFERENCE, DOUBLE, INT, MAP, SELFREFERENCE, LOOKUP}
+- `fieldType` ∈ {INPUT, INPUTOUTPUT, OUTPUT, AGGREGATE}
+- `mappingType` ∈ {SOBJECT, CONTEXT}
 
-## Required Fields
+## `__c`-suffix rule (scoped)
 
-```yaml
-tasks:
-  my_task_name:
-    group: Data Maintenance    # Required — groups tasks in cci task list
-    description: >
-      Specific description of what objects/SObjects are affected.
-    class_path: tasks.rlm_sfdmu.LoadSFDMUData
-    options:
-      pathtoexportjson: datasets/sfdmu/qb/en-US/qb-pricing
-```
+- Custom attribute/node/tag names added to a **standard/extended base** must end
+  with `__c` (validator ERROR otherwise). This is **platform-enforced at
+  creation**, not just a repo convention — a suffix-less custom artifact POST on
+  an extended base is rejected with `INVALID_API_INPUT` ("… must have an '__c'
+  suffix in an extended context definition"). The validator catches it offline.
+- **Skipped entirely for create-new definitions** (`"create": true`) — their
+  names are author-chosen and collide with nothing inherited.
+- Definition `developerName`s are exempt (legitimately `RLM_*Context`).
 
-## Task Groups
+## Mapping rules — Connect vs SObject REST
 
-| Group | Purpose |
-|-------|---------|
-| `Revenue Lifecycle Management` | Core RLM tasks |
-| `Data Maintenance` | Delete/reset data plans |
-| `Data Management - Extract` | Extract data from org to CSV |
-| `Data Management - Idempotency` | Idempotency tests |
-| `UX Personalization` | Flexipage/layout/profile assembly |
-| `E2E Testing` | Robot Framework UI tests |
-| `Partner Relationship Management` | PRM-specific tasks |
+- Simple SOBJECT mapping: `mappingName`, `contextNode`, `contextAttribute`,
+  `mappingType: SOBJECT`, `sObject`, `sObjectField`.
+- **Key-name asymmetry (easy trip):** a `mappingRules` entry names the node with
+  **`contextNode`**, but the matching `contextAttributesByName` entry names the
+  same node with **`nodeName`**. Mixing them up → the validator errors
+  `attribute missing required 'nodeName'`. To bind a new attribute to a field in
+  one plan, supply both: the attribute in `contextAttributesByName` (`nodeName`)
+  and the bind in `mappingRules` (`contextNode`).
+- **Relationship traversals** (`childSObject` / `childSObjectField`) are applied
+  via **SObject REST**, not the Connect PATCH (the PATCH rejects traversals and
+  wipes existing hydration on re-run). The task routes these automatically.
+- CONTEXT-to-CONTEXT rules need `sourceContextNode` / `sourceContextAttribute`
+  (+ `mappedContextDefinitionName`); at most **2 distinct referenced definitions**
+  (validator ERROR beyond that). A *referenced definition* is another whole
+  context linked in (e.g. `SalesTransactionContext` references
+  `AssetContext__stdctx`, shown as "Referenced Definitions" in Setup and as
+  `referenceContextDefinitions` in the GET). The link itself rides on
+  `ASSOCIATION`-intent mappings that carry **no** node/field bindings — they let
+  the engine cross between the two contexts (e.g. quote line ↔ asset). Inherited
+  reference links come from the standard base; do not hand-declare them.
 
-## Feature Flags
+## Do not
 
-- Defined under `project.custom` — boolean flags
-- `when: project_config.project__custom__billing`
-- Compound: `when: project_config.project__custom__dro and project_config.project__custom__qb`
-- Negation: `when: not project_config.project__custom__refresh`
-- Scratch org: `when: org_config.scratch and not project_config.project__custom__tso`
-
-## Flow Steps
-
-Steps are integer keys. Flows can call other flows or tasks:
-
-```yaml
-flows:
-  my_flow:
-    group: Revenue Lifecycle Management
-    description: What this flow does.
-    steps:
-      1:
-        flow: prepare_core
-      2:
-        task: deploy_full
-        when: project_config.project__custom__billing
-```
-
-For detailed YAML anchor patterns, `prepare_rlm_org` step ordering, and
-`org_config.scratch` usage, see `.cursor/skills/cci-orchestration/SKILL.md`.
+- Add `primaryDomainObject` / `primaryObject` — the create endpoint returns
+  `JSON_PARSER_ERROR` (validator ERROR).
+- Change a live definition consumed by a pricing procedure / expression set to
+  deactivated — it breaks the consumer (see `authoring-and-lifecycle.md`).
 
 ---
 > Source: [SalesforceLabs/revenue-cloud-foundations](https://github.com/SalesforceLabs/revenue-cloud-foundations) — distributed by [TomeVault](https://tomevault.io).
