@@ -1,0 +1,9 @@
+{
+  "name": "leunguu--pi-agent-config",
+  "displayName": "pi-agent-config",
+  "description": "Personal pi-coding-agent configuration: custom extensions, themes, prompts, presets, and skills for cross-environment sync.",
+  "version": "1.0.0",
+  "author": "LEUNGUU",
+  "homepage": "https://github.com/LEUNGUU/pi-agent-config",
+  "skills": []
+}
