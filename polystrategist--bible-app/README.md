@@ -7,11 +7,11 @@ Believers Sword is a desktop Bible application designed to help believers stay c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [polystrategist/bible-app](https://github.com/polystrategist/bible-app).
+Original source: `CLAUDE.md` in [polystrategist/bible-app](https://github.com/polystrategist/bible-app).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
