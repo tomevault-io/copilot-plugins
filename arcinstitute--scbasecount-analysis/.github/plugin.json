@@ -1,0 +1,9 @@
+{
+  "name": "arcinstitute--scbasecount-analysis",
+  "displayName": "scBaseCount_analysis",
+  "description": "Data analysis for the scBaseCount manuscript",
+  "version": "1.0.0",
+  "author": "ArcInstitute",
+  "homepage": "https://github.com/ArcInstitute/scBaseCount_analysis",
+  "skills": []
+}
