@@ -1,0 +1,9 @@
+{
+  "name": "odvcencio--buckley",
+  "displayName": "buckley",
+  "description": "A tool-first AI agent harness for durable repository work across terminal, browser, ACP, LSP, and CI.",
+  "version": "1.0.0",
+  "author": "odvcencio",
+  "homepage": "https://github.com/odvcencio/buckley",
+  "skills": []
+}
