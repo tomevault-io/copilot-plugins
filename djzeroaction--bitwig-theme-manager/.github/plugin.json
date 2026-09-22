@@ -1,0 +1,9 @@
+{
+  "name": "djzeroaction--bitwig-theme-manager",
+  "displayName": "bitwig-theme-manager",
+  "description": "for downloading, editing and installing bitwig themes",
+  "version": "1.0.0",
+  "author": "DJZeroAction",
+  "homepage": "https://github.com/DJZeroAction/bitwig-theme-manager",
+  "skills": []
+}
