@@ -4,7 +4,7 @@
   "repo": "athenaeum",
   "description": "Catalog manager for astrophotographers \u2014 FITS/XISF metadata, frame-set clustering, calibration matching, master creation and export",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eg013ra1n/athenaeum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T18:32:29Z"
+  "distributed_at": "2026-09-22T18:37:50Z"
 }
