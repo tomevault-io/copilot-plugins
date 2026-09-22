@@ -1,13 +1,11 @@
-## tests
+## typescript-architecture
 
-> -   NEVER include any test code in the production code - we should always have it in a separate dedicated files
+> -   Add JSDocs for functions
 
 
-# Automated Tests
+## TypeScript
 
-## General rules
-
--   NEVER include any test code in the production code - we should always have it in a separate dedicated files
+-   Add JSDocs for functions
 
 ---
 > Source: [lshAlgorithm/MoE-SpAc](https://github.com/lshAlgorithm/MoE-SpAc) — distributed by [TomeVault](https://tomevault.io).
