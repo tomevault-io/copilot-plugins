@@ -1,0 +1,9 @@
+{
+  "name": "frankxai--starlight-intelligence-system",
+  "displayName": "Starlight-Intelligence-System",
+  "description": "Sovereign AI substrate for memory, orchestration, skills, governance, and evals across Claude Code, Codex, Cursor, Gemini, and Antigravity.",
+  "version": "1.0.0",
+  "author": "frankxai",
+  "homepage": "https://github.com/frankxai/Starlight-Intelligence-System",
+  "skills": []
+}
