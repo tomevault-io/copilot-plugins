@@ -1,0 +1,9 @@
+{
+  "name": "winlp4ever--canvas-harness",
+  "displayName": "canvas-harness",
+  "description": "Lightning-fast canvas-rendered, headless node-graph & whiteboard library for React. Scales past where React Flow and Excalidraw slow down.",
+  "version": "1.0.0",
+  "author": "winlp4ever",
+  "homepage": "https://github.com/winlp4ever/canvas-harness",
+  "skills": []
+}
