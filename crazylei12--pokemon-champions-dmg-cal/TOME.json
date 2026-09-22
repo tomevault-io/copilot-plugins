@@ -1,0 +1,44 @@
+{
+  "name": "Pokemon-Champions-dmg_cal",
+  "owner": "crazylei12",
+  "repo": "Pokemon-Champions-dmg_cal",
+  "description": "Unofficial Android battle assistant for Pokemon Champions with on-device team OCR, damage calculation, speed tiers, and optional battle replay recording.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/crazylei12/Pokemon-Champions-dmg_cal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T03:30:11Z"
+}
