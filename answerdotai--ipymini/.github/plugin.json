@@ -1,0 +1,9 @@
+{
+  "name": "answerdotai--ipymini",
+  "displayName": "ipymini",
+  "description": "Experimental mini python jupyter kernel",
+  "version": "1.0.0",
+  "author": "AnswerDotAI",
+  "homepage": "https://github.com/AnswerDotAI/ipymini",
+  "skills": []
+}
