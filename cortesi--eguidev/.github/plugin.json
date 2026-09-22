@@ -1,0 +1,9 @@
+{
+  "name": "cortesi--eguidev",
+  "displayName": "eguidev",
+  "description": "AI-assisted development tooling for egui",
+  "version": "1.0.0",
+  "author": "cortesi",
+  "homepage": "https://github.com/cortesi/eguidev",
+  "skills": []
+}
