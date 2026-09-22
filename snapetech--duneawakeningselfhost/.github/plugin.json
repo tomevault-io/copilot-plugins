@@ -1,0 +1,9 @@
+{
+  "name": "snapetech--duneawakeningselfhost",
+  "displayName": "DuneAwakeningSelfHost",
+  "description": "Linux Docker Compose & WebUI Admin Panel tooling for the Dune: Awakening self-hosted server package",
+  "version": "1.0.0",
+  "author": "snapetech",
+  "homepage": "https://github.com/snapetech/DuneAwakeningSelfHost",
+  "skills": []
+}
