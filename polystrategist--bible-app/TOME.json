@@ -4,7 +4,7 @@
   "repo": "bible-app",
   "description": "Believers Sword is a desktop Bible application designed to help believers stay close to Scripture throughout the day. It brings reading, study tools, personal notes, highlights, prayer tracking, and offline access together in a single, focused workspace.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/polystrategist/bible-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T02:35:34Z"
+  "distributed_at": "2026-09-22T02:39:58Z"
 }
