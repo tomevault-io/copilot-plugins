@@ -1,0 +1,44 @@
+{
+  "name": "lvjiang",
+  "owner": "wanda1416",
+  "repo": "lvjiang",
+  "description": "\u5f8b\u5320 \u71d5\u4e91\u5341\u516d\u58f0 \u81ea\u52a8\u8c03\u5f8b \u81ea\u52a8\u5316\u5de5\u5177 \u2014 \u89c6\u89c9\u8bc6\u522b + DSL \u5de5\u4f5c\u6d41 + PyQt6 GUI",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wanda1416/lvjiang",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T01:30:21Z"
+}
