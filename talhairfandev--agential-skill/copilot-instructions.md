@@ -1,0 +1,20 @@
+## agential-skill
+
+> Self-contained minimal editorial UI rules with hard-edged geometry
+
+
+# Agential Skill — Cursor Rules
+
+1. Read `context.md` before acting and update it after visual decisions or milestones.
+2. For an underspecified new UI ask theme, primary action, density, and pacing. Skip for edits or supplied visual direction.
+3. Before frontend work read the relevant internal baseline guidance.
+4. Build editorial UI: full-bleed image planes, oversized grotesque type, visible 1px grids, sparse utility labels, short copy, and hard black/white sections with selective red/orange imagery.
+5. Use hard-edged rectangular geometry for every surface and control. Avoid soft corners, pills, capsules, circles, and ornamental shapes.
+6. Never produce floating cards, bento, equal rows, glass, blur, shadows, gradients, icon boxes, or generic dashboard widgets. Use split stages, image/title plates, wireframe matrices, image strips, and ledger rows.
+7. Keep one focal point per section, neutral body copy, 1–6 word headings, sparse metadata, and locked rectangular media ratios.
+8. Use real state, semantic accessibility, WCAG AA contrast, square focus outlines, and restrained linear motion with reduced-motion support.
+9. Deliver cohesive chunks. Inspect every diff and run available validation before completion.
+
+---
+> Source: [talhairfandev/agential-skill](https://github.com/talhairfandev/agential-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-22 -->
