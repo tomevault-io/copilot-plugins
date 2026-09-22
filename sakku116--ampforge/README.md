@@ -7,11 +7,11 @@ AmpForge - desktop guitar amp & effects host for Windows. VST3/VST2, real-time, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sakku116/ampforge](https://github.com/sakku116/ampforge).
+Original source: `AGENTS.md` in [sakku116/ampforge](https://github.com/sakku116/ampforge).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
