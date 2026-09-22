@@ -1,0 +1,44 @@
+{
+  "name": "332_lab-jev-chat",
+  "owner": "Liyucheng1997",
+  "repo": "332_lab-jev-chat",
+  "description": "Jev Chat Assistant for Windows - \u7535\u8111\u7248\u5fae\u4fe1\u610f\u56fe\u5224\u65ad\u4e0e DeepSeek \u5efa\u8bae\u56de\u590d",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Liyucheng1997/332_lab-jev-chat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T09:32:53Z"
+}
