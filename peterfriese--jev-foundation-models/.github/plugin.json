@@ -1,0 +1,9 @@
+{
+  "name": "peterfriese--jev-foundation-models",
+  "displayName": "jev-foundation-models",
+  "description": "A lightweight, native Swift 6 bridge integrating TypeSafe AI's Jev System One decision model into Apple's Foundation Models framework.",
+  "version": "1.0.0",
+  "author": "peterfriese",
+  "homepage": "https://github.com/peterfriese/jev-foundation-models",
+  "skills": []
+}
