@@ -1,136 +1,125 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## nextjs-stripe-store
 
-> Technical reference for Claude Code (and other agents) when working with Next Stripe Store.
+> Specialized guidance for AI agents working with Next Stripe Store.
 
-# CLAUDE.md
+# AGENTS.md
 
-Technical reference for Claude Code (and other agents) when working with Next Stripe Store.
+Specialized guidance for AI agents working with Next Stripe Store.
 
-## Quick Reference
+## Agent Profiles
 
-| Command | Purpose |
-|---------|---------|
-| `bun dev` | Start development server |
-| `bun run lint` | Check code with Biome |
-| `bun run format` | Format code with Biome |
-| `bunx tsc --noEmit` | Type check without emit |
-| `bunx drizzle-kit migrate` | Apply database migrations |
+### 🔍 Explorer Agent
+**Goal**: Understand codebase structure, trace data flow, locate relevant code.
 
-## Project Overview
+**Entry Points**:
+| Task | Start Here |
+|------|------------|
+| Catalog + Stripe client | `src/lib/commerce.ts` |
+| Product sync (DB → Stripe) | `src/lib/product-sync.ts` |
+| Cart operations | `src/app/cart/actions.ts` |
+| Orders + webhooks | `src/app/api/webhooks/stripe/route.ts` + `src/lib/orders.ts` |
+| Admin workflows | `src/app/admin/products/` + `src/app/api/admin/` |
+| Product pages | `src/app/(store)/product/[slug]/` |
+| UI components | `src/components/ui/` |
+| Store layout | `src/app/(store)/layout.tsx` |
+| DB schema | `src/db/schema.ts` |
 
-**Next Stripe Store** is a Next.js 16.1 + React 19 e-commerce app with:
+**Key Patterns to Recognize**:
+- `"use server"` → Server action file
+- `"use cache"` → Cached async component
+- `"use client"` → Client component with interactivity
+- `commerce.*` → DB-backed product/collection access (variants expose Stripe Price IDs)
+- `pushProductToStripe` / `pushVariantToStripe` → Sync DB catalog to Stripe
+- `useCart((state) => ...)` → Cart store access (Zustand)
 
-- **Next.js 16.1** – App Router, RSC, React Compiler (`reactCompiler: true`), `cacheComponents: true`
-- **React 19** – RSC + streaming
-- **Catalog in Postgres** – Products/variants/collections stored in DB via Drizzle ORM
-- **Stripe** – Checkout Sessions + Webhooks, plus a sync layer that pushes DB catalog to Stripe Products/Prices
-- **Better Auth** – Email/password auth backed by Drizzle adapter, with DB-backed roles (`USER`/`ADMIN`)
-- **Zustand** – Client cart state (optimistic UI) hydrated from server
-- **Tailwind CSS v4** – Configured via PostCSS (no `tailwind.config.ts`)
-- **Biome** – Lint/format (no ESLint/Prettier)
-- **TypeScript** – Strict type checking
+### 📋 Planner Agent
+**Goal**: Design implementation strategy before coding.
 
-## Architecture
+**Planning Checklist**:
+1. ✅ Identify affected routes/components
+2. ✅ Determine server vs client components
+3. ✅ Plan Suspense boundaries for async data
+4. ✅ Consider cart currency constraints
+5. ✅ Define type interfaces
+6. ✅ List test scenarios
 
-### Catalog + Commerce Layer (`src/lib/commerce.ts`)
+**Decision Tree**:
+```
+Need to fetch data?
+├── Yes → Server Component
+│   ├── Cacheable? → Add "use cache" + cacheLife()
+│   └── Dynamic? → Wrap parent in <Suspense>
+└── No → Consider if Server Component still works
 
-This project’s **source of truth is the database**. `commerce.*` queries the DB and exposes a UI-friendly shape:
-
-- `ProductVariant.id` is the **Stripe Price ID** (`stripePriceId`) for cart/checkout compatibility.
-
-```typescript
-// Product listing
-const { data: products } = await commerce.productBrowse({ limit: 12 });
-
-// Single product by slug or ID
-const product = await commerce.productGet({ idOrSlug: "my-product" });
-
-// Collections (DB-backed)
-const { data: collections } = await commerce.collectionBrowse({ limit: 5 });
-
-// Variant with product (used by cart hydration)
-const result = await commerce.getVariantWithProduct(priceId);
+Need interactivity?
+├── Clicks/state → "use client"
+├── URL params → useSearchParams + useMemo
+└── Cart mutations → useCart + server action
 ```
 
-### Product Sync to Stripe (`src/lib/product-sync.ts`)
+### 🛠 Implementer Agent
+**Goal**: Execute implementation with quality.
 
-Admin workflows push DB products/variants to Stripe so Checkout can price items by Stripe Price ID.
-
-- Product → Stripe Product (`products.stripeProductId`)
-- Variant → Stripe Price (`product_variants.stripePriceId`)
-- Variant options are written to Stripe Price `metadata` with keys starting with `option...`
-
-### Cart System (`src/app/cart/actions.ts`)
-
-- Cart stored in httpOnly `cart` cookie (Stripe Price IDs + quantities)
-- Single currency per cart enforced
-- Server actions: `getCart`, `addToCart`, `removeFromCart`, `setCartQuantity`, `startCheckout`
-
-```typescript
-// Add item to cart
-const result = await addToCart(variantId, quantity);
-
-// Start Stripe Checkout
-const { url } = await startCheckout();
+**Setup Commands**:
+```bash
+bun dev              # Start server
+bun run lint         # Check code
+bunx tsc --noEmit    # Type check
+bunx drizzle-kit migrate # Apply DB migrations
 ```
 
-### Orders + Webhooks
+**Implementation Rules**:
+| Constraint | Requirement |
+|------------|-------------|
+| Exports | Prefer named exports (except Next.js special files like `page.tsx`, `layout.tsx`) |
+| Data fetching | Fetch in Server Components where possible; wrap async loaders in `<Suspense>` |
+| Auth gates | Admin routes/actions must check role (`USER`/`ADMIN`) via DB (`src/lib/admin-auth.ts`) |
+| Imports | Use `@/*` alias (maps to `src/*`) for internal imports |
+| Money | Treat stored prices as minor-unit strings; use `BigInt()` for totals and `formatMoney()` |
 
-- `POST /api/webhooks/stripe` verifies signature with `STRIPE_WEBHOOK_SECRET`
-- Creates and updates orders via `src/lib/orders.ts`
-- Handles:
-  - `checkout.session.completed` → create order + items
-  - `payment_intent.succeeded` → mark paid
-  - `charge.refunded` → mark refunded / partially_refunded
+## Task Recipes
 
-### Data Model (High Level)
-
-```
-DB Product        → products (id, slug, stripeProductId?, syncStatus, ...)
-DB Variant        → product_variants (id, stripePriceId?, price, currency, options, syncStatus, ...)
-Cart line item    → Stripe Price ID + quantity (stored in httpOnly cookie)
-Order persistence → orders + order_items (created from Stripe sessions via webhook)
-```
-
-## File Structure
-
-```
-src/
-├── app/
-│   ├── (store)/                     # Store routes
-│   ├── (auth)/                      # Login/register
-│   ├── admin/                       # Admin pages
-│   ├── api/
-│   │   ├── auth/[...betterAuth]/    # Better Auth handler
-│   │   ├── admin/*                  # Admin endpoints (CRUD + sync)
-│   │   └── webhooks/stripe/         # Stripe webhook handler
-│   └── cart/                        # Server cart actions + cart sidebar UI
-├── components/                      # UI + domain components
-├── db/                              # Drizzle schema + db client
-├── lib/                             # commerce, orders, auth, product sync, money, utils
-└── utils/                           # shared pure helpers (e.g. cart totals)
-```
-
-## Code Patterns
-
-### Server Components with Caching
+### Add a New Product Feature
 
 ```tsx
-async function ProductList() {
+// 1. Fetch data with commerce helpers
+const product = await commerce.productGet({ idOrSlug: slug });
+
+// 2. Create cached component
+async function ProductInfo({ slug }: { slug: string }) {
   "use cache";
   cacheLife("seconds");
   
-  const { data: products } = await commerce.productBrowse({ limit: 12 });
-  return <ProductGrid products={products} />;
+  const product = await commerce.productGet({ idOrSlug: slug });
+  if (!product) return notFound();
+  
+  return <div>{product.name}</div>;
 }
 
-// Always wrap in Suspense
+// 3. Wrap in Suspense at usage site
 <Suspense fallback={<Skeleton />}>
-  <ProductList />
+  <ProductInfo slug={params.slug} />
 </Suspense>
 ```
 
-### Client Components with Cart
+### Add a New Page Route
+
+```tsx
+// app/(store)/my-page/page.tsx
+import { Suspense } from "react";
+
+export default function MyPage() {
+  return (
+    <main>
+      <Suspense fallback={<Loading />}>
+        <AsyncContent />
+      </Suspense>
+    </main>
+  );
+}
+```
+
+### Add Cart Functionality
 
 ```tsx
 "use client";
@@ -138,170 +127,137 @@ async function ProductList() {
 import { addToCart } from "@/app/cart/actions";
 import { useCart } from "@/components/cart/use-cart";
 
-function AddButton({ variantId }: { variantId: string }) {
+function AddButton({ variantId, productVariant }) {
   const openCart = useCart((state) => state.openCart);
   const add = useCart((state) => state.add);
   const sync = useCart((state) => state.sync);
-  
-  const handleAdd = async () => {
+  const [isPending, startTransition] = useTransition();
+
+  const handleAdd = () => {
     openCart();
-    add({
-      quantity: 1,
-      productVariant: {
-        id: variantId,
-        // price/currency/images/combinations/product omitted for brevity
-      },
+    startTransition(async () => {
+      // Optimistic update
+      add({ quantity: 1, productVariant });
+      
+      // Server sync
+      const result = await addToCart(variantId, 1);
+      if (result?.cart) {
+        sync(result.cart);
+      }
     });
-    const result = await addToCart(variantId, 1);
-    if (result?.cart) sync(result.cart);
   };
-  
-  return <button onClick={handleAdd}>Add to Cart</button>;
+
+  return (
+    <button onClick={handleAdd} disabled={isPending}>
+      {isPending ? "Adding..." : "Add to Cart"}
+    </button>
+  );
 }
 ```
 
-### Price Formatting
+### Format Prices Correctly
 
 ```typescript
 import { formatMoney } from "@/lib/money";
 
-// Always use BigInt for prices (stored as string in minor units)
-const price = formatMoney({
-  amount: BigInt(variant.price),
+// Variant prices are strings in minor units
+const variant = { price: "1999", currency: "USD" };
+
+// Convert to BigInt for calculations
+const total = BigInt(variant.price) * BigInt(quantity);
+
+// Format for display
+const display = formatMoney({
+  amount: total,
   currency: variant.currency,
   locale: process.env.NEXT_PUBLIC_LOCALE ?? "en-US",
 });
 ```
 
-### URL-Driven State (Variants)
+## Anti-Patterns to Avoid
 
+### ❌ Blocking Data in Layouts
 ```tsx
-"use client";
-
-import { useSearchParams, useRouter } from "next/navigation";
-
-function VariantSelector({ variants }) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  
-  const selectOption = (label: string, value: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set(label, value);
-    router.replace(`?${params.toString()}`, { scroll: false });
-  };
-  
-  // Derive selected variant from URL
-  const selected = useMemo(() => {
-    return variants.find(v => /* match combinations with searchParams */);
-  }, [variants, searchParams]);
-}
-```
-
-## Biome Notes
-
-- Formatting uses **tabs** and **double quotes** by default (see `biome.json`).
-- Imports are organized automatically via Biome assist.
-- Prefer pure helpers + small modules; avoid “god files” when adding new features.
-
-## Common Mistakes to Avoid
-
-### ❌ Using Node.js tools
-```bash
-# Wrong
-npm install
-node script.js
-
-# Correct
-bun install
-bun script.js
-```
-
-### ❌ Accessing cookies/data outside Suspense
-```tsx
-// Wrong - blocks entire page
+// WRONG: Blocks all child pages
 export default async function Layout({ children }) {
-  const cart = await getCart(); // Uncached data!
-  return <CartProvider cart={cart}>{children}</CartProvider>;
+  const data = await fetchData(); // No Suspense!
+  return <Provider data={data}>{children}</Provider>;
 }
 
-// Correct - wrap in Suspense
+// CORRECT: Suspense boundary
 export default function Layout({ children }) {
   return (
     <Suspense fallback={<Shell />}>
-      <CartLoader>{children}</CartLoader>
+      <AsyncProvider>{children}</AsyncProvider>
     </Suspense>
   );
 }
 ```
 
-### ❌ Using `new Date()` in Server Components
+### ❌ useEffect for Derived State
 ```tsx
-// Wrong - causes prerender warning
-function Footer() {
-  return <p>© {new Date().getFullYear()}</p>;
-}
+// WRONG: Sync with effect
+const [selected, setSelected] = useState(null);
+useEffect(() => {
+  setSelected(variants.find(...));
+}, [variants, searchParams]);
 
-// Correct - use client component with Suspense
-"use client";
-function CopyrightYear() {
-  return <>{new Date().getFullYear()}</>;
-}
-
-// In Footer:
-<Suspense fallback="2025"><CopyrightYear /></Suspense>
+// CORRECT: Derive with useMemo
+const selected = useMemo(() => {
+  return variants.find(...);
+}, [variants, searchParams]);
 ```
 
-### ❌ String literals for Stripe types
+### ❌ Hardcoded Stripe Types
 ```typescript
-// Wrong - type widening
-const countries = ["US", "CA"]; // string[]
+// WRONG: Type widens to string
+const type = "fixed_amount";
+const countries = ["US", "CA"];
 
-// Correct - const assertion
+// CORRECT: Const assertion
+const type = "fixed_amount" as const;
 const countries = ["US", "CA"] as const;
 ```
+
+## Validation Checklist
+
+Before marking task complete:
+
+- [ ] **Types**: `bunx tsc --noEmit` passes
+- [ ] **Lint**: `bun run lint` passes  
+- [ ] **Suspense**: All `"use cache"` components wrapped
+- [ ] **Cart**: Add/remove works, sidebar opens
+- [ ] **Webhooks** (if enabled): Stripe events reach `POST /api/webhooks/stripe` without signature errors
+- [ ] **Mobile**: Test at 375px viewport
+- [ ] **Console**: No errors in browser dev tools
+
+## File Quick Reference
+
+| Need | File |
+|------|------|
+| Catalog queries + Stripe client | `src/lib/commerce.ts` |
+| Product sync | `src/lib/product-sync.ts` |
+| Cart mutations + checkout | `src/app/cart/actions.ts` |
+| Cart UI state | `src/components/cart/use-cart.ts` |
+| Price formatting | `src/lib/money.ts` |
+| Orders | `src/lib/orders.ts` |
+| DB schema | `src/db/schema.ts` |
+| Shadcn components | `src/components/ui/*` |
+| Product card | `src/components/product/product-card.tsx` |
+| Store layout | `src/app/(store)/layout.tsx` |
 
 ## Environment Variables
 
 ```bash
-# Required (core)
-DATABASE_URL=postgres://...
-STRIPE_SECRET_KEY=sk_test_xxx
-NEXT_PUBLIC_ROOT_URL=http://localhost:3000
-
-# Recommended (auth)
-BETTER_AUTH_SECRET=min-32-chars
-
-# Optional
-NEXT_PUBLIC_LOCALE=en-US
-NEXT_PUBLIC_BLOB_URL=https://...
-STRIPE_SHIPPING_RATE_ID=shr_xxx
-
-# Optional but recommended (orders)
-STRIPE_WEBHOOK_SECRET=whsec_xxx
+DATABASE_URL             # Required - Postgres connection string
+STRIPE_SECRET_KEY        # Required - Stripe secret key
+NEXT_PUBLIC_ROOT_URL     # Required - Base URL for redirects and auth callbacks
+BETTER_AUTH_SECRET       # Recommended - Auth secret (≥32 chars)
+NEXT_PUBLIC_LOCALE       # Optional - Formatting locale
+NEXT_PUBLIC_BLOB_URL     # Optional - Base URL for public assets
+STRIPE_SHIPPING_RATE_ID  # Optional - Reusable shipping rate
+STRIPE_WEBHOOK_SECRET    # Optional - Required if you enable Stripe webhooks locally
 ```
-
-## Testing Checklist
-
-- [ ] `bunx tsc --noEmit` – Type check passes
-- [ ] `bun run lint` – No Biome errors
-- [ ] Add to cart works (opens sidebar, item appears)
-- [ ] Variant selection updates URL and price
-- [ ] Checkout redirects to Stripe
-- [ ] Mobile responsive (test at 375px width)
-- [ ] No console errors in browser
-
-## Key Files to Know
-
-| File | Purpose |
-|------|---------|
-| `src/lib/commerce.ts` | DB-backed product/collection queries + Stripe client |
-| `src/lib/product-sync.ts` | Push DB catalog to Stripe (Products/Prices) |
-| `src/app/cart/actions.ts` | Cart cookies + checkout session creation |
-| `src/app/api/webhooks/stripe/route.ts` | Stripe webhook → order persistence |
-| `src/lib/orders.ts` | Order creation + status/refund updates |
-| `src/components/cart/use-cart.ts` | Zustand cart store (client) |
-| `src/app/(store)/layout.tsx` | Store shell with Suspense cart hydration |
-| `src/components/ui/*` | Shadcn component library |
 
 ---
 > Source: [guillermolg00/nextjs-stripe-store](https://github.com/guillermolg00/nextjs-stripe-store) — distributed by [TomeVault](https://tomevault.io).
