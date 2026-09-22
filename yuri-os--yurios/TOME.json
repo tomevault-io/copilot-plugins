@@ -4,7 +4,7 @@
   "repo": "YuriOS",
   "description": "An open-source, local-friendly runtime for agentic AI companions \u2014 an always-on brain with self-editing memory. You own the model, the memory, and the character.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yuri-os/YuriOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T02:52:09Z"
+  "distributed_at": "2026-09-22T02:52:54Z"
 }
