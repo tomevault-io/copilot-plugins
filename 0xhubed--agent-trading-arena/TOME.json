@@ -1,0 +1,57 @@
+{
+  "name": "agent-trading-arena",
+  "owner": "0xhubed",
+  "repo": "agent-trading-arena",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "trading-wisdom",
+      "path": "skills/trading-wisdom",
+      "github_url": "https://github.com/0xhubed/agent-trading-arena/tree/main/skills/trading-wisdom",
+      "description": ""
+    },
+    {
+      "name": "market-regimes",
+      "path": "skills/market-regimes",
+      "github_url": "https://github.com/0xhubed/agent-trading-arena/tree/main/skills/market-regimes",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/0xhubed/agent-trading-arena",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T04:30:19Z"
+}
