@@ -1,36 +1,20 @@
-## starlight-memory
+## starlight-intelligence-system
 
-> Starlight Vault and Memory Rules
+> <!-- STARLIGHT-EDITORIAL:START -->
 
+<!-- STARLIGHT-EDITORIAL:START -->
+## Editorial contract
 
-# Starlight Memory System
+Brand: **Starlight Intelligence Systems** (`sis`)
 
-When working with vaults and memory:
+- Read `CREATOR.md` before changing public or customer-facing copy.
+- Apply the registered brand voice and the shared editorial gate.
+- Reject generated prestige language, rhetorical contrast formulas, invented claims, and abstract labels that hide simple facts.
+- Keep public labels in sentence case.
+- Run the changed-copy editorial audit before release.
 
-## Vault Protocol
-
-1. **Read before write** — Always check existing vault contents before adding
-2. **Structured entries** — Follow the vault's entry template
-3. **Cross-reference** — Link related entries across vaults
-4. **Timestamp everything** — ISO 8601 format
-5. **Tag for retrieval** — Use consistent tags for future search
-
-## Vault Types
-
-- **Strategic** — Decisions, outcomes, strategy (permanent)
-- **Technical** — Patterns, architectures, solutions (permanent with refinement)
-- **Creative** — Ideas, inspirations, aesthetics (permanent)
-- **Operational** — State, metrics, health (rolling 90-day window)
-- **Wisdom** — Timeless principles, meta-knowledge (permanent)
-- **Horizon** — Letters to the future, human hopes, AGI alignment (permanent, public)
-
-## Consolidation
-
-Memory consolidation runs periodically to:
-- Merge duplicate entries
-- Elevate patterns from operational to strategic/technical
-- Archive stale operational data
-- Strengthen cross-references
+Pinned source: https://github.com/frankxai/starlight-design-intelligence/blob/50ae34c7ac06e6c083f277ca96c3bde8f0a39b43/brand-packs/sis/COPY.md
+<!-- STARLIGHT-EDITORIAL:END -->
 
 ---
 > Source: [frankxai/Starlight-Intelligence-System](https://github.com/frankxai/Starlight-Intelligence-System) — distributed by [TomeVault](https://tomevault.io).
