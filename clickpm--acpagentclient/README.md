@@ -7,11 +7,11 @@ Multi-agent ACP desktop client: Flutter shell, Rust core on the official agent-c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ClickPM/AcpAgentClient](https://github.com/ClickPM/AcpAgentClient).
+Original source: `AGENTS.md` in [ClickPM/AcpAgentClient](https://github.com/ClickPM/AcpAgentClient).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
