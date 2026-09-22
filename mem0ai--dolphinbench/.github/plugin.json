@@ -1,0 +1,9 @@
+{
+  "name": "mem0ai--dolphinbench",
+  "displayName": "dolphinbench",
+  "description": "DolphinBench - Mapping the Pareto frontier of Agent Memory",
+  "version": "1.0.0",
+  "author": "mem0ai",
+  "homepage": "https://github.com/mem0ai/dolphinbench",
+  "skills": []
+}
