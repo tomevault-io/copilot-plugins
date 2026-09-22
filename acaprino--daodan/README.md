@@ -7,11 +7,11 @@ Custom Claude Code plugin repository with development workflow agents and skills
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [acaprino/daodan](https://github.com/acaprino/daodan).
+Original source: `AGENTS.md` in [acaprino/daodan](https://github.com/acaprino/daodan).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
