@@ -1,0 +1,44 @@
+{
+  "name": "Sessylph",
+  "owner": "Saqoosha",
+  "repo": "Sessylph",
+  "description": "A native macOS wrapper for Claude Code with tabbed terminal sessions, tmux persistence, and desktop notifications",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Saqoosha/Sessylph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T03:33:47Z"
+}
