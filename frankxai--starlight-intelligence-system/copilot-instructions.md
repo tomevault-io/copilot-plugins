@@ -1,21 +1,35 @@
-## editorial
+## starlight-agents
 
-> Portfolio brand and editorial contract
+> Starlight Agent Activation Rules
 
 
-<!-- STARLIGHT-EDITORIAL:START -->
-## Editorial contract
+# Starlight Agent System
 
-Brand: **Starlight Intelligence Systems** (`sis`)
+When working with agent definitions, understand the hierarchy:
 
-- Read `CREATOR.md` before changing public or customer-facing copy.
-- Apply the registered brand voice and the shared editorial gate.
-- Reject generated prestige language, rhetorical contrast formulas, invented claims, and abstract labels that hide simple facts.
-- Keep public labels in sentence case.
-- Run the changed-copy editorial audit before release.
+## Hierarchy
 
-Pinned source: https://github.com/frankxai/starlight-design-intelligence/blob/50ae34c7ac06e6c083f277ca96c3bde8f0a39b43/brand-packs/sis/COPY.md
-<!-- STARLIGHT-EDITORIAL:END -->
+The Starlight Council sits at the top — the collective mind of all agents convened for major decisions.
+
+Below the Council, three peer agents form the leadership tier:
+- **Orchestrator** — Coordination and workflow management
+- **Prime** — Synthesis and unified reasoning
+- **Architect** — Enterprise technical vision
+
+Below leadership, four specialist agents handle domain work:
+- **Navigator** — Strategic foresight
+- **Sentinel** — Quality and governance
+- **Weaver** — Creative intelligence
+- **Sage** — Wisdom and memory
+
+## Agent Config Format
+
+Each agent file contains:
+- Identity and role definition
+- Domain expertise
+- Activation triggers
+- Collaboration patterns
+- Behavioral constraints
 
 ---
 > Source: [frankxai/Starlight-Intelligence-System](https://github.com/frankxai/Starlight-Intelligence-System) — distributed by [TomeVault](https://tomevault.io).
