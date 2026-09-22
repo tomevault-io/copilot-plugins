@@ -4,7 +4,7 @@
   "repo": "nextjs-stripe-store",
   "description": "A  Next.js - Stripe  e-commerce boilerplate",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/guillermolg00/nextjs-stripe-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T08:42:39Z"
+  "distributed_at": "2026-09-22T08:56:38Z"
 }
