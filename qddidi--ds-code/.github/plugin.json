@@ -1,0 +1,9 @@
+{
+  "name": "qddidi--ds-code",
+  "displayName": "ds-code",
+  "description": "ds-code \u662f\u4e00\u4e2a\u57fa\u4e8e Node.js + TypeScript \u7684\u4ea4\u4e92\u5f0f AI \u7f16\u7a0b\u52a9\u624b CLI\uff0c\u4f7f\u7528 DeepSeek API",
+  "version": "1.0.0",
+  "author": "qddidi",
+  "homepage": "https://github.com/qddidi/ds-code",
+  "skills": []
+}
