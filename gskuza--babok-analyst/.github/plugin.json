@@ -1,0 +1,9 @@
+{
+  "name": "gskuza--babok-analyst",
+  "displayName": "BABOK_ANALYST",
+  "description": "An AI agent for professional business analysis compliant with BABOK v3 (International Institute of Business Analysis) standard. Guides the analyst step-by-step through 8 stages - from project initiali",
+  "version": "1.0.0",
+  "author": "GSkuza",
+  "homepage": "https://github.com/GSkuza/BABOK_ANALYST",
+  "skills": []
+}
