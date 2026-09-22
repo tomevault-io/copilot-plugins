@@ -1,0 +1,9 @@
+{
+  "name": "openhistoria--openhistoria",
+  "displayName": "OpenHistoria",
+  "description": "A grand strategy sandbox game. Open source alternative to Pax Historia.",
+  "version": "1.0.0",
+  "author": "OpenHistoria",
+  "homepage": "https://github.com/OpenHistoria/OpenHistoria",
+  "skills": []
+}
