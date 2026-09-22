@@ -1,0 +1,9 @@
+{
+  "name": "shiguredo--srt-rs",
+  "displayName": "srt-rs",
+  "description": "SRT (Secure Reliable Transport) library for Rust",
+  "version": "1.0.0",
+  "author": "shiguredo",
+  "homepage": "https://github.com/shiguredo/srt-rs",
+  "skills": []
+}
