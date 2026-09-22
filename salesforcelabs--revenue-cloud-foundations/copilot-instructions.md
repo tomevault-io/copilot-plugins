@@ -1,143 +1,88 @@
-## apex-classes
+## apex-scripts
 
-> Apex class authoring rules — sharing enforcement, Id validation, SOQL safety, error handling, test patterns
+> Apex script patterns for Revenue Cloud — bulk safety, activation ordering, deactivation-before-deletion
 
 
-# Apex Class Rules
+# Apex Script Rules
 
 ## DO NOT
 
-- Declare a class without a sharing keyword — always use `with sharing`, `without sharing`, or `inherited sharing`
-- Bind a raw `String` to a SOQL Id field (`WHERE QuoteId = :stringVar`) — always validate with `Id.valueOf` first
-- Semi-join against a **polymorphic** lookup — it matches nothing and reports success
-- Perform DML with `Id = someStringVar` — always validate with `Id.valueOf` in a try/catch
-- Write `catch (Exception e) { /* ignore */ }` — either return an error response or rethrow
-- Leave `System.debug` / `TEMP DEBUG` statements in production code
-- Hardcode org-specific record Ids (PricebookEntry, Pricebook2, etc.) — query by stable keys instead
-- Omit `@isTest` coverage for any new `@InvocableMethod`, `@AuraEnabled`, or public static method
-- Insert a `Quote` in a test method without `Account`, `Opportunity`, and `OpportunityId` + `Status = 'Draft'`
-- Query `QuoteLineGroup` or `QuoteLineItem` without scoping by `QuoteId` when a `quoteId` is available
+- Write SOQL inside loops (query once, iterate results)
+- Use single-record DML in loops (`update record;`) — use `update records;`
+- Delete PUR/PUG/RateCardEntry without deactivating first
+- Delete rating data before deleting rates data (FK constraint)
+- Semi-join against a **polymorphic** lookup — it silently matches nothing
+- Discard `Database.DeleteResult`s — a refused row resurfaces later as an unexplained `DELETE_FAILED` on its parent
+- Log failures at `LoggingLevel.FINE` — the default log level hides them
 
-## Sharing
+## Bulk Safety
+- No SOQL inside loops — query once, iterate over results
+- Use `update records;` (bulk DML on list), never `update record;` inside a loop
+- Use `Database.update(records, false)` for partial success where appropriate
 
-Every class must have an explicit sharing keyword:
+## Activation Ordering
+- Rating objects (PUR, PUG) require specific platform activation ordering
+- See `activateRatingRecords.apex` for the 7-step pattern
+- Always set `Status = 'Active'` (or equivalent) — don't assume records activate automatically
 
-| Class type | Keyword |
-|---|---|
-| Entry point called from LWC / Flow / Action | `with sharing` |
-| Internal utility called from multiple contexts | `inherited sharing` |
-| Explicitly needs to bypass sharing (document why) | `without sharing` |
+## Deactivation Before Deletion
+- PUR, PUG, RateCardEntry require deactivation before deletion
+- Pattern: query active records → set Status to Draft/Inactive → update → delete
+- See `deleteQbRatingData.apex` for the deactivate-then-delete pattern
 
-## Id Validation Before SOQL / DML
+## Delete Scripts
+- Delete in child → parent order (reverse of load order)
+- Rates must be deleted before rating data (FK constraints)
+- Use `Database.delete(records)` — `delete records;` also works in anonymous Apex
 
-Always validate String → Id before use in queries or DML:
-
-```apex
-// GOOD
-Id qId;
-try {
-    qId = Id.valueOf(quoteIdStr);
-} catch (Exception e) {
-    return buildErrorResponse('Invalid quote Id');
-}
-List<QuoteLineGroup> groups = [SELECT Id FROM QuoteLineGroup WHERE QuoteId = :qId];
-
-// BAD — throws QueryException for non-Id strings
-List<QuoteLineGroup> groups = [SELECT Id FROM QuoteLineGroup WHERE QuoteId = :quoteIdStr];
-```
-
-## Cross-Object Scope Guards
-
-When accepting a list of record Ids from the client (groups to delete, rename, update), always validate ownership before acting:
+## Circular Graphs Need a Convergent Loop
+Some graphs (notably **usage**: summaries ↔ ratable summaries, entries/journals
+holding summaries, self-nesting buckets) have **circular** delete constraints — no
+fixed order works. Loop over every object and stop when a round makes no progress:
 
 ```apex
-// Validate groups belong to the target quote before delete/update
-Set<Id> validIds = new Set<Id>();
-for (QuoteLineGroup g : [SELECT Id FROM QuoteLineGroup WHERE Id IN :requestedIds AND QuoteId = :qId]) {
-    validIds.add(g.Id);
+for (Integer round = 1; round <= MAX_ROUNDS; round++) {
+    Integer progress = 0;
+    progress += deleteQuietly([SELECT Id FROM ChildA ... LIMIT :BATCH]);
+    progress += deleteQuietly([SELECT Id FROM ChildB ... LIMIT :BATCH]);
+    if (progress == 0) { break; }
 }
 ```
 
-## Polymorphic Lookups Break Semi-Joins
+⚠ Do **not** wrap this in a savepoint that rolls back on failure — the rollback
+undoes every successful delete, so only the first-surfacing blocker is ever visible
+and each rerun shows a different error.
 
-A semi-join on a polymorphic field (`BindingObjectId`, `RelatedObjectId`, `WhatId`, …)
-does **not** resolve — it silently matches zero rows while the DML reports success.
-Materialise the ids and bind them:
-
-```apex
-// BROKEN — matches nothing, no error
-[SELECT Id FROM UsageResourcePolicy WHERE BindingObjectId IN (SELECT Id FROM Asset WHERE AccountId = :acctId)]
-
-// WORKS
-Set<Id> assetIds = new Map<Id, Asset>([SELECT Id FROM Asset WHERE AccountId = :acctId]).keySet();
-[SELECT Id FROM UsageResourcePolicy WHERE BindingObjectId IN :assetIds]
-```
-
-## Handle Partial-Success DML Results
-
-`Database.delete(records, false)` / `Database.update(records, false)` return results
-that are easy to discard. A refused row then resurfaces much later as an unexplained
-`DELETE_FAILED` on its parent. Inspect the results and surface failures — and do not
-log them at `LoggingLevel.FINE`, which the default log level hides.
-
-## BFS for Hierarchy Traversal
-
-Use frontier-based BFS — never grow the full set and re-query it each iteration:
+## Polymorphic Lookups
+A semi-join against a polymorphic field (`BindingObjectId`, `RelatedObjectId`, …)
+does not resolve — it matches nothing **and reports success**. Materialise and bind:
 
 ```apex
-// GOOD — frontier BFS
-Set<Id> frontier = new Set<Id>(rootIds);
-while (!frontier.isEmpty()) {
-    Set<Id> next = new Set<Id>();
-    for (QuoteLineGroup g : [SELECT Id FROM QuoteLineGroup WHERE ParentQuoteLineGroupId IN :frontier]) {
-        if (!allIds.contains(g.Id)) { allIds.add(g.Id); next.add(g.Id); }
-    }
-    frontier = next;
-}
-
-// BAD — re-scans already-processed parents each iteration
-while (added) { ... [SELECT ... WHERE ParentId IN :allIds] ... }
+Set<Id> assetIds = new Map<Id, Asset>([SELECT Id FROM Asset WHERE ...]).keySet();
+[SELECT Id FROM X WHERE BindingObjectId IN :assetIds]
 ```
 
-## Aggregate Queries Over Full Row Fetches
+## Apex Gotchas in Anonymous Scripts
 
-For counts/sums per group, use `GROUP BY` aggregates — never fetch all rows and count in Apex:
+These only surface at compile/run time in an org — **always run a script against a
+scratch org before committing it**, even when you expect it to no-op.
 
-```apex
-// GOOD
-for (AggregateResult ar : [SELECT QuoteLineGroupId g, COUNT(Id) n FROM QuoteLineItem
-                            WHERE QuoteId = :qId GROUP BY QuoteLineGroupId]) { ... }
+- `IllegalStateException` **does not exist**; the built-in `Exception` is abstract —
+  declare `public class MyException extends Exception {}` to throw
+- `IllegalArgumentException` works. **`System.NoDataFoundException` does not** —
+  throwing it gives `Can only throw this exception type from VisualForce or Aura
+  context`. Use your own exception subclass
+- A class declared in anonymous Apex is an **inner** type, so its methods cannot be
+  `static` (`static can only be used on methods of a top level type`). Declare
+  instance methods and `new` the class up front
+- Bind a `Datetime` field to a `Datetime`, not a `Date` — e.g.
+  `TransactionJournal.StartDate` is a Datetime
 
-// BAD — hits 50k row / heap limits on large quotes
-List<QuoteLineItem> items = [SELECT Id, QuoteLineGroupId FROM QuoteLineItem WHERE QuoteId = :qId];
-```
-
-## Error Handling
-
-- Return a structured error response rather than silently swallowing exceptions
-- Gate debug logging behind a feature flag or use `System.debug(LoggingLevel.FINE, ...)` — never ship `TEMP DEBUG` blocks
-- For preview/read methods: return an error field in the response map so the UI can surface it
-
-## Test Patterns
-
-### Quote test helper minimum
-
-```apex
-Account acct = new Account(Name = 'Test Account');
-insert acct;
-Opportunity opp = new Opportunity(Name = 'Test Opp', AccountId = acct.Id,
-    StageName = 'Prospecting', CloseDate = Date.today().addDays(30));
-insert opp;
-Quote q = new Quote(Name = 'Test Quote', Pricebook2Id = pbId,
-    OpportunityId = opp.Id, Status = 'Draft');
-insert q;
-```
-
-### Coverage requirements
-
-- Every `@InvocableMethod`: null/empty input → fail output; create path; modify path; error path
-- Every `@AuraEnabled` method: invalid Id input; valid input; boundary conditions
-- Every BFS/hierarchy method: empty set; single node; parent+child; multi-level chain
+## Naming Convention
+- Activation: `activate{Feature}Records.apex`
+- Deletion: `delete{Plan}Data.apex` (e.g., `deleteQbRatingData.apex`)
+- Validation: `validate{Subject}.apex` (e.g., `validateRatedUsage.apex`)
+- Data generation: `consume{Subject}.apex` / `clear{Subject}Data.apex`
 
 ---
 > Source: [SalesforceLabs/revenue-cloud-foundations](https://github.com/SalesforceLabs/revenue-cloud-foundations) — distributed by [TomeVault](https://tomevault.io).
