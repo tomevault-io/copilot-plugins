@@ -1,0 +1,9 @@
+{
+  "name": "emaarco--slidev-addon-bpmn",
+  "displayName": "slidev-addon-bpmn",
+  "description": "\ud83d\udcca Display BPMN diagrams directly in Slidev. No more blurry screenshots - just reference your files and see them right in your slides. Powered by bpmn.io \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "emaarco",
+  "homepage": "https://github.com/emaarco/slidev-addon-bpmn",
+  "skills": []
+}
