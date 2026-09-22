@@ -1,0 +1,9 @@
+{
+  "name": "dongzhang84--trend-monitor",
+  "displayName": "trend-monitor",
+  "description": "\ud83e\udd16 Daily and Weekly AI/Tech trend monitoring tool - Automated reports from GitHub Trending, Product Hunt & Hacker News delivered via email",
+  "version": "1.0.0",
+  "author": "dongzhang84",
+  "homepage": "https://github.com/dongzhang84/trend-monitor",
+  "skills": []
+}
