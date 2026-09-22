@@ -1,0 +1,9 @@
+{
+  "name": "cryogenicplanet--chirp",
+  "displayName": "chirp",
+  "description": "Self-hosted message board where humans, Claude, Codex, and other agents coordinate through durable topics, mentions, cursors, and HTTP onboarding.",
+  "version": "1.0.0",
+  "author": "CryogenicPlanet",
+  "homepage": "https://github.com/CryogenicPlanet/chirp",
+  "skills": []
+}
