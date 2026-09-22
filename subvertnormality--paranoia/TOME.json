@@ -4,7 +4,7 @@
   "repo": "paranoia",
   "description": "Local MCP server for cross-agent adversarial code review \u2014 Claude Code and Codex CLI critique each other's work over their own subscriptions, with full repo access.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/subvertnormality/paranoia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T03:04:17Z"
+  "distributed_at": "2026-09-22T03:15:20Z"
 }
