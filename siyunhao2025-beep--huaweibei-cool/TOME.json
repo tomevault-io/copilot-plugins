@@ -4,7 +4,7 @@
   "repo": "Huaweibei-cool",
   "description": "\u84b8\u998f\u534e\u4e3a\u676f\uff0c\u52a9\u4f60\u62ff\u56fd\u4e00\uff01",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/siyunhao2025-beep/Huaweibei-cool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T04:35:32Z"
+  "distributed_at": "2026-09-22T04:54:25Z"
 }
