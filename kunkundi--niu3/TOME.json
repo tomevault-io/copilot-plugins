@@ -1,0 +1,44 @@
+{
+  "name": "niu3",
+  "owner": "kunkundi",
+  "repo": "niu3",
+  "description": "A research workspace for Shanghai- and Shenzhen-listed ETFs, integrating market tracking, strategy research, and automated paper trading | \u4e00\u5957\u9762\u5411\u6caa\u6df1 ETF\uff0c\u878d\u5408\u884c\u60c5\u8ddf\u8e2a\u3001\u7b56\u7565\u7814\u7a76\u4e0e\u81ea\u52a8\u6a21\u62df\u4ea4\u6613\u7684\u5e02\u573a\u7814\u7a76\u5de5\u4f5c\u53f0\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kunkundi/niu3",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T09:32:05Z"
+}
