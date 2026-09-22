@@ -1,0 +1,9 @@
+{
+  "name": "netandneedle--procedure-extraction-pipeline",
+  "displayName": "procedure-extraction-pipeline",
+  "description": "LLM-assisted adversary procedure extraction pipeline for threat-informed defense cycle.",
+  "version": "1.0.0",
+  "author": "netandneedle",
+  "homepage": "https://github.com/netandneedle/procedure-extraction-pipeline",
+  "skills": []
+}
