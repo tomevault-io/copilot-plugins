@@ -7,11 +7,11 @@ A customizable Astro + Starlight template for game documentation sites
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wayne930242/game-doc-template](https://github.com/wayne930242/game-doc-template).
+Original source: `AGENTS.md` in [wayne930242/game-doc-template](https://github.com/wayne930242/game-doc-template).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
