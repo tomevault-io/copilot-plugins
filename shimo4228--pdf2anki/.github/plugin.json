@@ -1,0 +1,9 @@
+{
+  "name": "shimo4228--pdf2anki",
+  "displayName": "pdf2anki",
+  "description": "AI-powered PDF \u2192 Anki flashcard pipeline with Vision, TUI, caching",
+  "version": "1.0.0",
+  "author": "shimo4228",
+  "homepage": "https://github.com/shimo4228/pdf2anki",
+  "skills": []
+}
