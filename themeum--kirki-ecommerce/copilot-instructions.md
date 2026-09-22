@@ -1,52 +1,402 @@
-## react-standards
+## kirki-ecommerce
 
-> React/JSX coding standards for resources/app
+> This file is based on `.cursor/rules/` but the PHP and React sections have
 
+# Project Instructions for Claude
 
-# React Coding Standards
+This file is based on `.cursor/rules/` but the PHP and React sections have
+been re-derived from the actual codebase (not just copied from the `.mdc`
+files), so they reflect real conventions rather than stale ones — e.g. the
+frontend moved from `.jsx` to TypeScript, and the PHP `@since`/`final` rules
+didn't match what the code actually does. Section 1 (behavioral guidelines)
+is a direct mirror of `karpathy-guidelines.mdc`. If the codebase's conventions
+change, re-derive rather than trusting `.cursor/rules/` at face value.
 
-Apply these conventions to all JSX files under `resources/app/`, including legacy code being edited.
+---
 
-## Files and Folders
+## 0. Testing / Verification
+
+Do not use the Browser tool (or any dev-server preview) to test or verify
+changes in this project. Skip the browser-based verification workflow
+entirely — rely on typecheck (`npm run typecheck`), lint, and the test suite
+(`npm test` in `resources/app/`) instead. If a change genuinely needs visual
+confirmation, say so and let the user check it themselves rather than
+opening a browser preview.
+
+---
+
+## 1. Behavioral Guidelines (always apply)
+
+Source: `.cursor/rules/karpathy-guidelines.mdc`
+
+Behavioral guidelines to reduce common LLM coding mistakes.
+
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+
+### Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them — don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+### Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+### Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it — don't delete it.
+
+When your changes create orphans:
+
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: every changed line should trace directly to the user's request.
+
+### Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+---
+
+## 1a. Planning Workflow
+
+When entering plan mode in this project, always use the **OpenSpec workflow**
+instead of writing a freeform plan. Reach for the `openspec-*` / `opsx:*`
+skills:
+
+- `opsx:explore` — think through the problem before committing to a change
+- `opsx:propose` — generate a full proposal (spec deltas, design, tasks)
+- `opsx:apply` — implement tasks from an existing change
+- `opsx:sync` — sync delta specs into main specs
+- `opsx:archive` — finalize and archive a completed change
+
+Before implementing tasks from an existing change always ask me to run the command `opsx:apply` manually
+by myself instead of applying automatically.
+
+Note: Whenever I start a new session make sure to follow the **OpenSpec workflow** by default.
+
+---
+
+## 2. PHP Coding Standards
+
+Derived from analyzing the actual code in `app/` and `database/` (404 PHP files).
+Applies to: `app/**/*.php`, `database/**/*.php`.
+
+**Do not use `vendor/libraries/framework/src/` as a style reference, and do not
+hand-edit it.** It is the `themeum/framework` package, relocated there from
+`vendor/themeum/framework` and namespace-rewritten by the `composer scope`
+script (`php-scoper` stages the prefixed output, then `bin/scope-framework.php`
+swaps it in). Any edit is lost on the next `composer install`. Its conventions
+belong to the upstream package, not this project.
+
+Target PHP **7.4** (see `composer.json` `config.platform.php`). Follow PSR-4 file naming.
+
+### WordPress.org Plugin Directory Requirements
+
+This plugin targets wordpress.org submission. Apply the required-for-approval
+subset of WordPress coding standards (escaping, sanitization/unslashing,
+nonces, i18n, ABSPATH guards, WP-version compatibility, no global PHP state
+mutation) to every PHP change, in every session — not just when a task is
+explicitly about submission readiness. This is narrower than full
+`WordPress-Extra`/`WordPress-Docs` style compliance, which is out of scope.
+
+Enforced by `composer phpcs:wporg` (`phpcs-wporg.xml.dist`, also in CI) —
+run it, read its inline comments for the specifics and known false-positive
+exceptions, and prefer `Kirki\Ecommerce\Framework\Sanitizer::apply_rule()`
+over calling WP sanitize functions directly to match this codebase's
+convention.
+
+Never read `$_GET`/`$_POST`/`$_SERVER`/`$_COOKIE`/`$_FILES` directly. Use:
+
+- `Kirki\Ecommerce\Framework\Http\Request` (via the `request()` helper) for
+  single-key reads in code that only ever runs inside a dispatched site or
+  REST request — it merges query, POST, and route params into one typed
+  accessor (`->int()`, `->text()`, `->array()`, `->cookie()`, ...), already
+  used in `CartService.php` and `resources/views/site/login.php`.
+- `Kirki\Ecommerce\Framework\Http\Superglobals` everywhere else: whole-array
+  reads where the exact source array matters (not `Request`'s merged
+  `all()`), method-scoped or otherwise security-sensitive reads (e.g. a
+  nonce check that must not blur `$_GET`/`$_POST`), and any code with no
+  guaranteed request lifecycle (wp-admin hooks, raw `wp_ajax_*` endpoints,
+  cross-cutting managers).
+
+Both unslash and sanitize via `Sanitizer` internally — never wrap their
+output in another `wp_unslash()`/`sanitize_*()` call.
+
+### Classes and Files
+
+- Class names: **PascalCase** (`CartService`, `PaymentManager`)
+- File names: PSR-4 — one class per file, filename matches class name
+- Namespace must match the PSR-4 autoload map in `composer.json`
+  (`Kirki\Ecommerce\App\` → `app/`, `Kirki\Ecommerce\Database\...` → `database/...`)
+- Interfaces live in a `Contracts/` sub-namespace (e.g. `App\Contracts`, `App\Scheduler\Contracts`)
+- Traits live in a `Concerns/` sub-namespace (e.g. `App\Concerns`, `App\Scheduler\Concerns`)
+- Don't declare classes `final`, with one exception: classes that only hold
+  public constants and are never instantiated (e.g. `App\Constants\*`,
+  `App\Constants\Order\OrderStatus`) — those may be `final`
+
+### Methods, Properties, and Variables
+
+- Methods and variables: **snake_case** (`get_cart`, `$customer_id`) — this is
+  followed almost universally in this codebase. The only exceptions are
+  methods required by a native PHP interface (`IteratorAggregate::getIterator`,
+  `JsonSerializable::jsonSerialize`, `ArrayAccess::offsetGet`, etc.) — keep
+  those camelCase since PHP mandates the exact method name.
+- Names must be meaningful and express intent; avoid `$a`, `$b`, `$temp`
+- Visibility: **`private` is never used in this codebase** — use `protected`
+  or `public` instead.
+  - `public` — API surface (controllers, facades, hooks called externally)
+  - `protected` — default for internal members; use for anything not part
+    of the public API
+- Static references: always use `static::`, never `self::`
+
+```php
+// ❌ BAD
+private $repository;
+self::PAGINATION_LIMIT;
+
+// ✅ GOOD
+protected $repository;
+static::PAGINATION_LIMIT;
+```
+
+### Arrays and Syntax
+
+- Use short array syntax `[]`, never `array()` — 100% consistent in this codebase
+- Prefer self-explanatory naming and structure over comments
+- Inline `//` comments do appear, but sparingly — mainly for section dividers
+  in long DTOs, `// phpcs:ignore ... -- reason` directives, and genuinely
+  non-obvious context. Don't add comments that just restate what the code does.
+
+### Type Hints and Return Types
+
+Type hints and return types are used, but **not** on every method — treat
+them as encouraged for new code, not mandatory, and match whatever the
+surrounding class already does. When you do add them, PHP 7.4 syntax only
+(no union types, no constructor property promotion, no enums — those are PHP 8+).
+
+### Docblocks
+
+Every class, interface, trait, method, function and property in `app/` and
+`database/` has a docblock, whatever its visibility. Class constants and
+closures don't need one. Spec: `openspec/changes/standardize-php-docblocks/`.
+
+- One-line summary: imperative for methods/functions ("Get all online
+  gateways."), descriptive for classes. Add a description paragraph only when
+  behavior isn't obvious from the summary and signature.
+- Order: summary, blank line, `@since`, blank line, `@param`, `@return`, `@throws`
+- `@since` on every class, interface, trait, method and function. Declarations
+  that predate this standard use `@since 1.0.0`; new ones use the version they ship in
+- `@param` for each parameter in signature order, aligned per PHPCS conventions
+- `@return` always, except on constructors/destructors (use `@return void` when the method returns nothing)
+- `@throws` only when the method itself throws (including via `throw_if()`/`throw_anyway()`)
+- Properties get `@var` only, no `@since`; single-line `/** @var Type */` is fine
+- Overrides and interface implementations use `@inheritDoc` plus `@since`,
+  unless the contract changes
+- Types: `Type[]` for lists, `array<string, mixed>` for maps, `Type|null` for
+  nullables, `mixed` when the type can't be established — never guess
+- Docblocks are documentation only: don't turn them into native type
+  declarations as part of documenting
+
+```php
+/**
+ * Manages the registered payment gateways.
+ *
+ * @since 1.0.0
+ */
+class PaymentManager
+{
+    /**
+     * Get all online gateways.
+     *
+     * @since 1.0.0
+     *
+     * @return PaymentGateway[]
+     */
+    public function get_all_online_gateways()
+    {
+        return collection($this->gateways_registry)
+            ->reject(fn($gateway) => $gateway->is_manual())
+            ->all();
+    }
+
+    /** @var array<string, PaymentGateway> */
+    protected $gateways_registry = [];
+}
+```
+
+### Money and Pricing Fields
+
+Any DB column, model attribute, DTO property, request field, or resource
+output key that holds a monetary amount must be qualified — never a bare
+`price`, `amount`, `total`, `cost`, `fee`, or `subtotal`. Which prefix depends
+on what currency the value is actually in:
+
+- **`base_*`** — the amount in the store's base currency. This is the only
+  form ever persisted to the database for catalog/cart/coupon money (e.g.
+  `variants.base_price`, `variants.base_sale_price`, `coupons.base_discount_amount_fixed`).
+- **`display_*`** — the same amount converted to the visitor's requested
+  currency (`Money::resolve_display_currency()`), computed on the fly in the
+  Resource layer. **Never stored** — there is no `display_*` column, only
+  `display_*` keys in API responses.
+- **`invoiced_*`** — a historical snapshot in the order's transaction
+  currency at the time the order was placed (orders, order items, refunds,
+  `orders.invoiced_payment_gateway_fee`). On `orders`/`order_items` every
+  `invoiced_*` field has a `base_*` sibling captured at the same time; on
+  `refunds` there is currently no `base_*` counterpart (refunds aren't
+  currency-converted), so `invoiced_*` stands alone there.
+
+Every `base_*`/`invoiced_*`/`display_*` money field in a Resource must ship
+with a matching `*_money_object` key built via `Money::prepare_amount_object_from_minor()`
+(a `MoneyDTO`: `raw` float, `display` formatted string, `currency` `{code, symbol}`).
+`Money::prepare_amount_from_minor()` gives you the plain float for the bare key.
+
+```php
+'base_price' => Money::prepare_amount_from_minor($this->base_price),
+'base_price_money_object' => Money::prepare_amount_object_from_minor($this->base_price),
+'display_price' => Money::prepare_amount_from_minor($this->base_price, null, $display_currency),
+'display_price_money_object' => Money::prepare_amount_object_from_minor($this->base_price, null, $display_currency),
+```
+
+Because DTO/request field names normally mirror DB columns 1:1, this
+prefixing has to be threaded through the full round trip — migration column,
+model `$fillable`/`$casts`, DTO property, request validation rule/sanitizer
+key, and the Resource read — not just the API response. See `Variant`/`Coupon`
+(migrations, models, DTOs) and `VariantResource`/`CouponResource` (output) for
+the reference implementation.
+
+**Not every "amount-shaped" field needs a prefix** — only ones that are
+unambiguously a currency amount. Leave bare: percentages (`discount_amount_percentage`),
+rates (`tax_rate`), quantities/counts (`available_quantity`, `spend_condition_value`),
+and units of measure (`total_unit_amount`, `base_unit_amount` — a weight/volume
+unit, not money, despite the `base_` in the name).
+
+If a field's currency is ambiguous by design — e.g. `Coupon`'s `discount_amount`
+request field, which is a fixed currency amount _or_ a percentage depending on
+`discount_value_type` — leave it unprefixed rather than picking a misleading
+prefix; the repository layer resolves it to the correct typed column
+(`base_discount_amount_fixed` vs. `discount_amount_percentage`).
+
+### General
+
+- Match existing project patterns when editing surrounding code
+- Prefer early returns for readability
+- Follow the WordPress.org Plugin Directory Requirements above for escaping, sanitization, nonces, and i18n
+
+---
+
+## 3. React / TypeScript Coding Standards
+
+Derived from analyzing the actual code in `resources/app/`.
+Applies to: `resources/app/**/*.{ts,tsx}`.
+
+**Note:** the old `.cursor/rules/react-standards.mdc` targets `**/*.jsx`, but
+this codebase has fully migrated to TypeScript — there are zero `.jsx` files
+left (351 `.tsx`, 192 `.ts`). Write all new frontend code in `.ts`/`.tsx`.
+
+### App Structure
+
+Top-level folders under `resources/app/` and what belongs in each — put new
+code where its peers already live rather than inventing a new top-level folder:
+
+- `pages/` — route-level feature modules, one folder per feature
+  (`pages/brands/`, `pages/orders/`). Feature-specific subcomponents go in a
+  nested folder (`pages/brands/brand-table/single-row.tsx`), not in `components/`.
+- `components/` — shared/reusable UI, not tied to one page.
+  `components/ui/` holds design-system primitives (`button.tsx`, `dialog.tsx`,
+  `checkbox.tsx`, ...); other subfolders group a specific shared widget
+  (`components/data-table/`, `components/modal/`).
+- `services/` — one file per API resource (`services/product.ts`,
+  `services/customer.ts`), wrapping `axios` calls, consumed via
+  `@tanstack/react-query`.
+- `schemas/` — `zod` schemas, split by purpose: `schemas/forms/` (form
+  validation, see below), `schemas/catalog/`, `schemas/shared/`, `schemas/reference/`.
+- `hooks/` — reusable hooks, one per file.
+- `contexts/` — React context providers.
+- `theme/` — design tokens and the `@emotion/react` styling helpers (see Styling below).
+- `types/` — shared TypeScript types, re-exported from `types/index.ts`.
+- `utils/` — small, pure helper functions.
+- `libs/` — thin wrappers around third-party libraries (e.g. `libs/zod`).
+
+### Files and Folders
 
 - Folders and files: **lowercase**, words separated by **dashes**
-- Examples: `pages/`, `app-dialogs/`, `active-filters.jsx`
-- Do not use barrel files like `component-name/index.jsx`
-- Use `component-name/component-name.jsx` instead
+  (`brand-table/`, `confirmation-dialog.tsx`, `use-debounce.ts`)
+- Don't create a barrel `index.ts` per component. The only barrels in this
+  codebase aggregate a whole domain (`types/index.ts`, `hooks/index.ts`,
+  `theme/index.ts`, `components/data-table/index.ts`) — reserve that pattern
+  for a similarly cohesive module, not a single component.
+- Hook filenames should be `use-thing.ts` (kebab-case), matching `use-debounce.ts`
+  and `use-list-params.ts`. `useBulkEditList.ts` / `useMarkList.ts` are legacy
+  camelCase leftovers — don't add new files in that style.
+- Co-locate tests next to the file they cover: `brand-form.ts` + `brand-form.test.ts`
+  (Vitest — run via `npm test` in `resources/app/`).
 
-## Components
+### Components
 
-- Component names: **PascalCase** (`ActiveFilters`, `AppDialog`)
-- Define as arrow functions, export default at the bottom:
+- Component names: **PascalCase** (`ConfirmationDialog`, `DataTable`)
+- Define as arrow functions, `displayName` set explicitly, default export at the bottom:
 
-```jsx
-const ActiveFilters = () => {
-  return <div />;
+```tsx
+const ConfirmationDialog = (props: ConfirmationDialogProps) => {
+  // ...
+  return <Dialog>...</Dialog>;
 };
 
-ActiveFilters.displayName = 'ActiveFilters';
+ConfirmationDialog.displayName = "ConfirmationDialog";
 
-export default ActiveFilters;
+export default ConfirmationDialog;
 ```
 
-- Multiple components in one file: default export the main component; named export the rest
-- `forwardRef` / `memo`: assign `displayName` on the wrapped const
+- Props typed with a `type Xxx = { ... }` declared above the component
+  (not `interface`), named `<ComponentName>Props`.
+- `forwardRef` / `memo`: assign `displayName` on the wrapped const, same as above.
 
-```jsx
-const Button = forwardRef((props, ref) => {
-  return <span ref={ref} />;
-});
+### Control Flow
 
-Button.displayName = 'Button';
+Never use inline returns for conditional statements — always wrap the body in braces (followed with zero exceptions in this codebase):
 
-export default Button;
-```
-
-## Control Flow
-
-Never use inline returns for conditional statements — always wrap the body in braces:
-
-```jsx
+```tsx
 // ❌ BAD
 if (condition) return true;
 
@@ -56,40 +406,115 @@ if (condition) {
 }
 ```
 
-## Strings and i18n
+### Strings and i18n
 
-- JavaScript strings: single quotes `'value'` or backticks for template literals — never double quotes
-- JSX prop string values: double quotes (`type="primary"`, `size="large"`)
+- JavaScript/TypeScript strings: single quotes `'value'` or backticks for template literals — never double quotes
+- JSX prop string values: double quotes (`variant="primary"`, `size="large"`)
 - User-facing static text: use `__()` from `@/wpi18n` with domain `kirki-ecommerce`
 
-```jsx
-import { __ } from '@/wpi18n';
+```tsx
+import { __ } from "@/wpi18n";
 
-<Button text={__('Save changes', 'kirki-ecommerce')} type="primary" />;
+<Button text={__("Save changes", "kirki-ecommerce")} variant="primary" />;
 ```
 
-## Imports
+### Imports
 
 Group imports in this order, separated by blank lines:
 
-1. External packages (`react`, `react-router`, etc.)
-2. Internal aliases (`@/molecules`, `@/wpi18n`, `@/conf`, etc.)
-3. Relative imports (`./active-filters.scss`)
+1. External packages (`react`, `react-router`, `lucide-react`, etc.)
+2. Internal `@/` aliases (`@/components/ui/button`, `@/theme`, `@/wpi18n`, etc.)
+3. Relative imports (`./confirmation-dialog.scss`)
 
 Always use the `@/` alias for internal paths — avoid deep relative imports when an alias exists.
+Use `import type { ... }` for type-only imports.
 
-```jsx
-import { useNavigate } from 'react-router';
+```tsx
+import { Info } from "lucide-react";
+import type { ReactNode } from "react";
 
-import { Button, Container } from '@/molecules';
-import { __ } from '@/wpi18n';
+import Button from "@/components/ui/button";
+import { theme } from "@/theme";
+import { __ } from "@/wpi18n";
 
-import './not-found.scss';
+import "./confirmation-dialog.scss";
 ```
 
-## Comments
+### Styling
+
+Styling goes through `@emotion/react`, not plain CSS modules or inline
+`style` for anything non-dynamic:
+
+- Define styles with `defineStyles({...})` from `@/theme/mixins`, keyed by element role
+- Reference design tokens from `theme` (`@/theme`) — colors, spacing,
+  radius, typography — instead of hardcoded values
+- Make sure the applied design does not cause any layout shifting to the interface.
+- Apply with the `css` prop (`scoped(styles.icon)` for scoped styles), and
+  reserve the `style` prop for truly dynamic, runtime-computed values
+
+```tsx
+const styles = defineStyles({
+  title: {
+    ...theme.typography.heading4(),
+    textAlign: "center",
+  },
+});
+```
+
+### Forms and Validation
+
+Form schemas live in `schemas/forms/<name>-form.ts` and follow one consistent
+shape (see `schemas/forms/brand-form.ts`):
+
+```ts
+const XxxFormShape = z.object({
+  /* fields, using helpers from @/libs/zod */
+});
+
+const XxxFormSchema = prepareFormSchema(XxxFormShape).transform((values) => ({
+  /* map to the payload shape the API expects */
+}));
+
+type XxxFormInput = z.input<typeof XxxFormSchema>;
+type XxxFormPayload = z.output<typeof XxxFormSchema>;
+
+export { XxxFormSchema, type XxxFormInput, type XxxFormPayload };
+```
+
+Use `react-hook-form` with `@hookform/resolvers` to wire the schema to the form.
+
+### Data Fetching
+
+- API calls go in `services/<resource>.ts`, built on `axios`
+- Components consume them through `@tanstack/react-query` (`useQuery`/`useMutation`), not ad-hoc `useEffect` + `useState` fetching
+
+### Comments
 
 Do not add comments to describe code. Use meaningful variable and function names so the code reads clearly on its own.
+
+## 6. Documentation
+
+User-facing features get a `docs/<feature>.md`, structured like
+[`docs/cache.md`](docs/cache.md): a table of contents, then numbered `## N. Topic`
+sections, quick start first, configuration and drivers in the middle, and — for
+anything modelled on a Laravel API — a **"Where this differs from Laravel"**
+section near the end that is honest about the gaps. That section is not
+optional; it is what stops a consumer assuming parity we don't have.
+
+Keep docs in the same change as the code. A doc that describes the old
+behaviour is worse than no doc.
+
+---
+
+## 7. Commits
+
+Don't commit or push unless I ask. When I do ask commit the changes with a inferred
+commit message that is good enough for PR title and description and also push on behalf of me.
+
+## 8. Grilling behavior
+
+When using the /grill-me skill ask me questions one by one and use the graphical interface
+so that I can select my answer graphically. Always mention your recommendation while questioning.
 
 ---
 > Source: [themeum/kirki-ecommerce](https://github.com/themeum/kirki-ecommerce) — distributed by [TomeVault](https://tomevault.io).
