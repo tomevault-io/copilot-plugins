@@ -1,0 +1,9 @@
+{
+  "name": "bgrenat--godot-game-dev-studio",
+  "displayName": "godot-game-dev-studio",
+  "description": "Portable Godot 4.7+ game-development skills for Codex, Claude Code, Cursor, and VS Code: GDScript, gameplay systems, shaders, optimization, publishing workflows, and AI studio orchestration.",
+  "version": "1.0.0",
+  "author": "bgrenat",
+  "homepage": "https://github.com/bgrenat/godot-game-dev-studio",
+  "skills": []
+}
