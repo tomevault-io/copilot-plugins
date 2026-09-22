@@ -1,0 +1,9 @@
+{
+  "name": "templarsco--pvgpu",
+  "displayName": "pvgpu",
+  "description": "GPU paravirtualization for Windows VMs - bringing QEMU/KVM-style VM customization freedom to Windows with GPU acceleration",
+  "version": "1.0.0",
+  "author": "templarsco",
+  "homepage": "https://github.com/templarsco/pvgpu",
+  "skills": []
+}
