@@ -1,0 +1,9 @@
+{
+  "name": "spupuz--proxmox-scripts",
+  "displayName": "proxmox-scripts",
+  "description": "proxmox-scripts",
+  "version": "1.0.0",
+  "author": "spupuz",
+  "homepage": "https://github.com/spupuz/proxmox-scripts",
+  "skills": []
+}
