@@ -1,0 +1,9 @@
+{
+  "name": "falling-colud--voxy-forged",
+  "displayName": "voxy-forged",
+  "description": "Unofficial NeoForge 1.21.1 port of MCRcortex's Voxy LOD mod \u2014 Sodium 0.8 backport with LOD colour/curve/water fixes",
+  "version": "1.0.0",
+  "author": "falling-colud",
+  "homepage": "https://github.com/falling-colud/voxy-forged",
+  "skills": []
+}
