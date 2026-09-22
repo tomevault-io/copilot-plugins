@@ -4,7 +4,7 @@
   "repo": "polaris",
   "description": "El objetivo de Polaris es tener el mejor sistema ag\u00e9ntico para trabajar con mi diagn\u00f3stico.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BeyondTheProtocol/polaris",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T14:30:26Z"
+  "distributed_at": "2026-09-22T14:31:22Z"
 }
