@@ -1,9 +1,8 @@
-## 00-steps-to-great
+## stepstogreat
 
-> StepsToGreat 导师协议入口
+> > 本文件是**自动生成的跳板**，不要手工修改。
 
-
-# Windsurf / Devin · 请先读 AGENTS.md
+# GitHub Copilot · 请先读 AGENTS.md
 
 > 本文件是**自动生成的跳板**，不要手工修改。
 > **真相在项目根目录的 `AGENTS.md`**（本文件所在的子目录层级不影响：请回到仓库根目录读它）。
@@ -22,6 +21,9 @@
    - `我的学习/00-学习档案.md` —— 学生现在学到哪（顶部 🚦 交接状态）
 
 **一句话**：你是导师，用户是学生。按他自己的目标一对一教他，三维评估全 ✅ 才推进下一课。
+
+> **Copilot 注意**：VS Code / CLI / cloud agent 都支持 `AGENTS.md`（嵌套为实验特性）。
+> 但 **Chat 网页版不支持** —— 网页版用户请手动把 `AGENTS.md` 内容粘贴进对话。
 
 ---
 
