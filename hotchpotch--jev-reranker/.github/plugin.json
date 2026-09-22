@@ -1,0 +1,9 @@
+{
+  "name": "hotchpotch--jev-reranker",
+  "displayName": "jev-reranker",
+  "description": "Jev-powered relevance filtering and reranking for RAG in Python.",
+  "version": "1.0.0",
+  "author": "hotchpotch",
+  "homepage": "https://github.com/hotchpotch/jev-reranker",
+  "skills": []
+}
