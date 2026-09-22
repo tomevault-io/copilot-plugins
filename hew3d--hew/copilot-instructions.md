@@ -1,0 +1,66 @@
+## hew
+
+> Hew is a cross-platform 3D modeler: SketchUp's interaction model (draw on
+
+# Hew — Agent Instructions
+
+Hew is a cross-platform 3D modeler: SketchUp's interaction model (draw on
+faces, push/pull, pervasive inference snapping) on a solids-first data
+model where every closed extrusion is a discrete, watertight Object and
+combining Objects is always explicit.
+
+Start with these documents — they are the source of truth:
+
+- `docs/dev/DEVELOPMENT.md` — setup, commands, repository layout, and the
+  **non-negotiable rules**. Code comments across the kernel cite these as
+  "DEVELOPMENT.md rule N". Read them before changing anything.
+- `docs/agents/ARCHITECTURE.md` — the data model and crate topology.
+- `docs/dev/HEW_FILE_FORMAT.md` — the native format spec; it must be updated
+  in the same commit as any serialization change.
+- `docs/agents/ROADMAP.md` — the exhaustive inventory of what exists
+  and what's planned; code comments cite it by section. (The thin
+  `docs/ROADMAP.md` is the human-readable summary for users.)
+
+## Quick reference
+
+- Build all crates: `cargo build --workspace`
+- Verify (run before every commit): `scripts/verify.sh`
+- Full pre-push gate (verify + replay + chromium E2E, mirrors blocking CI):
+  `scripts/verify-full.sh`
+- WASM build: `wasm-pack build crates/wasm-api --target web --out-dir ../../app/src/wasm/pkg`
+- UI dev server: `pnpm --dir app dev`
+- Desktop shell dev: `pnpm --dir shells/tauri dev`
+
+## Ground rules for agents
+
+- The stack (Rust kernel → WASM, TypeScript/React UI, three.js on WebGL2,
+  Tauri desktop shell) is settled. Don't relitigate it without explicit
+  maintainer approval.
+- Kernel crates (`kernel`, `inference`, `tessellate`) stay free of UI,
+  I/O, and network dependencies; the WASM boundary lives only in
+  `crates/wasm-api`.
+- Kernel work is spec-first: signatures + executable specs + property
+  tests land with the implementation. Never weaken or delete a failing
+  test to get green.
+- No silent geometry repair — invalid topology fails with a typed error.
+- Ask before: adding a dependency to kernel crates, changing the file
+  format, changing the public wasm-api surface, or cross-crate refactors.
+- The licensing wall is absolute: nothing derived from the SketchUp SDK
+  enters this repo or its dependency chain (see CONTRIBUTING.md).
+
+## Commit conventions
+
+- Author and committer are the human contributor — never a bot or agent
+  identity.
+- Titles follow [Conventional Commits](https://www.conventionalcommits.org/)
+  with an optional scope: `fix(kernel): …`, `docs: …`.
+- No `Co-Authored-By` trailers and no AI or tool attribution anywhere in
+  a message.
+- Bodies are impersonal and timeless: what the change does and why. No
+  dates, no internal task IDs, no references to private infrastructure.
+- Every commit is signed off (`git commit -s`) per the DCO requirement
+  in CONTRIBUTING.md.
+
+---
+> Source: [hew3d/hew](https://github.com/hew3d/hew) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-22 -->
