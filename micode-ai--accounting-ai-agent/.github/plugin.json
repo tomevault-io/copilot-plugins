@@ -1,0 +1,9 @@
+{
+  "name": "micode-ai--accounting-ai-agent",
+  "displayName": "accounting-ai-agent",
+  "description": "AI accounting agent for Polish SMBs: LangGraph agent with 80+ domain tools over wFirma, KSeF e-invoicing (FA-3), e-Dor\u0119czenia inbox watcher, and a statutory tax calendar with proactive deadline remind",
+  "version": "1.0.0",
+  "author": "micode-ai",
+  "homepage": "https://github.com/micode-ai/accounting-ai-agent",
+  "skills": []
+}
