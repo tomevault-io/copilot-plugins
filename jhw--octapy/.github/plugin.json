@@ -1,0 +1,9 @@
+{
+  "name": "jhw--octapy",
+  "displayName": "octapy",
+  "description": "File IO utils for the Elektron Octatrack",
+  "version": "1.0.0",
+  "author": "jhw",
+  "homepage": "https://github.com/jhw/octapy",
+  "skills": []
+}
