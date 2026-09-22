@@ -1,0 +1,9 @@
+{
+  "name": "krusemediallc--cursor-ad-agent",
+  "displayName": "cursor-ad-agent",
+  "description": "Create AI marketing videos and images from inside Cursor. Human-approved Meta ad workspace with Arcads creative generation.",
+  "version": "1.0.0",
+  "author": "krusemediallc",
+  "homepage": "https://github.com/krusemediallc/cursor-ad-agent",
+  "skills": []
+}
