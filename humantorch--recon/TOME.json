@@ -1,0 +1,44 @@
+{
+  "name": "Recon",
+  "owner": "humantorch",
+  "repo": "Recon",
+  "description": "A markdown-based job search operating system, built on Claude Code. Your profile, search criteria, and pipeline live as version-controlled markdown on your machine, and a set of slash commands turn that into honest role assessments, drafted applications, and interview prep instead of a spreadsheet you stop updating.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/humantorch/Recon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T01:35:21Z"
+}
