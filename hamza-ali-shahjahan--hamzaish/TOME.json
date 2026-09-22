@@ -1,0 +1,44 @@
+{
+  "name": "hamzaish",
+  "owner": "hamza-ali-shahjahan",
+  "repo": "hamzaish",
+  "description": "Open-source agent OS for Claude Code that puts you in Builder Mode \u2014 and keeps you there for the whole life of a product. Claude Code setup that builds, launches, and learns. Point Claude Code at this and it runs your whole startup factory \u2014 and gets smarter every session. Works with Cursor, Codex & Windsurf too. ",
+  "type": "config",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hamza-ali-shahjahan/hamzaish",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T02:34:52Z"
+}
