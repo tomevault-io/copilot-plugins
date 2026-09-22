@@ -1,0 +1,9 @@
+{
+  "name": "zweiundeins--starbase",
+  "displayName": "starbase",
+  "description": "Community Components for Rocket: a gallery of Datastar Rocket web components. Go, templ, SQLite, CQRS.",
+  "version": "1.0.0",
+  "author": "zweiundeins",
+  "homepage": "https://github.com/zweiundeins/starbase",
+  "skills": []
+}
