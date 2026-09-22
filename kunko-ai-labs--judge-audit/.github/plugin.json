@@ -1,0 +1,9 @@
+{
+  "name": "kunko-ai-labs--judge-audit",
+  "displayName": "judge-audit",
+  "description": "Independent calibration audits for AI judges. The Moody's for AI judgment.",
+  "version": "1.0.0",
+  "author": "kunko-ai-labs",
+  "homepage": "https://github.com/kunko-ai-labs/judge-audit",
+  "skills": []
+}
