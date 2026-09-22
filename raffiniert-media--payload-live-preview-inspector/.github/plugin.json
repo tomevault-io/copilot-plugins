@@ -1,0 +1,9 @@
+{
+  "name": "raffiniert-media--payload-live-preview-inspector",
+  "displayName": "payload-live-preview-inspector",
+  "description": "Storyblok-style click-to-scroll for Payload CMS Live Preview \u2014 hover a component in the preview, click it, and the admin edit form scrolls to, expands, and flashes the matching field.",
+  "version": "1.0.0",
+  "author": "Raffiniert-Media",
+  "homepage": "https://github.com/Raffiniert-Media/payload-live-preview-inspector",
+  "skills": []
+}
