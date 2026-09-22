@@ -1,0 +1,9 @@
+{
+  "name": "drpfau--dbuildmcp",
+  "displayName": "dbuildmcp",
+  "description": "MCP for calling MSBUILD for Delphi Projects",
+  "version": "1.0.0",
+  "author": "drpfau",
+  "homepage": "https://github.com/drpfau/dbuildmcp",
+  "skills": []
+}
