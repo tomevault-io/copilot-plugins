@@ -1,0 +1,9 @@
+{
+  "name": "caffeineduck--goru",
+  "displayName": "goru",
+  "description": "Run untrusted Python and JavaScript safely.",
+  "version": "1.0.0",
+  "author": "CaffeineDuck",
+  "homepage": "https://github.com/CaffeineDuck/goru",
+  "skills": []
+}
