@@ -1,0 +1,9 @@
+{
+  "name": "acaprino--daodan",
+  "displayName": "daodan",
+  "description": "Custom Claude Code plugin repository with development workflow agents and skills",
+  "version": "1.0.0",
+  "author": "acaprino",
+  "homepage": "https://github.com/acaprino/daodan",
+  "skills": []
+}
