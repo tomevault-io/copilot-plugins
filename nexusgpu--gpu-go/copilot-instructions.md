@@ -1,24 +1,15 @@
-## project-goal
+## vscode-extension
 
-> GPUGo is A cross-platform command-line tool and vscode-extension for managing remote GPU environments. Target user are AI learners, hands-on lab and home lab users.
+> - Use https://github.com/vscode-elements/elements as VSCode, document link: https://github.com/vscode-elements/vscode-elements.github.io/tree/main/src/content/docs (you can download repo and index for reference)
 
-# Goal
 
-GPUGo is A cross-platform command-line tool and vscode-extension for managing remote GPU environments. Target user are AI learners, hands-on lab and home lab users.
-
-# Requirement
-
-- Extreme easy to use and seamless workflow, users can start remote GPU lab without any additional commands
-- No hidden logic, clear TUI and VSCode interface with realtime interaction
-- Prioritize turn-key and robust AI Studio management in cli/vscode-extension and make it integrate with remote GPU feature
-
-# Product Value
-
-- Simplify environment setup for lab users
-- One click to use fractional and remote GPUs from local network
-- GPU computing democratization and save costs, increase GPU usage
-- On-demand GPU usage, avoid "10 people ssh to same 4 GPU machine" style and avoid resource conflict
-- Local first DevEX, data stays locally
+- Use https://github.com/vscode-elements/elements as VSCode, document link: https://github.com/vscode-elements/vscode-elements.github.io/tree/main/src/content/docs (you can download repo and index for reference)
+- Modern typescript best practices, avoid use any and special "as" type
+- No dead code, keep clean, professional, high quality and certain extend of abstraction
+- Avoid writing logic in typescript if you can use ggo command line, read and index available gpu-go golang codes, be lightweight in vscode extension
+- Record important logs/events using vscode-extension style output
+- Extract needed config to vscode config and assign default value, but don't make config too complex
+- Don't repeat yourself, think abstraction for similar or duplicated codes
 
 ---
 > Source: [NexusGPU/gpu-go](https://github.com/NexusGPU/gpu-go) — distributed by [TomeVault](https://tomevault.io).
