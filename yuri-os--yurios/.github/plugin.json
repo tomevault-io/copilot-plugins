@@ -1,0 +1,9 @@
+{
+  "name": "yuri-os--yurios",
+  "displayName": "YuriOS",
+  "description": "An open-source, local-friendly runtime for agentic AI companions \u2014 an always-on brain with self-editing memory. You own the model, the memory, and the character.",
+  "version": "1.0.0",
+  "author": "yuri-os",
+  "homepage": "https://github.com/yuri-os/YuriOS",
+  "skills": []
+}
