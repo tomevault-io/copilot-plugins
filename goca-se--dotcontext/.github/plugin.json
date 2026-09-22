@@ -1,0 +1,9 @@
+{
+  "name": "goca-se--dotcontext",
+  "displayName": "dotcontext",
+  "description": "AI context toolkit for Claude Code \u2014 commands, decisions, skills, and feature planning for your codebase",
+  "version": "1.0.0",
+  "author": "goca-se",
+  "homepage": "https://github.com/goca-se/dotcontext",
+  "skills": []
+}
