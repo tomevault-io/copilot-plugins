@@ -1,0 +1,9 @@
+{
+  "name": "emdzej--ediabasx",
+  "displayName": "ediabasx",
+  "description": "TypeScript port of EdiabasLib - BMW diagnostic interface library",
+  "version": "1.0.0",
+  "author": "emdzej",
+  "homepage": "https://github.com/emdzej/ediabasx",
+  "skills": []
+}
