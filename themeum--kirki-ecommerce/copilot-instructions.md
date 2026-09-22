@@ -1,78 +1,98 @@
-## karpathy-guidelines
+## php-standards
 
-> Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+> PHP coding standards for application code (app/, framework/, database/)
 
 
-# Karpathy behavioral guidelines
+# PHP Coding Standards
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+Target PHP **7.4** (see `composer.json` `config.platform.php`). Follow PSR-4 file naming and PSR-12 via PHPCS.
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+## Classes and Files
 
-## 1. Think Before Coding
+- Class names: **PascalCase** (`CartService`, `OrderManager`)
+- File names: PSR-4 — one class per file, filename matches class name
+- Never declare classes as `final`
+- Namespace must match the PSR-4 autoload map in `composer.json`
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+## Methods, Properties, and Variables
 
-Before implementing:
+- Methods and variables: **snake_case** (`get_cart`, `$customer_id`)
+- Names must be meaningful and express intent; avoid `$a`, `$b`, `$temp`
+- Keep names concise — aim for one or two words when possible
+- Visibility: use the narrowest modifier that works, but **never `private`**
+  - `public` — required API surface (controllers, facades, hooks called externally)
+  - `protected` — default for internal or inheritance-friendly members
+- Static references: always use `static::`, never `self::`
 
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+```php
+// ❌ BAD
+private $repository;
+self::PAGINATION_LIMIT;
 
-## 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+// ✅ GOOD
+protected $repository;
+static::PAGINATION_LIMIT;
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+## Arrays and Syntax
 
----
+- Use short array syntax `[]`, never `array()`
+- No inline comments inside method bodies
+- Code must be self-explanatory through naming and structure
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+## Docblocks
+
+Every method and property requires a docblock. Include only applicable optional tags.
+
+Use the current plugin version from `kirki-ecommerce.php` for `@since`.
+
+`@return` is **required** on every method. Use `@return void` when the method returns nothing.
+
+```php
+/**
+ * Retrieve the active cart for a customer or token.
+ *
+ * @param int|null    $customer_id Customer identifier.
+ * @param string|null $token       Guest cart token.
+ *
+ * @return \Kirki\Ecommerce\App\Models\Cart
+ * @since 1.0.0
+ * @throws \Exception When the cart cannot be found or created.
+ */
+public function get_cart($customer_id = null, $token = null)
+{
+    // ...
+}
+
+/**
+ * Cart persistence repository.
+ *
+ * @var \Kirki\Ecommerce\App\Repositories\CartRepository
+ */
+protected $repository;
+
+/**
+ * Persist cart updates to storage.
+ *
+ * @param array $data Cart attributes to update.
+ *
+ * @return void
+ * @since 1.0.0
+ */
+protected function save_cart(array $data)
+{
+    // ...
+}
+```
+
+Omit `@param`, `@throws`, and `@see` when not relevant. Always include `@return` (use `void` when applicable) and `@since` on methods. Always include `@since` on properties.
+
+## General
+
+- Match existing project patterns when editing surrounding code
+- Prefer early returns for readability
+- Type hints and return types: use when compatible with PHP 7.4
+- Follow WordPress escaping, sanitization, and i18n conventions where applicable
 
 ---
 > Source: [themeum/kirki-ecommerce](https://github.com/themeum/kirki-ecommerce) — distributed by [TomeVault](https://tomevault.io).
