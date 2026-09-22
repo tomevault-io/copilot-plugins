@@ -1,0 +1,9 @@
+{
+  "name": "snapsynapse--ai-tool-watch",
+  "displayName": "ai-tool-watch",
+  "description": "Evidence-backed reference for AI capabilities, pricing tiers, availability, and platform support across ChatGPT, Claude, Gemini, Copilot, and more.",
+  "version": "1.0.0",
+  "author": "snapsynapse",
+  "homepage": "https://github.com/snapsynapse/ai-tool-watch",
+  "skills": []
+}
