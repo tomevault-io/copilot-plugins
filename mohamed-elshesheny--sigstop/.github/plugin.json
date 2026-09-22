@@ -1,0 +1,9 @@
+{
+  "name": "mohamed-elshesheny--sigstop",
+  "displayName": "sigstop",
+  "description": "You're a developer, not a server. A macOS menu bar app that works out what you're doing and interrupts at a defensible moment instead of on a timer.",
+  "version": "1.0.0",
+  "author": "Mohamed-Elshesheny",
+  "homepage": "https://github.com/Mohamed-Elshesheny/sigstop",
+  "skills": []
+}
