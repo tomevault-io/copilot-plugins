@@ -7,11 +7,11 @@ Go SDK for the TypeSafe AI API — typed questions in, probability distributions
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Tangerg/typesafe-sdk-go](https://github.com/Tangerg/typesafe-sdk-go).
+Original source: `AGENTS.md` in [Tangerg/typesafe-sdk-go](https://github.com/Tangerg/typesafe-sdk-go).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
