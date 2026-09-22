@@ -1,0 +1,9 @@
+{
+  "name": "mydevtools-tech--mydevtools",
+  "displayName": "mydevtools",
+  "description": "The offline developer workstation. 80+ developer tools, API client, SQL, MongoDB & Redis \u2014 open source, free, and local-first.",
+  "version": "1.0.0",
+  "author": "mydevtools-tech",
+  "homepage": "https://github.com/mydevtools-tech/mydevtools",
+  "skills": []
+}
