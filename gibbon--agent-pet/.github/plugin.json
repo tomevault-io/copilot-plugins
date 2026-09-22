@@ -1,0 +1,9 @@
+{
+  "name": "gibbon--agent-pet",
+  "displayName": "agent-pet",
+  "description": "Tiny animated companion-pet widget for any web app. Self-hosted, vanilla DOM, ~7 KB gzip. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "gibbon",
+  "homepage": "https://github.com/gibbon/agent-pet",
+  "skills": []
+}
