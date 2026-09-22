@@ -1,0 +1,9 @@
+{
+  "name": "bdgscotland--c64-kb",
+  "displayName": "c64-kb",
+  "description": "Commodore 64 knowledge base for AI-assisted development \u2014 Qdrant vector search + FalkorDB knowledge graph, served over MCP",
+  "version": "1.0.0",
+  "author": "bdgscotland",
+  "homepage": "https://github.com/bdgscotland/c64-kb",
+  "skills": []
+}
