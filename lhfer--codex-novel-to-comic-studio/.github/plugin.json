@@ -1,0 +1,9 @@
+{
+  "name": "lhfer--codex-novel-to-comic-studio",
+  "displayName": "codex-novel-to-comic-studio",
+  "description": "Codex-first EPUB/TXT novel-to-comic manga production skill with story-first scripts, image2 pages, PDF and CBZ exports",
+  "version": "1.0.0",
+  "author": "lhfer",
+  "homepage": "https://github.com/lhfer/codex-novel-to-comic-studio",
+  "skills": []
+}
