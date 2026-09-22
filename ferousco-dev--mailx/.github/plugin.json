@@ -1,0 +1,9 @@
+{
+  "name": "ferousco-dev--mailx",
+  "displayName": "Mailx",
+  "description": "MailX is open-source, developer-first email infrastructure built from the protocol up in Go. It accepts mail over SMTP or a tenant-scoped REST API, stores the source message, processes delivery throug",
+  "version": "1.0.0",
+  "author": "Ferousco-dev",
+  "homepage": "https://github.com/Ferousco-dev/Mailx",
+  "skills": []
+}
