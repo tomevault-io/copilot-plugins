@@ -1,0 +1,9 @@
+{
+  "name": "subvertnormality--paranoia",
+  "displayName": "paranoia",
+  "description": "Local MCP server for cross-agent adversarial code review \u2014 Claude Code and Codex CLI critique each other's work over their own subscriptions, with full repo access.",
+  "version": "1.0.0",
+  "author": "subvertnormality",
+  "homepage": "https://github.com/subvertnormality/paranoia",
+  "skills": []
+}
