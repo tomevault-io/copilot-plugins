@@ -1,0 +1,44 @@
+{
+  "name": "mac-token-plan",
+  "owner": "luolei2088-AI",
+  "repo": "mac-token-plan",
+  "description": "macOS \u684c\u9762\u5e38\u9a7b\u5c0f\u7ec4\u4ef6\uff0c\u5728\u684c\u9762\u4e0a\u76f4\u63a5\u663e\u793a\u8ba2\u9605\u7684\u5404\u6a21\u578b\u989d\u5ea6\u6d88\u8017\u3002\u7c7b\u4f3c\u7cfb\u7edf\u65e5\u5386\u5c0f\u7ec4\u4ef6\uff0c\u8d34\u5728\u684c\u9762\u4e0a\u968f\u65f6\u53ef\u89c1\uff0c\u4e0d\u7528\u6253\u5f00\u6d4f\u89c8\u5668\u67e5\u63a7\u5236\u53f0\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/luolei2088-AI/mac-token-plan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T03:19:41Z"
+}
