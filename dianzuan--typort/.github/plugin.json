@@ -1,0 +1,9 @@
+{
+  "name": "dianzuan--typort",
+  "displayName": "typort",
+  "description": "Universal Typst to Word (.docx) converter",
+  "version": "1.0.0",
+  "author": "dianzuan",
+  "homepage": "https://github.com/dianzuan/typort",
+  "skills": []
+}
