@@ -1,15 +1,32 @@
-## testing
+## wings-core
 
-> Playwright E2E and Vitest editor test conventions
+> Core Wings invariants — always apply. Data loss prevention is non-negotiable.
 
 
-# Testing rules
+# Wings core (mandatory)
 
-- Vitest for wiring/schema; Playwright for keyboard and DOM (Enter, slash, caret).
-- E2E: dismiss cookie banner via `focusEditor()` before typing.
-- Use `/__editor-e2e` harness; assert parity test IDs when testing serialize path.
-- Slash menu in E2E: click menu buttons, not Enter alone.
-- CI: `bun run test:ci` with frozen lockfile and Playwright chromium install.
+## Before ANY PR touching editor or saves
+
+1. Read `.cursor/skills/wings-data-safety/SKILL.md`
+2. Read `.cursor/skills/wings-ship-gate/SKILL.md` Tier 0
+3. Run `bun run test:editor && bun run test:e2e`
+
+## Non-negotiable invariants
+
+- Load: `resolveInitialEditorContent` — empty JSON never beats markdown
+- Save: `shouldBlockEmptySave` — never persist empty over ≥20 chars
+- Drafts: `shouldApplyDraft` — empty draft never overwrites server content
+- Pending: `shouldReplayPendingWrite` — after fetch, before replay
+- Editor: one Link; suggestion keys from `suggestionPluginKeys.ts`; WritingExperience priority 200
+- Supabase: never DELETE/TRUNCATE entries in migrations without explicit approval
+
+## If user reports missing content
+
+Follow `.cursor/skills/wings-incident-response/SKILL.md` — rollback first, recover second.
+
+## Agent loops
+
+For recurring verify/fix/research: read `.cursor/loops/protocol.md`. Clarify intent before acting. Never assume skills match code — run docs-research loop to verify.
 
 ---
 > Source: [sabique-islam/wings](https://github.com/sabique-islam/wings) — distributed by [TomeVault](https://tomevault.io).
