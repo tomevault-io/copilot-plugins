@@ -1,0 +1,9 @@
+{
+  "name": "nokia-applied-research--anyjev",
+  "displayName": "AnyJev",
+  "description": "Turn any LLM into a Jev-style decision model: typed decisions, real probabilities, no training.",
+  "version": "1.0.0",
+  "author": "nokia-applied-research",
+  "homepage": "https://github.com/nokia-applied-research/AnyJev",
+  "skills": []
+}
