@@ -1,0 +1,9 @@
+{
+  "name": "salvozappa--detach",
+  "displayName": "detach",
+  "description": "A progressive web app to manage coding agents on the move.",
+  "version": "1.0.0",
+  "author": "salvozappa",
+  "homepage": "https://github.com/salvozappa/detach",
+  "skills": []
+}
