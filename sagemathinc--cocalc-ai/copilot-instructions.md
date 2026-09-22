@@ -1,0 +1,146 @@
+## cocalc-ai
+
+> Guidance for Claude Code, Gemini CLI, and OpenAI Codex when working in this repository.
+
+# AGENTS.md, CLAUDE.md and GEMINI.md
+
+Guidance for Claude Code, Gemini CLI, and OpenAI Codex when working in this repository.
+
+## Repo Facts
+
+- CoCalc-ai source monorepo (TypeScript-heavy) under `src/packages`.
+- Workspace management uses pnpm (`src/packages/pnpm-workspace.yaml`).
+- Prefer package-local changes and checks over full-repo commands when possible.
+
+## Security Issues
+
+- Before investigating or fixing a suspected vulnerability, read
+  [`SECURITY.md`](SECURITY.md).
+- Never disclose suspected vulnerability details in a public issue,
+  discussion, pull request, commit, or branch before coordinated deployment or
+  explicit maintainer approval.
+- Use a draft GitHub repository security advisory and its temporary private
+  fork for non-public fixes. Do not push the fix to the public repository
+  until deployment is coordinated.
+- If a security issue is discovered during unrelated work, stop before making
+  the details public and alert the user or repository maintainers privately.
+
+## Preferred Commands
+
+- Run these from the repo root unless a command says otherwise.
+- Full dev build: `pnpm -C src build:dev`
+- Full typecheck: `pnpm -C src tsc`
+- Dev/browser environment bootstrap:
+  - Lite: `cd src && pnpm dev:lite:env` to print the environment for lite development and browser automation, including the correct `COCALC_API_URL` (typically port `7001`), browser session, and PATH updates. Use `eval "$(pnpm -s dev:lite:env)"` to apply it to the current shell.
+  - Hub / full multi-user launchpad: `cd src && pnpm dev:hub:env` to print the corresponding environment for hub-backed development. Use `eval "$(pnpm -s dev:hub:env)"` to apply it to the current shell.
+- Prettier (repo-pinned): `pnpm -C src prettier --write <file>`
+- Frontend lint (fast): `pnpm -C src lint:frontend`
+- Package typecheck (fast): `cd src/packages/<pkg> && pnpm tsc --build`
+- Package build: `cd src/packages/<pkg> && pnpm build`
+- For `next` / `static`: use `pnpm -C src build:dev` instead of `pnpm -C src build`
+- Tests: run focused package/tests first; avoid full test suite unless needed
+- Dependency consistency check: `pnpm -C src version-check`
+
+### Fresh Worktrees
+
+- A new git worktree does not have built workspace package outputs. Before running package tests, run `pnpm -C src install`, then build/typecheck the target package (for example, `cd src/packages/<pkg> && pnpm tsc --build`) so TypeScript project references produce their `dist` entrypoints.
+- Do not run Jest first in a fresh worktree: imports such as `@cocalc/cloud` can fail misleadingly when the linked workspace package exists but has not been built.
+- Use `pnpm -C src build:dev` when preparing a release or when the required dependency scope is unclear; otherwise prefer the package-local build before focused tests.
+
+## Live Hub Env
+
+- Before running live Lite/Launchpad control-plane commands such as `cocalc host ...`, `cocalc project ...`, or browser-driven validation against the local dev hub, refresh the hub env first:
+  - `cd src && eval "$(pnpm -s dev:hub:env)"`
+- Do this again after restarting the hub, switching between local hub instances, or resuming a stale shell. Otherwise `cocalc` can silently use outdated credentials and fail with misleading auth/control-plane errors.
+- When a task depends on upgrading hosts or validating live project-host behavior, assume this step is required unless the current shell definitely just ran it.
+- For dangerous CLI operations that require fresh auth in local dev, use `cocalc auth elevate --dev` when the local hub password and database are available. This bootstraps a cookie-backed dev fresh-auth session; raw bearer, API-key, or hub-password auth alone will still fail fresh-auth checks.
+
+## Live Site CLI Auth
+
+- For live staging/prod control-plane work that needs browser-approved fresh auth, use the repo-built one-line bootstrap and wait for the user to approve the printed URLs:
+  - Staging: `cd src && node packages/cli/dist/bin/cocalc.js --profile staging --api https://staging.cocalc.ai auth bootstrap --email wstein@gmail.com`
+  - Prod: `cd src && node packages/cli/dist/bin/cocalc.js --profile prod --api https://cocalc.ai auth bootstrap --email wstein@gmail.com`
+- `auth bootstrap` performs browser login, browser-approved elevation, and `auth status --check` equivalent validation. Elevation lasts 8 hours by default; use `auth elevate --short` only when a short 15-minute window is intentional.
+- Do not try to satisfy fresh-auth requirements with API keys, bearer tokens, hub-password auth, or project-scoped credentials. Dangerous operator/admin mutations need a cookie-backed interactive CLI session.
+
+## Live Lite / Browser Env
+
+- Before using `cocalc browser ...` or other live browser automation against the local Lite or Launchpad dev servers, always load the matching env in the current shell:
+  - Lite: `cd src && eval "$(pnpm -s dev:lite:env)"`
+  - Hub: `cd src && eval "$(pnpm -s dev:hub:env)"`
+- This is not optional for reliable targeting. The env sets the correct `COCALC_API_URL`, browser session, project id, auth token, and PATH.
+- If the wrong env is loaded, `cocalc browser` can fail with misleading errors, e.g. trying to use hub/project-host resolution against Lite, or targeting the wrong browser session entirely.
+- If `cocalc browser ...` fails with `no auth cookie set` in a local public dev site such as `lite1b.cocalc.ai`, remember that the site is backed by the local loopback hub and local PostgreSQL. Use the repo-built CLI against the loopback hub to bootstrap dev fresh auth, then retry browser commands through that same loopback API:
+  - `cd src && eval "$(pnpm -s dev:hub:env)"`
+  - `node packages/cli/dist/bin/cocalc.js --api http://localhost:9100 auth elevate --dev`
+  - `node packages/cli/dist/bin/cocalc.js --api http://localhost:9100 browser session list --json`
+  - `node packages/cli/dist/bin/cocalc.js --api http://localhost:9100 browser files --project-id <project-id> --browser <browser-id>`
+- The browser session URL may still be `https://lite1b.cocalc.ai/...` while the API origin is `http://localhost:9100`; this mismatch is expected for these public-fronted local dev sites. See `src/.agents/lite4b-setup-notes-2026-05-05.md` for the longer operational notes and caveats.
+
+## Hard Rules (CoCalc-Specific)
+
+- Use `@cocalc/*` absolute imports for cross-package imports.
+- Use `import type` for type-only imports.
+- For theme-aware frontend UI, use `UI_COLORS` from `@cocalc/util/appearance-palette`, not fixed `COLORS` values or ad-hoc color literals. Pair semantic foreground/background tokens and check both light and dark mode. Prefer the existing Ant Design theme for standard controls; do not override their colors unnecessarily. See [UI colors and appearance](docs/STYLE.md#ui-colors-and-appearance).
+- Reserve literal `COLORS` from `@cocalc/util/theme` for intentionally fixed colors (such as branding or authored content). APIs requiring concrete colors, such as canvas/chart renderers, must use resolved palette values rather than CSS-variable strings; do not redefine `COLORS` to be theme-dependent.
+- Use package logging utilities (`getLogger`) for persistent logging; avoid `console.log` except temporary debugging.
+- Prefer Conat RPC APIs (`src/packages/conat/hub/api`) over Next API routes in `src/packages/next/pages/api/v2`.
+- For direct DB access in hub/backend, use `getPool()` from `@cocalc/database/pool`.
+- Keep dependency versions aligned across packages; update matching `@types/*` packages when applicable.
+- Redux store values are deep-converted with Immutable.js at runtime. Do not assume nested values returned by `useTypedRedux` are plain objects just because the TypeScript type says so; normalize or use `.get(...)`/`.toJS()` before nested property access.
+- For admin site-settings secret/password configuration fields, use `src/packages/frontend/admin/site-settings/secret-setting-input.tsx` instead of raw password inputs or custom stored-secret notes.
+- Before adding or substantially changing first-party frontend UI, read `src/.agents/accessibility.md`.
+- For changed interactive UI, run `pnpm -C src lint:frontend` and add focused accessibility coverage as described in `src/.agents/accessibility.md`.
+
+## Multibay Architecture Rule
+
+- Before changing auth, accounts, billing, projects, collaborators, hosts, project files, backups, secrets, public sharing, or Conat control-plane APIs, read `src/.agents/scalable-architecture.md`.
+- Treat Launchpad as the one-bay special case of the same architecture, not a separate architecture.
+- Always ask: which bay is authoritative for this data or action?
+- Route by explicit ownership: account `home_bay_id`, project `owning_bay_id`, and host `bay_id`.
+- Do not assume the local bay/database is authoritative unless the code has resolved ownership or is documented as one-bay-only.
+- Cross-bay project operations must use the inter-bay/project-host routing layer, not direct local DB/project-host shortcuts.
+- For project-to-project operations, assume source and destination projects may belong to different bays unless the operation explicitly requires same-host/same-bay semantics.
+- Keep the control plane and data plane separate: hubs/bays authorize, route, synchronize state, and issue scoped project-host access, but steady-state project traffic such as files, terminals, Jupyter, Codex, previews, and app/server proxying should flow directly between the user/client and the project host whenever possible.
+- Do not proxy project data through the hub/control plane unless there is a documented reason. If a new access mode needs different permissions, prefer a distinct project-host subject/service with narrower capabilities over hub-mediated data access.
+
+## Git and Validation
+
+- By default, agents should auto-commit completed change-sets after relevant validation passes.
+- The default workflow is: make the change, run the relevant checks, commit, then let the user review and request follow-up fixes in a new commit if needed.
+- Do not wait for an explicit "commit" request unless the user asked not to commit, the work is clearly exploratory/incomplete, or there are unrelated worktree changes that would make an automatic commit unsafe.
+- Commit messages should be prefixed by area/package, e.g. `frontend/chat: ...`.
+- By default, write commit messages with:
+  - a concise first line (subject), and
+  - a detailed markdown body explaining details of the commit, which is more succinct than the agent turn summary, including only information that is valuable longterm.
+  - do not include a dedicated `Tests and validation` section; mention verification only when it adds long-term value.
+  - do not embed literal escaped newlines (e.g. `\n` or `\\n`) in commit messages.
+  - For multiline commit messages, always use stdin/heredoc or a message file instead of `git commit -m`.
+  - In `exec_command` / shell tool calls, do not rely on quoted `\n` sequences to create commit-message line breaks; use literal newlines in the heredoc body.
+  - Safe default pattern:
+
+```
+git commit -F - <<'EOF'
+<subject line>
+
+<body>
+EOF
+```
+
+- `git commit -m` is only for subject-only commits with no body.
+- Prefer follow-up commits over amending or rewriting history unless the user explicitly asks for that.
+- For new source files that use the standard CoCalc file header comment, set the copyright year to the current year.
+- Before finishing a change-set, run relevant typecheck/tests for touched packages.
+- Run `pnpm -C src prettier --write <file>` on modified files as needed.
+- For frontend changes, also run `pnpm -C src lint:frontend`. Treat frontend lint failures the same way as test or typecheck failures.
+
+## Docs
+
+- Architecture/docs: `docs/`
+- Translation workflow: `docs/translation.md`
+- Browser runtime debugging via `cocalc browser`: `docs/browser-debugging.md`
+  - Includes both live-user-session targeting and dedicated Playwright-backed spawned sessions.
+
+---
+> Source: [sagemathinc/cocalc-ai](https://github.com/sagemathinc/cocalc-ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-22 -->
