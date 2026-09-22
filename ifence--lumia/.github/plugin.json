@@ -1,0 +1,9 @@
+{
+  "name": "ifence--lumia",
+  "displayName": "Lumia",
+  "description": "Lumia is a small, polished, high-performance, cross-platform image viewer built with Rust, GPUI, and gpui-component.",
+  "version": "1.0.0",
+  "author": "iFence",
+  "homepage": "https://github.com/iFence/Lumia",
+  "skills": []
+}
