@@ -1,0 +1,44 @@
+{
+  "name": "alliswell",
+  "owner": "mahirozdin",
+  "repo": "alliswell",
+  "description": "Open-source, self-hosted productivity hub: tasks, projects, notes, urgent reminders and two-way Google/Apple Calendar sync. Cross-platform Flutter app (iOS, Android, Web, macOS, Windows, Linux) + Node.js/MySQL backend. Alternative to Todoist, TickTick and Apple Reminders.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mahirozdin/alliswell",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T03:07:30Z"
+}
