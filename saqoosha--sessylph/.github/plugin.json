@@ -1,0 +1,9 @@
+{
+  "name": "saqoosha--sessylph",
+  "displayName": "Sessylph",
+  "description": "A native macOS wrapper for Claude Code with tabbed terminal sessions, tmux persistence, and desktop notifications",
+  "version": "1.0.0",
+  "author": "Saqoosha",
+  "homepage": "https://github.com/Saqoosha/Sessylph",
+  "skills": []
+}
