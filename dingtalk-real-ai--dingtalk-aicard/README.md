@@ -7,11 +7,11 @@ DingTalk AI Card specification, standalone Skill, and DWS integration.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DingTalk-Real-AI/dingtalk-aicard](https://github.com/DingTalk-Real-AI/dingtalk-aicard).
+Original source: `CLAUDE.md` in [DingTalk-Real-AI/dingtalk-aicard](https://github.com/DingTalk-Real-AI/dingtalk-aicard).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
