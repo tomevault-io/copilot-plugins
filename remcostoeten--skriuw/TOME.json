@@ -1,0 +1,51 @@
+{
+  "name": "skriuw",
+  "owner": "remcostoeten",
+  "repo": "skriuw",
+  "description": "Notes, journal, tasks. Think of Notion and Obsidian combined. No load times or telemetry. Fully local, offline with opt-in web sync. Runs nativly on Mac, Windows and Linux on WebAssembly. Android + iOS (alpha)",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "next-skeletons",
+      "path": ".agents/skills/next-skeletons",
+      "github_url": "https://github.com/remcostoeten/skriuw/tree/main/.agents/skills/next-skeletons",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/remcostoeten/skriuw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T18:30:23Z"
+}
