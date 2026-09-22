@@ -1,98 +1,95 @@
-## php-standards
+## react-standards
 
-> PHP coding standards for application code (app/, framework/, database/)
+> React/JSX coding standards for resources/app
 
 
-# PHP Coding Standards
+# React Coding Standards
 
-Target PHP **7.4** (see `composer.json` `config.platform.php`). Follow PSR-4 file naming and PSR-12 via PHPCS.
+Apply these conventions to all JSX files under `resources/app/`, including legacy code being edited.
 
-## Classes and Files
+## Files and Folders
 
-- Class names: **PascalCase** (`CartService`, `OrderManager`)
-- File names: PSR-4 — one class per file, filename matches class name
-- Never declare classes as `final`
-- Namespace must match the PSR-4 autoload map in `composer.json`
+- Folders and files: **lowercase**, words separated by **dashes**
+- Examples: `pages/`, `app-dialogs/`, `active-filters.jsx`
+- Do not use barrel files like `component-name/index.jsx`
+- Use `component-name/component-name.jsx` instead
 
-## Methods, Properties, and Variables
+## Components
 
-- Methods and variables: **snake_case** (`get_cart`, `$customer_id`)
-- Names must be meaningful and express intent; avoid `$a`, `$b`, `$temp`
-- Keep names concise — aim for one or two words when possible
-- Visibility: use the narrowest modifier that works, but **never `private`**
-  - `public` — required API surface (controllers, facades, hooks called externally)
-  - `protected` — default for internal or inheritance-friendly members
-- Static references: always use `static::`, never `self::`
+- Component names: **PascalCase** (`ActiveFilters`, `AppDialog`)
+- Define as arrow functions, export default at the bottom:
 
-```php
+```jsx
+const ActiveFilters = () => {
+  return <div />;
+};
+
+ActiveFilters.displayName = 'ActiveFilters';
+
+export default ActiveFilters;
+```
+
+- Multiple components in one file: default export the main component; named export the rest
+- `forwardRef` / `memo`: assign `displayName` on the wrapped const
+
+```jsx
+const Button = forwardRef((props, ref) => {
+  return <span ref={ref} />;
+});
+
+Button.displayName = 'Button';
+
+export default Button;
+```
+
+## Control Flow
+
+Never use inline returns for conditional statements — always wrap the body in braces:
+
+```jsx
 // ❌ BAD
-private $repository;
-self::PAGINATION_LIMIT;
+if (condition) return true;
 
 // ✅ GOOD
-protected $repository;
-static::PAGINATION_LIMIT;
-```
-
-## Arrays and Syntax
-
-- Use short array syntax `[]`, never `array()`
-- No inline comments inside method bodies
-- Code must be self-explanatory through naming and structure
-
-## Docblocks
-
-Every method and property requires a docblock. Include only applicable optional tags.
-
-Use the current plugin version from `kirki-ecommerce.php` for `@since`.
-
-`@return` is **required** on every method. Use `@return void` when the method returns nothing.
-
-```php
-/**
- * Retrieve the active cart for a customer or token.
- *
- * @param int|null    $customer_id Customer identifier.
- * @param string|null $token       Guest cart token.
- *
- * @return \Kirki\Ecommerce\App\Models\Cart
- * @since 1.0.0
- * @throws \Exception When the cart cannot be found or created.
- */
-public function get_cart($customer_id = null, $token = null)
-{
-    // ...
-}
-
-/**
- * Cart persistence repository.
- *
- * @var \Kirki\Ecommerce\App\Repositories\CartRepository
- */
-protected $repository;
-
-/**
- * Persist cart updates to storage.
- *
- * @param array $data Cart attributes to update.
- *
- * @return void
- * @since 1.0.0
- */
-protected function save_cart(array $data)
-{
-    // ...
+if (condition) {
+  return true;
 }
 ```
 
-Omit `@param`, `@throws`, and `@see` when not relevant. Always include `@return` (use `void` when applicable) and `@since` on methods. Always include `@since` on properties.
+## Strings and i18n
 
-## General
+- JavaScript strings: single quotes `'value'` or backticks for template literals — never double quotes
+- JSX prop string values: double quotes (`type="primary"`, `size="large"`)
+- User-facing static text: use `__()` from `@/wpi18n` with domain `kirki-ecommerce`
 
-- Match existing project patterns when editing surrounding code
-- Prefer early returns for readability
-- Type hints and return types: use when compatible with PHP 7.4
-- Follow WordPress escaping, sanitization, and i18n conventions where applicable
+```jsx
+import { __ } from '@/wpi18n';
+
+<Button text={__('Save changes', 'kirki-ecommerce')} type="primary" />;
+```
+
+## Imports
+
+Group imports in this order, separated by blank lines:
+
+1. External packages (`react`, `react-router`, etc.)
+2. Internal aliases (`@/molecules`, `@/wpi18n`, `@/conf`, etc.)
+3. Relative imports (`./active-filters.scss`)
+
+Always use the `@/` alias for internal paths — avoid deep relative imports when an alias exists.
+
+```jsx
+import { useNavigate } from 'react-router';
+
+import { Button, Container } from '@/molecules';
+import { __ } from '@/wpi18n';
+
+import './not-found.scss';
+```
+
+## Comments
+
+Do not add comments to describe code. Use meaningful variable and function names so the code reads clearly on its own.
 
 ---
 > Source: [themeum/kirki-ecommerce](https://github.com/themeum/kirki-ecommerce) — distributed by [TomeVault](https://tomevault.io).
