@@ -1,0 +1,9 @@
+{
+  "name": "bkildow--wtx",
+  "displayName": "wtx",
+  "description": "Git worktree manager CLI",
+  "version": "1.0.0",
+  "author": "bkildow",
+  "homepage": "https://github.com/bkildow/wtx",
+  "skills": []
+}
