@@ -1,0 +1,44 @@
+{
+  "name": "hpc-mail",
+  "owner": "riba2534",
+  "repo": "hpc-mail",
+  "description": "\u57fa\u4e8e Cloudflare Workers \u7684\u591a\u57df\u540d\u591a\u7528\u6237\u90ae\u7bb1\u7cfb\u7edf\uff1acatch-all \u6536\u4ef6\u3001\u9a8c\u8bc1\u7801\u81ea\u52a8\u63d0\u53d6\u3001\u5f00\u653e REST API\u3001AI Agent \u53cb\u597d",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/riba2534/hpc-mail",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T03:20:58Z"
+}
