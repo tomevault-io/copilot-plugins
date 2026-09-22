@@ -4,7 +4,7 @@
   "repo": "toka",
   "description": "Toka is a no-GC systems programming language that keeps performance and static safety as baselines while making real systems semantics explicit and everyday code easier to read, write, and maintain.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tokalang/toka",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T08:49:33Z"
+  "distributed_at": "2026-09-22T08:52:59Z"
 }
