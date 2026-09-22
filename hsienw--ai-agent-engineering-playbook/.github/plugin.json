@@ -1,0 +1,9 @@
+{
+  "name": "hsienw--ai-agent-engineering-playbook",
+  "displayName": "ai-agent-engineering-playbook",
+  "description": "\ud83d\udd28Reusable personal Agent Skills and practice-backed Q&A for AI Agent engineering, runtime reliability, multi-agent systems, evaluation, and AI-native frontend.",
+  "version": "1.0.0",
+  "author": "HsienW",
+  "homepage": "https://github.com/HsienW/ai-agent-engineering-playbook",
+  "skills": []
+}
