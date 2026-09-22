@@ -1,0 +1,9 @@
+{
+  "name": "timoncool--tg-challenge-bot",
+  "displayName": "tg-challenge-bot",
+  "description": "AI-powered anti-spam bot for Telegram \u2014 quiz challenges on Cloudflare Workers, free serverless deployment.",
+  "version": "1.0.0",
+  "author": "timoncool",
+  "homepage": "https://github.com/timoncool/tg-challenge-bot",
+  "skills": []
+}
