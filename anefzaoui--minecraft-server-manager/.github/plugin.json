@@ -1,0 +1,9 @@
+{
+  "name": "anefzaoui--minecraft-server-manager",
+  "displayName": "minecraft-server-manager",
+  "description": "Free, self-hosted control panel for Minecraft servers on Docker \u2014 modpacks, backups, schedules, live map, player analytics. Your whole panel is one folder.",
+  "version": "1.0.0",
+  "author": "anefzaoui",
+  "homepage": "https://github.com/anefzaoui/minecraft-server-manager",
+  "skills": []
+}
