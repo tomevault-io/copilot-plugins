@@ -1,0 +1,9 @@
+{
+  "name": "kaxil--abm",
+  "displayName": "abm",
+  "description": "Manage multiple Airflow development environments with isolated breeze instances, similar to claudette-cli but for Apache Airflow\u00ae development.",
+  "version": "1.0.0",
+  "author": "kaxil",
+  "homepage": "https://github.com/kaxil/abm",
+  "skills": []
+}
