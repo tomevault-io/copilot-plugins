@@ -1,0 +1,9 @@
+{
+  "name": "pablostanley--vackrooms",
+  "displayName": "vackrooms",
+  "description": "An endless first-person backrooms game, presented as a damaged VHS recording. Next.js, Three.js, Rapier, WebGPU.",
+  "version": "1.0.0",
+  "author": "pablostanley",
+  "homepage": "https://github.com/pablostanley/vackrooms",
+  "skills": []
+}
