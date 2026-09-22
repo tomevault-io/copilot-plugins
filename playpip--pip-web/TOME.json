@@ -4,7 +4,7 @@
   "repo": "pip-web",
   "description": "Casual poker, redesigned \u2014 clean single-player Texas Hold'em. Play money, no account needed, no fake felt.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/playpip/pip-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T03:15:52Z"
+  "distributed_at": "2026-09-22T03:27:28Z"
 }
