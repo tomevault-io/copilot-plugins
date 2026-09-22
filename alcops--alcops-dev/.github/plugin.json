@@ -1,0 +1,9 @@
+{
+  "name": "alcops--alcops-dev",
+  "displayName": "alcops.dev",
+  "description": "Source for alcops.dev - the documentation site and rules reference for the ALCops analyzer suite.",
+  "version": "1.0.0",
+  "author": "ALCops",
+  "homepage": "https://github.com/ALCops/alcops.dev",
+  "skills": []
+}
