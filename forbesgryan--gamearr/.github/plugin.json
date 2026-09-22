@@ -1,0 +1,9 @@
+{
+  "name": "forbesgryan--gamearr",
+  "displayName": "gamearr",
+  "description": "Automated game library management following the *arr ecosystem pattern. Built with Bun, TypeScript, Hono, and React.",
+  "version": "1.0.0",
+  "author": "ForbesGRyan",
+  "homepage": "https://github.com/ForbesGRyan/gamearr",
+  "skills": []
+}
