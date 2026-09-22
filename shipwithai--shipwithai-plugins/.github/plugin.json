@@ -1,0 +1,9 @@
+{
+  "name": "shipwithai--shipwithai-plugins",
+  "displayName": "shipwithai-plugins",
+  "description": "Open-source Claude Code plugins \u2014 build a real project harness, not another pasted CLAUDE.md.",
+  "version": "1.0.0",
+  "author": "ShipWithAI",
+  "homepage": "https://github.com/ShipWithAI/shipwithai-plugins",
+  "skills": []
+}
