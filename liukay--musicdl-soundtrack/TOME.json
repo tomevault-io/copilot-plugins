@@ -1,0 +1,44 @@
+{
+  "name": "musicdl-soundtrack",
+  "owner": "LiuKay",
+  "repo": "musicdl-soundtrack",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e musicdl \u7684\u73b0\u4ee3\u5316\u97f3\u4e50 \u641c\u7d22 / \u4e0b\u8f7d / \u64ad\u653e\u5668\uff08Web \u754c\u9762 + \u684c\u9762 App\uff09\u3002 \u652f\u6301\u54aa\u5495\u3001\u7f51\u6613\u4e91\u3001\u9177\u6211\u3001QQ\u3001\u9177\u72d7\u30015sing\u3001Jamendo \u548c Spotify \u5171\u516b\u4e2a\u97f3\u4e50\u6e90",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LiuKay/musicdl-soundtrack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T03:31:33Z"
+}
