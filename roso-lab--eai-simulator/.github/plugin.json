@@ -1,0 +1,9 @@
+{
+  "name": "roso-lab--eai-simulator",
+  "displayName": "eai-simulator",
+  "description": "A simulation platform for heterogeneous multi-robot systems to collaborate and interact within dynamic social environments.",
+  "version": "1.0.0",
+  "author": "roso-lab",
+  "homepage": "https://github.com/roso-lab/eai-simulator",
+  "skills": []
+}
