@@ -1,6 +1,8 @@
 # gpu-go
 
-> Source: [NexusGPU/gpu-go](https://github.com/NexusGPU/gpu-go) — distributed by [TomeVault](https://tomevault.io)
+> Source: [NexusGPU/gpu-go](https://github.com/NexusGPU/gpu-go). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+Use your GPUs like NFS. The agent and IDE extension of GPUGo product
 
 ## GitHub Copilot Config
 
@@ -19,6 +21,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
