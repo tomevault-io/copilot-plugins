@@ -1,0 +1,9 @@
+{
+  "name": "hervestudio--firmware-badge",
+  "displayName": "firmware-badge",
+  "description": "threejs.paris conference speaker badge \u2014 ESP32-S3 firmware, round 360x360 TFT, games, ESP-NOW encounters, phone setup, and a browser emulator (the real firmware compiled to WASM)",
+  "version": "1.0.0",
+  "author": "hervestudio",
+  "homepage": "https://github.com/hervestudio/firmware-badge",
+  "skills": []
+}
