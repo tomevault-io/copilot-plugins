@@ -1,0 +1,9 @@
+{
+  "name": "buchwandler--pykokoro",
+  "displayName": "pykokoro",
+  "description": "A Python library for Kokoro TTS (Text-to-Speech) using ONNX runtime.",
+  "version": "1.0.0",
+  "author": "buchwandler",
+  "homepage": "https://github.com/buchwandler/pykokoro",
+  "skills": []
+}
