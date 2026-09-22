@@ -7,11 +7,11 @@ Sovereign AI substrate for memory, orchestration, skills, governance, and evals 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [frankxai/Starlight-Intelligence-System](https://github.com/frankxai/Starlight-Intelligence-System).
+Original source: `CLAUDE.md` in [frankxai/Starlight-Intelligence-System](https://github.com/frankxai/Starlight-Intelligence-System).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
