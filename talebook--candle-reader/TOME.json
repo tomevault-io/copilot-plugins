@@ -4,7 +4,7 @@
   "repo": "candle-reader",
   "description": "\u79c9\u70db\u591c\u8bfb",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/talebook/candle-reader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T00:30:22Z"
+  "distributed_at": "2026-09-22T00:31:10Z"
 }
