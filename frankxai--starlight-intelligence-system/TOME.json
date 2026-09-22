@@ -4,7 +4,7 @@
   "repo": "Starlight-Intelligence-System",
   "description": "Sovereign AI substrate for memory, orchestration, skills, governance, and evals across Claude Code, Codex, Cursor, Gemini, and Antigravity.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/frankxai/Starlight-Intelligence-System",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T08:36:22Z"
+  "distributed_at": "2026-09-22T08:38:42Z"
 }
