@@ -1,0 +1,9 @@
+{
+  "name": "tokalang--toka",
+  "displayName": "toka",
+  "description": "Toka is a no-GC systems programming language that keeps performance and static safety as baselines while making real systems semantics explicit and everyday code easier to read, write, and maintain.",
+  "version": "1.0.0",
+  "author": "tokalang",
+  "homepage": "https://github.com/tokalang/toka",
+  "skills": []
+}
