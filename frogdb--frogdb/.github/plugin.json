@@ -1,0 +1,9 @@
+{
+  "name": "frogdb--frogdb",
+  "displayName": "frogdb",
+  "description": "Fully Redis 8.x compatible database complete with replication, clustering, persistance, and hot/warm tiering.",
+  "version": "1.0.0",
+  "author": "frogdb",
+  "homepage": "https://github.com/frogdb/frogdb",
+  "skills": []
+}
