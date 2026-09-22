@@ -1,31 +1,16 @@
-## data-safety
+## supabase
 
-> Mandatory data safety when touching persistence, drafts, or entry content
+> Supabase migrations, RLS, and edge function conventions
 
 
-# Data safety (strict)
+# Supabase rules
 
-## Required reading
-- `.cursor/skills/wings-data-safety/SKILL.md`
-- `.cursor/skills/wings-data-safety/incident-postmortem.md`
-
-## Every save path MUST
-1. Call `shouldBlockEmptySave(existingContent, nextMarkdown)` before `updateEntry`
-2. Write `content` + `content_json` together
-3. Have unit test in `editorContent.test.ts`
-
-## Every load path MUST
-1. Use `resolveInitialEditorContent` — never inline JSON preference
-2. Use `shouldApplyDraft` before merging localStorage drafts
-
-## Pending writes MUST
-1. Replay only after `fetchEntries` (entries in state)
-2. Use `shouldReplayPendingWrite`
-
-## Before merge
-- `bun run test -- src/lib/editorContent.test.ts`
-- `bun run recover:entries` dry run
-- Manual refresh test on page with existing content
+- Never edit existing migration files — add new timestamped SQL.
+- Anon must not SELECT `entries` directly; public shares use `get_shared_entry` RPC.
+- `user_id`, `share_token`, `parent_id` protected by trigger — shared editors cannot change them.
+- Edge function secrets via `supabase secrets set`, not `VITE_*`.
+- `auth-send-email` hook must return HTTP 200 even on failure.
+- Grant table privileges to `authenticated` / `service_role` for new tables.
 
 ---
 > Source: [sabique-islam/wings](https://github.com/sabique-islam/wings) — distributed by [TomeVault](https://tomevault.io).
