@@ -1,0 +1,9 @@
+{
+  "name": "f00-sh--clun",
+  "displayName": "clun",
+  "description": "JavaScript/TypeScript toolkit in pure Common Lisp",
+  "version": "1.0.0",
+  "author": "f00-sh",
+  "homepage": "https://github.com/f00-sh/clun",
+  "skills": []
+}
