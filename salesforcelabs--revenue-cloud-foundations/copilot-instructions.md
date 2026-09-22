@@ -1,45 +1,143 @@
-## analysis-artifacts
+## apex-classes
 
-> Where AI-generated analysis/investigation artifacts must be stored (never the public repo)
+> Apex class authoring rules — sharing enforcement, Id validation, SOQL safety, error handling, test patterns
 
 
-# Generated Analysis Artifacts → `.agents/artifacts/` (never the public repo)
+# Apex Class Rules
 
-Any **AI-generated** analysis, investigation, audit, feature-gap, research,
-resume/handoff, or scratch working document **must** be written to
-`.agents/artifacts/` — a **private, nested git repository** that is gitignored
-by the main repo (`.gitignore` → `.agents/artifacts/`). These artifacts must
-**never** be committed to the public `rlm-base-dev` repository.
+## DO NOT
 
-## Rule
+- Declare a class without a sharing keyword — always use `with sharing`, `without sharing`, or `inherited sharing`
+- Bind a raw `String` to a SOQL Id field (`WHERE QuoteId = :stringVar`) — always validate with `Id.valueOf` first
+- Semi-join against a **polymorphic** lookup — it matches nothing and reports success
+- Perform DML with `Id = someStringVar` — always validate with `Id.valueOf` in a try/catch
+- Write `catch (Exception e) { /* ignore */ }` — either return an error response or rethrow
+- Leave `System.debug` / `TEMP DEBUG` statements in production code
+- Hardcode org-specific record Ids (PricebookEntry, Pricebook2, etc.) — query by stable keys instead
+- Omit `@isTest` coverage for any new `@InvocableMethod`, `@AuraEnabled`, or public static method
+- Insert a `Quote` in a test method without `Account`, `Opportunity`, and `OpportunityId` + `Status = 'Draft'`
+- Query `QuoteLineGroup` or `QuoteLineItem` without scoping by `QuoteId` when a `quoteId` is available
 
-- ✅ Write generated analysis docs to `.agents/artifacts/<name>.md`.
-- ❌ Do **not** create them under `docs/analysis/`, `docs/`, repo root, or any
-  other path tracked by the main repo.
-- If you find a generated artifact tracked in the public repo, move it:
-  `cp docs/analysis/<f>.md .agents/artifacts/<f>.md && git rm -f docs/analysis/<f>.md`,
-  and update any references to point at the `.agents/artifacts/` path.
+## Sharing
 
-## Distinction
+Every class must have an explicit sharing keyword:
 
-- `docs/analysis/` is reserved for **curated, intentional, human-authored**
-  technical analysis that is part of the product documentation. Do not add new
-  agent-generated working docs there. When unsure whether a doc is "curated" vs
-  "generated working artifact," treat it as a generated artifact and put it in
-  `.agents/artifacts/`.
-- `.agents/artifacts/` is for **agent working output**: investigations, audit
-  findings, cross-validation reports, feature-gap notes, resume/handoff notes,
-  experiment reports, etc.
+| Class type | Keyword |
+|---|---|
+| Entry point called from LWC / Flow / Action | `with sharing` |
+| Internal utility called from multiple contexts | `inherited sharing` |
+| Explicitly needs to bypass sharing (document why) | `without sharing` |
 
-## Example
+## Id Validation Before SOQL / DML
 
+Always validate String → Id before use in queries or DML:
+
+```apex
+// GOOD
+Id qId;
+try {
+    qId = Id.valueOf(quoteIdStr);
+} catch (Exception e) {
+    return buildErrorResponse('Invalid quote Id');
+}
+List<QuoteLineGroup> groups = [SELECT Id FROM QuoteLineGroup WHERE QuoteId = :qId];
+
+// BAD — throws QueryException for non-Id strings
+List<QuoteLineGroup> groups = [SELECT Id FROM QuoteLineGroup WHERE QuoteId = :quoteIdStr];
 ```
-# ❌ BAD — public, tracked by main repo
-docs/analysis/collections-ux-baseline-feature-gaps.md
 
-# ✅ GOOD — private nested repo, gitignored by main
-.agents/artifacts/collections-ux-baseline-feature-gaps.md
+## Cross-Object Scope Guards
+
+When accepting a list of record Ids from the client (groups to delete, rename, update), always validate ownership before acting:
+
+```apex
+// Validate groups belong to the target quote before delete/update
+Set<Id> validIds = new Set<Id>();
+for (QuoteLineGroup g : [SELECT Id FROM QuoteLineGroup WHERE Id IN :requestedIds AND QuoteId = :qId]) {
+    validIds.add(g.Id);
+}
 ```
+
+## Polymorphic Lookups Break Semi-Joins
+
+A semi-join on a polymorphic field (`BindingObjectId`, `RelatedObjectId`, `WhatId`, …)
+does **not** resolve — it silently matches zero rows while the DML reports success.
+Materialise the ids and bind them:
+
+```apex
+// BROKEN — matches nothing, no error
+[SELECT Id FROM UsageResourcePolicy WHERE BindingObjectId IN (SELECT Id FROM Asset WHERE AccountId = :acctId)]
+
+// WORKS
+Set<Id> assetIds = new Map<Id, Asset>([SELECT Id FROM Asset WHERE AccountId = :acctId]).keySet();
+[SELECT Id FROM UsageResourcePolicy WHERE BindingObjectId IN :assetIds]
+```
+
+## Handle Partial-Success DML Results
+
+`Database.delete(records, false)` / `Database.update(records, false)` return results
+that are easy to discard. A refused row then resurfaces much later as an unexplained
+`DELETE_FAILED` on its parent. Inspect the results and surface failures — and do not
+log them at `LoggingLevel.FINE`, which the default log level hides.
+
+## BFS for Hierarchy Traversal
+
+Use frontier-based BFS — never grow the full set and re-query it each iteration:
+
+```apex
+// GOOD — frontier BFS
+Set<Id> frontier = new Set<Id>(rootIds);
+while (!frontier.isEmpty()) {
+    Set<Id> next = new Set<Id>();
+    for (QuoteLineGroup g : [SELECT Id FROM QuoteLineGroup WHERE ParentQuoteLineGroupId IN :frontier]) {
+        if (!allIds.contains(g.Id)) { allIds.add(g.Id); next.add(g.Id); }
+    }
+    frontier = next;
+}
+
+// BAD — re-scans already-processed parents each iteration
+while (added) { ... [SELECT ... WHERE ParentId IN :allIds] ... }
+```
+
+## Aggregate Queries Over Full Row Fetches
+
+For counts/sums per group, use `GROUP BY` aggregates — never fetch all rows and count in Apex:
+
+```apex
+// GOOD
+for (AggregateResult ar : [SELECT QuoteLineGroupId g, COUNT(Id) n FROM QuoteLineItem
+                            WHERE QuoteId = :qId GROUP BY QuoteLineGroupId]) { ... }
+
+// BAD — hits 50k row / heap limits on large quotes
+List<QuoteLineItem> items = [SELECT Id, QuoteLineGroupId FROM QuoteLineItem WHERE QuoteId = :qId];
+```
+
+## Error Handling
+
+- Return a structured error response rather than silently swallowing exceptions
+- Gate debug logging behind a feature flag or use `System.debug(LoggingLevel.FINE, ...)` — never ship `TEMP DEBUG` blocks
+- For preview/read methods: return an error field in the response map so the UI can surface it
+
+## Test Patterns
+
+### Quote test helper minimum
+
+```apex
+Account acct = new Account(Name = 'Test Account');
+insert acct;
+Opportunity opp = new Opportunity(Name = 'Test Opp', AccountId = acct.Id,
+    StageName = 'Prospecting', CloseDate = Date.today().addDays(30));
+insert opp;
+Quote q = new Quote(Name = 'Test Quote', Pricebook2Id = pbId,
+    OpportunityId = opp.Id, Status = 'Draft');
+insert q;
+```
+
+### Coverage requirements
+
+- Every `@InvocableMethod`: null/empty input → fail output; create path; modify path; error path
+- Every `@AuraEnabled` method: invalid Id input; valid input; boundary conditions
+- Every BFS/hierarchy method: empty set; single node; parent+child; multi-level chain
 
 ---
 > Source: [SalesforceLabs/revenue-cloud-foundations](https://github.com/SalesforceLabs/revenue-cloud-foundations) — distributed by [TomeVault](https://tomevault.io).
