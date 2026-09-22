@@ -1,88 +1,127 @@
-## apex-scripts
+## cci-python-tasks
 
-> Apex script patterns for Revenue Cloud — bulk safety, activation ordering, deactivation-before-deletion
+> CumulusCI Python task authoring conventions — base classes, options, _run_task patterns, registration
 
 
-# Apex Script Rules
+# CCI Python Task Authoring Rules
 
 ## DO NOT
 
-- Write SOQL inside loops (query once, iterate results)
-- Use single-record DML in loops (`update record;`) — use `update records;`
-- Delete PUR/PUG/RateCardEntry without deactivating first
-- Delete rating data before deleting rates data (FK constraint)
-- Semi-join against a **polymorphic** lookup — it silently matches nothing
-- Discard `Database.DeleteResult`s — a refused row resurfaces later as an unexplained `DELETE_FAILED` on its parent
-- Log failures at `LoggingLevel.FINE` — the default log level hides them
+- Pass `access_token` to `sf` CLI commands — use `org_config.username`
+- Log access tokens or session IDs
+- Use `org_config.name` (CCI alias) as `--target-org` — use `.username`
+- Write SOQL in loops (batch-query before processing)
+- **Commit a behavioral change to a wrapped Robot Framework suite — or to this wrapper
+  itself — validated only by `robot --dryrun`** (applies when this task runs `robot` via
+  subprocess / imports `tasks.robot_utils`). Dryrun never launches a browser — verify in a
+  **live scratch org** first (robot_* tasks reject `--org`, issue #320 — `cci org default
+  <alias>` then `cci task run <robot_task>`), or keep the PR
+  blocked (`blocked: needs-live-verification`). See AGENTS.md DO NOT #9 and
+  `robot-testing/SKILL.md` → Verification.
 
-## Bulk Safety
-- No SOQL inside loops — query once, iterate over results
-- Use `update records;` (bulk DML on list), never `update record;` inside a loop
-- Use `Database.update(records, false)` for partial success where appropriate
+## Base Class Selection
 
-## Activation Ordering
-- Rating objects (PUR, PUG) require specific platform activation ordering
-- See `activateRatingRecords.apex` for the 7-step pattern
-- Always set `Status = 'Active'` (or equivalent) — don't assume records activate automatically
+| Need | Base Class | Import |
+|------|-----------|--------|
+| Local task (no org) | `BaseTask` | `cumulusci.core.tasks` |
+| REST/Connect/Tooling API | `BaseTask` | `cumulusci.core.tasks` |
+| Calls `sf` CLI | `SFDXBaseTask` | `cumulusci.tasks.sfdx` |
+| Robot Framework wrapper | `BaseTask` | `cumulusci.core.tasks` |
 
-## Deactivation Before Deletion
-- PUR, PUG, RateCardEntry require deactivation before deletion
-- Pattern: query active records → set Status to Draft/Inactive → update → delete
-- See `deleteQbRatingData.apex` for the deactivate-then-delete pattern
+**Prefer `BaseTask`** for new tasks — simpler than `SFDXBaseTask` and gives
+access to `self.org_config.access_token` / `self.org_config.instance_url`
+without keychain boilerplate.
 
-## Delete Scripts
-- Delete in child → parent order (reverse of load order)
-- Rates must be deleted before rating data (FK constraints)
-- Use `Database.delete(records)` — `delete records;` also works in anonymous Apex
+## Import Guard
 
-## Circular Graphs Need a Convergent Loop
-Some graphs (notably **usage**: summaries ↔ ratable summaries, entries/journals
-holding summaries, self-nesting buckets) have **circular** delete constraints — no
-fixed order works. Loop over every object and stop when a round makes no progress:
+Always wrap CCI imports so the module can be imported without CCI:
 
-```apex
-for (Integer round = 1; round <= MAX_ROUNDS; round++) {
-    Integer progress = 0;
-    progress += deleteQuietly([SELECT Id FROM ChildA ... LIMIT :BATCH]);
-    progress += deleteQuietly([SELECT Id FROM ChildB ... LIMIT :BATCH]);
-    if (progress == 0) { break; }
-}
+```python
+try:
+    from cumulusci.core.tasks import BaseTask
+    from cumulusci.core.exceptions import TaskOptionsError, CommandException
+except ImportError:
+    BaseTask = object
+    TaskOptionsError = Exception
+    CommandException = Exception
 ```
 
-⚠ Do **not** wrap this in a savepoint that rolls back on failure — the rollback
-undoes every successful delete, so only the first-surfacing blocker is ever visible
-and each rerun shows a different error.
+## Option Definition
 
-## Polymorphic Lookups
-A semi-join against a polymorphic field (`BindingObjectId`, `RelatedObjectId`, …)
-does not resolve — it matches nothing **and reports success**. Materialise and bind:
+Use the `task_options` class dict:
 
-```apex
-Set<Id> assetIds = new Map<Id, Asset>([SELECT Id FROM Asset WHERE ...]).keySet();
-[SELECT Id FROM X WHERE BindingObjectId IN :assetIds]
+```python
+class MyTask(BaseTask):
+    task_options = {
+        "operation": {
+            "description": "What to do",
+            "required": True,
+        },
+        "dry_run": {
+            "description": "Preview without changes",
+            "required": False,
+        },
+    }
 ```
 
-## Apex Gotchas in Anonymous Scripts
+Access via `self.options.get("key", default)`.
 
-These only surface at compile/run time in an org — **always run a script against a
-scratch org before committing it**, even when you expect it to no-op.
+## `_run_task()` Pattern
 
-- `IllegalStateException` **does not exist**; the built-in `Exception` is abstract —
-  declare `public class MyException extends Exception {}` to throw
-- `IllegalArgumentException` works. **`System.NoDataFoundException` does not** —
-  throwing it gives `Can only throw this exception type from VisualForce or Aura
-  context`. Use your own exception subclass
-- A class declared in anonymous Apex is an **inner** type, so its methods cannot be
-  `static` (`static can only be used on methods of a top level type`). Declare
-  instance methods and `new` the class up front
-- Bind a `Datetime` field to a `Datetime`, not a `Date` — e.g.
-  `TransactionJournal.StartDate` is a Datetime
+All logic goes in `_run_task()`. For REST API tasks:
 
-## Naming Convention
-- Activation: `activate{Feature}Records.apex`
-- Deletion: `delete{Plan}Data.apex` (e.g., `deleteQbRatingData.apex`)
-- Validation: `validate{Subject}.apex` (e.g., `validateRatedUsage.apex`)
-- Data generation: `consume{Subject}.apex` / `clear{Subject}Data.apex`
+```python
+def _run_task(self):
+    headers = {
+        "Authorization": f"Bearer {self.org_config.access_token}",
+        "Content-Type": "application/json",
+    }
+    url = f"{self.org_config.instance_url}/services/data/v68.0/query/"
+    resp = requests.get(url, headers=headers, params={"q": soql})
+    resp.raise_for_status()
+```
+
+## Feature Flag Access
+
+```python
+billing = self.project_config.project__custom__billing
+tso = self.project_config.project__custom__tso
+```
+
+## Org Identity — CLI vs REST
+
+- **`sf` CLI calls** (`sf data query`, `sf apex run`, `sf org open`):
+  use `self.org_config.username` as `--target-org`. Never pass `access_token`
+  to CLI commands (fails auth, leaks secrets).
+- **REST API calls** (`requests.get/post/patch`): use
+  `self.org_config.access_token` + `self.org_config.instance_url`.
+- **`self.org_config.name`** returns the CCI alias (e.g. `beta`), NOT
+  the SF CLI alias (`rlm-base__beta`). Use only for logging.
+
+## Coding Standards
+
+- **No SOQL in loops** — batch-query before processing
+- **Bulk DML** — never single-record DML in a loop
+- **Logging** — `self.logger.info()`, `.warning()`, `.error()`
+- **Errors** — `TaskOptionsError` for config, `CommandException` for runtime
+- **Non-fatal tasks** — catch + `self.logger.warning()` (see `StampGitCommit`)
+- **API version** — use `v68.0` (Winter '27 / Release 264) in REST URLs. The branch's `cumulusci.yml` `api_version` is the source of truth; sync REST URL examples to it on each release upgrade (`python scripts/ai/bump_api_version.py` does the sweep).
+
+## Registration in cumulusci.yml
+
+```yaml
+tasks:
+  my_task:
+    group: Revenue Lifecycle Management
+    description: >
+      Specific description of affected objects/APIs.
+    class_path: tasks.my_module.MyTaskClass
+    options:
+      operation: list
+```
+
+For detailed patterns and the full module index, read
+`.cursor/skills/cci-orchestration/custom-task-authoring.md`.
 
 ---
 > Source: [SalesforceLabs/revenue-cloud-foundations](https://github.com/SalesforceLabs/revenue-cloud-foundations) — distributed by [TomeVault](https://tomevault.io).
