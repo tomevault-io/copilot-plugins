@@ -1,0 +1,9 @@
+{
+  "name": "nextagentx--trae-workbuddy-switch",
+  "displayName": "trae-workbuddy-switch",
+  "description": "WorkBuddy / TraeWork \u56fd\u5185\u548c\u56fd\u9645\u7248\u8d26\u53f7\u5207\u6362\u684c\u9762 App\uff08Tauri\uff09\uff0c\u652f\u6301\u79ef\u5206\u5230\u671f\u76d1\u63a7\u4e0e\u7b7e\u5230\u3002  (WorkBuddy / TraeWork desktop app for switching between domestic and international accounts (Tauri), supports monitoring points expiration an",
+  "version": "1.0.0",
+  "author": "NextAgentX",
+  "homepage": "https://github.com/NextAgentX/trae-workbuddy-switch",
+  "skills": []
+}
