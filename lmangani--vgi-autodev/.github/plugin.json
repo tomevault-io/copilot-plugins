@@ -1,0 +1,9 @@
+{
+  "name": "lmangani--vgi-autodev",
+  "displayName": "vgi-autodev",
+  "description": "VGI worker exposing Dev-0.4b typed decisions to DuckDB",
+  "version": "1.0.0",
+  "author": "lmangani",
+  "homepage": "https://github.com/lmangani/vgi-autodev",
+  "skills": []
+}
