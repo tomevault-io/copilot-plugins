@@ -1,0 +1,9 @@
+{
+  "name": "zinngar--overpass-to-json",
+  "displayName": "Overpass-to-Json-",
+  "description": "Typescript app to pull all traffic light data to a Json file",
+  "version": "1.0.0",
+  "author": "zinngar",
+  "homepage": "https://github.com/zinngar/Overpass-to-Json-",
+  "skills": []
+}
