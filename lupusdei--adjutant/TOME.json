@@ -4,7 +4,7 @@
   "repo": "adjutant",
   "description": "The ultimate JARVIS for agentic swarm development with a mobile first on-the-go focus. Run on local machine, spawn agents, view progress, chat with squad leaders, via the live adjutant avatar bridge to speak directly about the swarm, and more. You are the commander.  20+ instances of Claude-code are the swarm. Includes the core agentic disciplines.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LupusDei/adjutant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T04:57:58Z"
+  "distributed_at": "2026-09-22T05:13:12Z"
 }
