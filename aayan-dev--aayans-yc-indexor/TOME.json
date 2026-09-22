@@ -1,0 +1,44 @@
+{
+  "name": "aayans-yc-indexor",
+  "owner": "Aayan-DEV",
+  "repo": "aayans-yc-indexor",
+  "description": "Describe a YC startup in any words and the matching logos float up out of a physics pile, each with how likely it is. 6,241 companies, searchable by what they do, what their logo looks like, and what it says inside.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Aayan-DEV/aayans-yc-indexor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T15:33:57Z"
+}
