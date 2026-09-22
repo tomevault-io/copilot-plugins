@@ -1,0 +1,9 @@
+{
+  "name": "na0fu3y--ochakai",
+  "displayName": "ochakai",
+  "description": "Context provider for data agents (MCP + REST + CLI): metrics, golden queries, and interpretation knowledge. Google Cloud native (Cloud Run + Cloud SQL), secret-zero.",
+  "version": "1.0.0",
+  "author": "na0fu3y",
+  "homepage": "https://github.com/na0fu3y/ochakai",
+  "skills": []
+}
