@@ -1,0 +1,9 @@
+{
+  "name": "intelligent-cat-lab--recodeagent",
+  "displayName": "ReCodeAgent",
+  "description": "Artifact repository for the paper \"ReCodeAgent: A Multi-agent Workflow for Language-Agnostic Translation and Validation of Large-Scale Repositories\", In Proceedings of The 41st IEEE/ACM International ",
+  "version": "1.0.0",
+  "author": "Intelligent-CAT-Lab",
+  "homepage": "https://github.com/Intelligent-CAT-Lab/ReCodeAgent",
+  "skills": []
+}
