@@ -1,0 +1,9 @@
+{
+  "name": "kleinicke--tapirscan",
+  "displayName": "tapirscan",
+  "description": "Barcode scanning library for browsers and native applications",
+  "version": "1.0.0",
+  "author": "kleinicke",
+  "homepage": "https://github.com/kleinicke/tapirscan",
+  "skills": []
+}
