@@ -4,7 +4,7 @@
   "repo": "localmd",
   "description": "An agent lives in your folder, a wiki grows around your files. Browser-only, local-first AI knowledge base \u2014 your key, your files, your machine.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/whitefoxx/localmd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T03:06:16Z"
+  "distributed_at": "2026-09-22T03:17:09Z"
 }
