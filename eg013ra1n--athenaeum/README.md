@@ -7,11 +7,11 @@ Catalog manager for astrophotographers — FITS/XISF metadata, frame-set cluster
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [eg013ra1n/athenaeum](https://github.com/eg013ra1n/athenaeum).
+Original source: `AGENTS.md` in [eg013ra1n/athenaeum](https://github.com/eg013ra1n/athenaeum).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
