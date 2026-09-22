@@ -1,0 +1,14 @@
+{
+  "name": "nguyentrunghieutcu--ctxora-engine",
+  "displayName": "ctxora-engine",
+  "description": "CTXORA Engine \u2014 Local-first context engine for coding agents. Index once. Ground every agent.",
+  "version": "1.0.0",
+  "author": "nguyentrunghieutcu",
+  "homepage": "https://github.com/nguyentrunghieutcu/ctxora-engine",
+  "skills": [
+    {
+      "name": "agent-eval",
+      "description": ""
+    }
+  ]
+}
