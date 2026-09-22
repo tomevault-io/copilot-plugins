@@ -1,0 +1,9 @@
+{
+  "name": "embedded-game-controller--bt-embedded",
+  "displayName": "bt-embedded",
+  "description": "Bluetooth classic library for embedded devices",
+  "version": "1.0.0",
+  "author": "embedded-game-controller",
+  "homepage": "https://github.com/embedded-game-controller/bt-embedded",
+  "skills": []
+}
