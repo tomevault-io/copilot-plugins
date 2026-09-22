@@ -1,7 +1,7 @@
 {
   "name": "nexusgpu--gpu-go",
   "displayName": "gpu-go",
-  "description": "gpu-go",
+  "description": "Use your GPUs like NFS. The agent and IDE extension of GPUGo product",
   "version": "1.0.0",
   "author": "NexusGPU",
   "homepage": "https://github.com/NexusGPU/gpu-go",
