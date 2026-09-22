@@ -4,7 +4,7 @@
   "repo": "godot-game-dev-studio",
   "description": "Portable Godot 4.7+ game-development skills for Codex, Claude Code, Cursor, and VS Code: GDScript, gameplay systems, shaders, optimization, publishing workflows, and AI studio orchestration.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bgrenat/godot-game-dev-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T02:34:19Z"
+  "distributed_at": "2026-09-22T03:01:00Z"
 }
