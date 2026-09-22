@@ -1,0 +1,9 @@
+{
+  "name": "display-dev--visualize",
+  "displayName": "visualize",
+  "description": "Generate beautiful, on-brand HTML artifacts with AI coding agents.",
+  "version": "1.0.0",
+  "author": "display-dev",
+  "homepage": "https://github.com/display-dev/visualize",
+  "skills": []
+}
