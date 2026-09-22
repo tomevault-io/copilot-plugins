@@ -1,0 +1,9 @@
+{
+  "name": "cablehead--jev-nu",
+  "displayName": "jev.nu",
+  "description": "Nushell module for the TypeSafe System One API: typed decisions with calibrated probabilities",
+  "version": "1.0.0",
+  "author": "cablehead",
+  "homepage": "https://github.com/cablehead/jev.nu",
+  "skills": []
+}
