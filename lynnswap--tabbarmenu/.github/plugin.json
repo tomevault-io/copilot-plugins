@@ -1,0 +1,9 @@
+{
+  "name": "lynnswap--tabbarmenu",
+  "displayName": "TabBarMenu",
+  "description": "Long-press UIMenu for UITabBarController tabs.",
+  "version": "1.0.0",
+  "author": "lynnswap",
+  "homepage": "https://github.com/lynnswap/TabBarMenu",
+  "skills": []
+}
