@@ -1,0 +1,9 @@
+{
+  "name": "playpip--pip-web",
+  "displayName": "pip-web",
+  "description": "Casual poker, redesigned \u2014 clean single-player Texas Hold'em. Play money, no account needed, no fake felt.",
+  "version": "1.0.0",
+  "author": "playpip",
+  "homepage": "https://github.com/playpip/pip-web",
+  "skills": []
+}
