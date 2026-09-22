@@ -1,0 +1,9 @@
+{
+  "name": "whitefoxx--localmd",
+  "displayName": "localmd",
+  "description": "An agent lives in your folder, a wiki grows around your files. Browser-only, local-first AI knowledge base \u2014 your key, your files, your machine.",
+  "version": "1.0.0",
+  "author": "whitefoxx",
+  "homepage": "https://github.com/whitefoxx/localmd",
+  "skills": []
+}
