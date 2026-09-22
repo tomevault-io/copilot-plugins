@@ -1,0 +1,9 @@
+{
+  "name": "charles-mills--chemspec",
+  "displayName": "ChemSpec",
+  "description": "A chemical reaction simulator for students and educators, built for the OpenAI Build Week 2026.",
+  "version": "1.0.0",
+  "author": "charles-mills",
+  "homepage": "https://github.com/charles-mills/ChemSpec",
+  "skills": []
+}
