@@ -1,0 +1,93 @@
+## sessylph
+
+> macOS native app wrapping Claude Code and Codex CLI with tabs, tmux session management, notifications, remote SSH sessions, and configurable options.
+
+# Sessylph - Claude Code / Codex Wrapper for macOS
+
+## Project Overview
+macOS native app wrapping Claude Code and Codex CLI with tabs, tmux session management, notifications, remote SSH sessions, and configurable options.
+
+## Tech Stack
+- macOS 15.0+ (Sequoia), Swift 6
+- AppKit-primary + SwiftUI for settings/dialogs
+- GhosttyKit (libghostty v1.3.1) for Metal-accelerated terminal rendering
+- tmux for session management (enables remote SSH access)
+- xcodegen for project generation from `project.yml`
+
+## Build Commands
+```bash
+# Generate Xcode project
+xcodegen generate
+
+# Build
+xcodebuild -scheme Sessylph -configuration Debug -derivedDataPath build build
+
+# Run
+open build/Build/Products/Debug/Sessylph.app
+
+# Kill running instance
+pgrep -x Sessylph | xargs kill 2>/dev/null; true
+```
+
+## Architecture
+- Each tab = one tmux session running the selected CLI (Claude Code or Codex)
+- GhosttyKit (Metal) terminal view connects via PTY to `tmux attach-session`
+- Terminal rendering: GhosttyKit (libghostty) with native Metal GPU rendering
+- `ClaudeStateTracker` parses terminal title to detect Claude idle/working/attention states
+- Notifications: local via Claude Code hooks / Codex notify + `sessylph-notifier` CLI → DistributedNotificationCenter; remote via title polling (working → idle detection)
+- Hook events handled: `stop`, `stop_failure`, `notify`, `permission_prompt`, `permission_denied` (auto mode denials), `idle_prompt`, `user_prompt`
+- Remote SSH sessions: connect to configured hosts, browse directories, launch Claude Code over SSH with tmux
+- Launcher supports recent Claude Code, Codex, and remote session history with click-to-resume
+- Sessions survive app restart (tmux persistence)
+- Native window tabbing: `NSWindow.tabbingMode = .preferred`
+- Settings window: NSToolbar + `toolbarStyle(.preference)` with SwiftUI content views
+
+## Key Source Files
+- `GhosttyTerminalView.swift` — NSView wrapping ghostty surface (Metal rendering, input handling)
+- `GhosttyApp.swift` — ghostty_app lifecycle, action dispatch, clipboard callbacks
+- `GhosttyConfig.swift` — ghostty configuration (font family/size, theme, scrollback)
+- `GhosttyInputHandler.swift` — keyboard/IME input routing to ghostty
+- `TerminalViewController.swift` — tab content controller, tmux attach orchestration, pane monitor (dynamic mouse mode)
+- `TabWindowController.swift` — NSWindowController, tab management, state delegation
+- `ClaudeStateTracker.swift` — title polling, Claude idle/working/attention state machine
+- `CLIType.swift` — enum for Claude Code / Codex CLI selection
+- `ClaudeCodeOptions.swift` — Claude Code options (model, effort level, permission mode, bare mode, channels, noFlicker, etc.)
+- `CodexOptions.swift` — Codex options (model, approval mode, resume session)
+- `CodexSessionHistory.swift` — parses recent Codex sessions from `~/.codex` for launcher resume
+- `TmuxManager.swift` — tmux session lifecycle (create, configure, attach, destroy) + remote SSH commands + pane count / mouse mode
+- `EnvironmentBuilder.swift` — login shell environment capture (thread-safe cached)
+- `LaunchConfig.swift` — shared launcher config for Claude Code / Codex / remote session startup
+- `CodexCLI.swift` — Codex CLI resolution and launcher option discovery
+- `RemoteHost.swift` — remote host model with SSH args builder and validation
+- `RemoteHostStore.swift` — persistent storage for remote host configurations
+- `RemoteHistory.swift` — MRU list of remote host:directory pairs
+- `RemoteDirectoryBrowser.swift` — SSH directory listing for remote host file browser
+- `RemoteHostsSettingsView.swift` — settings tab for managing remote hosts
+- `SessionConfigSheet.swift` — pre-launch config sheet (model, effort, permission mode, toggles)
+- `SettingsWindow.swift` — NSToolbar-based settings window (General + Remote Hosts tabs)
+- `TabManager.swift` — multi-window tab group coordination
+- `CommandStripView.swift` — bottom bar with MRU-sorted slash command and phrase shortcut buttons
+- `CommandListPopover.swift` — popover showing all recorded commands with search and manual add
+- `SlashCommand.swift` — command data model (command/phrase, usage count, global/project scope)
+- `SlashCommandStore.swift` — command usage persistence with built-in classification and per-project storage
+
+## Automation
+- `scripts/auto-adopt.sh` — daily pipeline that monitors Claude Code releases, analyzes changelog with Claude Code CLI, implements changes in an isolated jj worktree, and creates PRs after build verification
+- `sh.saqoo.sessylph.auto-adopt.plist` — launchd config for daily execution (9:00 JST)
+- See [docs/auto-adopt.md](docs/auto-adopt.md) for setup instructions
+
+## Key Patterns
+- Bundle ID: sh.saqoo.Sessylph
+- Development Team: VCFY2GFR89 (Tomohiko Koyama, personal); Developer ID: "Developer ID Application: Tomohiko Koyama (VCFY2GFR89)"
+- VCS: jj (Jujutsu)
+- CLI paths resolved dynamically (`claude`, `codex`, `tmux`)
+- Login shell environment captured for process spawning
+- C interop: `strdup`/`free` for env vars passed to ghostty (pointer lifetime safety)
+- Thread safety: `OSAllocatedUnfairLock` for shared mutable state
+- TCC mitigation: all `Process()` and ghostty surface use `/tmp` as working directory
+- Shell safety: `shellQuote()` for tmux session names, `shellEscape()` for paths in remote commands
+- Remote tmux: `=` prefix not supported over SSH, use plain session names for remote `-t` targets
+
+---
+> Source: [Saqoosha/Sessylph](https://github.com/Saqoosha/Sessylph) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-22 -->
