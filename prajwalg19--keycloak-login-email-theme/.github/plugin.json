@@ -1,0 +1,9 @@
+{
+  "name": "prajwalg19--keycloak-login-email-theme",
+  "displayName": "keycloak-login-email-theme",
+  "description": "Ready to use setup for keycloak login pages and email theming using svelte. Follows shadcn-svelte design principle. ",
+  "version": "1.0.0",
+  "author": "Prajwalg19",
+  "homepage": "https://github.com/Prajwalg19/keycloak-login-email-theme",
+  "skills": []
+}
