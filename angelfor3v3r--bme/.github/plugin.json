@@ -1,0 +1,9 @@
+{
+  "name": "angelfor3v3r--bme",
+  "displayName": "bme",
+  "description": "Bare-metal x86-64 machine-code viewer and step debugger for decoder differential analysis.",
+  "version": "1.0.0",
+  "author": "angelfor3v3r",
+  "homepage": "https://github.com/angelfor3v3r/bme",
+  "skills": []
+}
