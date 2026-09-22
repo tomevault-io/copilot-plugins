@@ -1,0 +1,9 @@
+{
+  "name": "naifalsultan--typst-quran-package",
+  "displayName": "typst-quran-package",
+  "description": "A Typst package for Quranic text rendering using authentic King Fahd Complex fonts. Supports Hafs and Warsh Qira'at with a bilingual API (English/Arabic). Offers granular control to render specific su",
+  "version": "1.0.0",
+  "author": "NaifAlsultan",
+  "homepage": "https://github.com/NaifAlsultan/typst-quran-package",
+  "skills": []
+}
