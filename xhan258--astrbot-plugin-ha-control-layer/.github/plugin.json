@@ -1,0 +1,9 @@
+{
+  "name": "xhan258--astrbot-plugin-ha-control-layer",
+  "displayName": "astrbot_plugin_ha_control_layer",
+  "description": "AstrBot Home Assistant \u63a7\u5236\u5c42\u63d2\u4ef6\uff0c\u81ea\u52a8\u6574\u7406\u8bbe\u5907\u80fd\u529b\uff0c\u652f\u6301\u81ea\u7136\u8bed\u8a00\u67e5\u8be2\u4e0e\u5b89\u5168\u63a7\u5236 Home Assistant \u5b9e\u4f53\u3002",
+  "version": "1.0.0",
+  "author": "Xhan258",
+  "homepage": "https://github.com/Xhan258/astrbot_plugin_ha_control_layer",
+  "skills": []
+}
