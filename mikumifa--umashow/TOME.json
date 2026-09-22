@@ -1,0 +1,44 @@
+{
+  "name": "UmaShow",
+  "owner": "mikumifa",
+  "repo": "UmaShow",
+  "description": "\u4f18\u5316\u4f60\u7684\u300a\u95ea\u8000\u4f18\u4fca\u5c11\u5973\u300b\u4f53\u9a8c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mikumifa/UmaShow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-22T11:10:44Z"
+}
