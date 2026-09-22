@@ -1,0 +1,9 @@
+{
+  "name": "gvwilson--asimpy",
+  "displayName": "asimpy",
+  "description": "Discrete event simulation in Python using async/await",
+  "version": "1.0.0",
+  "author": "gvwilson",
+  "homepage": "https://github.com/gvwilson/asimpy",
+  "skills": []
+}
