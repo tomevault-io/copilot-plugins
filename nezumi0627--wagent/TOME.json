@@ -4,7 +4,7 @@
   "repo": "Wagent",
   "description": "Web\u7248ChatGPT\u3092API\u3068\u3057\u3066\u5229\u7528\u3059\u308b\u305f\u3081\u306e\u30d6\u30ea\u30c3\u30b8\u30c4\u30fc\u30eb (ChatGPT Web UI Bridge)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nezumi0627/Wagent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-22T08:41:06Z"
+  "distributed_at": "2026-09-22T08:41:54Z"
 }
