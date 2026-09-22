@@ -1,0 +1,9 @@
+{
+  "name": "boneskull--gh-stack",
+  "displayName": "gh-stack",
+  "description": "A GitHub CLI extension for managing stacked pull requests.",
+  "version": "1.0.0",
+  "author": "boneskull",
+  "homepage": "https://github.com/boneskull/gh-stack",
+  "skills": []
+}
