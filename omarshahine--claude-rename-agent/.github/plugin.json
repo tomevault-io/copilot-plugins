@@ -1,0 +1,9 @@
+{
+  "name": "omarshahine--claude-rename-agent",
+  "displayName": "claude-rename-agent",
+  "description": "AI-powered file renaming agent built with Claude Agent SDK",
+  "version": "1.0.0",
+  "author": "omarshahine",
+  "homepage": "https://github.com/omarshahine/claude-rename-agent",
+  "skills": []
+}
