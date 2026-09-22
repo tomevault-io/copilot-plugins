@@ -1,0 +1,9 @@
+{
+  "name": "qoherent--grc-agent",
+  "displayName": "GRC-Agent",
+  "description": "An AI Agent for GNU Radio Companion (GRC) that will understand the graph and help you build by updating parameters/connections, adding blocks and more.",
+  "version": "1.0.0",
+  "author": "qoherent",
+  "homepage": "https://github.com/qoherent/GRC-Agent",
+  "skills": []
+}
