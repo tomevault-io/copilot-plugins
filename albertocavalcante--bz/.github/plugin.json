@@ -1,0 +1,9 @@
+{
+  "name": "albertocavalcante--bz",
+  "displayName": "bz",
+  "description": "CLI for Bzlmod \u2014 manage Bazel module dependencies, query registries, audit vulnerabilities, and generate SBOMs",
+  "version": "1.0.0",
+  "author": "albertocavalcante",
+  "homepage": "https://github.com/albertocavalcante/bz",
+  "skills": []
+}
