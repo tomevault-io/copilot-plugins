@@ -1,0 +1,9 @@
+{
+  "name": "skyvern-ai--jevscape",
+  "displayName": "jevscape",
+  "description": "RuneBench harness for TypeSafe's Jev: bounded action catalog, tick-mode controller and a live dashboard",
+  "version": "1.0.0",
+  "author": "Skyvern-AI",
+  "homepage": "https://github.com/Skyvern-AI/jevscape",
+  "skills": []
+}
