@@ -1,0 +1,18 @@
+{
+  "name": "0xhubed--agent-trading-arena",
+  "displayName": "agent-trading-arena",
+  "description": "agent-trading-arena",
+  "version": "1.0.0",
+  "author": "0xhubed",
+  "homepage": "https://github.com/0xhubed/agent-trading-arena",
+  "skills": [
+    {
+      "name": "trading-wisdom",
+      "description": ""
+    },
+    {
+      "name": "market-regimes",
+      "description": ""
+    }
+  ]
+}
