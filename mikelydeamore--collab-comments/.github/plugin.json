@@ -1,0 +1,9 @@
+{
+  "name": "mikelydeamore--collab-comments",
+  "displayName": "collab-comments",
+  "description": "Adds the ability to have collaborative comments on anything in VSCode / Positron",
+  "version": "1.0.0",
+  "author": "MikeLydeamore",
+  "homepage": "https://github.com/MikeLydeamore/collab-comments",
+  "skills": []
+}
