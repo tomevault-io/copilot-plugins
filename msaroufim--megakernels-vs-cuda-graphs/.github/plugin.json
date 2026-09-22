@@ -1,0 +1,9 @@
+{
+  "name": "msaroufim--megakernels-vs-cuda-graphs",
+  "displayName": "megakernels-vs-cuda-graphs",
+  "description": "Two case studies: megakernels roughly on par with CUDA Graphs + PDL. Code and baselines for further research.",
+  "version": "1.0.0",
+  "author": "msaroufim",
+  "homepage": "https://github.com/msaroufim/megakernels-vs-cuda-graphs",
+  "skills": []
+}
