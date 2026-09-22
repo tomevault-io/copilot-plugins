@@ -1,0 +1,9 @@
+{
+  "name": "alyiox--mcp-mssql",
+  "displayName": "mcp-mssql",
+  "description": "Read-only-by-default MCP server for Microsoft SQL Server: metadata discovery, parser-enforced SELECT-only queries, and execution-plan analysis for diagnosing slow queries. Profile-based multi-connecti",
+  "version": "1.0.0",
+  "author": "alyiox",
+  "homepage": "https://github.com/alyiox/mcp-mssql",
+  "skills": []
+}
