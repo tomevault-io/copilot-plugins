@@ -1,0 +1,9 @@
+{
+  "name": "yorch233--rsb",
+  "displayName": "RSB",
+  "description": "Official implementation of Regularized Schr\u00f6dinger Bridge (RSB), a generative speech enhancement approach that reconciles fidelity and realism while mitigating exposure bias. ",
+  "version": "1.0.0",
+  "author": "Yorch233",
+  "homepage": "https://github.com/Yorch233/RSB",
+  "skills": []
+}
