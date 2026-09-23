@@ -1,0 +1,93 @@
+{
+  "name": "hwe-bench",
+  "owner": "pku-liang",
+  "repo": "hwe-bench",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hwe-bench",
+      "path": "deps/harbor/skills/publish/SKILL.md",
+      "github_url": "https://github.com/pku-liang/hwe-bench/tree/main/deps/harbor/skills/publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hwe-bench",
+      "path": "deps/harbor/skills/rewardkit/SKILL.md",
+      "github_url": "https://github.com/pku-liang/hwe-bench/tree/main/deps/harbor/skills/rewardkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hwe-bench",
+      "path": "deps/harbor/skills/harbor-exec/SKILL.md",
+      "github_url": "https://github.com/pku-liang/hwe-bench/tree/main/deps/harbor/skills/harbor-exec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hwe-bench",
+      "path": "deps/harbor/skills/create-adapter/SKILL.md",
+      "github_url": "https://github.com/pku-liang/hwe-bench/tree/main/deps/harbor/skills/create-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hwe-bench",
+      "path": "deps/harbor/skills/upload-parity-experiments/SKILL.md",
+      "github_url": "https://github.com/pku-liang/hwe-bench/tree/main/deps/harbor/skills/upload-parity-experiments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hwe-bench",
+      "path": "deps/harbor/examples/jobs/skills-merge/skills/runtime-proof/SKILL.md",
+      "github_url": "https://github.com/pku-liang/hwe-bench/tree/main/deps/harbor/examples/jobs/skills-merge/skills/runtime-proof/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hwe-bench",
+      "path": "deps/harbor/examples/tasks/hello-skills/environment/skills/generate-greeting/SKILL.md",
+      "github_url": "https://github.com/pku-liang/hwe-bench/tree/main/deps/harbor/examples/tasks/hello-skills/environment/skills/generate-greeting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hwe-bench",
+      "path": "deps/harbor/examples/jobs/skills-merge/runtime-skill-merge/environment/skills/bundled-keep/SKILL.md",
+      "github_url": "https://github.com/pku-liang/hwe-bench/tree/main/deps/harbor/examples/jobs/skills-merge/runtime-skill-merge/environment/skills/bundled-keep/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pku-liang/hwe-bench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T17:31:40Z"
+}
