@@ -1,0 +1,14 @@
+{
+  "name": "nehmeailabs--bonsai",
+  "displayName": "bonsai",
+  "description": "bonsai",
+  "version": "1.0.0",
+  "author": "NehmeAILabs",
+  "homepage": "https://github.com/NehmeAILabs/bonsai",
+  "skills": [
+    {
+      "name": "bonsai",
+      "description": ""
+    }
+  ]
+}
