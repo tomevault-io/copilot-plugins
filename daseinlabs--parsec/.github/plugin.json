@@ -1,0 +1,9 @@
+{
+  "name": "daseinlabs--parsec",
+  "displayName": "parsec",
+  "description": "Agent runtime optimization with Small Language Models",
+  "version": "1.0.0",
+  "author": "daseinlabs",
+  "homepage": "https://github.com/daseinlabs/parsec",
+  "skills": []
+}
