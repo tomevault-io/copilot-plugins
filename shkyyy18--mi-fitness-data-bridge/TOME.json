@@ -1,0 +1,44 @@
+{
+  "name": "mi_fitness_data_bridge",
+  "owner": "shkyyy18",
+  "repo": "mi_fitness_data_bridge",
+  "description": "Unofficial Mi Fitness data export to local SQLite, CSV and JSON, with a local stdio MCP server. \u5c0f\u7c73\u8fd0\u52a8\u5065\u5eb7\u6570\u636e\u5bfc\u51fa\uff1b\u5b9e\u9a8c\u6027\uff0c\u517c\u5bb9\u6027\u4f9d\u8bbe\u5907\u4e0e\u5730\u533a\u800c\u5f02\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shkyyy18/mi_fitness_data_bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T04:45:43Z"
+}
