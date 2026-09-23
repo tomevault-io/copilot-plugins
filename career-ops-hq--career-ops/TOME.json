@@ -1,0 +1,123 @@
+{
+  "name": "career-ops",
+  "owner": "career-ops-hq",
+  "repo": "career-ops",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "career-ops",
+      "path": "plugins/gmail/skill.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/plugins/gmail/skill.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": "plugins/apify/skill.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/plugins/apify/skill.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": "plugins/notion/skill.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/plugins/notion/skill.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": "plugins/_template/skill.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/plugins/_template/skill.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": "plugins/h1b-sponsor/skill.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/plugins/h1b-sponsor/skill.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": ".grok/skills/career-ops/SKILL.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/.grok/skills/career-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": ".kimi/skills/career-ops/SKILL.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/.kimi/skills/career-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": ".qwen/skills/career-ops/SKILL.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/.qwen/skills/career-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": ".agents/skills/career-ops/SKILL.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/.agents/skills/career-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": ".claude/skills/career-ops/SKILL.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/.claude/skills/career-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": ".cursor/skills/career-ops/SKILL.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/.cursor/skills/career-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": ".opencode/skills/career-ops/SKILL.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/.opencode/skills/career-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "career-ops",
+      "path": ".antigravitycli/skills/career-ops/SKILL.md",
+      "github_url": "https://github.com/career-ops-hq/career-ops/tree/main/.antigravitycli/skills/career-ops/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/career-ops-hq/career-ops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:55:15Z"
+}
