@@ -1,0 +1,18 @@
+{
+  "name": "mininglamp-oss--octo-server",
+  "displayName": "octo-server",
+  "description": "octo-server",
+  "version": "1.0.0",
+  "author": "Mininglamp-OSS",
+  "homepage": "https://github.com/Mininglamp-OSS/octo-server",
+  "skills": [
+    {
+      "name": "octo-server",
+      "description": ""
+    },
+    {
+      "name": "octo-server",
+      "description": ""
+    }
+  ]
+}
