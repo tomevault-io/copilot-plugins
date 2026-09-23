@@ -1,0 +1,9 @@
+{
+  "name": "himanshuj16--algo-trading-skills",
+  "displayName": "Algo-Trading-Skills",
+  "description": "500+ algorithmic-trading skills for AI coding agents in the agentskills.io format. Every skill ships a working Python reference implementation and its own tests - 20,291 in CI. Broker APIs, backtestin",
+  "version": "1.0.0",
+  "author": "HimanshuJ16",
+  "homepage": "https://github.com/HimanshuJ16/Algo-Trading-Skills",
+  "skills": []
+}
