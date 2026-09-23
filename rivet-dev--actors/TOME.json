@@ -1,0 +1,135 @@
+{
+  "name": "actors",
+  "owner": "rivet-dev",
+  "repo": "actors",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "actors",
+      "path": ".claude/skills/stack-merge/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.claude/skills/stack-merge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".claude/skills/sanity-check/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.claude/skills/sanity-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".claude/skills/create-launch-post/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.claude/skills/create-launch-post/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".claude/skills/driver-test-runner/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.claude/skills/driver-test-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".claude/skills/creating-docs-diagrams/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.claude/skills/creating-docs-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actors",
+      "path": ".opencode/skills/openspec-bulk-archive-change/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/actors/tree/main/.opencode/skills/openspec-bulk-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rivet-dev/actors",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:59:28Z"
+}
