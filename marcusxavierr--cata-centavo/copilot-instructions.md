@@ -152,6 +152,38 @@ Run text through the `humanizer` skill when writing prose (docblocks, README, PR
 - Rate limiting belongs inside the single HTTP send function, so a new endpoint cannot forget it.
 - Paginate to the reported `totalPages`, with `pageSize = 500`. Terminating on a short page is how aggregates get silently computed over a fraction of the data.
 
+## Releasing
+
+**Merging and releasing are separate events.** `ci.yml` runs on every PR and every push to `main`. `.github/workflows/release.yml` runs on nothing but a `v*` tag. Most merges are not a release, and the tag is where you decide which ones are.
+
+Cutting one:
+
+```bash
+$EDITOR CHANGELOG.md          # the section for the new version, by hand
+git commit -am "docs: changelog for 0.2.0"
+npm version minor             # bumps package.json, commits, tags v0.2.0
+git push --follow-tags        # this is what releases
+```
+
+- **The `CHANGELOG.md` is written by hand, and the release fails without a `## <version>: <date>` section matching the tag.** That is deliberate. 0.1.2 shipped with no entry at all, which is the failure this guards.
+- Never run `npm publish` locally. `prepublishOnly` protects anyone who tries, but the tag is the only supported path.
+- The publish authenticates through **Trusted Publishing (OIDC)** — there is no npm token anywhere. npmjs.com stores that trust against the *filename* `release.yml` and against `repository.url` in `package.json`. Renaming either one revokes the right to publish, and the failure only appears at the next tag.
+- The release job runs on Node 24 rather than the 22.13 floor in `engines`, because trusted publishing needs npm ≥ 11.5.1. Do not "fix" that gap downwards.
+- `main` has no branch protection today. If it gets some, `npm version` will have to go through a PR.
+
+### Changelog entries
+
+One bullet per feature or fix. Name the thing **once**, as the head of that bullet, and hang its details off it as sub-bullets:
+
+- **`getInvestments`** — active investment positions, per connection.
+  - Balances and totals grouped by currency
+  - `connectionId` filter, cursor pagination up to 100 per call
+  - An unavailable connection is reported, never counted as zero
+
+Sub-bullets are fragments, not sentences: no trailing period, no second clause. The head bullet says what the thing is, the sub-bullets say what it does.
+
+**Never repeat a lead-in across sibling bullets.** The 0.2.0 entry shipped as three bullets that each opened with the same bolded tool name and a colon, each two or three sentences long. It reads as generated, and it puts README-depth prose into a file people scan to see what changed.
+
 ## Working agreement
 
 **Start every feature with:** "Let me research the codebase and create a plan before implementing."
@@ -174,4 +206,4 @@ Don'e EVER use git worktrees unless I ask you to.
 
 ---
 > Source: [MarcusXavierr/cata-centavo](https://github.com/MarcusXavierr/cata-centavo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
