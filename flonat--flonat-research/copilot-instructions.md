@@ -1,11 +1,61 @@
 ## flonat-research
 
-> Read and follow [`AI.md`](AI.md), the client-neutral project guidance. Read the managed policies under `~/.codex/rules/` when their workflow applies. Claude-only hooks are optional conveniences and are not active in Codex.
+> > 15 neutral agent definitions with client-specific adapters.
 
-# Codex adapter
+# Agents
 
-Read and follow [`AI.md`](AI.md), the client-neutral project guidance. Read the managed policies under `~/.codex/rules/` when their workflow applies. Claude-only hooks are optional conveniences and are not active in Codex.
+> 15 neutral agent definitions with client-specific adapters.
+
+Compatible agents render to Claude Markdown and Codex TOML.
+Unlike skills, agents solve the "grading your own homework" problem — they review work
+without access to the author's reasoning.
+
+## Available Agents
+
+| Agent | Description |
+|-------|-------------|
+| `artifact-coherence-auditor` | Audits coherence between paper prose and replication outputs — catches\ \ hallucinated results, missing scripts, mismatched numbers, and unverifiable claims.\ \ Read-only with respect to project files; writes its own report at `reviews/<scope>/artifact-coherence-auditor/<YYYY-MM-DD-HHMM>.md`.\ \ Complements code-paper-auditor (which maps numbers to code) by checking whether\ \ the replication package *actually produces* what the paper claims |
+| `blindspot` | Peripheral vision audit for empirical output |
+| `claim-verify` | Verify that cited claims in a paper accurately represent what the source\ \ papers actually say |
+| `code-paper-auditor` | Use this agent when you need to verify code-paper consistency — mapping\ \ every quantitative claim in a paper to its source code and output files |
+| `code-review` | Multi-persona orchestrator for adversarial review of R, Python, Julia,\ \ or Stata research scripts |
+| `codex-research` | Code review and research agent that delegates to OpenAI Codex CLI in\ \ headless mode |
+| `domain-reviewer` | Research-focused substantive correctness agent |
+| `fatal-error-check` | Fast pre-review check for fatal errors in LaTeX papers |
+| `fixer` | Generic fix implementer for any critic report |
+| `gemini-research` | Web research agent that delegates to Gemini CLI in headless mode |
+| `paper-critic` | Adversarial auditor for LaTeX papers |
+| `peer-reviewer` | Use this agent when you need to review someone else's paper — as a\ \ peer reviewer, discussant, or for reading group preparation |
+| `proposal-reviewer` | Use this agent when you need to review a research proposal, extended\ \ abstract, conference submission outline, or pre-paper plan — either his own or\ \ someone else's |
+| `referee2-reviewer` | Rigorous adversarial reviewer for papers, manuscripts, research designs, code, and arguments |
+| `reproducibility-auditor` | Reviews research workflows for reproducibility gaps — hidden dependencies,\ \ absolute paths, undocumented prerequisites, environment assumptions, and output\ \ traceability |
+
+## How Agents Work
+
+1. The main session selects an agent supported by its client
+2. The agent runs in a separate context with its own instructions
+3. The agent produces a report (never modifies source files)
+4. The report is returned to the main session for review
+
+## The Read-Only Principle
+
+Review agents never modify the author's files. They produce reports and recommendations.
+The `fixer` agent is the only exception — it reads a critic report and applies fixes,
+but only when explicitly invoked.
+
+## Creating a New Agent
+
+Create a `.md` file in `agents/` with YAML frontmatter:
+
+```yaml
+---
+name: my-agent
+description: "What this agent does"
+---
+```
+
+Declare clients and required capabilities before rendering. `codex-research` remains Claude-only because it delegates externally to Codex CLI.
 
 ---
 > Source: [flonat/flonat-research](https://github.com/flonat/flonat-research) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
