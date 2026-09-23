@@ -1,0 +1,44 @@
+{
+  "name": "veepin",
+  "owner": "xen0bit",
+  "repo": "veepin",
+  "description": "A working userspace VPN in Go. Both server (responder) and client (initiator), written in pure-Go. It speaks over sixteen production protocols, client and server for every one. IKEv2/ESP, WireGuard, OpenVPN, SSTP, SSH, L2TP/IPsec, L2TPv3 Ethernet pseudowire, etc...",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xen0bit/veepin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T05:41:21Z"
+}
