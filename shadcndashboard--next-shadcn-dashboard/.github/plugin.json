@@ -1,0 +1,9 @@
+{
+  "name": "shadcndashboard--next-shadcn-dashboard",
+  "displayName": "next-shadcn-dashboard",
+  "description": "Open source admin dashboard starter built with Next.js 16, shadcn/ui, Tailwind CSS, and TypeScript.",
+  "version": "1.0.0",
+  "author": "shadcndashboard",
+  "homepage": "https://github.com/shadcndashboard/next-shadcn-dashboard",
+  "skills": []
+}
