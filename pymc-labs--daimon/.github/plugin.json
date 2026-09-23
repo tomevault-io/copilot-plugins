@@ -1,0 +1,9 @@
+{
+  "name": "pymc-labs--daimon",
+  "displayName": "daimon",
+  "description": "The open source data science agent for Discord and Slack",
+  "version": "1.0.0",
+  "author": "pymc-labs",
+  "homepage": "https://github.com/pymc-labs/daimon",
+  "skills": []
+}
