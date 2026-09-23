@@ -1,249 +1,118 @@
 ## moai-cowork
 
-> Every clause here binds a turn regardless of which agent harness drives it. The file is
+> worker와 auditor는 왜 나뉘어 있는가 — 에이전트 분리 원리, 직접 호출 문형, 스킬 자동 매칭과의 구분, 그리고 Codex에서 슬래시 명령·에이전트를 자연어로 대체하는 방법.
 
-# AGENTS.md — standing contract for agents in this repository
 
-Every clause here binds a turn regardless of which agent harness drives it. The file is
-**self-sufficient**: it assumes no other instruction file is loaded, and no nested `AGENTS.md`
-exists anywhere in this repository.
+플러그인을 설치하면 스킬(업무 지식 문서)만 오는 것이 아니라 **에이전트**도 함께 옵니다. 에이전트는 Claude 안에서 특정 역할을 맡아 독립적으로 일하는 "분신"이라고 생각하면 됩니다. 여러분이 마케터 플러그인에게 캠페인 기획을 맡기면, 본체 Claude가 직접 다 하는 게 아니라 캠페인 기획을 전담하는 에이전트를 불러 일을 시키고 결과만 받아 오는 식입니다.
 
-**Budget warning.** A personal `~/.codex/AGENTS.md` joins the same merged chain and is consumed
-**before** this file, narrowing what the project's contract can carry. Overflow is dropped from the
-**tail**, silently — no warning, no stderr, exit 0. Clauses below are ordered most-critical-first
-for that reason.
+모두의 코워크 플러그인 패밀리의 에이전트에는 한 가지 중요한 설계 원칙이 있습니다. **일하는 코워커(worker)과 검수하는 코워커(auditor)이 분리**되어 있다는 점입니다. 회사에서 작성자와 결재자를 한 사람이 겸하지 않듯, 산출물을 만드는 에이전트와 그 품질을 평가하는 에이전트를 따로 두었습니다. 자기가 만든 결과물을 자기가 채점하면 후하게 주기 마련이라, 검수자는 처음부터 "결함을 찾는 눈"으로만 일하도록 만들어진 별도의 에이전트입니다.
 
-Obligations are carried from `.claude/rules/moai/**` and `CLAUDE.md`, which remain the source of
-truth; compression removed rationale and incident records, never an obligation. Claude-only
-mechanisms (the question channel, subagent spawning, skills, session handoff) stay there.
+이 분리는 말로만이 아니라 **도구 권한**으로 강제됩니다. worker 에이전트는 파일을 쓰고 고치는 도구(Write·Edit)를 갖지만 auditor 에이전트는 읽기·검색 도구만 갖는 경우가 대부분입니다. 검수자가 산출물을 몰래 고쳐서 "통과"시키는 일이 구조적으로 불가능하도록 권한 자체를 좁혀 둔 것입니다.
 
----
+## 품질 루프 — worker와 auditor가 주고받는 흐름
 
-## 1. Evidence and verification claims
+```mermaid
+sequenceDiagram
+   participant U as 사용자
+   participant W as worker 에이전트<br/>(작성 권한 있음)
+   participant A as auditor 에이전트<br/>(읽기 전용)
 
-**No unobserved claim.** An actor MUST NOT assert a verification, a completion, **a defect / debt /
-drift, OR the premise underlying a recommendation** it did not actually verify with the domain's
-mechanical tooling. Evidence absent is not evidence of success — nor of failure. The absence of a
-failure signal never establishes that a check passed; a text-pattern inference is a hypothesis, not
-a verified defect; a reference existing does not establish that the referenced capability is still
-live. Reachability is not justification.
-
-**Baseline-integrity attribution.** Every verification claim MUST be attributed to an
-actually-measured baseline — the command that was run plus the output observed, in this run,
-against this tree. A figure carried over from another package, tree, or point in time is not a
-baseline; using it as a fresh measurement violates this. Anything unattributed is a Gap, not a
-Claim.
-
-**Evidence-bearing report format.** Verification and completion reports SHOULD carry five sections,
-on every report and not only the first: **Claim** (what is asserted); **Evidence** (the command run
-plus its verbatim output — a summary is not evidence); **Baseline-attribution** (what it was
-measured against, in this run); **Gaps** (what was explicitly NOT observed — an empty Gaps section
-asserts nothing was left unobserved, which must itself be true); **Residual-risk** (what could
-still be wrong despite what was observed).
-
----
-
-## 2. Git, branches, and the shared checkout
-
-The primary checkout is shared — several sessions may work in it at once, and branch state there is
-global.
-
-**Never change branch state in the primary checkout.** Forbidden there: `git checkout <branch>` /
-`git switch` (relocates every concurrent session's tree); `git checkout -b` / `git switch -c` /
-`git branch` (same, plus an unexpected branch); `git reset --hard` / `git checkout -- <path>`
-(discards work of unknown provenance); `git stash` (repository-global — it silently absorbs another
-session's uncommitted changes); `git rebase` / `git merge` onto the checked-out branch (rewrites or
-advances shared history mid-operation). Read-only inspection, `git fetch`, commits to the
-already-checked-out branch, and pushing it are permitted.
-
-**Re-read branch and commit state immediately before any commit or push** — never a value read
-earlier in the turn, never the branch reported at session start:
-
-```bash
-git rev-parse --short HEAD
-git branch --show-current
+   U->>W: 작업 지시 (예: 상세페이지 초안 작성)
+   W->>W: 스킬 참조 + 산출물 작성
+   W-->>U: 산출물 1차 완성
+   U->>A: 검수 요청
+   A->>A: 결함 탐색 (수정 불가, 평가만)
+   A-->>U: 검수 보고 (지적 사항 목록)
+   U->>W: 지적 사항 반영 지시
+   W-->>U: 수정본 완성
 ```
 
-A difference from what the turn assumed means another actor is writing the same tree: stop and
-report the divergence instead of proceeding.
+이 루프를 한두 바퀴 돌리면 "그럴듯해 보이는 초안"이 "지적을 견딘 결과물"로 바뀝니다. 검수를 반드시 돌려야 하는 것은 아니지만 외부에 나가는 산출물(제안서, 광고 소재, 계약서 검토 의견 등)이라면 auditor 한 바퀴를 강하게 권합니다.
 
-**Never sweep-stage.** In the primary checkout, never `git add -A`, `git add .`, or
-`git commit -a`. Stage by explicit pathspec and re-read `git status --short` immediately before
-staging, so another session's files are visible and excluded. This binds **even when no foreign
-session was detected** — one can arrive after the check, and the sweep is what turns its presence
-into lost work.
+## 에이전트 직접 호출하는 법
 
-**Detect parallel sessions before a non-trivial direct edit** to a shared path (`.claude/`,
-`.moai/`, `internal/`, `pkg/`, `cmd/`, repo-root config), and surface any divergence:
+평소에는 에이전트를 의식할 필요가 없습니다. 하지만 특정 에이전트를 지목해 부르고 싶을 때는 정해진 문형이 있습니다.
 
-```bash
-git fetch origin main 2>&1
-git rev-list --count --left-right origin/main...HEAD
-```
+> "**OO 서브에이전트를 사용해서 ~해줘**"
 
-`0 0` or `0 N` proceeds; `N 0` or `N M` means resolve before editing. Where another live session
-shares the checkout, isolate into a worktree rather than editing in the shared tree. The check
-decays — re-run it before any commit and after a long pause.
+예를 들면 이렇게 씁니다.
 
----
+{{< terminal title="claude — cowork" raw="true" >}}
+캠페인 전략 worker 서브에이전트를 사용해서 신제품 런칭 캠페인 초안을 만들어줘.
+{{< /terminal >}}
 
-## 3. Worktrees
+{{< terminal title="claude — cowork" raw="true" >}}
+방금 만든 상세페이지를 auditor 서브에이전트를 사용해서 검수해줘.
+{{< /terminal >}}
 
-**Work inside a worktree, entered through the launcher** (`moai cc -w <name>`,
-`moai cc -w <name> --spawn` for a new window, `EnterWorktree(<path>)` to re-enter); never create one
-with a bare `git worktree add`. Leave with `ExitWorktree`. Drive a worktree with `git -C <path>`,
-not `cd`.
+각 플러그인이 어떤 이름의 worker·auditor 에이전트를 데리고 있는지는 [에이전트 팀 소개](/moai-agents/)의 코워커별 페이지에 에이전트 카드로 정리되어 있습니다. 터미널에서는 `claude plugin details <이름>@moai-cowork` 출력의 에이전트 목록으로도 확인할 수 있습니다.
 
-**`moai worktree done` closes L2 trees only.** A tree under `.claude/worktrees/` is L1, is absent
-from the registry, and is disposed by the session-end prompt or by `git worktree unlock` +
-`git worktree remove`.
+## 스킬 자동 매칭 vs 에이전트 명시 호출
 
-**A card's branch is unpushed, so its worktree holds the only copy of the work.** Dispose of no
-worktree — L1 or L2 — until the branch is integrated and the remote merge has landed.
+플러그인을 부리는 방식은 두 가지이고, 상황에 따라 골라 쓰면 됩니다.
 
-**Start a new card in a new worktree.** Exit any previous worktree back to the primary checkout
-first, or the new card's work lands on the old card's branch. Create the fresh tree from the remote
-default branch; never reuse the previous card's tree. Where the new card depends on a prior card's
-unmerged code, merge that branch inside the new worktree.
+| 구분 | 스킬 자동 매칭 | 에이전트 명시 호출 |
+|------|---------------|------------------|
+| 쓰는 법 | 그냥 자연어로 일을 시킨다 | "OO 서브에이전트를 사용해서 ~" 문형 |
+| 동작 | Claude가 요청 내용을 보고 알맞은 스킬·에이전트를 스스로 고름 | 지목한 에이전트가 반드시 그 일을 맡음 |
+| 적합한 상황 | 일상 업무 대부분 — 무엇이 필요한지 Claude가 잘 고르는 경우 | 검수를 확실히 auditor에게 맡기고 싶을 때, 특정 전문 에이전트의 관점이 필요할 때 |
 
-**Card worktree branches carry the `WT-` prefix and a descriptive slug, never the card id.** Rename
-in place immediately after creating the tree: `git branch -m WT-<slug>`. Re-entry resolves by tree
-name, so the rename is safe; the worktree directory keeps the card id.
+기본은 자동 매칭입니다. "스마트스토어 이번 주 주문 정리해줘"라고만 해도 셀러 플러그인의 스킬이 알아서 붙습니다. 명시 호출은 **품질 게이트를 확실히 걸고 싶은 순간**을 위한 수동 기어라고 생각하세요.
 
-**Three traceability carriers are then mandatory**, because the branch name no longer identifies
-the card: the dispatch's `card:` field, the card id in every commit message on the branch, and the
-card id in the evidence path (`.moai/reports/<card-id>/verdict.md`).
+## ChatGPT Work(Codex)에서는 어떻게 되나요
 
----
+Codex 플러그인 규격이 지원하는 구성요소는 **스킬·MCP 서버·훅·에셋**입니다. 에이전트와 슬래시 명령은 규격에 없습니다.
 
-## 4. How verification is run
+**그래도 기능이 빠지지는 않습니다.** 실제 업무 지식은 전부 스킬에 들어 있고, 스킬은 에이전트 없이도 스스로 완결되도록 만들어져 있습니다. 슬래시 명령도 마찬가지로 **스킬을 부르는 얇은 단축키**일 뿐이라, 자연어로 같은 일을 시킬 수 있습니다.
 
-**Scope verification to the change**: run the tests the change can affect, then push and let CI run
-the full suite. A full-suite run on a loaded developer machine measures the machine, not the code.
+| | Claude Cowork | ChatGPT Work (Codex) |
+|---|---|---|
+| 스킬 자동 매칭 | 동작 | 동작 |
+| MCP 연동 | 동작 | 동작 |
+| 슬래시 명령 (`/project`) | 동작 | **미지원** — 자연어로 대체 |
+| 에이전트 명시 호출 | 동작 | **미지원** — 자연어로 대체 |
+| worker/auditor 검수 루프 | 에이전트로 자동 분리 | 요청을 두 번 나눠서 수동 진행 |
 
-**Never spawn background load.** Where a verification needs contention, the load must be
-cleanup-guaranteed — kills registered with the test framework's cleanup hook, or a `timeout`
-wrapper bounding the process from outside. A trailing `kill` is not cleanup.
+### 슬래시 명령은 `/project` 하나뿐입니다
 
-**Scrub the environment in one compound invocation.** Inside a worktree, an environment-scrubbed
-verification runs as a single `unset <VARS> && <command>` call; a separate `unset` does not carry
-into the next command, because each invocation is a fresh process.
+모두의 코워크에서 슬래시 명령은 **PM의 `/project`** 하나만 둡니다. 나머지 코워커는 전부 자연어로 부릅니다.
 
-**Batch independent read-only verifications rather than serializing them** across turns. Serialize
-only for a genuine dependency: one command's output feeding another, writes to the same path, or
-shared-state mutation.
+이유는 단순합니다. 슬래시 명령은 Claude Cowork에서만 동작하는데, 같은 일을 하는 스킬은 양쪽에서 다 동작합니다. 명령을 늘리면 **ChatGPT Work 사용자만 못 쓰는 기능**이 늘어날 뿐입니다. 그래서 진입점 성격이 뚜렷한 `/project`만 남기고, 디자이너·SNS 크리에이터가 갖고 있던 슬래시 명령 8개는 없앴습니다.
 
-**A CodeRabbit row in `gh pr checks` is not evidence that a review ran** — the status reads
-`success` and prints `pass` identically whether or not one did. Count the row only when BOTH hold:
-(1) `gh api "repos/$REPO/commits/$HEAD_SHA/status"` reports the `CodeRabbit` context with
-`state == "success"` and description `Review completed`; (2) a `Merge Risk:` line exists whose
-commit prefix matches the current `headRefOid`. Anything else is a gap, not a pass; `Review rate
-limited` means the review never started.
+없앤 명령이 하던 일은 그대로 있습니다 — 아래처럼 말하면 같은 스킬이 붙습니다.
 
----
+| 예전 명령 | 이렇게 말하세요 |
+|---|---|
+| `/brief` | 디자인 브리프 만들어줘 |
+| `/design` | 디자인 작업 시작해줘 |
+| `/tokens` | 브랜드 디자인 토큰 만들어줘 |
+| `/system` | 디자인 시스템 라이브러리 보여줘 |
+| `/import` | Claude Design 핸드오프 받아서 읽어줘 |
+| `/upload` | 디자인 동기화해서 업로드해줘 |
+| `/check` | 이 디자인 카피 AI 티 나는지 검수해줘 |
+| `/threads-post` | Threads에 올릴 글 초안 써줘 |
 
-## 5. Core behaviors
+ChatGPT Work에서는 `/project`도 없으므로 "새 프로젝트 시작해줘"처럼 말하시면 됩니다.
 
-Six behaviors bind every turn, whatever the task.
+### 검수 루프도 자연어로
 
-**1. Surface assumptions.** Before implementing anything non-trivial, list assumptions explicitly
-and wait for confirmation — silent assumptions are the most dangerous misunderstanding. State them
-as a short list and invite correction. Anti-pattern: silently picking one reading of an ambiguous
-requirement and running with it.
+Codex에서 auditor 역할을 쓰고 싶다면, 에이전트를 지목하는 대신 **요청을 두 단계로 나누면** 같은 효과를 냅니다.
 
-**2. Manage confusion actively.** On an inconsistency, a conflicting requirement, or an unclear
-specification: STOP — do not proceed on a guess; name the specific confusion; present the tradeoff
-or clarifying question; wait for resolution. Anti-pattern: "the spec says X but the code does Y",
-then silently choosing Y because it is easier.
+{{< terminal title="codex — cowork" raw="true" >}}
+방금 만든 상세페이지를 결함을 찾는 관점에서만 검수해줘. 고치지 말고 지적 사항만 목록으로.
+{{< /terminal >}}
 
-**3. Push back when warranted.** Say so directly when an approach has a concrete downside,
-contradicts an established convention without justification, or breaks a tested invariant. State
-the issue, quantify the downside ("adds ~200 ms latency", not "might be slower"), propose an
-alternative, and accept an override once the user has full information. Sycophancy is a failure
-mode. Anti-pattern: "Of course!" followed by a known-bad implementation.
+## 다음 단계
 
-**4. Enforce simplicity.** Actively resist overcomplexity; generation tends toward
-over-engineering. Before completing, ask: fewer lines without losing clarity? are these
-abstractions earning their complexity? would a staff engineer ask "why didn't you just…"? Apply the
-ladder in order, cheapest capability first: (1) does this need building at all? (2) does a helper,
-type, or pattern already exist here — reuse it; (3) does the standard library do it; (4) a native
-platform feature; (5) an already-installed dependency; (6) can it be one line; (7) only then, the
-minimum code that works. The ladder is language-neutral. **Never simplify away safety**: it MUST
-NOT be used to drop input validation at trust boundaries, error handling that prevents data loss,
-security measures, accessibility, or one runnable check behind non-trivial logic. If an
-implementation exceeds 3× the estimated minimum viable line count, stop and simplify first.
-
-**5. Maintain scope discipline.** Touch only what you were asked to touch; drive-by refactors
-create noise and risk regressions. Do NOT remove comments you do not understand, clean up code
-orthogonal to the task, refactor adjacent systems as a side effect, delete seemingly-unused code
-without explicit approval, or add unrequested features because they seem useful. Match the existing
-style of the file being modified — naming, error handling, import organization; consistency within
-a file outranks personal preference. Anti-pattern: "while I was in this file I noticed…".
-
-**6. Verify, don't assume.** Every task requires evidence of completion; "seems right" is never
-sufficient. Tests passing means showing the test output; a build succeeding, the build output; a
-file created, reading it back; behavior correct, the runtime evidence. For ad-hoc work without a
-spec, define the goal as a testable assertion first — "done when X produces Y" — then verify it.
-Anti-pattern: claiming tests pass without running them.
+에이전트 한 명을 부리는 법을 익혔다면, 이제 여러 코워커를 조합해 프로젝트를 굴리는 [팀 구성 패턴](../teams/)으로 넘어가세요. 각 코워커의 에이전트 카드와 스킬 목록은 [에이전트 팀 소개](/moai-agents/)에서 확인할 수 있습니다.
 
 ---
 
-## 6. Output, language, and format
+### Sources
 
-**Respond in the user's configured `conversation_language`.** Code, identifiers, paths, commands,
-and flags stay in their original form.
-
-**Non-English output must be native idiom, not English mapped word-for-word.** When
-`conversation_language ≠ en`, every user-facing surface — chat, reports, README, docs, generated
-sites, question text — MUST read as natural native prose. Translation-style calques (carry-over of
-English syntax, metaphor, and figurative stock) are prohibited; native idiom is required. Chat uses
-the colloquial native register, artifacts the clean native written register. Deliberately-coined
-brand terms and established loanwords are not calques.
-
-**Write non-ASCII payloads as native UTF-8.** Every tool-call payload carrying
-`conversation_language` text — command strings, file content, question text — MUST be native UTF-8;
-hand-authored `\uXXXX` escapes are PROHIBITED, because a malformed escape corrupts the payload into
-a validation error and tends to be copied forward. On such a failure, re-author the text from its
-intended meaning rather than repairing the escape.
-
-**User-facing output is Markdown**; never display XML tags to users.
-
-**XML is reserved for agent-to-agent data transfer.** Use semantic XML sections for structured data
-exchange between agents; never surface XML structure in user-facing output.
-
-**Never use time predictions in plans or reports.** Use priority labels (High / Medium / Low) and
-phase ordering ("complete A, then start B"). Prohibited: "2-3 days", "1 week", "as soon as
-possible".
-
----
-
-## 7. Tools and command output
-
-**Follow tool usage patterns optimized for accuracy and efficiency.** Read a file before editing
-it. Locate before reading — find the file by pattern, find the line by content, then read that
-region rather than the whole file. Use absolute paths and verify a path exists rather than
-constructing it from an assumption. Prefer a targeted edit over rewriting a file, and a dedicated
-tool over a shell equivalent. Retry safety is asymmetric: read-only and idempotent calls may be
-retried, but a side-effecting one (write, commit, push, PR, deploy, external mutation) that fails
-ambiguously requires observing current state first and retrying only when the effect is confirmed
-absent — no success signal is not evidence the effect did not land. After three failures on one
-operation, report the blocker.
-
-**Maintain effectiveness without MCP servers.** Where one is unavailable, fall back to web search
-and fetch for library documentation and established patterns, then continue — analysis quality must
-not depend on MCP availability.
-
-**Keep command output bounded**: quiet flags, targeted queries, or redirect-to-file with the exit
-code and a bounded tail. A runtime output limit is a backstop, not the target.
-
-**Prefer the quiet form of routine commands** — `--no-progress`, `-q`, machine-readable output plus
-a targeted filter — not forms emitting spinners, banners, tables, or color noise. The same decision
-bytes at a fraction of the context cost.
-
-**Weigh session length as a cost axis.** One long session is cheaper than several short ones for
-the same work: a fresh session re-pays the always-loaded prefix at write price where a continuing
-one reads it from cache — provided it stays warm, since a long idle gap or an edit to the loaded
-prefix reverts it to write price. Splitting a session is a cost to justify, not a default.
+- Claude Code 서브에이전트 공식 문서: <https://code.claude.com/docs/en/sub-agents>
+- Codex 플러그인 매니페스트 규격(에이전트 미지원 근거): <https://developers.openai.com/plugins/build/plugins>
+- 코워커별 에이전트 카드: [`/moai-agents/`](/moai-agents/) (생성 데이터: `www/data/agent_teams.json`)
 
 ---
 > Source: [modu-ai/moai-cowork](https://github.com/modu-ai/moai-cowork) — distributed by [TomeVault](https://tomevault.io).
