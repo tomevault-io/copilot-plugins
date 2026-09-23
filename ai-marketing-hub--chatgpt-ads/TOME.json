@@ -4,7 +4,7 @@
   "repo": "chatgpt-ads",
   "description": "Sourced ChatGPT Ads knowledge and 12 operating skills for Codex and Claude, with tested local workflows and explicit live-account limits.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AI-Marketing-Hub/chatgpt-ads",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T02:39:38Z"
+  "distributed_at": "2026-09-23T02:48:24Z"
 }
