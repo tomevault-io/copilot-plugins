@@ -1,0 +1,9 @@
+{
+  "name": "mjalalimanesh--skillhub-local",
+  "displayName": "skillhub-local",
+  "description": "Manage Agent Skills, MCPs, Memories, and AGENTS.md files across Claude, Codex, Cursor, etc and Projects",
+  "version": "1.0.0",
+  "author": "mjalalimanesh",
+  "homepage": "https://github.com/mjalalimanesh/skillhub-local",
+  "skills": []
+}
