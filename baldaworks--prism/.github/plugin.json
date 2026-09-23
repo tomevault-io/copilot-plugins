@@ -1,0 +1,9 @@
+{
+  "name": "baldaworks--prism",
+  "displayName": "prism",
+  "description": "Turn ambiguous software-change requests into a durable, Beads-backed lifecycle from specification to human-approved implementation and verification.",
+  "version": "1.0.0",
+  "author": "baldaworks",
+  "homepage": "https://github.com/baldaworks/prism",
+  "skills": []
+}
