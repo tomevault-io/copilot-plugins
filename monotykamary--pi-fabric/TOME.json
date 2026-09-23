@@ -1,0 +1,189 @@
+{
+  "name": "pi-fabric",
+  "owner": "monotykamary",
+  "repo": "pi-fabric",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-rlm/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-rlm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-exec/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-exec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-spec/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-guide/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-swarm/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-swarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-schema/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-fusion/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-fusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-ambient/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-ambient/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-advisor/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-rlm/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-rlm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-council/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-council/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-exec/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-exec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-spec/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-workflow/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-guide/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-swarm/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-swarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-schema/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/python/fabric-supervisor/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/python/fabric-supervisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-fusion/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-fusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-ambient/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-ambient/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-advisor/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-council/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-council/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-workflow/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-fabric",
+      "path": "skillsets/typescript/fabric-supervisor/SKILL.md",
+      "github_url": "https://github.com/monotykamary/pi-fabric/tree/main/skillsets/typescript/fabric-supervisor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/monotykamary/pi-fabric",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:40:37Z"
+}
