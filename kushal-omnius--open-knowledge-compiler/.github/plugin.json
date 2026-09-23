@@ -1,0 +1,9 @@
+{
+  "name": "kushal-omnius--open-knowledge-compiler",
+  "displayName": "open-knowledge-compiler",
+  "description": "Deterministic compilation of software engineering artifacts into a provenance-tracked, queryable knowledge base \u2014 with an opt-in LLM layer for business rules, features, and risks. OKF Conformant.",
+  "version": "1.0.0",
+  "author": "kushal-omnius",
+  "homepage": "https://github.com/kushal-omnius/open-knowledge-compiler",
+  "skills": []
+}
