@@ -1,0 +1,9 @@
+{
+  "name": "jpmartineau--meshterm",
+  "displayName": "MeshTerm",
+  "description": "A full-featured TUI MeshCore client for your terminal",
+  "version": "1.0.0",
+  "author": "jpmartineau",
+  "homepage": "https://github.com/jpmartineau/MeshTerm",
+  "skills": []
+}
