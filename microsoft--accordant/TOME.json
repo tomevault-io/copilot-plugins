@@ -1,0 +1,105 @@
+{
+  "name": "accordant",
+  "owner": "microsoft",
+  "repo": "accordant",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accordant",
+      "path": "agent/skills/state/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accordant",
+      "path": "agent/skills/quickref/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/quickref/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accordant",
+      "path": "agent/skills/patterns/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accordant",
+      "path": "agent/skills/overview/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accordant",
+      "path": "agent/skills/operations/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accordant",
+      "path": "agent/skills/concurrency/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/concurrency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accordant",
+      "path": "agent/skills/cross-language/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/cross-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accordant",
+      "path": "agent/skills/troubleshooting/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accordant",
+      "path": "agent/skills/test-generation/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/test-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accordant",
+      "path": "agent/skills/async-operations/SKILL.md",
+      "github_url": "https://github.com/microsoft/accordant/tree/main/agent/skills/async-operations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/accordant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T19:30:25Z"
+}
