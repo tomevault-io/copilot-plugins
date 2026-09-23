@@ -1,0 +1,9 @@
+{
+  "name": "bladedevoff--stuntd",
+  "displayName": "stuntd",
+  "description": "Local proxy that learns your app's typed LLM decisions and answers them with a Laya head. Jev and OpenAI compatible.",
+  "version": "1.0.0",
+  "author": "bladedevoff",
+  "homepage": "https://github.com/bladedevoff/stuntd",
+  "skills": []
+}
