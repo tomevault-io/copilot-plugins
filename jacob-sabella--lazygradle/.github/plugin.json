@@ -1,0 +1,9 @@
+{
+  "name": "jacob-sabella--lazygradle",
+  "displayName": "lazygradle",
+  "description": "Gradle TUI inspired by IntelliJ Idea's Gradle tool panel",
+  "version": "1.0.0",
+  "author": "jacob-sabella",
+  "homepage": "https://github.com/jacob-sabella/lazygradle",
+  "skills": []
+}
