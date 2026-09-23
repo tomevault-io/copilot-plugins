@@ -1,0 +1,9 @@
+{
+  "name": "sev7enup--nodepilot",
+  "displayName": "NodePilot",
+  "description": "Agentless Windows workflow orchestration - a modern, open replacement for Microsoft System Center Orchestrator",
+  "version": "1.0.0",
+  "author": "Sev7eNup",
+  "homepage": "https://github.com/Sev7eNup/NodePilot",
+  "skills": []
+}
