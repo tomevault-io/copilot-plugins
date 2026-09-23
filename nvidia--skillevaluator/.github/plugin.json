@@ -1,0 +1,34 @@
+{
+  "name": "nvidia--skillevaluator",
+  "displayName": "SkillEvaluator",
+  "description": "SkillEvaluator",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/SkillEvaluator",
+  "skills": [
+    {
+      "name": "SkillEvaluator",
+      "description": ""
+    },
+    {
+      "name": "SkillEvaluator",
+      "description": ""
+    },
+    {
+      "name": "SkillEvaluator",
+      "description": ""
+    },
+    {
+      "name": "SkillEvaluator",
+      "description": ""
+    },
+    {
+      "name": "SkillEvaluator",
+      "description": ""
+    },
+    {
+      "name": "SkillEvaluator",
+      "description": ""
+    }
+  ]
+}
