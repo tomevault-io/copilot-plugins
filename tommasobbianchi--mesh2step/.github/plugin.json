@@ -1,0 +1,9 @@
+{
+  "name": "tommasobbianchi--mesh2step",
+  "displayName": "mesh2step",
+  "description": "Faceted triangle-mesh to B-Rep STEP converter (OCCT-backed, no surface fitting, no primitive recognition)",
+  "version": "1.0.0",
+  "author": "tommasobbianchi",
+  "homepage": "https://github.com/tommasobbianchi/mesh2step",
+  "skills": []
+}
