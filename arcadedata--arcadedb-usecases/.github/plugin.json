@@ -1,0 +1,9 @@
+{
+  "name": "arcadedata--arcadedb-usecases",
+  "displayName": "arcadedb-usecases",
+  "description": "A collection of small projects to show how to use ArcadeDB ",
+  "version": "1.0.0",
+  "author": "ArcadeData",
+  "homepage": "https://github.com/ArcadeData/arcadedb-usecases",
+  "skills": []
+}
