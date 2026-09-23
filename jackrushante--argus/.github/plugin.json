@@ -1,0 +1,9 @@
+{
+  "name": "jackrushante--argus",
+  "displayName": "argus",
+  "description": "Natural-language automation for Android: the LLM compiles, a deterministic engine executes. Tasker-class, optional Shizuku.",
+  "version": "1.0.0",
+  "author": "JackRushante",
+  "homepage": "https://github.com/JackRushante/argus",
+  "skills": []
+}
