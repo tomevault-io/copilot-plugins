@@ -1,23 +1,21 @@
 # AI instruction files for codex-island
 
-> Sourced from [ericjypark/codex-island](https://github.com/ericjypark/codex-island) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-CodexIsland - AI usage limits in your MacBook notch
+> Sourced from [ericjypark/codex-island](https://github.com/ericjypark/codex-island), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ericjypark/codex-island](https://github.com/ericjypark/codex-island).
+Original source: `AGENTS.md` in [ericjypark/codex-island](https://github.com/ericjypark/codex-island).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ericjypark/codex-island](https://github.com/ericjypark/codex-island)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ericjypark/codex-island](https://github.com/ericjypark/codex-island)
 
 ---
 
