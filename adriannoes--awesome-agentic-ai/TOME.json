@@ -1,0 +1,51 @@
+{
+  "name": "awesome-agentic-ai",
+  "owner": "adriannoes",
+  "repo": "awesome-agentic-ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": "cursor-claude-codex/skills/frontend-design",
+      "github_url": "https://github.com/adriannoes/awesome-agentic-ai/tree/main/cursor-claude-codex/skills/frontend-design",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adriannoes/awesome-agentic-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T17:37:24Z"
+}
