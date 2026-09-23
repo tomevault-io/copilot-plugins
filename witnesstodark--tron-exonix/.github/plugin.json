@@ -1,0 +1,9 @@
+{
+  "name": "witnesstodark--tron-exonix",
+  "displayName": "tron-exonix",
+  "description": "TRON: EXONIX - an AirXonix-style 3D arcade game for the Grid. Godot 4.7, built almost entirely by an AI agent (Claude Code + Godot MCP + Blender MCP + fal.ai).",
+  "version": "1.0.0",
+  "author": "witnesstodark",
+  "homepage": "https://github.com/witnesstodark/tron-exonix",
+  "skills": []
+}
