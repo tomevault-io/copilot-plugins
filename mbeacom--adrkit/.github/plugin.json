@@ -1,0 +1,9 @@
+{
+  "name": "mbeacom--adrkit",
+  "displayName": "adrkit",
+  "description": "Machine-readable architecture decision records. Git-native decision memory and governance for human and agent-authored plans -- lint, CI, and MCP.",
+  "version": "1.0.0",
+  "author": "mbeacom",
+  "homepage": "https://github.com/mbeacom/adrkit",
+  "skills": []
+}
