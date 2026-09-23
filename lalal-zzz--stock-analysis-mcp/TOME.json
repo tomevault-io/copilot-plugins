@@ -4,7 +4,7 @@
   "repo": "stock-analysis-mcp",
   "description": "\u4e1c\u65b9\u8d22\u5bcc\u91cf\u5316 MCP \u670d\u52a1\uff1aA \u80a1\u6570\u636e\u4e0b\u8f7d\u3001\u9009\u80a1\u7b5b\u9009\u3001\u677f\u5757\u5206\u6790\u3001\u5f62\u6001\u7814\u5224\u3001K\u7ebf\u56fe\u4e0e\u56de\u6d4b",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lalal-zzz/stock-analysis-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T01:13:13Z"
+  "distributed_at": "2026-09-23T01:37:40Z"
 }
