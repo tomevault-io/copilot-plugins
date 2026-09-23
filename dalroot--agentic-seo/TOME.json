@@ -1,0 +1,44 @@
+{
+  "name": "agentic-seo",
+  "owner": "dalroot",
+  "repo": "agentic-seo",
+  "description": "LLM-first SEO skill for AI coding assistants. Features 16 sub-skills, 10 specialist agents, 89 python scripts, and 160+ markdown marketing skills.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dalroot/agentic-seo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T23:46:24Z"
+}
