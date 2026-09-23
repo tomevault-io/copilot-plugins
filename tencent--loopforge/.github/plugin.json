@@ -1,0 +1,9 @@
+{
+  "name": "tencent--loopforge",
+  "displayName": "LoopForge",
+  "description": "Resumable multi-agent development workflows for coding agents (CodeBuddy, Codex, Cursor, Claude Code).",
+  "version": "1.0.0",
+  "author": "Tencent",
+  "homepage": "https://github.com/Tencent/LoopForge",
+  "skills": []
+}
