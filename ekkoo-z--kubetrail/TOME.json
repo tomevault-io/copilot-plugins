@@ -1,0 +1,261 @@
+{
+  "name": "KubeTrail",
+  "owner": "ekkoo-z",
+  "repo": "KubeTrail",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/exp-generation/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/exp-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/k8s-rbac-analysis/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/k8s-rbac-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/pod-escape-surface/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/pod-escape-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/resource-hijack-dos/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/resource-hijack-dos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.agents/skills/exp-generation/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.agents/skills/exp-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/exp-generation/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/exp-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/cloud-metadata-analysis/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/cloud-metadata-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/network-lateral-movement/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/network-lateral-movement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/service-ingress-exposure/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/service-ingress-exposure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/windows-container-surface/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/windows-container-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.agents/skills/k8s-rbac-analysis/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.agents/skills/k8s-rbac-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/k8s-rbac-analysis/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/k8s-rbac-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.agents/skills/pod-escape-surface/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.agents/skills/pod-escape-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/pod-escape-surface/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/pod-escape-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/resource-hijack-dos/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/resource-hijack-dos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/public-workload-rce-surface/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/public-workload-rce-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/image-registry-supply-chain/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/image-registry-supply-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/admission-policy-governance/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/admission-policy-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/observability-defense-evasion/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/observability-defense-evasion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/operator-crd-controller-abuse/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/operator-crd-controller-abuse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/exposed-management-interfaces/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/exposed-management-interfaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/serviceaccount-secret-material/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/serviceaccount-secret-material/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/agent/.claude/skills/workload-controller-persistence/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/agent/.claude/skills/workload-controller-persistence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/cloud-metadata-analysis/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/cloud-metadata-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/network-lateral-movement/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/network-lateral-movement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/service-ingress-exposure/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/service-ingress-exposure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/windows-container-surface/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/windows-container-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/public-workload-rce-surface/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/public-workload-rce-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/image-registry-supply-chain/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/image-registry-supply-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/admission-policy-governance/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/admission-policy-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/observability-defense-evasion/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/observability-defense-evasion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/operator-crd-controller-abuse/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/operator-crd-controller-abuse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/exposed-management-interfaces/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/exposed-management-interfaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.agents/skills/serviceaccount-secret-material/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.agents/skills/serviceaccount-secret-material/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/serviceaccount-secret-material/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/serviceaccount-secret-material/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KubeTrail",
+      "path": "apps/desktop/build/.claude/skills/workload-controller-persistence/SKILL.md",
+      "github_url": "https://github.com/ekkoo-z/KubeTrail/tree/main/apps/desktop/build/.claude/skills/workload-controller-persistence/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ekkoo-z/KubeTrail",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T19:31:51Z"
+}
