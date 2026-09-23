@@ -1,0 +1,9 @@
+{
+  "name": "sideshowroberto--vfx-agent-toolkit",
+  "displayName": "vfx-agent-toolkit",
+  "description": "Claude Code plugin marketplace + MCP connectors for VFX production - Nuke, Houdini, Unreal, Blender, ComfyUI, Maya, Magnific, Seedance (MIT)",
+  "version": "1.0.0",
+  "author": "sideshowroberto",
+  "homepage": "https://github.com/sideshowroberto/vfx-agent-toolkit",
+  "skills": []
+}
