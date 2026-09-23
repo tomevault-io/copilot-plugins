@@ -1,0 +1,9 @@
+{
+  "name": "airclub-udesa--yahboom-rosmaster-slam",
+  "displayName": "yahboom_rosmaster_slam",
+  "description": "2D LiDAR SLAM with slam_toolbox for the ROSMASTER X3 Gazebo Fortress simulator.",
+  "version": "1.0.0",
+  "author": "AIRclub-UdeSA",
+  "homepage": "https://github.com/AIRclub-UdeSA/yahboom_rosmaster_slam",
+  "skills": []
+}
