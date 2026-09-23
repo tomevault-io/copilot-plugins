@@ -1,0 +1,9 @@
+{
+  "name": "msitarzewski--agent-room",
+  "displayName": "agent-room",
+  "description": "Human control plane for supervising AI workers",
+  "version": "1.0.0",
+  "author": "msitarzewski",
+  "homepage": "https://github.com/msitarzewski/agent-room",
+  "skills": []
+}
