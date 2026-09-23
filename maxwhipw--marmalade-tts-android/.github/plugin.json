@@ -1,0 +1,9 @@
+{
+  "name": "maxwhipw--marmalade-tts-android",
+  "displayName": "marmalade-tts-android",
+  "description": "Native Android TTS app with on-device neural voices and emotion-aware prosody \u2014 sister project to marmalade-tts (CLI).",
+  "version": "1.0.0",
+  "author": "maxwhipw",
+  "homepage": "https://github.com/maxwhipw/marmalade-tts-android",
+  "skills": []
+}
