@@ -1,0 +1,9 @@
+{
+  "name": "gopalt22--orange-nelumbo-video-pipeline",
+  "displayName": "orange-nelumbo-video-pipeline",
+  "description": "Visualization-heavy 4K explainer-video pipeline for JEE PYQs \u2014 Manim + edge-tts, agent-driven, one command per video.",
+  "version": "1.0.0",
+  "author": "gopalt22",
+  "homepage": "https://github.com/gopalt22/orange-nelumbo-video-pipeline",
+  "skills": []
+}
