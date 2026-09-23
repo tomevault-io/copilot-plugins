@@ -1,0 +1,9 @@
+{
+  "name": "tandryukha--aidemo",
+  "displayName": "aidemo",
+  "description": "Your coding agent makes the demo video \u2014 a narrated, captioned MP4 from one storyboard.json. Deterministic replay re-renders it in CI (no key, ~$0). Open-source (MIT) alternative to Screen Studio / Cl",
+  "version": "1.0.0",
+  "author": "tandryukha",
+  "homepage": "https://github.com/tandryukha/aidemo",
+  "skills": []
+}
