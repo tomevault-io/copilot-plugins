@@ -1,0 +1,129 @@
+{
+  "name": "universal-examprep-skill",
+  "owner": "ZeKaiNie",
+  "repo": "universal-examprep-skill",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "universal-examprep-skill",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/locales/zh/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/locales/zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/locales/en/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/locales/en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/exam-cram/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/exam-cram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/exam-help/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/exam-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/exam-quiz/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/exam-quiz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/exam-audit/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/exam-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/exam-tutor/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/exam-tutor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/exam-review/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/exam-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/exam-ingest/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/exam-ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/exam-cheatsheet/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/exam-cheatsheet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/exam-study-guide/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/exam-study-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "universal-examprep-skill",
+      "path": "full/skills/confusion-tracker/SKILL.md",
+      "github_url": "https://github.com/ZeKaiNie/universal-examprep-skill/tree/main/full/skills/confusion-tracker/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ZeKaiNie/universal-examprep-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:35:36Z"
+}
