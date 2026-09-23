@@ -1,0 +1,26 @@
+{
+  "name": "milind-soni--openmausbot",
+  "displayName": "OpenMausBot",
+  "description": "OpenMausBot",
+  "version": "1.0.0",
+  "author": "milind-soni",
+  "homepage": "https://github.com/milind-soni/OpenMausBot",
+  "skills": [
+    {
+      "name": "phone-harness",
+      "description": ""
+    },
+    {
+      "name": "OpenMausBot",
+      "description": ""
+    },
+    {
+      "name": "OpenMausBot",
+      "description": ""
+    },
+    {
+      "name": "OpenMausBot",
+      "description": ""
+    }
+  ]
+}
