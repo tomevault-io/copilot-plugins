@@ -1,0 +1,9 @@
+{
+  "name": "datadog--datadog-sbom-generator",
+  "displayName": "datadog-sbom-generator",
+  "description": "datadog-sbom-generator",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-sbom-generator",
+  "skills": []
+}
