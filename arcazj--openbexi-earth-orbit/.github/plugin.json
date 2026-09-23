@@ -1,0 +1,9 @@
+{
+  "name": "arcazj--openbexi-earth-orbit",
+  "displayName": "openbexi_earth_orbit",
+  "description": "This project is a Three.js-based simulation that visualizes Earth with orbiting LEO, MEO and GEO satellites",
+  "version": "1.0.0",
+  "author": "arcazj",
+  "homepage": "https://github.com/arcazj/openbexi_earth_orbit",
+  "skills": []
+}
