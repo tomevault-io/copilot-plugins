@@ -1,0 +1,9 @@
+{
+  "name": "dontoisme--job-journal",
+  "displayName": "Job-Journal",
+  "description": "AI-powered career management CLI \u2014 JD-aware resume optimization, keyword-matched bullet ranking, automated job monitoring, and TWC compliance tracking",
+  "version": "1.0.0",
+  "author": "dontoisme",
+  "homepage": "https://github.com/dontoisme/Job-Journal",
+  "skills": []
+}
