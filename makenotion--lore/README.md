@@ -2,16 +2,14 @@
 
 > Source: [makenotion/lore](https://github.com/makenotion/lore). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Persistent, shared AI memory backed by Notion for MCP-compatible assistants.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [makenotion/lore](https://github.com/makenotion/lore).
+Original source: `AGENTS.md` in [makenotion/lore](https://github.com/makenotion/lore).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
