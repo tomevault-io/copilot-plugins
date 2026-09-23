@@ -1,0 +1,9 @@
+{
+  "name": "bwmp-dev--luma",
+  "displayName": "Luma",
+  "description": "A lightweight, cross-platform terminal and SSH client for Windows, macOS, Linux, iOS, and Android.",
+  "version": "1.0.0",
+  "author": "bwmp-dev",
+  "homepage": "https://github.com/bwmp-dev/Luma",
+  "skills": []
+}
