@@ -1,0 +1,9 @@
+{
+  "name": "hubertciebiada--open-ambient-sensor",
+  "displayName": "open-ambient-sensor",
+  "description": "OAS \u2014 Open Ambient Sensor: DIY multi-sensor indoor environmental monitor (CO2, PM, VOC/NOx, temperature/humidity, mmWave presence) on ESP32-C6 with ESPHome / Home Assistant integration",
+  "version": "1.0.0",
+  "author": "hubertciebiada",
+  "homepage": "https://github.com/hubertciebiada/open-ambient-sensor",
+  "skills": []
+}
