@@ -1,0 +1,9 @@
+{
+  "name": "stefandevo--claude-dialects",
+  "displayName": "claude-dialects",
+  "description": "Isolated Claude Code dialects for Codex, Kimi, Cursor, Copilot, Gemini & more \u2014 embedded CLIProxyAPI, no manual proxy setup. macOS only.",
+  "version": "1.0.0",
+  "author": "stefandevo",
+  "homepage": "https://github.com/stefandevo/claude-dialects",
+  "skills": []
+}
