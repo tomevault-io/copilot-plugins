@@ -1,0 +1,14 @@
+{
+  "name": "crossbind--crossbind",
+  "displayName": "crossbind",
+  "description": "crossbind",
+  "version": "1.0.0",
+  "author": "crossbind",
+  "homepage": "https://github.com/crossbind/crossbind",
+  "skills": [
+    {
+      "name": "crossbind",
+      "description": ""
+    }
+  ]
+}
