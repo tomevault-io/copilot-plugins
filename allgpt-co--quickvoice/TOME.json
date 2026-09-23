@@ -1,0 +1,477 @@
+{
+  "name": "QuickVoice",
+  "owner": "allgpt-co",
+  "repo": "QuickVoice",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".agents/skills/livekit-agents/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.agents/skills/livekit-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/help/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/planner/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/debug/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/references/tdd/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/references/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/executor/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/executor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/debugger/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/verifier/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/verifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/debug/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/update/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/roadmap/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/roadmap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/roadmapper/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/roadmapper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/progress/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/progress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/add-todo/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/add-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/init-repo/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/init-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/research/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/whats-new/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/whats-new/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/add-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/add-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/integrate/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/integrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/plan-checker/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/plan-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/plan-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/plan-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/references/ui-brand/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/references/ui-brand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/pause-work/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/pause-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/synthesize/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/synthesize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/new-project/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/new-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/verify-work/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/verify-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/brownfield/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/brownfield/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/checkpoint/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/checkpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/resume-work/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/resume-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/check-todos/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/check-todos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/transition/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/transition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/review-plan/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/review-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/new-project/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/new-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/map-codebase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/map-codebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/remove-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/remove-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/insert-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/insert-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/verify-work/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/verify-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/codebase-mapper/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/codebase-mapper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/execute-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/execute-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/references/checkpoints/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/references/checkpoints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/references/questioning/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/references/questioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/new-milestone/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/new-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/execute-plan/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/execute-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/discuss-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/discuss-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/verify-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/verify-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/phase-researcher/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/phase-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/execute-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/execute-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/discuss-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/discuss-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/continue-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/continue-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/research-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/research-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/audit-milestone/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/audit-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/resume-project/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/resume-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/project-researcher/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/project-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/diagnose-issues/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/diagnose-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/discovery-phase/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/discovery-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/research-project/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/research-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/integration-checker/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/integration-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/references/git-integration/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/references/git-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/update-checkpoint/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/update-checkpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/create-checkpoint/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/create-checkpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/agents/research-synthesizer/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/agents/research-synthesizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/complete-milestone/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/complete-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/plan-milestone-gaps/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/plan-milestone-gaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/complete-milestone/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/complete-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/complete-checkpoint/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/complete-checkpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/references/continuation-format/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/references/continuation-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/commands/list-phase-assumptions/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/commands/list-phase-assumptions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/references/verification-patterns/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/references/verification-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QuickVoice",
+      "path": ".claude/skills/gsd/workflows/list-phase-assumptions/SKILL.md",
+      "github_url": "https://github.com/allgpt-co/QuickVoice/tree/main/.claude/skills/gsd/workflows/list-phase-assumptions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/allgpt-co/QuickVoice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T21:33:11Z"
+}
