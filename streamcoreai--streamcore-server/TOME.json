@@ -1,0 +1,99 @@
+{
+  "name": "streamcore-server",
+  "owner": "streamcoreai",
+  "repo": "streamcore-server",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "streamcore-server",
+      "path": "plugins/skills/tool-savvy/SKILL.md",
+      "github_url": "https://github.com/streamcoreai/streamcore-server/tree/main/plugins/skills/tool-savvy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamcore-server",
+      "path": "plugins/skills/bot-gestures/SKILL.md",
+      "github_url": "https://github.com/streamcoreai/streamcore-server/tree/main/plugins/skills/bot-gestures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamcore-server",
+      "path": "plugins/skills/error-recovery/SKILL.md",
+      "github_url": "https://github.com/streamcoreai/streamcore-server/tree/main/plugins/skills/error-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamcore-server",
+      "path": "plugins/skills/gmail-assistant/SKILL.md",
+      "github_url": "https://github.com/streamcoreai/streamcore-server/tree/main/plugins/skills/gmail-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamcore-server",
+      "path": "plugins/skills/movement-driver/SKILL.md",
+      "github_url": "https://github.com/streamcoreai/streamcore-server/tree/main/plugins/skills/movement-driver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamcore-server",
+      "path": "plugins/skills/polite-assistant/SKILL.md",
+      "github_url": "https://github.com/streamcoreai/streamcore-server/tree/main/plugins/skills/polite-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamcore-server",
+      "path": "plugins/skills/vision-assistant/SKILL.md",
+      "github_url": "https://github.com/streamcoreai/streamcore-server/tree/main/plugins/skills/vision-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamcore-server",
+      "path": "plugins/skills/concise-responder/SKILL.md",
+      "github_url": "https://github.com/streamcoreai/streamcore-server/tree/main/plugins/skills/concise-responder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamcore-server",
+      "path": "plugins/skills/friendly-conversationalist/SKILL.md",
+      "github_url": "https://github.com/streamcoreai/streamcore-server/tree/main/plugins/skills/friendly-conversationalist/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/streamcoreai/streamcore-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:46:55Z"
+}
