@@ -1,0 +1,9 @@
+{
+  "name": "endstonemc--bedrock-protocol",
+  "displayName": "bedrock-protocol",
+  "description": "A Python DSL that generates version-aware C++ packet codecs for the Minecraft: Bedrock protocol",
+  "version": "1.0.0",
+  "author": "EndstoneMC",
+  "homepage": "https://github.com/EndstoneMC/bedrock-protocol",
+  "skills": []
+}
