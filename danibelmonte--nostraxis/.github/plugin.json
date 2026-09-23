@@ -1,0 +1,9 @@
+{
+  "name": "danibelmonte--nostraxis",
+  "displayName": "Nostraxis",
+  "description": "Local-first observability dashboard to monitor, compare and analyze Codex, Claude Code and GitHub Copilot CLI sessions",
+  "version": "1.0.0",
+  "author": "DaniBelmonte",
+  "homepage": "https://github.com/DaniBelmonte/Nostraxis",
+  "skills": []
+}
