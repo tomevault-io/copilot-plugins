@@ -1,0 +1,18 @@
+{
+  "name": "piperhex--codex-switch",
+  "displayName": "codex-switch",
+  "description": "codex-switch",
+  "version": "1.0.0",
+  "author": "piperhex",
+  "homepage": "https://github.com/piperhex/codex-switch",
+  "skills": [
+    {
+      "name": "codex-switch",
+      "description": ""
+    },
+    {
+      "name": "codex-switch",
+      "description": ""
+    }
+  ]
+}
