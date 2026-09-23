@@ -1,0 +1,14 @@
+{
+  "name": "zc8163623--dualforge-workflow",
+  "displayName": "DualForge-Workflow",
+  "description": "DualForge-Workflow",
+  "version": "1.0.0",
+  "author": "zc8163623",
+  "homepage": "https://github.com/zc8163623/DualForge-Workflow",
+  "skills": [
+    {
+      "name": "DualForge-Workflow",
+      "description": ""
+    }
+  ]
+}
