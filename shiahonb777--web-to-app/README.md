@@ -1,15 +1,16 @@
 # web-to-app
 
-> Source: [shiahonb777/web-to-app](https://github.com/shiahonb777/web-to-app). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [shiahonb777/web-to-app](https://github.com/shiahonb777/web-to-app). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [shiahonb777/web-to-app](https://github.com/shiahonb777/web-to-app).
+Original source: `` in [shiahonb777/web-to-app](https://github.com/shiahonb777/web-to-app).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
