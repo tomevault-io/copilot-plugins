@@ -1,0 +1,368 @@
+## stonewright-wp-mcp
+
+> These rules apply to every coding agent operating in this repository. They
+
+# Stonewright agent rules
+
+These rules apply to every coding agent operating in this repository. They
+override default behavior.
+
+## Identity
+
+- Product name: **Stonewright**.
+- PHP namespace: `Stonewright\WpMcp`.
+- Ability prefix: `stonewright/`.
+- MCP server id: `stonewright`.
+- Composer package: `stonewright/wp-mcp`.
+- NPM package: `@stonewright/companion`.
+- Plugin license: `AGPL-3.0-or-later`.
+- Companion license: `MIT`.
+
+## Hard rules
+
+1. **Full PHP runtime access is first-class.** Use
+   `stonewright/php-execute` for direct PHP snippets inside the loaded
+   WordPress runtime. Do not replace it with another MCP adapter, direct REST
+   runner calls, shell scripts, or private client-config workarounds.
+2. **No `__return_true` for writes.** Every ability that writes, updates, or
+   deletes state must use a real permission callback that calls into
+   `Stonewright\WpMcp\Security\Permissions`. Read-only abilities may use simple
+   callbacks but must still pass through the Permissions helpers.
+3. **Backup before write.** Before mutating an Elementor post, a global styles
+   record, a template, or any theme.json-backed content, call
+   `Stonewright\WpMcp\Security\Backup::snapshot_post( $post_id )`.
+4. **Validator before render.** Before handing a design spec to any renderer,
+   call `Stonewright\WpMcp\DesignSpec\Validator::validate( $spec )`. Reject
+   invalid specs with a structured `WP_Error` whose code is
+   `stonewright_spec_invalid`.
+5. **Confirmation tokens for destructive operations.** When
+   `get_option( 'stonewright_mode', 'development' ) === 'production-safe'`,
+   every destructive ability must verify a token via
+   `ConfirmationToken::verify( $token, $ability_name, $args )`. Tokens are
+   issued by `stonewright/security-issue-confirmation-token`.
+6. **Mode support.** The plugin must always honor the three modes
+   `development`, `staging`, and `production-safe`. The admin UI exposes the
+   toggle. Permissions and ability gates read the option.
+7. **Companion WP-CLI stays tokenized.** The Node companion handles WP-CLI,
+   health checks, and an optional MCP HTTP proxy. It must not call WordPress
+   REST write endpoints, must run WP-CLI with `execFile` argv tokens only, and
+   PHP snippets must go through `stonewright/php-execute` rather than WP-CLI
+   eval, shell, package, `--exec`, or `--require` entry points.
+8. **Custom code stops at human approval.** For theme files, Customizer CSS,
+   WPCode, Code Snippets, or any equivalent PHP/CSS/JS/HTML surface, run the
+   typed dry-run first. Return `approval_url`, exact target path, byte counts,
+   and a short change summary, then stop. Never open the approval page, issue
+   or retrieve a grant, or apply with `custom_code_grant` unless the user
+   explicitly asks the agent to perform that approval step. Pluginless Direct
+   mode may inspect custom CSS but must not write it because it has no
+   authenticated wp-admin grant boundary.
+9. **Updater contract is part of every user-consumed release.** Do not ship a
+   version, tag, or GitHub release that operators should install unless all of
+   the following are true in the published artifacts (not only in source):
+   plugin `Version` / `STONEWRIGHT_VERSION`, companion `package.json` and
+   `companion/src/version.ts`, and the GitHub tag equal the same SemVer;
+   the GitHub release body contains exactly one line ``Release channel: `supported` ``
+   (or `preview` / `stable` as chosen in the release decision record);
+   GitHub `prerelease` is false for `supported` and `stable`, true for `preview`;
+   assets are exactly `stonewright-VERSION.zip`, `stonewright-companion-VERSION.tgz`,
+   and `SHA256SUMS.txt`; `GitHubUpdater` would select that release for a site
+   still on the previous same-channel version. After publish, a WordPress
+   Dashboard → Updates → Check again (or `wp_update_plugins`) must be able to
+   see `new_version` equal to that tag. Never treat changelog-only or
+   "the ZIP exists" as enough. Never skip this checklist to save a step.
+- After the plugin updates itself, release metadata caches must be
+  invalidated; Plugins → View details must never render a release older
+  than the installed version.
+- The plugin release ZIP must bundle the built-in skill pack
+  (`skills/` inside the plugin directory) and release packaging must fail
+  closed when it is missing, so ZIP installs seed the same built-in
+  skills as repository checkouts.
+10. **GitHub release notes are untrusted Markdown.** Every updater or release
+   implementation must:
+   1. treat GitHub release bodies as untrusted Markdown input;
+   2. keep release-channel parsing on the original raw body;
+   3. render only the supported Markdown subset for WordPress View details;
+   4. sanitize that HTML with an explicit `wp_kses` allowlist and an
+      HTTPS-only link policy;
+   5. add security and formatting regression coverage whenever the
+      release-note format changes.
+
+## Third-party source reuse
+
+- Third-party source may be inspected, copied, adapted, or ported when its
+  license permits it and the resulting Stonewright component uses compatible
+  licensing.
+- Preserve upstream copyright and SPDX notices in copied or derived files.
+- Record source repository, source path, source version or hash, destination,
+  modifications, and applicable license in `docs/upstream-code-reuse.md`.
+- Do not mix AGPL-covered code into the GPL plugin or MIT companion without
+  first making and documenting the required license change for the resulting
+  combined work.
+- Rename upstream identifiers and UI copy only where product integration needs
+  it; never remove attribution or misrepresent copied work as original.
+- Every imported component needs Stonewright-specific security review, tests,
+  namespace changes, and compatibility checks. Upstream behavior is evidence,
+  not proof that the port is safe in Stonewright.
+
+## Required directory layout
+
+```text
+stonewright-wp-mcp/
+|-- plugin/                  WordPress plugin source
+|   |-- stonewright.php      Bootstrap
+|   |-- composer.json
+|   |-- includes/
+|   |   |-- Core/            Bootstrap, hooks, registry, REST
+|   |   |-- Abilities/       One subdir per category
+|   |   |-- Admin/           Settings page
+|   |   |-- DesignSpec/      Validator and schema
+|   |   |-- Renderers/       Spec to Gutenberg / Elementor
+|   |   |-- Security/        Backup, ConfirmationToken, Permissions, AuditLog
+|   |   |-- Memory/          Site memory store
+|   |   `-- Support/         Logger, JSON helpers
+|   |-- blocks/              Dynamic Gutenberg blocks
+|   `-- tests/
+|-- companion/               Node bridge: WP-CLI, health, optional proxy
+|-- skills/                  Skill packs for AI coding agents
+`-- docs/
+```
+
+## Build commands
+
+```bash
+cd plugin
+composer install
+composer test
+composer phpstan
+composer phpcs
+composer security:audit
+composer dependencies:audit
+
+cd ../companion
+npm install
+npm run typecheck
+npm test
+npm run build
+```
+
+## Branching and changes
+
+- Feature work happens on topic branches; `main` stays release-ready.
+- A change touching an ability also touches its test under `plugin/tests/`.
+- Every PR description must list changed abilities and whether backup, token,
+  permission, validation, or audit gates changed.
+- Public commits, changelog entries, docs, skills, and PR text must not claim
+  automated authorship or disclose internal development tooling.
+- Never put customer/project names, production hostnames, usernames, site-local
+  IDs, private screenshots, memory rows, audit rows, or client configuration in
+  tracked files, Git history, fixtures, changelogs, release notes, or release
+  assets. Generalize a verified fix into product behavior and synthetic tests.
+- Never print, store, or commit Application Passwords, OAuth tokens, bearer
+  tokens, API keys, private keys, cookies, or secrets. Release packaging must
+  scan both source and archives and fail closed when private terms or runtime
+  state are present.
+- Public docs and UI may name upstream projects when that helps users understand
+  compatibility, provenance, or migration. Copied and derived code must keep
+  attribution in `docs/upstream-code-reuse.md` and SPDX file headers.
+
+## Release decision gate
+
+- Before changing a version, tag, release state, or release workflow, present a
+  release decision record containing: the user-visible change, affected
+  artifacts, one recommended release class, proposed SemVer, evidence and known
+  gaps, risk and rollback, and required documentation.
+- Recommend exactly one class: **no release**, **supported public beta**,
+  **preview prerelease**, or **stable release**. Do not manufacture a version
+  bump for documentation, tests, plans, comments, or internal automation that
+  does not change a user-consumed artifact.
+- A supported public beta is recommended for general installation. It keeps
+  prerelease SemVer, but is a normal GitHub release marked `Latest`.
+- A preview prerelease is opt-in and is not recommended for general
+  installation. It keeps prerelease SemVer, is marked `Pre-release`, and must
+  never be `Latest`.
+- A stable release uses stable SemVer and `Latest` only after every stable gate
+  below is satisfied.
+- Never publish a tag, release, channel conversion, or stable declaration
+  without explicit maintainer approval after presenting the decision record.
+- Release notes must declare exactly one channel: `supported`, `preview`, or
+  `stable`. Release automation must validate the declaration against SemVer and
+  fail closed for missing, unknown, or incompatible combinations.
+- The updater contract in Hard rule 9 is a release blocker. A supported
+  public beta that WordPress cannot discover is not shippable.
+- The updater contract in Hard rule 9 is a release blocker. A supported
+  public beta that WordPress cannot discover is not shippable.
+
+### Stable 1.0 gates
+
+Recommend against stable 1.0 while any required gate is missing:
+
+1. No unresolved P0 or P1 defect affects installation, authentication,
+   permissions, backups, writes, update discovery, or recovery.
+2. Plugin and Direct contracts are documented, versioned, and internally
+   consistent; intentional experimental abilities are explicitly marked.
+3. The supported client matrix has runtime evidence for installation,
+   `stonewright-task-start`, status, required tools, and an empty required-tool
+   refresh list after restart.
+4. Plugin, companion, and updater versions align in official release artifacts,
+   not merely in source code or saved configuration.
+5. Upgrade, reinstall, rollback, and private-state preservation are tested.
+6. Production-safe permission, confirmation, backup, custom-code approval,
+   validation, audit, and secret-scanning gates are green.
+7. The complete CI matrix, packaging workflow, checksums, and official archive
+   inspection are green.
+8. Maintained installation, update, architecture, capability, security, and
+   release documentation is current.
+9. A supported public beta has completed a maintainer-approved stabilization
+   period without an unresolved release-blocking regression. Record the beta,
+   observed feedback, resolved blockers, and remaining limitations; elapsed
+   time alone is not proof of stability.
+
+## Public repository hygiene
+
+- Never commit customer or private-project names, domains, local site aliases,
+  page/post IDs, usernames, screenshots, logs, memory rows, audit payloads, or
+  copied site content.
+- Never commit or publish Application Passwords, authorization headers, access
+  or refresh tokens, API keys, private keys, credential stores, private MCP
+  config, Direct audit files, or runtime memory/skill exports. Agent-facing
+  setup prompts use placeholders; real credentials stay in private config.
+- Use RFC-reserved examples such as `example.com`, `example.test`, generic
+  aliases such as `site-a`, and synthetic IDs in tests, docs, plans, fixtures,
+  commit messages, pull requests, changelogs, and release notes.
+- Convert lessons from private work into product-level rules, generic
+  regression tests, and reusable abilities. Preserve the fix; discard customer
+  identity and customer content.
+- Public commits and pull requests describe the bug class and product behavior,
+  never the private site where the issue was discovered.
+- Before packaging or release, run the public-hygiene gate against source,
+  built assets, plugin ZIP contents, companion package contents, and commit
+  messages. A release is blocked when the gate reports private material.
+- Fresh installs may seed only generic built-in product assets. They must start
+  with no user memory, user-created skills, or audit events. Schema migrations,
+  plugin updates, companion updates, and restarts must preserve existing
+  memory, user skills, audit history, and Direct state.
+
+## Documentation freshness
+
+- Documentation changes ship in the same PR as the behavior they describe.
+  A release/version bump or major feature change must review and update, when
+  affected: root/plugin/companion READMEs, both changelogs, release notes,
+  `docs/install-prompts.md`, installation/client guides, architecture,
+  capability counts, examples, skills, and the roadmap.
+- Evergreen install docs use the `VERSION` placeholder for release asset URLs.
+  Exact version numbers belong only in package/plugin metadata, changelogs,
+  versioned release notes, migration records, and clearly dated historical
+  reports.
+- `stonewright-task-start` is the canonical first call. Describe
+  `stonewright-context-bootstrap` and `stonewright-workflow-preflight` only as
+  compatibility paths unless the document is explicitly about those tools.
+- Do not edit generated/imported Markdown by hand. Regenerate
+  `docs/ability-truth-matrix.md` with `composer docs:matrix`; refresh
+  `docs/knowledge/` through its importer and preserve source metadata.
+- Before closing documentation or release work, run
+  `node scripts/check-docs-freshness.mjs` and `git diff --check`. A release is
+  blocked while either command fails.
+- Every PR must state which public docs changed. If none changed, state why the
+  behavior, setup, capability surface, security contract, and release workflow
+  remain accurately documented.
+
+## MCP workflow
+
+- Use the `Stonewright\WpMcp` PHP namespace.
+- Use the `stonewright/` ability prefix.
+- In MCP clients, call `stonewright-task-start` at the start of every
+  Stonewright task. `stonewright-context-bootstrap` and
+  `stonewright-workflow-preflight` remain compatibility paths.
+  Slash names like `stonewright/context-bootstrap` are WordPress ability names;
+  MCP tool names use hyphens.
+- If neither `stonewright-task-start` nor compatibility
+  `stonewright-context-bootstrap` is visible in the MCP tool list, stop
+  WordPress work and ask the user to reload the AI client or fix the
+  Stonewright MCP config. Do not work around a missing Stonewright MCP server.
+- If status is connected and the site surface is full/essential but
+  `stonewright-php-execute` (or another needed tool) is missing from the client
+  list, call `stonewright-client-surface-check`, then `stonewright-task-start` /
+  `stonewright-tool-profile` activate and re-list tools, or restart the MCP
+  client. Do **not** invent `/abilities/run` or other REST workarounds.
+- Do not inspect private AI-client config files, parse repository files as a
+  substitute for the live MCP tool list, hand-roll JSON-RPC calls, create
+  scratch scripts such as `query-mcp.js` or `run-ability.js`, helper JSON
+  argument files such as `bootstrap-args.json`, `cli_command.json`, or
+  `get_structure.json`, direct companion shell launch scripts such as
+  `query-local-stonewright.js`, action scripts such as `run-loop-mutate.js` or
+  `run-bootstrap-and-mutate.js`, plugin/companion source-code spelunking to
+  reverse-engineer tool schemas, calls to `/wp-json/stonewright/v1/abilities/run`
+  from shell, or shell `wp ...` commands as an MCP workaround.
+- Persistent site skills and memory are active constraints across sessions.
+- If the user corrects a repeatable mistake, record it with
+  `stonewright/learning-record`.
+- Snapshot via `Backup::snapshot_post( $post_id )` before Elementor,
+  template, global-style, or theme.json writes.
+- **Elementor integrity (hard):** never double-encode `_elementor_data`; never
+  strip unknown settings to pass validation; never convert `widgetType` (e.g.
+  `e-paragraph` → `text-editor`) without explicit user intent; never full-tree
+  rewrite to fix one control — use surgical `elementor-v3-batch-mutate`. Prefer
+  typed Elementor abilities over php-execute / raw REST / WP-CLI meta.
+- **Elementor write closure (hard):** read the live schema; for visual work send
+  `settings_evidence` with `require_evidence:true`; consolidate one post into one
+  dry-run batch and one apply; never run parallel Elementor writes. After apply,
+  call `stonewright-elementor-css-regenerate` when generated CSS must be rebuilt,
+  then `stonewright-elementor-post-write-verify` with touched IDs, then verify
+  desktop/tablet/mobile in a separate frontend tab. For boxed containers measure
+  both the outer element and its direct `.e-con-inner`. Meta readback alone is
+  not completion.
+- **Elementor CSS safety (hard):** never pass `regenerate_css` to
+  `stonewright-elementor-post-write-verify`; that input no longer exists. The
+  verifier is observation-only: it does not regenerate CSS, invalidate caches,
+  or roll back files. CSS mutation belongs only to
+  `stonewright-elementor-css-regenerate`. A normal Elementor write may invalidate
+  only post HTML/object cache. CSS closes through the regenerator's post-only
+  guarded transaction, which inventories the direct CSS directory, probes any
+  existing target, `custom-frontend.min.css`, and
+  `custom-pro-widget-nav-menu.min.css` assets before and after, rejects
+  collateral changes, and restores its bounded asset snapshot. Restore runs
+  only while the CSS directory lease still identifies this writer, including
+  an expired-but-ours lease. A vacant lease after another writer committed
+  and released is a successor fence: skip restore (`not_attempted_lock_lost`)
+  and do not reclaim the empty slot. Post-lock and CSS-directory-lease renew
+  retry a same-owner options CAS miss and continue while this writer still
+  owns a live lease; `stonewright_elementor_lock_lost` /
+  `stonewright_elementor_css_lease_lost` mean ownership is gone, expired, or
+  foreign. Never call a site-wide Elementor files-manager clear for one post.
+- Validate via `Validator::validate( $spec )` before rendering.
+- Use `stonewright/wp-cli-status`, `stonewright/wp-cli-discover`, and
+  `stonewright/wp-cli-run` for WordPress, Elementor, Gutenberg, ACF, CPT UI,
+  cache, rewrite, plugin, option, post, media, menu, and taxonomy work when it
+  speeds up implementation or debugging.
+- Use `stonewright/php-execute` for direct WordPress runtime inspection,
+  plugin API calls, and short PHP snippets when that is faster than many typed
+  calls.
+
+## Context discipline
+
+- Keep one goal per agent task. Start a fresh task when the goal changes or
+  unrelated work begins.
+- Compact only at stable checkpoints. Preserve the current objective, decisions,
+  changed files, validation results, blockers, and next step; drop raw transcript
+  history.
+- Read narrowly. Search first, then request only relevant files and line ranges.
+  Do not dump whole ledgers, generated artifacts, logs, lockfiles, or large JSON
+  files when a summary or targeted slice answers the question.
+- Batch related read-only checks when their output stays small. Avoid long chains
+  of near-identical reads, shell calls, or MCP calls that each resend the same
+  context.
+- Reuse the result of `stonewright-task-start` for the current goal. Repeat it
+  only after a
+  goal, target site, mode, authentication state, or tool profile change.
+- Prefer compact MCP profiles and task-aware batch abilities. Use the full tool
+  surface only when the task genuinely needs it.
+- Keep tool output bounded at the source. Report conclusions and decisive
+  evidence instead of echoing raw output into the task.
+- Attach large source material once. Refer to its path afterward; do not paste or
+  reattach it on later turns.
+- Never remove permission, backup, validation, confirmation-token, audit, test,
+  or source-verification steps to save tokens.
+
+---
+> Source: [cosmincraciun97/stonewright-wp-mcp](https://github.com/cosmincraciun97/stonewright-wp-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
