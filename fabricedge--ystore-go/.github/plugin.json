@@ -1,0 +1,9 @@
+{
+  "name": "fabricedge--ystore-go",
+  "displayName": "ystore-go",
+  "description": "store pdfs inside a video",
+  "version": "1.0.0",
+  "author": "fabricedge",
+  "homepage": "https://github.com/fabricedge/ystore-go",
+  "skills": []
+}
