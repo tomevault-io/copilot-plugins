@@ -1,0 +1,14 @@
+{
+  "name": "zyrexnn--cybermes",
+  "displayName": "Cybermes",
+  "description": "Cybermes",
+  "version": "1.0.0",
+  "author": "Zyrexnn",
+  "homepage": "https://github.com/Zyrexnn/Cybermes",
+  "skills": [
+    {
+      "name": "hunt-ssti",
+      "description": ""
+    }
+  ]
+}
