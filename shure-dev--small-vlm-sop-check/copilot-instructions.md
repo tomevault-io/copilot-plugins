@@ -1,61 +1,49 @@
 ## small-vlm-sop-check
 
-> 作業動画がSOP（手順書）通りかを、ローカルの小型VLM（Qwen3-VL / Apple Silicon / mlx-vlm）だけで判定するデモ。ライブラリではなく実験コードの公開リポジトリ。
+> 産業向け一人称動画について、データ準備、人手アノテーション、小型VLM推論、tIoU評価、学習を再現可能に行う公開実験基盤です。現在の主対象はFactory Egoの20秒動画であり、外部の機械生成アノテーションを正解として使いません。
 
-# CLAUDE.md
+# AGENTS.md
 
-作業動画がSOP（手順書）通りかを、ローカルの小型VLM（Qwen3-VL / Apple Silicon / mlx-vlm）だけで判定するデモ。ライブラリではなく実験コードの公開リポジトリ。
+## 目的
 
-## 構成
+産業向け一人称動画について、データ準備、人手アノテーション、小型VLM推論、tIoU評価、学習を再現可能に行う公開実験基盤です。現在の主対象はFactory Egoの20秒動画であり、外部の機械生成アノテーションを正解として使いません。
 
-- `src/` — モジュール直置き（パッケージ化していない。pip install不可・する予定もない）
-  - `cli.py`（`run`/`observe`/`judge`） / `observe.py`（Phase 1: VLM観察） / `judge.py`（Phase 2: ルールエンジン） / `extract.py`（動画→フレーム） / `sop.py`（SOP YAML読み込み）
-- `examples/konro_inspection/` — モザイク済み実動画・抽出フレーム・回答ログ・SOP YAML 3種（正解 / 順序違反 / ステップ欠落）
-- `tools/replay_viewer/` — 結果をフレーム画像ごと1枚のHTMLにして再生するビューア。`python tools/replay_viewer/build.py` で生成（`replay.html` はbase64画像を埋め込む生成物のためgit管理外。`frames/` は同梱済み）
-- `tests/` — 実データに対する回帰テスト。VLM不要
+## 作業原則
 
-## コマンド
+- 日本語で報告し、判断理由と検証結果を簡潔に残す。
+- 変更前に関連するコード、テスト、データ契約、ドキュメントを確認する。
+- 古いV1/V2や用途の重なるアプリを増やさず、現行の実装を更新する。
+- データ本体、認証情報、ローカル絶対パス、モデル重みをGitへ追加しない。
+- 正解アノテーションは動画を人間が確認した結果だけにする。モデル出力を正解へコピーしない。
+- イベント文は推測でなく画面上の動作を記述する。手段が識別に重要なら省略しない。
+- 正解区間をモデル出力に合わせて動かさない。プロンプト改善とGT修正を分離する。
+- 推論条件、query、入力hash、raw出力をrunに固定し、完了済みrunを書き換えない。
+- 4B以下を主対象とし、7B以上を既定の実験対象へ追加しない。
+- コミットはユーザーが明示的に依頼した場合だけ行う。
+
+## 品質ゲート
 
 ```bash
-pip install -r requirements.txt   # judgeだけなら pyyaml のみでよい
-pytest                            # 4件。VLM・GPUなしで動く（src/へのパスはテスト内で追加済み）
-
-# VLMなしで動く判定のみの実行（動作確認はまずこれ）
-python src/cli.py judge \
-  --sop examples/konro_inspection/sop.yaml \
-  --answer-log examples/konro_inspection/sample_output/answer_log.json
-
-# フル実行（mlx-vlm必要・Apple Silicon限定・モデルDLが走る）
-python src/cli.py run --sop examples/konro_inspection/sop.yaml \
-  --video examples/konro_inspection/data/konro_inspection.mp4 --model 4b --out-dir out/
+python -m pytest
+python tools/benchmark/validate.py --require-media
+python tools/quality/check_docs.py
+python tools/quality/check_public.py
+git diff --check
 ```
 
-## 設計原則（変更しないこと）
+アプリ変更では `npm run build`、API integration test、実ブラウザ確認を行い、保存層のテストで範囲外区間、重複区間、不正fieldを検証します。推論結果の数値は、ハッシュを固定した人手GTとprediction runから再計算できる場合だけ開発用の参考値として記載します。
 
-- **観察と判定の分離**: VLMは質問（questions）にフレーム単位で答えるだけ（Phase 1）。順序や遵守の判定は決定論的なルールエンジンが行う（Phase 2）。判定をVLMの自然文推論に委ねない——検証で単純な時刻比較すら間違えることを確認済み。
-- **用語**: `questions`（VLMへの質問）/ `answers`・`answer_log.json`（回答）/ `events` / `relations`。旧称「cue」は廃止済みなので復活させない。
-- relationsは `before` / `overlaps` / `not` の3種類のみ。安易に増やさない。
+## 主要導線
 
-## ハマりどころ
-
-- SOP YAMLの `values: ["yes", "no"]` はクォート必須。裸の yes/no はYAML 1.1でブール値になる。
-- `occurrence` 未指定のeventはYAML宣言順に早い者勝ちで区間を取るため、宣言順を変えると結果が変わる。時系列N番目に固定したければ `occurrence: N`。
-- mlx-vlm実行中に稀にMetal GPU Hangが起きる。回答ログは1フレームごとに逐次保存しているので、再実行すれば途中から再開できる。
-- fpsを上げると精度が上がるとは限らない（短いノイズが単独検出として顕在化し、判定が反転した実測あり）。既定の1fpsを基準にする。
-
-## 試せるVLM（実測）
-
-`--model` にエイリアス（`python src/cli.py models` で一覧）かHF/mlx-communityのフルIDを渡す。mlx-vlm がロードでき単一画像で厳密なJSONを返せるモデルが対象。動作確認済み: Qwen3-VL 2B/4B（基準は `qwen3-4b`）・Qwen2.5-VL-3B・InternVL3-2B・Gemma4-E2B・MiniCPM-V 4.6・Molmo-7B・Cosmos-Reason1-7B。
-
-- **torch必須で不可**: SmolVLM・LFM2-VL（`.venv-vlm` は torch なしで画像プロセッサ生成に失敗）。
-- **JSON形式に追従できず不可**: Qwen2-VL-2B・Gemma-3n-E2B。`mlx-community/Perception-LM-*` は config.json 欠落でロード不可。
-
-**プロンプトは英語指示＋質問文をlegendに分離**（`observe.py::build_prompt`）。値スロットに質問文を入れると MiniCPM-V 等が値に質問文をエコーして yes/no が出ないため。`--prefill`（既定 `{"`）でアシスタント応答をJSONの最初のキーの途中まで固定する。これで (1) Molmoのように最初のトークンでEOSを出す空応答、(2) MiniCPM-V/Cosmosのように`<think>`でトークンを使い切りJSONに届かない、の両方を既定のまま回避でき、7モデル全てでクリーンな yes/no JSON が出る（実測）。思考の連鎖を使いたい時だけ `--prefill '' --max-tokens 1024`。
-
-## 検証のしかた
-
-変更したら必ず `pytest` と上記の `judge` コマンドを実行し、総合判定が PASS のままであることを確認する。
+- `web/`: React/TypeScriptによる単一の動画UI
+- `src/small_vlm_sop_check/apps/`: FastAPI、保存層、媒体preview、結果比較
+- `datasets/<dataset>/`: 公開metadata、SOP、人手annotation、split
+- `data/<dataset>/`: Git管理外のローカル動画・フレーム
+- `tools/benchmark/`: データ再構成、検証、推論runner
+- `runs/`: 不変の推論成果物
+- `evaluations/`: runとhuman revisionを固定した評価
+- `docs/benchmark/data-contract.md`: データ境界の正本
 
 ---
 > Source: [shure-dev/small-vlm-sop-check](https://github.com/shure-dev/small-vlm-sop-check) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
