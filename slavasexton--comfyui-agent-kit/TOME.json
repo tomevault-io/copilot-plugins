@@ -1,0 +1,93 @@
+{
+  "name": "ComfyUI-Agent-Kit",
+  "owner": "SlavaSexton",
+  "repo": "ComfyUI-Agent-Kit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ComfyUI-Agent-Kit",
+      "path": "shared/krea/SKILL.md",
+      "github_url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit/tree/main/shared/krea/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ComfyUI-Agent-Kit",
+      "path": "shared/comfyui/SKILL.md",
+      "github_url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit/tree/main/shared/comfyui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ComfyUI-Agent-Kit",
+      "path": "shared/seedance/SKILL.md",
+      "github_url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit/tree/main/shared/seedance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ComfyUI-Agent-Kit",
+      "path": "shared/minimax-h3/SKILL.md",
+      "github_url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit/tree/main/shared/minimax-h3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ComfyUI-Agent-Kit",
+      "path": "claude-code/skills/krea/SKILL.md",
+      "github_url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit/tree/main/claude-code/skills/krea/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ComfyUI-Agent-Kit",
+      "path": "claude-code/skills/comfyui/SKILL.md",
+      "github_url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit/tree/main/claude-code/skills/comfyui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ComfyUI-Agent-Kit",
+      "path": "claude-code/skills/seedance/SKILL.md",
+      "github_url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit/tree/main/claude-code/skills/seedance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ComfyUI-Agent-Kit",
+      "path": "claude-code/skills/minimax-h3/SKILL.md",
+      "github_url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit/tree/main/claude-code/skills/minimax-h3/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T19:36:53Z"
+}
