@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nvidia-container-toolkit",
+  "displayName": "nvidia-container-toolkit",
+  "description": "nvidia-container-toolkit",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/nvidia-container-toolkit",
+  "skills": []
+}
