@@ -1,0 +1,9 @@
+{
+  "name": "andybeg--androidflipperzerokbd",
+  "displayName": "AndroidFlipperZeroKBD",
+  "description": "Android keyboard/touchpad \u2192 Flipper Zero BLE Serial \u2192 USB HID (or Direct Bluetooth HID to PC)",
+  "version": "1.0.0",
+  "author": "andybeg",
+  "homepage": "https://github.com/andybeg/AndroidFlipperZeroKBD",
+  "skills": []
+}
