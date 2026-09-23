@@ -1,0 +1,22 @@
+{
+  "name": "wbh604--fund-guy-skill",
+  "displayName": "fund-guy-skill",
+  "description": "fund-guy-skill",
+  "version": "1.0.0",
+  "author": "wbh604",
+  "homepage": "https://github.com/wbh604/fund-guy-skill",
+  "skills": [
+    {
+      "name": "fund-guy-skill",
+      "description": ""
+    },
+    {
+      "name": "fund-guy-skill",
+      "description": ""
+    },
+    {
+      "name": "fund-guy-skill",
+      "description": ""
+    }
+  ]
+}
