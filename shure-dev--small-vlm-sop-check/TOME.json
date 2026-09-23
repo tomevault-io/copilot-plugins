@@ -2,9 +2,9 @@
   "name": "small-vlm-sop-check",
   "owner": "shure-dev",
   "repo": "small-vlm-sop-check",
-  "description": "\u4f5c\u696d\u52d5\u753b\u304c\u624b\u9806\u66f8\uff08SOP\uff09\u3069\u304a\u308a\u304b\u3092\u3001\u30ed\u30fc\u30ab\u30eb\u306e\u5c0f\u578bVLM\uff08Qwen3-VL / Apple Silicon\uff09\u3060\u3051\u3067\u30c1\u30a7\u30c3\u30af\u3059\u308b\u30c7\u30e2",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shure-dev/small-vlm-sop-check",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T17:43:57Z"
+  "distributed_at": "2026-09-23T13:28:14Z"
 }
