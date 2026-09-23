@@ -1,0 +1,9 @@
+{
+  "name": "mstan--dkc2recomp",
+  "displayName": "DKC2Recomp",
+  "description": "Superseded by elliotttate/DKC2Recomp \u2014 static recompilation of Donkey Kong Country 2 (SNES) via snesrecomp",
+  "version": "1.0.0",
+  "author": "mstan",
+  "homepage": "https://github.com/mstan/DKC2Recomp",
+  "skills": []
+}
