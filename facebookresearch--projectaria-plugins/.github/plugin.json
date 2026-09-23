@@ -1,0 +1,9 @@
+{
+  "name": "facebookresearch--projectaria-plugins",
+  "displayName": "projectaria-plugins",
+  "description": "Official Claude Code marketplace for Project Aria \u2014 install ARK plugins for Aria SDK development, VRS data processing, MPS workflows, and device operations.",
+  "version": "1.0.0",
+  "author": "facebookresearch",
+  "homepage": "https://github.com/facebookresearch/projectaria-plugins",
+  "skills": []
+}
