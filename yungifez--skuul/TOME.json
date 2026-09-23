@@ -1,0 +1,177 @@
+{
+  "name": "skuul",
+  "owner": "yungifez",
+  "repo": "skuul",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skuul",
+      "path": ".grok/skills/infer-conventions/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.grok/skills/infer-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".grok/skills/fortify-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.grok/skills/fortify-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".agents/skills/infer-conventions/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.agents/skills/infer-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".claude/skills/infer-conventions/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.claude/skills/infer-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".grok/skills/livewire-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.grok/skills/livewire-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".grok/skills/debug-using-debugbar/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.grok/skills/debug-using-debugbar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".agents/skills/fortify-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.agents/skills/fortify-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".claude/skills/fortify-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.claude/skills/fortify-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".ai/skills/deploying-laravel-cloud/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.ai/skills/deploying-laravel-cloud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".agents/skills/livewire-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.agents/skills/livewire-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".claude/skills/livewire-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.claude/skills/livewire-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".agents/skills/debug-using-debugbar/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.agents/skills/debug-using-debugbar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".claude/skills/debug-using-debugbar/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.claude/skills/debug-using-debugbar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".grok/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.grok/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".grok/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.grok/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".agents/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.agents/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".claude/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.claude/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".agents/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.agents/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".claude/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.claude/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".grok/skills/laravel-permission-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.grok/skills/laravel-permission-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".agents/skills/laravel-permission-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.agents/skills/laravel-permission-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skuul",
+      "path": ".claude/skills/laravel-permission-development/SKILL.md",
+      "github_url": "https://github.com/yungifez/skuul/tree/main/.claude/skills/laravel-permission-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yungifez/skuul",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:47:46Z"
+}
