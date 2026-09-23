@@ -7,11 +7,11 @@ Twitter media downloader
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Leexunhuan743/twitter_media_downloader_pro](https://github.com/Leexunhuan743/twitter_media_downloader_pro).
+Original source: `AGENTS.md` in [Leexunhuan743/twitter_media_downloader_pro](https://github.com/Leexunhuan743/twitter_media_downloader_pro).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
