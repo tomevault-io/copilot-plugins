@@ -1,0 +1,9 @@
+{
+  "name": "dalroot--agentic-seo",
+  "displayName": "agentic-seo",
+  "description": "LLM-first SEO skill for AI coding assistants. Features 16 sub-skills, 10 specialist agents, 89 python scripts, and 160+ markdown marketing skills.",
+  "version": "1.0.0",
+  "author": "dalroot",
+  "homepage": "https://github.com/dalroot/agentic-seo",
+  "skills": []
+}
