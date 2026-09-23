@@ -7,11 +7,11 @@ Open-source Discord alternative — real-time voice + text chat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rafaelcg/pqp](https://github.com/rafaelcg/pqp).
+Original source: `AGENTS.md` in [rafaelcg/pqp](https://github.com/rafaelcg/pqp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
