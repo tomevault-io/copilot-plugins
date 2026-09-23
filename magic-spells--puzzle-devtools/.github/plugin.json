@@ -1,0 +1,9 @@
+{
+  "name": "magic-spells--puzzle-devtools",
+  "displayName": "puzzle-devtools",
+  "description": "Chrome DevTools extension for the Puzzle framework \u2014 view tree, store records, subscriptions, and routing, live",
+  "version": "1.0.0",
+  "author": "magic-spells",
+  "homepage": "https://github.com/magic-spells/puzzle-devtools",
+  "skills": []
+}
