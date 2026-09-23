@@ -1,16 +1,20 @@
-## arabic-text
+## core
 
-> Arabic text & search handling rules
+> iShamela core rules — always apply
 
 
-# Arabic Text Handling
+# iShamela — Core Rules
 
-- Single source of truth for normalization: SPEC-001 (`docs/specs/SPEC-001-normalizer.md`). Never write ad-hoc Arabic regexes or Unicode folding outside `normalizer.py` / `normalizer.dart`.
-- Normalization order is contractual: NFC → strip tashkīl (U+064B–U+065F, U+0670) → strip tatweel (U+0640) → strip Quranic marks (U+06D6–U+06ED) → fold أ/إ/آ/ٱ→ا, ى→ي, ة→ه, ؤ→و, ئ→ي, drop ء → digits→ASCII → punctuation→space → collapse whitespace.
-- Index side and query side MUST use the identical function; both implementations are validated against `shared/norm_test_vectors.jsonl` — if a vector fails, the code is wrong, not the vector.
-- FTS5 config is fixed by SPEC-002: contentless table, `tokenize='unicode61 remove_diacritics 0'`, rowid == pages.id. Do not change tokenizer options.
-- Any change to normalization rules requires bumping `NORM_VERSION` and updating SPEC-001 + test vectors in the same PR.
-- UI: Arabic is RTL — use logical (start/end) properties, test with real corpus text, ensure correct rendering of U+FD3E/U+FD3F ornate parentheses in displayed text (they are stripped only in search).
+Open-source Flutter app + Python data pipeline for the Islamic Sciences corpus (Hugging Face datasets). Repo ships code only, never book content.
+
+- Implement ONLY what a `docs/specs/SPEC-*.md` defines. If the task has no spec, stop and tell the user to request one. Never invent schema fields, HF dataset field names, or normalization rules.
+- Decisions in `docs/adr/` are final context, not suggestions. ADR-001: search = pre-built SQLite FTS5 bundles, offline-first. Do not propose hosted search engines or alternative index tech.
+- `pages.body` is verbatim source text: NEVER transform, trim, or "clean" it. All normalization lives in SPEC-001's `normalize()` and applies only to `body_norm` and user queries.
+- Golden files in `shared/` are read-only unless the task explicitly updates the corresponding spec.
+- Dependencies: only those on the spec's allowed list; anything else must be surfaced to the user first.
+- Print-edition page numbers are citation-critical; never renumber or infer them.
+- Offline-first: no runtime network calls except explicit bundle downloads.
+- Before coding: read the spec + linked ADR, output a file-by-file plan, write the acceptance tests first.
 
 ---
 > Source: [YasserCherfaoui/iShamela](https://github.com/YasserCherfaoui/iShamela) — distributed by [TomeVault](https://tomevault.io).
