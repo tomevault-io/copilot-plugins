@@ -1,0 +1,9 @@
+{
+  "name": "chanwata--room-synth-sim",
+  "displayName": "room-synth-sim",
+  "description": "2D spatial audio, recursive synth graph, performer controls, and history simulator",
+  "version": "1.0.0",
+  "author": "chanwata",
+  "homepage": "https://github.com/chanwata/room-synth-sim",
+  "skills": []
+}
