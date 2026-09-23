@@ -1,0 +1,309 @@
+{
+  "name": "skills",
+  "owner": "openaccountant",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "shared/tax-prep/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/tax-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/bank-sync/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/bank-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/smart-split/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/smart-split/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/net-worth/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/net-worth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/wise-import/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/wise-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/custom-report/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/custom-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/profit-loss/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/profit-loss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/debt-payoff/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/debt-payoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/monthly-digest/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/monthly-digest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/multi-entity/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/multi-entity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/square-import/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/square-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/paypal-import/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/paypal-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/quarterly-taxes/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/quarterly-taxes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/stripe-import/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/stripe-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/mileage-tracker/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/mileage-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/sales-tax-nexus/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/sales-tax-nexus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/invoice-aging/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/invoice-aging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/smart-categorize/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/smart-categorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/year-end-summary/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/year-end-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/emergency-fund/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/emergency-fund/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/expense-optimizer/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/expense-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/spending-review/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/spending-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/break-even-calc/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/break-even-calc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/lifestyle-creep/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/lifestyle-creep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/financial-goals/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/financial-goals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/month-end-close/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/month-end-close/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/insurance-audit/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/insurance-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/rental-property/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/rental-property/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/tax-penalty-calc/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/tax-penalty-calc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/venmo-reconciler/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/venmo-reconciler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/import-transactions/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/import-transactions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/runway-calculator/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/runway-calculator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/pricing-optimizer/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/pricing-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/seasonal-patterns/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/seasonal-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/charitable-giving/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/charitable-giving/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/zero-based-budget/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/zero-based-budget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/subscription-audit/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/subscription-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/cash-flow-forecast/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/cash-flow-forecast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/depreciation-schedule/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/depreciation-schedule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "shared/home-office-deduction/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/shared/home-office-deduction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "personal/state-tax-estimator/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/personal/state-tax-estimator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/contractor-tracking/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/contractor-tracking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/client-profitability/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/client-profitability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "business/revenue-concentration/SKILL.md",
+      "github_url": "https://github.com/openaccountant/skills/tree/main/business/revenue-concentration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openaccountant/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T19:41:03Z"
+}
