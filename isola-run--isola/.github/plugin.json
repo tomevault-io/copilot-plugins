@@ -1,7 +1,7 @@
 {
   "name": "isola-run--isola",
   "displayName": "isola",
-  "description": "Self-hosted Kubernetes sandboxing platform",
+  "description": "isola",
   "version": "1.0.0",
   "author": "isola-run",
   "homepage": "https://github.com/isola-run/isola",
