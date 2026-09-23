@@ -1,0 +1,87 @@
+{
+  "name": "dsh-TUI",
+  "owner": "ccch1mneyyy",
+  "repo": "dsh-TUI",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dsh-TUI",
+      "path": ".agents/skills/bug/SKILL.md",
+      "github_url": "https://github.com/ccch1mneyyy/dsh-TUI/tree/main/.agents/skills/bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-TUI",
+      "path": ".agents/skills/audit/SKILL.md",
+      "github_url": "https://github.com/ccch1mneyyy/dsh-TUI/tree/main/.agents/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-TUI",
+      "path": ".agents/skills/review/SKILL.md",
+      "github_url": "https://github.com/ccch1mneyyy/dsh-TUI/tree/main/.agents/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-TUI",
+      "path": ".agents/skills/practice/SKILL.md",
+      "github_url": "https://github.com/ccch1mneyyy/dsh-TUI/tree/main/.agents/skills/practice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-TUI",
+      "path": ".agents/skills/vuln-check/SKILL.md",
+      "github_url": "https://github.com/ccch1mneyyy/dsh-TUI/tree/main/.agents/skills/vuln-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-TUI",
+      "path": ".agents/skills/pr-comments/SKILL.md",
+      "github_url": "https://github.com/ccch1mneyyy/dsh-TUI/tree/main/.agents/skills/pr-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-TUI",
+      "path": ".agents/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/ccch1mneyyy/dsh-TUI/tree/main/.agents/skills/release-notes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ccch1mneyyy/dsh-TUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:02:17Z"
+}
