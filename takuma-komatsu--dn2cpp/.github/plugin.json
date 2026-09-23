@@ -1,0 +1,9 @@
+{
+  "name": "takuma-komatsu--dn2cpp",
+  "displayName": "dn2cpp",
+  "description": "An AOT .NET-to-C++ transpiler \u2014 where NativeAOT meets IL2CPP \u2014 with a native drop-in for Godot's Mono module",
+  "version": "1.0.0",
+  "author": "takuma-komatsu",
+  "homepage": "https://github.com/takuma-komatsu/dn2cpp",
+  "skills": []
+}
