@@ -1,0 +1,14 @@
+{
+  "name": "zunfurl--zunfurl",
+  "displayName": "zunfurl",
+  "description": "zunfurl",
+  "version": "1.0.0",
+  "author": "ZUnfurl",
+  "homepage": "https://github.com/ZUnfurl/zunfurl",
+  "skills": [
+    {
+      "name": "zunfurl",
+      "description": ""
+    }
+  ]
+}
