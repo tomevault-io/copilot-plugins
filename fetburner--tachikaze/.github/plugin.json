@@ -1,0 +1,9 @@
+{
+  "name": "fetburner--tachikaze",
+  "displayName": "Tachikaze",
+  "description": "Lossless CM cutting for already-converted mp4 recordings (no re-encode)",
+  "version": "1.0.0",
+  "author": "fetburner",
+  "homepage": "https://github.com/fetburner/Tachikaze",
+  "skills": []
+}
