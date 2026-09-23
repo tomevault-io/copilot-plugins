@@ -2,9 +2,9 @@
   "name": "finding-unknowns-skills",
   "owner": "Neeeophytee",
   "repo": "finding-unknowns-skills",
-  "description": "8 installable Claude Code skills for finding your unknowns before they get expensive: blindspot pass, brainstorms, interviews, references, plans, notes, pitches, and a merge quiz. Community distillation, not official Anthropic.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Neeeophytee/finding-unknowns-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T21:30:59Z"
+  "distributed_at": "2026-09-23T18:32:38Z"
 }
