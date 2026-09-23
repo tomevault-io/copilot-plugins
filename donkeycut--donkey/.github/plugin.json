@@ -1,0 +1,14 @@
+{
+  "name": "donkeycut--donkey",
+  "displayName": "Donkey",
+  "description": "Donkey",
+  "version": "1.0.0",
+  "author": "DonkeyCut",
+  "homepage": "https://github.com/DonkeyCut/Donkey",
+  "skills": [
+    {
+      "name": "Donkey",
+      "description": ""
+    }
+  ]
+}
