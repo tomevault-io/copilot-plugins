@@ -1,0 +1,21 @@
+## commands
+
+> Bash commands and workflow
+
+
+# Commands
+
+- pnpm test - runs unit tests
+- pnpm test --coverage - runs unit tests that generates coverage reports at the root in `coverage` folder
+- pnpm check:types - checks typescript types
+- pnpm check:lint - checks for formatting and eslint issues.
+- pnpm check:deps - Checks for any extra dependency, files or unnecessary exports
+
+# Workflow
+
+- Be sure to typecheck, lint, depcheck and run tests when you are done.
+- Testing coverage should be maximized. Prefer running tests with coverage and the goal is to achieve maximum testing coverage for any new code added. The way to run test is `pnpm test --coverage` at the root and the coverage report is generated in html at the coverage folder at the root. Look for the following pattern in the coverage directory. <filename>.<ext>.html
+
+---
+> Source: [sanity-io/cli](https://github.com/sanity-io/cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
