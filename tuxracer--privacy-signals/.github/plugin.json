@@ -1,0 +1,9 @@
+{
+  "name": "tuxracer--privacy-signals",
+  "displayName": "privacy-signals",
+  "description": "Detects browser privacy opt-out signals (Do Not Track and Global Privacy Control) with zero dependencies",
+  "version": "1.0.0",
+  "author": "tuxracer",
+  "homepage": "https://github.com/tuxracer/privacy-signals",
+  "skills": []
+}
