@@ -1,0 +1,9 @@
+{
+  "name": "prometheus--mysqld-exporter",
+  "displayName": "mysqld_exporter",
+  "description": "mysqld_exporter",
+  "version": "1.0.0",
+  "author": "prometheus",
+  "homepage": "https://github.com/prometheus/mysqld_exporter",
+  "skills": []
+}
