@@ -1,0 +1,9 @@
+{
+  "name": "magickaichen--knowledge-loom",
+  "displayName": "knowledge-loom",
+  "description": "Agent-neutral protocols and skills for governed local Markdown knowledge vaults",
+  "version": "1.0.0",
+  "author": "magickaichen",
+  "homepage": "https://github.com/magickaichen/knowledge-loom",
+  "skills": []
+}
