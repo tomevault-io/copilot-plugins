@@ -1,0 +1,9 @@
+{
+  "name": "senal-d-a-gunaratna--swapson-nvim",
+  "displayName": "swapson.nvim",
+  "description": "A companion plugin for mason.nvim that installs packages through faster alternatives (bun and uv), and runs npm-sourced packages with bun instead of node",
+  "version": "1.0.0",
+  "author": "Senal-D-A-Gunaratna",
+  "homepage": "https://github.com/Senal-D-A-Gunaratna/swapson.nvim",
+  "skills": []
+}
