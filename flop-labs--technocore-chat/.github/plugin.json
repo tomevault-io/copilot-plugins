@@ -1,0 +1,14 @@
+{
+  "name": "flop-labs--technocore-chat",
+  "displayName": "technocore-chat",
+  "description": "technocore-chat",
+  "version": "1.0.0",
+  "author": "flop-labs",
+  "homepage": "https://github.com/flop-labs/technocore-chat",
+  "skills": [
+    {
+      "name": "technocore-chat",
+      "description": ""
+    }
+  ]
+}
