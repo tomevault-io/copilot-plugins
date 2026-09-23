@@ -1,0 +1,9 @@
+{
+  "name": "sciml--diffeqgpu-jl",
+  "displayName": "DiffEqGPU.jl",
+  "description": "DiffEqGPU.jl",
+  "version": "1.0.0",
+  "author": "SciML",
+  "homepage": "https://github.com/SciML/DiffEqGPU.jl",
+  "skills": []
+}
