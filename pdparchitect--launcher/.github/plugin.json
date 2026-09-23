@@ -1,0 +1,9 @@
+{
+  "name": "pdparchitect--launcher",
+  "displayName": "launcher",
+  "description": "A local-first launcher for discovering, installing, running, and managing containerized AI agents and harnesses.",
+  "version": "1.0.0",
+  "author": "pdparchitect",
+  "homepage": "https://github.com/pdparchitect/launcher",
+  "skills": []
+}
