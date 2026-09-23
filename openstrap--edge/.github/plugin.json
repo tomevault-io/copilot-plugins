@@ -1,0 +1,14 @@
+{
+  "name": "openstrap--edge",
+  "displayName": "edge",
+  "description": "edge",
+  "version": "1.0.0",
+  "author": "OpenStrap",
+  "homepage": "https://github.com/OpenStrap/edge",
+  "skills": [
+    {
+      "name": "edge",
+      "description": ""
+    }
+  ]
+}
