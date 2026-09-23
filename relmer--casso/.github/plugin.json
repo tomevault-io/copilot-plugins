@@ -1,0 +1,9 @@
+{
+  "name": "relmer--casso",
+  "displayName": "Casso",
+  "description": "An Apple 2 family emulator with a built-in, fully AS65-compatible assembler",
+  "version": "1.0.0",
+  "author": "relmer",
+  "homepage": "https://github.com/relmer/Casso",
+  "skills": []
+}
