@@ -23,7 +23,7 @@ Original source: `AGENTS.md` in [tx7do/go-wind-admin](https://github.com/tx7do/g
 - [go-wind-admin](https://github.com/tx7do/go-wind-admin/tree/main/frontend/admin/react/.qoder/skills/go-wind-admin-react-guide/SKILL.md)
 - [go-wind-admin](https://github.com/tx7do/go-wind-admin/tree/main/.zcode/skills/add-crud-module/SKILL.md)
 
-From [tx7do/go-wind-admin](https://github.com/tx7do/go-wind-admin) — a repo with 0+ stars on GitHub.
+From [tx7do/go-wind-admin](https://github.com/tx7do/go-wind-admin) — a repo with 559+ stars on GitHub.
 
 ---
 
