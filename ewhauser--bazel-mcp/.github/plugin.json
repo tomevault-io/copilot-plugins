@@ -1,0 +1,9 @@
+{
+  "name": "ewhauser--bazel-mcp",
+  "displayName": "bazel-mcp",
+  "description": "MCP server for Bazel focused on token reduction",
+  "version": "1.0.0",
+  "author": "ewhauser",
+  "homepage": "https://github.com/ewhauser/bazel-mcp",
+  "skills": []
+}
