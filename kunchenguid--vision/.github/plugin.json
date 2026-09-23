@@ -1,0 +1,14 @@
+{
+  "name": "kunchenguid--vision",
+  "displayName": "vision",
+  "description": "vision",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/vision",
+  "skills": [
+    {
+      "name": "vision",
+      "description": ""
+    }
+  ]
+}
