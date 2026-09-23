@@ -1,0 +1,57 @@
+{
+  "name": "PtcgDeckAgent",
+  "owner": "beralee",
+  "repo": "PtcgDeckAgent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PtcgDeckAgent",
+      "path": "tools/community/skills/video-curation/SKILL.md",
+      "github_url": "https://github.com/beralee/PtcgDeckAgent/tree/main/tools/community/skills/video-curation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PtcgDeckAgent",
+      "path": "tools/community/skills/environment-interpretation/SKILL.md",
+      "github_url": "https://github.com/beralee/PtcgDeckAgent/tree/main/tools/community/skills/environment-interpretation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/beralee/PtcgDeckAgent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T09:05:56Z"
+}
