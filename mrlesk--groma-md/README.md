@@ -7,11 +7,11 @@ Your architecture as OKF Markdown in Git, and one C4 map you can walk. Scanned f
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MrLesk/Groma.md](https://github.com/MrLesk/Groma.md).
+Original source: `CLAUDE.md` in [MrLesk/Groma.md](https://github.com/MrLesk/Groma.md).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
