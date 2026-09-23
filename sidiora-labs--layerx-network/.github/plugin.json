@@ -1,0 +1,14 @@
+{
+  "name": "sidiora-labs--layerx-network",
+  "displayName": "LayerX-Network",
+  "description": "LayerX-Network",
+  "version": "1.0.0",
+  "author": "Sidiora-Labs",
+  "homepage": "https://github.com/Sidiora-Labs/LayerX-Network",
+  "skills": [
+    {
+      "name": "LayerX-Network",
+      "description": ""
+    }
+  ]
+}
