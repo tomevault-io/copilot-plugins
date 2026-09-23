@@ -1,0 +1,9 @@
+{
+  "name": "comfy-org--comfy-api-proxy",
+  "displayName": "comfy-api-proxy",
+  "description": "Local proxy exposing the Comfy API v2 in front of a self-hosted ComfyUI instance.",
+  "version": "1.0.0",
+  "author": "Comfy-Org",
+  "homepage": "https://github.com/Comfy-Org/comfy-api-proxy",
+  "skills": []
+}
