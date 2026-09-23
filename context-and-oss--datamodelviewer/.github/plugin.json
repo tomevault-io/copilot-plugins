@@ -1,0 +1,9 @@
+{
+  "name": "context-and-oss--datamodelviewer",
+  "displayName": "DataModelViewer",
+  "description": "Browser-based visualizer for Microsoft Dataverse / Dynamics 365 data models \u2014 entities, relationships, and dependencies.",
+  "version": "1.0.0",
+  "author": "context-and-oss",
+  "homepage": "https://github.com/context-and-oss/DataModelViewer",
+  "skills": []
+}
