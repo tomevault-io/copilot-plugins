@@ -1,0 +1,9 @@
+{
+  "name": "duceum--appstore-ppp-pricing-agent-skill",
+  "displayName": "appstore-ppp-pricing-agent-skill",
+  "description": "PPP pricing for App Store apps \u2014 bulk-update IAP & subscription prices in 175+ countries by purchasing power. Free CLI, agent-friendly (Claude Code, Codex).",
+  "version": "1.0.0",
+  "author": "duceum",
+  "homepage": "https://github.com/duceum/appstore-ppp-pricing-agent-skill",
+  "skills": []
+}
