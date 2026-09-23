@@ -1,0 +1,388 @@
+## veepin
+
+> generates one flag per spec — name from `Key` (or `Flag`, for the handful
+
+# veepin — working notes for coding agents
+
+A from-scratch userspace VPN in pure Go. Sixteen production protocols, **client
+and server for every one**, each verified in Docker against a real third-party
+implementation *and* against itself.
+
+That sentence is the whole thesis, and it is what most decisions here follow
+from. Read it as three constraints:
+
+- **From scratch.** No third-party protocol libraries. Dependencies are
+  `golang.org/x/{crypto,net,sys}` and nothing else. `x/crypto` is there because
+  WireGuard mandates ChaCha20-Poly1305 and BLAKE2s; `x/net` for QUIC.
+- **Both roles.** A protocol is not "added" until `veepin connect <p>` and
+  `veepin serve <p>` both work. Half a protocol is not a milestone.
+- **Verified against a real peer.** A veepin↔veepin test proves the two halves
+  agree with each other, which is not the same as being right. See
+  [The interop matrix earns its keep](#the-interop-matrix-earns-its-keep).
+
+## Orientation
+
+```
+cmd/veepin/          the CLI: connect, serve, probe
+client/              the registry, and the Session/Result/Server contracts
+dataplane/           TUN, address pool, packet pump, routing, shaping — protocol-agnostic
+internal/cryptoutil/ the primitives — protocol-agnostic
+<proto>/             the public facade for one protocol: Config, Opt* consts, Dial, NewServer
+internal/<proto>/    that protocol's implementation
+tests/interop/       Docker cells: one compose file per direction, per protocol
+internal/livingreadme/  the interop matrix, which drives both the README tables and the CI shards
+nm/                  a separate Go module: the NetworkManager plugin
+```
+
+Two shared packages carry the PPP protocols: `internal/ppp` (LCP, MS-CHAPv2,
+IPCP, both roles) and `internal/mschap`. Two carry IPsec: `internal/ikev2/esp`
+(the RFC 4303 data path, used by five protocols now) and `internal/ikev1` (which
+serves both L2TP/IPsec and Cisco IPsec).
+
+`toy` / `internal/toy` is a deliberately insecure worked example with a written
+spec. It is the right thing to read first when adding a protocol, and it must
+never carry traffic.
+
+## Hard rules
+
+These are contracts, not conventions. Breaking one is silent at compile time and
+wrong at runtime.
+
+- **`Dial` installs no routes and no addresses.** It returns a `client.Result`
+  the caller applies. See `client/client.go`.
+- **`client.Result.Gateway` is the server's OUTER address** — the one dialled on
+  the underlying network, never an address inside the tunnel. It exists so the
+  caller can pin a host route and stop the tunnel's own packets recursing into
+  it. Getting this wrong is silent: the handshake succeeds, the interface comes
+  up, and every packet leaves by the wrong door. `client.Result.Validate`
+  catches the common mistake.
+- **`NewServer` opens the TUN and validates, but binds nothing.** Sockets are
+  bound in `ListenAndServe`, so the caller can configure host networking first.
+- **Parsers return subslices of their input.** The inbound data path is
+  allocation-free by design; a parser that copies costs one allocation per
+  packet. `datapath_test.go` in each package pins this.
+- **`internal/` is where implementations live.** The `<proto>/` package is the
+  supported surface and should be thin.
+
+## The mechanical guards
+
+CI fails loudly and by name if you skip a step. Knowing these up front saves a
+round trip:
+
+| Guard | What it requires |
+|---|---|
+| `docs_test.go` — `TestPackageDocNamesEveryProtocol` | `doc.go`'s package comment names every registered package |
+| `docs_test.go` — `TestREADMECountsProtocolsCorrectly` | **every** occurrence of "*N* production protocols" and "*Nth* registered protocol" in the README agrees with the registry — spelled out ("sixteen", "seventeenth") |
+| `fuzztargets_test.go` — `TestFuzzTargetsAreAllListed` | every `Fuzz*` in the tree is in the `TARGETS` heredoc in `.github/workflows/ci.yml`, and `expected=N` matches the count |
+| `cmd/veepin/main_test.go` | every registered protocol has a `connect` case |
+| `cmd/veepin/flags_test.go` — `TestTheFlagSetIsTheSpecTable` | every registered protocol declares `RegisterClientOpts`/`RegisterServerOpts` for each role it claims, and every spec in them produces a flag that reaches its own key. Two specs cannot claim one flag spelling |
+| `cmd/veepin/flags_test.go` | every bound flag reaches the option map (it perturbs each one and requires the map to change); every emitted key has a matching `Opt*` const |
+| `cmd/veepin/flags_test.go` — `TestRequiredClientOptsAreTheOnesTheParseRejects` | an option whose absence the parse rejects with "is required" is marked `Required: true` — **and** that the full option map built from the specs parses at all, without which the check is vacuous for that protocol |
+| `cmd/veepin/flags_test.go` — `TestSecretFlagsAgreeAcrossBothTables` | a key in both a protocol's client and server tables carries the same `Secret` flag in each |
+| `autherr_test.go` — `TestEveryProtocolJudgingACredentialReportsErrAuth` | every facade declaring a `Secret` client option references `client.ErrAuth`/`client.WrapAuth`, or is named in `noCredentialJudged` with the reason its `Dial` judges no credential |
+| `docs_test.go` — `TestEveryOptConstIsDescribedByAnOptSpec` | every `Opt*` const a facade declares is named as a `Key` in one of its two OptSpec tables |
+| `internal/livingreadme/interop_test.go` | every test named in the matrix exists, and every `TestInterop*` is in the matrix — **a test absent from the matrix runs in no CI shard and therefore never runs** |
+| `abandon_test.go` — `TestEveryRegisteredServerCanBeAbandoned` | every facade registering a server asserts `client.AbandonableServer` on its own `*Server`, so a listener the supervisor gives up waiting for still gives its TUN fd and pump goroutine back |
+| `nm/cmd/.../TestAllSupportedProtocolsRegistered` | `nmconfig.SupportedProtocols` and the service's blank imports agree |
+| `tests/e2e/harness/registry_test.go` | the Playwright harness blank-imports every facade, so the panel it serves has the same registry the real binary does |
+
+`docs_test.go` reaches the registry through blank imports of every facade
+package. Forget to add yours and the count check passes — against a registry
+that has not heard of your protocol. Add the import first.
+
+## Adding a protocol
+
+Roughly the order that works. One commit per phase.
+
+1. **`internal/<proto>/` codecs first**, with tests, before any I/O. Framing,
+   then whatever the control plane parses. Every codec gets a "reject every
+   truncation" test — loop over every prefix of a valid message.
+2. **Both roles over an in-memory pipe** (`net.Pipe`) or a real
+   `net.Listener`/`tls.NewListener`, in `e2e_test.go`. Assert the data path
+   moves a byte-identical packet in both directions, shaped and unshaped.
+3. **`<proto>/` facade** — `Config`, `Opt*` consts, `Dial`, a `dialer`
+   implementing `client.Dialer`, `func init() { client.Register(...) }`; and
+   `server.go` with the same shape for `client.RegisterServer`. Implement
+   `client.Prober` on any path that can go quiet.
+   Then **`<proto>/opts.go`** — one `client.OptSpec` per client option, through
+   `client.RegisterClientOpts`, alongside the server's `client.RegisterServerOpts`
+   in `server.go`. This is what the management panel renders a form from and what
+   `veepin profile add` and client-config generation validate against; without it
+   the protocol is dialable but unmanageable. Mark `Secret` on anything that is
+   key material *or a path to it*, and `Required` on anything the parse rejects
+   the absence of.
+
+   **The OptSpec table IS the command-line flag set.** `cmd/veepin/optflags.go`
+   generates one flag per spec — name from `Key` (or `Flag`, for the handful
+   whose command-line spelling has never matched: ikev2's key is `gateway` and
+   its flag is `-server`), type from `Kind`, default and help from `Default` and
+   `Help`. `Secret` additionally produces a `-<flag>-file` companion, so the
+   value need never appear in `ps`. There is no per-protocol `case` to write.
+
+   Two things follow that are easy to get wrong. `Default` is what the
+   *protocol* does when the option is unset, not a value the CLI injects: an
+   unset flag contributes nothing to the option map, which is what stops
+   `-cipher`'s documented default from silently overriding a `.ovpn` file. And
+   whether a lone option is key material is a judgement `doc/security.md` is
+   the record of — no guard can make it, though a key in **both** tables must be
+   flagged the same way in each, and that is asserted.
+4. **Register the facade** with a blank import in `cmd/veepin/main.go`. That is
+   the whole of making a protocol reachable from the command: the registry
+   carries the parse *and* the specs the flags come from.
+5. **Docs**: `doc.go`, the README protocol table + usage-runbook table + the
+   spelled-out counts, `doc/usage/<proto>.md`, `internal/<proto>/README.md`, and
+   a `doc/security.md` section if the protocol has a weakness worth naming.
+6. **`datapath_test.go`** — the `AllocsPerRun` guard and `Benchmark*` swept over
+   `{64, 576, 1400}`.
+7. **`fuzz_test.go`** + the `ci.yml` `TARGETS` list + `expected=`.
+8. **Interop** — peer image dir, `compose.<proto>*.yml` per cell, entrypoints
+   under `tests/interop/veepin/`, `TestInterop*` funcs, an `interopRow` in
+   `internal/livingreadme/interop.go`, and the facade dir added to **both**
+   path-filter lists in `.github/workflows/interop.yml`. Use `runInteropBench`
+   for the first test of a cell so the throughput table fills.
+9. **NetworkManager** — `nm/internal/nmconfig/nmconfig.go` (`SupportedProtocols`,
+   `requireKeys`, `secretMissing`), `nm/Makefile` (`VEEPIN_PROTOCOLS` +
+   `LABEL_<proto>`), `nm/editor/veepin-editor.c` (a `FieldDef` table + a `PROTO`
+   row), and a blank import in `nm/cmd/nm-veepin-service/main.go`.
+10. **The panel harness** — a blank import in `tests/e2e/harness/main.go`, so the
+   management panel the browser suite drives renders your protocol's forms. The
+   guard in that directory names the import to add.
+
+### The gate before pushing
+
+```sh
+gofmt -l .                                   # must print nothing
+go build ./... && go vet ./...
+go test -race ./...                          # correctness
+go test ./...                                # again: the AllocsPerRun guards need no race detector
+golangci-lint run
+go mod tidy && git diff --exit-code go.mod go.sum
+cd nm && go build ./... && go test -race ./... && cd ..
+make interop                                 # needs Docker
+```
+
+Two of those are easy to skip and both bite. `gofmt` is checked by a dedicated
+CI step that `golangci-lint` does not cover. And the **second, race-free** `go
+test ./...` is not redundant: the race detector perturbs allocation counts, so
+the `AllocsPerRun` guards skip under `-race` and only run in that pass.
+
+## The interop matrix earns its keep
+
+Run the interop cells locally before pushing. `docker compose` reuses a running
+container when only a bind-mounted file changed, so **tear down between runs** or
+you will test the old code and misread the result:
+
+```sh
+cd tests/interop
+docker compose -f compose.<cell>.yml down -v --remove-orphans
+go test -tags interop -run 'TestInterop<Name>' -v -timeout 15m ./...
+```
+
+Why it matters, concretely. While adding Pulse, the two ESP keying blocks were
+wired to the wrong directions **at both ends**. That produces a pair of security
+associations that agree perfectly *with each other* — so the veepin↔veepin cell
+passed, every unit test passed, and only openconnect noticed. A self-test can
+only prove the two halves are consistent. Cross-implementation tests are what
+prove they are correct.
+
+Two corollaries:
+
+- When a data path has a fallback, **assert the fast path actually came up**.
+  `runInteropRequiringLog` exists for this: a bare ping passes just as happily
+  on a silent fallback, which is exactly what was masking the bug above.
+- When a protocol has no open-source server, the client-direction cell gets the
+  fixed `—†` label rather than a false ✗ (see the Fortinet precedent in
+  `internal/livingreadme/interop.go`).
+
+## The management panel's browser tests
+
+`tests/e2e/` is a separate Playwright suite that drives the panel in a real
+Chromium against the production management plane — a real `mgmt.Server`, the
+embedded `ui.Handler`, and `mgmt.RequireHost` — with a fake `ManagerBackend`
+standing in for the supervisor, so no TUN, Docker, or root is needed. The harness
+is `tests/e2e/harness` (a Go `main`; `go build ./...` compiles it) and the world
+it serves comes from `tests/e2e/fixtures/seed.json`. Run locally with `make e2e`
+(needs Node ≥ 20.6; the target installs the browser itself); CI runs it in the
+path-filtered `e2e` workflow. The Go tests pin the API's HTTP behavior; these pin
+that the DOM renders it — redaction sentinels visible, destructive actions gated
+on `confirm()`, the client-config dialog provisioning a real peer, and every
+operator-supplied string reaching the page as text rather than markup.
+
+Three rules the suite is built on, each of which it broke once:
+
+- **The harness world is mutable and shared, so every test puts back what it
+  changed.** Tests create uniquely-named entities (`lib/unique.ts`) and delete
+  them; the one test that touches a *seeded* entity restores it in an
+  `afterEach`. Without that the suite is green exactly once per harness process,
+  and `--repeat-each=2` is the cheapest way to find out.
+- **The harness is never reused between runs** (`reuseExistingServer: false`) and
+  binds a port picked at config load, not a fixed one. Same reasoning as tearing
+  down `docker compose` between interop runs: a survivor answers with the last
+  run's state and the result looks plausible.
+- **A `confirm()` test must assert that no request went out**, not that the page
+  looks unchanged. The banner shows only on failure, so "cancel leaves the banner
+  hidden" is true whether or not `confirm` was honoured. Count the audit events,
+  or ask the API.
+
+## Protocol work: things learned the hard way
+
+- **Read the reference implementation's source, not a summary of it.** For
+  Pulse, the cipher identifiers in my own plan were wrong (`AES-128-CBC` is 2 and
+  `AES-256-CBC` is 5), and the configuration packet turned out to have four
+  length fields that must agree or a client refuses it outright. `curl` the file
+  and read it; a summarised fetch loses exactly the offsets that matter.
+- **Where a peer enforces a value, emit exactly that value** and say so in a
+  comment naming the peer. Several constants in `internal/pulse` and
+  `internal/gp` are only explicable that way.
+- **Endianness is not uniform inside a protocol.** Pulse is big-endian
+  throughout except the ESP SPI. GlobalProtect's frame header is big-endian
+  except the kind word. Both have a test whose whole purpose is to stop a
+  tidy-up from "fixing" them.
+- **`net/http` will reject requests that real clients send.** openconnect's
+  GlobalProtect tunnel request is `GET <path> HTTP/1.1\r\n\r\n` with no headers
+  at all, and Go rejects HTTP/1.1 without `Host` before any handler runs — hence
+  `internal/gp/listener.go`, which splits the tunnel off in front of `net/http`
+  by request line. Related: a kept-alive control connection carries the next
+  request past that splitter, so the control plane sets `Connection: close`.
+- **Mutually-consistent bugs are the dangerous class.** Anything where both ends
+  make the same choice — key direction, nonce orientation, who-sends-first —
+  needs either a cross-implementation test or a unit test written from the
+  *peer's* point of view. `TestKeyBlocksNameTheirOwnInboundDirection` in
+  `internal/pulse` is the model.
+- **Reordering is real.** In the Cisco IPsec XAuth exchange, the client sends its
+  acknowledgement and its configuration request back to back; gating the second
+  on the first turned ordinary datagram reordering into a failed session. Prefer
+  dispatching on *what a message is* over *what the state machine expected next*.
+- **Shaping needs no peer support**, on any protocol here. Over ESP it is
+  RFC 4303 §2.7 traffic-flow-confidentiality padding; over a framed layer-3
+  tunnel it is trailing filler the receiver trims by the inner IP header's own
+  Total Length, as every IP stack does. Every shaped interop cell exists to
+  prove a stock client tolerates it.
+
+## House style
+
+The code reads like prose and the comments carry the reasoning. Match it.
+
+- **Comments say *why*, and name the alternative not taken.** "Little-endian,
+  deliberately" beats "read the SPI". If a value came from a peer's source or a
+  packet dump, say which.
+- **Package-level doc comments open each file** with the shape of the thing —
+  often an ASCII or mermaid diagram of the exchange. See `internal/pulse/auth.go`
+  or `internal/ikev1/aggressive.go`.
+- **Test names are claims.** `TestSPIIsLittleEndian`,
+  `TestConfigOmitsESPWhenThereIsNone`,
+  `TestEncodeSplitIncludeSkipsWhatItCannotSay`. The comment above a test says
+  what breaks if it fails, not what it does.
+- **Errors are lower-case, prefixed with the package name**, and the drop path on
+  a data path uses pre-built sentinels so a flood of bad packets allocates
+  nothing.
+- **Logging goes through `internal/vlog`** — `log/slog` with `Printf`-shaped
+  calls. `Printf` is Info, and `Warnf`/`Errorf` exist so `-log-level warn` means
+  something. A line may only ever be reclassified **upward**: Info→Warn keeps it
+  visible at the default level, Info→Debug hides it from everyone who has not
+  asked, and thirty-two interop cells assert on this stream. A facade's public
+  `Logger` field is an `*slog.Logger`, wrapped on the way in.
+- **Every `internal/<proto>/README.md` ends with an honest caveats section.**
+  Missing forward secrecy, unimplemented modes, protocol weaknesses veepin
+  inherits — state them plainly. `doc/security.md` carries the longer form.
+- Prefer `for i := range n` over `for i := 0; i < n; i++`, and
+  `strings.SplitSeq` over `strings.Split` — the linter enforces both.
+
+## Known flakes
+
+Re-run these; don't "fix" them.
+
+- `AllocsPerRun` assertions in the "Test (no race, for allocation assertions)" step.
+- `fuzz (smoke)` reporting "context deadline exceeded" — that is a timeout, not
+  a crash.
+- `internal/ikev2/ike` — "ESP packet never reached the server TUN".
+- The release workflow's `nm-packages` job dying on an Ubuntu mirror sync.
+- `compose up: signal: killed` in an interop shard, with the last line of output
+  a container *Starting* and never *Started*. That is the Docker daemon taking
+  minutes over a start that normally takes milliseconds — seen on the
+  `softether-vpn` and `sstp` shards, and reproducible locally. `composeUp`
+  retries once on it now, so a red build means it happened twice; the retry is
+  safe because `up --build -d` waits for nothing veepin does.
+
+## Cutting a release
+
+Tags drive it: `.github/workflows/release.yml` runs GoReleaser on any pushed
+`v*` tag, and the changelog is generated from `feat:`/`fix:` commits (the
+`docs`/`test`/`chore`/`ci` types, scoped forms included, are filtered out).
+
+Any commit on `main` is taggable now. It was not always: the living-README
+workflow used to commit its regenerated tables with `[skip ci]` in the message,
+and GitHub skips *every* workflow for a push whose head commit carries that
+marker — the tag push included. Tagging the tip of `main` therefore produced a
+tag, no run, no release, and no error anywhere. The marker is gone
+(`living-readme-commit.sh` says why the loop stays prevented without it), so do
+not reintroduce it, and do not add it to any commit that could end up as a tag's
+target.
+
+Two things that will still bite:
+
+- **A tag push is a one-shot event.** If Actions drops it, nothing reports an
+  error. Re-run with `gh workflow run release.yml --ref v<x.y.z>` rather than
+  deleting and re-pushing the tag; `replace_existing_artifacts` in
+  `.goreleaser.yaml` and `--clobber` on the `gh release upload` steps are there
+  so a second attempt against a half-published release converges instead of
+  dying on `422 already_exists`.
+- **The Debian archive moves under the cross-build job.** `nm-packages-cross`
+  installs target dev libraries out of a Debian container, and when bookworm
+  entered LTS its security suite dropped `armel` and `s390x` while `main` kept
+  them — which desynchronises the version of every `Multi-Arch: same` library
+  between the container's amd64 and the target arch, and apt then refuses to
+  install anything. The step detects the case from the security suite's own
+  `Architectures:` line; expect the next architecture to fall off the same way.
+
+### Rotating the APT signing key
+
+The `apt-repo` job signs the Pages repository with the armored private key in
+the `APT_SIGNING_KEY` Actions secret, and `packaging/apt-signing-key.asc` is the
+public half users pin with `signed-by=`. The two live in different places and
+are rotated by hand, so the job compares their fingerprints before signing
+anything — a drifted pair would otherwise produce a repository that verifies for
+nobody who fetched the keyring earlier, and no red build to say so.
+
+Same parameters every time: ed25519, sign-only, **no expiry** (an expired
+archive key breaks `apt update` for every existing installation on a date nobody
+is watching), UID on the GitHub noreply address so public Actions logs carry no
+personal email.
+
+```sh
+export GNUPGHOME=$(mktemp -d)   # a scratch keyring: one key in it, so the
+chmod 700 "$GNUPGHOME"          # bare exports below are unambiguous
+gpg --batch --passphrase '' --quick-generate-key \
+  'veepin APT repository (release signing) <21974988+xen0bit@users.noreply.github.com>' \
+  ed25519 sign never
+gpg --armor --export             > packaging/apt-signing-key.asc
+gpg --armor --export-secret-keys | gh secret set APT_SIGNING_KEY
+cp "$GNUPGHOME"/openpgp-revocs.d/*.rev ~/somewhere-safe/
+```
+
+No passphrase, deliberately: the job imports the secret unattended, and a
+passphrase in a second secret protects nothing that `secrets.APT_SIGNING_KEY`
+does not already hold.
+
+Then commit the public key with the new fingerprint in the message, and update
+the fingerprint in **both** places it is written out for humans: the README's
+install section and the landing page heredoc in
+`.github/scripts/build-apt-repo.sh`. Rotation is a breaking change for anyone
+already subscribed — the repository is re-signed at the next release and their
+keyring stops verifying it — so both of those say to re-fetch the keyring.
+
+Keep the private key and its revocation certificate somewhere outside the repo.
+There is no recovery if it is lost: the only remedy is another rotation, and
+every subscriber re-fetches.
+
+## Sequencing several protocols
+
+They serialise, because they all touch `doc.go`, the README protocol table and
+the spelled-out counts. Branch off the previous one, and note that **this repo's
+workflows only trigger on pull requests whose base is `main`** — a PR stacked on
+another branch gets no checks at all. Merge in order and rebase each onto `main`
+before expecting CI.
+
+---
+> Source: [xen0bit/veepin](https://github.com/xen0bit/veepin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
