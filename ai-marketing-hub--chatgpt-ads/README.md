@@ -7,11 +7,11 @@ Sourced ChatGPT Ads knowledge and 12 operating skills for Codex and Claude, with
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AI-Marketing-Hub/chatgpt-ads](https://github.com/AI-Marketing-Hub/chatgpt-ads).
+Original source: `AGENTS.md` in [AI-Marketing-Hub/chatgpt-ads](https://github.com/AI-Marketing-Hub/chatgpt-ads).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
