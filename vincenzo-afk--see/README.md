@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [vincenzo-afk/see](https://github.com/vincenzo-afk/see).
+Original source: `GEMINI.md` in [vincenzo-afk/see](https://github.com/vincenzo-afk/see).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [vincenzo-afk/see](https://github.com/vincenzo-afk/see) — a repo with 12+ stars on GitHub.
