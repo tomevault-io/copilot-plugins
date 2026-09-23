@@ -1,0 +1,237 @@
+{
+  "name": "OpenBitFun",
+  "owner": "GCWing",
+  "repo": "OpenBitFun",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OpenBitFun",
+      "path": "MiniApp/Skills/miniapp-dev/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/MiniApp/Skills/miniapp-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/plan/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/debug/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-qa/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/multitask/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/multitask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/ppt-design/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/ppt-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-ship/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/miniapp-dev/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/miniapp-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/docs-canvas/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/docs-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-retro/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-retro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-review/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-qa-only/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-qa-only/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-autoplan/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-autoplan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/pr-review-canvas/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/pr-review-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/openbitfun-canvas/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/openbitfun-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/agent-eval-canvas/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/agent-eval-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-investigate/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-investigate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-office-hours/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-office-hours/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-design-review/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-plan-ceo-review/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-plan-ceo-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-plan-eng-review/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-plan-eng-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/create-openbitfun-skin/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/create-openbitfun-skin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-document-release/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-document-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/openbitfun-frontend-dev/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/openbitfun-frontend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-plan-design-review/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-plan-design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/gstack-design-consultation/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/gstack-design-consultation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/assembly/core/builtin_skills/create-openbitfun-skin/examples/cinematic-animated-wallpaper/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/assembly/core/builtin_skills/create-openbitfun-skin/examples/cinematic-animated-wallpaper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/services/legacy-migration/tests/fixtures/v0.2.19/user-root/skills/user-skill/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/services/legacy-migration/tests/fixtures/v0.2.19/user-root/skills/user-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenBitFun",
+      "path": "src/crates/services/legacy-migration/tests/fixtures/v0.2.19/user-root/skills/.system/builtin/SKILL.md",
+      "github_url": "https://github.com/GCWing/OpenBitFun/tree/main/src/crates/services/legacy-migration/tests/fixtures/v0.2.19/user-root/skills/.system/builtin/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GCWing/OpenBitFun",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:05:14Z"
+}
