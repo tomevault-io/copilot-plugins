@@ -1,0 +1,9 @@
+{
+  "name": "anggagewor--personal",
+  "displayName": "personal",
+  "description": "A personal dashboard that doubles as a module incubator\u2014where reusable Laravel modules are designed, battle-tested, and refined before being extracted into standalone packages.",
+  "version": "1.0.0",
+  "author": "anggagewor",
+  "homepage": "https://github.com/anggagewor/personal",
+  "skills": []
+}
