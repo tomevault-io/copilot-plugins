@@ -1,0 +1,9 @@
+{
+  "name": "oathtech--covmap",
+  "displayName": "covmap",
+  "description": "CLI that maps a spec to the code implementing it, and flags which links break when either side is edited",
+  "version": "1.0.0",
+  "author": "OathTech",
+  "homepage": "https://github.com/OathTech/covmap",
+  "skills": []
+}
