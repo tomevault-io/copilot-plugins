@@ -1,0 +1,9 @@
+{
+  "name": "fastgramapp--fastgram-ios",
+  "displayName": "Fastgram-iOS",
+  "description": "An independent, open-source Telegram client for iOS focused on performance, efficiency, and user control \u2014 starting with a rebuilt video-message recording pipeline.",
+  "version": "1.0.0",
+  "author": "FastgramApp",
+  "homepage": "https://github.com/FastgramApp/Fastgram-iOS",
+  "skills": []
+}
