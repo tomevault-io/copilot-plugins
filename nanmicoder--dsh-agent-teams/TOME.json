@@ -1,0 +1,165 @@
+{
+  "name": "dsh-agent-teams",
+  "owner": "NanmiCoder",
+  "repo": "dsh-agent-teams",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/plugin-test/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/plugin-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/plugin-write/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/plugin-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/plugin-upgrade/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/plugin-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/plugin-release/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/plugin-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/plugin-workflow/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/plugin-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/plugin-test/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/plugin-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/plugin-heavy-dep/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/plugin-heavy-dep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/dsh-upgrade-audit/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/dsh-upgrade-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/plugin-write/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/plugin-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/dsh-benchmark-case/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/dsh-benchmark-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/plugin-upgrade/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/plugin-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/plugin-release/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/plugin-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/plugin-workflow/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/plugin-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/plugin-runtime-debug/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/plugin-runtime-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/plugin-heavy-dep/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/plugin-heavy-dep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": "skills/dsh-plugin-development/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/skills/dsh-plugin-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/dsh-upgrade-audit/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/dsh-upgrade-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/dsh-benchmark-case/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/dsh-benchmark-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/plugin-runtime-debug/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/plugin-runtime-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dsh-agent-teams",
+      "path": ".dsh/skills/dsh-plugin-development/SKILL.md",
+      "github_url": "https://github.com/NanmiCoder/dsh-agent-teams/tree/main/.dsh/skills/dsh-plugin-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NanmiCoder/dsh-agent-teams",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:03:33Z"
+}
