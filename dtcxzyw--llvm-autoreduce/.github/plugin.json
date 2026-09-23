@@ -1,0 +1,9 @@
+{
+  "name": "dtcxzyw--llvm-autoreduce",
+  "displayName": "llvm-autoreduce",
+  "description": "Automated LLVM bug reproducer reduction service",
+  "version": "1.0.0",
+  "author": "dtcxzyw",
+  "homepage": "https://github.com/dtcxzyw/llvm-autoreduce",
+  "skills": []
+}
