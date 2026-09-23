@@ -1,52 +1,16 @@
-## ishamela
+## arabic-text
 
-> Open-source, cross-platform (Flutter) reading & search app for the Islamic Sciences corpus. Data comes from Hugging Face datasets; this repo ships **code only**, never book content.
+> Arabic text & search handling rules
 
-# CLAUDE.md — iShamela
 
-Open-source, cross-platform (Flutter) reading & search app for the Islamic Sciences corpus. Data comes from Hugging Face datasets; this repo ships **code only**, never book content.
+# Arabic Text Handling
 
-## Ground rules (non-negotiable)
-
-1. **Spec-driven:** implement only what a `docs/specs/SPEC-*.md` defines. No spec → stop and say so; don't improvise features, schema fields, or dataset field names.
-2. **Never modify displayed text.** Normalization (SPEC-001) applies ONLY to `body_norm` and to search queries. `pages.body` is verbatim source text, always.
-3. **Golden files are read-only** (`shared/norm_test_vectors.jsonl` etc.) unless the task explicitly includes a spec update.
-4. **ADRs are settled.** Don't re-litigate decisions in `docs/adr/` (e.g., don't propose Meilisearch/Tantivy — ADR-001 chose SQLite FTS5). If an ADR seems wrong, flag it; don't code around it.
-5. **No new dependencies** outside each spec's allowed list without asking.
-6. **Offline-first:** no feature may require network except downloads themselves.
-
-## Layout
-
-- `app/` — Flutter app (Android, iOS, Windows, macOS; web best-effort)
-- `data/` — Python pipeline: HF datasets → `.isb` SQLite bundles (Python 3.12, `uv`)
-- `docs/adr/` — decisions · `docs/specs/` — implementation contracts · `docs/AI_WORKFLOW.md` — how we work
-- `shared/` — cross-language golden test files
-
-## Commands
-
-```bash
-# data pipeline
-cd data && uv sync
-uv run pytest                    # must be green before any PR
-uv run ishamela-build --book-id <id> --out ./dist
-
-# app
-cd app && flutter analyze && flutter test
-```
-
-## Domain crib sheet
-
-- Corpus: `AuthenticIlm/Shamela4_Full_DB` — 8,589 books, 7.6M pages, JSONL pages + parquet metadata. PDF libraries (ieasybooks-org/*) are a later milestone.
-- Arabic search pitfalls: diacritics (تشكيل), alef/hamza variants (أ إ آ ا), ى/ي, ة/ه, tatweel. All handled by SPEC-001's normalizer — never hand-roll regexes elsewhere.
-- Page numbers are PRINT-edition numbers and are citation-critical; never renumber.
-- RTL: all reader UI is RTL-first; test layouts in Arabic, not lorem ipsum.
-
-## Workflow expectations
-
-- Read the relevant spec + ADR fully, then present a file-by-file plan BEFORE writing code.
-- Write the spec's acceptance tests first; make them fail; implement.
-- One spec per PR. Update `CHANGELOG.md` (Unreleased).
-- When output disagrees with the spec's assumptions about upstream data (see SPEC-002 schema gate), report the discrepancy — do not silently adapt.
+- Single source of truth for normalization: SPEC-001 (`docs/specs/SPEC-001-normalizer.md`). Never write ad-hoc Arabic regexes or Unicode folding outside `normalizer.py` / `normalizer.dart`.
+- Normalization order is contractual: NFC → strip tashkīl (U+064B–U+065F, U+0670) → strip tatweel (U+0640) → strip Quranic marks (U+06D6–U+06ED) → fold أ/إ/آ/ٱ→ا, ى→ي, ة→ه, ؤ→و, ئ→ي, drop ء → digits→ASCII → punctuation→space → collapse whitespace.
+- Index side and query side MUST use the identical function; both implementations are validated against `shared/norm_test_vectors.jsonl` — if a vector fails, the code is wrong, not the vector.
+- FTS5 config is fixed by SPEC-002: contentless table, `tokenize='unicode61 remove_diacritics 0'`, rowid == pages.id. Do not change tokenizer options.
+- Any change to normalization rules requires bumping `NORM_VERSION` and updating SPEC-001 + test vectors in the same PR.
+- UI: Arabic is RTL — use logical (start/end) properties, test with real corpus text, ensure correct rendering of U+FD3E/U+FD3F ornate parentheses in displayed text (they are stripped only in search).
 
 ---
 > Source: [YasserCherfaoui/iShamela](https://github.com/YasserCherfaoui/iShamela) — distributed by [TomeVault](https://tomevault.io).
