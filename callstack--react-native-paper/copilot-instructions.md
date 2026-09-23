@@ -1,15 +1,24 @@
 ## react-native-paper
 
-> - Check that tests verify public behavior, not implementation details.
+> Read and follow the relevant project guidance before making or reviewing changes:
 
+# Project instructions
 
-# Test Review Instructions
+Read and follow the relevant project guidance before making or reviewing changes:
 
-- Check that tests verify public behavior, not implementation details.
-- Check that test titles describe user-facing behavior.
-- Check coverage of happy paths, edge cases, and error states.
-- Flag unnecessary mocking.
+- [README.md](README.md) for the project overview and documentation links.
+- [CONTRIBUTING.md](CONTRIBUTING.md) for setup, development workflow, validation, component guidelines, and commit conventions.
+- [package.json](package.json) for the package manager version and available scripts.
+- [CI workflow](.github/workflows/ci.yml) for build and validation checks.
+- [Pull request template](.github/pull_request_template.md) when preparing a pull request.
+
+For implementation and review, apply the shared review instructions:
+
+- [General review standards](.github/copilot-instructions.md).
+- [TypeScript and React rules](.github/instructions/code.instructions.md) for JavaScript and TypeScript files.
+- [Documentation rules](.github/instructions/docs.instructions.md) for Markdown and MDX files.
+- [Test rules](.github/instructions/tests.instructions.md) for test files.
 
 ---
 > Source: [callstack/react-native-paper](https://github.com/callstack/react-native-paper) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
