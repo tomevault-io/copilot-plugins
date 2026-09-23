@@ -1,0 +1,14 @@
+{
+  "name": "ustoppble--overclick",
+  "displayName": "overclick",
+  "description": "overclick",
+  "version": "1.0.0",
+  "author": "ustoppble",
+  "homepage": "https://github.com/ustoppble/overclick",
+  "skills": [
+    {
+      "name": "overclick",
+      "description": ""
+    }
+  ]
+}
