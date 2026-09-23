@@ -1,0 +1,9 @@
+{
+  "name": "wildfly--quickstart",
+  "displayName": "quickstart",
+  "description": "quickstart",
+  "version": "1.0.0",
+  "author": "wildfly",
+  "homepage": "https://github.com/wildfly/quickstart",
+  "skills": []
+}
