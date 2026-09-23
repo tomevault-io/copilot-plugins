@@ -1,0 +1,9 @@
+{
+  "name": "fastled--cli",
+  "displayName": "cli",
+  "description": "The FastLED web compiler. Lightning fast 3 second compile and 1 second deploy on fast machines.",
+  "version": "1.0.0",
+  "author": "FastLED",
+  "homepage": "https://github.com/FastLED/cli",
+  "skills": []
+}
