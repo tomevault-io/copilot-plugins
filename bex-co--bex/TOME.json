@@ -1,0 +1,201 @@
+{
+  "name": "bex",
+  "owner": "bex-co",
+  "repo": "bex",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bex",
+      "path": ".claude/skills/pm/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/pm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/ship/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/mermaid/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/mermaid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/simplify/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/simplify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/deploy-app/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/deploy-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/stripe-docs/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/stripe-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/qa-find-bugs/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/qa-find-bugs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/mock-cluster/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/mock-cluster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/pm-brainstorm/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/pm-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/upgrade-stripe/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/upgrade-stripe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/stripe-projects/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/stripe-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/qa-find-bugs-cli/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/qa-find-bugs-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/stripe-directory/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/stripe-directory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-dead-code/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-dead-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-flaky-tests/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-flaky-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-dup-unifier/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-dup-unifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-flag-inliner/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-flag-inliner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-crash-fuzzer/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-crash-fuzzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/deploy-app-from-local/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/deploy-app-from-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-useless-tests/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-useless-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/stripe-best-practices/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/stripe-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-logic-bugfixer/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-logic-bugfixer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-logic-simplifier/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-logic-simplifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-abstraction-police/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-abstraction-police/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bex",
+      "path": ".claude/skills/routine-abstraction-flattener/SKILL.md",
+      "github_url": "https://github.com/bex-co/bex/tree/main/.claude/skills/routine-abstraction-flattener/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bex-co/bex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:33:22Z"
+}
