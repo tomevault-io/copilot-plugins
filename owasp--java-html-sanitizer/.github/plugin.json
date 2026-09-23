@@ -1,0 +1,9 @@
+{
+  "name": "owasp--java-html-sanitizer",
+  "displayName": "java-html-sanitizer",
+  "description": "java-html-sanitizer",
+  "version": "1.0.0",
+  "author": "OWASP",
+  "homepage": "https://github.com/OWASP/java-html-sanitizer",
+  "skills": []
+}
