@@ -1,0 +1,30 @@
+## general
+
+> 1. This program - is a tool that allows a scan of all domains and subdomains of any company with the help of different utilities and gets a list of important issues for verification. This automation allows the automatic testing of domains regularly with limited security team resources.
+
+1. This program - is a tool that allows a scan of all domains and subdomains of any company with the help of different utilities and gets a list of important issues for verification. This automation allows the automatic testing of domains regularly with limited security team resources.
+
+2. Files structure:
+- main.py - is a file that contains initial instructions for starting the program.
+- Global.py file contains information about flags, used commands to run utilities and global variables which contain assets that are scanned, as well as the results of checks in processed form. Before scanning something or creating a report, you need to take the values of the variables from there, and after scanning, you need to write the results to these variables.
+- ReportCreation.py is a file that is responsible for creating the report, it runs in the end.
+- Scan/Control.py - scan orchestration (order of checks, threads, Ctrl+C handling).
+- Scan/CommandRun.py - running external utilities and writing their output to the per-run log directory.
+- Scan/Discovery.py - subdomain enumeration, port scan, HTTP probing (subfinder, dnsx, naabu, httpx).
+- Scan/Crawl.py - URL crawling, deduplication, WAF detection on assets (katana, uro, cdncheck), social media takeover checks.
+- Scan/NucleiScan.py - Nuclei scans and parsing of findings.
+- Scan/Fuzzing.py - directory fuzzing and 403/401 bypass (feroxbuster, byp4xx).
+- Scan/HostChecks.py - WAF bypass, inactive host access, sending URLs to Burp.
+- Scan/Postleaks.py - public Postman collections checking (postleaks).
+- Scan/Leakix.py - Leakix API checks.
+- Scan/DependencyCheck.py - exposed dependency manifests, JS/CDN library versions, dependency confusion (confused) and CVE scan (osv-scanner).
+- Scan/Helpers.py - auxiliary functions for simple tasks (URL/host helpers, log directory, etc.). Prefer adding small helpers here rather than in Control.py or the scan modules above.
+- Scan/resources - wordlists, dependency-check Nuclei template, Windows Katana/jsluice install script.
+
+3. We keep it all simple and always keep in mind that the more complex the code - the more difficult it will be to maintain. It's just a combine of utilities and our own checks. We don't need to build architecture with the expectation that the project will someday grow tenfold, and we don't need to process every single potentially possible error scenario if we're not sure that such a thing could happen. We consider it an advantage that the tool can perform a large number of checks with such a relatively small amount of code (but nevertheless, we still try to anticipate potential issues and handle them). Don't overcomplicate the code!
+
+4. The main logic of the tool is based on launching other programs and processing their results. If, as an agent, you need to know how another utility (like nuclei, feroxbuster, katana, etc.) will behave in a given scenario and what errors or output it will return - ask the user to check this directly or run the tool yourself via the console, no need to guess the potential 3rd party program output if you are not 100% sure. You can use for example hosts http://vulnweb.com, https://ginandjuice.shop and https://example.com for test.
+
+---
+> Source: [Van-1337/AutoEASM](https://github.com/Van-1337/AutoEASM) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
