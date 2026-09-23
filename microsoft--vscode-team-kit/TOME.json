@@ -1,0 +1,207 @@
+{
+  "name": "vscode-team-kit",
+  "owner": "microsoft",
+  "repo": "vscode-team-kit",
+  "description": "Plugins the VS Code team uses",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vscode-team-kit",
+      "path": "goal/skills/goal/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/goal/skills/goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "debug/skills/debug/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/debug/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "goal/skills/follow-goal/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/goal/skills/follow-goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "research/skills/research/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/research/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "ban-ast/skills/manage-bans/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/ban-ast/skills/manage-bans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "monitor-pr/skills/monitor-pr/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/monitor-pr/skills/monitor-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "review-plan/skills/review-plan/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/review-plan/skills/review-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "rubber-duck/skills/rubber-duck/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/rubber-duck/skills/rubber-duck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-setup/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "review-areas/skills/review-areas/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/review-areas/skills/review-areas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "build-health/skills/build-health/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/build-health/skills/build-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-memory/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "model-council/skills/council-plan/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/model-council/skills/council-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "model-council/skills/council-review/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/model-council/skills/council-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-add-reaction/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-add-reaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-search-issues/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-search-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-mark-all-read/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-mark-all-read/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-install-gh-cli/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-install-gh-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-open-notification/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-open-notification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-list-notifications/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-list-notifications/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-manage-subscription/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-manage-subscription/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-dismiss-notification/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-dismiss-notification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "component-explorer/skills/use-component-explorer/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/component-explorer/skills/use-component-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "component-explorer/skills/setup-component-explorer/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/component-explorer/skills/setup-component-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "github-inbox/skills/inbox-get-notification-details/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/github-inbox/skills/inbox-get-notification-details/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "component-explorer/skills/setup-component-explorer-full/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/component-explorer/skills/setup-component-explorer-full/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-team-kit",
+      "path": "component-explorer/skills/setup-component-explorer-light/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-team-kit/tree/main/component-explorer/skills/setup-component-explorer-light/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/vscode-team-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:45:58Z"
+}
