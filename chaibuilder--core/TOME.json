@@ -1,0 +1,75 @@
+{
+  "name": "core",
+  "owner": "chaibuilder",
+  "repo": "core",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "core",
+      "path": ".agents/skills/chaibuilder/SKILL.md",
+      "github_url": "https://github.com/chaibuilder/core/tree/main/.agents/skills/chaibuilder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "path": ".agents/skills/testing-patterns/skill.md",
+      "github_url": "https://github.com/chaibuilder/core/tree/main/.agents/skills/testing-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/chaibuilder/core/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "path": ".agents/skills/anthropic-frontend-design/SKILL.md",
+      "github_url": "https://github.com/chaibuilder/core/tree/main/.agents/skills/anthropic-frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/chaibuilder/core/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chaibuilder/core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:35:11Z"
+}
