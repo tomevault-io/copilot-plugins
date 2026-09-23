@@ -1,0 +1,9 @@
+{
+  "name": "iannuttall--seo-graph",
+  "displayName": "seo-graph",
+  "description": "Agent-ready SEO for JavaScript \u2014 schema.org JSON-LD graph builders, deterministic agent markdown with content negotiation, and an Astro integration.",
+  "version": "1.0.0",
+  "author": "iannuttall",
+  "homepage": "https://github.com/iannuttall/seo-graph",
+  "skills": []
+}
