@@ -1,7 +1,7 @@
 {
   "name": "maximseshuk--payload-storage-bunny",
   "displayName": "payload-storage-bunny",
-  "description": "Payload storage adapter for Bunny.net",
+  "description": "payload-storage-bunny",
   "version": "1.0.0",
   "author": "maximseshuk",
   "homepage": "https://github.com/maximseshuk/payload-storage-bunny",
