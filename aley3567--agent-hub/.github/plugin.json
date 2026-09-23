@@ -1,0 +1,9 @@
+{
+  "name": "aley3567--agent-hub",
+  "displayName": "Agent-Hub",
+  "description": "Local runtime for Claude Code and Codex \u2014 provider management, isolated sessions, routing and protocol translation.",
+  "version": "1.0.0",
+  "author": "Aley3567",
+  "homepage": "https://github.com/Aley3567/Agent-Hub",
+  "skills": []
+}
