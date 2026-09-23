@@ -1,0 +1,9 @@
+{
+  "name": "sandeco--pix-golpe",
+  "displayName": "pix-golpe",
+  "description": "Demo: IA detecta golpe do Pix e rastreia a quadrilha. Rust + Jev vs Python + DeepSeek em tela dividida.",
+  "version": "1.0.0",
+  "author": "sandeco",
+  "homepage": "https://github.com/sandeco/pix-golpe",
+  "skills": []
+}
