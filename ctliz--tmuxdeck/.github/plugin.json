@@ -1,0 +1,14 @@
+{
+  "name": "ctliz--tmuxdeck",
+  "displayName": "TmuxDeck",
+  "description": "TmuxDeck",
+  "version": "1.0.0",
+  "author": "ctliz",
+  "homepage": "https://github.com/ctliz/TmuxDeck",
+  "skills": [
+    {
+      "name": "TmuxDeck",
+      "description": ""
+    }
+  ]
+}
