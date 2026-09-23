@@ -7,11 +7,11 @@ Turn-based strategy door game, playable over SSH or on a BBS; a remake of  Barre
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [andy5995/immortal-barons](https://github.com/andy5995/immortal-barons).
+Original source: `AGENTS.md` in [andy5995/immortal-barons](https://github.com/andy5995/immortal-barons).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
