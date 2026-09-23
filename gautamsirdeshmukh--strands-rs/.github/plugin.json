@@ -1,0 +1,9 @@
+{
+  "name": "gautamsirdeshmukh--strands-rs",
+  "displayName": "strands-rs",
+  "description": "Strands Agents SDK for Rust \u2014 model-driven AI agents with tools, MCP, and multi-agent orchestration",
+  "version": "1.0.0",
+  "author": "gautamsirdeshmukh",
+  "homepage": "https://github.com/gautamsirdeshmukh/strands-rs",
+  "skills": []
+}
