@@ -1,0 +1,44 @@
+{
+  "name": "jamsync",
+  "owner": "arijitdn",
+  "repo": "jamsync",
+  "description": "JamSync is an Expo/React Native multi-device audio prototype. One phone creates a jam and becomes the host. Other phones join with a five-character code. Playback commands are scheduled against the relay's clock, then each client measures and corrects drift while the track plays.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/arijitdn/jamsync",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T01:40:26Z"
+}
