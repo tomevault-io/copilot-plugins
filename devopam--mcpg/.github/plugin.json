@@ -1,0 +1,9 @@
+{
+  "name": "devopam--mcpg",
+  "displayName": "MCPg",
+  "description": "Postgres MCP Server",
+  "version": "1.0.0",
+  "author": "devopam",
+  "homepage": "https://github.com/devopam/MCPg",
+  "skills": []
+}
