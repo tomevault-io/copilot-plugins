@@ -1,0 +1,44 @@
+{
+  "name": "gondola-mcp",
+  "owner": "gondola-ai",
+  "repo": "gondola-mcp",
+  "description": "Cash-vs-award travel search MCP \u2014 hotels, flights, and rental cars across every major loyalty program, with cents-per-point valuations, loyalty tracking, and direct booking.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gondola-ai/gondola-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T00:34:17Z"
+}
