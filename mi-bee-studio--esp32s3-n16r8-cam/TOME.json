@@ -1,0 +1,44 @@
+{
+  "name": "esp32s3-n16r8-cam",
+  "owner": "Mi-Bee-Studio",
+  "repo": "esp32s3-n16r8-cam",
+  "description": "MiBee Cam firmware for ESP32-S3-N16R8 (ESP32-S3 + OV3660 3MP) \u2014 MJPEG streaming, RTSP server (digest auth), ONVIF discovery, face/motion/QR AI detection with live web overlay, zh/en web UI, AT commands and web OTA. Built on ESP-IDF.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mi-Bee-Studio/esp32s3-n16r8-cam",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T05:43:00Z"
+}
