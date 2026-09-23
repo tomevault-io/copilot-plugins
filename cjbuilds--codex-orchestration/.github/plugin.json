@@ -1,0 +1,14 @@
+{
+  "name": "cjbuilds--codex-orchestration",
+  "displayName": "Codex-Orchestration",
+  "description": "Codex-Orchestration",
+  "version": "1.0.0",
+  "author": "Cjbuilds",
+  "homepage": "https://github.com/Cjbuilds/Codex-Orchestration",
+  "skills": [
+    {
+      "name": "Codex-Orchestration",
+      "description": ""
+    }
+  ]
+}
