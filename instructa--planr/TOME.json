@@ -1,0 +1,105 @@
+{
+  "name": "planr",
+  "owner": "instructa",
+  "repo": "planr",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr-plan/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr-goal/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr-goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr-loop/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr-work/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr-review/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr-status/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr-summary/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr-verify-web/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr-verify-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planr",
+      "path": "plugins/planr/skills/planr-task-graph/SKILL.md",
+      "github_url": "https://github.com/instructa/planr/tree/main/plugins/planr/skills/planr-task-graph/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/instructa/planr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:56:35Z"
+}
