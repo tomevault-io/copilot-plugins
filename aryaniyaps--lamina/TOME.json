@@ -2,7 +2,7 @@
   "name": "lamina",
   "owner": "aryaniyaps",
   "repo": "lamina",
-  "description": "Headless product design for AI coding agents, backed by a transactional product graph | Design how it works, verify what you ship.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aryaniyaps/lamina",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T04:41:38Z"
+  "distributed_at": "2026-09-23T20:13:34Z"
 }
