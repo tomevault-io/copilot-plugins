@@ -1,0 +1,14 @@
+{
+  "name": "modern-python--that-depends",
+  "displayName": "that-depends",
+  "description": "that-depends",
+  "version": "1.0.0",
+  "author": "modern-python",
+  "homepage": "https://github.com/modern-python/that-depends",
+  "skills": [
+    {
+      "name": "that-depends",
+      "description": ""
+    }
+  ]
+}
