@@ -1,0 +1,9 @@
+{
+  "name": "benjamincanac--avelune",
+  "displayName": "avelune",
+  "description": "Persistent 3D multiplayer world on Vercel WebSockets. Terraform it, build on it, and ask the AI Oracle what changed.",
+  "version": "1.0.0",
+  "author": "benjamincanac",
+  "homepage": "https://github.com/benjamincanac/avelune",
+  "skills": []
+}
