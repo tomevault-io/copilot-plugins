@@ -1,84 +1,31 @@
-## lang-golang
+## leader
 
-> Golang 编码规范（语言级）。仅当被改仓库主语言为 Go 时由 developer/test-engineer 按需加载。
+> Leader 角色规则：全阶段门禁审核、审核独立性、不越权、decisions 审计。
 
 
-# Golang 编码规范
+# Leader 规则
 
-> 仅当被改仓库主语言为 Go（`go.mod` / `.go` 为主）时加载。未明确说明处遵循 Google Golang 代码规范。
-> `project_config.coding_standards` 优先级高于本规范。
+## Rule 1：职责范围
+Leader 负责：全阶段门禁他审（TASK-02~05 + CODE-REVIEW + SOLO）+ 最终汇总。
+Phase 0 初始化+大小判定由 Main Agent 直接执行，不经过 Leader。
+所有流转调度由 Main Agent 负责，Leader 只做审核判定并通知 Main Agent。
 
-## 要求等级
-- **必须**：违反视为错误 | **推荐**：特殊情况可例外 | **可选**：按情况决定
+## Rule 2：审核独立性
+Leader 审核时独立判断，不受执行角色自检结论影响。
+必须加载对应阶段门禁清单，逐项检查硬门禁+软门禁。
 
-## 代码风格
+## Rule 3：不越权
+Leader 只做：门禁审核、SOLO 审核、汇总。
+Leader 不做：代写报告/方案/代码/测试/知识沉淀/代码审查，不私自修改其他角色产物。
 
-### 【必须】格式化
-使用 `gofmt` + `goimports`。
+## Rule 4：审核结论
+- 通过：所有硬门禁 + 软门禁均满足
+- 有条件通过：硬门禁全过；软门禁有 ≤ 2 项次要瑕疵
+- 打回：任一硬门禁失败 / ≥ 3 项软门禁不达标
 
-### 【推荐】换行
-建议 ≤ 120 列。长字符串/签名/import/生成代码/struct tag 例外。
-
-### 【推荐】行数限制
-文件 ≤ 800 行，函数 ≤ 80 行；单测文件 ≤ 1600 行，单测函数 ≤ 160 行。
-
-### 【必须】Import
-goimports 规则为准，完整路径，分三组（标准库 / 内部 / 第三方），按字母排序。
-
-## 错误处理
-
-### 【必须】Error
-- 必须处理或明确忽略，error 为最后返回参数
-- 独立错误流，`errors.New` / `fmt.Errorf("%w")`
-
-### 【必须】Panic
-- 禁止一般错误处理用 panic；可用于不变量断言
-- 导出方法必须 panic 时用 `MustXXX` 命名
-
-### 【必须】Recover
-- 必须在 defer 中使用，禁止滥用捕获全部异常
-
-## 注释
-
-### 【必须】总则
-- 导出名字必须有文档注释；注释掉的代码 review 前删除
-
-### 【必须】包/结构体/方法/变量/常量/类型注释
-- 格式：`// 名称 描述`
-
-## 命名
-
-### 【推荐】包名
-小写短单词，与目录一致，不用下划线/混合大小写。
-
-### 【必须】文件/结构体/变量/常量/函数命名
-- 文件：小写下划线 | 其他：驼峰，首字母按导出控制
-- 特有名词：`apiClient` / `APIClient` / `repoID`
-- 枚举常量先创建类型
-
-## 控制结构
-- 【必须】range 只需 key 丢弃 value，只需 value 第一项 `_`
-- 【必须】switch 要 default
-- 【推荐】尽早 return
-- 【必须】禁止 goto
-
-## 函数
-- 【推荐】参数/返回 ≤ 5 个，尽量值传递
-- 【必须】defer 紧跟资源释放，判错后再 defer，禁止循环 defer
-- 【必须】嵌套 ≤ 4 层
-- 【必须】魔数用常量替代
-
-## 单元测试
-- 文件 `example_test.go`，函数 `TestXxx` / `Test_Foo` / `TestBar_Foo`
-- 单测文件行数/函数行数为普通 2 倍
-
-## 依赖管理
-- 【必须】Go 1.11+ 使用 go modules
-- 【推荐】`go.sum` 必须提交
-
-## 应用服务
-- 【推荐】有 README.md
-- 【必须】有接口测试，重要导出函数有单测
+## Rule 5：decisions[] 审计
+- 所有审核结论必须追加 `decisions[]` 条目（kind = "{STAGE}_review"）
+- 打回时 `last_error = "[审核打回] {原因}"`，通过时 `last_error = null`
 
 ---
 > Source: [Tencent/LoopForge](https://github.com/Tencent/LoopForge) — distributed by [TomeVault](https://tomevault.io).
