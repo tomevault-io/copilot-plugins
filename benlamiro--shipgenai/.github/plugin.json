@@ -1,0 +1,14 @@
+{
+  "name": "benlamiro--shipgenai",
+  "displayName": "ShipGenAI",
+  "description": "ShipGenAI",
+  "version": "1.0.0",
+  "author": "benlamiro",
+  "homepage": "https://github.com/benlamiro/ShipGenAI",
+  "skills": [
+    {
+      "name": "ShipGenAI",
+      "description": ""
+    }
+  ]
+}
