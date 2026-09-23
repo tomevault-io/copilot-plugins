@@ -1,0 +1,9 @@
+{
+  "name": "bidthedog--throng",
+  "displayName": "throng",
+  "description": "A project-first terminal workspace \u2014 persistent, detachable terminals in a dockable layout, with a live file tree and code editor.",
+  "version": "1.0.0",
+  "author": "Bidthedog",
+  "homepage": "https://github.com/Bidthedog/throng",
+  "skills": []
+}
