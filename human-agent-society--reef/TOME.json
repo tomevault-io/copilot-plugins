@@ -1,0 +1,99 @@
+{
+  "name": "reef",
+  "owner": "Human-Agent-Society",
+  "repo": "reef",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "reef",
+      "path": "recipes/skillclaw/harbor/environment/workspace/SKILL.md",
+      "github_url": "https://github.com/Human-Agent-Society/reef/tree/main/recipes/skillclaw/harbor/environment/workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reef",
+      "path": "tests/reef_service/data/harness_goldens/dsh/dsh/skills/notes/SKILL.md",
+      "github_url": "https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/dsh/dsh/skills/notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reef",
+      "path": "tests/reef_service/data/harness_goldens/pi/pi-agent/skills/notes/SKILL.md",
+      "github_url": "https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/pi/pi-agent/skills/notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reef",
+      "path": "tests/reef_service/data/harness_goldens/codex/.agents/skills/notes/SKILL.md",
+      "github_url": "https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/codex/.agents/skills/notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reef",
+      "path": "tests/reef_service/data/harness_goldens/hermes/hermes/skills/notes/SKILL.md",
+      "github_url": "https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/hermes/hermes/skills/notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reef",
+      "path": "tests/reef_service/data/harness_goldens/terminus/terminus/skills/notes/SKILL.md",
+      "github_url": "https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/terminus/terminus/skills/notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reef",
+      "path": "tests/reef_service/data/harness_goldens/dsh/dsh-agents/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/dsh/dsh-agents/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reef",
+      "path": "tests/reef_service/data/harness_goldens/hermes/hermes-commands/summarize/SKILL.md",
+      "github_url": "https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/hermes/hermes-commands/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reef",
+      "path": "tests/reef_service/data/harness_goldens/terminus/terminus-commands/summarize/SKILL.md",
+      "github_url": "https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/terminus/terminus-commands/summarize/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Human-Agent-Society/reef",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:15:41Z"
+}
