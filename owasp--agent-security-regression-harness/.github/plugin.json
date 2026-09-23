@@ -1,0 +1,9 @@
+{
+  "name": "owasp--agent-security-regression-harness",
+  "displayName": "Agent-Security-Regression-Harness",
+  "description": "Agent-Security-Regression-Harness",
+  "version": "1.0.0",
+  "author": "OWASP",
+  "homepage": "https://github.com/OWASP/Agent-Security-Regression-Harness",
+  "skills": []
+}
