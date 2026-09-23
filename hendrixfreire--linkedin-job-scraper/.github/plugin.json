@@ -1,0 +1,14 @@
+{
+  "name": "hendrixfreire--linkedin-job-scraper",
+  "displayName": "linkedin-job-scraper",
+  "description": "linkedin-job-scraper",
+  "version": "1.0.0",
+  "author": "hendrixfreire",
+  "homepage": "https://github.com/hendrixfreire/linkedin-job-scraper",
+  "skills": [
+    {
+      "name": "linkedin-job-scraper",
+      "description": ""
+    }
+  ]
+}
