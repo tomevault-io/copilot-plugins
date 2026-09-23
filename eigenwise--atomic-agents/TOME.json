@@ -1,0 +1,93 @@
+{
+  "name": "atomic-agents",
+  "owner": "Eigenwise",
+  "repo": "atomic-agents",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atomic-agents",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/Eigenwise/atomic-agents/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-agents",
+      "path": "claude-plugin/atomic-agents/skills/new-app/SKILL.md",
+      "github_url": "https://github.com/Eigenwise/atomic-agents/tree/main/claude-plugin/atomic-agents/skills/new-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-agents",
+      "path": "claude-plugin/atomic-agents/skills/framework/SKILL.md",
+      "github_url": "https://github.com/Eigenwise/atomic-agents/tree/main/claude-plugin/atomic-agents/skills/framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-agents",
+      "path": "claude-plugin/atomic-agents/skills/troubleshoot/SKILL.md",
+      "github_url": "https://github.com/Eigenwise/atomic-agents/tree/main/claude-plugin/atomic-agents/skills/troubleshoot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-agents",
+      "path": "claude-plugin/atomic-agents/skills/create-atomic-tool/SKILL.md",
+      "github_url": "https://github.com/Eigenwise/atomic-agents/tree/main/claude-plugin/atomic-agents/skills/create-atomic-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-agents",
+      "path": "claude-plugin/atomic-agents/skills/create-atomic-agent/SKILL.md",
+      "github_url": "https://github.com/Eigenwise/atomic-agents/tree/main/claude-plugin/atomic-agents/skills/create-atomic-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-agents",
+      "path": "claude-plugin/atomic-agents/skills/create-atomic-schema/SKILL.md",
+      "github_url": "https://github.com/Eigenwise/atomic-agents/tree/main/claude-plugin/atomic-agents/skills/create-atomic-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-agents",
+      "path": "claude-plugin/atomic-agents/skills/create-atomic-context-provider/SKILL.md",
+      "github_url": "https://github.com/Eigenwise/atomic-agents/tree/main/claude-plugin/atomic-agents/skills/create-atomic-context-provider/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Eigenwise/atomic-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:37:16Z"
+}
