@@ -1,0 +1,135 @@
+{
+  "name": "codex-security",
+  "owner": "openai",
+  "repo": "codex-security",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/validation/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/verify-fix/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/verify-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/fix-finding/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/fix-finding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/threat-model/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/threat-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/security-scan/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/triage-finding/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/triage-finding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/track-findings/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/track-findings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/finding-discovery/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/finding-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/assess-patch-risk/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/assess-patch-risk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/deep-security-scan/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/deep-security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/security-diff-scan/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/security-diff-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/attack-path-analysis/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/attack-path-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/vulnerability-writeup/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/vulnerability-writeup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/define-security-policy/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/define-security-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-security",
+      "path": "plugins/codex-security/skills/propose-security-hardening/SKILL.md",
+      "github_url": "https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/propose-security-hardening/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openai/codex-security",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:57:55Z"
+}
