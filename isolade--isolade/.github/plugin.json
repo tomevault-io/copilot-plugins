@@ -1,0 +1,9 @@
+{
+  "name": "isolade--isolade",
+  "displayName": "isolade",
+  "description": "Local-first coding agent workbench with secretless microVMs",
+  "version": "1.0.0",
+  "author": "isolade",
+  "homepage": "https://github.com/isolade/isolade",
+  "skills": []
+}
