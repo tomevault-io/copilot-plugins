@@ -1,0 +1,14 @@
+{
+  "name": "sandbaseai--sandbase-harness",
+  "displayName": "sandbase-harness",
+  "description": "sandbase-harness",
+  "version": "1.0.0",
+  "author": "sandbaseai",
+  "homepage": "https://github.com/sandbaseai/sandbase-harness",
+  "skills": [
+    {
+      "name": "sandbase-harness",
+      "description": ""
+    }
+  ]
+}
