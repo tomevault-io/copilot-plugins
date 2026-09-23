@@ -1,0 +1,9 @@
+{
+  "name": "sanity-io--cli",
+  "displayName": "cli",
+  "description": "Sanity command line tool (CLI)",
+  "version": "1.0.0",
+  "author": "sanity-io",
+  "homepage": "https://github.com/sanity-io/cli",
+  "skills": []
+}
