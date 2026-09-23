@@ -1,66 +1,19 @@
 ## shakaperf
 
-> Frontend performance testing toolkit for web applications. Yarn 4 monorepo.
+> If facing issues in node, run `nvm use` in the repository root to activate the Node.js version specified by the project.
 
-# shaka-perf
+# AGENTS.md
 
-Frontend performance testing toolkit for web applications. Yarn 4 monorepo.
+NO-CI
 
-## Packages
+If facing issues in node, run `nvm use` in the repository root to activate the Node.js version specified by the project.
 
-- **shaka-perf** - Unified CLI for benchmarking, visual regression, and twin-servers (subcommands: `bench`, `visreg`, `twin-servers`)
-- **shaka-bundle-size** - Bundle size diffing with S3 baseline storage
-- **shaka-shared** - Shared utilities used by shaka-perf and shaka-bundle-size
-- **demo-ecommerce** - Rails + React demo app
+## Agent Workflow Configuration
 
-## Commands
-
-```bash
-yarn install    # Install dependencies
-yarn build      # Build all packages (tsc)
-```
-
-### shaka-perf CLI
-
-```bash
-shaka-perf bench compare        # Performance benchmarking
-shaka-perf visreg compare       # Visual regression testing
-shaka-perf twin-servers build   # Docker A/B testing infrastructure
-```
-
-## Code Conventions
-
-- TypeScript strict mode, no ESLint/Prettier
-- Zod for runtime validation
-- PascalCase for classes/types, camelCase for functions
-- Commander.js for CLIs
-- In new code don't use docker compose directly, see @packages/shaka-perf/SETUP-twin-servers.md
-
-## Package Structure
-
-```
-packages/shaka-perf/src/
-├── cli.ts              # Root CLI entry point
-├── index.ts            # Barrel exports
-├── bench/              # Benchmarking domain
-│   ├── cli/            # CLI commands, config, helpers
-│   ├── core/           # Lighthouse benchmarking engine
-│   └── stats/          # Statistical analysis
-├── visreg/             # Visual regression domain
-│   ├── cli/            # CLI commands
-│   ├── core/           # Comparison engine
-│   └── capture/        # Screenshot capture helpers
-└── twin-servers/       # Docker A/B infrastructure
-    ├── commands/       # CLI commands
-    ├── helpers/        # Docker, git, shell utilities
-    ├── config.ts       # Config loading
-    └── types.ts        # Zod schemas
-```
-
-## Publishing
-
-Git tags trigger npm publish: `git tag package-name@version && git push origin --tags`
+Portable shared skills resolve this repo's commands and policy through:
+- **Commands** — run `.agents/bin/<name>` (`setup`, `validate`, `test`, ...); see `.agents/bin/README.md`. A missing script means that capability is n/a here.
+- **Policy / config** — `.agents/agent-workflow.yml`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/shakacode) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-11 -->
+> Source: [shakacode/shakaperf](https://github.com/shakacode/shakaperf) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
