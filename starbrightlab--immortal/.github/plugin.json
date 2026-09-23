@@ -1,0 +1,14 @@
+{
+  "name": "starbrightlab--immortal",
+  "displayName": "immortal",
+  "description": "immortal",
+  "version": "1.0.0",
+  "author": "starbrightlab",
+  "homepage": "https://github.com/starbrightlab/immortal",
+  "skills": [
+    {
+      "name": "immortal",
+      "description": ""
+    }
+  ]
+}
