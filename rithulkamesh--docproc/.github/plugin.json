@@ -1,0 +1,9 @@
+{
+  "name": "rithulkamesh--docproc",
+  "displayName": "docproc",
+  "description": "Document Intelligence Platform \u2014 Extract, refine, and query documents with vision LLMs and config-driven RAG.",
+  "version": "1.0.0",
+  "author": "rithulkamesh",
+  "homepage": "https://github.com/rithulkamesh/docproc",
+  "skills": []
+}
