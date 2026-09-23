@@ -7,11 +7,11 @@ Demo: IA detecta golpe do Pix e rastreia a quadrilha. Rust + Jev vs Python + Dee
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sandeco/pix-golpe](https://github.com/sandeco/pix-golpe).
+Original source: `AGENTS.md` in [sandeco/pix-golpe](https://github.com/sandeco/pix-golpe).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
