@@ -4,7 +4,7 @@
   "repo": "inbox-zero-Nmail",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nathanpenny520/inbox-zero-Nmail",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T06:35:43Z"
+  "distributed_at": "2026-09-23T06:37:21Z"
 }
