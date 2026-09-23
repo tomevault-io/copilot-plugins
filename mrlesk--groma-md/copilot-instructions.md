@@ -1,0 +1,369 @@
+## groma-md
+
+> <!-- BACKLOG.MD GUIDELINES START -->
+
+<!-- BACKLOG.MD GUIDELINES START -->
+<!-- backlog.md-instructions-version: 1.48.0 -->
+<CRITICAL_INSTRUCTION>
+
+## Backlog.md Workflow
+
+This project uses Backlog.md for task and project management.
+
+Run `backlog instructions overview` before code work or Backlog task administration. Skip it for questions,
+read-only audits, and standalone documentation changes that do not involve Backlog records.
+
+Use the overview to decide whether to search, read, create, or update Backlog tasks.
+
+Before task lifecycle actions, read the matching detailed guide:
+
+- `backlog instructions task-creation` before creating or splitting tasks
+- `backlog instructions task-execution` before planning, changing status or assignee, adding a plan or implementation
+  notes, or implementing task work
+- `backlog instructions task-finalization` before checking acceptance criteria, writing final summaries, or moving tasks
+  to terminal statuses
+
+Use `backlog <command> --help` before running unfamiliar commands. Help shows options, fields, and examples.
+
+Do not edit Backlog task, draft, document, decision, or milestone markdown files directly. Use the `backlog` CLI so
+metadata, relationships, and history stay consistent.
+
+</CRITICAL_INSTRUCTION>
+<!-- BACKLOG.MD GUIDELINES END -->
+
+## IMPORTANT: Point of view
+
+Write for a junior developer who knows the language but is new to the project and has no access to this conversation.
+They should be able to find where a change belongs, follow the flow from entry point to result, and identify who owns
+each responsibility. Describe the final system and its reasons, not the approaches tried.
+
+## OKF and C4 are design foundations
+
+When proposing or changing architecture concepts, relationships, flows, or stored knowledge, reason explicitly about
+both OKF 0.2 and C4 before choosing the model.
+
+- OKF defines how knowledge remains readable, linked, and portable. Prefer standard metadata, ordinary Markdown, and
+  Markdown links. Keep Groma-specific metadata under `groma`; do not duplicate information already expressed by standard
+  fields or the document body.
+- C4 defines architecture levels and boundaries. Decide whether a concept is an actor, system, container, component,
+  relationship, or supporting knowledge about the architecture. A new OKF concept does not automatically become a C4
+  element, containment level, or box on the map.
+- Groma's application profile defines the additional meaning and constraints needed by its supported behavior.
+  Distinguish those rules from requirements imposed by OKF or C4.
+
+For a relevant proposal, briefly explain:
+
+1. Where the concept belongs in OKF and C4.
+2. What an ordinary Markdown or OKF reader can understand without Groma.
+3. What Groma must interpret, and which existing concept owns that meaning.
+
+Read [the architecture Markdown contract](docs/component-markdown.md) and the relevant product documentation.
+Consult the authoritative [OKF specification](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
+or [C4 model](https://c4model.com) when the decision depends on rules those documents do not establish. Do not invent a
+standard requirement or add optional metadata merely because the standard supports it.
+
+## Test decisions across projects and languages
+
+When making product, design, architecture, or implementation decisions, ask:
+
+> If Groma ran against millions of projects across hundreds of programming languages, would this still be the right decision?
+
+Use this question to identify assumptions tied to the current project, technology, workflow, or example. Prefer choices
+whose reasoning remains sound across different contexts. Explain any dependence on the current context and why the
+requested result requires it.
+
+This is a test of the decision, not permission to expand the task. Implement and verify the smallest approved result for
+the current supported example. Do not add infrastructure, abstractions, or capabilities solely for that
+future scale. See the [manifesto principle](MANIFESTO.md#principles-that-hold-across-projects-and-languages).
+
+## IMPORTANT: Experimental prototype
+
+Groma is an early experimental prototype used only by its developers. It has no external users and no released data,
+storage, CLI, or API contracts that must remain compatible.
+
+Do not preserve previous versions. Do not add backward compatibility, migrations, legacy formats, compatibility adapters,
+or deprecation paths unless the current user explicitly requests one. When the product direction changes, replace the old
+behavior directly and delete obsolete code, documentation, tests, and prototype data.
+
+It is acceptable to wipe and recreate all Groma-owned prototype state required by the current task instead of migrating
+it. This permission applies only to explicitly scoped Groma artifacts and never to unrelated developer files or systems.
+
+
+## Backlog task scope
+
+As a project-specific override to the overview's general task-creation guidance, create Backlog tasks only when the
+requested work includes code changes. Do not create a task for standalone documentation changes or Backlog record
+administration, such as relabeling, status corrections, or metadata maintenance. Documentation required to deliver an
+in-scope code change may remain part of that code task.
+
+## Backlog change tracking
+
+Update task traceability immediately after each change. Do not wait for tests,
+progress notes, or task finalization, and do not batch several changes before
+updating the task.
+
+- As soon as you change a repository file for a task, and before changing
+  another file, record its repository-relative path in the task's modified-file
+  list. `--modified-file` replaces the complete list, so first preserve every
+  existing entry, then append the newly changed path with another flag. Use
+  `backlog task view TASK-N --plain` first if you do not have the current list.
+  Keep one flag per file in the order the files were first changed:
+
+  ```bash
+  backlog task edit TASK-N \
+    --modified-file <existing-path> \
+    --modified-file <new-path>
+  ```
+
+  The web map stands the task's pin on the element whose code holds the newest
+  recorded file.
+- As soon as a change affects a Groma architecture element, add that element's
+  exact `id` as a Backlog reference with
+  `backlog task edit TASK-N --add-ref <id>`. Do this in the same immediate
+  change-tracking loop, not at the end of the task. Do not use file paths as the
+  join key. Only an exact element `id` produces a live marker.
+
+## Agent coordination
+
+Do not contact, interrupt, or otherwise disturb another agent merely because
+its task is active. Compare the tasks' recorded modified-file lists first. If
+the files do not overlap with the current task, proceed independently without
+sending a coordination message. Coordinate only when the recorded files
+overlap or when the current work is about to create a real file-level conflict.
+
+Preserve unrelated changes made by the user or other agents. Do not revert or reformat them.
+
+## Commit messages
+
+When the user confirms that a task is done, commit that task's files
+immediately. Stage only the files this agent changed for that task.
+Do not stage files other agents changed, even if they sit nearby.
+
+For work associated with a Backlog task, use the exact task ID and title as the commit subject:
+
+```text
+<TASK-ID> - <task title>
+```
+
+For example: `TASK-28.3 - Supply annotated architecture through Groma core`.
+
+## Minimum sufficient product
+
+Build the simplest real result that matches the requested outcome and any approved example. Prefer the fewest concepts,
+fields, files, dependencies, and lines of code or documentation that make the requested observable result work.
+
+Simplicity means minimum sufficient information, not vague placeholders or toy behavior. Keep concrete data the supported
+flow actually needs, such as an exact source file when a code reference must be useful, and omit everything the current
+result does not require. Add another field, layer, abstraction, rule, or explanation only when the requested outcome
+cannot work without it.
+
+When multiple approaches produce the same result, choose the one that is shortest and easiest to explain. Do not import
+complexity from an earlier Groma implementation, a generic architecture, or a hypothetical future requirement.
+
+Do not reduce line count at the expense of readability. Before adding a file, layer, or dependency, find the domain that
+owns the behavior and reuse suitable existing concepts.
+
+## File length
+
+A source or test file over 500 lines is a code smell. Split it so each file stays at or under 500 lines.
+
+## Repository checks
+
+Run `bun run check` after the complete code change. It is the single repository check: Biome lints the supported
+TypeScript files, TypeScript checks their types, and the Node and Bun test suites run. Repeat it after fixes that could
+affect its result. Once required checks pass, broaden or repeat validation only for new changes, failures, or unresolved
+concerns. Standalone documentation and instruction edits do not require the code test suite.
+
+Biome uses its recommended lint rules and reports functions whose cognitive complexity is above 15. Existing complexity
+warnings are cleanup targets, not permission to add more. Keep new and changed functions at or below the limit, and prefer
+small domain operations over branches nested inside one large function.
+
+Biome formatting and import assist are disabled. Do not use Biome to format files or organize imports.
+
+## Web SVG performance
+
+Keep viewport-sized SVG surfaces that use patterns or filters outside groups transformed by the camera. They must be
+siblings of the moving camera group so pan and zoom do not repaint them together with the architecture scene. Measure
+frame rate only when a rendering regression is suspected; do not make manual FPS checks routine.
+
+## UI descriptions
+
+Do not add subtitles, helper text, or descriptive copy beneath headings, labels, cards, or settings by default. Prefer
+one concise, self-explanatory heading or label. Only add supporting copy when the user explicitly asks for it or when it
+is necessary to prevent misunderstanding or error, and never use it to restate the heading.
+
+## Product-first scope
+
+Treat the explicit request and current task as the scope. Background, examples, and product vision help explain that
+scope but do not expand it. Only the explicitly requested outcome, task acceptance criteria, project Definition of Done,
+a documented contract or named invariant, a reproduced failure in the supported product flow, and an explicitly approved
+example authorize implementation.
+
+Distinguish verified facts, assumptions, recommendations, and the user's confirmed decisions. Never present an inference
+as an approved requirement.
+
+A request to investigate, explain, review, propose, or design does not authorize implementation or file changes. If
+reasonable interpretations would materially change behavior, scope, cost, or complexity, report the difference to the
+user/orchestrator with the evidence, tradeoff, and recommendation. Pause only the affected work while waiting for
+direction. If you misread the user's direction, explain what you assumed and changed, and resolve the interpretation
+before continuing the affected work.
+
+For changes to product behavior, identify the actor, entry point, and expected result from the request, acceptance
+criteria, or an approved example. For fixes and internal refactors, restore or preserve the supported behavior; no new
+example is required. Ask only when a missing decision would materially change the result. Make routine implementation
+choices within the approved scope and continue through implementation and verification.
+
+For architecture, scanner, and rendering work, approved hand-authored Markdown and its rendered view are the semantic
+authority. The scanner exists to reproduce that meaning from code. Files, directories, imports, line counts, framework
+internals, and containment are evidence; they are not architecture components or collaborations unless the approved
+example requires them.
+
+Every new behavior, output, artifact, concept, abstraction, module, dependency, or test must answer:
+
+> Which current user action or visible result requires this to exist?
+
+Availability, implementation convenience, completeness, convention, best practice, future flexibility, large scale,
+generic support, production safety, compatibility, and possible edge cases are not sufficient answers.
+
+Implement one approved revision and one supported example at a time. Do not generalize to another repository, language,
+framework, scale, or delivery model until the current result has been used and approved by a human.
+
+A task is not complete merely because its tests pass. Someone unfamiliar with the implementation must be able to explain
+the path from entry point through responsibilities and state to the result, and understand why each visible concept
+exists.
+
+## Groma delivery boundaries
+
+Groma is moving toward a model that is detached from the filesystem. Treat the current filesystem integration as
+temporary delivery plumbing, not as a foundation to generalize or harden for hypothetical futures.
+
+Do not add the following behaviors outside the approved scope. If the request or acceptance criteria already require
+them, proceed without asking again; compatibility and migrations still require an explicit user request. Otherwise,
+report the proposal to the current user/orchestrator for approval before implementing:
+
+- backward compatibility, migrations, or legacy behavior;
+- handling for an edge case not required by an acceptance criterion or a reproduced failure in the supported product
+  flow;
+- fallback, retry, recovery, or degraded-mode behavior;
+- filesystem or security hardening beyond the declared supported assumptions;
+- an abstraction or extension point justified only by possible future needs.
+
+The report must identify the triggering evidence, the authority that makes the work in scope, the smallest proposed
+behavior, and the cost of leaving it unsupported. Tests for unapproved behavior count as implementation and require the
+same approval.
+
+Review findings may block completion only when they cite an unmet acceptance criterion, an unmet Definition of Done
+item, or a reproducible failure in the declared supported product flow. Otherwise record them as non-blocking
+follow-ups.
+
+The implementing agent performs the specification and quality reviews itself. The specification review compares the
+result with the task acceptance criteria and Definition of Done. The quality review checks the changed code for
+reproducible defects, unnecessary complexity, unclear ownership, and missing tests in the supported flow. Do not spawn
+separate agents for these reviews.
+
+During the quality review, trace the changed flow from entry point to result as a junior developer new to the project.
+Check whether they can find where the behavior lives and where a similar change belongs, follow data and control flow,
+and understand ownership and correct use from names and contracts without knowing hidden conventions.
+
+The first specification and quality reviews may inspect the complete change. Any re-review is limited to the previously
+reported findings and regressions caused by their fixes. Newly noticed non-critical improvements are follow-ups.
+
+Stop work when the supported product flow passes, the task acceptance criteria and Definition of Done are satisfied with
+evidence, and no authority-backed blocking finding remains.
+
+## Simplicity review
+
+For substantial domain or architecture changes, or when explicitly requested, run one cold simplicity review after
+implementation and focused checks pass, before specification, quality, and finalization reviews. Small fixes,
+behavior-preserving refactors, and documentation changes use the implementer's own review unless external review is
+explicitly requested.
+
+Give the reviewer the task, the diff, and the repository without conversation history. The reviewer must briefly explain
+the implemented flow from its entry point through its work to its result, then answer:
+
+1. Is this the simplest implementation that satisfies the acceptance criteria?
+2. What code, concepts, indirection, or tests can be deleted or collapsed?
+3. Can someone unfamiliar with the codebase quickly understand the flow?
+
+Findings may recommend deletion, consolidation, naming improvements, or clarification within the accepted scope. They
+may not introduce behavior, requirements, edge cases, compatibility, fallback, recovery, hardening, or future
+abstractions.
+
+The implementer applies accepted simplifications and reruns focused checks. There may be at most one targeted re-review,
+limited to the original simplicity findings and regressions caused by their fixes. The implementer's specification and
+quality reviews follow only after this gate passes.
+
+## Full-context complexity review
+
+For the same substantial changes, or when explicitly requested, run one final review in a separate agent with the full
+conversation context after the implementer's specification and quality reviews. Check whether the result could use a
+simpler approach, whether components are grouped clearly by domain, and whether ownership and supported usage are clear.
+Present material recommendations to the user before changing the architecture beyond the approved scope.
+
+The cold simplicity review and the full-context complexity review are the only reviews assigned to separate agents.
+Do not spawn agents for other reviews unless the user explicitly asks.
+
+## Tests
+
+Test domain rules and observable behavior: scanner inference, ownership, navigation state, projection and layout
+invariants, camera rules, world immutability, and lifecycle.
+
+Before adding a test or extending its assertions, inspect existing coverage and briefly record in the task plan:
+
+1. The supported rule and its authority: the user request, an accepted requirement, a documented contract, or a
+   reproduced failure in the supported flow.
+2. The concrete incorrect result the test would detect.
+3. The gap in existing coverage and the smallest test needed to close it.
+
+One short explanation per behavior is enough. If you cannot name the specific failure and the coverage gap, do not add
+the test. Prefer extending relevant coverage over duplicating the same check across files or layers. An agent-written
+acceptance criterion saying "tests cover this" does not by itself justify a test; it must trace to the supported rule.
+
+Zero new tests is a valid outcome. Copy, styling, documentation, and behavior-preserving cleanup do not automatically
+need new tests. Use existing checks and focused manual verification when they are sufficient.
+
+Do not add tests of documentation inventories, source-code text, decorative details (frame strings, hint text, border
+glyphs, colors), or exact prose. A minimal text anchor may observe behavior, and exact command arguments or protocol
+values may be checked when required by a contract; do not freeze the surrounding wording. Never merely restate a
+fixture or copy the implementation into the expected result. For example, an owner-selection test must identify the
+correct owner, not just find the heading "Owner".
+
+During the implementer's quality review, check that each new or changed test proves its claimed behavior: would the
+concrete wrong result fail, and would a harmless wording change or behavior-preserving refactor still pass? Remove or
+improve assertions that fail this review. For bug fixes, verify that the regression test fails before the fix and passes
+after it when practical.
+
+Automated tests load architecture only from `test/fixtures/`, never from the live `groma/` tree. A fixture is a
+minimum world that exhibits the rule under test: kinds, parentage, relationship direction, promotion, inset, camera.
+Do not photocopy this repository's observed architecture. Do not assert product names, descriptions, file layout,
+or that a particular person uses a particular system or container. If the fixture already says A uses B, do not
+write a test whose only claim is that A uses B.
+
+Tests must be parallel-safe and run concurrently (`test.concurrent` under `bun:test`). Each test owns its renderer,
+fixtures, and temp directories; nothing is shared between tests. When a test needs a text anchor to observe behavior,
+prefer one minimal anchor over exhaustive content matching.
+
+## Test runner validation
+
+- When changing test execution or lifecycle APIs, check the official documentation for the installed runner version
+  and compare it with the version declared by the project.
+- Distinguish concurrency within a file from parallel execution and isolation between files. Validate new runner
+  options before adding them to the repository check.
+- If a test passes alone but fails in the suite, investigate the difference. Do not remove assertions, narrow the
+  scenario, increase timeouts, or add retries merely to obtain a passing result.
+
+## TUI map
+
+For TUI behavior or rendering work, read [TUI map validation](docs/viewers/tui/validation.md) and use its
+`tui-test` procedure to verify the affected flow.
+
+<!-- groma:start -->
+## Groma
+
+This project uses Groma. Run `groma agent-instructions` when scanning or curating architecture, or changing scanner or
+architecture-model behavior. Do not edit Groma-owned architecture files directly.
+<!-- groma:end -->
+
+---
+> Source: [MrLesk/Groma.md](https://github.com/MrLesk/Groma.md) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
