@@ -1,14 +1,48 @@
 ## fictionforge
 
-> 框架与小说解耦：`framework/` 是通用引擎，`novels/<小说>/` 是可替换的内容包。换一本小说只改内容，不改框架。
+> 这是**多智能体小说写作框架**：每个角色一个 agent（记忆/信念/视角各自独立），导演级叙事合成章节，质量门禁自动返工。你的工作：**定走向、审 spec、拍板**，写正文的事交给它。
 
 # AI Novel Generation Framework
 
-框架与小说解耦：`framework/` 是通用引擎，`novels/<小说>/` 是可替换的内容包。换一本小说只改内容，不改框架。
+## 3 分钟上手（新用户从这开始）
+
+这是**多智能体小说写作框架**：每个角色一个 agent（记忆/信念/视角各自独立），导演级叙事合成章节，质量门禁自动返工。你的工作：**定走向、审 spec、拍板**，写正文的事交给它。
+
+**首次运行（二选一）：**
+
+- **一键（推荐）**：macOS/Linux 在项目根目录执行 `./start.sh`；Windows 双击 `start.bat`。自动完成：检查 Python → 装依赖 → 提示配 key → 起代理 → 跑通示例。
+- **手动 5 步**（同样有效）：
+  1. 检查 Python：`python3 --version`（要 3.9+）
+  2. 装依赖（就一个）：`pip install requests`
+  3. 配 API key：在**你自己的用户目录**建 `~/.env`，写一行 `DEEPSEEK_API_KEY=sk-你的key`（也可用 `DASHSCOPE_API_KEY`=阿里云百炼、`OPENROUTER_API_KEY`）。`~/.env` 在项目外面，不会被提交。
+  4. 起 LLM 代理：`python3 server/gen_proxy.py`（保持开着）
+  5. 跑通示例：`python3 scripts/gen.py --force novels/静默轨道/specs/ch1.json` —— 看到生成一章正文，环境就通了
+
+> **不用翻墙**：DeepSeek 和阿里百炼都国内直连。正文默认走海外 Kimi（需科学上网）；start 脚本会检测你只有国内 key 时，自动把正文切到 DeepSeek/百炼并写入 `~/.fictionforge_routes.json`（之后手动跑 `gen.py` 也生效，想切回海外就删掉该文件）。
+
+**写你自己的小说（二选一）：**
+
+- 最省事：直接跟当前这个 AI 助手说「我要写一本 **xxx 题材** 的小说，主角是 **xxx**」，让它按 `templates/novel/` 帮你搭内容包
+- 手动：复制 `templates/novel/` 为 `novels/<你的小说>/`，填 `novel_config.json` + `bible/`，见 `templates/novel/README.md`
+
+**你可以让这个 AI 助手帮你做的典型事情：**
+
+- 「帮我的小说搭内容包」 / 「起一个新角色，写他的人格三层」
+- 「设计第 N 章的 spec（标好 A/B 反转落点）」
+- 「按这份 spec 生成正文」 / 「检查这章有没有 AI 腔、禁词、比喻密度超标」
+- 「这章写歪了，帮我重写第二、三节」
+
+每章固定流程（不可跳过）：**Design spec → 审 spec → 生成 → 审 + 改 → 定稿 → 更新章节状态**。你的角色是导演，不是打字员。
+
+---
+
+## 框架与小说解耦（实现背景，普通使用可跳过）
+
+`framework/` 是通用引擎，`novels/<小说>/` 是可替换的内容包。换一本小说只改内容，不改框架。
 
 ## 目录结构
 
-- `framework/` — 通用引擎（tick_runner / agent_base / agent_lite / scene_director / narrator / spec_builder / world_sim / vault_sync / percept_filter / env_state / novel_config）
+- `framework/` — 通用引擎（tick_runner / agent_base / agent_lite / scene_director / narrator / spec_builder / world_sim / vault_sync / percept_filter / env_state / novel_config / theory_of_mind / chapter_coordinator）
 - `novels/<小说>/` — 内容包，`novel_config.json` 是框架与小说的唯一接口
 - `lib/`、`scripts/gen.py`、`server/` — 生成管线与代理
 - `tests/` — 框架单元测试（无 LLM / 无 I/O 依赖）
@@ -44,6 +78,12 @@ system prompt 注入内容统一在 `bible/` 目录维护，gen.py 自动读取�
 
 gen.py 以外的调用（手动润色/测试）必须手动注入 bible 约束到 system prompt。润色指令禁止用宽泛描述（"润色一下"）。改用精确指令（如"在不增加比喻密度的前提下，增强感官密度和身体信号"），否则模型会自由发挥其默认"好文笔"模式。
 
+## 认知反转引擎（v0.2.0）
+
+- **真相表**：`bible/真相表.md`，作者维护的权威事实表，`novel_config.json` 的 `theory_of_mind.truth_table` 声明。**不进 bible_files、不 verbatim 注入**——只有推导出的 `info_gaps` 进 prompt（模型全知会泄谜底）。`false` 行 = 广泛流传但错误的认识（B 型素材）。
+- **知识 vs 真相**：每角色 `knowledge`（已确认事实）/ `tom`（「我认为 X 知道什么」）/ `unknown_to_character`。A 型反转 = 读者确认之前只敢猜的事；B 型 = 之前以为对的事实是错的。
+- **顶层协调器**：每章走 gen（手写 spec → info_gaps 标注 → 推进知识 → 生成）/ engine（tick JSON 落盘，不生成正文）/ hybrid（tick → 机械 spec → 标注 → 生成）。`scripts/run_chapter.py` 调用。配置分层：`cli > arc.pipeline_mode > chapter_overrides > default_mode > gen`。
+
 ## 写作技法参考（悬疑/恐怖章节专用，其他章节不适用。持续补充）
 
 1. **恐怖信号渐强阶梯** — 同一场景内按强度递增排列感知信号（声音延迟→目光异常→身体变异），不堆在同一段。
@@ -76,4 +116,4 @@ gen.py 以外的调用（手动润色/测试）必须手动注入 bible 约束�
 
 ---
 > Source: [wanqili857-byte/fictionforge](https://github.com/wanqili857-byte/fictionforge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
