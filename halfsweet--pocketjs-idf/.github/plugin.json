@@ -1,0 +1,9 @@
+{
+  "name": "halfsweet--pocketjs-idf",
+  "displayName": "PocketJS-IDF",
+  "description": "PocketJS runtime and RGB565 framebuffer manager for ESP32-P4",
+  "version": "1.0.0",
+  "author": "HalfSweet",
+  "homepage": "https://github.com/HalfSweet/PocketJS-IDF",
+  "skills": []
+}
