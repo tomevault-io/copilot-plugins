@@ -1,0 +1,9 @@
+{
+  "name": "nikandr-surkov--ai-saas-starter",
+  "displayName": "ai-saas-starter",
+  "description": "AI SaaS boilerplate for Next.js 16 \u2014 Better Auth, Stripe subscriptions, credits system, AI image generation. AI-native: AGENTS.md, Claude Code skills & hooks.",
+  "version": "1.0.0",
+  "author": "nikandr-surkov",
+  "homepage": "https://github.com/nikandr-surkov/ai-saas-starter",
+  "skills": []
+}
