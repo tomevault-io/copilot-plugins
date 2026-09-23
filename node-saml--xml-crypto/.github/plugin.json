@@ -1,0 +1,9 @@
+{
+  "name": "node-saml--xml-crypto",
+  "displayName": "xml-crypto",
+  "description": "xml-crypto",
+  "version": "1.0.0",
+  "author": "node-saml",
+  "homepage": "https://github.com/node-saml/xml-crypto",
+  "skills": []
+}
