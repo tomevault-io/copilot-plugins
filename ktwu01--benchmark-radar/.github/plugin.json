@@ -1,0 +1,14 @@
+{
+  "name": "ktwu01--benchmark-radar",
+  "displayName": "benchmark-radar",
+  "description": "benchmark-radar",
+  "version": "1.0.0",
+  "author": "ktwu01",
+  "homepage": "https://github.com/ktwu01/benchmark-radar",
+  "skills": [
+    {
+      "name": "benchmark-radar",
+      "description": ""
+    }
+  ]
+}
