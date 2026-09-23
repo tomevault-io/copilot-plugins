@@ -1,0 +1,619 @@
+## nova
+
+> This file is self-contained. Canonical protocol text was rendered into it;
+
+# Agent Guidelines
+
+This file is self-contained. Canonical protocol text was rendered into it;
+the source repository is needed only to update or verify the import.
+Do not edit this generated file directly. Edit `.agent-protocols.local.md`
+or `.agent-protocols.exceptions.json`, then render from the pinned source.
+
+## Protocol import record
+
+- Source: `https://github.com/Yazelix/starcompass`
+- Source commit: `95c29fa76a971726b65e1d1dc06c518d525c46a2`
+- Profiles: `orchestrator`, `release`, `fork`
+- Manifest: `.agent-protocols.json` (schema 1)
+
+| Protocol | Version | SHA-256 |
+| --- | ---: | --- |
+| `AP-SCOPE-001` | 1 | `b3f7e012df0708d4baf8957e3c315878a9eb8cd7fddf637dfde1506609d08444` |
+| `AP-CONTRACT-001` | 2 | `f8a3b323f95816ee6d56d136c2ad19c691860155a4e58f57a62a4fb4dfc78cbb` |
+| `AP-REFERENCE-001` | 2 | `ecb28af3796a9964dd98c037463a33b7444d9c39a0365783fb0e9ae9fc007b9c` |
+| `AP-MINIMAL-001` | 2 | `3f4ebb1ab87f50ed5c9f041fb60d94cc7ded264ab04e56413fd1da343baa38f3` |
+| `AP-DEPENDENCY-001` | 1 | `a389ff9054708574c52ec5e5dd7fc3e2d13b125d2218c70062f50a86761981ca` |
+| `AP-OWNERSHIP-001` | 1 | `bdc09117f79b0d8dbe78e2dd8673a2463398aa31880fe27209fd6cc47f58bbf7` |
+| `AP-TEST-001` | 1 | `363da7c542521be22233a4cc3373c0d3c3c5a9a0cf37f633cd5029545f4a3bee` |
+| `AP-PROOF-001` | 1 | `1af235a56e9711d55362d869fa4057f1658d0aa7fe766030be0897ee5fd7c02b` |
+| `AP-PLAN-001` | 6 | `04b96c47978d49d2e6584f89626bca42b6cb39df537fa3e5abd6da0bdc2edfda` |
+| `AP-CI-001` | 1 | `78f1662259cd83f33d22ff4ddd0859ab0d4f704ba4f38756eef40a8b9b787bec` |
+| `AP-ORCHESTRATOR-001` | 1 | `6228280f59c46dae79e45986d3848f071fd57699c8ce548ec2f7e503689e09c8` |
+| `AP-FRONTIER-001` | 1 | `60e397fa4862afe902792501ffc6d2a82c94479877196b4278e7283a20111fe0` |
+| `AP-PORTABILITY-001` | 1 | `d2800376013bbe1ade3449f835daf8780e60d4c08a79a7f733d4a651c4d6d887` |
+| `AP-EXCEPTION-001` | 1 | `f66749229dbbc005e1c3103bfed86cf95169d7b32466c72fd8442e841cadb268` |
+| `AP-GIT-001` | 3 | `16d27b0df7ccc94880bb31020e822e32b37503f43c2cf7a69de333300cbfdacf` |
+| `AP-DELIVERY-001` | 1 | `5e424f8f1adf9dc86864e3c0e209b47ed577e17baa74e3ac2219e2209a4ff80b` |
+| `AP-PROMOTION-001` | 1 | `d75780b1ee1dd658f32c80ff5edda5bff342212569029d0eb3bdc382f471d66e` |
+| `AP-FORK-001` | 1 | `c8137dfbdc699c78cf7d8cd8a7dff7280b4013a84ed65c9234e7fb6511ca4563` |
+| `AP-FORK-002` | 1 | `d896c5c45cf1615da683fa7503365d8d58286d4b7198ffc49ef9b9a0631b9ef1` |
+
+### Local exceptions
+
+No local exceptions.
+
+## Canonical protocols
+
+### AP-SCOPE-001 — User-owned scope
+
+The user decides product and project scope. An agent may inspect, explain, test,
+or make the smallest implementation needed for the chosen goal, but it must not
+silently create a feature, compatibility promise, public surface, migration,
+repository, or planning item outside that direction.
+
+Required practice:
+
+- Separate safe implementation details from choices that change product scope.
+- State consequential assumptions; stop when a missing choice would materially
+  change the result.
+- Treat a terminal instruction such as “finish” as persistence, not broader
+  authority.
+- Keep useful out-of-scope observations as findings unless the user has chosen
+  a durable planning destination for them.
+
+### AP-CONTRACT-001 — Contract-driven changes
+
+State the irreducible externally observable behavior before choosing the code
+shape. Give durable contracts stable identifiers when later code, tests, or
+repositories need to cite them.
+
+Required practice:
+
+- Among contracts that fit the user request and available evidence, choose the one
+  with the fewest unsupported guarantees or restrictions. Leave reasonable
+  future behavior unspecified unless the request or evidence requires a
+  commitment.
+- Name the consumer, trigger, observable result, and important failure behavior.
+- Identify the current sources of truth and decide which one owner survives.
+- Choose the cheapest check that can falsify the contract.
+- Implement the smallest vertical slice that satisfies it.
+- Update the contract first when an intentional behavior change is chosen.
+
+Do not turn implementation details into contracts unless another component must
+rely on them.
+
+### AP-REFERENCE-001 — Evidence before code shape
+
+Review the relevant sources before deciding architecture or implementation
+shape. Memory, summaries, and reputation are discovery aids, not sufficient
+evidence for a consequential decision.
+
+Required practice:
+
+- Read the affected local code, contracts, tests, and repository instructions.
+- Inspect designated external references at the subsystem named by local rules.
+- Record the concrete mechanism adopted, rejected, or left unresolved.
+- Distinguish direct source evidence from inference.
+- Revisit the evidence when the proposed shape changes materially.
+- Apply source-license wording to the actors, uses, and conditions it actually
+  names. Do not infer that an independent user or project acts on behalf of,
+  for the benefit of, or under the direction of an agent or tool provider
+  merely because the user selected that provider's service. Examples
+  introduced by words such as “including” remain scoped by the condition they
+  illustrate.
+- Distinguish inspecting public source for ideas from copying, adapting,
+  redistributing, selecting a dependency, or incorporating the source. A
+  restriction on one of those actions does not silently erase required source
+  inspection when the requested research itself remains permitted.
+- If license interpretation would exclude required evidence, identify the
+  exact clause, actor, beneficiary, direction, and requested use. Resolve a
+  material ambiguity with the user instead of broadening the restriction by
+  association or substituting reputation and secondary summaries for source.
+
+Reference review is a decision gate, not a requirement to copy the reference.
+
+### AP-MINIMAL-001 — Minimum sufficient implementation
+
+Use the accepted contract and source evidence to identify the correct owner,
+affected flow, and necessary boundaries before minimizing code. Then use the
+first option that fully satisfies those constraints:
+
+1. Make no change when the required behavior already exists.
+2. Reuse an existing correct owner, helper, or pattern in the repository.
+3. Use the standard library or a native platform capability.
+4. Use an already accepted dependency that owns the behavior.
+5. Implement the minimum local code that is correct and maintainable.
+
+Evaluate minimality across the accepted system and its lifecycle, not only the
+current patch. Lines, files, dependencies, and patch size are evidence, not
+objectives. Include duplicated truth, cross-owner coordination, coupling,
+migration and removal, portability, operations, and proof cost.
+
+A smaller patch is not minimal when it preserves a known misplaced or duplicate
+owner, patches a symptom below its shared cause, bypasses an accepted boundary,
+or increases downstream coordination. A necessary root-cause or ownership
+correction may be locally larger. Use patch size only as a tie-breaker among
+shapes that satisfy the same contract, ownership, lifecycle, and proof duties.
+
+Prefer deletion over addition, direct ownership over adapters, and fewer files
+over scaffolding. Minimalism must not remove required behavior, trust-boundary
+validation, data-loss protection, security, accessibility, or the cheapest
+runnable check for non-trivial logic.
+
+Ponytail is the adopted agent-side aid for this discipline when the host
+supports it; it is a fallible implementation bias, not an architectural
+authority. Apply its YAGNI, shortest-diff, standard-library, native, and
+one-line heuristics only after the constraints above. Repository contracts,
+ownership, evidence, dependency decisions, safety, accessibility, portability,
+proof obligations, and explicit user choices take precedence. Do not invoke
+Ponytail to avoid a necessary architectural or root-cause change.
+
+Use the upstream project directly rather than copying its rules or adapters.
+The reviewed source is
+[DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail/tree/16f29800fd2681bdf24f3eb4ccffe38be3baec6b).
+If Ponytail is unavailable or disabled, the self-contained requirements above
+still apply. Its instruction hooks improve consistency; they do not prove
+compliance.
+
+### AP-DEPENDENCY-001 — Dependency gate
+
+Choose dependencies for architectural fit and net system simplicity, not name
+recognition or short-term convenience.
+
+Before adding a crate, package, framework, service, or embedded project:
+
+- State the capability and contract it would own.
+- Consider the standard library, owned code, and multiple credible candidates.
+- Compare maintenance, platform fit, correctness, transitive weight, licensing,
+  API stability, and the lines and complexity removed.
+- Record the chosen candidate, meaningful rejections, and replacement cost.
+- Pin deliberately and add the smallest check that proves the relied-on behavior.
+
+Remove a dependency when it no longer owns enough behavior to justify its cost.
+
+### AP-OWNERSHIP-001 — One owner per invariant
+
+Every invariant, state transition, and user-visible policy must have one clear
+owner. Other components may consume its output; they must not independently
+reconstruct or reinterpret the same truth.
+
+Required practice:
+
+- Name the owner before adding adapters or synchronization.
+- Prefer deleting duplicate owners over reconciling them.
+- Keep policy at the highest layer that has the necessary context and mechanism
+  at the lowest layer that can enforce it correctly.
+- Make cross-boundary data explicit and versioned when independently released
+  components depend on it.
+
+### AP-TEST-001 — Strong and few tests
+
+Tests exist to protect contracts, regressions, boundaries, and failure modes
+that matter to users or future agents. Prefer one strong test with meaningful
+setup and assertions over several thin tests.
+
+Required practice:
+
+- Use TDD for deterministic helpers, parsers, protocol behavior, and regressions
+  when the expected behavior can be stated before implementation.
+- Choose contract-first integration checks for layout, runtime integration,
+  architecture choices, forks, and dogfooding surfaces.
+- Delete or merge tests that duplicate another proof, assert implementation
+  trivia, or preserve scaffolding.
+- Test observable effects rather than mirroring literals, defaults, or source
+  structure.
+- Add absence guards only when absence is itself a security, licensing, size,
+  ownership, or known-regression contract.
+
+### AP-PROOF-001 — Explicit proof lifecycle
+
+Claims and proofs have a lifecycle. A passing check supports only the exact
+revision, environment, and surface it exercised.
+
+Required practice:
+
+- Record the command or observation, relevant environment, revision, and result.
+- Distinguish proposed, implemented, mechanically verified, manually dogfooded,
+  accepted, and promoted states.
+- Re-run stale proof after relevant code, dependency, platform, or contract
+  changes.
+- Never promote a narrower check into a broader claim.
+- Preserve important negative results; they constrain the next valid design.
+
+### AP-PLAN-001 — Durable planning state
+
+Keep the outcomes and constraints that later work needs in the project's
+durable planning system or canonical documentation. An issue represents a
+chosen goal, decision, material defect, or schedulable follow-up. Review and
+implementation methods belong to that issue.
+
+An agent run is one uninterrupted execution ending when control returns to the
+user, including automatic continuations. A run may inspect any planning state
+read-only. A run that writes planning state or implementation may use one of two
+issue-work shapes:
+
+1. Own at most one issue. The run may create, claim, update, implement, or close
+   that issue.
+2. Use a bounded planning-only batch with explicit user authorization over a
+   named or accepted issue set. The run may create, update, or close only that
+   set; it may not claim an issue or make implementation edits.
+
+Do not combine these shapes in one run.
+
+Required practice:
+
+- Bind an implementation run to its one owning issue before its first issue
+  write or implementation edit.
+- After the owning implementation issue is complete, blocked, or handed off,
+  stop and return control to the user. Do not begin another issue, including
+  work newly unblocked by the completion.
+- Leave unapproved follow-up findings as reported findings. A planning-only
+  batch may include only its named or accepted issue set.
+- After review, fresh-eyes, simplification, or verification of an owning issue,
+  update its editable fields to describe the accepted state instead of pass
+  chronology.
+- Create a separate issue only for a material finding outside the prior owning
+  scope or one worth scheduling on its own. Outside an authorized planning-only
+  batch, defer creation to a later run. Name it after the outcome or finding.
+- Record the contract, decision boundary, dependencies, acceptance evidence,
+  material negative results, and rejected alternatives that constrain later
+  work.
+- Reserve append-only comments and audit records for chronology needed as
+  evidence. Keep raw command logs and build transcripts with their proof. Omit
+  baseline hashes, failed attempts, and candidate scoring unless they constrain
+  later work.
+- Keep issue status honest: planned, active, blocked, and complete are distinct.
+- Model real prerequisites as dependencies; do not create decorative graphs.
+- Reconcile planning state with the repository before handoff.
+- Use the repository-designated issue tool and never edit its storage directly.
+
+Do not erase approvals, contract changes, material failures, or evidence needed
+to understand the accepted result.
+
+### AP-CI-001 — Bounded continuous integration
+
+Hosted automation must buy enough confidence to justify its financial,
+latency, security, and maintenance cost.
+
+Before enabling CI:
+
+- Name the protected contract and why local verification is insufficient.
+- Bound triggers, job count, timeouts, permissions, artifacts, cache growth, and
+  concurrency.
+- Prefer one cheap deterministic job before matrices or scheduled runs.
+- Make fork and secret behavior explicit.
+- Record the evidence required to expand, reduce, or remove the workflow.
+
+Private-repository minutes and cache storage are product constraints, not an
+invisible externality.
+
+### AP-ORCHESTRATOR-001 — Thin orchestrator ownership
+
+An orchestrator owns composition, lifecycle policy, compatibility selection,
+and user-facing defaults. It must not absorb mechanisms or state already owned
+by its child components.
+
+Required practice:
+
+- Consume released or pinned child artifacts through explicit contracts.
+- Keep child-specific translation at a narrow boundary.
+- Reject copies, hidden forks, and duplicate configuration schemas.
+- Make startup, shutdown, update, and partial-failure policy observable.
+- Validate the orchestrator independently with substitutes or fixtures when a
+  child is not yet ready.
+
+### AP-FRONTIER-001 — One active integration frontier
+
+When several greenfield components are intended to work together, keep one
+integration boundary under active architectural change whenever practical.
+
+Required practice:
+
+- Stabilize the contracts on the other sides with released artifacts, fixtures,
+  adapters, or existing interchangeable projects.
+- Dogfood the active frontier through the smallest real vertical slice.
+- Move the frontier only after its contract and failure behavior are supported
+  by evidence.
+- Allow parallel internal work when it does not make multiple integration
+  contracts speculative at once.
+
+This is a risk-control default, not a ban on parallel implementation.
+
+### AP-PORTABILITY-001 — Portable core with explicit platform seams
+
+Do not let one operating system's APIs, process model, paths, packaging, or
+event facilities become an accidental foundation when supported targets are
+broader.
+
+Required practice:
+
+- Keep platform-neutral contracts and state in the core.
+- Isolate OS-specific code behind the smallest meaningful seam.
+- Evaluate Linux and macOS implications before adopting foundational runtime,
+  process, graphics, filesystem, or transport dependencies.
+- Prove platform behavior on the platform; compilation alone is narrower
+  evidence.
+- Record intentionally unsupported platforms rather than implying portability.
+
+### AP-EXCEPTION-001 — Explicit local exceptions
+
+A local rule may narrow, replace, or suspend an imported protocol only through
+an explicit exception approved by the user or named project authority.
+
+Each exception records:
+
+- the protocol ID;
+- its exact scope;
+- the reason the canonical rule does not fit;
+- who approved it and when;
+- an expiry or review condition when the exception is temporary.
+
+Unrecorded conflicts are drift. A local rule that merely adds detail without
+changing the canonical requirement is an overlay, not an exception.
+
+### AP-GIT-001 — Safe repository history
+
+Repository history is shared user state. Preserve unrelated work, follow the
+local branch and promotion model, and use the least destructive operation that
+achieves the requested result.
+
+Required practice:
+
+- Inspect status and repository instructions before editing.
+- Treat existing and concurrent changes as user-owned unless proven otherwise.
+- Fold a correction into the current task's unpublished commit when it belongs
+  to the same unit of work. Refresh and reverify dependent local commits and
+  generated artifacts.
+- Use a follow-up commit after a push, promotion, release, external pin, or any
+  other point where someone outside the current local work can rely on the
+  revision.
+- Do not reset, discard, force-push, rewrite published history, or create a
+  branch without authority from the user or repository policy.
+- Verify the intended diff before committing and the remote state after pushing.
+- Make rollbacks additive through a reviewed revert unless policy says otherwise.
+
+### AP-DELIVERY-001 — Installed artifact and fresh-session proof
+
+Source-tree checks do not prove the artifact or runtime experience delivered to
+a user. When the changed surface has a package, installation, activation, or
+interactive-runtime contract, verify that surface before calling the revision
+releasable.
+
+Required practice:
+
+- Build through the intended delivery path from the exact candidate revision.
+- Record the artifact identity, relevant environment, commands, and result.
+- Install or activate the artifact in an isolated destination without silently
+  falling back to the development checkout or stale generated state.
+- Verify that the installed program or package identifies the intended
+  candidate when the product exposes an identity surface.
+- Dogfood user-visible interaction changes from a newly started session; an
+  already-running session does not prove startup, packaging, or activation.
+- Keep claims narrower when a platform, installer, or interaction cannot be
+  exercised. Missing proof does not become implied support.
+
+Automate deterministic delivery checks where useful, but do not describe
+compilation alone as installation proof or a scripted probe as manual dogfood.
+
+### AP-PROMOTION-001 — Exact-revision channel promotion
+
+Release channels are ordered references over one linear history, not independent
+development lines. The consumer declares the channel order, required evidence,
+and promotion authority; this protocol does not prescribe branch names or
+release cadence.
+
+Required practice:
+
+- Declare the channel ancestry invariant and the development channel where all
+  tracked changes originate, including fixes, reverts, documentation, and
+  planning state.
+- Treat accepted and user-facing channels as promotion-only. Advance each by
+  fast-forwarding it to the exact verified revision already present in its
+  immediate predecessor.
+- Do not create direct channel commits, merge commits, cross-channel
+  cherry-picks, published-history rebases, force-pushes, or skipped promotion
+  stages.
+- Require the checks and delivery evidence defined for the target channel, and
+  block a candidate with a known critical or high-severity regression.
+- Require explicit user authority before advancing a user-facing channel.
+- Roll back through a new revert on the development channel, then verify and
+  promote that revision through the normal order.
+
+Promotion changes exposure, not evidence. Moving a reference must never turn an
+unproved revision into a proved one.
+
+### AP-FORK-001 — Minimal isolated fork delta
+
+A fork should own only the behavior that cannot reasonably live upstream or in
+an external layer. Keep the patch surface small, cohesive, and easy to identify.
+
+Required practice:
+
+- Start from the exact upstream source and behavior under change.
+- Prefer upstream configuration, extension points, and narrowly isolated patches
+  before broad rewrites.
+- Keep fork-specific modules, commits, and tests separable where the architecture
+  permits it.
+- Avoid opportunistic cleanup in upstream-owned code.
+- Measure the maintained delta and justify growth with user-visible ownership.
+
+### AP-FORK-002 — Upstream and removal discipline
+
+Every fork feature needs an upstream relationship and an exit story.
+
+Required practice:
+
+- Record the upstream baseline and patch provenance.
+- Audit upstream changes before rebasing or replacing behavior; do not
+  mechanically replay patches.
+- Prefer contributing generally useful mechanisms upstream when feasible.
+- Define when an upstream feature, external component, or contract change makes
+  the local patch removable.
+- Test both the intended fork behavior and the upstream boundary most likely to
+  invalidate it.
+
+## Repository-local rules
+
+### Yazelix Nova
+
+Yazelix Nova is a clean architecture track for a Yazelix-like runtime with the
+fewest practical lines of code and the simplest ownership model.
+
+### Nova Boundary
+
+Do not mechanically port Yazelix Classic. Review the relevant sources of truth
+and decide explicitly what survives.
+
+Current runtime chain:
+
+```text
+yzx -> Nova Rio -> Yazelix Zellij fork
+```
+
+The project interface is a Nix/Lix-compatible flake. `yzx` is the installed
+command name. Do not broaden Home Manager, layouts, config generation, plugins,
+pane policy, or legacy compatibility unless the user chooses that scope.
+
+### Git Channels
+
+Keep one linear history with this ancestry invariant:
+
+```text
+stable ⊆ main ⊆ edge
+```
+
+All tracked changes originate on `edge`, including fixes, reverts,
+documentation, and Beads updates. Work directly on `edge` by default.
+
+Promote whole revisions, never selected commits. Review every accumulated
+change since the target channel's current revision. No cherry-picks, merge
+commits, direct channel commits, or skipped stages. If an urgent fix follows
+unaccepted work, accept that work too, revert it on `edge`, or defer promotion.
+
+`edge` is the active development and experimental dogfood channel. `main` is a
+promotion-only accepted-development channel. After an `edge` revision is
+accepted and verified for `main`, advance `main` to that exact revision with:
+
+```sh
+git push origin <sha>:main
+```
+
+`stable` is the promotion-only user channel. Advance it only when the user
+explicitly requests promotion. A candidate must be a fast-forward from the
+current `stable`, belong to `main`, pass the protected `linux`, both cache
+publication checks, and `release-gate`, and have fresh-session dogfood
+for user-visible runtime interaction changes. Do not promote a commit with a
+known P0 or P1 regression. Promote the exact verified revision with:
+
+```sh
+git push origin <sha>:stable
+```
+
+Ordinary Stable promotions wait at least seven days after the last promotion,
+including an urgent promotion. Explicitly requested urgent fixes may bypass
+only this wait, never verification or whole-candidate acceptance. Routine docs
+and planning wait for the next eligible promotion. Record the candidate, proof,
+actual promotion time, and any urgency reason in the owning Bead.
+
+GitHub requires linear history and status checks, including for administrators,
+on `main` and `stable`. Ancestry through the immediate predecessor, cadence,
+scope acceptance, and dogfood are maintainer checks before the push.
+Never delete `stable`.
+
+### Beads
+
+Use `br` for all issue work. Serialize writes and finish with
+`br sync --flush-only`.
+
+Use `bv --robot-triage` as the graph-aware planning entry point. Use only
+`bv --robot-*` commands; bare `bv` opens an interactive TUI. `bv` decides what
+to work on, while `br` creates, updates, and closes issues. Before claiming a
+recommendation, verify it with `br show <id> --json` or `br ready --json`.
+
+### Hosted Check Handoffs
+
+Do not spend an active agent run watching a long hosted check. Treat a check as
+long when its workflow design or recent history indicates that it normally
+takes more than about 30 minutes, including the staged `Version Gate`.
+
+After dispatching a long check, verify that it started for the intended workflow,
+ref, and exact revision. Record the run URL, revision, required conclusion,
+current state, and success or failure follow-up in the current owning Bead. If
+the check has no owning Bead, create one follow-up Bead for that handoff. Finish
+with `br sync --flush-only`, return control to the user, and let a later run
+inspect the result and continue or close the Bead. Do not perform a dependent
+promotion or release before the required check succeeds.
+
+Short and medium hosted checks expected to finish within about 30 minutes may
+be watched in the active run.
+
+### Command Formatting
+
+Commands shown to the user must work when pasted into Nushell unless the user
+explicitly requests another shell. Never use backslash line continuations. Keep
+each command on one line, or show multiple complete commands on separate lines.
+
+### LOC and Documentation
+
+Update the README LOC scorecard whenever project files change. Update
+`CHANGELOG.md` when user-visible runtime behavior, commands, keymaps, packaged
+tools, or runtime contracts change.
+
+If LOC grows, make the added behavior visible in the scorecard and justify it.
+Formatting rules outrank LOC pressure; for Rust, keep `rustfmt` output rather
+than compressing code manually.
+
+### Nova Verification
+
+For runtime flake changes, normally verify:
+
+```sh
+nix flake check
+nix flake show --all-systems
+nix build .#yazelix --no-link --print-build-logs
+nix profile add --refresh /home/lucca/pjs/yazelix-dir/yazelix --profile <tmp>
+```
+
+### Linux and Darwin Gates
+
+Classify every change before implementation as shared, explicitly
+platform-specific, or platform-neutral. Treat Nix evaluation and packaging,
+dependencies, Home Manager, config materialization, and runtime command, shell,
+filesystem, process, or PTY behavior as shared unless the contract says
+otherwise.
+
+Shared changes must not be accepted or promoted from Linux evidence alone:
+
+- On `edge`, require green Linux CI and `Darwin Package Smoke` on the exact
+  revision. Dispatch the Darwin workflow when its scheduled run does not cover
+  that revision; dispatch it after changing the workflow itself.
+- On `main`, require green CI plus both `Publish Nix Cache` jobs:
+  `publish_x86_64_linux` and `publish_aarch64_darwin`.
+- For a release candidate, require `Version Gate`'s `release-gate`, which
+  requires Linux and every Darwin job to succeed, and the protected Linux and
+  Darwin cache checks before promoting `stable`. Skipped work is not proof.
+
+`nix flake show --all-systems` and Darwin derivation evaluation on Linux prove
+flake shape only; they do not replace a real `aarch64-darwin` build. Linux-only
+verification is allowed only for an explicitly Linux-only surface,
+platform-neutral documentation or planning, or an optional capability that is
+unavailable or disabled on Darwin by contract. Record that boundary and reason,
+and keep shared flake evaluation green when the shared graph changes.
+
+After every successful push to `edge`, refresh the user's installed Edge
+dogfood profile:
+
+```sh
+nix profile upgrade --refresh yazelix-edge
+```
+
+Then verify with `nix profile list --json` that `yazelix-edge` resolves to the
+exact revision pushed. Report an upgrade or identity mismatch instead of
+treating it as current. Do not update the stable `yazelix` profile unless the
+user explicitly requests it.
+
+Do not launch GUI sessions unless the user asks or reports manual dogfooding.
+
+---
+> Source: [Yazelix/nova](https://github.com/Yazelix/nova) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
