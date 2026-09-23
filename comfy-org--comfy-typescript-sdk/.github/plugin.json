@@ -1,0 +1,9 @@
+{
+  "name": "comfy-org--comfy-typescript-sdk",
+  "displayName": "comfy-typescript-sdk",
+  "description": "TypeScript client SDK for ComfyUI (self-hosted) and Comfy Cloud",
+  "version": "1.0.0",
+  "author": "Comfy-Org",
+  "homepage": "https://github.com/Comfy-Org/comfy-typescript-sdk",
+  "skills": []
+}
