@@ -1,0 +1,9 @@
+{
+  "name": "milvus-io--milvus-sdk-java",
+  "displayName": "milvus-sdk-java",
+  "description": "milvus-sdk-java",
+  "version": "1.0.0",
+  "author": "milvus-io",
+  "homepage": "https://github.com/milvus-io/milvus-sdk-java",
+  "skills": []
+}
