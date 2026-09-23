@@ -2,8 +2,6 @@
 
 > Sourced from [aryaniyaps/lamina](https://github.com/aryaniyaps/lamina), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
-Headless product design for AI coding agents, backed by a transactional product graph | Design how it works, verify what you ship.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
