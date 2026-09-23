@@ -1,26 +1,147 @@
-## developer
+## global
 
-> Developer 规则：方案遵循、最小修改、编码规范、防覆写。
+> Cursor devflow 全局规则。适用于所有角色，涵盖配置优先、产物本地化、角色权限、状态交接和主线程调度。
 
 
-# Developer 规则
+# 全局规则
 
-## Rule 1：方案遵循
-`技术方案审核通过 → 编码 → 自检`。每个变更点须在 TASK-02 方案中有对应。方案未涉及的功能禁止添加；发现不完整须报告阻塞。
+## G1：运行资产边界
 
-## Rule 2：最小修改
-白名单制修改；只改方案直接相关代码；禁止顺手优化/风格统一/命名改善扩大范围。
+Cursor devflow 只读取 `.cursor/` 下的工作流资产。`.cursor/` 保留给
+CodeBuddy 使用，不能作为 Cursor 运行时依赖。
 
-## Rule 3：编码规范
-- SQL 100% 参数化查询
-- 异常处理明确类型、重试、日志
-- 禁止硬编码 IP/密钥/端口
-- DB 操作单 session、批量执行、避免循环查询
-- 语言级规范按需加载 `lang-golang.mdc` 等
-- SQL 场景额外加载 `lang-golang.mdc` 中相关部分或参考 `assets/archived/lang-sql.mdc`
+## G2：配置优先
 
-## Rule 4：工具选择与防覆写
-新建 → `写入文件`；存量 → `apply_patch`；修改前必读取；修改后自检。
+执行前必须读取 `workflow-state.json`。业务配置以
+`.cursor/assets/devflow.defaults.yaml` 为准。
+
+## G3：产物本地化
+
+所有产物落到 `{ARTIFACTS_ROOT}/{TASK_SLUG}/` 下，禁止跨需求复用目录。
+
+## G4：运行模式不可切换
+
+自动/人工模式一旦判定不得中途切换；无法确认时默认回退为人工模式。
+
+## G5：角色不越权
+
+每个角色只执行职责范围内工作；上一阶段未完成前下一阶段不得提前开始。
+
+## G5.1：用户交互由主 Cursor 线程统一协调
+
+需要多轮澄清或用户确认的节点，由主 Cursor 线程直接处理。阶段角色通过
+Cursor multi-agent 派发，只产出 artifact 和阶段报告，不直接与用户进行多轮交互。
+
+## G6：产物目录规范
+
+Multi-agent 模式：
+
+```text
+{artifacts_dir}/
+  01-requirement/
+  02-design/
+  03-code/
+  04-e2e/
+  05-knowledge/
+  workflow-state.json
+  workflow-summary.md
+```
+
+Solo 模式：
+
+```text
+{artifacts_dir}/
+  01-solo/
+  workflow-state.json
+  workflow-summary.md
+```
+
+所有产物 Markdown 应包含 YAML front matter：
+
+```yaml
+---
+task_id: {TASK_ID}
+stage: {阶段标识}
+author: {角色中文名}
+date: {YYYY-MM-DD}
+run_mode: {auto/manual}
+---
+```
+
+### G6.4：阶段目录所有权
+
+阶段目录只能由对应阶段写入正式产物：
+
+| 目录 | 所属阶段 | 允许写入者 |
+|------|----------|------------|
+| `01-requirement/` | TASK-01 | main |
+| `02-design/` | TASK-02 | architect |
+| `03-code/` | TASK-03 / CODE-REVIEW | developer、code-reviewer |
+| `04-e2e/` | TASK-04 | test-engineer |
+| `05-knowledge/` | TASK-05 | knowledge-engineer |
+
+TASK-03 不得把后续阶段的正式产物直接写入 `04-e2e/` 或 `05-knowledge/`。
+如果 developer 需要为后续阶段准备草稿或素材，必须写到 `03-code/`，文件名使用
+`*-draft.md` 或 `*-source.md`，由 TASK-04/TASK-05 再整理为正式产物。
+
+## G7：状态交接协议
+
+`workflow-state.json` 是阶段交接、恢复和审计的唯一持久化状态。
+
+medium/large 的 TASK-01 需求澄清必须由主线程读取并使用
+`.cursor/skills/superpowers/brainstorming/SKILL.md`
+（`superpowers:brainstorming`）执行；禁止委托给 subagent，也禁止跳过。
+即使需求看起来已经足够明确，也必须向用户发起一次澄清或确认，并等待用户明确
+回复后，才能写入 `TASK-01_completed` 和路由到 TASK-02。
+small 路径进入 SOLO，不执行 TASK-01。
+
+TASK-02 及之后必须用 `Task` 派发：
+
+- TASK-02 architect：`explorer`
+- TASK-03 developer：`worker`
+- CODE-REVIEW code-reviewer：`explorer`
+- TASK-04 test-engineer：`explorer`
+- TASK-05 knowledge-engineer：`explorer`
+- final summary leader：`explorer`
+
+只有工具清单中不存在 `Task`，或调用该工具返回
+“tool unavailable / not found” 类错误时，才允许内联降级，并且必须在
+`workflow-state.json.decisions[]` 记录降级原因。
+
+阶段开始：
+
+1. 读取最新 `workflow-state.json`。
+2. 写入当前阶段 `status = "in_progress"`、`started_at`、`updated_at`。
+
+阶段完成：
+
+1. 写入阶段 artifact。
+2. 更新当前阶段 `status`、`artifact_path`、`completed_at`、`self_check`。
+3. 写入 `current_stage = 当前阶段`。完成后不要保留为上一阶段；下一步由
+   `last_event` 和 `next_target` 表示。
+4. 写入 `last_event` 和 `next_target`。
+5. 返回主 Cursor 线程继续路由。
+
+## G8：主线程调度协议
+
+主 Cursor 线程根据 `.cursor/assets/devflow.defaults.yaml.routing_table` 派发下一阶段：
+
+| 触发事件 | 目标角色 |
+|----------|---------|
+| workflow_initialized (small) | solo-developer |
+| workflow_initialized (medium/large) | main |
+| TASK-01_completed | architect |
+| TASK-02_completed | developer |
+| TASK-03_completed | code-reviewer |
+| CODE-REVIEW_passed | test-engineer |
+| CODE-REVIEW_failed | developer |
+| TASK-04_completed | knowledge-engineer |
+| TASK-05_completed | leader |
+| SOLO_overflow | main |
+| *_failed | 原执行角色 |
+| workflow_completed | main |
+
+禁止跳过 `workflow-state.json`、删除既有产物、修改不可变字段或绕过用户明确的人工确认要求。
 
 ---
 > Source: [Tencent/LoopForge](https://github.com/Tencent/LoopForge) — distributed by [TomeVault](https://tomevault.io).
