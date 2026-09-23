@@ -1,0 +1,14 @@
+{
+  "name": "googlemaps--android-maps-utils",
+  "displayName": "android-maps-utils",
+  "description": "android-maps-utils",
+  "version": "1.0.0",
+  "author": "googlemaps",
+  "homepage": "https://github.com/googlemaps/android-maps-utils",
+  "skills": [
+    {
+      "name": "android-maps-utils",
+      "description": ""
+    }
+  ]
+}
