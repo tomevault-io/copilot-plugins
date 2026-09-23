@@ -1,0 +1,9 @@
+{
+  "name": "cobusgreyling--harness-foundry",
+  "displayName": "harness-foundry",
+  "description": "Composable harness runtime for production agents \u2014 primitives, traces, evolution, outerloop governance.",
+  "version": "1.0.0",
+  "author": "cobusgreyling",
+  "homepage": "https://github.com/cobusgreyling/harness-foundry",
+  "skills": []
+}
