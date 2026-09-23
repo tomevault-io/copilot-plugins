@@ -1,0 +1,9 @@
+{
+  "name": "limuqy--hassium",
+  "displayName": "Hassium",
+  "description": "High-performance chunk compression and client-side caching",
+  "version": "1.0.0",
+  "author": "limuqy",
+  "homepage": "https://github.com/limuqy/Hassium",
+  "skills": []
+}
