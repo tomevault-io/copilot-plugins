@@ -1,0 +1,111 @@
+{
+  "name": "Dapper-FluentMap",
+  "owner": "rodri-oliveira-dev",
+  "repo": "Dapper-FluentMap",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/dotnet-pr-review/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/dotnet-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/test-gap-analysis/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/test-gap-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/microbenchmarking/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/microbenchmarking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/ci-release-governance/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/ci-release-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/dotnet-library-change/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/dotnet-library-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/binlog-failure-analysis/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/binlog-failure-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/nuget-trusted-publishing/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/nuget-trusted-publishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/authoring-github-workflows/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/authoring-github-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/dotnet-refactoring-engineer/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/dotnet-refactoring-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/dotnet-issue-implementation/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/dotnet-issue-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dapper-FluentMap",
+      "path": ".agents/skills/directory-build-organization/SKILL.md",
+      "github_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap/tree/main/.agents/skills/directory-build-organization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rodri-oliveira-dev/Dapper-FluentMap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:43:17Z"
+}
