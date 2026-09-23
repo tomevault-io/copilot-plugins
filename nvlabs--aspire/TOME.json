@@ -1,0 +1,159 @@
+{
+  "name": "ASPIRE",
+  "owner": "NVlabs",
+  "repo": "ASPIRE",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ASPIRE",
+      "path": "aspire/sim/.claude/libero/fix-loop/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/sim/.claude/libero/fix-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/sim/.claude/libero/evosearch/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/sim/.claude/libero/evosearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/sim/.claude/behavior/fix-loop/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/sim/.claude/behavior/fix-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/sim/.claude/robosuite/fix-loop/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/sim/.claude/robosuite/fix-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/sim/.claude/robosuite/evosearch/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/sim/.claude/robosuite/evosearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-geometry/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-geometry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-transport/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-transport/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-full-demo/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-full-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/sim/.claude/robosuite/training-law/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/sim/.claude/robosuite/training-law/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/sim/.claude/libero/zeroshot-transfer/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/sim/.claude/libero/zeroshot-transfer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-grasp-pickup/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-grasp-pickup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-server-setup/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-server-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-motion-planner/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-motion-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/sim/.claude/libero/library-size-scaling/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/sim/.claude/libero/library-size-scaling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-robot-debugging/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-robot-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-retreat-recovery/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-retreat-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/sim/.claude/libero/inference-time-scaling/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/sim/.claude/libero/inference-time-scaling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-runtime-artifacts/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-runtime-artifacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ASPIRE",
+      "path": "aspire/real/.agents/skills/yam-simulation-transfer/SKILL.md",
+      "github_url": "https://github.com/NVlabs/ASPIRE/tree/main/aspire/real/.agents/skills/yam-simulation-transfer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVlabs/ASPIRE",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:53:47Z"
+}
