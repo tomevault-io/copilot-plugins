@@ -1,0 +1,22 @@
+{
+  "name": "agentdebugx--agentdebugx",
+  "displayName": "AgentDebugX",
+  "description": "AgentDebugX",
+  "version": "1.0.0",
+  "author": "AgentDebugX",
+  "homepage": "https://github.com/AgentDebugX/AgentDebugX",
+  "skills": [
+    {
+      "name": "AgentDebugX",
+      "description": ""
+    },
+    {
+      "name": "AgentDebugX",
+      "description": ""
+    },
+    {
+      "name": "AgentDebugX",
+      "description": ""
+    }
+  ]
+}
