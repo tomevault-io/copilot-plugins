@@ -1,0 +1,9 @@
+{
+  "name": "recoupable--app",
+  "displayName": "app",
+  "description": "Web interface for building and managing your own agentic record label. ",
+  "version": "1.0.0",
+  "author": "recoupable",
+  "homepage": "https://github.com/recoupable/app",
+  "skills": []
+}
