@@ -1,0 +1,9 @@
+{
+  "name": "inja-online--llm-gateway",
+  "displayName": "llm-gateway",
+  "description": "Inja LLM Gateway \u2014 stateless OpenAI/Anthropic API gateway with multi-provider routing and usage hooks.",
+  "version": "1.0.0",
+  "author": "inja-online",
+  "homepage": "https://github.com/inja-online/llm-gateway",
+  "skills": []
+}
