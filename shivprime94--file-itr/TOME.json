@@ -1,0 +1,51 @@
+{
+  "name": "file-itr",
+  "owner": "shivprime94",
+  "repo": "file-itr",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "file-itr",
+      "path": "skills/itr-india/SKILL.md",
+      "github_url": "https://github.com/shivprime94/file-itr/tree/main/skills/itr-india/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shivprime94/file-itr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T09:08:15Z"
+}
