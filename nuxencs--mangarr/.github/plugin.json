@@ -1,0 +1,9 @@
+{
+  "name": "nuxencs--mangarr",
+  "displayName": "mangarr",
+  "description": "CLI tool to download and monitor manga and manhwa from various different sources.",
+  "version": "1.0.0",
+  "author": "nuxencs",
+  "homepage": "https://github.com/nuxencs/mangarr",
+  "skills": []
+}
