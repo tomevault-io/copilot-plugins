@@ -1,0 +1,9 @@
+{
+  "name": "van-1337--autoeasm",
+  "displayName": "AutoEASM",
+  "description": "Tool for automated scanning of the common vulnerabilities of company subdomains",
+  "version": "1.0.0",
+  "author": "Van-1337",
+  "homepage": "https://github.com/Van-1337/AutoEASM",
+  "skills": []
+}
