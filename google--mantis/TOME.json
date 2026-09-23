@@ -1,0 +1,153 @@
+{
+  "name": "mantis",
+  "owner": "google",
+  "repo": "mantis",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mantis",
+      "path": "mantis-plan/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-patch/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-patch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-dedupe/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-dedupe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-critic/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-critic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-report/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-review/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-reflect/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-reflect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-history/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-reproduce/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-reproduce/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-summarize/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-calibrate/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-calibrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-meta-agent/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-meta-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-threat-model/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-threat-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-architecture/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-pipeline-adapter/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-pipeline-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "mantis-structural-index/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/mantis-structural-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "reference/skills/mantis-launch/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/reference/skills/mantis-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mantis",
+      "path": "reference/skills/mantis-configure/SKILL.md",
+      "github_url": "https://github.com/google/mantis/tree/main/reference/skills/mantis-configure/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/google/mantis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:41:32Z"
+}
