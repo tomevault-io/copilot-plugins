@@ -1,0 +1,9 @@
+{
+  "name": "tw-campaign-map-modding-team--campaignmaptoolkit",
+  "displayName": "CampaignMapToolkit",
+  "description": "Total War Campaign Map Toolkit (map_data.esf, pathfinding.ppd, trade_route.ptd, borders.pbd, etc)",
+  "version": "1.0.0",
+  "author": "TW-Campaign-Map-Modding-Team",
+  "homepage": "https://github.com/TW-Campaign-Map-Modding-Team/CampaignMapToolkit",
+  "skills": []
+}
