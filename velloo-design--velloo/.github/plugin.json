@@ -1,0 +1,9 @@
+{
+  "name": "velloo-design--velloo",
+  "displayName": "velloo",
+  "description": "Local-first design canvas for AI coding agents. Recreate a real React screen, explore directions visually, then ship the winner back into your app.",
+  "version": "1.0.0",
+  "author": "velloo-design",
+  "homepage": "https://github.com/velloo-design/velloo",
+  "skills": []
+}
