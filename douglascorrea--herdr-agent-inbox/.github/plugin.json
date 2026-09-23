@@ -1,0 +1,9 @@
+{
+  "name": "douglascorrea--herdr-agent-inbox",
+  "displayName": "herdr-agent-inbox",
+  "description": "An inbox for your coding agents in herdr \u2014 session titles, settle/mark-unread triage, runtimes, workspace rollups, and resumable chat history",
+  "version": "1.0.0",
+  "author": "douglascorrea",
+  "homepage": "https://github.com/douglascorrea/herdr-agent-inbox",
+  "skills": []
+}
