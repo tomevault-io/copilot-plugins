@@ -1,0 +1,93 @@
+{
+  "name": "actonos",
+  "owner": "actonos",
+  "repo": "actonos",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "actonos",
+      "path": ".agents/skills/actonos-build/SKILL.md",
+      "github_url": "https://github.com/actonos/actonos/tree/main/.agents/skills/actonos-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actonos",
+      "path": ".agents/skills/actonos-setup/SKILL.md",
+      "github_url": "https://github.com/actonos/actonos/tree/main/.agents/skills/actonos-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actonos",
+      "path": ".agents/skills/actonos-release/SKILL.md",
+      "github_url": "https://github.com/actonos/actonos/tree/main/.agents/skills/actonos-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actonos",
+      "path": ".agents/skills/actonos-api-dev/SKILL.md",
+      "github_url": "https://github.com/actonos/actonos/tree/main/.agents/skills/actonos-api-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actonos",
+      "path": ".agents/skills/actonos-testing/SKILL.md",
+      "github_url": "https://github.com/actonos/actonos/tree/main/.agents/skills/actonos-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actonos",
+      "path": ".agents/skills/actonos-agent-dev/SKILL.md",
+      "github_url": "https://github.com/actonos/actonos/tree/main/.agents/skills/actonos-agent-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actonos",
+      "path": ".agents/skills/actonos-frontend-dev/SKILL.md",
+      "github_url": "https://github.com/actonos/actonos/tree/main/.agents/skills/actonos-frontend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "actonos",
+      "path": ".agents/skills/actonos-channels-dev/SKILL.md",
+      "github_url": "https://github.com/actonos/actonos/tree/main/.agents/skills/actonos-channels-dev/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/actonos/actonos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:32:43Z"
+}
