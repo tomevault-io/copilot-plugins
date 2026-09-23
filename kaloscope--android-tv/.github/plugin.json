@@ -1,0 +1,9 @@
+{
+  "name": "kaloscope--android-tv",
+  "displayName": "android-tv",
+  "description": "A native Android TV client for Kaloscope",
+  "version": "1.0.0",
+  "author": "kaloscope",
+  "homepage": "https://github.com/kaloscope/android-tv",
+  "skills": []
+}
