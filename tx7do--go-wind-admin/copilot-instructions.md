@@ -1,432 +1,86 @@
 ## go-wind-admin
 
-> 本文件定义此项目的编码约定和架构规范，供 AI Agent 在生成和修改代码时遵循。
+> 本文件是 monorepo 总入口：定位布局、指路各端规范、声明全仓铁律。**深入开发前必读对应端的 AGENTS.md**。
 
-# AGENTS.md — 脚手架项目二次开发指南 (Vue3 + Vben Admin)
+# AGENTS.md — go-wind-admin Monorepo 开发指南（AI Agent 入口）
 
-本文件定义此项目的编码约定和架构规范，供 AI Agent 在生成和修改代码时遵循。
+本文件是 monorepo 总入口：定位布局、指路各端规范、声明全仓铁律。**深入开发前必读对应端的 AGENTS.md**。
 
-## 项目概览
-
-基于 Vue 3 + Vite + TypeScript 的中后台管理系统脚手架（Vben Admin 配置型框架），面向二开场景。**通过配置而非编码来完成大部分开发工作。**
-
-**核心技术栈**: Vue 3.5, Ant Design Vue 4.2, Tailwind CSS, Shadcn-ui, Pinia, Vue Router, Vue Query (TanStack Query), VxeTable, i18n, Axios
-
-**应用入口**: `apps/admin/src/`
-
-## Vben 框架核心机制
-
-### 组件注册机制（不要绕过）
-
-框架有 **两套组件注册体系**：
-
-**1. VbenForm 组件（schema 中使用）** — 定义在 `adapter/component/index.ts`，通过 `globalShareState.setComponents()` 注册。`schema` 的 `component` 字段 **只能使用这些注册过的名称**：
+## 仓库布局
 
 ```
-Input, InputNumber, InputPassword, Select, ApiSelect, TreeSelect,
-ApiTreeSelect, RadioGroup, Checkbox, CheckboxGroup, Switch, DatePicker,
-RangePicker, TimePicker, Textarea, Upload, Editor, IconPicker, AutoComplete,
-Mentions, Rate, Divider, Space, DefaultButton, PrimaryButton, ApiTree
+backend/                    Go + Kratos + Ent（DI 手写装配 wiring_*.go，已弃用 Wire；HTTP :7788，SSE 网关 :7789）
+frontend/admin/
+├── react/                  React 19 + antd 6 + ProComponents + TanStack Query + zustand
+├── vue-element/            Vue 3 + Element Plus + vxe-table + TanStack vue-query + Pinia
+└── vue-vben/               Vben Admin 5.x monorepo（apps/admin + packages/*）+ Ant Design Vue
+docs/                       文档体系（总入口 docs/README.md：教程层 docs/tutorial/ + 参考层专题文档）
 ```
 
-**2. Template 全局组件（template 中使用）** — 定义在 `registerGlobComp.ts`，通过 `app.use()` 全局注册。在 template 中 **直接用 `a-*` 前缀**：
+## 三端门禁（必须保持全绿）
 
-```
-<a-button>, <a-tag>, <a-popconfirm>, <a-input>, <a-select>,
-<a-tree>, <a-table>, <a-dropdown>, <a-menu>, <a-card>, <a-space>,
-<a-switch>, <a-tabs>, <a-divider>, <a-layout>
-```
-
-> **禁止**: `import { Tag, Button } from 'ant-design-vue'` 然后在 template 中用 `<Tag>` 或 `<Button>`。
-
-### 配置驱动模式（不要自己写逻辑）
-
-| 场景 | 配置方式 | 不要做 |
+| 端 | 命令（在各自目录下） | dev 端口 |
 |---|---|---|
-| 表格列日期格式化 | `formatter: 'formatDateTime'` | Slot 中用 dayjs 格式化 |
-| 表单必填校验 | `rules: 'required'` / `'selectRequired'` | 用 Zod 或自定义校验函数 |
-| 列表数据加载 | `proxyConfig.ajax.query` | 手动 watch + ref + async function |
-| 分页 | `pagerConfig: {}` | 手动管理分页状态 |
-| 表格刷新 | `gridApi.reload()` | 手动重新请求数据 |
-| 表单赋值/取值 | `baseFormApi.setValues()` / `baseFormApi.getValues()` | 直接操作 DOM 或 ref |
-| 表单校验 | `baseFormApi.validate()` | 手动检查每个字段 |
+| react | `npm run typecheck` | 5888 |
+| vue-element | `npx vue-tsc --noEmit`（或 `npm run type-check`） | 5777 |
+| vue-vben | `pnpm run check:type` | 5666 |
 
-## 目录结构
+2026-09-07 起三端 typecheck 全部 0 错误。**门禁出现任何新报错，一律当作自己引入的 bug 修复**，不存在"可忽略的既有错误"。改完代码先跑门禁再声称完成。
 
-```
-apps/admin/src/
-├── api/                  # API 层（两层架构）
-│   ├── generated/        # ← protobuf 自动生成，禁止手动编辑
-│   ├── client.ts         # ← ApiClient 单例（ClientTransport 适配器）
-│   └── composables/      # ← Vue Query hooks 层：use*/fetch*/枚举工具
-├── adapter/              # VbenForm + VxeTable 适配器配置
-├── router/routes/modules/# ← 路由模块（按功能拆分）
-├── stores/               # Pinia 状态管理
-├── views/app/            # 业务页面（按功能模块组织）
-├── locales/langs/        # i18n 国际化文件（zh-CN/en-US: enum.json, menu.json, page.json, ui.json）
-└── transport/rest/       # HTTP 传输层（PaginationQuery, requestApi）
-```
+## 全仓铁律
 
-## 导入路径约定
+1. **不吞错**：任何 catch 至少二选一——`console.error/warn` 带出**原始错误对象**，或重新抛出。用户可见的通知/Message ≠ 日志（只有翻译文案）。合法裸 catch 仅限纯本地 best-effort 兜底且注释写明原因。历史教训：认证链路静默吞错曾让 bug 排查耗时数日。
+2. **vue-vben 工具链版本已钉死**（catalog 精确版本 + packageManager 匹配本机 pnpm）：禁止改回 `^` 范围、禁止顺手升级 vue/typescript/vue-tsc/pnpm。原因与升级流程见 `frontend/admin/vue-vben/AGENTS.md`「工具链与已知坑」。
+3. **搜索条件一律 contains 而非 EQ**、ID 类字段不进模糊搜索；CRUD 请求体必须包 `{ data: {...} }`，但**仅限 CRUD**——`body: "*"` 的自定义 RPC（如 `internal-message/send`）收的是扁平请求体，多包一层 `data` 会被 protojson 当未知字段丢掉，接口照样 200、字段全为空。细节见 `.zcode/skills/add-crud-module/SKILL.md`。
 
-```typescript
-// API 导入 — 统一通过 #/api 入口
-import { useListUsers, PaginationQuery, userStatusToName } from '#/api';
-import { type identityservicev1_User as User } from '#/api';
+## 开发策略：react 先行，其余移植
 
-// 适配器导入
-import { useVbenForm } from '#/adapter/form';
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+新功能/新模块以 **react 端为行为基准先实现**，验证通过后再移植到 vue-element / vue-vben。移植是"有参照的翻译"，远比三端并行首创便宜；vue-vben 框架变体语料薄，直接首创容易产出框架级错误（详见其 AGENTS.md）。
 
-// 布局与通用组件
-import { Page, useVbenDrawer } from '@vben/common-ui';
+**CRUD 模块**：使用 `/add-crud-module` skill（后端 + 前端端到端流程）。
 
-// 国际化
-import { $t } from '@vben/locales';
+**代码生成器**：配套工具 [go-wind-toolkit/gowind-uiapp](https://github.com/tx7do/go-wind-toolkit/tree/main/gowind-uiapp)（桌面 GUI + CLI，从数据库表/SQL 生成前后端代码，含简单表单）。CLI（`gowind-cli`）非交互、JSON 输出，适合 Agent 调用。工具产物仍须按本仓铁律与约定验收补齐（`{ data: {...} }` 包裹、contains 搜索、已部署实例的新端点走管理页「接口同步」登记进 Api 表、`make ts` 生成三端 TS 等）。
 
-// 图标（lucide）
-import { LucideFilePenLine, LucideTrash2 } from '@vben/icons';
+> 系统默认数据（admin 用户、角色、菜单、权限、语言等）由服务启动时在 Go 侧自动播种（`pkg/constants/default_data.go` + 各 service 的 count==0 守卫；Api 表仅在空表时于启动期自动同步，**已部署实例新增端点须在管理页「接口同步」手动触发全量重建**，否则租户闸门 fail-closed 403；「接口同步」重建读的是**打进二进制的** `cmd/server/assets/openapi.yaml`，所以新 proto 必须先 `make openapi` 再重启进程，否则同步"成功"而新端点依旧不在表里。新菜单同理：`count==0` 守卫意味着老库要靠各端「菜单同步」(MERGE) 才会多出这一行），**不要**找 SQL 种子脚本，`backend/sql/` 下只剩演示数据。
 
-// 消息提示
-import { notification } from 'ant-design-vue';
-```
+## 后端任务：gow 优先，make 兜底
 
-## 关键约定（必须遵守）
+后端的运行与代码生成统一走 [gow CLI](https://github.com/tx7do/go-wind-toolkit/tree/main/gowind)（安装：`go install github.com/tx7do/go-wind-toolkit/gowind/cmd/gow@latest`），在 `backend/` 下执行。**接手后不要上来就用 Makefile 的 make 命令**：Windows 无原生 make、嵌套 Makefile 需要跨目录 cd，而 gow 自动发现 `app/*/service`，行为一致：
 
-### 数据层约定
-
-1. **禁止直接引用 `#/api/generated/` 路径** — 业务层通过 `#/api` 统一入口导入
-2. **composables 直接使用 `apiClient`** — 导入 `apiClient` from `#/api/client`，调用 `apiClient.xxxService.Method()`
-3. **组件内用 `use*` hooks，组件外（Store/路由守卫）用 `fetch*` 函数**
-4. **更新操作只传变化字段** — `useUpdate*` 内部自动生成 `updateMask`
-5. **Pinia Store 中不可依赖 `useRouter()`** — Store 初始化时路由可能未就绪
-6. **所有列表查询统一使用 `PaginationQuery`**
-
-### Vben 框架强规约
-
-7. **表单组件必须使用注册名** — `schema` 中 `component` 只能用 `adapter/component/index.ts` 中注册的名称（如 `Input`、`Select`、`ApiSelect`），不要用 `AInput`、`ASelect` 或原生 HTML 标签
-8. **Template 中使用 `a-*` 前缀** — Ant Design Vue 组件已全局注册，直接用 `<a-button>`、`<a-tag>`、`<a-popconfirm>` 等
-9. **图标在 `:icon` prop 中必须用 `h()` 渲染** — `:icon="h(LucideFilePenLine)"`，图标从 `@vben/icons` 导入
-10. **日期列用 `formatter: 'formatDateTime'`** — 不要在 Slot 中用 dayjs 手动格式化
-11. **表单校验用内置规则名** — `rules: 'required'` 或 `rules: 'selectRequired'`，不要用 Zod 表达式
-12. **删除操作必须二次确认** — 使用 `<a-popconfirm>`，不要用 `window.confirm` 或直接删除
-13. **页面必须用 `<Page auto-content-height>` 包裹** — 不要用 `<div>` 替代
-14. **消息提示用 `notification`** — 从 `ant-design-vue` 导入，不要用 `alert()` 或 `ElMessage`
-15. **国际化文本不硬编码** — 使用 `$t()` 引用 locales 文件中的 key
-16. **使用严格相等运算符 `===`** — 禁止使用 `==`
-
----
-
-## API 两层架构
-
-```
-generated/  +  client.ts  →  composables/  →  views/stores
-(自动生成)     (ApiClient 单例)   (Vue Query hooks)
-```
-
-**依赖方向**: `views/stores → composables → apiClient.xxxService → transport.unary → requestApi`
-
-### client.ts — ApiClient 单例
-
-生成的 `ApiClient` 通过 `ClientTransport` 接口发送请求，`client.ts` 将 `requestApi` 适配为 `ClientTransport`（保留 token 注入、错误拦截、自动刷新等逻辑）：
-
-```typescript
-import { type ClientTransport, createApiClient } from '#/api/generated/admin/service/v1';
-import { requestApi } from '#/transport/rest';
-
-const transport: ClientTransport = {
-  unary(path, method, body, _meta) { return requestApi({ body, method, path }); },
-  serverStream(path, _meta) { throw new Error(`serverStream not supported: ${path}`); },
-  duplexStream(path, _meta) { throw new Error(`duplexStream not supported: ${path}`); },
-};
-export const apiClient = createApiClient(transport);
-```
-
-ApiClient 提供的 Service Client：`apiClient.userService`、`apiClient.roleService`、`apiClient.authenticationService`、`apiClient.menuService`、`apiClient.positionService`、`apiClient.orgUnitService` 等（protobuf 重新生成后自动包含新 getter）。
-
-### composables 层模板 (`src/api/composables/xxx.ts`)
-
-```typescript
-import type {
-  xxxservicev1_GetXxxRequest,
-  xxxservicev1_ListXxxResponse,
-  xxxservicev1_Xxx,
-  xxxservicev1_Xxx_Status as Xxx_Status,
-} from '#/api/generated/admin/service/v1';
-
-import { computed } from 'vue';
-import { i18n } from '@vben/locales';
-import { useMutation, type UseMutationOptions, useQuery, type UseQueryOptions } from '@tanstack/vue-query';
-import { apiClient } from '#/api/client';
-import { queryClient } from '#/plugins/vue-query';
-import { makeUpdateMask, type PaginationQuery } from '#/transport/rest';
-
-const t = i18n.global.t;
-
-// 列表 — 组件内 hook
-export function useListXxxs(query: PaginationQuery, options?: UseQueryOptions<xxxservicev1_ListXxxResponse, Error>) {
-  return useQuery({ queryKey: ['listXxxs', query], queryFn: () => apiClient.xxxService.List(query.toRawParams()), ...options });
-}
-
-// 列表 — Store / 外部调用
-export async function fetchListXxxs(params: PaginationQuery) {
-  return queryClient.fetchQuery({ queryKey: ['listXxxs', params], queryFn: () => apiClient.xxxService.List(params.toRawParams()), retry: 0 });
-}
-
-// 详情 — 组件内 hook
-export function useGetXxx(req: xxxservicev1_GetXxxRequest, options?: UseQueryOptions<xxxservicev1_Xxx, Error>) {
-  return useQuery({ queryKey: ['getXxx', req], queryFn: () => apiClient.xxxService.Get(req), ...options });
-}
-
-// 创建
-export function useCreateXxx(options?: UseMutationOptions<object, Error, { data: xxxservicev1_Xxx }>) {
-  return useMutation({ mutationFn: ({ data }) => apiClient.xxxService.Create({ data }), ...options });
-}
-
-// 更新（自动生成 updateMask）
-export function useUpdateXxx(options?: UseMutationOptions<object, Error, { id: number; values: Record<string, any> }>) {
-  return useMutation({
-    mutationFn: ({ id, values }: { id: number; values: Record<string, any> }) =>
-      apiClient.xxxService.Update({ id, data: { ...values } as any, updateMask: makeUpdateMask(Object.keys(values ?? {})) }),
-    ...options,
-  });
-}
-
-// 删除
-export function useDeleteXxx(options?: UseMutationOptions<object, Error, number>) {
-  return useMutation({ mutationFn: (id) => apiClient.xxxService.Delete({ id }), ...options });
-}
-
-// 枚举与工具函数
-export const xxxStatusList = computed(() => [
-  { value: 'ON', label: t('enum.xxx.status.ON') },
-  { value: 'OFF', label: t('enum.xxx.status.OFF') },
-]);
-const XXX_STATUS_COLOR_MAP: Record<string, string> = { ON: '#52C41A', OFF: '#909399', DEFAULT: '#86909C' };
-export function xxxStatusToColor(status: Xxx_Status) {
-  return XXX_STATUS_COLOR_MAP[status as string] ?? XXX_STATUS_COLOR_MAP.DEFAULT ?? '#86909C';
-}
-export function xxxStatusToName(status?: Xxx_Status) {
-  const map: Record<string, string> = { ON: t('enum.xxx.status.ON'), OFF: t('enum.xxx.status.OFF') };
-  return map[status as string] ?? '';
-}
-```
-
-注册导出 — 在 `src/api/composables/index.ts` 添加 `export * from './xxx';`
-
-### Query Key 命名约定
-
-| 操作 | Query Key 格式 | 示例 |
-|---|---|---|
-| 列表 | `["list{Entity}s", query]` | `["listUsers", query]` |
-| 详情 | `["get{Entity}", req]` | `["getUser", { id: 1 }]` |
-
-### PaginationQuery 使用模式
-
-```typescript
-new PaginationQuery({ paging: { page: 1, pageSize: 20 } });                           // 基础分页
-new PaginationQuery({ paging: { page: 1, pageSize: 20 }, formValues: { status: 'ON' } }); // 带搜索
-new PaginationQuery({ orderBy: ['-created_at', 'name'] });                              // 带排序
-new PaginationQuery({ formValues: { status: 'ON' } });                                  // 不分页
-new PaginationQuery({ fieldMask: 'id,name,status' });                                   // 指定字段
-```
-
----
-
-## 视图/页面开发
-
-### 标准模块文件结构
-
-```
-views/app/{module}/
-├── index.vue              # 列表页（VxeTable + 搜索表单）
-└── {entity}-drawer.vue    # 新建/编辑 Drawer 表单
-```
-
-### 核心概念：Grid 的两套 Schema
-
-| 配置项 | 作用 | 位置 |
-|---|---|---|
-| `formOptions.schema` | **搜索表单**（表格上方的筛选区域） | 使用 `#/adapter/form` 的 VbenForm 组件 |
-| `gridOptions.columns` | **表格列**（数据展示区域） | 使用 VxeTable 的列配置 |
-
-两者通过 `useVbenVxeGrid({ gridOptions, formOptions })` 合并，搜索表单的值自动传入 `proxyConfig.ajax.query` 的 `formValues`。
-
-### 搜索表单可用组件
-
-| component | 用途 | 关键 props |
-|---|---|---|
-| `Input` | 文本输入 | `placeholder`, `allowClear` |
-| `InputNumber` | 数字输入 | `placeholder`, `allowClear`, `defaultValue` |
-| `Select` | 下拉选择 | `options`, `showSearch`, `allowClear`, `filterOption` |
-| `ApiSelect` | 远程下拉 | `api`, `afterFetch`, `showSearch`, `allowClear` |
-| `ApiTreeSelect` | 远程树选择 | `api`, `treeDefaultExpandAll`, `labelField`, `valueField`, `numberToString` |
-| `RadioGroup` | 单选按钮组 | `optionType: 'button'`, `buttonStyle: 'solid'`, `options` |
-| `RangePicker` | 日期范围 | `showTime`, `allowClear`, `presets` |
-| `DatePicker` | 日期选择 | `placeholder`, `allowClear` |
-| `Switch` | 开关 | — |
-| `Textarea` | 多行文本 | `placeholder`, `allowClear` |
-
-> `ApiSelect` 的 `afterFetch` 必须将数据转为 `{ label, value }[]` 格式。`Select` 的 `filterOption` 必须提供才能支持输入搜索。
-
-### 表格列类型
-
-| 用法 | 配置方式 |
+| 任务 | gow 命令 |
 |---|---|
-| 序号列 | `{ type: 'seq' }` |
-| 普通文本列 | `{ title, field }` |
-| 嵌套对象字段 | `{ title, field: 'meta.title' }`（支持点号路径） |
-| 日期列 | `{ title, field, formatter: 'formatDateTime' }` |
-| 状态/枚举列 | `{ title, field, slots: { default: 'slotName' } }` |
-| 操作列 | `{ title, field: 'action', fixed: 'right', slots: { default: 'action' } }` |
-| 树节点列 | `{ title, field, treeNode: true }` |
+| 运行服务 | `gow run admin` |
+| Ent 生成 | `gow ent`（全部服务）/ `gow ent admin` |
+| Proto / API Go 代码 | `gow api` |
+| 从数据库表生成 CRUD | `gow generate`（DSN 驱动；`--proto-only` 仅出 proto） |
 
-### Slot 用法
+项目已弃用 Wire（DI 为手写 `wiring_*.go`），不要运行 `gow wire`，也不要在新代码里引入 wire 依赖。
 
-在 columns 中声明 `slots: { default: 'slotName' }`，在 `<template #slotName="{ row }">` 中实现。**必须使用 `a-tag`、`a-button`、`a-popconfirm` 等全局组件，禁止原生 HTML。**
+gow 未覆盖的任务（三端 TS 生成 `make ts`、OpenAPI `make openapi`、`make test/lint` 等）才退回 Makefile（`backend/` 根目录执行）。
 
-```html
-<!-- 状态 Tag -->
-<template #status="{ row }">
-  <a-tag :color="xxxStatusToColor(row.status)">{{ xxxStatusToName(row.status) }}</a-tag>
-</template>
+## 本地验证要点
 
-<!-- 操作列 -->
-<template #action="{ row }">
-  <a-button type="link" :icon="h(LucideFilePenLine)" @click.stop="handleEdit(row)" />
-  <a-popconfirm
-    :cancel-text="$t('ui.button.cancel')"
-    :ok-text="$t('ui.button.ok')"
-    :title="$t('ui.text.do_you_want_delete', { moduleName: $t('page.xxx.moduleName') })"
-    @confirm="handleDelete(row)"
-  >
-    <a-button danger type="link" :icon="h(LucideTrash2)" />
-  </a-popconfirm>
-</template>
-```
+- 后端起在 `:7788`（`gow run admin`；启动方式见 `docs/windows-startup-guide.md` / `docs/backend_deploy.md`）；前端 dev 端口见上表，代理已配置好 API 转发。
+- 登录账号：全新环境播种为 `admin / Abcd@1234`（`pkg/constants/default_data.go` 的 `DefaultUserPassword`）；本机 `gwa` 库实测（2026-09-20）即为此值，历史备注的 `admin / admin` 已失效（登录返回 `INVALID_PASSWORD`）。图形验证码的答案可在 Redis 中按 `gowind:captcha:<captchaId>` 直接读取，便于自动化验证。
+- vue-element 在 dev 下若见 router-view 塌空/白屏：先重启 dev server 再下结论（vite 依赖优化竞态已做遏制与自愈，见其 AGENTS.md「dev 白屏处置」）。
+- `go test ./...` 偶发 `fork/exec %TEMP%\go-build...\x.test.exe: Access is denied.`（Windows 上对刚链接好的测试二进制执行被拦，疑似安全策略/杀软实时扫描）：属环境问题、**不是代码失败**。复验办法是绕开 Temp 执行——`go test -c -o <工作区内路径>/x.test.exe ./pkg/x` 后直接跑该 exe；判成"测试挂了"之前先这样确认一次。
 
-> 颜色和名称映射函数在 `composables` 层定义（如 `xxxStatusToColor`、`xxxStatusToName`），从 `#/api` 导入。**不要**在 Slot 中硬编码颜色值。
+## 文档索引
 
-### VxeGrid 配置
-
-```typescript
-const gridOptions: VxeGridProps<Xxx> = {
-  toolbarConfig: { custom: true, export: true, refresh: true, zoom: true },
-  exportConfig: {},
-  pagerConfig: {},                    // 启用分页（树形表格设 enabled: false）
-  rowConfig: { isHover: true },
-  height: 'auto',
-  stripe: true,
-  proxyConfig: {
-    ajax: {
-      query: async ({ page }, formValues) => {
-        return await fetchListXxxs(
-          new PaginationQuery({
-            paging: { page: page.currentPage, pageSize: page.pageSize },
-            formValues,
-          }),
-        );
-      },
-    },
-  },
-  columns: [ /* ... */ ],
-};
-```
-
-**树形表格**：设 `pagerConfig.enabled: false`，并通过 `treeConfig` 配置 `parentField`+`rowField`+`transform: true`（扁平转树）或 `childrenField`（后端已返回树），树节点列标记 `treeNode: true`。
-
-### Drawer 表单
-
-表单校验规则：`rules: 'required'`（输入框）/ `rules: 'selectRequired'`（下拉），不要用 Zod。
-
-```typescript
-const [BaseForm, baseFormApi] = useVbenForm({
-  showDefaultActions: false,
-  commonConfig: { componentProps: { class: 'w-full' } },
-  schema: [ /* ... */ ],
-});
-```
-
----
-
-## 新建业务模块 Checklist
-
-```
-- [ ] Step 1: 确认 generated 层已有类型（protobuf 已生成）
-- [ ] Step 2: 创建 composables 层（src/api/composables/xxx.ts）
-- [ ] Step 3: 注册导出（composables/index.ts）
-- [ ] Step 4: 添加 i18n 翻译（zh-CN + en-US 的 enum.json, menu.json, page.json）
-- [ ] Step 5: 创建路由模块（router/routes/modules/app/xxx.ts）
-- [ ] Step 6: 创建视图页面（views/app/xxx/）
-```
-
-### 路由配置模板
-
-新建 `router/routes/modules/app/xxx.ts`：
-
-```typescript
-import type { RouteRecordRaw } from 'vue-router';
-import { BasicLayout } from '#/layouts';
-import { $t } from '#/locales';
-
-const routes: RouteRecordRaw[] = [
-  {
-    path: '/xxx',
-    name: 'XxxManagement',
-    component: BasicLayout,
-    redirect: '/xxx/list',
-    meta: {
-      order: 3001,
-      icon: 'lucide:xxx',
-      title: $t('menu.xxx.moduleName'),
-      authority: ['sys:platform_admin', 'sys:tenant_manager'],
-    },
-    children: [
-      {
-        path: 'list',
-        name: 'XxxList',
-        meta: { title: $t('menu.xxx.list'), authority: ['sys:platform_admin'] },
-        component: () => import('#/views/app/xxx/index.vue'),
-      },
-    ],
-  },
-];
-export default routes;
-```
-
----
-
-## Vben 框架 API 速查
-
-| API | 关键方法 |
-|---|---|
-| **Page** | `<Page auto-content-height>` 必须包裹，禁止 `<div>` |
-| **Grid** | `gridApi.reload()`, `gridApi.grid?.setAllTreeExpand(true/false)` |
-| **Drawer** | `drawerApi.open/close/setData({create,row})/getData<T>()/setState({loading})` |
-| **Form** | `formApi.getValues()/setValues(obj)/validate()/resetForm()` |
-| **Notification** | `notification.success/error({ message: $t('ui.notification.xxx') })` |
-
-预定义 i18n key：`ui.notification.create/update/delete_success` 及 `_failed` 版本。
-
-## 常见错误与纠正
-
-| 错误做法 | 正确做法 |
-|---|---|
-| 原生 `<span style="color:red">正常</span>` | `<a-tag :color="statusToColor(row.status)">` |
-| `window.confirm('确定删除?')` | `<a-popconfirm>` |
-| 原生 `<button>` | `<a-button type="primary/link">` |
-| Slot 中 `dayjs(row.createdAt).format(...)` | `formatter: 'formatDateTime'` |
-| `rules: z.string().min(1, '不能为空')` | `rules: 'required'` 或 `'selectRequired'` |
-| Slot 中 `v-if` 硬编码颜色 | composables 层的 `xxxToColor()` |
-| `import { Tag } from 'ant-design-vue'` 后用 `<Tag>` | 直接用 `<a-tag>`（全局注册） |
-| `<div>` 包裹页面 | `<Page auto-content-height>` |
-| `ref(false)` 管理 loading | `drawerApi.setState({ loading })` |
-| `alert()` / `ElMessage` 提示 | `notification` from `ant-design-vue'` |
-| `component: 'AInput'` | `component: 'Input'`（注册名） |
-| 手动 watch 搜索条件重新请求 | 框架自动关联 `formValues` |
-| `:icon="LucideTrash2"` 直接传 | `:icon="h(LucideTrash2)"` 用 h() 包裹 |
-| `ref` + `watch` 管理列表数据 | `proxyConfig.ajax.query` + `PaginationQuery` |
+- **文档总入口（两层索引：教程层 + 参考层）**：`docs/README.md`；渐进教程系列（面向采用者的 9 章学习路径）在 `docs/tutorial/`
+- 各端规范：`frontend/admin/{react,vue-element,vue-vben}/AGENTS.md`
+- 后端：`docs/backend_project_struct.md`、`docs/backend_deploy.md`、`docs/audit-log-producer-design.md`
+- 前端权限模型：`docs/frontend_authority.md`
+- 查询/分页规则：`docs/list_query_rule.md`
+- 脚本系统：`docs/script_system.md`（Lua/JS 脚本级插件：钩子点/定时任务/HTTP 出站/安全模型；改钩子点或模块先读它）
+- 认证与令牌链路：`docs/authentication.md`（登录全流程/令牌与刷新轮换/MFA/限流策略/会话吊销/已知问题；改登录、令牌、刷新、MFA、限流或登录策略前先读它）
+- 多租户隔离：`docs/tenant_isolation.md`（上下文链路/HTTP 闸门/数据层读写隔离/套餐联动/覆盖边界与排障；改隔离层、Api 表、套餐门禁或给新表接租户前先读它）
+- 套餐与计费管控：`docs/plan_billing.md`（三档到期策略全链路/模块白名单/配额与用量计量/租户数据清理；改套餐、配额、到期处置或排租户 403 前先读它）
+- 任务调度系统：`docs/task_system.md`（配置与启动链/任务数据模型/调度生命周期/系统级常驻任务/脚本任务桥/多租户语义与排障；加任务类型、排"任务没跑"或接新调度需求前先读它）
+- SSE 推送架构：`docs/sse_architecture.md`（服务端配置与生命周期/流鉴权与 streamID 语义/事件生产/三端消费/部署与排障；改推送链路、加事件类型或排"收不到通知"前先读它）
+- 数据权限范围：`docs/data_scope_design.md`（角色级行数据范围：语义/聚合/接入步骤/运维边界；新表接入数据范围或改聚合规则先读它）
+- 设计语言规范：`docs/design-language.md`（三端视觉唯一权威值表，改颜色/圆角/布局尺寸先改这里再同步三端）
 
 ---
 > Source: [tx7do/go-wind-admin](https://github.com/tx7do/go-wind-admin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
