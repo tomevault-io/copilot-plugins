@@ -1,0 +1,74 @@
+{
+  "name": "snyk--studio-recipes",
+  "displayName": "studio-recipes",
+  "description": "studio-recipes",
+  "version": "1.0.0",
+  "author": "snyk",
+  "homepage": "https://github.com/snyk/studio-recipes",
+  "skills": [
+    {
+      "name": "ai-inventory",
+      "description": ""
+    },
+    {
+      "name": "container-security",
+      "description": ""
+    },
+    {
+      "name": "drift-detector",
+      "description": ""
+    },
+    {
+      "name": "iac-security",
+      "description": ""
+    },
+    {
+      "name": "sbom-analyzer",
+      "description": ""
+    },
+    {
+      "name": "secure-at-inception",
+      "description": ""
+    },
+    {
+      "name": "snyk-fix",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "description": ""
+    }
+  ]
+}
