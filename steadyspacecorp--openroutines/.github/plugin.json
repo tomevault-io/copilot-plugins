@@ -1,0 +1,9 @@
+{
+  "name": "steadyspacecorp--openroutines",
+  "displayName": "openroutines",
+  "description": "The framework for running simple, secure, and durable autonomous AI agents.",
+  "version": "1.0.0",
+  "author": "steadyspacecorp",
+  "homepage": "https://github.com/steadyspacecorp/openroutines",
+  "skills": []
+}
