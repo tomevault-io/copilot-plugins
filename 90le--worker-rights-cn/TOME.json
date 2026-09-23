@@ -1,0 +1,111 @@
+{
+  "name": "worker-rights-cn",
+  "owner": "90le",
+  "repo": "worker-rights-cn",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/case-intake/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/case-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/layoff-defense/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/layoff-defense/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/evidence-builder/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/evidence-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/agreement-review/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/agreement-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/negotiation-coach/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/negotiation-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/safety-guardrails/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/safety-guardrails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/worker-rights-guide/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/worker-rights-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/arbitration-drafter/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/arbitration-drafter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/local-rules-adapter/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/local-rules-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/compensation-calculator/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/compensation-calculator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "worker-rights-cn",
+      "path": "plugins/worker-rights-cn/skills/layoff-strategy-optimizer/SKILL.md",
+      "github_url": "https://github.com/90le/worker-rights-cn/tree/main/plugins/worker-rights-cn/skills/layoff-strategy-optimizer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/90le/worker-rights-cn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:49:16Z"
+}
