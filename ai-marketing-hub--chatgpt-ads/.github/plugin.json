@@ -1,0 +1,9 @@
+{
+  "name": "ai-marketing-hub--chatgpt-ads",
+  "displayName": "chatgpt-ads",
+  "description": "Sourced ChatGPT Ads knowledge and 12 operating skills for Codex and Claude, with tested local workflows and explicit live-account limits.",
+  "version": "1.0.0",
+  "author": "AI-Marketing-Hub",
+  "homepage": "https://github.com/AI-Marketing-Hub/chatgpt-ads",
+  "skills": []
+}
