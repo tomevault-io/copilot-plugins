@@ -1,0 +1,14 @@
+{
+  "name": "vercel-labs--vgpu",
+  "displayName": "vgpu",
+  "description": "vgpu",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/vgpu",
+  "skills": [
+    {
+      "name": "vgpu",
+      "description": ""
+    }
+  ]
+}
