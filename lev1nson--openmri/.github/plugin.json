@@ -1,0 +1,9 @@
+{
+  "name": "lev1nson--openmri",
+  "displayName": "OpenMRI",
+  "description": "Local viewer for your own MRI and CT studies: 3D volume rendering, three linked slices, DICOM/NIfTI import, rigid registration across dates. Everything stays on your computer.",
+  "version": "1.0.0",
+  "author": "lev1nson",
+  "homepage": "https://github.com/lev1nson/OpenMRI",
+  "skills": []
+}
