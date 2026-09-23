@@ -1,0 +1,9 @@
+{
+  "name": "bladeacer--adacovex",
+  "displayName": "adacovex",
+  "description": "Ada/SPARK formal verification and compliance toolchain.",
+  "version": "1.0.0",
+  "author": "bladeacer",
+  "homepage": "https://github.com/bladeacer/adacovex",
+  "skills": []
+}
