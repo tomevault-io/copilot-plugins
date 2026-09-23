@@ -1,0 +1,14 @@
+{
+  "name": "liustack--modsearch",
+  "displayName": "modsearch",
+  "description": "modsearch",
+  "version": "1.0.0",
+  "author": "liustack",
+  "homepage": "https://github.com/liustack/modsearch",
+  "skills": [
+    {
+      "name": "modsearch",
+      "description": ""
+    }
+  ]
+}
