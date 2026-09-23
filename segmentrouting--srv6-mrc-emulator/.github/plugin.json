@@ -1,0 +1,9 @@
+{
+  "name": "segmentrouting--srv6-mrc-emulator",
+  "displayName": "srv6-mrc-emulator",
+  "description": "srv6-mrc-emulator",
+  "version": "1.0.0",
+  "author": "segmentrouting",
+  "homepage": "https://github.com/segmentrouting/srv6-mrc-emulator",
+  "skills": []
+}
