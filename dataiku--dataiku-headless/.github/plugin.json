@@ -1,0 +1,9 @@
+{
+  "name": "dataiku--dataiku-headless",
+  "displayName": "dataiku-headless",
+  "description": "dataiku-headless",
+  "version": "1.0.0",
+  "author": "dataiku",
+  "homepage": "https://github.com/dataiku/dataiku-headless",
+  "skills": []
+}
