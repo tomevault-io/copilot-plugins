@@ -1,73 +1,17 @@
 ## peanut
 
-> Development workflow and common tasks for PeaNUT project
+> <!-- BEGIN:nextjs-agent-rules -->
 
-# Development Workflow
+<!-- BEGIN:nextjs-agent-rules -->
 
-## Available Scripts
+# This is NOT the Next.js you know
 
-From [package.json](mdc:package.json):
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-### Development
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-- `pnpm dev` - Start development server with Docker
-- `pnpm build` - Build for production
-- `pnpm build` - Build for production using turbopack
-- `pnpm start` - Start production server
-
-### Testing
-
-- `pnpm test` - Run unit tests
-- `pnpm test:coverage` - Run tests with coverage
-- `pnpm test:e2e` - Run E2E tests
-- `pnpm test:all` - Run all tests
-
-### Code Quality
-
-- `pnpm lint` - Run ESLint
-- `pnpm lint:fix` - Fix ESLint issues
-- `pnpm format` - Check Prettier formatting
-- `pnpm format:fix` - Fix formatting
-- `pnpm type-check` - Run TypeScript checks
-
-### Docker
-
-- `docker-compose up -d` - Start development services
-- `docker-compose down` - Stop development services
-
-## Development Environment
-
-- Use pnpm as package manager
-- Use Docker for development services
-- Use Turbopack for faster builds
-- Use ESLint + Prettier for code formatting
-
-## Testing Strategy
-
-- Unit tests for components and utilities
-- E2E tests for critical user flows
-- API tests for backend functionality
-- Use proper mocking and test data
-
-## Code Review Checklist
-
-- [ ] All tests pass
-- [ ] Code is properly formatted
-- [ ] TypeScript types are correct
-- [ ] No linting errors
-- [ ] Proper error handling
-- [ ] Accessibility considerations
-- [ ] Performance implications considered
-- [ ] **shadcn components in `ui/` folder are NOT modified**
-- [ ] Custom components properly compose/extend shadcn components
-
-## Deployment
-
-- Use Docker for containerization
-- Follow the Dockerfile patterns
-- Use proper environment variables
-- Test in staging environment first
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [Brandawg93/PeaNUT](https://github.com/Brandawg93/PeaNUT) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
