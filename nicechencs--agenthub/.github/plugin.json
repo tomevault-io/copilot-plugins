@@ -1,0 +1,9 @@
+{
+  "name": "nicechencs--agenthub",
+  "displayName": "AgentHub",
+  "description": "AgentHub is an all-in-one agent management platform that simplifies the entire agent lifecycle. Manage agent installation, uninstallation, skills, configurations, API integrations, and token usage fro",
+  "version": "1.0.0",
+  "author": "nicechencs",
+  "homepage": "https://github.com/nicechencs/AgentHub",
+  "skills": []
+}
