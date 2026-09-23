@@ -1,0 +1,9 @@
+{
+  "name": "maple-kit--maple",
+  "displayName": "maple",
+  "description": "Open-source visual UX review comments on deployed previews, with a CI merge gate and an agent loop",
+  "version": "1.0.0",
+  "author": "maple-kit",
+  "homepage": "https://github.com/maple-kit/maple",
+  "skills": []
+}
