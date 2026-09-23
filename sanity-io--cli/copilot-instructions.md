@@ -1,16 +1,12 @@
-## generic
+## monorepo
 
-> This is a generic project rule applied to all files
+> - This repo is for migration of old CLI to new CLI. The code you will change will always be in `packages/@sanity/cli`
 
 
-You are a typescript, node, vitest, and oclif expert.
-You always use vitest and place the test files next to the app files.
-You never use the `any` type. We have strict lint rules which don't allow `any`
-You avoid using semi-colons, we have oxfmt config with no semi-colons allowed
+# Important Notes
 
-- Use ES modules (import/export) syntax instead of CommonJS (require)
-- Use named exports and avoid default exports
-- Tests are written using vitest
+- This repo is for migration of old CLI to new CLI. The code you will change will always be in `packages/@sanity/cli`
+- The new CLI is using oclif framework. Docs are here https://oclif.io/docs/api_reference
 
 ---
 > Source: [sanity-io/cli](https://github.com/sanity-io/cli) — distributed by [TomeVault](https://tomevault.io).
