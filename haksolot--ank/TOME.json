@@ -1,0 +1,81 @@
+{
+  "name": "ank",
+  "owner": "haksolot",
+  "repo": "ank",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ank",
+      "path": "skill/SKILL.md",
+      "github_url": "https://github.com/haksolot/ank/tree/main/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ank",
+      "path": "skill/tdd/SKILL.md",
+      "github_url": "https://github.com/haksolot/ank/tree/main/skill/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ank",
+      "path": "skill/loop/SKILL.md",
+      "github_url": "https://github.com/haksolot/ank/tree/main/skill/loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ank",
+      "path": "skill/plan/SKILL.md",
+      "github_url": "https://github.com/haksolot/ank/tree/main/skill/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ank",
+      "path": "skill/drift/SKILL.md",
+      "github_url": "https://github.com/haksolot/ank/tree/main/skill/drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ank",
+      "path": "skill/diagnose/SKILL.md",
+      "github_url": "https://github.com/haksolot/ank/tree/main/skill/diagnose/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/haksolot/ank",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:41:37Z"
+}
