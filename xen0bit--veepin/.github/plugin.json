@@ -1,0 +1,9 @@
+{
+  "name": "xen0bit--veepin",
+  "displayName": "veepin",
+  "description": "A working userspace VPN in Go. Both server (responder) and client (initiator), written in pure-Go. It speaks over sixteen production protocols, client and server for every one. IKEv2/ESP, WireGuard, O",
+  "version": "1.0.0",
+  "author": "xen0bit",
+  "homepage": "https://github.com/xen0bit/veepin",
+  "skills": []
+}
