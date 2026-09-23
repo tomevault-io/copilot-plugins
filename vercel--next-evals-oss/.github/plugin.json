@@ -1,0 +1,14 @@
+{
+  "name": "vercel--next-evals-oss",
+  "displayName": "next-evals-oss",
+  "description": "next-evals-oss",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/next-evals-oss",
+  "skills": [
+    {
+      "name": "next-evals-oss",
+      "description": ""
+    }
+  ]
+}
