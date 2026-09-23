@@ -1,0 +1,63 @@
+{
+  "name": "karp-wiki",
+  "owner": "gy-hou",
+  "repo": "karp-wiki",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "karp-wiki",
+      "path": "skills/kb-setup/SKILL.md",
+      "github_url": "https://github.com/gy-hou/karp-wiki/tree/main/skills/kb-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "karp-wiki",
+      "path": ".agents/skills/kb-setup/SKILL.md",
+      "github_url": "https://github.com/gy-hou/karp-wiki/tree/main/.agents/skills/kb-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "karp-wiki",
+      "path": ".claude/skills/kb-setup/SKILL.md",
+      "github_url": "https://github.com/gy-hou/karp-wiki/tree/main/.claude/skills/kb-setup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gy-hou/karp-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:56:43Z"
+}
