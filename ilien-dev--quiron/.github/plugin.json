@@ -1,0 +1,9 @@
+{
+  "name": "ilien-dev--quiron",
+  "displayName": "quiron",
+  "description": "AI humanizer skill for Claude Code, Codex and Cursor. Removes AI slop and the signs of AI writing, then measures the rewrite against human baselines.",
+  "version": "1.0.0",
+  "author": "ilien-dev",
+  "homepage": "https://github.com/ilien-dev/quiron",
+  "skills": []
+}
