@@ -1,0 +1,165 @@
+{
+  "name": "EvoQuant",
+  "owner": "CamusGIT",
+  "repo": "EvoQuant",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/evo-memory/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/evo-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/paper-graph/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/paper-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/evomath-tao/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/evomath-tao/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/nano-banana/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/nano-banana/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/paper-review/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/paper-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/paper-figures/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/paper-figures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/paper-writing/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/paper-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/paper-planning/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/paper-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/paper-rebuttal/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/paper-rebuttal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/research-survey/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/research-survey/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/academic-slides/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/academic-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/experiment-craft/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/experiment-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/research-ideation/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/research-ideation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/experiment-pipeline/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/experiment-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/quant-paper-extractor/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/quant-paper-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/local-paper-navigator/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/local-paper-navigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/quant-experiment-runtime/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/quant-experiment-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoQuant",
+      "path": "EvoQuant/skills/experiment-iterative-coder/SKILL.md",
+      "github_url": "https://github.com/CamusGIT/EvoQuant/tree/main/EvoQuant/skills/experiment-iterative-coder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/CamusGIT/EvoQuant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T09:00:52Z"
+}
