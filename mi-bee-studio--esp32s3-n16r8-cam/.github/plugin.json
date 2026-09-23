@@ -1,0 +1,9 @@
+{
+  "name": "mi-bee-studio--esp32s3-n16r8-cam",
+  "displayName": "esp32s3-n16r8-cam",
+  "description": "MiBee Cam firmware for ESP32-S3-N16R8 (ESP32-S3 + OV3660 3MP) \u2014 MJPEG streaming, RTSP server (digest auth), ONVIF discovery, face/motion/QR AI detection with live web overlay, zh/en web UI, AT command",
+  "version": "1.0.0",
+  "author": "Mi-Bee-Studio",
+  "homepage": "https://github.com/Mi-Bee-Studio/esp32s3-n16r8-cam",
+  "skills": []
+}
