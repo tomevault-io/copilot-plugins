@@ -1,0 +1,14 @@
+{
+  "name": "ericbai06--skilldag",
+  "displayName": "SkillDAG",
+  "description": "SkillDAG",
+  "version": "1.0.0",
+  "author": "Ericbai06",
+  "homepage": "https://github.com/Ericbai06/SkillDAG",
+  "skills": [
+    {
+      "name": "SkillDAG",
+      "description": ""
+    }
+  ]
+}
