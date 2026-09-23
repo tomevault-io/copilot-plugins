@@ -1,0 +1,9 @@
+{
+  "name": "vanssata--jetbrains-claude-subscription",
+  "displayName": "jetbrains-claude-subscription",
+  "description": "Unofficial JetBrains plugin: adds a Claude Subscription (Pro/Max) ACP agent to the AI Assistant chat agent picker",
+  "version": "1.0.0",
+  "author": "vanssata",
+  "homepage": "https://github.com/vanssata/jetbrains-claude-subscription",
+  "skills": []
+}
