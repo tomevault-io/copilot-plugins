@@ -1,0 +1,9 @@
+{
+  "name": "peterruler--ai-diagnosis",
+  "displayName": "ai-diagnosis",
+  "description": "speech2structure with openai",
+  "version": "1.0.0",
+  "author": "peterruler",
+  "homepage": "https://github.com/peterruler/ai-diagnosis",
+  "skills": []
+}
