@@ -1,0 +1,111 @@
+{
+  "name": "rayfin-fabricator",
+  "owner": "spatney",
+  "repo": "rayfin-fabricator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/dax/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/dax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/visuals/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/visuals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/analytics/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/app-design/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/app-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/fabric-data/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/fabric-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/data-modeling/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/data-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/build-workflow/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/build-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/authentication/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/authentication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/graphein-visuals/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/graphein-visuals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/headless-preview/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/headless-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rayfin-fabricator",
+      "path": "resources/fabricator-templates/fabricator-universal/.agents/skills/capability-router/SKILL.md",
+      "github_url": "https://github.com/spatney/rayfin-fabricator/tree/main/resources/fabricator-templates/fabricator-universal/.agents/skills/capability-router/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/spatney/rayfin-fabricator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T19:35:21Z"
+}
