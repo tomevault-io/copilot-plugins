@@ -1,0 +1,9 @@
+{
+  "name": "unheat--kites",
+  "displayName": "Kites",
+  "description": "\ud83e\ude81 Read any manga in your language directly in-browser. 100% local-first AI translation with WebGPU OCR, clean background inpainting, and studio typesetting.",
+  "version": "1.0.0",
+  "author": "Unheat",
+  "homepage": "https://github.com/Unheat/Kites",
+  "skills": []
+}
