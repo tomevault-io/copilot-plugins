@@ -1,0 +1,14 @@
+{
+  "name": "thetahealth--mirobody",
+  "displayName": "mirobody",
+  "description": "mirobody",
+  "version": "1.0.0",
+  "author": "thetahealth",
+  "homepage": "https://github.com/thetahealth/mirobody",
+  "skills": [
+    {
+      "name": "mirobody",
+      "description": ""
+    }
+  ]
+}
