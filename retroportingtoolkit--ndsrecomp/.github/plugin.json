@@ -1,0 +1,9 @@
+{
+  "name": "retroportingtoolkit--ndsrecomp",
+  "displayName": "ndsrecomp",
+  "description": "Very early pre-alpha Nintendo DS static recompiler research \u00b7 source-only developer snapshot",
+  "version": "1.0.0",
+  "author": "RetroPortingToolKit",
+  "homepage": "https://github.com/RetroPortingToolKit/ndsrecomp",
+  "skills": []
+}
