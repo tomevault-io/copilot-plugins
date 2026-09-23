@@ -1,52 +1,84 @@
-## 99-task-completion-gate
+## continuous-learning
 
-> Mandatory task-done gate for ANY major task in this repo — structured AskQuestion before closing, then samectx and retrospective. Use after learn-knowledge storage, feature slices, research deliverables, refactors, or when workflow_run reaches task-completion-gate. Do not skip because the user said yes to research or store only.
+> After major tasks, confirm done then samectx sync and retrospective asset consolidation
 
 
-# Task completion gate (mandatory for major tasks)
+# Continuous learning (task completion gate)
 
-This rule **extends** `continuous-learning.mdc`. When its checklist applies, the gate is **required**, not optional agent discretion.
+Use this gate when a **major task** is complete. It complements DoD and feature acceptance; it applies to discovery, docs, and workshop work in this repo—not only shipped code.
 
-## Major task checklist
+## What counts as a major task
 
-Treat work as a **major task** when **any** of these is true:
+A coherent unit of work the user asked for that is **substantively finished**, for example:
 
-- The user invoked a **named workflow** (e.g. `learn-knowledge`) or `workflow_run` for a deliverable
-- The user asked for a **coherent deliverable** (KB note, brief, multi-file change, integration) and substantive work is finished
-- Acceptance criteria or stated scope for the session appear met
+- A user story or feature slice meeting its stated acceptance criteria
+- A research or strategy deliverable (e.g. briefs, course outline, prompt pack)
+- A multi-step refactor or integration that was the explicit scope of the session
 
-**Not** a major task: one-off Q&A, tiny single-line fix, or clearly mid-story work still in progress.
+Not a major task: a single clarifying answer, one-line fix, or mid-story step still in progress.
 
-If unsure whether scope is complete, use the structured gate below — do not silently skip it.
+When the checklist in **`99-task-completion-gate.mdc`** applies, this gate is **mandatory** — do not skip because the model judges the task “minor” without that checklist.
 
-## Two different confirmations
+## Research yes vs task-done yes
 
-| User action | Allows |
+- **Research / store confirmation** (e.g. learn-knowledge step 2–3): authorizes writing the deliverable only.
+- **Task-done confirmation** (this rule): authorizes samectx + retrospective only.
+
+Never end a major task after research/store **yes** without the **task completion** gate (separate confirmation).
+
+## How continuous-learning is triggered (read this)
+
+Nothing runs samectx or retrospective **automatically**. Triggers are:
+
+| Mechanism | When it fires |
 | --- | --- |
-| Research / “satisfied with summary” / “proceed to store” (including AskQuestion or chat for that step only) | `knowledge_write` or equivalent deliverable write **only** |
-| **AskQuestion** option `mark-task-done` (task completion gate) | samectx sync + retrospective |
+| **Agent + AskQuestion** | Required: agent must call AskQuestion before samectx on every major task (this rule). |
+| **`workflow_run` (learn-knowledge, etc.)** | YAML steps load **task-completion-gate → samectx → retrospective** into context; agent still executes them. |
+| **Cursor hooks** (`.cursor/hooks.json`) | `stop` may send a follow-up if multiple file edits and gate not seen; `postToolUse` after `knowledge_write` injects next-step context. |
+| **MCP `knowledge_write`** | Hook reminds: storage ≠ task done. |
 
-Never treat research/store **yes** or a generic chat **yes** as task completion. Plain *Can I mark this as done?* in chat is **discouraged** — it collides with other confirmations.
+Rules alone do **not** invoke tools. If the gate was skipped, the agent ended the turn without AskQuestion.
 
-## Required sequence when a major task is complete
+## Step 1 — Structured gate before closing
 
-1. **Stop** and invoke **AskQuestion** with the options in `.cursor/workflows/prompts/_shared/task-completion-gate.md` (or equivalent labels: **Mark task done** / **Not yet** / **Pause here**).
-2. Wait until the user selects **`mark-task-done`**. Do not run samectx or retrospective on bare **yes**, **done**, or **approve** unless they clearly chose **Mark task done** after this gate.
-3. Run **samectx** skill → `samectx sync` (tasks, keypoints, decisions; no secrets).
-4. Run **retrospective** skill → `./adr/`, `./knowledge/` as appropriate; present Retrospective Summary.
+When you believe a major task is complete, **stop** and use **AskQuestion** (see `.cursor/workflows/prompts/_shared/task-completion-gate.md`):
 
-Applies to **ad-hoc major work** (no YAML workflow) and to workflow steps after **task-completion-gate**.
+- **Mark task done** — only this choice authorizes samectx + retrospective
+- **Not yet** — continue the task
+- **Pause here** — stop without sync or retrospective
 
-## Workflow runs
+Do **not** use a plain chat *Can I mark this as done?* or accept bare **yes** from an earlier research/store step. If they defer or redirect, continue the current work or the new scope they give.
 
-Prefer MCP **`workflow_run`** for named workflows so all steps (including completion gate) load into context. Follow steps **in order** through samectx and retrospective.
+## Step 2 — After confirmation only
+
+Run in order:
+
+### 2a. samectx sync
+
+Follow the **samectx** skill:
+
+1. Extract from the completed work: key tasks, keypoints, decisions (no secrets).
+2. Run `samectx sync` with `--tasks`, `--keypoints`, and `--decisions` (semicolon-separated lists).
+3. Notes land under `samectx-notes/` in this project; keep content factual and non-sensitive.
+
+### 2b. Retrospective — consolidate process assets
+
+Follow the **retrospective** skill:
+
+1. Review what went well, what was hard, and reusable lessons.
+2. Persist durable assets:
+   - **ADRs** → `./adr/` when a non-obvious decision was made
+   - **Knowledge** → `./knowledge/` (e.g. `ops/`, `methods/`, `insights/`) for reusable research, ops, or domain notes
+3. Update `knowledge/README.md` index when adding notable knowledge docs.
+4. Present a **Retrospective Summary** (ADRs, knowledge, skipped items). An empty retrospective is valid if nothing is worth persisting.
+
+Do not commit unless the user requests a commit.
 
 ## Anti-patterns
 
-- Ending the turn right after storage or “looks good” on research
-- Treating any **yes** in chat as task-done after a different confirmation step
-- Skipping retrospective because the change was “only docs”
-- Deciding the rule “does not apply” without checking the checklist above
+- Assuming completion without asking
+- Running samectx or retrospective before user confirmation
+- Skipping retrospective because the task was “only docs” when lessons or decisions are worth keeping
 
 ---
 > Source: [TechLah/AgentOne](https://github.com/TechLah/AgentOne) — distributed by [TomeVault](https://tomevault.io).
