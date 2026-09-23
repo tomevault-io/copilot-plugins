@@ -1,0 +1,9 @@
+{
+  "name": "starknightt--summer-cycle",
+  "displayName": "summer-cycle",
+  "description": "A Studio Ghibli / Makoto Shinkai style cycling game in Three.js. Toon-shaded Japanese countryside with four times of day - every mesh, texture and sound generated in code.",
+  "version": "1.0.0",
+  "author": "StarKnightt",
+  "homepage": "https://github.com/StarKnightt/summer-cycle",
+  "skills": []
+}
