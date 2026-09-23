@@ -1,0 +1,9 @@
+{
+  "name": "sltowl--sl-ui-library",
+  "displayName": "sl-ui-library",
+  "description": "HTML, CSS and JavaScript components, with a plugin for Codex and Claude Code.",
+  "version": "1.0.0",
+  "author": "SLtowl",
+  "homepage": "https://github.com/SLtowl/sl-ui-library",
+  "skills": []
+}
