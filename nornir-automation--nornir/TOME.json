@@ -1,0 +1,105 @@
+{
+  "name": "nornir",
+  "owner": "nornir-automation",
+  "repo": "nornir",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-converge/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-converge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nornir",
+      "path": ".agents/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/nornir-automation/nornir/tree/main/.agents/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nornir-automation/nornir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:38:43Z"
+}
