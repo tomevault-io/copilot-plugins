@@ -1,0 +1,207 @@
+{
+  "name": "evolving-agents",
+  "owner": "EvolvingAgentsLabs",
+  "repo": "evolving-agents",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/admin/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/admin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/memory/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/linear/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/linear/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/dropbox/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/dropbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/taste-skill/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/taste-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/.codex/skills/update-qm/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/.codex/skills/update-qm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/.codex/skills/deploy-qm/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/.codex/skills/deploy-qm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/cli/templates/deployment/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/cli/templates/deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/connect-apps/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/connect-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/.claude/skills/update-qm/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/.claude/skills/update-qm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/.codex/skills/upstream-pr/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/.codex/skills/upstream-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/github-gitlab/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/github-gitlab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/.codex/skills/dev-instance/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/.codex/skills/dev-instance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/morning-digest/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/morning-digest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/.claude/skills/upstream-pr/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/.claude/skills/upstream-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "packages/agentvcs/.claude/skills/agentvcs/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/packages/agentvcs/.claude/skills/agentvcs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/.claude/skills/dev-instance/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/.claude/skills/dev-instance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/google-workspace/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/google-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/interactive-login/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/interactive-login/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/popular-web-designs/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/popular-web-designs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/google-drive-sheets/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/google-drive-sheets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/email-voice-profile/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/email-voice-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/skills-seed/email-draft-in-voice/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/skills-seed/email-draft-in-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "ai-os/ai-base/plugins/onboarding/skills/onboarding/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/ai-os/ai-base/plugins/onboarding/skills/onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "demos/robot/robot_brain/skills/.claude/skills/night-rounds/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/demos/robot/robot_brain/skills/.claude/skills/night-rounds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "demos/robot/robot_brain/skills/.claude/skills/nurse-handoff/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/demos/robot/robot_brain/skills/.claude/skills/nurse-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "demos/robot/robot_brain/skills/.claude/skills/patient-check/SKILL.md",
+      "github_url": "https://github.com/EvolvingAgentsLabs/evolving-agents/tree/main/demos/robot/robot_brain/skills/.claude/skills/patient-check/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/EvolvingAgentsLabs/evolving-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T21:37:39Z"
+}
