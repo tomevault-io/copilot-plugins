@@ -2,7 +2,7 @@
 
 > Run `make help` for all available targets. Key commands:
 
-# CLAUDE.md
+# AGENTS.md
 
 ## Commands
 
@@ -100,4 +100,4 @@ SecurityContext: &corev1.SecurityContext{RunAsUser: ptr.To(int64(0))}
 
 ---
 > Source: [isola-run/isola](https://github.com/isola-run/isola) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
