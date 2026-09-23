@@ -1,0 +1,105 @@
+{
+  "name": "Starcat",
+  "owner": "starcat-app",
+  "repo": "Starcat",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/starcat-release/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/starcat-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/update-changelog/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/update-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/starcat-cli-release/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/starcat-cli-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/starcat-supports-ops/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/starcat-supports-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/starcat-weekly-import/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/starcat-weekly-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/starcat-backend-release/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/starcat-backend-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/starcat-localization-sync/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/starcat-localization-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/starcat-changelog-cdn-sync/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/starcat-changelog-cdn-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/starcat-public-site-and-promo/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/starcat-public-site-and-promo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Starcat",
+      "path": ".claude/skills/starcat-support-project-create/SKILL.md",
+      "github_url": "https://github.com/starcat-app/Starcat/tree/main/.claude/skills/starcat-support-project-create/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/starcat-app/Starcat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:42:24Z"
+}
