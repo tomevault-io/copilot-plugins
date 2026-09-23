@@ -1,0 +1,423 @@
+{
+  "name": "KiroCrew",
+  "owner": "kirodotdev",
+  "repo": "KiroCrew",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "computer-use",
+      "path": "src/kiro_crew/builtin_skills/computer-use/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/computer-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grill",
+      "path": "skills/grill/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/skills/grill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-preview",
+      "path": "src/kiro_crew/builtin_skills/web-preview/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/web-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "skills/goal-loop/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/skills/goal-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "skills/self-update/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/skills/self-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "skills/rubber-duck/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/skills/rubber-duck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "skills/gateway-restart/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/skills/gateway-restart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "skills/kirocrew-app-dev/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/skills/kirocrew-app-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/widgets/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/meetings/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/meetings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/artifacts/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/artifacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/five-whys/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/five-whys/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/deploy/skills/deploy-web/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/deploy/skills/deploy-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/web-browse/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/web-browse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/web-verify/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/web-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/pptx-maker/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/pptx-maker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/explain-for/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/explain-for/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/llm-council/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/llm-council/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/crystallize/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/crystallize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/deploy/skills/artifact-deploy/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/deploy/skills/artifact-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/goal-conductor/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/goal-conductor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/papyrus-writing/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/papyrus-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/image-authoring/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/image-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/feature-request/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/feature-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/kirocrew-commands/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/kirocrew-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/browser-recording/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/browser-recording/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/session-summaries/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/session-summaries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/pipeline-conductor/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/pipeline-conductor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/security-conductor/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/security-conductor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/cron-cost-optimize/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/cron-cost-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/ops-mission-control/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/ops-mission-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/papyrus-make-fluent/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/papyrus-make-fluent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/kirocrew-dev/babysit/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/kirocrew-dev/babysit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/theme-pack-authoring/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/theme-pack-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "docs/app-kit/examples/minimal-app/skills/greeting/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/docs/app-kit/examples/minimal-app/skills/greeting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/ios-simulator-preview/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/ios-simulator-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/goal-ledger-conductor/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/goal-ledger-conductor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/papyrus-latex-comments/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/papyrus-latex-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/kirocrew-dev/prepare-pr/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/kirocrew-dev/prepare-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/dev_fleet/skills/pod-e2e/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/dev_fleet/skills/pod-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "docs/app-kit/examples/full-app/skills/oncall-runbook/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/docs/app-kit/examples/full-app/skills/oncall-runbook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/frontend-design-workflow/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/frontend-design-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/papyrus-latex-suggestions/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/papyrus-latex-suggestions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/kirocrew-dev/writing-tests/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/kirocrew-dev/writing-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/papyrus-diagnose-compilation/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/papyrus-diagnose-compilation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-plan/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-tips/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-tips/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-slack/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-slack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-watch/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-watch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/design_tweak/skills/visual-edit/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/design_tweak/skills/visual-edit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-remind/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-remind/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-replan/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/mochi/agents/skills/mochi-replan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/spec_builder/skills/spec-workflow/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/spec_builder/skills/spec-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/code_review_sage/skills/sage-review/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/code_review_sage/skills/sage-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/builtin_skills/kirocrew-dev/kirocrew-worktree-dev/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/builtin_skills/kirocrew-dev/kirocrew-worktree-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/auto_improvement/skills/ai-discover/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/auto_improvement/skills/ai-discover/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/tests_fixtures/skills-custom/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/tests_fixtures/skills-custom/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/auto_improvement/skills/metric-design/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/auto_improvement/skills/metric-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/design_critique/skills/design-critique/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/design_critique/skills/design-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/dev_fleet/skills/feature-demo-recording/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/dev_fleet/skills/feature-demo-recording/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/code_review_sage/skills/learn-from-sage/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/code_review_sage/skills/learn-from-sage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/apps/builtins/personal_shopper/skills/personal-shopper/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/personal_shopper/skills/personal-shopper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KiroCrew",
+      "path": "src/kiro_crew/tests_fixtures/skills-custom/skills/auto/.pending/flaky-triage/SKILL.md",
+      "github_url": "https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/tests_fixtures/skills-custom/skills/auto/.pending/flaky-triage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kirodotdev/KiroCrew",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:45:08Z"
+}
