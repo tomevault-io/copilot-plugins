@@ -1,0 +1,14 @@
+{
+  "name": "local-inference-lab--b12x",
+  "displayName": "b12x",
+  "description": "b12x",
+  "version": "1.0.0",
+  "author": "local-inference-lab",
+  "homepage": "https://github.com/local-inference-lab/b12x",
+  "skills": [
+    {
+      "name": "b12x",
+      "description": ""
+    }
+  ]
+}
