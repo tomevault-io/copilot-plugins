@@ -1,0 +1,9 @@
+{
+  "name": "whereissam--react-vite-tanstack-starter-template",
+  "displayName": "React-Vite-Tanstack-Starter-Template",
+  "description": "A modern starter template using React 19, Shadcn, Vite, and TanStack Router.",
+  "version": "1.0.0",
+  "author": "whereissam",
+  "homepage": "https://github.com/whereissam/React-Vite-Tanstack-Starter-Template",
+  "skills": []
+}
