@@ -1,0 +1,9 @@
+{
+  "name": "open-energy-transition--earthpv",
+  "displayName": "earthpv",
+  "description": "Open rooftop solar mapping from free satellite imagery.",
+  "version": "1.0.0",
+  "author": "open-energy-transition",
+  "homepage": "https://github.com/open-energy-transition/earthpv",
+  "skills": []
+}
