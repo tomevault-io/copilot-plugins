@@ -1,0 +1,44 @@
+{
+  "name": "code-develop-harness-init",
+  "owner": "WakeUp-Jin",
+  "repo": "code-develop-harness-init",
+  "description": "\u9762\u5411 Agent-first \u5f00\u53d1\u7684\u9879\u76ee\u521d\u59cb\u5316\u6a21\u677f\uff08Harness\uff09\u2014\u2014 \u4eba\u5b9a\u65b9\u5411\uff0cAgent \u6267\u884c",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WakeUp-Jin/code-develop-harness-init",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T13:00:39Z"
+}
