@@ -1,0 +1,129 @@
+{
+  "name": "balsa-ui",
+  "owner": "pedrobalsa",
+  "repo": "balsa-ui",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "balsa-ui",
+      "path": "skills/balsa-ui/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/skills/balsa-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": ".balsa/skills/balsa-ui/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/.balsa/skills/balsa-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "skills/balsa-template-design/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/skills/balsa-template-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "public/agent/skills/balsa-ui/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/public/agent/skills/balsa-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": ".balsa/skills/balsa-template-design/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/.balsa/skills/balsa-template-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "starters/vue/.balsa/skills/balsa-ui/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/starters/vue/.balsa/skills/balsa-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "starters/vue/.agents/skills/balsa-ui/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/starters/vue/.agents/skills/balsa-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "starters/react/.balsa/skills/balsa-ui/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/starters/react/.balsa/skills/balsa-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "starters/react/.agents/skills/balsa-ui/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/starters/react/.agents/skills/balsa-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "public/agent/skills/balsa-template-design/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/public/agent/skills/balsa-template-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "starters/vue/.balsa/skills/balsa-template-design/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/starters/vue/.balsa/skills/balsa-template-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "starters/vue/.agents/skills/balsa-template-design/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/starters/vue/.agents/skills/balsa-template-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "starters/react/.balsa/skills/balsa-template-design/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/starters/react/.balsa/skills/balsa-template-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "balsa-ui",
+      "path": "starters/react/.agents/skills/balsa-template-design/SKILL.md",
+      "github_url": "https://github.com/pedrobalsa/balsa-ui/tree/main/starters/react/.agents/skills/balsa-template-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pedrobalsa/balsa-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:55:04Z"
+}
