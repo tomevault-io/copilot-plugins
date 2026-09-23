@@ -1,0 +1,225 @@
+{
+  "name": "smart-second-brain",
+  "owner": "s2b-dev",
+  "repo": "smart-second-brain",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "smart-second-brain",
+      "path": ".claude/skills/dispatch/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/.claude/skills/dispatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/defaults/web/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/defaults/web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/integrations/bases/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/integrations/bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/integrations/tasks/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/integrations/tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/integrations/canvas/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/integrations/canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/defaults/manage-notes/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/defaults/manage-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/integrations/dataview/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/integrations/dataview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/integrations/tasknotes/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/integrations/tasknotes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/defaults/explore-vault/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/defaults/explore-vault/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/defaults/manage-skills/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/defaults/manage-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "src/skills/integrations/obsidian-charts/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/src/skills/integrations/obsidian-charts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/web/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/bases/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/tasks/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/canvas/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/dataview/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/dataview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/tasknotes/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/tasknotes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/manage-notes/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/manage-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/explore-vault/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/explore-vault/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/manage-skills/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/manage-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/obsidian-charts/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/obsidian-charts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/Agents/Skills/notebook-navigator/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/Agents/Skills/notebook-navigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": ".github/skills/obsidian-integration-test/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/.github/skills/obsidian-integration-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/.obsidian/skills/bases/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/.obsidian/skills/bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/.obsidian/skills/tasks/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/.obsidian/skills/tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/.obsidian/skills/canvas/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/.obsidian/skills/canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/.obsidian/skills/dataview/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/.obsidian/skills/dataview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/.obsidian/skills/tasknotes/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/.obsidian/skills/tasknotes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/.obsidian/skills/obsidian-charts/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/.obsidian/skills/obsidian-charts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smart-second-brain",
+      "path": "integration/S2B Test Vault/.obsidian/skills/notebook-navigator/SKILL.md",
+      "github_url": "https://github.com/s2b-dev/smart-second-brain/tree/main/integration/S2B Test Vault/.obsidian/skills/notebook-navigator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/s2b-dev/smart-second-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:11:14Z"
+}
