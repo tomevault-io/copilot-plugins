@@ -1,0 +1,18 @@
+{
+  "name": "xpolicylab--xpolicylab",
+  "displayName": "XPolicyLab",
+  "description": "XPolicyLab",
+  "version": "1.0.0",
+  "author": "XPolicyLab",
+  "homepage": "https://github.com/XPolicyLab/XPolicyLab",
+  "skills": [
+    {
+      "name": "XPolicyLab",
+      "description": ""
+    },
+    {
+      "name": "XPolicyLab",
+      "description": ""
+    }
+  ]
+}
