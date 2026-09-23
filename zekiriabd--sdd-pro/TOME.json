@@ -1,0 +1,123 @@
+{
+  "name": "SDD-Pro",
+  "owner": "zekiriabd",
+  "repo": "SDD-Pro",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/codeql/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/codeql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/semgrep/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/semgrep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/c4-model/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/c4-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/a11y-local/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/a11y-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/using-sddpro/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/using-sddpro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/sarif-parsing/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/sarif-parsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/insecure-defaults/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/insecure-defaults/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/starting-a-new-feat/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/starting-a-new-feat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/starting-a-reverse-eng/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/starting-a-reverse-eng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SDD-Pro",
+      "path": ".sdd/skills/debugging-failed-pipeline/SKILL.md",
+      "github_url": "https://github.com/zekiriabd/SDD-Pro/tree/main/.sdd/skills/debugging-failed-pipeline/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zekiriabd/SDD-Pro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:34:40Z"
+}
