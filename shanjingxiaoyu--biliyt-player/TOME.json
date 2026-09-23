@@ -1,0 +1,44 @@
+{
+  "name": "BILIYT-Player",
+  "owner": "shanjingxiaoyu",
+  "repo": "BILIYT-Player",
+  "description": "\u901a\u8fc7\u586b\u5199SESSDATA\uff0c\u5c06B\u7ad9\u89c6\u9891\u76f4\u63a5\u63a5\u5165\u672c\u5730MPV\u64ad\u653e\u5668\uff0c\u5b9e\u73b0\u66f4\u4f73\u753b\u8d28",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shanjingxiaoyu/BILIYT-Player",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T21:47:03Z"
+}
