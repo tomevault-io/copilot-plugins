@@ -1,0 +1,9 @@
+{
+  "name": "kingxiaozhe--cm-workflow",
+  "displayName": "cm-workflow",
+  "description": "Codex-native, spec-driven AI Agent workflow with Claude Code compatibility, independent review, QA, fixes, and refactors.",
+  "version": "1.0.0",
+  "author": "kingxiaozhe",
+  "homepage": "https://github.com/kingxiaozhe/cm-workflow",
+  "skills": []
+}
