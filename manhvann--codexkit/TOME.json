@@ -1,0 +1,441 @@
+{
+  "name": "codexkit",
+  "owner": "manhvann",
+  "repo": "codexkit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/git/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/gkg/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/gkg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/fix/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/ask/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/ask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/docx/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/plan/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/team/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/team/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/test/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/cook/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/cook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/docs/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/debug/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/scout/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/shader/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/shader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/devops/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/devops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/kanban/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/kanban/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/watzup/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/watzup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/repomix/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/repomix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/shopify/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/shopify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/threejs/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/threejs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/ck-help/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/ck-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/preview/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/use-mcp/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/use-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/journal/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/journal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/tanstack/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/tanstack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/worktree/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/mintlify/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/mintlify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/remotion/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/remotion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/ai-artist/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/ai-artist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/bootstrap/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/databases/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/databases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/ui-styling/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/ui-styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/brainstorm/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/web-testing/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/web-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/docs-seeker/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/docs-seeker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/plans-kanban/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/plans-kanban/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/coding-level/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/coding-level/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/mermaidjs-v11/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/mermaidjs-v11/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/ai-multimodal/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/ai-multimodal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/mcp-management/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/mcp-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/web-frameworks/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/web-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/template-skill/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/template-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/chrome-devtools/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/chrome-devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/problem-solving/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/problem-solving/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/media-processing/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/media-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/google-adk-python/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/google-adk-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/project-management/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/project-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/mobile-development/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/mobile-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/sequential-thinking/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/sequential-thinking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/payment-integration/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/payment-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/context-engineering/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/context-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/backend-development/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/backend-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/frontend-development/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/frontend-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/react-best-practices/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/markdown-novel-viewer/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/markdown-novel-viewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codexkit",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/manhvann/codexkit/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/manhvann/codexkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T17:33:03Z"
+}
