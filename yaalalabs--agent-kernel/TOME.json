@@ -1,0 +1,165 @@
+{
+  "name": "agent-kernel",
+  "owner": "yaalalabs",
+  "repo": "agent-kernel",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-review-pr/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-write-spec/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-write-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-code-quality/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": "ak-py/src/agentkernel/skills/ak-test/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/ak-py/src/agentkernel/skills/ak-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": "ak-py/src/agentkernel/skills/ak-init/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/ak-py/src/agentkernel/skills/ak-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": "ak-py/src/agentkernel/skills/ak-build/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/ak-py/src/agentkernel/skills/ak-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-testing-conventions/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-testing-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-new-queue-transport/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-new-queue-transport/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-new-tracing-provider/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-new-tracing-provider/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-new-sandbox-provider/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-new-sandbox-provider/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-sync-docs-from-branch/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-sync-docs-from-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": "ak-py/src/agentkernel/skills/ak-cloud-deploy/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/ak-py/src/agentkernel/skills/ak-cloud-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-new-multimodal-storage/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-new-multimodal-storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-new-evaluator-provider/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-new-evaluator-provider/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-sync-skills-from-branch/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-sync-skills-from-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-new-framework-integration/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-new-framework-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-new-messaging-integration/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-new-messaging-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": "ak-py/src/agentkernel/skills/ak-add-integration/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/ak-py/src/agentkernel/skills/ak-add-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-new-knowledgebase-integration/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-new-knowledgebase-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-kernel",
+      "path": ".agents/skills/ak-dev-sync-skills-and-docs-from-commit/SKILL.md",
+      "github_url": "https://github.com/yaalalabs/agent-kernel/tree/main/.agents/skills/ak-dev-sync-skills-and-docs-from-commit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yaalalabs/agent-kernel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:36:27Z"
+}
