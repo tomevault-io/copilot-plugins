@@ -1,0 +1,9 @@
+{
+  "name": "dkackman--diffusers-workflow",
+  "displayName": "diffusers-workflow",
+  "description": "MCP server, workflow wrapper and web app for Hugging Face diffusers",
+  "version": "1.0.0",
+  "author": "dkackman",
+  "homepage": "https://github.com/dkackman/diffusers-workflow",
+  "skills": []
+}
