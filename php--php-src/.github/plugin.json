@@ -1,0 +1,9 @@
+{
+  "name": "php--php-src",
+  "displayName": "php-src",
+  "description": "php-src",
+  "version": "1.0.0",
+  "author": "php",
+  "homepage": "https://github.com/php/php-src",
+  "skills": []
+}
