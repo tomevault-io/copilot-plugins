@@ -1,0 +1,14 @@
+{
+  "name": "whichmen--dxl-commerce-agent",
+  "displayName": "dxl-commerce-agent",
+  "description": "dxl-commerce-agent",
+  "version": "1.0.0",
+  "author": "whichmen",
+  "homepage": "https://github.com/whichmen/dxl-commerce-agent",
+  "skills": [
+    {
+      "name": "dxl-commerce-agent",
+      "description": ""
+    }
+  ]
+}
