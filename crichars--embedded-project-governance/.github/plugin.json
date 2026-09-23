@@ -1,0 +1,14 @@
+{
+  "name": "crichars--embedded-project-governance",
+  "displayName": "embedded-project-governance",
+  "description": "embedded-project-governance",
+  "version": "1.0.0",
+  "author": "crichars",
+  "homepage": "https://github.com/crichars/embedded-project-governance",
+  "skills": [
+    {
+      "name": "embedded-project-governance",
+      "description": ""
+    }
+  ]
+}
