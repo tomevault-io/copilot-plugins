@@ -1,0 +1,9 @@
+{
+  "name": "nathanpenny520--nmail",
+  "displayName": "Nmail",
+  "description": "\ud83d\udcec AI-powered local-first email client \u2014 auto-classification, noise filtering, smart drafts & daily digests. Your data never leaves your machine. Can work fully offline with Ollama. FastAPI + React, MI",
+  "version": "1.0.0",
+  "author": "nathanpenny520",
+  "homepage": "https://github.com/nathanpenny520/Nmail",
+  "skills": []
+}
