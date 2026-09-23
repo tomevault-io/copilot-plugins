@@ -1,0 +1,9 @@
+{
+  "name": "arijitdn--jamsync",
+  "displayName": "jamsync",
+  "description": "JamSync is an Expo/React Native multi-device audio prototype. One phone creates a jam and becomes the host. Other phones join with a five-character code. Playback commands are scheduled against the re",
+  "version": "1.0.0",
+  "author": "arijitdn",
+  "homepage": "https://github.com/arijitdn/jamsync",
+  "skills": []
+}
