@@ -1,0 +1,9 @@
+{
+  "name": "skarndev--welder",
+  "displayName": "welder",
+  "description": "C++26 reflection-driven language binding generator (P2996/P3394) for Python and Lua",
+  "version": "1.0.0",
+  "author": "skarndev",
+  "homepage": "https://github.com/skarndev/welder",
+  "skills": []
+}
