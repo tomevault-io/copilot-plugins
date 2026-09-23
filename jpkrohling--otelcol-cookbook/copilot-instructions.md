@@ -1,147 +1,235 @@
 ## otelcol-cookbook
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents working in this repository.
 
-## Project Overview
+## Starting a task
 
-This is a collection of OpenTelemetry Collector recipes for various use cases. Each directory represents a standalone recipe demonstrating specific configurations or integrations with the OpenTelemetry Collector.
+Before starting any task, fetch `origin` and ensure the worktree is based on the latest
+`origin/main`. Start changes from that revision on a focused feature branch. If local changes,
+unpushed commits, or worktree state prevent a safe update, do not overwrite, reset, or discard
+them. Stop and tell the user what must be reconciled.
 
-## Repository Structure
+Before editing or committing, verify both the working directory and current branch. This matters
+when an agent can access multiple repositories or worktrees. Never assume that a command ran in
+the intended checkout.
 
-Recipes are organized as a menu, by depth of effort (see `MIGRATION.md` for refactoring
-status and `docs/superpowers/specs/2026-06-12-cookbook-refactoring-design.md` for the design):
+## Project overview
+
+This repository is a collection of OpenTelemetry Collector recipes. Each recipe demonstrates a
+specific configuration or integration and must be understandable and reproducible on its own.
+
+There is no unit-test suite. Runtime smoke tests and Collector configuration validation are the
+tests for this repository.
+
+## Repository structure
+
+Recipes are organized as a menu, by depth of effort:
 
 - **`starters/`**: quick, local, single-concept recipes
-- **`mains/`**: substantial, often Kubernetes, real-world recipes
-- **`desserts/`**: advanced showcases & niceties
-- **`sides/`**: shared building blocks reused by other recipes (LGTM stack, sample apps)
+- **`mains/`**: substantial, often Kubernetes-based, real-world recipes
+- **`desserts/`**: advanced showcases and optional refinements
+- **`sides/`**: shared building blocks reused by recipes, such as the LGTM stack and sample apps
 - **Recipe structure**: each recipe folder is kebab-case and contains a `README.md`, its
-  config (`otelcol.yaml` for local recipes, `otelcol-cr.yaml` for Kubernetes), and any
-  supporting files. Config files are always `.yaml` (never `.yml`).
+  configuration (`otelcol.yaml` for local recipes, `otelcol-cr.yaml` for Kubernetes), and any
+  supporting files. Configuration files always use `.yaml`, never `.yml`.
 
-## Common Commands
+The root `README.md` contains a hand-maintained recipe index. Add, rename, or remove its row when
+a recipe changes.
 
-### Running Local Collector
+## Source-of-truth policy
+
+Collector components evolve quickly. Before adding or changing component configuration, check
+the component's upstream README in `opentelemetry-collector` or
+`opentelemetry-collector-contrib`. Use current, non-deprecated component type names and verify
+stability per signal.
+
+Before a repository-wide version bump, confirm the latest official releases for:
+
+- `open-telemetry/opentelemetry-collector-releases`
+- `open-telemetry/opentelemetry-operator`
+
+Update every affected recipe and validate each one. Do not infer an Operator-managed Collector
+image version when a manifest does not pin one; verify it with a real deployment or describe the
+limitation explicitly.
+
+## Common commands
+
+### Run a local Collector
+
 ```bash
-# Using contrib binary (most common)
 otelcol-contrib --config otelcol.yaml
-
-# For specific recipe
-otelcol-contrib --config <recipe-name>/otelcol.yaml
+otelcol-contrib --config starters/<recipe-name>/otelcol.yaml
 ```
 
-### Generating Test Data
+### Generate test data
+
 ```bash
-# Send traces
+# Send traces over OTLP/HTTP and attach a resource attribute
 telemetrygen traces --otlp-http --otlp-insecure --otlp-attributes='recipe="<recipe-name>"'
 
-# Send logs
+# Send logs over OTLP/gRPC
 telemetrygen logs --otlp-insecure --body "<log message>"
 
-# Send metrics
+# Send metrics over OTLP/gRPC
 telemetrygen metrics --otlp-insecure
 ```
 
-### Kubernetes Setup
+`--otlp-attributes` sets resource attributes. Use `--telemetry-attributes` when a recipe needs
+span, log-record, or metric data-point attributes that a processor or connector reads from the
+telemetry item itself. This distinction must be verified when documenting a `telemetrygen`
+command.
+
+### Kubernetes setup
+
 ```bash
-# Create k3d cluster with registry
 k3d registry create dosedetelemetria
 k3d cluster create --registry-use k3d-dosedetelemetria:<port> dosedetelemetria
 
-# Install cert-manager and OpenTelemetry Operator
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
-kubectl apply -f https://github.com/open-telemetry/opentelemetry-operator/releases/latest/download/opentelemetry-operator.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.21.1/cert-manager.yaml
+kubectl apply -f https://github.com/open-telemetry/opentelemetry-operator/releases/download/v0.158.0/opentelemetry-operator.yaml
 
-# Create namespace and switch context
 kubectl create ns <recipe-name>
 kubens <recipe-name>
 ```
 
-### LGTM Stack
-```bash
-# Docker
-docker run -p 3000:3000 -p 4318:4318 --rm -d grafana/otel-lgtm
+### LGTM stack
 
-# Kubernetes
+```bash
+docker run -p 3000:3000 -p 4318:4318 --rm -d grafana/otel-lgtm:0.30.2
+
 kubectl create ns lgtm
 kubectl apply -f sides/lgtm/lgtm.yaml
 ```
 
-### TLS Certificate Generation (for TLS recipes)
+### TLS certificate generation
+
 ```bash
 cfssl genkey -initca ca-csr.json | cfssljson -bare ca
 cfssl gencert -ca ca.pem -ca-key ca-key.pem client-csr.json | cfssljson -bare client
 cfssl gencert -ca ca.pem -ca-key ca-key.pem server-csr.json | cfssljson -bare server
 ```
 
-## Recipe README Structure
+Never commit generated private keys.
 
-Each recipe README follows this contract:
+## Recipe README contract
+
+Each recipe README follows this order:
+
 1. **Title**: `# 🍜 Recipe: <Name>`
-2. **Description**: one or two sentences on what the recipe demonstrates
-3. **Metadata table**: a three-row table with `**Signals**` (traces/metrics/logs),
-   `**Runs on**` (local binary / Kubernetes), and `**Key components**`
+2. **Description**: one or two sentences describing what the recipe demonstrates
+3. **Metadata table**: `**Signals**`, `**Runs on**`, and `**Key components**`
 4. **🧄 Ingredients**: required tools and files
-5. **🥣 Preparation**: numbered step-by-step instructions (show the native
-   `otelcol-contrib`/`telemetrygen` commands a user runs)
-6. **🎯 Key details** (optional — the *only* sanctioned optional section): config explanations
-7. **😋 Tested with**: pinned versions as a plain bullet list (no preamble line)
+5. **🥣 Preparation**: numbered, reproducible steps using native `otelcol-contrib`,
+   `telemetrygen`, Docker, or Kubernetes commands
+6. **🎯 Key details**: optional configuration explanations; this is the only optional section
+7. **😋 Tested with**: pinned versions as a plain bullet list, with no preamble
 
-Each recovered recipe must pass a runtime smoke test (local recipes via the collector Docker
-image + `telemetrygen`; Kubernetes recipes via a real k3d + Operator deploy) before it is
-considered done.
+Keep recipes narrow and self-contained. Use realistic values rather than `foo` or `bar`.
+Commands and examples must be directly runnable.
 
-## Configuration Patterns
+## Configuration conventions
 
-### Component Naming
-Always use the current, non-deprecated component type name; never a deprecated alias, even
-though the alias still works. The collector renamed many components to snake_case (v0.149–v0.153),
-so prefer e.g. `otlp_grpc` (not the `otlp` exporter alias — the `otlp` *receiver* keeps its name),
-`file_log` (not `filelog`), `span_metrics` (not `spanmetrics`), `log_dedup` (not `logdedup`),
-`load_balancing` (not `loadbalancing`), `k8s_attributes`, `resource_detection`. When in doubt,
-confirm the canonical name and rename status against the `otel-collector` skill or the component's
-upstream README before using it.
+### Component naming
 
-### File Expansion
-The collector supports `${file:filename.yaml}` for decomposing complex configs:
+In Collector YAML, always use the current, non-deprecated component type. Deprecated aliases may
+still work, but new and updated recipes must not use them. The `Key components` metadata cells use
+upstream Go package names such as `filelogreceiver` and `tailsamplingprocessor`; do not confuse
+those package names with YAML type strings. Examples of current YAML type strings include:
+
+- `otlp_grpc`, not the deprecated `otlp` exporter alias; the `otlp` receiver keeps its name
+- `otlp_http`, not `otlphttp`
+- `file_log`, not `filelog`
+- `span_metrics`, not `spanmetrics`
+- `log_dedup`, not `logdedup`
+- `load_balancing`, not `loadbalancing`
+- `k8s_attributes`, not `k8sattributes`
+- `resource_detection`, not `resourcedetection`
+
+Confirm names and rename status upstream rather than extending this list from memory.
+
+### File expansion
+
+The Collector supports `${file:filename.yaml}` for decomposing complex configurations:
+
 ```yaml
 processors:
   tail_sampling:
     policies: ${file:policies-all.yaml}
 ```
 
-### Common Receivers
-- **OTLP**: Primary receiver for OpenTelemetry Protocol data
-  - HTTP: Port 4318 (insecure), 5318 (secure)
-  - gRPC: Port 4317 (insecure), 5317 (secure)
+### Common endpoints and exporters
 
-### Common Exporters
-- **file**: Writes to local files (`.jsonl` format)
-- **otlp_grpc**: Forwards to another collector or backend over OTLP/gRPC (was the `otlp` exporter)
-- **otlphttp**: Forwards over OTLP/HTTP
-- **debug**: Prints to console (formerly logging exporter)
+- OTLP/HTTP commonly uses port 4318 without TLS and 5318 in these TLS examples.
+- OTLP/gRPC commonly uses port 4317 without TLS and 5317 in these TLS examples.
+- `file` writes telemetry to files, commonly using a `.jsonl` filename.
+- `otlp_grpc` forwards telemetry over OTLP/gRPC.
+- `otlp_http` forwards telemetry over OTLP/HTTP.
+- `debug` prints telemetry to the console. Use `verbosity: detailed` when a smoke test or README
+  expects record bodies, attributes, or metric details in its output.
 
-### Testing Patterns
-- Use `telemetrygen` with `--otlp-attributes='recipe="<recipe-name>"'` to tag test data
-- For health check testing: include attributes like `http.request.method`, `url.path`, `http.response.status_code`
-- Output files typically named `after-sampling.jsonl` or similar descriptive names
+### Kubernetes resources
 
-## Kubernetes Resources
-- **OpenTelemetryCollector CRD**: Managed by OpenTelemetry Operator
-- **Secrets**: Store credentials with `kubectl create secret generic`
-- **Port forwarding**: Use `kubectl port-forward svc/<service-name> 4317` for local access
+- The OpenTelemetry Operator manages `OpenTelemetryCollector` custom resources.
+- Store credentials in Kubernetes Secrets, not manifests.
+- Use `kubectl port-forward svc/<service-name> 4317` when a local generator needs to reach a
+  Collector service.
 
-## Version Compatibility
-Recovered recipes are validated against the latest released versions at recovery time, pinned
-in each recipe's `😋 Tested with` section. Current pins:
-- OpenTelemetry Collector Contrib v0.154.0
-- telemetrygen v0.154.0
-- OpenTelemetry Operator v0.153.0
+## Validation requirements
+
+Every new or substantively changed recipe must be validated at the pinned versions before it is
+considered complete.
+
+- Local recipes: run the Collector or its official container image, send representative data
+  with `telemetrygen` or the documented client, and verify the expected output.
+- Kubernetes recipes: deploy to a real k3d cluster with the pinned Operator when behavior depends
+  on reconciliation, injection, service generation, or runtime wiring. A config-only validation
+  is not a substitute for those behaviors.
+- Capture the exact commands and observed result in the pull request description.
+- Clean up test containers, clusters, generated certificates, and other runtime artifacts.
+
+If the observed output differs from the README, update the documentation to match verified
+behavior. Do not replace observed results with the expected output from a plan.
+
+## Contributions from AI coding agents
+
+AI-authored contributions are welcome. A human contributor must own the pull request, review the
+agent's output, and be able to respond to review feedback. Disclose material agent involvement in
+the pull request description or with an appropriate `Co-authored-by` trailer.
+
+Agents must meet the same validation and documentation requirements as human contributors. They
+must preserve unrelated local changes, keep changes focused, and verify the target branch and
+working directory before every commit.
+
+## Commits and pull requests
+
+Use [Conventional Commits](https://www.conventionalcommits.org/) with this format:
+
+```text
+<type>(<optional scope>): <short description>
+```
+
+Common types are `feat`, `fix`, `docs`, `chore`, and `refactor`. Use the recipe name as the scope
+when it makes the change clearer, for example:
+
+```text
+feat(log-clustering): add Drain processor recipe
+docs(access-logs-to-metrics): clarify telemetrygen attributes
+chore: update recipes to Collector v0.159.0
+```
+
+Keep each commit and pull request focused. Include a summary, the exact validation performed, and
+any limitations or follow-up work in the pull request description.
+
+## Current validated versions
+
+- OpenTelemetry Collector Contrib v0.159.0
+- `telemetrygen` v0.159.0
+- OpenTelemetry Operator v0.158.0
 
 ---
 > Source: [jpkrohling/otelcol-cookbook](https://github.com/jpkrohling/otelcol-cookbook) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
