@@ -1,0 +1,9 @@
+{
+  "name": "tailscale-dev--scaletail",
+  "displayName": "ScaleTail",
+  "description": "ScaleTail",
+  "version": "1.0.0",
+  "author": "tailscale-dev",
+  "homepage": "https://github.com/tailscale-dev/ScaleTail",
+  "skills": []
+}
