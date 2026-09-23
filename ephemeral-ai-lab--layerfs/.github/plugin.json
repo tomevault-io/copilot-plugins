@@ -1,0 +1,14 @@
+{
+  "name": "ephemeral-ai-lab--layerfs",
+  "displayName": "layerfs",
+  "description": "layerfs",
+  "version": "1.0.0",
+  "author": "Ephemeral-AI-Lab",
+  "homepage": "https://github.com/Ephemeral-AI-Lab/layerfs",
+  "skills": [
+    {
+      "name": "layerfs",
+      "description": ""
+    }
+  ]
+}
