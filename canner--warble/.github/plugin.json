@@ -1,0 +1,9 @@
+{
+  "name": "canner--warble",
+  "displayName": "Warble",
+  "description": "Warble is a data behavior framework. You declare what a data agent should do components, guardrails, and config, bound to a semantic context.",
+  "version": "1.0.0",
+  "author": "Canner",
+  "homepage": "https://github.com/Canner/Warble",
+  "skills": []
+}
