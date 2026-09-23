@@ -1,118 +1,93 @@
-## posthog-feature-flags
+## inbox-zero-nmail
 
-> description: Guidelines for implementing and using PostHog feature flags for early access features and A/B tests
+> - Development: `pnpm dev`
 
----
-description: Guidelines for implementing and using PostHog feature flags for early access features and A/B tests
-globs: apps/web/hooks/useFeatureFlags.ts
-alwaysApply: false
----
-# PostHog Feature Flags
+# Repository Guidelines
 
-Guidelines for implementing feature flags using PostHog for early access features and A/B testing.
+## Build & Test Commands
+- Development: `pnpm dev`
+- Build: `pnpm build`
+- Lint: `pnpm lint`
+- Format: Biome (`pnpm check` / `pnpm fix` via ultracite)
+- Run all tests: `pnpm test`
+- Run integration tests: `pnpm test-integration`
+- Run AI tests: `pnpm --filter inbox-zero-ai test-ai`
+- Run single test: `pnpm test path/to/test-file.test.ts`
+- Run focused browser test: `pnpm -F inbox-zero-ai test:playwright:emulated <area-or-spec>`; for browser-facing UI changes, inspect the generated screenshots before finishing
+- Run specific AI/eval test: `pnpm --filter inbox-zero-ai test-ai __tests__/eval/your-test.test.ts`
+- Evals in `apps/web/__tests__/eval/` must be run from repo root with `pnpm --filter inbox-zero-ai test-ai` (not `pnpm test`)
+- Type-check build (skips Prisma migrate): `pnpm --filter inbox-zero-ai exec next build`
+- Do not use root `tsc --noEmit`; it is not a supported validation step in this monorepo and surfaces unrelated repo-wide debt. If you need the app's CI-aligned type/build check, use `pnpm --filter inbox-zero-ai build:ci` instead, and only when explicitly asked.
+- Do not run `dev` or `build` unless explicitly asked
+- Run `pnpm install` before running tests or build if not already done
+- Before writing or updating tests, review `.claude/skills/testing/SKILL.md`.
+- For core bug-fix tasks, default to TDD when practical (red/green/refactor); AI prompt improvements should generally be backed by evals too, and TDD is often useful there as well.
+- When adding a new workspace package, add its `package.json` COPY line to `docker/Dockerfile.prod` and `docker/Dockerfile.local`.
 
-## Overview
+## Code Style
+- Install packages in `apps/web`, not root: `cd apps/web && pnpm add ...`
+- Lodash: import specific functions (`import groupBy from "lodash/groupBy"`)
+- TypeScript with strict null checks
+- Path aliases: `@/` for imports from project root
+- NextJS app router with (app) directory, tailwindcss
+- For version-sensitive or unclear Next.js behavior, check the relevant doc in `node_modules/next/dist/docs/` before changing framework code.
+- Only add comments for "why", not "what". Prefer self-documenting code.
+- Logging: avoid duplicating logger context fields from higher in the call chain. Use `logger.trace()` for PII fields (from, to, subject, etc.). Exception: the authenticated user's own email is fine to log at any level.
+- Tests should use the real logger implementation (do not mock `@/utils/logger`).
+- Avoid low-value tests that mostly restate implementation details; prefer tests that catch a real behavioral regression.
+- Helper functions go at the bottom of files, not the top
+- All imports at the top of files, no mid-file dynamic imports
+- Avoid `useEffect` for mirroring fetched props/data into local state; prefer derived values or explicit edit state.
+- Co-locate unit tests next to source files (e.g., `utils/example.test.ts`). Integration, E2E, and AI tests go in `__tests__/`.
+- Don't export types/interfaces only used within the same file
+- No re-export patterns. Import from the original source.
+- Prefer the `EmailProvider` abstraction; only use provider-type checks (`isGoogleProvider`, `isMicrosoftProvider`) at true provider boundary/integration code.
+- Infer types from Zod schemas using `z.infer<typeof schema>` instead of duplicating as separate interfaces
+- Default to inlining and co-locating logic at the call site.
+- Avoid premature abstraction. Small duplicated expressions are usually fine; extracting them often adds indirection without meaning.
+- Do not duplicate substantial logic or correctness-sensitive rules. If copied code must stay in sync to avoid bugs, extract or centralize it early.
+- Extract helpers when they make surrounding code clearer, name a meaningful domain concept, or keep shared behavior consistent across flows.
+- Don't extract helpers that just rename and forward parameters; that's a layer without meaning.
+- Avoid large/nested ternaries. Prefer straightforward control flow, a small helper, or a lookup table when it improves readability.
+- No barrel files. Import directly from source files.
+- Colocate page components next to their `page.tsx`. No nested `components/` subfolders in route directories.
+- Reusable components shared across pages go in `apps/web/components/`
+- One resource per API route file
+- Env vars: add to `.env.example`, `env.ts`, and `turbo.json`. Prefix client-side with `NEXT_PUBLIC_`.
+- Never use dynamic Prisma transactions (`prisma.$transaction(async (tx) => ...)`).
 
-We use PostHog for two main purposes:
-1. **Early Access Features** - Features that users can opt into via the Early Access page
-2. **A/B Testing** - Testing different variants of features to measure impact
+## Change Philosophy
+- Respect module boundaries: keep feature-specific logic in its owning feature and shared infrastructure generic.
+- Prefer the simplest, most readable change; only keep backwards compatibility when explicitly requested.
+- Do not optimize for migration paths: refactor call sites directly, including larger coordinated changes when clarity improves.
+- This is a public repository. Never include non-public data or internal details from private repositories or services in repository content or GitHub metadata; describe related private work only generically (for example, “updated the marketing repository”).
 
-## Implementation Guidelines
+## LLM Features
+- Stay AI-first: fix general failure modes, not exact eval wording, and avoid brittle keyword or regex rules unless the product needs a hard guard.
+- Do not add keyword/phrase blacklists to prompts, evals, or tests just to catch a model's current bad wording. This product works across languages, so English-specific text checks are especially brittle. For LLM behavior, assert the semantic failure mode with a judge/eval criterion or structured contract instead. Example: test "does not ask unnecessary clarification or invent payment status," not "does not contain 'could you clarify' or 'specific payment'."
+- Never gate context injection or tool behavior on ad hoc user-text keyword matching; use structured state, metadata, or explicit events instead.
+- Tool descriptions should be self-contained: what the tool does, what its parameters mean, when to use it vs alternatives, prerequisites, and safety constraints specific to that tool.
+- Keep only cross-cutting policies (identity, write confirmation, security, formatting) in the system prompt. Per-tool guidance belongs in the tool description so it appears only when the tool is active.
+- Treat prompts, tools, and parameters as costly model-facing surface area. Every line must earn its place; do not add a tool or parameter for an edge case, and get explicit user approval before adding either.
+- Do not duplicate guidance between prompts and tool descriptions. Explicitly disclose any prompt, tool, or tool-parameter change to the user.
+- Keep model-facing schemas portable: prefer flat root objects and verify advanced constructs across providers. Use `z.strictObject()` only when dropping unknown keys is unsafe; describe refinement and transform constraints in tool fields because models may not see them.
 
-### 1. Creating Feature Flag Hooks
+## Component Guidelines
+- Use shadcn/ui components when available
+- Use `LoadingContent` component for async data: `<LoadingContent loading={isLoading} error={error}>{data && <YourComponent data={data} />}</LoadingContent>`
 
-All feature flag hooks should be defined in `apps/web/hooks/useFeatureFlags.ts`:
+## Fullstack Workflow
+See `.claude/skills/fullstack-workflow/SKILL.md` for full examples and templates.
 
-```typescript
-// For early access features (boolean flags with env override)
-export function useFeatureNameEnabled() {
-  return useFeatureFlagEnabled("feature-flag-key") || env.NEXT_PUBLIC_FEATURE_NAME_ENABLED;
-}
-
-// For A/B test variants
-export function useFeatureVariant() {
-  return (
-    (useFeatureFlagVariantKey("variant-flag-key") as VariantType) ||
-    "control"
-  );
-}
-```
-
-Early access features should support both PostHog flags AND environment variables using an OR (`||`). This allows:
-- Production users to opt-in via PostHog Early Access
-- Developers to enable features locally via `.env`
-- Self-hosted users to enable features without PostHog
-
-### 2. Early Access Features
-
-Early access features are automatically displayed on the Early Access page (`/early-access`) through the `EarlyAccessFeatures` component. No manual configuration needed.
-
-**Example:**
-```typescript
-// In useFeatureFlags.ts
-export function useCleanerEnabled() {
-  return useFeatureFlagEnabled("inbox-cleaner") || env.NEXT_PUBLIC_CLEANER_ENABLED;
-}
-
-// Usage in components
-function MyComponent() {
-  const isCleanerEnabled = useCleanerEnabled();
-  
-  if (!isCleanerEnabled) {
-    return null;
-  }
-  
-  return <CleanerFeature />;
-}
-```
-
-When adding a new early access feature:
-1. Add the hook with PostHog flag + env override
-2. Add the env variable to `apps/web/env.ts` (schema + runtimeEnv)
-3. Gate the UI component with the hook
-
-### 3. A/B Test Variants
-
-For A/B tests, define the variant types and provide a default fallback:
-
-```typescript
-// Define variant types
-type PricingVariant = "control" | "variant-a" | "variant-b";
-
-// Create hook with fallback
-export function usePricingVariant() {
-  return (
-    (useFeatureFlagVariantKey("pricing-options-2") as PricingVariant) ||
-    "control"
-  );
-}
-
-// Usage
-function PricingPage() {
-  const variant = usePricingVariant();
-  
-  switch (variant) {
-    case "variant-a":
-      return <PricingVariantA />;
-    case "variant-b":
-      return <PricingVariantB />;
-    default:
-      return <PricingControl />;
-  }
-}
-```
-
-### 4. Best Practices
-
-1. **Naming Convention**: Use kebab-case for flag keys (e.g., `inbox-cleaner`, `pricing-options-2`)
-2. **Hook Naming**: Use `use[FeatureName]Enabled` for boolean flags, `use[FeatureName]Variant` for variants
-3. **Type Safety**: Always define types for variant flags
-4. **Fallbacks**: Always provide a default/control fallback for variant flags
-5. **Centralization**: Keep all feature flag hooks in `useFeatureFlags.ts`
-
-### 5. PostHog Configuration
-
-Feature flags are configured in the PostHog dashboard. The Early Access page automatically displays features to users for them to enable new features.
+- API route middleware: `withError` (public, no auth), `withAuth` (user-level), `withEmailAccount` (email-account-level). Export response type via `Awaited<ReturnType<typeof getData>>`.
+- Mutations: use server actions with `next-safe-action`, NOT POST API routes.
+- Exception: mobile-native integrations may use POST API routes when they require a stable HTTP contract.
+- Validation: Zod schemas in `utils/actions/*.validation.ts`. Infer types with `z.infer`.
+- Data fetching: SWR on the client. Call `mutate()` after mutations.
+- Forms: React Hook Form + `useAction` hook. Use `getActionErrorMessage(error.error)` for errors.
+- Loading states: use `LoadingContent` component.
+- Cursor Cloud VM setup: see `.claude/skills/cloud-dev-environment/SKILL.md`.
+- Opening a PR: `.claude/skills/create-pr/SKILL.md`. Watching one to green (CI, review bots, comments): `.claude/skills/pr-watch/SKILL.md`. Do not hand-roll `gh api` polling; `pr-watch` ships a `pr-digest` helper.
 
 ---
 > Source: [nathanpenny520/inbox-zero-Nmail](https://github.com/nathanpenny520/inbox-zero-Nmail) — distributed by [TomeVault](https://tomevault.io).
