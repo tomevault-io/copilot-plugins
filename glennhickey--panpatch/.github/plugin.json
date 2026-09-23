@@ -1,0 +1,9 @@
+{
+  "name": "glennhickey--panpatch",
+  "displayName": "panpatch",
+  "description": "use pangenome of different assemblies for same sample to make patched assembly",
+  "version": "1.0.0",
+  "author": "glennhickey",
+  "homepage": "https://github.com/glennhickey/panpatch",
+  "skills": []
+}
