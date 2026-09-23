@@ -4,7 +4,7 @@
   "repo": "pqp",
   "description": "Open-source Discord alternative \u2014 real-time voice + text chat",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rafaelcg/pqp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T04:38:26Z"
+  "distributed_at": "2026-09-23T04:39:58Z"
 }
