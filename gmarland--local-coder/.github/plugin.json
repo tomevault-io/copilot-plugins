@@ -1,0 +1,9 @@
+{
+  "name": "gmarland--local-coder",
+  "displayName": "local-coder",
+  "description": "Turn local AI models into a private, verified team of coding agents.",
+  "version": "1.0.0",
+  "author": "gmarland",
+  "homepage": "https://github.com/gmarland/local-coder",
+  "skills": []
+}
