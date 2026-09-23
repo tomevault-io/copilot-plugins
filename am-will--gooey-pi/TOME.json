@@ -1,0 +1,357 @@
+{
+  "name": "gooey-pi",
+  "owner": "am-will",
+  "repo": "gooey-pi",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/why/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/why/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/how/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/how/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/tdd/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/bro/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/bro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/arena/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/arena/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/swarm/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/swarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/teach/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/teach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": "assets/skills/gui-automation/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/assets/skills/gui-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/unslop/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/unslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/recall/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/reflect/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/reflect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".cursor/skills/verify-gooeypi/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.cursor/skills/verify-gooeypi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/architect/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": "assets/skills/prime-work-browser/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/assets/skills/prime-work-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/interrogate/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/interrogate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/automate-me/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/automate-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/poteto-mode/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/poteto-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/no-comments/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/no-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/setup-pstack/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/setup-pstack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/blast-radius/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/blast-radius/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/review-pr-viability/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/review-pr-viability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": "assets/skills/gooeypi-computer-use/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/assets/skills/gooeypi-computer-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": "assets/skills/prime-work-schedules/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/assets/skills/prime-work-schedules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/figure-it-out/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/figure-it-out/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/show-me-your-work/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/show-me-your-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/technical-writing/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/technical-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/grokbot/make-bot-ui/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/grokbot/make-bot-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-prove-it-works/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-prove-it-works/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/create-verification-skill/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/create-verification-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-fix-root-causes/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-fix-root-causes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/typescript-best-practices/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/typescript-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-build-the-lever/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-build-the-lever/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-experience-first/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-experience-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-model-the-domain/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-model-the-domain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/maintain-verification-skill/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/maintain-verification-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-laziness-protocol/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-laziness-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": "assets/prime-integrations/supabase/skills/supabase/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/assets/prime-integrations/supabase/skills/supabase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-boundary-discipline/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-boundary-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-minimize-reader-load/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-minimize-reader-load/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-foundational-thinking/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-foundational-thinking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-type-system-discipline/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-type-system-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-subtract-before-you-add/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-subtract-before-you-add/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-exhaust-the-design-space/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-exhaust-the-design-space/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-guard-the-context-window/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-guard-the-context-window/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-never-block-on-the-human/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-never-block-on-the-human/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-sequence-verifiable-units/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-sequence-verifiable-units/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-outcome-oriented-execution/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-outcome-oriented-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-make-operations-idempotent/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-make-operations-idempotent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-encode-lessons-in-structure/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-encode-lessons-in-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-redesign-from-first-principles/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-redesign-from-first-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gooey-pi",
+      "path": ".agents/skills/pstack/principle-separate-before-serializing-shared-state/SKILL.md",
+      "github_url": "https://github.com/am-will/gooey-pi/tree/main/.agents/skills/pstack/principle-separate-before-serializing-shared-state/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/am-will/gooey-pi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:13:11Z"
+}
