@@ -2,9 +2,9 @@
   "name": "paperthin",
   "owner": "LilMGenius",
   "repo": "paperthin",
-  "description": "Plain-Markdown skills that turn old engineering wisdom into reflexes your agent reaches for on its own \u2014 on any agent.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LilMGenius/paperthin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T04:30:48Z"
+  "distributed_at": "2026-09-23T18:37:15Z"
 }
