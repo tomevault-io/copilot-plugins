@@ -1,0 +1,9 @@
+{
+  "name": "sygnalinc--apple-frameworks-for-touchdesigner",
+  "displayName": "Apple-Frameworks-for-TouchDesigner",
+  "description": "Apple's on-device frameworks (Vision, Core ML, RealityKit, SpeechAnalyzer, MLX ...) as native TouchDesigner operators. macOS / Apple Silicon.",
+  "version": "1.0.0",
+  "author": "sygnalinc",
+  "homepage": "https://github.com/sygnalinc/Apple-Frameworks-for-TouchDesigner",
+  "skills": []
+}
