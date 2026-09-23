@@ -1,0 +1,26 @@
+{
+  "name": "cocoyes--zhizhi-agent-runtime",
+  "displayName": "zhizhi-agent-runtime",
+  "description": "zhizhi-agent-runtime",
+  "version": "1.0.0",
+  "author": "cocoyes",
+  "homepage": "https://github.com/cocoyes/zhizhi-agent-runtime",
+  "skills": [
+    {
+      "name": "zhizhi-agent-runtime",
+      "description": ""
+    },
+    {
+      "name": "zhizhi-agent-runtime",
+      "description": ""
+    },
+    {
+      "name": "zhizhi-agent-runtime",
+      "description": ""
+    },
+    {
+      "name": "zhizhi-agent-runtime",
+      "description": ""
+    }
+  ]
+}
