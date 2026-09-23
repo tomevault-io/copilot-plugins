@@ -1,0 +1,9 @@
+{
+  "name": "nclamvn--math-research-collaborator",
+  "displayName": "math-research-collaborator",
+  "description": "A bilingual research workbench and reproducible Lean-backed workflow for mathematicians collaborating with AI.",
+  "version": "1.0.0",
+  "author": "nclamvn",
+  "homepage": "https://github.com/nclamvn/math-research-collaborator",
+  "skills": []
+}
