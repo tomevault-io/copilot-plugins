@@ -1,0 +1,93 @@
+{
+  "name": "OSWorld-V2",
+  "owner": "xlang-ai",
+  "repo": "OSWorld-V2",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OSWorld-V2",
+      "path": ".codex/skills/analyze-task/SKILL.md",
+      "github_url": "https://github.com/xlang-ai/OSWorld-V2/tree/main/.codex/skills/analyze-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSWorld-V2",
+      "path": ".codex/skills/analyze-traj/SKILL.md",
+      "github_url": "https://github.com/xlang-ai/OSWorld-V2/tree/main/.codex/skills/analyze-traj/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSWorld-V2",
+      "path": ".codex/skills/setup-osworld/SKILL.md",
+      "github_url": "https://github.com/xlang-ai/OSWorld-V2/tree/main/.codex/skills/setup-osworld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSWorld-V2",
+      "path": ".claude/skills/analyze-task/SKILL.md",
+      "github_url": "https://github.com/xlang-ai/OSWorld-V2/tree/main/.claude/skills/analyze-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSWorld-V2",
+      "path": ".claude/skills/analyze-traj/SKILL.md",
+      "github_url": "https://github.com/xlang-ai/OSWorld-V2/tree/main/.claude/skills/analyze-traj/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSWorld-V2",
+      "path": ".claude/skills/setup-osworld/SKILL.md",
+      "github_url": "https://github.com/xlang-ai/OSWorld-V2/tree/main/.claude/skills/setup-osworld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSWorld-V2",
+      "path": ".codex/skills/migrate-osworld-agent/SKILL.md",
+      "github_url": "https://github.com/xlang-ai/OSWorld-V2/tree/main/.codex/skills/migrate-osworld-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSWorld-V2",
+      "path": ".claude/skills/migrate-osworld-agent/SKILL.md",
+      "github_url": "https://github.com/xlang-ai/OSWorld-V2/tree/main/.claude/skills/migrate-osworld-agent/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xlang-ai/OSWorld-V2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:28:07Z"
+}
