@@ -1,0 +1,9 @@
+{
+  "name": "quaywin--agys",
+  "displayName": "agys",
+  "description": "Effortless multi-profile isolation & real-time quota tracking for Antigravity CLI in Herdr via zero-pollution sandboxing.",
+  "version": "1.0.0",
+  "author": "quaywin",
+  "homepage": "https://github.com/quaywin/agys",
+  "skills": []
+}
