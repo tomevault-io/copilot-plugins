@@ -4,7 +4,7 @@
   "repo": "ndsrecomp",
   "description": "Very early pre-alpha Nintendo DS static recompiler research \u00b7 source-only developer snapshot",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RetroPortingToolKit/ndsrecomp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T04:30:22Z"
+  "distributed_at": "2026-09-23T04:34:15Z"
 }
