@@ -1,0 +1,9 @@
+{
+  "name": "blackhat-7--vellum-nvim",
+  "displayName": "vellum.nvim",
+  "description": "Live, beautiful GitHub-markdown preview beside your buffer in Neovim \u2014 mermaid diagrams as real images, in the terminal.",
+  "version": "1.0.0",
+  "author": "blackhat-7",
+  "homepage": "https://github.com/blackhat-7/vellum.nvim",
+  "skills": []
+}
