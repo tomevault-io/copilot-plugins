@@ -1,0 +1,9 @@
+{
+  "name": "bhouston--vitest-gpu",
+  "displayName": "vitest-gpu",
+  "description": "Vitest environments for real headless WebGL and WebGPU in Node, plus a pixel-diff screenshot matcher",
+  "version": "1.0.0",
+  "author": "bhouston",
+  "homepage": "https://github.com/bhouston/vitest-gpu",
+  "skills": []
+}
