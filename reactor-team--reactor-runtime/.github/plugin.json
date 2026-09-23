@@ -1,0 +1,9 @@
+{
+  "name": "reactor-team--reactor-runtime",
+  "displayName": "reactor-runtime",
+  "description": "The Runtime for Real-Time",
+  "version": "1.0.0",
+  "author": "reactor-team",
+  "homepage": "https://github.com/reactor-team/reactor-runtime",
+  "skills": []
+}
