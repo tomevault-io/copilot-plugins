@@ -1,0 +1,9 @@
+{
+  "name": "pollen-robotics--microduck",
+  "displayName": "microduck",
+  "description": "A Tiny biped duck robot \ud83e\udd86",
+  "version": "1.0.0",
+  "author": "pollen-robotics",
+  "homepage": "https://github.com/pollen-robotics/microduck",
+  "skills": []
+}
