@@ -1,0 +1,9 @@
+{
+  "name": "exasol-labs--exasol-personal-local-starterkit",
+  "displayName": "exasol-personal-local-starterkit",
+  "description": "Starter kit for Exasol Personal Local - the analytics database for agentic AI.",
+  "version": "1.0.0",
+  "author": "exasol-labs",
+  "homepage": "https://github.com/exasol-labs/exasol-personal-local-starterkit",
+  "skills": []
+}
