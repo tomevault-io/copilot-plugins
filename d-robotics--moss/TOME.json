@@ -1,0 +1,183 @@
+{
+  "name": "moss",
+  "owner": "D-Robotics",
+  "repo": "moss",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-ros/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-ros/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-device/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-device/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rk-knowledge/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rk-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-hardware/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-hardware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-model-zoo/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-model-zoo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-ecosystem/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-ecosystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rpi-knowledge/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rpi-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-multimedia/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-multimedia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-source-map/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-source-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-doc-finder/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-doc-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-isp-tuning/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-isp-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-accessories/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-accessories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/jetson-knowledge/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/jetson-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-system-config/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-system-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/host-software-dev/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/host-software-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-capture-photo/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-capture-photo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-command-manual/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-command-manual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-llm-deployment/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-llm-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-board-delegate/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-board-delegate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-board-knowledge/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-board-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-embodied-lerobot/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-embodied-lerobot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/rdk-knowledge/skills/rdk-peripheral-cookbook/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/rdk-knowledge/skills/rdk-peripheral-cookbook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moss",
+      "path": "packages/moss-agent/assets/plugins/deepseek-harness/skills/deepseek-harness/SKILL.md",
+      "github_url": "https://github.com/D-Robotics/moss/tree/main/packages/moss-agent/assets/plugins/deepseek-harness/skills/deepseek-harness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/D-Robotics/moss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:53:31Z"
+}
