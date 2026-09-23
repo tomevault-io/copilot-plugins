@@ -1,280 +1,162 @@
 ## payload-storage-bunny
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Payload CMS 3.x storage adapter for Bunny.net. Wraps `@payloadcms/plugin-cloud-storage` and adds:
 
-# CLAUDE.md
+# Bunny.net Storage for Payload
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Payload CMS 3.x storage adapter for Bunny.net. Wraps `@payloadcms/plugin-cloud-storage` and adds:
 
-## Overview
+- **Bunny Storage** — files, images, documents (HTTP API or S3-compatible).
+- **Bunny Stream** — video with HLS/MP4, thumbnails, TUS resumable uploads.
+- **Client-direct uploads** — browser → Bunny (presigned S3 or an Edge Script).
+- **Signed URLs** — time-limited links with country and per-client IPv4 locking.
+- **CDN cache purging** — auto-invalidate on upload/delete.
+- **Per-collection overrides** — every setting, plus a collection's own zone/library.
+- **CLI** — `init` setup wizard and `bunny:deploy-edge-script`.
+- **Subpath exports** — `./client` (admin UI), `./media-preview` (Stream adapter), `./migrations` (v2→v3 data migration).
 
-Payload CMS 3.x plugin for Bunny.net storage. Wraps `@payloadcms/plugin-cloud-storage` and provides:
+## Environment
 
-- **Bunny Storage** - Files (images, documents)
-- **Bunny Stream** - Videos with HLS/MP4, TUS resumable uploads
-- **Per-collection config overrides** - Each collection can customize settings
-- **CDN cache purging** - Auto-invalidate on upload/delete
-- **Signed URLs** - Secure time-limited access
+- Package manager is **pnpm**. Node.js 22+, Payload CMS 3.83+.
+- Install with `pnpm install`.
+- Runtime commands that touch Bunny read secrets from `.env` (loaded via `dotenv`); never hardcode keys.
+- Agent skills are **not vendored** — only `skills-lock.json` is committed (it pins each skill by content hash). Restore them with `npx skills experimental_install`; nothing in the build, tests or CI depends on them.
 
-## Development Commands
+## Commands
 
 ```bash
-# ALWAYS run before commit
-pnpm typecheck
+pnpm typecheck        # tsc --noEmit — ALWAYS run before committing
+pnpm lint             # oxlint — add `-f agent` for compact AI-readable output
+pnpm lint:fix         # oxlint --fix
+pnpm format           # oxfmt (write)
+pnpm format:check     # oxfmt --check
 
-# Build
-pnpm build              # Full build (clean + types + compile)
-pnpm clean              # Remove dist/
+pnpm build            # tsdown (bundles dist/)
+pnpm clean            # remove dist/ + tsbuildinfo
 
-# Code quality
-pnpm lint               # ESLint
-pnpm lint:fix           # Auto-fix
-pnpm format             # Prettier format
-pnpm format:check       # Check formatting
+pnpm test:unit        # vitest, no env — the default fast gate
+pnpm test             # vitest with .env
+pnpm test:coverage    # vitest + coverage
+pnpm test:e2e         # live e2e against real Bunny resources (needs .env)
 
-# Dev server (test app in dev/)
-pnpm dev                # Next.js + Turbo
-pnpm dev:safe           # Clean .next first
+pnpm dev              # dev/test Payload app (tests/dev.ts)
+pnpm docs:dev         # Mintlify docs site (docs/)
+pnpm docs:openapi     # regenerate docs/api-reference/openapi.json from src/server/payload/openapi.ts
+pnpm docs:validate    # mint validate (MDX + build check)
 ```
 
-## Architecture
+Run `pnpm typecheck && pnpm lint && pnpm format` before every commit. Not just typecheck.
 
-### Data Flow
+When you run the linter yourself, use **`pnpm lint -f agent`** — oxlint's compact, AI-readable format (`file:line: level rule msg`). CI needs no flag: oxlint auto-detects GitHub Actions and emits annotation (`github`) format.
 
-```
-User Config → Normalizer → Collection Context → Handlers → Bunny API
-```
+## Repository Structure
 
-1. **User config** (`BunnyStorageConfig`) - What user provides in `payload.config.ts`
-2. **Normalizer** (`normalizer.ts`) - Fills defaults, validates, converts to `NormalizedBunnyStorageConfig`
-3. **Collection context** (`context.ts`) - Per-collection runtime config (merges global + collection overrides)
-4. **Handlers** - Use context (never global config directly)
-5. **Bunny API** - Storage or Stream endpoints
-
-### Critical Rule: Always Use Collection Context
-
-❌ **NEVER** use global config directly:
-
-```typescript
-// WRONG - uses global config
-const timeout = config.storage.uploadTimeout
-```
-
-✅ **ALWAYS** use collection context:
-
-```typescript
-// CORRECT - uses collection-specific config (with overrides applied)
-const timeout = context.storageConfig.uploadTimeout
-```
-
-### Config Override System
-
-Collections inherit global config but can override:
-
-- `purge` (false to disable)
-- `storage.uploadTimeout`
-- `stream.uploadTimeout`
-- `stream.mp4Fallback`
-- `stream.tus.uploadTimeout`
-- `stream.thumbnailTime`
-- `signedUrls`
-- `thumbnail`
-- `urlTransform`
-
-**How overrides work:**
-
-```typescript
-// Global config
-stream: {
-  uploadTimeout: 300000
-}
-
-// Collection override
-collections: {
-  largeVideos: {
-    stream: {
-      uploadTimeout: 600000
-    } // This collection gets 10 min
-  }
-}
-
-// Result: largeVideos uses 600000, other collections use 300000
-```
-
-## Key Directories
+Three entrypoints — `index.ts` (server), `client/index.ts` (admin UI), `cli/index.ts` (bin) — and four buckets. Dependency direction inside `server/`: payload → bunny → http → shared.
 
 ```
 src/
-├── types/           # Type definitions
-│   ├── config.ts           # BunnyStorageConfig (user-facing)
-│   ├── configNormalized.ts # NormalizedBunnyStorageConfig (internal)
-│   └── core.ts             # CollectionContext
-│
-├── utils/config/    # Config processing (critical!)
-│   ├── normalizer.ts       # User config → Normalized config
-│   ├── context.ts          # Normalized → Collection context (APPLY OVERRIDES HERE)
-│   ├── defaults.ts         # Default values
-│   └── validator.ts        # Validation
-│
-├── handlers/        # File operations (use context!)
-│   ├── handleUpload.ts     # Upload to Storage/Stream
-│   ├── handleDelete.ts     # Delete + purge cache
-│   ├── generateURL.ts      # Generate signed/regular URLs
-│   └── staticHandler/      # Serve files (when access control enabled)
-│
-├── utils/client/    # Bunny API calls
-│   ├── storage.ts   # Storage API (PUT/DELETE files)
-│   ├── stream.ts    # Stream API (create/upload/delete videos)
-│   └── purge.ts     # Cache purging API
-│
-├── endpoints/       # REST endpoints
-│   └── stream.ts    # TUS auth endpoint (/api/storage-bunny/stream/tus-auth)
-│
-├── hooks/           # Payload hooks
-│   ├── afterChange.ts      # Cleanup after TUS upload
-│   └── beforeValidate.ts   # Validate TUS uploads
-│
-└── index.ts         # Plugin entry (extends Payload config)
+├── index.ts        # Server entry — plugin that extends Payload config
+├── shared/          # isomorphic leaf: types/ (config.ts user-facing JSDoc, configNormalized.ts, core.ts), translations/, constants.ts, mimeTypes.ts, http.ts, urlTransform.ts, zoneSecret.ts
+├── client/          # index.ts = 'use client' entry (./client subpath); TusUpload/* (upload button), ClientUploadHandler
+├── edge/            # uploader.edge.js — Bunny Edge Script for client-direct uploads
+├── cli/             # index.ts = bin entry (`init` wizard, args via `cac`); commands/ (init/ wizard, deployEdgeScript.ts), lib/ (shared Logger, bunnyFetch, envFile — reuse, don't duplicate)
+└── server/
+    ├── http/        # lowest server leaf — the shared ky client for every outbound request
+    ├── bunny/       # the only Bunny HTTP API layer — client.ts, storage.ts, s3.ts, stream.ts, cdn.ts
+    ├── payload/     # config/ (normalizer, context, access, defaults, validator), fields/, storage/ (+ clientUploads/), stream/, migrations/, openapi.ts, tokenAuth.ts, mediaPreview.ts
+    ├── telemetry/   # anonymous opt-out usage telemetry — fired from index.ts onInit; depends only on @/shared + node builtins, imported only by the plugin entry
+    ├── urls.ts      # URL builders
+    └── files.ts     # filesystem helpers
 ```
 
-## Common Patterns
+The `telemetry` plugin option (`boolean | { endpoint?: string }`) reads from `config._original.telemetry`; it needs no normalizer entry. Feature flags are derived in `server/telemetry/features.ts` from the resolved `NormalizedBunnyStorageConfig` (booleans only — never zone/library/collection names or other values).
 
-### 1. Handler Pattern
+`server/payload/openapi.ts` is the single source for the OpenAPI doc; `pnpm docs:openapi` writes docs/api-reference/openapi.json via scripts/build-openapi.ts. `migrations/` backs the ./migrations subpath, `mediaPreview.ts` the ./media-preview Stream adapter.
 
-```typescript
-export const getHandleUpload = (context: CollectionContext): HandleUpload => {
-  // Extract from context (already has collection overrides applied)
-  const { storageConfig, streamConfig, purgeConfig } = context
+## Architecture
 
-  return async ({ file, req }) => {
-    if (streamConfig?.apiKey && isVideoFile) {
-      // Use Bunny Stream for videos
-      await uploadStreamVideo({ buffer, streamConfig, videoId })
-    } else if (storageConfig) {
-      // Use Bunny Storage for other files
-      await uploadStorageFile({ buffer, path, storageConfig })
-    }
-  }
-}
+Data flow:
+
+```
+User Config → Normalizer → Collection Context → Adapter → Bunny API
 ```
 
-### 2. Adding Collection Override (Step-by-step)
+1. **User config** (`BunnyStorageConfig`) — what the user writes in `payload.config.ts`.
+2. **Normalizer** (`server/payload/config/normalizer.ts`) — fills defaults, validates, and merges global + per-collection overrides (the `resolveCollection*Config` family). **Apply overrides here.**
+3. **Collection context** (`server/payload/config/context.ts`) — wraps the already-resolved per-collection config as the runtime `CollectionContext`. No merging here.
+4. **Adapter** (`server/payload/storage/*`, `server/payload/stream/*`) — consumes the context.
+5. **Bunny API** — Storage or Stream endpoints.
 
-**Example: Add `stream.quality` override**
+### Always use collection context
 
-```typescript
-// 1. types/config.ts - Add to collection config
-export type BunnyStorageCollectionConfig = {
-  stream?: {
-    quality?: number  // NEW
-  }
-}
-
-// 2. utils/config/context.ts - Apply override
-const prepareStreamConfig = (...) => {
-  if (collectionConfig.stream?.quality !== undefined) {
-    streamConfig.quality = collectionConfig.stream.quality  // NEW
-  }
-}
-
-// 3. Update README.md - Document new option
-```
-
-### 3. `false` Handling (Critical!)
-
-Some config options can be explicitly disabled with `false`:
+Handlers must read from the collection context, which already has overrides applied. Never reach into global config.
 
 ```typescript
-// ✅ CORRECT - explicit check
-purgeConfig: collectionConfig.purge === false ? undefined : collectionConfig.purge
+// WRONG — global config
+const timeout = config.storage.uploadTimeout
 
-// ❌ WRONG - treats all falsy as disabled
-purgeConfig: collectionConfig.purge || undefined
-```
-
-**Which properties need this:**
-
-- `purge`, `signedUrls`, `thumbnail`, `urlTransform` (all have type `false | Config`)
-
-## Plugin Entry Point (`index.ts`)
-
-The plugin wraps `@payloadcms/plugin-cloud-storage`:
-
-```typescript
-export const bunnyStorage = (pluginConfig) => (incomingConfig) => {
-  // 1. Normalize config
-  const config = createNormalizedConfig(pluginConfig)
-
-  // 2. Create adapter (handlers factory)
-  const adapter = bunnyStorageInternal(config)
-
-  // 3. Extend Payload config
-  const finalConfig = {
-    ...incomingConfig,
-    collections: [
-      /* add hooks */
-    ],
-    endpoints: [
-      /* TUS auth */
-    ],
-    tasks: [
-      /* cleanup */
-    ],
-  }
-
-  // 4. Pass to @payloadcms/plugin-cloud-storage
-  return cloudStoragePlugin({ collections: collectionsWithAdapter })(finalConfig)
-}
-```
-
-## Important Implementation Details
-
-### TUS Uploads
-
-- Client uploads directly to Bunny via TUS protocol
-- Auth endpoint (`/api/storage-bunny/stream/tus-auth`) creates video + returns signed URL
-- Uses `collectionStreamConfig.tus.uploadTimeout` (collection context, not global!)
-- Session tracking via `StreamUploadSessions` collection
-
-### Video Routing
-
-```typescript
-if (streamConfig?.apiKey && isStream(mimeType)) {
-  // Bunny Stream (HLS/MP4)
-} else if (storageConfig) {
-  // Bunny Storage (regular file)
-}
-```
-
-## Pre-Commit Checklist
-
-1. ✅ `pnpm typecheck` passes
-2. ✅ Use `context.storageConfig`, not `config.storage`
-3. ✅ Use `=== false` for `purge`, `signedUrls`, `thumbnail`, `urlTransform`
-4. ✅ Update README.md if adding features
-5. ✅ Commit message: compact, one-line, no copyright/co-authored (e.g., `feat: add stream.quality override`)
-
-## Common Mistakes
-
-❌ Using global config:
-
-```typescript
-const timeout = config.storage.uploadTimeout // WRONG
-```
-
-❌ Wrong false check:
-
-```typescript
-purge: collectionConfig.purge || undefined // WRONG
-```
-
-✅ Correct:
-
-```typescript
+// CORRECT — collection-specific config
 const timeout = context.storageConfig.uploadTimeout
-purge: collectionConfig.purge === false ? undefined : collectionConfig.purge
 ```
+
+## Coding Standards
+
+- **Comment sparingly.** Do not narrate what the code already says. Add a short comment only where the intent isn't obvious from the code or there's a real nuance (a workaround, a non-obvious constraint, a subtle edge case) that a reader would otherwise miss. JSDoc on the public config API in `src/shared/types/config.ts` and the public accessors in `src/server/payload/config/access.ts` is expected.
+- **Never use global config in handlers** — use `context.storageConfig` / `context.streamConfig`, etc.
+- **Handle `false` explicitly** for options that can be disabled. `purge`, `signedUrls`, `thumbnail`, and `urlTransform` are typed `false | Config`:
+
+  ```typescript
+  // CORRECT — explicit check
+  purgeConfig: collectionConfig.purge === false ? undefined : collectionConfig.purge
+
+  // WRONG — treats every falsy value as disabled
+  purgeConfig: collectionConfig.purge || undefined
+  ```
+
+- **Shared CLI helpers** live in `src/cli/lib/`. Reuse the shared `Logger`/`consoleLogger` and `bunnyFetch`/`bunnyJson`; do not duplicate types or add passthrough wrappers.
+- Match the surrounding code's naming and idiom.
+
+### Adding a per-collection override
+
+Example: add a `stream.quality` override.
+
+1. `src/shared/types/config.ts` — add `quality?: number` to the collection config type (with JSDoc).
+2. `src/server/payload/config/normalizer.ts` — add it to the `mergeDefined(...)` call in `resolveCollectionStreamConfig` (undefined values are filtered automatically). For a `false | Config`-typed option, follow the explicit-`false` pattern instead (see `resolveCollectionPurgeConfig`).
+3. Update `README.md` and the docs page.
+
+## Testing
+
+- Unit tests live under `tests/unit/` and mirror the `src/` layout. `pnpm test:unit` is the fast gate (no env needed).
+- Live e2e (`tests/e2e/*`, `pnpm test:e2e` → `tests/runE2E.ts`) hits real Bunny resources and needs `.env`; keep it out of the default gate.
+- Add or update tests when changing behavior.
+
+## Commits
+
+- Compact, one-line, Conventional-Commit style subject (e.g. `feat: add stream.quality override`).
+- **No co-authored-by or copyright trailers.**
+- Commit locally only. Do not push unless explicitly asked.
+- Before committing: `pnpm typecheck && pnpm lint && pnpm format` all clean, and update `README.md`/docs if the change is user-facing.
+- Do not commit scratch/working-note files.
+
+## Boundaries
+
+Ask first before:
+
+- Large refactors or moving public API surface.
+- Adding a runtime dependency.
+- Committing, amending, or pushing when not explicitly requested.
+
+Never:
+
+- Add secrets or `.env` values to the repo.
+- Push, force-push, or run destructive git operations without an explicit request.
+- Bypass the collection-context rule or the explicit-`false` handling.
+
+## References
+
+- `README.md` — user-facing overview and quick start.
+- Docs site: <https://payload-storage-bunny.seshuk.im/> (Mintlify; source in `docs/`).
 
 ---
 > Source: [maximseshuk/payload-storage-bunny](https://github.com/maximseshuk/payload-storage-bunny) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
