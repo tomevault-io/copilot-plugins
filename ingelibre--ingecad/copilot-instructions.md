@@ -1,0 +1,2868 @@
+## ingecad
+
+> **Autor:** Marco Sumari Tellez · **Licencia:** GPL-3.0-or-later · **Repo destino:** `github.com/ingelibre/ingecad`
+
+# IngeCAD — CAD 2D libre estilo AutoCAD clásico
+
+**Autor:** Marco Sumari Tellez · **Licencia:** GPL-3.0-or-later · **Repo destino:** `github.com/ingelibre/ingecad`
+**Hermanos:** [IngeTrazo](../ingetrazo/) (modelador 3D/BIM) · [IngePresupuestos](../ingepresupuestos-pyside6/) (presupuestos)
+
+> Plan fundacional definido el 2026-07-16 (conversación estratégica completa en memoria de Claude: `[[project-ingecad-nuevo-hermano-2d]]`). Este archivo guarda el **rumbo** (visión, principios, fases + DoD); el registro de lo hecho vive en los commits de git. No duplicar acá lo que git ya registra.
+
+---
+
+## 🧭 Visión de producto
+
+**Qué es:** el "AutoCAD LT libre" para Linux — visor/editor 2D de DWG/DXF para el ingeniero que viene de AutoCAD: dibujo rápido con comandos de teclado idénticos a AutoCAD, interfaz clásica pre-ribbon, y apertura **fiel** de los DWG que mandan los colegas. Con capacidades de elevación para el oficio civil (puntos topográficos con cota, terrenos con pendiente, carreteras) — datos de elevación, NO modelado 3D.
+
+**Qué NO es:** no es un clon de AutoCAD feature-por-feature (esa es la receta para nunca shippear — lección de IngeTrazo). AutoCAD tiene cientos de funciones que ni Marco usa. El scope es SU flujo real: **línea, círculo, polilínea, polígono, bloques, capas, hatch, trim, offset, extend, move/copy/rotate, zoom, capas, puntos topográficos, área, imprimir a escala.** Nada más hasta que duela.
+
+**El filtro maestro (heredado del ecosistema):** *"¿le sirve al ingeniero que abre el plano de un colega y dibuja rápido con el teclado?"* Si una feature no pasa ese filtro, no entra.
+
+**La tesis de adopción:** la migración desde AutoCAD debe ser **cero fricción de memoria muscular** — mismos aliases (`M`+Enter = MOVE), misma command line, misma selección ventana/crossing, mismos osnaps. El usuario tipea lo de siempre y funciona.
+
+**Reparto con IngeTrazo (no competir contra el hermano):** IngeCAD = el plano 2D que se firma e imprime (lindero, cuadro de coordenadas, planta). IngeTrazo = el 3D (terreno, modelo, BIM → metrado → IngePresupuestos). Mismo CSV topográfico entra a ambos. Puente entre ellos: DXF.
+
+---
+
+## 📐 Principios arquitectónicos (NO negociables)
+
+1. **El documento ezdxf ES el modelo.** No inventar un modelo de datos propio: se editan las entidades ezdxf directamente (envueltas en Commands) y se guarda con ezdxf. Esto garantiza la propiedad más valiosa del producto: **round-trip conservador** — todo lo que IngeCAD no entiende (proxies de Civil 3D, XDATA, diccionarios, 3DSOLID) se preserva **intacto** al reescribir. "Le devolví el plano sano al colega" es la promesa central.
+2. **DWG jamás se parsea dentro del app.** Tres satélites como procesos externos (patrón skp2dae de IngeTrazo): **LibreDWG** (GPL-3, embebible y EMBEBIDO — lectura hasta r2018 de fábrica, escritura r2000), **Open CAD Studio** (MIT, Rust, de César/acadrust; `OpenCADStudio --export src dst`; detectado si está instalado — export r2018 y lector/escritor de respaldo donde no hay LibreDWG, p. ej. Windows; conserva la versión DXF de origen, por eso `_upgrade_dxf` sube a AC1032 antes de pedir r2018) y **ODA File Converter** (freeware propietario, instalación opcional de un clic, NUNCA bundlear — da export r2013/r2018). El usuario abre `.dwg` con doble clic y nunca ve el DXF intermedio.
+3. **Coordenadas verdaderas float64 en el modelo; float32 solo en el render.** Los planos reales vienen en UTM (~500 000 Este). DXF/ezdxf guardan doubles — el archivo nunca pierde precisión. El viewport resta un **origen de vista** (centro del dibujo) antes de subir a GPU y lo suma al leer el mouse. El gotcha ya se sufrió en IngeTrazo (`SceneDatum`); acá el fix vive solo en el render.
+4. **Toda mutación pasa por Command** (undo/redo exacto) y **todo comando es una acción headless** (`actions.move(...)`, no lógica pegada al evento de teclado/mouse). Es el invariante AI-native del ecosistema, y de paso da macros/scripts gratis — a los usuarios de AutoCAD (LISP) les importa.
+5. **2D con Z latente.** DXF es 3D nativo: toda entidad tiene Z y OCS (que un visor correcto debe manejar igual — círculos con extrusión invertida existen en planos reales). El modelo conserva Z siempre; la cámara es ortográfica en planta. Agregar vista isométrica después = solo display (la `OrbitCamera` de IngeTrazo está a un copy de distancia). **3DSOLID (ACIS) jamás se interpreta** — se preserva intacto en el round-trip.
+6. **Linux/Wayland first.** Heredar los gotchas resueltos de IngeTrazo: `glClear` explícito en `paintGL`, FBO propio si hace falta, DPR físico vs lógico, re-establecer estado GL tras QPainter, MSAA en el FBO de escena. Windows después, con el pipeline CI ya probado (spec PyInstaller + Inno) — pero ninguna decisión puede ROMPER Windows, solo diferirlo.
+7. **Interfaz clásica pre-ribbon, para siempre.** Barra de menús (Archivo/Edición/Ver/Insertar/Formato/Herramientas/Dibujo/Acotar/Modificar) + toolbars acoplables (Draw a la izquierda, Modify a la derecha) + **ventana de comandos abajo** (historial + prompt) + status bar con toggles (FORZC/REJILLA/ORTO/POLAR/REFENT). Fondo de modelo oscuro por defecto. El ribbon no existe ni existirá.
+8. **Idioma:** código, comentarios, docstrings y commits en **inglés** (contributors); UI bilingüe con el motor `tr()` + `es.json` portado de IngeTrazo (`core/i18n.py`). Los nombres de comando aceptan el inglés de AutoCAD (`LINE`, `TRIM`) — es lo que la memoria muscular del usuario ya sabe — y los menús se traducen.
+
+---
+
+## 🛠 Stack
+
+| Capa | Elección |
+|---|---|
+| Lenguaje | Python 3.12 (versión de referencia CI, igual que IngeTrazo) |
+| UI | PySide6 (Qt 6) |
+| Render | QOpenGLWidget + VBOs batcheados por capa/color (patrón IngeTrazo, versión 2D) |
+| Kernel de documento | **ezdxf** (MIT) — parsing, modelo, escritura DXF |
+| Motor de "regen" | **`ezdxf.addons.drawing`** frontend (resuelve bloques/MTEXT/linetypes/hatches/cotas) → backend GL propio que emite arrays de vértices |
+| DWG | LibreDWG (`dwg2dxf`/`dxf2dwg`, embebido) + Open CAD Studio (`--export`, satélite opcional: r2018 y lector/escritor de respaldo sin LibreDWG) + ODA File Converter (satélite opcional) |
+| Math/lotes | NumPy |
+| Tests | pytest + banco de DWG reales |
+
+Sin deps pesadas nuevas. Nada de OpenCascade, nada de kernels BRep.
+
+---
+
+## 📁 Layout del repo (espejo de IngeTrazo)
+
+```
+ingecad/
+├── main.py                    ← entry point Qt (abre argv[1] — asociación .dwg/.dxf)
+├── CLAUDE.md                  ← este archivo
+├── LICENSE (GPL-3) / README.md / AUTHORS / CONTRIBUTING.md
+├── core/
+│   ├── document.py            ← wrapper fino del ezdxf doc + versioning + dirty
+│   ├── actions.py             ← capa de acciones headless (move, trim, offset…)
+│   ├── commands.py            ← Command ABC + History (portado de IngeTrazo)
+│   ├── aliases.py             ← tabla de aliases AutoCAD (compatible acad.pgp)
+│   ├── snap.py                ← osnaps (END/MID/CEN/NOD/INT/PER/TAN/NEA) + polar/orto
+│   ├── i18n.py                ← portado de IngeTrazo
+│   └── geo.py                 ← puntos topográficos, área, cuadro de coordenadas, perfil
+├── views/
+│   ├── main_window.py         ← menús + toolbars clásicas + status bar
+│   ├── viewport.py            ← canvas GL 2D (pan/zoom, origen de vista, pick)
+│   ├── command_line.py        ← ventana de comandos (prompt + historial + autocompletado)
+│   └── layers_panel.py        ← administrador de capas
+├── render/
+│   ├── backend.py             ← backend GL para ezdxf.addons.drawing (emite vértices)
+│   └── batches.py             ← VBOs por capa/color, culling por rect de vista
+├── formats/
+│   ├── dwg_bridge.py          ← satélites LibreDWG / Open CAD Studio / ODA (detección, conversión, instalador)
+│   └── pdf_out.py             ← imprimir/PDF a escala
+├── tools/                     ← tools interactivas (line, circle, trim…) sobre actions
+├── resources/ (shaders, iconos, linetypes, patrones de hatch)
+├── i18n/ (en.json identidad, es.json)
+└── tests/
+```
+
+---
+
+## 🥇 Regla de oro (idéntica a IngeTrazo, no negociable)
+
+Una fase NO está terminada hasta cumplir las 3: **(1)** su DoD pasa, **(2)** está commiteada y la app arranca sin regresiones, **(3)** cero "lo dejo para después" dentro de la fase. No se abre la siguiente hasta esas tres.
+
+**Banco de pruebas vivo (el "plano del colega" — equivalente a la casita de IngeTrazo):** coleccionar DWG reales que mandan los colegas (con permiso, sin trackear al repo público) y arrancar cada sesión preguntando *"¿qué parte del plano del colega todavía se ve/edita mal?"*. Los gaps aparecen solos dogfoodeando, no desde la lista abstracta.
+
+---
+
+## 🚧 Fases hacia v0.1
+
+**FASE 0 — Esqueleto** *(≈1 sesión)*
+Repo + GPL-3 + layout + venv + ventana con viewport GL vacío: pan (botón medio), zoom a la rueda (al cursor), fondo oscuro, ejes/UCS icon. CI mínima (pytest).
+- **DoD:** arranca en Wayland nativo sin glitches; pan/zoom suave; `pytest` verde en CI.
+
+**FASE 1 — Visor fiel (el go/no-go del proyecto)** *(la incógnita — atacarla primero)*
+`ezdxf.addons.drawing` frontend → backend GL propio: VBOs por capa/color, culling por rect de vista, origen de vista float64→float32. Render fiel de: LINE/PLINE/CIRCLE/ARC/ELLIPSE, bloques (INSERT anidados), TEXT/MTEXT con formato, linetypes a escala, HATCH (patrones + solid), cotas (como las guarda el archivo), colores ByLayer/ByBlock, capas on/off, OCS. Zoom extents / window / previo.
+- 📌 El pick va detrás de una abstracción (índice NumPy después, como IngeTrazo — no construirlo aún).
+- **DoD:** 10 DWG reales de colegas (convertidos con `dwg2dxf` a mano por ahora) se ven **idénticos** a AutoCAD/DWG FastView lado a lado; un plano de ~200k entidades hace pan/zoom fluido en Wayland. Si esto pasa, el proyecto es viable; todo lo demás es trabajo conocido.
+
+**FASE 2 — DWG de fábrica** *(cierra el caso de uso #1: "me mandan un DWG")*
+`formats/dwg_bridge.py`: LibreDWG embebido (binario `dwg2dxf` empaquetado — GPL con GPL, sin conflicto) → abrir `.dwg` transparente (conversión a temp, el usuario nunca ve el DXF). Guardar como `.dwg` r2000 vía `dxf2dwg`. Detector + **instalador de un clic** del ODA File Converter (patrón skp2dae validado) → export r2013/r2018. Asociación de archivos `.dwg`/`.dxf` en el `.desktop`.
+- **DoD:** doble clic en un `.dwg` → abre; "Guardar como DWG" → el colega lo abre en AutoCAD (aviso TrustedDWG documentado en README como esperado e inofensivo). Rutas con acentos (gotcha ya cazado en skp2dae).
+
+**FASE 3 — Command line + aliases AutoCAD** *(la tesis de migración)*
+`views/command_line.py` (prompt abajo, historial, autocompletado) + `core/aliases.py` con los aliases exactos de `acad.pgp`: `L`=LINE, `C`=CIRCLE, `A`=ARC, `PL`=PLINE, `REC`=RECTANG, `POL`=POLYGON, `E`=ERASE, `M`=MOVE, `CO`/`CP`=COPY, `RO`=ROTATE, `O`=OFFSET, `TR`=TRIM, `EX`=EXTEND, `MI`=MIRROR, `SC`=SCALE, `B`=BLOCK, `I`=INSERT, `H`=HATCH, `LA`=LAYER, `Z`=ZOOM (con `Z`→`E`/`W`/`P`), `U`, `DI`=DIST, `AA`=AREA, `LI`=LIST, `X`=EXPLODE, `F`=FILLET. Semántica AutoCAD: Espacio/Enter ejecutan, Enter en vacío repite el último comando, Esc cancela, tipear con selección previa opera sobre ella (noun-verb) o pide selección (verb-noun). Soporte de archivo PGP del usuario para aliases custom. Todo comando despacha a `core/actions.py` (headless).
+- **DoD:** un usuario de AutoCAD ejecuta `L`, `C`, `Z`+`E`, `E` sin leer documentación y se siente en casa. Tests headless de la tabla de aliases y del parser del prompt.
+
+**FASE 4 — Dibujo con snap (el "feel")**
+Osnaps AutoCAD con sus marcadores AutoSnap (cuadrado END, triángulo MID, círculo CEN, X NOD, cruz INT, PER, TAN, NEA) + toggle F3 + ORTO (F8) + POLAR (F10) + entrada por coordenadas: absolutas `10,5`, relativas `@10,5`, polares `@10<45`, y distancia directa (apuntar + tipear número). Tools: LINE, CIRCLE (centro-radio/2P/3P), ARC (3P), PLINE, RECTANG, POLYGON. Undo/redo integrado.
+- Reusar la maquinaria conceptual del snap de IngeTrazo (threshold px, prioridades) simplificada a 2D.
+- **DoD:** dibujar una planta simple solo con teclado + mouse, snaps exactos, coordenadas por prompt; undo limpio de cada paso.
+
+**FASE 5 — Edición (el scope del usuario, completo)**
+ERASE, MOVE, COPY (múltiple), ROTATE (con referencia), SCALE, MIRROR, OFFSET (distancia + través), **TRIM/EXTEND** (con selección de bordes y modo rápido Shift-alterna como AutoCAD moderno), FILLET (radio 0 = esquina). Selección: click, **ventana (izq→der, azul) / crossing (der→izq, verde)** con los colores de AutoCAD, Shift quita de la selección, grips básicos (mover vértice/estirar) si el costo es razonable — si no, a v0.2.
+- **DoD:** flujo completo de edición de un plano real sin tocar menús; TRIM/EXTEND se sienten como AutoCAD (el listón más alto de la fase).
+
+**FASE 6 — Capas, propiedades, bloques y hatch**
+Panel de capas (`LA`): crear/renombrar, color, linetype, on/off/freeze/lock, capa actual. Propiedades de entidad (panel lateral estilo bandeja IngeTrazo): color/capa/linetype ByLayer. Bloques: `I` (insertar con escala/rotación), `B` (crear desde selección), explode. `H`: SOLID + patrones ANSI básicos + escala/ángulo.
+- **DoD:** el scope declarado del usuario ("bloques, capas, hatch") operativo end-to-end y round-trip al DWG.
+
+**FASE 7 — Topografía + elevación (el diferencial civil)** ⭐
+`core/geo.py`: **import CSV de puntos** (reusar/portar `parse_points_csv` de IngeTrazo — P,N,E,Z,desc, dialectos de estación total) → entidades `POINT` en (E,N,Z) + `TEXT` (número/cota/desc) en capas `PUNTOS`/`COTAS`/`DESC`; snap NOD cae bit-exacto. `AA` sobre polilínea cerrada. **Cuadro de datos técnicos automático** (seleccionar polilínea → tabla de vértices con Este/Norte, lados, distancias, rumbos/azimuts, área y perímetro, como entidades en el plano — lo que en AutoCAD todos arman a mano o con LISPs). **Perfil de elevación** de una polilínea cuyos vértices tienen Z (carreteras/pendientes): panel inferior estación/cota con pendientes, export CSV/PNG (portar el concepto de `ProfileDock` de IngeTrazo).
+- **DoD:** caso municipal completo sin AutoCAD: CSV del topógrafo → plano de lindero snapeado a los puntos → cuadro de coordenadas + área → perfil del eje con pendientes → DWG al colega.
+
+**FASE 8 — Salida** 🏁 *(cierra v0.1)*
+Imprimir / **exportar PDF a escala** (1:100, 1:500…, tamaño de papel, área por ventana), export PNG hi-res (patrón `render_image` de IngeTrazo). Layouts/espacio papel completo se difiere a v0.2 — escala directa desde modelo cubre el 80%.
+- **DoD:** un plano imprimible a escala exacta verificable con regla. **= v0.1 usable real.**
+
+**Después de v0.1 (candidatos v0.2, no abrir antes):** grips completos, DIMENSION propias (crear cotas), espacio papel/layouts, MATCHPROP, PURGE, arrays, empaquetado Windows (pipeline IngeTrazo), AppImage/Flatpak, más patrones de hatch, LISP-like scripting sobre `actions`.
+
+---
+
+## 🔩 Track L — LibreDWG (paralelo, NO bloquea ninguna fase)
+
+Objetivo de largo plazo: que el ecosistema libre no dependa del conversor de ODA. Rampa por confianza creciente:
+
+1. **L1 — Usar y reportar:** IngeCAD usa LibreDWG desde F2; cada DWG real que falle → minimizar + issue upstream con repro.
+2. **L2 — Harness de fuzzing round-trip:** generar miles de DXF con ezdxf → `dxf2dwg` → `dwg2dxf` → comparar entidad a entidad (la metodología del fuzz bench de IngeTrazo aplicada a otro dominio; es lo que LibreDWG no tiene y el aporte de más valor por esfuerzo).
+3. **L3 — Patches quirúrgicos** asistidos por IA sobre los fallos que L1/L2 destapen.
+4. **L4 — El writer r2013/r2018** (el hueco histórico, spec ODA pública como guía). Aporte mayor; solo encararlo cuando L1-L3 hayan construido confianza con el mantenedor.
+
+Si upstream tarda o rechaza: **fork amistoso** (`tuxiasumari/libredwg`) — IngeCAD empaqueta el fork, los PRs se siguen ofreciendo upstream, divergencia mínima.
+
+### ✅ Balance de la primera tanda (2026-07-16 → 2026-08-04)
+
+**Los 12 PRs (#1311–#1322) están TODOS en el master de upstream.** Verificado: nuestro
+`af364d4c` es ancestro de `origin/master`, y los siete commits del 2026-07-26 firmados por
+Reini Urban corresponden uno a uno a nuestros temas. Cuatro se fusionaron como PR
+(#1311, #1313, #1315, #1318); el resto los **reimplementó él a partir de nuestra
+descripción**. Consecuencia práctica: **el stack de 29 parches de `tools/libredwg-patches/`
+quedó obsoleto** — reconstruir `vendor/libredwg` desde un release reciente en vez de desde
+`0.14 + parches`.
+
+⚠️ **La pregunta del CLA está respondida: SÍ hace falta.** Textual del mantenedor al cerrar
+#1317 y #1320: *«Excellent. But too big. Needs a CLA»* / *«Fixed independently by myself,
+thanks to your description. Dont want to wait for the CLA»*. O sea: **los parches chicos
+entran como PR; los grandes NO se fusionan sin cesión de copyright a la FSF** — como mucho
+los reescribe el mantenedor y el crédito queda en el agradecimiento. Antes de encarar **L4
+(el writer r2013/r2018)**, que es por definición un aporte grande, hay que decidir si se
+firma el CLA de la FSF; si no, ese trabajo solo puede vivir en el fork.
+
+Los cuatro PRs que seguían abiertos sin motivo (#1312, #1314, #1319, #1321) se **cerraron
+el 2026-08-04** apuntando al commit que los reemplaza. De la primera tanda no queda ninguno
+abierto.
+
+### ✅ Segunda tanda (2026-08-06) — detalle en `docs/bugs-libredwg-2026-08-06.md`
+
+Los 30 fallos del barrido quedaron clasificados y luego **arreglados**: **13 PRs**
+(#1352, #1353, #1358, #1359, #1360, #1362, #1363, #1364, #1365, #1366, #1367, #1368,
+#1369), **1 issue vivo sin parche** (#1356),
+**1 retirado a propósito** (#1354, correcto pero de bajo valor) y **5 planos que no eran
+bugs** (2 bloqueados por objetos propietarios de Civil 3D —que BricsCAD tampoco abre—,
+1 archivo dañado, 2 dibujos vacíos de verdad). El #1358 cierra además el
+[#1294](https://github.com/LibreDWG/libredwg/issues/1294), issue de otro usuario parado
+desde junio de 2026 por falta de reproductor compartible; y el #1364 cierra el
+[#767](https://github.com/LibreDWG/libredwg/issues/767), **abierto desde junio de 2023** —
+Reini Urban había esbozado el rumbo ahí y nadie lo había tomado.
+
+**Los 9 planos propios que fallaban abren ahora exactos contra ODA**, `sedapar` incluido
+(10 847 = 10 847). No queda ningún plano propio que LibreDWG lea peor que ODA. El último,
+el #1363, era el gordo: `read_data_section` copiaba en crudo las páginas r2007 **sin
+comprimir** sin deshacer su codificación Reed-Solomon, y 136 de las 181 páginas de objetos
+de `sedapar` están así. Cierra también el #1361.
+
+**El formato no es el problema:** R2018 falla en el 1,2% (7 de 606 planos), R2013 en el 0,2%.
+Los puntos flojos son **R2007 (8,3%) y R2000 (11,3%)**.
+
+**Lección de método, más valiosa que los bugs:** comparar siempre contra **ODA File
+Converter** y contra **BricsCAD** antes de reportar. En este barrido eso descartó 5 de 14
+«bugs» y evitó dos falsos positivos míos. Y medir con el **mismo criterio en los dos lados**
+(entidades del modelspace del DXF de cada conversor); mezclar medidas distintas produjo dos
+cifras erróneas que hubo que retractar.
+
+⚠️ **`vendor/libredwg` YA NO es stock.** Se compila de `0.14.8556` **más los 13 parches**,
+todos abiertos como PR upstream; cada uno desaparece en cuanto se fusione y tomemos un
+release nuevo. El árbol de build lleva un `NO-ES-STOCK-LEEME.txt` que lo advierte, y el
+detalle vive en `tools/libredwg-patches/README.md`. IngeCAD lleva además un saneado del DXF
+recibido (`_dedupe_handles`), que se irá cuando #1356 aterrice.
+
+**Seis de los 7 parches comparten un patrón**: el código ya documentaba la conducta correcta
+y no la ejecutaba (tres líneas hermanas ya normalizaban el flag; el `else` de 8 líneas abajo
+ya calculaba el tamaño bueno; el `bit_read_UMC` fallido ya se detectaba y luego se ignoraba;
+el comentario ya prometía ±1000; `read_data_page` ya separaba RS de compresión y su único
+llamador las confundía). Los **dos** arreglos que intenté deducir del formato —los dos para
+el #1355— fallaron. Regla de oro: **buscar la contradicción interna del código antes de
+inventar semántica del formato.**
+
+**El séptimo (#1363) salió por otra vía y vale como segundo método**: ahí el código no se
+contradecía, el `TODO` admitía la duda y nada más. Salió de **medir y partir la población** —
+separar los objetos por la clase de página en la que caen y ver 0,0 % de fallo contra 96,6 %—
+con la entropía (7,87 contra 6,39 bits/byte) señalando «paridad intercalada», no «formato mal
+leído». Cuando el código no delata la causa, la delata la correlación; lo difícil es tener la
+variable correcta para cruzar.
+
+**Y una regla de medición, que costó decirle dos veces a Marco que un plano abría cuando no:**
+un arreglo no está terminado hasta que está en `vendor/` y medido con `load_dwg()`. Medir en
+`externos/build-libredwg/` es trabajo en curso, no resultado — son binarios distintos.
+
+**El frente ahora son los issues de otros**, y ahí van **8 de los 13 parches**: el #1294
+(jun 2026), el #767 (jun **2023**), y el #523 + #1012 con el PR #1365. El #523 llevaba
+**cuatro años** abierto con cuatro personas reportándolo, y el reproductor era el propio
+archivo de prueba de LibreDWG. Método que funcionó: buscar issues cuyo síntoma sea primo de
+uno ya resuelto, y no dar por sentado que el parche propio los cubre —el #1362 NO arreglaba
+el #767, aunque el mensaje de error fuera idéntico.
+
+⚠️ **Y la lección de medición, que vale para todo el proyecto: medir de punta a punta, y
+con un criterio que no dependa de mi interpretación.** Mi primer parche ahí era demostrablemente correcto (una línea) y
+mi analizador de coordenadas decía «7 de 40 mejoran contra 1». Al **renderizar a PNG y contar
+píxeles con tinta**, dos planos habían pasado de 134 píxeles a 0. La medida indirecta y la
+real se contradijeron y ganó la real. En el #1021 casi reporté 15 nombres «corruptos» que
+estaban perfectos, porque los leí en latin-1 cuando eran UTF-8; el criterio bueno era
+`iconv -f UTF-8`, que no opina. Es la misma familia que la regla de `vendor/`: el resultado
+es lo que ve el usuario, no lo que dice el paso intermedio ni cómo yo decodifico los bytes.
+
+**Y verificar issues viejos vale tanto como arreglarlos.** Cuatro de los que abrí resultaron
+ya resueltos (#327, #426, #663, #973); comentar con números y proponer cerrar le ahorra
+tiempo a todo el que los lea después. En los cuatro medí **campo por campo contra ODA**, no
+solo los conteos — y en el #663 eso evitó que reportara como defecto los handles nulos del
+DIMSTYLE, porque ODA escribe más que LibreDWG.
+
+**Y el criterio de regresión hay que elegirlo según el parche.** Para el #1369 (marcas de
+tiempo) comparar los DXF byte a byte no sirve: cambian los 151 planos que tienen fecha. El
+criterio bueno fue «¿alguna línea NO numérica cambia?» (ninguna) más «¿cuántas líneas cambia
+como máximo un archivo?» (12 = 6 variables × 2 lados) y «¿todas van precedidas de un `$TD`?»
+(sí). Un «146 idénticos» no siempre es la prueba correcta.
+
+**Siguiente objetivo:** ya no hay bug de lectura propio pendiente. Queda el #1356 (handles
+duplicados en el DXF emitido, 1150 en `sedapar`), que IngeCAD sortea con `_dedupe_handles`, y
+dos cosas propias: que `load_dwg()` avise en vez de mostrar lienzo blanco cuando el DXF llega
+truncado, y que LibreDWG descarta `ACAD_PROXY_ENTITY` por completo (explica 3 de las 5
+pérdidas parciales silenciosas). Con la lectura resuelta, el siguiente frente real de Track L
+es la **escritura** (L4: r2013/r2018) — y eso exige decidir el CLA.
+
+### ✅ Tercera tanda (2026-08-09) — la ESCRITURA, cazada por fuzzing (L2 write)
+
+El barrido de lectura estaba agotado, así que se construyó el complemento que faltaba:
+**`tools/dwg_fuzz.py`**, el harness round-trip del write path (ezdxf → `dxf2dwg` →
+`dwg2dxf` → comparar el modelspace huella a huella). Cada dibujo deriva de su semilla
+por un *spec* JSON, así que un fallo se reproduce desde el entero y se reduce quitando
+entradas del spec sin perturbar al resto. 2000 semillas corren en 15 s.
+
+**Primera campaña: el 94 % de los dibujos NO sobrevivía el viaje.** De ahí salieron
+**8 bugs de raíz distinta, los 8 con parche y PR: #1370–#1377**, todos verificados
+también contra el master de upstream (idéntica distribución de fallos que el vendor):
+
+- **#1370 (el grave):** `in_postprocess_SEQEND` re-envolvía un handle *relativo* como
+  absoluto → `INSERT.first_attrib = 2` (¡la tabla LTYPE!) → **AutoCAD/ODA rechazaban
+  entero cualquier DWG nuestro con bloques con atributos**. La promesa central del
+  producto («le devolví el plano sano al colega») estaba rota para ese caso y nadie lo
+  sabía porque LibreDWG sí leía su propio archivo.
+- **#1371:** los subentes (ATTRIB/VERTEX/SEQEND) se archivaban en la cadena del bloque
+  con entmode 2; AutoCAD los guarda con entmode 0, owner = entidad padre y fuera de la
+  cadena. ODA descartaba los ATTRIBs y el último vértice de cada polilínea.
+- **#1372:** `out_dxf` avisaba «stale subentity»… y lo escribía igual → vértices
+  duplicados al re-exportar. (El caso SEQEND de arriba ya hacía `return 0`.)
+- **#1373:** un BLOCK_HEADER sin BLOCK abortaba TODO el export DXF en r2004+ (por eso
+  el writer r2004 «perdía» el 100 % de los dibujos); r2000 sobrevivía el mismo dibujo.
+- **#1374:** SPLINE de solo fit-points → scenario 1 vacío. La línea correcta estaba
+  **comentada** en el handler del 74.
+- **#1375:** DXF r2007+ es UTF-8, pero `dynapi_set_helper` hace memcpy crudo a campos
+  codepage → mojibake en todo string no-ASCII (`CAÑERÍA` → `CAÃ‘ERÃ...`).
+- **#1376:** al bajar a r2000, `bit_downconvert_CMC` pisaba el índice ACI válido con una
+  búsqueda inversa por RGB que devuelve el primer match — y la paleta tiene RGB
+  repetidos: **170→5, 10→1: re-coloreo silencioso**.
+- **#1377:** el handler 420 dejaba método 0 (inválido) y nunca ponía el flag 0x80 que
+  el encoding r2004+ exige para escribir el rgb → todo true color perdido.
+
+**Con los 8: la campaña pasa de 5,6 % OK a 90 % — r2000 y r2004 al 100 %** (lo restante
+es el writer r14, pre-R13, otra historia). Verificación: `make check` upstream 254/254;
+bench de los 1657 DWG reales contra la base stock: **0 empeoran**, 10 mejoran (+118 788
+entidades, las ganancias ya conocidas de la 2ª tanda); ODA lee ahora completo lo que
+escribimos (ATTRIB=1, VERTEX=3/3, sin errores); cada parche compila aislado en árbol
+limpio.
+
+**Método nuevo que quedó validado — la referencia ODA campo a campo:** cuando el formato
+no está documentado, convertir el MISMO DXF con ODA a DWG, leer ambos con `dwgread -O
+json` y comparar entidad a entidad. Así salieron entmode/owner/cadena correctos (#1371)
+sin especular; mi primer intento (heredar entmode 2 del padre, «plausible») era
+exactamente lo contrario de lo que AutoCAD hace, y solo la referencia lo delató.
+Y la de siempre, tres veces más: la contradicción interna primero — la línea comentada
+(#1374), el «stale» que avisa y escribe igual (#1372), el `dwg_dup_handleref` de al lado
+que ya usaba `absolute_ref` (#1370).
+
+⚠️ **Pendiente decidido a propósito:** `vendor/` sigue en `0.14.8556 + 13`; estos 8 NO
+están en vendor todavía. El #1370/#1371 afectan el «Guardar como DWG» de IngeCAD hoy
+(un plano del colega con bloques con atributos se re-guarda ilegible para AutoCAD), así
+que la próxima re-vendorización debería ir a base `0.14.8566` (ya trae 5 de los 13) +
+los 8 no fusionados de la 2ª tanda + estos 8. El harness quedó commiteado
+(`tools/dwg_fuzz.py`); la cola conocida: writer r14 (~200/2000 fallos, nicho) y el
+duplicado huérfano de `*Model_Space` que `in_dxf` deja al importar (hoy solo inocuo
+gracias a #1373).
+
+### ✅ Cuarta tanda (2026-08-09, misma sesión extendida) — la cola r14 + el harness ensanchado
+
+Con el fuzz seco en su primera configuración, dos movimientos: cazar la cola r14
+(197 fallos ya cosechados) y **ensanchar el harness** — DIMENSION renderizada, MINSERT,
+LEADER, ATTDEF, target r12, fuente R12, y comparación del CONTENIDO de los bloques (el
+compare de modelspace solo era ciego a la corrupción dentro de definiciones). Salieron
+**10 causas raíz más: PRs #1378–#1385** e issue **#1386**:
+
+- **#1378 (cuádruple, r13/r14):** el bit `isbylayerlt` se escribía ANTES del fixup que lo
+  calcula (vivía en el spec de handles, que corre después, y encima exigía
+  `from_version == R_2000` exacto); el ternario del decoder con la rama `: 3` muerta bajo
+  su propio `if`; CONTINUOUS/BYBLOCK sin handle materializado (r14 no tiene esos flags);
+  y el grupo 48 (ltype_scale) preso en una puerta `SINCE (R_2000b)` del writer DXF.
+  Con los cuatro: r14 pasó de 2 % a 100 % en linetype.
+- **#1379:** MTEXT con grupo 50 (rotación, válido, lo escribe el renderer de cotas de
+  ezdxf) → «Invalid DXF code» → **aborta el archivo entero**. Una cota en el plano y el
+  import devolvía nada.
+- **#1380:** `--as r12` **jamás funcionó**: el help lo anuncia como válido pero
+  `dwg_version_as` solo conoce «r11» (y el mensaje de error imprimía `argv[1]`:
+  «Invalid version '-y'»).
+- **#1381:** al escribir r11/r12 desde fuente r13+, los placeholders `0xDEADBEAF` de las
+  direcciones de tablas quedaban **sin parchear** (la pasada existía pero estaba bajo
+  `from_version < R_13b1`, con un FIXME que pedía una conversión que ya ocurría), y un
+  `strcmp` sensible a mayúsculas contra `*MODEL_SPACE` reclasificaba TODA entidad de
+  modelspace como contenido de bloque → dibujo vacío.
+- **#1382:** `dwg_next_handle` — el comentario promete «el handle más alto» y el bucle
+  tomaba el del último objeto con handle no-cero → handles duplicados en imports DXF.
+- **#1383:** los macros `VALUE_HANDLE`/`FIELD_HANDLE_N` elegían rama con DOS variables
+  distintas (`PRE` por target, `IF_ENCODE_SINCE_R13` por FUENTE): fuente R12 → target
+  r2000 no satisfacía ninguna y **no se escribía ni un handle** (225 overflows al releer
+  un dibujo de una línea).
+- **#1384:** los DXF R12 nombran sus bloques de layout `$MODEL_SPACE`/`$PAPER_SPACE`
+  (convención de AutoCAD) y todos los matchers del importer solo conocen `*Model_Space`
+  → toda entidad inalcanzable. Normalización en el lector de pares.
+- **#1385:** MINSERT de una columna volvía con `70=0` (DXF omite 70/71 cuando valen 1;
+  el default va en el hook de completado, NO en el upgrade — ponerlo ahí chocó con la
+  protección «already set» del matcher y causó una regresión que la propia campaña cazó
+  al instante).
+- **#1386 (issue):** lo que queda del writer pre-R13 (offsets de sección de bloques con
+  el marcador 0x40000000 filtrado; fuente R12 → r2000 aún estructuralmente coja aunque
+  → r2004 ya convierte completo), medido y documentado — territorio WIP de rurban, va
+  como datos, no como parche.
+
+**Estado del fuzz tras la tanda: fuente moderna → r2000/r2004 100 %, → r14 100 %**
+(los «BLOCKDIFF» restantes eran los 21 bloques de flecha estándar que LibreDWG
+materializa — relleno benigno, el harness ahora lo tolera). Todo el residuo (450/2000)
+es la vena pre-R13 del #1386. Verificación de siempre: make check 254/254, bench de
+1657 planos reales **0 empeoran** (y una lección de proceso: el primer bench de esta
+tanda se corrió mientras el árbol seguía recompilándose — contaminado, repetido con el
+árbol congelado; los benches de regresión exigen árbol quieto).
+
+**Método nuevo validado: el harness como red de seguridad de mis PROPIOS parches.** El
+default de MINSERT mal ubicado (en el upgrade en vez del hook de completado) rompió 671
+dibujos — la siguiente campaña lo cazó en 15 segundos y el repro dijo exactamente por
+qué («already set to 1» + abort). Fuzz que encuentra bugs ajenos también encuentra los
+míos: correr la campaña tras CADA parche, no solo al final.
+
+---
+
+### ✅ Quinta tanda (2026-08-09, sesión extendida) — medir contra ODA, proxy, y arrancar L4
+
+Tres frentes del plan de Marco: (1) medir la paridad real contra ODA, (2) cazar el
+gráfico proxy, (3) empezar L4 (el writer moderno) en el fork.
+
+**(1) La medición honesta ODA vs LibreDWG sobre los 1657 planos reales.** Herramientas
+nuevas (`tools/oda_classify.py` + `tools/oda_vs_libredwg.py`), con el MISMO criterio
+ezdxf en ambos lados —convertir todo el corpus con ODAFileConverter a DXF y clasificar
+igual que `dwg_bench`. Resultado: **96,8 % de paridad (1604/1657)**. ODA adelante en 30
+(la mayoría NO son bugs de lectura: 7 `Helix` = spline 3D que no interpretamos, ~7 de
+Civil 3D/decode r2007 ya conocidos, ~15 `COUNT_DIFF` chicos por la conversión ACAD2018).
+Y **LibreDWG adelante en 15** —archivos viejos r11/r13/r2 que ODA rechaza con `OdError`
+y nosotros abrimos. Conclusión para el producto: **en lectura ya estamos en paridad
+práctica con ODA para el flujo real**; lo que falta es nicho (spline 3D, Civil 3D
+propietario, un par de bugs r2007), mapeado archivo por archivo en `oda-vs-ldwg.csv`.
+
+**(2) El gráfico proxy — PR #1387.** `dwg2dxf` descartaba por completo las entidades de
+clase no parseable (`UNKNOWN_ENT`: carreteras de Civil 3D, entidades de apps), perdiendo
+su gráfico. Ahora las preserva como `ACAD_PROXY_ENTITY` con el blob de gráficos (grupos
+90/91/95/70 + 92 tamaño + 310 hex), como hace ODA. **Medido: +181 planos con más
+entidades, +112 090, 0 regresiones**, y dos planos de Civil 3D que estaban vacíos ahora
+convierten. El frontend de IngeCAD (`ProxyGraphicPolicy.SHOW`) los DIBUJA solo. Es
+round-trip-safe: el propio `in_dxf` lo relee (verificado por `make check`). Lección de
+método, otra vez el harness atrapándome: mi v1 rompía el reimport (grupo 95 en hex donde
+el lector espera decimal) y `make check` lo cazó al instante; el bench de corpus
+(DWG→DXF→ezdxf) no habría visto ese fallo porque no ejercita el regreso DXF→DWG. Cada
+prueba cubre un tramo distinto; hay que correr las dos.
+
+**(3) L4 arrancado — rama `l4-r2018-writer` en el fork, doc en
+`docs/L4-r2018-writer-findings.md`.** El hallazgo que cambia el plan: **LibreDWG YA
+escribe r2004/r2010/r2013/r2018 y relee su salida con éxito** —pero ODA la rechaza. Con
+ODA como único juez válido: el **writer r2004 YA funciona** (ODA acepta same-version),
+así que L4 no es «escribir el contenedor moderno desde cero» sino la capa de
+**section-map + page-checksum de r2010/2013/2018**. r2018 está a **un solo CRB
+consistente** de distancia («CRC does not match», reproducible con un archivo de UNA
+línea). La trampa clásica confirmada en su forma más pura: LibreDWG verifica su propio
+CRC malo como bueno (`crc32 => verified`) porque computa igual en escritura y lectura —
+por eso su lector NUNCA lo cazará y **solo ODA/AutoCAD sirve de oráculo para L4**.
+Descartado que sea el tamaño (r2004 también pesa 1.6 MB por una línea y ODA lo acepta).
+Siguiente paso anotado: comparar byte a byte los section-page headers contra una
+referencia r2018 escrita por ODA. Y el CLA sigue pendiente: L4 es aporte grande, vive en
+el fork hasta madurar.
+
+## 🎯 LO PRIMERO DE LA PRÓXIMA SESIÓN (pedido de Marco, 2026-09-06)
+
+**1. ✅ Cazado el 2026-09-06 (ver la sesión «quinquies»). Cazar el fallo de segmentación del pre-calentador (es un bug del
+núcleo, no de los complementos).** Una de cinco corridas completas de la
+suite del 2026-09-06 murió con SIGSEGV al 75 %, en
+`tests/test_shortcut_commands.py::test_select_similar_and_isolation_run_end_to_end`,
+antes de que corriera ningún test de Terreno. La traza (`faulthandler`,
+guardada en la nota de la sesión G4): el hilo **`cache-warmer`**
+(`views/tool_controller.py:81`, `_IndexWarmer.run` → `core/select.py:500`,
+`GeometryIndex._build`) estaba **recolectando basura** y esa recolección
+finalizó envoltorios de Qt (`shibokensupport/feature.py`) mientras el hilo
+principal pintaba iconos (`views/color_dialog.py:75 swatch_icon` ←
+`layers_panel.fill_color_combo` ← `_refresh_props_toolbar` ←
+`attach_document` ← `new_document`). Qt sólo admite crear y destruir
+objetos GUI (QIcon, QPixmap) desde el hilo de la interfaz; el GC de Python
+corre en el hilo que lo dispara, así que basura cíclica con iconos creada
+por el hilo principal puede morir en el hilo del calentador. **No es sólo
+de la suite: el calentador corre en la app real en cada plano abierto.**
+Pistas para el arreglo: (a) que el calentador no dispare el GC —
+`gc.disable()` al entrar y `gc.enable()` al salir, o `gc.freeze()`—, o
+(b) que los iconos no formen ciclos (los combos guardan `QIcon` por fila;
+buscar quién retiene una referencia circular), o (c) una recolección
+explícita en el hilo principal antes de lanzar el hilo. Reproducirlo
+primero: correr la suite entera varias veces, o el test con un
+`gc.set_threshold` bajo que fuerce recolecciones en el calentador. El
+archivo aislado pasó 3/3 y la corrida completa siguiente pasó entera.
+
+**2. Después, en otra sesión: dogfooding de los complementos de Terreno
+ANTES de cualquier release.** Marco va a probar GEOREF, LATLON,
+DEMPOINTS, DEMPROFILE, SATIMAGE, KMLIN, KMLOUT y KMLOVERLAY sobre planos
+reales, más el DWG con imagen en BricsCAD y los dos KMZ en Google Earth
+(`capturas/`). La v0.5/v0.6 se publican sólo con su OK y después de esa
+prueba (regla `[[preguntar-antes-de-release]]`). Redes (v0.7) no se abre
+antes.
+
+**3. En ese mismo dogfooding, los atajos de teclado (pedido de Marco,
+2026-09-06).** Lo que HAY hoy, para probarlo con los dedos y no con la
+suite (`views/main_window.py`, tabla `_MODES` y `_build_menus`):
+- Modos de la barra de estado con su tecla de AutoCAD: **F3** REFENT
+  (OSNAP), **F7** REJILLA (GRID), **F8** ORTO (ORTHO), **F10** POLAR;
+  **LWT** sólo con clic (no tiene tecla en AutoCAD tampoco). **F2** abre y
+  cierra la ventana de texto.
+- **Ctrl+R** cicla la ventana gráfica actual en una lámina; **Ctrl+0**
+  pantalla limpia; **Ctrl+Z / Ctrl+Y** deshacer y rehacer (también desde
+  la línea de comandos, donde un QLineEdit se los quedaría); **Ctrl+C /
+  Ctrl+X / Ctrl+V** con punto base como AutoCAD; **Supr** borra la
+  selección; **Ctrl+F** buscar texto; **Ctrl+N / Ctrl+O / Ctrl+S /
+  Ctrl+Shift+S / Ctrl+P / Ctrl+Q** archivo; **Esc** cancela; **Espacio o
+  Enter** ejecutan y **Enter en vacío repite el último comando**.
+- Lo que **NO** existe y AutoCAD sí tiene, para decidir si entra: **F9**
+  (FORZC, el salto a la rejilla: no hay modo SNAP de rejilla en absoluto),
+  **F11** (rastreo de referencia a objetos, OTRACK), **F12** (entrada
+  dinámica junto al cursor), F4/F5/F6 (tableta, isoplano, SCP dinámico:
+  fuera del filtro maestro). De esos, FORZC y OTRACK son memoria muscular
+  del que dibuja rápido; anotar en la prueba cuáles echa de menos Marco.
+✅ **Hecho el 2026-09-06 (a2bdc1e): FORZC y toda la tabla de AutoCAD;
+ver la sesión «quater».**
+
+**4. ✅ Hechas el 2026-09-06 (ver la sesión «sexies»). Para la PRÓXIMA RELEASE (pedido de Marco, 2026-09-06): F11 y F12 como
+funciones.** **F11 = OTRACK** (rastreo de referencia a objetos: adquirir
+un punto de referencia pasando el cursor y trazar desde él líneas de
+rastreo ortogonales/polares) y **F12 = DYNMODE** (entrada dinámica: el
+prompt y las cotas junto al cursor). Son funciones, no teclas: cuando
+existan, la tecla se agrega a `_MODES` / `_build_acad_shortcuts` y al test
+de teclado. Van después del dogfooding de Terreno y antes de publicar.
+
+## 🗓 Sesión 2026-09-16 (quater) — tanda D: origen, LASTPOINT, cursor pintado, la fila de la capa nueva
+
+**Marco: «hagamos la tanda D» (7fbeb97).** Los tres puntos que quedaban
+del reporte de Rafael, con esto cierran los diez:
+
+- **#10 Origen y `0 ↵`.** *Origen* como referencia a objetos (`core.osnap`
+  ORI, bit 65536 sólo en QSettings —el `$OSMODE` de un dibujo nunca lo ve—,
+  apagado por defecto; `ALL_KINDS` del motor lo excluye a propósito: es un
+  punto sin dueño, se ofrece sólo si se marca). Y **LASTPOINT** en el
+  controlador: una distancia directa o un `@` antes de que el comando tenga
+  punto propio se mide desde el último punto introducido (ref. p. 2134),
+  que un dibujo nuevo empieza en el origen → `0 ↵` = (0,0), `5 ↵` = a 5 del
+  último punto hacia el cursor. Antes las dos daban «Invalid point». El
+  default relativo de DIN sigue siendo para el segundo punto en adelante.
+- **#2 El puntero parpadea al panear.** Medido con un arrastre real de 60
+  movimientos: la app cambia el cursor del sistema **exactamente dos
+  veces** (mano cerrada al apretar, blanco al soltar). Lo que parpadea es
+  el cursor del sistema sobre una superficie GL que redibuja a 60 Hz —
+  NVIDIA bajo XWayland, el caso clásico, y la 0.6.1 acaba de mandar a
+  XWayland justamente la máquina con NVIDIA—. Las dos manos y la cruz de
+  ZOOM Ventana se **pintan en el cuadro** (`_soft_cursor`,
+  `_draw_soft_cursor`), como la mira desde siempre; queda un solo
+  `setCursor` en el lienzo, el Blank del constructor. ⚠️ No se puede ver
+  el parpadeo desde acá: la prueba es que no queda cursor del sistema que
+  pueda parpadear. Rafael tiene que confirmarlo.
+- **#3 Capas «no imprimibles».** No reproducible por ningún camino (panel
+  con nada / Defpoints / 0 seleccionado, dibujo nuevo y DWG real de
+  LibreDWG, `-LAYER N`, `NewLayerCommand`): toda capa nueva nace con
+  plot=1. Lo que sí: tras «Nueva» **la fila resaltada era el índice de
+  antes del reordenamiento** —Defpoints en un dibujo nuevo, que no imprime
+  y muestra 🚫— y leerla como «mi capa nueva» ES el reporte. Ahora la capa
+  nueva queda seleccionada con el nombre en edición (AutoCAD hace lo
+  mismo).
+
+⚠️ **Método:** el #2 y el #3 no se reprodujeron como bugs y se arreglaron
+igual, midiendo lo que la app hace de verdad (dos `setCursor` por
+arrastre; qué fila queda resaltada) en vez de discutir el reporte. Y
+dos trampas de arnés: el `open_path` sobre un documento sucio abre un
+QMessageBox modal que cuelga el script en offscreen (`maybe_save_changes
+= lambda: True`), y `os._exit` sin `print(..., flush=True)` se traga las
+líneas. Suite: 1330 passed, 1 skipped (en cuatro procesos).
+
+**Los diez puntos de Rafael están resueltos y commiteados; nada
+publicado.** La 0.6.2 va con el OK de Marco, idealmente tras una segunda
+pasada de Rafael con sus archivos (#2 y #3 sólo los puede confirmar él).
+
+## 🗓 Sesión 2026-09-16 (ter) — tanda C: Parámetros de dibujo (polar y rejilla)
+
+**Marco: «sigue la tanda c» (ac36d79).** Dos puntos de Rafael, y debajo
+del primero un bug propio:
+
+- **#5 Polar.** El incremento era un `math.radians(45.0)` clavado en
+  `tool_controller.py`, y **con POLAR encendido todo punto se redondeaba
+  al múltiplo de 45°**: no se podía dibujar una línea a 30°. Ahora es el
+  rastreo polar de AutoCAD (`core/drafting.polar_lock`): el cursor queda
+  libre y una ruta de alineación desde el último punto lo atrapa sólo
+  dentro de la apertura de rastreo, con la ruta punteada y «Polar: <30°».
+  POLARANG (90 por defecto, el de AutoCAD; era 45), POLARADDANG y POLARMODE
+  (relativo al último segmento —el controlador recuerda los dos últimos
+  puntos que tomó una herramienta—, rastreo de referencia con todos los
+  ángulos polares) en QSettings, como el registro de AutoCAD. ORTO sigue
+  ganando.
+- **#1 Rejilla.** La escalera 1-2-5 reacomodaba la retícula en cada
+  escalón. `core/drafting.grid_level`: **anidada** —GRIDUNIT × GRIDMAJOR^k,
+  celdas en [25, 125) px— con banda de histéresis en cada umbral. GRIDUNIT,
+  SNAPUNIT y GRIDMAJOR **se leen y escriben en el VPORT `*Active` del
+  dibujo** (grupos 15/14/61, donde AutoCAD los guarda; `SetGridCommand`,
+  deshacible) con el default métrico/imperial por `$INSUNITS` cuando el
+  archivo no trae nada. SNAPUNIT 0 conserva el FORZC-sigue-la-rejilla-visible
+  de BricsCAD que ya teníamos; un dibujo que fija uno recibe el de AutoCAD.
+- **El diálogo** (`views/drafting_dialog.py`): tres pestañas como AutoCAD
+  (Forzcursor y rejilla / Rastreo polar / Referencia a objetos, esta última
+  el panel que ya existía), desde Herramientas ▸ Parámetros de dibujo…,
+  DSETTINGS (DS, SE), OSNAP (OS) y el clic derecho de los toggles de la
+  barra de estado, cada uno en su pestaña. Las seis variables tecleables
+  como SAVETIME (valor en la línea o prompt).
+
+⚠️ **Tres trampas de arnés:** (1) `monkeypatch` sobre `QMenu.exec` **no
+toma** (Shiboken): el test colgó en el `exec` real; la lógica «qué pestaña
+abre cada toggle» se sacó a `_mode_settings_tab` y se prueba pura. (2) Un
+fixture que apaga `osnap_on` y luego abre el diálogo **lo guarda apagado
+en QSettings** para toda ventana posterior: `test_f3_is_remembered…` cayó
+por eso, no por el código. (3) `grabFramebuffer` **no muestra la rejilla en
+el primer cuadro** tras encenderla; capturar dos veces. Y el pkill con el
+patrón en la propia línea de comandos, por tercera vez en el día.
+
+## 🗓 Sesión 2026-09-16 (bis) — tanda B: la lámina (panear no borra, snap a través de la ventana)
+
+**Marco: «sigue la tanda b».** Dos puntos de Rafael, y de reproducirlos
+salieron **cuatro bugs**, tres de ellos viejos y silenciosos:
+
+- **#7 «al panear dentro de una ventana desaparece el dibujo»
+  (6fcb7c6).** Reproducido primero en una lámina sintética midiendo la
+  escena que dibuja el lienzo (vértices con alfa > 0): 264 antes del
+  paneo, **8 tras el commit del gesto, 8 tres segundos después**. El
+  commit retiraba la matriz viva con la copia horneada aún oculta y **no
+  le pedía la regen a nadie** (el comentario la prometía). Ahora el commit
+  pide la lámina fresca y la matriz viva se queda hasta que `_on_regen_done`
+  la adopta (o re-oculta el horneado si empezó otro gesto). ⚠️ **Mirar los
+  píxeles bajo xcb destapó la segunda mitad:** la matriz viva tampoco
+  dibujaba nada visible — el modelo se teselaba para el lienzo del modelo
+  (ACI 7 **blanco**) y se pintaba sobre el papel blanco. En un plano
+  dibujado en «color 7», todo el dibujo desaparecía en cuanto empezaba el
+  paneo. `build_scene(canvas=lámina)` resuelve contra el papel como hace
+  el `draw_viewport` de ezdxf: **11 píxeles de diferencia en 1 151 880**
+  entre la imagen viva y el horneado. Y en el plano real (todas las
+  ventanas recortadas → el camino vivo nunca engancha) el primer tic
+  pagaba **5,1 s síncronos** construyendo el modelo para descubrirlo:
+  ahora se miran los placements antes (5149 → 0 ms). «Le costó salir»: el
+  doble clic en papel pelado picaba a través de la proyección y podía
+  abrir el editor de un texto del modelo; ahora sólo pica dentro de la
+  ventana activa, y el clic en papel pelado dice una vez cómo salir.
+- **#8 «sin snap al acotar en espacio papel» (e65257c).** Segundo
+  `SnapEngine` atado al modelspace real (`SnapEngine(space=…)`), consultado
+  en `paper_to_model(cursor)` con la apertura dividida por la escala; el
+  hit vuelve en papel con `SnapHit.via` = la ventana. **Y la medida:** una
+  cota cuyos puntos vinieron todos por la MISMA ventana lleva
+  `DIMLFAC = 1/escala` (resuelto una vez en `AddDimensionCommand`, sobrevive
+  a undo/redo, override de estilo que cualquier CAD honra): lee 100 por un
+  muro de 100 dibujado a 20 mm. El calentador construye también ese motor
+  y **ahora corre en cada cambio de espacio**, no sólo al abrir.
+- ⚠️ **El bug gordo, destapado midiendo el snap sobre el plano real:
+  `core/layouts.py` ignoraba el `view_target_point`.** El grupo 12/22 es
+  el centro de vista en coordenadas de *display* (el marco girado por el
+  twist) y relativo al target (17/27, un punto WCS). Leído en crudo como
+  WCS sólo acierta con twist 0 y target 0 — y **8 de las 30 ventanas** del
+  plano del colega llevan target UTM (529 876, 8 573 039) con centro
+  (−528 160, −8 572 730): el modelo «bajo la ventana» quedaba a medio
+  millón de unidades y nada se podía picar, enganchar ni editar a través
+  de ellas. La verificación del 2026-08-29 cayó en A-02, cuyas 13 ventanas
+  tienen target (0,0,−1000): casualidad. Ahora `view_centre_wcs` = `target
+  + R(−twist)·centro` (la matriz de ezdxf, invertida), fit y ZOOM Ventana
+  convierten al revés (`dcs_view_center`), y rueda/paneo se quedan en
+  coordenadas de display, donde ya estaban bien. **Verificado contra la
+  matriz de ezdxf en las 30 ventanas: peor diferencia 1e-9.** Después: 84
+  y 131 snaps a través de la ventana girada y de la de target UTM en 600
+  hovers de grilla, 0,4-0,9 ms por hover.
+
+⚠️ **Método:** el estado (`_live_vp`, alfa de vértices, regen en vuelo)
+bastó para el primer bug y para los tests; **sólo los píxeles** (xcb,
+`grabFramebuffer`, tríptico) mostraron el segundo. Y `pgrep -f` con el
+patrón en la propia línea de comandos del watcher: otra vez (matado a
+tiempo). 14 tests nuevos; suite completa **1308 passed, 1 skipped**. ⚠️ Y una
+regla de arnés nueva: la suite entera en UN proceso (21 min, 2,7 GB, 371
+hilos por las ventanas que los tests dejan abiertas) fue **matada por
+memoria** en esta máquina; en cuatro procesos por lotes de archivos
+(`split -n l/4` sobre `tests/test_*.py`) corre en 8 min y no pasa nada.
+Correrla así cuando el CI no esté a mano.
+
+## 🗓 Sesión 2026-09-16 — el reporte de Rafael: tanda A (tipos ISO, cota Ø, ejes de centro)
+
+**Rafael (segundo probador, dibuja a norma ISO/UNE) mandó 10 puntos; el
+plan quedó en cuatro tandas (memoria `[[rafael-feedback-2026-09]]`) y
+Marco dijo «empieza por la tanda A».** Tres cosas, las tres con causa
+medida antes de tocar:
+
+- **#4 Tipos de línea ISO (952e8aa):** `LoadLinetypesCommand` le pasaba a
+  ezdxf la lista de trazos pelada y `linetypes.add()` espera
+  `[longitud_total, trazo, …]`: el primer trazo se comía como longitud.
+  ISO02 `[12,-3]` quedaba `[-3]` (ezdxf lo dibuja **sólido**: «no lo
+  cargó») e ISO04 punteada («lo cargó con otro nombre»). Los 20 nombres
+  que un dibujo nuevo no trae. ⚠️ El test que existía **conocía el
+  formato** (`pattern=[9.0, 6.0, -3.0]` en su propio fixture) y sólo
+  comprobaba que la entrada existiera. Ahora carga la biblioteca entera y
+  exige `pattern_of == biblioteca`, más un render que cuenta vértices
+  (134, no 2).
+- **#6 Cota de diámetro (4316044):** dos bugs. El texto caía **al lado
+  opuesto del clic** —`add_diameter_dim(angle=…)` mide el ángulo al primer
+  defpoint y pone el texto pasado el segundo; DIMRADIUS no lo sufría—, y
+  las dos flechas salían con **la misma rotación** (una dentro apuntando
+  afuera, otra fuera apuntando adentro). La norma y la ISO-25 de AutoCAD
+  (DIMTOFL on): línea a través del círculo, **dos flechas dentro** con la
+  punta en el círculo, texto fuera sobre la prolongación; si no caben,
+  fuera apuntando adentro. ezdxf 1.4 no dibuja ninguna de las dos (con
+  location y DIMTMOVE 0/1 le falta la flecha lejana), así que
+  `core/ezdxf_patches.py` toma el caso «texto fuera + DIMTOFL» en los dos
+  renderers, camino default y de usuario (un `dim.render()` posterior
+  olvida el user location). ⚠️ ezdxf lee un DIMTMOVE ausente como 2 donde
+  AutoCAD vale 0: el parche lo lee con el default de AutoCAD, y la semilla
+  ISO-25 escribe ahora los flags de acadiso explícitos.
+- **#9 Ejes de centro (16cd366):** CENTERMARK / CENTERLINE (AutoCAD
+  2017+) como LINEs en `CENTER2` (cargado en el mismo paso de deshacer,
+  gracias al #4), cruz 0.1x + hueco 0.05x + ejes hasta CENTEREXE pasado el
+  círculo; las seis variables CENTER* tecleables (QSettings; DXF no tiene
+  cabecera para ellas). **CENTEREXE se guarda en mm de hoja y se convierte
+  por el estilo de cota actual** (dimtxt × dimscale = 2,5 mm), no por
+  $INSUNITS: el plano del colega en metros suele decir INSUNITS 0 y su
+  texto de 0,20 sí dice la verdad. DIMCENTER sigue haciendo lo de DIMCEN.
+
+**Verificado mirando la captura** (render a PNG con la Y volteada — el
+QGraphicsScene conserva la Y del mundo): Ø100 con flechas dentro y texto
+del lado del clic, Ø8 con flechas fuera, R50/R3, y las marcas de centro
+trazo-punto. Suite entera: 1293 passed (21 min en `offscreen`; esta
+máquina no tiene `xvfb-run`). Sin publicar: la 0.6.2 espera la tanda B y
+el OK de Marco.
+
+**Lo que sigue (tanda B):** #7 panear dentro de una ventana borra el
+dibujo —hipótesis: `_vp_live_stop()` retira la matriz viva con la copia
+horneada aún oculta y la regen es asíncrona; reproducir primero sobre
+`Planos Constructivos.dwg`— y #8 snap desde la hoja a través de la
+ventana **más DIMLFAC = 1/escala** para que la cota lea el modelo.
+
+## 🗓 Sesión 2026-09-05 — una pregunta, un lugar (el pedido de Marco, hecho)
+
+**Lo que Marco pidió el 2026-08-29 —reducir conceptos duplicados antes que
+cualquier feature— está hecho para los cuatro candidatos, con el método
+que se había fijado: primero una prueba que fija la conducta actual POR EL
+CAMINO REAL (un movimiento de mouse, un cambio de pestaña, un comando),
+después unificar, después medir.** `tests/test_one_question_one_place.py`
+tiene esas ocho pruebas; cuatro fallaban sobre el código de ese día, y dos
+de las cuatro no eran estructura sino **respuestas ya divergentes**:
+
+| pregunta | dónde se contestaba | qué había divergido |
+|---|---|---|
+| ¿cuántas unidades son N píxeles? | `SNAP_PX`/`PICK_PX` en el controlador, `GRIP_PICK_PX`/`SNAP_PX_HOVER`/`PICKBOX_PX` en el lienzo, un `12.0` suelto en `tools/dimension.py` | el imán de cotas medía sus 12 px sin la escala de la ventana: **dentro de una ventana 1:5 alcanzaba 5× menos** (8,8 contra 43,9 unidades) |
+| ¿qué tan fino aplano una curva? | tres sitios recalculaban `_flatten` con tres reglas; el Editor de bloques usaba una cuarta fórmula | en BEDIT el overlay pedía la tolerancia con la **cabecera del dibujo entero**: medido en el plano de pavimentos, 0,285 contra 0,000136 de la escena (**2 087×**); los arcos del bloque `escudo` salían con 560 vértices en el overlay contra 1 664 en la escena — un arco movido en el editor se veía poligonal hasta la regen |
+| ¿qué color es el ACI n? | tabla propia de 9 colores en `layers_panel` + fallback al diálogo | los RGB coincidían, pero **la etiqueta no**: Propiedades decía «Red» sin traducir mientras la barra decía «Rojo», y un 25 era «Color 25» en un combo y «25» en la línea de estado |
+| ¿cuál es el espacio actual? | ya estaba unificado por las properties de la sesión MSPACE | sólo quedaba `in_paper_space()` muerto y dos lecturas de «qué lámina hay en el lienzo» |
+
+**Dónde vive cada respuesta ahora:** `views/color_dialog.py` (`aci_qcolor`,
+`aci_label`, `ACI_NAMES`, `swatch_icon`, `BYLAYER`/`BYBLOCK`);
+`views/apertures.py` (SNAP_PX, GRIP_PX, `pickbox()`) más **la única
+conversión** `ToolController.px_to_space` —el lienzo ya no divide por su
+escala, llama `on_hover(wx, wy)` y `grip_at(wx, wy)` a secas—;
+`ToolController._flatten` es una property cacheada bajo (documento,
+espacio, VIEWRES), así que **nadie tiene que acordarse de recalcular** y
+`_header_diagonal` rechaza los bloques; `core/prefs.int_pref` para las
+cuatro preferencias enteras acotadas; `ToolController.sheet()`.
+
+**Medido como manda la casa, sobre `PD-01 Detalle Pavimentos.dxf`:** los
+triángulos del modelo (571 971) y la lámina entera **idénticos bit a bit**
+antes y después. ⚠️ Las líneas del modelo NO son comparables entre
+procesos: tres corridas del árbol viejo dan 82 684 / 82 688 / 82 702 y
+tres del nuevo 82 692 / 82 700 / 82 700 —bandas solapadas, ruido de
+resolución de fuentes—. El «±2» anotado en la sesión del 2026-08-22 es
+**±18** en un plano con mucho texto: **medir tres veces por árbol** antes
+de culpar a un cambio.
+
+⚠️ **Dos lecciones del método:** (1) un candidato de la lista puede estar
+ya resuelto —el cuarto lo estaba— y sólo la prueba lo dice; (2) al darle a
+la ventana falsa del arnés de cotas lo que le faltaba (`tools`), copiar la
+fórmula en el test habría sido **la segunda respuesta** que esta sesión
+existe para borrar: el fake se lleva la `px_to_space` real, ligada a su
+ventana falsa.
+
+**La regla queda, y es para todo lo que sigue: si dos sitios contestan la
+misma pregunta, tarde o temprano contestan distinto.** La búsqueda no está
+cerrada —esta sesión sólo cubrió los cuatro que ya se habían visto.
+
+## 🚀 v0.6.0 — 2026-09-06, con el OK de Marco («haz el release»)
+
+Una sola release para lo que el plan llamaba v0.5 y v0.6: el contrato de
+complementos y su gestor, Topografía (T1–T7) y Terreno (G1–G4), el teclado
+de AutoCAD con FORZC/RASTREO/DIN, y los arreglos del núcleo de estos días
+(el segfault del recolector en hilos de trabajo, el Ctrl+C ambiguo con dos
+complementos, los paneles que no seguían a los comandos). Detalle en
+`CHANGELOG.md`. Pendiente conocido: el dogfooding de Terreno con Marco
+sobre planos reales quedó para después de la publicación por decisión
+suya; lo que encuentre va a la 0.6.1.
+
+⚠️ **El primer build del tag falló, y bien:** el bundle de PyInstaller
+lleva los complementos como DATOS (se cargan por ruta), así que el
+análisis nunca ve lo que importan, y `core.georef` / `core.xdata` —que
+sólo los complementos importan— no se congelaron: los dos complementos
+salían «UNAVAILABLE» y `--check` tumbó el trabajo. El spec congela ahora
+todo `core` (`collect_submodules`) y las piezas de la biblioteca estándar
+que sólo los complementos usan, `tests/test_plugins.py` lo vigila, y el
+bundle congelado en local pasa `--check` con los dos complementos. El tag
+se movió al commit del arreglo; el Flatpak (que instala las fuentes) ya
+estaba publicado y no lo sufría. **Y el segundo build cayó en la suite del
+CI (Python 3.12, Xvfb): un test del guardián del GC creaba la basura
+cíclica ANTES de que el hilo pausara el recolector, y en 3.12 las
+asignaciones del hilo principal la recolectaban antes de que el hilo
+corriera —verde en 3.14 local, rojo en el CI—. El test crea ahora la
+basura después de la pausa, sincronizado con `Event`s. Tercer tag.
+⚠️ Mover un tag remoto convierte su release de GitHub en BORRADOR
+(notas y adjuntos sobreviven): `gh release edit vX --draft=false` después
+de re-pushearlo, o la release queda invisible mientras el CI le sube
+archivos.** **Y el tercer build cayó en tres esperas del fantasma de
+arrastre (`test_stamps`) que el workflow de tests había pasado en el
+mismo commit: el paso «Tests» del job del AppImage seguía corriendo la
+suite SIN Xvfb (plataforma offscreen), la configuración que el 2026-08-23
+se abandonó por inestable para `tests.yml` y que nadie alineó acá. Ahora
+las dos corren igual (Xvfb + xcb), y la espera del fantasma admite 20 s en
+vez de 5 para un runner cargado. Cuarto tag.**
+
+## 🗓 Sesión 2026-09-06 (sexies) — F11 y F12 como funciones: rastreo de referencia y entrada dinámica
+
+**Marco: «haz la 2».** Los dos modos que faltaban en la barra de estado
+de AutoCAD, en su orden (SNAP GRID ORTHO POLAR OSNAP **OTRACK DYN** LWT),
+con sus teclas y en español RASTREO y DIN.
+
+**OTRACK (F11), como lo usa un dibujante:** pasás el cursor por un punto
+de referencia (extremo, medio…) y lo dejás quieto un instante —300 ms, un
+`QTimer` de un disparo que sólo dispara si el cursor sigue sobre el mismo
+punto— y el punto queda **adquirido** (una cruz naranja). Desde cada
+punto adquirido salen **rutas de alineación** por los ángulos del orto
+(0° y 90°; con POLAR encendido también 45° y 135°), y cuando el cursor se
+acerca a una ruta dentro de la apertura de referencia se **bloquea en
+ella**; si está cerca de dos rutas de puntos distintos, en **su
+intersección** —que es el caso que vale: «el extremo de esa pared,
+alineado con el centro de aquella columna»—. El último punto del comando
+también genera rutas mientras ORTO o POLAR estén encendidos (así el
+rastreo polar de AutoCAD se combina con el de referencia). El tooltip dice
+lo que AutoCAD: «Endpoint: <90°», o «Endpoint: <90°, Endpoint: <0°» en
+una intersección. Volver a pausar sobre un punto adquirido lo suelta; un
+clic usa el punto y **libera todos los adquiridos**, como AutoCAD; apagar
+el modo también. Orden de prioridad, la de AutoCAD: referencia a objetos
+> rutas de rastreo > orto/polar.
+
+**DYN (F12), lo que cabe en un tooltip junto al cursor:** el prompt del
+comando y, debajo, lo que se está tecleando o —si no se teclea nada— la
+entrada de puntero: `x, y` absolutos antes del primer punto y
+`distancia < ángulo` desde el último después, con las unidades y la
+precisión del dibujo. **Y la regla que cambia la entrada:** con DIN
+encendido, un `10,5` tecleado después del primer punto es **relativo**
+(DYNPICOORDS 0) y `#10,5` fuerza absoluto; con DIN apagado, absoluto como
+siempre. Vive en `core/coords.parse_point(relative_default=…)`, un solo
+lugar, y el controlador pasa `self.dyn_on`.
+
+**Dónde vive cada cosa:** `ToolController` (`otrack_on`, `dyn_on`,
+`acquire_now`, `track_points`, `clear_tracking`, `_tracked`,
+`track_hint`, `dyn_lines`, `current_prompt` —el prompt de la herramienta
+pasa ahora por `_on_prompt`, que lo recuerda antes de mandarlo a la
+ventana de comandos—), el overlay del lienzo (`_draw_tracking`,
+`_draw_dyn_tooltip`), y los rótulos por `core.osnap.label_of` (un lugar).
+7 tests en `tests/test_otrack_dyn.py`, todos por el camino real:
+`on_hover` con apertura fija, `acquire_now` como el slot del timer,
+`on_click`, `on_text`, y F11/F12 pulsadas.
+
+## 🗓 Sesión 2026-09-06 (quinquies) — el segfault del pre-calentador, cazado
+
+**Marco: «cacemos ese bug que parece que estaba en el núcleo».** Estaba, y
+es más viejo que los complementos: desde que existe un hilo que corre
+Python fuera de la GUI (el pre-calentador de índices, el regen worker, el
+autoguardado, el fantasma de arrastre, las miniaturas de la ventana de
+inicio).
+
+**El mecanismo, medido y no supuesto.** CPython corre una recolección de
+basura cíclica **en el hilo que cruza el umbral de asignaciones**, sea
+cual sea. Si la basura que encuentra tiene envoltorios de Qt creados en la
+GUI (iconos, pixmaps, acciones atrapados en un ciclo de referencias), sus
+destructores corren en ESE hilo, y Qt prohíbe destruir objetos de GUI
+fuera del hilo de la GUI. Reproductor (`scratchpad/segv_repro.py`):
+`gc.set_threshold(5, 1, 1)` para que cada asignación dispare una
+recolección, y ciclos de iconos fabricados en la GUI mientras el
+calentador recorre un dibujo de 400 círculos. **Sin arreglo: SIGSEGV en la
+primera ronda de la primera corrida**, con la misma traza que la suite
+(hilo `cache-warmer` «Garbage-collecting» dentro de `snap._build`, hilo
+principal en `swatch_icon`). Las dos corridas siguientes sin arreglo no
+llegaron a caer en 300 s: es una carrera, no un fallo determinista, y por
+eso la suite lo mostró una vez en cinco.
+
+**El arreglo (`core/gc_guard.py`): la recolección automática se apaga
+mientras viva cualquier hilo trabajador, y se vuelve a encender cuando
+termina el último.** Cada `QThread.run()` de la app corre su cuerpo bajo
+`gc_guard.paused()` (contador con candado; un hilo que revienta lo
+restaura al salir). Así el hilo de la GUI no dispara recolecciones
+mientras un trabajador corre (una pausa acotada a segundos) y **todas las
+recolecciones que ocurren, ocurren en la GUI**, donde los objetos de Qt sí
+pueden morir. Nada se fuga: el recolector está pausado, no desactivado.
+Descartada la variante «apagar el GC del todo y recolectar por un timer en
+la GUI» (la de pyqtgraph): en la suite, los tests puros no procesan
+eventos y los documentos de ezdxf —cíclicos: el documento y sus
+entidades se apuntan mutuamente— se habrían acumulado sin límite.
+
+**Con el arreglo: el mismo reproductor, los mismos umbrales, 3 corridas de
+5 rondas, 0 fallos; el recolector vuelve encendido y sin pausas colgadas.**
+Tests en `tests/test_gc_guard.py`: el contador anidado y su restauración
+ante excepción, un hilo que asigna bajo el guardián sin finalizar jamás
+la basura de la GUI (y la GUI la finaliza después), los cinco hilos de la
+app bajo el guardián (test estructural, para que un hilo nuevo no se
+olvide), y el reproductor acortado dentro de la suite.
+
+⚠️ **La lección de método:** un fallo que la suite muestra una vez en
+cinco no se caza corriendo la suite cinco veces más; se caza **forzando la
+condición de carrera** hasta que sea determinista (umbrales del GC a 5-1-1
+y basura de GUI fabricada a propósito) y recién ahí se mide el arreglo. Y
+la lista de hilos se busca con `grep class .*QThread`, no de memoria: el
+de las miniaturas no estaba en la traza y también podía matar la app.
+
+## 🗓 Sesión 2026-09-06 (quater) — el teclado de AutoCAD, y las barras de los complementos apagadas
+
+**Marco, tras lanzar la app con Topografía y Terreno:** *«no me gusta que
+esté ese toolbar de los complementos activado por defecto… el usuario
+debería elegir a su gusto»* y *«implementa atajos de teclado, recuerda que
+tiene que ser igual a AutoCAD»*.
+
+**Barras de complementos: apagadas por defecto.** Un complemento agrega su
+menú; la barra la enciende el usuario en Herramientas ▸ Complementos…
+(«Mostrar la barra de herramientas de este complemento») y la elección se
+recuerda (`plugins/<id>/toolbar`). `PluginManager.set_toolbar_enabled`
+la agrega o la quita al instante; el test de «cero rastro» sigue valiendo.
+
+**El teclado, tecla por tecla de la tabla de AutoCAD, y pulsado de verdad
+en los tests** (`tests/test_keyboard_shortcuts.py`, `QTest.keySequence`
+sobre la ventana mostrada y activada, como el test de Ctrl+Z):
+
+| tecla | qué hace | dónde vive |
+|---|---|---|
+| **F9 / Ctrl+B** | **FORZC** (nuevo): el cursor salta por la rejilla **que se ve** (la adaptativa 1-2-5 del lienzo, como BricsCAD); la referencia a objetos le gana, el orto/polar se aplica después | `ToolController.snap_on`, `snap_spacing`, `resolved_point`; botón SNAP primero en la barra de estado, orden de AutoCAD |
+| **Shift mantenido** | orto invertido mientras se sostiene (con ORTO apagado lo enciende, con ORTO encendido lo suelta) | `shift_held`, leído en cada movimiento, clic y tecla del lienzo |
+| Ctrl+G / Ctrl+L / Ctrl+U / **Ctrl+F** | REJILLA / ORTO / POLAR / **REFENT** — Ctrl+F ya no es Buscar (AutoCAD no le da tecla a FIND) | `_ACAD_SHORTCUTS` |
+| Ctrl+1 / Ctrl+9 | paleta de Propiedades / ocultar y mostrar la línea de comandos | |
+| Ctrl+A (lienzo) | seleccionar todo lo seleccionable: capas apagadas, congeladas o bloqueadas y objetos aislados quedan fuera | `ToolController.select_all` |
+| Ctrl+W / Ctrl+I | ciclado de selección / visualización de coordenadas | |
+| Ctrl+J / Ctrl+M | Enter: repite el último comando | |
+| Ctrl+[ / Ctrl+\ | Esc | |
+| Ctrl+RePág / Ctrl+AvPág | lámina anterior / siguiente (cíclico) | |
+| Ctrl+Tab | siguiente ventana de dibujo | |
+| **Ctrl+Shift+C / Ctrl+Shift+V** | **COPYBASE** (copiar con punto base) y **PASTEBLOCK** (pegar como bloque `A$C…`, nombrado como AutoCAD; un `DeferredCommand` crea el bloque con las copias recién pegadas) | `tools/edit.py` |
+| F1 | Ayuda: ingecad.org (también el comando HELP) | |
+
+Lo que ya estaba: F2, F3, F7, F8, F10, Ctrl+R, Ctrl+0, Ctrl+Z/Y, Ctrl+C/X/V,
+Supr, Ctrl+N/O/S/Shift+S/P/Q, Esc, Espacio/Enter. **Lo que falta y se dice:**
+**F11** (rastreo de referencia a objetos) y **F12** (entrada dinámica) son
+funciones que IngeCAD no tiene, no teclas que falten; F4/F5/F6 y
+Ctrl+D/E/T (3D, isoplano, SCP dinámico, tableta) quedan fuera por el filtro
+maestro.
+
+⚠️ **El bug que destapó probar las teclas de verdad, y es viejo y grave:**
+las acciones del lienzo (Ctrl+C/X/V, Supr) se agregaban al viewport en
+**cada** reconstrucción de menús, y los complementos reconstruyen los
+menús al activarse: con dos complementos había **tres copias de Ctrl+C**, y
+Qt contesta a un atajo ambiguo **sin disparar ninguno**. Es decir: desde
+P0, con Topografía y Terreno encendidos, **Ctrl+C sobre el lienzo no
+copiaba nada**, en silencio. Es la familia del Ctrl+Y del 2026-08-23. Las
+acciones viejas se retiran del viewport antes de crear las nuevas, y hay
+un test que activa y desactiva los complementos y exige UNA acción por
+tecla y que Ctrl+C copie. Ninguna prueba de «existe el atajo» lo habría
+visto; lo vio **pulsar la tecla**.
+
+## 🗓 Sesión 2026-09-06 (ter) — G4: ida y vuelta con Google Earth — **Terreno v0.6 completo**
+
+**Tres comandos en Terreno, y con ellos se cierra el plan de la v0.6
+(G1–G4):** KMLIN (las marcas de un KML o KMZ como POINT con su nombre en
+TEXT, LWPOLYLINE —POLYLINE 3D cuando trae altitudes—, y polígonos como
+polilíneas cerradas con cada hueco como otra; color verdadero en la
+entidad; nombre, descripción y carpeta en XDATA), KMLOUT (la selección o
+todo el modelo a un KMZ que Google Earth abre con doble clic: los puntos
+con el nombre y la descripción que les puso el topógrafo, líneas y
+polilíneas con los arcos aplanados a 5 cm, círculos y polilíneas cerradas
+como polígonos, textos como marcas con su texto; la descripción dice la
+capa y el área o la longitud; los colores ByLayer resueltos a RGB) y
+KMLOVERLAY (el modelo dentro de un polígono, dibujado con el
+`QGraphicsScene` de `formats/pdf_out` sobre **fondo transparente y con el
+norte arriba** —la escena conserva la Y del mundo y Qt pinta hacia abajo,
+así que el painter va volteado—, envuelto como GroundOverlay con
+`gx:LatLonQuad`: las cuatro esquinas exactas de un raster alineado a UTM,
+no una caja lat/lon que quedaría un pelo girada).
+
+**El DoD, medido sobre el levantamiento de Arequipa:** 97 marcas (el
+lindero y los 96 puntos) a KMZ y de vuelta a un dibujo nuevo con la misma
+georreferencia: el lindero vuelve con **0,09 mm** de error y los puntos
+con 0,17 mm, cota incluida; el plan pedía menos de 1 cm. La precisión sale
+de escribir nueve decimales de grado (0,1 mm) y del UTM invertible de G1.
+El overlay de 2048 × 2424 px del levantamiento se renderiza en 0,6 s.
+Todo va con `clampToGround`: la altitud viaja como tercera coordenada
+para el regreso, pero Google Earth jamás entierra un lindero bajo su
+propio terreno. **Entregables para que Marco los abra en Google Earth:**
+`capturas/levantamiento-arequipa.kmz` y `…-overlay.kmz`.
+
+**Lo que se portó y lo que no:** el importador de IngeTrazo
+(`georef/geoimport.py`) sólo leía líneas y polígonos sin color; el de
+IngeCAD (`plugins/terreno/kml.py`, puro: `xml.etree` y `zipfile`) lee
+también puntos, huecos, descripciones, colores por Style y StyleMap,
+carpetas y `gx:Track`, y escribe. GeoJSON quedó fuera a propósito: el
+plan dice KML/KMZ, y un formato más es otra pregunta que contestar en dos
+lugares.
+
+⚠️ **Trampa de test propia:** inventé la quinta esquina del lote en el
+test y el área dio 1 406 m² en vez de los 1 523,77 del levantamiento. Los
+vértices se leen ahora del CSV, como hace el test de punta a punta de
+Topografía. Las coordenadas de control se leen de los datos, no se
+recuerdan. 15 tests nuevos.
+
+⚠️ **Un segfault en una de cinco corridas completas de hoy, anotado para
+cazarlo aparte:** al 75 % de la suite, en
+`test_shortcut_commands.py::test_select_similar_and_isolation_run_end_to_end`
+(antes de que corriera ningún test de G4), el **hilo del pre-calentador
+de índices** (`tool_controller._IndexWarmer.run` → `select._build`) entró
+en una **recolección de basura** que finalizó envoltorios de Qt mientras
+el hilo principal pintaba iconos (`swatch_icon` desde
+`_refresh_props_toolbar`). Es la familia del CI del 2026-08-23: objetos
+GUI de Qt finalizados desde un hilo que no es el de la GUI. El archivo
+solo pasa 3/3 y la corrida completa siguiente pasó entera (1243 tests);
+el arreglo de fondo
+(que el calentador no dispare el GC sobre basura de la GUI —`gc.freeze`
+al entrar, o una recolección explícita en el hilo principal—) es trabajo
+del núcleo, no del complemento, y va aparte.
+
+## 🗓 Sesión 2026-09-06 (bis) — G3: la imagen satelital bajo el plano
+
+**SATIMAGE, en Terreno:** un polígono cerrado (o dos esquinas), un nivel
+de zoom, la fuente —Esri World Imagery por defecto; Sentinel-2 cloudless
+de EOX, OpenStreetMap o una XYZ propia desde Opciones ▸ Terreno— y si se
+recorta al polígono. Sale una IMAGE en `TERRENO-SAT`, **al fondo** por
+DRAWORDER para que el plano siga encima, con la **atribución que exige
+la licencia escrita como TEXT** al pie de la imagen (Esri la pide; OSM y
+EOX también), el archivo **al lado del dibujo** (`<plano>-<fuente>.jpg`;
+PNG con transparencia si se recortó) referenciado por ruta absoluta.
+
+**La decisión que hace exacta la georreferencia: remuestrear, no rotar.**
+Un mosaico de teselas es un rectángulo en Web Mercator y en UTM es un
+rectángulo un poco girado y un poco estirado, y una IMAGE de DXF puede
+girar pero no cizallar. En vez de explicarle eso a la entidad, los píxeles
+se **redibujan sobre la grilla del dibujo** (`imagery.py`: la
+transformación exacta en una retícula de nodos cada 64 px y bilineal
+entre nodos, con el MESH de Pillow), así que la imagen queda alineada a
+los ejes a metros por píxel conocidos y sus esquinas donde dice la
+matemática. Verificado con teselas sintéticas pintadas con un campo
+`f(lat, lon)`: el píxel de la salida en un punto del dibujo tiene el color
+de `f` en ese punto (±15 de 255) en las cuatro esquinas y el centro.
+
+**Una pregunta, un lugar:** teselas, grilla Mercator, User-Agent, caché
+en disco y descarga viven ahora en `plugins/terreno/tiles.py`; el DEM de
+G2 se montó encima (misma caché `~/.cache/IngeCAD/tiles/<fuente>/z/x/y`).
+Y `core/commands.DeferredCommand` para el paso de un compuesto que sólo
+puede construirse cuando el paso anterior ya creó su entidad (recortar y
+etiquetar la IMAGE recién creada, mandarla al fondo) —se reconstruye en
+cada `do`, porque un rehacer crea otra entidad.
+
+**Medido sobre el lote de Arequipa con Esri al zoom 19:** 2 teselas,
+119 × 167 px a 0,29 m/px en 1,4 s; recortada al lindero; el DWG r2000
+por LibreDWG relee la IMAGE con su ruta, su bandera de recorte y sus 6
+vértices. **Entregable para que Marco lo abra en BricsCAD:**
+`capturas/levantamiento-arequipa-satelite.dwg` con
+`levantamiento-arequipa-esri_imagery.png` al lado.
+
+⚠️ **Lo que la captura destapó:** la primera IMAGE guardó la ruta
+*relativa* «capturas/…» porque el plano se había abierto por ruta
+relativa, y otro CAD la resuelve contra SU carpeta de trabajo. La ruta se
+guarda absoluta (lo que AutoCAD hace por defecto). Y el recorte por
+polígono **no lo pinta nuestro lienzo** (el backend GL dibuja el quad
+entero; sólo BricsCAD lo recorta): por eso una imagen recortada se guarda
+como PNG con alfa fuera del polígono además de la frontera de recorte de
+la IMAGE —se ve igual en IngeCAD y en BricsCAD—.
+
+**Fuera, a propósito:** Google no es una fuente incluida (sus condiciones
+no lo permiten); una URL propia va bajo la responsabilidad del usuario, y
+la página de Opciones lo dice. 10 tests nuevos.
+
+## 🗓 Sesión 2026-09-06 — G2: el terreno sin levantamiento (cotas de un DEM global)
+
+**Dos comandos más en Terreno:** DEMPOINTS (un polígono cerrado —o dos
+esquinas— y un espaciado → una malla de POINT con la cota del DEM en
+`TERRENO-DEM`, alineada a múltiplos del espaciado para que dos corridas
+solapadas compartan nodos; lo que TIN y CONTOUR toman tal cual) y
+DEMPROFILE (el perfil longitudinal de un eje leído directo del DEM y
+dibujado con la maquinaria de perfiles de Topografía: `draw_profile` sólo
+pide `z_at`, así que una superficie DEM «de pato» lo alimenta sin TIN en
+el dibujo). Fuente: **AWS Terrain Tiles** (codificación terrarium, sin
+clave), portada de `ingetrazo/app/georef/dem.py` **sin Qt** (urllib +
+Pillow), con caché en disco atómica bajo `~/.cache/IngeCAD/dem` y
+muestreo **bilineal sobre la grilla global de píxeles**, así que un punto
+en la costura de dos teselas lee igual desde cualquier lado (test). URL,
+codificación (Mapbox Terrain-RGB también) y zoom en Opciones ▸ Terreno.
+
+**La honestidad va en la pantalla, cada vez:** «Cotas de AWS Terrain
+Tiles: unos 18 m por píxel sobre datos de 30 m. Sólo para anteproyecto,
+nunca para un levantamiento.» Es lo que advierte el propio distribuidor de
+CivilCAD, y es lo que un ingeniero necesita leer antes de firmar algo.
+
+**El DoD, medido sobre el lote de Arequipa en la ventana real:** 441
+puntos (210 × 210 m cada 10 m) en **1,7 s con la caché fría** (2 teselas,
+28 KB cada una); TIN de 800 triángulos más 37 curvas cada metro en 0,5 s;
+cotas 2 319,7–2 353,5 m donde el levantamiento sintético dice 2 334
+(SRTM en una ciudad con edificios). El test en vivo (`INGECAD_ONLINE=1`)
+baja y muestrea en 0,7 s; con la caché caliente 400 muestras cuestan nada.
+El resto de la suite corre sobre teselas sintéticas (un terreno analítico
+codificado a terrarium), sin red.
+
+⚠️ **Lo que la captura destapó, y no era del complemento:** las capas que
+crea un comando (TERRENO-DEM, TOPO-TIN, TOPO-CN-*) **no aparecían en la
+pestaña Capas** hasta que otra cosa la refrescaba. El control de capas de
+la barra sí se enteraba —se reconstruye cuando cambia el CONTENIDO de las
+tablas— pero el panel sólo se refrescaba desde sus propias acciones. Ahora
+las dos cosas preguntan por la misma llave (`_tables_key`, un lugar) y el
+panel se refresca por `tools.changed` sólo cuando esa llave cambia: cero
+costo mientras las tablas no se tocan, y una capa nueva o deshecha llega
+al panel en el mismo comando. ⚠️ Y el test del deshacer destapó la segunda
+mitad: **U y REDO no emitían `tools.changed`** —el control de capas, la
+pestaña Capas y Propiedades se enteraban del deshacer recién con el
+siguiente movimiento del mouse—. Ahora un deshacer avisa como un clic.
+
+**Lo que NO entró, dicho:** el respaldo Copernicus GLO-30 del plan es un
+GeoTIFF COG, y leerlo exige un lector TIFF por rangos HTTP que no tenemos;
+la URL configurable cubre cualquier servidor de teselas terrarium o
+Terrain-RGB. Y una malla de 441 puntos tarda 1,2 s con caché caliente: es
+el costo de 441 AddEntityCommand más la regeneración, no del DEM. 13 tests
+nuevos.
+
+## 🗓 Sesión 2026-09-05 (decies) — G1: nace el complemento Terreno (georreferenciación)
+
+**Segundo complemento incluido, `plugins/terreno/` (v0.6.0), con dos
+comandos:** GEOREF (zona UTM —dada o calculada de una longitud—,
+hemisferio, datum WGS84 o PSAD56 con su desplazamiento a WGS84; se guarda
+EN el dibujo y se anuncia al abrirlo) y LATLON (designar puntos y leer su
+latitud/longitud WGS84 en decimales y en grados-minutos-segundos, o
+teclear coordenadas geográficas en cualquier forma habitual —`-16.4, -71.5`,
+`16°26'03" S 71°32'11" W`, `16 26 03 S 71 32 11 W`— y marcar el punto con
+un POINT y un TEXT en TERRENO-GEO). Página propia en Opciones ▸ Terreno
+(zona y hemisferio por defecto, desplazamiento PSAD56). Verificado en la
+ventana real sobre `levantamiento-arequipa.dwg`: GEOREF 19 S, LATLON lee
+la esquina V1 del lote (16°26'03.70" S, 71°32'11.24" W) y coloca un punto
+tecleado en el centro del lote.
+
+**Dónde vive el datum: en `core/georef.py`, un solo lugar.** «¿En qué zona
+y datum está este dibujo?» lo contesta el núcleo, no el complemento:
+diccionario `INGECAD` del rootdict con un XRECORD `GEOREF` de cadenas
+`clave=valor` —DXF plano que cualquier CAD conserva—, verificado que
+sobrevive DXF y **DWG r2000 por LibreDWG**, con deshacer exacto y sin dejar
+un diccionario vacío al quitarlo. La memoria descriptiva de Topografía toma
+de ahí el datum y la zona (los tenía fijos en «WGS84 / 19 S»). Y
+`APPID`/`ensure_appid` se fueron a `core/xdata.py` por la misma regla: los
+dos complementos escribían XDATA bajo el mismo nombre, cada uno con su copia.
+
+**La matemática es propia** (`plugins/terreno/datum.py`, portada de
+IngeTrazo y generalizada al elipsoide Internacional 1924): sin pyproj, sin
+dependencia nueva. **Medida contra PROJ 9.5.1** (pyproj bajado al scratchpad
+sólo como referencia): peor caso **0,15 mm** en siete puntos de control de
+la zona 19 S (0,06 mm dentro de la zona), ida y vuelta < 0,15 mm; PSAD56 con
+la transformación **EPSG:1208 (Perú, −279/175/−379 m, ±16 m)** a 0,06 mm de
+PROJ. Las cifras de referencia quedan en el test, con su procedencia.
+
+⚠️ **El hallazgo del día: el cambio de datum no era invertible al
+milímetro, y PROJ tampoco lo es.** El desplazamiento geocéntrico toma la
+altura elipsoidal como cero de SU lado; la altura que resulta (cientos de
+metros, el tamaño del desplazamiento) inclina la normal lo justo para dejar
+**7,4 mm** en el suelo al ir y volver. Contra ±16 m del datum es nada; pero
+una esquina de lote que se corre 7 mm por ir a Google Earth y volver es un
+bug que un topógrafo ve. La vuelta (`from_wgs84`) refina la estimación
+hasta que la ida aterriza en el punto pedido: ida y vuelta a 0,05 mm. Y el
+test de control tuvo que definirse **en la dirección que el complemento
+define** (plano PSAD56 → WGS84): mi primera versión copió los pares de PROJ
+en la dirección contraria y «falló» por esos mismos 7 mm.
+
+⚠️ **Dos cosas ajenas que destapó el primer complemento con página de
+Opciones:** el botón **Aplicar** del diálogo se saltaba las páginas de los
+complementos (sólo Aceptar las aplicaba: el contrato decía «runs on OK» y
+era literal), y el test de Opciones fijaba la lista de pestañas en las seis
+del núcleo. Y la regla de teclas por mayúsculas lee `WGS84` como la tecla
+«WGS84» (los dígitos cuentan), así que el prompt del datum resuelve W/P a
+mano. 39 tests nuevos.
+
+## 🗓 Sesión 2026-09-05 (nonies) — T7: memoria descriptiva y áreas por lote — **v0.5 completa**
+
+**Dos comandos más en Topografía ▸ Polígonos, y con ellos se cierra el
+plan de la v0.5 (T1–T7):** MEMORIA (se designa el lado del frente, se
+contesta lado por lado con quién colinda —texto libre, con espacios—,
+nombre y ubicación; sale la memoria descriptiva a `.txt` y su cuadro a
+`.csv`, con la redacción de los trámites peruanos en el pack español: «Por
+el frente: colinda con …, en línea recta de … m (lado V4-V1, rumbo …)»,
+«Por la derecha entrando», «Por el fondo», «Por la izquierda entrando»,
+ÁREA, PERÍMETRO y DATOS TÉCNICOS con datum y zona; opcionalmente como
+MTEXT en el plano) y AREAREPORT (áreas y perímetros de varios lotes con su
+total, en tabla y CSV; el TEXT escrito dentro de cada lote lo nombra).
+
+**El DoD de la v0.5 es un test que corre entero** (`tests/test_topografia_end_to_end.py`):
+el CSV del topógrafo → lindero sobre los vértices exactos → rotulado y
+cuadro de construcción (1 523,77 m²) → memoria → superficie, curvas y
+rótulos → perfil de un eje → plataforma con volúmenes (29,72 / 13,08 m³)
+→ **el modelo sólo contiene POINT, TEXT, MTEXT, LINE, LWPOLYLINE,
+POLYLINE, 3DFACE, HATCH y SOLID**, y tras guardar como DWG r2000 por
+LibreDWG y releer, están los 96 puntos, las mismas entidades y ninguna
+rara. Es exactamente la promesa: el plano se abre en el AutoCAD del colega.
+
+⚠️ **Lo que queda para Marco:** la redacción exacta de la memoria se
+confirma contra un trámite real (COFOPRI / SUNARP / municipio) —cada
+línea es una cadena traducible, así que ajustarla es editar el pack—, y
+abrir en BricsCAD el DWG de `capturas/levantamiento-arequipa.dwg`.
+
+⚠️ **Trampa de test propia:** el frente de un lote dibujado antihorario es
+el ÚLTIMO lado en el orden horario del cuadro (V4-V1), no V1-V2; mi
+aserción esperaba lo segundo. La regla «el cuadro se lista horario» manda
+también sobre los nombres de los lados en la memoria.
+
+## 🗓 Sesión 2026-09-05 (octies) — T6: plataformas, línea cero y volumen entre superficies
+
+**Tres comandos en Topografía ▸ Plataformas:** PLATFORM (una polilínea
+cerrada pasa a plataforma: cota en el primer vértice, pendiente en % y
+azimut opcionales, taludes de corte y relleno H:V, bermas cada H metros de
+ancho W; sale la **línea cero** como polilínea 3D sobre el terreno, las
+**rayas de talud** larga-corta, la **superficie de diseño** como caras 3D
+con su nombre, y corte y relleno contra el terreno), DAYLIGHT (lo mismo
+sin superficie) y VOLTIN (corte y relleno entre dos superficies del
+dibujo, por nombre, con rótulo opcional).
+
+**La línea cero se estaca como la estacaría una cuadrilla** (`grading.py`):
+desde muestras del borde cada N m, marcha por la normal hacia afuera
+subiendo con el talud de corte si el terreno está arriba o bajando con el
+de relleno si está abajo, hasta cruzar el terreno; en las esquinas sigue la
+bisectriz, así que el pie redondea la esquina como un talud real (2 m a
+1:1 son 2 m también por la bisectriz, no 2√2 —mi primer test esperaba lo
+segundo y era el test el equivocado—). **El volumen entre dos TIN es
+exacto:** cada triángulo de diseño se recorta contra cada triángulo del
+terreno que solapa; la diferencia de dos planos es un plano, su integral
+sobre un pedazo convexo es área × valor en el centroide, y la línea de
+cambio parte el pedazo en relleno y corte. Verificado: dos superficies
+iguales dan 0; el terreno subido 1 m da exactamente su área; un plano
+inclinado sobre uno horizontal da corte = relleno = 12 500,00; y la
+plataforma hundida 2 m con taludes 1:1 coincide con la grilla fina de 25 cm
+al 2 % (el DoD) y cae entre el tronco de pirámide y el mismo con las
+esquinas redondeadas (930–975 m³).
+
+⚠️ **Dos cosas que sólo salieron con el plano real, no con los tests
+sintéticos:** (1) el volumen «exacto» sobre coordenadas UTM daba **1 918 m³
+de relleno en una cancha que tiene 13**: el término constante de cada
+plano es z − a·x − b·y con y ≈ 8 181 000, y la diferencia de dos de esos
+términos se queda sin cifras; se integra ahora en coordenadas locales al
+origen de la superficie de diseño (exacto contra grilla de 10 cm: 29,72 =
+29,72 y 13,08 = 13,08). El test sintético de UTM con terreno plano NO lo
+cazaba —con gradiente cero no hay cancelación—; el que lo caza es la
+cancha sobre el terreno real, y está en la suite. (2) Un «-0.0» en el
+rótulo: el recorte deja migas de 1e-12; los volúmenes se devuelven
+recortados a cero.
+
+## 🗓 Sesión 2026-09-05 (septies) — T5: perfil, rasante, secciones y movimiento de tierras
+
+**Cuatro comandos en Topografía ▸ Perfiles, sobre la superficie dibujada:**
+PROFILE (el terreno a lo largo de un eje —línea o polilínea, arcos
+aplanados a 1 cm— como perfil con «guitarra»: banda de progresivas
+`0+020.00`, banda de cotas de terreno, grilla de cotas, escalas H y V
+independientes; la polilínea del terreno **lleva el marco en XDATA**:
+origen, escalas, plano de comparación, eje), GRADELINE (una polilínea que
+el usuario dibuja sobre el perfil con PLINE pasa a ser la rasante: capa,
+etiqueta, pendiente por tramo y cota en cada vértice; al volver a dibujar
+el perfil con ella, sale la banda RASANTE), SECTIONS (una sección del
+terreno por estación, en grilla de columnas; con rasante y plantilla, la
+sección de diseño encima y sus áreas de corte y relleno) y VOLUMES (áreas
+por estación entre terreno y plantilla —plataforma más taludes de corte y
+relleno hasta el terreno—, volumen **prismoidal con la sección media
+medida, no promediada**, o áreas extremas; tabla de 10 columnas y CSV).
+
+**La matemática es pura y se probó contra casos con solución cerrada**
+(`plugins/topografia/alignment.py`, `profile.py`): en terreno plano, 1 m de
+corte con plataforma de 6 m y taludes 1:1 son 7,00 m² exactos, y una
+rasante que va de 1 m de relleno a 1 m de corte en 100 m da los dos
+volúmenes iguales a la integral numérica al 0,2 % y ordenada de masa 0,00.
+
+⚠️ **Dos cosas que salieron de las pruebas:** (1) con la plataforma
+exactamente a la cota del terreno, el talud «no encontraba» el terreno y
+seguía hasta el borde de la sección, inventando 144,5 m² de corte: el punto
+de plataforma a nivel es su propio punto de intersección; (2)
+`LWPolyline.flattening` no existe en ezdxf 1.4 (es `ezdxf.path.make_path`),
+y el `area_of` de T2 lo llamaba en su rama de arcos sin que ningún test la
+pisara. Ahora hay un lote con arco en las pruebas.
+
+## 🗓 Sesión 2026-09-05 (sexies) — T4: curvas de nivel, rótulos y pendientes
+
+**Tres comandos en Topografía ▸ Superficie:** CONTOUR (marcha por
+triángulos sobre la TIN dibujada; intervalo, maestra cada N finas,
+suavizado opcional de Chaikin con la advertencia de que dos curvas
+suavizadas pueden tocarse; cada curva es una LWPOLYLINE **a su cota**
+(`elevation`), finas en `TOPO-CN-FINA` (32) y maestras en
+`TOPO-CN-GRUESA` (30), con la superficie y el nivel en XDATA),
+CONTOURLABEL (cotas cada N metros o donde se designa, como MTEXT con
+**fondo de lienzo** que tapa la curva debajo, legibles por la regla de
+(-90°, 90°], en `TOPO-CN-TEXTO`) y SLOPEZONES (un HATCH sólido por clase de
+pendiente con todos sus triángulos como contornos, más una leyenda de
+muestras, rangos y áreas).
+
+**La matemática vive en `plugins/topografia/contours.py` y se probó contra
+superficies de forma cerrada:** un plano da rectas paralelas exactas y un
+cono anillos cerrados cuyo largo coincide con 2πr al 3 %; niveles distintos
+**nunca se cruzan** (test segmento a segmento); los tramos barajados se
+enlazan en un solo anillo. Convención semiabierta —un vértice exactamente en
+la cota cuenta como «debajo»—, así que no hay que perturbar datos.
+
+⚠️ **Tres cosas que sólo salieron probando:**
+1. Un nivel igual al mínimo de la superficie **traza el borde** vértice a
+   vértice: 31 «curvas» donde había 9. Los niveles van estrictamente dentro
+   de (zmin, zmax).
+2. Un punto que cae **exactamente sobre una arista** de la triangulación
+   (todas las grillas) dejaba triángulos de área cero, 32 en una grilla de
+   21 × 11, porque el vecino del otro lado no entraba en la cavidad por un
+   pelo de redondeo. La cavidad incluye ahora ese vecino de oficio. El
+   conteo de Euler con puntos de borde colineales (h = 60) lo vigila.
+3. **Un nombre definido dos veces en el mismo archivo**: el factory de
+   rótulos de curvas se llamó igual que el de etiquetas de puntos, Python se
+   quedó con el último y la importación de puntos rompió. Es la familia de
+   «una pregunta, un lugar» en su forma más tonta, y ahora hay un test
+   estructural que prohíbe definir un nombre dos veces en cualquier archivo
+   de `plugins/`.
+
+**Verificado con captura sobre el levantamiento sintético:** 26 curvas cada
+0,10 m (4 maestras) en 2 ms, rótulos 2334.5 / 2335.0 / 2335.5 legibles
+sobre las maestras, y las zonas de pendiente con su leyenda (1 %, 2 %, 3 %,
+5 %: 81 / 734 / 567 / 295 / 177 m²). Nota de captura: apagar la capa por
+`layer.off()` NO oculta nada en pantalla —la visibilidad de capas la aplica
+la ventana por su propio camino, sin regen— así que en un script hay que
+pasar por el panel o el comando LAYER.
+
+## 🗓 Sesión 2026-09-05 (quinquies) — T3: la triangulación, propia y medida
+
+**La decisión del plan se tomó con el número en la mano: Delaunay propia,
+sin scipy.** scipy son 35 MB de wheel y ~110 MB instalados, un 30 % del
+Flatpak, por encima del 25 % que el plan fijó como tope. La propia vive en
+`plugins/topografia/tin.py`: Bowyer–Watson incremental, puntos insertados
+en orden de serpiente por celdas para que la caminata hasta el triángulo
+contenedor sea corta, cavidad por el grafo de vecinos, líneas límite por
+volteo de aristas (Sloan 1993), contorno y longitud máxima de arista.
+**Medido: 20 000 puntos en 0,43 s**, y la cuenta de Euler (T = 2n − h − 2)
+exacta a 300, 1 500, 5 000 y 20 000 puntos, con la propiedad del
+circuncírculo vacío verificada por muestreo y una grilla regular de 900
+puntos (todos cocirculares) sin un solo volteo espurio.
+
+**En el dibujo:** TIN (puntos seleccionados y polilíneas o líneas como
+líneas límite → una 3DFACE por triángulo en `TOPO-TIN`, con nombre de
+superficie en XDATA), TINEDIT (voltear arista, suprimir triángulo, insertar
+punto con cota interpolada —Bowyer–Watson sobre las caras dibujadas—, y
+recortar por una polilínea), TINCHECK (triángulos, puntos, aristas, borde,
+rango de Z, área 2D y 3D). El levantamiento sintético con el lote como
+línea límite: 158 triángulos en 3 ms, y los cinco lados del lote son
+aristas de la superficie (test).
+
+⚠️ **Tres bugs que sólo la medición destapó, los tres de adyacencia:**
+1. Un triángulo exterior que toca la cavidad por DOS aristas recibía el
+   vecino nuevo en «la primera ranura que apunta a la cavidad», que puede
+   ser la de la otra arista → caminatas que se salían de la triangulación.
+   La ranura se elige por la arista exacta.
+2. **El supertriángulo finito no es un detalle:** con 1 000 × el tamaño,
+   la cobertura del casco convexo era 99,995 % a 300 puntos, 98,6 % a
+   1 500 y **57 % a 20 000** —un triángulo de borde muy obtuso tiene un
+   circuncírculo que alcanza al vértice ficticio, y cuantos más puntos,
+   más triángulos así—. La regla correcta: un vértice ficticio está en el
+   infinito, y el «círculo» de un triángulo que lo contiene es el semiplano
+   más allá de su arista real. Cobertura 100,0000 % en los cuatro tamaños.
+3. Al voltear una arista, el mapa de aristas actualizaba los dueños de
+   `(b,d)` y `(c,a)` con `b, c` tomados de la clave ORDENADA, no del orden
+   CCW del triángulo: la mitad de las veces era el par equivocado y un
+   volteo posterior encontraba dos «vecinos» que no lo eran. `_flip`
+   devuelve ahora la arista vieja en el orden del triángulo.
+
+## 🗓 Sesión 2026-09-05 (quater) — T2: polígonos (rotulado, cuadro de construcción, subdivisión, retícula)
+
+**Cinco comandos más en Topografía ▸ Polígonos, todos sobre polilíneas y
+líneas normales del dibujo:** ANNOT (rumbo y distancia en cada tramo,
+distancia arriba y rumbo abajo, siempre legibles por la regla de AutoCAD de
+(-90°, 90°]; en arcos L, R, D y cuerda), CTABLE (el cuadro de construcción:
+vértice, lado, distancia, rumbo o azimut, ángulo interno, Este, Norte, con
+pie de área y perímetro y los V1…Vn marcados en el plano; horario por
+defecto, que es como se lista en el Perú), AREASUM, SUBDIV (paralela a un
+lado para un área dada, por un punto de giro para un área dada, o por dos
+puntos; dibuja el corte y, si se pide, reemplaza el polígono por las dos
+piezas) y UTMGRID (cruces o líneas cada N m con rótulos E/N).
+
+**La matemática vive en `plugins/topografia/geometry.py`, pura y probada:**
+área con signo, ángulos internos que suman (n−2)·180 también en polígonos
+cóncavos y en los dos sentidos, recorte por semiplano (Sutherland–Hodgman) y
+bisección sobre el área para los cortes, con tolerancia de 1e-6 m². El cuadro
+usa `core/tables.insert_table`, que ahora acepta **un ancho por columna**
+(`col_widths`), compatible con los tres llamadores de antes.
+
+**Verificado con captura sobre el lote del levantamiento sintético
+(`tests/data/levantamiento-arequipa.csv`, 96 puntos, Arequipa UTM 19S, que
+Marco pidió porque no tiene uno real):** 1 523,77 m² y 156,70 m, los cinco
+ángulos internos suman 540°00'00" exactos, el corte paralelo al frente deja
+600,00 m² justos, y el cuadro se lee entero. El DWG importado quedó en
+`capturas/levantamiento-arequipa.dwg` para que lo abra en BricsCAD.
+
+⚠️ **Dos detalles de rumbos que salieron de los tests:** el oeste exacto
+(azimut 270°) se escribe «N 90° W», no «S 90° W»; y 269,9999° redondeado al
+segundo ES 90°00'00", así que una aserción que esperaba «S 89°59'60"» estaba
+mal, no el código. Los cortes por dos puntos en polígonos cóncavos usan el
+recorte por semiplano, que devuelve el área exacta de cada lado aunque la
+pieza quede en dos trozos unidos por un puente de ancho cero; para lotes
+convexos, el caso real, el corte es un segmento limpio.
+
+## 🗓 Sesión 2026-09-05 (ter) — T1: los puntos topográficos (`plugins/topografia/`)
+
+**El primer complemento real está en el aire, y P0 aguantó su primer
+cliente sin tocar el núcleo.** `plugins/topografia/` trae PIMPORT (CSV o
+TXT de estación total: `P,N,E,Z,D` y sus variantes, con coma, punto y
+coma, tabulador o espacios, coma decimal y cabecera; el orden de columnas
+se adivina por los números —una Norte del hemisferio sur tiene siete
+cifras— y el diálogo lo deja corregir con vista previa), PEXPORT, PBY (una
+poligonal tecleada tramo a tramo: punto base, rumbo `N45°30'20"E` o
+azimut, distancia, cota, número; el punto nuevo pasa a ser la base),
+PRENUM y PFIND, con alias PIM/PEX/PRN/PFI y nombres en español
+(IMPORTARPUNTOS, PUNTORUMBO…).
+
+**Lo que dibuja es DXF de cualquier CAD:** POINT en (E, N, Z) en
+`TOPO-PUNTOS` y hasta tres TEXT (número, cota, descripción) en
+`TOPO-NUMEROS` / `TOPO-COTAS` / `TOPO-DESC`; número y descripción viajan en
+XDATA bajo el APPID `INGECAD`, y cada etiqueta lleva el handle de su punto,
+que es lo que permite renumerar. Verificado el viaje completo: DXF → DWG
+r2000 por LibreDWG → releído, los cinco puntos con sus números y
+descripciones. El snap NOD cae **bit-exacto** sobre la coordenada
+importada (test). Toda importación es UN paso de deshacer, capas incluidas.
+
+⚠️ **Lo que sólo mostró la captura:** los 500 puntos importados se veían
+como etiquetas flotando —el POINT en sí era un píxel, porque un dibujo
+nuevo trae `$PDMODE` 0—. La primera importación pone el marcador X de
+AutoCAD (`$PDMODE` 3, `$PDSIZE` = 0,8 × altura de texto) con undo exacto,
+y respeta el marcador de un dibujo que ya eligió uno. Medido con 500
+puntos: 37 ms el comando, 2,2 s la regeneración de 1 500 textos.
+
+⚠️ **Y una regla nueva que salió de un fallo:** el registro de herramientas
+y el de packs de idioma son **por proceso**, y un proceso puede tener
+varias ventanas; la segunda ventana activaba el mismo complemento y
+chocaba con sus propios nombres. Ahora cuentan referencias por
+complemento: un nombre entra una vez y sale cuando la última ventana lo
+suelta. El test genérico de «cero contaminación» recorre ahora todos los
+complementos incluidos, no sólo el de muestra.
+
+**Pendiente de Marco para cerrar el DoD de T1 de verdad:** dos o tres CSV
+reales de topógrafos (el sintético de 500 puntos prueba la mecánica, no
+los dialectos de SU estación) y abrir el DWG resultante en BricsCAD.
+
+## 🗓 Sesión 2026-09-05 (bis) — P0: el contrato de complementos y su gestor
+
+**Arrancó el plan de complementos (`docs/plan-complementos.md`) por su fase
+P0, y P0 está hecha.** El contrato vive en `core/plugins.py` (`PluginSpec`,
+`PluginManager`, `PluginContext`), el gestor en Herramientas ▸
+Complementos… (`views/plugins_dialog.py`, comando `PLUGINS`), y el
+contrato escrito para contribuidores en `docs/plugins.md`. Un complemento
+es una carpeta `plugins/<id>/` con `PLUGIN = PluginSpec(...)`; al
+activarse registra comandos, herramientas y alias, fusiona su pack de
+idioma (`plugins/<id>/i18n/<lang>/{ui,commands}.json`), y agrega su menú
+(entre Modify y Tools) y su barra; al apagarse quita exactamente eso.
+
+**Los cuatro ganchos que hicieron falta, todos chicos:**
+`Dispatcher.unregister`; `register_tool_classes` / `unregister_tool_classes`
+sobre el ÚNICO registro que lee `start_tool` (un nombre del núcleo se
+rechaza entero: un complemento agrega LINE jamás); `i18n.register_pack_dir`
+(el catálogo del complemento se fusiona DESPUÉS del de la app, que gana el
+empate, y el inglés nunca se pierde); y la ventana como *host* con una
+docena de métodos duck-typed. Los alias que el PGP del usuario o el núcleo
+ya contestan no se toman (un alias gana sobre un nombre, así que un
+complemento no puede quedarse con `L`). Una dependencia ausente lista el
+complemento como «no disponible: necesita X», nunca rompe el arranque.
+
+**El test que sostiene el diseño:** `tests/test_plugins.py` activa y
+desactiva el complemento de muestra (`tests/plugins_fixture/ejemplo/`) y
+exige que despachador, alias, registro de herramientas, menús, barras,
+nombres localizados y packs queden **idénticos** a antes — y que la segunda
+activación devuelva exactamente lo que la primera. La cobertura de
+traducción mide cada complemento incluido contra SU pack. Los tres paquetes
+llevan `plugins/` (manifiesto Flatpak, `datas` del `.spec`, y un test
+estructural que lo vigila) y `main.py --check` los lista.
+
+⚠️ **La trampa de PySide del día, medida:** el bucle que «conserva» los
+menús (`self._menus`) guarda envoltorios que **ya están muertos** al salir
+de `_build_menus` —21 de 22 dan RuntimeError al pedirles el título, también
+en HEAD— y los menús siguen vivos por el padre C++. Lo que sí mata un menú
+es dejar morir el envoltorio de su **acción** de la barra: un
+`next(a.menu() for a in bar.actions() if ...)` lo tumba en la línea
+siguiente. Regla: la lista de `bar.actions()` se guarda en un local mientras
+se usa el menú, y `.menu()` se llama **una** vez por acción.
+
+## 🗓 Sesión 2026-08-29 (bis) — v0.4.7: lo que Marco encontró usándolo
+
+Una sesión entera de dogfooding suyo, comando por comando, y **de siete
+cosas que reportó, tres eran regresiones o bugs míos y cuatro eran huecos
+reales**. Lo que quedó, con sus números:
+
+| lo que reportó | causa | medido |
+|---|---|---|
+| «apago una capa y demora una eternidad, se cuelga» | **regresión mía de una hora antes**: `ResizeToContents` remide la columna entera en cada celda → O(filas²) | clic **16 110 → 110 ms** |
+| «el dibujo tarda en actualizarse» | apagar una capa reteselaba todo el dibujo | **7,7 s → 114-383 ms**, sin reconstrucción |
+| «cambiar grosor/color demora» | ídem | **209-686 ms** en la capa más pesada (139 692 vértices) |
+| «algunas columnas no se ven bien» | anchos fijos **menores que su contenido** — se cortaban a cualquier ancho | Color 40→43, Tipo 84→99, Grosor 68→85 |
+| «la barra lateral no llega abajo» | Qt da las dos esquinas inferiores al área de abajo | barra 796 → **902 px** |
+| «el hatch no se selecciona» | sólo se picaba por su borde | clic dentro, con forma real e islas |
+| «los cuadraditos de color están chiquitos» | 16 px | **24 px** (1,5×) |
+
+**Y la recuperación automática**, que fue el pedido más grande: SAVETIME,
+`.sv$`, el administrador de recuperación. Lo que decidió el diseño fue la
+medición —**escribir uno de sus planos cuesta 2,2 s**— así que el guardado
+va en un hilo y **espera 15 s de quietud** para empezar; la app sólo puede
+esperar si editás justo durante la escritura, y esa es la ventana que la
+pausa elimina.
+
+⚠️ **Probarlo de verdad encontró tres fallos que "leer el código" no
+encontraba, todos de la misma familia: el guardia se lee bien y significa
+otra cosa.**
+1. `in_selection_mode()` es **verdadero cuando NO hay comando** (el estado
+   normal), así que mi condición de "está tranquilo" **nunca** dejaba
+   guardar: el archivo no se escribía jamás.
+2. El objeto del hilo de apertura **sobrevive** a la apertura, así que
+   preguntarle `is not None` bloqueaba el autoguardado de todo plano
+   abierto desde disco. Hay que preguntar `isRunning()`.
+3. La regeneración **sólo lee** el documento, igual que el autoguardado:
+   tratarla como conflicto significaba, otra vez, no guardar casi nunca.
+
+**Verificado matando el proceso:** plano de 88 897 entidades, una línea sin
+guardar, `SIGKILL`. Al reabrir: 1 dibujo recuperable con su nombre, edad y
+número de objetos; abierto, **10 528 objetos = los 10 527 del archivo + la
+línea que nunca se guardó**.
+
+**Sombreado y tipos de línea, investigados en el manual antes de tocar
+nada:** HATCHEDIT (p. 896) con sus tres accesos y el doble clic; la paleta
+dibujada **desde la definición** de cada patrón (antes era un abanico
+sacado sólo del ángulo, y medio catálogo se veía igual); y el diálogo
+*Seleccionar tipo de línea* con las columnas de AutoCAD —Tipo / **Aspecto**
+/ Descripción— más una biblioteca de 39 definiciones **leídas de 120 planos
+reales**, quedándome con la que varios coinciden.
+
+⚠️ **Dos bugs ajenos salieron de esas mediciones y están reportados:**
+`standards.linetypes()` de ezdxf no coincide con lo que traen los planos en
+**13 de 16** nombres ([ezdxf#1411](https://github.com/mozman/ezdxf/issues/1411)),
+y el escritor de **DXF binario se cae** con gráficos proxy
+([ezdxf#1412](https://github.com/mozman/ezdxf/issues/1412), repro de cuatro
+líneas). Y el PR de LibreDWG **se achicó a pedido de rurban** —«too large
+without CLA»— de 80 a 23 líneas, re-midiendo el corpus después de podarlo:
+1467 láminas revividas, 0 apagadas.
+
+⚠️ **La trampa de captura del día, dos veces:** el diálogo nuevo se veía
+bien en la suite y **mal en la pantalla** — los ISO salían en blanco (le
+cortaba el primer trazo a cada patrón) y seis `V_MASONRY…` mostraban la
+misma diagonal (los nombres con minúscula no se encontraban). Ninguna
+prueba de "¿hay un icono?" lo habría visto. **Mirar la captura es una
+prueba.**
+
+## 🗓 Sesión 2026-08-29 — editar DENTRO de la ventana gráfica (MSPACE)
+
+**El tercer estado de una lámina, que la v0.4.6 dejó anotado como pendiente,
+existe.** MSPACE (o doble clic dentro de una ventana) hace del modelo el
+espacio actual y **dibujar, editar, enganchar, picar y los grips llegan a él a
+través de la proyección de la ventana**. La matemática vive en UN lugar
+—`core.layouts.paper_to_model` / `model_to_paper`, con escala, centro de vista
+y **giro**— y sólo dos capas la cruzan:
+
+| dirección | quién convierte |
+|---|---|
+| el mouse da PAPEL, las herramientas quieren MODELO | `ToolController.to_space`, en la puerta: hover, clic, ventana de selección, grips, `pick_entity` — y las tolerancias, que son distancias de pantalla medidas en milímetros de papel |
+| las herramientas contestan MODELO, el lienzo dibuja PAPEL | `ViewportWidget._space_to_screen` / `space_affine` para todo el overlay de QPainter, y `_mvp(space=True)` para el overlay GL, el fantasma y los sellos, recortados al marco |
+
+**Las reglas de AutoCAD que se copiaron** (referencia en
+`docs/reference/layout/`): un clic sólo cuenta **dentro** de la ventana activa
+—uno en otra la hace actual, incluso a mitad de un comando; uno sobre el papel
+pelado no hace nada, porque a través de la proyección significaría un punto del
+modelo que la ventana no muestra—; el cursor se recorta a la ventana activa; la
+lectura de coordenadas pasa a unidades del modelo; los comandos de la hoja
+(MVIEW) siguen siendo de papel y lo dicen; ZOOM Ventana y la rueda mueven la
+vista de la VENTANA (antes la rueda sí y ZOOM Ventana no: se contradecían);
+Ctrl+R cicla la ventana actual.
+
+⚠️ **El bug que sólo apareció dogfoodeando, y es el de la v0.4.6 un espacio más
+adentro:** la entidad que se dibuja es del **modelo**, pero el lienzo donde
+aterriza es la **hoja blanca**, así que el overlay resolvía ACI 7 contra el
+fondo oscuro del modelo. Medido sobre el plano real: la línea recién dibujada
+salía **blanco puro (255,255,255)** sobre contenido negro. Ahora el constructor
+del overlay recibe su *canvas* aparte del espacio que se edita — son dos
+preguntas distintas y hasta hoy eran la misma. Vuelto a medir: **0,1 de media,
+33 el píxel más claro** (bordes suavizados).
+
+**Verificado sobre `Planos Constructivos.dwg` (lámina A-02, 13 ventanas, 1:10,
+modelo de 9 847 entidades):** picar donde la ventana dibuja el punto medio de
+una línea selecciona **esa** entidad (#3400A0 apuntada = #3400A0 picada);
+dibujar dos puntos deja la LINE en el modelo en las coordenadas exactas que
+predice la proyección; MOVE de 20 × 10 mm de papel mueve el modelo
+**(2,000, 1,000)** = papel/escala, y el deshacer devuelve (0,0); el fantasma se
+dibuja dentro del marco. **Tiempos: el primer picado 1 924 ms —construye el
+índice del modelo— y los siguientes 12 ms**, que es lo que se siente.
+
+⚠️ **Y una ventana real de ese plano tiene `view_twist_angle = 60°`**: el giro
+en la proyección no era un lujo teórico. La rama del nombre `*` para archivos
+R2007+ (nombres UTF-16) tampoco la ejercita ningún plano del corpus, así que se
+probó con una **sonda** donde ese chequeo era la única condición.
+
+**Lo que sigue pendiente, dicho:** el snap entre espacios (enganchar desde la
+hoja a lo que muestra una ventana) y que una capa congelada *en esa ventana*
+no se pueda picar a través de ella.
+
+## 🗓 Sesión 2026-08-28/29 — las láminas vacías, y el PR #1406 upstream
+
+El hallazgo que quedó anotado sin arreglar en la sesión anterior —cuatro de
+las cinco láminas de `Planos Constructivos.dwg` abriendo con la hoja vacía—
+resultó ser **un bug de lectura de LibreDWG**, y está enviado:
+**[PR #1406](https://github.com/LibreDWG/libredwg/pull/1406)**. IngeCAD ya lo
+sortea por su cuenta con `core.layouts.repair_viewport_status` (commit
+`30402a9`), como `_dedupe_handles`: el vendor no lo lleva todavía.
+
+**La causa:** los grupos DXF 68 (estado) y 69 (id) **no se guardan en un DWG**,
+así que el escritor los deriva — y los derivaba de `entmode`, tomando el 0 por
+«la ventana global del espacio papel». Pero `entmode 0` sólo dice que la
+entidad **trae su dueño explícito**, que es como guarda sus entidades toda
+lámina salvo la que estaba activa al guardar. O sea: en cualquier plano con
+más de una lámina, **todas las ventanas de las otras salían apagadas**.
+
+**Verificado como manda la casa, y contra ODA:** `make check` 254/254; barrido
+de los **1657 planos** master contra parche con el mismo criterio en los dos
+lados — **1307 láminas revividas, 0 apagadas, 0 cambios de conteo de ventanas,
+0 fallos de conversión nuevos**; y las cinco láminas del plano salen
+`(1,1) (2,2)…` **idénticas a ODA**, igual que los R13/R14 del corpus.
+
+⚠️ **Tres lecciones de método, las tres de la familia de siempre:**
+1. **`/tmp` es un tmpfs de 12 GB — o sea RAM.** El barrido del corpus escribe
+   ahí sus DXF intermedios y lo llenó: **eso fue lo que cerró la terminal de
+   la sesión anterior**, no un cuelgue. El síntoma engaña: todo comando falla
+   con un exit 1 pelado, sin una línea de error. Todo barrido va con
+   `TMPDIR` en disco. Memoria: `[[tmpfs-corpus-runs]]`.
+2. **Mi primer barrido midió mal y culpó al parche:** leía el **primer** grupo
+   330 de cada VIEWPORT como su dueño, y ese 330 suele ser un *reactor* dentro
+   de un bloque `102 {…}`. Daban 769 láminas «mal numeradas» que en el archivo
+   estaban perfectas. El medidor se verifica igual que el código.
+3. **Escribí en el PR una afirmación sobre el issue vecino #1213 sin medirla**
+   («su archivo seguía dando id 0»). Bajé su reproductor: **era falsa** —
+   master ya escribía 1 y 2 ahí; lo que cambia es el 68. Corregido antes de
+   que nadie lo leyera. *Un issue ajeno se mide, no se recuerda.*
+
+**Y una rama que no se probaba sola:** el chequeo del nombre `*` en archivos
+R2007+ (nombres en UTF-16) no lo ejercita ningún plano del corpus —todas sus
+láminas tienen LAYOUT, así que la otra condición las cubría—. Se compiló una
+**sonda** con ese chequeo como única condición: R2018 numera sus cinco
+láminas, R14 sus dos. Una rama sin caso que la ejercite es una rama sin
+probar, aunque el conjunto pase.
+
+## 🗓 Sesión 2026-08-27 — v0.4.6: la lámina se edita (el espacio actual, generalizado)
+
+**v0.4.6 PUBLICADA con el OK de Marco (2026-08-27):** los tres binarios en la
+release de GitHub (AppImage, tar.gz y el bundle `.flatpak`) y el repo OSTree
+firmado actualizado en R2 — commit `114f1cf8` colgando del de la 0.4.5
+(`001022f8`), o sea actualización incremental: 106 archivos subidos de 5632.
+Verificado como usuario: `flatpak update` deja la instalación en 0.4.6 desde
+`ingecad-origin` y `--check` pasa dentro del sandbox.
+
+**Marco, dogfooding:** un amigo le pasó una plantilla de layout en A1, abre
+bien, y **no se podía editar nada en la lámina** — ni mover, ni borrar, ni
+recortar, ni escalar, ni tocar un texto, ni **seleccionar el cajetín**. Era
+deliberado y estaba escrito: `start_tool` contestaba «dibujar sobre la hoja
+todavía no está disponible» y el espacio papel tenía **su propia selección
+diminuta**: un único VIEWPORT picado por su borde.
+
+**Lo que dice AutoCAD, que es lo que había que copiar** (investigado en
+`docs/reference/acad_acr.txt`, nota nueva en
+`docs/reference/layout/autocad-editing-in-paperspace.md`): *«Commands operate
+in either model space or paper space»* (MSPACE, p. 1213). No hay comandos que
+no funcionen en una lámina; lo único que cambia es **cuál es el espacio
+actual**. De ahí salen las reglas finas: no se selecciona entre espacios (por
+eso existe CHSPACE, p. 325), una ventana gráfica **es un objeto** que se pica
+por su marco, y **la acción de doble clic del objeto gana** sobre la regla de
+entrar/salir de la ventana (DBLCLKEDIT, p. 2207 — MTEDIT se alcanza
+literalmente con «Double-click a multiline text object»).
+
+**La apuesta del BEDIT se cobró exactamente como estaba anotada:** el editor
+de bloques ya había convertido `Document.modelspace()` en «el espacio
+actual», así que la lámina entró por la misma puerta —
+`Document.current_space()` responde bloque → lámina activa → modelo, y
+`MainWindow._active_layout` es ahora una **property** que escribe el espacio
+en el documento, para que la pestaña y el documento no puedan divergir en
+ninguno de sus siete puntos de asignación. Dibujar, TRIM, cotas, snap, picado,
+grips y undo llegan al cajetín **por los caminos de siempre**. La auditoría de
+los 42 `modelspace()` dejó **seis clavados al modelo de verdad** (`doc.modelspace()`):
+el encuadre de MVIEW, la pestaña que elige el open, `build_scene("Model")`, el
+ocultado del horneado de las ventanas, el ámbito «Model» de FIND y la guarda de
+DXF truncado.
+
+**Verificado sobre el plano de un colega** (`Planos Constructivos.dwg`, lámina
+A-01, 90 objetos): las 90 entidades pican, un clic sobre «PLANO:» la
+selecciona, una ventana toma 37 objetos del cajetín, se mueven 120 mm y el
+deshacer los devuelve. Y una LINE dibujada en la hoja sale **negra**.
+
+⚠️ **Tres fallos que abrió este mismo cambio, y ninguno se veía en la suite:**
+1. **La superposición pintaba blanco sobre blanco.** `draw_entities` nunca
+   llama a `set_current_layout`, así que el contexto se quedaba con el modelo
+   oscuro de ezdxf por defecto y **ACI 7 resolvía a blanco**: una línea recién
+   dibujada sobre la hoja era invisible hasta la siguiente regeneración
+   completa. `_apply_space_colors` resuelve contra el lienzo donde va a
+   aterrizar. El test lleva su inverso: la MISMA entidad en el modelo tiene
+   que salir blanca, o no prueba nada.
+2. **El deshacer seguía al usuario de pestaña.** Un comando preguntaba «¿qué
+   espacio?» dos veces —al hacer y al deshacer— y con el espacio ya mutable
+   las dos respuestas dejaron de coincidir: borrar en la lámina y pulsar
+   Ctrl+Z desde la pestaña Modelo **resucitaba el objeto en el modelo**.
+   `Command.space(document)` lo pregunta **una vez y lo recuerda**; los 18
+   sitios de `actions.py`/`modify.py` pasan por ahí.
+3. **El pre-calentador de cachés adoptaba el espacio equivocado.** Sellaba su
+   resultado con `document.revision`, y **un cambio de pestaña no sube la
+   revisión a propósito** (`mark_dirty_no_revision`, que es lo que sostiene la
+   caché de escenas por pestaña): un índice construido en Modelo parecía
+   fresco sobre la hoja. Ahora sella también el nombre del espacio. Es la
+   familia de siempre: *la guarda existía y no cubría el eje nuevo.*
+
+**Y ezdxf se niega a transformar un VIEWPORT** (`NotImplementedError`), que
+hasta hoy no importaba porque una ventana no era seleccionable con las
+herramientas normales. `core.layouts.transform_viewport` mueve y escala el
+**rectángulo** dejando la vista quieta — con eso MOVE lleva la ventana con su
+dibujo y SCALE ×0,5 la dibuja a la mitad, que es justo lo que exige pasar una
+A1 a A3; una **rotación se rechaza** en vez de deformarla, y el comando dice
+cuántos objetos no movió en lugar de quedar a medias.
+
+**Lo que NO entró, y hay que decirlo:** dentro de una ventana gráfica (MSPACE)
+la edición sigue sin existir — habría que alcanzar el modelo a través de su
+proyección. Ahí el comando lo dice y **el clic ya no selecciona nada**, que es
+más honesto que lo de antes: picaba en coordenadas de papel contra el índice
+del modelo, o sea que podía seleccionar cualquier cosa. Tampoco está el snap
+entre espacios (AutoCAD sí engancha desde la hoja a lo que muestra UNA
+ventana, DIST p. 27716). 979 tests.
+
+⚠️ **Hallazgo aparte, medido y sin arreglar (no es de este encargo):** en
+`Planos Constructivos.dwg`, **4 de 5 láminas se abren con la hoja vacía**
+porque sus VIEWPORT llegan con `status = 0` y tanto `visible_viewports` como
+el `_draw_viewports` de ezdxf —que aquel copia a propósito— descartan todo lo
+que no tenga status positivo. Sólo la lámina que estaba activa al guardar trae
+status 1. Antes de tocarlo hay que comprobar contra BricsCAD/ODA si esas
+láminas sí muestran su contenido, que es la regla de la casa.
+
+## 🗓 Sesión 2026-08-24 (sexto) — el fondo del modelo es del usuario (y dos cierres que mataban la app)
+
+**Pedido de Marco antes de la 0.4.5: fondo del model configurable (colegas
+que prefieren blanco o crema), «averigua cómo lo implementa AutoCAD y hazlo
+idéntico».** AutoCAD: Options ▸ Display ▸ botón **Colors…** → diálogo
+*Drawing Window Colors* (lista de contextos × elementos, combo de color con
+Select Color…, preview, y 4 botones Restore incluido «classic colors» =
+model negro). Implementado tal cual: `core/window_colors.py` (modelo
+headless en QSettings), `views/window_colors_dialog.py`, botón en Options ▸
+Display, contextos model / sheet-desk / block-editor.
+
+**Lo que hace que sea de verdad idéntico (y no un glClearColor):** el color
+elegido entra a las **layout properties del contexto de render**
+(`TolerantRenderContext.set_current_layout` override para Model;
+`set_colors` directo en el build del Block Editor) → **ACI 7 se voltea**
+(negro sobre claro), **las máscaras de texto rellenan con el lienzo**, la
+rejilla cambia a grises claros (`GRID_*_LIGHT`, flag en la key del buffer),
+y el crosshair automático ya se adaptaba por luminancia
+(`_light_background`). Cambiar el fondo = REGEN (colores re-resueltos), no
+repaint — el diálogo lo dispara al OK. Verificado con captura del plano
+real de Marco en blanco y crema: líneas negras, colores de entidad
+intactos, imagen raster bien. 9 tests nuevos + i18n es completo.
+
+**Y dos cierres que MATABAN el proceso (SIGABRT), cazados porque la app que
+le lancé a Marco se murió dos veces al cerrarla:**
+1. **Cerrar con una regen en vuelo**: closeEvent aceptaba con el QThread
+   vivo → Qt aborta el proceso entero. `_drain_workers()` une regen worker
+   (señal desconectada: el resultado ya no se quiere), open thread, warmers
+   y ghost workers, y para el merge timer.
+2. **El hilo de miniaturas de la ventana de inicio**: `accept()`/`reject()`
+   NO pasan por closeEvent → elegir un dibujo dejaba al worker renderizando
+   DWGs sin dueño → abort al salir. Y unir en `done()` bloqueaba el accept
+   **11 s medidos** (la miniatura en curso renderiza el plano entero). La
+   solución: `done()` hace stop + **aparca el worker en un registro de
+   huérfanos** (accept = 1 ms) y `_drain_workers` los une al salir.
+   ⚠️ Todos los QThreads llevan ahora `setObjectName` — el abort de Qt
+   imprime el nombre y el próximo dirá quién fue.
+
+**v0.4.5 PUBLICADA con el OK de Marco (2026-08-24):** guardado de
+párrafos + imágenes raster quirúrgicas + cierres limpios + fondo
+configurable (con los tonos renombrados sin marca a pedido suyo: «Gris
+oscuro / Crema / Blanco / Negro»). Marco además anotó: «hay muchas cosas
+por pulir en cuanto a rendimiento, en la próxima versión puliremos».
+
+## 🗓 Sesión 2026-08-24 (quinto) — redimensionar una imagen tardaba segundos
+
+**Marco: arrastrar el cuadradito verde de una imagen insertada «tarda unos
+segundos en hacer efecto».** Medido con su gesto exacto: el drop forzaba
+regen completo — **9,4 s en un plano real** — cuando mover/redimensionar una
+imagen **jamás cambia la textura**: solo cambian las 4 esquinas de su quad
+(6 vértices en un VBO). Reescribirlas es todo el trabajo.
+
+**Lo que quedó:** los píxeles siguen al mouse EN VIVO (0,04 ms/move), el
+drop ~80 ms, MOVE de imagen 2 ms, y undo/redo quirúrgicos y exactos
+(0,000000 de error contra el rebuild completo, medido).
+
+⚠️ **La segunda mitad del tirón fue la sutil, y mi primera hipótesis del
+overlay FALLÓ (medida, no argumentada): dibujar un IMAGE por el frontend
+de ezdxf DECODIFICA su archivo** (PIL load+convert en
+`draw_image_entity`, aguas ARRIBA del backend — mi backend "sin píxeles"
+no evitaba nada, lo dijo cProfile: 2,9 s de `Image.convert` en 10 moves).
+Con una lámina escaneada eran 36 MB decodificados POR MOVIMIENTO. Regla
+nueva: **las entidades raster no viajan nunca en el overlay vectorial** —
+el quad vivo ES el feedback; una COPY nueva (sin quad) sí pasa por el
+overlay para nacer visible.
+
+⚠️ **Trampa fina del undo:** la restauración de un snapshot deja a la
+entidad momentáneamente SIN owner, y el filtro `owner is not None` del
+camino quirúrgico post-undo la saltaba — el quad se quedaba donde el drag
+lo dejó aunque los atributos ya estaban restaurados. El sync de imágenes
+corre sobre `touched` (vivas), no sobre `alive`.
+
+**La matemática de esquinas vive en UNA función** (`_image_quad_corners`,
+compartida por el build completo y el camino quirúrgico vía
+`image_corners_wcs(entity, pixel_size)` = puro
+`entity.get_wcs_transform()`, cero I/O) — el test de igualdad contra el
+rebuild impide el drift. 4 tests nuevos con prueba inversa.
+
+**En main, SIN publicar** — va en el mismo tren 0.4.5 que el arreglo del
+guardado, esperando el OK de Marco.
+
+## 🗓 Sesión 2026-08-24 (quater) — el guardado apilaba los párrafos (v0.4.5, sin publicar)
+
+**Regla nueva de proceso, pedida por Marco tras la 0.4.4: NO publicar release
+sin preguntarle antes** (memoria `[[preguntar-antes-de-release]]`). Arreglar,
+testear y commitear sí; el tag y la publicación, con su OK.
+
+**El bug — dogfooding otra vez:** original.dwg se veía bien; el guardado desde
+IngeCAD dibujaba cada etiqueta de dos líneas con las dos líneas superpuestas.
+El texto y su `\P` sobrevivían; el round-trip corrompía
+**`line_spacing_factor` 1.0 → 0.0** (+ flow_direction y spacing_style 1 → 0).
+Mecanismo, cazado con bisección DXF-intermedio vs LibreDWG: **DXF dice
+«grupo ausente = default», ezdxf omite los grupos iguales a su default, y el
+importador DXF de LibreDWG guarda el grupo ausente como CERO** en vez de
+aplicar el default — la misma familia que su bug de MINSERT (#1385).
+**Reportado y parcheado upstream el mismo día: PR #1404** (mismo hook de
+completado que #1385; verificado contra stock 8583, árbol limpio + parche,
+valores no-default sobreviven, make check 286/286). El vendor NO lo
+necesita: la app lleva doble defensa propia.
+
+**Dos defensas, cada una verificada al revés:**
+- `write_dwg_intermediate` escribe TODO grupo opcional explícito
+  (`TagWriter.force_optional` vía constructor envuelto — es atributo de
+  instancia pisado en `__init__`, un patch de clase no hace nada) y
+  **materializa** los tres defaults en los MTEXT que nunca los tuvieron —
+  el test sintético cazó ese hueco: `force_optional` solo escribe valores
+  QUE EXISTEN, y un MTEXT dibujado en IngeCAD no los tiene.
+- `repair_invalid_defaults` al abrir DWG: 0 no es un factor válido
+  (rango 0.25–4.0), así que la reparación jamás toca un valor real. El
+  guardado.dwg ya dañado de Marco vuelve a verse bien con solo abrirlo.
+
+**Medido como manda la casa:** campo a campo contra el original, 1084 → 765
+desajustes (desaparecen MTEXT spacing ×150 y LEADER direction ×135; lo que
+queda son campos que LibreDWG no escribe y unset-vs-default equivalentes), y
+**por render**: round-trip viejo 315 píxeles de diferencia, nuevo **13-16 de
+~19 860 con tinta**. Cuatro planos reales: conteos y firmas idénticos
+viejo-vs-nuevo (0 regresiones).
+
+⚠️ **Trampa de arnés nueva, cazada tras una hora de fantasmas: el
+`__pycache__` rancio.** Dos ediciones del mismo archivo en el mismo segundo
+(el patrón editar-probar-revertir de las pruebas inversas) dejan el `.pyc`
+con mtime válido y bytecode VIEJO: la fuente en disco decía una cosa y la
+función ejecutada hacía otra — `inspect.getsource` encima MIENTE (lee el
+archivo nuevo aunque corra el bytecode viejo). Síntoma: un test que pasaba,
+tras revert+restore idéntico, falla. Cura: `find core -name __pycache__
+-exec rm -rf {} +` tras cada edición programática en las pruebas inversas.
+
+**Estado: SIN PUBLICAR a propósito.** Todo en main cuando se commitee; la
+0.4.5 espera el OK de Marco.
+
+## 🗓 Sesión 2026-08-24 (ter) — v0.4.4: el plano de cercos contra BricsCAD
+
+**Marco abrió `0059_04.CERCOS PERIMETRICOS.dwg` al lado de BricsCAD y reportó
+tres cosas. Las tres eran reales y ninguna era lo que parecía.**
+
+**1. «El texto no se ve» (las 302 etiquetas del modelo eran cajas blancas).**
+No era texto sin implementar: son MULTILEADER, y ezdxf los dibuja SOLO desde
+su **gráfico proxy** (`_proxy_graphic_only_entities`, con TODO pendiente
+upstream) — la imagen que el programa que guardó horneó en el archivo, con la
+máscara del texto como HATCH del color de ventana de ESA máquina (blanco) y el
+texto en colores que el blanco se traga. `TolerantFrontend.draw_mleader_entity`
+renderiza ahora el contenido real (motor nativo de ezdxf, `bg_fill=3` para la
+máscara de color de ventana), con el proxy como reserva si el motor falla.
+⚠️ Un mleader creado por ezdxf NO lleva proxy → un test sintético pasa con y
+sin el arreglo; el test carga el blob proxy real del plano (1236 bytes,
+base64) para ejercitar el camino que falla.
+
+**2. «En el cajetín no se ve el texto» — y el hallazgo estructural del día.**
+El WIPEOUT del cajetín (capa «0», relleno blanco-papel) se pintaba ENCIMA de
+los rótulos de la capa «-Textos»: **el batching por (capa, color) destruye el
+orden de entidades del archivo**, y «0» ordena después de «-Textos». Primer
+arreglo: el texto se pinta al final de su grupo de DRAWORDER. Y al verificar
+en lámina apareció **el mismo mecanismo una capa más adentro**: la máscara de
+fondo de un MTEXT y sus glifos caen en buckets hermanos por color, y el orden
+alfabético pintaba la máscara blanca DESPUÉS de las letras negras — **cada
+etiqueta con máscara en una lámina borraba su propio texto. El modelo
+sobrevivía de pura suerte alfabética** («#212830» < «#ffffff»). La máscara
+lleva ahora kind propio «TM» (emitida por `draw_filled_polygon` bajo entidad
+de texto) y empaqueta entre los rellenos y los glifos: relleno < máscara <
+texto, por construcción, en los dos espacios.
+
+**3. «Pasar de layout a model tarda 2-3 segundos».** Cada cambio de pestaña
+relanzaba la reteselación completa. Ahora la ventana guarda la escena por
+pestaña (clave: revisión) y la re-adopta al volver: **~1 s → 5 ms / 1 ms** en
+el plano real. Tres piezas para que fuera verdad y no números de humo:
+- `switch_active` marcaba `dirty = True` y **eso subía la revisión** — el
+  propio cambio de pestaña invalidaba la caché. Nuevo
+  `Document.mark_dirty_no_revision()`: el archivo debe guardarse
+  ($TILEMODE), pero nada dibujable cambió.
+- La escena que construye el OPEN también siembra la caché (el open no pasa
+  por `_on_regen_done`; sin esto la primera vuelta re-teselaba igual).
+- **Todo `regen_in_memory` vacía la caché**: VIEWRES y el suavizado cambian
+  la teselación sin tocar la revisión, así que la revisión sola no puede ser
+  la llave. Sólo el cambio de pestaña consulta.
+
+⚠️ **Las lecciones de medición, cosechadas a pares esta sesión:**
+- Mi primer «cache HIT: 34 ms» era **la parte síncrona de un MISS** — el
+  regen es asíncrono y no lo esperé. El pytest honesto (`_regen_worker is
+  None` tras el switch) lo desmintió al instante.
+- Dos veces comparé coordenadas de ESCENA contra rects de MUNDO (los bounds
+  van en mundo, los vértices llevan el origin restado): un raster CPU «en
+  blanco» culpó a la escena cuando el error era mío. La tercera versión del
+  raster, con colores y orden reales, mostró la verdad: quad blanco encima
+  de letras negras.
+- `git checkout <archivo>` para «restaurar» durante una prueba inversa
+  **borra los arreglos no commiteados** — dos arreglos se esfumaron y hubo
+  que re-aplicarlos. Las pruebas inversas se hacen con sed/patch temporal,
+  nunca con checkout sobre árbol sucio.
+- Y otra vez el `pkill` del CLAUDE.md: `pkill -f "pytest -q"` en la misma
+  línea que relanza pytest se mató a sí mismo (exit 144), y mis watchers
+  `until ! pgrep -f pytest` se mantenían vivos MUTUAMENTE (cada uno ve el
+  patrón en la línea de comandos de los otros). Esperar por PID.
+
+**Verificado sobre el plano real:** modelo y lámina con las etiquetas
+legibles sobre su máscara (idéntico a BricsCAD lado a lado), cajetín completo
+(«MUNICIPALIDAD DISTRITAL DE CHICHAS», PCP-01…), cambio de pestañas
+instantáneo, y los tres planos de referencia (SEDAPAR/COFOPRI/COBERTURAS)
+construyen con sus números de siempre (COFOPRI clava los 2 143 191 vértices).
+**Pendiente conocido, no abierto:** el OLE2FRAME del cajetín (una tabla de
+Excel pegada) no se renderiza — ezdxf no interpreta OLE; BricsCAD tampoco lo
+mostraba en la captura de Marco.
+
+## 🗓 Sesión 2026-08-24 (bis) — v0.4.3: el diálogo de abrir, y el sandbox
+
+**Marco lo cazó dogfoodeando una hora después de instalar la Flatpak**: File ▸
+Open contestaba «No se pudo encontrar «/app/ingecad»» y recién después mostraba
+el selector, en su carpeta personal. **El portal tenía razón y la app estaba
+mal.** Los siete diálogos pasaban `""` como carpeta inicial y Qt eso lo resuelve
+contra el **directorio de trabajo**; desde una terminal es inofensivo, pero el
+lanzador del Flatpak trabajaba en `/app/ingecad` —que existe **dentro** del
+sandbox, mientras el selector lo dibuja el portal **fuera**—. Los diálogos de
+guardar tenían el mismo fallo en su otra forma: un `plano.pdf` pelado es tan
+relativo como una cadena vacía.
+
+**Arreglado por los dos lados, y el arreglo vale más que el bug:** todos los
+diálogos pasan por `views/file_dialogs.py`, que abre **donde estuviste la última
+vez**, luego en la carpeta del plano abierto, luego Documentos, luego home — que
+es lo que hace AutoCAD y lo que esto debió hacer desde el principio. Y el
+lanzador ya no trabaja dentro de `/app`.
+
+⚠️ **Dos rutas se rechazan por nombre porque las dos parecen reales desde
+dentro del proceso**: `/app` (el prefijo del sandbox: `is_dir()` dice que sí y
+no significa nada para el portal) y `/run/user/N/doc/ID`, el montaje del
+*document portal* por el que llega un archivo elegido fuera de
+`--filesystem=home` — perfecto para abrir, inútil para volver a abrir ahí:
+contiene un solo archivo y desaparece.
+
+**El test que sostiene el arreglo no es de comportamiento, es de estructura:**
+recorre `views/`, `tools/` y `core/` y falla si alguien llama a
+`QFileDialog.get*FileName` fuera del ayudante. Verificado como manda la casa —
+**se volvió a poner una llamada directa y el test falló**; sin esa comprobación
+sería un test que pasa por no probar nada. 922 tests.
+
+**Verificado dentro del sandbox real**, no sólo en la suite: `cd` del lanzador
+= `/home/sumaritux`, y `start_dir()` devuelve la carpeta de su último plano.
+
+## 🗓 Sesión 2026-08-24 — v0.4.2 publicada, y una sola instalación en la laptop
+
+**v0.4.2 liberada** (los seis tirones medidos, suavizado + VIEWRES, cursor
+configurable, grips de directriz, grupos auditados) con sus tres binarios en
+la release de GitHub —AppImage, tar.gz y el bundle `.flatpak`— y el **repo
+OSTree firmado actualizado en R2**, así que las instalaciones existentes
+reciben la 0.4.2 por `flatpak update`. El commit nuevo cuelga del de la 0.4.1
+(padre `3ab2be21a3`), o sea que la actualización es incremental, no una
+descarga completa.
+
+**La laptop quedó con UNA sola instalación, la Flatpak** (pedido de Marco:
+«he visto dos versiones»). Había tres cosas a la vez: la Flatpak, un install
+de tarball en `~/.local/opt/IngeCAD-0.4.0` con su lanzador y su entrada de
+menú, y el AppImage 0.1.2 de agosto. Se fue todo menos la Flatpak: **1,4 GB
+liberados**, una sola entrada «IngeCAD» en el menú, y `.dwg`/`.dxf` apuntando
+a `org.ingecad.IngeCAD.desktop`. `scripts/install-desktop.sh` no tenía
+contraparte, así que ahora existe **`scripts/uninstall-desktop.sh`**, que
+además le pasa la asociación de archivos a la Flatpak. **No se tocó** lo que
+sirve igual con cualquier instalación: el paquete MIME, los íconos de
+documento de los temas, `~/.config/IngeCAD` (sus ajustes y sus recientes) ni
+`~/.local/opt/oda` (el conversor de referencia de Track L). La lista de
+recientes se fusionó hacia la Flatpak: 12 planos suyos.
+
+⚠️ **Publicar sin las claves S3 de R2 se puede, y ya está escrito:**
+`packaging/flatpak/publish-r2-wrangler.sh` sube el repo por el login OAuth de
+wrangler, **incremental** (de 8365 archivos subió 104). Sigue pendiente lo de
+siempre —crear `R2_ACCOUNT_ID`/`R2_ACCESS_KEY_ID`/`R2_SECRET_ACCESS_KEY`— para
+que `publish-flatpak.yml` lo haga solo desde el tag; hasta entonces esto es el
+camino y el workflow no corre.
+
+⚠️ **Tres trampas de esta sesión, las tres de la misma familia: el paso
+intermedio dijo que sí y la medida real dijo que no.**
+1. **`flatpak-builder` no existe como comando nativo acá** —es el Flatpak
+   `org.flatpak.Builder`, y `build-flatpak.sh` ya tenía el fallback que yo no
+   usé al invocarlo a mano. Murió con «orden no encontrada», mi comando
+   terminaba en `tail` (exit 0) y la notificación dijo «completed». Lo delató
+   **mirar el ref del repo**: seguía en el commit de la 0.4.1. *El exit code
+   de una tubería no es el exit code del trabajo.*
+2. **`--force-clean` no rescata un build dir que un `--install` anterior dejó
+   finalizado:** rehace la compilación entera —diez minutos— y recién ahí
+   muere en el export. Ahora `--repo` borra el directorio primero.
+3. **Mi propio script de publicación comparaba por ruta+tamaño**, que es
+   correcto para la mitad direccionada por contenido del repo OSTree y
+   silenciosamente falso para la otra: un `summary.sig` recién firmado mide
+   142 bytes las dos veces, y un archivo de `refs/` es un hash de 64
+   caracteres las dos veces. Los habría dado por iguales y R2 habría servido
+   **el resumen nuevo bajo la firma vieja**. Se cazó leyendo la lista del
+   `--dry-run` antes de subir, no después.
+
+**Y una consecuencia que conviene recordar: `flatpak-builder --install`
+cambia el origen de la app** a un remoto local (`ingecad1-origin`) y, al
+desinstalar, flatpak se lleva puesto el remoto público. Una instalación que ya
+no apunta a `downloads.ingecad.org` **no vuelve a ver una actualización
+nunca**. Por eso el cierre correcto es reinstalar desde el `.flatpakref`
+publicado —que de paso verifica la firma y el repo de punta a punta, como un
+usuario— y no dejar el build local puesto. Verificado: 0.4.2, origen
+`ingecad-origin`, `--check` OK y un plano real suyo abierto en el sandbox.
+
+## 🗓 Sesión 2026-08-23 — v0.4.1 publicada, y el Flatpak con repo firmado propio
+
+**v0.4.1 liberada** (Block Editor + cotas instantáneas + i18n completo + perf;
+numerada 0.4.1 a propósito: la promesa pública *v0.5 = topografía* manda sobre
+la ortodoxia). El workflow de release ahora **crea la release desde el tag** si
+no existe — el upload de la 0.4.1 falló con «release not found» porque las
+anteriores se creaban a mano.
+
+**El CI dejó de crashear tras pasar en verde.** La plataforma `offscreen`
+degrada QOpenGLWidget y toda la inestabilidad orbitaba eso (double free al
+salir, segfault en processEvents). Dos arreglos «bonitos» se midieron peores:
+segar ventanas por test volvió el crash determinista; unir hilos por test dejó
+a los timers de regen disparar reconstrucciones (7 min → no terminaba en 18).
+Lo que quedó: **CI bajo Xvfb+xcb** (los mismos caminos que el escritorio, GL
+incluido) + `os._exit` en `pytest_unconfigure` (en sessionfinish se comía el
+resumen: el reportero lo imprime en la cola de un hookwrapper). La app real
+sale limpia — verificado de punta a punta en offscreen y xcb.
+
+**Flatpak, decidido POR el usuario objetivo** (el ingeniero civil sin
+terminal): NO Flathub por ahora; **repo OSTree firmado propio** en R2 detrás
+de `downloads.ingecad.org/flatpak/`, calcado del de IngePresupuestos. Un clic
+en `…/ingecad.flatpakref` instala desde el centro de software y las
+actualizaciones llegan solas. Piezas: `packaging/flatpak/` (manifest
+freedesktop 25.08 + krb5 —QtPdf muere sin GSSAPI— + LibreDWG compilado del
+release + parches), clave ed25519 sin contraseña (respaldo en
+`~/Documentos/claves-gpg-ingecad/`, secret `FLATPAK_GPG_KEY` puesto),
+bucket + dominio creados vía wrangler OAuth local, seed inicial de 8 279
+objetos subido con wrangler en paralelo, y `publish-flatpak.yml` para el CI.
+⚠️ **PENDIENTE de Marco: crear las claves S3 de R2** (dashboard → R2 → Manage
+API tokens; sirven las mismas de IngePresupuestos) y ponerlas como secrets
+`R2_ACCOUNT_ID`/`R2_ACCESS_KEY_ID`/`R2_SECRET_ACCESS_KEY` — hasta entonces el
+workflow de publicación no corre y las futuras versiones se publican como esta
+(local). Verificado como usuario: uninstall + `flatpak install --from URL` +
+`--check` + plano real abierto en el sandbox.
+
+**El bundle adelgazó 771→345 MB instalado, 194→72 MB descarga**: PySide6 trae
+QtWebEngine (195 MB) y familia que IngeCAD no importa; el manifest recorta por
+**blocklist** (una lib desconocida se queda — un upgrade de Qt no puede dejar
+la app en blanco) y se verificó importando los 7 módulos usados dentro del
+sandbox y abriendo un plano. ⚠️ Trampas del día: `/tmp` no sobrevive entre
+build-commands (cada uno es una invocación); un `git add -A` casi mete los
+8 254 archivos de `.staging/` al repo (lo delató el push colgado; ya está en
+.gitignore); y `pkill` con un patrón que está en tu propia línea de comandos
+te mata a vos (dos veces esta sesión).
+
+## 🗓 Sesión 2026-08-22 (quinto) — BEDIT: el editor de bloques
+
+**El frente #1 de la próxima sesión, hecho.** BEDIT/BSAVE/BCLOSE (+ alias `BE`),
+con las tres vías de acceso que documenta el manual (pp. 222-224): nombre por
+comando (`BEDIT SILLA`, y `?` lista), inserción seleccionada + BEDIT (o el menú
+contextual «Block Editor»), y el diálogo con lista + nombre editable — un nombre
+nuevo **crea** la definición, como el diálogo de AutoCAD. BricsCAD confirmó el
+par Guardar/Descartar de BCLOSE (su ayuda en línea; la local no trae BEDIT).
+
+**La apuesta del rumbo se cumplió tal cual: el editor es un cambio de espacio
+actual, no una copia.** `Document.edit_block` + `Document.modelspace()`
+devolviendo el layout del bloque durante la sesión: dibujar, TRIM, cotas, snap,
+picado y undo operan sobre la definición **por los caminos de siempre** — la
+auditoría de los 38 usos de `.modelspace()` mostró que los ambiguos o corren
+fuera de sesión o deben seguir al espacio. El render es una rama en
+`build_scene` (fondo cálido distintivo como AutoCAD/BricsCAD, extents del
+bloque, punto base = origen marcado gratis por los ejes).
+
+**Los semánticos finos, que son donde vive la fidelidad:**
+- **Descartar = History.undo hasta el punto de guardado** — exacto por
+  construcción, y el redo se limpia (un Ctrl+Y post-cierre repetiría ediciones
+  de definición sin editor a la vista). BSAVE **mueve el punto de rollback**:
+  guardar y luego descartar conserva lo guardado (p. 215: «since it was last
+  saved»).
+- **U no cruza el piso de la sesión** (AutoCAD también lo refuta); las pestañas
+  de lámina quedan bloqueadas (AutoCAD directamente las oculta); BEDIT desde
+  una lámina aterriza en Model primero.
+- **El picker de INSERT esconde lo que recursaría** (directo y transitivo) —
+  `blockedit.would_recurse` — porque ezdxf escribiría feliz la recursión
+  infinita que AutoCAD refuta.
+- Un bloque nuevo descartado **no deja definición vacía**; los anónimos `*D`
+  no se pueden abrir; los `A$C…` de AutoCAD sí (AutoCAD también los lista).
+
+**Verificado sobre el COFOPRI real**: BEDIT de un bloque de 192 entidades abre
+en 351 ms mostrando SOLO el bloque (1 % de trazos contra 4,2 % del plano al
+volver; fondos medios (46,41,34) cálido / (39,41,45) frío = cambio de sala).
+⚠️ El primer conteo de tinta dio idéntico en ambas capturas — umbral absoluto
+sobre fondo oscuro cuenta el fondo; medir **relativo a la mediana del fondo**.
+822 tests.
+
+**Queda para después (anotado, no abierto):** REFEDIT (concepto xref), bloques
+dinámicos (descartados por rumbo), doble clic sobre inserción para abrir el
+editor, y el residuo de pegar un INSERT recursivo vía portapapeles (el guard
+vive en el picker; PasteCommand no lo consulta).
+
+## 🗓 Sesión 2026-08-22 (quater) — dónde se van los segundos de una regeneración
+
+Marco preguntó por qué IngeCAD usa CPU y casi nada de GPU. **Ya usa la GPU**
+(renderer `AMD Radeon 780M (radeonsi)`, OpenGL 4.6 — si fuera software diría
+`llvmpipe`), y no hay otra: la 780M integrada es la única del equipo. El reparto
+medido en SEDAPAR: **7,5 millones de vértices residentes en GPU** contra **11,6 s
+de CPU** por regeneración. La GPU está dormida porque su parte son milisegundos;
+lo caro es *preparar* los vértices, y eso ninguna GPU lo hace.
+
+**El perfil (cProfile sobre `build_scene`) desmintió mi hipótesis**: el texto era
+el 1,3 %, no el grueso. Lo que apareció, sólo en la vista acumulada, fue
+`_flatten_distance` → `bbox.extents` = **5,4 s de 17**: nuestro código recorriendo
+las 10 847 entidades **sólo para elegir la tolerancia de aplanado de curvas**.
+La cabecera del DXF trae el mismo rectángulo gratis: medido en 4 planos reales da
+**la misma tolerancia (razón 1,000-1,002) en 0,01 ms contra 40-950 ms**. Ahora se
+usa la cabecera, con guardas (ausente, infinita, degenerada, o el centinela ±1e20
+de un dibujo nunca regenerado → se paga la caminata).
+
+⚠️ **Y la lección: el perfilador exageró.** Decía 31 %; la ganancia real es
+**SEDAPAR 10,5 → 7,4 s (30 %), COFOPRI 14 %, COBERTURAS 0 %**. cProfile infla el
+código Python puro, y además la caminata **calentaba cachés (`lru_cache` de
+conversión a Path) que el dibujo reusaba**, así que quitarla no descuenta su
+tiempo completo. Dos planos cambian su recuento de vértices en <0,1 % porque la
+tolerancia difiere en el tercer decimal.
+
+**El camino LWPOLYLINE, hecho después:** ezdxf construye **un diccionario por
+vértice** (`locals()` dentro de `format_point`) y el frontend pide `"xyb"` a
+cada polilínea camino de un `Path` — 2 millones de llamadas. El parche
+(`core/ezdxf_patches.py`) resuelve el formato **una vez por llamada** en vez de
+una por punto: **7,6× más rápido** en microbanco (144 → 19 ms por 200 000
+puntos) y **exacto** — verificado contra `format_word` en 15 formatos, incluidos
+los raros (`"vb"`, `"bxy"`, `""`, `"XYB"`), 0 diferencias.
+
+**Acumulado de las dos optimizaciones:**
+
+| plano | original | + extents | + LWPOLYLINE |
+|---|---|---|---|
+| SEDAPAR (10 847) | 10 502 ms | 7 391 ms | **6 443 ms** (1,63×) |
+| COFOPRI (5 406) | 2 391 ms | 2 063 ms | **1 823 ms** (1,31×) |
+| COBERTURAS (4 228) | 4 917 ms | 4 910 ms | **4 865 ms** (1,01×) |
+
+⚠️ **Y una nota de medición:** los recuentos de vértices **fluctúan ±2 entre
+procesos** (resolución de fuentes), así que no sirven como prueba byte-exacta;
+dentro de un mismo binario sí son estables (2 143 191 tres veces seguidas). La
+prueba exacta del parche es la comparación directa contra `format_point`, no el
+conteo.
+
+**Tercera optimización — la clasificación de anillos de relleno.**
+`draw_filled_paths` decide qué anillo es hueco y cuál figura por anidamiento
+par/impar, y eso es **O(anillos²) rayos lanzados**: 387 543 llamadas a
+`_point_in_ring` en SEDAPAR. Ahora se calcula **una caja envolvente por anillo,
+una sola vez**, y paga dos veces: el ordenamiento reconstruía dos listas de
+coordenadas *en cada comparación*, y la caja **rechaza casi todos los pares
+antes de lanzar un rayo**. Es exacto —la caja es condición necesaria, nunca
+suficiente: un anillo cóncavo sigue necesitando el rayo, y hay test de eso.
+
+| plano | original | +extents | +LWPOLYLINE | **+cajas** |
+|---|---|---|---|---|
+| SEDAPAR | 10 502 ms | 7 391 | 6 443 | **5 415 ms — 1,94×** |
+| COFOPRI | 2 391 ms | 2 063 | 1 823 | **1 584 ms — 1,51×** |
+
+⚠️ **COBERTURAS no era hatches — mi hipótesis falló otra vez.** Es una **lámina
+con 10 ventanas gráficas** y el modelo se redibuja **una vez por ventana**.
+Medido pasada a pasada: **las 10 cuestan lo mismo (~400 ms), o sea que ninguna
+caché se calienta**, y suman el 90 % de la lámina.
+
+**Cuarta optimización — no dibujar lo que la ventana no muestra.** El dato que
+lo decidió: cada ventana muestra entre **0,5 % y 18 %** del modelo, así que
+**el 94 % del trabajo era sobre entidades que ninguna ventana enseña**,
+procesadas enteras y recortadas después. Ahora cada pasada salta las entidades
+cuya caja no toca el rectángulo que esa ventana muestra. **Exacto por
+construcción**: lo que cae fuera del rectángulo es lo que el recortador iba a
+tirar. Toda duda se resuelve **a favor de dibujar** — el rectángulo lleva 5 % de
+margen (los grosores se dibujan en mm de papel), las cajas son las conservadoras
+`fast=True`, una entidad inmedible nunca se salta, y una ventana girada recibe
+el rectángulo **circunscrito**. Y si una ventana ya muestra el dibujo entero
+—una lámina de una sola ventana— **no se mide nada**, porque ahí medir sería
+pura pérdida.
+
+| lámina | ventanas | antes | después | |
+|---|---|---|---|---|
+| COBERTURAS | 10 | 4 742 ms | **1 891 ms** | 2,5× |
+| Planimetría (19 020 ents) | 2 | 2 117 ms | **1 102 ms** | 1,9× |
+| Cloración | 2 | 1 552 ms | **1 010 ms** | 1,5× |
+| Reservorio | 6 | 3 854 ms | **2 664 ms** | 1,4× |
+
+**Verificado como corresponde para algo que podría borrar dibujo:** vértices
+idénticos lote por lote (568 050 / 1 061 964 / 643 452 / 1) y la lámina
+renderizada **0 píxeles distintos de 3 177 096**, con control de que la imagen
+no está en blanco (3 129 296 con tinta).
+
+**Y un intento que NO pagó, anotado para que nadie lo repita.** Tras las cuatro
+optimizaciones el nuevo #1 del perfil era el generador de aplanado de ezdxf
+(`npshapes.flattening`, **2 937 237 llamadas**). Idea: cuando un camino no tiene
+curvas, sus puntos aplanados **son** sus propios vértices, así que se puede
+saltar el generador y armar los segmentos con numpy. Implementado y verificado
+exacto (incluido que `MOVE_TO` se cede como un punto más, que es lo que hace
+ezdxf; y ojo: `MOVE_TO` vale 4, **por encima** de los códigos de curva, así que
+un `>= CURVE3` lo descartaría por error). **Resultado: neutro.** COFOPRI
+1 599-1 632 ms con atajo contra 1 604-1 775 sin él; SEDAPAR 5 537-5 607 contra
+5 599-6 037. Revertido: un camino alternativo en el código de render —lo más
+crítico para la fidelidad— sin ganancia medible es un negativo neto.
+
+**Por qué no pagó, medido:** de los 2,9 M de puntos, `draw_path` mueve 1,03 M en
+**4 362** llamadas (94 % sin curvas) y `draw_filled_paths` mueve 1,85 M en
+**46 530 anillos**, de los que **sólo el 23 % está libre de curvas**. O sea: el
+volumen está en los rellenos, y ahí el aplanado es trabajo real de Bézier, no
+sobrecarga que se pueda saltar.
+
+**Lo que queda del mapa en modelspace**, todo repartido y de retorno pobre:
+aplanado de curvas ~17 % (Bézier de verdad), nuestro `_fill` ~13 % (el bucle
+sobre triángulos que devuelve earcut), earcut ~8 %, construcción de `Path`
+~12 %.
+
+## 🗓 Sesión 2026-08-22 (ter) — ciclado de selección, y un plano que no tenía cotas
+
+**Marco: «no hay como seleccionar esa cota».** El diagnóstico salió de SUS dos
+capturas y del archivo que guardó, no de suposiciones: en la primera el panel
+decía **Dimension** (su cota) y en la segunda **Text** con altura 1 (un número
+del plano). Es decir: **los números de los lotes del COFOPRI no son cotas, son
+TEXT escritos a mano.** Cotas reales hay 11 y están en la capa SECCIONES, todas
+**con anulaciones XDATA**; la suya no las tenía, y el estilo `DISTAN-G` suprime
+las cuatro líneas (`dimse1/2`, `dimsd1/2` = 1, y las variables de cabecera dicen
+lo mismo, así que AutoCAD dibujaría igual de pelado). Por eso su cota era casi
+impicable: medido, **3,8 % de su caja contra 51 %** de una del archivo.
+
+**Lo que faltaba de verdad era el ciclado de selección.** Su cota y el texto del
+plano estaban superpuestos, y picar devolvía siempre el mismo. Ahora
+`GeometryIndex.pick_all()` da todos los candidatos **con el mismo orden que
+usaba `pick`** —invariante clave: el primer clic sigue seleccionando lo de
+siempre, el ciclado sólo alcanza lo que ese clic ya se saltaba— y volver a
+clicar en el mismo punto ofrece el siguiente (SELECTIONCYCLING valor 1, sin el
+diálogo de lista). Vale igual para las herramientas que pican, que es donde él
+se trabó con `MA`. Verificado en su archivo: 2 candidatos, clics alternando.
+
+⚠️ **Tres trampas de fixture, todas del mismo tipo: el test pasaba probando
+nada.** (1) Añadir entidades directo al modelspace no las mete en el índice de
+picado. (2) Re-adjuntar el documento tampoco basta: como añadir sin Command no
+cambia `document.revision`, **el pre-calentador en segundo plano da por vigente
+su índice vacío y lo adopta**. Lo correcto es dibujar por Commands, como la app.
+(3) El shift-clic seguía ciclando porque yo reseteaba **después** de picar.
+
+**Y un hueco de cobertura que este trabajo destapó:** el refactor de prompts de
+la fase I3 sacó **200 cadenas** de las llamadas a `tr()` (ahora van por
+`self.prompt("...")`), así que el test de cobertura dejó de vigilarlas sin que
+nadie lo notara — contaba 886 en vez de 1086. Estaban todas traducidas, pero la
+garantía se había perdido. El escáner ahora también lee el embudo de prompts.
+
+## 🗓 Sesión 2026-08-22 (bis) — acotar en un plano grande tardaba segundos
+
+**Marco lo cazó dogfoodeando**: en un plano real, `DIMLINEAR` dibujaba la cota
+correcta pero tardaba 3-5 s en aparecer. Medido: **crear la cota cuesta 1-2 ms;
+verla costaba 2 300-2 900 ms** en el COFOPRI de 5 406 entidades y **10 300-16 200
+ms** en el SEDAPAR de 10 847. Todo eso era `regen_in_memory()` reteselando el
+dibujo entero para mostrar UNA entidad nueva.
+
+**La causa era un comentario que dejó de ser cierto.** El controlador forzaba
+ese regen a propósito: *«a dimension renders into an anonymous block … the
+overlay can't show it»*. Eso valía antes de que el contenido de bloque se
+atribuyera a la entidad más externa con handle (v0.1.3); desde entonces **el
+overlay dibuja una cota con el mismo frontend que la escena base** — medido:
+1 035 vértices para un DIMLINEAR simple, todos atribuidos a su handle. La
+exclusión había quedado obsoleta y nadie volvió a preguntárselo.
+
+Cuatro puntos en `views/tool_controller.py`: `_added_entities` reconoce
+`AddDimensionCommand`; crear una cota ya no fuerza regen; el regen que sí queda
+es sólo para cotas **pegadas** (que pueden llegar sin su bloque `*D`); y
+deshacer/rehacer pasa por el camino quirúrgico. **Resultado: 38-335 ms en el
+COFOPRI y 148-293 ms en el SEDAPAR** — de 50 a 70 veces más rápido.
+
+⚠️ **Y otra vez la trampa del medidor, en su forma más peligrosa.** Al probar si
+el overlay sabía dibujar una cota conté los vértices con un atributo que no
+existe (`batch.verts` en vez de `batch.data`) y **leí 0**. Estuve a un paso de
+concluir «el overlay no puede, la exclusión es correcta» y cerrar la
+investigación. Lo que lo delató fue el **control**: una LÍNEA normal, que sí se
+dibuja seguro, también daba 0. *Un cero sólo significa algo si el control da
+distinto de cero.*
+
+**Y el mismo comentario obsoleto estaba en un segundo sitio.** Marco probó `MA`
+para copiar el estilo de una cota a la recién dibujada y reportó *«como que no
+selecciona esa cota»*. `MatchPropCommand` marcaba `needs_regen` cuando origen y
+destino eran cotas, con la misma justificación falsa. **El estilo siempre se
+copiaba bien** (verificado: alto de texto 1,75 → 7,5, bloque re-renderizado); lo
+que fallaba era que **la pantalla tardaba 2 671 ms en mostrarlo**, y segundos sin
+respuesta tras hacer clic se leen como «no lo seleccionó». Ahora: **74 ms**.
+Lección: cuando una premisa falsa se arregla, hay que **buscar dónde más está
+escrita** — el mismo comentario, palabra por palabra, vivía en `core/modify.py`.
+
+De paso, un defecto que sólo aparece al combinar las dos cosas: aplicar MATCHPROP
+a una entidad que **ya viaja en el overlay** la encolaba **dos veces**
+(`_pending_render.extend` sin deduplicar, cuando la rama aditiva sí deduplica),
+así que se teselaba dos veces en cada refresco.
+
+**Lo que NO cambió, y conviene saberlo:** el motor de snap nunca enganchó a la
+geometría de una cota, ni antes ni después — verificado preguntándole
+directamente, con reconstrucción completa incluida. No es una regresión de este
+arreglo; es una función que no existe.
+
+## 🧭 IDIOMAS — la regla, y el plan (2026-08-22) → `docs/i18n.md`
+
+**El primer contribuidor externo llegó por acá.** Michal Josef Špaček (Red Hat,
+Chequia — el mismo de LibreDWG) mandó la traducción al checo y dos issues; el
+plan completo y la regla para contribuidores viven en **`docs/i18n.md`**. Lo que
+no hay que re-discutir:
+
+- **Todo lo que se lee se traduce; todo lo que se tipea es inglés.** La línea de
+  comandos es inglesa en cualquier idioma de la interfaz, porque la tesis del
+  producto es la memoria muscular. Los menús y los prompts sí se traducen.
+- **La convención de los prompts con opciones: traducir la palabra y dejar la
+  letra inglesa entre paréntesis** — `[Copiar(C)/Suprimir(D)]`. ✅ **I0 hecha el
+  2026-08-22**: 17 cadenas arregladas (eran 87, cumplían 70) y
+  `tests/test_i18n_prompt_keys.py` vigila todos los idiomas. ⚠️ Se aceptan **tres**
+  formas, no una: `Suprimir(D)`, las mayúsculas de la palabra como las escribe
+  AutoCAD (`CEntro` = CE), o el keyword sin traducir (`3P`, `Ttr`) — contar sólo
+  los paréntesis daba 28 rotas cuando eran 17. Y las opciones se comparan **por
+  posición**: un cotejo laxo daba por buena `Definir` (que es Set) como
+  traducción de `Delete`, porque las dos llevan una D mayúscula.
+- ✅ **I2 hecha el 2026-08-22 — un idioma es una carpeta, no un parche.**
+  `core/i18n.py` es ahora el paquete `core/i18n/` (API pública intacta: ningún
+  llamador se tocó) y `packs.py` descubre `i18n/<lang>/{meta,ui}.json`. Las
+  **dos** listas fijas de idiomas —el menú y el combo de Opciones— salieron.
+  `maintained` vive en `meta.json`, así que agregar un idioma no toca Python
+  **ni los tests**. El layout plano `i18n/<code>.json` sigue cargando (la
+  traducción al checo en curso no se rompe). Verificado de punta a punta:
+  soltar `i18n/qu/` pone *Runa Simi* en el menú de la ventana real.
+- ✅ **I4 hecha el 2026-08-22 — comandos localizados.** `i18n/es/commands.json`
+  trae **58 nombres** (LINEA, BORRA, DESPLAZA, RECORTA, ACOLINEAL…) y
+  `resolve_name` resuelve en este orden, **con el inglés primero en cada paso**:
+  `_` fuerza inglés → alias/nombre inglés → nombre localizado → autocompletado
+  (inglés antes que localizado). **El invariante sagrado se sostiene con un
+  test que recorre toda `DEFAULT_ALIASES` bajo cada idioma instalado**, y el
+  cargador rechaza un pack que nombre un comando inexistente, que pise un token
+  inglés o que dé un token a dos comandos — verificado metiendo la colisión a
+  propósito. Por eso el pack español **no declara alias**: los de una letra son
+  la memoria muscular y ya están todos tomados. ⚠️ Los nombres españoles son mi
+  mejor lectura de la AutoCAD en español, no una lista verificada; son
+  aditivos, así que uno equivocado no cuesta nada y corregirlo es cambiar una
+  cadena.
+- ✅ **I1 hecha el 2026-08-22**: las **274 cadenas** sin traducir están
+  traducidas (es.json 974 → 1216 claves, cobertura **1110/1110**) y
+  `tests/test_i18n_coverage.py` falla sólo para el idioma mantenido (`es`);
+  los idiomas de la comunidad se informan, nunca bloquean. Vigila además los
+  `{marcadores}` en todos los idiomas, porque `tr()` formatea la traducción.
+  ⚠️ **Dos trampas de medición**: (1) 106 cadenas **nunca aparecen dentro de un
+  `tr(...)`** — viven en tablas de datos y se traducen por variable
+  (`Mode("END", 1, "Endpoint")` → `tr(mode.label)`); un test de claves muertas
+  ingenuo pedía borrarlas y habría des-traducido los marcadores de referencia a
+  objetos. (2) mi primer humo en español decía «0 etiquetas, 0 sin traducir» y
+  parecía verde: no encontraba los menús (`main_window` tiene su propio
+  `_menu_bar`). **Un conteo de cero nunca es un aprobado**; el recorrido
+  arreglado ve 132.
+- ✅ **I3 hecha el 2026-08-22 — `core/i18n/keywords.py`**: la palabra traducida,
+  la inglesa, la tecla y la forma global `_` resuelven todas a **la tecla
+  inglesa**, leídas de la propia traducción (`Suprimir(D)`), así que un idioma
+  nuevo trae sus keywords en su `ui.json` sin tocar Python. ⚠️ **La migración
+  salió más chica que lo planeado**: en vez de reescribir las 143 comparaciones,
+  se normaliza el token en la puerta (34 `on_option` abren con
+  `t = self.option(text) or text.upper()`), y las ramas de siempre siguen
+  sirviendo porque la tecla inglesa ya era su primer elemento. Lo que sí cambió
+  en todas partes es **de dónde sale el prompt**: los 286 de `tools/` pasan por
+  `Tool.prompt(source, **kw)`, que traduce y recuerda la fuente — un prompt con
+  `{marcadores}` ya sustituidos no se puede mapear de vuelta, y un prompt sin
+  opciones limpia el conjunto, de modo que una `D` tecleada como distancia
+  nunca se come un keyword viejo. ⚠️ **Dos hallazgos**: un dígito es parte de la
+  tecla (`2P` daba `P` y chocaba con `3P`; lo cazó la suite), y el reescritor
+  mecánico tuvo que distinguir sangría colgante de alineada al paréntesis —
+  quitar `tr(` de los helpers que **devuelven** prompts producía código
+  inválido, porque esos paréntesis sostenían la concatenación implícita; ahí
+  `tr(` se convierte en `(`. Cada reescritura re-parseaba su salida antes de
+  escribir.
+
+Fases I0-I4 con su DoD en `docs/i18n.md`. **I0 (arreglar las 28 + el test que
+las vigila) es lo único urgente**: hasta que la regla se haga cumplir, cada
+traducción nueva puede reintroducir el mismo bug.
+
+## 🧭 PRÓXIMA SESIÓN (acordado 2026-08-13, tras la v0.4.0) — tres frentes, en este orden
+
+**1. ✅ Edición de bloques (`BEDIT`) — HECHA el 2026-08-22** (ver la sesión
+«quinto» arriba). Es el hueco más caro que queda: hoy están `B`
+(crear), `I` (insertar) y `X` (explotar), pero **no hay forma de cambiar una
+definición** — habría que explotar, editar, re-crear y reinsertar a mano cada
+copia. Investigado ya (manual pp. 222-224 y 1607):
+
+- **BEDIT antes que REFEDIT.** El Editor de bloques abre la definición en su
+  propio espacio y al cerrar (`BCLOSE`) los cambios bajan a todas las
+  inserciones. REFEDIT (editar en contexto, con «conjunto de trabajo») arrastra
+  el concepto de xref, que no tenemos: va después, si hace falta.
+- **La propagación sale gratis:** las inserciones referencian la definición por
+  nombre, así que editarla ya actualiza las cuarenta copias del plano.
+- ⚠️ **El trabajo real no es el editor, es generalizar el «espacio actual».**
+  Toda la maquinaria asume modelspace: **38 llamadas a `.modelspace()`, 16 en
+  `core/actions.py`**, más el índice de picado (`GeometryIndex`), `build_scene` y
+  el controlador. Una definición de bloque es un contenedor de entidades igual
+  que el modelo, así que el editor es «cambiar cuál es el espacio actual» y dejar
+  que dibujar/recortar/acotar sigan andando. Esa generalización es sana por sí
+  misma: es la que después permite editar geometría sobre una lámina.
+- **Bloques dinámicos NO** (parámetros, acciones, estados de visibilidad): es
+  morder el clon feature-por-feature que el rumbo descarta, y el 2D civil no los
+  usa. Acceso: Tools ▸ Block Editor y el menú contextual con una inserción
+  seleccionada, que es lo que documenta el manual.
+
+**2. Afinar la barra lateral derecha** (pestañas Capas / Propiedades / Paleta).
+Marco quiere pulirla; **el detalle se define con él al empezar** — no inventar
+requisitos acá. Lo que ya está: los tres administradores como pestañas (no
+diálogos modales, ver `[[ui-managers-in-sidebar]]`), y Propiedades muestra ya el
+estilo de todo objeto que tenga uno.
+
+**3. Arrancar el complemento de TOPOGRAFÍA (v0.5).** Es el complemento #1 y el
+contrato de plugins se diseña CON él, no en abstracto (decisión del rumbo del
+2026-08-12). Contenido: importar CSV de puntos con cota, cuadro de datos
+técnicos automático (Este/Norte, lados, rumbos, área y perímetro — `TABLE` ya
+existe como base) y perfil de elevaciones. El README y el FAQ del sitio ya dicen
+«v0.5», así que la promesa pública está alineada. **Inventario completo de CivilCAD (245 rutinas, precios, cómo lee Google Earth) y mapa de factibilidad capacidad por capacidad: `docs/topografia-civilcad-inventario.md` (2026-09-05). Decisión: complemento incluido; casi todo el módulo Google Earth se porta del `georef/` de IngeTrazo sin Google Earth.** **El plan por fases (P0 contrato + gestor → Topografía v0.5 → Terreno v0.6 → Redes v0.7 → Carreteras) con DoD y estimaciones: `docs/plan-complementos.md`. La barra lateral ya se pulió en sesiones anteriores (Marco, 2026-09-05): el frente 2 está cerrado.**
+
+## 🧭 RUMBO ESTRATÉGICO (2026-08-12) — consolidar, quick wins, y COMPLEMENTOS
+
+Marco revisó los 13 menús de BricsCAD Ultimate (capturas) y validó la dirección. Decisiones:
+
+1. **No perseguir a BricsCAD.** Ultimate marea al usuario (3D, paramétricos, nubes de
+   puntos, sheet sets — el civil 2D usa ~20%). El filtro maestro sigue mandando; IngeCAD
+   compite siendo *el AutoCAD LT que no marea*, no BricsCAD gratis.
+2. **La interfaz clásica se queda** (reafirmado). Ni ribbon ni rediseño: hasta BricsCAD
+   corre en modo "Toolbars (Classic)". El crecimiento por disciplinas NO pasa por más
+   toolbars en el núcleo, pasa por complementos (abajo).
+3. **Quick wins aprobados (en este orden):** barra **Standard** (New/Open/Save/Plot/
+   Undo/Copy/Paste/Zoom…) → **IMAGE** (insertar imágenes raster; ezdxf IMAGE/IMAGEDEF,
+   render = quad con textura) → **TABLE** (tablas; prerrequisito del cuadro de coordenadas
+   de topografía) → **PDF underlay** (calcar sobre PDF; rasterizar con QtPdf, tratar como
+   imagen). De paso: **DRAWORDER** y **LAYISO/LAYOFF** (baratos, uso diario).
+   REVCLOUD ya existía (auditoría de dibujo); faltaba su ícono en la toolbar Draw.
+4. **Arquitectura de COMPLEMENTOS (modelo QGIS) — la decisión estructural.** El núcleo =
+   AutoCAD LT (dibujar/editar/imprimir DWG). Cada disciplina civil — topografía,
+   movimiento de tierras, carreteras, canales, saneamiento — es un complemento que al
+   activarse agrega UN menú propio, opcionalmente una toolbar (apagable), y sus comandos
+   en el dispatcher; al desactivarse desaparece todo (cero contaminación para el que solo
+   dibuja). Gestor tipo QGIS en Herramientas > Complementos; primero complementos
+   incluidos, terceros después. **El principio #4 (acciones headless + dispatcher) ya es
+   la infraestructura**: un plugin = paquete Python que registra comandos y su menú. El
+   contrato del plugin se diseña CON el primer caso real: **Topografía = complemento #1
+   (v0.4)** — no diseñar la API en abstracto.
+5. **Scripting: Python sobre `actions`, no LISP.** El equivalente moderno de AutoLISP
+   (la rutina del cuadro de coordenadas que todos se pasan) es scripting Python sobre la
+   capa de acciones, como QGIS. Un traductor de AutoLISP puede existir algún día; los
+   complementos y las macros salen del mismo mecanismo.
+6. **Consolidar antes que agregar:** el plano real de dogfooding comando a comando
+   (memoria `[[proxima-sesion-plano-vs-bricscad]]`) y la ventana de configuración
+   siguen pendientes y van antes de cualquier feature grande nueva.
+
+### 🧭 RUMBO ACORDADO (2026-08-09) — próxima sesión: Layout en IngeCAD, cerrar v0.1 con r2004
+
+Marco validó la recomendación estratégica. **Orden de trabajo decidido:**
+
+1. **Layout (pestañas Model/Paper space como AutoCAD) en IngeCAD** — es feature de la app,
+   camino crítico de v0.1 (dims, Model/Layout tabs, PLOT). **ARRANCA ACÁ la próxima sesión.**
+2. ~~**Cerrar v0.1 con r2004 para «Guardar como DWG»**~~ — **DESCARTADO 2026-08-10, la
+   premisa era falsa para nuestro camino**: el «r2004 ya funciona» de L4 se midió con
+   `dwgrewrite` de un modelo decodificado de DWG; el modelo que construye `in_dxf` (el
+   camino dxf2dwg que IngeCAD usa) produce un r2004 con el object stream roto que ni
+   LibreDWG relee (repro mínimo: DXF de 1 línea → `--as r2004` → ENTITIES vacío; falla
+   igual en stock 0.14.8578, en el stack parcheado y en la base pre-ventana). v0.1 cierra
+   con r2000 (que abre en todo AutoCAD/BricsCAD desde 2000); el bug r2004 cross-modelo es
+   el siguiente objetivo Track L. La re-vendorización sí se hizo: base 0.14.8578 + 17
+   (10 nuestros ya absorbidos upstream, #1387 proxies incluido) — detalle en
+   `tools/libredwg-patches/README.md`.
+3. **r2018 writer propio = Track L de fondo**, sin bloquear el producto: madura en la rama
+   local `l4-r2018-writer` sesión a sesión cuando haya ganas. NO es camino crítico porque
+   r2004 ya resuelve el guardado. Ver «CONTINUAR L4» abajo para retomarlo.
+
+Cuando Marco diga «continúa», el default es **empezar por Layout** salvo que pida L4 explícito.
+
+### ✅ Sexta tanda (2026-08-09, misma sesión) — la medición ODA, el proxy, y L4 a fondo
+
+Tres frentes cerrados o muy avanzados:
+
+**(1) Paridad ODA medida sobre los 1657 planos = 96,8 %.** Herramientas
+`tools/oda_classify.py` + `tools/oda_vs_libredwg.py` (mismo criterio ezdxf en los dos
+lados). ODA gana en 30 (casi todo nicho: Helix/spline-3D, Civil 3D, diffs de conteo
+por ACAD2018), **LibreDWG gana en 15** (r11/r13/r2 viejos que ODA rechaza). En lectura
+ya estamos en paridad práctica para el flujo real. Mapa archivo-por-archivo en
+`scratchpad/oda-vs-ldwg.csv`.
+
+**(2) Gráfico proxy — PR #1387 (fusionable).** `dwg2dxf` preserva `UNKNOWN_ENT` como
+`ACAD_PROXY_ENTITY` con su gráfico. **+181 planos, +112 090 entidades, 0 regresiones**;
+dos planos de Civil 3D que estaban vacíos ahora convierten. El frontend de IngeCAD
+(`ProxyGraphicPolicy.SHOW`) los dibuja solo. Round-trip-safe (make check lo verifica).
+
+**(3) L4 — writer r2018, avanzado a fondo con la spec de ODA (rama local
+`l4-r2018-writer`, 12 commits, NO pusheada a ningún remoto).** De los tres muros de
+r2018: **CRC caído** (era escribir las páginas de datos crudas; se resolvió con el
+framing LZ todo-literal `store_R2004_section`), **compresión caída** (por tipo:
+FileDepList/AppInfo/Preview raw, el resto LZ, según ODA), y **el directorio de secciones
+entero del tercero coincide byte a byte con ODA** — todo verificado contra la
+**Open Design Specification for .dwg files v5.4.1** (`scratchpad/oda-spec.txt`, §4.4
+section page map, §4.5 section info): num_desc=13, Section Ids posicionales (vacío=0,
+datos descendentes N..1), sin describir INFO/SYSTEM_MAP, numeración con hueco de 1
+(info_id=N+2, map_id=N+4), páginas ajustadas, elisión de página-cero. **Verificado: r2004
+sigue aceptado por ODA, make check 254 verde, LibreDWG relee su salida.**
+
+#### 🔜 CONTINUAR L4 (cuando Marco diga «continúa donde quedamos»)
+
+**Estamos en:** el CONTENEDOR r2018 es spec-correcto de punta a punta. **El único muro
+que queda es la GENERACIÓN DE CONTENIDO por-sección.** La elisión de página-cero reveló
+que en el camino dxf2dwg, **`AcDb:AppInfo` y `AcDb:RevHistory` salen vacías (todo ceros)
+donde ODA les escribe contenido real** — por eso ODA aún dice «needs recovery». Detalle
+completo en `docs/L4-r2018-writer-findings.md` (updates 1-6, en el fork).
+
+**Próximo paso concreto:** generar el contenido de `AcDb:AppInfo` (spec pág. 96) y
+`AcDb:RevHistory` (pág. 100) para que dejen de ser todo-ceros y coincidan con ODA; luego
+verificar sección por sección contra el capítulo R2018 de la spec (pp. 71+). Reproductor:
+`min2018.dxf` (una línea) → `dxf2dwg --as r2018` → ODAFileConverter como único juez válido
+(el lector de LibreDWG NO sirve de oráculo: valida sus propios CRC malos). Construir sobre
+el **stack completo de parches** (no la rama L4 sola: el contenido de las secciones depende
+de ellos).
+
+⚠️ **Nada de L4/r2018 está enviado a upstream ni al fork** — vive solo en la rama local.
+No contamina nada. Solo se enviará en bloque cuando r2018 abra en AutoCAD/ODA.
+
+**Estimación honesta de r2018:** el contenedor (lo hecho) fue lo tratable. La generación
+de contenido byte-exacta para TODAS las secciones + el object-stream es el grueso y lo
+incierto: un archivo mínimo aceptado por ODA está a ~3-6 sesiones enfocadas; planos reales
+(object-stream completo byte-compatible) es bastante más, porque cualquier diferencia de
+codificación dispara «needs recovery». Es el «hueco histórico» del Track L por algo.
+
+---
+
+## 🧪 Tests (desde el día uno)
+
+- **Round-trip conservador (el invariante sagrado):** abrir → tocar UNA entidad → guardar → re-abrir → todo lo NO tocado es byte/valor-idéntico (incl. entidades desconocidas y XDATA). Corre sobre el banco de DWG reales.
+- **Fidelidad de render:** para cada archivo del banco, snapshot del render rasterizado vs referencia aprobada (regresión visual).
+- **Aliases/acciones headless:** cada comando testeable sin GUI (la capa `actions` lo garantiza).
+- **Fuzz de comandos** (más adelante, patrón IngeTrazo): secuencias aleatorias seeded de dibujar/editar/undo con invariantes (documento válido, undo→redo reproduce fingerprint).
+
+---
+
+## ⚠️ Gotchas heredados de IngeTrazo (releer antes de tocar el render)
+
+- Wayland exige `glClear` explícito en `paintGL`; QPainter contamina el estado GL (re-establecer todo por frame); FBO propio si el depth/formato miente; tamaños en píxeles físicos (`devicePixelRatioF`); MSAA en el FBO de escena, no en el widget; `QMatrix4x4 * QVector4D` no bindea (usar `.map()`); Wayland puede intercalar frames viejos bajo ráfagas (cosmético, escape `QT_QPA_PLATFORM=xcb`).
+- Satélites: Wine re-encodea argv (rutas con acentos → ruta temp ASCII) — aplica si algún satélite fuera .exe; LibreDWG es nativo Linux así que este gotcha probablemente no aplica, pero el patrón de sanitización ya existe en IngeTrazo.
+- QSettings necesita `setOrganizationName/setApplicationName` fijados para persistir donde corresponde.
+- **Capturas para verificar el canvas: `win.grab()` compone el QOpenGLWidget SIN el overlay QPainter** (crosshair, borde de viewport activo, marcadores) — al menos bajo xcb-sobre-Wayland. Costó una hora de debugging fantasma (2026-08-10): el borde "no se dibujaba" pero estaba perfecto en pantalla. Para verificar overlays del canvas usar `viewport.grabFramebuffer()` (el FBO sí los contiene); `win.grab()` solo vale para el chrome de widgets.
+- **Íconos de tipo de archivo (.dwg/.dxf) — la búsqueda de íconos es TEMA-MAYOR (gotcha caro, 2026-07-20).** Instalar el ícono de mimetype SOLO en `hicolor` NO alcanza cuando el tipo tiene un genérico que el tema activo provee: freedesktop recorre **tema por tema** (Yaru antes que hicolor) y prueba TODOS los nombres de fallback dentro de cada tema. Como `.dwg`/`.dxf` son `image/vnd.*`, su fallback incluye `image-x-generic`, que **Yaru sí tiene** → lo elige antes de llegar a nuestro `image-vnd.dwg` en hicolor (último). Fix: `install-desktop.sh` instala los PNGs de mimetype en el **tema activo (`gsettings ... icon-theme`) y sus padres** (`Inherits` del `index.theme`), no solo en hicolor. Además: MIME propio con `weight/priority="90"` para ganarle a otro paquete CAD que reclame la extensión/magic (un BricsCAD instalado toma `*.dwg` + magic `AC10` con prioridad 80). Diagnóstico definitivo: `Gtk.IconTheme.lookup_by_gicon` con GTK **4.0** (Nautilus 50 es GTK4) sobre el GIcon real del archivo — dice exactamente qué PNG se elige. Y limpiar `~/.cache/thumbnails` + `nautilus -q` porque `image/*` intenta miniatura y cachea la fallida.
+
+---
+
+## 🌐 Sitio web — ingecad.org (2026-08-07)
+
+**Publicado**: https://ingecad.org (y `www`), Cloudflare Worker con assets estáticos.
+Repo **aparte**: `~/Proyectos/ingecad/web` → github.com/ingelibre/ingecad-web (público), y
+`web/` está en el `.gitignore` de este repo — la misma separación que usan
+`ingelibre/ingetrazo-web` y `ingelibre/ingepresupuestos-web`: un cambio de copy no dispara el
+CI del producto ni al revés. **El `git push` NO publica**: publica `npx wrangler deploy`.
+
+Las convenciones (paleta, capturas, qué se promete) viven en `web/CLAUDE.md`. Tres cosas que
+conviene no re-descubrir:
+
+- **Acento del producto: Lime `#479B1B`**, el eje Y del propio icono. Azul = IngeTrazo,
+  naranja = IngePresupuestos, y esos dos solo aparecen en la sección puente.
+- **Cómo se capturan las pantallas**: bajo Wayland `QScreen.grabWindow()` devuelve **negro**
+  (un cliente X11 no puede leer la pantalla) y el `import` de ImageMagick tampoco sirve. Lo
+  que funciona es `win.grab()` con `DISPLAY=:0 QT_QPA_PLATFORM=xcb`, que trae el árbol de
+  widgets **con el FBO del visor dentro**, a 2×. Para escribir comandos en la captura hay que
+  apuntar a `win.command_line.input`, no al contenedor.
+- **El sitio solo afirma lo que la app hace hoy**, y la sección «Status» del `README.md` es la
+  fuente de verdad del copy. Hay un FAQ que dice explícitamente que la topografía es v0.2.
+
+## 🗓 Sesión 2026-08-23 — v0.4.2: los tirones que Marco sintió, medidos
+
+**Los tres síntomas eran tres causas distintas, y ninguna era el motor
+gráfico.** La escena GL cuesta 2,7 ms por cuadro pase lo que pase; todo lo
+demás vivía encima, en QPainter y en el trabajo por edición.
+
+⚠️ **La lección de método, otra vez la misma en forma nueva: reproducir el
+caso del usuario, no uno parecido.** Mis tres primeras mediciones dieron 0,0 ms,
+407 ms y 3–5 ms — todas correctas y todas del caso equivocado. `on_hover` da
+0 porque sin comando activo no hay snap; MATCHPROP entre dos cotas del archivo
+son 63 ms, pero el caso de Marco es sobre una cota **recién dibujada**; y el
+grip lento no es cualquiera sino el que **aleja la línea de cota**, en un plano
+de 10 000 entidades. Sólo al armar la secuencia exacta —dibujar, matchprop,
+arrastrar cada grip por rol— aparecieron los 3,4 s.
+
+**Y la segunda: un cuadro que no se pinta no mide nada.** Bajo `offscreen`
+`paintGL` no corre, y con `repaint()` Qt fusiona las peticiones: 4 pinturas en
+100 movimientos. Hay que **forzar** el cuadro (`grabFramebuffer`) para medirlo.
+Tercera, de plomería: `print` sin `flush` + `grep` en la tubería = si el
+proceso muere por timeout **no se ve ni una línea**; escribir a archivo.
+
+Las causas, en orden de lo que costaban:
+
+1. **`needs_regen` en las tres órdenes de cota** (grip, texto, DIMTEDIT) →
+   retesela el dibujo entero al soltar. La superposición sabe dibujar una cota
+   desde la v0.1.3, así que el camino quirúrgico —ocultar la copia vieja,
+   dibujar la nueva— alcanza, igual que ya se había hecho para MATCHPROP.
+2. **La fusión diferida se agendaba en CADA edición.** Corre en un hilo, pero
+   un hilo Python retiene el GIL: eran ~3 s de congelamiento 2,5 s después de
+   editar, justo cuando la mano iba al siguiente grip. Ese «se queda pegado»
+   intermitente. Ahora sigue la regla que el camino de dibujo ya tenía: por
+   debajo del umbral no se agenda nada.
+3. **El overlay de QPainter**: una pluma y un pincel **por grip** (2448 grips
+   = 4896 cambios de estado por cuadro) y los segmentos de resaltado
+   recorridos de a uno en Python. Vectorizado, recortado a la ventana y en una
+   sola llamada.
+4. **`layers_in_use` caminaba la base de entidades entera en cada edición**
+   para un flag que el control de capas ni muestra. El combo se reconstruye
+   ahora sólo si cambia el CONTENIDO de las tablas — ⚠️ y **no** por revisión:
+   agregar una capa por la tabla no toca `document.revision`, y con esa clave
+   la capa nueva no aparecía. Lo cazó un test que ya existía.
+5. **El imán de cotas** (`_align_dim_line`) hacía `query("DIMENSION")` sobre
+   todo el modelspace **en cada movimiento del mouse**.
+6. **MATCHPROP invalidaba el índice de picado y el motor de snap**, y el
+   parcheo posterior es un no-op documentado sobre un índice sucio → el
+   **clic siguiente** pagaba la reconstrucción entera: **2 760 ms medidos**.
+   Y como MATCHPROP sigue pintando destinos hasta Enter, ese clic siguiente
+   es el caso normal. ⚠️ **La causa es una divergencia entre dos condiciones
+   que debían ser la misma**: la rama de display aceptaba `.targets`, la de
+   invalidación sólo una lista de clases. Ahora hay un solo predicado
+   (`_patchable`) para las dos.
+
+⚠️ **Y la trampa de método, por partida triple en esta sesión:** Marco
+reportó el MATCHPROP lento y mis DOS primeras reproducciones dieron 36 ms y
+591 ms. Faltaba lo que sólo aparece **repitiendo la acción**: el primer
+destino es rápido, el segundo cuesta 2,8 s. Barrer la población ayuda
+(medí las 70 cotas como origen), pero antes hay que **preguntarse qué hace el
+usuario DESPUÉS del primer paso** — un comando que sigue pidiendo objetos se
+usa más de una vez por definición.
+
+**GRIPOBJLIMIT (p. 2339) resultó ser conducta de AutoCAD que no seguíamos:**
+pasados 100 objetos los grips **desaparecen del todo**, no se adelgazan.
+Nuestro tope de 200 entidades era justo el caso caro. Queda regulable en
+Options ▸ Selection.
+
+**Calidad de gráficos — y la medición que evitó perseguir un fantasma.** Marco
+sintió que las líneas habían perdido calidad tras las optimizaciones. **El
+control lo desmintió: el mismo build renderizado dos veces difiere 1,72 % de
+píxeles, MÁS que viejo-contra-nuevo (1,09 %)** — o sea, ruido entre procesos
+(resolución de fuentes), no una regresión. Pero el reclamo de fondo era cierto
+y viejo: **nunca hubo antialiasing** (0,1 % de la tinta eran píxeles de borde
+mezclado) y **un círculo de 40 cm se dibujaba con 8 segmentos**.
+
+Ahora hay **Opciones ▸ Display ▸ Resolución de visualización**: suavizado de
+líneas (0/4×/8×, **4× por defecto**; 0,1 % → 31 % de bordes mezclados, 1,6 →
+2,3 ms por cuadro) y **`VIEWRES`** como comando y como control, con la escala
+y el default (1000) de AutoCAD. ⚠️ El MSAA va en el **FBO propio de
+QOpenGLWidget**, no en la superficie de ventana — que es lo que el gotcha de
+IngeTrazo prohíbe; verificado bajo **sesión Wayland nativa**, no sólo xcb.
+Subir VIEWRES ×8 cuesta +0,6 % de vértices y nada de tiempo medible: los
+planos civiles son casi todo rectas.
+
+**El cursor, personalizable como en AutoCAD** (`CURSORSIZE` en Display,
+`PICKBOX` en Selection, color del cursor, los dos tecleables como variables
+de sistema). ⚠️ **`PICKBOX` no era sólo estética: el cuadro dibujado y la
+apertura que realmente pica eran dos constantes independientes que valían 8
+—una ancho total, la otra media— así que el cuadro medía la mitad de lo que
+atrapaba.** Ahora un número mueve los dos, y en su valor por defecto no
+cambia nada. El default de tamaño se queda en 100 (pantalla completa, lo que
+IngeCAD siempre dibujó) aunque AutoCAD traiga 5: cambiarlo encogería el
+cursor de todos sin que nadie lo pidiera.
+
+⚠️ **Trampa del arnés, dos veces seguidas en la misma captura:** el cursor no
+salía en la imagen y no era la función — (1) `leaveEvent` limpia `_cursor`,
+hay que fijarlo **justo antes** de capturar, y (2) el widget del visor mide
+362×235 aunque la ventana mida 700×500, así que mi cursor en (350, 250)
+caía **fuera del widget**. Instrumentar (espiar `_draw_crosshair`) lo dijo en
+un intento; adivinar no lo habría dicho nunca.
+
+⚠️ **Y de paso, un hueco silencioso de siempre: `_configure_surface_format()`
+lee QSettings ANTES de que se nombre la aplicación**, así que leía un config
+vacío en «Unknown Organization» — **el interruptor de vsync nunca hizo nada
+desde que salió**. Los setters de nombre son estáticos justo para este caso y
+ahora van primero. Lo destapó ver aparecer `~/.config/Unknown Organization/`
+mientras medía.
+
+**Las directrices no tenían grips** (Marco: «esa línea con el texto PEDESTAL
+VER DETALLE... en IngeCAD sólo se selecciona»). LEADER y MULTILEADER ahora
+llevan un cuadradito por vértice. ⚠️ **Y eso destapó algo peor: barrer TODOS
+los tipos con grips mostró que LEADER, SPLINE y HATCH no se deshacían** —
+`_restore_entity` copia atributos DXF y esos tres guardan su geometría fuera
+de los atributos (un hatch movido se quedaba movido tras Ctrl+Z). LWPOLYLINE
+y MTEXT ya tenían su línea ahí por lo mismo; ahora hay un test que recorre
+los 11 tipos, con **control incluido** (si el grip no cambió nada, el test
+falla en vez de pasar en vacío). Trampa del día, la de siempre: mi primera
+huella de HATCH era `str(paths)` —direcciones de memoria— y decía «no cambió
+nada»; con una huella real dijo «no restaura».
+
+**Grupos: auditados contra el manual, con 23 tests donde no había ninguno.**
+Tres huecos reales, y **dos los encontró manejar el diálogo, no leerlo**:
+`Seleccionable` vivía en un `set` de Python y se perdía al guardar (va en el
+código 71 del GROUP, que es donde AutoCAD lo pone), cada refresco perdía la
+fila seleccionada —así que la SEGUNDA acción sobre un grupo no hacía nada— y
+faltaban Añadir/Quitar, Descripción, Buscar nombre y un modo de llegar a
+`PICKSTYLE`, sin el cual un objeto agrupado no se puede volver a seleccionar
+solo nunca más.
+
+## 🗓 Sesión 2026-08-13 (ter) — v0.4.0: el menú contextual y sus siete comandos
+
+**Método que vale más que el resultado: el menú del clic derecho se construyó
+grepeando el manual, no recordándolo.** 93 páginas del Command Reference dicen en
+sus «Access Methods» que ese comando aparece en el menú contextual; esa lista es
+la especificación. Lo mismo para cada comando nuevo (ISOLATEOBJECTS p. 956,
+SELECTSIMILAR p. 1726, ADDSELECTED p. 103, QSELECT p. 1584, GROUP p. 861,
+FIND p. 808, QUICKCALC p. 1589, OPTIONS p. 1314).
+
+**Aislamiento de objetos: es SÓLO display.** El manual repite *temporarily*. No
+toca el documento, no va al archivo, no entra al undo (UNISOLATEOBJECTS es el
+deshacer) y una entidad oculta tampoco se puede picar. Vive en
+`document._isolated_hidden` y lo filtran `TolerantFrontend.draw_entity` y
+`GeometryIndex`.
+
+**Rendimiento del viewport: 146 ms → 5,2 ms por tick.** El contenido no cambia al
+navegar, sólo dónde se pone: el modelo se tesela una vez y cada tick es una
+matriz + scissor, como el ghost. ⚠️ **Dos trampas que costaron:** (1) cachear la
+escena por `document.revision` la invalida en cada tick, porque mover la vista
+marca dirty; se invalida desde el camino de edición. (2) Ocultar el horneado
+oculta el de TODOS los viewports (comparten las entidades del modelo), así que
+hay que dibujar todos, no sólo el activo.
+
+⚠️ **Y la lección de verificación, otra vez y más fina:** medí «0 de 674 370
+píxeles distintos» y era cierto — pero con el viewport activo cubriendo toda la
+hoja, o sea el caso que no ejercita el fallo. **Una medida correcta sobre el caso
+equivocado da una conclusión falsa.**
+
+**En el modelo NO había nada que optimizar:** 0,6 ms por cuadro incluso con 4,5
+millones de vértices; los 16,7 ms por movimiento son el refresco de 60 Hz. Queda
+como ajuste opcional (Options ▸ Display), no como cambio impuesto.
+
+**Ctrl+Z no llegaba al dibujo** cuando el foco estaba en la línea de comandos (un
+QLineEdit reclama esa tecla para su propio deshacer). Reproducirlo llamando a la
+función mostraba todo bien: **el bug sólo aparece si la tecla recorre el camino de
+una pulsación real** — los tests nuevos pulsan la tecla, no llaman al método.
+
+**TRIM/EXTEND/FILLET/CHAMFER creaban las piezas sin atributos** (12 sitios), así
+que nacían en la capa actual. Se hereda el estilo en el punto único donde aterriza
+el reemplazo, XDATA incluido.
+
+**Varias ventanas a la vez: funcionan** (probadas tres). No hay guardia de
+instancia única y no hace falta; lo único compartido es QSettings (gana el último
+que escribe) y los temporales son únicos por conversión.
+
+## 🗓 Sesión 2026-08-13 (bis) — re-vendorización a 0.14.8580 + 17 PRs
+
+⚠️ **La regla que esta re-vendorización instaura: cada parche se toma del HEAD DEL PR**
+(`git fetch origin pull/N/head`), nunca de una rama local. El vendor anterior llevaba un
+**borrador viejo de #1375** —el que convertía dentro de `dwg_add_u8_input` sin guarda de
+versión de origen— y corrompía el MTEXT de todo dibujo pre-r2007. Lo reporté como bug ajeno
+(issue #1393) antes de que la comparación contra stock lo delatara. Una rama local es un
+banco de trabajo; el PR es lo que existe upstream.
+
+**Base 0.14.8580** (release del 2026-08-12, que ya absorbió nuestros 9 fusionados) **+ los
+17 PRs abiertos**: #1358, #1359, #1360, #1364, #1365, #1368, #1369, #1371, #1372, #1373,
+#1375, #1378, #1381, #1382, #1385, #1387, #1392. Los 17 aplican limpios.
+
+**Medido:**
+- matriz de acentos **16/16 correctas** (8 lugares × 2 versiones de origen); el vendor viejo
+  tenía 7 mal.
+- fuzz del camino de escritura, mismas 400 semillas: **OK 15 → 242**, DIFF 231 → 9. El
+  residuo es exactamente lo documentado — destino r2004 (LOST 66, el bug cross-modelo) y
+  destino r12 (EMPTY 33, hueco pre-R13 #1386); 47 de los 48 RELOAD_FAIL son de origen R12.
+  **Para r2000, el destino que IngeCAD usa: 206 OK y cero diferencias de contenido.**
+- `make check` 254/254, 682 tests de IngeCAD, `main.py --check` OK.
+- el parche combinado reproduce el árbol compilado fuente por fuente desde un tarball
+  limpio (así lo hará el CI).
+
+**`core/encoding.py` se simplificó, no se borró.** El escapado `\U+xxxx` del MTEXT ya no
+hace falta (PR #1375 bueno carga los acentos), así que el archivo guarda el texto tal como
+lo escribió el usuario. Lo que **sí sigue haciendo falta** es el intermedio en R2000:
+medido, cuatro planos R12 del banco se guardan con **0 entidades** si se les pasa su propio
+DXF y completos si se les pasa R2000. La decodificación de escapes al leer también queda —
+AutoCAD escribe `\U+xxxx` por su cuenta y ezdxf no lo interpreta.
+
+## 🗓 Sesión 2026-08-13 — v0.3.2 (los acentos, y por qué existe `core/encoding.py`)
+
+**`core/encoding.py` no es una decisión de diseño: es un vendaje sobre un bug ajeno**
+(LibreDWG issue #1393) y se va el día que aterrice el arreglo upstream. Lo que hace y
+por qué, para que nadie lo "simplifique" sin saber:
+
+Guardar como DWG corrompía **todo** carácter no ASCII — nombres de capa, de estilo y de
+bloque, TEXT, ATTRIB, texto de cota y XDATA — y sólo se salvaba el MTEXT. Medido con un
+dibujo que lleva `CAÑERÍA Ø m² Nº45°` en las siete ubicaciones. La causa: un DXF moderno
+es UTF-8 y LibreDWG copia esos bytes a un DWG que declara la página de códigos de
+Windows, así que AutoCAD decodifica `CAÑERÍA` como `CAÃ‘ERÃA`.
+
+**Ningún camino solo funciona**, y por eso el arreglo tiene dos mitades:
+
+| | intermedio R2018 (lo de antes) | intermedio R2000 |
+|---|---|---|
+| nombres, TEXT, ATTRIB, cota, XDATA | corrupto | correcto |
+| MTEXT | correcto | corrupto (escapes `\U+` con code points equivocados: la `Ñ` sale `х` cirílica) |
+
+Así que: el DXF intermedio sale en R2000 (la versión que el DWG va a tener igual, de modo
+que el downgrade no puede costar nada que un r2000 pudiera llevar) **y** el MTEXT lo
+pre-escapamos nosotros a `\U+xxxx` — ASCII puro, nada que traducir mal. Al leer un DWG se
+decodifican, lo que además arregla los archivos que **AutoCAD mismo** escribe así.
+
+De regalo: cuatro planos R12 que se guardaban **vacíos** (hueco del escritor pre-R13,
+issue #1386) ahora salen completos.
+
+⚠️ **Dos lecciones de método, las de siempre en otra forma.** (1) *Medir la matriz completa
+antes de elegir el arreglo*: mi primer diagnóstico fue «se pierden caracteres en MTEXT»;
+la matriz de siete ubicaciones × dos versiones mostró que lo grave eran los **nombres de
+capa** y que el MTEXT era el único que sí funcionaba. (2) *El paso de verificación también
+miente*: `git apply` dijo «applied clean» sobre un árbol que no era repo git y no escribió
+nada; sólo el comportamiento medido (el valor seguía mal) lo delató. Verificar el
+verificador.
+
+**Track L en esta sesión:** 9 de los 17 PRs enviados ya están fusionados en master (con
+autoría propia, no reimplementados); **#1387 está APROBADO pero sin fusionar**. Nuevo
+**PR #1392**: los valores negativos de XDATA (grupos 1070/1071) volvían como su complemento
+sin signo — 2595 valores corruptos en 146 de 200 planos reales. Salió de **ensanchar el
+harness de fuzz** (`tools/dwg_fuzz.py`) para que llevara XDATA, grosores y extrusiones
+inclinadas: la primera campaña lo cazó. El patrón de causa se repite por octava vez —
+*el código ya documentaba la conducta correcta y no la ejecutaba*: la tabla de formatos ya
+declaraba esos grupos con signo y el valor le llegaba extendido con ceros.
+
+## 🗓 Sesión 2026-08-07 — v0.1.3 (borrar borra también en pantalla)
+
+Icono nuevo (el lápiz fuera, cursor de mira) y **un bug propio que Marco cazó
+dogfoodeando**: cortar una selección grande dejaba el original, y borrarla se veía
+parcial. El documento sí quedaba correcto — era **display**.
+
+El visor quita geometría editada sin regenerar, poniendo a cero el alfa de los
+tramos de vértices de la entidad, que busca en un mapa `handle → tramos`
+(`scene.handle_ranges`). **`hide_handles` hace `continue` en silencio cuando un
+handle no está en el mapa**, y el mapa tenía tres huecos:
+
+1. **Todo el contenido de bloque quedaba sin dueño.** El frontend de dibujo expande
+   un `INSERT` en copias **virtuales** cuyo `handle` es `None`. Y aunque tuvieran
+   uno, el handle de una entidad de definición de bloque no sirve acá: la selección
+   y el índice de picado solo manejan la entidad del modelspace. Ahora se atribuye
+   a **la entidad más externa que tenga handle**.
+2. **`exit_entity` borraba el contexto en vez de restaurarlo**, así que lo que el
+   padre dibujaba *después* de un hijo anidado también salía sin dueño (y sin
+   `kind`, lo que además mal-clasificaba su bucket para el culling de texto).
+3. **El lote de líneas gruesas nunca registró dueños**: `_pack_thick` era el único
+   empaquetador llamado sin el mapa, así que toda entidad con grosor > 0,25 mm era
+   inocultable, con bloques o sin ellos.
+
+Medido borrando todas las entidades del modelspace y contando vértices que siguen
+dibujados: `casa.dwg` dejaba el **75,9 %** del plano en pantalla, el tijeral 26,7 %,
+la iglesia de Yanaquihua 13,2 %, `sedapar` 1,9 %. Los cuatro dan **0 %** ahora, y el
+tiempo de construcción de escena no cambia.
+
+⚠️ **La lección de método, que es la de siempre en otra forma:** el test de cobertura
+que ya existía corría sobre un documento sintético **sin bloques y sin líneas
+gruesas**, o sea sobre el único caso que no fallaba. Por eso el hueco sobrevivió a
+la suite. El invariante nuevo (`test_handle_ranges_cover_every_vertex_of_every_batch`)
+exige primero que el dibujo **llegue a los cuatro lotes** y después que no quede ni
+un vértice sin dueño; y se verificó al revés, revirtiendo el arreglo para confirmar
+que los cinco tests fallan sin él. Un test que pasa no prueba nada si también pasaría
+con el código roto.
+
+Y el bug se disfrazaba porque **se curaba solo**: el `_merge_timer` regenera a los
+2,5 s de la última edición. En un plano chico eso es un parpadeo; en `sedapar`, donde
+la regeneración tarda ~10 s y cada edición reinicia la cuenta, se ve permanente. Un
+fallo que se autocorrige tarde es más difícil de creer que uno que no se corrige.
+
+## 🗓 Sesión 2026-08-06/07 — v0.1.2 (los planos del colega abren)
+
+Release `v0.1.2`, **con AppImage** — el primer binario descargable del proyecto. Los **nueve**
+planos que fallaban abren ahora leyendo exactamente lo que lee ODA (eran 2 de 9), y
+`vendor/libredwg` va con **13 parches**, todos enviados upstream y cada uno verificado en un
+árbol limpio con el parche solo.
+
+**Empaquetado (`packaging/` + `.github/workflows/release.yml`):** PyInstaller *onedir* dentro
+de un AppImage, 112 MB. Se compila en **ubuntu-22.04 a propósito**: un AppImage se enlaza
+contra la glibc de la máquina que lo hizo, así que hacerlo en la más nueva daría un archivo que
+solo arranca en las más nuevas. Dos piezas que lo hacen posible y hay que conservar:
+`core/paths.py` (un `app_root()` que lee `sys._MEIPASS`, porque un bundle sintetiza `__file__` y
+los cuatro sitios que derivaban rutas de él apuntaban a la nada) y
+`tools/libredwg-patches/build-vendor.sh` (reconstruye `vendor/` desde el tarball limpio + el
+parche combinado; `vendor/` está en `.gitignore`, así que sin esto un clon no tiene
+conversores). **`main.py --check`** es el autodiagnóstico que el CI verifica: cazó dos
+directorios ausentes en el primer intento. Sobre 190 planos reales, stock contra
+los 13: **12 mejoran, 0 empeoran, +87 314 entidades**. El DWG que escribe `dxf2dwg` es byte a
+byte idéntico en ambos casos, así que guardar no se toca. Detalle en `CHANGELOG.md`, el
+catálogo en `tools/libredwg-patches/README.md` y la sesión completa —con las mediciones y los
+dos callejones sin salida— en `docs/bugs-libredwg-2026-08-06.md`.
+
+## 🗓 Sesión 2026-07-20 — v0.1.1 (integración con el escritorio)
+
+Release `v0.1.1` (tag + release en `ingelibre/ingecad`; sin binarios Windows aún — solo `tests.yml`). Instalado y verificado en la PC del usuario. Lo hecho (detalle en commits `503d85c`/`22b176a`):
+- **Ícono de app renovado** (el usuario mejoró `resources/ingecad.svg`) + PNG/ICO rasterizados regenerados a `resources/icons/`.
+- **Íconos de documento branded para `.dwg`/`.dxf`** (`scripts/gen_doc_icons.py`, patrón IngeTrazo/IngePresupuestos: hoja + etiqueta DWG/DXF + insignia de IngeCAD → hicolor mimetypes + `.ico`) + paquete MIME `resources/mime/ingecad.xml`. Ver el gotcha "tema-mayor" arriba — fue el bug real por el que "no se veían".
+
+**Pendiente estratégico anotado: publicar a Flathub** (IngeCAD + IngeTrazo). Media: capturas PNG (1ª estática) + videos opcionales WebM/MKV VP9/AV1 sin audio <10 MiB (⇒ ~10-30s). Difícil: empaquetar PySide6+Qt6+GL **y compilar LibreDWG vendorizado** dentro del manifest Flatpak. App-ID candidato `io.github.ingelibre.IngeCAD`. Debe pasar `appstreamcli validate` (warnings fatales).
+
+---
+
+## 📊 Estimación honesta
+
+F0 ≈ 1 sesión · **F1 ≈ 2-4 semanas** (la incógnita; ezdxf.drawing elimina el grueso del riesgo) · F2 ≈ 1 semana · F3-F6 ≈ 4-6 semanas con foco · F7 ≈ 1-2 semanas (mucho se porta de IngeTrazo) · F8 ≈ 1 semana. **v0.1 ≈ 2-3 meses** a ritmo IngeTrazo. Lejos de "años" porque el motor duro (parsear/renderizar fiel) lo aportan ezdxf y LibreDWG — IngeCAD es integración + UX, que es donde Marco ya demostró velocidad.
+
+---
+> Source: [ingelibre/ingecad](https://github.com/ingelibre/ingecad) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-22 -->
