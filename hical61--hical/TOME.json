@@ -2,9 +2,9 @@
   "name": "Hical",
   "owner": "Hical61",
   "repo": "Hical",
-  "description": "Modern C++ web framework with C++26 reflection and PMR memory pools \u2014 built on Boost.Asio/Beast, coroutines, high performance",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hical61/Hical",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T00:01:24Z"
+  "distributed_at": "2026-09-23T09:41:58Z"
 }
