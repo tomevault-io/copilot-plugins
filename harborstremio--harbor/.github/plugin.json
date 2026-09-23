@@ -1,0 +1,9 @@
+{
+  "name": "harborstremio--harbor",
+  "displayName": "harbor",
+  "description": "harbor",
+  "version": "1.0.0",
+  "author": "harborstremio",
+  "homepage": "https://github.com/harborstremio/harbor",
+  "skills": []
+}
