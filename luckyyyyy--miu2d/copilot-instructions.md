@@ -1,48 +1,13 @@
 ## miu2d
 
-> 1. **禁止 `any`** — 使用 `unknown` + 类型守卫
+> - Keep deployment runbooks, production topology, host addresses, credentials, and production maintenance scripts outside this repository in a private local directory.
 
+# Repository privacy
 
-# 编码规范
-
-## 必须遵守
-
-1. **禁止 `any`** — 使用 `unknown` + 类型守卫
-2. **禁止 `console.log`** — 使用 `logger`
-3. **禁止静默忽略错误** — catch 块必须记录或重新抛出
-4. **禁止无意义 getter** — 直接用公共属性
-
-## 示例
-
-```typescript
-// ❌
-function process(data: any) {}
-try { } catch { }
-get name() { return this._name; }
-
-// ✅
-function process(data: unknown) { if (isValid(data)) { ... } }
-try { } catch (e) { logger.error(e); throw e; }
-name = "";
-```
-
-## 日志
-
-```typescript
-import { logger } from "@miu2d/engine/core/logger";
-logger.info("[Module] 信息");   // 避免在 update loop 中调用
-```
-
-## 命名
-
-| 类别 | 规范 |
-|------|------|
-| 类 | `PascalCase` |
-| 函数 / 变量 | `camelCase` |
-| 常量 | `UPPER_SNAKE_CASE` |
-| TS 文件 | `kebab-case.ts` |
-| React 组件 | `PascalCase.tsx` |
+- Keep deployment runbooks, production topology, host addresses, credentials, and production maintenance scripts outside this repository in a private local directory.
+- CI may contain a generic deployment trigger. Keep production configuration and detailed deployment logs on the server.
+- Do not commit private operational documents, including when asked to commit all completed work.
 
 ---
 > Source: [luckyyyyy/miu2d](https://github.com/luckyyyyy/miu2d) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
