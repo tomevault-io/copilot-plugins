@@ -1,0 +1,9 @@
+{
+  "name": "musichen--qedit",
+  "displayName": "qedit",
+  "description": "rust-based lightweight editor",
+  "version": "1.0.0",
+  "author": "musichen",
+  "homepage": "https://github.com/musichen/qedit",
+  "skills": []
+}
