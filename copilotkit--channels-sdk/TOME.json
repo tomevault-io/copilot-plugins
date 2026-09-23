@@ -1,0 +1,57 @@
+{
+  "name": "channels-sdk",
+  "owner": "CopilotKit",
+  "repo": "channels-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "channels-sdk",
+      "path": ".agents/skills/build-channels-agent/SKILL.md",
+      "github_url": "https://github.com/CopilotKit/channels-sdk/tree/main/.agents/skills/build-channels-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "channels-sdk",
+      "path": "examples/mastra-sandbox/sandbox/skills/dd-apm/SKILL.md",
+      "github_url": "https://github.com/CopilotKit/channels-sdk/tree/main/examples/mastra-sandbox/sandbox/skills/dd-apm/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/CopilotKit/channels-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T09:15:07Z"
+}
