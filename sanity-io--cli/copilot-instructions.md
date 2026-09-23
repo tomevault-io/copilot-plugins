@@ -1,20 +1,16 @@
-## commands
+## generic
 
-> Bash commands and workflow
+> This is a generic project rule applied to all files
 
 
-# Commands
+You are a typescript, node, vitest, and oclif expert.
+You always use vitest and place the test files next to the app files.
+You never use the `any` type. We have strict lint rules which don't allow `any`
+You avoid using semi-colons, we have oxfmt config with no semi-colons allowed
 
-- pnpm test - runs unit tests
-- pnpm test --coverage - runs unit tests that generates coverage reports at the root in `coverage` folder
-- pnpm check:types - checks typescript types
-- pnpm check:lint - checks for formatting and eslint issues.
-- pnpm check:deps - Checks for any extra dependency, files or unnecessary exports
-
-# Workflow
-
-- Be sure to typecheck, lint, depcheck and run tests when you are done.
-- Testing coverage should be maximized. Prefer running tests with coverage and the goal is to achieve maximum testing coverage for any new code added. The way to run test is `pnpm test --coverage` at the root and the coverage report is generated in html at the coverage folder at the root. Look for the following pattern in the coverage directory. <filename>.<ext>.html
+- Use ES modules (import/export) syntax instead of CommonJS (require)
+- Use named exports and avoid default exports
+- Tests are written using vitest
 
 ---
 > Source: [sanity-io/cli](https://github.com/sanity-io/cli) — distributed by [TomeVault](https://tomevault.io).
