@@ -1,0 +1,9 @@
+{
+  "name": "johniak--reviewonator",
+  "displayName": "reviewonator",
+  "description": "AI review, human decision \u2014 a local human-in-the-loop interface for GitHub pull request reviews",
+  "version": "1.0.0",
+  "author": "johniak",
+  "homepage": "https://github.com/johniak/reviewonator",
+  "skills": []
+}
