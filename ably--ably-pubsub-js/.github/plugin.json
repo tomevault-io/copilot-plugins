@@ -1,0 +1,9 @@
+{
+  "name": "ably--ably-pubsub-js",
+  "displayName": "ably-pubsub-js",
+  "description": "ably-pubsub-js",
+  "version": "1.0.0",
+  "author": "ably",
+  "homepage": "https://github.com/ably/ably-pubsub-js",
+  "skills": []
+}
