@@ -1,0 +1,129 @@
+{
+  "name": "erduo-broll-loop-engineering",
+  "owner": "erduo1998-cell",
+  "repo": "erduo-broll-loop-engineering",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-assets/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-render/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-render/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-director/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-director/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-onboarding/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-shot-export/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-shot-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-master-build/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-master-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-runtime-plan/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-runtime-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-hybrid-render/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-hybrid-render/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-remotion-build/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-remotion-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-remotion-render/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-remotion-render/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-hybrid-integrate/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-hybrid-integrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-master-integrate/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-master-integrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "erduo-broll-loop-engineering",
+      "path": "erduo-broll-loop-engineering/stages/broll-remotion-integrate/SKILL.md",
+      "github_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering/tree/main/erduo-broll-loop-engineering/stages/broll-remotion-integrate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T23:33:00Z"
+}
