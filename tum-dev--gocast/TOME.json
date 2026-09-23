@@ -1,0 +1,51 @@
+{
+  "name": "gocast",
+  "owner": "TUM-Dev",
+  "repo": "gocast",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gocast",
+      "path": ".claude/skills/local-testing/SKILL.md",
+      "github_url": "https://github.com/TUM-Dev/gocast/tree/main/.claude/skills/local-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TUM-Dev/gocast",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T12:36:47Z"
+}
