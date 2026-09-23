@@ -7,13 +7,13 @@ Code aided Design python library for timber framing and woodworking
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [minimapletinytools/kumiki](https://github.com/minimapletinytools/kumiki).
+Original source: `CLAUDE.md` in [minimapletinytools/kumiki](https://github.com/minimapletinytools/kumiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
