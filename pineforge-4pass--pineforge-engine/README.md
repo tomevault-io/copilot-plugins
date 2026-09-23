@@ -1,23 +1,21 @@
 # pineforge-engine
 
-> Tome by [pineforge-4pass](https://github.com/pineforge-4pass/pineforge-engine) — distributed by [TomeVault](https://tomevault.io)
-
-Deterministic PineScript v6 backtest runtime. Validated trade-for-trade against TradingView.
+> Tome by [pineforge-4pass](https://github.com/pineforge-4pass/pineforge-engine), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pineforge-4pass/pineforge-engine](https://github.com/pineforge-4pass/pineforge-engine).
+Original source: `AGENTS.md` in [pineforge-4pass/pineforge-engine](https://github.com/pineforge-4pass/pineforge-engine).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [pineforge-4pass/pineforge-engine](https://github.com/pineforge-4pass/pineforge-engine) — a repo with 160+ stars on GitHub.
+From [pineforge-4pass/pineforge-engine](https://github.com/pineforge-4pass/pineforge-engine) — a repo with 187+ stars on GitHub.
 
 ---
 
