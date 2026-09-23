@@ -3,7 +3,7 @@
   "owner": "Kevin-Liu-01",
   "repo": "Claude-of-Tanks",
   "description": "A World of Tanks-style, Vite-powered, engine-free pure Three.js armored combat simulator resolving plate-level armor, ballistics, modules, spotting, and physics, with 121 tanks and 20 destructible battlefields. Playable entirely in the browser on desktop and mobile devices. Built end-to-end by a multi-agent Claude/Codex pipeline.",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,141 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "Claude-of-Tanks",
-      "path": "SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "api/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/api/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "tools/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/tools/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/fx/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/fx/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/ui/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/ui/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "server/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/server/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/app/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/app/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/sim/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/sim/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/dev/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/dev/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/net/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/net/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/docs/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/docs/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/game/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/game/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/audio/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/audio/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/world/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/world/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/engine/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/engine/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/gallery/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/gallery/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/vehicles/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/vehicles/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "src/presentation/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/src/presentation/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "docs/tank-generation/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/docs/tank-generation/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": "tools/marketing-shots/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/tools/marketing-shots/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "Claude-of-Tanks",
-      "path": ".agents/skills/improve-threejs/SKILL.md",
-      "github_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks/tree/main/.agents/skills/improve-threejs/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T21:40:42Z"
+  "distributed_at": "2026-09-23T21:52:55Z"
 }
