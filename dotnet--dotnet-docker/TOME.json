@@ -1,0 +1,93 @@
+{
+  "name": "dotnet-docker",
+  "owner": "dotnet",
+  "repo": "dotnet-docker",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotnet-docker",
+      "path": ".github/skills/backport-changes/SKILL.md",
+      "github_url": "https://github.com/dotnet/dotnet-docker/tree/main/.github/skills/backport-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-docker",
+      "path": ".github/skills/merge-main-to-nightly/SKILL.md",
+      "github_url": "https://github.com/dotnet/dotnet-docker/tree/main/.github/skills/merge-main-to-nightly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-docker",
+      "path": ".github/skills/create-public-release-pr/SKILL.md",
+      "github_url": "https://github.com/dotnet/dotnet-docker/tree/main/.github/skills/create-public-release-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-docker",
+      "path": ".agents/skills/porting-changes/SKILL.md",
+      "github_url": "https://github.com/dotnet/dotnet-docker/tree/main/.agents/skills/porting-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-docker",
+      "path": ".agents/skills/image-management/SKILL.md",
+      "github_url": "https://github.com/dotnet/dotnet-docker/tree/main/.agents/skills/image-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-docker",
+      "path": ".agents/skills/resolving-conflicts/SKILL.md",
+      "github_url": "https://github.com/dotnet/dotnet-docker/tree/main/.agents/skills/resolving-conflicts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-docker",
+      "path": ".agents/skills/merge-main-to-nightly/SKILL.md",
+      "github_url": "https://github.com/dotnet/dotnet-docker/tree/main/.agents/skills/merge-main-to-nightly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-docker",
+      "path": ".agents/skills/dockerfile-and-readme-templating/SKILL.md",
+      "github_url": "https://github.com/dotnet/dotnet-docker/tree/main/.agents/skills/dockerfile-and-readme-templating/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dotnet/dotnet-docker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:34:23Z"
+}
