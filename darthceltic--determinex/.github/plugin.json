@@ -1,0 +1,9 @@
+{
+  "name": "darthceltic--determinex",
+  "displayName": "Determinex",
+  "description": "Compiler-verified multi-agent AI that gets smarter from its own failures. Local-first, AGPLv3, free and open source.",
+  "version": "1.0.0",
+  "author": "DarthCeltic",
+  "homepage": "https://github.com/DarthCeltic/Determinex",
+  "skills": []
+}
