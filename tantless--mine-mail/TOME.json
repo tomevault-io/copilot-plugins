@@ -1,0 +1,93 @@
+{
+  "name": "mine-mail",
+  "owner": "Tantless",
+  "repo": "mine-mail",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mine-mail",
+      "path": ".agents/skills/hallmark/SKILL.md",
+      "github_url": "https://github.com/Tantless/mine-mail/tree/main/.agents/skills/hallmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mine-mail",
+      "path": ".agents/skills/improve-ui/SKILL.md",
+      "github_url": "https://github.com/Tantless/mine-mail/tree/main/.agents/skills/improve-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mine-mail",
+      "path": ".agents/skills/test-ai-chain/SKILL.md",
+      "github_url": "https://github.com/Tantless/mine-mail/tree/main/.agents/skills/test-ai-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mine-mail",
+      "path": ".agents/skills/ui-skills-root/SKILL.md",
+      "github_url": "https://github.com/Tantless/mine-mail/tree/main/.agents/skills/ui-skills-root/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mine-mail",
+      "path": ".agents/skills/isolate-worktree/SKILL.md",
+      "github_url": "https://github.com/Tantless/mine-mail/tree/main/.agents/skills/isolate-worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mine-mail",
+      "path": ".agents/skills/release-mine-mail/SKILL.md",
+      "github_url": "https://github.com/Tantless/mine-mail/tree/main/.agents/skills/release-mine-mail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mine-mail",
+      "path": ".agents/skills/fixing-accessibility/SKILL.md",
+      "github_url": "https://github.com/Tantless/mine-mail/tree/main/.agents/skills/fixing-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mine-mail",
+      "path": ".agents/skills/fixing-motion-performance/SKILL.md",
+      "github_url": "https://github.com/Tantless/mine-mail/tree/main/.agents/skills/fixing-motion-performance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Tantless/mine-mail",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:57:55Z"
+}
