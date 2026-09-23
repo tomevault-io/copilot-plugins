@@ -1,218 +1,172 @@
 ## lore
 
-> > Read this file first, then read the guide for the area you are working in.
+> > Read the root `AGENTS.md` first. This file covers the Notion SDK integration
 
-# Agent Reference
+# AGENTS.md -- src/notion/
 
-> Read this file first, then read the guide for the area you are working in.
-> When a subsystem guide conflicts with this file, the subsystem guide wins for
-> that subsystem.
+> Read the root `AGENTS.md` first. This file covers the Notion SDK integration
+> layer only.
 
-## Subsystem Guides
+## Purpose
 
-| Area             | Guide                                          | Scope                                                                       |
-| ---------------- | ---------------------------------------------- | --------------------------------------------------------------------------- |
-| MCP server       | [`src/mcp/AGENTS.md`](src/mcp/AGENTS.md)       | Tool registration, error handling, server startup                           |
-| Domain services  | [`src/core/AGENTS.md`](src/core/AGENTS.md)     | Service pattern, context resolution, fact invalidation                      |
-| Notion SDK layer | [`src/notion/AGENTS.md`](src/notion/AGENTS.md) | Client, schema, extractors, vault setup, Notion doc routing                 |
-| CLI              | [`src/cli/AGENTS.md`](src/cli/AGENTS.md)       | CLI routing, command inventory, detailed guide pointers                     |
-| Hook runner      | [`src/hooks/AGENTS.md`](src/hooks/AGENTS.md)   | Hook routing, handler registration, doc precedence                          |
-| Auth layer       | [`src/auth/AGENTS.md`](src/auth/AGENTS.md)     | ntn / PAT auth, `auth.json` contract, vault preflight, token classification |
+This directory contains the code that directly touches the Notion API: client
+configuration, database schemas, property extractors, vault setup, relation
+hydration, and RunTool adapters. Domain logic belongs in `src/core/`.
 
-## Detailed Guides
+## Documentation Map
 
-| Guide                                                                                                                                                                                        | Use it for                                                                                                                   |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| [`docs/development.md`](docs/development.md)                                                                                                                                                 | Architecture, commands, conventions, stability rules, troubleshooting                                                        |
-| [`docs/authentication.md`](docs/authentication.md)                                                                                                                                           | Auth priority chain, ntn behavior, `auth.json` contract, rate limits, troubleshooting                                        |
-| [`docs/profiles.md`](docs/profiles.md)                                                                                                                                                       | Default profile selector, profile-owned taxonomy/schema/prompts, no-singleton threading                                      |
-| [`docs/memory-workflows.md`](docs/memory-workflows.md)                                                                                                                                       | Lore memory/fact/decision/task workflow, topic keys, digest                                                                 |
-| [`docs/conflict-detection.md`](docs/conflict-detection.md)                                                                                                                                   | `lore conflicts scan` workflow and compare-verdict contract                                                                  |
-| [`docs/memory-debt.md`](docs/memory-debt.md)                                                                                                                                                 | `lore debt scan` / `create-tasks` audit categories, scoring, recommended maintenance cadence, idempotency contract           |
-| [`docs/topology.md`](docs/topology.md)                                                                                                                                                       | `lore status` topology section, health states, recovery workflow                                                             |
-| [`docs/topology-inheritance.md`](docs/topology-inheritance.md)                                                                                                                               | Read-upstream wake-up rendering, trust containment, design rules, opt-out behavior, promotion-target read-upstream carve-out |
-| [`docs/topology-promotion.md`](docs/topology-promotion.md)                                                                                                                                   | Promotion workflow, audit block, guards, dry run, source validation, idempotency, promoter identity, implementation pointers |
-| [`docs/notion-sdk-v5.md`](docs/notion-sdk-v5.md), [`docs/notion-rate-limit.md`](docs/notion-rate-limit.md)                                                                                   | Notion SDK v5 shape differences, rate-limit gates, endpoint overrides, call-site checklist                                   |
-| [`docs/hooks.md`](docs/hooks.md), [`docs/hooks-autosave.md`](docs/hooks-autosave.md), [`docs/hooks-wakeup.md`](docs/hooks-wakeup.md), [`docs/hooks-background.md`](docs/hooks-background.md) | Installed hook behavior, shared-vault hook setup, and runtime-flow contracts                                                 |
-| [`docs/team-rollout.md`](docs/team-rollout.md)                                                                                                                                               | Operator-facing ntn-first rollout runbook                                                                                    |
-| [`docs/ci.md`](docs/ci.md)                                                                                                                                                                   | Per-step CI contract: token/network/fixture needs and fork-safety rules                                                      |
-| [`docs/cli.md`](docs/cli.md), [`docs/cli-authoring.md`](docs/cli-authoring.md), [`docs/cli-command-contracts.md`](docs/cli-command-contracts.md), [`docs/mcp-tools.md`](docs/mcp-tools.md)   | CLI and MCP user-facing reference, CLI authoring rules, command contracts                                                    |
-| [`docs/mcp-tool-authoring.md`](docs/mcp-tool-authoring.md), [`docs/archive/mcp-tool-history.md`](docs/archive/mcp-tool-history.md)                                                           | MCP tool-authoring patterns and historical MCP release evidence                                                              |
+| Need                                                          | Read                                                                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| SDK v5 request and response shapes                            | [`docs/notion-sdk-v5.md`](../../docs/notion-sdk-v5.md)                                                 |
+| Rate-limit gates, endpoint overrides, and call-site checklist | [`docs/notion-rate-limit.md`](../../docs/notion-rate-limit.md)                                         |
+| RunTool routing and rollback entry point                      | [`runtool/README.md`](runtool/README.md)                                                               |
+| RunTool API contract                                          | [`runtool/contract.md`](runtool/contract.md)                                                           |
+| RunTool consumer behavior and fallbacks                       | [`runtool/consumers.md`](runtool/consumers.md)                                                         |
+| RunTool historical evidence and phase logs                    | [`docs/archive/runtool-evidence.md`](../../docs/archive/runtool-evidence.md)                           |
+| Auth token resolution before this layer receives a bearer     | [`src/auth/AGENTS.md`](../auth/AGENTS.md) and [`docs/authentication.md`](../../docs/authentication.md) |
+| Service behavior built on these primitives                    | [`src/core/AGENTS.md`](../core/AGENTS.md)                                                              |
 
-## Repo At A Glance
+## Files
 
-Lore is a Notion-backed memory system. It stores knowledge as Notion pages in
-five core databases: Projects, Topics, Memories, Entities, and Facts.
+| File                     | Responsibility                                                                          |
+| ------------------------ | --------------------------------------------------------------------------------------- |
+| `client.ts`              | Creates a configured `Client` instance with custom timeout and User-Agent.              |
+| `page-id-schema.ts`      | Shared Zod schema for Notion page IDs, including undashed URL-form normalization.       |
+| `rate-limit.ts`          | Wraps the Notion client in request-rate, concurrency, and shared-backoff gates.         |
+| `schema.ts`              | Defines database property configs, property name constants, and page property builders. |
+| `extractors.ts`          | Provides typed property value extractors for `PageObjectResponse`.                      |
+| `query-response.ts`      | Guards data-source query response shape and preserves validation payload errors.        |
+| `relation-properties.ts` | Paginates relation property values when page responses are truncated.                   |
+| `setup.ts`               | Creates and verifies the five-database vault structure.                                 |
+| `runtool/`               | Hosts the quarantined RunTool integration, public wrappers, feature flags, and tests.   |
 
-The same domain services power three interfaces:
+## RunTool quarantine
 
-```text
-.lore.yaml -> config.ts -> services.ts
-                              |
-                 +------------+------------+
-                 |            |            |
-            mcp/server.ts  cli/index.ts  hooks/helpers.ts
+`runtool/` is the home for Lore's quarantined integration with Notion's
+internal `POST /v1/tools/run` API. Keep this guide to routing pointers:
+
+- `runtool/README.md` owns the current default, operator rollback path, and
+  doc index.
+- `runtool/contract.md` owns endpoint, envelope, auth/capability, rate-limit,
+  response-shape, pin, and error-vocabulary contracts.
+- `runtool/consumers.md` owns per-consumer surfaces and fallback behavior for
+  `create_pages`, `update_page`, `query_data_sources`, and `search`.
+- `docs/archive/runtool-evidence.md` preserves old phase logs, verification
+  runs, and default-on evidence.
+
+The canonical name for the 403 capability-rejection kind is
+`restricted_resource`, matching `APIErrorCode.RestrictedResource`. RunTool
+consumers must use the same spelling.
+
+## Property Extractors Pattern
+
+`extractors.ts` provides typed helper functions for pulling values out of
+Notion page properties. Every core service uses these instead of inlining
+property access logic.
+
+| Extractor                       | Input property type | Returns          |
+| ------------------------------- | ------------------- | ---------------- |
+| `extractTitle(prop)`            | `title`             | `string`         |
+| `extractRichText(prop)`         | `rich_text`         | `string`         |
+| `extractSelect(prop, fallback)` | `select`            | `string`         |
+| `extractMultiSelect(prop)`      | `multi_select`      | `string[]`       |
+| `extractRelationIds(prop)`      | `relation`          | `string[]`       |
+| `extractDate(prop)`             | `date`              | `string \| null` |
+
+`extractRelationIds()` is intentionally synchronous and only reads IDs already
+present on a page response. When a relation property has `has_more: true`, use
+`hydrateRelationProperties()` from `relation-properties.ts` before mapping the
+page into a domain type. Batch hydration is concurrency-limited to mirror the
+Notion client rate-limit gate; avoid bypassing it with ad hoc `Promise.all`
+loops around `pages.properties.retrieve`.
+
+The `isFullPage()` type guard narrows data-source query results to
+`PageObjectResponse` before extraction.
+
+**Rule:** Always use these extractors. Do not write inline property access like
+`page.properties["Name"].title[0].plain_text`; it is fragile and untyped.
+
+## Schema Definitions Pattern
+
+`schema.ts` defines three things per database:
+
+1. **Property name constants** (`PROJECT_PROPS`, `TOPIC_PROPS`,
+   `MEMORY_PROPS`, `ENTITY_PROPS`, `FACT_PROPS`) are `as const` objects
+   exporting the canonical Notion property name for every column. Always
+   reference the constant when accessing a property; never inline a bare string
+   literal in production code:
+
+   ```typescript
+   // Correct
+   const subject = extractTitle(props[FACT_PROPS.SUBJECT])
+   filters.push({ property: MEMORY_PROPS.STATUS, select: { equals: "active" } })
+
+   // Wrong
+   const subject = extractTitle(props["Subject"])
+   filters.push({ property: "Status", select: { equals: "active" } })
+   ```
+
+   The `*_PROPS` constants are the single source of truth for Notion property
+   names. The schema-drift suite in `schema.test.ts` keeps each constant
+   aligned with the keys its builder function emits, so a rename made only on
+   one half cannot silently land. Test fixtures may keep bare literals for
+   wire-format readability when that intent is explicit.
+
+2. **Property configuration** (`PropertyConfig`) is used by `setup.ts` when
+   creating databases. Builders compose the `*_PROPS` constants as computed
+   property keys so config and constants share one source.
+
+3. **Property builder functions** (`buildProjectProps`, `buildMemoryProps`,
+   etc.) are used by core services when creating or updating pages. The
+   builders also write through `*_PROPS` constants.
+
+Database schema configs are exposed as functions so relation IDs and the active
+profile can be passed explicitly:
+
+```typescript
+// No relations, but profile additives may still apply.
+export function projectsProperties(profile?: ResolvedProfile): PropertyConfig { ... }
+
+// Dynamic: needs related DB IDs.
+export function memoriesProperties(
+  projectsDbId: string,
+  topicsDbId: string,
+  memoriesDsId?: string,
+  profile?: ResolvedProfile,
+): PropertyConfig { ... }
 ```
 
-Creation order matters because relations form foreign keys:
+## Vault Setup
 
-```text
-Projects -> Topics -> Memories -> Entities -> Facts
-```
+`setup.ts` creates databases in dependency order:
 
-Facts can still be mid-migration at the row level: code that reads entity ids
-from facts must handle both rows with populated entity relations and rows that
-need the SubjectKey substring fallback.
+1. **Projects** -- no dependencies
+2. **Topics** -- relation to Projects
+3. **Memories** -- relations to Projects and Topics
+4. **Entities** -- relations to Projects and Memories
+5. **Facts** -- relations to Projects, Memories, and Entities
 
-## Quick Commands
+`verifyVaultDatabases()` reads the vault page's child blocks and matches
+database titles to the expected names. If a title is missing, it retrieves
+unmatched child databases and identifies Lore databases by schema fingerprint
+so a renamed database still counts as present and `lore init` cannot duplicate
+a partial vault. This is used by `VaultManager.load()`.
 
-| Command                | What it does            |
-| ---------------------- | ----------------------- |
-| `npm run build`        | tsup build              |
-| `npm run typecheck`    | `tsc --noEmit`          |
-| `npm run lint`         | `eslint src/`           |
-| `npm run format`       | `prettier --write src/` |
-| `npm run format:check` | `prettier --check src/` |
-| `npm run test`         | `vitest run`            |
-| `npm run test:watch`   | `vitest` watch mode     |
-| `npm run dev`          | `tsup --watch`          |
+Projects, Topics, Memories, Entities, and Facts are mandatory. Row-level
+migration fallback is separate: existing Facts may still have empty entity
+relations until `lore migrate --build-entities` repoints them.
 
-## Non-Negotiables
+`verifyVaultDatabasesForEntityRepair()` is the narrow exception for the
+`lore vault ensure-entities` bootstrap command: it requires Projects, Topics,
+Memories, and Facts but allows Entities to be absent so the repair command can
+run outside strict service initialization.
 
-Rule #1: If you need an exception to any rule here, stop and get explicit
-permission from the human lead first.
+## Things That Do Not Live Here
 
-- Do not bump version numbers. Never edit the `version` field in
-  `package.json`, `package-lock.json`, or any release manifest unless the
-  human lead has explicitly asked for a version bump in this turn. Releases
-  are cut deliberately; an unrequested bump in an unrelated PR can ship a
-  release, break stacked-branch rebases, or desync `package-lock.json`.
-- Do not remove existing MCP tools. Deprecate first, remove in a future major.
-- Do not rename database properties. Property names are baked into schema,
-  extractors, and services.
-- Keep the five-database core schema stable. Adding properties is fine;
-  removing or renaming them is breaking.
-- Do not change `initServices()` without updating MCP, CLI, and hooks.
-- Respect the import boundary: CLI and hooks import from `services.ts`, not
-  from `mcp/server.ts`.
-- This repo is ESM-only. Internal relative imports include `.js`; no
-  CommonJS.
-- Use Notion SDK v5 patterns from
-  [`docs/notion-sdk-v5.md`](docs/notion-sdk-v5.md): `client.dataSources.query`,
-  `pages.retrieveMarkdown`, `pages.updateMarkdown`, and
-  `databases.create({ initial_data_source: ... })`.
-- Run `npm run typecheck` before committing. Add or update tests when behavior
-  changes and a relevant test suite exists.
-
-## Operating Contract
-
-- Be honest, push back, and call out bad ideas.
-- Discuss architectural decisions before implementation. Routine fixes do not
-  need discussion.
-- Ask for clarification when a risky assumption cannot be resolved from local
-  context.
-- Make the smallest reasonable change that solves the problem.
-- Do not rewrite implementations without explicit permission.
-- Fix broken things immediately; do not paper over symptoms.
-- Names describe what code does, not implementation history or mechanism.
-- Comments explain what or why, never obvious how.
-- `ABOUTME` comments are optional top-of-file owner notes for high-churn files
-  where local responsibility is otherwise hard to infer. Keep them to one or
-  two `ABOUTME:` lines that describe the file's current responsibility and edit
-  triggers. Do not use them for history, issue links, reviewer context, phase
-  names, routing tables, or cross-file invariants; routing belongs in AGENTS
-  files, and cross-file contracts belong in focused docs or subsystem guides.
-- Comments must stand on their own. A reader landing on a comment with no
-  outside context — no PR, no chat log, no calendar — must still understand
-  it. Do not write:
-  - Temporal comments — "new", "recently added", "as of <date>", "no longer
-    does X", "previously this was Y", "TODO once the migration lands". Code
-    is always the current state; phrasing that implies a before/after rots
-    the moment the next change ships.
-  - Comments that reference local files or paths — "see `docs/foo.md`",
-    "mirrors logic in `src/core/bar.ts`", "per `AGENTS.md`". Files get
-    renamed and moved; the reference goes stale silently. If two pieces of
-    code must agree, encode it in types or tests, not in prose pointers.
-  - Comments that reference specific review feedback, PRs, issues, or
-    reviewers — "addresses #123", "per reviewer comment", "fix from PR
-    #582". That context belongs in the commit message and PR description,
-    which are the durable record. Once the PR squash-merges, the reference
-    points at a collapsed unit of history that no longer maps cleanly to
-    the line of code.
-  - Comments that reference phase plans, work-tracking artifacts, or any
-    document that lives outside the repo — "P3-01", "Phase 2 of the
-    migration", "per the rollout plan", "pre-P3-03 behavior". These
-    artifacts typically exist on one developer's machine, in a Linear
-    ticket, or in a private Notion page; a future reader has no way to
-    resolve them. State the invariant the comment is trying to anchor in
-    plain language instead.
-- Update the right AGENTS/doc file when you discover a missing convention,
-  workflow, or gotcha. Structural rule changes need human lead approval.
-
-## Lore Usage
-
-Use Lore for cross-session knowledge when the tools are available:
-
-- At session start, load context with `lore-context action='wake-up'`.
-- Capture architectural choices with `lore-decision action='create'`.
-- Save non-obvious discoveries with `lore-memory action='save'`.
-- Save durable relationships with `lore-fact action='create'`; it requires a
-  supporting memory via `sourceMemoryId` or same-process `agent`+`session`
-  auto-link provenance.
-- Track follow-up work with `lore-task action='create'` and close tasks as soon
-  as they are done or cancelled.
-- When memories are in tension, use `lore-memory action='compare'` with the
-  verdict vocabulary in [`docs/memory-workflows.md`](docs/memory-workflows.md).
-- Do not add visible "Key Learnings" boilerplate to user responses; learning
-  extraction happens out of band through hooks.
-
-## Authentication
-
-Two operator personas, two recommended paths:
-
-- **Internal Notion engineers** run `lore install --ntn`. `--ntn`
-  auto-installs `ntn` (if missing), runs `ntn login` with
-  `NOTION_KEYRING=0` forced in the spawn, and Lore reads the resulting
-  bearer token from `~/.config/notion/auth.json`. Compose with `--dev`
-  (`lore install --ntn --dev`) to forward `NOTION_ENV=dev` for
-  dev-environment vaults.
-- **External operators** create a Personal Access Token at
-  <https://www.notion.so/developers/tokens> and paste it into
-  `NOTION_API_TOKEN`, then run `lore install` (no flags). **Do not use
-  integration tokens from `notion.so/profile/integrations`** — those
-  carry `secret_…` shapes and are integration-level rate-limited, which
-  re-collapses Lore into one shared bucket across the team. PATs are
-  per-user. The PAT prefix is `ntn_` on prod and `development_ntn_` on
-  the dev environment (use `lore install --dev` for the latter).
-
-The two-source priority chain (highest first) backs both personas:
-
-1. `NOTION_API_TOKEN` — PATs land here (and internal engineers may also
-   set this explicitly).
-2. `ntn`-resolved token from `~/.config/notion/auth.json`.
-
-`.lore.yaml` is local-only — keep it out of version control. Copy
-`.lore.example.yaml` to `.lore.yaml` per clone, and distribute shared team
-values (`vault.pageId`, `auth.workspaceId`) through onboarding docs rather
-than by committing config. The Lore repo gitignores `.lore.yaml` and its
-pre-commit guard (`tools/check-lore-config.mjs`) rejects any staged content.
-The current policy applies even to credential-free shared vault config and
-supersedes older changelog guidance that allowed intentional committed config.
-Lore rejects any `auth.token` value at config-load time.
-
-Notion page IDs are access locators, not bearer secrets. Keeping them out of
-git is still the right default so external clones don't auto-target an
-unrelated vault. Accidental maintainer-local or personal scratch page IDs that
-land in history need explicit owner review.
-
-Both `ntn`-issued tokens and PATs inherit the operator's personal Notion
-permissions and carry per-user rate limits. Lore-managed `ntn` spawns force
-`NOTION_KEYRING=0`; direct `ntn login` outside Lore may need the recovery
-path in [`docs/authentication.md`](docs/authentication.md).
-
-See [`docs/authentication.md`](docs/authentication.md) and
-[`src/auth/AGENTS.md`](src/auth/AGENTS.md) for the full auth contract.
+Do not add long-form SDK migration notes, rate-limit internals, or RunTool
+manuals to this file. Put durable reference content in the focused docs linked
+above and keep this guide short enough to route a contributor quickly.
 
 ---
 > Source: [makenotion/lore](https://github.com/makenotion/lore) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
