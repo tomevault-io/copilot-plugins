@@ -1,0 +1,9 @@
+{
+  "name": "huangguang1999--paseo-skins",
+  "displayName": "paseo-skins",
+  "description": "Open-source Paseo themes and skins with a local theme builder, one-click Agent Skill, and safe macOS CDP loader",
+  "version": "1.0.0",
+  "author": "huangguang1999",
+  "homepage": "https://github.com/huangguang1999/paseo-skins",
+  "skills": []
+}
