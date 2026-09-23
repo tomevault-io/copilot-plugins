@@ -1,0 +1,123 @@
+{
+  "name": "oh-dsh",
+  "owner": "hust-open-atom-club",
+  "repo": "oh-dsh",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/simplify/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/simplify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-release/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-code-review/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-doc-site-sync/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-doc-site-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-doc-standards/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-doc-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-translate-docs/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-translate-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/record-browser-gif/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/record-browser-gif/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-prose-standard/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-prose-standard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-pre-push-checks/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-pre-push-checks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-trim-cot-leakage/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-trim-cot-leakage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-merging-stacked-prs/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-merging-stacked-prs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-archive-agent-notes/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-archive-agent-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-dsh",
+      "path": ".agents/skills/dsh-find-simplifications/SKILL.md",
+      "github_url": "https://github.com/hust-open-atom-club/oh-dsh/tree/main/.agents/skills/dsh-find-simplifications/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hust-open-atom-club/oh-dsh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:31:53Z"
+}
