@@ -1,0 +1,9 @@
+{
+  "name": "dwmkerr--signalbox",
+  "displayName": "signalbox",
+  "description": "Jump to any agent session across Cursor, Claude Code, OpenCode and more. See all your chaos in one place and feed your need to context switch.",
+  "version": "1.0.0",
+  "author": "dwmkerr",
+  "homepage": "https://github.com/dwmkerr/signalbox",
+  "skills": []
+}
