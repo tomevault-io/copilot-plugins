@@ -1,0 +1,9 @@
+{
+  "name": "getquario--xprsn",
+  "displayName": "xprsn",
+  "description": "Tiny and CSP-safe expression language for JavaScript",
+  "version": "1.0.0",
+  "author": "getquario",
+  "homepage": "https://github.com/getquario/xprsn",
+  "skills": []
+}
