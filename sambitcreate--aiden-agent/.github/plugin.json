@@ -1,0 +1,9 @@
+{
+  "name": "sambitcreate--aiden-agent",
+  "displayName": "aiden-agent",
+  "description": "Pi based agent for Designers, Coders and Everyday users.",
+  "version": "1.0.0",
+  "author": "sambitcreate",
+  "homepage": "https://github.com/sambitcreate/aiden-agent",
+  "skills": []
+}
