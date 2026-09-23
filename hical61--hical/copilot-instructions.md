@@ -1,16 +1,28 @@
 ## hical
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Hical is a modern C++20 high-performance web framework built on Boost.Asio, featuring a native HTTP/WebSocket stack (picohttpparser + self-developed WebSocket implementation), PMR three-tier memory pools, coroutine-based async I/O (`asio::awaitable<T>`), C++20 Concepts for compile-time type safety, a C++26 reflection layer (dual-track: native P2996 or C++20 macro fallback), and an optional coroutine-based database middleware (Boost.MySQL and libpq/PostgreSQL backends).
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Repository Guidelines
 
 ## Project Overview
 
-Hical is a modern C++20 high-performance web framework built on Boost.Asio/Beast, featuring PMR memory pools, coroutine-based async I/O (`asio::awaitable<T>`), C++20 Concepts for compile-time type safety, a C++26 reflection layer (dual-track: native P2996 or C++20 macro fallback), and an optional coroutine-based database middleware (Boost.MySQL backend).
+Hical is a modern C++20 high-performance web framework built on Boost.Asio, featuring a native HTTP/WebSocket stack (picohttpparser + self-developed WebSocket implementation), PMR three-tier memory pools, coroutine-based async I/O (`asio::awaitable<T>`), C++20 Concepts for compile-time type safety, a C++26 reflection layer (dual-track: native P2996 or C++20 macro fallback), and an optional coroutine-based database middleware (Boost.MySQL and libpq/PostgreSQL backends).
 
-## Build Commands
+## Project Structure & Module Organization
+
+- `src/core/` — Abstract interfaces, HTTP framework, routing, middleware, logging, server code, reflection layer. Must **not** include `src/asio/` headers.
+- `src/asio/` — Boost.Asio concrete implementations (event loop, TCP connection, TCP server, event-loop pool)
+- `src/db/` — Optional database middleware (enable with `-DHICAL_WITH_DATABASE=ON`, guarded by `HICAL_HAS_DATABASE` macro)
+- `src/third_party/` — Bundled dependencies (picohttpparser)
+- `tests/` — GoogleTest test suite, one `test_<feature>.cpp` per module
+- `examples/` — Example servers (echo, benchmark, OpenAPI, reflection, PMR)
+- `docs/` — Longer guides (architecture, coroutines, logging, OpenAPI, deployment)
+- `docker/` — CI test matrix, production deployment, benchmark tooling
+- `benchmark/` — Multi-framework HTTP benchmark suite (hical vs actix/drogon/cinatra/etc.)
+
+Namespaces: public API in `hical::`, reflection in `hical::meta::`, database in `hical::db::`, internals in anonymous namespace or `detail::`.
+
+## Build, Test, and Development Commands
 
 ### Linux / macOS
 ```bash
@@ -30,169 +42,182 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/script
 cmake --build build --config Release
 ```
 
-### Enable Database Middleware (requires Boost.MySQL)
+### Optional Modules
 ```bash
-cmake -B build -DHICAL_WITH_DATABASE=ON ...
+cmake -B build -DHICAL_WITH_DATABASE=ON ...    # Database middleware (requires Boost.MySQL >= 1.85)
+cmake -B build -DHICAL_WITH_PGSQL=ON ...       # PostgreSQL backend (requires libpq, implies HICAL_WITH_DATABASE)
+cmake -B build -DHICAL_WITH_OPENAPI=OFF ...    # Disable OpenAPI (enabled by default)
+cmake -B build -DHICAL_ENABLE_REFLECTION=ON ... # C++26 reflection (requires compatible compiler)
 ```
 
-### Enable C++26 Reflection (requires compatible compiler)
+### Run Tests
 ```bash
-cmake -B build -DHICAL_ENABLE_REFLECTION=ON ...
-```
-
-### Run All Tests
-```bash
+# Full suite
 ctest --test-dir build --output-on-failure --timeout 60 -j4
 # MSVC needs: ctest ... -C Release
-```
 
-### Run a Single Test
-```bash
+# Single test
 ./build/tests/test_router
-# Or via ctest with filter:
 ctest --test-dir build -R test_router --output-on-failure
+
+# CI-like Linux suite
+cd docker/test && docker compose up --build --abort-on-container-exit
 ```
 
-### Format Check (CI enforces this on GCC job)
+### Format & Static Analysis
 ```bash
+# Format check (CI enforces on GCC job)
 find src tests examples -name '*.h' -o -name '*.cpp' | xargs clang-format --dry-run --Werror
-```
 
-### Static Analysis (Clang job, non-blocking)
-```bash
+# Format fix
+find src tests examples -name '*.h' -o -name '*.cpp' | xargs clang-format -i
+
+# Static analysis (Clang job, non-blocking)
 find src -name '*.cpp' | xargs clang-tidy -p build
 ```
 
-## Architecture
+### Architecture
 
-### Two-Layer Design
+**`src/core/` modules:**
+- `EventLoop.h` / `Timer.h` / `TcpConnection.h` — Abstract base classes
+- `Concepts.h` — C++20 concepts (`EventLoopLike`, `TcpConnectionLike`, `TimerLike`, `NetworkBackend`)
+- `MemoryPool.h` — Three-tier PMR: global synchronized pool → thread-local unsynchronized pool → request-level monotonic buffer. **Critical constraint:** objects from request-level monotonic buffer must not escape request lifetime (use-after-free).
+- `HttpServer.h` — Top-level facade: TcpServer + Router + MiddlewarePipeline + WebSocket + IdleScanner. SO_REUSEPORT multi-acceptor (Linux/macOS), single-acceptor fallback (Windows). Graceful stop via `releaseWork()` (no `io_context::stop()`).
+- `HeaderMap.h` — `vector<pair<string,string>>` backed, case-insensitive lookup, L1-cache-friendly for typical <20 headers
+- `HttpRequest.h/cpp` — Zero-copy request wrapper: `string_view` referencing connection-level read buffer, stack-allocated `array<Entry,64>` headers. Public API: `method()`, `path()`, `header()`, `body()`, `cookie()`, `queryParam()`, `formParam()`, `readJson<T>()`
+- `HttpResponse.h/cpp` — Response wrapper with `FileBody` deferred async file sending, `serializeHeadTo(FixedBuffer<512>&)` zero-heap scatter-gather I/O, `setHeader()` accepts `std::string_view`
+- `HttpSessionImpl.cpp` — Compilation firewall for picohttpparser + WebSocket. ReadBufferPool borrow/return (8KB thread_local pool), optimistic sync write (≤512B single-buffer), response prefix template (~90B pre-built wire bytes), IdleScanner::Guard RAII idle timeout
+- `Router.h` — Static routes (compile-time perfect hash for registered routes, O(1) hash map fallback with transparent hashing for zero-alloc `string_view` lookup) + parameter routes (`{id}`) + wildcard routes (`*path`). Priority: static > param > wildcard. `dispatchSync()` sync fast-path skips coroutine frame (~40-130ns savings). `compileTimeRoute()` for routes with compile-time middleware chains
+- `Middleware.h` — Onion-model pipeline: `SyncBeforeHandler` / `SyncAfterHandler` for zero-coroutine-frame middleware, `buildOptimizedChain()` merges consecutive sync entries into single frame, `CompileTimeChain` template pre-builds chains at compile time
+- `Coroutine.h` — `Awaitable<T>` alias, `sleep()`, `coSpawn()` with `recycling_allocator` and `logOnException`
+- `Error.h/cpp` — `ErrorCode` enum + `NetworkError` struct, isolating from raw Asio error codes. Use these, not `boost::system::error_code`.
+- `ConfigLoader.h/cpp` — JSON config with dot-separated key access, `HICAL_` env var override, `get<T>(key, defaultVal)`
+- `StaticFiles.h` — Async file serving, ETag/304, Range Request (206), MIME detection, path traversal protection, 64MB limit
+- `WsFrame.h` / `WsHandshake.h` / `WsDeflate.h/cpp` — WebSocket RFC 6455 stack: frame parsing, handshake, permessage-deflate compression
+- `Reflection.h` / `MetaJson.h` / `MetaRoutes.h` — C++26 dual-track reflection: native P2996 `^^T` attributes or C++20 `HICAL_JSON`/`HICAL_ROUTES` macros. API: `toJson()`, `fromJson<T>()`, `req.readJson<T>()`, `registerRoutes()`
+- `Log.h/cpp` — 6-level logging: `HICAL_LOG_INFO("port={}", 8080)`, `HICAL_LOG_INFO_STREAM`, `HICAL_LOG_INFO_IF`. TRACE eliminated under NDEBUG. Use these macros, not printf/iostream.
+- `Session.h/cpp` — In-memory sessions, `makeSessionMiddleware`, `regenerate()` for fixation prevention
+- `RateLimiter.h/cpp` — Token Bucket middleware, per-key limiting, 429 + Retry-After headers
+- `Helmet.h/cpp` — Security headers middleware (7 headers, all toggleable)
+- `JwtAuth.h/cpp` — HS256 JWT middleware, zero third-party deps (OpenSSL EVP + self-implemented Base64URL)
+- `GzipCompression.h/cpp` — Response compression, auto-checks `Accept-Encoding`, small body inline, large body streaming
+- `SseSession.h/cpp` — Server-Sent Events (RFC 8895), chunked streaming, 30s heartbeat
+- `OpenApi*.h/cpp` — OpenAPI 3.0 auto-generation: schema → registry → document → endpoints (`/openapi.json` + `/docs`). Opt-in via `HICAL_WITH_OPENAPI=ON`.
+- `PerfectHashRouter.h` — Compile-time perfect hash for static routes: replaces `unordered_map` lookup with djb2 hash + multiply-shift + one string comparison at runtime, computed in `MetaRoutes` and injected into `Router`. Fallback to original hash map on miss.
+- `CompileTimeChain.h` — Compile-time middleware chain pre-build: `CompileTimeChain` template unrolls middleware type lists at compile time, merging consecutive `SyncBeforeHandler`/`SyncAfterHandler` entries into single coroutine frames. `compileTimeRoute()`-registered routes dispatch via pre-built chain, skipping dynamic `buildOptimizedChain()`.
+- `CompileTimeJson.h` — Compile-time JSON serialization: `CompileTimeJson<T>` template flattens DTO struct serialization into a compile-time string concatenation chain, bypassing `boost::json::object` entirely — zero heap allocation, no `serialize()` call. `HttpResponse::jsonFrom<T>()` provides a one-liner convenience API.
+- `IdleScanner.h/cpp` — Per-io_context centralized idle connection scanner (replaces per-connection timer coroutines), single-threaded, intrusive doubly-linked list
+- `IdleFd.h` / `WriteNode.h` / `Version.h.in` / `StringPool.h` / `Multipart.h/cpp` / `ChunkedBody.h/cpp` / `FixedBuffer.h`
 
-**`src/core/`** — Abstract interfaces, shared types, HTTP framework, and reflection layer:
-- `EventLoop.h` / `Timer.h` / `TcpConnection.h` — Abstract base classes (pure virtual). `TcpConnection` includes `sendFile()` and `lastActiveTime()` virtual methods
-- `Concepts.h` — C++20 concepts (`EventLoopLike`, `TcpConnectionLike`, `TimerLike`, `NetworkBackend`) for compile-time backend constraints
-- `MemoryPool.h` — Three-tier PMR memory strategy: global synchronized pool, thread-local unsynchronized pool, request-level monotonic buffer
-- `HttpServer.h` — Top-level facade integrating TcpServer + Router + MiddlewarePipeline + WebSocket middleware pre-build + fd exhaustion handling
-- `Router.h` — Static routes (hash map O(1) with transparent hashing via `RouteKeyView`/`is_transparent` for zero-alloc `string_view` lookup) + parameter routes (`{id}` pattern, per-method grouping via `unordered_map<HttpMethod, vector>`) + WebSocket routes with `WsOptions` (Origin whitelist)
-- `Middleware.h` — Onion-model middleware pipeline with `MiddlewareNext` chaining; supports pre-built chain (`build()`), dynamic chain (`buildChain()`), and `buildFor()` for external pre-build, with separate `execute()` overloads for cached vs dynamic paths
-- `Coroutine.h` — `Awaitable<T>` alias for `boost::asio::awaitable<T>`, plus `sleep()` / `coSpawn()` helpers
-- `Reflection.h` / `MetaJson.h` / `MetaRoutes.h` — C++26 reflection layer (see below)
-- `StaticFiles.h` — Async static file serving (`Awaitable<HttpResponse>`) with `BOOST_ASIO_HAS_FILE` async I/O + ifstream fallback, PathCache (4096/60s TTL), ETag/304, MIME detection, path traversal protection, 64MB file size limit
-- `Multipart.h/cpp` — RFC 7578 multipart/form-data parser (256 part DoS limit), dual API: `getFile(req, field)` (re-parses) and `getFile(parts, field)` (searches pre-parsed vector, recommended)
-- `Session.h/cpp` — In-memory session manager with `shared_mutex` (read-write lock), lazy GC, OpenSSL RAND_bytes 128-bit IDs, `makeSessionMiddleware` factory, `maxSessions` DoS limit, atomic `lastAccess` (lock-free), `regenerate()` for session fixation prevention, `migrateFrom()` for atomic data migration with address-ordered double locking
-- `IdleFd.h` — Cross-platform idle fd reservation (POSIX: `/dev/null` fd; Windows: no-op stub) for EMFILE accept loop protection
-- `WriteNode.h` — Polymorphic write buffer nodes: `WriteNode` base, `MemoryWriteNode` (shared_ptr\<string\>), `FileWriteNode` (path/offset/length) for heterogeneous send queue
-- `Version.h.in` — CMake-configured version header (single source of truth from `project(VERSION)`)
+**`src/asio/` modules:**
+- `AsioEventLoop` — Wraps `io_context`, `releaseWork()` for graceful shutdown
+- `GenericConnection<SocketType>` — Template for plain + SSL sockets. MPSC lock-free write queue (`alignas(64)` cache-line isolation), `MpscNodePool` thread_local free list, `kMaxDrainBatch=256`
+- `EventLoopPool` — 1:1 thread-to-io_context, least-connections distribution, `pthread_setaffinity_np` CPU pinning (Linux)
+- `TcpServer` — Accept loop, `alive_` guard, SO_REUSEPORT multi-acceptor (Windows auto-fallback), `IdleFd` EMFILE protection
 
-**`src/asio/`** — Boost.Asio concrete implementations:
-- `AsioEventLoop` — Wraps `boost::asio::io_context`, implements `EventLoop`
-- `GenericConnection<SocketType>` — Template supporting both `tcp::socket` (plain) and `ssl::stream<tcp::socket>` (SSL). Write queue uses `deque<shared_ptr<WriteNode>>` supporting both memory and file nodes. `sendFile()` + `sendFileNode()` for async file I/O with `BOOST_ASIO_HAS_FILE` guard + ifstream fallback. `lastActiveTimeMs_` atomic for idle detection. `reading_` is `atomic<bool>` for thread-safe `stopRead()`
-- `SslConnection.h` — Lightweight SSL connection type alias (`SslConnection = GenericConnection<ssl::stream<tcp::socket>>`), lazy OpenSSL include
-- `EventLoopPool` — Multi-threaded pool (1 thread : 1 io_context), round-robin connection distribution
-- `TcpServer` — Accept loop managing connection lifecycle, `alive_` flag guards coroutine against use-after-this, `setIdleTimeout()` + `idleCheckLoop()` for idle connection cleanup, `unordered_set` connection storage (O(1)), `IdleFd` for EMFILE protection
-
-**`src/db/`** — Optional coroutine-based database middleware (enabled via `HICAL_WITH_DATABASE=ON`, guarded by `HICAL_HAS_DATABASE` macro). Namespace: `hical::db`. Four-layer architecture:
-- `DbConfig.h` — `struct DbConfig` with pool sizing (`minConnections`/`maxConnections`), timeouts (`idleTimeout`/`acquireTimeout`/`queryTimeout`), health check intervals (`healthCheckInterval`/`pingGracePeriod`/`idleCheckInterval`), `stmtCacheSize` (per-connection LRU capacity), `autoReconnect`, `charset`
-- `DbResult.h` — `struct DbResult` with `columns`/`rows` (string-based), `affectedRows`, `insertId`, `columnIndex()` for name-based lookup
-- `DbConnection.h` — Abstract interface (pure virtual). Parameterized `query()`/`execute()` with `std::span<const std::string>` params (deprecated non-parameterized overloads with `[[deprecated]]`). Transaction control: `beginTransaction()`/`commit()`/`rollback()`/`inTransaction()`. Connection health: `ping()`/`isAlive()`/`lastActiveTime()`/`lastPingTime()`/`touch()`. All async methods return `Awaitable<T>`
-- `DbConnectionPool.h/cpp` — Coroutine-based connection pool using `steady_timer` as coroutine semaphore (no `condition_variable`). LIFO idle connection reuse, background `healthCheckLoop` (ping + replenish to `minConnections`), `idleCheckLoop` (evict idle beyond `idleTimeout`), `pingGracePeriod` optimization (skip ping if recently checked), automatic rollback on release if `inTransaction()`. Factory pattern via `DbConnectionFactory` function type
-- `DbMiddleware.h` — HTTP middleware integration: `makeDbMiddleware()` factory with `DbMiddlewareOptions` (`autoTransaction`/`injectPool`). Helper functions `getDbConnection(req)`/`getDbPool(req)`. Onion model: acquire → inject → [auto begin] → next → [auto commit/rollback] → release. Request attribute keys: `hPoolKey`/`hConnKey`
-- `DbQueryLog.h/cpp` — Query logging middleware via decorator pattern (`LoggingDbConnection` wraps real connection). `makeQueryLogMiddleware()` with `QueryLogOptions`: `onRequestComplete` callback, `slowQueryThreshold` + `onSlowQuery` for slow query detection. Must be registered **after** `makeDbMiddleware()`. `QueryLogEntry` struct records `sql`/`duration`/`rowCount`/`affectedRows`/`isParameterized`
-- `MysqlConnection.h/cpp` — Boost.MySQL backend using `any_connection` (type-erased TCP/SSL). `create()` async factory + `makeFactory()` for pool integration. Full type conversion (int64/uint64/double/string/blob/date/datetime/time/NULL). PreparedStatement retry on stale statement. `validateCharset()` whitelist against SQL injection in `SET NAMES`
-- `StmtCache.h/cpp` — Per-connection LRU PreparedStatement cache (not thread-safe, one instance per connection). `std::list` + `std::unordered_map` with transparent `StringHash`/`StringEqual` for zero-alloc `string_view` lookup. Evicted statements returned to caller for async close
+**`src/db/` (optional) modules:**
+- `DbConnectionPool` — Coroutine-based pool with LIFO reuse, health check + idle eviction background loops, `pingGracePeriod`, auto-rollback on release
+- `MysqlConnection` — Boost.MySQL backend with PreparedStatement retry, `validateCharset()` SQL injection whitelist
+- `PgsqlConnection` — libpq/PostgreSQL backend with non-blocking connect (`PQconnectStart` polling), `$1` placeholder params, `INSERT ... RETURNING` insertId
+- `PgSocketAdapter` — Bridges libpq `PQsocket()` to asio `co_await` (POSIX `stream_descriptor` / Windows `WSAEventSelect`)
+- `StmtCache` / `PgStmtCache` — Per-connection LRU PreparedStatement cache, transparent `string_view` lookup
+- `DbMiddleware` / `DbQueryLog` — HTTP integration + slow query logging
 
 ### Key Patterns
 
-- **Coroutine-based I/O**: All async operations use `co_await` with `boost::asio::use_awaitable`. Route handlers return `Awaitable<HttpResponse>`.
-- **Template-based SSL**: `GenericConnection<SocketType>` uses `if constexpr (hIsSslStream<SocketType>)` to branch SSL vs plain logic at compile time.
-- **PMR everywhere**: Buffers (`PmrBuffer`), HTTP bodies, and JSON objects use `std::pmr` allocators from the three-tier pool.
-- **Backend abstraction**: `AsioBackend` struct bundles `AsioEventLoop` + `PlainConnection` + `AsioTimer` to satisfy the `NetworkBackend` concept. Future backends can be swapped in.
-- **Namespaces**: Public API in `hical::`, reflection layer in `hical::meta::`, database middleware in `hical::db::`.
-- **Optional DB module**: Entire `src/db/` is opt-in via `HICAL_WITH_DATABASE=ON`. `HICAL_HAS_DATABASE` macro guards all DB code at compile boundaries. DB core layer (pool/middleware/query log) is backend-agnostic; MySQL backend is a separate layer. Adding PostgreSQL requires only a new `if(HICAL_WITH_PGSQL)` CMake block.
+- **Coroutine-based I/O**: all async ops use `co_await` + `use_awaitable`. Route handlers return `Awaitable<HttpResponse>`. Always capture `shared_from_this()` in coroutines, never raw `this`.
+- **Zero-copy HTTP parsing**: `string_view` into connection-level read buffer, stack-allocated headers. Idle connections hold zero heap read buffer.
+- **PMR everywhere**: `PmrBuffer`, HTTP bodies, JSON objects use `std::pmr` allocators. Request-level `monotonic_buffer` objects must not escape request scope.
+- **Compilation firewalls**: `.hci` files with `extern template` + explicit instantiation in `.cpp`. Large templates must not live directly in headers.
+- **Optional modules**: compile-time `#ifdef HICAL_HAS_XXX` gating via CMake options. Users not using DB/OpenAPI compile zero bytes of that code.
+- **Template-based SSL**: `if constexpr (hIsSslStream<SocketType>)` for compile-time SSL vs plain branching.
+- **Synchronous fast path**: `dispatchSync()` skips coroutine frame allocation for sync handlers. `SyncBeforeHandler`/`SyncAfterHandler` middleware run without coroutine overhead. `CompileTimeChain` pre-builds middleware chains at compile time. `CompileTimeJson` serializes DTOs at compile time bypassing `boost::json::object`.
 
-### C++26 Reflection Layer (Dual-Track)
+## Coding Style & Naming Conventions
 
-Core design principle: when `HICAL_HAS_REFLECTION == 1` (compiler supports P2996 or `HICAL_FORCE_REFLECTION` is defined), use native C++26 reflection. Otherwise, fall back to C++20 macros providing the same user API.
+### Naming Table (enforced by clang-tidy)
 
-**`Reflection.h`** — Feature detection (`HICAL_HAS_REFLECTION`), `RouteInfo` struct, `HasRouteTable` / `HasJsonFields` type traits.
+| Element            | Convention              | Example                        |
+| ------------------ | ----------------------- | ------------------------------ |
+| Class / Struct     | CamelCase (no prefix)   | `HttpServer`, `PoolConfig`     |
+| Enum               | CamelCase (no prefix)   | `HttpMethod`                   |
+| Abstract/Interface | CamelCase (no prefix)   | `EventLoop`, `TcpConnection`   |
+| Enum constant      | `h` prefix + CamelCase  | `hGet`, `hPost`, `hOk`         |
+| Member variable    | camelBack + `_` suffix  | `router_`, `maxBodySize_`      |
+| Static constexpr   | `k` prefix + CamelCase  | `kMaxPathSegments`, `kPoolKey` |
+| Global variable    | `g_` prefix + camelBack | `g_instance`                   |
+| Function/Method    | camelBack               | `runAfter()`, `dispatch()`     |
+| Local variable     | camelBack               | `bytesRead`                    |
+| Macro              | UPPER_CASE              | `HICAL_ROUTE`                  |
+| Template param     | CamelCase               | `SocketType`                   |
 
-**`MetaJson.h`** — Automatic JSON serialization/deserialization:
-- C++26 path: `^^T` + `std::meta::nonstatic_data_members_of` enumerates fields automatically, supports `[[hical::json_name("alias")]]`, `[[hical::json_required]]`, `[[hical::json_ignore]]` attributes, plus `jsonSchema<T>()` and `toJsonSnakeCase<T>()`
-- C++20 fallback: `HICAL_JSON(Type, ...)` macro with `__VA_OPT__` recursive expansion (no field count limit), IS_PAREN + Tag dispatch for decorator syntax: `ALIAS(field, "key")`, `REQUIRED(field)`, `REQUIRED_ALIAS(field, "key")`, `HICAL_IGNORE(field)`. Compile-time field validation via `static_assert + requires`
-- API: `hical::meta::toJson(obj)`, `hical::meta::fromJson<T>(json)`, `req.readJson<T>()`
+**Forbidden:** `m_` prefix, `C`/`I`/`E` type prefixes. No AI co-author lines in commits.
 
-**`MetaRoutes.h`** — Automatic route registration:
-- C++26 path: `[[hical::route(...)]]` attribute on member functions
-- C++20 fallback: `HICAL_HANDLER(Method, "/path", funcName)` + `HICAL_ROUTES(Type, func1, func2, ...)`
-- API: `hical::meta::registerRoutes(router, handler)`
+### Code Style (clang-format 22+)
 
-## Naming Conventions (enforced by clang-tidy)
-
-| Element            | Convention              | Example                    |
-| ------------------ | ----------------------- | -------------------------- |
-| Class              | `C` prefix + CamelCase  | `CMyClass`                 |
-| Struct             | `S` prefix + CamelCase  | `SRouteKey`                |
-| Enum               | `E` prefix + CamelCase  | `EHttpMethod`              |
-| Abstract/Interface | `I` prefix + CamelCase  | `IEventLoop`               |
-| Enum constant      | `E` prefix + CamelCase  | `EGet`, `EPost`            |
-| Member variable    | `m_` prefix + camelBack | `m_ioContext`              |
-| Global variable    | `g_` prefix + camelBack | `g_instance`               |
-| Static variable    | `s` prefix + camelBack  | `sThreadPool`              |
-| Function/Method    | camelBack               | `runAfter()`, `dispatch()` |
-| Local variable     | camelBack               | `bytesRead`                |
-| Pointer param      | `p` prefix + CamelCase  | `pSocket`                  |
-| Macro              | UPPER_CASE              | `HICAL_ROUTE`              |
-| Template param     | CamelCase               | `SocketType`               |
-
-**Note**: The existing codebase uses a slightly relaxed form — many types omit the C/S/E/I prefix (e.g., `HttpServer` not `CHttpServer`, `PoolConfig` not `SPoolConfig`). Follow the existing style in each file.
-
-## Code Style
-
-- **clang-format**: Requires version 22+. On Windows use MSYS2 MINGW64 的 `C:\msys64\mingw64\bin\clang-format.exe`。Allman brace style (braces on new line), 4-space indent, 120-char column limit, `InsertBraces: true`, `UseTab: ForContinuationAndIndentation`
-- **clang-tidy**: readability, bugprone, cppcoreguidelines, modernize, misc, performance checks enabled. Function line threshold: 150, nesting threshold: 4, parameter threshold: 5
+- Allman braces (braces on new line), 4-space indent, 120-column limit, `InsertBraces: true`
 - Qualifier order: `inline static const type`
-- Pointer/reference alignment: left (`int* p`, `std::string& s`)
-- `BinPackArguments: false`, `BinPackParameters: false` — each argument on its own line when they don't fit one line
+- Pointer/reference left-aligned: `int* p`, `std::string& s`
+- Arguments that don't fit one line: one per line (`BinPackArguments: false`, `BinPackParameters: false`)
+- clang-tidy checks: readability, bugprone, cppcoreguidelines, modernize, misc, performance. Function ≤150 lines, nesting ≤4, params ≤5.
+
+### File Headers
+
+Every `.h` / `.cpp` / `.hci` must start with a Doxygen block:
+```cpp
+/**
+ * @file filename.h
+ * @brief One-line description
+ */
+```
+Followed by `#pragma once` (for headers). Include order: own module header → project headers → third-party → stdlib.
+
+### Error Handling
+
+- Framework uses `ErrorCode` enum + `NetworkError`, not raw `boost::system::error_code`
+- Middleware catches handler exceptions → HTTP 500
+- Fatal errors: `HICAL_LOG_FATAL` → auto-abort
+
+### Logging
+
+Use `HICAL_LOG_*` macros exclusively, not printf/iostream. Level guide:
+- TRACE — hot-path diagnostics (compiled out under NDEBUG)
+- DEBUG — development
+- INFO — normal events
+- WARN — non-fatal anomalies
+- ERROR — operation failed but service continues
+- FATAL — unrecoverable, aborts
+
+## Testing Guidelines
+
+Add GoogleTest coverage in `tests/test_<feature>.cpp` and register with `hical_add_test(test_<feature>)` in `tests/CMakeLists.txt`. CI covers GCC 14, Clang 20 (ASan/UBSan), MSYS2 MINGW64, and MSVC. Avoid brittle timing assertions in performance tests. Database tests need `HICAL_WITH_DATABASE=ON`; most use mock connections, `test_mysql_integration.cpp` requires a live MySQL instance.
+
+## Commit & Pull Request Guidelines
+
+Commit prefix convention: `[feat]`, `[fix]`, `[perf]`, `[refactor]`, `[docs]`, `[test]`, `[chore]`. Branch naming: `<type>/<description>` (e.g. `feat/idle-scanner-rework`). PRs are squash-merged to `main`. Keep PRs ≤400 lines; split larger changes. Self-review before requesting review. Update `CHANGELOG.md` for behavior changes.
 
 ## Dependencies
 
-| Dependency   | Version                               |
-| ------------ | ------------------------------------- |
-| C++ Standard | C++20 (C++26 optional for reflection) |
-| Boost        | >= 1.82 (Asio, Beast, System, JSON); DB middleware >= 1.85 (MySQL, charconv) |
-| OpenSSL      | Required                              |
-| Google Test  | Required                              |
-| CMake        | >= 3.20                               |
-| Compiler     | GCC 14+ / Clang 20+ / MSVC 2022+      |
-
-## Test Structure
-
-22 test executables in `tests/` (+ 5 optional DB tests), each linked against `hical_core` + `GTest::gtest_main`. Tests are registered via `gtest_discover_tests()` for CTest integration. On Windows, tests also link `ws2_32` and `mswsock`. Key test files:
-- `test_router.cpp` / `test_router_perf.cpp` — Route dispatch and performance
-- `test_memory_pool.cpp` — Three-tier PMR allocation
-- `test_http_server.cpp` / `test_integration.cpp` — Full HTTP request/response cycle
-- `test_middleware.cpp` — Onion-model middleware pipeline
-- `test_ssl_connection.cpp` — SSL/TLS handshake
-- `test_websocket.cpp` — WebSocket messaging
-- `test_concepts.cpp` — Compile-time concept verification
-- `test_reflection.cpp` — MetaJson + MetaRoutes reflection layer (35 tests: alias, required, ignore, mixed decorators, large field count, backward compat)
-- `test_cookie.cpp` — Cookie parsing and Set-Cookie header
-- `test_static_files.cpp` — Static file serving, ETag, path traversal
-- `test_multipart.cpp` — multipart/form-data parsing
-- `test_session.cpp` — Session lifecycle and thread safety
-
-### Database Tests (requires `HICAL_WITH_DATABASE=ON`)
-
-5 additional test executables, 4 use `MockDbConnection` (no real DB needed), 1 requires a live MySQL instance (auto-skips if unavailable):
-- `test_db_pool.cpp` — Connection pool: acquire/release, health check, idle eviction, statistics, ping grace period (12 tests)
-- `test_db_middleware.cpp` — DB middleware: connection injection, auto-transaction commit/rollback, onion model integration (8 tests)
-- `test_db_query_log.cpp` — Query log middleware: recording, slow query detection, callbacks, connection restore (6 tests)
-- `test_stmt_cache.cpp` — PreparedStatement LRU cache: eviction, promotion, disabled mode (9 tests)
-- `test_mysql_integration.cpp` — Real MySQL: CRUD, transactions, parameterized queries, pool integration (7 tests, env vars: `MYSQL_HOST`/`MYSQL_PORT`/`MYSQL_USER`/`MYSQL_PASSWORD`/`MYSQL_DATABASE`)
+| Dependency     | Version                                                                 |
+| -------------- | ----------------------------------------------------------------------- |
+| C++ Standard   | C++20 (C++26 optional for reflection)                                   |
+| Boost          | >= 1.82 (Asio, System, JSON); DB middleware >= 1.85 (MySQL, charconv)   |
+| libpq          | PostgreSQL backend only (`HICAL_WITH_PGSQL=ON`)                         |
+| OpenSSL        | Required                                                                |
+| zlib           | Required (WebSocket permessage-deflate)                                 |
+| picohttpparser | Bundled (system install optional via `HICAL_USE_SYSTEM_PICOHTTPPARSER`) |
+| Google Test    | Required                                                                |
+| CMake          | >= 3.20                                                                 |
+| Compiler       | GCC 14+ / Clang 20+ / MSVC 2022+                                        |
 
 ## CI
 
-GitHub Actions (`.github/workflows/ci.yml`): matrix of Ubuntu 24.04 (GCC 14, Clang 20) + Windows (MSYS2 MINGW64, MSVC + vcpkg). GCC job runs clang-format check; Clang job runs clang-tidy (warning mode, non-blocking).
+GitHub Actions (`.github/workflows/ci.yml`): Ubuntu 24.04 (GCC 14, Clang 20) + Windows (MSYS2 MINGW64, MSVC + vcpkg). GCC job runs clang-format check; Clang job runs clang-tidy (warning mode, non-blocking).
+
+## Security & Configuration
+
+Do not commit credentials, certificates, or local environment files. Treat changes to TLS, JWT, static-file paths, headers, and database configuration as security-sensitive. For vulnerability reporting, see [SECURITY.md](SECURITY.md) — do **not** open a public issue.
 
 ---
 > Source: [Hical61/Hical](https://github.com/Hical61/Hical) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
