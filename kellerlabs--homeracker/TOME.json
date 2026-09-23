@@ -1,0 +1,105 @@
+{
+  "name": "homeracker",
+  "owner": "kellerlabs",
+  "repo": "homeracker",
+  "description": "A fully modular 3D-printable rack-building system",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "homeracker",
+      "path": ".github/skills/decision-records/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.github/skills/decision-records/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "homeracker",
+      "path": ".github/skills/makerworld-description/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.github/skills/makerworld-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "homeracker",
+      "path": ".github/skills/humanizer/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.github/skills/humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "homeracker",
+      "path": ".github/skills/grill-my-plan/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.github/skills/grill-my-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "homeracker",
+      "path": ".github/skills/grill-my-model/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.github/skills/grill-my-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "homeracker",
+      "path": ".claude/skills/humanizer/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.claude/skills/humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "homeracker",
+      "path": ".claude/skills/grill-my-plan/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.claude/skills/grill-my-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "homeracker",
+      "path": ".claude/skills/grill-my-model/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.claude/skills/grill-my-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "homeracker",
+      "path": ".claude/skills/decision-records/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.claude/skills/decision-records/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "homeracker",
+      "path": ".claude/skills/makerworld-description/SKILL.md",
+      "github_url": "https://github.com/kellerlabs/homeracker/tree/main/.claude/skills/makerworld-description/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kellerlabs/homeracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:33:03Z"
+}
