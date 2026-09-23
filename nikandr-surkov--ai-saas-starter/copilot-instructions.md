@@ -1,20 +1,27 @@
-## billing
+## core
 
-> Billing & credits invariants
+> Core repo rules — always apply
 
 
-- Every credit mutation carries an `idempotencyKey`. Unique-violation on it
-  means "already processed" — return the existing row silently.
-- `syncStripeDataToDb(customerId)` in `src/lib/billing/sync.ts` is the ONLY
-  code that writes subscription state. It fetches fresh from Stripe; event
-  payloads are triggers, not sources of truth.
-- The ledger is append-only: no UPDATE/DELETE on `credit_transactions`.
-  Corrections are new compensating rows.
-- Spends: single conditional UPDATE (`credit_balance >= amount` in WHERE)
-  in the same transaction as the ledger insert. No check-then-write.
-- Webhook: verify the Stripe signature on the RAW body (`request.text()`)
-  before anything else. 200 fast; 500 on real failures so Stripe retries.
-- Test subscription lifecycles with Stripe test clocks.
+Full manual: AGENTS.md at the repo root. The essentials:
+
+- pnpm only. Never npm or yarn.
+- Done = `pnpm typecheck && pnpm lint && pnpm test` pass; new features
+  include tests.
+- Server Actions for mutations; API routes only for webhooks and the Better
+  Auth handler. Server Components by default; `"use client"` only for
+  interactivity.
+- Zod at every external boundary (forms, webhooks, env). Env is read only
+  through `src/lib/env.ts`.
+- Re-check the session server-side in every action and `(app)` page — never
+  trust middleware alone.
+- Money in integer cents; credits in integers.
+- NEVER: edit applied migrations in `drizzle/`; mutate/delete
+  `credit_transactions` rows; touch credit tables outside `src/lib/credits/`;
+  weaken Stripe webhook signature checks; log secrets; commit `.env`.
+- ASK FIRST: new dependencies, schema changes, plan/price changes.
+- UI follows DESIGN.md: 2px radius, no gradients/shadows/blur, ledger rows
+  not card grids, accent green scarce, no emoji.
 
 ---
 > Source: [nikandr-surkov/ai-saas-starter](https://github.com/nikandr-surkov/ai-saas-starter) — distributed by [TomeVault](https://tomevault.io).
