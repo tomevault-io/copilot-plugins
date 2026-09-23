@@ -1,0 +1,9 @@
+{
+  "name": "mapbox--mapbox-cli",
+  "displayName": "mapbox-cli",
+  "description": "mapbox-cli",
+  "version": "1.0.0",
+  "author": "mapbox",
+  "homepage": "https://github.com/mapbox/mapbox-cli",
+  "skills": []
+}
