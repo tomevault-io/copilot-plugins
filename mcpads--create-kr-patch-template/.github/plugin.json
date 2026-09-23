@@ -1,0 +1,9 @@
+{
+  "name": "mcpads--create-kr-patch-template",
+  "displayName": "create-kr-patch-template",
+  "description": "Platform- and implementation-neutral template for reproducible Korean retro-game patches with Expected Write, source lineage, modular translation assets, and runtime evidence.",
+  "version": "1.0.0",
+  "author": "mcpads",
+  "homepage": "https://github.com/mcpads/create-kr-patch-template",
+  "skills": []
+}
