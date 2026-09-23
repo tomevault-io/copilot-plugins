@@ -1,0 +1,14 @@
+{
+  "name": "crafter-research--sunat-cli",
+  "displayName": "sunat-cli",
+  "description": "sunat-cli",
+  "version": "1.0.0",
+  "author": "crafter-research",
+  "homepage": "https://github.com/crafter-research/sunat-cli",
+  "skills": [
+    {
+      "name": "sunat-cli",
+      "description": ""
+    }
+  ]
+}
