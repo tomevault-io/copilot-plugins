@@ -1,0 +1,9 @@
+{
+  "name": "scottfelder--lazymqtt",
+  "displayName": "lazymqtt",
+  "description": "Terminal UI MQTT client with features like saved connections, live topic tree, message inspector, and plugins.",
+  "version": "1.0.0",
+  "author": "ScottFelder",
+  "homepage": "https://github.com/ScottFelder/lazymqtt",
+  "skills": []
+}
