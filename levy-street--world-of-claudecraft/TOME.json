@@ -1,0 +1,177 @@
+{
+  "name": "world-of-claudecraft",
+  "owner": "levy-street",
+  "repo": "world-of-claudecraft",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pr-screenshots",
+      "path": ".claude/skills/pr-screenshots/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/pr-screenshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/qa/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".agents/skills/woc-qa/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.agents/skills/woc-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/ci-triage/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/ci-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/file-issue/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/file-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/feature-plan/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/feature-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/image-to-glb/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/image-to-glb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".agents/skills/woc-review-pr/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.agents/skills/woc-review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/asset-pipeline/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/asset-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".agents/skills/woc-file-issue/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.agents/skills/woc-file-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".agents/skills/woc-codex-audit/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.agents/skills/woc-codex-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/extract-and-test/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/extract-and-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/i18n-locale-fill/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/i18n-locale-fill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".agents/skills/woc-feature-plan/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.agents/skills/woc-feature-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".agents/skills/woc-image-to-glb/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.agents/skills/woc-image-to-glb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/release-merge-audit/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/release-merge-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/write-game-tooltips/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/write-game-tooltips/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".agents/skills/woc-extract-and-test/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.agents/skills/woc-extract-and-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".claude/skills/blender-anim-pipeline/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.claude/skills/blender-anim-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".agents/skills/woc-write-game-tooltips/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.agents/skills/woc-write-game-tooltips/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "world-of-claudecraft",
+      "path": ".agents/skills/woc-release-merge-audit/SKILL.md",
+      "github_url": "https://github.com/levy-street/world-of-claudecraft/tree/main/.agents/skills/woc-release-merge-audit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/levy-street/world-of-claudecraft",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:09:37Z"
+}
