@@ -1,0 +1,9 @@
+{
+  "name": "fanfulla--lupin",
+  "displayName": "Lupin",
+  "description": "Run Claude Code on any LLM provider without losing your setup, local-first proxy with verified profiles, OAuth device-flow login, failover, content-aware routing and an honest per-model compatibility ",
+  "version": "1.0.0",
+  "author": "Fanfulla",
+  "homepage": "https://github.com/Fanfulla/Lupin",
+  "skills": []
+}
