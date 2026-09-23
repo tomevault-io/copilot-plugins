@@ -1,0 +1,9 @@
+{
+  "name": "blacklogos--castmd",
+  "displayName": "castmd",
+  "description": "Cast any page. Feed any model. Chrome extension that converts webpages to clean Markdown for LLM workflows.",
+  "version": "1.0.0",
+  "author": "blacklogos",
+  "homepage": "https://github.com/blacklogos/castmd",
+  "skills": []
+}
