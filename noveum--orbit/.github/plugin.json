@@ -1,0 +1,9 @@
+{
+  "name": "noveum--orbit",
+  "displayName": "orbit",
+  "description": "Free, open source, realtime task manager. Issues, boards, sprints, projects and docs that sync instantly. Keyboard-first, self-hostable, with an MCP server for AI agents. No pricing, ever.",
+  "version": "1.0.0",
+  "author": "Noveum",
+  "homepage": "https://github.com/Noveum/orbit",
+  "skills": []
+}
