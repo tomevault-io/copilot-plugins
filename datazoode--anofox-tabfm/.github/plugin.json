@@ -1,0 +1,9 @@
+{
+  "name": "datazoode--anofox-tabfm",
+  "displayName": "anofox-tabfm",
+  "description": "DuckDB extension for tabular foundation models \u2014 zero-shot classification & regression in SQL. Built-in Mitra, TabPFN v2, TabICL v2, and Google TabFM (selectable by name); register your own in SQL. ON",
+  "version": "1.0.0",
+  "author": "DataZooDE",
+  "homepage": "https://github.com/DataZooDE/anofox-tabfm",
+  "skills": []
+}
