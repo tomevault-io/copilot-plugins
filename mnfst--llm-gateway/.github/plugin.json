@@ -1,0 +1,9 @@
+{
+  "name": "mnfst--llm-gateway",
+  "displayName": "llm-gateway",
+  "description": "llm-gateway",
+  "version": "1.0.0",
+  "author": "mnfst",
+  "homepage": "https://github.com/mnfst/llm-gateway",
+  "skills": []
+}
