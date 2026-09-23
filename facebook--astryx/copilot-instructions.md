@@ -1,16 +1,82 @@
 ## astryx
 
-> A design system for building internal tools and products.
+> Astryx is a public design-system repository. Never commit internal links,
 
-# XDS
+# Astryx repository guidance
 
-A design system for building internal tools and products.
+Astryx is a public design-system repository. Never commit internal links,
+identifiers, service names, private operational instructions, or other
+Meta-only context.
+
+## Instruction surface
+
+This `AGENTS.md` is the canonical, tool-agnostic instruction surface for the
+repository. Add or change shared agent guidance here rather than duplicating it
+in tool-specific instruction files. Put genuinely path-specific guidance in a
+nested `AGENTS.md`.
+
+## Start here
+
+- Product builders: use `astryx docs`, component `{Name}.doc.mjs` files, and
+  `packages/cli/assets/docs/`.
+- Contributors: read `CONTRIBUTING.md` and the relevant guidance linked from
+  `docs/README.md`.
+- Pull requests: choose one primary intent and use its template under
+  `.github/PULL_REQUEST_TEMPLATE/`; read `docs/contributing/pull-requests.md`
+  before opening or reviewing a mixed change.
+- Component work: derive the review's semantic triggers, load matching `current`
+  global baseline claims with `node scripts/review-global-baselines.mjs
+--authority-commit <base-sha> --review-head <head-sha> --triggers
+<comma-separated-triggers>`, then read
+  the component's `{Name}.spec.md` when one exists and any `module:*` records it
+  lists. Load global records before narrower owners, but resolve the direct
+  component or family owner first when it governs the exact delta. A global
+  route exposes only the listed claim; it never makes the whole record govern
+  the component or change. Preserve each matched record, claim, trigger, and
+  match reason in the review receipt.
+- Cross-component work: read the relevant contract under `docs/families/`,
+  applicable design spec under `docs/design/`, and current architecture under
+  `docs/architecture/`.
+- Consequential shared-system changes: use a record under `docs/specs/`.
+
+## Authority
+
+Knowledge records declare `authority`:
+
+- `draft`: not authoritative; may still need evidence or owner review;
+- `current`: explicitly approved and authoritative;
+- `archived`: context only, with a reason such as `superseded`, `withdrawn`,
+  or `historical` and a replacement link when one exists.
+
+Only `current` records govern implementation and review. Never infer approval
+from merged code, silence, an old review, or an existing wiki page.
+
+## Judgment boundary
+
+Resolve checkable behavior from code, tests, and browser evidence. Ask a human
+only when a stable public API, theme contract, ownership boundary, compatibility
+policy, or genuinely subjective visual direction remains undecided. Ask one
+question at a time.
+
+Before drafting, reviewing, or implementing a proposed outcome, search current
+records and open pull requests using the proposed canonical owner/id, affected
+paths and exported symbols, and the behavior's semantic terms. Extend or project
+the existing canonical owner by default. Create a new record only for a distinct
+fact boundary, and state why the existing owner cannot contain it. Do not create
+new policy for work that is already complete, owned, or superseded.
+
+## Validation
+
+Run `pnpm check:knowledge` after editing knowledge records or templates. A
+material template-shape change requires a schema-version bump and migration of
+active records; changing template guidance alone does not rewrite accepted
+history.
 
 ## Custom Commands
 
 ### `/vibe-test [count]` - Run vibeability tests
 
-Tests how well AGENTS.md helps LLMs generate correct XDS component code.
+Tests how well AGENTS.md helps LLMs generate correct Astryx component code.
 
 **Usage:**
 
@@ -25,7 +91,7 @@ Tests how well AGENTS.md helps LLMs generate correct XDS component code.
 1. Run `pnpm -F @astryxdesign/vibe-tests interactive --sample <count>` to set up iteration
 2. Spawn parallel subagents (one per test prompt) to:
    - Read the task file from `results/<iteration>/tasks/{promptId}.json`
-   - Generate code for the prompt using XDS components (AGENTS.md auto-injected)
+   - Generate code for the prompt using Astryx components (AGENTS.md auto-injected)
    - Self-evaluate for success/escape hatches
    - Write `.tsx` result to `results/<iteration>/results/{promptId}.tsx`
    - Write `.json` metadata to `results/<iteration>/results/{promptId}.json`
@@ -52,16 +118,18 @@ Probes at turns 0, 6, 8, 10 to measure quality degradation. Results show a line 
 }
 ```
 
+Runners may also write an optional `<promptId>.provenance.json` sidecar beside the result metadata. The versioned, executor-neutral contract and fallback behavior are documented in `internal/vibe-tests/docs/execution-provenance.md`.
+
 ## AI Context
 
-For architectural context, decisions, and research, see the **[GitHub Wiki](https://github.com/facebookexperimental/xds/wiki)**:
+For architectural context, decisions, and research, see the **[GitHub Wiki](https://github.com/facebook/astryx/wiki)**:
 
 - **Decisions** — API Conventions, Why StyleX, StyleX Distribution
 - **Architecture** — System Architecture, Component Authoring Guide
 - **Research** — AI + Design Systems, AI Model Trajectory, Swizzle Ergonomics
 - **Future** — Animation System, RSC Utilities, Distribution Strategy
 
-For component-specific documentation, see the `{Name}.doc.mjs` file in each component directory under `packages/core/src/` (e.g. `Button/Button.doc.mjs`). These are plain JS files with JSDoc type annotations exporting a `ComponentDoc` object (typed via `packages/core/src/docs-types.ts`).
+For component-specific documentation, see the `{Name}.doc.mjs` file in each component directory under `packages/core/src/` (e.g. `Button/Button.doc.mjs`). These are plain JS files with JSDoc type annotations exporting a `ComponentDoc` object (typed via `@astryxdesign/cli/authoring`).
 
 ## Documentation Standard
 
@@ -72,9 +140,13 @@ Documentation lives in two places:
 
 **Update Protocol**: When modifying code, update the file's header comment. Look for `SYNC:` comments as reminders.
 
+**Audience**: every `.doc.mjs`, and everything under `packages/cli/assets/docs/`, is written for people **building with** Astryx — not for people building Astryx. Rubrics, readiness gates, audit checklists and lab→core criteria belong in the wiki. [`packages/cli/assets/docs/README.md`](packages/cli/assets/docs/README.md) has the test and the page each kind of material goes to.
+
 ## Quick Reference
 
-- **Package manager**: pnpm 10 (via corepack — see CONTRIBUTING.md)
+- **Package manager**: pnpm 11, pinned by the `packageManager` field (see
+  CONTRIBUTING.md for install options — Corepack is one of several, and Node
+  25+ no longer bundles it)
 - **Testing**: Vitest (colocated tests)
 - **Components**: `packages/core/`
 - **Storybook**: `apps/storybook/`
@@ -115,37 +187,36 @@ Documentation lives in two places:
 |PATTERN: CSS fallback values -> stylex.firstThatWorks() (not manual fallback)
 |PATTERN: dynamic/runtime values -> stylex.create({ s: (val) => ({ prop: val }) }) (not inline styles)
 |PATTERN: conditional styles -> stylex.props(condition && styles.x) (not className toggling)
-|PATTERN: link elements -> useXDSLinkComponent() (not hardcoded <a>). Consumers swap via XDSLinkProvider for framework routers (Next.js, React Router)
+|PATTERN: link elements -> useLinkComponent() (not hardcoded <a>). Consumers swap via LinkProvider for framework routers (Next.js, React Router)
 |VERIFY: node internal/stylex-capabilities/scan.mjs
 
 <!-- STYLEX-CAPS:END -->
 
-<!-- XDS-CLI:START -->
+<!-- ASTRYX-CLI:START -->
 
-XDS CLI|Run from repo root. Load agent docs before any component work.
-XDS="node packages/cli/bin/astryx.mjs"
+Astryx CLI|Run from repo root. Load agent docs before any component work.
+astryx() { node packages/cli/clients/cli/bin/astryx.mjs "$@"; }
 BOOTSTRAP (run every branch, <500ms):
-$XDS help # discover all commands and options
-$XDS docs # list available doc topics
-$XDS docs principles --dense # design rules, anti-patterns, xstyle, tokens
-$XDS docs tokens --dense # spacing, color, radius, typography, shadow
-$XDS docs theme --dense # theme provider, light/dark, overrides
-$XDS component --list # all components grouped by category
-$XDS template --list # available page templates
+astryx help # discover all commands and options
+astryx docs # list available doc topics
+astryx docs principles --dense # design rules, anti-patterns, xstyle, tokens
+astryx docs tokens --dense # spacing, color, radius, typography, shadow
+astryx docs theme --dense # theme provider, light/dark, overrides
+astryx component --list # all components grouped by category
+astryx template --list # available page templates
 ON DEMAND:
-$XDS component <Name> --dense # props, variants, usage, anatomy for one component
-$XDS template <name> # emit full page source
-$XDS template <name> --skeleton # layout skeleton with spatial annotations
-$XDS swizzle <Name> # eject component source (use --gap to report why)
-$XDS upgrade --apply # run version migration codemods
+astryx component <Name> --dense # props, variants, usage, anatomy for one component
+astryx template <name> # emit full page source
+astryx template <name> --skeleton # layout skeleton with spatial annotations
+astryx swizzle <Name> # eject component source for deep customization
+astryx upgrade --apply # run version migration codemods
 OPTIONS: --detail compact|brief less output | --dense token-efficient | --zh Chinese
 RULE: always run bootstrap on each branch — docs reflect the branch's actual API
-RULE: always run $XDS component <Name> --dense before modifying a component
-RULE: after @astryxdesign/core bump, always run $XDS upgrade --apply
-RULE: when swizzling, always use --gap to report missing capabilities
+RULE: always run astryx component <Name> --dense before modifying a component
+RULE: after @astryxdesign/core bump, always run astryx upgrade --apply
 
-<!-- XDS-CLI:END -->
+<!-- ASTRYX-CLI:END -->
 
 ---
 > Source: [facebook/astryx](https://github.com/facebook/astryx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
