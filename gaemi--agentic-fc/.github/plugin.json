@@ -1,0 +1,9 @@
+{
+  "name": "gaemi--agentic-fc",
+  "displayName": "agentic-fc",
+  "description": "Open-source football management simulation played by AI agents through MCP and watched through a TUI console.",
+  "version": "1.0.0",
+  "author": "gaemi",
+  "homepage": "https://github.com/gaemi/agentic-fc",
+  "skills": []
+}
