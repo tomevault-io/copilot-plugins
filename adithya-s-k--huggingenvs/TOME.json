@@ -1,0 +1,111 @@
+{
+  "name": "HuggingEnvs",
+  "owner": "adithya-s-k",
+  "repo": "HuggingEnvs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "HuggingEnvs",
+      "path": ".claude/skills/generate-ors-env/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/.claude/skills/generate-ors-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": ".claude/skills/generate-openenv-env/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/.claude/skills/generate-openenv-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": ".claude/skills/generate-nemo-gym-env/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/.claude/skills/generate-nemo-gym-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": ".claude/skills/generate-verifiers-env/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/.claude/skills/generate-verifiers-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": ".claude/skills/rl-env-from-description/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/.claude/skills/rl-env-from-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": "content/articles/geoguesser/.ai/skills/create-html-embed/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/content/articles/geoguesser/.ai/skills/create-html-embed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": "content/articles/geoguesser/.ai/skills/deploy-to-hf-spaces/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/content/articles/geoguesser/.ai/skills/deploy-to-hf-spaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": "content/articles/geoguesser/.ai/skills/article-frontmatter/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/content/articles/geoguesser/.ai/skills/article-frontmatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": "content/articles/rl-environments-guide/.ai/skills/create-html-embed/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/content/articles/rl-environments-guide/.ai/skills/create-html-embed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": "content/articles/rl-environments-guide/.ai/skills/deploy-to-hf-spaces/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/content/articles/rl-environments-guide/.ai/skills/deploy-to-hf-spaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HuggingEnvs",
+      "path": "content/articles/rl-environments-guide/.ai/skills/article-frontmatter/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/HuggingEnvs/tree/main/content/articles/rl-environments-guide/.ai/skills/article-frontmatter/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adithya-s-k/HuggingEnvs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T21:36:11Z"
+}
