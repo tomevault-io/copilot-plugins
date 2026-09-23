@@ -1,0 +1,9 @@
+{
+  "name": "angolardevops--delonix-runtime",
+  "displayName": "delonix-runtime",
+  "description": "Daemonless, rootless-first, kernel-native container & microVM runtime \u2014 Rust.",
+  "version": "1.0.0",
+  "author": "angolardevops",
+  "homepage": "https://github.com/angolardevops/delonix-runtime",
+  "skills": []
+}
