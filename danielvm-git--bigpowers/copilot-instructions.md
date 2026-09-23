@@ -1,249 +1,97 @@
-## write-document
+## bigpowers
 
-> Write, organize, and sync high-integrity technical documents using the BMAD methodology. Ensures every document is Bold, Minimal, Actionable, and Durable. Use when creating architectural docs, technical guides, or organizing the specs/ directory.
+> > **Multi-agent context** — This file is the canonical project context for **Cline**, **Aider**, **OpenCode**, and other AGENTS.md-native tools. Claude Code and Cursor read it via the `CLAUDE.md` symlink.
 
+# story: e37s01
+# story: e45s21
+# story: e81s01
+# scenario: SC-e37s01-P1-01
+# [Project Name] — AI Agents
 
+> **Multi-agent context** — This file is the canonical project context for **Cline**, **Aider**, **OpenCode**, and other AGENTS.md-native tools. Claude Code and Cursor read it via the `CLAUDE.md` symlink.
 
-# Write Document (BMAD)
+Read CONVENTIONS.md before any GitHub or git operation.
 
-Create high-signal technical documentation that serves as an expert collaborator for both humans and AI. This skill enforces the BMAD principles to prevent context rot and ensure architectural durability.
+<!-- BEGIN bigpowers:context-routing -->
+## Context Routing
 
-**Distinct from `edit-document`:** Use this skill to create a document that does not yet exist. Use `edit-document` when a document already exists and needs restructuring, clarity, or prose improvements.
+Load subdirectory context by file glob — see project-specific routing table (seeded by `seed-conventions`).
+<!-- END bigpowers:context-routing -->
 
-> **HARD GATE** — Every document must have a clear "Reason for Existence." If a document doesn't provide actionable leverage for a caller or test, do not create it.
+<!-- BEGIN bigpowers:learned-preferences -->
+## Learned User Preferences
 
-## The BMAD Principles
+- (none yet — updated via `session-state`)
 
-| Principle | Execution |
-| :--- | :--- |
-| **B**old | Make strong assertions. Define clear boundaries and "Never" rules. No "it might" or "usually." |
-| **M**inimal | High-density, low-filler. **Circuit Breaker**: If the file exceeds 300 lines or the session exceeds 20 turns, you MUST run `terse-mode` and compact state before saving. |
-| **A**ctionable | Link every doc to a verifiable outcome. **Architectural Docs**: Verify via Gherkin features (`specs/verifications/features/`) or grep-based structure checks (`grep -c "pattern" file`) that prove the design's *constraints* are present. |
-| **D**urable | Design for the long-term. **Scalability**: Use "Nested Indexing"—root files link to module-level `GEMINI.md` indexes; do not list individual sub-files in the root. |
+## Workspace Facts
 
-## Process
+- (none yet — durable facts discovered across sessions)
+<!-- END bigpowers:learned-preferences -->
 
-### 1. Identify the Artifact Type & Scope
+<!-- BEGIN bigpowers:project -->
+## Project
 
-Choose the correct BMAD-BigPowers artifact:
-- **Decision Record (ADR)**: For "Why" decisions (saved to `specs/adr/`).
-- **Context Map**: For system-wide architectural mapping (`specs/tech-architecture/tech-stack.md`).
-- **Technical Guide**: For "How-to" with verification (saved to `<module>/REFERENCE.md`).
-- **Behavioral Feature**: Gherkin-style compliance specs (saved to `specs/verifications/features/`).
-- **Project README**: Project-facing documentation (saved to `README.md` at project root).
+[One sentence. What this codebase does.]
+Stack: [language, framework, runtime]
 
-**Cross-Cutting Concerns**: If a doc affects multiple modules, place the authoritative source in the lowest common ancestor directory and use "Delegates" (one-line pointers) in sub-directories to maintain the Single Source of Truth without violating the Stepdown Rule.
+## Commands
 
-### 2. Draft with Semantic Velocity
+| Action | Command |
+|--------|---------|
+| Run | `[cmd]` |
+| Test | `[cmd]` or N/A |
+| Build | `[cmd]` |
+| Lint | `[cmd]` |
+| Preflight | `[test && lint && build chain — or user-named full-green cmd]` |
+| CI | `gh pr checks` (when a PR is open) |
 
-> **STREAM CONTINUITY** — When writing file content, output in continuous chunks of ~200 lines. Do not pause. Continue immediately until complete. If you need time, emit a placeholder comment rather than going silent.
+## Test
 
-Write the document focusing on "Expert Collaboration":
-- **Instructions over Descriptions**: Tell the reader (human or AI) exactly how to interact with the system.
-- **Provenance Links**: Link to ADRs, Issues, or Commits to preserve intent.
-- **The Stepdown Rule**: Information should descend exactly one level of abstraction. If a root doc needs to explain a leaf-level detail, it must point to a sub-index first.
+`[cmd]` or N/A
 
-### Quick README (Project READMEs only)
+## Lint
 
-1. Ask: "Project name? One-sentence description?"
-2. Generate `README.md` at project root using the template in [REFERENCE.md](REFERENCE.md) — no TOC, no second interview round.
-3. Fill gaps from `CLAUDE.md` commands if available; use `TODO` markers otherwise.
-4. Output and suggest `edit-document` for polish.
+`[cmd]` or N/A
 
-→ verify: `grep -c "^## " README.md | awk '{if($1>=7) print "OK"}'`
+## Build
 
-### 3. Apply the 94% Quality Gate
+`[cmd]` or N/A
 
-Before finalizing, audit the document against these red flags:
-- [ ] **Filler Language**: Are there pleasantries or "I hope this helps"? (Delete them).
-- [ ] **Ambiguity**: Are there "usually," "often," or "it depends" without specific conditions?
-- [ ] **Dead Ends**: Does the document end without a "Next Step" or "Verification" command?
-- [ ] **Shallow Content**: Does it restate the code without explaining the *intent* or *contracts*?
+## Architecture
 
-### 4. Sync and Organize
+[1–2 sentences. Key modules and their relationships.]
 
-- **Big Powers Hierarchy**: Place the document in the correct tier (Global -> Project -> Sub-directory). Project READMEs are an exception — they go to project root (`README.md`), not `specs/`.
-- **Nested Indexing**: If adding a module-level doc, ensure the module's `GEMINI.md` is updated. If the module's index is new, add it to the root `GEMINI.md`.
-- **Sync**: Run `scripts/sync-skills.sh` if the document is a `SKILL.md` or affects generated artifacts.
+## Conventions
 
-## Rules
+- [e.g. Named exports only]
+- [e.g. All queries go through the repository layer]
 
-- **Minimalism is a requirement**: If a document can be a 5-line table, do not make it a 5-line essay.
-- **Verifiable outcomes**: Every technical document must include at least one `verify:` command. For architecture, this can be a `grep` or `run_shell_command` that validates the existence of required files or patterns.
-- **No speculative docs**: Do not write documentation for features that do not exist yet unless explicitly doing `elaborate-spec`.
+## Never
 
+- Never dismiss reproducible gate failures as pre-existing or out of scope
+- Never proceed on red Preflight or red CI — invoke quick-fix or fix-bug first
+- [Hard stop — e.g. Never touch legacy/]
 
-Suggest next skill: `audit-code` or `sync-skills.sh`.
+## Agent Rules
 
----
+- **Workflow Mandate:** Use bigpowers skills (e.g. `plan-work`, `develop-tdd`) for structured work.
+- **Always Green:** Preflight and CI must be green before forward work.
+- Read specs/ and CONVENTIONS.md before writing code.
+- Write the minimum code that solves the stated problem.
+- Run tests after every change. Show evidence before declaring done.
+- All planning output goes in specs/.
 
-# Project README Template
+## Token Economy — Minimal Footprint
 
-Combined from dbader/readme-template and jehna/readme-best-practices. No TOC.
+> Production-safe subset of the 8-rule AGENTS.md pattern (Vercel engineer, ~60B tokens).
+> Rule 1 ("no backward compatibility") is excluded deliberately: it risks data loss in production.
 
-## Sections
-
-### 1. Title + Badges
-
-```markdown
-# Project Name
-
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-![npm version](https://img.shields.io/npm/v/your-package.svg)
-
-```
-
-Fill badges from CLAUDE.md stack info if available. Default to license + version badges.
-
-### 2. Tagline
-
-```markdown
-> One-line description of what this project does and why it matters.
-```
-
-### 3. Description
-
-2-3 paragraphs: what problem it solves, who it's for, and what makes it different.
-
-### 4. Prerequisites
-
-```markdown
-## Prerequisites
-
-- **Runtime**: Node.js v18+ (from CLAUDE.md)
-- **Package manager**: npm (or pnpm/yarn)
-```
-
-Auto-fill from CLAUDE.md commands section when possible.
-
-### 5. Installation
-
-```markdown
-## Installation
-
-```bash
-npm install -g your-package
-# or
-npx your-package
-```
-```
-
-Prefer npx one-shot if applicable; list global install as alternative.
-
-### 6. Usage
-
-```markdown
-## Usage
-
-```bash
-your-command --help
-your-command do-something
-```
-```
-
-Include the most common 1-2 commands. Link to full docs if they exist.
-
-### 7. Features
-
-```markdown
-## Features
-
-- Feature 1: short description
-- Feature 2: short description
-```
-
-3-6 bullet points of what the project does. Derived from the project's purpose.
-
-### 8. Configuration
-
-```markdown
-## Configuration
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `VAR_NAME` | `value` | What it controls |
-```
-
-Use `TODO` markers if unknown.
-
-### 9. Development Setup
-
-```markdown
-## Development
-
-```bash
-git clone <repo-url>
-cd project
-npm install
-```
-```
-
-Auto-fill from CLAUDE.md `Run` and `Build` commands.
-
-### 10. Running Tests
-
-```markdown
-## Tests
-
-```bash
-npm test
-npm run lint
-```
-```
-
-Auto-fill from CLAUDE.md `Test` and `Lint` commands.
-
-### 11. Contributing
-
-```markdown
-## Contributing
-
-1. Fork the repo.
-2. Create a feature branch (`git checkout -b feature/my-thing`).
-3. Commit changes (`git commit -am 'Add my thing'`).
-4. Push (`git push origin feature/my-thing`).
-5. Open a Pull Request.
-```
-
-### 12. Changelog
-
-```markdown
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) or [Releases](https://github.com/user/repo/releases).
-```
-
-### 13. Links
-
-```markdown
-## Links
-
-- Repository: https://github.com/user/repo
-- Issue tracker: https://github.com/user/repo/issues
-```
-
-### 14. License
-
-```markdown
-## License
-
-MIT — see [LICENSE](LICENSE) for details.
-```
-
-Detect from CLAUDE.md or project LICENSE file.
-
-### 15. Credits (optional)
-
-```markdown
-## Credits
-
-Built with [bigpowers](https://github.com/danielvm-git/bigpowers).
-```
-
-## Verify
-
-After generation, run: `grep -c "^## " README.md` — expect ≥ 7 section headings.
+1. **Check existing dependencies first.** DO inspect what your current dependencies already do before adding a package or writing your own code.
+2. **Prefer mature, maintained libraries.** DO NOT rewrite a capability a maintained library provides without a documented reason.
+3. **Copy validated patterns.** DO study how established products solve the same problem before inventing a new approach.
+4. **Keep the simplest working implementation.** DO write the least code that satisfies the stated requirement. NEVER add preventive abstraction or unused config layers.
+<!-- END bigpowers:project -->
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
