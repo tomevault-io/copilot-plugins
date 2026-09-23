@@ -4,7 +4,7 @@
   "repo": "bazel-mcp",
   "description": "MCP server for Bazel focused on token reduction",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ewhauser/bazel-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T05:10:23Z"
+  "distributed_at": "2026-09-23T05:23:20Z"
 }
