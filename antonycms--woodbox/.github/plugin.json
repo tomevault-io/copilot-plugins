@@ -1,0 +1,9 @@
+{
+  "name": "antonycms--woodbox",
+  "displayName": "woodbox",
+  "description": "Modern open-source database manager and SQL client for developers. PostgreSQL, MySQL, SQLite and React Native support.",
+  "version": "1.0.0",
+  "author": "antonycms",
+  "homepage": "https://github.com/antonycms/woodbox",
+  "skills": []
+}
