@@ -1,0 +1,44 @@
+{
+  "name": "nmail-site",
+  "owner": "nathanpenny520",
+  "repo": "nmail-site",
+  "description": "Nmail \u5b98\u7f51\uff08nmail.whizzzest.com\uff09\u2014 Astro \u9759\u6001\u7ad9\uff0cCloudflare Workers \u90e8\u7f72",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nathanpenny520/nmail-site",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T06:31:14Z"
+}
