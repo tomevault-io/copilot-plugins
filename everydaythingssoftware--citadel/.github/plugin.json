@@ -1,0 +1,14 @@
+{
+  "name": "everydaythingssoftware--citadel",
+  "displayName": "citadel",
+  "description": "citadel",
+  "version": "1.0.0",
+  "author": "everydaythingssoftware",
+  "homepage": "https://github.com/everydaythingssoftware/citadel",
+  "skills": [
+    {
+      "name": "citadel",
+      "description": ""
+    }
+  ]
+}
