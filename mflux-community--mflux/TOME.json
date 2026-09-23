@@ -1,0 +1,105 @@
+{
+  "name": "mflux",
+  "owner": "mflux-community",
+  "repo": "mflux",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mflux",
+      "path": ".cursor/skills/mflux-pr/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.cursor/skills/mflux-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mflux",
+      "path": ".cursor/skills/mflux-cli/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.cursor/skills/mflux-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mflux",
+      "path": ".cursor/skills/mflux-testing/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.cursor/skills/mflux-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mflux",
+      "path": ".cursor/skills/mflux-dev-env/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.cursor/skills/mflux-dev-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mflux",
+      "path": ".cursor/skills/mflux-release/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.cursor/skills/mflux-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mflux",
+      "path": ".cursor/skills/mflux-debugging/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.cursor/skills/mflux-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mflux",
+      "path": ".cursor/skills/mflux-model-porting/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.cursor/skills/mflux-model-porting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mflux",
+      "path": ".cursor/skills/mflux-manual-testing/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.cursor/skills/mflux-manual-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mflux",
+      "path": ".cursor/skills/mflux-model-tiny-test/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.cursor/skills/mflux-model-tiny-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mflux",
+      "path": ".agents/skills/remediating-dependabot/SKILL.md",
+      "github_url": "https://github.com/mflux-community/mflux/tree/main/.agents/skills/remediating-dependabot/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mflux-community/mflux",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:40:14Z"
+}
