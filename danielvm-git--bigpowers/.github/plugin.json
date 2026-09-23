@@ -1,7 +1,7 @@
 {
   "name": "danielvm-git--bigpowers",
   "displayName": "bigpowers",
-  "description": "59 agent skills for high-integrity, spec-driven, test-first software development by solo developers.  bigpowers provides a prescriptive, vertical-slice methodology for building software with AI agents",
+  "description": "bigpowers",
   "version": "1.0.0",
   "author": "danielvm-git",
   "homepage": "https://github.com/danielvm-git/bigpowers",
