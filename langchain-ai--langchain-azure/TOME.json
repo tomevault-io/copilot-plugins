@@ -1,0 +1,81 @@
+{
+  "name": "langchain-azure",
+  "owner": "langchain-ai",
+  "repo": "langchain-azure",
+  "description": "Build secure LangChain applications on Azure",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "langchain-azure",
+      "path": ".github/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/langchain-azure/tree/main/.github/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "langchain-azure",
+      "path": "samples/deepagents-storage-backend/mortgage-processing/skills/packet-intake/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/langchain-azure/tree/main/samples/deepagents-storage-backend/mortgage-processing/skills/packet-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "langchain-azure",
+      "path": "samples/deepagents-storage-backend/mortgage-processing/skills/mortgage-underwriting/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/langchain-azure/tree/main/samples/deepagents-storage-backend/mortgage-processing/skills/mortgage-underwriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "langchain-azure",
+      "path": "samples/deepagents-storage-backend/mortgage-processing/skills/document-classification/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/langchain-azure/tree/main/samples/deepagents-storage-backend/mortgage-processing/skills/document-classification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "langchain-azure",
+      "path": "samples/deepagents-storage-backend/mortgage-processing/skills/mortgage-fact-extraction/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/langchain-azure/tree/main/samples/deepagents-storage-backend/mortgage-processing/skills/mortgage-fact-extraction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "langchain-azure",
+      "path": ".github/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/langchain-azure/tree/main/.github/skills/code-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/langchain-ai/langchain-azure",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:38:41Z"
+}
