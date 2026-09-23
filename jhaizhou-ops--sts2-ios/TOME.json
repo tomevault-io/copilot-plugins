@@ -1,0 +1,44 @@
+{
+  "name": "sts2-ios",
+  "owner": "jhaizhou-ops",
+  "repo": "sts2-ios",
+  "description": "\u5168\u7403\u9996\u4e2a\u300a\u6740\u622e\u5c16\u58542\u300biPhone \u539f\u751f\u79fb\u690d\u5de5\u5177\u94fe \u00b7 \u81ea\u5907\u6b63\u7248\u6e38\u620f(Steam)\uff0c\u8ba9 AI Agent \u8bfb AGENTS.md \u4e00\u7ad9\u5f0f\u79fb\u690d \u00b7 \u4e0e MegaCrit \u65e0\u5173\u8054",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jhaizhou-ops/sts2-ios",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T05:06:40Z"
+}
