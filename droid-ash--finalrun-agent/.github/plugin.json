@@ -1,0 +1,22 @@
+{
+  "name": "droid-ash--finalrun-agent",
+  "displayName": "finalrun-agent",
+  "description": "finalrun-agent",
+  "version": "1.0.0",
+  "author": "droid-ash",
+  "homepage": "https://github.com/droid-ash/finalrun-agent",
+  "skills": [
+    {
+      "name": "finalrun-agent",
+      "description": ""
+    },
+    {
+      "name": "finalrun-agent",
+      "description": ""
+    },
+    {
+      "name": "finalrun-agent",
+      "description": ""
+    }
+  ]
+}
