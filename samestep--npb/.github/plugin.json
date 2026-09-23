@@ -1,0 +1,9 @@
+{
+  "name": "samestep--npb",
+  "displayName": "npb",
+  "description": "Nixpkgs build outcome diff CLI",
+  "version": "1.0.0",
+  "author": "samestep",
+  "homepage": "https://github.com/samestep/npb",
+  "skills": []
+}
