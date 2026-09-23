@@ -1,0 +1,75 @@
+{
+  "name": "ultraswarm",
+  "owner": "fubak",
+  "repo": "ultraswarm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ultraswarm",
+      "path": "skills/ultraswarm/SKILL.md",
+      "github_url": "https://github.com/fubak/ultraswarm/tree/main/skills/ultraswarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ultraswarm",
+      "path": "hosts/grok/skills/ultraswarm/SKILL.md",
+      "github_url": "https://github.com/fubak/ultraswarm/tree/main/hosts/grok/skills/ultraswarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ultraswarm",
+      "path": "hosts/agent/skills/ultraswarm/SKILL.md",
+      "github_url": "https://github.com/fubak/ultraswarm/tree/main/hosts/agent/skills/ultraswarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ultraswarm",
+      "path": "hosts/codex/skills/ultraswarm/SKILL.md",
+      "github_url": "https://github.com/fubak/ultraswarm/tree/main/hosts/codex/skills/ultraswarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ultraswarm",
+      "path": "hosts/small-harness/skills/ultraswarm/SKILL.md",
+      "github_url": "https://github.com/fubak/ultraswarm/tree/main/hosts/small-harness/skills/ultraswarm/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fubak/ultraswarm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T19:33:58Z"
+}
