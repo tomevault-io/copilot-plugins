@@ -1,0 +1,75 @@
+{
+  "name": "genblaze",
+  "owner": "backblaze-labs",
+  "repo": "genblaze",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "genblaze",
+      "path": ".claude/skills/verify-docs/SKILL.md",
+      "github_url": "https://github.com/backblaze-labs/genblaze/tree/main/.claude/skills/verify-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genblaze",
+      "path": ".claude/skills/test-package/SKILL.md",
+      "github_url": "https://github.com/backblaze-labs/genblaze/tree/main/.claude/skills/test-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genblaze",
+      "path": ".claude/skills/release-check/SKILL.md",
+      "github_url": "https://github.com/backblaze-labs/genblaze/tree/main/.claude/skills/release-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genblaze",
+      "path": ".claude/skills/prepare-release/SKILL.md",
+      "github_url": "https://github.com/backblaze-labs/genblaze/tree/main/.claude/skills/prepare-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genblaze",
+      "path": ".claude/skills/scaffold-provider/SKILL.md",
+      "github_url": "https://github.com/backblaze-labs/genblaze/tree/main/.claude/skills/scaffold-provider/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/backblaze-labs/genblaze",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:23:50Z"
+}
