@@ -1,154 +1,118 @@
-## e2e-testing
+## posthog-feature-flags
 
-> E2E Flow Tests setup and debugging guide
+> description: Guidelines for implementing and using PostHog feature flags for early access features and A/B tests
 
+---
+description: Guidelines for implementing and using PostHog feature flags for early access features and A/B tests
+globs: apps/web/hooks/useFeatureFlags.ts
+alwaysApply: false
+---
+# PostHog Feature Flags
 
-# E2E Flow Tests
+Guidelines for implementing feature flags using PostHog for early access features and A/B testing.
 
 ## Overview
 
-E2E flow tests run real email workflows using Gmail and Outlook test accounts. They test the full flow: sending emails, webhook processing, and rule execution.
+We use PostHog for two main purposes:
+1. **Early Access Features** - Features that users can opt into via the Early Access page
+2. **A/B Testing** - Testing different variants of features to measure impact
 
-## Repository Setup
+## Implementation Guidelines
 
-**Important**: E2E tests run from the **inbox-zero-e2e** repo, not the main repo.
+### 1. Creating Feature Flag Hooks
 
-- Main repo: `elie222/inbox-zero` (or `inbox-zero/inbox-zero`)
-- E2E repo: `inbox-zero/inbox-zero-e2e`
+All feature flag hooks should be defined in `apps/web/hooks/useFeatureFlags.ts`:
 
-The E2E repo has:
-- `E2E_FLOWS_ENABLED=true` repository variable
-- All required secrets for test accounts
-- A GitHub Action that automatically syncs workflow files from `elie222/inbox-zero` main branch
-
-## Syncing Workflow Files
-
-The e2e repo has a GitHub Action (`sync-upstream.yml`) that pulls from the main repo's main branch. To get code/workflow changes to the e2e repo:
-
-1. Merge your changes to `main` on `elie222/inbox-zero`
-2. Run the sync workflow:
-   ```bash
-   gh workflow run sync-upstream.yml --repo inbox-zero/inbox-zero-e2e
-   ```
-3. Wait for sync to complete, then trigger E2E tests
-
-**Do NOT manually copy files between repos** - use the sync action.
-
-## Triggering Tests
-
-```bash
-# Trigger from the e2e repo
-gh workflow run e2e-flows.yml --repo inbox-zero/inbox-zero-e2e --ref main
-
-# With a specific test file
-gh workflow run e2e-flows.yml --repo inbox-zero/inbox-zero-e2e --ref main -f test_file=full-reply-cycle
-
-# Check run status
-gh run list --repo inbox-zero/inbox-zero-e2e --workflow=e2e-flows.yml --limit 5
-
-# Watch a run
-gh run watch <run-id> --repo inbox-zero/inbox-zero-e2e
-```
-
-## Debugging with Logs
-
-### Two Log Sources
-
-1. **GitHub Actions logs** - inline with test output, useful for test context
-2. **Axiom logs** - structured server logs, useful for querying specific events
-
-### Axiom MCP
-
-Use the Axiom MCP to query structured logs. The E2E dataset is called **`e2e`**.
-
-```apl
-# Get recent webhook processing logs
-['e2e']
-| where _time > ago(30m)
-| where message contains "webhook" or message contains "Processing"
-| project _time, level, message, ['fields.email'], ['fields.subject']
-| order by _time desc
-| limit 50
-
-# Find ExecutedRule status updates
-['e2e']
-| where _time > ago(30m)
-| where message contains "Updating ExecutedRule status"
-| project _time, ['fields.status'], ['fields.executedRuleId'], ['fields.subject']
-| order by _time desc
-
-# Check for skipped messages (label issues)
-['e2e']
-| where _time > ago(30m)
-| where message contains "Skipping message"
-| project _time, message, ['fields.labelIds'], ['fields.subject']
-| order by _time desc
-
-# Query by email account
-['e2e']
-| where _time > ago(30m)
-| where ['fields.email'] contains "outlook" or ['fields.userEmail'] contains "outlook"
-| project _time, level, message
-| order by _time desc
-```
-
-### GitHub Actions Logs
-
-```bash
-# View logs for a specific run
-gh run view <run-id> --repo inbox-zero/inbox-zero-e2e --log
-
-# Download artifacts (includes server.log on failure)
-gh run download <run-id> --repo inbox-zero/inbox-zero-e2e
-```
-
-## Local Development
-
-**Prerequisites:** Run `pnpm install` first to install dependencies.
-
-Run E2E tests locally with `./scripts/run-e2e-local.sh`. Config lives at `~/.config/inbox-zero/.env.e2e`.
-
-See `apps/web/__tests__/e2e/flows/README.md` for full setup instructions.
-
-**Debug logs:** `/tmp/ngrok-e2e.log` (tunnel) and `/tmp/nextjs-e2e.log` (app)
-
-## ⚠️ Critical: Never Bypass Production Flows
-
-**E2E tests must test the REAL production flow.** If something appears "flaky", that's a configuration or infrastructure issue to fix, NOT a reason to bypass the flow.
-
-### What NOT to do
-
-❌ **Don't directly call internal functions to skip webhook delivery:**
 ```typescript
-// WRONG: Bypassing webhook processing because it's "flaky"
-await handleOutboundReply(message);  // Skips the real webhook flow
-await processHistoryForUser(data);   // Skips HTTP transport validation
+// For early access features (boolean flags with env override)
+export function useFeatureNameEnabled() {
+  return useFeatureFlagEnabled("feature-flag-key") || env.NEXT_PUBLIC_FEATURE_NAME_ENABLED;
+}
+
+// For A/B test variants
+export function useFeatureVariant() {
+  return (
+    (useFeatureFlagVariantKey("variant-flag-key") as VariantType) ||
+    "control"
+  );
+}
 ```
 
-❌ **Don't add "fallback" triggers when webhooks don't arrive:**
+Early access features should support both PostHog flags AND environment variables using an OR (`||`). This allows:
+- Production users to opt-in via PostHog Early Access
+- Developers to enable features locally via `.env`
+- Self-hosted users to enable features without PostHog
+
+### 2. Early Access Features
+
+Early access features are automatically displayed on the Early Access page (`/early-access`) through the `EarlyAccessFeatures` component. No manual configuration needed.
+
+**Example:**
 ```typescript
-// WRONG: "If webhook doesn't arrive, trigger manually"
-const tracker = await waitForThreadTracker(...).catch(() => {
-  return triggerProcessingDirectly();  // Bypasses the real flow
-});
+// In useFeatureFlags.ts
+export function useCleanerEnabled() {
+  return useFeatureFlagEnabled("inbox-cleaner") || env.NEXT_PUBLIC_CLEANER_ENABLED;
+}
+
+// Usage in components
+function MyComponent() {
+  const isCleanerEnabled = useCleanerEnabled();
+  
+  if (!isCleanerEnabled) {
+    return null;
+  }
+  
+  return <CleanerFeature />;
+}
 ```
 
-### Why this matters
+When adding a new early access feature:
+1. Add the hook with PostHog flag + env override
+2. Add the env variable to `apps/web/env.ts` (schema + runtimeEnv)
+3. Gate the UI component with the hook
 
-1. **Production reliability**: If webhooks are flaky in tests, they might be flaky in production too. Tests should catch this.
-2. **Real coverage**: Bypassing flows means you're not testing what users actually experience.
-3. **Hidden bugs**: A bypass can mask real issues like webhook URL misconfiguration, authentication failures, or timing bugs.
+### 3. A/B Test Variants
 
-### What TO do instead
+For A/B tests, define the variant types and provide a default fallback:
 
-✅ **Fix the root cause:**
-- Gmail webhooks timeout? → Configure Pub/Sub push URL in Google Cloud Console
-- Outlook webhooks fail? → Set `WEBHOOK_URL` to your ngrok domain
-- Tests are slow? → That's the real speed of the flow; don't hide it
+```typescript
+// Define variant types
+type PricingVariant = "control" | "variant-a" | "variant-b";
 
-✅ **Improve error messages:** Add clear diagnostics so failures point to the actual problem (see `polling.ts` timeout hints).
+// Create hook with fallback
+export function usePricingVariant() {
+  return (
+    (useFeatureFlagVariantKey("pricing-options-2") as PricingVariant) ||
+    "control"
+  );
+}
 
-✅ **Let tests fail:** A failing E2E test due to webhook misconfiguration is CORRECT behavior. The test is doing its job.
+// Usage
+function PricingPage() {
+  const variant = usePricingVariant();
+  
+  switch (variant) {
+    case "variant-a":
+      return <PricingVariantA />;
+    case "variant-b":
+      return <PricingVariantB />;
+    default:
+      return <PricingControl />;
+  }
+}
+```
+
+### 4. Best Practices
+
+1. **Naming Convention**: Use kebab-case for flag keys (e.g., `inbox-cleaner`, `pricing-options-2`)
+2. **Hook Naming**: Use `use[FeatureName]Enabled` for boolean flags, `use[FeatureName]Variant` for variants
+3. **Type Safety**: Always define types for variant flags
+4. **Fallbacks**: Always provide a default/control fallback for variant flags
+5. **Centralization**: Keep all feature flag hooks in `useFeatureFlags.ts`
+
+### 5. PostHog Configuration
+
+Feature flags are configured in the PostHog dashboard. The Early Access page automatically displays features to users for them to enable new features.
 
 ---
 > Source: [nathanpenny520/inbox-zero-Nmail](https://github.com/nathanpenny520/inbox-zero-Nmail) — distributed by [TomeVault](https://tomevault.io).
