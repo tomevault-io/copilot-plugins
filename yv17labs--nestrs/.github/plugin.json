@@ -1,0 +1,9 @@
+{
+  "name": "yv17labs--nestrs",
+  "displayName": "NestRS",
+  "description": "The Rust framework for modular, scalable backends \u2014 you write the business logic, it carries the rest.",
+  "version": "1.0.0",
+  "author": "YV17labs",
+  "homepage": "https://github.com/YV17labs/NestRS",
+  "skills": []
+}
