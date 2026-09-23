@@ -1,0 +1,9 @@
+{
+  "name": "quantinuum--guppyalgos",
+  "displayName": "guppyalgos",
+  "description": "Reusable primitives for composing abstract quantum algorithms in Guppy.",
+  "version": "1.0.0",
+  "author": "Quantinuum",
+  "homepage": "https://github.com/Quantinuum/guppyalgos",
+  "skills": []
+}
