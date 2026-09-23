@@ -1,0 +1,141 @@
+{
+  "name": "studio-recipes",
+  "owner": "snyk",
+  "repo": "studio-recipes",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-inventory",
+      "path": "command_directives/synchronous_remediation/skills/ai-inventory",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/ai-inventory",
+      "description": ""
+    },
+    {
+      "name": "container-security",
+      "path": "command_directives/synchronous_remediation/skills/container-security",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/container-security",
+      "description": ""
+    },
+    {
+      "name": "drift-detector",
+      "path": "command_directives/synchronous_remediation/skills/drift-detector",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/drift-detector",
+      "description": ""
+    },
+    {
+      "name": "iac-security",
+      "path": "command_directives/synchronous_remediation/skills/iac-security",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/iac-security",
+      "description": ""
+    },
+    {
+      "name": "sbom-analyzer",
+      "path": "command_directives/synchronous_remediation/skills/sbom-analyzer",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/sbom-analyzer",
+      "description": ""
+    },
+    {
+      "name": "secure-at-inception",
+      "path": "command_directives/synchronous_remediation/skills/secure-at-inception",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/secure-at-inception",
+      "description": ""
+    },
+    {
+      "name": "snyk-fix",
+      "path": "command_directives/synchronous_remediation/skills/snyk-fix",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/snyk-fix",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "path": "plugins/cursor/skills/secure-dependency-health-check/SKILL.md",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/plugins/cursor/skills/secure-dependency-health-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "path": "command_directives/synchronous_remediation/skills/snyk-fix/SKILL.md",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/snyk-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "path": "command_directives/synchronous_remediation/skills/iac-security/SKILL.md",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/iac-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "path": "command_directives/synchronous_remediation/skills/ai-inventory/SKILL.md",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/ai-inventory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "path": "command_directives/synchronous_remediation/skills/sbom-analyzer/SKILL.md",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/sbom-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "path": "command_directives/synchronous_remediation/skills/drift-detector/SKILL.md",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/drift-detector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "path": "command_directives/synchronous_remediation/skills/container-security/SKILL.md",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/container-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "path": "command_directives/synchronous_remediation/skills/secure-at-inception/SKILL.md",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/secure-at-inception/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "studio-recipes",
+      "path": "command_directives/synchronous_remediation/skills/secure-dependency-health-check/SKILL.md",
+      "github_url": "https://github.com/snyk/studio-recipes/tree/main/command_directives/synchronous_remediation/skills/secure-dependency-health-check/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/snyk/studio-recipes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:30:31Z"
+}
