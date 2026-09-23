@@ -1,0 +1,9 @@
+{
+  "name": "kalimeromk--modular-laravel",
+  "displayName": "Modular-Laravel",
+  "description": "This Laravel project uses a custom modular architecture and service-oriented approach (SOA) designed for API-first applications",
+  "version": "1.0.0",
+  "author": "KalimeroMK",
+  "homepage": "https://github.com/KalimeroMK/Modular-Laravel",
+  "skills": []
+}
