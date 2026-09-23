@@ -1,0 +1,81 @@
+{
+  "name": "semaphore",
+  "owner": "semaphoreui",
+  "repo": "semaphore",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "semaphore-third-party-licenses",
+      "path": ".claude/skills/semaphore-third-party-licenses",
+      "github_url": "https://github.com/semaphoreui/semaphore/tree/main/.claude/skills/semaphore-third-party-licenses",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "path": ".claude/skills/semaphore-config-schema/SKILL.md",
+      "github_url": "https://github.com/semaphoreui/semaphore/tree/main/.claude/skills/semaphore-config-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "path": ".claude/skills/semaphore-third-party-licenses/SKILL.md",
+      "github_url": "https://github.com/semaphoreui/semaphore/tree/main/.claude/skills/semaphore-third-party-licenses/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "path": ".claude/skills/semaphore-cli-docs/SKILL.md",
+      "github_url": "https://github.com/semaphoreui/semaphore/tree/main/.claude/skills/semaphore-cli-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "path": ".claude/skills/semaphore-commit/SKILL.md",
+      "github_url": "https://github.com/semaphoreui/semaphore/tree/main/.claude/skills/semaphore-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "path": ".claude/skills/semaphore-checkout/SKILL.md",
+      "github_url": "https://github.com/semaphoreui/semaphore/tree/main/.claude/skills/semaphore-checkout/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/semaphoreui/semaphore",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:39:54Z"
+}
