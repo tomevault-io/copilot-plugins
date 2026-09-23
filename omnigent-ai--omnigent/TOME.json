@@ -1,0 +1,237 @@
+{
+  "name": "omnigent",
+  "owner": "omnigent-ai",
+  "repo": "omnigent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fanout",
+      "path": "examples/polly/skills/fanout/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/examples/polly/skills/fanout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "antigravity-sdk-e2e-dev",
+      "path": ".claude/skills/antigravity-sdk-e2e-dev/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/.claude/skills/antigravity-sdk-e2e-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cursor-sdk-e2e-dev",
+      "path": ".claude/skills/cursor-sdk-e2e-dev/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/.claude/skills/cursor-sdk-e2e-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "detect-framework",
+      "path": "omnigent/onboarding/agent/skills/detect-framework/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/omnigent/onboarding/agent/skills/detect-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-sdk-e2e-dev",
+      "path": ".claude/skills/copilot-sdk-e2e-dev/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/.claude/skills/copilot-sdk-e2e-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "antigravity-sdk-e2e-dev",
+      "path": ".claude/skills/antigravity-sdk-e2e-dev",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/.claude/skills/antigravity-sdk-e2e-dev",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "deploy/docker/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/deploy/docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": ".claude/skills/run-load-test/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/.claude/skills/run-load-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "examples/debby/skills/debate/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/examples/debby/skills/debate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "examples/scribe/skills/api-docs/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/examples/scribe/skills/api-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "examples/scribe/skills/changelog/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/examples/scribe/skills/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "examples/polly/skills/investigate/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/examples/polly/skills/investigate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "examples/polly/skills/cross-review/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/examples/polly/skills/cross-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "examples/scribe/skills/migration-guide/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/examples/scribe/skills/migration-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "examples/sentinel/skills/security-audit/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/examples/sentinel/skills/security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": ".claude/skills/harness-integration-guide/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/.claude/skills/harness-integration-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "examples/deep-research/skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/examples/deep-research/skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "omnigent/onboarding/agent/skills/build-omnigent/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/omnigent/onboarding/agent/skills/build-omnigent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "omnigent/onboarding/agent/skills/omnigent-knowledge/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/omnigent/onboarding/agent/skills/omnigent-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/examples/archer/skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/examples/archer/skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/pi_skills_all/skills/pi-e2e-xyz-count-d2f6e1/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/pi_skills_all/skills/pi-e2e-xyz-count-d2f6e1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/pi_skills_all/skills/pi-e2e-xyz-greet-c4a8d5/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/pi_skills_all/skills/pi-e2e-xyz-greet-c4a8d5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/pi_skills_list/skills/pi-e2e-xyz-count-d2f6e1/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/pi_skills_list/skills/pi-e2e-xyz-count-d2f6e1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/pi_skills_list/skills/pi-e2e-xyz-greet-c4a8d5/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/pi_skills_list/skills/pi-e2e-xyz-greet-c4a8d5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/pi_skills_none/skills/pi-e2e-xyz-count-d2f6e1/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/pi_skills_none/skills/pi-e2e-xyz-count-d2f6e1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/pi_skills_none/skills/pi-e2e-xyz-greet-c4a8d5/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/pi_skills_none/skills/pi-e2e-xyz-greet-c4a8d5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/codex_skills_all/skills/codex_e2e_xyz_count_b8d4e7/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/codex_skills_all/skills/codex_e2e_xyz_count_b8d4e7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/codex_skills_all/skills/codex_e2e_xyz_greet_a3f9c2/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/codex_skills_all/skills/codex_e2e_xyz_greet_a3f9c2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/codex_skills_list/skills/codex_e2e_xyz_count_b8d4e7/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/codex_skills_list/skills/codex_e2e_xyz_count_b8d4e7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/codex_skills_list/skills/codex_e2e_xyz_greet_a3f9c2/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/codex_skills_list/skills/codex_e2e_xyz_greet_a3f9c2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/codex_skills_none/skills/codex_e2e_xyz_count_b8d4e7/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/codex_skills_none/skills/codex_e2e_xyz_count_b8d4e7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "omnigent",
+      "path": "tests/resources/agents/codex_skills_none/skills/codex_e2e_xyz_greet_a3f9c2/SKILL.md",
+      "github_url": "https://github.com/omnigent-ai/omnigent/tree/main/tests/resources/agents/codex_skills_none/skills/codex_e2e_xyz_greet_a3f9c2/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/omnigent-ai/omnigent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:42:06Z"
+}
