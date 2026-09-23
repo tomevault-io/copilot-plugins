@@ -1,0 +1,321 @@
+{
+  "name": "skill-map",
+  "owner": "crystian",
+  "repo": "skill-map",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "src/plugins/agent-skills/providers/agent-skills/conformance/fixtures/minimal-agent-skills/.agents/skills/code-review",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/agent-skills/providers/agent-skills/conformance/fixtures/minimal-agent-skills/.agents/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "fixtures/demo-scope/.claude/skills/code-review",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/demo-scope/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/foblex-flow/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/foblex-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/codex/.agents/skills/publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/codex/.agents/skills/publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/demo/.claude/skills/check-links/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/demo/.claude/skills/check-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/codex/.agents/skills/check-links/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/codex/.agents/skills/check-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/claude/.claude/skills/check-links/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/claude/.claude/skills/check-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/demo/.claude/skills/notion-publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/demo/.claude/skills/notion-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/opencode/.claude/skills/check-links/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/opencode/.claude/skills/check-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/codex/.agents/skills/notion-publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/codex/.agents/skills/notion-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/claude/.claude/skills/notion-publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/claude/.claude/skills/notion-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/antigravity/.agents/skills/check-links/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/antigravity/.agents/skills/check-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/opencode/.opencode/skills/notion-publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/opencode/.opencode/skills/notion-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/antigravity/.agents/skills/content-editor/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/antigravity/.agents/skills/content-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "fixtures/antigravity/.agents/skills/notion-publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/fixtures/antigravity/.agents/skills/notion-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "spec/conformance/fixtures/skill-actions-catalog/.skill-map/.agents/skills/demo-skill/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/spec/conformance/fixtures/skill-actions-catalog/.skill-map/.agents/skills/demo-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/prologue/en/__PROVIDER__/skills/demo-skill/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/prologue/en/__PROVIDER__/skills/demo-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/prologue/es/__PROVIDER__/skills/demo-skill/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/prologue/es/__PROVIDER__/skills/demo-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/master/en/__PROVIDER__/skills/master-skill/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/master/en/__PROVIDER__/skills/master-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/master/es/__PROVIDER__/skills/master-skill/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/master/es/__PROVIDER__/skills/master-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/harness/en/__PROVIDER__/skills/check-links/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/harness/en/__PROVIDER__/skills/check-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/harness/es/__PROVIDER__/skills/check-links/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/harness/es/__PROVIDER__/skills/check-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/claude/providers/claude/conformance/fixtures/minimal-claude/.claude/skills/hello/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/claude/providers/claude/conformance/fixtures/minimal-claude/.claude/skills/hello/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/codex/providers/codex/conformance/fixtures/demo-codex-skills/.agents/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/codex/providers/codex/conformance/fixtures/demo-codex-skills/.agents/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/codex/providers/codex/conformance/fixtures/backtick-dollar/.agents/skills/check-links/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/codex/providers/codex/conformance/fixtures/backtick-dollar/.agents/skills/check-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/harness/providers/codex/en/__PROVIDER__/skills/publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/harness/providers/codex/en/__PROVIDER__/skills/publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/harness/providers/codex/es/__PROVIDER__/skills/publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/harness/providers/codex/es/__PROVIDER__/skills/publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/claude/providers/claude/conformance/fixtures/backtick-trigger/.claude/skills/deploy-site/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/claude/providers/claude/conformance/fixtures/backtick-trigger/.claude/skills/deploy-site/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/prologue/providers/codex/en/__PROVIDER__/skills/demo-command/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/prologue/providers/codex/en/__PROVIDER__/skills/demo-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/prologue/providers/codex/es/__PROVIDER__/skills/demo-command/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/prologue/providers/codex/es/__PROVIDER__/skills/demo-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/harness/providers/agent-skills/en/__PROVIDER__/skills/publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/harness/providers/agent-skills/en/__PROVIDER__/skills/publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/harness/providers/agent-skills/es/__PROVIDER__/skills/publish/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/harness/providers/agent-skills/es/__PROVIDER__/skills/publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity/.agents/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity/.agents/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/opencode/providers/opencode/conformance/fixtures/demo-opencode/.agents/skills/standard-skill-test/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/opencode/providers/opencode/conformance/fixtures/demo-opencode/.agents/skills/standard-skill-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/opencode/providers/opencode/conformance/fixtures/demo-opencode/.claude/skills/claude-skill-format/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/opencode/providers/opencode/conformance/fixtures/demo-opencode/.claude/skills/claude-skill-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/opencode/providers/opencode/conformance/fixtures/demo-opencode/.opencode/skills/opencode-skill-lint/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/opencode/providers/opencode/conformance/fixtures/demo-opencode/.opencode/skills/opencode-skill-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/master/providers/agent-skills/en/__PROVIDER__/skills/master-agent/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/master/providers/agent-skills/en/__PROVIDER__/skills/master-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/master/providers/agent-skills/es/__PROVIDER__/skills/master-agent/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/master/providers/agent-skills/es/__PROVIDER__/skills/master-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity-reserved/.agents/skills/goal/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity-reserved/.agents/skills/goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity-at-file/.agents/skills/notify/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity-at-file/.agents/skills/notify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity-at-file/.agents/skills/deploy/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity-at-file/.agents/skills/deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity/.agents/skills/changelog-entry/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/antigravity/providers/antigravity/conformance/fixtures/demo-antigravity/.agents/skills/changelog-entry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/portfolio/providers/agent-skills/en/__PROVIDER__/skills/content-editor/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/portfolio/providers/agent-skills/en/__PROVIDER__/skills/content-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": ".claude/skills/sm-tutorial/fixtures-data/sets/portfolio/providers/agent-skills/es/__PROVIDER__/skills/content-editor/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/.claude/skills/sm-tutorial/fixtures-data/sets/portfolio/providers/agent-skills/es/__PROVIDER__/skills/content-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-map",
+      "path": "src/plugins/agent-skills/providers/agent-skills/conformance/fixtures/minimal-agent-skills/.agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/crystian/skill-map/tree/main/src/plugins/agent-skills/providers/agent-skills/conformance/fixtures/minimal-agent-skills/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/crystian/skill-map",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:52:42Z"
+}
