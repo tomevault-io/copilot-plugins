@@ -1,0 +1,213 @@
+{
+  "name": "codex-factory",
+  "owner": "yueheng-rgb",
+  "repo": "codex-factory",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codex-factory",
+      "path": "skills/CAP-SKILL-013/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/CAP-SKILL-013/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/CAP-SKILL-004/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/CAP-SKILL-004/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/CAP-SKILL-015/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/CAP-SKILL-015/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/CAP-SKILL-014/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/CAP-SKILL-014/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/frontend-ui-system/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/frontend-ui-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/backend-api-design/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/backend-api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/app-type-classifier/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/app-type-classifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/product-architecture/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/product-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/anti-overengineering/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/anti-overengineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/webapp-preview-testing/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/webapp-preview-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/database-schema-design/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/database-schema-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/mobile-miniapp-patterns/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/mobile-miniapp-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "skills/auth-permission-security/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/skills/auth-permission-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "codex-factory-plugin/skills/codex-factory/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/codex-factory-plugin/skills/codex-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "i-test-target/.codex/skills/agent-harness-run/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/i-test-target/.codex/skills/agent-harness-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "runtime/tests/malicious-skills/MAL-OVERBROAD-TOOLS/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/runtime/tests/malicious-skills/MAL-OVERBROAD-TOOLS/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "runtime/tests/malicious-skills/MAL-ARBITRARY-COMMAND/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/runtime/tests/malicious-skills/MAL-ARBITRARY-COMMAND/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "runtime/tests/malicious-skills/MAL-DATA-EXFILTRATION/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/runtime/tests/malicious-skills/MAL-DATA-EXFILTRATION/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "runtime/tests/malicious-skills/MAL-MISLEADING-TRIGGER/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/runtime/tests/malicious-skills/MAL-MISLEADING-TRIGGER/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "packages/factory-cli/domain-skills/backend-api-design/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/packages/factory-cli/domain-skills/backend-api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "packages/factory-cli/domain-skills/frontend-ui-system/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/packages/factory-cli/domain-skills/frontend-ui-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "packages/factory-cli/domain-skills/app-type-classifier/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/packages/factory-cli/domain-skills/app-type-classifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "packages/factory-cli/domain-skills/anti-overengineering/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/packages/factory-cli/domain-skills/anti-overengineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "packages/factory-cli/domain-skills/product-architecture/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/packages/factory-cli/domain-skills/product-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "packages/factory-cli/domain-skills/database-schema-design/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/packages/factory-cli/domain-skills/database-schema-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "packages/factory-cli/domain-skills/webapp-preview-testing/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/packages/factory-cli/domain-skills/webapp-preview-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "packages/factory-cli/domain-skills/mobile-miniapp-patterns/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/packages/factory-cli/domain-skills/mobile-miniapp-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-factory",
+      "path": "packages/factory-cli/domain-skills/auth-permission-security/SKILL.md",
+      "github_url": "https://github.com/yueheng-rgb/codex-factory/tree/main/packages/factory-cli/domain-skills/auth-permission-security/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yueheng-rgb/codex-factory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:44:05Z"
+}
