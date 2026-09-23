@@ -1,0 +1,9 @@
+{
+  "name": "hensonzyw-git--personal-agent-open-source",
+  "displayName": "personal-agent-open-source",
+  "description": "A single-user personal agent with governed tools and a human-in-the-loop development workflow.",
+  "version": "1.0.0",
+  "author": "hensonzyw-git",
+  "homepage": "https://github.com/hensonzyw-git/personal-agent-open-source",
+  "skills": []
+}
