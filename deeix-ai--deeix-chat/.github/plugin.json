@@ -1,0 +1,14 @@
+{
+  "name": "deeix-ai--deeix-chat",
+  "displayName": "DEEIX-Chat",
+  "description": "DEEIX-Chat",
+  "version": "1.0.0",
+  "author": "DEEIX-AI",
+  "homepage": "https://github.com/DEEIX-AI/DEEIX-Chat",
+  "skills": [
+    {
+      "name": "DEEIX-Chat",
+      "description": ""
+    }
+  ]
+}
