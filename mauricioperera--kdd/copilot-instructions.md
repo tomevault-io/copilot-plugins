@@ -1,0 +1,23 @@
+## kdd
+
+> Este repo usa Knowledge-Driven Development (KDD). Las reglas completas
+
+# Instrucciones para GitHub Copilot en este repositorio
+
+Este repo usa Knowledge-Driven Development (KDD). Las reglas completas
+para cualquier agente de IA (incluido Copilot) estan en
+[.agents/AGENTS.md](../.agents/AGENTS.md) — leelo antes de escribir codigo.
+
+Resumen minimo: antes de implementar, lee `knowledge/contracts/<task>.md`
+(el task contract), su oraculo congelado en `tests/` (NO lo reescribas —
+esta sellado por `tests_sha256`), y respeta `touch_only` (perimetro de
+archivos declarado). Verificacion completa (niveles de gate, comandos
+exactos): [knowledge/validacion.md](../knowledge/validacion.md).
+
+No dupliques este contenido en otro lado: si `.agents/AGENTS.md` cambia,
+este archivo puede quedar desactualizado — ante duda, `.agents/AGENTS.md`
+manda.
+
+---
+> Source: [MauricioPerera/KDD](https://github.com/MauricioPerera/KDD) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
