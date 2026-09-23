@@ -1,0 +1,183 @@
+{
+  "name": "loom",
+  "owner": "valkor-ai",
+  "repo": "loom",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "loom",
+      "path": "plugins/codex/skills/loom/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/codex/skills/loom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/claude-code/skills/loom/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/claude-code/skills/loom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/codex/skills/loom-deploy/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/codex/skills/loom-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/claude-code/skills/loom-deploy/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/claude-code/skills/loom-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/gdtoolkit/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/gdtoolkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/godot-e2e/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/godot-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/visual-qa/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/visual-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/godot-api/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/godot-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/mcp-driver/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/mcp-driver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/screenshot/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/screenshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/reviewer/ui/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/reviewer/ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/input-mapper/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/input-mapper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/gdunit-driver/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/gdunit-driver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/headless-build/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/headless-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/reviewer/audio/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/reviewer/audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/reviewer/shader/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/reviewer/shader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/project-scaffold/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/project-scaffold/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/reviewer/physics/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/reviewer/physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/reviewer/tilemap/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/reviewer/tilemap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/reviewer/particles/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/reviewer/particles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/reviewer/animation/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/reviewer/animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "loom",
+      "path": "plugins/shared/loom/skills/godot/reviewer/navigation/SKILL.md",
+      "github_url": "https://github.com/valkor-ai/loom/tree/main/plugins/shared/loom/skills/godot/reviewer/navigation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/valkor-ai/loom",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T11:26:20Z"
+}
