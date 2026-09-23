@@ -1,0 +1,9 @@
+{
+  "name": "gimpelzhang--ge-sim-v2-tour",
+  "displayName": "GE-Sim-V2-tour",
+  "description": "An end-to-end tour of embodied AI world models: Closed-loop VLA simulation, Real2Edit2Real spatial scene editing, generalization benchmarking, and in-world-model RL self-evolution using GE-Sim 2.0 & O",
+  "version": "1.0.0",
+  "author": "GimpelZhang",
+  "homepage": "https://github.com/GimpelZhang/GE-Sim-V2-tour",
+  "skills": []
+}
