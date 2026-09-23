@@ -1,0 +1,14 @@
+{
+  "name": "ellipse-software--bast",
+  "displayName": "bast",
+  "description": "bast",
+  "version": "1.0.0",
+  "author": "ellipse-software",
+  "homepage": "https://github.com/ellipse-software/bast",
+  "skills": [
+    {
+      "name": "bast",
+      "description": ""
+    }
+  ]
+}
