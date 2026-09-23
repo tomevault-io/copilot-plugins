@@ -1,0 +1,9 @@
+{
+  "name": "valorisa--claude-skills",
+  "displayName": "Claude-Skills",
+  "description": "Community skills for Claude Code: token optimization, productivity workflows, and development best practices. All skills tested with TDD methodology (RED-GREEN-REFACTOR). Features rescue-tokens skill:",
+  "version": "1.0.0",
+  "author": "valorisa",
+  "homepage": "https://github.com/valorisa/Claude-Skills",
+  "skills": []
+}
