@@ -1,74 +1,40 @@
 ## codever
 
-> Throw custom error classes from services; Express middleware in `app.js` maps them:
+> - This is a two-app MEAN monorepo: `apps/codever-api` is the Express/Mongoose REST API; `apps/codever-ui` is the Angular 16 SPA. Docker Compose supplies MongoDB and Keycloak (with PostgreSQL for Keycloak).
 
-# Codever – Advanced Reference
+# Codever Agent Guide
 
-## API Error Handling
+## Repository map
 
-Throw custom error classes from services; Express middleware in `app.js` maps them:
+- This is a two-app MEAN monorepo: `apps/codever-api` is the Express/Mongoose REST API; `apps/codever-ui` is the Angular 16 SPA. Docker Compose supplies MongoDB and Keycloak (with PostgreSQL for Keycloak).
+- The backend starts at `apps/codever-api/bin/www`; middleware, Mongo connection, route mounting, Swagger, body limits, and error mapping are in `apps/codever-api/src/app.js`.
+- Backend routes are organized by boundary under `apps/codever-api/src/routes/`: public endpoints, authenticated personal user resources, and admin/feature-toggle endpoints. Follow Router → Service → Mongoose Model; there is no controller layer.
+- Personal routes are mounted below `/api/personal/users/:userId`. Preserve the pattern `keycloak.protect()` followed by `userid.validator`/`UserIdValidator.validateUserId(request)` before accessing user data.
+- Domain schemas live in `apps/codever-api/src/model/`; shared searching, pagination, mappers, and validation are under `src/common/`. OpenAPI is maintained in `apps/codever-api/docs/openapi/openapi.yaml` and served at `/api/docs`.
+- The UI entry routing is `apps/codever-ui/src/app/app.routing.ts`. Feature areas are lazy-loaded (`my-bookmarks`, `my-notes`, `public`, dashboard, settings, search); shared components and reusable services belong in `src/app/shared` and `src/app/core`.
+- `/my-snippets` and legacy snippet/codelet URLs intentionally redirect to notes. Do not remove these compatibility routes without checking extensions/bookmarklets and the related migration behavior.
 
-| Class | HTTP |
-|---|---|
-| `ValidationError` | 400 |
-| `UseridValidationError` | 401 |
-| `NotFoundError` | 404 |
-| `PublicBookmarkExistingError` | 409 |
-| `MongoError` code 11000 | 409 |
-| `MongoError` other | 503 |
+## Local setup and workflows
 
-## Frontend HTTP Caching
+- Prerequisites are Node 16+ / npm 8+, Docker, and (for backend development) nodemon. Run `npm install` at the root to install both app dependencies.
+- Create the ignored API config before starting: `cp apps/codever-api/env.json.example apps/codever-api/env.json` (adapt the command if using PowerShell). Start infrastructure with `docker-compose up`.
+- On the first Compose startup only, enable the Keycloak migration/import command in `docker-compose.yml`; comment it back out on later startups. Local Keycloak is at `http://localhost:8480/auth` (`mock/mock`, admin `admin/Pa55w0rd`).
+- Run both apps with `npm start`, or separately with `npm run frontend` and `npm run backend`. UI is at `http://localhost:4200`; API is at `http://localhost:3000/api`.
+- Backend commands from `apps/codever-api`: `npm test` (Jest unit tests), `npm run test:integration` (requires Docker/Keycloak/Mongo), and `npm run debug` (nodemon with `--inspect`). Test files use `*.test.js` and `*.integration-test.js`.
+- Frontend commands from `apps/codever-ui`: `npm test` (Karma/Jasmine), `npm run lint`, `npm run build` / `npm run build:aot`, and `npm run cy:run` or `npm run cy:open` (Cypress; serve the UI and start infrastructure first).
+- For a backend port conflict, find the process using port 3000 and terminate it before rerunning `npm run debug`. Attach an IDE Node debugger to nodemon’s inspect process.
 
-`HttpClientLocalStorageService` wraps `HttpClient` to cache GET responses in `localStorage`. Pass `HttpOptions` with `key`, `cacheHours`, and `isSensitive` (sensitive entries are cleared on logout).
+## Code and integration rules
 
-## Pagination (API)
-
-`PaginationQueryParamsHelper.getPageAndLimit(request)` extracts `page` and `limit` query params on any list endpoint.
-
-## Notes `contentType`
-
-Two render modes: `'markdown'` (default, rendered with `marked`) and `'notebook'` (Jupyter `.ipynb`, stored in `notebookContent` field, rendered via `notebook-renderer` component in the UI). Always set `contentType` when creating/updating notebook notes.
-
-## API Directory Structure
-
-```
-apps/codever-api/src/
-  app.js              # middleware stack, error handlers, route mounting
-  routes/
-    public/           # unauthenticated endpoints
-    users/
-      user.router.js  # history, pinned, read-later, likes, feed, follow/unfollow
-      bookmarks/personal-bookmarks.{router,service}.js
-      snippets/personal-snippets.{router,service}.js
-      notes/personal-notes.{router,service}.js
-  model/              # Mongoose schemas
-  common/
-    searching/        # bookmarks-search.service.js, snippets-search.service.js
-    mappers/          # request → domain object
-    validation/
-  error/
-```
-
-## Frontend Directory Structure
-
-```
-apps/codever-ui/src/app/
-  core/
-    model/            # TypeScript interfaces
-    cache/            # HttpClientLocalStorageService
-  shared/             # reusable components, pipes, directives
-  my-bookmarks|my-notes|my-snippets/  # lazy-loaded feature modules
-  public/             # lazy-loaded public module
-  new-entry/          # unified create component
-```
-
-## Dev Infrastructure Details
-
-- Keycloak Admin: http://localhost:8480/auth — `admin/Pa55w0rd`
-- On **first** `docker-compose up`: uncomment the migration command in `docker-compose.yml` to import the dev realm; comment it back after.
-- API config: `apps/codever-api/env.json` (not committed) — copy from `nodemon.json.example`
-- Profile images upload to AWS S3 (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` env vars)
+- Resource records use `type` (`bookmark` or `note`) and `public: Boolean`; preserve existing resource-specific fields and request-to-domain mappers when adding endpoints.
+- Notes use `contentType: 'markdown' | 'notebook'`; notebook notes store `notebookContent` and must set `contentType` on create/update. Markdown is rendered with `marked`; notebook rendering is handled by the UI notebook renderer.
+- Services throw project error classes from `apps/codever-api/src/error/`; `app.js` maps validation to 400, user-ID authorization failures to 401, not-found to 404, duplicate conflicts to 409, and other Mongo failures to 503.
+- List endpoints should use `PaginationQueryParamsHelper.getPageAndLimit(request)` rather than parsing page/limit independently. Follow existing service and validator naming (`*.service.js`, `*.validator.js`).
+- Authentication is Keycloak/OIDC (`keycloak-connect` in the API, `keycloak-angular`/`keycloak-js` in the UI); API/UI realm and URLs are configured in `env.json` and `src/environments/environment.ts`.
+- Profile images are uploaded with `multer-s3` to AWS S3; keep AWS credentials and region in environment variables, never source files. API JSON/urlencoded bodies allow 6 MB for notebook uploads, so nginx must also allow `client_max_body_size 6m`.
+- Frontend GET caching is centralized in `HttpClientLocalStorageService`; cache options include `key`, `cacheHours`, and `isSensitive`, with sensitive entries cleared on logout.
+- Use Angular Commit Guidelines (`feat`, `fix`, `chore`, `refactor`, `docs`, `perf`, etc.) and preserve the existing formatting/style in the touched app.
 
 ---
 > Source: [CodeverDotDev/codever](https://github.com/CodeverDotDev/codever) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
