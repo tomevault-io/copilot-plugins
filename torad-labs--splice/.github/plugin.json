@@ -1,0 +1,9 @@
+{
+  "name": "torad-labs--splice",
+  "displayName": "splice",
+  "description": "Run Claude Code on your ChatGPT, Grok, or Kimi subscription \u2014 reasoning mirror, cache-warm compaction, and a fleet dashboard on loopback. Unofficial; use at your own risk.",
+  "version": "1.0.0",
+  "author": "torad-labs",
+  "homepage": "https://github.com/torad-labs/splice",
+  "skills": []
+}
