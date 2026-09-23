@@ -1,0 +1,93 @@
+{
+  "name": "tracequant",
+  "owner": "PhoenixSss",
+  "repo": "tracequant",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tracequant",
+      "path": ".agents/skills/task-closeout/SKILL.md",
+      "github_url": "https://github.com/PhoenixSss/tracequant/tree/main/.agents/skills/task-closeout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracequant",
+      "path": ".claude/skills/task-closeout/SKILL.md",
+      "github_url": "https://github.com/PhoenixSss/tracequant/tree/main/.claude/skills/task-closeout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracequant",
+      "path": ".agents/skills/task-delivery-runner/SKILL.md",
+      "github_url": "https://github.com/PhoenixSss/tracequant/tree/main/.agents/skills/task-delivery-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracequant",
+      "path": ".claude/skills/task-delivery-runner/SKILL.md",
+      "github_url": "https://github.com/PhoenixSss/tracequant/tree/main/.claude/skills/task-delivery-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracequant",
+      "path": ".agents/skills/task-pr-review-runner/SKILL.md",
+      "github_url": "https://github.com/PhoenixSss/tracequant/tree/main/.agents/skills/task-pr-review-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracequant",
+      "path": ".claude/skills/task-pr-review-runner/SKILL.md",
+      "github_url": "https://github.com/PhoenixSss/tracequant/tree/main/.claude/skills/task-pr-review-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracequant",
+      "path": ".claude/skills/feature-completion-audit/SKILL.md",
+      "github_url": "https://github.com/PhoenixSss/tracequant/tree/main/.claude/skills/feature-completion-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracequant",
+      "path": ".agents/skills/feature-completion-audit/SKILL.md",
+      "github_url": "https://github.com/PhoenixSss/tracequant/tree/main/.agents/skills/feature-completion-audit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PhoenixSss/tracequant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:52:20Z"
+}
