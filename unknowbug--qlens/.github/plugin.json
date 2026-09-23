@@ -1,0 +1,9 @@
+{
+  "name": "unknowbug--qlens",
+  "displayName": "qlens",
+  "description": "QLens \u2014 HDR image viewer (QuickView) + image manager with open tag database (qltag.db) + MCP server for AI agents. Plugin-based decoding: HEIC/AVIF/SVG/RAW/JXL; D3D11 HDR pipeline.",
+  "version": "1.0.0",
+  "author": "unknowbug",
+  "homepage": "https://github.com/unknowbug/qlens",
+  "skills": []
+}
