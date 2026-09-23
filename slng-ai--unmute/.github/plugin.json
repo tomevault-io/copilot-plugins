@@ -1,0 +1,9 @@
+{
+  "name": "slng-ai--unmute",
+  "displayName": "unmute",
+  "description": "Voice agents in YAML, compiled to Pipecat or LiveKit. Production code you own, deployed anywhere.",
+  "version": "1.0.0",
+  "author": "slng-ai",
+  "homepage": "https://github.com/slng-ai/unmute",
+  "skills": []
+}
