@@ -1,0 +1,213 @@
+{
+  "name": "PINA",
+  "owner": "PINA-org",
+  "repo": "PINA",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PINA",
+      "path": ".agents/skills/create-skill/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.agents/skills/create-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".agents/skills/select-model/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.agents/skills/select-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".claude/skills/create-skill/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.claude/skills/create-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".claude/skills/select-model/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.claude/skills/select-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".agents/skills/pina-workflow/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.agents/skills/pina-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".agents/skills/select-solver/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.agents/skills/select-solver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".claude/skills/pina-workflow/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.claude/skills/pina-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".claude/skills/select-solver/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.claude/skills/select-solver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/create-skill/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/create-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/select-model/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/select-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".agents/skills/create-problem/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.agents/skills/create-problem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".agents/skills/define-domains/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.agents/skills/define-domains/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".agents/skills/select-trainer/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.agents/skills/select-trainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".claude/skills/create-problem/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.claude/skills/create-problem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".claude/skills/define-domains/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.claude/skills/define-domains/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".claude/skills/select-trainer/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.claude/skills/select-trainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/select-solver/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/select-solver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/pina-workflow/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/pina-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".agents/skills/condition-setup/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.agents/skills/condition-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".claude/skills/condition-setup/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.claude/skills/condition-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/create-problem/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/create-problem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/select-trainer/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/select-trainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/define-domains/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/define-domains/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".agents/skills/define-equations/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.agents/skills/define-equations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".claude/skills/define-equations/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.claude/skills/define-equations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/condition-setup/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/condition-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/define-equations/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/define-equations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PINA",
+      "path": ".opencode/skills/skill-sync-checker/SKILL.md",
+      "github_url": "https://github.com/PINA-org/PINA/tree/main/.opencode/skills/skill-sync-checker/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PINA-org/PINA",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T14:44:51Z"
+}
