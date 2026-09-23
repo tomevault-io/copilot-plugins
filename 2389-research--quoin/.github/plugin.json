@@ -1,0 +1,9 @@
+{
+  "name": "2389-research--quoin",
+  "displayName": "Quoin",
+  "description": "A native macOS WYSIWYG Markdown editor with an in-file review loop \u2014 suggestions, comments, and tracked changes as plain CriticMarkup bytes. Native LaTeX math (Vinculum) and diagrams (MermaidKit), zer",
+  "version": "1.0.0",
+  "author": "2389-research",
+  "homepage": "https://github.com/2389-research/Quoin",
+  "skills": []
+}
