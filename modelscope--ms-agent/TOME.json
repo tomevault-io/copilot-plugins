@@ -1,0 +1,147 @@
+{
+  "name": "ms-agent",
+  "owner": "modelscope",
+  "repo": "ms-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docx",
+      "path": "examples/skills/claude_skills/docx",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/examples/skills/claude_skills/docx",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "examples/skills/claude_skills/pdf",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/examples/skills/claude_skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": "ms-agent-skills/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/ms-agent-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": "examples/skills/claude_skills/pdf/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/examples/skills/claude_skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": "examples/skills/claude_skills/docx/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/examples/skills/claude_skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/x-card/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/x-card/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/x-request/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/x-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/use-x-chat/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/use-x-chat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/x-markdown/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/x-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/x-components/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/x-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/react-router/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/react-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/docker-expert/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/docker-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/fastapi-python/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/fastapi-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/x-chat-provider/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/x-chat-provider/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/tailwind-css-patterns/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/tailwind-css-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/typescript-advanced-types/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/typescript-advanced-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ms-agent",
+      "path": ".agents/skills/frontend-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/modelscope/ms-agent/tree/main/.agents/skills/frontend-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/modelscope/ms-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:30:24Z"
+}
