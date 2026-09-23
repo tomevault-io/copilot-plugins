@@ -1,31 +1,59 @@
-## architect
+## code-review
 
-> 架构师规则：方案先行、调研顺序、决策确认、方案边界。
+> 代码审查规则：审查维度、严重等级判定、报告格式。由 code-reviewer agent 在 CODE-REVIEW 阶段加载。
 
 
-# Architect 规则
+# 代码审查规则
 
-## Rule 1：方案先行
-需求报告（requirement-report.md）→ 架构/代码调研 → 技术方案 → 自动流转给 developer。方案粒度到文件级 + 函数级。
+## R1：审查维度与优先级
 
-## Rule 2：调研顺序
-1. 读取 `01-requirement/requirement-report.md`（含 AI 需求分析 + 澄清结论）→ 2. 检索知识库架构文档 → 3. 检索组件设计 → 4. 读代码。禁止不读报告就设计。
+| 优先级 | 维度 | 说明 |
+|--------|------|------|
+| P0-严重 | 安全漏洞 | SQL 注入、XSS、CSRF、硬编码凭证、未授权访问 |
+| P0-严重 | 数据安全 | 敏感数据明文存储/传输、日志泄漏敏感信息 |
+| P1-一般 | 性能问题 | N+1 查询、缺失索引、大数据全表扫描、内存泄漏 |
+| P1-一般 | 错误处理 | 未捕获异常、错误吞没、缺少降级策略 |
+| P2-建议 | 代码规范 | 命名不规范、函数过长、圈复杂度过高 |
+| P2-建议 | 可维护性 | 魔法数字、重复代码、缺少注释 |
 
-## Rule 3：方案边界
-✅ 技术方案、架构评估、链路分析、变更点识别、execution-plan 编排
-❌ 写代码、执行测试
+## R2：严重等级判定
 
-## Rule 4：execution-plan 格式强制约束
+- **P0（严重）**：必须修复，审查结果为 FAILED。包括：安全漏洞、数据丢失风险、生产事故隐患
+- **P1（一般）**：必须修复，存在 ≥1 个 P1 时审查 FAILED。包括：性能问题、错误处理缺陷、功能性缺陷
+- **P2（建议）**：可选修复，不影响审查结论
 
-`execution-plan.md` 必须严格按 `architect.md Step 5` 的 `parallel_tasks` YAML 格式产出。禁止串行步骤式 plan，禁止参考 `tech-design` skill 模板的排期章节。
+**判定规则**：存在任意 P0 或 P1 → FAILED（打回 developer 修复）；仅有 P2 或无问题 → PASSED
 
-## Rule 5：接口变更必须包含 API 文档任务
+## R3：SQL 审查要点
 
-当技术方案涉及新增或修改 HTTP API 接口时，`execution-plan.md` 的 `parallel_tasks` 中**必须**包含一个 API 文档子任务（产物为 `03-code/api-docs.md`），要求：
-- 列出所有新增/变更的接口（路由、方法、请求/响应格式、鉴权方式、错误码）
-- 该任务可与编码实现并行或放在最后一个 code group 中
-- `files_whitelist` 包含 `{artifacts_dir}/03-code/api-docs.md`
-- acceptance 标准：所有新增/变更接口均有完整的请求参数、响应结构、错误码说明
+参考 `sql-standard.mdc` 规则，重点检查：
+- 所有 SQL 必须参数化（禁止字符串拼接）
+- 新增查询须有索引支持（WHERE / JOIN / ORDER BY 字段）
+- 禁止 SELECT *（必须明确字段列表）
+- 分页查询须有合理限制（禁止无限深翻页）
+- 事务范围最小化（禁止长事务）
+
+## R4：审查报告格式
+
+审查报告必须包含：
+1. **审查结论**：PASSED / FAILED + 统计数据
+2. **问题列表**：按严重等级分组，每个问题包含文件路径、行号、类别、描述、建议修复
+3. **改进建议**：可选的架构/设计改进建议
+
+## R5：行为约束
+
+- ✅ 只做审查，产出报告
+- ❌ 不修改代码、不执行测试、不重构
+- ❌ 不跳过 P0 问题
+- ❌ 不因时间压力降低审查标准
+
+## R6：Plan 完成度检查（P1 级）
+
+code-reviewer 必须对照 `execution-plan.md` 中每个 PT 的 `acceptance` 项，检查 `change-report.md` 的 **Acceptance 验证结果**表格：
+- 所有 acceptance 项必须存在且结果为 PASS
+- 缺失 acceptance 验证 → P1 问题
+- acceptance 验证结果为 FAIL → P1 问题
+- acceptance 项数量与 execution-plan 不一致 → P1 问题
 
 ---
 > Source: [Tencent/LoopForge](https://github.com/Tencent/LoopForge) — distributed by [TomeVault](https://tomevault.io).
