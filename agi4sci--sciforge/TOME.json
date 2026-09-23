@@ -1,0 +1,153 @@
+{
+  "name": "SciForge",
+  "owner": "AGI4Sci",
+  "repo": "SciForge",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/mineru/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/mineru/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/grilling/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/alphafold3/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/alphafold3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/domain-modeling/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/research-memory/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/research-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".cursor/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.cursor/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".cursor/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.cursor/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".cursor/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.cursor/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".codex/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.codex/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SciForge",
+      "path": ".cursor/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/AGI4Sci/SciForge/tree/main/.cursor/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AGI4Sci/SciForge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T08:59:14Z"
+}
