@@ -1,0 +1,26 @@
+{
+  "name": "mit-network--everything-claude-code",
+  "displayName": "everything-claude-code",
+  "description": "everything-claude-code",
+  "version": "1.0.0",
+  "author": "mit-network",
+  "homepage": "https://github.com/mit-network/everything-claude-code",
+  "skills": [
+    {
+      "name": "golang-patterns",
+      "description": ""
+    },
+    {
+      "name": "golang-patterns",
+      "description": ""
+    },
+    {
+      "name": "database-migrations",
+      "description": ""
+    },
+    {
+      "name": "agent-eval",
+      "description": ""
+    }
+  ]
+}
