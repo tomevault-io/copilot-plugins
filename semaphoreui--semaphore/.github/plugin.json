@@ -1,0 +1,34 @@
+{
+  "name": "semaphoreui--semaphore",
+  "displayName": "semaphore",
+  "description": "semaphore",
+  "version": "1.0.0",
+  "author": "semaphoreui",
+  "homepage": "https://github.com/semaphoreui/semaphore",
+  "skills": [
+    {
+      "name": "semaphore-third-party-licenses",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "description": ""
+    },
+    {
+      "name": "semaphore",
+      "description": ""
+    }
+  ]
+}
