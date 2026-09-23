@@ -1,0 +1,9 @@
+{
+  "name": "pycqa--flake8-bugbear",
+  "displayName": "flake8-bugbear",
+  "description": "flake8-bugbear",
+  "version": "1.0.0",
+  "author": "PyCQA",
+  "homepage": "https://github.com/PyCQA/flake8-bugbear",
+  "skills": []
+}
