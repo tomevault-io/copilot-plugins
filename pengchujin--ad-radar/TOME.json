@@ -1,0 +1,44 @@
+{
+  "name": "ad-radar",
+  "owner": "pengchujin",
+  "repo": "ad-radar",
+  "description": "\u5f00\u6e90\u6d4f\u89c8\u5668\u63d2\u4ef6\uff1a\u5728\u5c0f\u7ea2\u4e66\u3001\u5fae\u535a\u3001X\u3001\u77e5\u4e4e\u4e0a\u6309\u5173\u952e\u8bcd\u548c\u535a\u4e3b\u6298\u53e0\u5185\u5bb9\uff1b\u7528\u4f60\u81ea\u5df1\u7684 Jev API key \u8bc6\u522b\u5e7f\u544a\u3001AI\u3001\u519b\u4e8b\u3001\u653f\u6cbb\u7b49\u8bdd\u9898\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pengchujin/ad-radar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T10:19:20Z"
+}
