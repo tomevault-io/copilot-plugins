@@ -1,8 +1,6 @@
 # AI instruction files for agents-last-exam
 
-> Sourced from [rdi-berkeley/agents-last-exam](https://github.com/rdi-berkeley/agents-last-exam) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Agents' Last Exam
+> Sourced from [rdi-berkeley/agents-last-exam](https://github.com/rdi-berkeley/agents-last-exam), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [rdi-berkeley/agents-last-exam](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rdi-berkeley/agents-last-exam](https://github.com/rdi-berkeley/agents-last-exam)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/rdi-berkeley/agents-last-exam](https://github.com/rdi-berkeley/agents-last-exam)
 
 ---
 
