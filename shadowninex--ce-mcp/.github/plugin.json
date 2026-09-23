@@ -1,0 +1,14 @@
+{
+  "name": "shadowninex--ce-mcp",
+  "displayName": "ce-mcp",
+  "description": "Automate Cheat Engine using MCP protocol for use with AI!",
+  "version": "1.0.0",
+  "author": "ShadowNineX",
+  "homepage": "https://github.com/ShadowNineX/ce-mcp",
+  "skills": [
+    {
+      "name": "ce-mcp",
+      "description": ""
+    }
+  ]
+}
