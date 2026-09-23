@@ -1,0 +1,9 @@
+{
+  "name": "milvus-io--talon",
+  "displayName": "talon",
+  "description": "A distributed object store cache written in Rust",
+  "version": "1.0.0",
+  "author": "milvus-io",
+  "homepage": "https://github.com/milvus-io/talon",
+  "skills": []
+}
