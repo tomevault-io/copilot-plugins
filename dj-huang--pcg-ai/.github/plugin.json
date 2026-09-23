@@ -1,0 +1,9 @@
+{
+  "name": "dj-huang--pcg-ai",
+  "displayName": "PCG-AI",
+  "description": "Graph-based procedural content generation across Web and game engines \u2014 powered by a C++17 runtime, React editor, MCP/agent workflows, and Unity integration.",
+  "version": "1.0.0",
+  "author": "DJ-Huang",
+  "homepage": "https://github.com/DJ-Huang/PCG-AI",
+  "skills": []
+}
