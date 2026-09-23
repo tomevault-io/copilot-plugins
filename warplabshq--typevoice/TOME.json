@@ -1,0 +1,44 @@
+{
+  "name": "typevoice",
+  "owner": "warplabshq",
+  "repo": "typevoice",
+  "description": "Local dictation for Mac. Hold a key, talk, and clean text lands in any app \u2014 on your Mac, and nowhere else.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/warplabshq/typevoice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-23T09:26:57Z"
+}
