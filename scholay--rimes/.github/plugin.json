@@ -1,0 +1,14 @@
+{
+  "name": "scholay--rimes",
+  "displayName": "rimes",
+  "description": "rimes",
+  "version": "1.0.0",
+  "author": "scholay",
+  "homepage": "https://github.com/scholay/rimes",
+  "skills": [
+    {
+      "name": "rimes",
+      "description": ""
+    }
+  ]
+}
