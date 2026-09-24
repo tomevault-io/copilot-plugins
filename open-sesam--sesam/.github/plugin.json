@@ -1,0 +1,9 @@
+{
+  "name": "open-sesam--sesam",
+  "displayName": "sesam",
+  "description": "A clever git secrets manager",
+  "version": "1.0.0",
+  "author": "open-sesam",
+  "homepage": "https://github.com/open-sesam/sesam",
+  "skills": []
+}
