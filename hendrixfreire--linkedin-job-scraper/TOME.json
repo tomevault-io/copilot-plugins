@@ -4,7 +4,7 @@
   "repo": "linkedin-job-scraper",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/hendrixfreire/linkedin-job-scraper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T09:03:40Z"
+  "distributed_at": "2026-09-24T23:03:41Z"
 }
