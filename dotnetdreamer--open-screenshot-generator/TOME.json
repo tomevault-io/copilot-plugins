@@ -1,0 +1,69 @@
+{
+  "name": "open-screenshot-generator",
+  "owner": "dotnetdreamer",
+  "repo": "open-screenshot-generator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "open-screenshot-generator",
+      "path": ".claude/skills/humanizer/SKILL.md",
+      "github_url": "https://github.com/dotnetdreamer/open-screenshot-generator/tree/main/.claude/skills/humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-screenshot-generator",
+      "path": ".claude/skills/app-screenshots/SKILL.md",
+      "github_url": "https://github.com/dotnetdreamer/open-screenshot-generator/tree/main/.claude/skills/app-screenshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-screenshot-generator",
+      "path": ".claude/skills/stock-image-assets/SKILL.md",
+      "github_url": "https://github.com/dotnetdreamer/open-screenshot-generator/tree/main/.claude/skills/stock-image-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-screenshot-generator",
+      "path": ".claude/skills/gpt4free-provider-sync/SKILL.md",
+      "github_url": "https://github.com/dotnetdreamer/open-screenshot-generator/tree/main/.claude/skills/gpt4free-provider-sync/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dotnetdreamer/open-screenshot-generator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:12:47Z"
+}
