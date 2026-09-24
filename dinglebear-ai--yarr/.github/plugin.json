@@ -1,0 +1,9 @@
+{
+  "name": "dinglebear-ai--yarr",
+  "displayName": "yarr",
+  "description": "Rust MCP and CLI server for media automation fleets: Sonarr, Radarr, Prowlarr, Tautulli, Overseerr, Bazarr, SABnzbd, qBittorrent, Plex, and Jellyfin.",
+  "version": "1.0.0",
+  "author": "dinglebear-ai",
+  "homepage": "https://github.com/dinglebear-ai/yarr",
+  "skills": []
+}
