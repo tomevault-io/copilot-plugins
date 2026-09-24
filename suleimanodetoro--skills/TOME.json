@@ -2,7 +2,7 @@
   "name": "skills",
   "owner": "suleimanodetoro",
   "repo": "skills",
-  "description": "Agent skills for interface design, React, React Native, and software security.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/suleimanodetoro/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T15:33:35Z"
+  "distributed_at": "2026-09-24T19:19:59Z"
 }
