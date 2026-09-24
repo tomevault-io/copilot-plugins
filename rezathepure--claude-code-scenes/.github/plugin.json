@@ -1,0 +1,9 @@
+{
+  "name": "rezathepure--claude-code-scenes",
+  "displayName": "claude-code-scenes",
+  "description": "A fun Claude Code CLI with animated themes \u2014 prompt it, and it builds you your own!",
+  "version": "1.0.0",
+  "author": "rezathepure",
+  "homepage": "https://github.com/rezathepure/claude-code-scenes",
+  "skills": []
+}
