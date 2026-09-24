@@ -1,0 +1,22 @@
+{
+  "name": "rbln-sw--vllm-rbln",
+  "displayName": "vllm-rbln",
+  "description": "vllm-rbln",
+  "version": "1.0.0",
+  "author": "RBLN-SW",
+  "homepage": "https://github.com/RBLN-SW/vllm-rbln",
+  "skills": [
+    {
+      "name": "vllm-rbln",
+      "description": ""
+    },
+    {
+      "name": "vllm-rbln",
+      "description": ""
+    },
+    {
+      "name": "vllm-rbln",
+      "description": ""
+    }
+  ]
+}
