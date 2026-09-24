@@ -1,0 +1,22 @@
+{
+  "name": "xiao24bei--xiaobei-skill",
+  "displayName": "xiaobei-skill",
+  "description": "xiaobei-skill",
+  "version": "1.0.0",
+  "author": "xiao24bei",
+  "homepage": "https://github.com/xiao24bei/xiaobei-skill",
+  "skills": [
+    {
+      "name": "xiaobei-skill",
+      "description": ""
+    },
+    {
+      "name": "xiaobei-skill",
+      "description": ""
+    },
+    {
+      "name": "xiaobei-skill",
+      "description": ""
+    }
+  ]
+}
