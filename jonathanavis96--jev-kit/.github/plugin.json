@@ -1,0 +1,9 @@
+{
+  "name": "jonathanavis96--jev-kit",
+  "displayName": "jev-kit",
+  "description": "Everything you need to run TypeSafe's Jev with Claude Code: a tool-call guard, tier guard, file search, browser agent, review, belay, compaction and installers.",
+  "version": "1.0.0",
+  "author": "jonathanavis96",
+  "homepage": "https://github.com/jonathanavis96/jev-kit",
+  "skills": []
+}
