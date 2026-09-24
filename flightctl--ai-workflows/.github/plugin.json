@@ -1,0 +1,18 @@
+{
+  "name": "flightctl--ai-workflows",
+  "displayName": "ai-workflows",
+  "description": "Reusable AI workflows a team member can install globally or per-project, in any environment: Cursor, Claude Code and others.",
+  "version": "1.0.0",
+  "author": "flightctl",
+  "homepage": "https://github.com/flightctl/ai-workflows",
+  "skills": [
+    {
+      "name": "cve-fix",
+      "description": ""
+    },
+    {
+      "name": "ai-ready",
+      "description": ""
+    }
+  ]
+}
