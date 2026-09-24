@@ -1,0 +1,22 @@
+{
+  "name": "raofoundation--subtensor",
+  "displayName": "subtensor",
+  "description": "subtensor",
+  "version": "1.0.0",
+  "author": "RaoFoundation",
+  "homepage": "https://github.com/RaoFoundation/subtensor",
+  "skills": [
+    {
+      "name": "subtensor",
+      "description": ""
+    },
+    {
+      "name": "subtensor",
+      "description": ""
+    },
+    {
+      "name": "subtensor",
+      "description": ""
+    }
+  ]
+}
