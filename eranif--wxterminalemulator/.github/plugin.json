@@ -1,0 +1,9 @@
+{
+  "name": "eranif--wxterminalemulator",
+  "displayName": "wxTerminalEmulator",
+  "description": "GPU-accelerated terminal emulator library for wxWidgets with cross-platform support (Windows, macOS, Linux).",
+  "version": "1.0.0",
+  "author": "eranif",
+  "homepage": "https://github.com/eranif/wxTerminalEmulator",
+  "skills": []
+}
