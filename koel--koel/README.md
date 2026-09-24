@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [koel/koel](https://github.com/koel/koel).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [koel/koel](https://github.com/koel/koel) — a repo with 17261+ stars on GitHub.
+From [koel/koel](https://github.com/koel/koel) — a repo with 17262+ stars on GitHub.
 
 ---
 
