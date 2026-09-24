@@ -1,0 +1,9 @@
+{
+  "name": "8crsk--openclaw-android",
+  "displayName": "openclaw-android",
+  "description": "On-device AI agent for Android   local OpenClaw gateway, bring-your-own-key (NVIDIA/OpenAI/Anthropic/Gemini), UI automation via AccessibilityService. No backend, no telemetry.",
+  "version": "1.0.0",
+  "author": "8crsk",
+  "homepage": "https://github.com/8crsk/openclaw-android",
+  "skills": []
+}
