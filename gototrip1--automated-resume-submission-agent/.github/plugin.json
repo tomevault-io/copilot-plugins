@@ -1,0 +1,9 @@
+{
+  "name": "gototrip1--automated-resume-submission-agent",
+  "displayName": "Automated-resume-submission-Agent",
+  "description": "\u8fd9\u4e2a\u9879\u76ee\u662f\u53ef\u4ee5\u81ea\u5df1\u672c\u5730\u5316\u90e8\u7f72\u7684\u65b9\u5f0f\u8fdb\u884c\u81ea\u52a8\u5316\u6295\u9012\u7b80\u5386\uff0c\u50cfboss\u76f4\u8058\uff0c\u5b9e\u4e60\u50e7\uff0c\u730e\u8058",
+  "version": "1.0.0",
+  "author": "gototrip1",
+  "homepage": "https://github.com/gototrip1/Automated-resume-submission-Agent",
+  "skills": []
+}
