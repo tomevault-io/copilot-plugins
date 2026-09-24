@@ -1,0 +1,9 @@
+{
+  "name": "neochoon--agenthud",
+  "displayName": "agenthud",
+  "description": "Claude Code TUI dashboard: live monitor for parallel sessions and sub-agents, with LLM-generated daily/weekly digest",
+  "version": "1.0.0",
+  "author": "neochoon",
+  "homepage": "https://github.com/neochoon/agenthud",
+  "skills": []
+}
