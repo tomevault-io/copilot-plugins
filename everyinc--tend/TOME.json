@@ -1,0 +1,57 @@
+{
+  "name": "tend",
+  "owner": "EveryInc",
+  "repo": "tend",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tend",
+      "path": "docs/SKILL.md",
+      "github_url": "https://github.com/EveryInc/tend/tree/main/docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tend",
+      "path": ".claude/skills/tend/SKILL.md",
+      "github_url": "https://github.com/EveryInc/tend/tree/main/.claude/skills/tend/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/EveryInc/tend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T07:47:20Z"
+}
