@@ -1,25 +1,23 @@
-## yobo-project-core
+## yobo-tauri-rust
 
-> YOBO Gestion — stack, français, données, CI (toujours actif)
+> Backend Tauri / Rust — commandes, SQLite, auth
 
 
-# Contexte
+# Organisation
 
-Application **bureau Tauri 2** + **React 19** + **TypeScript** + **Vite 8** + **Tailwind 4** + **Zustand 5**. Métier : **caisse / menu / utilisateurs / historique** (snack). Toute l’UI et les **messages utilisateur** sont en **français**.
+- **Commandes** : `src-tauri/src/commands/*.rs`, enregistrées dans `lib.rs` via `generate_handler!`.
+- **DB** : `db.rs` (schéma, `migrate_schema`, `ensure_*`). Chemin fichier : éviter sous `src-tauri/` pour le watcher (déjà documenté dans le code).
+- **Autorisations gérant** : `authz.rs` + vérifs dans les commandes sensibles (`ensure_active_gerant`, etc.).
 
-## Données
+# Contrats
 
-- SQLite via Rust ; fichier sous le **dossier données local** de l’OS (`db.rs` / `open_db_file`), pas dans le dépôt.
-- Ne jamais versionner `src-tauri/target/`, `dist/`, `node_modules/`.
+- Réponses aux appels front : messages d’erreur en **français** clair quand c’est une erreur métier (`Result<_, String>`).
+- Mots de passe : **bcrypt** ; ne pas logger les PIN.
+- Erreurs internes DB : le front en **prod** masque le détail via `userFacingErrorMessage` + `client` ; côté Rust, rester cohérent (messages utilisateur vs `map_err(|e| e.to_string())` techniques).
 
-## Qualité attendue
+# Style
 
-- `npm run lint`, `npm run test`, `npm run build` doivent passer après un changement non trivial.
-- CI : `.github/workflows/ci.yml` (lint + tests + build front). Le build **Tauri complet** reste local sauf ajout explicite.
-
-## Portée des changements
-
-- Modifier **uniquement** ce qui est demandé ; pas de refactor large du store ou des pages « par habitude ».
+- Garder les `command` alignées sur l’existant (serde `rename_all = "camelCase"` pour le DTO côté TS).
 
 ---
 > Source: [suufiaane13/yobo-gestion](https://github.com/suufiaane13/yobo-gestion) — distributed by [TomeVault](https://tomevault.io).
