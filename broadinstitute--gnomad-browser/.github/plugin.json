@@ -1,0 +1,22 @@
+{
+  "name": "broadinstitute--gnomad-browser",
+  "displayName": "gnomad-browser",
+  "description": "gnomad-browser",
+  "version": "1.0.0",
+  "author": "broadinstitute",
+  "homepage": "https://github.com/broadinstitute/gnomad-browser",
+  "skills": [
+    {
+      "name": "gnomad-browser",
+      "description": ""
+    },
+    {
+      "name": "gnomad-browser",
+      "description": ""
+    },
+    {
+      "name": "gnomad-browser",
+      "description": ""
+    }
+  ]
+}
