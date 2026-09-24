@@ -1,0 +1,135 @@
+{
+  "name": "faibench_Frontier_InfraBench",
+  "owner": "one2piece2hello",
+  "repo": "faibench_Frontier_InfraBench",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-kda/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-kda/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-mr-readiness/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-mr-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-kda/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-kda/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-optimization-loop/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-optimization-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-dispatch-backends/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-dispatch-backends/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/lh/wli-torchtitan-gptoss-expert-compute/environment/repo/.claude/skills/torch_bisect/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/lh/wli-torchtitan-gptoss-expert-compute/environment/repo/.claude/skills/torch_bisect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-nvidia-performance/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-nvidia-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-correctness-coverage/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/lh/wli-fla-kkt-solvetril-build/environment/repo/.agents/skills/fla-correctness-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/lh/wli-torchtitan-gptoss-expert-compute/environment/repo/.claude/skills/numerics_debugging/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/lh/wli-torchtitan-gptoss-expert-compute/environment/repo/.claude/skills/numerics_debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-mr-readiness/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-mr-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-optimization-loop/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-optimization-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-dispatch-backends/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-dispatch-backends/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-nvidia-performance/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-nvidia-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-correctness-coverage/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/kfc/wli-fla-retention-chunkscan-loop16/task/environment/repo/.agents/skills/fla-correctness-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "faibench_Frontier_InfraBench",
+      "path": "tasks/lh/wli-torchtitan-gptoss-expert-compute/environment/repo/torchtitan/experiments/rl/.claude/skills/inference_perf_hillclimb/SKILL.md",
+      "github_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench/tree/main/tasks/lh/wli-torchtitan-gptoss-expert-compute/environment/repo/torchtitan/experiments/rl/.claude/skills/inference_perf_hillclimb/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/one2piece2hello/faibench_Frontier_InfraBench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T22:54:25Z"
+}
