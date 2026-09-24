@@ -7,7 +7,7 @@ AI-native 3D game engine for the browser. MCP commands let LLMs and agents build
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Tristan578/project-forge](https://github.com/Tristan578/project-forge).
+Original source: `.windsurf/rules/*.md` in [Tristan578/project-forge](https://github.com/Tristan578/project-forge).
 
 ## Also available for
 
@@ -15,7 +15,7 @@ Original source: `GEMINI.md` in [Tristan578/project-forge](https://github.com/Tr
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 From [Tristan578/project-forge](https://github.com/Tristan578/project-forge) — a repo with 9+ stars on GitHub.
 
