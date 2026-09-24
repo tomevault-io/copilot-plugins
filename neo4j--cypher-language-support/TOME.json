@@ -1,0 +1,69 @@
+{
+  "name": "cypher-language-support",
+  "owner": "neo4j",
+  "repo": "cypher-language-support",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cypher-language-support",
+      "path": ".claude/skills/parse-cypher-with-antlr/SKILL.md",
+      "github_url": "https://github.com/neo4j/cypher-language-support/tree/main/.claude/skills/parse-cypher-with-antlr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cypher-language-support",
+      "path": ".claude/skills/release-and-publish-flows/SKILL.md",
+      "github_url": "https://github.com/neo4j/cypher-language-support/tree/main/.claude/skills/release-and-publish-flows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cypher-language-support",
+      "path": ".claude/skills/run-vscode-extension-tests/SKILL.md",
+      "github_url": "https://github.com/neo4j/cypher-language-support/tree/main/.claude/skills/run-vscode-extension-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cypher-language-support",
+      "path": ".claude/skills/finish-grammar-artifact-bump/SKILL.md",
+      "github_url": "https://github.com/neo4j/cypher-language-support/tree/main/.claude/skills/finish-grammar-artifact-bump/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/neo4j/cypher-language-support",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T20:38:16Z"
+}
