@@ -1,0 +1,9 @@
+{
+  "name": "eddmann--marginalia",
+  "displayName": "Marginalia",
+  "description": "Desktop ebook reader with a built-in AI companion - select a passage, ask a question, and chat about it without leaving the page.",
+  "version": "1.0.0",
+  "author": "eddmann",
+  "homepage": "https://github.com/eddmann/Marginalia",
+  "skills": []
+}
