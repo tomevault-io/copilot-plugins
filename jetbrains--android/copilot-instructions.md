@@ -1,63 +1,33 @@
 ## android
 
-> The `screen-sharing-agent` is a native Android application designed to facilitate screen mirroring and remote control functionality for Android Studio. It acts as an on-device agent that captures screen video and audio, and accepts input and control commands from a host (Android Studio).
+> This document describes how an AI agent can interact with common Preview Designer features.
 
-# Project: Screen Sharing Agent
+# Preview Designer Agent Guide
 
-## Overview
+This document describes how an AI agent can interact with common Preview Designer features.
 
-The `screen-sharing-agent` is a native Android application designed to facilitate screen mirroring and remote control functionality for Android Studio. It acts as an on-device agent that captures screen video and audio, and accepts input and control commands from a host (Android Studio).
+## Key Entry Points
 
-## Architecture
+### 1. Manual Refresh and Wait
+If you modify code and need to ensure the preview is updated before proceeding:
+- **`CommonPreviewRepresentation`**: Use `requestRefresh()` on the active representation.
+- **`PreviewRepresentationManager`**: Use `getInstance(file).currentRepresentation` to find the active lifecycle manager.
+- **Wait Pattern**: To wait for a refresh to complete in an agent context, use `CompletableDeferred`.
 
-*   **Type:** Hybrid Android Application (Java wrapper + Native C++ Shared Library).
-*   **Entry Point:** The application is launched via `app_process` invoking `com.android.tools.screensharing.Main`. This Java class loads the native library `libscreen-sharing-agent.so` and transfers control to the native `agent.cc`.
-*   **Core Logic:**
-    *   **Native Agent (`agent.cc`):** Initializes the environment, manages sockets, and runs the main event loop.
-    *   **Communication:** Connects to Unix domain sockets (video, audio, control) in the abstract namespace.
-    *   **Protocol:** Uses a custom binary protocol defined in `control_messages.h` for exchanging commands and data (input events, display config, clipboard sync, etc.).
-    *   **Streaming:** Supports video (VP8/AVC/HEVC) and audio streaming.
-    *   **Input Injection:** Injects motion, key, and text events into the system.
-    *   **XR Support:** Includes specific handling for XR devices (head pose, passthrough, etc.).
+### 2. Activation State
+Previews might be in a "Background" or "Paused" state. Use `PreviewLifecycleManager` to ensure the representation is active before requesting a render.
 
-## Key Files
+## Examples and Testing
 
-*   **`app/src/main/cpp/agent.cc`**: The heart of the agent. Handles initialization, socket connections, and the main run loop.
-*   **`app/src/main/cpp/main.cc`**: Contains the JNI entry point `Java_com_android_tools_screensharing_Main_nativeMain`.
-*   **`app/src/main/cpp/control_messages.h`**: Defines the classes for the binary control protocol (requests and responses).
-*   **`app/src/main/java/com/android/tools/screensharing/Main.java`**: The Java class responsible for loading the native library and starting the native agent.
-*   **`app/src/main/cpp/CMakeLists.txt`**: CMake build configuration for the native library.
-*   **`app/build.gradle.kts`**: Android Gradle configuration.
-
-## Building and Running
-
-### Build
-
-The project uses Gradle with CMake for native compilation.
-
+### How to run tests
+Use Bazel to run common preview tests:
 ```bash
-./gradlew assembleDebug
+bazel test //tools/adt/idea/preview-designer:intellij.android.preview-designer.tests
 ```
 
-This will build the APK and the underlying shared library.
-
-### Execution Model
-
-This agent is typically not installed as a regular user app but pushed to the device (e.g., to `/data/local/tmp/`) and executed directly via shell commands from Android Studio.
-
-Example conceptual launch sequence:
-1.  Push artifacts to device.
-2.  Run via `app_process`:
-    ```bash
-    CLASSPATH=... app_process /system/bin com.android.tools.screensharing.Main --socket=...
-    ```
-
-## Development Conventions
-
-*   **Language Standards:** C++20 for native code, Java 8 for the launcher.
-*   **Code Style:** Follows Google C++ Style Guide and Android coding conventions.
-*   **Dependencies:** Relies on Android NDK libraries (`aaudio`, `camera2ndk`, `log`, `mediandk`, `android`).
+## Related Documentation
+- [Preview Designer Architecture](docs/architecture.md)
 
 ---
 > Source: [JetBrains/android](https://github.com/JetBrains/android) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
