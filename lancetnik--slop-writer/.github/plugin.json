@@ -1,0 +1,9 @@
+{
+  "name": "lancetnik--slop-writer",
+  "displayName": "slop-writer",
+  "description": "Claude Code skill that scrapes a Telegram channel into SQLite, answers analytics questions over it, and schedules future posts",
+  "version": "1.0.0",
+  "author": "Lancetnik",
+  "homepage": "https://github.com/Lancetnik/slop-writer",
+  "skills": []
+}
