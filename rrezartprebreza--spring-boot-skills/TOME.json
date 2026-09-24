@@ -1,0 +1,435 @@
+{
+  "name": "spring-boot-skills",
+  "owner": "rrezartprebreza",
+  "repo": "spring-boot-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rest-api-conventions",
+      "path": "skills/rest-api-conventions",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/rest-api-conventions",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/mcp-server/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/mcp-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/mcp-server/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/mcp-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/null-safety/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/null-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/null-safety/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/null-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/spring-batch/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/spring-batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/spring-batch/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/spring-batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/multi-tenancy/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/multi-tenancy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/multi-tenancy/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/multi-tenancy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/openapi-first/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/openapi-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/openapi-first/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/openapi-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/api-versioning/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/api-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/api-versioning/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/api-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/spring-data-jpa/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/spring-data-jpa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/spring-data-jpa/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/spring-data-jpa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/testing-pyramid/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/testing-pyramid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/testing-pyramid/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/testing-pyramid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/spring-modulith/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/spring-modulith/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/spring-modulith/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/spring-modulith/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/ai-observability/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/ai-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/ai-observability/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/ai-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/resilience-retry/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/resilience-retry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/resilience-retry/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/resilience-retry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/spring-data-redis/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/spring-data-redis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/spring-data-redis/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/spring-data-redis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/flyway-migrations/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/flyway-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/flyway-migrations/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/flyway-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/multi-module-maven/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/multi-module-maven/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/multi-module-maven/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/multi-module-maven/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/spring-security-jwt/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/spring-security-jwt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/spring-security-jwt/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/spring-security-jwt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/layered-architecture/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/layered-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/layered-architecture/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/layered-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/rest-api-conventions/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/rest-api-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/idempotency-patterns/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/idempotency-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/idempotency-patterns/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/idempotency-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/spring-cloud-gateway/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/spring-cloud-gateway/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/rest-api-conventions/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/rest-api-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/spring-cloud-gateway/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/spring-cloud-gateway/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/domain-driven-design/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/domain-driven-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/domain-driven-design/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/domain-driven-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/spring-ai-integration/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/spring-ai-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/spring-ai-integration/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/spring-ai-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/spring-boot-migration/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/spring-boot-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/spring-boot-migration/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/spring-boot-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/transactional-patterns/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/transactional-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/transactional-patterns/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/transactional-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/event-driven-messaging/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/event-driven-messaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/oauth2-resource-server/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/oauth2-resource-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/oauth2-resource-server/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/oauth2-resource-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/event-driven-messaging/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/event-driven-messaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/hexagonal-architecture/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/hexagonal-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/hexagonal-architecture/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/hexagonal-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/http-interface-clients/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/http-interface-clients/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/http-interface-clients/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/http-interface-clients/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/problem-details-rfc9457/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/problem-details-rfc9457/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/problem-details-rfc9457/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/problem-details-rfc9457/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/production-observability/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/production-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/production-observability/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/production-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/configuration-properties/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/configuration-properties/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/configuration-properties/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/configuration-properties/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/webflux-reactive-patterns/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/webflux-reactive-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/webflux-reactive-patterns/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/webflux-reactive-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-4/container-native-deployment/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-4/container-native-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skills",
+      "path": "skills/spring-boot-3/container-native-deployment/SKILL.md",
+      "github_url": "https://github.com/rrezartprebreza/spring-boot-skills/tree/main/skills/spring-boot-3/container-native-deployment/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rrezartprebreza/spring-boot-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T01:33:08Z"
+}
