@@ -1,21 +1,25 @@
-## yobo-frontend-ts
+## yobo-project-core
 
-> TypeScript src — lib, store .ts, pas les tests
+> YOBO Gestion — stack, français, données, CI (toujours actif)
 
 
-# Fichiers `src/lib/`
+# Contexte
 
-- Logique **pure** de préférence ; exports via `src/lib/index.ts` quand c’est déjà le pattern du projet.
-- **Ne pas** importer le store dans les utilitaires bas niveau (éviter les cycles).
+Application **bureau Tauri 2** + **React 19** + **TypeScript** + **Vite 8** + **Tailwind 4** + **Zustand 5**. Métier : **caisse / menu / utilisateurs / historique** (snack). Toute l’UI et les **messages utilisateur** sont en **français**.
 
-# Store (`yobo-store.ts`)
+## Données
 
-- Nouvelles actions : suivre le style existant (`get()`, `set`, `invoke`, `client`, `logDevError`).
-- `persist` Zustand : ne persister que le **thème** (ne pas ajouter PIN / données sensibles).
+- SQLite via Rust ; fichier sous le **dossier données local** de l’OS (`db.rs` / `open_db_file`), pas dans le dépôt.
+- Ne jamais versionner `src-tauri/target/`, `dist/`, `node_modules/`.
 
-# Fichiers de tests
+## Qualité attendue
 
-- Les `*.test.ts` ont une règle dédiée ; ici, ne pas les traiter comme du code prod.
+- `npm run lint`, `npm run test`, `npm run build` doivent passer après un changement non trivial.
+- CI : `.github/workflows/ci.yml` (lint + tests + build front). Le build **Tauri complet** reste local sauf ajout explicite.
+
+## Portée des changements
+
+- Modifier **uniquement** ce qui est demandé ; pas de refactor large du store ou des pages « par habitude ».
 
 ---
 > Source: [suufiaane13/yobo-gestion](https://github.com/suufiaane13/yobo-gestion) — distributed by [TomeVault](https://tomevault.io).
