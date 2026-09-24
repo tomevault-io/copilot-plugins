@@ -1,0 +1,9 @@
+{
+  "name": "allisterb--camel",
+  "displayName": "Camel",
+  "description": "A 'code-mode' MCP server that allows LLMs to safely generate and execute JavaScript code that performs forensic analysis and employs traditional machine learning algorithms using SIFT Workstation for ",
+  "version": "1.0.0",
+  "author": "allisterb",
+  "homepage": "https://github.com/allisterb/Camel",
+  "skills": []
+}
