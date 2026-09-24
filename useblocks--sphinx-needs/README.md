@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [useblocks/sphinx-needs](https://github.com/useb
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [useblocks/sphinx-needs](https://github.com/useblocks/sphinx-needs) — a repo with 301+ stars on GitHub.
+From [useblocks/sphinx-needs](https://github.com/useblocks/sphinx-needs) — a repo with 304+ stars on GitHub.
 
 ---
 
