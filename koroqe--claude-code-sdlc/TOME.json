@@ -3,7 +3,7 @@
   "owner": "Koroqe",
   "repo": "claude-code-sdlc",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,267 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "claude-code-sdlc",
+      "path": "skills/sdlc-fast/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/skills/sdlc-fast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "skills/sdlc-quick/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/skills/sdlc-quick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "skills/context-refresh/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/skills/context-refresh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "skills/bootstrap-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/skills/bootstrap-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "skills/design-foundation/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/skills/design-foundation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/bad-skill/skills/broken/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/bad-skill/skills/broken/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/bad-skill/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/bad-skill/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/instinct-discipline/bad-weakened/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/instinct-discipline/bad-weakened/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/triage-parity/bad-step4-drift/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/triage-parity/bad-step4-drift/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/plugin-manifest/duplicate-hooks/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/plugin-manifest/duplicate-hooks/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-agent-count/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-agent-count/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/instinct-discipline/bad-weakened/skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/instinct-discipline/bad-weakened/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/instinct-discipline/bad-weakened-dedup/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/instinct-discipline/bad-weakened-dedup/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-verifier-tools/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-verifier-tools/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/capability-match/bad-unimplementable/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/capability-match/bad-unimplementable/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/plugin-manifest/bad-directory-string/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/plugin-manifest/bad-directory-string/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-agent-count/skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-agent-count/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-agent-count/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-agent-count/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-merge-ready-note/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-merge-ready-note/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/red-phase-contract/bad-reverted-step2/skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/red-phase-contract/bad-reverted-step2/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-plan-critic-write/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-plan-critic-write/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-verifier-verdicts/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-verifier-verdicts/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-agent-count/skills/bootstrap-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-agent-count/skills/bootstrap-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/instinct-discipline/bad-weakened-dedup/skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/instinct-discipline/bad-weakened-dedup/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-verifier-tools/skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-verifier-tools/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-verifier-tools/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-verifier-tools/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-verifier-tools/skills/bootstrap-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-verifier-tools/skills/bootstrap-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-merge-ready-note/skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-merge-ready-note/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-merge-ready-note/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-merge-ready-note/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-plan-critic-write/skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-plan-critic-write/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-verifier-verdicts/skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-verifier-verdicts/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-plan-critic-write/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-plan-critic-write/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-verifier-verdicts/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-verifier-verdicts/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-merge-ready-note/skills/bootstrap-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-merge-ready-note/skills/bootstrap-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-security-auditor-filter/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-security-auditor-filter/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-plan-critic-write/skills/bootstrap-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-plan-critic-write/skills/bootstrap-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-verifier-verdicts/skills/bootstrap-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-verifier-verdicts/skills/bootstrap-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-security-auditor-filter/skills/implement-slice/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-security-auditor-filter/skills/implement-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-security-auditor-filter/skills/develop-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-security-auditor-filter/skills/develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdlc",
+      "path": "tests/fixtures/ci/verification-upgrade/bad-security-auditor-filter/skills/bootstrap-feature/SKILL.md",
+      "github_url": "https://github.com/Koroqe/claude-code-sdlc/tree/main/tests/fixtures/ci/verification-upgrade/bad-security-auditor-filter/skills/bootstrap-feature/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Koroqe/claude-code-sdlc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T18:56:38Z"
+  "distributed_at": "2026-09-24T22:40:10Z"
 }
