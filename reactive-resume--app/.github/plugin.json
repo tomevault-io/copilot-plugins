@@ -1,0 +1,14 @@
+{
+  "name": "reactive-resume--app",
+  "displayName": "app",
+  "description": "app",
+  "version": "1.0.0",
+  "author": "reactive-resume",
+  "homepage": "https://github.com/reactive-resume/app",
+  "skills": [
+    {
+      "name": "app",
+      "description": ""
+    }
+  ]
+}
