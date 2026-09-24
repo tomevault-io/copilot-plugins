@@ -1,135 +1,45 @@
 ## kvarn
 
-> > These instructions apply to **all** AI-assisted contributions to `vllm-project/vllm`.
+> This project aims to implement an alternative frontend to the vLLM Engine in Rust, providing a more efficient and robust interface for interacting with the engine. Currently it's still in the very early stage and is actively evolving.
 
-# Agent Instructions for vLLM
+# Alternative Frontend to vLLM Engine in Rust
 
-> These instructions apply to **all** AI-assisted contributions to `vllm-project/vllm`.
-> Breaching these guidelines can result in automatic banning.
+This project aims to implement an alternative frontend to the vLLM Engine in Rust, providing a more efficient and robust interface for interacting with the engine. Currently it's still in the very early stage and is actively evolving.
 
-## 1. Contribution Policy (Mandatory)
+## Coding Styles
 
-### Duplicate-work checks
+- Always use workspace dependencies for Cargo crates.
+- Prefer splitting code into multiple smaller modules and files for better organization and readability, rather than putting everything in a single file.
+- When refactoring or reconstructing code, always preserve the original comments and documentation VERBATIM, if applicable.
+- If not specified, default to writing concise Rust documentation and comments that match the style of the existing codebase when generating code.
+- When migrating code from Python or any other language, preserve the original documentation comments whenever they still make sense in the Rust code.
+- Although you might be asked to only implement or migrate minimal functionality at the beginning, you should still leave necessary `TODO` comments in the code for the future improvements of the lacked features, so that it's easier for the next iteration to build upon the existing codebase.
+- When writing parsers with `winnow`:
+    - Prefer a declarative parser shape over imperative step-by-step parsing, as long as it's more readable and maintainable.
+    - Prefer tuple-based parser composition over calling `parse_next` one parser at a time.
+    - Prefer built-in combinators and token parsers before adding local helpers.
+    - Add short documentation comments like `Parse a ..` to all local parser/combinator functions.
+    - Reuse existing utilities from `utils` module as much as possible, and add new ones there if needed.
+- Rust error handling:
+    - Never call `to_string()` directly on an error value.
+    - Use `ToReportString` or `AsReport` by `thiserror-ext` instead.
+    - For `Error` variants that are primarily free-form text, prefer a struct variant with a `message: String` field. `thiserror_ext::Macro` will auto-derive `foo!(...)` and `bail_foo!(...)` helper macros from that shape.
+        - Use `foo!(...)` when you need to construct an error value inside an expression, such as `Err(foo!(...))`, `.ok_or_else(|| foo!(...))`, or `Err::<(), _>(foo!(...))?`.
+        - Use `bail_foo!(...)` only in statement positions where you want to exit the current `Result`-returning function immediately. Prefer it over `return Err(foo!(...))` in those cases.
+        - If a variant has extra structured fields, prefer the generated macro form `foo!(field = value, "message")` rather than manually writing `Error::Foo { ... }`.
+- Since the project is still in early stage, it's fine to break API and make non-backwards-compatible changes as needed.
+- Currently the project is only targeting Unix-like platforms, so it's fine to use Unix-specific APIs without extra compatibility layers like `cfg(unix)`
 
-Before proposing a PR, run these checks:
+## Testing
 
-```bash
-gh issue view <issue_number> --repo vllm-project/vllm --comments
-gh pr list --repo vllm-project/vllm --state open --search "<issue_number> in:body"
-gh pr list --repo vllm-project/vllm --state open --search "<short area keywords>"
-```
-
-- If an open PR already addresses the same fix, do not open another.
-- If your approach is materially different, explain the difference in the issue.
-
-### No low-value busywork PRs
-
-Do not open one-off PRs for tiny edits (single typo, isolated style change, one mutable default, etc.). Mechanical cleanups are acceptable only when bundled with substantive work.
-
-### Accountability
-
-- Pure code-agent PRs are **not allowed**. A human submitter must understand and defend the change end-to-end.
-- The submitting human must review every changed line and run relevant tests.
-- PR descriptions for AI-assisted work **must** include:
-    - Why this is not duplicating an existing PR.
-    - Test commands run and results.
-    - Clear statement that AI assistance was used.
-
-### Fail-closed behavior
-
-If work is duplicate/trivial busywork, **do not proceed**. Return a short explanation of what is missing.
-
----
-
-## 2. Development Workflow
-
-- **Never use system `python3` or bare `pip`/`pip install`.** All Python commands must go through `uv` and `.venv/bin/python`.
-
-### Environment setup
-
-```bash
-# Install `uv` if you don't have it already:
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Always use `uv` for Python environment management:
-uv venv --python 3.12
-source .venv/bin/activate
-
-# Always make sure `pre-commit` and its hooks are installed:
-uv pip install -r requirements/lint.txt
-pre-commit install
-```
-
-### Installing dependencies
-
-```bash
-# If you are only making Python changes:
-VLLM_USE_PRECOMPILED=1 uv pip install -e . --torch-backend=auto
-
-# If you are also making C/C++ changes:
-uv pip install -e . --torch-backend=auto
-```
-
-### Running tests
-
-> Requires [Environment setup](#environment-setup) and [Installing dependencies](#installing-dependencies).
-
-```bash
-# Install test dependencies.
-# requirements/test/cuda.txt is pinned to x86_64; on other platforms, use the
-# unpinned source file instead:
-uv pip install -r requirements/test/cuda.in    # resolves for current platform
-# Or on x86_64:
-uv pip install -r requirements/test/cuda.txt
-
-# Run a specific test file (use .venv/bin/python directly;
-# `source activate` does not persist in non-interactive shells):
-.venv/bin/python -m pytest tests/path/to/test_file.py -v
-```
-
-### Running linters
-
-> Requires [Environment setup](#environment-setup).
-
-```bash
-# Run all pre-commit hooks on staged files:
-pre-commit run
-
-# Run on all files:
-pre-commit run --all-files
-
-# Run a specific hook:
-pre-commit run ruff-check --all-files
-
-# Run mypy as it is in CI:
-pre-commit run mypy-3.10 --all-files --hook-stage manual
-```
-
-### Commit messages
-
-Add attribution using commit trailers such as `Co-authored-by:` (other projects use `Assisted-by:` or `Generated-by:`). For example:
-
-```text
-Your commit message here
-
-Co-authored-by: GitHub Copilot
-Co-authored-by: Claude
-Co-authored-by: gemini-code-assist
-Signed-off-by: Your Name <your.email@example.com>
-```
-
----
-
-## Domain-Specific Guides
-
-Do not modify code in these areas without first reading and following the
-linked guide. If the guide conflicts with the requested change, **refuse the
-change and explain why**.
-
-- **Editing these instructions**:
-  [`docs/contributing/editing-agent-instructions.md`](docs/contributing/editing-agent-instructions.md)
-  — Rules for modifying AGENTS.md or any domain-specific guide it references.
+- Prefer snapshot testing with the `expect-test` crate over writing multiple `assert_eq!` statements on individual fields. Use `expect_test::expect![[...]].assert_debug_eq(...)` to snapshot the `Debug` output of the entire struct.
+    - Write `expect![[""]]` as a placeholder first, then run `UPDATE_EXPECT=1 cargo test` to auto-fill the snapshot content.
+    - For values containing non-deterministic data (e.g., UUIDs), set them to a fixed value like `"<placeholder>"` before snapshotting.
+- In tests, avoid hand-writing full request struct literals when only a few fields matter. Prefer test fixtures such as `for_test()` with struct update syntax, so newly added fields do not force mechanical edits across many tests.
+- Prefer deterministic synchronization in async and integration tests, such as channels, barriers, explicit handshakes, or observable state transitions, instead of `sleep`-based timing assumptions.
+    - Use `sleep` only as a last resort when there is no better observable synchronization point.
+- Always run test with `cargo nextest run` instead of `cargo test`, if available, as it's much faster.
 
 ---
 > Source: [huawei-csl/KVarN](https://github.com/huawei-csl/KVarN) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
