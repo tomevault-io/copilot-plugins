@@ -1,0 +1,9 @@
+{
+  "name": "nstfn--agent-loom",
+  "displayName": "agent-loom",
+  "description": "Agent skills management and synchronization app",
+  "version": "1.0.0",
+  "author": "nstfn",
+  "homepage": "https://github.com/nstfn/agent-loom",
+  "skills": []
+}
