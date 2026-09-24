@@ -1,0 +1,9 @@
+{
+  "name": "maka-agent--maka-cu",
+  "displayName": "maka-cu",
+  "description": "Native macOS execution layer for Maka Computer Use. Forked from iFurySt/open-codex-computer-use (MIT).",
+  "version": "1.0.0",
+  "author": "maka-agent",
+  "homepage": "https://github.com/maka-agent/maka-cu",
+  "skills": []
+}
