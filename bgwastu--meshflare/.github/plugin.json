@@ -1,0 +1,9 @@
+{
+  "name": "bgwastu--meshflare",
+  "displayName": "meshflare",
+  "description": "Self-hostable Cloudflare Mesh manager \u2014 nodes, devices, .mesh DNS, WireGuard, DNS filtering",
+  "version": "1.0.0",
+  "author": "bgwastu",
+  "homepage": "https://github.com/bgwastu/meshflare",
+  "skills": []
+}
