@@ -1,0 +1,9 @@
+{
+  "name": "my-chiefmind--ai-maestro",
+  "displayName": "ai-maestro",
+  "description": "Conduct a roster of AI coding agents against a work board \u2014 a board-driven multi-agent delivery kit.",
+  "version": "1.0.0",
+  "author": "my-chiefmind",
+  "homepage": "https://github.com/my-chiefmind/ai-maestro",
+  "skills": []
+}
