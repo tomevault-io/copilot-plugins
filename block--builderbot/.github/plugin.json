@@ -1,0 +1,26 @@
+{
+  "name": "block--builderbot",
+  "displayName": "builderbot",
+  "description": "builderbot",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/builderbot",
+  "skills": [
+    {
+      "name": "builderbot",
+      "description": ""
+    },
+    {
+      "name": "builderbot",
+      "description": ""
+    },
+    {
+      "name": "builderbot",
+      "description": ""
+    },
+    {
+      "name": "builderbot",
+      "description": ""
+    }
+  ]
+}
