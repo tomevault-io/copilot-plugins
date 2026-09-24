@@ -1,0 +1,22 @@
+## canteen
+
+> 食堂子系统开发约定
+
+
+# 食堂子系统
+
+读 `docs/canteen/CONTEXT.md`、ADR 0008、0009；踩坑见 `docs/canteen/LESSONS-187-188.md`。
+
+- 公开读：`/canteen`、`/api/canteens` 无鉴权（ADR 0001）。
+- Admin 写：`requireAdmin()` in actions；API 用 `getAdminUserForApi()`。
+- Mock：`CANTEEN_MOCK_DATA=true` 时走 `canteen-mock.ts`；种子仅「演示食堂 / 演示菜品」。
+- 餐段排序：`compareMealPeriods()`，顺序早→午→晚。
+- 餐段默认 Tab：客户端 `defaultMealPeriodForHkt()`，勿在 RSC 用服务器时区。
+- 排行纯函数：`canteen-rankings.ts`；`"use server"` 文件只 export async。
+- 💩堂榜：`canteen-shame-rank.ts` / `canteen-shame-actions.ts`；append-only，按港时 `voteDate` 展示当日；匿名日限额 50；管理员在 `site_settings` 维护含当天的截止日期。
+- 删除菜单项：`where(and(eq(id), eq(canteenId)))`。
+- UI 链接按钮：不用 `Button asChild`（见 `pr-ready-checklist`）。
+
+---
+> Source: [HomuraCatMadoka/CUpedia](https://github.com/HomuraCatMadoka/CUpedia) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
