@@ -1,54 +1,25 @@
-## fable-grok-subagents
+## agentic-stack-desktop
 
-> Model split requiring Claude Fable 5.1 selected for parent; Grok 4.6 cavecrew subagents handle bounded delegated work.
+> Autohand Code CLI reads `AGENTS.md` as project instructions. This file
 
+# AGENTS.md — Autohand Code CLI adapter for agentic-stack
 
-# Fable parent, Grok subagents
+Autohand Code CLI reads `AGENTS.md` as project instructions. This file
+points it at the portable `.agent/` brain so Autohand shares the same
+memory, skills, and protocols as the other installed harnesses.
 
-Prerequisite: select Claude Fable 5.1 for the parent in Cursor's model picker
-before starting the session. Cursor project rules cannot pin the parent model.
-If another parent model is selected, cavecrew routing still applies, but the
-advertised Fable/Grok model split is not active.
+Before acting:
 
-With that prerequisite met, the parent does judgment work only: scoping,
-design decisions, final synthesis, and user communication.
+1. Read `.agent/AGENTS.md`.
+2. Read `.agent/memory/personal/PREFERENCES.md` when it exists.
+3. Use `.agent/tools/recall.py "<task intent>"` for relevant accepted
+   lessons on non-trivial work.
+4. Prefer skills from `.agent/skills/` when their triggers match.
 
-Subagents run on Grok 4.6, pinned by `model: grok-4.6` in `.cursor/agents/*.md`. Never set a cavecrew subagent to `model: inherit`.
-
-## Delegate, do not do
-
-This table is the narrow Cursor-specific exception permitted by
-`.agent/protocols/delegation.md`. Other delegation decisions follow that
-general protocol.
-
-| Job | Subagent |
-|---|---|
-| Locate, bulk grep, file discovery | `cavecrew-investigator` |
-| 1–2 file surgical edit | `cavecrew-builder` |
-| Diff review before commit or PR | `cavecrew-reviewer` |
-| Test loops and verbose shell runs | `cavecrew-builder` (edit, then run tests, report shortest decisive line) |
-| Parallel scouting | 2–3 `cavecrew-investigator` in one message |
-
-## Never burn Fable on grunt work
-
-Parent never runs bulk grep, test loops, or multi-file mechanical edits itself.
-
-Do not use built-in Explore for locate; it may pick its own helper model. Use `cavecrew-investigator`.
-
-Parent reads subagent summaries only. Do not re-read the same diffs the reviewer already summarized.
-
-## Style
-
-Caveman full on parent and cavecrew subagents (see `.cursor/rules/caveman.mdc`, `.cursor/skills/caveman/SKILL.md`).
-
-Cavecrew contracts in `.cursor/skills/cavecrew/SKILL.md`. Investigator returns path:line hits. Builder returns path:line-range plus verified. Reviewer returns findings or `No issues.`
-
-## Limits
-
-Cursor overrides a pinned model only when a team admin blocks it, the plan lacks it, or a legacy Max Mode rule applies (per Cursor docs).
-
-This file is config only. It changes no product code.
+After meaningful work, record a short reflection through
+`.agent/tools/memory_reflect.py` so the normal dream/review cycle can
+stage candidate lessons.
 
 ---
 > Source: [codejunkie99/agentic-stack-desktop](https://github.com/codejunkie99/agentic-stack-desktop) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
