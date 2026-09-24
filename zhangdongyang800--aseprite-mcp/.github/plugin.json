@@ -1,0 +1,9 @@
+{
+  "name": "zhangdongyang800--aseprite-mcp",
+  "displayName": "Aseprite_MCP",
+  "description": "Most Aseprite MCPs give AI hands. This one gives it eyes \u2014 it draws, looks at the canvas, and fixes its own pixels.",
+  "version": "1.0.0",
+  "author": "ZhangDongyang800",
+  "homepage": "https://github.com/ZhangDongyang800/Aseprite_MCP",
+  "skills": []
+}
