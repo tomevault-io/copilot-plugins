@@ -4,7 +4,7 @@
   "repo": "domain-driven-design-skills",
   "description": "Domain driven design skills for architect",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -67,9 +67,495 @@
       "path": "relative-skills/claude-skill-registry/skills/testing/vue-composable-testing-alexanderop-workouttracker",
       "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/vue-composable-testing-alexanderop-workouttracker",
       "description": ""
+    },
+    {
+      "name": "typescript-ecosystem",
+      "path": "relative-skills/claude-skill-registry/skills/product/typescript-ecosystem",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/product/typescript-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "next-js-better-auth-integration",
+      "path": "relative-skills/claude-skill-registry/skills/testing/nextjs-better-auth-integration-abdul-haseeb360-hackathon-ii-ai-nati",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/nextjs-better-auth-integration-abdul-haseeb360-hackathon-ii-ai-nati",
+      "description": ""
+    },
+    {
+      "name": "workers-multi-lang",
+      "path": "relative-skills/claude-skill-registry/skills/skills/other/cloudflare-workers-multi-lang",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/skills/other/cloudflare-workers-multi-lang",
+      "description": ""
+    },
+    {
+      "name": "django-reviewer",
+      "path": "relative-skills/claude-skill-registry/skills/security/django-reviewer-physics91-claude-vibe-8833b04f",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/security/django-reviewer-physics91-claude-vibe-8833b04f",
+      "description": ""
+    },
+    {
+      "name": "fastapi-auth-patterns",
+      "path": "relative-skills/claude-skill-registry/skills/security/fastapi-auth-patterns-vanman2024-ai-dev-marketplace-ecacde42",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/security/fastapi-auth-patterns-vanman2024-ai-dev-marketplace-ecacde42",
+      "description": ""
+    },
+    {
+      "name": "fastapi",
+      "path": "relative-skills/claude-skill-registry/skills/testing/fastapi-syedaashnaghazanfar-full-stack-todo-app",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/fastapi-syedaashnaghazanfar-full-stack-todo-app",
+      "description": ""
+    },
+    {
+      "name": "fastapi-ddd-guidelines",
+      "path": "relative-skills/claude-skill-registry/skills/testing/fastapi-ddd-guidelines-higashi-masafumi-ai-coding-template-39ab22b0",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/fastapi-ddd-guidelines-higashi-masafumi-ai-coding-template-39ab22b0",
+      "description": ""
+    },
+    {
+      "name": "security-fastapi",
+      "path": "relative-skills/claude-skill-registry/skills/security/security-fastapi-igorwarzocha-opencode-workflows-23ce27ad",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/security/security-fastapi-igorwarzocha-opencode-workflows-23ce27ad",
+      "description": ""
+    },
+    {
+      "name": "fastapi-project-structure",
+      "path": "relative-skills/claude-skill-registry/skills/product/fastapi-project-structure-vanman2024-ai-dev-marketplace",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/product/fastapi-project-structure-vanman2024-ai-dev-marketplace",
+      "description": ""
+    },
+    {
+      "name": "backend-dev-guidelines",
+      "path": "relative-skills/claude-skill-registry/skills/testing/backend-dev-guidelines-diet103-claude-code-infrastr",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/backend-dev-guidelines-diet103-claude-code-infrastr",
+      "description": ""
+    },
+    {
+      "name": "passport",
+      "path": "relative-skills/claude-skill-registry/skills/security/passport-mgd34msu-goodvibes-plugin",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/security/passport-mgd34msu-goodvibes-plugin",
+      "description": ""
+    },
+    {
+      "name": "implementing-websocket-realtime",
+      "path": "relative-skills/claude-skill-registry/skills/testing/implementing-websocket-realtime-miethe-family-shopping-dash-b3a8bf1b",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/implementing-websocket-realtime-miethe-family-shopping-dash-b3a8bf1b",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-ops",
+      "path": "relative-skills/claude-skill-registry/skills/skills/other/kubernetes-ops",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/skills/other/kubernetes-ops",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-workflows",
+      "path": "relative-skills/claude-skill-registry/skills/testing/ci-cd-workflows",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/ci-cd-workflows",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-workflows",
+      "path": "relative-skills/claude-skill-registry/skills/testing/ci-cd-workflows-ai-debugger-inc-aidb-39b18ca4",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/ci-cd-workflows-ai-debugger-inc-aidb-39b18ca4",
+      "description": ""
+    },
+    {
+      "name": "terraform-test",
+      "path": "relative-skills/claude-skill-registry/skills/testing/terraform-test-panchal-ravi-ai-iac-consumer-temp-3e5cab49",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/terraform-test-panchal-ravi-ai-iac-consumer-temp-3e5cab49",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-design",
+      "path": "relative-skills/claude-skill-registry/skills/testing/terraform-provider-design-hashi-demo-lab-terraform-provider-b-14bb1356",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/terraform-provider-design-hashi-demo-lab-terraform-provider-b-14bb1356",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-tests",
+      "path": "relative-skills/claude-skill-registry/skills/testing/terraform-provider-tests-hashi-demo-lab-terraform-provider-b-199fd28c",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/terraform-provider-tests-hashi-demo-lab-terraform-provider-b-199fd28c",
+      "description": ""
+    },
+    {
+      "name": "terraform-iac",
+      "path": "relative-skills/claude-skill-registry/skills/skills/other/terraform-iac",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/skills/other/terraform-iac",
+      "description": ""
+    },
+    {
+      "name": "testing-jest",
+      "path": "relative-skills/claude-skill-registry/skills/testing/testing-jest-codermariusz-monopilot",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/testing-jest-codermariusz-monopilot",
+      "description": ""
+    },
+    {
+      "name": "ecosystem",
+      "path": "relative-skills/claude-skill-registry/skills/testing/ecosystem-pluginagentmarketpla-custom-plugin-javasc",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/ecosystem-pluginagentmarketpla-custom-plugin-javasc",
+      "description": ""
+    },
+    {
+      "name": "jest-testing",
+      "path": "relative-skills/claude-skill-registry/skills/testing/jest-testing-mcclowes-lea",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/jest-testing-mcclowes-lea",
+      "description": ""
+    },
+    {
+      "name": "jest-testing-patterns",
+      "path": "relative-skills/claude-skill-registry/skills/testing/jest-testing-patterns-thebushidocollective-han",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/jest-testing-patterns-thebushidocollective-han",
+      "description": ""
+    },
+    {
+      "name": "pytest-test-generator",
+      "path": "relative-skills/claude-skill-registry/skills/testing/pytest-test-generator-gptprojectmanager-liquidations-335020d1",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/pytest-test-generator-gptprojectmanager-liquidations-335020d1",
+      "description": ""
+    },
+    {
+      "name": "pytest-api-testing",
+      "path": "relative-skills/claude-skill-registry/skills/testing/pytest-api-testing-nekorush14-dotfiles",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/pytest-api-testing-nekorush14-dotfiles",
+      "description": ""
+    },
+    {
+      "name": "pytest-best-practices",
+      "path": "relative-skills/claude-skill-registry/skills/testing/pytest-best-practices-cfircoo-claude-code-toolkit-49a05ddf",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/pytest-best-practices-cfircoo-claude-code-toolkit-49a05ddf",
+      "description": ""
+    },
+    {
+      "name": "pytest-config",
+      "path": "relative-skills/claude-skill-registry/skills/testing/pytest-config-athola-claude-night-market",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/pytest-config-athola-claude-night-market",
+      "description": ""
+    },
+    {
+      "name": "pytest",
+      "path": "relative-skills/claude-skill-registry/skills/testing/pytest-manutej-luxor-claude-marketp",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/pytest-manutej-luxor-claude-marketp",
+      "description": ""
+    },
+    {
+      "name": "pytest-mock-guide",
+      "path": "relative-skills/claude-skill-registry/skills/testing/pytest-mock-guide-bossjones-logging-lab",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/pytest-mock-guide-bossjones-logging-lab",
+      "description": ""
+    },
+    {
+      "name": "pytest-patterns",
+      "path": "relative-skills/claude-skill-registry/skills/testing/pytest-patterns-cuba6112-skillfactory",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/pytest-patterns-cuba6112-skillfactory",
+      "description": ""
+    },
+    {
+      "name": "pytest-plugins",
+      "path": "relative-skills/claude-skill-registry/skills/testing/pytest-plugins-thebushidocollective-han",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/pytest-plugins-thebushidocollective-han",
+      "description": ""
+    },
+    {
+      "name": "react-project-scaffolder",
+      "path": "relative-skills/claude-skill-registry/skills/testing/react-project-scaffolder-cskiro-claudex",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/react-project-scaffolder-cskiro-claudex",
+      "description": ""
+    },
+    {
+      "name": "flutter-tester",
+      "path": "relative-skills/claude-skill-registry/skills/testing/flutter-tester-harishwarrior-flutter-claude-skill-031e87f3",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/flutter-tester-harishwarrior-flutter-claude-skill-031e87f3",
+      "description": ""
+    },
+    {
+      "name": "flutter-dart-development",
+      "path": "relative-skills/claude-skill-registry/skills/skills/other/flutter-dart",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/skills/other/flutter-dart",
+      "description": ""
+    },
+    {
+      "name": "security-flutter",
+      "path": "relative-skills/claude-skill-registry/skills/security/security-flutter-thebeardedbearsas-claude-craft",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/security/security-flutter-thebeardedbearsas-claude-craft",
+      "description": ""
+    },
+    {
+      "name": "flutter-testing",
+      "path": "relative-skills/claude-skill-registry/skills/testing/flutter-testing-abhishekbrt-glowstate",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/flutter-testing-abhishekbrt-glowstate",
+      "description": ""
+    },
+    {
+      "name": "flutter-patterns",
+      "path": "relative-skills/claude-skill-registry/skills/testing/flutter-patterns-cleydson-flutter-claude-code",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/flutter-patterns-cleydson-flutter-claude-code",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "relative-skills/claude-skill-registry/skills/security/git-workflow-agno-agi-agno",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/security/git-workflow-agno-agi-agno",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-policy",
+      "path": "relative-skills/claude-skill-registry/skills/productivity/git-workflow-policy-binee108-nine-step-workflow-p",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/productivity/git-workflow-policy-binee108-nine-step-workflow-p",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "relative-skills/claude-skill-registry/skills/product/git-workflow",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/product/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-manager",
+      "path": "relative-skills/claude-skill-registry/skills/productivity/git-workflow-manager-serejaris-ris-claude-code",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/productivity/git-workflow-manager-serejaris-ris-claude-code",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "relative-skills/claude-skill-registry/skills/productivity/git-workflow-francisfuzz-emoji-gen",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/productivity/git-workflow-francisfuzz-emoji-gen",
+      "description": ""
+    },
+    {
+      "name": "documentation-research",
+      "path": "relative-skills/claude-skill-registry/skills/product/documentation-research-jpoutrin-product-forge",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/product/documentation-research-jpoutrin-product-forge",
+      "description": ""
+    },
+    {
+      "name": "documentation-authoring",
+      "path": "relative-skills/claude-skill-registry/skills/testing/documentation-authoring-mattnigh-skills-collection",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/documentation-authoring-mattnigh-skills-collection",
+      "description": ""
+    },
+    {
+      "name": "agents-md-manager",
+      "path": "relative-skills/claude-skill-registry/skills/skills/other/agents-md-manager",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/skills/other/agents-md-manager",
+      "description": ""
+    },
+    {
+      "name": "mcp-server-creator",
+      "path": "relative-skills/claude-skill-registry/skills/testing/mcp-server-creator-cskiro-claudex",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/mcp-server-creator-cskiro-claudex",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "path": "relative-skills/claude-skill-registry/skills/testing/test-generator-mkdirrobert-test-generator",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/test-generator-mkdirrobert-test-generator",
+      "description": ""
+    },
+    {
+      "name": "a2a-sdk-patterns",
+      "path": "relative-skills/claude-skill-registry/skills/testing/a2a-sdk-patterns-vanman2024-ai-dev-marketplace-0ab019fe",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/a2a-sdk-patterns-vanman2024-ai-dev-marketplace-0ab019fe",
+      "description": ""
+    },
+    {
+      "name": "express-to-fastify-migration",
+      "path": "relative-skills/claude-skill-registry/skills/testing/express-to-fastify-migration-timrogers-iata-code-decoder-ap-384b682b",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/express-to-fastify-migration-timrogers-iata-code-decoder-ap-384b682b",
+      "description": ""
+    },
+    {
+      "name": "senior-graphql",
+      "path": "relative-skills/claude-skill-registry/skills/testing/senior-graphql-rickydwilson-dcs-claude-skills-6961cc28",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/senior-graphql-rickydwilson-dcs-claude-skills-6961cc28",
+      "description": ""
+    },
+    {
+      "name": "graphql-implementation",
+      "path": "relative-skills/claude-skill-registry/skills/skills/other/graphql-implementation",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/skills/other/graphql-implementation",
+      "description": ""
+    },
+    {
+      "name": "graphql-mutations",
+      "path": "relative-skills/claude-skill-registry/skills/testing/graphql-mutations-jovermier-cc-stack-marketplace-6f1a00e2",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/graphql-mutations-jovermier-cc-stack-marketplace-6f1a00e2",
+      "description": ""
+    },
+    {
+      "name": "graphql-security",
+      "path": "relative-skills/claude-skill-registry/skills/security/graphql-security-pluginagentmarketpla-custom-plugin-graphq-a5c4595e",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/security/graphql-security-pluginagentmarketpla-custom-plugin-graphq-a5c4595e",
+      "description": ""
+    },
+    {
+      "name": "terraform-module",
+      "path": "relative-skills/claude-skill-registry/skills/testing/terraform-module-n4vysh-dotfiles",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/terraform-module-n4vysh-dotfiles",
+      "description": ""
+    },
+    {
+      "name": "nx-monorepo-generator",
+      "path": "relative-skills/claude-skill-registry/skills/testing/nx-monorepo-generator-cognoco-nx-monorepo-260d8381",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/nx-monorepo-generator-cognoco-nx-monorepo-260d8381",
+      "description": ""
+    },
+    {
+      "name": "fix-all-tests",
+      "path": "relative-skills/claude-skill-registry/skills/testing/fix-all-tests-gabihert-finance-tracker-e2e-e5da8e56",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/fix-all-tests-gabihert-finance-tracker-e2e-e5da8e56",
+      "description": ""
+    },
+    {
+      "name": "cui-javascript-unit-testing",
+      "path": "relative-skills/claude-skill-registry/skills/testing/cui-javascript-unit-testing-cuioss-cui-llm-rules",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/cui-javascript-unit-testing-cuioss-cui-llm-rules",
+      "description": ""
+    },
+    {
+      "name": "unit-testing-framework",
+      "path": "relative-skills/claude-skill-registry/skills/testing/unit-testing-framework-aj-geddes-useful-ai-prompts-3ef72b51",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/unit-testing-framework-aj-geddes-useful-ai-prompts-3ef72b51",
+      "description": ""
+    },
+    {
+      "name": "pytest-generator",
+      "path": "relative-skills/claude-skill-registry/skills/testing/pytest-generator-matteocervelli-llms",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/pytest-generator-matteocervelli-llms",
+      "description": ""
+    },
+    {
+      "name": "dependency-evaluator",
+      "path": "relative-skills/claude-skill-registry/skills/product/dependency-evaluator-princespaghetti-claude-marketplace",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/product/dependency-evaluator-princespaghetti-claude-marketplace",
+      "description": ""
+    },
+    {
+      "name": "model-evaluation",
+      "path": "relative-skills/claude-skill-registry/skills/testing/model-evaluation-cosmix-claude-code-setup",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/model-evaluation-cosmix-claude-code-setup",
+      "description": ""
+    },
+    {
+      "name": "react-native-skills",
+      "path": "relative-skills/claude-skill-registry/skills/skills/other/react-native-skills",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/skills/other/react-native-skills",
+      "description": ""
+    },
+    {
+      "name": "parallel-agents",
+      "path": "relative-skills/claude-skill-registry/skills/productivity/parallel-agents-xenitv1-claude-code-maestro",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/productivity/parallel-agents-xenitv1-claude-code-maestro",
+      "description": ""
+    },
+    {
+      "name": "skill-cli",
+      "path": "relative-skills/claude-skill-registry/skills/testing/skill-cli-raw391-ai-skill-cli",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/skill-cli-raw391-ai-skill-cli",
+      "description": ""
+    },
+    {
+      "name": "playwright-mcp",
+      "path": "relative-skills/claude-skill-registry/skills/testing/playwright-mcp-jamesprial-go-reddit-api-wrappe",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/playwright-mcp-jamesprial-go-reddit-api-wrappe",
+      "description": ""
+    },
+    {
+      "name": "conductor",
+      "path": "relative-skills/claude-skill-registry/skills/productivity/conductor-nguyensitrung-conductor-beads",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/productivity/conductor-nguyensitrung-conductor-beads",
+      "description": ""
+    },
+    {
+      "name": "oracle-gemini",
+      "path": "relative-skills/claude-skill-registry/skills/productivity/oracle-gemini-paulrberg-dot-claude",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/productivity/oracle-gemini-paulrberg-dot-claude",
+      "description": ""
+    },
+    {
+      "name": "rust-dev",
+      "path": "relative-skills/claude-skill-registry/skills/skills/other/rust-dev",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/skills/other/rust-dev",
+      "description": ""
+    },
+    {
+      "name": "rust-backend-testing",
+      "path": "relative-skills/claude-skill-registry/skills/testing/rust-backend-testing-caioniehues-dotfiles",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/rust-backend-testing-caioniehues-dotfiles",
+      "description": ""
+    },
+    {
+      "name": "rust-testing",
+      "path": "relative-skills/claude-skill-registry/skills/testing/rust-testing-attunehq-hurry",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/rust-testing-attunehq-hurry",
+      "description": ""
+    },
+    {
+      "name": "rust-security",
+      "path": "relative-skills/claude-skill-registry/skills/security/rust-security-vanyastaff-paramdef",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/security/rust-security-vanyastaff-paramdef",
+      "description": ""
+    },
+    {
+      "name": "rust-crate-creator",
+      "path": "relative-skills/claude-skill-registry/skills/testing/rust-crate-creator-wcygan-sql-database-c894411e",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/rust-crate-creator-wcygan-sql-database-c894411e",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "path": "skills/ddd-scope/SKILL.md",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/skills/ddd-scope/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "path": "skills/ddd-discover/SKILL.md",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/skills/ddd-discover/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "path": "skills/ddd-contexts/SKILL.md",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/skills/ddd-contexts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "path": "skills/ddd-subdomains/SKILL.md",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/skills/ddd-subdomains/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "path": "skills/ddd-aggregates/SKILL.md",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/skills/ddd-aggregates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "path": "skills/ddd-context-map/SKILL.md",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/skills/ddd-context-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "path": "skills/ddd-model-review/SKILL.md",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/skills/ddd-model-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "path": "skills/ddd-openspec-bridge/SKILL.md",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/skills/ddd-openspec-bridge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "path": "skills/ddd-domain-interactions/SKILL.md",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/skills/ddd-domain-interactions/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/ForceInjection/domain-driven-design-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T06:30:23Z"
+  "distributed_at": "2026-09-24T22:30:20Z"
 }
