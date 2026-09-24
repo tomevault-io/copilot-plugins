@@ -1,0 +1,44 @@
+{
+  "name": "Life-Compass-Obsidian-CN",
+  "owner": "sunkeke-ai",
+  "repo": "Life-Compass-Obsidian-CN",
+  "description": "Compass \u7684\u975e\u5b98\u65b9\u7b80\u4f53\u4e2d\u6587\u672c\u5730\u5316\uff1b\u539f\u9879\u76ee\u7531 Daniel Agrici\uff08@AgriciDaniel\uff09\u521b\u5efa\u3002",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sunkeke-ai/Life-Compass-Obsidian-CN",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T14:28:08Z"
+}
