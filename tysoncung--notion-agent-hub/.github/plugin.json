@@ -1,0 +1,9 @@
+{
+  "name": "tysoncung--notion-agent-hub",
+  "displayName": "notion-agent-hub",
+  "description": "AI Agent Hub for Notion \u2014 orchestrate AI agents through Notion databases with human-in-the-loop approval. Built with MCP.",
+  "version": "1.0.0",
+  "author": "tysoncung",
+  "homepage": "https://github.com/tysoncung/notion-agent-hub",
+  "skills": []
+}
