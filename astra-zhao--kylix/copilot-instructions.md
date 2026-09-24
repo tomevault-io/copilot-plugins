@@ -1,0 +1,236 @@
+## kylix
+
+> Kylix 是现代 Pascal → Go 转译器。编译器用 Go 编写，生成 Go 代码。
+
+# Kylix 项目上下文
+
+Kylix 是现代 Pascal → Go 转译器。编译器用 Go 编写，生成 Go 代码。
+
+**重要：始终用中文回答用户，不论用户用什么语言提问，回复一律使用中文。**
+
+## 当前状态：v0.12.0 P5 完成（待发版）；v0.11.0 已发布
+
+- v0.12.0 P5（2026-09-22 完成）：**KylixAdmin 方言抽象 + postgres + 注解驱动迁移 + 单二进制部署**——(1) **方言层纯 Kylix** `apps/admin/lib/dialect.klx`（`SqlType`/`SqlPKColumn`/`SqlWAL`/`SqlLike`(ILIKE)/表内省）；**占位符改写下沉 db 层单一咽喉点**（Kylix 字面量无转义、`?` 可合法出现在 SQL 里，73 个调用点靠纪律必错）。(2) **LLVM 端 libpq 后端** `pkg/llvmgen/stdlib_db_pg.go`：`PQexecParams` + **`PQftype` OID 分派**（与 sqlite 的 column_type 逐条对齐）+ IR 版 `?`→`$n` + 错误通道（`PQresultStatus` 门控）；**`DbOpenPg` 独立入口点**（预扫描判定，只有用到 pg 的程序才发射/才链 `-lpq`，教程 IR 逐字节不变）+ 调用点运行期方言分派（参数只求值一次）。(3) **db 层新面**：池 setter + **`DbLastError`**（生成的代码丢弃 error 半边，这是唯一失败信号）+ `[]byte`→string 归一；`AdminOpen` 改进程级单句柄（**PoC 实测：不关闭的池第 101 次请求撞 max_connections**，而 E2E 有 150+ 请求）。(4) **`[Entity]` 驱动建表与增量迁移** `apps/admin/lib/migrate.klx`（版本表 + 内省 ADD COLUMN + 类型漂移只告警；复合主键表保留手写 DDL）+ 新注解 `[Unique]`、`[Default]` 语义扩展到 DDL 默认值。(5) **`[Embed]` 编译器语言特性**：程序头属性 `[Embed('views','static')]` → 两端烘焙（Go `RegisterEmbedded` / LLVM 全局数组+`__kylix_embed_init`）+ `ReadFile`/`BootStatic` **先查内嵌表再回落磁盘**（应用零改动）。(6) **部署**：默认库 `~/.kylixadmin/admin.db` + 启动自述行 + `docs/ADMIN_DEPLOY.md` + `deploy_check.sh` 自包含门 + release.yml 发布 `kylixadmin-<os>-<arch>`。(7) **PoC 前置验证**（本地 pg 16.15）：pg 参数推断（含 `INSERT…SELECT $1`）、**C collation 强制 + ILIKE 强制**（默认 collation 的 ORDER BY 与 sqlite 不同、pg LIKE 大小写敏感）、NULL/bool parity、连接泄漏定量。**验证：17 包全绿；Go sweep 58/58；LLVM sweep 58/58；bootstrap 57 PASS + 1 SKIP；IR 不动点输入逐字节未变；admin E2E 23 场景 × 4 形态（sqlite×{Go,LLVM} ≡ postgres×{Go,LLVM}）逐字一致；空目录自包含实测通过**。详见 CHANGELOG.md 与 [docs/ADMIN_DEPLOY.md](docs/ADMIN_DEPLOY.md)。
+
+- v0.11.0 P3+P4（2026-09-21 完成）：**KylixAdmin 通用 CRUD 引擎 + 仪表盘/个人中心 + UI 设计系统**（详见 [docs/ADMIN_CRUD_GUIDE.md](docs/ADMIN_CRUD_GUIDE.md)）——(1) **编译器元数据发射双端**：新 stdlib 模块 `entitymeta`（Go `stdlib/entitymeta.go` + LLVM `pkg/llvmgen/stdlib_entitymeta.go` 固定数组全局 64 表/512 列 + 线性扫描访问器），**LLVM 端此前对 ORM/校验注解零支持**（class.go 全 stub），本版新写 `pkg/llvmgen/orm_annotations.go`；注解扩展 `[Label]/[Searchable]/[Hidden]/[Nullable]/[Default]/[ReadOnly]`，编码规则单一来源 `internal/entitymetaapi`（两端共用 + `TestEntityMetaNames_Dispatchable` 守护 + 编译期诊断拒绝标签分隔符）；发射 **gated 在「程序含 `[Entity]`」**（无实体程序 IR 与 v0.10.0 逐字节一致，不动点保持）。(2) **纯 Kylix 引擎** `apps/admin/lib/`：`crud.klx`（元数据解析/列白名单 SQL/搜索排序分页/校验/写入按列数分派）+ `crudrender.klx`（行/表单/分页器/侧栏 + `data-*` 稳定钩子）+ `crudhooks.klx`（**编译期分派**钩子——Kylix 无可用的回调数组）+ `controllers/entity.klx`（6 条 `/admin/:entity` 泛化路由）；**全实体迁移**（users/roles/logs 手写 handler 删除，**main.klx 775 → 103 行**；日志拆两个只读实体；侧栏元数据动态生成；演示实体 `notes`）。(3) **仪表盘**（统计卡 + 近 7 天登录 **SVG 柱状图整数几何**）+ **个人中心**（改密 Pbkdf2Compare/Pbkdf2Hash + 显示名 + **头像 base64+urlencoded**——LLVM multipart 必被 CSRF 拒且二进制 NUL 截断）。(4) **UI 设计系统** `static/admin.css`（令牌/组件/响应式）+ `admin.js`（渐进增强）+ **三态主题**（服务端按 cookie 渲染 `data-theme`，首屏无闪烁；`GET /theme` 白名单 + 防开放重定向）。(5) **编译器配套修复**：**LLVM cookie 解析器不跳 `;` 后空格**（第二个及之后 cookie 永远读不到）+ **`DbQueryScalar` 遇 NULL 列**（LLVM `strdup(NULL)` 段错误 / Go 返回 `<nil>` → 两端统一空串）+ 双端新增 `req.Path()` + 分页器 CSS 类名不匹配（v0.10.0 起死代码）。(6) **双端 E2E 22 场景**逐字 diff（新增搜索排序分页保序/未知实体 404/只读 403/演示实体全 CRUD+审计/校验回填/口令列不外泄/仪表盘/改密/头像/主题切换与开放重定向守卫）。**验证：17 包全绿；Go sweep 58/58；LLVM sweep 58/58；bootstrap sweep 57 PASS + 1 SKIP；IR 不动点输入逐字节未变**。
+
+- v0.10.0 P2（2026-09-19 完成）：**KylixAdmin 认证与 RBAC 双端同步**——Pbkdf2Hash/Pbkdf2Compare（crypto，Go x/crypto + LLVM OpenSSL，信封 `pbkdf2$sha256$<iter>$<salt>$<out>`）替代 BCryptHash（弃用，跨形态哈希不兼容）+ `req.SessionRegenerate()`（防固定）+ `[Authenticated]` session-first + **`[Role]` 守卫真体化**（LLVM 端原为空桩）+ 失败锁定（users 表持久化 5 次锁 15 分钟）+ Remember-me 30 天；`apps/admin/` 纯 Kylix 双端同源（admindb 五表+两日志 / adminsec DoLogin+HasPerm / audit WriteOpLog / main.klx 4 控制器 15 路由 + 5 视图模板 + admin.css）；**双端 E2E `apps/admin/e2e.sh`**（Go/LLVM 同一 12 场景 curl 序列，归一化 transcript 逐字 diff；CI `admin-e2e` job；不进三教程 sweep）；编译器配套修复：emitVarDecl 显式 `db: TDatabase` 本地声明归一 ptr（原 i64 回退调用点错配）+ TDateTime.Unix 真体（原 stub 恒 0）+ **htab GC 混搭破案**（GC 模式下 htab 节点是裸 malloc 而 key/value 是 GC_malloc——GC 不扫 malloc 节点、活会话/map 数据唯一引用不可达被错收：admin E2E 一次段崩溃一次会话蒸发；修复：GC 模式节点改 GC_malloc + htab_del/clear 跳过 free，gate 在 g.gc，malloc 模式 IR 逐字节不变）。bootstrap 形态 BootEnforceRole 无烘焙 define（编译期报错，host 专属，已文档化）。
+- v0.10.0 P0（✅）：**LLVM 后端 Boehm GC（issue #1）**——`--gc=boehm` opt-in：~110 处用户数据分配点（类构造/record/字符串/数组/Variant box/闭包环境/map/htab keys + stdlib 返回 buffer + jsonutil 解析器）路由 `GC_malloc`（`mallocCall`/`zallocCall`/`reallocCall` helper 三分，gate 在 `g.gc`）；**默认 malloc 模式 IR 逐字节不变**（不动点硬门已验：9 文件 ~26.7 万行 IR 与 HEAD 逐字节一致）；配对 free 的 1b 内部 buffer 保持 malloc/free；混合点 free 门控（TcpRead 失败路径/jsonutil 扩容）；httpclient realloc → GC_realloc；windows+boehm 显式报错；缓存指纹纳入 GC 选项；`--gc` CLI（build/run）+ doctor libgc 探测。**example64_gc（26_memory/）**：字符串翻倍拼接 + 对象分配压力示例（~60MB 垃圾），三端 parity；实测 maxRSS 默认 62MB vs GC 22MB；test_all_llvm.sh 特判 GC parity 项；CI 补 GC E2E 步（maxRSS < 128MB）+ libgc-dev/bdw-gc/time 依赖。**验证：16 包全绿（含新 gc_test 7 项）；Go sweep 58/58；LLVM sweep 58/58（含 --gc=boehm parity）；bootstrap sweep 57 PASS + 1 SKIP；不动点保持；CI 10 job 全绿（run 35350407964，2026-09-18——GC E2E maxRSS：linux amd64 20MB / darwin 21MB，破案 1：brew 无 `time` formula 致 darwin job 挂、E2E 只用系统 /usr/bin/time 故删）**。
+- v0.9.0 规划项全部完成、待发版（详见 CHANGELOG.md）：**P1.6 模板 layout/partials** 三端同源（example63）+ **P1.7 KylixBoot 框架补齐**（TResponse.Download/FileBytes/CSV + 分页 BootPagerHTML + Session + CSRF + multipart 上传，LLVM 端逐场景 E2E 与 Go 一致）+ **P2 重烘链路闭环**（cover.klx/cover_boot.klx 入库 + rebake 脚本含 `opt -passes=verify` 门 + 重烘 139→179 签名）+ **P2 bootstrap 端 boot server 实施**（提取器 boot 段 + `src/llvmgen.klx` 注解装配 17 方法 + TResponse fluent 6 方法 via BootFmtConst 常量机制；example60 sweep SKIP 解除转 launch+curl E2E；过程破案 4：BootAppendToSlot 参数名 `entry` 撞 LLVM 入口块命名空间、烘焙 boot define 引用 exc 全局需 `MarkStdSeg('boot')` 强制 NeedException、BootPUT/BootDELETE 烘焙缺口、host stdlib_boot_session.go expKey SSA 支配违反）。**验证：16 包全绿；Go sweep 57/57（56 示例，example33 多文件记 2）；LLVM sweep 56/56；bootstrap sweep 56 PASS + 1 SKIP；IR 不动点保持（gen1 ≡ gen2，267,261 行逐字节）；CI 10 job 全绿（run 35241229836，2026-08-13 起首次——三平台 linux/darwin/windows + arm64 + selfrepro fixpoint + perf-gate；破案 3：ci.yml YAML 语法错误 v0.7.2 起全挂、llvm-mingw Windows zip 无 llc → clang -x ir -c 回退、selfrepro 链接 -lm/-no-pie）**。剩余：无——文档与官网同步完成（README.md + README_CN.md + SUMMARY.md 三文档 + 官网 html/index.html 全部同步 v0.9.0：badge/🚀 列表补 4 条/教程计数 56/56 + bootstrap 56 PASS + 1 SKIP/status 行/版本表补 4 行/目录树 56/WHATS NEW 四卡片/CTA 下一站 v0.10.0；v0.6.9 历史条目 sweep 数字勘误 52→51/51），v0.9.0 全部规划项达成，待发版。
+
+- v0.8.0 已发布（2026-09-11）：**自举 stdlib（真自包含）**——(1) **P1 纯 Kylix stdlib 扩展**：`stdlib/stringutil.klx`（~490 行 20 函数：Trim/StartsWith/Replace/Split/Join/Pad 等，纯核心原语表达）多文件构建三端同源 + **example62 教程**（`24_string_utils/`）三端逐字 parity + 三 sweep 接入；顺带修 host LLVM 推断 bug（`var x := <数组返回函数>` 元素一律按 Variant box 索引读出 nil——`callReturnKylixType` 认 ArrayType 返回 + 推断分支从被调签名解析元素类型）。(2) **P2 内存管理**：per-request arena 推广（TResponse handle 40B 走 arena_alloc，长跑 server 不泄漏）+ **htab 入口 magic 校验双端**（布局 16B→24B `{magic,buckets,size}`，7 入口 + htab_keys 调 `__kylix_htab_check`，错传"槽"当"表"从堆破坏延迟崩 → exit 217 立即定位；host + src/llvmgen.klx + stdlib_ir.klx 三处同步含段表偏移 +2；新单测 TestHtab_MagicCheck；教训：noreturn @exit 后必须显式 `unreachable`）。(3) **P3 boot server**：多 cookie 槽（cookie 槽改 Set-Cookie 行增长缓冲）+ xhdrs/cookie realloc（`emitBootAppendToSlot` 二倍扩容，1024 上限解除）+ 响应组装缓冲精确化。(4) **P4 bootstrap 端 boot server 评估**：~800 行固定 define 可烘焙 + 注解装配需 emitter 移植（parser 已保留 Attributes），记债归 v0.9.0。**验证：16 包全绿；Go sweep 56/56；LLVM sweep 56/56；bootstrap sweep 54 PASS + 2 SKIP；IR 不动点保持（gen1 ≡ gen2，227,963 行逐字节）**。详见 CHANGELOG.md
+- v0.7.2 已发布（2026-09-10）：**CI 全绿 + 稳定性还债**——(1) **selfrepro fixpoint job 改走 `--emit-llvm` IR 链**：gen1（host LLVM 后端构建 main_self）`--emit-llvm` 9 自举文件 → mem2reg/llc/clang → gen2 → `cmp fp1.ll fp2.ll` 逐字节真验证；LLVM 19 走 apt.llvm.org（发行版 18 错译 bootstrap IR）。(2) **Lint job 修复**：13 文件 gofmt 归零。(3) **bootstrap Go-codegen 路径显式退役**：`src/main.klx` 非 `--emit-llvm` 调用报错 `Go-codegen path is retired`（旧路径 main.go 编译不过——StdIrInit undefined + 多态 gate 7 处）；release.yml 诊断步骤改验证报错行为。(4) **LLVM 端类方法多返回支持**：vtable 槽聚合返回 `%__ret_<Class>_<Method>`（预扫描注册 + MethodInfo.MultiRetTypes + emitTupleBuild/destructure 打通），`(q, r) := obj.M()` 与 `var q, r := obj.M()` 两形式与 host 输出一致，新单测 5 项；顺带发现类内签名+类外实现双 define 债（单返回同样存在）。(5) **"三处名单"单一来源化**：`internal/bootapi.BootFunctions` 单源表，Go host + LLVM 两端 import；顺带修复 LLVM jwt 名单缺 BootRegisterJwtAuth 漂移；单测改 Sane + Dispatchable。**验证：16 包全绿；Go sweep 55/55；LLVM sweep 55/55；bootstrap sweep 53 PASS + 2 SKIP；IR 不动点保持**。详见 CHANGELOG.md
+- v0.7.1 已发布（2026-09-10）：**Windows 一等公民**——P0 regex（Is* 纯手写字符类 + 纯 Kylix `stdlib/regex_engine.klx` 回溯 VM + example61 三端 parity）；P1 net Winsock（wrapper 架构双端 define + WSAStartup-once + SO_REUSEADDR 常量不可移植破案 + `enqueueNetPublic`）；P2 `--target windows` 交叉链接（FindMingwSysroot + llvm-mingw 自带 clang/--ld-path/--sysroot + tripleFor 改 mingw triple + macOS quarantine SIGKILL 提醒）；P3 CI llvm-windows 真跑（llvm-mingw portable zip + 4 教程 + example61 + net 双进程 Winsock echo 真机验收）；P4 工程债快赢（缓存指纹加编译器二进制自哈希 + Boot* 三处名单一致性单测）+ release.yml cross-exe-smoke job。**验证：16 包全绿；Go sweep 55/55；LLVM sweep 55/55；bootstrap sweep 53 PASS + 2 SKIP；不动点保持**。顺带破案 bootstrap example61 非确定性段错误（嵌套调用重置 LastArgTypes + 复合 and 不短路，ASAN + 反汇编 + IR 偏移表锁定）。详见 CHANGELOG.md
+- v0.7.0 已发布（2026-09-06）：**web 页面开发 + web 框架**——(1) **P0 `error` 类型语言特性**（三端）：`(T, error)` 多返回 + 裸 error + `error('msg')` 构造 + `ErrorStr` 内建；顺带修多返回解构 `:=`/`=` 判定（declaredVars 跟踪）。(2) **P1 纯 Kylix 模板引擎**：`stdlib/template_engine.klx`（Mustache 风格 `{{}}`、12 过滤器、each/if 块、点号查找、全展平字符串数据模型）——Go/LLVM/bootstrap 三端同源；顺带破案 bootstrap 类字段 map 索引崩溃（字段槽缺 load，htab 把 count 当节点指针）；example59 三端输出逐字一致。(3) **P2 页面渲染 API**：Go 端 `Request.Form/Cookie` + `Response.Html/WithCookie` + `Router.StaticDir`（防 `..` 遍历 + 16 项 MIME 表）；LLVM 端 TResponse handle 升级 40B + fluent 方法 6 个 + `__kylix_boot_form_get/cookie_get` + BootStatic 静态服务；端到端 curl 六场景全过（顺带修 form_get 半字节/静态分支写反/CRLF 组装等 5 处运行时 bug）。(4) **P3 页面框架完善**：`Response.Redirect`（302+Location）+ `SetNotFoundPage/SetErrorPage` 自定义错误页（LLVM 端 BootRun 500 setjmp handler——jmpbuf alloca 必须 entry 块）+ 模板上下文（`AddVariant/SetContext/AddListLen` + `<name>#len` 约定）+ `result.Redirect` receiver 修复（isBootHandleType 注册 result 槽）+ VariantToStr 四端贯通。(5) **P5 教程接入 + 发布**：example60 真实 BootRun server E2E（test_all.sh/test_all_llvm.sh 特判 launch+curl+kill；sweep 显式 SKIP）；host Go boot 名单补 4 项（BootStatic/BootNotFoundPage/BootErrorPage/BootReadJSON——P2/P3 只加了 LLVM 双表，教程暴露）。**验证：16 包全绿；Go/LLVM 54/54（example60 双端 E2E）；bootstrap sweep 52 PASS + 2 SKIP；IR 不动点保持（gen1 ≡ gen2）**。详见 CHANGELOG.md
+- v0.6.9 已发布：**bootstrap 无 Go 闭环达成（P3+P4+P4.12）**——(1) **stdlib IR 烘焙**：`scripts/extract_stdlib_ir.py` 把 host 生成的 stdlib IR 按 13 段烘焙进 `src/stdlib_ir.klx`（6.9k 行数据 + 139 签名），bootstrap 只做 call-site dispatch + wrapper 类方法（TCache/THttpClient/TDateTime）+ NewCache/Now/Today 内联——免手写 15.5k 行 Go 移植。(2) **emitter 大规模补缺 20+ 项**：数组写路径、not/负号、float 字面量、Variant 比较、调用参数类型化、dot-name 外部方法（host v0.5.4 缺口）、链式成员/receiver、record 类型系统、ClassName↔ptr coerce、epilogue 重排、嵌套循环 LoopBreak 保存恢复、alloca hoisting、构造函数 calloc、FloatToStr/StrToFloat 内置等。(3) **🎉 gen2 编译器诞生 + IR 不动点达成**：gen1（host 编译）`--emit-llvm` 9 文件 → mem2reg/llc/clang → gen2（纯原生无 Go）→ gen2 输出与 gen1 **逐字节一致（~220k 行 IR 不动点）**，gen3 ≡ gen2 行为；P4.10 破案 gen1 自举 emit"递归级联"（host emitFor 把 for 计数器绑到程序级全局槽 `@__kylix_g_i`，污染后末次迭代无限重跑→DEPTH-CUT；修复：`@__kylix_g_*` 绑定时铸造新 alloca + 出口写回）；P4.11 破案最后一个分歧（自举 emitter `array of Boolean` 写 i1 GEP/读 i64 GEP stride 不一致 → `ArrDynamic` 改 `array of Integer` 0/1）；调试探针网 72 处全清（EProg 内建保留）。(4) **🎉 教程 sweep 50/51 PASS**（`scripts/test_bootstrap_all.sh`，bootstrap-vs-host 输出逐字 diff；example33 多文件为 host 端 SKIP）；P4.12 修复最后两个已知失败：**example15**（自举无捕获 lambda——Pass 2.5 预发射 `@__lambda_N` + EmitPlainCall 查表分发 + 独立创建点计数器 `LambdaSiteCount`）、**example50**（JwtSign firstSlot alloca 提升到 entry，host + 烘焙数据双端同步）；修复后 IR 不动点复验保持（fp19 ≡ g5_all，gen3 ≡ gen2）。(5) **bootstrap 编译器坑清单**（自举开发必读，详见 CHANGELOG，共 9 条）：`or/and` 不短路、复合 `and`/`or` 条件编译出 `call @(i1)`（一律嵌套 if）、for 循环变量不遮蔽、`| tail -1` 吞 rebuild 失败、`array of Boolean` 字段数组不可用、探针删除残留悬空 if、main body 是单个 TBlockStatement 须解包。**O(n²) 性能疑虑已实测排除**（自举 emit 9 文件 ~4.8s）。详见 CHANGELOG.md
+- v0.6.8 已发布（2026-08-23）：**boot server 补强 + stdlib 补全 + JetBrains 插件完善**——POST body 读取 + req.JSON 绑定 + BootRegisterJwtAuth 真校验；encoding Base64URL + httpclient JSON 嵌套；`.klx` 图标 + Run 配置 + LSP 错误高亮。详见 CHANGELOG.md
+- v0.6.7 已发布：**#9 JetBrains 插件 + 安装使用手册**——(1) **`jetbrains-plugin/` 模块**（完整 Gradle Kotlin 项目，IC 2024.3 SDK）：TextMate 语法高亮（复用 vscode-ext tmLanguage，`com.intellij.textmate.bundleProvider` 扩展点）+ **LSP4IJ 桥接 `kylix lsp`**（补全/跳转/重命名/格式化全通）+ 25 个 Live Templates（prog/func/class/controller 等）。(2) **安装使用手册** `jetbrains-plugin/README.md`（环境要求 / 构建安装 / 使用 / 配置 / 故障排查）。(3) **构建验证**：`./gradlew buildPlugin` BUILD SUCCESSFUL，产出可安装 zip（1.6MB）。**ROADMAP #9 ✅**。**剩余（归入 v6.8+）**：boot server 补强（POST body / req.JSON / BootRegisterJwtAuth 真校验）、stdlib 补全（encoding Base64URL / httpclient JSON 嵌套）、net Winsock / regex pcre2（Windows）、内存管理（arena/GC）、bootstrap 无 Go 闭环。详见 CHANGELOG.md
+- v0.6.6 已发布：**boot HTTP server + stdlib 补全 5 项**——(1) **boot HTTP server**（KylixBoot 应用无 Go 环境真正可用）：`Boot<M>` 写路由表（`@__kylix_boot_routes`）、`BootRun` 真体（`TcpListen/Accept` + `read_headers` + `parse_request` + `route_lookup/path_match` + TRequest handle + HTTP/1.1 响应 + 404）、`req.Param/Query/Header/Body` 内联降级（`stdlib_boot_http.go`）。(2) **stdlib 补全**：jwt claims（Verify 返回 claims map + exp 过期检查 + `JwtSubject/GetString/GetInt` + Sign extraClaims + **b64url rem==1 潜伏 bug**）、cache TTL（`PutWithTTL/Get/Sweep` + `htab_keys` + `now_ms`）、httpclient JSON（`HttpGetJSON` 返回 Variant map）、UrlEncode/UrlDecode、Variant div/mod。(3) **顺带修复**：Variant 赋值 as_str 误 coerce、emitCall 参数 variant→ptr、hashtab 门控、httpclient Request 漏 enqueue DoRequest。16 包 + 51 教程（Go+LLVM）+ self-repro 不动点全绿。**剩余（归入 v6.7+）**：#9 JetBrains 插件、net Winsock / regex pcre2（Windows）、内存管理（arena/GC）、bootstrap 无 Go 闭环。详见 CHANGELOG.md
+- v0.6.5 已发布：**WS 自回环 + SHA-1 修复 + KylixRT 完善 + 性能优化**——(1) **手写 SHA-1 修复**（hs 初始常量错位/错值 + padLen 边界，websocket 不再依赖 OpenSSL）。(2) **WS 自回环分阶段 API**（WsDialConnect/WsDialFinish，LLVM+Go 双端，单进程自回环教程 example55）。(3) **KylixRT**：字符串插值 256B 溢出修复 + test/bench auto 回退 + run 错误消息 + doctor bundle 检查。(4) **性能**：DCE 单遍 + 缓存提前 + IR 确定性 + disable-verify + mem2reg——**bootstrap -O0 11.5s→0.381s（30×）**。**剩余（归入 v6.6+）**：#9 JetBrains 插件、boot HTTP server、net Winsock / regex pcre2（Windows）、内存管理（arena/GC）、stdlib 补全。详见 CHANGELOG.md
+- v0.6.4 已发布：**LLVM stdlib 真实现：DbQueryRows + websocket**——(1) **DbQueryRows**（返回 `array of Variant`，每行 map-Variant box）：Variant 扩展 map 标签（`varTagMap=5`）+ `row['col']`/`rows[0]['col']` variant-map 索引 + 推断路径 slice/variant 修复（`var rows := DbQueryRows(...)`、`var v := JwtVerify(...)` 正确推断，顺带修 `var a := [1,2,3]`）+ 内联 sqlite3 prepare/step/column 循环 + htab 行构造 + 结果数组 append。(2) **websocket 完整 5 函数**（RFC 6455 客户端+服务端）：WsDial/WsAccept 握手（strcat 请求链规避 LLVM -O0 varargs spill 崩溃；**SHA-1 用 OpenSSL** 规避手写 IR bug）、WsSend/WsRecv 帧编解码（mask + 126/127 扩展 + ping/pong 自动应答）、WsClose；精确长度 recv/send helper + 带长度 base64。**剩余（归入 v6.5+）**：net Winsock / regex pcre2（需 Windows 真机）、#9 JetBrains 插件。详见 CHANGELOG.md
+- v0.6.3 已发布：**jwt 双端 + 分发 B + Variant 传参修复**——(1) **jwt JwtSign/JwtVerify 真实现**（HS256：base64url(header) "." (payload) "." (HMAC-SHA256)，JwtSign 签名与 Python 逐字节一致；JwtVerify 验签版 valid / wrong-secret / tampered / malformed 全对）+ 手写 IR helper（b64url/hexdecode）。(2) **分发 B 捆绑 LLVM**：`scripts/bundle_llvm.sh` 捆绑 llc/opt + dylib 到 kylix 旁 `llvm/`，`FindLLVM` 可执行文件旁优先（编译自包含、链接用系统 clang）。(3) **Variant 传参 segfault 修复**：`Has(JwtVerify(...))` 嵌套调用根因 `isVariantType` 不认 `*ast.VariantType` → 参数 coerce 把 box `as_str`；修复 + box IR 类型校正 ptr + **闭包/inherited/virtual call 三处同类 coerce 点全修**（`closureKylixParams` / `MethodInfo.ParamKylixTypes`）。**剩余（归入 v6.4+）**：net Winsock / regex pcre2（需 Windows 真机）、DbQueryRows、websocket、#9 JetBrains 插件。详见 CHANGELOG.md
+- v0.6.2 已发布：**跨平台 + KylixRT 生产化**——(1) **跨平台**：IR target triple 参数化（`CompileOpts.Target` + `tripleFor` + llc `-mtriple`）+ CLI `--target` 贯通 + 系统库链接平台化 + 修 Linux PIE 重定位（`-no-pie`）→ **Linux 51 教程 LLVM 51/51**（CI 稳定绿）；`kylix doctor` 预检 + README LLVM 前置（分发 A）。(2) **平台 API 适配**（按 targetOS）：sysutil（fopen 二进制模式 + `_access`）、datetime（`localtime_s`）、exc（`_setjmp/_longjmp` + jmpbuf 512）、net/regex（Windows stub）。(3) **stdlib sysutil 补齐**（9 函数：DirExists/CreateDir/DeleteFile/AppendFile/CopyFile/GetWorkingDir/SetWorkingDir/GetTempDir/GetFileSize）。(4) **`kylix test/bench --backend=llvm`**（KylixRT 无 Go 跑测试/基准——Kylix harness + LLVM multifile 编译 + 原生二进制）。(5) **修裸过程调用**（`Foo;` 无括号生成 call）+ Args[N] 索引 + MergePrograms 测试文件合并 3 个 LLVM bug。Windows job 尽力而为（runner LLVM 装不上）。**剩余**：net Winsock / regex pcre2 真实现、jwt 真实现、DbQueryRows、websocket（均需专门工作，记录 limitation）。
+- v0.6.1 已发布：**KylixRT 核心**——`kylix run` 无 Go 工具链环境直接产出原生二进制并运行（`--backend=auto` 探测，有 Go 走 Go / 无 Go 回退 LLVM）；LLVM 后端补齐 KylixBoot 注解自动装配（`TRequest/TResponse`→opaque ptr 类型映射 + TResponse 真实句柄 `{status, body}` + `scanBootAnnotations`/`emitBootAutoWiring` 无闭包 wrapper 方案 + boot 函数表驱动 stub）；httpclient 补缺（Post 三参 + timeout 毫秒 + 8 一次性助手 + Put/Delete/StatusCode + THttpResponse）；db 补缺（DbOpen 转发 + DbExec 返回行数）；**51 教程 LLVM 编译+运行 51/51**（新 `test_all_llvm.sh` + CI `llvm-tutorials` job）。**v0.6.1 修复（2026-08-11）**：LLVM bootstrap 编译器编译含声明程序死循环——根因 1 无方法类 vtable=null 使 `is` 检查永远 false（emitVtable 发空 vtable + emitConstructor 恢复 store @X_vtable + record vtable，删除 emitClassRuntime 重复兜底）；根因 2 for/forEach `continue` 跳循环头跳过递增（continue 改跳独立 incLbl 递增块）。修复后 LLVM main 秒出编译 is/as、for+continue 程序。顺带修复 4 组潜伏回归。详见 CHANGELOG.md
+
+- v0.6.1 已发布：**KylixRT 核心**——`kylix run` 无 Go 工具链环境直接产出原生二进制并运行（`--backend=auto` 探测，有 Go 走 Go / 无 Go 回退 LLVM）；LLVM 后端补齐 KylixBoot 注解自动装配（`TRequest/TResponse`→opaque ptr 类型映射 + TResponse 真实句柄 `{status, body}` + `scanBootAnnotations`/`emitBootAutoWiring` 无闭包 wrapper 方案 + boot 函数表驱动 stub）；httpclient 补缺（Post 三参 + timeout 毫秒 + 8 一次性助手 + Put/Delete/StatusCode + THttpResponse）；db 补缺（DbOpen 转发 + DbExec 返回行数）；**51 教程 LLVM 编译+运行 51/51**（新 `test_all_llvm.sh` + CI `llvm-tutorials` job）。**v0.6.1 修复（2026-08-11）**：LLVM bootstrap 编译器编译含声明程序死循环——根因 1 无方法类 vtable=null 使 `is` 检查永远 false（emitVtable 发空 vtable + emitConstructor 恢复 store @X_vtable + record vtable，删除 emitClassRuntime 重复兜底）；根因 2 for/forEach `continue` 跳循环头跳过递增（continue 改跳独立 incLbl 递增块）。修复后 LLVM main 秒出编译 is/as、for+continue 程序。顺带修复 4 组潜伏回归。详见 CHANGELOG.md
+- v0.6.0 已发布：#7 性能 benchmark——`Result` 加 Duration/CacheHits/CacheMisses + `build --time` flag + `benchmarks/compile_time.sh` + `docs/compile-performance.md`。数据（Apple Silicon/LLVM 22）：Go 冷编译 29ms / 热 23ms / LLVM -O0 11527ms / **LLVM -O2 575ms**（opt 缩小 IR 后 llc 反而快 20×）。**#8 -O2 优化验证**：51 教程 `--llvm-opt=2` 全过，-O0 vs -O2 输出 diff 逐字节一致（`test_all_llvm.sh` 加 `LLVM_OPT`/`OUTDIR` 支持）。**klx codegen 修复（host 端）**：`var` 输出参数 → Go 指针（ast.Parameter.IsVar + parser 组延续 + 签名 `*` + body 解引用 + 调用 `&`）；as 链式确认 klx 已支持（v5.9 CastBoundary）。剩余：#9 JetBrains 插件、LLVM/klx 端 var 参数同步。
+- v0.5.9 已发布：多态 gate 缺口修复 + KylixBoot 注解自动装配移植完成。宿主编译器与 bootstrap 编译器（`src/*.klx`）对同一源码的基类发射收敛为一致（`type TNode interface`；3 处根因：GenerateClassDecl interface 分支 / CollectClassTypes 无条件填充 ClassIsBaseStr / 类型表达式多态分支发 ident.Value）。KylixBoot 注解全栈移植到 `src/generator.klx`：#2 validation（GenerateValidationMethods）、#4 autowire（ScanBootAnnotations + EmitBootAutoWiring）、#5 ORM（ScanORMAnnotations + GenerateORM*Methods，`[Entity]`/`[Repository]`/`[Query]` → ToRow/FromRow + CRUD + Query 方法）。self-reproduction 不动点保持（`self_gen2 ≡ self_gen3`，7388 行逐字节一致），bootstrap 编译 51 教程 **51/51**，go test 16 包全绿。**v5.9 已知限制**：`var` 输出参数值传递（host 已修 v0.6.0，LLVM/klx 端待同步）；`(as T).Field` 链式 v5.9 已修且 v0.6.0 确认 klx 支持。详见 CHANGELOG.md
+- v0.5.6 已发布：LLVM 后端 bootstrap self-host 达成 51/51（100%）。自举源码 `src/*.klx`（7 文件、5250 行）经 LLVM 后端多文件构建成原生二进制 `main_self`（**无 Go 依赖**），编译全部 51 个教程示例产出的 Go 代码能 `go build` 成功并正确运行。本轮修复 28 个 codegen bug + 移植缺口，分三类：(1) **LLVM codegen bug**（8 个）——Exit/return funcExit 出口块（v0.5.5"整数解析失败"真因）、裸无参方法调用 self.X; → emitMethodCall、strconcat 固定 512 缓冲区溢出、字符串 null 守卫（@__kylix_emptystr）、htab_get miss 返回 null、map array 值 miss zeroinitializer、ParseRepeatStatement 条件后 NextToken、GenerateExceptionTypes 移到 body 后；(2) **移植缺口**（14 个）——record/enum 值类型 + emitMapFieldIndexPut、SkipAttributes 跳过 [Attribute] 注解、stdlib 模块函数启发式 + (T,error) 包装 + boot 类型 TRequest→*stdlib.BootRequest、TLambdaExpression→Go func literal、WriteEscapedGoString 用拼接发转义（LLVM decodeKylixString 把 \\→\）、多返回 result:=(a,b)→return a,b + 解构、泛型实例化 TStack<Integer> 解析+构造+receiver [T]、validation stub IsValid()、unit interface/implementation 段标记 + forward 声明跳过；(3) **调试要点**（6 个）——lldb 函数名断点、main.ll IR 优先、in-repo sweep（kylix/stdlib 导入须 repo 解析）、无下划线文件名（Go 忽略 _ 前缀）、多文件 unit 构建（`build unit.klx main.klx`）、ParseGenericInstantiation 不消费 >（留 PeekToken=. PREC_MEMBER 让 infix loop 继续）。关键发现：generator.klx vs generator.go 是两套代码，差异是移植缺口；LLVM addString decodeKylixString 把 \\→\、\"→"（因 lexer 留 raw bytes、后端 decode），WriteEscapedGoString 须用拼接（各部分独立 decode，运行时 concat 产生正确字节）。回归 16 包 + 51 教程全绿。
+- v0.5.3 已发布：自举编译器 round-trip 打通 + 自繁殖。v0.5.2 只打通「构建」；v0.5.3 打通「运行时正确性」——`kylix_self2` 能正确编译程序，且自繁殖（`kylix_self3` 同样正确）。三处修复（都在 `src/generator.klx`，宿主零改动）：`Args` builtin、条件导入（扫描 needle 拆分避自检测）、`WriteEscapedGoString` 2-char 前瞻转义保护。`self_7.go` ≡ `self_7_gen2.go`（5390 行逐字节一致，真正不动点）。
+- v0.5.2 已发布：自举编译器构建打通。自举源码 `src/*.klx`（7 文件、5250 行）首次构建成可运行的 `kylix_self` 二进制。此前转译产物 `go build` 失败 208 个错误（130×`is`/`as` 在 struct 指针基类上非法、~75×子类装不进基类容器无多态、1×切片协变、3×`Args` builtin 缺失）。根因：Go 后端把所有类发射成普通 struct + 嵌入父 struct——给字段继承但无多态；`classIsBase` map 早已填充但 v0.3.1 回退后从不读取。**opt-in 修复**：仅当程序含 `is`/`as`（多态信号）时，把「有子类的基类」发射成空 interface（自举三基类 TNode/TStatement/TExpression 无字段无方法，且从不通过基类变量直接访问字段 → 空 interface 足够，无需 getter）；否则保留 struct 嵌入（字段继承，教程 example19/example40 不回归）。Parser 端 `parseIs/parseAs` 置 `program.UsesPolymorphism`，`collectClassTypes`（公共预扫描咽喉）OR 进 `g.usesPolymorphism`；`generateClassDecl`/`generateTypeExpression`/`generateTypeExpressionForCast` 按标志派发。新增 `Args` builtin（`os.Args[1:]`）；`src/parser.klx:448` 切片协变修复（`array of TStatement`→`array of TNode`）。`go build` 208→0 错误 → `kylix_self`（2.9MB）运行产出 5238 行 Go 编译器代码。go test 16 包全绿（+3 多态测试），教程 51/51 无回归。round-trip（kylix_self 产出再编译能正确编译程序）留 v5.3（自举 generator.klx codegen 保真度缺口）。
+- v0.5.1 已发布：完成 Variant 运行时。补齐 v0.5.0 留的两个缺口：(A) `map[String]Variant` 真实化——htab 值槽存 Variant box 指针（不动 htab 结构，cache/string-map 不回归），`emitMapVarDecl` 检测 Variant 值类型设 `variantMaps`，`emitMapIndexGet` 走新 `htab_get_variant`（miss 返回 nilbox 全局 tag=0 → as_* 走 nil 默认）返回 `"variant"`，`emitMapIndexPut` 装箱 RHS；jsonutil `parse_flat` 改调 `value_to_variant` 让 `JsonDecodeMap` 产出真实 Variant map，`JsonGetString/Int/Float/Bool/Map/Array` 全部改 unbox（`variant_as_str/int/double/bool`）。(B) Variant 算术——`variant_add/sub/mul/div` 按标签派发（`+` 字符串拼接/双 int→int/else double），`emitInfix` 算术 stub 替换为 `emitVariantArith`，`coerceValue` 加 variant→concrete（`n := v` 解箱，`emitAssign` 内联 coercion 改调 coerceValue 统一）。新增 `as_int`/`as_bool` unbox + `@__kylix_variant_nilbox` 全局。LLVM 测试 266→274，教程 50→51（新增 example57_variant_map 双端输出逐字节一致）无回归。Variant 算术仅 LLVM（Go `interface{}`不支持运算符），`div`/`mod` Variant 留 stub。
+- v0.5.0 已发布：Variant 运行时（标量 + `array of Variant`）。LLVM 后端此前把 `Variant` 静默当 `i64` 别名——`var v: Variant; v := 1.0` 截断 double、`array of Variant` 元素无类型标签、`arr[0] = 10.0` 比较位模式。v0.5.0 实现 boxed-pointer Variant（`%struct.kylix_variant = {i32 tag, i64 payload}`，tag nil/int/float/str/bool）：标量 `_var` alloca + Variant 数组 `arrayInfo.IsVariant`，赋值按类型装箱（box_int/float/str/bool），比较经 `variant_compare` 按标签派发（数值提升 double、字符串 strcmp、布尔 payload），`WriteLn(variantValue)` 按标签打印。jsonutil `JsonGetArray` 从 v4.9 字符串数组切片升级为**带类型标签的 Variant box 切片**（`value_to_variant` 窥首字符分类，数字→float box 与 Go json float64 对齐 → 双端 parity）。顺带修复 `Length(arr)` 路由（`emitArrayLength` 死代码 → 现派发 slice len word）。LLVM 测试 255→266，教程通过率 49→50（新增 example56_variant 双端输出逐字节一致）无回归。Variant 算术（`v+1`）与 `map[String]Variant` 真实化留 v5.1。
+- v0.4.9 已发布：DWARF 调试信息 Phase 2 + jsonutil 嵌套数组。类方法/lambda 注册独立 DISubprogram（define 行附 `!dbg`、`self`/参数/捕获变量声明为调试局部变量），v0.4.8 泛型类方法可逐行单步 + LLDB 检视 receiver/捕获值。新增 DILexicalBlock——块内 `var` 归属正确的嵌套作用域。jsonutil `JsonGetArray` 从返回 null 的 stub 升级为真实解析器：把 JSON 数组解析为字符串数组 slice `{ptr items, i64 len, i64 cap}`（标量存文本、嵌套对象/数组存 raw 子串），新增 `JsonArrayLen`/`JsonArrayGetString`。顺手修复 `skip_nested` 丢失闭合 `]`/`}` 的 off-by-one（length `end-start` → `endAfter-start`）。LLVM 测试 250→255，教程通过率 49/49（100%）无回归。
+- v0.4.8 已发布：泛型类方法 codegen + DIBasicType 多类型。修复 example21 泛型类 stub（`TStack<Integer>.Push/Pop` 从 `Pop: 0` → 与 Go 后端一致 `Pop: 30`），打通泛型类 `var x := TStack<T>.Create()` → `x.Method()` 完整链路：单态化 walk VarDecl.Value + constructor inference 处理 GenericType/CallExpression + 类字段数组 `self.Items[i]` GEP（FieldInfo.ArrayType + emitArrayIndex MemberExpression 分支）。DWARF 调试信息从单一 int64 升级为按 llvmType 发射独立 DIBasicType（double→DW_ATE_float、ptr→DW_ATE_address、i1→DW_ATE_boolean），LLDB `frame variable` 显示正确类型。LLVM 测试 249→250，教程通过率 48/48（100%），example21 从 stub → 输出正确。
+- v0.4.7 已发布：静态数组下界修复 + jsonutil 嵌套对象解析。AST `ArrayType` 新增 `LowerBound` 字段，parser 记录真实下界，LLVM 后端按真实下界调整索引（不再硬编码 1）——修复 example23 段错误（`array[0..4]` 的 `0-1` 无符号下溢 → GEP 越界）。jsonutil `JsonGetMap` 从返回 null 升级为递归 `parse_flat` 解析 raw JSON 子串为 nested htab（支持任意深度嵌套对象），并修复 `skip_nested` 的 pos bug（指向 close char 之后，不再丢失 sibling 字段）。LLVM 测试 240→249，教程通过率 48/48（100%），example23 从段错误 → 输出正确。
+- v0.4.6 已发布：DWARF 逐行调试升级 —— per-instruction DILocation（每条 IR 指令附 `!dbg !N` 源行号+列号+scope，按 (line,col,scope) 去重）+ DILocalVariable + `#dbg_declare` 记录（LLVM 22 语法，替代废弃的 `call @llvm.dbg.declare`）。`emitStatement`/`emitExpr` 入口 `setDbgNode` 设置源位置，`line()` 自动给指令行附加 `!dbg`。LLDB 支持按源文件行号设断点、`step`/`next` 逐行单步、`frame variable` 检视局部变量（参数/`result`/用户变量）。LLVM 测试 240→247，教程通过率 48/48（100%）无回归。
+- v0.4.5 已发布：LLVM stdlib Phase 3 完成 —— 3 个 stub 模块升级为真实实现（jsonutil 递归下降解析器 / crypto AES-256-CBC+PBKDF2 / httpclient libcurl 集成）+ 进程内 IR 优化 pass 管线（DCE）+ 增量编译缓存（llc 跳过，32x 加速）+ DWARF 调试符号（`-g` flag，LLDB/GDB 函数级调试）+ 文件拆分（expr.go 1207→777、stmt.go 1081→614，回到 1000 行约束内）。LLVM 测试 198→240，教程通过率 48/48（100%）。
+- v0.4.4 已发布：LLVM stdlib Phase 2 完成 —— 8 个模块（encoding/net/crypto/db/cache/jsonutil/boot/jwt/httpclient，~2000 行 IR + 60+ 单元测试）+ KylixBoot 注解方法 stub 生成 + 链式方法调用修复（`self.Repo.Name()` 类型追踪）+ 9 个关键 bug 修复（字符串比较/块作用域/ptr-nil 比较/map 后缀/...）。LLVM 教程通过率 48/48（100%，含 example33 多文件模块）。
+- v0.4.3 已发布：datetime 模块 Phase 1 完整（13 API + Arena Allocator）
+- v0.4.2 已发布：sysutil 模块 Phase 1（8 API）
+- v0.4.1 已发布：LLVM M4 高级特性 —— Lambda/闭包（捕获变量 + 环境结构体）、`inherited` 关键字（父类方法链查找）、完整多返回值元组解构、OOP 字段/方法访问系统性修复（vtable 继承）、优化通道（`opt` + `llc -O<N>`，循环归纳达 20x 提速）。LLVM 教程通过率 27/49，01-04 章节（19 文件）与 Go 后端输出逐字节一致。
+- v0.4.0 已发布：LLVM M3（异常处理/字符串插值/控制流/表达式覆盖 ✅）+ stdlib Phase 7（db/cache/http/websocket ✅）+ IDE 插件（VS Code v1.1 ✅）
+- v0.3.3：KylixBoot 框架完善 —— Body 绑定 + JWT + OpenAPI 3.1 自动生成
+- v0.3.2：KylixBoot 注解栈 + LLVM M2 完整 + stdlib Phase 6
+- v0.1.5：stdlib `.klx` 声明文件 + 包管理器
+- 所有 Go 测试通过（16 个包，LLVM 后端 274 测试）
+- 教程 51/51 测试通过（Go 后端，`examples/complete-tutorial/`）
+- LLVM 后端 49→51 教程编译通过（100%，含 example56_variant Variant 数组 + example57_variant_map Variant map 双端 parity；01-04 章节 19 个文件与 Go 后端输出逐字节一致；example33 多文件模块经 `multifile.go` MergePrograms 合并声明后通过）
+- v0.5.6 新增：28 个 LLVM 后端 codegen bug + generator.klx 移植缺口修复，bootstrap self-host 51/51（100%）。详见 CHANGELOG.md
+- v0.5.3 新增：自举编译器 round-trip 打通 + 自繁殖（`src/generator.klx` 三修：`Args` builtin + 条件导入 + `WriteEscapedGoString` 转义保护）
+- v0.5.2 新增：自举编译器构建打通（多态基类 opt-in interface codegen）+ `Args` builtin + 切片协变修复
+- v0.5.1 新增：map[String]Variant 真实化 + Variant 算术
+- v0.5.0 新增：Variant 运行时（boxed `{tag, payload}`）
+- v0.4.9 新增：类方法/lambda DISubprogram + DILexicalBlock + jsonutil `JsonGetArray`
+- v0.4.8 新增：泛型类方法 codegen + DIBasicType 多类型
+- v0.4.7 新增：静态数组真实 LowerBound + jsonutil `JsonGetMap` 递归嵌套对象
+- v0.4.6 新增：DWARF 逐行调试（per-instruction DILocation + DILocalVariable + `#dbg_declare`）
+- v0.5.5 新增：record 字段值拷贝（malloc+memcpy 深拷贝，匹配 Go 值语义）
+- v0.5.4 新增：进程内 IR 优化 pass（DCE，默认运行）+ 增量编译缓存（llc 跳过，32x 加速）+ DWARF 调试符号（`kylix build --backend=llvm -g`）
+- 所有源文件 ≤ 1000 行
+
+## 关键文档
+
+- [ROADMAP.md](ROADMAP.md) — 开发路线图（直到 v4.0）
+- [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md) — 已知问题与改进积压
+- [TASKS.md](TASKS.md) — 详细任务分解
+- [CHANGELOG.md](CHANGELOG.md) — 版本历史
+- [docs/ADMIN_PLATFORM.md](docs/ADMIN_PLATFORM.md) — KylixAdmin 后台管理平台规划（v0.10–v0.12，1.0.0 旗舰 showcase）
+- [docs/MULTIPLATFORM.md](docs/MULTIPLATFORM.md) — 多端规划（H5/Android/iOS/wasm，v0.13–v0.15，共享 Kylix 核心 + 各端原生壳）
+- [docs/API_STABILITY.md](docs/API_STABILITY.md) — 1.0.0 API 冻结承诺（CLI/stdlib/语法三张清单 + 弃用流程）
+
+## 架构
+
+- `token/token.go` — Token 类型定义和关键字映射
+- `lexer/lexer.go` — 词法分析器（字符 → token 流）
+- `ast/ast.go` — AST 节点定义（接口 + 具体类型）
+- `parser/parser.go` — Pratt 解析器核心；`parser_decl.go` 声明；`parser_stmt.go` 语句；`parser_expr.go` 表达式
+- `generator/generator.go` — 生成器核心 + 预扫描；`generator_types.go` 类型/函数代码生成；`generator_stmt.go` 语句代码生成；`generator_expr.go` 表达式代码生成
+- `generator/generator_boot_annotations.go` — KylixBoot 注解扫描 + 自动装配代码生成
+- `generator/generator_validation_annotations.go` — 字段校验注解代码生成（`[Required]`/`[Email]` 等）
+- `cmd/kylix/main.go` — CLI 入口（版本 0.3.3）
+- `pkg/compiler/` — 编译 API + 增量缓存
+- `pkg/compiler/annotations.go` — KylixBoot 注解诊断（KLX207–KLX214）
+- `pkg/openapi/openapi.go` — OpenAPI 3.1 YAML 生成器
+- `pkg/pkgmgr/` — 包管理器（add/install/remove）
+- `pkg/repl/` — 交互式 REPL
+- `pkg/lsp/` — Language Server Protocol
+- `stdlib/` — Go 标准库封装（web, orm, template, exceptions, jwt 等）
+- `stdlib/klx/` — LSP 补全用的 Kylix 声明文件
+- `pkg/llvmgen/` — LLVM 后端代码生成器（原生二进制）
+  - `codegen.go` — Generator 核心 + 字符串常量池 + 调试符号
+  - `compile.go` — 编译管线（AST → IR → .o → binary）
+  - `expr.go` — 表达式 codegen（算术/比较/调用/WriteLn）
+  - `expr_access.go` — 成员/方法/接口/闭包访问 codegen
+  - `stmt.go` — 语句 codegen（赋值/return/变量声明）
+  - `stmt_flow.go` — 控制流 codegen（if/while/for/case/match/try）
+  - `class.go` — 类/vtable/构造/方法 codegen
+  - `stdlib_*.go` — 标准库模块 IR 实现（encoding/net/crypto/db/cache/jsonutil/boot/jwt/httpclient/sysutil/datetime）
+  - `variant.go` — Variant 运行时（v0.5.0）：boxed `{i32 tag, i64 payload}` + box/unbox(as_double/as_str/as_int/as_bool)/compare/arith(add/sub/mul/div)/print helpers + nilbox 全局 + call-site 装箱/比较/算术/unbox
+  - `debug.go` — DWARF 调试符号生成（`-g` flag）：per-instruction DILocation + DILocalVariable + `#dbg_declare`（v0.4.6 逐行调试）+ per-llvmType DIBasicType（v0.4.8 类型精度）
+  - `passes.go` — IR 优化 pass 管线（DCE + ConstantFold）
+  - `cache.go` — 增量编译缓存（SHA256 键控 .o 复用）
+- `src/stdlib_ir.klx` — **v0.6.9**：host 生成的 stdlib IR 烘焙数据（13 段 + 139 签名，**AUTO-GENERATED，勿手改**；再生：`python3 scripts/extract_stdlib_ir.py > src/stdlib_ir.klx`，依赖 /tmp/stdir_cover/cover.ll + 教程 .ll）
+- `scripts/extract_stdlib_ir.py` — stdlib IR 烘焙提取器（设计文档见文件头；v0.9.0 加 boot 段）
+- `scripts/rebake_stdlib_ir.sh` — 一键重烘链路（cover.klx + 教程 IR → verify 门 → 烘焙；改 host 代码后须 `REBUILD_COMPILER=1`）
+- `scripts/cover.klx` / `scripts/cover_boot.klx` — 烘焙覆盖程序（stdlib 全函数 / boot 路由动词，入库防 /tmp 断链）
+- `scripts/test_bootstrap_all.sh` — **v0.6.9**：51 教程 bootstrap-vs-host 全量回归（`--emit-llvm` → llc → clang → 运行 → 输出 diff；按 IR 扫描自动加 -lcrypto/-lsqlite3/-lcurl）
+
+## 已完成阶段
+
+### Phase 6–10 → v0.1.0–v0.1.5
+- 字符串插值、异常类型、多返回值、属性
+- Map 类型、Variant 类型、动态数组
+- 枚举、切片、单元文件系统、多文件编译
+- 自举验证完成（Self-hosted compiler）
+- 接口验证、Kylix 层错误报告、真正的泛型（Go 1.18+）
+- 增量编译（55× 加速）
+- stdlib `.klx` 声明 + 包管理器
+
+### v3.1.x → KylixBoot 框架 + LLVM M2 Phase 1
+- `[Controller]`/`[Get]`/`[Post]` 路由自动装配
+- `[Service]`/`[Component]`/`[Inject]` DI 自动装配
+- `[Required]`/`[Email]`/`[Min]`/`[Max]`/`[MinLen]`/`[MaxLen]` 字段校验
+- `[Authenticated]`/`[Role]` 路由安全守卫
+- `[Entity]`/`[Column]`/`[PrimaryKey]`/`[Repository]`/`[Query]` ORM 注解
+- 注解诊断 KLX207–KLX213
+
+### v0.3.2 → LLVM M2 完整 + stdlib Phase 6
+- LLVM 后端 M2：接口胖指针、成员/方法分发、泛型类单态化
+- stdlib `net`（TCP/UDP/DNS）、`crypto`（SHA/AES/BCrypt）、`encoding`（Base64/Hex/CSV）
+- 注解栈全部完成，教程 42/42
+
+### v0.3.3 → KylixBoot 框架完善（2026-06-28）
+- `[Body(TEntity)]`：POST/PUT 路由的 JSON 请求体自动绑定 + IsValid()/Validate() 校验
+- `jwt` stdlib：JwtSign/JwtVerify/JwtSubject + BootRegisterJwtAuth 一键接入 `[Authenticated]`
+- `kylix doc --openapi`：从注解自动生成 OpenAPI 3.1 YAML（路径、schema、安全方案）
+- 错误码修正：ErrBodyBinding 从 KLX301（冲突）改为 KLX214
+- 教程 45/45 通过（新增 14_body_binding、15_jwt、16_openapi）
+
+## 下一步：v0.3.3 收尾
+
+**已完成 ✅**
+- 类型检查层 MVP：`pkg/compiler/typecheck.go`（862 行）完整实现
+- 包管理器编译器集成：`CompileProject` 自动发现 `packages/*/` 并去重
+- 测试覆盖提升：新增 `packages_test.go`，所有关键包已有测试
+
+**剩余工作**
+- CompileFile 单文件模式的跨单元依赖自动解析（可选，非阻塞）
+- 文档更新：tutorial README 提及包管理器用法
+- 性能优化：大型项目的增量编译缓存验证
+
+**v4.0 规划**
+- LLVM M3：完整类型系统 + 优化通道
+- stdlib Phase 7：http client/server + 数据库连接池
+- IDE 插件：VSCode/JetBrains 语法高亮 + 跳转
+
+## 关键约束
+
+- Go 后端保持不变（Kylix → Go → binary）
+- AST 节点使用 class（不用 variant records）
+- **未经用户明确许可，绝不 commit/push**
+- **每个源文件不超过 1000 行**：大文件按功能拆分
+- build=`go build -o /tmp/kylix_bin ./cmd/kylix/ && KYLIX=/tmp/kylix_bin bash examples/complete-tutorial/test_all.sh 2>&1 | tail -8`
+- test=`go test $(go list ./... | grep -v '/examples') 2>&1 | grep -E "^ok|FAIL"`
+- bootstrap（v0.6.9）= `go build -o /tmp/kylix_bin ./cmd/kylix/ && /tmp/kylix_bin build --backend=llvm -o /tmp/main_self_p2_dbg src/token.klx src/error.klx src/ast.klx src/lexer.klx src/parser.klx src/generator.klx src/stdlib_ir.klx src/llvmgen.klx src/main.klx`（**验证输出必须含 `✓ Built`**——管道 tail 会吞 llc 失败）
+- bootstrap sweep（v0.10.0）= `bash scripts/test_bootstrap_all.sh 2>&1 | grep -E "^(FAIL|DIFF|SKIP|KNOWN)|==="`（期望 57 PASS + 1 SKIP；须 `KYLIX=/tmp/kylix_bin BOOT=/tmp/main_self_p2`）
+- 不动点验证（v0.6.9）= gen1 `--emit-llvm` 9 文件 → fp.ll → `opt -passes=mem2reg` → `llc` → `clang -L/opt/homebrew/opt/openssl@3/lib -lcrypto -lsqlite3 -lcurl` → gen2 → gen2 `--emit-llvm` 同 9 文件 → cmp fp.ll（逐字节一致即不动点）
+
+## 已知问题（v0.3.3）
+
+详见 [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md)。最优先修复的 3 项：
+1. 包管理器未集成到编译器搜索路径（2.4）
+2. `topoSortWithFiles` 文件路径对齐 bug（1.2）
+3. `pkg/pkgmgr` + `pkg/compiler/cache` 零测试覆盖（3.1）
+
+## 教程结构（examples/complete-tutorial/）
+
+| 目录 | 示例数 | 状态 |
+|------|--------|------|
+| 01_basics ~ 11_modules | 32 | ✅ 全部通过 |
+| 12_special_features | 7 | ✅ v0.3.2 |
+| 13_stdlib_phase6 | 1 | ✅ v0.3.2 |
+| 14_body_binding | 1 | ✅ v0.3.3 |
+| 15_jwt | 1 | ✅ v0.3.3 |
+| 16_openapi | 1 | ✅ v0.3.3 |
+| 17_database | 1 | ✅ v4.0 |
+| 18_cache | 1 | ✅ v4.0 |
+| 19_http | 1 | ✅ v4.0 |
+| 20_websocket | 1 | ✅ v4.0 |
+| 21_variant | 2 | ✅ v5.0/v5.1 |
+| 22_web_pages | 2（59 模板 / 60 web 框架 E2E） | ✅ 全部通过（60 由脚本特判 E2E） |
+| 23_regex | 1（61 regex 引擎，多文件接 stdlib/regex_engine.klx） | ✅ v0.7.1 P0b 三端 parity |
+| 24_string_utils | 1（62 字符串工具，多文件接 stdlib/stringutil.klx） | ✅ v0.8.0 P1 三端 parity |
+| 25_template_layout | 1（63 模板 layout/partials，多文件接 stdlib/template_engine.klx） | ✅ v0.9.0 P1.6 三端 parity |
+| 26_memory | 1（64 GC 压力示例；LLVM 端另有 --gc=boehm parity 特判项） | ✅ v0.10.0 P0 |
+| **合计** | **57 编号示例 + unit** | **Go 58/58 · LLVM 58/58（含 GC parity 项） · bootstrap 57 PASS + 1 SKIP（example60 E2E）** |
+
+## v0.5.7 里程碑：LLVM 后端 self-reproduction 不动点（2026-07-29）
+
+- v0.5.7 已发布：LLVM 后端 bootstrap self-reproduction 达成。main_self（LLVM 编译的 bootstrap）编译 src/*.klx → self_gen.go → go build → main_self2（Go 编译的 bootstrap）→ 编译 51 教程全过 → main_self2 编译 src/*.klx → self_gen2.go → go build → main_self3 → 编译 51 教程全过 → **self_gen.go ≡ self_gen2.go（逐字节一致，真正不动点）**。修复 3 个 bug：(1) stdlib 启发式排除 Go builtins（append 被误映射为 stdlib.append）；(2) ClassTypes/UserFuncs 从 map 改为 String（Go 后端 nil map 写 panic）；(3) WriteEscapedGoString 用单反斜杠 '\' 替代双 '\\'(LLVM decodeKylixString 解码不一致)。回归 16 包 + 51 教程全绿。
+
+## 后续开发规划（v0.5.9+）
+
+- **v0.5.9 — 多态 gate + KylixBoot 注解自动装配** ✅（2026-08-08 发布）：#2 validation + #3 多态 gate + #4 KylixBoot autowire + #5 ORM 注解全部移植到 `src/generator.klx`，宿主与 bootstrap 行为收敛一致，不动点保持。
+- **v0.6.0 — 性能 benchmark（#7）+ LLVM -O2 验证（#8）+ var 参数 host 支持** ✅（2026-08-10）：Result/BuildCache 统计字段 + `build --time` + `benchmarks/compile_time.sh` + `docs/compile-performance.md`。数据：Go 冷 29ms/热 23ms、LLVM -O0 11527ms、**-O2 575ms**。**#8**：51 教程 `--llvm-opt=2` 全过 + 输出与 -O0 逐字节一致。**var 参数**（host Go 后端）：指针传递 + 读写解引用 + 调用传址。剩余：#9 JetBrains 插件、var 参数 LLVM/klx 端同步（bootstrap 不用 var 参数，self-reproduction 不受影响）。
+- **v0.6.1 — KylixRT 核心** ✅（2026-08-10）：`kylix run` 无 Go 单二进制（auto 探测）+ LLVM boot 注解自动装配 + httpclient/db 补缺 + **51 教程 LLVM 51/51** + bootstrap LLVM -O0/-O2 编译修复。详见 CHANGELOG。
+- **v0.6.2 — 跨平台 + KylixRT 生产化** ✅（2026-08-11）：target triple 参数化 + CLI --target + 系统库链接 + **Linux LLVM 51/51** + `kylix doctor` + 平台 API 适配（sysutil/datetime/exc 真实，net/regex stub）+ sysutil 补齐（9 函数）+ **test/bench --backend=llvm**（无 Go 跑测试/基准）+ 裸过程调用/Args[N]/MergePrograms 3 个 LLVM bug。**剩余 limitation**：net Winsock / regex pcre2 / jwt / DbQueryRows / websocket（需专门工作）、Windows 真机验证（CI runner 装不上 LLVM）。
+- **v0.6.3 — jwt 双端 + 分发 B + Variant 传参修复** ✅（2026-08-16 发布）：JwtSign/JwtVerify 真实现（HS256，签名与 Python 逐字节一致、验签 valid/wrong-secret/tampered/malformed 全对）+ `bundle_llvm.sh` 捆绑 LLVM（FindLLVM 可执行文件旁优先）+ **Variant 嵌套调用 segfault 修复**（`Has(JwtVerify(...))`：isVariantType 识别 `*ast.VariantType` + box IR 类型校正 ptr + 闭包/inherited/virtual call 三处同类 coerce 点全修）。16 包 + 51 教程（Go+LLVM）全绿。详见 CHANGELOG。
+- **v0.6.4 — LLVM stdlib 真实现：DbQueryRows + websocket** ✅（2026-08-18 发布）：DbQueryRows（Variant map 标签 + variant-map 索引 + 推断路径修复 + 内联 sqlite3 行循环）；websocket 完整 5 函数（RFC 6455 握手 + 帧 + ping/pong，strcat 请求链规避 varargs spill 崩溃、SHA-1 用 OpenSSL）。16 包 + 51 教程（Go+LLVM）全绿。详见 CHANGELOG。
+- **v0.6.5 — WS 自回环 + SHA-1 修复 + KylixRT 完善 + 性能优化** ✅（2026-08-20 发布）：手写 SHA-1 修复（websocket 去 OpenSSL）+ 分阶段握手 API（单进程自回环）+ 字符串插值溢出修复 + test/bench auto 回退 + 性能五项（bootstrap -O0 30× 提速）。16 包 + 51 教程（Go+LLVM）+ self-repro 不动点全绿。详见 CHANGELOG。
+- **v0.6.6 — boot HTTP server + stdlib 补全 5 项** ✅（2026-08-21 发布）：boot server（`Boot<M>` 路由表 + `BootRun` 真体 + `req.Param/Query/Header/Body` 降级，KylixBoot 无 Go 真正可用）；stdlib 补全（jwt claims / cache TTL / httpclient JSON / UrlEncode / Variant div-mod）；顺带修复（Variant 赋值 as_str 误 coerce、b64url rem==1、hashtab 门控、Request enqueue DoRequest）。16 包 + 51 教程（Go+LLVM）+ self-repro 全绿。详见 CHANGELOG。
+- **v0.6.7 — #9 JetBrains 插件 + 安装使用手册** ✅（2026-08-22 发布）：`jetbrains-plugin/` Gradle Kotlin 模块（IC 2024.3 SDK）：TextMate 语法高亮（复用 vscode-ext tmLanguage）+ LSP4IJ 桥 `kylix lsp`（补全/跳转/重命名/格式化）+ 25 个 Live Templates + `README.md` 安装使用手册；`./gradlew buildPlugin` 产出可安装 zip。**ROADMAP #9 ✅**。详见 CHANGELOG。
+- **v0.6.8 — boot server 补强 + stdlib 补全 + JetBrains 插件完善** ✅（2026-08-23 发布）：boot server（POST body 读取 + `req.JSON` 绑定 + `BootRegisterJwtAuth` 真校验 + BootText Variant coerce + 401 reason）；stdlib（encoding Base64URL + httpclient JSON 嵌套对象 + JsonGetMap map-box 直通）；JetBrains 插件（`.klx` 图标 + Run 配置 + LSP undefined warning / SymbolTable 补全）。16 包 + 51 教程（Go+LLVM）+ boot 端到端 + buildPlugin 全绿。详见 CHANGELOG。
+- **v0.6.9 — bootstrap 无 Go 闭环** ✅（2026-09-04 发布）：内存管理（arena 推广 ✅）、LLVM 端 Variant 嵌套链式索引 coerce 收尾 ✅、**bootstrap 无 Go 闭环达成**——stdlib IR 烘焙（`scripts/extract_stdlib_ir.py` → `src/stdlib_ir.klx`）+ emitter 补缺 20+ 项 + **gen2 诞生**（自举 IR 过 llc 链接成编译器）+ **IR 不动点**（gen1 ≡ gen2 ≡ gen3，~220k 行逐字节）+ 教程 sweep 50/51（example15 lambda / example50 jwt 于 P4.12 收尾修复）；O(n²) 性能疑虑实测排除。详见 CHANGELOG。
+- **v0.7.0 — web 页面开发 + web 框架** ✅（2026-09-06 发布）：P0 error 类型 + P1 纯 Kylix 模板引擎 + P2 页面渲染 API + P3 页面框架完善（Redirect/错误页）+ P5 教程 22_web_pages 接入（example60 server E2E）+ 文档（docs/WEB_FRAMEWORK.md、docs/TEMPLATE_GUIDE.md）。
+- **v0.7.1 — Windows 一等公民**（进行中，详细规划见 ROADMAP.md）：**P0 regex ✅（2026-09-09）**——Is\* 字符类 + 纯 Kylix `stdlib/regex_engine.klx`（~870 行回溯 VM：显式栈 + visited memo，字符类/量词+lazy/锚点/分组/alternation；RE2 语义对齐：leftmost-first + FindAll prevMatchEnd 规则；**设计转向：多文件构建同源三端，非 stdlib_ir.klx 烘焙**）+ example61 教程三端接入（33 场景，Go/LLVM/bootstrap/Go-regexp 四方逐字一致）+ 三 sweep 回归（Go/LLVM 55/55、bootstrap 53 PASS + 2 SKIP）+ 不动点保持；host Go codegen 三限制记 TECHNICAL_DEBT（多返回 result 即 return / exit 失效 / 零参调用丢括号）。**P1 net Winsock ✅（2026-09-10）**——wrapper 架构（7 公开 TCP 函数 OS 无关化 + 9 个 `__kylix_net_*` 原语 wrapper 按 targetOS 发射 unix BSD / Winsock2 两套 define）+ WSAStartup-once/ioctlsocket/SOCKET=i64/-lws2_32 自动链接 + **顺带修 SO_REUSEADDR 常量不可移植 bug**（macOS/Win 是 0xffff/4 非 Linux 1/2，旧代码 macOS 上静默无效）+ `enqueueNetPublic` 修 boot/websocket 跨模块引用 + websocket Windows typed stub（挂债）+ Windows IR 交叉 COFF 验证 + stdlib_net_test 重写（unix 10 + Windows 6 + 一致性）；**顺带破案 P0b 遗留 flake**：bootstrap 自编译 example61 非确定性段错误（35%）——嵌套调用重置共享 `LastArgTypes` 致长度错配 + 复合 `and` 不短路越界读（坑清单模式漏网），修复后 30/30 稳定、sweep 53 PASS + 2 SKIP、不动点保持。**P2 交叉链接 ✅（2026-09-10）**——`FindMingwSysroot()`（KYLIX_MINGW_ROOT → 可执行文件旁 → PATH driver 祖父 → 常见目录；支持版本化目录嵌套）+ 链接走 llvm-mingw 自带 clang + `--ld-path` + `--sysroot`（`-fuse-ld=lld` 按 PATH 找必挂）+ `tripleFor` windows 改 mingw triple（msvc 下 llc 发 `__chkstk`，mingw 无此符号）+ exec.Command 必须在库 append 后构建（切片 realloc 丢参）+ unix 三库门控；hello/net 均 PE32+ console（**macOS 须 `xattr -dr com.apple.quarantine` 否则 Gatekeeper SIGKILL**）。**P3 CI llvm-windows 真跑 ✅**——llvm-mingw portable zip（v6.2 installer 教训）+ 4 教程 + example61 regex + net 双进程 Winsock echo 真机验收（CI 程序 macOS 预验证）。剩余：P4 工程债快赢（缓存指纹/名单单测）。
+- **v0.7.2 — CI 全绿 + 稳定性还债**：fixpoint job 改走 --emit-llvm 链、Lint job、Linux Go codegen 垃圾输出、LLVM 类方法多返回、三处名单单一来源化。
+- **v0.8.0 — 自举 stdlib（真自包含）**：纯 Kylix stdlib 模块扩展（.klx → 烘焙 → 三端同源）、内存管理（arena 推广 + htab 防护）、boot server 多 cookie/xhdrs realloc。
+- **v0.9.0 — 1.0.0-rc**：bootstrap boot server 实施（解除 example60 SKIP）+ 重烘链路修复（cover.klx 入库 + 段表自动生成）+ **KylixBoot 框架补齐**（Session/CSRF/文件上传/分页/模板 layout/Download——KylixAdmin P1 硬前置，见 docs/ADMIN_PLATFORM.md）+ 三平台 CI 稳定全绿 + 性能基线入 CI + API 稳定性审查。
+- **v0.10.0–v0.12.0 — KylixAdmin 后台管理平台**（详细规划见 docs/ADMIN_PLATFORM.md）：P2 认证 RBAC（登录/角色/权限五表/审计）→ P3 通用 CRUD 引擎（`[Entity]` 元数据驱动 + 仪表盘）+ P4 自研 UI 设计系统（亮暗主题/无 CDN）→ P5 postgres 方言抽象 + 一键部署单二进制。代码 `apps/admin/`。
+- **v0.13.0–v0.15.0 — 多端平台**（详细规划见 docs/MULTIPLATFORM.md，架构：共享 Kylix 核心 + 各端原生壳）：v0.13 H5 路线 A（响应式 PWA 移动页面组）→ v0.14 编译器多端能力（**C ABI `export` 落地** + android/ios triple + NDK/Xcode 探测 + stdlib 可移植层）→ v0.15 示例应用（Kotlin+JNI / SwiftUI 壳）+ wasm32 triple。
+- **1.0.0**：v0.7.1–v0.15.0 gate 全过后发布正式版（KylixAdmin + 多端为旗舰 showcase）。
+
+---
+> Source: [astra-zhao/kylix](https://github.com/astra-zhao/kylix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
