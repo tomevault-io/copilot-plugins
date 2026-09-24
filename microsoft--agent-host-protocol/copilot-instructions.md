@@ -1,81 +1,130 @@
 ## agent-host-protocol
 
-> Rules for iterating on protocol types
+> Conventions for AI coding agents working on the .NET client. Cross-cutting
 
+# Agent Guide — .NET client
 
-- Treat [AHP Doctrine](../../docs/guide/doctrine.md) as the design compass for protocol changes. Before adding or changing protocol types, check the doctrine's principles and design tests: durable user-visible results should be represented in state, the host should remain authoritative, minimal clients should keep a coherent experience, and agent implementation details should stay behind the host boundary.
-- Always prefer dispatching state actions (that can cause side effects) rather than making imperative RPC calls. For example, rather than a `sendMessage` command, we have a `session/turnStarted` message.
-- If a state is invalid, it should be inexpressible. For example, don't do something like
+Conventions for AI coding agents working on the .NET client. Cross-cutting
+repo rules are in the root [`AGENTS.md`](../../AGENTS.md); release mechanics
+are in [`RELEASING.md`](../../RELEASING.md).
 
-  ```
-  interface IApproval {
-    denied: boolean;
-    reason?: string; // only present if denied=true
-  }
-  ```
+## Layout
 
-  Instead, use a discriminated union:
+| Path | Contents |
+| --- | --- |
+| `src/AgentHostProtocol.Abstractions/Generated/*.generated.cs` | **Generated** wire types. Do not edit. |
+| `src/AgentHostProtocol.Abstractions/Json/`, `Transport/` | Hand-written serialization support (`AhpUnion`, `UnionConverter`, `WireEnumConverter`, `StringOrMarkdown`) and the `ITransport` / `IAhpSerializer` seams. |
+| `src/AgentHostProtocol/` | `AhpClient`, the reducers, the default `SystemTextJsonAhpSerializer`, subscriptions, and the `Hosts/` multi-host runtime. |
+| `src/AgentHostProtocol/WebSocketTransport.cs` | `ClientWebSocket`-based transport. |
+| `tests/AgentHostProtocol.Tests/` | xUnit tests, including the shared reducer-fixture conformance suite. |
+| `examples/` | Runnable console samples. |
 
-  ```
-  interface IDenial {
-    denied: true;
-    reason: string;
-  }
-  interface IApproval {
-    denied: false;
-  }
-  type IApproval = IDenial | IApproval;
-  ```
+## Code generation
 
-  Or just inline it if it's a single property:
+Generated files are produced by `scripts/generate-csharp.ts` (run from the repo
+root via `npm run generate:dotnet`) from the TypeScript definitions in
+`types/`. The generator is modeled on `scripts/generate-go.ts` and shares its
+curated struct / enum / union lists — they are protocol-driven, not
+language-specific. After changing anything under `types/`, regenerate and
+commit; CI fails on any diff between the committed sources and a fresh run.
 
-  ```
-  interface IApproval {
-    deniedReason?: string; // if present, implies denied
-  }
-  ```
+## Type mapping (TS → C#)
 
-- `number` types are assumed to be 64-bit integers. If a floating point values are reasonable for a field, you MUST annotate its jsdoc with `@format float`
-- For actions or commands that could be implemented by returning an array `T[]` directly, still prefer to wrap it in `{ items: T[] }` for forward compatibility. This allows adding additional fields later without breaking the shape.
-- Naming discriminants for discriminated unions:
-  - Lifecycle / state-machine unions: name the union `Foo*State` and its discriminant enum `Foo*Status`. Variant interfaces are `Foo*State` (e.g. `ToolCallState` + `ToolCallStatus` + `ToolCallStreamingState`; `McpServerState` + `McpServerStatus` + `McpServerStartingState`; `CustomizationLoadState` + `CustomizationLoadStatus`).
-  - General/typological unions (not a lifecycle): name the discriminant `Foo*Kind` (e.g. `MessageAttachment` + `MessageAttachmentKind`, `ResponsePart` + `ResponsePartKind`, `ToolCallContributor` + `ToolCallContributorKind`).
-  - Generator note: variant interface names must differ from the union wrapper names emitted by the per-language generators (e.g. Kotlin emits `value class FooStateStarting(val value: FooStartingState)`), so name variants `Foo*State` rather than `FooStatus*`.
-- After making your changes, check to make sure the documentation in `docs` is up to date. For significant new flows or features, consider adding new documentation for it. Note that Mermaid diagrams are allowed.
-- Whenever you change or add an action, you must review the reducers in `types/reducers.ts` to see if that needs to be propagated into the state. If it does, add the appropriate logic and unit tests for it.
-- Actions that mutate a keyed collection in state (an array whose entries are identified by a stable key such as `id`, `clientId`, `resource`, or a URI — e.g. `chats`, `customizations`, `files`, `annotations`, `activeClients`) MUST follow the established add/remove/update convention rather than inventing a new shape:
-  - **Upsert** (`Foo*Set`): the action carries the **full entry object**. The reducer finds the entry by key, **appends** it when absent and **replaces** it in place when present (never duplicating a key). Always name a generic create-or-replace action `Set` — not `Added`, `Changed`, or `Updated` — so the upsert convention is recognisable at a glance.
-  - **Remove** (`Foo*Removed`): the action carries **only the key** (e.g. `{ clientId }`, `{ fileId }`), never the whole object. The reducer is a **no-op returning the original `state`** when no entry matches.
-  - **Partial update** (`Foo*Updated`): the action carries the **key plus the optional fields that changed**; the reducer merges them onto the existing entry and is a **no-op returning `state`** when no entry matches. Ignore the key inside any `changes` payload so it can't be reassigned.
-  - Prefer a key-only **remove** action over an upsert that accepts a nullable/sentinel "unset" value (e.g. do not model removal as `Changed` with `entry: null`).
-  - Reducer mechanics are uniform: `const idx = list.findIndex(x => x.<key> === action.<key>)`, branch on `idx < 0`, copy immutably (`list.slice()` / `[...list]`), then write or `splice`, and return `{ ...state, <collection>: next }`. Every branch (insert, replace, remove, no-op) needs a fixture in `types/test-cases/reducers/` to keep `types/reducers.ts` at 100% branch coverage.
-- Never update the protocol version unless you were instructed to do so.
+- `number` → `long` (or `double` when the property carries `@format float`).
+- `unknown` / `object` → `System.Text.Json.JsonElement`;
+  `Record<string, unknown>` → `Dictionary<string, JsonElement>`.
+- Optional (`?` / `| undefined` / `| null`) fields → nullable + `[JsonIgnore(
+  Condition = JsonIgnoreCondition.WhenWritingNull)]`. Required fields serialize
+  their value (a required reference left null serializes as `null`, mirroring
+  Go's `nil`-slice semantics).
+- String enums → C# `enum` with `[WireValue("…")]` per member, (de)serialized
+  by `WireEnumConverter<T>`. Bitset enums → `[Flags] enum : uint`, serialized
+  as their numeric value so unknown future bits round-trip.
+- Discriminated unions → a sealed wrapper deriving from `AhpUnion` (carrying
+  `object? Value`) plus a generated `UnionConverter<T>`. Unknown discriminator
+  values are preserved verbatim as a raw `JsonElement`.
 
-## Finalizing changes
+## Reducers
 
-Before declaring a protocol repo change complete, run `npm run generate` and `npm run test` from the repo root. Resolve any generated-output, typecheck, lint, test, or generator issues those commands expose before handing the change back.
+The reducers are a faithful port of the Go client's `reducers.go` and mirror
+the canonical TypeScript reducers. They mutate state in place. The shared
+fixtures under `types/test-cases/reducers/*.json` are the cross-language parity
+gate — run them with `dotnet test`. The `resourceWatch` reducer is an
+intentional stub (parity with the Rust and Go clients).
 
-## Running toolchains you don't have locally
+## Testing
 
-A spec change ripples into every `clients/<lang>/` mirror, so you often need to build/test a client whose toolchain isn't installed on your machine. **Don't skip verification** — run it in a container with `podman`. Use these pinned images so every agent verifies against the same environment (add a row when you containerize another toolchain so the images stay consistent):
+The shipping libraries build for `netstandard2.0` and `net8.0`; tests run
+against `net8.0`:
 
-| Toolchain | Image | Notes |
-| --- | --- | --- |
-| JDK 17 (Kotlin client) | `docker.io/library/eclipse-temurin:17-jdk` | Gradle comes from the repo's `./gradlew` wrapper. |
+1. **Shared reducer conformance** — `FixtureDrivenReducerTests` replays every
+   cross-language reducer fixture (`types/test-cases/reducers/*.json`). The
+   whole set counts as a single `[Theory]`.
+2. **Shared wire round-trip corpus** — `TypesRoundTripFixtures` data-drives the
+   language-agnostic round-trip corpus under `types/test-cases/round-trips/*.json`
+   through the REAL serializer, asserting decode → re-encode is a byte-exact
+   fixed point. A `[Theory]` (`CorpusFixture`) iterates every fixture in the dir.
+3. **Native unit tests** — `ClientTests` (full `AhpClient` over an in-memory
+   `MemTransport`, the port of Go's `client_test.go`), `HostsTests`,
+   `MultiHostClientTests`, `MultiHostStateMirrorTests`, `NativeReducerTests`,
+   `ReconnectPolicyTests`, `ClientIdStoreTests`,
+   `FileClientIdStoreTests`, `TransportTests`, `WebSocketTransportTests`. The
+   multi-host / host / client fake servers share one declarative loop helper,
+   `FakeHost`.
+4. **Cross-implementation convergence** — `CrossImplementationConvergenceTests`
+   replays a session trace captured from an independent host, while
+   `RealSocketTypeScriptConformanceTests` launches the repository-local
+   TypeScript conformance host over a real WebSocket and proves current-version
+   negotiation, snapshot seeding from `InitializeResult`, and streamed action
+   convergence through the handwritten C# reducers. The host imports the
+   canonical TypeScript `sessionReducer` directly and uses the development-only
+   `ws` package for server framing; it does not use a published package or an
+   external service.
 
-Mount the **repo root** (the shared conformance fixtures under `types/test-cases/` are resolved by walking up from the working directory, so a client-dir-only mount fails) and keep build caches out of `$HOME`. Example — run the Kotlin client's tests:
+Cross-language parity is verified by the shared fixture corpora the suite
+replays — the 189 reducer fixtures (`types/test-cases/reducers/*.json`) and the
+round-trip corpus (`types/test-cases/round-trips/*.json`), both of which every
+client runs. (A .NET-only grep-based test-count gate used to live here; it was
+retired in favor of relying on the shared corpora, which actually exercise the
+behavior rather than counting method names.)
 
-```sh
-podman run --rm \
-  -e GRADLE_USER_HOME=/tmp/gradle-home \
-  -v "$PWD":/workspace \
-  -w /workspace/clients/kotlin \
-  docker.io/library/eclipse-temurin:17-jdk \
-  ./gradlew test --no-daemon --console=plain
-```
+## Architecture decisions
 
-On macOS this needs a running `podman machine` (`podman machine start`). Build artifacts (`clients/kotlin/build/`, `.gradle/`) are git-ignored.
+- [`docs/decisions/sync.md`](docs/decisions/sync.md)
+  — the full menu of .NET synchronization primitives, the distinct concurrency
+  use cases in the client, which primitive each gets (`ConcurrentDictionary`
+  for the collections, `lock` for the `HostEntry` field-bundle, `SemaphoreSlim`
+  only for the WebSocket send path, `Channels`/`Interlocked`/`volatile`
+  elsewhere), and the `netstandard2.0` compatibility strategy.
+- [`docs/decisions/serialization.md`](docs/decisions/serialization.md)
+  — System.Text.Json (default, in-box, fastest) behind the `IAhpSerializer`
+  seam, versus Newtonsoft / lazy-DOM / validating options, across speed,
+  memory, lazy-vs-eager, validation, dependencies, and AOT.
+- [`docs/decisions/reconnect.md`](docs/decisions/reconnect.md)
+  — hand-rolled exponential backoff (with opt-in jitter) versus
+  Polly / `Microsoft.Extensions.Resilience`, and why the core stays
+  dependency-free.
+
+These decision records live under `docs/decisions/` and are repo-only — they are not packed into any NuGet
+package (only `README.md` is).
+
+## Releasing
+
+Sub-package releases publish the
+`Microsoft.VisualStudioCode.AgentHostProtocol*` packages to NuGet.org.
+`pipeline.yml` is the tag-driven Azure DevOps release pipeline: it signs the
+assemblies and packages through ESRP before publishing. The
+`clients/dotnet/VERSION` ↔ `CHANGELOG.md` heading match is enforced for every
+PR by `npm run verify:changelog`.
+
+## Out of scope
+
+JSON-Schema validation (a
+`Microsoft.VisualStudioCode.AgentHostProtocol.Validation` decorator over
+`IAhpSerializer`) and DI/extension helpers
+(`Microsoft.VisualStudioCode.AgentHostProtocol.Extensions`) are planned
+follow-ups, not part of this client yet.
 
 ---
 > Source: [microsoft/agent-host-protocol](https://github.com/microsoft/agent-host-protocol) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
