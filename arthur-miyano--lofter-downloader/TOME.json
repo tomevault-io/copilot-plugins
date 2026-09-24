@@ -1,0 +1,44 @@
+{
+  "name": "lofter-downloader",
+  "owner": "Arthur-Miyano",
+  "repo": "lofter-downloader",
+  "description": "LOFTER\u4e0b\u8f7d\u5668\uff0c\u53ef\u4ee5\u628a LOFTER \u6587\u7ae0\u548c AO3 \u6587\u7ae0\u4e0b\u8f7d\u5230\u672c\u5730\u7684\u8f6f\u4ef6\uff0cAO3\u66f4\u63a8\u8350\u5b98\u65b9\u4e0b\u8f7d",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Arthur-Miyano/lofter-downloader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T08:22:50Z"
+}
