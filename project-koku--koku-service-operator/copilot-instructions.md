@@ -1,25 +1,52 @@
-## jira-cost-branches-prs
+## koku-service-operator
 
-> Jira COST-#### branch and PR title conventions for this repo
+> Read [CLAUDE.md](CLAUDE.md) before making changes. It is the authoritative
 
+# Agent instructions
 
-# Jira branch and PR conventions (COST-####)
+Read [CLAUDE.md](CLAUDE.md) before making changes. It is the authoritative
+guide for repository conventions, testing, and review requirements.
 
-When work is tied to a Jira ticket `COST-####` (or the user references one):
+## Worktrees and tests
 
-| Item | Format |
-|------|--------|
-| Branch | `cost-####-short-kebab-slug` (lowercase, hyphens) |
-| PR title | `[COST-####] Short English description` |
-| Commit (recommended) | `[COST-####] Short English description` |
+New Git worktrees do not include the ignored `bin/` directory. Before running
+repository tooling or controller integration tests in a worktree, create the
+machine-local symlink documented in `CLAUDE.md`:
 
-- Put `[COST-####]` at the **start** of the PR title, not `(COST-####)` at the end.
-- PR body should link: `https://redhat.atlassian.net/browse/COST-####`
-- Creating branches/PRs: `git checkout -b cost-####-slug` and `gh pr create --title "[COST-####] ..."`
+```sh
+ln -s <main-checkout>/bin <worktree>/bin
+```
 
-Full table: [CONTRIBUTING.md](../../CONTRIBUTING.md).
+Use `make test` for the full Go test suite. It selects the envtest assets via
+`KUBEBUILDER_ASSETS`; running the controller package directly without that
+environment can fall back to a missing global Kubebuilder installation.
 
-Chore/docs without a ticket may use `chore/` or `docs/` branch prefixes instead.
+## Generated files (CRD and OLM bundle)
+
+API or CRD changes touch **two** generated trees. Do not mix them up.
+
+| Command | Updates | CI job |
+|---------|---------|--------|
+| `make generate` | `api/.../zz_generated.deepcopy.go` | `check-generated` |
+| `make manifests` | `config/crd/bases/`, `config/webhook/`, RBAC YAML | `check-generated` |
+| `make bundle` | `bundle/manifests/`, `bundle/metadata/`, `bundle.Dockerfile` | `bundle-validate` |
+
+**Never** `cp config/crd/bases/*.yaml bundle/manifests/`. Operator-sdk adds
+bundle-only fields (`creationTimestamp`, `status`, …) that a raw copy omits, so
+`bundle-validate` fails with "bundle/ is out of sync".
+
+After CRD or webhook marker changes:
+
+```bash
+make generate manifests   # if types or kubebuilder markers changed
+make bundle             # always when bundle/ must ship the new CRD
+git diff --stat bundle/ config/crd/
+```
+
+`bundle-validate` ignores CSV `createdAt` drift. If `git status` shows only
+`createdAt` changed in `bundle/manifests/koku-service-operator.clusterserviceversion.yaml`
+after a local `make bundle`, discard it (`git checkout --` that file) — it is
+not a real sync gap.
 
 ---
 > Source: [project-koku/koku-service-operator](https://github.com/project-koku/koku-service-operator) — distributed by [TomeVault](https://tomevault.io).
