@@ -1,0 +1,99 @@
+{
+  "name": "snapcn",
+  "owner": "snapcndev",
+  "repo": "snapcn",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "snapcn",
+      "path": "skills/snapcn/SKILL.md",
+      "github_url": "https://github.com/snapcndev/snapcn/tree/main/skills/snapcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snapcn",
+      "path": ".claude/skills/apple-design/SKILL.md",
+      "github_url": "https://github.com/snapcndev/snapcn/tree/main/.claude/skills/apple-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snapcn",
+      "path": ".claude/skills/ux-ui-maxpro/SKILL.md",
+      "github_url": "https://github.com/snapcndev/snapcn/tree/main/.claude/skills/ux-ui-maxpro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snapcn",
+      "path": ".claude/skills/design-system/SKILL.md",
+      "github_url": "https://github.com/snapcndev/snapcn/tree/main/.claude/skills/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snapcn",
+      "path": ".claude/skills/motion-quality/SKILL.md",
+      "github_url": "https://github.com/snapcndev/snapcn/tree/main/.claude/skills/motion-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snapcn",
+      "path": ".claude/skills/emil-design-eng/SKILL.md",
+      "github_url": "https://github.com/snapcndev/snapcn/tree/main/.claude/skills/emil-design-eng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snapcn",
+      "path": ".claude/skills/review-animations/SKILL.md",
+      "github_url": "https://github.com/snapcndev/snapcn/tree/main/.claude/skills/review-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snapcn",
+      "path": ".claude/skills/animation-vocabulary/SKILL.md",
+      "github_url": "https://github.com/snapcndev/snapcn/tree/main/.claude/skills/animation-vocabulary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snapcn",
+      "path": ".claude/skills/interactivity-best-practices/SKILL.md",
+      "github_url": "https://github.com/snapcndev/snapcn/tree/main/.claude/skills/interactivity-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/snapcndev/snapcn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T07:31:47Z"
+}
