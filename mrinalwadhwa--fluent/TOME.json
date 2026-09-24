@@ -1,0 +1,117 @@
+{
+  "name": "fluent",
+  "owner": "mrinalwadhwa",
+  "repo": "fluent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fluent",
+      "path": "skills/fluent/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skills/fluent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skills/review-tests/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skills/review-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skills/review-skills/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skills/review-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skills/review-behaviors/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skills/review-behaviors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skills/review-architecture/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skills/review-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skills/review-documentation/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skills/review-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skill-migrations/v0.1.4/fluent/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skill-migrations/v0.1.4/fluent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skill-migrations/v0.1.4/review-tests/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skill-migrations/v0.1.4/review-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skill-migrations/v0.1.4/review-skills/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skill-migrations/v0.1.4/review-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skill-migrations/v0.1.4/review-behaviors/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skill-migrations/v0.1.4/review-behaviors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skill-migrations/v0.1.4/review-architecture/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skill-migrations/v0.1.4/review-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fluent",
+      "path": "skill-migrations/v0.1.4/review-documentation/SKILL.md",
+      "github_url": "https://github.com/mrinalwadhwa/fluent/tree/main/skill-migrations/v0.1.4/review-documentation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mrinalwadhwa/fluent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:15:33Z"
+}
