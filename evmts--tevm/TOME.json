@@ -1,0 +1,111 @@
+{
+  "name": "tevm",
+  "owner": "evmts",
+  "repo": "tevm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tevm",
+      "path": "skills/tevm/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/skills/tevm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "skills/zevm/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/skills/zevm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "workflows/fix-ci/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/workflows/fix-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "workflows/issue-to-pr/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/workflows/issue-to-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "workflows/issue-triage/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/workflows/issue-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "workflows/upgrade-viem/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/workflows/upgrade-viem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "workflows/raise-coverage/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/workflows/raise-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "workflows/conformance-triage/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/workflows/conformance-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "workflows/add-jsonrpc-method/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/workflows/add-jsonrpc-method/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "workflows/sync-public-surface/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/workflows/sync-public-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tevm",
+      "path": "workflows/repair-rpc-regression/SKILL.md",
+      "github_url": "https://github.com/evmts/tevm/tree/main/workflows/repair-rpc-regression/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/evmts/tevm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:04:13Z"
+}
