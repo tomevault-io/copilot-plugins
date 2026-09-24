@@ -1,0 +1,18 @@
+{
+  "name": "leon-drq--openagentskill",
+  "displayName": "openagentskill",
+  "description": "openagentskill",
+  "version": "1.0.0",
+  "author": "Leon-Drq",
+  "homepage": "https://github.com/Leon-Drq/openagentskill",
+  "skills": [
+    {
+      "name": "openagentskill",
+      "description": ""
+    },
+    {
+      "name": "openagentskill",
+      "description": ""
+    }
+  ]
+}
