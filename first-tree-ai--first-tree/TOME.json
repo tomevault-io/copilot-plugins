@@ -2,9 +2,9 @@
   "name": "first-tree",
   "owner": "first-tree-ai",
   "repo": "first-tree",
-  "description": "First-tree routes work to the right agent, gives it the same context your team has, and loops humans in only when the rules say so. Lives in your GitHub. Open source.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/first-tree-ai/first-tree",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-19T05:36:49Z"
+  "distributed_at": "2026-09-24T19:41:13Z"
 }
