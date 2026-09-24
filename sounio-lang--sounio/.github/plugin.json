@@ -1,0 +1,9 @@
+{
+  "name": "sounio-lang--sounio",
+  "displayName": "sounio",
+  "description": "Self-hosted systems + scientific programming language with epistemic types, uncertainty propagation, algebraic effects, and formalized non-associative algebra.",
+  "version": "1.0.0",
+  "author": "Sounio-lang",
+  "homepage": "https://github.com/Sounio-lang/sounio",
+  "skills": []
+}
