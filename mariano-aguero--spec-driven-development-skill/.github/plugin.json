@@ -1,0 +1,9 @@
+{
+  "name": "mariano-aguero--spec-driven-development-skill",
+  "displayName": "spec-driven-development-skill",
+  "description": "Agent skill that brings spec-driven development to AI coding agents: constitution \u2192 specify \u2192 plan \u2192 tasks \u2192 implement \u2192 validate, with drift detection, MoSCoW priorities, and quality gates. Works wit",
+  "version": "1.0.0",
+  "author": "mariano-aguero",
+  "homepage": "https://github.com/mariano-aguero/spec-driven-development-skill",
+  "skills": []
+}
