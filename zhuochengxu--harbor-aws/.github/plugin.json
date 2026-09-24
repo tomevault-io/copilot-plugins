@@ -1,0 +1,9 @@
+{
+  "name": "zhuochengxu--harbor-aws",
+  "displayName": "harbor-aws",
+  "description": "AWS ECS/Fargate execution backend for Harbor benchmarks",
+  "version": "1.0.0",
+  "author": "ZhuochengXu",
+  "homepage": "https://github.com/ZhuochengXu/harbor-aws",
+  "skills": []
+}
