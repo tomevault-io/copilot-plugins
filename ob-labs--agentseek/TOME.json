@@ -1,0 +1,93 @@
+{
+  "name": "agentseek",
+  "owner": "ob-labs",
+  "repo": "agentseek",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documentation-writer",
+      "path": ".agents/skills/documentation-writer",
+      "github_url": "https://github.com/ob-labs/agentseek/tree/main/.agents/skills/documentation-writer",
+      "description": ""
+    },
+    {
+      "name": "langchain-dev-guide",
+      "path": "skills/langchain-dev-guide",
+      "github_url": "https://github.com/ob-labs/agentseek/tree/main/skills/langchain-dev-guide",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "path": "skills/github-repo-cards/SKILL.md",
+      "github_url": "https://github.com/ob-labs/agentseek/tree/main/skills/github-repo-cards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "path": "skills/langchain-dev-guide/SKILL.md",
+      "github_url": "https://github.com/ob-labs/agentseek/tree/main/skills/langchain-dev-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "path": "src/skills/agentseek-lifecycle/SKILL.md",
+      "github_url": "https://github.com/ob-labs/agentseek/tree/main/src/skills/agentseek-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "path": ".agents/skills/documentation-writer/SKILL.md",
+      "github_url": "https://github.com/ob-labs/agentseek/tree/main/.agents/skills/documentation-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "path": "templates/deepagents/content-builder/{{cookiecutter.project_slug}}/skills/blog-post/SKILL.md",
+      "github_url": "https://github.com/ob-labs/agentseek/tree/main/templates/deepagents/content-builder/{{cookiecutter.project_slug}}/skills/blog-post/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "path": "templates/deepagents/content-builder/{{cookiecutter.project_slug}}/skills/social-media/SKILL.md",
+      "github_url": "https://github.com/ob-labs/agentseek/tree/main/templates/deepagents/content-builder/{{cookiecutter.project_slug}}/skills/social-media/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ob-labs/agentseek",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T05:39:38Z"
+}
