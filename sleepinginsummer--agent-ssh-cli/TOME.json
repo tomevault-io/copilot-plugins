@@ -3,8 +3,8 @@
   "owner": "sleepinginsummer",
   "repo": "agent-ssh-cli",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agent-ssh-cli",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/sleepinginsummer/agent-ssh-cli/tree/main/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/sleepinginsummer/agent-ssh-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T14:59:56Z"
+  "distributed_at": "2026-09-24T17:21:37Z"
 }
