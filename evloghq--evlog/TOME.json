@@ -1,0 +1,153 @@
+{
+  "name": "evlog",
+  "owner": "evloghq",
+  "repo": "evlog",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "evlog",
+      "path": "skills/analyze-logs/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/skills/analyze-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": ".agents/skills/create-adapter/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/.agents/skills/create-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "skills/review-logging-patterns/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/skills/review-logging-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": ".agents/skills/create-enricher/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/.agents/skills/create-enricher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": ".agents/skills/create-map-rule/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/.agents/skills/create-map-rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/telemetry/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/telemetry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/self-review/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/self-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/content-pass/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/content-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/contributing/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/contributing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/before-after/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/before-after/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": ".agents/skills/write-evlog-content/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/.agents/skills/write-evlog-content/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/daily-digest/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/daily-digest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/cost-watchdog/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/cost-watchdog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/upstream-sync/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/upstream-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/repo-health-sweep/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/repo-health-sweep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": "apps/evi/agent/skills/linear-maintenance/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/apps/evi/agent/skills/linear-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": ".agents/skills/create-framework-integration/SKILL.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/.agents/skills/create-framework-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evlog",
+      "path": ".agents/skills/write-evlog-content/references/surfaces/skill.md",
+      "github_url": "https://github.com/evloghq/evlog/tree/main/.agents/skills/write-evlog-content/references/surfaces/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/evloghq/evlog",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T05:40:52Z"
+}
