@@ -1,134 +1,82 @@
 ## freehire
 
-> Guidance for AI agents working in this repository.
+> `internal/ingest/screeninganswers` — the candidate's own answers to the six screening questions
 
-# AGENTS.md
+# Screening answers
 
-Guidance for AI agents working in this repository.
+## Scope
+`internal/ingest/screeninganswers` — the candidate's own answers to the six screening questions
+that repeat across ATS application forms and no CV can supply: which countries they are
+authorized to work in, whether they need visa sponsorship, their desired salary, their
+notice period, whether they are willing to relocate, and whether they are 18 or older.
+Confirmed against 443k captured `apply_forms` as the dominant repeat once standard contact
+fields and demographic/EEO questions are excluded (see the `screening-answers-profile`
+OpenSpec change).
 
-## Working principles
+## Always true
+- **Not `internal/identity/userprofile`, not `internal/candidate/experience`, not `internal/candidate/resumeextract`.**
+  `userprofile` is search/targeting preferences — a different lifecycle. `experience` is an
+  accumulating evidence bank for CV content. `resumeextract` is CV-derived, and none of
+  these six facts can be derived from a CV — they exist only because the candidate states
+  them directly. Each has its own documented boundary; this package is deliberately none
+  of them.
+- **One row per user, six independently nullable columns — not jsonb, not free-text Q&A
+  pairs.** The field set is fixed and small, so naming each fact is simpler to validate and
+  read than a generic key-value store, and null unambiguously means "the candidate has not
+  stated this," per field, never defaulted or guessed.
+- **No provenance/confirmation state machine, unlike `internal/candidate/experience`.** Experience
+  needs one because the model routinely infers achievements the candidate never confirmed.
+  Here every field is a scalar fact only the candidate can state, so the write path —
+  manual form or assistant tool — always carries a value the candidate themselves typed or
+  spoke. Nothing here distinguishes "candidate said it" from "model inferred it" because
+  the second case cannot happen through this package's API.
+- **`Update` is a merge, not a replace, and there is no way to explicitly clear a field
+  back to unstated.** A candidate stating only their notice period in a chat turn must not
+  wipe their previously-stored salary expectation — `Merge` overlays only the fields the
+  caller actually set. The missing "clear" operation is a deliberate omission: every field
+  here is corrective in practice (a candidate restates a changed answer, they do not
+  withdraw one), so it trades a rare, low-value operation for a simpler contract.
+- **Currency is validated as well-formed, not dictionary-recognized.** Country codes go
+  through `internal/dict/location.NormalizeCountry` (dict-only, unrecognized → dropped) and
+  salary period through the closed `vocab.SalaryPeriodValues` enum, but `internal/dict/vocab`
+  itself documents `salary_currency` as a deliberately open ISO-standard field with no
+  bundled vocabulary — so currency is checked against the ISO 4217 shape (three uppercase
+  letters) only. This is a narrower guarantee than the other two fields' validation, not an
+  oversight.
 
-- **No overengineering, and no MVP shortcuts.** Hold the middle path: don't build infrastructure before there's a concrete need (note the seam for later instead), and don't ship quick-and-dirty or "for now" hacks. Build each feature correctly and idiomatically — neither gold-plated nor a placeholder.
-- **MVP stage — keep the architecture fluid.** The current structure is not load-bearing legacy. When a new feature doesn't fit cleanly, prefer reshaping the affected part over bolting on an awkward special case.
-- **Surgical changes.** Clean up what your change orphaned; leave pre-existing dead code alone. Prefer a library's intended API over a clever shim.
-- **English only.** All code, comments, identifiers, docs, and commits.
-- **Announce shipped work.** When a user-facing feature or fix lands, offer a changelog entry on the `/blog` feed, then a longer post if it warrants one (`.svx` files in `web/src/posts/`; the `write-changelog` skill drafts them). Skip for internal-only changes.
-
-## What this is
-
-`freehire` ([freehire.me](https://freehire.me)) is an open-source IT job aggregator. Many source parsers feed a pipeline that normalizes jobs into one schema, deduplicates them, and enriches them with AI; served over an HTTP API with rich filters, consumed by a SvelteKit app under `web/`.
-
-Stack: **Go + Fiber v2**, **PostgreSQL**, **sqlc**, **Meilisearch**, **Docker Compose**, **langchaingo**.
-
-## Layout
-
-`internal/<domain>/` — domain packages, the substantial ones carry their own AGENTS.md (see the table below).
-`cmd/<name>/` — every binary is a **run-once-and-exit** worker except `cmd/server`. They are cron-driven, not daemons; they need `DATABASE_URL` and exit non-zero on failure.
-
-Non-obvious:
-
-- `migrations/` — the source for **both** sqlc codegen and Postgres initdb. Never edit an applied migration; add a new file.
-- `sources/` — YAML board files, not Go. One file per ATS provider, plus `custom.yml` and `telegram.yml`.
-- `design-system/` — a separate pnpm package, sibling to `web/`, linked via `link:../design-system`
-  (a symlink, not a copy). **Install it before building `web/`** — pnpm does not install a
-  linked package's own dependencies.
-- `internal/db/` — **generated**; edit `internal/db/queries/*.sql` and run `make sqlc`.
-- `services/pii-filter` — a standalone service, not a Go package.
-
-## Commands
-
-```bash
-make up / make down / make logs       # start / stop / tail app + postgres in Docker
-make run / make psql / make sqlc      # run server on host / psql into DB / regenerate internal/db
-make reindex                          # rebuild the Meilisearch jobs index from Postgres
-go build ./...  &&  go vet ./...
-go test ./...                             # unit tests (no external deps)
-go vet -tags=integration ./...            # compiles the tagged tests — run before EVERY push
-go test -tags=integration ./internal/db/  # queue integration tests (needs Docker; testcontainers)
+## How it works
 ```
+Sanitize (normalize country codes + currency case)
+  → Validate (reject malformed input, naming the bad value)
+    → Store.Update: Repository.UpdateLocked(userID, merge) — one transaction:
+        Ensure row exists → SELECT ... FOR UPDATE → merge → Upsert → commit
+```
+`screeninganswers.go` holds the wire shape (`Answers`) and the pure `Sanitize`/`Validate`/
+`Merge` functions — no database, unit-testable without one. `store.go` is the owner-scoped
+`Store` over a narrow `Repository`; `repository.go` adapts `*db.Queries` + the pool to it,
+mirroring `internal/identity/userprofile`'s split (single row, `PRIMARY KEY (user_id)`, `Get`
+maps `pgx.ErrNoRows` to `ErrNotFound`) except for the write path.
 
-**`go test ./...` compiles no `//go:build integration` file, and those files are not
-confined to `internal/db`** — there are 152 of them across 13 packages, and `internal/handler`
-holds 65, which call unexported constructors like `newCVHandlers`. A changed signature
-therefore passes every command above except the `vet` line, then fails CI, which runs
-`go test -tags=integration ./...` over the whole module. The vet line is the cheap guard:
-seconds, no Docker. Run the full tagged suite when you change behaviour rather than a
-signature.
-
-Worker gotchas (`go run ./cmd/<name>`, all need `DATABASE_URL`; run `ls cmd/` for the full list):
-
-- `migrate` — run **before** deploying code that reads new schema. `-baseline` records on-disk files without executing; a pre-runner database auto-baselines on first run.
-- `ingest` — takes one board file: `go run ./cmd/ingest sources/<provider>.yml` (or `SOURCES_FILE`).
-- `enrich` / `tg-extract` — need `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL`.
-- `embed` / `search-drain` / `rollup-facets` / `reindex-companies` — need `MEILI_URL` / `MEILI_MASTER_KEY`. `search-drain` drains `search_outbox` (queued by `cmd/ingest`, atomically with each write) into the live facet index in batches — run it frequently (e.g. every 1-2 min); see [internal/searchdrain/AGENTS.md](internal/searchdrain/AGENTS.md).
-- `backfill-derive` — re-derives every deterministic column (facets, `role_fingerprint`, slugs) in one keyset pass; `BACKFILL_CONCURRENCY` tunes the pool. Follow with `make reindex` — it collapses newly-clustered reposts and unions their geography.
-- `capture-apply-form` — drains the apply-form capture queue: fetches each queued posting's application form from `greenhouse`/`ashby`/`workable`/`lever` and stores it in `apply_forms`. Needs nothing but `DATABASE_URL`; `APPLY_FORM_CONCURRENCY` (default 4) bounds how hard one run leans on a platform and `APPLY_FORM_MAX_PER_RUN` (default 5000) how much of the backlog it takes — the second matters because the first drain faces a ~185k backlog and an unbounded run would work for hours, which `Type=oneshot` turns into silently skipped timer firings. `recruitee` forms never reach this queue — its listing carries them, so ingest writes them directly.
-- **Nothing holds a flock** — `grep flock` finds none in Go and none in the systemd units. What keeps a cron worker from stacking on itself is systemd: a `Type=oneshot` unit will not start a second instance while the first is active. That protects the TIMER path only, so a run started by hand has no lock at all. **Never stack `reindex-companies` with `make reindex`** — Meilisearch deadlocks, and nothing will stop you. Two workers additionally take a Postgres advisory lock (`cmd/liveness`, `cmd/ghost-crosscheck`); their keys are listed in `internal/migrate`.
-- `prune` — the **only** hard-delete path. Dry-run by default; archives every removal to `pruned_jobs`.
-
-## Module files
-
-Each is self-contained and can be read independently.
-
-| Area | Reference |
-|---|---|
-| **HTTP handlers** (response shapes, error rendering, routes) | [internal/handler/AGENTS.md](internal/handler/AGENTS.md) |
-| **SQL layer** (sqlc, queries, migrations) | [internal/db/AGENTS.md](internal/db/AGENTS.md) |
-| **Search** (Meili index topology, rebuild swap, reindex hazards) | [internal/search/AGENTS.md](internal/search/AGENTS.md) |
-| **Accounts** (identity resolution, seizure rule, mailed codes) | [internal/accounts/AGENTS.md](internal/accounts/AGENTS.md) |
-| **Auth primitives** (JWT, API keys, cookie transport, middleware) | [internal/auth/AGENTS.md](internal/auth/AGENTS.md) |
-| **OAuth sign-in** (provider registry, state cookie, identity resolution) | [internal/auth/oauth/AGENTS.md](internal/auth/oauth/AGENTS.md) |
-| **Per-user job tracking** (view/apply/save/track, stages, /me/tracking) | [internal/userjob/AGENTS.md](internal/userjob/AGENTS.md) |
-| **Job wire shape** (the single public projection of a job) | [internal/jobview/AGENTS.md](internal/jobview/AGENTS.md) |
-| **Browser tools** (relays tool frames between agent harness and extension) | [internal/browsertools/AGENTS.md](internal/browsertools/AGENTS.md) |
-| **Source ingest** (board files, provider registry, validation) | [internal/sources/AGENTS.md](internal/sources/AGENTS.md) |
-| **Pipeline** (Runner, dedup, UpsertJob, board health, search indexing) | [internal/pipeline/AGENTS.md](internal/pipeline/AGENTS.md) |
-| **Link resolution** (outbound job URL → destination's own identity) | [internal/linksource/AGENTS.md](internal/linksource/AGENTS.md) |
-| **Board contributions** (crowdsourced URL → (source, board) onboarding) | [internal/contribution/AGENTS.md](internal/contribution/AGENTS.md) |
-| **Telegram** (crawl + LLM vacancy extraction) | [internal/telegram/AGENTS.md](internal/telegram/AGENTS.md) |
-| **Company names** (real display names for slug-named companies) | [internal/companyname/AGENTS.md](internal/companyname/AGENTS.md) |
-| **Enrichment** (Enrichment contract, LLM Provider; enums live in `internal/vocab`) | [internal/enrich/AGENTS.md](internal/enrich/AGENTS.md) |
-| **Semantic embedding** (semantic_outbox, incremental embeds, reconciler) | [internal/embed/AGENTS.md](internal/embed/AGENTS.md) |
-| **Facet-search drain** (search_outbox, incremental facet-index pushes, reconciler) | [internal/searchdrain/AGENTS.md](internal/searchdrain/AGENTS.md) |
-| **In-app assistant** (turn loop, tool registry, presets, transcripts) | [internal/assistant/AGENTS.md](internal/assistant/AGENTS.md) |
-| **Speech to text** (dictation into the composer, the filename rule, spend bounds) | [internal/speech/AGENTS.md](internal/speech/AGENTS.md) |
-| **LLM spend attribution** (per-user gateway credential, feature tags, fail-open) | [internal/llmkey/AGENTS.md](internal/llmkey/AGENTS.md) |
-| **AI fit analysis** (three-stage LLM prompt-chain, score, verdict, stream) | [internal/matchanalysis/AGENTS.md](internal/matchanalysis/AGENTS.md) |
-| **Job-match scoring** (deterministic CV-vs-vacancy score, the unverifiable rule) | [internal/cvmatch/AGENTS.md](internal/cvmatch/AGENTS.md) |
-| **Experience bank** (durable employments + evidence atoms, provenance, retrieval) | [internal/experience/AGENTS.md](internal/experience/AGENTS.md) |
-| **Structured CV** (LLM parse of stored CV, stamp-and-compare) | [internal/resumeextract/AGENTS.md](internal/resumeextract/AGENTS.md) |
-| **CV rendering** (templates, fonts, previews) | [internal/cv/AGENTS.md](internal/cv/AGENTS.md) |
-| **CV edits** (the only writer: path operations, revisions, undo, the evidence gate) | [internal/cvedit/AGENTS.md](internal/cvedit/AGENTS.md) |
-| **Geography** (country/region codes, work-mode hint, dict-only vs hybrid) | [internal/location/AGENTS.md](internal/location/AGENTS.md) |
-| **Skill tagging** (alias→canonical dictionary, jobs.skills facet) | [internal/skilltag/AGENTS.md](internal/skilltag/AGENTS.md) |
-| **Seniority & category** (title→seniority/category, dict-only) | [internal/classify/AGENTS.md](internal/classify/AGENTS.md) |
-| **View counts** (nginx access logs → per-job views) | [internal/viewlog/AGENTS.md](internal/viewlog/AGENTS.md) |
-| **YC directory** (import-yc, curated facets, matching by former names) | [internal/ycdir/AGENTS.md](internal/ycdir/AGENTS.md) |
-| **Sentry error tracking** (backend, workers, frontend — env-gated) | [internal/observability/AGENTS.md](internal/observability/AGENTS.md) |
-| **Mail stack** (Gmail + SES inbound → classify → link → stage advance) | [docs/agents/mail-stack.md](docs/agents/mail-stack.md) |
-| **Notifications** (subscription digests, saved-job reminders, channels) | [docs/agents/notifications.md](docs/agents/notifications.md) |
-| **Job lifecycle** (soft-close, ingest sweep, self-close, liveness probe) | [docs/agents/job-lifecycle.md](docs/agents/job-lifecycle.md) |
-| **Company facets** (remote_regions vs yc_* curated facets) | [docs/agents/company-facets.md](docs/agents/company-facets.md) |
-| **SPA sub-context** (SvelteKit, auth flow, API conventions) | [web/AGENTS.md](web/AGENTS.md) |
-| **Design system** (pnpm package, tokens, Tailwind @source trap) | [design-system/AGENTS.md](design-system/AGENTS.md) |
-
-## Conventions
-
-- **Response shapes:** Lists: `{"data": ..., "meta": {...}}`; single items: `{"data": ...}`; errors: `{"error": msg}`
-- **Dedup key:** `jobs.UNIQUE (source, external_id)` — `UpsertJob` is `ON CONFLICT` on it
-- **Auth:** JWT in httpOnly cookie, same-origin, carrying the account's `token_version` so sessions are revocable. `RequireAuth` (cookie only) / `RequireAuthOrKey` (cookie or full-scope Bearer) / `RequireAuthOrScopedKey` (also admits a narrow key)
-- **Email ownership:** `users.email_verified`; a password registration starts unverified and is confirmed by a mailed six-digit code. An unverified, password-backed account is **seized** (password cleared, sessions revoked, API keys deleted) when a provider-verified OAuth identity arrives for its address — the account-pre-hijacking defence
-- **API keys:** Hashed at rest (SHA-256), scoped `full` or `cv`, and mintable only by an account with a verified address. Key management (create/list/revoke) and password change are cookie-only. A key does not carry the session generation, so a `token_version` bump does not revoke it — that is intentional for sign-out-everywhere and wrong for a takeover, so the seizure and the mailed-code password reset delete the rows in the same statement
-- **Enrichment:** Queue-driven (`enrichment_outbox`), provider-agnostic LLM, `Sanitize` + `Validate` gate
-- **Embeddings:** Queue-driven (`semantic_outbox`), incremental, reconciled by `reindex --semantic`
-- **Dictionaries:** All facet dictionaries are dict-only in production — never guess, emit nothing for unknowns
-- **Job deletion:** The lifecycle only soft-closes; `cmd/prune` is the sole hard-delete path
-- **In-app assistant:** a bounded tool-calling loop in-process (`internal/assistant`), streamed over SSE, open to every signed-in user. Tools act as the authenticated caller — no credential is minted for an agent
-- **LLM spend attribution:** every model call made for a signed-in user goes out on that user's OWN gateway credential (`internal/llmkey` — minted lazily on first use, never shown to them) and carries a `feature:` tag. Work that belongs to nobody — enrichment, Telegram, embeddings — keeps the service credential, and a test enforces that background entrypoints never resolve a user's. Attribution fails open: it can never refuse or fail a call. It measures and does not bound — a turn is still not debited against AI credits
-- **Experience provenance:** every banked achievement records whether the CANDIDATE asserted it (`cv_import`/`stated_in_chat`/`manual`) or the MODEL did (`agent_inferred`). Only the former may be written into a CV, and the check lives in the service path, not in a system prompt
-- **Sentry:** Opt-in, env-gated, errors-only — `sentry.Init` with `SendDefaultPII:false`
-- **Naming — "CV", not "résumé":** Default new surfaces to **CV**. Don't mass-rename the existing `resume`/`resumeextract` packages and columns — churn without value
+**`Update` is a locked read-merge-write, not two separate calls.** Two consumers write
+through the same `Store.Update`: the manual-edit HTTP handler and the assistant's
+`screening_answers_set` tool — both documented as writing through this one path, which
+means two of them can race the same `userID` for real. `Store.Update` no longer calls
+`Repository.Get` then `Repository.Upsert` as two independent statements (a caller could
+read the same "existing" row between them and lose the other write); it calls the single
+`Repository.UpdateLocked(ctx, userID, merge)`, whose `QueriesRepository` implementation
+opens one transaction, first calls `EnsureScreeningAnswersRow` (`INSERT ... ON CONFLICT
+(user_id) DO NOTHING`) so the row always exists before the lock is taken — `FOR UPDATE`
+locks nothing on an absent row, so without this step two concurrent *first* updates for
+the same brand-new user would each read `Answers{}` and race the unguarded upsert instead
+of serializing. With the row guaranteed present,
+`GetScreeningAnswersForUpdate` (`SELECT ... FOR UPDATE`) takes its lock, `merge` runs
+exactly once with what it locked, and `UpsertScreeningAnswers` commits the merged result
+before releasing the lock. A second concurrent `Update` for the same user — whether or not
+either has written before — blocks on `EnsureScreeningAnswersRow`/`FOR UPDATE` until the
+first commits, so it merges onto the first write's result instead of racing it on the same
+stale (or absent) read — no new schema or version column, since Postgres's own row-level
+locking is the serialization point.
 
 ---
 > Source: [strelov1/freehire](https://github.com/strelov1/freehire) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
