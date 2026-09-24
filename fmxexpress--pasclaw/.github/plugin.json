@@ -1,0 +1,14 @@
+{
+  "name": "fmxexpress--pasclaw",
+  "displayName": "PasClaw",
+  "description": "PasClaw",
+  "version": "1.0.0",
+  "author": "FMXExpress",
+  "homepage": "https://github.com/FMXExpress/PasClaw",
+  "skills": [
+    {
+      "name": "PasClaw",
+      "description": ""
+    }
+  ]
+}
