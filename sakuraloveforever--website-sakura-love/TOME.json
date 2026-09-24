@@ -1,0 +1,44 @@
+{
+  "name": "website_Sakura_Love",
+  "owner": "SakuraLoveForever",
+  "repo": "website_Sakura_Love",
+  "description": "\u4e2a\u4eba\u9879\u76ee\u603b\u7ad9\uff0c\u5408\u96c6\u6240\u6709\u5f00\u53d1\u6210\u679c\uff0c\u606d\u5019\u8385\u4e34\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SakuraLoveForever/website_Sakura_Love",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T18:20:25Z"
+}
