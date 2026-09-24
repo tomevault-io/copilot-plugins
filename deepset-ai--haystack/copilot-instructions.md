@@ -1,11 +1,18 @@
 ## haystack
 
-> Before you start working on this repository, read the AGENTS.md file and follow all the instructions.
+> - Use provider-compatible roles in `haystack/hooks/compaction/` — prefer `user` for synthetic markers
 
-# CLAUDE.md
+# haystack/hooks/compaction/ Guidelines
 
-Before you start working on this repository, read the AGENTS.md file and follow all the instructions.
+## API Design
+
+- Use provider-compatible roles in `haystack/hooks/compaction/` — prefer `user` for synthetic markers
+- Name and document compaction settings by their real semantics — retention in `turns`/`steps`, not `messages`; state when compaction runs, what is retained, and which tool-call context is preserved
+
+## General
+
+- Keep `haystack/hooks/compaction/` compactors narrative — move shared indexing, grouping, token counting, and helpers into focused utils
 
 ---
 > Source: [deepset-ai/haystack](https://github.com/deepset-ai/haystack) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
