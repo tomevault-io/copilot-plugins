@@ -2,9 +2,9 @@
   "name": "netsgo",
   "owner": "zsio",
   "repo": "netsgo",
-  "description": "Self-hosted tunneling and node management platform / \u5f00\u7bb1\u5373\u7528\u7684\u5185\u7f51\u7a7f\u900f\u4e0e\u8282\u70b9\u7ba1\u7406\u5e73\u53f0",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zsio/netsgo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T05:04:37Z"
+  "distributed_at": "2026-09-24T21:42:12Z"
 }
