@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [habedi/graphina](https://github.com/habedi/grap
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [habedi/graphina](https://github.com/habedi/graphina) — a repo with 121+ stars on GitHub.
+From [habedi/graphina](https://github.com/habedi/graphina) — a repo with 125+ stars on GitHub.
 
 ---
 
