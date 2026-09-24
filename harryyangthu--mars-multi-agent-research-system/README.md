@@ -1,21 +1,21 @@
 # MARS-Multi-Agent-Research-System
 
-> Source: [HarryYangthu/MARS-Multi-Agent-Research-System](https://github.com/HarryYangthu/MARS-Multi-Agent-Research-System) — distributed by [TomeVault](https://tomevault.io)
+> Source: [HarryYangthu/MARS-Multi-Agent-Research-System](https://github.com/HarryYangthu/MARS-Multi-Agent-Research-System). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [HarryYangthu/MARS-Multi-Agent-Research-System](https://github.com/HarryYangthu/MARS-Multi-Agent-Research-System).
+Original source: `AGENTS.md` in [HarryYangthu/MARS-Multi-Agent-Research-System](https://github.com/HarryYangthu/MARS-Multi-Agent-Research-System).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [HarryYangthu/MARS-Multi-Agent-Research-System](https://github.com/HarryYangthu/MARS-Multi-Agent-Research-System) — a repo with 18+ stars on GitHub.
+From [HarryYangthu/MARS-Multi-Agent-Research-System](https://github.com/HarryYangthu/MARS-Multi-Agent-Research-System) — a repo with 586+ stars on GitHub.
 
 ---
 
