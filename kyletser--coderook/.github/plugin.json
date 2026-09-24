@@ -1,0 +1,9 @@
+{
+  "name": "kyletser--coderook",
+  "displayName": "coderook",
+  "description": "A local-first coding agent with durable sessions, reviewable changes, and evidence-backed runs.",
+  "version": "1.0.0",
+  "author": "kyletser",
+  "homepage": "https://github.com/kyletser/coderook",
+  "skills": []
+}
