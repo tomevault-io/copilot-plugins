@@ -1,0 +1,9 @@
+{
+  "name": "yoshikouki--freecad-cli",
+  "displayName": "freecad-cli",
+  "description": "CLI tool for controlling FreeCAD from AI Agents via XML-RPC",
+  "version": "1.0.0",
+  "author": "yoshikouki",
+  "homepage": "https://github.com/yoshikouki/freecad-cli",
+  "skills": []
+}
