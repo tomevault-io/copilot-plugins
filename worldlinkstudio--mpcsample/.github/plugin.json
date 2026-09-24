@@ -1,0 +1,9 @@
+{
+  "name": "worldlinkstudio--mpcsample",
+  "displayName": "mpcsample",
+  "description": "MPC Sample Kit Maker \u2014 web and desktop Akai MPC sample pad player. Load kits, trigger   samples in the browser or on desktop, and export .xpj project files back to  your MPC Sample hardware.",
+  "version": "1.0.0",
+  "author": "WorldLinkStudio",
+  "homepage": "https://github.com/WorldLinkStudio/mpcsample",
+  "skills": []
+}
