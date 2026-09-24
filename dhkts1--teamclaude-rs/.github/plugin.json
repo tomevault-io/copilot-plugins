@@ -1,0 +1,9 @@
+{
+  "name": "dhkts1--teamclaude-rs",
+  "displayName": "teamclaude-rs",
+  "description": "Lean single-user rotating Anthropic proxy with a live TUI \u2014 Rust rewrite of teamclaude",
+  "version": "1.0.0",
+  "author": "dhkts1",
+  "homepage": "https://github.com/dhkts1/teamclaude-rs",
+  "skills": []
+}
