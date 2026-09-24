@@ -4,7 +4,7 @@
   "repo": "OpenNolan",
   "description": "Agentic Content Creator to increase views & followers across different social media: Youtube, Tiktok, Instagram",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/het8802/OpenNolan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T01:55:40Z"
+  "distributed_at": "2026-09-24T10:16:21Z"
 }
