@@ -2,9 +2,9 @@
   "name": "everything-claude-code-zh",
   "owner": "xu-xiang",
   "repo": "everything-claude-code-zh",
-  "description": "everything-claude-code \u4e2d\u6587\u7ffb\u8bd1\u9879\u76ee\uff1a\u5b8c\u6574\u7684 Claude Code \u914d\u7f6e\u96c6\u5408\uff08agents, skills, hooks, commands, rules, MCPs\uff09\u3002\u6e90\u81ea Anthropic \u9ed1\u5ba2\u677e\u83b7\u80dc\u8005\u7684\u5b9e\u6218\u914d\u7f6e\uff0c\u52a9\u529b\u4e2d\u6587\u5de5\u7a0b\u5e08\u9ad8\u6548\u7406\u89e3\u4e0e\u4f7f\u7528 Claude Code\u3002",
+  "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -75,12 +75,6 @@
       "description": ""
     },
     {
-      "name": "django-tdd",
-      "path": "skills/django-tdd",
-      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/django-tdd",
-      "description": ""
-    },
-    {
       "name": "eval-harness",
       "path": "skills/eval-harness",
       "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/eval-harness",
@@ -126,12 +120,6 @@
       "name": "python-testing",
       "path": "skills/python-testing",
       "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/python-testing",
-      "description": ""
-    },
-    {
-      "name": "security-review",
-      "path": "skills/security-review",
-      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/security-review",
       "description": ""
     },
     {
@@ -187,9 +175,1071 @@
       "path": "skills/django-security",
       "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/django-security",
       "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/api-design/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/cpp-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/cpp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/search-first/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/search-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/jpa-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/jpa-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/configure-ecc/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/configure-ecc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/security-scan/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/content-engine/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/content-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/springboot-tdd/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/springboot-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/django-security/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/django-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/docker-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/docker-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/frontend-slides/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/frontend-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/skill-stocktake/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/skill-stocktake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/article-writing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/article-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/market-research/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/autonomous-loops/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/autonomous-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/swiftui-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/swiftui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".claude/skills/oneskill/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.claude/skills/oneskill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/investor-outreach/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/investor-outreach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/investor-materials/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/investor-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/visa-doc-translate/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/visa-doc-translate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/deployment-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/deployment-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/database-migrations/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/database-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/liquid-glass-design/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/liquid-glass-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/django-verification/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/django-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/springboot-security/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/springboot-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/cpp-coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/cpp-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/plankton-code-quality/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/plankton-code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/java-coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/java-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/swift-concurrency-6-2/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/swift-concurrency-6-2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/cpp-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/cpp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/cpp-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/cpp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/content-engine/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/content-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".cursor/skills/content-engine/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.cursor/skills/content-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/search-first/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/search-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/frontend-slides/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/frontend-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".cursor/skills/frontend-slides/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.cursor/skills/frontend-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/springboot-verification/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/springboot-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/jpa-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/jpa-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/cost-aware-llm-pipeline/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/cost-aware-llm-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".cursor/skills/article-writing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.cursor/skills/article-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/article-writing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/article-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/jpa-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/jpa-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".cursor/skills/market-research/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.cursor/skills/market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/market-research/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/swift-actor-persistence/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/swift-actor-persistence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/configure-ecc/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/configure-ecc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/configure-ecc/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/configure-ecc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/security-scan/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/security-scan/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/content-engine/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/content-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/springboot-tdd/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/springboot-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/springboot-tdd/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/springboot-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/swift-protocol-di-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/swift-protocol-di-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".cursor/skills/investor-outreach/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.cursor/skills/investor-outreach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/investor-outreach/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/investor-outreach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/django-security/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/django-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/django-security/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/django-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/docker-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/docker-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/frontend-slides/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/frontend-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/content-hash-cache-pattern/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/content-hash-cache-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/skill-stocktake/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/skill-stocktake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/article-writing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/article-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".agents/skills/investor-materials/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.agents/skills/investor-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": ".cursor/skills/investor-materials/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.cursor/skills/investor-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/market-research/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/swiftui-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/swiftui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/foundation-models-on-device/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/foundation-models-on-device/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/nutrient-document-processing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/nutrient-document-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "skills/regex-vs-llm-structured-text/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/regex-vs-llm-structured-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/investor-outreach/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/investor-outreach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/investor-materials/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/investor-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/visa-doc-translate/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/visa-doc-translate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/deployment-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/deployment-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/database-migrations/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/database-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/liquid-glass-design/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/liquid-glass-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/django-verification/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/django-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/django-verification/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/django-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/springboot-security/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/springboot-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/springboot-security/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/springboot-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/cpp-coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/cpp-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/java-coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/java-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/java-coding-standards/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/java-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/swift-concurrency-6-2/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/swift-concurrency-6-2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/springboot-verification/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/springboot-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/cost-aware-llm-pipeline/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/cost-aware-llm-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/swift-actor-persistence/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/swift-actor-persistence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/springboot-verification/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/springboot-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/swift-protocol-di-testing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/swift-protocol-di-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-TW/skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-TW/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/content-hash-cache-pattern/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/content-hash-cache-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/foundation-models-on-device/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/foundation-models-on-device/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/nutrient-document-processing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/nutrient-document-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/ja-JP/skills/nutrient-document-processing/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/nutrient-document-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-zh",
+      "path": "docs/zh-CN/skills/regex-vs-llm-structured-text/SKILL.md",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/zh-CN/skills/regex-vs-llm-structured-text/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/xu-xiang/everything-claude-code-zh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:00:18Z"
+  "distributed_at": "2026-09-24T22:20:29Z"
 }
