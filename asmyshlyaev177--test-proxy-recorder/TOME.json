@@ -4,7 +4,7 @@
   "repo": "test-proxy-recorder",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/asmyshlyaev177/test-proxy-recorder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T05:46:15Z"
+  "distributed_at": "2026-09-24T23:06:40Z"
 }
