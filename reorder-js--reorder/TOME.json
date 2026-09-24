@@ -1,0 +1,81 @@
+{
+  "name": "reorder",
+  "owner": "reorder-js",
+  "repo": "reorder",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "reorder",
+      "path": ".agents/skills/local-dev/SKILL.md",
+      "github_url": "https://github.com/reorder-js/reorder/tree/main/.agents/skills/local-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reorder",
+      "path": ".agents/skills/sync-docs/SKILL.md",
+      "github_url": "https://github.com/reorder-js/reorder/tree/main/.agents/skills/sync-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reorder",
+      "path": ".agents/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/reorder-js/reorder/tree/main/.agents/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reorder",
+      "path": ".agents/skills/create-spec/SKILL.md",
+      "github_url": "https://github.com/reorder-js/reorder/tree/main/.agents/skills/create-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reorder",
+      "path": ".agents/skills/release-plugin/SKILL.md",
+      "github_url": "https://github.com/reorder-js/reorder/tree/main/.agents/skills/release-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reorder",
+      "path": ".agents/skills/wipe-test-data/SKILL.md",
+      "github_url": "https://github.com/reorder-js/reorder/tree/main/.agents/skills/wipe-test-data/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/reorder-js/reorder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T22:55:53Z"
+}
