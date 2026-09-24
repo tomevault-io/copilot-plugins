@@ -1,0 +1,14 @@
+{
+  "name": "event-driven-io--pongo",
+  "displayName": "Pongo",
+  "description": "Pongo",
+  "version": "1.0.0",
+  "author": "event-driven-io",
+  "homepage": "https://github.com/event-driven-io/Pongo",
+  "skills": [
+    {
+      "name": "Pongo",
+      "description": ""
+    }
+  ]
+}
