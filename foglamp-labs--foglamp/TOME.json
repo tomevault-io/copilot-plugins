@@ -1,0 +1,99 @@
+{
+  "name": "foglamp",
+  "owner": "foglamp-labs",
+  "repo": "foglamp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "foglamp",
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/foglamp-labs/foglamp/tree/main/.agents/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foglamp",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/foglamp-labs/foglamp/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foglamp",
+      "path": ".agents/skills/codebase-scan/SKILL.md",
+      "github_url": "https://github.com/foglamp-labs/foglamp/tree/main/.agents/skills/codebase-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foglamp",
+      "path": ".agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/foglamp-labs/foglamp/tree/main/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foglamp",
+      "path": ".agents/skills/next-cache-components/SKILL.md",
+      "github_url": "https://github.com/foglamp-labs/foglamp/tree/main/.agents/skills/next-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foglamp",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/foglamp-labs/foglamp/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foglamp",
+      "path": ".agents/skills/better-auth-best-practices/SKILL.md",
+      "github_url": "https://github.com/foglamp-labs/foglamp/tree/main/.agents/skills/better-auth-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foglamp",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/foglamp-labs/foglamp/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "foglamp",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/foglamp-labs/foglamp/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/foglamp-labs/foglamp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:05:33Z"
+}
