@@ -99,5 +99,5 @@ locally on `dev` (not pushed).
   a fresh session to execute a single plan; it mirrors the rules above.
 
 ---
-> Source: [jhd3197/faro](https://github.com/jhd3197/faro) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
+> Source: [jhd3197/Faro](https://github.com/jhd3197/Faro) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
