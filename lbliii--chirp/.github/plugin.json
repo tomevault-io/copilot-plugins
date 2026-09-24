@@ -1,0 +1,9 @@
+{
+  "name": "lbliii--chirp",
+  "displayName": "chirp",
+  "description": "\u2301\u2301 Chirp \u2014 HTML-first web framework for Python 3.14+ with streaming, SSE, and fragment rendering",
+  "version": "1.0.0",
+  "author": "lbliii",
+  "homepage": "https://github.com/lbliii/chirp",
+  "skills": []
+}
