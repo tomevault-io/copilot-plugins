@@ -1,0 +1,9 @@
+{
+  "name": "johanjanssens--frankenwasm",
+  "displayName": "frankenwasm",
+  "description": "WebAssembly plugins for PHP powered by FrankenPHP and Extism",
+  "version": "1.0.0",
+  "author": "johanjanssens",
+  "homepage": "https://github.com/johanjanssens/frankenwasm",
+  "skills": []
+}
