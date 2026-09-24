@@ -1,0 +1,9 @@
+{
+  "name": "lexus2016--turbo-quant-memory",
+  "displayName": "turbo_quant_memory",
+  "description": "Local-first MCP memory server for AI coding agents with compact retrieval and project/global scopes.",
+  "version": "1.0.0",
+  "author": "Lexus2016",
+  "homepage": "https://github.com/Lexus2016/turbo_quant_memory",
+  "skills": []
+}
