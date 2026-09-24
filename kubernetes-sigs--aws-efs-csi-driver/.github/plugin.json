@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--aws-efs-csi-driver",
+  "displayName": "aws-efs-csi-driver",
+  "description": "aws-efs-csi-driver",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/aws-efs-csi-driver",
+  "skills": []
+}
