@@ -1,0 +1,9 @@
+{
+  "name": "ttungx--trae-solo-local-api",
+  "displayName": "trae-solo-local-api",
+  "description": "TRAE SOLO (TRAE WORK) local OpenAI/Anthropic API \u2014 solo_work_lite, lighter queues than Trae CN",
+  "version": "1.0.0",
+  "author": "Ttungx",
+  "homepage": "https://github.com/Ttungx/trae-solo-local-api",
+  "skills": []
+}
