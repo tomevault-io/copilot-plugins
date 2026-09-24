@@ -1,0 +1,9 @@
+{
+  "name": "leonardhope--uspto-odp-natural-language-search",
+  "displayName": "USPTO-ODP-Natural-Language-Search",
+  "description": "A Claude skill that provides natural-language access to all major USPTO patent APIs. Search patents, check prosecution history, trace ownership, review PTAB proceedings, and analyze office action reje",
+  "version": "1.0.0",
+  "author": "LeonardHope",
+  "homepage": "https://github.com/LeonardHope/USPTO-ODP-Natural-Language-Search",
+  "skills": []
+}
