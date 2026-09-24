@@ -1,0 +1,22 @@
+{
+  "name": "nvidia--cluster-readiness-engine",
+  "displayName": "cluster-readiness-engine",
+  "description": "cluster-readiness-engine",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/cluster-readiness-engine",
+  "skills": [
+    {
+      "name": "cluster-readiness-engine",
+      "description": ""
+    },
+    {
+      "name": "cluster-readiness-engine",
+      "description": ""
+    },
+    {
+      "name": "cluster-readiness-engine",
+      "description": ""
+    }
+  ]
+}
