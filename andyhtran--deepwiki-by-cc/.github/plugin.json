@@ -1,0 +1,9 @@
+{
+  "name": "andyhtran--deepwiki-by-cc",
+  "displayName": "deepwiki-by-cc",
+  "description": "Self-hosted, open-source DeepWiki alternative \u2014 agentic wiki generator for any GitHub repo or local codebase. TypeScript, powered by Claude Code or Codex CLI.",
+  "version": "1.0.0",
+  "author": "andyhtran",
+  "homepage": "https://github.com/andyhtran/deepwiki-by-cc",
+  "skills": []
+}
