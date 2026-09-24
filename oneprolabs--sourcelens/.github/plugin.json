@@ -1,0 +1,9 @@
+{
+  "name": "oneprolabs--sourcelens",
+  "displayName": "sourcelens",
+  "description": "Harness-based Agentic RAG: search, understand, and answer questions over documents and code using an AI coding agent harness (Cursor, Claude Code, Codex, etc.) in a sandbox \u2014 no embeddings, no vector ",
+  "version": "1.0.0",
+  "author": "oneprolabs",
+  "homepage": "https://github.com/oneprolabs/sourcelens",
+  "skills": []
+}
