@@ -1,0 +1,177 @@
+{
+  "name": "ai-engineering-from-scratch-zh",
+  "owner": "fancyboi999",
+  "repo": "ai-engineering-from-scratch-zh",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "skills/learn/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/skills/learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "skills/learn-mcp/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/skills/learn-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "skills/course-guide/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/skills/course-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": ".claude/skills/learn/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/.claude/skills/learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "skills/start-learning/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/skills/start-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "skills/find-your-level/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/skills/find-your-level/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": ".claude/skills/learn-mcp/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/.claude/skills/learn-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "skills/learn-agent-skills/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/skills/learn-agent-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "skills/check-understanding/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/skills/check-understanding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "skills/claude-certification/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/skills/claude-certification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": ".claude/skills/course-guide/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/.claude/skills/course-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": ".claude/skills/start-learning/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/.claude/skills/start-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": ".claude/skills/find-your-level/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/.claude/skills/find-your-level/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": ".claude/skills/learn-agent-skills/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/.claude/skills/learn-agent-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": ".claude/skills/check-understanding/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/.claude/skills/check-understanding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": ".claude/skills/claude-certification/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/.claude/skills/claude-certification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "phases/13-tools-and-protocols/22-skills-and-agent-sdks/outputs/skill-contract-reviewer/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/phases/13-tools-and-protocols/22-skills-and-agent-sdks/outputs/skill-contract-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "phases/13-tools-and-protocols/25-skill-invocation-and-routing/outputs/skill-invocation-router/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/phases/13-tools-and-protocols/25-skill-invocation-and-routing/outputs/skill-invocation-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "phases/13-tools-and-protocols/27-skill-evals-packaging-and-portability/outputs/skill-release-gate/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/phases/13-tools-and-protocols/27-skill-evals-packaging-and-portability/outputs/skill-release-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "phases/13-tools-and-protocols/26-skill-permissions-sandboxes-and-trust/outputs/skill-safety-reviewer/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/phases/13-tools-and-protocols/26-skill-permissions-sandboxes-and-trust/outputs/skill-safety-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "certifications/claude/lessons/19-claude-code-memory-rules-skills-and-ci/outputs/migration-review-skill/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/certifications/claude/lessons/19-claude-code-memory-rules-skills-and-ci/outputs/migration-review-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-engineering-from-scratch-zh",
+      "path": "phases/13-tools-and-protocols/24-skill-discovery-and-progressive-disclosure/outputs/skill-catalog-builder/SKILL.md",
+      "github_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh/tree/main/phases/13-tools-and-protocols/24-skill-discovery-and-progressive-disclosure/outputs/skill-catalog-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fancyboi999/ai-engineering-from-scratch-zh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:00:20Z"
+}
