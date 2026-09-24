@@ -1,0 +1,44 @@
+{
+  "name": "160Grab",
+  "owner": "wufei-png",
+  "repo": "160Grab",
+  "description": "91160/\u5065\u5eb7160 appointment booking automation with Python Playwright, manual login takeover, schedule polling, browser-session reuse, and page-based booking.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wufei-png/160Grab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:33:49Z"
+}
