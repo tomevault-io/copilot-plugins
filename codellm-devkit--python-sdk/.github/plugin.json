@@ -1,0 +1,14 @@
+{
+  "name": "codellm-devkit--python-sdk",
+  "displayName": "python-sdk",
+  "description": "python-sdk",
+  "version": "1.0.0",
+  "author": "codellm-devkit",
+  "homepage": "https://github.com/codellm-devkit/python-sdk",
+  "skills": [
+    {
+      "name": "python-sdk",
+      "description": ""
+    }
+  ]
+}
