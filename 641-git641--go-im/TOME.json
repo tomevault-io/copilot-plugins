@@ -1,0 +1,44 @@
+{
+  "name": "GO-IM",
+  "owner": "641-git641",
+  "repo": "GO-IM",
+  "description": "\u57fa\u4e8eGO+REACT\u6784\u5efa\u7684\u5168\u6808IM\u7f51\u9875",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/641-git641/GO-IM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T02:21:57Z"
+}
