@@ -1,0 +1,9 @@
+{
+  "name": "santoshyadavdev--angular-devtools",
+  "displayName": "angular-devtools",
+  "description": "Angular DevTools : inspect components, signals, DI, and routes. Runs as a Chrome extension, embedded panel, standalone CLI, static report, or MCP server for coding agents. Built with Devframe.",
+  "version": "1.0.0",
+  "author": "santoshyadavdev",
+  "homepage": "https://github.com/santoshyadavdev/angular-devtools",
+  "skills": []
+}
