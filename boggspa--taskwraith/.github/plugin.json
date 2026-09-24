@@ -1,0 +1,9 @@
+{
+  "name": "boggspa--taskwraith",
+  "displayName": "TaskWraith",
+  "description": "Local-first desktop control room for coding agents. Run Codex, Claude Code, Cursor, Grok, Mistral, Pi, and local models together \u2014 each with its own role, permission posture, and receipts. Multi-agent",
+  "version": "1.0.0",
+  "author": "boggspa",
+  "homepage": "https://github.com/boggspa/TaskWraith",
+  "skills": []
+}
