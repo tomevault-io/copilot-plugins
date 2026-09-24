@@ -1,0 +1,44 @@
+{
+  "name": "Awesome-Agent-Orchestration-Platforms",
+  "owner": "ishandutta2007",
+  "repo": "Awesome-Agent-Orchestration-Platforms",
+  "description": "Top opensource Awesome Agent Orchestration Platforms\ud83c\udf1f Star if you like it!\ud83c\udf1f",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ishandutta2007/Awesome-Agent-Orchestration-Platforms",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T14:20:38Z"
+}
