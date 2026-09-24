@@ -1,0 +1,44 @@
+{
+  "name": "USPTO-ODP-Natural-Language-Search",
+  "owner": "LeonardHope",
+  "repo": "USPTO-ODP-Natural-Language-Search",
+  "description": "A Claude skill that provides natural-language access to all major USPTO patent APIs. Search patents, check prosecution history, trace ownership, review PTAB proceedings, and analyze office action rejections, all in plain English.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LeonardHope/USPTO-ODP-Natural-Language-Search",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T15:04:42Z"
+}
