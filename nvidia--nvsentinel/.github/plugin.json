@@ -1,0 +1,22 @@
+{
+  "name": "nvidia--nvsentinel",
+  "displayName": "NVSentinel",
+  "description": "NVSentinel is a cross-platform fault remediation service designed to rapidly remediate runtime node-level issues in GPU-accelerated computing environments",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/NVSentinel",
+  "skills": [
+    {
+      "name": "NVSentinel",
+      "description": ""
+    },
+    {
+      "name": "NVSentinel",
+      "description": ""
+    },
+    {
+      "name": "NVSentinel",
+      "description": ""
+    }
+  ]
+}
