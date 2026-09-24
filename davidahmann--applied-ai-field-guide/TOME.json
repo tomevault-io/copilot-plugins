@@ -1,0 +1,333 @@
+{
+  "name": "applied-ai-field-guide",
+  "owner": "davidahmann",
+  "repo": "applied-ai-field-guide",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/engineer-ai-value/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/engineer-ai-value/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/run-ai-engagement/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/run-ai-engagement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/operate-ai-service/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/operate-ai-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/select-ai-mechanism/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/select-ai-mechanism/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/transfer-ai-service/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/transfer-ai-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/qualify-ai-workflow/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/qualify-ai-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/build-ai-evaluation/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/build-ai-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/reframe-ai-engagement/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/reframe-ai-engagement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/assess-ai-change-impact/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/assess-ai-change-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/assess-ai-data-readiness/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/assess-ai-data-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/productize-field-learning/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/productize-field-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/secure-ai-action-boundary/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/secure-ai-action-boundary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/deliver-approved-ai-slice/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/deliver-approved-ai-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/map-enterprise-integration/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/map-enterprise-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/design-production-ai-system/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/design-production-ai-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": ".agents/skills/review-ai-production-readiness/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/.agents/skills/review-ai-production-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/engineer-ai-value/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/engineer-ai-value/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/run-ai-engagement/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/run-ai-engagement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/operate-ai-service/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/operate-ai-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/select-ai-mechanism/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/select-ai-mechanism/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/transfer-ai-service/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/transfer-ai-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/qualify-ai-workflow/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/qualify-ai-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/build-ai-evaluation/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/build-ai-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/reframe-ai-engagement/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/reframe-ai-engagement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/assess-ai-change-impact/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/assess-ai-change-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/assess-ai-data-readiness/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/assess-ai-data-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/productize-field-learning/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/productize-field-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/secure-ai-action-boundary/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/secure-ai-action-boundary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/deliver-approved-ai-slice/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/deliver-approved-ai-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/map-enterprise-integration/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/map-enterprise-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/design-production-ai-system/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/design-production-ai-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/skills/review-ai-production-readiness/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/skills/review-ai-production-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/engineer-ai-value/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/engineer-ai-value/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/run-ai-engagement/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/run-ai-engagement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/operate-ai-service/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/operate-ai-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/select-ai-mechanism/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/select-ai-mechanism/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/transfer-ai-service/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/transfer-ai-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/qualify-ai-workflow/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/qualify-ai-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/build-ai-evaluation/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/build-ai-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/reframe-ai-engagement/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/reframe-ai-engagement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/assess-ai-change-impact/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/assess-ai-change-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/assess-ai-data-readiness/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/assess-ai-data-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/productize-field-learning/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/productize-field-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/secure-ai-action-boundary/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/secure-ai-action-boundary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/deliver-approved-ai-slice/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/deliver-approved-ai-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/map-enterprise-integration/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/map-enterprise-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/design-production-ai-system/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/design-production-ai-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "applied-ai-field-guide",
+      "path": "plugins/applied-ai-field-guide/guide/.agents/skills/review-ai-production-readiness/SKILL.md",
+      "github_url": "https://github.com/davidahmann/applied-ai-field-guide/tree/main/plugins/applied-ai-field-guide/guide/.agents/skills/review-ai-production-readiness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/davidahmann/applied-ai-field-guide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T13:47:43Z"
+}
