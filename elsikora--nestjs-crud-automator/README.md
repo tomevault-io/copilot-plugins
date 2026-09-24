@@ -5,17 +5,21 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ElsiKora/NestJS-Crud-Automator](https://github.com/ElsiKora/NestJS-Crud-Automator).
+Original source: `AGENTS.md` in [ElsiKora/NestJS-Crud-Automator](https://github.com/ElsiKora/NestJS-Crud-Automator).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ElsiKora/NestJS-Crud-Automator](https://github.com/ElsiKora/NestJS-Crud-Automator) — a repo with 380+ stars on GitHub.
+## Bundled Skills (1)
+
+- [NestJS-Crud-Automator](https://github.com/ElsiKora/NestJS-Crud-Automator/tree/main/ai/crud-automator/SKILL.md)
+
+From [ElsiKora/NestJS-Crud-Automator](https://github.com/ElsiKora/NestJS-Crud-Automator) — a repo with 262+ stars on GitHub.
 
 ---
 
