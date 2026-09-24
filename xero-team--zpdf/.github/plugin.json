@@ -1,0 +1,9 @@
+{
+  "name": "xero-team--zpdf",
+  "displayName": "zpdf",
+  "description": "A PDF parsing library written in pure Rust.",
+  "version": "1.0.0",
+  "author": "Xero-Team",
+  "homepage": "https://github.com/Xero-Team/zpdf",
+  "skills": []
+}
