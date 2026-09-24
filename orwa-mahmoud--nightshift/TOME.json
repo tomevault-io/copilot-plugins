@@ -1,0 +1,123 @@
+{
+  "name": "nightshift",
+  "owner": "orwa-mahmoud",
+  "repo": "nightshift",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/hunt/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/hunt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/stop/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/stop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/start/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/setup/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/reset/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/reset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/purge/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/purge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/doctor/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/status/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/archive/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/quality/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/schedule/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/schedule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/nightshift/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/nightshift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nightshift",
+      "path": "plugins/nightshift/skills/import-issues/SKILL.md",
+      "github_url": "https://github.com/orwa-mahmoud/nightshift/tree/main/plugins/nightshift/skills/import-issues/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/orwa-mahmoud/nightshift",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T16:46:35Z"
+}
