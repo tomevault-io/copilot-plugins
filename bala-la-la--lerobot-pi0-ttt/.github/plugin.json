@@ -1,0 +1,9 @@
+{
+  "name": "bala-la-la--lerobot-pi0-ttt",
+  "displayName": "lerobot-pi0-ttt",
+  "description": "LeRobot PI0 with RoboTTT fast weights and TBPTT sequence training",
+  "version": "1.0.0",
+  "author": "Bala-la-la",
+  "homepage": "https://github.com/Bala-la-la/lerobot-pi0-ttt",
+  "skills": []
+}
