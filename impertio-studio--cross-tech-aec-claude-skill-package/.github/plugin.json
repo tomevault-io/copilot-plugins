@@ -1,0 +1,9 @@
+{
+  "name": "impertio-studio--cross-tech-aec-claude-skill-package",
+  "displayName": "Cross-Tech-AEC-Claude-Skill-Package",
+  "description": "15 deterministic Claude skills for cross-technology AEC integration. Bridging IFC, ERPNext, FreeCAD, n8n, Docker, and more",
+  "version": "1.0.0",
+  "author": "Impertio-Studio",
+  "homepage": "https://github.com/Impertio-Studio/Cross-Tech-AEC-Claude-Skill-Package",
+  "skills": []
+}
