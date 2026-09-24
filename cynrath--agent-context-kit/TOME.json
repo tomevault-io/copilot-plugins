@@ -4,7 +4,7 @@
   "repo": "agent-context-kit",
   "description": "Offline-first toolkit for agent-ready repositories: readiness scoring, instruction graphs, context packs, policy/rule packs, MCP, GitHub Actions, diagnostics, and VS Code.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Cynrath/agent-context-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T01:50:35Z"
+  "distributed_at": "2026-09-24T10:39:22Z"
 }
