@@ -1,0 +1,249 @@
+{
+  "name": "Deepseek-Harness-Desktop",
+  "owner": "ChisaAlter",
+  "repo": "Deepseek-Harness-Desktop",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/chisacode-remote/skills/chisacode/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/chisacode-remote/skills/chisacode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/chisacode-remote/skills/chisacode-epic/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/chisacode-remote/skills/chisacode-epic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/chisacode-remote/skills/chisacode-loop/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/chisacode-remote/skills/chisacode-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-doc/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/chisacode-remote/skills/chisacode-advisor/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/chisacode-remote/skills/chisacode-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/chisacode-remote/skills/chisacode-handoff/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/chisacode-remote/skills/chisacode-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/chisacode-remote/skills/chisacode-committee/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/chisacode-remote/skills/chisacode-committee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/chisacode-remote/.agents/skills/release-beta/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/chisacode-remote/.agents/skills/release-beta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/chisacode-remote/skills/chisacode-orchestrate/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/chisacode-remote/skills/chisacode-orchestrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/chisacode-remote/.agents/skills/release-stable/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/chisacode-remote/.agents/skills/release-stable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-code-review/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-doc-site-sync/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-doc-site-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-speed-up-perf/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-speed-up-perf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-doc-standards/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-doc-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/record-browser-gif/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/record-browser-gif/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-translate-docs/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-translate-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-prose-standard/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-prose-standard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-pre-push-checks/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-pre-push-checks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-trim-cot-leakage/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-trim-cot-leakage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-ci-test-reliability/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-ci-test-reliability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-merging-stacked-prs/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-merging-stacked-prs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-archive-agent-notes/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-archive-agent-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/.agents/skills/dsh-find-simplifications/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/.agents/skills/dsh-find-simplifications/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/apps/cli/config/agent-presets/cordis/skills/cordis-plugin-development/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/apps/cli/config/agent-presets/cordis/skills/cordis-plugin-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/apps/cli/config/agent-presets/cordis/skills/editing-cordis-compositions/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/apps/cli/config/agent-presets/cordis/skills/editing-cordis-compositions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/packages/preset/agent-presets/presets/cordis/skills/cordis-plugin-development/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/packages/preset/agent-presets/presets/cordis/skills/cordis-plugin-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/packages/preset/agent-presets/presets/cordis/skills/editing-cordis-compositions/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/packages/preset/agent-presets/presets/cordis/skills/editing-cordis-compositions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/examples/acp-agent/tests/snapshots/skill-load/workspace/.dsh/skills/snapshot-skill/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/examples/acp-agent/tests/snapshots/skill-load/workspace/.dsh/skills/snapshot-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/examples/acp-agent/tests/snapshots/skill-load/workspace/.dsh/skills/user-only-skill/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/examples/acp-agent/tests/snapshots/skill-load/workspace/.dsh/skills/user-only-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/examples/acp-agent/tests/snapshots/skill-load/workspace/.dsh/skills/model-only-skill/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/examples/acp-agent/tests/snapshots/skill-load/workspace/.dsh/skills/model-only-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/packages/experimental/webworker-runtime/tests/fixtures/vfs-example/workspace/.agents/skills/preview-tour/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/packages/experimental/webworker-runtime/tests/fixtures/vfs-example/workspace/.agents/skills/preview-tour/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/snapshots/session/skill-load/workspace/.dsh/skills/snapshot-skill/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/snapshots/session/skill-load/workspace/.dsh/skills/snapshot-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/snapshots/session/skill-load/workspace/.dsh/skills/user-only-skill/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/snapshots/session/skill-load/workspace/.dsh/skills/user-only-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Deepseek-Harness-Desktop",
+      "path": "vendor/deepseek-harness/snapshots/session/skill-load/workspace/.dsh/skills/model-only-skill/SKILL.md",
+      "github_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop/tree/main/vendor/deepseek-harness/snapshots/session/skill-load/workspace/.dsh/skills/model-only-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ChisaAlter/Deepseek-Harness-Desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T11:39:12Z"
+}
