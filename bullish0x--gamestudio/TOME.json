@@ -4,7 +4,7 @@
   "repo": "GameStudio",
   "description": "Turn any supported coding-agent harness into a full game-dev studio - 55 specialized AI agents and 182 skills for Godot, Unity, Unreal, Three.js, PixiJS, Phaser, and R3F.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bullish0x/GameStudio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T01:53:11Z"
+  "distributed_at": "2026-09-24T10:08:07Z"
 }
