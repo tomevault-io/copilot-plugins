@@ -1,0 +1,9 @@
+{
+  "name": "nyshk97--daw",
+  "displayName": "daw",
+  "description": "My personal DAW built from scratch with JUCE. Multitrack recording, piano roll, custom DSP FX, and vocal pitch correction \u2014 macOS only.",
+  "version": "1.0.0",
+  "author": "nyshk97",
+  "homepage": "https://github.com/nyshk97/daw",
+  "skills": []
+}
