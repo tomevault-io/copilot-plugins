@@ -1,0 +1,81 @@
+{
+  "name": "anti-slop",
+  "owner": "AgriciDaniel",
+  "repo": "anti-slop",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anti-slop",
+      "path": "anti-slop-brain/SKILL.md",
+      "github_url": "https://github.com/AgriciDaniel/anti-slop/tree/main/anti-slop-brain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anti-slop",
+      "path": "anti-slop-plugin/skills/slop-code/SKILL.md",
+      "github_url": "https://github.com/AgriciDaniel/anti-slop/tree/main/anti-slop-plugin/skills/slop-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anti-slop",
+      "path": "anti-slop-plugin/skills/anti-slop/SKILL.md",
+      "github_url": "https://github.com/AgriciDaniel/anti-slop/tree/main/anti-slop-plugin/skills/anti-slop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anti-slop",
+      "path": "anti-slop-plugin/skills/slop-verify/SKILL.md",
+      "github_url": "https://github.com/AgriciDaniel/anti-slop/tree/main/anti-slop-plugin/skills/slop-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anti-slop",
+      "path": "anti-slop-plugin/skills/slop-review/SKILL.md",
+      "github_url": "https://github.com/AgriciDaniel/anti-slop/tree/main/anti-slop-plugin/skills/slop-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anti-slop",
+      "path": "anti-slop-plugin/skills/slop-rewrite/SKILL.md",
+      "github_url": "https://github.com/AgriciDaniel/anti-slop/tree/main/anti-slop-plugin/skills/slop-rewrite/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AgriciDaniel/anti-slop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T23:02:33Z"
+}
