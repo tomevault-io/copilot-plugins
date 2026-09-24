@@ -1,0 +1,63 @@
+{
+  "name": "crabcode",
+  "owner": "Blankeos",
+  "repo": "crabcode",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "crabcode",
+      "path": "skills/codex-imagegen/SKILL.md",
+      "github_url": "https://github.com/Blankeos/crabcode/tree/main/skills/codex-imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crabcode",
+      "path": ".agents/skills/ratatui/SKILL.md",
+      "github_url": "https://github.com/Blankeos/crabcode/tree/main/.agents/skills/ratatui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crabcode",
+      "path": ".agents/skills/iconmate/SKILL.md",
+      "github_url": "https://github.com/Blankeos/crabcode/tree/main/.agents/skills/iconmate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Blankeos/crabcode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T20:34:21Z"
+}
