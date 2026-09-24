@@ -1,0 +1,9 @@
+{
+  "name": "baikaihao--keymapper",
+  "displayName": "KeyMapper",
+  "description": "KeyMapper for MacOS, A simple app that allows you to customize key combinations and map them to other key combinations.  MacOS\u4e13\u5c5e\u7684\u952e\u76d8\u7ec4\u5408\u952e\u6620\u5c04APP, \u53ef\u4ee5\u81ea\u5b9a\u4e49\u7ec4\u5408\u952e\u6620\u5c04.",
+  "version": "1.0.0",
+  "author": "baikaihao",
+  "homepage": "https://github.com/baikaihao/KeyMapper",
+  "skills": []
+}
