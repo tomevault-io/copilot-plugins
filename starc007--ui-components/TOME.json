@@ -1,0 +1,57 @@
+{
+  "name": "ui-components",
+  "owner": "starc007",
+  "repo": "ui-components",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "beui-pro",
+      "path": "skills/beui-pro/SKILL.md",
+      "github_url": "https://github.com/starc007/ui-components/tree/main/skills/beui-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-components",
+      "path": "skills/beui/SKILL.md",
+      "github_url": "https://github.com/starc007/ui-components/tree/main/skills/beui/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/starc007/ui-components",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T09:46:42Z"
+}
