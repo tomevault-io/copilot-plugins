@@ -1,0 +1,9 @@
+{
+  "name": "orwa-mahmoud--sight",
+  "displayName": "sight",
+  "description": "Multi-tenant AI front desk grounded in a tenant's knowledge base via hybrid RAG (vector + BM25 + RRF), with human-inbox escalation",
+  "version": "1.0.0",
+  "author": "orwa-mahmoud",
+  "homepage": "https://github.com/orwa-mahmoud/sight",
+  "skills": []
+}
