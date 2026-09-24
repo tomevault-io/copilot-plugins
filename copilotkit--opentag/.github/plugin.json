@@ -1,0 +1,26 @@
+{
+  "name": "copilotkit--opentag",
+  "displayName": "OpenTag",
+  "description": "OpenTag",
+  "version": "1.0.0",
+  "author": "CopilotKit",
+  "homepage": "https://github.com/CopilotKit/OpenTag",
+  "skills": [
+    {
+      "name": "OpenTag",
+      "description": ""
+    },
+    {
+      "name": "OpenTag",
+      "description": ""
+    },
+    {
+      "name": "OpenTag",
+      "description": ""
+    },
+    {
+      "name": "OpenTag",
+      "description": ""
+    }
+  ]
+}
