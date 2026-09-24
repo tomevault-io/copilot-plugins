@@ -1,0 +1,9 @@
+{
+  "name": "sasq64--demarc",
+  "displayName": "demarc",
+  "description": "An emulator frontend for the demo scene",
+  "version": "1.0.0",
+  "author": "sasq64",
+  "homepage": "https://github.com/sasq64/demarc",
+  "skills": []
+}
