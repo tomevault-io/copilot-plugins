@@ -1,0 +1,9 @@
+{
+  "name": "podman-container-tools--container-libs",
+  "displayName": "container-libs",
+  "description": "container-libs",
+  "version": "1.0.0",
+  "author": "podman-container-tools",
+  "homepage": "https://github.com/podman-container-tools/container-libs",
+  "skills": []
+}
