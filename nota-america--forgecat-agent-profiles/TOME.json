@@ -1,0 +1,63 @@
+{
+  "name": "forgecat-agent-profiles",
+  "owner": "nota-america",
+  "repo": "forgecat-agent-profiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gemini-api-dev",
+      "path": "profiles/google-gemini/gemini-skills/google-gemini_gemini-skills_gemini-api-dev/for-claude/.claude/skills/gemini-api-dev",
+      "github_url": "https://github.com/nota-america/forgecat-agent-profiles/tree/main/profiles/google-gemini/gemini-skills/google-gemini_gemini-skills_gemini-api-dev/for-claude/.claude/skills/gemini-api-dev",
+      "description": ""
+    },
+    {
+      "name": "gemini-api-dev",
+      "path": "profiles/google-gemini/gemini-skills/google-gemini_gemini-skills_gemini-api-dev/for-forgecat/skills/gemini-api-dev",
+      "github_url": "https://github.com/nota-america/forgecat-agent-profiles/tree/main/profiles/google-gemini/gemini-skills/google-gemini_gemini-skills_gemini-api-dev/for-forgecat/skills/gemini-api-dev",
+      "description": ""
+    },
+    {
+      "name": "context7-mcp",
+      "path": "profiles/upstash/context7/for-forgecat/skills/context7-mcp",
+      "github_url": "https://github.com/nota-america/forgecat-agent-profiles/tree/main/profiles/upstash/context7/for-forgecat/skills/context7-mcp",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nota-america/forgecat-agent-profiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T16:33:16Z"
+}
