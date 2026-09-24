@@ -2,7 +2,7 @@
   "name": "cindy",
   "owner": "makecindy",
   "repo": "cindy",
-  "description": "Consider it done. The open-source AI agent that works out of the box \u00b7 \u60f3\u5230\uff0c\u5c31\u80fd\u505a\u5230\u3002\u5f00\u6e90\u3001\u5f00\u7bb1\u5373\u7528\u7684 AI Agent\u3002",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/makecindy/cindy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T22:09:00Z"
+  "distributed_at": "2026-09-24T21:53:21Z"
 }
