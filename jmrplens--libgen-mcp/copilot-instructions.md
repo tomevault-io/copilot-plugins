@@ -1,0 +1,1402 @@
+## libgen-mcp
+
+> Guidance for working on this repository. Read it before adding a tool, a
+
+# libgen-mcp — Development Context
+
+Guidance for working on this repository. Read it before adding a tool, a
+download source, or a docs page; it records the conventions the quality gates
+enforce and the architecture decisions behind them.
+
+## Project Overview
+
+libgen-mcp is a Model Context Protocol server, written in Go, that exposes
+Library Genesis (and a set of open-access fallbacks) to an LLM client. It is
+**keyless by default**: every core capability works with no account, no API key,
+and no configuration. Keys are strictly opt-in and, when supplied per call, are
+used once and never persisted.
+
+The server presents a deliberately small surface — four tools plus a handful of
+prompts:
+
+- `search` — search the LibGen catalog, escalating to Anna's Archive and the
+  open-access providers (arXiv, Crossref, OpenLibrary) when configured or when
+  the catalog comes up empty.
+- `get_details` — full metadata for a record by md5, edition/file id, or DOI,
+  with optional keyless enrichment (Crossref/OpenLibrary).
+- `download` — resolve and download a book (by md5) or article (by DOI) through
+  an ordered source chain with transparent failover.
+- `read` — extract text, search within, and outline a downloaded PDF/EPUB/TXT.
+
+The module path is `github.com/jmrplens/libgen-mcp/v2`, and the suffix is not
+decoration: Go requires it from major 2 onward, and a repository tagged `v2.0.0`
+while its `go.mod` still says the unsuffixed path is not broken loudly. It is
+broken **silently** — `go install …@v2.0.0` refuses outright ("module contains a
+go.mod file, so major version must be compatible"), and `…@latest`, which is the
+form the README and the installation page tell people to run, quietly keeps
+resolving the newest v1 tag forever. Bumping the major therefore means the
+`go.mod` module line, every import of this module, and the `go install` command
+wherever it is documented, in one change.
+
+The single source of truth for the version is the `VERSION` file.
+
+## Project Structure
+
+`ls cmd/ internal/` gives the layout; every package carries a doc comment saying
+what it is, which `make godoc-check` enforces. What that does not tell you:
+
+### Package roles worth knowing
+
+- `internal/tools` is where the four tools are wired onto the server
+  (`tools.Register`). Input/output types, their `jsonschema` field descriptions,
+  the handlers, and the Markdown renderers all live here.
+- `internal/libgen` owns the download pipeline. Sources are pluggable via the
+  `DownloadSource` interface; the ordered chain is assembled in
+  `Client.buildSourceChain`.
+- `internal/discovery` owns keyless search beyond the catalog via the `Provider`
+  interface, fanned out concurrently by `Federate`.
+- `internal/config` defines every `LIBGEN_MCP_*` environment variable and the
+  canonical `KnownSources` list.
+
+## Build & Test Commands
+
+Everything is driven through the `Makefile`; run `make help` for the full list.
+Two things `make help` does not tell you:
+
+`validate-http-stateless` is a hand-run smoke check, not a CI gate: it builds the binary,
+serves it, and asserts the wire-level promises an HTTP deployment makes — no
+`Mcp-Session-Id`; `GET` on the MCP endpoint → 405 with `Allow: POST`; an unknown path → 404
+with a JSON body naming the endpoint, never the 405 a catch-all used to give; the five
+security headers, checked on a response an inner layer writes itself (the 404) as well as on
+a plain route; both server-card locations answering the same bytes under their own media
+types, with the card's `Cache-Control` override; and the `--json-response` content type. Run
+it after touching `internal/transport` or the HTTP wiring in `cmd/server`.
+
+Coverage is scoped to `./internal/...` and `./cmd/...` — everything this module
+builds — against a **90%** floor (`COVERAGE_PKGS`, mirrored into both
+`sonar-project.properties` and the CI profile; **all three have to agree**, or a
+package ends up counted and uninstrumented, which reports as 0% and is not).
+
+It was narrower twice, and each narrowing was wrong for the same reason.
+`cmd/server` was out until 2026-08-27 on the premise that it was thin wiring;
+the rest of `cmd/` was out until 2026-09-20 on the premise that build tooling is
+gated by its own `check-*` targets rather than by a number. **Excluding a
+package from the metric hides more than a number** — `cmd/gen_tool_schema`
+shipped with no test file at all and nothing reported it, because the rule was
+prose and the exclusion was configuration.
+
+**`cmd/eval` is the one exclusion left, and it is measurement rather than
+policy**: its files are behind the `eval` build tag, CI does not set it, so no
+profile CI produces can carry a line of it. Counting it would report a package
+as 0% for being untestable here rather than untested.
+
+**The number is measured on one platform.** The unit suite runs on three, but
+the profile CI keeps is Linux's; a per-platform floor would measure the same
+tests three times and gate on whichever runner was slowest to warm its cache.
+
+### What the server costs to run
+
+`make bench-resources` measures it, from the real binary, on both transports,
+against an in-process stand-in for the catalog on loopback. The record is
+`docs/benchmarks/resource-benchmark.json` and the page beside it is generated
+from that record, never written by hand.
+
+Four things about it are load-bearing:
+
+- **The gate redraws, it does not re-measure.** `make check-bench-resources`
+  reads the committed record and asks whether the page still says what the
+  numbers say. A check that re-measured would fail for running on a different
+  CPU, which is a gate nobody can keep green — so the measurement is hand-run
+  and only the drawing is gated.
+- **A client is what a client is on each transport.** On HTTP it is a distinct
+  address, because that is what `internal/clientid` charges a caller by, so the
+  driver presents an `X-Real-IP` per client and the target is started with
+  `--trusted-proxies`. On stdio it is a process, because a client that wants a
+  stdio server starts one. Measuring anything else would measure a dimension no
+  deployment has.
+- **A scenario whose tool calls fail does not finish.** A search that cannot
+  reach its catalog answers in under a millisecond with `isError`, and a driver
+  that only read the JSON-RPC envelope would publish that as the cost of a
+  search. It did, on the first run, and the guard is why the numbers are not
+  that.
+- **Everything downstream of the record is drawn, never written.** The record is
+  the artifact; the Markdown page, the six SVG figures and the two site pages
+  are generated from it, and `make bench-resources-render` redraws all of them.
+  The figures take their palette from `site/src/styles/theme.css` rather than
+  restating it, because a palette written twice drifts and a chart that has
+  drifted reads as a foreign object on the page. Each is drawn light and dark,
+  and the page switches between them with a `picture` element rather than
+  JavaScript.
+- **The outbound budget is a dimension, not a constant.** `LIBGEN_MCP_RATE_RPS`
+  ships at one request per second, and every `tools/call` queues behind that one
+  token: measured here, sixteen searches in flight took fifteen seconds to
+  drain. Every scenario but one opens the valve to the ceiling config accepts
+  (20 rps) so the server's own cost is visible, and `http-8-shipped-rate` leaves
+  it shut so the record still says what a deployment does out of the box. That
+  pair is the answer to the sizing question: an inbound limit above the outbound
+  bucket only moves the queue.
+
+### Where a number stops helping
+
+Line coverage says a statement ran. It does not say a test would notice if the
+statement were wrong, and on the download chain — where the point is which
+branch runs when a source declines — that is most of the question. Two targets
+answer the other half, both per-package and both hand-run:
+
+```sh
+make coverage-conditions PKG=./internal/netguard   # gobco: conditions never evaluated both ways
+make coverage-mutants    PKG=./internal/netguard   # gremlins: mutants no test killed
+```
+
+- **`coverage-conditions`** reports every boolean never evaluated both ways.
+  `&&`, `||` and `!` operands count separately, so a line reported is a missing
+  test case rather than a missing line.
+- **`coverage-mutants`** changes the code and checks the tests notice. The gate
+  on a package a change touches is **`Lived 0` and `Not covered 0`**. It is not
+  a CI job: a single package takes minutes, and it runs on one platform for the
+  same reason the coverage number does — **do not put gremlins on the matrix**.
+- **`test/e2e*` is outside both.** Each runs a package's tests once per mutant
+  or per condition, and those suites start real binaries, so the cost is the
+  suite's runtime multiplied by the mutant count.
+- The per-mutant timeout is derived from the package's own baseline, because
+  gremlins applies no floor and a budget under the cost of starting `go test`
+  reports every mutant as TIMED OUT having never run — which is not a kill, so
+  the default flatters exactly the packages it never tested. `MUTANT_BUDGET`
+  raises it; the floor beneath it is not negotiable.
+
+## Key Development Patterns
+
+### Adding a new MCP tool
+
+Tools are registered in `internal/tools/tools.go` inside `Register` via
+`mcp.AddTool`. Each tool needs:
+
+1. An input struct and an output struct. **Every** JSON field carries a
+   `jsonschema:"…"` description, and optional fields use `,omitempty` in the
+   **json** tag — that is also what makes a field optional, since jsonschema-go
+   derives `required` from the absence of `omitempty`, not from anything in the
+   jsonschema tag.
+2. A `Name` (see naming below), a `Title`, a `Description`, and `Annotations`
+   (`ReadOnlyHint` for read-only tools, `DestructiveHint`/`IdempotentHint` for
+   writes, `OpenWorldHint` when it reaches the network).
+3. A handler wrapped with `withRecovery("<name>", handler)` so panics become
+   `IsError` tool results and every call is metered.
+4. One example call, set on the input schema with `withExample` beside the
+   other three (`searchExample` and the rest in `tools.go`). The description
+   shows a call in prose for the model; the `examples` keyword is the same
+   call where a client or a registry reads it. It must be a call every
+   deployment accepts: `TestInputExamplesValidateAgainstTheirSchemas` validates
+   each one against its own schema on a local and a remote server, which is why
+   none names a `source` (an enum that differs by deployment) or read's `path`
+   (removed on a remote server).
+
+**The jsonschema tag is a description, not a DSL.** `jsonschema-go` assigns the
+entire tag string to the property's `description` and parses no directives out
+of it — a trailing `,enum=a,enum=b` or `,required` constrains nothing and ships
+as literal text to every client and model. A constrained field needs an explicit
+`InputSchema`: infer the struct's schema, then pin the enum on it, as
+`searchInputSchema` and `downloadInputSchema` do. Source the values from
+wherever they are validated (`internal/libgen`, `internal/config`) rather than
+restating them, so the schema and the validator cannot disagree.
+
+`make audit-surface-quality` enforces points 1, 2 and 4 over a real `tools/list`
+round-trip: it fails if any field lacks a description, any enum is empty, any
+description carries an unparsed struct-tag directive, a tool is missing its
+Title/Annotations/description, or an input schema carries no `examples`.
+
+### Tool naming convention
+
+Tool names are plain snake_case verbs or verb-nouns with **no vendor prefix**:
+`search`, `get_details`, `download`, `read`. The surface is small enough that a
+prefix would only add noise. Prefer few, general tools over many narrow ones
+(see Architecture Decisions below).
+
+### Adding a download source (the `DownloadSource` seam)
+
+A source implements `internal/libgen.DownloadSource`
+(`Name`, `Supports(Item)`, `Resolve(ctx, Item) (Resolved, error)`). To wire one
+in:
+
+1. Add its name to `config.KnownSources` (this also gates
+   `LIBGEN_MCP_SOURCES`).
+2. Add a factory entry in `Client.buildSourceChain` keyed by that name.
+3. If the source needs a credential, follow the opt-in-key pattern: keyless by
+   default, with an optional per-call secret (see `withPerCallAnnas` /
+   `withPerCallUnpaywall`) that is used once and never stored.
+4. **If `Supports` gates on a DOI registrant prefix, add a probe to
+   `articleProbes` in `internal/libgen/client.go`.** `EnabledSourceNames` decides
+   which sources the download tool advertises by offering each one a probe DOI,
+   so a prefix-gated source with no probe of its own runs in the chain and is
+   **absent from the tool's `source` enum** — reachable by the server, invisible
+   to the model. `rfc` and `nist` are the worked examples.
+5. **Document it on the sources page, not in the architecture table.**
+   Per-source detail — corpus, resolve mechanics, what the source does not
+   cover, the traps you measured, whether it is keyed, and any crawl rule it
+   observes — lives in `docs/sources.md` and its two Starlight twins
+   (`site/src/content/docs/sources.mdx` and `es/sources.mdx`). The table in
+   `docs/architecture.md` (and its twins) is a three-column index plus a
+   one-line summary and must stay that way; a source's prose belongs in exactly
+   one place, or the two copies drift.
+
+`Download` tries each supporting source in chain order and fails over to the
+next; keep `Resolve` returning an error (not a partial result) when it cannot
+serve an item.
+
+### Adding a discovery provider (the `Provider` seam)
+
+An open-access searcher implements `internal/discovery.Provider`
+(`Name`, `Search(ctx, query, limit)`). Register it in `DefaultProviders` (or
+`ExtraProviders` for beyond-catalog searchers). `Search` must be best-effort:
+return only context errors, and degrade every other failure to an empty slice so
+one slow provider never sinks the federated result.
+
+### Adding or editing an icon
+
+Icons live in `internal/toolutil/icons.go`. Each is a three-entry `[]mcp.Icon`:
+the hand-authored `currentColor` SVG plus a light/dark 16×16 WebP pair, because
+a client can support icons and still reject `image/svg+xml` (VS Code Copilot's
+MIME allowlist does exactly that). To add one:
+
+1. Add an `svg<Name>` constant — `currentColor` only, no hardcoded fill, so the
+   SVG entry adapts to any client theme and the generator can recolor it.
+2. Add `IconName = icon("<name>", svg<Name>)` to the `var` block. The string
+   must be the constant's suffix **lowercased with non-alphanumerics stripped**
+   (`svgAcquireBook` → `"acquirebook"`); that is the key
+   `cmd/gen_icon_webp` writes the asset filenames under, and a mismatch panics
+   at startup rather than shipping a broken icon.
+3. Run `make gen-icon-webp` and commit the generated `.webp` files.
+
+The entry order — SVG, light WebP, dark WebP — is a **published contract**, documented in
+`docs/architecture.md` § Icons and pinned entry by entry in
+`internal/toolutil/icons_test.go`. Consumers may read `icons[0]` positionally, and the server
+card republishes the arrays verbatim, so reordering `icon()` is a breaking change to a public
+surface, not a refactor.
+
+The generator needs `cwebp` (libwebp) and `rsvg-convert` on `PATH`, and the
+**librsvg version is part of the requirement, not a detail**: the assets are
+compared byte for byte, and librsvg's stroke antialiasing changed between 2.54
+and 2.58. Debian 12's 2.54.7 disagrees with the committed assets on three of the
+nine icons — the three drawn with rounded caps and joins on diagonals — while
+2.58.0 (Ubuntu 24.04) and 2.60.0 (Debian 13) each reproduce all eighteen files
+exactly, across two different `cwebp` releases. `minLibrsvg` in
+`cmd/gen_icon_webp` holds that floor; the Makefile does not restate it.
+
+So `make gen-icon-webp` and `make check-icon-webp` do not assume the local
+librsvg is usable. They ask the tool (`--probe`), run natively when it can
+reproduce the bytes, and otherwise fall back to a pinned container
+(`ICON_IMAGE`, tagged from `go.mod` so it cannot drift behind the toolchain).
+Either way every machine emits identical assets, which is the point — pinning
+the renderer beats chasing each host's version.
+
+The guard covers **generating**, not just verifying: run under an old librsvg
+the generator would not fail, it would rewrite all eighteen files in its own
+dialect and the divergence would be committed. For the same reason, never
+"fix" a failing check by regenerating on a machine below the floor — that pins
+the assets to the one renderer that does not agree.
+
+It is **maintainer-only and not a CI gate** — the assets are committed, so
+ordinary builds never invoke it, and no workflow installs librsvg or cwebp,
+which is why `TestRun_CheckModeAcceptsCommittedAssets` skips in CI. It skips on
+a below-floor machine too, so `go test ./...` stays green there; the real
+verification is `make check-icon-webp`, by hand after touching an icon.
+
+**Look at the rendered result before committing.** A hand-written SVG path that
+parses is not necessarily a shape that reads at 16×16, and the tests can only
+catch malformed XML and a wrong image size — not a glyph that renders as a
+smudge.
+
+### The HTTP listener: unix socket and TLS
+
+`--http` takes a TCP address **or** a unix socket path, and `cmd/server/listen.go` owns the
+whole decision. Four things there are easy to undo by accident:
+
+- **The detection rule is the path separator**, not a heuristic:
+  `isUnixSocketAddr` says "path" for anything containing `/`. A bare `mcp.sock` is therefore
+  TCP on purpose — it is indistinguishable from a hostname, and guessing would silently bind
+  something other than what was asked for. Do not "improve" this by sniffing for a `.sock`
+  suffix.
+- **`listenHTTP` is called from `serveHTTP`, never from `serveHTTPOn`.** `serveHTTPOn` hands
+  the listener to `http.Server`, whose `Serve` closes it; an early error return added inside
+  that function leaks the listener and leaves the socket file on disk.
+- **The socket mode is applied twice, and both halves are load-bearing.** The kernel creates
+  the inode as `0777 &^ umask`, so `withSocketUmask` narrows the umask around the bind (no
+  world-connectable window) and `chmodSocket` afterwards makes it exact (a umask can only
+  clear bits). Both are build-tagged: real in `listen_unix.go`, no-ops in `listen_other.go`,
+  which also sets `socketModesEnforced` false so `resolveSocketMode` can refuse an explicit
+  `--http-socket-mode` instead of accepting a guarantee the platform cannot give.
+- **`tlsConfigFor` must keep `NextProtos: {"h2", "http/1.1"}`.** `tls.NewListener` does not add
+  the protocol list the way `http.Server.ServeTLS` does, so dropping it drops every client to
+  HTTP/1.1 with no error anywhere. The pair is loaded eagerly through the `loadTLSKeyPair`
+  variable seam so a bad file is a named startup error.
+- **The pair rides behind `GetCertificate`, never in `Certificates`.** `certReloader`
+  (`tls_reload.go`) stats both files on the handshake path and re-reads them when the size or
+  mtime of either has moved, so a renewal written to the same paths needs no restart. Two rules
+  hold it together: the **first** load stays strict and stops startup, while **every later**
+  failure keeps the previous certificate and warns — refusing the handshake would turn the
+  window between a rotation's two writes into an outage. And the stamp of a failed load is
+  deliberately not recorded, so the next handshake retries instead of waiting for a third
+  write; recording it there is the one-line change that makes a half-written rotation
+  permanent.
+
+`Strict-Transport-Security` is emitted **only** when this process terminates TLS
+(`transport.Options.ServesTLS` → `securityHeaders`). It is the one conditional header on the
+surface; the other five are unconditional.
+
+The user-facing prose lives in `docs/architecture.md` § *Where the server listens* and its two
+Starlight twins, with the operational recipes (nginx, docker-compose) in
+`docs/getting-started.md` and the failure modes in `docs/troubleshooting.md`. The hardcoded
+`## Transports` block in `cmd/gen_llms/main.go` also names these flags — change it there and
+re-run `make gen-llms`, never edit `llms.txt`/`llms-full.txt` by hand.
+
+### Error handling in handlers
+
+Handlers return `(*mcp.CallToolResult, Out, error)`. Return a real `error` for
+unexpected failures; the `withRecovery` wrapper also converts panics into
+`IsError` results. Human-readable Markdown output is built with `markdownResult`.
+
+### What the handshake advertises
+
+`Capabilities` in `newMCPServer` is **pinned, and every field in it is a
+promise**. A nil capability is not neutral: the SDK fills one in with its own
+defaults — `{"logging":{}}` for the whole block, and `ListChanged: true` on
+`Tools` and `Prompts` as soon as anything is registered — so a capability this
+server does not serve gets advertised purely by omission.
+
+`ListChanged` is false because the catalog is fixed at registration and only
+changes with a release, the same fact `cachehints` rests on. It is not cosmetic:
+a client that believes `listChanged` opens a `subscriptions/listen` stream, and
+the SDK parks that handler on a context this server never cancels, since it
+sends no list-changed notification and configures no `KeepAlive`. Before the pin
+that was a goroutine and a session held per request, for the life of the
+process, on any POST with no `MCP-Protocol-Version` header.
+
+So: **do not add a capability here without the code that honours it, and do not
+let one appear by leaving a field nil.** The two halves are asserted together by
+`TestAdvertisedCapabilitiesAreWhatThisServerServes` in `cmd/server` and by
+`test/e2e/http/subscriptions_test.go`, which drives the method on the wire. The
+same rule, pointing the other way, is why `capguard.NoResources` exists: this
+server declares no resources, so the resource methods the SDK wires up
+regardless answer `-32601` instead of an empty listing that would imply
+resources exist here.
+
+### Environment variables
+
+**Every variable this server defines carries `LIBGEN_MCP_`**, and every read of
+one goes through `config.Getenv` (or `TrimmedGetenv`), which applies the prefix.
+The code passes the short name — `Getenv("TIMEOUT")` — and names the full one in
+a message with `config.EnvName`.
+
+The prefix is not decoration. A stdio server runs in whatever shell its client
+was started from, beside every other tool that person uses, and a bare `TIMEOUT`
+or `LOG_LEVEL` may already belong to one of them. The collision is silent: the
+server reads a value nobody gave it.
+
+Two spellings stay bare, both because the name is not ours to choose:
+`LIBGEN_MIRROR`, which is the mirror family's own convention, and every `OTEL_*`
+name, which the OpenTelemetry exporters read themselves — a prefixed spelling
+would simply not be seen.
+
+**Adding a variable means adding its short name to `knownNames` in
+`internal/config/env_name.go`.** `TestEveryEnvNameIsKnown` walks the package's
+syntax and fails on a read the list does not cover, on a message naming a
+variable that does not exist, and on an `os.Getenv` that spells a prefixed name
+itself. There is no legacy-name fallback and no deprecation warning to write: no
+bare spelling has ever shipped.
+
+**Booleans use the house grammar**, `strconv.ParseBool` — `1/0`, `t/f`,
+`true/false` — for every `LIBGEN_MCP_*` variable, telemetry switches included. It
+is deliberately looser than the OpenTelemetry specification's, which accepts
+`true` alone, and the disagreement is the accepted cost: an operator typing `1`
+is right everywhere else on this surface. A variable the specification governs
+(`OTEL_SDK_DISABLED`) is parsed under its own grammar where it is read, never
+through `envBool`.
+
+**A value that is set but unparseable is an error, not a warning.** Falling back
+to the default in silence is how a deployment that does not match its
+configuration survives to production.
+
+### Served text is ASCII, and carries no semicolon
+
+Every string a client receives from `tools/list` or `prompts/list` — a tool
+description, a title, every `jsonschema:"…"` tag that becomes a schema
+description, a prompt's description and its arguments' — is **pure ASCII prose
+with no semicolon**. `make check-gateway-chars` reads a real round-trip and
+gates it.
+
+The reason is a door this server has to get through. An MCP gateway refused a
+sibling project's onboarding with `Description contains unsafe characters:
+';'`, over semicolons that were ordinary English punctuation. A validator that
+says "unsafe characters" is matching a character *class*, so holding the surface
+to a class — ASCII, minus a short list — is the only version of clean the next
+gateway cannot surprise.
+
+Two things follow. **Rewrite, do not substitute**: an em dash replaced by a
+hyphen reads as a range, and these descriptions are load-bearing prose a model
+acts on — split the sentence instead. And the rule is about *served* text, not
+payload: `internal/tools/citations.go` truncates a citation with U+2026 into
+result **content**, which is data the caller asked for and stays outside the
+policy.
+
+The sweep changes the served surface, so a change here means regenerating
+`llms.txt`, `lhm.plugin.json` and `site/src/data/tool-schema.json` in the same
+commit.
+
+### Escaping untrusted content
+
+Record titles, authors, mirror URLs and any other externally-sourced text are
+**untrusted**, and the rules for rendering them live in
+`internal/toolutil/markdown.go` — not in `internal/tools`, because
+`internal/prompts` writes Markdown too and two packages with two vocabularies is
+how one of them ends up with a hole the other already closed. `internal/tools`
+keeps `mdCell` and `fencedBlock` as one-line spellings of the shared helpers.
+
+Pick by where the value lands, never by interpolating it directly:
+
+| Where | Helper | What it takes away |
+| --- | --- | --- |
+| a table cell | `EscapeMdTableCell` | a pipe ends the cell, a newline ends the row |
+| a heading | `EscapeMdHeading` | a leading `#` changes the level, a newline splits it |
+| a code block | `MarkdownFencedBlock` | content closing the fence and being read as Markdown |
+| a link's two halves | `MdTitleLink` | either half ending the link it is in |
+| an address shown on its own | `MdAutolink` | the same, without writing the address twice |
+| an address that must not be live | `MdCodeSpan` | a scheme a client would execute |
+| a body that runs to lines | `WrapQuotedBody` | a heading or a list item inside it becoming one |
+
+**A result about one record is a card, and `toolutil.Card` writes it.** A row
+written by hand decides for itself what to escape, whether to write anything
+when the value is empty, and how to separate itself from whatever the last
+section left behind — and those per-site decisions are where the leaks were.
+The writer makes each one once:
+
+- **The member says what the value is**, and the escaping follows from that:
+  `Field` for inline text, `Code` for a value the reader copies (an md5, a
+  DOI), `Link`/`URL` for an address, `Text` for prose — one line stays on the
+  row, a longer one becomes an indented quote — and `Secret` for a value shown
+  once, which also makes `End` say it is not stored. Nothing calls `Secret`
+  yet; it is there so the safe form is the easy form the day something does.
+- **`Int` and `Count` are the same row with opposite zeros.** A zero-byte file
+  is a fact worth a row; a citation count nobody reported is not. Picking the
+  wrong one either hides an answer or invents one.
+- **A blank value writes no row**, so an optional field is one line of code and
+  a label never appears with nothing after it.
+- **The mark is what keeps a card composable.** The card records the builder's
+  length after each of its own writes; when anything else has written since,
+  the next row starts after a blank line. That is what lets a card follow a
+  table, a quote or a fence, and lets a second renderer add rows to one.
+  `Section`, `Fence` and `Quote` are blocks rather than rows, so each ends the
+  previous block unconditionally — including this card's own list.
+- **`WriteNextSteps` is the one writer of the guidance block**, and the heading
+  is treated as a marker: a value carrying it is rewritten to the HTML entity
+  for the same glyph, which renders identically and is no longer the marker.
+  Nothing here parses the block back out, so this is about the reader — a book
+  description that opens with the heading and continues with three bullets is,
+  to a model, three instructions on the server's authority.
+
+**A URL is not a string.** `[%s](%s)` with the destination raw was a live leak
+here: a mirror URL carrying a close parenthesis ended the link at that
+parenthesis, and the rest of the address rendered as prose beside a link
+pointing somewhere else. `MdTitleLink` percent-encodes the delimiters — the link
+still resolves — and refuses to link anything that is not an absolute `http` or
+`https` address, because a `javascript:` or `data:` destination is a whole link
+that some clients render live.
+
+**Control bytes come off first.** `StripControlBytes` runs before every check,
+because `java\x00script:` is the destination `javascript:` once a renderer has
+dropped the NUL, and a scheme check made on the bytes as sent would pass it.
+`StripControlBytes` on its own is **not** an escaper — it leaves the pipe and
+the angle bracket, which is exactly what the rules above take away.
+
+**`make check-md-escaping` is what holds the table true.**
+`cmd/audit_md_escaping` walks every function in `internal/tools`,
+`internal/prompts` and `internal/toolutil` **in the order it writes**, keeping a
+cursor over the document being assembled, and asks two questions of every
+runtime value: which construct it lands in, given everything written before it,
+and whether an escaper stands between it and that construct. A value landing in
+prose is not judged — a paragraph holds a pipe without the document changing
+shape. Four things about it are worth knowing before changing a renderer:
+
+- **The context comes from the writes, not from the line.** A fence is opened by
+  one call and closed by another, and `internal/prompts` builds a table out of
+  bare `WriteString` calls, so a cursor is the only thing that can say what
+  `b.WriteString(x)` lands in. A call that hands the builder to a function —
+  `writeNextSteps(&b, …)` — stops the cursor rather than guessing.
+- **It reads syntax, not types**, because this module does not depend on
+  `golang.org/x/tools` and the sibling audits read the tree the same way. So a
+  value is judged by the verb that prints it (`%d` and `%t` can carry nothing;
+  `%q` is *not* safe — it contains a newline and leaves a pipe a pipe) and by the
+  names in the call chain. A chain it cannot follow is reported **unresolved**,
+  never assumed safe, and `-fail-unresolved-in internal/toolutil` makes such a
+  value fatal there — a blind spot in the package that owns the escapers is a
+  blind spot behind every formatter that calls it.
+- **A value that needs no escaping is declared in the source**, beside the
+  formatter, as `//libgen:allow-unescaped <expression>: <reason>`. The
+  expression is the one the report printed. Both halves are required, and a
+  declaration that excuses nothing is itself a finding, so one left behind by a
+  later change cannot quietly widen the gate.
+- **`markdownEntryPoints` names the renderers, and a name with no declaration
+  behind it fails the run.** The sweep walks every function, so the list adds
+  nothing to a clean report — it covers the other direction: a renderer that is
+  renamed or split drops out of the sweep silently, and a gate that reports
+  nothing because it found nothing to look at reads exactly like a gate that
+  passed. Rename a renderer, and rename it there too.
+- **A second rule asks a second question.** `-contexts all,card` (which the
+  Makefile passes) reports a `- **Label**:` line a renderer composed instead of
+  asking `toolutil.Card` for it. It is asked of every hole in such a row, the
+  ones printed with `%d` included, because a row written by hand is written by
+  hand whatever it interpolates — and it is asked separately, so a row whose
+  value is properly escaped is still reported and a raw value in one is
+  reported twice, once per question. Its own declaration is
+  `//libgen:allow-raw`, because a value excused for escaping is not thereby
+  excused for the line it is on. The package that declares the writer is
+  exempt: reporting `Card.row` would be the gate pointing at its own answer.
+
+### Secrets in an outbound URL
+
+A key rides in the `Authorization` header, never in the URL — the rule
+`internal/libgen/source_core.go` states beside the code and CORE follows.
+
+Where a service accepts the secret only in the query string (Anna's member
+endpoint, Unpaywall's contact address, Crossref's `mailto`), the request is
+built that way and **the failure is redacted before anything wraps it**:
+`net/http` reports a transport-level failure as a `*url.Error` whose `Error()`
+prints the whole request URL, query string included, and this server writes such
+an error to two sinks at once — the operator's log stream through
+`logging.SourceAttempt`, and the model's transcript through `downloadFailure`.
+Route the error from every `(*http.Client).Do` and every
+`http.NewRequestWithContext` through `netguard.RedactTransportError`, and name a
+URL in a message with `netguard.RedactURLString`. Those two are the single
+implementation of the rule (userinfo, query and fragment dropped, scheme, host
+and path kept); do not write a second one beside them.
+
+The same applies to a resolved file URL, which on Anna's member path is itself a
+working credential: a presigned URL published in an error is usable by whoever
+reads the log.
+
+### Telemetry: whose namespace a name is in, and what may leave the process
+
+**A name goes in a namespace its owner defines.** A span attribute, a metric or a
+log field that this server invented is `libgen_mcp.*` — never `mcp.*`, never
+`gen_ai.*`, never anything else OpenTelemetry or the MCP convention owns. Their
+keys are used only where the value really is what the registry says it is
+(`error.type`, `server.address`, `mcp.method.name`, `user.hash`), because a key
+in somebody else's namespace is a claim a backend reads structurally: putting an
+observed address under `user.id` tells it a person was identified. The rule runs
+the other way too, which is why `OTEL_*` variables are the only unprefixed ones
+this server reads — see *Environment variables* above.
+
+**An instrument name is a published surface.** It cannot be renamed without
+breaking every dashboard built on it, so pick it once, write it out in
+`internal/mcpotel/resources.go` rather than composing it at a call site, and give
+its dimensions a closed Go type so a value outside the set does not compile.
+
+**A field that must not be exported must not be logged either.** The OTLP log leg
+(`internal/telemetry/slog_handler.go`) is a fan-out from the same records that
+reach stderr, so it adds nothing and only subtracts: the names in
+`telemetry.ExportStrippedFields`, every error's text (replaced by its type, since
+the bridge would otherwise promote `err.Error()` into `exception.message`), and
+anything over one attribute's budget.
+
+**`ExportStrippedFields` governs the collector leg alone.** stderr keeps the whole
+record, deliberately — it is the operator's own terminal, and a search this server
+ran is theirs to see. So the list is not a licence to log a secret: a value that
+must not be written at all must not be written at all, and the list is for the
+fields that are legitimately on stderr and must not travel (a query, a title, the
+charged address, a recovered panic and its stack). A per-call credential is in it
+as a backstop, not as permission. Adding a log field of that kind means adding its
+name in the same change — the list is a named list rather than a memory precisely
+because the export-side redactor cannot know about a field nobody told it about.
+It cannot help when the value is *inside* something else; that shape is
+`netguard.RedactTransportError`'s, one section above.
+
+**The bridge goes in after `telemetry.Start` and before the announcement.** The
+logs signal is only real once something writes into the global logger provider,
+and the startup line that says what this deployment exports about its callers is
+the one an operator running several replicas reads from the collector rather than
+from a terminal. Both halves are driven by
+`TestALogRecordReachesTheCollectorOnlyAfterTheBridgeIsInstalled` against a real
+OTLP endpoint.
+
+### Doc comments
+
+Every exported (and, per the audit config, every) declaration needs a godoc
+comment that starts with the identifier's name. A `main` package's starts with
+the word `Command` (and a space) instead of `Package`.
+
+**The package comment lives in `doc.go`, and nowhere else.** Go attaches it
+above any file's package clause, so a comment in some other file is one edit
+away from being joined by a second — and two package comments are not an error,
+they are two package comments, with whichever the toolchain reads first
+becoming the package's documentation. Every other file in the package opens
+with a plain comment separated from the package clause by a blank line, so it
+is not read as one.
+
+`go run ./cmd/godoc_tool/ move-package-doc <dirs...>` moves an existing one. It
+copies the comment verbatim above a new `doc.go`'s package clause, cuts it from
+the file it came from, and **carries the build constraint with it**: a
+constraint governs the file it is in, and `doc.go` is a new file of the same
+package — leaving it behind would give `cmd/eval` one file that builds without
+its tag, which is a `main` package with no `main` function. It declines three
+shapes: a package that already has a `doc.go`, one with no comment, and one
+whose comment the convention refuses, because moving that last one would
+enshrine as the documentation a comment the audit already reports.
+
+`go run ./cmd/godoc_tool/ audit --include-tests --fail-on-findings` (also
+`make godoc-check`) enforces all of it, including test files and including
+where the comment lives.
+
+## CI shape
+
+**Every `uses:` is pinned to a commit SHA, with the version in a trailing
+comment.** A tag is a pointer its owner can move, and an action runs inside jobs
+that hold this repository's publishing identities — `id-token: write` for three
+trusted publishers, a deploy key for the Homebrew tap, the registry logins — so a
+moved tag is arbitrary code in a credentialed job. The one exception is
+`./.github/workflows/race.yml`, which is this repository.
+
+The trailing `# v7` is not decoration: Dependabot reads it to know which version
+the SHA stands for, and without it an action is pinned **and** frozen. To bump
+one by hand, resolve the tag first — `gh api repos/<owner>/<repo>/commits/<tag>
+-q .sha` — and move the comment with it.
+
+`make check-supply-chain` (`cmd/audit_supply_chain`, CI's `Supply chain` job) is
+what keeps all of this true. It reads the raw workflow text for the pins — a
+`uses:` inside a commented-out block still counts — and the parsed document for
+everything structural, and it refuses a workflow with a duplicated mapping key
+rather than auditing whichever value the parser happened to keep. Its own job
+declares `contents: read` and takes no secrets, because it audits the jobs that
+*do*.
+
+**Pinning the action is not pinning the tool.** `goreleaser-action` and
+`cosign-installer` download a binary at run time, so each is given an exact
+version through a top-level `env` entry (`GORELEASER_VERSION`,
+`COSIGN_VERSION`) — the one indirection the audit allows. The cosign major is
+load-bearing beyond the pin: it decides how a signature is attached, and a 2.x
+client reports "no signatures found" on an image a 3.x client verifies.
+
+`cooldown: {default-days: 3}` on every Dependabot ecosystem holds a release for
+three days before a pull request proposes it, which is the window a compromised
+or withdrawn publish is usually caught in. It does not delay a security fix that
+matters here: `govulncheck` runs on every pull request and fails on a
+vulnerability that reaches this module's call graph, whatever Dependabot has
+proposed. Use `default-days` alone — the SemVer sub-keys are rejected outright
+for the docker ecosystem, and a configuration file Dependabot refuses stops
+every update rather than that one.
+
+**One required check, `CI verdict`.** It `needs` every other job and runs
+`.github/scripts/needs-verdict.sh`, which fails unless each one reported
+`success`. Adding a job to the pipeline means adding it to that `needs` list —
+one edit, in the file the job was added to — rather than editing the repository's
+ruleset, which is a step nobody remembers and which quietly leaves every new job
+ungated.
+
+The script refuses `skipped` as well as `failure`: a job that did not run is not
+a job that passed, and a skipped one otherwise reports a green tick. The one
+legitimate skip is paired with the event it is legitimate on
+(`docker:push` — the image build is pull-request-only), so a job meant to skip on
+a push is still required on a pull request.
+
+**The unit suite runs on all three platforms on every pull request**, not only on
+`main` and at release. That is the more expensive shape and it is chosen
+deliberately: a platform failure found after merge is a red `main` nobody asked
+for, and the person who can fix it fastest is the one still holding the change.
+Linux is in the matrix as the control — without it, a macOS-only failure cannot
+be told apart from a command that would have failed anywhere. A cheap
+cross-compile job type-checks `windows/amd64`, `darwin/arm64` and `linux/arm64`
+beside it, so narrowing the real matrix later can never silently take the compile
+of `cmd/server/listen_other.go` with it.
+
+**The race detector is its own workflow** (`race.yml`), called by the release
+workflow and run weekly on `main`, never on a pull request: the suite is slow
+enough under the detector that every pull request would pay for a class of defect
+most changes cannot introduce. It is `workflow_call`-reusable rather than copied,
+so the release gate runs exactly what a maintainer runs from the dispatch menu,
+and it passes an explicit `-timeout` because `go test` defaults to ten minutes
+and a package that is merely slow under the detector reaches it.
+
+## Verification Checklist
+
+All of these must exit 0 before a change is done. Run the Go gates on the
+packages you touched, then the doc/surface gates:
+
+```bash
+golangci-lint fmt --diff                                   # formatting (no diff)
+golangci-lint run --build-tags e2e,eval,httpe2e,stdioe2e ./...  # lint, ALL build tags
+go vet ./... && go vet -tags e2e ./... && go vet -tags eval ./...
+go vet -tags httpe2e ./... && go vet -tags stdioe2e ./...
+go run ./cmd/godoc_tool/ audit --include-tests --fail-on-findings
+go test ./...                                              # unit tests
+go test -race ./...                                        # race detector
+make test-e2e-http && make test-e2e-stdio                  # the two transport modules (CI runs both)
+make test-e2e-collector                                    # only if you touched telemetry (needs Docker; no CI job)
+make cover-check                                           # internal/ + cmd/ >= 90%
+make check-md-tables                                       # Markdown tables normalized
+make check-llms                                            # llms.txt fresh + valid
+make check-lhm-manifest                                    # lhm.plugin.json matches the surface
+make check-doc-links                                       # local doc links resolve
+make audit-surface-quality                                 # tool surface conventions
+make check-install-buttons                                 # the one-click buttons agree
+make check-gateway-chars                                   # served text stays gateway-safe
+make check-md-escaping                                     # no catalog text reaches a Markdown construct raw
+make check-test-goroutines                                 # no testing.T abort off the test goroutine
+make check-test-file-names                                 # test files named after their module
+make check-test-subtests                                   # every case loop runs under t.Run
+cd site && pnpm run lint                                   # the docs site, if you touched it
+npx --yes markdownlint-cli2 "**/*.md"                      # CI-only gate, no make target
+make check-icon-webp                                       # only if you touched an icon (needs librsvg + libwebp)
+make check-manifests && make check-stamper                 # only if you touched a version-bearing manifest
+make check-mcpb                                            # only if you touched mcpb/ or scripts/build-mcpb.sh
+make check-server-json-packages                            # only if you touched server.json (needs network; CI runs it on push)
+```
+
+**`make` does not cover everything CI runs.** Three gates have no `make` target
+and so pass locally by not being run: `markdownlint-cli2` over every `*.md` (the
+`Analyze Markdown` job — MD024 forbids two headings with the same text in one
+file, which an ADR accumulating amendments trips easily), the docs site's own
+chain, and the `CodeQL` workflow.
+
+**CodeQL is advanced setup, defined in `.github/workflows/codeql.yml`.** GitHub's
+default setup is deliberately left off: it pins `GOTOOLCHAIN=local` to whatever
+Go the CodeQL runtime ships, so the Go job breaks every time `go.mod` moves to a
+release the runtime has not picked up yet. The workflow installs the toolchain
+with `setup-go` and uses `build-mode: manual` for Go instead. Bump its
+`GO_VERSION` alongside the ones in `ci.yml` and `release.yml`, and do not enable
+default setup in the repository settings — the two cannot coexist.
+
+**`make` does not cover the docs site.** `site/` has its own gate chain —
+`astro check`, i18n parity, the PRIVACY.md sync check, eslint, prettier,
+html-validate and htmlhint — run by the `Docs Site` job and by `pnpm run lint`
+in `site/`. Two of its checks fail on changes that every Go and Markdown gate
+above passes happily: **prettier** rewrites a Markdown table's separator widths
+when a row grows, and **`privacy:check`** fails whenever `PRIVACY.md` changes
+without its digest being re-stamped (run `node scripts/sync-privacy.mjs`, then
+review the Spanish page and copy the new digest into its `privacySource`).
+Because the chain is `&&`-joined, the first failure hides the rest — so re-run
+it to completion after fixing one.
+
+**`js-yaml` is pinned in `site/package.json` for Starlight, not for us.** No file
+in this repo imports it. `@astrojs/starlight` does — `dist/utils/translations-fs.js`
+and `dist/schemas/head.js` both `import yaml from 'js-yaml'` — and it declares
+`js-yaml: ^4.1.1` among its own dependencies, so the copy it loads is resolved
+inside its own tree rather than ours.
+
+**The pin is what makes that copy and ours the same one.** pnpm deduplicates a
+dependency whose range the root already satisfies, so with `4.3.1` at the root
+`node_modules/.pnpm/@astrojs+starlight@…/node_modules/js-yaml` is a symlink to
+`node_modules/.pnpm/js-yaml@4.3.1/node_modules/js-yaml` — one instance, at a
+version chosen here. Verified on 2026-09-22 against Starlight 0.42.2.
+
+It was not always this mechanism, and the difference matters when reading an
+older note. Before 0.42 Starlight shipped TypeScript source that Vite compiled
+into our bundle and left as a bare external, so the import resolved from
+`site/node_modules` and the root pin was the *only* copy. Now it is the
+deduplicated one: move the root outside `^4.1.1` and pnpm stops deduplicating
+and hands Starlight its own 4.x, which does not break the site — it quietly
+gives the tree two copies of the same library, one of them unused by anything
+here.
+
+**So it must stay inside Starlight's declared range (`^4.1.1`)**, and keep the
+version exact (no caret) so a range bump cannot drift across the major. Reject
+any bot PR that moves it to 5.x while Starlight still declares `^4.1.1` — being
+outside the range its own dependency declares is the reason on its own, no build
+run needed. (Dependabot #135 was closed on that ground.)
+
+Two details about what v5 would do to Starlight, which is the question the day
+Starlight itself declares one — and because the obvious explanation is wrong and
+sends you down a dead end. First, it is **not** that "js-yaml 5 dropped the
+default export": v4's ESM build has no `export default` either. `import yaml from 'js-yaml'` works today
+because the CJS path (`require` → `index.js`) reassigns `module.exports`, which
+Node/Vite interop hands over as the default; v5's CJS build emits
+`exports.load = …` per-name instead, and that synthesis is what stops. Second,
+that part is fixable from the outside (a Vite `resolve.alias` to a shim adding a
+default export) — **do not**: v5 is an API rewrite, not a repackaging. It drops
+`safeLoad`, `safeLoadAll` and `types` and adds a new AST/visitor surface. The
+two calls Starlight actually makes (`load(content, {filename})`, `dump(…)`) do
+survive, so a shim would appear to work while leaving us maintaining a patch to
+somebody else's transitive dependency, silently breaking the day Starlight
+imports anything else from it.
+
+A plain `golangci-lint run` skips every tagged file, which is how the whole
+`cmd/eval` harness went unanalyzed until 2026-07-30. `make lint` passes
+`GO_ANALYSIS_TAGS` (`e2e,eval,httpe2e,stdioe2e`) for this reason — add any new
+build tag there.
+
+Complexity budgets are enforced by golangci-lint: `gocyclo` min-complexity 20,
+`gocognit` 25, `nestif` 5. Keep functions under these; factor helpers out rather
+than raising the thresholds.
+
+**SonarCloud is stricter than the linter.** The project's quality gate
+(`jmrplens_libgen-mcp2`) enforces **cognitive complexity ≤ 15** per function
+independently of `.golangci.yml`, so a function that `gocognit 25` happily passes
+locally can still fail the gate on the PR. Treat 15 as the real budget for
+cognitive complexity; the linter only catches the worst offenders.
+
+## Documentation Rules
+
+Docs are **bilingual and kept in parity**:
+
+- `docs/` is English only and is the source of truth for developer prose.
+- `site/src/content/docs/` carries the published Starlight docs in English, and
+  `site/src/content/docs/es/` mirrors each page in Spanish. A page added or
+  materially changed in one language must be updated in the other.
+- `README.md` tables and `docs/` tables are normalized by
+  `go run ./cmd/format_md_tables/` (`make check-md-tables` verifies).
+- `llms.txt` / `llms-full.txt` are generated from the registered tools by
+  `go run ./cmd/gen_llms/`; regenerate them whenever the tool surface changes
+  (`make check-llms` verifies freshness).
+- The `tools` and `prompts` arrays in `lhm.plugin.json` are generated the same
+  way by `go run ./cmd/gen_lhm_manifest/` (`make check-lhm-manifest` verifies).
+  See the LobeHub section under Release Process for why they exist at all.
+- Architecture Decision Records live in `docs/decisions/`.
+
+## Testing
+
+**Unit tests** run offline with `go test ./...`. HTML fixtures live in each
+package's `testdata/`.
+
+### Test files are named after the module they test
+
+`register.go` → `register_test.go`, and nothing else. A theme-named file
+(`coverage_boost_test.go`, `secretredaction_test.go`) hides its tests from a
+reader looking beside the module, and can hide them from CI too: a
+`coverage_*` name matches a `.gitignore` rule this repository actually has.
+`make check-test-file-names` gates it. Four shapes are exempt, and each is
+exempt for a reason the rule cannot absorb:
+
+- `export_test.go`, the standard idiom for exporting internals.
+- `<module>_<qualifier>_test.go` with a `//go:build` constraint, when
+  `<module>.go` exists — a platform-gated test cannot live in the module's
+  unconstrained test file.
+- the same shape in an external test package (`package x_test`), when an
+  internal `<module>_test.go` already holds the plain name. Go allows one
+  package per file name, so this qualifier is forced rather than chosen.
+- **a file declaring `TestMain` and nothing else**: a harness for the package,
+  with no module to be named after. Six packages here relax the netguard policy
+  once per binary so their `httptest` fixtures on loopback are reachable at all,
+  and folding that into some arbitrary `<module>_test.go` would hide a
+  package-wide decision inside a file about one thing.
+
+`test/e2e` is exempt as a tree — its files have no source modules to be named
+after — and so is everything `cmd/internal/testsource` prunes.
+
+### A table of cases runs under `t.Run`
+
+A loop over a table that asserts directly reports the whole table as one
+failure, stops the rest at the first `t.Fatal`, and cannot be selected with
+`go test -run`. Opening a subtest per case fixes all three, and
+`make check-test-subtests` gates it. `make fix-test-subtests` rewrites the ones
+whose name is unambiguous — a `[]string` names each case after its element, a
+struct table after a `name`/`desc`/`label`/`title`/`id` field, a
+`map[string]…` after its key — and leaves the rest for a hand rewrite.
+
+**A loop that walks dependent steps is not a table**, and says so:
+
+```go
+// sequential: the calls are held open together, not run one at a time
+for i, address := range []string{"a", "b", "c"} {
+```
+
+The marker has to be on its own line **directly above** the `for`, or at the end
+of its first line; a two-line explanation above the marker is fine, but the
+marker itself must be the last comment line before the loop.
+
+**Read what the fixer did before trusting it.** Wrapping a body in `t.Run`
+moves every `defer` inside it into the subtest, so a `defer` that was holding
+something open for the *next* iteration now releases it at the end of this one.
+That is a real behaviour change, and it is why `cmd/server/ceiling_test.go`
+carries the marker: it starts three calls that must stay in flight together.
+
+`testing.T.FailNow` — and therefore `t.Fatal` and `t.Fatalf` — must be called
+from the goroutine running the test. Anywhere else it terminates only *that*
+goroutine: inside an `http.HandlerFunc` literal the response is truncated or
+never written, the client observes a transport error, and the test carries on
+against the wreckage, failing somewhere that has nothing to do with the
+assertion. **Almost every test here stands up an `httptest` server** for a
+mirror or a provider, so the handler literal is both the most common place an
+assertion gets written and the one place the abort does not work.
+
+`go vet`'s `testinggoroutine` analyzer flags a bare `go func() { t.Fatal() }()`
+and cannot see that a literal passed to `http.HandlerFunc` crosses the same
+boundary. `make check-test-goroutines` can, and gates it.
+
+Every assertion inside a literal that crosses a goroutine boundary follows all
+six of these:
+
+1. **Never `t.Fatal`/`t.Fatalf`/`t.FailNow` inside the literal.** Use `t.Errorf`,
+   or record and assert later (rule 5).
+2. **`return` immediately after the `t.Errorf`, even as the last statement.**
+   `t.Fatal` gave that exit for free; a later edit appending code below a bare
+   `t.Errorf` reintroduces the bug silently.
+3. **Write a deterministic response before returning** — `http.Error(w, "<what
+   failed>", http.StatusInternalServerError)`. Without it the client receives a
+   `200` with an empty body, which is a worse signal than the EOF it replaces.
+4. **Nothing the failed check would have validated may be used afterwards.** If
+   the check guarded a nil, the `return` comes before any use of it.
+5. **Prefer recording over asserting.** Keep observed values in locals inside
+   the handler and assert on the test goroutine after the client call returns.
+   That removes the problem rather than mitigating it.
+6. **A "must not be called" guard becomes a recorded flag** — `var called
+   atomic.Bool`, written in the handler, asserted afterwards. The `atomic` is
+   not optional: an unsynchronised variable written from the handler goroutine
+   is a data race.
+
+The gate fails **only** on rule 1. `t.Errorf`-without-return is reported as an
+advisory list and not gated, because most such sites are the legitimate
+assert-then-respond shape where the handler goes on to write its canned
+response; rule 2 binds when the `t.Errorf` replaced an abort that guarded later
+statements.
+
+**End-to-end** tests hit the real site and are double-gated: they need the `e2e`
+build tag **and** `LIBGEN_E2E=1`:
+
+```bash
+LIBGEN_E2E=1 go test -tags e2e ./test/e2e/    # or: make test-e2e
+```
+
+They are **run by hand while developing**, not on a schedule. Nothing in CI
+executes them: a suite pointed at live third-party mirrors reports their outages
+as much as our regressions, and triaging that daily costs more than it returns.
+`cmd/probe` is the quicker check that every route still works against the real
+mirrors; a genuine breakage otherwise surfaces from use.
+
+**`cmd/probe` and `libgen-mcp --healthcheck` are different things, and the names
+are chosen so they cannot be confused.** `cmd/probe` is a live diagnostic: it
+asks the real mirrors whether the download routes still work, and it is a
+maintainer's tool. `--healthcheck` is the container's health check: it finds the
+running server on this machine, reads the listener off its command line, and asks
+its `/health`. It reaches no mirror and needs no network beyond loopback. The
+server's flag is deliberately **not** `--probe`, even though the sibling project
+spells it that way, because `dist/probe` already exists here — one name meaning
+two things in one repository is worth a rename to avoid.
+
+The suite loads the repo-root `.env` itself, so either invocation above — and an
+IDE running a single test — picks up `LIBGEN_MCP_UNPAYWALL_EMAIL`,
+`LIBGEN_MCP_CORE_KEY` and `LIBGEN_MCP_ANNAS_KEY`. Anything already exported wins
+over the file. It prints which of them it found before the first test, because a
+missing credential turns real coverage into a skip and a partial run otherwise
+looks exactly like a full one: without the CORE key that source is out of the
+chain entirely, and without the Anna's key its case exercises keyless IPFS
+instead of the member fast-download.
+
+**HTTP end-to-end** (`test/e2e/http/`) starts the real binary and drives it over
+a socket, behind the `httpe2e` build tag:
+
+```bash
+make test-e2e-http
+```
+
+It exists because the handler chain — `newHTTPHandler`, `browserCORS`,
+`crossOriginProtected`, `sseNoBuffering` — is assembled in `package main` and
+cannot be imported, so a unit test would be testing its own reassembled copy
+rather than the binary that ships. Every behavior in it is configuration-
+dependent by nature: the same request must be refused with one flag and accepted
+with another.
+
+Unlike the live suite above, **this one runs in CI on every PR**, because it
+depends on nothing external. It is also half the release gate: `release.yml`'s
+`transport-e2e` job is a `needs:` of both GoReleaser and Docker, so a transport
+regression stops everything the tag would have produced. It cannot stop the tag
+itself — `release.yml` triggers on the tag push, so by the time the gate runs the
+tag exists — but nothing is built, pushed or published behind a failing gate. That
+job deliberately declares `contents: read` and no secrets — a gate that fails
+must not be able to leak what the jobs behind it hold.
+
+Two things about it are easy to get wrong:
+
+- **`proxy_test.go` runs a real nginx in Docker and skips without it.** It is
+  not modeled, because the bug it exists for — the server's CORS headers and the
+  proxy's colliding into a response a browser rejects and `curl` reports as
+  `200` — only appears when a real proxy adds real headers. It also pins the
+  trap that hid it: with nginx answering `OPTIONS`, the preflight is `204` no
+  matter what the server behind it would say.
+- **The robustness cases assert survival, not correctness.** The bar is that the
+  process keeps serving, so every case ends by asking `/health`. That includes
+  the misbehaving-mirror suite, which is this repository's own addition: every
+  tool call reaches an upstream, so a mirror that is slow, broken or hostile is
+  a live input rather than a hypothetical.
+
+**stdio end-to-end** (`test/e2e/stdio/`) is the same idea for the other
+transport, and for the primary one, behind the `stdioe2e` build tag:
+
+```bash
+make test-e2e-stdio
+```
+
+It builds the binary and drives it over two pipes the way a client does. What
+only exists once there is a process is what it covers: **stdout carries nothing
+but JSON-RPC** (one stray `Println` breaks every client, and the npm launcher's
+`validate-npm.mjs` was checking this after the code was already tagged), logs go
+to stderr with their severities intact, the handshake is answered before a
+client would give up and retry it, the catalog comes back whole when it is asked
+for during startup, an idle session is not closed by the server, both shutdowns
+the binding prescribes exit 0, and **a caller-supplied local `path` cannot reach
+the home directory the client started the server in**.
+
+That last one can only live here. `internal/pathguard` computes its roots from
+the process — the working directory, `os.TempDir`, the download directory — so a
+unit test can only ask it about the directory the test binary happens to run in,
+which is the package directory and never the interesting one. Claude Desktop
+starts its servers in `/` and other clients start them in the user's home; the
+only way to produce that is to start a process there. The case is three rows —
+refused, restored by `LIBGEN_MCP_ALLOWED_READ_DIRS`, and an ordinary workspace
+read that must keep working — because any one alone passes against a broken
+guard.
+
+It runs **on every PR and on all three platforms**, and it is the other half of
+the `transport-e2e` release gate. Four things about it are easy to undo:
+
+- **It reaches nothing it did not start itself, and that is arranged rather than
+  assumed.** The mirror cache is seeded in each session's `HOME` so discovery
+  never fetches the live catalog page, the search calls pass
+  `extra_sources: "never"` so an empty fixture does not escalate to the real
+  open-access providers, and every session runs behind a dead `HTTP_PROXY` that
+  exempts loopback. The first version of the module took six seconds per tool
+  call because it was federating to arXiv and Crossref for real.
+- **The environment is replaced, not extended.** A developer's exported
+  `LIBGEN_MIRROR` would otherwise decide what the tests measure, and the failure
+  would be invisible on their machine and on nobody else's.
+- **An stderr assertion must anchor on a line written *after* what it is about.**
+  The harness copies stderr on a goroutine with no ordering against the stdout
+  reply, so waiting for the startup banner — which the server writes before it
+  serves anything — returns a buffer the records under test have not reached.
+  That mistake passes silently, which is how it got written the first time.
+- **A fixture a tool cannot read asserts nothing about the tool.** The
+  containment case first used a `.env` as the file a home directory holds, which
+  is what this server's own dotenv is called — and `read` declines it outright as
+  an unsupported extension, so the guard was never what refused it and the leak
+  check beside the refusal could not fail. The fixture is a `.txt`, which is what
+  the exposure actually looks like.
+
+**Collector acceptance** (`test/e2e/collector/`, tag `collectore2e`) starts a real
+OpenTelemetry Collector in Docker and reads back what it decoded:
+
+```bash
+make test-e2e-collector        # needs Docker; skips without it
+```
+
+It exists because **a stub answers 200 to anything.** The OTLP stub in
+`test/e2e/http` is the right shape for asking what a payload does *not* contain —
+it keeps the bytes and never decodes — and it cannot tell a valid export from a
+malformed protobuf, a resource missing an attribute a pipeline requires, a metric
+whose unit contradicts its name or a span kind out of range. Every one of those
+ships telemetry no backend can read behind a green suite. Here the pipeline ends
+in a file exporter, so a document appearing in that file means a real
+implementation parsed, routed and re-encoded what this server sent.
+
+It is **hand-run and has no CI job**, the same decision as
+`validate-http-stateless`: nothing in CI installs a daemon. If that changes, the
+race workflow is where it would hang. Two things about it are easy to undo: the
+image tag is pinned (a floating one makes the suite's meaning change without a
+commit), and `-race` is passed through to the *server* build — `go test -race`
+instruments the test binary and nothing else, and the goroutines worth watching
+are the exporter's.
+
+**Eval** is a live, LLM-driven harness under `cmd/eval`, gated behind the `eval`
+build tag plus `LIBGEN_EVAL=1` and `ANTHROPIC_API_KEY` (real API, mirrors, and
+downloads — never runs in ordinary CI):
+
+```bash
+LIBGEN_EVAL=1 ANTHROPIC_API_KEY=sk-... go run -tags eval ./cmd/eval
+make eval-only ONLY=S61,S62   # re-run named scenarios and publish just those
+```
+
+A run **merges** into its results doc rather than replacing it, so re-measuring a
+scenario does not cost a full suite. Each row carries the date it was measured,
+and merging a run from a different model is refused — one pass rate built from
+two models invites a comparison it cannot support. Adding a scenario means a row
+in `cmd/eval/README.md` (the catalog the pages are generated from) **and** a
+Spanish entry in `scenariosES`, or the generator fails.
+
+## Architecture Decisions
+
+- **Keyless ethos.** Search, details, and downloads all work with zero
+  configuration. This is a hard product constraint, not a default — features are
+  designed to have a keyless path first.
+- **Opt-in keys, used once.** Credentials (Anna's Archive membership, Unpaywall
+  email) are optional. A server can configure them, or a client can supply one
+  per call; a per-call secret is used for that request only and never persisted.
+- **Few, general tools.** The surface is four tools by design. New capability is
+  added by deepening existing tools (new sources, new providers, new arguments)
+  before adding a new tool.
+- **Catalog-first, then federate.** Search consults the LibGen catalog first and
+  only reaches Anna's Archive + open-access providers per the `extra_sources`
+  policy (`auto` / `always` / `never`), so the common path stays fast.
+- **Source-agnostic download pipeline.** The download code knows nothing about
+  individual providers; each is a `DownloadSource` in an ordered failover chain.
+- See `docs/decisions/` for the recorded ADRs (source & capability scope, known
+  limitations).
+
+## Release Process
+
+Cutting a release is a multi-step sequence with two gates that catch different
+things and a registry rule that has already broken one publish. It lives in the
+`release` skill (`.claude/skills/release/SKILL.md`) — invoke it when bumping the
+version, tagging, or publishing to the MCP registry, npm or LobeHub.
+
+**The chain's shape is a page rather than the skill**, because changing
+`release.yml` and cutting a release are different jobs:
+`docs/development/release-chain.md` has the fourteen jobs, why each edge exists,
+the digest handover that stops a tag from being pinned beside the previous
+release's image, and what a rehearsal cannot prove. The settings it depends on
+and CI cannot see — the branch ruleset, the three trusted publishers and their
+blank environment, every secret and what happens when one is missing — are
+`docs/development/repository-settings.md`.
+
+Three rules from it are repeated here, because each one has already cost a
+publish or shipped a manifest nobody could use, and a rule that lives only in a
+skill is a rule an agent has to invoke something to see:
+
+- **A `remotes` URL must be globally unique across the whole registry, and the
+  comparison is on the literal string** — templates included. v1.5.2 failed to
+  publish because `server.json` declared `https://{host}:{port}/`, copied from
+  the sibling project, which had claimed that exact template first. Checking that
+  nothing claims your *hostname* is not the check.
+- **`registryType: "mcpb"` means the bundle, not a binary.** Six entries pointed
+  at raw ELF and PE files through twenty tags, which no schema can see: the type
+  says how a client installs the thing, and a client that unpacks an ELF as a zip
+  gets nothing.
+- **A digest is stamped from the push that produced it, per entry.** The `docker`
+  job emits the image index's digest as an output and `release` `needs:` it,
+  because stamping the tag alone leaves the previous release's image pinned under
+  the new version — a manifest whose identifier reads correctly and resolves to
+  the wrong bytes. `scripts/update-server-json-sha.sh` refuses that run, and
+  `make check-stamper` (CI's `server.json` job) drives the refusal on a fixture.
+
+**A release can be rehearsed, and a dispatch is always a rehearsal.**
+`gh workflow run release.yml --ref main` runs every job of the release on the
+dispatched tree and publishes nothing: `REHEARSAL` comes from
+`github.event_name` alone, and there is no input that turns it off. The steps
+that cannot be undone carry `if: env.REHEARSAL != 'true'`; everything else runs,
+including the image build (exported to an OCI layout, so its digest is real and
+the `server.json` stamp is exercised rather than skipped) and the registry
+logins, which mint a credential and spend nothing. **Skipping the wrong step
+proves less than it appears**: what is skipped is exactly what cannot be undone.
+
+**The GitHub release is a draft until every asset is attached.** GoReleaser
+creates it with `draft: true` and the workflow's "Publish the release" step flips
+it after the `.mcpb` upload — before the registry publish, because a draft
+release's assets are not publicly downloadable and the registry fetches the
+bundle `server.json` declares. With `draft: false` the release was public for the
+minutes it took to build and attach that bundle.
+
+**There are two plugin manifests, and they are different schemas for different
+directories rather than a copy.** `.plugin/plugin.json` is the Open Plugins
+location, validating against a `plugin.schema.json` beside it and carrying a
+`logo` and an `mcpServers` pointer; `plugin.json` at the repository root is the
+Agent Plugins one, which names its schema remotely so a validator can fetch it
+and sets `additionalProperties: false` — it accepts neither of those two fields.
+Both are in `VERSION_MANIFESTS` and both are stamped on release; neither is
+generated from the other.
+
+**Every trusted publisher names a blank environment, and no publishing step
+declares one.** npm matches a publisher on the repository, the workflow file
+**and** the environment; PyPI and NuGet match the same way. The publishes live in
+the `release` job, which declares no `environment:`, and adding one there would
+break all three at once — during a real release, on the one path that never runs
+before a tag. Ordering matters for the same reason: npm, PyPI and NuGet all
+publish **before** `mcp-publisher`, which validates ownership by fetching each
+package `server.json` declares.
+
+### The Claude Desktop bundle
+
+`scripts/build-mcpb.sh` packs `libgen-mcp.mcpb` from `mcpb/manifest.json`, the
+icon, `mcpb/linux/launch.sh` and four GoReleaser builds: the macOS universal
+binary, Windows amd64, and Linux amd64 **and** arm64. Claude Desktop has a Linux
+beta on both architectures, and the manifest picks a file per operating system,
+never per architecture, so the `linux` override runs
+`/bin/sh ${__dirname}/server/linux/launch.sh`, which picks the binary by
+`uname -m`. Listing `linux` with only one Linux binary is a bundle that installs
+on the other architecture and never starts.
+
+Four things hold it together. The packer checks the first three on the
+archive it wrote and removes a bundle that fails, and `make check-mcpb`'s
+launcher test checks the fourth:
+
+- **No override declares `env`.** In Desktop an override's `env` replaces the
+  base one rather than merging, which would drop `LIBGEN_MCP_CORE_KEY` and every
+  other setting.
+- **Every executable is stored `-rwxr-xr-x unx`.** Desktop extracts every file
+  0600 and gives back the execute bit only to entries whose zip mode has it.
+- **Every `${__dirname}/…` path the manifest names is in the archive**, every
+  override is listed in `compatibility.platforms`, and every listed platform
+  but `darwin` has an override. `darwin` runs the base command, the universal
+  binary, so it needs none.
+- **The launcher never writes to stdout and ends in `exec`.** Desktop reads
+  stdout as JSON-RPC, and stops a server by signalling the one PID it started.
+
+`make check-mcpb` (CI's `server.json` job) drives the launcher under every POSIX
+shell the runner has, and the packer over the release job's real `dist/`
+layout. On Linux the app registers no handler for `.mcpb` files, so the docs
+send Linux users to **Extensions > Install Extension…**.
+
+### The npm channel
+
+`npm/libgen-mcp/` is the **committed** launcher package (`@jmrp.io/libgen-mcp`):
+`package.json`, `cli.js` and a README, and nothing else. The six per-platform
+packages that carry the binaries are **generated** from the release assets by
+`scripts/build-npm.mjs` at publish time and are gitignored — `npm/packages/`
+never enters a commit.
+
+Three things about it are easy to get wrong:
+
+- **`cli.js` lives at the package root, not in `bin/`.** The repo's `.gitignore`
+  has a global `bin/` rule, so a launcher under `npm/libgen-mcp/bin/` would be
+  silently untracked and every published tarball would be missing its entry
+  point.
+- **The launcher must never write to stdout.** The server speaks MCP over stdio,
+  so a stray byte there is a corrupted JSON-RPC stream, not a cosmetic wart. It
+  spawns the binary with `stdio: "inherit"`, prints only to stderr, and mirrors
+  the child's exit code and terminating signal. `scripts/validate-npm.mjs` drives
+  a real `initialize` handshake and asserts every stdout line parses as JSON-RPC
+  2.0, so a regression fails `make validate-npm` rather than a user's client.
+- **The bytes that ship are the bytes that were verified.** `build-npm.mjs`
+  checks every binary against the release's own cosign-signed `checksums.txt`
+  before packing it and records the digests in `npm/packages/verified-binaries.json`;
+  `validate-npm.mjs` re-hashes each *packed* binary against that record, because
+  its other checks — a size floor, four magic bytes, a file list — all pass for a
+  wrong-but-plausible file, and an npm version can never be replaced. The release
+  then publishes with `--no-assemble`, so the directory the validator examined is
+  the one that goes out rather than an equally-configured rebuild of it;
+  `assert_assembled` refuses a tree that is missing or built for another version,
+  which is what keeps the flag from turning a skipped build into a stale publish.
+  `--allow-unverified` exists for a directory with genuinely no manifest and is
+  never for CI: the validator fails on a tree packed with it.
+- **No package declares a `libc`, and that is asserted rather than left out.**
+  The release binaries carry no ELF interpreter (see *The binaries are
+  standalone* below), so they run on glibc and musl alike, and npm's `libc` field
+  would make Alpine skip a package that works. `validate-npm.mjs` checks both
+  halves — the field is absent, and the *packed* linux bytes match no
+  `ld-linux`/`ld-musl` string — so re-adding `-buildmode=pie` fails the release
+  rather than shipping packages that die on the first run.
+- **The version is stamped, not hand-edited.** `build-npm.mjs --sync-only`
+  rewrites the version and all six `optionalDependencies` pins together, which is
+  why `scripts/update-server-json-sha.sh` calls it rather than editing the JSON:
+  a jq edit could move the version and leave the pins a release behind.
+  `npm/libgen-mcp/package.json` is in `VERSION_MANIFESTS`, so `make
+  check-manifests` fails a bump that skipped `make sync-npm-version`.
+
+The scope is the npm **organization** `jmrp.io`, so packages are
+`@jmrp.io/libgen-mcp*`. `npm whoami` returns `jmrpio` (the maintainer's personal
+profile) and `npm org ls jmrp.io` lists `jmrpio` as the owner **member** — neither
+is the scope, and reading either as one publishes to the wrong place. A granular
+token cannot unpublish, so a mis-scoped publish cannot be undone.
+
+### The PyPI channel
+
+`pypi/README.md` is **committed** and is the long description every wheel
+embeds; it carries the `mcp-name: io.github.jmrplens/libgen-mcp` token the MCP
+Registry reads ownership from, and `build_pypi.py` refuses to build without it.
+The six platform wheels are **generated** from the release assets into
+`pypi/dist/`, which is gitignored.
+
+The distribution is `libgen-mcp` — the same name as the import package and the
+command, because the name was free. That is not a cosmetic detail:
+
+- **No wheel declares a console script.** A `console_scripts` entry would be
+  named after the distribution, which here is also the name of the binary the
+  `.data/scripts` entry installs into `bin/` — two files, one path, and
+  whichever the installer writes last wins. A project shipping under an
+  author-prefixed name needs that wrapper so `uvx <dist-name>` resolves;
+  this one does not. `validate_pypi.py` fails a wheel that grows one.
+- **The binary rides in `.data/scripts`, not in the package directory.** The
+  wheel spec obliges the installer to put it on the scripts path with the
+  executable bit; a binary inside the package gets no such guarantee. The zip
+  entry needs `S_IFREG` in `external_attr` as well as the `0o111` bits, because
+  pip's `zip_item_is_executable` checks the file type first — permission bits
+  alone install it without `+x`.
+- **The linux wheels carry `musllinux` tags beside the `manylinux` ones.** That
+  is only honest for a binary that needs no C library, so the validator checks
+  the archived bytes for an ELF interpreter and for `GLIBC_` symbols and fails
+  on either. Measured end to end: the wheel installs under `python:3.13-alpine`
+  and the command runs.
+
+### The NuGet channel
+
+`nuget/README.md` is **committed** and is the long description the pointer
+package ships; NuGet is the one registry whose MCP ownership check reads the
+*published README*, so it carries the `mcp-name:` token and `build_nuget.py`
+refuses to build without it. The seven packages are **generated** into
+`nuget/dist/`, which is gitignored.
+
+It is a .NET tool whose entry point is a native executable, so nothing in the
+packages is .NET code. Five things about that layout are load-bearing:
+
+- **Seven packages, pushed runtime-first.** One pointer, `libgen-mcp`, naming a
+  package per runtime identifier, and six `libgen-mcp.<rid>` packages carrying
+  one binary each. `dotnet tool install` resolves the pointer and then the host's
+  package, so a pointer visible before its runtime packages installs nothing —
+  the same ordering rule as npm's launcher.
+- **The tool manifest must be `DotNetCliTool Version="2"`.** Version 1 has no
+  runtime-identifier layout at all.
+- **`<licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>` beside the MIT
+  expression.** nuget.org rejects an expression-licensed package without it with
+  a 400 naming `aka.ms/invalidNuGetLicenseUrl`, which nothing local reports.
+- **`.mcp/server.json` ships inside the pointer** and carries *this* version, not
+  the repository's: the manifest is stamped only after the packages are
+  published, so the copy inside has to stand alone.
+- **Arguments for the server go after `--`.** Everything before it belongs to
+  `dnx`.
+
+`make validate-nuget` drives all of it in a digest-pinned .NET SDK container,
+ending in a real `dotnet tool install` **and** a `dnx` run that must each answer
+an MCP `initialize` over stdio.
+
+### The binaries are standalone, and `-buildmode=pie` is what takes that away
+
+Every build in this repository — `.goreleaser.yml`, the `Makefile`'s `build`
+target, the `Dockerfile` — is `CGO_ENABLED=0` **without** `-buildmode=pie`, so
+the binary names no ELF interpreter and runs on glibc, on musl, in a distroless
+image and on `scratch`.
+
+The flag is not a free hardening win, and it cost this project a release channel.
+PIE makes a Go binary dynamically linked, and the linker picks its `PT_INTERP` by
+stat-ing the **build** host (`cmd/link/internal/ld/elf.go`). The image builds on
+`$BUILDPLATFORM`, so the cross-compiled `linux/arm64` binary asked for
+`/lib/ld-linux-aarch64.so.1` into an Alpine runtime that ships only musl's, and
+**the published arm64 image could not exec at all**. The release binaries have
+the same shape: v1.7.2's `linux/amd64` asset asks for
+`/lib64/ld-linux-x86-64.so.2`.
+
+It buys nothing on the other targets. Measured with Go 1.27: a `windows/amd64`
+build has `DllCharacteristics 00008160` with the flag and without it, and a
+`darwin` build is `flags:<DYLDLINK|PIE>` either way — Go already emits
+ASLR-capable binaries there. Only linux changes, and there the trade is the
+executable's own address randomization against running everywhere, on a binary
+with no cgo and no FFI surface.
+
+Two guards hold it, both on the artifact rather than on the flag, because an
+interpreter path is a literal string in the ELF: the `Dockerfile` greps the
+binary it just built and fails the build, and `validate-npm.mjs` greps the
+*packed* linux bytes and fails the release. Adding the flag back therefore breaks
+loudly at build time instead of quietly on somebody's Alpine host.
+
+## Commit & PR Conventions
+
+- Conventional Commits in a plain **developer voice** describing the change
+  itself: `chore(tooling): …`, `feat: …`, `fix: …`, `perf: …`, `test: …`.
+- Commit messages and PR text describe *what changed and why* — never process,
+  tooling-assistants, plans, or audits.
+- Follow `.github/pull_request_template.md` for PR descriptions.
+
+## Gotchas
+
+- **Root binaries.** `go build ./cmd/<x>` drops the binary in the repo root
+  (e.g. `./gen_eval_pages`). These are gitignored, but **never** `git add -A` —
+  stage files explicitly so a stray binary or `.env` is never committed. Prefer
+  `go run ./cmd/<x>/` over building when you just need to run a tool. A new
+  command needs its binary name added to `.gitignore`: `gen_eval_pages` was
+  missing from it and got committed, and an ignore rule does **not** apply to a
+  file already tracked, so the ignore alone would never have caught it.
+- **Full surface for audits.** The audit tools force every source on
+  (`cfg.Sources = nil`, plus a placeholder for every credential-gated source —
+  Unpaywall email and CORE key) so their output is deterministic regardless of
+  the ambient environment. A new credential-gated source must add its placeholder
+  to **all three** of `cmd/internal/mcpsurface` (`DocsConfig`, shared by
+  `gen_llms` and `gen_lhm_manifest`), `cmd/audit_tokens` and
+  `cmd/audit_surface_quality`, or the committed llms files, `lhm.plugin.json` and
+  the token figure will differ between a machine that holds the credential and
+  one that does not, and `make check-llms` / `make check-lhm-manifest` will pass
+  or fail by accident.
+
+---
+> Source: [jmrplens/libgen-mcp](https://github.com/jmrplens/libgen-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
