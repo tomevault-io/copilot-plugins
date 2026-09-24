@@ -1,0 +1,215 @@
+## token-meter
+
+> generates root `AGENTS.md` and `CLAUDE.md` discovery entry points from it; edit
+
+# Coding-Agent Instructions
+
+This is the maintained coding-agent instruction source. The project toolchain
+generates root `AGENTS.md` and `CLAUDE.md` discovery entry points from it; edit
+this file, then run `./scripts/setup-agent-tools`. The current engineering map
+is [ARCHITECTURE.md](ARCHITECTURE.md).
+
+AI-agent context for Token Meter, a local cross-platform dashboard and native companion for Claude, Codex, Cursor, OpenCode, and Kiro usage.
+
+## Context
+
+Token Meter reads local agent traces, calculates clearly labeled usage estimates, and serves a browser dashboard plus a native macOS menu-bar companion. The Python server is dependency-free and local-only. Mistakes can misstate cost, expose private trace data, or leave the installed runtime out of sync with the repository.
+
+## Key Paths
+
+| Path | Purpose |
+|---|---|
+| `meter.py` | Small executable/import compatibility facade for `token_meter.app` |
+| `token_meter/app.py` | Composition, compatibility exports, settings, and application lifecycle |
+| `token_meter/runtimes/` | Registered runtime discovery, parsing, revisions, and safe projections |
+| `token_meter/platforms/` | Host paths, process/update policy, and trash behavior |
+| `token_meter/domain/` | Runtime-neutral usage, timing, tools, insights, and aggregates |
+| `token_meter/projections.py` | Explicit allowlisted public compatibility projections |
+| `page.html` | Entire browser dashboard: markup, styles, routing, and JavaScript |
+| `menubar/TokenMeterMenuBar.swift` | Native AppKit companion, preferences, notifications |
+| `token_meter_mcp.py` | Bounded read-only MCP interface |
+| `tests/test_meter.py` | Server, parser, UI-contract, installer, and Swift-source tests |
+| `tests/test_mcp_server.py` | MCP contract and privacy tests |
+| `runtime-manifest.txt` | Shared source-to-runtime packaging contract |
+| `scripts/install` | Stage user runtime and install both macOS LaunchAgents |
+| `scripts/install-windows.ps1` | Stage the same manifest and install Windows lifecycle/tray launchers |
+| `README.md` | User installation and behavior documentation |
+| `specs/ARCHITECTURE.md` | Canonical component boundaries, data flow, invariants, and extension budgets |
+| `specs/CONTRIBUTING.md` | Human contribution policy and extension recipes |
+| `specs/plans/active.md` | Ignored local execution state for multi-file work |
+| `.agents/skills/` | Canonical project capability skills shared by agent hosts |
+| `.agents/roles/` | Canonical specialist role boundaries and result contracts |
+| `.agents/workflow/` | Routing, review gates, and structured handoff contracts |
+| `agent-toolchain.lock.yaml` | Supported hosts, generated adapters, and pinned external skills |
+| `scripts/setup-agent-tools` | Generate deterministic project-local host adapters |
+| `scripts/check-agent-tools` | Read-only drift and external-skill validation |
+
+## Commands
+
+| Command | Purpose |
+|---|---|
+| `python3 -m unittest discover -s tests -v` | Run all unit and contract tests |
+| `PYTHONPYCACHEPREFIX=/private/tmp/token-meter-pycache python3 -m py_compile meter.py token_meter_mcp.py $(find token_meter -type f -name '*.py' -print)` | Compile Python without polluting the repo |
+| `node -e "const fs=require('fs');const h=fs.readFileSync('page.html','utf8');const m=h.match(/<script>([\\s\\S]*)<\\/script>/);new Function(m[1]);console.log('js ok')"` | Parse embedded dashboard JavaScript |
+| `bash -n scripts/install scripts/install-linux scripts/install-launch-agent scripts/install-systemd-user scripts/run-menubar scripts/run-token-meter-mcp scripts/start-token-meter scripts/uninstall-launch-agent scripts/uninstall-systemd-user scripts/update scripts/update-linux` | Check shell syntax |
+| `swiftc menubar/TokenMeterMenuBar.swift -o /private/tmp/token-meter-menubar` | Compile the native companion |
+| `TOKEN_METER_MENUBAR_SMOKE=1 /private/tmp/token-meter-menubar` | Run deterministic native smoke output |
+| `powershell -NoProfile -Command "[void] [scriptblock]::Create((Get-Content -Raw scripts/install-windows.ps1))"` | Parse a Windows script on a Windows host |
+| `./scripts/install` | Stage and start the exact repository runtime |
+| `curl -fsS http://127.0.0.1:8722/health` | Verify server/page readiness |
+| `curl -fsS http://127.0.0.1:8722/menubar` | Verify compact native payload |
+| `git diff --check` | Reject whitespace errors |
+
+## Rules & Patterns
+
+- Treat `README.md` and `specs/CONTRIBUTING.md` as human documentation; keep this file dense and agent-specific.
+- Treat `specs/ARCHITECTURE.md` as the canonical engineering map. Link to it instead of copying a second component inventory.
+- For multi-file or multi-milestone work, create or replace `specs/plans/active.md` before code edits.
+- Keep `specs/plans/active.md` current with goal, decisions, progress, validation, and remaining work at every stopping point.
+- `specs/plans/active.md` is ignored local execution state: never stage or commit it.
+- Preserve unrelated worktree changes. Do not reset, checkout, or rewrite user changes.
+- Keep `meter.py` and `token_meter_mcp.py` on the Python standard library.
+- Keep the dashboard local-only; do not add hosted assets, analytics, or telemetry.
+- Never output, commit, persist, or transmit prompts, responses, reasoning, tool contents, credentials, account data, or raw traces.
+- Provider-account requests must remain narrow, bounded, sanitized, and read-only.
+- Cursor databases, transcripts, and request logs are read-only inputs.
+- Label estimates as estimates. Unavailable evidence must not become a measured zero.
+- Scope models by runtime when aggregating; identical model names in different clients are not one history.
+- Persist machine-wide settings through the existing atomic JSON-write path and action-token-protected HTTP endpoints.
+- New settings require validation, idempotent writes, migration behavior, and tests.
+- Preserve legacy hash routes and stored preferences when changing navigation or native settings.
+- Keep the top-level dashboard order `Sessions → Spend → Models → Efficiency → Git → Learn → Tools → Settings`. Sessions contains `Current sessions` and `All sessions`; All owns cross-session review.
+- Global is not a dashboard surface. Keep cross-session aggregation as shared backend data for Sessions All, Daily, Models, Tools, Efficiency, MCP, and the menu bar.
+- Keep the complete machine-wide monthly budget dashboard and controls inside Settings. The native companion may deep-link to `#settings-budgets`; preserve `#budgets` as a compatibility redirect.
+- Use macOS labels such as `⌥`, never `Alt`, in user-facing copy.
+- Do not add a top-level dashboard view when an existing workflow can contain the complete capability, unless the approved design explicitly calls for one.
+- Visible dashboard behavior or layout changes require embedded-JS validation and browser checks at wide-desktop and 1024-pixel-laptop widths. Phone, tablet, and sub-1024-pixel layouts are outside the supported product target. An isolated presentation-only change may use the low-risk fast path when it has no layout, interaction, accessibility, navigation, or responsive impact.
+- Native changes require Swift compilation, smoke output, and a live menu-bar check.
+- Source-only success is insufficient for product or runtime behavior changes: run `./scripts/install`, verify `/health` and `/menubar`, and confirm staged runtime parity. An eligible low-risk fast path does not require installed-runtime verification unless its acceptance criteria depend on live behavior.
+- Do not patch only `~/Library/Application Support/Token Meter/runtime`; change source, reinstall, then verify.
+- Never use `sudo` or disable macOS security controls for installation.
+- Keep maintained documentation under `specs/`. Root `AGENTS.md`, `CLAUDE.md`,
+  and `REVIEW.md` are generated discovery entry points; do not edit them
+  directly. Mark point-in-time research or state records historical.
+- Do not commit local traces, settings, generated logs, caches, `.DS_Store`, `.build/`, or `specs/plans/active.md`.
+
+## Agent Workflow
+
+- The primary agent is the coordinator. It owns task routing, user context,
+  approvals, handoff validation, gate state, and the final response.
+- The `communication-manager` owns the exact wording and channel fit of every
+  contributor- or user-facing Slack, GitHub, release, and status message in an
+  active Token Meter team flow. It is a read-only message author and quality
+  gate; the authorized coordinator or operator performs and reads back the
+  external write.
+- Apply these general communication principles: evidence before claims,
+  channel-appropriate detail, concise-by-default wording, privacy and sensitive
+  data minimization, exact delivery-state language, no invented diagnosis,
+  deadline, or commitment, preserved approval scope, duplicate prevention, and
+  read-back verification.
+- Before routing work, read `.agents/workflow/routing.yaml`,
+  `.agents/workflow/review-policy.yaml`, and
+  `.agents/workflow/handoff.schema.json`. Use the six canonical capability
+  skills under `.agents/skills/` according to the routing contract.
+- Work directly by default. Delegate only a bounded, independently verifiable
+  assignment to the matching specialist adapter. Specialists must not delegate.
+- Keep one tracked-file writer per worktree. The coordinator may write directly
+  or assign the developer, but never allow two writers in the same worktree at
+  the same time.
+- Tester and reviewer work must be independent of implementation. They inspect
+  an immutable base-to-head target and return structured evidence; they do not
+  repair what they find.
+- Any tracked-file change after a passing verification or review invalidates
+  that result. Rerun every required gate against the new head.
+- The coordinator may explicitly select the low-risk fast path only when every
+  condition in `.agents/workflow/review-policy.yaml` is satisfied. It covers
+  non-behavioral documentation or copy, coverage-preserving test maintenance,
+  and isolated presentation changes with no layout or interaction impact. The
+  coordinator must name the matching allowed change kind and record its eligibility
+  evidence; uncertainty defaults to the standard route.
+- A low-risk fast path uses one writer and focused evidence. It requires no
+  independent tester or reviewer and does not require installed-runtime verification
+  by default. Uncertain eligibility, scope expansion, an unexpected failure, a
+  cross-surface consumer, or a runtime dependency escalates the work to standard.
+- A standard change requires one independent tester result and one project
+  reviewer result. High-risk changes require one tester and two project
+  reviewers with distinct lenses, as defined by the review policy.
+- Read this file before editing, then inspect the relevant implementation and tests.
+- For a bug fix, reproduce the problem when practical and distinguish the observed failure from an inferred cause.
+- Keep work scoped to the requested bug or feature. Preserve unrelated changes and avoid opportunistic refactors.
+- Add or update tests for behavior changes. Run the smallest checks that cover every
+  acceptance criterion, followed by the broader gates required by the selected route.
+- Every transfer of work must use the envelope/result shape from
+  `.agents/workflow/handoff.schema.json`; the coordinator rejects incomplete or
+  stale handoffs.
+- Before final handoff, report files changed, exact validation results,
+  installed-runtime checks when applicable, review findings and disposition,
+  and anything not verified.
+- When Pratik explicitly asks to start the Token Meter team flow or manage a
+  linked reporter request end to end, use the `reporter-end-to-end` route. That
+  request is standing approval to commit only the scoped files so independent
+  gates can bind to that exact commit. After all required gates pass, push its
+  dedicated `codex/` branch, open the linked pull request, post detailed testing
+  instructions on the linked GitHub issue, and post one concise follow-up in the
+  existing Slack thread. Recheck and read back every write; do not pause for
+  another approval between these bounded delivery steps.
+- For `reporter-end-to-end`, GitHub owns clone, checkout, install, health-check,
+  restoration, measurement, and procedural next steps. The communication
+  manager first drafts the pull request from the gated commit. After the GitHub
+  operator creates and reads back the pull request, the communication manager
+  uses its real URL to draft the detailed linked-issue handoff and a separate
+  Slack reply. The Slack reply is one short paragraph that thanks the reporter,
+  links the pull request, briefly asks them to try it, and identifies the reply
+  as from Pratik's agent. Do not put code, commands, clone/install steps,
+  procedural next steps, a test matrix, or a long technical summary in Slack.
+- `reporter-end-to-end` standing approval does not include merge, release,
+  close, label changes, or hosted review requests. It applies only to the linked
+  issue/thread and only when the exact head has current required evidence with
+  no open finding.
+- When the user authorizes checking out, reviewing, or managing pull requests,
+  post one contributor-facing status reply on each inspected PR after checking
+  its current head and discussion. Thank the contributor, state the
+  evidence-backed merge status or next step, say the team will follow up soon,
+  and identify the reply as from Pratik's agent. Do not duplicate an equivalent
+  same-head status reply. The PR-management request is standing approval for
+  these replies only; merges, closes, pushes, review requests, and unrelated
+  actions remain separately gated unless that request explicitly authorizes
+  them.
+- When a contributor later reports results after Pratik's agent asked them to
+  check out or test a pull request, acknowledge every existing discussion
+  thread containing those results. Thank them, say the team will follow up
+  without inventing a diagnosis or deadline, and identify the reply as from
+  Pratik's agent. Keep Slack to the same short follow-up contract with no code or
+  procedural next steps. This is standing approval for that narrow acknowledgment.
+- Commits, pushes, pull requests, reviews posted to GitHub, Slack messages,
+  releases, and other external side effects require explicit user approval.
+
+## Documentation and Release Hygiene
+
+- README owns installation, primary workflows, trust, updates, uninstall, and troubleshooting. Maintainer internals belong here or in `specs/ARCHITECTURE.md`.
+- Update links when documents move; verify relative Markdown links and referenced repository paths before committing.
+- Do not maintain a current-state ledger with copied test counts, process IDs, local paths, or installed revisions. Git history and fresh validation output are the evidence.
+- Before publishing, review staged files for traces, settings, credentials, logs, caches, generated binaries, `.DS_Store`, `.build/`, and temporary plans.
+- Keep `runtime-manifest.txt` authoritative for staged source. New imported runtime files must be covered by its expanded tree and parity checks.
+- Target-host claims require target-host evidence. macOS checks do not prove Linux tray or Windows PowerShell/NotifyIcon behavior.
+
+## Change Boundaries
+
+- Bug fixes, documentation, and new features may proceed directly when clearly requested by the user.
+- Prefer the smallest complete behavior and retain current semantics outside the requested scope.
+- Update tests with implementation. UI-source string assertions are useful but do not replace behavioral tests.
+- Keep API payloads bounded and free of local paths or raw exception text.
+- Keep Current-session caps separate from machine-wide monthly budgets.
+- Preserve the current pricing engine unless pricing behavior is explicitly in scope; model-table edits require exact source evidence and tests.
+
+## Installed Runtime
+
+`./scripts/install` stages files under `~/Library/Application Support/Token Meter/runtime` and manages `com.token-meter.server` plus `com.token-meter.menubar`.
+
+For an agent-led installation, complete the clone and install workflow directly instead of asking the user to copy commands into Terminal. If the sandbox blocks the user-owned Application Support runtime, LaunchAgents directory, or `launchctl`, request only the narrow permission needed and continue after approval. Never use `sudo` or disable macOS security controls.
+
+A healthy handoff reports the installed source commit, dashboard URL, both LaunchAgent states, valid `/health` and `/menubar` responses, source/runtime parity, automatic-start status, and the uninstall command printed by the installer.
+
+---
+> Source: [splunk/token-meter](https://github.com/splunk/token-meter) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
