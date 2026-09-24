@@ -1,0 +1,57 @@
+{
+  "name": "hex",
+  "owner": "anomalyco",
+  "repo": "hex",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hex",
+      "path": "skills/hex-personal-commands/SKILL.md",
+      "github_url": "https://github.com/anomalyco/hex/tree/main/skills/hex-personal-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hex",
+      "path": "sdk/commands/workspace-template/.agents/skills/personal-commands/SKILL.md",
+      "github_url": "https://github.com/anomalyco/hex/tree/main/sdk/commands/workspace-template/.agents/skills/personal-commands/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/anomalyco/hex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T07:44:00Z"
+}
