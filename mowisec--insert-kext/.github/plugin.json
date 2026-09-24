@@ -1,0 +1,9 @@
+{
+  "name": "mowisec--insert-kext",
+  "displayName": "insert_kext",
+  "description": "Patch an open-source kext into a closed-source iOS kernelcache binary.",
+  "version": "1.0.0",
+  "author": "mowisec",
+  "homepage": "https://github.com/mowisec/insert_kext",
+  "skills": []
+}
