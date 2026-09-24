@@ -1,7 +1,7 @@
 {
   "name": "imageomics--saev",
   "displayName": "saev",
-  "description": "Sparse autoencoders for vision",
+  "description": "saev",
   "version": "1.0.0",
   "author": "Imageomics",
   "homepage": "https://github.com/Imageomics/saev",
