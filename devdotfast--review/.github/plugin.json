@@ -1,0 +1,14 @@
+{
+  "name": "devdotfast--review",
+  "displayName": "review",
+  "description": "review",
+  "version": "1.0.0",
+  "author": "devdotfast",
+  "homepage": "https://github.com/devdotfast/review",
+  "skills": [
+    {
+      "name": "review",
+      "description": ""
+    }
+  ]
+}
