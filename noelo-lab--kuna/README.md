@@ -2,8 +2,6 @@
 
 > Sourced from [Noelo-Lab/kuna](https://github.com/Noelo-Lab/kuna), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
-An agent-first decompiler designed to be refined by other agents. Kuna is written in Rust and was originally ported from Ghidra.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
