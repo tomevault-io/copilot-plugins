@@ -1,0 +1,9 @@
+{
+  "name": "casualoffice--slides",
+  "displayName": "slides",
+  "description": "Open-source self-hosted web slides editor with .pptx round-trip \u2014 an alternative to Google Slides, PowerPoint Online, and PPTist (deeper fidelity than the latter; closer to native Office UX than the f",
+  "version": "1.0.0",
+  "author": "CasualOffice",
+  "homepage": "https://github.com/CasualOffice/slides",
+  "skills": []
+}
