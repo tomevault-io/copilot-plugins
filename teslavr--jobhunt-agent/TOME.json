@@ -1,0 +1,44 @@
+{
+  "name": "jobhunt-agent",
+  "owner": "teslavr",
+  "repo": "jobhunt-agent",
+  "description": "A local, config-driven job-search agent: public ATS feeds, two-way fit scoring, tailored resume + cover drafts. No scraping, never auto-applies.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/teslavr/jobhunt-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T05:01:03Z"
+}
