@@ -1,9 +1,8 @@
 ## graphflow
 
-> Use GraphFlow first for token-efficient repo context, planning, and orchestration.
+> GraphFlow is a graph-based context and planning service backed by a persistent MCP server. It turns codebases into queryable knowledge graphs, delivering token-efficient compressed context, task planning, and orchestration.
 
-
-# GraphFlow Token-First Rule
+# GraphFlow Token-First Rule (GitHub Copilot)
 
 GraphFlow is a graph-based context and planning service backed by a persistent MCP server. It turns codebases into queryable knowledge graphs, delivering token-efficient compressed context, task planning, and orchestration.
 
@@ -29,6 +28,27 @@ Do not scan the whole repository, recursively inspect many files, or read large 
 
 Pass `rootDir` = the absolute path of the project you are working in. **Never** pass your home directory, AppData, or an unexpanded `${workspaceFolder}` placeholder — GraphFlow refuses unsafe workspace roots and the call fails. If a tool answers `unsafe workspace root`, retry the same call without `rootDir` (the server then uses its configured workspace) or with the project path.
 
+## VS Code / Copilot MCP setup
+
+Ensure GraphFlow MCP is configured in `~/.config/Code/User/mcp.json` (Linux) or project `.vscode/mcp.json` under the `servers` key:
+
+```json
+{
+  "servers": {
+    "graphflow": {
+      "command": "npx",
+      "args": ["-y", "--package=@roarpeng/graphflow", "graphflow-mcp"],
+      "env": {
+        "GRAPHFLOW_MCP_STDIO": "1",
+        "GRAPHFLOW_LOG_JSON": "1"
+      }
+    }
+  }
+}
+```
+
+Do **not** hardcode `GRAPHFLOW_WORKSPACE_ROOT` — let the MCP server detect the open workspace.
+
 ## Chinese / CJK queries (agent must translate)
 
 Code symbols are mostly English. For Chinese user questions:
@@ -38,115 +58,29 @@ Code symbols are mostly English. For Chinese user questions:
 3. **Reactive:** If preview returns `agentWorkItems` with `query-translate-en` (low `anchorCount`), answer the JSON prompt with your model, then retry preview with `englishQuery`.
 4. Keep `query` as the original Chinese text; use `englishQuery` for search terms only.
 
-```typescript
-graphflow_context({
-  query: "游戏战斗系统怎么实现的",
-  englishQuery: "battle combat fight damage scene system",
-  rootDir: "/absolute/path/to/project"
-})
-```
+## High-frequency MCP tools
 
-## Tool Inventory (10 MCP Tools)
-
-### Core Context Tools (Highest Frequency)
-
-| Tool | Purpose | Call Frequency |
-|------|---------|---------------|
-| `graphflow_context` | Preview compressed context (query) or expand anchor (anchorId) | **Highest** - default first step |
-
-### Planning Tools (High Frequency)
-
-| Tool | Purpose | Call Frequency |
-|------|---------|---------------|
-| `graphflow_plan` | Multi-step task decomposition & DAG (mode='simple' or 'insight') | High - before complex work |
-| `graphflow_run` | Plan + context package (bridge mode) | Medium - full task packaging |
-| `graphflow_report_outcome` | Report bridge-mode execution outcome back | Medium - close the learning loop |
-| `graphflow_insight` | Submit or merge agent insights | Medium - no external LLM API |
-
-### Graph Management Tools (Medium Frequency)
-
-| Tool | Purpose | Call Frequency |
-|------|---------|---------------|
-| `graphflow_index` | Incremental workspace re-index, single-file, or full rebuild | Medium - after file changes |
-
-### Collaboration & Insights Tools (Low Frequency)
-
-| Tool | Purpose | Call Frequency |
-|------|---------|---------------|
-| `graphflow_artifact` | Export or import graph artifact | Low - team sharing |
-| `graphflow_skill_insights` | Learned skill patterns | Low - leverage prior learning |
-| `graphflow_skill_guide` | Skill usage guide for connected agents | Low - onboarding |
-| `graphflow_diagnose` | Provider health, graph stats, and token savings | Rare - config issues |
-
-## Standard Workflows
-
-### Workflow 1: Context First (90% of tasks)
-
-**Use when:** Answering code questions, exploring codebase, understanding modules
-
-```
-Step 1: graphflow_context(query: "<your question>")
-Step 2: Read summary + anchors as primary context
-Step 3: Expand specific anchors with graphflow_context(anchorId: "...") when needed
-Step 4: Read full files only when exact edits required
-Step 5: After answering, graphflow_context({ assistantReply: "<original answer>" }) to fill the pending turn
-```
-
-Each `graphflow_context` preview records the user question into the graph (workbench topic if a plan DAG exists, otherwise a dialogue-turn). After answering, call again with `assistantReply` (query optional) so the original answer is stored. Workbench titles are display labels only — do not replace stored messages with an extracted abstract.
-
-### Workflow 2: Plan Before Coding (complex tasks)
-
-**Use when:** Multi-step changes, refactors, features with unclear scope
-
-```
-Step 1: graphflow_context(query: "<task>")
-Step 2: graphflow_plan(task: "<task description>")
-Step 3: Review workbench.topics (function nodes on the canvas). Wake the outline later with graphflow workbench tree / graphflow_diagnose.graph.workbenchOutline.
-Step 4: Refine a node with graphflow_context({ query, topicId })
-Step 5: If the chat drifted, click a 主线 node (same topicId) to return
-Step 6: graphflow_index() after major changes
-```
-
-Each `graphflow_plan` seeds a **workbench** of topic containers (function nodes). Click a node and pass `topicId` to `graphflow_context` to refine that function. Drift auto-forks an isolated side node; click a 主线 node to return. Messages stay inside the topic — the canvas is not one-turn-one-node. Wake the outline with `graphflow workbench tree`, VS Code **GraphFlow: Workbench Tree**, or chat `/tree`. The tree stays collapsed until you open it.
-
-### Workflow 3: Deep Analysis (complex/ambiguous tasks)
-
-**Use when:** High-stakes changes, root-cause analysis, ambiguous requirements
-
-```
-Step 1: graphflow_context(query: "<task>")
-Step 2: graphflow_plan(task: "<task>", mode: "insight")
-Step 3: Review analysis and apply findings
-```
+| Tool | When |
+|------|------|
+| `graphflow_context` | **Always first** for code questions (use `query`); expand anchor with `anchorId` |
+| `graphflow_plan` | Multi-step tasks |
+| `graphflow_run` | Full task packaging (bridge mode) |
+| `graphflow_report_outcome` | After executing a `graphflow_run` descriptor |
+| `graphflow_index` | After significant edits |
 
 ## Bridge-mode outcome reporting
 
-After `graphflow_run`, the external agent **must** call `graphflow_report_outcome` to close the skill flywheel loop:
+After `graphflow_run`, **must** call `graphflow_report_outcome` with `episodeId`, `success`, and optional `lessons`.
 
-- Pass `episodeId` from the run result, a `success` boolean, and optional `lessons`.
-- Do this after executing the work described in the returned `executionDescriptor`, whether the task succeeded or failed.
-- When the run returns `agentWorkItems`, answer each prompt with your model and call `graphflow_insight(mode: "submit")` once per item (before or with `graphflow_report_outcome`).
-
-CLI fallback:
-
-```bash
-graphflow --json outcome report <episodeId> <success>
-```
-
-If MCP is unavailable, use the CLI fallback and always request JSON output:
+CLI fallback when MCP is unavailable:
 
 ```bash
 graphflow --json context preview "<query>"
 graphflow --json plan "<task>"
-graphflow --json graph inspect
-graphflow --json workbench tree
-graphflow --json skill insights
-graphflow --json route diagnose
+graphflow --json outcome report <episodeId> <success>
 ```
 
 Treat GraphFlow outputs as structured machine-readable data, not prose.
-
-When the user asks about saving token usage, optimizing context, repo understanding, or learning from Graphify, prioritize GraphFlow context compression over ordinary file search.
 
 ---
 > Source: [Roarpeng/GraphFlow](https://github.com/Roarpeng/GraphFlow) — distributed by [TomeVault](https://tomevault.io).
