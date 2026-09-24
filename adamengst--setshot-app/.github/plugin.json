@@ -1,0 +1,9 @@
+{
+  "name": "adamengst--setshot-app",
+  "displayName": "setshot-app",
+  "description": "SetShot macOS app \u2014 snapshot and diff macOS settings changes",
+  "version": "1.0.0",
+  "author": "adamengst",
+  "homepage": "https://github.com/adamengst/setshot-app",
+  "skills": []
+}
