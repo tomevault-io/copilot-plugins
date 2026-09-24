@@ -1,0 +1,111 @@
+{
+  "name": "Everfern",
+  "owner": "Everfern-AI",
+  "repo": "Everfern",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Everfern",
+      "path": "main/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/txt/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/txt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/csv/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/csv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/docx/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/json/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/json/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/charts/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/charts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/image-viewer/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/image-viewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/data-analysis/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Everfern",
+      "path": "main/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/Everfern-AI/Everfern/tree/main/main/skills/frontend-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Everfern-AI/Everfern",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T03:43:20Z"
+}
