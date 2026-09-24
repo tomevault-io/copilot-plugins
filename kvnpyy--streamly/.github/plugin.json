@@ -1,0 +1,9 @@
+{
+  "name": "kvnpyy--streamly",
+  "displayName": "streamly",
+  "description": "Self-hosted IPTV player for Xtream Codes \u2014 Live TV, Movies, Series, EPG, TV browser support. Built with Next.js 16, React 19, Tailwind v4.",
+  "version": "1.0.0",
+  "author": "kvnpyy",
+  "homepage": "https://github.com/kvnpyy/streamly",
+  "skills": []
+}
