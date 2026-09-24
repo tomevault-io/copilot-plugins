@@ -1,0 +1,9 @@
+{
+  "name": "acquiredsecurity--as-aix",
+  "displayName": "as-aix",
+  "description": "AI-Xtractor Extract query history for Claude Code and ChatGPT conversation history into CSV timelines.",
+  "version": "1.0.0",
+  "author": "acquiredsecurity",
+  "homepage": "https://github.com/acquiredsecurity/as-aix",
+  "skills": []
+}
