@@ -1,67 +1,46 @@
-## effects
+## offload-policy
 
-> Sounio effects system — functions must declare side effects
+> Mandatory LLM-offload review checkpoints for math, clinical, and paper artifacts
 
 
-# Sounio Effects System
+# LLM-Offload Policy (MANDATORY)
 
-Every function that performs a side effect MUST declare it with `with`. Missing effects = compile error.
+Canonical doc: `.claude/AGENT_OFFLOAD_POLICY.md`. Routing: `.claude/offload-routing.md`. Audit log: `.claude/llm_offload_log.md`.
 
-## Effect Reference
+This rule applies to **every Cursor agent session in this repo**, including subagents and best-of-N runners.
 
-| Effect | When Required | Example |
-|--------|--------------|---------|
-| `IO` | `println()`, `print()`, file I/O, env access | `fn greet() with IO { println("hi") }` |
-| `Mut` | Mutating via `&!`, `var` reassignment in &! context | `fn set(x: &!i32) with Mut { *x = 5 }` |
-| `Div` | Division `/` or modulo `%` | `fn half(x: f64) -> f64 with Div, Panic { x / 2.0 }` |
-| `Panic` | Array access `arr[i]`, `assert()`, `as` casts | `fn get(a: [i64; 4], i: i64) -> i64 with Panic { a[i as usize] }` |
-| `Alloc` | Heap allocation (Vec, Box) | Rare in most code |
-| `Async` | Async operations | `async fn fetch() with Async { }` |
-| `GPU` | GPU kernel execution | `kernel fn k() with GPU { }` |
-| `Prob` | Probabilistic sampling | `fn sample() with Prob { }` |
+## Mandatory pre-commit checkpoints
 
-## Rules
+| Trigger | Required action |
+|---------|-----------------|
+| Math claim in `.sio` comments, PK/GUM/p-box derivation, Lean theorem statement, refinement invariant | `bin/llm-offload -t math-review -p xai -i <file>` |
+| Any change under `stdlib/clinical/`, `tests/run-pass/vancomycin*`, `tests/stdlib/clinical/`, `formal/lean4/SounioVancomycin*` | `bin/llm-offload -t review -p deepseek -i <file>` |
+| Any external-facing artifact under `docs/papers/`, `docs/dissertation/`, IRB protocols | `bin/llm-offload --raw <draft> deepseek xai gemini` |
 
-1. **Pure functions** have NO `with` clause: `fn add(a: i64, b: i64) -> i64 { a + b }`
-2. **Div always pairs with Panic**: Division can panic on zero, so both are needed
-3. **Effects propagate upward**: A caller must declare all effects of its callees
-4. **Multiple effects**: `fn process() with IO, Mut, Panic, Div { }`
+After every non-trivial offload, append a row to `.claude/llm_offload_log.md` (top of "Entries" table). When a review caught a bug, add an `LLM-offload-review:` trailer to the commit message.
 
-## Common Patterns
+## Quick reference
 
-```sio
-// Pure — no effects
-fn square(x: i64) -> i64 { x * x }
-
-// IO only
-fn hello() with IO { println("Hello") }
-
-// Mutation
-fn increment(c: &!i64) with Mut { *c = *c + 1 }
-
-// Division (always with Panic)
-fn average(a: f64, b: f64) -> f64 with Div, Panic { (a + b) / 2.0 }
-
-// Array processing (Panic for bounds checks)
-fn sum(arr: [i64; 4]) -> i64 with Panic {
-    var total: i64 = 0
-    for i in 0..4 { total = total + arr[i as usize] }
-    total
-}
-
-// Main — usually needs everything
-fn main() with IO, Mut, Panic, Div {
-    // ...
-}
+```bash
+bin/llm-offload --status                        # which API keys are loaded
+bin/llm-offload --list-tasks                    # available tasks + default providers
+bin/llm-offload --list-providers                # all providers
+bin/llm-offload -t <task> -p <provider> -i <file>
+bin/llm-offload --raw <prompt> [providers...]   # multi-model fan-out
 ```
 
-## Common Mistakes
+Tasks: `expand` (Gemini, prose), `scaffold` (DeepSeek, boilerplate), `review` (DeepSeek, devil's advocate), `paraphrase` (MiniMax/Qwen, tone shift), `math-review` (Grok 4.1, math audit).
 
-- Forgetting `Panic` when accessing arrays: `arr[i as usize]` needs `Panic`
-- Forgetting `Mut` when using `&!` references
-- Forgetting `IO` when calling `println()` or `print()`
-- Forgetting `Div` when using `/` or `%`
-- Not propagating effects from callees to callers
+## Hard rules
+
+- **NEVER** send PHI / patient-identifying data to any provider.
+- **NEVER** silently dismiss a reviewer finding; always log disagreement with reasoning.
+- **NEVER** commit math-touching changes to `stdlib/clinical/` or `formal/lean4/` without a logged `math-review` evidence.
+- **NEVER** edit `.claude/AGENT_OFFLOAD_POLICY.md`, `.claude/offload-routing.md`, or `bin/llm-offload` in parallel with other agents (high-risk shared control files).
+
+## Why this exists
+
+On 2026-04-30, a 28-second `bin/llm-offload -t math-review -p xai` invocation caught a sign-error bug in `vp_cmin_point` monotonicity that had already passed Lean theorem statements, 4 green tests, and author self-review. The fix changed the pre-TDM Cmin band from `[11.30, 21.31]` to the correct `[8.49, 24.29]`. Without the offload, this bug would have shipped to a POPL or *Clinical Pharmacokinetics* referee. The policy makes that catch the default, not the exception.
 
 ---
 > Source: [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio) — distributed by [TomeVault](https://tomevault.io).
