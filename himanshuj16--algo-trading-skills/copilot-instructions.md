@@ -1,18 +1,15 @@
 ## algo-trading-skills
 
-> This repository contains **501 structured algorithmic trading skills** following the `agentskills.io` standard located in the `skills/` directory.
+> Automatically discover and load algorithmic trading skills from the library in skills/
 
-# GitHub Copilot Instructions for Algo-Trading-Skills
+# Algo-Trading-Skills Rule for Cursor
 
-This repository contains **501 structured algorithmic trading skills** following the `agentskills.io` standard located in the `skills/` directory.
+When building or modifying algorithmic trading code, financial ML models, backtesting loops, risk controls, or broker integrations:
 
-When generating code, analyzing trading infrastructure, or assisting with quant strategies:
-
-- **Skill Discovery**: Scan `index.json` or `skills/*/SKILL.md` frontmatter to locate relevant skills (e.g. `order-placement-idempotency`, `kill-switch-and-drawdown-circuit-breakers`, `lookahead-bias-elimination`). Every description starts with "Use when …" — match on the situation, not the subject.
-- **Check Scope First**: Read `## When NOT to Use` before applying a skill — it hands each excluded case to the skill that owns it.
-- **Follow Workflows**: Strictly adhere to the step-by-step `Workflow` and `Common Pitfalls` defined in `skills/<skill-name>/SKILL.md`.
-- **Reference Standards**: Consult `references/standards.md` for regulatory compliance (SEC Rule 15c3-5, Reg NMS, MiFID II, FCA, SEBI) and exchange specifications.
-- **Verification**: Ensure generated code passes tests using `python -m unittest discover -s skills/<skill-name>/scripts`.
+1. **Scan `skills/` Frontmatter**: Read the `SKILL.md` frontmatter in `skills/<skill-name>/SKILL.md` or query `index.json` to find relevant skills matching the task.
+2. **Follow `agentskills.io` Standard**: Read `When NOT to Use` first (it names the cases the skill does not cover and hands each to the skill that does), then use the `Workflow`, `Common Pitfalls`, and `Verification` sections in `skills/<skill-name>/SKILL.md`.
+3. **Reference Deep Context**: Read `references/standards.md`, `references/workflows.md`, and `scripts/` inside the target skill directory for implementation details.
+4. **Verify Implementation**: Always verify code against the skill's verification checklist (`assets/checklist.md`) and run corresponding unit tests.
 
 ---
 > Source: [HimanshuJ16/Algo-Trading-Skills](https://github.com/HimanshuJ16/Algo-Trading-Skills) — distributed by [TomeVault](https://tomevault.io).
