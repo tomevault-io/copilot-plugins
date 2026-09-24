@@ -1,0 +1,9 @@
+{
+  "name": "offlinecv--offlinecv",
+  "displayName": "OfflineCV",
+  "description": "A private, no-login job-search workbench for resume PDFs \u2014 drop one in and see what a plain-text extractor actually reads back, with an anonymous structure/specificity score. Runs entirely in your bro",
+  "version": "1.0.0",
+  "author": "offlinecv",
+  "homepage": "https://github.com/offlinecv/OfflineCV",
+  "skills": []
+}
