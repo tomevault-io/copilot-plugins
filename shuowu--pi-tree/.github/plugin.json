@@ -1,0 +1,9 @@
+{
+  "name": "shuowu--pi-tree",
+  "displayName": "pi-tree",
+  "description": "AI-assisted reading and research with tree-structured conversations. Local-first, bring your own key.",
+  "version": "1.0.0",
+  "author": "shuowu",
+  "homepage": "https://github.com/shuowu/pi-tree",
+  "skills": []
+}
