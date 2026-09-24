@@ -1,0 +1,261 @@
+{
+  "name": "aster",
+  "owner": "Zfinix",
+  "repo": "aster",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aster",
+      "path": "skills/aster-cli/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/aster-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "skills/gpt-astra/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/gpt-astra/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "skills/aster-config/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/aster-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "skills/aster-ui-demo/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/aster-ui-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "skills/aster-planning/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/aster-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "skills/aster-review-ci/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/aster-review-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "skills/aster-capabilities/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/aster-capabilities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "skills/aster-fix-workflow/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/aster-fix-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "skills/aster-chat-sessions/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/aster-chat-sessions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "skills/aster-skill-authoring/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/skills/aster-skill-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/git-workflow/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/skill-creator/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/security-scan/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/gh-pr-workflow/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/gh-pr-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/artifact-design/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/artifact-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/security-review/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/optional-skills/shortcuts/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/optional-skills/shortcuts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/optional-skills/macos-harness/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/optional-skills/macos-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/cli-toolbox/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/cli-toolbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/build-triage/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/build-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/batched-bash/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/batched-bash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/web-research/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/web-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/git-worktrees/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/lsp-navigation/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/lsp-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/context-economy/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/context-economy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/structural-edits/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/structural-edits/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/plan-and-present/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/plan-and-present/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/optional-skills/internal/write-tests/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/optional-skills/internal/write-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/optional-skills/internal/i-have-adhd/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/optional-skills/internal/i-have-adhd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/verify-before-done/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/verify-before-done/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/builtins/internal/correction-protocol/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/builtins/internal/correction-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/optional-skills/internal/refactor-safely/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/optional-skills/internal/refactor-safely/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/optional-skills/internal/package-managers/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/optional-skills/internal/package-managers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/optional-skills/internal/dependency-upgrade/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/optional-skills/internal/dependency-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/optional-skills/internal/debug-systematically/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/optional-skills/internal/debug-systematically/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aster",
+      "path": "crates/aster-skills/optional-skills/internal/background-processes/SKILL.md",
+      "github_url": "https://github.com/Zfinix/aster/tree/main/crates/aster-skills/optional-skills/internal/background-processes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Zfinix/aster",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T11:46:22Z"
+}
