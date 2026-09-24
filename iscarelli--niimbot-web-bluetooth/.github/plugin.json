@@ -1,0 +1,9 @@
+{
+  "name": "iscarelli--niimbot-web-bluetooth",
+  "displayName": "niimbot-web-bluetooth",
+  "description": "Zero-dependency Web Bluetooth driver + reverse-engineered protocol docs to print Niimbot label printers straight from the browser \u2014 no app. Validated on B1, B1 Pro, B2 Pro, M2-H, D11_H, D110 and N1.",
+  "version": "1.0.0",
+  "author": "iscarelli",
+  "homepage": "https://github.com/iscarelli/niimbot-web-bluetooth",
+  "skills": []
+}
