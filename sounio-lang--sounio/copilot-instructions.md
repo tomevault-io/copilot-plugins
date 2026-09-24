@@ -1,170 +1,84 @@
-## patterns
+## sounio
 
-> Copy-paste Sounio patterns from verified tests
+> Sounio language rules — epistemic types, effects, algebra, GPU programming
 
 
-# Sounio Patterns — Verified Copy-Paste Examples
+# Sounio Language Rules
 
-All patterns are sourced from `tests/run-pass/` and verified with `souc check`.
+Use these rules for every `.sio` file. Sounio is a self-hosted systems and
+scientific language with epistemic types, algebraic effects, non-associative
+algebra, and GPU-visible effect rows. It is not Rust, Julia, or Python.
 
-## Hello World
+## Core Patterns
+
 ```sio
 fn main() with IO {
-    println("Hello, World!")
+    println("Hello, Sounio")
+}
+
+fn scale(x: Knowledge<f64>) -> Knowledge<f64> with Div, Panic {
+    x / measure(2.0, uncertainty: 0.0)
+}
+
+fn kernel_entry() with GPU {
+}
+
+algebra Octonion over f64 {
+    add: commutative, associative
+    mul: alternative, non_commutative
+    reassociate: fano_selective
+}
+
+extern "C" {
+    fn puts(ptr: *i8) -> i32
 }
 ```
 
-## Array Processing (map/fold)
+## Required Conventions
+
+- Use `var` for mutable locals; do not write `let mut`.
+- Use `&!T` for exclusive references; do not write `&mut T`.
+- Declare effects with `with IO`, `with Mut`, `with Panic`, `with Div`,
+  `with GPU`, `with Prob`, or `with Observe` as required.
+- Preserve `Knowledge<T>` values across scientific calculations unless an
+  audited epistemic unwrap is explicitly required.
+- Use Sounio `match` syntax and make every arm type-compatible.
+- Define helper functions before callers.
+- Use semicolons only where the language grammar requires them; Sounio is
+  D-like in its statement termination rules for this checkout, and stray Rust
+  semicolon habits should be checked against current compiler behaviour.
+
+## Anti-Patterns
+
 ```sio
-fn square(x: i64) -> i64 { x * x }
+// WRONG: raw f64 loses epistemic uncertainty where Knowledge<f64> applies
+fn dose(weight: f64) -> f64 { weight * 15.0 }
 
-fn map4(arr: [i64; 4], f: fn(i64) -> i64) -> [i64; 4] with Mut, Panic {
-    var out: [i64; 4] = [0; 4]
-    var i: i64 = 0
-    while i < 4 {
-        out[i as usize] = f(arr[i as usize])
-        i = i + 1
-    }
-    out
-}
+// WRONG: unannotated GPU call
+fn launch() { kernel_entry() }
 
-fn fold4(arr: [i64; 4], init: i64, f: fn(i64, i64) -> i64) -> i64 with Panic {
-    var acc = init
-    for i in 0..4 {
-        acc = f(acc, arr[i as usize])
-    }
-    acc
-}
+// WRONG: unsafe/effect mismatch
+fn poke(ptr: *i8) { unsafe { *ptr = 0 } }
+
+// WRONG: Rust-style macros and mutation
+let mut x = 1;
+println!("bad")
+assert!(x > 0)
+
+// WRONG: Rust-style mutable reference
+fn set(x: &mut i64) { *x = 1 }
 ```
 
-## Error Handling (Tuples)
-```sio
-fn safe_divide(a: f64, b: f64) -> (f64, i32) with Div, Panic {
-    if b == 0.0 { (0.0, 1) }    // error code 1
-    else { (a / b, 0) }          // success
-}
+Correct the above by using `Knowledge<T>`, explicit effect rows, `var`, `&!`,
+plain function calls (`println`, `assert`), and the current Sounio syntax guide.
 
-fn main() with IO, Div, Panic {
-    let (result, err) = safe_divide(10.0, 3.0)
-    if err == 0 { println("OK") }
-    else { println("Division by zero") }
-}
-```
+## MCP Feedback Loop
 
-## Struct with Methods
-```sio
-struct Counter { value: i64 }
+When the MCP server is available, use `sounio_check` after every meaningful
+edit. Inject diagnostics into the next edit request and repeat until valid.
 
-impl Counter {
-    fn new() -> Counter { Counter { value: 0 } }
-    fn get(self: &Counter) -> i64 { self.value }
-    fn increment(self: &!Counter) with Mut { self.value = self.value + 1 }
-}
-
-fn main() with IO, Mut {
-    var c = Counter::new()
-    c.increment()
-    c.increment()
-    assert(c.get() == 2)
-}
-```
-
-## Array Mutation via &! Reference
-```sio
-// Use explicit deref for bare arrays
-fn fill(arr: &![i64; 4], val: i64) with Mut, Panic {
-    (*arr)[0] = val
-    (*arr)[1] = val
-    (*arr)[2] = val
-    (*arr)[3] = val
-}
-
-// Or wrap in struct (more reliable)
-struct Buffer { data: [i64; 256] }
-
-fn fill_buffer(buf: &!Buffer, val: i64) with Mut, Panic {
-    for i in 0..256 {
-        buf.data[i as usize] = val
-    }
-}
-```
-
-## Higher-Order Functions
-```sio
-fn double(x: i64) -> i64 { x + x }
-fn negate(x: i64) -> i64 { 0 - x }
-
-fn select_op(which: i64) -> fn(i64) -> i64 {
-    if which == 0 { double }
-    else { negate }
-}
-
-fn main() with IO, Panic {
-    let op = select_op(0)
-    let result = op(21)
-    assert(result == 42)
-}
-```
-
-## Enum + Match
-```sio
-enum Shape { Circle, Square, Triangle }
-
-fn sides(s: i64) -> i64 {
-    match s {
-        Shape::Circle => 0
-        Shape::Square => 4
-        Shape::Triangle => 3
-        _ => 0
-    }
-}
-```
-
-## For-In Loop Variants
-```sio
-fn main() with IO, Mut, Panic {
-    // Exclusive range
-    for i in 0..5 { print(i) }
-
-    // Inclusive range
-    for i in 0..=5 { print(i) }
-
-    // Array iteration
-    let arr = [10, 20, 30]
-    for x in arr { print(x) }
-
-    // Break and continue
-    var sum: i64 = 0
-    for i in 0..100 {
-        if i >= 10 { break }
-        if i % 2 == 0 { continue }
-        sum = sum + i
-    }
-}
-```
-
-## Epistemic Measurement
-```sio
-use epistemic::{Knowledge, measure}
-use units::{mg, kg}
-
-fn main() with IO, Mut, Div, Panic {
-    let weight: Knowledge<kg> = measure(75.0, uncertainty: 0.5)
-    let dose: Knowledge<mg> = measure(500.0, uncertainty: 2.5)
-    // Uncertainty propagates through arithmetic
-    println("Epistemic computation complete")
-}
-```
-
-## Real Code to Study
-- `tests/run-pass/hello.sio` — basic IO
-- `tests/run-pass/closure_higher_order.sio` — map/fold/any/all
-- `tests/run-pass/closure_fn_ref.sio` — function references
-- `tests/run-pass/native_enum_basic.sio` — enum + match
-- `tests/run-pass/epistemic_bmi.sio` — epistemic types
-- `tests/run-pass/for_in_loops.sio` — all loop variants
-- `stdlib/collections/vec.sio` — impl blocks
-- `stdlib/encoding/hex.sio` — production code
+Reference: <https://docs.souniolang.org/cursor> (planned documentation page;
+flag missing-page work for CC-3 or the operator if this link is still absent).
 
 ---
 > Source: [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio) — distributed by [TomeVault](https://tomevault.io).
