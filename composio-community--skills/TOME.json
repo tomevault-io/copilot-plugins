@@ -1,0 +1,57 @@
+{
+  "name": "skills",
+  "owner": "composio-community",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "skills/composio/SKILL.md",
+      "github_url": "https://github.com/composio-community/skills/tree/main/skills/composio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".agents/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/composio-community/skills/tree/main/.agents/skills/skill-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/composio-community/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T07:39:31Z"
+}
