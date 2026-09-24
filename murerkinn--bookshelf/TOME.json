@@ -2,9 +2,9 @@
   "name": "bookshelf",
   "owner": "murerkinn",
   "repo": "bookshelf",
-  "description": "Self-hosted ebook library that runs on object storage - a Cloudflare Worker over R2, or a Node server over a directory. No database.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/murerkinn/bookshelf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T18:48:25Z"
+  "distributed_at": "2026-09-24T14:47:38Z"
 }
