@@ -1,0 +1,105 @@
+{
+  "name": "PhyAgentOS-core",
+  "owner": "PhyAgentOS",
+  "repo": "PhyAgentOS-core",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/cron/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/image/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/memory/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/github/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/clawhub/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/clawhub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/weather/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/agent-mode/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/agent-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PhyAgentOS-core",
+      "path": "PhyAgentOS/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/PhyAgentOS/PhyAgentOS-core/tree/main/PhyAgentOS/skills/skill-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PhyAgentOS/PhyAgentOS-core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T07:30:24Z"
+}
