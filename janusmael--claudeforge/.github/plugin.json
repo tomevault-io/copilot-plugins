@@ -1,0 +1,9 @@
+{
+  "name": "janusmael--claudeforge",
+  "displayName": "ClaudeForge",
+  "description": "A cross-platform desktop editor for Claude Code (https://claude.ai/code) and Claude Desktop configuration files.",
+  "version": "1.0.0",
+  "author": "JanusMael",
+  "homepage": "https://github.com/JanusMael/ClaudeForge",
+  "skills": []
+}
