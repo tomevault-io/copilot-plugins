@@ -1,0 +1,9 @@
+{
+  "name": "echosixhiya--webspeak-client-for-teamspeak",
+  "displayName": "WebSpeak-client-for-TeamSpeak",
+  "description": "A self-hosted TeamSpeak web client and browser gateway. Join TeamSpeak 3/6 voice channels directly from your browser \u2014 no TeamSpeak client required.",
+  "version": "1.0.0",
+  "author": "EchoSixHIYA",
+  "homepage": "https://github.com/EchoSixHIYA/WebSpeak-client-for-TeamSpeak",
+  "skills": []
+}
