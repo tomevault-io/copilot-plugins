@@ -1,21 +1,84 @@
-## attention-charter
+## sounio
 
-> Binding attention governance — 5=1+2; P0 queue and agent bus before writes
+> Sounio language rules — epistemic types, effects, algebra, GPU programming
 
 
-# Attention Charter (5 = 1 + 2)
+# Sounio Language Rules
 
-Before write-bearing work in this repo:
+Use these rules for every `.sio` file. Sounio is a self-hosted systems and
+scientific language with epistemic types, algebraic effects, non-associative
+algebra, and GPU-visible effect rows. It is not Rust, Julia, or Python.
 
-1. Read `.claude/ATTENTION_CHARTER.md` and `.claude/attention_p0.v1.json`.
-2. Run `bash scripts/dev/attention_brief.sh` or MCP `attention_p0` + `coord_brief`.
-3. Claim an exact write-set (`bin/sounio-coord claim` or MCP `coord_claim`).
-4. Only P0 work that closes **1** (compiler sovereignty) or **2** (epistemic honesty) may hold attention. Garden/science without a trust/compiler gate is read-only by default.
-5. Talk to other agents via `coord_send` / `coord_inbox` / `coord_ack` (or `bin/sounio-coord`). Ack after acting.
-6. `/workspace/sounio` is the control surface, not a heavy compile bench — use a dedicated worktree for implementation.
-7. Halt with a typed blocker or handoff containing `Next-Command` is a valid deliverable.
+## Core Patterns
 
-Do not invent a parallel coordination system. The bus is `bin/sounio-coord` + MCP `sounio-coord`.
+```sio
+fn main() with IO {
+    println("Hello, Sounio")
+}
+
+fn scale(x: Knowledge<f64>) -> Knowledge<f64> with Div, Panic {
+    x / measure(2.0, uncertainty: 0.0)
+}
+
+fn kernel_entry() with GPU {
+}
+
+algebra Octonion over f64 {
+    add: commutative, associative
+    mul: alternative, non_commutative
+    reassociate: fano_selective
+}
+
+extern "C" {
+    fn puts(ptr: *i8) -> i32
+}
+```
+
+## Required Conventions
+
+- Use `var` for mutable locals; do not write `let mut`.
+- Use `&!T` for exclusive references; do not write `&mut T`.
+- Declare effects with `with IO`, `with Mut`, `with Panic`, `with Div`,
+  `with GPU`, `with Prob`, or `with Observe` as required.
+- Preserve `Knowledge<T>` values across scientific calculations unless an
+  audited epistemic unwrap is explicitly required.
+- Use Sounio `match` syntax and make every arm type-compatible.
+- Define helper functions before callers.
+- Use semicolons only where the language grammar requires them; Sounio is
+  D-like in its statement termination rules for this checkout, and stray Rust
+  semicolon habits should be checked against current compiler behaviour.
+
+## Anti-Patterns
+
+```sio
+// WRONG: raw f64 loses epistemic uncertainty where Knowledge<f64> applies
+fn dose(weight: f64) -> f64 { weight * 15.0 }
+
+// WRONG: unannotated GPU call
+fn launch() { kernel_entry() }
+
+// WRONG: unsafe/effect mismatch
+fn poke(ptr: *i8) { unsafe { *ptr = 0 } }
+
+// WRONG: Rust-style macros and mutation
+let mut x = 1;
+println!("bad")
+assert!(x > 0)
+
+// WRONG: Rust-style mutable reference
+fn set(x: &mut i64) { *x = 1 }
+```
+
+Correct the above by using `Knowledge<T>`, explicit effect rows, `var`, `&!`,
+plain function calls (`println`, `assert`), and the current Sounio syntax guide.
+
+## MCP Feedback Loop
+
+When the MCP server is available, use `sounio_check` after every meaningful
+edit. Inject diagnostics into the next edit request and repeat until valid.
+
+Reference: <https://docs.souniolang.org/cursor> (planned documentation page;
+flag missing-page work for CC-3 or the operator if this link is still absent).
 
 ---
 > Source: [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio) — distributed by [TomeVault](https://tomevault.io).
