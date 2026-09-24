@@ -1,0 +1,27 @@
+## effect-agent
+
+> This canonical app is also a real-world testbed for improving Effect Agent. While
+
+# Improve the library through this example
+
+This canonical app is also a real-world testbed for improving Effect Agent. While
+building or debugging it, speak up whenever you find a suspected library bug or an
+API that could be safer, simpler, or harder to misuse.
+
+- Distinguish application mistakes, Effect Agent defects, and upstream Effect or
+  provider behavior. State uncertainty when the cause is not yet confirmed.
+- Explain the concrete failure, the relevant library boundary, and a possible
+  improvement. Do not silently hide a library problem behind an app workaround.
+- Fix reusable framework defects in separate library PRs with sufficient verification
+  under the root testing policy and changesets. Keep library source changes out of the demo PR.
+- Consume exact published npm versions of Effect Agent. Do not use workspace
+  links, source aliases, or local library patches to make the demo pass. If a
+  required fix is unreleased, identify the library PR and wait for its release
+  before upgrading or deploying the demo. Keep application policy here.
+- Flag usability issues even when existing configuration fixes the app. Do not
+  change public library semantics just to accommodate this example without
+  considering other consumers.
+
+---
+> Source: [danieljvdm/effect-agent](https://github.com/danieljvdm/effect-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
