@@ -1,0 +1,9 @@
+{
+  "name": "htlin222--mcq-bank",
+  "displayName": "mcq-bank",
+  "description": "Collaborative MCQ study system \u2014 wiki-style explanations, threaded discussion, timed mock exams. Full-stack Cloudflare (Workers + D1 + R2 + Access), free tier.",
+  "version": "1.0.0",
+  "author": "htlin222",
+  "homepage": "https://github.com/htlin222/mcq-bank",
+  "skills": []
+}
