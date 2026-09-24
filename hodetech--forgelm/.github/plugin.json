@@ -1,0 +1,9 @@
+{
+  "name": "hodetech--forgelm",
+  "displayName": "ForgeLM",
+  "description": "Config-driven LLM fine-tuning with safety evaluation, EU AI Act compliance, 6 alignment methods, and one-command bundled quickstart templates.",
+  "version": "1.0.0",
+  "author": "HodeTech",
+  "homepage": "https://github.com/HodeTech/ForgeLM",
+  "skills": []
+}
