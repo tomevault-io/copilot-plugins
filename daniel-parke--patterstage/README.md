@@ -1,8 +1,6 @@
 # PatterStage
 
-> Tome by [Daniel-Parke](https://github.com/Daniel-Parke/PatterStage) — distributed by [TomeVault](https://tomevault.io)
-
-Staging Room for benchmarking, orchestration and other operations for local Hermes AI Agent
+> Tome by [Daniel-Parke](https://github.com/Daniel-Parke/PatterStage), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [Daniel-Parke/PatterStage](https://github.com/Da
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Daniel-Parke/PatterStage](https://github.com/Daniel-Parke/PatterStage) — a repo with 46+ stars on GitHub.
+From [Daniel-Parke/PatterStage](https://github.com/Daniel-Parke/PatterStage) — a repo with 66+ stars on GitHub.
 
 ---
 
