@@ -1,8 +1,6 @@
 # hermes-profiles
 
-> Source: [magnus919/hermes-profiles](https://github.com/magnus919/hermes-profiles) — distributed by [TomeVault](https://tomevault.io)
-
-Curated Hermes Agent profiles for specialist swarms — opinionated, Hermes-optimized, artifact-pyramid native
+> Source: [magnus919/hermes-profiles](https://github.com/magnus919/hermes-profiles). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [magnus919/hermes-profiles](https://github.com/m
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/magnus919/hermes-profiles](https://github.com/magnus919/hermes-profiles)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/magnus919/hermes-profiles](https://github.com/magnus919/hermes-profiles)
 
 ---
 
