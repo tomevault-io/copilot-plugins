@@ -1,0 +1,9 @@
+{
+  "name": "arjun988--kev",
+  "displayName": "Kev",
+  "description": "Open-source System One decision engine. Typed choice / score / noul with calibrated probabilities. Self-host with Ollama or any OpenAI-compatible model. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "arjun988",
+  "homepage": "https://github.com/arjun988/Kev",
+  "skills": []
+}
