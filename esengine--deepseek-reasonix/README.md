@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix).
+Original source: `AGENTS.md` in [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `CLAUDE.md` in [esengine/DeepSeek-Reasonix](https://github.com/
 
 - [DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix/tree/main/internal/skill/builtincontent/reasonix-guide/SKILL.md)
 
-From [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix) — a repo with 33339+ stars on GitHub.
+From [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix) — a repo with 0+ stars on GitHub.
 
 ---
 
