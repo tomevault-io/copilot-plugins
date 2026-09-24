@@ -1,0 +1,9 @@
+{
+  "name": "resetnak--herdr-logbook",
+  "displayName": "herdr-logbook",
+  "description": "Your terminal's working memory \u2014 offline, Markdown-first notes, decisions, and an active-task now.md for Herdr",
+  "version": "1.0.0",
+  "author": "Resetnak",
+  "homepage": "https://github.com/Resetnak/herdr-logbook",
+  "skills": []
+}
