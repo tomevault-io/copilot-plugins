@@ -1,0 +1,51 @@
+{
+  "name": "herdr-file-viewer",
+  "owner": "smarzban",
+  "repo": "herdr-file-viewer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "herdr-file-viewer",
+      "path": "skills/herdr-file-viewer/SKILL.md",
+      "github_url": "https://github.com/smarzban/herdr-file-viewer/tree/main/skills/herdr-file-viewer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/smarzban/herdr-file-viewer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:28:33Z"
+}
