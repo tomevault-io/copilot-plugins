@@ -1,0 +1,9 @@
+{
+  "name": "edimarlnx--samba-conductor",
+  "displayName": "samba-conductor",
+  "description": "Modern Web UI for Samba 4 Active Directory Domain Controller. Manage users, groups, OUs, DNS, GPOs, and more.",
+  "version": "1.0.0",
+  "author": "edimarlnx",
+  "homepage": "https://github.com/edimarlnx/samba-conductor",
+  "skills": []
+}
