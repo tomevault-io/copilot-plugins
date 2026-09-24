@@ -1,0 +1,14 @@
+{
+  "name": "smarzban--herdr-file-viewer",
+  "displayName": "herdr-file-viewer",
+  "description": "herdr-file-viewer",
+  "version": "1.0.0",
+  "author": "smarzban",
+  "homepage": "https://github.com/smarzban/herdr-file-viewer",
+  "skills": [
+    {
+      "name": "herdr-file-viewer",
+      "description": ""
+    }
+  ]
+}
