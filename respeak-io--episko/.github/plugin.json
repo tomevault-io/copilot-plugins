@@ -1,0 +1,9 @@
+{
+  "name": "respeak-io--episko",
+  "displayName": "episko",
+  "description": "A lightweight app for claude code cli agent organization in Rust",
+  "version": "1.0.0",
+  "author": "respeak-io",
+  "homepage": "https://github.com/respeak-io/episko",
+  "skills": []
+}
