@@ -1,0 +1,183 @@
+{
+  "name": "DataFlow-WebUI",
+  "owner": "OpenDCAI",
+  "repo": "DataFlow-WebUI",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/dataflow-dev/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/dataflow-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/prompt-template-builder/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/prompt-template-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/dataflow-operator-builder/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/dataflow-operator-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/generating-dataflow-pipeline/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/generating-dataflow-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/filter/general-filter/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/filter/general-filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/filter/prompted-filter/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/filter/prompted-filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/refine/pandas-operator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/refine/pandas-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/refine/prompted-refiner/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/refine/prompted-refiner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/eval/prompted-evaluator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/eval/prompted-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/filter/kcentergreedy-filter/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/filter/kcentergreedy-filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/generate/prompted-generator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/generate/prompted-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/eval/bench-dataset-evaluator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/eval/bench-dataset-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/generate/embedding-generator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/generate/embedding-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/generate/retrieval-generator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/generate/retrieval-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/eval/text2qa-sample-evaluator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/eval/text2qa-sample-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/generate/bench-answer-generator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/generate/bench-answer-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/generate/text2multihopqa-generator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/generate/text2multihopqa-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/generate/chunked-prompted-generator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/generate/chunked-prompted-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/eval/unified-bench-dataset-evaluator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/eval/unified-bench-dataset-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/eval/bench-dataset-evaluator-question/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/eval/bench-dataset-evaluator-question/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/generate/format-str-prompted-generator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/generate/format-str-prompted-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DataFlow-WebUI",
+      "path": "skills/canonical/core_text/generate/random-domain-knowledge-row-generator/SKILL.md",
+      "github_url": "https://github.com/OpenDCAI/DataFlow-WebUI/tree/main/skills/canonical/core_text/generate/random-domain-knowledge-row-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OpenDCAI/DataFlow-WebUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T22:37:20Z"
+}
