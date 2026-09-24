@@ -1,196 +1,137 @@
 ## agentkernelarena
 
-> AgentKernelArena is a controlled environment for evaluating GPU-kernel agents.
+> AgentKernelArena evaluates one agent per run. The agent is selected by the
 
-# AGENTS.md
 
-## Purpose
+# Configure agents and models in AgentKernelArena
 
-AgentKernelArena is a controlled environment for evaluating GPU-kernel agents.
-Every change must preserve reproducibility, benchmark integrity, meaningful
-correctness checks, and fair baseline-versus-candidate comparison.
+AgentKernelArena evaluates one agent per run. The agent is selected by the
+`agent.template` field in the chosen run configuration. This topic lists the
+supported agents, explains how models and providers are configured, and
+describes how to use the arena for A/B testing.
 
-Read [README.md](README.md) and [CONTRIBUTING.md](CONTRIBUTING.md) before making
-broad changes. Use repository-relative paths in code, configuration, docs, and
-instructions; never embed paths from a local checkout.
+## Supported agents
 
-## Repository map and sources of truth
+The following agents are available.
 
-- `main.py`: run orchestration, resume, and parallel scheduling.
-- `src/`: shared prompting, workspace setup, evaluation, scoring, and reporting.
-- `agents/`: isolated agent integrations and their own configuration.
-- `tasks/`: self-contained kernel tasks and task-local runners.
-- `example_configs/`: run-level agent, task, and GPU selections.
-- `src/tools/perf/`: canonical benchmark helpers materialized into workspaces.
-- `src/eval_tools/`: evaluator-side optional analysis-tool control plane.
-- `tests/`: framework, integration, and regression tests.
+| `agent.template` | Description |
+| --- | --- |
+| `cursor` | Cursor Agent CLI |
+| `claude_code` | Anthropic Claude Code CLI |
+| `codex` | OpenAI Codex CLI |
+| `forge` | KernelForge through the shared v2 task interface |
+| `geak` | GEAK Workflow engine through the shared v2 task interface |
+| `task_validator` | Task quality validator; does not optimize kernels (see [Validate tasks](task-validator.md)) |
 
-When behavior and prose disagree, inspect the implementation. In particular:
+The [registry](../../src/module_registration.py) maps the legacy names
+`geak_v4` to `geak` and `forge_operator2flydsl` to `forge`, with the same
+configuration and post-processing. There is no separate v1 task integration. See the [GEAK](../../agents/geak/README.md) and
+[Forge](../../agents/forge/README.md) guides for runtime requirements. Registry
+availability alone does not establish GPU or model qualification.
 
-- Agent identifiers and loading: `src/module_registration.py`
-- Task definition, schema, and authoring contract: `docs/how-to/add-task.md`
-- Task-specific declarations: the task's `config.yaml`
-- Evaluation and scoring: `src/evaluator.py`, `src/performance.py`, `src/score.py`
-- Harness protection: `src/harness_guard.py`
-- Benchmark helpers: `src/tools/perf/`
-- Evaluation-tool policy: `docs/how-to/use-evaluation-tools.md`
+Select one in a run configuration:
 
-Update relevant docs in the same change when behavior or public configuration
-changes. Avoid copying volatile model IDs, image tags, or complete registries
-into new guidance; link to their source of truth instead.
-
-## Architecture boundaries
-
-Keep agents and tasks independent.
-
-- A task defines a backend-neutral contract through its files and `config.yaml`.
-  Task code must not import from `agents/` or depend on a particular agent,
-  model, prompt format, provider, or authentication mechanism.
-- Agent implementations must not import task modules, mutate committed task
-  sources, or special-case task names and paths. Add general capability through
-  task configuration and shared framework interfaces instead.
-- Keep provider- and CLI-specific behavior under `agents/<agent_name>/`. Move
-  code into `src/` only when it is genuinely shared by multiple integrations.
-- Isolated tasks must remain self-contained after being copied into a workspace;
-  they must not rely on imports from this repository's `src/` tree.
-
-## Working practices
-
-1. Inspect the relevant implementation, config, tests, and docs before editing.
-2. Keep the change focused; preserve unrelated user changes in a dirty tree.
-3. Add or update a focused regression test for behavioral changes.
-4. Run the smallest relevant checks first, then broader checks when practical.
-5. Report the commands run, results, hardware used, and checks not run.
-
-GPU experiments are Docker-first. Do not reintroduce a host `python main.py`
-workflow. Select a config matching the physical GPU architecture and use:
-
-```bash
-make docker-smoke
-make docker-check-agents CONFIG=<run-config>
-make docker-run CONFIG=<run-config>
-make docker-parallel-run CONFIG=<run-config> GPU_IDS=0,1
+```yaml
+agent:
+  template: claude_code
 ```
 
-Do not claim GPU validation from code inspection or CPU-only tests. If compatible
-hardware, agent credentials, or external dependencies are unavailable, state
-that explicitly.
+Each agent lives under `agents/<agent_name>/` and is registered into a shared
+registry, so the framework loads only the agent you select.
 
-## Task authoring and validation
+The supported identifiers are defined by `AgentType` in
+`src/module_registration.py`. Retired templates and compatibility notes are
+listed in the [release notes](../reference/release-notes.md#unreleased).
 
-Before adding or modifying any task, you MUST read
-[Task definition, schema, and authoring](docs/how-to/add-task.md), including its
-implementation-status and migration sections. This applies to task configs,
-sources, references, input generators, harnesses, and benchmark scripts.
-It is the canonical task guide; inspect nearby task implementations as well.
-All retained tasks use schema v2 and the shared loader/evaluator/validator.
-New tasks must use that contract and implement its task-owned actions; adding a
-field to YAML alone does not implement the associated behavior.
+The Cursor, Claude Code, and Codex integrations reuse their host CLI login
+state. Specialized integrations have additional setup and configuration under
+their respective `agents/<agent_name>/` directories.
 
-- Paths in an isolated task must resolve within the task directory. Do not use
-  absolute paths, undeclared downloads, or external repositories.
-- Command fields in `config.yaml` are lists. Commands must exit nonzero on
-  failure and honor their declared timeouts.
-- Compilation checks must actually compile or syntax-check the target.
-- Correctness checks must compare against a meaningful reference with sensible
-  tolerances and representative cases; never accept a text-pattern check or a
-  trivially passing harness.
-- Performance checks must emit scoreable device timing and preserve equivalent
-  work, state, and allocation boundaries for baseline and candidate.
-- Use `platform_support` for real architecture constraints instead of silently
-  skipping cases inside a runner.
+`quality_loop` is intentionally not an `agent.template`. It is a repository-level
+task maintenance workflow that invokes Codex roles across the tasks selected by its
+run config and publishes at most one draft PR. It never creates GitHub issues. See
+[Audit and harden tasks](quality-loop.md).
 
-Every new task, and every material change to a task contract or harness, must
-pass `task_validator` on compatible GPU hardware **before a PR is submitted**:
+## Models, providers, and agent settings
 
-```bash
-make docker-run CONFIG=<validator-config>
-```
+The selected integration controls model, provider, authentication, effort,
+timeout, and iteration settings. Its defaults live in its CLI and
+`agents/<agent_name>/agent_config.yaml`; supported fields in the run config's
+`agent` mapping override those defaults. See
+[CLI run-level overrides](../reference/agent-model-defaults.md#run-level-overrides)
+and each specialized integration's guide for supported fields and precedence.
+These settings do not belong in task configurations.
 
-Require a framework-finalized `validation_report.yaml` whose `overall_status` is
-`PASS`. A `WARN` needs an explicit maintainer-approved justification and is not
-a clean pass; a `FAIL`, timeout, partial report, stale report, or skipped task
-does not satisfy this gate. See
-[the validator guide](docs/how-to/task-validator.md) for the current checks and
-report contract.
-
-## Benchmark and harness integrity
-
-Never improve a score by weakening expected outputs, tolerances, test shapes,
-warmups, sample counts, synchronization, state reset, timing methods, or result
-parsing. The centralized evaluator owns `task_result.yaml`; optimization agents
-must not fabricate or edit it.
-
-During optimization runs, treat task config, test, script, harness, and configured
-performance entrypoints as protected. Some tasks intentionally colocate editable
-kernel functions with a protected harness; only the target functions and allowed
-implementation helpers are editable. Follow the boundary enforced by
-`src/harness_guard.py` rather than assuming the whole file is editable.
-
-Repository-maintenance changes to a harness are allowed only when the task itself
-requires them. Such changes need focused regression coverage and a fresh
-`task_validator` pass.
-
-## Generated performance helpers
-
-`src/tools/perf/` is the single source of truth for shared benchmark code. Do not
-hand-edit committed ROCmBench helper stubs, generated `_aka_benchmark.py` or
-`hip_graph_benchmark.hpp` copies, or `AKA-GENERATED` regions in task runners.
-
-After changing canonical helpers, run:
+For Cursor, Claude Code, and Codex, authenticate with the host CLI. A normal run
+preflights only the selected CLI. When the config selects one of these
+first-class integrations (or `task_validator`), select the run configuration
+first and check its CLI/backend:
 
 ```bash
-make check-perf-helpers
+CONFIG_PATH=example_configs/quickstart_claude_mi300.yaml
+make docker-check-agents CONFIG="$CONFIG_PATH"
 ```
 
-Run `make sync-perf-helpers` only when stub or marker structure changes. For
-inspection, use `make materialize-perf-task TASK=tasks/<task-path>` or
-`make materialize-perf-workspace WORKSPACE=<workspace>`.
+Use `AGENTS=<comma-separated names>` for an explicit subset or `AGENTS=all` for
+all three first-class CLIs and login states. GEAK and its v2 aliases resolve to
+Claude Code for this check; normal runs also check the pinned GEAK engine and
+SDK. Other specialized integrations have their own checks; their README files
+document dependencies and provider configuration.
 
-## Agent integrations and evaluation tools
+`make vllm` starts an OpenAI-compatible local endpoint on port `30001`, but it
+does not automatically reconfigure an agent. Point the selected integration at
+that endpoint using the integration's own provider/base-URL mechanism.
 
-When adding an agent, update all applicable registration, dynamic loading,
-prompt/post-processing routing, configuration, docs, and tests. A
-`@register_agent` decorator alone does not make an agent selectable; use
-`src/module_registration.py` as the registry source of truth.
+## A/B testing and ablation studies
 
-Evaluation tools belong to the trusted evaluator control plane, not to agent
-skills or prompts. Keep them opt-in, isolated, capability-checked, attested, and
-fail-closed as described in `docs/how-to/use-evaluation-tools.md`. Do not claim
-that a candidate was analyzed merely because a tool exists or its sidecar ran.
+AgentKernelArena is designed to test changes to agent behavior: a model, Model
+Context Protocol (MCP) server, skill, prompt strategy, tool integration, memory
+strategy, or policy.
 
-## Verification guide
-
-Choose checks according to the affected area:
+Run the same task set twice, once with the capability enabled and once
+without, then compare the standardized scores:
 
 ```bash
-python3 -m pytest -q tests/<relevant-test>.py
-make check-docker-runner
-make check-evaluator
-make check-held-out
-make check-visualization
-make check-perf-helpers
+CONFIG_PATH=example_configs/quickstart_claude_mi300.yaml
+
+# Baseline
+make docker-run CONFIG="$CONFIG_PATH" RUN_ARGS="--run-suffix baseline"
+
+# With the new capability enabled in the agent configuration
+make docker-run CONFIG="$CONFIG_PATH" RUN_ARGS="--run-suffix with_capability"
 ```
 
-Use `python3 -m pytest -q tests` for the broad non-GPU suite when the environment
-has the required dependencies. Changes under `src/eval_tools/` should include
-the relevant `tests/eval_tools/` coverage. Timing, evaluation, or scoring changes
-also require before/after evidence from at least one representative task when
-compatible GPU hardware is available.
+Both runs land in the same workspace directory with distinct run names, so the
+[visualization dashboard](visualization.md) can show them side-by-side. Hold
+every non-treatment factor constant—including tasks, hardware, environment, and
+scoring—and repeat matched trials when agent behavior is stochastic. The
+observed deltas estimate the effect of the capability under test.
 
-## Artifacts, destructive actions, and security
+You can also generate a text comparison directly:
 
-Treat `workspace_*`, `logs/`, report bundles, profiler output, and generated
-held-out data as user-owned experiment artifacts. Do not run `make cleanup-works`,
-delete them, or overwrite a run unless explicitly requested.
-Do not commit generated workspaces, logs, cloned runtime dependencies,
-credentials, authentication state, or evaluation-tool artifacts.
+```bash
+python3 src/tools/compare_runs.py \
+  workspace_MI300_claude_code/run_<timestamp>_baseline \
+  workspace_MI300_claude_code/run_<timestamp>_with_capability
+```
 
-Privileged GPU containers and per-task workspaces are reproducibility boundaries,
-not security sandboxes. Avoid exposing mounted credentials through prompts,
-logs, generated code, commands, or reports. New mounts, downloads, subprocesses,
-and external execution paths require an explicit security and reproducibility
-review.
+The resulting `task_result.yaml` files expose compilation, correctness, timing,
+speedup, and score fields that an external RL system can consume as reward
+signals. AgentKernelArena does not itself update a policy.
+
+## Add a new agent
+
+To integrate a custom agent:
+
+1. Create `agents/<your_agent>/` with a
+   `launch_agent(eval_config, task_config_dir, workspace)` function decorated
+   with `@register_agent("<your_agent>")`.
+2. Add an entry to the `AgentType` enum and an import branch in
+   `src/module_registration.py`.
+3. Wire the agent into the prompt builder and post-processing handler in
+   `src/module_registration.py` if it needs the standard behavior.
+
+See the development section of the repository [`README.md`](https://github.com/AMD-AGI/AgentKernelArena/blob/main/README.md#development) for the full template.
 
 ---
 > Source: [AMD-AGI/AgentKernelArena](https://github.com/AMD-AGI/AgentKernelArena) — distributed by [TomeVault](https://tomevault.io).
