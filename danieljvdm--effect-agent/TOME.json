@@ -1,0 +1,81 @@
+{
+  "name": "effect-agent",
+  "owner": "danieljvdm",
+  "repo": "effect-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "effect-agent",
+      "path": ".agents/skills/testing/SKILL.md",
+      "github_url": "https://github.com/danieljvdm/effect-agent/tree/main/.agents/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "effect-agent",
+      "path": ".agents/skills/dev-kit/SKILL.md",
+      "github_url": "https://github.com/danieljvdm/effect-agent/tree/main/.agents/skills/dev-kit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "effect-agent",
+      "path": ".agents/skills/show-me/SKILL.md",
+      "github_url": "https://github.com/danieljvdm/effect-agent/tree/main/.agents/skills/show-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "effect-agent",
+      "path": ".agents/skills/open-pull-request/SKILL.md",
+      "github_url": "https://github.com/danieljvdm/effect-agent/tree/main/.agents/skills/open-pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "effect-agent",
+      "path": ".agents/skills/cloudflare-workers/SKILL.md",
+      "github_url": "https://github.com/danieljvdm/effect-agent/tree/main/.agents/skills/cloudflare-workers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "effect-agent",
+      "path": ".agents/skills/effect-development/SKILL.md",
+      "github_url": "https://github.com/danieljvdm/effect-agent/tree/main/.agents/skills/effect-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/danieljvdm/effect-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:10:26Z"
+}
