@@ -1,0 +1,123 @@
+{
+  "name": "Shirone",
+  "owner": "LyraVoid",
+  "repo": "Shirone",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-data/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-i18n/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-config/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-writing/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-feature/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-sidebar/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-sidebar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-dev-workflow/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-dev-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-context-menu/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-context-menu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-markdown-dev/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-markdown-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-component-dev/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-component-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-content-config/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-content-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-markdown-syntax/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-markdown-syntax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Shirone",
+      "path": ".agents/skills/shirone-content-workflow/SKILL.md",
+      "github_url": "https://github.com/LyraVoid/Shirone/tree/main/.agents/skills/shirone-content-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LyraVoid/Shirone",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:09:04Z"
+}
