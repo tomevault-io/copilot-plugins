@@ -1,0 +1,14 @@
+{
+  "name": "wfnuser--cowiki",
+  "displayName": "cowiki",
+  "description": "cowiki",
+  "version": "1.0.0",
+  "author": "wfnuser",
+  "homepage": "https://github.com/wfnuser/cowiki",
+  "skills": [
+    {
+      "name": "cowiki",
+      "description": ""
+    }
+  ]
+}
