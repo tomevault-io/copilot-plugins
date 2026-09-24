@@ -1,8 +1,6 @@
 # KVarN
 
-> Tome by [huawei-csl](https://github.com/huawei-csl/KVarN) — distributed by [TomeVault](https://tomevault.io)
-
-KVarN is a native vLLM KV-cache quantization backend for your agents: 3-5x more context, throughput above FP16, and FP16-level accuracy. Calibration-free, one flag.
+> Tome by [huawei-csl](https://github.com/huawei-csl/KVarN), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [huawei-csl/KVarN](https://github.com/huawei-csl
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/huawei-csl/KVarN](https://github.com/huawei-csl/KVarN)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/huawei-csl/KVarN](https://github.com/huawei-csl/KVarN)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
