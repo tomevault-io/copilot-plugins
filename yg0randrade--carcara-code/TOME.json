@@ -3,8 +3,8 @@
   "owner": "Yg0rAndrade",
   "repo": "carcara-code",
   "description": "Carcar\u00e1 Code: IDE desktop em Electron para programar com o Claude Code de forma visual e minimalista (inspirado no Lovable). Inclui preview ao vivo com \"grab\" de elementos, abas para conectores REST e MCP, e identidade visual pr\u00f3pria (carv\u00e3o quente + brasa). Roda via assinatura, nunca por API.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "carcara-code",
+      "path": ".agents/skills/ads/SKILL.md",
+      "github_url": "https://github.com/Yg0rAndrade/carcara-code/tree/main/.agents/skills/ads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "carcara-code",
+      "path": ".agents/skills/cro/SKILL.md",
+      "github_url": "https://github.com/Yg0rAndrade/carcara-code/tree/main/.agents/skills/cro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "carcara-code",
+      "path": ".agents/skills/ai-seo/SKILL.md",
+      "github_url": "https://github.com/Yg0rAndrade/carcara-code/tree/main/.agents/skills/ai-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "carcara-code",
+      "path": ".agents/skills/ab-testing/SKILL.md",
+      "github_url": "https://github.com/Yg0rAndrade/carcara-code/tree/main/.agents/skills/ab-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "carcara-code",
+      "path": ".agents/skills/ad-creative/SKILL.md",
+      "github_url": "https://github.com/Yg0rAndrade/carcara-code/tree/main/.agents/skills/ad-creative/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "carcara-code",
+      "path": ".agents/skills/marketing-psychology/SKILL.md",
+      "github_url": "https://github.com/Yg0rAndrade/carcara-code/tree/main/.agents/skills/marketing-psychology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "carcara-code",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/Yg0rAndrade/carcara-code/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Yg0rAndrade/carcara-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T16:32:42Z"
+  "distributed_at": "2026-09-24T22:38:59Z"
 }
