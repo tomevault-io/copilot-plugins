@@ -1,0 +1,99 @@
+{
+  "name": "copperhead",
+  "owner": "copperheadhq",
+  "repo": "copperhead",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "copperhead",
+      "path": ".claude/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copperhead",
+      "path": ".claude/skills/issue-review/SKILL.md",
+      "github_url": "https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/issue-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copperhead",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copperhead",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copperhead",
+      "path": ".claude/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copperhead",
+      "path": "integrations/claude-code/copperhead/SKILL.md",
+      "github_url": "https://github.com/copperheadhq/copperhead/tree/main/integrations/claude-code/copperhead/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copperhead",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copperhead",
+      "path": ".claude/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copperhead",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/copperheadhq/copperhead",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T05:44:57Z"
+}
