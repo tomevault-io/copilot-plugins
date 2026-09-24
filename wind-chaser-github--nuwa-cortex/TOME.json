@@ -1,0 +1,117 @@
+{
+  "name": "Nuwa-Cortex",
+  "owner": "wind-chaser-github",
+  "repo": "Nuwa-Cortex",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/my/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/my/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/cron/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/github/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/memory/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/clawhub/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/clawhub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/weather/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/update-setup/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/update-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/skill-distill/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/skill-distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nuwa-Cortex",
+      "path": "guide_cortex/skills/image-generation/SKILL.md",
+      "github_url": "https://github.com/wind-chaser-github/Nuwa-Cortex/tree/main/guide_cortex/skills/image-generation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wind-chaser-github/Nuwa-Cortex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T13:55:37Z"
+}
