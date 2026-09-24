@@ -1,0 +1,44 @@
+{
+  "name": "sglang-learning",
+  "owner": "jwzheng96",
+  "repo": "sglang-learning",
+  "description": "SGLang \u5b66\u4e60\u624b\u518c \u2014 9 \u90e8\u5206\u4e2d\u6587\u5de5\u7a0b\u7b14\u8bb0\uff0c\u5bf9\u7167\u6e90\u7801\u9010\u7ae0\u8bb2\u89e3",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jwzheng96/sglang-learning",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T08:47:17Z"
+}
