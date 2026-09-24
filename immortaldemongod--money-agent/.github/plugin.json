@@ -1,0 +1,9 @@
+{
+  "name": "immortaldemongod--money-agent",
+  "displayName": "money-agent",
+  "description": "Overnight experiment: can an AI agent make money, and can you trust what it reports? The agent produces claims; a separate verifier it cannot invoke produces the facts.",
+  "version": "1.0.0",
+  "author": "ImmortalDemonGod",
+  "homepage": "https://github.com/ImmortalDemonGod/money-agent",
+  "skills": []
+}
