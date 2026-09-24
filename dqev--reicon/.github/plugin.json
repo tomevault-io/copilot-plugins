@@ -1,0 +1,18 @@
+{
+  "name": "dqev--reicon",
+  "displayName": "reicon",
+  "description": "reicon",
+  "version": "1.0.0",
+  "author": "dqev",
+  "homepage": "https://github.com/dqev/reicon",
+  "skills": [
+    {
+      "name": "reicon-icon-integration",
+      "description": ""
+    },
+    {
+      "name": "reicon",
+      "description": ""
+    }
+  ]
+}
