@@ -1,0 +1,63 @@
+{
+  "name": "NVSentinel",
+  "owner": "NVIDIA",
+  "repo": "NVSentinel",
+  "description": "NVSentinel is a cross-platform fault remediation service designed to rapidly remediate runtime node-level issues in GPU-accelerated computing environments",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "NVSentinel",
+      "path": "skills/mongodb-migration/bitnami-to-percona/migrate-mongodb-to-percona/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NVSentinel/tree/main/skills/mongodb-migration/bitnami-to-percona/migrate-mongodb-to-percona/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NVSentinel",
+      "path": "skills/mongodb-migration/bitnami-to-percona/verify-mongodb-percona-migration/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NVSentinel/tree/main/skills/mongodb-migration/bitnami-to-percona/verify-mongodb-percona-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NVSentinel",
+      "path": "skills/mongodb-migration/bitnami-to-percona/check-mongodb-migration-readiness/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NVSentinel/tree/main/skills/mongodb-migration/bitnami-to-percona/check-mongodb-migration-readiness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA/NVSentinel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T11:30:24Z"
+}
