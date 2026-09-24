@@ -1,0 +1,14 @@
+{
+  "name": "r-uby-dev--llm",
+  "displayName": "llm",
+  "description": "llm",
+  "version": "1.0.0",
+  "author": "r-uby-dev",
+  "homepage": "https://github.com/r-uby-dev/llm",
+  "skills": [
+    {
+      "name": "llm",
+      "description": ""
+    }
+  ]
+}
