@@ -1,0 +1,99 @@
+{
+  "name": "slide-master",
+  "owner": "byungjunjang",
+  "repo": "slide-master",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "slide-master",
+      "path": ".codex/skills/ppt-master/SKILL.md",
+      "github_url": "https://github.com/byungjunjang/slide-master/tree/main/.codex/skills/ppt-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slide-master",
+      "path": ".codex/skills/codex-image/SKILL.md",
+      "github_url": "https://github.com/byungjunjang/slide-master/tree/main/.codex/skills/codex-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slide-master",
+      "path": ".claude/skills/codex-image/SKILL.md",
+      "github_url": "https://github.com/byungjunjang/slide-master/tree/main/.claude/skills/codex-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slide-master",
+      "path": ".codex/skills/diagram-design/SKILL.md",
+      "github_url": "https://github.com/byungjunjang/slide-master/tree/main/.codex/skills/diagram-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slide-master",
+      "path": ".claude/skills/diagram-design/SKILL.md",
+      "github_url": "https://github.com/byungjunjang/slide-master/tree/main/.claude/skills/diagram-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slide-master",
+      "path": ".codex/skills/ppt-template-fill/SKILL.md",
+      "github_url": "https://github.com/byungjunjang/slide-master/tree/main/.codex/skills/ppt-template-fill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slide-master",
+      "path": ".claude/skills/ppt-template-fill/SKILL.md",
+      "github_url": "https://github.com/byungjunjang/slide-master/tree/main/.claude/skills/ppt-template-fill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slide-master",
+      "path": ".codex/skills/native-enhance-pptx/SKILL.md",
+      "github_url": "https://github.com/byungjunjang/slide-master/tree/main/.codex/skills/native-enhance-pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slide-master",
+      "path": ".claude/skills/native-enhance-pptx/SKILL.md",
+      "github_url": "https://github.com/byungjunjang/slide-master/tree/main/.claude/skills/native-enhance-pptx/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/byungjunjang/slide-master",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T09:38:37Z"
+}
