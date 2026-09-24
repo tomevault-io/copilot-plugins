@@ -1,0 +1,30 @@
+{
+  "name": "neoneye--agent-memory-atlas",
+  "displayName": "agent-memory-atlas",
+  "description": "agent-memory-atlas",
+  "version": "1.0.0",
+  "author": "neoneye",
+  "homepage": "https://github.com/neoneye/agent-memory-atlas",
+  "skills": [
+    {
+      "name": "agent-memory-atlas",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-atlas",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-atlas",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-atlas",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-atlas",
+      "description": ""
+    }
+  ]
+}
