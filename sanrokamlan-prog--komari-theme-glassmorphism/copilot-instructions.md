@@ -1,136 +1,134 @@
 ## komari-theme-glassmorphism
 
-> Repo guide for `komari-theme-Glassmorphism`.
+> This guide applies to [src/](./). For full project context, read [../AIAGENTREADME.md](../AIAGENTREADME.md). For current work handoff, read/update [../AICACHE.md](../AICACHE.md).
 
-# AGENTS.md
+# Source AGENTS.md
 
-Repo guide for `komari-theme-Glassmorphism`.
+This guide applies to [src/](./). For full project context, read [../AIAGENTREADME.md](../AIAGENTREADME.md). For current work handoff, read/update [../AICACHE.md](../AICACHE.md).
 
-## Snapshot
+## Source-tree rule of thumb
 
-- Generated: Wed May 27 2026, Asia/Shanghai
-- Branch: `master`
-- App: Vue 3 + Vite + reka-ui + Tailwind CSS v4 theme for Komari Monitor
-- Package manager: `bun` (>= 1.2)
-- Theme manifest: `komari-theme.json`
+All new app code should follow:
 
-## What this repo is
-
-- Builds a Komari theme, not a generic web app
-- Release artifact is a zip package Komari can import
-- Runtime app code lives under `src/`
-- Runtime static assets include `public/images/`
-- Release preview image is `docs/preview.png`
-
-## Root structure
-
-- `src/` app source
-- `public/images/` runtime image contract, especially flags and logos
-- `.github/` CI workflow and issue templates
-- `docs/preview.png` release preview image
-- `komari-theme.json` theme manifest consumed by the zip build
-- `vite.config.ts` build, chunking, zip packaging
-- `package.json` root commands and pinned dependency versions
-- `bun.lock` resolved lockfile (managed by bun)
-
-## Root commands
-
-Run from repo root only.
-
-```bash
-bun run dev
-bun run build
-bun run preview
-bun run lint
+```text
+Component -> Composable -> Service -> RequestManager / CacheService -> API / RPC
 ```
 
-Notes:
+Do not bypass this chain unless you are editing bootstrap/transport glue that already lives at a lower layer.
 
-- `bun run build` runs type check plus production build
-- `bun run lint` runs eslint with `--fix --cache`
-- There is no test suite in this repository
-- Do not invent `bun test` or Vitest commands here
+## Where code belongs
 
-## Build and release contract
+- `main.ts` — bootstrap only: create Vue app, install Pinia/router, load styles, set `window.$message`, run `setupIconify()`, mount App.
+- `App.vue` — app shell: layout, `<Toaster>`, `Provider`, `initApp()` / `destroyInitManager()`, `KeepAlive` for `HomeView`.
+- `router/` — exactly two public lazy routes: `/` and `/instance/:id`. Do not add broad router guards.
+- `views/` — route-level orchestration only.
+- `components/` — presentation and local UI composition.
+- `components/ui/` — local shadcn-vue-style primitives based on reka-ui + cva + `cn()`.
+- `composables/` — Vue state/lifecycle glue: `ref`, `computed`, `watch`, subscriptions, `onScopeDispose`.
+- `services/` — auth, provider metadata, history loading, prediction, snapshot export, request/cache orchestration.
+- `constants/` — grouped limits, timeouts, cache/security/request/UI settings.
+- `stores/` — Pinia setup stores and source-of-truth app/node state.
+- `utils/` — pure helpers, formatting, CSV escaping, low-level API/RPC clients.
 
-`bun run build` must preserve the Komari packaging flow defined in `vite.config.ts`.
+## Stores
 
-Expected output:
+- [stores/app.ts](stores/app.ts) owns public settings, normalized theme settings, login/auth state, layout flags, formatting preferences, theme mode, persisted UI state, and permission helpers.
+- [stores/nodes.ts](stores/nodes.ts) owns normalized nodes, visible nodes, groups, WebSocket state, and live updates.
 
-- `dist/`
-- `komari-theme-Glassmorphism-build-<sha>.zip`
+Rules:
 
-Zip contents:
+- Components must not parse raw `publicSettings.theme_settings`; normalize once in `stores/app.ts`.
+- Public home/detail rendering remains available when auth is missing or expired.
+- Private surfaces use `appStore.privateFeaturesAllowed` plus verified permission checks.
+- Node UUID indexes must store the reactive object from `nodes.value`, not raw objects, so live CPU/network metrics update correctly.
+- `nodeCardSize` default stays `compact`; `mini` is optional high-density mode.
 
-- `dist/`
-- `komari-theme.json`
-- `preview.png`
+## Private features and export security
 
-Current source of packaged preview:
+Sensitive operations must call `appStore.requireLoginPermission()` or auth-service permission helpers before work starts.
 
-- `docs/preview.png` on disk
-- renamed to `preview.png` inside the zip
+Protected paths include:
 
-Do not change zip naming, manifest filename, or preview filename without updating the real build contract.
+- Advanced home tools: topology, provider value, health summary, snapshot export.
+- Snapshot export and export-specific provider metadata.
+- Disk-prediction history loading.
+- Provider geo lookup.
 
-## CI facts
+Public node monitoring, including Ping latency/loss history, must remain available without login.
 
-Source of truth: `.github/workflows/build-ci.yml`
+Export rules:
 
-CI does only:
+- `exportSecondaryPassword` is optional and adds a client-side friction layer after verified login.
+- It is not a replacement for backend authorization.
+- CSV export must go through `services/snapshot.service.ts` and `utils/csv.ts`.
+- CSV cells starting with `=`, `+`, `-`, or `@` must be neutralized.
 
-1. `bun install --frozen-lockfile`
-2. `bun run build`
+## Services and request/cache rules
 
-CI does not run tests, because there is no test suite.
+- Use `services/auth.service.ts` for verified auth/session state.
+- Use `services/request.service.ts` for keyed request dedupe, concurrency, timeout, retry, and abort.
+- Use `services/cache.service.ts` for shared cache lifecycle and promise dedupe.
+- Use `services/history.service.ts` for load/ping history.
+- Use `services/prediction.service.ts` for disk prediction.
+- Use `services/provider.service.ts` for provider/geo metadata rules.
+- Use `services/snapshot.service.ts` for export composition/download boundary.
 
-## Where to look
+Cache/request keys must include every dimension that changes the result, especially:
 
-- Start at `package.json` for root commands
-- Check `vite.config.ts` for build behavior, global constants, and zip packaging
-- Check `komari-theme.json` for theme metadata and managed configuration schema
-- Check `src/` for app behavior
-- Check `public/images/` when code references image filenames directly
-- Check `.github/workflows/build-ci.yml` for CI expectations
-- Check `.github/ISSUE_TEMPLATE/` for issue intake shape
+- record type
+- node UUID
+- time range / hours
+- `maxCount`
+- public metadata-only vs private geo-enriched mode
 
-Contributor density, useful for triage:
+## UI rules
 
-- `src/components/` is a dense UI change area
-- `src/utils/` is a dense logic and helper area
-- `src/stores/` is central state, usually affected by cross-cutting changes
+- Use Composition API with `<script setup lang="ts">`.
+- Prefer `@/` imports for source-local files.
+- Compose existing primitives from `components/ui/` before adding new UI components.
+- If a primitive is missing, follow the existing pattern: reka-ui + class-variance-authority + `cn()`.
+- Do not introduce Naive UI, UnoCSS, SCSS, or a new component library.
+- Component styling should use Tailwind utilities and design tokens from `styles/main.css`.
+- Use `@iconify/vue` for all icons. Lucide icons use the `lucide:` prefix.
+- Only app global is `window.$message`; do not assume `$dialog`, `$notification`, `$loadingBar`, or `$modal`.
 
-## Conventions seen in this repo
+## Views and async components
 
-- Use `bun`, not pnpm/npm/yarn
-- Dependency versions are declared directly in `package.json`; add new ones with `bun add` / `bun add -d`
-- Keep root guidance focused on build, packaging, manifest, and repo structure
-- Preserve the `@` alias to `src` defined in `vite.config.ts`
-- Treat `komari-theme.json` as release input, not optional metadata
-- Treat `docs/preview.png` as release input, not just documentation art
-- Respect existing generated outputs and naming patterns, especially `komari-theme-emerald-build-<sha>.zip`
-- Root verification is lint plus build, not tests
-- UI is built on `reka-ui` + Tailwind CSS v4 (shadcn-vue style under `src/components/ui/`). Do **not** reintroduce Naive UI, UnoCSS, or SCSS — they have been removed.
+- Keep `defineOptions({ name: 'HomeView' })` in `HomeView.vue`, because `App.vue` KeepAlive includes `HomeView` by name.
+- Keep every route view as a single-element root. `App.vue` wraps routed components with `Transition` + `KeepAlive`; a Fragment root (including a dialog placed beside the main root) can stall `out-in` leave handling and leave only the background visible.
+- After changing a route view root, test home -> detail -> home in a browser with page animations both enabled and disabled, and check that Vue does not log `Component inside <Transition> renders non-element root node`.
+- Heavy node/chart UI should stay lazy-loaded with `defineAsyncComponent` from views.
+- Views coordinate store/composable state; they should not own reusable business logic.
 
-## Repo grounded anti-patterns
+## Transport and startup
 
-- Do not rename `komari-theme.json`
-- Do not move or rename `docs/preview.png` casually
-- Do not rename files under `public/images/flags/` or `public/images/logo/` without checking code references in `src`
-- Do not change asset path conventions like `/images/flags/<code>.svg` or `/images/logo/...` blindly
-- Do not add generic framework advice here that belongs in `src/AGENTS.md`
-- Do not duplicate workflow specifics from `.github/AGENTS.md` or asset naming specifics from `public/images/AGENTS.md`
+- Low-level HTTP API lives in `utils/api.ts`.
+- Low-level RPC lives in `utils/rpc.ts`.
+- Startup, polling, reconnects, transport selection, and WebSocket fallback live in `utils/init.ts` unless a clear service boundary exists.
+- `rpcTransportMode` is user-configurable through the theme manifest.
 
-## Child guides
+## Runtime assets
 
-For local rules, defer to the nearest child guide:
+`public/images/` filenames are runtime contracts. Code builds URLs from values rather than importing assets.
 
-- `src/AGENTS.md` for app code, component, store, router, and utility changes
-- `.github/AGENTS.md` for workflow and issue template changes
-- `public/images/AGENTS.md` for runtime image asset naming and compatibility rules
+- Flags: `/images/flags/<UPPERCASE_CODE>.svg`, used by `utils/regionHelper.ts`.
+- OS logos: `/images/logo/os-*`, used by `utils/osImageHelper.ts`.
 
-If a child guide exists, it overrides this root file for its subtree.
+Do not rename/move these files without updating helper mappings and checking all references.
+
+## Validation
+
+For source changes, run from repo root:
+
+```bash
+bun run lint
+bun run build
+```
+
+There is no test suite. Do not invent one.
+
+Update [../AICACHE.md](../AICACHE.md) with validation results or explain why validation was skipped.
 
 ---
 > Source: [sanrokamlan-prog/komari-theme-Glassmorphism](https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-14 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
