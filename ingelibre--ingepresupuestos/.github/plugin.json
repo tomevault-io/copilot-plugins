@@ -1,0 +1,9 @@
+{
+  "name": "ingelibre--ingepresupuestos",
+  "displayName": "ingepresupuestos",
+  "description": "Software libre de presupuestos de obra civil (GPL-3.0): ACU, Gantt con ruta cr\u00edtica e ida y vuelta con MS Project, f\u00f3rmula polin\u00f3mica con \u00edndices INEI, control de obra y 13 reportes con formato config",
+  "version": "1.0.0",
+  "author": "ingelibre",
+  "homepage": "https://github.com/ingelibre/ingepresupuestos",
+  "skills": []
+}
