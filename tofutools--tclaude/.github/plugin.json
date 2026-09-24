@@ -1,0 +1,9 @@
+{
+  "name": "tofutools--tclaude",
+  "displayName": "tclaude",
+  "description": "Coding agent orchestrator",
+  "version": "1.0.0",
+  "author": "tofutools",
+  "homepage": "https://github.com/tofutools/tclaude",
+  "skills": []
+}
