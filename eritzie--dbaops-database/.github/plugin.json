@@ -1,0 +1,9 @@
+{
+  "name": "eritzie--dbaops-database",
+  "displayName": "DBAOps-Database",
+  "description": "SQL Server DBA operational utility database \u2014 deployment tracking with run-once idempotency and rollback manifests, deadlock history capture, wait stats snapshots, and deployment script templates for ",
+  "version": "1.0.0",
+  "author": "eritzie",
+  "homepage": "https://github.com/eritzie/DBAOps-Database",
+  "skills": []
+}
