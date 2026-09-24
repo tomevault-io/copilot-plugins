@@ -1,27 +1,12 @@
-## core
+## ai-saas-starter
 
-> Core repo rules — always apply
+> Read AGENTS.md at the repo root — it is the full operating manual and wins over these lines.
 
-
-Full manual: AGENTS.md at the repo root. The essentials:
-
-- pnpm only. Never npm or yarn.
-- Done = `pnpm typecheck && pnpm lint && pnpm test` pass; new features
-  include tests.
-- Server Actions for mutations; API routes only for webhooks and the Better
-  Auth handler. Server Components by default; `"use client"` only for
-  interactivity.
-- Zod at every external boundary (forms, webhooks, env). Env is read only
-  through `src/lib/env.ts`.
-- Re-check the session server-side in every action and `(app)` page — never
-  trust middleware alone.
-- Money in integer cents; credits in integers.
-- NEVER: edit applied migrations in `drizzle/`; mutate/delete
-  `credit_transactions` rows; touch credit tables outside `src/lib/credits/`;
-  weaken Stripe webhook signature checks; log secrets; commit `.env`.
-- ASK FIRST: new dependencies, schema changes, plan/price changes.
-- UI follows DESIGN.md: 2px radius, no gradients/shadows/blur, ledger rows
-  not card grids, accent green scarce, no emoji.
+Read AGENTS.md at the repo root — it is the full operating manual and wins over these lines.
+Use pnpm only; done means `pnpm typecheck && pnpm lint && pnpm test` pass.
+Never: edit applied migrations, mutate `credit_transactions`, touch credit tables outside `src/lib/credits/`, or weaken Stripe webhook signature checks.
+Ask before adding dependencies, changing DB schema, or changing plans/prices.
+UI changes follow DESIGN.md ("The Ledger"): 2px radius, no gradients/shadows, ledger rows over card grids, no emoji.
 
 ---
 > Source: [nikandr-surkov/ai-saas-starter](https://github.com/nikandr-surkov/ai-saas-starter) — distributed by [TomeVault](https://tomevault.io).
