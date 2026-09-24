@@ -1,27 +1,21 @@
-## yobo-frontend-react
+## yobo-frontend-ts
 
-> Front React/Zustand — textes client, invoke, effets
+> TypeScript src — lib, store .ts, pas les tests
 
 
-# Structure
+# Fichiers `src/lib/`
 
-- **Pages** : `src/pages/*` ; **composants** : `src/components/*`.
-- **État** : `src/store/yobo-store.ts`, état initial `yobo-store-state.ts`, effets `yobo-store-effects.tsx`.
-- **Types** : domaines dans `src/types/*.ts` ; agrégation via `yoboApp.ts` quand c’est déjà le pattern.
+- Logique **pure** de préférence ; exports via `src/lib/index.ts` quand c’est déjà le pattern du projet.
+- **Ne pas** importer le store dans les utilitaires bas niveau (éviter les cycles).
 
-# Textes utilisateur
+# Store (`yobo-store.ts`)
 
-- Libellés succès / erreur / validation : **`src/lib/yoboClientMessages.ts`** (`client.*`). Éviter les longues chaînes en dur dans les composants.
-- Toasts : types `error` | `warning` | `success` ; classification des messages globaux via `toastTypeForStoreMessage` quand ils passent par `setError` + effet.
+- Nouvelles actions : suivre le style existant (`get()`, `set`, `invoke`, `client`, `logDevError`).
+- `persist` Zustand : ne persister que le **thème** (ne pas ajouter PIN / données sensibles).
 
-# Tauri `invoke`
+# Fichiers de tests
 
-- Dans les `catch` : `logDevError('nom_commande', e)` + `userFacingErrorMessage(e, client.error.…)` (ou `setXxxError` avec le même fallback).
-- Ne pas afficher de messages techniques bruts en prod (déjà géré dans `userFacingError.ts` si le fallback vient de `client`).
-
-# React
-
-- Préférer les hooks existants (`useShallow` Zustand quand plusieurs champs). Pas de nouveau routeur : navigation par **onglet** dans `App.tsx`.
+- Les `*.test.ts` ont une règle dédiée ; ici, ne pas les traiter comme du code prod.
 
 ---
 > Source: [suufiaane13/yobo-gestion](https://github.com/suufiaane13/yobo-gestion) — distributed by [TomeVault](https://tomevault.io).
