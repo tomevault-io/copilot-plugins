@@ -1,0 +1,9 @@
+{
+  "name": "jmtoral--admisiones-unam",
+  "displayName": "admisiones_unam",
+  "description": "Descarga todos los resultados disponibles del examen de ingreso a licenciaturas de la UNAM",
+  "version": "1.0.0",
+  "author": "jmtoral",
+  "homepage": "https://github.com/jmtoral/admisiones_unam",
+  "skills": []
+}
