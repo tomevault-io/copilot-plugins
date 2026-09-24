@@ -1,0 +1,9 @@
+{
+  "name": "openclide--clidable",
+  "displayName": "clidable",
+  "description": "CLI coding agents for everyone \u2014 checkpoints, preview, plugin/skill/MCP management, AI teams.",
+  "version": "1.0.0",
+  "author": "openclide",
+  "homepage": "https://github.com/openclide/clidable",
+  "skills": []
+}
