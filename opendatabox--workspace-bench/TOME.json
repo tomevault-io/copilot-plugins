@@ -1,0 +1,123 @@
+{
+  "name": "Workspace-Bench",
+  "owner": "OpenDataBox",
+  "repo": "Workspace-Bench",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Workspace-Bench",
+      "path": "evaluation/skills/office/pdf/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/evaluation/skills/office/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "evaluation/skills/office/pdfs/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/evaluation/skills/office/pdfs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "evaluation/skills/office/pptx/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/evaluation/skills/office/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "evaluation/skills/office/docx/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/evaluation/skills/office/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "evaluation/skills/office/xlsx/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/evaluation/skills/office/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "evaluation/skills/office/slides/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/evaluation/skills/office/slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "evaluation/skills/office/spreadsheets/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/evaluation/skills/office/spreadsheets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "deepagents/libs/cli/examples/skills/web-research/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/deepagents/libs/cli/examples/skills/web-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "deepagents/libs/cli/examples/skills/arxiv-search/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/deepagents/libs/cli/examples/skills/arxiv-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "deepagents/libs/cli/examples/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/deepagents/libs/cli/examples/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "deepagents/libs/cli/examples/skills/langgraph-docs/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/deepagents/libs/cli/examples/skills/langgraph-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "deepagents/libs/cli/deepagents_cli/built_in_skills/remember/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/deepagents/libs/cli/deepagents_cli/built_in_skills/remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Workspace-Bench",
+      "path": "deepagents/libs/cli/deepagents_cli/built_in_skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/OpenDataBox/Workspace-Bench/tree/main/deepagents/libs/cli/deepagents_cli/built_in_skills/skill-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OpenDataBox/Workspace-Bench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T09:37:07Z"
+}
