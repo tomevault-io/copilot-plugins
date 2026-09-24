@@ -2,9 +2,9 @@
   "name": "infinite-brain-os",
   "owner": "starmynd-org",
   "repo": "infinite-brain-os",
-  "description": "A git-backed operating system for running a business with AI agents. Plain Markdown and YAML, readable by any file-reading agent, owned by you.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/starmynd-org/infinite-brain-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T22:31:49Z"
+  "distributed_at": "2026-09-24T14:50:54Z"
 }
