@@ -1,0 +1,9 @@
+{
+  "name": "chris-mclennan--mnml",
+  "displayName": "mnml",
+  "description": "A NvChad-style terminal IDE in Rust \u2014 vim or standard editing, LSP, git, embedded HTTP/CDP/DAP, AI panes, headless test harness. One binary.",
+  "version": "1.0.0",
+  "author": "chris-mclennan",
+  "homepage": "https://github.com/chris-mclennan/mnml",
+  "skills": []
+}
