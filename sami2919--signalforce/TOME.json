@@ -1,0 +1,44 @@
+{
+  "name": "SignalForce",
+  "owner": "sami2919",
+  "repo": "SignalForce",
+  "description": "The open-source GTM engineer toolkit \u2014 signal-based prospecting for any ICP. Detects buying signals from GitHub, ArXiv, HuggingFace, job postings, funding, and LinkedIn. Claude Code skills + n8n automation.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sami2919/SignalForce",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T12:02:45Z"
+}
