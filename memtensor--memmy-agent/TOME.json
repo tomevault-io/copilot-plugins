@@ -1,0 +1,111 @@
+{
+  "name": "memmy-agent",
+  "owner": "MemTensor",
+  "repo": "memmy-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ui-craft",
+      "path": "App/memmy-agent/src/skills/ui-craft/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/ui-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "App/memmy-agent/src/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "App/memmy-agent/src/skills/cron/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "App/memmy-agent/src/skills/github/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "Memory/src/cli/skills/memmy-memory/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/Memory/src/cli/skills/memmy-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "App/memmy-agent/src/skills/weather/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "App/memmy-agent/src/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "App/memmy-agent/src/skills/update-setup/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/update-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "App/memmy-agent/src/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "App/memmy-agent/src/skills/image-generation/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/image-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "memmy-agent",
+      "path": "App/memmy-agent/src/skills/agent-memory-onboarding/SKILL.md",
+      "github_url": "https://github.com/MemTensor/memmy-agent/tree/main/App/memmy-agent/src/skills/agent-memory-onboarding/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MemTensor/memmy-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T05:38:20Z"
+}
