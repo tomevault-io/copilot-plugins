@@ -1,0 +1,14 @@
+{
+  "name": "salmonbird--evoui-browser",
+  "displayName": "evoui-browser",
+  "description": "evoui-browser",
+  "version": "1.0.0",
+  "author": "Salmonbird",
+  "homepage": "https://github.com/Salmonbird/evoui-browser",
+  "skills": [
+    {
+      "name": "evoui-browser",
+      "description": ""
+    }
+  ]
+}
