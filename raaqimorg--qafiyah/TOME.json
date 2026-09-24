@@ -4,7 +4,7 @@
   "repo": "qafiyah",
   "description": "The Arabic Poetry Reference",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/raaqimorg/qafiyah",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T14:24:17Z"
+  "distributed_at": "2026-09-24T18:24:17Z"
 }
