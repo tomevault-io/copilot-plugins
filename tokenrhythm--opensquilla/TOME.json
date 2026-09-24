@@ -1,0 +1,447 @@
+{
+  "name": "opensquilla",
+  "owner": "TokenRhythm",
+  "repo": "opensquilla",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "meta-pre-commit-quality-gate",
+      "path": "src/opensquilla/skills/exp/meta-pre-commit-quality-gate/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-pre-commit-quality-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-video-script",
+      "path": "src/opensquilla/skills/bundled/ai-video-script/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/ai-video-script/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-pro",
+      "path": "src/opensquilla/skills/bundled/nano-banana-pro/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/nano-banana-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "path": "src/opensquilla/skills/bundled/pptx/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "path": "src/opensquilla/skills/bundled/pptx",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/pptx",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/docx/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/xlsx/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/github/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/sub-agent/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/sub-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/code-task/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/code-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/audio-cog/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/audio-cog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/web-search/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/web-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/filesystem/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/filesystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/html-coder/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/html-coder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/pdf-toolkit/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/pdf-toolkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/video-merger/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/video-merger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/skill-creator/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/deep-research/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/text-file-read/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/text-file-read/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/subtitle-burner/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/subtitle-burner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/srt-from-script/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/srt-from-script/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-travel-planner/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-travel-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-home-it-rescue/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-home-it-rescue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/title-card-image/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/title-card-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/history-explorer/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/history-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/meta-paper-write/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/meta-paper-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/seedance-2-prompt/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/seedance-2-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-pdf-intelligence/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-pdf-intelligence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/paper-length-gate/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/paper-length-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/paper-refbib-stub/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/paper-refbib-stub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/meta-skill-creator/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/meta-skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/paper-quality-gate/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/paper-quality-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/multi-search-engine/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/multi-search-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/video-still-animator/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/video-still-animator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/paper-section-author/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/paper-section-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-spreadsheet-insight/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-spreadsheet-insight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-web-to-pdf-briefing/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-web-to-pdf-briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-migration-assistant/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-migration-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-meeting-to-workflow/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-meeting-to-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/paper-latex-sanitizer/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/paper-latex-sanitizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-diagram-triangulation/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-diagram-triangulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-pdf-reformat-pipeline/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-pdf-reformat-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-issue-to-pr-autopilot/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-issue-to-pr-autopilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/paper-delivery-summary/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/paper-delivery-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/paper-artifact-runtime/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/paper-artifact-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-sales-lead-researcher/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-sales-lead-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-github-pr-watch-digest/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-github-pr-watch-digest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-research-to-slide-deck/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-research-to-slide-deck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/AwesomeWebpageMetaSkill/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/AwesomeWebpageMetaSkill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/awesome-webpage-research/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/awesome-webpage-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/meta-kid-project-planner/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/meta-kid-project-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-arxiv-daily-digest-deck/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-arxiv-daily-digest-deck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-codereview-current-diff/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-codereview-current-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-compliance-audit-bundle/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-compliance-audit-bundle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-stack-trace-investigator/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-stack-trace-investigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-scheduled-morning-digest/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-scheduled-morning-digest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-multi-format-export-pack/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-multi-format-export-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-knowledge-base-bootstrap/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-knowledge-base-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-content-publish-pipeline/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-content-publish-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/openrouter-video-generator/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/openrouter-video-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/short-drama-delivery-audit/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/short-drama-delivery-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/paper-source-readiness-gate/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/paper-source-readiness-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/exp/meta-long-running-build-watchdog/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/exp/meta-long-running-build-watchdog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/paper-citation-integrity-gate/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/paper-citation-integrity-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/short-drama-review-normalizer/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/short-drama-review-normalizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "src/opensquilla/skills/bundled/awesome-webpage-image-download/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/src/opensquilla/skills/bundled/awesome-webpage-image-download/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensquilla",
+      "path": "tests/fixtures/live_skill_hub/opensquilla-live-skill-hub-canary/SKILL.md",
+      "github_url": "https://github.com/TokenRhythm/opensquilla/tree/main/tests/fixtures/live_skill_hub/opensquilla-live-skill-hub-canary/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TokenRhythm/opensquilla",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T03:33:09Z"
+}
