@@ -1,0 +1,9 @@
+{
+  "name": "j-d0g--taro",
+  "displayName": "taro",
+  "description": "Taro.ai - An agentic search harness for e-commerce customer-service agents. Won 1st-prize at the Langchain x SurrealDB Agents & Knowledge Graphs Hackathon.",
+  "version": "1.0.0",
+  "author": "j-d0g",
+  "homepage": "https://github.com/j-d0g/taro",
+  "skills": []
+}
