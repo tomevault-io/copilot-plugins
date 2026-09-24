@@ -1,0 +1,51 @@
+{
+  "name": "ai-context-workspace",
+  "owner": "kvker",
+  "repo": "ai-context-workspace",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-context-workspace",
+      "path": ".agents/skills/an-init/SKILL.md",
+      "github_url": "https://github.com/kvker/ai-context-workspace/tree/main/.agents/skills/an-init/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kvker/ai-context-workspace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T21:20:43Z"
+}
