@@ -1,0 +1,93 @@
+{
+  "name": "Agentic-Writing-Workbench",
+  "owner": "Peter-So",
+  "repo": "Agentic-Writing-Workbench",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Agentic-Writing-Workbench",
+      "path": "projects/writing/novel-skill-suite/shared/SKILL.md",
+      "github_url": "https://github.com/Peter-So/Agentic-Writing-Workbench/tree/main/projects/writing/novel-skill-suite/shared/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agentic-Writing-Workbench",
+      "path": "projects/writing/novel-skill-suite/novel-writer-cn/SKILL.md",
+      "github_url": "https://github.com/Peter-So/Agentic-Writing-Workbench/tree/main/projects/writing/novel-skill-suite/novel-writer-cn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agentic-Writing-Workbench",
+      "path": "projects/writing/novel-skill-suite/chinese-novelist/SKILL.md",
+      "github_url": "https://github.com/Peter-So/Agentic-Writing-Workbench/tree/main/projects/writing/novel-skill-suite/chinese-novelist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agentic-Writing-Workbench",
+      "path": "projects/writing/novel-skill-suite/novel-writer-lens/SKILL.md",
+      "github_url": "https://github.com/Peter-So/Agentic-Writing-Workbench/tree/main/projects/writing/novel-skill-suite/novel-writer-lens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agentic-Writing-Workbench",
+      "path": "projects/writing/novel-skill-suite/novel-corpus-indexer/SKILL.md",
+      "github_url": "https://github.com/Peter-So/Agentic-Writing-Workbench/tree/main/projects/writing/novel-skill-suite/novel-corpus-indexer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agentic-Writing-Workbench",
+      "path": "projects/writing/novel-skill-suite/quality-review-checklist/SKILL.md",
+      "github_url": "https://github.com/Peter-So/Agentic-Writing-Workbench/tree/main/projects/writing/novel-skill-suite/quality-review-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agentic-Writing-Workbench",
+      "path": "projects/writing/novel-skill-suite/novel-structure-extractor/SKILL.md",
+      "github_url": "https://github.com/Peter-So/Agentic-Writing-Workbench/tree/main/projects/writing/novel-skill-suite/novel-structure-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agentic-Writing-Workbench",
+      "path": "projects/writing/novel-skill-suite/inkos-multi-agent-novel-writing/SKILL.md",
+      "github_url": "https://github.com/Peter-So/Agentic-Writing-Workbench/tree/main/projects/writing/novel-skill-suite/inkos-multi-agent-novel-writing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Peter-So/Agentic-Writing-Workbench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T03:59:05Z"
+}
