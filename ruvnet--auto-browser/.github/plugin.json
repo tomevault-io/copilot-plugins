@@ -1,0 +1,22 @@
+{
+  "name": "ruvnet--auto-browser",
+  "displayName": "auto-browser",
+  "description": "auto-browser",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/auto-browser",
+  "skills": [
+    {
+      "name": "auto-browser",
+      "description": ""
+    },
+    {
+      "name": "auto-browser",
+      "description": ""
+    },
+    {
+      "name": "auto-browser",
+      "description": ""
+    }
+  ]
+}
