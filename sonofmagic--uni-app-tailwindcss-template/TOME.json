@@ -1,0 +1,51 @@
+{
+  "name": "uni-app-tailwindcss-template",
+  "owner": "sonofmagic",
+  "repo": "uni-app-tailwindcss-template",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "uni-app-tailwindcss-template",
+      "path": ".agents/skills/uni-app/SKILL.md",
+      "github_url": "https://github.com/sonofmagic/uni-app-tailwindcss-template/tree/main/.agents/skills/uni-app/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sonofmagic/uni-app-tailwindcss-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T06:02:34Z"
+}
