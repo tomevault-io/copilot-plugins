@@ -1,0 +1,9 @@
+{
+  "name": "teslavr--jobhunt-agent",
+  "displayName": "jobhunt-agent",
+  "description": "A local, config-driven job-search agent: public ATS feeds, two-way fit scoring, tailored resume + cover drafts. No scraping, never auto-applies.",
+  "version": "1.0.0",
+  "author": "teslavr",
+  "homepage": "https://github.com/teslavr/jobhunt-agent",
+  "skills": []
+}
