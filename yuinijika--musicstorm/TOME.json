@@ -1,0 +1,69 @@
+{
+  "name": "MusicStorm",
+  "owner": "YuiNijika",
+  "repo": "MusicStorm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MusicStorm",
+      "path": ".agents/skills/yuinijika/SKILL.md",
+      "github_url": "https://github.com/YuiNijika/MusicStorm/tree/main/.agents/skills/yuinijika/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MusicStorm",
+      "path": ".agents/skills/apple-design/SKILL.md",
+      "github_url": "https://github.com/YuiNijika/MusicStorm/tree/main/.agents/skills/apple-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MusicStorm",
+      "path": ".agents/skills/web-artifacts-builder/SKILL.md",
+      "github_url": "https://github.com/YuiNijika/MusicStorm/tree/main/.agents/skills/web-artifacts-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MusicStorm",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/YuiNijika/MusicStorm/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/YuiNijika/MusicStorm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T22:51:52Z"
+}
