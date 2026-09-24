@@ -1,0 +1,9 @@
+{
+  "name": "antlis--tg-media-bot",
+  "displayName": "tg-media-bot",
+  "description": "Telegram media downloader bot \u2014 yt-dlp powered, 1000+ sites, tagged MP3 / inline-playable MP4, uploads up to 2GB. Docker-ready.",
+  "version": "1.0.0",
+  "author": "antlis",
+  "homepage": "https://github.com/antlis/tg-media-bot",
+  "skills": []
+}
