@@ -1,0 +1,9 @@
+{
+  "name": "sylirre--fake-chroot-ng",
+  "displayName": "fake-chroot-ng",
+  "description": "Experimental proot alternative that doesn't rely on ptrace(). Full native execution but supports only AArch64.",
+  "version": "1.0.0",
+  "author": "sylirre",
+  "homepage": "https://github.com/sylirre/fake-chroot-ng",
+  "skills": []
+}
