@@ -1,0 +1,14 @@
+{
+  "name": "amagine-ai--amagine3d",
+  "displayName": "Amagine3D",
+  "description": "Amagine3D",
+  "version": "1.0.0",
+  "author": "amagine-ai",
+  "homepage": "https://github.com/amagine-ai/Amagine3D",
+  "skills": [
+    {
+      "name": "Amagine3D",
+      "description": ""
+    }
+  ]
+}
