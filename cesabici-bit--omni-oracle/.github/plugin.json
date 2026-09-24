@@ -1,0 +1,9 @@
+{
+  "name": "cesabici-bit--omni-oracle",
+  "displayName": "omni-oracle",
+  "description": "Automatic discovery of non-trivial statistical truths from 500+ public time series \u2014 mutual information, Granger causality, FDR correction",
+  "version": "1.0.0",
+  "author": "cesabici-bit",
+  "homepage": "https://github.com/cesabici-bit/omni-oracle",
+  "skills": []
+}
