@@ -1,0 +1,9 @@
+{
+  "name": "pdwaldrop--absotui",
+  "displayName": "absotui",
+  "description": "A fun, fast, and intuitive TUI client for Audiobookshelf \u2014 browse, play, and sync your audiobooks & podcasts, all in your terminal. Linux & macOS.",
+  "version": "1.0.0",
+  "author": "pdwaldrop",
+  "homepage": "https://github.com/pdwaldrop/absotui",
+  "skills": []
+}
