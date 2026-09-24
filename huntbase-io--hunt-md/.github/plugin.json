@@ -1,0 +1,9 @@
+{
+  "name": "huntbase-io--hunt-md",
+  "displayName": "hunt-md",
+  "description": "hunt.md: an open, plain-text format for threat hunts. Spec, examples and tooling.",
+  "version": "1.0.0",
+  "author": "huntbase-io",
+  "homepage": "https://github.com/huntbase-io/hunt-md",
+  "skills": []
+}
