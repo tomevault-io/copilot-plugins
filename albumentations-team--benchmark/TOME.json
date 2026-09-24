@@ -3,8 +3,8 @@
   "owner": "albumentations-team",
   "repo": "benchmark",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,75 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/benchmark-runner/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/benchmark-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/library-integration/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/library-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/performance-analysis/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/performance-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/gcp-benchmark-triage/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/gcp-benchmark-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/pre-commit-validation/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/pre-commit-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/documentation-generator/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/documentation-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/transform-spec-validator/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/transform-spec-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/paper-coverage-validator/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/paper-coverage-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/paper-benchmark-execution/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/paper-benchmark-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".cursor/skills/benchmark-results-publisher/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.cursor/skills/benchmark-results-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benchmark",
+      "path": ".codex/skills/augmentation-benchmark-contract/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/benchmark/tree/main/.codex/skills/augmentation-benchmark-contract/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/albumentations-team/benchmark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T19:45:46Z"
+  "distributed_at": "2026-09-24T16:31:56Z"
 }
