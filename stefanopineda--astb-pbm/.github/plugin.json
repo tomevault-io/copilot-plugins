@@ -1,0 +1,9 @@
+{
+  "name": "stefanopineda--astb-pbm",
+  "displayName": "astb-pbm",
+  "description": "ASTB-E PBM flight simulator practice trainer \u2014 X-52 HOTAS support, dichotic audio, performance-based measures. Live site: stuffinopenator.com/astb",
+  "version": "1.0.0",
+  "author": "stefanopineda",
+  "homepage": "https://github.com/stefanopineda/astb-pbm",
+  "skills": []
+}
