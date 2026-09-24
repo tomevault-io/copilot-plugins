@@ -1,0 +1,14 @@
+{
+  "name": "ricar66--omnistack-agent",
+  "displayName": "omnistack-agent",
+  "description": "omnistack-agent",
+  "version": "1.0.0",
+  "author": "Ricar66",
+  "homepage": "https://github.com/Ricar66/omnistack-agent",
+  "skills": [
+    {
+      "name": "omnistack-agent",
+      "description": ""
+    }
+  ]
+}
