@@ -1,0 +1,207 @@
+{
+  "name": "sglang-rtxpro6000",
+  "owner": "jpezzulli",
+  "repo": "sglang-rtxpro6000",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/add-jit-kernel/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/add-jit-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/add-sgl-kernel/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/add-sgl-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/debug-cuda-crash/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/debug-cuda-crash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/clean-startup-log/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/clean-startup-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/write-sglang-test/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/write-sglang-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/ci-workflow-guide/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/ci-workflow-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/sglang-cherrypick/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/sglang-cherrypick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/large-class-style/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/large-class-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/cookbook-review-pr/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/cookbook-review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/speculative-naming/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/speculative-naming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/cookbook-add-model/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/cookbook-add-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/env-var-conventions/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/env-var-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/kl-consistency-test/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/kl-consistency-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/compute-mamba-ratio/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/compute-mamba-ratio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/babysit-pr-to-pass-ci/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/babysit-pr-to-pass-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/debug-distributed-hang/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/debug-distributed-hang/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/sglang-runtime-context/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/sglang-runtime-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/cookbook-migrate-model/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/cookbook-migrate-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/scripted-runtime-notes/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/scripted-runtime-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/mechanical-refactor-verify/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/mechanical-refactor-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/llm-torch-profiler-analysis/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/llm-torch-profiler-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/sglang-prod-incident-triage/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/sglang-prod-incident-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": ".claude/skills/sglang-bisect-ci-regression/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/.claude/skills/sglang-bisect-ci-regression/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-add-model/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-add-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-performance/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-modelopt-quant/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-modelopt-quant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-rtxpro6000",
+      "path": "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md",
+      "github_url": "https://github.com/jpezzulli/sglang-rtxpro6000/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jpezzulli/sglang-rtxpro6000",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T11:48:28Z"
+}
