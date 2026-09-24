@@ -1,0 +1,9 @@
+{
+  "name": "wrf-gpu--wrf-gpu",
+  "displayName": "wrf_gpu",
+  "description": "A JAX based WRF v4 re-write optimized for modern GPUs.",
+  "version": "1.0.0",
+  "author": "wrf-gpu",
+  "homepage": "https://github.com/wrf-gpu/wrf_gpu",
+  "skills": []
+}
