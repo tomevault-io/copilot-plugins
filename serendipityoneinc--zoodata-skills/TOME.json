@@ -1,0 +1,99 @@
+{
+  "name": "ZooData-Skills",
+  "owner": "SerendipityOneInc",
+  "repo": "ZooData-Skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ZooData-Skills",
+      "path": "zoodata/SKILL.md",
+      "github_url": "https://github.com/SerendipityOneInc/ZooData-Skills/tree/main/zoodata/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZooData-Skills",
+      "path": "web-extract/SKILL.md",
+      "github_url": "https://github.com/SerendipityOneInc/ZooData-Skills/tree/main/web-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZooData-Skills",
+      "path": "amazon-analysis/SKILL.md",
+      "github_url": "https://github.com/SerendipityOneInc/ZooData-Skills/tree/main/amazon-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZooData-Skills",
+      "path": "amazon-listing-audit-pro/SKILL.md",
+      "github_url": "https://github.com/SerendipityOneInc/ZooData-Skills/tree/main/amazon-listing-audit-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZooData-Skills",
+      "path": "amazon-daily-market-radar/SKILL.md",
+      "github_url": "https://github.com/SerendipityOneInc/ZooData-Skills/tree/main/amazon-daily-market-radar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZooData-Skills",
+      "path": "amazon-pricing-command-center/SKILL.md",
+      "github_url": "https://github.com/SerendipityOneInc/ZooData-Skills/tree/main/amazon-pricing-command-center/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZooData-Skills",
+      "path": "amazon-keyword-traffic-analysis/SKILL.md",
+      "github_url": "https://github.com/SerendipityOneInc/ZooData-Skills/tree/main/amazon-keyword-traffic-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZooData-Skills",
+      "path": "amazon-review-intelligence-extractor/SKILL.md",
+      "github_url": "https://github.com/SerendipityOneInc/ZooData-Skills/tree/main/amazon-review-intelligence-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZooData-Skills",
+      "path": "amazon-competitor-intelligence-monitor/SKILL.md",
+      "github_url": "https://github.com/SerendipityOneInc/ZooData-Skills/tree/main/amazon-competitor-intelligence-monitor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SerendipityOneInc/ZooData-Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T21:04:30Z"
+}
