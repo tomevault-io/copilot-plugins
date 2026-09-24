@@ -1,0 +1,9 @@
+{
+  "name": "lasikiewicz--plembfin",
+  "displayName": "plembfin",
+  "description": "Self-hosted watch history tracker and playstate sync for Plex, Emby, Jellyfin and Trakt. keeps watched/unwatched status and resume progress in sync across all your media servers.",
+  "version": "1.0.0",
+  "author": "Lasikiewicz",
+  "homepage": "https://github.com/Lasikiewicz/plembfin",
+  "skills": []
+}
