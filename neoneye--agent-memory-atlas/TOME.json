@@ -1,0 +1,75 @@
+{
+  "name": "agent-memory-atlas",
+  "owner": "neoneye",
+  "repo": "agent-memory-atlas",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-memory-atlas",
+      "path": ".agents/skills/use-the-atlas/SKILL.md",
+      "github_url": "https://github.com/neoneye/agent-memory-atlas/tree/main/.agents/skills/use-the-atlas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-atlas",
+      "path": ".agents/skills/work-the-queue/SKILL.md",
+      "github_url": "https://github.com/neoneye/agent-memory-atlas/tree/main/.agents/skills/work-the-queue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-atlas",
+      "path": ".agents/skills/add-memory-system/SKILL.md",
+      "github_url": "https://github.com/neoneye/agent-memory-atlas/tree/main/.agents/skills/add-memory-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-atlas",
+      "path": ".agents/skills/remove-meta-narrative/SKILL.md",
+      "github_url": "https://github.com/neoneye/agent-memory-atlas/tree/main/.agents/skills/remove-meta-narrative/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-atlas",
+      "path": ".agents/skills/reanalyze-memory-system/SKILL.md",
+      "github_url": "https://github.com/neoneye/agent-memory-atlas/tree/main/.agents/skills/reanalyze-memory-system/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/neoneye/agent-memory-atlas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T13:57:09Z"
+}
