@@ -1,0 +1,9 @@
+{
+  "name": "doublegate--clawhunter",
+  "displayName": "CLAWHunter",
+  "description": "[CLAWHunter] Hak5 WiFi Pineapple Pager multi-payload \u2014 scans the LAN for OpenClaw AI gateway instances and exploits info via various methods (including, out-of-band) ...",
+  "version": "1.0.0",
+  "author": "doublegate",
+  "homepage": "https://github.com/doublegate/CLAWHunter",
+  "skills": []
+}
