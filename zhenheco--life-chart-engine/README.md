@@ -1,17 +1,15 @@
 # life-chart-engine
 
-> Tome by [zhenheco](https://github.com/zhenheco/life-chart-engine) — distributed by [TomeVault](https://tomevault.io)
-
-三合一排盤引擎：西洋星盤 + 人類圖 + 紫微斗數，原生天文/曆法計算，CLI + JSON(供 AI agent)。AGPL-3.0。
+> Tome by [zhenheco](https://github.com/zhenheco/life-chart-engine), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zhenheco/life-chart-engine](https://github.com/zhenheco/life-chart-engine).
+Original source: `CLAUDE.md` in [zhenheco/life-chart-engine](https://github.com/zhenheco/life-chart-engine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
