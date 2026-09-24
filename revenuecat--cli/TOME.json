@@ -4,7 +4,7 @@
   "repo": "cli",
   "description": "The official RevenueCat CLI \u2014 manage customers, subscriptions, and revenue from your terminal",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RevenueCat/cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T00:23:05Z"
+  "distributed_at": "2026-09-24T06:49:04Z"
 }
