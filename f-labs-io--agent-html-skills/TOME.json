@@ -1,0 +1,153 @@
+{
+  "name": "agent-html-skills",
+  "owner": "f-labs-io",
+  "repo": "agent-html-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-mind-map/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-mind-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-code-review/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-skills-stop/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-skills-stop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-svg-diagrams/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-svg-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-erd-explorer/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-erd-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-design-tokens/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-design-tokens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-data-explorer/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-data-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-spec-planning/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-spec-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-skills-listen/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-skills-listen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-slideshow-deck/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-slideshow-deck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-brainstorm-grid/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-brainstorm-grid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-timeline-roadmap/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-timeline-roadmap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-throwaway-editor/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-throwaway-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-comparison-matrix/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-comparison-matrix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-testing-checklist/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-testing-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-design-prototypes/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-design-prototypes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-architecture-diagrams/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-architecture-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-html-skills",
+      "path": "plugins/html-skills/skills/html-interactive-playground/SKILL.md",
+      "github_url": "https://github.com/f-labs-io/agent-html-skills/tree/main/plugins/html-skills/skills/html-interactive-playground/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/f-labs-io/agent-html-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T22:47:05Z"
+}
