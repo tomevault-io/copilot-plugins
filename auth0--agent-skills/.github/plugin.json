@@ -1,0 +1,74 @@
+{
+  "name": "auth0--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "auth0",
+  "homepage": "https://github.com/auth0/agent-skills",
+  "skills": [
+    {
+      "name": "auth0-quickstart",
+      "description": ""
+    },
+    {
+      "name": "auth0-react",
+      "description": ""
+    },
+    {
+      "name": "auth0-nextjs",
+      "description": ""
+    },
+    {
+      "name": "auth0-mfa",
+      "description": ""
+    },
+    {
+      "name": "auth0-migration",
+      "description": ""
+    },
+    {
+      "name": "auth0-express",
+      "description": ""
+    },
+    {
+      "name": "auth0-react-native",
+      "description": ""
+    },
+    {
+      "name": "auth0-vue",
+      "description": ""
+    },
+    {
+      "name": "auth0-angular",
+      "description": ""
+    },
+    {
+      "name": "auth0-nuxt",
+      "description": ""
+    },
+    {
+      "name": "express-oauth2-jwt-bearer",
+      "description": ""
+    },
+    {
+      "name": "auth0-expo",
+      "description": ""
+    },
+    {
+      "name": "auth0-react-native",
+      "description": ""
+    },
+    {
+      "name": "auth0-swift",
+      "description": ""
+    },
+    {
+      "name": "auth0",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    }
+  ]
+}
