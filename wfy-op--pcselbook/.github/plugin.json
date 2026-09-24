@@ -1,0 +1,9 @@
+{
+  "name": "wfy-op--pcselbook",
+  "displayName": "PCSELbook",
+  "description": "Book on the theory of PCSEL, written by AI and wfy",
+  "version": "1.0.0",
+  "author": "wfy-op",
+  "homepage": "https://github.com/wfy-op/PCSELbook",
+  "skills": []
+}
