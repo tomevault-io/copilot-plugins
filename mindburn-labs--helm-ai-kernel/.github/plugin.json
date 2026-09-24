@@ -1,0 +1,18 @@
+{
+  "name": "mindburn-labs--helm-ai-kernel",
+  "displayName": "helm-ai-kernel",
+  "description": "helm-ai-kernel",
+  "version": "1.0.0",
+  "author": "Mindburn-Labs",
+  "homepage": "https://github.com/Mindburn-Labs/helm-ai-kernel",
+  "skills": [
+    {
+      "name": "helm-ai-kernel",
+      "description": ""
+    },
+    {
+      "name": "helm-ai-kernel",
+      "description": ""
+    }
+  ]
+}
