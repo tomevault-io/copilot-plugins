@@ -1,0 +1,9 @@
+{
+  "name": "revenuecat--cli",
+  "displayName": "cli",
+  "description": "The official RevenueCat CLI \u2014 manage customers, subscriptions, and revenue from your terminal",
+  "version": "1.0.0",
+  "author": "RevenueCat",
+  "homepage": "https://github.com/RevenueCat/cli",
+  "skills": []
+}
