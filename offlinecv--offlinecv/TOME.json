@@ -1,0 +1,44 @@
+{
+  "name": "OfflineCV",
+  "owner": "offlinecv",
+  "repo": "OfflineCV",
+  "description": "A private, no-login job-search workbench for resume PDFs \u2014 drop one in and see what a plain-text extractor actually reads back, with an anonymous structure/specificity score. Runs entirely in your browser; no uploads. Stable at offlinecv.org; bleeding-edge dev build at dev.offlinecv.org.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/offlinecv/OfflineCV",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T10:15:07Z"
+}
