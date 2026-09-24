@@ -1,0 +1,22 @@
+{
+  "name": "ruvnet--agent-name-service",
+  "displayName": "Agent-Name-Service",
+  "description": "Agent-Name-Service",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/Agent-Name-Service",
+  "skills": [
+    {
+      "name": "Agent-Name-Service",
+      "description": ""
+    },
+    {
+      "name": "Agent-Name-Service",
+      "description": ""
+    },
+    {
+      "name": "Agent-Name-Service",
+      "description": ""
+    }
+  ]
+}
