@@ -1,0 +1,26 @@
+{
+  "name": "lxc--incus-compose",
+  "displayName": "incus-compose",
+  "description": "incus-compose",
+  "version": "1.0.0",
+  "author": "lxc",
+  "homepage": "https://github.com/lxc/incus-compose",
+  "skills": [
+    {
+      "name": "incus-compose",
+      "description": ""
+    },
+    {
+      "name": "incus-compose",
+      "description": ""
+    },
+    {
+      "name": "incus-compose",
+      "description": ""
+    },
+    {
+      "name": "incus-compose",
+      "description": ""
+    }
+  ]
+}
