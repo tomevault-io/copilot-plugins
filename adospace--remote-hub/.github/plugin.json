@@ -1,0 +1,9 @@
+{
+  "name": "adospace--remote-hub",
+  "displayName": "remote-hub",
+  "description": "Native Windows application to manage multiple RDP connections locally. ",
+  "version": "1.0.0",
+  "author": "adospace",
+  "homepage": "https://github.com/adospace/remote-hub",
+  "skills": []
+}
