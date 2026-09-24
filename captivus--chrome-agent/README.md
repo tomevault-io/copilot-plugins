@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [captivus/chrome-agent](https://github.com/capti
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [captivus/chrome-agent](https://github.com/captivus/chrome-agent) — a repo with 11+ stars on GitHub.
+From [captivus/chrome-agent](https://github.com/captivus/chrome-agent) — a repo with 295+ stars on GitHub.
 
 ---
 
