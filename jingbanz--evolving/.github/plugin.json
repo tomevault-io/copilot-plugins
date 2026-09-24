@@ -1,7 +1,7 @@
 {
   "name": "jingbanz--evolving",
   "displayName": "evolving",
-  "description": "An autonomous CLI that iterates on a codebase toward a user-defined goal \u2014 one small, safe, measurable change at a time.",
+  "description": "evolving",
   "version": "1.0.0",
   "author": "JINGBANZ",
   "homepage": "https://github.com/JINGBANZ/evolving",
