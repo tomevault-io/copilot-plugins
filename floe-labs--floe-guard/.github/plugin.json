@@ -1,0 +1,14 @@
+{
+  "name": "floe-labs--floe-guard",
+  "displayName": "floe-guard",
+  "description": "floe-guard",
+  "version": "1.0.0",
+  "author": "Floe-Labs",
+  "homepage": "https://github.com/Floe-Labs/floe-guard",
+  "skills": [
+    {
+      "name": "floe-guard",
+      "description": ""
+    }
+  ]
+}
