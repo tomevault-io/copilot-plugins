@@ -1,0 +1,14 @@
+{
+  "name": "huggingface--transformers-js",
+  "displayName": "transformers.js",
+  "description": "transformers.js",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/transformers.js",
+  "skills": [
+    {
+      "name": "transformers.js",
+      "description": ""
+    }
+  ]
+}
