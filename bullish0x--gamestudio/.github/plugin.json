@@ -1,0 +1,9 @@
+{
+  "name": "bullish0x--gamestudio",
+  "displayName": "GameStudio",
+  "description": "Turn any supported coding-agent harness into a full game-dev studio - 55 specialized AI agents and 182 skills for Godot, Unity, Unreal, Three.js, PixiJS, Phaser, and R3F.",
+  "version": "1.0.0",
+  "author": "bullish0x",
+  "homepage": "https://github.com/bullish0x/GameStudio",
+  "skills": []
+}
