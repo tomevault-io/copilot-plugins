@@ -1,0 +1,63 @@
+{
+  "name": "gnomad-browser",
+  "owner": "broadinstitute",
+  "repo": "gnomad-browser",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gnomad-browser",
+      "path": ".agents/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/broadinstitute/gnomad-browser/tree/main/.agents/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gnomad-browser",
+      "path": ".agents/skills/draft-pull-request-description/SKILL.md",
+      "github_url": "https://github.com/broadinstitute/gnomad-browser/tree/main/.agents/skills/draft-pull-request-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gnomad-browser",
+      "path": ".agents/skills/review-changes-before-committing/SKILL.md",
+      "github_url": "https://github.com/broadinstitute/gnomad-browser/tree/main/.agents/skills/review-changes-before-committing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/broadinstitute/gnomad-browser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T20:36:57Z"
+}
