@@ -1,0 +1,22 @@
+{
+  "name": "ruvnet--agentic-devops",
+  "displayName": "agentic-devops",
+  "description": "agentic-devops",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/agentic-devops",
+  "skills": [
+    {
+      "name": "agentic-devops",
+      "description": ""
+    },
+    {
+      "name": "agentic-devops",
+      "description": ""
+    },
+    {
+      "name": "agentic-devops",
+      "description": ""
+    }
+  ]
+}
