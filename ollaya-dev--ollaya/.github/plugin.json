@@ -1,0 +1,9 @@
+{
+  "name": "ollaya-dev--ollaya",
+  "displayName": "ollaya",
+  "description": "Run open decision models locally: pull and serve Laya, decider, NLI and GLiClass behind a TypeSafe-compatible API. Ollama for decision models.",
+  "version": "1.0.0",
+  "author": "ollaya-dev",
+  "homepage": "https://github.com/ollaya-dev/ollaya",
+  "skills": []
+}
