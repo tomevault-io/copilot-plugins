@@ -1,8 +1,6 @@
 # scream-code
 
-> Tome by [LIUTod](https://github.com/LIUTod/scream-code) — distributed by [TomeVault](https://tomevault.io)
-
-本地Ai助手 / 可并行Agent / 中文TUI / 全局记忆日志 / 可自定义模型 / 支持飞书微信等 / 企业级安全
+> Tome by [LIUTod](https://github.com/LIUTod/scream-code), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [LIUTod/scream-code](https://github.com/LIUTod/s
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [LIUTod/scream-code](https://github.com/LIUTod/scream-code) — a repo with 9+ stars on GitHub.
+From [LIUTod/scream-code](https://github.com/LIUTod/scream-code) — a repo with 140+ stars on GitHub.
 
 ---
 
