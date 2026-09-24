@@ -1,0 +1,22 @@
+{
+  "name": "nota-america--forgecat-agent-profiles",
+  "displayName": "forgecat-agent-profiles",
+  "description": "forgecat-agent-profiles",
+  "version": "1.0.0",
+  "author": "nota-america",
+  "homepage": "https://github.com/nota-america/forgecat-agent-profiles",
+  "skills": [
+    {
+      "name": "gemini-api-dev",
+      "description": ""
+    },
+    {
+      "name": "gemini-api-dev",
+      "description": ""
+    },
+    {
+      "name": "context7-mcp",
+      "description": ""
+    }
+  ]
+}
