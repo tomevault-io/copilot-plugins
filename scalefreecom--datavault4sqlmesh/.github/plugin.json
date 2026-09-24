@@ -1,0 +1,9 @@
+{
+  "name": "scalefreecom--datavault4sqlmesh",
+  "displayName": "datavault4sqlmesh",
+  "description": "A python package including loading patterns for Data Vault 2 automation with sqlmesh. Authored and maintained by Scalefree International GmbH.",
+  "version": "1.0.0",
+  "author": "ScalefreeCOM",
+  "homepage": "https://github.com/ScalefreeCOM/datavault4sqlmesh",
+  "skills": []
+}
