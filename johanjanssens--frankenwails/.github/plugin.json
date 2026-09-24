@@ -1,0 +1,9 @@
+{
+  "name": "johanjanssens--frankenwails",
+  "displayName": "frankenwails",
+  "description": "PHP as a native desktop app \u2014 FrankenPHP + Wails, no HTTP server",
+  "version": "1.0.0",
+  "author": "johanjanssens",
+  "homepage": "https://github.com/johanjanssens/frankenwails",
+  "skills": []
+}
