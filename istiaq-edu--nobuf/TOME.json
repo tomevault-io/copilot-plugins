@@ -1,0 +1,207 @@
+{
+  "name": "NoBuf",
+  "owner": "Istiaq-Edu",
+  "repo": "NoBuf",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/qa/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/plan-mode/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/plan-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/tauri-rust/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/tauri-rust/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/plan-mode/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/plan-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/tauri-rust/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/tauri-rust/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/debug-tauri/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/debug-tauri/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/debug-tauri/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/debug-tauri/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/video-streaming/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/video-streaming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/implement-clean/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/implement-clean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/video-streaming/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/video-streaming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/implement-clean/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/implement-clean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/systematic-debug/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/systematic-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/first-principles/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/first-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/indexeddb-offline/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/indexeddb-offline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/telegram-grammers/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/telegram-grammers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/react-performance/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/react-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/systematic-debug/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/systematic-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/first-principles/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/first-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/indexeddb-offline/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/indexeddb-offline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/telegram-grammers/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/telegram-grammers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/react-performance/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/react-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".agents/skills/karpathy-guideline/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.agents/skills/karpathy-guideline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NoBuf",
+      "path": ".factory/skills/karpathy-guidelines/SKILL.md",
+      "github_url": "https://github.com/Istiaq-Edu/NoBuf/tree/main/.factory/skills/karpathy-guidelines/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Istiaq-Edu/NoBuf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T09:40:00Z"
+}
