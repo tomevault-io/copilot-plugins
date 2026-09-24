@@ -1,0 +1,9 @@
+{
+  "name": "ankit373--hydra",
+  "displayName": "hydra",
+  "description": "The AI control plane for software development. Discovers every model on your machine, routes by capability and cost, enforces PII policy, tracks spend.",
+  "version": "1.0.0",
+  "author": "ankit373",
+  "homepage": "https://github.com/ankit373/hydra",
+  "skills": []
+}
