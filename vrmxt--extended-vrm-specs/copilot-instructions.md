@@ -1,160 +1,24 @@
-## specs-documentation
+## specs-repository
 
-> How to author Extended VRM specs, ADRs, example notes, and schema docs
+> Extended-VRM-Specs repository purpose and agent boundaries
 
 
-# Specs documentation
+# Extended-VRM-Specs repository
 
-This repository holds Extended VRM specifications and related design decisions.
-Prefer clarity for implementers over essay voice.
-
-## Normative writing
-
-- Separate **requirements** from **rationale** and **examples**. Label examples as non-normative.
-- Prefer concrete field names, types, units, defaults, and version bounds over adjectives.
-- Use consistent requirement strength (MUST / SHOULD / MAY, or an equivalent house convention).
-  Do not mix soft marketing language into normative sections.
-- State compatibility explicitly: which VRM/glTF versions, packages, or tools a change targets.
-- When a requirement is undecided, write `TBD` or `[ADD: …]` — do not invent a decision.
-
-## Audience
-
-Separate **implementer / product** prose from **repo maintainer / agent** process.
-
-| Audience | Belongs in | Examples |
-|----------|------------|----------|
-| Creators using shipping tools | `tutorials/` | Install, author, export, Warudo getting started / patch |
-| Spec readers, tool authors, consumers | `specs/`, `decisions/`, `implementations/`, `references/` | Field rules, catalog schema, vendor paths, UI policy (`common: true`) |
-| Readers of a loaded file | `examples/` | Images, clipped JSON, stack mermaid (Warudo MToonXT + lilToon) |
-| Specs maintainers and Cursor agents | `.cursor/rules/`, `.cursor/skills/`, optional `references/**/maintaining-*.md` | Regen scripts, same-PR sync habits, deslop triggers, skill workflows |
-
-- Do **not** put `.cursor/**` paths in normative specs or in family/reference notes aimed at
-  implementers. Point those notes at a `maintaining-*.md` page (or the skill) instead.
-- Do **not** move product authoring policy (how tools use catalogs, morph layers, etc.) into
-  Cursor rules — tools still need that in the vault.
-- Agent-only steps that already live in a skill (e.g. `unity-shader-catalog`) stay in the
-  skill; the maintaining page is the human-facing index when one is needed.
-
-Materials-override catalog regen: [Maintaining catalogs](../../references/catalogs/maintaining-catalogs.md)
-and skill `unity-shader-catalog`.
-
-When adding or changing a shipping **editor** host: update the capability matrix in
-[VRMXT Editor](../../implementations/vrmxt-editor.md) and the Architecture authoring
-host table. Prefer the host profile for per-host detail; keep this matrix aligned.
-
-## Structure
-
-- Format authored notes for Obsidian using `obsidian-markdown.mdc`, including YAML
-  properties and controlled tags.
-- One concern per document when practical. Link related specs instead of duplicating rules.
-- Keep headings scannable: purpose, scope, normative text, data model / schema, examples,
-  compatibility, open questions.
-- Tutorials (`tutorials/`): second person; what you will have at the end; what you
-  need; numbered UI steps. Authoring pages stop at export / re-import in that host.
-  Do not define success as one consumer (Warudo, UniVRMXT, …). Consumer-specific
-  checks belong on that consumer's tutorial. Spec field rules go in Related.
-  Deslop these as tutorial / how-to, not as specifications.
-- Prefer tables for fields, enums, and matrices. Prefer diagrams only when they clarify
-  relationships that prose would bury.
-- When a diagram is needed, use a fenced **Mermaid** block (` ```mermaid `). Do not use
-  ASCII art boxes, arrows, or trees for flow, sequence, state, or relationship diagrams.
-  Keep node/edge labels short and stable; prefer `flowchart`, `sequenceDiagram`,
-  `stateDiagram-v2`, or `classDiagram` over decorative layouts.
-- Preserve stable anchors and filenames once published; renames need intentional migration.
-
-## File placement
-
-- Put family-wide normative contracts that are not glTF extensions in `specs/core/`.
-- Put reusable normative schema fragments with no independent `extensionsUsed` identity
-  in `specs/fragments/`.
-- Put concrete glTF extension specs in `specs/extensions/<domain>/`. Current domains are
-  `animation`, `deformation`, `materials`, `physics`, and `vfx`.
-- Do not place a concrete extension spec directly under `specs/`.
-- Folder names are editorial taxonomy. They MUST NOT add a segment to the serialized
-  extension name. The path stem maps by replacing hyphens with underscores:
-  `specs/extensions/vfx/vrmxt-sprite-particle.md` defines `VRMXT_sprite_particle`.
-  A folder `vrmxt-materials-mtoonxt/` is the same stem (multi-page spec).
-- Serialized glTF extension names authored here MUST use `VRMXT_*`. Do not invent
-  `VRMC_*` names. `VRMC_` is VRM Consortium only (`VRMC_vrm`, `VRMC_materials_mtoon`,
-  `VRMC_springBone`, `VRMC_springBone_extended_collider`, …).
-- Sitting next to a stock object does not change the prefix. Pairing is `…xt` (family
-  fork) and `_override` (third-party replace). MToon:
-  `VRMXT_materials_mtoonxt` / `VRMXT_materials_override`. Spring:
-  `VRMXT_springBonext` / `VRMXT_springBone_override`. Path exception: camelCase
-  `Bone` in `vrmxt-springbonext/` → `VRMXT_springBonext`. Details:
-  `architecture.md` Naming.
-- Inner JSON keys stay unprefixed camelCase (`specVersion`, `stencil`, `faceSdf`).
-  Do not prefix properties `VRMC_` or `VRMXT_`.
-- Code types SHOULD use `Vrmxt*` / `vrmxt_*`. Stock UniVRM/MToon10 hlsl includes keep
-  `vrmc_materials_mtoon_*.hlsl`. ShaderLab `VRMXT/...` is not a glTF key.
-- Engine overrides stay `VRMXT_*`. Family extras are a different `VRMXT_*` name; do
-  not stuff extras into stock `VRMC_*` objects.
-- Add every new normative document to the registry in `README.md`.
-- Put creator how-tos in `tutorials/`. Non-normative. Link to specs and
-  implementation profiles; do not duplicate field rules. Register new tutorial
-  pages in `README.md` and `tutorials/README.md`.
-- Keep decisions, implementation profiles, and research in `decisions/`,
-  `implementations/`, and `references/`. Host profiles (`warudo-vrmxt.md`,
-  packages) stay in `implementations/`. Do not park loaded-file illustrations
-  next to the profile.
-- Put loaded-file illustrations in `examples/`. Folder is plural even for one
-  file. Images: `examples/images/<note-stem>/`. Cite:
-  [mtoonxt-liltoon-override-warudo.md](../../examples/mtoonxt-liltoon-override-warudo.md).
-- Do not put those notes under `specs/extensions/materials/` or `mtoonxt/`. Do
-  not invent `captures/`. When moving a note, update README / architecture /
-  tutorials / host Related. Do not leave a redirect stub at the old path.
-- Register new example notes in `README.md` **Examples** (not Implementation
-  profiles), `tutorials/README.md` if creators might look there, architecture
-  only if that paragraph already points at working hosts, and the host profile
-  Related list.
-- Tag line-edited example notes `editorial/manual-review` (`obsidian-markdown.mdc`).
-- Tutorials stay click-path how-tos. Example notes show the loaded file. Do not
-  call them tutorials or write “not a click-path” in the vault.
-
-## Example notes (`examples/`)
-
-Non-normative. Deslop as Technical docs / examples (`voices.md`).
-
-- Index / Related labels: **Example**. Not captures, shots, click-path, loaded
-  result, or Working Warudo captures.
-- Related links only. No writer-routing (“field rules stay in specs”, “click-path
-  authoring stays in tutorials”, “Apply implementation”).
-- Do not use **Apply** as a noun. Verb: parse / swap shaders / apply extras.
-  Apply / Materialize / Transfer stay on `implementations/vrmxt-editor.md` and
-  host profiles that already define those ops.
-- Spec headings (`load gate`) stay on the spec. Example pages may use **Which
-  shader wins** and link the spec.
-- Stack mermaid names extras (`VRMXT_materials_override`, `VRMXT_materials_mtoonxt`).
-  Skip-rules belong in a sentence or the which-shader diagram, not `if no override`
-  on an arrow.
-- Do not restamp a fact that already has a section. Fix stale version/index rows.
-- Caption from the frame. If the picture shows hair over eyes, say that; do not
-  caption from the extra you meant. Conversion leftovers (matcap blend) go in a
-  subsection, not the 3-up caption.
-- One demo avatar in prose even if two `.vrm`s were inspected. No BIN hashes, no
-  local Steam paths, no “two files”.
-- Prose and tables: material **names**. Leave glTF indices inside JSON when that
-  is the file (`stencil.materials: [1]`).
-- JSON snippets: real payload, one material, clip with a `...` line. Do not invent
-  a stripped identity object if the file has `properties`.
-- Internals (`Shader.Find`, ModHost warm, UPM soup) stay on the host profile, not
-  the example lede. Install links (Steam Workshop, GitHub) on the example page are
-  fine.
-
-## Accuracy and provenance
-
-- Do not invent citations to VRM, glTF, UniVRM, or Blender docs. Link real sections or mark
-  placeholders.
-- Distinguish Extended VRM extensions from upstream VRM/glTF behavior.
-- Record breaking changes and migration notes when changing published fields or semantics.
-- Match identifiers used in Extended-UniVRM and Extended-VRM-Addon-for-Blender when those
-  names already exist; do not invent parallel names for the same concept.
-
-## Related
-
-- Voice / AI-tell cleanup: `deslop-markdown.mdc` and the **deslop** skill.
-- Note metadata and vault conventions: `obsidian-markdown.mdc`.
-- Repo handoff: `handoff-and-git.mdc`.
+- This repo is for **specifications and design decisions** for Extended VRM — not Unity
+  package source and not the Blender add-on implementation.
+- Prefer documenting behavior, schemas, compatibility, and migration rules that UniVRM and
+  the Blender add-on can implement consistently.
+- Do not invent product scope, version history, or upstream VRM/glTF requirements.
+- Keep implementation details in the owning code repos unless the spec needs them to be
+  normative.
+- When naming concepts, reuse identifiers already established in Extended-UniVRM or
+  Extended-VRM-Addon-for-Blender when those exist.
+- Treat repository standards as **unreleased drafts** unless a note explicitly states
+  otherwise. Do not constrain draft design around a hypothetical v1, release phase, or
+  post-release compatibility. Do not defer needed draft design to a later release without
+  explicit direction. Existing `specVersion` values describe draft schema revisions, not
+  released standards.
 
 ---
 > Source: [vrmxt/Extended-VRM-Specs](https://github.com/vrmxt/Extended-VRM-Specs) — distributed by [TomeVault](https://tomevault.io).
