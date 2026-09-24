@@ -1,0 +1,9 @@
+{
+  "name": "youhide--openshard",
+  "displayName": "OpenShard",
+  "description": "Modern open-source MMORPG server engine compatible with classic Ultima Online clients.",
+  "version": "1.0.0",
+  "author": "youhide",
+  "homepage": "https://github.com/youhide/OpenShard",
+  "skills": []
+}
