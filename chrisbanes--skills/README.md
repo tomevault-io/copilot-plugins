@@ -1,26 +1,24 @@
 # skills
 
-> Source: [chrisbanes/skills](https://github.com/chrisbanes/skills) — distributed by [TomeVault](https://tomevault.io)
-
-Skills for Kotlin, Jetpack Compose, and Android development
+> Source: [chrisbanes/skills](https://github.com/chrisbanes/skills). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chrisbanes/skills](https://github.com/chrisbanes/skills).
+Original source: `AGENTS.md` in [chrisbanes/skills](https://github.com/chrisbanes/skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/chrisbanes/skills](https://github.com/chrisbanes/skills)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/chrisbanes/skills](https://github.com/chrisbanes/skills)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
