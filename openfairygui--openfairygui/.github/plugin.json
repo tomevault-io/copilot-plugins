@@ -1,0 +1,14 @@
+{
+  "name": "openfairygui--openfairygui",
+  "displayName": "OpenFairyGUI",
+  "description": "OpenFairyGUI",
+  "version": "1.0.0",
+  "author": "OpenFairyGUI",
+  "homepage": "https://github.com/OpenFairyGUI/OpenFairyGUI",
+  "skills": [
+    {
+      "name": "OpenFairyGUI",
+      "description": ""
+    }
+  ]
+}
