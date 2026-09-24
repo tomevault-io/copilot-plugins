@@ -1,0 +1,22 @@
+{
+  "name": "jignesh-ponamwar--skills-mcp",
+  "displayName": "skills-mcp",
+  "description": "A self-hostable, open-source, semantically-searchable Agent Skills registry delivered over MCP, with a three-tier progressive disclosure architecture.",
+  "version": "1.0.0",
+  "author": "Jignesh-Ponamwar",
+  "homepage": "https://github.com/Jignesh-Ponamwar/skills-mcp",
+  "skills": [
+    {
+      "name": "vue-framework",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "description": ""
+    },
+    {
+      "name": "graphql-api",
+      "description": ""
+    }
+  ]
+}
