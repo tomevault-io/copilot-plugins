@@ -1,0 +1,57 @@
+{
+  "name": "better-nav",
+  "owner": "baiwumm",
+  "repo": "better-nav",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "better-nav",
+      "path": ".agents/skills/heroui-react/SKILL.md",
+      "github_url": "https://github.com/baiwumm/better-nav/tree/main/.agents/skills/heroui-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "better-nav",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/baiwumm/better-nav/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/baiwumm/better-nav",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:17:57Z"
+}
