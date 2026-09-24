@@ -1,0 +1,22 @@
+{
+  "name": "cryptomilk--hass-eink-dashboard",
+  "displayName": "hass-eink-dashboard",
+  "description": "hass-eink-dashboard",
+  "version": "1.0.0",
+  "author": "cryptomilk",
+  "homepage": "https://github.com/cryptomilk/hass-eink-dashboard",
+  "skills": [
+    {
+      "name": "hass-eink-dashboard",
+      "description": ""
+    },
+    {
+      "name": "hass-eink-dashboard",
+      "description": ""
+    },
+    {
+      "name": "hass-eink-dashboard",
+      "description": ""
+    }
+  ]
+}
