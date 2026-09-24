@@ -1,0 +1,9 @@
+{
+  "name": "fkchaos--a-share-quant-sim",
+  "displayName": "a-share-quant-sim",
+  "description": "Multi-factor quantitative research and paper-trading system for Chinese A-shares. The backtest and the simulated trader run through one shared code path. Walk-forward validated, zero-config, runs in a",
+  "version": "1.0.0",
+  "author": "fkchaos",
+  "homepage": "https://github.com/fkchaos/a-share-quant-sim",
+  "skills": []
+}
