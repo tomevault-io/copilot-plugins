@@ -1,0 +1,9 @@
+{
+  "name": "alphagit--jellyfin-mcp-server",
+  "displayName": "jellyfin-mcp-server",
+  "description": "MCP Server to manage a jellyfin server",
+  "version": "1.0.0",
+  "author": "AlphaGit",
+  "homepage": "https://github.com/AlphaGit/jellyfin-mcp-server",
+  "skills": []
+}
