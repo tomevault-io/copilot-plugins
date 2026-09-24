@@ -4,7 +4,7 @@
   "repo": "agentscope-java",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentscope-ai/agentscope-java",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-12T05:36:37Z"
+  "distributed_at": "2026-09-24T19:51:53Z"
 }
