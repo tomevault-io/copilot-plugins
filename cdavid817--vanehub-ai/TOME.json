@@ -1,0 +1,285 @@
+{
+  "name": "vanehub-ai",
+  "owner": "cdavid817",
+  "repo": "vanehub-ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ui-ux-pro-max",
+      "path": ".claude/skills/ui-ux-pro-max",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/brand/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/brand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/design/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/slides/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/ui-styling/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/ui-styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/banner-design/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/banner-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/design-system/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/banner-design/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/banner-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/spec-optimizer/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/spec-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".codex/skills/openspec-bulk-archive-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.codex/skills/openspec-bulk-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": ".claude/skills/openspec-bulk-archive-change/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/.claude/skills/openspec-bulk-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": "src-tauri/resources/skills/system/v1/code-review/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/src-tauri/resources/skills/system/v1/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": "src-tauri/resources/skills/system/v1/tdd-discipline/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/src-tauri/resources/skills/system/v1/tdd-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": "src-tauri/resources/skills/system/v1/readme-generation/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/src-tauri/resources/skills/system/v1/readme-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": "src-tauri/resources/skills/system/v1/api-doc-generation/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/src-tauri/resources/skills/system/v1/api-doc-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": "src-tauri/resources/skills/system/v1/code-security-scan/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/src-tauri/resources/skills/system/v1/code-security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vanehub-ai",
+      "path": "src-tauri/resources/skills/system/v1/unit-test-generation/SKILL.md",
+      "github_url": "https://github.com/cdavid817/vanehub-ai/tree/main/src-tauri/resources/skills/system/v1/unit-test-generation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cdavid817/vanehub-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T20:44:09Z"
+}
