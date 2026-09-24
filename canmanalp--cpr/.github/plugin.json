@@ -1,0 +1,9 @@
+{
+  "name": "canmanalp--cpr",
+  "displayName": "cpr",
+  "description": "A simple file and directory copy tool with exclude pattern support",
+  "version": "1.0.0",
+  "author": "CanManalp",
+  "homepage": "https://github.com/CanManalp/cpr",
+  "skills": []
+}
