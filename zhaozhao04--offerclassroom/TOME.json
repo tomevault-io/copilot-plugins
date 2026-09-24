@@ -1,0 +1,44 @@
+{
+  "name": "OfferClassroom",
+  "owner": "zhaozhao04",
+  "repo": "OfferClassroom",
+  "description": "\u4e00\u7ad9\u5f0f AI \u6c42\u804c\u8f85\u52a9\u5e73\u53f0",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhaozhao04/OfferClassroom",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T17:30:00Z"
+}
