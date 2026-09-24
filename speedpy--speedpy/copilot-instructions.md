@@ -1,0 +1,1777 @@
+## speedpy
+
+> This file is the source of truth for AI Coding Agents working in this repository.
+
+# AGENTS.md
+
+This file is the source of truth for AI Coding Agents working in this repository.
+`CLAUDE.md` and `.cursorrules` exist only as pointers to this file — keep guidance here.
+
+## Additional case-specific instructions
+
+Read the matching file **before** you start, if your task is one of these. They
+live outside this file so that a capability most projects never touch does not
+cost every reader the tokens to scroll past it.
+
+- video manipulation, transcoding, compression, video upload, ffmpeg: `agents_docs/working_with_video_files.md`
+- hosted remote MCP, MCP endpoint, MCP connector, OAuth for AI agents, streamable HTTP, mcp.<domain>, RFC 8707 audience, CIMD: `agents_docs/working_with_hosted_mcp.md`
+
+Adding one: keep the file in `agents_docs/`, name it for the task rather than the
+technology (`working_with_<thing>.md`), and add exactly one bullet here —
+searchable words first, path last. Anything a project would only sometimes need
+belongs there, not in this file.
+
+## Project Overview
+
+SpeedPy Standard is a Django-based web application starter template featuring a single-app architecture with custom
+user authentication, Celery for background tasks, and Tailwind CSS for styling. The project supports two development
+modes — Docker Compose or local uv + npm — picked at init time.
+
+## Development Commands
+
+For mode-specific run commands (Django management, Tailwind, migrations, tests, shell access, etc.) read
+**`AGENTS-local.md`** in this directory. It is populated by `init-docker.sh` or `init-local.sh` and reflects the
+active setup. Do not assume a particular wrapper (`docker compose run` vs `uv run`) — the cheat sheet is the source
+of truth for invocation.
+
+Initialization scripts:
+
+- `bash init-docker.sh` — boots the project with Docker Compose (Postgres, Redis, Celery, nginx media).
+- `bash init-local.sh` — runs the project on the host with uv + npm, SQLite, no Redis, Celery in always-eager mode.
+
+## Architecture
+
+### Apps Structure (single-app architecture)
+
+This is a **single-app Django project**. All business logic ships from `mainapp`.
+**Do not create a new Django app** for a new feature, page, or model — extend `mainapp`.
+The only existing apps and their narrow purposes:
+
+- **`mainapp`** — every piece of business logic, every page, every URL that is not user
+  auth and not the boilerplate demo. New models, views, forms, admin, Celery tasks,
+  templates all go here. Uses **package-style modules** (one file per concern, re-exported
+  through `__init__.py`):
+    - `mainapp/models/<group>.py` — re-export the class in `mainapp/models/__init__.py`
+      and add it to `__all__`
+    - `mainapp/views/<group>.py` — re-export in `mainapp/views/__init__.py` `__all__`
+      (class-based views only)
+    - `mainapp/forms/<group>.py` — re-export in `mainapp/forms/__init__.py` `__all__`
+    - `mainapp/admin/<group>.py` — re-export in `mainapp/admin/__init__.py`
+    - `mainapp/tasks/<group>.py` — Celery tasks, re-export in `mainapp/tasks/__init__.py`
+    - URL routes in `mainapp/urls.py`
+    - Templates in `templates/mainapp/<group>/...`
+- **`usermodel`** — custom email-based `User` model and anything that mutates that model
+  or its profile (avatar, OTP profile fields owned by the user, allauth adapter,
+  signup/login/profile forms). Uses **single-file modules** (`models.py`, `views.py`,
+  `forms.py`, `admin.py`, `managers.py`, `adapters.py`) — keep that shape; do not
+  package-split it. Anything user-adjacent that is really business logic (e.g. a Team a
+  user belongs to, a per-user setting that's part of a feature) belongs in `mainapp`,
+  not here.
+- **`demoapp`** — read-only reference for boilerplate users. The Product CRUD at
+  `/demo/products/` is the canonical example to copy when building new CRUD screens.
+  **Do not add real product features here.** If you need to extend the demo to teach a
+  new pattern, keep it conventional: `demoapp/models.py`, `demoapp/forms.py`,
+  `demoapp/views.py`, `demoapp/urls.py`, templates under `templates/demoapp/`.
+- **`speedpycom`** — framework-level utilities shared by every app: `BaseModel` (UUID
+  pk + timestamps — inherit it for new models), management commands like
+  `generate_tailwind_directories`, default OG image view. Add cross-cutting helpers
+  here, not feature code.
+
+DRF (`rest_framework`) and `drf-spectacular` are installed for versioned integration
+endpoints under `/api/v1/`. New JSON integration endpoints follow the HTTP API guide
+below; do not add DRF to server-rendered HTML views. The primary UI remains
+Django templates + crispy forms + Alpine.js. Ad-hoc `JsonResponse`s in
+`mainapp/views/` are only for tiny UI helpers (tours, toggles).
+
+### Where new code goes — quick reference
+
+| You're adding…                                | Put it in                                                               |
+|-----------------------------------------------|-------------------------------------------------------------------------|
+| A business-logic model                        | `mainapp/models/<group>.py` + register in `__init__.py`                 |
+| A page / view                                 | `mainapp/views/<group>.py` (class-based) + route in `mainapp/urls.py`   |
+| A form                                        | `mainapp/forms/<group>.py` (crispy + SpeedPy UI classes)                |
+| A Celery task                                 | `mainapp/tasks/<group>.py`                                              |
+| Admin config for a model                      | `mainapp/admin/<group>.py`                                              |
+| A template for a `mainapp` page               | `templates/mainapp/<group>/<name>.html`                                 |
+| A reusable partial used by 2+ pages           | `templates/components/<name>.html` (or extend an existing subfolder)    |
+| A user / auth field, form, or profile screen  | `usermodel/` (single-file modules) + templates under `templates/account/` |
+| An email template                             | `templates/emails/<name>.html` (sent via django-post_office)            |
+| A management command                          | `speedpycom/management/commands/<name>.py`                              |
+| A new abstract base model or shared utility   | `speedpycom/`                                                           |
+| User / profile API                            | `usermodel/api.py` (single-file; do not package-split `usermodel`)      |
+| Business resource API                         | `mainapp/api/<group>.py` + route in `project/api_urls.py`               |
+| Shared API permissions / mixins               | `speedpycom/api/` (cross-cutting helpers only, not feature code)        |
+| API tests                                     | `mainapp/tests/test_api_<group>.py` or next to the owning app           |
+| A new top-level Django app                    | Don't. Extend `mainapp` instead.                                        |
+
+### Key Architectural Patterns
+
+- Class-based views preferred over function-based views
+- Foreign key references use string notation: `'mainapp.ModelName'`
+- New concrete models inherit from `speedpycom.models.BaseModel` (UUID primary key + created/updated timestamps)
+- Templates live in the **root `templates/` directory**, namespaced by app:
+  `templates/mainapp/`, `templates/demoapp/`, `templates/account/` (allauth overrides
+  and user/profile pages owned by `usermodel`), `templates/components/` (reusable
+  partials), `templates/partials/`, `templates/emails/`.
+  No per-app `templates/` directories.
+- Package-style organization for `mainapp` (models, views, forms, admin, tasks);
+  single-file modules for `usermodel`, `demoapp`, `speedpycom`
+
+### Technology Stack
+
+- **Backend**: Django 6.1.1 with PostgreSQL
+- **Frontend**: Tailwind CSS 3.4.0 with Alpine.js
+- **Authentication**: django-allauth with custom email-based user model
+- **Background Tasks**: Celery with Redis
+- **Deployment**: Docker with Docker Compose
+
+### Database Configuration
+
+- Supports PostgreSQL (recommended), SQLite (development), and MySQL
+- Database collation automatically configured per engine
+- Uses django-environ for environment variable management
+
+### Styling and Static Files
+
+- Tailwind CSS with custom configuration
+- SpeedPy UI design system (see below) — do NOT introduce Flowbite, DaisyUI, or other component libraries
+- Static files served via WhiteNoise
+- CSS compiled from `static/mainapp/input.css` to `static/mainapp/styles.css`
+
+## SpeedPy UI Design System
+
+The project uses an in-house design system called **SpeedPy UI**. A live catalogue of every
+primitive lives at `/speedpyui-preview/` — open it before designing new pages or components
+to see what's already available and reuse the existing look.
+
+### Before you build new UI — check what already exists
+
+Do not hand-roll a new component, CRUD screen, or layout if a reference already exists.
+In order, check:
+
+1. **`/speedpyui-preview/`** (rendered from `templates/mainapp/speedpyui_preview.html`) —
+   buttons, inputs, cards, badges, alerts, tables, pagination, breadcrumbs, chips,
+   timeline, stepper, accordion, etc. with copyable markup. If a primitive is here, use
+   the exact classes from the preview — do not redefine them.
+2. **`/speedpyui-preview/FormView`** + `mainapp/forms/speedpyui_preview.py` — canonical
+   crispy-forms `FormView` styled with SpeedPy UI. Copy this shape for any new form.
+3. **`demoapp` Product CRUD** (`/demo/products/`) — canonical full CRUD example. When
+   adding `ListView` / `CreateView` / `UpdateView` / `DetailView` / `DeleteView` for a
+   new model, mirror the structure of `demoapp/views.py`, `demoapp/forms.py`,
+   `demoapp/urls.py`, and the four templates under `templates/demoapp/`
+   (`product_list.html`, `product_form.html`, `product_detail.html`,
+   `product_confirm_delete.html`). Pagination, search/filter, empty state, and the
+   "Generate demo products" empty-table seed action are all already wired correctly there.
+4. **Reusable template partials** — include or extend instead of copy-pasting markup:
+    - `templates/base.html` — base page; extend for any public/authenticated page
+    - `templates/mainapp/layouts/dashboard.html` — dashboard chrome
+    - `templates/mainapp/layouts/sidebar_layout.html` — sidebar + content layout
+    - `templates/account/base_manage.html` — account/settings pages with left nav
+    - `templates/components/nav.html`, `nav_auth.html`, `footer.html`,
+      `messages.html`, `checkmark.html` — site-wide chrome
+    - `templates/components/sidebar_layout/` — `sidebar_menu.html`,
+      `user_menu.html`, `crud_navigation.html`
+    - `templates/components/team_selector/team_dropdown_selector.html`
+    - `templates/partials/_tour.html` — Driver.js tour wiring (only renders when
+      `tour_steps` is non-empty)
+
+If something close-but-not-identical exists, **extend or parameterize the existing
+partial/template**; do not fork a near-duplicate. If genuinely nothing exists, add the
+new component as a `@layer components` class in `static/mainapp/input.css`, document it
+in `/speedpyui-preview/`, and only then use it in pages — that keeps the design system
+the single source of truth.
+
+### Design tokens (colors, surfaces, shadows)
+
+Colors and surfaces are declared as CSS variables in `static/mainapp/input.css` and wired into
+Tailwind via `tailwind.config.js`. They automatically swap between light and dark mode, so in
+templates you write **one** utility name per slot — never pair a light utility with a `dark:`
+variant for token-driven colors.
+
+Use these Tailwind utilities (bound to the tokens):
+
+- Background: `bg-background` (app chrome), `bg-background-paper` (cards, modals, raised surfaces)
+- Text: `text-fg` (primary), `text-fg-secondary` (muted / helper text)
+- Borders: `border-divider`
+- Brand / status: `bg-primary`, `text-primary`, `bg-secondary`, `bg-success`, `bg-info`,
+  `bg-warning`, `bg-error` — each has `-light`, `-dark`, and `-contrast` variants
+  (e.g. `text-primary-contrast` for text placed on a `bg-primary` surface)
+- Numbered brand scale (`bg-primary-50` … `bg-primary-900`) exists for backwards compatibility
+  but prefer the token-driven `primary` / `primary-dark` / `primary-light` names
+- Neutrals `neutral-50`…`neutral-950` are static (same value in both modes) — use them only
+  for things that must NOT follow the theme
+- Elevation: `shadow-speedpyui-1 | -3 | -8 | -12 | -16 | -24` (use `-16` for cards, `-24`
+  for modals). Do not add raw `shadow-lg` / `shadow-md` — they look off against the palette.
+
+**Do not** write `bg-white`, `bg-gray-*`, `text-gray-*`, `text-black` for surfaces or
+body/heading copy. Those bypass the theme and will not follow dark mode. The only exceptions
+are utility text like `text-primary-contrast` on brand-filled buttons, or `neutral-*` where
+a deliberately static color is needed.
+
+### Dark mode
+
+- Tailwind is configured with `darkMode: 'class'` and the `.dark` class is toggled on
+  `<html>` by the inline script at the top of `templates/base.html`.
+- User preference is stored in `localStorage['theme-preference']` with values
+  `'light' | 'dark' | 'auto'` (default `'auto'` follows `prefers-color-scheme`). The nav bar
+  includes a three-state theme toggle (`#theme-toggle`) wired in `static/mainapp/index.js`.
+- Because colors come from CSS variables, **most new markup does not need `dark:` variants**.
+  Only add `dark:` prefixes for things the token system doesn't cover (e.g. legacy
+  `neutral-*` scales on third-party widgets).
+
+### Component classes
+
+Re-use these `@layer components` classes from `input.css` rather than hand-rolling new styles:
+
+Open `/speedpyui-preview/` before adding or changing UI — it shows rendered examples and
+copyable snippets for every SpeedPy UI primitive. (See "Before you build new UI" above for
+the full reuse checklist.)
+
+When extending the `demoapp` itself (teaching examples only — real features go in
+`mainapp`), keep its single-file shape: model in `demoapp/models.py`, form in
+`demoapp/forms.py`, generic class-based views in `demoapp/views.py`, routes in
+`demoapp/urls.py`, and templates under `templates/demoapp/`. **Do not seed demo rows in
+migrations** — expose an explicit POST action like the Product "Generate demo products"
+button, and only show it when the demo table is empty.
+
+**Buttons** — compose three axes: variant + color + size. Size defaults to `btn-md`.
+
+```html
+<button class="btn btn-contained btn-primary">Save</button>
+<button class="btn btn-outlined btn-error btn-sm">Delete</button>
+<a href="..." class="btn btn-text btn-secondary btn-lg">Learn more</a>
+```
+
+- Variants: `btn-contained` (filled), `btn-outlined` (border only), `btn-text` (ghost)
+- Colors: `btn-primary`, `btn-secondary`, `btn-success`, `btn-info`, `btn-warning`,
+  `btn-error`, `btn-inherit`
+- Sizes: `btn-sm`, `btn-md` (default), `btn-lg`
+
+**Form inputs** — `input-outlined`, `textarea-outlined`, `select-outlined`, `checkbox`,
+`radio`, `switch` (with `.switch-track` and `.switch-thumb`). Pair with
+`.form-field`, `.input-label`, `.input-helper`, `.input-error`, `.input-error-text` for
+layout. `crispy-tailwind` field templates already emit these classes, so crispy forms pick
+them up automatically. Use `/speedpyui-preview/FormView` as the canonical working example
+of a Django `FormView` styled by crispy forms.
+
+**Typography and page layout** — use these for regular page structure instead of repeating
+long wrapper and heading utilities:
+
+```html
+<main class="section">
+  <div class="page-container">
+    <div class="section-header">
+      <p class="eyebrow">Overview</p>
+      <h1 class="h1">Dashboard</h1>
+      <p class="lead">Summary text.</p>
+    </div>
+  </div>
+</main>
+```
+
+- Layout: `section`, `section-paper`, `page-container`, `page-header`, `section-header`
+- Page headers with top-level actions must use the action layout:
+  `page-header-actions` with `page-header-main` for copy and `page-header-buttons` for
+  actions. Top-level action buttons (Add, Create, Delete, Generate, etc.) belong on the
+  right on desktop, never centered under the title.
+- Typography: `h1`, `h2`, `h3`, `h4`, `h5`, `eyebrow`, `lead`
+- Icons and avatars: `media-icon`, `avatar-sm`, `avatar-xs`
+
+**Cards, status, lists, and tables** — use these for dashboard panels, account pages, status
+rows, and simple data display. Keep preview/documentation examples one component per row:
+
+```html
+<div class="card">
+  <div class="card-header"><h2 class="h3">Title</h2></div>
+  <div class="card-body">Content</div>
+  <div class="card-footer">Actions</div>
+</div>
+
+<span class="badge badge-success">Verified</span>
+<div class="alert alert-warning">Review this setting.</div>
+```
+
+- Cards: `card`, `card-header`, `card-body`, `card-footer`
+- Lists: `list-group`, `list-group-item`
+- Badges: `badge`, `badge-lg`, `badge-primary`, `badge-secondary`, `badge-success`,
+  `badge-info`, `badge-warning`, `badge-error`
+- Alerts: `alert`, `alert-primary`, `alert-secondary`, `alert-success`, `alert-info`,
+  `alert-warning`, `alert-error`, `alert-danger`, `alert-light`, `alert-neutral`.
+  **`.alert` is a flex row** (`@apply flex …`), so every direct child is a flex item.
+  Put the whole message in ONE `<span>` whenever it mixes text with an inline
+  element — a bare text node and a sibling `<a>`/`<strong>` become two anonymous
+  flex items and the whitespace between them is dropped, rendering
+  "records is paused.Update billing.":
+
+  ```django
+  {# wrong — the spaces around the link disappear #}
+  <div class="alert alert-warning">
+      Payment is past due. <a href="…" class="underline">Update billing</a>.
+  </div>
+
+  {# right — one flex item #}
+  <div class="alert alert-warning">
+      <span>Payment is past due. <a href="…" class="underline">Update billing</a>.</span>
+  </div>
+  ```
+
+  Deliberate multi-item alerts (icon + text, message + copy button) are fine —
+  that is what the flex row is for; add `items-center gap-2` and, for the text
+  half, still wrap it in its own `<span>`.
+- Tables: `table`, `table-hover`, `table-striped`, `table-sm`
+- Pagination: use `pagination`, `pagination-summary`, `pagination-list`,
+  `pagination-link`, `pagination-link-active`, `pagination-link-disabled`, and
+  `pagination-ellipsis` for list footers. Prefer numbered, elided pagination with a
+  result count summary over Previous/Next-only controls.
+- Dividers: `divider`, `divider-text`, `divider-vertical`
+- Generic surfaces: `paper`, `paper-outlined`, `paper-padded`, `paper-elevation-0`,
+  `paper-elevation-1`, `paper-elevation-3`, `paper-elevation-8`, `paper-elevation-16`,
+  `paper-elevation-24`
+- Chips: `chip`, `chip-sm`, `chip-primary`, `chip-secondary`, `chip-success`,
+  `chip-info`, `chip-warning`, `chip-error`, `chip-outlined`, `chip-avatar`,
+  `chip-remove`
+- Breadcrumbs: `breadcrumbs`, `breadcrumb-list`, `breadcrumb-item`, `breadcrumb-link`,
+  `breadcrumb-current`
+- Button groups: `btn-group`, `btn-group-vertical`; use existing `btn` variants inside
+- Skeletons: `skeleton`, `skeleton-text`, `skeleton-text-lg`, `skeleton-circular`,
+  `skeleton-rectangular`
+- Linear progress: `progress`, `progress-sm`, `progress-lg`, `progress-xl`,
+  `progress-bar`, `progress-primary`, `progress-secondary`, `progress-success`,
+  `progress-info`, `progress-warning`, `progress-error`
+- Timeline: `timeline`, `timeline-item`, `timeline-marker`, `timeline-marker-success`,
+  `timeline-marker-info`, `timeline-marker-warning`, `timeline-marker-error`,
+  `timeline-content`, `timeline-title`, `timeline-meta`, `timeline-body`
+- Stepper: `stepper`, `step`, `step-marker`, `step-body`, `step-label`,
+  `step-description`, `step-completed`, `step-active`, `step-link`
+- Accordion: `accordion`, `accordion-item`, `accordion-header`, `accordion-body`; use
+  native `<details>` / `<summary>` unless custom behavior is explicitly needed
+
+**Account and sidebar navigation** — use these for settings pages and dashboard sidebar
+links rather than repeating link classes:
+
+```html
+<a href="..." class="account-nav-link account-nav-link-active">Profile</a>
+<a href="..." class="sidebar-link sidebar-link-active">
+  <svg class="sidebar-link-icon">...</svg>
+  Dashboard
+</a>
+```
+
+- Account: `account-shell`, `account-nav`, `account-nav-link`, `account-nav-link-active`
+- Top nav: `top-nav`, `top-nav-inner`, `top-nav-brand`, `top-nav-logo`,
+  `top-nav-title`, `top-nav-actions`, `top-nav-menu`, `top-nav-list`,
+  `top-nav-item`, `top-nav-link`, `top-nav-icon-button`, `top-nav-user-button`,
+  `top-nav-auth-link`, `top-nav-dropdown`, `top-nav-dropdown-header`,
+  `top-nav-dropdown-link`
+- Sidebar: `sidebar`, `sidebar-brand`, `sidebar-brand-text`, `sidebar-section-label`,
+  `sidebar-nav`, `sidebar-link`, `sidebar-link-active`, `sidebar-link-icon`,
+  `sidebar-divider`, `sidebar-select`, `sidebar-dropdown`, `sidebar-dropdown-item`,
+  `sidebar-dropdown-item-active`
+
+### Alpine.js conventions
+
+Alpine 3.15.x is loaded via `templates/base.html`. A few gotchas we hit the hard way:
+
+- **Do not reuse the variable name `open` across nested `x-data` scopes.** The nav wrapper
+  in `templates/components/nav.html` declares `x-data="{open: false}"` for the mobile menu;
+  nested scopes (user menu dropdown, etc.) must pick a different name — e.g.
+  `userMenuOpen`, `sidebarOpen`. Reusing `open` shadows the outer scope and causes reads and
+  writes to resolve against different proxies, leaving the dropdown permanently hidden.
+- **Do not add `x-transition` to the user menu dropdown** (or any dropdown that starts with
+  `display:none`). In this bundle the inline-style transition gets stuck at opacity 0 and the
+  element never becomes visible. Toggle visibility with `x-show` + `x-cloak` only; if you
+  need a fade, use explicit `x-transition:enter-*` / `x-transition:leave-*` class directives
+  with CSS classes, not the bare `x-transition` shortcut.
+- **Do not toggle `hidden` on `.top-nav-menu`.** The desktop navigation is shown by the
+  component class via `lg:flex`; adding a runtime `hidden` class after Alpine initializes
+  can override it and make the links disappear on desktop. Keep `.top-nav-menu` hidden by
+  default in CSS and use `:class="open ? '!flex' : ''"` for the mobile-open state.
+- Use `x-model` on the hidden checkbox inside a `.switch` to bind a boolean state. See
+  `templates/mainapp/pricing.html` for the monthly / yearly toggle example
+  (`x-model="yearly"`, `x-text="yearly ? '$801' : '$89'"`).
+
+### User profile pictures
+
+The custom user model (`usermodel.models.User`) has two image fields:
+
+- `profile_picture` — full upload (`ImageField`, stored under `media/profile_pictures/`)
+- `profile_picture_thumbnail` — 96×96 thumbnail auto-generated on save (stored under
+  `media/profile_pictures/thumbnails/`), used in nav avatars
+
+Render avatars with the three-tier fallback used in `templates/components/nav_auth.html`
+and `templates/components/sidebar_layout/user_menu.html`:
+
+```django
+{% if user.profile_picture_thumbnail %}
+    <img src="{{ user.profile_picture_thumbnail.url }}" class="w-8 h-8 rounded-full object-cover" …>
+{% elif user.profile_picture %}
+    <img src="{{ user.profile_picture.url }}" class="w-8 h-8 rounded-full object-cover" …>
+{% else %}
+    <span class="w-8 h-8 rounded-full bg-gray-600 text-white flex items-center justify-center text-xs font-semibold">
+        {{ user.first_name|slice:":1"|upper }}{{ user.last_name|slice:":1"|upper }}
+    </span>
+{% endif %}
+```
+
+Profile editing lives at `/accounts/profile/` (`ProfileEditView` +
+`templates/account/profile/edit.html`). The form MUST use `enctype="multipart/form-data"`
+because `UserProfileForm` exposes `profile_picture`. Dev media is served via the
+`if settings.DEBUG: urlpatterns += static(...)` block at the bottom of `project/urls.py`.
+
+### Sidebar navigation
+
+The authenticated app shell is `templates/mainapp/layouts/sidebar_layout.html`. It renders
+the left sidebar through its `sidebar_menu` block, which by default includes
+`templates/components/sidebar_layout/sidebar_menu.html`. Any page that extends the layout
+gets the sidebar for free.
+
+**Where to add your app's nav links.** Put them in
+`templates/components/sidebar_layout/crud_navigation.html`. It ships empty and is included
+inside the General `<ul class="sidebar-nav">`, right after the Dashboard link — it is the
+designated insertion point so you never have to touch `sidebar_menu.html` itself. Add `<li>`
+items using the shared classes:
+
+```django
+<li>
+    <a href="{% url 'your_view' %}"
+       class="sidebar-link {% if request.resolver_match.url_name == 'your_view' %}sidebar-link-active{% endif %}">
+        <svg class="sidebar-link-icon" …></svg>
+        <span>Your Page</span>
+    </a>
+</li>
+```
+
+Drive the active state off `request.resolver_match.url_name` (not a hardcoded class) because
+the same sidebar renders on every page.
+
+**Team-scoped links (read this before adding any link).** Whether a link should be
+team-scoped depends on `SPEEDPY_TEAMS_ENABLED`:
+
+- The personal dashboard route is `name="dashboard"` (`/dashboard/`, `DashboardView`). When
+  teams are **enabled** it is **not a page** — it redirects to the user's first team
+  dashboard (`team_dashboard`), or to `team_create` if they have no team. It only renders
+  `templates/mainapp/dashboard/main.html` when teams are **disabled**. So **never link
+  directly to `{% url 'dashboard' %}` for navigation when teams may be enabled** — link to
+  the team-scoped view instead.
+- `get_default_team_for_user(user)` (in `mainapp.models`) is the single source of truth for
+  "the user's default team" — the first active team with non-expired access. Both the
+  `dashboard` redirect and the sidebar use it; reuse it, never reimplement the lookup.
+- `SIDEBAR_TEAM` is injected into **every** template by the
+  `project.context_processors.sidebar_team` context processor (it is `None` when teams are
+  disabled or the user has none). Use it to build team-scoped sidebar links without a view
+  change. On a team page the view also puts the current `team` in context — prefer `team`
+  when present, fall back to `SIDEBAR_TEAM`:
+
+```django
+{% if SPEEDPY_TEAMS_ENABLED %}
+    {% if team %}
+        {% url "your_team_view" team_id=team.id as href %}
+    {% elif SIDEBAR_TEAM %}
+        {% url "your_team_view" team_id=SIDEBAR_TEAM.id as href %}
+    {% else %}
+        {% url "team_create" as href %}
+    {% endif %}
+{% else %}
+    {% url "your_non_team_view" as href %}
+{% endif %}
+<a href="{{ href }}" class="sidebar-link …">…</a>
+```
+
+The Dashboard link in both `sidebar_menu.html` and `base_manage.html` already follows this
+pattern — copy it. Team routes (`team_dashboard`, `team_create`, …) are only registered when
+`SPEEDPY_TEAMS_ENABLED`, so always guard their `{% url %}` calls behind the
+`{% if SPEEDPY_TEAMS_ENABLED %}` branch to avoid `NoReverseMatch`.
+
+### Account / settings pages
+
+Account pages (change password, email addresses, OTP settings, profile edit) extend
+`templates/account/base_manage.html`, which reuses the sidebar layout above and overrides
+the `sidebar_menu` block with the account-settings nav (Your Profile, Change Password, …).
+New account pages should reuse this base, render their body in the `settings_content` block,
+and follow the header style from `templates/account/password_change.html` (`<h2>` with the
+shared classes) so the pages line up visually. To add an account link, edit the nav list in
+`base_manage.html`; its Dashboard link follows the same teams behaviour described above.
+
+### Tours (Driver.js)
+
+`templates/partials/_tour.html` wires Driver.js with SpeedPy-themed popovers (overrides in
+the `.driver-popover*` block at the bottom of `input.css`). Tours are only rendered when
+the context contains non-empty `tour_steps`. Guard new tour styles outside `@layer
+components` because Tailwind would otherwise purge them (the class names live in vendor JS,
+not in the `content` globs).
+
+## Code Conventions
+
+For where each kind of file lives, see the **"Where new code goes — quick reference"**
+table above. The conventions below cover *how* to write each kind, not *where* to put it.
+
+### Models
+
+- Inherit from `speedpycom.models.BaseModel` for new concrete models (gives a UUID
+  primary key and `created_at` / `updated_at` timestamps)
+- Use string references for foreign keys: `ForeignKey('mainapp.ModelName')`
+- After adding a model in `mainapp/models/<group>.py`, re-export it in
+  `mainapp/models/__init__.py` and append to `__all__`
+- Add a matching admin in `mainapp/admin/<group>.py` and re-export it from
+  `mainapp/admin/__init__.py`
+
+### Views
+
+- Class-based views only (inherit from Django's generic views; function-based views
+  only for trivial endpoints like `mark_tour_complete`)
+- After adding a view in `mainapp/views/<group>.py`, re-export it in
+  `mainapp/views/__init__.py` and append to `__all__`
+- Wire the URL in `mainapp/urls.py` (or `project/urls.py` only for project-level routes)
+- For new CRUD screens, copy the structure of `demoapp/views.py` rather than rolling
+  your own list/filter/pagination logic
+
+### Admin
+
+- Use meaningful `list_display`, `search_fields`, and filters
+- Use `raw_id_fields` for foreign keys to large tables
+
+### Performance
+
+- Use `select_related()` and `prefetch_related()` for query optimization
+- Implement caching with Redis backend
+- Use Celery for long-running or I/O-bound operations
+
+### Sending emails
+
+Sending emails is performed with django-post_office library.
+
+If a new email sending is needed to be perfomed then use the following structure:
+
+```python
+
+context = {
+    'team_name': membership.team.name,
+    'old_role': old_role,
+    'new_role': new_role,
+    'team_url': f"{settings.SITE_URL}/teams/{membership.team.id}/dashboard/",
+}
+subject = f"Your role in {membership.team.name} has changed"
+html_message = render_to_string("emails/team_role_changed.html", context=context)
+mail.send(
+    membership.user.email,
+    settings.DEFAULT_FROM_EMAIL,
+    html_message=html_message,
+    subject=subject,
+    priority='now',
+)
+
+```
+
+Don't use the post_office template attribute, but instead use django's render_to_template to prepare the email message.
+
+New email templates must be placed into `templates/emails/` folder.
+
+### Logging
+
+For logging we use `structlog`.
+
+Example usage:
+
+```python
+import structlog
+
+logger = structlog.get_logger(__name__)
+
+
+def something(user_id: int, something_else: str):
+    logger.info("Something happened", user_id=user_id, something_else=something_else)
+```
+
+## Forms
+
+In Django forms always use djago crispy forms layout in the `__init__` form and ` {% crispy form %}` to render the form.
+
+For groups of fields that should be collapsed use `crispy_tailwind.layout.Collapse`.
+
+For example:
+
+```python
+# forms.py
+
+from django import forms
+from django.conf import settings
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field, HTML, Div
+from crispy_tailwind.layout import Submit, Collapse
+import json
+
+from mainapp.models import HTTPMonitor
+
+
+class HttpMonitorForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+
+        self.helper.layout = Layout(
+            # Basic Information
+            HTML(
+                '<div class="mb-6"><h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Basic Information</h3></div>'),
+            Field('name'),
+            Field('url'),
+            Div(
+                Div(Field('method'), css_class='w-1/2 pr-2'),
+                Div(Field('check_interval'), css_class='w-1/2 pl-2'),
+                css_class='flex'
+            ),
+            Div(
+                Div(Field('is_active'), css_class='mr-4'),
+                css_class='flex items-center space-x-4 my-4'
+            ),
+            Div(
+                Div(Field('is_paused'), css_class=''),
+                css_class='flex items-center space-x-4 my-4'
+            ),
+
+            # Response Validation (Collapsible)
+            Collapse(
+                "Response Validation",
+                HTML(
+                    '<p class="text-sm text-gray-600 dark:text-gray-400">Define what a successful response looks like</p>'),
+                Field('expected_status_codes'),
+                HTML(
+                    '<p class="text-xs text-gray-500">Comma-separated list, e.g., 200, 201, 202. Defaults to 200.</p>'),
+                Field('expected_content'),
+            ),
+        )
+
+```
+
+## Dependency vulnerabilities
+
+```bash
+manage.py audit_dependencies                  # what is in the lockfile
+manage.py audit_dependencies --fail-on high   # for CI
+```
+
+Checks `uv.lock` against **OSV.dev**, whose query API is public. Three reasons it
+exists rather than "read the Dependabot tab":
+
+- **No credentials**, so it runs in CI, on a laptop, or from an agent with no
+  GitHub token.
+- It prints the **fixed-in version** per advisory, which is the part you need in
+  order to act, and which the alert list does not give you.
+- It reads the **lockfile**, so it audits what will be installed rather than what
+  the version range permits.
+
+**It refuses to report a clean bill when it cannot reach the database.** A command
+that printed "no known vulnerabilities" during a network outage would launder the
+outage into reassurance, so that path is a `CommandError`.
+
+**Read the package names, not just the severity labels.** OSV reports what the
+upstream database says, and the ranking that matters is exposure: HIGH in a
+library that only ever sees your own input matters less than MODERATE in the one
+that decodes images an anonymous visitor uploaded. When this was first run against
+this repo it found nine vulnerable packages, and the most urgent was **Pillow** —
+four HIGH advisories in the one library fed directly by public uploads — not the
+package with the longest advisory list.
+
+This is a **public template**. Anybody who starts a project from it inherits the
+lockfile, so an untriaged advisory here is not the same kind of debt it would be
+in a private app.
+
+## Email addresses: blocklists and deliverability
+
+**Every self-service door that takes an email address calls the same
+validator:** signup, adding an address to an existing account, team invitations,
+public forms, CSV imports. Not the operator doors — the Django admin can set
+`User.email` and `EmailAddress` rows directly, and `EmailView.dispatch` syncs
+`User.email` into `EmailAddress` unchecked on the next visit — and not allauth
+headless, which builds on `AddEmailForm` directly and ignores `ACCOUNT_FORMS`;
+wire the validator yourself if you enable it. It used to live inline in
+`usermodel/forms.py`, which meant it covered signup and nothing else — a strange
+place to draw the line, because signup was never the only door.
+
+```python
+from speedpycom.services import email_deliverability
+
+email_deliverability.validate(email)          # raises ValidationError
+verdict = email_deliverability.check(email)   # never raises, inspect .outcome
+```
+
+**Why it matters more than it looks.** SES tracks a bounce rate per account and
+suspends sending above roughly 5%. So a handful of undeliverable addresses
+collected through a public form can cost the ability to send *any* mail —
+including password resets to paying customers. Refusing a typo while the person
+is still looking at the form is the cheapest possible moment to catch it.
+
+Rules, each of which was a defect in the inline version:
+
+- **Cached per DOMAIN.** A lookup per submission is fine; a lookup per CSV row is
+  not. Five thousand gmail addresses cost one question. Positive answers cache
+  for a day, negative for an hour — a domain that just fixed its DNS should not
+  stay refused all day.
+- **Fails OPEN on a non-answer.** Timeout, SERVFAIL, no resolver: we learned
+  nothing, so we refuse nobody. `NXDOMAIN` and `NoAnswer` are different — those
+  *are* answers and they say no. Getting this backwards turns one broken
+  resolver into a signup outage.
+- **2s timeout**, not the inline version's 5s. This runs on public forms now.
+- **MX-only by default.** RFC 5321's implicit-MX rule means an A-record-only
+  domain is technically deliverable, so strict MX-only refuses a few valid ones.
+  Accepted on purpose: a bounce costs reputation, the strict default costs a
+  support message. `EMAIL_MX_ALLOW_IMPLICIT_MX` turns the fallback on.
+- **Blocklists first**, because they are set lookups against data already in
+  memory and there is no reason to pay for DNS to reject mailinator.com. They are
+  enforced even when the DNS half is switched off: a blocklist is a policy, not a
+  probe.
+- **Two messages, and do not merge them.** A blocklist refusal must not say
+  "check for typos" — that tells somebody probing the filter that their domain is
+  fine and the problem is elsewhere.
+- **On the signup form the verdict waits for the CAPTCHA — when reCAPTCHA is
+  configured.** Django runs every field cleaner and shows every field error, so a
+  `clean_email` check answered "is this domain blocked?" to anyone with no token
+  — one domain per request rebuilds the whole list. The check runs from `clean()`
+  and only when `usermodel/forms.py::captcha_passed(self)`; do not move it back
+  into a field cleaner. The gate closes the oracle only where **both** reCAPTCHA
+  keys are set (as in production): with no keys there is no CAPTCHA field,
+  `captcha_passed()` is `True`, and the verdict is given as before — that is the
+  intended behaviour on a keyless checkout, which has no bot protection to gate
+  behind anyway. (The hosted collection page and public API have the same shape
+  of leak with no CAPTCHA to gate behind even when keys are set — a separate,
+  open product decision.)
+
+**It does NOT catch a typo with a valid MX.** `gmail.co` resolves perfectly well.
+Suggesting a correction for near-misses is a separate idea.
+
+**Off during tests** (`_RUNNING_TESTS` in settings), because a real DNS call in a
+test suite is a flaky-test factory. A test that wants it uses
+`@override_settings(EMAIL_DELIVERABILITY_CHECK=True)` and mocks
+`dns.resolver.resolve`.
+
+## CAPTCHA
+
+Two different jobs, two different tools. Do not use one for the other.
+
+**Auth forms** (signup, login, password reset) use `django-recaptcha`'s form
+field via `usermodel/forms.py::attach_recaptcha`. A login either passes or it
+does not, so a field that raises a validation error is exactly right. On the
+**signup** form the email blocklist / deliverability check is deliberately held
+until the CAPTCHA passes (see the deliverability section's gate rule), so the
+page cannot answer "is this domain blocked?" to a caller who never passed it.
+
+**Public, unauthenticated forms** use `speedpycom/services/captcha.py`, because
+a public form needs a distinction the form field cannot make: reCAPTCHA v3
+returns a *probability*, not a verdict.
+
+```python
+from speedpycom.services import captcha
+
+result = captcha.verify(token, remote_ip=ip, expected_action="submit")
+if result.refuses:
+    ...  # no token, or the provider rejected it — this request is malformed
+if result.suspicious:
+    ...  # verified, low score. ACCEPT and record result.as_metadata()
+```
+
+- `refuses` is true only for `absent` and `failed` — a request our own page
+  could not have produced. **`low_score` is deliberately not a refusal**:
+  discarding a real submission because somebody browses with a strict privacy
+  extension is worse than one more item in a queue a human already reviews.
+- A caller that guards **a cost** rather than a queue should also refuse a
+  clearly-bot score, using the second, lower floor:
+  `if result.score is not None and result.score < captcha.gate_min_score()`.
+  Two floors because the two questions have opposite error costs —
+  `CAPTCHA_MIN_SCORE` (0.5) is "should a human look?", `CAPTCHA_GATE_MIN_SCORE`
+  (0.3) is "should we spend money?".
+- `unavailable` fails **open**, logged loudly. That covers both a provider
+  outage and, importantly, *our own* bad secret — a wrong secret refuses every
+  visitor identically, so it must never be read as a bad token.
+- Both keys empty ⇒ `disabled`, which never refuses. A fresh checkout runs with
+  no CAPTCHA and nothing to remember.
+- Run it **last**, after the honeypot, the minimum-fill-time check, the IP
+  blocklist and the rate caps. It is a blocking HTTP call
+  (`RECAPTCHA_VERIFY_REQUEST_TIMEOUT`, 5s) and a flood must not reach it.
+- Pass `expected_action` on any endpoint with a real cost, so a token minted
+  for a cheap action cannot be replayed against an expensive one. A provider
+  declares `supports_action`; when it does, an EMPTY action fails closed — v3
+  always returns one, so a missing action is a token that was not minted the way
+  you think.
+
+Swapping provider is a setting: `CAPTCHA_PROVIDER` names a callable taking
+`(token, *, remote_ip)` and returning a `ProviderVerdict`. A provider with no
+score (reCAPTCHA v2, Turnstile) returns `score=None` and can never produce
+`low_score`; one with no action concept leaves `supports_action` False and is
+never asked for one. A provider that raises is caught and becomes `unavailable`,
+logged with its stack trace — a broken provider must not 500 every public form.
+
+**The trap worth knowing:** `RECAPTCHA_PUBLIC_KEY` + `RECAPTCHA_PRIVATE_KEY`
+are a pair whose mere presence switches reCAPTCHA on across the whole auth
+path. If the site key does not have the currently serving host registered,
+**nobody can sign in.** Register every host you serve before setting them.
+
+## Environment Setup
+
+The project uses environment variables for configuration. Key variables:
+
+- `DEBUG`: Development mode toggle
+- `SECRET_KEY`: Django secret key
+- `DATABASE_URL`: Database connection string
+- `CELERY_BROKER_URL`: Redis URL for Celery
+- `ALLOWED_HOSTS`: Comma-separated list of allowed hosts
+
+## Deployment
+
+The project is configured for deployment with Appliku:
+
+- Dockerfile included for containerization
+- Static file serving via WhiteNoise
+- Celery worker and beat processes configured
+
+
+### Appliku team and application
+
+This section describes the Team and Application name(s) when deployed with Appliku.
+
+It helps AI Agents to properly use Appliku CLI. If the project has more then one environment, all of them must be listed.
+
+Team path: not set
+Application name: not set
+
+## Responsiveness
+
+All work must be responsive and work on both mobile and desktop.
+
+After completing every task, check the result on both mobile and desktop and fix any responsive issues you find.
+
+## HTTP API
+
+### Philosophy
+
+- Server-rendered Django + crispy forms remains the default for product UI.
+- DRF is for versioned integration endpoints under `/api/v1/`.
+- Do not create a new `api` Django app. API code lives in the **owning app**.
+- OpenAPI schema at `/api/schema/` is the contract; every new endpoint must
+  appear there with `@extend_schema`.
+- Ad-hoc `JsonResponse` in `mainapp/views/` is only for tiny UI helpers (tours,
+  toggles). CRUD and integration surfaces go through DRF.
+
+### File layout
+
+| You're adding…                    | Put it in                                                                  |
+|-----------------------------------|----------------------------------------------------------------------------|
+| User / profile API                | `usermodel/api.py` (single-file; do not package-split `usermodel`)         |
+| Team / tenant API                 | `mainapp/api/teams.py`                                                     |
+| Business resource API             | `mainapp/api/<group>.py` + route in `project/api_urls.py`                  |
+| Shared API permissions / mixins   | `speedpycom/api/` (cross-cutting helpers only, not feature code)           |
+| API tests                         | `mainapp/tests/test_api_<group>.py` or next to the owning app              |
+
+Re-export public API views from `mainapp/api/__init__.py` when useful, mirroring
+the package-style pattern used for models and views.
+
+### URL conventions
+
+- Version prefix: `/api/v1/`
+- User-global resources: `/api/v1/me/`
+- Team-scoped resources: `/api/v1/teams/{team_id}/<resource>/`
+- Use UUID path segments for object IDs (matches `BaseModel` primary keys).
+- Timestamps: UTC ISO-8601. Pagination: global `PageNumberPagination` defaults.
+- Nested collections use trailing slashes consistently with existing Django URL style.
+
+### Serializer and view conventions
+
+- **Read-only, deliberately shaped responses** (e.g. `/me/`): plain `Serializer`,
+  not `ModelSerializer`, so every exposed field is explicit.
+- **CRUD on models**: `ModelSerializer` + generic views (`ListCreateAPIView`,
+  `RetrieveUpdateDestroyAPIView`) or thin `APIView` subclasses.
+- **Current user**: resolve from `request.user`, not a URL primary key. Use
+  `APIView`, not `RetrieveAPIView`, for `/me/`.
+- **Team context**: never trust `team_id` from the request body. Resolve from the
+  URL and verify membership before any queryset access.
+
+### OpenAPI requirements
+
+Every endpoint must include:
+
+- `@extend_schema` with `tags`, `operation_id`, `summary`, and request/response
+  serializers.
+- Tags mirror the resource group (`user`, `teams`, `<business-group>`).
+- Document auth requirements and common error responses (`401`, `403`, `404`,
+  validation errors).
+
+Add new tags to `SPECTACULAR_SETTINGS["TAGS"]` when introducing a resource group.
+
+### Scope conventions
+
+Boilerplate ships scopes for profile and teams only:
+
+| Scope            | Grants                                          |
+|------------------|-------------------------------------------------|
+| `read:profile`   | `GET /api/v1/me/`                               |
+| `write:profile`  | `PATCH /api/v1/me/`                             |
+| `read:teams`     | Team list, detail, members (read)               |
+| `write:teams`    | Invitations and other team writes               |
+| `admin`          | Reserved for future elevated operations         |
+
+When adding a business API, agents must:
+
+1. Define scope names: `read:<domain>`, `write:<domain>` (e.g. `read:products`).
+2. Document scopes in OpenAPI endpoint descriptions.
+3. Add scope checks to permission classes using `HasScope` from
+   `speedpycom.api.permissions` and set `required_scopes` on the view.
+   Stub checks are acceptable before Phase 6; enforcement becomes mandatory
+   once OAuth/PAT lands.
+4. Never invent ad-hoc permission strings outside this taxonomy.
+
+Custom scopes are **user-owned**. SpeedPy documents the pattern; fork owners
+register scopes for their models.
+
+### Tenant isolation checklist
+
+Agents must follow this for every team-scoped endpoint:
+
+1. Filter querysets through the current user's `TeamMembership` rows.
+2. Object lookup must not bypass membership checks (return `404` for unknown or
+   inaccessible teams, matching web view behavior).
+3. Write actions require role checks (`owner`, `admin`, `member`).
+4. Use `select_related()` / `prefetch_related()` on list endpoints.
+5. Respect `SPEEDPY_TEAMS_ENABLED`; return `404` when teams are disabled.
+6. Add **cross-team negative tests** for every new resource.
+
+**Reference implementation:** `mainapp/api/teams.py` shows the canonical pattern.
+Use `_check_teams_enabled()` and `_get_membership(user, team_id)` helpers for
+consistent 404 behavior. Team-scoped business resources nest under
+`/api/v1/teams/{team_id}/<resource>/` — register routes in `project/api_urls.py`.
+
+### Testing requirements
+
+For each new endpoint:
+
+- Anonymous requests are rejected.
+- Authenticated happy path returns expected status and field contract.
+- Field keys are stable (test exact keys for integration surfaces).
+- Tenant isolation: member of team A cannot access team B's objects.
+- Role boundaries: writes respect owner/admin/member rules.
+- Generated schema includes the new `operation_id`.
+
+Validation after changes:
+
+```bash
+uv run python manage.py spectacular --file /tmp/speedpy-openapi.yaml --validate
+uv run python manage.py test
+```
+
+### Canonical examples
+
+| Pattern              | Reference implementation                           | Phase |
+|----------------------|----------------------------------------------------|-------|
+| User read            | `GET /api/v1/me/` in `usermodel/api.py`            | 1     |
+| User write           | `PATCH /api/v1/me/` in `usermodel/api.py`          | 2     |
+| Business list/detail | `mainapp/api/products.py` (read-only Product API)  | 2     |
+| JWT auth             | `POST /api/auth/token/` (simplejwt)                 | 3     |
+| PAT management       | `usermodel/models.PersonalAccessToken`              | 4     |
+| Bearer auth          | `speedpycom/api/authentication.py`                  | 4     |
+| Team list/detail     | `mainapp/api/teams.py`                              | 5     |
+| Team members         | `GET /api/v1/teams/{id}/members/`                   | 5     |
+| Team invitations     | `POST /api/v1/teams/{id}/invitations/`              | 5     |
+| OAuth2 provider      | `django-oauth-toolkit` at `/o/`                     | 6     |
+
+Agents should read the reference implementation before adding a new resource.
+
+### Agent workflow
+
+For the full step-by-step recipe (model, serializer, views, scopes, URLs, tests, schema, webhooks, CLI/MCP examples), use the **`/add-integration-api`** skill. Quick summary:
+
+1. Model in `mainapp/models/<domain>.py` (`BaseModel` or `TeamModel`).
+2. Serializer + views in `mainapp/api/<domain>.py`.
+3. Re-export views from `mainapp/api/__init__.py`.
+4. Register URLs in `project/api_urls.py`.
+5. Define `read:<domain>` / `write:<domain>` scopes (settings, forms, schema components), add tag to `SPECTACULAR_SETTINGS["TAGS"]`, and set `required_scopes` on views with `HasScope`.
+6. Tests: anonymous rejection, happy path, field contract, tenant isolation, role boundaries, schema validation.
+7. Run `python manage.py spectacular --validate --fail-on-warn`.
+8. (Optional) Register webhook events in `mainapp/webhooks/events.py`.
+9. Add CLI subcommand + MCP tool in `examples/`.
+
+### Personal access tokens (PATs)
+
+Users create and manage PATs at `/accounts/tokens/`. Tokens authenticate API
+requests via the `Authorization: Bearer spd_<hex>` header.
+
+**Model:** `usermodel.models.PersonalAccessToken`
+- Tokens are **never stored in plaintext** — only a SHA-256 hash is persisted.
+- The raw token is returned **once** at creation time and cannot be recovered.
+- Each token has: `name`, `scopes` (JSON list), `expires_at` (optional),
+  `last_used_at` (updated on every authenticated request), `is_revoked`.
+
+**Authentication:** `speedpycom.api.authentication.PersonalAccessTokenAuthentication`
+is registered in `REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"]`. It runs
+before `SessionAuthentication` and only handles `spd_`-prefixed Bearer tokens,
+letting JWTs pass through to `JWTAuthentication`.
+
+**Audit logging:** Token creation, revocation, successful auth, and failed auth
+attempts are logged via `structlog` with `user_id`, `token_id`, and `token_name`.
+
+**Scopes on PATs:** Tokens can carry optional scopes (e.g.
+`["read:profile", "read:teams"]`). An empty scopes list means full access.
+`HasScope` enforces scope checks: if a PAT has scopes, the request is only
+allowed when the token's scopes include all of the view's `required_scopes`.
+Session-authenticated users have implicit full access.
+
+**Adding custom scopes for PATs:** When you add a new business API resource:
+
+1. Add `read:<domain>` / `write:<domain>` scopes to `OAUTH2_PROVIDER["SCOPES"]`
+   in `project/settings.py`. The PAT form picks them up automatically via the
+   scope registry in `speedpycom.api.scopes`.
+2. Set `required_scopes` on the view with `HasScope` permission class.
+3. Update `SPECTACULAR_SETTINGS["APPEND_COMPONENTS"]` OAuth2 flows to match.
+
+### CORS policy
+
+CORS is configured via `django-cors-headers` and scoped to `/api/` URLs only
+(`CORS_URLS_REGEX = r"^/api/"`). Non-API routes (`/accounts/`, `/demo/`, `/o/`,
+etc.) are unaffected.
+
+**When CORS is needed:**
+
+- Browser-based SPA clients calling the API cross-origin.
+- OAuth2 interactive flows where the browser calls `/api/` endpoints directly.
+
+**When CORS is NOT needed:**
+
+- Server-to-server integrations using PAT or JWT (`Authorization: Bearer …`
+  from a backend or script) — browser CORS policy does not apply.
+- CLI tools, MCP servers, CI/CD pipelines — these are not browsers.
+
+**Environment variables:**
+
+| Variable | Default | Description |
+|---|---|---|
+| `CORS_ALLOWED_ORIGINS` | `[]` | Comma-separated list of allowed origins (e.g. `https://app.example.com`) |
+| `CORS_ALLOW_ALL_ORIGINS` | `True` in DEBUG, `False` otherwise | Allow any origin. A startup guard raises `ImproperlyConfigured` if `True` with `DEBUG=False`. |
+| `CORS_ALLOW_CREDENTIALS` | `False` | Whether to allow credentials (cookies/auth headers). Most token clients do not need this. |
+
+Session-based CSRF is unchanged — `CsrfViewMiddleware` still enforces same-origin
+write protection for session-authenticated requests.
+
+**Note:** The OAuth2 endpoints live under `/o/`, outside the `/api/` CORS scope.
+If a browser SPA needs to call `/o/token/` directly, extend `CORS_URLS_REGEX` or
+add a separate configuration.
+
+### Explicit non-goals (ask user first)
+
+- Custom error envelopes.
+- New top-level Django apps for API code.
+- Exposing `is_staff`, `is_superuser`, passwords, or raw storage paths.
+- Unscoped querysets on `TeamModel` subclasses.
+
+### API docs visibility
+
+- `API_DOCS_PUBLIC=True` (default in `DEBUG`): schema, Swagger, and ReDoc are public.
+- `API_DOCS_PUBLIC=False` (default in production): schema, Swagger, and ReDoc require
+  staff login.
+
+### Authentication
+
+Four authentication methods are supported (tried in order):
+
+1. **Personal access token** (automation): `Authorization: Bearer spd_<hex>`.
+   Created at `/accounts/tokens/`. Supports optional scopes and expiry.
+2. **JWT** (first-party clients): `Authorization: Bearer <jwt>`.
+   Obtain at `POST /api/auth/token/` with email+password.
+   Refresh at `POST /api/auth/token/refresh/`.
+   Revoke at `POST /api/auth/token/revoke/`.
+   Access tokens expire in 15 minutes; refresh tokens in 7 days.
+   Refresh tokens rotate on use and old tokens are blacklisted.
+3. **OAuth2** (third-party apps, CLI, MCP): `Authorization: Bearer <oauth2_token>`.
+   Authorization Code + PKCE for web apps. Device Authorization Grant for
+   CLI/MCP clients. Manage applications in Django admin. Consent screen at
+   `/o/authorize/`. Token endpoint at `/o/token/`.
+   Scopes: `read:profile`, `write:profile`, `read:teams`, `write:teams`,
+   `read:products`, `admin`.
+4. **Session auth** (browser): works with allauth login, CSRF enforced on writes.
+
+### OAuth2 application lifecycle
+
+1. Register the application in Django admin (`oauth2_provider > Applications`).
+2. Choose grant type: Authorization Code (web) or Device Code (CLI/MCP).
+3. PKCE is required for authorization code flows.
+4. Users authorize via the consent screen at `/o/authorize/`.
+5. Exchange authorization code for tokens at `/o/token/`.
+6. Refresh tokens rotate automatically; revoked tokens are rejected.
+
+### Registering custom scopes for OAuth2
+
+When adding a business API with new scopes:
+
+1. Add the scope to `OAUTH2_PROVIDER["SCOPES"]` in `project/settings.py`.
+   The PAT form picks it up automatically via `speedpycom.api.scopes`.
+2. Add it to the `SPECTACULAR_SETTINGS["APPEND_COMPONENTS"]` OAuth2 flows.
+3. Set `required_scopes` on the view with `HasScope`.
+
+### CLI/MCP device flow
+
+For CLI tools and MCP servers that cannot open a browser redirect:
+
+1. Register a **public** application with grant type **Device Code**.
+2. Client calls `POST /o/device-authorization/` with `client_id` and `scope`
+   (content type `application/x-www-form-urlencoded`).
+3. Response includes `device_code`, `user_code`, and `verification_uri`.
+4. User opens `/o/device/` in a browser, enters `user_code`, and approves.
+5. Client polls `POST /o/token/` with `grant_type=urn:ietf:params:oauth:grant-type:device_code`
+   and `device_code` until the user approves or the code expires.
+
+### CLI and MCP starter examples
+
+The `examples/` directory contains ready-to-use client code:
+
+| Example                           | Description                                    |
+|-----------------------------------|------------------------------------------------|
+| `examples/cli/speedpy_cli.py`     | CLI with PAT and device-flow auth, `me`/`teams` commands |
+| `examples/mcp_server/speedpy_mcp.py` | MCP server exposing API tools for AI assistants |
+| `examples/README.md`             | Setup, auth flows, and extension guide          |
+
+**Management command:** `python manage.py create_oauth2_app "App Name"` registers
+a device-flow OAuth2 application and prints the client ID.
+
+When adding a new business API endpoint, also add:
+1. A CLI subcommand in `examples/cli/speedpy_cli.py` using `api_get()`.
+2. An `@mcp.tool()` function in `examples/mcp_server/speedpy_mcp.py` using `_api_get()`.
+
+Examples must stay generic — avoid project-specific business assumptions.
+
+### Integration auth recommendations
+
+Use this table to choose the right auth method for each integration scenario.
+Both PAT and OAuth2 are needed — OAuth2 is the primary path for interactive
+integrations; PATs are the automation shortcut.
+
+| Use case | Auth method | Why |
+|---|---|---|
+| Remote MCP server (Claude, Cursor, etc.) | OAuth2 Device Code | MCP spec mandates OAuth 2.1 for remote servers. PATs are "generally unsuitable" per the spec. |
+| ChatGPT / GPT Actions | OAuth2 Authorization Code + PKCE | Per-user access with consent screen. |
+| First-party CLI | OAuth2 Device Code (primary), PAT (fallback) | Device flow gives scoped, refreshable tokens. PAT for quick scripting. |
+| CI/CD pipelines | PAT | Non-interactive, no browser. Use short-lived scoped tokens. |
+| Shell scripts / cron jobs | PAT | Static bearer token via env var. |
+| n8n / Make.com / Zapier | OAuth2 Authorization Code + PKCE | These platforms support OAuth natively. PAT fallback for n8n "Header Auth". |
+| Local/stdio MCP server (dev) | PAT via env var | Token configured out-of-band in MCP client config. Outside MCP auth spec scope. |
+| Server-to-server | PAT | Client Credentials grant can be added later if needed. |
+
+**Quick start — connect an MCP server:**
+
+1. `python manage.py create_oauth2_app "My MCP Server"` → note the `client_id`
+2. Configure the MCP server with `client_id` and your instance URL
+3. On first use, the MCP client triggers device flow → user approves in browser → done
+
+**Quick start — CLI or script:**
+
+1. Go to `/accounts/tokens/` → create a PAT with desired scopes
+2. `export SPEEDPY_API_TOKEN=spd_...`
+3. Use `Authorization: Bearer spd_...` in requests
+
+### Dynamic Client Registration (RFC 7591)
+
+The MCP spec recommends Dynamic Client Registration so MCP clients can
+self-register without manual admin setup. SpeedPy provides an optional
+registration endpoint at `POST /o/register/`.
+
+**Request** (unauthenticated):
+
+```json
+{
+  "client_name": "My MCP Client",
+  "grant_types": ["urn:ietf:params:oauth:grant-type:device_code"],
+  "scope": "read:profile read:teams",
+  "token_endpoint_auth_method": "none"
+}
+```
+
+**Response** (`201 Created`):
+
+```json
+{
+  "client_id": "abc123...",
+  "client_name": "My MCP Client",
+  "grant_types": ["urn:ietf:params:oauth:grant-type:device_code"],
+  "scope": "read:profile read:teams",
+  "token_endpoint_auth_method": "none",
+  "client_id_issued_at": 1750000000
+}
+```
+
+Confidential clients (Authorization Code grant) also receive a `client_secret`.
+
+To restrict open registration, set `DCR_ENABLED = False` in settings (default:
+`True` in development, `False` in production). When disabled, applications
+must be registered via Django admin or the `create_oauth2_app` management
+command.
+
+## Template comments: always `{% comment %}`, never `{# #}`
+
+**Hard rule. `{# #}` is banned in templates.** A test fails on any occurrence.
+
+The short form works right up until somebody wraps the line, and then it stops
+being a comment and starts printing to the page — Django's `{# #}` is
+single-line only. Nothing errors, the page still returns 200, and every
+assertion about its content still passes.
+
+That has already shipped twice here. Once above the sign-in form, and once inside
+`{% if activating %}` on the billing overview, which is the post-checkout state a
+paying customer sees. The reason it survives review is that the harmless cases
+are indistinguishable from the broken ones in a diff: a comment placed between
+`{% extends %}` and the first `{% block %}` is discarded with all other
+out-of-block content, so it looks fine forever, while the identical construct
+inside a block leaks.
+
+```django
+{% comment %}
+Use this. It behaves the same on one line or ten.
+{% endcomment %}
+```
+
+`{% comment %}` also nests other tags safely, which `{# #}` does not.
+
+## Use the design system, do not re-create it
+
+`static/mainapp/input.css` defines the components — buttons, alerts, badges,
+cards, inputs, papers, progress. Reach for those before writing raw utilities.
+The gallery at `/speedpyui-preview/` shows every one, and
+`speedpycom/tests/test_design_system.py` guards the rules below.
+
+**Never hardcode a theme colour.** `bg-[#7582EB]` was the signup button for a
+long time. That hex is the DARK theme's `--color-primary-main` inlined, paired
+with `text-gray-900`, which is the dark theme's `--color-primary-contrast`. So in
+LIGHT mode the button was the wrong colour with near-black text, and nobody
+noticed. `btn btn-contained btn-primary btn-lg` is identical in dark and correct
+in light. A test now fails on any `bg-[#...]` in Python or in a template.
+
+**A class that appears nowhere does not exist.** Tailwind compiles only what it
+can see, so a variant declared in `input.css` and used in no template is absent
+from `styles.css` — and using it later renders *nothing*, with no error.
+`alert-neutral` sat in exactly that state until it was added to the gallery.
+**50 of 243 component classes still are** (blockquotes, displays, modal,
+tooltip, tabs, several progress and paper variants). If you need one, add it to
+the gallery in the same commit and run `npm run tailwind:build`.
+
+Audit the gap:
+
+```bash
+python -c "
+import re, pathlib;
+inp=pathlib.Path('static/mainapp/input.css').read_text();
+out=pathlib.Path('static/mainapp/styles.css').read_text();
+d=set();
+[d.update(re.findall(r'\.([\w-]+)', m.group(1))) for m in re.finditer(r'^\s*((?:\.[\w-]+)(?:[.\s,]+\.[\w-]+)*)\s*\{', inp, re.M)];
+print(sorted(c for c in d if f'.{c}' not in out))
+"
+```
+
+**Missing a component that every Tailwind kit ships?** Build it in `input.css`,
+show it in the gallery, and it is available everywhere. The gallery does double
+duty on purpose: it forces classes into the build AND documents them for the
+next person or agent.
+
+**Contained buttons lighten on hover in dark mode.** Not a preference — the
+contained variants take their text from `--color-*-contrast`, which is dark in
+the dark theme, so darkening the background on hover collapsed primary from
+5.19:1 to 2.86:1, under WCAG AA. Lightening gives 6.86:1.
+
+## Blocked email domains
+
+Two lists, and the split is the whole point.
+
+| List | File | Who owns it |
+|---|---|---|
+| Throwaway-mail providers (~8,000 domains) | `speedpycom/data/disposable_email_blocklist.conf` | **upstream** — replaced wholesale on refresh |
+| This project's own | `blocked_email_domains.txt` (repo root) | **the project** — upstream never writes to it |
+
+**Never add a domain to the bundled file.** It is overwritten every time it is
+refreshed, so the edit disappears without a trace. Project domains go in
+`blocked_email_domains.txt`, or in `SPEEDPY_BLOCKED_EMAIL_DOMAINS` for a one-off
+block with no deploy. Both sources are merged, not one-or-the-other.
+
+**The purpose is narrow: these are domains we do not send email to.** Not access
+control, not authorization. So it is enforced where an address enters and again
+where mail would otherwise leave:
+
+| Where | Effect |
+|---|---|
+| `UsermodelSignupForm.clean()` | signup refused, address never stored |
+| `UsermodelAddEmailForm.clean_email` | add-email refused before it is stored, so no confirmation mail is attempted |
+| `speedpycom/email_backends.py` | recipient dropped before the ESP sees it |
+
+The entry checks are self-service only: an admin who sets `User.email` directly,
+a CSV import, or allauth headless all bypass the forms. Every point calls
+`speedpycom/services/email_domains.py::is_blocked`. At the form doors it runs
+before the MX lookup, because two in-memory set lookups cost nothing next to a
+DNS call with a two-second budget. The send-time guard is the backstop for
+whatever entered another way.
+
+Direct backend construction (`get_connection(...)`) bypasses the send-time guard
+and nothing here can prevent that — catch it in review.
+
+**Two address spellings used to slip past, both fixed, both worth knowing if you
+write a similar check:** a display-name recipient (`"Name <user@blocked>"`, where
+splitting at the last `@` yields `blocked>`), and a Unicode domain against a
+punycode list entry (the bundled list has `xn--` entries, and Django punycodes on
+the way out). Addresses go through `parseaddr`, and every domain is canonicalised
+to one IDNA form.
+
+Format: one domain per line, `#` comments, blank lines ignored, matching is
+case-insensitive. A **leading dot** covers subdomains: `.corp.example` blocks
+`corp.example` and `mail.corp.example`, while a bare `corp.example` blocks only
+itself. That asymmetry is deliberate — silently blocking every subdomain of a
+bare entry would surprise people.
+
+Settings: `SPEEDPY_BLOCK_DISPOSABLE_EMAIL_DOMAINS` (default **True**),
+`SPEEDPY_BLOCKED_EMAIL_DOMAINS_FILE`, `SPEEDPY_BLOCKED_EMAIL_DOMAINS`. Turning
+the bundled list off does **not** disable the project list; they are two
+decisions.
+
+### Refreshing the bundled list
+
+Source: <https://github.com/disposable-email-domains/disposable-email-domains>
+(CC0-1.0, so no attribution obligation — recorded so you know where to look).
+
+```bash
+curl -sS -o speedpycom/data/disposable_email_blocklist.conf \
+  https://raw.githubusercontent.com/disposable-email-domains/disposable-email-domains/main/disposable_email_blocklist.conf
+```
+
+**No automation, on purpose.** A signup gate that changes what it rejects on a
+schedule, unattended, is not a thing to want. Refresh it by hand and read the
+diff.
+
+Then run `python manage.py test speedpycom.tests.test_email_domains`. It asserts
+the list does not contain any of twenty real providers — because the failure mode
+of a bad upstream pull request is that signups from Gmail stop working, nothing
+errors, nothing logs, and nobody complains, since they cannot sign up to
+complain.
+
+That list of ~8,000 vetted domains was chosen over the aggregated 100,000+ ones
+on purpose: refusing one real customer costs more than letting a throwaway
+signup through.
+
+### The refusal message
+
+One message for every reason, from `email_domains.BLOCKED_EMAIL_MESSAGE`, and it
+says nothing about which list matched or why. A wording per reason *is* the
+diagnosis, and a person probing the filter learns from it what to try next. The
+cost is that a real customer hits a wall, which is why the message points at
+support. Keep it that way — and if you add another reason for refusing an
+address, reuse this message rather than writing a second one.
+
+## Email bounces and suppression
+
+**This already exists. Do not build it again.** If a project needs to stop
+emailing addresses that bounce, wire what is here rather than writing a new one.
+
+It is deliberately in two halves, and knowing which is which saves a rewrite
+when the ESP changes:
+
+**Enforcement — provider-agnostic, always on.**
+
+| Piece | Where |
+|---|---|
+| `SuppressedEmail`, `EmailEvent` | `speedpycom/models/email_events.py` |
+| record / suppress / release / query | `speedpycom/services/email_events.py` |
+| pre-send guard | `speedpycom/email_backends.py` |
+| "we stopped emailing you" notice | `speedpycom/templatetags/suppression.py` + `templates/account/snippets/_suppression_warning.html` |
+
+`POST_OFFICE["BACKENDS"]["default"]` is the guard, which wraps whatever
+`EMAIL_PROVIDER` resolves to. That is the point: allauth mail, invitations and
+any third-party package are covered without touching their call sites. None of
+this cares which ESP you use.
+
+**Detection — Amazon-specific, opt-in.**
+
+| Piece | Where |
+|---|---|
+| SNS signature verification | `speedpycom/services/sns.py` |
+| webhook view | `speedpycom/views_ses.py` |
+| URL, not routed by default | `speedpycom/urls_email_events.py` |
+
+On another ESP, write this half yourself and call
+`speedpycom.services.email_events.suppress()` from it. Everything downstream
+already works.
+
+### Four things that will bite you
+
+1. **A transient bounce must never suppress.** An out-of-office auto-reply
+   arrives as a bounce event. Suppress on "bounce" without reading the
+   permanence and everyone who goes on holiday stops receiving your email,
+   permanently, with nothing to tell you.
+2. **Anymail's normalized `tracking` signal flattens exactly that
+   distinction.** It looks like the obvious provider-agnostic route, but
+   `anymail/webhooks/amazon_ses.py` maps *every* SES bounce, permanent and
+   transient, to `EventType.BOUNCED`. The permanence survives only in
+   `description` ("Transient: General") and the raw `esp_event`. Read those, or
+   you ship the bug in point 1.
+3. **A configuration set is a second IAM resource.** Setting
+   `AWS_SES_CONFIGURATION_SET` without adding the configuration-set ARN to the
+   sending policy's `Resource` denies **every** send — and post_office swallows
+   it into the database while the page still says the mail was sent.
+4. **Tell people you stopped.** Suppression without a notice means a customer
+   whose mailbox filled up goes silent forever: no password resets, no error,
+   no explanation. The account-page notice is included in
+   `templates/account/email.html` for exactly this.
+
+### Tenant attribution
+
+`EmailEvent.team` is filled by whatever `SPEEDPY_EMAIL_EVENT_TEAM_RESOLVER`
+points at — a dotted path taking a recipient and returning a `Team` or `None`.
+Unset by default. **Whatever you write there must return `None` when the answer
+is ambiguous**; an address belonging to two customers has no single right
+answer, and a null is honest where a guess is not.
+
+Full setup, including the AWS side, is in `speedpy-docs/docs/email-bounces.md`.
+
+## Team deletion (owner-only, with an undo window)
+
+A team is the foreign key of every tenant row, so ending one is the most
+destructive action a customer has. It is also the gap that used to leave
+abandoned teams — and whatever they still serve publicly — in the database
+forever, with no way to remove them outside the admin.
+
+**Setting.** `SPEEDPY_TEAM_DELETION_DELAY_HOURS`, default 24. `0` deletes on the
+click. Anything else schedules the deletion that many hours out and lets any
+owner undo it until then. The copy beside the button follows the setting, so
+there is one source of truth for the number.
+
+**Where it lives.**
+
+| Piece | File |
+|---|---|
+| Fields + lifecycle + the billing invariant | `mainapp/models/teams.py` (`Team.request_deletion`, `cancel_scheduled_deletion`, `deletion_blocked_reason`, `delete`) |
+| The finalizer and the cleanup-hook runner | `mainapp/models/teams.py` (`finalize_team_deletion`, `run_team_cleanup_hooks`) |
+| Owner-only views | `mainapp/views/teams.py` (`TeamOwnerRequiredMixin`, `TeamDeleteView`, `TeamDeleteCancelView`) |
+| Danger zone UI | `templates/mainapp/teams/settings.html` |
+| Hourly purge | `mainapp/tasks/teams.py::purge_scheduled_team_deletions`, beat entry in `project/celeryapp.py` |
+| Tests | `mainapp/tests/test_team_deletion.py` (33) |
+
+**Four decisions, each with a reason. Do not "tidy" any of them away.**
+
+1. **A scheduled team stays active.** `TeamViewMixin` resolves `is_active` teams
+   only, so setting `is_active=False` when scheduling would hide the undo button
+   behind a 404 from the one person allowed to press it. The team is not deleted
+   yet; it keeps working until it is.
+2. **A live subscription blocks the deletion, everywhere.** `active`, `past_due`
+   and `paused` all block (`BillingSubscription.ACTIVE_ISH_STATUSES`) — `past_due`
+   can still retry a card and `paused` can resume. `canceled` does not block,
+   even inside its paid period: nobody is charged again. The check is **not**
+   gated on `SPEEDPY_BILLING_ENABLED`, because that flag says whether you sell,
+   not whether a provider is charging. It runs in the view, again in the purge
+   task, and last of all in `Team.delete()` so admin and shell cannot walk around
+   it. Checkout is refused for a scheduled team for the same reason
+   (`mainapp/views/billing.py::start_checkout`).
+3. **The purge deletes one team per transaction, under `select_for_update`.** A
+   bulk queryset delete would bypass `Team.delete()` and with it the invariant,
+   and it would race with an undo.
+4. **Object storage is the project's problem, not the boilerplate's.** A cascade
+   deletes rows and nothing else, so files (logos, uploads, transcoded video, CDN
+   copies) outlive their rows: unreachable, still paid for, sometimes still
+   publicly readable. `SPEEDPY_TEAM_DELETION_CLEANUP_HOOKS` is a list of dotted
+   paths, each called with the team **before** the rows go. A hook must be
+   idempotent and must **raise** on failure — a raising hook keeps the team
+   scheduled so the next run retries, which is why the rows are not deleted
+   first.
+
+**Two limits worth knowing before you trust the retry story.** The rollback
+covers *database* writes only — a hook that deleted an object from storage and
+then failed cannot put it back, so a hook should do its most fragile work first.
+And a hook only fails loudly if the code it calls raises: a teardown that
+delegates to something which logs-and-continues (a CDN purge, typically) reports
+success to the finalizer whatever happened underneath.
+
+Deletion routes through the finalizer from **every** entrance: the zero-hour
+path, the purge task, and both admin deletes (`delete_model` and
+`delete_queryset` — the bulk action never calls `Model.delete()`, so without the
+override it skipped the subscription rule too).
+
+## Purging unconfirmed signups
+
+Email verification is mandatory, so a signup that never confirms leaves a row
+nobody can ever use: the person cannot sign in, and if their address is on the
+suppression list they cannot even be sent another confirmation — the mail is
+dropped before it reaches the provider. The account exists, holds a team, and
+does nothing.
+
+The other option — refusing such an address at the signup form and saying why —
+was considered and rejected: telling somebody which addresses are refused teaches
+a throwaway-mail user which providers still work, and the blocklist exists
+precisely so that conversation never happens. So the signup succeeds, and this
+removes it later.
+
+**Off by default.** A boilerplate that deletes user accounts on a timer without
+being asked would be a nasty surprise.
+
+```python
+SPEEDPY_UNCONFIRMED_ACCOUNT_PURGE_DAYS = 7    # 0 = off
+```
+
+Preview before switching it on — this is what `--dry-run` is for:
+
+```bash
+uv run python manage.py purge_unconfirmed_accounts --dry-run
+```
+
+| Piece | Where |
+|---|---|
+| The service | `speedpycom/services/account_purge.py::UnconfirmedAccountPurge` |
+| Daily task | `speedpycom/tasks.py::purge_unconfirmed_accounts` (beat at 04:30) |
+| Command | `speedpycom/management/commands/purge_unconfirmed_accounts.py` |
+| The team half | `mainapp/models/teams.py::delete_sole_member_teams`, registered as a hook |
+| Tests | `speedpycom/tests/test_account_purge.py` (23) + `mainapp/tests/test_team_deletion.py::PurgedAccountTeamTests` |
+
+**The predicate is deliberately narrow.** Every exclusion is somebody's real
+account: it must be active, neither staff nor superuser, have **never logged in**,
+have **at least one** `EmailAddress` row with **none** verified, and be older than
+the window. The "at least one" is what protects a user created by hand in the
+admin — such a row often has no `EmailAddress` at all and would match a bare
+"has no verified address" test.
+
+**The window must exceed `ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS`** (allauth's
+default is 3), or the purge races the last valid click on a confirmation link. 7
+is the recommended value for a 3-day link.
+
+**The team is not optional.** `Team` has no foreign key to a user — membership is
+the only link, and that cascades — so without the hook every purged signup leaves
+its auto-provisioned team behind for good. Only teams where the purged user was
+the **last** member are deleted; a shared team belongs to whoever is left. It goes
+through `finalize_team_deletion`, so the project's storage teardown runs and a
+team that is still being charged raises instead — which keeps the account too,
+because a paid team is not something to remove on a timer.
+
+**Change it by subclassing, not by editing.** Point
+`SPEEDPY_UNCONFIRMED_ACCOUNT_PURGE_CLASS` at your own subclass and override
+`queryset()` or `purge_user()`. Same reasoning as everywhere else in
+`speedpycom/`: a project that edits the package inherits a merge conflict on
+every update.
+
+## Webhook Extension Guide
+
+This section explains how to add a new webhook event type to SpeedPy. The
+delivery infrastructure (endpoint model, dispatch function, Celery task, HMAC
+signing) is already built — you only need to register the event, call
+`dispatch_event()` from business logic, add a test, and update docs.
+
+### Architecture overview
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| Event registry | `mainapp/webhooks/events.py` | `WebhookEvent` class with constants, `ALL` frozenset, `CHOICES` tuple |
+| Dispatch | `mainapp/webhooks/dispatch.py` | `dispatch_event(team, event_type, data)` — creates delivery rows and enqueues Celery tasks via `transaction.on_commit` |
+| Delivery task | `mainapp/tasks/webhooks.py` | HMAC-signed POST with exponential-backoff retries (up to 8) |
+| Signing | `mainapp/webhooks/signing.py` | `sign()` / `verify()` HMAC-SHA256 helpers |
+| Endpoint model | `mainapp/models/webhooks.py` | `WebhookEndpoint` (subscription) and `WebhookDelivery` (delivery log) |
+| Tests | `mainapp/tests/test_webhooks.py` | Model, dispatch, signing, and admin tests |
+
+### Naming convention
+
+Event names are lowercase and dot-separated, following the pattern
+`resource.action` or `resource.sub_resource.action` when a sub-resource
+is involved.
+
+Examples: `order.created`, `team.member.added`, `team.invitation.created`,
+`user.profile.updated`, `invoice.payment.failed`.
+
+### Step-by-step: adding a new event (e.g. `order.created`)
+
+#### Step 1 — Register the event constant
+
+Add the constant to `WebhookEvent` in `mainapp/webhooks/events.py` and include
+it in the `ALL` frozenset:
+
+```diff
+--- a/mainapp/webhooks/events.py
++++ b/mainapp/webhooks/events.py
+@@ -7,6 +7,9 @@
+     # -- User events ----------------------------------------------------------
+     USER_PROFILE_UPDATED = "user.profile.updated"
+
++    # -- Order events ---------------------------------------------------------
++    ORDER_CREATED = "order.created"
++
+     # -- Convenience collections ----------------------------------------------
+     ALL: frozenset[str] = frozenset(
+         {
+             TEAM_MEMBER_ADDED,
+             TEAM_INVITATION_CREATED,
+             USER_PROFILE_UPDATED,
++            ORDER_CREATED,
+         }
+     )
+```
+
+#### Step 2 — Call `dispatch_event()` from business logic
+
+Import the dispatch function and call it after the relevant database write
+succeeds. The `data` dict is the event-specific payload — include only stable
+IDs and timestamps, not localized display strings or cross-tenant data.
+
+```python
+from mainapp.webhooks.dispatch import dispatch_event
+from mainapp.webhooks.events import WebhookEvent
+
+# Inside a view, signal handler, model method, or Celery task —
+# after the DB write that creates the order:
+dispatch_event(
+    team=order.team,
+    event_type=WebhookEvent.ORDER_CREATED,
+    data={
+        "order_id": str(order.id),
+        "total": str(order.total),
+        "currency": order.currency,
+        "created_at": order.created_at.isoformat(),
+    },
+)
+```
+
+**Placement rules:**
+
+- Call `dispatch_event()` **after** the DB write that triggers the event.
+- `dispatch_event()` uses `transaction.on_commit` internally, so delivery rows
+  are enqueued only after the current transaction commits. If your code is
+  already inside `transaction.atomic()`, the dispatch is safe as-is.
+- For user-scoped events (like `user.profile.updated`), dispatch once per team
+  the user belongs to — iterate over memberships.
+
+**Payload `data` dict guidelines:**
+
+- Use stable identifiers (UUIDs, not sequential IDs that differ across environments).
+- Include UTC ISO-8601 timestamps.
+- Never include secrets, passwords, or raw file paths.
+- Never leak cross-tenant data — the payload should only contain information
+  the subscribing team is authorized to see.
+- Envelope fields (`event_id`, `event_type`, `timestamp`, `api_version`) are
+  added automatically by `dispatch_event()` — only provide the `data` dict.
+
+#### Step 3 — Add a test
+
+Add a test in `mainapp/tests/test_webhooks.py` that triggers the event and
+asserts a `WebhookDelivery` row is created with the correct `event_type` and
+payload shape:
+
+```python
+class OrderWebhookDispatchTests(TestCase):
+    def setUp(self):
+        self.team = Team.objects.create(name="Acme", slug="acme")
+        self.endpoint = WebhookEndpoint.objects.create(
+            team=self.team,
+            url="https://example.com/hook",
+            events=["order.created"],
+        )
+
+    @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
+    @patch("mainapp.tasks.webhooks.deliver_webhook.delay")
+    def test_order_created_dispatch(self, mock_deliver):
+        from mainapp.webhooks.dispatch import dispatch_event
+
+        ids = dispatch_event(
+            team=self.team,
+            event_type=WebhookEvent.ORDER_CREATED,
+            data={"order_id": "abc-123", "total": "99.00", "currency": "USD"},
+        )
+        self.assertEqual(len(ids), 1)
+        delivery = WebhookDelivery.objects.get(pk=ids[0])
+        self.assertEqual(delivery.event_type, "order.created")
+        self.assertIn("order_id", delivery.payload["data"])
+        self.assertIn("event_id", delivery.payload)
+        self.assertIn("timestamp", delivery.payload)
+```
+
+**Test coverage checklist:**
+
+- Delivery row is created with the correct `event_type`.
+- `payload["data"]` has the expected keys.
+- Envelope fields (`event_id`, `event_type`, `timestamp`, `api_version`) are present.
+- Endpoints not subscribed to this event do **not** receive a delivery.
+- Wildcard (`["*"]`) endpoints **do** receive the new event.
+
+#### Step 4 — Update the docs
+
+Add the new event to the taxonomy table in `speedpy-docs/docs/webhooks.md`
+under the **v1 Events** section:
+
+```markdown
+| `order.created` | A new order is placed |
+```
+
+### Self-review checklist
+
+Use this checklist before marking the work done:
+
+- [ ] Constant added to `WebhookEvent` in `mainapp/webhooks/events.py` and
+      included in `ALL`
+- [ ] `dispatch_event()` called from the right place in business logic
+- [ ] Payload `data` dict contains only tenant-safe, stable fields
+- [ ] Test asserts delivery row creation and payload shape
+- [ ] Event added to `speedpy-docs/docs/webhooks.md` taxonomy table
+
+### Current status of v1 events
+
+The three v1 events (`team.member.added`, `team.invitation.created`,
+`user.profile.updated`) are defined in the event registry but are **not yet
+dispatched from production code paths** (views, signals). They are exercised
+in tests and the manual "test event" API endpoint. Wiring these events into
+production business logic is tracked separately and is not part of this
+extension guide.
+
+## Production Readiness / Strip Demo Content
+
+SpeedPy ships demo and placeholder content as teaching examples: `demoapp/`
+(Product CRUD), demo API endpoints (`/api/v1/products/`, `/api/v1/jobs/demo/`),
+a demo Celery task (`run_demo_job`), placeholder pages (welcome, pricing), and
+`DEMO_MODE` login credentials. Fork owners should remove these before
+production.
+
+**Resources:**
+
+- **`PRODUCTION_READY.md`** — step-by-step human checklist for stripping demo
+  content. Covers fresh forks and existing databases.
+- **`demo-content.json`** — machine-readable manifest of every demo artifact
+  with category, paths, removal action, and verification terms.
+- **`/strip-demo` skill** (`.claude/skills/strip-demo/SKILL.md`) — audit-first
+  agent workflow. Reads the manifest, scans for `SPEEDPY_DEMO` markers,
+  presents a removal plan, and waits for confirmation before editing anything.
+
+**Quick audit:** `rg SPEEDPY_DEMO` finds all marked demo artifacts. Every
+marker corresponds to an entry in `demo-content.json`.
+
+**Unroute every preview and example page before production.** The SpeedPy UI
+preview (`/speedpyui-preview/` and `/speedpyui-preview/FormView`) is a component
+gallery for development, and it is routed by default — so a fresh deploy serves
+it publicly to anyone who guesses the URL. It leaks no secrets, but it is an
+internal tool on a customer-facing domain and it widens the attack surface for
+no benefit. Found live on a real deployment, returning 200.
+
+**Keep the views and templates; remove only the `path()` entries.** The gallery
+is what forces every design-system class into the Tailwind build — Tailwind
+compiles only the classes it can see, so deleting those templates silently drops
+`btn-outlined`, `alert-warning` and friends out of `styles.css`, and the failure
+shows up later as a component that renders unstyled. Re-add the routes locally
+whenever you work on the design system.
+
+The same rule applies to anything else that exists to demonstrate rather than to
+serve: sample dashboards, fixture browsers, mail previews, API playgrounds.
+
+**Key decisions for fork owners:**
+
+- `AsyncJob` model and `JobStatusView` are **reusable infrastructure** — keep
+  them if your app needs async job status polling. Only remove the demo entry
+  point (`DemoJobCreateView`, `run_demo_job`).
+- Placeholder pages (welcome, pricing) should be **replaced**, not deleted —
+  the root URL must resolve.
+- Tests in `test_api_pagination.py`, `test_api_throttle.py`, and
+  `test_api_request_id.py` use `/api/v1/products/` as a convenience endpoint.
+  Migrate them to your domain endpoint before removing the Product API.
+
+## Realtime / Server Push
+
+SpeedPy does not ship realtime infrastructure by default. For guidance on
+choosing between long polling, SSE, WebSockets (Django Channels), and external
+event buses, see the **Realtime Strategy** decision doc in
+`speedpy-docs/docs/realtime.md`.
+
+**Short version:** start with interval polling (`202 Accepted` + status URL) for
+job/task progress — it works with the existing WSGI + Celery stack and requires
+zero new dependencies. Graduate to SSE for streaming or lower latency. Adopt
+WebSockets only when you have a concrete bidirectional use case.
+
+---
+> Source: [speedpy/speedpy](https://github.com/speedpy/speedpy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
