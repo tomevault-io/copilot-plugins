@@ -1,0 +1,9 @@
+{
+  "name": "aabbcdl--agentarena",
+  "displayName": "AgentArena",
+  "description": "Open-source benchmark and replay tool for comparing AI coding agents in real repositories.",
+  "version": "1.0.0",
+  "author": "aabbcdl",
+  "homepage": "https://github.com/aabbcdl/AgentArena",
+  "skills": []
+}
