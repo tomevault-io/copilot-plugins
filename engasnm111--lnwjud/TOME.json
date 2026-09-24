@@ -1,0 +1,87 @@
+{
+  "name": "lnwjud",
+  "owner": "engasnm111",
+  "repo": "lnwjud",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lnwjud",
+      "path": ".agents/skills/ponytail/SKILL.md",
+      "github_url": "https://github.com/engasnm111/lnwjud/tree/main/.agents/skills/ponytail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lnwjud",
+      "path": ".agents/skills/ponytail-help/SKILL.md",
+      "github_url": "https://github.com/engasnm111/lnwjud/tree/main/.agents/skills/ponytail-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lnwjud",
+      "path": ".agents/skills/ponytail-gain/SKILL.md",
+      "github_url": "https://github.com/engasnm111/lnwjud/tree/main/.agents/skills/ponytail-gain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lnwjud",
+      "path": ".agents/skills/ponytail-debt/SKILL.md",
+      "github_url": "https://github.com/engasnm111/lnwjud/tree/main/.agents/skills/ponytail-debt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lnwjud",
+      "path": ".agents/skills/ponytail-audit/SKILL.md",
+      "github_url": "https://github.com/engasnm111/lnwjud/tree/main/.agents/skills/ponytail-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lnwjud",
+      "path": ".agents/skills/ponytail-review/SKILL.md",
+      "github_url": "https://github.com/engasnm111/lnwjud/tree/main/.agents/skills/ponytail-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lnwjud",
+      "path": ".agents/skills/lnwjud-scheduled-continuation/SKILL.md",
+      "github_url": "https://github.com/engasnm111/lnwjud/tree/main/.agents/skills/lnwjud-scheduled-continuation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/engasnm111/lnwjud",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T13:42:16Z"
+}
