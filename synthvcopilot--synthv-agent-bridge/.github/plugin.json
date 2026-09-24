@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "SynthVCopilot",
   "homepage": "https://github.com/SynthVCopilot/synthv-agent-bridge",
-  "skills": []
+  "skills": [
+    {
+      "name": "synthv-agent-bridge",
+      "description": ""
+    }
+  ]
 }
