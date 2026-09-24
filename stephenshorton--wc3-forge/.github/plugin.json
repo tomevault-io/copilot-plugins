@@ -1,0 +1,9 @@
+{
+  "name": "stephenshorton--wc3-forge",
+  "displayName": "wc3-forge",
+  "description": "A Warcraft III map editor designed to be driven by Claude Code as much as by hand. Go + Svelte/TypeScript single Wails binary with an embedded MCP server.",
+  "version": "1.0.0",
+  "author": "StephenSHorton",
+  "homepage": "https://github.com/StephenSHorton/wc3-forge",
+  "skills": []
+}
