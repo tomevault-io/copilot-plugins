@@ -1,0 +1,9 @@
+{
+  "name": "rvdbreemen--adr-kit",
+  "displayName": "adr-kit",
+  "description": "Architecture decisions your AI coding agents actually follow. Ranked ADR retrieval and context injection, deterministic pre-commit and CI enforcement with file:line citations, guided authoring, a stal",
+  "version": "1.0.0",
+  "author": "rvdbreemen",
+  "homepage": "https://github.com/rvdbreemen/adr-kit",
+  "skills": []
+}
