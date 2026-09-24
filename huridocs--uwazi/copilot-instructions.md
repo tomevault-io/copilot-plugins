@@ -1,147 +1,53 @@
 ## uwazi
 
-> Uwazi is a flexible database application to capture and organise collections of information with a particular focus on document management. HURIDOCS started Uwazi and is supporting dozens of human rights organisations globally to use the tool.
+> The Express API in `app/api`, plus queue workers (`app/worker.ts`, `app/queueWorker.ts`,
 
-# Agents context
+# Backend
 
-## Project Overview
+The Express API in `app/api`, plus queue workers (`app/worker.ts`, `app/queueWorker.ts`,
+`app/setupQueueWorker.ts`), `scripts/` and `database/`.
 
-Uwazi is a flexible database application to capture and organise collections of information with a particular focus on document management. HURIDOCS started Uwazi and is supporting dozens of human rights organisations globally to use the tool.
+**Multi-tenant.** Nothing runs globally: every request, job and script executes inside an
+execution context scoped to a single tenant, and data and feature flags are read through it. Code
+that steps outside that context leaks data across tenants.
 
-## Backend
+## Where code lives
 
-### Tech Stack
+`app/api` is the back end. Alongside it sit the workers, which run the same code outside the
+request cycle: `app/worker.ts`, `app/queueWorker.ts` and `app/setupQueueWorker.ts`, with jobs
+registered in `app/queueRegistry.ts`.
 
-Backend is in `app/api`
+Generations coexist inside `app/api`. `core/` is the target architecture and the place new work
+belongs unless there is a reason otherwise; `*.v2/` is an earlier V2 generation, still in use but
+not a pattern to copy or extend; everything else is V1 legacy, with business rules, persistence and
+HTTP mixed together.
 
-- NodeJS
-- Express
+**Prefer full DDD.** A module gets the whole hexagon — domain, application, infrastructure — even
+when its domain model is thin, a bag of properties with little behaviour. Thinness is not a reason
+to collapse layers; the model is expected to grow into them. `architecture.md` defines what each
+layer holds.
 
-### Commands
+Two databases: MongoDB (legacy) and PostgreSQL (V2), and a Mongo→Postgres migration is in progress.
+Which one backs a given module is decided per tenant by feature flags — read the module's own
+factory to find out rather than assuming, and keep both paths working.
 
-- **Install:** `yarn install`
-- **Test:** `yarn test app/api`
-- **Suggested Jest invocation for targeted test runs:** `DEBUG=true node --no-experimental-fetch ./node_modules/.bin/jest <path-or-pattern> -w=4`
-- **Run:** `yarn hot`
-- **Translations CSV update:** never edit translation keys manually in CSV files; run `yarn update-translations-csv` instead.
+Elasticsearch backs search. A change to indexed data may require a reindex — say so in your summary.
 
-### Architecture Status
+## Rules
 
-The backend is currently a mix of V1 (legacy) and V2 (new core) code. The migration is in progress.
+1. **Before editing any backend code, read `docs/backend/architecture.md`.**
+2. **Before writing or changing a spec, read `docs/backend/testing.md`.**
+3. **Before editing a V1 module** (anything in `app/api` outside `core/` and `*.v2/`), also read
+   `docs/backend/v1-legacy.md`.
+4. **Before adding a migration, read `docs/backend/migrations.md`.**
 
-#### V1
+## Commands
 
-- Legacy, CRUD-centric architecture with no clear separation of concerns.
-- Business rules, persistence logic, and HTTP concerns are mixed in the same modules.
-- Batch operations trigger single sequential updates, causing performance bottlenecks.
-- Example: `app/api/entities`
+**Run** — `yarn hot` (server + webpack + types), `yarn dev-worker`, `yarn dev-queue`.
 
-#### V2
-
-- Located in `app/api/core`
-- Hexagonal/DDD architecture: business logic in a clean core, persistence and delivery as adapters.
-- The core covers the basic data model: entities, templates, files, thesauri, relationships.
-- Some V2 modules still depend on the legacy layer via `app/api/core/v1_layer/` — this is intentional and temporary during the transition.
-
-### Design Principles
-
-- **Hexagonal architecture** — domain logic is independent of persistence and delivery mechanisms.
-- **CQRS** — use cases as commands; queries as services or simple controller implementations depending on complexity.
-- **`core` must not depend on external modules** — only on itself.
-- **Domain models encapsulate business rules** — validation, state changes, and invariants live in the domain layer, not in services or controllers.
-- **Use cases as clear entry points** — each use case represents a complete application action. Reading a single use case file should tell the full story of that action. Use cases may trigger async jobs when operations are too expensive to handle synchronously.
-- **Adapters bridge domain and infrastructure** — repositories (DataSources) hide persistence details; controllers, jobs, and CLI scripts act as delivery mechanisms without leaking infrastructure concerns.
-- **Contracts define external boundaries** — schemas and TypeScript types define the interface between the application layer and the outside world.
-
-### Current `app/api/core` Structure
-
-```
-app/api/core/
- ├─ domain/                   ← domain models (Entity, Template, Thesaurus, File, ...)
- ├─ application/
- │    ├─ contracts/           ← repository/service interfaces
- │    └─ ...                  ← use cases and application services
- ├─ infrastructure/
- │    ├─ mongodb/             ← repository implementations
- │    ├─ elasticSearch/       ← search adapter
- │    ├─ express/             ← HTTP controllers
- │    ├─ jobs/                ← async job implementations
- │    ├─ factories/           ← dependency wiring
- │    └─ ...
- ├─ libs/                     ← internal shared libraries (queue, logger, eventEmitter, shell, ...)
- ├─ testing/                  ← shared test helpers
- └─ v1_layer/                 ← temporary bridge to legacy code during migration
-```
-
-### Building Blocks
-
-Explains main backend core artifacts: purpose, practices, and testing approaches.
-
-#### ExecutionContext
-
-- **Purpose**: Holds shared dependencies, tenant, and actor (future: targetLanguage).
-- **Access Rule**: Only usable within factories. No direct access from other layers.
-
-#### Factories
-
-- **Purpose**: Standardize creation of core objects with dependency wiring.
-- **Signature**: Accept optional override object matching the exact dependencies of the object being built.
-- **Defaults**: Use shared `ExecutionContext` dependencies (including actor/tenant) by default.
-- **Testing**: Use `testingEnvironment.runWithContext(() => Factory.default())` instead of mocking.
-- **Examples**: api/core/infrastructure/factories/DeleteTemplateUseCaseFactory.ts, api/core/infrastructure/factories/EntitiesServiceFactory.ts
-
-#### UseCases
-
-- **Purpose**: Entry points to the application, orchestrating full application flows.
-- **Structure**: Extend AbstractUseCase<Input, Output, Deps> from core/libs/UseCase.ts:
-  - **Input**: Defines input type (may include Zod validation schema, e.g., MultiUpdateEntity.InputSchema)
-  - **Output**: Return type, usually domain models (e.g., Entity) or arrays of domain models
-  - **Deps**: Lists dependencies matching contracts in application/contracts/ (e.g., TransactionManager, EntitiesService, data sources)
-- **Provided by AbstractUseCase**:
-  - Access to actor (this.actor/this.actorId), tenant (this.tenant), target language (this.targetLanguage) from ExecutionContext (wired via factory)
-  - Shared dependencies: this.transactionManager, this.idGenerator, this.dispatcher, this.eventBus, this.logger
-- **Transaction Control**: Wrap database operations in this.transactionManager.run() to control transactional boundaries.
-- **Orchestration**: Coordinate domain model methods, service calls, and persistence operations to complete application actions.
-- **Testing**:
-  - Integration tests using testingEnvironment.runWithContext(() => Factory.default()) to create use case instances (enforces ExecutionContext access rules)
-  - Assert against database state and returned domain models
-  - Async job boundary: When a use case dispatches async jobs via this.dispatcher, only test that the job was dispatched; do not test the full job flow (jobs have their own dedicated tests)
-  - Test permissions by passing different actors to runWithContext()
-- **Examples**: app/api/core/application/CreateEntity.ts, app/api/core/application/MultiUpdateEntity.ts
-
-### Testing Strategy
-
-Three tiers of tests apply in V2:
-
-1. **Domain tests (unit)** — validate correctness of domain model rules: validation, calculations, state changes, invariants. Fast, no database.
-
-2. **Use case tests (integration)** — end-to-end correctness of application actions, side effects, and business flows.
-
-3. **Contract/adapter tests** — verify communication with external services and API consumers. Tests for driving adapters (controllers, jobs) are only needed when they contain meaningful logic (e.g. error handling, retry decisions), not for simple pass-through behavior.
-
-### Known Constraints
-
-- **Migrations must be decoupled from deployments.** New versions must be backward-compatible with the previous schema. Migrations run as scheduled async jobs, not blocking deployments.
-
-## Frontend
-
-### Tech Stack
-
-Frontend is in `app/react`
-
-- React (with JSX)
-- Redux (actions/reducers pattern)
-- Tailwind CSS
-- Webpack (development server via `webpack-server`)
-- Storybook for component development
-
-## Shared
-
-Code shared between frontend and backend is in `app/shared/`:
-
-- Import alias: `#shared/*` (configured in package.json imports)
-- Used for common types, utilities, or constants needed by both layers
+**Migrations** — `yarn add-migration schema|data <name> <description>` to scaffold, `yarn migrate` to
+run, `yarn migrate-and-reindex` when indexed data changed, `yarn reindex` for Elasticsearch alone.
 
 ---
 > Source: [huridocs/uwazi](https://github.com/huridocs/uwazi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
