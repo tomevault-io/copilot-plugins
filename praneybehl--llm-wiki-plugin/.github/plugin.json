@@ -1,0 +1,14 @@
+{
+  "name": "praneybehl--llm-wiki-plugin",
+  "displayName": "llm-wiki-plugin",
+  "description": "llm-wiki-plugin",
+  "version": "1.0.0",
+  "author": "praneybehl",
+  "homepage": "https://github.com/praneybehl/llm-wiki-plugin",
+  "skills": [
+    {
+      "name": "llm-wiki-plugin",
+      "description": ""
+    }
+  ]
+}
