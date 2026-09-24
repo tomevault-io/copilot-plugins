@@ -1,0 +1,57 @@
+{
+  "name": "real-browser-mcp",
+  "owner": "ofershap",
+  "repo": "real-browser-mcp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "real-browser-mcp",
+      "path": "skills/real-browser-control/SKILL.md",
+      "github_url": "https://github.com/ofershap/real-browser-mcp/tree/main/skills/real-browser-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "real-browser-mcp",
+      "path": "agent-config/skills/browser-automation/SKILL.md",
+      "github_url": "https://github.com/ofershap/real-browser-mcp/tree/main/agent-config/skills/browser-automation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ofershap/real-browser-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T21:08:24Z"
+}
