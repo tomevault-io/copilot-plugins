@@ -1,0 +1,345 @@
+{
+  "name": "CS2_VibeSignatures",
+  "owner": "HLND2T",
+  "repo": "CS2_VibeSignatures",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/bump-idb/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/bump-idb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/dump-vtables/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/dump-vtables/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/create-cpp-tests/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/create-cpp-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/get-vtable-index/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/get-vtable-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/cleanup-workspace/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/cleanup-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/write-func-as-yaml/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/write-func-as-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/get-func-from-yaml/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/get-func-from-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/get-vtable-address/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/get-vtable-address/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/write-patch-as-yaml/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/write-patch-as-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/write-vfunc-as-yaml/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/write-vfunc-as-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/write-vtable-as-yaml/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/write-vtable-as-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/get-vtable-from-yaml/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/get-vtable-from-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/generate-reference-yaml/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/generate-reference-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/write-globalvar-as-yaml/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/write-globalvar-as-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/write-structoffset-as-yaml/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/write-structoffset-as-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CNetworkMessages_dtor/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CNetworkMessages_dtor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/create-preprocessor-scripts/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/create-preprocessor-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/rename-preprocessor-scripts/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/rename-preprocessor-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/generate-signature-for-patch/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/generate-signature-for-patch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/generate-signature-for-function/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/generate-signature-for-function/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/generate-signature-for-globalvar/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/generate-signature-for-globalvar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/generate-signature-for-vfuncoffset/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/generate-signature-for-vfuncoffset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/generate-signature-for-structoffset/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/generate-signature-for-structoffset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CNetworkMessages_GetIsForServer/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CNetworkMessages_GetIsForServer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CCSBotManager_AddBot_BotNavIgnore/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CCSBotManager_AddBot_BotNavIgnore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CCSGameRules__sm_mapGcBanInformation/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CCSGameRules__sm_mapGcBanInformation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CCSPlayer_MovementServices_FullWalkMove_SpeedClamp/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CCSPlayer_MovementServices_FullWalkMove_SpeedClamp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CNetworkMessages_GetNetworkSerializationContextData/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CNetworkMessages_GetNetworkSerializationContextData/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CCSPlayer_MovementServices_CheckJumpButton_WaterPatch/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CCSPlayer_MovementServices_CheckJumpButton_WaterPatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CNetworkMessages_AllowAdditionalMessageRegistration-AND-CNetworkMessages_IsAdditionalMessageRegistrationAllowed/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CNetworkMessages_AllowAdditionalMessageRegistration-AND-CNetworkMessages_IsAdditionalMessageRegistrationAllowed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CBaseEntity_GetChangeAccessorPathInfo_1/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CBaseEntity_GetChangeAccessorPathInfo_1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/init-gamebin/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/init-gamebin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/trigger-release-build/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/trigger-release-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/create-agent-skill-fallback/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/create-agent-skill-fallback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CEntitySystem_Init-decompiles/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CEntitySystem_Init-decompiles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/abandon-staged-release/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/abandon-staged-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CEntitySystem_m_entityNames/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CEntitySystem_m_entityNames/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CNetworkMessages_vtable-decompiles/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CNetworkMessages_vtable-decompiles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/resolve-pr-conflict/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/resolve-pr-conflict/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-OnServerVoiceData_IsPlayingDemo_Callee/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-OnServerVoiceData_IsPlayingDemo_Callee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CNetworkGameServerBase_GetChallengeType/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CNetworkGameServerBase_GetChallengeType/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CNetworkGameServerBase_CheckTimeouts-decompiles/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CNetworkGameServerBase_CheckTimeouts-decompiles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-IVEngineServer2_GetClientSteamID/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-IVEngineServer2_GetClientSteamID/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CNetworkGameServer_GetFreeClient/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CNetworkGameServer_GetFreeClient/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-INetworkServerService_IsActiveInGame/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-INetworkServerService_IsActiveInGame/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-INetworkServerService_IsServerRunning/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-INetworkServerService_IsServerRunning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CServerSideClientBase_GetUserIDString/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CServerSideClientBase_GetUserIDString/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-CNetworkGameServerBase_CreateFakeClient/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-CNetworkGameServerBase_CreateFakeClient/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS2_VibeSignatures",
+      "path": ".claude/skills/find-INetworkServerService_GetServerSerializersCRC/SKILL.md",
+      "github_url": "https://github.com/HLND2T/CS2_VibeSignatures/tree/main/.claude/skills/find-INetworkServerService_GetServerSerializersCRC/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HLND2T/CS2_VibeSignatures",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T20:30:24Z"
+}
