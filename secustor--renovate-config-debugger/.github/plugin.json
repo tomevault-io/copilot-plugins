@@ -1,0 +1,9 @@
+{
+  "name": "secustor--renovate-config-debugger",
+  "displayName": "renovate-config-debugger",
+  "description": "Validate and visiualize how your Renovate configurations merge",
+  "version": "1.0.0",
+  "author": "secustor",
+  "homepage": "https://github.com/secustor/renovate-config-debugger",
+  "skills": []
+}
