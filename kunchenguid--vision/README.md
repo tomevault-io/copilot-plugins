@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kunchenguid/vision](https://github.com/kunchenguid/vision).
+Original source: `CLAUDE.md` in [kunchenguid/vision](https://github.com/kunchenguid/vision).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [kunchenguid/vision](https://github.com/kuncheng
 
 - [vision](https://github.com/kunchenguid/vision/tree/main/skills/vision/SKILL.md)
 
-From [kunchenguid/vision](https://github.com/kunchenguid/vision) — a repo with 326+ stars on GitHub.
+From [kunchenguid/vision](https://github.com/kunchenguid/vision) — a repo with 327+ stars on GitHub.
 
 ---
 
