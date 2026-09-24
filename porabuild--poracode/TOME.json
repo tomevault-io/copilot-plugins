@@ -1,0 +1,177 @@
+{
+  "name": "Poracode",
+  "owner": "Porabuild",
+  "repo": "Poracode",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Poracode",
+      "path": ".agents/skills/heroui-react/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/.agents/skills/heroui-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": ".agents/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/.agents/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": ".agents/skills/interactive-testing/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/.agents/skills/interactive-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": ".agents/skills/provider-chat-smoke/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/.agents/skills/provider-chat-smoke/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/github/skills/github/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/github/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/skills/skill-creator-poracode/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/skills/skill-creator-poracode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/github/skills/ci-debug/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/github/skills/ci-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/outlook/skills/meeting-prep/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/outlook/skills/meeting-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/outlook/skills/outlook-email/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/outlook/skills/outlook-email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/github/skills/publish-changes/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/github/skills/publish-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/github/skills/review-follow-up/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/github/skills/review-follow-up/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/outlook/skills/outlook-calendar/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/outlook/skills/outlook-calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/app-controls/skills/app-controls/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/app-controls/skills/app-controls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/computer-use/skills/computer-use/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/computer-use/skills/computer-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/chrome-tools/skills/chrome-control/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/chrome-tools/skills/chrome-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/terminal/skills/terminal-inspection/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/terminal/skills/terminal-inspection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/browser-tools/skills/browser-control/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/browser-tools/skills/browser-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/chrome-tools/skills/signed-in-research/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/chrome-tools/skills/signed-in-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/computer-use/skills/desktop-app-testing/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/computer-use/skills/desktop-app-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/browser-tools/skills/web-app-verification/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/browser-tools/skills/web-app-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/subagent-delegation/skills/parallel-review/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/subagent-delegation/skills/parallel-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Poracode",
+      "path": "resources/plugins/subagent-delegation/skills/subagent-delegation/SKILL.md",
+      "github_url": "https://github.com/Porabuild/Poracode/tree/main/resources/plugins/subagent-delegation/skills/subagent-delegation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Porabuild/Poracode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:13:57Z"
+}
