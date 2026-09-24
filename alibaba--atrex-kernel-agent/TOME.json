@@ -1,0 +1,99 @@
+{
+  "name": "atrex-kernel-agent",
+  "owner": "alibaba",
+  "repo": "atrex-kernel-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atrex-kernel-agent",
+      "path": "skills/gen-plan/SKILL.md",
+      "github_url": "https://github.com/alibaba/atrex-kernel-agent/tree/main/skills/gen-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atrex-kernel-agent",
+      "path": "gpu-wiki/skills/wiki-gate/SKILL.md",
+      "github_url": "https://github.com/alibaba/atrex-kernel-agent/tree/main/gpu-wiki/skills/wiki-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atrex-kernel-agent",
+      "path": "skills/gpu-kernel-baseline/SKILL.md",
+      "github_url": "https://github.com/alibaba/atrex-kernel-agent/tree/main/skills/gpu-kernel-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atrex-kernel-agent",
+      "path": "skills/ppu-acu-joint-profile/SKILL.md",
+      "github_url": "https://github.com/alibaba/atrex-kernel-agent/tree/main/skills/ppu-acu-joint-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atrex-kernel-agent",
+      "path": "skills/gpu-kernel-episode-loop/SKILL.md",
+      "github_url": "https://github.com/alibaba/atrex-kernel-agent/tree/main/skills/gpu-kernel-episode-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atrex-kernel-agent",
+      "path": "gpu-wiki/skills/opt-trace-mining/SKILL.md",
+      "github_url": "https://github.com/alibaba/atrex-kernel-agent/tree/main/gpu-wiki/skills/opt-trace-mining/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atrex-kernel-agent",
+      "path": "gpu-wiki/skills/query_bridge_agent/SKILL.md",
+      "github_url": "https://github.com/alibaba/atrex-kernel-agent/tree/main/gpu-wiki/skills/query_bridge_agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atrex-kernel-agent",
+      "path": "gpu-wiki/skills/session-trace-mining/SKILL.md",
+      "github_url": "https://github.com/alibaba/atrex-kernel-agent/tree/main/gpu-wiki/skills/session-trace-mining/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atrex-kernel-agent",
+      "path": "skills/autonomous-gpu-kernel-timeline/SKILL.md",
+      "github_url": "https://github.com/alibaba/atrex-kernel-agent/tree/main/skills/autonomous-gpu-kernel-timeline/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alibaba/atrex-kernel-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T13:46:17Z"
+}
