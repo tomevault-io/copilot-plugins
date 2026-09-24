@@ -1,0 +1,9 @@
+{
+  "name": "carlsz--ux-agent-skills",
+  "displayName": "ux-agent-skills",
+  "description": "Audit, spec, and rigorously verify production-grade experiences for humans and agents alike.",
+  "version": "1.0.0",
+  "author": "carlsz",
+  "homepage": "https://github.com/carlsz/ux-agent-skills",
+  "skills": []
+}
