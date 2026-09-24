@@ -1,0 +1,285 @@
+{
+  "name": "Whispera",
+  "owner": "maomao-2001",
+  "repo": "Whispera",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Whispera",
+      "path": "mem0/skills/mem0/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/skills/mem0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/skills/mem0-cli/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/skills/mem0-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/skills/mem0-integrate/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/skills/mem0-integrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/skills/mem0-vercel-ai-sdk/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/skills/mem0-vercel-ai-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/skills/mem0-oss-to-platform/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/skills/mem0-oss-to-platform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/skills/mem0-test-integration/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/skills/mem0-test-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/pin/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/pin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/mem0/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/mem0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/tour/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/tour/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/peek/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/peek/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/dream/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/dream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/stats/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/health/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/import/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/forget/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/forget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/export/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/pi-agent-plugin/skills/pin/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/pi-agent-plugin/skills/pin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/pi-agent-plugin/skills/tour/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/pi-agent-plugin/skills/tour/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/remember/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/openclaw/skills/memory-dream/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/openclaw/skills/memory-dream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/pi-agent-plugin/skills/dream/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/pi-agent-plugin/skills/dream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/openclaw/skills/memory-triage/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/openclaw/skills/memory-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/pi-agent-plugin/skills/status/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/pi-agent-plugin/skills/status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/pi-agent-plugin/skills/forget/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/pi-agent-plugin/skills/forget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/pi-agent-plugin/skills/search/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/pi-agent-plugin/skills/search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/pi-agent-plugin/skills/remember/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/pi-agent-plugin/skills/remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/list-projects/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/list-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/switch-project/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/switch-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/context-loader/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/context-loader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/skills/memory-reviewer/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/skills/memory-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/pi-agent-plugin/skills/context-loader/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/pi-agent-plugin/skills/context-loader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-pin/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-pin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-tour/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-tour/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-dream/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-dream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-scope/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-scope/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-status/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-forget/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-forget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-search/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-remember/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Whispera",
+      "path": "mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-context-loader/SKILL.md",
+      "github_url": "https://github.com/maomao-2001/Whispera/tree/main/mem0/integrations/mem0-plugin/.opencode-plugin/opencode-skills/mem0-context-loader/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/maomao-2001/Whispera",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T11:34:04Z"
+}
