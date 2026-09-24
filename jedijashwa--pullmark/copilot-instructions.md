@@ -1,0 +1,40 @@
+## pullmark
+
+> Native macOS Markdown viewer + rendered-diff reviewer for documentation-heavy GitHub PRs. SwiftUI + WKWebView, zero package dependencies, plain SwiftPM (no Xcode project).
+
+# PullMark
+
+Native macOS Markdown viewer + rendered-diff reviewer for documentation-heavy GitHub PRs. SwiftUI + WKWebView, zero package dependencies, plain SwiftPM (no Xcode project).
+
+The project owns the domain **pullmark.app** (registered on Namecheap, July 2026). Bundle ids match it: `app.pullmark.PullMark` (app) and `app.pullmark.PullMark.QuickLook` (QL extension). Don't change them — that resets Launch Services registrations (default-app, Quick Look) and the UserDefaults domain.
+
+## Commands
+
+- `make build` — debug build
+- `make test` — unit tests (adds Swift Testing search paths when only Command Line Tools are installed)
+- `make run` — launch via `swift run`
+- `make app` — build `dist/PullMark.app` (release, ad-hoc signed)
+
+## Layout
+
+- `Sources/PullMark/Core/` — pure logic: Markdown block splitting, LCS block diff, appearance
+- `Sources/PullMark/GitHub/` — PR URL parsing, REST client, system credential resolution (`gh auth token` → `git credential fill`)
+- `Sources/PullMark/Rendering/` — HTML page builder + WKWebView wrapper (JS bridge posts comment requests to Swift)
+- `Sources/PullMark/Resources/` — `app.js`/`app.css` and vendored marked/highlight.js/mermaid/github-markdown-css
+- `Tests/PullMarkTests/` — Swift Testing (`import Testing`, not XCTest — XCTest is unavailable with CLT)
+
+## Conventions
+
+- Keep core logic (diffing, parsing, request-body building) in pure, non-UI types so it stays unit-testable.
+- GitHub review comment positions use file line numbers + side (`RIGHT` = new file, `LEFT` = old); blocks carry their source line ranges through the diff for this.
+- Language mode is Swift 5 (set in Package.swift) — don't introduce strict-concurrency-only patterns.
+- After any verification that launched `dist/PullMark.app`, run `make unregister-dist` so the dev copy never steals Launch Services bindings (default app, Quick Look) from /Applications.
+- Screenshots/screen capture: `screencapture` needs the Screen Recording permission for whatever process runs it — run captures in-process and say so if they come back empty. Never route captures through Terminal via AppleScript `do script` (it leaves stray Terminal windows behind), and close any window an agent opens before finishing.
+
+## Agent tooling
+
+`.claude/agents/` defines a subagent roster (feature-researcher, implementer, verifier, design-reviewer, bug-hunter, release-manager, github-issues) plus a delegation policy (orchestrator.md — direct work is the default; delegate only what is parallel, bulk, or bigger than one context). `.claude/skills/` holds the workflows (orchestrate — apply the delegation policy to a task; feature-request → spec + issue; dist-trial; bug-hunt; release). `scripts/drive/` holds the standalone Swift scripts the verifier uses to drive the running app with real input and screenshot its windows — see `scripts/drive/README.md`. These are generic to the repo; machine- and person-specific practices belong in an untracked `CLAUDE.local.md`.
+
+---
+> Source: [jedijashwa/pullmark](https://github.com/jedijashwa/pullmark) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
