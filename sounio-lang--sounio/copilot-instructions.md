@@ -1,84 +1,67 @@
-## sounio
+## effects
 
-> Sounio language rules — epistemic types, effects, algebra, GPU programming
+> Sounio effects system — functions must declare side effects
 
 
-# Sounio Language Rules
+# Sounio Effects System
 
-Use these rules for every `.sio` file. Sounio is a self-hosted systems and
-scientific language with epistemic types, algebraic effects, non-associative
-algebra, and GPU-visible effect rows. It is not Rust, Julia, or Python.
+Every function that performs a side effect MUST declare it with `with`. Missing effects = compile error.
 
-## Core Patterns
+## Effect Reference
+
+| Effect | When Required | Example |
+|--------|--------------|---------|
+| `IO` | `println()`, `print()`, file I/O, env access | `fn greet() with IO { println("hi") }` |
+| `Mut` | Mutating via `&!`, `var` reassignment in &! context | `fn set(x: &!i32) with Mut { *x = 5 }` |
+| `Div` | Division `/` or modulo `%` | `fn half(x: f64) -> f64 with Div, Panic { x / 2.0 }` |
+| `Panic` | Array access `arr[i]`, `assert()`, `as` casts | `fn get(a: [i64; 4], i: i64) -> i64 with Panic { a[i as usize] }` |
+| `Alloc` | Heap allocation (Vec, Box) | Rare in most code |
+| `Async` | Async operations | `async fn fetch() with Async { }` |
+| `GPU` | GPU kernel execution | `kernel fn k() with GPU { }` |
+| `Prob` | Probabilistic sampling | `fn sample() with Prob { }` |
+
+## Rules
+
+1. **Pure functions** have NO `with` clause: `fn add(a: i64, b: i64) -> i64 { a + b }`
+2. **Div always pairs with Panic**: Division can panic on zero, so both are needed
+3. **Effects propagate upward**: A caller must declare all effects of its callees
+4. **Multiple effects**: `fn process() with IO, Mut, Panic, Div { }`
+
+## Common Patterns
 
 ```sio
-fn main() with IO {
-    println("Hello, Sounio")
+// Pure — no effects
+fn square(x: i64) -> i64 { x * x }
+
+// IO only
+fn hello() with IO { println("Hello") }
+
+// Mutation
+fn increment(c: &!i64) with Mut { *c = *c + 1 }
+
+// Division (always with Panic)
+fn average(a: f64, b: f64) -> f64 with Div, Panic { (a + b) / 2.0 }
+
+// Array processing (Panic for bounds checks)
+fn sum(arr: [i64; 4]) -> i64 with Panic {
+    var total: i64 = 0
+    for i in 0..4 { total = total + arr[i as usize] }
+    total
 }
 
-fn scale(x: Knowledge<f64>) -> Knowledge<f64> with Div, Panic {
-    x / measure(2.0, uncertainty: 0.0)
-}
-
-fn kernel_entry() with GPU {
-}
-
-algebra Octonion over f64 {
-    add: commutative, associative
-    mul: alternative, non_commutative
-    reassociate: fano_selective
-}
-
-extern "C" {
-    fn puts(ptr: *i8) -> i32
+// Main — usually needs everything
+fn main() with IO, Mut, Panic, Div {
+    // ...
 }
 ```
 
-## Required Conventions
+## Common Mistakes
 
-- Use `var` for mutable locals; do not write `let mut`.
-- Use `&!T` for exclusive references; do not write `&mut T`.
-- Declare effects with `with IO`, `with Mut`, `with Panic`, `with Div`,
-  `with GPU`, `with Prob`, or `with Observe` as required.
-- Preserve `Knowledge<T>` values across scientific calculations unless an
-  audited epistemic unwrap is explicitly required.
-- Use Sounio `match` syntax and make every arm type-compatible.
-- Define helper functions before callers.
-- Use semicolons only where the language grammar requires them; Sounio is
-  D-like in its statement termination rules for this checkout, and stray Rust
-  semicolon habits should be checked against current compiler behaviour.
-
-## Anti-Patterns
-
-```sio
-// WRONG: raw f64 loses epistemic uncertainty where Knowledge<f64> applies
-fn dose(weight: f64) -> f64 { weight * 15.0 }
-
-// WRONG: unannotated GPU call
-fn launch() { kernel_entry() }
-
-// WRONG: unsafe/effect mismatch
-fn poke(ptr: *i8) { unsafe { *ptr = 0 } }
-
-// WRONG: Rust-style macros and mutation
-let mut x = 1;
-println!("bad")
-assert!(x > 0)
-
-// WRONG: Rust-style mutable reference
-fn set(x: &mut i64) { *x = 1 }
-```
-
-Correct the above by using `Knowledge<T>`, explicit effect rows, `var`, `&!`,
-plain function calls (`println`, `assert`), and the current Sounio syntax guide.
-
-## MCP Feedback Loop
-
-When the MCP server is available, use `sounio_check` after every meaningful
-edit. Inject diagnostics into the next edit request and repeat until valid.
-
-Reference: <https://docs.souniolang.org/cursor> (planned documentation page;
-flag missing-page work for CC-3 or the operator if this link is still absent).
+- Forgetting `Panic` when accessing arrays: `arr[i as usize]` needs `Panic`
+- Forgetting `Mut` when using `&!` references
+- Forgetting `IO` when calling `println()` or `print()`
+- Forgetting `Div` when using `/` or `%`
+- Not propagating effects from callees to callers
 
 ---
 > Source: [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio) — distributed by [TomeVault](https://tomevault.io).
