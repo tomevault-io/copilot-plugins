@@ -1,8 +1,6 @@
 # chunkhound
 
-> Tome by [chunkhound](https://github.com/chunkhound/chunkhound) — distributed by [TomeVault](https://tomevault.io)
-
-Local first codebase intelligence
+> Tome by [chunkhound](https://github.com/chunkhound/chunkhound), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [chunkhound/chunkhound](https://github.com/chunk
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [chunkhound/chunkhound](https://github.com/chunkhound/chunkhound) — a repo with 1245+ stars on GitHub.
+From [chunkhound/chunkhound](https://github.com/chunkhound/chunkhound) — a repo with 1436+ stars on GitHub.
 
 ---
 
