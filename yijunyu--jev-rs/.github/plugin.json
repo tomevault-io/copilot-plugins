@@ -1,0 +1,9 @@
+{
+  "name": "yijunyu--jev-rs",
+  "displayName": "jev-rs",
+  "description": "System One judgments (noul/choice/score) from any LLM in one prefill \u2014 a Rust, Jev-compatible /v1/systemone engine",
+  "version": "1.0.0",
+  "author": "yijunyu",
+  "homepage": "https://github.com/yijunyu/jev-rs",
+  "skills": []
+}
