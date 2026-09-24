@@ -1,0 +1,9 @@
+{
+  "name": "thetechgeekko--spektrafilm-android",
+  "displayName": "Spektrafilm-android",
+  "description": "Spectral film simulation for Android \u2014 a native C++/NDK port of the spektrafilm engine (negative \u2192 enlarger \u2192 print \u2192 scan), with a Jetpack Compose editor, RAW/DNG import, local masks, and 16/32-bit e",
+  "version": "1.0.0",
+  "author": "thetechgeekko",
+  "homepage": "https://github.com/thetechgeekko/Spektrafilm-android",
+  "skills": []
+}
