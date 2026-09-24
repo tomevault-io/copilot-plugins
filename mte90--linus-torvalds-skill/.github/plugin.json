@@ -1,0 +1,14 @@
+{
+  "name": "mte90--linus-torvalds-skill",
+  "displayName": "linus-torvalds-skill",
+  "description": "linus-torvalds-skill",
+  "version": "1.0.0",
+  "author": "Mte90",
+  "homepage": "https://github.com/Mte90/linus-torvalds-skill",
+  "skills": [
+    {
+      "name": "linus-torvalds-skill",
+      "description": ""
+    }
+  ]
+}
