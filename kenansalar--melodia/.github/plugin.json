@@ -1,0 +1,9 @@
+{
+  "name": "kenansalar--melodia",
+  "displayName": "Melodia",
+  "description": "Melodia is a fast, lightweight cross-platform desktop music player build in rust and slint",
+  "version": "1.0.0",
+  "author": "KenanSalar",
+  "homepage": "https://github.com/KenanSalar/Melodia",
+  "skills": []
+}
