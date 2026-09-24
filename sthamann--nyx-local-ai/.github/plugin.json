@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "sthamann",
   "homepage": "https://github.com/sthamann/nyx-local-ai",
-  "skills": []
+  "skills": [
+    {
+      "name": "nyx-local-ai",
+      "description": ""
+    },
+    {
+      "name": "nyx-local-ai",
+      "description": ""
+    }
+  ]
 }
