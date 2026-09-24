@@ -1,0 +1,9 @@
+{
+  "name": "cynrath--agent-context-kit",
+  "displayName": "agent-context-kit",
+  "description": "Offline-first toolkit for agent-ready repositories: readiness scoring, instruction graphs, context packs, policy/rule packs, MCP, GitHub Actions, diagnostics, and VS Code.",
+  "version": "1.0.0",
+  "author": "Cynrath",
+  "homepage": "https://github.com/Cynrath/agent-context-kit",
+  "skills": []
+}
