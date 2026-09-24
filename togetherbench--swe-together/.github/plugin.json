@@ -1,0 +1,14 @@
+{
+  "name": "togetherbench--swe-together",
+  "displayName": "SWE-Together",
+  "description": "SWE-Together",
+  "version": "1.0.0",
+  "author": "Togetherbench",
+  "homepage": "https://github.com/Togetherbench/SWE-Together",
+  "skills": [
+    {
+      "name": "SWE-Together",
+      "description": ""
+    }
+  ]
+}
