@@ -1,0 +1,14 @@
+{
+  "name": "pmndrs--math",
+  "displayName": "math",
+  "description": "math",
+  "version": "1.0.0",
+  "author": "pmndrs",
+  "homepage": "https://github.com/pmndrs/math",
+  "skills": [
+    {
+      "name": "math",
+      "description": ""
+    }
+  ]
+}
