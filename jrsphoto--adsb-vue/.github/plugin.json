@@ -1,0 +1,9 @@
+{
+  "name": "jrsphoto--adsb-vue",
+  "displayName": "ADSb-Vue",
+  "description": "A standalone 3D volumetric view of your ADS-B antenna reception, driven by an Ultrafeeder / tar1090 receiver.",
+  "version": "1.0.0",
+  "author": "jrsphoto",
+  "homepage": "https://github.com/jrsphoto/ADSb-Vue",
+  "skills": []
+}
