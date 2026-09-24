@@ -1,0 +1,327 @@
+{
+  "name": "role-specific-plugins",
+  "owner": "openai",
+  "repo": "role-specific-plugins",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/index/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/apollo/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/apollo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/hubspot/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/hubspot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/zoominfo/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/zoominfo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/salesforce/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/salesforce/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/index/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/index/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/audit/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/share/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/share/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/review-forecast/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/review-forecast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/ideate/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/ideate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/research/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/plan-deal-strategy/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/plan-deal-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/design-qa/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/design-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/build-business-case/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/build-business-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/prepare-for-meeting/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/prepare-for-meeting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/prioritize-accounts/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/prioritize-accounts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/find-customer-quotes/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/find-customer-quotes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/follow-up-after-call/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/follow-up-after-call/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/design-kpis/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/design-kpis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/url-to-code/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/url-to-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/get-context/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/get-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/get-rep-call-feedback/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/get-rep-call-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/build-report/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/build-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/user-context/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/user-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/kpi-reporting/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/kpi-reporting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/review-rep-call-trends/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/review-rep-call-trends/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/validate-data/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/validate-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/market-sizing/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/market-sizing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/sales-company-research/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/sales-company-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/product-design/skills/image-to-code/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/product-design/skills/image-to-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/answers-ask-user-input/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/answers-ask-user-input/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/analyze-account-signals/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/analyze-account-signals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/build-competitive-brief/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/build-competitive-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/visualize-data/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/visualize-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/build-dashboard/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/build-dashboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/find-key-internal-sources/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/find-key-internal-sources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/jupyter-notebooks/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/jupyter-notebooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/metric-diagnostics/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/metric-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/create-data-context/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/create-data-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/analyze-data-quality/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/analyze-data-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/sales/skills/enrich-company-and-contact-data/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/sales/skills/enrich-company-and-contact-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/gather-business-context/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/gather-business-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/product-business-analysis/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/product-business-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/build-report/report-to-pdf/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/build-report/report-to-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/build-report/report-to-google-doc/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/build-report/report-to-google-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "role-specific-plugins",
+      "path": "plugins/data-analytics/skills/build-report/report-to-google-slides/SKILL.md",
+      "github_url": "https://github.com/openai/role-specific-plugins/tree/main/plugins/data-analytics/skills/build-report/report-to-google-slides/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openai/role-specific-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T03:53:57Z"
+}
