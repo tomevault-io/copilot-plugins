@@ -1,0 +1,9 @@
+{
+  "name": "assisjp--specflow",
+  "displayName": "specflow",
+  "description": "A self-contained, reliability-first agent development flow \u2014 grill, spec, build under deterministic gates. Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "assisjp",
+  "homepage": "https://github.com/assisjp/specflow",
+  "skills": []
+}
