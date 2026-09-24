@@ -1,0 +1,9 @@
+{
+  "name": "iannuttall--portman",
+  "displayName": "portman",
+  "description": "Every port on your Mac, and what's actually using it. A macOS menu bar app that names your dev servers by project and framework.",
+  "version": "1.0.0",
+  "author": "iannuttall",
+  "homepage": "https://github.com/iannuttall/portman",
+  "skills": []
+}
