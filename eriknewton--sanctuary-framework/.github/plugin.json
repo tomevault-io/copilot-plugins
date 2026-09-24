@@ -1,0 +1,9 @@
+{
+  "name": "eriknewton--sanctuary-framework",
+  "displayName": "sanctuary-framework",
+  "description": "Open-source security for AI agents: kernel-enforced egress control on macOS and Linux, keys only the operator holds, tamper-evident audit. One command protects Claude Code, Cursor, or any MCP harness.",
+  "version": "1.0.0",
+  "author": "eriknewton",
+  "homepage": "https://github.com/eriknewton/sanctuary-framework",
+  "skills": []
+}
