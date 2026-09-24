@@ -1,0 +1,363 @@
+{
+  "name": "nemoclaw-community",
+  "owner": "NVIDIA",
+  "repo": "nemoclaw-community",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/sandboxed-hermes-bots/skill/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/sandboxed-hermes-bots/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/community/deep-research-worker/src/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/community/deep-research-worker/src/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": ".agents/skills/nemoclaw-community-maintainer-policies/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/.agents/skills/nemoclaw-community-maintainer-policies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": ".agents/skills/nemoclaw-community-contributor-examples/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/.agents/skills/nemoclaw-community-contributor-examples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/community/axe-a11y-browser-auditor/src/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/community/axe-a11y-browser-auditor/src/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/pr-review-advisor/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/pr-review-advisor/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/partners/tavily/watchtower/skills/watchtower/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/partners/tavily/watchtower/skills/watchtower/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/skills/module-4/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/skills/module-4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/skills/module-5/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/skills/module-5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/skills/module-1/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/skills/module-1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/skills/module-2/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/skills/module-2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/skills/module-3/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/skills/module-3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/skills/module-6/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/skills/module-6/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/payment-ops-hermes/skills/release-packet/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/payment-ops-hermes/skills/release-packet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/skills/workshop/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/skills/workshop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/nv-tech-assistant/skills/nv-tech-assistant/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/nv-tech-assistant/skills/nv-tech-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/payment-ops-hermes/skills/payment-screening/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/payment-ops-hermes/skills/payment-screening/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/payment-ops-hermes/skills/rail-boundary-test/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/payment-ops-hermes/skills/rail-boundary-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/payment-ops-hermes/skills/payment-ops-playbook/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/payment-ops-hermes/skills/payment-ops-playbook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/sandboxed-hermes-bots/examples/skills/vss-video/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/sandboxed-hermes-bots/examples/skills/vss-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/partners/hpe/retail-assistant/helm/files/skills/retail-api/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/partners/hpe/retail-assistant/helm/files/skills/retail-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/pr-test-case-assistant/skills/pr-test-case-assistant/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/pr-test-case-assistant/skills/pr-test-case-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/memory-repair/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/memory-repair/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/memory-writing/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/memory-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/inbound-judging/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/inbound-judging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/nemoclaw-nvteam/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/nemoclaw-nvteam/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/preference-update/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/preference-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/obligation-review/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/obligation-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/demos/field/blender-omniverse-dgx-station/codex-skills/coach-nemoclaw-hermes/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/demos/field/blender-omniverse-dgx-station/codex-skills/coach-nemoclaw-hermes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/source-etl-query/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/source-etl-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/partners/hpe/retail-assistant/docker-compose/scripts/skills/retail-api/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/partners/hpe/retail-assistant/docker-compose/scripts/skills/retail-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/demos/field/blender-omniverse-dgx-station/skills/blender-host-sandbox-boundary/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/demos/field/blender-omniverse-dgx-station/skills/blender-host-sandbox-boundary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/nemoclaw-autoheal/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/nemoclaw-autoheal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/demos/field/blender-omniverse-dgx-station/skills/ovphysx-host-runtime-boundary/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/demos/field/blender-omniverse-dgx-station/skills/ovphysx-host-runtime-boundary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/skills/setup-workshop-nemoclaw-operator/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/skills/setup-workshop-nemoclaw-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/memory-consolidation/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/memory-driven-chief-of-staff/profile/skills/memory-consolidation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/demos/field/blender-omniverse-dgx-station/skills/blender-python-api-verification/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/demos/field/blender-omniverse-dgx-station/skills/blender-python-api-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/slack-channel-finder/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/slack-channel-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/outlook-email-search/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/outlook-email-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/github-readonly-live/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/github-readonly-live/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/demos/field/blender-omniverse-dgx-station/codex-skills/coordinate-nemoclaw-blender/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/demos/field/blender-omniverse-dgx-station/codex-skills/coordinate-nemoclaw-blender/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/slack-channel-summarizer/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/slack-channel-summarizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/nemoclaw-nvteam/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/nemoclaw-nvteam/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/cross-source-gap-analysis/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/agentic-ai-learning-path/agents/hermes/skills/cross-source-gap-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/source-etl-query/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/source-etl-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/partners/bluetier/x402-payment-gate/agents/hermes/skills/blackwall-payment-gate/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/partners/bluetier/x402-payment-gate/agents/hermes/skills/blackwall-payment-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/nemoclaw-autoheal/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/nemoclaw-autoheal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/public-web-search/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/public-web-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/slack-channel-finder/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/slack-channel-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/outlook-email-search/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/outlook-email-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/github-readonly-live/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/github-readonly-live/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/slack-channel-summarizer/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/slack-channel-summarizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nemoclaw-community",
+      "path": "examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/cross-source-gap-analysis/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/nemoclaw-community/tree/main/examples/recipes/nvidia/developer-community-chief-of-staff/agents/hermes/skills/cross-source-gap-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA/nemoclaw-community",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T13:43:36Z"
+}
