@@ -1,0 +1,93 @@
+{
+  "name": "flow",
+  "owner": "samyakkkk",
+  "repo": "flow",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flow",
+      "path": ".agents/skills/test-t3-app/SKILL.md",
+      "github_url": "https://github.com/samyakkkk/flow/tree/main/.agents/skills/test-t3-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".agents/skills/deploy-flow/SKILL.md",
+      "github_url": "https://github.com/samyakkkk/flow/tree/main/.agents/skills/deploy-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".agents/skills/test-t3-mobile/SKILL.md",
+      "github_url": "https://github.com/samyakkkk/flow/tree/main/.agents/skills/test-t3-mobile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".agents/skills/ios-debugger-agent/SKILL.md",
+      "github_url": "https://github.com/samyakkkk/flow/tree/main/.agents/skills/ios-debugger-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".agents/skills/ios-simulator-browser/SKILL.md",
+      "github_url": "https://github.com/samyakkkk/flow/tree/main/.agents/skills/ios-simulator-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".repos/effect-smol/.agents/skills/jsdocs/SKILL.md",
+      "github_url": "https://github.com/samyakkkk/flow/tree/main/.repos/effect-smol/.agents/skills/jsdocs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".repos/effect-smol/.agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/samyakkkk/flow/tree/main/.repos/effect-smol/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".repos/effect-smol/.agents/skills/scratchpad/SKILL.md",
+      "github_url": "https://github.com/samyakkkk/flow/tree/main/.repos/effect-smol/.agents/skills/scratchpad/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/samyakkkk/flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T23:00:03Z"
+}
