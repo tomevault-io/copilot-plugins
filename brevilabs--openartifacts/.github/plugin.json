@@ -1,0 +1,14 @@
+{
+  "name": "brevilabs--openartifacts",
+  "displayName": "OpenArtifacts",
+  "description": "OpenArtifacts",
+  "version": "1.0.0",
+  "author": "Brevilabs",
+  "homepage": "https://github.com/Brevilabs/OpenArtifacts",
+  "skills": [
+    {
+      "name": "OpenArtifacts",
+      "description": ""
+    }
+  ]
+}
