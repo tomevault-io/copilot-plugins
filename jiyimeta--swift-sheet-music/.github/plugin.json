@@ -1,0 +1,9 @@
+{
+  "name": "jiyimeta--swift-sheet-music",
+  "displayName": "swift-sheet-music",
+  "description": "Swift package for engraved music notation: MuseScore (.mscx/.mscz) & MusicXML import/export, a typed score model, MIDI rendering, SwiftUI/PDF rendering, AVFoundation playback, and an Android-compatibl",
+  "version": "1.0.0",
+  "author": "jiyimeta",
+  "homepage": "https://github.com/jiyimeta/swift-sheet-music",
+  "skills": []
+}
