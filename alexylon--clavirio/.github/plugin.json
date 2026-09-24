@@ -1,0 +1,9 @@
+{
+  "name": "alexylon--clavirio",
+  "displayName": "clavirio",
+  "description": "A terminal typing tutor built with Rust and ratatui",
+  "version": "1.0.0",
+  "author": "alexylon",
+  "homepage": "https://github.com/alexylon/clavirio",
+  "skills": []
+}
