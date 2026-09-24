@@ -1,0 +1,22 @@
+{
+  "name": "ruvnet--agentic-voice",
+  "displayName": "agentic-voice",
+  "description": "agentic-voice",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/agentic-voice",
+  "skills": [
+    {
+      "name": "agentic-voice",
+      "description": ""
+    },
+    {
+      "name": "agentic-voice",
+      "description": ""
+    },
+    {
+      "name": "agentic-voice",
+      "description": ""
+    }
+  ]
+}
