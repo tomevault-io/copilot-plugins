@@ -1,0 +1,26 @@
+{
+  "name": "neo4j--cypher-language-support",
+  "displayName": "cypher-language-support",
+  "description": "cypher-language-support",
+  "version": "1.0.0",
+  "author": "neo4j",
+  "homepage": "https://github.com/neo4j/cypher-language-support",
+  "skills": [
+    {
+      "name": "cypher-language-support",
+      "description": ""
+    },
+    {
+      "name": "cypher-language-support",
+      "description": ""
+    },
+    {
+      "name": "cypher-language-support",
+      "description": ""
+    },
+    {
+      "name": "cypher-language-support",
+      "description": ""
+    }
+  ]
+}
