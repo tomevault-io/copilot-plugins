@@ -1,0 +1,9 @@
+{
+  "name": "angusdevgo--seep-reverse-lab",
+  "displayName": "Seep-Reverse-Lab",
+  "description": "Agent-Native multi-platform reverse engineering and CWE-602 client-side authorization audit workbench.",
+  "version": "1.0.0",
+  "author": "angusdevgo",
+  "homepage": "https://github.com/angusdevgo/Seep-Reverse-Lab",
+  "skills": []
+}
