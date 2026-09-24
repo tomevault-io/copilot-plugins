@@ -1,0 +1,22 @@
+{
+  "name": "ruvnet--federated-mcp",
+  "displayName": "federated-mcp",
+  "description": "federated-mcp",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/federated-mcp",
+  "skills": [
+    {
+      "name": "federated-mcp",
+      "description": ""
+    },
+    {
+      "name": "federated-mcp",
+      "description": ""
+    },
+    {
+      "name": "federated-mcp",
+      "description": ""
+    }
+  ]
+}
