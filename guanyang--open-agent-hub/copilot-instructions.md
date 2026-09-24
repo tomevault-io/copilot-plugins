@@ -1,74 +1,76 @@
 ## open-agent-hub
 
-> Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+> supabase-postgres-best-practices/
 
-# GEMINI.md
+# Supabase Postgres Best Practices
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
-
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
-
-## 1. Think Before Coding
-
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-Before implementing:
-
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-
-## 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
+## Structure
 
 ```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+supabase-postgres-best-practices/
+  SKILL.md       # Main skill file - read this first
+  AGENTS.md      # This navigation guide
+  CLAUDE.md      # Symlink to AGENTS.md
+  references/    # Detailed reference files
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+## Usage
+
+1. Read `SKILL.md` for the main skill instructions
+2. Browse `references/` for detailed documentation on specific topics
+3. Reference files are loaded on-demand - read only what you need
+
+Comprehensive performance optimization guide for Postgres, maintained by Supabase. Contains rules across 8 categories, prioritized by impact to guide automated query optimization and schema design.
+
+## When to Apply
+
+Reference these guidelines when:
+- Writing SQL queries or designing schemas
+- Implementing indexes or query optimization
+- Reviewing database performance issues
+- Configuring connection pooling or scaling
+- Optimizing for Postgres-specific features
+- Working with Row-Level Security (RLS)
+
+## Rule Categories by Priority
+
+| Priority | Category | Impact | Prefix |
+|----------|----------|--------|--------|
+| 1 | Query Performance | CRITICAL | `query-` |
+| 2 | Connection Management | CRITICAL | `conn-` |
+| 3 | Security & RLS | CRITICAL | `security-` |
+| 4 | Schema Design | HIGH | `schema-` |
+| 5 | Concurrency & Locking | MEDIUM-HIGH | `lock-` |
+| 6 | Data Access Patterns | MEDIUM | `data-` |
+| 7 | Monitoring & Diagnostics | LOW-MEDIUM | `monitor-` |
+| 8 | Advanced Features | LOW | `advanced-` |
+
+## How to Use
+
+Read individual rule files for detailed explanations and SQL examples:
+
+```
+references/query-missing-indexes.md
+references/schema-partial-indexes.md
+references/_sections.md
+```
+
+Each rule file contains:
+- Brief explanation of why it matters
+- Incorrect SQL example with explanation
+- Correct SQL example with explanation
+- Optional EXPLAIN output or metrics
+- Additional context and references
+- Supabase-specific notes (when applicable)
+
+## References
+
+- https://www.postgresql.org/docs/current/
+- https://supabase.com/docs
+- https://wiki.postgresql.org/wiki/Performance_Optimization
+- https://supabase.com/docs/guides/database/overview
+- https://supabase.com/docs/guides/auth/row-level-security
 
 ---
 > Source: [guanyang/open-agent-hub](https://github.com/guanyang/open-agent-hub) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
