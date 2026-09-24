@@ -1,0 +1,9 @@
+{
+  "name": "cogflux--farhand",
+  "displayName": "farhand",
+  "description": "Remote hands for coding agents: an MCP server that runs OpenCode / Claude Code / Codex work on a remote host over SSH, keeps credentials and the local machine closed, and audits everything",
+  "version": "1.0.0",
+  "author": "CogFlux",
+  "homepage": "https://github.com/CogFlux/farhand",
+  "skills": []
+}
