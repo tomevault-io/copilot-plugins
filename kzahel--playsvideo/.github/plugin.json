@@ -1,0 +1,9 @@
+{
+  "name": "kzahel--playsvideo",
+  "displayName": "playsvideo",
+  "description": "Plays video in the browser. No install, no upload. You probably don't need VLC.",
+  "version": "1.0.0",
+  "author": "kzahel",
+  "homepage": "https://github.com/kzahel/playsvideo",
+  "skills": []
+}
