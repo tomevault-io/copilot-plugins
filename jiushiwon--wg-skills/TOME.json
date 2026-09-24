@@ -1,0 +1,165 @@
+{
+  "name": "wg-skills",
+  "owner": "jiushiwon",
+  "repo": "wg-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "go-backend-skill",
+      "path": "backend-generate-skill/go-backend-skill",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/backend-generate-skill/go-backend-skill",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "others/ai-speech-detector/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/others/ai-speech-detector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/vue/vue-base-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/vue/vue-base-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/backend/java/java-fast-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/backend/java/java-fast-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/backend/python/python-fast-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/backend/python/python-fast-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/backend/python/fastapi-init-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/backend/python/fastapi-init-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/uniapp/uniapp-base-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/uniapp/uniapp-base-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/uniapp/uniapp-theme-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/uniapp/uniapp-theme-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/backend/java/springboot-init-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/backend/java/springboot-init-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/react/react-generate-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/react/react-generate-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/uniapp/uniapp-request-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/uniapp/uniapp-request-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/uniapp/uniapp-app-generate-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/uniapp/uniapp-app-generate-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/vue/vue-base-skill/vue-form-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/vue/vue-base-skill/vue-form-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/vue/vue-base-skill/vue-card-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/vue/vue-base-skill/vue-card-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/vue/vue-base-skill/vue-table-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/vue/vue-base-skill/vue-table-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/vue/vue-base-skill/vue-status-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/vue/vue-base-skill/vue-status-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/vue/vue-base-skill/vue-button-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/vue/vue-base-skill/vue-button-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/uniapp/uniapp-base-skill/uniapp-form-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/uniapp/uniapp-base-skill/uniapp-form-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/uniapp/uniapp-base-skill/uniapp-card-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/uniapp/uniapp-base-skill/uniapp-card-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wg-skills",
+      "path": "vibeCoding/frontend/uniapp/uniapp-base-skill/uniapp-page-skill/SKILL.md",
+      "github_url": "https://github.com/jiushiwon/wg-skills/tree/main/vibeCoding/frontend/uniapp/uniapp-base-skill/uniapp-page-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jiushiwon/wg-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T16:50:57Z"
+}
