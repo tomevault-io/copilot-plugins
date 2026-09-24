@@ -1,36 +1,24 @@
 ## inbrowser-agent
 
-> Four packages under `packages/`:
+> Browser-native workspace runtime for the inbrowser stack.
 
-# Agent context for the `inbrowser` monorepo
+# `@inbrowser/workspace`
 
-## Repo shape
+Browser-native workspace runtime for the inbrowser stack.
 
-Four packages under `packages/`:
+## Boundaries
 
-- `@inbrowser/agent` — runtime + CLI. Independent; no internal deps on the others.
-- `@inbrowser/relay` — resumable LLM relay. Depends on `@inbrowser/resumable`.
-- `@inbrowser/resumable` — pure streaming-job engine. No internal deps.
-- `@inbrowser/model` — on-device LLM engine (POC). Independent root; adapter subpaths take `@inbrowser/relay` or `@inbrowser/agent` as optional peer deps.
+- Owns infrastructure: file system adapters, preview compilation, shell execution, git, package import maps, and optional agent tool adapters.
+- Does not own UI, prompting strategy, model selection, product copy, or app-builder policy.
+- Does not promise a real Vite/dev server in V1. Preview compiles and mounts browser-compatible app code.
 
-## Conventions
+## Code health
 
-- **Bun** for install / scripts / tests. Workspaces are declared in the root `package.json`.
-- **TypeScript** with shared `tsconfig.base.json`. Per-package `tsconfig.json` extends the base.
-- **Biome** for lint + format. One tool; configured at the root.
-- **Pre-release.** No backwards-compat shims, no `Legacy*` aliases, no schemaVersion migrations. Pick the cleanest shape and update consumers in lockstep.
-- **Skills** live in `.agents/skills/` at the repo root (dev-facing) and in `packages/<name>/skills/` (bundled into the npm artifact via the package's `files` field).
-
-## Don't
-
-- Don't add `.claude/skills/` symlinks.
-- Don't write new packages without first checking whether the code belongs in one of the existing three.
-- Don't fold any of the three packages into another — the boundary was chosen to match the actual import graph.
-
-## Status
-
-Pre-1.0. First publish: `0.1.0`. Versions across the three packages are coordinated manually for now.
+- Keep `fs` independent. Preview, shell, git, packages, and tools may depend on `fs`; `fs` must not depend on them.
+- Avoid package-level singletons in public APIs. Hosts create explicit workspace instances.
+- Expected failures should return typed result objects where practical.
+- Heavy/runtime-specific imports should stay in subpath modules.
 
 ---
 > Source: [davideast/inbrowser-agent](https://github.com/davideast/inbrowser-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
