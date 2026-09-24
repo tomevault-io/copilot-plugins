@@ -1,0 +1,69 @@
+{
+  "name": "DSHA",
+  "owner": "DSH-APP",
+  "repo": "DSHA",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "DSHA",
+      "path": "agent-skills/device-shell/SKILL.md",
+      "github_url": "https://github.com/DSH-APP/DSHA/tree/main/agent-skills/device-shell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DSHA",
+      "path": "website/src/skills/device-shell/SKILL.md",
+      "github_url": "https://github.com/DSH-APP/DSHA/tree/main/website/src/skills/device-shell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DSHA",
+      "path": "agent-skills/screen-ocr-operator/SKILL.md",
+      "github_url": "https://github.com/DSH-APP/DSHA/tree/main/agent-skills/screen-ocr-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DSHA",
+      "path": "website/src/skills/screen-ocr-operator/SKILL.md",
+      "github_url": "https://github.com/DSH-APP/DSHA/tree/main/website/src/skills/screen-ocr-operator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DSH-APP/DSHA",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:03:06Z"
+}
