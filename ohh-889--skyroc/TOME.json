@@ -1,0 +1,261 @@
+{
+  "name": "skyroc",
+  "owner": "Ohh-889",
+  "repo": "skyroc",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ui-ux-pro-max",
+      "path": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/brand/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/brand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/design/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/slides/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/uniwind/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/uniwind/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/ui-styling/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/ui-styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/design-system/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/migrate-oxfmt/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/migrate-oxfmt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/component-doc/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/component-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/component-doc/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/component-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/banner-design/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/banner-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/migrate-oxlint/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/migrate-oxlint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/doc-coauthoring/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/doc-coauthoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/doc-coauthoring/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/doc-coauthoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/senior-frontend/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/senior-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/senior-frontend/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/senior-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/frontend-testing/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/frontend-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/frontend-testing/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/frontend-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/native-component-doc/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/native-component-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/native-component-doc/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/native-component-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/frontend-code-review/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/frontend-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/frontend-code-review/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/frontend-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/design-taste-frontend/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/design-taste-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/component-refactoring/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/component-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/component-refactoring/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/component-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/skyroc-admin-prd-prototype/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/skyroc-admin-prd-prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.claude/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skyroc",
+      "path": ".agents/skills/migrate-nativewind-to-uniwind/SKILL.md",
+      "github_url": "https://github.com/Ohh-889/skyroc/tree/main/.agents/skills/migrate-nativewind-to-uniwind/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Ohh-889/skyroc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T05:35:16Z"
+}
