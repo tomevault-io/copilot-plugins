@@ -1,0 +1,9 @@
+{
+  "name": "alexarthurs--herdr-notes",
+  "displayName": "herdr-notes",
+  "description": "Persistent markdown notes pane for herdr - one note per workspace, rendered preview + edit mode, autosaves and survives restarts",
+  "version": "1.0.0",
+  "author": "alexarthurs",
+  "homepage": "https://github.com/alexarthurs/herdr-notes",
+  "skills": []
+}
