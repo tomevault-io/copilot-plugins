@@ -1,0 +1,9 @@
+{
+  "name": "spoorendonk--mip-heuristics",
+  "displayName": "mip-heuristics",
+  "description": "Four MIP primal heuristics (FeasibilityJump, FPR, LocalMIP, Scylla) implemented and benchmarked inside HiGHS",
+  "version": "1.0.0",
+  "author": "spoorendonk",
+  "homepage": "https://github.com/spoorendonk/mip-heuristics",
+  "skills": []
+}
