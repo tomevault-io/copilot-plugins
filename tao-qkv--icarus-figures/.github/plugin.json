@@ -1,0 +1,9 @@
+{
+  "name": "tao-qkv--icarus-figures",
+  "displayName": "Icarus-Figures",
+  "description": "Publication-grade figures for scientific papers \u2014 reproducible matplotlib & TikZ, with a quality bar, composition paradigms, and journal-grade craft. A self-contained Claude skill.",
+  "version": "1.0.0",
+  "author": "TAO-QKV",
+  "homepage": "https://github.com/TAO-QKV/Icarus-Figures",
+  "skills": []
+}
