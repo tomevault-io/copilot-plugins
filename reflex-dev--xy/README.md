@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [reflex-dev/xy](https://github.com/reflex-dev/xy).
+Original source: `CLAUDE.md` in [reflex-dev/xy](https://github.com/reflex-dev/xy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -23,7 +23,7 @@ Original source: `AGENTS.md` in [reflex-dev/xy](https://github.com/reflex-dev/xy
 - [xy](https://github.com/reflex-dev/xy/tree/main/.agents/skills/codspeed-setup-harness/SKILL.md)
 - [xy](https://github.com/reflex-dev/xy/tree/main/.agents/skills/reflex-process-management/SKILL.md)
 
-From [reflex-dev/xy](https://github.com/reflex-dev/xy) — a repo with 1850+ stars on GitHub.
+From [reflex-dev/xy](https://github.com/reflex-dev/xy) — a repo with 1851+ stars on GitHub.
 
 ---
 
