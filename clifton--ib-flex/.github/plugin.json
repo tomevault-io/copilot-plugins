@@ -1,0 +1,9 @@
+{
+  "name": "clifton--ib-flex",
+  "displayName": "ib-flex",
+  "description": "Type-safe Rust parser for Interactive Brokers FLEX query XML statements",
+  "version": "1.0.0",
+  "author": "clifton",
+  "homepage": "https://github.com/clifton/ib-flex",
+  "skills": []
+}
