@@ -1,0 +1,14 @@
+{
+  "name": "studyzy--tapd-ai-cli",
+  "displayName": "tapd-ai-cli",
+  "description": "tapd-ai-cli",
+  "version": "1.0.0",
+  "author": "studyzy",
+  "homepage": "https://github.com/studyzy/tapd-ai-cli",
+  "skills": [
+    {
+      "name": "tapd-ai-cli",
+      "description": ""
+    }
+  ]
+}
