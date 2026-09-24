@@ -1,0 +1,435 @@
+{
+  "name": "claude-ops",
+  "owner": "Lifecycle-Innovations-Limited",
+  "repo": "claude-ops",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/vip/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/vip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/boss/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/boss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/flow/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/setup/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-go/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-go/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-ar/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-ar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/people/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/people/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ledger/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ledger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-gtm/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-gtm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-mac/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-mac/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-mcp/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/tonight/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/tonight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-next/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-next/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-yolo/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-yolo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-dash/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-dash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-home/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-home/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-ecom/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-ecom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-ship/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-desk/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-desk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-comms/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-comms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-merge/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-merge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-fires/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-fires/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-unifi/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-unifi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-rules/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-voice/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/uninstall/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/uninstall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-inbox/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-inbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-fleet/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-fleet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/relations/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/relations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-triage/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-deploy/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-linear/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-linear/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-doctor/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-pocket/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-pocket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-status/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-update/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-resume/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-resume/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-rotate/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-rotate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-revenue/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-revenue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-desktop/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-desktop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-speedup/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-speedup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-package/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-release/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-monitor/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-leadgen/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-leadgen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-socials/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-socials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-settings/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-projects/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-accounts/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-accounts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "desktop-act/skills/desktop-act/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/desktop-act/skills/desktop-act/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-integrate/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-integrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-marketing/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-marketing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-humanizer/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-aws-audit/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-aws-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-statusline/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-statusline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-deploy-fix/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-deploy-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-orchestrate/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-orchestrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-secret-sync/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-secret-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-competitors/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-competitors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-credentials/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-credentials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-feature-dev/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-whatsapp-biz/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-whatsapp-biz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-rotate-setup/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-rotate-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-ops",
+      "path": "claude-ops/skills/ops-social-planner/SKILL.md",
+      "github_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops/tree/main/claude-ops/skills/ops-social-planner/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Lifecycle-Innovations-Limited/claude-ops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T16:59:23Z"
+}
