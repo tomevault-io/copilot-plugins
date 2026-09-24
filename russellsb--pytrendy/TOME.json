@@ -1,0 +1,81 @@
+{
+  "name": "pytrendy",
+  "owner": "RussellSB",
+  "repo": "pytrendy",
+  "description": "Trend Detection in Python. Applicable for real-world industry use cases in time series.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pytrendy",
+      "path": ".opencode/skills/cicd/SKILL.md",
+      "github_url": "https://github.com/RussellSB/pytrendy/tree/main/.opencode/skills/cicd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pytrendy",
+      "path": ".opencode/skills/test/SKILL.md",
+      "github_url": "https://github.com/RussellSB/pytrendy/tree/main/.opencode/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pytrendy",
+      "path": ".opencode/skills/debug/SKILL.md",
+      "github_url": "https://github.com/RussellSB/pytrendy/tree/main/.opencode/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pytrendy",
+      "path": ".opencode/skills/pytrendy/SKILL.md",
+      "github_url": "https://github.com/RussellSB/pytrendy/tree/main/.opencode/skills/pytrendy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pytrendy",
+      "path": ".opencode/skills/pr-plots/SKILL.md",
+      "github_url": "https://github.com/RussellSB/pytrendy/tree/main/.opencode/skills/pr-plots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pytrendy",
+      "path": ".opencode/skills/maintenance/SKILL.md",
+      "github_url": "https://github.com/RussellSB/pytrendy/tree/main/.opencode/skills/maintenance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/RussellSB/pytrendy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T03:30:21Z"
+}
