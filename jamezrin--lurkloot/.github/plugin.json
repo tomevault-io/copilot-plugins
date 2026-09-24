@@ -1,0 +1,9 @@
+{
+  "name": "jamezrin--lurkloot",
+  "displayName": "lurkloot",
+  "description": "Automatically farm Twitch and Kick drops from your browser or a headless Docker setup.",
+  "version": "1.0.0",
+  "author": "jamezrin",
+  "homepage": "https://github.com/jamezrin/lurkloot",
+  "skills": []
+}
