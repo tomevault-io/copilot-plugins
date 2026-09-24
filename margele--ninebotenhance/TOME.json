@@ -1,0 +1,44 @@
+{
+  "name": "NinebotEnhance",
+  "owner": "Margele",
+  "repo": "NinebotEnhance",
+  "description": "Ninebot Enhance\uff1a\u4e5d\u53f7\u51fa\u884c\u5e94\u7528\u6295\u5c4f\u3001\u7cfb\u7edf\u5f55\u5c4f\u4e0e\u865a\u62df\u5c4f\u589e\u5f3a\u6a21\u5757",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Margele/NinebotEnhance",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T10:50:41Z"
+}
