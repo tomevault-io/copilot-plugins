@@ -1,0 +1,9 @@
+{
+  "name": "cliff-byte--feishu-docs-cli",
+  "displayName": "feishu-docs-cli",
+  "description": "A lightweight CLI tool for Feishu/Lark document and wiki management, designed for Agentic Coding scenarios",
+  "version": "1.0.0",
+  "author": "cliff-byte",
+  "homepage": "https://github.com/cliff-byte/feishu-docs-cli",
+  "skills": []
+}
