@@ -1,0 +1,63 @@
+## gamestudio
+
+> GameStudio provider-neutral agent workflow
+
+
+# GameStudio Cursor Adapter
+
+Follow `AGENTS.md` as the primary instruction file.
+
+GameStudio is harness-neutral:
+
+- Use `.agents/skills/` as the canonical skill source.
+- Use `.agents/agents/` as the canonical role source.
+- Use `.agents/hooks/` as the canonical lifecycle hook source for any external
+  automation Cursor delegates to.
+- Use `.agents/hooks.json` as the event-to-script registry for that automation.
+- Use `.agents/rules/` as the canonical path-scoped standards source.
+- Use `.claude/` and `.codex/` only as adapter examples for Claude Code and
+  Codex-style harnesses.
+- Keep model/provider selection in Cursor settings or an external gateway.
+- Do not hardcode Anthropic, OpenAI, Gemini, DeepSeek, GLM/Z.ai, Qwen, or local
+  model choices into skills, agents, hooks, or project docs.
+
+When the user invokes a slash-style skill such as `/start`, `/dev-story`, or
+`/design-review`, open the matching `.agents/skills/<skill>/SKILL.md` and follow
+that workflow.
+
+When editing files, apply the matching standards from `.agents/rules/`:
+
+- `src/gameplay/**` -> `gameplay-code.md`
+- `src/core/**` -> `engine-code.md`
+- `src/ai/**` -> `ai-code.md`
+- `src/networking/**` -> `network-code.md`
+- `src/ui/**` -> `ui-code.md`
+- `src/scenes/**` -> `scenes.md`
+- `src/shaders/**` -> `shaders.md`
+- `assets/data/**` -> `data-files.md`
+- `assets/shaders/**` -> `shader-code.md`
+- `assets/3d/**` -> `assets-3d.md`
+- `design/gdd/**` -> `design-docs.md`
+- `design/narrative/**` -> `narrative.md`
+- `tests/**` -> `test-standards.md`
+- `prototypes/**` -> `prototype-code.md`
+
+Maintain the GameStudio collaboration protocol:
+
+1. Ask focused questions.
+2. Present options with trade-offs.
+3. Let the user decide.
+4. Draft or summarize the proposed change.
+5. Ask explicit approval before writing files.
+
+If a skill names `AskUserQuestion`, present the same options in chat when
+Cursor has no structured question UI available. If a skill names `Task`, use
+Cursor's agent/subagent feature when available or inline the referenced role's
+instructions from `.agents/agents/`.
+
+For provider routing or man-in-the-middle gateway setup, use
+`docs/HARNESS-COMPATIBILITY.md` as the source of truth.
+
+---
+> Source: [bullish0x/GameStudio](https://github.com/bullish0x/GameStudio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
