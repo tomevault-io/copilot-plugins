@@ -1,0 +1,171 @@
+{
+  "name": "agav",
+  "owner": "prapaa-ai",
+  "repo": "agav",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/pdf/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/docx/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/pptx/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/xlsx/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/explain/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/explain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/doc-gen/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/doc-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/diagnose/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/simplify/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/simplify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/refactor/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/summarize/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/git-commit/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/data-clean/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/data-clean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/test-writer/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/code-review/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/email-draft/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/email-draft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/deep-research/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/meeting-notes/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/meeting-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/security-scan/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/skill-creator/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/plain-language/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/plain-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agav",
+      "path": "source/skills/bundled/file-organizer/SKILL.md",
+      "github_url": "https://github.com/prapaa-ai/agav/tree/main/source/skills/bundled/file-organizer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/prapaa-ai/agav",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T20:50:21Z"
+}
