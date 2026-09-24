@@ -1,0 +1,9 @@
+{
+  "name": "stablemates--workhorse",
+  "displayName": "workhorse",
+  "description": "A durable task queue for PostgreSQL, with TypeScript, Python, and Go workers on one SQL protocol.",
+  "version": "1.0.0",
+  "author": "stablemates",
+  "homepage": "https://github.com/stablemates/workhorse",
+  "skills": []
+}
