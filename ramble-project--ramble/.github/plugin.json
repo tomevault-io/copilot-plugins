@@ -1,0 +1,14 @@
+{
+  "name": "ramble-project--ramble",
+  "displayName": "ramble",
+  "description": "ramble",
+  "version": "1.0.0",
+  "author": "Ramble-Project",
+  "homepage": "https://github.com/Ramble-Project/ramble",
+  "skills": [
+    {
+      "name": "ramble",
+      "description": ""
+    }
+  ]
+}
