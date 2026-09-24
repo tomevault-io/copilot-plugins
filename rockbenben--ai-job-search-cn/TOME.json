@@ -1,0 +1,44 @@
+{
+  "name": "ai-job-search-cn",
+  "owner": "rockbenben",
+  "repo": "ai-job-search-cn",
+  "description": "\u4e00\u6761\u547d\u4ee4\u8dd1\u5b8c\u56fd\u5185\u6c42\u804c\uff1a\u730e\u8058 BOSS \u667a\u8054\u524d\u7a0b\u4e00\u8d77\u641c\uff0c\u5b66\u5386\u6237\u53e3\u5916\u5305\u8fd9\u4e9b\u786c\u95e8\u7b5b\u6389\u966a\u8dd1\u5c97\uff0c\u6253\u62db\u547c\u8bdd\u672f\u548c\u4e2d\u6587\u7b80\u5386\u5907\u597d\uff0c\u4f60\u53ea\u7ba1\u70b9\u53d1\u9001\u3002\u6570\u636e\u4e0d\u51fa\u672c\u673a\uff0cClaude Code / Codex / Gemini CLI \u90fd\u80fd\u8dd1\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rockbenben/ai-job-search-cn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T06:15:58Z"
+}
