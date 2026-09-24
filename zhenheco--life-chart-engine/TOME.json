@@ -2,9 +2,9 @@
   "name": "life-chart-engine",
   "owner": "zhenheco",
   "repo": "life-chart-engine",
-  "description": "\u4e09\u5408\u4e00\u6392\u76e4\u5f15\u64ce\uff1a\u897f\u6d0b\u661f\u76e4 + \u4eba\u985e\u5716 + \u7d2b\u5fae\u6597\u6578\uff0c\u539f\u751f\u5929\u6587/\u66c6\u6cd5\u8a08\u7b97\uff0cCLI + JSON(\u4f9b AI agent)\u3002AGPL-3.0\u3002",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhenheco/life-chart-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T06:30:26Z"
+  "distributed_at": "2026-09-24T23:38:28Z"
 }
