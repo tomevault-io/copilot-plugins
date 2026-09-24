@@ -1,15 +1,13 @@
-## agents
+## git-pr-workflow
 
-> Canonical project constraints — follow AGENTS.md at repository root
+> GitHub workflow — see AGENTS.md § Git and GitHub workflow
 
 
-# Project constraints (canonical)
+# Git / GitHub workflow
 
-All mandatory rules for this repository are defined in **[AGENTS.md](../../AGENTS.md)** at the repository root.
+Follow **[AGENTS.md](../../AGENTS.md)** — section **“Git and GitHub workflow”** and **“Code and review expectations”**.
 
-- Read and follow **AGENTS.md** before making changes.
-- Do not contradict AGENTS.md; other rule files in this folder only point to it.
-- For consumer API and diagnostics text, prefer the [documentation site](https://mvvmaio.github.io/Prism.SourceGenerators.Docs/) and `DiagnosticDescriptors.cs` over Wiki/README when they differ.
+Issue first for substantive work; PR to `master`; squash merge; CI green.
 
 ---
 > Source: [MvvmAIO/Prism.SourceGenerators](https://github.com/MvvmAIO/Prism.SourceGenerators) — distributed by [TomeVault](https://tomevault.io).
