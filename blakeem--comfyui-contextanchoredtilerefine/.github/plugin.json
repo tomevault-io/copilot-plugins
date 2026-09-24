@@ -1,0 +1,9 @@
+{
+  "name": "blakeem--comfyui-contextanchoredtilerefine",
+  "displayName": "ComfyUI-ContextAnchoredTileRefine",
+  "description": "Seamless tiled refinement and upscaling for ComfyUI. The VL nodes step all tiles on one shared latent, conditioned by vision tokens and per-tile captions instead of a prompt, so objects never repeat a",
+  "version": "1.0.0",
+  "author": "Blakeem",
+  "homepage": "https://github.com/Blakeem/ComfyUI-ContextAnchoredTileRefine",
+  "skills": []
+}
