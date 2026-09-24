@@ -1,0 +1,9 @@
+{
+  "name": "codeswhat--sockguard",
+  "displayName": "sockguard",
+  "description": "Docker socket proxy. Filter API requests by method and path with default-deny posture, structured audit logging, and Tecnativa drop-in compatibility.",
+  "version": "1.0.0",
+  "author": "CodesWhat",
+  "homepage": "https://github.com/CodesWhat/sockguard",
+  "skills": []
+}
