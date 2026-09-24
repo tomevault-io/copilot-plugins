@@ -1,0 +1,9 @@
+{
+  "name": "peanutprotocol--peanutsplit",
+  "displayName": "peanutsplit",
+  "description": "Split expenses with a link. No accounts for anyone. Any currency, offline, PWA. AGPL, self-hostable.",
+  "version": "1.0.0",
+  "author": "peanutprotocol",
+  "homepage": "https://github.com/peanutprotocol/peanutsplit",
+  "skills": []
+}
