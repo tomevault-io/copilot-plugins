@@ -1,0 +1,9 @@
+{
+  "name": "andreabenetton--pcontacts",
+  "displayName": "pcontacts",
+  "description": "A GPL-3.0 Android app that signs in to a Proton Mail account, decrypts the user's contacts client-side, and exposes them to ContactsContract so they appear in the system Contacts app (and any other ap",
+  "version": "1.0.0",
+  "author": "andreabenetton",
+  "homepage": "https://github.com/andreabenetton/pcontacts",
+  "skills": []
+}
