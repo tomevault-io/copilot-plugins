@@ -1,0 +1,18 @@
+{
+  "name": "geopm--geopm",
+  "displayName": "geopm",
+  "description": "geopm",
+  "version": "1.0.0",
+  "author": "geopm",
+  "homepage": "https://github.com/geopm/geopm",
+  "skills": [
+    {
+      "name": "geopm",
+      "description": ""
+    },
+    {
+      "name": "geopm",
+      "description": ""
+    }
+  ]
+}
