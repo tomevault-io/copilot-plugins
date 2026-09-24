@@ -1,0 +1,9 @@
+{
+  "name": "shin-sibainu--agent-quartet-harness",
+  "displayName": "agent-quartet-harness",
+  "description": "4-agent sprint-driven development harness for Claude Code (Planner \u2192 Generator \u2192 Designer \u2192 Evaluator)",
+  "version": "1.0.0",
+  "author": "Shin-sibainu",
+  "homepage": "https://github.com/Shin-sibainu/agent-quartet-harness",
+  "skills": []
+}
