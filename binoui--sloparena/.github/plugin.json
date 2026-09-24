@@ -1,0 +1,9 @@
+{
+  "name": "binoui--sloparena",
+  "displayName": "SlopArena",
+  "description": "Open-source 3D platform fighter with hero-style kits, rollback netcode, and moddable character packages. Built in Unity 6.",
+  "version": "1.0.0",
+  "author": "Binoui",
+  "homepage": "https://github.com/Binoui/SlopArena",
+  "skills": []
+}
