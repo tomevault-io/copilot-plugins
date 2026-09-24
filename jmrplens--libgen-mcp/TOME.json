@@ -1,0 +1,44 @@
+{
+  "name": "libgen-mcp",
+  "owner": "jmrplens",
+  "repo": "libgen-mcp",
+  "description": "MCP server in Go to search, download and read books, papers, comics and more from Library Genesis \u2014 plus keyless open-access discovery (arXiv, Crossref, OpenLibrary, Gutenberg, dblp, PubMed, ERIC) and article downloads via Unpaywall, Europe PMC, bioRxiv, CORE and OAPEN. Four focused tools, one static binary, no account required.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jmrplens/libgen-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T00:33:57Z"
+}
