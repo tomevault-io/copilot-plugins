@@ -1,9 +1,358 @@
 {
   "name": "seiggy--lucia-dotnet",
   "displayName": "lucia-dotnet",
-  "description": "Lucia is your whole home assistant that you always wanted",
+  "description": "lucia-dotnet",
   "version": "1.0.0",
   "author": "seiggy",
   "homepage": "https://github.com/seiggy/lucia-dotnet",
-  "skills": []
+  "skills": [
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    },
+    {
+      "name": "lucia-dotnet",
+      "description": ""
+    }
+  ]
 }
