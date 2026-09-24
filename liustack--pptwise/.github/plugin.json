@@ -1,0 +1,9 @@
+{
+  "name": "liustack--pptwise",
+  "displayName": "pptwise",
+  "description": "A real PowerPoint, not a picture or HTML. Tell your AI what to cover and pptwise builds an editable deck on your own machine. Agent skill + DSH plugin, no account and no API key to render. | \u771f\u6b63\u7684 PPT\uff0c\u4e0d",
+  "version": "1.0.0",
+  "author": "liustack",
+  "homepage": "https://github.com/liustack/pptwise",
+  "skills": []
+}
