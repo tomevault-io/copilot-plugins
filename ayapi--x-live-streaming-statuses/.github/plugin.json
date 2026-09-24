@@ -1,0 +1,9 @@
+{
+  "name": "ayapi--x-live-streaming-statuses",
+  "displayName": "x-live-streaming-statuses",
+  "description": "X\u306e\u30e9\u30a4\u30d6\u914d\u4fe1\u306e\u30b3\u30e1\u30f3\u30c8\u3068\u540c\u6642\u63a5\u7d9a\u8005\u6570\u3092\u5f97\u308b\u305f\u3081\u306eCLI\u3068Chrome\u62e1\u5f35",
+  "version": "1.0.0",
+  "author": "ayapi",
+  "homepage": "https://github.com/ayapi/x-live-streaming-statuses",
+  "skills": []
+}
