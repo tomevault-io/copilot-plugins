@@ -1,17 +1,15 @@
 # nimbus
 
-> Source: [cloudflare/nimbus](https://github.com/cloudflare/nimbus). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
-
-Docs for humans and agents, built on Astro
+> Source: [cloudflare/nimbus](https://github.com/cloudflare/nimbus). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cloudflare/nimbus](https://github.com/cloudflare/nimbus).
+Original source: `AGENTS.md` in [cloudflare/nimbus](https://github.com/cloudflare/nimbus).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
