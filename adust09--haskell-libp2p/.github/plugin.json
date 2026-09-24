@@ -1,0 +1,9 @@
+{
+  "name": "adust09--haskell-libp2p",
+  "displayName": "haskell-libp2p",
+  "description": "libp2p implementation in Haskell",
+  "version": "1.0.0",
+  "author": "adust09",
+  "homepage": "https://github.com/adust09/haskell-libp2p",
+  "skills": []
+}
