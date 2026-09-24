@@ -1,7 +1,6 @@
-## read-specs
+## buggyboard-web-app
 
-> Read and follow BuggyBoard specs when working on the app
-
+> When working on the **BuggyBoard** web app (bug tracker SUT for the Playwright course):
 
 # BuggyBoard: Use Specs as Context
 
