@@ -1,0 +1,293 @@
+## pcontacts
+
+> Use this file as the default implementation context for this repo. Do not restate the architecture in every prompt — read it from ADRs and from the implementation plan. Optimize for correctness, security, reproducibility, and respect for the user's privacy stance.
+
+# CLAUDE.md
+
+## Purpose
+Use this file as the default implementation context for this repo. Do not restate the architecture in every prompt — read it from ADRs and from the implementation plan. Optimize for correctness, security, reproducibility, and respect for the user's privacy stance.
+
+---
+
+## Repo stance
+This repo is:
+- **single-app Android** (Kotlin, Gradle, multi-module — see ADR-0011)
+- **GPL-3.0-only**, with SPDX headers on every source file
+- **F-Droid first**, sideload-friendly; **no Google Play Services, no telemetry, no proprietary blobs**
+- **client-side-crypto-only**: the Proton API decrypt happens on-device; decrypted contact data is never logged and never sent off-device. It is written only to the system Contacts provider (the destination the user asked for); the app keeps no app-private plaintext copy — its own database holds content hashes and, for conflict detection, a per-contact last-known-server snapshot sealed under the device Keystore (ADR-0018)
+- **unofficial-API consumer**: every claim about Proton's API is marked with `[V]` / `[U]` / `[A]` / `[D]` (verified / unverified / assumption / discouraged)
+
+---
+
+## Source precedence
+For implementation work, use this order:
+
+1. `docs/adr/NNNN-*.md` — architecture decisions. Contracts of the codebase.
+2. The implementation plan (lives outside the repo at `/home/user/.claude/plans/act-as-a-staff-lovely-squid.md`) — the phased roadmap, risk register, and verification plan.
+3. `NOTICE` — what we attribute and to whom.
+4. The Proton/WebClients reference (`https://github.com/ProtonMail/WebClients` at the pinned commit recorded in `docs/API_RESEARCH.md` once that lands) — the executable specification we port from.
+5. Existing code in this repo.
+
+Rules:
+- ADRs win for architecture. If existing code conflicts with an ADR, the code is wrong (or the ADR needs a superseding ADR).
+- Proton's web client is the spec for protocol shape and crypto behavior; our Kotlin port must match it bit-exact where it must (see ADR-0013).
+- An undocumented Proton behavior is **never** assumed safe — mark it `[U]` and design a fallback.
+
+---
+
+## Non-negotiable architectural rules
+
+These are the load-bearing invariants. Every one corresponds to an ADR; read the ADR for the rationale.
+
+### License + attribution (ADR-0001)
+- License is **GPL-3.0-only**. Every source file carries an SPDX header.
+- Files materially derived from ProtonMail/WebClients carry an additional `SPDX-FileCopyrightText` line crediting Proton AG, naming the upstream file, and pinning the upstream commit.
+- New runtime dependencies must be GPL-3.0-compatible. The release build fails if they aren't (ADR-0015).
+
+### Crypto strategy (ADR-0002, ADR-0013, ADR-0014)
+- All crypto is **native Kotlin** in `:core:crypto`: BouncyCastle for OpenPGP, ported SRP-6a, ported bcrypt-SHA512.
+- **No JS engine is bundled and no JavaScript runs for protocol or crypto work.** The only JavaScript the app ever executes is Proton's hosted captcha page, inside the locked-down WebView of ADR-0019.
+- Every change to `:core:crypto` runs the captured-vector test suite (`tools/vectors/`) and must pass.
+- The Proton SRP modulus signing public key is pinned (`core:crypto/src/main/resources/proton_srp_signing_key.asc`); modulus signature verification is mandatory before SRP arithmetic; on verification failure, login aborts.
+
+### Decrypt client-side only (ADR-0007)
+- Always pull encrypted `Cards[]` and decrypt locally.
+- The app **never** calls `GET contacts/v4/contacts/export`. A CI grep fails the build if that path appears in any source file outside ADR-0007.
+- Decrypted vCard bytes live only on the heap during a sync and in the system Contacts provider rows the sync writes; they are never logged, never transmitted off-device, and never stored app-privately in plaintext (Room holds hashes and the Keystore-sealed merge base of ADR-0018 only).
+
+### Secrets storage (ADR-0009)
+- All secret reads/writes go through the `SecretStore` interface in `:core:storage`.
+- Direct `SharedPreferences` constructor calls outside `:core:storage` are forbidden (detekt rule).
+- Every secret (tokens, `keyPassword`, the verification token) is sealed under the Keystore AEAD key `pcontacts.kekv1` before it touches the plain preferences file `pcontacts_auth_v2`; nothing in that file is readable without the key.
+- Manifest invariants on release builds: `android:allowBackup="false"`, `android:debuggable="false"`. Asserted in a manifest-merger test.
+
+### ContactsContract writes (ADR-0010)
+- Every write to `RawContacts` / `Data` URIs uses `?caller_is_syncadapter=true`. The helper that builds these URIs is the **only** way to construct them in `:core:contacts-writer`.
+- Update path is **delete-and-reinsert child `Data` rows** under a stable `RawContacts._ID`. Never delete the `RawContacts` itself on update (preserves user-owned aggregated state like starred / ringtone).
+- `applyBatch` is chunked to ≤ 450 ops.
+
+### No telemetry, no Google Services (ADR-0015)
+- No `com.google.android.gms`, no `com.google.firebase`, no analytics SDK, no remote configuration, no kill-switch.
+- The release build's dependency-license report task fails if a disallowed group, artifact, or license appears in the resolved graph.
+- `OkHttpClient` is constructed only in `:core:proton-api` (DNS resolver rejects hosts not matching `*.proton.me`) and in `:core:advisories` (resolver allows `api.osv.dev` only; used solely by the opt-in runtime advisory check of ADR-0025, off by default).
+- Custom Android Lint rule `pcontacts.SensitiveLog` fails the build on any `android.util.Log`, `println`, or `System.out.*` call inside `:core:*` or `:feature:*`. Use `:core:logging`'s `Logger` interface instead — the production implementation strips sensitive fields.
+
+### Module boundaries (ADR-0011)
+- `:feature:*` must not depend on `:core:crypto` or `:core:proton-api` directly. They reach those layers through `:core:sync`.
+- No module depends on `:app`.
+- Pure-JVM modules (`:core:crypto`, `:core:proton-api`, `:core:proton-contacts`) must remain testable without an emulator.
+
+### Verification markers
+- Every claim about Proton's API or `@protontech/crypto` behavior carries a marker in any new ADR, doc, or code comment:
+  - `[V]` Verified from ProtonMail/WebClients source.
+  - `[U]` Unverified — present in code but mechanism not fully knowable from JS/TS alone.
+  - `[A]` Assumption — must be validated against a real Proton account.
+  - `[D]` Discouraged or out of scope.
+- If a code path depends on a `[U]` or `[A]`, it carries a fail-closed branch and a logged (non-sensitive) signal.
+
+---
+
+## Code discipline
+
+### Simplicity first
+- Minimum code that solves the problem. No speculative features, no abstractions for single-use code, no "flexibility" that wasn't requested.
+- If you write 200 lines and it could be 50, rewrite it.
+- No error handling for scenarios that cannot happen. Trust internal code and framework guarantees; only validate at system boundaries (user input, Proton API responses).
+
+### Surgical changes
+- Touch only what the task requires. Don't "improve" adjacent code, comments, or formatting opportunistically.
+- Match existing patterns and style. When adding a new file, mirror the closest existing peer in the same package.
+- Remove imports/variables/functions that YOUR changes made unused. Don't remove pre-existing dead code unless asked.
+- Every changed line should trace directly to the task.
+
+### Verify before declaring done
+- Transform tasks into verifiable goals with concrete success criteria. "Add validation" → "write tests for invalid inputs, then make them pass." "Fix the bug" → "write a test that reproduces it, then make it pass."
+- Run the relevant module's test suite before committing. If the task touches UI, test it in a browser or on a device. Type-checking and test suites verify code correctness, not feature correctness.
+- If you cannot verify (e.g., no emulator available), say so explicitly rather than claiming success.
+
+### Detekt-clean code
+Detekt + detekt-formatting (ktlint) runs in CI and **fails the build** on style violations. Write code that passes detekt the first time; do not rely on the baseline file as a permanent ignore list — a stale baseline silently lets new violations slip in and rots into a CI break the moment the matched code drifts. Before committing any module's change, run `./gradlew :<module>:detekt` and fix what fires.
+
+The rules that bite most often in this codebase, with the shape to write from the start:
+
+- **ImportOrdering** — single block, pure lexicographic ASCII order, no blank lines between imports. `androidx.compose.foundation.layout.*` then `androidx.compose.foundation.text.*` then `androidx.compose.material3.*` — `f` < `m`. A new import goes in its lex slot, not at the bottom.
+- **ArgumentListWrapping** — if a call/ctor doesn't fit on one line, put each argument on its own line and the closing `)` on its own line. Never `ContactCardDto(type = 2, data = plaintext,` on one line and the rest on the next.
+- **MaxLineLength + NoMultipleSpaces** — no `@Suppress("Rule")  // long comment explaining why` on one line. Hoist the comment above the annotation; keep the annotation line short.
+- **ComplexCondition** — max 3 boolean operands per `if`/`while`. If you'd write `if (a && b && c && d)`, extract one named `val` (e.g. `val serverUnchanged = a && b && c`) and use `if (serverUnchanged && d)`.
+- **ReturnCount** — max 5 returns per function. If the natural shape genuinely needs more (e.g. a multi-phase protocol with one return per phase), `@Suppress("ReturnCount")` with a brief reason comment explaining what the phases are. Don't refactor to hide the structure.
+- **MultiLineIfElse** — an `if ... else` that spans multiple lines needs `{ ... }` braces on both branches. `if (x.isEmpty()) emptyList() else listOf(...)` on one line is fine; on two lines it isn't.
+- **LongMethod** (80 lines) / **LongParameterList** — extract a logical sub-unit (a private helper Composable, a step function) rather than just suppressing. Suppress with `@Suppress` + a class/function comment only when the parameter count is structurally meaningful (e.g. a ViewModel with many injectable seams) — then keep the suppression line short.
+- **SpacingBetweenDeclarationsWithComments** — a declaration with a leading `//` comment needs a blank line before it, even inside a sealed interface / class body.
+- **PropertyWrapping** — a long `val x = SomeCall(many args...)` either fits on one line or each arg goes on its own line with the closing `)` on its own line. No half-wrapped middle ground.
+- **VarCouldBeVal / NoUnusedImports / NoSemicolons** — prefer `val` unless reassigned; delete imports your edit made unused; one statement per line, no `a; b; c`.
+
+If a violation legitimately needs to stay (a structural constraint, a generated-code quirk), prefer `@Suppress("RuleName")` with a one-line reason comment over re-baselining. The baseline file is for grandfathered debt only; every new commit should keep it shrinking or unchanged.
+
+### Dependency injection
+- Manual DI via Bootstrap factory objects (`SyncBootstrap`, `ContactEncryptBootstrap`, `ContactDecryptBootstrap`). **No Hilt, Dagger, or Koin.**
+- New features follow the existing Bootstrap pattern: a factory object that wires dependencies, scoped to a sync run or activity lifecycle.
+- ViewModels receive dependencies as constructor function-type seams (see `SettingsViewModel`, `LoginViewModel`).
+
+### UI strings
+- All user-facing text must be defined in `app/src/main/res/values/strings.xml` (or the relevant module's resources). Never hardcode user-facing strings in Composables or Activities.
+- String resources default to `translatable="true"`. Mark `translatable="false"` only for identifiers or technical labels that should not be translated.
+
+---
+
+## Documentation conventions
+
+| Type | Pattern | Example |
+|---|---|---|
+| ADR | `NNNN-lowercase-kebab.md` (four-digit) | `0009-secrets-storage.md` |
+| Other docs | `UPPER_SNAKE.md` at the doc's level | `THREAT_MODEL.md` |
+
+Rules:
+- ADRs are numbered four-digit, sequential, never reused. The number is permanent across supersession.
+- Do **not** rename existing ADRs. If a decision changes, write a new ADR that supersedes the old one and update the old one's `Status` header.
+- An ADR is one decision. If it grows beyond ~2 pages, it's probably two ADRs.
+- The ADR index lives at `docs/adr/README.md`. Every new ADR adds its row.
+- A new ADR ships in the same commit as the code that enacts it.
+
+### Cross-document consistency
+- Status claims (what works, what's a known gap) must agree across `README.md`, `CHANGELOG.md`, and `docs/ROADMAP.md`. When updating feature status in any one, check the others.
+- `CHANGELOG.md` is the source of truth for what shipped in a release. `README.md §Status` and `docs/ROADMAP.md` reflect it, not the other way around.
+
+### Release process
+When the user asks to release a version, follow the checklist in [`docs/BUILD.md` §Release checklist](docs/BUILD.md#release-checklist) **exactly and in order**. The critical invariant: **do not tag until the release APK builds successfully**. The tag triggers CI and creates a public GitHub Release — tagging a broken or unverified commit ships a broken release.
+
+---
+
+## Git discipline
+
+After each logical unit of work:
+- create a git commit
+- push to the current branch
+
+If push cannot be completed because of missing remote, credentials, branch protection, or environment limits:
+- say so explicitly
+- do not claim the push succeeded
+
+Commit messages must be short, specific, and scoped to the actual change. Do not leave completed logical units of work uncommitted.
+
+**Do not add a `Co-Authored-By` trailer to any commit message.**
+
+### Multi-fix prompts
+When a single prompt asks for **more than one unrelated fix** (different files, different bugs, different ADRs, different concerns — not the natural sub-tasks of one feature), do not bundle them into a single commit. Instead, for each fix in turn:
+
+1. implement only that one fix
+2. add or update only the tests directly related to it
+3. run the impacted tests; verify they pass
+4. create one commit scoped to that fix (with a commit message describing only it)
+5. push, then move to the next fix
+
+Each fix becomes one commit. Each commit is independently reviewable, revertable, and bisectable. A multi-fix prompt produces N commits, not one.
+
+Related sub-tasks of the same fix (e.g., a code change plus its test plus a docstring update plus a doc cross-reference) belong in the same commit — they are not "different fixes". The discriminator is whether the changes share a single root cause, ADR, or feature.
+
+Do not bundle "while I'm here" cleanups into a fix commit. If unrelated drift is discovered mid-fix, either (a) note it explicitly and defer it, or (b) handle it as its own follow-up commit after the in-scope fix is committed.
+
+### Multi-module prompts
+When a prompt's work spans more than one Gradle module (e.g., `:core:proton-api` + `:core:proton-contacts` + `:feature:onboarding`), do not bundle it into a single commit — even when it's one coherent feature. For each module in turn:
+
+1. implement only that module's portion
+2. add or update only the tests directly related to it
+3. run that module's tests; verify they pass
+4. create one commit scoped to that module
+5. push, then move to the next module
+
+Shared edits (an ADR, a NOTICE update, a version-catalog bump) that enable only **one** module's commit may ride with that commit. Shared edits that enable **more than one** module's commit go into their own preceding commit. Order from lowest-level to highest: `:core:crypto` and `:core:proton-api` before `:core:sync` before `:feature:*` before `:app`.
+
+### Debugging hygiene
+
+When chasing a bug across multiple commits, **do not squash the chain into a single "fix X" commit**. Each independent root cause peeled back during the investigation deserves its own commit, even when the surface symptom is the same. Squashing distinct fixes into one commit loses bisectability, makes reverts blast-radius bigger than they should be, and hides the diagnostic narrative future-you will want when the same symptom resurfaces.
+
+What MUST be cleaned up before commit:
+
+- **Diagnostic instrumentation added while chasing the bug.** Examples: `Log.d` traces sprinkled in hot paths, `println` dumps of payloads, transient `if (BuildConfig.DEBUG) { … }` shims, dispatcher constructor logs enumerating registrations. These served their purpose finding the bug; leaving them in pollutes the log surface (and, in this project, risks tripping the `pcontacts.SensitiveLog` Lint rule).
+- **Throw-away one-shot fixtures.** Hardcoded test ids, sample JSON pasted from a curl session against a live Proton account, `if (DEBUG) return early` shortcuts.
+- **Commented-out code** from earlier hypotheses.
+
+What is NOT diagnostic noise (keep it):
+
+- A **warning log on a real fallback path** the production code can take (e.g., "signature verification failed for card; retaining decrypted data with isVerified=false"). That's a permanent operational signal.
+- A **catch-block log of swallowed exceptions** that previously surfaced silently. Silent swallowing is a bug magnet — the structured (non-sensitive) log is the fix.
+- A **structured info log on a one-shot startup or sync-start path** ("sync started for account=… contacts=…"). Fires once per sync, not per contact, and contains no contact content.
+
+Mechanically: either fold the cleanup into the same commit as the fix, OR add it as a follow-up commit before pushing the chain. Do not push diagnostic noise "to clean up later" — later rarely comes.
+
+---
+
+## Anti-patterns
+
+Do not introduce:
+
+- decrypted vCard content in `Log.*`, `println`, `System.out.*`, exception messages, crash dumps, or DB rows
+- token / passphrase / private-key material in `SharedPreferences` outside `:core:storage`
+- direct `SharedPreferences` constructor calls outside `:core:storage`
+- direct `ContentResolver.applyBatch` calls outside `:core:contacts-writer`
+- a `RawContacts` / `Data` URI built without `caller_is_syncadapter=true`
+- a call to `GET contacts/v4/contacts/export`
+- a JS engine, embedded interpreter, WebView for protocol work
+- a Google Play Services or Firebase dependency
+- a network call to a host not matching `*.proton.me` from `:core:proton-api`, or to any host but `api.osv.dev` from `:core:advisories`
+- a network call from `:core:advisories` while the user's advisory-check switch is off
+- a new SRP modulus path that doesn't verify the pinned signature
+- a Proton API claim without a `[V]`/`[U]`/`[A]`/`[D]` marker
+- a runtime fetch of a pinned key, certificate, or fingerprint
+- an ADR renumbering or rename to satisfy aesthetic preference
+- a DI framework (Hilt, Dagger, Koin) — manual Bootstrap factories only
+- hardcoded user-facing strings in Composables or Activities — use string resources
+- speculative abstractions, unused parameters, or "flexibility" not required by the task
+- a commit that bundles unrelated fixes
+- a commit message that says "various fixes" or "WIP"
+- a `Co-Authored-By` trailer
+
+---
+
+## Completion checklist
+
+Use this checklist internally before closing work. Do not reproduce it in responses unless items are missing or need explicit callout.
+
+- ADR(s) for affected layers respected
+- if behavior conflicts with an ADR: superseding ADR written and committed
+- verification markers present on every new claim about Proton's API or crypto
+- decrypted contact data never logged or persisted (sensitive-log Lint passes)
+- `?caller_is_syncadapter=true` on every ContactsContract write
+- no new dependency violates the ADR-0015 allowlist
+- no host outside `*.proton.me` is contacted from `:core:proton-api`
+- module-boundary rules respected (`:feature:*` does not reach `:core:crypto` directly)
+- unit tests updated; relevant module's tests pass
+- captured-vector tests pass for any `:core:crypto` change
+- instrumented tests updated for any `:core:contacts-writer` change
+- migration test present for any Room schema change
+- ADR added/updated for any architectural shift
+- `NOTICE` updated for any new GPL-3.0-derived code or new third-party dep
+- changes committed with a short scoped message; no `Co-Authored-By`
+- changes pushed, or push limitation explicitly reported
+- secrets stance preserved (no token/private-key bytes outside `:core:storage`)
+
+---
+
+## Expected delivery format
+
+For minor fixes, a short summary and commit status are sufficient.
+
+For significant work, include:
+
+1. What changed
+2. Why
+3. ADRs affected (new, superseded, or referenced)
+4. Modules touched
+5. Tests added / updated
+6. Verification markers introduced (`[V]`/`[U]`/`[A]`) and what would validate any `[U]` or `[A]`
+7. Security / privacy implications (sensitive-data paths, new permissions, new network endpoints)
+8. F-Droid / reproducible-build implications
+9. Commit and push status
+10. Known follow-ups deferred
+11. Remaining implementation work implied by the change
+
+Never present work as complete while known consumer mismatches (e.g., "the live Proton API returns `Foo` but our DTO declares `Bar`") remain unmentioned. Never claim commit or push completion if it did not actually happen.
+
+---
+> Source: [andreabenetton/pcontacts](https://github.com/andreabenetton/pcontacts) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
