@@ -1,0 +1,14 @@
+{
+  "name": "eatmoreduck--boss-zhipin-scraper",
+  "displayName": "boss-zhipin-scraper",
+  "description": "boss-zhipin-scraper",
+  "version": "1.0.0",
+  "author": "eatmoreduck",
+  "homepage": "https://github.com/eatmoreduck/boss-zhipin-scraper",
+  "skills": [
+    {
+      "name": "boss-zhipin-scraper",
+      "description": ""
+    }
+  ]
+}
