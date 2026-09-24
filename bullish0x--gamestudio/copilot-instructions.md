@@ -1,62 +1,90 @@
 ## gamestudio
 
-> GameStudio provider-neutral agent workflow
+> Indie game development managed through 55 coordinated coding-agent subagents.
 
+# GameStudio -- Game Studio Agent Architecture
 
-# GameStudio Cursor Adapter
+Indie game development managed through 55 coordinated coding-agent subagents.
+Each agent owns a specific domain, enforcing separation of concerns and quality.
 
-Follow `AGENTS.md` as the primary instruction file.
+## Harness Compatibility
 
-GameStudio is harness-neutral:
+GameStudio is provider-neutral at the harness level. The same studio workflow
+should work when launched from Claude Code, Codex/OpenAI-based harnesses,
+Cursor, Antigravity, OpenCode-style tools, Gemini-style tools, or another
+coding-agent harness that can read repository instructions and expose
+file/shell tools.
 
-- Use `.agents/skills/` as the canonical skill source.
-- Use `.agents/agents/` as the canonical role source.
-- Use `.agents/hooks/` as the canonical lifecycle hook source for any external
-  automation Cursor delegates to.
-- Use `.agents/hooks.json` as the event-to-script registry for that automation.
-- Use `.agents/rules/` as the canonical path-scoped standards source.
-- Use `.claude/` and `.codex/` only as adapter examples for Claude Code and
-  Codex-style harnesses.
-- Keep model/provider selection in Cursor settings or an external gateway.
-- Do not hardcode Anthropic, OpenAI, Gemini, DeepSeek, GLM/Z.ai, Qwen, or local
-  model choices into skills, agents, hooks, or project docs.
+- Do not bake provider or model choices into skills, agents, hooks, or project
+  docs. Select the model in the active harness: Anthropic, OpenAI, Gemini,
+  DeepSeek, GLM/Z.ai, Qwen, local Ollama/vLLM, or a router-backed model.
+- Treat `AGENTS.md` as the common instruction entrypoint.
+- Treat `.agents/skills/` as the provider-neutral skill source.
+- Treat `.agents/agents/` as the provider-neutral role source.
+- Treat `.agents/hooks/` as the provider-neutral lifecycle hook source.
+- Treat `.agents/hooks.json` as the provider-neutral hook registry.
+- Treat `.agents/rules/` as the provider-neutral path-scoped standards source.
+- Treat `.agents/docs/templates/` as the provider-neutral template source.
+- Treat `.claude/` as the Claude Code adapter and `.codex/` as the Codex
+  adapter. Other harnesses should map their own agent/rule/hook formats back to
+  the same canonical behavior.
+- If a provider bridge is needed, prefer a trusted gateway documented in
+  `docs/HARNESS-COMPATIBILITY.md`; do not rewrite skill behavior for a single
+  vendor.
+- When a skill names a harness tool such as `AskUserQuestion`, `Task`, or
+  `TodoWrite`, use the active harness equivalent. Preserve the decision and
+  approval semantics even if the exact tool name is unavailable.
 
-When the user invokes a slash-style skill such as `/start`, `/dev-story`, or
-`/design-review`, open the matching `.agents/skills/<skill>/SKILL.md` and follow
-that workflow.
+## Technology Stack
 
-When editing files, apply the matching standards from `.agents/rules/`:
+- **Engine**: [CHOOSE: Godot 4 / Unity / Unreal Engine 5 / Three.js (Web 3D) / PixiJS (Web 2D interactive) / Phaser (Web 2D games)]
+- **Language**: [CHOOSE: GDScript / C# / C++ / Blueprint / JS/TS]
+- **Version Control**: Git with trunk-based development
+- **Build System**: [SPECIFY after choosing engine]
+- **Asset Pipeline**: [SPECIFY after choosing engine]
 
-- `src/gameplay/**` -> `gameplay-code.md`
-- `src/core/**` -> `engine-code.md`
-- `src/ai/**` -> `ai-code.md`
-- `src/networking/**` -> `network-code.md`
-- `src/ui/**` -> `ui-code.md`
-- `src/scenes/**` -> `scenes.md`
-- `src/shaders/**` -> `shaders.md`
-- `assets/data/**` -> `data-files.md`
-- `assets/shaders/**` -> `shader-code.md`
-- `assets/3d/**` -> `assets-3d.md`
-- `design/gdd/**` -> `design-docs.md`
-- `design/narrative/**` -> `narrative.md`
-- `tests/**` -> `test-standards.md`
-- `prototypes/**` -> `prototype-code.md`
+> **Note**: Engine-specialist agents exist for Godot, Unity, Unreal, Three.js
+> (Web 3D), PixiJS (Web 2D interactive), and Phaser (Web 2D games) with
+> dedicated sub-specialists. Use the set matching your engine.
 
-Maintain the GameStudio collaboration protocol:
+## Project Structure
 
-1. Ask focused questions.
-2. Present options with trade-offs.
-3. Let the user decide.
-4. Draft or summarize the proposed change.
-5. Ask explicit approval before writing files.
+@.agents/docs/directory-structure.md
 
-If a skill names `AskUserQuestion`, present the same options in chat when
-Cursor has no structured question UI available. If a skill names `Task`, use
-Cursor's agent/subagent feature when available or inline the referenced role's
-instructions from `.agents/agents/`.
+## Engine Version Reference
 
-For provider routing or man-in-the-middle gateway setup, use
-`docs/HARNESS-COMPATIBILITY.md` as the source of truth.
+@docs/engine-reference/godot/VERSION.md
+
+## Technical Preferences
+
+@.agents/docs/technical-preferences.md
+
+## Coordination Rules
+
+@.agents/docs/coordination-rules.md
+
+## Collaboration Protocol
+
+**User-driven collaboration, not autonomous execution.**
+Every task follows: **Question -> Options -> Decision -> Draft -> Approval**
+
+- Agents MUST ask "May I write this to [filepath]?" before using Write/Edit tools
+- Agents MUST show drafts or summaries before requesting approval
+- Multi-file changes require explicit approval for the full changeset
+- No commits without user instruction
+
+See `docs/COLLABORATIVE-DESIGN-PRINCIPLE.md` for full protocol and examples.
+
+> **First session?** If the project has no engine configured and no game concept,
+> run `/start` to begin the guided onboarding flow.
+
+## Coding Standards
+
+@.agents/docs/coding-standards.md
+
+## Context Management
+
+@.agents/docs/context-management.md
 
 ---
 > Source: [bullish0x/GameStudio](https://github.com/bullish0x/GameStudio) — distributed by [TomeVault](https://tomevault.io).
