@@ -1,0 +1,9 @@
+{
+  "name": "corsinvest--cv4vs-agents",
+  "displayName": "cv4vs-agents",
+  "description": "Agentic coding inside Visual Studio \u2014 Claude Code with a rich chat pane, an interactive terminal, and the IDE (editor, solution, debugger) exposed to the agent over MCP.",
+  "version": "1.0.0",
+  "author": "Corsinvest",
+  "homepage": "https://github.com/Corsinvest/cv4vs-agents",
+  "skills": []
+}
