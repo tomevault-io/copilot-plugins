@@ -1,0 +1,9 @@
+{
+  "name": "chrono-meta--forge-harness",
+  "displayName": "forge-harness",
+  "description": "Stop re-explaining your rules to your agent. Put them in the project.",
+  "version": "1.0.0",
+  "author": "chrono-meta",
+  "homepage": "https://github.com/chrono-meta/forge-harness",
+  "skills": []
+}
