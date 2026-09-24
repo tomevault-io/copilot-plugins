@@ -1,0 +1,9 @@
+{
+  "name": "ooxygen7--snowapi",
+  "displayName": "SnowAPI",
+  "description": "Customized New API gateway with SnowAPI UI, LinuxDO OAuth, invitation codes, usage analytics and model health monitoring.",
+  "version": "1.0.0",
+  "author": "Ooxygen7",
+  "homepage": "https://github.com/Ooxygen7/SnowAPI",
+  "skills": []
+}
