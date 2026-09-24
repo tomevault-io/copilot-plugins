@@ -1,0 +1,9 @@
+{
+  "name": "shiguredo--audio-device-rs",
+  "displayName": "audio-device-rs",
+  "description": "Cross-platform audio device library",
+  "version": "1.0.0",
+  "author": "shiguredo",
+  "homepage": "https://github.com/shiguredo/audio-device-rs",
+  "skills": []
+}
