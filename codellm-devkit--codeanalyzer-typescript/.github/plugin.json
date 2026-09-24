@@ -1,0 +1,9 @@
+{
+  "name": "codellm-devkit--codeanalyzer-typescript",
+  "displayName": "codeanalyzer-typescript",
+  "description": "Typescript/Javascript: Codeanalyzer Backend ",
+  "version": "1.0.0",
+  "author": "codellm-devkit",
+  "homepage": "https://github.com/codellm-devkit/codeanalyzer-typescript",
+  "skills": []
+}
