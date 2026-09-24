@@ -1,0 +1,9 @@
+{
+  "name": "prismatic-labs--vetch",
+  "displayName": "vetch",
+  "description": "Inference waste control for production LLM systems. Detect stalled agents, RAG bloat, and runaway inference, then stop them automatically.",
+  "version": "1.0.0",
+  "author": "prismatic-labs",
+  "homepage": "https://github.com/prismatic-labs/vetch",
+  "skills": []
+}
