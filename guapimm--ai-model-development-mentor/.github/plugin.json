@@ -1,0 +1,14 @@
+{
+  "name": "guapimm--ai-model-development-mentor",
+  "displayName": "AI-Model-Development-Mentor",
+  "description": "AI-Model-Development-Mentor",
+  "version": "1.0.0",
+  "author": "guapimm",
+  "homepage": "https://github.com/guapimm/AI-Model-Development-Mentor",
+  "skills": [
+    {
+      "name": "AI-Model-Development-Mentor",
+      "description": ""
+    }
+  ]
+}
