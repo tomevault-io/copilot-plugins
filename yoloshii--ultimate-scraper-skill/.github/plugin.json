@@ -1,0 +1,9 @@
+{
+  "name": "yoloshii--ultimate-scraper-skill",
+  "displayName": "ultimate-scraper-skill",
+  "description": "Multi-tier web scraper with intelligent tier escalation, anti-bot bypass, CAPTCHA solving, and AI-powered data extraction. 6 tiers (static \u2192 HTTP \u2192 stealth browser \u2192 anti-detect \u2192 AI \u2192   visual), Cloa",
+  "version": "1.0.0",
+  "author": "yoloshii",
+  "homepage": "https://github.com/yoloshii/ultimate-scraper-skill",
+  "skills": []
+}
