@@ -1,0 +1,99 @@
+{
+  "name": "alysis-code",
+  "owner": "AlysisAi",
+  "repo": "alysis-code",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "alysis-code",
+      "path": "src/alysis_code/skills/bundled/debug/SKILL.md",
+      "github_url": "https://github.com/AlysisAi/alysis-code/tree/main/src/alysis_code/skills/bundled/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alysis-code",
+      "path": "src/alysis_code/skills/bundled/fix-ci/SKILL.md",
+      "github_url": "https://github.com/AlysisAi/alysis-code/tree/main/src/alysis_code/skills/bundled/fix-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alysis-code",
+      "path": "src/alysis_code/skills/bundled/commit/SKILL.md",
+      "github_url": "https://github.com/AlysisAi/alysis-code/tree/main/src/alysis_code/skills/bundled/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alysis-code",
+      "path": "src/alysis_code/skills/bundled/code-review/SKILL.md",
+      "github_url": "https://github.com/AlysisAi/alysis-code/tree/main/src/alysis_code/skills/bundled/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alysis-code",
+      "path": "src/alysis_code/skills/bundled/release-notes/SKILL.md",
+      "github_url": "https://github.com/AlysisAi/alysis-code/tree/main/src/alysis_code/skills/bundled/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alysis-code",
+      "path": "src/alysis_code/skills/bundled/skill-creator/SKILL.md",
+      "github_url": "https://github.com/AlysisAi/alysis-code/tree/main/src/alysis_code/skills/bundled/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alysis-code",
+      "path": "src/alysis_code/skills/bundled/security-review/SKILL.md",
+      "github_url": "https://github.com/AlysisAi/alysis-code/tree/main/src/alysis_code/skills/bundled/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alysis-code",
+      "path": "src/alysis_code/skills/bundled/address-pr-comments/SKILL.md",
+      "github_url": "https://github.com/AlysisAi/alysis-code/tree/main/src/alysis_code/skills/bundled/address-pr-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alysis-code",
+      "path": "tests/fixtures/skills_eval/workspaces/combined_repo/.alysis_skills/pytest/SKILL.md",
+      "github_url": "https://github.com/AlysisAi/alysis-code/tree/main/tests/fixtures/skills_eval/workspaces/combined_repo/.alysis_skills/pytest/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AlysisAi/alysis-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T01:35:51Z"
+}
