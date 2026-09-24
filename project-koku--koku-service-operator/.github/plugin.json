@@ -1,0 +1,9 @@
+{
+  "name": "project-koku--koku-service-operator",
+  "displayName": "koku-service-operator",
+  "description": "Self managed cost management",
+  "version": "1.0.0",
+  "author": "project-koku",
+  "homepage": "https://github.com/project-koku/koku-service-operator",
+  "skills": []
+}
