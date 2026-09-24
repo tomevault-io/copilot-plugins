@@ -4,7 +4,7 @@
   "repo": "CLAWHunter",
   "description": "[CLAWHunter] Hak5 WiFi Pineapple Pager multi-payload \u2014 scans the LAN for OpenClaw AI gateway instances and exploits info via various methods (including, out-of-band) ...",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/doublegate/CLAWHunter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T07:54:04Z"
+  "distributed_at": "2026-09-24T14:53:20Z"
 }
