@@ -2,7 +2,7 @@
   "name": "komari-theme-Glassmorphism",
   "owner": "sanrokamlan-prog",
   "repo": "komari-theme-Glassmorphism",
-  "description": "\u4fee\u6539\u81eakomari-theme-emerald,\u6539\u53d8\u5361\u7247\u98ce\u683c\u4e3a\u6bdb\u73bb\u7483\u98ce\u683c,\u5e76\u4e14\u6dfb\u52a0\u4e86\u8bbf\u5ba2ip\u5c55\u793a",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T18:31:41Z"
+  "distributed_at": "2026-09-24T19:46:43Z"
 }
