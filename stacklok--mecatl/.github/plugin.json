@@ -1,0 +1,9 @@
+{
+  "name": "stacklok--mecatl",
+  "displayName": "mecatl",
+  "description": "Open source agent harness, built from the ground up for cloud-native production workloads on infrastructure you control. Run the same provider-agnostic loop locally, remotely, or on Kubernetes, with d",
+  "version": "1.0.0",
+  "author": "stacklok",
+  "homepage": "https://github.com/stacklok/mecatl",
+  "skills": []
+}
