@@ -1,0 +1,9 @@
+{
+  "name": "billda--ha-aprilaire-cloud",
+  "displayName": "ha-aprilaire-cloud",
+  "description": "Unofficial Home Assistant custom integration for AprilAire Healthy Air cloud-connected dehumidifiers.",
+  "version": "1.0.0",
+  "author": "billda",
+  "homepage": "https://github.com/billda/ha-aprilaire-cloud",
+  "skills": []
+}
