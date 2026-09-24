@@ -1,8 +1,6 @@
 # gini-agent
 
-> Tome by [Open-Curiosity](https://github.com/Open-Curiosity/gini-agent) — distributed by [TomeVault](https://tomevault.io)
-
-The agent that remembers and learns.
+> Tome by [Open-Curiosity](https://github.com/Open-Curiosity/gini-agent), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [Open-Curiosity/gini-agent](https://github.com/O
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Open-Curiosity/gini-agent](https://github.com/Open-Curiosity/gini-agent)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Open-Curiosity/gini-agent](https://github.com/Open-Curiosity/gini-agent)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
