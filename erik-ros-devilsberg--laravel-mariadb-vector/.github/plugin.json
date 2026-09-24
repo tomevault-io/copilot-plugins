@@ -1,0 +1,9 @@
+{
+  "name": "erik-ros-devilsberg--laravel-mariadb-vector",
+  "displayName": "laravel-mariadb-vector",
+  "description": "a package that connects the laravel vector functionality with that of mariadb",
+  "version": "1.0.0",
+  "author": "erik-ros-devilsberg",
+  "homepage": "https://github.com/erik-ros-devilsberg/laravel-mariadb-vector",
+  "skills": []
+}
