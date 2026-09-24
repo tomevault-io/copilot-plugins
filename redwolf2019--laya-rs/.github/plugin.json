@@ -1,0 +1,9 @@
+{
+  "name": "redwolf2019--laya-rs",
+  "displayName": "laya-rs",
+  "description": "Pure Rust runtime + HTTP server for Laya System-1 models\uff0cLinux / CPU-first / multilingual / ONNX Runtime",
+  "version": "1.0.0",
+  "author": "redwolf2019",
+  "homepage": "https://github.com/redwolf2019/laya-rs",
+  "skills": []
+}
