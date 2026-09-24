@@ -1,130 +1,107 @@
-## syntax
+## types
 
-> Core Sounio syntax rules — prevents Rust-isms in .sio files
+> Sounio type system — epistemic, units, refinement, linear types
 
 
-# Sounio Syntax — Anti-Rust Patterns
+# Sounio Type System
 
-Sounio LOOKS like Rust but has different syntax and semantics. These are the most common mistakes.
+## Primitives
+`i8`, `i16`, `i32`, `i64`, `u8`, `u16`, `u32`, `u64`, `f32`, `f64`, `bool`, `char`
 
-## 1. NO Semicolons
-Sounio statements end WITHOUT semicolons. The parser treats `;` as an error.
+## Fixed-Size Arrays
+Arrays MUST have a compile-time size. No slices.
 ```sio
-// WRONG
-let x = 5;
-// CORRECT
-let x = 5
+let arr: [i64; 4] = [1, 2, 3, 4]
+var buf: [i64; 256] = [0; 256]     // fill with zeros
+let combined = a ++ b               // concatenation
 ```
 
-## 2. `var` not `let mut`
-Mutable bindings use `var`. There is no `let mut`.
+## Vec (Growable)
 ```sio
-// WRONG
-let mut x = 10;
-// CORRECT
-var x = 10
+let v: Vec<i32> = [1, 2, 3, 4]
+```
+For manual control, use stdlib `IntVec` / `FloatVec` with impl blocks.
+
+## Structs
+```sio
+struct Point { x: f64, y: f64 }
+let p = Point { x: 1.0, y: 2.0 }
 ```
 
-## 3. `&!` not `&mut`
-Exclusive (mutable) references use `&!T`. There is no `&mut`.
+## Enums
 ```sio
-// WRONG
-fn set(x: &mut i32) { *x = 5 }
-// CORRECT
-fn set(x: &!i32) with Mut { *x = 5 }
-```
-
-## 4. NO Macros
-Sounio has no macro system. No `!` after function names.
-```sio
-// WRONG
-assert!(x > 0)
-println!("hello")
-vec![1, 2, 3]
-// CORRECT
-assert(x > 0)
-println("hello")
-[1, 2, 3]
-```
-
-## 5. NO Closure Literals
-`|x| x + 1` does not compile. Use named function references.
-```sio
-// WRONG
-let f = |x| x + 1
-// CORRECT
-fn add_one(x: i64) -> i64 { x + 1 }
-let f = add_one
-```
-
-## 6. NO Unary Minus
-The parser does not support `-42` as a literal. Use subtraction from zero.
-```sio
-// WRONG (may parse incorrectly)
-let neg = -42
-// CORRECT
-let neg = 0 - 42
-```
-
-## 7. Bit Shifts Require u8
-Shift operands must be typed as `u8`.
-```sio
-// WRONG
-let shifted = x >> 4
-// CORRECT
-let shifted = x >> 4u8
-```
-
-## 8. Array Index Requires Cast
-Array indices must be `usize`.
-```sio
-// WRONG
-let val = arr[i]
-// CORRECT
-let val = arr[i as usize]
-```
-
-## 9. NO Attributes
-No `#[test]`, `#[derive()]`, or any other attributes.
-
-## 10. NO `.len()` / `.push()` on Arrays
-Fixed arrays are not objects. Track length manually or use stdlib `IntVec`.
-```sio
-struct IntVec { data: [i64; 4096], len: i64 }
-impl IntVec {
-    fn push(self: &!IntVec, val: i64) with Mut, Panic {
-        self.data[self.len as usize] = val
-        self.len = self.len + 1
-    }
+enum Color { Red, Green, Blue }
+let c = Color::Red
+match c {
+    Color::Red => 10
+    Color::Green => 20
+    Color::Blue => 30
+    _ => 0
 }
 ```
 
-## 11. Effects Are MANDATORY
-Functions with side effects MUST declare them. See `.cursor/rules/effects.mdc`.
-
-## 12. Match Arms — NO Commas
+## Tuples
 ```sio
-match value {
-    Pattern1 => result1
-    Pattern2 => result2
-    _ => default
-}
+let pair = (42, true)
+let (x, y) = (1, 2)      // destructuring
 ```
 
-## 13. Methods Use Explicit Self
+## Function Types
 ```sio
-// WRONG (Rust-style implicit self)
-impl Foo { fn bar(&self) -> i64 { self.x } }
-// CORRECT
-impl Foo { fn bar(self: &Foo) -> i64 { self.x } }
+fn square(x: i64) -> i64 { x * x }
+let f: fn(i64) -> i64 = square
+let result = f(7)  // 49
+
+fn apply(f: fn(i64) -> i64, x: i64) -> i64 { f(x) }
+```
+NO closure literals. Only named function references.
+
+## Linear Types
+Must be consumed exactly once:
+```sio
+linear struct Handle { fd: i32 }
+fn consume(h: Handle) -> i32 { h.fd }  // consumes h
 ```
 
-## 14. String Handling
-String literals work for output. For mutable text, use `[i8; N]` byte arrays.
+## Affine Types
+Can be consumed at most once:
 ```sio
-println("Hello, World!")  // works
-var name: [i8; 64] = [0; 64]  // mutable text buffer
+affine struct Token { id: i64 }
 ```
+
+## Units of Measure
+Dimensional analysis at compile time:
+```sio
+unit kg
+unit mg = 0.001 * kg
+unit velocity = m / s
+
+let dose: mg = 500.0
+let mass: kg = 75.0
+```
+Standard 7-dimensional SI exponent vector (mass, length, time, temperature, amount, current, luminosity).
+
+## Refinement Types
+Types with predicates:
+```sio
+type Probability = { p: f64 | p >= 0.0 && p <= 1.0 }
+type SafeDose = { d: f64 | d > 0.0 && d <= 1000.0 }
+```
+
+## Epistemic Types (Knowledge<T>)
+Sounio's unique feature — uncertainty propagation through computation:
+```sio
+use epistemic::{Knowledge}
+let dose: Knowledge<mg> = measure(500.0, uncertainty: 2.5)
+// Value + uncertainty tracked through all arithmetic
+```
+
+## What Does NOT Exist
+- No `Box<T>`, `Rc<T>`, `Arc<T>` — use fixed arrays or linear types
+- No trait objects or dynamic dispatch — use function references
+- No generics (yet) — use monomorphic types
+- No `Result<T, E>` — return `(value, error_code)` tuples
+- No `Option<T>` — use stdlib `IntOption` / `FloatOption`
 
 ---
 > Source: [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio) — distributed by [TomeVault](https://tomevault.io).
