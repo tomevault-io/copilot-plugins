@@ -1,0 +1,9 @@
+{
+  "name": "d4l3k--rdma4py",
+  "displayName": "rdma4py",
+  "description": "High-performance RDMA for Python and PyTorch (ibverbs, efa, NVMe-oF) ",
+  "version": "1.0.0",
+  "author": "d4l3k",
+  "homepage": "https://github.com/d4l3k/rdma4py",
+  "skills": []
+}
