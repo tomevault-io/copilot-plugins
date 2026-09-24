@@ -1,0 +1,9 @@
+{
+  "name": "roarpeng--graphflow",
+  "displayName": "GraphFlow",
+  "description": "Local-first code knowledge graph and context harness for coding agents. MCP + DeepSeek Harness (dsh) plugin.",
+  "version": "1.0.0",
+  "author": "Roarpeng",
+  "homepage": "https://github.com/Roarpeng/GraphFlow",
+  "skills": []
+}
