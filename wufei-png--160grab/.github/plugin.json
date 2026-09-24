@@ -1,0 +1,9 @@
+{
+  "name": "wufei-png--160grab",
+  "displayName": "160Grab",
+  "description": "91160/\u5065\u5eb7160 appointment booking automation with Python Playwright, manual login takeover, schedule polling, browser-session reuse, and page-based booking.",
+  "version": "1.0.0",
+  "author": "wufei-png",
+  "homepage": "https://github.com/wufei-png/160Grab",
+  "skills": []
+}
