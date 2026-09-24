@@ -14,7 +14,7 @@ kuna is an **agent-first decompiler written in Rust**: a decompilation engine pl
 compiler, organized around an explicit phase model whose decision points are exposed as
 per-run, flippable options — the LLM control surface is the product. It started as a Rust
 port of Ghidra's decompiler (Apache-2.0 — see `LICENSE` and `NOTICE`) and has since
-diverged on its own defaults and features; the origin story lives in `docs/history.md`, and 
+diverged on its own defaults and features; the origin story lives in `docs/history.md`, and
 is not needed for day-to-day work.
 
 ## Layout
@@ -27,6 +27,7 @@ is not needed for day-to-day work.
 | `tests/golden/` | Differential golden vectors for the workspace suite (`make rust-test`). |
 | `specs/Ghidra/Processors/` | Vendored SLEIGH specs. `.sla` files are built artifacts (gitignored), produced by `slacomp`. |
 | `scripts/` + `tools/pipeline/` | Python helpers (`decompile.py` library shim, `paths.py`, `pipeline/`, `decbench/`) + driver for the improvement pipeline (`docs/improvement-pipeline.md`) and the decbench campaign (`docs/decbench-loop.md`). |
+| `scripts/repipe/` + `tools/repipe/` | The RE-friction loop (`docs/re-pipeline.md`): Codex Sol-low testers reverse-engineer crackmes with kuna and record where it fails them; Codex Sol-high-or-above builders close those gaps and self-merge. Durable backlog in `docs/re-needs/`; promoted regression probes in `tests/cli/`. |
 | `integrations/` | Front-ends embedding the engine: `ghidra/` (kuna as stock Ghidra's decompiler core), `web/` (the project site + in-browser decompiler at `kuna.noelo.org`). |
 
 ## Build & test
@@ -49,13 +50,18 @@ make specs      # compile all .slaspec → .sla with slacomp
 | `make rust-test` | full cargo workspace suite + `docs/options.md` freshness | green |
 | `make check-spec` | `docs/spec/` anchors + inline code paths resolve; each phase folder owned by exactly one chapter (`--strict` adds option-mention coverage) | green |
 
-CI runs all four (plus `kuna catalog --check`) on every pull request and every push to
-main — `.github/workflows/tests.yml`. Run them locally anyway: the workspace suite is the
-long pole in CI, so local failures are found far sooner.
+CI runs all four (plus `kuna catalog --check`) on every push to main —
+`.github/workflows/tests.yml`. On a **pull request from a branch in this repo** the
+workspace suite is skipped and only the parity gates run; **you are the gate for
+`make rust-test` on those PRs**, which is why it is on the list above. To demand it from
+CI on a particular PR, add the **`full-ci`** label — that label is itself a trigger, so
+the suite starts on the label alone. (It also always runs pre-merge on a fork PR, and via
+*Run workflow*.) Run all four locally regardless: the workspace suite is the long pole in
+CI, so local failures are found far sooner.
 
 - **Never re-pin `docs/baseline.json` to absorb a regression** — fix the code or make the
   change opt-in. The only sanctioned re-pins are an intentional upstream sync or a
-  DIV-recorded default change (`kuna test --save-baseline`; see `docs/history.md`).
+  deliberate default change, and the commit message says which (`kuna test --save-baseline`).
   Adding a stage test DOES re-record the stages baseline:
   `kuna test --datatests --datatests-dir tests/stages --save-baseline docs/baseline-stages.json`.
 - `docs/options.md` is generated — after touching option metadata:
@@ -67,7 +73,11 @@ The user-facing binary (`decompiler/crates/kuna-cli` → `decompiler/target/rele
 The commands agents use most:
 
 ```bash
-kuna decompile ./a.out main                        # one function (or an address with --addr)
+kuna docs                                          # the embedded manual — cli, options, phases, modes
+kuna install-skill                                 # install the embedded agent skill (skills/kuna/SKILL.md)
+kuna decompile ./a.out main [--json]               # one function (or an address with --addr)
+kuna xrefs ./a.out --to 0x401030 --json            # what references this; --from for the reverse
+kuna unpack ./packed.bin                           # statically unpack a UPX image
 kuna decompile-all ./a.out --json                  # whole binary in one in-process load
 kuna functions ./a.out --json                      # enumerate functions
 kuna decompile-project ./a.out                     # export .c/.h/.asm/README project folder
@@ -103,8 +113,8 @@ phases are **settable assertions/options** (`--option NAME VALUE`, discovered vi
   `tests/stages/kuna-catalog.xml` count assertions. Grep for the current total, or
   `make rust-test`/`make test-stages` fail opaquely.
 - **Default-ON needs evidence**: only if the flip changes 0/675 datatest assertions and
-  passes the speed budget; every default flip gets a DIV row in `docs/history.md`
-  (a `transform`-tier flip also updates the option's `phases.toml` row prose).
+  passes the speed budget. Record what the default now does in the option's `phases.toml`
+  row and its `docs/spec/` chapter — there is no separate registry to update.
 - **The spec is live**: every new feature or behavior change is described in natural-language
   prose in the owning `docs/spec/` chapter in the same PR — not just an anchor update (each
   phase folder has exactly one owning chapter; find yours via its `Anchors:` header). Run
@@ -146,7 +156,51 @@ phases are **settable assertions/options** (`--option NAME VALUE`, discovered vi
   `decompiler/crates/kuna-base/src/xml.rs` and requires re-recording
   `docs/baseline-stages.json`. Two such PRs in flight WILL conflict on both; resolve the count
   to base + all merged, and re-record the baseline rather than hand-merging it.
-- Any time any public thing is created fully automatically, it should start with `[AUTOMATED]`. That goes for PRs, Issues (opening and responses). It should also be in the commit message, but can go outside of the tagline and more inside the extended part.
+- Any time any public thing is created fully automatically, it should start with `[AUTOMATED]`. That goes for PRs, Issues (opening and responses), and most importantly replies or comments to issues/PRs. It should also be in the commit message, but can go outside of the tagline and more inside the extended part.
+
+### PR bodies — three short sections, and lead with the repro
+
+The reader does not yet know what is broken, so lead with the repro, not the
+mechanism along with *not being hard to read."*
+
+**The structure, for a bug fix, in this order:**
+
+1. **The problem — at most two sentences, then a runnable example.** Say what
+   is wrong in plain terms, then show it: a command anyone can paste, with its
+   actual (wrong) output in a fenced block. Trim the output to the part that
+   carries the bug, but do not paraphrase it. The example is the section — the
+   prose is only there to say what to look at.
+2. **The fix — a few bullets.** What the change does, not a narration of the
+   diff. One bullet per idea; mention a design choice only where a reviewer
+   would otherwise ask "why not the obvious way?".
+3. **The tests — a few lines at most.** Which cases were added and which one
+   fails without the fix. Numbers only if they are the evidence (suite
+   before/after, "no existing expectation moved"); never a paragraph of them.
+
+**Length is the check.** If the body is longer than roughly a screen, it is
+wrong regardless of accuracy — cut, do not reword. Detail that feels too
+valuable to drop belongs in `notes/`, which is where it should have been
+anyway.
+
+Other rules for bodies:
+
+- **Never open with the internal mechanism.** "`X()` falls through to `Y()`,
+  so `Z` lands outside the enum" is section 2 material at best, and usually
+  belongs in the code or in `notes/`.
+- **The example must be one the reviewer can run**, against the unpatched tree.
+  A fixture path they do not have, or a command needing our harness, is not a
+  repro — reduce it to `cstool` / `r2 -qc` / `rasm2` on bytes.
+- **No LLM register.** Bold-per-clause, "Root cause:", "Note that", em-dashed
+  asides stacked three deep, and restating the same fact in two registers all
+  read as generated. Write the sentence once, plainly.
+- **Never mention our internal process** — milestone codes, review rounds,
+  agents, gate runs, how many `/code-review` passes it took. Same rule as
+  "Upstream hygiene" above; PR bodies are public.
+- **Fill in the repo's template** if it has one but the template's headings do
+  not excuse a long body.
+- For a **feature or refactor** rather than a fix, section 1 becomes "what this
+  makes possible" plus a before/after of the visible behaviour — same budget,
+  same order: the observable thing first, mechanism second.
 
 ## Doc map (look up on demand — don't preload)
 
@@ -157,6 +211,7 @@ phases are **settable assertions/options** (`--option NAME VALUE`, discovered vi
 | `docs/options.md` | The generated option catalog (tiers, symptoms, flip guidance). |
 | `docs/cli.md` | The full `kuna` CLI reference. |
 | `docs/improvement-pipeline.md` | The autonomous improvement pipeline + standing requirements for feature PRs. |
+| `docs/re-pipeline.md` | The RE-friction loop: agents solve crackmes with kuna, record where it fails them, and close those gaps. The second, self-merging lane. |
 | `docs/decbench-loop.md` | The decbench benchmark / improvement campaign. |
 | `docs/modes.md` | `--mode auto\|reliable\|aggressive\|fast` option presets and size thresholds. |
 | `docs/missing-ghidra-analyses.md` | The `kuna-analysis` tier: the analyzer gap vs Ghidra, pass contract, commit gating. |
@@ -164,8 +219,8 @@ phases are **settable assertions/options** (`--option NAME VALUE`, discovered vi
 | `docs/web-integration.md` | The WASM/browser front-end and the project site. |
 | `docs/devcontainer.md` | The reproducible build container + cross-arch fixture builds. |
 | `docs/release.md` | The MAJOR.MINOR version scheme (`VERSION` file + commit count, `make version`) and the binary release CI. |
-| `docs/history.md` | The condensed project history: milestone timeline, the C++→Rust port + its verification, the DIV registry (why a default differs from upstream), vendored-tree provenance (`GHIDRA_REV`) + sync procedure. |
+| `docs/history.md` | **Rarely needed.** The far past: milestone timeline, the C++→Rust port + its verification, a frozen index for old `DIV-N` citations, vendored-tree provenance (`GHIDRA_REV`) + sync procedure. |
 
 ---
 > Source: [Noelo-Lab/kuna](https://github.com/Noelo-Lab/kuna) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
