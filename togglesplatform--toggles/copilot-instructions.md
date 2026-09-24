@@ -73,4 +73,4 @@ The nearest `AGENTS.md` wins. Explicit user prompts override this file.
 
 ---
 > Source: [TogglesPlatform/Toggles](https://github.com/TogglesPlatform/Toggles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
