@@ -1,0 +1,44 @@
+{
+  "name": "autosocialX",
+  "owner": "kevin-chen-love-ai",
+  "repo": "autosocialX",
+  "description": "AutoSocialX is a desktop app that runs AI agents 24/7 to fully manage your social media presence \u2014 researching trends, writing content, generating images, and publishing \u2014 all without you lifting a finger.  Configure your agents once. They run on a schedule, post across platforms, and keep your accounts active while you focus on everything else.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kevin-chen-love-ai/autosocialX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T04:34:34Z"
+}
