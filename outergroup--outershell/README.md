@@ -1,8 +1,6 @@
 # outershell
 
-> Tome by [outergroup](https://github.com/outergroup/outershell) — distributed by [TomeVault](https://tomevault.io)
-
-Servers and edge devices should have an "outer" graphical shell
+> Tome by [outergroup](https://github.com/outergroup/outershell), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
