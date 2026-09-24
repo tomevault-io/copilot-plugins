@@ -1,0 +1,9 @@
+{
+  "name": "jedijashwa--pullmark",
+  "displayName": "pullmark",
+  "description": "Native macOS Markdown viewer and rendered-diff reviewer for documentation-heavy GitHub PRs (design docs, ADRs, skills, runbooks)",
+  "version": "1.0.0",
+  "author": "jedijashwa",
+  "homepage": "https://github.com/jedijashwa/pullmark",
+  "skills": []
+}
