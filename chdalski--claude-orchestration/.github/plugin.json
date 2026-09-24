@@ -1,0 +1,9 @@
+{
+  "name": "chdalski--claude-orchestration",
+  "displayName": "claude_orchestration",
+  "description": "Blueprint for orchestrated Claud Agent teams",
+  "version": "1.0.0",
+  "author": "chdalski",
+  "homepage": "https://github.com/chdalski/claude_orchestration",
+  "skills": []
+}
