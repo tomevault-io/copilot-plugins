@@ -1,0 +1,22 @@
+{
+  "name": "peon-sh--peon",
+  "displayName": "Peon",
+  "description": "Peon",
+  "version": "1.0.0",
+  "author": "Peon-sh",
+  "homepage": "https://github.com/Peon-sh/Peon",
+  "skills": [
+    {
+      "name": "Peon",
+      "description": ""
+    },
+    {
+      "name": "Peon",
+      "description": ""
+    },
+    {
+      "name": "Peon",
+      "description": ""
+    }
+  ]
+}
