@@ -4,7 +4,7 @@
   "repo": "buggyboard-web-app",
   "description": "BuggyBoard is a small web app for educational purposes. It is a full-stack Node app written in TypeScript with a React frontend, an Express backend, and a SQLite database.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AutomationPanda/buggyboard-web-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T01:49:52Z"
+  "distributed_at": "2026-09-24T10:04:46Z"
 }
