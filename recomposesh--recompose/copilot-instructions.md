@@ -1,0 +1,123 @@
+## recompose
+
+> - Research current industry best practices for the topic (web search), independent of this codebase.
+
+# recompose project rules
+
+## Before starting any work
+
+- Research current industry best practices for the topic (web search), independent of this codebase.
+- If a clear standard path exists, bring the codebase into conformance with it first, then do the work.
+- When a request sounds like a capability of a platform or tool already in use (GitHub, Electron, pnpm, and so on), search for the built-in or off-the-shelf solution first. Write a custom implementation only after that search comes up empty.
+
+## Git workflow
+
+- `main` stays protected. Never commit to it, locally or remotely.
+- Every job (feature, fix, docs, config, skills) gets its own worktree and branch, and lands through a PR. One job = one branch.
+- **Worktrees live at `.claude/worktrees/<name>`, never beside the repository.** A sibling directory reads as a second project to anyone browsing, and `EnterWorktree` refuses to switch into a path outside that directory, which strands a subagent that needs to reach it. The repository's own tooling already assumes the convention: `.vale.ini` and `cspell.json` both exclude `.claude/worktrees`.
+
+## CodeRabbit reviews
+
+- Before acting on a finding, compare it with official docs and the actual code, and never apply it without checking first.
+- Addressed a finding → reply on its thread naming the fixing commit, then resolve the thread immediately.
+- Rejecting or deferring a finding → reply with the reasoning and leave the thread unresolved so CodeRabbit can respond; resolve only when the exchange settles.
+- No conversation stays unresolved at the end of the day: when CodeRabbit acknowledges an exchange but leaves the thread open, resolve it yourself.
+
+## Skills
+
+- Use the `ponytail` skill for everything, since every task starts by invoking it.
+- Every session starts by invoking `karpathy-guidelines` before any other work.
+
+## Prose style
+
+- **Never use an em dash.** Don't patch one out with a colon: rewrite the sentence so it reads as if it never had one.
+- All authored markdown passes Vale: Microsoft base style with rules promoted to error, plus the house rules in `.vale/styles/recompose/` (`docs/adr/0025-vale-prose-gate.md`). New vocabulary lands in the committed accept list through the PR diff. Implementation plans under `docs/superpowers/plans/` sit outside both prose gates (Vale and cspell) as internal execution artifacts.
+
+## Comments
+
+- **Never write code comments.** Code must explain itself through naming and structure.
+- The only exception: a constraint or invariant that code genuinely can't express (for example, "Electron requires this before app.ready"). If in doubt, don't write it.
+- Content decides whether a `@summary` docstring belongs, never visibility. Write one on any declaration, exported or not, when it records a constraint, an invariant, a rejected alternative, or a cross-cutting reason the code can't state. Never write one that narrates what the code does, restates the name, or describes the diff. The ban on inline explanations holds either way (record 0115).
+
+## Architecture decisions
+
+- Every technical decision becomes an Architecture Decision Record (ADR) under `docs/adr/`, written via the `architecture-decision-records` skill. No undocumented decisions.
+
+## `README.md`
+
+- Whenever README.md needs creating or updating, use the `create-readme` skill.
+
+## Commits
+
+- Every commit goes through the `caveman-commit` skill. No exceptions.
+
+## Feature development
+
+- Every feature starts with `/feature-cycle <description>`. The `feature-cycle` skill classifies the tier as trivial, standard, or full, the maintainer confirms it, and the phases run from there.
+- The skill calls `superpowers` as its executor library: `superpowers:subagent-driven-development` runs the Test-Driven Development (TDD) implementation and `superpowers:brainstorming` supplies the brainstorm discipline.
+- Trivial work (config tweaks, docs, single-file fixes) keeps its escape hatch: the `trivial` tier exits the pipeline, so just do it.
+- Dispatch independent work in parallel by default. Running one worker after another needs a named blocker, and only three count: one worker reads what another produces, two workers own the same file, or one worker inspects what another writes. Every dispatch names the files it owns and says that the others run on disjoint files.
+
+## Test-driven and behavior-driven development
+
+- Follow @.claude/rules/tdd-bdd.md, which lays out inside-out (Detroit/classicist) TDD with Behavior-Driven Development (BDD)-style behavior specs. Test code changes if and only if behavior changes.
+
+## Testing
+
+- Write tests at every layer of the test pyramid: unit, integration, e2e.
+- **Never run Vitest from the repository root.** There is no root test project, and the root config refuses with the commands that work (`docs/adr/0162-vitest-refuses-to-run-from-the-repository-root.md`). Run `pnpm test` for every package, `pnpm --filter <package> exec vitest run` for one package, and add `--project <name>` for one of the desktop projects.
+- **The browser suites are opt-in locally.** `pnpm test` and a bare `vitest run` open the node projects only. The Chromium projects (`browser`, `storybook`, `storybook-dark` on desktop, `browser` on web) carry most of the wall time, so they open only where a run asks for them: `RECOMPOSE_BROWSER_TESTS=1`, or continuous integration, which sets `CI` on its own. Coverage rides the same condition (`docs/adr/0176-the-browser-suites-open-when-a-run-asks-for-them.md`).
+- **Run `pnpm test:full` before the commit that opens a pull request.** It's the only local run that opens the browser suites and measures coverage, so it's what stands between the branch and a red pipeline. Iterate on one suite with `RECOMPOSE_BROWSER_TESTS=1 pnpm --filter @recompose/desktop exec vitest run --project storybook`.
+- Unit & integration tests: use the `javascript-testing-patterns` skill.
+- Load-bearing derived types (mapped types, schema-inferred types) get type-level specs: `*.test-d.ts` with `expectTypeOf`, run through vitest typecheck. The TDD invariant applies at the type level: a type contract changes if and only if its type spec changes.
+- Vitest work (writing tests, config, mocking, coverage): use the `vitest` skill.
+- Property-based testing (fast-check): use the `javascript-testing-expert` skill.
+- Mutation testing keeps the suites honest: node-side logic changes must survive the diff-scoped Stryker gate, and non-trivial invariants pair a property-based test with it. Never silence a surviving mutant by weakening the threshold; kill it with a better test or record the exception in the ADR.
+- E2E tests: use the `e2e-testing-patterns` skill. Before writing any e2e test, step definition, or `.feature` file, always use the `playwright-best-practices` and `gherkin-best-practices` skills together. This pairing is mandatory, never optional.
+
+## Linting and gates
+
+- **Never disable, override, loosen, or silence any gate.** No `eslint-disable`, no oxlint override that weakens a rule, no lowered mutation or coverage threshold, no hook bypass, no silenced Vale or cspell rule. This covers every gate: max-lines, complexity, mutation, coverage, prose, spelling, dependency, and the rest. Adding a rule or making one stricter is welcome; never weaken one.
+- A blocking gate is a design signal, not an obstacle. A file over `max-lines` wants splitting by single responsibility; a surviving mutant wants a better test; a real misspelling wants correcting, and only genuine project vocabulary joins the committed accept list. Fix the code to satisfy the rule.
+- When fixing the code genuinely can't satisfy a rule, stop and ask the maintainer before touching any gate config. Only the maintainer authorizes a gate change, and only after you ask.
+- **Gates run once at the end of authoring, and findings get fixed in one batch.** Write the document or code fully, run the gate once, fix everything it reports in a single editing pass, and confirm with one re-run. Never a check-fix-check loop per edit. This binds every writer, including dispatched subagents, and covers Vale and cspell alike.
+
+## Clean Code
+
+- Follow @.claude/rules/clean-code.md: intent-revealing names, single responsibility, no silent failures. It favors Keep It Simple, Stupid (KISS), You Aren't Gonna Need It (YAGNI), and Don't Repeat Yourself (DRY) for knowledge.
+
+## Design system
+
+- Before any UI/UX design decision, search Mobbin through the Model Context Protocol (MCP) for similar-concept designs and use them as reference.
+- Tailwind builds the design system; its source of truth is the Claude Design project **"recompose-design-system."**
+- Use the `design-system-patterns` skill for design-system architecture (tokens, variants, component structure).
+- Use the `tailwind-design-system` skill for the Tailwind implementation.
+- For an Apple Human Interface Guidelines (HIG) question that needs judgement rather than a rule, query the `hig` MCP server or read the `macos-design-guidelines` skill, which carries the numbered rules this project cites in review.
+
+## Frontend (renderer) skills
+
+- Use the `feature-sliced-design` skill before creating or moving any file in the renderer. Its decision tree determines the file's layer, slice, and segment placement under Feature-Sliced Design (FSD) v2.1 (see ADR-0010).
+- Use the `tanstack-router` skill before any TanStack Router work (routes, navigation, search params) for file-based conventions, loader discipline, and type registration. Use `tanstack-devtools` when wiring devtools.
+- Use the `tanstack-query` skill before any TanStack Query work (query options, loaders warming caches, mutations/invalidation). Its conventions apply.
+- Use the `vercel-react-best-practices` skill before writing or reviewing any React code in the renderer.
+- Use the `vercel-composition-patterns` skill when designing component APIs or structuring components (canvas nodes, inspector, drawers), favoring composition over prop drilling.
+- Use the `vercel-react-view-transitions` skill when implementing UI transitions/animations between views or states (screen switches, drawer open/close, node focus).
+- Use the `storybook-stories` skill when writing or reviewing any Storybook story, the Storybook config, or the fake bridge decorator.
+- **A new component under a `ui/` segment ships its `*.stories.tsx` sibling before the branch leaves your machine.** `pnpm run lint:stories` compares the branch against `main` and blocks the push while any sibling is missing.
+- **Every component under a `ui/` segment owns a folder: `ui/<component-name>/<component-name>.tsx`, beside every sibling that shares its basename.** No per-component `index.ts`, so consumers and the segment barrel both import the doubled path. The `feature-sliced-design` skill carries the rule.
+- **Anything that reaches the screen gets looked at through `claude-in-chrome`, in both schemes, before it lands.** That covers a component, a story, a design token, and the Storybook config. The suite proves semantics, never appearance: axe passed a dark scheme that rendered light, a label printed twice, an inert row that looked live, and a selected segment at 1.05 to 1 against its track. Measure the close calls from the page rather than squinting at them.
+- Use the `writing-guidelines` skill when writing any user-facing copy, docs, or README text.
+
+## Long-form writing
+
+- Use the `writing-fragments` skill to explore: gather raw fragments by interviewing the user before any structure exists (blog posts, announcements, essays).
+- Use the `writing-shape` skill to exploit: shape an existing raw-material file into a finished article, paragraph by paragraph. Explore first, then shape.
+
+## TypeScript
+
+- Maximum strictness, always: `strict: true` plus `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitOverride`, `noFallthroughCasesInSwitch`, `noPropertyAccessFromIndexSignature`.
+- No `any`, no `as` casts to silence errors, no `@ts-ignore`/`@ts-expect-error` without a comment explaining why.
+
+---
+> Source: [recomposesh/recompose](https://github.com/recomposesh/recompose) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
