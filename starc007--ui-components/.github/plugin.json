@@ -1,0 +1,18 @@
+{
+  "name": "starc007--ui-components",
+  "displayName": "ui-components",
+  "description": "ui-components",
+  "version": "1.0.0",
+  "author": "starc007",
+  "homepage": "https://github.com/starc007/ui-components",
+  "skills": [
+    {
+      "name": "beui-pro",
+      "description": ""
+    },
+    {
+      "name": "ui-components",
+      "description": ""
+    }
+  ]
+}
