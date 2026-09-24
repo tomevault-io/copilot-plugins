@@ -1,0 +1,9 @@
+{
+  "name": "imageglass--sdk",
+  "displayName": "SDK",
+  "description": "\ud83c\udf96\ufe0f The official development kit for extending ImageGlass 10 with native plugins and external tools",
+  "version": "1.0.0",
+  "author": "ImageGlass",
+  "homepage": "https://github.com/ImageGlass/SDK",
+  "skills": []
+}
