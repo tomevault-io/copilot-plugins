@@ -2,9 +2,9 @@
   "name": "open-agent-hub",
   "owner": "guanyang",
   "repo": "open-agent-hub",
-  "description": "A lightweight, zero-dependency CLI tool to manage and activate capabilities for AI coding assistants (such as Claude Code, Cursor, Trae, etc.).",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/guanyang/open-agent-hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T11:34:30Z"
+  "distributed_at": "2026-09-24T22:01:26Z"
 }
