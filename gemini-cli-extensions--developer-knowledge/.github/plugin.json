@@ -1,0 +1,9 @@
+{
+  "name": "gemini-cli-extensions--developer-knowledge",
+  "displayName": "developer-knowledge",
+  "description": "developer-knowledge",
+  "version": "1.0.0",
+  "author": "gemini-cli-extensions",
+  "homepage": "https://github.com/gemini-cli-extensions/developer-knowledge",
+  "skills": []
+}
