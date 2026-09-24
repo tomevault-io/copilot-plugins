@@ -2,9 +2,9 @@
   "name": "WEIPING_WIKI",
   "owner": "appleweiping",
   "repo": "WEIPING_WIKI",
-  "description": "knowledge base managed with an LLM workflow",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/appleweiping/WEIPING_WIKI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T13:12:40Z"
+  "distributed_at": "2026-09-24T10:30:16Z"
 }
