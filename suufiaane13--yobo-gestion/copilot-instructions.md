@@ -1,23 +1,22 @@
-## yobo-tauri-rust
+## yobo-vitest
 
-> Backend Tauri / Rust — commandes, SQLite, auth
+> Tests Vitest — lib pure, pas de Tauri
 
 
-# Organisation
+# Où tester
 
-- **Commandes** : `src-tauri/src/commands/*.rs`, enregistrées dans `lib.rs` via `generate_handler!`.
-- **DB** : `db.rs` (schéma, `migrate_schema`, `ensure_*`). Chemin fichier : éviter sous `src-tauri/` pour le watcher (déjà documenté dans le code).
-- **Autorisations gérant** : `authz.rs` + vérifs dans les commandes sensibles (`ensure_active_gerant`, etc.).
+- **Priorité** : fonctions pures dans `src/lib/` (parse, pagination, formats, règles tailles, `userFacingError`, `toastTypeForStoreMessage`).
+- **Éviter** pour l’instant : tests du store complet ou des composants sans stratégie de mock `invoke` partagée.
 
-# Contrats
+# Conventions
 
-- Réponses aux appels front : messages d’erreur en **français** clair quand c’est une erreur métier (`Result<_, String>`).
-- Mots de passe : **bcrypt** ; ne pas logger les PIN.
-- Erreurs internes DB : le front en **prod** masque le détail via `userFacingErrorMessage` + `client` ; côté Rust, rester cohérent (messages utilisateur vs `map_err(|e| e.to_string())` techniques).
+- Fichier colocalisé : `monModule.test.ts` à côté de `monModule.ts`.
+- Importer explicitement depuis `vitest` : `import { describe, it, expect } from 'vitest'` (pas de globals obligatoires).
+- `userFacingErrorMessage` : les assertions peuvent dépendre de `import.meta.env.PROD` (voir tests existants).
 
-# Style
+# Commandes
 
-- Garder les `command` alignées sur l’existant (serde `rename_all = "camelCase"` pour le DTO côté TS).
+- `npm run test` (CI) ; `npm run test:watch` en local.
 
 ---
 > Source: [suufiaane13/yobo-gestion](https://github.com/suufiaane13/yobo-gestion) — distributed by [TomeVault](https://tomevault.io).
