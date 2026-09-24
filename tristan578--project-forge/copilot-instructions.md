@@ -1,72 +1,71 @@
-## bevy-api
+## file-map
 
-> - **Events renamed**: `EventWriter<T>` → `MessageWriter<T>`, `EventReader<T>` → `MessageReader<T>`
+> - `mod.rs` — `#[wasm_bindgen]` exports + `SelectionPlugin::build()` orchestrator
 
-# Bevy 0.18 API & ECS Patterns
+# Project File Map
 
-## Migration from 0.16 to 0.18
+## Engine Structure (`engine/src/`)
 
-### Bevy 0.17 changes
-- **Events renamed**: `EventWriter<T>` → `MessageWriter<T>`, `EventReader<T>` → `MessageReader<T>`
-- **Event registration**: `.add_event::<T>()` → `.add_message::<T>()`
-- **Event derive**: `#[derive(Event)]` → `#[derive(Message)]`
-- **Observer signatures**: `Trigger<T>` → `On<T>`
-- **Picking events**: `Pointer<Pressed>` → `Pointer<Press>`, `trigger.target()` → `trigger.event_target()`
-- **Macro rename**: `weak_handle!` → `uuid_handle!`
-- **Sprite Anchor split**: `Anchor` is now a separate required component. Use `(Sprite { .. }, Anchor::CENTER)` tuple.
-- **Render crate split**: `bevy_render` split into `bevy_mesh`, `bevy_camera`, `bevy_shader`, `bevy_image`, `bevy_light`
+### `bridge/` — JS Interop (ONLY module that touches `web_sys`/`js_sys`/`wasm_bindgen`)
+- `mod.rs` — `#[wasm_bindgen]` exports + `SelectionPlugin::build()` orchestrator
+- `events.rs` — `emit_event()` + typed emit functions
+- `core_systems.rs` — Selection, picking, mode changes, transforms, rename, snap
+- `material.rs` — Material/light emit, environment, skybox, post-processing, shader
+- `physics.rs` — 3D + 2D physics, collisions, raycasts, joints
+- `audio.rs` — Audio updates/removals/playback, bus CRUD
+- `query.rs` — Query request processing
+- `animation.rs` — GLTF animation registration, playback
+- `particles.rs` — Particle system sync
+- `scene_io.rs` — Scene export/load, GLTF import
+- `procedural.rs` — CSG boolean ops, extrude, lathe
+- `mesh_ops.rs` — Array entity, combine meshes, prefab
+- `scripts.rs` — Script updates/removals
+- `game.rs` — Game component CRUD, game camera
+- `skeleton2d.rs` — 2D skeletal animation
 
-### Bevy 0.18 changes
-- **AmbientLight**: `AmbientLight` → `GlobalAmbientLight`
-- **Feature renames**: `bevy_mesh_picking_backend` → `mesh_picking`, `animation` → `gltf_animation`, `zstd` → `zstd_rust`
-- **Post-processing split**: `bevy_core_pipeline` split into `bevy_post_process`, `bevy_anti_alias`
-- **set_index_buffer**: Dropped offset parameter (2 args, not 3)
-- **reinterpret_stacked_2d_as_array**: Now returns `Result`
-- **Assets::insert**: Now returns `Result`
+### `core/` — Pure Rust, Platform-Agnostic (NO browser deps)
+- `core/commands/` — Command dispatch (domain modules)
+- `core/pending/` — Thread-local command queue (domain modules)
 
-### Import Path Changes (0.16 → 0.18)
+## Web Structure (`web/src/`)
 
-| Old Path | New Path |
-|----------|----------|
-| `bevy::render::mesh::*` | `bevy::mesh::*` |
-| `bevy::render::render_resource::PrimitiveTopology` | `bevy::mesh::PrimitiveTopology` |
-| `bevy::render::render_asset::RenderAssetUsages` | `bevy::asset::RenderAssetUsages` |
-| `bevy::render::render_resource::{Shader, ShaderRef}` | `bevy::shader::{Shader, ShaderRef}` |
-| `bevy::core_pipeline::bloom::*` | `bevy::post_process::bloom::*` |
-| `bevy::core_pipeline::contrast_adaptive_sharpening::*` | `bevy::anti_alias::contrast_adaptive_sharpening::*` |
+### Stores
+- `editorStore.ts` — Composition root from domain slices
+- `stores/slices/` — 16 domain state slice files
+- `chatStore.ts` — Chat messages, token balance
+- `userStore.ts` — Tier, permissions
 
-## ECS System Limits
+### Key Hooks
+- `useEngine.ts` — WASM loading singleton (WebGPU detect, fallback)
+- `useEngineEvents.ts` — Event delegation hub
+- `hooks/events/` — Domain event handlers (8 files)
 
-- **Query tuple limit (15):** Split into separate `Query<>` params
-- **add_systems tuple limit (~20):** Split into multiple `add_systems` calls
-- **System parameter limit (16):** Merge related queries
-- **Query conflicts (B0001):** Use `ParamSet<(Query<...>, Query<...>)>`
-- **Resource conflicts (B0002):** Cannot have both `Res<T>` and `ResMut<T>`
+### Libraries (`lib/`)
+- `chat/executor.ts` — Handler registry dispatcher
+- `chat/handlers/` — Domain tool handlers
+- `scripting/` — Web Worker sandbox
+- `audio/` — Web Audio API manager
+- `export/` — Export pipeline
+- `db/` — Drizzle + Neon client
 
-## Library-Specific
+### MCP Server (`mcp-server/`)
+- `manifest/commands.json` — 379 commands across 41 categories (measured: `bash .claude/tools/validate-mcp.sh sync`; pinned by `web/src/lib/config/__tests__/capabilityMatrix.test.ts`)
+- `src/docs/` — Doc loader, BM25 search
 
-### bevy_rapier3d v0.33
-- `RapierConfiguration` is a **Component** (not Resource)
-- `DebugRenderContext` is a **Resource** (not Component)
-- Never enable `parallel` feature (rayon panics on WASM)
+### Docs Site (`apps/docs/`)
 
-### bevy_panorbit_camera v0.34
-- Uses `yaw`/`pitch`/`target_yaw`/`target_pitch` — NO `alpha`/`beta` fields
-- Smoothness range is 0.0-1.0
+Deploys with `rootDirectory: apps/docs`, so nothing above `apps/docs/` exists on Vercel. Every repo-root artifact the site needs has an in-root copy under `apps/docs/data/`, loaded by **static import** — a runtime `readFileSync` from a `__dirname`-derived path is invisible to Next.js output file tracing and is what 500'd `/mcp` in production (#9718).
 
-### transform-gizmo-bevy v0.9 (local fork)
-- Path dependency: `path = "../.transform-gizmo-fork/crates/transform-gizmo-bevy"`
-- Needs default features. Don't set `default-features = false`
+- `data/commands.json` — copy of `mcp-server/manifest/commands.json` (guarded by `scripts/check-manifest-sync.ts`)
+- `data/capability-matrix.json` — `{ source, lines[] }` generated from `docs/capability-matrix.md` by `scripts/sync-capability-matrix.ts` (`npm run sync:capability-matrix` at the repo root). Never hand-edit; the docs gate and the web gate both fail on a stale copy
+- `lib/capabilityMatrix.ts` — parser for the markdown subset the matrix is written in, plus `readCapabilityMatrix()` over the statically imported JSON
+- `components/CapabilityMatrixDocument.tsx` — server-renderable renderer for `/capability-matrix`: `#` is the page h1 and `##` the h2 (no skipped level), the row-key column is `<th scope="row">`, every header cell `<th scope="col">`, each scrolling table wrapper is a focusable `role="region"`
 
-### bevy_hanabi 0.18 (GPU Particles)
-- `EffectAsset::new(capacity, spawner, module)` builder pattern
-- Registration gated behind `#[cfg(feature = "webgpu")]`
+## Communication Pattern
 
-## Rust Gotchas
+**JS → Rust:** editorStore action → `dispatchCommand()` → `handle_command()` → pending queue → Bevy drains next frame
 
-- Float type inference: `.abs()` on match-returned floats needs explicit `let raw: f32 = ...`
-- Borrow after move in tracing: Clone fields before ownership move
-- `Option<&&T>` from query find: Use `.and_then(|(_, sd)| sd.cloned())`
+**Rust → JS:** Bevy system → `emit_event()` → JS callback → `useEngineEvents` → Zustand `set()` → React re-render
 
 ---
 > Source: [Tristan578/project-forge](https://github.com/Tristan578/project-forge) — distributed by [TomeVault](https://tomevault.io).
