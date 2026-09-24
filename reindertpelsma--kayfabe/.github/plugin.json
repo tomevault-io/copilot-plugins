@@ -1,0 +1,9 @@
+{
+  "name": "reindertpelsma--kayfabe",
+  "displayName": "kayfabe",
+  "description": "The GPU your VM believes in. A stock NVIDIA driver runs against fabricated hardware; real compute is forwarded to a host GPU. Hypervisor-agnostic, multi-tenant, unprivileged per-process isolates. Rust",
+  "version": "1.0.0",
+  "author": "reindertpelsma",
+  "homepage": "https://github.com/reindertpelsma/kayfabe",
+  "skills": []
+}
