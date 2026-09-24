@@ -1,0 +1,9 @@
+{
+  "name": "mzd-hseokkim--jira-claude-code-integration",
+  "displayName": "jira-claude-code-integration",
+  "description": "Automate your entire dev workflow \u2014 from Jira issue to merged PR \u2014 inside Claude Code. Jira \uc774\uc288\ubd80\ud130 PR \uc644\ub8cc\uae4c\uc9c0 \uc804 \ub2e8\uacc4 \uc790\ub3d9\ud654 \ud50c\ub7ec\uadf8\uc778.",
+  "version": "1.0.0",
+  "author": "mzd-hseokkim",
+  "homepage": "https://github.com/mzd-hseokkim/jira-claude-code-integration",
+  "skills": []
+}
