@@ -1,107 +1,84 @@
-## types
+## sounio
 
-> Sounio type system — epistemic, units, refinement, linear types
+> Sounio language rules — epistemic types, effects, algebra, GPU programming
 
 
-# Sounio Type System
+# Sounio Language Rules
 
-## Primitives
-`i8`, `i16`, `i32`, `i64`, `u8`, `u16`, `u32`, `u64`, `f32`, `f64`, `bool`, `char`
+Use these rules for every `.sio` file. Sounio is a self-hosted systems and
+scientific language with epistemic types, algebraic effects, non-associative
+algebra, and GPU-visible effect rows. It is not Rust, Julia, or Python.
 
-## Fixed-Size Arrays
-Arrays MUST have a compile-time size. No slices.
+## Core Patterns
+
 ```sio
-let arr: [i64; 4] = [1, 2, 3, 4]
-var buf: [i64; 256] = [0; 256]     // fill with zeros
-let combined = a ++ b               // concatenation
-```
+fn main() with IO {
+    println("Hello, Sounio")
+}
 
-## Vec (Growable)
-```sio
-let v: Vec<i32> = [1, 2, 3, 4]
-```
-For manual control, use stdlib `IntVec` / `FloatVec` with impl blocks.
+fn scale(x: Knowledge<f64>) -> Knowledge<f64> with Div, Panic {
+    x / measure(2.0, uncertainty: 0.0)
+}
 
-## Structs
-```sio
-struct Point { x: f64, y: f64 }
-let p = Point { x: 1.0, y: 2.0 }
-```
+fn kernel_entry() with GPU {
+}
 
-## Enums
-```sio
-enum Color { Red, Green, Blue }
-let c = Color::Red
-match c {
-    Color::Red => 10
-    Color::Green => 20
-    Color::Blue => 30
-    _ => 0
+algebra Octonion over f64 {
+    add: commutative, associative
+    mul: alternative, non_commutative
+    reassociate: fano_selective
+}
+
+extern "C" {
+    fn puts(ptr: *i8) -> i32
 }
 ```
 
-## Tuples
+## Required Conventions
+
+- Use `var` for mutable locals; do not write `let mut`.
+- Use `&!T` for exclusive references; do not write `&mut T`.
+- Declare effects with `with IO`, `with Mut`, `with Panic`, `with Div`,
+  `with GPU`, `with Prob`, or `with Observe` as required.
+- Preserve `Knowledge<T>` values across scientific calculations unless an
+  audited epistemic unwrap is explicitly required.
+- Use Sounio `match` syntax and make every arm type-compatible.
+- Define helper functions before callers.
+- Use semicolons only where the language grammar requires them; Sounio is
+  D-like in its statement termination rules for this checkout, and stray Rust
+  semicolon habits should be checked against current compiler behaviour.
+
+## Anti-Patterns
+
 ```sio
-let pair = (42, true)
-let (x, y) = (1, 2)      // destructuring
+// WRONG: raw f64 loses epistemic uncertainty where Knowledge<f64> applies
+fn dose(weight: f64) -> f64 { weight * 15.0 }
+
+// WRONG: unannotated GPU call
+fn launch() { kernel_entry() }
+
+// WRONG: unsafe/effect mismatch
+fn poke(ptr: *i8) { unsafe { *ptr = 0 } }
+
+// WRONG: Rust-style macros and mutation
+let mut x = 1;
+println!("bad")
+assert!(x > 0)
+
+// WRONG: Rust-style mutable reference
+fn set(x: &mut i64) { *x = 1 }
 ```
 
-## Function Types
-```sio
-fn square(x: i64) -> i64 { x * x }
-let f: fn(i64) -> i64 = square
-let result = f(7)  // 49
+Correct the above by using `Knowledge<T>`, explicit effect rows, `var`, `&!`,
+plain function calls (`println`, `assert`), and the current Sounio syntax guide.
 
-fn apply(f: fn(i64) -> i64, x: i64) -> i64 { f(x) }
-```
-NO closure literals. Only named function references.
+## MCP Feedback Loop
 
-## Linear Types
-Must be consumed exactly once:
-```sio
-linear struct Handle { fd: i32 }
-fn consume(h: Handle) -> i32 { h.fd }  // consumes h
-```
+When the MCP server is available, use `sounio_check` after every meaningful
+edit. Inject diagnostics into the next edit request and repeat until valid.
 
-## Affine Types
-Can be consumed at most once:
-```sio
-affine struct Token { id: i64 }
-```
-
-## Units of Measure
-Dimensional analysis at compile time:
-```sio
-unit kg
-unit mg = 0.001 * kg
-unit velocity = m / s
-
-let dose: mg = 500.0
-let mass: kg = 75.0
-```
-Standard 7-dimensional SI exponent vector (mass, length, time, temperature, amount, current, luminosity).
-
-## Refinement Types
-Types with predicates:
-```sio
-type Probability = { p: f64 | p >= 0.0 && p <= 1.0 }
-type SafeDose = { d: f64 | d > 0.0 && d <= 1000.0 }
-```
-
-## Epistemic Types (Knowledge<T>)
-Sounio's unique feature — uncertainty propagation through computation:
-```sio
-use epistemic::{Knowledge}
-let dose: Knowledge<mg> = measure(500.0, uncertainty: 2.5)
-// Value + uncertainty tracked through all arithmetic
-```
-
-## What Does NOT Exist
-- No `Box<T>`, `Rc<T>`, `Arc<T>` — use fixed arrays or linear types
-- No trait objects or dynamic dispatch — use function references
-- No generics (yet) — use monomorphic types
-- No `Result<T, E>` — return `(value, error_code)` tuples
-- No `Option<T>` — use stdlib `IntOption` / `FloatOption`
+Reference: <https://docs.souniolang.org/cursor> (planned documentation page;
+flag missing-page work for CC-3 or the operator if this link is still absent).
 
 ---
 > Source: [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio) — distributed by [TomeVault](https://tomevault.io).
