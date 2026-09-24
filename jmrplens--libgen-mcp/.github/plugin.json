@@ -1,0 +1,9 @@
+{
+  "name": "jmrplens--libgen-mcp",
+  "displayName": "libgen-mcp",
+  "description": "MCP server in Go to search, download and read books, papers, comics and more from Library Genesis \u2014 plus keyless open-access discovery (arXiv, Crossref, OpenLibrary, Gutenberg, dblp, PubMed, ERIC) and",
+  "version": "1.0.0",
+  "author": "jmrplens",
+  "homepage": "https://github.com/jmrplens/libgen-mcp",
+  "skills": []
+}
