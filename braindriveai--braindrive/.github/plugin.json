@@ -1,0 +1,9 @@
+{
+  "name": "braindriveai--braindrive",
+  "displayName": "BrainDrive",
+  "description": "A personal AI system that helps you define, set, and reach your goals. Self-hosted and MIT licensed.",
+  "version": "1.0.0",
+  "author": "BrainDriveAI",
+  "homepage": "https://github.com/BrainDriveAI/BrainDrive",
+  "skills": []
+}
