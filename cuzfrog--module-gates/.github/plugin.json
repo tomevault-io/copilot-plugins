@@ -1,0 +1,9 @@
+{
+  "name": "cuzfrog--module-gates",
+  "displayName": "module-gates",
+  "description": "controls the entropy of the codebase by enforcing code module boundaries.",
+  "version": "1.0.0",
+  "author": "cuzfrog",
+  "homepage": "https://github.com/cuzfrog/module-gates",
+  "skills": []
+}
