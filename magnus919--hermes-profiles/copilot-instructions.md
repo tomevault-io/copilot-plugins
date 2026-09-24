@@ -1,90 +1,120 @@
 ## hermes-profiles
 
-> This file helps AI agents understand how to interact with this repository.
+> This document is for AI agents that interact with or consume outputs from the site-reliability-engineer Hermes profile.
 
-# Hermes Profiles — Agent Guide
+# Site-Reliability-Engineer Profile — Agent Guidance
 
-This file helps AI agents understand how to interact with this repository.
+This document is for AI agents that interact with or consume outputs from the site-reliability-engineer Hermes profile.
 
-## Repository Structure
+## Trigger Patterns
 
-```
-hermes-profiles/
-├── skills/                          ← Shared skill pool (actual files)
-│   ├── artifact-pyramids/
-│   ├── architecture/
-│   │   ├── adr-authoring/
-│   │   ├── arc42-context/
-│   │   ├── architect-pyramid/
-│   │   └── c4-diagramming/
-│   ├── mermaid-diagrams/
-│   └── product-methodology/
-├── profiles/                        ← Agent profiles (symlinks to skills)
-│   ├── technical-architect/
-│   ├── product-manager/
-│   └── site-reliability-engineer/
-├── .github/ISSUE_TEMPLATE/
-├── CONTRIBUTING.md
-├── LICENSE
-└── README.md
-```
+Load this profile when the user asks for any of the following:
 
-## How Profiles Work
-
-Each profile is a directory containing:
-
-| File | Purpose |
+| User Says | What It Means |
 |---|---|
-| `SOUL.md` | Identity document — first principles, methodology, output contract |
-| `profile.yaml` | Metadata — description, required/recommended skills |
-| `README.md` | Human-facing usage guide |
-| `AGENTS.md` | Agent-facing trigger patterns and handoff protocol |
+| "Design a reliability framework for..." | Full engagement: SLOs → error budget → alerting → pyramid |
+| "Run a postmortem for this incident" | Incident postmortem with timeline, 5 Whys, action items |
+| "Review this service for reliability" | Pre-launch checklist, architecture review, risk assessment |
+| "Define SLOs for this service" | SLI specification, SLO target setting, error budget |
+| "Improve our on-call / incident response" | Rotation design, IC framework, runbook gaps |
+| "Build observability for..." | Four Golden Signals, dashboard design, alert rules |
+| "Help me troubleshoot this issue" | Hypothetico-deductive methodology, diagnostic approach |
+| "Automate this operational task" | Toil assessment, automation decision tree, ROI analysis |
 
-Profiles do NOT contain skill files directly. Each profile's `skills/`
-directory contains **relative symlinks** back to the shared `skills/`
-pool at the repo root. This means one copy of each skill serves every
-profile.
+## Loading Order
 
-## Skill Conventions
+When starting an engagement, load the core skill:
 
-Skills in the shared pool follow progressive disclosure:
-- `SKILL.md` is a thin index with trigger conditions and loading instructions
-- Methodology detail lives in `references/` loaded on demand via `skill_view(name, file_path=path)`
-- Skills should work on a vanilla Hermes install — no dependencies on council, cashew, or agent-specific infrastructure
+```python
+skill_view('site-reliability-engineering')     # Methodology index and references
+skill_view('artifact-pyramids')                # Output contract specification
+```
 
-## Symlink Rules
+Then load reference files on demand based on the specific engagement:
 
-- All symlinks must be **relative**, not absolute
-- From `profiles/<name>/skills/`, target is `../../../skills/<skill-name>`
-- From `profiles/<name>/skills/<category>/`, target is `../../../../skills/<category>/<skill-name>` (or make the category itself a symlink)
-- Symlinks are tracked by git (mode 120000). They recreate correctly on `git clone` (macOS/Linux).
+| Engagement Type | References to Load |
+|---|---|
+| SLO/SLI Design | `references/slo-sli-framework.md`, `references/error-budget-governance.md`, `references/guiding-principles.md` |
+| Product-Focused SLO Design | `references/product-focused-reliability.md`, `references/slo-sli-framework.md`, `references/error-budget-governance.md`, `references/guiding-principles.md` |
+| Incident Response | `references/incident-command-system.md`, `templates/incident-command-checklist.md`, `templates/incident-communication.md` |
+| Postmortem | `references/postmortem-culture.md`, `templates/postmortem-template.md`, `references/troubleshooting.md` |
+| Reliability Review | `templates/service-review-checklist.md`, `references/senior-sre-blueprint.md` |
+| On-Call Redesign | `references/oncall-best-practices.md`, `templates/oncall-rotation.md` |
+| Toil Reduction | `references/toil-elimination.md`, `references/sre-communication-guide.md` |
+| Observability | `references/monitoring-alerting.md`, `references/slo-sli-framework.md` |
+| Release Engineering | `references/release-engineering.md` |
 
-## Contribution Workflow
+## Output Contract
 
-1. Branch from `main`
-2. Add or modify profile files
-3. If adding a new skill, place the skill directory in `skills/` first, then symlink from the profile
-4. Ensure all symlinks resolve — check with `test -e`
-5. Open a PR with a clear description of what the profile does and what skills it needs
+The profile produces reliability documentation as an artifact pyramid. The response to the caller is always the **absolute path to `00-index.md`** at the pyramid root.
 
-## Verifying a Profile
+### Expected Structure
 
-Before submitting a PR, check:
+```
+<output>/
+├── 00-index.md              ← Navigation index with SOURCES
+├── 01-summary/
+│   ├── reliability-posture.md  ← SLO attainment, error budget status
+│   ├── incident-summary.md     ← For postmortem engagements
+│   └── recommendations.md      ← Key findings and next actions
+├── 02-analysis/
+│   ├── per-journey-slos.md     ← User-journey-level SLO analysis
+│   ├── burn-rate-analysis.md   ← Error budget consumption
+│   ├── failure-modes.md        ← Risk and contributing factors
+│   └── trade-offs.md           ← Reliability vs velocity/cost
+└── 03-dossiers/
+    ├── sli-data.md             ← Raw SLI data and calculations
+    ├── runbooks.md             ← Generated runbook drafts
+    ├── incident-timeline.md    ← Full incident timeline
+    └── action-items.md         ← Tracked action items with owners
+```
 
-- [ ] `SOUL.md` exists — first principles, output contract
-- [ ] `profile.yaml` exists — valid YAML, required skills listed
-- [ ] `README.md` exists — installation, quick start, skill reference
-- [ ] `AGENTS.md` exists — trigger patterns, loading order, handoff
-- [ ] All symlinks in `skills/` resolve to real files in the shared pool
-- [ ] No absolute paths in symlinks
-- [ ] No duplicate skill files — use symlinks to the shared pool
+### Cross-Reference Rules
 
-## Related Repositories
+1. **SLO declarations must reference user journeys** — every SLO ties to a specific user experience
+2. **Incident analyses must reference SLOs** — every incident describes which SLOs were affected and by how much
+3. **Action items must reference root causes** — every action links back to the contributing factor it addresses
+4. **SOURCES sections at every layer** — absolute path references with descriptions
+5. **Error budget status references SLO attainment** — budget consumption is meaningless without the SLO it measures against
 
-- https://github.com/magnus919/hermes-profiles — this repo
-- https://github.com/groktopus/artifact-pyramids — artifact pyramid specification
-- https://github.com/architecture-decision-record/architecture-decision-record — ADR community standards
+## Handoff Protocol
+
+1. **The pyramid IS the handoff.** Close with the path. Do not summarize.
+2. If the engagement is multi-phase, each phase produces its own pyramid. The L3 dossiers of phase N serve as context for phase N+1.
+3. Partial pyramids are acceptable. If only SLO design is requested, produce only the SLO layers.
+
+## Supporting References
+
+| Reference | File |
+|---|---|
+| Google SRE Book Chapter Summaries | `references/sre-book-chapters.md` |
+| SLO/SLI Framework | `references/slo-sli-framework.md` |
+| Error Budget Governance | `references/error-budget-governance.md` |
+| Incident Command System | `references/incident-command-system.md` |
+| Blameless Postmortems | `references/postmortem-culture.md` |
+| Monitoring & Alerting | `references/monitoring-alerting.md` |
+| On-Call Best Practices | `references/oncall-best-practices.md` |
+| Toil Elimination | `references/toil-elimination.md` |
+| Release Engineering | `references/release-engineering.md` |
+| Effective Troubleshooting | `references/troubleshooting.md` |
+| Senior SRE Blueprint | `references/senior-sre-blueprint.md` |
+| SRE Communication Guide | `references/sre-communication-guide.md` |
+| Guiding Principles | `references/guiding-principles.md` |
+| Product-Focused Reliability | `references/product-focused-reliability.md` |
+| Twenty Years of Lessons | `references/twenty-years-lessons.md` |
+| SRE Ecosystem Guide | `references/sre-ecosystem-guide.md` |
+
+Load these with `skill_view('site-reliability-engineering', file_path=<path>)` when depth is needed.
+
+## Related Profiles
+
+The site-reliability-engineer profile is designed to work alongside:
+
+- **technical-architect** — receives reliability constraints. Handoff: pyramid path. The SRE's SLO targets and failure mode analysis feed the architecture.
+- **product-manager** — translates business priorities into reliability trade-offs. Receives SLO impact analysis. Provides product constraints for error budget policy.
+- **implementation-planner** — consumes runbook requirements, automation plans, and operational readiness items for build plans.
+- **orchestrator** — routes incident response tasks and reliability initiative tasks during multi-agent workflows.
 
 ---
 > Source: [magnus919/hermes-profiles](https://github.com/magnus919/hermes-profiles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
