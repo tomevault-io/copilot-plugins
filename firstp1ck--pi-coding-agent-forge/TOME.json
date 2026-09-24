@@ -1,0 +1,339 @@
+{
+  "name": "pi-coding-agent-forge",
+  "owner": "Firstp1ck",
+  "repo": "pi-coding-agent-forge",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-unslop/skills/unslop/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-unslop/skills/unslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-diagram-maker/skills/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-diagram-maker/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-patch-md/skills/patch-md/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-patch-md/skills/patch-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-shoo-auth/skills/shoo-auth/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-shoo-auth/skills/shoo-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-stop-slop/skills/stop-slop/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-stop-slop/skills/stop-slop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-extension-docx/skills/docx-editor/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-extension-docx/skills/docx-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-package-learnings/skills/learnings/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-package-learnings/skills/learnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-html-report/skills/html-report/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-html-report/skills/html-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-bug-reporter/skills/bug-reporter/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-bug-reporter/skills/bug-reporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-code-quality/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-code-quality/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-extension-wiki-tools/skills/wiki-tools/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-extension-wiki-tools/skills/wiki-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-repo-explorer/skills/repo-explorer/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-repo-explorer/skills/repo-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-deep-research/skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-deep-research/skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-extension-release-aur/skills/release-aur/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-extension-release-aur/skills/release-aur/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-extension-workbook/skills/workbook-editor/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-extension-workbook/skills/workbook-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-backup-manager/skills/backup-manager/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-backup-manager/skills/backup-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-project-readme/skills/project-readme/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-project-readme/skills/project-readme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-tech-deep-dive/skills/tech-deep-dive/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-tech-deep-dive/skills/tech-deep-dive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-omarchy-plugin/skills/omarchy-plugin/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-omarchy-plugin/skills/omarchy-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-design-patterns/skills/design-patterns/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-design-patterns/skills/design-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-frontend-design/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-frontend-design/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-extension-nixos-wiki-local/skills/nixos-local/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-extension-nixos-wiki-local/skills/nixos-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-paper-summarizer/skills/paper-summarizer/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-paper-summarizer/skills/paper-summarizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-acceptance-tester/skills/acceptance-tester/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-acceptance-tester/skills/acceptance-tester/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-tech-debt-tracker/skills/tech-debt-tracker/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-tech-debt-tracker/skills/tech-debt-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-tauri-django-react/skills/tauri-django-react/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-tauri-django-react/skills/tauri-django-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-extension-hyprland-wiki-local/skills/hyprland-local/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-extension-hyprland-wiki-local/skills/hyprland-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-network-diagnostics/skills/network-diagnostics/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-network-diagnostics/skills/network-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-refactoring-advisor/skills/refactoring-advisor/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-refactoring-advisor/skills/refactoring-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-architecture-review/skills/architecture-review/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-architecture-review/skills/architecture-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-subagent-governance/skills/subagent-governance/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-subagent-governance/skills/subagent-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-competitor-analysis/skills/competitor-analysis/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-competitor-analysis/skills/competitor-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-test-plan-generator/skills/test-plan-generator/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-test-plan-generator/skills/test-plan-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-spec-vs-impl-checker/skills/spec-vs-impl-checker/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-spec-vs-impl-checker/skills/spec-vs-impl-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-extension-quickshell-wiki-local/skills/quickshell-local/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-extension-quickshell-wiki-local/skills/quickshell-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-deployment-automation/skills/deployment-automation/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-deployment-automation/skills/deployment-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-vulnerability-scanner/skills/vulnerability-scanner/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-vulnerability-scanner/skills/vulnerability-scanner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-performance-optimizer/skills/performance-optimizer/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-performance-optimizer/skills/performance-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-desktop-visual-design/skills/desktop-visual-design/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-desktop-visual-design/skills/desktop-visual-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-extension-raspberrypi-wiki-local/skills/raspberrypi-local/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-extension-raspberrypi-wiki-local/skills/raspberrypi-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-research-orchestration/skills/research-orchestration/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-research-orchestration/skills/research-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-lab-qc-presentation-theme/skills/lab-qc-presentation-theme/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-lab-qc-presentation-theme/skills/lab-qc-presentation-theme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-feature-development-workflow/skills/feature-development-workflow/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-feature-development-workflow/skills/feature-development-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-skill-dolt-database-version-control/skills/dolt-database-version-control/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-skill-dolt-database-version-control/skills/dolt-database-version-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-package-skill-lifecycle/vendor/pi-skill-skill-creator/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-package-skill-lifecycle/vendor/pi-skill-skill-creator/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-package-skill-lifecycle/vendor/pi-skill-skill-evaluator/skills/skill-evaluator/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-package-skill-lifecycle/vendor/pi-skill-skill-evaluator/skills/skill-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-package-skill-lifecycle/vendor/pi-skill-skill-bank-manager/skills/skill-bank-manager/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-package-skill-lifecycle/vendor/pi-skill-skill-bank-manager/skills/skill-bank-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-package-skill-lifecycle/vendor/pi-skill-skill-refinement-loop/skills/skill-refinement-loop/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-package-skill-lifecycle/vendor/pi-skill-skill-refinement-loop/skills/skill-refinement-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-coding-agent-forge",
+      "path": "pi-package-skill-lifecycle/vendor/pi-skill-skill-creator/skills/skill-creator/references/writing-great-skills/SKILL.md",
+      "github_url": "https://github.com/Firstp1ck/pi-coding-agent-forge/tree/main/pi-package-skill-lifecycle/vendor/pi-skill-skill-creator/skills/skill-creator/references/writing-great-skills/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Firstp1ck/pi-coding-agent-forge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T13:52:58Z"
+}
