@@ -1,0 +1,105 @@
+{
+  "name": "hebb-mind",
+  "owner": "afx-team",
+  "repo": "hebb-mind",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hebb-mind",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hebb-mind",
+      "path": ".agents/skills/arxiv-search/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.agents/skills/arxiv-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hebb-mind",
+      "path": ".claude/skills/arxiv-search/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.claude/skills/arxiv-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hebb-mind",
+      "path": ".agents/skills/bench-compare/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.agents/skills/bench-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hebb-mind",
+      "path": ".claude/skills/bench-compare/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.claude/skills/bench-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hebb-mind",
+      "path": ".claude/skills/push-to-github/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.claude/skills/push-to-github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hebb-mind",
+      "path": ".agents/skills/github-explore/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.agents/skills/github-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hebb-mind",
+      "path": ".claude/skills/github-explore/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.claude/skills/github-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hebb-mind",
+      "path": ".agents/skills/research-survey/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.agents/skills/research-survey/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hebb-mind",
+      "path": ".claude/skills/research-survey/SKILL.md",
+      "github_url": "https://github.com/afx-team/hebb-mind/tree/main/.claude/skills/research-survey/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/afx-team/hebb-mind",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T03:42:04Z"
+}
