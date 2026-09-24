@@ -1,0 +1,9 @@
+{
+  "name": "rocketraman--open-green-button-homeassistant",
+  "displayName": "open-green-button-homeassistant",
+  "description": "Bring your utility's Green Button (NAESB ESPI) energy data into the Home Assistant Energy dashboard via a stateless OAuth proxy.",
+  "version": "1.0.0",
+  "author": "rocketraman",
+  "homepage": "https://github.com/rocketraman/open-green-button-homeassistant",
+  "skills": []
+}
