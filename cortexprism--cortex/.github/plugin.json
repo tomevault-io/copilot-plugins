@@ -1,0 +1,14 @@
+{
+  "name": "cortexprism--cortex",
+  "displayName": "cortex",
+  "description": "cortex",
+  "version": "1.0.0",
+  "author": "CortexPrism",
+  "homepage": "https://github.com/CortexPrism/cortex",
+  "skills": [
+    {
+      "name": "cortex",
+      "description": ""
+    }
+  ]
+}
