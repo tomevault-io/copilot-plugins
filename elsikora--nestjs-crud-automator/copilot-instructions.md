@@ -1,44 +1,15 @@
-## no-noisy-abstractions
+## nestjs-crud-automator
 
-> Avoid noisy one-off abstractions in TypeScript code
+> Before working on NestJS CRUD Automator implementation or documentation, read the project skill at `ai/crud-automator/SKILL.md`.
 
+# Agent Guidance
 
-# No Noisy Micro-Abstractions
+Before working on NestJS CRUD Automator implementation or documentation, read the project skill at `ai/crud-automator/SKILL.md`.
 
-Do not extract local-only types, constants, maps, or helpers just to name a one-off detail.
+Use that skill as the canonical repository guidance for Codex-style agents and any other agent runner that reads `AGENTS.md`.
 
-Prefer inline code when the abstraction:
-- is used once or only inside one small function;
-- only restates obvious enum/key mapping;
-- exists only to satisfy style preferences, not domain meaning;
-- makes the reader jump away from the code path to understand simple logic.
-
-Extract only when it carries real project meaning, removes meaningful duplication, or clarifies a non-trivial invariant.
-
-For project constants, do not export raw leaf constants directly from `src/constant/**` for new internal metadata keys or defaults. Export a grouped `*_CONSTANT` object and make callers use object properties.
-
-```typescript
-// Bad: exported raw key invites direct imports and bypasses the grouped constant API.
-export const DTO_AUTO_CONTEXT_METADATA_KEY = "crud-automator:auto-dto-context";
-
-// Good: consumers use AUTO_CONTEXT_DTO_CONSTANT.METADATA_KEY.
-export const AUTO_CONTEXT_DTO_CONSTANT = {
-	METADATA_KEY: "crud-automator:auto-dto-context",
-} as const;
-```
-
-```typescript
-// Bad: noisy top-level extraction for a one-off mapping.
-const PARAMETER_TYPE_BY_DTO_TYPE = {
-	[EApiDtoType.BODY]: RouteParamtypes.BODY,
-};
-
-// Good: keep the mapping where the route metadata is built.
-for (const { dto, parameterType } of [{ dto: bodyDto, parameterType: RouteParamtypes.BODY }]) {
-	// ...
-}
-```
+When docs, examples, or prior agent guidance conflict with source, treat `src/interface/**`, `src/type/**`, exported barrels, and tests as the contract.
 
 ---
 > Source: [ElsiKora/NestJS-Crud-Automator](https://github.com/ElsiKora/NestJS-Crud-Automator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
