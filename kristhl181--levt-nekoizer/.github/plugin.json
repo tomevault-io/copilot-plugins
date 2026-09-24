@@ -1,0 +1,9 @@
+{
+  "name": "kristhl181--levt-nekoizer",
+  "displayName": "LevT-Nekoizer",
+  "description": "Give your Zhihu articles an ACGN makeover! Powered by a Levenshtein Transformer for surgical text transformation. ",
+  "version": "1.0.0",
+  "author": "KrisTHL181",
+  "homepage": "https://github.com/KrisTHL181/LevT-Nekoizer",
+  "skills": []
+}
