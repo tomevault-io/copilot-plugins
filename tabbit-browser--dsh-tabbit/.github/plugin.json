@@ -1,0 +1,14 @@
+{
+  "name": "tabbit-browser--dsh-tabbit",
+  "displayName": "dsh-tabbit",
+  "description": "dsh-tabbit",
+  "version": "1.0.0",
+  "author": "Tabbit-Browser",
+  "homepage": "https://github.com/Tabbit-Browser/dsh-tabbit",
+  "skills": [
+    {
+      "name": "dsh-tabbit",
+      "description": ""
+    }
+  ]
+}
