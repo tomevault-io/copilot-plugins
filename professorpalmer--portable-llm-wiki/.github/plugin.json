@@ -1,0 +1,9 @@
+{
+  "name": "professorpalmer--portable-llm-wiki",
+  "displayName": "portable-llm-wiki",
+  "description": "Vendor-neutral, LLM-maintained personal-context wiki. Markdown in your git, queryable by any LLM (HTTP API + MCP server). v0.7 prototype.",
+  "version": "1.0.0",
+  "author": "professorpalmer",
+  "homepage": "https://github.com/professorpalmer/portable-llm-wiki",
+  "skills": []
+}
