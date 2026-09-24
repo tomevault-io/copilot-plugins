@@ -1,0 +1,159 @@
+{
+  "name": "xyne-spaces",
+  "owner": "juspay",
+  "repo": "xyne-spaces",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "xyne-spaces",
+      "path": "packages/xyne-claw-mcp/skills/run/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/packages/xyne-claw-mcp/skills/run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "packages/xyne-claw-mcp/skills/login/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/packages/xyne-claw-mcp/skills/login/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/spec-skills/spec-task/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/spec-skills/spec-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "packages/xyne-claw-mcp/skills/agents/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/packages/xyne-claw-mcp/skills/agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "packages/xyne-claw-mcp/skills/whoami/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/packages/xyne-claw-mcp/skills/whoami/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "packages/xyne-claw-mcp/skills/sessions/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/packages/xyne-claw-mcp/skills/sessions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/design-brief/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/design-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/design-system/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/react-artifact/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/react-artifact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/dashboard-data/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/dashboard-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/design-critique/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/design-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/motion-interaction/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/motion-interaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/data-visualization/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/data-visualization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/browser-qa-delivery/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/browser-qa-delivery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/frontend-composition/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/frontend-composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/design-skills/responsive-accessibility/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/design-skills/responsive-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/understanding-skills/evidence-citations/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/understanding-skills/evidence-citations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/understanding-skills/explanation-document/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/understanding-skills/explanation-document/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xyne-spaces",
+      "path": "apps/xyne-claw/understanding-skills/architecture-diagrams/SKILL.md",
+      "github_url": "https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/understanding-skills/architecture-diagrams/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/juspay/xyne-spaces",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T16:35:49Z"
+}
