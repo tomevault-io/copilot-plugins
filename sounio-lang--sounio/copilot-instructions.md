@@ -1,84 +1,130 @@
-## sounio
+## syntax
 
-> Sounio language rules — epistemic types, effects, algebra, GPU programming
+> Core Sounio syntax rules — prevents Rust-isms in .sio files
 
 
-# Sounio Language Rules
+# Sounio Syntax — Anti-Rust Patterns
 
-Use these rules for every `.sio` file. Sounio is a self-hosted systems and
-scientific language with epistemic types, algebraic effects, non-associative
-algebra, and GPU-visible effect rows. It is not Rust, Julia, or Python.
+Sounio LOOKS like Rust but has different syntax and semantics. These are the most common mistakes.
 
-## Core Patterns
-
+## 1. NO Semicolons
+Sounio statements end WITHOUT semicolons. The parser treats `;` as an error.
 ```sio
-fn main() with IO {
-    println("Hello, Sounio")
-}
-
-fn scale(x: Knowledge<f64>) -> Knowledge<f64> with Div, Panic {
-    x / measure(2.0, uncertainty: 0.0)
-}
-
-fn kernel_entry() with GPU {
-}
-
-algebra Octonion over f64 {
-    add: commutative, associative
-    mul: alternative, non_commutative
-    reassociate: fano_selective
-}
-
-extern "C" {
-    fn puts(ptr: *i8) -> i32
-}
+// WRONG
+let x = 5;
+// CORRECT
+let x = 5
 ```
 
-## Required Conventions
-
-- Use `var` for mutable locals; do not write `let mut`.
-- Use `&!T` for exclusive references; do not write `&mut T`.
-- Declare effects with `with IO`, `with Mut`, `with Panic`, `with Div`,
-  `with GPU`, `with Prob`, or `with Observe` as required.
-- Preserve `Knowledge<T>` values across scientific calculations unless an
-  audited epistemic unwrap is explicitly required.
-- Use Sounio `match` syntax and make every arm type-compatible.
-- Define helper functions before callers.
-- Use semicolons only where the language grammar requires them; Sounio is
-  D-like in its statement termination rules for this checkout, and stray Rust
-  semicolon habits should be checked against current compiler behaviour.
-
-## Anti-Patterns
-
+## 2. `var` not `let mut`
+Mutable bindings use `var`. There is no `let mut`.
 ```sio
-// WRONG: raw f64 loses epistemic uncertainty where Knowledge<f64> applies
-fn dose(weight: f64) -> f64 { weight * 15.0 }
+// WRONG
+let mut x = 10;
+// CORRECT
+var x = 10
+```
 
-// WRONG: unannotated GPU call
-fn launch() { kernel_entry() }
+## 3. `&!` not `&mut`
+Exclusive (mutable) references use `&!T`. There is no `&mut`.
+```sio
+// WRONG
+fn set(x: &mut i32) { *x = 5 }
+// CORRECT
+fn set(x: &!i32) with Mut { *x = 5 }
+```
 
-// WRONG: unsafe/effect mismatch
-fn poke(ptr: *i8) { unsafe { *ptr = 0 } }
-
-// WRONG: Rust-style macros and mutation
-let mut x = 1;
-println!("bad")
+## 4. NO Macros
+Sounio has no macro system. No `!` after function names.
+```sio
+// WRONG
 assert!(x > 0)
-
-// WRONG: Rust-style mutable reference
-fn set(x: &mut i64) { *x = 1 }
+println!("hello")
+vec![1, 2, 3]
+// CORRECT
+assert(x > 0)
+println("hello")
+[1, 2, 3]
 ```
 
-Correct the above by using `Knowledge<T>`, explicit effect rows, `var`, `&!`,
-plain function calls (`println`, `assert`), and the current Sounio syntax guide.
+## 5. NO Closure Literals
+`|x| x + 1` does not compile. Use named function references.
+```sio
+// WRONG
+let f = |x| x + 1
+// CORRECT
+fn add_one(x: i64) -> i64 { x + 1 }
+let f = add_one
+```
 
-## MCP Feedback Loop
+## 6. NO Unary Minus
+The parser does not support `-42` as a literal. Use subtraction from zero.
+```sio
+// WRONG (may parse incorrectly)
+let neg = -42
+// CORRECT
+let neg = 0 - 42
+```
 
-When the MCP server is available, use `sounio_check` after every meaningful
-edit. Inject diagnostics into the next edit request and repeat until valid.
+## 7. Bit Shifts Require u8
+Shift operands must be typed as `u8`.
+```sio
+// WRONG
+let shifted = x >> 4
+// CORRECT
+let shifted = x >> 4u8
+```
 
-Reference: <https://docs.souniolang.org/cursor> (planned documentation page;
-flag missing-page work for CC-3 or the operator if this link is still absent).
+## 8. Array Index Requires Cast
+Array indices must be `usize`.
+```sio
+// WRONG
+let val = arr[i]
+// CORRECT
+let val = arr[i as usize]
+```
+
+## 9. NO Attributes
+No `#[test]`, `#[derive()]`, or any other attributes.
+
+## 10. NO `.len()` / `.push()` on Arrays
+Fixed arrays are not objects. Track length manually or use stdlib `IntVec`.
+```sio
+struct IntVec { data: [i64; 4096], len: i64 }
+impl IntVec {
+    fn push(self: &!IntVec, val: i64) with Mut, Panic {
+        self.data[self.len as usize] = val
+        self.len = self.len + 1
+    }
+}
+```
+
+## 11. Effects Are MANDATORY
+Functions with side effects MUST declare them. See `.cursor/rules/effects.mdc`.
+
+## 12. Match Arms — NO Commas
+```sio
+match value {
+    Pattern1 => result1
+    Pattern2 => result2
+    _ => default
+}
+```
+
+## 13. Methods Use Explicit Self
+```sio
+// WRONG (Rust-style implicit self)
+impl Foo { fn bar(&self) -> i64 { self.x } }
+// CORRECT
+impl Foo { fn bar(self: &Foo) -> i64 { self.x } }
+```
+
+## 14. String Handling
+String literals work for output. For mutable text, use `[i8; N]` byte arrays.
+```sio
+println("Hello, World!")  // works
+var name: [i8; 64] = [0; 64]  // mutable text buffer
+```
 
 ---
 > Source: [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio) — distributed by [TomeVault](https://tomevault.io).
