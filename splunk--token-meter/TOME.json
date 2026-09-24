@@ -1,0 +1,117 @@
+{
+  "name": "token-meter",
+  "owner": "splunk",
+  "repo": "token-meter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "token-meter",
+      "path": ".agents/skills/token-meter-intake/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.agents/skills/token-meter-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".agents/skills/token-meter-review/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.agents/skills/token-meter-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".claude/skills/token-meter-review/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.claude/skills/token-meter-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".claude/skills/token-meter-intake/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.claude/skills/token-meter-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".agents/skills/token-meter-github-ops/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.agents/skills/token-meter-github-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".claude/skills/token-meter-github-ops/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.claude/skills/token-meter-github-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".agents/skills/token-meter-development/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.agents/skills/token-meter-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".claude/skills/token-meter-development/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.claude/skills/token-meter-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".agents/skills/token-meter-verification/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.agents/skills/token-meter-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".claude/skills/token-meter-verification/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.claude/skills/token-meter-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".agents/skills/token-meter-communication/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.agents/skills/token-meter-communication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-meter",
+      "path": ".claude/skills/token-meter-communication/SKILL.md",
+      "github_url": "https://github.com/splunk/token-meter/tree/main/.claude/skills/token-meter-communication/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/splunk/token-meter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T07:35:34Z"
+}
