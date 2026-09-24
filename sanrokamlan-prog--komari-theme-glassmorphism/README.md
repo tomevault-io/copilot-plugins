@@ -1,8 +1,6 @@
 # komari-theme-Glassmorphism
 
-> Tome by [sanrokamlan-prog](https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism) — distributed by [TomeVault](https://tomevault.io)
-
-修改自komari-theme-emerald,改变卡片风格为毛玻璃风格,并且添加了访客ip展示
+> Tome by [sanrokamlan-prog](https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [sanrokamlan-prog/komari-theme-Glassmorphism](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [sanrokamlan-prog/komari-theme-Glassmorphism](https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism) — a repo with 8+ stars on GitHub.
+From [sanrokamlan-prog/komari-theme-Glassmorphism](https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism) — a repo with 371+ stars on GitHub.
 
 ---
 
