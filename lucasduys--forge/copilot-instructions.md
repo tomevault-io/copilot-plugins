@@ -1,99 +1,32 @@
 ## forge
 
-> This file tells Claude Code how to route work to the correct specialized agent
+> | Agent | Role | Min Model | Key Constraint |
 
-# Forge — Agent Routing
+# Seven Specialized Agents
 
-This file tells Claude Code how to route work to the correct specialized agent
-when working on the Forge project.
+| Agent | Role | Min Model | Key Constraint |
+|-------|------|-----------|----------------|
+| forge-speccer | Writes R-numbered specs with testable criteria | sonnet | One question at a time, capability-aware criteria |
+| forge-planner | Decomposes specs into streaming DAGs | sonnet | Coverage verification, no gold-plating |
+| forge-executor | Implements tasks with TDD + convention inference | haiku | Worktree + checkpoints, follow existing patterns |
+| forge-researcher | Multi-source research before implementation | haiku | Produces reports only, never writes code |
+| forge-reviewer | Two-pass review: spec compliance + blast radius | sonnet | Caveman for minor, verbose for security |
+| forge-verifier | Four-level goal-backward verification | sonnet | Caveman for pass, verbose for gaps |
+| forge-complexity | Scores task difficulty across 5 dimensions | haiku | Lightweight, runs on every command startup |
 
-## Agent Definitions
+The separation between agents is deliberate. The reviewer has fresh context and no implementation bias. The verifier never sees execution details, only checks outcomes against the spec.
 
-### forge-speccer
-**When to use:** During `/forge brainstorm` — writing specs from user input, existing code, or docs.
-**Files it owns:** `skills/brainstorming/SKILL.md`, `templates/spec.md`
-**Key behavior:** Asks clarifying questions one at a time, proposes approaches, writes R-numbered specs with testable acceptance criteria.
+## Cross-Cutting Skills (v0.2.0)
 
-### forge-planner
-**When to use:** During `/forge plan` — decomposing specs into task frontiers.
-**Files it owns:** `skills/planning/SKILL.md`, `templates/plan.md`
-**Key behavior:** Reads specs, builds dependency DAGs, groups tasks into parallelizable tiers, estimates tokens per task, tags tasks with repo ownership.
+Three skills are inlined into agent definitions and run automatically. No manual invocation required.
 
-### forge-executor
-**When to use:** During `/forge execute` — implementing individual tasks.
-**Files it owns:** `skills/executing/SKILL.md`
-**Key behavior:** Reads task from frontier, implements with TDD if available, runs tests, commits atomically. Follows inner loop: implement → test → fix → review → fix → commit.
+| Skill | Used By | Behavior |
+|-------|---------|----------|
+| karpathy-guardrails | executor, reviewer, planner | Four behavioral principles: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution. Executor self-checks; reviewer flags violations as IMPORTANT. |
+| graphify-integration | planner, researcher, reviewer, executor | Auto-detected via `graphify-out/graph.json`. Planner aligns tasks with community clusters. Researcher queries graph before external docs. Executor gets focused context. |
+| design-system | brainstorming, planner, executor, reviewer | Auto-detected via DESIGN.md. Planner tags UI tasks. Executor loads design tokens. Reviewer runs design compliance pass. |
 
-### forge-reviewer
-**When to use:** After task implementation (standard/thorough depth) — code review against spec.
-**Files it owns:** `skills/reviewing/SKILL.md`, `references/review-protocol.md`
-**Key behavior:** Reviews actual code (not the report), checks against spec requirements, flags missing pieces and over-engineering. Returns PASS or ISSUES with file:line references.
-
-### forge-verifier
-**When to use:** After all tasks in a phase/spec complete — goal-backward verification.
-**Files it owns:** `references/backprop-patterns.md`
-**Key behavior:** Checks observable truths (not task checkboxes), detects stubs/placeholders, verifies cross-component wiring. Returns PASSED or GAPS_FOUND.
-
-### forge-researcher
-**When to use:** Before complex/unfamiliar tasks during `/forge execute` — research before implementation.
-**Files it owns:** None (produces ephemeral research reports)
-**Key behavior:** Multi-source research: official docs (Context7), codebase conventions, security best practices, knowledge graph queries. Returns structured research reports with source citations.
-
-### forge-complexity
-**When to use:** On startup of any `/forge` command — auto-detecting task complexity.
-**Files it owns:** `references/complexity-heuristics.md`, `scripts/forge-tools.cjs` (complexity scoring)
-**Key behavior:** Analyzes the task/spec and recommends depth level (quick/standard/thorough). Can be overridden by user flags.
-
-## Skills (Cross-Cutting)
-
-### karpathy-guardrails
-**Files:** `skills/karpathy-guardrails/SKILL.md`
-**Referenced by:** forge-executor, forge-reviewer, forge-planner
-**Purpose:** Four behavioral principles that prevent over-engineering, silent assumptions, scope creep, and unfocused execution. Based on Andrej Karpathy's observations about LLM coding mistakes.
-
-### graphify-integration
-**Files:** `skills/graphify-integration/SKILL.md`
-**Referenced by:** forge-planner, forge-researcher, forge-reviewer, forge-executor
-**Purpose:** Graph-aware planning and research using codebase knowledge graphs. Enables architecture-aware task decomposition, dependency discovery, and context reduction. Optional -- degrades gracefully when no graph is available.
-
-### design-system
-**Files:** `skills/design-system/SKILL.md`
-**Referenced by:** brainstorming skill, forge-planner, forge-executor, forge-reviewer
-**Purpose:** DESIGN.md integration for visual consistency across UI tasks. Supports design-tagged tasks, design compliance review, and design system generation from the awesome-design-md catalog.
-
-## Routing Rules
-
-| Trigger | Agent | Depth |
-|---------|-------|-------|
-| User runs `/forge brainstorm` | forge-speccer | Always interactive |
-| User runs `/forge plan` | forge-planner | Scales with --depth |
-| User runs `/forge execute` (per task) | forge-executor | Scales with --depth |
-| After task implementation (depth >= standard) | forge-reviewer | standard: 1 pass, thorough: until clean |
-| After all tasks complete | forge-verifier | standard: quick check, thorough: full verification |
-| Before complex tasks (thorough depth, unfamiliar tech) | forge-researcher | Scales with task complexity |
-| On any `/forge` command startup | forge-complexity | Always runs (lightweight) |
-| `/forge backprop` | forge-verifier + forge-speccer | Always thorough |
-
-## Multi-Agent Coordination
-
-During `/forge execute`, the orchestrator (stop hook + forge-tools.cjs) coordinates:
-
-1. **Sequential by default** — one executor at a time (context-efficient)
-2. **Parallel within tiers** — if configured, tasks in the same tier can dispatch parallel subagents
-3. **Review after execute** — reviewer is always a separate agent (fresh context, no bias)
-4. **Verifier is independent** — never sees execution details, only checks outcomes
-
-## Context Handoff Between Agents
-
-When context resets at 60%, the handoff includes:
-- `.forge/state.md` — current position + decisions
-- `.forge/plans/{spec}-frontier.md` — remaining tasks
-- `.forge/token-ledger.json` — budget remaining
-- `.forge/capabilities.json` — available tools
-- `graphify-out/graph.json` — codebase knowledge graph (if available)
-- `DESIGN.md` — design system specifications (if available)
-
-Each new session reads these files FIRST, then continues from the exact task where the previous session left off. No re-reading completed work.
+All three degrade gracefully. If no graph or DESIGN.md exists, agents behave exactly as before v0.2.0.
 
 ---
 > Source: [LucasDuys/forge](https://github.com/LucasDuys/forge) — distributed by [TomeVault](https://tomevault.io).
