@@ -1,0 +1,51 @@
+{
+  "name": "Sando",
+  "owner": "yuzushi-dev",
+  "repo": "Sando",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Sando",
+      "path": "packages/sando/tests/fixtures/instructions/.claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/yuzushi-dev/Sando/tree/main/packages/sando/tests/fixtures/instructions/.claude/skills/testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yuzushi-dev/Sando",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T21:05:56Z"
+}
