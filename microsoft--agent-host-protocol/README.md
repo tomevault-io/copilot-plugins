@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [microsoft/agent-host-protocol](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [microsoft/agent-host-protocol](https://github.com/microsoft/agent-host-protocol) — a repo with 96+ stars on GitHub.
+From [microsoft/agent-host-protocol](https://github.com/microsoft/agent-host-protocol) — a repo with 359+ stars on GitHub.
 
 ---
 
