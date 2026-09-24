@@ -1,0 +1,42 @@
+{
+  "name": "ob-labs--agentseek",
+  "displayName": "agentseek",
+  "description": "agentseek",
+  "version": "1.0.0",
+  "author": "ob-labs",
+  "homepage": "https://github.com/ob-labs/agentseek",
+  "skills": [
+    {
+      "name": "documentation-writer",
+      "description": ""
+    },
+    {
+      "name": "langchain-dev-guide",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "description": ""
+    },
+    {
+      "name": "agentseek",
+      "description": ""
+    }
+  ]
+}
