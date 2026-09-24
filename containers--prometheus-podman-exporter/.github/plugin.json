@@ -1,0 +1,9 @@
+{
+  "name": "containers--prometheus-podman-exporter",
+  "displayName": "prometheus-podman-exporter",
+  "description": "prometheus-podman-exporter",
+  "version": "1.0.0",
+  "author": "containers",
+  "homepage": "https://github.com/containers/prometheus-podman-exporter",
+  "skills": []
+}
