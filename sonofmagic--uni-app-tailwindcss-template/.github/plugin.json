@@ -1,0 +1,14 @@
+{
+  "name": "sonofmagic--uni-app-tailwindcss-template",
+  "displayName": "uni-app-tailwindcss-template",
+  "description": "uni-app-tailwindcss-template",
+  "version": "1.0.0",
+  "author": "sonofmagic",
+  "homepage": "https://github.com/sonofmagic/uni-app-tailwindcss-template",
+  "skills": [
+    {
+      "name": "uni-app-tailwindcss-template",
+      "description": ""
+    }
+  ]
+}
