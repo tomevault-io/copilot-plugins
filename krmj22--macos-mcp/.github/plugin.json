@@ -1,0 +1,9 @@
+{
+  "name": "krmj22--macos-mcp",
+  "displayName": "macos-mcp",
+  "description": "Drive Reminders, Calendar, Notes, Mail, Messages, and Contacts on macOS from an AI agent or the shell. MCP server, agent skill, or CLI.",
+  "version": "1.0.0",
+  "author": "krmj22",
+  "homepage": "https://github.com/krmj22/macos-mcp",
+  "skills": []
+}
