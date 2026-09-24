@@ -1,141 +1,58 @@
 ## infinite-brain-os
 
-> This repo is the operating system for running a business with AI agents. You have full
+> An **Agent** is a bounded specialist worker that owns one recurring reasoning task. It is a
 
-# Infinite Brain OS, Working Repo (Codex)
 
-This repo is the operating system for running a business with AI agents. You have full
-write autonomy here. Codex does the heavy lifting; this file orients it.
+## What it is
 
-If the task touches architecture, routing, knowledge structure, sessions, swarms, or
-planning, orient from this file and the doctrine first.
+An **Agent** is a bounded specialist worker that owns one recurring reasoning task. It is a
+Markdown subagent definition with a narrow job, explicit trigger conditions, the minimum
+tools it needs, ordered behavior steps, and declared constraints and fail conditions.
+Claude Code loads agents as subagents through `.claude/agents/`; Codex loads them through
+`.codex/agents/`. An agent reasons; it is not a deterministic script and not a vague
+personality wrapper.
 
----
+## When to use it (and when not)
 
-## Forced startup for every non-trivial chat
+Use an agent when one bounded worker should own a recurring reasoning pattern, the task is
+not deterministic enough for a plain workflow, and the behavior needs a stable reusable
+contract. Do not use an agent when a short one-off task can be done manually, when the work
+is really a reusable method (that is a [[skills|skill]]), when a deterministic sequence is
+enough (that is a [[deterministic-workflows|deterministic workflow]]), or when the work
+needs several coordinated lanes (that is a swarm-backed [[projects|project]]). An agent
+that silently edits too much, or pretends to be single-pass when it really needs a swarm,
+is mis-scoped.
 
-For every non-trivial session that reads or writes repo state, do this before substantive
-work:
+## Required shape
 
-1. Read `knowledge/ai-architecture/canon/doctrine-card.md`. It is the compressed operating
-   projection of core-doctrine: the hard rules, the control spine, the entity types, and
-   the drill-down pointers.
-2. If the task touches a knowledge domain, read `_system/retrieval-routing-map.md` and load
-   the namespaces it routes to, entering each through its `INDEX.md`.
-3. For architecture-touching, contract-touching, or canon-touching work,
-   `knowledge/ai-architecture/canon/core-doctrine.md` and `_system/README.md` are mandatory
-   reads.
-4. Start the session ledger unless the task is truly trivial and leaves no durable change.
+- **Folder**: canonical at `entities/agents/<name>.md`, mirrored into `.claude/agents/`
+  and `.codex/agents/` by symlink or `sync-adapters.sh`. Never hand-edit the adapter
+  copies.
+- **Frontmatter**: standard node fields plus `id: agent-<slug>`, `type: "Agent"`, `name`
+  (the short runtime name), `description` (what the agent does), and `tools` (only the
+  tools it truly needs). `retrieval_class` is usually `identity` for a named worker.
+- **Body sections**: `## When to use this agent`, then `## Behavior` with numbered
+  `### Step 1`, `### Step 2`, then `## Constraints` (non-goals and fail conditions). State
+  the narrow job in one sentence first.
 
-A trivial task is a one-line factual lookup or a no-file explanation. Hard rule: if the
-task creates, edits, moves, or deletes any file, it is non-trivial.
+## How it relates to the other entity types
 
-## Forced session discipline
+An agent applies [[skills]], obeys [[rules]], reads [[knowledge-nodes]] and [[tools]], runs
+inside [[workflows]] when orchestration is needed, and writes [[output-nodes]] and
+[[memory-nodes]]. A [[workflow-loops|workflow loop]] uses an agent as its bounded worker or
+coordinator. Maintenance agents (curators, linters, freshness reviewers) are thin wrappers
+over deterministic checks plus genuinely fuzzy review, with a bounded job and a
+profile-scoped cadence.
 
-Unless the task is truly trivial, every chat session uses the `sessions/` layer: register
-under `sessions/active/`, declare a transcript path under `sessions/logs/`, keep running
-notes, write a closeout review under `sessions/reviews/`, then move the record to
-`sessions/closed/`. The contract is `_system/session-ledger-rules.md`; the technique is
-`entities/skills/manage-ai-session.md`.
+## Governing rules and doctrine
 
-If a chat operates inside a swarm sprint, dual-write: `sessions/` for the conversation
-trail, `swarms/Sprints/...` for execution artifacts and receipts.
-
-Disposable test artifacts default to `outputs/`, never to knowledge surfaces.
-
----
-
-## The eleven entities
-
-Everything you build is one of eleven typed entities:
-
-| Entity | Canonical location | Runtime adapter |
-|--------|--------------------|-----------------|
-| Command | `entities/commands/` | `.claude/commands/`, `.codex/commands/` |
-| Agent | `entities/agents/` | `.claude/agents/`, `.codex/agents/` |
-| Skill | `entities/skills/` | `.claude/skills/`, `.codex/skills/` |
-| Rule | `entities/rules/` | `.claude/rules/` (Codex reads AGENTS.md) |
-| Workflow | agentic in `workflows/`, deterministic in `automations/n8n/` | none |
-| Tool | `tools/` (pointer nodes over bounded capabilities) | none |
-| Knowledge | `knowledge/<namespace>/` | none |
-| Data | `data/` (pointers, never live numbers) | none |
-| Memory | `memory/` (reviewed learnings) | none |
-| Output | `outputs/` (produced artifacts with lineage) | none |
-| Project | `projects/{name}/PLAN.md` | none |
-
-Departments (`departments/`) are assemblies over the ontology, not a twelfth type.
-Executable entities live canonically in `entities/` and are loaded through `.claude/` and
-`.codex/` shims: edit the canonical file, then run `bash sync-adapters.sh`. Never edit a
-shim.
-
-## Namespace architecture
-
-Knowledge is namespace-first: the unit is `knowledge/<namespace>/`. Every serious namespace
-shares one base (`INDEX.md`, `canon/`, `playbooks/`, `support/`, `synthesis/`) and declares
-one of eight profiles that adds folders without forking the ontology
-(`_system/namespace-profiles.md`).
-
-`canon/` is the compressed, operator-approved doctrine an agent loads first. Canon is never
-self-approved by an agent. `synthesis/` is derived thinking; `support/` is provenance only.
-The promotion path is strict: raw source to `support/`, to `synthesis/`, to canon-candidate,
-to canon on operator approval.
-
-The starter ships three registered surfaces and one reference set:
-
-- `knowledge/ai-architecture/`: the full reference doctrine (read-first).
-- `knowledge/personal-operator/`: the operator's own reduced skeleton (fill it in).
-- `knowledge/emberline-studio/`: the worked example namespace (study, then replace).
-- `knowledge/_examples/`: eight unregistered profile reference scaffolds.
-
-Run `bash _system/validate.sh` to check the vault. When adding a namespace, register it in
-`_system/namespaces/` and follow `entities/skills/build-namespace.md`.
-
-## The lifecycle
-
-Every entity is `scratch` (new, possibly wrong), `research` (validated, worth refining),
-`candidate` (nominated, under review), or `canon` (promoted, operator-approved). Promotion
-moves forward through review, never by an agent's own declaration. In a multi-repo
-deployment (a company canon repo plus personal working repos), `canon` lives upstream; this
-standalone starter holds all four states locally with the same discipline.
-
-## Frontmatter contract
-
-Every node-bearing markdown file opens with YAML frontmatter carrying at minimum `id`,
-`type`, `namespace`, and `lifecycle_state`, with the id repeated in `aliases`; serious nodes
-add `summary`, `confidence`, `retrieval_class`, `export_class`, `edges`, and `created`. Ids
-are kebab-case and stable. Wikilinks must resolve. See the worked examples throughout this
-repo before inventing conventions.
-
-## Hard style rule
-
-No em dashes, no en dashes, anywhere, in any file. Use commas, colons, or restructure the
-sentence. The validator enforces this. No placeholder text above `lifecycle_state: scratch`.
-
-## Retrieval
-
-Agents read git directly via Read, Grep, and Glob. The working tree is the retrieval
-surface; no external index is required. Default order: the doctrine card, then the routing
-map, then namespace INDEX files, then the specific files the task needs: the minimal
-sufficient set, never the whole graph.
-
-## A note on Paperclip
-
-Shipped doctrine refers to Paperclip, the task-and-approval runtime used by the deployment
-this starter derives from. Treat the name as a placeholder for whatever runtime substrate
-you adopt (an issue tracker, a workflow engine, or nothing at all). The git contract stands
-on its own; nothing in this repo requires Paperclip to run.
-
-## What this repo is not
-
-- Not a system of record for numbers: metrics live in your BI stack; `data/` holds pointers.
-- Not a place for raw runtime logs: reviewed lessons become Memory nodes.
-- Not a secret store: `secrets/` holds references, never values.
-
----
-
-See `CLAUDE.md` for the Claude Code equivalent of this file. Both files mirror each other and
-must be edited together.
+The operative rules for agents (frontmatter keys, adapter mirroring, the curator pattern)
+live in `_system/` and are enforced by `validate.sh`; the `_system`-versus-doctrine split
+is in [[system-vs-doctrine-boundary]]. The reasoning that an agent may recommend but may
+never bypass a human gate, and that runtime state stays in the operational substrate, is in
+[[core-doctrine]] (the control model and the PM-agent posture). See [[system-overview]] for
+how agents sit in the entity set.
 
 ---
 > Source: [starmynd-org/infinite-brain-os](https://github.com/starmynd-org/infinite-brain-os) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
