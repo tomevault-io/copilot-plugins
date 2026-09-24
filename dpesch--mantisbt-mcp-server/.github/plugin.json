@@ -1,0 +1,9 @@
+{
+  "name": "dpesch--mantisbt-mcp-server",
+  "displayName": "mantisbt-mcp-server",
+  "description": "Mirror of codeberg.org/dpesch/mantisbt-mcp-server \u2014 issues and PRs not monitored",
+  "version": "1.0.0",
+  "author": "dpesch",
+  "homepage": "https://github.com/dpesch/mantisbt-mcp-server",
+  "skills": []
+}
