@@ -1,0 +1,9 @@
+{
+  "name": "msr2903--himotoki-py",
+  "displayName": "himotoki-py",
+  "description": "A Python-based Japanese Tokenizer, Dictionary, Morphological Analyzer and Romanization Tool. Based on JMDict for Language Learning.",
+  "version": "1.0.0",
+  "author": "msr2903",
+  "homepage": "https://github.com/msr2903/himotoki-py",
+  "skills": []
+}
