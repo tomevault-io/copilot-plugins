@@ -1,0 +1,111 @@
+{
+  "name": "crab",
+  "owner": "crabbuild",
+  "repo": "crab",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-lfs/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-lfs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-mount/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-mount/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-cli-core/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-cli-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-git-sync/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-git-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-workflow/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-storage-ops/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-storage-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-large-files/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-large-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-tier-replication/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-tier-replication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-managed-operations/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-managed-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-repository-lifecycle/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-repository-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crab",
+      "path": "crab/skills/crab-diagnostics-recovery/SKILL.md",
+      "github_url": "https://github.com/crabbuild/crab/tree/main/crab/skills/crab-diagnostics-recovery/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/crabbuild/crab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T11:44:58Z"
+}
