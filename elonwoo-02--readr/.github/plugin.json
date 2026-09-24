@@ -1,0 +1,9 @@
+{
+  "name": "elonwoo-02--readr",
+  "displayName": "ReadR",
+  "description": "ReadR is an Obsidian vault template that organizes academic papers through a four-layer architecture: sources \u2192 library \u2192 annotations \u2192 reviews. Built for Obsidian, inspired by Karpathy's llm-wiki.",
+  "version": "1.0.0",
+  "author": "elonwoo-02",
+  "homepage": "https://github.com/elonwoo-02/ReadR",
+  "skills": []
+}
