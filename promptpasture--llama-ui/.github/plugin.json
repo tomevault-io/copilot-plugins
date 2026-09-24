@@ -1,7 +1,7 @@
 {
   "name": "promptpasture--llama-ui",
   "displayName": "llama.ui",
-  "description": "A minimal interface for AI Companion that runs entirely in your browser.",
+  "description": "llama.ui",
   "version": "1.0.0",
   "author": "PromptPasture",
   "homepage": "https://github.com/PromptPasture/llama.ui",
