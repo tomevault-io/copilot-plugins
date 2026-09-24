@@ -1,0 +1,9 @@
+{
+  "name": "go-again--sqlite",
+  "displayName": "sqlite",
+  "description": "CGo-free SQLite driver for Go",
+  "version": "1.0.0",
+  "author": "go-again",
+  "homepage": "https://github.com/go-again/sqlite",
+  "skills": []
+}
