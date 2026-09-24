@@ -1,0 +1,87 @@
+{
+  "name": "storybook",
+  "owner": "solidjs-community",
+  "repo": "storybook",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "storybook",
+      "path": ".agents/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/solidjs-community/storybook/tree/main/.agents/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/plan/SKILL.md",
+      "github_url": "https://github.com/solidjs-community/storybook/tree/main/.agents/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/grill/SKILL.md",
+      "github_url": "https://github.com/solidjs-community/storybook/tree/main/.agents/skills/grill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/solidjs-community/storybook/tree/main/.agents/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/document/SKILL.md",
+      "github_url": "https://github.com/solidjs-community/storybook/tree/main/.agents/skills/document/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/solidjs-community/storybook/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/solidjs-community/storybook/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/solidjs-community/storybook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T21:00:13Z"
+}
