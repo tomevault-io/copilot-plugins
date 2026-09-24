@@ -4,7 +4,7 @@
   "repo": "android",
   "description": "",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,15 @@
       "path": "agent/skills/android-studio-development/SKILL.md",
       "github_url": "https://github.com/JetBrains/android/tree/main/agent/skills/android-studio-development/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "android",
+      "path": "agent/skills/android-studio-evals/SKILL.md",
+      "github_url": "https://github.com/JetBrains/android/tree/main/agent/skills/android-studio-evals/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/JetBrains/android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T22:43:45Z"
+  "distributed_at": "2026-09-24T11:31:35Z"
 }
