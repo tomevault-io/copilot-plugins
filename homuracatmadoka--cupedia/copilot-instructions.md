@@ -1,21 +1,56 @@
-## canteen
+## pr-ready-checklist
 
-> 食堂子系统开发约定
+> CUpedia PR 合并前检查清单（源自 #201 review）
 
 
-# 食堂子系统
+# PR 合并前检查
 
-读 `docs/canteen/CONTEXT.md`、ADR 0008、0009；踩坑见 `docs/canteen/LESSONS-187-188.md`。
+每次提交 PR 前必须本地跑通：
 
-- 公开读：`/canteen`、`/api/canteens` 无鉴权（ADR 0001）。
-- Admin 写：`requireAdmin()` in actions；API 用 `getAdminUserForApi()`。
-- Mock：`CANTEEN_MOCK_DATA=true` 时走 `canteen-mock.ts`；种子仅「演示食堂 / 演示菜品」。
-- 餐段排序：`compareMealPeriods()`，顺序早→午→晚。
-- 餐段默认 Tab：客户端 `defaultMealPeriodForHkt()`，勿在 RSC 用服务器时区。
-- 排行纯函数：`canteen-rankings.ts`；`"use server"` 文件只 export async。
-- 💩堂榜：`canteen-shame-rank.ts` / `canteen-shame-actions.ts`；append-only，按港时 `voteDate` 展示当日；匿名日限额 50；管理员在 `site_settings` 维护含当天的截止日期。
-- 删除菜单项：`where(and(eq(id), eq(canteenId)))`。
-- UI 链接按钮：不用 `Button asChild`（见 `pr-ready-checklist`）。
+```bash
+pnpm test          # 或相关子集
+pnpm lint
+pnpm tsc --noEmit  # Ready profile 硬性要求
+```
+
+## 数据库迁移
+
+- 改 `schema.ts` 后运行 `pnpm drizzle-kit generate`，**禁止**手写 `.sql` 或手填 `_journal.json`。
+- 每次 migration 必须同时提交 `meta/NNNN_snapshot.json`。
+- 禁止 `drizzle-kit push`；用 `migrate`。
+
+## TypeScript
+
+- API route 调用 server action 时，required 字段（如 `name`）须在 route 层校验后再传入，禁止 `body as Record<string, unknown>` 直接透传。
+- 测试里 route handler 第一参用 `NextRequest`，不要用 `{} as Request`。
+- 断言「列不存在」用 `expect("deletedAt" in cols).toBe(false)`，不要访问 `cols.deletedAt`（TS2339）。
+
+## UI 组件
+
+- 本项目 `Button` 基于 `@base-ui/react/button`，**不支持** Radix 的 `asChild`。
+- 链接样式按钮：`<Link className={buttonVariants({ variant, size })}>` 或 `Button` 的 `render` prop。
+
+## API 鉴权
+
+- Admin API：`getAdminUserForApi()` from `@/lib/auth-guard`，未登录返回 403 JSON。
+- 不要为单个 feature 新建 `*-guard-api.ts` / `admin-api.ts` 重复封装。
+
+## 包管理
+
+- 仓库使用 **pnpm**；不要提交 `package-lock.json` 变更（除非刻意迁移包管理器）。
+
+## 子系统文档
+
+- 新 bounded context：添加 `docs/<context>/CONTEXT.md` 并注册到 `CONTEXT-MAP.md`；关键决策写 ADR。
+
+## 删除与隔离
+
+- 带 `canteenId` 的删除/更新：WHERE 必须同时匹配 `id` **与** `canteenId`，先校验再删，避免跨食堂误删。
+
+## 测试
+
+- 餐段等业务枚举排序用显式序数（`compareMealPeriods`），不要用 `localeCompare`。
+- Mock/种子数据禁止真实食堂名与菜名（见 #187）。
 
 ---
 > Source: [HomuraCatMadoka/CUpedia](https://github.com/HomuraCatMadoka/CUpedia) — distributed by [TomeVault](https://tomevault.io).
