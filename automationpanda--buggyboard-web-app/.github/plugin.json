@@ -1,0 +1,9 @@
+{
+  "name": "automationpanda--buggyboard-web-app",
+  "displayName": "buggyboard-web-app",
+  "description": "BuggyBoard is a small web app for educational purposes. It is a full-stack Node app written in TypeScript with a React frontend, an Express backend, and a SQLite database.",
+  "version": "1.0.0",
+  "author": "AutomationPanda",
+  "homepage": "https://github.com/AutomationPanda/buggyboard-web-app",
+  "skills": []
+}
