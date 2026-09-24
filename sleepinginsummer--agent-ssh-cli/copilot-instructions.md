@@ -1,332 +1,80 @@
 ## agent-ssh-cli
 
-> 使用基于 SSH 的 CLI 安全操作已配置的远端服务器。适用于需要列出连接、远程执行命令、上传文件、下载文件，以及确认参数、返回值、配置文件位置和环境校验步骤的场景。
-
-
-# agent-ssh-cli 使用说明
-
-`agentsshcli` 是一个通过 npm 安装、由 Rust 原生执行器完成 SSH 操作的命令行工具，用于让 AI 或用户通过本地配置安全地操作远端服务器。
-
-它能做的事：
-
-- 列出本地配置中的 SSH 服务器连接
-- 在指定远端服务器上执行命令
-- 上传本地文件到远端服务器
-- 从远端服务器下载文件到本地
-- 通过命令黑白名单限制可执行命令
-- 通过本地路径白名单限制上传和下载访问范围
-- 通过 Rust daemon 短时间缓存 SSH 连接，减少连续操作时的重复连接开销
-- npm 安装会按当前系统自动拉取对应平台的 optional 预编译包，当前支持 macOS arm64/x64、Linux x64/arm64、Windows x64
-
-它不做的事：
-
-- 不保存或输出密码、私钥等敏感认证信息
-- 不扫描网络或发现服务器，只使用配置文件中的连接
-- 不绕过配置中的命令限制和本地路径限制
-
-命令黑白名单使用 JavaScript `RegExp` 语法，不是 POSIX 正则。空白字符要写成 `\\s`，不要写 `[:space:]`。例如：
-
-```json
-{
-  "commandBlacklist": [
-    "(^|[;&|()\\s])rm(\\s|$)",
-    "(^|[;&|()\\s])shutdown(\\s|$)",
-    "(^|[;&|()\\s])reboot(\\s|$)"
-  ]
-}
-```
-
-## 安全确认
-
-执行危险操作前必须先向用户确认，不能直接执行。
-
-危险操作包括：
-
-- 删除、清空、覆盖文件或目录，例如 `rm`、`truncate`、重定向覆盖、批量删除
-- 清理缓存、日志、临时目录或业务数据
-- 重启、关机、停止服务或杀进程，例如 `reboot`、`shutdown`、`systemctl stop`、`kill`
-- 修改权限、所有者、系统配置或启动项，例如 `chmod`、`chown`、编辑 `/etc` 下文件
-- 上传文件覆盖远端已有文件
-- 下载文件覆盖本地已有文件
-- 任何不可逆、影响线上服务、影响数据完整性的操作
-
-确认时必须说明目标连接名、命令或文件路径、可能影响，并等待用户明确同意后再执行。
-
-## 环境校验
-
-调用前优先检查 CLI 本身是否可用：
-
-```bash
-agentsshcli --help
-```
-
-如果上面的命令失败，再向下检查基础环境：
-
-```bash
-node --version
-npm --version
-```
-
-如果 `node` 或 `npm` 不存在，提示用户先安装 Node.js `>= 18` 和 npm `>= 8`。
-
-CLI 可用后，再检查配置文件是否存在：
-
-```bash
-test -f "${AGENT_SSH_CONFIG:-$HOME/.agent-ssh-cli/config.json}"
-```
-
-如果配置文件不存在，提示用户创建配置文件，不继续执行 SSH 命令：
-
-```bash
-mkdir -p ~/.agent-ssh-cli
-# 然后让用户编辑 ~/.agent-ssh-cli/config.json，填入真实服务器配置
-```
-
-默认配置文件：
-
-```text
-~/.agent-ssh-cli/config.json
-```
-
-为防止配置文件中的密码泄露，密码认证会在第一次使用该服务器时被动加密保存：如果目标连接的 `password` 是非空明文，下一次执行 `exec`、`upload` 或 `download` 连接该服务器前，CLI 会把密码加密写入配置目录的 `secrets.json`，生成本地 `secret.key`，并把 `config.json` 中该连接改成 `password: ""` 加 `passwordRef`。改密码时直接把空的 `password` 重新填成新密码，下一次连接会自动覆盖旧密文。私钥认证不参与这个流程。
-
-隐藏后的密码配置示例：
-
-```json
-{
-  "name": "server",
-  "host": "192.0.2.10",
-  "port": 22,
-  "username": "root",
-  "password": "",
-  "passwordRef": "agentsshcli:server"
-}
-```
-
-指定其它配置文件：
-
-```bash
-AGENT_SSH_CONFIG=/path/to/config.json agentsshcli list
-```
-
-如果 CLI 不可用但 Node/npm 正常，提示用户安装：
-
-```bash
-npm install -g agent-ssh-cli
-agentsshcli --help
-```
-
-从源码开发或本地调试时，需要先构建 Rust 原生执行器：
-
-```bash
-npm run build:native
-npm test
-```
-
-## 全局参数
-
-- `--config <path>`: 指定配置文件路径，优先级高于默认配置
-- `--help`, `-h`: 输出帮助
-- `--version`, `-v`: 输出版本
-
-`exec`、`upload`、`download` 默认使用 Rust daemon 连接缓存，用于减少连续操作时重复 SSH 握手和认证的开销；只有传入 `--no-cache` 时才会跳过缓存并直连。缓存相关参数如下：
-
-- `--no-cache`: 跳过 Rust daemon 连接缓存，本次命令独立建立并关闭连接，即直连模式
-- `--cache-ttl <ms>`: 设置 Rust daemon 连接缓存空闲毫秒数，默认 `180000`
-
-缓存参数属于子命令级参数，必须放在 `exec`、`upload`、`download` 后、连接名或 `--connection` 前。放在命令末尾会被当作未知参数。
-
-## list
-
-列出配置中的服务器。
-
-```bash
-agentsshcli list
-agentsshcli list --json
-```
-
-参数：
-
-- `--json`: 输出 JSON 格式。当前默认输出也是 JSON。
-- `--config <path>`: 指定配置文件
-
-返回值：
-
-- 成功时 stdout 输出服务器数组，只包含 `name`、`host`、`port`、`username`
-- 不输出密码、私钥、passphrase、黑白名单等敏感或控制字段
-- 退出码为 `0`
-
-示例输出：
-
-```json
-[
-  {
-    "name": "服务器",
-    "host": "192.0.2.10",
-    "port": 22,
-    "username": "root"
-  }
-]
-```
-
-## exec
-
-在远端执行命令。
-
-位置参数形式：
-
-```bash
-agentsshcli exec "<connectionName>" "<command>"
-agentsshcli exec --no-cache "<connectionName>" "<command>"
-agentsshcli exec --cache-ttl 60000 "<connectionName>" "<command>"
-agentsshcli exec --pty "<connectionName>" "<command>"
-agentsshcli exec --no-pty "<connectionName>" "<command>"
-```
-
-命名参数形式：
-
-```bash
-agentsshcli exec --connection "<connectionName>" --command "<command>" --directory "/root" --timeout 5000
-agentsshcli exec --connection "<connectionName>" --command-file "./script.sh" --timeout 5000
-agentsshcli exec --no-cache --connection "<connectionName>" --command "<command>"
-```
-
-参数：
-
-- `<connectionName>`: 连接名
-- `<command>`: 远端命令
-- `--connection <name>`, `-c <name>`: 连接名
-- `--command <command>`: 远端命令
-- `--command-file <path>`: 从本地 UTF-8 文件读取远端命令，适合执行多行脚本，文件必须使用 LF 换行，不能使用 Windows CRLF 换行；不能和 `--command` 或位置参数 `<command>` 同时使用
-- `--directory <dir>`, `-d <dir>`: 远端工作目录
-- `--timeout <ms>`, `-t <ms>`: 超时毫秒值，默认 `30000`
-- `--pty`: 本次命令分配伪终端，优先级高于配置文件
-- `--no-pty`: 本次命令不分配伪终端，优先级高于配置文件
-- `--no-cache`: 不复用连接，必须放在连接名或 `--connection` 前
-- `--cache-ttl <ms>`: 连接缓存空闲毫秒数，必须放在连接名或 `--connection` 前
-
-使用 `--command-file` 时，必须确保脚本文件是 LF 换行。CRLF 文件会把 `\r` 传到远端 bash，可能导致 `$'xxx\r': command not found`。
-
-macOS/Linux 推荐写法：
-
-```bash
-cat > /tmp/remote-command.sh <<'EOF'
-pwd
-EOF
-agentsshcli exec --connection "<connectionName>" --command-file /tmp/remote-command.sh
-```
-
-Windows PowerShell 推荐显式写 LF：
-
-```powershell
-[System.IO.File]::WriteAllText("$env:TEMP\remote-command.sh", "pwd`n", [System.Text.UTF8Encoding]::new($false))
-agentsshcli exec --connection "<connectionName>" --command-file "$env:TEMP\remote-command.sh"
-```
-
-返回值：
-
-- 成功且有 stdout 时，stdout 输出远端命令结果
-- 成功但无 stdout 时不输出内容
-- 退出码为 `0`
-- 远端命令非零退出、超时、命中黑名单、未命中白名单或连接失败时，stderr 输出错误信息，退出码为 `1`
-
-## upload
-
-上传本地文件到远端。
-
-位置参数形式：
-
-```bash
-agentsshcli upload "<connectionName>" "<localPath>" "<remotePath>"
-agentsshcli upload --no-cache "<connectionName>" "<localPath>" "<remotePath>"
-```
-
-命名参数形式：
-
-```bash
-agentsshcli upload --connection "<connectionName>" --local "./tmp/upload.txt" --remote "/usr/local/test/upload.txt"
-agentsshcli upload --no-cache --connection "<connectionName>" --local "./tmp/upload.txt" --remote "/usr/local/test/upload.txt"
-```
-
-参数：
-
-- `<connectionName>`: 连接名
-- `<localPath>`: 本地文件路径
-- `<remotePath>`: 远端目标文件路径
-- `--connection <name>`, `-c <name>`: 连接名
-- `--local <path>`, `-l <path>`: 本地文件路径
-- `--remote <path>`, `-r <path>`: 远端目标文件路径
-- `--no-cache`: 不复用连接，必须放在连接名或 `--connection` 前
-- `--cache-ttl <ms>`: 连接缓存空闲毫秒数，必须放在连接名或 `--connection` 前
-
-返回值：
-
-- 成功时 stdout 输出 `File uploaded successfully`
-- 退出码为 `0`
-- 本地路径不在允许范围、远端写入失败或连接失败时，stderr 输出错误信息，退出码为 `1`
-
-## download
-
-下载远端文件到本地。
-
-位置参数形式：
-
-```bash
-agentsshcli download "<connectionName>" "<remotePath>" "<localPath>"
-agentsshcli download --no-cache "<connectionName>" "<remotePath>" "<localPath>"
-```
-
-命名参数形式：
-
-```bash
-agentsshcli download --connection "<connectionName>" --remote "/usr/local/test/upload.txt" --local "./tmp/download.txt"
-agentsshcli download --no-cache --connection "<connectionName>" --remote "/usr/local/test/upload.txt" --local "./tmp/download.txt"
-```
-
-参数：
-
-- `<connectionName>`: 连接名
-- `<remotePath>`: 远端文件路径
-- `<localPath>`: 本地目标文件路径
-- `--connection <name>`, `-c <name>`: 连接名
-- `--remote <path>`, `-r <path>`: 远端文件路径
-- `--local <path>`, `-l <path>`: 本地目标文件路径
-- `--no-cache`: 不复用连接，必须放在连接名或 `--connection` 前
-- `--cache-ttl <ms>`: 连接缓存空闲毫秒数，必须放在连接名或 `--connection` 前
-
-返回值：
-
-- 成功时 stdout 输出 `File downloaded successfully`
-- 退出码为 `0`
-- 本地路径不在允许范围、远端读取失败或连接失败时，stderr 输出错误信息，退出码为 `1`
-
-## help/version
-
-```bash
-agentsshcli --help
-agentsshcli help list
-agentsshcli help exec
-agentsshcli help upload
-agentsshcli help download
-agentsshcli --version
-```
-
-返回值：
-
-- help 成功时 stdout 输出帮助文本，退出码为 `0`
-- version 成功时 stdout 输出版本号，退出码为 `0`
-
-## 错误规则
-
-- 参数重复时失败
-- 命名参数和位置参数不能混用同一字段
-- `--no-cache` 和 `--cache-ttl` 必须放在 `exec`、`upload`、`download` 后、连接名或 `--connection` 前
-- `timeout` 和 `cache-ttl` 必须是正整数毫秒值
-- `list` 不接受位置参数
-- `upload` / `download` 的本地路径必须位于当前工作目录、项目目录或 `allowedLocalPaths` 内
-- 出现 `启动 SSH 缓存进程失败` 通常表示本地 Rust daemon 或其 socket 启动/握手失败；如需绕过缓存验证远端命令，应在子命令后添加 `--no-cache`
-- 所有失败统一在 stderr 输出错误信息，退出码为 `1`
+> agent-ssh-cli 项目说明与发布流程，供 AI agent 与维护者使用。
+
+# AGENTS 指南
+
+agent-ssh-cli 项目说明与发布流程，供 AI agent 与维护者使用。
+
+## 项目结构
+
+- `bin/agentsshcli.js`：Node 入口，查找并转发到 Rust 原生二进制
+- `native/`：Rust 主程序，按职责拆分模块，`--version` 从 Cargo.toml 编译时读取：
+  - `src/main.rs`：模块声明、`AppError`/`AppResult`、输出模式与 `main()`
+  - `src/cli.rs`：参数结构体、help、解析与子命令调度（仅 `run` 对外）
+  - `src/config.rs`：连接配置读写校验、secret 密钥库、凭据迁移、配置快照、命令黑白名单
+  - `src/daemon.rs`：daemon 协议、进程生命周期、连接池与请求分发
+  - `src/transfer.rs`：SFTP 上传下载、断点续传、目录递归
+  - `src/ssh.rs`：建连与认证（直连 / SOCKS5 / 跳板机直连通道）
+  - `src/exec.rs`：远端命令执行与 sudo/su 提权编排
+  - `src/privilege.rs`：提权命令字符串（纯逻辑，无 IO）
+  - `src/runtime.rs`：tokio runtime 与超时封装
+  - `src/test_support.rs`：测试共享辅助（仅 `cargo test` 构建）
+- `scripts/`：平台二进制构建与打包脚本、`check-cfg-ports.js`（平台分支静态检查）、`verify-published-packages.sh`（发布后自检）
+- `.github/workflows/`：CI 发布流水线（`publish.yml` 监听 `v*` tag）
+
+## 发布流程
+
+1. **更新版本号**（按改动量决定 minor 或 patch）：
+   - `package.json`：`version` 及 `optionalDependencies` 中 5 个平台包版本
+   - `native/Cargo.toml`：`version`（含 `Cargo.lock` 同步）
+   - `README.md`：release badge 中的版本号
+   - `package-lock.json`：版本引用同步
+   - `plan.md`：开头「当前版本」行
+
+2. **更新 `RELEASE_NOTES.md`**：在文件顶部新增 `## vX.Y.Z` 一节，列出本次改动与验证结果。
+
+3. **提交并推送**（推送 tag 自动触发 GitHub Action 发布）：
+
+   ```bash
+   git add -A
+   git commit -m "release vX.Y.Z"
+   git tag vX.Y.Z
+   git push origin main --tags
+   ```
+
+4. **等待 GitHub Action 发布完成**（`publish.yml`，三阶段）：
+   - 阶段一 `build-platform`：矩阵构建 5 个平台并上传 artifact，不接触 registry
+   - 阶段二 `publish-platform` → `publish-main`：**全部平台构建成功后才开始发布**，任一平台编译失败则一个包都不发布；平台包发布前会恢复二进制可执行位（artifact 往返不保留文件权限，原因见「注意事项」）
+   - 阶段三 `verify-packages` → `create-release`：执行 `scripts/verify-published-packages.sh <version>`，轮询 6 个包（主包 + 5 平台包）的 tarball 可下载性并校验非 win32 平台包的可执行位；npm 对含二进制的包有异步处理，tarball 可能延迟数分钟才可下载；自检未通过则整次发布判失败、不创建 Release
+   - 矩阵覆盖：darwin-arm64/x64、linux-arm64/x64、win32-x64
+   - 创建 GitHub Release：notes 从仓库内 `RELEASE_NOTES.md` 自动提取当前版本章节，无需二次编辑
+   - 检查：`gh run list`；确认：`npm view agent-ssh-cli@X.Y.Z version`；确认 notes：`gh release view vX.Y.Z`
+
+5. **更新本地 CLI 到最新版本**：发布完成后安装最新版并验证：
+
+   ```bash
+   npm install -g agent-ssh-cli@latest
+   agentsshcli --version   # 确认输出新版本号
+   ```
+
+
+## 验证基线
+
+- `npm test`（node --check + `scripts/check-cfg-ports.js` + cargo test）；平台分支检查静态拦截三类只在 win32 暴露的问题：cfg 变体可见性不一致、跨模块引用私有项、`#[cfg]` 孤儿属性贴在平台无关 import 上
+- Windows 目标无法在 macOS/Linux 本地验证：`cargo check --target x86_64-pc-windows-msvc` 会在依赖 `aws-lc-sys` 处因缺少 `windows.h` 失败。改动涉及 `#[cfg(windows)]` 分支时必须靠 CI 的 `publish-platform (win32-x64)` job 验证；该 job 失败会连带跳过 `publish-main` 与 `create-release`，整次发布作废。
+- `npm run build:native`（release 构建）
+- 冒烟：`exec` / `upload` / `download` 双模式、`list`
+
+## 注意事项
+
+- **发布产物要自证可用**：`actions/upload-artifact` / `download-artifact` 不保留文件权限，平台包二进制经 artifact 往返会变成 `0644`，因此 `publish-platform` 里发布前有显式 `chmod +x`，改动发布流程时不要删掉（v0.5.5 曾因缺可执行位导致 macOS/Linux 安装后 `EACCES`，已发布的包无法覆盖，只能发 v0.5.6 补救）。
+- 发布自检由 `scripts/verify-published-packages.sh` 完成（CI 与本地同一份脚本）：tarball 不可下载或平台包缺可执行位都会让整次发布失败；本地复核用 `npm run verify:published -- 0.5.7`（可加次数与间隔参数做快速核对）。
+- 非 tag 触发（`workflow_dispatch`）不会写入 registry：不带参数的 dispatch 只跑构建阶段（验证构建链路），带 `verify_version` 的 dispatch 只跑 `verify-packages`（例如 `gh workflow run publish.yml --ref main -f verify_version=0.5.7`，用于复核任意已发布版本）。
+- 平台包与主包发布均由 GitHub Action 完成，**不要在本地手动 `npm publish`**（本地 npm 无发布权限，且 Action 会处理 5 平台矩阵）。
+- 轻量 tag 即可：`publish.yml` 的 create-release 直接从 `RELEASE_NOTES.md` 提取 notes，不依赖 tag message。
+- 版本号更新后需重新 `npm run build:native` 才能在本地验证 `--version`。
 
 ---
 > Source: [sleepinginsummer/agent-ssh-cli](https://github.com/sleepinginsummer/agent-ssh-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
