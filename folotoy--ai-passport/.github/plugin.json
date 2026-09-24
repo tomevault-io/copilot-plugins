@@ -1,0 +1,22 @@
+{
+  "name": "folotoy--ai-passport",
+  "displayName": "ai-passport",
+  "description": "ai-passport",
+  "version": "1.0.0",
+  "author": "FoloToy",
+  "homepage": "https://github.com/FoloToy/ai-passport",
+  "skills": [
+    {
+      "name": "ai-passport",
+      "description": ""
+    },
+    {
+      "name": "ai-passport",
+      "description": ""
+    },
+    {
+      "name": "ai-passport",
+      "description": ""
+    }
+  ]
+}
