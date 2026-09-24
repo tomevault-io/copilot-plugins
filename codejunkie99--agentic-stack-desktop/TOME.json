@@ -3,8 +3,8 @@
   "owner": "codejunkie99",
   "repo": "agentic-stack-desktop",
   "description": "Native macOS workspace with one local knowledge graph across Claude Code, Codex, OpenCode, and Cursor.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,117 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/brain/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/brain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/tldraw/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/tldraw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".cursor/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.cursor/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/design-md/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/design-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".cursor/skills/cavecrew/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.cursor/skills/cavecrew/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/git-proxy/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/git-proxy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/data-layer/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/data-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/skillforge/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/skillforge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/loop-guard/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/loop-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/loop-triage/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/loop-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/data-flywheel/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/data-flywheel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/loop-verifier/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/loop-verifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/memory-manager/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/memory-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/agentic-context/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/agentic-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/deploy-checklist/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/deploy-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/loop-constraints/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/loop-constraints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": ".agent/skills/debug-investigator/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/.agent/skills/debug-investigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack-desktop",
+      "path": "harness_manager/assets/agentic-stack-context/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack-desktop/tree/main/harness_manager/assets/agentic-stack-context/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/codejunkie99/agentic-stack-desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T16:26:04Z"
+  "distributed_at": "2026-09-24T20:58:34Z"
 }
