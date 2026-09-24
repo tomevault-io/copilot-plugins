@@ -1,0 +1,9 @@
+{
+  "name": "owenyuwono--tiamat",
+  "displayName": "tiamat",
+  "description": "Real-time GPU fluid simulation with 100k SPH particles, raymarched water, in the browser.",
+  "version": "1.0.0",
+  "author": "owenyuwono",
+  "homepage": "https://github.com/owenyuwono/tiamat",
+  "skills": []
+}
