@@ -1,0 +1,44 @@
+{
+  "name": "poorjev",
+  "owner": "rupeshpoojary9",
+  "repo": "poorjev",
+  "description": "Open-source, local Jev alternative: a System One decision layer with provably calibrated confidence (ECE 0.170\u21920.071). Typed decisions, runs offline, no API key, no waitlist.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rupeshpoojary9/poorjev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T10:51:50Z"
+}
