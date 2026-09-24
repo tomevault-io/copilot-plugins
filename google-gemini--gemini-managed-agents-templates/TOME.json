@@ -1,0 +1,189 @@
+{
+  "name": "gemini-managed-agents-templates",
+  "owner": "google-gemini",
+  "repo": "gemini-managed-agents-templates",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-workflow",
+      "path": "repo-maintainer/skills/git-workflow",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/repo-maintainer/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "memory",
+      "path": "customer-support/skills/memory",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/customer-support/skills/memory",
+      "description": ""
+    },
+    {
+      "name": "slide-creator",
+      "path": "document-processor/skills/slide-maker",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/document-processor/skills/slide-maker",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "ai-radio/skills/research/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/ai-radio/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "news-curator/skills/deliver/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/news-curator/skills/deliver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "ai-radio/skills/audio-mixing/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/ai-radio/skills/audio-mixing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "news-curator/skills/curation/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/news-curator/skills/curation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "news-curator/skills/briefing/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/news-curator/skills/briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "ai-radio/skills/script-writing/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/ai-radio/skills/script-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "ai-radio/skills/tts-generation/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/ai-radio/skills/tts-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "news-curator/skills/fetch-news/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/news-curator/skills/fetch-news/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "customer-support/skills/memory/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/customer-support/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "data-analyst/skills/python-data/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/data-analyst/skills/python-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "customer-support/skills/scanner/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/customer-support/skills/scanner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "ai-radio/skills/music-generation/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/ai-radio/skills/music-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "data-analyst/skills/data-explorer/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/data-analyst/skills/data-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "ai-radio/skills/metadata-generation/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/ai-radio/skills/metadata-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "repo-maintainer/skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/repo-maintainer/skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "document-processor/skills/slide-maker/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/document-processor/skills/slide-maker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "document-processor/skills/pdf-parsing/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/document-processor/skills/pdf-parsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "ai-radio/skills/cover-image-generation/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/ai-radio/skills/cover-image-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "repo-maintainer/skills/github-researcher/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/repo-maintainer/skills/github-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "document-processor/skills/reconciliation/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/document-processor/skills/reconciliation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "path": "document-processor/skills/vendor-verification/SKILL.md",
+      "github_url": "https://github.com/google-gemini/gemini-managed-agents-templates/tree/main/document-processor/skills/vendor-verification/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/google-gemini/gemini-managed-agents-templates",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T03:31:30Z"
+}
