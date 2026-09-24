@@ -1,0 +1,9 @@
+{
+  "name": "jaycodr--claude-code-ultimate-guide-zh",
+  "displayName": "claude-code-ultimate-guide-zh",
+  "description": "\u582a\u79f0\u6587\u6863\u5de5\u7a0b\u6770\u4f5c\u3002\u672c\u6307\u5357\u8986\u76d6 Claude Code \u4ece\u5165\u95e8\u5230\u7cbe\u901a\u7684\u5b8c\u6574\u8def\u5f84\uff0c\u9644\u751f\u4ea7\u7ea7\u6a21\u677f\u3001\u667a\u80fd\u4f53\u5de5\u4f5c\u6d41\u5b9e\u6218\u6559\u7a0b\u3001\u6d77\u91cf\u5b66\u4e60\u8d44\u6e90\uff08\u5305\u62ec\u6d4b\u9a8c + \u901f\u67e5\u8868\uff09\u3002\u81f3\u4e8e\u5b83\u5230\u5e95\u662f\u4e0d\u662f Claude Code \u7684\"\u7ec8\u6781\u6307\u5357\"\u2014\u2014\u4f60\u8bf4\u4e86\u7b97 :)",
+  "version": "1.0.0",
+  "author": "JAYcodr",
+  "homepage": "https://github.com/JAYcodr/claude-code-ultimate-guide-zh",
+  "skills": []
+}
