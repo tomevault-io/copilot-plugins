@@ -1,94 +1,126 @@
 ## evolving
 
-> Guide for any Claude session working in this repo. Read this first.
+> Conventions for maintaining this wiki. Read before editing any file under `wiki/`.
 
-# CLAUDE.md
+# wiki/CLAUDE.md
 
-Guide for any Claude session working in this repo. Read this first.
+Conventions for maintaining this wiki. Read before editing any file under `wiki/`.
 
-## What Evolving is
+The root `CLAUDE.md` describes the project; this file describes how we keep the project's documentation healthy as it grows. For the current list of pages, see [`index.md`](./index.md) — keep it in sync whenever you add or rename a page.
 
-A CLI tool that runs a fixed **Scout → Worker → Gatekeeper** pipeline in a loop to autonomously iterate on a codebase toward a user-defined goal. Every cycle ends in `keep`, `discard`, or `idle` — a kept cycle is one git commit; everything else leaves no trace. Humans evolve the agent prompts; agents evolve the project.
+## Principles
 
-**Status:** draft specification. Implementation has started (`src/`) but is early — currently a CLI entry point, a loop detector primitive, and the surrounding cycle scaffolding.
+The wiki is a **living knowledge base** — the project's current model of itself — not a historical archive of past ideas. Two failure modes to avoid:
 
-## Repo layout
+- **Fossilization.** Dated filenames, "v1" / "v2" copies, append-only specs. Git already stores history; the wiki stores *what is true now*.
+- **Fragmentation.** Ten micro-pages that drift apart. A single well-organized page beats a directory of stubs.
 
-```
-CLAUDE.md         You are here. Project identity + universal rules.
-README.md         Public-facing project description.
-LICENSE           Apache-2.0.
-src/              Implementation.
-  cli.ts          CLI entry point.
-  agent-runtime/  Agent runtime primitives (prompts, history, loop detector, crash learnings).
-wiki/             Living project documentation. See wiki/index.md for the page list.
-```
+Everything below is in service of those two principles.
 
-## Working rules
+## Conventions
 
-These apply to all work in this repo, not just documentation.
+### 1. Edit in place. Do not append dated copies.
 
-### Run `bun run gate` before pushing — and never pipe `bun test` to `tail`.
+If the design changes, update `architecture.md` or `specification.md` directly. Do not create `architecture-2026-05.md` or `specification-v2.md`. The git log is the history; the wiki is the present.
 
-The pre-push hook runs the full test suite with the 95% per-file coverage threshold. To match it locally, run **`bun run gate`** (= `check && typecheck && bun test` with no piping). This is the single canonical pre-push validation.
+### 2. Read the full page before editing it.
 
-**Never** wrap `bun test` in `| tail -N` during dev iteration. The pipe replaces bun's exit code with tail's, so a coverage-threshold failure (exit 1) silently shows up as "all green" — you see "411 pass" and miss that bun was already failing the gate. If you want a shorter view, use `bun test 2>&1; echo "exit=$?"` instead, or just run `bun run gate` and trust the chain.
+Before changing a wiki page, read it end to end. The spec is dense and cross-referential — local edits that contradict a distant section are a common failure mode. Non-negotiable for any substantive edit.
 
-### Write Conventional Commit messages — they drive releases.
+### 3. Capture non-obvious choices as ADRs under `decisions/`.
 
-Every commit subject MUST follow [Conventional Commits](https://www.conventionalcommits.org/): `type(optional-scope): summary`, e.g. `feat(cli): add --json flag` or `fix: reject empty patterns`. Use the types already in the log — `feat`, `fix`, `refactor`, `docs`, `chore`, `test`, `ci`, `build`, `perf`.
+When you make a design decision that a future reader could reasonably question ("why didn't you do X instead?"), add an ADR under `wiki/decisions/`. Format and when-to-write rules are in `wiki/decisions/README.md`.
 
-This is not cosmetic. Releases are automated with release-please ([ADR 031](./wiki/decisions/031-release-please-automation.md)), which **parses commit subjects** to compute the next version and generate `CHANGELOG.md`. Consequences you must respect:
+**The split:** core wiki pages describe *what the system is and how it works*; ADRs describe *why we chose this approach over the alternatives*. A reader asking "how does X work?" should always find the answer in a core page, not in an ADR.
 
-- `feat:` and `fix:` are the only types that trigger a release (both bump the patch digit while the project is pre-1.0). `refactor`/`docs`/`chore`/`test`/etc. are hidden by release-please's defaults — they neither bump the version nor appear in the changelog (so a Release PR won't visibly update until a `feat:`/`fix:` lands), though the commits still ride along in whatever release ships.
-- A **breaking change** must be marked with `!` after the type (`feat!:`) or a `BREAKING CHANGE:` footer — that's what bumps the minor digit pre-1.0. Never ship a breaking change under a plain `feat:`.
-- A subject that doesn't parse as a Conventional Commit is **silently dropped** from the changelog and the version calculation. A malformed release-relevant commit is therefore worse than a verbose one.
+Two directions this rule cuts:
 
-Full release flow is in [`CONTRIBUTING.md` → Releasing](./CONTRIBUTING.md#releasing). When a cycle produces a `keep` commit, its message is held to this same standard.
+- **Don't bury decision rationale in core pages.** Alternatives and rejected reasons belong in ADRs, not scattered through `architecture.md`, `specification.md`, or other core pages.
+- **Don't use ADRs as primary documentation.** If an ADR's "Decision" section is describing the chosen thing in more than a sentence or two — invocation shapes, full APIs, module layouts — that content belongs in a core page. The ADR states what was chosen and links out.
 
-### Keep `src/` and `wiki/` in sync.
+Concrete test for the second direction: if you deleted the ADR file tomorrow, would a contributor still be able to understand how the system works by reading the wiki? If no, the ADR is carrying load that belongs in the wiki.
 
-The wiki describes the contract; the code implements it. Implementation is allowed to be a superset — internal helpers, performance tweaks, refactor scaffolding, and other private details deliberately don't appear in the spec. The hard rule is that `src/` must never **contradict** the wiki at the contract level (e.g., agent outputs, log entries, CLI surface, tools, runtime guarantees).
+### 4. Default to extending existing pages. Promote to a new page only when earned.
 
-- If `src/` changes the contract and the spec is stale → update the spec.
-- If the spec changes and `src/` is stale → update the code (open an ADR first if the change is non-obvious).
-- If a `src/` change is purely internal (no contract-visible effect) → no wiki edit needed.
-- Never write code that contradicts the spec without updating the spec first, or flagging the conflict to the human.
+Pre-decomposition is the failure mode — creating `worker.md`, `gatekeeper.md`, `safety-model.md` before any of them has enough content to stand alone. Fragmentation is harder to unwind than consolidation.
 
-### Check the spec before adding new agents, tools, or commands.
+Start with a section inside `architecture.md` or `specification.md`. Promote that section into its own wiki page **only when at least one of these is true**:
 
-New agent roles, new tools, new CLI commands, and new log entry types are all defined in `wiki/specification.md`. Extend the existing schemas; don't invent parallel ones. If the spec doesn't cover what you need, say so explicitly rather than improvising.
+- **The section is drowning its host page.** A subsection has grown past roughly 20% of the parent page, or has significantly more depth than sections around it.
+- **Multiple other sections link into it.** Three or more places reference "see the X discussion below" — X has earned its own page and a stable link target.
+- **A genuinely new concept arrives.** A new agent role, a new subsystem, a new top-level product surface. Not a refinement of something that already exists.
 
-### Match the repo's existing conventions before adding files.
+**Concrete-noun test:** can you complete "X is a ___" with a non-generic answer? "Retrospector is a read-only agent that proposes prompt edits from log patterns" → yes, page-worthy. "Good error handling is important" → no, not page-worthy.
 
-Before creating a new file or choosing where code lives, find where similar code already lives and mirror it — directory layout, file granularity, naming, and error-handling idioms. Do not impose a pattern the repo doesn't already use.
+**No pre-created directories.** The wiki stays flat (`wiki/*.md`) until flat stops working. Don't invent `wiki/agents/` before there's enough per-agent content to warrant it. Taxonomy emerges from the material; don't impose it in advance.
 
-One convention that's easy to miss because it isn't enforced by a failing test:
+**Whenever you add, rename, or remove a page, update [`index.md`](./index.md) in the same edit.** The index is the navigation layer — a page not in the index is effectively invisible. If you forget, the next page-add will compound the drift.
 
-- **Tests live under `tests/`, never beside the source.** The tree is `tests/{unit,integration,e2e}/` mirroring `src/` (see `wiki/architecture.md` → "Test tiers"). A test for `src/foo/bar.ts` goes in `tests/unit/foo/bar.test.ts` (or the matching tier), **not** `src/foo/bar.test.ts`. The diff classifier counts any `*.test.ts` as a test file regardless of location, so a misplaced test still "passes" — placement is a convention you must follow deliberately, not one the gate catches.
+### 5. Don't create empty pages.
 
-### Group helpers by concern; don't add a file per function.
+If you can't write at least three meaningful sentences about a topic, don't create a page for it. A stub with a `TODO` is worse than a missing page: the stub gets indexed and read; the missing page prompts you to add it where it belongs. Applies to ADRs too — don't file an ADR for a decision that's still in flux.
 
-Shared helpers are organized by concern, not one-function-per-file. Generic, domain-agnostic helpers live in `src/util/<concern>.ts` (`errors.ts`, `strings.ts`, `coerce.ts`). A helper that depends on a domain type lives with the module that owns that type — `assertGitError` sits in `git/run-git.ts` beside `GitError`; the adapter result/stderr builders sit in `agent-runtime/adapters/result.ts`. To add a helper, extend the module whose concern it shares; create a new file only when a genuinely new concern arrives (the same "promote when earned, don't pre-decompose" rule the wiki applies to pages). See [ADR 029](./wiki/decisions/029-grouped-helper-modules.md).
+### 6. Cross-reference, don't duplicate.
 
-### Fix the root cause. Don't patch around it.
+If `architecture.md` describes principle #5 and `specification.md` needs to refer to it, **link to it** — don't restate it. Duplication causes drift: when one copy updates and the other doesn't, the wiki lies.
 
-**Patching the symptom is tech debt.** Find the root cause and fix it — the optimal, future-proof solution, even when it's bigger. "Minimum-necessary change" prevents scope creep; it does not license symptomatic patches. When both options exist, name them and let the human pick.
+### 7. Write in the present. Don't narrate refactors.
 
-### Intermediate docs are scratch; the wiki is the durable home.
+The wiki describes the system *as it is now*, not *how it got here*. After a refactor, the core pages should read as if the removed concept never existed. A fresh reader should not be able to tell whether a concept was removed yesterday or never existed.
 
-Design specs, implementation plans, brainstorm notes, and other intermediate artifacts (e.g., anything a session-level workflow produces under `docs/`, `docs/superpowers/`, `docs/plans/`, or similar) may be created freely during work on a section — they are useful working memory.
+Anti-patterns to delete on sight in `architecture.md`, `specification.md`, `README.md`, and the root `CLAUDE.md`:
 
-**They must never be committed to the repo.**
+- "X was removed — see ADR NNN."
+- "The original design had Y; we now do Z."
+- `~~struck-through~~` items in any list.
+- "Previously…", "No longer…", "Used to be…", "Replaced by…" framing.
+- A non-goal bullet whose removal would be the news ("No multi-tag runs — v2 only" after multi-tag ships). Just delete the line.
 
-At section completion, extract whatever durable content belongs in the wiki (following `wiki/CLAUDE.md` conventions — update core pages, add an ADR for non-obvious decisions), then discard the intermediate file. Not every section produces a wiki change; if an intermediate doc is purely process scaffolding with nothing durable, discard it without a wiki update.
+History belongs in the git log and in ADRs (especially their Context sections). ADRs are the one exception to this convention — narration of "what changed and why" is precisely what they're for.
 
-The repo's durable record is `wiki/` + git history. Fossilized parallel documentation under `docs/` is exactly what `wiki/CLAUDE.md` convention #1 (edit in place, no dated copies) exists to prevent — this rule extends the same discipline to intermediate artifacts.
+**On ADR cross-links from core pages.** This rule does *not* contradict Convention #6. A link to an ADR is legitimate when it points at the *why* behind a currently-true statement — the surrounding prose already makes sense without clicking through. A link is a tombstone when the prose only makes sense as a reference to the removed concept.
 
-## Editing the wiki
+Discriminator: delete the link and re-read the paragraph. If it reads as normal present-tense description, the link was a legitimate rationale reference. If it now reads as dangling or evasive, the link was carrying the narration and the paragraph still needs rewriting.
 
-When working on any file under `wiki/`, read `wiki/CLAUDE.md` first. It defines the conventions for keeping the wiki a healthy, living knowledge base (when to create new pages, when to write an ADR, how to cross-reference, etc.). Those rules aren't repeated here — this file is about the project, not about maintaining its documentation.
+## Chunk completion checklist
+
+Run this at the close of every implementation chunk. The whole point of the checklist is to keep the wiki in sync with `src/` *as work lands*, not as a quarterly cleanup. A wiki that is stale by even a few days erodes trust faster than it can be rebuilt — every fresh agent who reads a fossilized claim and acts on it makes the next agent doubt the wiki by default.
+
+Do these in order. Do them in the same branch as the chunk's code, not in a follow-up.
+
+1. **Update [`status.md`](./status.md).** Move every newly-built thing from "Not yet built" to "Built", with a file pointer (e.g., `src/schema/agent-output.ts`). If a file pointer no longer points at a real file, the page is wrong — fix the page, not the rule. This is the most important step: `status.md` is the page a fresh agent reads to know where the project is.
+2. **Update the relevant core pages** (`architecture.md`, `specification.md`, `runtime.md`). Edit in place per Convention #1. Apply Convention #7 — write the new state in present tense; delete obsolete prose, don't narrate that you deleted it.
+3. **Add ADRs for non-obvious decisions made during the chunk.** Format per [`decisions/README.md`](./decisions/README.md). Update [`decisions/README.md`](./decisions/README.md) with the new ADR's index entry in the same edit.
+4. **If a new page was added or removed, update [`index.md`](./index.md)** (per Convention #4).
+5. **Discard intermediate scratch docs.** Anything under `docs/superpowers/`, `docs/plans/`, brainstorm files, or other ignored scratch (per the root `CLAUDE.md` working rule "intermediate docs are scratch") gets deleted from the working tree. Their durable content has already been promoted by steps 1–4.
+6. **Resolve cross-reference drift.** Search the touched pages for links and confirm each target still exists. A broken `./decisions/00X-foo.md` reference is the most common rot signal.
+7. **Sweep for drift — any duplicate fact, anywhere.** Drift isn't only `src/` ↔ wiki; it's any place where the same fact lives in two locations and one can rot independently of the other. Three classes to check at chunk close:
+    - **`src/` ↔ wiki.** For each module the chunk touched, the wiki section that describes it should be readable as a description of the code that's actually there.
+    - **Intra-`src/`.** A constant in one file that mirrors a value in another file (e.g. a hardcoded version in CLI code that mirrors `package.json`); a type definition copy-pasted instead of imported. Single-source-of-truth or import; never both.
+    - **`src/` ↔ config.** Constants in code that mirror values in `package.json`, `tsconfig.json`, `biome.json`, `bunfig.toml`, etc. The config is canonical; code reads from it.
+
+    If you find a divergence you don't have time to fix, write it down at the bottom of `status.md` under "Known drift" — never silently leave two facts disagreeing.
+
+A chunk is not complete until this checklist is. If a fresh agent picking up the project tomorrow couldn't reconstruct what's built, what isn't, and where to start next from `index.md` + `status.md` + the touched core pages, the chunk is unfinished — regardless of whether the code is merged.
+
+## Wiki health (aspirational)
+
+As the project grows, these become worth enforcing:
+
+- **Cross-reference minimum.** Substantive pages should link to at least three other wiki pages. Isolated pages that no other page links to are suspicious.
+- **Health checks.** Periodically read the wiki end to end, looking for orphan sections, stale claims, and contradictions. Treat this like a code review of the docs.
+- **No chronological dumping.** Organize pages by concept (Worker, Safety Model, History Summarization), not by when things were added. The git log is chronological; the wiki is thematic.
+
+## What does *not* live in the wiki
+
+- **Conversation notes, brainstorms, exploratory drafts.** These belong in git commit messages, or nowhere. If a brainstorm produces a real design decision, extract it into an ADR — don't check the brainstorm in.
+- **Tutorials, quickstarts, user guides.** These go in `README.md`. The wiki is the project's internal model of itself; the README is for external users.
+- **Runtime state, logs, or output.** The agents produce `evolving.log.jsonl` and `.evolving/retrospectives/` at runtime. Those are not documentation.
+
+## If you get stuck
+
+If a wiki page says one thing and `src/` says another — and there's no ADR explaining the gap — that's a drift signal. Flag it to the human rather than picking a side silently.
 
 ---
 > Source: [JINGBANZ/evolving](https://github.com/JINGBANZ/evolving) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-14 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
