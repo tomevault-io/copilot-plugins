@@ -1,0 +1,9 @@
+{
+  "name": "xiaolongoba-java--grow-with-time",
+  "displayName": "Grow-with-Time",
+  "description": "Grow with Time \u2014 \u672c\u5730\u4f18\u5148\u7684\u5f85\u529e\u4e0e\u65f6\u95f4\u7ba1\u7406\u684c\u9762\u7aef\u3002Tauri 2 + React + SQLite\uff0c\u652f\u6301\u4eca\u65e5\u89c6\u56fe\u3001\u770b\u677f/\u65e5\u5386\u3001\u6807\u7b7e\u3001\u756a\u8304\u949f\u3001\u4e60\u60ef\u4e0e\u590d\u76d8\uff0c\u6570\u636e\u5b58\u672c\u673a\uff0c\u65e0\u9700\u8d26\u53f7\u3002",
+  "version": "1.0.0",
+  "author": "xiaolongoba-java",
+  "homepage": "https://github.com/xiaolongoba-java/Grow-with-Time",
+  "skills": []
+}
