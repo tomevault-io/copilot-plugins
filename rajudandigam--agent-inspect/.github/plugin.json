@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "rajudandigam",
   "homepage": "https://github.com/rajudandigam/agent-inspect",
-  "skills": []
+  "skills": [
+    {
+      "name": "agent-inspect",
+      "description": ""
+    },
+    {
+      "name": "agent-inspect",
+      "description": ""
+    }
+  ]
 }
