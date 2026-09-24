@@ -1,0 +1,435 @@
+{
+  "name": "autopus-adk",
+  "owner": "autopus-ai",
+  "repo": "autopus-adk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/prd/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/ddd/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/ddd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/idea/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/idea/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/ci-cd/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/ci-cd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/review/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/docker/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-go/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-go/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-qa/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/metrics/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/database/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-fix/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/planning/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-dev/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-map/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-why/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-why/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-plan/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-sync/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/migration/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-idea/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-idea/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/debugging/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-test/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-goal/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-setup/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/experiment/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/experiment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-review/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/refactoring/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/performance/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/spec-review/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/spec-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/lore-commit/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/lore-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-canary/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-canary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-secure/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-secure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-verify/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-doctor/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-update/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/auto-status/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/auto-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/subagent-dev/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/subagent-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/entropy-scan/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/entropy-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/verification/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/ax-annotation/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/ax-annotation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/using-autopus/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/using-autopus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/agent-presets/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/agent-presets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/git-worktrees/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/agent-pipeline/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/agent-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/frontend-skill/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/frontend-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/security-audit/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/context-search/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/context-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/double-diamond/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/double-diamond/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/frontend-verify/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/frontend-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/ast-refactoring/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/ast-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/adaptive-quality/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/adaptive-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/monitor-patterns/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/monitor-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/testing-strategy/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/testing-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/product-discovery/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/product-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/browser-automation/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/browser-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/hash-anchored-edit/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/hash-anchored-edit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/worktree-isolation/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/worktree-isolation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/competitive-analysis/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/competitive-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/korean-writing-refiner/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/korean-writing-refiner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autopus-adk",
+      "path": ".omp/skills/make-interfaces-feel-better/SKILL.md",
+      "github_url": "https://github.com/autopus-ai/autopus-adk/tree/main/.omp/skills/make-interfaces-feel-better/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/autopus-ai/autopus-adk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T13:39:14Z"
+}
