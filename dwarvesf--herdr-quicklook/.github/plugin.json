@@ -1,0 +1,9 @@
+{
+  "name": "dwarvesf--herdr-quicklook",
+  "displayName": "herdr-quicklook",
+  "description": "Quick Look for herdr: pop the clipboard's path in an overlay, escalate to the file-viewer with one key",
+  "version": "1.0.0",
+  "author": "dwarvesf",
+  "homepage": "https://github.com/dwarvesf/herdr-quicklook",
+  "skills": []
+}
