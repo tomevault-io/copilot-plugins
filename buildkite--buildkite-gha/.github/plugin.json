@@ -1,0 +1,14 @@
+{
+  "name": "buildkite--buildkite-gha",
+  "displayName": "buildkite-gha",
+  "description": "buildkite-gha",
+  "version": "1.0.0",
+  "author": "buildkite",
+  "homepage": "https://github.com/buildkite/buildkite-gha",
+  "skills": [
+    {
+      "name": "buildkite-gha",
+      "description": ""
+    }
+  ]
+}
