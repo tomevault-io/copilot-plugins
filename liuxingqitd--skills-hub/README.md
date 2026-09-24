@@ -1,8 +1,6 @@
 # skills-hub
 
-> Tome by [liuxingqitd](https://github.com/liuxingqitd/skills-hub) — distributed by [TomeVault](https://tomevault.io)
-
-A local dashboard to manage AI coding agent skills — sync, install, and organize skills across OpenClaw, Cursor, Claude Code, and more.
+> Tome by [liuxingqitd](https://github.com/liuxingqitd/skills-hub), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [liuxingqitd/skills-hub](https://github.com/liux
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/liuxingqitd/skills-hub](https://github.com/liuxingqitd/skills-hub)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/liuxingqitd/skills-hub](https://github.com/liuxingqitd/skills-hub)
 
 ---
 
