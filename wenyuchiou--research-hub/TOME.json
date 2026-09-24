@@ -1,0 +1,207 @@
+{
+  "name": "research-hub",
+  "owner": "WenyuChiou",
+  "repo": "research-hub",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "research-hub-multi-ai",
+      "path": "skills/research-hub-multi-ai",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/research-hub-multi-ai",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/research-hub/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/research-hub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/gap-to-topic/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/gap-to-topic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/paper-summarize/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/paper-summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skill/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/paper-memory-builder/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/paper-memory-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/research-hub-multi-ai/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/research-hub-multi-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/research-design-helper/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/research-design-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/zotero-library-curator/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/zotero-library-curator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/literature-triage-matrix/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/literature-triage-matrix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/notebooklm-brief-verifier/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/notebooklm-brief-verifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/research-project-orienter/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/research-project-orienter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/research-context-compressor/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/research-context-compressor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "skills/research-workflow-orchestrator/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/skills/research-workflow-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/research-hub/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/research-hub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/gap-to-topic/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/gap-to-topic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/paper-summarize/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/paper-summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/paper-memory-builder/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/paper-memory-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/research-hub-multi-ai/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/research-hub-multi-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/research-design-helper/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/research-design-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/zotero-library-curator/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/zotero-library-curator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/literature-triage-matrix/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/literature-triage-matrix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/notebooklm-brief-verifier/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/notebooklm-brief-verifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/research-project-orienter/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/research-project-orienter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/research-context-compressor/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/research-context-compressor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-hub",
+      "path": "src/research_hub/skills_data/research-workflow-orchestrator/SKILL.md",
+      "github_url": "https://github.com/WenyuChiou/research-hub/tree/main/src/research_hub/skills_data/research-workflow-orchestrator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/WenyuChiou/research-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T03:56:12Z"
+}
