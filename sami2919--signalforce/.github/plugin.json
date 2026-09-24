@@ -1,0 +1,9 @@
+{
+  "name": "sami2919--signalforce",
+  "displayName": "SignalForce",
+  "description": "The open-source GTM engineer toolkit \u2014 signal-based prospecting for any ICP. Detects buying signals from GitHub, ArXiv, HuggingFace, job postings, funding, and LinkedIn. Claude Code skills + n8n autom",
+  "version": "1.0.0",
+  "author": "sami2919",
+  "homepage": "https://github.com/sami2919/SignalForce",
+  "skills": []
+}
