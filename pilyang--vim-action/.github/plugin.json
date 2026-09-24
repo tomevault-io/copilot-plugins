@@ -1,0 +1,9 @@
+{
+  "name": "pilyang--vim-action",
+  "displayName": "vim-action",
+  "description": "Vim-style modal text editing (key binding) in any macOS text field \u2014 Normal and Visual mode wherever you type",
+  "version": "1.0.0",
+  "author": "pilyang",
+  "homepage": "https://github.com/pilyang/vim-action",
+  "skills": []
+}
