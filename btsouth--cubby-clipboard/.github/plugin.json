@@ -1,0 +1,9 @@
+{
+  "name": "btsouth--cubby-clipboard",
+  "displayName": "cubby-clipboard",
+  "description": "A native-feeling Windows 11 clipboard history replacement: persistent, searchable, private, and reliable. Local OCR so screenshots are searchable.",
+  "version": "1.0.0",
+  "author": "btsouth",
+  "homepage": "https://github.com/btsouth/cubby-clipboard",
+  "skills": []
+}
