@@ -1,0 +1,111 @@
+{
+  "name": "OpenDDE-Harness",
+  "owner": "aurekaresearch",
+  "repo": "OpenDDE-Harness",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/memory_engine/skills/weather/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/memory_engine/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/post-filter/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/post-filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/protein-design/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/protein-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/epitope-analysis/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/epitope-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/cdr-full-redesign/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/cdr-full-redesign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/structure-analysis/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/structure-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/cdr-point-mutation/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/cdr-point-mutation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/esm2-guided-mutation/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/esm2-guided-mutation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/developability-filter/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/developability-filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/evolutionary-analysis/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/evolutionary-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenDDE-Harness",
+      "path": "opendde_harness/plugin/protein_design/skills/antibody-inverse-folding/SKILL.md",
+      "github_url": "https://github.com/aurekaresearch/OpenDDE-Harness/tree/main/opendde_harness/plugin/protein_design/skills/antibody-inverse-folding/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aurekaresearch/OpenDDE-Harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T16:40:47Z"
+}
