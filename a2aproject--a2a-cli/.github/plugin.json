@@ -1,0 +1,18 @@
+{
+  "name": "a2aproject--a2a-cli",
+  "displayName": "a2a-cli",
+  "description": "a2a-cli",
+  "version": "1.0.0",
+  "author": "a2aproject",
+  "homepage": "https://github.com/a2aproject/a2a-cli",
+  "skills": [
+    {
+      "name": "a2a-cli",
+      "description": ""
+    },
+    {
+      "name": "a2a-cli",
+      "description": ""
+    }
+  ]
+}
