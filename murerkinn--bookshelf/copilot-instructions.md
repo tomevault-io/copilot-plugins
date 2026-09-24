@@ -1,30 +1,17 @@
 ## bookshelf
 
-> @apps/bookshelf/AGENTS.md
+> <!-- BEGIN:nextjs-agent-rules -->
 
-@apps/bookshelf/AGENTS.md
+<!-- BEGIN:nextjs-agent-rules -->
 
+# This is NOT the Next.js you know
 
-## Writing commit messages
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-Follow the seven rules from <https://chris.beams.io/git-commit>:
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-1. Separate subject from body with a blank line.
-2. Limit the subject line to ~50 characters.
-3. Capitalize the subject line.
-4. Do not end the subject line with a period.
-5. Use the imperative mood — the subject should complete "If applied, this commit will ___" (write `Add reading dispatcher`, not `Added` / `Adds` / `Fixed`).
-6. Wrap the body at 72 characters.
-7. Use the body to explain **what and why**, not how — the diff already shows how. Add a body only when the change needs context (motivation, side effects, trade-offs); skip it for trivial changes. Keep it short and focused.
-
-**Do not add any AI/tool attribution to commits.** No `Co-Authored-By` trailer, no "Generated with Claude Code", no signatures or emoji trailers. Write the message as the developer would.
-
-Example:
-
-```
-Create bookshelf UI
-```
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [murerkinn/bookshelf](https://github.com/murerkinn/bookshelf) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
