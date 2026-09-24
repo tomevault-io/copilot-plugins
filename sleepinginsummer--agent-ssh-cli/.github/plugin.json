@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "sleepinginsummer",
   "homepage": "https://github.com/sleepinginsummer/agent-ssh-cli",
-  "skills": []
+  "skills": [
+    {
+      "name": "agent-ssh-cli",
+      "description": ""
+    }
+  ]
 }
