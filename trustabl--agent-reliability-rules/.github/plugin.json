@@ -1,0 +1,9 @@
+{
+  "name": "trustabl--agent-reliability-rules",
+  "displayName": "agent-reliability-rules",
+  "description": "Agent reliability detection rules for the Trustabl Agent Reliability Analyzer",
+  "version": "1.0.0",
+  "author": "trustabl",
+  "homepage": "https://github.com/trustabl/agent-reliability-rules",
+  "skills": []
+}
