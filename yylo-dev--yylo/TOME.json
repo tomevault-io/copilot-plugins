@@ -1,0 +1,189 @@
+{
+  "name": "yylo",
+  "owner": "yylo-dev",
+  "repo": "yylo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "yylo",
+      "path": ".pi/skills/ralph-loop/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.pi/skills/ralph-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".agents/skills/ralph-loop/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.agents/skills/ralph-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".claude/skills/ralph-loop/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.claude/skills/ralph-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".pi/skills/kanban-workflow/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.pi/skills/kanban-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".pi/skills/plan-kanban-tasks/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.pi/skills/plan-kanban-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".pi/skills/understand-project/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.pi/skills/understand-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".claude/skills/kanban-workflow/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.claude/skills/kanban-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".agents/skills/kanban-workflow/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.agents/skills/kanban-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".agents/skills/plan-kanban-tasks/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.agents/skills/plan-kanban-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".claude/skills/plan-kanban-tasks/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.claude/skills/plan-kanban-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".agents/skills/understand-project/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.agents/skills/understand-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": ".claude/skills/understand-project/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/.claude/skills/understand-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/pi/ralph-loop/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/pi/ralph-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/codex/ralph-loop/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/codex/ralph-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/claude/ralph-loop/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/claude/ralph-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/pi/kanban-workflow/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/pi/kanban-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/pi/plan-kanban-tasks/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/pi/plan-kanban-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/codex/kanban-workflow/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/codex/kanban-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/pi/understand-project/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/pi/understand-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/claude/kanban-workflow/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/claude/kanban-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/codex/plan-kanban-tasks/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/codex/plan-kanban-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/codex/understand-project/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/codex/understand-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/claude/plan-kanban-tasks/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/claude/plan-kanban-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yylo",
+      "path": "src/templates/skills/claude/understand-project/SKILL.md",
+      "github_url": "https://github.com/yylo-dev/yylo/tree/main/src/templates/skills/claude/understand-project/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yylo-dev/yylo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T20:56:45Z"
+}
