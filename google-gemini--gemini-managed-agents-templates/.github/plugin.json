@@ -1,0 +1,106 @@
+{
+  "name": "google-gemini--gemini-managed-agents-templates",
+  "displayName": "gemini-managed-agents-templates",
+  "description": "gemini-managed-agents-templates",
+  "version": "1.0.0",
+  "author": "google-gemini",
+  "homepage": "https://github.com/google-gemini/gemini-managed-agents-templates",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "memory",
+      "description": ""
+    },
+    {
+      "name": "slide-creator",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    },
+    {
+      "name": "gemini-managed-agents-templates",
+      "description": ""
+    }
+  ]
+}
