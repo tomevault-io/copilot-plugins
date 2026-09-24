@@ -1,0 +1,99 @@
+{
+  "name": "parcha-skills",
+  "owner": "Parcha-ai",
+  "repo": "parcha-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "parcha-skills",
+      "path": "recap/skills/recap/SKILL.md",
+      "github_url": "https://github.com/Parcha-ai/parcha-skills/tree/main/recap/skills/recap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "parcha-skills",
+      "path": "recall/skills/recall/SKILL.md",
+      "github_url": "https://github.com/Parcha-ai/parcha-skills/tree/main/recall/skills/recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "parcha-skills",
+      "path": "precap/skills/precap/SKILL.md",
+      "github_url": "https://github.com/Parcha-ai/parcha-skills/tree/main/precap/skills/precap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "parcha-skills",
+      "path": "autoqa/skills/autoqa/SKILL.md",
+      "github_url": "https://github.com/Parcha-ai/parcha-skills/tree/main/autoqa/skills/autoqa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "parcha-skills",
+      "path": "tether/skills/tether/SKILL.md",
+      "github_url": "https://github.com/Parcha-ai/parcha-skills/tree/main/tether/skills/tether/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "parcha-skills",
+      "path": "parable/skills/parable/SKILL.md",
+      "github_url": "https://github.com/Parcha-ai/parcha-skills/tree/main/parable/skills/parable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "parcha-skills",
+      "path": "cascade/skills/cascade/SKILL.md",
+      "github_url": "https://github.com/Parcha-ai/parcha-skills/tree/main/cascade/skills/cascade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "parcha-skills",
+      "path": "desloppify/skills/desloppify/SKILL.md",
+      "github_url": "https://github.com/Parcha-ai/parcha-skills/tree/main/desloppify/skills/desloppify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "parcha-skills",
+      "path": "hands-free/skills/hands-free/SKILL.md",
+      "github_url": "https://github.com/Parcha-ai/parcha-skills/tree/main/hands-free/skills/hands-free/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Parcha-ai/parcha-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T22:53:06Z"
+}
