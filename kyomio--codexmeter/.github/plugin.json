@@ -1,0 +1,9 @@
+{
+  "name": "kyomio--codexmeter",
+  "displayName": "CodexMeter",
+  "description": "A lightweight Android quota dashboard for Codex and other AI providers.",
+  "version": "1.0.0",
+  "author": "KyoMio",
+  "homepage": "https://github.com/KyoMio/CodexMeter",
+  "skills": []
+}
