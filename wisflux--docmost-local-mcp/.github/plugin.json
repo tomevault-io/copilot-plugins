@@ -1,0 +1,9 @@
+{
+  "name": "wisflux--docmost-local-mcp",
+  "displayName": "docmost-local-mcp",
+  "description": "MCP server for self-hosted Docmost (Community Edition) \u2014 read & write your wiki from Claude, Cursor & VS Code",
+  "version": "1.0.0",
+  "author": "wisflux",
+  "homepage": "https://github.com/wisflux/docmost-local-mcp",
+  "skills": []
+}
