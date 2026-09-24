@@ -1,46 +1,170 @@
-## offload-policy
+## patterns
 
-> Mandatory LLM-offload review checkpoints for math, clinical, and paper artifacts
+> Copy-paste Sounio patterns from verified tests
 
 
-# LLM-Offload Policy (MANDATORY)
+# Sounio Patterns — Verified Copy-Paste Examples
 
-Canonical doc: `.claude/AGENT_OFFLOAD_POLICY.md`. Routing: `.claude/offload-routing.md`. Audit log: `.claude/llm_offload_log.md`.
+All patterns are sourced from `tests/run-pass/` and verified with `souc check`.
 
-This rule applies to **every Cursor agent session in this repo**, including subagents and best-of-N runners.
-
-## Mandatory pre-commit checkpoints
-
-| Trigger | Required action |
-|---------|-----------------|
-| Math claim in `.sio` comments, PK/GUM/p-box derivation, Lean theorem statement, refinement invariant | `bin/llm-offload -t math-review -p xai -i <file>` |
-| Any change under `stdlib/clinical/`, `tests/run-pass/vancomycin*`, `tests/stdlib/clinical/`, `formal/lean4/SounioVancomycin*` | `bin/llm-offload -t review -p deepseek -i <file>` |
-| Any external-facing artifact under `docs/papers/`, `docs/dissertation/`, IRB protocols | `bin/llm-offload --raw <draft> deepseek xai gemini` |
-
-After every non-trivial offload, append a row to `.claude/llm_offload_log.md` (top of "Entries" table). When a review caught a bug, add an `LLM-offload-review:` trailer to the commit message.
-
-## Quick reference
-
-```bash
-bin/llm-offload --status                        # which API keys are loaded
-bin/llm-offload --list-tasks                    # available tasks + default providers
-bin/llm-offload --list-providers                # all providers
-bin/llm-offload -t <task> -p <provider> -i <file>
-bin/llm-offload --raw <prompt> [providers...]   # multi-model fan-out
+## Hello World
+```sio
+fn main() with IO {
+    println("Hello, World!")
+}
 ```
 
-Tasks: `expand` (Gemini, prose), `scaffold` (DeepSeek, boilerplate), `review` (DeepSeek, devil's advocate), `paraphrase` (MiniMax/Qwen, tone shift), `math-review` (Grok 4.1, math audit).
+## Array Processing (map/fold)
+```sio
+fn square(x: i64) -> i64 { x * x }
 
-## Hard rules
+fn map4(arr: [i64; 4], f: fn(i64) -> i64) -> [i64; 4] with Mut, Panic {
+    var out: [i64; 4] = [0; 4]
+    var i: i64 = 0
+    while i < 4 {
+        out[i as usize] = f(arr[i as usize])
+        i = i + 1
+    }
+    out
+}
 
-- **NEVER** send PHI / patient-identifying data to any provider.
-- **NEVER** silently dismiss a reviewer finding; always log disagreement with reasoning.
-- **NEVER** commit math-touching changes to `stdlib/clinical/` or `formal/lean4/` without a logged `math-review` evidence.
-- **NEVER** edit `.claude/AGENT_OFFLOAD_POLICY.md`, `.claude/offload-routing.md`, or `bin/llm-offload` in parallel with other agents (high-risk shared control files).
+fn fold4(arr: [i64; 4], init: i64, f: fn(i64, i64) -> i64) -> i64 with Panic {
+    var acc = init
+    for i in 0..4 {
+        acc = f(acc, arr[i as usize])
+    }
+    acc
+}
+```
 
-## Why this exists
+## Error Handling (Tuples)
+```sio
+fn safe_divide(a: f64, b: f64) -> (f64, i32) with Div, Panic {
+    if b == 0.0 { (0.0, 1) }    // error code 1
+    else { (a / b, 0) }          // success
+}
 
-On 2026-04-30, a 28-second `bin/llm-offload -t math-review -p xai` invocation caught a sign-error bug in `vp_cmin_point` monotonicity that had already passed Lean theorem statements, 4 green tests, and author self-review. The fix changed the pre-TDM Cmin band from `[11.30, 21.31]` to the correct `[8.49, 24.29]`. Without the offload, this bug would have shipped to a POPL or *Clinical Pharmacokinetics* referee. The policy makes that catch the default, not the exception.
+fn main() with IO, Div, Panic {
+    let (result, err) = safe_divide(10.0, 3.0)
+    if err == 0 { println("OK") }
+    else { println("Division by zero") }
+}
+```
+
+## Struct with Methods
+```sio
+struct Counter { value: i64 }
+
+impl Counter {
+    fn new() -> Counter { Counter { value: 0 } }
+    fn get(self: &Counter) -> i64 { self.value }
+    fn increment(self: &!Counter) with Mut { self.value = self.value + 1 }
+}
+
+fn main() with IO, Mut {
+    var c = Counter::new()
+    c.increment()
+    c.increment()
+    assert(c.get() == 2)
+}
+```
+
+## Array Mutation via &! Reference
+```sio
+// Use explicit deref for bare arrays
+fn fill(arr: &![i64; 4], val: i64) with Mut, Panic {
+    (*arr)[0] = val
+    (*arr)[1] = val
+    (*arr)[2] = val
+    (*arr)[3] = val
+}
+
+// Or wrap in struct (more reliable)
+struct Buffer { data: [i64; 256] }
+
+fn fill_buffer(buf: &!Buffer, val: i64) with Mut, Panic {
+    for i in 0..256 {
+        buf.data[i as usize] = val
+    }
+}
+```
+
+## Higher-Order Functions
+```sio
+fn double(x: i64) -> i64 { x + x }
+fn negate(x: i64) -> i64 { 0 - x }
+
+fn select_op(which: i64) -> fn(i64) -> i64 {
+    if which == 0 { double }
+    else { negate }
+}
+
+fn main() with IO, Panic {
+    let op = select_op(0)
+    let result = op(21)
+    assert(result == 42)
+}
+```
+
+## Enum + Match
+```sio
+enum Shape { Circle, Square, Triangle }
+
+fn sides(s: i64) -> i64 {
+    match s {
+        Shape::Circle => 0
+        Shape::Square => 4
+        Shape::Triangle => 3
+        _ => 0
+    }
+}
+```
+
+## For-In Loop Variants
+```sio
+fn main() with IO, Mut, Panic {
+    // Exclusive range
+    for i in 0..5 { print(i) }
+
+    // Inclusive range
+    for i in 0..=5 { print(i) }
+
+    // Array iteration
+    let arr = [10, 20, 30]
+    for x in arr { print(x) }
+
+    // Break and continue
+    var sum: i64 = 0
+    for i in 0..100 {
+        if i >= 10 { break }
+        if i % 2 == 0 { continue }
+        sum = sum + i
+    }
+}
+```
+
+## Epistemic Measurement
+```sio
+use epistemic::{Knowledge, measure}
+use units::{mg, kg}
+
+fn main() with IO, Mut, Div, Panic {
+    let weight: Knowledge<kg> = measure(75.0, uncertainty: 0.5)
+    let dose: Knowledge<mg> = measure(500.0, uncertainty: 2.5)
+    // Uncertainty propagates through arithmetic
+    println("Epistemic computation complete")
+}
+```
+
+## Real Code to Study
+- `tests/run-pass/hello.sio` — basic IO
+- `tests/run-pass/closure_higher_order.sio` — map/fold/any/all
+- `tests/run-pass/closure_fn_ref.sio` — function references
+- `tests/run-pass/native_enum_basic.sio` — enum + match
+- `tests/run-pass/epistemic_bmi.sio` — epistemic types
+- `tests/run-pass/for_in_loops.sio` — all loop variants
+- `stdlib/collections/vec.sio` — impl blocks
+- `stdlib/encoding/hex.sio` — production code
 
 ---
 > Source: [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio) — distributed by [TomeVault](https://tomevault.io).
