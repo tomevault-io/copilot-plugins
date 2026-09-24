@@ -1,0 +1,9 @@
+{
+  "name": "jaygptpro--amazon-pro-skills",
+  "displayName": "amazon-pro-skills",
+  "description": "50 production-grade Claude Code skills for serious Amazon sellers. Free and open. Install with: npx skills add JayGPTPro/amazon-pro-skills -g",
+  "version": "1.0.0",
+  "author": "JayGPTPro",
+  "homepage": "https://github.com/JayGPTPro/amazon-pro-skills",
+  "skills": []
+}
