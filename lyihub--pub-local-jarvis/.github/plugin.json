@@ -1,0 +1,14 @@
+{
+  "name": "lyihub--pub-local-jarvis",
+  "displayName": "pub-local-jarvis",
+  "description": "pub-local-jarvis",
+  "version": "1.0.0",
+  "author": "LYiHub",
+  "homepage": "https://github.com/LYiHub/pub-local-jarvis",
+  "skills": [
+    {
+      "name": "pub-local-jarvis",
+      "description": ""
+    }
+  ]
+}
