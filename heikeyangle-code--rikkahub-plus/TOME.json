@@ -1,0 +1,44 @@
+{
+  "name": "rikkahub-plus",
+  "owner": "heikeyangle-code",
+  "repo": "rikkahub-plus",
+  "description": "RikkaHub Plus\uff08\u9152\u9986\u548c\u547d\u7406\u589e\u5f3a\u7248\uff09\u2014\u2014 \u57fa\u4e8e rikkahub \u7684\u6df1\u5ea6\u5b9a\u5236\u5206\u652f\uff1a\u547d\u7406\u6392\u76d8\uff08\u897f\u6d0b/\u5370\u5ea6/\u53e4\u5178\u5360\u661f\u3001\u516b\u5b57\u3001\u7d2b\u5fae\uff09+ \u9152\u9986\u89d2\u8272\u5361\u4e0e\u4e16\u754c\u4e66\u517c\u5bb9 + \u7fa4\u804a + Agent \u5de5\u5177",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/heikeyangle-code/rikkahub-plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T08:31:00Z"
+}
