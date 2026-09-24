@@ -1,0 +1,31 @@
+## omnideck
+
+> - Use Google‑style docstrings
+
+# Copilot Custom Instructions
+
+- Use Google‑style docstrings
+- Do not use f-strings for logging; use `logger.info("message %s", var)` instead
+- Handle exceptions with context‑aware logging; use module-level logger (`logger = logging.getLogger(__name__)`)
+- Use custom exceptions where appropriate
+- Write tests for new features/bugs; descriptive names, Google-style docstrings; place in `tests/` mirroring source structure
+- Add `@pytest.mark.unit` for unit tests, `@pytest.mark.integration` for integration tests
+- Always run `backend - run unit tests` after changes to backend code.
+- Run `just check` before handing off code changes.
+- Include new deps in pyproject.toml
+- Use Pydantic for data validation; ensure JSON-serializable API responses
+- Private and internal fields, methods, functions, constants, types and modules should all be named with a single leading underscore
+- Always include `__init__.py` for public re-exports, avoid exporting private members, do not export internal functions/classes
+- You may ignore Ruff(I001)
+- No backward compatible refactors unless prompted
+- Write python code compatible with the current Python version 3.12.10
+- Never put implementation details in docstrings
+- Add comments to explain non-obvious code
+- NEVER PATCH AROUND TEST FAILURES
+   - Do not introduce logic changes that bypass failing tests.
+   - Do not add "if" guards, mocks, or fallback logic just to quiet tests.
+   - Missing stubs or incomplete fakes are testing bugs, not production logic problems.
+
+---
+> Source: [omnideck-dev/omnideck](https://github.com/omnideck-dev/omnideck) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
