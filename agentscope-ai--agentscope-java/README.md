@@ -5,18 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [agentscope-ai/agentscope-java](https://github.com/agentscope-ai/agentscope-java).
+Original source: `AGENTS.md` in [agentscope-ai/agentscope-java](https://github.com/agentscope-ai/agentscope-java).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [agentscope-ai/agentscope-java](https://github.com/agentscope-ai/agentscope-java) — a repo with 5573+ stars on GitHub.
+From [agentscope-ai/agentscope-java](https://github.com/agentscope-ai/agentscope-java) — a repo with 5763+ stars on GitHub.
 
 ---
 
