@@ -1,0 +1,9 @@
+{
+  "name": "euler2023--ai4math",
+  "displayName": "ai4math",
+  "description": "An agent can utilize math tools to study undergraduate levels mathmatical problems",
+  "version": "1.0.0",
+  "author": "Euler2023",
+  "homepage": "https://github.com/Euler2023/ai4math",
+  "skills": []
+}
