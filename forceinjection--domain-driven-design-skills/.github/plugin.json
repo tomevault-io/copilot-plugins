@@ -25,6 +25,330 @@
     {
       "name": "vue-composable-testing",
       "description": ""
+    },
+    {
+      "name": "typescript-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "next-js-better-auth-integration",
+      "description": ""
+    },
+    {
+      "name": "workers-multi-lang",
+      "description": ""
+    },
+    {
+      "name": "django-reviewer",
+      "description": ""
+    },
+    {
+      "name": "fastapi-auth-patterns",
+      "description": ""
+    },
+    {
+      "name": "fastapi",
+      "description": ""
+    },
+    {
+      "name": "fastapi-ddd-guidelines",
+      "description": ""
+    },
+    {
+      "name": "security-fastapi",
+      "description": ""
+    },
+    {
+      "name": "fastapi-project-structure",
+      "description": ""
+    },
+    {
+      "name": "backend-dev-guidelines",
+      "description": ""
+    },
+    {
+      "name": "passport",
+      "description": ""
+    },
+    {
+      "name": "implementing-websocket-realtime",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-ops",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-workflows",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-workflows",
+      "description": ""
+    },
+    {
+      "name": "terraform-test",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-design",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-tests",
+      "description": ""
+    },
+    {
+      "name": "terraform-iac",
+      "description": ""
+    },
+    {
+      "name": "testing-jest",
+      "description": ""
+    },
+    {
+      "name": "ecosystem",
+      "description": ""
+    },
+    {
+      "name": "jest-testing",
+      "description": ""
+    },
+    {
+      "name": "jest-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "pytest-test-generator",
+      "description": ""
+    },
+    {
+      "name": "pytest-api-testing",
+      "description": ""
+    },
+    {
+      "name": "pytest-best-practices",
+      "description": ""
+    },
+    {
+      "name": "pytest-config",
+      "description": ""
+    },
+    {
+      "name": "pytest",
+      "description": ""
+    },
+    {
+      "name": "pytest-mock-guide",
+      "description": ""
+    },
+    {
+      "name": "pytest-patterns",
+      "description": ""
+    },
+    {
+      "name": "pytest-plugins",
+      "description": ""
+    },
+    {
+      "name": "react-project-scaffolder",
+      "description": ""
+    },
+    {
+      "name": "flutter-tester",
+      "description": ""
+    },
+    {
+      "name": "flutter-dart-development",
+      "description": ""
+    },
+    {
+      "name": "security-flutter",
+      "description": ""
+    },
+    {
+      "name": "flutter-testing",
+      "description": ""
+    },
+    {
+      "name": "flutter-patterns",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-policy",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-manager",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "documentation-research",
+      "description": ""
+    },
+    {
+      "name": "documentation-authoring",
+      "description": ""
+    },
+    {
+      "name": "agents-md-manager",
+      "description": ""
+    },
+    {
+      "name": "mcp-server-creator",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "description": ""
+    },
+    {
+      "name": "a2a-sdk-patterns",
+      "description": ""
+    },
+    {
+      "name": "express-to-fastify-migration",
+      "description": ""
+    },
+    {
+      "name": "senior-graphql",
+      "description": ""
+    },
+    {
+      "name": "graphql-implementation",
+      "description": ""
+    },
+    {
+      "name": "graphql-mutations",
+      "description": ""
+    },
+    {
+      "name": "graphql-security",
+      "description": ""
+    },
+    {
+      "name": "terraform-module",
+      "description": ""
+    },
+    {
+      "name": "nx-monorepo-generator",
+      "description": ""
+    },
+    {
+      "name": "fix-all-tests",
+      "description": ""
+    },
+    {
+      "name": "cui-javascript-unit-testing",
+      "description": ""
+    },
+    {
+      "name": "unit-testing-framework",
+      "description": ""
+    },
+    {
+      "name": "pytest-generator",
+      "description": ""
+    },
+    {
+      "name": "dependency-evaluator",
+      "description": ""
+    },
+    {
+      "name": "model-evaluation",
+      "description": ""
+    },
+    {
+      "name": "react-native-skills",
+      "description": ""
+    },
+    {
+      "name": "parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "skill-cli",
+      "description": ""
+    },
+    {
+      "name": "playwright-mcp",
+      "description": ""
+    },
+    {
+      "name": "conductor",
+      "description": ""
+    },
+    {
+      "name": "oracle-gemini",
+      "description": ""
+    },
+    {
+      "name": "rust-dev",
+      "description": ""
+    },
+    {
+      "name": "rust-backend-testing",
+      "description": ""
+    },
+    {
+      "name": "rust-testing",
+      "description": ""
+    },
+    {
+      "name": "rust-security",
+      "description": ""
+    },
+    {
+      "name": "rust-crate-creator",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design-skills",
+      "description": ""
     }
   ]
 }
