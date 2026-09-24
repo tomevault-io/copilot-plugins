@@ -1,0 +1,207 @@
+{
+  "name": "ai-switch",
+  "owner": "ai-switch",
+  "repo": "ai-switch",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/writing-plans/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/brainstorming/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/writing-skills/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/peer-review/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/peer-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/paper-lookup/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/paper-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/executing-plans/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/using-superpowers/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/using-superpowers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/statistical-power/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/statistical-power/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/scholar-evaluation/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/scholar-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/citation-management/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/citation-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/experimental-design/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/experimental-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/statistical-analysis/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/statistical-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/scientific-schematics/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/scientific-schematics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/hypothesis-generation/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/hypothesis-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/scientific-visualization/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/scientific-visualization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/scientific-brainstorming/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/scientific-brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/exploratory-data-analysis/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/exploratory-data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.core/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.core/verification-before-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-switch",
+      "path": "src-tauri/resources/skill-packages/ai-switch.science/scientific-critical-thinking/SKILL.md",
+      "github_url": "https://github.com/ai-switch/ai-switch/tree/main/src-tauri/resources/skill-packages/ai-switch.science/scientific-critical-thinking/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ai-switch/ai-switch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T22:58:15Z"
+}
