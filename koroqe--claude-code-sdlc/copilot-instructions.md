@@ -1,86 +1,132 @@
 ## claude-code-sdlc
 
-> TODO: One-line description of the project.
+> The harness itself. It dogfoods its own pipeline, so everything the agents enforce applies here too.
 
-# Project: TODO_PROJECT_NAME
+# claude-code-sdlc
 
-TODO: One-line description of the project.
-
-## Tech Stack
-
-**Frontend:**
-- TODO: List frontend technologies (e.g., React 18 + TypeScript, Vue 3, etc.)
-
-**Backend:**
-- TODO: List backend technologies (e.g., Express.js + TypeScript, Django, etc.)
-
-**Database:**
-- TODO: List database and ORM (e.g., PostgreSQL + Drizzle ORM, MongoDB + Mongoose, etc.)
+The harness itself. It dogfoods its own pipeline, so everything the agents enforce applies here too.
 
 ## Commands
 
+This repository has no `package.json`, no build step and no runtime dependencies — it ships markdown
+and zero-dependency Node scripts. Its equivalent of a typecheck is:
+
 ```bash
-# TODO: Fill in your project's actual commands
-npm run dev      # Start development server
-npm run build    # Production build
-npm run test     # Run tests
-npm run check    # TypeScript type checking (if applicable)
+node scripts/ci/ci-parity.js     # runs exactly what CI runs, read from ci.yml
 ```
 
-## Project Structure
+**Use that, not a bare validator loop.** This is not a style preference — it is the difference
+between evidence and none:
 
-```
-# TODO: Document your actual project file structure
-/src/
-  /routes/       # API endpoints
-  /services/     # Business logic
-  /models/       # Data models / schema
-  /middleware/    # Auth, validation, etc.
-
-/tests/          # Test files
-
-/docs/
-  PRD.md         # Product requirements document
-  /qa/           # QA test case documentation
-  /use-cases/    # Business analyst use case documents
+```bash
+for v in scripts/ci/validate-*.js; do node "$v" || exit 1; done   # NOT sufficient
 ```
 
-## Architecture Overview
+That loop invokes each validator bare, skipping the ~40 seeded-fixture assertions
+(`--root <fixture> --expect-failure … --expect-problems N`) that CI also runs — the very checks that
+make a validator evidence rather than decoration. It passes while CI fails. Measured: `main` sat red
+for **16 consecutive runs across five releases (4.5.0–4.9.0)** while that loop stayed green the whole
+time, because three fixtures had silently stopped isolating and one validator was wired into nothing.
+`ci-parity.js --check-coverage` now fails if any `validate-*.js` is missing from `ci.yml`.
 
-TODO: Describe key architectural patterns:
-- How is data accessed? (ORM, data access layer, etc.)
-- How is authentication handled?
-- How are external services integrated?
-- What's the request lifecycle?
+Those check **structure** and **hook logic**. They do not check that the instructions this harness
+ships actually steer a real session — that is what the behavioural eval is for:
 
-## Environment Variables
-
+```bash
+node scripts/eval/run-evals.js --dry-run   # free: show the plan
+node scripts/eval/run-evals.js             # COSTS MONEY: real headless sessions, graded
 ```
-# TODO: List required environment variables
-DATABASE_URL          # Database connection string
-# API_KEY             # External service keys
-```
 
-## Design Guidelines
+It sits outside the sweep because it spends real tokens; its grading logic is unit-tested for free
+inside the sweep (`tests/hooks/test-eval-graders.js`, 30 checks, 8 seeded-broken). **Read
+`evals/README.md` before believing a failure** — two separate instrument bugs produced confident
+false results the first two times it ran, both pointing at the product while the eval itself was
+broken.
 
-TODO: Describe visual design conventions (if applicable):
-- Theme / aesthetic
-- Typography
-- Component patterns
+## Release
 
-## Git Commit Rules (MANDATORY)
+**Read this before publishing anything. The ordering below is the whole point.**
 
-- NEVER add "Co-Authored-By" lines to commit messages
-- NEVER mention Claude, AI, or any AI assistant in commits
-- Commit messages should only contain the change description
-- No AI attribution in any form
+What ships to an installed user is the version advertised in `.claude-plugin/marketplace.json`.
+`claude plugin update` compares that number against the installed one and **never looks at the
+commit**. A merge that does not move it delivers nothing while reporting success — measured on
+Claude Code 2.1.9, ten commits sat undelivered behind an unmoved `4.0.0`.
+
+Two consequences that are easy to get backwards:
+
+- **A git tag does not ship anything.** The marketplace tracks `main`, not tags. Tagging a stale
+  version produces a repository that looks released and an install base that receives nothing.
+- **Scopes update independently.** A user-scope update leaves every project-scope install on the old
+  version until each one runs `--scope project`.
+
+### Procedure
+
+1. **Bump the version in all four sources** — they must agree. Derive the next number from
+   **origin/main's currently advertised version at release time** — fetch, then read
+   `plugins[0].version` from origin/main's `.claude-plugin/marketplace.json`
+   (`git fetch origin main && git show origin/main:.claude-plugin/marketplace.json`) — never from a
+   number remembered earlier in a branch or session: with parallel feature sessions, two branches
+   that each memorized "current is X" both compute X+1 and collide.
+   - `.claude-plugin/marketplace.json` → `plugins[0].version` ← *this is the one that ships*
+   - `.claude-plugin/plugin.json` → `version`
+   - `install.sh` → `VERSION="..."`
+   - `README.md` → the version badge
+
+2. **Verify the bump:**
+   ```bash
+   node scripts/ci/validate-version-consistency.js
+   node scripts/ci/validate-release-readiness.js
+   ```
+
+3. **Commit and push to `main`.** This is the step that actually delivers, because the marketplace
+   tracks `main`.
+
+4. **Cut the GitHub release** — documentation and discovery, using notes derived from the
+   `CHANGELOG.md` entry:
+   ```bash
+   gh release create v<version> --target main --title "v<version> — <headline>" --notes-file <file>
+   ```
+
+5. **Sync the outward-facing surfaces that live outside the repository:**
+   ```bash
+   ./scripts/release/sync-repo-metadata.sh
+   ```
+   GitHub's About panel, topics and homepage are not files, so no grep, validator or review can
+   see them drift — the description sat at "13 AI agents" through two major versions for exactly
+   that reason. The script derives them from `.claude-plugin/plugin.json` so there is no second
+   copy to fall out of date. It is idempotent; run it every release.
+
+6. **Confirm delivery rather than assuming it:**
+   ```bash
+   claude plugin marketplace update claude-code-sdlc
+   claude plugin update claude-code-sdlc@claude-code-sdlc
+   claude plugin list          # expect the new version
+   ```
+
+### Version choice
+
+Patch for a fix, minor for new capability, major for a change to how consumers install, invoke or
+configure the harness. Never reuse a published number.
 
 ## Working Rules
 
-- Explore code before making changes
-- Prefer minimal diffs; no broad refactors unless requested
-- Always commit after completing implementation — do NOT push unless explicitly requested
+- **Budgets are hard caps.** ≤16 agents, ≤10 skills, ≤12 hook **ids**. Current: **16** / 8 / **12** —
+  agents AND hooks are both AT their ceilings now (the 16th slot went to `design-reviewer`,
+  deliberately — a seventeenth agent requires retiring one), and for hooks —
+  hooks are AT the ceiling with no slot left, so a thirteenth requires retiring one. Ids, not
+  registrations: `pre:edit:read-guard` listens on two events and is one hook.
+- **Instruction text has a budget too**, and it is the one actually charged per session:
+  `node scripts/ci/validate-context-budget.js --report`. Ceilings are in bytes because
+  `claude plugin details` scores the *installed* cache, not the working tree — it cannot tell you
+  whether a cut worked until after you have shipped it. Conversion is measured, not assumed
+  (tokens ≈ bytes / 2.78, `docs/findings/context-cost-calibration.md`). Weight before you cut:
+  `implement-slice` is paid once **per slice**, so a byte there costs ~8× a byte in `merge-ready`.
+- **Every validator must fail on a seeded broken fixture**, pinned to an exact problem count. A check
+  that only ever passes is not evidence.
+- **Measure Claude Code's behaviour; do not read it off the docs.** Several documented claims have
+  turned out false here. Findings from real measurement live in `docs/findings/`.
+- **Hooks fail open.** A hook may block only by deciding to; a malfunctioning one exits 0.
 
 ---
 > Source: [Koroqe/claude-code-sdlc](https://github.com/Koroqe/claude-code-sdlc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
