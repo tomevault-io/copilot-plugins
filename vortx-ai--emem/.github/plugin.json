@@ -1,0 +1,14 @@
+{
+  "name": "vortx-ai--emem",
+  "displayName": "emem",
+  "description": "emem",
+  "version": "1.0.0",
+  "author": "Vortx-AI",
+  "homepage": "https://github.com/Vortx-AI/emem",
+  "skills": [
+    {
+      "name": "emem",
+      "description": ""
+    }
+  ]
+}
