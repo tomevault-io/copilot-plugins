@@ -1,0 +1,229 @@
+## playsvideo
+
+> Client-side video player — play any video file in the browser without a server.
+
+# playsvideo
+
+Client-side video player — play any video file in the browser without a server.
+
+Do NOT use auto-memory (`~/.claude/projects/.../memory/`). All project context lives in this file.
+
+## Package Manager
+
+Uses **pnpm workspaces**. The root package is the core library (`playsvideo`). The `app/` directory is a separate workspace for the React media player.
+
+```bash
+pnpm install           # install all workspace deps
+pnpm -w run <script>   # run a root workspace script
+pnpm --filter app dev  # run the media player dev server
+```
+
+## Green Gates
+
+Before considering work done, all of these must pass:
+
+```bash
+pnpm -w run typecheck    # tsc --noEmit
+pnpm -w run test:unit    # vitest run tests/unit (fast, no fixtures needed)
+pnpm -w run lint         # biome lint .
+pnpm -w run format       # biome format --write . (then verify no unstaged changes)
+```
+
+Integration tests (`pnpm -w run test:integration`) require test fixtures in `tests/fixtures/`.
+
+## Project Structure
+
+- `src/pipeline/` — core pipeline modules (demux, mux, segment plan, audio transcode, codec probe)
+- `src/adapters/` — platform adapters (node-ffmpeg, node-ffprobe, wasm-ffmpeg)
+- `src/engine.ts` — PlaysVideoEngine class (worker, hls.js, subtitles — no UI)
+- `src/worker.ts` — browser web worker (demux + segment processing)
+- `src/pwa-player.ts` — browser entry point (thin UI wiring to engine)
+- `tests/unit/` — fast unit tests (no external dependencies)
+- `tests/integration/` — tests requiring ffmpeg/ffprobe and test fixtures
+- `tests/e2e/` — playwright browser tests
+- `app/` — React media player (separate workspace, see below)
+
+### Media Player App (`app/`)
+
+React app with library management at `/app`. Separate workspace with its own `package.json`, `vite.config.ts`, `tsconfig.json`.
+
+- `app/src/db.ts` — Dexie IndexedDB schema (library, directories, playlists, settings)
+- `app/src/scan.ts` — File System Access API directory walker + IDB sync
+- `app/src/hooks/useEngine.ts` — React hook wrapping PlaysVideoEngine lifecycle
+- `app/src/pages/Library.tsx` — video library grid with folder picker
+- `app/src/pages/Player.tsx` — video player page
+- Uses `import { PlaysVideoEngine } from 'playsvideo'` via workspace link
+
+## Key Conventions
+
+- TypeScript with ES modules (`.js` extensions in imports)
+- Biome for formatting and linting (not ESLint/Prettier)
+- vitest for testing
+- mediabunny for demux and mux (fMP4)
+- hls.js for playback (custom `fLoader` for on-demand segments — no service worker)
+
+## Documentation Workflow
+
+Implementation tactical docs live under `docs/tactical/` and use zero-padded
+numeric filenames. The next tactical created under this convention is
+`000-{subject}.md`; after that, allocate the next unused number and add it to
+`docs/tactical/README.md`. Completed tacticals are execution records, not the
+source of continuing guidance.
+
+Focused, living topic docs live under `docs/topics/`. Before working on a
+continuing concern, look for and read its topic doc. Update it when work changes
+the concern's status, contract, evidence, validation, gaps, or recommended next
+direction. Create a focused topic when continuity across sessions or commits
+would be valuable, but do not create one for every small standalone change or
+broaden a nearby topic into a catch-all.
+
+Adopt these conventions incrementally. Existing architecture, reference,
+status, and implementation-plan docs do not need to move solely for
+consistency. Architecture and reference docs own durable system shape and
+external facts; topic docs own current truth for a focused continuing concern;
+tactical docs own bounded implementation slices and execution records.
+
+See `docs/tactical/README.md` and `docs/topics/README.md` for the local indexes
+and templates. The root `topics.md` is separate: it registers exact `Topic:`
+strings used to thread related commit series.
+
+## Commit Message Guidance
+
+Aim for a subject of at most 65 characters and strictly wrap commit bodies at
+72 columns. Use a concise, result-oriented subject that remains scannable in
+`git log --oneline`. Never mention Claude, AI, or any AI assistant in commit
+messages; write them as human development history.
+
+For non-trivial commits, include a concise synthesis of the originating request
+or motivating observation and the key implementation direction. Preserve enough
+context for a future maintainer to understand or approximately re-derive the
+change without recording digressions, secrets, or a verbatim conversation.
+Mechanical or small self-evident changes may use a one-line message.
+
+When commits form a related series, append one or more exact
+`Topic: <string>` trailers after the body. The first commit chooses the string;
+later commits copy it verbatim so `git log --grep "Topic: ..."` finds the
+series. Prefer the matching `docs/topics/` filename slug when the series
+implements a documented topic. Use multiple trailers when needed and omit them
+for standalone commits with no expected follow-up. Before starting a series,
+scan root `topics.md` and register any new topic string there.
+
+## Architecture
+
+### ffmpeg.wasm
+- ONLY for small MEMFS segment operations. NEVER for full-file operations (WORKERFS is catastrophically slow, MEMFS can't hold large files). Do not use ffmpeg for subtitle extraction or any task requiring full file access.
+- Two bundles: `src/vendor/ffmpeg-core-audio/` (1.5MB, audio-only) and `src/vendor/ffmpeg-core/` (31MB, full)
+- Audio transcode works now; video transcode planned (hardware decode scenarios)
+- Lazy-load only when transcode is actually needed
+
+### Audio Transcode
+- Source packets → concatenate raw bitstream → ffmpeg → parse ADTS output → EncodedPackets
+- `ffmpeg -f {sourceCodec} -i input -c:a aac -ac 2 -b:a 160k -f adts output.aac`
+- `sourceCodec` from `TranscodeOptions.sourceCodec`: ac3, eac3, dts, mp3, flac, opus
+- Codec probe (`audioNeedsTranscode`) decides passthrough vs transcode per platform
+
+### Browser Worker
+- Worker keeps demux handle open, processes segments on-demand when hls.js requests them
+- `FfmpegRunner` interface abstracts node:fs vs MEMFS
+- Concurrent ffmpeg.wasm calls are serialized (shared MEMFS corruption)
+
+### mediabunny
+- See `docs/mediabunny-integration.md` for current fork state and maintenance plan
+- Source of truth should be one local checkout at `~/code/references/mediabunny`
+- Key: `collectPacketsInRange` needs `{ startFromKeyframe: true }` for video
+- API: `EncodedVideoPacketSource.add(packet, { decoderConfig })`, `Mp4OutputFormat({ fastStart: 'fragmented', onMoov, onMoof, onMdat })`, `NullTarget` with callbacks for streaming
+
+### Segment Plan
+- Our plan may differ from ffmpeg's segment count by 1–2 segments (ffmpeg's fMP4 init extraction absorbs keyframe cuts). This is cosmetic and does not affect playback.
+
+## Release Process
+
+Changelog-driven releases. The changelog entry must exist before the release script will run.
+
+### Steps
+
+1. Add entry to `CHANGELOG.md` under `## [x.y.z]` (move items from `[Unreleased]`)
+2. Commit the changelog update
+3. Run: `bash scripts/release.sh x.y.z`
+   - Validates version format and clean working tree
+   - Requires matching `## [x.y.z]` in CHANGELOG.md
+   - Runs green gates + lib build
+   - Updates package.json version, commits, creates `vx.y.z` tag
+4. Push: `git push && git push origin vx.y.z`
+5. CI picks up the tag → runs gates → publishes to npm → creates GitHub Release with changelog notes
+
+### Files
+
+| File | Purpose |
+|------|---------|
+| `CHANGELOG.md` | Keep a Changelog format, required before release |
+| `scripts/release.sh` | Version bump, validation, commit, tag |
+| `.github/workflows/publish.yml` | CI: tag push → npm publish + GitHub Release |
+
+### npm package
+
+- Entry: `import { PlaysVideoEngine } from 'playsvideo'`
+- Lib build: `pnpm -w run build:lib` (tsc via `tsconfig.lib.json`, excludes Vite-specific files and `src/app/`)
+- Trusted publishing via OIDC (`id-token: write`) — no npm token needed, configure on npmjs.com package settings
+
+## Deploy
+
+Site is hosted with Cloudflare Workers Static Assets at playsvideo.com.
+
+```bash
+pnpm -w run deploy:site    # build both sites + atomically deploy Worker/assets
+pnpm -w run deploy:worker  # deploy Worker with existing dist-site/ + app/dist/
+pnpm -w run deploy         # alias for deploy:site
+```
+
+- `scripts/deploy.sh` — stages the app under `dist-site/app/` and invokes Wrangler once; Wrangler uploads only changed asset hashes
+- `worker/index.js` — Cloudflare Worker that handles clean URL aliases and the `/app/*` SPA fallback
+- `public/_headers` — cache policy (no-cache for HTML/SW/manifest, immutable for hashed assets). No COOP/COEP headers needed (see `docs/no-shared-array-buffer.md`)
+- The legacy R2 bucket is retained as a rollback source but is not bound to the Worker.
+
+## ChromeOS Hardware Testing
+
+If testing on physical Chromebook/ChromeOS hardware, read and follow
+`~/code/chromeos-testbed/skills/SKILL.md`. Start with:
+
+```bash
+~/code/chromeos-testbed/bin/chromeos doctor
+```
+
+For PlaysVideo-specific device state and workflows, also read
+`~/code/dotfiles/projects/playsvideo-chromebook-offline-media.md`. It is the
+runbook for building and deploying the extension, reopening it after reload,
+managing the test media, retaining folder permission, and validating offline
+playback.
+
+## Rebuilding ffmpeg.wasm (audio-only)
+
+The audio-only bundle is built via Docker on the desktop machine. To rebuild after changing `ffmpegbuild/Dockerfile.ffmpeg-audio`:
+
+```bash
+# 1. Commit and push changes (Dockerfile changes must be on remote)
+git push
+
+# 2. Build on desktop (has Docker) — pulls, builds, copies to vendor dir
+ssh desktop "cd ~/code/playsvideo && git pull && bash ffmpegbuild/build.sh"
+
+# 3. Copy built files back
+scp desktop:~/code/playsvideo/ffmpegbuild/out/ffmpeg-core.js \
+    desktop:~/code/playsvideo/ffmpegbuild/out/ffmpeg-core.wasm \
+    src/vendor/ffmpeg-core-audio/
+```
+
+Build config: `ffmpegbuild/Dockerfile.ffmpeg-audio` (decoders, encoders, filters, etc.)
+
+## External Consumers
+
+JSTorrent (`~/code/jstorrent/`) imports playsvideo from `dist/`. After changing source, run `pnpm -w run build:lib` to rebuild — `pnpm dev` only serves source via Vite and does not update `dist/`.
+
+## Reference Code
+
+- ffmpeg source: `~/code/references/ffmpeg` (key file: `libavformat/hlsenc.c`)
+- mediafox (wiedymi's player): `~/code/references/mediafox`
+
+---
+> Source: [kzahel/playsvideo](https://github.com/kzahel/playsvideo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
