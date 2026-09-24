@@ -1,0 +1,9 @@
+{
+  "name": "justchr--bavariandata",
+  "displayName": "BavarianData",
+  "description": "A Home Assistant integration that connects directly to BMW CarData \u2014 MQTT stream + REST API \u2014 turning your BMW's data into native entities.",
+  "version": "1.0.0",
+  "author": "JustChr",
+  "homepage": "https://github.com/JustChr/BavarianData",
+  "skills": []
+}
