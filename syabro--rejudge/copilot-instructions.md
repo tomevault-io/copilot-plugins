@@ -1,0 +1,59 @@
+## rejudge
+
+> The root `justfile` is the command interface for repository work — `just test`, `just test-unit`, `just typecheck`, `just build-cli`. Package scripts remain the implementation owned by each package. Run `just` to list every workflow.
+
+# Rejudge
+
+The root `justfile` is the command interface for repository work — `just test`, `just test-unit`, `just typecheck`, `just build-cli`. Package scripts remain the implementation owned by each package. Run `just` to list every workflow.
+
+At the start of every task, read the root `package.json` and `justfile` before choosing or suggesting commands. Use the existing scripts and recipes to perform in-scope work yourself; do not tell the user to run an available command manually unless an explicit project rule requires user interaction.
+
+After committing code changes, rebuild with `just build` (CLI + extension). `bin/rejudge.js` (from `src/cli.ts`) and `dist/extension.js` (from `src/index.ts`, with `neverthrow` inlined) are gitignored bundles that won't reflect `src/` changes until rebuilt; `bun install` also rebuilds them via the `prepare` script. The Pi extension is loaded as the built bundle, not from `src/` — Pi 0.80's loader only resolves the pi SDK + typebox, so third-party deps must be bundled in.
+
+## Release publishing
+
+Do not run npm publish yourself. The user must run the publish step manually because npm requires interactive two-factor authentication.
+
+## File Paths in Prompts
+
+Use `@` prefix for file paths in skill prompts (e.g., `@README.md`). This is Claude Code file inclusion syntax.
+
+## Code navigation
+
+Do not use `ast-index` for files under `site/`.
+
+## Site copy
+
+Russian is an adaptation, not a translation. Match the meaning, not the wording.
+
+Banned: reciting the mechanism. "Several models work a request separately and a judge turns their answers into one", and every rewording of it, is forbidden anywhere in public copy. It narrates plumbing and gives the reader nothing.
+
+## Code style
+
+No linter is configured — these are upheld by reading the code (and by LLM code review). Keep code readable like prose:
+
+- **Blank lines as paragraphs.** Group related statements into paragraphs separated by blank lines, the way prose breaks into paragraphs. Don't write walls of code with no breaks — a reader should see the steps.
+- **Inline `if` only for control jumps.** A one-line `if (cond) <stmt>` is allowed only when `<stmt>` is `return`, `throw`, `continue`, or `break`. For an assignment or a call, put the body on its own line in braces.
+
+## Reviews (mdtask)
+
+For the two review steps in the `mdtask-do` / `mdtask-next` skills, use Rejudge as the reviewer (no hardcoded command — the skill knows how to launch it): code review → the `rejudge-diff` skill; plan review → the `rejudge` skill with a plan-review prompt. The judge's answer is the review. This runs the `rejudge` tool or CLI in real use ("боевой режим").
+
+## Commits
+
+Every commit message carries the task ID. Two forms:
+
+- work on a task: `<TYPE>: <ID> <what changed>` — e.g. `FIX: CLI-065 draw the progress block in TTY mode`
+- adding a task: `TASK: Add <ID> <short title>` — e.g. `TASK: Add CLI-065 CLI progress in the Pi format in TTY mode`
+
+## Technical decisions
+
+How the project is built — tooling, architecture, testing approach, and any technical decision that isn't behavior. Read and keep current: @docs/tech.md
+
+---
+
+`CLAUDE.md` is `ln -s AGENTS.md` — Claude Code only reads `CLAUDE.md`, not `AGENTS.md`.
+
+---
+> Source: [syabro/rejudge](https://github.com/syabro/rejudge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
