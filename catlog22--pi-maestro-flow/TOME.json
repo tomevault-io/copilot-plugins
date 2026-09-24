@@ -1,0 +1,363 @@
+{
+  "name": "pi-maestro-flow",
+  "owner": "catlog22",
+  "repo": "pi-maestro-flow",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/team-swarm/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/team-swarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/team-issue/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/team-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/self-evolve/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/self-evolve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/team-review/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/team-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-help/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/skill-tuning/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/skill-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/team-testing/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/team-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-init/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-next/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-next/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-fork/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-fork/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-spec/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-learn/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/team-perf-opt/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/team-perf-opt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/team-arch-opt/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/team-arch-opt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-ralph/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-ralph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-merge/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-merge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-guard/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-issue/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/skill-simplify/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/skill-simplify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-update/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/skill-generator/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/skill-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/skill-iter-tune/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/skill-iter-tune/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/team-coordinate/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/team-coordinate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-overlay/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-overlay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-odyssey/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-odyssey/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-knowhow/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-knowhow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/team-lifecycle-v4/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/team-lifecycle-v4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-companion/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-companion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-knowledge/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-impeccable/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-review/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-writing/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-publish/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-ideation/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-ideation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/maestro-session-manage/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/maestro-session-manage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": ".pi/skills/workflow-skill-designer/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/.pi/skills/workflow-skill-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-experiment/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-experiment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-thesis-docx/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-thesis-docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-rebuttal-pro/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-rebuttal-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-anti-ai-writing/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-anti-ai-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-latex-organizer/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-latex-organizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "optional/skills/scholar-citation-verify/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/optional/skills/scholar-citation-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-review/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-writing/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-publish/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-ideation/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-ideation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-experiment/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-experiment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-thesis-docx/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-thesis-docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-rebuttal-pro/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-rebuttal-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-anti-ai-writing/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-anti-ai-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-latex-organizer/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-latex-organizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-maestro-flow",
+      "path": "packages/pi-maestro-flow/optional/skills/scholar-citation-verify/SKILL.md",
+      "github_url": "https://github.com/catlog22/pi-maestro-flow/tree/main/packages/pi-maestro-flow/optional/skills/scholar-citation-verify/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/catlog22/pi-maestro-flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T13:33:04Z"
+}
