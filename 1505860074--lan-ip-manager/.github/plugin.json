@@ -1,0 +1,9 @@
+{
+  "name": "1505860074--lan-ip-manager",
+  "displayName": "lan-ip-manager",
+  "description": "A LAN IP checking and modification tool exclusively for Linux systems, designed to quickly change the IP address of a device with an unknown IP.",
+  "version": "1.0.0",
+  "author": "1505860074",
+  "homepage": "https://github.com/1505860074/lan-ip-manager",
+  "skills": []
+}
