@@ -1,0 +1,124 @@
+## sockguard
+
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+
+# AGENTS.md
+
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+
+## What is Sockguard?
+
+Sockguard is a Docker socket proxy written in Go. It sits between Docker API consumers (Traefik, drydock, Portainer, etc.) and the Docker socket, filtering requests by HTTP method, path, and request body content on `POST /containers/create`, exec create/start, image pull, build, `POST /volumes/create`, `POST /secrets/create`, `POST /configs/create`, service create/update, swarm init/join/update, and plugin pull/upgrade/set/create. Any remaining body-bearing write path that Sockguard still cannot safely constrain stays behind the blind-write opt-in instead of being silently allowed. Default-deny posture, structured logging, per-client policy profiles, owner-label isolation, and read-side visibility/redaction make it the most comprehensive Docker socket security layer available.
+
+## Repository Structure
+
+This is a monorepo with three workspaces:
+
+- **`app/`** — Go proxy (the core binary). Built with Go 1.26, uses stdlib `net/http/httputil.ReverseProxy` for proxying, Cobra+Viper for CLI/config.
+- **`website/`** — Next.js landing page at getsockguard.com. Hosts the benchmarks + feature pages.
+- **`docs/`** — Fumadocs documentation site served under `getsockguard.com/docs` (the `docs/` Next.js app is built with `basePath: "/docs"`, then `website/package.json`'s `prebuild` script copies its static export into `website/public/docs/` so the marketing site serves it as a subpath).
+
+Turborepo orchestrates the TypeScript workspaces. The Go app is built independently.
+
+## Build, Test, and Lint Commands
+
+```bash
+# Go proxy — run from app/
+go build -o sockguard ./cmd/sockguard/   # Build binary
+go test ./...                              # All tests with coverage
+go test -fuzz=FuzzPathMatch ./internal/filter/  # Fuzz tests
+golangci-lint run                          # Lint
+
+# TypeScript workspaces — run from repo root
+npm run dev                    # Dev servers for all TS workspaces
+npm run build                  # Build all TS workspaces
+npx biome check .              # Lint all TS/JS
+npx biome check --fix .        # Lint + autofix
+npx biome format --write .     # Format
+
+# Docker
+docker build -t sockguard:dev .
+```
+
+## Architecture
+
+### Proxy Core
+
+The proxy is a middleware chain built on `net/http`:
+
+```
+Listener (Unix socket or TCP)
+  → Access Logger
+  → Health Interceptor (/health)
+  → Rule Evaluator (method + path matching)
+  → httputil.ReverseProxy → Docker socket
+```
+
+### Filter Rules
+
+Rules are defined in YAML and compiled to matchers at startup:
+
+```yaml
+rules:
+  - match: { method: GET, path: "/containers/**" }
+    action: allow
+```
+
+Path patterns use glob syntax. Before matching, Sockguard canonicalizes policy paths by percent-decoding escaped separators and dot segments, cleaning dot segments with Go's `path.Clean`, and stripping Docker API version prefixes such as `/v1.45/`.
+
+Rules evaluate in order — first match wins. No match = deny (default-deny).
+
+### Tecnativa Compatibility
+
+Env vars like `CONTAINERS=1`, `POST=0`, `ALLOW_START=1` are automatically converted to equivalent rules for drop-in migration from Tecnativa/LinuxServer socket proxies.
+
+## Configuration
+
+YAML config file + env var overrides via Viper. Precedence: CLI flags > env vars > config file > defaults.
+
+Env vars use `SOCKGUARD_` prefix with underscore nesting: `SOCKGUARD_LISTEN_SOCKET=/var/run/sockguard.sock`.
+
+## Testing Patterns
+
+- **Table-driven tests** with `testing.T` and `httptest`
+- **Fuzz tests** for filter matching and config parsing
+- **Integration tests** using `httptest.NewServer` as mock Docker daemon
+- No external test dependencies — stdlib only
+
+## Commit Convention
+
+Plain Conventional Commits, no emoji: `<type>(<scope>): <description>`
+
+| Type | Use |
+|------|-----|
+| `feat` | New feature |
+| `fix` | Bug fix (including security fixes) |
+| `docs` | Documentation |
+| `refactor` | Refactor |
+| `test` | Tests |
+| `build` | Build system, dependencies |
+| `ci` | CI/CD pipeline |
+| `chore` | Config/tooling |
+| `perf` | Performance |
+| `style` | UI/cosmetic changes |
+| `revert` | Revert a previous commit |
+
+Add `!` before the colon for a breaking change (`feat(api)!: drop v1 tokens`), or add a `BREAKING CHANGE:` footer. Allowed types are exactly the ones above — nothing else. Git-generated subjects are exempt from validation: merge commits, `Revert "..."` commits, and `fixup!`/`squash!` autosquash commits.
+
+## Pre-push Checks (Lefthook)
+
+See `lefthook.yml` for exact commands. The pre-push pipeline is piped (sequential, fail-fast): clean-tree, GoReleaser snapshot dry-run, `golangci-lint`, `go test -race`, fuzz smoke, `npm dedupe --dry-run`, knip, biome, `npm test`, `turbo build`, and zizmor.
+
+## Key Constraints
+
+- The proxy's request hot path — filtering, proxying, logging — uses only the Go stdlib. The binary's direct external dependencies are Cobra+Viper (CLI/config), fsnotify (config hot-reload), and sigstore/sigstore-go (image-trust and signed-policy-bundle verification).
+- Container image is **Chainguard's distroless `static` base** (built from Wolfi packages, no shell, no package manager) for near-zero CVEs and built-in SBOM/provenance.
+- Biome is a direct devDependency in the root workspace for TS/JS linting.
+- `.planning/` is gitignored — local-only working notes; never reference its contents in committed files.
+- CHANGELOG and README updates should be atomic with each logical change.
+- **Roadmap summary lives in `README.md`** (committed). Local-only longer-form notes live under `.planning/` and stay gitignored.
+- `greptile.json` (`{"skipReview": "AUTOMATIC"}`) keeps Greptile dormant until the `second-opinion` label triggers the caller workflow at `.github/workflows/greptile.yml`, summoning it as an independent second-opinion reviewer alongside CodeRabbit.
+
+---
+> Source: [CodesWhat/sockguard](https://github.com/CodesWhat/sockguard) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
