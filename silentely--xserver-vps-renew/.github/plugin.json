@@ -1,0 +1,9 @@
+{
+  "name": "silentely--xserver-vps-renew",
+  "displayName": "xserver-vps-renew",
+  "description": "\u81ea\u52a8\u4e3a Xserver \u514d\u8d39 VPS \u7eed\u671f\uff1a\u5728\u53ef\u7eed\u671f\u7a97\u53e3\u5185\u5b8c\u6210\u767b\u5f55\u3001\u9a8c\u8bc1\u7801\u8bc6\u522b\u4e0e\u63d0\u4ea4\u3002",
+  "version": "1.0.0",
+  "author": "Silentely",
+  "homepage": "https://github.com/Silentely/xserver-vps-renew",
+  "skills": []
+}
