@@ -1,7 +1,7 @@
 {
   "name": "guanyang--open-agent-hub",
   "displayName": "open-agent-hub",
-  "description": "A lightweight, zero-dependency CLI tool to manage and activate capabilities for AI coding assistants (such as Claude Code, Cursor, Trae, etc.).",
+  "description": "open-agent-hub",
   "version": "1.0.0",
   "author": "guanyang",
   "homepage": "https://github.com/guanyang/open-agent-hub",
