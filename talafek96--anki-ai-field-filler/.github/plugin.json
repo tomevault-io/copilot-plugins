@@ -1,0 +1,9 @@
+{
+  "name": "talafek96--anki-ai-field-filler",
+  "displayName": "anki-ai-field-filler",
+  "description": "An Anki addon that uses AI to intelligently auto-fill blank note fields.",
+  "version": "1.0.0",
+  "author": "talafek96",
+  "homepage": "https://github.com/talafek96/anki-ai-field-filler",
+  "skills": []
+}
