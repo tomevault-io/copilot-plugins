@@ -1,0 +1,14 @@
+{
+  "name": "fanfan-de--anybox",
+  "displayName": "anybox",
+  "description": "anybox",
+  "version": "1.0.0",
+  "author": "fanfan-de",
+  "homepage": "https://github.com/fanfan-de/anybox",
+  "skills": [
+    {
+      "name": "render-static-sites",
+      "description": ""
+    }
+  ]
+}
