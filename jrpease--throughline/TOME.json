@@ -1,0 +1,177 @@
+{
+  "name": "throughline",
+  "owner": "jrpease",
+  "repo": "throughline",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "throughline",
+      "path": "skills/token-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/token-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/retrofit-planner/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/retrofit-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/token-sync-layer/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/token-sync-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/component-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/component-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/component-pipeline/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/component-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/icon-system-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/icon-system-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/design-system-audit/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/design-system-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/token-sheet-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/token-sheet-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/figma-environment-setup/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/figma-environment-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/token-crosswalk-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/token-crosswalk-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "skills/storybook-chromatic-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/skills/storybook-chromatic-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/token-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/token-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/retrofit-planner/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/retrofit-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/token-sync-layer/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/token-sync-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/component-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/component-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/component-pipeline/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/component-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/icon-system-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/icon-system-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/design-system-audit/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/design-system-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/token-sheet-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/token-sheet-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/figma-environment-setup/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/figma-environment-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/token-crosswalk-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/token-crosswalk-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "throughline",
+      "path": "adapters/generic/skills/storybook-chromatic-builder/SKILL.md",
+      "github_url": "https://github.com/jrpease/throughline/tree/main/adapters/generic/skills/storybook-chromatic-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jrpease/throughline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T20:40:53Z"
+}
