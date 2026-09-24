@@ -4,7 +4,7 @@
   "repo": "anonimator",
   "description": "App desktop per pseudoanonimizzazione offline di documenti legali italiani",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/avvocati-e-mac/anonimator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T07:51:16Z"
+  "distributed_at": "2026-09-24T14:51:45Z"
 }
