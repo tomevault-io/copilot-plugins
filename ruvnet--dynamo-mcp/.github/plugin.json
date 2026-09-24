@@ -1,0 +1,22 @@
+{
+  "name": "ruvnet--dynamo-mcp",
+  "displayName": "dynamo-mcp",
+  "description": "dynamo-mcp",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/dynamo-mcp",
+  "skills": [
+    {
+      "name": "dynamo-mcp",
+      "description": ""
+    },
+    {
+      "name": "dynamo-mcp",
+      "description": ""
+    },
+    {
+      "name": "dynamo-mcp",
+      "description": ""
+    }
+  ]
+}
