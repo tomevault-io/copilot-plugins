@@ -162,4 +162,4 @@ When working across repos, prefer one PR per repo (don't bundle Android + core c
 
 ---
 > Source: [soniqo/speech-core](https://github.com/soniqo/speech-core) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
