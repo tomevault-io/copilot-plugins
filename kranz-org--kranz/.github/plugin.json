@@ -1,0 +1,14 @@
+{
+  "name": "kranz-org--kranz",
+  "displayName": "kranz",
+  "description": "kranz",
+  "version": "1.0.0",
+  "author": "kranz-org",
+  "homepage": "https://github.com/kranz-org/kranz",
+  "skills": [
+    {
+      "name": "kranz",
+      "description": ""
+    }
+  ]
+}
