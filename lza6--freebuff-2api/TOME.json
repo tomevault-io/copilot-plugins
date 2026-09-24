@@ -1,0 +1,63 @@
+{
+  "name": "Freebuff-2API",
+  "owner": "lza6",
+  "repo": "Freebuff-2API",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Freebuff-2API",
+      "path": ".claude/skills/graft/SKILL.md",
+      "github_url": "https://github.com/lza6/Freebuff-2API/tree/main/.claude/skills/graft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Freebuff-2API",
+      "path": ".agents/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/lza6/Freebuff-2API/tree/main/.agents/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Freebuff-2API",
+      "path": ".agents/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/lza6/Freebuff-2API/tree/main/.agents/skills/golang-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lza6/Freebuff-2API",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T18:33:21Z"
+}
