@@ -1,0 +1,33 @@
+## pytrendy
+
+> PyTrendy: trend detection lib for time series. Python ≥3.10, CI on 3.12.
+
+# AGENTS.md
+
+PyTrendy: trend detection lib for time series. Python ≥3.10, CI on 3.12.
+
+## Skills (load before ANY code work)
+
+Before making code changes, commits, or PRs, load these skills — they contain
+the conventions, architecture, and rules this project enforces:
+
+1. **`maintenance`** — commit format, branch model, deprecation policy, API surface, diff rules, remote session behaviour
+2. **`pytrendy`** — 5-stage pipeline, module map, install/verify, datasets, PyTrendyResults, docs tooling
+
+Other skills (`test`, `cicd`, `debug`, `pr-plots`) load on demand for specific tasks.
+
+## Critical rules (summary — details in skills)
+
+- PRs target `develop`, not `main`
+- **Commits must use Conventional Commits**: `fix:`, `feat:`, `chore:`, `ci:`, `docs:`, `refactor:`, `perf:`, `test:`, `build:`, `revert:`
+  - Lowercase, imperative, <72 chars, no trailing period
+  - This applies to all commit messages you generate, including auto-generated summaries
+  - `lint-pr-title.yml` enforces the `type: description` prefix and allowed types on PR titles (regex: `^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?!?: .+`)
+  - **PR titles use the same pattern** — non-conforming titles are blocked in CI
+- Deprecating a public param = `feat:` (minor), NOT `refactor:`
+- **`chore` vs `fix`**: `fix:` triggers a **patch release** via semantic-release. Use `chore:` or `ci:` for maintenance-only changes that have zero user-facing code impact. Using `fix:` on non-bugfix work causes accidental auto-releases.
+- Never hand-edit `pyproject.toml` version or `CHANGELOG.md`
+
+---
+> Source: [RussellSB/pytrendy](https://github.com/RussellSB/pytrendy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
