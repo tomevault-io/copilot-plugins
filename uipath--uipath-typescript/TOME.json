@@ -1,0 +1,81 @@
+{
+  "name": "uipath-typescript",
+  "owner": "UiPath",
+  "repo": "uipath-typescript",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "uipath-typescript",
+      "path": ".claude/skills/sdk-ship/SKILL.md",
+      "github_url": "https://github.com/UiPath/uipath-typescript/tree/main/.claude/skills/sdk-ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uipath-typescript",
+      "path": ".claude/skills/sdk-review/SKILL.md",
+      "github_url": "https://github.com/UiPath/uipath-typescript/tree/main/.claude/skills/sdk-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uipath-typescript",
+      "path": ".claude/skills/sdk-verify/SKILL.md",
+      "github_url": "https://github.com/UiPath/uipath-typescript/tree/main/.claude/skills/sdk-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uipath-typescript",
+      "path": ".claude/skills/onboard-api/SKILL.md",
+      "github_url": "https://github.com/UiPath/uipath-typescript/tree/main/.claude/skills/onboard-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uipath-typescript",
+      "path": ".claude/skills/enhance-claude-docs/SKILL.md",
+      "github_url": "https://github.com/UiPath/uipath-typescript/tree/main/.claude/skills/enhance-claude-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uipath-typescript",
+      "path": "plugins/uipath-sites/skills/uipath-coded-sites/SKILL.md",
+      "github_url": "https://github.com/UiPath/uipath-typescript/tree/main/plugins/uipath-sites/skills/uipath-coded-sites/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/UiPath/uipath-typescript",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T16:57:57Z"
+}
