@@ -1,0 +1,299 @@
+## ai-workflows
+
+> This file provides guidance to AI coding assistants when working with this repository.
+
+# AGENTS.md
+
+This file provides guidance to AI coding assistants when working with this repository.
+
+## Project Overview
+
+This repository contains reusable AI coding workflows and focused skills that can be installed globally or per-project in any environment (Cursor, Claude Code, Gemini, Codex). Each package is a self-contained directory with structured markdown files that AI agents can read and execute.
+
+**Current simple skills:**
+- **gh-stack** — Manages stacked PRs with gh-stack (creation, viewing, editing, push, submit, sync, rebase, merge, checkout)
+- **report-bug** — Configurable, evidence-based Jira Bug reporting with explicit confirmation
+
+**Current workflows:**
+- **ai-ready** — Codebase scanning and AGENTS.md generation (update)
+- **bugfix** — Systematic bug resolution (assess, reproduce, diagnose, fix, test, review, document, pr)
+- **code-review** — AI-driven code review with human-in-the-loop decisions (start, continue, clean)
+- **cve-fix** — Automated CVE remediation from Jira tickets (start, scan, patch, validate, pr, backport, close | standalone: report)
+- **design** — Design-and-decompose workflow (ingest, research, draft, decompose, revise, publish, respond, sync)
+- **docs-writer** — Documentation creation workflow (gather, plan, draft, validate, apply, mr)
+- **e2e** — Story-to-tests workflow for [QE] stories (ingest, plan, revise, code, validate, publish, respond)
+- **implement** — Story-to-code workflow (ingest, plan, revise, code, validate, publish, respond)
+- **kcs** — KCS Solution article workflow (gather, draft, validate, handoff)
+- **prd** — Requirements-to-PRD workflow (ingest, clarify, draft, revise, publish, respond)
+- **rebase-stack** — Rebase a stacked-branch chain with conflict guidance, per-branch validation, and push (start, continue, validate, push)
+- **sizing** — Pre-cycle Feature sizing with T-shirt sizes and team effort breakdowns (ingest, assess, apply)
+- **skill-reviewer** — Meta-workflow that audits AI skill directories
+- **triage** — Bulk Jira bug triage with AI-driven categorization and HTML reports
+
+## Architecture
+
+### Workflow Structure
+
+Every workflow follows this canonical structure:
+
+```text
+workflow-name/
+  SKILL.md              # Entry point with YAML frontmatter (name, version, description)
+  guidelines.md         # Behavioral rules: principles, hard limits, safety, quality
+  README.md             # Human-readable documentation (prerequisites, artifacts, usage)
+  skills/
+    controller.md       # Optional discovery and ambiguous-input router
+    dispatch.md         # Optional lightweight explicit-phase dispatcher
+    completion.md       # Optional centralized next-step guidance
+    phase-name.md       # Implementation for each phase
+  commands/
+    phase-name.md       # Thin wrappers that invoke a controller, dispatcher, SKILL.md, or phase
+  scripts/              # Optional — deterministic operations invoked by skills
+  prompts/              # Optional — prompt templates for sub-agent delegation
+```
+
+Simple skills live at `skills/{skill-name}/` with a `SKILL.md` entry point and
+only the references, scripts, or assets they need.
+
+### Simple Skill Structure
+
+```text
+skills/
+  skill-name/
+    SKILL.md              # Entry point with YAML frontmatter
+    references/           # Optional conditional instructions and schemas
+    templates/            # Optional generated-content templates
+    scripts/              # Optional deterministic implementation helpers
+```
+
+Simple skills are focused capabilities, not phase-based workflows. Add only the
+resources required by the skill; they do not need a controller, commands,
+guidelines, README, or artifact lifecycle by default.
+
+**Key architectural principles:**
+1. **Auto-discovery**: The installer discovers top-level `*/SKILL.md` workflows and `skills/*/SKILL.md` simple skills; package names must be globally unique
+2. **Progressive disclosure**: SKILL.md is thin (under 30 lines); details live in workflow guidelines/phases or a simple skill's references
+3. **Relative paths**: All file references must be relative to the file's location (for symlink compatibility)
+4. **Phase-based execution**: Most workflows operate through discrete phases with explicit transitions
+5. **Shared resources**: Cross-cutting concerns live in `_shared/` and are referenced by relative path from workflows or simple skills
+6. **Phase overrides**: Projects can override individual phases by placing a replacement skill file at `.workflows/{workflow}/skills/{phase}.md` in their repo root. The controller or lightweight dispatcher checks for this override before falling back to the built-in default. See CONTRIBUTING.md for details.
+
+### Shared Resources (`_shared/`)
+
+```text
+_shared/
+  provenance-schema.md            # Provenance contract for planning docs (footer + session log)
+  content-rules.md                # Shared generated-content rules for all workflows
+  review-protocol.md              # Shared code review criteria, finding format, severity definitions
+  sizing-rubric.md                # Shared sizing definitions (T-shirt sizes, heuristics, team effort guidance)
+  scripts/
+    provenance.py                 # Capture/render CLI (used by prd and design provenance recipes)
+    pr-comments.py                # Deterministic PR comment operations (fetch, reply, log)
+    publish.py                    # Deterministic publish operations (push, PR/MR, metadata)
+    resolve-phase.py              # Deterministic phase override resolution (file-existence check)
+    fetch-issue.py                # Deterministic Jira issue fetching (get, search)
+  recipes/
+    capture-provenance-event.md   # Append session-local provenance on doc-mutating phases
+    phase-override-resolution.md  # Project-level phase override lookup and activation
+    record-manual-edit.md         # Tier 3 manual-edit attribution (wraps capture recipe)
+    render-provenance-footer.md   # Render durable footer into docs-repo markdown before commit
+    self-review-gate.md           # Pre-PR self-review quality gate (used by bugfix, implement, e2e, cve-fix)
+    validation-gate.md            # Pre-commit build/test/lint discovery gate (used by bugfix)
+```
+
+Recipes are self-contained, parameterized procedures that packages reference via relative path (e.g., `../../_shared/recipes/self-review-gate.md` from a workflow phase). Workflows and simple skills may also reference shared files from guidelines, phases, references, templates, prompts, scripts, and other behavioral files — all such references count as consumers for the shared-file cascade (see Package Versioning). The **prd** and **design** workflows use the provenance recipes on `/draft`, `/revise`, `/respond` (capture) and `/publish` plus docs-sync paths (render). See `_shared/provenance-schema.md` for the published footer format.
+
+### File Reference Conventions
+
+Critical for symlink resolution:
+- `commands/*.md` reference `../skills/controller.md`, `../skills/dispatch.md`, `../SKILL.md`, or `../skills/phase-name.md`; dispatchers identify the target with an explicit phase parameter
+- `skills/controller.md`, `skills/dispatch.md`, and `skills/completion.md` reference sibling skills as `phase-name.md` (not `skills/phase-name.md`)
+- `SKILL.md` references `guidelines.md` and optionally `skills/controller.md` (same directory)
+- `skills/{skill-name}/SKILL.md` references its resources relative to the simple skill directory (for example, `references/rendering.md`)
+
+## Key Constraints
+
+1. **No IDE-specific syntax**: All workflow and simple-skill content is plain markdown
+2. **Relative paths only**: For symlink compatibility across install scopes
+3. **Progressive disclosure**: SKILL.md stays under 30 lines
+4. **No auto-advance in attended mode**: Workflows wait for user input between phases unless an explicit unattended mode is documented for that workflow
+5. **Artifact persistence**: Significant workflow outputs are saved to `.artifacts/{workflow-name}/{context}/`; simple skills persist artifacts only when their contract explicitly requires it
+6. **Read-only reviews**: skill-reviewer never modifies target skill files during review
+7. **Artifact isolation**: `.artifacts/{workflow-name}/` is each workflow's private state. Other workflows must never read from or write to another workflow's artifact directory. The shared interfaces between workflows are: Jira (canonical source for issue data), published docs repo files (PRDs, designs, testplans), and workspace-level config at `.artifacts/config.json`
+
+## Package Versioning
+
+When modifying a committed workflow or simple skill, update the version in that
+package's `SKILL.md` frontmatter following semver. A new, uncommitted package may
+remain at its initial `0.1.0` while it is being developed:
+
+- **PATCH** (0.1.0 → 0.1.1): Typo fixes, wording clarification
+  without behavioral change, formatting
+- **MINOR** (0.1.0 → 0.2.0): Adding/changing/reordering behavior,
+  modifying rules, changing templates, or adding workflow phases
+- **MAJOR** (0.1.0 → 1.0.0): Removing or renaming public phases,
+  commands, configuration keys, or other package interfaces; incompatible restructuring
+
+### Version bump baseline
+
+Version bumps are computed **relative to the merge base with `main`**, not
+relative to the current branch state. Each PR warrants **at most one version
+increment per package** at any given semver level.
+
+Rules:
+
+1. Before bumping, compare the version in your branch against the version at
+   `git merge-base HEAD main` (the CI script does this automatically).
+2. If you already bumped a package's version for this PR, do **not** bump it
+   again for additional changes at the same semver level.
+3. The only reason to re-bump within a PR is when the **class** of change
+   escalates (PATCH → MINOR or MINOR → MAJOR). In that case, set the version
+   to what the higher level requires relative to the merge base — do not stack
+   increments.
+
+**Example — wrong (cumulative over-bumping):**
+
+```text
+merge-base version: 0.2.0
+commit 1: fix typo          → bump to 0.2.1 (PATCH) ✓
+commit 2: fix another typo  → bump to 0.2.2 (PATCH) ✗ already bumped
+commit 3: add a new step    → bump to 0.3.0 (MINOR) ✗ stacked on 0.2.2
+```
+
+**Example — correct (single bump relative to merge base):**
+
+```text
+merge-base version: 0.2.0
+commit 1: fix typo          → bump to 0.2.1 (PATCH) ✓
+commit 2: fix another typo  → keep 0.2.1 (already bumped PATCH) ✓
+commit 3: add a new step    → change to 0.3.0 (escalate PATCH → MINOR) ✓
+```
+
+### Which files require a version bump
+
+Behavioral files (the AI reads and executes these):
+`SKILL.md` body, `guidelines.md`, `skills/*.md`, `commands/*.md`,
+`templates/*`, `prompts/*`, `scripts/*`, `_shared/**/*.md`, and
+root-level `.md` files in workflow directories that are read during
+execution (e.g., `design/decomposition-review.md`). For simple skills, this
+includes `skills/{skill-name}/SKILL.md`, `references/*`, `templates/*`,
+`prompts/*`, `scripts/*`, and other files read or executed by the skill.
+
+Non-behavioral files (no bump needed): `README.md`, `GUIDE.md`
+
+### Shared file cascade
+
+When you modify a file in `_shared/`, also PATCH-bump every workflow or simple skill
+that references it — including references in templates, prompts, scripts,
+and other behavioral markdown listed under "Which files require a version
+bump". Find affected workflows by searching for the basename (e.g.,
+`self-review-gate` for `_shared/recipes/self-review-gate.md`, or
+`content-rules` for `_shared/content-rules.md`):
+
+```bash
+grep -rl "<basename-without-extension>" \
+  */SKILL.md \
+  */guidelines.md \
+  */skills/*.md \
+  */commands/*.md \
+  */templates/*.md \
+  */prompts/*.md \
+  */scripts/* \
+  2>/dev/null | sed 's|/.*||' | sort -u
+
+grep -rl "<basename-without-extension>" \
+  skills/*/SKILL.md \
+  skills/*/references/*.md \
+  skills/*/templates/* \
+  skills/*/prompts/*.md \
+  skills/*/scripts/* \
+  2>/dev/null | sed -E 's|^(skills/[^/]+)/.*|\1|' | sort -u
+```
+
+Also check simple-skill references/templates/scripts and root-level workflow
+`.md` files read during execution (e.g., `design/decomposition-review.md`). The CI script
+`.github/scripts/validate-versions.sh` applies this full set of patterns.
+
+Bump each discovered consuming package's `SKILL.md` version (PATCH increment).
+
+### Commit convention
+
+Include the version bump in the same commit as the behavioral change.
+Do not make a separate commit for the version bump.
+
+## Installation
+
+Install with `./install.sh <target>` (targets: `cursor`, `claude`, `gemini`,
+`codex`, `all`). See README.md for scopes, options, and uninstall instructions.
+
+## Development
+
+See CONTRIBUTING.md for workflow and simple-skill structure conventions, path rules, testing, and installation internals.
+
+## File Organization
+
+```text
+ai-workflows/
+├── _shared/                   # Cross-cutting shared resources
+│   ├── provenance-schema.md   # Planning-doc provenance contract (footer + session log)
+│   ├── content-rules.md       # Shared generated-content rules for all workflows
+│   ├── review-protocol.md     # Shared code review criteria and finding format
+│   ├── sizing-rubric.md       # Shared sizing definitions and heuristics
+│   ├── scripts/
+│   │   ├── provenance.py      # Capture/render CLI for prd/design provenance
+│   │   ├── pr-comments.py     # Deterministic PR comment operations (fetch, reply, log)
+│   │   ├── publish.py         # Deterministic publish operations (push, PR/MR, metadata)
+│   │   ├── resolve-phase.py   # Deterministic phase override resolution
+│   │   └── fetch-issue.py    # Deterministic Jira issue fetching (get, search)
+│   └── recipes/
+│       ├── capture-provenance-event.md
+│       ├── phase-override-resolution.md  # Project-level phase override lookup
+│       ├── record-manual-edit.md
+│       ├── render-provenance-footer.md
+│       ├── self-review-gate.md  # Pre-PR self-review quality gate
+│       └── validation-gate.md   # Pre-commit build/test/lint discovery gate
+├── ai-ready/                  # Workflows (auto-discovered via SKILL.md)
+├── bugfix/
+├── code-review/
+├── cve-fix/
+├── design/
+├── docs-writer/
+├── e2e/
+├── implement/
+├── kcs/
+├── prd/
+├── rebase-stack/
+├── sizing/
+├── skill-reviewer/
+│   ├── prompts/
+│   └── scripts/
+├── triage/
+├── skills/                    # Focused skills (auto-discovered via SKILL.md)
+│   ├── gh-stack/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── report-bug/
+│       ├── SKILL.md
+│       ├── references/
+│       ├── scripts/
+│       └── templates/
+├── install.sh                 # Installer with auto-discovery
+├── uninstall.sh              # Removal script
+├── AGENTS.md                 # AI assistant guidance (this file)
+├── CLAUDE.md                 # Claude Code reference (points to AGENTS.md + install.sh appends here)
+├── CONTRIBUTING.md           # Workflow development guide
+├── README.md                 # User-facing documentation
+└── .gitignore                # Excludes .cursor/, .claude/, .artifacts/, etc.
+```
+
+## Path to Production
+
+When a workflow or simple skill invokes commands that could affect shared systems:
+- **Git operations**: Always verify with `git status` before destructive operations
+- **PR/MR creation**: Confirm branch and base before pushing
+- **Jira writes**: cve-fix `/close`, design `/sync`, sizing `/apply`, and `report-bug` may write to Jira; all require explicit approval. `report-bug` may create only the fully previewed issue and approved follow-up links/attachments
+- **Documentation changes**: Run Vale validation before applying changes to repository files
+
+---
+> Source: [flightctl/ai-workflows](https://github.com/flightctl/ai-workflows) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
