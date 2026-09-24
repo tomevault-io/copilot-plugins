@@ -1,0 +1,9 @@
+{
+  "name": "pegainfer-project--pega-omni",
+  "displayName": "pega-omni",
+  "description": "OpenAI-compatible speech serving in Rust",
+  "version": "1.0.0",
+  "author": "pegainfer-project",
+  "homepage": "https://github.com/pegainfer-project/pega-omni",
+  "skills": []
+}
