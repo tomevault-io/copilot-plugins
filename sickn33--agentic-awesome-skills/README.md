@@ -2,8 +2,6 @@
 
 > Source: [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-AAS Core is the local, agent-first control plane for complete catalog discovery, agent-owned selection, stack validation, and planning, backed by 2,005+ agentic skills. Includes CLI, local MCP, catalog, plugins, and Workbench.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
