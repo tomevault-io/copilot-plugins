@@ -1,0 +1,9 @@
+{
+  "name": "averagenative--0x808",
+  "displayName": "0x808",
+  "description": "Drum machine & synth workstation \u2014 C11 audio engine, step sequencer, FM/subtractive/wavetable synthesis. Standalone (SDL2), VST3, CLAP plugin.",
+  "version": "1.0.0",
+  "author": "averagenative",
+  "homepage": "https://github.com/averagenative/0x808",
+  "skills": []
+}
