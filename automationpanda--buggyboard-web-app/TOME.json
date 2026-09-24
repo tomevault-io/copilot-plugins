@@ -1,0 +1,44 @@
+{
+  "name": "buggyboard-web-app",
+  "owner": "AutomationPanda",
+  "repo": "buggyboard-web-app",
+  "description": "BuggyBoard is a small web app for educational purposes. It is a full-stack Node app written in TypeScript with a React frontend, an Express backend, and a SQLite database.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AutomationPanda/buggyboard-web-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T01:49:52Z"
+}
