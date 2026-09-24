@@ -1,8 +1,6 @@
 # Venom
 
-> Tome by [mpieniak01](https://github.com/mpieniak01/Venom) — distributed by [TomeVault](https://tomevault.io)
-
-Venom is an experimental, local-first AI system designed to orchestrate agents, memory and decision logic in a controlled, auditable way.
+> Tome by [mpieniak01](https://github.com/mpieniak01/Venom), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [mpieniak01/Venom](https://github.com/mpieniak01
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/mpieniak01/Venom](https://github.com/mpieniak01/Venom)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/mpieniak01/Venom](https://github.com/mpieniak01/Venom)
 
 ---
 
