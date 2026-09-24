@@ -1,0 +1,9 @@
+{
+  "name": "chl-5g--quantllm",
+  "displayName": "QuantLLM",
+  "description": "QuantLLM \u2014 A\u80a1\u91cf\u5316\u591a Agent \u4ea4\u6613\u7cfb\u7edf",
+  "version": "1.0.0",
+  "author": "chl-5g",
+  "homepage": "https://github.com/chl-5g/QuantLLM",
+  "skills": []
+}
