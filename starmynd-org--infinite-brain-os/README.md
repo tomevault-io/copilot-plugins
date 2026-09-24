@@ -1,23 +1,21 @@
 # infinite-brain-os
 
-> Source: [starmynd-org/infinite-brain-os](https://github.com/starmynd-org/infinite-brain-os) — distributed by [TomeVault](https://tomevault.io)
-
-A git-backed operating system for running a business with AI agents. Plain Markdown and YAML, readable by any file-reading agent, owned by you.
+> Source: [starmynd-org/infinite-brain-os](https://github.com/starmynd-org/infinite-brain-os). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [starmynd-org/infinite-brain-os](https://github.com/starmynd-org/infinite-brain-os).
+Original source: `AGENTS.md` in [starmynd-org/infinite-brain-os](https://github.com/starmynd-org/infinite-brain-os).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [starmynd-org/infinite-brain-os](https://github.com/starmynd-org/infinite-brain-os) — a repo with 9+ stars on GitHub.
+From [starmynd-org/infinite-brain-os](https://github.com/starmynd-org/infinite-brain-os) — a repo with 252+ stars on GitHub.
 
 ---
 
