@@ -1,0 +1,14 @@
+{
+  "name": "everyinc--hands-on-deck",
+  "displayName": "hands-on-deck",
+  "description": "hands-on-deck",
+  "version": "1.0.0",
+  "author": "EveryInc",
+  "homepage": "https://github.com/EveryInc/hands-on-deck",
+  "skills": [
+    {
+      "name": "hands-on-deck",
+      "description": ""
+    }
+  ]
+}
