@@ -1,0 +1,195 @@
+{
+  "name": "open-science",
+  "owner": "aipoch",
+  "repo": "open-science",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ligandmpnn",
+      "path": "resources/skills/ligandmpnn/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/ligandmpnn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "proteinmpnn",
+      "path": "resources/skills/proteinmpnn/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/proteinmpnn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphafold2",
+      "path": "resources/skills/alphafold2/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/alphafold2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "solublempnn",
+      "path": "resources/skills/solublempnn/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/solublempnn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "diffdock",
+      "path": "resources/skills/diffdock/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/diffdock/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chai1",
+      "path": "resources/skills/chai1/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/chai1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scvi-tools",
+      "path": "resources/skills/scvi-tools/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/scvi-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/evo2/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/evo2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/scgpt/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/scgpt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/boltz/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/boltz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/borzoi/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/borzoi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/esmfold2/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/esmfold2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/customize/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/openfold3/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/openfold3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/fair-esm2/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/fair-esm2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/figure-style/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/figure-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/self-awareness/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/self-awareness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/env-management/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/env-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/figure-composer/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/figure-composer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/paper-narrative/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/paper-narrative/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/literature-review/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/literature-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/compute-env-setup/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/compute-env-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/remote-compute-ssh/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/remote-compute-ssh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-science",
+      "path": "resources/skills/indication-dossier/SKILL.md",
+      "github_url": "https://github.com/aipoch/open-science/tree/main/resources/skills/indication-dossier/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aipoch/open-science",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-24T05:32:38Z"
+}
