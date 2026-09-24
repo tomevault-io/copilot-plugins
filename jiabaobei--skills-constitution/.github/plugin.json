@@ -1,0 +1,14 @@
+{
+  "name": "jiabaobei--skills-constitution",
+  "displayName": "skills-constitution",
+  "description": "skills-constitution",
+  "version": "1.0.0",
+  "author": "jiabaobei",
+  "homepage": "https://github.com/jiabaobei/skills-constitution",
+  "skills": [
+    {
+      "name": "skills-constitution",
+      "description": ""
+    }
+  ]
+}
