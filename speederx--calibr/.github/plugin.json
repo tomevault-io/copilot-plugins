@@ -1,0 +1,9 @@
+{
+  "name": "speederx--calibr",
+  "displayName": "calibr",
+  "description": "Stop guessing llama.cpp flags. Calibrate them on your hardware.",
+  "version": "1.0.0",
+  "author": "SpeederX",
+  "homepage": "https://github.com/SpeederX/calibr",
+  "skills": []
+}
