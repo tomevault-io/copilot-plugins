@@ -1,0 +1,9 @@
+{
+  "name": "mvvmaio--prism-sourcegenerators",
+  "displayName": "Prism.SourceGenerators",
+  "description": "Roslyn source generators for the Prism MVVM library (WPF / Avalonia). NuGet: MvvmAIO.Prism.SourceGenerators",
+  "version": "1.0.0",
+  "author": "MvvmAIO",
+  "homepage": "https://github.com/MvvmAIO/Prism.SourceGenerators",
+  "skills": []
+}
