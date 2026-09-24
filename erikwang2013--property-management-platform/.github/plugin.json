@@ -1,0 +1,9 @@
+{
+  "name": "erikwang2013--property-management-platform",
+  "displayName": "property-management-platform",
+  "description": "\u5168\u6808\u7269\u4e1a\u7ba1\u7406\u7cfb\u7edf\uff0c\u8986\u76d622\u4e2a\u4e1a\u52a1\u6a21\u5757 + 12\u4e2a\u6269\u5c55\u529f\u80fd\uff08\u6d88\u606f\u901a\u77e5/\u5ba1\u6279\u5de5\u4f5c\u6d41/\u652f\u4ed8/\u6295\u7968/SLA/\u50ac\u7f34/\u5de1\u68c0/\u5546\u57ce/\u4eba\u8138/\u96c6\u56e2/\u667a\u80fd\u95ee\u7b54\uff09\u3002\u7ba1\u7406\u5458\u7aef\uff08admin\uff09\u548c\u4e1a\u4e3b\u7aef\uff08service\uff09\u5206\u79bb\u90e8\u7f72\uff0c\u524d\u7aef\u8986\u76d6 Flutter Web\uff08PC \u7ba1\u7406\u540e\u53f0\u98ce\u683c\uff09\u4e0e HarmonyOS \u79fb\u52a8\u7aef\u3002",
+  "version": "1.0.0",
+  "author": "erikwang2013",
+  "homepage": "https://github.com/erikwang2013/property-management-platform",
+  "skills": []
+}
