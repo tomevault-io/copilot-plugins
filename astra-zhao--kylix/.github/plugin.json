@@ -1,0 +1,9 @@
+{
+  "name": "astra-zhao--kylix",
+  "displayName": "kylix",
+  "description": "Kylix is a modern reimagining of Pascal, designed to compile to Go. It combines the clarity and simplicity of Pascal with modern language features.",
+  "version": "1.0.0",
+  "author": "astra-zhao",
+  "homepage": "https://github.com/astra-zhao/kylix",
+  "skills": []
+}
