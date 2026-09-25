@@ -1,36 +1,41 @@
 ## ngio
 
-> Python library for OME-Zarr files (bioimage analysis). Object-based API for multi-dimensional microscopy images; supports HCS plates, labels, tables, ROIs.
+> Executed code lives in scripts under `docs/snippets/`, included by `pymdownx.snippets`
 
-# ngio
-Python library for OME-Zarr files (bioimage analysis). Object-based API for multi-dimensional microscopy images; supports HCS plates, labels, tables, ROIs.
+# Docs
 
-## Setup
-Package manager: **Pixi** (not pip/conda)
-```bash
-pixi install          # install envs
-pixi shell -e dev     # activate dev (Python 3.11)
-```
+Executed code lives in scripts under `docs/snippets/`, included by `pymdownx.snippets`
+(`--8<-- "docs/snippets/<path>.py:name"`, delimited by `# --8<-- [start:name]`). Use
+`source="material-block"`, and `html="1"` for figures. One script per session, each
+runnable standalone from the repo root. Figures and tables go through
+`docs/snippets/_render.py` (house style, percentile windows, scale bars, the
+colour-to-CSS-variable swap); each script imports it in a hidden `plot_helpers` /
+`table_helpers` section.
 
-## Commands
-If the shell is activated, you can run commands directly. Otherwise, prefix with `pixi run -e <env> <command>`.
-```bash
-dev pytest                        # tests (dev)
-test11 pytest                     # Python 3.11
-test12 pytest                     # 3.12
-test13 pytest                     # 3.13
-dev pre-commit run --all-files    # lint/format
-dev ty .                          # type check (Ruff ty)
-docs serve_docs                   # docs preview
-test_nb                      # run notebooks
-```
+Five traps, none visible from the sources:
 
-## Config
-- Python: 3.11–3.14
-- Ruff: line length 88, Google docstrings, `D401` ignored, docstrings off in `tests/`
-- Versioning: VCS via `hatch-vcs` (git tags, no hardcoded versions)
-- Coverage: branch coverage; omits `tests/`, `src/ngio/_version.py`
+- markdown-exec does not redirect `sys.stdout`. It injects its own `print` into the
+  globals of the block it executes, so only a `print` **written in the block** is
+  captured; one inside an imported module resolves to the builtin, prints to the build's
+  terminal, and leaves the block rendering as empty — with the build still exiting 0.
+  Hence `print(figure_html(fig))` rather than a `print_figure(fig)` that prints, and
+  hence the per-block duplication this replaced.
+
+- Build with `--clean --strict` (what `build_docs` does). Plain `zensical build` exits 0
+  and reports "No issues found" even when a code block raised, and serves cached HTML.
+- Each page gets a fresh markdown-exec session, so a page cannot use a variable bound on
+  another. Hence the silent `reopen_*` sections atop getting-started pages 2 and 3.
+- Print tables with the `table_html` helper and `html="1"`, never `.to_markdown()` —
+  block-level Markdown is not run over markdown-exec output, so a pipe table stays literal
+  `|---|`. The helper also strips pandas' `class`/`border` attributes, which every theme
+  table rule is gated against (`table:not([class])`).
+- Every `.md` under `docs/` becomes a page, this file included (`/CLAUDE/`). Zensical does
+  not read `exclude_docs`, and neither an underscore prefix nor burying the file under
+  `snippets/` prevents it; a post-build `rm` would not help either, because `mike deploy`
+  builds its own copy of the site rather than publishing `site/`. The page is absent from
+  `sitemap.xml` but present in the site search index. Accepted deliberately: the split
+  between this file and the root `CLAUDE.md` is worth more than the stray page.
 
 ---
 > Source: [BioVisionCenter/ngio](https://github.com/BioVisionCenter/ngio) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
