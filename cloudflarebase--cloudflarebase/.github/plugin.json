@@ -1,7 +1,7 @@
 {
   "name": "cloudflarebase--cloudflarebase",
   "displayName": "cloudflarebase",
-  "description": "The open-source Firebase for Cloudflare.",
+  "description": "cloudflarebase",
   "version": "1.0.0",
   "author": "cloudflarebase",
   "homepage": "https://github.com/cloudflarebase/cloudflarebase",
