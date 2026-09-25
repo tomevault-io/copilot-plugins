@@ -4,7 +4,7 @@
   "repo": "KubeTrail",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -257,5 +257,5 @@
   ],
   "source_url": "https://github.com/ekkoo-z/KubeTrail",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T19:31:51Z"
+  "distributed_at": "2026-09-25T10:31:49Z"
 }
