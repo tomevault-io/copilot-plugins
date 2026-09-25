@@ -1,0 +1,93 @@
+{
+  "name": "hyperswitch-prism",
+  "owner": "juspay",
+  "repo": "hyperswitch-prism",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hyperswitch-prism",
+      "path": ".skills/pr-reviewer/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-prism/tree/main/.skills/pr-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperswitch-prism",
+      "path": ".skills/new-connector/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-prism/tree/main/.skills/new-connector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperswitch-prism",
+      "path": ".skills/sdk-integration/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-prism/tree/main/.skills/sdk-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperswitch-prism",
+      "path": ".skills/coverage-report/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-prism/tree/main/.skills/coverage-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperswitch-prism",
+      "path": ".skills/demo-integration/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-prism/tree/main/.skills/demo-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperswitch-prism",
+      "path": ".skills/generate-tech-spec/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-prism/tree/main/.skills/generate-tech-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperswitch-prism",
+      "path": ".skills/add-connector-flow/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-prism/tree/main/.skills/add-connector-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperswitch-prism",
+      "path": ".skills/add-payment-method/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-prism/tree/main/.skills/add-payment-method/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/juspay/hyperswitch-prism",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T02:34:32Z"
+}
