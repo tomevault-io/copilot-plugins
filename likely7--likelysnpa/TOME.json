@@ -2,7 +2,7 @@
   "name": "LikelySnpa",
   "owner": "Likely7",
   "repo": "LikelySnpa",
-  "description": "\u57fa\u4e8eOpenscreen\u4fee\u6539 \u4e00\u4e2a\u77e5\u8bc6\u535a\u4e3b\u90fd\u7231\u7528\u7684\u5f55\u5c4f\u8f6f\u4ef6",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Likely7/LikelySnpa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-22T05:55:05Z"
+  "distributed_at": "2026-09-25T15:50:39Z"
 }
