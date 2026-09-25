@@ -3,8 +3,8 @@
   "owner": "cramt",
   "repo": "m365-copilot-proxy",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "m365-copilot-proxy",
+      "path": "packages/openclaw-plugin/skill/SKILL.md",
+      "github_url": "https://github.com/cramt/m365-copilot-proxy/tree/main/packages/openclaw-plugin/skill/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/cramt/m365-copilot-proxy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T06:34:50Z"
+  "distributed_at": "2026-09-25T00:39:28Z"
 }
