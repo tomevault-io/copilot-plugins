@@ -3,8 +3,8 @@
   "owner": "encero-systems",
   "repo": "incan",
   "description": "Incan: a modern, Pythonic language that compiles to Rust! Type-safe, async-friendly, with fixtures, testing, and web/inter-op built in.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,183 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "incan",
+      "path": ".agents/skills/fix/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/test/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/loop/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/yeet-pr/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/yeet-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/bump-rfc/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/bump-rfc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/closeout/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/closeout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/write-rfc/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/write-rfc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/ralph-loop/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/ralph-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-rfc/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-rfc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/start-work/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/start-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/create-plan/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/create-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/fleet-audit/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/fleet-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/hello-world/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/hello-world/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/add-learning/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/add-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-scope/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-scope/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-and-fix/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-and-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/flag-compiler-bug/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/flag-compiler-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-test-style/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-test-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-rust-prose/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-rust-prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-orchestrate/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-orchestrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-code-smells/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-code-smells/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-docs-claims/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-docs-claims/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/create-github-issue/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/create-github-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-architecture/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/write-commit-message/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/write-commit-message/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/create-pr-description/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/create-pr-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/orchestrate-parallel-work/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/orchestrate-parallel-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incan",
+      "path": ".agents/skills/review-incan-source-quality/SKILL.md",
+      "github_url": "https://github.com/encero-systems/incan/tree/main/.agents/skills/review-incan-source-quality/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/encero-systems/incan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T19:32:46Z"
+  "distributed_at": "2026-09-25T02:50:30Z"
 }
