@@ -1,0 +1,14 @@
+{
+  "name": "tt-toe--bevy-tui-texture",
+  "displayName": "bevy_tui_texture",
+  "description": "bevy_tui_texture",
+  "version": "1.0.0",
+  "author": "tt-toe",
+  "homepage": "https://github.com/tt-toe/bevy_tui_texture",
+  "skills": [
+    {
+      "name": "bevy_tui_texture",
+      "description": ""
+    }
+  ]
+}
