@@ -2,16 +2,14 @@
 
 > Tome by [currentai-org](https://github.com/currentai-org/os-ai-map), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-Curated data and models behind the Open Source AI Gap Map
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [currentai-org/os-ai-map](https://github.com/currentai-org/os-ai-map).
+Original source: `CLAUDE.md` in [currentai-org/os-ai-map](https://github.com/currentai-org/os-ai-map).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
