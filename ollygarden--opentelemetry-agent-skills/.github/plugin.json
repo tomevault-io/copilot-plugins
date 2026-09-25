@@ -1,0 +1,9 @@
+{
+  "name": "ollygarden--opentelemetry-agent-skills",
+  "displayName": "opentelemetry-agent-skills",
+  "description": "opentelemetry-agent-skills",
+  "version": "1.0.0",
+  "author": "ollygarden",
+  "homepage": "https://github.com/ollygarden/opentelemetry-agent-skills",
+  "skills": []
+}
