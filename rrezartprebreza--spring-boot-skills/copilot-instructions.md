@@ -7,41 +7,33 @@
 ## Stack
 
 - Spring Boot 4.x, Spring Framework 7, Java 21
-- Maven wrapper: `./mvnw`
 - Jakarta EE 11, Jackson 3, and Boot 4 modular starters
-- Use dedicated technology test starters rather than the classic test starter
+- Build with the checked-in Maven wrapper
 
 ## Commands
 
-- Build: `./mvnw verify`
+- Build and verify: `./mvnw verify`
 - Unit tests: `./mvnw test`
 - Single test: `./mvnw -Dtest=ClassName test`
-- Native tests: use the configured native profile; do not invent one
 
-## Engineering Rules
+## Conventions
 
-- Inspect neighboring code and the dependency tree before choosing an API or starter.
-- Keep controllers as adapters and transactions in application services.
-- Use DTOs; do not expose Hibernate entities as external contracts.
-- Use `tools.jackson` APIs for Jackson customization.
-- Use `@MockitoBean`/`@MockitoSpyBean` and explicit test auto-configuration.
-- Add Flyway migrations for schema changes and never edit applied migrations.
-- Preserve error, security, pagination, nullability, and observability contracts.
+- Read neighboring classes and the dependency tree before generating code.
+- Keep controllers thin, business rules in services, and persistence behind repositories.
+- Use DTOs at HTTP and messaging boundaries.
+- Use Boot 4 dedicated main and test starters and Jackson 3 `tools.jackson` APIs.
+- Use `@MockitoBean`/`@MockitoSpyBean`; configure MockMvc or RestTestClient explicitly.
+- Preserve existing error, security, pagination, nullability, and observability conventions.
 
 ## Skills
 
-Load relevant skills from `.codex/skills/`. Typical combinations:
+Use matching folders under `.claude/skills/`. Combine only the narrow skills required by the
+change, including `spring-boot-migration` when upgrading an existing Boot 3 application.
 
-- Upgrade: `spring-boot-migration`, `testing-pyramid`
-- Endpoint: `rest-api-conventions`, `api-versioning`, `testing-pyramid`
-- Persistence: `spring-data-jpa`, `transactional-patterns`, `flyway-migrations`
-- Production: `production-observability`, `container-native-deployment`
+## Completion
 
-## Verification
-
-Run focused tests and then `./mvnw verify`. For native changes, test the produced native executable.
-Report any verification that could not run.
+Run focused tests followed by `./mvnw verify`. Test the native executable when AOT behavior changes.
 
 ---
 > Source: [rrezartprebreza/spring-boot-skills](https://github.com/rrezartprebreza/spring-boot-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
