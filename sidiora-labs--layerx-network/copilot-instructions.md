@@ -68,4 +68,4 @@ This file is a GENERATED pointer to it. Do not hand-edit it; edit `spec/workflow
 
 ---
 > Source: [Sidiora-Labs/LayerX-Network](https://github.com/Sidiora-Labs/LayerX-Network) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
