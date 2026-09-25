@@ -4,7 +4,7 @@
   "repo": "Donkey",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/DonkeyCut/Donkey",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T12:41:30Z"
+  "distributed_at": "2026-09-25T03:12:12Z"
 }
