@@ -1,0 +1,9 @@
+{
+  "name": "bytedance-seed--edgebench",
+  "displayName": "EdgeBench",
+  "description": "EdgeBench",
+  "version": "1.0.0",
+  "author": "ByteDance-Seed",
+  "homepage": "https://github.com/ByteDance-Seed/EdgeBench",
+  "skills": []
+}
