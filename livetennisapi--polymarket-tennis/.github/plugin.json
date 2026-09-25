@@ -1,0 +1,14 @@
+{
+  "name": "livetennisapi--polymarket-tennis",
+  "displayName": "polymarket-tennis",
+  "description": "polymarket-tennis",
+  "version": "1.0.0",
+  "author": "livetennisapi",
+  "homepage": "https://github.com/livetennisapi/polymarket-tennis",
+  "skills": [
+    {
+      "name": "polymarket-tennis",
+      "description": ""
+    }
+  ]
+}
