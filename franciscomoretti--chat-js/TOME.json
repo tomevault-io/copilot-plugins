@@ -4,7 +4,7 @@
   "repo": "chat-js",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -103,9 +103,39 @@
       "path": ".agents/skills/next-partial-prefetching-adoption/SKILL.md",
       "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/next-partial-prefetching-adoption/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/making-ui-changes/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/making-ui-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/check-visual-changes/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/check-visual-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/vitest-visual-testing/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/vitest-visual-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/triage-visual-changes/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/triage-visual-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chat-js",
+      "path": ".agents/skills/economical-visual-tests/SKILL.md",
+      "github_url": "https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/economical-visual-tests/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/FranciscoMoretti/chat-js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T06:30:26Z"
+  "distributed_at": "2026-09-25T02:30:20Z"
 }
