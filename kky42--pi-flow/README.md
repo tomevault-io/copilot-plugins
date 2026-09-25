@@ -2,16 +2,14 @@
 
 > Tome by [kky42](https://github.com/kky42/pi-flow), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-Use Claude Code, Codex, Pi as subagents or agent in complex workflow.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kky42/pi-flow](https://github.com/kky42/pi-flow).
+Original source: `CLAUDE.md` in [kky42/pi-flow](https://github.com/kky42/pi-flow).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
