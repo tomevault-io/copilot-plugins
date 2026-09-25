@@ -1,0 +1,141 @@
+{
+  "name": "peri",
+  "owner": "KonghaYao",
+  "repo": "peri",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "peri",
+      "path": ".claude/skills/ssh-cli/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/ssh-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": ".claude/skills/langfuse/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/langfuse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": ".claude/skills/blog-writer/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/blog-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": ".claude/skills/auto-devflow/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/auto-devflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": ".claude/skills/auto-converge/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/auto-converge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": ".claude/skills/codebase-index/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/codebase-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": ".claude/skills/project-maturity/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/project-maturity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": ".claude/skills/heavy-verify-loop/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/heavy-verify-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": ".claude/skills/learn-from-history/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/learn-from-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": ".claude/skills/advisor-consultation/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/.claude/skills/advisor-consultation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": "peri-middlewares/src/skills/builtin/skills/cron/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/peri-middlewares/src/skills/builtin/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": "peri-middlewares/src/skills/builtin/skills/goal/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/peri-middlewares/src/skills/builtin/skills/goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": "peri-middlewares/src/skills/builtin/skills/ultracode/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/peri-middlewares/src/skills/builtin/skills/ultracode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": "peri-middlewares/src/skills/builtin/skills/ultra-adlc/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/peri-middlewares/src/skills/builtin/skills/ultra-adlc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": "peri-middlewares/src/skills/builtin/skills/use-artifacts/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/peri-middlewares/src/skills/builtin/skills/use-artifacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "peri",
+      "path": "peri-middlewares/src/skills/builtin/skills/programmatic-tool-calling/SKILL.md",
+      "github_url": "https://github.com/KonghaYao/peri/tree/main/peri-middlewares/src/skills/builtin/skills/programmatic-tool-calling/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/KonghaYao/peri",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T01:01:09Z"
+}
