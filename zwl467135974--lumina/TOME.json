@@ -4,7 +4,7 @@
   "repo": "lumina",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -119,5 +119,5 @@
   ],
   "source_url": "https://github.com/zwl467135974/lumina",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T08:32:07Z"
+  "distributed_at": "2026-09-25T00:31:45Z"
 }
