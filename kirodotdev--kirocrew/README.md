@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kirodotdev/KiroCrew](https://github.com/kirodotdev/KiroCrew).
+Original source: `CLAUDE.md` in [kirodotdev/KiroCrew](https://github.com/kirodotdev/KiroCrew).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -81,7 +81,7 @@ Original source: `AGENTS.md` in [kirodotdev/KiroCrew](https://github.com/kirodot
 - [KiroCrew](https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/apps/builtins/personal_shopper/skills/personal-shopper/SKILL.md)
 - [KiroCrew](https://github.com/kirodotdev/KiroCrew/tree/main/src/kiro_crew/tests_fixtures/skills-custom/skills/auto/.pending/flaky-triage/SKILL.md)
 
-From [kirodotdev/KiroCrew](https://github.com/kirodotdev/KiroCrew) — a repo with 4095+ stars on GitHub.
+From [kirodotdev/KiroCrew](https://github.com/kirodotdev/KiroCrew) — a repo with 4130+ stars on GitHub.
 
 ---
 
