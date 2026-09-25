@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Human-Agent-Society/reef](https://github.com/Human-Agent-Society/reef).
+Original source: `CLAUDE.md` in [Human-Agent-Society/reef](https://github.com/Human-Agent-Society/reef).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -27,7 +27,7 @@ Original source: `AGENTS.md` in [Human-Agent-Society/reef](https://github.com/Hu
 - [reef](https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/hermes/hermes-commands/summarize/SKILL.md)
 - [reef](https://github.com/Human-Agent-Society/reef/tree/main/tests/reef_service/data/harness_goldens/terminus/terminus-commands/summarize/SKILL.md)
 
-From [Human-Agent-Society/reef](https://github.com/Human-Agent-Society/reef) — a repo with 4200+ stars on GitHub.
+From [Human-Agent-Society/reef](https://github.com/Human-Agent-Society/reef) — a repo with 4654+ stars on GitHub.
 
 ---
 
