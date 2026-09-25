@@ -2,8 +2,6 @@
 
 > Tome by [mdjastrzebski](https://github.com/mdjastrzebski/react-native-plain-text), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-A faster, lower-memory React Native <Text> alternative for simple, single-style text
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
