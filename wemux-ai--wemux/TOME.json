@@ -2,7 +2,7 @@
   "name": "wemux",
   "owner": "wemux-ai",
   "repo": "wemux",
-  "description": "Wemux - self-hostable AI agent collaboration platform (Apache-2.0, community edition)",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wemux-ai/wemux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-03T07:30:25Z"
+  "distributed_at": "2026-09-25T23:07:42Z"
 }
