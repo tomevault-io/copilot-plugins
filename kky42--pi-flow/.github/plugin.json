@@ -1,7 +1,7 @@
 {
   "name": "kky42--pi-flow",
   "displayName": "pi-flow",
-  "description": "Use Claude Code, Codex, Pi as subagents or agent in complex workflow.",
+  "description": "pi-flow",
   "version": "1.0.0",
   "author": "kky42",
   "homepage": "https://github.com/kky42/pi-flow",
