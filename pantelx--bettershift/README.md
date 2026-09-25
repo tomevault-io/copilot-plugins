@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [panteLx/BetterShift](https://github.com/panteLx/BetterShift).
+Original source: `AGENTS.md` in [panteLx/BetterShift](https://github.com/panteLx/BetterShift).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [panteLx/BetterShift](https://github.com/panteLx/BetterShift) — a repo with 210+ stars on GitHub.
+From [panteLx/BetterShift](https://github.com/panteLx/BetterShift) — a repo with 209+ stars on GitHub.
 
 ---
 
