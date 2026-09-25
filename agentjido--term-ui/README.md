@@ -2,16 +2,14 @@
 
 > Source: [agentjido/term_ui](https://github.com/agentjido/term_ui). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-A framework for writing terminal user interfaces in Elixir
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [agentjido/term_ui](https://github.com/agentjido/term_ui).
+Original source: `AGENTS.md` in [agentjido/term_ui](https://github.com/agentjido/term_ui).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
