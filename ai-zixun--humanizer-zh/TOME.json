@@ -4,7 +4,7 @@
   "repo": "humanizer-zh",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai-zixun/humanizer-zh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T13:12:24Z"
+  "distributed_at": "2026-09-25T03:53:42Z"
 }
