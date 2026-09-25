@@ -1,7 +1,7 @@
 {
   "name": "fi-153--wyoming-apple-speech",
   "displayName": "wyoming-apple-speech",
-  "description": "Speech-To-Text and Text-To-Speech component for Home Assistant using Apple's on-device STT and TTS models and Wyoming protocol. Great performance, full privacy, always available",
+  "description": "wyoming-apple-speech",
   "version": "1.0.0",
   "author": "FI-153",
   "homepage": "https://github.com/FI-153/wyoming-apple-speech",
