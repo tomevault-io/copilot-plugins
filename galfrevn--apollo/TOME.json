@@ -3,8 +3,8 @@
   "owner": "galfrevn",
   "repo": "apollo",
   "description": "Personal desk agent for ESP32, powered by Cloudflare Workers",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,135 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "cloudflare",
+      "path": ".agents/skills/cloudflare",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/cloudflare",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".claude/skills/seo/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.claude/skills/seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/bun/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/bun/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".claude/skills/ai-seo/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.claude/skills/ai-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/animate/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/wrangler/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/wrangler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/greploop/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/greploop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".claude/skills/greploop/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.claude/skills/greploop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".claude/skills/seo-audit/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.claude/skills/seo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/cloudflare/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/cloudflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/agents-sdk/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/agents-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/impeccable/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/sandbox-sdk/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/sandbox-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".claude/skills/diagnose-seo/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.claude/skills/diagnose-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/emil-design-eng/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/emil-design-eng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".claude/skills/optimize-for-ai/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.claude/skills/optimize-for-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/durable-objects/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/durable-objects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/standards-review/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/standards-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/animation-vocabulary/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/animation-vocabulary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/workers-best-practices/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/workers-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apollo",
+      "path": ".agents/skills/typescript-advanced-types/SKILL.md",
+      "github_url": "https://github.com/galfrevn/apollo/tree/main/.agents/skills/typescript-advanced-types/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/galfrevn/apollo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T02:21:08Z"
+  "distributed_at": "2026-09-25T00:37:00Z"
 }
