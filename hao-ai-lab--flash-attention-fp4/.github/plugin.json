@@ -1,0 +1,14 @@
+{
+  "name": "hao-ai-lab--flash-attention-fp4",
+  "displayName": "flash-attention-fp4",
+  "description": "flash-attention-fp4",
+  "version": "1.0.0",
+  "author": "hao-ai-lab",
+  "homepage": "https://github.com/hao-ai-lab/flash-attention-fp4",
+  "skills": [
+    {
+      "name": "flash-attention-fp4",
+      "description": ""
+    }
+  ]
+}
