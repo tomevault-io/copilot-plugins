@@ -2,9 +2,9 @@
   "name": "shumai",
   "owner": "shumaiOne",
   "repo": "shumai",
-  "description": "AI-native, open-source Frame.io alternative for creative collaboration.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shumaiOne/shumai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T10:45:23Z"
+  "distributed_at": "2026-09-25T05:26:45Z"
 }
