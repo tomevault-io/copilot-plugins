@@ -77,4 +77,4 @@ pnpm smoke                      # 通用无头屏幕组装冒烟
 
 ---
 > Source: [ccch1mneyyy/dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
