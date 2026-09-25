@@ -1,8 +1,8 @@
 {
   "name": "ex-cure-skill",
-  "owner": "W1ndys",
+  "owner": "w1ndys",
   "repo": "ex-cure-skill",
-  "description": "\u56de\u5fc6\u7684\u610f\u4e49\u4e0d\u53ea\u5728\u4e8e\u56de\u5fc6\uff0c\u66f4\u91cd\u8981\u7684\u662f\u4ece\u4e2d\u590d\u76d8\u7ecf\u9a8c\u6559\u8bad\uff0c\u6210\u4e3a\u66f4\u597d\u7684\u81ea\u5df1\u3002\u672c\u9879\u76ee\u57fa\u4e8e therealXiaomanChu/ex-skill \u5f00\u53d1",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/W1ndys/ex-cure-skill",
+  "source_url": "https://github.com/w1ndys/ex-cure-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:01:16Z"
+  "distributed_at": "2026-09-25T03:59:02Z"
 }
