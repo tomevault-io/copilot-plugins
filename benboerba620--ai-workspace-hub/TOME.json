@@ -4,7 +4,7 @@
   "repo": "ai-workspace-hub",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Benboerba620/ai-workspace-hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T11:01:11Z"
+  "distributed_at": "2026-09-25T15:54:13Z"
 }
