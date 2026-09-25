@@ -6,11 +6,9 @@
 
 The address book for AI agents.
 
-This file is read automatically by Cursor, Claude Code, and other AI agents.
-It tells you what Nondual does, how to install it, and how to use every tool.
+This document covers setup and the four tools. For the full REST reference see [api.md](./api.md).
 
-For the full REST reference: https://nondual.cloud/docs
-For the live playground: https://nondual.cloud
+Read top to bottom. Follow the setup for your platform. Verify your work at Step 3.
 
 ---
 
@@ -18,25 +16,35 @@ For the live playground: https://nondual.cloud
 
 One API key gives every agent you run access to a shared workspace. Any agent can:
 
-- Look up a person by email, LinkedIn URL, phone, or handle — get their full profile,
-  interaction history, open follow-ups, and a recommended next action.
-- Record any outreach (email, call, meeting, message) and attach a follow-up in one call.
+- Look up a person by email, LinkedIn URL, phone, or social handle and get their full profile,
+  interaction history, open follow-ups, and a recommended next step.
+- Record an outreach — email, call, meeting, message — and attach a follow-up in one call.
 - List all open follow-ups due today, by owner, or by company domain.
 - Pull every contact and interaction at a company by domain.
-- Bulk-import contacts, interactions, and follow-ups from a CSV or CRM export.
+- Bulk-import contacts, interactions, and follow-ups from a CSV or CRM export (up to 5000 rows).
 
 All agents on the same key share the same memory. Ten agents work like one team.
 
 ---
 
-## Setup
+## Step 1 — Get a key
 
-### Step 1 — Get a key
+### Agent path (recommended)
 
-**You are an agent. Use this path — the key comes back in the API response.**
+You are an agent. Use this path — you receive the key in the API response, no inbox visit.
+
+**CLI:**
 
 ```bash
-curl -s -X POST https://api.nondual.cloud/v1/keys \
+npx nondual init --agent --email HUMAN_EMAIL
+```
+
+Output is JSON. The key is in `api_key`. Store it in your project secrets as `NONDUAL_API_KEY`.
+
+**API directly:**
+
+```bash
+curl -X POST https://api.nondual.cloud/v1/keys \
   -H "Content-Type: application/json" \
   -d '{"email": "HUMAN_EMAIL", "requested_by": "agent"}'
 ```
@@ -47,71 +55,96 @@ Response:
 {
   "api_key": "nd_xxxxxxxxxxxxxxxxxxxx",
   "status": "unclaimed",
-  "message": "Key issued. A claim code was sent to HUMAN_EMAIL."
+  "restrictions": "own contacts only; one permitted human contact (signup email)",
+  "expires_at": "2026-08-20T...",
+  "message": "Key issued. A claim code was sent to HUMAN_EMAIL. Claiming lifts all restrictions."
 }
 ```
 
-Store the key. Set it as `NONDUAL_API_KEY` in your environment or project secrets.
+Store `api_key`. Unclaimed keys work for own contacts and the signup email contact immediately.
 
-The human claims it at https://nondual.cloud/claim — this lifts workspace restrictions.
-Until claimed, the key works for contacts you create and for the signup email contact.
+### What "unclaimed" means
 
-### Step 2 — Choose your interface
+An unclaimed key has limited read access until the human verifies ownership:
 
-**MCP (Cursor, Claude Code, Windsurf, any MCP host):**
+- You can create contacts and look them up if you created them.
+- You can look up the signup email contact.
+- All other contact lookups return 403 with `"error": "key_unclaimed"`.
+
+### Claim step (removes restrictions)
+
+Nondual emails the human a 6-digit OTP when the key is issued. Once they have it:
+
+```bash
+curl -X POST https://api.nondual.cloud/v1/keys/claim \
+  -H "Content-Type: application/json" \
+  -d '{"email": "HUMAN_EMAIL", "otp": "123456"}'
+```
+
+Response: `{"claimed": true}`. Full access restored immediately.
+
+The human can also claim at: https://nondual.cloud/claim
+
+---
+
+## Step 2 — Choose your interface
+
+### MCP (Cursor, Claude Code, Windsurf, any MCP host)
+
+Add to your MCP config:
 
 ```json
 {
   "mcpServers": {
     "nondual": {
-      "url": "https://mcp.nondual.cloud/mcp",
-      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+      "url": "https://mcp.nondual.cloud",
+      "headers": { "Authorization": "Bearer YOUR_KEY" }
     }
   }
 }
 ```
 
-**CLI:**
+Restart the MCP host. The four tools appear automatically.
+
+### CLI
 
 ```bash
-npx nondual init --agent --email HUMAN_EMAIL
+npx nondual init --agent --email EMAIL   # key returned in JSON
 npx nondual get-contact-info EMAIL_OR_URL
-npx nondual record-contact-interaction EMAIL --channel email --summary "what happened"
+npx nondual record-contact-interaction EMAIL --summary "what happened"
 npx nondual list-open-followups
 npx nondual get-company-activity DOMAIN
 ```
 
-**TypeScript SDK:**
-
-```bash
-npm install nondual
-```
+### TypeScript SDK
 
 ```typescript
 import { Nondual } from 'nondual';
 const nd = new Nondual(); // reads NONDUAL_API_KEY from env
+const contact = await nd.getContactInfo({ contact: 'email@example.com' });
+await nd.recordContactInteraction({ contact: 'email@example.com', summary: 'what happened' });
 ```
 
-**REST — all endpoints at `https://api.nondual.cloud/v1/`:**
+### REST
 
 ```bash
 curl -X POST https://api.nondual.cloud/v1/get-contact-info \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Authorization: Bearer YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"contact": "email@example.com"}'
 ```
 
-### Step 3 — Verify
+---
+
+## Step 3 — Verify
 
 ```bash
 npx nondual get-contact-info dario@anthropic.com
-npx nondual record-contact-interaction dario@anthropic.com \\
-  --summary "agent verified nondual MCP setup"
+npx nondual record-contact-interaction dario@anthropic.com \
+  --summary "agent verified the nondual setup"
+npx nondual get-contact-info dario@anthropic.com
+# Interaction appears in the timeline — setup is complete
 ```
-
-You should get a full profile for Dario and a 201 confirming the interaction was recorded.
-Call `get-contact-info` again and confirm the interaction appears in the timeline.
-That is the read-write loop. Nondual is set up.
 
 ---
 
@@ -119,21 +152,16 @@ That is the read-write loop. Nondual is set up.
 
 ### get-contact-info
 
-Look up a person. Returns full profile, relationship summary, recent interactions, open follow-ups,
-and recommended next action.
-
-```json
-POST /v1/get-contact-info
-{
-  "contact": "dario@anthropic.com",
-  "enrich": true
-}
-```
+Look up a person. Returns full profile, relationship summary, recent interactions, open follow-ups, and recommended next action.
 
 **Always call this before any outreach.** It tells you:
-- Whether `do_not_disturb` is set (if true, do not reach out)
+- Whether `do_not_disturb` is set — if true, do not reach out
 - What your agents have already said to this person
 - What the recommended next action is
+
+```json
+{ "contact": "dario@anthropic.com", "enrich": true }
+```
 
 **`also` — multi-identifier merge:**
 
@@ -142,7 +170,8 @@ When you have both an email and a LinkedIn URL for the same person, pass both:
 ```json
 {
   "contact": "kai@company.com",
-  "also": ["https://linkedin.com/in/kuhlig"]
+  "also": ["https://linkedin.com/in/kuhlig"],
+  "enrich": true
 }
 ```
 
@@ -150,47 +179,26 @@ The system treats this as ground truth. Both identifiers are merged into one con
 enrichment runs on every identifier, and all alias keys are stored. This is the correct
 pattern for LinkedIn connections exports where the CSV email may not match enrichment data.
 
-**Fields:**
-- `contact` (required) — email, LinkedIn URL (`linkedin.com/in/slug`), phone (E.164), or @handle
-- `enrich` (optional, default `true`) — set `false` for workspace-only lookup, no vendor calls
+Fields:
+- `contact` (required) — email, LinkedIn URL, phone (E.164), or @handle
+- `enrich` (optional, default `true`) — set `false` for workspace-only lookup
 - `also` (optional) — array of additional identifiers for the same person
 
 ### record-contact-interaction
 
 Record any outreach. Unknown contacts are created on the fly — no prior lookup required.
 
-```json
-POST /v1/record-contact-interaction
-{
-  "contact": "dario@anthropic.com",
-  "channel": "email",
-  "direction": "outbound",
-  "summary": "Sent intro about AI safety partnership",
-  "details": "Hi Dario, I wanted to reach out about a potential AI safety research collaboration. Happy to share more.",
-  "followup_action": "Send proposal deck",
-  "followup_due": "2026-08-01"
-}
-```
+Required: `contact`, `summary`
 
-**Required:** `contact`, `summary`
-
-**Communication (optional):** `channel`, `direction`, `occurred_at`, `details` (full email body/transcript), `participants`
-
-**Attribution (optional):** `recorded_by: { agent, user }`, `source: { platform, external_id }`
-
-**Follow-ups (optional):** `followup_action`, `followup_due`, `followup_agent`, `complete_followups` (array of IDs or `"all"`)
-
-**Contact state (optional):** `do_not_disturb: true` sets the flag; `false` clears it
+Optional: `channel`, `direction`, `details`, `occurred_at`, `followup_action`, `followup_due`, `complete_followups`, `do_not_disturb`
 
 ### list-open-followups
 
-What needs doing. Returns all open follow-ups with a contact snippet so no extra lookup is needed.
+What needs doing. Returns all open follow-ups with a contact snippet.
 
 ```
 GET /v1/list-open-followups?due_before=2026-08-01&company=anthropic.com
 ```
-
-Optional query params: `due_before`, `owner`, `company`
 
 ### get-company-activity
 
@@ -203,82 +211,63 @@ GET /v1/get-company-activity?domain=anthropic.com
 ### imports
 
 Bulk-upsert contacts, interactions, and follow-ups. Up to 5000 rows per call.
-Use for LinkedIn connections exports, CRM syncs, historical backfill.
 
 ```json
-POST /v1/imports
 {
-  "rows": [
-    {
-      "email": "dario@anthropic.com",
-      "linkedin_url": "https://linkedin.com/in/darioamodei",
-      "name": "Dario Amodei",
-      "company": "Anthropic",
-      "company_domain": "anthropic.com",
-      "summary": "Met at AI Summit",
-      "channel": "meeting",
-      "action": "Send follow-up",
-      "due": "2026-08-01"
-    }
-  ]
+  "rows": [{
+    "email": "dario@anthropic.com",
+    "linkedin_url": "https://linkedin.com/in/darioamodei",
+    "name": "Dario Amodei",
+    "summary": "Met at AI Summit",
+    "channel": "meeting",
+    "action": "Send follow-up",
+    "due": "2026-08-01"
+  }]
 }
 ```
-
-Each row needs at least `email` or `linkedin_url`.
-Interaction is written only if both `summary` and `channel` are present.
-Follow-up is written only if `action` is present.
 
 ---
 
 ## Identity — how contacts are matched
 
-Nondual matches contacts across all the identifiers it knows about. A lookup by email
-will find a contact that was created by LinkedIn URL, as long as enrichment returned that
-email for the LinkedIn profile (or vice versa).
+Nondual matches contacts across all known identifiers. A lookup by email will find a contact
+that was created by LinkedIn URL, as long as enrichment returned that email for the profile.
 
 **When enrichment can't bridge the gap** (e.g. a personal alias email not in vendor data),
-use `also` to make an explicit assertion that two identifiers belong to the same person.
-The system merges immediately — no enrichment agreement required.
+use `also` to make an explicit assertion. The system merges immediately — no enrichment
+agreement required.
 
 ---
 
 ## Prompt for your agent
 
-Paste this into your system prompt or `.cursorrules` to give any agent Nondual access:
+Paste into your system prompt or `.cursorrules`:
 
 ```
 You have access to Nondual — a shared memory for every person your agents talk to.
 
 Before any outreach to a person, call get-contact-info with their email or LinkedIn URL.
 Check do_not_disturb before sending anything. Read relationship_summary and open_followups.
-After any outreach, call record-contact-interaction with channel, direction, summary,
-and details (the actual email body, transcript, or meeting notes — no length limit).
+After any outreach, call record-contact-interaction with channel, direction, and summary.
 At the start of any sales or outreach workflow, call list-open-followups to see what's due.
 
 MCP: https://mcp.nondual.cloud/mcp (Authorization: Bearer NONDUAL_API_KEY)
-Docs: https://nondual.cloud/agents.md
-Full docs: https://github.com/nondual-agents/nondual/tree/main/docs
-Contact schema: https://github.com/nondual-agents/nondual/blob/main/schemas/contact.json
+Docs: https://github.com/nondual-agents/nondual/blob/main/docs/agents.md
 ```
 
 ---
 
 ## Links
 
+- Full docs: [docs/](.)
+- REST API: [api.md](./api.md)
+- MCP: [mcp.md](./mcp.md)
+- CLI: [cli.md](./cli.md)
+- SDK: [sdk.md](./sdk.md)
+- Examples: [examples/](../examples/)
+- GitHub: https://github.com/nondual-agents/nondual
 - Website: https://nondual.cloud
-- Agent onboarding (this doc): https://github.com/nondual-agents/nondual/blob/main/AGENTS.md
-- GitHub docs folder: https://github.com/nondual-agents/nondual/tree/main/docs
-  - API reference:    https://github.com/nondual-agents/nondual/blob/main/docs/api.md
-  - MCP setup:        https://github.com/nondual-agents/nondual/blob/main/docs/mcp.md
-  - CLI reference:    https://github.com/nondual-agents/nondual/blob/main/docs/cli.md
-  - TypeScript SDK:   https://github.com/nondual-agents/nondual/blob/main/docs/sdk.md
-  - Agents doc:       https://github.com/nondual-agents/nondual/blob/main/docs/agents.md
-- Contact schema (JSON Schema): https://github.com/nondual-agents/nondual/blob/main/schemas/contact.json
-- Examples: https://github.com/nondual-agents/nondual/tree/main/examples
-- Prompt templates: https://github.com/nondual-agents/nondual/blob/main/examples/prompts/README.md
-- npm: https://www.npmjs.com/package/nondual
-- Email: hello@nondual.cloud
 
 ---
 > Source: [nondual-agents/nondual](https://github.com/nondual-agents/nondual) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
