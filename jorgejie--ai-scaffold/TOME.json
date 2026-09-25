@@ -1,0 +1,93 @@
+{
+  "name": "ai_scaffold",
+  "owner": "Jorgejie",
+  "repo": "ai_scaffold",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai_scaffold",
+      "path": "ai_scaffold_skill/SKILL.md",
+      "github_url": "https://github.com/Jorgejie/ai_scaffold/tree/main/ai_scaffold_skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai_scaffold",
+      "path": "cli/templates/skills/plan_mode/SKILL.md",
+      "github_url": "https://github.com/Jorgejie/ai_scaffold/tree/main/cli/templates/skills/plan_mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai_scaffold",
+      "path": "cli/templates/skills/code_review/SKILL.md",
+      "github_url": "https://github.com/Jorgejie/ai_scaffold/tree/main/cli/templates/skills/code_review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai_scaffold",
+      "path": "cli/templates/skills/project_initialization/SKILL.md",
+      "github_url": "https://github.com/Jorgejie/ai_scaffold/tree/main/cli/templates/skills/project_initialization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai_scaffold",
+      "path": "examples/nextjs-demo/.claude/skills/plan_mode/SKILL.md",
+      "github_url": "https://github.com/Jorgejie/ai_scaffold/tree/main/examples/nextjs-demo/.claude/skills/plan_mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai_scaffold",
+      "path": "examples/android-demo/.claude/skills/plan_mode/SKILL.md",
+      "github_url": "https://github.com/Jorgejie/ai_scaffold/tree/main/examples/android-demo/.claude/skills/plan_mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai_scaffold",
+      "path": "examples/nextjs-demo/.claude/skills/code_review/SKILL.md",
+      "github_url": "https://github.com/Jorgejie/ai_scaffold/tree/main/examples/nextjs-demo/.claude/skills/code_review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai_scaffold",
+      "path": "examples/android-demo/.claude/skills/code_review/SKILL.md",
+      "github_url": "https://github.com/Jorgejie/ai_scaffold/tree/main/examples/android-demo/.claude/skills/code_review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Jorgejie/ai_scaffold",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T10:37:16Z"
+}
