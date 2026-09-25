@@ -1,50 +1,71 @@
 ## agent-sphere
 
-> Git root holds two **independent** projects (no shared root build/lockfile/CI):
+> Manifest V3 Chrome extension that bridges the AgentSphere backend with the browser for automated operations. Backend `agent-sphere-common` holds the chrome-bridge DTOs (`ChromeCommandDTO`, `ChromeCallbackDTO`, `ChromePendingStore`).
 
-# AgentSphere — monorepo
+# AgentSphere Chrome Extension
 
-Git root holds two **independent** projects (no shared root build/lockfile/CI):
-- `agent-sphere/` — Java 21 / Spring Boot backend. **See `agent-sphere/AGENTS.md`** for module layout, Maven commands, Flyway, MyBatis-Plus, and code-style rules.
-- `agent-sphere-ui/` — React 19 / UmiJS Max frontend (Ant Design Pro base).
+Manifest V3 Chrome extension that bridges the AgentSphere backend with the browser for automated operations. Backend `agent-sphere-common` holds the chrome-bridge DTOs (`ChromeCommandDTO`, `ChromeCallbackDTO`, `ChromePendingStore`).
 
-GitHub flow off `main`. **No CI** — run each project's tests before pushing.
+## Current state (observable — verify if changed)
 
-## How the two apps connect
+- `package.json` scripts `build`/`dev` call `node build.js`, but **`build.js` does not exist** — `npm run build` FAILS. `src/` is empty stubs. Edit root-level files directly and load unpacked via `chrome://extensions`.
+- **No build step.** Background is native ES modules (`background.js` with `"type": "module"` imports from `lib/`). Do not introduce a bundler — the deploy workflow zips these files directly.
 
-- Backend serves API at `http://localhost:8080` with prefix `/api/v1/...`; SSE routes contain `/stream`.
-- UI `npm run dev` (port 8000) proxies `/api/` → `http://localhost:8080` (see `agent-sphere-ui/config/proxy.ts`). For `/stream` requests the proxy **strips `Accept-Encoding`** and sets `Cache-Control: no-transform` — preserve this logic, SSE breaks without it.
-- Typical local flow: start backend (`mvn -pl agent-sphere-bootstrap spring-boot:run -am`, needs Postgres+Redis), then UI (`cd agent-sphere-ui && npm run dev`).
+## Architecture
 
-## Infra / runtime prerequisites
-
-- Postgres + Redis via `agent-sphere/agent-docker-middleware/docker-compose.yml` (note: under `agent-sphere/`, **not** the repo root). Volume paths are hardcoded to macOS (`/Users/elvin/Desktop/...`) — override or remove on other machines.
-- Postgres DB name is `buukle_agent_2026061101` (set in `application.yml` and the compose file). Env overrides: `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`, `REDIS_HOST`, `REDIS_PORT`.
-- Backend JVM/Jackson timezone `Asia/Shanghai`; virtual threads on by default.
-
-## agent-sphere-ui (frontend)
-
-Stack: UmiJS Max, React 19, antd 6, TypeScript (strict), **Biome** for lint+format, **Tailwind v4** (via `@tailwindcss/postcss`), Jest. Node `>=20`. `.npmrc` sets `legacy-peer-deps=true` — required for install to resolve.
-
-Commands (run inside `agent-sphere-ui/`):
-```bash
-npm run dev          # dev server on :8000, MOCK=none, proxies /api -> backend:8080
-npm run build        # max build (hash + manifest + exportStatic)
-npm run biome        # biome check --write  (auto-fix; run this first)
-npm run lint         # biome lint && tsc --noEmit  (checks only, no write)
-npm run tsc          # typecheck only (tsc --noEmit)
-npm test             # jest
 ```
-Verify order: `npm run biome` → `npm run lint` → `npm test`.
+backend (SSE task stream ⇄ HTTP callback)
+   ↕
+offscreen.html/js — long-lived task SSE + command queue (immune to SW suspension)
+   ↕ runtime message {target:'background', action:'task:command'}
+background.js (ESM) — message router, executeInPage, tab grouping, callback POST
+   ↕ tabs.sendMessage / chrome.scripting / chrome.debugger
+content.js + content-locator.js — primary execution layer (ISOLATED world)
+page-script.js (MAIN world) — auth/session bridge (sessionStorage → content script)
+```
 
-Conventions / gotchas:
-- **Routing is config-based** in `config/routes.ts`, not file-based. Page dirs mirror backend domains: `dashboard`, `chat`, `instances`, `model-providers`, `capabilities/{mcp,skill,cli,builtin}`, `account`, `user`.
-- `src/.umi/**` is **generated** by `max dev` / `max setup` (runs in `prepare`) — never hand-edit. Path alias `@@/*` resolves there.
-- Path aliases: `@/*`→`src/*`, `@@/*`→`src/.umi/*`, `@root/*`→repo root.
-- Biome **ignores** `src/services` and `mock` (see `biome.json`). The hand-written API client `src/services/agentSphere/api.ts` (uses `BASE = '/api/v1'`) is therefore **not linted** — keep it tidy manually.
-- Biome style: single quotes, space indent, `jsxRuntime: reactClassic`. `noExplicitAny` and `useExhaustiveDependencies` are off.
-- Default locale `zh-CN`; `moment2dayjs` rewrites moment→dayjs.
+Files:
+- `background.js` — router; imports `lib/cdp-client.js`, `lib/tab-manager.js`, `lib/result.js`, `lib/offscreen-bridge.js`. **Keep it ESM**; the SW is `"type": "module"`.
+- `lib/cdp-client.js` — single `chrome.debugger` wrapper: per-tab sessions, `onDetach` clears the tab's session (self-heal), `sendCommand` throws `Debugger is not attached…` when stale, all ops serialized through a promise queue, `evaluate` retries once on detach races. **Do not call `chrome.debugger` outside this file.**
+- `lib/tab-manager.js` — controlled tab, content-script injection (3 files, ordered), `askContent` auto-re-injects on "Receiving end does not exist", and the **`AgentSphere` tab group** (aggregates every plugin tab; recreated if the group is closed).
+- `lib/offscreen-bridge.js` — creates/pings the offscreen doc (alarm recreates it if the browser closes it).
+- `offscreen.js` — holds `/api/v1/runtime/user/task/stream` SSE, zombie detection, reconnect, forwards `browser_operation` to background. **Offscreen documents support ONLY `chrome.runtime`** — no `chrome.storage`/`chrome.tabs` there. Token/baseUrl are fetched from background via `task:creds`, and connection status is reported via `task:status` (background writes `storage.local.taskConnected`). Do not call `chrome.storage` inside `offscreen.js`.
+- `content-locator.js` / `content.js` — injected together (in that order) into the isolated world; share the `window.__asContent` namespace. Write actions (click/type/key/hover) run via CDP trusted input in `background.js`; content script only reads/wait/scroll/uploads.
+- `inject.js` — **deleted.** There is no inject-bridge tier anymore.
+- `page-script.js` — MAIN-world script (web_accessible) intercepting `window.open`.
+
+## Key behaviors
+
+- **Screenshots (vision operation)**: `screenshot` action (viewport via `Page.captureScreenshot`, `scope=full` uses `captureBeyondViewport`) lives **only** in `lib/cdp-client.js#captureScreenshot` — the one place allowed to call `chrome.debugger`. The base64 is POSTed to `POST /api/v1/browser/screenshot` (Bearer) and the callback carries only the `fileKey` + dimensions (no large base64 over the callback/Redis). `clickAt(x, y)` clicks at the device pixels of the **last viewport screenshot** (converted to CSS px via `devicePixelRatio`); non-interactive points click through with a `warning`. Snapshot items carry `bounds` (top-frame CSS px rect) for screenshot↔ref alignment. Full-page screenshots are observation-only — no coordinate clicking.
+- **executeJS is two-tier, debugger is the strict-CSP fallback** (in `background.js#executeJsOnTab`):
+  1. MAIN world via `chrome.scripting` (`world:'MAIN'`) — the page CSP applies, so this works on most sites and fails fast on strict-CSP origins (cached in `cspBlockedOrigins`).
+  2. `chrome.debugger` `Runtime.evaluate` (bypasses CSP; strict sites like 猎聘 land here).
+  **There is NO isolated-world tier**: MV3's extension CSP (`script-src 'self' 'wasm-unsafe-eval' …`) forbids `eval()`/`new Function()` in content-script isolated worlds, so an isolated eval can never work — do not reintroduce it.
+  Keep that order. Do not make debugger the default path.
+- **executeJS result transparency**: results always carry `method` (`scripting-main`/`debugger`), `resultType`, and — when execution may have been blocked or the value was unserializable — a `warning` field. The backend surfaces these (`ChromeResultVO.warning/resultType`) so the agent stops retrying a blocked executeJS.
+- **Content-script capabilities**: `click`/`type`/`hover` accept `index` (1-based, selector) and `occurrence` (1-based, text) to pick the Nth of identical elements (`content-locator.js`). `closeDialogs` closes every open `[role="dialog"]`/toast in one call. `getContent(mode: query, selector)` returns a compact up-to-50-element match list instead of the full DOM. `getContent` full mode is capped at 2000 DOM nodes.
+- **Debugger disconnects**: an external detach (opening DevTools on the controlled tab, cross-site navigation) drops the session. The `onDetach` listener + retry-once in `cdp-client.js` make the next command self-heal. It is still best to avoid opening DevTools on the controlled tab and to avoid cross-site navigation mid-task.
+- **Tab grouping**: every tab the plugin navigates/opens is added to the `AgentSphere` group (`tabGroups` permission). Requires the `tabGroups` + `offscreen` permissions — keep them in `manifest.json`.
+- **Results** carry `errorCategory` (`not_found`/`csp_blocked`/`detached`/`inject_failed`/`timeout`/`no_tab`) and `method` so the backend agent can pick a retry strategy instead of blind retries.
+- Auth flow unchanged: content script reports `token` → background stores in `storage.local` → offscreen reads it (storage change triggers reconnect).
+
+## Permissions (manifest.json)
+
+`tabs`, `scripting`, `storage`, `activeTab`, `alarms`, `debugger`, `webNavigation`, `tabGroups`, `offscreen`; host `<all_urls>`. `page-script.js` is web-accessible.
+
+## No tests / linter / CI
+
+Manually reload the unpacked extension and smoke-test before pushing:
+- log in on a widget/main site → Task badge on
+- `navigate` several tabs → all land in the `AgentSphere` group
+- executeJS on a normal site (MAIN-world scripting) and on a strict-CSP site (debugger fallback)
+- cross-site navigation mid-task → next executeJS recovers
+- `devtools` on the controlled tab → session self-heals on next command
+
+## Git
+
+GitHub flow: feature branch off `main` → PR.
 
 ---
 > Source: [nullpointexception-i/agent-sphere](https://github.com/nullpointexception-i/agent-sphere) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
