@@ -2,9 +2,9 @@
   "name": "agenticoding.github.io",
   "owner": "agenticoding",
   "repo": "agenticoding.github.io",
-  "description": "Master Agentic Coding",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agenticoding/agenticoding.github.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T00:32:01Z"
+  "distributed_at": "2026-09-25T22:58:16Z"
 }
