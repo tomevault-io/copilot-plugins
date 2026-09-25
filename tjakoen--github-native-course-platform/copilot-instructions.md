@@ -1,90 +1,140 @@
 ## github-native-course-platform
 
-> What this project is, how it is organized, and the rules for changing it without
+> > Wires this repo into Tjakoen's personal standards (how I build with AI, voice, badges, AI-use
 
-# GitHub-Native Course Platform - project guide
+# CLAUDE.md: Course Console
 
-What this project is, how it is organized, and the rules for changing it without
-breaking the design. This is the guidance an AI assistant (or a new contributor)
-should read first. The full documentation lives in [docs/](docs/); deeper design
-lives in [docs/architecture.md](docs/architecture.md) and the design notes
-([docs/design/](docs/design/)).
+> Wires this repo into Tjakoen's personal standards (how I build with AI, voice, badges, AI-use
+> posture). The standards live publicly at `https://tjakoen.github.io/standards` (source: the
+> [`standards/`](https://github.com/tjakoen/tjakoen.github.io/tree/main/standards) dir in the
+> portfolio repo) - **reference them, don't fork them.** `AGENTS.md` is a symlink to this file, so any
+> tool that reads the cross-tool `AGENTS.md` convention gets the same instructions.
 
-## What it is
+## What this is
 
-A university coursework, quiz, and grading platform that runs entirely on GitHub
-Actions. The instructor drives everything from an Actions tab; students live in
-their own repo; grades sync out to an LMS (Canvas is the reference integration)
-as a single CSV at the end. Nothing is hosted.
+Course Console (this directory, formerly the standalone grader-ui repo) is the hosted management and review surface of the GitHub-Native Course Platform.
+It is a **data-free GitHub Pages shell** (`site/`) that reads the teacher repos' gradebooks live from
+the GitHub API in the browser, shows one grading-review dashboard, and generates the prompts an AI
+runs to apply grading decisions (write grades, publish feedback, push to Canvas). The human reviews
+and decides; the AI does the writing. The single most important thing to know before touching it:
+**writes are tiered, and grades never bypass the review gate.** Anything touching grades, feedback,
+or student-facing delivery flows only through an emitted intent prompt that a human runs in a Claude
+Code session. The console's own direct writes are limited to two teacher-attested, engine-gated
+kinds: filing those intent files, and committing attendance scan batch CSVs from the Scan tab
+(validated server-side by the per-repo verify-attendance workflow). Keep every new mutation either
+behind an intent or behind an existing dry-run-gated repo workflow - never an unreviewed in-app
+grade write. (The local static build was retired 2026-07-24 in favor of the hosted shell; the
+maintenance CLIs under `src/` - audit/fix/blanks - stay. The per-repo attendance scanner was
+absorbed as the Scan tab 2026-07-25.)
 
-## Repository layout
+## How I work here (non-negotiables)
 
-This is the umbrella / overview repo and the home of the **Course Console**. The
-template code lives in two template repos, included here as **submodules**; the
-console is a tracked directory:
+The full rulebook is **[AI-DEVELOPMENT.md](https://tjakoen.github.io/standards/ai-development)** +
+**[SESSION-LOOP.md](https://tjakoen.github.io/standards/session-loop)**. The short version:
 
-| Path | Repo | What it is |
-| --- | --- | --- |
-| `teacher-template/` | teacher control center | The engine: `tools/` (Node), `.github/workflows/`, `grader/`, and `course.config.json`. |
-| `student-template/` | student workspace | The per-student skeleton: content/quizzes/grades zones plus the student's own notes/journal/project. |
-| `console/` | (this repo; formerly the standalone grader-ui) | The Course Console: a data-free Pages shell (deployed by `.github/workflows/pages.yml` to tjakoen.github.io/github-native-course-platform) for grading review, the attendance QR scanner, and intent-prompt generation. Has its own `console/CLAUDE.md` - read it before touching `console/`. `console/classes/`, `console/out/`, and `console/grader.config.json` are gitignored live-instance data (PII) - never commit them. |
+- **I build with AI, out loud, on purpose.** Co-authored with Claude as a practice, not a git
+  trailer. The receipt is the README badge + footer, not commit metadata.
+- **AI multiplies, it doesn't add.** The AI types; I keep the judgment, the architecture, the final
+  call. If I can't explain it, I didn't build it.
+- **Definition of done = code + docs synced + green gate.** For this repo the gate is `npm install`
+  (it imports `@tjakoen/grain`), `node --check lib/config.mjs src/*.mjs site/*.mjs site/lib/*.mjs`,
+  and a clean `npm run bake` (the theme must build from the installed grain package into
+  `site/theme.css`). Not one of these, all of them.
+- **Write the decision down.** Keep a short record of *why* non-obvious choices were made so the next
+  session inherits the reasoning.
+- **Hand off when a task finishes.** Gate green, committed, decisions recorded, then emit a compact
+  handoff.
 
-To update a submodule: edit inside its folder, commit + push there, then from the
-umbrella root `git add <folder>` and commit to move the pin.
+## Voice (for any prose in my name)
 
-## How grading works
+Follow **[VOICE.md](https://tjakoen.github.io/standards/voice)**. The short version: honest, quirky,
+self-deprecating, concrete, opinionated-with-the-why; **no backticks in prose** (fenced code blocks
+and this kind of reference doc are exempt, where a literal token has to be exact); **no em-dashes**;
+contractions in casual writing, expanded in formal docs. Never claim a benefit I haven't shown.
 
-Grading and publishing are **separate on purpose**:
+## README presentation
 
-- **Grade sweep** clones each submission at its snapshot commit, grades against
-  the canonical tests in `grader/`, and writes the gradebook (`grades.csv`,
-  `GRADEBOOK.md`) plus AI feedback notes. **Teacher-side only - never writes to
-  student repos.**
-- **Publish** is the only step that writes to student repos, and only for
-  activities explicitly flagged for release. Dry-run by default.
+Follow **[README-STANDARD.md](https://tjakoen.github.io/standards/readme-standard)**: one title emoji,
+a curated honest badge row led by the Made with Claude badge, and the text footer. Done at repo start;
+re-run the standard's prompt if the stack changes.
 
-The sweep is incremental and idempotent (keyed on the submission commit SHA), so
-it can run as often as wanted and only does new work.
+## Commit convention
 
-## Core invariant (do not break this)
+Gitmoji subject prefix. **No AI attribution trailers** (`Co-Authored-By: Claude` etc.). The receipt
+behind the "built with Claude" claim is the README badge + footer and the flagship note.
 
-**The engine is identical across all teacher repos; only the `grader/` tests and
-each repo's `course.config.json` differ.** So:
+## Repo-specific rules
 
-- Shared tools (`tools/*.mjs`) stay **byte-identical** across teacher repos - edit once, copy to all.
-- Nothing class-specific is hardcoded: orgs, section, workspace prefix, template
-  owner, and Canvas settings come from `course.config.json` or workflow env.
-- Everything that mutates repos defaults to a **dry run** and acts only on an
-  explicit `execute` / `publish=true`.
+- **Demo mode swaps the TRANSPORT, nothing else.** `?demo=1` (or the first-run
+  "Open the demo" button) makes `lib/gh.mjs` route to `lib/demo.mjs`, an in-memory
+  virtual GitHub serving synthetic repos from `lib/demo-fixture.mjs`. Never add an
+  if-demo branch to a view, a parser, or a builder: the whole value of demo mode is
+  that everything above the transport is the production code path, so a demo that
+  renders right is evidence the real one does. When a fixture and a real file shape
+  disagree, the fixture is wrong (it already cost us once: pretty-printed
+  `assignments.json` silently pushed every flag toggle onto config-writes' whole-file
+  fallback instead of its surgical one-line diff). Demo mode must also stay
+  non-persistent and non-destructive: caches bypassed, its own decisions key, the
+  real Settings config never read, and the flag in sessionStorage. Keep the fixture
+  in `.mjs` with invented data only - the Pages tripwire fails the build on a
+  shipped `.json`/`.csv` carrying gradebook identity columns, and a real name in
+  there would be a PII leak in a public artifact. `npm run test:demo` is the gate.
+- **Demo shas are content-derived, like git's. Do not "simplify" them back to a
+  path hash.** The fixture used to hash `org/repo@ref:path`, which is stable and
+  unique and looks equivalent, but means no two repos can ever agree on anything.
+  The moment a feature compares repos (the content-coverage check: is this
+  workspace's `content/<unit>` the same as the teacher repo's?) the demo answers
+  "everything is stale, everywhere" while the real API answers correctly. A blob's
+  sha now comes from its bytes and a tree's from every descendant's relative path
+  plus content, so identical folders match across repos exactly as they do on
+  GitHub. `npm run test:demo` asserts both sides of it: some units current AND the
+  planted drift detected, because a run that finds everything current is a broken
+  comparison, not a tidy class.
+- **Vendored GRAIN/CRUMB islands assume a ROOT-mounted host; the bake fixes that.**
+  This app lives under a project-page subpath, so `scripts/bake-theme.mjs` rewrites
+  two root-absolute assumptions in the copies it vendors: crumb-live's
+  `/scripts/ai-spotlight.js` import (esbuild resolve plugin) and lightbox.js's
+  `/assets/sprite.svg` (rewritten to read `data-grain-sprite`, declared on
+  `site/index.html`). Both patches throw or fail loudly if the upstream shape
+  changes - do not "simplify" them away, and if you add another grain island, check
+  it for the same class of bug. Related: the CSP needs `font-src 'self' data:`,
+  because the theme embeds its webfonts as data: URLs.
+- **CRUMB tours are per-view, and the host starts them at step 0.** The tour client
+  navigates by PATHNAME (`tour.route`, and any step's `at`), which is wrong for a
+  hash-router SPA under a project-page subpath - it walks the visitor out of the
+  app. So `app.mjs` starts a tour at its first step (no navigation at all), each
+  tour only addresses `data-surface` targets that exist on the route it launches
+  from, and the rail's Tour button picks the tour for the current route. Launch
+  tours with `data-tour="<id>"` (the host's hook), not `data-crumb-start`.
+  **All four tours declare `"route": null` on purpose, and need crumb >= 0.1.4.**
+  That version made `route` nullable and added the client-side gate that skips
+  navigation when the target is not an absolute pathname; before it, a missing route
+  was coerced to "/" and there was no way to opt out, so Back from step 0 forced a
+  navigation to `tour.route`. Do not "fix" a null route back to the Pages path: it
+  looks harmless because it equals the deployed pathname, but it 404s in local dev
+  and lands on the wrong site on a fork. Verified by serving `site/` from a
+  throwaway subdirectory and pressing Back at step 0.
 
-## Access model
+- **Sections are auto-discovered, not hardcoded.** `lib/config.mjs` scans `classes/` and derives each
+  section from ground truth (folder name, git remote, `grader/assignments.json`). `grader.config.json`
+  is optional overrides only. Never reintroduce absolute paths or a per-tool section array.
+- **No student PII in the repo, ever.** `classes/`, `out/`, and `grader.config.json` are gitignored
+  because they hold student data. Confirm nothing under those is staged before any commit.
+- **GRAIN is a real dependency, not a fork.** The theme (tokens, fonts, grade mechanism) is inlined
+  from `@tjakoen/grain` at build time and embedded offline (no CDN/node_modules in the generated HTML).
+  Never hardcode grain's tokens back into the dashboard; change the look in grain and bump the dep.
+  Provenance uses grain's `data-grade` (AI-proposed = grain type, flips to clean on human edit). See
+  [docs/grain-for-ai.md](docs/grain-for-ai.md); don't collapse the two.
 
-The **org owns every repo** so the engine can grade it and deliver results;
-within that, **each student is the admin of their own repos** and no one else's.
-Only teachers are org owners or hold admin on the infrastructure repos (teacher
-control center, `*-solution`, templates, demos). `tools/org-audit.mjs` audits
-this (rogue org owners, non-teacher access on infra repos, a student repo shared
-with a second account, a workspace no student can see, and a permissive org base
-permission). Its signals are collaborator-based, not name-based, because repo
-name handles and `student.json` rarely equal the real GitHub login. Fixes stay
-manual (demoting an org owner needs the `admin:org` scope).
+## Docs / structure
 
-## Conventions (hard rules)
-
-- **Gitmoji** commit subject prefixes.
-- **No em dashes** in prose or generated content.
-- **No AI co-author trailers in commits.** AI involvement is disclosed openly in
-  the README badge + footer instead, not in git trailers.
-- **No student PII** (names, numbers, emails) anywhere public. This is a public,
-  sanitized project; live instances with real data stay private. This is
-  enforced: `node scripts/check-public-hygiene.mjs` scans this repo and both
-  template submodules for live org names, live section codes, student-number
-  patterns, real email addresses and em dashes, and the **Public hygiene**
-  workflow fails the build on a hit. Run it before pushing. When it fires on
-  something legitimate, fix the text rather than widening the pattern.
-- Always `node --check` a changed `.mjs`; prefer a dry run before any write to a
-  live gradebook or student repo.
+- `README.md` - what it is + quickstart.
+- `docs/usage.md` - setup and the everyday review flow.
+- `docs/commands.md` - the AI action vocabulary (the generated prompts).
+- `docs/grain-for-ai.md` - how the GRAIN design system applies here.
+- `src/` tools, `lib/config.mjs` the single config source. Deeper platform design lives in the
+  [umbrella repo](https://github.com/tjakoen/github-native-course-platform).
 
 ---
 > Source: [tjakoen/github-native-course-platform](https://github.com/tjakoen/github-native-course-platform) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
