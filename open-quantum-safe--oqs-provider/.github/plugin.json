@@ -1,0 +1,9 @@
+{
+  "name": "open-quantum-safe--oqs-provider",
+  "displayName": "oqs-provider",
+  "description": "oqs-provider",
+  "version": "1.0.0",
+  "author": "open-quantum-safe",
+  "homepage": "https://github.com/open-quantum-safe/oqs-provider",
+  "skills": []
+}
