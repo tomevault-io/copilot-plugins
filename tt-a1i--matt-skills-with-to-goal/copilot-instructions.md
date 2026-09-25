@@ -32,4 +32,4 @@ Before syncing upstream, rewriting fork history, publishing to `origin`, or refr
 
 ---
 > Source: [tt-a1i/matt-skills-with-to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
