@@ -1,7 +1,7 @@
 {
   "name": "skraft9--quarry-vrc",
   "displayName": "quarry-vrc",
-  "description": "A central console for managing vulnerability research at scale.",
+  "description": "quarry-vrc",
   "version": "1.0.0",
   "author": "skraft9",
   "homepage": "https://github.com/skraft9/quarry-vrc",
