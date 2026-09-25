@@ -1,52 +1,54 @@
 ## rust-sdks
 
-> - This crate encapsulates the business logic and public APIs for the data streams feature: [text streams](https://docs.livekit.io/transport/data/text-streams/) and [byte streams](https://docs.livekit.io/transport/data/byte-streams/)
+> - This crate encapsulates the business logic and public APIs for [RPC](https://docs.livekit.io/home/client/data/rpc/): performing calls to a remote participant and handling incoming invocations.
 
 # AGENTS.md
 
 ## Architectural overview
 
-- This crate encapsulates the business logic and public APIs for the data streams feature: [text streams](https://docs.livekit.io/transport/data/text-streams/) and [byte streams](https://docs.livekit.io/transport/data/byte-streams/)
+- This crate encapsulates the business logic and public APIs for [RPC](https://docs.livekit.io/home/client/data/rpc/): performing calls to a remote participant and handling incoming invocations.
 - Not for direct consumption by developers
-- Unlike most SDK features which live directly in the [`livekit`](../livekit/) crate, data streams are intentionally isolated here for several reasons:
-  - Enforces decoupling from other components (e.g., data channel, signaling client, etc.)
-  - Enables proper integration testing
+- Unlike most SDK features which live directly in the [`livekit`](../livekit/) crate, RPC is intentionally isolated here for several reasons:
+  - Enforces decoupling from other components (e.g., data channel, RTC engine, signaling client)
+  - Enables fast unit testing without linking `libwebrtc`
   - Enables shared implementation amongst multiple _consumers_:
     - [`livekit`](../livekit/): Rust client SDK
     - [`livekit-uniffi`](../livekit-uniffi/): will eventually power downstream client SDKs such as Swift and Kotlin
 
-## Incoming vs. outgoing split
+## Client vs. server split
 
 - The crate is organized into two halves:
-  - `incoming/`: receiving streams from remote participants (produces readers)
-  - `outgoing/`: sending streams to remote participants (produces writers)
+  - `client.rs`: outgoing calls (the caller side) — `RpcClientManager`
+  - `server.rs`: incoming invocations (the handler side) — `RpcServerManager`
 - The two halves never communicate with each other or share state
-- Shared types live at the crate root rather than inside either side:
-  - wire/domain packet types (`Header`, `Chunk`, `Trailer`, `Packet`, `StreamId`, ...) in `types/`
-  - `ByteStreamInfo` / `TextStreamInfo` in `info.rs`
-  - `StreamError`, `StreamResult`, `StreamProgress`, `SendError` in `utils.rs`
-  - helpers such as UTF-8-aware chunking in `utf8_chunk.rs`
+- Shared types live at the crate root (`types.rs`, `constants.rs`) rather than inside either side
 
-### The halves are deliberately *not* symmetric
+## The transport seam
 
-Unlike the mirror-image `local/`/`remote/` split in [`livekit-datatrack`](../livekit-datatrack/AGENTS.md), `incoming/` and `outgoing/` do **not** share a parallel shape. Each has a `manager`, but they are built differently on purpose:
+- This crate never touches a data channel, a peer connection or a signaling client. Everything
+  outbound goes through the `RpcTransport` trait in `transport.rs`.
+- `livekit` supplies the production implementation (`SessionTransport`, in
+  `livekit/src/room/rpc_transport.rs`); `src/tests.rs` supplies `MockTransport`.
+- Transport failures surface as `RpcTransportError`, a message-only newtype. The concrete engine
+  error type stays in the `livekit` crate. This mirrors `livekit_data_stream::api::SendError`.
+- Remote participant lookups (used to choose the v1 or v2 wire format) go through
+  `livekit_common::RemoteParticipantRegistry`, which `RpcTransport` requires as a supertrait.
 
-- The **incoming** manager (`incoming/manager.rs`) is an **actor**. It owns all receive-side state on a single task and is driven by `InputEvent`s fed over a channel, emitting `OutputEvent`s for the host to surface (see `incoming/events.rs`). This is required because inbound packets arrive from the engine's event loop in a context that cannot `.await` into the manager, inbound chunks must never be dropped (a dropped chunk is an unrecoverable `MissedChunk`), and processing must not head-of-line-block that loop. Owning its state directly also lets its handlers `.await` decompression on the run-loop task without holding a lock across the await point.
-- The **outgoing** manager (`outgoing/manager.rs`) is a plain struct with `async` methods that callers `.await` directly. It runs in an already-async context (publishing), so awaiting into it is fine and the actor machinery (events, channels, a run loop) would add substantial complexity for no benefit.
+## Two public modules
 
-This asymmetry is a conscious choice, **not** an oversight or unfinished work. Do not "symmetrize" the outgoing side into an actor preemptively. When changing behavior on one side, there is often no mirror to update on the other — verify rather than assume.
+- `api`: public APIs re-exported by _consumers_ and surfaced to end users
+- `backend`: managers and supporting types used internally by _consumers_
+- Anything not needed by a consumer stays private to the crate. In particular the RPC version
+  constants and the `lk.rpc_request_*` stream attribute keys are implementation details.
 
-## Boundaries
+## Wire formats
 
-- Two public modules get exported from this crate (see `lib.rs`):
-  1. `api`: public APIs that get re-exported by _consumers_ and made available to developers (readers, writers, stream options, stream infos, `StreamError`, ...)
-  2. `backend`: managers and supporting wire types used internally by _consumers_ to power the feature (`backend::incoming`, `backend::outgoing`, and the domain packet types)
-- The incoming actor's events are decoupled from protocol messages for several reasons:
-  - Protobuf is a wire format and cannot express Rust-level invariants
-  - Events can carry in-process types proto cannot (e.g., the channel senders used to feed a reader)
-  - Allows the protocol to evolve independently
-- Wire <-> domain conversion lives in `types/packet.rs`, which owns the `From`/`TryFrom` impls between `livekit_protocol::data_stream` messages and this crate's own packet types. Consumers convert inbound proto into domain `Packet`s before feeding the incoming actor, so the incoming side only ever sees domain types.
+- **v1** sends `RpcRequest` / `RpcResponse` / `RpcAck` as reliable data packets.
+- **v2** sends requests and success responses as text data streams on the `lk.rpc_request` and
+  `lk.rpc_response` topics, with metadata in stream attributes.
+- v2 is selected when the destination advertises `client_protocol >= CLIENT_PROTOCOL_DATA_STREAM_RPC`.
+- **ACKs and error responses always use v1 packets**, even in a v2 exchange.
 
 ---
 > Source: [livekit/rust-sdks](https://github.com/livekit/rust-sdks) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
