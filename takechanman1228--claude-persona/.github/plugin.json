@@ -1,0 +1,14 @@
+{
+  "name": "takechanman1228--claude-persona",
+  "displayName": "claude-persona",
+  "description": "claude-persona",
+  "version": "1.0.0",
+  "author": "takechanman1228",
+  "homepage": "https://github.com/takechanman1228/claude-persona",
+  "skills": [
+    {
+      "name": "claude-persona",
+      "description": ""
+    }
+  ]
+}
