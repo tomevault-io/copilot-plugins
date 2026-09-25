@@ -2,8 +2,6 @@
 
 > Tome by [WutIsHummus](https://github.com/WutIsHummus/TrueDeck), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-Free multi-agent coding workbench: Grok/Codex/Claude/Cursor panes + TrueMemory (per-repo + global)
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
