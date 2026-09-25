@@ -1,71 +1,57 @@
 ## personal-corp-os
 
-> Collection of Claude Code customizations: skills, statusline, hooks.
+> > Этот файл задаёт правила папки. Агент читает его первым и работает в его границах.
 
-# personal-corp-os
+# Правила отдела
 
-Collection of Claude Code customizations: skills, statusline, hooks.
+> Этот файл задаёт правила папки. Агент читает его первым и работает в его границах.
 
-## Critical Rules
+## Назначение
 
-**ALWAYS update BOTH READMEs when releasing:**
-- README.md (English) and README.ru.md (Russian)
-- Adding/removing skills → update skills list in both READMEs
-- Adding/removing any component → update corresponding section in both READMEs
-- Release without README updates = incomplete release
-- Public repo hygiene changes must keep `SECURITY.md`, `CODE_OF_CONDUCT.md`,
-  issue templates, plugin metadata, and `scripts/validate_repo.py` aligned.
+`<за что отвечает отдел и какой повторяемый результат он создаёт>`
 
-## Never
+## Кто здесь работает
 
-- Never delete skills directories without explicit confirmation
-- Never push to main without running through release checklist
-- Never modify SKILL.md frontmatter (name, description) without updating both READMEs
-- Never create GitHub issues/labels in this public repo with private data
+| Кто | Что делает | Чего не делает |
+|---|---|---|
+| Человек | Ставит задачу, выбирает следующий ход, принимает результат | Не исполняет то, что уже описано скиллом |
+| Агент | Читает правила, работает по задачам отдела, оставляет след | Не выходит за границу домена и не решает за человека |
+| Субагент | Берёт ограниченную подзадачу и возвращает результат | Не пишет правду об отделе и не принимает результат |
 
-## Structure
+## Порядок чтения
 
-| Path | Purpose |
-|------|---------|
-| `skills/` | Reusable skill templates |
-| `archive/skills/` | Historical skills kept for reference; not active plugin skills |
-| `statusline/` | Custom statusline scripts |
-| `hooks/` | Pre/post command hooks |
+1. Этот файл: правила и границы.
+2. [`README.md`](./README.md): за что отвечает отдел.
+3. [`tasks/README.md`](./tasks/README.md): где живёт состояние задач.
+4. Материалы по ссылкам, прежде чем спрашивать человека, где они лежат.
 
-## Skill Structure
+Спрашивай только о контексте, которого нет в доступных источниках.
 
-Each skill folder must contain:
-- `SKILL.md` — main skill file (required)
-- `README.md` — English documentation
-- `README.ru.md` — Russian documentation
+## Скиллы отдела
 
-Optional: additional templates, configs in the same folder.
+| Запрос человека | Что читать и исполнять |
+|---|---|
+| задачи на сегодня | [`skills/daily/SKILL.md`](./skills/daily/SKILL.md) |
+| ретро, обзор недели | [`skills/retro/SKILL.md`](./skills/retro/SKILL.md) |
+| планирование недели | [`skills/planning/SKILL.md`](./skills/planning/SKILL.md) |
 
-## Versioning
+**Правила этой папки сильнее общих.** Если скилл с похожим именем установлен снаружи, внутри отдела действует тот, который назван здесь: слово "ретро" в отделе означает срез этого отдела, а не срез всей системы. Общий срез запускается из штаба.
 
-| Change | Version | Example |
-|--------|---------|---------|
-| New skill/component | MINOR | 1.5.0 → 1.6.0 |
-| Update existing skill | PATCH | 1.5.0 → 1.5.1 |
-| Bug fix, docs | PATCH | 1.5.0 → 1.5.1 |
+Скилл задаёт повторяемый способ работы. Он не хранит состояние задач и не хранит результаты.
 
-READMEs update only when skills list changes (add/remove).
+## Границы
 
-## Release Checklist
+- Работай только с этим отделом. Не собирай сводку по соседним папкам.
+- Не выдумывай факты. Если источника нет, скажи "не знаю" и назови, чего не хватает.
+- Не создавай второй источник состояния, если у темы уже есть владелец.
+- Не записывай секреты, токены, пароли и персональные выгрузки.
+- Не удаляй материалы без приёмки человека.
+- При разных границах доступа заводи отдельную папку, а не текстовый запрет.
 
-1. Update CHANGELOG.md
-2. Update READMEs (only if skills list changed)
-3. Run `python3 scripts/validate_repo.py`
-4. Run `claude plugin validate .claude-plugin/marketplace.json`
-5. Run `claude plugin tag --dry-run --force .`
-6. Run a clean Codex install smoke:
-   `tmp_home=$(mktemp -d); HOME="$tmp_home" codex plugin marketplace add .; HOME="$tmp_home" codex plugin add personal-corp-os@personal-corp-os; rm -rf "$tmp_home"`
-7. Run `git diff --check`
-8. Commit: `docs: update changelog for vX.Y.Z`
-9. Tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z"`
-10. Push: `git push && git push --tags`
-11. GitHub release via `gh release create`
+## Как менять этот файл
+
+Правило появляется здесь, когда одно и то же пришлось поправить дважды. Одно исправление это случай, два исправления это правило.
 
 ---
 > Source: [serejaris/personal-corp-os](https://github.com/serejaris/personal-corp-os) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
