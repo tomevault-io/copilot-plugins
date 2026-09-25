@@ -123,4 +123,4 @@ If a wiki page says one thing and `src/` says another — and there's no ADR exp
 
 ---
 > Source: [JINGBANZ/evolving](https://github.com/JINGBANZ/evolving) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
