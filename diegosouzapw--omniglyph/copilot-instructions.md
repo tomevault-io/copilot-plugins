@@ -1,79 +1,81 @@
 ## omniglyph
 
-> Context-as-image compression proxy for LLMs. Rewrites the bulky parts of each
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# omniglyph — Agent Guidelines
+# CLAUDE.md
 
-## Project
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Context-as-image compression proxy for LLMs. Rewrites the bulky parts of each
-request (system prompt, tool docs, old history, large tool outputs) into dense
-1-bit PNG pages before they leave the machine, using **exact per-provider
-billing math** so conversion happens only when it is profitable. Ships as a
-standalone proxy (Node + Cloudflare Workers) and as the `omniglyph` compression
-engine inside [OmniRoute](https://github.com/diegosouzapw/OmniRoute).
-
-## Stack
-
-TypeScript (strict, ESM) · Vitest · esbuild (`scripts/build.mjs`) · tsx ·
-Cloudflare Wrangler · pnpm. Node ≥18.
-
-## Build / Test Commands
+## Quick Start
 
 ```bash
-pnpm install && pnpm run build      # bundle to dist/
-pnpm run typecheck                  # tsc --noEmit — must be clean
-pnpm test                           # vitest run (full suite; slow — background it)
-npx vitest run tests/<file>.test.ts # focused run while iterating
+pnpm install               # install deps
+pnpm run build             # esbuild bundle → dist/ (Node + Workers entrypoints)
+pnpm run typecheck         # tsc --noEmit (must be clean)
+pnpm test                  # vitest run — full suite (can take >2 min; run in background)
+pnpm run dev:node          # local proxy at http://127.0.0.1:47821 (tsx watch)
+pnpm run dev:worker        # Cloudflare Workers host (wrangler dev)
 ```
 
-## Architecture
+Focused test runs (preferred while iterating): `npx vitest run tests/<file>.test.ts`.
 
-- `src/core/transform.ts` — the pipeline: pick bulky blocks, gate on
-  profitability + model approval, reflow text, render, splice pages back into
-  the request (cache-friendly ordering).
-- `src/core/anthropic-vision.ts` — exact Anthropic image billing: 28px patches
-  + per-block overhead, per-tier resize caps, page geometry. Both tiers render
-  the standard 1568×728 page (the high-res tier is a measured billing trap).
-- `src/core/gemini-model-profiles.ts` — Gemini billing formulas (tiles +
-  `media_resolution`) and tile-native page geometry.
-- `src/core/render*.ts` + `assets/` — 1-bit 5×8 glyph atlas rendering to PNG;
-  deterministic renders are memoized (`render-cache.ts`, LRU).
-- `src/core/proxy.ts` — request handling, refusal-retry sniffer (SSE/JSON
-  replay with `retryRefusalWithOriginal` kill switch), savings accounting
-  against a `count_tokens` counterfactual.
-- `src/node.ts` — local host: dashboard, events file, upstream routing.
-  `src/worker.ts` — Cloudflare Workers host.
-- `src/core/index.ts` — public package API; billing math (`anthropicImageTokens`,
-  `resolveAnthropicVisionTier`, tier caps) is re-exported at the root because
-  OmniRoute's image-aware token estimator consumes it.
-- `benchmarks/billing-sweep/` — proves the billing formulas (residual zero).
-  `benchmarks/density-frontier/` — read-accuracy frontier per model/density;
-  transports: direct API, OpenRouter, `--via-cli`, `--via-omniroute`.
+## Project at a Glance
 
-## Conventions & Review Focus
+Context-as-image compression proxy: rewrites bulky LLM request blocks (system
+prompt, tool docs, old history, large tool outputs) into dense 1-bit PNG pages
+with **exact per-provider billing math**. Only converts when the math wins, and
+only for models that passed the reading benchmark (fail-closed gate).
 
-- **Strict TDD** — failing test first, always. **Measurement before claims** —
-  every published number needs a JSONL receipt in `benchmarks/*/results/`.
-- Fail-closed gates are load-bearing: a change that lets an unapproved model
-  receive images, or converts when the token math loses, is a defect even if
-  tests pass.
-- Never commit secrets; never hand-edit benchmark results; never weaken tests
-  to go green.
-- LICENSE keeps the upstream copyright line (MIT obligation); everywhere else
-  the brand is OmniGlyph only — enforced by the rebrand guard in
-  `tests/docs-integrity.test.ts`.
-- No AI attribution trailers in commits/PRs/CHANGELOG.
+| layer | where | what |
+|---|---|---|
+| Core | `src/core/` | transform pipeline, exact billing (`anthropic-vision.ts`, `gemini-model-profiles.ts`), render cache, proxy logic |
+| Render | `src/core/render*` + `assets/` | 1-bit 5×8 glyph atlas (Spleen/Unifont-derived), reflow, PNG pages |
+| Hosts | `src/node.ts` · `src/worker.ts` | local Node server (dashboard + events) · Cloudflare Workers |
+| Public API | `src/core/index.ts` | billing math re-exported at package root (consumed by OmniRoute) |
+| Benchmarks | `benchmarks/` | billing-sweep + density-frontier harnesses; JSONL receipts in `*/results/` |
+| Tests | `tests/` | vitest; includes docs-integrity (link rot + rebrand guard) |
 
-## Reference Documentation
+## Key Conventions
 
-| doc | what |
-|---|---|
-| `docs/architecture/ARCHITECTURE.md` | one-page codebase map |
-| `docs/benchmarks/BENCHMARKS.md` | methodology + every result table |
-| `docs/ROADMAP.md` | work queue and measured-decision log |
-| `benchmarks/README.md` | how the harnesses prove the savings |
+- **Strict TDD**: write the failing test first, watch it fail for the right
+  reason, then the minimal implementation. No production code without a test.
+- **Measurement before claims**: any number in docs/README must have a receipt
+  in `benchmarks/*/results/`. Measured decisions (see `docs/benchmarks/BENCHMARKS.md`)
+  are not re-litigated without new data.
+- TypeScript strict, ESM only (`.js` import suffixes in TS source).
+- Comments state constraints the code can't show — not narration.
+- User-facing brand strings are `OmniGlyph`; binary/env prefix is
+  `omniglyph` / `OMNIGLYPH_*`; data in `~/.omniglyph/`, config in
+  `~/.config/omniglyph/`.
+
+## Running Benchmarks
+
+```bash
+node benchmarks/billing-sweep/run.mjs --dry-run             # billing predictions, $0
+pnpm exec tsx benchmarks/density-frontier/run.ts --dry-run  # cost table, $0
+# live runs need ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY (env only),
+# or --via-cli (Claude Code subscription, $0), or --via-omniroute
+```
+
+Results append to `benchmarks/*/results/*.jsonl` — never edit those by hand.
+
+## Hard Rules
+
+1. **Never commit secrets.** API keys live in env vars only — never in files,
+   fixtures, or JSONL results. The repo history must stay key-free.
+2. **Never weaken a gate or a test to make something pass.** The fail-closed
+   model gate and the profitability gate exist because of measured failures
+   (GPT-5.5: 0/60; Gemini: confabulates). Loosening them requires new benchmark
+   receipts, not code edits.
+3. **Never touch `benchmarks/*/results/`** except by running the harnesses.
+4. **The LICENSE keeps the upstream copyright line** — MIT obligation.
+   Everywhere else the brand is OmniGlyph only;
+   `tests/docs-integrity.test.ts` enforces this (rebrand guard).
+5. **No AI attribution trailers** (`Co-Authored-By`, "Generated with") in
+   commits, PRs, or the CHANGELOG.
+6. **Docs integrity is a test.** Moving/renaming a doc requires updating every
+   relative link — `npx vitest run tests/docs-integrity.test.ts` must pass.
 
 ---
 > Source: [diegosouzapw/OmniGlyph](https://github.com/diegosouzapw/OmniGlyph) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
