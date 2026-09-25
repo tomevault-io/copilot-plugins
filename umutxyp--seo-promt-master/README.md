@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [umutxyp/Seo-Promt-Master](https://github.com/umutxyp/Seo-Promt-Master).
+Original source: `CLAUDE.md` in [umutxyp/Seo-Promt-Master](https://github.com/umutxyp/Seo-Promt-Master).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [umutxyp/Seo-Promt-Master](https://github.com/um
 
 - [Seo-Promt-Master](https://github.com/umutxyp/Seo-Promt-Master/tree/main/.claude/skills/seo-audit/SKILL.md)
 
-From [umutxyp/Seo-Promt-Master](https://github.com/umutxyp/Seo-Promt-Master) — a repo with 555+ stars on GitHub.
+From [umutxyp/Seo-Promt-Master](https://github.com/umutxyp/Seo-Promt-Master) — a repo with 553+ stars on GitHub.
 
 ---
 
