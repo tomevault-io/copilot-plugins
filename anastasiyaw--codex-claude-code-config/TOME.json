@@ -2,7 +2,7 @@
   "name": "codex-claude-code-config",
   "owner": "AnastasiyaW",
   "repo": "codex-claude-code-config",
-  "description": "Claude Code, Codex, and multi-agent configuration system: principles, hooks, skills, and workflow patterns for AI-assisted development",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AnastasiyaW/codex-claude-code-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T03:13:02Z"
+  "distributed_at": "2026-09-25T06:38:05Z"
 }
