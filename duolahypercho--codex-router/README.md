@@ -2,16 +2,14 @@
 
 > Tome by [duolahypercho](https://github.com/duolahypercho/codex-router), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-External-model router for Codex with guided Kimi OAuth/API, DeepSeek, safe migration, and rollback.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [duolahypercho/codex-router](https://github.com/duolahypercho/codex-router).
+Original source: `CLAUDE.md` in [duolahypercho/codex-router](https://github.com/duolahypercho/codex-router).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
