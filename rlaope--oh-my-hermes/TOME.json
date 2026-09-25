@@ -2,9 +2,9 @@
   "name": "oh-my-hermes",
   "owner": "rlaope",
   "repo": "oh-my-hermes",
-  "description": "omh; A hermes-agent workflow layer for routing, planning, evidence tracking, and coding handoff preparation, loop engineering.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rlaope/oh-my-hermes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T16:34:58Z"
+  "distributed_at": "2026-09-25T04:57:05Z"
 }
