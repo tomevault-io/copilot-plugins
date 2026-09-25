@@ -5,5 +5,98 @@
   "version": "1.0.0",
   "author": "alibaba",
   "homepage": "https://github.com/alibaba/skill-up",
-  "skills": []
+  "skills": [
+    {
+      "name": "code-review-helper",
+      "description": ""
+    },
+    {
+      "name": "code-review-assistant",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "description": ""
+    }
+  ]
 }
