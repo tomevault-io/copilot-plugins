@@ -1,0 +1,249 @@
+{
+  "name": "skills",
+  "owner": "coleam00",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": ".claude/skills/ast-grep/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/ast-grep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-commit/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/hooks-create/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/hooks-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/drive-screen/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/drive-screen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-validate/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-implement/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/prime-backend/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/prime-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-review-pr/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-create-pr/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/skills-create/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/skills-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/prime-codebase/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/prime-codebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/prime-frontend/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/prime-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/setup-ai-tutor/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/setup-ai-tutor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-slice-epic/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-slice-epic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/worktree-merge/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/worktree-merge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/plan-create-prd/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/plan-create-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/ablate-ai-layer/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/ablate-ai-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/worktree-create/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/worktree-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/opportunity-scan/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/opportunity-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/plan-architecture/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/plan-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/rules-check-drift/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/rules-check-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-run-full-loop/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-run-full-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/build-dark-factory/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/build-dark-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/second-brain-audit/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/second-brain-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-review-changes/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-review-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-implement-issue/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-implement-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/rules-create-global/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/rules-create-global/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/plan-create-stories/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/plan-create-stories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-investigate-issue/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-investigate-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-plan-implementation/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-plan-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/system-evolution-review/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/system-evolution-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/system-execution-report/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/system-execution-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/piv-fix-review-findings/SKILL.md",
+      "github_url": "https://github.com/coleam00/skills/tree/main/.claude/skills/piv-fix-review-findings/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/coleam00/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T20:31:24Z"
+}
