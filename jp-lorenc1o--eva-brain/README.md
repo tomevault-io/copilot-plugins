@@ -1,6 +1,6 @@
 # Eva-brain
 
-> Tome by [jp-lorenc1o](https://github.com/jp-lorenc1o/Eva-brain) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [jp-lorenc1o](https://github.com/jp-lorenc1o/Eva-brain), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [jp-lorenc1o/Eva-brain](https://github.com/jp-lo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jp-lorenc1o/Eva-brain](https://github.com/jp-lorenc1o/Eva-brain)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/jp-lorenc1o/Eva-brain](https://github.com/jp-lorenc1o/Eva-brain)
 
 ---
 
