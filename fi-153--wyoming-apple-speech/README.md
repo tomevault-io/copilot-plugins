@@ -2,8 +2,6 @@
 
 > Source: [FI-153/wyoming-apple-speech](https://github.com/FI-153/wyoming-apple-speech). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Speech-To-Text and Text-To-Speech component for Home Assistant using Apple's on-device STT and TTS models and Wyoming protocol. Great performance, full privacy, always available
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
