@@ -6,170 +6,77 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Monorepo Overview
+## Commands
 
-Argus is a black-box red-team testing tool for AI agents. Customers point Argus at any HTTP-spoken or browser-using agent endpoint; Argus produces an attack report mapped to MITRE ATLAS / OWASP LLM Top 10 / NIST AI RMF.
+```bash
+npm run dev          # Dev server with Turbopack (localhost:3000)
+npm run build        # Production build (Next.js)
+npm run lint         # ESLint
+npm run format       # Prettier
+npm run test         # Unit tests (Vitest, jsdom)
+npm run test:e2e     # E2E tests (Playwright, chromium only)
 
-## Services
+# Run a single unit test file
+npx vitest run src/path/to/file.test.ts
 
-| Service | Port | Stack | Role |
-|---------|------|-------|------|
-| `api_service` | 8881 | FastAPI, asyncpg, PostgreSQL | Central REST API: users, R2 storage, `/redteam/*`. Module isolation via `redteam/` + import-linter |
-| `orchestrator` | 8081 | FastAPI, Google ADK, litellm | Agent orchestration, SSE streaming, WebSocket agent hub. Probe dispatch + judge harness in `orchestrator/redteam/` |
-| `client_agent` | — | websockets, browser-use, Playwright | Edge agent on client/cloud machines. Red-team probe runner in `redteam_runner/` |
-| `frontend` | 3000 | Next.js 16, React 19, Zustand | Web UI: marketing site, chat, dashboard |
-| `database` | — | Flyway, PostgreSQL | Schema migrations |
-| `kubernets` | — | Helm, AKS/k3s | Deployment charts, scripts, YAML manifests |
-| `cli` | — | Python (click) | Published `argus-probe` CLI — run / report / list-probes / validate-target |
-| `demo_target` | 8000 | FastAPI | Deliberately-vulnerable chatbot used as a public demo target for `argus-probe` |
-| `terraform` | — | Terraform | Azure IaC reference (AKS, ACR, PG, Key Vault, B2C apps) |
+# Run a single e2e test
+npx playwright test tests/e2e/file.spec.ts
+```
 
-The three legacy `testing_*` services moved to separate repositories on 2026-05-28:
-- `testing_api_service` + `testing_web_fetch_service` → https://github.com/gy15901580825/argus-api-testing
-- `testing_web_ui_service` (+ vendored `browser_use`) → https://github.com/gy15901580825/argus-web-ui-testing
+## Production Deployment
 
-The orchestrator still references them over HTTP via `run_api_test` and `run_web_ui_cloud` planner tools; the in-cluster services must be deployed from those repos (their Helm charts ship alongside the code).
-
-## Domain & Environment
-
-### Shared infrastructure
-
-- **Cluster**: Azure AKS, context `<YOUR_AKS>`
-- **Container registry**: Azure ACR — `<YOUR_ACR>.azurecr.io/argus/<service>:<tag>`
-- **Database server**: Azure Database for PostgreSQL — `<YOUR_PG_SERVER>.postgres.database.azure.com` (`publicNetworkAccess=Disabled`; psql/Flyway must run from in-cluster pods)
-- **Ingress**: NGINX Ingress Controller, single LoadBalancer IP `<YOUR_INGRESS_IP>` shared by all hosts
-- **Azure Key Vault**: `<YOUR_KEY_VAULT>` is the runtime source-of-truth for `api_service` credentials. K8s Secret `argus-api-service-secret` is auto-synced from KV by External Secrets Operator (ESO) via `ClusterSecretStore: <YOUR_AZURE_KV_STORE>`. ESO authenticates with Workload Identity → UAMI `eso-kv-reader` (federated credential subject `system:serviceaccount:external-secrets:external-secrets`). Other services use literal Helm-rendered Secrets. Operator runbook: `kubernets/DEV_DEPLOYMENT_GUIDE.md` § Secrets management.
-- **TLS**: cert-manager + Let's Encrypt (ClusterIssuer: `letsencrypt-prod`), auto-renewed
-- **DNS**: Cloudflare proxy (orange cloud) in front of all hosts
-- **Auth**: Microsoft Entra External ID (CIAM), SPA app ID `<YOUR_CLIENT_ID>`, in separate tenant `<YOUR_TENANT_ID>`
-  - To manage app registrations: `az login --tenant <YOUR_TENANT_ID> --allow-no-subscriptions`
-  - SPA `redirectUris` include both prod and dev callbacks: `https://www.example.com/{callback,auth-redirect}`, `https://dev.example.com/{callback,auth-redirect}`, `http://localhost:3000/{callback,auth-redirect}`
-
-### Production
-
-| Dimension | Value |
-|---|---|
-| URL | `https://www.example.com` |
-| Namespace | `default` |
-| Database | `argus` |
-| Helm release | `argus-<svc>` |
-| Image tag | semver (e.g. `1.0.0`) |
-| Ingress | `kubernets/ingress-azure.yaml` |
-| TLS secret | `argus-tls` |
-| Values override | `values-azure.yaml` |
-| Secret | `argus-<svc>-secret` (per-service, created by chart from `values.secrets.*`) |
-
-### Dev
-
-| Dimension | Value |
-|---|---|
-| URL | `https://dev.example.com` |
-| Namespace | `dev` |
-| Database | `argus_dev` (same PG server, separate logical DB) |
-| Helm release | `argus-<svc>-dev` |
-| Image tag | `dev-latest` or `dev-<gitsha-short>` |
-| Ingress | `kubernets/ingress-azure-dev.yaml` |
-| TLS secret | `argus-dev-tls` |
-| Values override | `values-azure-dev.yaml` (in addition to `values.yaml` + `values-azure.yaml`) |
-| Secrets | `argus-dev-secrets` (shared, covering orchestrator + testing services with all naming-convention aliases) + `argus-api-service-dev-secret` (separate; api-service chart hardcodes `{fullname}-secret` for most keys) |
-| Operator manual | `kubernets/DEV_DEPLOYMENT_GUIDE.md` |
-
-**Dev secret-naming gotcha:** Three charts use three different key conventions for the same underlying credentials. `argus-dev-secrets` stores all three sets to satisfy each chart's references:
-- orchestrator: `AZURE_API_*` (litellm) + `R2_*`
-- testing-{api,web-ui}-service: `AZURE_OPENAI_*` + `CLOUDFLARE_R2_*`
-- api-service: `AZURE_OPENAI_*` + `R2_*` (in its own per-service secret because the chart doesn't honor `existingSecretName` for non-DATABASE keys)
-
-## Docker Registry Rules
-
-- **client_agent** → Docker Hub: `<your-gh-user>/client_agent:latest`
-- **All other services** → Azure ACR: `<YOUR_ACR>.azurecr.io/argus/<service>:<tag>`
-
-Build/push via `./build-and-push.sh <service> <tag>`. Full deploy procedures (AKS Helm, frontend rebuild, domain-change checklist) → `docs/runbooks/deploy.md`.
-
-## Documentation
-
-Project docs live in `docs/`. The repo root keeps only `CLAUDE.md` and `README.md` — all other text/markdown documents go under `docs/`.
-
-- `docs/CI_CD.md` — CI/CD pipeline (GitHub Actions build/push + ArgoCD GitOps to AKS)
-- `docs/runbooks/deploy.md` — Build images, Helm upgrade, frontend rebuild, domain-change checklist
-- `docs/runbooks/local-dev.md` — Run each service locally (Python services, frontend, Flyway migrations)
-- `docs/reference/services.md` — Detailed request flows, API endpoint tables, frontend component tables
-- `docs/onboarding/` — Quickstart, probe ID cheatsheet, target-spec cookbook
-- `docs/operations/` — Operator-facing runbooks
-- `docs/agent-evaluation-deep-dive.md` / `docs/llm-agent-testing-overview.md` — Background reading
+The frontend is containerized and deployed to AKS via Helm chart (`kubernets/charts/frontend/`).
+`NEXT_PUBLIC_*` env vars are baked in at `docker build` time (Next.js limitation).
 
 ## Architecture
 
-### Authentication
+Next.js 16 App Router with React 19. All pages are client-side rendered (`'use client'`). No SSR data fetching.
 
-Dual-auth via **Microsoft Entra External ID (CIAM)**:
-- **JWT tokens**: From CIAM OAuth flow (MSAL on frontend, ROPC for client_agent), sent as `Authorization: Bearer <token>`
-- **API tokens**: Long-lived per-user secrets, sent as `x-api-token` header
-- **Service-to-service**: `x-user-id` header + `ORCHESTRATOR_SECRET`
-- **Screenshot proxy**: `?token=` query param (because `<img src>` can't send headers)
+### Auth Flow
 
-### Database
+Authentication uses **Microsoft Entra External ID (CIAM)** via `@azure/msal-browser` / `@azure/msal-react`. The flow:
 
-Azure Database for PostgreSQL (production) with async driver (asyncpg). Migrations in `database/sql/` (Flyway).
+1. User clicks "Sign in" → MSAL `loginRedirect()` redirects to `{tenant}.ciamlogin.com`
+2. `/callback` page calls `handleRedirectPromise()` → extracts claims (sub/oid, name, emails)
+3. Callback calls `POST /api/v1/get_token` with user info → receives API token
+4. Client stores user + `apiToken` in Zustand (`useAuthStore`, persisted to localStorage as `auth-storage`)
 
-Key tables: `users`, `redteam_runs`, `redteam_findings`, `redteam_design_partners`, `client_agent`, `chat_sessions`, `chat_messages`, `blogs`, `documents`, `trial_tokens`.
+All API calls go through `fetchClient()` in `src/lib/api.ts`, which auto-injects `x-api-token` header from the auth store. The backend API base URL defaults to `https://api.example.com` (env: `NEXT_PUBLIC_API_URL`).
 
-All Python services have `redteam/` modules with import-linter CI rules forbidding cross-talk with legacy `web_ui_*` code.
+### Key Pages
 
-### Storage
+- `/chat` — Main chat interface. Streams SSE responses from orchestrator (`/api/v1/orchestrator/strategy/stream`). Supports normal chat + web UI test mode. Chat sessions persist server-side.
+- `/web-ui-test` — Dedicated web UI testing page. Configures target URL, persona, CDP URL, max steps. Shows live progress, bug counts, screenshot replay, and test artifacts.
+- `/scripts` — Manage test scripts stored in R2.
+- `/blog`, `/docs` — Content pages (blog posts, documentation).
+- `/dashboard` — User dashboard with agent list.
 
-Cloudflare R2 (S3-compatible) for file artifacts:
-- `scripts/{user_id}/...` — generated test scripts
-- `web-ui/{user_id}/{task_id}/bug_report.txt` — bug reports
-- `web-ui/{user_id}/{task_id}/test_script.py` — test scripts
-- `web-ui/{user_id}/{task_id}/screenshots/step_000.png` — screenshot sequence
+### SSE Streaming Pattern
 
-### Agent Framework
+The chat and web-ui-test pages consume Server-Sent Events from the orchestrator. `streamStrategy()` in `src/lib/api.ts` handles SSE parsing, classifying chunks into typed events (`log`, `result`, `error`, `ssh_result`, `artifact`). The `useWebUITest` hook (`src/hooks/useWebUITest.ts`) wraps this for the web UI test flow.
 
-The orchestrator uses Google ADK agent types:
-- **SequentialAgent**: Content analyzer, API testing, web UI testing
-- **ParallelAgent**: Slide generation
-- **LoopAgent**: Quality assessment
-- **Custom**: SmartPipeline, RemoteAgent, ClientWebUIAgent
+### State Management
 
-### Communication Protocols
+- **Zustand** (`src/store/useAuthStore.ts`) — Auth state (user, apiToken), persisted to localStorage
+- **TanStack React Query** — Wrapped via `Providers` component in layout. Used for data fetching/caching.
+- **Local component state** — Most page-level state is `useState` within the page component
 
-- **REST/SSE**: Frontend ↔ API Service ↔ Orchestrator
-- **WebSocket**: Orchestrator ↔ Client Agents (bidirectional command/response)
-- **MCP**: Orchestrator ↔ testing_web_fetch_service (tool-based crawling)
+### UI Components
 
-Detailed request-flow diagrams → `docs/reference/services.md`.
+- `src/components/ui/` — shadcn/ui primitives (button, card, dialog, input, label)
+- `src/components/layout/` — Header, Footer (shared layout)
+- `src/components/business/` — Landing page sections (Hero, Features, CTA, FAQ, Customers)
+- `src/components/chat/messages/` — Chat message taxonomy: `ChatMessage` dispatcher + `groupChunks`, 9 primitive types (`ResultMessage`, `ErrorMessage`, `ThinkingMessage`, `ProgressMessage`, `SystemMessage`, `CodeArtifact`, `TestResultArtifact`, `TestScriptArtifact`, `BugReportArtifact`), `MessageShell` primitive, design tokens
+- Top-level components — Feature-specific: `WebUIConfigPanel`, `CDPConfigDialog`, `PhaseProgressBar`, `PlannerTimeline`
 
-### LLM Configuration
+### Backend Integration
 
-- **Provider**: Configurable via `LLM_PROVIDER` env (default: `azure`)
-- **Azure OpenAI**: `gpt-5.4-mini` (chat/main) + `gpt-5.3-codex` (codex, Responses API only) — used by orchestrator, testing services, and client_agent
-- **Gemini**: `gemini-3-pro-preview` (main), `gemini-2.0-flash` (fast) — alternative provider
-- **Model Router** (`orchestrator/model_router.py`): Routes based on subscription plan (free/starter/pro) and task complexity
-- **Temperature constraint**: `gpt-5.4-mini` does NOT support custom temperature parameter (Azure limitation) — never set `temperature` when calling this model
+This frontend talks to multiple backend services, all behind the same API gateway:
 
-### Key SSE Event Types
-
-| Event Type | Source | Frontend Display |
-|------------|--------|-----------------|
-| `log` / `discovery_progress` | Orchestrator agents | Collapsible "Thinking" block (LogMessage) |
-| `progress` | Agent pipeline steps | Collapsible log lines |
-| `result` | Final agent output | Markdown-rendered ResultMessage |
-| `ssh_result` | testing_api_service | APITestResultCard with pytest summary |
-| `web_ui_bug` | ClientWebUIAgent | BugReportCard with severity badges + screenshots |
-| `web_ui_artifact` | ClientWebUIAgent | TestScriptArtifact with syntax highlighting |
-| `artifact` | Script upload | Captured as scriptUrl (not displayed) |
-| `error` | Any service | Red error banner, stops stream |
-
-## Common Pitfalls & Gotchas
-
-1. **Pydantic model sync**: Both `api_service` and `orchestrator` define `StrategyRequest`. Fields must match — api_service drops unknown fields silently when proxying to orchestrator.
-2. **Temperature on gpt-5.4-mini**: Azure's `gpt-5.4-mini` rejects requests with `temperature` parameter. Never pass it.
-3. **Frontend env vars baked at build time**: `NEXT_PUBLIC_*` vars are compiled into the JS bundle. Domain/URL changes require `./build-and-push.sh frontend <tag>`, not just a restart.
-4. **ACR auth expires**: Run `az acr login --name <YOUR_ACR>` before any image push. Tokens expire after ~3 hours.
-5. **SSH vs Test-Runner routing**: Only uses SSH when user provides **all three** fields: `remote_ip`, `username`, `pem_key_base64`. Missing any one → falls back to in-cluster test-runner service.
-6. **SSE event parsing**: Frontend `streamStrategy()` handles both direct fields (`parsed.ssh_result`) and nested content (`parsed.content.parts[0].text` with inner JSON). Both paths must be maintained for backward compatibility.
+- **API Service** (`/api/v1/`) — CRUD for tasks, scripts, blogs, docs, chat sessions, screenshots
+- **Orchestrator** (`/api/v1/orchestrator/`) — Agent commands, strategy streaming (SSE)
+- Screenshot proxy: `GET /api/v1/web-ui-tasks/{task_id}/screenshots/{step_index}?token=` — API service proxies R2-stored screenshots. The `?token=` query param is needed because `<img src>` cannot send Authorization headers.
 
 ---
 > Source: [gy15901580825/Argus](https://github.com/gy15901580825/Argus) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
