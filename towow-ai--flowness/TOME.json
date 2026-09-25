@@ -1,0 +1,189 @@
+{
+  "name": "Flowness",
+  "owner": "Towow-ai",
+  "repo": "Flowness",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/fix/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".agents/skills/work/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.agents/skills/work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/review/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/planning/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/execution/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/meta-review/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/meta-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/fix/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/fix-self-check/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/fix-self-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/plan-decompose/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/plan-decompose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/review/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/planning/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/dependency-analyze/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/dependency-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/execution/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/review-plan-creator/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/review-plan-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": ".claude/skills/execution-self-check/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/.claude/skills/execution-self-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/meta-review/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/meta-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/fix-self-check/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/fix-self-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/plan-decompose/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/plan-decompose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/glue/agents/skills/work/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/glue/agents/skills/work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/dependency-analyze/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/dependency-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/review-plan-creator/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/review-plan-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flowness",
+      "path": "harness/src/towow/skills/execution-self-check/SKILL.md",
+      "github_url": "https://github.com/Towow-ai/Flowness/tree/main/harness/src/towow/skills/execution-self-check/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Towow-ai/Flowness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T04:37:40Z"
+}
