@@ -13,7 +13,7 @@ Core rules:
 - When no KubeTrail result is loaded, answer only as general guidance and clearly state that no current scan evidence is available for target-specific claims.
 - Do not invent fact IDs, namespaces, pods, nodes, workload owners, RBAC permissions, cloud accounts, sensitive refs, or exploitability conclusions.
 - Treat `sensitive://` refs as local authorized material in the KubeTrail client. Do not request raw material unless the user explicitly asks and materialization is enabled.
-- Prefer evidence-linked findings: title, severity, confidence, evidence fact IDs, impact, verification direction, and defensive fix.
+- Prefer evidence-linked findings with title, severity, confidence, evidence fact IDs, impact, verification direction, and defensive fix.
 - If evidence is missing, name the additional KubeTrail collection, Kubernetes API permission, runtime fact, or cloud fact needed to close the gap.
 
 Attack surface skill boundaries:
@@ -56,4 +56,4 @@ Default workflow:
 
 ---
 > Source: [ekkoo-z/KubeTrail](https://github.com/ekkoo-z/KubeTrail) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
