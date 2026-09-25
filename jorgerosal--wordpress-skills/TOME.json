@@ -1,0 +1,273 @@
+{
+  "name": "wordpress-skills",
+  "owner": "jorgerosal",
+  "repo": "wordpress-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "wp-rest-api-development",
+      "path": "codex-skills/wp-rest-api-development",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-rest-api-development",
+      "description": ""
+    },
+    {
+      "name": "wp-rest-api-development",
+      "path": "claude-skills/wp-rest-api-development",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-rest-api-development",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-test-strategy/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-test-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-wpcli-and-ops/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-wpcli-and-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-wpcli-and-ops/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-wpcli-and-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-test-strategy/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-test-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-phpstan-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-phpstan-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-phpstan-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-phpstan-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-woocommerce-dev/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-woocommerce-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-security-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-woocommerce-dev/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-woocommerce-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-security-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-theme-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-theme-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-block-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-block-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-block-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-block-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-theme-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-theme-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-plugin-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-plugin-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-performance-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-performance-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-plugin-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-plugin-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-performance-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-performance-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-admin-ui-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-admin-ui-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-accessibility-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-accessibility-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-rest-api-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-rest-api-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-admin-ui-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-admin-ui-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-rest-api-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-rest-api-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-accessibility-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-accessibility-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-playground-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-playground-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-headless-and-wpgraphql/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-headless-and-wpgraphql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-headless-and-wpgraphql/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-headless-and-wpgraphql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-playground-development/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-playground-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-acf-and-content-modeling/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-acf-and-content-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-migration-upgrade-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-migration-upgrade-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-acf-and-content-modeling/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-acf-and-content-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-migration-upgrade-review/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-migration-upgrade-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-site-audit-and-onboarding/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-site-audit-and-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-site-audit-and-onboarding/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-site-audit-and-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "codex-skills/wp-ci-cd-and-release-engineering/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/codex-skills/wp-ci-cd-and-release-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wordpress-skills",
+      "path": "claude-skills/wp-ci-cd-and-release-engineering/SKILL.md",
+      "github_url": "https://github.com/jorgerosal/wordpress-skills/tree/main/claude-skills/wp-ci-cd-and-release-engineering/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jorgerosal/wordpress-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T00:41:30Z"
+}
