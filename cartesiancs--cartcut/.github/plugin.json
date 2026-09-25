@@ -1,0 +1,14 @@
+{
+  "name": "cartesiancs--cartcut",
+  "displayName": "cartcut",
+  "description": "cartcut",
+  "version": "1.0.0",
+  "author": "cartesiancs",
+  "homepage": "https://github.com/cartesiancs/cartcut",
+  "skills": [
+    {
+      "name": "cartcut",
+      "description": ""
+    }
+  ]
+}
