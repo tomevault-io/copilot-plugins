@@ -1,0 +1,513 @@
+{
+  "name": "claude-for-legal-finland",
+  "owner": "akunikkola",
+  "repo": "claude-for-legal-finland",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-for-legal-finland",
+      "path": "juristi/skills/juristi/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/juristi/skills/juristi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "juristi/skills/suomen-kieli/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/juristi/skills/suomen-kieli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "juristi/skills/toimeksianto/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/juristi/skills/toimeksianto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "tyooikeus/skills/tyosopimus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/tyooikeus/skills/tyosopimus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "verotus/skills/yritysverotus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/verotus/skills/yritysverotus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "juristi/skills/oikeustutkimus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/juristi/skills/oikeustutkimus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "lausunnot/skills/lausuntoapuri/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/lausunnot/skills/lausuntoapuri/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "juristi/skills/taulukkokatsaus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/juristi/skills/taulukkokatsaus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "juristi/skills/selkokielistaja/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/juristi/skills/selkokielistaja/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "riidanratkaisu/skills/todistelu/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/riidanratkaisu/skills/todistelu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "tyooikeus/skills/yhteistoiminta/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/tyooikeus/skills/yhteistoiminta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "verotus/skills/arvonlisaverotus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/verotus/skills/arvonlisaverotus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "juristi/skills/kaytantoprofiili/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/juristi/skills/kaytantoprofiili/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "yhtiooikeus/skills/osakassopimus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/yhtiooikeus/skills/osakassopimus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "yhtiooikeus/skills/yhtion-hallinto/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/yhtiooikeus/skills/yhtion-hallinto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "juristi/skills/asiakirjan-tarkistus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/juristi/skills/asiakirjan-tarkistus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "riidanratkaisu/skills/haastehakemus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/riidanratkaisu/skills/haastehakemus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "tietosuoja/skills/tietosuojaseloste/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/tietosuoja/skills/tietosuojaseloste/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "lainvalmistelu/skills/lakikieli-opas/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/lainvalmistelu/skills/lakikieli-opas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "insolvenssi/skills/saatavien-perinta/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/insolvenssi/skills/saatavien-perinta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "hallinto-oikeus/skills/muutoksenhaku/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/hallinto-oikeus/skills/muutoksenhaku/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "yhtiooikeus/skills/yritysjarjestelyt/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/yhtiooikeus/skills/yritysjarjestelyt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "hallinto-oikeus/skills/hallintopaatos/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/hallinto-oikeus/skills/hallintopaatos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "rikosprosessi/skills/syyte-ja-vastaus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/rikosprosessi/skills/syyte-ja-vastaus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "insolvenssi/skills/konkurssimenettely/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/insolvenssi/skills/konkurssimenettely/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "riidanratkaisu/skills/vahingonkorvaus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/riidanratkaisu/skills/vahingonkorvaus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "juristi/skills/oikeustapaus-referointi/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/juristi/skills/oikeustapaus-referointi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "tietosuoja/skills/tietosuoja-arviointi/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/tietosuoja/skills/tietosuoja-arviointi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "sopimukset/skills/sopimuksen-tarkistus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/sopimukset/skills/sopimuksen-tarkistus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "immateriaalioikeus/skills/tekijanoikeus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/immateriaalioikeus/skills/tekijanoikeus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "sopimukset/skills/sopimuksen-laatiminen/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/sopimukset/skills/sopimuksen-laatiminen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "tietosuoja/skills/rekisteroidyn-pyynnot/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/tietosuoja/skills/rekisteroidyn-pyynnot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "tyooikeus/skills/tyosuhteen-paattaminen/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/tyooikeus/skills/tyosuhteen-paattaminen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "rikosoikeus/skills/keskeiset-rikostyypit/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/rikosoikeus/skills/keskeiset-rikostyypit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "insolvenssi/skills/maksukyvyttomyysarvio/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/insolvenssi/skills/maksukyvyttomyysarvio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "rikosoikeus/skills/rikosvastuun-perusteet/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/rikosoikeus/skills/rikosvastuun-perusteet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "tekoalysaantely/skills/tekoaly-luokittelu/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/tekoalysaantely/skills/tekoaly-luokittelu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "rikosprosessi/skills/asianomistajan-asema/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/rikosprosessi/skills/asianomistajan-asema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kilpailuoikeus/skills/kilpailu-compliance/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kilpailuoikeus/skills/kilpailu-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "tekoalysaantely/skills/tekoaly-velvoitteet/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/tekoalysaantely/skills/tekoaly-velvoitteet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kilpailuoikeus/skills/kilpailunrajoitukset/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kilpailuoikeus/skills/kilpailunrajoitukset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "immateriaalioikeus/skills/liikesalaisuudet/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/immateriaalioikeus/skills/liikesalaisuudet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kilpailuoikeus/skills/yrityskauppavalvonta/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kilpailuoikeus/skills/yrityskauppavalvonta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "lainvalmistelu/skills/lainkirjoittajan-opas/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/lainvalmistelu/skills/lainkirjoittajan-opas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kiinteistot-ja-asuminen/skills/asuntokauppa/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kiinteistot-ja-asuminen/skills/asuntokauppa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "rikosoikeus/skills/rangaistuksen-maaraaminen/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/rikosoikeus/skills/rangaistuksen-maaraaminen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "riidanratkaisu/skills/muutoksenhaku-tuomioon/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/riidanratkaisu/skills/muutoksenhaku-tuomioon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "perhe-ja-perinto/skills/avioliitto-ja-ositus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/perhe-ja-perinto/skills/avioliitto-ja-ositus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "pankki-ja-rahoitus/skills/arvopaperimarkkinat/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/pankki-ja-rahoitus/skills/arvopaperimarkkinat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kaksikielisyys/skills/oikeuskielen-kaantaminen/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kaksikielisyys/skills/oikeuskielen-kaantaminen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "perhe-ja-perinto/skills/perinto-ja-testamentti/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/perhe-ja-perinto/skills/perinto-ja-testamentti/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "perhe-ja-perinto/skills/lapsen-asema-ja-elatus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/perhe-ja-perinto/skills/lapsen-asema-ja-elatus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "pankki-ja-rahoitus/skills/rahanpesun-estaminen/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/pankki-ja-rahoitus/skills/rahanpesun-estaminen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "pankki-ja-rahoitus/skills/rahoitus-ja-vakuudet/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/pankki-ja-rahoitus/skills/rahoitus-ja-vakuudet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "ymparisto-ja-kaavoitus/skills/ymparistovastuut/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/ymparisto-ja-kaavoitus/skills/ymparistovastuut/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "julkiset-hankinnat/skills/hankinnan-suunnittelu/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/julkiset-hankinnat/skills/hankinnan-suunnittelu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "rikosprosessi/skills/esitutkinta-ja-pakkokeinot/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/rikosprosessi/skills/esitutkinta-ja-pakkokeinot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kiinteistot-ja-asuminen/skills/kiinteistokauppa/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kiinteistot-ja-asuminen/skills/kiinteistokauppa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kiinteistot-ja-asuminen/skills/vuokrasopimukset/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kiinteistot-ja-asuminen/skills/vuokrasopimukset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kuluttajaoikeus/skills/kuluttajariita-ja-perinta/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kuluttajaoikeus/skills/kuluttajariita-ja-perinta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "hallinto-oikeus/skills/julkisuus-ja-tietopyynnot/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/hallinto-oikeus/skills/julkisuus-ja-tietopyynnot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "verotus/skills/verotusmenettely-ja-muutoksenhaku/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/verotus/skills/verotusmenettely-ja-muutoksenhaku/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kiinteistot-ja-asuminen/skills/asunto-osakeyhtio/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kiinteistot-ja-asuminen/skills/asunto-osakeyhtio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kuluttajaoikeus/skills/etamyynti-ja-peruuttaminen/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kuluttajaoikeus/skills/etamyynti-ja-peruuttaminen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "lainvalmistelu/skills/lainvalmistelun-prosessiopas/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/lainvalmistelu/skills/lainvalmistelun-prosessiopas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kuluttajaoikeus/skills/kuluttajakaupan-virhevastuu/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kuluttajaoikeus/skills/kuluttajakaupan-virhevastuu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "julkiset-hankinnat/skills/tarjouspyynto-ja-tarjous/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/julkiset-hankinnat/skills/tarjouspyynto-ja-tarjous/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "tekoalysaantely/skills/tekoaly-vaatimustenmukaisuus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/tekoalysaantely/skills/tekoaly-vaatimustenmukaisuus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "immateriaalioikeus/skills/tavaramerkki-ja-toiminimi/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/immateriaalioikeus/skills/tavaramerkki-ja-toiminimi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "ulkomaalaisoikeus/skills/tyonantajan-velvollisuudet/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/ulkomaalaisoikeus/skills/tyonantajan-velvollisuudet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "ulkomaalaisoikeus/skills/tyoperusteiset-oleskeluluvat/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/ulkomaalaisoikeus/skills/tyoperusteiset-oleskeluluvat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "ymparisto-ja-kaavoitus/skills/ymparistolupa-ja-valvonta/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/ymparisto-ja-kaavoitus/skills/ymparistolupa-ja-valvonta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "ymparisto-ja-kaavoitus/skills/kaavoitus-ja-rakentaminen/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/ymparisto-ja-kaavoitus/skills/kaavoitus-ja-rakentaminen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "ulkomaalaisoikeus/skills/eu-ja-perheperusteinen-oleskelu/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/ulkomaalaisoikeus/skills/eu-ja-perheperusteinen-oleskelu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "kaksikielisyys/skills/kielelliset-oikeudet-ja-velvoitteet/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/kaksikielisyys/skills/kielelliset-oikeudet-ja-velvoitteet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "julkiset-hankinnat/skills/hankintapaatos-ja-muutoksenhaku/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/julkiset-hankinnat/skills/hankintapaatos-ja-muutoksenhaku/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "lainvalmistelu/skills/hallituksen-esityksen-laatimisohjeet/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/lainvalmistelu/skills/hallituksen-esityksen-laatimisohjeet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-finland",
+      "path": "perhe-ja-perinto/skills/edunvalvonta-ja-edunvalvontavaltuutus/SKILL.md",
+      "github_url": "https://github.com/akunikkola/claude-for-legal-finland/tree/main/perhe-ja-perinto/skills/edunvalvonta-ja-edunvalvontavaltuutus/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/akunikkola/claude-for-legal-finland",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T10:32:58Z"
+}
