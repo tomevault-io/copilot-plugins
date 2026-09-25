@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FoloToy/ai-passport](https://github.com/FoloToy/ai-passport).
+Original source: `CLAUDE.md` in [FoloToy/ai-passport](https://github.com/FoloToy/ai-passport).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `AGENTS.md` in [FoloToy/ai-passport](https://github.com/FoloToy
 - [ai-passport](https://github.com/FoloToy/ai-passport/tree/main/skills/plays-archive/SKILL.md)
 - [ai-passport](https://github.com/FoloToy/ai-passport/tree/main/skills/issue-suggestions/SKILL.md)
 
-From [FoloToy/ai-passport](https://github.com/FoloToy/ai-passport) — a repo with 444+ stars on GitHub.
+From [FoloToy/ai-passport](https://github.com/FoloToy/ai-passport) — a repo with 450+ stars on GitHub.
 
 ---
 
