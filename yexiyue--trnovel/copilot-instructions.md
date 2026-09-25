@@ -1,124 +1,112 @@
 ## trnovel
 
-> Before any development task that writes code, changes configuration, or adds dependencies, use the `dev-workflow` skill. It loads project notes from `dev-notes/knowledge/` and guides whether new project knowledge should be added after the change.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Development Workflow
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Before any development task that writes code, changes configuration, or adds dependencies, use the `dev-workflow` skill. It loads project notes from `dev-notes/knowledge/` and guides whether new project knowledge should be added after the change.
+## 开发工作流
 
-Relevant project notes:
+**IMPORTANT**：执行任何开发任务（编写代码、修改配置、添加依赖）前，必须先调用 `/dev-workflow` skill。它会加载项目知识库（`dev-notes/knowledge/`）中的最佳实践和踩坑记录，并在开发完成后引导更新知识库。
 
-- `dev-notes/knowledge/tui-ratatui-kit.md`: ratatui-kit hooks, render timing pitfalls, route conventions, and keyboard handling.
-- `dev-notes/knowledge/booksource.md`: book-source rule DSL, render-fetcher, anti-scraping behavior, Fanqie support, and `novel-tts`.
-- `dev-notes/knowledge/toolchain.md`: Cargo workspace conventions, feature gates, pinned dependencies, CI, release, and `mod.rs` layout decisions.
+知识库主题：
 
-Use existing OpenSpec entries under `openspec/changes/` before changing book-source behavior or other proposed features.
+- `dev-notes/knowledge/tui-ratatui-kit.md` — ratatui-kit 的 hooks 求值时机（狂闪 bug）、键位约定、路由
+- `dev-notes/knowledge/booksource.md` — 书源规则 DSL、render-fetcher、番茄签名/翻页、反爬、novel-tts
+- `dev-notes/knowledge/toolchain.md` — Cargo workspace（mod.rs 风格）、feature 门控、依赖钉版、构建/发布坑
 
-## Project Overview
+## Overview
 
-TRNovel is a Rust 2024 terminal novel reader built on `ratatui` plus the custom React-like TUI framework crate `ratatui-kit`. It reads local `.txt` novels and network novels through Legado-style book sources, persists reading history and theme state, and supports Kokoro-based TTS playback. UI text and code comments are primarily Chinese.
+TRNovel is a terminal novel reader (Rust, edition 2024) built on `ratatui` + a custom React-like TUI framework crate, `ratatui-kit`. It reads local `.txt` novels and network novels (via Legado-style "book sources"), tracks reading history, supports color themes, and offers TTS playback using the Kokoro model. UI text and code comments are in Chinese.
 
-The workspace has one root application crate and two library crates:
+## Workspace layout
 
-- `trnovel` in `src/`: main app; builds the `trnovel` and `trn` binaries.
-- `crates/parse-book-source`: Legado-compatible book-source parsing, fetching, and rule evaluation.
-- `crates/novel-tts`: Kokoro TTS wrapper and streaming audio pipeline.
+Cargo workspace with one root binary crate and two library members:
 
-Docs are an Astro/Starlight site in `docs/`. Integration tests live in `tests/`; optional large fixtures live in `test-novels/` and must be skipped cleanly when absent.
+- **`trnovel`** (root, `src/`) — the app. Builds two identical binaries: `trnovel` (default) and `trn`.
+- **`crates/parse-book-source`** — fetches/parses network novels from Legado-compatible book-source JSON.
+- **`crates/novel-tts`** — Kokoro TTS engine wrapper + streaming audio pipeline.
 
-## Common Commands
+## Commands
 
 ```bash
 # Build / run
-cargo build
-cargo run
-cargo run --bin trn
-cargo run -- -q
-cargo run -- -l <PATH>
-cargo run -- -n
+cargo build                       # debug; produces both trnovel and trn
+cargo run                         # runs trnovel (default-run); opens the Home page
+cargo run -- -q                   # quick: resume last reading position
+cargo run -- -l <PATH>            # local novels from a directory
+cargo run -- -n                   # network mode  | -H history  | -c clears ~/.novel
 
-# CI / pre-commit checks
+# Test / lint / docs — what CI and the pre-commit hook enforce
 cargo test --locked --all-features --workspace --lib --tests --examples
-cargo clippy --all-targets --all-features --workspace -- -D warnings
+cargo clippy --all-targets --all-features --workspace -- -D warnings   # -D warnings in CI
 cargo fmt --all --check
 RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --document-private-items --all-features --workspace --examples
 
-# Single-crate tests
+# A single test (the app crate `src/` has NO tests — they live only in the two sub-crates)
 cargo test -p parse-book-source <test_name>
 cargo test -p novel-tts <test_name>
 
-# Examples
-cargo run -p parse-book-source --example json
-cargo run -p novel-tts --example basic
+# Crate-scoped examples
+cargo run -p parse-book-source --example json     # needs a book-source test.json
+cargo run -p novel-tts --example basic            # downloads model + plays real audio
 
-# Book-source schema
-cargo run -p parse-book-source --features schema --example gen_schema
-
-# Docs
-cd docs && pnpm install && pnpm dev
-cd docs && pnpm build
+# Docs site (docs/ — Astro + Starlight, formatted with Biome)
+cd docs && pnpm install && pnpm dev               # pnpm build / preview / astro check
 ```
 
-`lefthook.yaml` runs tests, `clippy --fix --allow-dirty`, `cargo fmt`, and `cargo doc` on pre-commit. Release flow uses `./release.sh`, cargo-release, git-cliff, and cargo-dist via `.github/workflows/trnovel-release.yml`.
+`lefthook.yaml` runs test → `clippy --fix --allow-dirty` (auto-stages fixes) → `cargo fmt` → `cargo doc` on pre-commit. Releases go through `./release.sh` (cargo-release + git-cliff changelog, tag `<crate>-v<version>`) and cargo-dist (`.github/workflows/trnovel-release.yml`, triggered by `trnovel-v*` tags).
 
-## Coding Style
+## Architecture
 
-Use Rust 2024 idioms. Formatting is controlled by `rustfmt.toml` with `tab_spaces = 4`. Use `snake_case` for modules, functions, and variables; use `PascalCase` for public types. Keep shared dependencies in `[workspace.dependencies]`.
+### UI framework: ratatui-kit (`src/app`, `src/pages`, `src/components`, `src/hooks`)
 
-Avoid broad refactors in parser, fetcher, UI state, and cache code unless the task requires it. These areas have cross-crate or runtime behavior that is easy to disturb.
+`ratatui-kit` is a React-like layer over ratatui. Understanding its model is the key to this codebase:
 
-The app crate under `src/` currently has no tests; most tests are in the sub-crates. Put crate-local unit tests beside the implementation and cross-cutting tests in `tests/`. Name tests after the behavior they lock down.
+- **Components** are `#[component] fn(props, hooks) -> impl Into<AnyElement>`; UI is composed with the `element!` macro.
+- **Hooks** drive everything: `use_state` (local `State<T>`; `.read()`/`.write()`/`.set()`), `use_context` (global state), `use_future`/`use_async_effect` (async side effects), `use_events` (keyboard), `use_memo`. The repo adds custom hooks in `src/hooks` — notably `UseThemeConfig` (`use_theme_token.rs`) and `UseInitState` (`use_init_state.rs`, async-load state that debounces the loading spinner by 200ms).
+- **Routing** is declared with the `routes!` macro in `src/app/mod.rs` and served by `RouterProvider`. Navigation uses `use_navigate()` + `navigate.push(path)` / `push_with_state(path, T)`; the target page reads typed state via `use_route_state::<T>()`. All pages render inside `src/app/layout.rs` (the `Layout` outlet).
 
-## Architecture Notes
+### App boot & global state (`src/app/mod.rs`)
 
-### TUI and Routing
+`App` mounts `use_future` to load all caches (History, BookSourceCache, TTSConfig, theme.json) off the UI path, showing a `Loading` spinner only if init exceeds ~200ms, then renders a **nested `ContextProvider` chain**: ThemeConfig → History → BookSourceCache → TTSConfig → NovelTTS → is_inputting → `RouterProvider`. Pages reach this state via `use_context`. Reordering the providers risks breaking descendant lookups.
 
-`ratatui-kit` components use `#[component] fn(props, hooks) -> impl Into<AnyElement>` and compose UI with the `element!` macro. Hooks drive local state, global context, async effects, keyboard events, and memoization.
+Routes: `/home`, `/select-history`, `/select-file` → `/local-novel`, `/book-source` → `/select-books` → `/book-detail` → `/network-novel`, `/theme-setting`. The CLI subcommand (`src/lib.rs`, clap derive) selects the initial flow.
 
-Routes are declared with `routes!` in `src/app/mod.rs` and served by `RouterProvider`. Navigation uses `use_navigate()` with `push` or `push_with_state`; target pages read typed route state with `use_route_state::<T>()`. All pages render through `src/app/layout.rs`.
+### Keyboard handling — no central keymap
 
-`App` initializes caches and theme/TTS state, then renders a nested `ContextProvider` chain. Do not reorder providers casually; descendant `use_context` lookups depend on the chain.
+There is **no global keybinding table**. `Layout` handles a few app-wide keys; every page/component matches `KeyCode` itself inside its own `use_events` closure (vim-style `j/k/h/l`, `Tab`, `Enter`, etc.). The `is_inputting` context gates page shortcuts while a `SearchInput` is focused — pages must check it to avoid double-handling. The shortcut help overlay is `src/components/modal/shortcut_info_modal.rs`. (Note: issue #49 requests making these keys configurable — they are currently hardcoded across ~22 files; theme is already file-configurable but keybindings are not.)
 
-### Keyboard Handling
+### Novel domain (`src/novel`)
 
-There is no central keybinding table. `Layout` handles only a few global keys; pages and components match `KeyCode` in their own `use_events` closures. When a `SearchInput` or other input is focused, pages must respect the `is_inputting` context so shortcuts are not handled twice.
+A single `Novel` trait (`novel_core.rs`) unifies both sources via `Deref<Target = NovelChapters<T>>`, so generic UI code (`ReadNovel<T>`) drives chapter navigation/content the same way for either:
 
-### Novel Domain
+- **`LocalNovel`** — `Arc<Mutex<File>>`; detects encoding (UTF-8, falling back to GBK), splits chapters by a `第…章` regex, and **stores byte offsets** to seek for pagination. Offsets become invalid if the file changes between sessions.
+- **`NetworkNovel`** — `Arc<Mutex<BookSourceParser>>`; chapters/content are fetched lazily on demand from the book source.
 
-The `Novel` trait in `src/novel/novel_core.rs` unifies local and network novels so generic reader UI can drive chapter navigation and content loading.
+### Persistence (`src/cache`, `src/utils.rs`)
 
-`LocalNovel` stores byte offsets for chapter pagination after detecting UTF-8 or GBK text. Those offsets become invalid if the source file changes between sessions.
+All app state lives under **`~/.novel/`** (`utils::novel_catch_dir()`; `cargo run -- -c` deletes it entirely, no confirmation). Each cache type follows the same pattern: serde_json (de)serialization, a `save()` method, and a `Drop` impl that auto-saves on scope exit (errors are swallowed). Files: `theme.json`, `history.json` (max 100, MRU-deduped), `book_sources.json`, `tts_config.json`, and per-book snapshots in `local/{path_md5}.json` and `network/{url_md5}.json` (md5 keys via `utils::get_path_md5`/`get_md5_string`). `ReadNovel` saves history on drop.
 
-`NetworkNovel` fetches chapters and content lazily through `BookSourceParser`.
+### parse-book-source crate
 
-### Persistence
+Parses Legado-format book sources (`#[serde(rename_all = "camelCase")]`, e.g. `bookSourceUrl`). The public API is `BookSourceParser` (`search_books`, `explore_books`, `get_book_info`, `get_chapters`, `get_content`, `get_explores`). Extraction is a **rule DSL** dispatched by prefix to three analyzers: `@css:` (scraper CSS selectors, default), `@json:`/`$` (jsonpath-rust), and no-prefix Legado "Default" format (`default.rs` rewrites it to CSS). Rules chain with `@` (pipeline), `&&` (concat), `||` (fallback), `##` (regex replace), support `{{var}}`/`{{page}}` templating and `@put:`/`@get:` variable storage. `split_rule_resolve()` parses rules right-to-left. HTTP goes through a reqwest wrapper with cookies, headers, timeout, and optional token-bucket rate limiting. Legado compatibility is partial — not every rule works.
 
-App state lives under `~/.novel/`. `cargo run -- -c` deletes that directory without confirmation. Cache types generally use serde_json, a `save()` method, and `Drop` auto-save; save errors are swallowed. History is MRU-deduped and capped.
+### novel-tts crate
 
-### Book Sources
+Wraps `kokoro-tts` (Chinese v1.1 model). `NovelTTS::new(model, voices)` loads the ONNX model; `ChapterTTS::stream(voice, on_error)` spawns a tokio task that splits text via `preprocess_text` (recursive punctuation splitting into ~200-byte segments with byte ranges), synthesizes each, and pushes to a custom queue (`src/queue`, a `Source` implementor with silence padding) feeding a rodio `Sink`. A `position_rx` channel reports which segment is playing so the reader can highlight in sync. Model files (`kokoro-v1.1-zh.onnx`, `voices-v1.1-zh.bin`, large) auto-download from GitHub into **`~/.novel-tts/kokoro/`** with HTTP Range resume; cancellation is via `CancellationToken`.
 
-`parse-book-source` parses Legado-style JSON with camelCase fields. Rules dispatch by prefix to CSS, JSONPath, or default Legado parsing. Rules support chaining, fallback, concat, regex replacement, `{{var}}` and `{{page}}` templating, and `@put:` / `@get:` variables.
+### Errors
 
-Before changing book-source behavior, inspect the matching OpenSpec change when one exists, update schema/docs examples when model types change, and validate generated or imported book-source JSON with `trn doctor` before calling it working.
+`src/errors.rs` defines a `thiserror` `Errors` enum (`#[from]` for io / serde_json / tokio lock / parse_book_source errors, plus a `Warning(String)` variant and anyhow passthrough); `Result<T>` aliases it. Errors surface to the UI as a `WarningModal`. Each crate has its own analogous error enum (`ParseError`, `NovelTTSError`).
 
-### TTS
+## Platform / build notes
 
-`novel-tts` wraps the Chinese Kokoro v1.1 model. Large model files are downloaded to `~/.novel-tts/kokoro/` with HTTP Range resume. Streaming uses spawned async work and cancellation tokens; after changing public async APIs called from `tokio::spawn`, run `cargo build` in addition to tests to verify futures remain `Send` in the app context.
-
-## Platform Notes
-
-Rust 1.85 or newer is required for edition 2024. Linux builds require `libasound2-dev`, `libssl-dev`, and `pkg-config`. On Windows, keep `msvc-crt-static = false` in root `Cargo.toml` workspace dist metadata because ONNX Runtime ships with a dynamic CRT.
-
-## Commit and PR Notes
-
-Use Conventional Commit style with scopes, such as `feat(booksource): ...`, `fix(booksource): ...`, and `docs(openspec): ...`. Keep messages imperative and scoped to the changed subsystem.
-
-PRs should include the problem, solution, related issue or OpenSpec change, test commands run, and screenshots or terminal captures for UI/docs changes. Mention schema, cache, migration, or persisted-state impacts explicitly.
-
-@RTK.md
+- **Edition 2024** — needs Rust ≥ 1.85 (stable; no nightly required).
+- **Linux build deps**: `libasound2-dev` (rodio), `libssl-dev`, `pkg-config` — CI installs them via apt.
+- **Windows**: `msvc-crt-static = false` in the root `Cargo.toml` `[workspace.metadata.dist]` is mandatory — ort/onnxruntime ship with a dynamic CRT and static linking causes unresolved-symbol (`__imp_tolower`) LNK errors.
 
 ---
 > Source: [yexiyue/TRNovel](https://github.com/yexiyue/TRNovel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
