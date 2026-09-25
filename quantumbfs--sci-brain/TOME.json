@@ -2,9 +2,9 @@
   "name": "sci-brain",
   "owner": "QuantumBFS",
   "repo": "sci-brain",
-  "description": "Brain storming like a senior research scientist",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/QuantumBFS/sci-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T07:33:40Z"
+  "distributed_at": "2026-09-25T23:03:14Z"
 }
