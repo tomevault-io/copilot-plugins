@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [copperheadhq/copperhead](https://github.com/copperheadhq/copperhead).
+Original source: `CLAUDE.md` in [copperheadhq/copperhead](https://github.com/copperheadhq/copperhead).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -27,7 +27,7 @@ Original source: `AGENTS.md` in [copperheadhq/copperhead](https://github.com/cop
 - [copperhead](https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/openspec-update-change/SKILL.md)
 - [copperhead](https://github.com/copperheadhq/copperhead/tree/main/.claude/skills/openspec-archive-change/SKILL.md)
 
-From [copperheadhq/copperhead](https://github.com/copperheadhq/copperhead) — a repo with 280+ stars on GitHub.
+From [copperheadhq/copperhead](https://github.com/copperheadhq/copperhead) — a repo with 283+ stars on GitHub.
 
 ---
 
