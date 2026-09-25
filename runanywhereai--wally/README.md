@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [RunanywhereAI/wally](https://github.com/RunanywhereAI/wally).
+Original source: `CLAUDE.md` in [RunanywhereAI/wally](https://github.com/RunanywhereAI/wally).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -29,7 +29,7 @@ Original source: `AGENTS.md` in [RunanywhereAI/wally](https://github.com/Runanyw
 - [wally](https://github.com/RunanywhereAI/wally/tree/main/.agents/skills/wally-architecture/SKILL.md)
 - [wally](https://github.com/RunanywhereAI/wally/tree/main/.claude/skills/wally-architecture/SKILL.md)
 
-From [RunanywhereAI/wally](https://github.com/RunanywhereAI/wally) — a repo with 1556+ stars on GitHub.
+From [RunanywhereAI/wally](https://github.com/RunanywhereAI/wally) — a repo with 1557+ stars on GitHub.
 
 ---
 
