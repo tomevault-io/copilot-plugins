@@ -2,9 +2,9 @@
   "name": "zlibrary-mcp",
   "owner": "rookslog",
   "repo": "zlibrary-mcp",
-  "description": "MCP server for Z-Library: search, download, and process books into RAG-ready text for AI assistants (Claude Code, Claude Desktop, Cline, RooCode)",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rookslog/zlibrary-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T00:27:25Z"
+  "distributed_at": "2026-09-25T11:07:11Z"
 }
