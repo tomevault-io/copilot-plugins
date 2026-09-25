@@ -1,0 +1,296 @@
+## ipctool
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+`ipctool` is a single static C99 binary that runs *on* an IP camera or DVR and
+reports its hardware as YAML: SoC, board, sensor, flash layout, RAM, firmware,
+clocks. It probes hardware directly (`/dev/mem`, I2C/SPI, `/proc`, MTD), so
+almost nothing useful executes on an x86 host. The same tree also builds
+`libipchw` (a small static library exposing chip/sensor identity, see
+`include/ipchw.h`) and `ipcinfo` (`example/ipcinfo.c`), a minimal consumer of it.
+
+Shipped binaries are static musl builds for arm32 (the canonical target),
+mips32 and arm64, and are UPX-packed before release: the raw static-musl binary
+crashes at startup on legacy kernels (Linux <= 3.18, i.e. XiongMai and old
+HiSilicon SDK firmware), and the UPX stub sidesteps that.
+
+## Build
+
+Native build (compiles everything, runs the unit test; hardware paths return
+nothing on a PC):
+
+```sh
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+./build/cYAML_test          # exit 0 == all cases passed
+```
+
+Cross build, exactly as CI does it (PR check and release both use these
+toolchains):
+
+```sh
+# arm32 (HiSilicon/Goke V1..V5, XM, SigmaStar, ...): OpenIPC hi3516cv100 musleabi toolchain
+# mips32 (Ingenic):  OpenIPC ingenic-t31 musl toolchain
+# arm64 (Hi3519DV500 etc.): Bootlin aarch64--musl--stable toolchain
+export PATH=/opt/<toolchain_dir>/bin:$PATH
+cmake -S . -B build-arm -DCMAKE_C_COMPILER=arm-openipc-linux-musleabi-gcc -DCMAKE_BUILD_TYPE=Release
+cmake --build build-arm
+upx build-arm/ipctool       # match the release artefact before testing on a camera
+```
+
+Toolchain URLs and directory names are in `.github/workflows/pr-build-check.yml`.
+`build*` and `build-arm*` are gitignored.
+
+CMake knobs worth knowing:
+
+- `CMAKE_C_FLAGS` is hard-reset to `-std=gnu99` at the top of `CMakeLists.txt`,
+  so `-DCMAKE_C_FLAGS=...` on the command line does **not** survive. Add flags
+  in `CMakeLists.txt` (guarded by a cache option) instead.
+- `-DBUILD_SHARED_LIBS=ON` is what drops the global `-static`. Needed for a
+  dynamic/ASAN build (use a glibc cross toolchain that ships libasan; musl
+  toolchains do not).
+- `-DIPCHW_VENDORS=all|none|"sstar;ingenic"` selects which vendor HALs go into
+  `libipchw`. HiSilicon is always in — it is not in this knob's vocabulary,
+  because `chipid.c` reaches it directly rather than through the vendor table.
+  The `ipctool` executable always carries every vendor.
+- `-DIPCHW_HISI=all|none|"v4"` selects which HiSilicon *generations* `libipchw`
+  can identify — the chip-ID table, a sensor-bus back-end per generation, and
+  the temperature and die-ID readers. Roughly 8 KB on arm32 for the lot.
+
+  **Its default follows `IPCHW_VENDORS`**, because naming your silicon should
+  not have to be done twice. A narrowing — `-DIPCHW_VENDORS=ingenic` — says the
+  binary will never boot on a HiSilicon part, so `IPCHW_HISI` defaults to
+  `none`. The two spellings that are not a narrowing keep every generation:
+  `all` means "identify any camera this is dropped on", and `none` means only
+  the always-in vendors, which *is* HiSilicon. Both are how `ipcinfo` is built
+  (its own default and the firmware package's `none`), so neither moved when
+  this was added; a narrowed consumer lost 8.3 KB. An explicit `-DIPCHW_HISI`
+  always wins.
+
+  Do not reach for weak symbols or a section registry to replace this knob: it
+  was tried, and it works by *not* pulling `hal_hisi.c.o` from the archive,
+  which deletes HiSilicon detection from every static consumer including the
+  ones that want it. "Which silicon can this build identify" is a runtime
+  question the linker cannot answer — nothing here is dead code as far as it
+  knows.
+- `-DIPCHW_PADMUX=all|none|"v1;v4;sstar"` selects which SoC families' pad-mux
+  tables go into `libipchw`. `sstar` and `ingenic` are families here too: the
+  vendor knob answers "can this build detect the SoC", this one answers "does
+  it carry the SoC's pad table", and they are deliberately separate. All of it
+  is ~75 KB on arm32 and nothing is dropped by `--gc-sections`, because
+  `regs_by_chip()` and `padmux_ops()` name every family from a single switch:
+  a consumer that wants one family has to say so. `v4` is the expensive
+  HiSilicon token (13.6 KB) because one SDK build runs on ev200, ev300,
+  3518ev300 and dv200, and those are four different tables; `sstar` is 25 KB
+  for three families and ~2200 claims. The macros are PUBLIC on the `ipchw`
+  target so a consumer can `#error` on a family it forgot. The `ipctool`
+  executable always carries every table.
+- `-DONLY_LIBRARY=ON` builds just `libipchw`. `-DSKIP_VERSION=ON` skips the
+  git-derived `version.c` (generated by `cmake/version.cmake` on every build).
+  That generated file is compiled by one object library, `ipctool_version`,
+  which `ipctool` and `ipcinfo` both link. Do not put it back in their source
+  lists: a custom-command output listed in two independent targets gets a
+  copy of its rule in each target's `build.make`, and `make -jN` then runs
+  both copies at once and they rewrite the file under each other.
+  `SKIP_FUNDING` removes the sponsorship banner from `-h`.
+- Release flags are `-static -s -Os -ffunction-sections -Wl,--gc-sections -Wextra`;
+  binary size matters, these run from tmpfs on cameras with a few MB free.
+
+## Tests and CI
+
+- `./build/cYAML_test`: covers the JSON-to-YAML printer
+  (`src/cjson/cYAML.c`), including UTF-8 and invalid-byte escaping.
+- `./build/reginfo_test`: the pad-mux tables, the `ipchw_padmux_*` lookups and
+  the `ipchw_padmux_get/_set` accessors, on a host with no camera.
+  `chip_generation` and `chip_name` are plain globals, so setting them puts
+  any SoC's tables in front of the code under test; the asserted rows are ones
+  a real camera was measured against. It installs a fabricated register file
+  through the `padmux_io_t` seam in `src/padmux.h`, which is the only way the
+  write paths are exercised at all off a camera. Over every compiled-in family
+  it sweeps structural invariants (a selector fits its field in place, one pad
+  has one GPIO spelling, no pad offers a function twice or two functions
+  through one selector value, no pad number in two places) and then sets every
+  function of every pad and reads it back. It links the real `libipchw`, which
+  is what proves the lookups are exported and not merely present.
+- `./build/longse_test`: the `_W_` version extraction in
+  `src/boards/longse.c`, which is the only check that code gets -- no one on
+  the project has a Longse camera. Note it uses a local `CHECK` macro rather
+  than `assert()`: the release flags carry `-DNDEBUG`, so an `assert()`-based
+  test compiles away to nothing and passes unconditionally.
+- `./build/anyka_test`: the Anyka HAL's three parsers -- the `/proc/cpuinfo`
+  machine string, the chip-ID table and the media-memory arithmetic -- fed
+  fixture files through the path arguments `src/hal/anyka.h` exposes for the
+  purpose. Same situation as `longse_test` and the same `CHECK` macro: nobody
+  on the project has an Anyka camera, so this is all the verification that
+  code gets until a reporter runs it.
+- `tools/test_pipeline.sh`: hardware-free end-to-end check of the sensor
+  driver extraction pipeline (`trace_segment.py` -> `trace_to_driver.py` ->
+  `gcc -fsyntax-only` -> `trace_diff.py`), plus the `--selftest` of every
+  `tools/*.py` that offers one -- found by running `--help` and looking for
+  the option, so a new one needs no wiring and cannot be forgotten. Those
+  parse built-in fixtures because their `--verify` wants a vendor SDK or a
+  data sheet that CI does not have. That the workflow still runs this script
+  at all is asserted from the *unit-tests* job, not from here: a check that
+  only runs once the thing it protects has already run protects nothing.
+  Needs only python3 and gcc.
+- `.github/workflows/pr-build-check.yml`: every PR must build clean on arm32,
+  mips32 **and** arm64 and pass `test_pipeline.sh`. Keep `#ifdef __arm__` /
+  `__mips__` / `__aarch64__` guards consistent when touching arch-specific code.
+- `.github/workflows/release.yml`: push to master publishes a rolling `latest`
+  prerelease; a `v*` tag publishes a real release. Assets are `ipctool`,
+  `ipctool-mips32`, `ipctool-arm64` plus `ipcinfo*`.
+- `.github/workflows/ci-tests.yml`: pytest against real lab cameras, triggered
+  by `repository_dispatch` only. Not runnable locally.
+
+Real verification of hardware code means running the binary on a camera.
+Cameras usually lack `sftp-server`, so copy with `scp -O`; `/tmp` is tmpfs.
+
+## Formatting
+
+`.clang-format` is LLVM style with 4-space indent. `contributors.md` asks for
+the hook: `./scripts/git-pre-commit-format install`. `scripts/apply-format`
+reformats only the changed hunks of a diff -- but it only learns about
+`.clang-format-hook-exclude` when the hook passes it in, so run
+`scripts/format-changed` instead, or a generated header gets reflowed and stops
+matching its generator.
+
+## Architecture
+
+### Detection flow
+
+1. `src/main.c` hand-dispatches subcommands (`gpio`, `reginfo`, `i2c*`/`spi*`,
+   `clocks`, `trace`, ...) *before* getopt, then handles `-c/-s/-t`, then
+   `backup`/`upload`, and with no arguments builds the full YAML report.
+2. The report is a cJSON tree: `build_yaml()` calls one `detect_*()` per
+   section (`detect_chip`, `detect_board`, `detect_ethernet`, `get_mtd_info`,
+   `detect_ram`, `detect_firmare`, `detect_sensors`, `clocks_build_json`) and
+   `cYAML_Print()` renders it. Empty sections are dropped. New output goes
+   into a cJSON object via the `ADD_PARAM*` macros in `src/tools.h`, which
+   assume a local named `j_inner`.
+3. `getchipname()` in `src/chipid.c` is the "make sure detection ran" call and
+   is memoised. It installs the generic HAL (`setup_hal_fallback()`), then
+   `hw_detect_system()` reads the UART0 base from `/proc/iomem` to recognise
+   HiSilicon/Goke and XM SoCs by register base, falling back to
+   `generic_detect_cpu()`, which walks the `manufacturers[]` table against the
+   `/proc/cpuinfo` Hardware line. Each entry is `detect_fn` + `setup_hal_fn`,
+   compiled in per architecture and per `IPCHW_VENDOR_<NAME>` macro.
+
+### HAL: global function pointers, not vtables
+
+`src/hal/common.h` declares one global function pointer per hardware operation
+(`open_i2c_sensor_fd`, `i2c_read_register`, `i2c_change_addr`,
+`hal_temperature`, `hal_totalmem`, `hal_chip_properties`, `hal_firmware_props`,
+`hal_enable_sensor_clock`, ...). `setup_hal_fallback()` fills them with generic
+`/dev/i2c-N` implementations; each vendor's `setup_hal_<vendor>()` in
+`src/hal/<vendor>.c` overrides what that SoC needs and sets two globals every
+consumer depends on:
+
+- `chip_generation`: the switch key used by `reginfo.c` (pinmux tables),
+  `clocks.c` (PLL/DDR decoders per HiSilicon family), `bootrom.c`, `ptrace.c`,
+  `watchdog.c`, `hal/hisi/ispreg.c`, etc. HiSilicon values are the `HISI_V*`
+  constants in `src/hal/hisi/hal_hisi.h`; other vendors use their own small
+  integers. `getchipfamily()` maps them to family names.
+- `possible_i2c_addrs`: the per-vendor list of (sensor family, I2C addresses)
+  that sensor probing iterates.
+
+Adding an SoC therefore means: a detect function that fills `chip_name` and
+`chip_generation`, a `setup_hal_*` that installs bus access, and then the
+per-generation tables in each subcommand that should support it. Adding a new
+vendor also needs an entry in `IPCHW_OPTIONAL_VENDORS` in `CMakeLists.txt`, an
+include in `hal/common.h`, and a guarded row in `manufacturers[]`.
+
+Anyka (`src/hal/anyka.c`) is the smallest worked example of that whole shape,
+and the one that shows what to do when the SoC hands you no clean key: its
+kernels have no device tree and register no UART with `/proc/iomem`, so the
+`/proc/cpuinfo` machine string is what names the part
+(`CLOUD39EV3_AK3918EV300_MNBD`), while the chip-ID word at `0x08000000` names
+only the generation -- one vendor kernel prints the same `0x20160100` as
+AK3916, AK3918 or AK3919 depending on which `CONFIG_CPU_AK39xx` it was built
+with. Reading the register is therefore a refinement and never the gate, which
+is also what lets detection survive a kernel that will not hand over
+`/dev/mem`.
+
+Sensor I2C addresses in tables are the 8-bit (write) form; the default
+`i2c_change_addr` shifts right by one for the kernel, and some HALs install
+`i2c_change_plain_addr` instead. Ingenic gates the sensor clock, which is why
+`hal_enable_sensor_clock` runs before *every* probe rather than once.
+
+### Sensors
+
+`src/sensors.c` runs `detect_possible_sensors()`: for each address in
+`possible_i2c_addrs` it calls the vendor-family probe (`detect_sony_sensor`,
+`detect_smartsens_sensor`, ...) which reads ID registers through the HAL
+pointers and fills a `sensor_ctx_t`. Several parts share IDs or latch into
+each other after WDR cycles (IMX335/IMX347/IMX415, SP2305/OV2735), so probes
+carry fingerprint logic; read the surrounding comments before reordering
+them. `getsensoridentity()`/`getsensorshort()` are the memoised, mutex-guarded
+public entry points used by `libipchw` consumers.
+
+### Boards
+
+`src/boards/common.c` holds a table of `(is_<vendor>_board, gather_<vendor>_board_info)`
+pairs; the first detector that matches *and* gathers successfully wins.
+
+### `STANDALONE_LIBRARY`
+
+`libipchw` compiles `chipid.c`, `sensors.c`, `hal/common.c`, `hal/hisi/*` and
+the selected vendor HALs with `-DSTANDALONE_LIBRARY`. Anything that touches
+cJSON or prints diagnostics in those shared files must sit inside
+`#ifndef STANDALONE_LIBRARY`, or the library build breaks.
+
+### Architecture-specific code
+
+- `ipctool trace` (`src/ptrace.c`, `src/hal/hisi/ptrace.c`) is a ptrace-based
+  syscall decoder for camera I/O; the syscall table is hard-coded for 32-bit
+  ARM EABI and the command is compiled only under `__arm__`.
+- Register access goes through `mem_reg()` in `src/tools.c`, which mmaps
+  `/dev/mem` in 64 KiB windows and falls back to `PAGE_SIZE` when the kernel
+  rejects the larger window. Kernels built with strict devmem filtering can
+  refuse some ranges entirely. It is **not thread-safe** -- one cached
+  window in four file-statics, no lock -- so serialise every caller yourself.
+- Pad multiplexing spans `src/padmux.c` (the public entry points and the
+  backend dispatch), `src/reginfo.c` (1333 hand-entered HiSilicon/Goke rows
+  plus their backend), `src/hal/sstar_padmux.*` and
+  `src/hal/ingenic_padmux.*`. The three vendors select a pad's function three
+  different ways and only HiSilicon's is one register per pad, which is why
+  there is a `padmux_ops_t` seam rather than one table format. `docs/padmux.md`
+  has the mechanisms, the generators, and the traps -- read it before touching
+  any of this. The HiSilicon rows are indexed by selector value, so an
+  unassigned value must appear as `"reserved"` or every function after it is
+  off by one; a data sheet's "Software Multiplexed Pins" chapter lists
+  alternatives by position with the holes closed up, which is how 19 rows of
+  each of the V2 tables came to be wrong. `tools/check_hisi_padmux.py` diffs a
+  table against the register chapter. Two more that catch everyone: a function is not unique to a pad
+  (hi3516ev300 has PWM2 and PWM3 on three pads each), and the spelling is not
+  portable (`PWM_OUT0` on V1, `PWM0` from V2, `PWM0_OUT1` on V5, `PWM0_MODE_4`
+  on SigmaStar; `SVB_PWM` and `PMC_PWM` are *different* controllers, so match
+  the prefix anchored, never anywhere in the string). The SigmaStar and
+  Ingenic tables are generated from vendor sources by `tools/gen_*_padmux.py`
+  and are in `.clang-format-hook-exclude`. `ipchw_padmux_by_func/_by_prefix/
+  _by_pad` are safe to call concurrently once the SoC has been detected;
+  detection itself is not, so call `getchipname()` once at startup.
+  `ipchw_padmux_get/_set` touch `/dev/mem` and must stay on one thread.
+- `src/fake_symbols.c` holds empty definitions of HiSilicon SDK audio symbols,
+  added when the Hi3518EV100 SDK was linked in; nothing in the current tree
+  references them. `src/stack.c` is a stack-protector shim and is not in the
+  build.
+
+### Host-side tooling
+
+`tools/` holds the Python post-processing for `ipctool trace`
+(`trace_segment.py`, `trace_to_driver.py`, `trace_diff.py`),
+`capture_sensor.sh` (builds ipctool for ARM and captures a trace from a
+Majestic or Sofia camera over ssh/telnet), and firmware helpers
+(`upgrade_bundle.py`, `binwalk.py`, `telnet_upload.py`). The full workflow,
+per-family decoder coverage and troubleshooting live in
+`docs/sensor-driver-extraction.md`.
+
+---
+> Source: [OpenIPC/ipctool](https://github.com/OpenIPC/ipctool) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
