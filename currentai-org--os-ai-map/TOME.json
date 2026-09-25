@@ -2,9 +2,9 @@
   "name": "os-ai-map",
   "owner": "currentai-org",
   "repo": "os-ai-map",
-  "description": "Curated data and models behind the Open Source AI Gap Map",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/currentai-org/os-ai-map",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T14:48:54Z"
+  "distributed_at": "2026-09-25T04:47:12Z"
 }
