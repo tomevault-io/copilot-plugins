@@ -1,11 +1,8 @@
 ## plush
 
-> - Avoid overcommenting:
+> - Comments should start with an uppercase letter, e.g.
 
 Commenting:
-- Avoid overcommenting:
-  - Keep comments concise and relevant in lexical context
-  - Avoid long multi-line comments
 - Comments should start with an uppercase letter, e.g.
   // This is a comment
 
@@ -18,4 +15,4 @@ Benchmarking:
 
 ---
 > Source: [maximecb/plush](https://github.com/maximecb/plush) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
