@@ -1,6 +1,24 @@
 ## ketch
 
-> You are a senior Kotlin Multiplatform library engineer working on "Ketch", an open-source Kotlin
+> This is the shared entry point for coding agents working in this repository. These instructions
+
+# Coding Agent Instructions
+
+This is the shared entry point for coding agents working in this repository. These instructions
+apply throughout the repository, regardless of the agent or editor being used.
+
+Before making changes, read and follow both shared rule documents:
+
+- [Code style](docs/development/code-style.md)
+- [Testing](docs/development/testing.md)
+
+Keep project guidance in this file and the linked documentation. Any tool-specific instruction
+files should only point here, so there is a single source of truth. For tools that do not discover
+`AGENTS.md` automatically, explicitly include this file in their context or ask them to read it.
+
+Historical design plans live in `docs/plans/`; consult them when relevant, but verify their
+assumptions against the current code. The existing
+[BitTorrent design assessment](docs/plans/kmp-expert-plan.md) is one such reference.
 
 You are a senior Kotlin Multiplatform library engineer working on "Ketch", an open-source Kotlin
 Multiplatform download manager library.
@@ -20,7 +38,7 @@ library/
   core/       # In-process download engine -- published SDK module
   ktor/       # Ktor-based HttpEngine implementation -- published SDK module
   ftp/        # FTP/FTPS DownloadSource (Android, iOS, JVM only) -- published SDK module
-  torrent/    # BitTorrent/Magnet DownloadSource (Android, JVM only) -- published SDK module
+  torrent/    # BitTorrent/Magnet DownloadSource (Android, JVM, iOS) -- published SDK module
   kermit/     # Optional Kermit logging integration -- published SDK module
   sqlite/     # SQLite-backed TaskStore (Android, iOS, JVM only) -- published SDK module
   remote/     # Remote KetchApi client (HTTP + SSE) -- published SDK module
@@ -78,15 +96,17 @@ cli/          # JVM CLI entry point
 
 ### `config`
 - `com.linroid.ketch.config` -- `KetchConfig`, `ConfigStore`, `FileConfigStore`,
-  `ServerConfig`, `RemoteConfig`, `PlatformFileSystem` (expect/actual)
+  `ServerConfig`, `RemoteConfig`, `AiSettings`, `LlmSettings`, `LlmProvider`,
+  `SearchSettings`, `SearchProvider`, `PlatformFileSystem` (expect/actual)
 
 ### `library:remote`
 - `com.linroid.ketch.remote` -- `RemoteKetch` (implements `KetchApi`), `RemoteDownloadTask`,
   `ConnectionState`, `WireModels`, `WireMapper`
 
-### `ai:discover` (JVM only)
-- `com.linroid.ketch.ai` -- `AiModule`, `AiConfig`, `ResourceDiscoveryService`,
-  `DiscoverQuery`, `DiscoverResult`, `RankedCandidate`
+### `ai:discover` (JVM/Android only)
+- `com.linroid.ketch.ai` -- `AiModule`, `AiConfig`, `LlmClientFactory`,
+  `ResourceDiscoveryService`, `DiscoverQuery`, `DiscoverResult`,
+  `RankedCandidate`
 - `com.linroid.ketch.ai.agent` -- `DiscoveryToolSet`, `AgentOutputParser`,
   `DeviceSafetyFilter`, `LinkExtractor`, `DiscoveryStepListener`
 - `com.linroid.ketch.ai.fetch` -- `SafeFetcher`, `UrlValidator`, `ContentExtractor`,
@@ -145,26 +165,40 @@ cli/          # JVM CLI entry point
 - Passive mode only (PASV/EPSV); FTP URL parsing with credentials
 - Platforms: Android, JVM, iOS (no WasmJs — requires raw TCP sockets)
 
-### BitTorrent/Magnet Support (`library:torrent`) — In Progress
-- `.torrent` files and `magnet:` URIs as a pluggable `DownloadSource`
-- libtorrent4j (v2.1.0-39) as the underlying engine
-- Multi-file selection: resolve returns file list, user selects subset
-- Resume with persisted resume data (base64-encoded libtorrent state)
-- Per-torrent speed limiting via `TorrentSession.setDownloadRateLimit()`
-- Metadata fetch from magnet links with configurable timeout
-- `managesOwnFileIo = true` — torrent engine handles its own file writes
-- Platforms: Android, JVM (no iOS, no WasmJs)
+### BitTorrent/Magnet Support (`library:torrent`)
+- Pure Kotlin BitTorrent v1/v2/hybrid downloads on Android, JVM and iOS;
+  browser control through RemoteKetch
+- HTTP(S)/local metainfo, SDK bytes, btih magnets, tracker tiers, DHT and peer exchange
+- Verified selected-file storage, ownership journal, restart rehash, live limits and explicit seeding
+- Native torrent engine dependencies exist only in interoperability tests
+- Public v2/hybrid download, selection, limits, pause/resume and TaskStore restart are implemented.
+  V2 incoming routing, upload/seeding, PEX and hybrid v1-only peers remain roadmap work.
+- See [support and migration](docs/torrent.md) and [verification](docs/development/torrent-verification.md)
 
 ### AI-Driven Resource Discovery (`ai:discover`) — In Progress
-- LLM agent-driven discovery using Koog framework (v0.6.2)
+- LLM agent-driven discovery using Koog framework (v1.2.0)
+- Providers: OpenAI, Anthropic, Google Gemini, Ollama, any
+  OpenAI-compatible endpoint (`LlmClientFactory` maps them to Koog clients)
+- Configured on the app's Settings page and persisted under `[ai]` in
+  `config.toml`; blank credentials fall back to environment variables
+- The Discover destination is hidden until discovery is usable; in the
+  apps the Enable switch is authoritative (an env key fills a blank token
+  but never enables the feature — only the CLI auto-enables)
+- Provider defaults track current models; unknown ids resolve as custom
+  Koog models, and `temperature` is only sent to models that accept it
 - 7 agent tools: `searchWeb`, `searchSites`, `fetchPage`, `headUrl`,
   `extractDownloads`, `validateUrl`, `emitStep`
 - SSRF protection, device safety scoring, rate limiting
-- JVM only (uses Koog + Ktor CIO client)
+- JVM/Android only (uses Koog + Ktor CIO client)
+- See [AI discovery configuration](docs/ai-discovery.md)
 
 ### Configuration (`config/`)
 - TOML-based configuration via ktoml library
-- `KetchConfig` root with server, download, and remote sections
+- `KetchConfig` root with server, download, remote, AI, and appearance sections
+- `AiSettings`: AI discovery provider, token, model, endpoint and search keys
+- `AppearanceConfig`: accent palette (app-only; CLI and server ignore it)
+- Apps edit all of it on the Settings destination: device name, appearance,
+  downloads (pushed live via `KetchApi.updateConfig`), server, AI discovery
 - `ServerConfig`: host, port, API token, CORS, mDNS
 - `RemoteConfig`: pre-configured remote server connections
 - `FileConfigStore`: platform-specific file persistence via okio
@@ -251,10 +285,14 @@ cli/          # JVM CLI entry point
 2. iOS support is best-effort via expect/actual (iosArm64 + iosSimulatorArm64)
 3. `library:sqlite` does not support WasmJs -- use `InMemoryTaskStore` on that platform
 4. `library:ftp` does not support WasmJs (requires raw TCP sockets)
-5. `library:torrent` supports Android and JVM only (no iOS, no WasmJs)
+5. `library:torrent` has no browser-local engine. V2/hybrid uses outgoing v2 TCP;
+   v2 incoming/upload/seeding/PEX, hybrid v1-only peers, uTP and encryption remain unimplemented.
 6. FTPS (FTP over TLS) only works on JVM/Android; iOS throws `KetchError.Unsupported`
    (blocked by [KTOR-7475](https://youtrack.jetbrains.com/issue/KTOR-7475))
-7. `ai:discover` is JVM only (depends on Koog + Ktor CIO)
+7. `ai:discover` is JVM/Android only (depends on Koog + Ktor CIO); iOS and
+   the web app report AI discovery as unavailable
+8. AI API tokens are stored in plain text in `config.toml`, like the server
+   `apiToken`; use environment variables on shared machines
 
 ## Roadmap
 
@@ -275,4 +313,4 @@ Planned features not yet implemented:
 
 ---
 > Source: [linroid/Ketch](https://github.com/linroid/Ketch) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
