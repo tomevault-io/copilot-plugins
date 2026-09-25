@@ -2,7 +2,7 @@
   "name": "kimiko",
   "owner": "spearchucker667",
   "repo": "kimiko",
-  "description": "Bypass all api restraints within Kimi-CLI",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spearchucker667/kimiko",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T02:31:28Z"
+  "distributed_at": "2026-09-25T12:54:20Z"
 }
