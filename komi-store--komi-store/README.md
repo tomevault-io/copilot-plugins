@@ -2,8 +2,6 @@
 
 > Sourced from [komi-store/komi-store](https://github.com/komi-store/komi-store), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
-🩵 A free, open-source app store for developers' releases on GitHub, Codeberg & Forgejo — browse, discover, and install apps with one click. Formerly GitHub Store.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
