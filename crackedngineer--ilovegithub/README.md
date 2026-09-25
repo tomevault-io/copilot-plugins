@@ -7,14 +7,14 @@ A curated collection of magical tools built around GitHub
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [crackedngineer/iLoveGithub](https://github.com/crackedngineer/iLoveGithub).
+Original source: `GEMINI.md` in [crackedngineer/iLoveGithub](https://github.com/crackedngineer/iLoveGithub).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/crackedngineer/iLoveGithub](https://github.com/crackedngineer/iLoveGithub)
