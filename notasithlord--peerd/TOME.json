@@ -2,9 +2,9 @@
   "name": "peerd",
   "owner": "NotASithLord",
   "repo": "peerd",
-  "description": "The first AI agent harness native to the browser. A Chrome/Firefox extension that runs the agent loop in your browser \u2014 drives your tabs, spins up sandboxed compute (JS notebooks, WASM Linux VMs, client-side apps), and shares what it builds peer-to-peer. BYOK \u00b7 no backend \u00b7 no telemetry.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NotASithLord/peerd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-24T19:31:05Z"
+  "distributed_at": "2026-09-25T18:56:48Z"
 }
