@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [redhat-et/ripwire](https://github.com/redhat-et/ripwire).
+Original source: `CLAUDE.md` in [redhat-et/ripwire](https://github.com/redhat-et/ripwire).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [redhat-et/ripwire](https://github.com/redhat-et/ripwire) — a repo with 2321+ stars on GitHub.
+From [redhat-et/ripwire](https://github.com/redhat-et/ripwire) — a repo with 2336+ stars on GitHub.
 
 ---
 
