@@ -1,0 +1,137 @@
+## docen
+
+> > Coding standards, design patterns, and the contribution workflow live in [CONTRIBUTING.md](./CONTRIBUTING.md). This file is the architectural context an agent must understand before changing code. Read both.
+
+> Coding standards, design patterns, and the contribution workflow live in [CONTRIBUTING.md](./CONTRIBUTING.md). This file is the architectural context an agent must understand before changing code. Read both.
+
+## Project
+
+**docen** is a monorepo for online Office editors.
+
+- **`docen`** — all-in-one aggregate entry: re-exports `@docen/docx` (converters/engine, via `docen/docx`) and `@docen/editor` (`<docen-document>` via `docen/editor`). One dependency covers both headless conversion and the full editor; the root entry stays side-effect-free so converter-only imports remain tree-shakable.
+- **`@docen/vue`** — Vue 3 adapter for `@docen/editor`: a typed `<DocenDocument>` component (`v-model` content + `v-slot="{ editor }"` + template-ref expose). `vue` is a peer dependency and `@docen/editor` a regular dependency, so the Vue surface stays isolated from the framework-neutral core.
+- **`@docen/editor`** — multi-editor assembly: a Fluent UI host (`<docen-workspace>` + UI surfaces) shared by the editor elements `<docen-document>` and `<docen-presentation>` (today) plus the `<docen-workbook>` stub (future); all UI surfaces (title-bar/ribbon/status-bar/panes) and engine extensions are contributed by **add-ins** (Office.js-style). Bundles the `@docen/docx` engine; owns the canvas stage, painting, and caret/selection mapping.
+- **`@docen/docx`** — the engine: Tiptap DOCX schema + converters + custom extensions + the layout projection (Tiptap JSON → LayoutDoc, incl. WMF/EMF+ metafile replay). No UI.
+- **`@docen/pptx`** — the PPTX engine: re-exports the OOXML parse/generate surface from `@office-open/pptx` and projects `PresentationOptions` into the drawing members the core painter paints (`scene/` → `projectPresentation`). No UI.
+- **`@docen/markdown`** — the format-agnostic Markdown syntax layer: parses Markdown into a neutral IR (heading/nested lists/tables/quotes/inline marks) and renders it back. Format packages implement `MarkdownMapper<T>` to bind their own model; `@docen/docx` ships the reference mapper and re-exports the one-argument `parseMarkdown`/`generateMarkdown`.
+- **`@docen/layout`** — the layout engine: block/flow/text measurement and pagination producing a paginated `LayoutDoc`. Pure computation, no DOM, no editor types.
+- **`@docen/pretext`** — vendored fork of `@chenglou/pretext` 0.0.8 (text measurement & line breaking), maintained in-tree because docen's Word/CJK `edit == render` fixes (CJK canvas→DOM advance correction, empty-text atom retention) are deeper than a patch file carries. Consumed by `@docen/layout` (line breaking) and `@docen/editor` (paginator measurement).
+- **`@docen/core`** — the scene painter package: LayoutDoc → LeaferJS tree, consumed by the editors' canvas stages. No layout decisions, no editing semantics.
+- **`leafer-x-metafile`** — zero-dependency WMF/EMF+ metafile replay into neutral drawing members (no Leafer, no docen types — built to be contributed to the LeaferJS ecosystem as `leafer-x-*`). The docx layout projection consumes it and adapts members into `LayoutDoc`.
+- **`@docen/deduplicate`** — document comparison (SimHash + Winnowing fingerprinting, `compareDocuments`/`findDuplicates`) for the editors' future compare feature. Standalone; no editor dependencies.
+- **`@office-open/*`** — OOXML parse/generate APIs (external). The canonical document model.
+
+The `xlsx` workbook editor is the last unimplemented one (`packages/editor/src/workbook.ts` is a stub). It will reuse the same host + add-in system in `ui/`, swapping only the engine.
+
+## Build
+
+Commands live in [CONTRIBUTING.md](./CONTRIBUTING.md) → Development Setup. The cross-package rule an agent must not miss:
+
+> editor imports `@docen/docx` by package name (→ `dist`), so **docx src changes need `pnpm --filter @docen/docx build`** before they show in the editor demo. editor/src is HMR'd — no build needed. After deleting or moving files, clear the vite dep cache (`node_modules/.vite` in the root and `packages/editor`) or the demo keeps loading ghosts.
+
+## Data Model
+
+One document, three projections, each owned by exactly one layer:
+
+| Projection         | Format                                | Owner                       |
+| ------------------ | ------------------------------------- | --------------------------- |
+| Canonical model    | `DocumentOptions` (@office-open/docx) | file I/O, format conversion |
+| Text editing       | Tiptap JSON (DOCX-rich attrs)         | editor transactions         |
+| Rendering geometry | `LayoutDoc` (@docen/layout)           | pagination                  |
+| Instantiated scene | LeaferJS elements                     | editor canvas painter       |
+
+**Define once, pass through.** office-open's Options types are the single source of truth: Tiptap attrs mirror them verbatim (`renderDocx`/`parseDocx` are near-identity passes), and the layout projection reads the same attrs. No layer re-derives a property another layer already carries; a mapping exists once (stringify side and parse side together).
+
+## API Layering
+
+Standalone functions are core; extension commands are thin wrappers.
+
+```typescript
+// Format pipelines — runtime (Tiptap JSON) ↔ external formats
+parseDOCX(buffer) → JSONContent                       // DOCX → Tiptap JSON
+generateDOCX<T>(json, options?) → Promise<OutputByType[T]>   // prepare + compile + generateDocument
+generateDOCXSync<T>(json, packer?) → OutputByType[T]         // sync; no prepare
+generateDOCXStream(json, options?) → Promise<ReadableStream>
+parseMarkdown / generateMarkdown                       // Markdown ↔ Tiptap JSON, via the @docen/markdown IR + mapper
+
+// Paste input (input-only; no HTML output exists)
+parseHTMLBody(body, schema) → JSONContent             // text/html clipboard → Tiptap JSON
+
+// Model bridge (advanced): resolveDocument (DocOpts→JSON) · compileDocument (JSON→DocOpts)
+// · prepareDocument (http img → data URL, in place). Required for http images.
+// parseDOCX = parseDocument → resolve → JSON;  generateDOCX = JSON → prepare → compile → generateDocument
+```
+
+## Architecture: Canvas Rendering
+
+`<docen-document>` renders through a LeaferJS canvas — **there is no DOM rendering path** (no `renderHTML`, no contenteditable view). The pipeline:
+
+- **Viewless Tiptap editor** (`element: null`): ProseMirror is the editing model only; the EditorView never mounts. Typing/IME goes through a textarea bridge (`document/canvas/edit-bridge.ts`), which also owns clipboard paste (see below).
+- **Layout engine** (`@docen/layout`): block/flow/text measurement with Word's stacking rules (docGrid line pitch, snap-to-grid, spacing collapse, table band split with repeated headers and mid-row `cantSplit` handling) produces a paginated `LayoutDoc` of fixed-height pages.
+- **Projection** (`docx/src/layout/`): DocumentOptions → `LayoutDoc` (callers chain Tiptap JSON → `compileDocument` first). WMF/EMF+ metafiles replay into structured drawing members through `leafer-x-metafile` (`docx/src/layout/metafile-members.ts` adapts the members) — vector layers become scene members, not flat bitmaps.
+- **Painter** (`core/src/painter.ts` + `core/src/paint/`): `LayoutDoc` → Leafer elements — the only place the scene is instantiated. `caret-map.ts` maps caret/selection between PM positions and canvas geometry; `stage.ts` owns the Leafer app and zoom.
+
+**Fidelity target:** pixel parity with Word/WPS on real documents, verified page-by-page against PDF exports of the same files. The canvas pipeline (self-drawn layout + paint) is what makes mid-row table splits, vmerge across pages, and docGrid-exact line pitch possible — decoration/contenteditable approaches cannot.
+
+## Architecture: HTML Paste Input
+
+HTML is **input-only**. The extensions' `parseHTML` rules exist for exactly one job: turning pasted styled HTML into document JSON. `parseHTMLBody` (`docx/src/extensions/paste.ts`) is DOM-provider agnostic — the editor passes a native `DOMParser` body, specs pass a linkedom body — and flattens nested `ul`/`ol` before parsing so the ProseMirror parser keeps list nesting levels. There is no HTML generation anywhere.
+
+## Architecture: Add-ins (Office.js-style)
+
+Every editor (`<docen-document>` / `<docen-presentation>` / `<docen-workbook>`) is a **host** (`DocenHost`); **add-ins** (`DocenAddin`) are the external extension surface. The default document add-in (`document/addin.ts`) contributes only the engine essentials — the Tiptap extensions (outline, search, track changes, TOC/index/commands); the Office-style chrome (ribbon, task panes, command wiring) is built into `<docen-document>` itself. Consumers load extra add-ins to inject their own extensions or UI. Implementation in `packages/editor/src/ui/addin/`.
+
+**Naming** aligns to MS Office / Office.js — UI tags use Office terms (`docen-title-bar` / `-ribbon` / `-document-area` / `-status-bar` / `-task-pane` / `-navigation-pane` / `-format-pane`); `RibbonTab` / `Group` / `Control` / `Action` mirror the Office.js manifest. Layer split: `Docx` = file format (`@docen/docx`, `createDocxEditor`); `Document` = editor (`<docen-document>`, `DocumentAddin`). Editor elements self-contain `:host { display:flex; height:100% }` so consumers never add sizing CSS.
+
+## Package Layout
+
+```
+packages/docx/src/ — engine + converters + layout projection
+  index.ts        Public API
+  core.ts         docxExtensions, createDocxEditor
+  style-cascade.ts  StylesOptions index/merge (basedOn chains) — shared by resolve/compile/measure
+  extensions/     Custom Tiptap extensions (utils.ts, paste.ts, formatting-marks.ts, …)
+  converters/     docx.ts (resolveDocument/compileDocument) · styles.ts (quickStyles, effectiveRunProps) · markdown.ts
+  layout/         document.ts (projectDocument, the DocumentOptions → LayoutDoc entry) + per-domain files (context/drawing/guards/media/numbering/page/paragraph/runs/styles/table) · metafile-members.ts (metafile replay adapter)
+
+packages/layout/src/ — pagination engine
+  block/ flow/ text/   measurement domains
+  layout-doc/     the LayoutDoc types (rendering projection, by domain)
+  font.ts        font metrics (incl. CJK)
+
+packages/pptx/src/ — the PPTX engine
+  index.ts        Public API (office-open re-exports + projectPresentation)
+  scene/          presentation.ts (projectPresentation entry) + per-domain files (geometry/text/shapes/pictures/tables/lines/walk)
+
+packages/editor/src/ — multi-editor host + add-ins
+  index.ts        Public API (<docen-document> etc.)
+  ui/             Shared host + add-in system + Fluent UI surfaces + i18n
+    addin/        DocenHost/DocenAddin types · AddinHost base · defineAddin
+    components/   ribbon (fast-element) · workspace (title-bar/document-area/status-bar/task-pane/navigation-pane/find-replace/options-dialog/dialog) · context-menu
+  document/       <docen-document>
+    index.ts      The editor element (open/save/paste) — chrome/page-setup/watermark/format tables in sibling modules
+    canvas/       stage.ts (Leafer app) · caret-map.ts (PM pos ↔ canvas geometry) · edit-bridge.ts (textarea + paste)
+    addin.ts ribbon.ts commands/ components/ extensions/ i18n.ts
+  presentation/   <docen-presentation> (index/commands/chrome/ribbon/slides-panel/hit-test/i18n)
+  drawing/        shared drawing editing (gestures/overlay/crop, format tabs) used by the editors
+  workbook.ts     <docen-workbook> stub — the future editor, reuses host + add-ins
+
+packages/core/src/       the scene painter: painter.ts (orchestration) + paint/ (context/paragraph/drawing/image/table)
+packages/deduplicate/src/  document comparison (SimHash + Winnowing)
+```
+
+## Performance
+
+- The layout projection re-runs per transaction; metafile replay is fingerprint-cached, media caches key on object identity (not capacity), and repeated lookups are indexed — see the code before adding new per-transaction work.
+- Off-screen pages skip painting until visible; only changed subtrees re-project.
+
+## Behavioral Guidelines
+
+- State assumptions explicitly. If uncertain, ask before implementing.
+- No features beyond what was asked. No speculative abstractions.
+- Touch only what you must. Match existing style.
+- Transform tasks into verifiable goals. Loop until verified.
+
+---
+> Source: [DemoMacro/docen](https://github.com/DemoMacro/docen) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
