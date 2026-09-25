@@ -1,28 +1,40 @@
-## docs-style
+## project
 
-> External-docs tone rules for the MkDocs site, README.md, and examples READMEs
+> Project entry point for cds-data-federation — points at CLAUDE.md and the canonical docs
 
 
-# External docs style
+# cds-data-federation — project rules
 
-When editing the consumer-facing documentation surface, follow the rules in [`spec/internal/docs-style-guide.md`](mdc:spec/internal/docs-style-guide.md). The canonical document is the authoritative source; this file is a loader only.
+This rule loads automatically on every Cursor session. It is a pointer, not a copy — read the linked files when relevant to the task.
 
-## Scope
+## Start here
 
-Rules apply to:
+1. [`CLAUDE.md`](mdc:CLAUDE.md) — project primer, terminology, core principles, the "don'ts" list.
+2. [`spec/reference/requirements.md`](mdc:spec/reference/requirements.md) — numbered feature matrix with statuses.
+3. [`spec/concepts/cross-service-scenarios.md`](mdc:spec/concepts/cross-service-scenarios.md) — canonical reference for expand + navigation scenarios. Use directional names, not `Scenario A/B/C` in new prose.
+4. [`spec/internal/ai-assistant-context.md`](mdc:spec/internal/ai-assistant-context.md) — deep architecture, plugin lifecycle, CDS quirks.
+5. [`AGENTS.md`](mdc:AGENTS.md) — tool-agnostic summary of this rule (same content, different delivery).
 
-- `docs/**/*.md` — **excluding** `spec/internal/**`. Files under `spec/internal/**` are internal analysis and follow different conventions.
-- `README.md`.
-- `examples/**/README.md`.
+## Workflows
 
-## One-line summary of the four rules
+When the user asks for a task that fits one of these intents, follow the phases in the linked command file:
 
-- **R1** — Tutorial voice. Describe what the plugin does on its own terms.
-- **R2** — No adversarial library comparisons on the published site. *"Pick X when …"*, not *"X is wrong when …"*. Opinion prose belongs under `spec/internal/research/`.
-- **R3** — No status / priority / roadmap / phase content. That lives in [`spec/reference/requirements.md`](mdc:spec/reference/requirements.md), which is excluded from the site build.
-- **R4** — Avoid rhetorical-contrast vocabulary: *stops short*, *hand-written*, *boilerplate*, *does not do*, *despite the name*, *what … does NOT*.
+- Loose idea → [`.claude/commands/brainstorm.md`](mdc:.claude/commands/brainstorm.md)
+- Architectural decision → [`.claude/commands/discuss-architecture.md`](mdc:.claude/commands/discuss-architecture.md)
+- Implement a feature → [`.claude/commands/implement-feature.md`](mdc:.claude/commands/implement-feature.md)
+- Fix a bug → [`.claude/commands/fix-bug.md`](mdc:.claude/commands/fix-bug.md)
+- Review a diff → [`.claude/commands/review.md`](mdc:.claude/commands/review.md)
+- Deprecate a feature → [`.claude/commands/deprecate.md`](mdc:.claude/commands/deprecate.md)
+- Sync requirements → [`.claude/commands/update-requirements.md`](mdc:.claude/commands/update-requirements.md)
 
-Read the full style guide before substantive edits to published pages: [`spec/internal/docs-style-guide.md`](mdc:spec/internal/docs-style-guide.md). Enforcement lives in [`.claude/commands/review.md`](mdc:.claude/commands/review.md) Phase 2 as `Req-10`.
+## Conventions (summary; authoritative source is CLAUDE.md)
+
+- Log via `cds.log('cds-data-federation')`, never `console.log`.
+- Clone CQN with `cds.ql.clone(query)` before any mutation.
+- Wrap remote I/O in `withRetry(...)` from `srv/lib/retry.js`.
+- Tests use the real providers from `test/setup.js`, not mocks.
+- Docs: low-redundancy rule. Facts live in one place; cross-reference elsewhere. Internal vs. external doc duplication is the only allowed exception.
+- Scenario naming: use the directional names from [`spec/concepts/cross-service-scenarios.md`](mdc:spec/concepts/cross-service-scenarios.md). Short IDs (`A1`, `B1`, `C1`, `N1`, ...) are still valid as test identifiers.
 
 ---
 > Source: [mikezaschka/cds-data](https://github.com/mikezaschka/cds-data) — distributed by [TomeVault](https://tomevault.io).
