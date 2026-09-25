@@ -1,8 +1,6 @@
 # kimiko
 
-> Source: [spearchucker667/kimiko](https://github.com/spearchucker667/kimiko) — distributed by [TomeVault](https://tomevault.io)
-
-Bypass all api restraints within Kimi-CLI
+> Source: [spearchucker667/kimiko](https://github.com/spearchucker667/kimiko). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [spearchucker667/kimiko](https://github.com/spea
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [spearchucker667/kimiko](https://github.com/spearchucker667/kimiko) — a repo with 8+ stars on GitHub.
+From [spearchucker667/kimiko](https://github.com/spearchucker667/kimiko) — a repo with 144+ stars on GitHub.
 
 ---
 
