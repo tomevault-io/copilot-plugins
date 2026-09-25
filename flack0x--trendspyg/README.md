@@ -1,8 +1,6 @@
 # AI instruction files for trendspyg
 
-> Sourced from [flack0x/trendspyg](https://github.com/flack0x/trendspyg) and converted for every major platform by [TomeVault](https://tomevault.io)
-
- Free, open-source Python library for Google Trends data - pytrends alternative with 188K+ configuration options.
+> Sourced from [flack0x/trendspyg](https://github.com/flack0x/trendspyg), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [flack0x/trendspyg](https://github.com/flack0x/t
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [flack0x/trendspyg](https://github.com/flack0x/trendspyg) — a repo with 27+ stars on GitHub.
+From [flack0x/trendspyg](https://github.com/flack0x/trendspyg) — a repo with 50+ stars on GitHub.
 
 ---
 
