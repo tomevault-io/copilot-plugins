@@ -1,0 +1,14 @@
+{
+  "name": "higangssh--ghostmeet",
+  "displayName": "ghostmeet",
+  "description": "ghostmeet",
+  "version": "1.0.0",
+  "author": "Higangssh",
+  "homepage": "https://github.com/Higangssh/ghostmeet",
+  "skills": [
+    {
+      "name": "ghostmeet",
+      "description": ""
+    }
+  ]
+}
