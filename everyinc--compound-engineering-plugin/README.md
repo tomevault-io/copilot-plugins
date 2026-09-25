@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [EveryInc/compound-engineering-plugin](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin) — a repo with 24983+ stars on GitHub.
+From [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin) — a repo with 25235+ stars on GitHub.
 
 ---
 
