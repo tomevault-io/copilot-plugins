@@ -1,0 +1,14 @@
+{
+  "name": "catolicasc-portfolio--the-portfolio-playbook",
+  "displayName": "The-Portfolio-Playbook",
+  "description": "The-Portfolio-Playbook",
+  "version": "1.0.0",
+  "author": "CatolicaSC-Portfolio",
+  "homepage": "https://github.com/CatolicaSC-Portfolio/The-Portfolio-Playbook",
+  "skills": [
+    {
+      "name": "The-Portfolio-Playbook",
+      "description": ""
+    }
+  ]
+}
