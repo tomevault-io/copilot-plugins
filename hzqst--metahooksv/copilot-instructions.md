@@ -1,36 +1,44 @@
 ## metahooksv
 
-> This file guides Agent Coding in this repository using a "progressive disclosure" approach: prioritize retrieving high-level information from Serena memories first, then locate and read specific files/symbols only when needed, instead of expanding a large amount of context at once.
+> This file provides guidance and important rules working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file guides Agent Coding in this repository using a "progressive disclosure" approach: prioritize retrieving high-level information from Serena memories first, then locate and read specific files/symbols only when needed, instead of expanding a large amount of context at once.
+This file provides guidance and important rules working with code in this repository.
 
-## Serena memories (keep context concise)
-1. Prefer using `list_memories` to browse existing memories in the current project (do not read all of them by default).
-2. Use `read_memory` to precisely read a specific memory only when needed (on-demand loading).
-3. If memory information is insufficient or outdated, fall back to reading repository files or use Serena's symbol/search capabilities for targeted lookup, and maintain memory content with `write_memory` / `edit_memory` / `delete_memory`.
+## When coding / building plan
 
-## High-level information in this repository (read corresponding memories first)
+- Use a progressive disclosure approach for agent coding in this repository: start from high-level information in the Basic Memory knowledge base first, and only locate/read specific files or symbols when necessary, instead of expanding a large amount of context at once.
+
+#### Basic Memory knowledge base (project-scoped, `memory/`)
+
+- Notes live in `memory/` (markdown with YAML frontmatter: `title`/`type`/`permalink`), tracked in git.
+- Basic Memory is registered as MCP server `basic-memory`, pinned to the `metahooksv` project (`--project metahooksv` via project-level `.mcp.json`).
+- Prefer Basic Memory MCP tools (`search_notes` / `read_note` / `write_note` / `edit_note`) for project knowledge.
+
+#### High-level information in this repository (read corresponding notes first)
+
 - Project overview and codebase entry points: `project_overview`
 - Plugin system and development workflow: `plugin_system`
-- Important notes: `metahooksv_notes`
 
-## "Source entry points" when memories are insufficient (query and read on demand)
+#### When notes are insufficient: source entry points (query and read on demand)
+
 - Solution and build: `MetaHook.sln`, `scripts/`
 - Loader and core logic: `src/`
 - Public API / interfaces: `include/metahook.h`, `include/Interface/`
 - Plugins and shared libraries: `Plugins/`, `PluginLibs/`
 - Plugin loading configuration: `plugins.lst`
 
-## Progressive disclosure key points
-- Read memories first, then locate a single file/symbol; do not read the whole repository at once.
-- Prefer Serena for code exploration (symbol overview/references/search), and read file contents only when necessary.
+#### Progressive disclosure key points
+
+- Read notes first, then locate a single file/symbol; do not read the whole repository at once.
+- Prefer Basic Memory MCP tools for knowledge retrieval, and read file contents only when necessary.
 - Prefer Context7 for external dependency/library usage (query on demand).
 
-## Important rules
-- **ALWAYS** call Serena's `activate_project` on agent startup
+## Explore SKILLs
+
+- Project-level skills always live in `.claude/skills` no matter what harness tool is being used.
 
 ---
 > Source: [hzqst/MetaHookSv](https://github.com/hzqst/MetaHookSv) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
