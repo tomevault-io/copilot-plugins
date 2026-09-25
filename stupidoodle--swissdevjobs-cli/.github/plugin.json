@@ -1,0 +1,14 @@
+{
+  "name": "stupidoodle--swissdevjobs-cli",
+  "displayName": "swissdevjobs-cli",
+  "description": "swissdevjobs-cli",
+  "version": "1.0.0",
+  "author": "Stupidoodle",
+  "homepage": "https://github.com/Stupidoodle/swissdevjobs-cli",
+  "skills": [
+    {
+      "name": "swissdevjobs-cli",
+      "description": ""
+    }
+  ]
+}
