@@ -4,7 +4,7 @@
   "repo": "spring-boot-skills",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -431,5 +431,5 @@
   ],
   "source_url": "https://github.com/rrezartprebreza/spring-boot-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T01:33:08Z"
+  "distributed_at": "2026-09-25T15:30:24Z"
 }
