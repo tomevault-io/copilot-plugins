@@ -2,8 +2,6 @@
 
 > Tome by [wemux-ai](https://github.com/wemux-ai/wemux), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-Wemux - self-hostable AI agent collaboration platform (Apache-2.0, community edition)
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
