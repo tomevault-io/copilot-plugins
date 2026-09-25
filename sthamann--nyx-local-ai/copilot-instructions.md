@@ -92,4 +92,4 @@ Fix all errors before presenting the result. Inspect warnings should be reviewed
 
 ---
 > Source: [sthamann/nyx-local-ai](https://github.com/sthamann/nyx-local-ai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
