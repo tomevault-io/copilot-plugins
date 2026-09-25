@@ -4,7 +4,7 @@
   "repo": "ZeroSlop",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/manavmishra/ZeroSlop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T14:08:44Z"
+  "distributed_at": "2026-09-25T03:21:03Z"
 }
