@@ -15,4 +15,4 @@
 
 ---
 > Source: [teng-lin/weread-omni](https://github.com/teng-lin/weread-omni) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
