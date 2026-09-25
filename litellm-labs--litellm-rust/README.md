@@ -1,8 +1,6 @@
 # litellm-rust
 
-> Tome by [LiteLLM-Labs](https://github.com/LiteLLM-Labs/litellm-rust) — distributed by [TomeVault](https://tomevault.io)
-
-A minimal Rust gateway built for coding agents (LiteLLM-Compatible)
+> Tome by [LiteLLM-Labs](https://github.com/LiteLLM-Labs/litellm-rust), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
