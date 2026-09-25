@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "pc-style",
   "homepage": "https://github.com/pc-style/x-md",
-  "skills": []
+  "skills": [
+    {
+      "name": "x-md",
+      "description": ""
+    },
+    {
+      "name": "x-md",
+      "description": ""
+    },
+    {
+      "name": "x-md",
+      "description": ""
+    }
+  ]
 }
