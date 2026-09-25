@@ -1,7 +1,7 @@
 {
   "name": "buildomator--buildomator",
   "displayName": "buildomator",
-  "description": "A structured plan/execute/verify coding workflow for Claude Code: atomic commits, MCP-backed project state, ~92% lower per-turn token overhead, cross-session memory, and native convention + drift-dete",
+  "description": "buildomator",
   "version": "1.0.0",
   "author": "buildomator",
   "homepage": "https://github.com/buildomator/buildomator",
