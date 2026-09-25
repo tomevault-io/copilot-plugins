@@ -1,30 +1,32 @@
 ## streampipes
 
-> Applies to `ui/projects/streampipes/platform-services/`.
+> Every directory with its own `AGENTS.md` also has a one-line `CLAUDE.md` containing
 
-# AGENTS Guide (UI Platform Services)
+# Claude Code guide
 
-## Scope
+@AGENTS.md
 
-Applies to `ui/projects/streampipes/platform-services/`.
+## Nested guides
 
-## Module Intent
+Every directory with its own `AGENTS.md` also has a one-line `CLAUDE.md` containing
+`@AGENTS.md`, so the module guide loads automatically when you work inside that directory.
+The "Guide index" at the end of `AGENTS.md` lists them. If a task spans a module you have
+not touched yet, read its `AGENTS.md` before editing — the recipes (how to add a migration,
+an endpoint, an extension) and module-specific rules live there, not here.
 
-- API client and platform-level model/query/service layer for the UI.
-- Public surface is exported via `ui/projects/streampipes/platform-services/src/public-api.ts`.
+## Skills
 
-## Best Practices
+- `security-triage` — use when the task is to assess, reproduce or report a suspected
+  vulnerability. It loads `THREAT_MODEL.md` and the triage procedure. Do not load it for
+  ordinary feature or bug work.
 
-- Keep services transport-focused (HTTP/query/model mapping), not feature-UI specific.
-- Treat exports in `src/public-api.ts` as compatibility-sensitive.
-- Keep generated model files in `src/lib/model/gen/` stable; avoid manual edits unless regeneration is part of the task.
-- Prefer typed request/response objects and explicit model mapping over `any`.
+## Working in this repository
 
-## Validation
-
-- `ng build @streampipes/platform-services`
-- `ng test @streampipes/platform-services`
+- Run `mvn -pl <module> -am test` for the fast loop and `mvn clean verify` from the root
+  before declaring backend work done; only the root `verify` runs the license-header check.
+- For `ui/` changes run `npm run format && npm run lint && npm run i18n:check` in `ui/`.
+- Do not commit; leave changes in the working tree unless asked.
 
 ---
 > Source: [apache/streampipes](https://github.com/apache/streampipes) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
