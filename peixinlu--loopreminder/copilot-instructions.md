@@ -1,10 +1,10 @@
 ## loopreminder
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -82,4 +82,4 @@ LoopReminder/
 
 ---
 > Source: [PeixinLu/LoopReminder](https://github.com/PeixinLu/LoopReminder) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
