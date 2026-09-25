@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FranciscoMoretti/chat-js](https://github.com/FranciscoMoretti/chat-js).
+Original source: `CLAUDE.md` in [FranciscoMoretti/chat-js](https://github.com/FranciscoMoretti/chat-js).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (11)
+## Bundled Skills (16)
 
 - [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/review-docs/SKILL.md)
 - [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/trpc-patterns/SKILL.md)
@@ -28,8 +28,13 @@ Original source: `AGENTS.md` in [FranciscoMoretti/chat-js](https://github.com/Fr
 - [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/next-dev-loop/SKILL.md)
 - [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/next-cache-components-adoption/SKILL.md)
 - [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/next-partial-prefetching-adoption/SKILL.md)
+- [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/making-ui-changes/SKILL.md)
+- [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/check-visual-changes/SKILL.md)
+- [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/vitest-visual-testing/SKILL.md)
+- [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/triage-visual-changes/SKILL.md)
+- [chat-js](https://github.com/FranciscoMoretti/chat-js/tree/main/.agents/skills/economical-visual-tests/SKILL.md)
 
-From [FranciscoMoretti/chat-js](https://github.com/FranciscoMoretti/chat-js) — a repo with 1194+ stars on GitHub.
+From [FranciscoMoretti/chat-js](https://github.com/FranciscoMoretti/chat-js) — a repo with 1198+ stars on GitHub.
 
 ---
 
