@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "simovilab",
   "homepage": "https://github.com/simovilab/databus",
-  "skills": []
+  "skills": [
+    {
+      "name": "databus",
+      "description": ""
+    }
+  ]
 }
