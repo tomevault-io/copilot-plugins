@@ -1,7 +1,7 @@
 {
   "name": "wutishummus--truedeck",
   "displayName": "TrueDeck",
-  "description": "Free multi-agent coding workbench: Grok/Codex/Claude/Cursor panes + TrueMemory (per-repo + global)",
+  "description": "TrueDeck",
   "version": "1.0.0",
   "author": "WutIsHummus",
   "homepage": "https://github.com/WutIsHummus/TrueDeck",
