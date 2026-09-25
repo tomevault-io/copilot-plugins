@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [fivetaku/gptaku_plugins](https://github.com/fivetaku/gptaku_plugins).
+Original source: `CLAUDE.md` in [fivetaku/gptaku_plugins](https://github.com/fivetaku/gptaku_plugins).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [fivetaku/gptaku_plugins](https://github.com/fiv
 
 - [gptaku_plugins](https://github.com/fivetaku/gptaku_plugins/tree/main/plugins/insane-crawl/skills/insane-crawl/SKILL.md)
 
-From [fivetaku/gptaku_plugins](https://github.com/fivetaku/gptaku_plugins) — a repo with 1156+ stars on GitHub.
+From [fivetaku/gptaku_plugins](https://github.com/fivetaku/gptaku_plugins) — a repo with 1158+ stars on GitHub.
 
 ---
 
