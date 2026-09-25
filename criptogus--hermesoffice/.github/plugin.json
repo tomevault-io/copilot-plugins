@@ -1,0 +1,22 @@
+{
+  "name": "criptogus--hermesoffice",
+  "displayName": "HermesOffice",
+  "description": "HermesOffice",
+  "version": "1.0.0",
+  "author": "criptogus",
+  "homepage": "https://github.com/criptogus/HermesOffice",
+  "skills": [
+    {
+      "name": "HermesOffice",
+      "description": ""
+    },
+    {
+      "name": "HermesOffice",
+      "description": ""
+    },
+    {
+      "name": "HermesOffice",
+      "description": ""
+    }
+  ]
+}
