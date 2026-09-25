@@ -2,8 +2,8 @@
   "name": "claudefiles",
   "owner": "koolamusic",
   "repo": "claudefiles",
-  "description": "A minimal catalog of my favourite skills for working with claude",
-  "type": "tome",
+  "description": "",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,39 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "agent-browser",
-      "path": "skills/agent-browser",
-      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/agent-browser",
-      "description": ""
-    },
-    {
-      "name": "breadboarding",
-      "path": "skills/breadboarding",
-      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/breadboarding",
-      "description": ""
-    },
-    {
-      "name": "golang-best-practices",
-      "path": "skills/golang-best-practices",
-      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/golang-best-practices",
-      "description": ""
-    },
-    {
-      "name": "nestjs-best-practices",
-      "path": "skills/nestjs-best-practices",
-      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/nestjs-best-practices",
-      "description": ""
-    },
-    {
-      "name": "skill-creator",
-      "path": "skills/skill-creator",
-      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/skill-creator",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/koolamusic/claudefiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T10:31:23Z"
+  "distributed_at": "2026-09-25T11:04:35Z"
 }
