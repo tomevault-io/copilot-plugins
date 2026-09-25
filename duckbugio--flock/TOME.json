@@ -4,7 +4,7 @@
   "repo": "flock",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/duckbugio/flock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T14:59:17Z"
+  "distributed_at": "2026-09-25T03:13:59Z"
 }
