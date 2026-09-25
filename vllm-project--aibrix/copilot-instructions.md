@@ -1,123 +1,137 @@
 ## aibrix
 
-> This file captures repository-specific guidance for AI coding agents working in `python/aibrix`. Keep it focused on facts about this codebase rather than generic agent workflow rules.
+> AIBrix is a Kubernetes-native platform for building scalable GenAI inference
 
-# AGENTS.md
+# AIBrix
 
-This file captures repository-specific guidance for AI coding agents working in `python/aibrix`. Keep it focused on facts about this codebase rather than generic agent workflow rules.
+AIBrix is a Kubernetes-native platform for building scalable GenAI inference
+infrastructure. This repository contains Go controllers, gateway plugins,
+custom resources, deployment manifests, tests, and Python runtime components.
+This file gives coding agents the repository-specific context and safety rules
+needed to make focused changes.
 
-## Setup And Common Commands
+## Scope and repository layout
 
-```bash
-# Install development dependencies
-poetry install --no-root --with dev
+| Path | Role |
+|------|------|
+| `api/` | Kubernetes API types and CRD definitions |
+| `pkg/controller/` | Kubernetes controllers and reconciliation logic |
+| `pkg/plugins/` | Gateway plugins and request processing |
+| `pkg/` | Shared Go libraries, clients, caches, metrics, and utilities |
+| `cmd/` | Go binary entrypoints |
+| `config/` | Kustomize configuration, CRDs, RBAC, and deployment manifests |
+| `test/integration/` | Ginkgo-based integration tests |
+| `test/e2e/` | Kind and cluster-level end-to-end tests |
+| `hack/` | Code generation, verification, and CI scripts |
+| `python/aibrix/` | Python runtime, downloader, batch, metadata, and optimizer |
+| `python/aibrix_kvcache/` | Python distributed KV-cache components |
+| `apps/` | Application services and the console |
+| `docs/` | Project documentation and generated documentation assets |
+| `samples/` | Example deployments and feature samples |
 
-# Development install inside the Poetry environment
-poetry run pip install -e .
+Rules in a deeper `AGENTS.md` take precedence for files under that directory.
+The Python runtime has additional guidance in
+[`python/aibrix/AGENTS.md`](python/aibrix/AGENTS.md).
 
-# Full formatting, linting, and type checking pass inside Poetry
-poetry run bash ./scripts/format.sh
+## Working rules
 
-# Individual checks
-poetry run ruff check aibrix/
-poetry run ruff format aibrix/
-poetry run mypy aibrix/
+- State the intended scope and success criteria before making a non-trivial
+  change.
+- Read the closest existing implementation and its tests before introducing a
+  new pattern.
+- Keep changes focused. Do not combine unrelated refactors, formatting, or
+  generated output with a feature or bug fix.
+- Verify behavior from code and tests rather than inferring it from filenames.
+- Preserve unrelated user changes in the working tree.
+- Do not push branches, rewrite history, modify remote GitHub state, or send
+  external messages without explicit authorization for that action.
+- Ask before upgrading dependencies or changing `.github/` workflow policy.
 
-# Run the full test suite inside Poetry
-poetry run pytest
+## API and compatibility surfaces
 
-# Run focused suites while iterating
-poetry run pytest tests/batch/
-poetry run pytest tests/downloader/
-poetry run pytest tests/metadata/
-poetry run pytest tests/runtime/
-```
+Treat the following as compatibility surfaces:
 
-Note: The Python tooling here is installed via Poetry. Unless you are already inside `poetry shell`, run validation commands with `poetry run ...`. In particular, run `poetry run bash ./scripts/format.sh` and `poetry run pytest` from the `python/aibrix` repository root after code changes in this subtree.
+- Kubernetes API types, CRD schemas, JSON/YAML tags, defaults, validation,
+  list semantics, subresources, and printer columns.
+- Public HTTP endpoints, request and response fields, headers, status codes,
+  and gateway plugin contracts.
+- CLI flags, configuration keys, environment variables, labels, and
+  annotations used by deployment or controller logic.
 
-## CLI Entry Points
+Do not rename, remove, or repurpose an existing field or key without an
+explicit migration and compatibility plan. Preserve pointer and `omitempty`
+choices when absent, zero, and explicit values have different meanings.
+Keep status fields observational; status transitions must remain consistent
+with every controller that writes or consumes them.
 
-Defined in `pyproject.toml`:
+Keep API types declarative. Admission behavior belongs in webhooks,
+reconciliation policy belongs in controllers, and transport compatibility
+belongs in the relevant API or gateway layer.
 
-- `aibrix_runtime` - main runtime server
-- `aibrix_download` - model downloader CLI
-- `aibrix_batch_worker` - batch worker process
-- `aibrix_metadata` - metadata service
-- `aibrix_benchmark` - GPU benchmarking tool
-- `aibrix_gen_profile` - profile generation tool
-- `aibrix_gen_secrets` - secret generation helper
+## Build and verification
 
-## Architecture Map
+Run commands from the repository root. Start with the narrowest relevant check
+and run broader checks for changes that cross package or language boundaries.
 
-### Core Runtime (`aibrix/app.py`)
-- FastAPI server for model management, metrics, and health endpoints
-- Integrates with inference engines, currently centered on vLLM
-- Exposes model download, listing, and LoRA adapter operations
+| Command | Purpose |
+|---------|---------|
+| `make fmt` | Format Go code |
+| `make vet` | Run `go vet ./...` |
+| `make generate` | Regenerate Go and Kubernetes generated artifacts |
+| `make manifests` | Regenerate webhook, RBAC, and CRD manifests |
+| `make verify` | Verify generated code and CRD synchronization |
+| `make lint` | Run Go linting |
+| `make lint-all` | Run license and Go lint checks |
+| `make test` | Run Go unit tests, excluding integration and E2E packages |
+| `make test-race-condition` | Run Go unit tests with the race detector |
+| `make test-integration` | Run integration tests |
+| `make python-ci` | Run Python Ruff, mypy, and tests for `python/aibrix` |
+| `make test-e2e` | Run Kind-based end-to-end tests |
 
-### Batch System (`aibrix/batch/`)
-- Coordinates job lifecycle, scheduling, persistence, and worker execution
-- Includes driver, manager, scheduler, proxy, and storage integration layers
+For a Go package, a focused check such as `go test ./pkg/<package>/...` is
+appropriate while iterating. For cluster-level behavior, use the existing
+helpers and test organization under `test/e2e/`; do not replace polling with
+arbitrary sleeps.
 
-### Downloader (`aibrix/downloader/`)
-- Supports HuggingFace, S3, and TOS backends
-- Handles caching, file locking, and download directory management
+When API types, controller-gen markers, or CRDs change, run the applicable
+generation and verification targets and include the resulting generated files
+in the change. Do not hand-edit generated files unless the generator explicitly
+requires it.
 
-### Metadata Service (`aibrix/metadata/`)
-- Separate FastAPI app for metadata and batch-related APIs
-- Uses HTTPX-based clients for external service communication
+## Coding conventions
 
-### OpenAPI Layer (`aibrix/openapi/`)
-- Defines request and response protocols for model management
-- Contains engine abstractions and vLLM-specific implementations
+- Follow existing Go package structure and standard Go style; use `gofmt` or
+  `make fmt`.
+- Put reusable implementation in `pkg/`; keep `cmd/` entrypoints thin.
+- Use table-driven tests where they match the surrounding package style.
+- Add or update tests for behavior changes, including failure and compatibility
+  cases when applicable.
+- Comments should explain non-obvious reasons or invariants, not restate code.
+- Preserve existing logging, error handling, retry, timeout, and context
+  propagation patterns unless the change specifically addresses them.
+- For Python changes, follow the more specific rules in
+  [`python/aibrix/AGENTS.md`](python/aibrix/AGENTS.md) and run checks from that
+  subtree as documented there.
 
-### GPU Optimizer (`aibrix/gpu_optimizer/`)
-- Contains load monitoring, profiling, clustering, benchmarking, and optimization logic
+## Pull requests and documentation
 
-### Storage (`aibrix/storage/`)
-- Provides storage abstractions and implementations used by runtime and batch features
+- Keep a PR focused on one issue or coherent behavior change.
+- Use the repository [PR template](.github/PULL_REQUEST_TEMPLATE.md), link the
+  relevant issue, and describe the tests actually run.
+- Update user or developer documentation when behavior, configuration, API,
+  deployment, or CLI usage changes.
+- Large design changes should be discussed before implementation and recorded
+  in the appropriate documentation area.
+- Review every generated or AI-assisted change yourself; do not submit code
+  that you cannot explain and verify.
 
-## Configuration Pointers
+## Further reading
 
-- `aibrix/envs.py` defines environment-variable-backed settings
-- `aibrix/config.py` contains configuration constants
-- `aibrix/batch/constant.py` defines batch defaults such as pool size and timeouts
-
-## Repo Conventions
-
-- Use `aibrix.logger`; loggers are initialized through `init_logger` and support structlog
-- Follow existing subsystem patterns before introducing new abstractions
-- Prefer targeted tests for the subsystem you change, then run broader validation before finishing, using `poetry run pytest ...`
-- Keep existing comments unless they are clearly wrong or misleading
-- Add comments for non-obvious behavior in new or significantly modified code paths to support human review
-- If the user interrupts a running tool call or terminal command, stop the current execution flow and ask for user input before starting new tool calls or commands
-
-## Test Map
-
-- `tests/batch/` covers batch APIs, driver behavior, persistence, RBAC, and worker integrations
-- `tests/downloader/` covers backend-specific downloader behavior and related utilities
-- `tests/metadata/` covers metadata APIs, secrets, and integration flows
-- `tests/metrics/` covers metrics behavior across engine modes
-- `tests/runtime/` covers runtime downloader and artifact-service behavior
-- `tests/storage/` covers storage backends and shared storage utilities
-- `tests/gpu_optimizer/` covers optimizer and benchmark-related logic
-- `tests/e2e/` contains end-to-end API coverage
-
-## Change Checklist
-
-- After every code modification, run `poetry run bash ./scripts/format.sh` from the `python/aibrix` repository root (`/Users/bytedance/Studio/aibrix/python/aibrix`)
-- Run the most relevant `poetry run pytest ...` targets for the touched subsystem
-- Run full `poetry run pytest` when changes cross subsystem boundaries or affect shared infrastructure
-- Update affected docs, config wiring, or CLI entry points when behavior changes
-
-## Codebase Freshness Rule
-
-Do not assume the codebase is unchanged between tasks, even within the same session.
-
-Before making edits or reasoning about behavior:
-- Re-open the relevant files to confirm their current contents and surrounding context.
-- Re-verify key call sites, signatures, and invariants through code reading or repository history.
-- Use Git tools (e.g., diff/blame/log/show) to confirm what changed since the last task and to validate any assumptions that depend on prior state.
+- [Contributing guide](CONTRIBUTING.md)
+- [Development guide](development/README.md)
+- [Test guide](test/README.md)
+- [Project documentation](docs/README.md)
 
 ---
 > Source: [vllm-project/aibrix](https://github.com/vllm-project/aibrix) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
