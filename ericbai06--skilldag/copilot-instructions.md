@@ -8,14 +8,14 @@ This environment contains a prebuilt **SkillDAG** typed-skill graph workspace.
 
 ## Required First Step
 
-Before writing any code, retrieve relevant skills in two steps:
+Before attempting any task, retrieve relevant skills with two steps:
 
 ```bash
 skilldag graph search "goal + artifact/format + operation/API + verifier-critical constraint" --top-k 5
 skilldag show <skill_id>
 ```
 
-`skilldag graph search` returns a ranked list of skill ids with scores and one-line descriptions. `skilldag show <id>` prints the full SKILL.md body. Pass multiple ids — `skilldag show A B C` — to read several skills in one call. Both commands are on PATH inside the container.
+`skilldag graph search` returns a ranked list of skill ids with scores and one-line descriptions. `skilldag show <id>` prints the full SKILL.md body. Pass multiple ids — `skilldag show A B C` — to read several skills in one call.
 
 When writing the query, include only the retrieval-critical task facts that are actually known:
 
@@ -34,7 +34,9 @@ exact civ6 district adjacency calculator
 
 Avoid vague queries such as `solve this task` or `help with benchmark`.
 
-Retrieval is free and interruptible. Use `skilldag show <id>` for each skill that looks relevant, and consult more skills later if the task surface changes. If the ranking is empty, explicitly note that no relevant skill was found and continue without claiming skill usage. Otherwise, use the retrieved skills only as constraints on how to solve the task.
+Retrieval is free and interruptible. Use `skilldag show <id>` for each skill that looks relevant before writing any code, and consult more skills mid-task when the situation changes. If the ranking is empty, explicitly note that no relevant skill was found and proceed without claiming skill usage.
+
+Treat retrieved skills as a narrowing device, not as permission to expand scope.
 
 ## Failure Reflection
 
@@ -126,7 +128,7 @@ Example 3, propose surfaces a contradiction — retype instead of add:
   skilldag graph edit-edge retype <skill_a> <skill_b> --from depends_on --to conflicts_with --reason "<current evidence contradicting earlier>"
   ```
 
-## Reading the Output
+## Skill Scripts
 
 `skilldag show <skill_id>` prints the SKILL.md body. Do not scan the skill library or infer filesystem locations; use only SkillDAG CLI retrieval outputs as the source of skill bodies.
 
@@ -135,24 +137,13 @@ Before implementing, inspect the task requirements, tests, and verifier and iden
 Priorities:
 
 1. Take the shortest path to passing the verifier.
-2. Pass only the verifier's minimum required behavior first.
+2. Satisfy only the verifier's minimum required behavior first.
 3. Do not scan the filesystem for skill directories; retrieve skill bodies only through `skilldag show <id>`.
-4. Reuse or adapt retrieved interfaces when they directly fit the verifier target.
+4. Reuse or adapt retrieved interfaces when they directly help.
 5. If a retrieved skill contains an authoritative calculator, validator, parser, or pack/unpack workflow, use that exact interface for the final output and final self-check.
-6. Treat skills as a way to shrink the search space, not as permission to explore more implementation branches.
-7. Avoid extra features, UI expansion, side outputs, or generalization unless explicitly required.
-
-## Workflow
-
-1. Inspect the task and form a short retrieval query containing `goal + artifact/format + operation/API + verifier-critical constraint`
-2. Run `skilldag graph search "<targeted query>" --top-k 5`
-3. Record whether retrieval returned any skills
-4. Inspect task requirements/tests/verifier and write down the minimum acceptance requirements
-5. For each relevant skill id, run `skilldag show <id>` to read the full body (use multi-id form when several look relevant)
-6. Use or adapt retrieved interfaces only if they directly help satisfy the minimum requirements
-7. If no returned interface directly fits, stay on the shortest no-frills path to verifier pass
-8. Before finalizing, run one verifier-aligned self-check with the retrieved skill's authoritative interface when available
+6. Treat skills as a narrowing device, not permission to expand scope or open more implementation branches.
+7. Do not add extra features, panels, outputs, or refactors unless the task explicitly requires them.
 
 ---
 > Source: [Ericbai06/SkillDAG](https://github.com/Ericbai06/SkillDAG) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
