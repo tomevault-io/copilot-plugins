@@ -1,8 +1,6 @@
 # whatsapp-rust
 
-> Tome by [oxidezap](https://github.com/oxidezap/whatsapp-rust) — distributed by [TomeVault](https://tomevault.io)
-
-Whatsapp client written purely in Rust based on whatsmeow and baileys
+> Tome by [oxidezap](https://github.com/oxidezap/whatsapp-rust), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [oxidezap/whatsapp-rust](https://github.com/oxid
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [oxidezap/whatsapp-rust](https://github.com/oxidezap/whatsapp-rust) — a repo with 554+ stars on GitHub.
+From [oxidezap/whatsapp-rust](https://github.com/oxidezap/whatsapp-rust) — a repo with 831+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-s -->
