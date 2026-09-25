@@ -2,9 +2,9 @@
   "name": "vgv-wingspan",
   "owner": "VeryGoodOpenSource",
   "repo": "vgv-wingspan",
-  "description": "AI-assisted workflows that follow Very Good Ventures best practices. It pairs perfectly with our Very Good AI Flutter Plugin.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VeryGoodOpenSource/vgv-wingspan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T10:05:09Z"
+  "distributed_at": "2026-09-25T13:11:26Z"
 }
