@@ -3,8 +3,8 @@
   "owner": "oomol-lab",
   "repo": "open-connector",
   "description": "Open-source auth gateway connecting 1000+ SaaS providers to AI agents through SDK, CLI, MCP, HTTP, and OpenAPI.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "open-connector",
+      "path": ".codex/skills/add-provider/SKILL.md",
+      "github_url": "https://github.com/oomol-lab/open-connector/tree/main/.codex/skills/add-provider/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/oomol-lab/open-connector",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T09:30:26Z"
+  "distributed_at": "2026-09-25T00:58:00Z"
 }
