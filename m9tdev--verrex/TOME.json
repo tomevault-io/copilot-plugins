@@ -2,7 +2,7 @@
   "name": "verrex",
   "owner": "m9tdev",
   "repo": "verrex",
-  "description": "an Effect-native UI framework where E/R channels survive to compile-time \u2014 forget a service Layer and it's a compile error that names it",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/m9tdev/verrex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T17:01:40Z"
+  "distributed_at": "2026-09-25T21:06:39Z"
 }
