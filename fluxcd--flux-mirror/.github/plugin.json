@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--flux-mirror",
+  "displayName": "flux-mirror",
+  "description": "flux-mirror",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/flux-mirror",
+  "skills": []
+}
