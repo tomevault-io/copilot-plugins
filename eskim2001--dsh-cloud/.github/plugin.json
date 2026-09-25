@@ -1,7 +1,7 @@
 {
   "name": "eskim2001--dsh-cloud",
   "displayName": "dsh-cloud",
-  "description": "dshcloud\uff1a\u90e8\u7f72\u5e76\u6258\u7ba1 DeepSeek Harness (dsh) \u5b9e\u4f8b\u7684\u591a\u79df\u6237\u5e73\u53f0\uff0c\u652f\u6301\u81ea\u6258\u7ba1\u6216\u4e91\u7aef\u90e8\u7f72\u3002Deploy and host DeepSeek Harness (dsh) instances \u2014 self-hosted on your own server or cloud-hosted: a multi-tenant platform with isolated Docke",
+  "description": "dsh-cloud",
   "version": "1.0.0",
   "author": "eskim2001",
   "homepage": "https://github.com/eskim2001/dsh-cloud",
