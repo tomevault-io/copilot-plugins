@@ -1,0 +1,9 @@
+{
+  "name": "fluent--fluentd",
+  "displayName": "fluentd",
+  "description": "fluentd",
+  "version": "1.0.0",
+  "author": "fluent",
+  "homepage": "https://github.com/fluent/fluentd",
+  "skills": []
+}
