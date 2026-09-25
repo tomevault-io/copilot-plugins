@@ -1,0 +1,14 @@
+{
+  "name": "proxyayush--antigravity-fusion-plugin",
+  "displayName": "antigravity-fusion-plugin",
+  "description": "antigravity-fusion-plugin",
+  "version": "1.0.0",
+  "author": "ProxyAyush",
+  "homepage": "https://github.com/ProxyAyush/antigravity-fusion-plugin",
+  "skills": [
+    {
+      "name": "antigravity-fusion-plugin",
+      "description": ""
+    }
+  ]
+}
