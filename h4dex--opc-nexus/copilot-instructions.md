@@ -1,134 +1,210 @@
 ## opc-nexus
 
-> OPC-Nexus（One Person Company Nexus）— 本地优先的桌面 Agent 管理器（Electron + React），为单人公司提供 AI 数字员工统一智能枢纽。
+> How to build Hermes Desktop well. This is a judgment guide, not an inventory —
 
-# AGENTS.md — OPC-Nexus · 单人公司的智能枢纽
+# Desktop Engineering Guide
 
-## 项目简介
+How to build Hermes Desktop well. This is a judgment guide, not an inventory —
+it teaches the invariants and the reasoning behind them so a change fits the app
+even as files move. Read it with the repository `AGENTS.md` (root rules still
+apply) and [`DESIGN.md`](./DESIGN.md) for the visual and interaction contract.
 
-OPC-Nexus（One Person Company Nexus）— 本地优先的桌面 Agent 管理器（Electron + React），为单人公司提供 AI 数字员工统一智能枢纽。
-管理 AI Agent 的生命周期、任务编排、引擎接入、消息渠道和系统资源监控。
+When a rule here and the code disagree, trust the code and fix whichever is
+wrong — but never break an invariant to make a change easier.
 
-- **技术栈**: Electron 37 + electron-vite + React 19 + Zustand + sql.js + TypeScript (strict)
-- **目标平台**: Windows 10/11（首发）、Ubuntu 22.04+（同架构兼容）
-- **构建产物**: `out/` 目录（main / preload / renderer 三子目录）
+## What this app is
 
-## 架构分层
+Desktop is its own native chat surface. It is not the browser dashboard and it
+does not embed the TUI. Three parties, each authoritative for one thing:
 
-```
-src/
-├── main/           # Electron 主进程（Node.js 环境）
-│   ├── index.ts        # 入口：窗口、托盘、单实例锁、服务初始化
-│   ├── ipc.ts          # IPC 白名单注册（唯一合法 invoke 入口）
-│   └── services/       # 业务服务层
-│       ├── database.ts       # sql.js 持久化（WASM SQLite）
-│       ├── orchestrator.ts   # Agent/Task 编排与状态机
-│       ├── engineManager.ts  # 引擎安装/认证/默认选择
-│       ├── channelManager.ts # 消息渠道管理
-│       ├── resourceMonitor.ts# CPU/内存/GPU/磁盘采集
-│       └── seed.ts           # 初始演示数据
-├── preload/        # contextBridge 桥接（Renderer 唯一入口）
-│   └── index.ts        # 暴露 window.aibox API，不暴露 ipcRenderer 本体
-├── renderer/       # React SPA（浏览器沙箱环境）
-│   └── src/
-│       ├── App.tsx         # 布局 + 路由切换
-│       ├── store.ts        # Zustand 全局状态（快照订阅）
-│       ├── pages/          # 页面组件（Dashboard/Tasks/Engines/Channels/System/Settings）
-│       ├── components/     # 通用 UI 组件（charts/common/icons）
-│       ├── wizard/         # 创建 Agent 向导
-│       └── styles/         # global.css（CSS 变量主题）
-└── shared/         # 跨进程共享类型（四层状态模型、实体、IPC 载荷）
-    └── types.ts
-```
+- **Electron** owns the machine: process lifecycle, native filesystem/git/
+  windows, install/update, and a narrow, typed capability bridge.
+- **The renderer** owns the experience: navigation, presentation, and ephemeral
+  interaction state.
+- **The agent backend** owns the work: sessions, tools, model calls, streaming.
 
-**依赖方向**: renderer → preload → main → shared（单向，shared 不依赖任何层）
+Keep the seams clean. The renderer never reaches for Node or Electron directly;
+native power arrives through a deliberate capability, not a general escape hatch.
+Agent behavior lives behind the gateway, never reimplemented in React. When a
+change blurs a seam, that is the smell — fix the seam, don't widen it.
 
-## 关键约定
+## Decide state by authority
 
-### 1. 四层状态模型（不得混用）
+The first question for any piece of state is *who is allowed to be right about
+it*, not where it is convenient to store it. Put state with its authority:
 
-| 层 | 类型 | 合法值 |
-|---|---|---|
-| Agent 生命周期 | `AgentLifecycle` | DISABLED → STARTING → READY → STOPPING，异常 → ERROR |
-| 任务状态机 | `TaskStatus` | QUEUED → RUNNING → COMPLETED/FAILED/CANCELLED/INTERRUPTED；可经 WAITING_APPROVAL/PAUSED |
-| 引擎状态 | `EngineStatus` | NOT_INSTALLED → INSTALLING → AUTH_REQUIRED → HEALTHY/DEGRADED/ERROR |
-| 渠道状态 | `ChannelStatus` | UNCONFIGURED → CONNECTING → ONLINE/RECONNECTING/AUTH_EXPIRED/DISABLED/ERROR |
+- The **backend** is authoritative for anything another Hermes surface can also
+  change. Treat the renderer's copy as a cache of that truth.
+- **Electron** is authoritative for machine and runtime facts.
+- The **renderer** owns only what is purely about this window's presentation.
 
-- 首页派生状态 `DerivedAgentStatus` 由编排器计算，互斥优先级：error > running > paused > starting > idle
-- 状态转换只能在 `orchestrator.ts`（主进程）中发生，Renderer 不可直接修改
+From that, everything else follows: shared renderer state lives in small stores
+owned by the feature that owns the concern; request-shaped server data that wants
+invalidation lives in the query layer; short-lived interaction detail stays in
+the component; hot coordination that must not paint stays in a ref. Reach for the
+narrowest home that still lets the state be correct. A new global store is a
+claim that many distant surfaces need it — earn that claim.
 
-### 2. IPC 白名单
+Persisted state must declare its scope in its own key: is this global, or does it
+belong to a connection, a profile, a stored session, a project, or a window?
+Getting the scope wrong is how one profile's setting bleeds into another.
 
-- **所有** Renderer→Main 通信必须通过 `src/main/ipc.ts` 中 `ipcMain.handle` 显式注册的 channel
-- Channel 命名规范: `aibox:<动作>`（如 `aibox:createAgent`、`aibox:getSnapshot`）
-- Preload 只暴露类型安全的函数封装，**禁止**暴露 `ipcRenderer` 本体或 `send`/`invoke` 通用方法
-- 新增 IPC 方法三步走：① ipc.ts 注册 handler → ② preload/index.ts 暴露封装 → ③ renderer 通过 `window.aibox.xxx` 调用
+## Identity is not incidental
 
-### 3. safeStorage 密钥管理
+Sessions have more than one identity, and conflating them is a recurring source
+of "session not found" and vanishing history. Reason about which identity a
+surface needs: durable navigation and anything the user pins or persists key off
+the stable/durable identity; live streaming keys off the runtime identity; state
+that must outlive compression keys off the lineage root. Keep the mapping between
+them explicit and translate at the boundary rather than passing the wrong id
+inward.
 
-- 密钥（API Key、Token）**绝不**进入 Renderer 进程或 localStorage
-- 存储路径: `safeStorage.encryptString()` → base64 → SQLite `settings` 表（key 前缀 `secret:`）
-- Renderer 仅可调用 `storeSecret(ref, secret)` 和 `hasSecret(ref)`，不可读取明文
-- 每次密钥操作写入 AuditLog
+## Server truth is cached, not owned
 
-### 4. 其他安全基线
+The renderer paints from a cache of backend truth, so it must reconcile, not
+assume:
 
-- `contextIsolation: true` + `nodeIntegration: false`（不可关闭）
-- 外部链接一律 `shell.openExternal`，禁止 BrowserWindow 内导航
-- 工作目录必须通过 `pickDirectory` 对话框由用户选择
-- 单实例锁防止 SQLite 争用
+- **Merge, don't clobber.** A refresh is new information layered over what you
+  already know, not a replacement that can drop live or pinned rows.
+- **Be optimistic, then honest.** Direct manipulation should paint immediately
+  from a snapshot; a failed write rolls back visibly and an authoritative
+  refresh gets the last word.
+- **Guard against the past.** Async results can arrive out of order; a stale
+  response must never overwrite newer intent. Generation counters and request
+  tokens exist for this.
+- **Isolate the foreground.** Only the surface the user is looking at may publish
+  into the shared view; background work updates its own cache quietly.
+- **Coalesce noise, flush signal.** Batch high-frequency cosmetic updates, but
+  let terminal transitions (a turn finishing, needing input, failing) reach the
+  user immediately.
+- **Preserve reference identity on no-ops.** Handing React a fresh array that
+  contains the same data re-renders expensive trees for nothing.
 
-## 可用命令
+## Switching context is a re-home, not a reboot
 
-| 命令 | 用途 |
-|---|---|
-| `npm run dev` | 启动开发模式（electron-vite dev，HMR） |
-| `npm run build` | 生产构建（输出到 out/） |
-| `npm run typecheck` | TypeScript 全量类型检查（tsc --noEmit） |
-| `npm run start` | 预览生产构建 |
-| `npm run pack:win` | 构建 + 打包 Windows x64 安装程序 |
-| `npm run pack:linux` | 构建 + 打包 Linux x64 |
-| `npm test` | 运行单元测试（vitest） |
-| `npm run test:watch` | 监听模式运行测试 |
+Changing profile, connection, or mode is a workspace switch, not a cold start.
+The shell and whatever the user was doing stay put; only the gateway-bound view
+is cleared and repopulated, and the previous context must not leak into the next
+one. Reserve the full-screen boot/connecting experience for a genuinely unusable
+backend.
 
-> 测试框架为 vitest，测试文件位于 `tests/` 目录。验证以 `typecheck` + `test` 为准。
+There are three distinct switch shapes, and conflating them is the classic bug:
 
-## 禁止操作
+- A **connection/mode apply** (local ↔ remote ↔ cloud) is the soft re-home:
+  shell mounted, gateway-bound stores explicitly wiped, then reconnect. Query
+  invalidation alone cannot evict live session stores — wipe them.
+- A **runtime home change** (switching the underlying `HERMES_HOME` profile) is
+  a hard re-home: the window legitimately reloads and state resets by remount.
+- A **live profile swap** in the same window activates another profile's socket
+  while background profiles keep streaming; lists merge rather than wipe, and
+  only an explicit user selection starts a fresh foreground draft.
 
-1. **禁止**在 Renderer 中直接使用 Node.js API（`require`、`fs`、`child_process` 等）
-2. **禁止**绕过 preload 直接访问 `ipcRenderer`
-3. **禁止**在 Renderer/localStorage/IndexedDB 中存储任何密钥或凭据
-4. **禁止**在 shared/types.ts 中引入 Electron/Node 依赖（保持纯类型）
-5. **禁止**修改 `contextIsolation`、`nodeIntegration`、`sandbox` 安全配置
-6. **禁止**在状态机之外直接修改 Agent/Task/Engine/Channel 状态字段
-7. **禁止**引入新的 IPC channel 而不在 ipc.ts 白名单中注册
-8. **禁止**跳过 `npm test` 验证，状态机变更必须有对应测试覆盖
+Treating a soft switch as hard flickers the app; treating a hard one as soft
+strands stale rows. After any swap, the active socket, active profile, and
+connection atoms must agree, or REST and filesystem calls route to the wrong
+backend.
 
-## 验证路由
+## Cross everything as an observable ladder
 
-修改代码后按以下顺序验证：
+Desktop lives at the seams: versions, profiles, local vs remote vs cloud,
+partially installed runtimes, stale caches, older backends. The durable technique
+for all of it is the same — an ordered ladder of candidates:
 
-```bash
-# 1. 类型检查（必须通过）
-npm run typecheck
+1. Precedence is written down, in one place, as data or a pure function.
+2. A candidate is trusted only after it is validated at the right boundary.
+   Existence is not proof; probe what you're about to rely on.
+3. A failed *read* falls to the next rung; a failed *authoritative write*
+   surfaces or rolls back rather than silently retargeting.
+4. A missing capability and a transient failure are different: the first may
+   enable a compatibility path or a disabled state; the second should retry.
+5. Retries are bounded and end in a real recovery affordance — never an infinite
+   spinner or a hot loop.
+6. One resolver owns each policy so every caller gets the same answer. Scatter is
+   how two call sites drift apart.
 
-# 2. 单元测试（必须通过）
-npm test
+This is the shape of backend discovery, command/version fallbacks, connection and
+auth resolution, workspace-cwd selection, capability detection, and preview
+normalization alike. Learn the shape, not a snapshot of the current rungs.
 
-# 3. 构建验证（涉及构建配置或依赖变更时）
-npm run build
+Two auth-flavored corollaries worth naming because they are easy to get wrong:
 
-# 4. 运行时验证（涉及 UI/交互/状态逻辑时）
-npm run dev
-```
+- **One-time credentials are never reused.** An OAuth gateway connection mints a
+  fresh WebSocket ticket on every dial and never falls back to the cached URL.
+  Only a confirmed 401/403 (or an explicitly tagged auth rejection) means
+  reauthentication; timeout, network, malformed-response, and server failures
+  remain connectivity errors. Only long-lived token/local auth may reuse a
+  cached URL as a lower rung.
+- **A connection test must exercise the leg you'll actually use.** An HTTP
+  status probe passing while the WebSocket/auth leg fails is a false positive
+  that ships as "it said connected but nothing works."
 
-**检查清单**:
-- [ ] 新增 IPC channel 已在 ipc.ts + preload 双侧注册
-- [ ] 新增类型已放入 shared/types.ts 且无 Node/Electron 导入
-- [ ] 状态变更逻辑在 orchestrator 或对应 Manager 中
-- [ ] 无密钥泄露到 Renderer 层
-- [ ] `npm run typecheck` 零错误
+## Compatibility without carrying the past forever
+
+Desktop and its runtime update on separate clocks, so a change can meet an older
+backend. Keep those users working: preserve the current feature, keep the
+fallback narrow and tied to an identified older runtime, and cover it with a
+test. A fallback that quietly degrades the feature it's meant to protect is worse
+than the crash it replaced.
+
+## Keep the waist narrow, grow at the edges
+
+The root contribution rubric governs here too. New capability should arrive at
+the smallest surface that solves it: extend what exists, add a feature locally,
+lean on an existing seam — before you invent a framework. The shell's internal
+registries are composition seams, not a public plugin ABI; do not build a
+universal extension system, a manifest, or a plugin adapter for a single
+consumer. Design a shared contract only once more than one real consumer proves
+its shape. "Plugin" means several unrelated things across Hermes — do not assume
+one surface's extension model runs in another.
+
+## Respect the person using it
+
+Design and engineering meet at intent. The user's attention and context are
+sacred:
+
+- Never navigate, move focus, or open a surface because something *happened* in
+  the background. Offer; don't hijack.
+- The states around loading are distinct experiences — empty, loading,
+  reconnecting, degraded/stale, and exhausted-recovery each deserve their own
+  honest copy and their own way out.
+- Keyboard ownership follows focus. The focused surface wins its keys; one
+  cancel gesture does exactly one thing.
+- Expensive, stateful surfaces (terminals, live tools) stay alive when hidden.
+  Visibility is not lifecycle.
+
+## Make it feel instant
+
+Performance is a feature the user feels, especially in drag, resize, scroll,
+typing, streaming, and terminals. The principles are timeless even as the code
+changes: keep hot-path state local or narrowly derived; don't subscribe heavy
+trees to per-frame updates; coalesce pointer work; avoid reading layout right
+after writing style; and don't mount expensive content mid-gesture. Prove speed
+against realistic content — a fast empty demo proves nothing about a long
+transcript. If motion is masking latency, remove the motion, don't tune it.
+
+## Testing as a habit of proof
+
+Test the behavior that would actually break a user, not a snapshot of today's
+data. Favor invariants over frozen values. Exercise the real path for anything
+at a seam — resolver precedence and its failure rungs, identity and scope
+boundaries, optimistic rollback and stale-response ordering, and both sides of a
+local/remote adapter with its profile routing intact. Match how the suite is
+actually run rather than inventing a command; when in doubt, read the scripts.
+
+## The taste test before you hand off
+
+- Does every piece of state live with its authority, at the narrowest scope?
+- Would a background event ever steal the foreground or the user's focus?
+- Does each resolver have one home, a validated ladder, and a bounded, recoverable
+  end?
+- Do local, remote, and profile routing still agree?
+- Does async failure leave a usable UI and a way forward?
+- Do hot interactions stay cheap under realistic load?
+- Does the change pass the [`DESIGN.md`](./DESIGN.md) checklist and update all
+  locales?
+
+If any answer is "not sure," that's the part to go verify.
 
 ---
 > Source: [h4dex/opc-nexus](https://github.com/h4dex/opc-nexus) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
