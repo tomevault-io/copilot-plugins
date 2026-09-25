@@ -1,129 +1,94 @@
 ## abi
 
-> > Scope: `libs/naas-abi-core/naas_abi_core/services/dataset/`. Canonical reference for agents.
+> Composition root for module orchestrations and built-in service maintenance jobs.
 
-# Dataset Service — AGENTS.md
-
-> Scope: `libs/naas-abi-core/naas_abi_core/services/dataset/`. Canonical reference for agents.
+# Dagster application
 
 ## Purpose
 
-Named, partitioned tables that modules **create, write, and query with SQL**. Identity and links stay in the triple store; volume (commits, emails, events) lives here.
-
-The graph can catalog a dataset (`dcat:Dataset`). This service stores the table in DuckLake, with one coherent catalog snapshot shared by every dataset.
+Composition root for module orchestrations and built-in service maintenance jobs.
+Keep Dagster imports here; services and outbound ports remain framework-independent.
 
 ## Files
 
-```
-dataset/
-├── DatasetPort.py                 # IDatasetPort, DatasetSpec, exceptions
-├── DatasetService.py              # public service
-├── DatasetFactory.py
-├── DatasetService_test.py
-├── adapters/secondary/
-│   ├── DatasetSecondaryAdapterDuckLake.py
-│   └── DatasetSecondaryAdapterDuckLake_test.py
-├── tests/dataset__secondary_adapter__generic_test.py
-└── AGENTS.md
-```
+- `dagster.py`: loads the engine and merges module and service definitions.
+- `DatasetCompaction.py`: dataset flush/compaction and pressure-monitoring jobs,
+  resource binding, and schedules.
+- `DatasetCompaction_test.py`: job selection, schedule, empty catalog, and failure tests.
 
-## Port (`DatasetPort.py`)
+## Port and service API
 
-```python
-class IDatasetPort:
-    def create(spec: DatasetSpec) -> DatasetInfo
-    def describe(name, *, namespace="default") -> DatasetInfo
-    def list(*, namespace=None) -> list[DatasetInfo]
-    def write(name, rows, *, namespace="default", mode="append"|"replace"|"upsert", snapshot_id=None) -> DatasetInfo
-    def query(sql, *, namespace="default", snapshot_id=None) -> QueryResult
-    def list_snapshots() -> list[DatasetSnapshotInfo]
-    def drop(name, *, namespace="default") -> None
-```
+Inject `DatasetService` through the `dataset_compaction_service` Dagster resource.
+The jobs call `list`, `describe`, `check_catalog_pressure`, `flush`, and `compact`;
+DuckLake SQL belongs in the dataset
+secondary adapter. See `../../services/dataset/AGENTS.md` for the service contract.
 
-`DatasetSpec` carries `name`, `namespace`, columns (`string|integer|bigint|double|boolean|date|timestamp|json`), partitions (`column` + `identity|year|month|day`), and `primary_key`. Primary-key columns must exist. DuckLake does not enforce uniqueness; the key only defines `MERGE INTO` matching for upsert, and ordinary appends can create duplicate keys.
+## Adapters and factory
 
-The optional write `snapshot_id` is a catalog-wide compare-and-swap token, not a per-dataset version. A write to any dataset advances it and can cause `DatasetSnapshotConflictError`. Successful mutating writes return the exact snapshot committed by that connection; a no-op returns the current observed snapshot.
-
-Partition transforms are physical layout metadata and do not add query columns; use SQL functions such as `month(author_date)` when filtering. Reserved identifiers (`end`, `start`) are valid schema names but must be quoted in caller SQL (`SELECT "end" FROM time_entries`).
-
-JSON values are parsed and deterministically serialized before DuckDB binds them to native `JSON` columns. Invalid values fail with `DatasetSchemaError`. Upserts reject null primary-key values and duplicate keys within one incoming batch.
-
-## Adapter
-
-| Adapter | Notes |
-|---|---|
-| `ducklake` | DuckLake catalog backed by SQLite or PostgreSQL, with Parquet/inlined data under `data_path`, on a local path or S3-compatible object storage. Supports catalog snapshots, time travel, JSON, and upsert. |
-
-## Engine config
-
-```yaml
-services:
-  dataset:
-    dataset_adapter:
-      adapter: "ducklake"
-      config:
-        catalog: "sqlite:storage/datasets.sqlite"
-        data_path: "storage/datasets/"
-        max_retries: 10
-        retry_base_delay_seconds: 0.05
-        retry_max_delay_seconds: 1.0
-```
-
-Default is that block.
-
-`data_path` may instead use an `s3://` or `s3a://` URI, which keeps table data
-wherever the deployment persists datasets rather than on a container disk. Other
-schemes are rejected until the adapter can configure their native DuckDB secret
-types. DuckDB cannot guess a custom endpoint or its credentials, so an S3-compatible
-store such as MinIO needs them here:
-
-```yaml
-        data_path: "s3://abi/abi/datasets/"
-        s3_endpoint: "http://minio:9000"
-        s3_access_key_id: "{{ secret.MINIO_ROOT_USER }}"
-        s3_secret_access_key: "{{ secret.MINIO_ROOT_PASSWORD }}"
-```
-
-The scheme on `s3_endpoint` sets the SSL default and an endpoint implies path-style
-URLs; `s3_use_ssl`, `s3_url_style` and `s3_region` override both. A scheme-less
-endpoint such as `minio:9000` must set `s3_use_ssl` explicitly so transport security
-is never guessed. Omit all of them for AWS with ambient credentials. Setting them
-alongside a local `data_path` raises, because that pairing can only mean a store was
-intended and would not be used.
-
-A remote `data_path` does not make a SQLite catalog shared. A single-process runtime
-may deliberately pair the two, but every replica in a scaled deployment must use the
-same durable catalog; use PostgreSQL rather than an ephemeral per-container SQLite
-file or the replicas will silently diverge.
-
-Without them, a write to an object store fails with HTTP 403 — or, for a batch small
-enough for DuckLake to inline in the catalog, appears to succeed while never reaching
-the store. Modules that use the service declare `DatasetService` in `ModuleDependencies.services`.
-
-Each write uses a fresh connection and retries the complete transaction up to 10 times for catalog locks/transaction conflicts. Backoff starts at 50 ms, doubles to a 1-second cap, and has +/-25% jitter. SQLite writers sharing one adapter are serialized before the cross-process retry boundary; PostgreSQL writers remain concurrent. PostgreSQL deployment credentials are rendered from the secret service; do not log the catalog DSN.
-
-Ambiguous object-store transport failures are not replayed automatically: a timeout
-may arrive after metadata committed, and replaying an append could duplicate rows.
-Such failures surface to the caller until the port has an idempotency or commit-status
-reconciliation contract.
-
-Every connection attaches with `AUTOMATIC_MIGRATION`, so the adapter initializes a new DuckLake metadata schema or upgrades an older compatible schema. The PostgreSQL database and grants must already exist; those require server-level provisioning outside the catalog connection.
+`dataset_compaction_definitions(service)` builds the job and schedule with the
+engine's configured service. Register only when `dataset_available()` is true.
+Preserve module definitions when adding other built-in jobs.
 
 ## Operations
 
-- Treat the catalog and `data_path` as one stateful unit, including when `data_path` is a bucket: a catalog restored to a different point than the store references Parquet files that are not there. The SQLite catalog can contain inlined rows, so copying only Parquet files is not a backup.
-- `abi stack snapshot create` stops the stack, then captures `postgres_data` and `storage/`; this produces a coherent local-deployment backup for both PostgreSQL and SQLite catalogs.
-- Flush inlined rows before storage-only maintenance with `CALL ducklake_flush_inlined_data('abi_datasets')`.
-- Compact adjacent small files with `CALL ducklake_merge_adjacent_files('abi_datasets')`.
-- Configure a retention window with DuckLake's `expire_older_than` option, then run `CALL ducklake_expire_snapshots('abi_datasets')` followed by `CALL ducklake_cleanup_old_files('abi_datasets')`. Never expire snapshots still required by restore/audit policy.
-- Moving from a SQLite catalog to PostgreSQL is a metadata migration. A DSN change alone loses snapshot history and any inlined rows.
+Launch `dataset_compaction_job` manually, or use `dataset_compaction_daily` in
+Dagster. The schedule defaults to running at 02:00 UTC. Each dataset is checked for
+catalog pressure, flushed regardless of its inline count, then compacted.
+Scheduled execution requires a running Dagster daemon. A previously saved stopped
+schedule remains stopped until explicitly enabled in Dagster.
+
+`dataset_catalog_monitor_job` checks all datasets without flushing or compacting.
+Its `dataset_catalog_monitor_hourly` schedule defaults to running hourly, in UTC.
+It emits a `DatasetCatalogPressure` event through the service when unflushed
+insertion records reach the configured limit. No extra scan is added to writes.
+
+Default run config processes all service datasets sequentially. Optional Launchpad
+config targets a namespace or a single dataset:
+
+```yaml
+ops:
+  compact_datasets:
+    config:
+      namespace: analytics
+      name: events
+      inline_warning_threshold: 100000
+```
+
+Omit `name` to process every dataset in the namespace; omit both for all namespaces.
+A name without a namespace targets `default`. Each flush and compaction has its
+own transaction; a failure fails the run and earlier completed work remains
+committed. A failed flush prevents the corresponding compaction. Adapter
+conflict retries apply; no additional Dagster retries are configured.
+
+The monitoring op uses `ops.check_dataset_catalogs.config.inline_warning_threshold`
+with the same 100,000-record default. Set a positive integer. Warnings are emitted
+on every over-limit check, including the daily check; they are not a strict size
+limit or immediate notification on crossing. Counts include historical/deleted
+insertion records, but exclude separate inline delete markers and catalog metadata.
+Event publication failure is logged and does not block flushing/compaction.
+
+Maintenance preserves partition boundaries and snapshot history. It does not
+expire snapshots or clean up files. Explicit table selection also
+means DuckLake's bulk-call `auto_compact` exclusion is not consulted. Compaction
+size follows the catalog's `target_file_size` setting; one file per partition per
+day is not guaranteed. Logging uses Dagster run
+logs for per-dataset results and output metadata for the processed dataset count;
+no new metrics or tracing stack is introduced.
 
 ## Tests
 
+From the repository root:
+
 ```bash
-uv run pytest naas_abi_core/services/dataset naas_abi_core/engine/engine_configuration/EngineConfiguration_DatasetService_test.py -q
+uv run pytest -o addopts='' libs/naas-abi-core/naas_abi_core/apps/dagster libs/naas-abi-core/naas_abi_core/services/dataset
 ```
+
+## Adding a new adapter
+
+Implement the dataset port including `flush`, `compact`, and `inlined_row_count`;
+unsupported maintenance must raise
+`NotImplementedError`. Do not add adapter-specific SQL to the Dagster job.
 
 ---
 > Source: [jupyter-naas/abi](https://github.com/jupyter-naas/abi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
