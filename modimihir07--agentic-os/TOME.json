@@ -2,7 +2,7 @@
   "name": "agentic-os",
   "owner": "modimihir07",
   "repo": "agentic-os",
-  "description": "Agentic OS: Multi-agent orchestration platform for opencode, Hermes & Gemini CLI. Skills hub, scheduler, cost analytics, memory & backup.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/modimihir07/agentic-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T22:07:23Z"
+  "distributed_at": "2026-09-25T11:45:17Z"
 }
