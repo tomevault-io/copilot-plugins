@@ -1,0 +1,75 @@
+{
+  "name": "claude-faceless-shorts-creator",
+  "owner": "hassancs91",
+  "repo": "claude-faceless-shorts-creator",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-faceless-shorts-creator",
+      "path": ".claude/skills/make-vox/SKILL.md",
+      "github_url": "https://github.com/hassancs91/claude-faceless-shorts-creator/tree/main/.claude/skills/make-vox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-faceless-shorts-creator",
+      "path": ".claude/skills/make-short/SKILL.md",
+      "github_url": "https://github.com/hassancs91/claude-faceless-shorts-creator/tree/main/.claude/skills/make-short/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-faceless-shorts-creator",
+      "path": ".claude/skills/suggest-sfx/SKILL.md",
+      "github_url": "https://github.com/hassancs91/claude-faceless-shorts-creator/tree/main/.claude/skills/suggest-sfx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-faceless-shorts-creator",
+      "path": ".claude/skills/make-ai-short/SKILL.md",
+      "github_url": "https://github.com/hassancs91/claude-faceless-shorts-creator/tree/main/.claude/skills/make-ai-short/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-faceless-shorts-creator",
+      "path": ".claude/skills/vidtsx-2d-generator/SKILL.md",
+      "github_url": "https://github.com/hassancs91/claude-faceless-shorts-creator/tree/main/.claude/skills/vidtsx-2d-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hassancs91/claude-faceless-shorts-creator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T00:53:46Z"
+}
