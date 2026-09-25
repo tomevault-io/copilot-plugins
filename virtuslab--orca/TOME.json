@@ -3,8 +3,8 @@
   "owner": "VirtusLab",
   "repo": "orca",
   "description": "Deterministic, AI-driven development flows.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "orca",
+      "path": "skills/using-orca/SKILL.md",
+      "github_url": "https://github.com/VirtusLab/orca/tree/main/skills/using-orca/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/VirtusLab/orca",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T23:30:21Z"
+  "distributed_at": "2026-09-25T02:59:45Z"
 }
