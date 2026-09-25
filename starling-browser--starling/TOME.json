@@ -3,8 +3,8 @@
   "owner": "starling-browser",
   "repo": "starling",
   "description": "Managed-first .NET web browser engine, built from primitives",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "starling",
+      "path": ".agents/skills/aspire/SKILL.md",
+      "github_url": "https://github.com/starling-browser/starling/tree/main/.agents/skills/aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "starling",
+      "path": ".claude/skills/aspire/SKILL.md",
+      "github_url": "https://github.com/starling-browser/starling/tree/main/.claude/skills/aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "starling",
+      "path": ".opencode/skill/aspire/SKILL.md",
+      "github_url": "https://github.com/starling-browser/starling/tree/main/.opencode/skill/aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "starling",
+      "path": ".agents/skills/writing-style/SKILL.md",
+      "github_url": "https://github.com/starling-browser/starling/tree/main/.agents/skills/writing-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "starling",
+      "path": ".claude/skills/writing-style/SKILL.md",
+      "github_url": "https://github.com/starling-browser/starling/tree/main/.claude/skills/writing-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "starling",
+      "path": ".github/skills/aspire/SKILL.md",
+      "github_url": "https://github.com/starling-browser/starling/tree/main/.github/skills/aspire/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/starling-browser/starling",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-26T15:30:30Z"
+  "distributed_at": "2026-09-25T00:52:40Z"
 }
