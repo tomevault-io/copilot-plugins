@@ -1,23 +1,21 @@
 # AI instruction files for skills
 
-> Sourced from [jakubkrehel/skills](https://github.com/jakubkrehel/skills) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A set of agent skills that help improve different parts of a product, from animations and typography to layout and colors.
+> Sourced from [jakubkrehel/skills](https://github.com/jakubkrehel/skills), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jakubkrehel/skills](https://github.com/jakubkrehel/skills).
+Original source: `AGENTS.md` in [jakubkrehel/skills](https://github.com/jakubkrehel/skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jakubkrehel/skills](https://github.com/jakubkrehel/skills)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/jakubkrehel/skills](https://github.com/jakubkrehel/skills)
 
 ---
 
