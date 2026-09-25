@@ -4,7 +4,7 @@
   "repo": "elon-musk-algorithm-skills",
   "description": "Elon Musk's 5-step algorithm as skills for AI agents.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wezendy/elon-musk-algorithm-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T18:40:13Z"
+  "distributed_at": "2026-09-25T18:41:48Z"
 }
