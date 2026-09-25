@@ -1,0 +1,14 @@
+{
+  "name": "randifajar--developer-portfolio",
+  "displayName": "developer-portfolio",
+  "description": "developer-portfolio",
+  "version": "1.0.0",
+  "author": "randifajar",
+  "homepage": "https://github.com/randifajar/developer-portfolio",
+  "skills": [
+    {
+      "name": "developer-portfolio",
+      "description": ""
+    }
+  ]
+}
