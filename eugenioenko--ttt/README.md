@@ -1,23 +1,21 @@
 # ttt
 
-> Tome by [eugenioenko](https://github.com/eugenioenko/ttt) — distributed by [TomeVault](https://tomevault.io)
-
-A terminal text editor IDE. A real alternative to VS Code, Zed, and Sublime that runs in your terminal. Single binary, zero config.
+> Tome by [eugenioenko](https://github.com/eugenioenko/ttt), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [eugenioenko/ttt](https://github.com/eugenioenko/ttt).
+Original source: `AGENTS.md` in [eugenioenko/ttt](https://github.com/eugenioenko/ttt).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [eugenioenko/ttt](https://github.com/eugenioenko/ttt) — a repo with 14+ stars on GitHub.
+From [eugenioenko/ttt](https://github.com/eugenioenko/ttt) — a repo with 320+ stars on GitHub.
 
 ---
 
