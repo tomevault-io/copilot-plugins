@@ -4,7 +4,7 @@
   "repo": "ocicl",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,117 @@
       "path": ".claude/skills/make-release/SKILL.md",
       "github_url": "https://github.com/ocicl/ocicl/tree/main/.claude/skills/make-release/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/pure-tls-20260706-662ae5c/.claude/skills/make-release/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/pure-tls-20260706-662ae5c/.claude/skills/make-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": ".agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/pure-tls-20260910-dad1028/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/pure-tls-20260910-dad1028/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/lint-common-lisp/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/lint-common-lisp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/testing-with-rove/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/testing-with-rove/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/pure-tls-20260910-dad1028/.claude/skills/make-release/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/pure-tls-20260910-dad1028/.claude/skills/make-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/writing-common-lisp/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/writing-common-lisp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/logging-with-log4cl/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/logging-with-log4cl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/defining-clos-classes/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/defining-clos-classes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/using-common-lisp-repl/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/using-common-lisp-repl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/atomic-spec-orchestrator/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/atomic-spec-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/clearing-asdf-fasl-cache/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/clearing-asdf-fasl-cache/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/handling-json-in-common-lisp/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/handling-json-in-common-lisp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/avoiding-common-lisp-pitfalls/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/avoiding-common-lisp-pitfalls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ocicl",
+      "path": "systems/doc-20260905-1ab3aa6/.agents/skills/writing-40ants-doc-documentation/SKILL.md",
+      "github_url": "https://github.com/ocicl/ocicl/tree/main/systems/doc-20260905-1ab3aa6/.agents/skills/writing-40ants-doc-documentation/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/ocicl/ocicl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T14:21:37Z"
+  "distributed_at": "2026-09-25T00:33:39Z"
 }
