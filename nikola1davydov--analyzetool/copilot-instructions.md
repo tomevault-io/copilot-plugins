@@ -1,95 +1,190 @@
 ## analyzetool
 
-> Revit 2025/2026/2027 add-in: an extensible command platform with a Vue frontend (WebView2),
+> База знаний об **AI-поверхности AnalyseTool**, устроенная по паттерну LLM-вики
 
-# AnalyseTool — instructions for AI assistants working on this repo
+# LLM Wiki — схема
 
-Revit 2025/2026/2027 add-in: an extensible command platform with a Vue frontend (WebView2),
-an MCP server for AI agents, and a public SDK for third-party extensions.
+База знаний об **AI-поверхности AnalyseTool**, устроенная по паттерну LLM-вики
+(Карпатый): источники неизменяемы, вики — живой компаундящийся артефакт, который
+поддерживает LLM. Знание синтезируется один раз и поддерживается в актуальном
+состоянии, а не выводится заново на каждый вопрос.
 
-## Architecture (the dependency contract)
+Этот файл — схема: он говорит ассистенту, работающему в этой папке, какая здесь
+структура, какие соглашения и как выполняются три операции.
 
-```
-[callers]                      [platform]              [callees]
-WebView2 (App), Mcp.Bridge ──► CommandQueue in Core ──► Tools commands, user extensions
-```
+Человеческая половина — [`README.md`](README.md): что читать и что просить. Держать
+её короткой; правила живут здесь, а не там.
 
-| Project | References | Role |
+## Слои
+
+| Слой | Путь | Кто пишет |
 | --- | --- | --- |
-| `AnalyseTool.Sdk` | nothing | THE public contract (`IRevitTask`, `IRevitContext`, `RevitPayload`, `[RevitCommand]`). SemVer'd, packed to NuGet. |
-| `AnalyseTool.Core` | Sdk | Platform: `CommandQueue` (single entry point for ALL transports), `CommandDispatcher`, extension loader (collectible ALC, type-identity sharing), Roslyn scripting, `CoreServices`. **Headless — no WPF, no dialogs; errors go to Serilog + `ExtensionDiagnostics`.** |
-| `AnalyseTool.Tools` | Sdk **only** | Built-in feature commands, organized as **vertical slices**: `Actions/`, `Ai/`, `Elements/` (Family Manager left the platform for an extension on 2026-09-01) — each slice owns everything of its feature, split inside into `Features/` (the `IRevitTask` commands) and `Infrastructure/` (services + models). `Shared/` holds the few cross-slice types (`ParameterData`, `ParameterOrigin`, `ParameterExtensions`). Namespace = `AnalyseTool.Tools.<Slice>` (subfolders don't add segments). New feature code goes INTO its slice — never into a central Infrastructure. Lives on the same rails as third-party extensions — if a command needs more than the Sdk offers, that is a deliberate Sdk contract decision, never a ProjectReference. |
-| `AnalyseTool.Mcp.Bridge` | Core, Sdk | In-Revit MCP transport: TCP bridge that enqueues into the `CommandQueue`. The reference pattern for new transports (e.g. a future SignalR remote): ProjectReference on Core + one `InternalsVisibleTo` line — zero Core changes. |
-| `AnalyseTool.Mcp` | none (links `McpWire.cs`) | Out-of-process stdio MCP exe launched by the AI client. Never loads Revit/Core. Wire contract shared with the bridge via the linked `McpWire.cs`. |
-| `AnalyseTool.App` | Core, Tools, Mcp.Bridge, Sdk | Host: windows, ribbon (`RibbonHost`), dock pane, `WebView2Transport`, `UserDialogUtils`, bootstrap (`AnalyseToolBootstrap` = stateless composition root; all state lives in `CoreServices`). |
-| `AnalyseTool.Launcher` | App (+ Mcp build-order) | Thin Revit entry: loads `AnalyseTool.App.dll` into an isolated ALC, builds the ribbon **via reflection by type name** — when renaming/moving `RibbonHost` or `AnalyseToolCommand`, update the FQN strings in `Launcher/App.cs` and `Launcher/RevitCommands/`. |
+| 1. Источники | `raw/` | **только человек** — LLM читает, никогда не правит и не удаляет |
+| 2. Вики | `wiki/` | **поддерживает LLM** — конспекты источников, сущности, концепции, разборы |
+| 3. Схема | этот файл | человек, с предложениями от LLM |
 
-Hard rules:
-- **Never** add a ProjectReference that violates the table — `src/build/Check-Boundaries.ps1` fails CI.
-- **Core and Tools stay headless**: no `UseWPF`, no `System.Windows`, no `MessageBox`. UI commands (folder pickers etc.) belong to App.
-- Commands touch the Revit model **only** inside `IRevitContext.RunInRevitAsync`. Core code gets the Revit version from `CoreServices.RevitVersion`, never from an ambient `Context`.
-- Transports never talk to `CommandDispatcher`; they enqueue `CommandRequest`s into `CoreServices.Queue` (carries command, payload, source, ct, progress, optional pre-execution gate).
-- `SharedData/ToolData` is compiled into several assemblies and must stay `internal` (a public copy causes CS0433).
-- Namespaces follow project names (`AnalyseTool.Core.*`, `AnalyseTool.Tools.*`, `AnalyseTool.App.*`).
-
-## Building
-
-```powershell
-# Full plugin chain (Debug deploys to %AppData%\Autodesk\Revit\Addins\<year>\ automatically!)
-dotnet build src/AnalyseTool.Launcher/AnalyseTool.Launcher.csproj -c "Debug R25"   # or R26 / R27
-
-# Static checks (the same two scripts CI runs first)
-powershell -File src/build/Check-Boundaries.ps1
-powershell -File src/build/Check-Schemas.ps1
+```
+LLM Wiki/
+├── CLAUDE.md            # эта схема
+├── raw/                 # неизменяемые источники: документы, переписки, транскрипты
+│   └── assets/          # картинки и вложения
+├── scripts/             # обслуживание: lint.py, fetch_github.py (см. scripts/README.md)
+└── wiki/
+    ├── index.md         # каталог всех страниц по категориям, с однострочными аннотациями
+    ├── log.md           # журнал операций ingest / query / lint, только дописывается
+    ├── overview.md      # текущий синтез — читать первым
+    ├── conventions.md   # как пишутся и связываются страницы
+    ├── sources/         # по странице на каждый источник: что говорит, что мы взяли
+    ├── entities/        # конкретные вещи: проекты, инструменты, модели, компоненты
+    ├── concepts/        # идеи и механизмы: контракты, паттерны, протоколы
+    └── analyses/        # сравнения, синтезы, решения, компромиссы
 ```
 
-- Configurations: `Debug|Release R25/R26/R27` → TFM `net8.0-windows` (R25/26) / `net10.0-windows` (R27), from `src/AnalyseTool.Sdk/build/AnalyseTool.Extension.props`.
-- NuGet versions are centralized in `src/Directory.Packages.props` (CPM). `samples/` is deliberately OUTSIDE CPM — it simulates an external extension author. Floating Revit API versions use `VersionOverride`.
-- Shared MSBuild deploy logic (MCP exe + clientapp/dist copying) lives in `src/PluginAssets.targets`.
-- Releases go through NUKE (`src/build`, run `src/build.cmd`) — targets: BuildClientApp → BuildLauncher → CreateInstaller/CreateBundle → PublishGitHub.
+## Охват
 
-## Testing
+Всё здесь — про **этот репозиторий**: MCP-сервер, контракт команд, который видит
+LLM, промпты, сценарии работы агента, провайдеры и модели.
 
-Three tiers, split by what they need — and the split is the point: a test that needs Revit is a test
-nobody runs in CI.
+Истина о том, что отгружается, остаётся в самом репозитории. Не копировать сюда
+`CLAUDE.md`, `AGENTS.md`, `ONBOARDING.md`, `src/LLM.md` и
+`docs/extension-platform-design.md` — ссылаться на них путём. Эти файлы потребляются
+CI, NuGet и генератором шаблона расширений; вторая копия протухнет.
 
-| Tier | Project | Needs | Runs |
-| --- | --- | --- | --- |
-| 1 — Revit-free | `src/AnalyseTool.Tests` (TUnit) | nothing; the plugin assemblies load because the Revit API is compile-only | CI, every push (`RunTests` in NUKE, part of `Ci`) |
-| 2 — MCP without Revit | same project, `Mcp/`: a fake bridge on `McpWire` + the exe driven over stdio (tools/list, structuredContent, error text, `list_changed`, progress notifications, cancellation, job handles via `GetJobResult`) | nothing | CI |
-| 3 — inside Revit | `src/AnalyseTool.RevitTests` (Nice3point.TUnit.Revit, from the `revit-tunit` template; namespace `AnalyseTool.RevitTests`) | a licensed Revit of the selected year | on demand: `dotnet test --project src/AnalyseTool.RevitTests/AnalyseTool.RevitTests.csproj -c Debug.R25` |
+> Нужно LLM в рантайме → репозиторий.
+> Нужно человеку или агенту, чтобы понять, сравнить или решить → вики.
 
-Rules: every fixed bug gets a test on its tier; a command's core is a function of a `Document` (or of
-plain data) so it can be tested on tier 1 or 3 without `UIApplication` — tests inside Revit never
-touch `RevitAPIUI` and exercise the SERVICES (`DataElementsCollectorService`, `ViewsSheetsService`,
-`TypeAndWorksetService`, `ParameterWriteService`) on a document seeded in code (`SeededModel`: one
-level, four walls), never the commands — plus `RoslynScriptCompiler` against the live `RevitAPI`
-(the test engine has no `RevitAPIUI`, so "UIApplication not referenced" is the one error every
-compile there reports and the tests filter out). Tier 1 today: the **schema contract** (every declared `InputType`/`OutputType`
-must accept the JSON Newtonsoft writes for it — the class of bug behind #98), manifest parsing and
-button ordering, the manifest writer's merge rules, the bridge's payload validator and name matcher.
+## Рабочая копия рядом — её надо читать
 
-```powershell
-dotnet test --project src/AnalyseTool.Tests/AnalyseTool.Tests.csproj -c "Debug R25"
+Эта вики лежит **внутри репозитория AnalyseTool**, на одну папку выше — весь код.
+Это не фоновый факт, а рабочий инструмент: любое утверждение отсюда проверяется
+открытием файла.
+
+```
+<репозиторий>/
+├── LLM Wiki/          ← вы здесь
+│   ├── CLAUDE.md      ← эта схема
+│   ├── raw/
+│   ├── scripts/       ← lint.py, fetch_github.py — не переписывать заново
+│   └── wiki/
+├── src/               ← ../src — весь код плагина
+│   ├── AnalyseTool.Sdk/          публичный контракт, пять файлов
+│   ├── AnalyseTool.Core/         CommandQueue, диспетчер, загрузчик расширений, скриптинг
+│   ├── AnalyseTool.Tools/        встроенные команды слайсами: Actions/ Ai/ Elements/ (Families/ нет с 2026-09-01 — Family Manager стал расширением)
+│   ├── AnalyseTool.Mcp/          внешний stdio-exe с MCP
+│   ├── AnalyseTool.Mcp.Bridge/   TCP-транспорт внутри Revit
+│   ├── AnalyseTool.App/          хост: окна, лента, WebView2
+│   ├── AnalyseTool.Launcher/     точка входа Revit
+│   ├── clientapp/                фронтенд на Vue
+│   ├── LLM.md                    инструкции авторства расширений
+│   └── build/                    Check-Boundaries.ps1, Check-Schemas.ps1
+├── CLAUDE.md          ← ../CLAUDE.md — контракт зависимостей, сборка, гардрейлы
+├── AGENTS.md · ONBOARDING.md · CHANGELOG.md
+├── docs/              extension-platform-design.md
+└── samples/           Acme.Sample — расширение глазами внешнего автора
 ```
 
-`dotnet test` runs in Microsoft.Testing.Platform mode (repo-root `global.json`, `test.runner`), which
-the .NET 10 SDK requires for TUnit; the project is passed with `--project`, not as a positional path.
+Три следствия, и они меняют способ работы:
 
-## Guardrails (CI: .github/workflows/ci.yml)
+**Проверять, а не помнить.** Путь в тексте страницы — это приглашение сходить и
+посмотреть. Прежде чем опереться на утверждение о коде, откройте файл: страница могла
+устареть, репозиторий движется.
 
-1. `Check-Boundaries.ps1` — dependency contract + headless invariant.
-2. `Check-Schemas.ps1` — command schema contract: every command carries a `Description`, a command that reads `ctx.Payload` declares `InputType` and every property of that type carries `[Description]`, and every `AnalyseTool.Tools` command declares `OutputType`. Core commands are exempt from the output rule (extension management / scripting — they never appear in a pipeline). A source scan, so it runs before any build.
-3. Build chain for R25 (net8) and R27 (net10).
-4. `dotnet pack` Sdk → build `samples/Acme.Sample` against the packed nupkg (`-p:UseSdkPackage=true`) in an isolated package cache — the external-author simulation. NuGet ignores package-shipped props during restore, so SDK consumers must declare TFM + `Nice3point.Revit.Api.*` themselves (see ONBOARDING.md §4.1).
-5. Debug builds of Acme.Sample auto-deploy to `%LOCALAPPDATA%\AnalyseTool\extensions\Acme.Sample\` (manifest + UI in the root, assembly in `<year>\`) — a live smoke test of the real ALC loading path, in the layout authors are told to use.
+**Отвечать на вопрос можно шире, чем содержит вики.** Если вики не покрывает вопрос,
+следующий шаг — не «в вики этого нет», а прочитать код и, если ответ оказался
+неочевидным, вернуть его страницей (операция query ниже). Так вики и растёт.
 
-## Docs to keep in sync
+**Но код внутрь не копировать.** Цитировать путём —
+`src/AnalyseTool.Mcp.Bridge/McpWire.cs`, при необходимости пару строк, несущих смысл.
+Скопированный сюда фрагмент протухнет молча, и это худший вид ошибки: он выглядит
+проверенным.
 
-- `ONBOARDING.md` — extension author guide (mirrored to the GitHub wiki), also the NuGet README of the Sdk package.
-- `src/LLM.md` — paste-into-AI extension authoring instructions. Also the guide `CreateExtensionTemplate` drops into a new extension folder: it is embedded into `AnalyseTool.Core` as a resource (`AnalyseTool.Core.csproj`) and served verbatim, so there is no second copy to keep in step. The csproj/.gitignore templates live next to it in `src/AnalyseTool.Core/Features/Extensions/Templates/`; the Hello.cs starter is a string literal in `CreateExtensionTemplate.cs` (its filename as a resource triggers MSBuild's culture inference — see the `WithCulture` note in `AnalyseTool.Core.csproj`).
-- `CHANGELOG.md` — ships next to the plugin DLL (Settings window displays it).
+Отсюда же lint здесь дороже обычного и обязателен: половина утверждений этой вики
+ссылается на движущийся код. Устаревший путь или имя команды — не косметика, а ложь,
+которую агент примет за факт.
+
+## Инструменты — сначала посмотреть в `scripts/`
+
+Механическая часть операций уже написана. **Не писать её заново одноразовым кодом:**
+
+| Нужно | Команда |
+| --- | --- |
+| проверить здоровье вики (операция lint) | `python scripts/lint.py` |
+| снимок issues и комментариев в `raw/` (шаг 1 ingest) | `python scripts/fetch_github.py` |
+
+Все три операции завёрнуты в слэш-команды репозитория — `/ingest`, `/query`, `/lint`,
+плюс `/refresh` (снимок трекера → вплетение → линт). См. `.claude/commands/`; если
+правишь операцию здесь, поправь и команду.
+
+Подробности и что в них стоит пополнять — [`scripts/README.md`](scripts/README.md).
+Только стандартная библиотека, ставить нечего.
+
+`lint.py` возвращает `1`, если есть битые ссылки или процитированный путь, которого нет в
+рабочей копии. `fetch_github.py` никогда не перезаписывает существующий снимок.
+
+Если понадобилась механическая проверка, которой там нет, — добавить её в скрипт, а не
+писать в один заход.
+
+## Операции
+
+### Ingest — вплести источник
+
+Триггер: новый файл в `raw/`, либо ссылка или текст, который передал человек.
+
+0. Скачать: `python scripts/fetch_github.py` — для трекера. Для остального положить
+   файл в `raw/` руками.
+1. Прочитать источник целиком.
+2. Написать или обновить `wiki/sources/<slug>.md` — что это, что утверждает, что
+   мы берём, что отвергаем.
+3. Вплести содержание в вики: обновлять существующие страницы в `entities/`,
+   `concepts/` и `analyses/`, а не плодить почти-дубликаты. Разделять страницу,
+   когда в ней завелись две несвязанные темы.
+4. Починить перекрёстные ссылки в обе стороны.
+5. Обновить `wiki/index.md`.
+6. Дописать запись в `wiki/log.md`.
+
+Никогда ничего не править внутри `raw/`.
+
+### Query — спросить
+
+1. Идти в `wiki/index.md`, оттуда в страницы, на которые он указывает. В `raw/`
+   лезть только если вики не отвечает.
+2. Ответить.
+3. Если ответ потребовал настоящего синтеза — вернуть его страницей в `analyses/`
+   (или дописать существующую) и отметить в журнале. Именно так вики компаундится,
+   а не выводит одно и то же заново через месяц.
+
+### Lint — проверка здоровья
+
+**Запустить `python scripts/lint.py`**, затем починить то, что чинится безопасно.
+Скрипт проверяет:
+
+- противоречия между страницами;
+- устаревшие утверждения — всё, что ссылается на путь, тип или имя команды,
+  которых больше нет. Сверять с рабочей копией в `../src`, а не верить старой
+  странице; это самая частая находка здесь;
+- страницы-сироты, недостижимые из `index.md`;
+- отсутствующие или битые перекрёстные ссылки;
+- страницы в `sources/` без файла в `raw/` и наоборот;
+- дыры: сущность или концепция, на которую все ссылаются, но никто не описал.
+
+Результат дописать в `log.md`.
+
+## Правила
+
+- **`raw/` неизменяем.** Добавлять — да, править — нет.
+- **У каждого неочевидного утверждения есть след** — ссылка на страницу в
+  `sources/` или путь в репозитории вида
+  `src/AnalyseTool.Mcp.Bridge/McpWire.cs`. Утверждение без следа помечается
+  `> [!warning] не проверено`.
+- **`log.md` только дописывается.**
+- **Проверять, прежде чем утверждать.** Пути и имена команд дрейфуют; смотреть в
+  рабочую копию (`../src`, `../CLAUDE.md`), а не доверять старой странице.
+- Язык — русский. Идентификаторы кода, имена команд и пути остаются как есть.
+- Имена файлов — латиницей, `kebab-case.md`. Это адреса: на них завязаны все
+  относительные ссылки, поэтому они не переводятся.
+- Ссылки — **относительные markdown** (`../concepts/foo.md`), не `[[wikilinks]]`:
+  так они работают и в Obsidian, и у агента, читающего файлы по пути.
 
 ---
 > Source: [Nikola1Davydov/AnalyzeTool](https://github.com/Nikola1Davydov/AnalyzeTool) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
