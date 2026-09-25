@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [reactive-resume/app](https://github.com/reactive-resume/app).
+Original source: `CLAUDE.md` in [reactive-resume/app](https://github.com/reactive-resume/app).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [reactive-resume/app](https://github.com/reactiv
 
 - [app](https://github.com/reactive-resume/app/tree/main/skills/resume-builder/SKILL.md)
 
-From [reactive-resume/app](https://github.com/reactive-resume/app) — a repo with 43381+ stars on GitHub.
+From [reactive-resume/app](https://github.com/reactive-resume/app) — a repo with 43398+ stars on GitHub.
 
 ---
 
