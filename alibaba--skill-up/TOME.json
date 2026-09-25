@@ -3,8 +3,8 @@
   "owner": "alibaba",
   "repo": "skill-up",
   "description": "A CLI evaluation framework for Agent Skill developers.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,147 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "code-review-helper",
+      "path": "skills/skill-upper/evals/fixtures/skills/sample-no-evals",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/skills/skill-upper/evals/fixtures/skills/sample-no-evals",
+      "description": ""
+    },
+    {
+      "name": "code-review-assistant",
+      "path": "e2e/testdata/text-match-rules",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/text-match-rules",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "skills/skill-upper/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/skills/skill-upper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "examples/code-stats/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/examples/code-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "skills/skill-upper/evals/fixtures/skills/sample-no-evals/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/skills/skill-upper/evals/fixtures/skills/sample-no-evals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "skills/skill-upper/evals/fixtures/skills/sample-with-evals/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/skills/skill-upper/evals/fixtures/skills/sample-with-evals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/mock-engine/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/mock-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/sandbox-mcp/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/sandbox-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/git-context/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/git-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/custom-engine/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/custom-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/text-match-rules/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/text-match-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/mcp-stdio-marker/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/mcp-stdio-marker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/trigger-detection/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/trigger-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/script-judge-eval/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/script-judge-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/multiturn-session/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/multiturn-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/mcp-mocked-marker/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/mcp-mocked-marker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/mcp-case-overrides/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/mcp-case-overrides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/file-and-tool-rules/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/file-and-tool-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/expect-short-circuit/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/expect-short-circuit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/full-report-pipeline/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/full-report-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/agent-judge-criteria/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/agent-judge-criteria/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/retry-and-parallelism/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/retry-and-parallelism/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skill-up",
+      "path": "e2e/testdata/multi-turn-conversation/SKILL.md",
+      "github_url": "https://github.com/alibaba/skill-up/tree/main/e2e/testdata/multi-turn-conversation/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/alibaba/skill-up",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T07:31:09Z"
+  "distributed_at": "2026-09-25T02:31:29Z"
 }
