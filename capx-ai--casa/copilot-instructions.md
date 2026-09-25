@@ -1,102 +1,92 @@
 ## casa
 
-> You are an AI agent helping a founder build a company with Capx Casa. This file is the
+> Casa is an MIT-licensed, offline-first Claude Code plugin for planning and doing
 
-# Capx Casa: operating guide for any agent harness
+# Capx Casa contributor contract
 
-You are an AI agent helping a founder build a company with Capx Casa. This file is the
-harness-neutral entry point. In Claude Code, Casa installs as a plugin and this file is
-redundant (the plugin surface does the wiring). In every other harness (Codex, OpenClaw,
-grok-build, Hermes, or anything that can run shell commands), this file is the wiring.
+Casa is an MIT-licensed, offline-first Claude Code plugin for planning and doing
+the work of building a company. This repository is the reusable core. Hosted
+services, production infrastructure, deployment trackers, private roadmaps, and
+vendor-specific publishing clients do not belong here.
 
-The full guide for non-Claude harnesses is `docs/HARNESSES.md`. Read it once.
+## Product boundary
 
-## Requirements
+- The plugin may read the founder's project and `company-brain/` as described in
+  the onboarding documentation.
+- The core contains no telemetry, hosted backend, background upload, or network
+  publishing path.
+- Rendering, signing, and checking a CAF attestation are local operations.
+  Uploading or publishing one is outside this repository.
+- Spending money, publishing, deploying, signing, sending to real users, and
+  destructive actions always require explicit founder approval.
+- Integrations with hosted or paid products must ship as separate opt-in packages.
 
-- Node.js 20 or newer on PATH. Nothing else: the engine has zero runtime dependencies
-  and needs no `npm install`.
-- Set the environment variable `CASA_ROOT` to the absolute path of this repository.
-  Skill and agent files reference engine scripts as
-  `${CASA_ROOT:-${CLAUDE_PLUGIN_ROOT}}/scripts/...`; in Claude Code the fallback
-  resolves, everywhere else `CASA_ROOT` must be set.
+## Architecture rules
 
-## The one rule that keeps every harness consistent
+1. Deterministic code owns eligibility, dependency ordering, gates, scores, and
+   state mutations. Models reason and draft only inside the eligible set.
+2. `scripts/brain.mjs` is the sole writer of derived company-brain state.
+3. Runtime code has zero third-party dependencies. Use Node.js 20 or newer and
+   imports from `node:` or relative files only.
+4. The public core must stay offline. Do not add `fetch`, HTTP clients, sockets,
+   upload hooks, or background publishing.
+5. Do not read `.env`, private keys, credentials, or unrelated user files.
+6. Never hard-code local paths, cloud identifiers, production domains, account
+   numbers, deployment state, or internal planning notes.
+7. Keep instructions harness-neutral where possible. Use
+   `${CASA_ROOT:-${CLAUDE_PLUGIN_ROOT}}` when a skill or agent references scripts.
 
-**Never hand-edit derived company state.** `scripts/brain.mjs` is the sole writer of
-`state.json`, `build-map.json`, `NOW.md`, `scores.jsonl`, and the AUTO blocks in the
-company's `CLAUDE.md`. You draft deliverable artifacts into `company-brain/outputs/<id>/`
-and `company-brain/decisions/`; every state mutation goes through the engine CLI. The
-engine owns eligibility, dependencies, level gates, and scoring, so no model, in any
-harness, can skip a gate or invent a dependency.
+## Repository map
 
-## Session ritual
+- `.claude-plugin/`: plugin and marketplace manifests
+- `hooks/`: local SessionStart greeting only
+- `skills/`: user command surface
+- `agents/`: operators and review personas
+- `scripts/`: deterministic engine and local CLIs
+- `playbooks/`: machine-routable company-building curriculum
+- `templates/`: initial company-brain state
+- `caf/`: offline attestation format, signing, and verification
+- `tests/`: public core tests
+- `examples/`: fictional, non-sensitive examples
+- `docs/`: current user, protocol, and contributor documentation
 
-1. Start every session with: `cat company-brain/NOW.md` (in Claude Code a hook does
-   this automatically). It shows the company, level, north star, binding constraint,
-   next actions, due loops, and what is waiting on the founder.
-2. To act, follow the matching skill as a plain instruction file:
-   `skills/<name>/SKILL.md`. Start with `skills/casa/SKILL.md` (the front door) or
-   `skills/casa-start/SKILL.md` (first-time setup). When a skill says to run another
-   skill, open that skill's SKILL.md and follow it.
-3. Where a skill says to spawn subagents in parallel, and your harness has no subagent
-   primitive, run the pieces one after another in the same order. Correctness does not
-   depend on parallelism; only speed does.
-4. Keep all work local unless the brain is bound to a Capx token. The `capx/` seam (bind, publish, autopush) is the only network path; delete `capx/` and Casa is fully offline. Claude Code runs `hooks/session-end.sh` (autopush for a bound brain); other harnesses run `node capx/autopush.mjs company-brain` at the end of a session.
-   If the founder later chooses a separate integration, follow that integration's
-   disclosure and approval flow outside the Casa core.
+## Development workflow
 
-## Phase 0 and the face
+Run before opening a pull request:
 
-Run the company face plays in order: 249 (brief), 255 (architecture), 256 (product
-flow), 257 (data model), 258 (roadmap), 259 (org chart and agents), 260 (90-day task
-plan), optional 261 (token flow), then 250 (website), 251 (one-pager), 252 (deck),
-and 253 (readiness). Follow engine readiness; the brief consumes opportunity-scan
-evidence. Draft company-specific artifacts, then run
-`node "$CASA_ROOT/scripts/face.mjs" build company-brain` to assemble `face.json`.
-Use `check` instead of `build` for validation without writing. Phase 0 is never
-seeded and does not gate company levels. Play 262 publishes only through a separate
-installed integration after explicit founder approval; see `docs/ATTESTATION.md`.
-
-## Engine quick reference
-
-All plain CLIs, argv in, stdout out. `<brain>` is the company's `company-brain/` folder.
-
-```
-node "$CASA_ROOT/scripts/brain.mjs"  init|sync|complete|waiting|unwait|loop-ran|grade|attest <brain> [args]
-node "$CASA_ROOT/scripts/router.mjs" next <profile.json> --completed ... --weights <pulse.json>
-node "$CASA_ROOT/scripts/stage.mjs"  derive|apply <answers.json> [<brain>]
-node "$CASA_ROOT/scripts/ledger.mjs" append|tail|status|digest <brain> [args]
-node "$CASA_ROOT/scripts/gates.mjs" | approvals.mjs | roster.mjs | copy-lint.mjs | design-check.mjs
+```sh
+npm ci
+npm run lint:playbooks
+npm run check
+npm audit
+claude plugin validate .
 ```
 
-## Autonomy and the always-ask line
+`npm run check` validates the plugin shape, runtime dependency boundary, offline
+core boundary, and test suite. Tests must run from a fresh clone without sibling
+repositories, private contracts, cloud credentials, or network services.
 
-`company-brain/dials.json` sets per-department autonomy (`auto` or `approve_first`).
-Above the dials sits a line no setting can cross: spending money, going public, shipping
-to production, signing anything, or destructive actions always stop for explicit founder
-approval. These gates are enforced by `scripts/gates.mjs` and by you honoring them.
+## Content and safety
 
-## Attestation from any harness
+- Founder-facing copy uses plain institutional language, no em dashes, no emojis,
+  and no placeholder company names.
+- Examples and fixtures must be obviously fictional. Do not use production-shaped
+  keys or secret names as test values.
+- New playbooks need clear provenance. Record source material and confirm that the
+  contribution can be distributed under MIT.
+- Never commit `.env` files, keys, certificates, Terraform state, cloud account
+  details, deployment logs, operator trackers, or private product strategy.
+- Security issues are reported through `SECURITY.md`, not a public issue.
 
-A company can publish a signed, verifiable record of its work regardless of harness:
+## Change discipline
 
-```
-node "$CASA_ROOT/caf/keygen.mjs" <brain>          once: create the signing identity
-node "$CASA_ROOT/scripts/brain.mjs" attest <brain>  render attest/ from brain state
-node "$CASA_ROOT/caf/sign.mjs" <brain>            sign the envelope
-node "$CASA_ROOT/caf/check.mjs" <brain>           verify offline, all three tiers
-```
-
-The format is specified in `docs/CAF-SPEC.md` and is deliberately neutral: a company
-not using Casa at all can emit it (see `examples/caf-emit-minimal/`). Companies that
-run the Casa engine and playbooks produce strictly stronger records, because their
-ledger can be graph-checked against the published playbook catalog.
-
-## Copy rules for founder-facing output
-
-No em-dashes and no emojis in anything founder-facing or customer-facing. Enforced
-deterministically by `scripts/copy-lint.mjs`; run it on copy before calling it done.
+- Add tests for behavior changes and run the real unmocked suite.
+- Keep generated files reproducible. Rebuild `playbooks/_index.json` with
+  `npm run build:index` after playbook changes.
+- Update documentation in the same change when behavior or privacy boundaries move.
+- Do not put historical release diaries in this file. User-relevant release notes
+  belong in `CHANGELOG.md`.
 
 ---
 > Source: [Capx-AI/casa](https://github.com/Capx-AI/casa) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
