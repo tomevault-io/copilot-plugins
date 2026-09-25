@@ -2,7 +2,7 @@
   "name": "wavepeek",
   "owner": "kleverhq",
   "repo": "wavepeek",
-  "description": "\ud83c\udf0a Tool for RTL waveform (VCD/FST) inspection via CLI",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kleverhq/wavepeek",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T11:04:04Z"
+  "distributed_at": "2026-09-25T08:49:49Z"
 }
