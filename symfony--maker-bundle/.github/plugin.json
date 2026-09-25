@@ -1,0 +1,9 @@
+{
+  "name": "symfony--maker-bundle",
+  "displayName": "maker-bundle",
+  "description": "maker-bundle",
+  "version": "1.0.0",
+  "author": "symfony",
+  "homepage": "https://github.com/symfony/maker-bundle",
+  "skills": []
+}
