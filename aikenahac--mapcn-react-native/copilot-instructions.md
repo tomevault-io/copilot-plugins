@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a React Native mobile application built with Expo SDK 55, using file-based routing via Expo Router. The app features MapLibre-based map integration with location services and uses Uniwind (Tailwind CSS v4) for styling.
+This is a React Native mobile application built with Expo SDK 57, using file-based routing via Expo Router. The app features Mapbox-based map integration (`@rnmapbox/maps`) with location services and uses Uniwind (Tailwind CSS v4) for styling. This is a demo/example app showcasing the mapcn React Native map component library for Mapbox.
 
 ## Development Commands
 
@@ -32,16 +32,16 @@ npx expo prebuild --clean   # Regenerate native projects (after app.json changes
 eas build --profile development          # Development build
 eas build --profile ios-simulator        # iOS simulator build
 eas build --profile preview              # Preview/internal distribution
-eas build --profile production           # Production build (auto-increment version, APK for Android)
+eas build --profile production           # Production build (auto-increment version, AAB for Android)
 ```
 
 ## Architecture
 
 ### Routing & Navigation
 - **Expo Router**: File-based routing with Stack navigator
-- Entry point: `app/_layout.tsx` sets up ThemeProvider and PortalHost
-- Main screen: `app/index.tsx`
-- `unstable_settings.anchor` set to `'(tabs)'` in root layout
+- Entry point: `src/app/_layout.tsx` sets up ThemeProvider and PortalHost
+- Main screen: `src/app/index.tsx` (examples list)
+- Examples in: `src/app/examples/`
 
 ### Styling System
 - **Uniwind**: Tailwind CSS v4 for React Native
@@ -50,19 +50,24 @@ eas build --profile production           # Production build (auto-increment vers
   - Global CSS: `global.css` defines the theme tokens and semantic color utilities
   - Use `className` prop for styling components
 
-### Map Integration (@maplibre/maplibre-react-native)
-- **Custom Map Component**: `components/ui/map.tsx` provides React-friendly wrapper around MapLibre
-  - `<Map>`: Main container with theme-aware styles (Carto basemaps by default)
-  - `<MapMarker>`: Marker with content, labels, and popups
-  - `<MapRoute>`: LineString rendering for routes
-  - `<MapControls>`: Zoom and location controls
-  - `<MapUserLocation>`: User location display with permission handling
-  - Context-based API: `useMap()` hook provides access to mapRef, cameraRef, isLoaded state
+### Map Integration (@rnmapbox/maps)
+- **Mapbox Setup**: Requires `EXPO_PUBLIC_MAPBOX_TOKEN` environment variable
+  - Get free token at: https://account.mapbox.com/access-tokens/
+  - Add to `.env` file as `EXPO_PUBLIC_MAPBOX_TOKEN=your_token_here`
+
+- **Custom Map Component**: `src/components/ui/map.tsx` provides React-friendly wrapper around Mapbox
+  - `<Map>`: Main container with theme-aware styles (Mapbox Dark/Street styles by default)
+  - `<MapMarker>`: Marker with content, labels, and popups using `Mapbox.MarkerView`
+  - `<MapRoute>`: LineString rendering for routes using `Mapbox.ShapeSource` and `Mapbox.LineLayer`
+  - `<MapControls>`: Zoom and location controls with customizable position
+  - `<MapUserLocation>`: User location display using `Mapbox.LocationPuck` with auto-permission handling
+  - Context-based API: `useMap()` hook provides access to mapRef, cameraRef, isLoaded state, and theme
+  - MapLibre-compatible camera API: `flyTo()` and `easeTo()` methods for smooth animations
 
 - **Location Permissions**:
   - Request permissions using `expo-location` before rendering map components that need location
-  - See `app/index.tsx` for permission request pattern
-  - MapLibre's `useCurrentPosition()` must be called unconditionally (rules of hooks)
+  - See `src/app/examples/map-controls.tsx` for permission request pattern
+  - `MapUserLocation` component can auto-request permissions with `autoRequestPermission={true}`
 
 ### TypeScript Configuration
 - Path alias: `@/*` maps to project root
@@ -72,18 +77,19 @@ eas build --profile production           # Production build (auto-increment vers
 ### Native Configuration (app.json)
 - **React Native New Architecture**: Enabled (`newArchEnabled: true`)
 - **iOS**:
-  - `NSAppTransportSecurity.NSAllowsArbitraryLoads: true` - Required for map tile loading
-  - Location permission descriptions configured
+  - Foreground location and motion purpose strings are configured
+  - Background/always location access is intentionally disabled
 - **Android**:
   - Location permissions: `ACCESS_FINE_LOCATION`, `ACCESS_COARSE_LOCATION`
-- **Plugins**: expo-router, expo-location, expo-splash-screen
+- **Plugins**: expo-router, expo-location, expo-splash-screen, @rnmapbox/maps
 
 ## Important Patterns
 
 ### Adding Location Features
-1. Request permissions via `expo-location` in parent component
-2. Conditionally render map components that use location only after permission granted
-3. Call hooks like `useCurrentPosition()` unconditionally (not inside conditionals)
+1. Request permissions via `expo-location` in parent component, OR
+2. Use `<MapUserLocation autoRequestPermission={true} />` to auto-request permissions
+3. Conditionally render location-dependent components only after permission granted
+4. Example pattern in `src/app/examples/map-controls.tsx`
 
 ### Rebuilding After Config Changes
 After modifying `app.json` (permissions, plugins, native settings):
@@ -94,15 +100,50 @@ npx expo run:ios    # or run:android
 
 ### Map Styling
 - Map component automatically switches between light/dark themes based on system color scheme
-- Default styles use Carto basemaps (dark-matter for dark mode, positron for light mode)
-- Override with custom map style URLs via `styles` prop on `<Map>`
+- Default styles use Mapbox built-in styles (`Mapbox.StyleURL.Dark` for dark mode, `Mapbox.StyleURL.Street` for light mode)
+- Override with custom Mapbox style URLs via `styles` prop on `<Map>`:
+  ```tsx
+  <Map styles={{ light: "mapbox://styles/...", dark: "mapbox://styles/..." }}>
+  ```
 
 ### Component Structure
 - UI components in `src/components/ui/`
-- Hooks in `src/hooks/`
-- Utilities in `src/lib/`
+- Icons and utilities in `src/lib/`
 - App screens in `src/app/`
+- Examples in `src/app/examples/`
+
+### Environment Variables
+Required environment variables (create `.env` file in project root):
+```bash
+EXPO_PUBLIC_MAPBOX_TOKEN=your_mapbox_token_here
+```
+
+## Map Component API
+
+### Basic Usage
+```tsx
+import { Map, MapMarker, MapControls, MapUserLocation } from '@/components/ui/map';
+
+<Map center={[-122.4194, 37.7749]} zoom={12}>
+  <MapMarker coordinate={[-122.4194, 37.7749]} label="San Francisco" />
+  <MapUserLocation visible />
+  <MapControls showZoom showLocate />
+</Map>
+```
+
+### Available Components
+- **`<Map>`**: Main map container with theme support
+- **`<MapMarker>`**: Place markers with optional labels and popups
+- **`<MapRoute>`**: Draw polylines/routes between coordinates
+- **`<MapControls>`**: Built-in zoom and location controls
+- **`<MapUserLocation>`**: Display user's current location
+- **`<MarkerContent>`**: Custom marker content wrapper
+- **`<MarkerLabel>`**: Text label for markers
+- **`<MarkerPopup>`**: Callout/popup content
+
+### Hooks
+- **`useMap()`**: Access mapRef, cameraRef, isLoaded state, and current theme
 
 ---
 > Source: [aikenahac/mapcn-react-native](https://github.com/aikenahac/mapcn-react-native) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
