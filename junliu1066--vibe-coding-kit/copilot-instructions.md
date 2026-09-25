@@ -1,10 +1,10 @@
 ## vibe-coding-kit
 
-> > 这是 vibe-coding-kit 的最高治理文件。Codex 在每次对话开始时自动加载它。
+> > 这是 vibe-coding-kit 的最高治理文件。Claude Code 在每次对话开始时自动加载它。
 
 # vibe-coding-kit 治理宪法 (Governance Constitution)
 
-> 这是 vibe-coding-kit 的最高治理文件。Codex 在每次对话开始时自动加载它。
+> 这是 vibe-coding-kit 的最高治理文件。Claude Code 在每次对话开始时自动加载它。
 > 在其他平台（ChatGPT、Codex）使用时，将本文件内容复制为 system prompt 前缀。
 > 所有规则派生自 `harness.json`——那是唯一真实来源。
 
@@ -166,4 +166,4 @@
 
 ---
 > Source: [Junliu1066/vibe-coding-kit](https://github.com/Junliu1066/vibe-coding-kit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
