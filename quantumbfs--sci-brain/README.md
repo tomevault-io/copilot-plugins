@@ -1,17 +1,15 @@
 # AI instruction files for sci-brain
 
-> Sourced from [QuantumBFS/sci-brain](https://github.com/QuantumBFS/sci-brain) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Brain storming like a senior research scientist
+> Sourced from [QuantumBFS/sci-brain](https://github.com/QuantumBFS/sci-brain), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [QuantumBFS/sci-brain](https://github.com/QuantumBFS/sci-brain).
+Original source: `AGENTS.md` in [QuantumBFS/sci-brain](https://github.com/QuantumBFS/sci-brain).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
