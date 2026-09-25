@@ -3,8 +3,8 @@
   "owner": "3x-haust",
   "repo": "oh-my-design",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,81 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "oh-my-design",
+      "path": "skills/figma/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/skills/figma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/scout/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/skills/scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/coach/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/skills/coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/humanize/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/skills/humanize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/critique/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/ultradesign/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/skills/ultradesign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "src/skills/omd-figma/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/src/skills/omd-figma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "src/skills/omd-scout/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/src/skills/omd-scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "src/skills/omd-coach/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/src/skills/omd-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "src/skills/omd-humanize/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/src/skills/omd-humanize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "src/skills/omd-critique/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/src/skills/omd-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "src/skills/omd-ultradesign/SKILL.md",
+      "github_url": "https://github.com/3x-haust/oh-my-design/tree/main/src/skills/omd-ultradesign/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/3x-haust/oh-my-design",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T14:26:57Z"
+  "distributed_at": "2026-09-25T02:57:22Z"
 }
