@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "oomol-lab",
   "homepage": "https://github.com/oomol-lab/open-connector",
-  "skills": []
+  "skills": [
+    {
+      "name": "open-connector",
+      "description": ""
+    }
+  ]
 }
