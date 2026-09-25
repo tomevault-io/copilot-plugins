@@ -1,21 +1,19 @@
 ## octo-server
 
-> This file provides guidance to coding agents when working in this repository.
+> This file provides guidance to Claude Code when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to coding agents when working in this repository.
+This file provides guidance to Claude Code when working with code in this repository.
 
 ## Project Overview
 
-Octo-server is the Go backend for DMWork, an enterprise IM platform. It handles
-business logic on top of WuKongIM for messaging transport.
+Octo-server is the Go backend for DMWork (enterprise IM platform). It handles business logic on top of [WuKongIM](https://github.com/WuKongIM/WuKongIM) for messaging transport.
 
-- Go module: `github.com/Mininglamp-OSS/octo-server`
-- Go version: 1.25
-- Shared library: `github.com/Mininglamp-OSS/octo-lib` for config, wkhttp,
-  testutil, register, and model packages
-- Default branch: `main`
+- **Go Module**: `github.com/Mininglamp-OSS/octo-server`
+- **Go Version**: 1.25
+- **Shared Library**: `github.com/Mininglamp-OSS/octo-lib` (config, wkhttp, testutil, register, model)
+- **Default Branch**: `main`
 
 ## Common Commands
 
@@ -23,7 +21,7 @@ business logic on top of WuKongIM for messaging transport.
 # Build
 docker build -t octo-server .
 
-# Run tests for a module
+# Run tests (single module)
 go test ./modules/group/...
 go test ./modules/message/ -run TestSendMsg
 
@@ -38,211 +36,147 @@ golangci-lint run ./...
 
 ### Request Flow
 
-```text
-HTTP (Gin/wkhttp) -> Auth Middleware (pkg/auth/) -> Space Middleware -> API Handler -> Service -> DB (MySQL/DBR)
-                                                                                       |
-                                                                                       v
-                                                                                  WuKongIM (gRPC)
+```
+HTTP (Gin/wkhttp) → Auth Middleware (pkg/auth/) → Space Middleware → API Handler → Service → DB (MySQL/DBR)
+                                                                          ↓
+                                                                    WuKongIM (gRPC)
 ```
 
 ### Module System
 
-Modules live in `modules/`. Each module is auto-registered with `init()` and
-`register.AddModule()`.
+27 modules in `modules/`, each auto-registered via `init()` + `register.AddModule()`.
 
-Standard module layout:
-
-- `1module.go`: registration entry using `init()` and `register.AddModule()`
-- `api*.go`: HTTP handlers implementing `register.APIRouter.Route(r *wkhttp.WKHttp)`
-- `service.go`: business logic, usually with an `IService` interface
-- `db*.go`: database operations using `gocraft/dbr`
-- `model.go`: data models and response structs
-- `sql/`: SQL migrations embedded with `//go:embed sql`
+Standard module structure:
+- `1module.go` — registration entry (`init()` + `register.AddModule()`)
+- `api*.go` — HTTP handlers implementing `register.APIRouter.Route(r *wkhttp.WKHttp)`
+- `service.go` — business logic, typically defines `IService` interface
+- `db*.go` — database operations using `gocraft/dbr`
+- `model.go` — data models and response structs
+- `sql/` — SQL migrations embedded via `//go:embed sql`
 
 ### Key Packages
 
 | Package | Purpose |
-| --- | --- |
-| `pkg/auth/` | Token parsing, `CacheTokenParser`, auth middleware |
-| `pkg/errcode/` | Error code definitions per module, such as group, message, user, and OIDC |
-| `pkg/httperr/` | `ResponseErrorL` and `ResponseErrorLWithStatus` error facades |
-| `pkg/i18n/` | Localization SDK: code registry, localizer, renderer, language negotiation, and `locales/` |
-| `internal/` | Internal wiring and module imports |
+|---------|---------|
+| `pkg/auth/` | Token parsing, CacheTokenParser, auth middleware |
+| `pkg/errcode/` | Error code definitions per module (group.go, message.go, user.go, oidc.go) |
+| `pkg/httperr/` | `ResponseErrorL` / `ResponseErrorLWithStatus` error facades |
+| `pkg/i18n/` | Localization SDK: codes registry, localizer, renderer, language negotiation, `locales/` |
+| `internal/` | Internal wiring, module imports |
 | `modules/base/event/` | Async event system |
 
-## Error Handling and i18n
+### Error Handling & i18n (Localization)
 
-All user-facing error responses go through the i18n error envelope. Do not use
-`c.ResponseError(errors.New(...))`, `c.ResponseErrorf(...)`,
-`c.AbortWithStatusJSON(...)`, or non-OK `c.JSON(...)`; these are legacy patterns
-and bypass the localized envelope.
+All user-facing error responses go through the i18n error envelope. **Never** use
+`c.ResponseError(errors.New(...))`, `c.ResponseErrorf(...)`, `c.AbortWithStatusJSON(...)`,
+or non-OK `c.JSON(...)` — these are legacy and bypass the localized envelope.
 
-Use the facades in `pkg/httperr`:
+**Two facades** (`pkg/httperr`) — the envelope body is identical, only the wire status differs:
 
 | Facade | Wire status | Use for |
-| --- | --- | --- |
-| `ResponseErrorL(c, code, params, details)` | Pinned 400 for D14 compatibility; real status in `error.http_status` | Default for legacy-bearing endpoints |
-| `ResponseErrorLWithStatus(c, code, params, details)` | The code's real `HTTPStatus` | New endpoints only when no clients depend on fixed 400; maintainer sign-off is required when diverging from D14 |
+|---|---|---|
+| `ResponseErrorL(c, code, params, details)` | pinned **400** (D14 compat); real status in `error.http_status` | **default** — every legacy-bearing endpoint |
+| `ResponseErrorLWithStatus(c, code, params, details)` | the code's real `HTTPStatus` | **new endpoints only** with no clients depending on fixed-400 (currently just `modules/oidc` bind); diverging from D14 needs maintainer sign-off |
 
 ```go
 httperr.ResponseErrorL(c, errcode.ErrGroupQueryFailed, nil, nil)
 ```
 
-Register error codes in `pkg/errcode/<module>.go`:
-
+**Error codes** — register in `pkg/errcode/<module>.go`:
 ```go
 ErrXxx = register(codes.Code{
-    ID:             "err.server.<module>.<reason>", // or reuse err.shared.* codes
+    ID:             "err.server.<module>.<reason>", // or reuse err.shared.* (auth/rate/param/internal/not_found)
     HTTPStatus:     http.StatusBadRequest,
-    DefaultMessage: "English source (D4).",
-    SafeDetailKeys: []string{"field"},
-    Internal:       false,
+    DefaultMessage: "English source (D4).",          // zh-CN runtime translation goes in active.zh-CN.toml
+    SafeDetailKeys: []string{"field"},               // whitelist for details; all other keys are dropped
+    Internal:       false,                            // see invariant below
 })
 ```
+- **5xx ⟺ `Internal=true`** (renderer hides the message + details; log the cause via `zap.Error` before responding). 4xx codes must NOT be Internal.
+- **Anti-enumeration**: auth / verify failures map to ONE generic code (e.g. a single 401), never a per-reason code — the specific reason goes to logs only.
+- **Params vs Details** (D15): `params` interpolate into the message template; `details` are structured fields surfaced to the client, filtered by `SafeDetailKeys`.
 
-Error-code rules:
+**Per-module helpers** live in `modules/<module>/api_i18n.go` (`respond<Module>Xxx` for detail-carrying shapes; `mustLookupSharedCode` resolves shared codes at init, panicking loudly if unregistered).
 
-- 5xx codes must set `Internal=true`; 4xx codes must not. The renderer hides
-  messages and details for internal errors, so log the cause with `zap.Error`
-  before responding.
-- Auth and verification failures use one generic anti-enumeration code, such as
-  a single 401. Specific failure reasons go to logs only.
-- `params` interpolate into the message template. `details` are structured
-  client-facing fields filtered by `SafeDetailKeys`.
-- Per-module helpers live in `modules/<module>/api_i18n.go`.
-- `mustLookupSharedCode` resolves shared codes at init and should panic loudly
-  when a shared code is not registered.
-
-After adding or changing error codes, run:
-
+**After adding/changing any code, these must pass** (also enforced in CI):
 ```bash
-make i18n-extract
-make i18n-extract-check
-make i18n-lint
+make i18n-extract        # regenerate en-US markers from codes.Register call sites
+make i18n-extract-check  # 100% recall: every registered code has a marker
+make i18n-lint           # D23 guard (no new raw error responses) + unregistered-code check
 ```
+Then add the zh-CN translation to `pkg/i18n/locales/active.zh-CN.toml` (one `["id"]` + `other = "..."` block per code).
 
-Then add the zh-CN translation to `pkg/i18n/locales/active.zh-CN.toml` with one
-`["id"]` block and `other = "..."` value per code.
+**Guard test**: each migrated module has a `Test<Module>NoLegacyResponseError` source guard forbidding legacy/raw responses — add any new handler files to its list. Protocol endpoints that intentionally keep raw responses (e.g. OAuth2/OIDC browser-redirect flow) are exempted and tracked in `tools/lint-direct-error-response/baseline.txt`.
 
-Each migrated module has a `Test<Module>NoLegacyResponseError` source guard
-that forbids legacy and raw error responses. Add new handler files to that
-guard's file list. Protocol endpoints that intentionally keep raw responses,
-such as OAuth2/OIDC browser-redirect flows, are exempted through
-`tools/lint-direct-error-response/baseline.txt`.
+**Emails**: localized templates live in `modules/base/common/emailtmpl/templates/{lang}/` (per-language `subject`/`html`/`text`, go:embed). Send functions take a `lang` arg resolved via `i18n.OutboundLanguage(ctx)` — never hardcode subject/body strings.
 
-Localized email templates live in
-`modules/base/common/emailtmpl/templates/{lang}/`. Send functions take a `lang`
-argument resolved through `i18n.OutboundLanguage(ctx)`; do not hardcode
-localized subject or body strings.
+### Rate Limiting
 
-## Rate Limiting
-
-Use the shared middleware in octo-lib `pkg/wkhttp/ratelimit.go`. Do not
-hand-roll Redis `INCR` and TTL counters for generic request-frequency limiting.
-
-The rate limit layers set `X-RateLimit-Limit`, `X-RateLimit-Remaining`,
-`X-RateLimit-Scope`, and `X-RateLimit-Retry-After` headers, return the i18n
-`rate.limited` response, and fail open on Redis errors.
+Use the shared middleware in octo-lib `pkg/wkhttp/ratelimit.go` — do NOT hand-roll Redis `INCR`/TTL counters for request-frequency limiting. Three layers, each sets `X-RateLimit-Limit/Remaining/Scope/Retry-After` headers, returns i18n `rate.limited`, and is **fail-open** on Redis errors:
 
 | Middleware | Scope header | Dimension | Use for |
-| --- | --- | --- | --- |
-| `RateLimitMiddleware` | `ip` | Global per-IP | DDoS floor; already mounted globally in `main.go` via `route.Use`, so do not re-add it |
-| `StrictIPRateLimitMiddleware(tag, rps, burst)` | `strict:{tag}` | Per-IP, per-endpoint | Unauthenticated sensitive endpoints such as login, register, SMS, search, group invite, and space invite |
-| `SharedUIDRateLimiter(r, ctx)` | `uid` | Per-login-user shared bucket `ratelimit:uid:{uid}` | Default for authenticated endpoints |
+|---|---|---|---|
+| `RateLimitMiddleware` | `ip` | global per-IP | DDoS floor — already mounted globally in `main.go` (`route.Use`), don't re-add |
+| `StrictIPRateLimitMiddleware(tag, rps, burst)` | `strict:{tag}` | per-IP, per-endpoint | unauthenticated sensitive endpoints (login/register/sms/search/group_invite/space_invite) |
+| `SharedUIDRateLimiter(r, ctx)` (wraps `UIDRateLimitMiddleware`) | `uid` | per-login-user, shared bucket `ratelimit:uid:{uid}` | **default for authenticated endpoints** |
 
-`SharedUIDRateLimiter` wraps `UIDRateLimitMiddleware` and is defined in
-`pkg/wkhttp/ratelimit_helper.go`. It is a process-wide singleton with one quota
-per UID across all mounted routes. Defaults are 2 rps and burst 60, tunable via
-`DM_API_UID_RATELIMIT_RPS` and `DM_API_UID_RATELIMIT_BURST`.
-
-Mount `SharedUIDRateLimiter` after `AuthMiddleware`; otherwise it cannot read
-the UID and silently fails open.
+`SharedUIDRateLimiter` (`pkg/wkhttp/ratelimit_helper.go`) is a process-wide singleton — one quota per UID across all mounted routes (default 2 rps / burst 60, tunable via `DM_API_UID_RATELIMIT_RPS`/`_BURST`). **Mount it AFTER `AuthMiddleware`** on the route group, else it can't read the uid and silently fails open:
 
 ```go
 auth := r.Group("/v1/foo", ctx.AuthMiddleware(r), appwkhttp.SharedUIDRateLimiter(r, ctx))
 ```
 
-Per-resource cooldowns keyed by business identity, such as phone, email, or bind
-session, may use a hand-written Redis counter when IP and UID buckets cannot
-express the rule. Existing examples include `sms_rate_limit:{zone}@{phone}`,
-`email_rate_limit:{email}`, and OIDC bind attempt caps. These are intentional;
-generic HTTP request-frequency limiting is not.
+**Exception** — per-resource cooldowns keyed by a business identity (phone/email/bind-session), which the IP/UID buckets cannot express, may use a hand-written Redis counter: e.g. `sms_rate_limit:{zone}@{phone}` (`base/common/service_sms.go`), `email_rate_limit:{email}` (`base/common/service_email.go`), OIDC bind attempt caps. These are intentional; generic HTTP request-frequency limiting is not.
 
-Tests that hit UID-limited routes must reset the bucket in setup, such as
-`ratelimit:uid:*`. The bucket persists in Redis and is not cleared by
-`CleanAllTables`.
+Tests that hit UID-limited routes must reset the bucket in setup (`ratelimit:uid:*`) — see `category` test's `resetUIDRateLimit`; the bucket persists in Redis and is NOT cleared by `CleanAllTables`.
 
-## Database
+### Database
 
 - ORM: `gocraft/dbr` v2
-- Migration files: `modules/<name>/sql/<yyyyMMdd>-<seq>_<name>.sql`
-- SQL migrations are embedded via `//go:embed sql`
-- Field naming uses underscore conversion through `util.AttrToUnderscore()`
+- Migration files: `modules/<name>/sql/<yyyyMMdd>-<seq>_<name>.sql`, embedded via `//go:embed sql`
+- Field naming: underscore (`util.AttrToUnderscore()`)
 
 ## Testing
-
-Use the shared test utilities:
 
 ```go
 _, ctx := testutil.NewTestServer()
 defer testutil.CleanAllTables(ctx)
 ```
 
-Tests require MySQL, Redis, and WuKongIM to be running. Check CI or
-`make env-test` in dmworkim for the expected test environment.
-
-When changing behavior, run the narrowest relevant `go test` package first. Run
-broader tests when the change touches shared behavior, cross-module contracts,
-middleware, auth, rate limiting, or database migrations.
+Tests require MySQL + Redis + WuKongIM running (see CI or `make env-test` in dmworkim).
 
 ## Coding Conventions
 
-- Use English Conventional Commits when committing, such as `feat:`, `fix:`,
-  `test:`, and `refactor:`.
-- API routes use the `/v1/` prefix.
-- Add a blank import in `internal/modules.go` for new modules.
-- All routes go through `AuthMiddleware` unless explicitly excluded; document
-  the reason when skipping auth.
-- User-facing errors use `httperr.ResponseErrorL` with a registered
-  `pkg/errcode` code. Do not use raw `c.ResponseError`, `c.JSON`, or
-  `AbortWithStatusJSON` for non-OK responses.
-- Run `make i18n-extract-check` and `make i18n-lint` after touching error
-  codes or localized error behavior.
-- Authenticated routes should mount `SharedUIDRateLimiter`.
-- Unauthenticated sensitive endpoints should mount `StrictIPRateLimitMiddleware`.
-- Do not hand-roll Redis counters for generic HTTP request-frequency limiting.
-- Handlers that access user data must go through the Space middleware.
-- Bot API code in `modules/bot_api/` must validate bot ownership before
-  operations.
-- Thread code in `modules/thread/` must verify parent channel access.
-- Follow existing module, service, DB, and handler patterns before introducing
-  new abstractions.
-- Keep changes scoped to the requested behavior and avoid unrelated refactors.
-- Run `gofmt` on edited Go files.
+- Commit messages: English, Conventional Commits (`feat:`, `fix:`, `test:`, `refactor:`)
+- API routes: prefix `/v1/`
+- New modules: add blank import in `internal/modules.go`
+- Auth: all routes go through `AuthMiddleware` unless explicitly excluded — document why if skipping
+- i18n: user-facing errors use `httperr.ResponseErrorL` + a registered `pkg/errcode` code; never raw `c.ResponseError`/`c.JSON`/`AbortWithStatusJSON`. Run `make i18n-extract-check` + `make i18n-lint` after touching codes (see Architecture › Error Handling & i18n)
+- Rate limiting: mount `SharedUIDRateLimiter` (auth routes) or `StrictIPRateLimitMiddleware` (unauth) — never hand-roll a Redis counter for request-frequency limiting (see Architecture › Rate Limiting)
+- Space isolation: handlers that access user data must go through Space middleware
+- Bot API (`modules/bot_api/`): validate bot ownership before operations
+- Thread (`modules/thread/`): verify parent channel access
 
 <!-- octospec:begin -->
-## octo-spec engineering standard
+## octo-spec workflow
 
-This repo carries shared engineering rules in `.octospec/`, readable by any
-coding agent working in this checkout (Claude Code, Codex, OpenClaw, or others).
+This repo participates in the [octo-spec](https://github.com/Mininglamp-OSS/octo-spec)
+engineering standard. Shared rules live in `.octospec/`.
 
-- **Rules**: `.octospec/rules/` (+ index `.octospec/rules/_index.yaml`) — the
-  source of truth for this repo's conventions: error-handling, rate-limit,
-  space-isolation, testing, commit-style.
-- **Before changing load-bearing behavior**, read the rules whose `inject_when`
-  matches the files you touch.
+- **Rules**: `.octospec/rules/` — the source of truth for this repo's conventions
+  (error-handling, rate-limit, space-isolation, testing, commit-style). The global
+  "constitution" rules are pulled into git-ignored `.octospec/_global/` via
+  `octospec-sync` (pin in `.octospec/manifest.yaml`).
+- **Before changing load-bearing behavior**: read the rules whose `inject_when`
+  matches the files you are touching (see `.octospec/rules/_index.yaml`).
 - **Tasks**: capture goal / load-bearing list / out-of-scope / acceptance in
-  `.octospec/tasks/<slug>/brief.md`.
+  `.octospec/tasks/<slug>/brief.md` (template: `tasks/_brief.template.md`).
 - **PRs**: fill Linked Spec + the COMPREHENSION three questions for load-bearing,
-  architectural, or P0 changes; trivial changes (typo/docs/lint/config) are exempt.
+  architectural, or P0 changes. Trivial changes (typo/docs/lint/config) are exempt.
 
-Claude Code users also have `/octospec-plan|go|check|finish` slash commands
-(committed under `.claude/commands/`). Other agents read the same `.octospec/`
-files directly.
-
-This region is managed by octospec; edit outside the markers.
+This region is managed by octospec-sync; edit outside the markers.
 <!-- octospec:end -->
 
 ---
 > Source: [Mininglamp-OSS/octo-server](https://github.com/Mininglamp-OSS/octo-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
