@@ -2,8 +2,6 @@
 
 > Source: [lawflow-boop/LawLink](https://github.com/lawflow-boop/LawLink). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Open-source, self-hosted case and practice management system for lawyers and small law firms.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
