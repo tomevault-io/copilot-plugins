@@ -1,15 +1,14 @@
 # humanizer-zh
 
-> Source: [ai-zixun/humanizer-zh](https://github.com/ai-zixun/humanizer-zh) — distributed by [TomeVault](https://tomevault.io)
+> Source: [ai-zixun/humanizer-zh](https://github.com/ai-zixun/humanizer-zh). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [ai-zixun/humanizer-zh](https://github.com/ai-zixun/humanizer-zh).
+Original source: `CLAUDE.md` in [ai-zixun/humanizer-zh](https://github.com/ai-zixun/humanizer-zh).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
