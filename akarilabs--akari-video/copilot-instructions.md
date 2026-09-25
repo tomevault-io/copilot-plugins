@@ -1,54 +1,86 @@
 ## akari-video
 
-> エージェント非依存の入口。リポジトリの構成・authoring 規約・検証ルールの正本は [CLAUDE.md](CLAUDE.md) にある。
+> ライブラリの置き場は既定で作業場の `library/`。作業場が無いときは従来の `~/.akari/assets/` を使う。
 
-# AGENTS.md — AKARI Video
+# AKARI Video プロジェクト
 
-エージェント非依存の入口。リポジトリの構成・authoring 規約・検証ルールの正本は [CLAUDE.md](CLAUDE.md) にある。
-**どのハーネスで作業していても、まず CLAUDE.md を読むこと**（内容はハーネス非依存）。
+ライブラリの置き場は既定で作業場の `library/`。作業場が無いときは従来の `~/.akari/assets/` を使う。
+`akari-assets list`（または `akari assets list`）の先頭行で実際の置き場を確認する。
+以下の `<ライブラリの置き場>` はその表示先を指し、音源はその下の `audio/` に入る。
 
-## スキル
+> **Language**: Respond in the user's language — 対話・質問・承認確認・レポートはユーザーの使用言語に合わせる（例: 英語で話しかけられたら英語で応答する）。
 
-このリポにはスキル（[Agent Skills オープン標準](https://agentskills.io) / SKILL.md 形式）が同梱されている。
-正本は `skills/<name>/SKILL.md`。
+このプロジェクトでは、次の役割に沿って編集を進めます。
 
-- **ネイティブ対応ハーネス**: `.claude/skills/`（Claude Code）/ `.agents/skills/`（agentskills.io
-  互換ハーネスの標準位置。新しめの Codex 等）/ `.codex/skills/`（Codex CLI 0.144 系の旧探索位置）に
-  同一実体への symlink があり、自動発見・自動発動する
-- **スキル探索非対応のハーネス**: 着手前に下の索引を確認し、タスクが description に合致したら
-  **該当 SKILL.md を読み、その手順に従うこと**
-- Codex のスラッシュメニューに `/prompts:<スキル名>` として出したい場合は
-  `node scripts/setup-codex-prompts.mjs` を一度実行する（`~/.codex/prompts/` にスタブを生成。任意）
+- `assets/` … 元動画と音声を置く素材の場所。原本は読み取り専用として扱い、書き換えや削除をしません。
+- `planning/` … 企画、分析レポート、編集計画など、人が読む成果物を置く場所。
+- `exports/` … 完成した動画を書き出す場所。
+- `.akari/` … 素材の分析結果と、作業の節目の記録を置く場所。
 
-<!-- BEGIN GENERATED skills-index — scripts/gen-skills-index.mjs が生成。手で編集しない -->
+素材の分析結果は `.akari/sidecars/<assets 以下の相対パス>.meta.json` に保存します。
+レポート作成、承認、編集完了、書き出し完了の節目では、`.akari/events/` に記録を
+1 件ずつ新しく追加します。すでにある記録は書き換えたり削除したりしません。
 
-スキル数: 17
+今回の進め方は `.akari/intake.json` に記録されています。`status` が `submitted` のときは、そこに書かれた `tasks`（やること）・`target`（仕上がりの尺）・`autonomy`（おまかせの度合い）に従って進めます。`full-auto` は「そのまま = 途中確認なしで書き出しまで進み、事後に capture + lint を添える」、`checkpoint` は「提案つき = 既定。良さそうな物を入れて見せる。要らなければ消す。判子は書き出しの 1 回」、`collaborative` は「一緒に作る = 方針・素材・実行の要所で確認」として扱います。`status` が `draft`、ファイルが無い、または `autonomy` が欠落している場合は提案つきとみなし、draft の `tasks` / `target` / `autonomy` には従いません。進め方はフォームまたは対話で確定させます。
 
-| スキル | 発動条件（description） | 正本 |
-|---|---|---|
-| `address-review` | review.json の open チケット（annotation）を edit.json への実対応 → edit-lint → チケット更新まで型どおりに執行するスキル。「a-0002 と a-0003 に対応して」「open チケット全部に対応して」で発動する。状態機械（open → addressed + response 必須・resolved 不可侵・黙殺禁止）を bin/respond.mjs が原子的に守る QA ループの消費側。 | `skills/address-review/SKILL.md` |
-| `analyze-footage` | 動画素材 1 本から 720p プロキシ、ローカル既定の文字起こし（Mac は macOS SpeechAnalyzer / 共通は whisper.cpp・クラウドは承認制）、視認済みキーフレーム、編集イベント、人物関連トラックを作り、analysis.json v0 にまとめるスキル。新しい撮影素材を取り込むとき、素材単体の編集前分析を頼まれたとき、または edit-plan の前処理として素材ごとの分析が必要なときに使う。 | `skills/analyze-footage/SKILL.md` |
-| `analyze-project` | プロジェクト内の素材群（analysis.json）と周辺プロジェクト文脈（intake.json・edit.json・planning/・README・過去 PJ）を読み合わせて interpretation.json（解釈層）を作り、事実 + 素材の読みに限定した読み取り専用の分析レポートを描画するスキル。複数素材プロジェクトの内容を素材横断で把握したいとき、analyze-footage が素材ごとの分析を終えたあとの統合、方向性を決める前に一次情報の欠落（取材質問）を洗い出したいときに使う。edit-plan は方針決めの前提としてこのスキルの出力を読む。 | `skills/analyze-project/SKILL.md` |
-| `bake-3d` | 3D シーンを映像素材（クリップ）として使いたいとき、3D ベイクレシピ（scene.py）を新規作成・調整・再ベイクするときに発動する。Blender ヘッドレスでレシピを mp4 に焼き、検証し、素材ライブラリ / プロジェクトへ配置するまでを担う。映像の上に重なるオーバーレイ 3D は対象外（overlay-authoring/3d.md へ）。 | `skills/bake-3d/SKILL.md` |
-| `compile-review-session` | 録音 review セッションの audio.wav・events.jsonl・edit.snapshot.json・session.json を、analyze-footage と同じ 3 層 STT で文字起こしし、発話区切り・軌跡からの参照解決・命令形への正規化を経て review.json の open annotation とコンパイルレポートへ着地する。喋りながら行った QA セッションをチケット化するとき、recorded / transcribed セッションをコンパイルするとき、または compiled セッションを明示的に再コンパイルするときに使う。 | `skills/compile-review-session/SKILL.md` |
-| `create-project` | AKARI Video の新規プロジェクトを headless で作成する。`templates/project-default/` を再帰コピーし、雛形バージョンを記録し、安全な場合のみ git 初期化して、作成結果レポート HTML を生成する。アプリ起動は不要。新しい動画プロジェクトを作るとき、または既存フォルダを AKARI Video プロジェクトとして補完するときに使う。 | `skills/create-project/SKILL.md` |
-| `edit-lint` | edit.json と任意の analysis.json / captions.json / メディアを決定的 CLI で検査し、PASS 後のフレーム視認とレポートまで QA を完了する。edit.json を書いた、または変更した直後、書き出し前、レビュー指摘を反映した後の再確認で使う。 | `skills/edit-lint/SKILL.md` |
-| `edit-plan` | analyze-project が作る分析レポート（interpretation.json + analysis-report.html）を一次証拠として読み、方針・素材計画・実行をチャットの明示承認で確定したうえで edit.json v0 とオーバーレイ HTML へ落とすスキル。複数素材の編集計画、素材ゼロからの生成計画（質問対話 → plan.json の仮枠タイムライン確定）、分析結果からカットや BGM・SFX・B ロールを決める依頼で使う。 | `skills/edit-plan/SKILL.md` |
-| `generate-narration` | 原稿テキストから VOICEVOX（ローカル・ゼロ円の既製声）または fal Qwen3-TTS（自声クローン）でナレーション音声を生成し、edit.json の audio.narration[] へ書き込むスキル。ナレーションを作ってほしいと頼まれたとき、仮ナレ（下書き試聴）が欲しいとき、声プロファイルを新規に作りたいとき、または既存のナレーションをエンジンや声で差し替えたいときに使う。 | `skills/generate-narration/SKILL.md` |
-| `harvest-asset` | 案件で作った高コスト・再利用価値の高いオーバーレイ、3D、モーション、テロップ、サムネ構図、音源、B ロールを AKARI Video の assets ライブラリへ素材化するときに発動する。入庫判定、meta.json 下書き、preview、INDEX 更新、検証を行う。 | `skills/harvest-asset/SKILL.md` |
-| `manage-connections` | AKARI Video の生成プロバイダ・SNS 接続・API キー参照・モデル選択・コスト承認ポリシーを一元管理する。初回セットアップ、接続状態の確認、provider やモデルの追加、有償生成・外部公開の実行前ゲートで発動し、`.akari/connections.json` と無償・読み取り専用の doctor を扱う。 | `skills/manage-connections/SKILL.md` |
-| `overlay-authoring` | AKARI Video のオーバーレイ HTML、字幕、表・グラフ、Three.js 3D、モーショングラフィックス、サムネイル、人物の後ろに文字を置く表現を設計・生成・レビューするときに発動する authoring ルーター。 | `skills/overlay-authoring/SKILL.md` |
-| `render-cut` | 承認済み edit.json と edit-lint PASS を入力に、最終 MP4 の計画、明示承認、ローカル書き出し、ffprobe 検証、キーフレーム視認を完了する。編集が承認済みで、納品用動画の書き出しや最終レンダーを求められたときに使う。 | `skills/render-cut/SKILL.md` |
-| `research-plan` | 動画の企画・調査工程（ネタ出し → ターゲット/競合/トレンド調査 → 企画書・構成案・絵コンテ・撮影リスト）を headless で一周するときに発動する router。ネタ選定と構成の確定は decision-cards 型承認ゲート（HTML レポート + decisions.json）で人間の判断を受け取る。 | `skills/research-plan/SKILL.md` |
-| `setup-audio-library` | BGM・効果音の音源ライブラリを増やしたいときに発動する。フリー配布元の候補リスト HTML を生成し、ユーザー自身が手動でダウンロードしたファイルをドロップフォルダから照合・登録し、試聴ギャラリーで keep/drop するまでの半自動セットアップを行う。setup-library / harvest-asset の姉妹スキル（音源だけ流儀が異なるため独立）。 | `skills/setup-audio-library/SKILL.md` |
-| `setup-library` | AKARI Video を初めてセットアップするとき、または現在のプロジェクトに使える素材が足りず新しく揃えたいときに発動する。ffmpeg / whisper-cli / headless Chrome の道具チェック、catalog/ を読んだスターターパック提案、人間の明示承認、取得・配置・検証・INDEX 更新までを一気通貫で行う first-run スキル。 | `skills/setup-library/SKILL.md` |
-| `verify` | AKARI Video（現行 Theia スタック）のタスク契約が要求する検証はしご（L0 / L1 / L2）を実行するときに発動する。タスクの受け入れ条件が「verify 層: L0」「L0+L1」等を指定しているとき、各層で実際に何を・どう叩くかを確認するために読む。 | `skills/verify/SKILL.md` |
+進め方を `.akari/intake.json` に書くときは、`tasks` は決められた 5 つの id だけを使い、`target` は `duration_s` か `keep_length: true` のどちらか片方にします。`status` を `submitted` にする前に lint で確認します。
 
-<!-- END GENERATED skills-index -->
+素材が足りないときは、`akari assets list` でアカウントの素材ライブラリ（無料全部 + 購入済み）を
+確認できます。使いたい素材が見つかったら `akari assets fetch <id> --project .` でこのプロジェクトへ
+取り込みます（sha256 検証込み）。有料素材は `akari store connect` で接続済みのアカウントで
+購入していれば使え、未購入のものは価格付きの `locked` と表示されます。ライブラリの実体は
+`<ライブラリの置き場>/` に置かれますが、直接編集せず上記コマンド経由で操作してください。
 
-索引は `scripts/gen-skills-index.mjs` が SKILL.md frontmatter から生成する（`npm run gen:skills-index`）。
-手で編集しない。CI が symlink の整合と索引のドリフトを検査する（`npm run check:skills-index`）。
+## プレビューの確認
+
+プレビューは既存機能を使う。提供するためだけに専用の再生 HTML・再生 UI・音声同期を
+新規実装しない（独立した再生ページを利用者が明示依頼した場合を除く）。
+アプリで対象プロジェクトの出力プレビューを開く。ブラウザ版は「メニュー」→
+「ブラウザプレビュー」から起動できる。詳しくは
+[既存プレビューの起動・確認](.claude/skills/edit-lint/preview.md) を読む。
+起動できない場合は原因と再現条件を記録する。確認済みと報告するには既存画面で
+再生・シーク・音声（ある場合）を確認し、アプリ内／既存ブラウザのどちらかを明記する。
+描画部品や別ページだけの検証を、既存プレビューの確認済みとして扱わない。
+
+## AKARI Video の在処
+
+- `~/.akari/cli` … コマンド操作の本体と入口（`~/.akari/cli/bin/akari`）です。パートナー接続時に配備されます。
+- `~/.akari/app` … `install.sh` から入れた AKARI Video 本体です。デスクトップアプリだけを使っている場合は、存在しなくて構いません。
+- アプリ同梱の `<App>/Contents/Resources/packages/` … render-cut・edit-lint など、編集や検査を実行するコマンドの実体です。Windows では `<install dir>\resources\packages\` にあります。
+- アプリ同梱の `<App>/Contents/Resources/media-bin/` … ffmpeg・ffprobe があります。whisper-cli はビルドによって同梱されないことがあります。Windows では `<install dir>\resources\media-bin\` にあります。
+- `<ライブラリの置き場>` … 素材ライブラリの実体です。
+
+どれも PATH には無い前提です。パートナー PTY 以外の端末では、
+`~/.akari/cli/bin/akari` をフルパスで実行してください。
+
+## 編集スキル
+
+`.claude/skills/` 配下の全ディレクトリがそのまま使えます。主なもの:
+
+- `/analyze-footage` … 素材ごとの内容を分析します。
+- `/analyze-project` … 複数の素材とプロジェクト全体の文脈をまとめて分析します。
+- `/edit-plan` … 編集計画を作り、レポートと承認を経て編集内容へ反映します。
+- `/overlay-authoring` … テロップ、図、3D などの画面要素を制作します。
+- `/edit-lint` … 編集結果を機械的に検査し、仕上がりの確認を支えます。
+- `/render-cut` … 承認済みの編集を書き出し、完成ファイルを検証します。
+- `/setup-library` … 利用できる素材を準備します。
+- `/address-review` … 未対応のレビュー指摘を編集へ反映します。
+
+Codex や Cursor など他の AI エージェント用の入り口が `.agents/skills/`、`.cursor/skills/`、`.codex/skills/` にあります
+（中身は `.claude/skills/` へのリンクです）。
+詳しい進め方と、スキル文書を直接読む場合の場所は `AGENTS.md` を参照してください。
+
+画面や会話で利用者へ説明するときは日本語を使い、内部の仕組みの名前ではなく、
+「変更履歴」「企画メモ」「素材」など役割が伝わる言葉で案内します。
+
+プロジェクトルート直下に新規ファイルを作らない（`edit.json` 等の既存契約ファイルを除く）。
+生成物は `.akari/work/`、証跡は `.akari/reports/`、キャッシュは `.akari/cache/` に置く。
+詳しい層の定義は[公開リポの正典](https://github.com/AkariLabs/akari-video/blob/main/docs/contract-2026-07-25-project-structure-v0.md)を参照します。
+ローカルでは (b) `install.sh` から入れた場合の `~/.akari/app/docs/contract-2026-07-25-project-structure-v0.md`、
+(c) モノレポを持っている場合の `<repo>/docs/contract-2026-07-25-project-structure-v0.md` からも確認できます。
+
+このファイルはあなたのプロジェクトのものです。運用に合わせて自由に書き換えて構いません。
 
 ---
 > Source: [AkariLabs/akari-video](https://github.com/AkariLabs/akari-video) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
