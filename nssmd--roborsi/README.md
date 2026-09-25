@@ -2,8 +2,6 @@
 
 > Source: [nssmd/RoboRSI](https://github.com/nssmd/RoboRSI). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Robot-agent harness with a CLI and local Web console for LIBERO short evaluation
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [nssmd/RoboRSI](https://github.com/nssmd/RoboRSI
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nssmd/RoboRSI](https://github.com/nssmd/RoboRSI) — a repo with 9+ stars on GitHub.
+From [nssmd/RoboRSI](https://github.com/nssmd/RoboRSI) — a repo with 97+ stars on GitHub.
 
 ---
 
