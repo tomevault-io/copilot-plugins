@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--defender-performance-tool",
+  "displayName": "defender_performance_tool",
+  "description": "defender_performance_tool",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/defender_performance_tool",
+  "skills": []
+}
