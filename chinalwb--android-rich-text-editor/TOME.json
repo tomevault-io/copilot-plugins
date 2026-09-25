@@ -4,7 +4,7 @@
   "repo": "Android-Rich-text-Editor",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chinalwb/Android-Rich-text-Editor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T18:04:19Z"
+  "distributed_at": "2026-09-25T06:40:36Z"
 }
