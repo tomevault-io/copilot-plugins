@@ -7,11 +7,11 @@ Local-first AI coding agent for VS Code & Cursor. Ollama, LM Studio & your infer
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sthamann/nyx-local-ai](https://github.com/sthamann/nyx-local-ai).
+Original source: `CLAUDE.md` in [sthamann/nyx-local-ai](https://github.com/sthamann/nyx-local-ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
