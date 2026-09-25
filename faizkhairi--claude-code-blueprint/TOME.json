@@ -4,7 +4,7 @@
   "repo": "claude-code-blueprint",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/faizkhairi/claude-code-blueprint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T10:55:38Z"
+  "distributed_at": "2026-09-25T10:58:12Z"
 }
