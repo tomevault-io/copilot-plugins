@@ -1,23 +1,21 @@
 # FloCafe
 
-> Source: [FreeOpenSourcePOS/FloCafe](https://github.com/FreeOpenSourcePOS/FloCafe) — distributed by [TomeVault](https://tomevault.io)
-
-Free Open Source Cafe & Restaurant POS | Mac App Store: https://apps.apple.com/in/app/flo-cafe/id6763136018 | Microsoft Store: https://apps.microsoft.com/detail/9n1md6585p4q
+> Source: [FreeOpenSourcePOS/FloCafe](https://github.com/FreeOpenSourcePOS/FloCafe). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FreeOpenSourcePOS/FloCafe](https://github.com/FreeOpenSourcePOS/FloCafe).
+Original source: `CLAUDE.md` in [FreeOpenSourcePOS/FloCafe](https://github.com/FreeOpenSourcePOS/FloCafe).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/FreeOpenSourcePOS/FloCafe](https://github.com/FreeOpenSourcePOS/FloCafe)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/FreeOpenSourcePOS/FloCafe](https://github.com/FreeOpenSourcePOS/FloCafe)
 
 ---
 
