@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [duolahypercho/gauntlet-loop](https://github.com/duolahypercho/gauntlet-loop).
+Original source: `CLAUDE.md` in [duolahypercho/gauntlet-loop](https://github.com/duolahypercho/gauntlet-loop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [duolahypercho/gauntlet-loop](https://github.com
 
 - [gauntlet-loop](https://github.com/duolahypercho/gauntlet-loop/tree/main/skills/gauntlet-loop/SKILL.md)
 
-From [duolahypercho/gauntlet-loop](https://github.com/duolahypercho/gauntlet-loop) — a repo with 158+ stars on GitHub.
+From [duolahypercho/gauntlet-loop](https://github.com/duolahypercho/gauntlet-loop) — a repo with 159+ stars on GitHub.
 
 ---
 
