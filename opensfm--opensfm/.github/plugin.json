@@ -1,0 +1,9 @@
+{
+  "name": "opensfm--opensfm",
+  "displayName": "OpenSfM",
+  "description": "OpenSfM",
+  "version": "1.0.0",
+  "author": "OpenSfM",
+  "homepage": "https://github.com/OpenSfM/OpenSfM",
+  "skills": []
+}
