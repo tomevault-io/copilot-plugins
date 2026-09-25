@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [duckbugio/flock](https://github.com/duckbugio/flock).
+Original source: `CLAUDE.md` in [duckbugio/flock](https://github.com/duckbugio/flock).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -20,7 +20,7 @@ Original source: `AGENTS.md` in [duckbugio/flock](https://github.com/duckbugio/f
 - [flock](https://github.com/duckbugio/flock/tree/main/core/skills/library-docs-lookup/SKILL.md)
 - [flock](https://github.com/duckbugio/flock/tree/main/core/skills/verification-before-completion/SKILL.md)
 
-From [duckbugio/flock](https://github.com/duckbugio/flock) — a repo with 505+ stars on GitHub.
+From [duckbugio/flock](https://github.com/duckbugio/flock) — a repo with 504+ stars on GitHub.
 
 ---
 
