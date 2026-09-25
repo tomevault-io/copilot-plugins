@@ -92,4 +92,4 @@ the build if they drift from the source JSDoc.
 
 ---
 > Source: [huggingface/transformers.js](https://github.com/huggingface/transformers.js) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
