@@ -1,151 +1,97 @@
 ## mpv-anime-build
 
-> - **Project:** MPV Anime Build
+> **MPV Anime Build** is an advanced, context-aware MPV media player configuration featuring AI upscaling, dynamic power management, universal HDR support, intelligent audio processing, and a heavily customized UOSC interface.
 
-# MPV Anime Build — Project Instructions
+# MPV Anime Build - Development & Architecture Guide
 
-## Project
+## Project Overview
 
-- **Project:** MPV Anime Build
-- **Current version:** v5.3
-- **Repository:** https://github.com/Chinna95P/mpv-anime-build
+**MPV Anime Build** is an advanced, context-aware MPV media player configuration featuring AI upscaling, dynamic power management, universal HDR support, intelligent audio processing, and a heavily customized UOSC interface.
 
-## General development rules
+- **Author**: Chinna95P
+- **Current Version**: v5.4 (source of truth: `script-opts/build_info.conf`)
+- **Repository**: https://github.com/Chinna95P/mpv-anime-build
+- **Local Path**: `/var/mnt/Games/MPV/mpv-anime-build/`
 
-- This is a heavily customized MPV configuration project.
-- Preserve existing functionality unless the user explicitly asks to change it.
-- Prefer minimal, targeted changes over broad rewrites.
-- Understand existing code and dependencies before modifying it.
-- Do not replace customized implementations with upstream code blindly.
-- When updating an upstream component, compare the existing customized version with the upstream versions and port customizations deliberately.
-- Preserve existing filenames, directory structure, script names, shader names, configuration names, and public script-message interfaces unless explicitly asked to change them.
-- Maintain both Linux and Windows compatibility where the affected feature supports both platforms.
-- Do not make unrelated cleanup/refactoring changes while implementing a requested feature.
+## Critical Development Rules
 
-## Git rules
+### Git Rules
+- **NEVER commit automatically**
+- **NEVER push automatically**
+- **NEVER reset, rebase, or checkout** without explicit instructions
+- Inspect `git status` before making changes
+- Show `git diff` after modifications for user review
+- The user prefers to test changes locally before committing
 
-- Never commit automatically.
-- Never push automatically.
-- Never reset, checkout, rebase, merge, or modify Git history unless explicitly instructed.
-- Never discard the user's uncommitted changes.
-- Before significant modifications, inspect Git status and understand the current working tree.
-- After modifications, show the user the relevant Git diff and summarize the changed files.
-- The user prefers to test changes locally before committing or pushing to GitHub.
+### Core Architecture & High-Risk Components
 
-## Version rules
+1. **`anime_profile_controller.lua`** (High Risk)
+   - Controls anime vs live-action detection, resolution tiers, shader chains, profile switching, and UOSC state sync
+   - Understand state flow and all callers before modifying
+   - Preserve public script-message interfaces and state keys
 
-- The authoritative application version is `script-opts/build_info.conf`.
-- Keep `build_info.conf`, README, CHANGELOG, website version information, and release metadata synchronized when explicitly performing a release/version update.
-- Do not infer the application version from `git describe` output.
-- Historical version references in changelogs/comments are not necessarily active version sources.
+2. **`scripts/uosc/main.lua`** (High Risk)
+   - Heavily customized UOSC v5.13.0 implementation
+   - **Never replace with upstream blindly**
+   - Contains custom menus, history, denoise, shader controls, HDR controls, audio-only, download integration, and chapter highlighting
+   - Upgrades require a careful three-way merge
 
-## UOSC rules
+3. **`track-selector.lua`**
+   - Smart audio/subtitle track selection
+   - Manual track overrides persist per-session across playlist navigation
+   - Do not reset `manual_override` on `file-loaded`
 
-- UOSC is currently version 5.13.0.
-- `scripts/uosc/main.lua` is heavily customized.
-- Never replace `scripts/uosc/main.lua` with an upstream version without first identifying and preserving MPV Anime Build customizations.
-- When upgrading UOSC, compare:
-  1. clean previous upstream UOSC;
-  2. current customized UOSC;
-  3. new upstream UOSC;
-  and perform a deliberate three-way port.
-- Preserve Anime Build UOSC menus, history, denoise controls, shader/profile controls, HDR controls, audio-only controls, download integration, chapter highlighting, state synchronization, and other custom functionality.
-- Treat `scripts/uosc/elements/`, `scripts/uosc/lib/`, `scripts/uosc/intl/`, and `script-opts/uosc.conf` as part of the UOSC integration and check compatibility when changing UOSC.
-- Do not introduce duplicate UOSC functionality when the upstream version already provides an appropriate mechanism.
+4. **`power_manager.lua`**
+   - Cross-platform battery monitoring (PowerShell/CIM on Windows, sysfs on Linux)
+   - Switches to low-end profile on battery, restores previous decoder on AC power
+   - Safe desktop fallback (manual toggle only)
 
-## Anime profile controller
+5. **Shaders (`shaders/`)**
+   - Preserve filenames, ordering, and directory layout
+   - Resolution-specific shader chains (SD, HD, FHD, 4K, 8K)
+   - Test at relevant resolutions after any modification
 
-- `anime_profile_controller.lua` is a high-risk/core file.
-- It controls anime/live-action detection, resolution tiers, shader selection/order, persistence, profile switching, UOSC state synchronization, and public script-message interfaces.
-- Before changing it, understand its state flow and all callers.
-- Preserve existing script-message names and state keys unless explicitly instructed otherwise.
-- Changes to shader chains must be checked against the corresponding UI labels, persistence logic, and resolution tiers.
+### Configuration Hierarchy
 
-## Shader rules
+1. Shipped base configuration: `mpv.conf` (tracked)
+2. Personal option override: `mpv-<custom-name>.conf` (untracked, loaded after `mpv.conf`, exactly one file allowed)
+3. UI remembered settings: `user-<custom-name>.conf` (untracked, loaded alphabetically)
+4. Keybindings: `input.conf` (coupled to Lua scripts)
+5. Script settings: `script-opts/*.conf`
 
-- Preserve existing shader filenames and directory structure.
-- Do not rename or remove shaders unless explicitly instructed.
-- Treat shader ordering as functional.
-- Check resolution-specific chains carefully.
-- Changes to Adaptive Sharpen, Anime Line-Thinner, FSRCNNX, NNEDI3, Anime4K, ArtCNN, restoration, downscaling, and related shader stages must be tested at the relevant resolutions.
-- Do not optimize shader chains purely by appearance of the code; understand their runtime purpose first.
+### Skip Intro & Chapter Colors (v5.3 Palette)
 
-## Audio-only and visualizer rules
+- **Intro**: `#FF00FF` (Magenta) | ASS BGR: `FF00FF`
+- **OP**: `#00FF00` (Green) | ASS BGR: `00FF00`
+- **PV**: `#FF9900` (Orange) | ASS BGR: `0099FF`
+- **ED**: `#0080FF` (Blue) | ASS BGR: `FF8000`
 
-- Audio-only mode must avoid unnecessary video processing.
-- Preserve existing visualizer lifecycle and style persistence.
-- Changes involving `audio-visualizer.lua`, audio profiles, equalizer, album art, spatial audio, passthrough, or audio-device selection should be tested together.
+### Key Keybindings
 
-## Track selector rules
+| Key | Action |
+|---|---|
+| `K` | Show Profile / Shader Info overlay |
+| `I` | Show Technical Stats overlay |
+| `A` | Audio Mode toggle (7.1 Upmix vs Passthrough) |
+| `H` | HDR Mode toggle (Passthrough vs Tone Mapping) |
+| `V` | RTX Video Super Resolution toggle (Windows) |
+| `Q` | Master Upscaler toggle (NNEDI3 vs FSRCNNX) |
+| `L` | Anime4K Quality toggle (Fast vs HQ) |
+| `CTRL+g` | Master Shader Killswitch |
+| `CTRL+p` | Power Saving Mode toggle |
+| `CTRL+l` / `CTRL+;` / `CTRL+'` | Anime Mode: Auto / On / Off |
+| `F5` / `F6` | Window Screenshot / Clean Video-Frame Screenshot |
+| `CTRL+f` / `CTRL+F` | Subtitle Lines Search (Primary / Secondary) |
 
-- `track-selector.lua` uses smart audio/subtitle selection.
-- Manual track changes create a manual override.
-- Manual override is intended to remain active for the current MPV session/playlist.
-- A saved per-video manual override may restore that session-level override when the same video is resumed in a later MPV session.
-- Do not accidentally reset `manual_override` on `file-loaded` when moving to next/previous files.
-- Preserve the console message indicating that manual override is active.
-- Do not change the override semantics without explicit instruction.
+## Change Workflow
 
-## Skip Intro and chapter rules
-
-- `skip_intro.lua` detects OP, ED, PV, and Intro chapters.
-- UOSC chapter highlighting uses the same category/color mapping.
-- Current displayed category colors are Intro = `#FF00FF`, OP = `#00FF00`, PV = `#FF9900`, and ED = `#0080FF`.
-- `skip_intro.lua` stores those colors in ASS BGR order: Intro = `FF00FF`, OP = `00FF00`, PV = `0099FF`, and ED = `FF8000`.
-- UOSC stores the same displayed colors in RGB/RGBA order.
-- UOSC chapter range colors use transparency consistent with the timeline.
-- Preserve the relationship between `skip_intro.lua` category colors and UOSC chapter-range colors.
-
-## Download rules
-
-- `youtube-download.lua` is integrated with the UOSC Download button.
-- Default downloads go to `~/ytdl` unless changed through `youtube-download.conf`.
-- Preserve stream-download functionality.
-- Do not remove or rename the UOSC download binding without explicit instruction.
-
-## mpvSockets rules
-
-- `mpvSockets.lua` has Windows-specific behavior intended to prevent CMD flashes.
-- Preserve the Windows fix when modifying IPC/socket behavior.
-
-## Configuration rules
-
-- `input.conf` bindings are coupled to Lua scripts and UOSC script messages.
-- `script-opts/*.conf` contains important persistent configuration.
-- `scripts/custom-config-loader.lua` loads exactly one root-level `mpv-<custom-name>.conf` after the shipped `mpv.conf`; preserve its Windows/Linux behavior and its safe refusal when multiple matching files exist.
-- Keep general MPV overrides in `mpv-*.conf` conceptually separate from remembered Anime Build menu settings in `user-*.conf`.
-- Do not rename configuration keys casually.
-- When changing a configuration option, check all scripts that read it.
-
-## Documentation rules
-
-- `README.md`, `CHANGELOG.md`, `FAQ.md`, `index.html`, and related website files should remain consistent with the actual implementation.
-- Do not claim a feature exists unless it is actually implemented.
-- Preserve historical changelog entries.
-- When performing a release update, update the relevant user-facing version references consistently.
-
-## Testing rules
-
-- Prefer local testing before GitHub commits/pushes.
-- After code changes, perform appropriate syntax/configuration checks where possible.
-- For MPV Lua changes, check Lua syntax and inspect relevant MPV console output.
-- For UOSC changes, test both the UI behavior and the underlying script messages.
-- For shader changes, test actual playback at representative resolutions.
-- For changes involving multiple scripts, test the interaction between them rather than testing only the modified file.
-
-## Change process
-
-Before a substantial change:
-
-1. Inspect relevant files and callers.
-2. Explain the intended approach.
-3. Make the smallest safe change.
-4. Validate the result.
-5. Show Git diff/status.
-6. Do not commit or push unless explicitly instructed.
-
-If there is uncertainty about whether a behavior is intentional, ask the user rather than silently changing it.
+1. Inspect relevant files, callers, and configuration bindings
+2. Explain the planned approach to the user
+3. Make minimal, targeted changes
+4. Validate (syntax check, local test)
+5. Present `git diff` and summary
+6. Wait for explicit user instruction before committing or pushing
 
 ---
 > Source: [Chinna95P/mpv-anime-build](https://github.com/Chinna95P/mpv-anime-build) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
