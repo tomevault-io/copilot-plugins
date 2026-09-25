@@ -1,0 +1,141 @@
+{
+  "name": "metaharness",
+  "owner": "ruvnet",
+  "repo": "metaharness",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "example-harness",
+      "path": ".claude-plugin/skills/example-harness/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/example-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/repo-genome/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/repo-genome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/oia-manifest/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/oia-manifest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/diag-harness/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/diag-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/threat-model/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/threat-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/score-harness/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/score-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/create-harness/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/create-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/verify-witness/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/verify-witness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/list-templates/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/list-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/harness-secrets/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/harness-secrets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/publish-harness/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/publish-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/upgrade-harness/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/upgrade-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": "kimi-k3-harness/.claude/skills/evolve/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/kimi-k3-harness/.claude/skills/evolve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/validate-harness/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/validate-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": ".claude-plugin/skills/compare-harnesses/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/.claude-plugin/skills/compare-harnesses/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaharness",
+      "path": "kimi-k3-harness/.claude/skills/plan-change/SKILL.md",
+      "github_url": "https://github.com/ruvnet/metaharness/tree/main/kimi-k3-harness/.claude/skills/plan-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ruvnet/metaharness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T04:35:22Z"
+}
