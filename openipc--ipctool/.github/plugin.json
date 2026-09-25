@@ -1,0 +1,9 @@
+{
+  "name": "openipc--ipctool",
+  "displayName": "ipctool",
+  "description": "ipctool",
+  "version": "1.0.0",
+  "author": "OpenIPC",
+  "homepage": "https://github.com/OpenIPC/ipctool",
+  "skills": []
+}
