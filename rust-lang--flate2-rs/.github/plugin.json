@@ -1,0 +1,9 @@
+{
+  "name": "rust-lang--flate2-rs",
+  "displayName": "flate2-rs",
+  "description": "flate2-rs",
+  "version": "1.0.0",
+  "author": "rust-lang",
+  "homepage": "https://github.com/rust-lang/flate2-rs",
+  "skills": []
+}
