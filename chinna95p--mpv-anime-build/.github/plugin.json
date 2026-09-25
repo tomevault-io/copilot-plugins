@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "Chinna95P",
   "homepage": "https://github.com/Chinna95P/mpv-anime-build",
-  "skills": []
+  "skills": [
+    {
+      "name": "mpv-anime-build",
+      "description": ""
+    }
+  ]
 }
