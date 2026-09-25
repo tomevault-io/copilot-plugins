@@ -1,0 +1,14 @@
+{
+  "name": "reverseclabs--virtual-attack",
+  "displayName": "virtual.attack",
+  "description": "virtual.attack",
+  "version": "1.0.0",
+  "author": "ReversecLabs",
+  "homepage": "https://github.com/ReversecLabs/virtual.attack",
+  "skills": [
+    {
+      "name": "virtual.attack",
+      "description": ""
+    }
+  ]
+}
