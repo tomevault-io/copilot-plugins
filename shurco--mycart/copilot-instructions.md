@@ -1,42 +1,69 @@
 ## mycart
 
-> Goose-managed SQL migrations embedded into the binary via `embed.go`.
+> PostgreSQL test databases, provisioned with
 
-# migrations/AGENTS.md
+# internal/testutil/pgtest
 
-Goose-managed SQL migrations embedded into the binary via `embed.go`.
+PostgreSQL test databases, provisioned with
+[pgtestdb](https://github.com/peterldowns/pgtestdb). `internal/testutil` and
+`migrations/schema_conformance_test.go` both build on it, so there is one place
+that knows how a test database is created.
 
-## Conventions
+## What it does
 
-- Filename: `YYYYMMDDHHMMSS_short_description.sql`.
-- Each file contains `-- +goose Up` and `-- +goose Down` sections, each
-  wrapped in `-- +goose StatementBegin` / `-- +goose StatementEnd` for
-  multi-statement scripts.
-- **Down must be safe to run.** It should reverse the Up section, not
-  touch rows the earlier init migration owned. See the comment in
-  `20240111145752_new_sicials.sql` for a real historic footgun: the old
-  Down deleted rows by id, but two ids collided with `init_db`, which
-  would have wiped `mail_letter_purchase` and `smtp_host` on rollback.
-  The fix is to filter by `key`, not `id`.
-- **Unique IDs.** Setting rows use a pseudo-random 15-char id string.
-  Before inserting a new id, search the entire `migrations/` tree to
-  ensure no collision (`rg "'id_here'"`).
-- Prefer `INSERT OR IGNORE` for idempotent seed data. If the row must be
-  refreshed, use `INSERT OR REPLACE` and document the reason.
+`MigratedDSN` / `FixturesDSN` / `EmptyDSN` each return the DSN of a database of
+the caller's own, cloned from a template pgtestdb builds once per server:
 
-## Running locally
+| template | built by | contents |
+| --- | --- | --- |
+| plain | `goosemigrator` + `migrations.Embed()` | schema, empty tables |
+| fixtures | the plain one, then the fixture set | schema + `fixtures/migration` |
+| empty | `pgtestdb.NoopMigrator` | nothing, for tests of the migration path |
 
-```bash
-./scripts/migration dev up   # apply migrations + test fixtures
-./scripts/migration dev down # rollback the most recent migration
-```
+The migrations therefore run once per server — not once per test, and not once
+per package, because the template survives in the server between test binaries.
+Editing a migration or a fixture changes the template hash, so the next run
+rebuilds it. A template is `datistemplate = true` and is never dropped by the
+suite; to force a rebuild, `UPDATE pg_database SET datistemplate = false` and
+`DROP DATABASE` it.
 
-## Test fixtures
+The suite connects through `database.Connect`, so every PostgreSQL test also
+exercises the production session-timezone pin, the `SHOW timezone` check and the
+pool sizing.
 
-Fixture SQL (created by `./scripts/migration dev up`) lives outside this
-folder and populates the DB with demo products, an admin user and sample
-carts. Never rely on fixture state from production migrations.
+## TEST_POSTGRES_DSN
+
+An **administrator** connection to a dedicated test server. pgtestdb creates the
+role `pgtdbuser` (`NOSUPERUSER NOCREATEDB NOCREATEROLE`), one `testdb_tpl_*`
+database per template and one `testdb_tpl_*_inst_*` database per test, and drops
+the instances again. The user in the DSN needs `CREATEDB`, `CREATEROLE` and
+`SUPERUSER`. **Never point it at a server holding data anybody wants to keep.**
+
+Two constraints, both enforced with a message rather than a silent wrong
+answer:
+
+- The DSN must be a `postgres://` URL, and the database it names must already
+  exist — it is only the connection pgtestdb administers the server through.
+  `mycart_test` in the CI example is created by `POSTGRES_DB`; the local
+  `pgtestdb` service in `docker/docker-compose_dev.yml` names the `postgres`
+  maintenance database instead, which every server has.
+- The session timezone is pinned to UTC here as well as in `database.Connect`,
+  and the pin is **load-bearing**, not decoration: pgtestdb migrates the
+  template on its own connection, and the fixtures are `INSERT`s with
+  `DEFAULT CURRENT_TIMESTAMP`. Measured on a server running `Asia/Seoul`,
+  dropping the pin stored the fixture template's timestamps `+32399s` out.
+
+## Rules
+
+- Never call `pgtestdb.New`/`Custom` directly. The config parsing, the timezone
+  pin and the migrator choice live here so `EmptyDSN` and `FixturesDSN` cannot
+  drift apart.
+- Do not hard-code the template or instance names, and do not connect to a
+  template database to poke at it from a test: ask for a DSN.
+- A test that fails keeps its database on purpose — pgtestdb logs the connection
+  string so the state can be inspected with `psql`. A test that passes has it
+  dropped; a database that survives a green run means a leaked connection.
 
 ---
 > Source: [shurco/mycart](https://github.com/shurco/mycart) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
