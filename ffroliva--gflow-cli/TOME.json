@@ -2,9 +2,9 @@
   "name": "gflow-cli",
   "owner": "ffroliva",
   "repo": "gflow-cli",
-  "description": "Unofficial CLI for Google Flow \u2014 drive Veo I2V from the terminal. For Ultra/Pro subscribers who want to use their Flow credits efficiently via batch automation instead of the web UI.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ffroliva/gflow-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T05:02:42Z"
+  "distributed_at": "2026-09-25T13:35:22Z"
 }
