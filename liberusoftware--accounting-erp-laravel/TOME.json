@@ -1,0 +1,93 @@
+{
+  "name": "accounting-erp-laravel",
+  "owner": "liberusoftware",
+  "repo": "accounting-erp-laravel",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accounting-erp-laravel",
+      "path": ".claude/skills/pest-testing/SKILL.md",
+      "github_url": "https://github.com/liberusoftware/accounting-erp-laravel/tree/main/.claude/skills/pest-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accounting-erp-laravel",
+      "path": ".claude/skills/octane-development/SKILL.md",
+      "github_url": "https://github.com/liberusoftware/accounting-erp-laravel/tree/main/.claude/skills/octane-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accounting-erp-laravel",
+      "path": ".claude/skills/fortify-development/SKILL.md",
+      "github_url": "https://github.com/liberusoftware/accounting-erp-laravel/tree/main/.claude/skills/fortify-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accounting-erp-laravel",
+      "path": ".claude/skills/configuring-horizon/SKILL.md",
+      "github_url": "https://github.com/liberusoftware/accounting-erp-laravel/tree/main/.claude/skills/configuring-horizon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accounting-erp-laravel",
+      "path": ".claude/skills/livewire-development/SKILL.md",
+      "github_url": "https://github.com/liberusoftware/accounting-erp-laravel/tree/main/.claude/skills/livewire-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accounting-erp-laravel",
+      "path": ".claude/skills/socialite-development/SKILL.md",
+      "github_url": "https://github.com/liberusoftware/accounting-erp-laravel/tree/main/.claude/skills/socialite-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accounting-erp-laravel",
+      "path": ".claude/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/liberusoftware/accounting-erp-laravel/tree/main/.claude/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "accounting-erp-laravel",
+      "path": ".claude/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/liberusoftware/accounting-erp-laravel/tree/main/.claude/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/liberusoftware/accounting-erp-laravel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T00:59:53Z"
+}
