@@ -2,9 +2,9 @@
   "name": "textbook-to-note",
   "owner": "drpwchen",
   "repo": "textbook-to-note",
-  "description": "Turn your own PDF textbooks into an AI-searchable knowledge base and structured, fully-cited notes \u2014 figures included. Local-first, token-frugal.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drpwchen/textbook-to-note",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T20:32:52Z"
+  "distributed_at": "2026-09-25T01:36:55Z"
 }
