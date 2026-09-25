@@ -2,7 +2,7 @@
   "name": "mapcn-react-native",
   "owner": "aikenahac",
   "repo": "mapcn-react-native",
-  "description": "Beautiful maps, made simple.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aikenahac/mapcn-react-native",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T12:55:25Z"
+  "distributed_at": "2026-09-25T08:43:59Z"
 }
