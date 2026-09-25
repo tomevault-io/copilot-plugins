@@ -4,7 +4,7 @@
   "repo": "actors",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -131,5 +131,5 @@
   ],
   "source_url": "https://github.com/rivet-dev/actors",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T10:59:28Z"
+  "distributed_at": "2026-09-25T00:49:22Z"
 }
