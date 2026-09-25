@@ -111,4 +111,4 @@ create stale-cache bugs that only show up on other people's machines.
 
 ---
 > Source: [thought-machine/please](https://github.com/thought-machine/please) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
