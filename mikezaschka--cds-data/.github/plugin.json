@@ -1,0 +1,9 @@
+{
+  "name": "mikezaschka--cds-data",
+  "displayName": "cds-data",
+  "description": "Monorepo containing composable SAP CAP plugins for integrating remote services, moving data between systems, and persisting local aggregate snapshots \u2014 declarative via CDS annotations, with a shared p",
+  "version": "1.0.0",
+  "author": "mikezaschka",
+  "homepage": "https://github.com/mikezaschka/cds-data",
+  "skills": []
+}
