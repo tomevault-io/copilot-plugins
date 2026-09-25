@@ -4,7 +4,7 @@
   "repo": "dsh-TUI",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -83,5 +83,5 @@
   ],
   "source_url": "https://github.com/ccch1mneyyy/dsh-TUI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T11:02:17Z"
+  "distributed_at": "2026-09-25T02:41:56Z"
 }
