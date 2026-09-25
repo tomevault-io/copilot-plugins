@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [RH-RunningHub/MiniMax-H3-MultiGPU-Lightning](https://github.com/RH-RunningHub/MiniMax-H3-MultiGPU-Lightning).
+Original source: `CLAUDE.md` in [RH-RunningHub/MiniMax-H3-MultiGPU-Lightning](https://github.com/RH-RunningHub/MiniMax-H3-MultiGPU-Lightning).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -45,7 +45,7 @@ Original source: `AGENTS.md` in [RH-RunningHub/MiniMax-H3-MultiGPU-Lightning](ht
 - [MiniMax-H3-MultiGPU-Lightning](https://github.com/RH-RunningHub/MiniMax-H3-MultiGPU-Lightning/tree/main/sglang/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-modelopt-quant/SKILL.md)
 - [MiniMax-H3-MultiGPU-Lightning](https://github.com/RH-RunningHub/MiniMax-H3-MultiGPU-Lightning/tree/main/sglang/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md)
 
-From [RH-RunningHub/MiniMax-H3-MultiGPU-Lightning](https://github.com/RH-RunningHub/MiniMax-H3-MultiGPU-Lightning) — a repo with 104+ stars on GitHub.
+From [RH-RunningHub/MiniMax-H3-MultiGPU-Lightning](https://github.com/RH-RunningHub/MiniMax-H3-MultiGPU-Lightning) — a repo with 105+ stars on GitHub.
 
 ---
 
