@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "mosonlab",
   "homepage": "https://github.com/mosonlab/anneal",
-  "skills": []
+  "skills": [
+    {
+      "name": "anneal",
+      "description": ""
+    }
+  ]
 }
