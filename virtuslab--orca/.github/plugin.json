@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "VirtusLab",
   "homepage": "https://github.com/VirtusLab/orca",
-  "skills": []
+  "skills": [
+    {
+      "name": "orca",
+      "description": ""
+    }
+  ]
 }
