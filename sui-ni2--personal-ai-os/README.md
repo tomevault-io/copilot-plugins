@@ -2,8 +2,6 @@
 
 > Tome by [sui-ni2](https://github.com/sui-ni2/personal-ai-os), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-A privacy-first, provider-neutral personal AI workbench with chat, memory, auditable tools, MCP, and isolated project plugins.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [sui-ni2/personal-ai-os](https://github.com/sui-
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [sui-ni2/personal-ai-os](https://github.com/sui-ni2/personal-ai-os) — a repo with 8+ stars on GitHub.
+From [sui-ni2/personal-ai-os](https://github.com/sui-ni2/personal-ai-os) — a repo with 60+ stars on GitHub.
 
 ---
 
