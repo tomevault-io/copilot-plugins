@@ -2,7 +2,7 @@
   "name": "ESAA-Core",
   "owner": "elzobrito",
   "repo": "ESAA-Core",
-  "description": "ESAA combina Event Sourcing, proje\u00e7\u00e3o determin\u00edstica e pol\u00edticas fail-closed para transformar automa\u00e7\u00e3o multiagente em um sistema audit\u00e1vel e previs\u00edvel.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/elzobrito/ESAA-Core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T07:11:00Z"
+  "distributed_at": "2026-09-25T20:48:49Z"
 }
