@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tx7do/go-wind-admin](https://github.com/tx7do/go-wind-admin).
+Original source: `CLAUDE.md` in [tx7do/go-wind-admin](https://github.com/tx7do/go-wind-admin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -23,7 +23,7 @@ Original source: `AGENTS.md` in [tx7do/go-wind-admin](https://github.com/tx7do/g
 - [go-wind-admin](https://github.com/tx7do/go-wind-admin/tree/main/frontend/admin/react/.qoder/skills/go-wind-admin-react-guide/SKILL.md)
 - [go-wind-admin](https://github.com/tx7do/go-wind-admin/tree/main/.zcode/skills/add-crud-module/SKILL.md)
 
-From [tx7do/go-wind-admin](https://github.com/tx7do/go-wind-admin) — a repo with 559+ stars on GitHub.
+From [tx7do/go-wind-admin](https://github.com/tx7do/go-wind-admin) — a repo with 561+ stars on GitHub.
 
 ---
 
