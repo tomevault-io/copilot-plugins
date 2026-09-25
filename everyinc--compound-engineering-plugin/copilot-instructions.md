@@ -1,11 +1,9 @@
 ## compound-engineering-plugin
 
-> Before any push or PR creation, run `node scripts/pre-push-check.mjs`. A focused test is not a substitute. Do not push unless it exits successfully for the exact commit state being published.
+> Read scope is this fixture repository. Do not read other repositories or personal files. Do not implement application code. Native fresh candidate agents are authorized. Do not use rm/rmdir; use trash for cleanup.
 
-# Scoped agent instructions
-
-Before any push or PR creation, run `node scripts/pre-push-check.mjs`. A focused test is not a substitute. Do not push unless it exits successfully for the exact commit state being published.
+Read scope is this fixture repository. Do not read other repositories or personal files. Do not implement application code. Native fresh candidate agents are authorized. Do not use rm/rmdir; use trash for cleanup.
 
 ---
 > Source: [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
