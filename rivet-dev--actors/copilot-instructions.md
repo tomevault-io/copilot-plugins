@@ -136,6 +136,8 @@ docker-compose up -d
 
 ## Dependency Management
 
+- Prefer `RIVET_ENDPOINT` / `endpoint` whenever possible: the URL includes the namespace and token (`https://namespace:token@host`), so avoid configuring them separately.
+
 - Integrations must default to RivetKit's standard behavior and configuration resolution. Do not duplicate Rivet endpoint, namespace, token, pool, local Engine, runtime, or readiness defaults inside an integration; pass configuration through to RivetKit and add integration-specific behavior only when the external protocol requires it.
 
 - Prefer the Tokio-shaped APIs from `antiox` (`antiox/sync/mpsc`, `antiox/task`, etc.) over ad hoc Promise queues, custom channel wrappers, or event-emitter coordination.
@@ -149,6 +151,7 @@ docker-compose up -d
 - The high-level `rivetkit` crate stays a thin typed wrapper over `rivetkit-core` and re-exports shared transport/config types instead of redefining them.
 - When `rivetkit` needs ergonomic helpers on a `rivetkit-core` type it re-exports, prefer an extension trait plus `prelude` re-export instead of wrapping and replacing the core type.
 - RivetKit action and event protocol `args` must always be array-shaped before crossing the client protocol boundary. Normalize at the server/source side, not in client delivery code: named structs/objects become `[object]`, tuples/arrays stay positional, scalars become `[scalar]`, and unit/null becomes `[]`.
+- Keep both issueToken APIs synchronized with Engine’s token/grant types; reuse those types and update both APIs whenever supported resources, operations, or scopes change.
 - `engine/sdks/*/api-*` are auto-generated SDK outputs; update the source API schema and regenerate them instead of editing them by hand.
 
 ### RivetKit Test Fixtures
@@ -415,4 +418,4 @@ Load these only when the task touches the topic.
 
 ---
 > Source: [rivet-dev/actors](https://github.com/rivet-dev/actors) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
