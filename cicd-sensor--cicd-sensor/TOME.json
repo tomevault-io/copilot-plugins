@@ -2,7 +2,7 @@
   "name": "cicd-sensor",
   "owner": "cicd-sensor",
   "repo": "cicd-sensor",
-  "description": "Open-source eBPF runtime security sensor for GitHub Actions and GitLab CI/CD.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cicd-sensor/cicd-sensor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T00:51:02Z"
+  "distributed_at": "2026-09-25T00:08:14Z"
 }
