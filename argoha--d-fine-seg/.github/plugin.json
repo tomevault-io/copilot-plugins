@@ -1,7 +1,7 @@
 {
   "name": "argoha--d-fine-seg",
   "displayName": "D-FINE-seg",
-  "description": "D-FINE-seg Object Detection and Segmentation Framework (Train, Export, Inference)",
+  "description": "D-FINE-seg",
   "version": "1.0.0",
   "author": "ArgoHA",
   "homepage": "https://github.com/ArgoHA/D-FINE-seg",
