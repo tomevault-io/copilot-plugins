@@ -1,0 +1,14 @@
+{
+  "name": "zhiliscope--baiyueguang-learning-skill",
+  "displayName": "baiyueguang-learning-skill",
+  "description": "baiyueguang-learning-skill",
+  "version": "1.0.0",
+  "author": "zhiliscope",
+  "homepage": "https://github.com/zhiliscope/baiyueguang-learning-skill",
+  "skills": [
+    {
+      "name": "baiyueguang-learning-skill",
+      "description": ""
+    }
+  ]
+}
