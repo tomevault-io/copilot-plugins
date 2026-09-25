@@ -1,0 +1,14 @@
+{
+  "name": "rindig--icm-architect",
+  "displayName": "icm-architect",
+  "description": "icm-architect",
+  "version": "1.0.0",
+  "author": "RinDig",
+  "homepage": "https://github.com/RinDig/icm-architect",
+  "skills": [
+    {
+      "name": "icm-architect",
+      "description": ""
+    }
+  ]
+}
