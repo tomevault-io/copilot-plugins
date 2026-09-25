@@ -1,8 +1,6 @@
 # claude-code-blueprint
 
-> Source: [faizkhairi/claude-code-blueprint](https://github.com/faizkhairi/claude-code-blueprint) — distributed by [TomeVault](https://tomevault.io)
-
-A battle-tested, framework-agnostic reference architecture for Claude Code. Beginner-friendly with graduated adoption. 11 agents, 17 skills, 10 hooks, 5 rules -- with reasoning behind every decision.
+> Source: [faizkhairi/claude-code-blueprint](https://github.com/faizkhairi/claude-code-blueprint). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [faizkhairi/claude-code-blueprint](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [faizkhairi/claude-code-blueprint](https://github.com/faizkhairi/claude-code-blueprint) — a repo with 21+ stars on GitHub.
+From [faizkhairi/claude-code-blueprint](https://github.com/faizkhairi/claude-code-blueprint) — a repo with 71+ stars on GitHub.
 
 ---
 
