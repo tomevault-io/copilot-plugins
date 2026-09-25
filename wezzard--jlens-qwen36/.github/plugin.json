@@ -1,0 +1,14 @@
+{
+  "name": "wezzard--jlens-qwen36",
+  "displayName": "jlens-qwen36",
+  "description": "jlens-qwen36",
+  "version": "1.0.0",
+  "author": "WeZZard",
+  "homepage": "https://github.com/WeZZard/jlens-qwen36",
+  "skills": [
+    {
+      "name": "jlens-qwen36",
+      "description": ""
+    }
+  ]
+}
