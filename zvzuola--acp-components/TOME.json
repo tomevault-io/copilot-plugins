@@ -2,9 +2,9 @@
   "name": "acp-components",
   "owner": "zvzuola",
   "repo": "acp-components",
-  "description": "UI component library for the Agent Client Protocol (ACP), providing a complete set of components to build agentic coding interfaces that communicate with AI agents like Claude Code.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zvzuola/acp-components",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T03:04:36Z"
+  "distributed_at": "2026-09-25T14:18:23Z"
 }
