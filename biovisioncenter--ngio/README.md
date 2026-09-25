@@ -1,8 +1,6 @@
 # ngio
 
-> Tome by [BioVisionCenter](https://github.com/BioVisionCenter/ngio) — distributed by [TomeVault](https://tomevault.io)
-
-ngio is a Python library to streamline OME-Zarr image analysis workflows.
+> Tome by [BioVisionCenter](https://github.com/BioVisionCenter/ngio), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
