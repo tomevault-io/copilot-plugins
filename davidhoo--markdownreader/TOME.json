@@ -2,9 +2,9 @@
   "name": "MarkdownReader",
   "owner": "davidhoo",
   "repo": "MarkdownReader",
-  "description": "A native macOS Markdown reader built with SwiftUI + Textual. Three-column layout with file tree, rendered markdown, and outline navigation. 23 built-in themes, i18n, and Git integration.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davidhoo/MarkdownReader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-09T09:30:22Z"
+  "distributed_at": "2026-09-25T14:15:55Z"
 }
