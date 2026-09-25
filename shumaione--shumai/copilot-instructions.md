@@ -18,9 +18,10 @@ Complete the task on that branch.
 
 After finishing the work and verifying that all checks pass:
 
-1. Stage and commit your changes.
-2. Push the branch to `origin`.
-3. Open a pull request using the GitHub CLI.
+1. Update `CHANGELOG.md` under `## [Unreleased]` for user-facing changes (see [Changelog Guidelines](#changelog-guidelines)).
+2. Stage and commit your changes.
+3. Push the branch to `origin`.
+4. Open a pull request using the GitHub CLI.
 
 ```bash
 git add .
@@ -65,6 +66,19 @@ https://www.conventionalcommits.org/en/v1.0.0/#summary
 
 ---
 
+## Changelog Guidelines
+
+We maintain `CHANGELOG.md` following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+Before opening a pull request, add an entry under `## [Unreleased]` for any user-facing changes:
+
+- **End-User Friendly**: Make entries easy to understand for end users. For new features, explain what they actually do in plain language without heavy technical jargon. For bug fixes, describe what the bug was in a friendly, relatable way rather than focusing on internal code mechanics, file paths, or private symbols.
+- **Formatting**: `- **<scope>**: <Description>` (e.g. `- **asset**: Fix an issue where moving a video to trash while it was still transcoding could cause it to lose its trashed status`).
+- **No PR Numbers**: Do not include PR numbers or links; the release pipeline automatically appends the detailed PR list.
+- **Internal Changes**: Routine refactors, test additions, or internal chores without external behavior changes may omit changelog updates.
+
+---
+
 ## Pull Request Template
 
 ```md
@@ -94,7 +108,8 @@ Add any additional context, caveats, or follow-up work.
   - `bun run format`
   - `bun run typecheck`
   - `bun run test`
-  - `bun run test:e2e`
+  - `bun run test:e2e:app`
+  - `bun run test:e2e:webui`
   - `bun run test:e2e:workflow`
 
 - **Backend Testing Mandate**: Every backend feature, service method, workflow, and activity MUST be accompanied by comprehensive tests. Logic-heavy code without corresponding test coverage is considered incomplete.
@@ -286,6 +301,13 @@ describe('Team API', () => {
 - **Mocking**: Mock ONLY AI API calls. Do not mock S3, databases, or media/transcode extraction services.
 - Mock the AI response by spying on `AgentHarness.prototype.prompt`:
 
+### Web App E2E Tests
+
+- Located in `apps/web/e2e/**/*.spec.ts`, organized by domain under `tests/<domain>/` (e.g. `auth`, `project`).
+- Run via `bun run test:e2e:app`.
+- **Fixtures**: Use the `owner`, `project`, and `file` fixtures for setup — they seed data through API calls/DB (no slow UI setup). You can add more fixtures if necessary.
+- **Documentation**: Every test case MUST be documented in [`apps/web/e2e/README.md`](apps/web/e2e/README.md). Add or update the corresponding entry in the README whenever you add, rename, or remove a spec.
+
 ## Prisma Configuration & Migrations
 
 - Schema: `packages/db/prisma/schema.prisma`
@@ -318,7 +340,8 @@ We use `prisma-json-types-generator` to enforce strict type-safety for Prisma `J
 
 - Development: Use `bun --bun run prisma migrate dev` to create and apply migrations during development.
 - Production: Use `bun --bun run prisma migrate deploy` to apply pending migrations in production environments.
-- **No Manual Migration Creation**: Never create migration SQL files or directories manually by hand. Always use Prisma CLI commands (e.g. `bun --bun run prisma migrate dev --create-only` to generate a migration template, or `bun --bun run prisma migrate dev`) so Prisma correctly tracks migration metadata and checksums.
+- **No Manual DDL Creation**: Never hand-write **schema (DDL) migration** files or directories. Always generate them with Prisma CLI (`bun --bun run prisma migrate dev --create-only` to create a template, then edit it if needed, or `bun --bun run prisma migrate dev` to apply) so Prisma correctly tracks migration metadata and checksums.
+- **Data Migrations Are Allowed**: Pure **data migration** SQL (no schema change) may be written by hand, but it MUST live inside a migration generated via `bun --bun run prisma migrate dev --create-only` so it is tracked and applied automatically.
 - **No Automatic Dev DB Reset**: Do not run `prisma migrate reset --force` or commands that force-reset the database automatically. If migrations become out of sync or a reset is required, stop executing, report the situation to the user, and present suggested manual cleanup/reset steps for the user to execute.
 
 ### Commands
@@ -480,4 +503,4 @@ Always use the absolute workspace alias path `@/ui/paraglide/messages.js` (or `r
 
 ---
 > Source: [shumaiOne/shumai](https://github.com/shumaiOne/shumai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
