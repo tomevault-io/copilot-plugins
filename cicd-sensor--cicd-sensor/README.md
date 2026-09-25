@@ -1,8 +1,6 @@
 # AI instruction files for cicd-sensor
 
-> Sourced from [cicd-sensor/cicd-sensor](https://github.com/cicd-sensor/cicd-sensor) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Open-source eBPF runtime security sensor for GitHub Actions and GitLab CI/CD.
+> Sourced from [cicd-sensor/cicd-sensor](https://github.com/cicd-sensor/cicd-sensor), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
