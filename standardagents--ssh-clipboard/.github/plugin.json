@@ -1,0 +1,9 @@
+{
+  "name": "standardagents--ssh-clipboard",
+  "displayName": "ssh-clipboard",
+  "description": "ssh-clipboard",
+  "version": "1.0.0",
+  "author": "standardagents",
+  "homepage": "https://github.com/standardagents/ssh-clipboard",
+  "skills": []
+}
