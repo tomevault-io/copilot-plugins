@@ -2,9 +2,9 @@
   "name": "chat-on-steroids",
   "owner": "totec448-spec",
   "repo": "chat-on-steroids",
-  "description": "Local Windows coding and computer-use bridge for ChatGPT over MCP, limited to folders and capabilities you approve.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/totec448-spec/chat-on-steroids",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-25T11:43:40Z"
+  "distributed_at": "2026-09-25T05:27:52Z"
 }
