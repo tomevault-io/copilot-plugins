@@ -1,114 +1,244 @@
 ## csghub-server
 
-> This repository is a Go project following the **microservice** architecture design. Services including:
+> > This document is intended for **AI Agents** (and developers) who read or analyze this repository. The goal is to help the reader build a mental model as quickly as possible: what this service does, how the code is layered, where each kind of logic lives, and how a request flows through its lifecycle.
 
-# AGENTS Guidelines for This Repository
+# AIGateway Service
 
-This repository is a Go project following the **microservice** architecture design. Services including:
+> This document is intended for **AI Agents** (and developers) who read or analyze this repository. The goal is to help the reader build a mental model as quickly as possible: what this service does, how the code is layered, where each kind of logic lives, and how a request flows through its lifecycle.
 
-- **API**: The API service handles HTTP requests and responses. It is the entry point for external clients to interact with the system.
-- **User**: The User service handles user-related operations, such as user registration, login, and profile management. All requests are proxied to this service from the API service.
-- **Accounting**: The Accounting service handles accounting-related operations, such as recording user token or hardware resource usage, or updating user balances. All requests are proxied to this service from the API service.
-- **Moderation**: The Moderation service handles content moderation operations, such as flagging inappropriate text or images. All requests are proxied to this service from the API service.
-- **DataViewer**: The DataViewer service handles dataset preview operations, such as fetching dataset metadata or previewing dataset files. All requests are proxied to this service from the API service.
-- **Notification**: The Notification service handles sending notifications to users, such as email or push notifications. All requests are proxied to this service from the API service.
-- **Payment**: The Payment service handles payment operations, such as processing payments or refunding payments. All requests are proxied to this service from the API service.
-- **AIGateway**: The AIGateway service handles AI model inference operations, such as running AI models or generating AI outputs. It's another entry point for external clients to interact with the AI models. 
-- **Runner**: The Runner service is a bridge between api service and Kubernetes cluster. It handles deployment of models, spaces.
-- **LogCollector**: The LogCollector service handles collecting logs from Kubernetes cluster. All logs are sent to this service from the Runner service and API service.
+## 1. One-Sentence Summary
 
-# Structure
-Every service follows the layered architecture design: handler -> component -> builder (database, rpc, git, etc.).
+**AIGateway is an OpenAI-compatible (and Anthropic Messages) AI inference gateway**: it exposes a unified `/v1/*` API externally and internally handles "model resolution → protocol routing → reverse proxy to upstream inference services → usage/billing/LLM log/trace collection and accounting." It is the entry point for external clients calling AI models on the CSGHub platform.
 
-- The handler layer handles HTTP requests and responses.
-- The component layer handles business logic and coordinates between different layers.
-- The builder layer handles low-level operations, such as database access, RPC calls, or Git operations.
-- Every golang file should have a corresponding `*_test.go` file for unit tests.
+Service directory: `aigateway/`; entry point: `cmd/csghub-server/cmd/aigateway/launch.go` (start with `go run -tags=saas cmd/csghub-server/main.go aigateway launch --config=common/config/local.toml`).
 
-Folders relative to the root of the repository for each service:
+---
 
-| Service | Folder |
-|---------|--------|
-| API     | api    |
-| User    | user   |
-| Accounting | accounting |
-| Moderation | moderation |
-| DataViewer | dataviewer |
-| Notification | notification |
-| Payment | payment |
-| AIGateway | aigateway |
-| Runner | runner |
-| LogCollector | logcollector |
+## 2. Directory Structure & Responsibilities
 
-## Examples
+The layering follows the repository-wide convention (`handler → component → builder`), but AIGateway has its own extensions.
 
-### Router
+| Directory | Responsibility | Key Files / Types |
+|---|---|---|
+| `router/` | HTTP route registration, middleware wiring | `router/aigateway.go` is the **single** `/v1/*` route table (see §5) |
+| `handler/` | HTTP handler layer: request parsing, protocol adaptation, reverse proxy, response transformation, recording | `handler/openai.go` (main handler, 1100+ lines) |
+| `handler/plan/` | **Three-stage pipeline skeleton** (Extract → Plan → Execute), protocol-agnostic | `interfaces.go`, `orchestrator.go`, `planner.go` |
+| `handler/protocol/` | Protocol route resolver (Native / Adapter / Disabled) | `adapt.go`'s `adapterMatrix` |
+| `handler/anthropic/` | Anthropic Messages API (`/v1/messages`) implementation | `handler.go`, `to_chat_adapter.go`, `to_responses_adapter.go`, `native.go` |
+| `handler/responses/` | Responses API helper sub-package (routing, llmlog normalization, ID mapping, sensitivity handling) | `responses_routing.go`, `responses_id_mapper.go` |
+| `handler/streamdecoder/` | SSE stream decoder | `stream_decoder.go` |
+| `component/` | Business logic layer (model management, usage, sensitivity, LLM logging) | `openai.go` (model resolution), `usage_limiter.go`, `safety_policy.go`, `moderation.go`, `llmlog_*.go` |
+| `component/router/` | Upstream session routing, upstream catalog normalization | `session_router.go`, `upstream_catalog.go` |
+| `component/adapter/` | Multimodal provider adapters (text2image / text2video / audio / ocr) | `*_adapter.go` + provider files in each sub-directory |
+| `component/availability/` | Upstream health check, circuit breaking, state caching | `health_checker.go`, `circuit_breaker.go`, `availability_manager.go` |
+| `component/metrics/` | Request metrics collection (Prometheus / DB sink) | `collector_ee.go`, `sink_ee.go` |
+| `component/trace/` | LLM tracing (Sigil tracer) | `llm_tracer.go`, `sigil.go` |
+| `token/` | Token counting (usage/billing) | `token_counter.go`, `*_token_counter.go`, `tokenizer_*.go` |
+| `task/` | Async generation task (video) polling/billing orchestration | `orchestrator.go`, `metering.go`, `service.go` |
+| `task/processor/` | Async task resource processor interface + implementations (video) | `processor.go`, `video/video.go` |
+| `types/` | Service-internal shared data structures (protocol, request/response, model, trace) | see §4 |
+| `middleware/` | Metrics middleware (EE) | `metrics_ee.go` |
+| `http/response/wrapper/` | Response body wrapper/transformer (image, ocr) | `wrapper/image.go`, `wrapper/ocr.go` |
 
-- `api/router/api.go` is an example of a router that registers HTTP routes and their corresponding handlers for common functionality across services.
-- `accounting/router/api.go` is an example of a router that registers HTTP routes and their corresponding handlers for the Accounting service.
-- `runner/router/api.go` is an example of a router that registers HTTP routes and their corresponding handlers for the runner service.
+### Build Tags (CE / EE / SAAS)
 
-### Handler Layer
+The repository has three build variants, distinguished by **Go build tags**. Files typically end with `_ce.go` / `_ee.go` / `_saas.go` or use `//go:build` annotations:
 
-- `api/handler/space.go` is an example of a handler that deals with space-related HTTP requests.
-- `api/handler/evaluation.go` is an example of a handler that deals with evaluation-related HTTP requests.
+- **CE** (Community Edition): `//go:build !ee && !saas`
+- **EE** (Enterprise Edition): `//go:build ee` (or `ee || saas`)
+- **SAAS**: `//go:build saas`
 
-### Component Layer
+Typical examples:
+- `component/llmlog_capture_ce.go` vs `component/llmlog_capture_ee.go` (LLM training logs only enabled in EE)
+- `component/openai_model_filter_{ce,ee,saas}.go` (model filtering logic differs per variant)
+- `handler/metrics_helpers_{ce,ee}.go`, `middleware/metrics_ee.go` (metrics only compiled in EE/SAAS)
+- `router/api_{ce,ee}.go` (`extendRoutes` extends routes per variant)
+- `handler/mcp_*.go`, `handler/agent_ee.go`, `handler/sandbox_ee.go` etc. (MCP / Agent / Sandbox are EE features)
 
-- `component/space.go` is an example of a component that deals with space-related business logic.
-- `component/evaluation.go` is an example of a component that deals with evaluation-related business logic.
+> **Search tip**: When a feature appears to have "per-variant implementations," search for `_ce/_ee/_saas` variants of the same file name first. Interfaces are typically defined in non-suffixed files, with implementations spread across suffixed files.
 
-### Database Builder Layer
+---
 
-- `builder/store/database/space.go` is an example of a builder that deals with space-related database operations.
+## 3. Core Architecture
 
-### Database Migration
+### 3.1 Three-Stage Pipeline (Standard Pattern for New Protocols)
 
-- `builder/store/database/migrations/20240201061926_create_spaces.go` is an example of a database migration script that creates a space table.
-- use `go run cmd/csghub-server/main.go migration create_go` to generate a go database migration script.
-- use `go run cmd/csghub-server/main.go migration create_sql` to generate a sql database migration script. 
-- never manually create migration scripts; always generate them using the migration generator commands above.
+`handler/plan/` defines a unified three-stage flow: **protocol-agnostic Planner + protocol-specific Handler** combination:
 
-### Space Deploy
+```
+Extract (protocol-specific)  →  Plan (protocol-agnostic)  →  Execute (protocol-specific)
+     │                              │                              │
+ Parse request body,            Resolve model target,           Adapt request → reverse proxy →
+ extract identity               protocol routing, balance/       finalize → record usage/metrics/
+ (MetadataExtractor)            quota/content safety (Planner)   LLM trace/LLM log
+```
 
-- `builder/deploy/deployer.go` create build and deploy task in database, then create temporal workflow to run the task.
-- `api/workflow/activity/deploy_activity.go` impletements temporal activities to run the build and deploy task by call runner api.
-- `runner/handler/imagebuilder.go` implements runner api to trigger image builder process by call image builder component.
-- `runner/component/imagebuilder.go` implements runner component to trigger deploy process by call knative api.
-- `runner/handler/service.go` implements runner api to trigger deploy process by call deploy component.
-- `runner/component/service.go` implements runner component to trigger deploy process by call knative api.
-- `docker/spaces/builder/Dockerfile*` are Dockerfile that builds the space image.
+- **Interface definitions**: `handler/plan/interfaces.go`
+  - `MetadataExtractor.Extract(c) (*types.RequestMetadata, error)`
+  - `Planner.Plan(ctx, meta) (*types.RequestPlan, error)`
+  - `ProtocolHandler.Execute(c, meta, p) error` + `HandlePlanError(...)`
+- **Orchestrator**: `handler/plan/orchestrator.go`'s `Orchestrator.Dispatch()` — only calls the three stages in order, contains no business logic.
+- **Planner implementation**: `handler/plan/planner.go`'s `plannerImpl.Plan()`, steps in order: model resolution → protocol routing → balance check → usage limit → content safety. Each step failure fills `RequestPlan.ErrorCode` for the handler to render the appropriate error.
+- **Dependency injection**: `handler/planner_adapter.go`'s `newPlannerDeps()` adapts `OpenAIHandlerImpl` into the four interfaces the Planner needs (`ModelResolver` / `BalanceChecker` / `UsageLimitChecker` / `ContentSafetyChecker`).
 
-## Code Style & Conventions:
+### 3.2 Two Handler Architectures Coexist
 
-- Each layer's interface should only expose data structures defined within its own layer or common type definitions from the common.types package. For example, interfaces in the Component layer (such as UserComponent) should not return data structures from the underlying database layer (such as database.User structure), as the database layer is considered lower-level than the component layer.
-- Write unit tests for new code.
-- Use struct data types instead of primitive types for function parameters and return values.
-- All variables should be named in camelCase.
-- Variables should be declared at the smallest possible scope under `common/types`.
+The repository currently has **two** handler styles — understanding this prevents misreading:
 
-### Do
+1. **Traditional monolithic handler** (legacy, majority): `handler/openai.go`'s `OpenAIHandlerImpl` directly handles `/v1/chat/completions`, `/v1/responses`, `/v1/embeddings`, `/v1/rerank`, images/audio/video/ocr etc. within a single large struct, with hand-written "parse → validate → proxy → post-process" logic.
+2. **Three-stage pipeline** (new pattern, currently only for `/v1/messages`): `handler/anthropic/`'s `anthropic.Handler` implements `MetadataExtractor` + `ProtocolHandler`, orchestrated by `Orchestrator`.
 
-### Do Not
+The bridge between them: `handler/anthropic_handler.go`'s `AnthropicHandlerImpl` **embeds** `*OpenAIHandlerImpl` to reuse its shared infrastructure (model resolution, balance, quota, sensitivity, metrics, usage, trace, llmlog publishing), then layers on the Anthropic-specific handler + Orchestrator.
 
-## Testing
+> **Agent tip**: When adding a new protocol (e.g. Gemini), follow the `AnthropicHandlerImpl` pattern: embed `OpenAIHandlerImpl` → create protocol-specific handler → use Orchestrator. Currently `/v1/messages` is the only instance of this pattern.
 
-- Don't manually modify generated code files under folder `_mocks`; update mockery config files (`.mockery.yaml`, `.mockery_ee.yaml`, `.mockery_saas.yaml`) and run `make mock_gen GO_TAGS={go.buildTags}` instead.
-- Run `make mock_gen GO_TAGS={go.buildTags}` when adding mocks for new interfaces or refreshing mocks after mocked interfaces change.
-- Use `make test GO_TAGS={go.buildTags}` to run all tests in project.
-- Mock dependencies (e.g., database, RPC clients) using tools like `mockery`.
+### 3.3 Protocol Routing Matrix (Native > Adapter > Reject)
 
-## Tools
+`handler/protocol/adapt.go` defines the "client protocol × upstream protocol → execution mode" matrix:
 
-- Search `Makefile` for running, building, testing, and linting tools.
-- Swagger doc is generated by `swag` tool, and it will be served by handler layer. 
+| Client Protocol \ Upstream Protocol | Chat | Responses | Messages |
+|---|---|---|---|
+| **Chat** | Native | — | — |
+| **Responses** | `responses_to_chat` | Native | — |
+| **Messages** | `messages_to_chat` | `messages_to_responses` | Native |
 
-## Commit & Pull Request Guidelines:
+- `ResolveRouting()` logic: first `DetectUpstreamProtocol()` (priority: explicit metadata declaration → URL path inference → CSGHub-managed default Chat → fallback Chat), then look up the matrix.
+- Three result states: `ModeNative` (protocols match, pass through directly), `ModeAdapter` (select adapter for conversion), `ModeDisabled` (no adapter available, reject with error rather than silently dropping parameters).
+- `AdapterKind` constants (`protocol/adapt.go`): `AdapterMessagesToChat`, `AdapterMessagesToResponses`, `AdapterResponsesToChat`. Unimplemented adapters are commented out as placeholders.
+- Anthropic adapter implementations: `handler/anthropic/to_chat_adapter.go` (Messages→Chat), `handler/anthropic/to_responses_adapter.go` (Messages→Responses), `handler/anthropic/native.go` (Messages native passthrough).
 
-- Each PR must include a clear description of the changes made and their impact, including root cause analysis if applicable, and solution details, and local test result.
+---
 
-## Specific Instructions
+## 4. Key Data Structures (`types/`)
+
+| Type | File | Description |
+|---|---|---|
+| `RequestMetadata` | `request_plan.go` | Output of stage 1: protocol, task, model, tenant/user, APIKey, streaming, headers, `ParsedBody any` |
+| `RequestPlan` | `request_plan.go` | Output of stage 2: `ModelTarget`, `BackendURL`, `RouteMode`, `AdapterKind`, `UpstreamProtocol`, `ErrorCode` |
+| `ModelTarget` | `request_plan.go` | Resolved model target (`Model`, `Upstream`, `Target`, `Host`, `ModelName`) |
+| `Model` | `openai.go` | Model entity (includes `Upstreams`, provider, `RuntimeFramework`, `ImageID`, etc.), has behavior methods like `SkipBalance()` |
+| `Protocol` / `ProtocolCapability` | `protocol.go` | Protocol enum (chat/responses/messages/...) and capability bits (prompt_caching/thinking/vision/tools) |
+| `AnthropicMessagesRequest/Response` | `messages.go` | Anthropic Messages protocol structures (includes `Validate()`, `UnmarshalJSON` handling unknown fields) |
+| `ResponsesRequest/Response` | `responses.go` | OpenAI Responses protocol structures |
+| `ChatCompletionRequest` | `handler/requests.go` | Chat Completions request (in handler package, not types package) |
+| `GenerationStart/Response/Message` | `trace.go` | LLM trace input/output structures |
+| `TokenUsage` | `trace.go` | Token usage structure |
+| `HTTPResponseWriter` | `request_plan.go` | Response writer abstract interface (for adapters to implement) |
+| `AdaptResult` | `request_plan.go` | Execute stage adaptation output: `{Body, Writer}` |
+
+---
+
+## 5. Route → Handler Method → Key File Quick Reference
+
+All routes are registered in `router/aigateway.go`'s `NewRouter()`. Middleware chain: `MustUserOrgApiKey` (auth) + `metricsMw` (metrics, EE) + optional `modalAPIRateLimiter` (rate limiting).
+
+| Route | Handler Method | Implementation File |
+|---|---|---|
+| `GET /v1/models` | `ListModels` | `handler/openai.go` |
+| `GET /v1/models/*model` | `GetModel` | `handler/openai.go` |
+| `POST /v1/chat/completions` | `Chat` | `handler/openai.go` (+ `chat_retry.go`, `chat_metrics.go`, `chat_trace.go`) |
+| `POST /v1/responses` | `Responses` | `handler/openai_responses.go` (+ `openai_responses_native.go`, `openai_responses_adapter.go`) |
+| `POST /v1/messages` | `AnthropicHandlerImpl.Messages` | `handler/anthropic_handler.go` → `handler/anthropic/` |
+| `POST /v1/embeddings` | `Embedding` | `handler/openai.go` (+ `embedding_trace.go`) |
+| `POST /v1/rerank` | `Rerank` | `handler/rerank.go` |
+| `POST /v1/images/generations` | `GenerateImage` | `handler/openai_image.go` |
+| `POST /v1/images/edits` | `EditImage` | `handler/openai_image_edit.go` |
+| `POST /v1/audio/transcriptions` | `Transcription` | `handler/openai_audio.go` |
+| `POST /v1/audio/speech` / `batch` | `Speech` / `SpeechBatch` | `handler/openai_speech.go` |
+| `GET/POST/PUT/DELETE /v1/audio/voices...` | `ListVoices` etc. | `handler/openai_speech_voices.go` |
+| `POST /v1/videos`, `GET /v1/videos/:id...` | `CreateVideo`(Deprecated) etc. | `handler/openai_video.go` |
+| `POST /v1/video/generations` | `CreateVideo` | `handler/openai_video.go` |
+| `POST /v1/ocr` | `OCR` | `handler/openai_ocr.go` |
+| `/v1/mcp/*` | MCP proxy | `handler/mcp_proxy_handler.go` (EE) |
+
+---
+
+## 6. Full Request Lifecycle (using `/v1/messages` as example)
+
+This is the most complete flow; other protocols (chat/responses) are simplified variants:
+
+1. **Routing + Middleware**: `router/aigateway.go` → auth, metrics, rate limiting.
+2. **Extract**: `anthropic.Handler.Extract()` parses the Anthropic request body, producing `RequestMetadata` (`handler/anthropic/handler.go`).
+3. **Plan**: `plannerImpl.Plan()` executes in order:
+   - Model resolution `ResolveModelTarget` → `handler/model_target.go` (underlying `component/openai.go`)
+   - Protocol routing `protocol.ResolveRouting` → `handler/protocol/adapt.go`
+   - Balance `CheckBalance`, usage `CheckUsageLimit`, content safety `Check` (`component/`)
+4. **Execute**: `anthropic.Handler.Execute()` (`handler/anthropic/handler.go`):
+   - Start LLM trace (`startMessagesTrace`)
+   - Create LLM log recorder (`createLogCapture`)
+   - Adapt request: `adapt()` dispatches to `adaptNative` / `adaptToChat` / `adaptToResponses` based on `RouteMode`
+   - Set request body → apply auth headers → set SSE headers → reverse proxy `ServeProxy`
+   - Finalize response writer → extract usage → sync record token metrics
+   - Async post-processing `runPostProcessAsync`: LLM trace finalization, commit usage limit, billing, publish LLM training log
+5. **Error path**: Plan stage failure → `HandlePlanError()` renders protocol-specific error response based on `ErrorCode` (`handler/anthropic/handler.go`).
+
+---
+
+## 7. Code Location Index by Concern
+
+> This is a quick reference for "where to find a particular type of logic."
+
+| Concern | Entry File | Notes |
+|---|---|---|
+| **Model resolution / target selection** | `handler/model_target.go` | `resolveModelTarget` → `resolvedModelTarget`; includes upstream selection, auth headers, tokenizer target |
+| **Model listing / CRUD / availability** | `component/openai.go` | `OpenAIComponent` interface; `GetAvailableModels` / `ListModels` / `GetModelByID` |
+| **Model filtering (per variant)** | `component/openai_model_filter_{ce,ee,saas}.go` | Differentiated by build tag |
+| **Balance check / billing** | `component/openai.go` | `CheckBalance`, `RecordUsageFromTokenUsage`, `BuildUsageMeteringEvent` |
+| **Usage limit (quota)** | `component/usage_limiter.go` | `UsageLimiter`, `IsUsageLimitExceeded` |
+| **Content safety / sensitive words** | `component/safety_policy.go`, `component/moderation.go` | `SensitivePolicy`, `Moderation` (streaming/sync checks) |
+| **Token counting (usage/billing)** | `token/` | `CounterFactory` → `*_token_counter.go`; underlying `tokenizer_*.go` (tiktoken/vllm/sglang/tgi/tei/llamacpp) |
+| **LLM training log capture** | `component/llmlog_capture{,_ce,_ee}.go` | `LLMLogRecorder`; normalization in `handler/responses/responses_llmlog_normalize.go` |
+| **LLM training log publishing** | `component/llmlog_publisher{,_ce,_ee}.go` | `LLMLogPublisher.PublishTrainingLog` |
+| **LLM tracing (trace)** | `component/trace/` + `handler/*_trace.go` | `SigilTracer`; `llmlog_to_trace.go` converts logs → traces |
+| **Upstream health / circuit breaking / session routing** | `component/availability/`, `component/router/session_router.go` | Health check, circuit breaker, `SessionRouter` (consistent-hash routing to multiple upstreams) |
+| **Async generation tasks (video)** | `task/` + `task/processor/` | `AsyncGenerationService` polls pending tasks → refreshes status → bills |
+| **Multimodal provider adaptation** | `component/adapter/{text2image,text2video,audio,ocr}/` | Each sub-package has a `Registry` + multiple provider implementations |
+| **SSE stream decoding** | `handler/streamdecoder/stream_decoder.go` | Generic SSE event parsing |
+| **Response transformation writer** | `handler/response_writer_wrapper*.go`, `http/response/wrapper/` | Non-streaming/streaming/embedding/rerank/speech/audio response wrappers |
+| **Metrics collection** | `component/metrics/`, `middleware/metrics_ee.go`, `handler/chat_metrics.go` | Request lifecycle metrics (EE/SAAS) |
+| **MCP gateway** | `handler/mcp*.go`, `component/mcp_*.go` | EE only |
+
+---
+
+## 8. Coding Conventions (inherited from root `AGENTS.md`, AIGateway specifics)
+
+- **Layering**: handler → component → builder. Interfaces should not return lower-layer structures across layers (component layer interfaces should not return `database.*` structures).
+- **Interfaces + dependency injection**: `component` layer extensively uses interfaces (`OpenAIComponent`, `SensitivePolicy`, `UsageLimiter`, etc.), handler injects via constructors.
+- **Build tags**: Per-variant features use `_ce/_ee/_saas` suffix + `//go:build` tags; interface definitions in non-suffixed files.
+- **Testing**: Every `.go` has a corresponding `_test.go`; mocks are generated with mockery, **do not hand-edit `_mocks/`** — update `.mockery*.yaml` then run `make mock_gen GO_TAGS={go.buildTags}`.
+- **Error codes**: `handler/plan/planner.go`'s `categorizePlanError` classifies errors into `PlanErrorCategory` (`types/request_plan.go`), handler selects HTTP status code accordingly; `unsupportedFeature` errors use `unsupported_feature:` prefix for `extractUnsupportedCapabilities` to identify.
+
+---
+
+## 9. Build / Test Commands
+
+```bash
+# Run all tests (mind the build tags)
+make test GO_TAGS={go.buildTags}
+
+# Generate mocks
+make mock_gen GO_TAGS={go.buildTags}
+
+# Build only aigateway-related packages
+go build ./aigateway/...
+
+# Unit test a specific package
+go test ./aigateway/handler/anthropic/... ./aigateway/types/...
+
+# Start the service
+go run -tags=saas cmd/csghub-server/main.go aigateway launch --config=common/config/local.toml
+```
+---
+
+## 10. Quick Mental Model (TL;DR)
+
+1. **Entry**: `router/aigateway.go`'s `NewRouter()` is the single route table.
+2. **Main handler**: `handler/openai.go`'s `OpenAIHandlerImpl` (traditional monolith) + `handler/anthropic/` (new three-stage pipeline, embeds the former via `handler/anthropic_handler.go` to reuse infrastructure).
+3. **Core abstractions**: Three-stage `Extract → Plan → Execute` (`handler/plan/`) + protocol routing matrix (`handler/protocol/adapt.go`).
+4. **Business logic**: All in `component/` (models, balance, quota, sensitivity, logging, tracing, availability).
+5. **Billing/usage**: `token/` counting → `component` billing.
+6. **Variant differences**: `_ce/_ee/_saas` suffix + build tag differentiation.
 
 ---
 > Source: [OpenCSGs/csghub-server](https://github.com/OpenCSGs/csghub-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
