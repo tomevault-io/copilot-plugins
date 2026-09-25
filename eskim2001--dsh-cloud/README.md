@@ -2,8 +2,6 @@
 
 > Source: [eskim2001/dsh-cloud](https://github.com/eskim2001/dsh-cloud). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-dshcloud：部署并托管 DeepSeek Harness (dsh) 实例的多租户平台，支持自托管或云端部署。Deploy and host DeepSeek Harness (dsh) instances — self-hosted on your own server or cloud-hosted: a multi-tenant platform with isolated Docker containers, persistent workspaces and resource quotas.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [eskim2001/dsh-cloud](https://github.com/eskim20
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [eskim2001/dsh-cloud](https://github.com/eskim2001/dsh-cloud) — a repo with 27+ stars on GitHub.
+From [eskim2001/dsh-cloud](https://github.com/eskim2001/dsh-cloud) — a repo with 85+ stars on GitHub.
 
 ---
 
