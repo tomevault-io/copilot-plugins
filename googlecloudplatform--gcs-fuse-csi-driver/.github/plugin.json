@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--gcs-fuse-csi-driver",
+  "displayName": "gcs-fuse-csi-driver",
+  "description": "gcs-fuse-csi-driver",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/gcs-fuse-csi-driver",
+  "skills": []
+}
