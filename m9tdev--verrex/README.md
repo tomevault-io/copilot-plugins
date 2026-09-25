@@ -2,8 +2,6 @@
 
 > Source: [m9tdev/verrex](https://github.com/m9tdev/verrex). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-an Effect-native UI framework where E/R channels survive to compile-time — forget a service Layer and it's a compile error that names it
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
