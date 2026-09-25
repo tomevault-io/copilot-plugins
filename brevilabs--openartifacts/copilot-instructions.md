@@ -1,30 +1,155 @@
 ## openartifacts
 
-> Read [CLAUDE.md](CLAUDE.md) for development commands and product constraints.
+> Push a local md/html file, get a public HTML page on the internet. v0 scope: HTML
 
-# Repository instructions
+# OpenArtifacts
 
-Read [CLAUDE.md](CLAUDE.md) for development commands and product constraints.
+Push a local md/html file, get a public HTML page on the internet. v0 scope: HTML
+upload → public page, upload API private and programmatic (Obsidian Copilot only).
 
-## npm releases
+## Development
 
-OpenArtifacts npm releases occur only when a PR titled exactly `vX.Y.Z` is merged
-into `main`. The title version must match `packages/openartifacts/package.json`
-and its `packages/openartifacts` entry in `package-lock.json`.
+```bash
+npm install
+npm run dev        # wrangler dev
+npm run typecheck
+npm test
+npm run deploy     # wrangler deploy
+```
 
-CLI releases are patch-only: keep the major and minor versions unchanged and
-increment the patch by exactly one (for example, `0.2.2` → `0.2.3`). Do not
-skip patches, downgrade, or prepare minor or major releases. PR checks compare
-against the base branch; publication checks against npm’s current `latest`.
+`docs/development.md` carries the details these commands need — including the
+license-server workaround a local push needs — and `docs/deploying.md` has the
+provisioning sequence a first deploy requires. `docs/hosting.md` explains the
+Cloudflare model itself. `scripts/smoke.sh` checks a *deployed* worker end to end and is run by
+hand — it needs a real license key, so it is deliberately not in CI.
 
-A version bump in a descriptively titled PR does not publish. When preparing a
-release, verify all three match before handing off the PR. Do not merge or publish
-without user authorization.
+Tests run inside workerd against real R2 and D1 (Miniflare), never against test
+doubles for them. A binding double asserts our idea of Cloudflare rather than
+Cloudflare, so the only ones in the suite are deliberately broken bindings used
+to test failure paths.
 
-The authoritative release implementation is
-[release-openartifacts.yml](.github/workflows/release-openartifacts.yml).
-CI checks version-bump PRs before merge and reruns when a PR title is edited.
+## The HTTP contract is frozen
+
+`docs/http-api.md` is the contract Obsidian Copilot is written against, and it
+is the source of truth — not this repo's source. Nothing in it changes
+without a client release: not a status code, not an error `code`, not a field
+name. Adding to it is fine; changing what is there is a cross-repo decision.
+
+Two conventions in it are security properties rather than style, and both are
+easy to undo by accident:
+
+- **404, never 403.** A doc belonging to another publisher must be
+  indistinguishable from one that never existed, on every endpoint.
+- **404 vs 410.** A deleted doc keeps its D1 row forever so its url answers 410.
+  Delete destroys the R2 objects; it must never delete the row.
+
+## Product context
+
+`docs/positioning.md` and `docs/cost-at-scale.md` are the source of truth for what
+this product is and how it is allowed to be built. Read them before designing
+anything non-trivial — especially §6 of the cost doc (architecture) and the wedge
+in the positioning doc.
+
+## Non-negotiable design constraints
+
+These are day-one decisions, not retrofits:
+
+- User content is served from a **sacrificial domain** (`openartifacts.site`),
+  separate from the brand domain. Reputation damage must not land on
+  `openartifacts.ai`. `docs/serving-domain.md` is why, and why a subdomain does not
+  substitute. There is no migration path once links are in the wild.
+- Shared docs are **`noindex` + `nofollow` by default**.
+- **Publisher-gated, reader-open**: publishing requires a key; reading requires
+  nothing.
+- **Documents belong to an account, not to the credential that published them.**
+  `docs.owner` is an app-sites `User.id`, and it is always *derived* — from a
+  validated license key, later from a signed session — and **never accepted as
+  input**. An endpoint that took an owner id as a parameter would turn every id
+  into a password, and would not look like a security change when written.
+  `docs/identity.md` is the whole model.
+- **R2 is the system of record**, and the stored format is HTML. D1 holds pointer
+  rows only — never content — and must be rebuildable by scanning R2 manifests.
+  **This does not hold yet — see below. Do not rely on it.**
+- Every push mints an **immutable version** served with `cache-control: immutable`.
+  R2 stores the publisher's own bytes; OpenArtifacts' additions (the robots meta,
+  the favicon, the social card and the two bylines) are injected on the way out by
+  `renderServedHtml`, so a byline change — or a plan that removes one — reaches
+  documents already published.
+  Nothing else is composed per read: the additions are a pure function of the
+  stored version, so the page stays cacheable.
+- **No per-MAU or per-seat priced dependency** anywhere in the serving path.
+- Quotas and per-key rate limits ship with the feature they protect, not later.
+
+## Owed before there is much data
+
+**D1 is currently the only record of who owns a doc, what it is called, and
+whether it was deleted.** R2 holds `docs/{id}/v{n}.html` and nothing else, so the
+rebuildability the constraint above claims is not true today:
+
+- publisher, title and timestamps exist only in D1;
+- a deleted doc leaves an empty R2 prefix, so a rebuild could not tell a
+  withdrawn url from one that never existed, and it would answer 404 where it
+  promised 410.
+
+The fix is the per-doc `manifest.json` from `docs/cost-at-scale.md` §6: written
+after each push as a snapshot of the doc's D1 state, and left behind as a
+tombstone on delete rather than swept with the version objects. Snapshot it, do
+not read-modify-write it.
+
+**Not a deploy blocker.** Backfilling manifests needs the D1 they insure
+against, which sounds urgent but isn't while a rebuild would be a handful of
+rows — and D1 has a 30-day Time Travel window underneath. Do it well before
+there is enough data that reconstructing it by hand would hurt. Until then,
+treat D1 as a system of record, not as a cache.
+
+## Owed now that the serving domain has landed
+
+Before the cutover, the serving split uses the old hosts: documents on
+`symposium.site`, the API on `api.symposium.md`. The cutover makes
+`openartifacts.site` and `api.openartifacts.ai` canonical while retaining the
+old document host as a GET/HEAD redirect. The old API custom domain remains
+attached but every method and path returns `410 Gone` before authentication.
+`workers_dev` stays `false` — an unconfigured router would otherwise
+serve `/d/*` on a `workers.dev` hostname, and that domain is on the Public
+Suffix List, so a listing against it would take every Worker on the account's
+subdomain. Two things came due the moment user content moved to a real serving
+domain, and both are easy to miss because nothing fails loudly without them:
+
+- **Caching needs a Cache Rule, not just a domain.** Cloudflare does not cache
+  HTML by default — eligibility is decided by file extension, not MIME type and
+  not the `Cache-Control` the worker sends, and `/d/{docId}` has no extension.
+  Without an explicit Cache Rule on the serving zone (or the Cache API inside the
+  worker), attaching a domain changes nothing and every read still hits D1 and R2.
+- **Then delete must purge that cache.** Pinned `/v{n}` urls are served
+  `immutable` for a year, so the moment there is an edge cache, an unshared doc
+  would keep being served from it. Wire a purge into `deleteDoc` in the same
+  change that turns caching on — the two belong together, and shipping the first
+  without the second is how a withdrawn doc stays readable. The private-cache
+  copies readers already hold are unrecallable by any design, and the README says
+  so.
+All four canonical, legacy, and retired host vars are set in `wrangler.jsonc`,
+which makes the router resolve by an explicit host allowlist and fail closed on
+everything else. Leave them set together. Path-prefix fallback exists only for
+local development when every host var is empty.
+
+The first four-domain cutover is one production deployment. Record that Worker
+version id as the hard rollback floor. Never roll back below it while either new
+domain or `api.symposium.md` remains attached: older versions route unknown
+hosts by path and make the retired API live again. A pre-floor emergency
+rollback first detaches those three domains and accepts an API outage; see
+`docs/deploying.md`.
+
+## Git hygiene
+
+Stage explicit paths (`git add src/foo.ts`), never `git add -A` / `git add .`.
+Before committing, review the staged set with `git status` **and**
+`git diff --cached`, plus `git status --porcelain --untracked-files=all` to catch
+untracked files.
+
+All changes ship through a pull request. Never push directly to `main`.
+
+For npm release preparation, follow the [release rules in AGENTS.md](AGENTS.md#npm-releases).
 
 ---
 > Source: [Brevilabs/OpenArtifacts](https://github.com/Brevilabs/OpenArtifacts) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
