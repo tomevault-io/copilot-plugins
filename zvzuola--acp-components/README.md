@@ -1,17 +1,15 @@
 # acp-components
 
-> Source: [zvzuola/acp-components](https://github.com/zvzuola/acp-components) — distributed by [TomeVault](https://tomevault.io)
-
-UI component library for the Agent Client Protocol (ACP), providing a complete set of components to build agentic coding interfaces that communicate with AI agents like Claude Code.
+> Source: [zvzuola/acp-components](https://github.com/zvzuola/acp-components). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [zvzuola/acp-components](https://github.com/zvzuola/acp-components).
+Original source: `AGENTS.md` in [zvzuola/acp-components](https://github.com/zvzuola/acp-components).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
