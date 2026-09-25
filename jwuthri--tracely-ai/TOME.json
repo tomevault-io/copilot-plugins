@@ -1,0 +1,303 @@
+{
+  "name": "Tracely-ai",
+  "owner": "Jwuthri",
+  "repo": "Tracely-ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-observability-langchain-python",
+      "path": ".claude/skills/ai-observability-langchain-python/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/ai-observability-langchain-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": "skills/tracely/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/skills/tracely/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/gsap/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/gsap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/cast/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/cast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/paint/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/paint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/deslop/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/deslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/gsap-core/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/gsap-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/seo-coach/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/seo-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/seo-audit/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/seo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/papercuts/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/papercuts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/gsap-utils/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/gsap-utils/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/css-native/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/css-native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/gsap-react/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/gsap-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/threejs-r3f/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/threejs-r3f/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/gsap-plugins/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/gsap-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/design-audit/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/design-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/motion-design/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/motion-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/framer-motion/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/framer-motion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/gsap-timeline/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/gsap-timeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/compose-motion/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/compose-motion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/swiftui-motion/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/swiftui-motion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/gsap-frameworks/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/gsap-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/compose-graphics/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/compose-graphics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/swiftui-graphics/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/swiftui-graphics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/gsap-performance/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/gsap-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/link-prospecting/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/link-prospecting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/keyword-research/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/keyword-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/canvas-generative/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/canvas-generative/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/motion-principles/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/motion-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/seo-project-setup/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/seo-project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/mobile-principles/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/mobile-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/gsap-scrolltrigger/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/gsap-scrolltrigger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/desktop-principles/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/desktop-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/keyword-clustering/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/keyword-clustering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/competitor-analysis/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/competitor-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".agents/skills/compose-multiplatform/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.agents/skills/compose-multiplatform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/competitive-landscape/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/competitive-landscape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/openseo-release-notes/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/openseo-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/maintain-greptile-rules/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/maintain-greptile-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/simple-issue-description/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/simple-issue-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tracely-ai",
+      "path": ".claude/skills/openseo-review-web-content/SKILL.md",
+      "github_url": "https://github.com/Jwuthri/Tracely-ai/tree/main/.claude/skills/openseo-review-web-content/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Jwuthri/Tracely-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T02:37:51Z"
+}
