@@ -1,0 +1,14 @@
+{
+  "name": "smartsunruiyang--agent-development-specification",
+  "displayName": "Agent-development-specification",
+  "description": "Agent-development-specification",
+  "version": "1.0.0",
+  "author": "SmartSunruiyang",
+  "homepage": "https://github.com/SmartSunruiyang/Agent-development-specification",
+  "skills": [
+    {
+      "name": "Agent-development-specification",
+      "description": ""
+    }
+  ]
+}
