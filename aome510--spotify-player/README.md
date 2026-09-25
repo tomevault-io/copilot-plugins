@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [aome510/spotify-player](https://github.com/aome510/spotify-player).
+Original source: `AGENTS.md` in [aome510/spotify-player](https://github.com/aome510/spotify-player).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [aome510/spotify-player](https://github.com/aome510/spotify-player) — a repo with 6994+ stars on GitHub.
+From [aome510/spotify-player](https://github.com/aome510/spotify-player) — a repo with 7234+ stars on GitHub.
 
 ---
 
