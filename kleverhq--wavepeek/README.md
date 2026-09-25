@@ -1,8 +1,6 @@
 # wavepeek
 
-> Tome by [kleverhq](https://github.com/kleverhq/wavepeek) — distributed by [TomeVault](https://tomevault.io)
-
-🌊 Tool for RTL waveform (VCD/FST) inspection via CLI
+> Tome by [kleverhq](https://github.com/kleverhq/wavepeek), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [kleverhq/wavepeek](https://github.com/kleverhq/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [kleverhq/wavepeek](https://github.com/kleverhq/wavepeek) — a repo with 27+ stars on GitHub.
+From [kleverhq/wavepeek](https://github.com/kleverhq/wavepeek) — a repo with 64+ stars on GitHub.
 
 ---
 
