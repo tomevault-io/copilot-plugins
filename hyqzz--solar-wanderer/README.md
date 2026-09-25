@@ -1,23 +1,21 @@
 # Solar-Wanderer
 
-> Source: [hyqzz/Solar-Wanderer](https://github.com/hyqzz/Solar-Wanderer) — distributed by [TomeVault](https://tomevault.io)
-
-Solar Wanderer / 遨游太阳系 - 1:1 Real-Time Solar System Explorer in the Browser. NASA JPL ephemeris, WebGL2, Three.js. From solar surface to 100,000 AU Oort Cloud.
+> Source: [hyqzz/Solar-Wanderer](https://github.com/hyqzz/Solar-Wanderer). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hyqzz/Solar-Wanderer](https://github.com/hyqzz/Solar-Wanderer).
+Original source: `AGENTS.md` in [hyqzz/Solar-Wanderer](https://github.com/hyqzz/Solar-Wanderer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/hyqzz/Solar-Wanderer](https://github.com/hyqzz/Solar-Wanderer)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/hyqzz/Solar-Wanderer](https://github.com/hyqzz/Solar-Wanderer)
 
 ---
 
