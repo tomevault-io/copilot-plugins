@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rednote-machine-learning/RedKnot](https://github.com/rednote-machine-learning/RedKnot).
+Original source: `CLAUDE.md` in [rednote-machine-learning/RedKnot](https://github.com/rednote-machine-learning/RedKnot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -23,7 +23,7 @@ Original source: `AGENTS.md` in [rednote-machine-learning/RedKnot](https://githu
 - [RedKnot](https://github.com/rednote-machine-learning/RedKnot/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-ako4all-kernel/SKILL.md)
 - [RedKnot](https://github.com/rednote-machine-learning/RedKnot/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md)
 
-From [rednote-machine-learning/RedKnot](https://github.com/rednote-machine-learning/RedKnot) — a repo with 2773+ stars on GitHub.
+From [rednote-machine-learning/RedKnot](https://github.com/rednote-machine-learning/RedKnot) — a repo with 2817+ stars on GitHub.
 
 ---
 
