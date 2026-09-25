@@ -1,8 +1,6 @@
 # claudefiles
 
-> Tome by [koolamusic](https://github.com/koolamusic/claudefiles) — distributed by [TomeVault](https://tomevault.io)
-
-A minimal catalog of my favourite skills for working with claude
+> Tome by [koolamusic](https://github.com/koolamusic/claudefiles), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -16,14 +14,6 @@ Original source: `CLAUDE.md` in [koolamusic/claudefiles](https://github.com/kool
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-## Bundled Skills (5)
-
-- [agent-browser](https://github.com/koolamusic/claudefiles/tree/main/skills/agent-browser)
-- [breadboarding](https://github.com/koolamusic/claudefiles/tree/main/skills/breadboarding)
-- [golang-best-practices](https://github.com/koolamusic/claudefiles/tree/main/skills/golang-best-practices)
-- [nestjs-best-practices](https://github.com/koolamusic/claudefiles/tree/main/skills/nestjs-best-practices)
-- [skill-creator](https://github.com/koolamusic/claudefiles/tree/main/skills/skill-creator)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/koolamusic/claudefiles](https://github.com/koolamusic/claudefiles)
 
