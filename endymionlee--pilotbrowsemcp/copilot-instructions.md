@@ -1,57 +1,43 @@
 ## pilotbrowsemcp
 
-> "this site" → check `browser_mcp_browser_list_tabs`, not project files. No tabs → ask.
+> **Before operating or exploring any website, check `website-manuals/` for an existing manual.**
 
 # Project Instructions
 
-## Browser First
-
-"this site" → check `browser_mcp_browser_list_tabs`, not project files. No tabs → ask.
-
 ## Manual First
 
-**Before operating a known website, check `website-manuals/<site>/` for an existing manual.**
+**Before operating or exploring any website, check `website-manuals/` for an existing manual.**
 
-- **Has manual** --> Read root `README.md` first, then load specific files as needed
-- **No manual** --> Run the exploration process, then save to `website-manuals/`
+- **Has manual** --> **Read `README.md`** first, then check specific files as needed
+- **No manual** --> Run the full exploration process
 
-## Directory Structure
+Avoid re-scanning pages every time, saving tokens and time.
+
+## Manual Directory Structure
 
 ```
 website-manuals/<site>/
-  README.md              # Root index
-  pages/                 # Page elements (flat)
-  navigation/            # Navigation paths (flat)
-  workflows/
-    README.md            # Workflow index
-    flows/               # Workflow JSON files
-  apis/
-    README.md            # API index (browse first)
-    endpoints/           # API JSON files
+├── README.md         # Manual overview (must read)
+├── meta.json         # Site basic info
+├── pages/            # Page interaction selectors
+├── navigation/       # Navigation paths
+└── workflows/        # Operation workflows
 ```
 
-### How to Use
+### Usage
 
-1. **Read root README.md** -- understand what's available
-2. **Find elements** -- load specific `pages/<page>.json`
-3. **Navigate** -- load `navigation/<from>-to-<to>.json`
-4. **Use APIs** -- read `apis/README.md` for available APIs, then load `apis/endpoints/<name>.json`
-
-## Execution Priority
-
-1. **API first** -- use `browser_network_replay` when API is available
-2. **Browser fallback** -- execute workflow steps (click/type) when API fails
-3. **Re-discover** -- if both fail, re-explore and update the manual
-
-API and workflow are implementations of the same capability. When API works, it's faster and cheaper. When it doesn't, fall back to the browser workflow.
+1. **Read README.md** -- understand pages, navigation, and workflows available
+2. **Find elements** -- check `pages/<page>.json` for selectors
+3. **Navigate** -- check `navigation/` for step-by-step navigation
+4. **Execute workflows** -- follow `steps` in `workflows/<name>.json`
 
 ## User Recordings
 
-Recordings and marks are auto-saved from the popup. When the user says "done", "check it", or similar:
+When the user says "sent you", "check it", or similar, call these tools to view data sent from the popup:
 
-- `workflow_list_elements` -- view marked elements
-- `workflow_list_recordings` -- view recorded workflows
+- `workflow.list_elements` -- view elements marked by the user
+- `workflow.list_recordings` -- view operation workflows recorded by the user
 
 ---
 > Source: [EndymionLee/PilotBrowseMCP](https://github.com/EndymionLee/PilotBrowseMCP) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
