@@ -1,8 +1,6 @@
 # avibe
 
-> Tome by [avibe-bot](https://github.com/avibe-bot/avibe) — distributed by [TomeVault](https://tomevault.io)
-
-The local-first Agent OS — your AI partner lives on your own machine. Drive the official Claude Code, Codex & OpenCode from your browser or any chat app.
+> Tome by [avibe-bot](https://github.com/avibe-bot/avibe), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [avibe-bot/avibe](https://github.com/avibe-bot/a
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [avibe-bot/avibe](https://github.com/avibe-bot/avibe) — a repo with 478+ stars on GitHub.
+From [avibe-bot/avibe](https://github.com/avibe-bot/avibe) — a repo with 506+ stars on GitHub.
 
 ---
 
