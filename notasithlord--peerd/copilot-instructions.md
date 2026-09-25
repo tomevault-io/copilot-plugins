@@ -1,10 +1,10 @@
 ## peerd
 
-> > Persistent project context for Claude Code. Read this first on every
+> > Persistent project context for Codex. Read this first on every
 
-# CLAUDE.md — peerd
+# AGENTS.md — peerd
 
-> Persistent project context for Claude Code. Read this first on every
+> Persistent project context for Codex. Read this first on every
 > session. Equivalent to OpenCode's `AGENTS.md` pattern.
 
 ---
@@ -19,8 +19,8 @@ WebAssembly. No backend, no telemetry, no account.
 
 peerd is **0.x — experimental beta** (breaking changes likely; no "V1"
 commitment — versions stay 0.x until the surface stabilizes). The
-initial feature buildout is complete and integrated (see `STATUS.md`);
-current work is store-readiness polish and field hardening. Stack:
+initial feature buildout is complete and integrated; current work is
+store-readiness polish and field hardening. Stack:
 Manifest V3, Chrome and Firefox (via `webextension-polyfill`), vanilla
 JS, **no
 build step**.
@@ -33,68 +33,77 @@ Each maps to one letter and color in the brand wordmark:
 
 | Letter | Color | Module | Role |
 |---|---|---|---|
-| `p` | cyan    | `peerd-provider/`     | Model adapters (Anthropic + OpenRouter + Ollama shipped; OpenAI later; local WebGPU deferred — `docs/LOCAL-INFERENCE.md`) |
+| `p` | cyan    | `peerd-provider/`     | Model adapters (Anthropic, OpenRouter, OpenAI, Z.ai GLM keyed; Ollama and the on-device WebGPU runner keyless - `registry.js` is the live list) |
 | `e` | red     | `peerd-egress/`       | Security: vault, allowlist (`safeFetch`), denylist, audit |
-| `e` | amber   | `peerd-engine/`       | Execution instances — Sandboxes. Three kinds run in their own visible tab: WebVMs (CheerpX Linux), Notebooks (sealed JS worker + OPFS), Apps (opaque-origin iframe). A fourth, the **headless worker** (`js_run`), runs the Notebook's sealed worker offscreen with no tab — the agent's own quick compute. The sandbox is the isolate; a tab is one way to host it (DECISIONS #25; full taxonomy in DESIGN.md §8.5). |
-| `r` | green   | `peerd-runtime/`      | Agent loop, tools + do/get/check runner, sessions, profiles, skills, memory, permissions (Plan/Act), review, goal mode (autonomous loop), composer, cost, transfer, voice, clock, web tool policy |
-| `d` | magenta | `peerd-distributed/` | The dweb. An always-on P2P base network (offscreen mesh + DHT + gossip), did:key identity, signed content addressing, the dwapp bridge, and a peer-to-peer app store that **users AND the agent** build, share, and run dwapps on. Preview channel only |
+| `e` | amber   | `peerd-engine/`       | Execution instances - Sandboxes. FOUR kinds run in their own visible tab: WebVMs (CheerpX Linux), Notebooks (sealed JS worker + OPFS), Pods, Apps (opaque-origin iframe). A fifth, the **headless worker** (`script`), runs the Notebook's sealed worker offscreen with no tab - the agent's own quick compute, and the only kind with no registry because it persists no instances. Also here: browser-native Git (`repository/`, exported from `index.js`). The sandbox is the isolate; a tab is one way to host it (taxonomy in `registry-factory.js`). |
+| `r` | green   | `peerd-runtime/`      | Agent loop, tools + per-environment actors (`message_actor`), sessions, profiles, skills, memory, permissions (Plan/Act), goal mode (autonomous loop), composer, cost, transfer, voice, clock, web tool policy |
+| `d` | magenta | `peerd-distributed/` | The dweb. An always-on P2P base network (offscreen mesh + DHT + gossip), did:key identity, signed content addressing, the dwapp bridge, and a peer-to-peer app store that **users AND the agent** build, share, and run dwapps on. Chrome preview only until Firefox has a mesh host. |
 
 The extension *chassis* lives outside these modules: `background/`,
-`offscreen/`, `sidepanel/`, `vm-tab/`, `notebook-tab/`, `app-tab/`,
+`offscreen/`, `sidepanel/`, `home/`, `options/`, `engine-tabs/`,
 `permissions/`, `eval/`, `shared/`, `tests/`, `vendor/`, `icons/`. Each
-`peerd-engine` execution kind owns a dedicated tab page under its
-`*-tab/` directory; `permissions/` hosts user-gesture surfaces such as
+tab-hosted `peerd-engine` execution kind owns a dedicated page under
+`engine-tabs/` (`vm-tab/`, `notebook-tab/`, `pod-tab/`, `app-tab/`) - grouped so the
+four engine host surfaces sit together; `permissions/` hosts user-gesture surfaces such as
 the mic-permission grant page; `eval/` is the live end-to-end eval
-harness. (There is no `content/` directory — DOM work happens via
+harness. (There is no `content/` directory - DOM work happens via
 injected functions, not a persistent content script.) Outside
 `extension/`, the repo also carries `signaling-node/` (the dweb
 rendezvous server shells sharing the pure signaling reducer). The
 peerd.ai site lives in its own repo now (`NotASithLord/peerd-site`); it
 vendors snapshots of the VM-demo runtime + the `peerd-distributed`
-transport, and the auto-update feeds are still generated here
-(`update-feeds/`), then copied there to deploy.
+transport. Release packaging generates auto-update feeds as release assets;
+the site repository downloads and deploys them.
 
-The brand IS the architecture. If you find yourself adding a sixth
-top-level peerd-* directory, stop and reconsider.
+The brand IS the architecture: the five letters are the five modules.
+A new top-level peerd-* directory needs a reason the five letters cannot
+absorb. Stop and reconsider before adding one. The cross-module import
+gate matches on `peerd-[a-z-]+/`, hyphen included; a name that falls
+outside that pattern is a name outside the boundary.
 
 ---
 
 ## What to read, in order
 
-0. **`MAP.md`** — the one-screen orientation map: the annotated directory
-   tree (what each part is, where it lives, when it acts on its own). Skim
-   it first to navigate; read the rest for the *why*.
-1. **`CLAUDE.md`** (this file) — orientation.
-2. **`ARCHITECTURE.md`** — full module breakdown. Where files go, what
-   each module owns, the dependency graph, the migration table.
-3. **`ARCHITECTURE-CHANGES.md`** — recent changes. Read if continuing
-   prior work — tells you what moved since earlier versions of the
-   architecture doc.
-4. **`DESIGN.md`** — the technical design record. Concrete
-   implementation details: vault crypto, denylist matcher, agent loop,
-   tool dispatcher, prompt-injection defenses, the manifest, the MV3
-   keepalive trick.
+The code is the spec. There is no separate design-doc corpus; the
+prose orientation is this file, and the rest is the source itself.
+
+1. **`AGENTS.md`** (this file) — orientation. Start here every session.
+2. **The module code** — `extension/peerd-provider/`, `peerd-egress/`,
+   `peerd-engine/`, `peerd-runtime/`, `peerd-distributed/`. Each
+   module's `index.js` is its universal public surface; read it first, then the
+   files it exports. An explicit environment entry point such as
+   `background.js` may expose a cold-start-safe subset for that host.
+3. **The code.** For concrete behavior (vault crypto, denylist matcher,
+   agent loop, tool dispatcher, prompt-injection defenses, the manifest,
+   the MV3 keepalive trick), read the source in the relevant module. It
+   is authoritative; prose drifts, code does not.
 
 ---
 
 ## Non-negotiable conventions
 
-- **Vanilla JS, ES modules, no build step.** No bundler, no transpiler.
-  Code runs as the browser loaded it. The dev loop is *load unpacked →
-  refresh*. (The dual-distribution ARTIFACTS — store + preview — are
-  produced by `packaging/*.ts` via staging/pruning/zipping, not bundling.
-  See `PACKAGING.md`.)
+- **Vanilla JS, ES modules, no development build step.** `extension/` runs
+  directly in the browser. The dev loop is *load unpacked -> refresh*; there
+  is no source bundler, transpiler, or generated runtime tree. Store and
+  preview packaging may compact authored static cold-path modules only in its
+  disposable staging copy. It must preserve module boundaries and names, lazy
+  imports, and vendor bytes. `packaging/preflight.ts` is the release authority.
 - **Generated files — don't hand-edit.** `extension/manifest.json` and
   `extension/shared/channel-config.js` are generated by `bun run gen:dev`
   from `manifests/*.json` and `packaging/default-settings.mjs`. CI fails on
   drift. Versions live in `package.json` only.
 - **Docs defer to code and CI for live state.** Do not hard-code dynamic
-  facts in prose: test pass counts, tool counts, gate matrices, release
-  artifact lists, generated-file contents, extension IDs, channel behavior,
-  or provider/model inventories. Point readers at the source file, script,
-  generated artifact, or CI/preflight command that computes the answer.
-  Static architectural invariants are fine; operational state belongs in
-  code, generated output, or the release itself.
+  facts in prose: test/tool counts, gate matrices, release artifact lists,
+  generated-file contents, extension IDs, channel behavior, provider/model
+  inventories — and equally the things that quietly drift: **tunable
+  constants and thresholds** (timeouts, caps, depths, retry code lists),
+  **exact dates/PR numbers** as anything more than a passing anchor, and
+  **inventories of a directory's internal files** (they grow with the code).
+  Name the pattern and point at the source file / script / CI command that
+  holds the real value; don't transcribe it. Static architectural
+  invariants are fine; operational state belongs in code, generated output,
+  or the release itself. When in doubt, describe the SHAPE and cite the file.
 - **The dweb boundary.** Nothing outside `peerd-distributed/`
   imports it — not even its `index.js` (stricter than the per-module
   rule below; the store package prunes the module entirely). Core code
@@ -168,9 +177,22 @@ top-level peerd-* directory, stop and reconsider.
       pass/fail + the why), and a **diff-highlight PNG** on a visual
       miss. This is built for an AGENT to self-drive a change→verify→fix
       loop: edit, `bun run e2e:verify`, read `result.json` + the
-      screenshots, fix, repeat until `ok:true`. See
-      `docs/E2E-VERIFY-LOOP.md`. (`--functional` skips the
-      per-machine visual baselines; CI runs that via `test:e2e:all`.)
+      screenshots, fix, repeat until `ok:true`. (`--functional` skips the
+      visual states; CI runs that via `test:e2e:all`.)
+    - **The visual lane STORES NOTHING. The reference is the merge base.**
+      No screenshot is committed anywhere in this repo (CI enforces that).
+      On a PR the `visual` job renders every state twice on the pinned
+      runner + pinned Chrome (`scripts/cdp/chrome-version.txt`) - once
+      against the merge-base extension build, once against the branch -
+      diffs the pairs, and posts the before/after inline on the PR
+      (`scripts/cdp/visual-vs-base.mjs`). peerd has no development build output, so
+      "check out the base and render it" is a worktree plus a harness
+      run. The trade, stated: a computed reference cannot tell an intended
+      redesign from a regression, so the lane REPORTS and never gates -
+      the checkpoint is a human reading the before/after, not a committed
+      baseline. What lands in `scripts/cdp/baselines/<platform>/` is a
+      gitignored LOCAL self-reference for your own loop only. Details +
+      the measured numbers: `scripts/cdp/visual-vs-base.mjs`.
 - **UI work runs through the verify loop — never call a rendered change
   done on assertions alone.** When you touch a side-panel / home /
   component surface, iterate edit → `bun run e2e:verify` → read
@@ -179,14 +201,40 @@ top-level peerd-* directory, stop and reconsider.
   for *new* UI there's no baseline, so your eyes are the test; on a
   regression read the `*-diff.png` to see what moved. Tighten the loop
   with `--only=<state>` or `--visual`. If you change a flow no state
-  covers, ADD one to `scripts/cdp/states.mjs` (seed a new visual
-  baseline with `UPDATE_BASELINES=1 … --visual` and commit it) — an
+  covers, ADD one to `scripts/cdp/states.mjs` — nothing to seed or
+  commit, since CI computes its "before" from the merge base — an
   uncovered UI change is an unfinished one. why: the unit tiers can
   assert structure but can't SEE the render; this loop is how an agent
   closes that gap on its own before pushing.
-- **`index.js` is the public API per module.** ESLint
-  `no-restricted-imports` forbids deep paths from outside the module.
-  Inside the module, deep imports are fine.
+- **Public entry points are the API per module.** `index.js` is the universal
+  surface; a named environment surface such as `background.js` may expose a
+  strict cold-start subset. ESLint `no-restricted-imports` forbids every other
+  deep path from outside the module. Inside the module, deep imports are fine.
+- **The credential ladder — prefer the credential peerd cannot read.**
+  When the agent must act as the user, climb DOWN this ladder and stop at
+  the first rung that works; never drop a rung for convenience:
+    1. **The browser holds it.** Drive the authenticated tab and let the
+       browser attach the session. peerd requests no `cookies` permission,
+       so it *structurally cannot* read what it is using — a platform
+       guarantee, not a discipline one (`site_client_*`, the web actor).
+    2. **A key peerd cannot export.** A proof-of-possession keypair
+       generated `extractable: false`: peerd holds a HANDLE, mints a
+       per-request DPoP proof at the egress boundary, and no in-origin
+       code — ours or an attacker's — can export the key material. Needs
+       provider support, RFC 9449 (`peerd-egress/dpop/`).
+    3. **A bearer secret in the vault.** The fallback the ecosystem forces:
+       bytes that must be sent verbatim, so *someone* holds them.
+       Encrypted at rest, decrypted only in the SW, injected at the egress
+       boundary, never on the agent's ctx, bound to exactly one https
+       origin (`fetch/origin-credentials.js`).
+    4. **The user's own hands.** If none of the above is safe, verify the
+       origin, take consent, and hand the gesture back to the user (the
+       `login` tool, INV-14).
+  why an explicit ladder: "can the AGENT see it" and "does PEERD hold it"
+  are different questions, and only the second decides whether a
+  compromise yields a portable, replayable secret. A rung-1 or rung-2
+  credential cannot be walked away with; a rung-3 one can. A new
+  integration must justify every step down.
 - **Comments explain *why*, not *what*.** Every architectural choice
   gets a `// why:` comment. Code without rationale rots fast.
 - **Modern, functional JS — lint-enforced.** `eslint.config.js`'s
@@ -197,8 +245,9 @@ top-level peerd-* directory, stop and reconsider.
   for byte/codec work, reverse iteration, retry loops, or early-exit).
   Name things in full so identifiers read like the docs. **Exception: the
   injected-into-page classic-script bodies** (`dom/walk-injected.js`,
-  `dom/framework-state.js`, `background/debugger-pool.js`,
-  `tools/defs/watch-changes.js`) are deliberately ES5 — `var`, `function`
+  `dom/framework-state.js`, `dom/pull-in-hint-injected.js`,
+  `background/debugger-pool.js`, `tools/defs/watch-changes.js`) are
+  deliberately ES5 — `var`, `function`
   bound to a caller `this` — and are exempted in the config. Don't
   "modernize" them. The same one-paragraph reminder rides the `js_create`
   / `app_create` tool results (`tools/defs/code-style-note.js`) so the
@@ -218,25 +267,36 @@ exists today:
    Everything depends on this; build it first.
 3. **`peerd-provider`** — Anthropic + OpenRouter adapters. Schema
    conversions, streaming, error handling.
-4. **`peerd-engine`** — Sandboxes: four execution kinds (taxonomy in
-   DESIGN.md §8.5). Three are hosted in their own visible tab — WebVM
-   (CheerpX), Notebook (sealed JS worker + OPFS), App (opaque-origin
-   iframe) — each with a registry in `peerd-engine`, a runtime in its tab
-   page (`vm-tab/`, `notebook-tab/`, `app-tab/`), and a tab tracker + RPC
-   client in `background/`. The fourth, the **headless worker** (`js_run`),
+4. **`peerd-engine`** - Sandboxes: five execution kinds (taxonomy in
+   `registry-factory.js`). Four are hosted in their own visible tab -
+   WebVM (CheerpX), Notebook (sealed JS worker + OPFS), Pod, App
+   (opaque-origin iframe) - each with a registry in `peerd-engine`, a
+   runtime in its tab page under `engine-tabs/` (`vm-tab/`,
+   `notebook-tab/`, `pod-tab/`, `app-tab/`), and a tab tracker + RPC
+   client in `background/`. The fifth, the **headless worker** (`script`),
    runs the Notebook's sealed worker in the offscreen document with no tab
-   (`offscreen/job-runner.js`) — the agent's own quick compute, same
+   (`offscreen/job-runner.js`) - the agent's own quick compute, same
    substrate as a Notebook, different host.
-5. **`peerd-runtime`** — agent loop, tool dispatcher, and the tool
-   inventory. Registered tools are assembled from `BUILTIN_TOOLS`, clock,
-   web tools, and service-worker wiring; do not pin the live counts in
-   prose. Exposure is decided in `tools/exposure.js`: low-level DOM/page
-   tools are runner-only, the main agent reaches the page through
-   `do`/`get`/`check`, and dweb tools are invisible where `DWEB_ENABLED`
-   is false. Plus sessions, clock (temporal grounding), subagent
-   orchestrator, voice (Moonshine WASM + Web Speech fallback).
-6. **Wire it together** in `background/service-worker.js` — message
-   routing, dependency injection, lifecycle wiring. The SW is wiring
+5. **`peerd-runtime`** — agent loop, tool dispatcher, and the controller-owned
+   tool inventory. The sealed semantic catalog in `tools/metadata/catalog.js`
+   is the model-facing source of truth; `controller-tool-ownership.js` maps
+   that same inventory to finite authority families. The service worker sees
+   only compact projections and exact operations, never a tool registry.
+   Exposure is decided in `tools/exposure.js`: the low-level
+   DOM/page tools are actor-only, never on the main agent — the
+   orchestrator delegates plain-language goals to per-environment
+   actors (web / webvm / notebook / app) via `message_actor`
+   (`actor/actor-messaging.js`; `actor_list` enumerates every
+   addressable handle), and replies re-enter it fenced on a later
+   turn — it never blocks. The web actor (`actor/web-actor.js`) is
+   the single entry point for web work: it picks between a sessionless,
+   denylist-gated `fetch_url` and opening + driving a tab. Dweb tools
+   are invisible where `DWEB_ENABLED` is false. Plus sessions, clock
+   (temporal grounding), actor orchestrator, voice (Moonshine WASM
+   + Web Speech fallback).
+6. **Wire it together** in `background/vault-kernel.js`, with the
+   target-specific `vault-kernel-*` entries selecting browser/channel custody.
+   The kernel owns message routing, dependency injection, and lifecycle wiring. The SW is wiring
    plus per-route message handlers (one per RPC the side panel /
    offscreen doc / tab pages dispatch in); the logic lives in
    modules. If a new handler needs more than a few lines of glue,
@@ -246,20 +306,22 @@ exists today:
 
 ## What's shipped vs what's still ahead
 
-**Already shipped** (don't re-implement; extend instead). The full
-itemized, module-categorized catalog is `FEATURES.md` (canonical) — read
-it before assuming something isn't built; the bullets here are the
-postures and gotchas to know going in:
+**Already shipped** (don't re-implement; extend instead). The code is
+the canonical catalog: read the relevant module before assuming
+something isn't built. The bullets here are the postures and
+gotchas to know going in:
 
-- Anthropic provider with streaming, adaptive extended thinking on
-  4.6+ models, 3-of-4 prompt-cache breakpoints, 429/500/503/529 retry,
+- Anthropic provider with streaming, adaptive extended thinking on newer
+  models, prompt-cache breakpoints, retry on transient/overload statuses,
   and the `anthropic-dangerous-direct-browser-access` ack — plus an
-  OpenRouter adapter (OpenAI-compatible gateway) and a keyless Ollama
-  adapter (local inference; live `/api/tags` model inventory; GPU-fit
-  model recommendation in Settings) (`peerd-provider/`).
+  OpenRouter adapter (OpenAI-compatible gateway), a direct OpenAI adapter,
+  a Z.ai GLM adapter (OpenAI-compatible direct endpoint), and a keyless
+  Ollama adapter (local inference; live `/api/tags` model inventory; GPU-fit
+  model recommendation in Settings) (`peerd-provider/`). The shipped set is
+  whatever `registry.js` registers — don't take this list as authoritative.
 - Vault with passphrase unlock AND WebAuthn PRF (Touch ID / Windows
   Hello) — same DK from either path (`peerd-egress/vault/`). Idle
-  auto-lock ON by default (45min, user-settable); manual Lock button
+  auto-lock ON by default (user-settable); manual Lock button
   in the top bar.
 - `chrome.debugger` usage (CDP) — a CHANNEL-GATED required permission,
   NOT the default. Chrome forbids `debugger` under `optional_permissions`
@@ -269,7 +331,7 @@ postures and gotchas to know going in:
   package and from every Firefox package (`packaging/gen-manifest.ts`
   `STORE_STRIPPED_PERMISSIONS`; re-added to a store update post-approval —
   a one-line flip; `docs/store/OPEN-DECISIONS.md` §1). The DEFAULT
-  browser-subagent path on store-Chrome AND Firefox is
+  path for the web actor's DOM tools on store-Chrome AND Firefox is
   `chrome.scripting`: a DOM-walk pseudo-a11y snapshot
   (`peerd-runtime/dom/walk-injected.js`) feeding the SAME serializer as
   CDP, with selector/`walkId` click/type and a `world:'MAIN'` `read_state`
@@ -277,42 +339,82 @@ postures and gotchas to know going in:
   is wired into a tool context only when `advancedAutomationOn()` =
   `debuggerApiAvailable()` (namespace present) AND the
   `advancedAutomationEnabled` SETTING (default ON preview/dev, OFF store;
-  Settings → Advanced). Genuinely CDP-only (correctly NOT faked):
-  `page_exec`'s `Runtime.evaluate` with `allowUnsafeEvalBlockedByCSP:
-  true` on Trusted-Types pages (Gmail/Notion/Slack), and `page_keys`'
-  trusted (`isTrusted`) input. Pool lives in
+  Settings → Advanced). The pool supplies exact-tab screenshots,
+  accessibility snapshots, framework-state inspection, node actions, and
+  site-client network capture where CDP ships. Pool lives in
   `background/debugger-pool.js`.
-- Subagents — depth-bounded recursion (default `MAX_DEPTH=5`), tool
+- Spawned actors — depth-bounded recursion, tool
   narrowing, output cap. Real implementation at
-  `peerd-runtime/subagent/spawn.js` — not a stub. See
-  `docs/SUBAGENTS.md`.
+  `peerd-runtime/actor/spawn.js` — not a stub. Since the async-actor
+  unification (PR #134): a child runs under its own turn slot with an
+  abort signal and a wall-clock timeout (Stop and `actor_cancel`
+  actually end its work, transitively down the subtree), and a
+  trusted-lineage actor may `message_actor` — the sender gate walks
+  server-stamped `spawnedTrusted` hops (`actor/delegation-lineage.js`;
+  an inbound spawn taints its whole subtree), delegation budgets are
+  keyed by the lineage root, and an actor's actor reply resolves into
+  its tool result (an ephemeral child has no later turn to wake).
+- The heap split — EVERY non-orchestrator agent loop runs in its OWN
+  dedicated Worker heap (`peerd-runtime/actor/actor-worker-core.js`
+  drives it; `offscreen/actor-worker.js` + `actor-runner.js` +
+  `background/offscreen-actor-client.js` host + relay it). Chrome starts the
+  runner from its offscreen document. Firefox starts the same runner directly
+  from its extension background page. One substrate,
+  two shapes: a BOUND actor (web/webvm/notebook/app, instance-pinned) and an
+  EPHEMERAL actor (spawned — tool-less = pure reasoning, tool-bearing =
+  a narrowed-general toolset). The worker holds NO key, NO `chrome.*`, NO
+  engine clients; its only outward edges are two SW-gated relays — the model
+  call (the SW adds `getSecret`+`safeFetch`; the key never enters the worker)
+  and every tool call (the SW rebuilds the caller's instance-pinned context,
+  intersects its exact operation grant, and re-checks final args without ever
+  trusting the worker). The narrower tool-name list is semantic/model surface,
+  not host authority. Chrome pins both relays to the offscreen document and a
+  per-run grant.
+  Firefox keeps the runner and relay calls inside the background page behind a
+  private object-identity sender. The grant adds run identity and liveness on
+  both hosts, so a replayed relay from a settled run is refused. A run-scoped,
+  acknowledged Firefox `storage.session` heartbeat keeps the MV3 event page
+  alive only while actor work is active, then stops after the last turn settles.
+  A lost heartbeat pauses actor work until a manual probe succeeds. So the
+  actor fence is a MEMORY boundary, not a prompt boundary: untrusted
+  page/instance/response content stays behind the heap, one process-eviction from
+  the vault DK no longer reachable. A versioned readiness and realm probe must
+  pass before a model call or tool relay can begin. A missing or failed host
+  refuses the actor turn before any target action. why it matters: prompt
+  injection has no filter — the fix is to never hand untrusted reasoning the
+  authority in the first place.
 - Voice — local transcription via Moonshine (WASM, SRI-pinned model
   download, OPFS-cached) with a Web Speech API fallback. Hosted in the
   offscreen doc (`peerd-runtime/voice/`).
-- Sandboxes — four execution kinds (DESIGN.md §8.5). Three run in their
-  own browser tab — WebVM (CheerpX), Notebook (sealed JS worker + OPFS),
-  App (opaque-origin iframe) — each with its own registry + tab tracker +
-  RPC client. The fourth, the headless worker (`js_run`), is the same
-  sealed worker run offscreen with no tab, for the agent's own quick
+- Sandboxes - five execution kinds (taxonomy in the `peerd-engine/` code).
+  Four run in their
+  own browser tab - WebVM (CheerpX), Notebook (sealed JS worker + OPFS),
+  Pod, App (opaque-origin iframe) - each with its own registry + tab
+  tracker + RPC client. The fifth, the headless worker (`script`), is the
+  same sealed worker run offscreen with no tab, for the agent's own quick
   compute (code mode).
 - Policy-gated dispatcher with full lineage attached to every tool
   result. The live stack is defined in `gates.js` plus the default
   pre/post tool-use hooks; keep prose at the invariant level so it does
-  not drift. Current posture in code: Plan/Act enforcement, main-vs-runner
-  exposure checks, sensitive-origin blocking, async confirmation, egress
+  not drift. Current posture in code: Plan/Act enforcement, main-vs-actor
+  exposure enforcement (the exposure + actor-capability-tier gates:
+  actor-only tools refused for the main turn, each actor positively
+  pinned to its own kind's toolset and instance), sensitive-origin
+  blocking, async confirmation, egress
   enforcement in the allowlist hook and fetch wrappers, and append-only
   audit. The legacy permission-mode axis was REMOVED
   2026-06-12 — Plan/Act + the denylist carry the safety weight; Plan
-  permits pure URL loads only, never clicks (`docs/DECISIONS.md` #16).
-- The ten-feature buildout — memory, edit + checkpoints, Plan/Act,
-  composer (slash commands + @-refs), goal mode (autonomous loop), cost telemetry, skills,
-  review subagent, hooks, and do/get/check — all integrated. Per-feature
-  detail is in `FEATURES.md`; the landing record is
-  `v1-deliverables/INTEGRATION-LOG.md`.
+  permits pure URL loads only, never clicks (enforced in `gates.js`).
+- The feature buildout — memory, edit + browser-native Git, Plan/Act,
+  composer (slash commands + @-refs), goal mode (autonomous loop), cost
+  telemetry, skills, and hooks — all integrated.
+  (do/get/check was CULLED: the web actor drives pages directly, so one
+  delegation reaches the page instead of two.) Per-feature
+  detail lives in the code under `peerd-runtime/`.
 - Dual distribution: store (no dweb) + preview channels, generated
   `manifest.json` / `channel-config.js` (`bun run gen:dev`). `package.json`,
   `packaging/preflight.ts`, and CI are the source of truth for release
-  checks. See `PACKAGING.md`.
+  checks.
 - `peerd-distributed/` — REAL code, well past the Phase 0 primitives
   (Ed25519 did:key identity, codec, content addressing + chunked
   signed-bundle transfer, the pure signaling reducer shared with
@@ -324,11 +426,42 @@ postures and gotchas to know going in:
   Install over the mesh, no server); and the **agent reaches all of it**
   through the `dweb_share`/`dweb_discover`/`dweb_install` tools + the
   dwapp bridge (it builds p2p dwapps that users and agents both use).
-  Preview-channel only (the store package prunes the module and CI
-  verifies zero dweb traces). See `docs/distributed/`.
+  Chrome-preview only until Firefox has a mesh host. Other artifacts prune the
+  module and CI verifies the package boundary. See the `peerd-distributed/` code.
+- The **dweb actor** - one more bound-actor kind (`actorType:'dweb'`; the live
+  set is `ACTOR_CAPABILITY_MANIFESTS`, not a number to memorize) and the
+  first DAEMON actor: an opt-in (`dwebAgentEnabled`, Chrome-preview-only, default
+  off), persistent, GLOBAL singleton addressable as `message_actor("dweb",…)`.
+  It ABSORBS the dweb tools (they leave the orchestrator unconditionally —
+  `mainAgentDescriptors` drops them by name + the tier gate refuses them for
+  any non-actor ctx), runs keyless in the same offscreen heap as every actor,
+  and MONITORS inbound mesh traffic: peers reach it on the reserved
+  `peerd-agent` room, whose `direct` events wake it as fenced, INBOUND
+  (untrusted) turns — the sender gate means an inbound message can never make
+  it delegate. Rate-capped (per-did + global caps, `background/dweb-inbound-rate-cap.js`)
+  before any model call; notable findings trickle up to the active chat as an attributed
+  actor-reply bubble (runWhenIdle — never steals a live turn). The envoy for
+  agent-to-agent over the mesh: "a peer's agent" is just an actor whose heap
+  is on another machine.
+- **Agent-to-agent (A2A) over the mesh** — the dweb actor talks to other
+  agents by WRITING CODE, the #119 bet applied to p2p: `a2a_run` runs JS
+  against a `mesh` client (peers/card/call/cast/publishCard/inbox) in the SAME
+  sealed keyless worker as `script`, plus ONE capability — the mesh bridge —
+  and nothing else (the host denies egress + actor-spawn for an a2a run;
+  see `offscreen/job-runner.js`). The pure translation core is
+  `actor/a2a-api.js` (the page-api.js twin: `meshCallToOp`/
+  `shapeMeshResult`, a `MESH_METHODS` table); the ask/reply CORRELATION —
+  tag a request DM, await the matching reply bound to the target did, time
+  out — is `actor/a2a-dispatch.js`; the SW singleton + consent live behind the
+  exact authority in `background/dweb-tool-authority.js`. We RHYME with A2A's data
+  model (`peerd-distributed/agent-card.js` — Agent Card, message shape) for
+  future interop, but REJECT its HTTP+SSE transport: the mesh is the
+  transport, did:key the address, the fenced inbound wake the stream. Signing
+  ops (call/cast/publishCard) need per-target user consent, remembered and
+  revocable via `dweb_block`; peer bytes are `wrapUntrusted`-fenced by
+  construction. Dweb-actor-only and Chrome-preview-only.
 
-**Still ahead** (backlog — not version-pinned;
-forward-looking specs live in `docs/specs/`. Don't front-run; let each
+**Still ahead** (backlog — not version-pinned. Don't front-run; let each
 land with deliberate design work):
 
 - Profiles — per-profile vault namespacing, denylist, skills, memory,
@@ -337,21 +470,23 @@ land with deliberate design work):
   (the `/tools` presets + `session.toolManifest`; `tools/manifests.js`,
   `tools/manifest-command.js`, enforced in `gates.js`), on top of the
   registration/exposure split. What's still ahead is binding a manifest to
-  a *profile* (rides the Profiles item above). Note: the do/get/check
-  browser-runner is already trimmed to a tight allow-list by
-  construction (`runner/index.js` READ_TOOLSET / DO_TOOLSET) — it never
-  sees the full surface.
-- OpenAI provider adapter — the file doesn't exist yet (OpenRouter
-  covers most vendors meanwhile; Ollama shipped 2026-06-12 with its
-  `http://localhost:11434` CSP connect-src entry restored in
-  `manifests/base.json`). The manifest still does NOT pre-declare
-  hosts for unshipped adapters (store policy: never request what the
-  shipped version doesn't use); `<all_urls>` already covers HTTPS API
-  hosts.
-- The dweb's next reach — agent-to-agent over the mesh (one agent's
-  peer talking p2p to another's), richer dwapps, global discovery — per
-  `docs/distributed/ROADMAP.md`. The base network + signed direct
-  channels are in place; this is fleshing out what rides them.
+  a *profile* (rides the Profiles item above). Note: the per-environment
+  actors are already trimmed to tight per-kind allow-lists by
+  construction (`tools/exposure.js` `actorAllowedTools`, enforced at
+  dispatch in `gates.js`) — an actor never sees the full surface.
+- New provider adapters — the shipped set (Anthropic, OpenRouter, OpenAI,
+  Z.ai GLM, Ollama) lives in `peerd-provider/adapters/`; adding one is a
+  registry entry, not chassis wiring. The manifest still does NOT pre-declare
+  hosts for adapters a given package doesn't ship (store policy: never request
+  what the shipped version doesn't use); `<all_urls>` already covers HTTPS API
+  hosts, and a loopback provider like Ollama needs its own CSP connect-src
+  entry (`manifests/base.json`).
+- The dweb's next reach — A2A's first hop shipped (the `a2a_run` code
+  surface above); still ahead is what rides it: standing multi-turn peer
+  conversations beyond a single run, richer dwapps, and global discovery
+  (find an agent by capability across the whole mesh, not just the present
+  roster). The base network + signed direct channels + the Agent Card are in
+  place; this is fleshing out what rides them.
 
 ---
 
@@ -381,4 +516,4 @@ land with deliberate design work):
 
 ---
 > Source: [NotASithLord/peerd](https://github.com/NotASithLord/peerd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
