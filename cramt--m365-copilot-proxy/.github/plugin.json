@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "cramt",
   "homepage": "https://github.com/cramt/m365-copilot-proxy",
-  "skills": []
+  "skills": [
+    {
+      "name": "m365-copilot-proxy",
+      "description": ""
+    }
+  ]
 }
