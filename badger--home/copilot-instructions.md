@@ -1,380 +1,632 @@
 ## home
 
-> This project is for developing applications on the GitHub Universe 2025 hackable conference badge - a custom Pimoroni Tufty 2350 edition. It's an RP2350-based device running MicroPython with a 320x240 TFT color display (pixel-doubled to 160x120 for performance) and custom IR sensors.
+> Handles button state and timing.
 
-# Copilot Instructions for Universe 2025 Tufty Badge Development
+# Universe 2025 badge app development archive
 
-This project is for developing applications on the GitHub Universe 2025 hackable conference badge - a custom Pimoroni Tufty 2350 edition. It's an RP2350-based device running MicroPython with a 320x240 TFT color display (pixel-doubled to 160x120 for performance) and custom IR sensors.
+This guidance applies only to the archived Universe 2025 sources under
+`badge25/`. New development belongs in `badge/` and must follow
+[`badge/AGENTS.md`](../badge/AGENTS.md). Paths written as `/badge/apps/` in
+older examples correspond to `/badge25/apps/` in this repository.
 
-## Project Structure
+This document provides context for maintaining applications for the GitHub
+Universe 2025 Tufty badge. Its Badgeware imports, physical buttons, display
+behavior, and lifecycle are not compatible with the Universe 2026 runtime.
 
-```
-/
-├── badge/                     # Badge firmware and apps (deployed to /system/ on device)
-│   ├── main.py               # Main entry point and app launcher
-│   ├── secrets.py            # WiFi configuration secrets
-│   ├── apps/                 # Application directory
-│   │   ├── badge/            # GitHub profile stats viewer
-│   │   ├── flappy/           # Flappy Bird style game
-│   │   ├── gallery/          # Image gallery viewer
-│   │   ├── menu/             # App launcher/menu system
-│   │   ├── monapet/          # Virtual pet simulator
-│   │   ├── quest/            # IR beacon scavenger hunt
-│   │   ├── sketch/           # Drawing app
-│   │   └── startup/          # Boot animation
-│   └── assets/               # Shared assets (fonts, sprites)
-│       ├── fonts/            # Pixel Perfect Fonts (.ppf, .af)
-│       └── mona-sprites/     # Mona character sprite sheets
-└── README.md
-```
+## Hardware Overview
 
-## Hardware Specifications
+The GitHub Universe 2025 badge is a custom Pimoroni Tufty 2350 device with the following specifications:
 
 - **Processor**: RP2350 Dual-core ARM Cortex-M33 @ 200MHz
 - **Memory**: 512kB SRAM, 16MB QSPI XiP flash
-- **Display**: 320x240 full colour IPS display (pixel doubled to 160x120 for performance)
-- **Screen dimensions**: WIDTH=160, HEIGHT=120 (logical pixels)
+- **Display**: 320x240 full colour IPS (pixel-doubled to 160x120 logical pixels for performance)
+- **Screen Dimensions**: WIDTH=160, HEIGHT=120 (all app coordinates use these logical pixels)
+- **Runtime**: MicroPython v1.14-5485 with custom badgeware library
 - **Connectivity**: 2.4GHz WiFi and Bluetooth 5
-- **Battery**: 1000mAh rechargeable (up to 8 hours runtime)
-- **Platform**: MicroPython with custom badgeware library
+- **Battery**: 1000mAh rechargeable lithium polymer (up to 8 hours runtime)
 - **Buttons**: 
-  - UP, DOWN, A, B, C (front-facing buttons)
-  - HOME (back button - triggers quit_to_launcher to return to menu)
-  - RESET, BOOTSEL (hardware buttons)
-- **IR**: Receiver and transmitter for beacon hunting and remote control
-- **Ports**: USB-C (charging/programming), Qw/ST, SWD
-- **GPIO**: 4 GPIO pins + power through-hole solder pads
+  - **Front**: UP, DOWN, A, B, C
+  - **Back**: HOME (returns to launcher menu)
+  - **Hardware**: RESET, BOOTSEL
+- **IR**: Receiver (pin 21) and transmitter for beacon hunting and remote control
 - **LEDs**: 4-zone backlight (TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT)
-- **Case**: Durable polycarbonate with lanyard fixings
-- **Runtime**: MicroPython v1.14-5485 with custom badgeware library and built-in modules (see below)
+- **Ports**: USB-C (charging/programming), Qw/ST connector, SWD debug
+- **GPIO**: 4 additional GPIO pins + power available through solder pads
 
-## App Development Guidelines
+## App Structure and Lifecycle
 
-### Required App Structure
+### Directory Layout
+```
+/system/apps/<app_name>/
+    __init__.py         # Required - contains init(), update(), on_exit()
+    icon.png            # Required - 24x24 PNG icon for launcher
+    assets/             # Optional - images, fonts, data files
+        *.png           # Images (PNG format, true color or paletted)
+        *.ppf           # Pixel fonts (if not using system fonts)
+        *.json          # Data files
+```
 
-Every app must be in `/system/apps/<app_name>/` (or `badge/apps/<app_name>/` in repository) with:
+### Required Functions
 
-1. **`__init__.py`** - Main app implementation with required functions:
-   ```python
-   def init():      # Optional: Called when app starts (for state loading)
-   def update():    # Required: Called every frame for input handling and rendering
-   def on_exit():   # Optional: Called when quitting app (for state saving)
-   ```
+#### `update()` - Main Loop (REQUIRED)
+Called every frame by the main loop. This is where all app logic, input handling, and rendering happens.
 
-2. **`icon.png`** - App icon (used by menu launcher)
-   - **Format**: 24x24 pixel color PNG file
-   - **Color space**: RGB with optional transparency
-   - **Location**: Must be in the app's root directory
+```python
+def update():
+    # 1. Handle input
+    if io.BUTTON_A in io.pressed:
+        # Button A was just pressed
+        pass
+    
+    if io.BUTTON_B in io.held:
+        # Button B is being held down
+        pass
+    
+    # 2. Update game state/logic
+    # Use io.ticks for milliseconds since boot
+    # Use io.ticks_delta for frame delta time
+    
+    # 3. Clear screen
+    screen.brush = brushes.color(0, 0, 0)
+    screen.clear()
+    
+    # 4. Draw everything
+    screen.brush = brushes.color(255, 255, 255)
+    screen.text("Hello", 10, 10)
+    
+    # No explicit display update needed - handled automatically
+```
+
+#### `init()` - Initialization (OPTIONAL)
+Called once when the app starts. Use for loading resources, setting up state, etc.
+
+```python
+def init():
+    global game_state, sprite_sheet, font
+    
+    # Load resources
+    sprite_sheet = SpriteSheet("/system/apps/myapp/assets/sprites.png", 4, 2)
+    font = PixelFont.load("/system/assets/fonts/nope.ppf")
+    
+    # Initialize state
+    game_state = {
+        "score": 0,
+        "level": 1,
+        "player_x": 80,
+        "player_y": 60
+    }
+    
+    # Set up screen
+    screen.font = font
+    screen.antialias = Image.X2
+```
+
+#### `on_exit()` - Cleanup (OPTIONAL)
+Called when the user presses HOME or the app terminates. Use for saving state, cleanup, etc.
+
+```python
+def on_exit():
+    # Save state to file
+    try:
+        with open("/myapp_save.json", "w") as f:
+            json.dump(game_state, f)
+    except:
+        pass  # Handle gracefully
+```
+
+### Starting the App
+At the bottom of `__init__.py`, call `run()` with your update function:
+
+```python
+run(update)
+```
+
+## badgeware API Reference
+
+### Core Modules
+
+#### `screen` - Main Display (160x120 Image object)
+The primary drawing surface. All rendering happens on this object.
+
+**Properties:**
+- `screen.width` - Always 160
+- `screen.height` - Always 120
+- `screen.brush` - Current brush (color) for drawing
+- `screen.font` - Current font for text rendering
+- `screen.antialias` - Antialiasing mode (Image.OFF, Image.X2, Image.X4)
+- `screen.alpha` - Global alpha transparency (0-255)
+
+**Methods:**
+```python
+# Clear screen with current brush color (fastest)
+screen.clear()
+
+# Draw shapes (requires screen.brush to be set)
+screen.draw(shape)  # shape from shapes module
+
+# Draw text at position
+screen.text("Hello", x, y)
+
+# Measure text size
+width = screen.measure_text("Hello")
+
+# Blit (copy) image at position
+screen.blit(image, x, y)
+
+# Scale blit (resize while blitting, negative dims flip)
+screen.scale_blit(image, x, y, width, height)
+```
+
+#### `io` - Input and Timing
+Handles button state and timing.
+
+**Button Constants:**
+- `io.BUTTON_A`, `io.BUTTON_B`, `io.BUTTON_C`
+- `io.BUTTON_UP`, `io.BUTTON_DOWN`
+- `io.BUTTON_HOME`
+
+**Button State Sets:**
+```python
+# Buttons just pressed this frame (single fire)
+if io.BUTTON_A in io.pressed:
+    # Triggered once per press
+    
+# Buttons currently held down
+if io.BUTTON_B in io.held:
+    # Triggered every frame while held
+    
+# Buttons just released this frame
+if io.BUTTON_C in io.released:
+    # Triggered once on release
+    
+# Buttons that changed state this frame
+if io.BUTTON_UP in io.changed:
+    # Triggered on press or release
+```
+
+**Timing:**
+```python
+# Milliseconds since boot
+current_time = io.ticks
+
+# Milliseconds since last frame
+delta = io.ticks_delta
+
+# Frame-independent movement example
+speed = 50  # pixels per second
+x += speed * (io.ticks_delta / 1000)
+
+# Animation timing
+angle = (io.ticks / 1000) * 360  # Full rotation per second
+```
+
+**LED Control:**
+```python
+# LED position constants
+io.LED_TOP_LEFT, io.LED_TOP_RIGHT
+io.LED_BOTTOM_LEFT, io.LED_BOTTOM_RIGHT
+
+# Set LED brightness (0-255)
+io.led[io.LED_TOP_LEFT] = 128
+```
+
+#### `brushes` - Color Creation
+Create color brushes for drawing.
+
+```python
+# Create color (RGB)
+red = brushes.color(255, 0, 0)
+
+# With alpha transparency (0=transparent, 255=opaque)
+semi_transparent = brushes.color(255, 0, 0, 128)
+
+# Set as current brush
+screen.brush = brushes.color(100, 200, 50)
+```
+
+#### `shapes` - Drawing Primitives
+All shapes return shape objects that can be drawn with `screen.draw()`.
+
+```python
+# Rectangle (x, y, width, height)
+rect = shapes.rectangle(10, 10, 50, 30)
+
+# Rounded rectangle (x, y, width, height, corner_radius)
+rounded = shapes.rounded_rectangle(10, 10, 50, 30, 5)
+
+# Circle (x, y, radius)
+circle = shapes.circle(80, 60, 20)
+
+# Arc (x, y, radius, from_degrees, to_degrees)
+arc = shapes.arc(80, 60, 30, 0, 180)
+
+# Pie slice (x, y, radius, from_degrees, to_degrees)
+pie = shapes.pie(80, 60, 30, 45, 135)
+
+# Line (x1, y1, x2, y2, thickness)
+line = shapes.line(10, 10, 150, 110, 3)
+
+# Regular polygon (x, y, radius, sides)
+hexagon = shapes.regular_polygon(80, 60, 30, 6)
+
+# Squircle (x, y, radius, n=4)
+squircle = shapes.squircle(80, 60, 30, 4)
+
+# Stroke (outline) a shape
+outline = shapes.circle(80, 60, 30).stroke(3)  # 3px outline width
+```
+
+**Drawing:**
+```python
+screen.brush = brushes.color(255, 0, 0)
+screen.draw(shapes.circle(80, 60, 20))
+```
+
+#### `Matrix` - Transformations
+Transform shapes with translation, rotation, and scaling.
+
+```python
+from badgeware import Matrix
+
+# Create transformation
+transform = Matrix()
+
+# Translate (move)
+transform = transform.translate(x, y)
+
+# Scale (resize, can be negative to flip)
+transform = transform.scale(x_scale, y_scale)
+
+# Rotate (degrees)
+transform = transform.rotate(degrees)
+
+# Rotate (radians)
+transform = transform.rotate_radians(radians)
+
+# Combine transformations (chaining)
+transform = Matrix().translate(80, 60).scale(2, 2).rotate(45)
+
+# Apply to shape
+rect = shapes.rectangle(-10, -10, 20, 20)
+rect.transform = Matrix().translate(80, 60).rotate(io.ticks / 10)
+screen.draw(rect)
+```
+
+#### `Image` - Image Loading and Manipulation
+Load and work with PNG images.
+
+```python
+# Load PNG image (supports true color RGBA and paletted)
+image = Image.load("/system/apps/myapp/assets/sprite.png")
+
+# Properties
+width = image.width
+height = image.height
+
+# Set transparency for entire image
+image.alpha = 128  # 0-255
+
+# Set antialiasing
+image.antialias = Image.X2  # Image.OFF, Image.X2, Image.X4
+
+# Set current brush/font for drawing ON the image
+image.brush = brushes.color(255, 0, 0)
+image.font = my_font
+
+# Draw on image (same methods as screen)
+image.draw(shapes.circle(10, 10, 5))
+image.text("Hi", 0, 0)
+
+# Create window (clipped subsection)
+sub_image = image.window(x, y, width, height)
+
+# Display on screen
+screen.blit(image, x, y)
+screen.scale_blit(image, x, y, new_width, new_height)
+```
+
+#### `PixelFont` - Font Loading and Text
+Load pixel fonts for text rendering.
+
+```python
+# Load font from system or app assets
+font = PixelFont.load("/system/assets/fonts/nope.ppf")
+screen.font = font
+
+# Properties
+height = font.height
+name = font.name
+
+# Measure text
+width = screen.measure_text("Hello Badge!")
+
+# Draw text
+screen.brush = brushes.color(255, 255, 255)
+screen.text("Hello Badge!", x, y)
+```
+
+**Available System Fonts** (in `/system/assets/fonts/`):
+- `nope.ppf` - Clean, readable default
+- `ark.ppf` - Pixel art style
+- `compass.ppf` - Bold and chunky
+- `kobold.ppf` - Fantasy themed
+- `troll.ppf` - Large and bold
+- Plus 30+ more - see PixelFont.md for full list
+
+#### `SpriteSheet` - Sprite Animation
+Load and animate sprite sheets.
+
+```python
+# Load sprite sheet (image_path, columns, rows)
+sprite_sheet = SpriteSheet("/system/assets/mona-sprites/mona-default.png", 7, 1)
+
+# Get single sprite
+sprite = sprite_sheet.sprite(column, row)
+screen.blit(sprite, x, y)
+
+# Create animation
+animation = sprite_sheet.animation()
+
+# Get frame based on time (auto-loops)
+frame = animation.frame(io.ticks / 100)  # Adjust divisor for speed
+screen.blit(frame, x, y)
+
+# Scale blit (can flip with negative dims)
+screen.scale_blit(frame, x, y, 32, 32)
+```
+
+#### `run()` - Main Loop
+Starts the main loop that calls your update function every frame.
+
+```python
+# At end of __init__.py
+run(update)
+```
 
 ### Built-in Modules ###
 The following built in modules are available to the MicroPython code running on the device:
 
 array, binascii, builtins, cmath, collections, errno, gc, hashlib, heapq, io, json, machine, math, micropython, network, os, platform, random, re,select, socket, ssl, struct, sys,time, uctypes, rp2, bluetooth, cryptolib, deflate, framebuf, vfs, lwip, ntptime, mip, badgeware,picovector, pimoroni, pimoroni_i2c, qrcode, st7789, powman, board, boot, datetime, ezwifi, pcf85063a, qwstpad, cppmem, adcfft, aioble, asyncio, uasyncio, requests, urequests, urllib, webrepl, websocket, umqtt, ulab, aye_arr, breakout_as7262, breakout_as7343, breakout_bh1745, breakout_bme280, breakout_bme68x, breakout_bme69x, breakout_bmp280, breakout_dotmatrix, breakout_encoder, breakout_encoder_wheel, breakout_icp10125, breakout_ioexpander, breakout_ltr559, breakout_matrix11x7, breakout_mics6814, breakout_msa301, breakout_paa5100, breakout_pmw3901, breakout_potentiometer, breakout_rgbmatrix5x5, breakout_rtc, breakout_scd41, breakout_sgp30, breakout_trackball, breakout_vl53l5cx
 
-### Core Imports and Setup
+### File System Helpers
 
 ```python
-from badgeware import screen, Image, PixelFont, SpriteSheet, io, brushes, shapes, run, Matrix
+from badgeware import file_exists, is_dir
 
-# Standard color definitions (RGB values)
-BACKGROUND = brushes.color(r, g, b)
-FOREGROUND = brushes.color(r, g, b, alpha)  # alpha is optional (0-255)
-HIGHLIGHT = brushes.color(r, g, b)
+# Check if file exists
+if file_exists("/myapp_save.json"):
+    # Load save file
 
-# Set up font - loads from /system/assets/fonts/
-screen.font = PixelFont.load("/system/assets/fonts/nope.ppf")
-
-# Enable antialiasing for smooth vector graphics
-screen.antialias = Image.X2  # or Image.X4 for higher quality, Image.OFF to disable
+# Check if directory
+if is_dir("/system/apps/myapp/assets"):
+    # List assets
 ```
 
-### State Management Pattern
+### Battery Status
 
 ```python
-# Define default state dictionary
-state = {
-    "key": default_value,
-    "count": 0,
-    # ... other state variables
-}
+from badgeware import get_battery_level, is_charging
 
-# Load saved state (merges with defaults) in init()
+# Get battery percentage (0-100)
+level = get_battery_level()
+
+# Check if charging
+charging = is_charging()
+```
+
+## Common Patterns and Examples
+
+### Basic App Template
+```python
+from badgeware import screen, io, brushes, shapes, run, PixelFont
+
+# Global state
+game_state = {"score": 0}
+
 def init():
-    State.load("app_name", state)
+    global game_state
+    screen.font = PixelFont.load("/system/assets/fonts/nope.ppf")
+    screen.antialias = Image.X2
+    game_state = {"score": 0}
 
-# Save state when app exits
-def on_exit():
-    State.save("app_name", state)
-
-# Update state based on input
 def update():
+    # Input
     if io.BUTTON_A in io.pressed:
-        state["count"] += 1
-        # State will be saved on exit
-```
-
-### Button Handling Best Practices
-
-- Use `io.pressed` to detect button press events (fires once per press)
-- Use `io.held` to detect buttons being held down (continuous detection)
-- Use `io.released` to detect when a button is released
-- Use `io.changed` to detect any state change
-- Available buttons: `io.BUTTON_A`, `io.BUTTON_B`, `io.BUTTON_C`, `io.BUTTON_UP`, `io.BUTTON_DOWN`, `io.BUTTON_HOME`
-- Check button state with set membership: `if io.BUTTON_A in io.pressed:`
-- Access timing: `io.ticks` for milliseconds since boot, `io.ticks_delta` for frame delta time
-
-### Display and Rendering
-
-#### Basic Display Operations
-```python
-def update():
-    # Clear screen with background color (fastest method)
+        game_state["score"] += 1
+    
+    # Clear
     screen.brush = brushes.color(0, 0, 0)
     screen.clear()
     
-    # OR draw a filled rectangle over entire screen
-    screen.brush = brushes.color(73, 219, 255)
-    screen.draw(shapes.rectangle(0, 0, 160, 120))
-    
-    # Draw shapes using current brush
-    screen.brush = brushes.color(255, 0, 0)
-    screen.draw(shapes.circle(80, 60, 20))
-    
-    # Draw text (set font first)
-    screen.font = PixelFont.load("/system/assets/fonts/nope.ppf")
+    # Draw
     screen.brush = brushes.color(255, 255, 255)
-    screen.text("Hello Badge!", 10, 10)
+    screen.text(f"Score: {game_state['score']}", 10, 10)
+
+def on_exit():
+    # Save state if needed
+    pass
+
+run(update)
+```
+
+### Button Navigation
+```python
+menu_items = ["Play", "Settings", "Quit"]
+selected = 0
+
+def update():
+    global selected
     
-    # No explicit display update needed - handled by badgeware.run()
+    # Navigation with wrapping
+    if io.BUTTON_UP in io.pressed:
+        selected = (selected - 1) % len(menu_items)
+    if io.BUTTON_DOWN in io.pressed:
+        selected = (selected + 1) % len(menu_items)
+    
+    # Selection
+    if io.BUTTON_A in io.pressed:
+        handle_selection(menu_items[selected])
+    
+    # Draw menu
+    for i, item in enumerate(menu_items):
+        color = (255, 255, 0) if i == selected else (255, 255, 255)
+        screen.brush = brushes.color(*color)
+        screen.text(item, 10, 10 + i * 15)
 ```
 
-#### UI Layout Patterns
-- **Screen Size**: 160x120 pixels (logical resolution)
-- **Title Bar**: ~18px height at top
-- **Bottom Bar**: ~18px height at bottom
-- **Main Content Area**: Between title and bottom bars (~84px)
-
-#### Text Handling
+### Sprite Animation
 ```python
-# Measure text for positioning
-text_width, text_height = screen.measure_text("text")
-x_centered = 80 - (text_width / 2)  # Center on 160px width
+from badgeware import SpriteSheet
 
-# Draw text at position
-screen.text("text", x, y)
+sprite_sheet = None
+animation = None
 
-# Text with transparency
-screen.brush = brushes.color(255, 255, 255, 150)  # 150 alpha
-screen.text("semi-transparent", x, y)
+def init():
+    global sprite_sheet, animation
+    sprite_sheet = SpriteSheet("/system/assets/mona-sprites/mona-default.png", 7, 1)
+    animation = sprite_sheet.animation()
+
+def update():
+    # Get frame based on time (100ms per frame)
+    frame = animation.frame(io.ticks / 100)
+    
+    # Draw at position
+    screen.blit(frame, 64, 44)
 ```
 
-### Image and Sprite Handling
-
-#### Loading and Displaying Images
+### Collision Detection
 ```python
-# Load PNG image (supports true color RGBA and paletted)
-image = Image.load("/system/apps/myapp/assets/sprite.png")
+def rect_collision(x1, y1, w1, h1, x2, y2, w2, h2):
+    return (x1 < x2 + w2 and
+            x1 + w1 > x2 and
+            y1 < y2 + h2 and
+            y1 + h1 > y2)
 
-# Blit image at position
-screen.blit(image, x, y)
-
-# Scale blit to specific dimensions (negative dims flip image)
-screen.scale_blit(image, x, y, width, height)
-
-# Set transparency
-image.alpha = 150  # 0-255, affects entire image
-screen.blit(image, x, y)
-
-# Create image window (subsection for clipping)
-window = image.window(x, y, width, height)
+def circle_collision(x1, y1, r1, x2, y2, r2):
+    dx = x2 - x1
+    dy = y2 - y1
+    distance = (dx * dx + dy * dy) ** 0.5
+    return distance < (r1 + r2)
 ```
 
-#### Sprite Sheets and Animation
+### Persistent State
 ```python
-# Load sprite sheet (specify columns and rows)
-sprite_sheet = SpriteSheet("/system/assets/mona-sprites/mona-default.png", 7, 1)
+import json
+from badgeware import file_exists
 
-# Create animation from sheet
-animation = sprite_sheet.animation()
+save_file = "/myapp_save.json"
 
-# Get current frame based on time
-frame = animation.frame(io.ticks / 100)  # Adjust divisor for animation speed
-screen.blit(frame, x, y)
+def init():
+    global game_state
+    if file_exists(save_file):
+        try:
+            with open(save_file, "r") as f:
+                game_state = json.load(f)
+        except:
+            game_state = {"high_score": 0}
+    else:
+        game_state = {"high_score": 0}
 
-# Or get specific sprite from sheet
-sprite = sprite_sheet.sprite(column, row)
-screen.scale_blit(sprite, x, y, width, height)
+def on_exit():
+    try:
+        with open(save_file, "w") as f:
+            json.dump(game_state, f)
+    except:
+        pass  # Fail gracefully
 ```
 
-#### File System Operations
-- Use relative paths from app directory or absolute paths from `/system/`
-- Handle `OSError` exceptions for missing files/directories
-- Skip hidden files (starting with `.`) when listing directories
-- Use `badgeware.file_exists(path)` and `badgeware.is_dir(path)` for checks
-
-### Shape Transformations
-
-Shapes can be transformed using Matrix operations for animations and effects:
-
+### Smooth Movement
 ```python
-from badgeware import shapes, Matrix
-
-# Create a shape
-rect = shapes.rectangle(-10, -10, 20, 20)
-
-# Apply transformations (chaining supported)
-rect.transform = Matrix().translate(80, 60).scale(2, 2).rotate(io.ticks / 100)
-
-# Draw transformed shape
-screen.brush = brushes.color(255, 0, 0)
-screen.draw(rect)
-
-# Create stroked (outline) shapes
-circle_outline = shapes.circle(80, 60, 30).stroke(3)  # 3px width outline
-```
-
-### Common Patterns
-
-#### Navigation Lists
-```python
-# Use modulo for wrapping navigation
-current_index = (current_index + 1) % len(items)  # Next
-current_index = (current_index - 1) % len(items)  # Previous
-
-# Clamp values to ranges
-x = max(0, min(x, 160))  # Clamp x to screen width
-```
-
-#### Animation Timing
-```python
-# Smooth animations using ticks
-angle = (io.ticks / 1000) * 360  # Full rotation per second
-offset = math.sin(io.ticks / 500) * 20  # Oscillate ±20 pixels
-
 # Frame-rate independent movement
-velocity_x = 50  # pixels per second
-x += velocity_x * (io.ticks_delta / 1000)
+player_x = 80
+player_y = 60
+speed = 50  # pixels per second
+
+def update():
+    global player_x, player_y
+    
+    # Movement based on frame delta
+    if io.BUTTON_UP in io.held:
+        player_y -= speed * (io.ticks_delta / 1000)
+    if io.BUTTON_DOWN in io.held:
+        player_y += speed * (io.ticks_delta / 1000)
+    
+    # Clamp to screen bounds
+    player_y = max(0, min(player_y, 120))
 ```
 
-#### Error Handling
+### Rotating Shape
 ```python
-try:
-    # File operations
-    files = os.listdir('/system/apps/myapp/assets')
-except OSError:
-    # Handle missing directory gracefully
-    files = []
-
-# Check before loading
-if file_exists("/system/apps/myapp/data.json"):
-    with open("/system/apps/myapp/data.json", "r") as f:
-        data = json.load(f)
+def update():
+    # Clear
+    screen.brush = brushes.color(0, 0, 0)
+    screen.clear()
+    
+    # Create shape centered at origin
+    rect = shapes.rectangle(-20, -10, 40, 20)
+    
+    # Transform: move to screen center, rotate based on time
+    rect.transform = Matrix().translate(80, 60).rotate(io.ticks / 10)
+    
+    # Draw
+    screen.brush = brushes.color(255, 0, 0)
+    screen.draw(rect)
 ```
 
-## Available Libraries and Modules
+## Performance Best Practices
 
-### badgeware - Core System Library
-- `screen` - Main display framebuffer (160x120 Image object)
-- `io` - Input handling (buttons, timing with ticks/ticks_delta)
-- `brushes.color(r, g, b, alpha=255)` - Create color brushes for drawing
-- `shapes` - Drawing primitives:
-  - `rectangle(x, y, w, h)` - Rectangles
-  - `rounded_rectangle(x, y, w, h, r)` - Rounded corners
-  - `circle(x, y, r)` - Circles
-  - `arc(x, y, r, from_deg, to_deg)` - Arcs
-  - `pie(x, y, r, from_deg, to_deg)` - Pie slices
-  - `line(x1, y1, x2, y2, thickness)` - Lines
-  - `regular_polygon(x, y, r, sides)` - Polygons
-  - `squircle(x, y, r, n=4)` - Squircles
-- `Image` - Image loading, manipulation, and drawing surface
-- `PixelFont` - Pixel font loading and text rendering
-- `SpriteSheet` - Sprite sheet handling with animation support
-- `Matrix` - Transformation matrices (translate, rotate, scale)
-- `run(update_func)` - Main loop runner that calls update_func every frame
-- `file_exists(path)`, `is_dir(path)` - File system helpers
-- `get_battery_level()`, `is_charging()` - Battery status
+1. **Pre-create Objects** - Create brushes, shapes, fonts in `init()`, not in `update()`
+2. **Minimize Allocations** - Avoid creating new objects every frame
+3. **Use Paletted Images** - Smaller file size and memory usage
+4. **Call gc.collect()** - Before loading large resources or major state changes
+5. **Profile Critical Paths** - Use `io.ticks_delta` to measure frame time
+6. **Batch Drawing** - Group similar drawing operations together
+7. **Optimize Loops** - Unroll small loops, use list comprehensions wisely
+8. **Cache Calculations** - Don't recalculate static values every frame
 
-### Standard MicroPython Libraries
-- `network` - WiFi connectivity (network.WLAN)
-- `urllib.urequest` - HTTP requests
-- `json` - JSON parsing and serialization
-- `math`, `random` - Mathematical operations
-- `os`, `sys`, `gc` - System utilities
-- `time` - Time and sleep functions
-- `bluetooth` - Bluetooth functionality
+## Common Pitfalls
 
-## Development Tips and Best Practices
+1. **Not Setting screen.font** - Always set font before calling `screen.text()`
+2. **Not Setting screen.brush** - Always set brush before drawing shapes/clearing
+3. **Forgetting to Clear** - Call `screen.clear()` every frame or redraw everything
+4. **Using Desktop Python Features** - MicroPython subset (no `random.choices()`, limited stdlib)
+5. **Absolute Paths** - Use `/system/` prefix or relative paths from app directory
+6. **Not Handling Errors** - Wrap file operations in try/except
+7. **Memory Leaks** - Don't create new objects in tight loops
+8. **Coordinate System** - Remember screen is 160x120 logical pixels, not 320x240
 
-1. **App Structure** - Every app must have `__init__.py` with `update()` function; `init()` and `on_exit()` are optional
-2. **Icon Required** - Apps need a 24x24 PNG `icon.png` to appear in the menu launcher
-3. **Memory Management** - Limited RAM; use paletted images when possible, call `gc.collect()` for large operations
-4. **Performance** - `update()` runs every frame; keep it efficient, avoid heavy computations
-5. **File Paths** - Use `/system/` for absolute paths; assets in app directory are auto-pathed
-6. **Button Handling** - Use `io.pressed` for single actions, `io.held` for continuous movement
-7. **Screen Clearing** - Use `screen.clear()` with brush color, not drawing full-screen rectangles
-8. **Antialiasing** - Enable `screen.antialias = Image.X2` or `Image.X4` for smooth vector graphics
-9. **Text Rendering** - Always set `screen.font` before calling `screen.text()`
-10. **Transformations** - Use `Matrix()` chaining for efficient shape transformations
-11. **State Management** - Store persistent data in `/` LittleFS partition, not `/system/`
-12. **Error Handling** - Always wrap file operations in try/except for missing files/directories
-13. **Timing** - Use `io.ticks` (milliseconds) for animations; `io.ticks_delta` for frame-independent movement
-14. **HOME Button** - Automatically handled by main.py; calls `on_exit()` before returning to menu
-15. **Testing** - Test on real hardware; MicroPython differs from desktop Python
+## Reference Apps in This Project
 
-## Example Apps Reference
+Study these apps for working examples:
 
-The `badge/apps/` directory contains several complete example applications:
+- **`/badge/apps/snake/`** - Classic Snake game with score tracking
+- **`/badge/apps/life/`** - Conway's Game of Life with pattern injection
+- **`/badge/apps/flappy/`** - Flappy Bird clone with sprite animation
+- **`/badge/apps/monapet/`** - Virtual pet with state management
+- **`/badge/apps/sketch/`** - Drawing app with button controls
+- **`/badge/apps/quest/`** - IR beacon hunting game
+- **`/badge/apps/menu/`** - Launcher menu with icon grid
 
-### Badge (`badge/`)
-**GitHub Stats Viewer** - Displays GitHub profile statistics including contributions graph, followers, and avatar.
-- **Key features**: WiFi connectivity, HTTP API calls, JSON parsing, image downloading
-- **Demonstrates**: Network operations, async data fetching, state management
-- **Technologies**: `network.WLAN`, `urllib.urequest`, JSON API integration
+## Additional Resources
 
-### Flappy (`flappy/`)
-**Flappy Bird Style Game** - A side-scrolling game where Mona jumps between obstacles.
-- **Key features**: Game state machine, sprite animation, collision detection, scrolling backgrounds
-- **Demonstrates**: Game loop structure, parallax scrolling, score tracking
-- **Technologies**: `SpriteSheet`, multiple game states, physics simulation
+- **README.md** - Comprehensive badge documentation and examples
+- **badgeware/*.md** - Detailed API documentation for each module
 
-### Gallery (`gallery/`)
-**Image Gallery** - Browse through images with thumbnail navigation.
-- **Key features**: Image loading, smooth scrolling, thumbnail strip, UI toggle. Great for loading and viewing user-provided images, why not show off you project or company logo.
-- **Demonstrates**: File system operations, list navigation, animated transitions
-- **Technologies**: `Image.load()`, `os.listdir()`, smooth interpolation
+## Development Workflow
 
-### Menu (`menu/`)
-**App Launcher** - The main menu system for launching other apps.
-- **Key features**: Grid-based icon navigation, dynamic app discovery, return to launcher
-- **Demonstrates**: App management, animation, icon system, HOME button interrupt handling
-- **Technologies**: File system scanning, modular app loading
+1. **Create App Directory** - `./apps/<name>/`
+2. **Create icon.png** - 24x24 PNG icon
+3. **Create __init__.py** - With `init()`, `update()`, `on_exit()`, `run(update)`
+4. **Add Assets** - Images, fonts, data in `assets/` subdirectory
+5. **Test on Hardware** - MicroPython differs from desktop Python
+6. **Handle Errors** - Wrap I/O operations, handle missing files gracefully
+7. **Optimize** - Profile with `io.ticks_delta`, reduce allocations
+8. **Document** - Add comments for complex logic
 
-### Monapet (`monapet/`)
-**Virtual Pet** - A virtual pet care simulator.
-- **Key features**: Time-based stat decay, multiple stats (happiness, hunger, cleanliness), animations
-- **Demonstrates**: Real-time simulation, state persistence, animated sprites with actions
-- **Technologies**: `io.ticks_delta` for time tracking, complex state management
+---
 
-### Quest (`quest/`)
-**IR Scavenger Hunt** - Collect locations using IR beacons at the conference.
-- **Key features**: IR receiver integration, quest tracking, completion animations
-- **Demonstrates**: Hardware integration (IR), persistent progress tracking, visual feedback
-- **Technologies**: `aye_arr.nec.NECReceiver`, IR beacon protocol, custom protocol handling
-
-### Sketch (`sketch/`)
-**Drawing App** - A simple drawing canvas with cursor control.
-- **Key features**: Pixel drawing, animated UI elements, cursor tracking
-- **Demonstrates**: Drawing to offscreen buffer, cursor positioning, character animation
-- **Technologies**: Offscreen `Image` as canvas, real-time drawing
-
-### Startup (`startup/`)
-**Boot Animation** - Animated splash screen shown on badge startup.
-- **Key features**: Frame-based animation sequence
-- **Demonstrates**: Simple animation playback, intro/splash screens
-- **Technologies**: Frame sequencing, timed display
-
-Each app follows the standard structure with `__init__.py`, uses the `badgeware.run()` pattern, and demonstrates different aspects of badge development. Refer to these examples when building new apps.
+This document should provide you with everything needed to create badge apps. When in doubt, check the badgeware documentation in this repository or examine existing apps for patterns.
 
 ---
 > Source: [badger/home](https://github.com/badger/home) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
