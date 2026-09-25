@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [codellm-devkit/python-sdk](https://github.com/codellm-devkit/python-sdk).
+Original source: `CLAUDE.md` in [codellm-devkit/python-sdk](https://github.com/codellm-devkit/python-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [codellm-devkit/python-sdk](https://github.com/c
 
 - [python-sdk](https://github.com/codellm-devkit/python-sdk/tree/main/docs/skills/using-cldk/SKILL.md)
 
-From [codellm-devkit/python-sdk](https://github.com/codellm-devkit/python-sdk) — a repo with 178+ stars on GitHub.
+From [codellm-devkit/python-sdk](https://github.com/codellm-devkit/python-sdk) — a repo with 177+ stars on GitHub.
 
 ---
 
