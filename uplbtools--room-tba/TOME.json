@@ -1,0 +1,117 @@
+{
+  "name": "room-tba",
+  "owner": "uplbtools",
+  "repo": "room-tba",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/hallmark/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/hallmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/impeccable/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/no-ai-slop/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/no-ai-slop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/repo-baseline/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/repo-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/agent-handoff/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/agent-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/ponytail-review/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/ponytail-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/amis-term-import/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/amis-term-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/playwright-e2e-ci/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/playwright-e2e-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/vercel-supabase-ops/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/vercel-supabase-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/contributor-proposals/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/contributor-proposals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/discord-notifications/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/discord-notifications/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "room-tba",
+      "path": ".cursor/skills/room-tba-agent-workflow/SKILL.md",
+      "github_url": "https://github.com/uplbtools/room-tba/tree/main/.cursor/skills/room-tba-agent-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/uplbtools/room-tba",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T03:07:50Z"
+}
