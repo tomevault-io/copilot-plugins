@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [snapcndev/snapcn](https://github.com/snapcndev/snapcn).
+Original source: `CLAUDE.md` in [snapcndev/snapcn](https://github.com/snapcndev/snapcn).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -27,7 +27,7 @@ Original source: `AGENTS.md` in [snapcndev/snapcn](https://github.com/snapcndev/
 - [snapcn](https://github.com/snapcndev/snapcn/tree/main/.claude/skills/animation-vocabulary/SKILL.md)
 - [snapcn](https://github.com/snapcndev/snapcn/tree/main/.claude/skills/interactivity-best-practices/SKILL.md)
 
-From [snapcndev/snapcn](https://github.com/snapcndev/snapcn) — a repo with 200+ stars on GitHub.
+From [snapcndev/snapcn](https://github.com/snapcndev/snapcn) — a repo with 201+ stars on GitHub.
 
 ---
 
