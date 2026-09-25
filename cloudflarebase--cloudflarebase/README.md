@@ -2,22 +2,20 @@
 
 > Source: [cloudflarebase/cloudflarebase](https://github.com/cloudflarebase/cloudflarebase). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-The open-source Firebase for Cloudflare.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cloudflarebase/cloudflarebase](https://github.com/cloudflarebase/cloudflarebase).
+Original source: `CLAUDE.md` in [cloudflarebase/cloudflarebase](https://github.com/cloudflarebase/cloudflarebase).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cloudflarebase/cloudflarebase](https://github.com/cloudflarebase/cloudflarebase) — a repo with 210+ stars on GitHub.
+From [cloudflarebase/cloudflarebase](https://github.com/cloudflarebase/cloudflarebase) — a repo with 228+ stars on GitHub.
 
 ---
 
