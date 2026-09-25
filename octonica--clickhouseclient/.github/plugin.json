@@ -1,0 +1,9 @@
+{
+  "name": "octonica--clickhouseclient",
+  "displayName": "ClickHouseClient",
+  "description": "ClickHouseClient",
+  "version": "1.0.0",
+  "author": "Octonica",
+  "homepage": "https://github.com/Octonica/ClickHouseClient",
+  "skills": []
+}
