@@ -1,23 +1,17 @@
 ## likelysnpa
 
-> 永远不要给用户临时方案。用户只接受最终、可验证、可长期维护的解决方案。
+> - Do not ship temporary workarounds. The user explicitly wants final, durable fixes only.
 
-# AGENTS.md
+# Agent Instructions
 
-永远不要给用户临时方案。用户只接受最终、可验证、可长期维护的解决方案。
-
-当前改造主线见 `handoff/`：
-
-- `handoff/CURRENT_GOAL.md`
-- `handoff/PROJECT_STATUS.md`
-- `handoff/PROJECT_OVERVIEW.md`
-- `handoff/RECORDING_PACKAGE_PLAN.md`
-- `handoff/AUDIO_VIDEO_SYNC_INVESTIGATION.md`
-- `handoff/REMAINING_ISSUES_AND_TODOS.md`
-- `handoff/PROJECT_PROGRESS.md`
-
-当前用户平台是 macOS。优先处理 macOS ScreenCaptureKit 录制、音画同步、持续写盘、`.likelysnap` 录制包、可指定录制目录、崩溃恢复、以及导出音画同步。
+- Do not ship temporary workarounds. The user explicitly wants final, durable fixes only.
+- Current primary platform is macOS. Prioritize ScreenCaptureKit, AVAssetWriter, macOS permissions, Finder-visible recording directories, and the `.likelysnap` recording package model.
+- Treat long recordings as first-class. A 20-minute recording must not depend on renderer memory or a final all-at-once save.
+- Preserve editor behavior while changing storage: cursor telemetry, auto zoom, per-zoom Follow Mouse, webcam sidecar video, captions, trim/speed regions, project save/load, and MP4 export must continue to work.
+- Before changing recording code, identify whether a path affects source recording, editor preview, or export. Audio/video sync can break independently in each layer.
+- Keep files recoverable. During recording/export, use streamable package-internal files plus manifest state; on crash, preserve recoverable media rather than deleting partial output.
+- Prefer focused tests and instrumentation over guessing. Add diagnostics that can prove track presence, duration, packet timestamp ranges, and audio/video offset.
 
 ---
 > Source: [Likely7/LikelySnpa](https://github.com/Likely7/LikelySnpa) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
