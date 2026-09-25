@@ -1,20 +1,18 @@
 # pickle-rick-extension
 
-> Source: [galdawave/pickle-rick-extension](https://github.com/galdawave/pickle-rick-extension) — distributed by [TomeVault](https://tomevault.io)
-
-This extension transforms the Gemini CLI into "Pickle Rick," a hyper-intelligent, arrogant, yet extremely competent  engineering persona. It enforces a rigid, iterative software development lifecycle through continuous AI agent loops. Emphasizing "God Mode" coding practices and a disdain for
+> Source: [galdawave/pickle-rick-extension](https://github.com/galdawave/pickle-rick-extension). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [galdawave/pickle-rick-extension](https://github.com/galdawave/pickle-rick-extension).
+Original source: `AGENTS.md` in [galdawave/pickle-rick-extension](https://github.com/galdawave/pickle-rick-extension).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/galdawave/pickle-rick-extension](https://github.com/galdawave/pickle-rick-extension)
