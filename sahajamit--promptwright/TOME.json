@@ -3,8 +3,8 @@
   "owner": "sahajamit",
   "repo": "promptwright",
   "description": "Login-less, bring-your-own-key desktop agent that turns plain English into browser automation \u2014 and generates runnable Playwright, Cypress, and Selenium scripts.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "promptwright",
+      "path": "packages/core/src/personas/record-and-repeat/SKILL.md",
+      "github_url": "https://github.com/sahajamit/promptwright/tree/main/packages/core/src/personas/record-and-repeat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "promptwright",
+      "path": "packages/core/src/personas/api-test-execution/SKILL.md",
+      "github_url": "https://github.com/sahajamit/promptwright/tree/main/packages/core/src/personas/api-test-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "promptwright",
+      "path": "packages/core/src/personas/manual-test-execution/SKILL.md",
+      "github_url": "https://github.com/sahajamit/promptwright/tree/main/packages/core/src/personas/manual-test-execution/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/sahajamit/promptwright",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-13T15:32:36Z"
+  "distributed_at": "2026-09-25T00:50:25Z"
 }
