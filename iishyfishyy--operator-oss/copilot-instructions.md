@@ -1,87 +1,87 @@
 ## operator-oss
 
-> Operator supports Claude Code and OpenAI Codex as first-class task agents. You can connect
+> Orchestrator — a local-first web app that runs many Claude Code sessions in parallel across multiple projects from one screen. Each **project** carries reusable context + a working directory; each **task** is its own Claude Code session in its own git worktree, driven by `@anthropic-ai/claude-agent-sdk` against the user's local Claude login (no API key). (A hosted version, getoperator.dev, lives in a separate private repo that overlays this one — see "Repo split" below.)
 
-# Supported agents
+# CLAUDE.md
 
-Operator supports Claude Code and OpenAI Codex as first-class task agents. You can connect
-either one or both, choose a default, and override the agent for an individual task.
+Orchestrator — a local-first web app that runs many Claude Code sessions in parallel across multiple projects from one screen. Each **project** carries reusable context + a working directory; each **task** is its own Claude Code session in its own git worktree, driven by `@anthropic-ai/claude-agent-sdk` against the user's local Claude login (no API key). (A hosted version, getoperator.dev, lives in a separate private repo that overlays this one — see "Repo split" below.)
 
-## Support matrix
+## Commands
 
-| Agent | Authentication | Task support | Notes |
-|-|-|-|-|
-| Claude Code | Max/Pro login or optional API key | Full | Reference driver; supports interactive questions and reported cost data |
-| OpenAI Codex | ChatGPT login or optional API key | Full | Supports interactive questions through Operator's bridge; estimated cost data |
+- `npm run dev` — app (:3000, `server.js`) + pty sidecar (:3001, `pty-server.js`) via concurrently. `npm run dev:next` / `npm run pty` run them separately.
+- `npm run build` (turbopack) then `npm start` for production.
+- `npm test` — vitest, serial on purpose (tests spawn many real git subprocesses). Single file: `npx vitest run tests/merge.test.ts`.
+- `npm run test:e2e` — Playwright end-to-end suite: builds, then boots the real prod server against a hermetic temp instance with the deterministic mock agent (`lib/agents/mock/`, registered only when `ORCH_E2E_MOCK_AGENT=1`) and drives onboarding → project → task → turn → diff → merge through the UI. `npm run preflight` = unit + e2e, the pre-push gate. See `e2e/README.md` (mock-turn directives, selector conventions, staleness gotcha: the server runs the **built** bundle).
+- No lint script; TypeScript is strict, path alias `@/*` → repo root (mirrored in `vitest.config.ts`).
 
-Connecting either agent completes first-run setup and makes it the initial default. The
-app never requires Claude when only Codex is connected, or vice versa. Project recaps,
-context drafts, and other utility jobs prefer a connected agent automatically.
+## Architecture
 
-## Authentication and billing
+Three processes/entrypoints, one origin:
 
-The recommended path is the subscription login offered by the first-run wizard or
-**Settings → Agents**. Subscription turns consume plan quota and have no marginal API
-charge. Operator removes stray `ANTHROPIC_API_KEY` and `OPENAI_API_KEY` values from its
-launch environment by default so an inherited shell variable cannot silently switch a
-session to API billing.
+- **`server.js`** — custom Next.js server (plain Node, CommonJS). Fronts Next on one port, proxies `/pty` WebSocket upgrades to the sidecar, forwards dev HMR upgrades to Next, enforces origin auth on WebSocket upgrades (middleware never sees upgrades — this file is the auth boundary for the terminal), and dispatches public service hostnames (`<slug>--<appHost>`) through `lib/service-router.mjs`.
+- **`pty-server.js`** — node-pty sidecar, bound to `127.0.0.1` only; never exposed directly.
+- **Next app** — UI in `app/`, REST under `app/api/`, server logic in `lib/`.
 
-If you intentionally want API-key billing, connect a key in the app or set
-`ORCH_ALLOW_API_KEY_ENV=1` for a deliberately configured headless environment.
+### The turn lifecycle (core flow)
 
-## Claude Code
+`POST /api/tasks/[id]/messages` doesn't run the turn — it calls `startTurn()` in **`lib/runner.ts`** and returns. The turn runs detached, owned by the server process: every event is persisted to SQLite and fanned out via **`lib/events.ts`** (in-process pub/sub keyed by task id, plus a wildcard channel — `subscribeGlobal()` — that sees every task's events). `GET` on the same route is the SSE watch stream: a `snapshot` of the persisted transcript, then a live tail — reconnect-safe, any number of viewers, zero viewers fine. Stopping is only explicit (`lib/abort.ts`). If a turn is already running, POST parks the message in `pending_messages` to run next.
 
-Claude Code is the reference driver and the first target for new agent-facing features.
-It supports parallel tasks, resume and `/clear` lineage, interactive questions, project
-context, diff workflows, and usage reporting.
+Only the SELECTED task has a transcript stream open. Everything else stays live through `GET /api/events` — one always-open EventSource per tab (`app/orchestrator/useGlobalEvents.ts`) broadcasting coarse lifecycle events for every task across every project (turn started / awaiting input / answered / suggestion created / turn ended). Each payload re-reads the task row at publish time — the runner persists BEFORE it publishes, so the snapshot is authoritative (pinned by `tests/agentDriver.test.ts`); it also carries the project's fresh awaiting count. That's what updates spinners, project badges, and the "N need you" pill for unselected tasks — there is no task-list polling.
 
-Task sessions run unattended inside their isolated worktrees. Operator is a control layer,
-not an additional security sandbox; review [the security model](../SECURITY.md) before
-exposing an instance.
+**`lib/agents/`** is the agent-driver seam: the app talks to coding agents only through the `AgentDriver` interface (`types.ts` — normalized `StreamEvent` turn contract, one-shot summarize/draft/recap helpers, capability descriptor, login/verify auth surface), resolved via `getDriver(task.agent)` in `registry.ts` (`tasks.agent`, defaulted from `projects.default_agent`; unknown ids fall back to Claude). `shared.ts` holds the agent-agnostic normalizers (project-context/conflict prompts, tool-call → title/peek/diff, the event queue). `GET /api/agents` exposes each driver's capabilities to the client. Session/thread ids are opaque per driver (`sessions.claude_session_id` stores any driver's id).
 
-### Amazon Bedrock
+**`lib/agents/claude/driver.ts`** is the Claude Code driver: `runTurn()` via the Agent SDK (resume or fresh session; project context is appended to the Claude Code system prompt via `buildProjectContext()`), the `suggest_task`/`expose_service` MCP tools, `summarizeTranscript()` for `/clear`, `draftProjectContext()` (read-only repo-exploring agent); auth delegates to `lib/claude-auth.ts`. Sessions run `permissionMode: "bypassPermissions"`. **`lib/agents/codex/driver.ts`** is the OpenAI Codex driver (`@openai/codex-sdk` spawns the `codex` CLI, JSONL over stdio; `codex/events.ts` normalizes its `ThreadEvent` stream); its one-shot helpers are `codex exec` runs in a read-only sandbox. Non-Claude drivers get the orchestrator tools (`suggest_task`/`expose_service`/`ask_user`) via the stdio MCP bridge `scripts/orch-mcp.mjs` → `/api/internal/agent-tools/*`; `ask_user` restores interactive asks (card persisted + published by `lib/agentTools.startAskUser`, bridge polls the `wait` endpoint for the answer).
 
-Claude can instead run entirely through **Amazon Bedrock**. Configure the normal AWS
-credential chain (or `AWS_BEARER_TOKEN_BEDROCK`), set `CLAUDE_CODE_USE_BEDROCK=1` plus an
-AWS region, restart Operator, then choose **Amazon Bedrock → Verify** under
-**Settings → Agents**. Docker Compose forwards the documented Bedrock/AWS variables and
-persists `~/.aws`; see [`.env.example`](../.env.example). Operator uses one Claude provider
-per instance, so Bedrock and a Claude subscription are not mixed within the same instance.
+**Internal jobs run through `lib/agents/oneshots.ts`** — the turns that run *outside* the main chat. Two policies: **task-scoped** (`/clear` transcript summarization) follows the **task's own agent** (so a Codex task's handoff note bills the Codex login); **project-scoped** (recap, "Refresh with AI" context draft) runs the **utility agent**, resolved **connected-first** (`utility_agent` setting if connected → app default → built-in default → any connected agent; nothing connected → actionable error, never a dead CLI). Unattended work is gated server-side by `background_jobs` (default `on`); recap scheduling is additionally controlled by `recap_mode` (`automatic` default / `on_open` / `off`). Explicit `/clear`, Refresh with AI, and manual recap refreshes still run. A driver that doesn't implement a helper is backstopped by the utility agent, so the one-shot helpers on `AgentDriver` are optional — only `runTurn()` is required. Every one-shot funnels through one `run()` wrapper that emits the `internal_job_ran` analytics event with the agent that **actually** ran it plus `fallback` — both fallback paths are invisible otherwise. `resolveUtilityAgent()` reports the same resolution without throwing, so `GET /api/agents` can hand Settings the effective utility agent and its `(fallback)` hint. The first-run wizard requires **an** agent, not Claude: finishing with only Codex connected adopts it as the app default and retargets the seeded tutorial (`completeOnboarding` in `lib/onboarding.ts`). New tasks pick their agent connected-first too — the New-task dialog via `defaultAgentFor()` (`app/orchestrator/agents.ts`), and `suggest_task` via `resolveConnectedAgent()` in `lib/agentTools.ts`, and idle, unstarted tasks can still switch agents before their first session fixes the driver lineage. AI conflict-resolution turns need no special routing: the client sends `buildConflictPrompt()` output as an ordinary message through `startTurn()` → the task's driver.
 
-On Bedrock the model picker offers the aliases your AWS config maps
-(`ANTHROPIC_DEFAULT_OPUS_MODEL` etc.) plus a custom-model field for Bedrock ids and
-inference-profile ARNs, and when your setup uses AWS IAM Identity Center (SSO), an expired
-session is refreshed from the UI with a click-to-approve device link — no shell needed.
-Full walkthrough: [Bedrock instructions](BEDROCK_INSTRUCTIONS.md).
+**Suggestions are ask-first.** `suggestion_policy` (`ask_first` default / `auto`, `lib/suggestionPolicy.ts`) decides whether an agent may file a task the user never asked for. `buildProjectContext()` reads it: under `ask_first` the agent must list proposed follow-ups in chat and confirm (AskUserQuestion on Claude, `ask_user` elsewhere, chosen from `task.agent`) before calling `suggest_task` — an explicit plan/break-down/scope/roadmap request is still free to file directly. The tool description in `lib/agentToolDefs.mjs` says the same thing, but it's static (the stdio bridge has no DB), so the `auto` prompt branch states that it overrides it. Enforcement is deliberately prompt-only — a confirmation is prose, not a tool call — so `createSuggestedTask()` emits the `suggestion_created` analytics event stamped with the policy in force to make drift visible.
 
-## OpenAI Codex
+**Adding a third agent**: implement `AgentDriver` in `lib/agents/<id>/driver.ts` (only `runTurn()` is required), register it in `registry.ts`, ship its CLI in the `Dockerfile`. Nothing else changes — the runner, routes, recap/refresh jobs, and UI data flow are all seam-generic. Pin it with the driver-contract test (`tests/agentDriver.test.ts`, which mocks a driver's CLI at the SDK boundary and runs it through the real runner).
 
-Codex supports parallel tasks, diff review and merge, `/clear` lineage, project context,
-interactive questions, and usage tracking. Operator supplies interactive questions through
-its MCP bridge because the upstream non-interactive CLI does not provide that hook itself.
+**A task is a lineage of sessions**: `/clear` ends generation N, condenses its transcript to a summary, and generation N+1 starts fresh seeded with all prior summaries.
 
-Two upstream differences are visible:
+### Key modules (by responsibility)
 
-- ChatGPT-plan authentication reports tokens but not dollar cost, so Operator estimates
-  the API-price equivalent and marks it with `~`.
-- The non-interactive CLI cannot pause an active turn for a command-approval prompt.
-  Operator therefore offers Auto-run and read-only Plan modes for Codex rather than a
-  mid-turn approval mode, and asks Codex not to require approvals
-  (`approval_policy=never`). If an enterprise-managed Codex configuration disallows
-  that, Operator detects the CLI's downgrade warning on the first affected turn and
-  switches itself to the compatible `on-request` policy automatically — the failed
-  turn gets a one-click Retry. `CODEX_APPROVAL_POLICY` remains the manual override.
+- `lib/db.ts` — SQLite schema + migrations (single shared connection, WAL); `lib/store.ts` — typed queries; `lib/types.ts` — shared types.
+- `lib/git.ts` — per-task worktrees/branches, diffs, merge (`mergeTask`, `prepareWorktreeMerge`/`completeWorktreeMerge`/`abortWorktreeMerge`), base-branch sync (`worktreeSyncStatus`/`fastForwardWorktree`).
+- `lib/services.ts` — managed-services supervisor (detached process-group children owned by the server, log ring buffers, SSE status); `lib/service-router.mjs` + `lib/service-host.mjs` — public service-hostname reverse proxy + pure host/token helpers.
+- `lib/contextRefresh.ts` — "Refresh with AI" as a detached background job (poll via GET, never a long-held request); `lib/recap.ts` — staleness/activity sweep. Both are project-scoped one-shots that run on the utility agent via `lib/agents/oneshots.ts`. `lib/idle.ts` — busy-tracking so the idle daemon won't stop the container mid-work.
+- `lib/promptLimits.ts` / `lib/authFailure.ts` / `lib/approvalFailure.ts` — the *recoverable* turn failures, classified agent-agnostically from the error text. Each appends a durable notice to the persisted transcript line, which the UI matches verbatim to render one recovery button (`/clear` for context overflow, Reconnect for a dead login, Retry for an approval-policy block). A dead login additionally parks the pending queue (every follow-up would fail identically) and flags the agent instance-wide (`agent_auth_broken_<id>` in `lib/agents/connections.ts`, relayed on `/api/events` as an `agent_auth` event) so the titlebar banner shows in every tab; any successful turn clears it. An approval block is Codex-specific in practice: enterprise-managed requirements can disallow the driver's `approval_policy=never`, which the exec transport can't survive — the driver spots the CLI's downgrade warning and self-heals to `on-request` (`codex_approval_downgraded` setting, `lib/agents/codex/driver.ts`).
+- `lib/config.ts` — all per-instance config, env-driven with documented defaults; `lib/features.ts` — feature flags (env → `resolveFeatures()` server-side, `window.__FEATURES` client-side).
+- Auth: `middleware.ts` gates every HTTP route (no matcher on purpose); provider selected by `lib/auth/origin.mjs` (no-login local mode by default, Cloudflare Access when `CF_ACCESS_*` is set). Local mode still enforces the shared Host/Origin boundary in `lib/auth/local-origin.mjs` for HTTP and WebSocket traffic; loopback + `PUBLIC_BASE_URL` are trusted, with explicit LAN origins via `ORCH_ALLOWED_ORIGINS`. Threat model in `lib/cf-access.mjs`. Health/version routes accept the shared `SERVICE_TOKEN` instead.
+- UI: `app/Orchestrator.tsx` is the three-column shell (projects · tasks · live session); the pieces live in `app/orchestrator/` (`useTaskStream.ts` owns the one-EventSource-per-task logic, `SessionRail.tsx` the DIFF/PREVIEW/CONTEXT tabs). `app/Terminal.tsx` is xterm.js over the `/pty` proxy.
 
-## Adding another agent
+### Repo split (OSS ↔ hosted)
 
-The app is agent-agnostic behind a small driver interface. A new driver supplies normalized
-stream events and a capability descriptor; shared routing, transcripts, task state, and UI
-controls consume that contract.
+This is the **open-source repo** — the whole local app lives here and all core development happens here. The hosted product (control plane, billing, fleet provisioning, first-party auth, deploy scripts) lives in a **private overlay repo** that tracks this one as upstream: it re-adds the private files and carries hosted variants of a few fork-point files (`middleware.ts`, `lib/auth/origin.mjs`, `server.js`, `app/api/auth/logout/route.ts`, `Dockerfile`, `docker-compose.yml`, `.env.example`, `README.md`, this file). Don't add hosted/control-plane features here; don't reference private scripts or docs from public files.
 
-See [Architecture: the agent-driver seam](ARCHITECTURE.md#the-agent-driver-seam-libagents)
-for the implementation guide. Proposals for another agent are welcome in
-[GitHub Discussions](https://github.com/iishyfishyy/operator-oss/discussions/categories/ideas).
+### Where data lives
+
+| What | Where |
+|-|-|
+| DB (projects, tasks, transcripts, summaries) | `orchestrator.db` in `ORCH_DB_DIR` (default `~/.zen-orchestrator`) |
+| Per-task git worktrees | `ORCH_WORKTREES_DIR` (default `~/.agent-orchestrator/worktrees`) — deliberately **outside** every repo |
+| Cloned project repos | `ORCH_PROJECTS_DIR` (default `~/projects`) |
+
+## Conventions & gotchas
+
+- **Env-driven, zero code edits per instance.** Every per-instance knob is an env var with a documented default — add new ones to `lib/config.ts` (or `lib/features.ts` for flags) **and** `.env.example`. `server.js`/`pty-server.js` can't import TS, so they read the same env names directly; keep names in sync.
+- **Plain-Node entrypoints stay plain.** `server.js` is CommonJS; anything it needs from `lib/` must be `.mjs` (dynamic-imported) — and every such `.mjs` file must be COPY'd into the runtime image in the `Dockerfile` (Next's build output doesn't include them; this has bitten before).
+- **`next.config.mjs` stays JS**, not TS — prod containers prune dev deps and a `.ts` config needs the `typescript` package at runtime.
+- **HMR-surviving server state lives on `globalThis`** (`lib/events.ts`, `lib/abort.ts`, `lib/asks.ts`, `lib/services.ts` all follow this pattern). Single Node process; no external queue/broker.
+- **Long work is a detached background job, never a held HTTP request** (turns, context refresh, services). Anything multi-minute must survive page reloads and tunnel drops, and should mark the instance busy via `lib/idle.ts` so the sleep daemon doesn't stop the container mid-work.
+- **Native modules** (`better-sqlite3`, `node-pty`) and the Agent SDK are in `serverExternalPackages` — don't let Next bundle them. `postinstall` fixes node-pty's exec bit.
+- **Don't import `lib/agents/registry.ts` from a low-level module.** The agent SDKs are ESM externals, which Turbopack compiles async, and async-ness propagates to every transitive importer — a route entry compiled sync then reads every export back as `undefined` (this 500'd `/api/services/grant` in prod). Modules that only need capability data or agent **ids** import `lib/agents/capabilities.ts` (`getCapabilities`/`listAgentIds`/`isAgentId`) instead. `tests/importGraph.test.ts` pins the SDK-free set — add new low-level modules to its `PINNED` list.
+- **Tests are hermetic**: `tests/setup.ts` points `ORCH_DB_DIR`/`ORCH_WORKTREES_DIR` at tmp dirs and pins git config *before the module graph loads* (config is read at import time). Use `tests/helpers.ts` for git fixtures. New env-read-at-import config must be set there too.
+- **Delete is hard delete** throughout — no soft-delete/undo.
+- **Auth is layered on purpose**: Next middleware for HTTP, `server.js` for WebSocket upgrades, per-service visibility for public service hostnames. Both Cloudflare Access mode and no-login local mode have an origin boundary; keep `lib/auth/local-origin.mjs` shared rather than letting the HTTP and WebSocket policies drift. When adding a route or upgrade path, decide which gate covers it.
+- **Commits are detailed** (explain the why); **keep README.md current** with app state when behavior changes. Markdown tables use minimal separators (`|-|-|`).
+
+## More detail
+
+`README.md` (concise product overview and quick start) · `docs/` (features, agents,
+services, self-hosting, and architecture) · `.env.example` (every env var, documented).
 
 ---
 > Source: [iishyfishyy/operator-oss](https://github.com/iishyfishyy/operator-oss) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
