@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [juspay/xyne-spaces](https://github.com/juspay/xyne-spaces).
+Original source: `CLAUDE.md` in [juspay/xyne-spaces](https://github.com/juspay/xyne-spaces).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -37,7 +37,7 @@ Original source: `AGENTS.md` in [juspay/xyne-spaces](https://github.com/juspay/x
 - [xyne-spaces](https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/understanding-skills/explanation-document/SKILL.md)
 - [xyne-spaces](https://github.com/juspay/xyne-spaces/tree/main/apps/xyne-claw/understanding-skills/architecture-diagrams/SKILL.md)
 
-From [juspay/xyne-spaces](https://github.com/juspay/xyne-spaces) — a repo with 713+ stars on GitHub.
+From [juspay/xyne-spaces](https://github.com/juspay/xyne-spaces) — a repo with 736+ stars on GitHub.
 
 ---
 
