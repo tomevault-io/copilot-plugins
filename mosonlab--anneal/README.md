@@ -7,17 +7,21 @@ A local control plane for coding agents. You write the spec; a twelve-step chain
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mosonlab/anneal](https://github.com/mosonlab/anneal).
+Original source: `CLAUDE.md` in [mosonlab/anneal](https://github.com/mosonlab/anneal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mosonlab/anneal](https://github.com/mosonlab/anneal) — a repo with 3+ stars on GitHub.
+## Bundled Skills (1)
+
+- [anneal](https://github.com/mosonlab/anneal/tree/main/.agents/skills/agentos-find-simplifications/SKILL.md)
+
+From [mosonlab/anneal](https://github.com/mosonlab/anneal) — a repo with 172+ stars on GitHub.
 
 ---
 
