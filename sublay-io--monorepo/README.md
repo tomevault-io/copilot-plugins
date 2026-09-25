@@ -1,8 +1,6 @@
 # monorepo
 
-> Tome by [sublay-io](https://github.com/sublay-io/monorepo) — distributed by [TomeVault](https://tomevault.io)
-
-Replyke: An Open-Source Framework for Social Features. Build social apps faster with powerful API and SDKs for JavaScript, React, and React Native.
+> Tome by [sublay-io](https://github.com/sublay-io/monorepo), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [sublay-io/monorepo](https://github.com/sublay-i
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/sublay-io/monorepo](https://github.com/sublay-io/monorepo)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/sublay-io/monorepo](https://github.com/sublay-io/monorepo)
 
 ---
 
