@@ -1,15 +1,15 @@
 ## nestjs-crud-automator
 
-> Before working on NestJS CRUD Automator implementation or documentation, read the project skill at `ai/crud-automator/SKILL.md`.
+> This repository keeps its canonical CRUD Automator agent instructions in `ai/crud-automator/SKILL.md`.
 
-# Agent Guidance
+# Claude Code Guidance
 
-Before working on NestJS CRUD Automator implementation or documentation, read the project skill at `ai/crud-automator/SKILL.md`.
+This repository keeps its canonical CRUD Automator agent instructions in `ai/crud-automator/SKILL.md`.
 
-Use that skill as the canonical repository guidance for Codex-style agents and any other agent runner that reads `AGENTS.md`.
+Read that skill before changing implementation, tests, examples, README content, or documentation for `@elsikora/nestjs-crud-automator`.
 
-When docs, examples, or prior agent guidance conflict with source, treat `src/interface/**`, `src/type/**`, exported barrels, and tests as the contract.
+Do not duplicate the skill content here. Keeping this file as a pointer avoids drift between Claude Code, Cursor, Codex-style agents, and other environments.
 
 ---
 > Source: [ElsiKora/NestJS-Crud-Automator](https://github.com/ElsiKora/NestJS-Crud-Automator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
