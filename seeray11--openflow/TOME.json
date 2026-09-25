@@ -3,8 +3,8 @@
   "owner": "SeeRay11",
   "repo": "OpenFlow",
   "description": "OpenFlow \u2014 a visual builder for multi-agent AI workflows, built on the opencode engine",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "OpenFlow",
+      "path": ".opencode/skills/effect/SKILL.md",
+      "github_url": "https://github.com/SeeRay11/OpenFlow/tree/main/.opencode/skills/effect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenFlow",
+      "path": ".opencode/skills/rtl-aware-development/SKILL.md",
+      "github_url": "https://github.com/SeeRay11/OpenFlow/tree/main/.opencode/skills/rtl-aware-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenFlow",
+      "path": "packages/opencode/test/fixture/skills/cloudflare/SKILL.md",
+      "github_url": "https://github.com/SeeRay11/OpenFlow/tree/main/packages/opencode/test/fixture/skills/cloudflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenFlow",
+      "path": "packages/opencode/test/fixture/skills/agents-sdk/SKILL.md",
+      "github_url": "https://github.com/SeeRay11/OpenFlow/tree/main/packages/opencode/test/fixture/skills/agents-sdk/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/SeeRay11/OpenFlow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-20T20:39:55Z"
+  "distributed_at": "2026-09-25T01:08:01Z"
 }
