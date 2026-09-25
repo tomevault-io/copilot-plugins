@@ -1,24 +1,23 @@
 ## litellm-rust
 
-> Before making implementation changes, read and follow the repo-wide
+> Keep this folder minimal for v0. MCP config is parsed by the existing
 
-# AGENTS.md
+Keep this folder minimal for v0. MCP config is parsed by the existing
+`proxy::config` loader using LiteLLM's dict-keyed `mcp_servers` shape, and the
+only supported transport is streamable HTTP pass-through.
 
-Before making implementation changes, read and follow the repo-wide
-[`CODING_STANDARDS.md`](./CODING_STANDARDS.md).
+Auth: each server's `auth_type` + `auth_value` is resolved once at config time
+into a single upstream header in `registry::build_auth_header` (LiteLLM's
+managed-transport table — note `api_key` → `X-API-Key`, not bearer). The request
+path only copies the precomputed header. `static_headers` are always sent;
+`extra_headers` forwards named inbound headers but never credential headers
+(`authorization`/`x-api-key`/`x-litellm-*`), so the gateway master key cannot
+leak upstream.
 
-## First-time setup
-
-Run once after cloning to activate the committed git hooks:
-
-```bash
-git config core.hooksPath .githooks
-```
-
-The pre-commit hook keeps `model_prices_backup.json` in sync with the
-upstream litellm JSON on every commit. It warns and skips silently if
-the network is unavailable — it never blocks a commit.
+Deferred (rejected loudly, not silently): `oauth2`/`oauth2_token_exchange`/
+`aws_sigv4` auth, `sse`/`stdio` transports, multi-server aggregation behind a
+bare `/mcp`, and per-request client creds via `x-mcp-{server}-{header}`.
 
 ---
 > Source: [LiteLLM-Labs/litellm-rust](https://github.com/LiteLLM-Labs/litellm-rust) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
