@@ -1,0 +1,9 @@
+{
+  "name": "cloudflareresearch--pvcli",
+  "displayName": "pvcli",
+  "description": "pvcli",
+  "version": "1.0.0",
+  "author": "cloudflareresearch",
+  "homepage": "https://github.com/cloudflareresearch/pvcli",
+  "skills": []
+}
