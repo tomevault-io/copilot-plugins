@@ -56,7 +56,7 @@ Northstar has intentionally separate authority surfaces:
 
 `src/capabilities.ts` owns the Pi tool vocabulary:
 
-`web_search`, `fetch`, `github`, `social`, `kg`, `graph`, `browser`, `desktop`, `agent_poll`.
+`web_search`, `fetch`, `github`, `social`, `kg`, `graph`, `browser`, `desktop`, `agent`.
 
 `media` is CLI/internal acquisition, not a tenth public tool. CLI availability never implies model authority. A provider being configured never implies its Pi tool is exposed.
 
@@ -296,4 +296,4 @@ When in doubt, prefer executable truth, narrow authority, explicit degradation, 
 
 ---
 > Source: [rhinos0608/Pi-Northstar](https://github.com/rhinos0608/Pi-Northstar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
