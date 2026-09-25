@@ -1,88 +1,63 @@
 ## copperhead
 
-> This file provides repository guidance for Codex and other coding agents. Claude Code users also have `CLAUDE.md`; keep shared architectural and verification guidance aligned between the two files.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides repository guidance for Codex and other coding agents. Claude Code users also have `CLAUDE.md`; keep shared architectural and verification guidance aligned between the two files.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Repository overview
+## What this repo is
 
-`copperhead` is a TypeScript CLI agent for designing and editing real KiCad projects. It edits `.kicad_sch` and `.kicad_pcb` s-expression files, keeps design documentation synchronized, and verifies changes with `kicad-cli`. The package is ESM-only, requires Node.js 20 or newer, and is licensed under Apache-2.0.
+**copperhead** — "Cursor for circuit boards": a TypeScript CLI agent that designs and edits real KiCad projects (`.kicad_sch`/`.kicad_pcb` s-expression files), keeps markdown design docs as memory, and verifies its own work with `kicad-cli` ERC/DRC. Apache-2.0, Node ≥ 20.
 
-Phase 1 is implemented. Deterministic commands and the offline test suite are the proven path; live agent-loop acceptance tests require model API keys and must not be described as passing unless they were actually run.
+**Current state: Phase 1 implemented, pending full live verification.** The CLI builds and runs (`init`, `check`/`verify`, `do`, `sync`, `create`), and the offline test suite is green. Live AC-3.x integration tests run only for explicitly configured providers: API keys enable the direct OpenAI/Anthropic paths, and `COPPERHEAD_TEST_CODEX=1` enables the local saved-login Codex path. See the status note at the top of `openspec/changes/build-copperhead-phase-1/tasks.md` for the exact split.
 
 ## Sources of truth
 
-- Read `openspec/specs/SPEC.md` before making architectural or behavior changes. It defines the product, CLI, agent loop, tool contracts, configuration, safety rails, and acceptance criteria.
-- The active Phase 1 artifacts are in `openspec/changes/build-copperhead-phase-1/`: `proposal.md`, `design.md`, capability specs, and `tasks.md`.
-- The planned part-research work is separate and lives in `openspec/changes/add-part-research-tools/`; do not implement it incidentally.
-- When behavior changes at the specification level, update `openspec/specs/SPEC.md` and the applicable change artifacts together.
+- `openspec/specs/SPEC.md` — the complete technical specification: product definition, architecture, CLI surface, agent loop, tool schemas, config, safety rails, and binary acceptance criteria (AC-1 … AC-7). Read this before any design or implementation work.
+- `openspec/changes/build-copperhead-phase-1/` — the active change: `proposal.md` (what/why), `design.md` (decisions D1–D14 with rationale), `specs/*/spec.md` (seven capability delta specs with WHEN/THEN scenarios), `tasks.md` (implementation checklist in dependency order).
 
-## Build and verification
+When spec-level behavior changes, update SPEC.md and the change artifacts together — the delta specs' scenarios are meant to map 1:1 onto SPEC.md's acceptance criteria.
 
-Use these commands from the repository root:
+## Workflow (OpenSpec)
 
-```bash
-npm install
-npm run typecheck
-npm test
-npm run build
-npm run docs:build
-```
+This repo uses OpenSpec spec-driven development. Planning artifacts are managed with the `openspec` CLI and the `/opsx:*` skills:
 
-Run the narrowest relevant tests while iterating, then run `npm run typecheck` and `npm test` before considering a code change complete. Run `npm run build` for CLI or packaging changes and `npm run docs:build` for documentation-site changes.
+- `/opsx:apply` — implement tasks from the change (check off `tasks.md` as you go)
+- `/opsx:update` — revise planning artifacts coherently (never edits code)
+- `/opsx:archive` — archive the change when implemented; merges delta specs into `openspec/specs/`
 
-Tests that touch a live LLM are in `test/agent-integration.test.ts`. Direct providers require `OPENAI_API_KEY` or `ANTHROPIC_API_KEY`; the saved-login Codex path is opt-in with `COPPERHEAD_TEST_CODEX=1`. Never add credentials to the repository or transcripts merely to make these tests run.
-
-## Architecture
-
-The main path is:
-
-```text
-Commander CLI -> provider-agnostic agent loop -> file, KiCad, and memory tools
-```
-
-Important locations:
-
-- `src/cli.ts`: command definitions and model resolution
-- `src/commands/`: deterministic check/sync/create command orchestration
-- `src/agent/`: provider mappings, prompts, tools, loop, ledger, transcripts
-- `src/kicad/`: `kicad-cli` wrapper, report normalization, read-only s-expression parsing
-- `src/memory/`: document scaffolding, constraints, and drift detection
-- `test/fixtures/`: the known-good KiCad fixture used by offline tests
-
-TypeScript source uses ESM imports with `.js` specifiers. Keep provider-specific SDK formats inside `src/agent/providers/`; the loop should consume only the normalized internal types.
-
-## Non-negotiable invariants
-
-1. **Spec-gated in:** `edit_file` and `write_file` must be absent from the provider's tool list until a valid OpenSpec change proposal exists. A prompt warning is not an acceptable substitute.
-2. **Verification-gated out:** every KiCad mutation must be followed by ERC, and board changes also require DRC, before success or commit. Persistent verification failure restores the git snapshot.
-3. `check`/`verify` remains deterministic, LLM-free, and network-free. Its module graph must not import a provider or model SDK.
-4. KiCad edits use anchored exact-match text replacement. The s-expression reader validates and extracts data; it must not serialize whole KiCad files.
-5. Sync obligations must be cleared before commit: drift checks, constraint dual-writes, decisions, and changelog entries are gates, not suggestions.
-6. API keys stay in environment variables. `.env` and `.copperhead/runs/` stay ignored, and transcripts/summaries redact secret material at write time.
-7. Preserve user work in dirty trees. Do not weaken the snapshot, rollback, path-sandbox, or verification protections to make a test pass.
-
-## OpenSpec workflow
-
-If OpenSpec helper skills are installed, use them. Otherwise inspect and update the artifacts directly, then validate with the CLI:
+Useful commands:
 
 ```bash
-openspec status --change build-copperhead-phase-1
-openspec validate build-copperhead-phase-1
-openspec instructions <artifact> --change <change-name> --json
+openspec status --change build-copperhead-phase-1   # artifact/task state
+openspec validate build-copperhead-phase-1          # validate change (positional arg, not --change)
+openspec instructions <artifact> --change <name> --json  # rules/template for an artifact
 ```
 
-Do not archive a change or mark its tasks complete until implementation and the applicable verification are genuinely complete.
+## Architecture (per SPEC.md §2)
 
-## Review expectations
+CLI (commander) → provider-agnostic agent loop → three tool families: file tools (read/edit/search, sandboxed to repo root), KiCad tools (`kicad-cli` ERC/DRC/SVG as subprocess), memory tools (docs + constraint registry). Layout: `src/cli.ts`, `src/commands/` (check, sync, create), `src/agent/` (loop, OpenAI/Anthropic/local-Codex providers, prompts, tools), `src/kicad/` (cli wrapper, read-only sexp parser, report normalizer), `src/memory/` (scaffold, drift), `test/fixtures/` (tiny known-good KiCad project). Build: tsc → `dist/`, bin `copperhead`; tests: vitest (LLM-touching integration tests run only when their provider is explicitly configured).
 
-- Treat a change as complete only when implementation, docs/specs, and relevant verification agree.
-- Call out skipped live tests explicitly; a green offline suite does not prove provider parity.
-- Prefer focused diffs and preserve unrelated worktree changes.
-- For agent-loop changes, review all providers and the structural gates, not only the happy path for one model.
+Two invariants shape everything (SPEC.md §1.3):
+
+1. **Spec-gated in** — the agent's `edit_file`/`write_file` tools are structurally absent from the tool list until an OpenSpec proposal for the change validates. Not prompt-discouraged; absent.
+2. **Verification-gated out** — no mutation is "done" until ERC (and DRC if the board changed) passes; repair up to `maxRepairCycles`, then rollback to the git snapshot.
+
+Other load-bearing decisions (full rationale in `design.md`):
+
+- KiCad files are edited via anchored exact-match text replace only; the sexp parser never serializes (no round-tripping).
+- `check` (alias `verify`) is contractually LLM-free and network-free — CI/pre-commit safe. `sync` = deterministic verify phase + LLM resolve phase; it never silently resolves a requirement violation (truth precedence: KiCad files = as-built facts, specs/budgets = requirements).
+- The loop keeps a sync-obligations ledger fed by post-tool-call hooks; commit refuses while any obligation (drift check, constraint dual-write, DECISIONS/CHANGELOG entries) is open.
+- User-visible memory: `docs/DECISIONS.md` (append-only decision log), `docs/CHANGELOG.md` (per-run design changelog), `.copperhead/runs/<ts>/summary.md` beside each JSONL transcript, `.copperhead/README.md` (self-describing config).
+
+## Constraints to respect when implementing
+
+- `.gitignore` must include `.env` and `.copperhead/runs/` from the very first commit (AC-4.3).
+- Transcripts/summaries redact `sk-[A-Za-z0-9_-]+` at write time; keys live only in env vars (AC-4.1).
+- Priority if time is short: AC-3.4 (budget refusal) > AC-3.2 (constraint-aware pin choice) > AC-3.1 (propagating rename) > AC-2.1 > AC-1.2.
+- Phase 2 (live viewer) and Phase 3 (integrations) are documented in SPEC.md but out of scope for the current change.
 
 ---
 > Source: [copperheadhq/copperhead](https://github.com/copperheadhq/copperhead) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
