@@ -1,53 +1,103 @@
 ## tiktok-gen
 
-> This repository has a split architecture:
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-This repository has a split architecture:
-- `frontend/`: React + TypeScript (Vite). Main UI code is in `pages/`, shared UI in `components/`, API calls in `services/`, and app bootstrap in `App.tsx` and `index.tsx`.
-- `backend/`: FastAPI service. API routes live in `app/api/v1/`, business logic in `app/services/`, integrations in `app/integrations/`, data models in `app/models/`, and schemas in `app/schemas/`.
-- `docs/`: product, API, and database documentation (`schema.sql`, interface docs).
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Keep generated artifacts (`frontend/dist/`, `node_modules/`, `__pycache__/`) out of code reviews unless explicitly relevant.
+## Project Overview
 
-## Build, Test, and Development Commands
-Frontend (`frontend/`):
-- `npm install`: install dependencies.
-- `npm run dev`: start local Vite dev server.
-- `npm run build`: produce production build in `frontend/dist/`.
-- `npm run preview`: preview the production bundle.
+TikTokGen is an AI-powered digital human video generation platform. Users select digital human avatars, voice tones, and marketing scripts to automatically generate lip-synced short videos.
 
-Backend (`backend/`):
-- `pip install -r requirements.txt`: install Python dependencies.
-- `python init_db.py`: initialize database tables.
-- `uvicorn app.main:app --reload --host 0.0.0.0 --port 3001`: run API locally.
-- `celery -A app.tasks worker --loglevel=info --pool=solo`: run async worker.
+## Development Commands
 
-## Coding Style & Naming Conventions
-- Python: PEP 8, 4-space indentation, `snake_case` for functions/modules, `PascalCase` for classes.
-- TypeScript/React: 2-space indentation, `PascalCase` for components (`AssetsStudio.tsx`), `camelCase` for variables/functions.
-- Keep route files resource-oriented (`assets.py`, `projects.py`) and services action-oriented (`generation_service.py`).
+### Frontend (from `/frontend`)
+```bash
+npm install        # Install dependencies
+npm run dev        # Start dev server (port 3000)
+npm run build      # Production build
+npm run preview    # Preview production build
+```
 
-## Testing Guidelines
-- Backend test stack is `pytest` + `pytest-asyncio`.
-- Place tests under `backend/tests/` using `test_*.py` naming.
-- Run tests with: `pytest backend/tests -v`.
-- Add at least one API-level test for new endpoints and one service-level test for non-trivial logic.
+### Backend (from `/backend`)
+```bash
+pip install -r requirements.txt                      # Install dependencies
+python init_db.py                                    # Initialize database
+uvicorn app.main:app --reload --host 0.0.0.0 --port 3001  # Start API server
+celery -A app.tasks worker --loglevel=info --pool=solo     # Start Celery worker (separate terminal)
+pytest tests/ -v                                     # Run tests
+alembic upgrade head                                 # Run database migrations
+alembic revision --autogenerate -m "description"     # Create new migration
+```
 
-## Commit & Pull Request Guidelines
-Git history is not available in this exported directory, so follow this standard:
-- Commit format: `type(scope): short description` (example: `feat(api): add avatar upload validation`).
-- Use focused commits; avoid mixing frontend/backend refactors with feature changes.
-- PRs should include: summary, changed paths, verification steps, linked issue, and screenshots for UI changes.
-- Call out config changes (`.env.example`, API keys, ports) explicitly in the PR description.
+**Note**: Both FastAPI and Celery worker must run for video generation to work.
 
-## Security & Configuration Tips
-- Never commit real secrets in `.env`; keep placeholders in `backend/.env.example` and `frontend/.env.local`.
-- Validate third-party API settings before deploy (GitHub OAuth, OSS, TTS/LLM/video providers).
-- Verify CORS and callback URLs match environment-specific domains.
+## Architecture
+
+### Backend: FastAPI + Python (Layered Architecture)
+- `app/main.py` - Application entry point with CORS, exception handlers, route registration
+- `app/config.py` - Pydantic Settings for environment configuration
+- `app/api/v1/` - REST endpoints (auth, users, assets, projects, generation)
+- `app/services/` - Business logic layer
+- `app/models/` - SQLAlchemy ORM models
+- `app/schemas/` - Pydantic request/response schemas
+- `app/integrations/` - Third-party service clients
+- `app/tasks/` - Celery async tasks for video generation
+
+### Frontend: React + TypeScript + Vite (SPA)
+- Hash-based routing (`window.location.hash`)
+- `pages/` - Page components (Landing, Dashboard, QuickCreate, AssetsStudio, Profile)
+- `services/api.ts` - API client with fetch
+- `services/hooks.ts` - Custom React hooks (useAuth, useAssets, useProjects, useProjectStatus)
+- `i18n.ts` - Internationalization (English/Chinese via LanguageContext)
+
+## Video Generation Flow
+
+1. User selects avatar, voice, script → POST `/api/v1/projects`
+2. Project created (status: PENDING)
+3. Celery task: TTS generates audio (GENERATING_AUDIO)
+4. Audio uploaded to OSS
+5. WaveSpeed API generates video (GENERATING_VIDEO)
+6. Video downloaded and uploaded to OSS
+7. Project status updated to COMPLETED
+8. Frontend polls `/api/v1/projects/{id}/status` for updates
+
+## Third-Party Services
+
+| Service | Purpose | Integration File |
+|---------|---------|------------------|
+| GitHub OAuth | User authentication | `integrations/github_oauth.py` |
+| Index TTS | Text-to-speech | `integrations/index_tts.py` |
+| WaveSpeed AI (302.ai) | Digital human video | `integrations/wavespeed_api.py` |
+| GLM-4.7 | Marketing script generation | `integrations/glm_llm.py` |
+| Aliyun OSS | File storage | `integrations/oss_storage.py` |
+| Banana Pro | AI image generation | `integrations/banana_pro.py` |
+
+## Database Models
+
+- **User**: Accounts with tier subscription (free/pro/enterprise)
+- **UserOAuthAccount**: OAuth provider associations
+- **UserSession**: JWT session management
+- **UserUsage**: Usage tracking (videos, minutes, storage)
+- **Asset**: User assets (avatars, voices, scripts)
+- **Project**: Video generation projects with status tracking
+- **ProjectLog**: Generation process logs
+
+## Ports
+
+- Frontend: 3000
+- Backend API: 3001
+- Redis: 6379
+- PostgreSQL: 5433 (as configured in .env)
+
+## Required Services
+
+- PostgreSQL 15+
+- Redis 7.x
+- Python 3.11+
+- Node.js 18+
 
 ---
 > Source: [kangarooking/tiktok-gen](https://github.com/kangarooking/tiktok-gen) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
