@@ -1,47 +1,48 @@
 ## issue-finder
 
-> 本仓库是一个 Rust 2021 命令行程序包。二进制入口在 `src/main.rs`，可复用逻辑从 `src/lib.rs` 导出。命令解析位于 `src/cli.rs`；工作流编排和 issue 选择位于 `src/workflow.rs`；tool contract runtime、结构化输出 DTO 和上下文读取安全边界分别位于 `src/tool_runtime.rs`、`src/tool_outputs.rs` 和 `src/tool_context.rs`；prepare gate 的唯一策略实现位于 `src/prepare_gate.rs`。状态路径、收件箱、报告、GitHub 访问、工作区准备、评分、扫描、配置、诊断检查和大模型支持分别放在职责对应的 `src/*.rs` 模块中。集成测试位于 `tests/`。设计说明位于 `docs/superpowers/specs/`，历史 Rust 设计说明位于 `docs/issue-finder-rust-design.md`。被忽略的 `reference/` 目录是外部参考资料。
+> 本文件适用于 `tests/` 下的文件，并在仓库根目录 `AGENTS.md` 的基础上补充测试目录的约定。
 
-# 仓库协作指南
+# 测试目录规范
 
-## 项目结构与模块划分
+本文件适用于 `tests/` 下的文件，并在仓库根目录 `AGENTS.md` 的基础上补充测试目录的约定。
 
-本仓库是一个 Rust 2021 命令行程序包。二进制入口在 `src/main.rs`，可复用逻辑从 `src/lib.rs` 导出。命令解析位于 `src/cli.rs`；工作流编排和 issue 选择位于 `src/workflow.rs`；tool contract runtime、结构化输出 DTO 和上下文读取安全边界分别位于 `src/tool_runtime.rs`、`src/tool_outputs.rs` 和 `src/tool_context.rs`；prepare gate 的唯一策略实现位于 `src/prepare_gate.rs`。状态路径、收件箱、报告、GitHub 访问、工作区准备、评分、扫描、配置、诊断检查和大模型支持分别放在职责对应的 `src/*.rs` 模块中。集成测试位于 `tests/`。设计说明位于 `docs/superpowers/specs/`，历史 Rust 设计说明位于 `docs/issue-finder-rust-design.md`。被忽略的 `reference/` 目录是外部参考资料。
+## 测试范围
 
-## 面向编码代理的设计方向
+这里主要放集成测试，覆盖用户可见工作流、本地状态布局、GitHub API 行为、workspace 准备流程、JSON tool contract，以及高价值 issue 的本地评分逻辑。测试应聚焦可观察行为，并按被验证的行为命名。
 
-本项目仍处于足够早期的阶段。当大规模重构能够简化模型、移除陈旧架构，或让工作流更容易理解时，应积极推进。不要仅为了兼容旧的本地版本、旧状态结构或旧命令行为而保留遗留逻辑。优先干净地替换过时路径，避免用最小化补丁不断堆叠新旧并存的设计。
+## 隔离规则
 
-文档也是产品设计的一部分。发现过期文档时，应在同一次变更中更新它，或删除会误导后续贡献者的章节或文件。不要留下过时说明、待办式备注，或相互冲突的新旧描述让之后的贡献者和编码代理自行判断。
+测试必须稳定、确定，并且与开发者机器隔离。优先使用 `tempfile`、显式构造的 `IssueFinderPaths`、本地 mock 服务和有作用域的环境变量 guard。不要依赖真实的 `~/.issue-finder`、GitHub、LLM 服务、token、用户 workspace 或外部网络。
 
-## 构建、测试与开发命令
+## Mock 指南
 
-- `cargo build`：编译调试版本二进制，输出到 `target/debug/issue-finder`。
-- `cargo run -- doctor`：在本地运行命令行程序并执行就绪检查。
-- `cargo test`：运行全部单元测试和集成测试。
-- `cargo clippy --all-targets -- -D warnings`：对所有目标执行代码检查，并把警告视为错误。
-- `cargo fmt --all`：提交前格式化整个程序包。
-- `cargo install --path .`：把当前 checkout 安装为 `issue-finder`。
-- `cargo run -- tools list`：本地冒烟验证 JSON tool contract 是否能列出四个 Issue Finder tool specs。
+GitHub 和 LLM 相关工作流优先使用进程内 TCP mock server。响应内容应保持小而稳定，并且只服务当前测试关注的行为。设置 `ISSUE_FINDER_GITHUB_API_BASE` 等环境变量时，必须先获取 `tests/support/env_lock.rs` 中的跨进程锁，并用 guard 在测试结束后清理，避免影响后续测试。
 
-进行隔离的手动运行时，设置 `ISSUE_FINDER_HOME=/tmp/issue-finder-demo`，避免生成的状态写入 `~/.issue-finder`。
+## Tool Contract 测试
 
-## 编码风格与命名约定
+Tool contract 测试应覆盖 runtime 入口和 CLI adapter 入口。`tools call` 的 stdout 必须断言为单个 JSON object；`assess` 需要继续断言不写 handoff、inbox 或 workspace state；`prepare` gate 测试应复用 `prepare_gate` 的共享策略，不在测试里复制允许类别。`read_context` 测试必须覆盖非法 section、截断和 symlink/path traversal 防护。
 
-使用 `rustfmt`，保持代码符合 Rust 习惯并显式清晰。优先按照既有职责拆分小模块，不要创建宽泛的工具文件。函数、变量、模块和测试名称使用 `snake_case`；结构体、枚举和 trait 使用 `PascalCase`。命令行参数应通过 `clap` 使用清晰的 kebab-case 名称，例如 `--refresh` 或 `--date`。注释保持克制且有用，尤其用于说明安全边界。
+## 高价值 Issue 覆盖
 
-## 测试指南
+针对高价值 issue 本地算法，优先编写聚焦的评分场景测试，并使用明确的 fixture。时间相关数据使用稳定的相对时间；断言重点放在 `attention_score`、`execution_score`、`recommendation_category`、signals 和 risk tags 行为上。除非测试目标就是阈值边界，否则避免断言脆弱的精确总分。
 
-测试使用 Rust 内置测试框架，异步工作流使用 `tokio::test`。面向用户可见工作流、本地状态布局、GitHub 接口行为、工作区准备逻辑和 JSON tool contract 行为，应在 `tests/` 中增加集成测试覆盖。优先使用 `tempfile` 和类似 `ISSUE_FINDER_HOME` 的隔离方式；GitHub 和 tool contract 验证必须使用 mock 或临时状态，不依赖真实网络。测试名称应描述行为，例如 `scout_uses_mocked_github_search_responses`。
+## Recommendation Evaluation Fixtures
 
-## 提交与拉取请求指南
+`tests/fixtures/recommendation_eval/` 是推荐算法离线回归集。fixture 必须使用最小结构，不复制完整 GitHub API payload。每个 sample 必须包含 `expected.quality`、`expected.behavior` 和人工 `expected.reasons`，让后续贡献者能理解为什么该 issue 应该上榜、降权或隐藏。
 
-近期历史使用简短的祈使句摘要，有时带常规前缀，例如 `Fix daily failure handling and workspace branch checks` 或 `docs: add Issue Finder Rust design`。保持提交聚焦；有帮助时在摘要中提到受影响的工作流。拉取请求应包含简洁描述、已运行的测试、关联议题；只有当生成的 Markdown 或报告相关时才需要截图。
+新增或修改 ranking、quality policy、freshness、feedback、source trust 或 fallback 规则时，应增加能失败旧算法、通过新算法的样本。离线 recommendation eval 测试必须使用 fixture、mock 或临时状态，不得访问真实 GitHub。
 
-## 安全与配置提示
+## Workspace 测试
 
-不要提交令牌、`.env` 文件、生成的 Issue Finder 状态或目标工作区改动。GitHub 和大模型凭据应放在环境变量或 `~/.issue-finder/config.toml` 中。保持项目的保守边界：Issue Finder 可以准备本地工作区并写入交接产物，但不应修改目标仓库源码、安装依赖、提交、推送或创建拉取请求。`issue-finder.prepare` 的默认 gate 只允许高价值类别；不要在 workflow、daily 或 tool adapter 中复制 gate 规则，应复用 `prepare_gate.rs`。
+Workspace 测试应使用临时目录和本地 git 仓库。依赖 git 的测试需要用 `git_available()` 做保护。测试不得修改真实目标仓库，不得在其中安装依赖、提交、推送或创建 PR。
+
+## 常用命令
+
+- `cargo test`：运行全部测试。
+- `cargo test --test <name>`：运行指定集成测试文件。
+- `cargo fmt --all -- --check`：只检查格式，不重写文件。
+- `cargo clippy --all-targets -- -D warnings`：检查所有 target 的 lint。
 
 ---
 > Source: [lifuyue/issue-finder](https://github.com/lifuyue/issue-finder) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
