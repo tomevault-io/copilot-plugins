@@ -1,0 +1,9 @@
+{
+  "name": "spotify--portal-ai-plugins",
+  "displayName": "portal-ai-plugins",
+  "description": "portal-ai-plugins",
+  "version": "1.0.0",
+  "author": "spotify",
+  "homepage": "https://github.com/spotify/portal-ai-plugins",
+  "skills": []
+}
