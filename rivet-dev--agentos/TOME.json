@@ -1,0 +1,93 @@
+{
+  "name": "agentos",
+  "owner": "rivet-dev",
+  "repo": "agentos",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentos",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/agentos/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentos",
+      "path": ".claude/skills/update-acp/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/agentos/tree/main/.claude/skills/update-acp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentos",
+      "path": ".claude/skills/sanity-check/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/agentos/tree/main/.claude/skills/sanity-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentos",
+      "path": ".claude/skills/release-preview/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/agentos/tree/main/.claude/skills/release-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentos",
+      "path": ".claude/skills/launch-graphics/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/agentos/tree/main/.claude/skills/launch-graphics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentos",
+      "path": ".claude/skills/publish-registry/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/agentos/tree/main/.claude/skills/publish-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentos",
+      "path": "examples/browserbase/skills/browse/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/agentos/tree/main/examples/browserbase/skills/browse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentos",
+      "path": ".claude/skills/gigacode-api-sanity/SKILL.md",
+      "github_url": "https://github.com/rivet-dev/agentos/tree/main/.claude/skills/gigacode-api-sanity/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rivet-dev/agentos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T00:55:55Z"
+}
