@@ -1,0 +1,9 @@
+{
+  "name": "nordicnode--torbox-media-server",
+  "displayName": "TorBox-Media-Server",
+  "description": "TorBox-Media-Server",
+  "version": "1.0.0",
+  "author": "nordicnode",
+  "homepage": "https://github.com/nordicnode/TorBox-Media-Server",
+  "skills": []
+}
