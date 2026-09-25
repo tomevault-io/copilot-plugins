@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [qualcomm-linux/meta-qcom](https://github.com/qualcomm-linux/meta-qcom).
+Original source: `CLAUDE.md` in [qualcomm-linux/meta-qcom](https://github.com/qualcomm-linux/meta-qcom).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [qualcomm-linux/meta-qcom](https://github.com/qualcomm-linux/meta-qcom) — a repo with 149+ stars on GitHub.
+From [qualcomm-linux/meta-qcom](https://github.com/qualcomm-linux/meta-qcom) — a repo with 162+ stars on GitHub.
 
 ---
 
