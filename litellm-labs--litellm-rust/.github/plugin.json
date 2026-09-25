@@ -1,7 +1,7 @@
 {
   "name": "litellm-labs--litellm-rust",
   "displayName": "litellm-rust",
-  "description": "A minimal Rust gateway built for coding agents (LiteLLM-Compatible)",
+  "description": "litellm-rust",
   "version": "1.0.0",
   "author": "LiteLLM-Labs",
   "homepage": "https://github.com/LiteLLM-Labs/litellm-rust",
