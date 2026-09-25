@@ -1,35 +1,92 @@
 ## aisix
 
-> Applies to specs under `src/cases/`. The repo root `AGENTS.md` carries the
+> Every remote kind talks to an API that caps how much text one call may
 
-# AGENTS.md — end-to-end specs
+# aisix-guardrails
 
-Applies to specs under `src/cases/`. The repo root `AGENTS.md` carries the
-general testing policy; this file covers what is specific to this harness.
+## A provider's per-call size limit is handled by `chunk::chunk_text`, never by truncating
 
-## A readiness gate must imply everything the spec then asserts
+Every remote kind talks to an API that caps how much text one call may
+carry. When you add or change one, do not re-decide what happens at that
+cap — the family already answered it, and answering it again in isolation
+reintroduces the defect this section exists to prevent:
 
-Seeded resources reach the gateway as etcd watch events applied in revision
-order, so waiting on resource *N* proves only that everything written up to *N*
-has landed. Gating on a resource seeded in the middle of `beforeAll` and then
-asserting on ones written after it is a race — and test ordering hides it,
-because a later test in the same file runs against an already-warm snapshot.
+- **Split, never clip.** Over-limit content is chunked and *every* chunk
+  is submitted. Truncating hands the caller a bypass they control: the
+  text is assembled oldest-message-first, so clipping drops the newest
+  turn — the one being screened — and the call still returns a clean
+  verdict, so nothing logs, counts, or looks wrong.
+- **No cap on chunk count.** A per-request chunk budget is unscanned
+  content through the back door. Cost scales with content; that is the
+  trade.
+- **The split is lossless** (`chunks.concat() == text`). Kinds that write
+  masked text back rebuild the caller's content from per-chunk
+  replacements, so any "clever" normalising split silently corrupts
+  bodies rather than failing.
+- **Count characters, not bytes.** The vendor limits are documented in
+  characters, and byte slicing halves a multi-byte character.
 
-Seed every caller API key after every other resource, then gate on that key
-authenticating (`GET /v1/models` returning `200`). That single condition implies
-the whole seed set is in the snapshot.
+A kind whose provider documents no usable limit submits whole — its
+bound is the provider's own. Do not invent a local one for it, and do
+not treat "we could not find the number" as "nobody looked": the numbers
+were looked for, and they are not there to hold.
+Bedrock's ceiling is a service quota that varies by region, policy type
+and tier and is adjustable per account; Lakera publishes no size limit
+and no error shape at all; OpenAI documents no input limit for
+`/moderations` (the real constraint is the tokens-per-minute budget, so
+its refusal is a genuine 429 and chunking would not help); Presidio's
+ceiling is whichever spaCy pipeline the operator deployed. `crate::
+too_large` carries the sources.
 
-Two things the gate must not be:
+When a provider refuses a payload for its size, that is its own failure
+class — never `Throttled` and never `ConfigError`. Both mislead: waiting
+does not help, and neither does fixing credentials. Bedrock goes further
+and re-sends the content in pieces rather than failing; the recursion is
+only safe because every step is guaranteed to make progress (batch →
+halve the slots → halve the text), so keep that property if you touch
+it. A batch budget is not a limit — it is what to try after a refusal,
+and it may be larger than the account's real ceiling.
 
-- **A request that exercises the behavior under test.** The gate would then
-  fail by exhausting its 30s timeout instead of by an assertion, hiding what
-  actually broke.
-- **Wrapped in a catch-all that swallows every error.** A `401` before the key
-  propagates is the normal transient state, but an upstream, transport, or
-  invalid-response failure must surface as itself rather than as a timeout.
-  Prefer a gate that cannot throw (`ProxyClient.listModels`) over a `try/catch`
-  around an SDK call.
+## Fail policies default closed
+
+`fail_open`, `output_fail_open` and `on_buffer_exceeded` all default to
+the blocking side: a check that could not run must not release the
+request. Any new failure path gets the same default, and an operator who
+prefers availability opts in explicitly.
+
+A guardrail that could not evaluate reaches the request through two
+shapes, both carrying the same bounded per-kind failure tag and neither
+allowed to carry matched content: an explicitly fail-open row
+emits `Bypass`, a fail-closed row emits `Block { unavailable: Some(tag) }`.
+
+**Carry that tag all the way to the caller.** A fail-closed availability
+block and a content block are the same 422 with the same `error.type`, so
+the tag is the only thing that separates "your policy fired" from "your
+guardrail is broken" — drop it and an operator debugs a policy that is
+fine while their traffic is refused. Every block site in `aisix-proxy`
+therefore builds its message through `error::guardrail_block_message` /
+`guardrail_block_error` and passes the verdict's `unavailable` through;
+the tag also lands on `error.code = "guardrail_unavailable"`, the audit
+hit's `blocked_unavailable`, and the histogram's `error_type`. A refusal
+the proxy raises on a guardrail's behalf (a hold-back cap, a failed mask
+splice) carries one too — see `error::TAG_*`.
+
+**Give each failure cause its own tag.** Tags are what a dashboard shows,
+so collapsing distinct operator mistakes into one catch-all costs the
+operator the diagnosis: `custom_unknown_action` (a word we do not know)
+and `custom_no_verdict` (no decision at all) need different fixes, and
+neither is `custom_script_error` (their service is down). And a verdict
+we cannot read is always a FAILURE, never an Allow — reading silence as
+consent is the open door `fail_open: false` exists to close.
+
+**`enforcement_mode: monitor` is unconditional.** A monitored row never
+blocks, for any reason — not a content match, not a provider outage, not
+a failure policy. Do not add an exception: the value of the mode is that
+it is safe to turn on, and one edge that refuses traffic destroys it.
+Wanting an unreachable provider to refuse traffic is wanting
+enforcement, and `block` mode with `fail_open: false` is how that is
+spelled.
 
 ---
 > Source: [api7/aisix](https://github.com/api7/aisix) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
