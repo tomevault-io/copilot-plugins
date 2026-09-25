@@ -2,9 +2,9 @@
   "name": "react-native-auto-play",
   "owner": "Iternio-Planning-AB",
   "repo": "react-native-auto-play",
-  "description": "Library for Android Auto and Apple CarPlay support in react native.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Iternio-Planning-AB/react-native-auto-play",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T22:37:34Z"
+  "distributed_at": "2026-09-25T07:04:27Z"
 }
