@@ -1,30 +1,26 @@
 ## mdk
 
-> Map for SQLite group snapshots.
+> Tests for the Marmot Hermes plugin in `../../marmot` and its installer/helper scripts.
 
-# AGENTS.md - crates/storage-sqlite/src/storage/snapshots
+# AGENTS.md - integrations/hermes/tests/marmot
 
-Map for SQLite group snapshots.
+## Scope
 
-## Modules
+Tests for the Marmot Hermes plugin in `../../marmot` and its installer/helper scripts.
 
-| Module | Owns |
-| --- | --- |
-| `capture.rs` | Reads live group state into a serialized snapshot. |
-| `restore.rs` | Restores a serialized snapshot into live tables. |
-| `lifecycle.rs` | Snapshot listing and release. |
-| `rows.rs` | Snapshot serialization rows. |
-| `format.rs` | Versioned binary snapshot/checkpoint envelope and legacy JSON decoding. |
+Keep test-only fixtures outside the plugin source directory so Hermes's standard source installer scans and copies only runtime files. Do not move secrets, fake `nsec` values, subprocess harnesses, or workspace files back under the plugin directory.
 
-## Rules
+## Verification
 
-- Snapshots must include Marmot group metadata, messages, queued outbound intents, member capabilities, convergence
-  policy, and group-scoped OpenMLS rows.
-- Rollback should restore the captured state and leave unrelated groups alone.
-- Snapshot release is idempotent only where the caller explicitly handles `SnapshotMissing`.
-- New rollback snapshots and group-state checkpoints use the `MDKS` v2 envelope; untagged legacy JSON remains
-  readable, while tagged unknown versions fail closed.
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s integrations/hermes/tests/marmot
+integrations/hermes/tests/marmot/test_dev_scripts.sh
+python3 integrations/hermes/tests/marmot/test_real_hermes_plugin.py \
+  --hermes-source /path/to/hermes-agent \
+  --mdk-source . \
+  --mdk-ref HEAD
+```
 
 ---
 > Source: [marmot-protocol/mdk](https://github.com/marmot-protocol/mdk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
