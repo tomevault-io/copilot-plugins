@@ -3,8 +3,8 @@
   "owner": "zszz3",
   "repo": "AgentRecall",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,135 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/aihot/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/aihot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/handoff/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/paper-writing/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/paper-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/dsh-code-review/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/dsh-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/one-bite-teaching/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/one-bite-teaching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/dsh-prose-standard/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/dsh-prose-standard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/resume-optimization/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/resume-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/feishu-tech-diagram/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/feishu-tech-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/dsh-trim-cot-leakage/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/dsh-trim-cot-leakage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/code-review-and-quality/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/code-review-and-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/dsh-find-simplifications/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/dsh-find-simplifications/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/personal-finance-planning/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/personal-finance-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/refactor-review-knowledge/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/refactor-review-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/rewrite-technical-tutorial/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/rewrite-technical-tutorial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentRecall",
+      "path": "apps/main-2.0/assets/bundled-skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/zszz3/AgentRecall/tree/main/apps/main-2.0/assets/bundled-skills/verification-before-completion/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/zszz3/AgentRecall",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T15:28:20Z"
+  "distributed_at": "2026-09-25T02:55:53Z"
 }
