@@ -4,7 +4,7 @@
   "repo": "tevm",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -107,5 +107,5 @@
   ],
   "source_url": "https://github.com/evmts/tevm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T04:04:13Z"
+  "distributed_at": "2026-09-25T02:48:41Z"
 }
