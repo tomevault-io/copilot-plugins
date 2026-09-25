@@ -1,152 +1,117 @@
 ## go-carbon
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-# CLAUDE.md
+# Agent Guide for opentelemetry-go
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-<!-- Generated: 2026-04-13 | Updated: 2026-04-13 -->
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
-## What This Is
+## Core expectations
 
-go-carbon is a high-performance Golang implementation of Graphite's carbon-cache daemon. It receives metrics via multiple protocols (TCP, UDP, Pickle, HTTP, Kafka, PubSub), buffers them in a sharded in-memory cache, and persists them to Whisper (.wsp) files. Also serves a read API (carbonserver) compatible with graphite-web and carbonapi.
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-## Build & Test Commands
+## Default workflow
 
-```bash
-make                    # Build the go-carbon binary
-make test               # Run tests, vet, and race detection (all three)
-go test ./...           # Run tests only (faster iteration)
-go test -race ./...     # Run tests with race detector
-go vet ./...            # Run vet only
-go test -run TestName ./package/  # Run a single test
-make image              # Build Docker image (requires Linux binary)
-```
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-Dependencies use vendoring (`-mod=vendor` is set via GOFLAGS in the Makefile). Run `go mod tidy && go mod vendor` when updating dependencies.
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-## Linting
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-CI uses golangci-lint v2. Config is in `.golangci.yml`. Enabled linters: gocritic, ineffassign, asciicheck, misspell, promlinter, errorlint, govet, unparam, bodyclose, gochecknoinits. Formatters: gofmt, goimports.
+## Verification
 
-## Key Files
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-| File | Description |
-|------|-------------|
-| `go-carbon.go` | Entry point: CLI flags, signal handling, daemon mode, starts the `carbon.App` |
-| `go-carbon.conf.example` | Full annotated configuration reference (TOML format) |
-| `Makefile` | Build, test, lint, packaging, Docker image targets |
-| `go.mod` | Go module definition (`github.com/go-graphite/go-carbon`) |
-| `.golangci.yml` | golangci-lint v2 config with enabled linters |
-| `nfpm.yaml` | Package builder config for deb/rpm generation |
-| `Dockerfile` | Production container image |
-| `Dockerfile.debug` | Debug container with Delve support |
+## Documentation and changelog
 
-## Architecture
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
 
-### Data Flow
-```
-Receivers (TCP/UDP/Pickle/HTTP/Kafka/PubSub)
-    │
-    ▼
-  Cache (sharded concurrent map, 1024 shards)
-    │
-    ├──▶ Persister (worker pool writes to Whisper .wsp files)
-    │
-    ├──▶ CarbonLink (legacy pickle protocol for cache reads)
-    │
-    └──▶ Carbonserver (HTTP/gRPC read API with trigram/trie index)
-```
+## Repository habits
 
-### Core Pipeline
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-- **`points/`** - The fundamental data type: `Points{Metric string, Data []Point}` where `Point{Value float64, Timestamp int64}`. Flows through the entire pipeline.
+## Personas
 
-- **`receiver/`** - Plugin-based metric ingestion. Each protocol (TCP, UDP, Pickle, HTTP, Kafka, PubSub) registers via `receiver.Register()` and is instantiated at startup. Protocols are wired in `carbon/app.go` with `registerPluginsOnce`. Custom receivers are configured via TOML `[[receiver.*]]` sections.
+### Feature Agent
 
-- **`cache/`** - Sharded concurrent map (1024 shards) that buffers incoming points. Three write strategies: `max` (most unwritten points first), `sorted` (by timestamp), `noop` (unspecified order). The `WriteoutQueue` feeds metrics to the persister. Optional bloom filter for new metric detection.
+Use this persona for new behavior, new API surface, or spec-driven feature work.
 
-- **`persister/`** - Writes cached points to Whisper `.wsp` files. Configurable worker count (metrics sharded by `crc32(metricName) % workers`). Handles storage-schemas.conf and storage-aggregation.conf parsing. Supports online migration of Whisper file configurations.
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
 
-- **`carbonserver/`** - HTTP+gRPC read API serving find/render/info requests to graphite-web or carbonapi. Two index types: **trigram** (default, uses trigram indexing for glob matching) and **trie** (better for 10M+ metrics, uses DFA-based matching). Supports query/find/glob caches, rate limiting, and quota enforcement.
+### Refactoring Agent
 
-### Supporting Packages
+Use this persona when improving structure without intentionally changing behavior.
 
-- **`carbon/`** - Application orchestrator. `App` struct owns all components and manages lifecycle (start, stop, config reload). `Config` is TOML-based (parsed via `BurntSushi/toml`).
-- **`api/`** - gRPC API for cache queries (CarbonLink-like).
-- **`tags/`** - Tag normalization and external TagDB integration.
-- **`helper/`** - Protobuf definitions (`carbonpb/`, `carbonzipperpb/`), stats, throttling, file utilities.
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
 
-## Subdirectories
+### Test Agent
 
-| Directory | Purpose |
-|-----------|---------|
-| `carbon/` | Application orchestrator — `App` struct, config parsing, component lifecycle (see `carbon/AGENTS.md`) |
-| `receiver/` | Plugin-based metric ingestion for all protocols (see `receiver/AGENTS.md`) |
-| `cache/` | Sharded in-memory metric buffer between receivers and persister (see `cache/AGENTS.md`) |
-| `persister/` | Whisper file writer with schema/aggregation matching (see `persister/AGENTS.md`) |
-| `carbonserver/` | HTTP+gRPC read API for find/render/info with trigram and trie indexes (see `carbonserver/AGENTS.md`) |
-| `points/` | Core data types: `Point` and `Points` used throughout the pipeline (see `points/AGENTS.md`) |
-| `api/` | gRPC API for cache queries (CarbonLink-like protocol) (see `api/AGENTS.md`) |
-| `helper/` | Shared utilities: protobuf defs, stats, throttling, file ops (see `helper/AGENTS.md`) |
-| `tags/` | Graphite tag normalization and external TagDB integration (see `tags/AGENTS.md`) |
-| `deploy/` | Systemd service, init script, logrotate, default config files for packaging |
-| `tool/` | Standalone CLI tools for operational tasks (see `tool/AGENTS.md`) |
-| `doc/` | Architecture diagrams and additional documentation |
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
 
-## Common Patterns
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
 
-- Config format is TOML (parsed via `BurntSushi/toml`), not YAML or JSON
-- Dependencies are vendored: always use `go mod tidy && go mod vendor` after changes
-- `GOFLAGS=-mod=vendor` is set in the Makefile — all go commands respect vendoring
-- Version is `const Version` in `go-carbon.go`, build version injected via ldflags
-- The receiver system uses a plugin registry pattern — protocols self-register via `init()` or explicit `Register()` calls
-- Components implement start/stop lifecycle managed by `carbon.App` using `helper.Stoppable`
-- Stats are collected via a `Collector` that gathers metrics from all components
-- Prometheus metrics are optional (gated by `prometheus.enabled` config)
-- Logging uses `lomik/zapwriter` (structured zap-based logging with rotation)
-- Graceful shutdown flows: `App.stopListeners()` → `App.stopAll()`
+### Performance Agent
 
-## Signal Handling
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
 
-- **SIGHUP** → config reload (whisper settings, schemas, aggregation, common, dump sections)
-- **SIGUSR2** → graceful dump-and-stop (dump cache to disk, exit; restored on next start)
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
 
-## Configuration
+### Review Agent
 
-Config format is TOML. See `go-carbon.conf.example` for all options. Key config files:
-- Main config: `go-carbon.conf` (TOML)
-- `storage-schemas.conf` - Retention policies (standard Graphite format)
-- `storage-aggregation.conf` - Aggregation methods (standard Graphite format)
-- `storage-quotas.conf` - Optional, go-carbon specific (see `doc/quotas.md`)
+Use this persona when asked to review code, patches, or pull requests.
 
-Version is defined as `const Version` in `go-carbon.go`. Build version is injected via `-ldflags '-X main.BuildVersion=...'`.
-
-## CI
-
-GitHub Actions runs on push to master and PRs:
-- Tests with Go oldstable + stable, including race detector
-- golangci-lint v2
-- Docker image build
-- Package builds (deb/rpm via nfpm for i386, amd64, arm64)
-- govulncheck on stable Go
-
-## Dependencies (Key External)
-
-- `go-graphite/go-whisper` — Whisper file format library
-- `go-graphite/protocol` — Protobuf definitions for carbonapi v2/v3
-- `go-graphite/carbonzipper` — Shared protobuf types
-- `BurntSushi/toml` — TOML config parser
-- `lomik/zapwriter` — Structured logging with file rotation
-- `prometheus/client_golang` — Prometheus metrics exposition
-- `IBM/sarama` — Apache Kafka client
-- `cloud.google.com/go/pubsub` — Google Cloud Pub/Sub client
-- `syndtr/goleveldb` — LevelDB for carbonserver file list cache
-- `dgryski/go-trigram` — Trigram index for metric name glob matching
-
-<!-- MANUAL: Any manually added notes below this line are preserved on regeneration -->
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [go-graphite/go-carbon](https://github.com/go-graphite/go-carbon) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
