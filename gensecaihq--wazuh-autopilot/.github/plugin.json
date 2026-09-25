@@ -1,0 +1,9 @@
+{
+  "name": "gensecaihq--wazuh-autopilot",
+  "displayName": "Wazuh-Autopilot",
+  "description": "Wazuh-Autopilot",
+  "version": "1.0.0",
+  "author": "gensecaihq",
+  "homepage": "https://github.com/gensecaihq/Wazuh-Autopilot",
+  "skills": []
+}
