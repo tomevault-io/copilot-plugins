@@ -264,4 +264,4 @@ Styles are defined in Dart through `SlideStyler`, `DeckOptions.baseStyle`, and `
 
 ---
 > Source: [conceptadev/superdeck](https://github.com/conceptadev/superdeck) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
