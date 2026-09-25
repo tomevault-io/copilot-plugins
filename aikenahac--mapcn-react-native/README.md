@@ -1,8 +1,6 @@
 # mapcn-react-native
 
-> Source: [aikenahac/mapcn-react-native](https://github.com/aikenahac/mapcn-react-native) — distributed by [TomeVault](https://tomevault.io)
-
-Beautiful maps, made simple.
+> Source: [aikenahac/mapcn-react-native](https://github.com/aikenahac/mapcn-react-native). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [aikenahac/mapcn-react-native](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [aikenahac/mapcn-react-native](https://github.com/aikenahac/mapcn-react-native) — a repo with 37+ stars on GitHub.
+From [aikenahac/mapcn-react-native](https://github.com/aikenahac/mapcn-react-native) — a repo with 64+ stars on GitHub.
 
 ---
 
