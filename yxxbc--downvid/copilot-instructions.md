@@ -1,83 +1,98 @@
 ## downvid
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> pnpm download-deps          # 首次运行必须：下载 yt-dlp + ffmpeg 到 bin/<platform>/<arch>/
 
-# CLAUDE.md
+# AGENTS.md — DownVid 开发速查
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project
-
-DownVid — Electron 30 + Vue 3 desktop video downloader wrapping `yt-dlp` + `ffmpeg`. Repo dir is `videdown`, package/product name is `downvid`/DownVid. All UI strings, comments and commit bodies are Chinese — match that.
-
-## Commands
+## 快速开始
 
 ```bash
 pnpm install
-pnpm download-deps          # REQUIRED before first dev run: fetches yt-dlp+ffmpeg into bin/<platform>/<arch>/
-pnpm dev                    # vite dev server + electron (hot reload for both processes)
-pnpm vue-tsc --noEmit       # type check — this is the only "lint" in CI
-pnpm build                  # vue-tsc && vite build && electron-builder (current platform)
-pnpm build:mac:arm64        # also :mac:x64 :win :linux:x64 :linux:arm64
+pnpm download-deps          # 首次运行必须：下载 yt-dlp + ffmpeg 到 bin/<platform>/<arch>/
+pnpm dev                    # Vite dev server + Electron 热重载
 ```
 
-No test suite and no ESLint/Prettier installed (CONTRIBUTING.md claims otherwise). CI (`.github/workflows/ci.yml`) runs only `vue-tsc --noEmit` + `vite build` on the 3 OSes. `tsconfig.json` has `strict` + `noUnusedLocals` + `noUnusedParameters`, so an unused import fails the build.
+## 验证命令
 
-Release: bump `package.json` version → add a `## [x.y.z]` section to `CHANGELOG.md` → push tag `v*`. `release.yml` builds 5 arch targets and greps release notes out of CHANGELOG by that exact header.
+```bash
+pnpm vue-tsc --noEmit       # 类型检查（唯一 lint，CI 也跑这个）
+pnpm build                  # vue-tsc + vite build + electron-builder（当前平台）
+```
 
-## Architecture
+没有 ESLint、Prettier、测试套件。（CONTRIBUTING.md 声称有 ESLint/Prettier，实际未安装。）`tsconfig.json` 开启了 `strict` + `noUnusedLocals` + `noUnusedParameters`，未使用的 import 会导致构建失败。
 
-Two processes, both TypeScript, both built by `vite-plugin-electron/simple` from one `vite.config.ts`:
+## 项目结构
 
-- `electron/` → main process, output `dist-electron/`
-- `src/` → Vue 3 renderer (`<script setup>`, Tailwind, Pinia), output `dist/`
+- `electron/` → 主进程，输出 `dist-electron/`
+- `src/` → Vue 3 渲染进程（`<script setup>`、Tailwind、Pinia），输出 `dist/`
+- `bin/<platform>/<arch>/` → yt-dlp + ffmpeg 二进制，Git LFS 追踪
+- 两个进程都由 `vite-plugin-electron/simple` 从一个 `vite.config.ts` 构建
 
-### The IPC boundary is hand-maintained in three places
+## IPC 边界（手动维护，三个地方必须同步）
 
-Adding anything the renderer calls in main means editing all three or it silently breaks:
+1. `electron/ipc/<domain>.ts` — `ipcMain.handle(...)`（注册在 `electron/main.ts`）
+2. `electron/preload.ts` — `contextBridge` 入口
+3. `src/env.d.ts` — `Window.electronAPI` 类型定义
 
-1. `electron/ipc/<domain>.ts` — `ipcMain.handle(...)`, registered from `electron/main.ts`
-2. `electron/preload.ts` — `contextBridge` entry under `window.electronAPI`
-3. `src/env.d.ts` — the `Window.electronAPI` type (no generation, purely manual)
+添加渲染进程可调用的主进程功能时，三处都要改，否则静默失败。
 
-Progress/events flow the other way as broadcasts (`download:progress`, `history:updated`, `update:status`, `menu:showAbout`); renderer subscribers return an unsubscribe closure.
+### 广播事件（主→渲染）
 
-### Parse dispatch (`electron/ipc/download.ts` → `ytdlp:parse`)
+`download:progress`、`history:updated`、`update:status`、`menu:showAbout`。渲染进程订阅者返回 unsubscribe 闭包。
 
-Douyin and Kuaishou have bespoke parsers (`electron/parsers/`): platform API first, headless `puppeteer-core` driving a *system-installed* Chrome/Edge (`utils/browser.ts`) as fallback. Every failure is swallowed by an empty `catch` and falls through to `parseWithYtdlp`. When debugging a parse bug, check which branch actually ran — the errors are invisible.
+## 下载架构
 
-### Download has two entirely separate paths
+### 解析分发 (`electron/ipc/download.ts` → `ytdlp:parse`)
 
-- `directUrl` present (Douyin/Kuaishou only — their parsers return a CDN URL) → `downloadDirectFile`, a plain `fetch` + write stream with hand-rolled progress.
-- Otherwise → `spawn(yt-dlp)`, progress **scraped from stdout with regexes**. Format selector, audio-only (`-x mp3`), subtitle-only (`--skip-download --write-subs`), YouTube multi-audio-track and m3u8 cases are all assembled as arg arrays here.
+抖音/快手有专属解析器 (`electron/parsers/`)：平台 API 优先，headless `puppeteer-core` 驱动系统已安装的 Chrome/Edge (`electron/utils/browser.ts`) 作为 fallback。每次失败都被空 `catch` 吞掉，最终落到 `parseWithYtdlp`。调试解析 bug 时注意哪个分支实际运行了——错误是不可见的。
 
-Pause = `child.kill()` (plus `taskkill /T /F` on Windows) and the task is dropped from `activeDownloads` in `electron/store.ts`. Resume re-spawns yt-dlp, which continues from the leftover `.part` file. There is no cross-restart resume.
+### 两条完全独立的下载路径
 
-### yt-dlp environment quirks
+- `directUrl` 存在（仅抖音/快手——解析器返回 CDN URL）→ `downloadDirectFile`，纯 `fetch` + write stream，手动进度。
+- 否则 → `spawn(yt-dlp)`，进度通过 **stdout 正则匹配** 抓取。format selector、audio-only (`-x mp3`)、subtitle-only (`--skip-download --write-subs`)、YouTube 多音轨、m3u8 等全在这里组装参数数组。
 
-- `utils/binary.ts` resolves `yt-dlp`/`ffmpeg` by trying an ordered list of paths; packaged apps hit `process.resourcesPath/bin`. Binaries live in `bin/<platform>/<arch>/` and are **tracked in Git LFS** (`.gitattributes`). `release.yml` flattens the right arch into `bin/` and deletes the other platform dirs before electron-builder packs `bin` as `extraResources`.
-- YouTube needs a JS runtime for yt-dlp; `checkJsRuntime()` returns `process.execPath` (the Electron binary) as `--js-runtimes node:<path>`, so no separate Node install is needed in a packaged app.
-- Cookies always attempted: manual `settings.cookiesFile` when `cookieMode === 'manual'`, otherwise `--cookies-from-browser <chrome|edge>` from `getAvailableBrowser()`.
+暂停 = `child.kill()`（Windows 额外 `taskkill /T /F`），任务从 `electron/store.ts` 的 `activeDownloads` 移除。恢复 = 重新 spawn yt-dlp，从 `.part` 文件续传。无跨重启恢复。
 
-### State
+### yt-dlp 环境细节
 
-- One Pinia store, `src/stores/download.ts` — queue, selection, and the download orchestration (`processDownload`).
-- User settings are **not** in Pinia: raw `localStorage['settings']` JSON (`downloadDir`, `filenameTemplate`, `preferredQuality`, `cookieMode`, `cookiesFile`), read directly by the store and several components. Change the shape in one place and you must grep for the rest.
-- Download history is main-process owned: `userData/download-history.json`, capped at 100 records, rebroadcast on every mutation.
-- No router. `App.vue` `v-show`es four views; cross-component navigation uses `window` CustomEvents (`tab-changed`, `navigate-to-settings`).
+- `electron/utils/binary.ts` 按顺序尝试多个路径解析 `yt-dlp`/`ffmpeg`；打包应用命中 `process.resourcesPath/bin`。二进制在 `bin/<platform>/<arch>/`，Git LFS 追踪。`release.yml` 将对应架构扁平化到 `bin/` 并删除其他平台目录，然后 electron-builder 将 `bin` 作为 `extraResources` 打包。
+- YouTube 需要 JS 运行时；`checkJsRuntime()` 返回 `process.execPath`（Electron 二进制）作为 `--js-runtimes node:<path>`，打包应用无需单独安装 Node。
+- Cookies 总是尝试：手动 `settings.cookiesFile`（`cookieMode === 'manual'`），否则 `--cookies-from-browser <chrome|edge>` 从 `getAvailableBrowser()` 获取。
 
-### Gotchas
+## 状态管理
 
-- `electron/main.ts` disables GPU via six `commandLine.appendSwitch` calls — a macOS Tahoe + Electron 30 crash workaround. Don't drop them casually.
-- `electron/updater.ts` `setupAutoUpdater()` is dead code, never called. Update checking runs through the `app:checkForUpdates` / `app:downloadUpdate` handlers in `electron/ipc/app.ts` instead, so the `update:status` events those handlers' types promise are never emitted.
-- Main process logs to `userData/downvid.log` (with a 5s heartbeat) and the Settings view reads the last 500 lines via `app:getLog` — that's the fastest way to diagnose a packaged-app crash.
-- Tailwind uses Material-3-style semantic color tokens defined in `tailwind.config.js` (`bg-surface`, `text-on-surface-variant`, `surface-container-high`, …). Use those, not raw hex. `darkMode: 'class'` is configured but nothing ever toggles the class.
-- Repo owner/name for the GitHub API and updater is hardcoded in `electron/constants.ts` and `electron-builder.json5`.
+- 一个 Pinia store：`src/stores/download.ts` — 队列、选择、下载编排。
+- 用户设置 **不在** Pinia 中：直接读 `localStorage['settings']` JSON（`downloadDir`、`filenameTemplate`、`preferredQuality`、`cookieMode`、`cookiesFile`），store 和多个组件直接读取。改形状需全局 grep。
+- 下载历史由主进程管理：`userData/download-history.json`，上限 100 条，每次变更重新广播。
+- 无路由。`App.vue` 用 `v-show` 切换四个视图；跨组件导航用 `window` CustomEvent（`tab-changed`、`navigate-to-settings`）。
 
-## Conventions
+## 构建平台
 
-Conventional Commits (`feat(parser): …`), branches `feat/…` `fix/…` `docs/…` `chore/…`, PRs target `main`. See `CONTRIBUTING.md`.
+```bash
+pnpm build:mac:arm64       # 也可 :mac:x64 :win :linux:x64 :linux:arm64
+```
+
+Linux x64 有独立格式脚本可并行：`build:linux:x64:appimage`、`:deb`、`:rpm`、`:tar.gz`。
+
+## 发布
+
+1. `package.json` 升版本
+2. `CHANGELOG.md` 加 `## [x.y.z]` 段落
+3. 推 tag `v*` → `release.yml` 自动构建 5 个架构目标并发布
+
+Release notes 从 CHANGELOG.md 按版本 header 提取。
+
+## 注意事项
+
+- `electron/main.ts` 中 `app.commandLine.appendSwitch('disable-gpu-sandbox')` — macOS Tahoe + Electron 30 崩溃修复，不要删
+- 所有 UI 字符、注释、commit body 使用中文，匹配此风格
+- 分支命名：`feat/…` `fix/…` `docs/…` `chore/…`，Conventional Commits
+- `localStorage['settings']` 存用户设置，改形状需全局搜索
+- yt-dlp 的 JS 运行时用 Electron 自身（`process.execPath`），不需要单独安装 Node
+- Tailwind 使用 Material-3 风格语义色 token（`bg-surface`、`text-on-surface-variant`、`surface-container-high` 等），定义在 `tailwind.config.js`，用这些而非 raw hex。`darkMode: 'class'` 已配置但从未切换 class。
+- 主进程日志写到 `userData/downvid.log`（含 5s 心跳），Settings 视图通过 `app:getLog` 读最后 500 行——这是诊断打包应用崩溃的最快方式
+- GitHub API 和 updater 的 owner/name 硬编码在 `electron/constants.ts` 和 `electron-builder.json5` 中
 
 ---
 > Source: [yxxbc/downvid](https://github.com/yxxbc/downvid) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
