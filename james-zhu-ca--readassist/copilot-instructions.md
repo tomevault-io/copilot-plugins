@@ -1,0 +1,17 @@
+## ereaderai
+
+> [01-eink-constraints.yaml](mdc:.cursor/rules/01-eink-constraints.yaml)
+
+[01-eink-constraints.yaml](mdc:.cursor/rules/01-eink-constraints.yaml)
+[02-deps-guard.yaml](mdc:.cursor/rules/02-deps-guard.yaml)
+[03-arch-design.yaml](mdc:.cursor/rules/03-arch-design.yaml)
+[04-security-privacy.yaml](mdc:.cursor/rules/04-security-privacy.yaml)
+[05-accessibility-service.yaml](mdc:.cursor/rules/05-accessibility-service.yaml)
+[06-ui-ux-eink.yaml](mdc:.cursor/rules/06-ui-ux-eink.yaml)
+[07-gemini-api.yaml](mdc:.cursor/rules/07-gemini-api.yaml)
+[08-project-specs.yaml](mdc:.cursor/rules/08-project-specs.yaml)
+[09-debug-testing.yaml](mdc:.cursor/rules/09-debug-testing.yaml)
+
+---
+> Source: [James-Zhu-CA/ReadAssist](https://github.com/James-Zhu-CA/ReadAssist) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
