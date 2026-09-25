@@ -1,0 +1,9 @@
+{
+  "name": "rnovacek--homeassistant-cz-energy-spot-prices",
+  "displayName": "homeassistant_cz_energy_spot_prices",
+  "description": "homeassistant_cz_energy_spot_prices",
+  "version": "1.0.0",
+  "author": "rnovacek",
+  "homepage": "https://github.com/rnovacek/homeassistant_cz_energy_spot_prices",
+  "skills": []
+}
