@@ -2,9 +2,9 @@
   "name": "ComfyUI_VNCCS_Utils",
   "owner": "AHEKOT",
   "repo": "ComfyUI_VNCCS_Utils",
-  "description": "A collection of utility nodes from the VNCCS project that are useful not only for the project's primary goals but also for everyday ComfyUI workflows.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AHEKOT/ComfyUI_VNCCS_Utils",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T18:49:35Z"
+  "distributed_at": "2026-09-25T11:29:10Z"
 }
