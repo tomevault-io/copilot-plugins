@@ -1,8 +1,6 @@
 # AI instruction files for qq-maid-bot
 
-> Sourced from [kuliantnt/qq-maid-bot](https://github.com/kuliantnt/qq-maid-bot) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-QQ 官方机器人本地版 Rust 服务
+> Sourced from [kuliantnt/qq-maid-bot](https://github.com/kuliantnt/qq-maid-bot), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [kuliantnt/qq-maid-bot](https://github.com/kulia
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/kuliantnt/qq-maid-bot](https://github.com/kuliantnt/qq-maid-bot)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/kuliantnt/qq-maid-bot](https://github.com/kuliantnt/qq-maid-bot)
 
 ---
 
