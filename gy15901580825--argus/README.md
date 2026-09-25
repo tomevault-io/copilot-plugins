@@ -1,8 +1,6 @@
 # Argus
 
-> Source: [gy15901580825/Argus](https://github.com/gy15901580825/Argus) — distributed by [TomeVault](https://tomevault.io)
-
-Black-box, open-source red-team testing for AI agents. Point Argus at any HTTP, gRPC, or browser-using agent endpoint, run 500+ adversarial probes (OWASP LLM Top 10, MITRE ATLAS, NIST AI RMF, TAP/PAIR/GCG), get LLM-judged findings as SARIF, gate CI via GitHub Code Scanning. Ships with CLI + GH Action.
+> Source: [gy15901580825/Argus](https://github.com/gy15901580825/Argus). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [gy15901580825/Argus](https://github.com/gy15901
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/gy15901580825/Argus](https://github.com/gy15901580825/Argus)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/gy15901580825/Argus](https://github.com/gy15901580825/Argus)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
