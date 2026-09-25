@@ -2,7 +2,7 @@
   "name": "personal-ai-os",
   "owner": "sui-ni2",
   "repo": "personal-ai-os",
-  "description": "A privacy-first, provider-neutral personal AI workbench with chat, memory, auditable tools, MCP, and isolated project plugins.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sui-ni2/personal-ai-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T16:49:34Z"
+  "distributed_at": "2026-09-25T20:52:23Z"
 }
