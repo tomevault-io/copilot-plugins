@@ -1,0 +1,123 @@
+{
+  "name": "mindroom",
+  "owner": "mindroom-ai",
+  "repo": "mindroom",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-cli-dev",
+      "path": ".claude/skills/agent-cli-dev",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/agent-cli-dev",
+      "description": ""
+    },
+    {
+      "name": "mindroom-docs",
+      "path": "skills/mindroom-docs",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/skills/mindroom-docs",
+      "description": ""
+    },
+    {
+      "name": "agent-cli-tmux-supervision",
+      "path": ".claude/skills/agent-cli-tmux-supervision",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/agent-cli-tmux-supervision",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": "skills/mindroom-docs/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/skills/mindroom-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": ".claude/skills/live-test/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/live-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": ".claude/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": ".claude/skills/code-debate/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/code-debate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": ".claude/skills/docs-review/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/docs-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": ".claude/skills/agent-cli-dev/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/agent-cli-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": ".claude/skills/duplication-audit/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/duplication-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": ".claude/skills/native-subagent-pr-loop/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/native-subagent-pr-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": ".claude/skills/agent-cli-tmux-supervision/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/agent-cli-tmux-supervision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mindroom",
+      "path": ".claude/skills/address-pr-review-comments/SKILL.md",
+      "github_url": "https://github.com/mindroom-ai/mindroom/tree/main/.claude/skills/address-pr-review-comments/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mindroom-ai/mindroom",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T00:30:21Z"
+}
