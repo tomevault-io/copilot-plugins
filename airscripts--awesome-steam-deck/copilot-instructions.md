@@ -1,41 +1,57 @@
 ## awesome-steam-deck
 
-> This repository maintains the Awesome Steam Deck README and a static Astro catalog in `site/`. The root README is the catalog source. Site implementation guidance lives in `site/AGENTS.md`.
+> - Inheritance: additive; nearest scope wins.
 
-# Repository Guidance
+# Site Guidance
+
+## Scope
+
+- Path: site
+- Parent: .
+- Inheritance: additive; nearest scope wins.
+
+This package inherits repository rules from `../AGENTS.md`.
 
 ## Mission And Repository Map
 
-This repository maintains the Awesome Steam Deck README and a static Astro catalog in `site/`. The root README is the catalog source. Site implementation guidance lives in `site/AGENTS.md`.
+This package turns the root `../README.md` into a static Astro catalog. `src/lib/parse-readme.ts` is the only extraction path. UI lives in `src/pages`, `src/layouts`, `src/scripts`, and `src/styles`. Parser tests live in `tests/parser.test.ts`; browser coverage lives in `tests/e2e/catalog.spec.ts`.
 
 ## Non-Negotiables
 
-- Keep the catalog derived from the root README; never commit a second resource catalog.
-- Preserve resource order and duplicate occurrences when changing the parser or UI.
-- Reject malformed entries and unsafe URL schemes with source locations.
-- Keep the generated site static, keyboard accessible, and usable without JavaScript.
+- Extract every catalog entry at build time through `src/lib/parse-readme.ts`.
+- Preserve README resource order and duplicate occurrences; resource ids are `{categoryId}-{sourceOrder}`.
+- Reject malformed entries and non-HTTP(S) URLs with `README.md:line:column` locations.
+- Keep `output: "static"` in `astro.config.mjs` and keep the catalog usable without JavaScript.
 
 ## Don’ts
 
-- Do not edit generated `site/dist` output or commit `site/node_modules`.
-- Do not add a server adapter, public API, analytics, accounts, or client-side catalog fetching.
-- Do not bypass parser, type, build, or browser validation for catalog changes.
+- Do not edit generated `dist` output or commit `node_modules`.
+- Do not change `output: "static"` in `astro.config.mjs`.
+- Do not replace URL state keys `q`, repeated `category`, and `sort`.
 
 ## Quick-Start Commands
 
-Run from the repository root: `pnpm --dir site install`, `pnpm --dir site dev`, `pnpm --dir site test`, `pnpm --dir site check`, `pnpm --dir site build`, and `pnpm --dir site test:e2e`.
+From this directory: `pnpm install`, `pnpm dev`, `pnpm format:check`, `pnpm check`, `pnpm build`, `pnpm test`, and `pnpm test:e2e`. Node.js 24+ and pnpm 11.15.0+ are required by `package.json`.
 
 ## Change Routing And Architecture
 
-List submissions belong in the root README. Catalog extraction, UI, and site tests belong in `site/` and follow `site/AGENTS.md`.
+README shape or extraction belongs in `src/lib/parse-readme.ts` and `tests/parser.test.ts`. Build-time GitHub stars belong in `src/lib/github.ts` and must fail open. Interaction belongs in `src/scripts/catalog.ts` with Playwright coverage. Layout and tokens belong in `src/styles/global.css` and Astro components. Import site modules with the `@` path alias from `tsconfig.json`.
+
+## Implementation Conventions
+
+TypeScript and Astro use ESM and 2-space indentation. Format with Prettier (`prettier.config.mjs` plus `prettier-plugin-astro`). `astro.config.mjs` lets Vite read the repo root, reloads when `../README.md` changes, and uses `PUBLIC_SITE_URL` (default `https://awesome-steam-deck.vercel.app`). Preview deploys (`VERCEL_ENV=preview`) are `noindex`. `vercel.json` builds to `dist` with a frozen pnpm install.
 
 ## Testing And Validation
 
-`.github/workflows/site.yml` runs format, `astro check`, production build, Vitest parser tests, and Playwright coverage on README or `site/` changes.
+`pnpm test` (Vitest) must keep the 20-category/158-occurrence baseline plus malformed and reference-link cases. `pnpm check` must report no diagnostics. `pnpm build` must contain the complete catalog. `pnpm test:e2e` (Playwright) covers search, external links, dialog focus, URL state, and serious/critical axe violations.
 
 ## Free Region
 
 <!-- Maintainer customs go here. -->
+
+## Further Context
+
+See `AGENTS.reference.md` for provenance and rationale.
 
 ---
 
