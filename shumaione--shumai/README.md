@@ -2,16 +2,14 @@
 
 > Source: [shumaiOne/shumai](https://github.com/shumaiOne/shumai). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-AI-native, open-source Frame.io alternative for creative collaboration.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [shumaiOne/shumai](https://github.com/shumaiOne/shumai).
+Original source: `CLAUDE.md` in [shumaiOne/shumai](https://github.com/shumaiOne/shumai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
