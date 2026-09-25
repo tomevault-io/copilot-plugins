@@ -1,6 +1,6 @@
 # vscode-fresh-file-explorer
 
-> Source: [FreHu/vscode-fresh-file-explorer](https://github.com/FreHu/vscode-fresh-file-explorer). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [FreHu/vscode-fresh-file-explorer](https://github.com/FreHu/vscode-fresh-file-explorer). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
