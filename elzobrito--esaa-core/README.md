@@ -1,8 +1,6 @@
 # ESAA-Core
 
-> Source: [elzobrito/ESAA-Core](https://github.com/elzobrito/ESAA-Core) — distributed by [TomeVault](https://tomevault.io)
-
-ESAA combina Event Sourcing, projeção determinística e políticas fail-closed para transformar automação multiagente em um sistema auditável e previsível.
+> Source: [elzobrito/ESAA-Core](https://github.com/elzobrito/ESAA-Core). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
