@@ -1,8 +1,6 @@
 # issue-finder
 
-> Source: [lifuyue/issue-finder](https://github.com/lifuyue/issue-finder) — distributed by [TomeVault](https://tomevault.io)
-
-Local-first handoff prep for developers using coding agents.
+> Source: [lifuyue/issue-finder](https://github.com/lifuyue/issue-finder). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [lifuyue/issue-finder](https://github.com/lifuyu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [lifuyue/issue-finder](https://github.com/lifuyue/issue-finder) — a repo with 54+ stars on GitHub.
+From [lifuyue/issue-finder](https://github.com/lifuyue/issue-finder) — a repo with 145+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
