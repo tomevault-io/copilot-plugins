@@ -1,10 +1,10 @@
 ## hebb-mind
 
-> Agent memory framework — open-source project under [github.com/afx-team](https://github.com/afx-team).
+> Neuroscience-inspired memory framework for AI agents. Open-source under [github.com/afx-team](https://github.com/afx-team), distributed on PyPI as `hebb-mind`.
 
 # Hebb Mind
 
-Agent memory framework — open-source project under [github.com/afx-team](https://github.com/afx-team).
+Neuroscience-inspired memory framework for AI agents. Open-source under [github.com/afx-team](https://github.com/afx-team), distributed on PyPI as `hebb-mind`.
 
 ---
 
@@ -19,172 +19,81 @@ When rules conflict, follow this priority order:
 
 ## Project Context
 
-**Type**: Research & design phase → Production implementation
-**Domain**: Agent memory for LLMs (inspired by hippocampus = memory consolidation center)
-**Organization**: [github.com/afx-team](https://github.com/afx-team)
-
-### Current Phase Focus
-- [ ] Survey academic papers on agent memory
-- [ ] Analyze open-source memory implementations  
-- [ ] Design Hebb Mind architecture
-- [ ] Implement core components
+**Status**: Production (PyPI `hebb-mind`)
+**Domain**: Long-term memory for LLM agents — write, consolidate, recall, forget
+**Surfaces**: Python package, Click CLI (`hebb`), FastAPI server, MCP server (stdio), web console, Claude Code + Codex integrations
+**Docs site**: VitePress → GitHub Pages at https://afx-team.github.io/hebb-mind/
 
 ---
 
-## Directory Architecture
+## Publication Boundary
 
-```
-hebb-mind/
-├── repo_pages/           # VuePress site → GitHub Pages (PUBLIC-FACING)
-│   ├── .vuepress/        # VuePress configuration
-│   └── *.md              # Public documentation pages
-├── reports/              # Internal research outputs (NOT for publication)
-│   ├── papers/           # Academic paper notes and summaries
-│   ├── analysis/         # Open-source project analysis reports
-│   ├── design/           # Architecture and design documents
-│   └── surveys/          # Research survey reports
-├── src/                  # Source code (TBD)
-├── eval/                 # Benchmark evaluations on open datasets
-└── results/              # Evaluation outputs
-```
-
-**CRITICAL DISTINCTION**:
-- `repo_pages/` = **Public website** (VuePress → GitHub Pages) — curated documentation for users
-- `reports/` = **Internal research** — raw notes, analysis, design drafts (not for publication)
-
-**File Placement Rules**:
-| Content Type | Location | Visibility |
-|-------------|----------|------------|
-| User documentation | `repo_pages/` | Public (GitHub Pages) |
-| Paper summaries | `reports/papers/` | Internal |
-| Project analysis | `reports/analysis/` | Internal |
-| Architecture design | `reports/design/` | Internal |
-| Research surveys | `reports/surveys/` | Internal |
-
-**MUST NOT**:
-- Put research notes in `repo_pages/` — they go in `reports/`
-- Put public docs in `reports/` — they go in `repo_pages/`
-- Commit sensitive analysis to `repo_pages/` (it will be published)
+- `repo_pages/` is the **public website** (VitePress → GitHub Pages). User-facing docs go here. Never commit secrets, internal analysis, or proprietary data — anything merged is published.
+- `reports/` is **internal-only** (papers, analysis, design, surveys). Research notes, audits, and design drafts go here, not in `repo_pages/`.
 
 ---
 
-## Output Standards (MUST)
+## Evaluation & Benchmarks
 
-### Document Formats
+The benchmark harness lives in `eval/` — datasets, metrics, CLI, and report layout are documented in **[`eval/README.md`](eval/README.md)** (read it before running or updating evals). Must-know invariants:
 
-| Document Type | Required Sections | File Naming |
-|--------------|-------------------|-------------|
-| Paper Note | Summary, Key Insights, Implications for Hebb Mind | `[AuthorYear]-[topic].md` |
-| Analysis Report | Overview, Architecture, Strengths, Weaknesses, Implications | `[project-name]-analysis.md` |
-| Design Doc | Problem, Solution, Trade-offs, Implementation Plan | `[feature-name]-design.md` |
+- Each benchmark runs against an **isolated server** (own port `8401–8409`, own workdir `hebb.db`) — **never** the daily `hebb service` on 8321.
+- **Match the metric to the dataset's ground truth** — session `Recall@k` / `Hit@k` where a clean evidence id exists; end-to-end QA only otherwise. LongMemEval QA uses the **official** reader + `get_anscheck_prompt` judge verbatim (no benchmark-tuned prompts).
+- A published number in `repo_pages/benchmarks/` MUST cite an **in-tree `run-N` report**; update the EN page and its `zh/` mirror together.
 
-### Code Standards (when implementing)
+---
+
+## User Path Ownership (MUST)
+
+The user's complete path — install → first command → background operation → uninstall — **is the product.** Every crossing between environments (shell ↔ GUI app ↔ launchd ↔ systemd ↔ Task Scheduler ↔ a third-party CLI's subprocess) is **the framework's responsibility, never the user's.**
+
+---
+
+## Code Standards (MUST when implementing)
 
 ```python
-# MUST: Type hints on all public functions
-def process_memory(memory: Memory) -> ProcessedMemory:
-    ...
+# MUST: Type hints on all public functions (mypy strict is enabled in pyproject.toml)
+def process_memory(memory: Memory) -> ProcessedMemory: ...
 
 # MUST: Docstring with Args, Returns, Raises for public APIs
 def retrieve(query: str, k: int = 5) -> list[Memory]:
     """Retrieve top-k relevant memories.
-    
-    Args:
-        query: Search query string
-        k: Number of results to return
-        
-    Returns:
-        List of Memory objects sorted by relevance
-    """
-    ...
 
-# MUST: Unit tests for core workflows
-def test_retrieve_returns_sorted_memories():
-    ...
+    Args:
+        query: Search query string.
+        k: Number of results to return.
+
+    Returns:
+        Memories sorted by composite score, descending.
+    """
 ```
 
----
-
-## Constraints (MUST NOT)
-
-- **DO NOT** use relative imports outside the same module
-- **DO NOT** hardcode API keys or secrets
-- **DO NOT** create files outside defined directory structure
-- **DO NOT** skip the "Implications for Hebb Mind" section in analysis papers
-- **DO NOT** use Chinese and English interchangeably in the same document — be consistent
-
----
-
-## Conventions (SHOULD)
-
-### UI / CLI Parity
-- New Web Console features **SHOULD** have a corresponding `hebb` CLI command for the same core workflow.
-- If CLI parity is intentionally skipped, document why the feature is UI-only or why a CLI would not be useful.
-
-### Visual Documentation
-- Use **mermaid diagrams** for architecture, data flow, and component relationships
-- Example:
-  ```mermaid
-  graph LR
-    A[Input] --> B[Process] --> C[Output]
-  ```
-
-### Academic References
-- Format: `[Author et al., Year]` or `[Author, Year]` for single author
-- Example: "Memory consolidation (Wilson & McNaughton, 1994) shows that..."
-
-### Actionability Check
-- Every analysis document **SHOULD** end with actionable insights
-- Standard section: "## Implications for Hebb Mind"
-
----
-
-## Engineering Principles
-
-1. **Architecture Clarity** — Directory structure = module boundaries
-2. **Semantic Naming** — Names reveal intent, not implementation
-3. **Multi-Model Support** — Design for Codex, GPT, Llama compatibility
-4. **Test Coverage** — Unit tests for logic, E2E tests for workflows
-5. **Incremental Complexity** — Start simple, add abstraction when pattern repeats 3+ times
+- **MUST NOT** use relative imports across modules — import from `hebb.<module>`.
+- **MUST NOT** hardcode API keys, secrets, or absolute paths outside the user's workspace.
+- **MUST NOT** mix Chinese and English in the same document (per-language pages only).
+- **MUST** add unit tests for new core logic; E2E for new workflows.
+- **SHOULD** use `mermaid` for architecture / data-flow diagrams (renders in VitePress and on GitHub).
+- **SHOULD** keep CLI exits via `click.ClickException`; reserve `SystemExit(1)` for unrecoverable failures.
 
 ---
 
 ## Decision Guidelines
 
-### When to Create New Module
-- **YES** if: Component has independent lifecycle, clear API boundary, or >500 lines
-- **NO** if: Just organizing related functions — use a class or namespace instead
-
-### When to Add Abstraction Layer
-- **YES** if: Pattern appears 3+ times across codebase
-- **NO** if: Only used once or twice — wait for pattern to stabilize
-
-### When to Write Design Doc
-- **YES** if: Affects 2+ modules, introduces new dependency, or changes API contract
-- **NO** if: Local refactor, bug fix, or single-module improvement
+| Decision | YES if | NO if |
+|----------|--------|-------|
+| New module | Independent lifecycle, clear API boundary, or >500 lines | Just grouping related functions — use a class |
+| New abstraction | Pattern repeats 3+ times | Used once or twice — wait for the pattern to stabilize |
+| Design doc in `reports/design/` | Affects 2+ modules, new dependency, or API contract change | Local refactor or single-module bug fix |
 
 ---
 
-## Quality Checklist
+## Engineering Principles
 
-Before marking any task complete, verify:
-
-- [ ] File placed in correct directory
-- [ ] Naming follows specified convention
-- [ ] Document has all required sections
-- [ ] Code has type hints and tests (if applicable)
-- [ ] Commit message explains "why" not "what"
-
----
-
-## Quick Reference
-
-| Task | Location | Template |
-|------|----------|----------|
-| Public documentation | `repo_pages/` | VuePress page format |
-| Paper summary | `reports/papers/` | See `reports/papers/.template.md` |
-| Project analysis | `reports/analysis/` | See `reports/analysis/.template.md` |
-| Architecture design | `reports/design/` | See `reports/design/.template.md` |
+1. **Architecture clarity** — directory structure equals module boundaries.
+2. **Semantic naming** — names reveal intent, not implementation.
+3. **Multi-model support** — Claude / GPT / Llama / Qwen via LiteLLM; embedding via sentence-transformers or any LiteLLM embedding provider.
+4. **Test coverage** — unit tests for logic, E2E for workflows, eval suite for retrieval quality.
+5. **Incremental complexity** — start simple, add abstraction only after the pattern stabilizes.
 
 ---
 > Source: [afx-team/hebb-mind](https://github.com/afx-team/hebb-mind) — distributed by [TomeVault](https://tomevault.io).
