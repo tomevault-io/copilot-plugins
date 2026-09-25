@@ -2,9 +2,9 @@
   "name": "omq.rs",
   "owner": "paddor",
   "repo": "omq.rs",
-  "description": "Pure Rust \u00d8MQ. Faster than libzmq. Batteries included for demanding workloads.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/paddor/omq.rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T00:53:05Z"
+  "distributed_at": "2026-09-25T19:33:14Z"
 }
