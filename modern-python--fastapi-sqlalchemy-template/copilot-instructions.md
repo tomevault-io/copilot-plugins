@@ -2,7 +2,7 @@
 
 > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -12,7 +12,7 @@ Python 3.14 async REST API. FastAPI + SQLAlchemy 2 (async) + PostgreSQL + Alembi
 
 ## Common commands
 
-The development workflow runs inside Docker via `just` (`just --list` / read the `Justfile` for the full recipe list). The `application` service mounts the repo and depends on a `db` Postgres service. Bare `just` runs the default pipeline (install + lint + build + test).
+The development workflow runs inside Docker via `just` (`just --list` / read the `justfile` for the full recipe list). The `application` service mounts the repo and depends on a `db` Postgres service. Bare `just` runs the default pipeline (install + lint + build + test).
 
 Things the recipe names don't make obvious:
 
@@ -72,12 +72,25 @@ Endpoints inject repositories with `FromDI(Repository)` from `modern_di_fastapi`
 
 ## Conventions
 
-- Type-ignore syntax is `# ty: ignore[error-code]` (this project uses `ty`, not mypy). See `app/application.py:39` for an example.
 - Ruff is configured with `select = ["ALL"]` and a curated ignore list in `pyproject.toml`. Don't sprinkle `# noqa`; prefer fixing or extending the project ignore list if a rule is genuinely wrong for the codebase.
 - Routes convert ORM objects to schemas explicitly, never via `typing.cast`. Single objects: `schemas.X.model_validate(instance)`. Collections: `schemas.Xs.from_models(objects)` (the `Collection[T]` seam in `app/schemas.py`). Both rely on `from_attributes=True`.
 - Deck responses are deliberately two-shaped: `list_decks`/`create_deck`/`update_deck` return the light `schemas.Deck` (no `cards`), while `get_deck` returns `schemas.DeckWithCards`. The split mirrors loading — lists/writes use `noload` (no cards query), detail uses `selectinload` via `fetch_with_cards` — so the type states exactly what each endpoint loads.
 - Line length is 120.
 
+## Agent skills
+
+### Issue tracker
+
+GitHub issues on `modern-python/fastapi-sqlalchemy-template`, via `gh`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical roles, each label string equal to its name. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
 ---
 > Source: [modern-python/fastapi-sqlalchemy-template](https://github.com/modern-python/fastapi-sqlalchemy-template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
