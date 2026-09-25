@@ -2,7 +2,7 @@
   "name": "RoboRSI",
   "owner": "nssmd",
   "repo": "RoboRSI",
-  "description": "Robot-agent harness with a CLI and local Web console for LIBERO short evaluation",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nssmd/RoboRSI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T12:32:10Z"
+  "distributed_at": "2026-09-25T13:17:55Z"
 }
