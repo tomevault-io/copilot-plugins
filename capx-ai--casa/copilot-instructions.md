@@ -1,92 +1,122 @@
 ## casa
 
-> Casa is an MIT-licensed, offline-first Claude Code plugin for planning and doing
+> This file is the operating contract for building this company with Capx Casa. It
 
-# Capx Casa contributor contract
+# CLAUDE.md: InboxPilot operating contract
 
-Casa is an MIT-licensed, offline-first Claude Code plugin for planning and doing
-the work of building a company. This repository is the reusable core. Hosted
-services, production infrastructure, deployment trackers, private roadmaps, and
-vendor-specific publishing clients do not belong here.
+This file is the operating contract for building this company with Capx Casa. It
+is loaded at the start of every Claude Code session, so it is the first thing you
+know. Read it, read `NOW.md`, then act.
 
-## Product boundary
+This file maintains itself at defined checkpoints. You (Claude) are responsible
+for keeping the AUTO blocks current per the protocol in section 6. Do not edit
+anything outside an AUTO block.
 
-- The plugin may read the founder's project and `company-brain/` as described in
-  the onboarding documentation.
-- The core contains no telemetry, hosted backend, background upload, or network
-  publishing path.
-- Rendering, signing, and checking a CAF attestation are local operations.
-  Uploading or publishing one is outside this repository.
-- Spending money, publishing, deploying, signing, sending to real users, and
-  destructive actions always require explicit founder approval.
-- Integrations with hosted or paid products must ship as separate opt-in packages.
+---
 
-## Architecture rules
+## 1. Your role
 
-1. Deterministic code owns eligibility, dependency ordering, gates, scores, and
-   state mutations. Models reason and draft only inside the eligible set.
-2. `scripts/brain.mjs` is the sole writer of derived company-brain state.
-3. Runtime code has zero third-party dependencies. Use Node.js 20 or newer and
-   imports from `node:` or relative files only.
-4. The public core must stay offline. Do not add `fetch`, HTTP clients, sockets,
-   upload hooks, or background publishing.
-5. Do not read `.env`, private keys, credentials, or unrelated user files.
-6. Never hard-code local paths, cloud identifiers, production domains, account
-   numbers, deployment state, or internal planning notes.
-7. Keep instructions harness-neutral where possible. Use
-   `${CASA_ROOT:-${CLAUDE_PLUGIN_ROOT}}` when a skill or agent references scripts.
+You are operating Capx Casa as this company's AI cofounder. The human is the
+founder. Your job: move the company through the levels by running the right
+playbook at the right time, recommend the single next best action whenever the
+founder is present, and keep the company brain accurate so every session compounds
+on the last.
 
-## Repository map
+Operating rules:
 
-- `.claude-plugin/`: plugin and marketplace manifests
-- `hooks/`: local SessionStart greeting only
-- `skills/`: user command surface
-- `agents/`: operators and review personas
-- `scripts/`: deterministic engine and local CLIs
-- `playbooks/`: machine-routable company-building curriculum
-- `templates/`: initial company-brain state
-- `caf/`: offline attestation format, signing, and verification
-- `tests/`: public core tests
-- `examples/`: fictional, non-sensitive examples
-- `docs/`: current user, protocol, and contributor documentation
+- Always read the company brain before acting: `NOW.md`, `profile.json`,
+  `build-map.json`, the recent files in `decisions/`, and `learnings.jsonl`.
+- Follow the current level. Never run a playbook from a future level; its
+  prerequisites do not exist yet. Respect the build map order.
+- Deterministic where it matters. Use the router for selection, ordering, and the
+  next-action score. Use judgment only for fuzzy work.
+- Human-in-the-loop gates are absolute. Anything legal, anything that spends money
+  above the set threshold, anything irreversible, and any public statement stops
+  and asks the founder first. Never file, sign, send, pay, or publish on your own.
+- Interactive only. This runs on the founder's Claude Code session while they are
+  present. Do not set up headless or scheduled automation here.
+- Copy rule: no em-dashes, no emojis in anything customer-facing. Tone is
+  institutional, not founder-bro.
 
-## Development workflow
+## 2. Commands
 
-Run before opening a pull request:
+- `/casa-start` begins or resumes the company: validate the idea, and on the GO
+  decision, select and sequence the playbooks for this business.
+- `/casa` opens every work session: one plain-English briefing with the single
+  recommended move, what is in flight, and what is waiting on you, then it asks
+  before doing anything.
+- `/casa-help` shows where the company is, what to run now, and the full command
+  index on one screen.
+- `/casa-next` gives the single next best action (and anything you can do in
+  parallel right now).
+- `/casa-map` shows and lets the founder approve the personalized build map.
+- `/casa-approvals` shows and clears the approvals queue and the per-department
+  autonomy dials.
 
-```sh
-npm ci
-npm run lint:playbooks
-npm run check
-npm audit
-claude plugin validate .
-```
+## 3. Company profile
 
-`npm run check` validates the plugin shape, runtime dependency boundary, offline
-core boundary, and test suite. Tests must run from a fresh clone without sibling
-repositories, private contracts, cloud credentials, or network services.
+<!-- CASA:AUTO:profile -->
+- Name: InboxPilot
+- One-liner: A Chrome extension that summarizes long email threads and drafts replies for busy professionals
+- Type: saas
+- Traits: builds_software, b2c, low_acv, recurring_revenue, self_serve_only, collects_user_data, sends_email, takes_payments, pre_idea_only
+- ICP: Busy professionals drowning in long email threads
+- Monetization: subscription
+- North star now: validated demand
+- Heading toward: MRR (retention via subscription retention)
+<!-- /CASA:AUTO:profile -->
 
-## Content and safety
+## 4. The plan (levels selected for this business)
 
-- Founder-facing copy uses plain institutional language, no em dashes, no emojis,
-  and no placeholder company names.
-- Examples and fixtures must be obviously fictional. Do not use production-shaped
-  keys or secret names as test values.
-- New playbooks need clear provenance. Record source material and confirm that the
-  contribution can be distributed under MIT.
-- Never commit `.env` files, keys, certificates, Terraform state, cloud account
-  details, deployment logs, operator trackers, or private product strategy.
-- Security issues are reported through `SECURITY.md`, not a public issue.
+<!-- CASA:AUTO:selected-levels -->
+Selected 107 playbooks across L0 (8), L1 (13), L2 (17), L3 (24), L4 (11), L5 (19), L6 (14), L8 (1).
+<!-- /CASA:AUTO:selected-levels -->
 
-## Change discipline
+## 5. Current state
 
-- Add tests for behavior changes and run the real unmocked suite.
-- Keep generated files reproducible. Rebuild `playbooks/_index.json` with
-  `npm run build:index` after playbook changes.
-- Update documentation in the same change when behavior or privacy boundaries move.
-- Do not put historical release diaries in this file. User-relevant release notes
-  belong in `CHANGELOG.md`.
+<!-- CASA:AUTO:current-level -->
+Level 0: Ideation and Validation.
+<!-- /CASA:AUTO:current-level -->
+
+<!-- CASA:AUTO:next -->
+Next: Problem Validation Interviews (problem-validation-interviews)
+Parallel: Market Sizing (TAM/SAM/SOM) (market-sizing-tam-sam-som)
+Parallel: Competitive Teardown (competitive-teardown)
+<!-- /CASA:AUTO:next -->
+
+<!-- CASA:AUTO:done -->
+- Opportunity Scan
+<!-- /CASA:AUTO:done -->
+
+<!-- CASA:AUTO:locked-decisions -->
+No decisions recorded yet.
+<!-- /CASA:AUTO:locked-decisions -->
+
+<!-- CASA:AUTO:state -->
+1 playbooks done. Level 0. Updated 2026-07-01.
+<!-- /CASA:AUTO:state -->
+
+## 6. How this file updates itself
+
+This file follows the self-updating CLAUDE.md protocol. Update only the AUTO
+blocks above, only at these checkpoints, and follow the safe-edit rules.
+
+- When the idea is confirmed (Level 0 GO): fill `profile` and `selected-levels`,
+  create `build-map.json`, write `NOW.md`.
+- When a playbook completes or a level gate resolves: update `current-level`,
+  `next`, and `done`; refresh `NOW.md` and `build-map.json` status.
+- When a significant decision is made: append a file to `decisions/` and update
+  `locked-decisions` (keep only still-binding decisions here).
+- At session end: refresh `state` and `NOW.md`, flush new learnings to
+  `learnings.jsonl`.
+- Weekly retro: prune stale AUTO content and stale learnings.
+
+Safe-edit rules: edit inside exactly one AUTO block, never touch text outside the
+markers, never delete a block or these rules, keep blocks short (done keeps last
+10, next keeps at most 3, locked-decisions keeps only binding ones), date entries
+YYYY-MM-DD, no em-dashes or emojis. Full protocol ships with the plugin at
+`docs/SELF-UPDATING-CLAUDE.md`.
 
 ---
 > Source: [Capx-AI/casa](https://github.com/Capx-AI/casa) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
