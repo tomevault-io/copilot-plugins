@@ -1,0 +1,93 @@
+{
+  "name": "claude-desktop-extra",
+  "owner": "patrickjaja",
+  "repo": "claude-desktop-extra",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-desktop-extra",
+      "path": ".claude/skills/3p/SKILL.md",
+      "github_url": "https://github.com/patrickjaja/claude-desktop-extra/tree/main/.claude/skills/3p/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-desktop-extra",
+      "path": ".claude/skills/linux/SKILL.md",
+      "github_url": "https://github.com/patrickjaja/claude-desktop-extra/tree/main/.claude/skills/linux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-desktop-extra",
+      "path": ".claude/skills/debug/SKILL.md",
+      "github_url": "https://github.com/patrickjaja/claude-desktop-extra/tree/main/.claude/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-desktop-extra",
+      "path": ".claude/skills/audit/SKILL.md",
+      "github_url": "https://github.com/patrickjaja/claude-desktop-extra/tree/main/.claude/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-desktop-extra",
+      "path": ".claude/skills/update/SKILL.md",
+      "github_url": "https://github.com/patrickjaja/claude-desktop-extra/tree/main/.claude/skills/update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-desktop-extra",
+      "path": ".claude/skills/deploy/SKILL.md",
+      "github_url": "https://github.com/patrickjaja/claude-desktop-extra/tree/main/.claude/skills/deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-desktop-extra",
+      "path": ".claude/skills/comment/SKILL.md",
+      "github_url": "https://github.com/patrickjaja/claude-desktop-extra/tree/main/.claude/skills/comment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-desktop-extra",
+      "path": ".claude/skills/architecture/SKILL.md",
+      "github_url": "https://github.com/patrickjaja/claude-desktop-extra/tree/main/.claude/skills/architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/patrickjaja/claude-desktop-extra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-25T02:58:35Z"
+}
