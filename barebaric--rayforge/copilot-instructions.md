@@ -1,37 +1,22 @@
 ## rayforge
 
-> - No setup needed. Do not run "cd", assume you are in the correct path by default.
+> This is an addendum to the primary AGENTS.md located in the Rayforge project root and is specific to the ruidarpa driver.
 
-# AGENTS.md
+This is an addendum to the primary AGENTS.md located in the Rayforge project root and is specific to the ruidarpa driver.
 
-## General commands
-
-- No setup needed. Do not run "cd", assume you are in the correct path by default.
-- Use these commands:
-   o `pixi run format`: Apply automatic code formatting
-   o `pixi run test`: Run backend tests
-   o `pixi run uitest`: Run UI tests
-   o `pixi run lint`. Performs linting and static code analysis
-   o `pixi run print-untranslated list`: List languages with untranslated strings
-   o `pixi run print-untranslated <lang>`: Print untranslated strings from po file
-
-## Code style
-
-- When writing Python, conform to PEP8 with maximum line length of 79 chars
-- Keep cyclomatic complexity low. Write small, testable functions
-- Never mark your changes with inline comments. Code is for clean, final implementation only
-- Retain exiting formatting, docstrings, and comments
-
-## Other rules
-
-- Do not run the full test suite prematurely. Fix all linter errors first. Run targeted tests.
-- Never use "head" to filter CLI commands! This would hide useful error messages.
-- Use proper markdown to put each file into a separate code block.
-- File start markers do not belong INTO code blocks. Putting them OUTSIDE is ok.
-- Do not make changes unrelated to the current task
-- Never remove logging or debugging unless asked by the user
-- Do not repeat files unless they have changes
+## Ruida Driver (ruidarpa) Development
+- The focus is development of the ruidarpa driver. Because of this it is not necessary to run a complete test suite. Only the tests directly related to the ruidarpa driver are needed.
+- The Ruida driver (ruidarpa) in development is in rayforge/machine/driver/ruidarpa. All edits must be confined to rayforge/machine/driver/ruidarpa and its subdirectories with the exception of ruidarpa specific tests in tests/machine/driver/ruidarpa.
+- The Ruida driver in rayforge/machine/driver/ruida is a prototype and is for reference only. Never modify files in the rayforge/machine/driver/ruida directory tree.
+- The ruidarpa driver depends upon external/ruida-pa which is maintained elsewhere. Do not modify files in the external/ruida-pa directory tree.
+- If changes outside ruidarpa are needed, write a prompt which can passed to the upstream maintainers for either Rayforge or ruida-pa. Save the prompt in `docs/prompts` using a simple but descriptive file name.
+- Temporary files should be created in rayforge/machine/driver/ruidarpa/tmp.
+- `commit.txt`: To be written only when the user requests it (e.g. "Write a new commit.txt"). This contains pre-composed change summary lines and placed in the project root. Multiple summary lines are used when more than one issue (i.e. new feature or problem fix) has been resolved in a single commit. NOTE: Each issue should have only one line. Change details are to be written to the testing log (below). Each summary line should be prefixed a word indicating the nature of the change. These are:
+	- `version:` The version number has been bumped.
+	- `feature:` A new feature has been added.
+	- `fix:` A problem has been fixed.
+- Testing logs are maintained in `docs/logs` and have names formatted as ruidarpa-`<__version__>-testing.md`. **IMPORTANT:** The version (`<__version__>`) is the ruida-pa version. These are updated with detailed Problem, Solution and Verification information sections (not a bullet list). The testing log for the current version is to be updated when `commit.txt` is written.
 
 ---
 > Source: [barebaric/rayforge](https://github.com/barebaric/rayforge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
