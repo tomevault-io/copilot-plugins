@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [corepunch/open-realm](https://github.com/corepunch/open-realm).
+Original source: `CLAUDE.md` in [corepunch/open-realm](https://github.com/corepunch/open-realm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [corepunch/open-realm](https://github.com/corepunch/open-realm) — a repo with 305+ stars on GitHub.
+From [corepunch/open-realm](https://github.com/corepunch/open-realm) — a repo with 306+ stars on GitHub.
 
 ---
 
