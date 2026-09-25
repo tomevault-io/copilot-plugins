@@ -1,283 +1,113 @@
 ## qq-maid-bot
 
-> 给 Codex / AI Agent 后续维护本仓库使用的简短说明。
-
+> 本文件约束 `qq-maid-core/src/runtime/tools/` 下业务工具的新增和维护。更通用的项目规则仍以仓库根目录 `AGENTS.md` 为准。
 
 # AGENTS.md
 
-给 Codex / AI Agent 后续维护本仓库使用的简短说明。
+本文件约束 `qq-maid-core/src/runtime/tools/` 下业务工具的新增和维护。更通用的项目规则仍以仓库根目录 `AGENTS.md` 为准。
 
-项目运行、部署、排障细节以根 `README.md`、`qq-maid-gateway-rs/README.md`、`qq-maid-llm/` 配置说明、`Makefile` 和相关源码为准；不要在这里重复 README。
+## 业务域边界
 
-请使用中文回复。
+新增业务工具时，优先在 `qq-maid-core/src/runtime/tools/<domain>/` 下建立独立业务域。已经存在单文件工具时，小改动可沿用现状；一旦出现多步流程、持久化、可见编号、回执或澄清逻辑，应逐步收敛到独立业务域目录。
 
-新增或修改代码时，应补充必要的中文注释，并保留已有的有效注释。
+推荐结构：
 
-## 项目定位
+* `<tool>.rs`：Tool 入口，只负责参数解析、上下文校验、调用业务操作、返回结构化结果。
+* `ops.rs`：多步业务流程，例如同时更新业务状态、取消 outbox、生成下一次任务。
+* `storage.rs` / `storage/`：底层持久化读写和事务边界。
+* `receipt.rs`：确定性回执渲染。
+* `visible_entity.rs`：列表编号、引用消息定位、可见实体快照。
+* `tests.rs`：工具、引用、澄清、状态变化和回执测试。
 
-这是一个 QQ 官方机器人本地版项目。
+禁止把具体业务规则散落到 `respond/chat_flow/session/prompt/gateway/llm` 中。Respond 层只负责通用编排、工具调用、结果投影和必要上下文维护；Gateway 只负责平台消息收发；LLM crate 只负责模型协议和 Tool Loop 协议。
 
-当前主线只保留：
+领域 `mod.rs` 是跨模块唯一门面：只导出实际调用方需要的稳定类型和函数，禁止用
+`pub use storage::*` 或大量转发重新暴露 Repository 子模块。通用 `agent_turn.rs`、状态
+提示和 Tool Registry 只能注册领域 adapter / 集合；具体 Tool 名称、操作分类、结果索引
+合并、成功验真和领域状态判断必须留在对应 `<domain>/`。
 
-* `qq-maid-gateway-rs/`：Rust QQ 官方 gateway 接入层，负责 QQ 事件、消息转换、白名单、本地 `/ping` 和回复发送。
-* `qq-maid-llm/`：Rust LLM 服务，负责 `/v1/respond`、查询、记忆、session、todo、命令、prompt 和 provider 调用。
-* `qq-maid-common/`：Rust 共享基础工具，只放 gateway 和 LLM 都需要、且不依赖业务状态的通用逻辑。
-* `runtime/`：服务器部署运行目录，只放 release 二进制、运行配置和运行产物。
-* `scripts/`：部署、进程控制和诊断脚本源码。
+## 开发自己的业务工具
 
-当前 Rust 构建由仓库根目录 Cargo Workspace 统一管理：
+新增一个独立业务能力时，先把它当作一个 `<domain>` 设计，而不是只写一个模型函数。可以参考 `todo/` 的拆分方式，但不要照搬 Todo 的所有复杂度；按业务是否需要持久化、用户后续引用、主动通知、确认/澄清来决定交付面。
 
-* 根 `Cargo.toml` 维护 workspace members；
-* 根 `Cargo.lock` 是唯一锁文件；
-* release 产物位于根 `target/release/`；
-* 不要恢复子目录 `Cargo.lock`，也不要在文档或脚本中继续引用 `qq-maid-*/target/` 旧路径。
+最小交付面：
 
-不要恢复或新增：
+* 定义工具目标、可调用场景和风险等级：查询类、写入类、删除类、外部副作用类要分开命名，避免一个 Tool 同时承担过多行为。
+* 实现 `qq_maid_llm::tool::Tool`：`metadata()` 给出稳定 `name`、清晰中文 `description` 和严格 JSON Schema；`execute()` 只信任本地校验后的参数。
+* 参数解析必须本地校验：字符串长度、数组数量、枚举、时间格式、URL、编号范围和互斥字段都要在 Tool 内或 domain helper 中校验，不能只依赖模型或上游 schema。
+* 返回结构化 `ToolOutput::json`：至少包含 `ok`、关键结果字段和 `message`；失败时返回明确 `error_code` 和可展示原因。不得用模型文案伪造成功。
+* 明确上下文来源：从 `ToolContext`、`scope_key`、`user_id`、`account_id`、`platform` 派生业务 owner 或投递目标；不要让 Tool 接收或猜测平台 raw id、QQ 字段、内部数据库 ID。
+* 对用户可见结果做脱敏和裁剪：输出不包含 token、完整 openid、群 ID、聊天正文、原始请求 envelope、内部异常堆栈或过长外部响应。
+* 补充测试：至少覆盖参数合法/非法、成功路径、业务失败路径和输出 JSON 形状；有持久化时覆盖状态变化。
 
-* Python 接入层；
-* Python adapter；
-* Python fallback；
-* Python 本地 LLM / 查询 / 记忆 / session / 命令 / prompt 入口；
-* 独立 HTTP `/query`、HTTP `/memory`、`/v1/chat` 等旧入口。
+复杂业务交付面：
 
-Rust HTTP 层只公开：
+* 有多步状态变更时，把流程放进 `ops.rs`，Tool 只负责参数解析、选择解析、调用 `ops` 和返回结果。
+* 有持久化时，把 SQL 和事务边界放进 `storage.rs` / `storage/`；schema 变化必须走 migration，并考虑历史 `APP_DB_FILE`。
+* 有用户后续操作时，实现类似 Todo 的 `visible_entity.rs`：保存用户实际看到的列表快照或最近操作对象，让“第一条”“刚刚那个”只解析到同一 scope / owner 下的可见实体。
+* 有自然语言选择、编号、引用或澄清时，选择解析要先产生结构化失败或澄清，不得猜测执行；prepare/execute 需要共享同一套解析边界，避免重试或直接调用时行为不一致。
+* 有确定性展示时，把回执渲染收敛到 `receipt.rs` 或 domain format 模块；模型最终回答只能基于真实 Tool 输出总结。
+* 有主动推送时，业务模块只生成内容快照并写入 Notification Outbox；投递、重试和失败终态由通知 Worker 负责，业务层不要绕过 outbox 直接发平台消息。
+* 有外部网络或高成本调用时，要设置超时、数量上限、摘要长度上限和错误分类；日志只记录脱敏后的工具名、错误码和阶段。
 
-* `GET /healthz`
-* `POST /v1/respond`
+## 可参考 Todo 的做法
 
-## 工作方式
+`todo/` 是当前最完整的业务工具样板：
 
-* 默认做小改动，保持用户可见行为稳定。
-* 修改前先读相关 README、Makefile、`runtime/.env.example` 和邻近源码。
-* 不确定的内容标注“当前未发现 / 需确认”，不要编造。
-* 不要未经要求重写架构、迁移运行路径或引入大依赖。
-* 不要把具体人设、群聊内容、真实用户信息或业务材料写死进代码。
-* 不要回滚无关用户改动。
-* 不要为了压缩代码、统一风格或重构而随意删除已有注释。
-* 如果代码修改导致原注释不再准确，应同步更新注释，而不是直接删除。
-* 只有在注释明显错误、完全重复或已经失去意义时才可以删除。
+* `create.rs` / `list.rs` / `get.rs` / `complete.rs` / `edit.rs` / `restore.rs` / `delete.rs` / `merge.rs` / `recurring.rs` 是 Tool 入口，负责 JSON 参数、上下文、选择解析和结构化输出。
+* `common.rs` 收敛工具名、输入上限、错误码、schema helper 和纯参数解析。
+* `scope.rs` / `selection.rs` 处理 owner、session、可见编号、最近对象引用、prepare 预解析和重试去重。
+* `ops.rs` 统一“存储状态变更 + session 快照维护”的不变量，避免 slash flow 和 Tool Loop 各写一套。
+* `visible_entity.rs` 把 Todo 的 domain/kind、列表快照、单条回执快照和引用消息定位适配到通用 visible entity。
+* `receipt.rs`、`format.rs`、`template.rs` 保持用户可见文案确定，不把展示规则散落到 Tool 和 respond 层。
+* `reminder.rs` / `reminder_worker.rs` 只负责 Todo 提醒 outbox 和每日提醒调度，不直接理解平台发送细节。
+* `storage/` 负责 Todo 底层读写、排序、查询、schema、ID 和类型转换。
 
-## 子 Agent 使用规则
+新业务不需要一开始就拥有这些文件，但一旦出现同类问题，应优先按这个方向拆分，而不是继续向单个 Tool 文件堆逻辑。
 
-任务过程中应积极调用可用的子 agents / subagents。
+## 工具注册
 
-优先让子 agents 并行处理：
+在已有领域内新增 Tool 时，通常只修改该领域的 Tool 实现、`registered_tools` 集合、
+配置白名单和测试，不应继续改 `runtime/tools/mod.rs`、通用 `agent_turn.rs` 或在
+`respond/tool_runtime.rs` 逐个构造 Tool。只有新增一个全新领域时，才在通用层增加一次
+领域模块声明和注册集合接线。
 
-* 阅读不同模块；
-* 搜索相关实现；
-* 检查重复逻辑；
-* 梳理测试覆盖；
-* 执行格式化、编译、单测或脚本语法检查；
-* 对改动方案做独立 review。
+仍需同步检查：
 
-主 agent 需要汇总子 agent 结论，并在修改前去重、交叉验证。
+* `qq-maid-core/src/config/agent.rs`
+* `runtime/config/agent.example.toml`
+* 必要时更新 `qq-maid-core/src/runtime/respond/help.rs`
 
-不要把未经验证的子 agent 结论直接写进代码或最终说明。
+涉及用户可继续引用或按编号操作的工具，必须提供 visible entity 快照，并保证私聊、群聊、用户、scope、account_id 隔离；无法唯一定位时必须澄清，不得猜测执行。
 
-## 代码修改原则
+注册检查清单：
 
-优先复用现有代码、现有模块、现有 helper、现有错误类型和现有测试结构。
+* 在 domain `mod.rs` 中提供稳定门面；有多个 Tool 时由领域构造 `registered_tools` 一类的注册集合，跨模块不得逐个导出或构造具体 Tool。
+* 在 `runtime/tools/mod.rs` 中只声明领域模块和必要的通用抽象，避免成为领域 Tool 的转发清单。
+* 在 `respond/tool_runtime.rs` 的服务端 `ToolRegistry` 追加领域注册集合，并注入领域所需 store、executor、session 或 notification 依赖；Respond 不得维护领域 Tool 名称、构造顺序或参数差异。
+* 在 `config/agent.rs` 的默认白名单中决定私聊和群聊是否开放；写入类或持久化类默认只考虑私聊，群聊必须显式评估 owner 语义。
+* 在 `runtime/config/agent.example.toml` 更新可版本管理的工具白名单示例和注释，保持默认策略与代码默认值一致。
+* 如果用户需要知道显式命令或能力边界，更新 `respond/help.rs` 或对应 README；文档不要复制大段实现细节。
+* 如果 Tool 会产生用户可见列表或单条对象，接入通用 visible entity 快照，并在 Respond 请求进入 Tool Runtime 时替换为带作用域限制的 Tool。
+* 有 Tool Loop 整轮回执、重试覆盖、结果索引合并、成功验真或自然语言状态提示时，在领域目录提供 adapter；通用层只调度 adapter 和通用结果，不枚举领域 Tool 名称或业务动作。
 
-重点保持这些边界：
+二开新增全新领域时，最小通用接线应只有：在 `runtime/tools/mod.rs` 声明领域、在
+`respond/tool_runtime.rs` 注册领域集合、在通用结果/状态 adapter 列表中登记领域入口。
+如果还需要把 SQL、业务字段、Tool 名称分支或用户文案写进这些通用文件，说明领域门面
+仍不完整，应先回到 `<domain>/` 补齐，而不是继续扩大通用层。
 
-* gateway 负责 QQ 接入、事件解析、`/ping` 本地诊断和回复发送。
-* LLM、查询、记忆、session、todo、命令和 prompt 等业务能力放在 Rust / rig-core。
-* 新功能优先通过 Rust `/v1/respond` 或 Rust 内部模块承载。
-* `runtime/respond.rs` 保留 `/v1/respond` facade。
-* 具体 session/search/todo/memory/chat flow 在 `runtime/respond/` 下维护。
-* pending operation 类型与确认分类优先复用 `runtime/pending/`。
-* respond pending 分发逻辑保留在 `runtime/respond/pending.rs`。
-* provider-facing chat primitives 保留在 `provider/types.rs`。
-* 查询模块保留在 `runtime/query/`。
-* 文件持久化实现放在 `storage/session.rs`、`storage/memory.rs`、`storage/todo.rs`。
+## 测试要求
 
-不要随意改变：
+新增或修改业务工具时，按风险选择测试层级：
 
-* QQ 消息入口；
-* slash 指令；
-* 记忆确认流程；
-* session 作用域；
-* todo 软删除语义；
-* OpenAI / DeepSeek fallback；
-* Rust `/v1/respond` 调用路径；
-* 已确认持久化数据格式。
+* 查询类无持久化 Tool：覆盖参数校验、executor/store 调用结果映射、输出裁剪和错误映射。
+* 写入类 Tool：覆盖成功写入、失败不伪造成功、重复调用/重试边界、session 或最近对象快照维护。
+* 编号/引用类 Tool：覆盖可见编号、`last` / 最近对象、跨 scope / owner / account 隔离、目标不存在和歧义澄清。
+* 通知类 Tool：覆盖 outbox upsert/cancel、发送成功 hook、失败或过期任务不重复推进业务状态。
+* 配置或注册变更：覆盖默认白名单、场景裁剪和未启用工具不可见。
 
-通用逻辑优先复用，不要在具体命令里重复实现。
-
-例如日期、时间和时区语义优先复用 `qq-maid-common/src/time_context.rs`；LLM 内部原 `util/time_context.rs` 仅作为兼容入口保留。
-
-### 注释规则
-
-* 保留已有能够说明业务背景、边界条件、兼容原因、安全要求或设计意图的注释。
-* 不要在重构、抽取 helper、合并测试或格式化时批量删除注释。
-* 移动代码时，应将相关注释一并移动到新的实现位置。
-* 修改已有逻辑时，应检查附近注释是否仍然准确，并同步更新。
-* 新增或修改非显而易见的逻辑时，需要添加必要的中文注释。
-* 下列内容应优先添加注释：
-
-  * 业务边界和特殊规则；
-  * fallback、兼容分支和降级行为；
-  * 时间、日期和时区语义；
-  * session、pending、todo、memory 的状态转换；
-  * 持久化格式和兼容约束；
-  * QQ 平台字段或特殊消息处理；
-  * 脱敏、安全和敏感信息保护逻辑；
-  * 看似可以简化但实际不能简化的实现原因。
-* 注释应优先说明“为什么这样做”和“需要保持什么约束”，不要只重复代码表面行为。
-* 不要给每一行代码添加机械翻译式注释。
-* 不要保留已经失真、误导或与当前实现冲突的注释。
-
-## QQ Gateway 注意事项
-
-修改 QQ 事件、intent、权限、白名单、群聊 / 私聊响应逻辑前，先读：
-
-* `README.md`
-* `qq-maid-gateway-rs/README.md`
-* gateway 相关源码
-
-要求：
-
-* 平台字段解析和发送分支优先放在 `qq-maid-gateway-rs/`。
-* 图片、贴纸、emoji、结构化消息处理要保持现有兼容行为。
-* 日志和调试输出默认脱敏。
-* 不记录 QQ raw event envelope、Authorization header、AppSecret、token 或完整 openid。
-
-## LLM / Todo / Memory / Session 注意事项
-
-* 修改 session、prompt、会话命令、记忆确认、查询命令时，优先改 Rust `/v1/respond`。
-
-* 修改指令、记忆或 session 逻辑时，优先保持已确认的持久化数据兼容。
-
-* 一次性待确认 pending 状态可通过 README 迁移说明清理，不必在运行时长期兼容。
-
-* `/resume` / `/恢复` 是推荐恢复会话入口。
-
-* `/list` 只作为 deprecated 兼容别名保留。
-
-* 待办查询、完成、删除和批量删除优先在 Rust `/v1/respond` 与 `runtime/todo.rs` 业务出口中维护。
-
-* todo 文件持久化在 `storage/todo.rs`，删除应保持软删除语义。
-
-* 记忆指令保持 Rust `/v1/respond` 语义：
-
-  * `/memory`、`/记忆`、`/记` 不带内容用于查看长期记忆列表；
-  * 带内容才创建待确认记忆草稿。
-
-* 长期记忆只能通过明确记忆指令生成草稿，并由用户确认后写入。
-
-* 普通聊天不要自动写长期记忆。
-
-## 常用验证
-
-从仓库根目录执行：
-
-```bash
-make test-llm
-make test-gateway
-make test
-make build
-make diagnose
-```
-
-最低要求：
-
-* 修改 Rust LLM：至少执行 `make test-llm`。
-* 修改 Rust gateway：至少执行 `make test-gateway`。
-* 修改 Rust common：至少执行 `make test-common`；若影响 LLM 或 gateway 调用方，再执行对应模块测试。
-* 跨 LLM / gateway 或提交前：执行 `make test`。
-* 修改 `scripts/*.sh`：至少执行 `bash -n` 对应脚本。
-* 涉及诊断入口时执行 `make diagnose`。
-* 修改启动、配置、依赖、QQ 事件或 OpenAI / DeepSeek 调用：需要本地启动验证。
-* 修改代码后按项目已有命令格式化，不要为了格式化引入新依赖。
-
-如果某项检查无法执行，需要在最终说明里写明原因。
-
-## 配置与敏感信息
-
-环境变量模板在：
-
-```text
-runtime/.env.example
-```
-
-不要读取、打印或提交真实 `.env`。
-
-禁止提交：
-
-* token、secret、API Key、bot appid、私钥、账号信息；
-* 真实 QQ 群聊、私聊内容、openid、群 ID、用户数据；
-* `qq-maid-llm/data/`
-* `runtime/data/`
-* `runtime/logs/`
-* `runtime/run/`
-* `runtime/qq-maid-llm`
-* `runtime/qq-maid-gateway-rs`
-* `runtime/llmctl.sh`
-* `runtime/gatewayctl.sh`
-* `runtime/diagnose-network.sh`
-* 各目录下真实 `.env`
-
-日志和调试输出默认脱敏。
-
-`scripts/diagnose-network.sh` 只能打印 secret 是否存在、脱敏后的 ID/URL、代理和公网出口检查结果。
-
-## 提交规范
-
-commit message 使用简洁中文：
-
-```text
-类型: 简短说明
-```
-
-常用类型：
-
-* `feat`：新增功能
-* `fix`：修复问题
-* `docs`：文档更新
-* `refactor`：重构代码
-* `style`：格式调整
-* `test`：测试相关
-* `chore`：构建、依赖、配置、脚本等杂项
-
-要求：
-
-* 一次 commit 只做一类事情。
-* 不要混入无关修改。
-* 涉及配置、启动方式、环境变量时，commit 说明里要体现。
-* 不要提交密钥、token、账号、私聊记录或真实用户数据。
-
-## 修改前后检查
-
-修改前：
-
-* 先查看 README、Makefile、`runtime/.env.example` 和相关源码。
-* 检查工作区已有改动，不要回滚无关用户修改。
-* 搜索现有实现，优先复用已有代码。
-* 检查相关代码附近是否存在说明业务约束或设计原因的注释。
-* 能并行拆分的检查任务，优先交给子 agents。
-
-修改后：
-
-* 执行对应格式化命令。
-* 按影响范围执行测试。
-* 检查已有有效注释是否被误删。
-* 检查新增或修改的复杂逻辑是否补充了必要中文注释。
-* 检查代码与注释是否一致，不保留失真或过期注释。
-* 文档改动需确认没有写入敏感信息，也没有复制 README 大段细节。
-* 如果涉及结构变更，需要同步更新本文及 README 文件。
-
-最终总结需要说明：
-
-* 改了什么；
-* 复用了哪些现有代码 / helper；
-* 调用了哪些子 agents，以及它们分别检查了什么；
-* 添加或更新了哪些必要注释；
-* 是否删除了已有注释，以及删除原因；
-* 执行了什么格式化；
-* 执行了什么测试；
-* 没执行的检查及原因；
-* 是否确认没有写入敏感信息。
+文档-only 变更至少执行 `git diff --check`；代码变更按根 `AGENTS.md` 的本地检查要求执行。
 
 ---
 > Source: [kuliantnt/qq-maid-bot](https://github.com/kuliantnt/qq-maid-bot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
