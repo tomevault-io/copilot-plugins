@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "mudler",
   "homepage": "https://github.com/mudler/vllm.cpp",
-  "skills": []
+  "skills": [
+    {
+      "name": "vllm.cpp",
+      "description": ""
+    },
+    {
+      "name": "vllm.cpp",
+      "description": ""
+    }
+  ]
 }
