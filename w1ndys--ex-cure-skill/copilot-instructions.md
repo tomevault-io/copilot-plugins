@@ -84,5 +84,5 @@ python3 tools/version_manager.py --action backup --slug <slug> --base-dir ./exes
 - 无测试套件、无 CI/CD 管线
 
 ---
-> Source: [W1ndys/ex-cure-skill](https://github.com/W1ndys/ex-cure-skill) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+> Source: [w1ndys/ex-cure-skill](https://github.com/w1ndys/ex-cure-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
