@@ -4,7 +4,7 @@
   "repo": "code",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/Noumena-Network/code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T12:00:20Z"
+  "distributed_at": "2026-09-25T01:13:01Z"
 }
