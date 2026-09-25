@@ -4,7 +4,7 @@
   "repo": "agent-motion",
   "description": "Agent-driven Three.js talking-head video production. Source available for noncommercial use; commercial use requires written authorization.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/erduo1998-cell/agent-motion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T12:35:23Z"
+  "distributed_at": "2026-09-25T12:36:07Z"
 }
