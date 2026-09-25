@@ -2,16 +2,14 @@
 
 > Source: [rookslog/zlibrary-mcp](https://github.com/rookslog/zlibrary-mcp). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-MCP server for Z-Library: search, download, and process books into RAG-ready text for AI assistants (Claude Code, Claude Desktop, Cline, RooCode)
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rookslog/zlibrary-mcp](https://github.com/rookslog/zlibrary-mcp).
+Original source: `AGENTS.md` in [rookslog/zlibrary-mcp](https://github.com/rookslog/zlibrary-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
