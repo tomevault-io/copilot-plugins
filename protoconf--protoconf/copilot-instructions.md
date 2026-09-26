@@ -1,17 +1,54 @@
 ## protoconf
 
-> <!-- GSD Configuration — managed by gsd-core installer -->
+> /* GSD-managed Cline PreToolUse hook — gsd-core issue #787.
 
-<!-- GSD Configuration — managed by gsd-core installer -->
-# Instructions for GSD
-
-- Use the gsd-core skill when the user asks for GSD or uses a `gsd-*` command.
-- Treat `/gsd-...` or `gsd-...` as command invocations and load the matching file from `.github/skills/gsd-*`.
-- When a command says to spawn a subagent, prefer a matching custom agent from `.github/agents`.
-- Do not apply GSD workflows unless the user explicitly asks for them.
-- After completing any `gsd-*` command (or any deliverable it triggers: feature, bug fix, tests, docs, etc.), ALWAYS: (1) offer the user the next step by prompting via `ask_user`; repeat this feedback loop until the user explicitly indicates they are done.
-<!-- /GSD Configuration -->
+#!/usr/bin/env node
+'use strict';
+/* GSD-managed Cline PreToolUse hook — gsd-core issue #787.
+ * Protocol: JSON on stdin -> JSON decision on stdout.
+ * Honored fields: { cancel, errorMessage, contextModification }.
+ * Fails open: any error allows the operation. */
+let raw = '';
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', (c) => { raw += c; });
+process.stdin.on('end', () => {
+  const allow = () => process.stdout.write(JSON.stringify({ cancel: false }));
+  let input;
+  try { input = JSON.parse(raw || '{}'); } catch { return allow(); }
+  try {
+    const tool = String(
+      input.toolName || input.tool_name || input.tool ||
+      (input.toolInput && input.toolInput.name) || (input.tool_input && input.tool_input.name) || ''
+    ).toLowerCase();
+    const isWrite = /write|edit|replace|create|delete|remove|append|apply|patch|insert|mkdir/.test(tool);
+    // Collect only PATH-bearing field values (not free-form content), so a doc
+    // that merely mentions ".planning/" in its body is never falsely blocked.
+    const paths = [];
+    const PATH_KEY = /^(path|file|file_?path|filepath|target_?path|target|dir|directory|uri|filename)$/i;
+    const walk = (v, depth) => {
+      if (depth > 5 || paths.length > 64) return;
+      if (Array.isArray(v)) { for (const x of v) walk(x, depth + 1); return; }
+      if (v && typeof v === 'object') {
+        for (const k of Object.keys(v)) {
+          const val = v[k];
+          if (typeof val === 'string' && PATH_KEY.test(k)) paths.push(val);
+          else walk(val, depth + 1);
+        }
+      }
+    };
+    walk(input, 0);
+    const isPlanningPath = (s) => /(^|[\\/])\.planning([\\/]|$)/.test(s);
+    if (isWrite && paths.some(isPlanningPath)) {
+      return process.stdout.write(JSON.stringify({
+        cancel: true,
+        errorMessage:
+          'GSD: .planning/ artifacts are managed by GSD workflows. Edit them only through a /gsd-* command, not directly.',
+      }));
+    }
+  } catch { /* fall through to allow */ }
+  return allow();
+});
 
 ---
 > Source: [protoconf/protoconf](https://github.com/protoconf/protoconf) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
