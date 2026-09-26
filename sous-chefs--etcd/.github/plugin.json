@@ -1,0 +1,9 @@
+{
+  "name": "sous-chefs--etcd",
+  "displayName": "etcd",
+  "description": "etcd",
+  "version": "1.0.0",
+  "author": "sous-chefs",
+  "homepage": "https://github.com/sous-chefs/etcd",
+  "skills": []
+}
