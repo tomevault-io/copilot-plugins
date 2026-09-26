@@ -1,0 +1,14 @@
+{
+  "name": "hanamorix--companion-emergence",
+  "displayName": "companion-emergence",
+  "description": "companion-emergence",
+  "version": "1.0.0",
+  "author": "hanamorix",
+  "homepage": "https://github.com/hanamorix/companion-emergence",
+  "skills": [
+    {
+      "name": "companion-emergence",
+      "description": ""
+    }
+  ]
+}
