@@ -1,28 +1,54 @@
-## test-code
+## specs-driven-development-spring-angular
 
-> Test code rule — JUnit 5, Testcontainers, traceability tagging.
+> Production code guardrails — TDD discipline and Spring Boot 4 conventions.
 
 
-# Test code rule
+# Production code guardrails
 
-Apply `.windsurf/skills/junit5-testcontainers-patterns/SKILL.md` and `.windsurf/skills/requirements-traceability/SKILL.md`.
+You are about to edit production Java code under `src/main/**`.
 
-## Required
+## Block: TDD precondition
 
-- Tests asserting an AC have BOTH `@Tag("AC-NNN")` and `@DisplayName("AC-NNN: …")`.
-- Smallest scope wins: plain JUnit ≺ slice ≺ `@SpringBootTest`.
-- Testcontainers IT (with `@ServiceConnection`) is mandatory when the project declares Testcontainers and the change touches a repo / DB-touching controller / migration / message broker.
-- Image tags pinned (`postgres:17-alpine`).
+Before writing or editing any line in `src/main/**`:
 
-## Forbidden
+1. Read `.specs/<active-feature>/.tdd-state.json`.
+2. Confirm `tasks[<active-task>].phase == "red"` AND `red_failure_excerpt` is non-empty.
+3. Confirm the file path you are about to edit appears in `tasks[<active-task>].files_in_scope`.
 
-- `@Disabled` without `# DisabledReason: <link>` on the prior line.
-- Removing assertions to make a test pass.
-- `Thread.sleep` for sync (use Awaitility).
-- Hard-coded host ports.
-- Mocking the SUT.
-- `@MockBean` (deprecated; use `@MockitoBean`).
+If any check fails, **refuse the edit** and tell the user:
+
+> "Cannot edit production code: no failing test for task `<task-id>`. Run `/build <task-id>` so the test-engineer writes the failing test first."
+
+## Spring Boot 4 conventions
+
+Follow `shared/skills/spring-boot-4-conventions/SKILL.md`:
+
+- Constructor injection only.
+- **Package by feature/domain, not by layer.** Top-level packages are bounded contexts (`giftcard`, `order`, …), each with `api` (published) and `internal` (private) sub-packages. No top-level `controller` / `service` / `repository` / `model` packages.
+- `@HttpExchange` / `RestClient` (never `RestTemplate` in new code).
+- Records for DTOs.
+- `@RestControllerAdvice` for error mapping.
+- Pagination on every list endpoint.
+- `@ConfigurationProperties` records for grouped settings.
+- **No Lombok.** No `@Data`, `@Getter`, `@Setter`, `@Builder`, `@RequiredArgsConstructor`, `@Slf4j`, etc. Java records and explicit constructors replace them.
+
+## Architecture conventions
+
+Follow `shared/skills/archunit-rules/SKILL.md`:
+
+- Each top-level package is a module; cross-module access goes through its `api` sub-package only.
+- Never `import` from another module's `internal` package — enforced by ArchUnit.
+- No cycles between top-level packages.
+
+## Security baseline
+
+Follow `shared/skills/spring-security-baseline/SKILL.md`:
+
+- Default-deny in `SecurityFilterChain`.
+- Bean Validation on DTOs + service-layer invariant checks.
+- Mask PII / secrets in logs.
+- No `@CrossOrigin("*")` on state-changing endpoints.
 
 ---
 > Source: [loiane/specs-driven-development-spring-angular](https://github.com/loiane/specs-driven-development-spring-angular) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-12 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
