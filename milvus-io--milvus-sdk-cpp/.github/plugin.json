@@ -1,0 +1,9 @@
+{
+  "name": "milvus-io--milvus-sdk-cpp",
+  "displayName": "milvus-sdk-cpp",
+  "description": "milvus-sdk-cpp",
+  "version": "1.0.0",
+  "author": "milvus-io",
+  "homepage": "https://github.com/milvus-io/milvus-sdk-cpp",
+  "skills": []
+}
