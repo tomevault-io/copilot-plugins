@@ -1,102 +1,179 @@
 ## drawably
 
-> Read this before touching anything. `.github/agent.md` is the *consumer* doc
+> Zero-dependency hand-drawn UI. Real HTML controls with SVG chrome. A unique seeded sketch per mount. Strokes boil in CSS.
 
-# drawably — contributor spec
+# drawably
 
-Read this before touching anything. `.github/agent.md` is the *consumer* doc
-(ships in the npm package); this file is for working on the library itself.
-`PLAN.md` holds the staged roadmap.
+Zero-dependency hand-drawn UI. Real HTML controls with SVG chrome. A unique seeded sketch per mount. Strokes boil in CSS.
 
-## What this is
+Install Inter yourself if you want the intended type. The library loads no font unless you import the optional `drawably/font.css`.
 
-Zero-dependency hand-drawn UI. Real HTML controls stay in the DOM and do all
-the work; the library draws boiling SVG chrome over them. Every mount is a
-fresh pen sketch from seeded randomness.
+```
+npm i drawably
+```
 
-## Invariants — never break these
+## Vanilla
 
-- **Zero runtime dependencies.** Not one. React is an optional peer behind the
-  `drawably/react` subpath only.
-- **Real elements, fake chrome.** The native `button`/`input`/`select` handles
-  focus, keyboard, forms, and screen readers. The SVG is decoration:
-  absolutely positioned, `pointer-events: none`, `aria-hidden` by virtue of
-  being chrome. Never reimplement native behaviour.
-- **Determinism.** Same seed, same sketch. All randomness goes through
-  `mulberry32`. No `Math.random()` outside `randomSeed()`.
-- **Boil is CSS, not JS.** Three pre-generated path frames swapped by
-  `step-end` keyframes on a shared 1200 ms cycle. No JS animation loops, no
-  rAF.
-- **Reduced motion.** Every animation has a `prefers-reduced-motion`
-  counterpart. Boil freezes on frame 0 (`data-i="0"`), hover re-sketch is
-  skipped.
-- **The handle contract.** Every attacher is `drawablyX(el, opts)`, throws on
-  a missing element (and missing inner `<input>` where one is required), and
-  returns `{ resketch(seed?), destroy() }`. Stateful controls add to the
-  handle (`setState` on buttons); they never change its base shape.
-- **Theming is custom properties only.** `--drawably-stroke/-fill/-paper/
-  -width/-ink/-error/-success`. Consumers never restyle SVG paths directly,
-  so path markup and class names are API — change them deliberately.
-- **No layout shift.** The SVG overlays the element's own box. A control's
-  size comes from the element, never from the sketch.
-- **The font is opt-in.** Nothing loads Drawably Pen unless the consumer
-  imports `drawably/font.css`; docs describe it, never recommend it.
-  Rebuild it with `node --experimental-strip-types font/build.ts` after
-  touching `font/` (it reads `dist/`, so `npm run build` first).
+```js
+import {
+  drawablyButton,
+  drawablyCheckbox,
+  drawablyRadio,
+  drawablyToggle,
+  drawablyInput,
+  drawablyTextarea,
+  drawablySelect,
+  drawablyDivider,
+  drawablyCard,
+  drawablyBadge,
+  drawablyList,
+  drawablyUnderline,
+  drawablyHighlight,
+  drawablyCircle,
+  drawablyArrow,
+} from "drawably";
+import "drawably/style.css";
 
-## Architecture
+drawablyButton(document.querySelector("#done"), { variant: "solid" });
+drawablyCheckbox(document.querySelector("#check")); // wrapper must contain <input type="checkbox">
+drawablyRadio(document.querySelector("#pen")); // wrapper must contain <input type="radio">
+drawablyToggle(document.querySelector("#tog")); // wrapper must contain <input type="checkbox">
+drawablyInput(document.querySelector("#name")); // wrapper must contain <input>
+drawablyTextarea(document.querySelector("#msg")); // wrapper must contain <textarea>
+drawablySelect(document.querySelector("#pick")); // wrapper must contain <select>; reserves the widest option's width so picking never shifts layout
+drawablyDivider(document.querySelector("#rule")); // <hr> or div
+drawablyCard(document.querySelector("#card"));
+drawablyBadge(document.querySelector("#tag"), { variant: "scribble" });
+drawablyList(document.querySelector("#features"), { marker: "check" }); // <ul> or <ol>
+drawablyUnderline(document.querySelector("#word")); // any inline element
+drawablyHighlight(document.querySelector("#word"));
+drawablyCircle(document.querySelector("#price"));
+drawablyArrow(document.querySelector("#from"), document.querySelector("#to")); // two anchors
+```
 
-| File | Owns |
-| --- | --- |
-| `src/rough.ts` | geometry: point sampling, jitter, `roughRoundedRect`, `roughCircle`, `roughEllipse`, `roughLine`, `roughArrow`, `roughCheckmark`, `scribbleFill`, `variants`; `sampleLine`/`ellipsePoints`/`jitter` are module exports for the font build, not public API |
-| `src/prng.ts` | `mulberry32`, `randomSeed` |
-| `src/controls.ts` | attachers: layer definitions per control, mount/teardown, state machine |
-| `src/react.ts` | thin client-only wrappers; native props pass through, sketch options are top-level props |
-| `src/index.ts` | public exports |
-| `style.css` | host/svg positioning, boil keyframes, state colours, reduced-motion |
-| `font/` | Drawably Pen: `glyphs.ts` skeletons, `stroke.ts` pen → outline, `ttf.ts` TrueType writer, `build.ts` → `DrawablyPen.ttf`, `preview.ts` glyph sheet. Node stdlib only. Ships as the opt-in `drawably/font.css`; `style.css` never loads it |
+Each attacher throws if the element is missing. Checkbox/radio/toggle/input/textarea/select throw if the inner field is missing. Arrow throws if either anchor is missing. Returns a sketch: `{ resketch(seed?), destroy() }`. Buttons also have `setState(state)`.
 
-New shape generators go in `rough.ts`. New controls are layer definitions in
-`controls.ts` reusing existing generators — write a new generator only when no
-composition of existing ones works.
+## React
 
-## Adding a component (definition of done)
+Optional peer. Subpath `"drawably/react"`. Client-only (uses `useEffect`).
 
-1. Attacher in `controls.ts` following the handle contract.
-2. React wrapper in `react.ts`.
-3. Vitest cases in `tests/` (mirror the existing per-module files): throws on
-   bad element, determinism with a fixed seed, destroy removes the SVG and
-   listeners.
-4. Docs: `.github/agent.md` and `README.md` in the same commit.
-5. Demo added to `examples/index.html`.
-6. `npm run check` and `npm test` pass.
+```jsx
+import {
+  DrawablyButton,
+  DrawablyCheckbox,
+  DrawablyRadio,
+  DrawablyToggle,
+  DrawablyInput,
+  DrawablyTextarea,
+  DrawablySelect,
+  DrawablyDivider,
+  DrawablyCard,
+  DrawablyBadge,
+  DrawablyList,
+  DrawablyUnderline,
+  DrawablyHighlight,
+  DrawablyCircle,
+  DrawablyArrow,
+} from "drawably/react";
+import "drawably/style.css";
 
-## Brand
+<DrawablyButton variant="solid" state="idle" onClick={submit}>Done</DrawablyButton>
+<DrawablyButton tone="neutral">Cancel</DrawablyButton>
+<DrawablyButton tone="danger">Delete</DrawablyButton>
+<DrawablyCheckbox defaultChecked />
+<DrawablyRadio name="ink" defaultChecked />
+<DrawablyToggle />
+<DrawablyInput placeholder="your name" />
+<DrawablyTextarea rows={4} />
+<DrawablySelect><option>Pen</option><option>Pencil</option></DrawablySelect>
+<DrawablyDivider />
+<DrawablyCard>…</DrawablyCard>
+<DrawablyBadge variant="scribble">new</DrawablyBadge>
+<DrawablyList marker="check"><li>…</li></DrawablyList>
+<DrawablyUnderline>hand-drawn</DrawablyUnderline>
+<DrawablyHighlight>fresh sketch</DrawablyHighlight>
+<DrawablyCircle>$0</DrawablyCircle>
+<DrawablyArrow from={fromRef} to={toRef} />
+```
 
-Pen `#2724d1` on paper `#e3e3e1`. Error `#d12724` is the pen with its hex
-pairs rotated; success `#188a42`. Ink ramp `#18181b` / `#474645` / `#a1a1aa`.
-Inter for UI, Geist Mono for meta. Pen blue belongs to strokes, never
-surfaces. The logo is generated by this library's own stroke code (seed 42,
-roughness 0.55) — see the site repo.
+Native element props pass through. Sketch options are top-level props: `seed`, `roughness`, `boil`, `stroke`, `fill`, `paper`, `width`, plus button `variant`, `state`, and `tone`, badge `variant`, list `marker`. `DrawablyArrow` takes two refs and renders nothing. `DrawablyList` renders a `<ul>`.
 
-## The site
+## Button
 
-`~/developer/portfolio-work/scrawl-site` is the landing page. It depends on
-the published `drawably` from npm and is part of every release, not a
-follow-up: after changing the library, bump, publish, then bump the site's
-`package.json` dependency, `npm install`, and put the new components on the
-page. A stage isn't done while the site shows the previous one.
+`drawablyButton(el, opts)` → `ButtonSketch`
 
-## Conventions
+- `variant`: `"outline"` (default) | `"solid"` | `"scribble"`
+- `state`: `"idle"` | `"loading"` | `"error"` | `"success"`
+- `tone`: `"neutral"` (warm grey, secondary) | `"danger"` (red)
+- `setState(state)` after mount. React: `state` prop.
+- hover: lifts 1px and washes the inside with the stroke at 10% (outline/scribble); press: sinks and the outline thickens. Native `disabled` dims it and drops both.
+- loading: dimmed, faster boil, `cursor: progress`
+- error: `--drawably-error` (default `#d12724`)
+- success: `--drawably-success` (default `#188a42`)
 
-- No magic numbers: a value used twice gets a name; a tuned constant gets a
-  comment saying what it was tuned against.
-- Comments state constraints the code can't show, never what the next line
-  does.
-- Prefer deleting to adding. No speculative options, no config for values
-  that never change.
-- Keep the README's size claim honest — re-check it whenever a stage lands.
+## Other controls
+
+- `drawablyCheckbox(wrap, opts)` — checkbox in a wrapper
+- `drawablyRadio(wrap, opts)` — radio in a wrapper; scribbled dot when checked. Same `name` groups them.
+- `drawablyToggle(wrap, opts)` — checkbox in a wrapper; pill with a sliding ink-blob knob. React sets `role="switch"`.
+- `drawablyInput(wrap, opts)` — text input in a wrapper
+- `drawablyTextarea(wrap, opts)` — textarea in a wrapper; vertical resize redraws the sketch
+- `drawablySelect(wrap, opts)` — select in a wrapper; native arrow hidden, sketched chevron in its place. Width is reserved for the widest option at attach, so changing the value never shifts layout (re-attach if options change). In Chromium the options popup gets a sketched frame too; other browsers show the OS popup.
+- `drawablyDivider(el, opts)` — rough line on an `<hr>` or div
+- `drawablyCard(el, opts)` — sketched container
+- `drawablyBadge(el, opts)` — tight sharp-cornered tag on an inline element; `variant`: `"outline"` (default) | `"scribble"`
+- `drawablyList(el, opts)` — `<ul>` or `<ol>`; native markers hidden, one sketched marker per `<li>`. `marker`: `"dash"` (default) | `"check"`. Only the `<li>` present at attach time are sketched; an `<ol>` loses its numbers.
+
+## Composites
+
+Built from the controls above; one `seed` covers every stroke, `destroy()` removes all of them.
+
+- `drawablyChip(el, opts)` — `<label><span><input type="checkbox"></span> text</label>`; badge on the label, box on the input's wrapper (the wrapper is required)
+- `drawablyTabs(el, opts)` — children are tabs; underline follows `active` or `aria-selected="true"`; `setActive(i)`
+- `drawablyTooltip(tip, target, opts)` — card on the tip, arrow to the target
+- `drawablyAlert(el, opts)` — card on the box, badge on an optional `[data-tag]` child
+- `drawablySteps(el, opts)` — `<ol>` with check markers
+- `drawablyKbd(el, opts)` — badge at 0.6× roughness
+- `drawablyQuote(el, opts)` — highlight on the first element child, divider on an optional `<footer>`
+- `drawablyPager(el, opts)` — child `<button>`s; current page is solid; `active` or `aria-current`; `setPage(i)`
+
+React: `DrawablyChip`, `DrawablyTabs` (`active`), `DrawablyTooltip` (`to` ref), `DrawablyAlert`, `DrawablySteps`, `DrawablyKbd`, `DrawablyQuote`, `DrawablyPager` (`active`).
+
+## Text decoration
+
+Decorates existing inline text; the element keeps its own layout. Use on a word or short phrase — a phrase that wraps gets one box, not one per line.
+
+- `drawablyUnderline(el, opts)` — rough line under the text; hover re-sketches
+- `drawablyHighlight(el, opts)` — marker wash behind the text, `--drawably-fill` at 30%
+- `drawablyCircle(el, opts)` — hand-drawn ellipse looping around the text; hover re-sketches
+- `drawablyArrow(from, to, opts)` — annotation arrow from one element to another. The SVG is appended to `<body>` in document coordinates and follows resize; anchors inside a scrolling container drift on scroll.
+
+## Options (all controls)
+
+| option                          | default  | meaning                                                                     |
+| ------------------------------- | -------- | --------------------------------------------------------------------------- |
+| `seed`                          | random   | omit for a unique sketch per mount                                          |
+| `roughness`                     | `1`      | wobble of the base sketch                                                   |
+| `boil`                          | `0.3`    | frame-to-frame flicker in px; `0` = one static path                         |
+| `stroke` `fill` `paper` `width` | CSS vars | also `--drawably-stroke`, `--drawably-fill`, `--drawably-paper`, `--drawably-width` |
+
+## Font (optional)
+
+`import "drawably/font.css"` registers "Drawably Pen", the library's strokes as a 31 KB TrueType (a–z, A–Z, digits, punctuation). Apply it yourself with `font-family: "Drawably Pen", Inter, sans-serif`. Nothing loads it by default.
+
+## Rules
+
+- Do not fake the look with CSS borders. Attach to a real `button`, checkbox/radio wrapper, input/textarea/select wrapper, `hr`, `div`, `ul`, or inline text element.
+- Import `drawably/style.css` once. Do not restyle the SVG paths; theme with the custom properties.
+- Respect `prefers-reduced-motion`: the library already freezes boil and skips hover re-sketch. Do not add extra motion on top when that media query matches.
+- Hover/press re-sketches buttons, checkboxes, radios, toggles, underlines and circles. A decoration that wraps gets one drawing per line.
+- Select: in Chromium the options list gets a sketched frame and pen checkmark (`appearance: base-select`); Safari and Firefox keep the OS popup. Options are measured once at attach — re-attach if they change.
+- Renderer exports if you need custom shapes: `roughRoundedRect`, `roughCircle`, `roughEllipse`, `roughLine`, `roughArrow`, `roughCheckmark`, `scribbleFill`, `variants`, `mulberry32`, `randomSeed`.
+- Do not apply Drawably Pen unless the user asks for the font; controls default to the page's own type.
+- No Vue/Svelte adapters. Vanilla or React.
+
+MIT.
 
 ---
 > Source: [Danilaa1/drawably](https://github.com/Danilaa1/drawably) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
