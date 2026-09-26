@@ -1,71 +1,52 @@
-## development-workflow
+## feature-development
 
-> Development workflow and command reference
+> Feature development guidelines and best practices
 
-# Development Workflow Guide
+# Feature Development Guidelines
 
-## Getting Started
-1. Install dependencies: `pnpm install`
-2. Start development: `pnpm dev`
-3. Build project: `pnpm build`
+## Planning Phase
+- Break down features into small, testable units
+- Define clear acceptance criteria
+- Consider edge cases and error scenarios
+- Plan for backwards compatibility
 
-## Core Commands
-- `pnpm dev`: Start development environment
-- `pnpm build`: Build for production
-- `pnpm preview`: Preview production build locally
-- `pnpm build:packages`: Build all packages
-- `pnpm build:staging`: Build for staging environment
-
-## Package Management
-- `pnpm install`: Install dependencies
-- `pnpm add <package>`: Add new dependency
-- `pnpm add -D <package>`: Add dev dependency
-- `pnpm update`: Update all dependencies
-- `pnpm outdated`: Check for outdated packages
-- `pnpm prune`: Remove unused dependencies
-
-## Type Checking
-- `pnpm type-check`: Run TypeScript type checking
-- `pnpm type-check:watch`: Run type checking in watch mode
-
-## Code Quality
-- `pnpm lint`: Run linting checks
-- `pnpm biome:check`: Run Biome checks
-- `pnpm biome:fix`: Fix issues with Biome
+## Implementation
+- Follow TDD when possible
+- Write self-documenting code
+- Implement proper error handling
+- Add logging for debugging
 
 ## Testing
+- Write unit tests for business logic
+- Add integration tests for critical paths
+- Test edge cases and error conditions
+- Update existing tests when needed
 
-- `pnpm test:e2e`: Run Playwright end-to-end tests
-- `pnpm test:e2e:ui`: Run Playwright tests with UI
+## Code Examples:
 
-## Clean Commands
-- `pnpm clean`: Clean all build artifacts and dependencies
-- `pnpm clean:build`: Clean build artifacts only
-- `pnpm clean:deps`: Clean node_modules and reinstall
-- `pnpm clean:turbo`: Clean Turborepo cache
-- `pnpm clean:install`: Complete clean and fresh install
-
-## Development Guidelines
-1. Always run type-checking before committing: `pnpm type-check`
-2. Format code before committing: `pnpm format`
-3. Fix lint issues: `pnpm lint`
-4. Run tests before pushing: `pnpm test`
-5. Use the appropriate build command for your environment
-6. For monorepo changes, build affected packages only
-7. Keep workspace dependencies in sync
-8. Keep the development environment up to date with `pnpm clean:install`
-
-## Environment Setup
-- Development: `pnpm dev`
-- Vercel Preview: `vercel`
-- Vercel Production: `vercel --prod`
-
-## Troubleshooting
-- If dependencies are acting up: `pnpm clean:install`
-- If builds are failing: `pnpm clean:build && pnpm build`
-- If types are incorrect: `pnpm type-check`
-- If monorepo is out of sync: `pnpm clean && pnpm install`
-- If vite is acting up: Clear cache and restart dev server
+```typescript
+// Good: Feature implementation with proper structure
+class UserService {
+  async createUser(userData: CreateUserRequest): Promise<User> {
+    // Validate input
+    const validatedData = await this.validateUserData(userData);
+    
+    // Check for existing user
+    const existingUser = await this.findByEmail(validatedData.email);
+    if (existingUser) {
+      throw new ConflictError('User already exists');
+    }
+    
+    // Create user
+    const user = await this.userRepository.create(validatedData);
+    
+    // Send welcome email
+    await this.emailService.sendWelcomeEmail(user);
+    
+    return user;
+  }
+}
+```
 
 ---
 > Source: [tryalan-ai/cursor-rules-generator](https://github.com/tryalan-ai/cursor-rules-generator) — distributed by [TomeVault](https://tomevault.io).
