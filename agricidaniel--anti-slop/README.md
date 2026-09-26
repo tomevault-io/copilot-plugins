@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AgriciDaniel/anti-slop](https://github.com/AgriciDaniel/anti-slop).
+Original source: `CLAUDE.md` in [AgriciDaniel/anti-slop](https://github.com/AgriciDaniel/anti-slop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -24,7 +24,7 @@ Original source: `AGENTS.md` in [AgriciDaniel/anti-slop](https://github.com/Agri
 - [anti-slop](https://github.com/AgriciDaniel/anti-slop/tree/main/anti-slop-plugin/skills/slop-review/SKILL.md)
 - [anti-slop](https://github.com/AgriciDaniel/anti-slop/tree/main/anti-slop-plugin/skills/slop-rewrite/SKILL.md)
 
-From [AgriciDaniel/anti-slop](https://github.com/AgriciDaniel/anti-slop) — a repo with 55+ stars on GitHub.
+From [AgriciDaniel/anti-slop](https://github.com/AgriciDaniel/anti-slop) — a repo with 57+ stars on GitHub.
 
 ---
 
