@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MageByte-Zero/spec-superflow](https://github.com/MageByte-Zero/spec-superflow).
+Original source: `GEMINI.md` in [MageByte-Zero/spec-superflow](https://github.com/MageByte-Zero/spec-superflow).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [MageByte-Zero/spec-superflow](https://github.com/MageByte-Zero/spec-superflow) — a repo with 811+ stars on GitHub.
+From [MageByte-Zero/spec-superflow](https://github.com/MageByte-Zero/spec-superflow) — a repo with 821+ stars on GitHub.
 
 ---
 
