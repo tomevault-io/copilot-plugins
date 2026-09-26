@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Ivan-Malinovski/calino](https://github.com/Ivan-Malinovski/calino).
+Original source: `CLAUDE.md` in [Ivan-Malinovski/calino](https://github.com/Ivan-Malinovski/calino).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Ivan-Malinovski/calino](https://github.com/Ivan-Malinovski/calino) — a repo with 275+ stars on GitHub.
+From [Ivan-Malinovski/calino](https://github.com/Ivan-Malinovski/calino) — a repo with 277+ stars on GitHub.
 
 ---
 
