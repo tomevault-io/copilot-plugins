@@ -1,0 +1,117 @@
+{
+  "name": "agent-reliability-analyzer",
+  "owner": "trustabl",
+  "repo": "agent-reliability-analyzer",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "skills/trustabl-scan/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/skills/trustabl-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "skills/trustabl-enrich/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/skills/trustabl-enrich/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/forge/multi_sdk/expected/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/forge/multi_sdk/expected/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/corpus/research-agent/.claude/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/corpus/research-agent/.claude/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/corpus/skill-vuln-fixtures/.claude/skills/safe-reader/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/corpus/skill-vuln-fixtures/.claude/skills/safe-reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/corpus/skill-name-match/.claude/skills/encrypt-helper/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/corpus/skill-name-match/.claude/skills/encrypt-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/corpus/email-agent/agent/.claude/skills/action-creator/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/corpus/email-agent/agent/.claude/skills/action-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/corpus/skill-agent-specific/.claude/skills/bound-skill/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/corpus/skill-agent-specific/.claude/skills/bound-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/corpus/research-agent/.claude/skills/executive-briefing/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/corpus/research-agent/.claude/skills/executive-briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/corpus/email-agent/agent/.claude/skills/listener-creator/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/corpus/email-agent/agent/.claude/skills/listener-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/corpus/skill-duplicate-tool-refs/.claude/skills/dup-skill/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/corpus/skill-duplicate-tool-refs/.claude/skills/dup-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reliability-analyzer",
+      "path": "testdata/corpus/skill-missing-description/.claude/skills/no-desc-skill/SKILL.md",
+      "github_url": "https://github.com/trustabl/agent-reliability-analyzer/tree/main/testdata/corpus/skill-missing-description/.claude/skills/no-desc-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/trustabl/agent-reliability-analyzer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T04:41:01Z"
+}
