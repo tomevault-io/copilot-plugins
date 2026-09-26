@@ -1,111 +1,153 @@
-## context-manager
+## context-os
 
-> Agent-requested: invoke when working on context-manager. Smart context selection engine. Analyzes the current task, consults the Project Graph, and returns only the documents and skills needed to prevent token overflow.
+> Agent-requested: invoke when working on context-os. Deterministic context compiler and policy engine for AI coding agents.
 
 
-# Skill: context-manager
+# Skill: context-os
 
-# context-manager
+# context-os
 
 ## Overview
 
-Deterministic context window optimizer. Analyzes user task intent and queries project dependency graphs to inject minimal relevant files and skills, preventing LLM attention loss and context pollution.
+Deterministic context compiler and policy engine for AI coding agents. Standardizes software engineering workflows across requirements, architecture, atomic task planning, implementation, verification, and release.
 
 ## When to Use
 
-Activate during multi-file investigations, large refactorings, or complex tasks where dumping entire directory trees would blow past context budgets.
+Activate as the root meta-orchestrator across all development phases to ensure role consistency, quality gates, and structured execution.
 
 ## Rules & Patterns
 
-You are the **Context Manager**. Your job is to prevent context overload.
+You are the **Context Compiler**. Your job is NOT to know everything. Your job is to **assemble the minimum context** needed for the current task.
 
-## How It Works
+## Pipeline
 
-When given a task:
+When a user gives you a task, follow this pipeline:
 
-### Step 1: Classify the task
+### Stage 1: Intent Analysis
 
-```yaml
-task:
-  type: [frontend | backend | fullstack | architecture | bugfix | refactor | deploy | review]
-  scope: [module | feature | file | project-wide]
-  module: {{module_name from Project Graph}}
-```
-
-### Step 2: Consult the Project Graph
-
-If `docs/PROJECT_GRAPH.md` or `.graphify/graph.json` exists (or activate `graphify` skill to extract AST dependencies):
-
-1. Find the module this task belongs to
-2. Get the module's dependencies
-3. Get the module's required skills
-4. Get the files this task will likely touch
-
-### Step 3: Apply Context Rules
-
-Load `references/context-rules.md` and apply the task type → document mapping.
-
-### Step 4: Return Context Package
-
-Output a context package:
+Analyze the user's prompt and determine:
 
 ```yaml
-context:
-  documents:
-    required:
-      - docs/API.md          # sections: [appointments]
-      - docs/ARCHITECTURE.md # sections: [backend, api-layer]
-    optional:
-      - docs/decisions/0003-postgres.md
-    skipped:
-      - docs/UI.md           # reason: backend task
-      - docs/DATABASE.md     # reason: no schema change
+intent:
+  project_type: [webapp, api, mobile, cli, library, saas, crm, ecommerce]
+  industry: [healthcare, fintech, education, social, general]
+  layers:
+    frontend: true/false
+    backend: true/false
+    database: true/false
+    auth: true/false
+    ai: true/false
+    payments: true/false
+    realtime: true/false
+  scope: [new_project, feature, bugfix, refactor, architecture]
+```
+
+### Stage 2: Dependency Resolution
+
+For each required layer, load the skill graph:
+
+1. Read `skill.yaml` from each relevant skill directory
+2. Resolve `requires` — load mandatory dependencies
+3. Check `conflicts` — ensure no incompatible skills are loaded
+4. Apply `optional` — suggest but don't force
+5. Respect project profile (if set) — apply rules from `profiles/`
+
+**Dependency resolution example:**
+
+```
+Need: nextjs
+  → requires: react, typescript
+    → react requires: typescript (already loaded)
+  → optional: tailwind, prisma, next-auth
   
-  skills:
-    loaded: [typescript, node, postgres, testing]
-    skipped: [react, tailwind]  # reason: backend task
-  
-  project_graph:
-    module: appointments
-    dependencies: [auth, patients]
-    affected_files:
-      - src/modules/appointments/api/**
-      - src/modules/appointments/services/**
+Loaded: [nextjs, react, typescript]
+Suggested: [tailwind, prisma, next-auth]
 ```
 
-### Step 5: Validate Budget
+### Stage 3: Context Compilation
 
-Check total token count. If over budget (see context-rules.md):
+Assemble context from three levels:
 
-1. Trim Level 1 docs to summaries
-2. Load only affected sections of Level 2 docs
-3. Keep Level 3 (skills) at full detail
+**Level 1 — Vision (always available):**
 
-## Context Caching
+- `docs/PRD.md` — what are we building
+- `docs/ROADMAP.md` — where are we going
+- `docs/PROJECT_GRAPH.md` — project structure
 
-After first compilation for a module, cache the result:
+**Level 2 — Architecture (load when needed):**
 
+- `docs/ARCHITECTURE.md` — system design
+- `docs/DATABASE.md` — data model
+- `docs/API.md` — API contracts
+- `docs/decisions/` — prior decisions
+
+**Level 3 — Development (load per task):**
+
+- Relevant skill `.md` files
+- `docs/UI.md` — for frontend tasks
+- `docs/TASKS.md` — current sprint
+
+**Context Filtering Rules:**
+See `references/context-rules.md` for the full mapping of task types to required documents.
+
+### Stage 4: Prompt Optimization
+
+Before sending to the AI agent:
+
+1. Remove sections not relevant to the current task
+2. Prioritize: current task context > architecture > vision
+3. Include recent Decision Records that affect the current task
+4. Add coding rules from the loaded skills
+
+## Commands
+
+| Command | Action |
+| --- | --- |
+| `ctx init` | Analyze project idea, generate all docs |
+| `ctx plan` | Generate development plan from PRD |
+| `ctx compile` | Compile context for a specific task |
+| `ctx update` | Update changed documents |
+| `ctx graph` | Show/update Project Graph |
+| `ctx doctor` | Validate skill dependencies, check for conflicts |
+| `ctx explain` | Explain why specific context was loaded |
+
+## Project Initialization Flow
+
+When user says something like "Сделай CRM для стоматологии" or "Build a Trello clone":
+
+1. **Analyze intent** (Stage 1)
+2. **Ask clarifying questions:**
+   - Users and roles?
+   - Tech stack preference?
+   - Mobile app needed?
+   - AI features?
+   - Authentication type?
+   - Expected load?
+   - MVP or Production?
+3. **Select profile** (startup/enterprise/mvp/hackathon)
+4. **Resolve skills** (Stage 2)
+5. **Generate all documents** using `generators/` skill
+6. **Create Project Graph** — the master map of modules → features → tasks → files → skills
+7. **Output agent config** using `adapters/` skill
+
+## Skill Discovery
+
+Skills are discovered by scanning `.agents/skills/*/skill.yaml`. Each `skill.yaml` defines:
+
+```yaml
+id: react
+name: React
+category: frontend
+tags: [frontend, spa, jsx, components]
+requires: [typescript]
+optional: [tailwind, next-auth, react-query]
+conflicts: [vue, angular, svelte]
+weight: 8
+documents:
+  - react.md
 ```
-.cache/
-  frontend.context.yaml
-  backend.context.yaml
-  appointments.context.yaml
-```
 
-Invalidate cache when:
-
-- A document is updated
-- A skill is added/removed
-- The Project Graph changes
-- A Decision Record is added
-
-## Questions the Context Manager Can Answer
-
-- "What documents do I need for this task?"
-- "Which skills should be loaded?"
-- "What modules are affected by this change?"
-- "Is this context package within budget?"
-- "Why was this document skipped?"
+The compiler builds a dependency graph from all discovered skills and resolves it for each task.
 
 
 ## Code Examples
@@ -125,33 +167,35 @@ Anti-patterns and things to explicitly avoid. See `TROUBLESHOOTING.md`.
 How this skill interacts with other skills.
 
 
-# context-manager Examples — Anti-patterns vs ContextOS Standard
+# context-os Examples — Anti-patterns vs ContextOS Standard
 
-## Example 1: Context Selection
+## Example 1: Project Lifecycle Management
 
-### Anti-pattern: Context Window Dumping
-
-```text
-Agent reads all 180 files in src/ into context to debug a single button click handler.
-Result: Exhausts 150k tokens, reaches rate limits, and forgets user instructions.
-```
-
-### Best practice: ContextOS Standard (Targeted AST Traversal)
+### Anti-pattern: Ad-hoc Unstructured Development
 
 ```text
-1. Inspect package.json and AGENTS.md.
-2. Grep for target symbol: grep_search for 'SubmitButton'.
-3. Read ONLY components/SubmitButton.tsx and its direct import types/button.ts.
-Total tokens used: <1,500 tokens. Fast, accurate, zero hallucinations.
+Coding -> Modifying DB -> Debugging -> Redesigning UI -> Changing Architecture
+All in one unstructured stream of consciousness.
 ```
 
-# context-manager Troubleshooting & Common Mistakes
+### Best practice: ContextOS Standard (Phase-Gated Development)
 
-## 1. Token Budget Blowout
+```text
+Phase 1: DEFINE (PRD & Requirements)
+Phase 2: PLAN (Atomic Tasks & ADRs)
+Phase 3: BUILD (TDD & Minimalist Implementation)
+Phase 4: VERIFY (Automated Test Proof)
+Phase 5: REVIEW (Design QA & Code Review)
+Phase 6: SHIP (Production Release)
+```
 
-- **Symptom**: Model performance drops significantly, losing earlier conversational context.
-- **Root Cause**: Loading large JSON mocks, lockfiles, or build directories into prompt.
-- **Fix**: Never read package-lock.json, dist/, or build artifacts unless explicitly debugging bundle outputs.
+# context-os Troubleshooting & Common Mistakes
+
+## 1. Stale Compiled Artifacts
+
+- **Symptom**: Editor rules don't reflect newly updated skills.
+- **Root Cause**: Modifying .agents/core/skills/ without recompiling exports.
+- **Fix**: Run node .agents/ctx.js export all whenever source skills are updated.
 
 ---
 > Source: [kok-o/contextos-agents](https://github.com/kok-o/contextos-agents) — distributed by [TomeVault](https://tomevault.io).
