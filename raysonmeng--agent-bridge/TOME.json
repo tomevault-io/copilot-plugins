@@ -4,7 +4,7 @@
   "repo": "agent-bridge",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/raysonmeng/agent-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T18:12:06Z"
+  "distributed_at": "2026-09-26T06:45:43Z"
 }
