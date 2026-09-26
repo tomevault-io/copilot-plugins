@@ -1,85 +1,56 @@
 ## vibes-plug
 
-> > **v3.7.0 (2026 Edition)** — Universal AI plugin with 127+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
+> Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all Cursor AI interactions.
 
-# Vibes-Plug — 127+ Skills Ecosystem for AI-Powered Development
+# Vibes-Plug — 127+ Skills Ecosystem (v3.7.0)
+# Universal AI Plugin for Antigravity, Claude, and Cursor
 
-> **v3.7.0 (2026 Edition)** — Universal AI plugin with 127+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
+## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
+Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all Cursor AI interactions.
+- The AI agent MUST automatically intercept prompts and synchronize relevant skills without waiting for explicit `@` mentions.
+- Automatically connects cooperating skills (e.g. `doku-payment-gateway` + `saas-billing` + `payment-gateway-expert`; `senior-frontend` + `tailwind-expert`).
+- Multi-domain workflows trigger Swarm Topologies (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator).
 
-## How This Plugin Works
+## About
+This project uses the vibes-plug skills ecosystem with 127+ specialized skills.
+Each skill is a `SKILL.md` file in the `skills/` directory containing domain-specific
+instructions, patterns, and best practices for the modern 2026 tech stack.
 
-This repository contains **127+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
+## Core Stack (2026 Edition)
+- Frontend: React 19, Next.js 15, Tailwind CSS v4, TypeScript 5.8+
+- Backend: Node.js 24 LTS, Bun 1.2+, Hono v4, Fastify 5, Python 3.14, Go 1.25+, Rust 2024
+- Database: Prisma 6, Drizzle ORM, PostgreSQL, Supabase, Neon, Turso
+- AI/LLM: Vercel AI SDK 5.x, MCP v1.9+, pgvector, RAG pipelines
 
-**Before starting any task**, identify which skills are relevant and read their `SKILL.md` files. Skills are organized by domain:
+## Mandatory Before Coding
+1. Read the relevant `skills/<skill-name>/SKILL.md` files before writing code.
+2. Think deeply before acting — analyze constraints, question assumptions, validate approach.
+3. For new projects, auto-generate: PRD.md, ERD.md, DOKUMENTASI.md.
 
-| Domain | Skills |
-|--------|--------|
-| 🤖 AI & Agentic | `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `pydantic-ai-expert`, `ai-cost-token-optimizer`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `mcp-client-orchestrator`, `multi-agent-orchestration`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `ai-evals-benchmark-expert`, `gemini-agent-booster`, `doku-mcp-server` |
-| 🎨 Design & UI/UX | `design-system-architect`, `hig`, `monday-design-aesthetic`, `ui-components-expert`, `ui-ux-pro-max`, `visual-qa-vision-agent`, `glsl-shader-expert`, `web-3d-graphics-expert`, `webxr-ar-vr-expert`, `svg-animation-motion-expert` |
-| 🖥️ Frontend & State | `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `state-management-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `spa-orchestrator`, `mpa-orchestrator`, `multiple-entry-points`, `performance-web-vitals`, `app-analyzer-optimizer`, `apple-ecosystem-expert`, `bootstrap-to-modern`, `form-validation-expert`, `project-context-mapper`, `tauri-expert`, `web-game-engine-expert` |
-| 📱 Mobile | `mobile-expo-expert`, `mobile-push-notification-expert` |
-| ⚙️ Backend & Languages | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `typescript-expert`, `fullstack-expert`, `api-design-expert`, `graphql-apollo-expert`, `bun-runtime-expert`, `mvc-expert`, `openapi-swagger-codegen-expert` |
-| ☁️ SaaS & Cloud | `saas-transformer`, `saas-mvp-launcher`, `saas-billing`, `saas-multi-tenant`, `cloud-hosting-expert`, `ci-cd-devops-architect`, `monorepo-architect`, `micro-frontend-architect`, `event-driven-architect`, `feature-flag-analytics-expert`, `payment-gateway-expert`, `doku-payment-gateway`, `legacy-code-translator` |
-| 🗄️ Database & ORM | `database-orm-expert`, `edge-serverless-db-expert`, `supabase-migration`, `database-migration-versioning-expert` |
-| 🔒 Security & Quality | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `autonomous-chaos-monkey`, `zero-trust-secret-vault`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing`, `scalability-clean-code`, `browser-automation-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`, `error-resilience-expert`, `post-quantum-crypto-migrator`, `anti-slop` |
-| 🔍 SEO | `seo` |
-| ⏱️ Async & Scheduling | `async-queue-temporal-expert`, `background-jobs-queue-expert`, `cron-scheduler-expert`, `sse-websocket-streaming-expert`, `realtime-collaboration-expert` |
-| 📊 Data & Observability | `data-telemetry-expert`, `data-pipeline-etl-expert`, `logging-error-tracking-expert`, `email-notification-expert`, `file-upload-media-expert` |
-| 🛠️ Utilities | `brainstorming`, `prd-architect`, `auto-doc-updater`, `token-saver`, `session-context-loader`, `session-handoff-resume`, `project-context-mapper`, `vibe-code-gardener`, `web-scraper`, `website-design-cloner`, `coderabbit`, `asisten-ramah`, `skill-baru`, `dependency-upgrade-migrator`, `self-evolving-memory-graph`, `self-healing-cloud-orchestrator`, `proactive-background-watcher`, `domain-driven-design-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `global-a11y-i18n-expert`, `zero-to-prod-orchestrator` |
+## Skill Domains
+- 🤖 AI & Agentic: ai-llm-integration-expert, vercel-ai-sdk-expert, deep-research-analyst, synthetic-data-finetuning-expert, pydantic-ai-expert, mcp-server-architect, vector-db-rag-expert, multi-agent-orchestration, graph-rag-knowledge-expert, local-slm-edge-ai-expert
+- 🎨 Design & UI/UX: design-system-architect, hig, ui-components-expert, ui-ux-pro-max
+- 🖥️ Frontend: senior-frontend, tailwind-expert, nextjs-app-router-expert, tanstack-query-expert, vue-frontend-expert
+- ⚙️ Backend: js-backend-expert, python-programming-expert, go-programming-expert, rust-programming-expert, api-design-expert
+- ☁️ SaaS & Cloud: saas-transformer, saas-billing, ci-cd-devops-architect, cloud-hosting-expert, payment-gateway-expert
+- 🗄️ Database: database-orm-expert, edge-serverless-db-expert, supabase-migration
+- 🔒 Security: authentication-identity-expert, e2e-testing-expert, production-ready-hardener, zero-trust-secret-vault
+- 🔍 SEO: seo
+- 🛠️ Utilities: brainstorming, prd-architect, auto-doc-updater, token-saver, vibe-code-gardener
 
----
+## Code Quality
+- Clean Code, SOLID, DRY — see `scalability-clean-code` skill.
+- No AI slop — be imperative, direct, token-efficient.
+- Bilingual support (English & Bahasa Indonesia) for all skills.
 
-## Core Rules
-
-### 0. Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
-**MANDATORY**: Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all interactions.
-- The AI agent MUST NOT wait for the user to specify skill names or `@` tags.
-- Every user prompt is automatically intercepted and routed through `brainstorming` and `zero-to-prod-orchestrator`.
-- The agent automatically binds and synchronizes cooperating skills across all involved domains (Frontend, Backend, Database, Payments, AI, QA).
-- For complex, multi-step requests, the agent automatically acts as a Swarm Director (Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator).
-
-### 1. Deep Reasoning Before Action
-Do not act impulsively. Before writing code, modifying files, or making architectural decisions, engage in a mandatory reasoning phase:
-1. **Analyze** constraints, edge cases, and implications.
-2. **Critique** your initial assumptions — is there a more scalable or modern approach?
-3. **Validate** the solution against best practices and non-functional requirements.
-4. **Execute** only after the reasoning chain is complete.
-
-### 2. Skill Orchestration Protocol
-When a new skill `SKILL.md` is created or modified:
-1. Update `skills/brainstorming/SKILL.md` — add to the Skill Integration & Orchestration Matrix.
-2. Update `skills/zero-to-prod-orchestrator/SKILL.md` — add to the relevant Phase.
-3. Verify both English and Bahasa Indonesia sections are accurate.
-
-### 3. Bilingual Ecosystem
-This ecosystem serves English and Indonesian developers. Every `SKILL.md` must provide bilingual context for critical concepts. Headings can be in either language.
-
-### 4. Anti-Slop (Zero-Tolerance Standard)
-Strictly eliminate conversational pleasantries ("Certainly!", "I'd be happy to..."), prompt repeating, syntax-narrating comments, and placeholder code (`// TODO`, `// ... rest of code unchanged`). Always consult and enforce the `anti-slop` skill. Instructions and code must be imperative, direct, complete, and token-efficient.
-
-### 5. Mandatory Documentation for New Projects
-When initiating a new project from scratch, ensure the automatic generation of:
-- Product Requirements Document (`PRD.md`)
-- Entity Relationship Diagram (`ERD.md`)
-- General Documentation (`DOKUMENTASI.md`)
-
-### 6. SKILL.md File Standard
-Every `SKILL.md` MUST have:
-- YAML frontmatter (`name`, `description`, `author`)
-- A section named `## Orchestration & Integration` or `## Integrasi Orkestrasi`
-- Registration in `brainstorming/SKILL.md` and `zero-to-prod-orchestrator/SKILL.md`
-
----
-
-## Orchestration Workflow
-
-1. **Ideation & Planning:** `brainstorming` → `prd-architect` → `gemini-agent-booster`
-2. **Design & Frontend:** `design-system-architect` → `ui-ux-pro-max` → `senior-frontend` + `ui-components-expert`
-3. **Backend & Architecture:** `js-backend-expert` / `go-programming-expert` / `rust-programming-expert` → `event-driven-architect` → `autonomous-tdd-debugger`
-4. **AI Integration:** `ai-llm-integration-expert` → `mcp-server-architect` → `multi-agent-orchestration`
-5. **SaaS Transformation:** `saas-transformer` / `saas-mvp-launcher` → auto-coordinates billing, tenancy, payments
-6. **Quality & Launch:** `e2e-testing-expert` → `vibe-code-gardener` + `anti-slop` → `seo` → `production-ready-hardener`
+## Orchestration Flow
+1. Ideation: brainstorming → prd-architect
+2. Design: design-system-architect → senior-frontend → ui-components-expert
+3. Backend: js-backend-expert → event-driven-architect → autonomous-tdd-debugger
+4. AI: ai-llm-integration-expert → mcp-server-architect
+5. SaaS: saas-transformer → saas-billing + saas-multi-tenant
+6. Launch: e2e-testing-expert → seo → production-ready-hardener
 
 ---
 > Source: [roedyrustam/vibes-plug](https://github.com/roedyrustam/vibes-plug) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
