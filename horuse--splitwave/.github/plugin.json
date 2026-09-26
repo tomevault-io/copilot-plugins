@@ -1,7 +1,7 @@
 {
   "name": "horuse--splitwave",
   "displayName": "Splitwave",
-  "description": "Audio routing app for macOS, Linux and Windows. Build a node graph of inputs, effects, and outputs",
+  "description": "Splitwave",
   "version": "1.0.0",
   "author": "Horuse",
   "homepage": "https://github.com/Horuse/Splitwave",
