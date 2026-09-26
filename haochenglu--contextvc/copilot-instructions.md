@@ -1,12 +1,10 @@
 ## contextvc
 
-> Use pnpm for package management.
+> API rules
 
-# Project Agent Notes
 
-Use pnpm for package management.
-Run focused tests before wide test suites.
+Prefer typed API clients and keep endpoint contracts explicit.
 
 ---
 > Source: [HaochengLu/contextvc](https://github.com/HaochengLu/contextvc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
