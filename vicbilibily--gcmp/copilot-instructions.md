@@ -1,39 +1,33 @@
 ## gcmp
 
-> description: JSON Schema 条件依赖/联动写法（if/then、allOf、oneOf 等）及在 VS Code settings.json 中的落地与验证。
+> description: CHANGELOG 编写规则：仅记录功能性变更，不记录模型清单维护（模型上架/下线、价格与参数调整）。
 
 ﻿---
-description: JSON Schema 条件依赖/联动写法（if/then、allOf、oneOf 等）及在 VS Code settings.json 中的落地与验证。
+description: CHANGELOG 编写规则：仅记录功能性变更，不记录模型清单维护（模型上架/下线、价格与参数调整）。
 ---
 
-# JSON Schema 依赖选项联动
+# CHANGELOG 编写规则
 
-## 目标
+## 记录范围
 
-让字段 B 的 `enum`/`required`/`pattern` 随字段 A 的值变化（主要服务 `settings.json` 的提示与校验）。
+- **仅记录功能性变更**：扩展在功能、行为、命令、设置、界面、通道能力等代码层面的新增/修复/变更/移除。
+- **不记录模型清单维护**：内置或远端模型的上架、下线，以及价格（tokenPricing）、上下文、推理强度、能力开关等配置数值的调整，一律不写入 CHANGELOG。
+    - 模型与价格信息以 `src/providers/config/*.json` 及官网模型清单页为准，CHANGELOG 不再重复追踪。
 
-## 做法
+## 写法
 
-- 首选：`allOf` 里写多组 `if` + `then`（单值匹配用 `const`）。
-- 组合约束：用 `oneOf`/`anyOf`（或 `dependencies` + `oneOf`）。
-- 枚举来自运行时数据：在代码里生成/覆盖 schema（动态 enum）。
+- 版本节格式维持现状：中文小节（新增/修复/变更/移除）+ `---` + 英文小节。
+- 模型相关变更若伴随功能改动（如新增通道、热更新机制），只记录功能部分，不罗列模型名单。
+- 纯模型维护的发版无需新增版本节；注意 `scripts/extract-changelog.mjs` 发版时按 package.json 版本提取对应版本节，缺失会报错，届时以一行功能级概述占位即可。
 
-## GCMP 落点
+## 历史版本区规则
 
-- 静态：`package.json` → `contributes.configuration.properties`。
-- 动态：`src/utils/jsonSchemaProvider.ts`（用于 `settings.json` 的增强提示/校验）。
-
-## 约束/注意
-
-- 使用 Draft-07，并声明 `"$schema": "http://json-schema.org/draft-07/schema#"`。
-- VS Code 设置 UI 对复杂联动支持有限，以 `settings.json` 为准。
-- 性能：少条件、少嵌套。
-
-## 最小验证
-
-- 变更后 Reload Window。
-- 在 `settings.json`：A 改值时，B 的提示/校验随之变化；非法组合有红线。
+- **仅保留当前仍存在的主要功能**：历史条目逐条核对，只保留最新版本中仍然存在的功能。
+- **期间的修复与调整无需保留**：bug 修复、重构、命名/参数调整、计费规则变更等不进入历史区。
+- **已移除的功能不再保留**：功能若在后续版本被移除（如旧版 V1 Gist 同步、StreamLake 提供商），从历史区删除对应条目。
+- **不保留 issue / PR 关联**：历史条目中的 `[#xxx](...)` 链接一律去除（仅历史区；当前版本节仍可保留关联）。
+- 某版本区间经修剪后不含主要功能时，整段删除该区间条目，并将其版本范围与日期并入上一（更早）版本周期的条目，保持时间线连续。
 
 ---
 > Source: [VicBilibily/GCMP](https://github.com/VicBilibily/GCMP) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
