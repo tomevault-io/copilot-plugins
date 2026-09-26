@@ -1,38 +1,69 @@
 ## proton-cli
 
-> This is an open-source CLI tool used by other people. All changes should consider:
+> Anything that runs shell commands can use proton, and proton can teach it how.
 
-# Agent Guidelines
+# AI agents
 
-## Project Context
+Anything that runs shell commands can use proton, and proton can teach it how.
 
-This is an open-source CLI tool used by other people. All changes should consider:
-- **Backwards compatibility** — consider impact on existing users when changing command syntax or flags, but don't let it block improvements
-- **Cross-platform** — must work on Linux, macOS, and Windows (amd64 + arm64)
-- **User-facing quality** — README, help text, and error messages should be clear and helpful
-- **Distribution** — binaries are published as GitHub Releases via GoReleaser; users install by downloading a binary or via `go install`
+## Give the agent the skill
 
-## Testing
+`proton skill` prints a skill in the [Agent Skills](https://agentskills.io) format: a `SKILL.md` an agent reads before it acts. Save it in a directory named `proton-cli`, wherever your agent reads its skills from:
 
-Tests are **integration tests** that run against the live Proton API. They require `PROTON_USER` and `PROTON_PASSWORD` environment variables.
-
-- **Never run the full test suite** (`just test` / `go test ./...`) — only the user triggers that manually
-- **Single tests are allowed** (`just test-one TestName`) when verifying a specific change
-
-## Reference Source
-
-The Proton WebClients TypeScript source is available at `/tmp/proton-webclient-openapi/` (cloned from https://github.com/ProtonMail/WebClients). Use it as the primary reference for:
-
-- API endpoint signatures, request/response shapes (`packages/shared/lib/api/`)
-- Encryption flows and key handling (`packages/shared/lib/keys/`, `packages/crypto/`)
-- How the web client calls endpoints (parameter names, types, ordering)
-- Constants and enums (`packages/shared/lib/constants.ts`, etc.)
-
-If the clone is missing or stale, run:
 ```bash
-cd /tmp && git clone --depth 1 --branch main https://github.com/ProtonMail/WebClients.git proton-webclient-openapi
+mkdir -p /path/to/skills/proton-cli
+proton skill > /path/to/skills/proton-cli/SKILL.md
+```
+
+It is written from the installed build, so it names exactly the commands your proton has, and it tells the agent to print it again when the installed version is not the one that wrote the file.
+
+An agent can read it as it runs instead. `proton skill --body-only` leaves the frontmatter out, which is what a skill of your own wants when all it says is to run this first:
+
+```markdown
+---
+name: proton-cli
+description: (the description proton skill prints)
+---
+
+Before using proton, run `proton skill --body-only` and follow what it prints.
+```
+
+The skill describes the tool. What the agent may do with your account is yours to say, in its own instructions and in a confirmation policy.
+
+Signing in stays yours: `proton account login` asks for the password and any second factor at a terminal, and no flag carries a password. The same holds for the [commands that ask for the password again](../account/README.md#commands-that-ask-for-the-password-again).
+
+## Fence what it may do
+
+A [confirmation policy](confirmations.md#making-more-commands-ask) is what says an agent may read your mail but never delete any:
+
+```bash
+export PROTON_CONFIRM='deletions=deny'
+```
+
+A permanent removal then exits `6` and touches nothing. `--yes` does not answer a deny, so the `--yes` the agent needs for the trashing it *is* meant to do cannot quietly authorise more.
+
+This turns off `proton api` as well, reads included. A raw request can be anything, so it counts as a deletion whichever method it carries.
+
+`=deny` is the part that fences. A class written without it only makes the command ask first, and `--yes` answers that in advance.
+
+```bash
+# read-only: nothing changes, at all
+export PROTON_CONFIRM='mutations=deny'
+
+# read-only, except that it may send
+export PROTON_CONFIRM='mutations=deny, mail messages send:default'
+```
+
+The full syntax is in [Writing a policy](confirmations.md#writing-a-policy).
+
+Give it [a profile of its own](../account/README.md#more-than-one-account) if you want a way to cut it off:
+
+```bash
+proton account login --profile agent
+PROTON_PROFILE=agent PROTON_CONFIRM='deletions=deny' your-agent
+proton account logout --profile agent
 ```
 
 ---
 > Source: [roman-16/proton-cli](https://github.com/roman-16/proton-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
