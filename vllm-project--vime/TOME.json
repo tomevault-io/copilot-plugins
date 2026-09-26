@@ -1,0 +1,81 @@
+{
+  "name": "vime",
+  "owner": "vllm-project",
+  "repo": "vime",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vime",
+      "path": ".claude/skills/add-tests-and-ci/SKILL.md",
+      "github_url": "https://github.com/vllm-project/vime/tree/main/.claude/skills/add-tests-and-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vime",
+      "path": ".claude/skills/add-dynamic-filter/SKILL.md",
+      "github_url": "https://github.com/vllm-project/vime/tree/main/.claude/skills/add-dynamic-filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vime",
+      "path": ".claude/skills/add-reward-function/SKILL.md",
+      "github_url": "https://github.com/vllm-project/vime/tree/main/.claude/skills/add-reward-function/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vime",
+      "path": ".claude/skills/add-rollout-function/SKILL.md",
+      "github_url": "https://github.com/vllm-project/vime/tree/main/.claude/skills/add-rollout-function/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vime",
+      "path": ".claude/skills/add-eval-dataset-config/SKILL.md",
+      "github_url": "https://github.com/vllm-project/vime/tree/main/.claude/skills/add-eval-dataset-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vime",
+      "path": ".claude/skills/vime-code-review-preferences/SKILL.md",
+      "github_url": "https://github.com/vllm-project/vime/tree/main/.claude/skills/vime-code-review-preferences/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vllm-project/vime",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T10:32:57Z"
+}
