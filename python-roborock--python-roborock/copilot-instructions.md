@@ -106,4 +106,4 @@ Portable agent skills following the [Agent Skills specification](https://agentsk
 
 ---
 > Source: [Python-roborock/python-roborock](https://github.com/Python-roborock/python-roborock) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
