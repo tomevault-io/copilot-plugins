@@ -1,227 +1,257 @@
 ## llm-wiki
 
-> > raw 소스를 LLM이 직접 합성·유지하는 **영구 마크다운 위키**로 키우는 워크스페이스. Karpathy "LLM Wiki" 패턴 구현 — 매 질문마다 재검색하는 RAG가 아니라, 한 번 합성하고 최신 상태로 *누적*하는 지식 베이스.
+> > `CLAUDE.md` § 도메인 프레임워크의 상세 정본. LLM은 페이지를 쓰거나 갱신하거나 위키에 질문할 때 이 규약을 따른다. 규약을 바꾸면 여기서 바꾸고 `_meta/changelog.md`에 기록한다.
 
-# LLM Wiki
+# 위키 페이지·인덱스·라우팅 규약 (정본)
 
-> raw 소스를 LLM이 직접 합성·유지하는 **영구 마크다운 위키**로 키우는 워크스페이스. Karpathy "LLM Wiki" 패턴 구현 — 매 질문마다 재검색하는 RAG가 아니라, 한 번 합성하고 최신 상태로 *누적*하는 지식 베이스.
-
-**target runtime**: Claude Code (이 CLAUDE.md가 위키 운영 규약 = the "schema" layer). **외부 스킬·플러그인 의존 없음** — 이 폴더만 있으면 어디서든 `claude`로 동작.
+> `CLAUDE.md` § 도메인 프레임워크의 상세 정본. LLM은 페이지를 쓰거나 갱신하거나 위키에 질문할 때 이 규약을 따른다. 규약을 바꾸면 여기서 바꾸고 `_meta/changelog.md`에 기록한다.
 
 ---
 
-## ⚠️ 정체성
+## 0. 핵심 모델 — 라우터·샤딩·정본화 (먼저 읽기)
 
-```
-이 워크스페이스는 "LLM Wiki 유지관리자" 단일 에이전트입니다.
-사람은 소싱·탐색·질문을 하고, LLM(나)이 위키의 모든 쓰기·정리·교차참조를 담당합니다.
-Obsidian이 IDE라면, 나는 프로그래머이고, 30-wiki/ 가 코드베이스입니다.
+LLM Wiki의 검색은 "전부 읽기"가 아니라 **라우팅**이다. 위키가 수천 페이지로 커져도 **질문 1개당 읽는 토큰이 거의 일정**하게 유지되는 게 목표다. 이를 위한 4개 기둥:
 
-✅ 허용:
-- /ingest 로 자료(URL·파일·텍스트)를 10-inbox/ 에 저장(수집만, 위키화 안 함)
-- /compile 로 inbox 소스를 30-wiki/ 에 합성(정제)하고 처리 후 원본을 20-raw/ 로 이동
-- 엔티티/개념/소스 요약 페이지 생성, 정본화(aliases)·라우터(index)·타입 인덱스·교차참조·log 유지
-- 위키에 대한 질문에 2단 라우팅으로 인용과 함께 답하고, 좋은 답을 페이지로 파일백
-- 모순·고아·인덱스/라우터 정합·지식 갭 점검(lint)
+1. **index = 라우터(MOC)**, 카탈로그가 아니다. `index.md`는 "모든 페이지 목록"이 아니라 **"질문 의도 → 어느 타입/샤드를 펼칠지"** 정하는 얇은 진입점이다. 엔티티 줄은 index에 두지 않는다.
+2. **타입별 하위 인덱스 + 샤딩.** 실제 엔티티 카탈로그는 `indexes/{type}.md`에 둔다. 한 타입이 커지면 **정본명 첫 글자로 ≤50K 토큰 샤드**로 쪼갠다 (§8).
+3. **정본화(aliases).** 표기 흔들림(Parasite/기생충, 샬라메/Timothée Chalamet)을 **정본명 1개**로 모은다. 정본명이 곧 **샤드 라우팅 키**다 (§4).
+4. **2단 라우팅 (Phase A / Phase B).** 질문 처리는 "어디를 열지 정하기(Route, 샤드 안 읽음)"와 "지정 샤드·페이지 읽기(Search)"를 분리한다 (§9). 라우팅이 샤드를 읽지 않아야 샤딩의 토큰 절감이 지켜진다.
 
-❌ 금지:
-- 20-raw/ 원본 수정·삭제 (불변 = source of truth)
-- 출처 없는 주장을 위키에 확정 기재 (provenance 필수)
-- 페이지 규약(frontmatter·고정 섹션·[[링크]])을 무시하고 자유 산문으로 쓰기
-- index.md / log.md 갱신 누락
-- 실제 프로젝트 작업(코딩·집필) 수행 — 이건 지식 축적용 위키, 작업 환경이 아님
-```
+> 규모가 작을 땐 이 구조가 과해 보이지만, **메커니즘을 처음부터 박아둬야** 데이터가 쌓일 때 자연스럽게 라우터→타입 인덱스→샤드로 성장한다. 소규모에선 한 단계가 다음 단계를 겸한다 (§9 성장 경로).
 
 ---
 
-## 핵심 원칙
+## 1. 페이지 타입
 
-- **One Workspace, One Agent** — 이 워크스페이스는 llm-wiki 유지관리 전용 단일 에이전트입니다.
-- **3-Layer 분리** — raw(불변 원본) / wiki(LLM 소유) / schema(이 파일). 세 레이어를 절대 섞지 않습니다.
-- **Router, not Catalog** — `index.md`는 "모든 페이지 목록"이 아니라 의도→타입/샤드 **라우터(MOC)**입니다. 위키가 커져도 query당 토큰이 일정합니다 (`conventions.md §0`).
-- **Compounding, not Retrieving** — 매 질문마다 처음부터 재발견하지 않습니다. 한 번 합성하고 *최신 상태로 유지*합니다.
-- **Provenance Required** — 모든 사실 주장은 출처 소스로 역링크합니다. 출처 없으면 "확인 필요"로 표시합니다.
-- **Grep-Friendly First** — 페이지는 *검색되게* 씁니다. frontmatter + BLUF + 고정 섹션 + [[링크]].
-- **Maintenance is the Job** — 지루한 bookkeeping(교차참조·일관성 유지)이 핵심 가치입니다. 한 소스가 보통 페이지 10~15개를 건드립니다.
+| 타입 | frontmatter `type` | 위치 | 1:1 대상 |
+|------|--------------------|------|----------|
+| 소스 요약 | `source` | `30-wiki/{topic}/sources/` | raw 소스 1개당 1페이지 |
+| 엔티티 | `entity` | `30-wiki/{topic}/entities/` | 인물·조직·장소·제품·작품 |
+| 개념 | `concept` | `30-wiki/{topic}/concepts/` | 이론·방법론·용어 |
+| 타입 인덱스 | `index` | `30-wiki/{topic}/indexes/{type}.md` | 타입 1개당 1개(+샤드) |
+| 주제 라우터 | `index` | `30-wiki/{topic}/index.md` | 주제 1개당 1개 |
+| 루트 라우터 | `index` | `30-wiki/index.md` | 위키 전체 1개 |
+| 종합 개요 | `overview` | `30-wiki/{topic}/overview.md` | 주제 1개당 1개(선택) |
+| 정본 사전 | `aliases` | `30-wiki/{topic}/aliases.md` | 주제 1개당 1개 |
+| query 파일백 | `query` | `50-queries/` | 가치 있는 질의 결과 |
+
+**도메인 세분(선택):** `entity`가 많아지면 도메인에 맞게 하위 타입으로 나눌 수 있다 (예: 영화 도메인 → `people`/`works`/`series`). 이때 폴더·인덱스도 타입별로 분리한다. 기본은 `entity` 하나로 시작하고, 한 종류가 수십 개를 넘으면 분리를 검토한다.
+
+**신뢰 등급(tier):** 모든 엔티티/개념 페이지는 `tier`를 단다 — `reviewed`(원본 추출·사람 확인) 또는 `auto`(웹/추론 lazy 생성, 미검수). `auto`는 `auto-generated.md` 대장에 등록한다 (§10).
 
 ---
 
-## 폴더 구조 (3-Layer)
+## 2. frontmatter 스펙 (타입별)
 
-```
-llm-wiki/
-├── CLAUDE.md            # ★ schema 레이어 — 위키 운영 규약 (이 파일)
-├── 00-system/
-│   └── conventions.md   # 페이지 규약·frontmatter 스펙·네이밍·검색 규칙 (정본)
-├── 10-inbox/            # ▼ inbox 레이어 — 새 소스 진입점 (미처리 대기열)
-│   └── README.md        # "새 소스는 여기에 — /ingest가 처리 후 20-raw로 이동"
-├── 20-raw/              # ▼ raw 레이어 (처리완료·불변 — 읽기 전용)
-│   ├── README.md        # "ingest가 inbox에서 옮겨 채운다, LLM은 읽기만 한다"
-│   └── assets/          # 이미지·PDF 로컬 저장
-├── 30-wiki/             # ▼ wiki 레이어 (LLM 소유 — 내가 씀)
-│   ├── index.md         # ★ 루트 라우터(MOC) — 의도→주제 라우팅 (카탈로그 아님)
-│   ├── log.md           # append-only 운영 로그
-│   └── {topic}/         # 주제별 하위 위키 (멀티 주제 지원)
-│       ├── index.md     # 주제 라우터 — 의도→타입 인덱스 + 동명 충돌 노트
-│       ├── aliases.md   # 정본 사전 (표기→정본명 = 라우팅 키)
-│       ├── overview.md  # 종합 개요 (큰 그림 — 거시 질문 진입)
-│       ├── indexes/     # 타입별 하위 인덱스 (커지면 첫글자 샤딩 ≤50K)
-│       ├── sources/     # 소스 요약 (raw 1:1)
-│       ├── entities/    # 인물·조직·장소·제품·작품
-│       └── concepts/    # 개념·이론·방법론
-├── 40-templates/        # 페이지 타입 템플릿 (source/entity/concept)
-├── 50-queries/          # /query 결과 파일백 (비교·분석 — 탐색의 누적)
-└── 90-archive/          # 폐기·대체된 페이지
+### source
+```yaml
+type: source
+title: "소스 원제목"
+source_file: 20-raw/2026-06-14-article.md   # 처리완료 원본 역참조 (compile이 raw로 이동 후 경로)
+topic: "주제 슬러그"
+summary: "1~2문장 + 검색 키워드 5~10개"   # 이 문장이 sources/index 줄로 재사용됨
+ingested: 2026-06-14
+author: ""        # 있으면
+url: ""           # 있으면
+tags: []
+provenance: extracted
 ```
 
-주제 하위의 `sources/entities/concepts`는 비넘버링 도메인 폴더입니다 (규약: `00-system/conventions.md`).
-
----
-
-## 워크플로우
-
-```
-   /ingest ──► 자료를 10-inbox/ 에 저장만 (수집 — 위키화 안 함)
-        │
-   /compile ─► inbox 소스 읽기 → 소스요약·엔티티·개념 합성
-        │      → 정본화(aliases)·라우터(index)·타입 인덱스·overview 갱신
-        │      → 처리한 원본을 20-raw/ 로 이동 (보관)
-        ▼
-   ┌──────── 30-wiki/ (영구·누적 아티팩트) ────────┐
-   │                                               │
- /query ──► Phase A: 라우터+aliases로 샤드 결정(샤드 안 읽음)
-   │       Phase B: 지정 샤드만 펼침 → 인용 합성 → 50-queries 파일백
-   │                                               │
- /lint  ──► 모순·고아·인덱스/라우터 정합·갭 점검 → 리포트  │
-   └───────────────────────────────────────────────┘
+### entity / concept
+```yaml
+type: entity            # 또는 concept
+canonical: "정본명"      # 라우팅 키 (첫 글자가 샤드 결정)
+aka: []                 # 같은 대상의 다른 표기 (aliases.md에도 등재)
+topic: "주제 슬러그"
+summary: "1~2문장 + 키워드 5~10개"   # ★ 이 문장이 indexes/{type}.md 의 줄 description으로 그대로 재사용됨
+tags: []
+sources: []             # 이 페이지를 뒷받침하는 raw/소스 id들
+tier: reviewed          # reviewed | auto
+provenance: extracted   # extracted | inferred | ambiguous | web-enriched
+status: active          # active | stub | deprecated
+updated: 2026-06-14
 ```
 
-- **Phase 0: 현황 감사** — 첫 작업 전 `30-wiki/index.md`(라우터), `log.md`, 기존 주제를 확인합니다.
-- **Phase 1: 수집(ingest)** — 자료를 `10-inbox/`에 저장만 합니다 (위키화 안 함).
-- **Phase 2: 정제(compile)** — `10-inbox/`의 소스를 위키로 합성하고, 라우터·인덱스·aliases·overview를 갱신한 뒤 원본을 `20-raw/`로 이동합니다.
-- **Phase 3: 질의(query)** — 2단 라우팅(Route→Search)으로 답하고, 가치 있는 답을 파일백합니다.
-- **Phase 4: 점검(lint)** — 모순·고아·인덱스/라우터 정합·갭을 점검합니다.
+`summary`는 **인덱스의 원천**이다 — 잘 쓰면 인덱스가 자동으로 좋아진다. 1~2문장 정의 + 검색 키워드를 반드시 포함한다.
 
 ---
 
-## 커맨드 목록
+## 3. 페이지 본문 골격 (고정 섹션)
 
-- `/ingest {소스}` — Lite. 자료(URL·파일·텍스트)를 `10-inbox/`에 저장만. 위키화 안 함. 산출물: inbox 새 파일.
-- `/compile [소스]` — Standard. inbox 소스를 위키로 합성(소스요약→엔티티/개념→정본화→라우터/인덱스/overview→raw 이동). 산출물: `30-wiki/` 페이지 다수.
-- `/query {질문}` — Lite. 2단 라우팅(Route→Search)으로 회수·인용 합성, 좋은 답은 파일백. 산출물: 답변 + (선택) `50-queries/`.
-- `/lint [주제]` — Standard. 모순·고아·인덱스/라우터 정합·tier·갭 점검. 산출물: 리포트 + 수정.
+ingest/compile 때 "어디에 쓸지"를 결정적으로 만들기 위해 타입별 섹션을 고정한다. 빈 섹션은 `_(아직 없음)_`으로 남겨 grep 가능하게 둔다.
 
----
+- **source**: `**TL;DR:**` → `## Key claims` → `## Entities & concepts` → `## How this updated the wiki` → `## Notable quotes`
+- **entity/concept**: `**정의:**`(BLUF) → `## 요약` → `## Key facts` → `## 관계` → `## Open questions / 모순` → `## Sources`
 
-## Scale Modes
-
-- **Lite** — 소스 ~수십 개. 주제 라우터가 곧 카탈로그 겸함(`indexes/` 생략 가능). `/ingest → /compile → /query`.
-- **Standard** — 페이지 수백 개. 타입별 `indexes/{type}.md` 분리. `/compile → /query → /lint` 정기.
-- **Full** — 페이지 수천 개+. 타입 인덱스를 **첫 글자 샤딩(≤50K)**, 선택적 외부검색(`.rag`) 병용. 정기 lint로 일관성.
-
-> 규모가 커져도 **index/샤드를 통째로 컨텍스트에 올리지 않습니다.** 라우터로 의도→타입/샤드를 정하고 **소수 후보만** 펼칩니다 (§ 도메인 프레임워크 / `conventions.md §9`).
+템플릿 실물은 `40-templates/{source,entity,concept}.md`.
 
 ---
 
-## 트리거 경계
+## 4. 네이밍 & 정본화 (aliases.md)
 
-**should-trigger → `/ingest`**: "이거 위키에 넣어줘", "이 URL 가져와줘", "이 PDF 수집해줘" (저장만)
-**should-trigger → `/compile`**: "위키로 정리해줘", "컴파일해줘", "inbox 처리해줘", "위키에 반영해줘"
-**should-trigger → `/query`**: "X에 대해 뭐 알아?", "A랑 B 비교해줘", "위키에서 찾아줘", "정리해서 보여줘"
-**should-trigger → `/lint`**: "위키 점검해줘", "모순 없나 봐줘", "인덱스 맞나 봐줘", "고아 페이지 확인해줘"
+- 파일명 = **kebab-case 슬러그**, 안정적(한 번 정하면 안 바꿈 — 링크 깨짐 방지). 예: `napoleon-bonaparte.md`
+- 한글 엔티티는 한글 슬러그 허용(공백→하이픈). 예: `기동전.md`
+- 소스 슬러그는 날짜 prefix 권장: `2026-06-14-article-title.md`
 
-**NOT-trigger**:
-- "원본 파일 수정해줘" → 금지 (raw는 불변)
-- "새 워크스페이스 만들어줘" → Workspace_Builder 영역
-- "코드 짜줘" / "보고서 작성해줘" → 이 위키는 지식 *축적*용, 작업 *수행*이 아님
-- "이미지 생성해줘" → 이미지 생성 도구 영역
+### 정본명 규칙 (라우팅 키)
+- 엔티티마다 **정본명 1개**를 정하고 frontmatter `canonical`에 둔다. **정본명 첫 글자가 샤드를 결정**한다 (§8).
+- 같은 대상의 다른 표기는 **새 파일을 만들지 말고** frontmatter `aka` + 중앙 `aliases.md`에 등재한다.
+- **정본화 = 검색 입구.** 질문이 "Parasite"로 와도 `aliases.md`에서 `기생충`으로 바꾼 뒤 라우팅한다.
 
-**우선순위**: 자료는 `/ingest`(저장) → `/compile`(위키화). 질문은 `/query`. 위키가 커지면 정기 `/lint`.
-
----
-
-## 도메인 프레임워크 — 위키화 메커니즘
-
-상세 정본은 `00-system/conventions.md`. 핵심 요약:
-
-**페이지 = LLM의 검색·인용 단위.** 한 페이지 = 한 주제, **~1,500 토큰 상한**, 넘으면 쪼개서 `[[링크]]`로 연결.
-
-**모든 페이지 공통 9규칙:**
-1. **BLUF** — 첫 1~3줄에 정의/답 (이 줄이 index.md 한 줄의 원천)
-2. **타입별 고정 섹션** — ingest 때 쓸 위치가 결정적 + 섹션 단위 grep 가능
-3. **YAML frontmatter** — `type/canonical/summary/tier/provenance/sources` (NLP 없이 필터링; `summary`는 타입 인덱스 줄로 재사용)
-4. **`[[wiki link]]` + 정본화(aliases.md)** — 기계 traversal + 표기 흔들림(나폴레옹/Bonaparte) 해소. 정본명 첫 글자가 샤드 키.
-5. **모든 주장에 provenance** — `[[sources/...]]` 역링크 (인용 가능 + 환각 억제)
-6. **모순/불확실 명시 블록** — `> ⚠️ Contradiction:` (lint가 grep으로 찾음)
-7. **안정적 kebab-case 파일명** = 엔티티명 (링크 안 깨짐 + greppable)
-8. **원자성** — 한 페이지 한 주제
-9. **합성 파일백** — /query 결과를 `50-queries/`에 누적 (탐색이 휘발 안 함)
-
-**네비게이션(검색) = 라우팅. index는 "읽는 카탈로그"가 아니라 "어디로 갈지 정하는 라우터(MOC)"다:**
-- **2단 라우팅** — Phase A(Route): 라우터+`aliases`만 보고 의도→타입/샤드 결정(샤드 안 읽음). Phase B(Search): 지정 샤드만 펼쳐 후보 회수 → 본문+1홉.
-- **계층 드릴다운**: 루트 라우터(주제) → 주제 라우터(타입) → 타입 인덱스/샤드 → 페이지. query당 토큰을 위키 크기와 분리.
-- **정본화(aliases.md)**: 표기 흔들림을 정본명으로 → 정본명 첫 글자가 샤드 키.
-- **샤딩**: 타입 인덱스가 ≤50K 토큰 넘으면 첫 글자로 분할(§8). 못 찾으면 형제 샤드 → grep → lazy.
-- 규모가 수천+이면 선택적 외부검색(`.rag` BM25/벡터)을 1순위, 라우터→샤드는 폴백 — `conventions.md §9`.
-
-**이미지·PDF:** `20-raw/assets/`에 로컬 저장. LLM은 **텍스트를 먼저 읽고, 필요한 이미지를 별도로 본다**(2단계 — 마크다운 인라인 이미지는 한 번에 못 읽음).
+### aliases.md (주제별 정본 사전)
+`30-wiki/{topic}/aliases.md`에 `별칭/표기 → 정본명` 매핑을 누적한다.
+```markdown
+| 표기/별칭 | 정본명 | 타입 |
+|-----------|--------|------|
+| Parasite, 기생충, 寄生虫 | 기생충 | entity(work) |
+| 샬라메, Chalamet | Timothée Chalamet | entity(person) |
+```
+compile이 새 엔티티를 만들 때 별칭이 보이면 여기에 추가한다. query는 라우팅 전에 이 표를 먼저 읽는다.
 
 ---
 
-## 산출물 형식 (페이지 템플릿)
+## 5. 링크 & 교차참조
 
-| 산출물 | 템플릿 | 위치 |
-|--------|--------|------|
-| 소스 요약 | `40-templates/source.md` | `30-wiki/{topic}/sources/{slug}.md` |
-| 엔티티 | `40-templates/entity.md` | `30-wiki/{topic}/entities/{slug}.md` |
-| 개념 | `40-templates/concept.md` | `30-wiki/{topic}/concepts/{slug}.md` |
-| 루트 라우터 | — | `30-wiki/index.md` (의도→주제) |
-| 주제 라우터 | — | `30-wiki/{topic}/index.md` (의도→타입 인덱스) |
-| 타입 인덱스 | — | `30-wiki/{topic}/indexes/{type}.md` (+샤드) |
-| 정본 사전 | — | `30-wiki/{topic}/aliases.md` |
-| 종합 개요 | — | `30-wiki/{topic}/overview.md` |
-| auto 대장 | — | `30-wiki/{topic}/auto-generated.md` |
-| 운영 로그 | — | `30-wiki/log.md` (prefix: `## [YYYY-MM-DD] {op} | {제목}`) |
-| query 파일백 | — | `50-queries/{slug}.md` |
+- 위키 내부 참조는 `[[상대경로/슬러그]]`. 예: `[[entities/napoleon-bonaparte]]`, `[[sources/2026-06-14-article]]`
+- 모든 **사실 주장**은 뒤에 provenance 링크: `나폴레옹은 코르시카 출신이다 [[sources/2026-06-14-article]]`
+- 출처 없는 추론·합성은 `(추론)`/`확인 필요`로 표시.
+- **링크는 대상 페이지가 실제 있을 때만** 건다. 없는 엔티티는 plain text로 두고(씨앗), 질문 시 lazy 승격한다 (§10) — 죽은 링크를 양산하지 않는다.
+
+### 동명 disambiguation (경로 명시 링크)
+같은 이름이 여러 타입/폴더에 있으면(예: `entities/Dune`이 작품 페이지와 시리즈 페이지 양쪽) **경로 명시 링크**로 가린다:
+```markdown
+[[works/Dune|Dune]]  (단일 작품)  vs  [[series/Dune|Dune]]  (프랜차이즈)
+```
+그리고 **라우터(index)의 「동명 충돌」 노트에 그 이름을 등재**해, 라우팅 시 양쪽 샤드를 모두 펼치게 한다.
 
 ---
 
-## 품질 규칙
+## 6. 모순 처리
 
-### 구조
-- [ ] 모든 위키 페이지에 frontmatter(`type`/`tags`/`updated`)가 있다
-- [ ] 모든 페이지가 BLUF(첫 줄 정의/답)로 시작한다
-- [ ] 페이지가 ~1,500 토큰을 넘지 않는다 (넘으면 분할)
-- [ ] 파일명이 kebab-case이고 안정적이다
-
-### 내용·출처
-- [ ] 모든 사실 주장에 `[[sources/...]]` provenance가 있다
-- [ ] 모순은 `> ⚠️ Contradiction:` 블록으로 명시돼 있다
-- [ ] 확인 안 된 속성은 "확인 필요"로 표시돼 있다
-- [ ] `[[링크]]` 대상이 실제 페이지를 가리킨다 (깨진 링크 없음)
-
-### 네비게이션
-- [ ] `index.md`가 라우터로 동작한다 (의도→타입 라우팅, 엔티티 줄은 타입 인덱스에)
-- [ ] 타입 인덱스/샤드가 페이지와 정합한다 (개수·첫 글자 경계)
-- [ ] `aliases.md` 정본화가 최신이다
-- [ ] `log.md`에 모든 작업이 일관 prefix로 기록됐다
-
-### 보안
-- [ ] 개인정보·비밀키를 위키/raw에 평문 저장하지 않는다
-- [ ] 외부 자료의 출처·라이선스를 표시한다
+새 소스가 기존 주장과 충돌하면 **덮어쓰지 말고** 양쪽을 보존하고 명시:
+```markdown
+## Open questions / 모순
+> ⚠️ Contradiction: [[sources/A]]는 X라 하고 [[sources/B]]는 Y라 한다. 미해결.
+```
+`/lint`가 `grep -rn "⚠️ Contradiction" 30-wiki/`로 전수 추적한다. (동명 disambiguation은 모순이 아니라 §5의 경로 링크로 처리 — 구분할 것.)
 
 ---
 
-## 변경 이력
+## 7. index.md = 라우터 (MOC, 카탈로그 아님)
 
-정본: `_meta/changelog.md` (전체 이력). 여기에는 **최근 3행만** 유지합니다 — 컨텍스트 예산 원칙.
+**핵심: index는 "읽는 목록"이 아니라 "어디로 갈지 정하는 라우터"다.** 엔티티 줄은 index에 두지 않는다 — 그건 `indexes/{type}.md`의 일.
 
-| 날짜 | 변경 내용 | 사유 |
-|------|----------|------|
-| 2026-06-19 | 라우팅/인덱스 대개편 — index를 카탈로그→**라우터(MOC)**로, 타입 인덱스+첫 글자 샤딩(≤50K), `aliases` 정본화, query **Phase A/B** 2단 라우팅, **ingest(저장)↔compile(위키화) 4동사 분리**, overview·lazy·tier·provenance·동명 경로링크·소크라테스 게이트 | 강의용 llm-wiki 분석 — "라우팅을 내재해야 그에 맞춰 찾아간다" |
-| 2026-06-19 | SessionStart 훅(`.claude/hooks/session-start.sh` + settings.json) — 빈 위키면 온보딩, 데이터 있으면 현황+inbox 대기열 안내 | 세팅 없이 claude 실행 시 사용법 자동 안내 |
-| 2026-06-19 | 10-inbox 진입 레이어 신설 + 폴더 한 칸씩 뒤로(raw→20·wiki→30·templates→40·queries→50) | 받은 편지함(흐름) vs 영구 보관(저장) 역할 분리 |
+### 루트 라우터 (`30-wiki/index.md`)
+- frontmatter `tags: [index, moc, router]`.
+- 주제 목록 + 주제별 페이지 수 + 전역 허브(overview·aliases) 링크만.
+- "질문이 어느 주제인지" → 해당 주제 라우터로 보낸다.
+
+### 주제 라우터 (`30-wiki/{topic}/index.md`)
+- **의도 → 타입 인덱스 라우팅 표**가 본체:
+
+| 의도 | 읽을 하위 인덱스 | 분할 키 | 개수 |
+|------|------------------|---------|------|
+| 인물·조직 | `[[indexes/entities]]` (또는 샤드) | 정본명 첫 글자 | N |
+| 개념·이론 | `[[indexes/concepts]]` | (단일) | M |
+| 원본 출처 | `[[sources/index]]` | (단일) | K |
+
+- **동명 충돌 노트** (양쪽 샤드 확인 대상 이름 목록).
+- **저장된 쿼리** 링크 (`50-queries/`).
+- 푸터에 타입별 합계.
+
+라우팅 규칙(라우터 본문에 명시): "타입+첫 글자가 명확하면 샤드 1개만 / 타입 모호하면 후보 샤드 동시 / 못 찾으면 grep → lazy".
+
+---
+
+## 8. 타입별 하위 인덱스 + 샤딩
+
+`30-wiki/{topic}/indexes/{type}.md` = 그 타입 엔티티의 **카탈로그**. 각 줄:
+```markdown
+- [[entities/napoleon-bonaparte]] — 프랑스 군인·황제. 기동전·대육군. 키워드: 코르시카, 1804 대관식, 워털루.
+```
+줄 description은 **페이지 frontmatter `summary`를 그대로 재사용**한다(§2). 이 줄로 "어느 페이지를 펼칠지" 1차 선별한다.
+
+### 샤딩 (≤50K 토큰)
+- 한 타입 인덱스가 커지면 **정본명 첫 글자로 토큰 균형 샤딩**: `indexes/entities-a-m.md`, `indexes/entities-n-z.md`.
+- **한글 정본은 둘째 샤드**(`-n-z` 쪽)에 모은다(알파벳 뒤).
+- 각 샤드 ≤50K 토큰 유지. 넘으면 경계를 다시 나눈다.
+- 라우터의 분할 키 표를 샤드와 동기화한다(`/lint`가 점검).
+
+---
+
+## 9. 검색 성장 경로 (3단) + Phase A/B 라우팅
+
+| 규모 | 인덱스 구조 | 라우팅 |
+|------|-------------|--------|
+| ~수십 페이지 | 주제 라우터가 곧 카탈로그 겸함 (`indexes/` 생략 가능) | 라우터 1개 읽고 페이지 직행 |
+| ~수백 페이지 | 타입별 `indexes/{type}.md` 분리 | 라우터 → 타입 인덱스 1개 → 페이지 |
+| 수천+ 페이지 | 타입 인덱스를 첫 글자 **샤딩** | 라우터 → 샤드 1개 → 페이지 (+선택: 외부 검색 `.rag`) |
+
+> 외부 하이브리드 검색(`.rag` BM25/벡터)은 **선택적 파생 인프라**다. 있으면 query의 후보 찾기 1순위, **없으면 라우터→샤드 tiered-read로 폴백**한다 (OMC·외부 의존 0이 기본). 원본·위키는 불변이고 `.rag`는 언제든 재생성 가능한 파생물.
+
+### 2단 라우팅 (모든 규모 공통)
+- **Phase A — Route (페이지 안 읽음):** 질문에서 엔티티+타입 의도+연산(조회/비교/종합)을 뽑고, `aliases.md`로 정본화한 뒤, **라우터만 보고** 열 샤드의 최소 집합을 정한다. 샤드는 절대 읽지 않는다 (~2K 토큰).
+- **Phase B — Search (샤드+페이지 읽기):** 지정 샤드만 펼쳐 후보 선별 → 본문만 읽고 `[[링크]]` 1홉 보강 → 근거로만 인용 답. 미스 시 **넓히기 사다리**: 형제 샤드 → `30-wiki/` 전체 grep → lazy 생성 또는 "없음".
+
+**핵심 불변식:** index/샤드를 통째로 컨텍스트에 올리지 않는다. 항상 라우팅으로 **소수 후보만** 들인다 → 위키 크기와 query당 토큰 비용을 분리.
+
+---
+
+## 10. lazy 생성 + tier 승격
+
+- **고빈도만 미리 페이지로.** 코퍼스 전역에서 **≥2회** 등장한 엔티티만 자체 페이지를 만든다(compile이 전역 집계로 판정). 1회 등장은 상위 페이지의 plain text **씨앗**으로 두고, 질문이 오면 그때 생성(lazy).
+- **lazy 생성:** Phase B에서 grep에도 없을 때 — `20-raw/`·`sources/`에 **씨앗이 있으면** raw+웹으로 즉석 생성(`tier: auto`, `provenance: web-enriched`) → `auto-generated.md` 대장 + 해당 첫 글자 샤드에 등재(라우터는 개수·동명 노트만 갱신). **씨앗도 없으면 지어내지 말고 "위키에 없음 — ingest 필요".**
+- **tier 승격:** `auto` 페이지를 사람이 확인하면 `reviewed`로 승격하고, frontmatter·`auto-generated.md` 대장·타입 인덱스 세 곳을 정합시킨다(`/lint` 점검).
+
+---
+
+## 11. overview.md (종합 진입)
+
+`30-wiki/{topic}/overview.md` = 전 소스를 가로지른 큰 그림. "이 위키가 무엇을 아는가"를 한 페이지로. 거시·탐색 질문(Phase B)은 overview를 먼저 읽고 관련 샤드로 내려간다. compile이 갱신한다.
+
+---
+
+## 12. 파일 변환·이미지·PDF
+
+### 문서 변환 (바이너리 → 마크다운)
+Claude는 docx·pptx·xlsx 같은 바이너리를 직접 못 읽는다. `/ingest`가 확장자를 보고 마크다운으로 변환한 뒤 inbox에 넣는다. **원본 바이너리는 `20-raw/assets/`에 보관**(출처 보존), 변환된 `.md`만 compile 대상.
+
+| 입력 | 1순위 (로컬·무료) | 폴백 (opt-in) |
+|------|-------------------|----------------|
+| `.md`/`.txt`/`.html` | 그대로 | — |
+| `.pdf` | Claude PDF Read(텍스트형) / `markitdown` | LlamaParse (스캔·복잡 표) |
+| `.docx`/`.pptx`/`.xlsx` | `markitdown <파일>` | LlamaParse (표 많은 문서) |
+
+- **markitdown = 주력.** `pip install 'markitdown[all]'` 하나로 Office·PDF·이미지를 마크다운으로. 로컬·무료 → 자족 원칙 유지.
+- **LlamaParse = 순수 opt-in.** `LLAMA_CLOUD_API_KEY`가 있을 때만 발동(표·레이아웃 복잡 문서 품질↑). 무료 크레딧 한도 내 사용, 초과 시 유료. **키 없으면 조용히 로컬(markitdown)로 폴백** — 자족성 안 깨짐.
+- 어떤 도구도 없으면 막지 말고 설치 안내 또는 "텍스트로 붙여달라".
+
+### 이미지·PDF
+- 원본은 `20-raw/assets/`에 로컬 저장 (URL은 깨질 수 있으므로 다운로드 권장).
+- 위키 페이지에서 이미지 참조: `![설명](../../20-raw/assets/figure.png)` + 캡션 텍스트.
+- **2단계 읽기:** LLM은 마크다운 인라인 이미지를 한 번에 못 읽으므로, 텍스트를 먼저 읽고 필요한 이미지를 별도로 Read 한다.
+
+---
+
+## 13. provenance 등급 (설명가능성)
+
+모든 주장·페이지에 출처 근거를 표기한다:
+- `extracted` — 원본에서 직접 추출
+- `inferred` — LLM이 추론·합성 (단정 금지, 사람 확인 대상)
+- `ambiguous` — 정본·사실이 모호 (pending-decisions로 추적)
+- `web-enriched` — lazy 생성 시 웹 보강 (`tier: auto`와 짝)
+
+`inferred`/`ambiguous`는 단정하지 말고 §14 게이트로 사람 확인 후 확정한다.
+
+---
+
+## 14. 소크라테스 게이트 (인간 감독)
+
+위키가 커질수록 어딘가 환각이 1개 섞일 확률이 1에 수렴한다. 그래서 LLM은 **무비판 수용자가 아니라 비판자**로 동작한다:
+- 사람이 자료·아이디어를 던지면, 모순·약점·근거 부족을 **짚어 되묻는다**.
+- compile/query의 `inferred`·`ambiguous`·모순은 단정하지 말고 사람 확인을 받은 뒤 `reviewed`로 확정한다.
+- 대량 자동 생성(lazy/백필) 후엔 `/lint`로 dead-link·동명·할루·오역 스폿체크를 권한다.
 
 ---
 > Source: [fivetaku/llm-wiki](https://github.com/fivetaku/llm-wiki) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
