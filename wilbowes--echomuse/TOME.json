@@ -2,7 +2,7 @@
   "name": "EchoMuse",
   "owner": "wilbowes",
   "repo": "EchoMuse",
-  "description": "Alexa replacement and controller for Echo Dot 2nd Generation device.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wilbowes/EchoMuse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-04T01:31:07Z"
+  "distributed_at": "2026-09-26T22:54:49Z"
 }
