@@ -1,112 +1,71 @@
 ## scream-code
 
-> - **FullCompaction**: compress the history into a summary when the context
+> Launch a subagent to handle a focused task. Prefer this tool over doing the work yourself when the task matches one of the specialists listed below.
 
-# compaction — Context Compaction (Full & Micro)
+Launch a subagent to handle a focused task. Prefer this tool over doing the work yourself when the task matches one of the specialists listed below.
 
-## Responsibility
-- **FullCompaction**: compress the history into a summary when the context
-  exceeds its budget (`applyCompaction` folds + writes `context.snapshot`);
-  the worker retries (5 attempts, honors Retry-After via `computeDelayMs`)
-- **MicroCompaction**: incremental folding (`micro_compaction.apply` advances a
-  cutoff), deferred until a tool exchange closes
-- Trigger strategy: `compaction/strategy.ts` (threshold + circuit breaker +
-  watermarks + per-turn limit)
-- Token basis: `tokensBefore/tokensAfter` = system prompt + tool schemas +
-  messages (full-request basis, consistent with the measured anchors)
-- After a successful compaction, scan the summary for a skill-candidate
-  marker; emit `skill_candidate` so the UI can offer to save the reusable
-  process (separate, isolated step after memory-memo extraction)
+Specialist subagents are listed at the end of this description under "Available agent types" — that list is generated from the active profiles and carries each specialist's own USE WHEN / NOT FOR triggers. Read it before choosing a `subagent_type`; never assume a type exists.
 
-## Trigger thresholds (retuned for 256K–1M windows)
-- `triggerRatio 0.85` — proactive compaction at 85% of the window
-- `blockRatio 0.90` — block the turn at 90%, leaving headroom for the
-  compaction request itself and output buffering on a 1M window
-- Reserved-context rule (`shouldUseReservedContextSize`): when
-  `usedSize + reservedSize(20K) >= maxSize`, treat as "compact now"
-- Small-window models are no longer the design target
+## Required prompt structure
 
-## Retention contract (what survives a compaction)
-- Verbatim tail: 24 recent messages (12 user) with an absolute 30K-token
-  budget, in addition to the relative ratio cap
-- Mandatory `Key Decisions` and `Next Steps` sections in the compaction
-  instruction so the summary preserves task continuity
-- `readFiles`/`modifiedFiles` persist on `CompactionResult` and merge with the
-  previous round's lists, so file context survives repeated compactions
-  (lists are capped; stale file sections are stripped on iterative updates)
+The final prompt sent to the subagent MUST contain these sections. Provide them either by writing them directly into the `prompt` field, or by using the structured `target`, `change`, and `acceptance` fields — they will be appended to `prompt` automatically.
 
-## Dependencies
-- Depends on: `Agent` (hub; reads context.history, tools.loopTools,
-  getRuntimeSystemPrompt)
-- Depended on by: `Agent` (turn loop triggers it),
-  `AgentServices.fullCompaction/microCompaction`
+```markdown
+# Target
+Exact files, symbols, or directories to touch. Explicit non-goals.
 
-## Boundaries
-- Does NOT: mutate the wire history (folding only affects memory and produces a
-  summary record)
-- Compaction request: reuse the real system prompt + sorted tools (hits the
-  provider prefix cache) — do NOT substitute a custom prompt
-- `apply_compaction` resets the micro cutoff and triggers
-  `injection.onContextCompacted`
+# Change
+Step-by-step what to add, remove, or modify. Include concrete examples when possible.
 
-## Retry semantics
-- Only retryable errors (`isRetryableGenerateError`) consume the retry budget
-  (5 attempts) and back off with `computeDelayMs` (Retry-After preferred over
-  fixed backoff); non-retryable errors throw immediately
-- Context-overflow/truncation is a LOCAL shrink, not a server failure: each
-  overflow shrinks the slice (`reduceCompactOnOverflow`) and retries
-  immediately WITHOUT consuming the server-retry budget; the split point
-  descends monotonically so it cannot loop
-- At the minimum safe split, fall back to re-summarizing the input in halves
-  and merging (`summarizeWithFallback`) instead of throwing the compaction
-- A still-possible shrink is never discarded at the budget edge
+# Acceptance
+Observable result that proves completion: a passing test, a build command, a specific file content, or a verification step the subagent must run.
+```
 
-## Reactive overflow recovery
-- When the main request hits `APIContextOverflowError`, `handleOverflowError`
-  starts a compaction and AWAITS it (via `block()`, bounded by the 120s block
-  timeout) before the turn retries the request — recovery never races the
-  un-compacted context against the provider
-- User aborts propagate; a compaction that fails or times out surfaces the
-  original overflow error
-- Reactive recovery runs once per turn (`reactiveAttempted`)
+Omitting a section causes the subagent to miss context and increases the chance of a wrong or incomplete result.
 
-## Worker identity (stale-run guard)
-- The worker is owner-tagged; a worker whose abort signal was ignored by the
-  provider and finishes late must NOT: cancel a newer compaction, clear its
-  `compacting` record, consume its `compactionTimedOut` flag, mutate its
-  circuit-breaker counter, apply its result to live context, or misread the
-  newer history as a `/revoke`
-- The `this.compacting !== owner` check runs BEFORE the history-change
-  `/revoke` check on the success path
+Writing the prompt:
+- The subagent starts with zero context — it has not seen this conversation. Brief it like a colleague who just walked into the room: state the goal, list what you already know, hand over the specifics.
+- Lookups (read this file, run that test): put the exact path or command in the prompt. The subagent should not have to search for things you already know.
+- Investigations (figure out X, find why Y): give the question, not prescribed steps — fixed steps become dead weight when the premise is wrong.
+- Do not delegate understanding. If the task hinges on a file path or line number, find it yourself first and write it into the prompt.
+- The `Acceptance` section is not optional. The subagent MUST verify against it before returning.
 
-## Watermarks & model switches
-- `lowWaterMark` = post-compaction effective tokens × 1.1; it gates the
-  proactive trigger so compaction doesn't run twice back-to-back
-- The watermark is measured against the model's context window: switching the
-  model alias resets it (`resetLowWaterMark` on `modelAlias` change), so a
-  stale mark from a large model cannot mask the overflow threshold of a
-  smaller model
+Usage notes:
+- When the task continues earlier work a subagent already did, prefer resuming that agent (pass its `resume` id) over spawning a fresh instance — the resumed agent keeps its prior context.
+- A subagent's result is only visible to you, not to the user. When the user needs to see what a subagent produced, summarize the relevant parts yourself in your own reply.
 
-## Skill-candidate marker semantics
-- The compaction instruction mandates at most one `[[skill-candidate:
-  name|purpose|evidence]]` marker as the FINAL line of the response; `none`
-  is an explicit "no candidate" verdict
-- The last effective marker wins: a `none` marker CLEARS any candidate parsed
-  earlier (e.g. stale markers carried over into an update summary), and a
-  candidate parsed after a `none` still wins
+## Structured output
 
-## Dependencies (unchanged)
-- Does NOT depend on the loop engine; the turn loop drives compaction via
-  `fullCompaction.beforeStep/afterStep` hooks
+When you need a machine-readable result (not a free-form summary), pass `output_schema` with a JSON Schema string. The subagent is instructed to reply with a single JSON object matching the schema; if the reply parses, it is surfaced as a `[structured]` block in the tool output. Use `output_token_hint` to keep structured replies compact (e.g. 1024 for a schema-shaped answer).
 
-## Extension points
-- New compaction strategy: implement the `CompactionStrategy` interface
-  (full/micro are the current two)
-- Tune triggering: adjust thresholds/circuit-breaker params in
-  `compaction/strategy.ts`
-- End-to-end eval suite: `packages/evals` (isolated temp workspace, real
-  model, rule-based judge; programmatic runner returns per-case results)
+Example:
+```
+Agent(prompt="Extract the test commands from this project", output_schema='{"type":"object","properties":{"commands":{"type":"array","items":{"type":"string"}}}}')
+```
+
+## Capability constraints
+
+By default a subagent gets its profile's full tool set. Pass `capability_mode` to restrict it at the tool level (not just by prompting):
+
+- `read-only` — inspection, search, web/memory lookups, and reporting only. No file writes, no command execution, no spawning further agents.
+- `read-write` — additionally file/memory writes. No command execution, no spawning.
+- `execute` — additionally command execution (bash, python). Still no spawning of further agents.
+- `all` — full profile tool set (default).
+
+Restricted modes also remove `Agent` and `SendSubagentMessage`, so a constrained subagent cannot spawn an unconstrained grandchild to bypass the filter.
+
+## Steering running subagents
+
+Use `SendSubagentMessage` to send a directed message to a subagent you own while it is still running: `steer` for a priority redirection, `queue` for context that applies next turn. A `steer` joins the subagent's running turn at its next step boundary; a `queue` message is delivered when the subagent starts its next turn. Only the owning parent may message a subagent.
+
+When NOT to use Agent: skip delegation for trivial one-step work (e.g. reading a known file). Almost everything else is a candidate for delegation.
+
+Once a subagent is running, leave that scope to it: do not redo its searches or reads in parallel, and do not abandon it midway and finish the job manually. Both undo the context savings the delegation was meant to buy.
+
+## Foreground timeouts auto-background
+
+A `timeout` on a foreground `Agent` call bounds your wait, not the subagent's life. When the deadline fires while the child is still running, it is handed to the background task manager (status: backgrounded) instead of being aborted: the tool returns a `task_id`, its completion notification arrives automatically in a later turn (no polling), and you can peek with `TaskOutput(task_id=..., block=false)` or stop it with `TaskStop`. User cancellation still aborts immediately. A stopped (TaskStop) background task never suggests resume; only tasks that finish or fail on their own are recoverable via `Agent(resume=...)`.
 
 ---
 > Source: [LIUTod/scream-code](https://github.com/LIUTod/scream-code) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
