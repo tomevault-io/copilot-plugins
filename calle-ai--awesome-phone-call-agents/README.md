@@ -1,8 +1,6 @@
 # awesome-phone-call-agents
 
-> Source: [CALLE-AI/awesome-phone-call-agents](https://github.com/CALLE-AI/awesome-phone-call-agents) — distributed by [TomeVault](https://tomevault.io)
-
-Portable phone-call Agent Skills, apps, examples, adapters, and scheduler recipes for AI agents.
+> Source: [CALLE-AI/awesome-phone-call-agents](https://github.com/CALLE-AI/awesome-phone-call-agents). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
