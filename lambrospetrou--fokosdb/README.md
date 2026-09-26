@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lambrospetrou/fokosdb](https://github.com/lambrospetrou/fokosdb).
+Original source: `CLAUDE.md` in [lambrospetrou/fokosdb](https://github.com/lambrospetrou/fokosdb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `AGENTS.md` in [lambrospetrou/fokosdb](https://github.com/lambr
 - [fokosdb](https://github.com/lambrospetrou/fokosdb/tree/main/.claude/skills/spec-review/SKILL.md)
 - [fokosdb](https://github.com/lambrospetrou/fokosdb/tree/main/.claude/skills/spec-implement/SKILL.md)
 
-From [lambrospetrou/fokosdb](https://github.com/lambrospetrou/fokosdb) — a repo with 55+ stars on GitHub.
+From [lambrospetrou/fokosdb](https://github.com/lambrospetrou/fokosdb) — a repo with 56+ stars on GitHub.
 
 ---
 
