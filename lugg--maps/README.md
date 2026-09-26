@@ -1,8 +1,6 @@
 # maps
 
-> Tome by [lugg](https://github.com/lugg/maps) — distributed by [TomeVault](https://tomevault.io)
-
-Universal maps for React Native
+> Tome by [lugg](https://github.com/lugg/maps), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [lugg/maps](https://github.com/lugg/maps).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [lugg/maps](https://github.com/lugg/maps) — a repo with 41+ stars on GitHub.
+From [lugg/maps](https://github.com/lugg/maps) — a repo with 60+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-s -->
