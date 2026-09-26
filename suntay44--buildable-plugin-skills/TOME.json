@@ -2,9 +2,9 @@
   "name": "buildable-plugin-skills",
   "owner": "suntay44",
   "repo": "buildable-plugin-skills",
-  "description": "Local-first AI app-builder brain for Claude Code, Codex, and Cursor: archetypes, golden templates, UI/UX playbooks, and review loops, designed to load less bundled context in evals.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/suntay44/buildable-plugin-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T07:30:53Z"
+  "distributed_at": "2026-09-26T03:03:52Z"
 }
