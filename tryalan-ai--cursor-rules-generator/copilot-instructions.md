@@ -1,68 +1,71 @@
-## cursor-rules
+## development-workflow
 
-> Cursor Rules Location and Structure Guidelines
+> Development workflow and command reference
 
-# Cursor Rules Location
+# Development Workflow Guide
 
-How to add new cursor rules to the project
+## Getting Started
+1. Install dependencies: `pnpm install`
+2. Start development: `pnpm dev`
+3. Build project: `pnpm build`
 
-1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-    ```
-    .cursor/rules/
-    ├── your-rule-name.mdc
-    ├── another-rule.mdc
-    └── ...
-    ```
+## Core Commands
+- `pnpm dev`: Start development environment
+- `pnpm build`: Build for production
+- `pnpm preview`: Preview production build locally
+- `pnpm build:packages`: Build all packages
+- `pnpm build:staging`: Build for staging environment
 
-2. Follow the naming convention:
-    - Use kebab-case for filenames
-    - Always use .mdc extension
-    - Make names descriptive of the rule's purpose
+## Package Management
+- `pnpm install`: Install dependencies
+- `pnpm add <package>`: Add new dependency
+- `pnpm add -D <package>`: Add dev dependency
+- `pnpm update`: Update all dependencies
+- `pnpm outdated`: Check for outdated packages
+- `pnpm prune`: Remove unused dependencies
 
-3. Directory structure:
-    ```
-    PROJECT_ROOT/
-    ├── .cursor/
-    │   └── rules/
-    │       ├── your-rule-name.mdc
-    │       └── ...
-    └── ...
-    ```
+## Type Checking
+- `pnpm type-check`: Run TypeScript type checking
+- `pnpm type-check:watch`: Run type checking in watch mode
 
-4. Never place rule files:
-    - In the project root
-    - In subdirectories outside .cursor/rules
-    - In any other location
+## Code Quality
+- `pnpm lint`: Run linting checks
+- `pnpm biome:check`: Run Biome checks
+- `pnpm biome:fix`: Fix issues with Biome
 
-5. Cursor rules have the following structure:
+## Testing
 
-```
----
-description: Short description of the rule's purpose
-globs: optional/path/pattern/**/*
-alwaysApply: false
----
-# Rule Title
+- `pnpm test:e2e`: Run Playwright end-to-end tests
+- `pnpm test:e2e:ui`: Run Playwright tests with UI
 
-Main content explaining the rule with markdown formatting.
+## Clean Commands
+- `pnpm clean`: Clean all build artifacts and dependencies
+- `pnpm clean:build`: Clean build artifacts only
+- `pnpm clean:deps`: Clean node_modules and reinstall
+- `pnpm clean:turbo`: Clean Turborepo cache
+- `pnpm clean:install`: Complete clean and fresh install
 
-1. Step-by-step instructions
-2. Code examples
-3. Guidelines
+## Development Guidelines
+1. Always run type-checking before committing: `pnpm type-check`
+2. Format code before committing: `pnpm format`
+3. Fix lint issues: `pnpm lint`
+4. Run tests before pushing: `pnpm test`
+5. Use the appropriate build command for your environment
+6. For monorepo changes, build affected packages only
+7. Keep workspace dependencies in sync
+8. Keep the development environment up to date with `pnpm clean:install`
 
-Example:
+## Environment Setup
+- Development: `pnpm dev`
+- Vercel Preview: `vercel`
+- Vercel Production: `vercel --prod`
 
-```typescript
-// Good example
-function goodExample() {
-  // Implementation following guidelines
-}
-
-// Bad example
-function badExample() {
-  // Implementation not following guidelines
-}
-```
+## Troubleshooting
+- If dependencies are acting up: `pnpm clean:install`
+- If builds are failing: `pnpm clean:build && pnpm build`
+- If types are incorrect: `pnpm type-check`
+- If monorepo is out of sync: `pnpm clean && pnpm install`
+- If vite is acting up: Clear cache and restart dev server
 
 ---
 > Source: [tryalan-ai/cursor-rules-generator](https://github.com/tryalan-ai/cursor-rules-generator) — distributed by [TomeVault](https://tomevault.io).
