@@ -1,8 +1,6 @@
 # AI instruction files for groundcrew
 
-> Sourced from [ClipboardHealth/groundcrew](https://github.com/ClipboardHealth/groundcrew) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Farm out ready tickets to sandboxed coding agent CLIs in git worktrees.
+> Sourced from [ClipboardHealth/groundcrew](https://github.com/ClipboardHealth/groundcrew), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [ClipboardHealth/groundcrew](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ClipboardHealth/groundcrew](https://github.com/ClipboardHealth/groundcrew)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ClipboardHealth/groundcrew](https://github.com/ClipboardHealth/groundcrew)
 
 ---
 
