@@ -1,46 +1,64 @@
-## bug-fixing
+## code-quality
 
-> Bug fixing methodology and best practices
+> Code quality standards and best practices
 
-# Bug Fixing Guidelines
+# Code Quality Standards
 
-## Investigation Process
-1. Reproduce the bug reliably
-2. Identify the root cause, not just symptoms
-3. Check for similar issues in the codebase
-4. Consider impact on other features
+## Code Quality Rules
+- Strict TypeScript mode
+- No `any` types allowed
+- Enforce error boundaries
 
-## Fix Implementation
-- Make minimal changes to fix the issue
-- Add tests to prevent regression
-- Update documentation if needed
-- Consider backwards compatibility
+## Documentation Requirements
+- Level: minimal
+- Comment Styles: Inline comments for complex logic, TODO comments for future improvements
+- README Requirements: Setup and installation instructions, API documentation
 
-## Verification
-- Test the specific bug scenario
-- Run related test suites
-- Check for side effects in other areas
-- Verify fix works across environments
+## Best Practices
+- Write self-documenting code
+- Follow consistent naming conventions
+- Implement proper error handling
+- Maintain test coverage
+- Use proper type safety
 
 ## Code Examples:
 
 ```typescript
-// Good: Defensive programming to prevent bugs
-function processUserData(data: unknown): User {
-  // Validate input to prevent runtime errors
-  if (!isValidUserData(data)) {
-    throw new ValidationError('Invalid user data format');
-  }
-  
-  // Handle edge cases
-  const processedData = {
-    ...data,
-    name: data.name?.trim() || 'Unknown',
-    email: data.email?.toLowerCase() || null
-  };
-  
-  return processedData;
+// Good: Following quality standards
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
 }
+
+
+// Good: Proper typing
+function processUser(user: UserData): ProcessedUser {
+  return {
+    ...user,
+    displayName: user.name.trim()
+  };
+}
+
+// Bad: Using any
+function badProcessUser(user: any): any {
+  return user;
+}
+
+
+
+// Good: Error boundary implementation
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+}
+
 ```
 
 ---
