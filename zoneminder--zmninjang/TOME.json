@@ -3,8 +3,8 @@
   "owner": "ZoneMinder",
   "repo": "zmNinjaNg",
   "description": "State of the art mobile app for ZoneMinder. A complete rewrite of zmNinja with more features ",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "zmNinjaNg",
+      "path": ".claude/skills/fable-review/SKILL.md",
+      "github_url": "https://github.com/ZoneMinder/zmNinjaNg/tree/main/.claude/skills/fable-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zmNinjaNg",
+      "path": ".claude/skills/add-language/SKILL.md",
+      "github_url": "https://github.com/ZoneMinder/zmNinjaNg/tree/main/.claude/skills/add-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zmNinjaNg",
+      "path": ".claude/skills/mine-history/SKILL.md",
+      "github_url": "https://github.com/ZoneMinder/zmNinjaNg/tree/main/.claude/skills/mine-history/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ZoneMinder/zmNinjaNg",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T19:00:37Z"
+  "distributed_at": "2026-09-26T04:39:04Z"
 }
