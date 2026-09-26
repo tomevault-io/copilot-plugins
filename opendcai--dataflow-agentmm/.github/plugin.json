@@ -1,0 +1,9 @@
+{
+  "name": "opendcai--dataflow-agentmm",
+  "displayName": "DataFlow-AgentMM",
+  "description": "A multimodal agent runtime for visual environments.",
+  "version": "1.0.0",
+  "author": "OpenDCAI",
+  "homepage": "https://github.com/OpenDCAI/DataFlow-AgentMM",
+  "skills": []
+}
