@@ -1,8 +1,6 @@
 # RoomRelay
 
-> Tome by [guicn555](https://github.com/guicn555/RoomRelay) — distributed by [TomeVault](https://tomevault.io)
-
-Stream Windows system or per-app audio to Sonos speakers over your local network.
+> Tome by [guicn555](https://github.com/guicn555/RoomRelay), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [guicn555/RoomRelay](https://github.com/guicn555
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/guicn555/RoomRelay](https://github.com/guicn555/RoomRelay)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/guicn555/RoomRelay](https://github.com/guicn555/RoomRelay)
 
 ---
 
