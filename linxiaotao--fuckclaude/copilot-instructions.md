@@ -1,0 +1,34 @@
+## fuckclaude
+
+> Project architecture conventions, content structure, and guidelines for FuckClaude
+
+
+# FuckClaude Project Conventions
+
+## Tech Stack & Architecture
+- **Framework**: Astro (SSG/SSR hybrid via `@astrojs/vercel`) + TypeScript.
+- **Production Domain**: `https://fuck-claude.vercel.app` (canonical). Custom domains (`fuckclaude.tech`, `www.fuckclaude.tech`) 308 redirect to this origin.
+- **Styling**: Scoped CSS using site-wide CSS variables (`var(--surface)`, `var(--border)`, `var(--accent)`, `var(--mono)`, etc.).
+
+## Bilingual & i18n
+- Supported languages: `zh` (paths prefixed with `/zh/`) and `en` (paths at `/`).
+- All user-facing strings must be defined in `src/i18n/ui.ts` for both languages.
+- Breadcrumbs, alternate hreflang links, and JSON-LD must stay in sync across `/zh/` and root versions.
+- Automatic client/server redirects based on browser language are strictly forbidden per Google SEO guidelines.
+- Use `src/components/LocaleSuggestBanner.astro` to render a non-blocking suggestion banner when browser language differs from current page language.
+
+## News & Community Content
+- **Official News**: Maintained in `src/config/news.ts`. Items include bilingual title, summary, takeaway, category tag, and source link.
+- **Social / X Community Posts**: Maintained in `src/config/community-posts.ts` and rendered via `src/components/CommunityPosts.astro`. Must retain direct links to original X posts, author name, handle, profile link, tags, and practical takeaways.
+- **Guides**: Guide metadata lives in `src/config/guides.ts`, while in-depth content articles live in `src/content/guides/`.
+
+## Sponsors
+- **Sponsors Config**: Maintained in `src/config/sponsors.ts` and rendered via `src/components/Sponsors.astro`. Logos live under `public/sponsors/`. Entries include bilingual headlines, taglines, CTAs, and referral URLs.
+
+## Detection Signals
+- Fingerprint detection signals live in `src/config/signals.ts` with sum of weights = 100.
+- Detection must run client-side only without uploading user data. Follow `skills/detection-signals/SKILL.md`.
+
+---
+> Source: [LinXiaoTao/FuckClaude](https://github.com/LinXiaoTao/FuckClaude) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
