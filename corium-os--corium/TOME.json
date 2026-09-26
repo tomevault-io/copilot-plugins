@@ -1,0 +1,44 @@
+{
+  "name": "Corium",
+  "owner": "Corium-OS",
+  "repo": "Corium",
+  "description": "An immutable Kubernetes node, built as an OCI image. Fedora bootc, k0s baked into a read-only /usr, configured with cloud-init.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Corium-OS/Corium",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T23:25:36Z"
+}
