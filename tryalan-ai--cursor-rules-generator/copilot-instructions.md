@@ -1,79 +1,53 @@
-## self-improve
+## testing-guidelines
 
-> - New code patterns not covered by existing rules
+> Testing guidelines and best practices
 
-## Rule Improvement Triggers
+# Testing Guidelines
 
-- New code patterns not covered by existing rules
-- Repeated similar implementations across files
-- Common error patterns that could be prevented
-- New libraries or tools being used consistently
-- Emerging best practices in the codebase
+## Test Structure
+- Follow Arrange-Act-Assert pattern
+- Use descriptive test names
+- Group related tests with describe blocks
+- Keep tests independent and isolated
 
-# Analysis Process:
-- Compare new code with existing rules
-- Identify patterns that should be standardized
-- Look for references to external documentation
-- Check for consistent error handling patterns
-- Monitor test patterns and coverage
+## Test Types
+- Unit tests for individual functions/components
+- Integration tests for feature workflows
+- End-to-end tests for critical user journeys
+- Visual regression tests for UI components
 
-# Rule Updates:
+## Best Practices
+- Test behavior, not implementation
+- Use proper mocking strategies
+- Maintain good test coverage
+- Keep tests fast and reliable
 
-- **Add New Rules When:**
-  - A new technology/pattern is used in 3+ files
-  - Common bugs could be prevented by a rule
-  - Code reviews repeatedly mention the same feedback
-  - New security or performance patterns emerge
+## Code Examples:
 
-- **Modify Existing Rules When:**
-  - Better examples exist in the codebase
-  - Additional edge cases are discovered
-  - Related rules have been updated
-  - Implementation details have changed
-
-- **Example Pattern Recognition:**
-
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
+```typescript
+// Good: Well-structured test
+describe('UserService', () => {
+  describe('createUser', () => {
+    it('should create user with valid data', async () => {
+      // Arrange
+      const userData = { name: 'John Doe', email: 'john@example.com' };
+      const mockUser = { id: '1', ...userData };
+      jest.spyOn(userRepository, 'create').mockResolvedValue(mockUser);
+      
+      // Act
+      const result = await userService.createUser(userData);
+      
+      // Assert
+      expect(result).toEqual(mockUser);
+      expect(userRepository.create).toHaveBeenCalledWith(userData);
+    });
+    
+    it('should throw error for duplicate email', async () => {
+      // Test error scenarios
+    });
   });
-
-  // Consider adding to [prisma.mdc](mdc:shipixen/.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
-  ```
-
-- **Rule Quality Checks:**
-- Rules should be actionable and specific
-- Examples should come from actual code
-- References should be up to date
-- Patterns should be consistently enforced
-
-## Continuous Improvement:
-- Monitor code review comments
-- Track common development questions
-- Update rules after major refactors
-- Add links to relevant documentation
-- Cross-reference related rules
-
-## Rule Deprecation
-
-- Mark outdated patterns as deprecated
-- Remove rules that no longer apply
-- Update references to deprecated rules
-- Document migration paths for old patterns
-
-## Documentation Updates:
-
-- Keep examples synchronized with code
-- Update references to external docs
-- Maintain links between related rules
-- Document breaking changes
-
-Follow [cursor-rules.mdc](mdc:.cursor/rules/cursor-rules.mdc) for proper rule formatting and structure.
+});
+```
 
 ---
 > Source: [tryalan-ai/cursor-rules-generator](https://github.com/tryalan-ai/cursor-rules-generator) — distributed by [TomeVault](https://tomevault.io).
