@@ -1,7 +1,7 @@
 {
   "name": "klboke--kkrepo",
   "displayName": "kkRepo",
-  "description": "Nexus-compatible self-hosted artifact repository",
+  "description": "kkRepo",
   "version": "1.0.0",
   "author": "klboke",
   "homepage": "https://github.com/klboke/kkRepo",
