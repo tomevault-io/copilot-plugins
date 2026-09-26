@@ -5,11 +5,10 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [bitbybit-dev/bitbybit](https://github.com/bitbybit-dev/bitbybit).
+Original source: `CLAUDE.md` in [bitbybit-dev/bitbybit](https://github.com/bitbybit-dev/bitbybit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
