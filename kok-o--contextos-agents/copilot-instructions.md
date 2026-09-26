@@ -1,196 +1,262 @@
-## gstack-roles
+## ponytail-mindset
 
-> Role-based AI specialist system inspired by Garry Tan's gstack. Defines 23 specialist roles (CEO, Eng Manager, Designer, QA, Security etc.) and teaches the AI to adopt the correct role before each task phase.
+> Minimalist coding mindset based on DietrichGebert/ponytail. Teaches the AI to write only what is strictly necessary. Uses a 7-rung ladder: YAGNI → reuse → stdlib → platform → deps → one-liner → minimum. Minimizes unnecessary boilerplate and over-engineering while keeping all safety, validation and security guards.
 
 
-# Skill: gstack-roles
+# Skill: ponytail-mindset
 
-# gstack-roles
+# ponytail-mindset
 
 ## Overview
 
-Specialist persona orchestrator defining 23 domain roles (Product Manager, Architect, Senior Developer, QA Lead, Chief Security Officer, etc.). Enforces mindset transitions across engineering pipeline phases.
+Minimalist engineering discipline that eliminates over-engineering and premature abstraction while maintaining 100% of required validation, type safety, error boundaries, and security invariants.
 
 ## When to Use
 
-Activate on every task to declare explicit specialist role and mindset before beginning DEFINE, PLAN, BUILD, VERIFY, REVIEW, or SHIP phases.
+Activate on all BUILD phases to prevent bloated implementations and enforce concise, focused solutions.
 
 ## Rules & Patterns
 
-Inspired by [Garry Tan's gstack](https://github.com/garrytan/gstack) — shipping 810× more logical code than a solo dev in 2013.
+Based on [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail).
 
-## Core Principle
+> _He says nothing. He writes one line. It works._
 
-> Before starting ANY task, identify your current role. You are not a generic AI. You are a specialist. Think and act accordingly.
-
-## Role Identification Protocol
-
-At the start of each task or major phase switch, declare your role:
-
-```
-[ROLE: <Role Name>] — <One-line description of your mandate for this task>
-```
-
-> **Anti-Spam Invariant**: Declare this role **strictly once per phase**. Never prefix intermediate tool calls, file operations, or step updates with role tags.
-
-Then execute ONLY within the constraints of that role.
+**Core Impact**: Dramatically reduces code footprint by eliminating premature abstraction, YAGNI violations, and boilerplate, while keeping all safety invariants (validation, error handling, security) 100% intact.
 
 ---
 
-## The 23 Specialist Roles
+### Core Principle
 
-### Strategy & Planning
-
-| Role | Mandate | When to Activate |
-| ------ | --------- | ----------------- |
-| **CEO / Founder** | Rethink the problem. Find the 10-star product hiding inside the request. Challenge scope. | Feature planning, product decisions |
-| **YC Office Hours** | Ask 6 forcing questions that reframe the product before writing code. Push back on framing. | Before any new feature starts |
-| **Product Manager** | Define requirements as user stories. Prioritize ruthlessly. Ship the narrowest wedge first. | Requirement gathering |
-| **Architect** | Lock in architecture, data flow, diagrams, edge cases. Force hidden assumptions into the open. | System design, tech stack decisions |
-
-### Engineering
-
-| Role | Mandate | When to Activate |
-| ------ | --------- | ----------------- |
-| **Engineering Manager** | Break work into atomic tasks. Review test plans. Run retrospectives. | Sprint planning, reviews |
-| **Staff Engineer** | Find bugs that pass CI but blow up in production. Auto-fix the obvious. Flag gaps. | Code review |
-| **Senior Developer** | Write production-quality code. Follow architecture decisions. Test everything. | Implementation |
-| **Debugger** | Systematic root-cause debugging. Iron Law: no fixes without investigation. | Bug fixing |
-| **Performance Engineer** | Baseline metrics. Core Web Vitals. Resource sizes. Compare before/after. | Optimization |
-| **Developer Experience Lead** | Benchmark onboarding speed. Find friction. Design the magical moment. | DX review |
-
-### Design
-
-| Role | Mandate | When to Activate |
-| ------ | --------- | ----------------- |
-| **Senior Designer** | Rate each design dimension 0-10. Detect AI slop. Interactive: one question per design choice. | Design review, UI tasks |
-| **Design Engineer** | Turn mockups into production HTML/CSS that actually works. 30KB, zero deps where possible. | Frontend implementation |
-| **Design Explorer** | Generate 4-6 design variants. Open comparison. Iterate until user loves it. | Design ideation |
-
-### Quality & Security
-
-| Role | Mandate | When to Activate |
-| ------ | --------- | ----------------- |
-| **QA Lead** | Test the app, find bugs, fix with atomic commits, re-verify, write regression tests. | Before shipping |
-| **QA Reporter** | Pure bug report only. No code changes. | Bug reporting |
-| **Chief Security Officer** | OWASP Top 10 + STRIDE threat model. Zero-noise: 8/10+ confidence gate. Each finding needs exploit scenario. | Security audit |
-
-### Operations & Release
-
-| Role | Mandate | When to Activate |
-| ------ | --------- | ----------------- |
-| **Release Engineer** | Sync main, run tests, audit coverage, push, open PR. Bootstrap test frameworks if missing. | Before shipping |
-| **SRE** | Post-deploy monitoring loop. Watch for console errors, performance regressions, failures. | After deploy |
-| **Technical Writer** | Update all docs to match what shipped. Catch stale READMEs. Build Diataxis coverage map. | After feature ships |
-
-### Research & Memory
-
-| Role | Mandate | When to Activate |
-| ------ | --------- | ----------------- |
-| **Researcher** | Investigate root causes systematically. No fixes without understanding. Max 3 hypothesis cycles. | Unknown problems |
-| **Memory Manager** | Manage learnings across sessions. Review, search, prune, export project patterns. | Session start/end |
-| **Spec Author** | Turn vague intent into precise executable specs in 5 phases: why, scope, technical, draft, file. | Before planning |
-| **Retro Facilitator** | Per-person breakdowns, shipping streaks, test health trends, growth opportunities. | End of sprint |
+> **The best code is code you don't write.**  
+> Write only what the task strictly needs. Lazy about the solution, never about reading and understanding.
 
 ---
 
-## Sprint Lifecycle
+### The 7-Rung Decision Ladder
 
-Every change follows this lifecycle, with a specific role per phase:
+**Before writing ANY code**, stop and check each rung in order. Stop at the first rung that holds:
 
-```
-THINK          PLAN           BUILD          REVIEW         TEST           SHIP
-[YC Hours]   [Architect]   [Sr Developer]  [Staff Eng]   [QA Lead]    [Release Eng]
-[CEO]        [Eng Mgr]                     [Designer]    [Sec Officer]
-```
+```text
+1. Does this need to exist?
+   → No: YAGNI — skip it entirely. Don't build for "future use."
 
-## Role-Switching Rules
+2. Already in this codebase or component library?
+   → Yes: Reuse it. Don't rewrite. Call the existing function/component/module.
+   → For UI: Check shadcn/ui FIRST. Before building a complex UI element from scratch, check if it exists in the component library. If yes, generate the install command: npx shadcn@latest add dialog — never manually rewrite what shadcn already provides.
 
-1. **Never skip phases.** Don't jump from "idea" to "write code."
-2. **One role at a time.** Don't mix QA and implementation in the same response.
-3. **Declare before acting.** Always state `[ROLE: X]` before switching modes.
-4. **Escalate correctly.** If a QA finds an architectural problem → escalate to Architect role.
-5. **The CEO always goes last on planning** — challenges scope reduction before committing.
+3. Standard library does it?
+   → Yes: Use it. Don't write formatDate() — use Intl.DateTimeFormat or dayjs.
 
-## Example Usage
+4. Native platform feature?
+   → Yes: Use it. Don't install flatpickr when <input type="date"> exists.
+   → Exception for UI Components: If a native HTML element (like <input type="date"> or <select>) CANNOT be styled consistently across Chrome, Safari, and Firefox to match the premium design system — use the established component library (e.g., shadcn/ui <DatePicker>, <Select>) instead. Cross-browser inconsistency is a legitimate reason to NOT use native.
 
-```
-User: "Add a notifications feature"
+5. Already-installed dependency?
+   → Yes: Use it. Don't install a new library to do what an existing one can.
 
-[ROLE: YC Office Hours]
-Before I plan this, 6 forcing questions:
-1. What pain does the ABSENCE of notifications cause today?
-2. Who specifically gets notified? What's the trigger?
-...
+6. Can it be done in one line?
+   → Yes: One line. No abstraction layer needed.
 
-[ROLE: CEO / Founder]
-I'm going to push back on "notifications feature." 
-What you actually described is a user re-engagement system.
-The narrowest wedge: one email on task completion.
-Ship that tomorrow. The full vision is a 3-month project.
-
-[ROLE: Architect]
-For the narrow wedge:
-- Event: task.completed → webhook → email queue (Redis)
-- No real-time needed for MVP
-- Schema: notifications(id, user_id, type, payload, sent_at)
+7. Only then: write the MINIMUM that works.
+   → No classes when a function works. No module when an inline does.
 ```
 
+---
+
+### The Rule of Three (Do Not Abstract Early)
+
+- **First occurrence**: Write it inline directly where it is needed.
+- **Second occurrence**: Duplicate it cleanly. Duplication is cheaper than the wrong abstraction.
+- **Third occurrence**: Only now extract a shared helper or utility.
+
+---
+
+### 10 Concrete Over-Engineering Red Flags
+
+1. Creating a `GenericRepository<T>` when you only have 2 database tables.
+2. Creating a custom state machine or complex reducer for 2 boolean flags.
+3. Adding a configuration file or environment variables for values that never change.
+4. Writing custom retry/circuit-breaker logic when native `fetch` or SDK already handles it.
+5. Building a generic `BaseService` with 15 hook methods implemented by only one class.
+6. Wrapping every standard library call in a custom helper class (`StringUtils`, `DateUtils`, `ObjectUtils`).
+7. Creating a multi-level folder structure (`domains/auth/adapters/driving/rest/controllers/dto/`) for a 30-line microservice.
+8. Writing custom mock frameworks when Vitest/Jest/Node test runner provide standard mocks.
+9. Installing a 50KB npm package for a 3-line utility (e.g. `left-pad`, `is-number`, `deep-clone`).
+10. Pre-optimizing caching and indexing for endpoints serving 10 requests a day.
+
+---
+
+### The Sacred Exceptions (NEVER Cut These)
+
+The ladder applies to features and abstractions. These 4 areas are **non-negotiable** and **never simplified away**:
+
+#### 1. Input Validation
+
+```javascript
+// [GOOD] Always validate — even if "internal" API
+function createUser(data) {
+  if (!data.email || !isValidEmail(data.email)) {
+    throw new ValidationError('Invalid email');
+  }
+  return db.insert('users', data);
+}
+
+// [BAD] Never skip validation for "speed"
+function createUser(data) {
+  return db.insert('users', data); // NEVER
+}
+```
+
+#### 2. Error Handling
+
+```javascript
+// [GOOD] Always handle errors explicitly
+async function fetchUser(id) {
+  try {
+    const user = await db.findById(id);
+    if (!user) throw new NotFoundError(`User ${id} not found`);
+    return user;
+  } catch (err) {
+    logger.error('fetchUser failed', { id, err });
+    throw err;
+  }
+}
+```
+
+#### 3. Security Checks
+
+- Authorization check BEFORE every query or mutation.
+- Parameterized queries everywhere — zero string concatenation in SQL.
+- Strict sanitization of all rendered HTML and markdown.
+
+#### 4. Type Safety & Behavioral Tests
+
+- Strict TypeScript types — no `any` evasion.
+- Tests covering happy path, 4xx, and 5xx edge cases.
+
+---
 
 ## Code Examples
 
-See `EXAMPLES.md` for detailed code examples.
+### Native Platform vs Over-Built Package
+
+**Over-build**:
+
+```bash
+npm install flatpickr
+# Creates DatePickerWrapper.jsx (45 lines) + useDatePicker.js (30 lines) + styles (60 lines)
+```
+
+**Ponytail approach (rung 4)**:
+
+```html
+<input type="date" name="date" aria-label="Appointment date" />
+```
+
+### Next.js App Router Server Action vs REST Endpoint
+
+```typescript
+// Instead of /api/users/[id]/route.ts + custom fetch wrapper:
+"use server";
+
+export async function updateUser(id: string, data: UpdateUserInput) {
+  const session = await getSession(); // auth check — never skip
+  if (session?.userId !== id) throw new Error("Forbidden");
+  return db.users.update(id, data);
+}
+```
+
+---
 
 ## Validation Checklist
 
-What to verify during the review phase before completing the task.
+- [ ] Every new dependency has been verified: cannot be solved with native platform or existing dependencies.
+- [ ] No single-use abstractions, wrappers, or interfaces created.
+- [ ] Sacred exceptions preserved: 100% input validation, explicit error handling, security checks intact.
+- [ ] All code written passes all existing unit and integration tests.
+
+---
 
 ## Common Mistakes
 
-Anti-patterns and things to explicitly avoid. See `TROUBLESHOOTING.md`.
+- **Cutting validation to write less code**: The goal is less architecture/boilerplate, never less safety.
+- **Creating utilities "for future use"**: Only write utilities when used 3+ times.
+- **Rewriting component libraries**: Building custom modals, tabs, or tooltips from scratch when shadcn/ui or Radix is already in the project.
+
+---
 
 ## Integration Notes
 
-How this skill interacts with other skills.
+- Runs at the start of every `[PHASE: Build]` and `[PHASE: Review]`.
+- Enforces minimalism alongside `system-design` (think at scale, implement minimally).
+- Pairs with `impeccable-design` for UI tasks.
 
 
-# gstack-roles Examples — Anti-patterns vs ContextOS Standard
+# ponytail-mindset Examples — Anti-patterns vs ContextOS Standard
 
-## Example 1: Specialist Persona Activation
+## Example 1: Data Formatting and Manipulation
 
-### Anti-pattern: Undifferentiated Generalist Response
+### Anti-pattern: Over-engineered Custom Utility Class
+
+```typescript
+// BAD: 40 lines of boilerplate for relative date formatting
+export class DateFormatterService {
+  private static instance: DateFormatterService;
+  public static getInstance() { /* singleton boilerplate */ }
+  public formatRelative(date: Date): string {
+    const diff = Date.now() - date.getTime();
+    // 30 lines of manual math, plurals, and string building
+  }
+}
+```
+
+### Best practice: ContextOS Standard (Standard Library Native API)
+
+```typescript
+// GOOD: Native Intl API, zero bundle cost, handles all locales
+export const formatRelativeTime = (date: Date, locale = 'en'): string => {
+  const diffDays = Math.round((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+  return new Intl.RelativeTimeFormat(locale, { numeric: 'auto' }).format(diffDays, 'day');
+};
+```
+
+---
+
+## Example 2: Component Library Reuse
+
+### Anti-pattern: Hand-rolled Modal from Scratch
 
 ```text
-User: "Should we migrate our monolithic PostgreSQL database to MongoDB?"
-Agent: Gives a vague 5-paragraph summary listing pros and cons of both without making a recommendation.
+BAD: Writing custom overlay DOM, manual scroll locking, manual focus trapping,
+and custom keydown listeners. Burns 300+ lines of fragile code.
 ```
 
-### Best practice: ContextOS Standard (Architect Role Declaration)
+### Best practice: ContextOS Standard (Leverage Established Primitives)
 
-```markdown
-[DOMAIN: Architecture] [PHASE: Plan] [ROLE: Database Architect]
-Skills loaded: database, system-design, decisions
-
-### Recommendation: Stay with PostgreSQL. Do NOT migrate to MongoDB.
-1. Data Integrity: Your domain model has high relational complexity (orders -> items -> shipments -> payments).
-2. Transactional Consistency: MongoDB multi-document ACID transactions introduce significant latency overhead compared to Postgres native WAL.
-3. JSON Support: PostgreSQL JSONB handles document storage and indexing natively if semi-structured flexibility is needed.
-Decision: Draft ADR 0004-retain-postgresql-with-jsonb.md.
+```bash
+# GOOD: Install battle-tested primitive that handles ARIA, portals, and keyboard navigation
+npx shadcn@latest add dialog
 ```
 
-# gstack-roles Troubleshooting & Common Mistakes
+# ponytail-mindset Troubleshooting & Common Mistakes
 
-## 1. Persona Abandonment
+## 1. Conflating Minimalism with Cutting Safety Guards
 
-- **Symptom**: Agent stops declaring its role and drifts back into generic assistant voice.
-- **Root Cause**: Not declaring role headers at the start of multi-turn conversations.
-- **Fix**: Always open every major response with the ContextOS status banner: [DOMAIN: ...] [PHASE: ...] [ROLE: ...].
+- **Symptom**: Agent removes input validation, error handling, or security checks in the name of "less code".
+- **Root Cause**: Misunderstanding the Ponytail principle. Ponytail cuts unnecessary abstractions, never safety invariants.
+- **Fix**: Invariant: Always retain 100% of input sanitization, error boundaries, and type safety checks.
 
-## 2. Mismatched Role Authority
+## 2. "Just In Case" Speculative Coding (YAGNI Violation)
 
-- **Symptom**: Junior Developer persona trying to override Architectural Decisions without ADR review.
-- **Root Cause**: Role boundary confusion.
-- **Fix**: Respect hierarchy: Product Manager owns scope, Architect owns topology, Senior Dev owns implementation.
+- **Symptom**: Adding config options, generics, and plugin interfaces for features not requested.
+- **Root Cause**: Premature future-proofing.
+- **Fix**: Apply Rung 1 of the ladder: If it doesn't solve the immediate requirement, do not write it.
+
+## 3. Reinventing Installed Dependencies
+
+- **Symptom**: Writing a deep-clone helper when Lodash or native structuredClone is available.
+- **Root Cause**: Skipping inspection of package.json and runtime environment.
+- **Fix**: Inspect installed dependencies before writing utility functions.
 
 ---
 > Source: [kok-o/contextos-agents](https://github.com/kok-o/contextos-agents) — distributed by [TomeVault](https://tomevault.io).
