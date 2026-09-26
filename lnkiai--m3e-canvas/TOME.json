@@ -2,9 +2,9 @@
   "name": "m3e-canvas",
   "owner": "lnkiai",
   "repo": "m3e-canvas",
-  "description": "Sketch Material 3 Expressive screens in the browser and turn them into vibe-coding prompts.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lnkiai/m3e-canvas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-02T13:32:35Z"
+  "distributed_at": "2026-09-26T15:34:54Z"
 }
