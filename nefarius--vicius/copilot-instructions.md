@@ -1,76 +1,18 @@
 ## vicius
 
-> C++ error handling conventions — prefer std::expected over tuples or exceptions
+> Introduce all changes on a new branch from master
 
 
-# Error Handling
+# New branch required
 
-Prefer `std::expected<T, std::string>` (already included via `<expected>` in `pch.h`) for all fallible operations that need to return a value or a human-readable failure reason.
+Do not implement or commit work on `master`. Before making changes, check whether the current
+branch already is the requested work.
 
-## Return type selection
-
-| Scenario | Type |
-|---|---|
-| Success produces a value | `std::expected<T, std::string>` |
-| Success produces nothing | `std::expected<void, std::string>` |
-| Unrecoverable, program must exit | `[[noreturn]]` + log + `std::terminate` |
-| Precondition violation (always a bug) | `assert` / `_ASSERT` |
-
-## ❌ Don't
-
-```cpp
-// tuple-bool anti-pattern
-std::tuple<bool, std::string> Foo();
-auto [ok, reason] = Foo();
-if (!ok) { ... }
-
-// naked exceptions for control flow
-throw std::runtime_error("something failed");
-```
-
-## ✅ Do
-
-```cpp
-std::expected<Widget, std::string> BuildWidget();
-
-// success
-return Widget{...};
-
-// failure
-return std::unexpected("Widget source not found");
-
-// caller
-if (auto w = BuildWidget())
-    Use(*w);
-else
-    spdlog::error("BuildWidget failed: {}", w.error());
-```
-
-## `void` specialisation (no return value on success)
-
-```cpp
-std::expected<void, std::string> VerifyFile(const std::filesystem::path& p);
-
-// success
-return {};
-
-// failure
-return std::unexpected("File is not signed");
-
-// caller
-if (auto r = VerifyFile(path); !r)
-    return std::unexpected(r.error()); // propagate
-```
-
-## Propagation shorthand
-
-Chain failures without re-wrapping manually:
-
-```cpp
-auto inner = DoInnerWork();
-if (!inner) return std::unexpected(inner.error());
-```
+- If it is, continue on that branch.
+- Otherwise, create a new branch from current `master` first (`feat/…` or `fix/…`), then make
+  changes there.
+- Do not merge or push to `master` unless the user explicitly asks.
 
 ---
 > Source: [nefarius/vicius](https://github.com/nefarius/vicius) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
