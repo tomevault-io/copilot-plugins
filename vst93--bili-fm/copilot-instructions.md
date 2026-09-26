@@ -1,198 +1,51 @@
 ## bili-fm
 
-> This file provides guidelines for agentic coding agents operating in this repository.
+> > 面向 AI 代理（Hermes / pi / Codex 等）的项目内记忆。项目相关的事实、教训、流程都记这里，不要记到代理的个人记忆里。
 
-# AGENTS.md - Bili FM Codebase Guide
+# AGENT.md — bili-fm 协作约定与项目知识
 
-This file provides guidelines for agentic coding agents operating in this repository.
+> 面向 AI 代理（Hermes / pi / Codex 等）的项目内记忆。项目相关的事实、教训、流程都记这里，不要记到代理的个人记忆里。
 
-## Project Overview
+## 协作分工
 
-Bili FM is a cross-platform desktop application built with [Wails](https://wails.io/) (Go backend + React/TypeScript frontend). It allows users to listen to Bilibili videos as audio.
+- 代码改动一律派 pi（`pi --provider mmz --model deepseek-v4.1-flash --thinking high`），Hermes 只做规格、审 diff、独立复验、commit+push。Hermes 不得直接改代码（2026-09-11 用户令，此前三次自改 CSS 均引发回归）。
+- pi 不 commit 不 push；Hermes 审查后统一提交。
+- 排障时用户报"按钮没反应"先确认哪个窗口（主窗/mini）、哪个界面（player bar / videoInfo 行）；headless 测试通过 ≠ 用户实机正常，注意平台差异（WKWebView 宽松 vs WebView2 严格 CSP）。
+- 用户无法本地跑 Hermes 端验证，验证靠截图 + 代码推导 + headless 测试；验证通过即可 push（用户授权）。
 
-## Build/Lint/Test Commands
+## Git / 发版
 
-### Frontend Development (in `/frontend`)
+- 双远端：origin (GitHub vst93/bili-fm) + gitee。**gitee 不用管版本代码对齐**（用户明确），留给 sync_gitee workflow（手动触发）。
+- release workflow（release-tauri.yml，workflow_dispatch）：会 bump 版本号并提交 `release: x.y.z` 到 main——pi 干活期间若发过版，push 前必须先 rebase origin。
+- 发版：版本号 `2.0.x` 无 -preview 后缀，预览版只是 release 标记 prerelease=true。Release notes 惯例格式：更新内容明细 + 「下载安装」表格（按平台列文件）+ xattr 提示（macOS `xattr -cr /Applications/bili-FM.app`）+ Gitee 镜像说明。
+- 预览版不同步 gitee / homebrew-tap（cask 手动更新，update-formulas.yml workflow_dispatch）。
+- gh 后台 shell 可能 401（token 过期）→ `gh auth token` 落盘后 `GH_TOKEN=$(cat ...)`；或用匿名 GitHub API 轮询公开仓库状态。
 
-```bash
-# Install dependencies
-npm install
+## 平台坑（已踩实）
 
-# Start development server
-npm run dev
+- **CSP**：`tauri.conf.json` connect-src 白名单必须含 `https://bsbsb.top`（SponsorBlock API）。Windows WebView2 严格执行 CSP，macOS WKWebView 宽松——macOS 能用 ≠ Windows 能用。
+- **bsbsb.top**：免费无 key，`GET /api/skipSegments?videoID=BV..&cid=..`。会话缓存只能存真实服务端结论，abort/超时/网络失败不得写入（StrictMode 双挂载会污染缓存，轮13 教训）。
+- **icon-park**：无 FastForward 图标，广告开关用 `Ad`。
+- **toggle 类控件**：查激活样式必须按时段（深色块 `html:is(...)` 特异度 1,2,1）/ prefers-contrast / 平台分支逐个过，不只看基态（轮17 教训：EQ 有深色激活规则而 sponsor 漏了，表现为"晚上点了不变蓝"）。
+- **CSS 级联**：`.nav-icon-btn > *` 这类通配子选择器会覆盖同特异度的后文规则（轮16：stat value 的 absolute 被覆盖跌回 flex 行内截断成 "1..."）。
+- **mini-mode class**：body 的 `mini-mode` 类唯一写权在 isMiniMode effect（state 为唯一事实源），switchWindowMode 及其回滚只改 state。
+- **#video-info**：固定 height（当前 366px），新增展示区必须计入高度预算，否则被 overflow:hidden 裁掉。
+- **卡片 meta 统一走 CardMeta**（src/components/cardMeta.tsx）：单行 nowrap、字段优先级 作者>播放>时长>发布时间>附加、过窄按优先级整字段隐藏、空值不渲染。新列表必须用它，别手写 meta 行。
 
-# Type-check + build for production
-npm run build
+## 硬性约束（每份 spec 都带）
 
-# Lint with auto-fix
-npm run lint
+- 禁止启动应用、禁止 GUI 自动化（研究靠读代码 + headless）。
+- 玻璃红线：不新增 will-change / backdrop-filter。
+- 不新增依赖需克制；验证 = `npx tsc --noEmit` + `npm run build` + `node --test tests/*.mjs`（Rust 改动加 `cd src-tauri && cargo check`）。
+- 派发模板：`cd ~/workspace/bili-fm && pi --provider mmz --model deepseek-v4.1-flash --thinking high -p "$(cat /tmp/SPEC.md) …" > /tmp/LOG.log 2>&1`，background + notify。
+- mmz 中转在 responses 协议下多步工具调用会 400（tool_call_sequence_broken）——`~/.pi/agent/models.json` 的 mmz.api 必须是 `openai-completions`。
 
-# Preview production build
-npm run preview
-```
+## 用户裁决记录
 
-### Full Application Build (from root)
-
-```bash
-# Build desktop app (requires wails CLI)
-wails build
-
-# Build for all platforms (see build.sh)
-./build.sh
-
-# Go commands
-go mod tidy
-go build
-```
-
-### Wails-specific Commands
-
-```bash
-# Development with hot reload
-wails dev
-
-# Generate bindings
-wails generate module
-```
-
-## Code Style Guidelines
-
-### Frontend (TypeScript/React)
-
-**TypeScript Configuration**
-- Strict mode enabled (`"strict": true`)
-- Path alias: `@/*` maps to `./src/*`
-- Target: ES2020, Module: ESNext
-- `noUnusedLocals: true`, `noUnusedParameters: true`
-
-**Import Ordering** (enforced by ESLint)
-Order groups (from top to bottom):
-1. `type` imports
-2. Built-in modules
-3. Object/builtin types
-4. External packages (npm)
-5. Internal aliases (`~/**`)
-6. Parent directories (`../`)
-7. Sibling files (`./`)
-8. Index imports (`./index`)
-
-Example:
-```typescript
-import type { FC } from "react";
-import { useState } from "react";
-import { Button } from "@heroui/button";
-import { useQuery } from "@tanstack/react-query";
-import { formatDate } from "@/utils/date";
-import "./styles.css";
-import IndexPage from "@/pages/index";
-```
-
-**React Component Patterns**
-- Use functional components with TypeScript interfaces
-- Destructure props directly in function signature
-- Use optional chaining and nullish coalescing: `onClick?.()`, `value ?? default`
-- Use `useEffect` cleanup functions for subscriptions/timers
-- Prefer `useCallback` and `useMemo` for expensive operations
-
-**Naming Conventions**
-- Components: PascalCase (`Player`, `VideoInfo`)
-- Hooks: camelCase with `use` prefix (`useTheme`, `useAuth`)
-- Utils/constants: camelCase (`formatDate`, `DEFAULT_PAGE_SIZE`)
-- Types/interfaces: PascalCase with descriptive names (`VideoItem`, `SearchResult`)
-- CSS classes: lowercase with dashes (Tailwind)
-
-**Error Handling**
-- Handle async operations with try/catch
-- Show user feedback via Toast components
-- Log errors with context for debugging
-
-**Styling**
-- Tailwind CSS for utility classes
-- Tailwind Variants for component variants
-- HeroUI components for consistent design
-- Dark mode support via `dark` class on root
-
-### Go Backend (in `/service` and root)
-
-**Go Version**
-- Go 1.24.0+
-
-**Package Structure**
-- Root package: `main`
-- Service package: `bilifm/service`
-- Import paths use module `bilifm`
-
-**Naming Conventions**
-- Package names: lowercase single word (`service`, `util`)
-- Exported types/functions: PascalCase (`App`, `GetLoginStatus`)
-- Unexported: lowercase (`startup`, `app`)
-- Struct fields: PascalCase with JSON tags
-
-Example:
-```go
-type User struct {
-    ID       int64  `json:"id"`
-    Username string `json:"username"`
-}
-
-func (bl *BL) GetUser(id int64) (*User, error) {
-    // implementation
-}
-```
-
-**Error Handling**
-- Return errors as values, don't suppress with `_`
-- Use `errors.New()` or `fmt.Errorf()` for error creation
-- Check errors immediately after calls
-- Handle errors at appropriate level (return or log)
-
-**Import Organization**
-- Standard library first, then external packages
-- Blank line between groups
-- Alphabetical within groups
-
-```go
-import (
-    "context"
-    "fmt"
-    "net/http"
-
-    "github.com/wailsapp/wails/v2"
-    "github.com/wailsapp/wails/v2/pkg/menu"
-)
-```
-
-**JSON Handling**
-- Use struct tags for JSON field mapping
-- Decode with `json.NewDecoder(r.Body).Decode(&struct)`
-- Encode with `json.MarshalIndent()` for debugging
-
-**Wails Binding**
-- Exported methods are automatically bound to frontend
-- Bind struct methods in `wails.Run()` `Bind` option
-- Frontend calls via `wailsjs/go/package/MethodName`
-
-### General Guidelines
-
-**File Organization**
-- Frontend: `src/components/` for reusable, `src/pages/` for routes
-- Go: `service/` for business logic, root for main/app
-- Keep files focused (<300 lines preferred)
-
-**Commit Messages**
-- Chinese or English, imperative mood
-- Format: `type(scope): description`
-- Types: `feat`, `fix`, `refactor`, `docs`, `chore`
-
-**Testing**
-- No test framework currently configured
-- Manual testing via `wails dev` or frontend dev server
-- Test critical paths before committing
-
-**Visual/UI Changes**
-- Delegate to frontend-ui-ux-engineer for styling/layout changes
-- Pure logic changes (API calls, state) can be handled directly
+- 永久否决：关窗行为选项、主题跟随系统、歌单导入导出（a1946d9 已删）。
+- SponsorBlock 默认关，mini 模式不显示跳过入口（后台跳过仍生效）。
+- 更新记录：`.pending-bugs.md`（每轮 commit 后追加一行）。
 
 ---
 > Source: [vst93/bili-fm](https://github.com/vst93/bili-fm) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
