@@ -1,0 +1,9 @@
+{
+  "name": "stolostron--multicloud-operators-foundation",
+  "displayName": "multicloud-operators-foundation",
+  "description": "multicloud-operators-foundation",
+  "version": "1.0.0",
+  "author": "stolostron",
+  "homepage": "https://github.com/stolostron/multicloud-operators-foundation",
+  "skills": []
+}
