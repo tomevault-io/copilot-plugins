@@ -1,0 +1,9 @@
+{
+  "name": "hotosm--osm-export-tool",
+  "displayName": "osm-export-tool",
+  "description": "osm-export-tool",
+  "version": "1.0.0",
+  "author": "hotosm",
+  "homepage": "https://github.com/hotosm/osm-export-tool",
+  "skills": []
+}
