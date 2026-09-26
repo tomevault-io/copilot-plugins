@@ -2,9 +2,9 @@
   "name": "open-second-brain",
   "owner": "itechmeat",
   "repo": "open-second-brain",
-  "description": "Local-first \ud83e\udde0 memory for Hermes Agent that lives in your Obsidian vault and remembers project context. Nightly \ud83d\ude34 dream passes turn repeat corrections into confirmed preferences with measurable confidence. Adapters ship for Claude Code, Codex, and OpenClaw, with an MCP server for anything else.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/itechmeat/open-second-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T00:48:41Z"
+  "distributed_at": "2026-09-26T19:39:48Z"
 }
