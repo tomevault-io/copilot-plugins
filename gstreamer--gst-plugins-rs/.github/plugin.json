@@ -1,0 +1,9 @@
+{
+  "name": "gstreamer--gst-plugins-rs",
+  "displayName": "gst-plugins-rs",
+  "description": "gst-plugins-rs",
+  "version": "1.0.0",
+  "author": "GStreamer",
+  "homepage": "https://github.com/GStreamer/gst-plugins-rs",
+  "skills": []
+}
