@@ -1,16 +1,15 @@
 # llm-wiki
 
-> Tome by [fivetaku](https://github.com/fivetaku/llm-wiki) — distributed by [TomeVault](https://tomevault.io)
-
-raw 소스를 Claude Code가 위키로 합성·유지하는 영구 마크다운 지식베이스 템플릿 (LLM Wiki, Karpathy 패턴)
+> Tome by [fivetaku](https://github.com/fivetaku/llm-wiki), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [fivetaku/llm-wiki](https://github.com/fivetaku/llm-wiki).
+Original source: `` in [fivetaku/llm-wiki](https://github.com/fivetaku/llm-wiki).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
