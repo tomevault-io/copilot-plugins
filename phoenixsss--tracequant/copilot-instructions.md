@@ -1,67 +1,23 @@
 ## tracequant
 
-> TraceQuant product code belongs under `src/tracequant/`. The Local Control Kernel
+> Follow `AGENTS.md` for repository invariants and workflow routing. Claude Skills
 
-# TraceQuant agent instructions
+# Claude adapter
 
-## Ownership boundary
+Follow `AGENTS.md` for repository invariants and workflow routing. Claude Skills
+under `.claude/skills/` are self-contained provider copies of the canonical
+procedures under `.agents/skills/`.
 
-TraceQuant product code belongs under `src/tracequant/`. The Local Control Kernel
-(LCK) is repository tooling owned by `tools/lck/`; neither side may import the
-other. `nautilus_trader` remains confined to the product integration boundary
-documented in `docs/architecture/repository-structure.md`.
+- Use the `Skill` tool to invoke `.claude/skills/`; do not manually `Read`
+  `.agents/skills/`. Each provider Skill set adapts to its own runtime.
+- `.codex/rules/` is Codex-only and is ignored by Claude Code.
+- Claude permissions come from `.claude/settings.json`, not from `.codex/rules/`.
+- This repository runs Claude without a sandbox or elevated-execution layer;
+  run documented LCK commands directly.
 
-## Issue-driven workflow
-
-Start from the maintainer-specified leaf Issue. Read its body and labels first;
-expand to parents, blockers, comments, or broad design documents only when the
-leaf contract is incomplete, ambiguous, safety-sensitive, or explicitly requires
-that context. Git and GitHub provide mechanical identity and lifecycle facts;
-conversation history and local receipts do not replace fresh LCK resolution.
-
-Natural-language entries route to the canonical procedures:
-
-- implementing an Issue: `.agents/skills/task-delivery-runner/SKILL.md`;
-- refreshing an existing Review candidate onto current main: `.agents/skills/task-delivery-runner/SKILL.md`;
-- reviewing a PR: `.agents/skills/task-pr-review-runner/SKILL.md`;
-- closing out a manually merged PR: `.agents/skills/task-closeout/SKILL.md`;
-- auditing Feature completion: `.agents/skills/feature-completion-audit/SKILL.md`.
-
-Codex reads those `.agents/skills/` paths directly; Claude reads the mirrored
-provider copies under `.claude/skills/<name>/SKILL.md` and must not use these
-canonical paths as its own reading target.
-
-The stable lifecycle entry is:
-
-```bash
-uv run --frozen python -m tools.lck --help
-```
-
-LCK owns deterministic branch, commit, push, PR, validation, receipt, freshness,
-and recovery mechanics. Agents own semantic implementation and review. A human
-maintainer alone authorizes merge and explicit remediation after Review FAIL.
-
-## Repository rules
-
-- Do not place LCK implementation or contracts in `src/tracequant/`.
-- Do not place product implementation or product configuration in `tools/lck/`.
-- Do not restore archived v1 business trees or import archived v1 modules.
-- Keep product documentation outside `docs/workflows/lck/` and
-  `docs/guides/lck/`; those two trees are LCK-only.
-- Keep local LCK state ignored and bounded. It is diagnostic evidence, not
-  lifecycle authority or a product persistence root.
-- Unknown identity, stale state, incomplete evidence, or conflicting authority
-  fails closed.
-- During implementation, run the smallest change-relevant targeted feedback. Once it
-  passes and no concrete failure or unresolved diagnostic concern remains, proceed
-  directly to LCK Delivery Complete; LCK owns the locked pytest, Ruff, formatting,
-  and mypy plan. Broaden or repeat validation only after a failure, a new finding, or
-  an explicit maintainer request.
-
-Detailed lifecycle semantics live in `docs/workflows/lck/lifecycle.md` and
-`docs/workflows/lck/review-and-remediation.md`. Do not duplicate them here.
-Context acquisition is governed by `.agents/policies/context-retrieval.md`.
+Claude-specific permissions do not change LCK authority, review independence,
+fail-closed behavior, or the human-only merge boundary.
 
 ---
 > Source: [PhoenixSss/tracequant](https://github.com/PhoenixSss/tracequant) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
