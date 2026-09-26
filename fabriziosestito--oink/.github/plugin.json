@@ -1,0 +1,9 @@
+{
+  "name": "fabriziosestito--oink",
+  "displayName": "oink",
+  "description": "A librogame (gamebook) engine for e-ink devices.",
+  "version": "1.0.0",
+  "author": "fabriziosestito",
+  "homepage": "https://github.com/fabriziosestito/oink",
+  "skills": []
+}
