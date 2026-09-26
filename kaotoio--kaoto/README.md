@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [KaotoIO/kaoto](https://github.com/KaotoIO/kaoto
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [KaotoIO/kaoto](https://github.com/KaotoIO/kaoto) — a repo with 110+ stars on GitHub.
+From [KaotoIO/kaoto](https://github.com/KaotoIO/kaoto) — a repo with 128+ stars on GitHub.
 
 ---
 
