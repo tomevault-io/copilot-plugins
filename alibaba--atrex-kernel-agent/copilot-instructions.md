@@ -1,107 +1,161 @@
 ## atrex-kernel-agent
 
-> In an AKA campaign, use the enabled `gpu-wiki.query` plugin through
+> This file defines hard behavioral constraints for the optimization workflow.
 
-# GPU Wiki Agent Entry
+# GPU Kernel Optimizer — Agent Constraints
 
-In an AKA campaign, use the enabled `gpu-wiki.query` plugin through
-`python3 tools/plugin.py call gpu-wiki.query --input wiki_request.json`.
-The input is a JSON object with a `request` string and optional `max_records`, `max_bytes`,
-and `exclude`. Follow the campaign's injected plugin instructions. The direct commands below
-remain available for standalone Wiki maintenance and queries.
+This file defines hard behavioral constraints for the optimization workflow.
+The full multi-cycle workflow and terminal handoff are defined in `orchestrator/prompts/episode.md`.
 
-Read `README.md` first. This wiki is **two independent JSON record stores**, and
-which one to ask depends on whether a benchmark could prove the answer wrong.
+## Framework Guidance
 
-**Default door — describe your situation, do not compose a query.**
-`python3 gpu-wiki/tools/query_nl.py "<prose>"` parses AKA's standard request
-format deterministically; other prose gets one store-blind intent extraction by
-`query_bridge_agent`. Deterministic code then resolves operator aliases and
-components, queries isolated lanes, safely widens, and returns payloads keyed by
-stable record id. The bridge cannot invoke either query tool or carry a record.
+- **The V0 baseline is a pure-PyTorch reference wrapper** (correct + directly submittable), NOT yet in any optimized DSL. Migrating the body of `run()` from PyTorch to the `--framework` DSL is the *suggested* first lever of the optimization loop — do it in an early iteration, and update `solution.json` `spec.languages`/`dependencies` in the same iteration so the harness benches the real kernel.
+- The `--framework` value is a **recommended optimization direction**, not a hard constraint. Sessions MAY use a different DSL or mixed approaches if evidence shows a better performance path.
+- Preinstalled third-party helper libraries may be used, but the campaign environment is immutable: never
+  install or locally build a package. If a library is unavailable, use existing tooling or record a blocker.
+- `triton` and `gluon` belong to the same framework family (`triton/gluon`). When either is specified, both are acceptable implementation targets.
+- When Triton-level optimization plateaus, the orchestrator latches a mandatory Triton→Gluon episode directive. The episode derives layouts from TTGIR, repairs the lowering through correctness and performance parity, and later episodes remain in Gluon. Do not hand-trigger conversion before the directive is active.
 
-Every call independently attempts both `gpu_wiki` and `internal_gpu_wiki`. A missing
-directory, the tracked `SOURCE.txt` placeholder alone, an incomplete interface, or a
-zero-result lookup makes only that module empty. Internal results use
-`internal_gpu_wiki::<stable-id>` and each record declares its `store`, preserving
-strict store and payload isolation.
+## Benchmark Harness Integrity
 
-```bash
-python3 gpu-wiki/tools/query_nl.py "fused RMSNorm in triton on sm_100. ncu says 75% of
-    DRAM peak so it is bandwidth bound. Is fusing the passes a known dead end here, and
-    how does triton express the row reduction on this part?" --brief
-python3 gpu-wiki/tools/query_nl.py --file request.txt --max-bytes 20000
-```
+- **No hacking the evaluation script for performance.** Do NOT modify, monkey-patch, subclass, shadow, or otherwise subvert `test_kernel.py` — nor any other file/module the evaluator loads (`sol-execbench`, `torch.cuda.Event`/`time` shims, RNG/seeding utilities, the timing loop, the comparison/tolerance check) — to make a slower kernel *look* faster or to make an incorrect result *pass*. Any speedup must come from a faster `run()` on **arbitrary** inputs — not from gaming the measurement.
+- **test_kernel.py is immutable for performance measurement**: DO NOT modify `test_kernel.py` to change the benchmark harness (e.g., warmup count, repetition count, `return_mode`, timing method, input shapes, or any other benchmark parameter) in order to obtain better performance numbers.
+- `test_kernel.py` defines the ground-truth benchmark methodology. Any change to it invalidates cross-version comparisons.
+- If a measurement methodology issue is discovered (e.g., outlier inflation, incorrect return mode), report it in `memory/v<N>.json` under `pitfalls_and_fixes` and propose the fix — but DO NOT apply the fix to `test_kernel.py` within an optimization iteration.
+- **Validate + bench ONLY via `python test_kernel.py`** — it runs the real `sol-execbench` evaluator over EVERY workload in `workload.jsonl` (the full ground-truth shape set) with each workload's own tolerance. Never hand-roll a correctness test, bench a single "representative" shape, or edit the harness. A PASS here == a directly submittable solution.
+- **The optimization objective is `performance.performance_score`.** Every route computes one speedup per shape and maximizes their arithmetic mean. Native Atrex-Bench uses each shape's authoritative metadata production latency as its baseline; SOL uses the evaluator's reference implementation as its baseline. Per-workload latency remains in `performance.latency_us_by_shape` for diagnosis. A version is committable only if all workloads pass and the score improves vs HEAD beyond noise.
+- **The SOL ground-truth files are immutable**: never edit `definition.json`, `reference.py`, or `workload.jsonl`. Edit `kernel.py` (DPS `run()`; args = definition.inputs then definition.outputs); update `solution.json` only when languages/dependencies/entry_point change.
+- **`profile_driver.py` is the immutable profiling entry point** — profilers run `python <file>`, and `kernel.py` is import-only, so profile `profile_driver.py`, never `kernel.py`. It is a protected path: choose what it drives with `PROFILE_ITERS` / `PROFILE_WARMUP` / `PROFILE_WORKLOAD_IDX` / `PROFILE_SHAPE_ID` instead of editing it, and do NOT add a `__main__` profiling block to `kernel.py` — an in-kernel entry is silently lost the next time `run()` is rewritten, leaving the profiler to capture nothing while still exiting 0. When it genuinely cannot express the case, add a fallback driver under `profiles/<dir>/harness/` and profile that file.
 
-Say which parts of your description are measured and which are still guesses — that
-is what decides whether the bridge spends the symptom axis. Give the architecture the
-runtime reported. Also state the separate true public product and explicitly request its
-full hardware spec plus relevant architecture/ISA facts, so the same call can return both stores.
-Do not pre-compress into keywords.
+### Generalized Atrex-Bench problems
 
-Read each record's `source`, `type`, `match.arch`, and isolated `payload`, plus
-deterministic `notes`. Evidence and bridge commentary are not served.
+- When `agent_problem.json` exists, it is the authoritative public contract. Optimize across its
+  complete `shape_domain`; use aggregate distribution shares only to prioritize common paths.
+- Exact `shapes.json`, evaluator metadata, and per-case roofline inputs are private. Do not search
+  outside the workspace for the source operator directory or reconstruct hidden cases.
+- Profile a real evaluator case by selecting an opaque id from canonical
+  `memory/vN.json.performance.latency_us_by_shape` with `PROFILE_SHAPE_ID`. The sandbox injects only
+  that selected case into the ephemeral remote profile workspace; the driver removes its private JSON
+  before importing candidate code. Profile multiple ids when distinct performance regimes matter.
+- Hidden evaluation returns aggregate PASS/FAIL plus real latency keyed by opaque shape id. Canonical
+  memory must retain the complete `latency_us_by_shape` map on evaluated iterations, while shape input
+  parameters, failure details, and raw evaluator logs remain private.
 
-For attribution, copy the response's top-level `query_id` and each materially
-used record's own canonical `wiki_id`; never reconstruct either value from prose
-or from the backward-compatible mapping key.
+### Real-submission input model (don't overfit to the local bench)
 
-When a returned record materially informs an optimization decision, preserve the
-emitted `query_id` and canonical `wiki_id` in that experiment's existing journal
-append. Retrieval alone does not count as adoption: use `no_material_use` when a
-query was considered but not used, and never copy payload text into attribution.
-This repository persists the compact evidence in the experiment journal. Any
-projection into canonical memory belongs to the consuming integration and is
-outside this repository; the agent must not write a separate Wiki log or modify
-`memory/vN.json` itself.
+The local `test_kernel.py` run is a **proxy** for the real evaluator. In the real scenario,
+**every `run()` invocation receives freshly randomized inputs at freshly allocated addresses** —
+the shapes/dtypes come from `workload.jsonl`, but values, RNG seed, and tensor pointers are
+NOT fixed across calls. Concretely:
 
-**Experience, addressed directly** (`kernel_wiki/records/`) — ranked, scoped search,
-for when you already know the exact address. Query it with
-`python3 gpu-wiki/tools/query_wiki.py` using explicit `--arch` / `--vendor` /
-`--dsl` filters before broad grep. `--arch` takes whatever the runtime
-reported (`sm_90`, `sm_100`, `gfx942`, `h20`, `b300`, `mi300x`) or the family
-name (`hopper`, `blackwell`, `cdna3`, ...).
+- **Do NOT cache input data.** Never recognize "I've seen these inputs before" and return a
+  precomputed result, a recorded reference output, or any branch that depends on the *values*
+  of the inputs (checksums, hashes, sentinel detection, "if input == X return Y"). `run()` must
+  recompute from its arguments every call.
+- **Do NOT cache pointers / addresses.** Never key a code path, a precompiled plan, a
+  specialized kernel, or a cached workspace on `tensor.data_ptr()` / `tensor.storage().data_ptr()`
+  / raw CUDA addresses — they change every invocation. If you build a runtime plan (autotuned
+  tile config, cublasLt algo, JIT-compiled specialization), key it on **shape + dtype + layout
+  + device** (stable invariants), never on pointer identity.
+- **Do NOT cache outputs / scratch buffers tied to a specific address.** Reuse of a workspace
+  tensor across calls is fine *if* you re-allocate (or re-validate) it per call based on shape;
+  it is NOT fine to assume the buffer at address `0x...` from a previous call is still valid.
+- **Do NOT amortize work across iterations of the timed loop.** Any setup that is only correct
+  because the same inputs repeat (e.g., a one-time precompute on call #1 cached for calls #2..N)
+  is a correctness bug, not an optimization.
 
-**Check `--coverage` before filtering on `--type`.** The type axis looks like the one
-that expresses intent, and it is the one that most often returns zero on a subject
-the store covers well: in one store `strategy` is 81% of the records for an
-architecture while the types the docs name are about 4%, and callers who led with
-`--type anti-strategy` concluded the store was empty on operators it documents
-thoroughly. A "known dead end" is frequently prose inside a `strategy` record.
+If a shortcut only works because inputs/addresses are stable, it is invalid — drop it and
+optimize the per-call work directly.
 
-```bash
-python3 gpu-wiki/tools/query_wiki.py --arch sm_100 --dsl triton --coverage
-python3 gpu-wiki/tools/query_wiki.py --symptom register-pressure --arch blackwell --brief --limit 2
-python3 gpu-wiki/tools/query_wiki.py --list-arch          # also --list-dsl --list-type --list-symptoms
-python3 gpu-wiki/tools/query_wiki.py --list-family --like gemm   # filter a long vocabulary
-```
+### Multi-seed robustness (mandatory from V1 onward)
 
-Scope is a hard boundary and unknown filter values fail closed. A zero-match
-query returns a **labelled random sample** of the scoped pool — never read it as
-advice about what you asked, and never drop `--arch` to make an empty result
-look successful.
+The V0 PyTorch baseline is an explicit exception: measure it exactly once with the base seed and
+record that run's performance plus accompanying correctness status. Do not run `--multi-seed` for V0.
 
-**Facts** (`hardware_wiki/records/`) — exact lookup, fail-loud. Peaks,
-capacities, ISA and feature definitions:
+For every optimized candidate from V1 onward, a single-seed PASS is NOT sufficient before supervisor
+acceptance. The dedicated V1 framework-baseline prompt assigns the implementation Agent only a bounded
+smoke subset; the supervisor then runs one combined base-performance plus five-extra-seed full-workload
+gate and commits mechanically. Do not duplicate that full gate inside the V1 Agent. For later optimization
+episodes whose active prompt assigns multi-seed validation to the Agent, run through the mandatory sandbox:
 
 ```bash
-python3 gpu-wiki/tools/query_hardware.py --product b200 --field peak_compute.bf16.dense
-python3 gpu-wiki/tools/query_hardware.py --list products   # b200 b300 mi300x mi308x mi355x sm120
+python tools/sandbox.py --kind run --no-sync -- \
+  python test_kernel.py --version v<N> --multi-seed 5 --no-memory
 ```
 
-A recognized but unrecorded part (`h20`, `h100`, `a100`) exits **4** with a
-disposition: obtain the number from runtime device attributes or the vendor
-datasheet for that exact part. Never substitute another part's numbers — a wrong
-peak silently rescales every utilization figure derived from it.
+This re-runs the evaluator under 5 additional random seeds and reports PASS only if ALL seeds
+pass. If any seed fails correctness, the kernel is BROKEN — revert with `git reset --hard HEAD`
+and try a different lever. See `orchestrator/prompts/episode.md` and
+`skills/gpu-kernel-episode-loop/SKILL.md` for the full procedure.
 
-After changing records, the index, or the tools, run:
+Benchmark only the base seed. Every additional seed is a full-shape correctness-only pass;
+do not repeat warmup/timing/reference benchmarking for extra seeds. The public gateway caps
+one command at 600 seconds, and multi-seed robustness must stay within that limit without
+reducing seed or shape coverage.
 
-```bash
-python3 gpu-wiki/tools/check_kernel_wiki.py --full     # 9 gates
-python3 gpu-wiki/tools/check_hardware_wiki.py          # 6 gates
-python3 -m unittest discover -s gpu-wiki/tools
-```
+### Cache-hack ZERO-TOLERANCE policy
+
+The following patterns are cache hacks and any version that contains them MUST be reverted
+**immediately** (`git reset --hard HEAD`) and recorded as a dead-end in `pitfalls_and_fixes`:
+
+- **Output / answer caching.** Returning a stored reference output (memoized from a previous
+  run / from the harness, hardcoded constants, recorded `out_*` tensor) instead of recomputing
+  from the current inputs.
+- **Input-value caching.** Recognising "I've seen these inputs before" (checksum / hash /
+  sentinel detection / value-dependent branch / first-call precompute reused on calls #2..N)
+  and short-circuiting `run()`.
+- **Pointer / address caching.** Keying a code path, plan, autotune specialization, cublasLt
+  algo, or scratch workspace on `tensor.data_ptr()` / `tensor.storage().data_ptr()` / raw CUDA
+  pointers. Plans MAY be keyed on **shape + dtype + layout + device** only.
+- **Eval-harness shadowing.** Importing / monkey-patching `test_kernel.py` / `sol-execbench` /
+  `torch.cuda.Event` / time shims / RNG / the timing loop / the comparator from inside
+  `kernel.py`, or detecting "am I being benchmarked" to take a faster branch.
+- **CUDA-graph capture of fixed pointers.** Capturing a graph against the addresses seen at
+  capture time and replaying it without re-binding parameters per call. If you use CUDA graphs,
+  you MUST update the kernel node parameters from the *current* tensor `data_ptr`s on each `run()`.
+
+If you find ANY of the above in the inherited `HEAD` kernel at the start of an iteration,
+your **first action** is to revert it (`git reset --hard HEAD~` until HEAD is hack-free),
+then proceed with a clean optimization. A hack-ridden kernel that "looks fast" is a
+regression, not a starting point.
+
+### Precision margin requirement (don't surf the tolerance line)
+
+Per-workload tolerances are **safety margins, not optimization targets**. Because the real
+evaluator reseeds inputs every call, a kernel that passes "by a hair" on one local seed can
+easily fail on the next draw — that's a correctness bug, not a flake. **If any workload's
+measured error sits close to its tolerance line, STOP and re-review the whole `kernel.py`
+end-to-end before committing**, and verify the margin is stable across multiple fresh seeds
+(`test_kernel.py --multi-seed 5`). A speedup that only works by shrinking the precision
+margin is not real — revert and try a different lever.
+
+### No multi-stream timing tricks
+
+**Do NOT use multiple CUDA streams (concurrency) to reduce measured latency.** Launching
+work on several streams so that independent kernels/op calls overlap in time is forbidden —
+the evaluator times a single `run()` call, and multi-stream overlap hides work behind other
+work rather than making the kernel itself faster, producing a misleading (non-representative)
+latency. Keep all of `run()`'s work on the **default stream**; do not create/sync extra
+`torch.cuda.Stream`s or `cudaStream`s to parallelize the computation. Legitimate
+single-stream optimizations — kernel fusion, better tiling, vectorization, lower precision,
+library primitives — are unaffected.
+
+## Hardware Architecture Constraints
+
+- **blackwell-geforce is NOT blackwell**: `blackwell-geforce` (sm120) and `blackwell` (sm100) are completely different architectures. Do NOT conflate them or assume they share the same optimization strategies.
+- **sm103 ≈ sm100 ≠ sm120**: The sm103 hardware architecture is similar to sm100 (both belong to the Blackwell data-center family), but is completely different from sm120 (Blackwell GeForce / consumer). When searching for reference kernels or optimization knowledge for sm103, prefer sm100/blackwell sources — NEVER use sm120/blackwell-geforce sources as a substitute.
+
+## Workflow References
+
+- Optimization loop orchestrator: `orchestrator/optimize.py`
+- Multi-cycle episode prompt and handoff contract: `orchestrator/prompts/episode.md`
+- Episode evidence loop (profile/research/plan/implement/validate/record): `skills/gpu-kernel-episode-loop/SKILL.md`
+- Baseline setup session: `orchestrator/prompts/setup.md`
+- Triton→Gluon conversion: latched directive inside the episode prompt
+- NVIDIA profiling skill (Stage 1): `.claude/skills/ncu-report-skill/SKILL.md`
+- Plan generation (Stage 2): repository-native `skills/gen-plan/SKILL.md` with independent Codex
+  and Qoder review synthesis
 
 ---
 > Source: [alibaba/atrex-kernel-agent](https://github.com/alibaba/atrex-kernel-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
