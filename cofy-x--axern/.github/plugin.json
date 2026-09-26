@@ -1,7 +1,7 @@
 {
   "name": "cofy-x--axern",
   "displayName": "axern",
-  "description": "Open-source agentic infrastructure for running AI agents in isolated, stateful sandboxes.",
+  "description": "axern",
   "version": "1.0.0",
   "author": "cofy-x",
   "homepage": "https://github.com/cofy-x/axern",
