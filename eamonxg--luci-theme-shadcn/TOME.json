@@ -2,9 +2,9 @@
   "name": "luci-theme-shadcn",
   "owner": "eamonxg",
   "repo": "luci-theme-shadcn",
-  "description": "A modern LuCI theme for OpenWrt, built with shadcn/ui design language",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eamonxg/luci-theme-shadcn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-25T00:30:54Z"
+  "distributed_at": "2026-09-26T20:30:23Z"
 }
