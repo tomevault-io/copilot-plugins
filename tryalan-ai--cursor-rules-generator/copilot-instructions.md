@@ -1,52 +1,50 @@
-## testing-guidelines
+## typescript-quality
 
-> Testing guidelines and best practices
+> TypeScript quality standards for React projects
 
-# Testing Guidelines
+# TypeScript Quality Standards
 
-## Test Structure
-- Follow Arrange-Act-Assert pattern
-- Use descriptive test names
-- Group related tests with describe blocks
-- Keep tests independent and isolated
+## Type Safety
+- Always use strict mode
+- No `any` types allowed (use `unknown` instead)
+- Define interfaces for all props and state
+- Use proper type guards for runtime checks
 
-## Test Types
-- Unit tests for individual functions/components
-- Integration tests for feature workflows
-- End-to-end tests for critical user journeys
-- Visual regression tests for UI components
+## Interface Design
+- Use descriptive interface names with `I` prefix or without
+- Define props interfaces close to components
+- Export reusable types from dedicated files
+- Use generic types for reusable components
 
 ## Best Practices
-- Test behavior, not implementation
-- Use proper mocking strategies
-- Maintain good test coverage
-- Keep tests fast and reliable
+- Use type assertions sparingly and safely
+- Prefer union types over enums when appropriate
+- Use `readonly` for arrays and objects that shouldn't change
+- Implement proper error handling with typed errors
 
 ## Code Examples:
 
 ```typescript
-// Good: Well-structured test
-describe('UserService', () => {
-  describe('createUser', () => {
-    it('should create user with valid data', async () => {
-      // Arrange
-      const userData = { name: 'John Doe', email: 'john@example.com' };
-      const mockUser = { id: '1', ...userData };
-      jest.spyOn(userRepository, 'create').mockResolvedValue(mockUser);
-      
-      // Act
-      const result = await userService.createUser(userData);
-      
-      // Assert
-      expect(result).toEqual(mockUser);
-      expect(userRepository.create).toHaveBeenCalledWith(userData);
-    });
-    
-    it('should throw error for duplicate email', async () => {
-      // Test error scenarios
-    });
-  });
-});
+// Good: Proper interface definition
+interface UserProps {
+  user: User;
+  onUpdate: (user: User) => void;
+  isLoading?: boolean;
+}
+
+const UserComponent: React.FC<UserProps> = ({ user, onUpdate, isLoading = false }) => {
+  // Implementation
+};
+
+// Good: Type guard
+function isUser(obj: unknown): obj is User {
+  return typeof obj === 'object' && obj !== null && 'id' in obj;
+}
+
+// Bad: Using any
+const badFunction = (data: any) => {
+  // No type safety
+};
 ```
 
 ---
