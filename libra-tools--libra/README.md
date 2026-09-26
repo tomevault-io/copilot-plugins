@@ -1,23 +1,22 @@
 # libra
 
-> Source: [libra-tools/libra](https://github.com/libra-tools/libra) — distributed by [TomeVault](https://tomevault.io)
-
-Libra is evolving into an AI agent–native version control tools
+> Source: [libra-tools/libra](https://github.com/libra-tools/libra). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [libra-tools/libra](https://github.com/libra-tools/libra).
+Original source: `` in [libra-tools/libra](https://github.com/libra-tools/libra).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/libra-tools/libra](https://github.com/libra-tools/libra)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/libra-tools/libra](https://github.com/libra-tools/libra)
 
 ---
 
