@@ -1,0 +1,9 @@
+{
+  "name": "ratacat--html-home",
+  "displayName": "html-home",
+  "description": "A lightweight local catalog for HTML artifacts scattered across your projects.",
+  "version": "1.0.0",
+  "author": "ratacat",
+  "homepage": "https://github.com/ratacat/html-home",
+  "skills": []
+}
