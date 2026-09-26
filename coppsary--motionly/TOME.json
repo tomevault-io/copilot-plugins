@@ -3,8 +3,8 @@
   "owner": "COPPSARY",
   "repo": "Motionly",
   "description": "A lightweight renderer for creating polished product videos from simple scene files. Write the scene. Preview the motion. Export the result.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,405 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/figma/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/figma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/animate/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/gsap-core/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/gsap-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/prototype/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/media-use/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/media-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/gsap-utils/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/gsap-utils/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/gsap-react/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/gsap-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/ask-sonner/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/ask-sonner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/seam-craft/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/seam-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/write-swift/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/write-swift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/pr-to-video/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/pr-to-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/hyperframes/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/gsap-plugins/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/gsap-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/apple-design/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/apple-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/animate-expo/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/animate-expo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/lower-thirds/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/lower-thirds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/scene-design/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/scene-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/motion-design/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/motion-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/cut-the-curve/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/cut-the-curve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/general-video/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/general-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/gsap-timeline/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/gsap-timeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/animate-skill/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/animate-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/write-motionly/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/write-motionly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/music-to-video/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/music-to-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/emil-design-eng/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/emil-design-eng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/motion-doctrine/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/motion-doctrine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/motion-graphics/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/motion-graphics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/gsap-frameworks/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/gsap-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/changelog-video/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/changelog-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/countdown-video/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/countdown-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/hyperframes-cli/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/hyperframes-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/pick-ui-library/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/pick-ui-library/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/designer-skills/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/designer-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/gsap-performance/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/gsap-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/hyperframes-core/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/hyperframes-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/oversized-cursor/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/oversized-cursor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/captions-overlay/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/captions-overlay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/content-strategy/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/content-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/embedded-captions/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/embedded-captions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/caption-animation/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/caption-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/content-catalogue/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/content-catalogue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/review-animations/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/review-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/hyperframes-audio/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/hyperframes-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/animate-css-skill/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/animate-css-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/copywriting-skill/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/copywriting-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/creative-director/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/creative-director/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/extract-design-md/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/extract-design-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/saas-motion-design/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/saas-motion-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/talking-head-recut/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/talking-head-recut/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/faceless-explainer/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/faceless-explainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/design-negotiation/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/design-negotiation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/dark-pattern-audit/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/dark-pattern-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/motion-design-skill/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/motion-design-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/css-animation-skill/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/css-animation-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/animation-vocabulary/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/animation-vocabulary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/product-launch-video/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/product-launch-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/hyperframes-registry/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/hyperframes-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/hyperframes-creative/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/hyperframes-creative/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/hyperframes-keyframes/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/hyperframes-keyframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/hyperframes-animation/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/hyperframes-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".claude/skills/integration-sveltekit/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.claude/skills/integration-sveltekit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/extract-design-system/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/extract-design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/remotion-to-hyperframes/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/remotion-to-hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/ai-graphic-design-skill/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/ai-graphic-design-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/design-motion-principles/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/design-motion-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Motionly",
+      "path": ".agents/skills/reference-grade-product-film/SKILL.md",
+      "github_url": "https://github.com/COPPSARY/Motionly/tree/main/.agents/skills/reference-grade-product-film/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/COPPSARY/Motionly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T04:34:23Z"
+  "distributed_at": "2026-09-26T02:35:44Z"
 }
