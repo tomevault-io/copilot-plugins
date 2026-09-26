@@ -1,8 +1,6 @@
 # OmniMem
 
-> Tome by [richarvey](https://github.com/richarvey/OmniMem) — distributed by [TomeVault](https://tomevault.io)
-
-Self-hosted semantic memory for AI Agents. Persistent sessions, experience scoring, and a graveyard for dead ends, backed by knowledge acquired from the RSS you read and stored in a Valkey vector search then exposed as an MCP server.
+> Tome by [richarvey](https://github.com/richarvey/OmniMem), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [richarvey/OmniMem](https://github.com/richarvey
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [richarvey/OmniMem](https://github.com/richarvey/OmniMem) — a repo with 7+ stars on GitHub.
+From [richarvey/OmniMem](https://github.com/richarvey/OmniMem) — a repo with 59+ stars on GitHub.
 
 ---
 
