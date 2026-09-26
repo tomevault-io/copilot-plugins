@@ -1,0 +1,40 @@
+## cutlass
+
+> Git workflow — incremental commits, post-commit checks, and push/tag/release only on explicit user command
+
+
+# Git Workflow
+
+## Incremental commits
+
+- **Always commit work incrementally.** Commit each logically complete unit (a fix, a feature slice, a refactor step) as soon as it compiles and makes sense on its own — don't accumulate one giant commit at the end of a task.
+- Each commit should be small, focused, and have a clear message describing *why* the change was made. Follow the repo's existing commit message style.
+
+## Post-commit checks
+
+After **every** commit, run:
+
+```bash
+cargo fmt --all --check
+cargo clippy --workspace --all-targets
+```
+
+- If `fmt` reports diffs, run `cargo fmt --all`.
+- If clippy reports **new** warnings or errors introduced by the work, fix them.
+- Commit those fixes as a follow-up commit (e.g. `fix clippy warnings in preview worker`). Do not amend already-created commits unless explicitly asked.
+- Pre-existing warnings unrelated to the current change may be left alone — do not go on cleanup sprees.
+
+## Push, tags, and releases — user command only
+
+- **NEVER `git push`** (any remote, any branch) unless the user explicitly asks in the current conversation. "Commit" does not imply "push".
+- **NEVER create, move, or delete tags** and **never cut releases** (GitHub releases, version bumps intended for release, publishing) on your own initiative. These happen only on an explicit user command.
+- When the user **does** ask to cut / publish a public desktop alpha, follow
+  [`.agents/skills/cutlass-release/SKILL.md`](../../.agents/skills/cutlass-release/SKILL.md)
+  and [`.cursor/rules/release.mdc`](release.mdc) (PR → green CI → merge `main`
+  → tag `main` → `release.yml`). Do not improvise a shorter path.
+- Never use destructive git operations (`push --force`, `reset --hard`, history rewrites, tag deletion) unless the user explicitly requests them.
+- When a task is finished and committed, simply report what was committed; do not ask "should I push?" — the user will say so when they want it.
+
+---
+> Source: [1mrnewton/cutlass](https://github.com/1mrnewton/cutlass) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
