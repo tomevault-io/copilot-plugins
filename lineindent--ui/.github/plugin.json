@@ -1,0 +1,14 @@
+{
+  "name": "lineindent--ui",
+  "displayName": "ui",
+  "description": "ui",
+  "version": "1.0.0",
+  "author": "LineIndent",
+  "homepage": "https://github.com/LineIndent/ui",
+  "skills": [
+    {
+      "name": "ui",
+      "description": ""
+    }
+  ]
+}
