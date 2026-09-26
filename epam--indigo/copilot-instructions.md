@@ -1,61 +1,76 @@
 ## indigo
 
-> Cheminformatics toolkit: a C++17 core (`core/`, `api/`) with Python/Java/.NET/R/WASM bindings, the
+> > **Read when:** you need to know what the style gate checks, or which rule file governs the code
 
-# EPAM Indigo — instructions for AI agents
+# Conventions
 
-Cheminformatics toolkit: a C++17 core (`core/`, `api/`) with Python/Java/.NET/R/WASM bindings, the
-**Bingo** chemistry cartridge for PostgreSQL/Oracle/MSSQL (`bingo/`), the Elasticsearch-backed
-**Bingo-Elastic** APIs (`bingo/bingo-elastic/`), and CLI/REST utilities (`utils/`).
+> **Read when:** you need to know what the style gate checks, or which rule file governs the code
+> you are about to touch.
+> **Skip when:** you are already working inside a file — the matching `.claude/rules/` file loads by
+> itself and carries the detail.
 
-This file is read by every session, so it holds only what is needed **before** knowing the task. The
-knowledge itself is in `.memory-bank/`, one file per subject, read on demand. Open the one row that
-matches; reading the whole bank up front is the failure this layout exists to prevent.
+Verified on `f0cc3c423`.
 
-## Read before you edit
+This file is the cross-language index. Per-language detail lives in `.claude/rules/`, which loads
+automatically when a matching file is read; it is not repeated here, because two copies of a
+convention diverge and then neither can be trusted.
 
-- `core/`, `api/c/`, `api/cpp/`, `bingo/` — [.memory-bank/invariants.md](.memory-bank/invariants.md).
-  **Read this one.** Everything in it breaks silently: no compiler error, and usually no failing test
-  on the machine where the change was made.
-- unfamiliar chemistry vocabulary — [.memory-bank/domain.md](.memory-bank/domain.md), then
-  [.memory-bank/glossary.md](.memory-bank/glossary.md)
-- where a component lives, how data flows — [.memory-bank/architecture.md](.memory-bank/architecture.md)
-- compiling, CMake options, WASM, devcontainer — [.memory-bank/build.md](.memory-bank/build.md)
-- running any test suite — [.memory-bank/testing.md](.memory-bank/testing.md)
-- code style, and what the CI gate actually checks — [.memory-bank/conventions.md](.memory-bank/conventions.md)
-- a subsystem in depth — [.memory-bank/modules/README.md](.memory-bank/modules/README.md) is the index
-- what a capability promises callers — [.memory-bank/features/README.md](.memory-bank/features/README.md)
-- why a structural decision was made — [.memory-bank/adr/README.md](.memory-bank/adr/README.md)
-- writing into the bank — [.memory-bank/README.md](.memory-bank/README.md) for the formats and rules
+| Area | Rule file | What the gate actually enforces |
+| --- | --- | --- |
+| C++ | [../.claude/rules/cpp.md](../.claude/rules/cpp.md) | `clang-format -Werror --dry-run` over every `.h/.hpp/.c/.cpp` outside `third_party/` and build directories |
+| Python | [../.claude/rules/python.md](../.claude/rules/python.md) | `isort --check`, `black --check`, `pflake8`, then `mypy` |
+| Java | [../.claude/rules/java.md](../.claude/rules/java.md) | nothing automated — review only |
+| CMake | [../.claude/rules/cmake.md](../.claude/rules/cmake.md) | nothing automated — review only |
+| CI, Docker | [../.claude/rules/ci-and-docker.md](../.claude/rules/ci-and-docker.md) | nothing automated — review only |
+| .NET, R, WASM | — | no rule file and no gate |
 
-Per-language conventions live in `.claude/rules/` — one file per area, each scoped to the paths it
-governs. Agents that load them by path get them automatically; agents that do not should read the
-file matching the code they are about to touch.
+The gate is `.ci/static_analysis_check.sh`, run as the `static_analysis` job. It fails the build, so
+a formatting mistake blocks a merge as surely as a compile error.
 
-## Rules of the repository
+## C++
 
-- **Commit subject:** `#<ticket>: <Description>` — the ticket number first, so the origin is visible
-  in `git log`. Conventional-commit prefixes are not used here; check `git log --format=%s -5`
-  before writing one.
-- **Branch name:** `<ticket>-<short-description>`, no `feature/` or `fix/` prefix.
-- **Verify before asserting.** Read exit codes honestly: a suite that was not run is reported as not
-  run, never as passing.
-- **Say what you did not do.** A change that covers four of five wrappers, or skips a platform, is
-  reported that way rather than left to be discovered.
+Formatting is fixed by `.clang-format`, and the settings worth knowing before you wonder why the
+formatter moved something:
 
-Everything else that governs code — the language standard, the FFI contract, what may be commented,
-what must never be broken — is in the two places above, next to the code it applies to, so that it
-is corrected when the code changes rather than drifting here.
+- Microsoft base style, **column limit 160** — long lines are the house style here, not an accident
+- `PointerAlignment: Left` (`char* p`), `NamespaceIndentation: All`, `AccessModifierOffset: -4`
+- `FixNamespaceComments: false`, `AlwaysBreakTemplateDeclarations: Yes`
 
-## Keeping this current
+Run `clang-format -i` on what you touched before pushing; the CI job checks the whole tree and
+reports every file, so one unformatted line drowns the output.
 
-When a change teaches something lasting, record it in the same commit: a new silent-failure rule
-goes to `invariants.md`, subsystem knowledge to `modules/`, behaviour to `features/`, a structural
-decision to `adr/`.
+**clang-tidy does not run.** `.clang-tidy` exists with a broad check list, and `USE_CLANG_TIDY` is a
+CMake option, but the C++ section of `.ci/static_analysis_check.sh` is commented out behind a
+`# TODO`, and `WarningsAsErrors` is empty. Enabling it is a project decision with a large one-off
+cost; until then, do not assume a clean build means clang-tidy-clean.
 
-Anchors into code are written as `` `<path>#<Symbol>` `` — never a line number, which goes
-stale silently on the next edit above it. `.claude/scripts/check-anchors.sh` verifies them all.
+## Python
+
+- `black` and `isort` with **line length 79**; `pflake8` (flake8 driven from `pyproject.toml`); then
+  `mypy`.
+- Style and lint run in `api/http`, `api/python`, `bingo/bingo-elastic/python`,
+  `api/tests/integration` and `utils/indigo-service/backend/service`.
+- **`mypy` runs in the same set except `api/tests/integration`** — the integration harness is exempt
+  from type checking, not from formatting. It has to run under Jython and IronPython
+  ([testing.md](./testing.md)), which is also why it cannot use modern CPython-only syntax.
+
+## Java, .NET, R, WASM
+
+No automated style gate. Consistency is a review matter, and the rule that carries the most weight
+is the one in [../.claude/rules/java.md](../.claude/rules/java.md): a new wrapper method follows the
+shape of the existing ones. A wrapper that is half in one style is harder to use than one that is
+uniformly imperfect.
+
+## Everywhere
+
+- **Error message text is a public contract** ([invariants.md](./invariants.md), A2). Wording is not
+  a style choice.
+- **Comments are paid for**: an invariant a type cannot express, a reference to an external source
+  of truth, a trap a test confirms, a short file header. Rationale and rejected alternatives belong
+  in the commit message.
+- **Named constants, not literals**, for anything with a domain meaning — tests included.
+- Commit subject and branch naming are in [../CLAUDE.md](../CLAUDE.md).
 
 ---
 > Source: [epam/Indigo](https://github.com/epam/Indigo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
