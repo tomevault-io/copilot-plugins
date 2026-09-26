@@ -1,8 +1,6 @@
 # AI instruction files for recruiting-copilot
 
-> Sourced from [Viy1204/recruiting-copilot](https://github.com/Viy1204/recruiting-copilot) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-给 HR/猎头的 AI 招聘工作流：岗位标准梳理、Boss直聘+猎聘双通道寻源初筛、市场人才盘点、简历评估、约面试、候选人台账与日报。配合任意 AI 编程助手使用。
+> Sourced from [Viy1204/recruiting-copilot](https://github.com/Viy1204/recruiting-copilot), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
