@@ -1,0 +1,67 @@
+## everyday-causal-skills
+
+> Causal inference plugin for AI agents. Helps users choose a method, check assumptions, write the analysis in R or Python, and stress-test the results.
+
+# everyday-causal-skills
+
+Causal inference plugin for AI agents. Helps users choose a method, check assumptions, write the analysis in R or Python, and stress-test the results.
+
+## Workflow
+
+The plugin works in six stages. Start from any step. Stages marked (optional) can be skipped.
+
+1. **Plan** → `/causal-planner` identifies the causal question and recommends a method
+2. **Structure** (optional) → `/causal-dag` maps causal relationships and identifies adjustment sets
+3. **Implement** → Method-specific skill (`/causal-did`, `/causal-iv`, `/causal-rdd`, `/causal-sc`, `/causal-matching`, `/causal-timeseries`, `/causal-experiments`, `/causal-hte`) checks assumptions and writes the analysis
+4. **Audit** → `/causal-auditor` stress-tests the completed analysis against threats to validity
+5. **Translate** → `/causal-roi` turns the effect estimate into money: incremental ROI, breakeven, and a ship/kill/size verdict
+6. **Report** → `/causal-report` compiles artifacts into a structured report
+7. **Practice** → `/causal-exercises` generates exercises with known ground truth
+
+## How skills connect
+
+- `/causal-planner` is the recommended entry point. It recommends which method skill to use next.
+- `/causal-dag` sits between the planner and method skills. It helps decide what to control for before estimation begins. The auditor can refer back to it.
+- Each method skill follows five internal stages: setup, assumptions, implementation, robustness, interpretation.
+- When assumptions fail, method skills suggest alternatives (e.g., if parallel trends fail in DiD, suggest synthetic control).
+- `/causal-hte` follows any average treatment effect method. It estimates who benefits most and supports policy learning.
+- `/causal-auditor` should run AFTER an analysis is complete, not before.
+- `/causal-roi` runs after the auditor and requires an existing effect estimate. It writes `roi.md` + `roi-results.csv`; a confirmed FATAL audit finding blocks monetization.
+- `/causal-report` is the terminal skill. It reads all artifacts (plan, DAG, implementation, audit, roi) and compiles them into a report. It quotes monetary results from `roi.md` or user input but never derives them itself.
+
+## Guardrails
+
+- **Verification gate**: No result interpretation until actual code output has been seen — not just the code itself.
+- **Severity flags**: Fatal problems block progress. Serious ones are flagged as caveats. Rationalization shortcuts are called out.
+- **Anti-rationalization**: If results look too clean or convenient, the skill will push back.
+
+## Available skills
+
+| Skill | When to use |
+|-------|------------|
+| `causal-planner` | User has a causal question but doesn't know which method to use |
+| `causal-dag` | DAG construction, adjustment sets, confounders, backdoor paths, bad controls |
+| `causal-experiments` | Design or analyze RCTs and A/B tests |
+| `causal-did` | Difference-in-differences, staggered adoption, TWFE, event studies |
+| `causal-iv` | Instrumental variables, 2SLS, weak instrument diagnostics |
+| `causal-rdd` | Sharp and fuzzy regression discontinuity |
+| `causal-sc` | Synthetic control with donor weighting and placebo tests |
+| `causal-matching` | Propensity score matching, IPW, doubly-robust estimators |
+| `causal-timeseries` | Interrupted time series and CausalImpact |
+| `causal-hte` | Heterogeneous treatment effects, CATE, Causal Forest, policy learning |
+| `causal-auditor` | Stress-test a completed analysis |
+| `causal-roi` | Translate an estimated causal effect into money: incremental ROI, breakeven, ship/kill verdict |
+| `causal-report` | Compile analysis into a structured report (business, academic, hybrid) |
+| `causal-exercises` | Practice with simulated data |
+
+## R↔Python parity gate (mandatory)
+
+After editing any file under `skills/` or `templates/`, run `python3 evals/parity/run_parity.py --changed`
+from the repo root and resolve every `FAIL` before committing or pushing. A `FAIL` means that method's
+R and Python implementations now disagree (numerically or in capability). Never ship a skill whose two
+language paths disagree. See `evals/parity/README.md`. (`.claude/CLAUDE.md` is git-ignored, so this tracked
+instruction lives here.)
+
+---
+> Source: [RobsonTigre/everyday-causal-skills](https://github.com/RobsonTigre/everyday-causal-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
