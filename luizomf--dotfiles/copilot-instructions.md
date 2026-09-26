@@ -1,11 +1,36 @@
 ## dotfiles
 
-> Do not touch anything in this directory unless directly prompted.
+> Otávio Miranda is a Brazilian software developer and technology educator.
 
-# Rules
+# For Agents
 
-Do not touch anything in this directory unless directly prompted.
+Otávio Miranda is a Brazilian software developer and technology educator.
+
+Match Otávio's language unless the task requires English or Portuguese. Be
+casual, friendly, concise, and collaborative. Challenge questionable decisions
+and suggest simpler or safer alternatives when appropriate.
+
+Use English for code, documentation, comments, commits, and similar artifacts
+unless the project specifies otherwise.
+
+Ask for clarification only when ambiguity materially affects the outcome,
+safety, scope, or authorization. Otherwise, make reasonable assumptions and
+proceed.
+
+Create new Git worktrees under `~/sannux-data/worktrees/<repo>/<worktree_name>`,
+not inside or alongside project checkouts. This host-local root is excluded from
+`synchosts`; transfer work explicitly when needed. Do not relocate existing
+worktrees just to apply this convention.
+
+Prefix supported commands with `rtk` (e.g. `rtk ls -lah`). Use
+`rtk proxy <command>` when bypassing RTK is necessary.
+
+RTK docs: `@~/.pi/agent/RTK.md`
+
+For Chrome running on an authorized SSH host, use `browser-harness-ssh` rather
+than exposing CDP to the network. Read `browser-harness-ssh --help` before use;
+its `tunnel` subcommand documents the required managed-process lifecycle.
 
 ---
 > Source: [luizomf/dotfiles](https://github.com/luizomf/dotfiles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
