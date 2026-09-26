@@ -1,7 +1,7 @@
 {
   "name": "flaminis--dalaran",
   "displayName": "Dalaran",
-  "description": "Dalaran \u2014 Apache-2.0, robotics-first visualization and data infrastructure for multimodal time-series. ROS 2 native, reads existing .rrd recordings. A hard fork of Rerun.",
+  "description": "Dalaran",
   "version": "1.0.0",
   "author": "Flaminis",
   "homepage": "https://github.com/Flaminis/Dalaran",
