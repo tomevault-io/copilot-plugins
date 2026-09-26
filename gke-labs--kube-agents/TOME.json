@@ -3,8 +3,8 @@
   "owner": "gke-labs",
   "repo": "kube-agents",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,423 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/skill-review/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/skill-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-preflight/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-preflight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-docs-drift/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-docs-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-adversarial/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-adversarial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/cluster/skills/gke-storage/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/cluster/skills/gke-storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-basics/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/fleet-audit/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/fleet-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-storage/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/install-kube-agents/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/install-kube-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-upgrades/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-upgrades/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-inference/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-inference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-batch-hpc/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-batch-hpc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-backup-dr/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-backup-dr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/uninstall-kube-agents/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/uninstall-kube-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/cluster/skills/gke-reliability/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/cluster/skills/gke-reliability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-networking/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-networking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/manage-cluster/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/manage-cluster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-reliability/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-reliability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/pr-conversation/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/pr-conversation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "a2a/persona/platform/skills/a2a-topics/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/a2a/persona/platform/skills/a2a-topics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-golden-path/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-golden-path/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-pod/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-pod/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/cluster/skills/gke-observability/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/cluster/skills/gke-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-multitenancy/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-multitenancy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-rbac/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-rbac/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-main/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-productionize/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-productionize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-observability/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-cost-analysis/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-cost-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/submit-suggestion/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/submit-suggestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-app-onboarding/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-app-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/inspect-repository/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/inspect-repository/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-compute-classes/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-compute-classes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/cluster/skills/gke-workload-scaling/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/cluster/skills/gke-workload-scaling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-storage/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-gateway/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-gateway/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-cluster-creation/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-cluster-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gcp-config-connector/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gcp-config-connector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/cluster/skills/gke-workload-security/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/cluster/skills/gke-workload-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-workload-scaling/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-workload-scaling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/workload-rebalancing/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/workload-rebalancing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-cost-optimization/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-cost-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-workload-security/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-workload-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-platform-security/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-platform-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/github-issue-resolver/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/github-issue-resolver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-admission/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-admission/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-service-networking/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-service-networking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-cluster-autoscaler/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-cluster-autoscaler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-namespaces/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-namespaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-understand/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-understand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-manifest-generation/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-manifest-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/cluster-agent-lifecycle/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/cluster-agent-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-agents-main/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-agents-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gce-compute-fleet-audit/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gce-compute-fleet-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/kube-agents-observability/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/kube-agents-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-tpu-metrics-monitoring/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-tpu-metrics-monitoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-agents-sandbox/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-agents-sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/fleet-upgrade-verification/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/fleet-upgrade-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/cluster/skills/gke-workload-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/cluster/skills/gke-workload-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gcp-networking-fabric-audit/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gcp-networking-fabric-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-workload-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-workload-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-service-accounts/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-service-accounts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-agents-audit-logs/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-agents-audit-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-tpu-dynamic-slices-monitoring/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-tpu-dynamic-slices-monitoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-ai-troubleshooting-tpu-vbar-oom/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-ai-troubleshooting-tpu-vbar-oom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": ".agents/skills/review-security-k8s-agents-prompt-injection/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/.agents/skills/review-security-k8s-agents-prompt-injection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-ai-troubleshooting-jobset-interruption/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-ai-troubleshooting-jobset-interruption/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agents/platform/skills/gke-ai-troubleshooting-handle-disruption-gpu-tpu/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agents/platform/skills/gke-ai-troubleshooting-handle-disruption-gpu-tpu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kube-agents",
+      "path": "agentplugins/gke-stockout-investigator/files/skills/gke-stockout-investigator/SKILL.md",
+      "github_url": "https://github.com/gke-labs/kube-agents/tree/main/agentplugins/gke-stockout-investigator/files/skills/gke-stockout-investigator/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/gke-labs/kube-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T02:41:21Z"
+  "distributed_at": "2026-09-26T04:36:22Z"
 }
