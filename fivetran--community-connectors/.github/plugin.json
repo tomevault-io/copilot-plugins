@@ -1,0 +1,9 @@
+{
+  "name": "fivetran--community-connectors",
+  "displayName": "community_connectors",
+  "description": "community_connectors",
+  "version": "1.0.0",
+  "author": "fivetran",
+  "homepage": "https://github.com/fivetran/community_connectors",
+  "skills": []
+}
