@@ -1,8 +1,6 @@
 # marketing-studio
 
-> Source: [ucsandman/marketing-studio](https://github.com/ucsandman/marketing-studio) — distributed by [TomeVault](https://tomevault.io)
-
-Agent-driven marketing studio for Claude Code: one /marketing command renders your product's full launch asset suite (logo reveal, demo, launch video, social clips, OG assets)
+> Source: [ucsandman/marketing-studio](https://github.com/ucsandman/marketing-studio). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [ucsandman/marketing-studio](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ucsandman/marketing-studio](https://github.com/ucsandman/marketing-studio)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ucsandman/marketing-studio](https://github.com/ucsandman/marketing-studio)
 
 ---
 
