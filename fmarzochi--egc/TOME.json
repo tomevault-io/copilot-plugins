@@ -2,9 +2,9 @@
   "name": "EGC",
   "owner": "Fmarzochi",
   "repo": "EGC",
-  "description": "Your AI agents never start from zero again. Local-first MCP runtime with persistent memory across sessions and tools.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Fmarzochi/EGC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T02:45:38Z"
+  "distributed_at": "2026-09-26T07:12:54Z"
 }
