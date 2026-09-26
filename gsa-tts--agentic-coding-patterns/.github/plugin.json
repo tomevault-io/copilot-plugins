@@ -1,0 +1,9 @@
+{
+  "name": "gsa-tts--agentic-coding-patterns",
+  "displayName": "agentic-coding-patterns",
+  "description": "A GSA community-maintained collection of reusable agent instructions, skills, prompts, examples, and workflow patterns for responsible and productive agentic coding.",
+  "version": "1.0.0",
+  "author": "GSA-TTS",
+  "homepage": "https://github.com/GSA-TTS/agentic-coding-patterns",
+  "skills": []
+}
