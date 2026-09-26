@@ -1,0 +1,18 @@
+{
+  "name": "googlecloudplatform--knowledge-catalog-labs",
+  "displayName": "knowledge-catalog-labs",
+  "description": "knowledge-catalog-labs",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/knowledge-catalog-labs",
+  "skills": [
+    {
+      "name": "knowledge-catalog-labs",
+      "description": ""
+    },
+    {
+      "name": "knowledge-catalog-labs",
+      "description": ""
+    }
+  ]
+}
