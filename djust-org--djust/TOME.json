@@ -4,7 +4,7 @@
   "repo": "djust",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/djust-org/djust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-26T18:12:29Z"
+  "distributed_at": "2026-09-26T18:27:05Z"
 }
