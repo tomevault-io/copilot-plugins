@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "ZoneMinder",
   "homepage": "https://github.com/ZoneMinder/zmNinjaNg",
-  "skills": []
+  "skills": [
+    {
+      "name": "zmNinjaNg",
+      "description": ""
+    },
+    {
+      "name": "zmNinjaNg",
+      "description": ""
+    },
+    {
+      "name": "zmNinjaNg",
+      "description": ""
+    }
+  ]
 }
