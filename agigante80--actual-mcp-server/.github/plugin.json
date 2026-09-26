@@ -1,7 +1,7 @@
 {
   "name": "agigante80--actual-mcp-server",
   "displayName": "actual-mcp-server",
-  "description": "Docker MCP server connecting Claude Desktop/LibreChat/LobeChat to Actual Budget for natural-language budgeting, transaction management, and financial insights.",
+  "description": "actual-mcp-server",
   "version": "1.0.0",
   "author": "agigante80",
   "homepage": "https://github.com/agigante80/actual-mcp-server",
