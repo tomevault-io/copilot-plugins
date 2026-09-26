@@ -1,7 +1,7 @@
 {
   "name": "clipboardhealth--groundcrew",
   "displayName": "groundcrew",
-  "description": "Farm out ready tickets to sandboxed coding agent CLIs in git worktrees.",
+  "description": "groundcrew",
   "version": "1.0.0",
   "author": "ClipboardHealth",
   "homepage": "https://github.com/ClipboardHealth/groundcrew",
