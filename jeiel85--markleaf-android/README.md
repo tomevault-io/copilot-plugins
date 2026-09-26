@@ -1,8 +1,6 @@
 # AI instruction files for markleaf-android
 
-> Sourced from [jeiel85/markleaf-android](https://github.com/jeiel85/markleaf-android) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A lightweight, local-first Markdown note app for Android.
+> Sourced from [jeiel85/markleaf-android](https://github.com/jeiel85/markleaf-android), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
