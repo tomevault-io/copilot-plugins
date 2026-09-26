@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [b0x42/Super-Productivity-MCP](https://github.com/b0x42/Super-Productivity-MCP).
+Original source: `CLAUDE.md` in [b0x42/Super-Productivity-MCP](https://github.com/b0x42/Super-Productivity-MCP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -27,7 +27,7 @@ Original source: `AGENTS.md` in [b0x42/Super-Productivity-MCP](https://github.co
 - [Super-Productivity-MCP](https://github.com/b0x42/Super-Productivity-MCP/tree/main/.claude/skills/speckit-constitution/SKILL.md)
 - [Super-Productivity-MCP](https://github.com/b0x42/Super-Productivity-MCP/tree/main/.claude/skills/speckit-taskstoissues/SKILL.md)
 
-From [b0x42/Super-Productivity-MCP](https://github.com/b0x42/Super-Productivity-MCP) — a repo with 94+ stars on GitHub.
+From [b0x42/Super-Productivity-MCP](https://github.com/b0x42/Super-Productivity-MCP) — a repo with 95+ stars on GitHub.
 
 ---
 
