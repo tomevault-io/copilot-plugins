@@ -1,0 +1,26 @@
+{
+  "name": "philips-software--roslyn-analyzers",
+  "displayName": "roslyn-analyzers",
+  "description": "roslyn-analyzers",
+  "version": "1.0.0",
+  "author": "philips-software",
+  "homepage": "https://github.com/philips-software/roslyn-analyzers",
+  "skills": [
+    {
+      "name": "roslyn-analyzers",
+      "description": ""
+    },
+    {
+      "name": "roslyn-analyzers",
+      "description": ""
+    },
+    {
+      "name": "roslyn-analyzers",
+      "description": ""
+    },
+    {
+      "name": "roslyn-analyzers",
+      "description": ""
+    }
+  ]
+}
