@@ -4,7 +4,7 @@
   "repo": "openmozi",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spytensor/openmozi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T14:35:03Z"
+  "distributed_at": "2026-09-26T13:09:35Z"
 }
