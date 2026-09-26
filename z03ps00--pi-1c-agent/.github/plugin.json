@@ -1,0 +1,9 @@
+{
+  "name": "z03ps00--pi-1c-agent",
+  "displayName": "pi-1c-agent",
+  "description": "Pi coding-agent profile for 1C:Enterprise: rules, commands, MCP opt-in. Original work MIT; third-party material kept and credited.",
+  "version": "1.0.0",
+  "author": "z03ps00",
+  "homepage": "https://github.com/z03ps00/pi-1c-agent",
+  "skills": []
+}
