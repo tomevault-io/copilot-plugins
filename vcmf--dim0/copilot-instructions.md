@@ -1,15 +1,12 @@
 ## dim0
 
-> This file is a thin bridge. The canonical project instructions live in AGENTS.md
+> <!-- Thin bridge: the canonical backend conventions live in backend/AGENTS.md.
 
 @AGENTS.md
 
-<!--
-This file is a thin bridge. The canonical project instructions live in AGENTS.md
-(the open standard, also read by other coding agents). Claude Code inlines the
-`@AGENTS.md` import above at load time, so there is ONE source and no drift.
-Put Claude-only notes below this line — there are none today.
--->
+<!-- Thin bridge: the canonical backend conventions live in backend/AGENTS.md.
+Claude Code inlines the `@AGENTS.md` import above (relative to this file), so
+there's a single source and no drift. -->
 
 ---
 > Source: [vcmf/dim0](https://github.com/vcmf/dim0) — distributed by [TomeVault](https://tomevault.io).
