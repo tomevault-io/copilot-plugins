@@ -1,0 +1,111 @@
+{
+  "name": "Prism",
+  "owner": "Laihiujin",
+  "repo": "Prism",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-title-topic/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-title-topic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-project-layout/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-project-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-publish-tiktok/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-publish-tiktok/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-publish-douyin/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-publish-douyin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-publish-youtube/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-publish-youtube/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-publish-bilibili/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-publish-bilibili/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-publish-channels/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-publish-channels/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-publish-kuaishou/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-publish-kuaishou/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-publish-baijiahao/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-publish-baijiahao/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/prism-publish-xiaohongshu/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/prism-publish-xiaohongshu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Prism",
+      "path": "docs/hermes-skills/douyin-publish-computeruse/SKILL.md",
+      "github_url": "https://github.com/Laihiujin/Prism/tree/main/docs/hermes-skills/douyin-publish-computeruse/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Laihiujin/Prism",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T10:43:30Z"
+}
