@@ -7,11 +7,11 @@ An Enterprise-Grade Full-Stack RBAC Permission Management System Built with Go +
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ahaodev/shadmin](https://github.com/ahaodev/shadmin).
+Original source: `CLAUDE.md` in [ahaodev/shadmin](https://github.com/ahaodev/shadmin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
