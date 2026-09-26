@@ -1,17 +1,16 @@
 # runx
 
-> Tome by [runxhq](https://github.com/runxhq/runx) — distributed by [TomeVault](https://tomevault.io)
-
-the governed runtime for agent skill workflows, off the leash but on the record
+> Tome by [runxhq](https://github.com/runxhq/runx), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [runxhq/runx](https://github.com/runxhq/runx).
+Original source: `` in [runxhq/runx](https://github.com/runxhq/runx).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,6 +20,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-p -->
