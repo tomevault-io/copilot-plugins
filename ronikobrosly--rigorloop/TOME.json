@@ -2,9 +2,9 @@
   "name": "RigorLoop",
   "owner": "ronikobrosly",
   "repo": "RigorLoop",
-  "description": "A statistically-sound agentic build framework that employs agentic loops to create code artifacts (whether a script, a skill markdown file, etc). Crucially, it splits verification data into the classic data science-like dev, validation, and final test sets to avoid overfitting. ",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ronikobrosly/RigorLoop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T15:30:34Z"
+  "distributed_at": "2026-09-26T03:15:15Z"
 }
