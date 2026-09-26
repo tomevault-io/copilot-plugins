@@ -1,17 +1,16 @@
 # heypi
 
-> Tome by [hunvreus](https://github.com/hunvreus/heypi) — distributed by [TomeVault](https://tomevault.io)
-
-Chat agents for your team, with approvals and sandboxed tools. Slack, Discord, Telegram, webhooks.
+> Tome by [hunvreus](https://github.com/hunvreus/heypi), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hunvreus/heypi](https://github.com/hunvreus/heypi).
+Original source: `` in [hunvreus/heypi](https://github.com/hunvreus/heypi).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
