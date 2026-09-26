@@ -4,7 +4,7 @@
   "repo": "FloCafe",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FreeOpenSourcePOS/FloCafe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T05:46:22Z"
+  "distributed_at": "2026-09-26T10:51:50Z"
 }
