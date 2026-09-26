@@ -1,0 +1,57 @@
+{
+  "name": "knowledge-catalog-labs",
+  "owner": "GoogleCloudPlatform",
+  "repo": "knowledge-catalog-labs",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "knowledge-catalog-labs",
+      "path": "knowledge_catalog_discovery_agent/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/knowledge-catalog-labs/tree/main/knowledge_catalog_discovery_agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "knowledge-catalog-labs",
+      "path": "knowledge_catalog_enrichment_agent/sample/config/skills/kb-search/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/knowledge-catalog-labs/tree/main/knowledge_catalog_enrichment_agent/sample/config/skills/kb-search/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GoogleCloudPlatform/knowledge-catalog-labs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T10:49:37Z"
+}
