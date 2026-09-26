@@ -2,7 +2,7 @@
   "name": "EcomGen",
   "owner": "linbei0",
   "repo": "EcomGen",
-  "description": "Local-first AI e-commerce image suite for sellers: Pi Agent storyboards, product-truth protection, OpenAI-compatible image providers, review, editing, and ZIP export.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/linbei0/EcomGen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T17:30:22Z"
+  "distributed_at": "2026-09-26T05:30:12Z"
 }
