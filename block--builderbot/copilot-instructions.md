@@ -1,39 +1,18 @@
 ## builderbot
 
-> rely on git hooks for commit/push checks; don't run `just ci` before every commit.
+> This repo uses ANCHORS for requirements-driven development. **You MUST load the anchors skill (`/anchors`) before making any code changes.**
 
-# AGENTS.md
+## ANCHORS — REQUIRED FOR ALL CHANGES
 
-## Commands
+This repo uses ANCHORS for requirements-driven development. **You MUST load the anchors skill (`/anchors`) before making any code changes.**
 
-rely on git hooks for commit/push checks; don't run `just ci` before every commit.
-run `just ci` manually only when you want early pre-push feedback.
-generally don't run the dev server unless asked, usually it is run from a UI integration.
+When adding or modifying features, you must update ALL THREE documents before writing code:
+1. **PRODUCT.md** — Add a P-* requirement (user-facing behavior only)
+2. **ERD.md** — Add an E-* requirement with `←` backlink to the P-* ID
+3. **TESTING.md** — Add or update the coverage mapping table so every new/changed requirement has a test-layer assignment. Always verify the table reflects the current scope — even if a row already exists, it may need updating.
 
-## Backend
-
-We are intentionally conservative with our data models. **Before adding fields or new types to
-the backend, get human review.**
-
-Generally we want to avoid reconciliation of state, so git is authoritative for anything it tracks.
-
-## Frontend
-
-### Components
-
-Prefer small, composable components over large monolithic ones.
-Extract repeated UI blocks into focused subcomponents with clear props.
-
-### Theming
-
-Colors defined in `src/lib/theme.ts`, applied via CSS custom properties in `app.css`.
-All components use `var(--*)` for colors—no hardcoded values.
-
-## Rust
-
-Keep `src/lib` code files smaller and organized by responsibility.
-Split growing modules into focused submodules before files become hard to navigate.
+Implementation and test code must include inline requirement ID comments (e.g., `// E-PENPAL-FEATURE-NAME`).
 
 ---
 > Source: [block/builderbot](https://github.com/block/builderbot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
