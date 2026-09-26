@@ -2,8 +2,6 @@
 
 > Source: [linbei0/EcomGen](https://github.com/linbei0/EcomGen). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Local-first AI e-commerce image suite for sellers: Pi Agent storyboards, product-truth protection, OpenAI-compatible image providers, review, editing, and ZIP export.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [linbei0/EcomGen](https://github.com/linbei0/Eco
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [linbei0/EcomGen](https://github.com/linbei0/EcomGen) — a repo with 18+ stars on GitHub.
+From [linbei0/EcomGen](https://github.com/linbei0/EcomGen) — a repo with 119+ stars on GitHub.
 
 ---
 
