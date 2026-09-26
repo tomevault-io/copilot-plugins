@@ -1,0 +1,381 @@
+{
+  "name": "claude-lane-stack",
+  "owner": "VKirill",
+  "repo": "claude-lane-stack",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/info/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/info/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/proxy6/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/proxy6/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/yandex/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/yandex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/google/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/google/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/tavily/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/tavily/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/metamcp/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/metamcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/ru-text/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/ru-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/ru-score/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/ru-score/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/ru-check/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/ru-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/seo-tools/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/seo-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/ai-detect/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/ai-detect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/web-design/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/web-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/lane-memory/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/lane-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/bulk-reader/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/bulk-reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/project-life/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/project-life/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/design-taste/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/design-taste/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/site-copy-ux/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/site-copy-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/lane-contract/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/lane-contract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/app-architect/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/app-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/copy-research/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/copy-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/docs-maintain/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/docs-maintain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/impeccable-ui/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/impeccable-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/page-prototype/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/page-prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/resume-project/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/resume-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/project-design/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/project-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/project-onboard/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/project-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/drmax-brandcore/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/drmax-brandcore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/seo-project-life/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/seo-project-life/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/writer-practices/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/writer-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/seo-tools/mutagen/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/seo-tools/mutagen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/google/google-ads/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/google/google-ads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/drmax-signalforge/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/drmax-signalforge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/copy-project-life/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/copy-project-life/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/orchestrator-lanes/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/orchestrator-lanes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/site-copy-audience/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/site-copy-audience/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/yandex/yandex-cloud/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/yandex/yandex-cloud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/ui-ux-pro-max/brand/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/ui-ux-pro-max/brand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/karpathy-guidelines/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/karpathy-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/drmax-latent-intent/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/drmax-latent-intent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/drmax-market-scoped/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/drmax-market-scoped/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/site-copy-headlines/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/site-copy-headlines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/yandex/yandex-direct/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/yandex/yandex-direct/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/drmax-promptsculptor/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/drmax-promptsculptor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/yandex/yandex-metrica/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/yandex/yandex-metrica/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/orchestrator-workflow/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/orchestrator-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/seo-drmax-orchestrator/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/seo-drmax-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/drmax-cocoon-engine-x4/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/drmax-cocoon-engine-x4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/google/google-analytics/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/google/google-analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/yandex/yandex-webmaster/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/yandex/yandex-webmaster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/drmax-text-humanization/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/drmax-text-humanization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/google/google-cloud-auth/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/google/google-cloud-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/google/google-tag-manager/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/google/google-tag-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/ui-ux-pro-max/banner-design/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/ui-ux-pro-max/banner-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/google/google-search-console/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/google/google-search-console/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-lane-stack",
+      "path": "plugins/lane-stack/skills/yandex/yandex-direct-creatives/SKILL.md",
+      "github_url": "https://github.com/VKirill/claude-lane-stack/tree/main/plugins/lane-stack/skills/yandex/yandex-direct-creatives/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/VKirill/claude-lane-stack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T10:40:59Z"
+}
