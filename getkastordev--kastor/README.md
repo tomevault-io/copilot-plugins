@@ -2,16 +2,14 @@
 
 > Source: [getkastordev/kastor](https://github.com/getkastordev/kastor). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Terraform-style source-of-truth layer for AI agents: HCL specs, LangGraph codegen, and plan/apply/state for hosted agents.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [getkastordev/kastor](https://github.com/getkastordev/kastor).
+Original source: `AGENTS.md` in [getkastordev/kastor](https://github.com/getkastordev/kastor).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
