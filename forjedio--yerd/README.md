@@ -2,15 +2,14 @@
 
 > Tome by [forjedio](https://github.com/forjedio/yerd), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-A powerful, developer-friendly tool for local PHP development
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [forjedio/yerd](https://github.com/forjedio/yerd).
+Original source: `` in [forjedio/yerd](https://github.com/forjedio/yerd).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
