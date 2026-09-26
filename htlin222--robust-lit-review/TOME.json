@@ -1,0 +1,63 @@
+{
+  "name": "robust-lit-review",
+  "owner": "htlin222",
+  "repo": "robust-lit-review",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "robust-lit-review",
+      "path": ".claude/skills/lit-review/SKILL.md",
+      "github_url": "https://github.com/htlin222/robust-lit-review/tree/main/.claude/skills/lit-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robust-lit-review",
+      "path": ".claude/skills/claim-appraise/SKILL.md",
+      "github_url": "https://github.com/htlin222/robust-lit-review/tree/main/.claude/skills/claim-appraise/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robust-lit-review",
+      "path": ".claude/skills/brainstorm-topic/SKILL.md",
+      "github_url": "https://github.com/htlin222/robust-lit-review/tree/main/.claude/skills/brainstorm-topic/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/htlin222/robust-lit-review",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T00:50:06Z"
+}
