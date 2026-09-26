@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pacphi/agentic-kit](https://github.com/pacphi/agentic-kit).
+Original source: `CLAUDE.md` in [pacphi/agentic-kit](https://github.com/pacphi/agentic-kit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [pacphi/agentic-kit](https://github.com/pacphi/a
 
 - [agentic-kit](https://github.com/pacphi/agentic-kit/tree/main/claude/skills/ruflo-token-audit/SKILL.md)
 
-From [pacphi/agentic-kit](https://github.com/pacphi/agentic-kit) — a repo with 54+ stars on GitHub.
+From [pacphi/agentic-kit](https://github.com/pacphi/agentic-kit) — a repo with 56+ stars on GitHub.
 
 ---
 
