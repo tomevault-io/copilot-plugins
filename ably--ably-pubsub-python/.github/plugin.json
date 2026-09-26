@@ -1,0 +1,14 @@
+{
+  "name": "ably--ably-pubsub-python",
+  "displayName": "ably-pubsub-python",
+  "description": "ably-pubsub-python",
+  "version": "1.0.0",
+  "author": "ably",
+  "homepage": "https://github.com/ably/ably-pubsub-python",
+  "skills": [
+    {
+      "name": "ably-pubsub-python",
+      "description": ""
+    }
+  ]
+}
