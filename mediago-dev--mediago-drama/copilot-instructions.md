@@ -1,273 +1,188 @@
 ## mediago-drama
 
-> <!-- one ai-guides:start -->
+> Publishable Go library. Stack: **Go module + go-task + stdlib `testing`**.
 
-<!-- one ai-guides:start -->
-# Claude Code 工作区 AI 指南
+# go-lib — Agent Guide
 
-本段内容由 One CLI 基于项目模板为 `CLAUDE.md` 自动生成。请优先修改模板 AI 片段，或通过 `one add` 刷新；不要直接手改这段受管内容。
+Publishable Go library. Stack: **Go module + go-task + stdlib `testing`**.
+Project layout follows
+[golang-standards/project-layout](https://github.com/golang-standards/project-layout).
 
-## 工作区
-
-- 根目录：当前包含 `one.manifest.json` 的工作区目录
-- AI 提供方：`claude-code`
-- 模板分组数：3
-
-## custom
-
-适用项目：
-- `packages/core`
-- `packages/instructions`
-- `packages/jianyingdraft`
-- `packages/mcp`
-- `packages/tools`
-
-### 内置指引
-- 当前模板 `custom` 没有内置 AI 最佳实践片段。
-- 先阅读该项目的 README、package.json、脚本和样式/运行时入口，再开始修改。
-- 优先保持现有技术栈和目录约定，不要臆造新的工程层级。
-
-## go-api
-
-适用项目：
-- `services/server`
-
-# go-api — Agent Guide
-
-Go HTTP API service. Stack: **Go + Gin + Gorm + Viper + Zap + go-task**.
-
-## Project layout
+## Starter layout (what's actually on disk)
 
 ```
-cmd/server/                 # executable entrypoint (main.go)
-internal/
-├── app/                    # application wiring (DI / startup)
-├── http/
-│   ├── handlers/           # Gin handler funcs — HTTP I/O only
-│   ├── middleware/         # logger, request_id, metrics
-│   └── response/           # consistent JSON response shape
-├── domain/                 # domain models (User, etc.)
-├── repository/             # Gorm repositories — the ONLY DB layer
-├── service/                # business services
-├── platform/
-│   ├── jwt/                # JWT signing / parsing
-│   └── logger/             # zap logger setup
-└── config/                 # Viper config loader
-api/                        # OpenAPI spec
-configs/                    # config.yaml + .env.example
-migrations/                 # SQL migrations
-scripts/                    # ops scripts
-Taskfile.yml                # go-task tasks
+pkg/
+└── greeter/                 # placeholder public package — rename / replace
+    ├── greeter.go
+    └── greeter_test.go
+
+go.mod                       # module path = github.com/example/<name> — change before publishing
+Taskfile.yml                 # fmt / vet / test / tidy / check
+README.md
+LICENSE                      # Apache-2.0
 ```
 
-## Architecture boundaries — NEVER violate
+The starter is intentionally minimal. The rest of the standard layout
+is **not** scaffolded — create directories only when you have real
+content to put in them. The cheatsheet below tells you which directory
+to use.
 
-- **Handler** (`internal/http/handlers/`): bind request → call service → write response. Thin. No business logic. No DB access. No SQL.
-- **Service** (`internal/service/`): business logic. Stateless. Take dependencies via constructor.
-- **Repository** (`internal/repository/`): the ONLY layer that touches Gorm / SQL. Returns domain models, not Gorm structs.
-- **Domain** (`internal/domain/`): pure structs and methods. No imports of Gin / Gorm / Viper.
-- **Cross-cutting** (auth, logging, request ID, metrics) → middleware in `internal/http/middleware/`.
+## golang-standards/project-layout — directory cheatsheet
 
-## Pre-wired infrastructure — DO use, DON'T recreate
+Look up before creating a new top-level directory. Don't invent new ones.
 
-| Need | Where |
-|------|-------|
-| Config (env + yaml) | `internal/config` (Viper-backed). Inject `*config.Config` into constructors. |
-| Logger | `internal/platform/logger` (Zap). Pass `*zap.Logger` via constructor — never use `log.Print*`. |
-| JWT | `internal/platform/jwt` |
-| Request ID | `middleware.RequestID` — already wired in `internal/app` |
-| Structured response | `internal/http/response` (success / error / list helpers) |
-| DB | Gorm via `repository/`; configure in `internal/app` |
-| API docs | `api/openapi.yaml` feeds Swagger UI at `/api/docs`; keep it in sync with routes and response shapes. |
+| Dir | Purpose | When to create |
+|-----|---------|----------------|
+| `/pkg` | **Public** library code. Anything importable by consumers. API == contract. | Already exists. Add a new subpackage `pkg/<feature>/` when grouping is needed. |
+| `/internal` | **Private** code. Go toolchain forbids imports from outside the module. | When you have helpers that must NOT leak to consumers (parsing internals, vendored utilities, version constants). |
+| `/cmd/<name>/` | Optional CLI(s) that ship alongside the library. `main.go` here must stay thin — flag parsing, then call into `pkg/`. | Only if the library has a companion executable (e.g. a code generator, a smoke-test binary). Pure libraries don't need it. |
+| `/examples/<name>/` | Runnable usage examples. Each subdir is `package main` with its own `main.go`. | When a public API is non-trivial; one example per major use case. |
+| `/api/` | Protocol contracts: OpenAPI, Proto, JSON Schema, gRPC IDL. | If the library publishes a wire protocol or codegen source. |
+| `/test/` | Integration / E2E tests + large test data. Unit tests stay next to source. | When you need a real backend (DB, network) or fixtures big enough to clutter source dirs. Gate with `//go:build integration`. |
+| `/docs/` | Design docs, ADRs, architecture notes. | When you accumulate enough non-README prose to justify a directory. |
+| `/scripts/` | Build, release, codegen, lint scripts. Treat as executable docs. | When something runs more than twice. |
+| `/build/` | Packaging configs (CI, Dockerfiles for release builds, goreleaser config). | When you ship binaries from `/cmd` or want reproducible release packaging. |
+| `/githooks/` | Repo-local git hooks. | If hooks are project-specific and not enforced by a separate tool. |
+| `/tools/` | Dev tooling pinned via `tools.go` blank imports. | When you need versioned dev tools (mockgen, stringer). |
+| `/third_party/` | Vendored / forked external code. | Rarely. Prefer `go.mod` replace directives. |
+
+**Directories that signal "this stopped being a library":** `/configs`,
+`/deployments`, `/web`, `/init`, `/assets`. If you find yourself
+reaching for these, the project is becoming an application — reconsider
+the scope or split into two modules.
+
+## Library contract — these are the rules
+
+A library is a public API. Every exported symbol is a promise.
+
+- **Only `pkg/**` is public.** Anything you don't want consumers to
+  import goes under `internal/`. Renaming, removing, or changing the
+  signature of an exported symbol in `pkg/` is a **breaking change**.
+- **Semantic versioning is non-negotiable.** Breaking changes bump
+  major. New features bump minor. Bugfixes bump patch.
+- **`v2+` requires a module path bump.** Append `/v2` (or `/v3`...) to
+  the module path in `go.mod` AND in import paths. There is no
+  shortcut.
+- **Every exported symbol has a doc comment** that starts with the
+  identifier name. `// Greet returns ...`, not `// Returns ...`.
+- **No `init()` side effects.** Consumers may not want them. Use
+  explicit constructors.
+- **Don't pollute global state.** No global mutable variables, no
+  hidden defaults that consumers can't override.
+- **Be conservative with dependencies.** Every dependency you add is
+  one your consumers must download and audit. Prefer the stdlib.
+  Vet bundle-size impact before pulling in anything heavy.
+- **Don't ship binaries from the root.** If you need a CLI, put it
+  under `cmd/<name>/`.
 
 ## Engineering discipline — mandatory
 
-1. `task check` (gofmt + vet + golangci-lint) exits 0
-2. `task test` passes — new code must come with tests
+1. `task check` exits 0 (tidy + fmt + vet + test)
+2. `go test -race ./...` passes — every new exported symbol comes
+   with a test
 3. `go build ./...` compiles
 4. Stage explicitly: `git add <file>`. Never `git add -A`.
-5. Conventional commit messages: `feat(user): add password reset endpoint`.
-6. Never commit secrets. Use `one secrets set <KEY> --env <env>`.
+5. Conventional commit messages: `feat(greeter): add multi-language Greet variants`.
+6. For breaking changes use `feat!:` or `fix!:` prefix AND describe
+   the breakage in the commit body.
 
-If any fails, stop. Fix the root cause, don't paper over.
+If any check fails, stop. Fix the root cause; don't paper over.
 
 ## Testing conventions
 
-- Unit tests: `<name>_test.go` next to source. Standard Go testing package.
-- Use **table-driven tests** for cases with shared setup.
-- Mock external deps (DB, HTTP) at the interface boundary — define interfaces in the consumer package, not the producer.
-- Repository tests: use a real DB in CI (Docker), mock interfaces in service tests.
-- `go test -race ./...` must pass.
+- **Unit tests live next to source** as `<name>_test.go`. `go test`
+  auto-discovers them.
+- **Table-driven tests** for cases with shared setup. Use `t.Run(tt.name, ...)`
+  for sub-tests so failures point at the specific case.
+- **Test the public API**, not internal helpers. If a helper is
+  important enough to test directly, ask whether it should be in
+  `pkg/` after all.
+- **No mocks for pure functions.** When impurity is unavoidable,
+  inject collaborators via interfaces. Define the interface in the
+  **consumer** package — not the producer (Go interface segregation).
+- **Race detector is mandatory.** `go test -race ./...` is part of
+  `task test`. Don't disable it.
+- **Integration tests** go under `/test/` with `//go:build integration`
+  build tag, run via `go test -tags=integration ./test/...`.
+- **Examples are tests too.** `func ExampleGreet()` in `pkg/greeter/`
+  compiles, runs, and verifies `// Output:` lines. Use them for the
+  most-used API surfaces.
 
 ## Code style
 
-- ❌ Don't use `interface{}` / `any` unless necessary. Use generics or a concrete type.
-- ❌ Don't return `(value, bool)` for "not found" — use `(value, error)` with `errors.Is(err, ErrNotFound)`.
-- ❌ Don't use `panic` outside `init()` / `main`. Return errors.
-- ❌ Don't `log.Print*`. Inject `*zap.Logger`.
-- ❌ Don't read `os.Getenv` in business code. Read via `*config.Config`.
-- ✅ Every exported func / type has a doc comment starting with the identifier.
-- ✅ Wrap errors with context: `fmt.Errorf("loading user %d: %w", id, err)`.
-- ✅ Use `context.Context` as the first parameter for any operation that may block / be cancelled.
+- ❌ **`interface{}` / `any`** unless you genuinely accept any type.
+  Prefer generics (`func F[T any](...)`) or concrete types.
+- ❌ **`(value, bool)` for "not found"** — use `(value, error)` with a
+  sentinel error and `errors.Is(err, ErrNotFound)`. Bool returns
+  don't compose with `errors.Wrap`.
+- ❌ **`panic` outside `init()` or `main`.** Libraries return errors.
+  A panic crashes the consumer.
+- ❌ **`log.Print*` / `fmt.Println` for diagnostics.** Libraries don't
+  own the logger. Accept one via constructor (`*slog.Logger` or an
+  interface), or return errors and let the consumer log.
+- ❌ **Reading env vars in library code.** Take values as parameters;
+  let the consumer decide where they come from.
+- ✅ **`context.Context` as the first parameter** for any function
+  that may block, do I/O, or be cancellable.
+- ✅ **Wrap errors with context**: `fmt.Errorf("decoding payload: %w", err)`.
+  Use `%w` for the cause, `%v` for non-wrapping formatting.
+- ✅ **Sentinel errors for branchable cases**: `var ErrNotFound = errors.New("...")`.
+- ✅ **Doc comments on every exported symbol**, starting with the
+  identifier name.
 
-## Common patterns
+## Adding a new public API — checklist
 
-**Add a new endpoint**
+1. Implement in `pkg/<feature>/<feature>.go` with a doc comment.
+2. Add table-driven tests in `pkg/<feature>/<feature>_test.go` (happy
+   path + each error case + boundary inputs).
+3. If the API benefits from a worked example, add
+   `func ExampleX()` in the same package — the godoc renders it.
+4. If non-trivial, add a runnable example under `examples/<feature>/main.go`.
+5. Run `task check` — must be green.
+6. Commit. Conventional message. If signature changes break consumers,
+   use `feat!:` and call out the breakage explicitly.
 
-1. Define request DTO in `internal/http/handlers/<feature>.go` (struct with `binding` tags).
-2. Add validation: `c.ShouldBindJSON(&req)` → returns 400 on failure.
-3. Call the service: `svc.DoThing(c.Request.Context(), req)`.
-4. Write response via `response.OK(c, data)` or `response.Error(c, err)`.
-5. Register route in `internal/http/router.go`.
-6. Add unit test for the handler (mock the service interface).
-7. Add OpenAPI doc in `api/openapi.yaml` and verify it renders in Swagger UI at `/api/docs`.
+## Adding a new internal helper
 
-**Add a new repository method**
+1. Pick the right home:
+   - Reusable across `pkg/` subpackages but not for consumers →
+     `internal/<helper>/`
+   - Specific to one `pkg/` subpackage → `pkg/<feature>/<helper>.go`
+     (unexported) or `pkg/<feature>/internal/<helper>/`
+2. Tests next to source, same package.
+3. Never export from `internal/`. If you find yourself wanting to,
+   move the symbol to `pkg/`.
 
-1. Define interface method in `internal/repository/<feature>_repo.go`.
-2. Implement against Gorm. Convert Gorm struct → domain model before returning.
-3. Update the service that consumes it.
-4. Add migration in `migrations/` if schema changes.
+## Versioning workflow
 
-**Add config**
-
-1. Add field to `internal/config/config.go` struct (with `mapstructure` tag).
-2. Add default in `configs/config.yaml`.
-3. Document env var override in `.env.example`.
+```bash
+# 1. Make the change + commit.
+# 2. Tag the release.
+git tag v0.1.0
+git push origin v0.1.0
+# 3. For major bumps, update module path FIRST:
+#    go.mod:   module github.com/example/<name>/v2
+#    imports:  github.com/example/<name>/v2/pkg/...
+#    then tag v2.0.0
+```
 
 ## Quality gates
 
 ```bash
-task check         # gofmt + vet + lint
-task test          # go test -race ./...
-task build         # go build -o bin/server ./cmd/server
+task check          # tidy + fmt + vet + test
+task test:cover     # coverage report (look at -func output)
+go build ./...      # compiles cleanly
 ```
 
 All must pass before declaring a change complete.
 
-## react-spa
+## References
 
-适用项目：
-- `apps/app`
-- `apps/workspace`
-
-# react-spa — Agent Guide
-
-CSR (client-side rendered) React app. Stack: **React 19 + Vite + TypeScript + shadcn/ui + Tailwind CSS v4 + SWR + Zustand + sonner**.
-
-The homepage at `src/pages/Home.tsx` is intentionally minimal (Vue/React-scaffold style). Don't bring back demo galleries — extend by composing the pre-wired infrastructure below.
-
-## Project layout
-
-```
-src/
-├── App.tsx              # Shell (header + routes + footer). Theme toggle lives here.
-├── main.tsx             # Mount point + providers wiring
-├── api/                 # Pure functions, "key + fetcher" shape (api/demo.ts is the canonical example)
-├── components/
-│   ├── ui/              # shadcn primitives — atoms (Button, Card, Badge, Input, Alert, Label)
-│   └── ErrorBoundary.tsx # Wraps the router, catches render errors
-├── hooks/               # Custom hooks (useToast)
-├── lib/
-│   ├── stores/          # Zustand slices (theme, toast)
-│   ├── http.ts          # Axios instance — use as SWR fetcher
-│   ├── toast.ts         # Sonner-backed toast singleton
-│   ├── app-info.ts      # Read VITE_* env vars
-│   └── utils.ts         # cn() classname merger
-├── pages/               # Route-level components (Home.tsx is "/")
-├── providers/           # SWRProvider, ThemeProvider
-├── router/routes.tsx    # react-router-dom route table
-└── styles/
-    ├── tokens.css       # Design tokens — CSS variables, light + dark
-    ├── tailwind.css     # Tailwind v4 entry
-    ├── index.css        # Global styles entry
-    └── reset.css
-```
-
-## Pre-wired infrastructure — DO import, DON'T recreate
-
-| Need | Import |
-|------|--------|
-| Theme toggle | `useThemeStore` from `@/lib/stores/theme` (returns `{ mode, toggle, setMode }`) |
-| Toast notifications | `useToast` from `@/hooks/useToast` — `toast.success / .info / .warning / .error` |
-| HTTP client | default export from `@/lib/http` (axios) |
-| Data fetching | `useSWR(key, fetcher)` — pair with `@/lib/http` |
-| Error boundary | already wraps the router (`@/components/ErrorBoundary`) |
-| Class merging | `cn()` from `@/lib/utils` |
-| App metadata | `appInfo`, `getEnvironmentLabel` from `@/lib/app-info` |
-
-## Atomic design (advisory — physical folders NOT enforced)
-
-| Layer | Where | Examples |
-|-------|-------|----------|
-| atoms | `src/components/ui/` | Button, Card, Badge, Input |
-| molecules | `src/components/` | Compose atoms — e.g. a SearchInput = Input + Button |
-| organisms | `src/components/sections/` (create when needed) | Page-level blocks like NavBar |
-| pages | `src/pages/` | Route-level components |
-
-Don't dump unrelated logic in atoms. Don't import organisms from atoms (one-way dependency: atoms ← molecules ← organisms ← pages).
-
-## Design tokens — use Tailwind utilities, never hex/rgb
-
-Tokens live in `src/styles/tokens.css` as CSS variables (light + dark themes). The Tailwind classes below map to these variables — use them so theme switching just works.
-
-| Concern | Use these classes |
-|---------|-------------------|
-| Surface | `bg-background`, `bg-card`, `bg-popover`, `bg-muted` |
-| Text | `text-foreground`, `text-muted-foreground`, `text-primary` |
-| Border | `border-border`, `border-input` |
-| Accent | `bg-primary`, `bg-secondary`, `bg-destructive` |
-| Semantic | `bg-success-surface` / `bg-info-surface` / `bg-warning-surface` / `bg-error-surface` (and matching `border-*` / `text-*-foreground`) |
-
-❌ DON'T write `bg-[#ff0000]`, `text-blue-600`, or any hex/rgb. If you need a new color, add a CSS variable to `tokens.css` first.
-
-## Common patterns
-
-**Counter / stateful slice**
-
-```ts
-// src/lib/stores/counter.ts
-import { createStore } from "@/lib/utils";
-export const useCounterStore = createStore<{ count: number; inc: () => void }>(
-  (set) => ({ count: 0, inc: () => set((s) => ({ count: s.count + 1 })) }),
-  "counter",
-);
-```
-
-**SWR data fetch**
-
-```tsx
-import useSWR from "swr";
-import { demoKey, getDemo } from "@/api/demo";
-const { data, error, isLoading, mutate } = useSWR(demoKey, getDemo);
-```
-
-**Toast notifications**
-
-```tsx
-const toast = useToast();
-toast.success("Saved", { description: "Draft updated" });
-toast.error("Failed", { description: err.message });
-```
-
-**Throw to ErrorBoundary**
-
-```tsx
-if (somethingWrong) throw new Error("...");  // Caught by ErrorBoundary, shows fallback UI
-```
-
-## Quality gates
-
-```bash
-pnpm lint          # oxlint
-pnpm format        # oxfmt --check
-pnpm build         # tsc -b && vite build  (runs typecheck)
-```
-
-All three must pass before declaring a change complete.
-
-<!-- one ai-guides:end -->
+- [golang-standards/project-layout](https://github.com/golang-standards/project-layout)
+- [Effective Go](https://go.dev/doc/effective_go)
+- [Go Code Review Comments](https://go.dev/wiki/CodeReviewComments)
+- [Module version numbering](https://go.dev/doc/modules/version-numbers)
 
 ---
 > Source: [mediago-dev/mediago-drama](https://github.com/mediago-dev/mediago-drama) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
