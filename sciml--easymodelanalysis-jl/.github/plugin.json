@@ -1,0 +1,9 @@
+{
+  "name": "sciml--easymodelanalysis-jl",
+  "displayName": "EasyModelAnalysis.jl",
+  "description": "EasyModelAnalysis.jl",
+  "version": "1.0.0",
+  "author": "SciML",
+  "homepage": "https://github.com/SciML/EasyModelAnalysis.jl",
+  "skills": []
+}
