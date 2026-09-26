@@ -1,53 +1,34 @@
 ## pixel-scaler
 
-> - Strict mode is enabled. All code must pass strict type checking.
+> Lookup for TypeScript, Vue, testing, comment, and git conventions.
 
-# Coding Conventions
 
-## TypeScript
+# Engineering Conventions
 
-- Strict mode is enabled. All code must pass strict type checking.
-- Avoid `any`. Use proper types or `unknown` when the type is truly unknown.
-- For TypeScript/JavaScript module imports, prefer `@/*` path aliases (e.g., `@/core/services/fooService`). Avoid relative paths like `../../`. Styles and test fixtures may use valid relative paths where appropriate.
-- JSDoc is **not required**. Code should be self-documenting through clear naming.
+## Background
 
-## Vue Components
+These conventions keep code strict, testable, and consistent across the layer model. See [Project Architecture](architecture.md) for the layers they apply to.
 
-- Use `<script setup lang="ts">` for all components.
-- Keep component logic minimal; delegate to composables or stores.
+## Catalog
 
-## Internationalization (i18n)
+* **TypeScript** — strict mode; avoid `any` (use proper types or `unknown`); prefer `@/*` path aliases over relative imports (relative refs remain for non-TS paths such as SCSS `@use` asset paths and test fixture/helper refs); JSDoc is not required, names should be self-documenting.
+* **Vue components** — use `<script setup lang="ts">`; keep logic minimal and delegate to composables or stores; never hardcode UI text (use `t('key.path')` with keys in `src/core/config/i18n/`); style with `<style lang="scss" scoped>`, CSS variables for colors, no hardcoded hex.
+* **Testing** — when modifying logic, add or update tests; prefer data-driven `test.each`; tests live in `tests/unit/` mirroring `src/`; run with `bun run test`.
+* **Comments** — `// NOTE: ...` for intentional but non-obvious code or historical decisions; `// TODO: ...` for future work.
+* **Git workflow** — 1. Identify the affected layer ([Project Architecture](architecture.md)). 2. Implement per the architecture rules. 3. Run `bun run test`. 4. Commit (lint-staged/husky format automatically). 5. One-line English commit message.
 
-- UI text must **never** be hardcoded in components.
-- Add translation keys to `src/core/config/i18n/en.json` (and `ja.json` when possible).
-- Use `t('key.path')` in templates and scripts via `vue-i18n`.
+## Gotchas
 
-## Styling
+* Gap: no coverage thresholds were found in code, so "enough tests" is a reviewer judgment call.
 
-- Use `<style lang="scss" scoped>`.
-- Use CSS variables for all colors (e.g., `var(--color-text-primary)`) to support dark/light themes.
-- Do not hardcode hex colors in components.
+## References
 
-## Testing
-
-- When modifying logic, you **must** add or update corresponding tests.
-- Prefer data-driven tests with `test.each` for efficient multi-scenario coverage.
-- Tests live in `tests/unit/` and mirror the `src/` directory structure.
-- Run tests: `bun run test`
-
-## Comments
-
-- `// NOTE: ...` — Explain intentional but non-obvious implementations or historical decisions.
-- `// TODO: ...` — Mark items for future consideration or implementation.
-
-## Git Workflow
-
-1. Identify which layer (Service / Store / Composable / Component) needs changes.
-2. Implement following the architecture rules in `docs/ARCHITECTURE.md`.
-3. Run `bun run test` to verify correctness.
-4. Commit — lint-staged and husky handle formatting automatically.
-5. Commit message: concise one-liner in English.
+* `AGENTS.md` — the same conventions in agent-facing form
+* `vitest.config.ts` — test runner setup
+* `tests/unit/` — examples of mirrored, data-driven tests
+* [i18n Contribution Playbook](../contributing/i18n-playbook.md) — translation key workflow
+* [Theme Contribution Playbook](../contributing/theme-playbook.md) — styling rules in workflow form
 
 ---
 > Source: [irokaru/pixel-scaler](https://github.com/irokaru/pixel-scaler) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
