@@ -1,32 +1,32 @@
 ## myco
 
-> Development repo for myco, a local-first knowledge wiki.
+> - **목적**: 일기·학습 메모·인사이트 축적
 
-# myco — Repository Guide
+# Wiki Template — Personal Notes
 
-Development repo for myco, a local-first knowledge wiki.
+> 개인 메모·일지·학습 노트용.
 
-## Layout
+## 프로젝트 맥락
+
+- **주제**: 개인 노트
+- **목적**: 일기·학습 메모·인사이트 축적
+- **주 언어**: ko
+
+## 권장 wiki/ 구조
 
 ```
-app/            # myco desktop app (Tauri 2 + React)
-mcp-server/     # MCP server (28 tools) — shares the app's vault layout
-clipper/        # web clipper (browser extension + bookmarklet)
-automation/     # automated ingest scripts
-templates/      # project vault templates
-docs/           # user docs, screenshots, signing/release guide
+wiki/
+  daily/          # 날짜별 (YYYY-MM-DD.md)
+  topics/         # 주제별 장기 메모
+  people/         # 사람
+  projects/       # 개인 프로젝트 기록
 ```
 
-## Rules
+## 특이 사항
 
-- The app (`app/`) follows its own conventions (tests, lint, i18n) — see
-  `app/docs/specs/`.
-- A user vault's `raw/` is **immutable** — never modify or delete through any
-  path (app, MCP, agents). Read only.
-- Commits in English, Conventional Commits (`<type>(<scope>): <subject>`).
-- Gates: `cd app && npm run lint && npx tsc -b && npx vitest run`;
-  Rust: `cd app/src-tauri && cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test`.
+- Citation 의무는 완화 (source가 "나"인 경우가 많음)
+- 대신 `confidence: low` 기본값 권장 — 추후 외부 소스로 보강 시 갱신
 
 ---
 > Source: [cmblir/Myco](https://github.com/cmblir/Myco) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
