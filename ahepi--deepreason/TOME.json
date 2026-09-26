@@ -1,0 +1,417 @@
+{
+  "name": "DeepReason",
+  "owner": "AHepi",
+  "repo": "DeepReason",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-diagnose/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-set-goal/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-set-goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-reproduce/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-reproduce/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-audit-dead/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-audit-dead/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-plan-steps/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-plan-steps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-propose-fix/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-propose-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-spec-change/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-spec-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-execute-step/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-execute-step/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-audit-broken/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-audit-broken/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/authoring-skills/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/authoring-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-drive-harness/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-drive-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-implement-fix/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-implement-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-verify-outcome/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-verify-outcome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-deliver-change/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-deliver-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-capture-request/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-capture-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-validate-change/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-validate-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-audit-spec-drift/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-audit-spec-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-audit-docs-drift/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-audit-docs-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-audit-goal-trace/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-audit-goal-trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-audit-orchestrator/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-audit-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-change-orchestrator/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-change-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/pinker-clarity-workflow/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/pinker-clarity-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/deepreason-orchestrator/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/deepreason-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/pinker-write-for-readers/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/pinker-write-for-readers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/dr-ask-the-right-question/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/dr-ask-the-right-question/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": ".claude/skills/pinker-teach-for-understanding/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/.claude/skills/pinker-teach-for-understanding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/assembly/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/assembly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/deduction/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/deduction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/pilot-task/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/pilot-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/term-pinning/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/term-pinning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/mapping-table/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/mapping-table/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/review-response/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/review-response/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/example-battery/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/example-battery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/denotation-tests/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/denotation-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/refutation-first/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/refutation-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/discharge-typing/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/discharge-typing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/minimal-pair-review/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/minimal-pair-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/semantic-round-trip/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/semantic-round-trip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "skills/model-zoo-discipline/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/skills/model-zoo-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/assembly/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/assembly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/term-pinning/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/term-pinning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/mapping-table/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/mapping-table/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/example-battery/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/example-battery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/review-response/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/review-response/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/discharge-typing/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/discharge-typing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/denotation-tests/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/denotation-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/decision-mapping/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/decision-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/assembly/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/assembly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/deduction/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/deduction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/minimal-pair-review/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/minimal-pair-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/precedent-transport/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/precedent-transport/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/semantic-round-trip/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/semantic-round-trip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle0.5/skills/expressibility-probe/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle0.5/skills/expressibility-probe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/term-pinning/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/term-pinning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/mapping-table/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/mapping-table/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/example-battery/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/example-battery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/denotation-tests/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/denotation-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/refutation-first/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/refutation-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/discharge-typing/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/discharge-typing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/minimal-pair-review/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/minimal-pair-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/semantic-round-trip/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/semantic-round-trip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DeepReason",
+      "path": "tools/treadle/repo-assets/skills/model-zoo-discipline/SKILL.md",
+      "github_url": "https://github.com/AHepi/DeepReason/tree/main/tools/treadle/repo-assets/skills/model-zoo-discipline/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AHepi/DeepReason",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T04:32:04Z"
+}
