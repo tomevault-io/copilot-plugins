@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [axisj/beautiful-grid](https://github.com/axisj/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [axisj/beautiful-grid](https://github.com/axisj/beautiful-grid) — a repo with 7+ stars on GitHub.
+From [axisj/beautiful-grid](https://github.com/axisj/beautiful-grid) — a repo with 96+ stars on GitHub.
 
 ---
 
