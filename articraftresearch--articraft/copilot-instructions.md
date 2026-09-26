@@ -1,135 +1,123 @@
 ## articraft
 
-> articraft is a small reference version of
+> articraft has a small generation system. This is its core loop:
 
-# Repository guidelines
+# Agent design
 
-## Project purpose
-
-articraft is a small reference version of
-[articraft](https://github.com/mattzh72/articraft).
-
-Keep this repo simple. The goal is to preserve the useful core idea from
-articraft while leaving behind the larger repo's messy code, broad feature set,
-viewer, data library, provenance system, and heavy storage flows.
-
-The core loop is:
+articraft has a small generation system. This is its core loop:
 
 ```text
-prompt -> model -> environment -> record
+prompt -> model -> workspace -> record
 ```
 
-When you need behavior from articraft, read the source first and bring over
-only the smallest idea needed for this repo. Prefer writing a clear new version
-over copying a large module.
+The model changes one Python workspace. The workspace compiles it in a separate process. The agent adds each model response and tool result to the conversation record.
 
-## Project shape
+## Run sequence
 
-The Python package lives in `src/articraft/`.
+The command line interface and the `articraft.generate` functions create a model adapter and
+a local workspace. They give both items to `Agent`. This separation keeps the loop independent
+of one model or compiler.
 
-Use these areas as the main boundaries:
+The agent does these steps for each run:
 
-- `api.py` owns the public sync/async generation functions and shared provider routing.
-- `agent/` owns the generate and compile loop.
-- `models/` owns model adapters.
-- `agent/workspace/` owns run creation and compile execution: where the agent works.
-- `compiler/` owns the compile itself, plus its result and the signals the agent reads.
-- `sdk/` owns the small build123d object API, joints, and export helpers.
-- `prompts/` owns the agent prompts.
-- `settings.py` owns default runtime settings.
-- `record.py` owns the small JSON record and conversation helpers.
-- `tests/` owns pytest coverage for the package.
+1. It creates a run directory and a starter `main.py` file.
+2. It loads the system prompt, the SDK quickstart, and the user request.
+3. It asks the model for text and tool calls.
+4. It runs the tools and gives the results to the model.
+5. It repeats the loop until the current workspace compiles.
+6. It waits for a visible final response from the model.
+7. It saves the final status and the USDZ path.
 
-Do not add a viewer, full local library, category system, record manifest,
-paper tooling, or broad provider matrix unless the user asks for it directly.
+The loop has a turn limit. It also stops after three empty model responses. A run fails if the
+model stops before a current compile. A run also fails if the compile does not make a USDZ file.
 
-## Development commands
+## Prompts and tools
 
-Use `uv` for local work.
+The system prompt defines the authoring contract and the quality checks. It tells the model to
+use correct dimensions and model the main motion. It tells the model to connect each part and
+prevent unwanted overlap.
 
-```bash
-uv sync --group dev
-uv run pytest -q
-uv run ruff check .
-uv run ruff format .
+The SDK quickstart is a separate user message. Thus, the model starts with the current public
+API.
+
+The model has these local tools:
+
+- `read` reads workspace files and the SDK reference.
+- `view_image` opens workspace images and SDK reference figures.
+- `edit` and `write` change workspace files.
+- `exec_command` and `write_stdin` run short local inspections.
+- `compile` builds, checks, and exports the current object.
+
+Independent read operations can run at the same time. File changes, shell commands, and compile
+operations run in sequence. Tool paths stay in the run workspace. Read operations can also use
+the packaged SDK documents.
+
+## Compile contract
+
+The compile worker runs in a separate Python process. This process isolates failures in generated
+code. It also gives each normal compile a clean Python interpreter.
+
+The workspace entry point must define these items:
+
+```python
+def build_object_model() -> RigidBodyAssembly: ...
+
+object_model = build_object_model()
+
+def run_tests() -> TestReport: ...
 ```
 
-Use `OPENAI_API_KEY` in `.env` when testing the OpenAI model adapter.
+The worker loads `main.py`. It runs the authored tests and the compiler tests. It then exports the
+USDZ file. The worker returns a short set of compile signals to the model. The command line
+interface and the run files contain the full result.
 
-The CLI entry point is:
+The agent saves a digest after each successful compile. A workspace change makes that compile
+old. Thus, the agent cannot publish an old USDZ file after a new edit fails.
 
-```bash
-uv run articraft
+## Run files
+
+A run has this structure:
+
+```text
+runs/<run-id>/
+  conversation.jsonl
+  record.json
+  workspace/
+    main.py
+    docs/sdk -> packaged SDK docs
+  result/
 ```
 
-The compile worker entry point is:
+`conversation.jsonl` contains each model message and tool result in sequence. `record.json`
+contains the status, compile attempts, result path, cost, and token use. The `result` directory
+contains the numbered export files.
 
-```bash
-uv run python -m articraft.compiler.worker <run_dir>
-```
+## Main parts of the code
 
-Prefer calling the compile worker through `LocalWorkspace` unless you are
-debugging the worker itself.
+- [`api.py`](../src/articraft/api.py) contains the public synchronous and asynchronous
+  generation functions and the provider routing they share with the command line interface.
+- [`agent/`](../src/articraft/agent) contains the turn loop and tools.
+- [`agent/provider/`](../src/articraft/agent/provider) contains the model adapters.
+- [`agent/workspace/`](../src/articraft/agent/workspace) creates runs and compiles them.
+- [`compiler/`](../src/articraft/compiler) is the compile itself, its result, and the signals
+  the agent reads. It runs with or without an agent.
+- [`sdk/`](../src/articraft/sdk) contains object authoring, tests, and export code.
+- [`agent/record.py`](../src/articraft/agent/record.py) saves the run record and conversation
+  log.
+- [`prompts/`](../src/articraft/prompts) contains the model instructions.
 
-## Coding style
+The `Model` and `Workspace` protocols are the two main extension points. A model adapter answers
+queries and closes its resources. A workspace creates a run and compiles it -- both halves vary
+together, because whatever machine holds the run directory is the machine that compiles it.
 
-Target Python 3.11 and keep the current style.
+## Test the loop
 
-Use `from __future__ import annotations` in Python modules. Use explicit type
-hints for public functions and helpers. Keep dataclasses and Pydantic models
-small. Prefer plain functions and simple classes over new frameworks.
+The test harness can replace paid model calls with scripted responses. It can keep a compile worker
+open for fast tests. It can also replay a saved model conversation. These options test the full
+loop. The production environment still uses a new process for each compile.
 
-Write code in the articraft style: small, direct, and easy to fork. Favor
-clear data shapes, compact helpers, and obvious control flow over defensive
-frameworks, plugin systems, policy objects, registries, and broad fallback
-machinery. Extensible should mean that a reader can understand the core idea and
-edit it by hand, not that the repo grows a configurable abstraction layer.
-
-When porting an Articraft idea, keep the useful behavior and drop the ceremony.
-Prefer one readable module with a few plain dataclasses and functions over a
-large subsystem split across many files. Avoid over-engineering for inputs this
-repo does not produce. Keep tests focused on behavior and avoid repeating the
-same assertions at every integration layer.
-
-Ruff is configured with a line length of 100, Python 3.11 syntax, import
-sorting, and double quotes.
-
-## Change policy
-
-Make narrow changes. Keep each module easy to read on its own.
-
-Avoid hidden global state. Avoid background services. Avoid adding caches,
-registries, database layers, or file layouts that are not needed for the small
-reference flow.
-
-Generated runs, result files, local secrets, virtual environments, and caches
-should stay out of commits. If a new workflow writes generated files, either
-write them under a clearly ignored folder or update `.gitignore` in the same
-change.
-
-## Testing
-
-Add or update tests when behavior changes. Keep tests close to the code they
-cover and name new files `test_<feature>.py`.
-
-Prefer fast pytest tests that exercise the package directly. Use temporary
-directories for compile and record tests. Do not require real model calls unless
-the test is explicitly about a live adapter.
-
-`tests/harness.py` is the modular test environment for agent-loop behavior:
-scripted models, warm-worker compiles (`WarmEnvironment`), and tape replay
-(`ReplayHarness`) cover the full loop without paid model calls. See
-`tests/README.md` for the four lanes and when to use each. Keep the subprocess
-worker contract covered in `test_compile.py`. A few exec-output timing tests
-are known to flake on macOS; do not weaken them locally.
-
-Run this before handing off a code change:
-
-```bash
-uv run pytest -q
-uv run ruff check .
-```
+Read the [test environment guide](../tests/README.md) for more information.
 
 ---
 > Source: [articraftresearch/Articraft](https://github.com/articraftresearch/Articraft) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
