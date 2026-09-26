@@ -1,7 +1,7 @@
 {
   "name": "runxhq--runx",
   "displayName": "runx",
-  "description": "the governed runtime for agent skill workflows, off the leash but on the record",
+  "description": "runx",
   "version": "1.0.0",
   "author": "runxhq",
   "homepage": "https://github.com/runxhq/runx",
