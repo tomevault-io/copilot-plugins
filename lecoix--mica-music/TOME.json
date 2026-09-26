@@ -2,9 +2,9 @@
   "name": "mica-music",
   "owner": "lecoix",
   "repo": "mica-music",
-  "description": "\u4e00\u6b3e\u4ee5\u6781\u7b80\u76f4\u89d2\u4e3a\u8bbe\u8ba1\u8bed\u8a00\u7684\u672c\u5730\u97f3\u4e50\u64ad\u653e\u5668",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lecoix/mica-music",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T13:40:33Z"
+  "distributed_at": "2026-09-26T15:10:49Z"
 }
