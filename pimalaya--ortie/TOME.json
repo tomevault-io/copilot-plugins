@@ -4,7 +4,7 @@
   "repo": "ortie",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pimalaya/ortie",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T12:56:02Z"
+  "distributed_at": "2026-09-26T13:18:24Z"
 }
