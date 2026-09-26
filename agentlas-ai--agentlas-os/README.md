@@ -16,7 +16,7 @@ Original source: `` in [agentlas-ai/Agentlas-OS](https://github.com/agentlas-ai/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [agentlas-ai/Agentlas-OS](https://github.com/agentlas-ai/Agentlas-OS) — a repo with 1393+ stars on GitHub.
+From [agentlas-ai/Agentlas-OS](https://github.com/agentlas-ai/Agentlas-OS) — a repo with 1449+ stars on GitHub.
 
 ---
 
