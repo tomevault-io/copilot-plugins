@@ -1,0 +1,44 @@
+{
+  "name": "GLM-5.3-Flash-NVFP4-2x-DGX-Sparks-BIZ",
+  "owner": "Bizuayeu",
+  "repo": "GLM-5.3-Flash-NVFP4-2x-DGX-Sparks-BIZ",
+  "description": "NVFP4 BIZ: nvidia/GLM-5.3-Flash-NVFP4 on two DGX Spark-class GB10 systems with a pinned vLLM (TP=2, Marlin W4A16, FA2 prefill, MTP, prefix caching, image input, bit-reproducible completions); accepted for routine use, one active sequence. Apache-2.0 code, MIT weights fetched separately. BIZ = business-use intent, not support or certification.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Bizuayeu/GLM-5.3-Flash-NVFP4-2x-DGX-Sparks-BIZ",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T23:23:01Z"
+}
