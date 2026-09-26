@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [nefarius/vicius](https://github.com/n
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nefarius/vicius](https://github.com/nefarius/vicius) — a repo with 79+ stars on GitHub.
+From [nefarius/vicius](https://github.com/nefarius/vicius) — a repo with 80+ stars on GitHub.
 
 ---
 
