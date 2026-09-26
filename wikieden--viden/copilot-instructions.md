@@ -1,305 +1,112 @@
 ## viden
 
-> This is the canonical repository-wide instruction file for coding agents and
+> > 本文件是 **Viden** 的项目说明 + 文档体系 + 工作纪律,随每个会话自动加载。
 
-# Viden Agent Guide
+# Viden — 项目说明（CLAUDE.md）
 
-## How To Use This Guide
+> 本文件是 **Viden** 的项目说明 + 文档体系 + 工作纪律,随每个会话自动加载。
+> 底座来自 design-spec-kit;呈现层是 Viden 自己的「Aurora」终端/桌面皮肤。
 
-This is the canonical repository-wide instruction file for coding agents and
-automation. Tool-specific entry files such as root `CLAUDE.md` must point here
-instead of maintaining a competing copy of project policy.
+## 快速检索（冷启动地图 · 找组件/样式/token/图标先看这里）
+> 任何 agent 进来,先按此表定位真源再 grep,**别另造索引**(再造 = 漂移)。深细节走 `docs/DESIGN-REF.md`。
 
-Instruction precedence is:
+| 要找 | 唯一真源 | 怎么取 |
+|---|---|---|
+| **token**(色/字号/间距/圆角/阴影/密度) | `tokens.css` | grep `--accent`;皮肤段看 `[data-skin][data-mode]` |
+| **组件**(类名 + 最小 HTML) | `docs/DESIGN-REF.md`「组件目录」→ `GUI/gui-kit.css` · `TUI/tui-kit.css` | grep 类名 `.wslane` / `.vterm` |
+| **GUI 图标** | `GUI/gui-icons.jsx`(`ICONS` / `GuiIcon` / `AgentLogo`) | grep key `chat` / `lock` |
+| **TUI 字形** | `docs/DESIGN-REF.md`「TUI 字形词表」 | grep 字形 / 语义 |
+| **屏 / 页**(画到哪 · 文件路径) | `docs/screens-status.js`(机读) | grep id / file |
+| **设计决策 / 护栏** | `docs/SPEC.md` | grep `@DECISION` / `@OPEN` / `@GREP` |
+> 路由:`CLAUDE.md`(本文件·入口) → `docs/DESIGN-REF.md`(深目录) → grep 真源。非 Claude 工具入口见根 `AGENTS.md`(指针,不复制内容)。
 
-1. the user's current request;
-2. this repository-root `AGENTS.md`;
-3. the nearest nested `AGENTS.md` for files being changed;
-4. durable architecture, design, and development documents linked below.
+## 产品
+**Viden** 是一个 **AI agent 编排开发工具**:用 lane/会话编排多个智能体协作写代码,带工具门控(gate)与人审。
+- **Core** —— 核心功能与视觉设计真源(Rust);品牌、Aurora 主题、协作机制图都在这里。
+- **TUI** —— 命令行版本(终端驾驶舱,等宽字符栅格)。
+- **GUI** —— 桌面客户端版本(Rust + Tauri,多栏窗口)。
 
-Read every applicable instruction file before editing. When a task crosses
-Core, TUI, GUI, or the design package, split ownership or explicitly reconcile
-the nested rules before writing. Never assume a historical branch description
-or chat summary is current; verify Git and the referenced source-of-truth files.
+技术栈:核心 **Rust**;GUI **Rust + Tauri**。UI 设计阶段,以 HTML 高保真稿沉淀规范。
+`0.1.0-alpha.1` framework gate 已用同一 Core fixture 的 Tauri/GPUI spike 证据选择
+**Tauri** 作为唯一 production baseline;GPUI 仅保留为对比 spike。该选择不豁免 Tauri
+后续真实 IME/可访问性、三平台、性能、交付与恢复门禁。
 
-Key sources:
+核心场景:
+- **会话主屏 / 多 lane**:在一个驾驶舱里编排多个 agent,看转录、实时工作(LIVE WORK)、活动任务。
+- **工具门控与审批**:危险工具调用停在 gate 上等人审(approval),金色 = 「需要人」。
+- **Lane 监视 / 集成闸**:并行 lane 进度、冲突退回、画廊评审。
 
-- roadmap and release sequencing: `PLAN.md` and `docs/staged-roadmap.md`;
-- V3 branch topology: `docs/parallel-development-plan.md`;
-- architecture and module boundaries: `docs/architecture.md` and
-  `docs/modules.md`;
-- coding, documentation, and comment standard:
-  `docs/development-standards.md`;
-- frontend contract: `docs/frontend-integration-contract.md`;
-- visual adoption rules: `docs/viden-design-adoption.md` and the nested
-  instructions under `docs/viden-design/Viden/`.
+## 设计基调
+- 气质:**克制 · 工程/终端感**(cockpit 驾驶舱),信息承载优先,几何精确、不花哨。
+- 模式:**深色为主**,Light 为可选变体;并提供多套配色皮肤(换肤)。
+- 排版:UI/正文 **Inter + Noto Sans SC**;代码/终端 **JetBrains Mono**;终端态全程等宽对齐。
+- 主题色:**多套可切换**,每套含 背景6档 / 前景4档 / 强调(青 `--accent` 主 + 金 `--gold` 注意)/ 语义4色(success/warning/error/progress)/ 边框 / 页面 chrome。
+  - 主色 **青(robot logo 同源)**= 品牌 + 唯一交互焦点(边框激活/标题/选中行/focus)。
+  - 次强调 **金**= viden 字标 + 工作模式 + 「需要人」(门控/待审批)。
+  - 5 套皮肤 × 明暗两轴:`data-skin`=`aurora`(青·默认)·`ice`(蓝)·`mono`(灰)·`amber`(琥珀)·`phosphor`(绿);`data-mode`=`dark`|`light`。aurora/ice/mono 成对 dark+light;amber/phosphor 复古终端族仅 dark。
+- 平台与密度:**桌面 · 高密度**(cockpit 多栏 + 滚动 ticker);密度可调 `data-density`=`compact|regular|comfy`。
 
-## Mission
+## 设计 Token（单一真源）
+所有 token 定义在根目录 **`tokens.css`**,是**唯一真源**。页面用 `<link rel="stylesheet" href="tokens.css">`(子目录用相对路径,如 `../tokens.css`),根元素设 `data-skin` / `data-mode` / `data-density`。
+- **切勿凭空发明颜色 / 字号 / 间距**,一律引用 `var(--*)`。裸 `#hex` / `rgba()` 由 `check-tokens.js` 拦截。
+- 间距 4px 基准(`--sp-*`),圆角 `--r-*`(TUI 方硬 3px → GUI 圆润 14px),阴影 `--shadow-*`,字体 `--font-mono`/`--font-sans`,字阶 `--fs-*`。
+- 换肤机制:所有颜色 token 随 `data-skin`×`data-mode` 两轴重定义,组件只用语义 `var(--*)` —— 换 skin/mode 即换肤,组件零改动。密度随 `data-density`。
 
-Viden is a Rust-first, local-first agentic developer workspace inspired by
-`.ref/claude-code-main`. Treat the reference project as a behavioral guide, not
-as a file-by-file port. Preserve user-facing runtime patterns where valuable,
-but keep the implementation Rust-native and simpler than the reference when the
-extra platform machinery is not yet needed.
+## 翻译成 app（Rust + Tauri · 防漂移）
+> Tauri 前端 = webview = HTML/CSS/JS,所以设计层**直接共享、不要手抄翻译**(手抄必漂)。按「能否共享」分三层:
+- **① 原样共享(零漂移)** —— `tokens.css` + `GUI/gui-kit.css` + `brand-assets/*.svg`。app 前端**直接 import**,组件渲染**同一套类名 + DOM 结构**(`.frame/.act/.wslane/.envp/.gperm`…);改 token 两边同步。视觉真源 = `GUI/Viden - 桌面驾驶舱 (GUI)`(D1)。
+- **② 脚本派生(单向)** —— 原生侧(托盘/菜单/窗口 chrome)要色值时,用生成器 `tokens.css → tokens.json/.rs`,**禁手抄**;`.css` 永远是源,产物可重生成、可 gitignore。
+- **③ 原生重写(本不共享)** —— React+Babel 运行时转译、`chrome.js` 换肤器、窗口管理器、`tweaks-panel`、mock 数据 = **原型脚手架**,app 用正经构建/框架实现。**注意:视觉不在这层,全在 ① 的共享 CSS 里。**
+- **对齐更新**:① 的文件作单一真源,被 app vendore(git submodule / 共享包),`git pull` 即同步;**别在 app 留手改副本**(留副本 = 漂移源)。
 
-## Current Architecture
+## 交付物与文档
+- **Core/「Viden - Aurora 主题」** —— 给人看的配色/层级/组件展示页(含主题切换)。
+- `docs/DESIGN-REF.md` —— **AI / 开发速查手册**:token 全表 + 组件目录(类名 + 最小 HTML)。**复用组件前先读它。**
+- `docs/SPEC.md` —— **设计决策护栏机读真源**(grep 锚点 @DECISION / @OPEN):动设计前查已定稿护栏 + 开放问题索引。
+- `docs/CHANGELOG.md` —— 更新日志(按天 + 模块标签)。
+- `docs/CHECKLIST.md` —— 收尾自查清单(开工前 / 写码时 / done 前 DoD)。
+- `docs/screens-status.js` —— **屏幕状态唯一真源**(机读):每屏 id/state/kind/file/备注。门户 `index.html` 运行时直读渲染卡片 + 进度。**加/删/改屏只改这里**(见 DoD)。
+- `docs/PROTO-STANDARD.md` —— **平台原型结构规范(TUI 为样板)**:目录布局 + 单一真源 + 入口/窗口约定 + **新平台(GUI)改造 7 步流程**。做新平台或大改造前先读它。
+- 项目文档统一收纳在 `docs/`(CLAUDE.md 因需置于根目录而保留在根)。
 
-Workspace code is split by product surface and reusable core:
+## 约定
+- 新设计 / 组件一律遵循上述 token 与基调,**保持克制**(少即是多,避免无意义的数字、图标、渐变堆砌)。
+- 语言:界面中英双语(`i18n.js` 走 `data-zh` 切换);CJK 正文行高 1.55–1.7,等宽态中文宽字符占两格。
+- TUI 细则:对齐到等宽单元格;无圆角/无阴影(TUI 内),边框用 box-drawing;每个色给 ANSI 256 近似,高亮行保留青色左竖条不丢焦点。
+- GUI 细则:桌面窗口,鼠标命中目标 ≥ 28px(高密度);用 `--r-md`/`--r-lg`/`--shadow-lg` 做窗口与卡片。
 
-- `apps/cli`: binary entrypoint, flags, and bootstrap.
-- `apps/tui`: terminal rendering, input orchestration, previews, and app-specific TUI state.
-- `apps/gui`: planned desktop client boundary; currently governed by its nested
-  `AGENTS.md` and must remain framework-neutral until the GUI gate passes.
-- `crates/core`: stable runtime facade and shared contract re-exports.
-- `crates/context`: native context selection, immutable content references,
-  retrieval, compaction, quality, and cost accounting.
-- `crates/runtime`: session engine, slash commands, provider/tool loop, workflow command routing.
-- `crates/provider`: provider abstraction, registry, and protocol adapters.
-- `crates/plugin-api`: shared plugin manifest, capability, permission, and provider descriptor contracts.
-- `crates/plugin-host`: static plugin registry boundary for provider/tool/agent/workflow plugins.
-- `crates/tools`: local shell, file, search, web, and Git tool implementations.
-- `crates/permissions`: permission modes, path scope checks, and allow/ask/deny decisions.
-- `crates/session`: JSONL transcript storage and rebuildable SQLite session index.
-- `crates/types`: shared domain types for messages, tools, permissions, sessions, runtime snapshots, tasks, and memory.
-- `crates/config`: layered config resolution.
-- `crates/workflows`: project tasks, project/session memory, resume context, and workflow event storage.
-- `crates/lsp`: read-only semantic diagnostics, symbols, references, and
-  document synchronization.
-- `plugins/providers/deepseek`: DeepSeek provider plugin.
+## 工作纪律（来自 design-spec-kit · 换项目仍成立）
+- **先 grep 再写**:造任何 UI 元素前先读 `docs/DESIGN-REF.md` / grep 现有 class——命中就抄类名直接用,**别重造已沉淀的组件**。这是防「页面漂移」的第一道闸。
+- **按需披露**:`docs/` 索引按任务需要再打开,**不要预读**全部;深细节走对应 doc。
+- **单一真源**:数值只在 tokens.css;改源不改副本,两处冲突以 tokens.css 为准。
 
-## Non-Negotiable Invariants
+## 单一真源 & 不腐化
+- **tokens.css 是 token 唯一真源**;`DESIGN-REF.md` 只做索引与语义,不重复定义数值,冲突以 tokens.css 为准并立即修正 DESIGN-REF。
+- **新组件准入**:组件只有在 `DESIGN-REF.md` 有条目(类名 + 最小 HTML)后才算「可复用」;没登记的视为临时草稿——**这是阻止「同一个东西长出十个样子」的关键纪律。**
 
-- All model tool calls and local command effects must flow through the shared runtime path.
-- Permission checks happen before mutation, not after.
-- Transcript history remains auditable and append-only for session facts.
-- JSONL stays canonical for durable logs; SQLite is a derived, rebuildable index.
-- Session state and workflow state are related but separate:
-  - `viden-session` records what happened in a session.
-  - `viden-workflows` records durable project task and memory state.
-- Project memory suggested by an assistant must not become active without explicit confirmation.
-- Plan mode must block mutating workflow, file, shell, Git, and memory/task changes.
-- Core is the only authority for runtime facts and side effects. Frontends may
-  own presentation state but must not create parallel business reducers.
-- Frontends must recover missing or out-of-order state through the versioned
-  snapshot/replay contract, never by guessing from display text.
+## Changelog 维护
+- 维护 `docs/CHANGELOG.md`,**按天 + 模块标签**记录(格式 `- [模块] 描述`)。新增模块同步补顶部「模块索引」。
+- **定档即写**:仅把已定稿的工作写入当天 changelog;草稿 / 试验不记录。无需提醒,定档即写。
+- **同日合并(硬规则)**:写条目前先 `grep '^## <今天日期>' docs/CHANGELOG.md`,命中就 append 到那段,**绝不新开第二个同日 `## YYYY-MM-DD`**。新的一天在文件**顶部**(模块索引下方)开新段——newest-first。
+- **深度上限**:一条 = **1 行标题 + 最多 3 子 bullet**。根因 / 踩坑一句话带过,深内容分流到对应 doc 并指路。
+- **滚动归档**:主文件只留最近约 2 个会话日;超 ~200 行就把窗口外**最旧整段(文件底部)**移到 `docs/_archive/CHANGELOG-YYYY-MM.md`(原样保真),底部留链接。
 
-## Standard Change Workflow
+## 收尾同步表（DoD · `done` 前逐行过）
+> 核心纪律:**任何影响产物的改动都带一个同步义务**,漏一项 = 文档 / 索引漂移。
+> 标 🤖 的由 `tools/` 的 guard 机检(read_file 脚本 → 粘进 run_script 跑,看末行 `RESULT`)。
 
-Before editing:
-
-1. Read the applicable root and nested `AGENTS.md` files.
-2. Inspect `git status`, active worktrees, and the actual branch base. Fetch the
-   remote when branch freshness affects the task.
-3. Identify the owning product track and write scope. Do not start if the same
-   files are owned by another active task without a serialization decision.
-4. Locate the current contract, design, test, and documentation sources before
-   adding a new abstraction or surface.
-
-While editing:
-
-1. Keep the change focused and reversible.
-2. For behavior changes, use TDD and verify the initial failure is relevant.
-3. Preserve runtime, permission, persistence, and frontend dependency
-   boundaries.
-4. Update affected English/Chinese docs and concise invariant comments in the
-   same change set.
-5. Run the smallest useful check after each meaningful increment.
-
-Before handoff:
-
-1. Review the complete diff, including untracked files and generated assets.
-2. Run `git diff --check`, relevant focused tests, and the broader gate required
-   by the verification matrix below.
-3. Confirm whether docs, comments, fixtures, migrations, screenshots, and
-   release evidence were required and handled.
-4. Report exact evidence and anything not run. A branch is not complete because
-   code compiles or a single happy-path test passes.
-
-## Working Rules
-
-- Use an isolated git worktree for feature work. Preferred location: `.worktrees/<branch-name>`.
-- Preserve dirty user changes. Do not revert or overwrite work you did not create.
-- Treat existing and untracked changes as user-owned unless provenance is
-  established. Never use destructive cleanup to make a worktree look clean.
-- Use focused commits. Each commit should describe one coherent checkpoint.
-- Use TDD for behavior changes:
-  - write a failing test,
-  - verify it fails for the expected reason,
-  - implement the smallest passing change,
-  - rerun focused tests.
-- Keep docs bilingual when editing user-facing documentation:
-  - update English and `*.zh-CN.md` counterparts together.
-- Treat documentation and code comments as part of the implementation and as a
-  required coding standard:
-  - update relevant docs whenever behavior, commands, architecture, configuration, or user-visible UI changes;
-  - add concise comments for non-obvious control flow, invariants, protocol boundaries, or safety rules;
-  - avoid noisy comments that merely restate obvious code.
-- Before finishing any code change, explicitly check whether the diff needs
-  documentation updates or explanatory comments, and include that decision in
-  verification notes when relevant.
-- Follow `docs/development-standards.md` for the project coding standard,
-  especially the documentation and code-comment requirements.
-- Keep root docs compact. Put full product detail under `docs/`.
-- Do not edit `.ref/`; it is reference material only.
-- Keep `.omx/`, `.viden/`, `.worktrees/`, `.ref/`, and build artifacts out of tracked source.
-
-## Documentation And Design Rules
-
-- User-visible documentation is bilingual. Update the English and
-  `*.zh-CN.md` counterpart together.
-- Root documents stay concise; detailed designs, plans, investigations, and
-  release evidence belong under `docs/`.
-- Documentation describes verified current behavior. Clearly label proposals,
-  prototypes, partial implementations, and future gates.
-- The accepted visual source is `docs/viden-design/Viden/`. Its nested
-  `AGENTS.md`, `CLAUDE.md`, `tokens.css`, `docs/DESIGN-REF.md`,
-  `docs/SPEC.md`, and `docs/screens-status.js` define local governance.
-- Do not treat archived pages, deleted imports, generated previews, mock data,
-  Babel prototype scaffolding, or `.ref/` content as production truth.
-- Shared tokens and registered components are reused, not copied into frontend
-  forks. A visual behavior change must update the appropriate design status,
-  changelog, guard baseline, and review evidence when required by the design
-  package rules.
-
-## Testing
-
-Choose verification by change scope. Use focused checks while developing:
-
-```bash
-cargo test -p viden-types
-cargo test -p viden-session
-cargo test -p viden-workflows
-cargo test -p viden-runtime
-```
-
-Additional required gates:
-
-- Core/shared contract changes: focused affected crates,
-  `scripts/check-dependency-boundaries.sh`, then the workspace suite.
-- TUI behavior: `cargo test -p viden-tui`,
-  `scripts/tui-turn-controller-smoke.sh`, `scripts/rc-tui-stability-smoke.sh`,
-  and `scripts/tui-regression.sh` as applicable.
-- TUI visuals: regenerate deterministic evidence with
-  `scripts/tui-previews.sh` and review the output.
-- Context/evidence/cost changes: run the relevant context benchmark contract
-  smoke and preserve canonical evidence parity.
-- Docs-only changes: run the document pair/link checks with explicit changed
-  paths plus `git diff --check`.
-- Release-facing changes: use the release gate/smoke scripts and live-provider
-  evidence required by the release plan.
-
-Before calling a shared or implementation branch complete, run:
-
-```bash
-cargo test --workspace --quiet
-```
-
-For CLI-facing behavior, add a fallback-provider smoke test when practical:
-
-```bash
-cargo run -p viden-cli -- --provider fallback --model test-local
-```
-
-Do not run live provider, publish, release, or Homebrew mutation steps unless
-the task explicitly authorizes them. State skipped gates in the handoff.
-
-## Commit And Handoff Standard
-
-- Commit one coherent checkpoint at a time with an imperative message that
-  explains the delivered behavior or contract.
-- Do not stage unrelated user changes or generated artifacts that are outside
-  the task's evidence requirements.
-- A handoff must include:
-  - branch, worktree, and HEAD;
-  - changed files/modules and ownership scope;
-  - behavior and contract impact;
-  - migrations, fixtures, docs/comments, and visual evidence when relevant;
-  - exact verification commands and outcomes;
-  - skipped checks with the reason;
-  - blockers, contract requests, and the next safe step.
-- Distinguish committed, merely present in a worktree, pushed, merged, and
-  released states. Never describe one as another.
-
-## Release Discipline
-
-- Treat GitHub Release and `wikieden/homebrew-tap` as one release unit at the
-  same version.
-- Release completion requires GitHub assets, Homebrew update, and post-publish
-  smoke evidence.
-- Do not report a release complete while the tap is stale, assets are missing,
-  or required live/packaging evidence is unverified.
-- Publishing, tagging, pushing, and Homebrew changes require explicit user
-  authorization.
-
-## Reference Project Guidance
-
-Useful `.ref/claude-code-main` patterns:
-
-- `main.tsx`: startup and runtime orchestration.
-- `commands.ts`: broad slash-command surface and command family structure.
-- `Tool.ts`: tool contracts and shared execution semantics.
-- `types/permissions.ts`: permission modes and policy shape.
-- `tasks/*`: task/session workflow ideas.
-- `bridge/*`, `plugins/*`, `context/*`, `keybindings/*`: future platform expansion references.
-
-Do not copy:
-
-- Bun, React, or Ink implementation details.
-- Product analytics and managed settings before core workflows mature.
-- Remote/bridge/MCP/multi-agent complexity before the local CLI model is stable.
-
-## V3 Parallel Development Coordination
-
-The controlling plan for Core, TUI, and GUI parallel work is
-`docs/parallel-development-plan.md` and its Chinese counterpart. Treat the
-following as execution rules for that plan:
-
-| Track | Nested instructions | Exclusive implementation scope |
-| --- | --- | --- |
-| Core | `crates/AGENTS.md` | `crates/**` and shared runtime contracts |
-| TUI | `apps/tui/AGENTS.md` | `apps/tui/**` and TUI-specific evidence |
-| GUI | `apps/gui/AGENTS.md` | `apps/gui/**` and GUI-specific evidence |
-
-- Use at most three concurrent implementation owners: Core, TUI, and GUI. A
-  read-only coordination task does not own an implementation scope.
-- Track versions independently: Core uses `core-v0.3.x`, TUI uses
-  `tui-v0.3.x`, and GUI uses `gui-v0.1.x` until the plan is revised. Reports
-  must name the workspace candidate plus the Core, TUI, and GUI versions when
-  integration is discussed.
-- Start `codex/v3-core-runtime` from synchronized `origin/main`. Core must
-  publish an immutable `frontend-contract-v1` checkpoint before production
-  TUI or GUI implementation begins.
-- Start `codex/v3-tui-client` and `codex/v3-gui-client` from the exact Core
-  checkpoint, not from an older UI branch or an unverified local checkout.
-- Keep each implementation branch in its own `.worktrees/<branch-name>`
-  worktree. Overlapping write scopes must be serialized.
-- Core owns authoritative state and side effects. TUI and GUI may maintain
-  local presentation state only and must use the shared command, event,
-  snapshot, and replay contracts.
-- A missing frontend capability is a Core contract request. Do not bypass it
-  with a frontend-private reducer, direct runtime access, or inferred success.
-- Language, locale, skin, mode, density, font scale, and accessibility settings
-  are shared presentation preferences owned by Core and consumed by frontends.
-  Frontends may own local rendering, but not independent preference persistence
-  or private skin palettes.
-- Review design from `docs/viden-design/Viden/index.html` first. For TUI,
-  continue through the TUI design index, unified prototype, and component
-  library. For GUI, continue through the GUI design index, desktop cockpit,
-  and component library.
-- Integrate in the fixed order Core -> TUI -> GUI. Run parity fixtures and the
-  relevant branch gate after each step.
-- Every handoff must report the branch, worktree, HEAD, changed ownership
-  scope, tests, contract requests, blockers, and next safe parallel work.
-- Do not merge or push `main` unless the user explicitly asks for that action.
-
-## Current Branch Context
-
-The current planning line is V3 multi-frontend development. Treat `PLAN.md`,
-`docs/parallel-development-plan.md`, and
-`docs/parallel-development-plan.zh-CN.md` as the roadmap and branch-topology
-sources. Historical branch descriptions in older documents are not authority
-for current branch creation.
+| 改了 | 必做 | 谁来守 |
+|---|---|---|
+| `tokens.css` 加 / 改 token | 同步 `DESIGN-REF.md` Token 速查表 | 人 |
+| 新增 / 改 / 删可复用组件 | 登记 / 更新 `DESIGN-REF.md` 组件目录(类名 + 最小 HTML) | 人 |
+| 改了**颜色相关**值 | 自查:禁裸 `#hex` / 禁裸 `rgba()` / 禁假 fallback,一律 `var(--*)` | 🤖 `check-tokens.js` |
+| **GUI 加 / 改图标** | 走 `GUI/gui-icons.jsx`(`ICONS`/`GuiIcon`/`AgentLogo`)·禁页内联自造 rail/工具图标·禁 emoji·新图标先登记 DESIGN-REF | 🤖 `check-icons.js` |
+| **TUI 加 / 改字形** | 用 DESIGN-REF「TUI 字形词表」登记字形(色=状态·锚 T4 §08)·禁 emoji·新字形先登记 | 🤖 `check-tui-glyphs.js` |
+| 任意定档 | 写当天 `CHANGELOG.md`(先 grep 同日段,命中即 append;最新日期段置顶) | 🤖 `check-changelog.js` |
+| 新增 / 改 TUI 或 GUI 屏 | 屏沿用 Aurora token + DESIGN-REF 组件;新组件先登记再用 | 人 |
+| **加 / 删 / 改屏**(任何轨) | 同步 `docs/screens-status.js`(屏幕状态唯一真源:id/state/kind/file)→门户 index.html 运行时直读自动更新 | 🤖 `check-status.js` |
+| **跨页复用文案** | 同一词多页出现 → 进 `i18n-dict.js`(集中词典),用 `tk()`/`data-i18n-key` 取;页面独有长句才用内联 `t(en,zh)` | 人 |
 
 ---
 > Source: [wikieden/viden](https://github.com/wikieden/viden) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
