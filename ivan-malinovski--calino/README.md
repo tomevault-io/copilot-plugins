@@ -1,8 +1,6 @@
 # calino
 
-> Source: [Ivan-Malinovski/calino](https://github.com/Ivan-Malinovski/calino) — distributed by [TomeVault](https://tomevault.io)
-
-A beautiful CalDAV client for the web
+> Source: [Ivan-Malinovski/calino](https://github.com/Ivan-Malinovski/calino). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [Ivan-Malinovski/calino](https://github.com/Ivan
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Ivan-Malinovski/calino](https://github.com/Ivan-Malinovski/calino) — a repo with 52+ stars on GitHub.
+From [Ivan-Malinovski/calino](https://github.com/Ivan-Malinovski/calino) — a repo with 275+ stars on GitHub.
 
 ---
 
