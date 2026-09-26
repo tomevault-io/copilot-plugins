@@ -2,7 +2,7 @@
   "name": "proton-cli",
   "owner": "roman-16",
   "repo": "proton-cli",
-  "description": "An unofficial command-line tool for Proton \u2014 Mail, Drive, Calendar, Contacts, and Pass from your terminal.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/roman-16/proton-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T11:59:14Z"
+  "distributed_at": "2026-09-26T16:44:48Z"
 }
