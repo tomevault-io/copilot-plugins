@@ -1,21 +1,30 @@
-## buildable
+## buildable-plugin-skills
 
-> Use Buildable's local-first builder brain for prompt-to-prototype app generation.
+> Use Buildable when the user asks for a local app prototype or prompt-to-app generation.
 
+# Buildable Claude Instructions
 
-# Buildable Cursor Rule
+Use Buildable when the user asks for a local app prototype or prompt-to-app generation.
 
-When the user asks to generate a local app prototype, use Buildable's workflow from this local repository. Prefer running `buildable plan "<prompt>"` first when a concrete app spec would reduce ambiguity.
+## Local Context
 
-1. Classify the prompt with `core/classifier.md`.
+Buildable is local repository context, not a hosted builder. Prefer `buildable plan "<prompt>"` when a concrete phase plan/app spec would help, then read only the relevant local files named by the spec.
+
+## Workflow
+
+1. Read `core/classifier.md`.
 2. Apply `core/ask-vs-build-policy.md`.
-3. Generate an app spec with `core/app-spec-schema.md`.
-4. Load only the relevant files from `knowledge/` and `templates/`.
-5. Build locally with mock/local data by default.
-6. Review against `knowledge/quality-rubrics/`.
+3. Create an app spec using `core/app-spec-schema.md`.
+4. Load the selected archetype, data model, screen graph, UI patterns, design playbook, quality rubric, and template plan.
+5. Generate locally using mock/local data.
+6. Review and fix before final response.
 
-Do not add billing, accounts, cloud previews, managed databases, telemetry, hosted deployment, or central template services unless explicitly requested.
+## Guardrail
+
+Buildable V1 is not a hosted platform. Do not add builder accounts, billing, cloud previews, managed databases, telemetry, hosted deployments, central template services, or deployment features unless the user explicitly asks.
+
+Resolve bundled `core/`, `knowledge/`, `templates/`, and skill paths from the full Buildable checkout (record its absolute path when copying these instructions). They are not relative to the app. Prefer the CLI result and its selected references rather than repeating classification.
 
 ---
 > Source: [suntay44/buildable-plugin-skills](https://github.com/suntay44/buildable-plugin-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-14 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
