@@ -1,0 +1,9 @@
+{
+  "name": "feincms--django-authlib",
+  "displayName": "django-authlib",
+  "description": "django-authlib",
+  "version": "1.0.0",
+  "author": "feincms",
+  "homepage": "https://github.com/feincms/django-authlib",
+  "skills": []
+}
