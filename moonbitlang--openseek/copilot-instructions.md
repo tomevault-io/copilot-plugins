@@ -1,59 +1,102 @@
 ## openseek
 
-> This is a [MoonBit](https://docs.moonbitlang.com) project.
+> - The desktop frontend and host are versioned and shipped together. Do not
 
-# Project Agents.md Guide
+# Desktop Agent Notes
 
-This is a [MoonBit](https://docs.moonbitlang.com) project.
+## Frontend And Host Compatibility
 
-You can browse and install extra skills here:
-<https://github.com/moonbitlang/skills>
+- The desktop frontend and host are versioned and shipped together. Do not
+  support a current frontend talking to an older desktop host.
+- Evolve desktop protocol payloads, the frontend, and the host in lockstep. Do
+  not make fields optional, hide controls, or add capability detection solely
+  for compatibility with a pre-change host unless the user explicitly asks for
+  it.
 
-## Project Structure
+## Development Builds
 
-- MoonBit packages are organized per directory; each directory contains a
-  `moon.pkg` file listing its dependencies. Each package has its files and
-  blackbox test files (ending in `_test.mbt`) and whitebox test files (ending in
-  `_wbtest.mbt`).
+- The supported development build is the packaged `.dev` application
+  (`package/build.mjs` with the development project config, e.g.
+  `dist/SeekMoonDev.app`). It runs the same packaged layout as a release —
+  `seekmoon/web` for the frontend, the per-user runtime dir for state — and
+  differs only by its identity suffix and the development-only behavior gated
+  on it.
+- The unpackaged launch — `just desktop-dev` / `package/dev`, `proton dev`,
+  `desktop-dev.html`, `@development.Layout`, `desktop/target/dev-state` — is
+  deprecated and no longer supported. Do not design for it, review against it,
+  or fix issues that only reproduce under it; code that exists only to serve
+  it may be removed.
 
-- In the toplevel directory, there is a `moon.mod` file listing module
-  metadata. `moon.mod.json` is the legacy manifest format.
+## Child Processes
 
-## Coding convention
+- For a one-shot command that collects stdout and stderr but must not read
+  input, use `@processx.collect_output_no_stdin` from
+  `desktop/backend/internal/processx` instead of `@process.collect_output`.
+- `collect_output_no_stdin` gives the child a valid stdin handle that is
+  already at EOF and always suppresses creation of a console window. Both are
+  required for Windows GUI builds: inheriting a missing standard-input handle
+  makes process creation fail, while launching a console application without
+  suppression flashes a visible console window.
+- Do not use it for interactive commands, long-lived protocol processes, or
+  commands that receive a real stdin pipe, file, or PTY.
 
-- MoonBit code is organized in block style, each block is separated by `///|`,
-  the order of each block is irrelevant. In some refactorings, you can process
-  block by block independently.
+## JSON Protocol Codecs
 
-- Try to keep deprecated blocks in file called `deprecated.mbt` in each
-  directory.
+- Never use `derive(FromJson)`, `derive(ToJson)`, or a combined
+  `derive(FromJson, ToJson)` anywhere under `desktop/`.
+- Every type crossing a JSON boundary must provide explicit `FromJson` and
+  `ToJson` implementations. The decoder must deliberately specify the behavior
+  of required, missing, `null`, malformed, and unknown fields; the encoder must
+  deliberately specify which optional fields are omitted.
+- When modifying an existing Desktop protocol type that still derives either
+  JSON trait, replace that derived codec with explicit implementations in the
+  same change.
 
-## Tooling
+## Desktop Trust And Security Model
 
-- `moon fmt` is used to format your code properly.
-
-- `moon ide` provides project navigation helpers like `peek-def`, `outline`, and
-  `find-references`. See $moonbit-agent-guide for details.
-
-- `moon info` is used to update the generated interface of the package, each
-  package has a generated interface file `.mbti`, it is a brief formal
-  description of the package. If nothing in `.mbti` changes, this means your
-  change does not bring the visible changes to the external package users, it is
-  typically a safe refactoring.
-
-- In the last step, run `moon info && moon fmt` to update the interface and
-  format the code. Check the diffs of `.mbti` file to see if the changes are
-  expected.
-
-- Run `moon test` to check tests pass. MoonBit supports snapshot testing; when
-  changes affect outputs, run `moon test --update` to refresh snapshots.
-
-- Prefer `assert_eq` or `assert_true(pattern is Pattern(...))` for results that
-  are stable or very unlikely to change. Use snapshot tests to record current
-  behavior. For solid, well-defined results (e.g. scientific computations),
-  prefer assertion tests. You can use `moon coverage analyze > uncovered.log` to
-  see which parts of your code are not covered by tests.
+- A frontend connected and authenticated to a Desktop instance is trusted with
+  the authority of the local user. This includes the Proton renderer, an
+  authenticated relay frontend, and code the user runs in that frontend's
+  DevTools.
+- The connected frontend can already invoke Desktop terminal and shell
+  operations. Letting the same frontend select a working directory or send an
+  app-server execution-policy field is therefore not, by itself, a privilege
+  escalation or a Desktop security-boundary violation.
+- The security boundary is before a frontend obtains an authenticated Desktop
+  command channel. Unauthenticated network peers, unrelated web origins,
+  repository content, model output, and other displayed data are not trusted
+  principals and must not acquire command authority merely by being processed
+  or rendered.
+- Continue validating command payloads for type safety, protocol correctness,
+  product invariants, and protection against accidental destructive actions.
+  Workspace and path checks may enforce product scope, but they do not sandbox
+  a trusted frontend that can already spawn a shell.
+- Prefer typed request and response models at Desktop command boundaries. They
+  document the protocol, reject malformed data, and expose schema drift during
+  development; do not justify them as a privilege boundary against the trusted
+  frontend.
+- A security finding must name the less-trusted principal and the new capability
+  it gains. Do not report a privilege escalation solely because a trusted
+  frontend can craft fields that the normal UI does not expose.
+- The local user and whatever they choose to run are one principal. A branch
+  the user checked out and built, its hooks and build scripts, any process
+  running under their account, a development build, and the DevTools console
+  all already act with the user's authority. A finding whose attacker is "a
+  branch the developer checked out", "a file in the checkout", or "a process
+  on the developer's machine" names no less-trusted principal and is not a
+  security finding.
+- "Repository content is untrusted" means the host must not grant command
+  authority to content it processes as data — rendered Markdown, diffs, file
+  previews, tool output, model output. It does not apply to code the user
+  runs on purpose; checking out and building a branch is running its code.
+- Release and development builds share this one model. A development build
+  differs in the surfaces it exposes, not in who is trusted: a development-only
+  surface such as the loopback console is judged by the same two-principal
+  test. Loopback binding limits reachability, not identity — a web page from
+  another origin can reach loopback — so such a surface fences web origins
+  with a launch token, a session cookie, and an `Origin` check, and does not
+  need to defend against processes already running as the user.
 
 ---
 > Source: [moonbitlang/openseek](https://github.com/moonbitlang/openseek) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
