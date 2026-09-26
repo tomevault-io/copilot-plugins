@@ -1,0 +1,14 @@
+{
+  "name": "automaat--lightroom-mcp",
+  "displayName": "lightroom-mcp",
+  "description": "lightroom-mcp",
+  "version": "1.0.0",
+  "author": "Automaat",
+  "homepage": "https://github.com/Automaat/lightroom-mcp",
+  "skills": [
+    {
+      "name": "lightroom-mcp",
+      "description": ""
+    }
+  ]
+}
