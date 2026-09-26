@@ -1,0 +1,99 @@
+{
+  "name": "claude-stuff",
+  "owner": "paulinevos",
+  "repo": "claude-stuff",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-stuff",
+      "path": "plugins/git-workflow/skills/undo-op/SKILL.md",
+      "github_url": "https://github.com/paulinevos/claude-stuff/tree/main/plugins/git-workflow/skills/undo-op/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-stuff",
+      "path": "plugins/jj-workflow/skills/work-in-slice/SKILL.md",
+      "github_url": "https://github.com/paulinevos/claude-stuff/tree/main/plugins/jj-workflow/skills/work-in-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-stuff",
+      "path": "plugins/git-workflow/skills/bisect-debug/SKILL.md",
+      "github_url": "https://github.com/paulinevos/claude-stuff/tree/main/plugins/git-workflow/skills/bisect-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-stuff",
+      "path": "plugins/jj-workflow/skills/finish-slices/SKILL.md",
+      "github_url": "https://github.com/paulinevos/claude-stuff/tree/main/plugins/jj-workflow/skills/finish-slices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-stuff",
+      "path": "plugins/jj-workflow/skills/sync-workspace/SKILL.md",
+      "github_url": "https://github.com/paulinevos/claude-stuff/tree/main/plugins/jj-workflow/skills/sync-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-stuff",
+      "path": "plugins/jj-workflow/skills/parallel-slices/SKILL.md",
+      "github_url": "https://github.com/paulinevos/claude-stuff/tree/main/plugins/jj-workflow/skills/parallel-slices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-stuff",
+      "path": "plugins/php-style/skills/php-object-calisthenics/SKILL.md",
+      "github_url": "https://github.com/paulinevos/claude-stuff/tree/main/plugins/php-style/skills/php-object-calisthenics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-stuff",
+      "path": "plugins/git-workflow/skills/resolve-merge-conflict/SKILL.md",
+      "github_url": "https://github.com/paulinevos/claude-stuff/tree/main/plugins/git-workflow/skills/resolve-merge-conflict/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-stuff",
+      "path": "plugins/git-workflow/skills/maintain-atomic-commits/SKILL.md",
+      "github_url": "https://github.com/paulinevos/claude-stuff/tree/main/plugins/git-workflow/skills/maintain-atomic-commits/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/paulinevos/claude-stuff",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T12:37:25Z"
+}
