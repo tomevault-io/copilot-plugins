@@ -1,6 +1,6 @@
 # evm2
 
-> Tome by [alloy-rs](https://github.com/alloy-rs/evm2) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [alloy-rs](https://github.com/alloy-rs/evm2), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
