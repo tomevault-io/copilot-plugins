@@ -1,0 +1,9 @@
+{
+  "name": "tmonk--pi-goal-x",
+  "displayName": "pi-goal-x",
+  "description": "Adds /goal to pi: conversational goal planning, flexible or ordered goals, persistent progress, and an independent completion auditor.",
+  "version": "1.0.0",
+  "author": "tmonk",
+  "homepage": "https://github.com/tmonk/pi-goal-x",
+  "skills": []
+}
