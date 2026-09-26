@@ -1,0 +1,107 @@
+## pluv
+
+> Conventional commit and branch naming matching this repo’s history and Commitizen setup
+
+
+# Conventional commits
+
+Follow [Conventional Commits](https://www.conventionalcommits.org/) as used in this repo (`pnpm commit` / Commitizen with `cz-conventional-changelog`). See also [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Format
+
+```
+type(optional-scope): short summary
+```
+
+- **type**: lowercase (`feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `ci`, `perf`, `build`, `style`)
+- **scope** (optional): package or area without `@pluv/` — e.g. `io`, `client`, `platform-pluv`, `deps`
+- **summary**: imperative, concise; start lowercase; no trailing period; focus on *why/what changed for the project*, not a file list
+- Body (optional): one blank line after summary; wrap sensibly; explain motivation when useful
+- Do **not** append `(#123)` yourself — GitHub adds that on merge when relevant
+
+## Branch names
+
+Mirror commit style: conventional **type**, optional **scope** in parentheses (same slugs as commits), then `/` and a short kebab-case summary:
+
+```
+type/short-kebab-summary
+type(scope)/short-kebab-summary
+```
+
+- Prefer the type that will match the eventual commit/PR (`fix/…`, `feat/…`, `refactor/…`, `chore/…`, `docs/…`, etc.)
+- **scope** (optional): package or area without `@pluv/` — e.g. `io`, `client`, `platform-pluv`, `persistence-cloudflare-transactional-storage`
+- When one package is clearly primary, use `type(scope)/…`; when cross-cutting or spanning multiple packages, omit the scope
+- Keep the summary concise and lowercase; use hyphens, not spaces or underscores
+- Do not use `WIP`, ticket-only names, `@pluv/` in the scope, invented area scopes, or non-conventional prefixes
+
+```text
+# ✅ Cross-cutting / multiple packages
+fix/storage-destroyed-after-initial-storage
+chore/bump-deps
+refactor/drop-cloudflare-kv-persistence-mode
+
+# ✅ One package
+fix(io)/preserve-hibernated-sockets
+fix(client)/get-storage-null-while-unavailable
+feat(platform-pluv)/custom-fetch
+refactor(persistence-cloudflare-transactional-storage)/drop-kv-mode
+
+# ❌
+drop-cloudflare-kv-persistence-mode
+refactor(@pluv/io)/drop-kv
+refactor(cloudflare)/drop-kv-persistence-mode
+fix/io-preserve-hibernated-sockets
+Fix/storage-bug
+WIP
+my-branch
+```
+
+## Types this repo uses most
+
+| Type | Use for |
+|------|---------|
+| `fix` | Bug fixes (correctness, regressions) |
+| `feat` | New user-facing capability |
+| `chore` | Tooling, deps bumps, repo hygiene, changesets-only commits |
+| `docs` | Documentation only |
+| `refactor` | Internal change with no intended behavior change |
+| `test` | Tests only |
+| `ci` | CI config |
+
+Release PRs from `changesets/action` use `chore: version packages` (see `.github/workflows/release.yml`). Don’t hand-write those; don’t revert them to bare `Version Packages`.
+
+## Examples from this repo
+
+```text
+fix: initial presence not being saved on the server
+fix(io): preserve healthy hibernated sockets
+fix(client): return null from getStorage while unavailable
+feat(platform-pluv): allow custom fetch
+feat: export inner types
+chore: bump deps
+chore(deps): update dependency oxfmt to ^0.67.0
+chore: add changeset
+chore: version packages
+```
+
+## Avoid
+
+```text
+# ❌ Non-conventional / wrong case
+Fix/io initial storage seed
+Fixed the presence bug
+WIP
+update stuff
+
+# ❌ Scope with package prefix
+fix(@pluv/io): ...
+
+# ❌ Stacking PR numbers or changelog voice in the subject
+fix: surface errors to clients as $error (#1338)
+```
+
+When committing via the agent: use a HEREDOC message that matches this format; prefer `fix`/`feat`/`chore` with an optional scope when the change is clearly package-scoped. When creating branches, use `type/short-kebab-summary` or `type(scope)/short-kebab-summary`.
+
+---
+> Source: [pluv-io/pluv](https://github.com/pluv-io/pluv) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
