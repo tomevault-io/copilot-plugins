@@ -4,7 +4,7 @@
   "repo": "Terminal.Gui.templates",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tui-cs/Terminal.Gui.templates",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-26T17:16:33Z"
+  "distributed_at": "2026-09-26T22:49:09Z"
 }
