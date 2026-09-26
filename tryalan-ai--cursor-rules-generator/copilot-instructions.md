@@ -1,55 +1,79 @@
-## react-development
+## self-improve
 
-> React development best practices and patterns
+> - New code patterns not covered by existing rules
 
-# React Development Guidelines
+## Rule Improvement Triggers
 
-## Component Structure
-- Use functional components with hooks
-- Prefer composition over inheritance
-- Keep components small and focused (< 100 lines)
-- Use PascalCase for component names
+- New code patterns not covered by existing rules
+- Repeated similar implementations across files
+- Common error patterns that could be prevented
+- New libraries or tools being used consistently
+- Emerging best practices in the codebase
 
-## State Management
-- Use useState for local state
-- Use useReducer for complex state logic
-- Consider context for global state
-- Avoid prop drilling beyond 2-3 levels
+# Analysis Process:
+- Compare new code with existing rules
+- Identify patterns that should be standardized
+- Look for references to external documentation
+- Check for consistent error handling patterns
+- Monitor test patterns and coverage
 
-## Performance Optimization
-- Use React.memo for expensive components
-- Implement useMemo and useCallback when needed
-- Avoid creating objects/functions in render
-- Use proper dependency arrays
+# Rule Updates:
 
-## Code Examples:
+- **Add New Rules When:**
+  - A new technology/pattern is used in 3+ files
+  - Common bugs could be prevented by a rule
+  - Code reviews repeatedly mention the same feedback
+  - New security or performance patterns emerge
 
-```tsx
-// Good: Clean functional component
-const UserProfile = ({ userId }: { userId: string }) => {
-  const [user, setUser] = useState<User | null>(null);
-  
-  useEffect(() => {
-    fetchUser(userId).then(setUser);
-  }, [userId]);
+- **Modify Existing Rules When:**
+  - Better examples exist in the codebase
+  - Additional edge cases are discovered
+  - Related rules have been updated
+  - Implementation details have changed
 
-  if (!user) return <LoadingSpinner />;
-  
-  return (
-    <div className="user-profile">
-      <h1>{user.name}</h1>
-      <p>{user.email}</p>
-    </div>
-  );
-};
+- **Example Pattern Recognition:**
 
-// Bad: Complex component with mixed concerns
-const BadComponent = () => {
-  // Too much logic mixed together
-  // Multiple responsibilities
-  // Hard to test and maintain
-};
-```
+  ```typescript
+  // If you see repeated patterns like:
+  const data = await prisma.user.findMany({
+    select: { id: true, email: true },
+    where: { status: 'ACTIVE' }
+  });
+
+  // Consider adding to [prisma.mdc](mdc:shipixen/.cursor/rules/prisma.mdc):
+  // - Standard select fields
+  // - Common where conditions
+  // - Performance optimization patterns
+  ```
+
+- **Rule Quality Checks:**
+- Rules should be actionable and specific
+- Examples should come from actual code
+- References should be up to date
+- Patterns should be consistently enforced
+
+## Continuous Improvement:
+- Monitor code review comments
+- Track common development questions
+- Update rules after major refactors
+- Add links to relevant documentation
+- Cross-reference related rules
+
+## Rule Deprecation
+
+- Mark outdated patterns as deprecated
+- Remove rules that no longer apply
+- Update references to deprecated rules
+- Document migration paths for old patterns
+
+## Documentation Updates:
+
+- Keep examples synchronized with code
+- Update references to external docs
+- Maintain links between related rules
+- Document breaking changes
+
+Follow [cursor-rules.mdc](mdc:.cursor/rules/cursor-rules.mdc) for proper rule formatting and structure.
 
 ---
 > Source: [tryalan-ai/cursor-rules-generator](https://github.com/tryalan-ai/cursor-rules-generator) — distributed by [TomeVault](https://tomevault.io).
