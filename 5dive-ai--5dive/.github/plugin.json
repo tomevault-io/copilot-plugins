@@ -1,0 +1,14 @@
+{
+  "name": "5dive-ai--5dive",
+  "displayName": "5dive",
+  "description": "5dive",
+  "version": "1.0.0",
+  "author": "5dive-ai",
+  "homepage": "https://github.com/5dive-ai/5dive",
+  "skills": [
+    {
+      "name": "5dive",
+      "description": ""
+    }
+  ]
+}
