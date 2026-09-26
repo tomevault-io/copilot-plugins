@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dotnetdreamer/open-screenshot-generator](https://github.com/dotnetdreamer/open-screenshot-generator).
+Original source: `CLAUDE.md` in [dotnetdreamer/open-screenshot-generator](https://github.com/dotnetdreamer/open-screenshot-generator).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
