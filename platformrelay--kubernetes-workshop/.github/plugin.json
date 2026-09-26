@@ -1,0 +1,9 @@
+{
+  "name": "platformrelay--kubernetes-workshop",
+  "displayName": "Kubernetes-Workshop",
+  "description": "Kubernetes-Workshop",
+  "version": "1.0.0",
+  "author": "PlatformRelay",
+  "homepage": "https://github.com/PlatformRelay/Kubernetes-Workshop",
+  "skills": []
+}
