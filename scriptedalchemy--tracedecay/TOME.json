@@ -3,8 +3,8 @@
   "owner": "ScriptedAlchemy",
   "repo": "tracedecay",
   "description": "Code intelligence tool with local semantic graph and holographic memory",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,207 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/code-health/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/code-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/using-the-cli/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/using-the-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/editing-safely/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/editing-safely/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/exploring-code/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/exploring-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/project-memory/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/project-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/assessing-impact/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/assessing-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".codex/skills/scheduler-review/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.codex/skills/scheduler-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/reviewing-changes/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/reviewing-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/tracing-functions/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/tracing-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".claude/skills/scheduler-review/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.claude/skills/scheduler-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".codex/skills/tracedecay-dev-sweep/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.codex/skills/tracedecay-dev-sweep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/diagnosing-analytics/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/diagnosing-analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".claude/skills/tracedecay-dev-sweep/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.claude/skills/tracedecay-dev-sweep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".codex/skills/evaluating-hook-hints/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.codex/skills/evaluating-hook-hints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".codex/skills/automation-run-review/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.codex/skills/automation-run-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/discovering-tracedecay/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/discovering-tracedecay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".claude/skills/evaluating-hook-hints/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.claude/skills/evaluating-hook-hints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".claude/skills/automation-run-review/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.claude/skills/automation-run-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/managing-session-context/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/managing-session-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/inspecting-managed-skills/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/inspecting-managed-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".codex/skills/writing-agent-managed-skills/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.codex/skills/writing-agent-managed-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".codex/skills/inspecting-automation-cycles/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.codex/skills/inspecting-automation-cycles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/fixing-build-and-type-errors/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/fixing-build-and-type-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".claude/skills/writing-agent-managed-skills/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.claude/skills/writing-agent-managed-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".claude/skills/inspecting-automation-cycles/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.claude/skills/inspecting-automation-cycles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".codex/skills/self-improving-from-usage-logs/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.codex/skills/self-improving-from-usage-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".codex/skills/introspecting-tracedecay-usage/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.codex/skills/introspecting-tracedecay-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".claude/skills/self-improving-from-usage-logs/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.claude/skills/self-improving-from-usage-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".claude/skills/introspecting-tracedecay-usage/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.claude/skills/introspecting-tracedecay-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "plugin/skills/investigating-unexpected-changes/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/plugin/skills/investigating-unexpected-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".codex/skills/interpreting-tracedecay-diagnostics/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.codex/skills/interpreting-tracedecay-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": ".claude/skills/interpreting-tracedecay-diagnostics/SKILL.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/.claude/skills/interpreting-tracedecay-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tracedecay",
+      "path": "crates/tracedecay-agent-hosts/src/agents/hermes/templates/skill.md",
+      "github_url": "https://github.com/ScriptedAlchemy/tracedecay/tree/main/crates/tracedecay-agent-hosts/src/agents/hermes/templates/skill.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ScriptedAlchemy/tracedecay",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-12T23:30:22Z"
+  "distributed_at": "2026-09-26T00:57:34Z"
 }
