@@ -1,6 +1,6 @@
 # tao-skill-bank
 
-> Tome by [NVIDIA-TAO](https://github.com/NVIDIA-TAO/tao-skill-bank) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [NVIDIA-TAO](https://github.com/NVIDIA-TAO/tao-skill-bank), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [NVIDIA-TAO/tao-skill-bank](https://github.com/N
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [NVIDIA-TAO/tao-skill-bank](https://github.com/NVIDIA-TAO/tao-skill-bank) — a repo with 51+ stars on GitHub.
+From [NVIDIA-TAO/tao-skill-bank](https://github.com/NVIDIA-TAO/tao-skill-bank) — a repo with 91+ stars on GitHub.
 
 ---
 
