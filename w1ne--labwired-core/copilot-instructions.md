@@ -1,0 +1,125 @@
+## labwired-core
+
+> This is the operating manual for AI coding agents working inside the `core` repository of LabWired.
+
+# Core Agents Manual
+
+This is the operating manual for AI coding agents working inside the `core` repository of LabWired.
+
+## 1) Context
+
+- The `core` directory contains the main simulation engine, CLI, DAP (Debug Adapter Protocol), configuration files, and testing infrastructure.
+- All code in this repo is written in Rust and is designed to create a deterministic, fast, and testable simulation environment for various MCU protocols and peripherals.
+
+## 2) Key Documentation Links
+
+Start your learning and reference with these key files:
+- [README.md](../README.md) - The main entrypoint.
+- [architecture.md](./architecture.md) - Engine internals (CPU trait, decoder, performance gates, debug protocols).
+- [architecture_overview.md](./architecture_overview.md) - High-level subsystem tour (Asset Foundry, IR, Core Engine).
+- [CONTRIBUTING.md](../CONTRIBUTING.md) - General connection and contributing guidelines.
+- [peripherals.md](./peripherals.md) - How to model and validate new peripherals (declarative + Rust paths).
+- [board_onboarding_playbook.md](./board_onboarding_playbook.md) - Complete playbook for onboarding new boards and MSUs.
+- [ci_test_runner.md](./ci_test_runner.md) - Details on how CI validation works and is triggered.
+
+## 3) Standard Development Commands
+
+Run all of these commands from the `core` root directory (the directory containing `Cargo.toml` and `crates/`).
+
+**Building and Testing:**
+```bash
+# Build the workspace excluding firmware cross-compilation crates
+EXCLUDES="--exclude firmware-armv6m-hello --exclude firmware-stm32f103-blinky --exclude firmware-stm32f103-uart --exclude firmware-armv6m-ci-fixture --exclude firmware-armv7m-benchmark --exclude firmware-f401-demo --exclude firmware-h563-demo --exclude firmware-h563-fullchip-demo --exclude firmware-h563-io-demo --exclude firmware-hil-showcase --exclude firmware-mg26-demo --exclude firmware-mg26-bootloader --exclude firmware-nrf52832-demo --exclude firmware-rp2040-pio-onboarding --exclude firmware-rv32i-ci-fixture --exclude firmware-rv32i-hello"
+cargo build --workspace $EXCLUDES
+cargo test --workspace $EXCLUDES
+```
+
+**Linting and Formatting:**
+```bash
+# Verify the formatting
+cargo fmt --all -- --check
+# Run the linter
+cargo clippy --workspace $EXCLUDES -- -D warnings
+```
+
+**Running the Simulator:**
+The built binary is `labwired` (package `labwired-cli`). Interactive run:
+```bash
+cargo run -p labwired-cli -- run --firmware path/to/firmware.elf --system path/to/system.yaml
+```
+For CI / deterministic checks, prefer the `test` subcommand driven by a YAML test
+script (this is what the CI gates run, and it emits `result.json` + `uart.log`):
+```bash
+cargo run -p labwired-cli -- test --script path/to/test.yaml --junit report.xml
+```
+
+**Testing Simulator Accuracy (Unsupported Instruction Audit):**
+```bash
+./scripts/unsupported_instruction_audit.sh \
+  --firmware target/thumbv7m-none-eabi/release/<firmware-crate> \
+  --system configs/systems/<board>.yaml \
+  --max-steps 200000 \
+  --out-dir out/unsupported-audit/<board>
+```
+
+**Analyzing Simulation Failures (Digital Twin Diagnostics):**
+When a simulation fails (e.g., hits `max_steps` or a memory violation), the CLI produces a `result.json` in the output directory. This file is your primary diagnostic tool.
+
+- **`cpu_state`**: Contains the final PC and all core registers (`r0-r15`, `x0-x31`, etc.).
+- **`stop_reason`**: Explains why the simulation ended (e.g., `MaxSteps`, `Breakpoint`, `Halt`).
+- **`uart.log`**: Standard output from the guest firmware.
+
+Agents should use the `cpu_state` to cross-reference with the IR model or datasheet to identify stalled status-bit polling or incorrect memory mapping.
+
+## 4) Standalone AI Tools
+
+For advanced refinement, you can use the standalone AI utilities in the `ai/` directory:
+
+- **`fixer.py`**: Analyzes a `result.json` and suggests IR timing fixes for busy-wait loops.
+  ```bash
+  export PYTHONPATH=$PYTHONPATH:$(pwd)/../ai
+  python3 -m labwired_ai.fixer --model path/to/model.json --result path/to/result.json
+  ```
+
+## 6) Board Onboarding SOP
+
+Apply this checklist whenever the task is adding/simulating a new MCU/board target. 
+
+### Procedure (Phase Gates)
+
+1. `P0 - Source grounding`: Read `docs/board_onboarding_playbook.md` and collect authoritative vendor docs.
+2. `P1 - Engine fit`: Map requirements to supported peripherals (`rcc + gpio + uart + systick` by default).
+3. `P2 - Implementation`: Add chip descriptor, system manifest, and smoke firmware.
+4. `P3 - Example docs package`: Add `examples/<board>/` with README, VALIDATION, etc.
+5. `P4 - Validation`: Run test/build/run commands and confirm deterministic UART output.
+6. `P5 - Report`: Provide files changed, commands run, runtime evidence, and source links.
+
+### Required Deliverables
+
+1. `configs/chips/<chip>.yaml`
+2. `configs/systems/<board>.yaml`
+3. smoke firmware crate (new or adapted)
+4. `examples/<board>/system.yaml`
+5. `examples/<board>/README.md`
+6. `examples/<board>/REQUIRED_DOCS.md`
+7. `examples/<board>/EXTERNAL_COMPONENTS.md`
+8. `examples/<board>/VALIDATION.md`
+
+### Completion Criteria
+
+1. `labwired-cli` runs firmware with the new system manifest.
+2. Reset initializes PC/SP correctly.
+3. Expected UART smoke output is observable (for example, `OK\n`).
+4. New/updated tests pass for touched behavior.
+5. Unsupported-instruction audit report is generated and reviewed.
+
+## 5) Best Practices for Agent Work in Core
+
+1. **Verify State Proactively**: Before assuming a code fix works, compile it using the standard development commands and review `cargo test` results. Do not infer correctness without validation.
+2. **Deterministic Outputs**: Ensure your peripheral and bus implementation logic respects the deterministic execution model. Avoid unpredictable or non-reproducible states.
+3. **Follow the Onboarding SOP**: If onboarding a board, follow all phase gates in `docs/board_onboarding_playbook.md`. It mandates adding test fixtures, examples, config YAML files, and reporting.
+4. **Scope Your Commits**: Keep tasks strictly scoped to their definition. Avoid speculative refactors or out-of-bounds improvements to stable core files if not requested.
+
+---
+> Source: [w1ne/labwired-core](https://github.com/w1ne/labwired-core) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
