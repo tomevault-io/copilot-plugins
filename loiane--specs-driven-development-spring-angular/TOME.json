@@ -3,8 +3,8 @@
   "owner": "loiane",
   "repo": "specs-driven-development-spring-angular",
   "description": "",
-  "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "type": "tome",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,441 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/adr-authoring/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/adr-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/archunit-rules/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/archunit-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/adr-authoring/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/adr-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/angular-new-app/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/angular-new-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/archunit-rules/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/archunit-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/angular-developer/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/angular-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/maven-harness-pom/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/maven-harness-pom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/angular-new-app/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/angular-new-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/angular-developer/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/angular-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/shipping-and-launch/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/shipping-and-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/maven-harness-pom/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/maven-harness-pom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/pit-mutation-tuning/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/pit-mutation-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/ears-spec-authoring/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/ears-spec-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/shipping-and-launch/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/shipping-and-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/pit-mutation-tuning/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/pit-mutation-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/epic-slicing-planning/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/epic-slicing-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/ears-spec-authoring/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/ears-spec-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/brownfield-onboarding/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/brownfield-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/tdd-red-green-refactor/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/tdd-red-green-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/harness-report-parsing/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/harness-report-parsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/jacoco-coverage-policy/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/jacoco-coverage-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/openapi-contract-first/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/openapi-contract-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/clarity-over-cleverness/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/clarity-over-cleverness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/epic-slicing-planning/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/epic-slicing-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/issue-tracker-ingestion/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/issue-tracker-ingestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/brownfield-onboarding/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/brownfield-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/performance-optimization/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/performance-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/tdd-red-green-refactor/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/tdd-red-green-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/spring-security-baseline/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/spring-security-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/harness-report-parsing/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/harness-report-parsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/jacoco-coverage-policy/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/jacoco-coverage-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/openapi-contract-first/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/openapi-contract-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/spring-code-review-rubric/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/spring-code-review-rubric/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/clarity-over-cleverness/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/clarity-over-cleverness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/spring-boot-4-conventions/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/spring-boot-4-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/spring-task-decomposition/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/spring-task-decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/requirements-traceability/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/requirements-traceability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/issue-tracker-ingestion/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/issue-tracker-ingestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/performance-optimization/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/performance-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/spring-security-baseline/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/spring-security-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/spring-code-review-rubric/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/spring-code-review-rubric/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/spring-boot-4-conventions/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/spring-boot-4-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/spring-task-decomposition/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/spring-task-decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/requirements-traceability/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/requirements-traceability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/flyway-or-liquibase-detection/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/flyway-or-liquibase-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".claude/skills/junit5-testcontainers-patterns/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.claude/skills/junit5-testcontainers-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/flyway-or-liquibase-detection/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/flyway-or-liquibase-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".windsurf/skills/junit5-testcontainers-patterns/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.windsurf/skills/junit5-testcontainers-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/adr-authoring/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/adr-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/archunit-rules/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/archunit-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/angular-new-app/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/angular-new-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/angular-developer/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/angular-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/maven-harness-pom/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/maven-harness-pom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/shipping-and-launch/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/shipping-and-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/pit-mutation-tuning/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/pit-mutation-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/ears-spec-authoring/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/ears-spec-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/epic-slicing-planning/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/epic-slicing-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/brownfield-onboarding/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/brownfield-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/tdd-red-green-refactor/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/tdd-red-green-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/harness-report-parsing/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/harness-report-parsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/jacoco-coverage-policy/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/jacoco-coverage-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/openapi-contract-first/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/openapi-contract-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/clarity-over-cleverness/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/clarity-over-cleverness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/issue-tracker-ingestion/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/issue-tracker-ingestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/performance-optimization/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/performance-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/spring-security-baseline/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/spring-security-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/spring-code-review-rubric/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/spring-code-review-rubric/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/spring-boot-4-conventions/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/spring-boot-4-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/spring-task-decomposition/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/spring-task-decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/requirements-traceability/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/requirements-traceability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/flyway-or-liquibase-detection/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/flyway-or-liquibase-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs-driven-development-spring-angular",
+      "path": ".github/skills/junit5-testcontainers-patterns/SKILL.md",
+      "github_url": "https://github.com/loiane/specs-driven-development-spring-angular/tree/main/.github/skills/junit5-testcontainers-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/loiane/specs-driven-development-spring-angular",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T02:37:52Z"
+  "distributed_at": "2026-09-26T15:30:30Z"
 }
