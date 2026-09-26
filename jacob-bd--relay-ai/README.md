@@ -1,23 +1,21 @@
 # relay-ai
 
-> Tome by [jacob-bd](https://github.com/jacob-bd/relay-ai) — distributed by [TomeVault](https://tomevault.io)
-
-Relay any model into any coding agent
+> Tome by [jacob-bd](https://github.com/jacob-bd/relay-ai), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jacob-bd/relay-ai](https://github.com/jacob-bd/relay-ai).
+Original source: `GEMINI.md` in [jacob-bd/relay-ai](https://github.com/jacob-bd/relay-ai).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jacob-bd/relay-ai](https://github.com/jacob-bd/relay-ai) — a repo with 10+ stars on GitHub.
+From [jacob-bd/relay-ai](https://github.com/jacob-bd/relay-ai) — a repo with 194+ stars on GitHub.
 
 ---
 
