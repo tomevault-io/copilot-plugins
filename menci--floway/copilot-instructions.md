@@ -63,4 +63,4 @@ See the project root `AGENTS.md` for package boundary rules
 
 ---
 > Source: [Menci/Floway](https://github.com/Menci/Floway) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
