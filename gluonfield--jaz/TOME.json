@@ -2,7 +2,7 @@
   "name": "jaz",
   "owner": "gluonfield",
   "repo": "jaz",
-  "description": "A personal AI on machines you own \u2014 any agent, loops that run overnight, boards, memory, and git control. Client/server split, always-on, open source end to end.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gluonfield/jaz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T16:54:17Z"
+  "distributed_at": "2026-09-26T20:52:24Z"
 }
