@@ -1,0 +1,9 @@
+{
+  "name": "astrafoundry--kumoapp",
+  "displayName": "KumoApp",
+  "description": "A calm, native macOS client for the Mihomo proxy core, built with SwiftUI and a shared agent-friendly CLI.",
+  "version": "1.0.0",
+  "author": "AstraFoundry",
+  "homepage": "https://github.com/AstraFoundry/KumoApp",
+  "skills": []
+}
