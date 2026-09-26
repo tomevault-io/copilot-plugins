@@ -1,17 +1,15 @@
 # based
 
-> Tome by [pavi2410](https://github.com/pavi2410/based) — distributed by [TomeVault](https://tomevault.io)
-
-Git-Friendly Database Client
+> Tome by [pavi2410](https://github.com/pavi2410/based), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pavi2410/based](https://github.com/pavi2410/based).
+Original source: `AGENTS.md` in [pavi2410/based](https://github.com/pavi2410/based).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
