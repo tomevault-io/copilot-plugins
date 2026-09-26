@@ -1,37 +1,18 @@
 ## luban-examples
 
-> 请按项目实际情况修改本文件中的路径与命令。
+> Luban MiniTemplate conventions for AI agents
 
-# Agent 指南（Luban 配置工程）
 
-请按项目实际情况修改本文件中的路径与命令。
+# Luban MiniTemplate
 
-## 硬性约定
-
-1. Schema 是契约：数据不符合应报错，不要静默改定义凑生成成功。
-2. 新表必须在 schema（`__tables__` 或 XML）中登记。
-3. Excel sheet A1 必须以 `##` 开头。
-4. 分组：`c` 客户端、`s` 服务器、`e` 编辑器（以 `luban.conf` 为准）。
-5. 发布流水线使用 `--strict`；Agent 排错使用 `--errorFormat json`。
-
-## 常用命令
-
-```bash
-# 生成（示例，请改成项目真实参数）
-dotnet Luban.dll --conf luban.conf -t client -c cs-bin -d bin \
-  -x outputCodeDir=../Gen -x outputDataDir=../Data
-
-# 校验
-dotnet Luban.dll --conf luban.conf -t all -f --strict --errorFormat json -x outputSaver=null
-
-# 导出 schema
-dotnet Luban.dll --conf luban.conf -t all -c schema-json -x outputCodeDir=./schema-out
-```
-
-## Skills
-
-建议安装：`luban-add-table`、`luban-schema-design`、`luban-excel-fill`、`luban-generate-debug`、`luban-validator`。
+- Pipeline: Schema → Data → Generate → Runtime.
+- Never silently weaken schema to make invalid data pass.
+- Register new tables in `Data/__tables__.xlsx` before expecting export.
+- Excel sheets require A1 starting with `##`.
+- Groups: `c` client, `s` server, `e` editor.
+- Prefer `--errorFormat json` when diagnosing failures.
+- Prefer `-c schema-json` to inspect compiled schema.
 
 ---
 > Source: [focus-creative-games/luban_examples](https://github.com/focus-creative-games/luban_examples) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
