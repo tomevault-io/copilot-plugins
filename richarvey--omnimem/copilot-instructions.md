@@ -1,189 +1,205 @@
 ## omnimem
 
-> Self-hosted semantic memory MCP server for Claude Code. Provides persistent memory across sessions via four namespaces: episodic (decisions, bugs, patterns), project context (stack, goals, state), knowledge base (RSS articles auto-summarised by Claude Haiku), and preferences (prescriptive rules extracted from conversation, e.g. "always update README after a feature"). v6 adds a fifth, derived namespace: compiled skills (`mem:skill:`) — SKILL.md documents distilled from experience and graveyard memories per domain, gated behind a propose-and-accept write path.
+> You have access to a persistent memory system via the `omnimem` MCP server. It is the primary persistent memory store for all sessions.
 
-# OmniMem Development Guide
+## OmniMem — Persistent Semantic Memory
 
-## What is this?
+You have access to a persistent memory system via the `omnimem` MCP server. It is the primary persistent memory store for all sessions.
 
-Self-hosted semantic memory MCP server for Claude Code. Provides persistent memory across sessions via four namespaces: episodic (decisions, bugs, patterns), project context (stack, goals, state), knowledge base (RSS articles auto-summarised by Claude Haiku), and preferences (prescriptive rules extracted from conversation, e.g. "always update README after a feature"). v6 adds a fifth, derived namespace: compiled skills (`mem:skill:`) — SKILL.md documents distilled from experience and graveyard memories per domain, gated behind a propose-and-accept write path.
+-----
 
-**Version**: 6.3.2
-**Stack**: Python 3.12, FastMCP (SSE transport), Valkey + valkey-search (HNSW vectors), sentence-transformers (all-MiniLM-L6-v2, 384-dim), Anthropic API (Claude Haiku for RSS summarisation), Pydantic v2, Docker Compose, APScheduler, feedparser, PyTorch CPU-only
+### Tool Priority
 
-## Project Structure
+Before using web_search or answering from training data, ALWAYS query OmniMem first:
+
+1. Call `recall("<relevant query>")` or `recall_index("<relevant query>")` to check for prior solutions, patterns, or knowledge articles
+2. Only fall back to web_search if OmniMem returns nothing useful
+3. Combine both when recency matters — use OmniMem for project context and prior decisions, web for the latest information
+
+-----
+
+### Session Start
+
+At the beginning of every session:
+
+1. **Determine the project name** — use the current working directory name as the default. If uncertain, call `list_projects()` and match against known projects. If the project is genuinely ambiguous, ask the human before proceeding.
+1. Call `briefing(project="<project_name>")` — this single call aggregates project context, experience summary, stale memories, new knowledge articles, contradiction warnings, and reinstate candidates.
+1. If `briefing()` returns no project context but the project has episodic memories, call `compile_project_context("<project_name>", auto_save=True)` to auto-generate the context from stored memories. Review the compiled draft with the human and refine via `set_project_context()` if needed. If there are no episodic memories either (genuinely new project), call:
+
+   ```
+   set_project_context(
+     name="<project_name>",
+     description="<ask the human for a brief description>",
+     stack=["<technologies>"],
+     goals=["<current goals>"],
+     current_state="<starting point>",
+     domains=["<kinds of work, e.g. python, docker, design>"]
+   )
+   ```
+1. If the project context has no `domains`, call `compile_project_domains("<project_name>")` — it proposes them from the stack and the project's own recurring tags, with the evidence for each. Show the human the draft and only save with `auto_save=True` if they agree. Domains are what let a later session search across projects rather than inside one.
+1. Briefly summarise what you found:
+- Current project state and goals
+- Recent decisions and discovered patterns
+- Abandoned approaches to avoid (graveyard)
+- Stale memories that may need reviewing
+- **Contradiction warnings** — surface these explicitly and ask the human which version reflects current reality before proceeding with any work
+- **Skill suggestions** — if the briefing recommends compiled skills, offer them to the human; on a greenfield project (no context yet) lead with them. Load with `get_skill()` only if agreed — never auto-load
+- **Skill updates** — pending changes to compiled skills. Low-risk additions can be accepted in a batch; rewrites or removals of existing rules must be reviewed individually via `compile_skill(domain, mode="propose")`
+- **Knowledge watch** — if the briefing includes `skill_knowledge_watch`, recent articles look relevant to a compiled skill; entries flagged `possible_contradiction` may mean the world moved under a rule. Surface them and, if the human agrees an article belongs in the skill, call `promote_knowledge(key, domain="<domain>")` then recompile
+- **Auto-proposed skills** — if the briefing includes `auto_proposed_skills`, the server's periodic scan found recurring cross-project lessons worth a new skill (or a changed skill worth a fresh draft) and has already stashed the proposal. Surface each one; review with `compile_skill(domain, mode="propose")` and accept with `mode="write"` only if the human agrees. Ignoring a draft declines it
+1. If the MCP server seems unresponsive or recall is slow, call `health()` and report the status to the human before continuing.
+
+-----
+
+### During a Session
+
+**Before attempting any problem** where you would normally reach for documentation or a search engine:
+
+- Call `recall("<problem description>")` — you may find a prior solution, a relevant pattern, or a knowledge article that gives you a head start
+- If a recalled knowledge article seems relevant, mention it: *“I found an article from [source] about X — shall I use that as a research base?”*
+- **When the problem is about a kind of work rather than this project** — a Python gotcha, a CSS layout trap, a Docker build failure — add `domain_filter`: `recall("<problem>", domain_filter="python")` searches every project doing that kind of work. Compiled skills hold the lessons that already cleared the reinforcement gate; the domain filter reaches the raw memories underneath, including the ones that never became a rule. If the reply starts with a `domain_filter_notice` saying the filter was not applied, no project declares that domain and the results you are reading span everything — say so rather than presenting them as a targeted search
+- **If the reply ends with a `licence_notice`**, some results have no recorded redistribution licence — usually RSS articles from a feed that never declared one. When the human can say whether the source may be redistributed (an OGL or CC BY page is open; a paywalled or all-rights-reserved one is restricted), record it: `set_licence(keys=[...], licence="open")`, or `set_licence(feed_name="<feed>", licence="ogl-3.0")` to classify everything from one feed. Do not guess on their behalf — an unknown is honest, a wrong `open` is a liability
+
+**Before suggesting OR agreeing to any library, tool, or architectural approach** — including ones the human proposes:
+
+- Call `warn_if_abandoned("<library or approach name>")`
+- If a warning comes back, tell the human before proceeding: *“We tried [X] before and abandoned it because [reason] — shall we try again or look for alternatives?”*
+- Do not skip this check because the human suggested the approach. Dead ends are dead ends regardless of who proposed them.
+
+**Store memories proactively.** When you learn something worth keeping, write it to OmniMem using `remember()`. Do not wait to be asked. Call `remember()` when you:
+
+- Reach a decision or agree on an approach
+- Solve a tricky or non-obvious bug
+- Discover a pattern, constraint, or gotcha
+- Complete a meaningful piece of work
+- Learn a preference, a brand rule, or a technical choice
+
+**Choose the right namespace:**
+
+- `episodic` — things that happened: decisions made, work done, bugs fixed (default)
+- `knowledge` — facts, rules, preferences, reference information
+- `project` — scoped context for a specific project
+
+**Say where content came from.** Every memory carries a `licence` — its redistribution rights. `remember()` defaults to `own` (a decision, a fix, a preference written here) and `knowledge` writes to `unknown`, so pass `licence=` whenever the content is someone else's: `licence="restricted"` for a summary of a paywalled document or vendor page, `licence="open"` (or the identifier, `"cc-by-4.0"`, `"ogl-3.0"`) for a redistributable source. `remember_document()` is the write most likely to be third-party material, so always say. This field is about redistribution *rights* only; it says nothing about who may see the memory.
+
+**Say who is speaking.** Every memory also carries a `provenance`: `asserted` (the human stated it), `concluded` (your own reasoning or write-up), or `retrieved` (an external source). `remember()` defaults to `concluded` for episodic and project memories, `asserted` for preferences, `retrieved` for knowledge (project *context* set with `set_project_context()` is `asserted`). Pass `provenance="asserted"` when the human dictated the content, and `"retrieved"` when you are storing what a document or page said — a later session must be able to tell your conclusions from evidence, or your own inferences get recalled as independent corroboration for the reasoning that produced them. Recall reports `provenance` on every result; when a `concluded` memory is the only support for a claim, say so rather than presenting it as established. Reclassify with `set_provenance(keys=[...], provenance="asserted")` when the human vouches for something.
+
+Use this tagging vocabulary for consistency:
+
+|Category|Example tags                                                        |
+|--------|--------------------------------------------------------------------|
+|Stack   |`rust`, `python`, `docker`, `traefik`, `valkey`, `n8n`              |
+|Intent  |`bug-fix`, `decision`, `pattern`, `gotcha`, `config`, `architecture`|
+|Outcome |`working`, `deprecated`, `revisit`                                  |
+|Project |use the project name as a tag                                       |
+
+Always include at least one stack tag and one intent tag.
+
+**If an existing memory is missing tags or tagged wrongly**, fix it with `retag()` — `retag(key, add=[...])` and `retag(key, remove=[...])` adjust the existing set, `retag(key, tags=[...])` replaces it outright. Tags feed recall filtering and skill compiler domains, so tidying them is worthwhile.
+
+**If the human says** something like “forget about X”, “stop bringing up Y”, or “I don’t do that anymore”:
+
+- Call `deprioritise()` with a clear reason
+- Add `reinstate_hints` if the memory might become relevant again in a different context
+- Do NOT hard delete unless they say “permanently delete” or “wipe”
+
+**If a recalled memory keeps surfacing when it clearly shouldn’t:**
+
+- Call `suppress_topic("<topic>")` and let the human know it has been suppressed
+
+**Automatic maintenance** — every 10 `briefing()` calls per project (configurable via `AUTO_MAINTENANCE_INTERVAL`), the server automatically:
+
+- Scans for duplicate memories and archives the oldest in each cluster
+- Runs a heuristic contradiction scan on active project memories
+
+When maintenance runs, the briefing response includes an `auto_maintenance` section showing what was cleaned up. You can still call `find_duplicates()` and `check_contradictions()` manually at any time. Set `AUTO_MAINTENANCE_INTERVAL=0` to disable.
+
+-----
+
+### Recording Experience
+
+After solving any non-trivial problem (or giving up on one), record the experience:
 
 ```
-mcp_server/           # MCP server — FastMCP SSE transport
-  server.py           # Entry point: init store/embedder/lifecycle/pipeline, register tools
-  memory/             # Core engine (shared with web_ui)
-    store.py          # ValkeyStore: connection pool, HNSW vector indexes, CRUD
-    embedder.py       # Singleton SentenceTransformer (all-MiniLM-L6-v2, 384-dim)
-    lifecycle.py      # MemoryState enum, state transitions, topic suppression
-    recall.py         # RecallPipeline: abandoned fast-path → vector search → scoring
-    dedup.py          # Cosine similarity duplicate detection (threshold 0.92)
-    maintenance.py    # Auto-maintenance: dedup + contradiction scan on briefing interval
-    contradiction.py  # Tier 1 heuristic + optional Tier 2 Claude Haiku API
-    skills.py         # v6 skill compiler engine: domain pools, lesson clustering, SKILL.md rendering, diffs
-    skill_compiler.py # Shared propose-and-accept compile flow (used by MCP compile_skill AND the web UI)
-  tools/              # 30+ MCP tool implementations
-    core.py           # remember, recall, recall_index, recall_detail, deprioritise, archive, forget
-    project.py        # set/get/update/compile project_context, list_projects, delete_project
-    experience.py     # record_experience, log_abandoned, warn_if_abandoned
-    briefing.py       # Session-start 5-in-1 aggregation
-    audit.py          # memory_audit, explain_memory, why_did_you_mention
-    backup.py         # dump_to_file, restore_from_file, list_backups
-    contradiction.py  # check_contradictions tool
-    topics.py         # suppress/unsuppress/list_suppressions
-    skills.py         # compile_skill (propose/write gate), find_skills, get_skill, bless + briefing surfaces
-  tests/              # pytest with in-memory fakes (no Docker needed)
-    conftest.py       # FakeValkeyClient, FakeEmbedder, FakeStore fixtures + web_client
-                      # (TestClient over the real web_ui app; neutralises load_dotenv so
-                      # a production .env further up the tree can't leak into tests)
-
-web_ui/               # Starlette + Jinja2 + htmx dashboard
-  app.py              # ASGI app setup, route mounting
-  deps.py             # Shared init (mirrors server.py pattern)
-  routes/             # 17 route modules (memories, search, projects, skills, feeds, telemetry, metrics, etc.)
-  templates/          # Jinja2 templates with htmx partials
-  static/             # htmx.min.js, style.css
-
-rss_worker/           # Background RSS ingestion
-  worker.py           # APScheduler entry + feeds.yml file watcher
-  ingester.py         # Fetch → strip HTML → summarise → embed → store
-  summariser.py       # Claude Haiku summaries or truncation fallback
-  feeds.yml           # Feed definitions (url, name, topics, optional project label)
-
-claude_config/        # CLAUDE.md template for end-users to copy into their projects
-scripts/              # health_check.sh, restore_backup.sh
+record_experience(
+  key="mem:episodic:...",
+  effort_score=3,           # see guide below
+  outcome="succeeded",      # succeeded | pivoted | abandoned
+  iterations=2,
+  abandoned_approaches=[
+    {"name": "onnxruntime", "type": "library", "reason": "SIGILL on Alpine musl libc"}
+  ],
+  breakthrough="sentence-transformers with --prefer-binary pip flag",
+  gotchas=["Needs openblas-dev and g++ installed in Alpine first"]
+)
 ```
 
-## Running Locally
+**Bug fixes must always be recorded.** After fixing any bug, call `remember()` with a structured description:
 
-```bash
-cp .env.example .env   # Edit: set VALKEY_PASSWORD, optionally ANTHROPIC_API_KEY
-docker compose up -d
-```
+- **Symptom**: What the user saw (error message, HTTP status, unexpected behaviour)
+- **Cause**: What was actually wrong
+- **Fix**: What was changed to resolve it
 
-- MCP server: `http://localhost:8765/mcp`
-- Web UI: `http://localhost:8080`
-- Valkey: `localhost:6379`
+For dead ends discovered mid-session, use `log_abandoned(key, name, type, reason)` to record them as they happen — do not wait until session end.
 
-## Running Tests
+If `effort_score >= 4` and `outcome == "abandoned"`, the system will automatically suppress the abandoned approach names.
 
-```bash
-cd mcp_server && pytest tests/
-```
+**Effort score guide:**
 
-Tests use in-memory fakes (FakeValkeyClient, FakeEmbedder) — no running Valkey required.
+|Score|Meaning                                      |
+|-----|---------------------------------------------|
+|1    |Worked first time, no issues                 |
+|2    |Minor friction, quick fix                    |
+|3    |Multiple iterations, some debugging          |
+|4    |Significant effort, approach changes required|
+|5    |Near-abandonment, fundamental rethink        |
 
-For Docker-based tests: `docker compose -f docker-compose.test.yml up --build`
+-----
 
-## Key Architecture Decisions
+### Skills (compiled procedure)
 
-- **ULIDs** for memory keys (sortable, collision-free)
-- **SSE transport** (stateless, simpler than WebSocket for MCP)
-- **Valkey** over Redis (open source fork)
-- **CPU-only PyTorch** (no GPU dependency)
-- **Shared `memory/` package** between MCP server and web UI (no code duplication)
-- **Debian-slim Docker base** — Alpine doesn't work (PyTorch has no musllinux wheels)
-- **In-memory fakes** for testing (no Docker-in-tests complexity)
-- **Auto-maintenance** on briefing interval — dedup + contradiction scan every N `briefing()` calls per project, tracked by `meta:maintenance:{project}` counter in Valkey (configurable via `AUTO_MAINTENANCE_INTERVAL`, default 10, set to 0 to disable)
-- **Index migration** on startup — `_migrate_indexes()` compares field count against definitions, drops stale indexes (data-safe) so they get recreated with new fields
-- **Per-memory recall counters** — `recall_count` and `last_recalled` updated via pipeline on each recall; `/telemetry` dashboard and `/metrics` Prometheus endpoint expose these
-- **RSS articles carry a project label** (v6.1.1) — default `RSS`, per-feed override via `project:` in feeds.yml, backfilled by a startup migration (`memory/migrations.py`), so ingested articles stay separable from conversation-sourced knowledge. Articles are identified by `feed_name`; the label must satisfy the project-name charset or the ingester falls back to `RSS`. It does not create a pseudo-project: projects pages/tools only count `mem:project:*` keys
-- **Skills are whole document objects, never chunked** (v6) — canonical body lives in the `body` hash field at `mem:skill:gen:{domain}-{user}`; `idx:skill` embeds discovery metadata only (name + description + domain) and `body` is deliberately absent from `_NAMESPACE_RETURN_FIELDS["skill"]`. `get_skill` returns it intact by ID
-- **Skill writes are gated** (v6) — `compile_skill(mode="propose")` stashes the rendered draft in `meta:skill:proposal:{domain}-{user}` (TTL `SKILL_PROPOSAL_TTL_SECONDS`); `mode="write"` commits that stashed body verbatim (no recompile at write time), refuses if the stored skill's sha changed since the proposal, and refuses anything not flagged `generated: true`. Experience/graveyard writes stay ungated — that asymmetry is the design
-- **Promoted knowledge feeds skills, ordinary knowledge doesn't** (v6.2) — `promote_knowledge(key, domain=...)` sets `skill_domains` + `promoted_at` on the article (and clears expiry); `gather_promoted_knowledge()` pools those into `compile_skill`, rendered as `ref` rules in a separate Reference section — one summary rule per article, or one stance-prefixed rule per item when the article was promoted with extracted `rules=[{kind, text}, ...]` (stored in `skill_rules` on the article; extraction happens at promotion under human review, never at compile, so rendering stays deterministic). Promotion substitutes for reinforcement (same logic as `bless`), so refs bypass the gate but never count toward it. The briefing's `knowledge_watch()` (tools/skills.py) is the awareness layer: recent unpromoted articles vs skill discovery vectors (both read via `get_vectors_multi`, no re-embedding), with the tier-1 negation heuristic upgrading matches to `possible_contradiction`. Tunables: `SKILL_KNOWLEDGE_WATCH_DAYS` (14, 0 disables), `SKILL_KNOWLEDGE_WATCH_THRESHOLD` (0.35)
-- **Skill compilation is deterministic** — same source memories render a byte-identical body except the `compiled_at` frontmatter line (`bodies_equivalent()` strips exactly that line). Don't introduce randomness, dict-order dependence, or extra timestamps into `render_skill_md()` or every recompile will propose noise diffs
+OmniMem can compile your accumulated experience in a domain into a loadable skill via `compile_skill("<domain>")` — do/don't/watch-out rules distilled from reinforced breakthroughs, gotchas, and the graveyard, each citing its source memories. Domains are tags: a memory tagged `python` feeds the `python` skill.
 
-## Validation Constraints
+**Loading.** When `briefing()` suggests a skill (or `find_skills("<query or domain>")` finds one), offer it to the human and load it with `get_skill("<skill_id>")` if they agree. Never load one silently. Once loaded, follow its operating contract: keep recording experience and dead ends while you work, so the next compile is better.
 
-- Project names: alphanumeric, hyphens, underscores, dots, spaces only
-- Content: max 50KB per memory
-- Tags: max 20 per memory, each ≤100 chars
-- Namespaces: `episodic`, `project`, `knowledge`, or `preference` for `remember()`; `skill` exists as a search namespace but is only writable through the `compile_skill` gate
-- Key prefixes: `mem:episodic:`, `mem:project:`, `mem:knowledge:`, `mem:preference:`, `mem:skill:`
-- Skill domains: normalised to lowercase kebab-case, 1-64 chars of `[a-z0-9._-]`; aliases (`py`→`python` etc) resolve in `memory/skills.py DOMAIN_ALIASES`
+**Compiling and updating.** Skills are derived output — never edit one by hand; update the underlying memories and recompile. The flow is always propose, review, accept:
 
-## Docker Services
+1. `compile_skill("<domain>")` returns a diff (or a full draft for a new skill) plus a risk-classified change summary
+1. Show the human the changes — additions are low-stakes; rewrites or removals of existing rules deserve individual attention
+1. Only after they accept, call `compile_skill("<domain>", mode="write")` — it commits exactly the proposed draft, nothing else
 
-| Service | Port | Purpose |
-|---------|------|---------|
-| `valkey` | 6379 (internal) | Vector DB + search |
-| `mcp_server` | 8765 | MCP SSE transport |
-| `rss_worker` | — | Background feed ingestion |
-| `web_ui` | 8080 | Web dashboard + `/metrics` Prometheus endpoint |
+The skill's `description` is the load trigger and is human-owned: the compiler drafts it once at creation, the human approves or edits it (pass `description=` to change it deliberately), and recompiles never clobber it.
 
-Volumes: `valkey_data` (persistent DB), `./backups` (shared), `./rss_worker/feeds.yml` (shared config)
+**Promotion.** A single episode is a memory; a pattern across episodes earns a rule (default `min_reinforcement=2`). When one lesson is strong enough on its own, call `bless("<memory_key>")` to make it skill-eligible at the next compile.
 
-## Recall Pipeline (how scoring works)
+**Reference material.** Knowledge articles can feed a skill too, but only deliberately: `promote_knowledge(key, domain="<domain>")` marks an article skill-eligible, and the next compile renders it in a distinct Reference section citing the article. Promotion is the vetting step — never promote without the human agreeing the article belongs in the skill. Use it for durable reference (a spec, a canonical how-to), not volatile facts like version numbers; those stay in the knowledge namespace and are looked up with `recall()` at need. `demote=True` reverses a promotion.
 
-1. Abandoned fast-path: keyword scan on `abandoned_approaches` (no embedding needed; parsed entries cached for `ABANDONED_CACHE_TTL_SECONDS`, default 60, invalidated on experience/forget/restore writes)
-2. Vector search: embed query, search `max(20, top_k)` candidates per namespace (min 50 under a project filter). State and project filters are pushed into FT.SEARCH as tag filters (episodic, preference, knowledge) so archived/out-of-project docs don't consume candidate slots; Python-side filters remain as the safety net
-3. Apply multipliers in order:
-   - Surface score (lifecycle state: active 1.0x, deprioritised 0.2x, archived 0.0x)
-   - Recency decay (age penalty after `RECENCY_DECAY_DAYS`, default 90)
-   - Experience weight (effort × outcome: succeeded 1.0x–1.8x, pivoted 0.7x, abandoned 0.1x)
-   - Temporal boost (1.0–1.5x when the query mentions a date and the memory has a close `event_date`; applied in both the main loop and query-expansion variants)
-4. Merge results from all namespaces, dedupe by (key, result type), re-rank by adjusted_score
-5. Select top_k, suppressing an extracted fact when its `enriched_from` source memory already made the cut (verbatim carries more context — issue #20)
-6. Log recall event and increment per-memory `recall_count` + `last_recalled` counters
+**Extracting rules from an article.** When an article contains discrete guidance (a "5 things to avoid" list, a best-practice post), don't settle for the one-line summary: read the article (`recall_detail` on its key), draft one rule per item as `{"kind": "do"|"watch"|"dont"|"note", "text": "..."}`, show the human the list, and pass the approved set as `promote_knowledge(key, domain="<domain>", rules=[...])`. Each becomes its own stance-prefixed bullet in the skill's Reference section ("Avoid: ...", "Do: ..."), all citing the article. Extraction happens at promotion under human review — never at compile — so re-promote with an edited list to revise, or `rules=[]` to revert to the summary line.
 
-**Enriched facts** (issue #20): background extraction routes facts to the `knowledge` namespace (preferences to `preference`) with `surface_score` 0.5 so verbatim chunks outrank their own facts, `enriched_from` linking back to the source, and an `event_date` fallback chain (fact's own date → source `event_date` → source `created_at`) so temporal queries can find them.
+-----
 
-## Gotchas
+### Session End
 
-- **valkey-search FT.SEARCH tag filters diverge from the RediSearch docs** (verified live): raw tag values match — including spaces, dots and hyphens (`@project:{omni mem}` works as-is) — while backslash-escaped or quoted values match NOTHING. In-brace alternation `{a|b}` is also broken; use clause-level OR: `(@state:{a} | @state:{b})`. Interpolate values raw and only after allowlist validation (`_TAG_VALUE_SAFE_RE` in recall.py). `store.search()` retries unfiltered when a filtered query errors, so a bad filter degrades rather than returning [].
-- **Stored vectors are readable via `store.get_vectors_multi(keys)`** — a second binary-safe client (decode_responses=False) reads the `vector` field the main client can't. Dedup/maintenance/check_contradictions reuse stored embeddings instead of re-embedding namespaces; fall back to `embed_batch` only for entries whose vector is missing.
-- **Batch reads use `store.get_fields_multi(keys, fields)`** for list/scan/aggregate views — one pipelined HMGET per key, only the named fields, no vector payload. `get_multi` (two round trips, all text fields) is for when you genuinely need the whole record. When adding a field to a list/telemetry/audit view, remember to add it to that view's projection tuple or it will silently read as `None`.
-- **The object returned by `load_refresh_token` must expose `expires_at`** (absolute unix seconds), not just `expires_in`. The MCP SDK bundled with FastMCP 3.x reads `refresh_token.expires_at` in its token handler; without it every refresh raises `AttributeError` → 500 → the client (desktop app, claude.ai) can't get a token and every subsequent `/mcp` request 401s. `_StoredToken` stores `created_at` + `expires_in` and exposes `expires_at` as a computed property (`created_at + expires_in`). Storage already drops expired refresh tokens in `load_refresh`, so any token reaching the handler is live. Fixed in v5.5.2.
-- **OAuth refresh uses a rotation grace window**, not strict single-use. `exchange_refresh_token` retires the old token by re-saving it with a `rotated_to` marker and a short TTL (`OAUTH_REFRESH_GRACE_SECONDS`); replays inside the window return the same successor pair. This is what stops claude.ai's concurrent refreshes from racing to `invalid_grant`. Any change to token storage must round-trip `rotated_to` (see `_serialise_stored_token`).
-- **Valkey runs with AOF** (`--appendonly yes`) so OAuth tokens survive restarts; Compose refuses to start with an empty `VALKEY_PASSWORD`.
-- **FastMCP 3.x guards the Host *and* Origin headers** (`HostOriginGuardMiddleware`, added in the 3.x upgrade). Two distinct failures behind a reverse proxy / tunnel (Traefik, Caddy, Tailscale funnel), both easy to misread as OAuth breakage:
-  - **`421 Misdirected Request`** — the `Host` isn't in the allowlist, which defaults to just localhost (`127.0.0.1`, `localhost`, `::1`) plus the bind host. The public hostname isn't on it, so **every** request 421s, including the `/.well-known/*` OAuth discovery endpoints. Local `curl` keeps working because `localhost` is allowed, so it's easy to misdiagnose. Symptom: `curl https://host/mcp` returns `421` where it used to return `401`.
-  - **`403 Forbidden Origin`** — hits the browser login POST to `/oauth/login` after Host is fixed. The proxy usually terminates TLS and forwards over http, so the ASGI scope scheme is `http` and FastMCP's derived origin is `http://host`, while the browser sends `Origin: https://host`. Scheme mismatch → 403. Fixing Host alone is not enough; the https origin must be trusted too.
+At the end of every session, without exception:
 
-  `server.py` fixes both automatically: it derives the hostname and the full `scheme://host[:port]` origin from `OAUTH_BASE_URL` / `MCP_PUBLIC_URL` (plus optional comma-separated `MCP_ALLOWED_HOSTS` / `MCP_ALLOWED_ORIGINS`) and writes `fastmcp.settings.http_allowed_hosts` and `http_allowed_origins` before `mcp.run()`. The underlying FastMCP knobs are `FASTMCP_HTTP_ALLOWED_HOSTS` / `FASTMCP_HTTP_ALLOWED_ORIGINS` — both pydantic `list[str]`, so values must be **JSON arrays** (`["mcp.example.com"]`, `["https://mcp.example.com"]`); a bare string fails to parse.
-- **PyTorch is the Alpine blocker** — not sentence-transformers or numpy. PyTorch only publishes manylinux (glibc) wheels. Any project using PyTorch (directly or transitively) cannot use Alpine. The ~2.2GB image size is mostly PyTorch, not the Debian base. Alpine with gcompat shim also fails (pip rejects at download/hash verification stage).
-- **inotify doesn't work for Docker bind mounts** — mtime polling (10s interval, configurable via `FEEDS_WATCH_INTERVAL`) is more portable. The RSS worker uses this for feeds.yml change detection.
-- **Projects without `set_project_context()`** only exist as ULID memories — the web UI detail view won't work for them until a proper context entry is created. Template conditionally disables links for these.
-- **RSS summariser fallback** — Haiku API calls retry up to 2 times with backoff. Fallback truncation is 800 chars (was 300, bumped in v0.2.2).
+1. Call `update_project_state("<project_name>", current_state="<current state>", notes="<anything important for next session>")` — this is mandatory regardless of how much work was done
+1. Call `remember()` for any key outcomes, decisions, or discoveries not already stored during the session
+1. Ensure `record_experience()` has been called for all non-trivial work this session
+1. If any contradictions were surfaced during the session but not resolved, note them in the project state update so the next session picks them up
+1. If significant work was done this session (multiple memories stored, stack or goals changed), call `compile_project_context("<project_name>", auto_save=True)` to refresh the project context from the full set of memories. This keeps the context current without manual curation
 
-## Key Breakthroughs (from experience)
+-----
 
-- `remember(namespace="project")` creates ULID keys with "project" field but not "project_name" — fixed with startup migration + dedup logic in list functions
-- mtime polling over inotify/watchdog for Docker bind mount compatibility; shared feeds.yml via host path mount to both containers
-- htmx endpoints must return **partials**, not full page templates — extract into `partials/` and use `{% include %}` in the main template
-- Uploading feeds.yml just writes the file and the worker picks up the change automatically via mtime watcher, no inter-process signalling needed
-- `table-layout:fixed` with percentage column widths + `white-space:nowrap` on name cell + split date into two spans for responsive tables
+### Key Principles
 
-## Committing
-
-Commit after each meaningful section of work for easy rollback. The repo is hosted on Codeberg — Forgejo MCP is connected to Codeberg and can be used for PRs and repo operations.
-
-**Branch policy**: version lines (v6, v7, ...) are developed AND released from their own branch — cut tags and Codeberg releases on the version branch. Never merge a version branch into main unless explicitly asked; main only moves when Ric says so.
-
-## Web UI Notes
-
-- htmx endpoints must return **partials**, not full page templates
-- **Fonts are self-hosted**: Ubuntu + Ubuntu Mono woff2 files live in `web_ui/static/fonts/` with `@font-face` rules at the top of `style.css` — never link out to Google Fonts, the UI must work offline. Monospace elements use `var(--font-mono)`
-- **Accent colour is split three ways for WCAG AA**: `--accent` (#6366f1) is for borders and translucent fills only, `--accent-text` (#818cf8) for accent-coloured text on dark surfaces, `--accent-strong` (#5b5ee8) for solid fills carrying white text. Don't put `--accent` behind small text — it fails 4.5:1 on the card and page backgrounds
-- **Dashboard stat cards are `<a class="stat-card">`** — whole-card links, styled via `a.stat-card` so the plain `div.stat-card` on telemetry/experience/token pages is unaffected
-- Footers are full-width (not inside sidebar/container)
-- Auth is a single `AuthMiddleware` (web_ui/auth.py): session login turns on automatically when `OAUTH_ADMIN_USER` + `OAUTH_ADMIN_PASSWORD` are set (`WEB_UI_LOGIN_ENABLED=false` opts out), reusing the OAuth credentials with the same constant-time compare and per-IP rate limit knobs. Sessions are opaque tokens in Valkey (`meta:webui:session:{token}`, TTL `WEB_UI_SESSION_HOURS`, default 168) behind an HttpOnly `omnimem_session` cookie; `/logout` deletes the token server-side. `WEB_UI_AUTH_TOKEN` bearer auth is accepted alongside for scripts. `/metrics`, `/static/` and `/login` are exempt; unauthenticated htmx requests get 401 + `HX-Redirect` so partials never swap in the login page
-- Sidebar is grouped: Memory (memories, projects, preferences, experience, graveyard), Skills, Management (duplicates, contradictions, suppressions), Knowledge Management (articles, learned knowledge, RSS feeds), System Management (telemetry, backups). Preferences, Articles, and Learned Knowledge are filtered `/memories` views — `memories_list` maps namespace + `source` (`rss` = has `feed_name`, `learned` = doesn't) to `current_page` so the right sidebar entry highlights
-- Memory list rows carry Deprioritise/Delete buttons posting to `/lifecycle/*` with a `next` field for the return redirect — same-site paths only (see `_redirect_target`)
-- `/skills` pages allow **create and delete, never edit**. The New Skill modal runs the same propose-and-accept gate as MCP (`memory/skill_compiler.py compile_skill_flow` — shared so the two paths can't drift): compile a draft, review it in the modal, accept commits it. It refuses domains whose skill already exists (recompiles stay on the MCP flow, which carries the diff review). Delete asks for confirmation; the source memories survive, so recompiling the domain can recreate the skill. The UI links each rule and the source manifest back to `/memory/{key}` because the raw memories are what you change
-- The dashboard stats cache payload must carry the `skills` key and recent entries must carry `updated_date` — `_load_cached_stats` treats older shapes as stale and recomputes. If you add fields the dashboard template requires, extend that shape check or upgrades will KeyError until the TTL expires
-- Skills count into telemetry/metrics via the shared `recall_count`/`last_recalled` counters (`get_skill` bumps them); telemetry substitutes name + description for their missing `content` field and links them to `/skills/...`
-
-## Writing Style
-
-- British English spelling (colour, summarised, centre)
-- Conversational, humanised tone — no em dashes, no marketing fluff
-- Technical but accessible, with concrete numbers where possible
+- **Prefer `deprioritise` over `forget`** — humans usually mean “stop surfacing this” not “destroy this forever”
+- **Always include a `reason` when deprioritising** — it helps future sessions understand the context
+- **Include `reinstate_hints` when relevant** — if a memory might matter again under different circumstances, say so
+- **Check the graveyard before agreeing to anything** — the list of what failed is as valuable as the list of what worked
+- **Tag consistently** — inconsistent tags degrade recall quality over time; use the vocabulary above
+- **Contradiction warnings are blockers** — do not proceed past session start with unresolved contradictions without at least surfacing them to the human
+- **Never store secrets, credentials, or personally sensitive data in memory**
 
 ---
 > Source: [richarvey/OmniMem](https://github.com/richarvey/OmniMem) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
