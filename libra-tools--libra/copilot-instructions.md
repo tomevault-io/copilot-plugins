@@ -1,213 +1,161 @@
 ## libra
 
-> Libra is a Rust implementation of an AI agent-native version control system with
+> `libra agent` is an intentionally different external-agent capture extension,
 
-# Libra - Repository Custom Instructions for GitHub Copilot
+# Agent Command Development
 
-## What this repo is
+`libra agent` is an intentionally different external-agent capture extension,
+not a Git-compatible command.
 
-Libra is a Rust implementation of an AI agent-native version control system with
-Git on-disk compatibility, SQLite-backed repository metadata, durable AI runtime
-state, tiered local/S3/R2 object storage, and a Cloudflare-backed publish flow.
+OpenCode content capture on **macOS** is assembled through seatbelt
+(`sandbox-exec`) via `SandboxManager::transform`; the seatbelt backend carries
+a deprecation (**弃用**) risk if Apple removes `sandbox-exec`. See
+[`../tracing/agent.md`](../tracing/agent.md) §5 for the read-isolation
+asymmetry and fail-closed metadata-only degrade when the backend is missing.
 
-This is a single Rust package named `libra` plus two TypeScript/Next.js surfaces:
+The shared `run_bounded_exporter` Unix `pre_exec` sets both soft and hard
+`RLIMIT_CORE` to zero next to the existing per-platform `RLIMIT_FSIZE`.
+Failure to set either limit fails spawn with context. Core limits propagate
+to exporter descendants without changing the parent process; SIGXFSZ
+disposition, byte caps, deadlines and sandbox controls are unchanged.
+This also suppresses cores from unexpected exporter crashes. Piped core
+handlers decide whether to honor the limit. systemd-coredump v259 honors
+it when `core_pattern` passes the limit through `%c`; brief signal metadata
+can remain. The regression
+`opencode_export_core_limits_are_zero_in_child_and_descendants` exercises
+the real runner and confirms child/descendant limits and unchanged parent
+limits. It does not establish the cause of any historical linker SIGKILL.
 
-- `web/`: the static Code UI exported by Next.js and embedded into the Rust binary.
-- `worker/`: the Libra publish Cloudflare Worker, backed by D1 and R2.
+The active development contract, backlog, and compatibility guardrails live in
+[`../tracing/agent.md`](../tracing/agent.md). Keep this file as the command
+development index entry so `docs/development/commands/README.md` can list every
+public CLI command without duplicating the Agent planning document.
 
-Do not assume the older multi-crate `engine/`, `delta/`, `transport/`, or
-`storage/` layout exists. The current implementation lives primarily under
-`src/`, with command handlers in `src/command/` and shared/runtime internals in
-`src/internal/` and `src/utils/`.
+## Deferred / Non-goal parity
 
-## Repository layout
+The following external-agent parity surfaces are decided **non-goals** for the
+current wave. Each is recorded — with its handling and restart condition — in
+the 「还未实现的功能」 table of [`../tracing/agent.md`](../tracing/agent.md)
+(the canonical Agent contract); they are surfaced to users in
+[`docs/commands/agent.md`](../../commands/agent.md) and in the `agent` row of
+[`COMPATIBILITY.md`](../../../COMPATIBILITY.md):
 
-- `src/main.rs`: binary entry point.
-- `src/lib.rs`: embedding API (`exec`, `exec_async`) and public re-exports.
-- `src/cli.rs`: clap root grammar, global output flags, repository preflight, and
-  command dispatch.
-- `src/command/`: one module per `libra <subcommand>`, including Git-compatible
-  commands (`init`, `clone`, `add`, `commit`, `push`, `pull`, `status`, `log`,
-  `show`, `diff`, `branch`, `switch`, `checkout`, `merge`, `rebase`, `stash`,
-  `worktree`, etc.) and Libra-only commands (`code`, `code-control`, `agent`,
-  `automation`, `usage`, `graph`, `sandbox`, `cloud`, `publish`, `db`).
-- `src/internal/ai/`: AI runtime, providers, tools, MCP, session storage,
-  permissions, sandboxing, context budget, goal mode, orchestration, skills, and
-  web projections.
-- `src/internal/tui/`: terminal UI for `libra code`.
-- `src/internal/model/`: Sea-ORM models.
-- `src/internal/protocol/`: Git, HTTPS, SSH, LFS, and local protocol clients.
-- `src/internal/publish/`: publish snapshot/export pipeline.
-- `src/utils/`: object/path/storage/output/test helpers, tiered storage,
-  worktree utilities, pager support, and stable CLI error types.
-- `sql/`: SQLite bootstrap schemas and migrations; `sql/publish/` is the publish
-  Worker schema.
-- `tests/`: integration tests. `tests/INDEX.md` is the authoritative index of
-  every cargo `--test` target.
-- `tests/command/`: per-command integration suites and shared command helpers.
-- `tests/compat/`: cross-command compatibility guards that must also be
-  registered as `[[test]]` entries in `Cargo.toml`.
-- `docs/commands/`: user-facing command docs, kept in sync with the CLI surface.
-- `COMPATIBILITY.md`: compatibility matrix guarded by tests.
-- `.github/workflows/`: CI gates. `base.yml` is the main PR gate.
+1. **`agent add`/`remove` `--local-dev` / `--force`** — unpublished; canonical
+   `status` / `enable` / `disable` (+ `add` / `remove` aliases) only. If
+   implemented, each must hang on both the canonical verb and its alias.
+2. **Provider-specific transcript compaction/reassemble trait** — deferred parity
+   on top of the landed manifest-relative chunking (no provider-specific
+   compactor yet).
+3. **Optional capability traits** (`ProtectedFilesProvider`, `TranscriptCompactor`,
+   `HookResponseWriter`, `RestoredSessionPathResolver`, …) beyond the landed
+   `DeclaredAgentCaps` set — no public behavior yet.
+4. **External-RPC method family beyond the v2 `info`/capability gate** —
+   undeclared capabilities stay fail-closed.
+5. **Non-first-batch supported roster** — `gemini` / `cursor` / `copilot` /
+   `factory-ai` stay `supported=false` (unsupported, not hook-installable, not
+   launchable) and are omitted from `agent list` entirely; the first batch is
+   `claude-code` / `codex` / `opencode`. The omission is pinned by
+   `tests/command/agent_roster_test.rs::agent_roster_surface`; the unsupported
+   registry classification stays pinned by
+   `tests/compat/agent_capability_matrix_pin.rs`.
 
-## Languages and defaults
+## Historical import contract
 
-- Rust edition: 2024.
-- Primary runtime: Tokio.
-- CLI parsing: clap derive in `src/cli.rs` and `src/command/*`.
-- Database: SQLite through Sea-ORM.
-- Serialization: serde and serde_json.
-- Logging/diagnostics: tracing and user-facing `CliError`/`CliResult`.
-- Frontend: Next.js 16, React 19, TypeScript, Tailwind CSS, pnpm.
-- Prefer existing helpers and local patterns over new abstractions. In particular,
-  use `src/utils/`, `src/internal/db.rs`, command test helpers, and AI runtime
-  helper APIs where they already model the behavior being changed.
+The active DR-05/M4 contract is implemented by `libra agent import` and is
+specified canonically in [`../tracing/agent.md`](../tracing/agent.md): explicit
+consent before content access/export, provider-root descriptor authorization,
+typed redaction before persistence, current-repository ownership, coverage
+claim + import identity fencing, and local erase tombstones. The default
+`agent list --json` remains schema v1; callers opt into the method matrix with
+`--schema-version 2`. Batch limits charge bytes actually read from the held
+source even when a candidate later fails validation, and the absolute deadline
+begins before discovery, bounds reservation/object/CAS work, and releases every
+owned uncommitted import lease on expiry. Transaction commit awaits are not
+cancelled: the deadline is checked immediately before commit and the resulting
+success is authoritative even if observation finishes after the deadline. A
+failed abandonment is chained into the surfaced error with a doctor-repair hint.
+Repository ownership is the canonical shared Libra
+storage identity, so sibling linked worktrees are accepted while cross-repo
+sources remain rejected. Import attempt markers are created in the reservation
+transaction; live, export, and subagent writers use the same fail-closed
+pre-object registration. The effective per-source read cap is
+`min(agent.max_transcript_read_bytes, 16 MiB)`; explicit larger settings emit
+the actual effective value. Discovery traversal/open and held-descriptor file
+reads run in private, kill-on-timeout helper processes wrapped by the command's
+absolute deadline. Provider roots are
+opened component-by-component; Claude sources and each nested Codex date
+directory are opened relative to pinned no-follow descriptors before consent. Each new OID is added
+as a durable provisional preclaim before its loose-object write, but becomes
+deletion-eligible only after this writer wins publication and records it in
+`created_oids`; a crash between those steps leaks safely instead of claiming a
+concurrent writer's object. The object is compressed to a unique file in the
+shared private `objects/info/libra-tmp` directory and promoted without overwrite,
+with any existing final object fully validated before reuse. Fsync is conditional
+on `--sync-data`/`LIBRA_SYNC_DATA`. A 64-entry bounded, 24-hour scavenger removes
+only exact `.<40-or-64-lowercase-hex-oid>.tmp-<decimal-pid>-<uuid>` regular files and retains
+unrelated entries. Expired construction attempts and `cleanup_pending` jobs are
+retired by explicit `agent doctor --repair`/GC maintenance, not append or erase;
+cleanup-pending ownership ignores the ordinary writer TTL, blocks same-session
+erasure until retired, and is immediately repairable by doctor. Malformed
+markers are surfaced as manual-required rather than silently skipped.
+Each marker has a random writer generation, and every ownership mutation,
+final ref CAS, and clear operation compares it exactly so same-checkpoint
+takeover cannot be confused with the expired writer.
+Rejected-object diagnostic reachability covers loose, packed, and alternate
+objects under a 64 MiB per-object load-cost cap, full OID verification, a
+250,000-object traversal cap, and a 30-second per-read/total deadline. Its roots
+include refs, reflogs, registered worktree indexes, and sequencer state; roots
+are snapshotted outside the writer transaction and revalidated before ownership retirement.
+Index snapshotting runs in a killable helper under the same aggregate deadline;
+no-follow/nonblocking regular-file opens, held-descriptor `limit + 1` reads, and
+checksum/parsing of those exact bytes close special-file, growth, and path-reopen races.
+Index enumeration is capped at 256 files/64 MiB aggregate. Any refusal preserves
+durable cleanup ownership and fails closed. Inline recovery never unlinks a
+shared loose object or deletes its object-index row; physical reclamation is
+delegated to repository GC because index writers do not share the SQLite lock.
+Rejected-writer ownership registration is O(1), durable, and blocks empty-catalog erasure until
+the ownership job is safely retired. Persisted provisional ownership,
+not process-local "created" state, controls zero-progress session reaping.
+Retention GC physically deletes terminal ownerless import identities once no
+coverage claim remains, including zero-checkpoint rows. Dry-run obtains the
+same identity count by simulating coverage removal in a rolled-back transaction.
 
-## Rust coding rules
+## Bridge (plan-20260818 LB-01)
 
-- Run `cargo +nightly fmt --all` formatting. `rustfmt.toml` groups imports as
-  standard, external, then crate imports.
-- CI treats clippy warnings as failures:
-  `cargo clippy --all-targets --all-features -- -D warnings`.
-- Avoid wildcard imports except in tests.
-- Prefer `anyhow::Result`/`anyhow::Context` for CLI flows and `thiserror` for
-  domain/library errors. User-facing errors must say what failed, which resource
-  was affected, and what the user can do next.
-- Production code must not use `unwrap()`, `expect()`, or `panic!()` unless the
-  case is obviously infallible and has a short `// INVARIANT:` comment. This
-  applies to startup and initialization paths too. Tests may use them.
-- When adding public enum contracts under `src/internal/ai/agent_run/`, preserve
-  additive compatibility with `#[non_exhaustive]` where the existing guard expects
-  it.
-- Respect the repository object format. Libra supports `sha1` and `sha256` via
-  `core.objectformat`; do not hard-code 20-byte object IDs.
-- Keep hot paths streaming and bounded. Avoid unbounded directory walks, retries,
-  buffers, allocations, or network calls in command paths unless clearly justified.
-- Do not log secrets, tokens, provider keys, vault material, full authorization
-  headers, or sensitive AI transcript details. Use existing redaction utilities.
+`libra agent bridge --stdio` is the repository-scoped DeepSeek Harness ingress.
 
-## Build and test commands
-
-Use `LIBRA_SKIP_WEB_BUILD=1` for Rust-only iteration when the embedded Code UI is
-not the subject of the change.
-
-```bash
-cargo +nightly fmt --all --check
-LIBRA_SKIP_WEB_BUILD=1 cargo clippy --all-targets --all-features -- -D warnings
-LIBRA_SKIP_WEB_BUILD=1 cargo test --all
-cargo run -- <cmd>
-```
-
-Feature-gated Rust tests:
-
-```bash
-cargo test --features test-network --test network_remotes_test
-cargo test --features test-live-ai --test ai_agent_test --test ai_chat_agent_test -- --test-threads=1
-cargo test --features test-live-cloud --test cloud_storage_backup_test --test publish_live_test --test storage_r2_test -- --test-threads=1
-LIBRA_ENABLE_TEST_PROVIDER=1 cargo test --features test-provider --test code_ui_scenarios --test harness_self_test -- --test-threads=1
-```
-
-Web UI checks:
-
-```bash
-pnpm --dir web install --frozen-lockfile
-pnpm --dir web lint
-pnpm --dir web build
-pnpm --dir web test
-```
-
-Worker checks:
-
-```bash
-pnpm --dir worker lint
-pnpm --dir worker test
-pnpm --dir worker test:miniflare
-pnpm --dir worker build
-```
-
-## Tests and docs synchronization
-
-- Pair new or changed command behavior with focused tests in `tests/command/` and,
-  when behavior crosses command boundaries, a compat guard in `tests/compat/`.
-- When adding or renaming a top-level integration test target, update
-  `tests/INDEX.md` in the same change.
-- When adding a file under `tests/compat/`, add the corresponding `[[test]]`
-  entry in `Cargo.toml` and update `tests/compat/README.md`.
-- CLI help and docs are part of the public contract. New visible commands/flags
-  need examples, useful flag descriptions, and matching docs under
-  `docs/commands/` when user-facing.
-- New stable error codes such as `LBR-*-NNN` must be documented in
-  `docs/error-codes.md`.
-- Schema changes need SQL migrations under `sql/migrations/` or `sql/publish/`
-  as appropriate, plus migration/bootstrap tests.
-- Externally visible behavior changes should update README, command docs,
-  compatibility docs, or migration notes as needed.
-
-## AI runtime and security-sensitive code
-
-- Treat `src/internal/ai/agent/`, `src/internal/ai/tools/`,
-  `src/internal/ai/permission/`, `src/internal/ai/sandbox/`,
-  `src/internal/ai/session/`, `src/internal/ai/providers/`, and
-  `src/command/code*` as security- and reliability-sensitive.
-- Preserve approval, sandbox, ACL, origin/token, redaction, cancellation, session
-  durability, and file-history authority checks unless a test explicitly proves
-  the new contract.
-- Live provider tests must remain feature- and secret-gated. Missing credentials
-  should skip with an explicit message, not fail or silently switch to a costlier
-  provider/model.
-- For provider changes, keep request/response transforms, retry taxonomy,
-  streaming behavior, and context-overflow compaction covered by the relevant
-  `ai_provider_*` tests.
-
-## Frontend and Worker guidance
-
-- `build.rs` embeds `web/out/` with `rust-embed`; setting
-  `LIBRA_SKIP_WEB_BUILD=1` writes a stub output for Rust-only builds. When
-  changing `web/`, run the real `pnpm --dir web build` and keep static export
-  drift clean.
-- The `web/` UI is an operational Code UI, not a marketing landing page. Favor
-  dense, predictable controls and existing components in `web/src/components/ui/`.
-- The `worker/` app serves publish snapshots from D1/R2. Validate request input,
-  preserve redaction and access checks, and keep wire types synchronized with the
-  Rust publish pipeline.
-
-## Git and PR workflow
-
-- This repository is intentionally used through Libra commands where practical:
-  `libra status`, `libra add`, `libra commit -a -s -m "<scope>: ..."`,
-  `libra push origin <branch>`.
-- Commit messages should use short conventional summaries such as
-  `feat(status): support porcelain v2` or `fix(push): record tracking reflog`.
-- Commits are expected to be DCO-signed and PGP-signed:
-  `git commit -S -s -m "scope: message"` when using git directly.
-- PR descriptions should list intent, linked issues, user-visible behavior,
-  tests run, and compatibility or migration impact.
-
-## How Copilot should assist
-
-- Ground suggestions in the actual files in this repository. Do not invent
-  modules or crates that are not present.
-- For CLI work, include clap wiring, handler logic, JSON/machine output behavior
-  where relevant, docs updates, and integration tests.
-- For AI/runtime work, include failure modes, cancellation, persistence,
-  redaction, permissions, and deterministic tests before suggesting live tests.
-- For storage, cloud, and publish work, consider local fallback behavior, D1/R2
-  schema compatibility, retries, object integrity, and resource cleanup.
-- For reviews, use a high-recall production-risk mindset: flag plausible
-  security, correctness, data-loss, compatibility, performance, missing-test, and
-  missing-doc issues. Flag any production `unwrap()`/`expect()` without an
-  invariant comment.
-
-## Non-goals
-
-- Do not recommend moving core VCS, AI runtime, or storage logic out of Rust.
-- Do not bypass Git compatibility unless the user explicitly requests a
-  Libra-only behavior and tests/docs mark the boundary.
-- Do not add live network, live AI, or live cloud dependencies to default tests.
-- Do not weaken approval, sandbox, redaction, or secret-handling guarantees for
-  convenience.
+- **Transport:** JSON-RPC 2.0 over newline-delimited frames on stdin/stdout.
+  stdout carries exactly one protocol frame per response; diagnostics go to
+  stderr (GC-LB-04). The command requires `--stdio` and has no other transport.
+- **Protocol authority:** the frame/method/limit/error contract lives only in
+  `src/internal/ai/agent_bridge/{protocol,transport}.rs` (GC-LB-02). The
+  TypeScript plugin consumes the fixture generated from it; it must not define
+  a second schema. Protocol v1: 20-method allowlist, 256 KiB frame cap, 64
+  in-flight requests, 64-event/256 KiB batch, 30 s default deadline.
+- **Scope:** repository/worktree/workspace/actor scope is derived from the
+  trusted context at handshake (GC-LB-06/07); self-reported identity is never
+  a credential. `deepseek-harness` is NOT an `AgentKind` (ADR-LB-02).
+- **Non-goals:** not `libra code --control stdio`; a plain JSON-RPC 2.0
+  NDJSON bridge, not a tool-serving protocol (ADR-LB-01). Implemented: the CLI + protocol + transport (LB-01), the durable
+  session/event/operation storage (LB-02), the session/event ingress (LB-03),
+  the typed read methods (LB-04), mutation admission/approval/actor binding
+  (LB-05) and workspace lease claim/renew/release over `WorkspaceStore`
+  (LB-06). As of `v0.21.1` all 20 v1 methods are implemented:
+  `diff.get`/`commit.create`/`review.run`/`checkpoint.restore` reach the real
+  services through the typed `agent_bridge/vcs.rs` adapter instead of failing
+  closed behind the admission/approval gate.
+- **Preflight:** the bridge uses the standard repository preflight (it is
+  repo-scoped). It must never start without `--stdio`.
+- **Publish lock:** `commit.create` takes `MaintenanceLock::shared` itself, for
+  the span of that one commit. `command_holds_shared_maintenance_lock`
+  (`src/cli.rs`) excludes the whole `agent` surface because an agent's VCS
+  mutations are supposed to spawn `libra` as a subprocess and let the child
+  hold the lock — which stopped being true once LB-05 called `run_commit`
+  in-process. The hold is per mutation, never for the session lifetime (§C.10),
+  so a bridge session cannot starve a deletion phase while still being ordered
+  against one (§C.4.3 writer-vs-deleter). Regression:
+  `agent_bridge_vcs_test::commit_create_waits_for_a_deletion_phase_before_publishing`.
 
 ---
 > Source: [libra-tools/libra](https://github.com/libra-tools/libra) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
