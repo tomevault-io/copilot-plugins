@@ -1,8 +1,6 @@
 # agent-skills
 
-> Source: [magnus919/agent-skills](https://github.com/magnus919/agent-skills) — distributed by [TomeVault](https://tomevault.io)
-
-Curated collection of AI agent skills for Hermes and other agent frameworks
+> Source: [magnus919/agent-skills](https://github.com/magnus919/agent-skills). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
