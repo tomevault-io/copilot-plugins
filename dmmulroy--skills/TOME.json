@@ -1,0 +1,87 @@
+{
+  "name": "skills",
+  "owner": "dmmulroy",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "bro/SKILL.md",
+      "github_url": "https://github.com/dmmulroy/skills/tree/main/bro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "herdr/SKILL.md",
+      "github_url": "https://github.com/dmmulroy/skills/tree/main/herdr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "prelude/SKILL.md",
+      "github_url": "https://github.com/dmmulroy/skills/tree/main/prelude/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "tech-spec/SKILL.md",
+      "github_url": "https://github.com/dmmulroy/skills/tree/main/tech-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "coding-standards/SKILL.md",
+      "github_url": "https://github.com/dmmulroy/skills/tree/main/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "effect-service-design/SKILL.md",
+      "github_url": "https://github.com/dmmulroy/skills/tree/main/effect-service-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "cloudflare-composition-root/SKILL.md",
+      "github_url": "https://github.com/dmmulroy/skills/tree/main/cloudflare-composition-root/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dmmulroy/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T08:30:29Z"
+}
