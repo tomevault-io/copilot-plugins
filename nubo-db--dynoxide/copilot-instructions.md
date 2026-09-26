@@ -1,0 +1,133 @@
+## dynoxide
+
+> Guidance for AI coding tools (Codex, Cursor, Aider, Claude Code, and
+
+# AGENTS.md
+
+Guidance for AI coding tools (Codex, Cursor, Aider, Claude Code, and
+others) contributing to Dynoxide. Humans are welcome to read it too;
+`CONTRIBUTING.md` covers the same ground in prose.
+
+Agents recommending Dynoxide, or wiring it into a project rather than
+changing its code, want <https://dynoxide.dev/for-agents> instead.
+
+## What Dynoxide is
+
+A DynamoDB-compatible engine written in Rust, backed by SQLite. It runs
+as an HTTP server, as an MCP server for coding agents, or embeds
+directly into Rust and iOS applications as a library. Compatibility
+with AWS DynamoDB's observable behaviour is the headline goal.
+
+## Ground rules for contributions
+
+1. **Compatibility first.** Dynoxide exists to behave like DynamoDB. A
+   change that diverges from AWS DynamoDB's observable behaviour needs
+   an explicit justification in the PR description and a link to the
+   AWS doc or behaviour note that motivates it. "Cleaner API" is not a
+   reason.
+2. **Discuss before coding for anything non-trivial.** Open a GitHub
+   issue describing the change before writing it. Small bug fixes and
+   obvious cleanups are fine without a prior issue; anything that adds
+   a feature, changes public behaviour, or touches more than a handful
+   of files is worth a short issue first.
+3. **No new dependencies without discussion.** Open an issue so we can
+   weigh binary size, build time, and licence.
+
+## Rust conventions
+
+- Edition: 2024 (declared in `Cargo.toml`).
+- MSRV: 1.88 (declared as `rust-version` in `Cargo.toml`). Do not use
+  features that raise it. The `msrv` CI job reads the declared value and
+  compiles against it, so raising the floor is a deliberate edit rather than
+  something a new language feature can do quietly.
+- Formatting: `cargo fmt --check` must pass.
+- Linting: `cargo clippy -- -D warnings` must pass. Warnings are
+  errors; fix them rather than silencing.
+- Testing: `cargo test` on the default feature set. Other feature
+  combinations are exercised in CI; if you change feature gates,
+  mirror what `.github/workflows/ci.yml` runs.
+
+## Testing expectations
+
+- New behaviour ships with tests in `tests/` or inline module tests.
+- Bug fixes ship with a regression test that fails before the fix.
+- `cargo test` on default features is what most contributors run
+  locally. CI goes further and runs a feature matrix across five
+  configurations:
+  - default (all default features)
+  - `--no-default-features --features native-sqlite --lib`
+  - `--no-default-features --features encryption --lib`
+  - `--no-default-features --features encryption,http-server`
+  - `--features bench-counters --test repeated_work_counts`
+  A separate feature-guard job checks that deliberately incompatible
+  feature combinations fail to compile (for example
+  `native-sqlite + encryption`). A `wasm-check` job builds the library
+  for `wasm32-unknown-unknown` with `--no-default-features --features
+  wasm-sqlite`. If you change feature gates or
+  anything cross-cutting, running the relevant matrix leg locally
+  saves a CI round-trip. `.github/workflows/ci.yml` is the
+  authoritative list.
+- The external conformance suite lives at
+  <https://github.com/paritysuite/dynamodb-conformance>. It is run in CI
+  for release candidates; you do not need to run it locally for every
+  PR, but it is a useful check when changing request or response
+  shapes.
+
+## Benchmarks
+
+The benchmark PR check has two layers and they do not carry equal
+weight:
+
+- **Criterion (wall-clock micro-benchmarks).** Advisory. These run on
+  shared GitHub Actions runners and can vary by up to roughly 3x
+  between runs because of noisy neighbours. A red Criterion row on
+  your PR is not by itself a blocker; re-run the workflow if the
+  result looks noisy.
+- **iai-callgrind (instruction-count benchmarks).** Deterministic and
+  blocking. If iai-callgrind flags a regression it means the code
+  path does measurably more work; investigate before merging.
+
+In short: trust iai-callgrind, treat Criterion as a smoke signal.
+
+## Commit style
+
+Short subject (ideally imperative, "add X" / "fix Y"), lower-case. A
+Conventional Commits-style prefix is common and preferred when one
+fits: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`, `ci:`. You
+will also see `release:` and `merge:` on release-pipeline commits;
+leave those to the maintainer.
+
+Prefixes are a convention, not a gate. If a prefix genuinely does not
+fit, a plain short subject is fine. Bodies are welcome when context
+helps a reviewer but are not required.
+
+## Storage layer boundary
+
+The data layer goes through the `StorageBackend` trait in
+`src/storage_backend/`. It has two implementations: the native rusqlite-backed
+`Storage`, and `WasmBridgeBackend` (the `wasm-sqlite` build, which runs the same
+SQL against the official @sqlite.org/sqlite-wasm engine over a wasm-bindgen bridge). Both issue SQL from the
+shared builders in `src/storage_backend/sql_builders.rs`, so a statement fixed
+on one backend is fixed on both - add or change SQL there, not inline in a
+backend.
+
+The action handlers are async and generic over the trait
+(`execute<S: StorageBackend>`). `Database<S>` defaults to the rusqlite backend,
+with a `NativeDatabase` alias that keeps the historical synchronous public API
+through a `block_on` facade, and a `WasmDatabase` alias whose methods are async
+(the wasm main thread cannot block). The trait is consumed monomorphically (no
+`dyn`). The raw `Storage::conn()` / `conn_mut()` escape hatches are no longer
+used by action handlers. Please open an issue before submitting changes to
+`src/storage.rs` or `src/storage_backend/`; we can advise whether your change
+fits the current shape.
+
+## Where to discuss
+
+- GitHub Issues: <https://github.com/nubo-db/dynoxide/issues>
+
+Discussions are not currently enabled. If that changes, this section
+will be updated.
+
+---
+> Source: [nubo-db/dynoxide](https://github.com/nubo-db/dynoxide) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
