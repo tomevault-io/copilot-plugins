@@ -1,0 +1,26 @@
+{
+  "name": "string-os--string",
+  "displayName": "string",
+  "description": "string",
+  "version": "1.0.0",
+  "author": "string-os",
+  "homepage": "https://github.com/string-os/string",
+  "skills": [
+    {
+      "name": "string",
+      "description": ""
+    },
+    {
+      "name": "string",
+      "description": ""
+    },
+    {
+      "name": "string",
+      "description": ""
+    },
+    {
+      "name": "string",
+      "description": ""
+    }
+  ]
+}
