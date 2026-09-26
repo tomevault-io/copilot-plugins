@@ -1,51 +1,43 @@
-## feature-development
+## project-structure
 
-> Feature development guidelines and best practices
+> Project structure guidelines and organization
 
-# Feature Development Guidelines
+# Project Structure Guidelines
 
-## Planning Phase
-- Break down features into small, testable units
-- Define clear acceptance criteria
-- Consider edge cases and error scenarios
-- Plan for backwards compatibility
+## Directory Organization
+- Project Type: single
+- Source Directory: src/
+- Component Organization: type-based
 
-## Implementation
-- Follow TDD when possible
-- Write self-documenting code
-- Implement proper error handling
-- Add logging for debugging
+## File Naming Conventions
+- Components: camelCase
+- Files: camelCase
+- Import Style: relative
 
-## Testing
-- Write unit tests for business logic
-- Add integration tests for critical paths
-- Test edge cases and error conditions
-- Update existing tests when needed
+## Structure Requirements
+
+- Single application structure
+- Clear separation of concerns
+- Modular component organization
+
+
+## Best Practices
+- Keep related files together
+- Use consistent naming across the project
+- Maintain clear import/export patterns
+- Document architectural decisions
 
 ## Code Examples:
 
-```typescript
-// Good: Feature implementation with proper structure
-class UserService {
-  async createUser(userData: CreateUserRequest): Promise<User> {
-    // Validate input
-    const validatedData = await this.validateUserData(userData);
-    
-    // Check for existing user
-    const existingUser = await this.findByEmail(validatedData.email);
-    if (existingUser) {
-      throw new ConflictError('User already exists');
-    }
-    
-    // Create user
-    const user = await this.userRepository.create(validatedData);
-    
-    // Send welcome email
-    await this.emailService.sendWelcomeEmail(user);
-    
-    return user;
-  }
-}
+```
+src/
+
+├── components/
+├── hooks/
+├── services/
+├── pages/
+└── utils/
+
 ```
 
 ---
