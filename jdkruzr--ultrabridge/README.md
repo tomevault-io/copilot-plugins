@@ -1,8 +1,6 @@
 # ultrabridge
 
-> Tome by [jdkruzr](https://github.com/jdkruzr/ultrabridge) — distributed by [TomeVault](https://tomevault.io)
-
-CalDAV/WebDAV bridge for Onyx Boox and Supernote Private Cloud
+> Tome by [jdkruzr](https://github.com/jdkruzr/ultrabridge), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [jdkruzr/ultrabridge](https://github.com/jdkruzr
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jdkruzr/ultrabridge](https://github.com/jdkruzr/ultrabridge) — a repo with 23+ stars on GitHub.
+From [jdkruzr/ultrabridge](https://github.com/jdkruzr/ultrabridge) — a repo with 52+ stars on GitHub.
 
 ---
 
