@@ -1,0 +1,235 @@
+## scribe
+
+> `scribe` is a single-binary Go CLI that runs an LLM-written knowledge-base pipeline. It extracts reusable knowledge from git repos, mines coding-agent sessions via ccrider's FTS5 index, absorbs captured URLs, and reindexes the KB with `qmd`. Designed to run on cron against a private KB repo. `scribe init` scaffolds a fresh KB anywhere; the user picks the KB's display name (defaulting to the directory basename).
+
+# scribe — agent guide
+
+`scribe` is a single-binary Go CLI that runs an LLM-written knowledge-base pipeline. It extracts reusable knowledge from git repos, mines coding-agent sessions via ccrider's FTS5 index, absorbs captured URLs, and reindexes the KB with `qmd`. Designed to run on cron against a private KB repo. `scribe init` scaffolds a fresh KB anywhere; the user picks the KB's display name (defaulting to the directory basename).
+
+This file is the agent guide for hacking on scribe itself. End-user docs live in `README.md`.
+
+---
+
+## Repo layout
+
+```
+cmd/scribe/          Single Go main + every subcommand in one package
+  main.go            Kong CLI root
+  sync.go            `scribe sync` — discover → extract → absorb → reindex
+  triage.go          FTS5 session scoring
+  sessions.go        Session log debug/repair
+  capture.go         iMessage chat.db reader + 3-tier URL fetcher
+  dream.go           Weekly memory consolidation driver
+  lint.go            Frontmatter + size + orphan checks
+  doctor.go          Read-only health audit
+  link.go            Orphan linker (See Also injection)
+  cron.go            macOS LaunchAgent install/status/uninstall
+  agent_refresh.go   upgrade self-heal: the first scheduled job of a new version refreshes stale LaunchAgents
+  hook.go            SessionEnd hook: score + queue to pending-sessions.txt
+  init.go            Bootstrap a new KB from embedded templates
+  ingest.go          Drain inbox → raw/articles/
+  fda.go             macOS Full Disk Access probe + interactive grant
+  prompts/           Embedded LLM prompt templates
+  templates/         Embedded KB scaffold (scribe.yaml, CLAUDE.md, dirs)
+
+Formula/             Homebrew tap formula (brew install oliver-kriska/scribe/scribe)
+scripts/             pre-commit hook shipped into user KBs
+install.sh           curl-piped installer
+Makefile             build/install/test with -tags sqlite_fts5
+Justfile             dev shortcuts
+.goreleaser.yml      release pipeline
+site/                getscribe.dev marketing page (Cloudflare Workers, static assets only — no JS toolchain in repo)
+```
+
+One Go package under `cmd/scribe/`. No internal/ split yet — keep it that way until the package breaks 3000 LOC or a second binary is needed.
+
+---
+
+## Build
+
+```sh
+make build        # CGO_ENABLED=1, -tags sqlite_fts5 → ./bin/scribe (repo-local, gitignored)
+make install      # build + deploy ./bin/scribe to $HOME/.local/bin — the binary cron runs
+make test         # go test ./... -tags sqlite_fts5
+make check        # test + vet
+```
+
+**Build never deploys.** `make build` writes only to `./bin/scribe`; the live binary at `~/.local/bin/scribe` (executed by cron) changes only on `make install`. On macOS, `make install` automatically Developer-ID-signs with the first available **Developer ID Application** identity; override `CODESIGN_IDENTITY` when more than one is installed. Signed rebuilds from the same team preserve the chat.db Full Disk Access grant. Without a Developer ID identity the install stays unsigned, and replacing it requires another `scribe fda`.
+
+**FTS5 is mandatory.** ccrider's `messages_fts` virtual table uses it, and `scribe triage` runs weighted FTS5 `MATCH` queries against it. `go-sqlite3` ships without FTS5 — the `sqlite_fts5` build tag is what flips it on. Never drop that tag from the Makefile.
+
+**CGO is required** for go-sqlite3. Cross-compilation across OS/arch needs a C toolchain; GoReleaser handles this in the release workflow.
+
+---
+
+## Key external surfaces
+
+| Input                       | Path                                        | Notes                             |
+| --------------------------- | ------------------------------------------- | --------------------------------- |
+| ccrider sessions DB         | `~/.config/ccrider/sessions.db`             | FTS5, read-only access            |
+| Claude Code session folders | `~/.claude/projects/*`                      | keyed by project cwd              |
+| Codex CLI rollouts          | `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl` | first line is `session_meta` with verbatim `cwd` — used by `sync --discover` |
+| Claude handshake block      | `~/.claude/CLAUDE.md`                       | scribe-managed block between `<!-- scribe:begin -->`/`end` markers; written by `init` |
+| Codex handshake block       | `~/.codex/AGENTS.md`                         | same markers/block as the Claude one; written by `init` so Codex CLI sessions query the KB + write drop files |
+| Amp handshake block         | `~/.config/amp/AGENTS.md`                    | same markers/block; `$HOME`-relative on purpose (Amp documents that path, XDG would miss it). Amp *also* reads `~/.config/AGENTS.md` + project-root `AGENTS.md` — scribe manages neither |
+| iMessage chat DB            | `~/Library/Messages/chat.db`                | needs Full Disk Access            |
+| scribe user config          | `~/.config/scribe/config.yaml`              | global defaults; `integration_tokens.<name>` holds pull-adapter API tokens (never in a KB's scribe.yaml) |
+| pending sessions queue      | `~/.config/scribe/pending-sessions.txt`     | drained by `sync --sessions`      |
+| pull-adapter state          | `$KB/output/sources/<name>.json`            | per-source cursor + seen set for `scribe pull` (gitignored) |
+| Pinboard API                | `https://api.pinboard.in/v1/`               | `scribe pull pinboard`; token via `SCRIBE_PINBOARD_TOKEN` or `integration_tokens.pinboard` |
+| LaunchAgents                | `~/Library/LaunchAgents/com.scribe.*.plist` | installed by `cron install`       |
+| KB root                     | `$SCRIBE_KB` or `scribe.yaml` in cwd        | every command resolves this first |
+
+Everything under `$SCRIBE_KB` belongs to the user's private KB repo and is never committed from this codebase.
+
+---
+
+## Conventions
+
+- **Kong for CLI.** Every subcommand is a struct with `Run(ctx *kong.Context) error`. Shared deps go on the root struct.
+- **Embedded prompts and templates.** `go:embed` under `prompts/` and `templates/`. Never read LLM prompts from disk at runtime — that breaks single-binary distribution.
+- **`claude -p` calls always pass `--no-session-persistence`.** Session-mining Claude invocations must not pollute the user's auto-memory. Search the codebase before adding a new `claude` call to make sure you follow this.
+- **Prompts go to `claude -p` over stdin; argv never carries KB content.** `realRunClaude` and `anthropicProvider.Generate` set `cmd.Stdin`; argv holds only flags. A prompt in argv is readable by every process on the machine via `ps` and hits the 1 MiB argv limit as soon as a dense article is inlined. Bound every packet you inline (`truncateBytes` / `tailBytes`): see `contradictionPacketMaxChars`, `absorb.max_single_pass_chars`, `dreamLogTailMaxBytes`.
+- **No LLM calls in the hot path of `triage`, `hook`, `doctor`.** These are budgeted at <1s, <2s, <1s respectively. Keep them deterministic.
+- **Writes are checkpointed.** Session-mining commits after each extracted session so an interrupted run doesn't lose work. Don't regress this.
+- **Run records** are appended to `$KB/output/runs/*.jsonl` by every invocation (see `writeRunRecord`). `scribe doctor --section freshness` reads them. Don't skip recording.
+- **Errors are logged to stderr, summarized to stdout.** Cron captures stdout; keep it terse.
+- **New dependencies need justification.** The module graph is deliberately lean (~30 modules). Any PR adding a `go.mod` entry must state why no existing dep covers it. Prefer shelling out to optional tools (the fzf pattern in `triage --interactive`) over importing frameworks; optional tools degrade gracefully and keep supply-chain risk on Homebrew's side.
+
+## Testing
+
+- `*_test.go` sit next to the code. Table-driven where possible.
+- Integration tests that need a KB build one in a `t.TempDir()` via the embedded templates. Don't assume a user KB exists.
+- Tests that need ccrider's DB use a minimal fixture schema under `testdata/`. Never point at `~/.config/ccrider/`.
+- `make test` must pass with no network access.
+
+## Release
+
+GoReleaser builds darwin/linux × amd64/arm64 via the workflow in `.github/`. Tag and push to trigger. The Homebrew formula in `Formula/` is updated by the same release.
+
+**The formula has no `post_install`, and must not get one back.** Homebrew 7 deprecates it (every install printed a warning), and since Homebrew 5.1.15 post-install runs in a write sandbox with `HOME` set to a temp dir. So the `scribe cron install --if-installed` it used to run saw no LaunchAgents and did nothing, silently, for months. `post_install_steps` has a `run` verb, but it runs in the same sandbox. LaunchAgents are refreshed at runtime instead (`agent_refresh.go`): the first `each`/`watch` launchd starts under a new version (checked through `XPC_SERVICE_NAME`) rewrites stale plists, once per version (`~/.config/scribe/agents-version`). Two rules keep that safe. **(1) Never reload a running job.** Reloading is bootout + bootstrap, and bootout kills the job, including the process doing the refresh. So the refresh holds back its own label and any busy scheduled job, and writes the version stamp only after a pass holds nothing back. KeepAlive `watch` is the exception: it is restarted, unless it is the one refreshing. **(2) Never move the schedule to another binary.** If `resolveScribeBinary()` is not the running executable, nothing is rewritten. User-facing text that belongs in the formula goes in `caveats`, which Homebrew prints on upgrade as well as install.
+
+---
+
+## Marketing site — getscribe.dev
+
+The `site/` subfolder hosts the page served at <https://getscribe.dev> via
+**Cloudflare Workers static assets**. The repo intentionally contains only
+HTML/CSS — `package.json`, `node_modules`, and `.wrangler/` are gitignored,
+because we don't want any npm dependencies in the binary's source tree.
+
+```
+site/
+├── wrangler.toml      # static-assets-only Worker, custom-domain routes
+├── public/
+│   └── index.html     # the page itself
+└── README.md
+```
+
+**Worker name:** `getscribe`
+**Account:** `<REDACTED>` (IdeaX)
+**Zone:** `getscribe.dev` (already on Cloudflare DNS for this account)
+**Routes:** `getscribe.dev` and `www.getscribe.dev` are bound as
+`custom_domain = true` — Cloudflare auto-manages DNS records and the SSL
+cert; no manual DNS edits needed when the routes change.
+
+**Canonical / www redirect (zone-level, NOT in this repo):** both routes
+serve identical `200`s, so without a redirect the `www.` host is a duplicate
+of the apex — Google Search Console reports it as *"Alternate page with
+proper canonical tag."* A Cloudflare **Redirect Rule** on the zone fixes it
+by 301-ing `www.getscribe.dev/*` → `https://getscribe.dev/*` (preserve path +
+query). It lives in the dashboard (Rules → Redirect Rules), not in `public/`,
+because Workers static-assets `_redirects` only supports **path** redirects,
+not host redirects — and we keep the Worker static-assets-only (no `main`).
+The apex is the canonical everywhere (`<link rel=canonical>`, `og:url`,
+`sitemap.xml`). `/index.html` already auto-307s to `/` via Workers Assets.
+
+### Explainer videos live on R2, not in git
+
+The two homepage explainer MP4s (`scribe-explainer.mp4`,
+`scribe-explainer-teams.mp4`) are **not** committed — `site/public/*.mp4` is
+gitignored. They live in the **R2 bucket `getscribe-assets`**, served via the
+custom domain **`assets.getscribe.dev`** (SSL auto-managed), and are referenced
+from `index.html` (`<source src>`) and the `VideoObject` JSON-LD `contentUrl`.
+Posters (`*-poster.jpg`) and caption tracks (`*.vtt`) **do** stay in
+`site/public` — tiny, and same-origin so `<track>` needs no CORS. The
+reproducible render sources under `video/` + `video-teams/` are kept locally but
+gitignored (regen recipe in `.claude/research/2026-07-22-explainer-video.md`).
+
+To replace a video: re-render, then push to R2 (the `--remote` flag is
+mandatory — `wrangler r2 object put` defaults to a local sim and silently no-ops
+the real bucket):
+
+```sh
+set -a; source .env; set +a
+wrangler r2 object put getscribe-assets/scribe-explainer.mp4 \
+  --file site/public/scribe-explainer.mp4 --content-type video/mp4 --remote
+```
+
+Transcripts are mirrored as page text (`<details>`) and into
+`index.md` / `llms-full.txt` for GEO — keep them in sync with the narration.
+
+### Deploy
+
+Wrangler is a **global** install on the dev machine, not a project dep:
+
+```sh
+npm install --global --ignore-scripts wrangler@latest
+```
+
+(`--ignore-scripts` skips wrangler's transitive `sharp` postinstall, which
+fails to build from source on Node 25 because it asks for `node-addon-api`.)
+
+Credentials live in repo-root `.env` (gitignored):
+
+```
+export CLOUDFLARE_API_TOKEN="..."
+export CLOUDFLARE_ACCOUNT_ID="<REDACTED>"
+```
+
+To push a change:
+
+```sh
+set -a; source .env; set +a          # load creds
+cd site
+wrangler deploy
+```
+
+`wrangler dev` serves locally on port 8787 for iteration. `wrangler tail`
+streams edge logs. The page embeds a Plausible analytics snippet — no other
+runtime JS lives in the source.
+
+### Design Context
+
+The site's design system is documented for agents (and the `impeccable` skill)
+in two repo-root files:
+
+- **`PRODUCT.md`** — strategic: register (`product`), audience (skeptical,
+  terminal-dwelling developers), the "technical, honest, understated" voice,
+  anti-references (no SaaS template / AI slop / corporate / over-designed
+  editorial), and the WCAG 2.2 AA target. Read before changing site copy or IA.
+- **`DESIGN.md`** (+ `.impeccable/design.json` sidecar) — visual: the OKLCH
+  token system, "Prompt Blue" single-accent rule, system-native type, the
+  flat-at-rest elevation rule, and named do's/don'ts. Read before changing site
+  CSS/components so the dual light/dark themes stay on-brand.
+
+Both scope **only** `site/public/index.html`, not the Go CLI. Keep claims on the
+page backed by a concrete number/command (receipts over adjectives).
+
+---
+
+## Reference KB: scriptorium
+
+The maintainer's private KB is called `scriptorium`. It's the first and primary user of scribe and is used as the integration-test KB when local development needs a populated setup. When working on scribe, prefer abstractions that don't hardcode any specific KB name, domain, or owner context. Anything KB-specific belongs in the user's `scribe.yaml`, not in Go code.
+
+Do not commit absolute user paths or private domain names into this repo.
+
+## Not in scope here
+
+- Wiki content, frontmatter schema, or writing standards — those live in the user's own KB (written by `scribe init` from embedded templates).
+- Cron job schedules — documented in README.md and embedded in `cron.go`.
+- `qmd` itself — separate tool; scribe only shells out to it for reindexing.
+
+---
+> Source: [oliver-kriska/scribe](https://github.com/oliver-kriska/scribe) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
