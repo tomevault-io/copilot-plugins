@@ -1,0 +1,9 @@
+{
+  "name": "tokendancelab--agenthub",
+  "displayName": "AgentHub",
+  "description": "IM-native multi-agent collaboration platform \u2014 @mention Claude Code, Codex, OpenCode like teammates",
+  "version": "1.0.0",
+  "author": "TokenDanceLab",
+  "homepage": "https://github.com/TokenDanceLab/AgentHub",
+  "skills": []
+}
