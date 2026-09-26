@@ -1,0 +1,9 @@
+{
+  "name": "masonlee39--orchvia",
+  "displayName": "orchvia",
+  "description": "Run Claude Code and Codex agents as a team: long-lived sessions, a durable mailbox, human approval gates and per-task token accounting, scheduled by code rather than a manager LLM.",
+  "version": "1.0.0",
+  "author": "masonlee39",
+  "homepage": "https://github.com/masonlee39/orchvia",
+  "skills": []
+}
