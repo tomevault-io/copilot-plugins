@@ -1,55 +1,54 @@
 ## blade-agent-sdk
 
-> Session 支持配置子 Agent，用于任务分解和并行执行。
+> A Session has its own `SubagentRegistry`. Subagents can isolate context, restrict tools, select a model, and run work in the foreground or background.
 
-# 子 Agent
+# Subagents
 
-Session 支持配置子 Agent，用于任务分解和并行执行。
+A Session has its own `SubagentRegistry`. Subagents can isolate context, restrict tools, select a model, and run work in the foreground or background.
 
-## 内置子 Agent
+The built-in `Task` tool and local agent discovery are enabled by default only
+through the `/advanced` local Session profile. Server applications should expose
+required capabilities as explicit tools or plugins.
 
-SDK 内置 3 种子 Agent：
+## Built-in agents
 
-| 名称 | 用途 | 默认省略环境上下文 |
-|------|------|------------------|
-| general-purpose | 通用型，处理各类子任务 | 否 |
-| Explore | 探索型，专注于代码搜索和分析 | 是 |
-| Plan | 规划型，用于制定执行计划 | 是 |
+| Name | Purpose |
+|------|---------|
+| `general-purpose` | General delegated tasks |
+| `Explore` | Code search and analysis |
+| `Plan` | Implementation planning |
 
-::: tip
-Explore 和 Plan 子 Agent 默认设置了 `contextOmissions: ['environment']`，省略环境上下文信息以节省 token，让更多上下文空间用于实际任务内容。
-:::
+Explore and Plan omit environment context internally to save tokens. That internal setting is not part of the public `AgentDefinition` accepted by `SessionOptions.agents`.
 
-## 自定义子 Agent
-
-`SessionOptions.agents` 会把这些定义注册到当前 session 专属的 `SubagentRegistry` 中：
-
-- 同一进程里的不同 session 不共享这些 agent
-- 同名定义会覆盖当前 session 里的 builtin agent 或文件配置 agent
-- `verification` 这类代码审查 agent 属于应用层决策，需要消费者自己注册
+## Define a Session-local agent
 
 ```ts
-import type { AgentDefinition } from '@blade-ai/agent-sdk';
+import { createSession } from '@blade-ai/agent-sdk/advanced';
 
 const session = await createSession({
-  provider: { type: 'openai', apiKey: process.env.OPENAI_API_KEY! },
-  model: 'gpt-4o',
+  provider,
+  model,
   agents: {
     verification: {
       name: 'verification',
-      description: '审查代码变更的正确性、风险和缺失测试',
-      systemPrompt: '你是一位严格的代码审查专家，关注正确性、风险和测试缺口。',
+      description: 'Review changes for correctness, risk, and missing tests',
+      systemPrompt:
+        'Review code strictly. Prioritize correctness, security, and tests.',
       allowedTools: ['Read', 'Glob', 'Grep'],
       model: 'gpt-4o',
     },
     'test-writer': {
       name: 'Test Writer',
-      description: '专门负责编写测试的 Agent',
+      description: 'Write and maintain focused tests',
       allowedTools: ['Read', 'Write', 'Edit', 'Bash', 'Glob', 'Grep'],
     },
   },
 });
 ```
+
+- Agent definitions are scoped to one Session.
+- A Session-local definition replaces a built-in or discovered definition with the same name.
+- Product roles such as `verification` are application policy and must be registered explicitly.
 
 ## AgentDefinition
 
@@ -60,57 +59,61 @@ interface AgentDefinition {
   systemPrompt?: string;
   allowedTools?: string[];
   model?: string;
-  contextOmissions?: Array<'environment'>;
 }
 ```
 
-| 字段 | 说明 |
-|------|------|
-| `name` | 子 Agent 显示名称 |
-| `description` | 描述，LLM 根据此决定何时调用 |
-| `systemPrompt` | 子 Agent 专属的系统提示词 |
-| `allowedTools` | 限制可用工具范围 |
-| `model` | 使用不同模型（可选，默认继承主 Session） |
-| `contextOmissions` | 省略的上下文部分。设置 `['environment']` 可跳过环境信息注入，节省 token |
+| Field | Meaning |
+|-------|---------|
+| `name` | Display and lookup name |
+| `description` | Delegation guidance for the model |
+| `systemPrompt` | Agent-specific instructions |
+| `allowedTools` | Tool allowlist |
+| `model` | Optional model override |
 
-::: tip
-SDK 只内置 `general-purpose`、`Explore`、`Plan` 三种通用 agent 模式。产品化角色例如 `verification` 应由上层应用自行定义。
-:::
+## Background agents
 
-## 后台 Agent
+The built-in `Task` tool can start a subagent without blocking the main conversation:
 
-通过内置的 `Task` 工具，LLM 可以创建后台运行的子 Agent。后台 Agent 独立于主对话循环执行，适合耗时的并行任务。
+1. `Task` creates the work and returns a task ID.
+2. The subagent runs with separate execution state.
+3. `TaskOutput` reads status and output.
+4. `TaskStop` requests cancellation.
 
-### 生命周期
+The model may produce a sequence such as:
 
-1. **创建**：LLM 调用 `Task` 工具启动后台 Agent，返回任务 ID
-2. **执行**：后台 Agent 在独立上下文中运行，不阻塞主对话
-3. **查询**：通过 `TaskOutput` 工具获取后台 Agent 的执行状态和输出
-4. **停止**：通过 `TaskStop` 工具停止后台 Agent
-
-### 取消机制
-
-后台 Agent 内部使用双控制器设计：
-
-- **生命周期控制器**：控制整个 Agent 生命周期，`TaskStop` 触发此控制器
-- **工作控制器**：仅控制当前执行中的工作单元
-
-当生命周期控制器被触发时，会级联中止当前工作。这种分离确保取消操作是干净的。
-
-```ts
-// 后台 Agent 由 LLM 自动创建和管理
-// 以下是 LLM 可能产生的工具调用序列：
-
-// 1. LLM 创建后台探索任务
-// Tool: Task { prompt: "搜索所有包含 TODO 的文件" }
-
-// 2. LLM 查询任务状态
-// Tool: TaskOutput { task_id: "agent-xxx" }
-
-// 3. 如需取消
-// Tool: TaskStop { taskId: "agent-xxx" }
+```text
+Task       { prompt: "Find all untested persistence paths" }
+TaskOutput { task_id: "agent-..." }
+TaskStop   { taskId: "agent-..." }
 ```
+
+Background agents separate lifecycle cancellation from the current work-unit signal. Stopping the lifecycle cascades to active work while allowing cleanup to run.
+
+When a runtime starts against a shared `AgentSessionRepository`, it reclaims only
+the running Sessions it owns: a Session is declared orphaned only when its
+`parentSessionId` matches this runtime's owner Session (or has no parent and the
+runtime owns no Session). Another parent's still-running children are live work
+and are never marked failed by a different runtime's startup. Cross-process
+ownership of the same parent still needs an explicit lease or ownership
+protocol; fenced (durable) Sessions are never reclaimed by the orphan sweep.
+
+## Registry APIs
+
+The root package exports:
+
+- `SubagentRegistry`
+- `SubagentExecutor`
+- `SubagentConfig`
+- `SubagentContext`
+- `SubagentResult`
+- `SubagentSource`
+
+Use these lower-level APIs when an application needs custom discovery or execution outside `SessionOptions.agents`.
+
+## Safety
+
+Tool restrictions on a subagent reduce its exposed surface but do not replace permission checks or sandboxing. A delegated agent uses the runtime and security boundary supplied by the parent application.
 
 ---
 > Source: [echoVic/blade-agent-sdk](https://github.com/echoVic/blade-agent-sdk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
