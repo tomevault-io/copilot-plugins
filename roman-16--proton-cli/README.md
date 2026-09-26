@@ -1,8 +1,6 @@
 # proton-cli
 
-> Source: [roman-16/proton-cli](https://github.com/roman-16/proton-cli) — distributed by [TomeVault](https://tomevault.io)
-
-An unofficial command-line tool for Proton — Mail, Drive, Calendar, Contacts, and Pass from your terminal.
+> Source: [roman-16/proton-cli](https://github.com/roman-16/proton-cli). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [roman-16/proton-cli](https://github.com/roman-1
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [roman-16/proton-cli](https://github.com/roman-16/proton-cli) — a repo with 14+ stars on GitHub.
+From [roman-16/proton-cli](https://github.com/roman-16/proton-cli) — a repo with 73+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
