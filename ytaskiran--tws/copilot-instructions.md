@@ -1,21 +1,33 @@
 ## tws
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to agents working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to agents working in this repository.
 
 ## Build & Test
 
 ```bash
 cargo build                    # compile
-cargo test                     # run all 75 tests
+cargo test                     # run the full test suite
 cargo test state::tests        # run tests in a specific module
 cargo test resolve_selection   # run tests matching a name pattern
 ```
 
-No linter or formatter is configured. There's no CI beyond `cargo build && cargo test`.
+## CI
+
+`.github/workflows/ci.yml` runs on every PR and every push to `main`. Five jobs, all required to pass:
+
+```bash
+cargo test   --all-targets --locked                   # Test
+cargo fmt    --all --check                            # Rustfmt — formatting
+cargo clippy --all-targets --locked -- -D warnings    # Clippy — lints as errors
+cargo audit                                           # Security audit — RustSec advisories
+bash scripts/verify-agent-hooks.sh                    # Agent hook protocol — see below
+```
+
+Run `cargo fmt --all` and `cargo clippy --all-targets -- -D warnings` before pushing. CI pins the toolchain to **Rust 1.96.1** (see `RUST_VERSION` in `ci.yml`); rustfmt reflows and clippy lints shift between releases, so format/lint with a matching toolchain to avoid CI turning red on formatting alone.
 
 ## Workflow
 
@@ -51,7 +63,7 @@ Collections and threads are user-created, persisted to `~/.config/tws/state.json
 
 ## Architecture
 
-**Single-threaded event loop** in `app.rs` — the brain of the app. It owns the `Mode` state machine, key routing, rendering, and all side effects. The loop polls keys every 250ms and refreshes tmux sessions periodically (30s for agent scans).
+**Single-threaded event loop** in `app.rs` — the brain of the app. It owns the `Mode` state machine, key routing, rendering, and all side effects. The loop polls keys every 250ms and refreshes tmux sessions on a 30s floor, plus immediately whenever an agent hook fires (see [Agent status protocol](#agent-status-protocol)).
 
 ### Mode state machine
 
@@ -89,11 +101,39 @@ Immediate-mode: all widgets are rebuilt from `AppState` each frame. Components a
 
 - Sessions are launched detached (`tmux new-session -d`), then attached via `switch-client` (inside tmux) or `attach-session` (outside tmux)
 - Agent detection: `tmux list-panes -a` gets pane PIDs → `ps -e` finds child processes → match against known agent binaries (`claude`, `codex`)
-- Agent renames are in-memory only (not persisted), preserved across 30s scan refreshes via a `renamed` flag and HashMap snapshot/restore in `do_agent_scan()`
+- Agent renames are in-memory only (not persisted), preserved across scan refreshes via a `renamed` flag and HashMap snapshot/restore in `do_agent_scan()`
+
+### Agent status protocol
+
+Agents report state through the filesystem. A hook writes one word (`working` / `waiting` / `review`) to `~/.config/tws/agents/$TMUX_PANE`, then touches `~/.config/tws/agent.trigger`. tws polls that trigger's mtime every 250ms (`AgentTrigger` in `core/status.rs`) and rescans when it moves.
+
+A hook writes only when the word *changes*, so mtime is the state-entry time that `status_since` displays. `PreToolUse` is the exception: it refreshes mtime on every tool call even when the word is unchanged, giving `expire_stale_working()` a liveness heartbeat. For `working` panes, then, mtime means last-activity rather than state-entry.
+
+`status_hook_entry` emits one of three command shapes, and picking the wrong one is how this protocol breaks:
+
+| mode | writes | used by |
+|---|---|---|
+| `set` | unconditionally, when the word differs | `UserPromptSubmit`, `PreToolUse ^AskUserQuestion$`, `PostToolUse ^AskUserQuestion$`, `Stop`, `StopFailure`, `PostCompact` |
+| `live` | refreshes `working`, or claims an empty file — never overwrites a resting state | `PreToolUse` (every tool but the question) |
+| `alert` | raises `waiting` over `working` or an empty file only | `Notification` |
+
+Four further properties keep this correct, and all four are easy to break:
+
+**A pane has more than one writer.** Hooks are keyed on `$TMUX_PANE`, but a background subagent runs in the same pane as the main loop and fires the same tool hooks. So a tool call cannot mean "the turn is live" — only `UserPromptSubmit` and `PostToolUse ^AskUserQuestion$` may start a turn, which is what `live` mode enforces. Before this rule, `Stop` set `review` and the subagent's next tool call repainted the pane `working` three seconds later, hiding exactly the pane that needed you. Run `bash scripts/verify-agent-hooks.sh` after touching any of this; it drives the generated commands and asserts the words.
+
+**Every state needs an exit event.** tws can only be as fresh as the hooks that fire. `working` is asserted by `UserPromptSubmit` and — for the question case only — `PostToolUse`; Pi's extension gets the same signal from `turn_start`. `PostToolUse ^AskUserQuestion$` is the "turn resumed" event, and it is the one that is easy to forget. Without it, leaving `waiting` waits on the model reaching its *next* tool call, which is unbounded: measured at 8s in a busy session and 18 hours against an idle one. A permission grant has no such event, so that pane rests at `waiting` until the turn ends — a visible false alarm, chosen over a false `working` that would hide it. `Notification` `idle_prompt` is the backstop: Claude sends it 60s after the main loop goes quiet, and it heals any pane still claiming `working`. When adding a state, ask what event returns the agent *out* of it, and whether that event is bounded by something other than the model's own choice to act.
+
+**`$TMUX_PANE` is the only pane identity, and a hook without one must stay silent.** The file name *is* the sender's identity, so a wrong name is an undetectable forged write. Never fall back to `tmux display-message -p "#{pane_id}"`: that answers for the current client's *active* pane, not the caller's, so an agent outside a pane stamps whichever pane the user is watching — and that pane, being idle, fires no hook of its own to correct it. Agents do run without `TMUX_PANE`: Claude Code's background sessions (`claude daemon run` → `bg-pty-host` → `bg-spare`) carry neither `TMUX` nor `TMUX_PANE`. tws tracks only agents inside panes, so a pane-less agent has nothing to report and must write nothing.
+
+**Scans snapshot the trigger before reading statuses.** `do_agent_scan()` reads the trigger mtime up front and acknowledges *that* value at the end. Reading it fresh at the end instead would mark a hook that fired mid-scan as seen while its status went unread, stranding the agent until its next hook. `prune_stale_files()` has the mirror-image guard: it keeps files written since the scan began, since an agent that spawned mid-scan is missing from the pane snapshot but is very much running.
+
+Hook wiring lives in `install.sh` (`status_hook_entry`, `session_end_hook_entry`). Editing it does **not** reach existing installs — the mappings are copied into `~/.claude/settings.json` at install time, so protocol changes require re-running `install.sh`. Re-running it is not enough on its own: an agent that is already running holds the hook config it read earlier, so a session started before the upgrade keeps reporting the old protocol until you restart it. Neither gap is visible from the tree, so when a single pane misreports state and the rest look right, check that pane's agent age before suspecting the protocol.
 
 ## Tests
 
-All tests are in-file `#[cfg(test)]` modules, not in a separate `tests/` directory. Coverage focuses on model construction, persistence round-trips, CRUD operations, selection resolution, and agent scan parsing. tmux command wrappers are not unit-tested (side-effectful).
+All Rust tests are in-file `#[cfg(test)]` modules. Coverage focuses on model construction, persistence round-trips, CRUD operations, selection resolution, and agent scan parsing. tmux command wrappers are not unit-tested (side-effectful).
+
+The hook commands are shell, not Rust, so `cargo test` cannot reach them. `scripts/verify-agent-hooks.sh` runs each generated command against a throwaway `HOME` and checks two things: the status words a sequence of events produces, and which pane file each command touches. The pane checks supply a fake `tmux` that answers with a pane the caller does not own, so a re-introduced fallback writes somewhere visible instead of failing silently. CI runs the script as the `hooks` job.
 
 ## CLI
 
@@ -104,6 +144,14 @@ tws import       # interactive import of unmanaged tmux sessions
 
 Detach from a session with `prefix + d` to return to the shell.
 
+## Comments
+
+Keep code self-explanatory through clear names, structure, and small functions. Do not add comments that merely restate what the code does or provide broad project context.
+
+Add a comment only when it captures useful information that cannot be understood easily from the code. Comments may explain non-obvious implementation choices, necessary workarounds, invariants, subtle constraints, ownership or lifecycle details, externally imposed behavior, important edge cases, or non-obvious public API behavior.
+
+Prefer explaining “why” over “what.” Keep comments short, specific, and next to the code they describe. Update or remove comments when the associated code changes.
+
 ---
 > Source: [ytaskiran/tws](https://github.com/ytaskiran/tws) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
