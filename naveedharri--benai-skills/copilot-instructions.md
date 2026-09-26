@@ -1,0 +1,489 @@
+## benai-skills
+
+> A marketplace of expert automation plugins for Claude Code, organized by department. Each department is a single installable plugin containing multiple skills.
+
+# BenAI Skills - Expert Automation
+
+## What This Is
+
+A marketplace of expert automation plugins for Claude Code, organized by department. Each department is a single installable plugin containing multiple skills.
+
+## Available Departments
+
+### Marketing (12 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| programmatic-seo | `/programmatic-seo` | SEO-optimized pages at scale |
+| seo-optimizing | `/seo-optimizing` | Data-driven SEO via Search Console |
+| seo-audit | `/seo-audit` | Technical SEO audits (148 rules) |
+| email-sequence | `/email-sequence` | Email sequences & drip campaigns |
+| case-study | `/case-study` | Data-driven case studies |
+| infographic | `/infographic` | AI-generated infographics |
+| linkedin-writer | `/linkedin-writer` | LinkedIn posts & carousels from content |
+| newsletter-writer | `/newsletter-writer` | Newsletter editions from content |
+| title-generation | `/title-generation` | Optimized YouTube video titles |
+| gif-creator | `/gif-creator` | GIFs from video clips |
+| excalidraw | `/excalidraw` | Presentations & diagrams |
+| website-launch-kit | `/website-launch-kit` | Custom landing pages through conversation |
+
+**Commands:** `/marketing` (skill overview), `/repurpose` (content repurposing workflow)
+
+### BenAI Sales (14 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| lead-generation | `/lead-generation` | Source, qualify, enrich, and research B2B leads end to end |
+| crm-prospect-mining | `/crm-prospect-mining` | Mine prospects from CRM lost/stalled stages |
+| linkedin-post-engagers | `/linkedin-post-engagers` | Scrape LinkedIn post commenters/reactors into a warm list |
+| call-prep | `/call-prep` | Prep calls into a live BenAI-branded instant-ui dashboard |
+| client-onepager | `/client-onepager` | Personalize and deploy the client one-pager from the template |
+| pipeline-review | `/pipeline-review` | Read-only pipeline stage review delivered to Slack |
+| post-disco-followup | `/post-disco-followup` | Post-discovery recap email + proposal from the transcript |
+| setup-post-disco | `/setup-post-disco` | One-time interactive setup for post-disco-followup |
+| sales-rep-analyzer | `/sales-rep-analyzer` | Grade sales call performance with an instant-ui report |
+| create-an-asset | `/create-an-asset` | Tailored sales asset (landing page, deck, one-pager, demo) |
+| email-personalization | `/email-personalization` | Hyper-personalized email icebreakers |
+| lead-intelligence | `/lead-intelligence` | Deep-research leads via web & LinkedIn |
+| lead-qualification | `/lead-qualification` | Qualify & score leads against ICP |
+| win-loss-analysis | `/win-loss-analysis` | Analyze won vs lost deal patterns |
+
+**Agents:** `lead-qualifier`, `lead-researcher`, `icebreaker-writer`, `linkedin-scraper`
+
+### Operations (2 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| n8n | `/n8n` | n8n workflow automation |
+| n8n-prd-generator | `/n8n-prd-generator` | Automation blueprints from calls |
+
+**Commands:** `/operations` (skill overview)
+
+### Creative (5 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| video | `/video` | Video editing (FFmpeg/Remotion) |
+| excalidraw | `/excalidraw` | Presentations & diagrams |
+| infographic | `/infographic` | AI-generated infographics |
+| infographic-old | `/infographic-old` | Infographic generator (legacy) |
+| infographic-v2 | `/infographic-v2` | Infographics with Nano Banana/Gemini AI |
+
+**Commands:** `/creative` (skill overview)
+
+### Design (7 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| taste | `/taste` | Premium frontend design system (configurable dials, anti-slop, React/Next.js/Tailwind) |
+| redesign | `/redesign` | Audit and upgrade existing projects |
+| soft-ui | `/soft-ui` | Luxurious, soft UI aesthetic |
+| minimalist-ui | `/minimalist-ui` | Editorial, Notion-like clean interfaces |
+| brutalist-ui | `/brutalist-ui` | Raw mechanical/Swiss/CRT aesthetics (BETA) |
+| stitch | `/stitch` | Google Stitch semantic design generation |
+| output-enforcement | `/output-enforcement` | Force complete full-fidelity outputs (anti-truncation) |
+
+**Commands:** `/design` (skill overview)
+
+### Product (2 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| excalidraw | `/excalidraw` | Presentations & diagrams |
+| n8n-prd-generator | `/n8n-prd-generator` | Automation blueprints from calls |
+
+**Commands:** `/product` (skill overview)
+
+### YouTube (7 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| youtube-brief | `/youtube-brief` | Structured video briefs |
+| youtube-ideation | `/youtube-ideation` | Video topic generation |
+| youtube-packaging | `/youtube-packaging` | Titles & thumbnails for CTR |
+| youtube-outline | `/youtube-outline` | Video structure & visual planning |
+| youtube-scripting | `/youtube-scripting` | Scripts & bullet points for filming |
+| youtube-excalidraw | `/youtube-excalidraw` | On-screen excalidraw visuals |
+| title-generation | `/title-generation` | Optimized YouTube video titles |
+
+**Commands:** `/youtube` (skill overview)
+
+### YouTube Publishing (14 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| youtube-ship | `/youtube-ship` | Runs the whole publishing chain for one video, in order, from a Ship Brief |
+| youtube-studio-setup | `/youtube-studio-setup` | Stage 1: Studio draft to saved Unlisted video (title, thumbnails, A/B test, wizard) |
+| benai-utm-creator | `/benai-utm-creator` | Stage 2: six UTM links, Bitly backhalfs, campaign code, Bitly import CSV |
+| youtube-link-setup | `/youtube-link-setup` | Stage 3: Bitly import, Kit lead-magnet page, n8n registration, link verification |
+| youtube-chapters-tags | `/youtube-chapters-tags` | Stage 4: chapters with accurate timestamps plus the tag string |
+| youtube-description | `/youtube-description` | Stage 5: description from template into Studio, Notion card to Ready to publish |
+| yt-ingestion | `/yt-ingestion` | Fetch a video's raw artifacts: file, transcript, word timings, thumbnail |
+| video-cutter | `/video-cutter` | Sentence-aligned clips at silence-midpoint boundaries |
+| yt-to-community | `/yt-to-community` | Circle community announcement draft in Ben's voice |
+| yt-to-course | `/yt-to-course` | Structured Circle course package with lesson clips |
+| linkedin-writer | `/linkedin-writer` | LinkedIn posts & carousels from content |
+| newsletter-writer | `/newsletter-writer` | Newsletter editions from content |
+| video-repurposing | `/video-repurposing` | Captioned platform-ready clips with FFmpeg and Remotion |
+| humanizer | `/humanizer` | Remove signs of AI-generated writing |
+
+**Agents:** `video-cutter-agent`, `yt-ingestion-agent`
+
+Everything after the edit: five publish-prep stages with four human checkpoints, then repurposing every published video. Uses Claude in Chrome for every YouTube Studio read and write. One-time operator setup lives in `youtube-ship/references/SETUP.md`.
+
+### SEO (14 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| seo | `/seo` | Orchestrator — routes to the right SEO sub-skill |
+| seo-page | `/seo page <url>` | Deep single-page analysis |
+| seo-technical | `/seo technical <url>` | Technical SEO (crawlability, CWV, JS rendering) |
+| seo-content | `/seo content <url>` | E-E-A-T content quality analysis |
+| seo-schema | `/seo schema <url>` | Schema detection, validation, generation |
+| seo-images | `/seo images <url>` | Image optimization analysis |
+| seo-sitemap | `/seo sitemap <url\|generate>` | Sitemap validation/generation |
+| seo-geo | `/seo geo <url>` | AI Overviews / GEO optimization |
+| seo-plan | `/seo plan <type>` | Strategic planning (SaaS, e-commerce, local, publisher, agency) |
+| seo-programmatic | `/seo programmatic` | Programmatic SEO at scale |
+| seo-competitor-pages | `/seo competitor-pages` | Comparison page generation |
+| seo-hreflang | `/seo hreflang <url>` | Hreflang/i18n validation |
+| seo-optimize | `/seo optimize` | GSC data-driven optimization |
+| seo-audit | `/seo audit <url>` | Full site audit with 6 parallel subagents |
+
+**Commands:** `/seo` (skill overview)
+
+**Agents:** `seo-technical`, `seo-content`, `seo-schema`, `seo-sitemap`, `seo-performance`, `seo-visual`
+
+### Ads (14 skills, 12 sub-commands)
+
+#### Orchestrator
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| ads | `/ads` | Orchestrator — routes to the right ads sub-skill |
+
+#### Platform Analysis
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| ads-google | `/ads-google` | Google Ads deep analysis (74 checks) |
+| ads-meta | `/ads-meta` | Meta/Facebook/Instagram Ads (46 checks) |
+| ads-linkedin | `/ads-linkedin` | LinkedIn Ads for B2B (25 checks) |
+| ads-tiktok | `/ads-tiktok` | TikTok Ads with creative-first strategy (25 checks) |
+| ads-youtube | `/ads-youtube` | YouTube Ads across all formats |
+| ads-microsoft | `/ads-microsoft` | Microsoft/Bing Ads (20 checks) |
+
+#### Cross-Platform Tools
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| ads-audit | `/ads-audit` | Full multi-platform audit (6 parallel subagents) |
+| ads-budget | `/ads-budget` | Budget allocation & bidding (70/20/10 rule) |
+| ads-creative | `/ads-creative` | Creative audit + brand context setup + ad creative generation via infographic-v2 |
+| ads-landing | `/ads-landing` | Landing page optimization for ads |
+| ads-plan | `/ads-plan` | Strategic planning (15 industry templates) |
+| ads-competitor | `/ads-competitor` | Competitive intelligence via Ad Libraries |
+| infographic-v2 | `/infographic-v2` | Branded infographics for ad campaigns |
+
+**Commands:** `/ads` (skill overview)
+
+**Agents:** `audit-google`, `audit-meta`, `audit-budget`, `audit-creative`, `audit-compliance`, `audit-tracking`
+
+### Higgsfield (4 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| higgsfield-generate | `/higgsfield:generate` | Generate images and videos via Higgsfield AI across 35+ models (GPT Image 2, Seedance 2.0, Nano Banana 2/Pro, Soul V2/Cinema/Cast/Location, Kling 3.0). Marketing Studio for branded ads, Virality Predictor for engagement scoring. |
+| higgsfield-soul-id | `/higgsfield:soul-id` | Train custom face identities (Soul Characters) that stay consistent across generations and are reusable inside other Higgsfield skills. |
+| higgsfield-product-photoshoot | `/higgsfield:product-photoshoot` | Professional product photography with 10 preset modes (studio, lifestyle, Pinterest, hero banner, ad packs, virtual try-on). |
+| higgsfield-marketplace-cards | `/higgsfield:marketplace-cards` | Generate marketplace-compliant product card images and A+ content modules for Amazon, Etsy, Shopify. |
+
+**Source:** Bundled from `higgsfield-ai/skills` v0.3.0 (MIT). Auth required, run the Higgsfield CLI setup before first use.
+
+### Marketing OS (8 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| marketing-os-setup | `/marketing-os-setup` | Build the Marketing OS: ten folders, the `Context/` layer every marketing skill reads, one folder per channel, the routines (delegated to `/marketing-os-routines`), the control center. Five pillars in order: connectors, Context, structure, routines, dashboard. Idempotent. |
+| marketing-os-routines | `/marketing-os-routines` | Probe connectors, register only the routines that can produce real signal, and audit registered ones for silent failure |
+| marketing-os-dashboard | `/marketing-os-dashboard` | Rebuild and deploy the self-contained six-tab control center from the OS. Renders gaps as "not pulled", flags routines that went quiet |
+| os-optimizer | `/os-optimizer` | Shared with Obsidian. Framework audit, and the tool that defines the OS quality bar |
+| os-operator | `/os-operator` | Shared with Obsidian. Recurring Operator prompt |
+| os-mcp | `/os-mcp` | Shared with Obsidian. Relay MCP on Railway, so the OS is reachable from claude.ai and mobile |
+| team-os | `/team-os` | Shared with Obsidian. BenAI Relay fork for a Marketing OS shared across a team |
+| instant-ui | `/instant-ui` | Shared with benai-marketing. Renders the OS and its reports as BenAI-branded HTML |
+
+**Why it exists:** every marketing skill currently carries its own private copy of the ICP, offer, and voice. `icp-ideal-customer-profile.md` and `what-we-do-offer.md` exist as five separate physical copies across the marketing plugins, plus three more inside the newsletter writers. Update one and seven go stale. This plugin makes `Context/` authoritative so every skill inherits a change.
+
+**Deliberately excluded:** the marketing *workflow* skills. Those live in `benai-marketing`, `marketing`, `content`, `youtube`, `seo`, and `ads`. This plugin is the OS layer only. `os-setup` is also excluded on purpose, because it scaffolds a generic Context/Projects/Intelligence vault rather than the Marketing OS shape, and shipping both would leave users unsure which to run.
+
+**Reference implementation:** `/Users/macbook/Documents/Marketing OS` is a fully built example. `marketing-os-routines` bundles the ten routine prompts as assets (one copy, one owner) and `marketing-os-dashboard` bundles the dashboard shell.
+
+### Obsidian (6 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| os-setup | `/os-setup` | Bootstrap vault structure + mode selection + onboarding |
+| agentic-os-setup | `/agentic-os-setup` | Set up an agentic OS. Asks one routing question first: **inside Obsidian** (command-center dashboard with bundled plugins — Dataview, CustomJS, Shell-commands, Terminal, Homepage; Home + per-profile + Vault Overview pages, button bar wired to user Claude prompts) **OR as a standalone Next.js web dashboard** (live MCP integrations: Circle, Fireflies, YouTube/VidIQ, Unipile LinkedIn, Apify Twitter, Reddit; optional Railway deploy with HTTP basic auth). |
+| os-optimizer | `/os-optimizer` | Multi-pass second brain audit and optimizer (22 passes, 4 groups) |
+| os-operator | `/os-operator` | Schedule recurring routines that operate the second brain (stub — full scheduling lands later) |
+| os-mcp | `/os-mcp` | Deploy a self-hosted Relay MCP server to Railway |
+| team-os | `/team-os` | Install the BenAI Relay fork as the foundation for a shared Team OS |
+
+#### Mode Selection
+
+`/os-setup` asks one preliminary question:
+
+> "What type of vault do you want?"
+
+Two modes:
+- **Solopreneurs/Professionals** (default) — blends work and personal. Best for solo founders, freelancers, consultants.
+- **Business/Teams** — organizational structure with departments, processes, stakeholders, onboarding docs.
+
+The selected mode is stored in `claude.md` frontmatter as `os-mode: professional | business`.
+
+#### Vault Structure (by mode)
+
+**Solopreneurs/Professionals** (`os-mode: professional`):
+```
+claude.md               — Brain file (os-mode: professional)
+Context/                — Who you are: me.md, business.md, strategy.md, team.md, brand.md
+Projects/               — What you're working on: intelligently structured per project
+Intelligence/           — What you know: meetings/, competitors/, market/, decisions/
+Daily/                  — What happened: YYYY-MM-DD.md journals
+Resources/              — Your library: prompts, frameworks, swipe files, templates
+Skills/                 — Skill references you control: strategy, voice, reference material
+```
+
+**Business/Teams** (`os-mode: business`):
+```
+claude.md               — Brain file (os-mode: business)
+Context/                — operator.md, organization.md, team.md, strategy.md, brand.md, stakeholders.md
+Projects/               — Active projects
+Departments/            — Per-department READMEs + SOPs
+Teams/                  — Team directories with person profiles
+Intelligence/           — meetings/ (7 types), competitors/, market/, decisions/, processes/
+Daily/                  — Work logs + OKR-focused weekly reviews
+Onboarding/             — Team/client/system onboarding docs
+Resources/              — prompts, frameworks, swipe, templates/
+Skills/                 — Skill references you control: strategy, voice, reference material
+```
+
+#### Onboarding
+
+Mode selection + two questions:
+1. Context question (mode-specific: about yourself / your organization / yourself and business)
+2. Projects question (mode-specific: projects / initiatives / things you're focused on)
+
+No follow-ups. Extracts what it can, builds the vault, reports what was created.
+
+#### Auto-Save Behavior
+
+The assistant never asks permission to save. When meaningful information comes up (learnings, preferences, corrections, project updates, action items), it saves to the right vault file immediately and reports what was saved. Corrections are automatically added as permanent rules in `claude.md`.
+
+#### Context Files
+
+| Mode | Files |
+|------|-------|
+| General | `me.md` (always), `business.md`, `team.md`, `strategy.md`, `brand.md` (conditional) |
+| Business | `operator.md`, `organization.md`, `team.md`, `strategy.md` (always), `brand.md`, `stakeholders.md` (conditional) |
+| Personal | `me.md` (always), `goals.md`, `people.md` (conditional) |
+
+#### Project Intelligence
+
+Projects are not flat README-only folders. The assistant intelligently structures each project based on its content:
+
+- **Starts simple** — new project = just a `README.md`
+- **Grows organically** — subdirs (`research/`, `specs/`, `drafts/`, `notes/`, `ideas/`) are created on the fly when content arrives
+- **Routes info to the right file** — research goes to `research/{topic}.md`, specs to `specs/`, drafts to `drafts/` — not crammed into README
+- **README stays the index** — overview, status, next steps, links to subdir contents
+- **Completed projects** — moved to `Intelligence/archive/`
+
+#### Resources (`Resources/`)
+
+Personal library for swipe files, prompts, frameworks, templates, and reference material. Organized flat or lightly nested (e.g., `Resources/prompts/`, `Resources/frameworks/`). Business mode adds `Resources/templates/` for org document templates.
+
+#### Key Integrations
+
+- **Obsidian CLI** — preferred for vault operations when Obsidian is running
+- **TaskNotes API** — HTTP API on localhost:8080 for task CRUD
+- **Fireflies MCP** — meeting transcript sync (Business Plan)
+- **Obsidian Bases** — native database views, no plugins needed
+- **Defuddle** — web content extraction (`defuddle parse <url> --md`)
+
+### Baalda OS (3 skills)
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| baalda-setup | `/baalda-setup` | Bootstrap the second-brain structure inside a Baalda vault + onboarding |
+| baalda-optimizer | `/baalda-optimizer` | 9-framework vault audit, checkpoint-aware, doc_id-safe |
+| baalda-guide | `/baalda-guide` | Plain-language answers about Baalda: features, file formats, sync, sharing, AI/MCP, pricing, self-hosting |
+
+The Baalda counterpart to the Obsidian plugin: the same second-brain idea on a different host app, so
+setup and optimizer are Baalda-native forks of `os-setup` / `os-optimizer`. `baalda-guide` is the
+product explainer: it answers from bundled reference files first, then the Baalda repo docs and website.
+
+**Deliberately just those two.** The Obsidian plugin also carries `os-mcp` (deploy a Relay MCP server
+to Railway) and `team-os` (install a Relay fork) because neither capability exists in Obsidian. In
+Baalda both are product features with their own UI — **Vault settings → MCP** mints a token and hands
+over the exact `claude mcp add` command, **Members** and **Access** are point-and-click — and
+importing is a button plus the syntax cleanup that `baalda-optimizer` already audits. A skill for any
+of those would only narrate the app. The invariants below carry that knowledge instead, and every
+skill added here later must respect them.
+
+**What every skill in this plugin must respect** (these are app invariants, not preferences):
+
+- **`.context/` is off-limits.** `<vault>/.context/` holds Baalda's SQLite index, the CRDT update
+  log and the doc-id map. Never read, write, walk, index or commit it. Same for `attachments/`,
+  which the app syncs on its own.
+- **A note's identity is its `doc_id`, not its path.** Content edits from any tool are safe and
+  merge live (the watcher picks them up in ~150ms). But an external `mv`/`rm` on a *synced* note
+  reads as delete-then-create: the note gets a new `doc_id` and loses its history, backlinks and
+  sharing. Moves, renames and deletes go through the app or the MCP `move_note` / `move_folder` /
+  `delete_note` tools. `test -f .context/config.json` is how you detect a synced vault.
+- **Markdown Baalda actually renders:** frontmatter, `[[wikilinks]]`, `#tags`, `- [ ]` tasks,
+  tables, fenced code, `![alt](path)` images (PDFs render inline), small inline HTML. Obsidian-only
+  syntax (`![[embeds]]`, `> [!callout]`, `==highlight==`, `%%comment%%`) renders as literal text.
+- **Safety nets exist — use them.** Vault checkpoints (**Vault settings → Versioning**, owner/admin,
+  max 5) capture every note plus the folder tree; per-note history reverts one file. Offer a
+  checkpoint before any bulk apply.
+- **Permissions are real and inherited.** Vault-level **Shared / Read-only / Private**, overridable
+  per folder or note, flowing down; a Read-only lock caps admins too. An MCP token mirrors the
+  person who minted it — it can never exceed what that human can see.
+
+## n8n Skill
+
+### Configuration
+
+Requires a `.env` file in your working directory:
+
+```
+N8N_API_URL=https://your-n8n-instance.com
+N8N_API_KEY=your-api-key
+N8N_CREDENTIALS_TEMPLATE_URL=https://your-n8n-instance.com/workflow/template-id
+```
+
+The skill will automatically create this file if missing and prompt for values.
+
+### Node Selection Priority
+
+**ALWAYS prefer native n8n nodes over HTTP Request or Code nodes.**
+
+| Priority | Use When |
+|----------|----------|
+| 1. Native node | A built-in n8n node exists for the service (Slack, Google Sheets, etc.) |
+| 2. **AI Agent node** | For ANY AI/LLM task - ALWAYS prefer over HTTP Request to OpenAI/Anthropic APIs |
+| 3. **Loop node (Split In Batches)** | For processing multiple items - ALWAYS prefer over Code node loops |
+| 4. HTTP Request | Native has issues OR no node exists AND not an AI task |
+| 5. Code node | Complex logic that can't be done with built-in nodes |
+
+### Incremental Build-Test Process (MANDATORY)
+
+**THE #1 RULE: Add ONE node -> Test entire workflow -> Repeat**
+
+```
+Add Node A -> Test -> Add Node B -> Test -> Add Node C -> Test -> Done
+```
+
+**NEVER add two or more nodes at once. ALWAYS test after each single node.**
+
+### Key API Patterns
+
+| Operation | Method | Endpoint |
+|-----------|--------|----------|
+| Create | POST | `/api/v1/workflows` |
+| Update | **PUT** | `/api/v1/workflows/{id}` |
+| Activate | **POST** | `/api/v1/workflows/{id}/activate` |
+| Execute | POST | `/webhook/{path}` |
+
+### Expression Essentials
+
+**Webhook data lives under `.body`:**
+```
+{{ $json.body.fieldName }}  <- Correct
+{{ $json.fieldName }}       <- Wrong (won't work)
+```
+
+### Code Node Return Format
+
+```javascript
+return [{ json: { result: "value" } }];
+```
+
+### Testing After Each Node
+
+```bash
+# 1. Activate
+curl -X POST "${N8N_API_URL}/api/v1/workflows/{id}/activate"
+
+# 2. Execute
+curl -X POST "${N8N_API_URL}/webhook/{path}" -d '{}'
+
+# 3. Check status
+curl "${N8N_API_URL}/api/v1/executions?limit=1" | jq '.data[0].status'
+```
+
+### Common Mistakes to Avoid
+
+- Using PATCH instead of PUT for updates
+- Using PUT with `{active: true}` instead of `/activate` endpoint
+- Building all nodes then testing (build incrementally!)
+- Fetching all executions (always use `?limit=2`)
+- Using placeholder/mock data instead of real values
+
+## Video Skill
+
+### Tool Selection
+
+| Task | FFmpeg | Remotion |
+|------|--------|----------|
+| **Stitching** | Same codec, no effects | Transitions, overlays, programmatic |
+| **Transitions** | Simple crossfades | Multiple types, custom timing |
+| **Captions** | SRT burn-in | TikTok-style word highlighting |
+| **Teasers** | Quick clips | Text overlays, branded elements |
+
+### Workflow
+
+1. **Analyze** - Examine videos with ffprobe
+2. **Transcribe** - Get speech content for smart cuts
+3. **Ask** - Clarify user intent
+4. **Plan** - Propose edit approach
+5. **QA Test** - Run automated tests before preview
+6. **Preview** - Show to user after QA passes
+7. **Iterate** - Refine based on feedback
+
+### Key Rules
+
+- **Always preview in Remotion Studio before rendering**
+- Never render automatically - wait for user approval
+- Use whisper.cpp (not Python whisper) for fast transcription
+
+## Best Practices Summary
+
+1. **Always test after each node** - No exceptions
+2. **Copy full node configs from template** - Not just credentials
+3. **Use correct API methods** - PUT for update, POST for activate
+4. **Limit execution queries** - Always `?limit=2`
+5. **Report only after confirmed working** - Never "please test this"
+6. **Never use mock data** - Ask for real values
+
+## MCP Server Integration
+
+If the n8n MCP server is available, prefer using MCP tools for:
+- Node discovery: `search_nodes`, `get_node`
+- Validation: `validate_node`, `validate_workflow`
+- Templates: `search_templates`, `get_template`
+
+Fall back to REST API skills when MCP is unavailable.
+
+## Shared Skills (`shared-skills/`)
+
+All skills live in `shared-skills/` as the single source of truth. The department-to-skill mapping is defined in `.claude-plugin/skills-map.json`. Running `./sync-skills.sh` copies skills into each department's `plugins/*/skills/` folder.
+
+**Never edit skills directly in `plugins/*/skills/`** — those are overwritten by sync.
+
+### Editing workflow
+
+1. Edit the skill in `shared-skills/<skill>/`
+2. If adding a new skill or changing which departments get it, update `.claude-plugin/skills-map.json`
+3. Run `./sync-skills.sh`
+
+### Before every push
+
+Always run these before pushing:
+```bash
+./sync-skills.sh
+```
+This ensures `plugins/*/skills/` is in sync with `shared-skills/` and `.claude-plugin/skills-map.json`.
+
+## Building Distributable Zips
+
+Run `./build-zips.sh` to generate downloadable zip files in `dist/`. The script automatically runs `sync-skills.sh` first, then reads `marketplace.json`, detects all department plugins, and creates one zip per department plus a full marketplace zip.
+
+---
+> Source: [naveedharri/benai-skills](https://github.com/naveedharri/benai-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
