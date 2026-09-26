@@ -88,4 +88,4 @@ was skipped and why. Report both results (or the skip reason) before closing the
 
 ---
 > Source: [tb1337/pypaperless](https://github.com/tb1337/pypaperless) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
