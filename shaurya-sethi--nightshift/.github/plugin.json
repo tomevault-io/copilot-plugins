@@ -1,0 +1,9 @@
+{
+  "name": "shaurya-sethi--nightshift",
+  "displayName": "nightshift",
+  "description": "Let your favorite AI coding agents work the night shift. A CLI utility to autonomously resolve your open GitHub issues while you sleep.",
+  "version": "1.0.0",
+  "author": "Shaurya-Sethi",
+  "homepage": "https://github.com/Shaurya-Sethi/nightshift",
+  "skills": []
+}
