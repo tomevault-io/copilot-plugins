@@ -1,120 +1,230 @@
 ## cicd-sensor
 
-> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
+> The Agent is the central component that connects CI/CD job lifecycle with runtime events.
 
-# Agent Guide for opentelemetry-go
+# Agent Architecture
 
-This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
+The Agent is the central component that connects CI/CD job lifecycle with runtime events.
 
-Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
-Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
+One agent process runs on one host and can observe multiple CI/CD jobs at the same time.
+Kernel-side observation is handled with eBPF. Job lifecycle and rule evaluation are handled in userspace.
 
-## Core expectations
+## Architecture
 
-- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
-- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
-- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
-- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
-- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
-- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
-- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
-- Keep dependencies minimal and justified.
-- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
-- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
-- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
+```mermaid
+flowchart TB
+    START["host start / project start"]
+    PROXY["dockerd proxy"]
 
-## Default workflow
+    subgraph A["Agent"]
+        direction TB
+        L["Listener<br/>(Unix socket)"]
 
-For new features and behavior changes, use this order unless the task explicitly says otherwise:
+        subgraph JR["JobRegistry"]
+            direction TB
+            subgraph JOBS["Jobs"]
+                direction TB
+                EVAL["Evaluation"]
+                SCOPE["Scope<br/>host / project"]
+            end
+        end
 
-1. Read the relevant package, its tests, and any package docs or `README.md`.
-2. Add or update a failing unit test that captures the required behavior or regression.
-3. Implement the smallest change that makes the test pass.
-4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
-5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
-6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
-7. Run `make precommit` each time before considering the work complete.
+        subgraph KR["eBPF Runtime · Agent userspace"]
+            direction TB
+            KT["KernelTracker<br/>Job state management<br/>(cgroup / process tracking)"]
+            subgraph KIO["KernelIO"]
+                direction TB
+                BIO["BPF load / map / ringbuf I/O"]
+                UPROBE["HTTP uprobe worker<br/>one owner goroutine<br/>(when enabled)"]
+            end
+            KT -->|"map operations"| BIO
+            BIO -->|"raw ringbuf samples"| KT
+            BIO -->|"mapping control samples"| UPROBE
+            KT -->|"reconcile input"| UPROBE
+        end
 
-For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
+        subgraph OUT["Outputs"]
+            direction TB
+            LOGS["Job logs"]
+            RESULT["Project result"]
+        end
+    end
 
-## Verification
+    K["eBPF Runtime · Linux kernel<br/>programs / maps / ringbuf<br/>uprobe attachments"]
 
-- Use `make` as the canonical repository verification command. The default target is `precommit`.
-- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
-- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
-- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
+    START --> L
+    PROXY --> L
+    L --> JOBS
+    KT -->|"EventRecord"| EVAL
+    EVAL --> SCOPE
+    JR -->|"tracking commands"| KT
+    BIO <-->|"load / attach / read"| K
+    UPROBE -->|"attach / close"| K
+    SCOPE --> LOGS
+    SCOPE --> RESULT
 
-## Documentation and changelog
+    classDef agentOuter fill:transparent,stroke:#0f766e,color:#064e3b,stroke-width:2px;
+    classDef registry   fill:#d1fae5,stroke:#0f766e,color:#064e3b,stroke-width:1px;
+    classDef kernel     fill:#ccfbf1,stroke:#0f766e,color:#134e4a,stroke-width:1px;
+    classDef outputs    fill:#dcfce7,stroke:#0f766e,color:#14532d,stroke-width:1px;
+    classDef leaf       fill:#ffffff,stroke:#94a3b8,color:#374151,stroke-width:1px;
+    class A agentOuter
+    class JR,JOBS registry
+    class KR kernel
+    class OUT outputs
+    class L,EVAL,SCOPE,KT,BIO,UPROBE,LOGS,RESULT leaf
+```
 
-- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
-- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
-- Prefer examples over long code snippets in GoDoc when practical.
-- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
-- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
-  - Always put the PR number at the end of the line (e.g., `(#1234)`), NOT the issue number.
-  - If the PR number is not yet known, omit it until the PR is created, then update the changelog entry before merging.
-  - Always use references to the go module that is updated (e.g., `go.opentelemetry.io/otel/sdk/metric`), instead of just the path (e.g., `sdk/metric`).
+This diagram is the reference point for reading the Agent implementation.
+`host start`, `project start`, and dockerd proxy staging requests enter the Agent through the Listener over a Unix socket.
+JobRegistry issues tracking commands to KernelTracker.
+Scope owns rule, summary, and output state, but it does not operate
+KernelTracker or KernelIO directly. Together with the programs and resources
+loaded into the Linux kernel, KernelTracker and KernelIO form the
+**eBPF Runtime** described in the dedicated developer-guide chapter. eBPF
+Runtime is an architectural layer, not a separate process or Go component.
 
-## Repository habits
+## Concepts
 
-- Prefer focused diffs. Avoid drive-by cleanup.
-- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
-- Generated files are checked in. If your change affects generation, keep generated output up to date.
-- Prefer fast local search tools such as `rg` when exploring the repository.
-- When changing behavior, make the invariants explicit in tests.
+### Job
 
-## Personas
+A **Job** is one CI/CD job tracked by the Agent. It is identified by the provider-supplied job identity (repository, workflow run, job name, runner) and owns its own cgroup tracking, rule evaluation, scope-local summaries, and outputs. The Agent can run many Jobs at the same time; each Job is finalized independently when its work completes.
 
-### Feature Agent
+The Agent separates job identity from job metadata.
+Identity is required to register and track a Job.
+Metadata is attached to the Job for logs, reports, and search.
 
-Use this persona for new behavior, new API surface, or spec-driven feature work.
+| Category | Fields | Required | Purpose |
+| --- | --- | --- | --- |
+| Job identity | `provider`, `provider_host`, `project_path` | Yes | Common provider identity for every Job |
+| GitHub identity | `github_run_id`, `github_job`, `github_run_attempt`, `github_runner_tracking_id` | Yes for GitHub Jobs | Identifies a GitHub Actions job run attempt and runner tracking ID |
+| GitLab identity | `gitlab_job_id` | Yes for GitLab Jobs | Identifies a GitLab CI job execution |
+| Job metadata | `commit_sha`, `ref_name`, `trigger`, `actor_id`, `actor_name`, `github_workflow_ref`, `github_workflow_sha`, `github_workflow`, `gitlab_job_name`, `gitlab_config_ref_uri` | No | Enriches logs, reports, and triage |
 
-- Start with a failing unit test.
-- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
-- Implement the smallest viable change.
-- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
-- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
+### Scope
 
-### Refactoring Agent
+A **Scope** is the configuration / control surface attached to a Job. Two kinds exist, and a single Job may have one or both:
 
-Use this persona when improving structure without intentionally changing behavior.
+| Scope | Owner | Where it comes from | Typical setup |
+| --- | --- | --- | --- |
+| **Host scope** | Host operator (e.g., the platform team that installs cicd-sensor on the runner host) | `host start` from a runner hook | Self-hosted runners, where the agent is provisioned by infrastructure |
+| **Project scope** | Project / repository operator (e.g., the team owning the workflow) | `project start` from the cicd-sensor-action (or equivalent) | GitHub-hosted runners, where each workflow brings its own configuration through the Action |
 
-- Treat behavior preservation as the default contract.
-- Add or tighten tests before moving code if current behavior is not already pinned down.
-- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
-- If a refactor touches a hot path, benchmark before and after.
-- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
+Each scope carries its own rules, evaluation state, and output destinations. The two are isolated: one scope cannot read or override the other's rules, and their outputs are emitted separately. This lets the host operator and the repository operator each configure cicd-sensor for their own concerns without interfering with each other — the host operator can enforce a baseline across all jobs on the host, while a repository can layer project-specific rules on top.
 
-### Test Agent
+For implementation ownership boundaries, see [Agent Ownership Boundaries](agent-ownership-boundaries.md).
 
-Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
+## Subsystems
 
-- Reproduce the bug or missing behavior with the smallest failing test you can.
-- Prefer testing public behavior and externally visible invariants.
-- Add targeted regression tests before changing production code.
-- Only change production code when it is required to make the tested behavior correct or testable.
-- Keep tests deterministic, readable, and aligned with package patterns.
+| Subsystem | Responsibility |
+| --- | --- |
+| Agent | Top-level orchestrator for Listener, JobRegistry, KernelTracker, and shutdown |
+| Listener | Receives start / staging requests over the Unix socket and handles provider routes and peer credentials |
+| JobRegistry | Handles job registration, host / project scope attachment, KernelTracker primitive composition, and finalize |
+| Jobs / Scope | Handles per-job event workers, rule evaluation, and scope-local summaries / outputs |
+| KernelTracker | Owns cgroup / process tracking, kernel sample decoding, and EventRecord attribution |
+| KernelIO | Owns BPF load and attach, map operations, ringbuf I/O, and specialized kernel-facing workers |
+| Outputs | Holds runtime summaries used as inputs for job logs, project results, reports, and attestations |
 
-### Performance Agent
+## Provider Flow
 
-Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
+| Provider | Runner | Start entrypoint | cgroup seed |
+| --- | --- | --- | --- |
+| GitHub Actions | GitHub-hosted runner | `/v1/github/project/start` | cgroup of the project start peer PID |
+| GitHub Actions | Self-hosted runner on a machine | `/v1/github/host/start` | cgroup of the hook peer PID |
+| GitLab CI/CD | GitLab Runner Docker executor | `/v1/gitlab/staging/put` | Docker label evidence and staging promote |
+| GitHub Actions | ARC default / dind mode | `/v1/github/k8s/start` | cgroup of the job hook peer PID; dind also binds the Pod cgroup tree |
+| GitHub Actions | ARC Kubernetes mode | `/v1/github/k8s/start` + `/v1/github/k8s/staging/put` | job hook peer PID plus NRI-provided container cgroup basenames |
+| GitLab CI/CD | GitLab Runner Kubernetes executor | `/v1/gitlab/k8s/staging/put` | GitLab Pod metadata and NRI-provided container cgroup basenames |
 
-- Benchmark first to establish a baseline.
-- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
-- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
-- Add or update benchmarks when performance-sensitive coverage is missing.
-- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
+The agent process selects one provider at startup.
+The Listener mounts either `/v1/github/*` or `/v1/gitlab/*`, not both.
+Kubernetes runtime details are covered in [Kubernetes Runtime](kubernetes-runtime.md).
 
-### Review Agent
+## Listener endpoints
 
-Use this persona when asked to review code, patches, or pull requests.
+These endpoints are internal Agent APIs over Unix sockets. They are not a public network API.
 
-- Lead with findings, not summaries.
-- Order findings by severity and include precise file and line references when available.
-- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
-- Call out when a diff is broader than necessary.
-- If you find no issues, say that explicitly and note any residual risks or verification gaps.
+The normal agent control socket exposes the provider route family selected at agent startup:
+
+| Provider | Endpoint | Caller | Purpose |
+| --- | --- | --- | --- |
+| GitHub | `/v1/github/job/health` | GitHub job hook / action | Check whether the caller belongs to a tracked Job. |
+| GitHub | `/v1/github/host/start` | installed runner hook | Create or attach host scope for a machine runner Job. |
+| GitHub | `/v1/github/host/end` | installed runner hook | End host scope for a machine runner Job. |
+| GitHub | `/v1/github/project/start` | project action | Create or attach project scope for a Job. |
+| GitHub | `/v1/github/project/result` | project action | Read project result data for reports and attestations. |
+| GitHub | `/v1/github/staging/put` | Docker proxy | Stage Docker-created container cgroup basenames by peer PID. |
+| GitHub | `/v1/github/k8s/staging/put` | host-side NRI observer | Stage Kubernetes-created container cgroup basenames by injected GitHub identity. |
+| GitLab | `/v1/gitlab/host/start` | explicit host start caller | Create GitLab host Job state from runner metadata. |
+| GitLab | `/v1/gitlab/staging/put` | Docker proxy | Create missing GitLab Jobs from runner labels, then stage Docker-created container cgroup basenames. |
+| GitLab | `/v1/gitlab/k8s/staging/put` | host-side NRI observer | Create missing GitLab Kubernetes Jobs from cached host config, then stage container cgroup basenames. |
+
+GitLab Docker proxy and Kubernetes/NRI staging both perform lazy Job creation inside their staging endpoint.
+This keeps container lifecycle callers to one local agent request and leaves Job creation ownership with the Listener.
+
+GitHub ARC also uses a separate runner socket mounted into the runner container:
+
+| Endpoint | Caller | Purpose |
+| --- | --- | --- |
+| `/v1/github/k8s/start` | GitHub ARC job hook | Create the Job from GitHub identity and bind the runner or Pod cgroup before workflow steps run. |
+
+## Listener trust model
+
+A CI/CD job process typically has host-control-level permissions on the runner. Isolation between jobs comes from the layer below — a fresh VM per job for self-hosted runners, a fresh container for Kubernetes-based runners. cicd-sensor treats the runner host as a single trust domain inside that boundary.
+
+The Listener's per-request checks identify which Job (and which UID) the request belongs to, and keep each Job's events and configuration from being attributed to another Job. They are not a strong access control.
+
+The control socket is mode `0o777`; request identification uses `SO_PEERCRED`:
+
+| Check | Endpoints | What it confirms |
+| --- | --- | --- |
+| Agent-owner UID | GitLab `host/start`, GitHub / GitLab staging endpoints | peer UID matches the agent process owner |
+| Peer in tracked Job | GitHub `host/end`, `project/result`, `job/health` | peer PID's cgroup is in an already-tracked Job |
+| Seed | GitHub `host/start`, GitHub `k8s/start` | peer's cgroup becomes the new Job's tracked root |
+
+GitHub `project/start` is the mixed case: on a self-hosted runner the peer must already belong to the host Job (it attaches project scope); on a hosted runner no prior Job exists, so the peer's cgroup seeds a new project-only Job. Co-resident untrusted local users are out of scope.
+
+Endpoints reachable from inside the job may only accelerate log delivery (`project/result` flushes buffered manager logs); finalization stays with triggers the job cannot forge: cgroup lifecycle, the completed hook, TTL, and shutdown. For `host end`, the CLI's `job/health` probe before the end call is what makes a double end fail the completed hook — the agent-side handler is lenient on a missing Job.
+
+Kubernetes support keeps the GitHub k8s start endpoint on a separate runner socket because the caller is inside the ARC runner container, while the normal control socket and NRI staging callers are host-side agent components.
+This keeps the container-visible surface to job start only and preserves the boundary between runner container code and host-side staging / runtime control.
+The same runner socket may later carry GitHub Kubernetes project start/result endpoints, but the normal agent control socket should not be mounted into workflow containers.
+
+In ARC default and dind modes, workflow code runs in the runner container and can reach the runner socket.
+The request identity is caller-asserted, but the peer cgroup is still the guard: if that cgroup is already tracked for another Job, start is rejected and the partial Job is unwound.
+An untracked peer cgroup can still assert a new identity, so Kubernetes runner job records are runner-asserted, not independently verified.
+
+## KernelTracker Primitives
+
+Job tracking is expressed by JobRegistry composing KernelTracker primitives.
+
+| Primitive | Meaning |
+| --- | --- |
+| `RegisterJob(jobID)` | Creates userspace job state and a per-job event channel. Does not touch BPF maps. |
+| `BindProcessCgroupToJob(jobID, pid)` | Resolves the PID cgroup and adds it to `tracked_cgroups`. |
+| `StageCgroupBasenameForJob(basename, jobID)` | Stages a Docker cgroup basename. |
+| `RemoveJob(jobID)` | Cleans up job state, cgroup bindings, staging entries, and process context. |
+
+`RegisterJob` and cgroup binding are separate operations.
+GitHub can resolve the cgroup from the peer PID at start time, so it uses `RegisterJob + BindProcessCgroupToJob`.
+GitLab Docker executor registers a job from label identity evidence and waits for a later staging promote.
+
+The per-job event channel is bounded. KernelTracker owns delivery-pressure handling before events reach Job rule evaluation, including repeated `file_open` suppression and delivery diagnostics. See [EventRecord delivery pressure](ebpf-runtime.md#eventrecord-delivery-pressure).
+
+## Design Notes
+
+- Job membership is determined by cgroup tracking. Process context is a fat node snapshot with `exec_path` / `argv` / `ancestors`; it is not used as the job boundary.
+- KernelTracker state is owned exclusively by its loop goroutine. `jobTrackingState` is not published externally.
+- Listener stays as the delivery layer. Provider differences are contained in handlers and JobRegistry primitive composition.
+- Output runtime is scope-local. Host / project output queues are not hoisted into JobRegistry.
+- JobRegistry owns lifecycle. It is not on the hot path for event routing.
+
+For kernel-side observation details, see [eBPF Runtime](ebpf-runtime.md).
+For Agent implementation ownership rules, see [Agent Ownership Boundaries](agent-ownership-boundaries.md).
+For the rule authoring surface, see [Rules](../user-guide/rules.md).
+For the rule implementation, see [Rule Engine](rule-engine.md).
 
 ---
 > Source: [cicd-sensor/cicd-sensor](https://github.com/cicd-sensor/cicd-sensor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
