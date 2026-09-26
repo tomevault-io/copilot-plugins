@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--k8s-test-infra",
+  "displayName": "k8s-test-infra",
+  "description": "k8s-test-infra",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/k8s-test-infra",
+  "skills": []
+}
