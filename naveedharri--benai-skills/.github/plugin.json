@@ -1,0 +1,14 @@
+{
+  "name": "naveedharri--benai-skills",
+  "displayName": "benai-skills",
+  "description": "benai-skills",
+  "version": "1.0.0",
+  "author": "naveedharri",
+  "homepage": "https://github.com/naveedharri/benai-skills",
+  "skills": [
+    {
+      "name": "os-mcp",
+      "description": ""
+    }
+  ]
+}
