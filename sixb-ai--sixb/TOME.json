@@ -2,7 +2,7 @@
   "name": "sixb",
   "owner": "sixb-ai",
   "repo": "sixb",
-  "description": "Open-source TypeScript framework for building operational software used by humans and AI agents.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sixb-ai/sixb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T11:04:44Z"
+  "distributed_at": "2026-09-26T17:01:20Z"
 }
