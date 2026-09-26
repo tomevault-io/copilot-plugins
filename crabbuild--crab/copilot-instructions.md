@@ -2,87 +2,54 @@
 
 > Root `AGENTS.md` and `crates/AGENTS.md` apply. Read
 
-# crab-cache-server
+# crab-coordination
 
 Root `AGENTS.md` and `crates/AGENTS.md` apply. Read
-`crates/crab-cache-server/README.md` for crate usage. Paths below are repository-root-relative.
+`crates/crab-coordination/README.md` for crate usage. Paths below are repository-root-relative.
 
 ## Purpose and ownership
 
-Owns the cache-service binary, HTTP admission, origin composition, disk persistence, and maintenance tasks. crab-cache defines shared route/client contracts; repository mutation remains outside the cache service.
+Owns lease/admission and active-active write coordination mechanics. Callers choose operation policy and must maintain the required ref/GC authority through publication.
 
 ## Read first
 
-1. `crates/crab-cache-server/src/lib.rs` — service modules.
-2. `crates/crab-cache-server/src/server.rs` — `prepare_server / run_server`: listener/TLS startup and shutdown.
-3. `crates/crab-cache-server/src/state.rs` — `build_router / AppState`: router and shared state.
-4. `crates/crab-cache-server/src/handlers.rs` — `read_object / write_object`: request parsing and cache/origin decisions.
-5. `crates/crab-cache-server/src/cache_store.rs` — `ServerObjectKey`: disk payload and SQLite accounting.
+1. `crates/crab-coordination/src/lib.rs` — feature-gated exports.
+2. `crates/crab-coordination/src/push_lock.rs` — `PushLock`: holder-checked lease lifecycle.
+3. `crates/crab-coordination/src/lease_operation.rs` — `while_renewing`: renewal while draining an operation.
+4. `crates/crab-coordination/src/gc_fence.rs` — `GcFenceLease`: shared/exclusive GC admission.
+5. `crates/crab-coordination/src/write_coordinator.rs` — `WriteCoordinator / PushTransactionState`: transaction state contract.
 
-Trace one path: `crates/crab-cache-server/src/bin/crab_cache.rs` → `run_server` in
-`crates/crab-cache-server/src/server.rs` → `build_router` in
-`crates/crab-cache-server/src/state.rs` → handlers in
-`crates/crab-cache-server/src/handlers.rs`.
+Trace one path: `crates/crab-write/src/generation.rs` → `while_renewing` in
+`crates/crab-coordination/src/lease_operation.rs` → `PushLock::renew` in
+`crates/crab-coordination/src/push_lock.rs`. The caller still releases its lease.
 
 ## Common changes
 
 | Task | Start here | Also inspect |
 | --- | --- | --- |
-| Service startup | `crates/crab-cache-server/src/bin/crab_cache.rs` | `crates/crab-cache-server/src/server.rs` |
-| Route or authorization | `crates/crab-cache-server/src/state.rs` | `crates/crab-cache/src/path_class.rs` |
-| Disk retention | `crates/crab-cache-server/src/cache_store.rs` | `crates/crab-cache-server/src/evictor.rs` |
+| Lease cancellation | `crates/crab-coordination/src/lease_operation.rs` | `crates/crab-write/src/generation.rs` |
+| GC fence lifecycle | `crates/crab-coordination/src/gc_fence.rs` | `crab/src/cmd/gc` |
+| Active-active transitions | `crates/crab-coordination/src/write_coordinator.rs` | `crates/crab-coordination/src/active_active_runtime.rs` |
 
 ## Invariants
 
-- Construct policy and origin dependencies before cache recovery, eviction, or
-  background task startup. Await `PreparedServer::shutdown` after preparation
-  succeeds; dropping an evictor handle does not stop its task.
-  Sources: `crates/crab-cache-server/src/server.rs`, `crates/crab-cache-server/src/evictor.rs`.
-- Handle fallible Tokio runtime creation at the binary boundary for serve,
-  check, and onboarding probe; resource exhaustion is a startup error, not an
-  `expect` panic. Source: `crates/crab-cache-server/src/bin/crab_cache.rs`.
-- Register shutdown signals before preparing runtime dependencies. TLS signal
-  waiting stays inside the serving future; listener failure must not detach it.
-  Preserve the separate HTTP and TLS drain policies.
-  Source: `crates/crab-cache-server/src/server.rs`.
-- Command success includes output completion. Propagate JSON serialization,
-  text/newline writes, and flush errors; keep stdout and evidence-file JSON on
-  one writer. Output failures return normal errors instead of printing panics.
-  Source: `crates/crab-cache-server/src/bin/crab_cache.rs`.
-- Validate ASCII before byte-indexed hex decoding. Malformed PSK config and cache hashes must return errors rather than panic on UTF-8 boundaries.
-  Sources: `crates/crab-cache-server/src/config.rs`, `crates/crab-cache-server/src/cache_store.rs`.
+- while_renewing borrows the lease: await it to completion, then explicitly release. Dropping its future does neither cleanup action.
+  Source: `crates/crab-coordination/src/lease_operation.rs`.
+- Renewal failure signals cancellation and drains work; preserve primary operation errors instead of replacing them with renewal failure.
+  Source: `crates/crab-coordination/src/lease_operation.rs`.
+- Do not conflate ref leases, GC fences, and active-active transaction state; inspect the corresponding owner contract before moving authority boundaries.
+  Source: `crates/crab-coordination/src/write_coordinator.rs`.
 
-- Separate public health/metrics routes from authenticated object/admin routes; inspect router composition before moving middleware.
-  Source: `crates/crab-cache-server/src/state.rs`.
-- Path parsing and immutable admission precede cache/origin operations; reject invalid paths rather than normalizing them into a different object.
-  Source: `crates/crab-cache-server/src/handlers.rs`.
-- Payload integrity and persistent accounting must agree after put/eviction; inspect cache-store and evictor paths together.
-  Source: `crates/crab-cache-server/src/cache_store.rs`.
-- Failed payload removal must retain metadata, byte accounting, and eviction
-  counters. Indexed eviction and invalid-object cleanup share `remove_cache_file`;
-  preserve its typed I/O cause. Source: `crates/crab-cache-server/src/cache_store.rs`.
-- Use removal's `EvictStats` for both count and bytes. Zero bytes can mean an
-  empty object; a stale candidate contributes no eviction. Source:
-  `crates/crab-cache-server/src/cache_store.rs`.
-- Administrative eviction and staged publication use `CacheStore::run_mutation`.
-  Keep the admission
-  permit and drain token with its result until consumption or cleanup, and
-  serialize tracker closure with spawning;
-  cancelled requests must not detach mutations from `PreparedServer::shutdown`.
-  Move staged-file ownership and budget/commit work together. Origin fallback
-  retains the commit recovery handle; shard-index ingestion stays with its caller.
-- Periodic eviction runs blocking work off the async executor. Shutdown signals
-  the loop and joins the admitted batch; do not abort its outer task and detach
-  a mutation. Source: `crates/crab-cache-server/src/evictor.rs`.
+- Check both Unix expiry and monotonic renewal-deadline arithmetic. Reject unrepresentable durations before storage access; retain fresh expiry calculation on each renewal attempt.
+  Source: `crates/crab-coordination/src/push_lock.rs`.
 
 ## Features and platform
 
-No declared Cargo features. Binary `crab-cache-server` is declared at src/bin/crab_cache.rs. Disk/SQLite and loopback networking support are needed for relevant tests; TLS/live origin/eviction qualification needs the dedicated workflow.
+Empty default. `object-store-lock` exposes lease/fence/admission code. `coordinator-dynamodb`, `coordinator-spanner`, and `coordinator-cosmosdb` enable their provider adapters. Provider SDK semantics require locked source review and dedicated backend proof; do not assume default tests exercise those services.
 
 ## Verification
 
-The Unix TLS startup fixture requires `openssl` to generate temporary certificates.
-Inline state/handlers tests exercise routes and range errors; cache_store tests cover hash mismatch and persistence. Full service qualification is defined in `.github/workflows/cache-service.yml`.
+Inline lease_operation tests cover lost-lease draining and error precedence; `crates/crab-coordination/src/active_active_tests.rs` covers coordinator behavior.
 
 Run from repository root. The target below is the example for worktree `089c`;
 replace it with a unique directory for your checkout. Before compilation, verify
@@ -90,8 +57,8 @@ replace it with a unique directory for your checkout. Before compilation, verify
 writable. Stop if unavailable; never fall back to a local target directory.
 
 ```sh
-CARGO_TARGET_DIR="$HOME/Workspace/crabbuild-target/crab-089c" cargo test -p crab-cache-server --locked --lib state::tests
-CARGO_TARGET_DIR="$HOME/Workspace/crabbuild-target/crab-089c" cargo test -p crab-cache-server --locked --lib cache_store::tests
+CARGO_TARGET_DIR="$HOME/Workspace/crabbuild-target/crab-089c" cargo test -p crab-coordination --locked --lib --features object-store-lock lease_operation::tests
+CARGO_TARGET_DIR="$HOME/Workspace/crabbuild-target/crab-089c" cargo test -p crab-coordination --locked --lib active_active_tests
 ```
 
 These are focused checks, not full runtime qualification. Use affected-consumer
@@ -101,10 +68,8 @@ are in `crab/scripts/check-crate-interface-builds.py` and
 
 ## Related documentation
 
-- `crates/crab-cache-server/README.md` — usage and detailed contracts.
-- `crates/crab-cache-server/Cargo.toml` — dependency and feature authority.
-
-Read `crates/crab-cache-server/src/config.rs` and `crates/crab-cache-server/src/preflight.rs` before changing operational requirements.
+- `crates/crab-coordination/README.md` — usage and detailed contracts.
+- `crates/crab-coordination/Cargo.toml` — dependency and feature authority.
 
 Update this guide when entry points, ownership, invariants, features, or test
 routes change. Keep detailed API preconditions in rustdoc rather than copying
@@ -112,4 +77,4 @@ them into a second specification.
 
 ---
 > Source: [crabbuild/crab](https://github.com/crabbuild/crab) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
