@@ -2,7 +2,7 @@
 
 > Movy is a Schwung **tool module** for Ableton Move. The UI (TypeScript →
 
-# CLAUDE.md — Movy
+# CONVENTIONS.md — Movy
 
 Movy is a Schwung **tool module** for Ableton Move. The UI (TypeScript →
 `ui.js`) runs in the shadow-UI QuickJS context; it presents the active chain
@@ -13,6 +13,45 @@ slot's synth parameters on the 8 knobs and is also a **native-Move-style
 Device: `ableton@move.local`
 
 **Plans:** Save all implementation plans to `movy/plans/` (not the repo root `plans/`).
+
+## Aider setup
+
+This repository is part of a parent `cld` workspace containing several related
+repositories. Aider agents should treat sibling repos as **context only**, not
+as files to edit unless the user explicitly asks and has added them to the chat.
+
+- `../schwung` — the main Schwung runtime/shadow-UI host. This is the most
+  important sibling: many host API facts in this file are sourced from
+  `schwung/src/shadow/shadow_ui.js`.
+- Other module repos may sit alongside `movy` under the same parent directory.
+  Until they are listed in `.aider.conf.yml` (or added to the chat manually),
+  aider does not see them.
+
+If you need aider to include those sibling repositories in its repo-map, add
+them to `.aider.conf.yml` under `read:`. Do not add broad `read:` globs that
+pull in build artifacts or the sibling repos' own `.aider` files.
+
+---
+
+## Context discipline
+
+A tool call is a full model turn — the whole conversation gets re-sent on
+every one — so round-trip *count* is the cost, not output size. Optimize for
+fewer calls, not smaller ones.
+
+- **Batch independent shell calls into one message.** Firing them one at a
+  time pays a full round trip each even when none depends on another's
+  result.
+- **Device work: one `ssh` round trip, not three.** The clear-log → act →
+  check-log cycle run as three separate `ssh ableton@move.local` calls is the
+  single most common device pattern in this repo's session history. Use
+  `scripts/dev-probe.sh log` instead — it clears the log, optionally injects a
+  MIDI event, polls for the pattern, and dumps matching lines inside one ssh
+  call. `scripts/dev-probe.sh status` does the same for reachability + deployed
+  `ui.js` md5 + log-enabled state.
+- **Grep or read a line range before reading a whole file.** `Read` on an
+  entire file is the most expensive call type per-invocation in this repo. If
+  you're hunting one symbol, `grep -n` it first and read just that range.
 
 ---
 
@@ -41,8 +80,17 @@ mirror in the UI.
 
 - **ENGINE_VERSION must match** between `engine/crates/movy-dsp/src/lib.rs`
   and `src/seq/constants.ts` (`build-dsp.sh` fails the build otherwise). The
-  UI probes `ping` and re-issues the DSP load until the version matches —
-  this is how a redeployed engine hot-reloads.
+  UI probes `ping` and re-issues the DSP load until the version matches.
+- **A redeployed `dsp.so` does NOT hot-reload — the stack must restart.** The
+  shim dlopens the engine by path, and glibc returns the library already loaded
+  under that path for as long as MoveOriginal lives, so the version gate above
+  just loops: it re-issues the load and the shim answers with the old binary.
+  `deploy.sh` therefore restarts the stack whenever the shipped `dsp.so`
+  differs (`--no-restart` opts out, and says loudly that the old engine is
+  still running). The restart must run **as root** — MoveOriginal is root's, so
+  `restart-move.sh` as the `ableton` user pkills nothing and still exits 0.
+  Bumping ENGINE_VERSION once for two different builds hides this completely:
+  both answer `ping` with the same string, and the stale one looks current.
 - **Engine sets must be blocking** (`host_module_set_param_blocking`): the
   `overtake_dsp:` param SHM is a single slot, so non-blocking writes (and even
   schwung's own DSP-load request) are routinely lost.
@@ -79,7 +127,7 @@ if you are opus or fable 5 try to optimize token usage and make it cost efficien
 cd engine && cargo test            # pure seq-core logic (host)
 ./scripts/build-dsp.sh             # cross-compile aarch64 → dist/dsp.so (glibc <= 2.35)
 ./scripts/deploy.sh                # builds ui.js + dsp.so, deploys both (atomic .so)
-./scripts/test-seq.sh              # device e2e: transport, steps, record, session, persistence
+npm run test:device                # device e2e, every scenario (builds + ships dsp.so and ui.js)
 ```
 
 If MoveOriginal dies, recover with the davebox restart sequence (root SSH;
@@ -93,10 +141,17 @@ the user must run it): stop `move-launcher`, pkill the schwung stack, start
 Run tests in this order at the end of every task:
 
 Run `npm run build:browser` first (refreshes `dist/esm`), then in order
-(or just `npm test`, which builds + runs all six):
+(or just `npm test`, which builds + runs all eight local suites — the six below
+plus `track-colors.mjs` and `abi-parity.mjs`):
 
 ```bash
 # 1. Local (always) — viewmodel/business logic assertions
+# logic.mjs is only a RUNNER. The suites live in browser-test/logic/<subsystem>.mjs
+# — add a test by editing the matching subsystem module, never the runner. A new
+# subsystem needs a new module plus one line in each of the runner's two lists.
+# browser-test/logic/harness.mjs is the shared kit and must stay the runner's
+# first import: it installs the mock globals and owns the single failure counter,
+# so new shared imports go in its preamble + export list, not per-suite.
 node browser-test/logic.mjs
 
 # 1a. Local (always) — replays all 76 dumped modules; asserts layout invariants
@@ -117,93 +172,40 @@ node browser-test/perf.mjs
 #     suite cannot report "missing" for a log line that is present
 node browser-test/device-scripts.mjs
 
-# 4. Device (when reachable) — deploy + automated MIDI/log test + perf timing
+# 4. Device (when reachable) — the whole tier in one process. It builds and
+#    deploys dsp.so FIRST, so a Rust change is the one actually under test.
+#    A clean run exits 0: there is no known-red check in this tier.
 ssh -o ConnectTimeout=3 ableton@move.local echo ok 2>/dev/null \
-  && ./scripts/test.sh \
+  && npm run test:device \
   || echo "DEVICE OFFLINE — SKIPPING DEVICE TESTS"
 # If offline: report DEVICE OFFLINE to the user in CAPS
 
-# 4b. Every device suite at once (each one is independent — any subset, any order)
+# 4a. The above plus the LED restore on the way out, including on Ctrl-C.
+#     Tracks 1-16 are all movy chains; there is no second host arrangement to
+#     sweep (the two test-all-device-{schwung,movy}.sh scripts named here are
+#     long gone).
 ./scripts/test-all-device.sh [move.local]
 ```
 
-### Device tests run against a fixture state
+### Device testing
 
-Every device script starts with `test_set_begin` (from `scripts/lib/test-set.sh`),
-which puts the device into the known state in `scripts/fixtures/device-set/`:
-plaits on track 0, a drum module on track 1, fixed clips, and a seeded
-automation lane. It applies the state and then **reads it back** — a suite never
-runs on unconfirmed state. Move's firmware owns set switching, so the fixture is
-applied to whichever set is active; the previous contents are not preserved.
+**`CLAUDE.md` is the single source for this** — see its *The device tier is
+`test-device/`*, *What the harness can do*, *Rules that were each paid for
+once*, *The fixture*, and *Device tests are a smoke check, not the gate*.
 
-This is what makes the suites order-independent. Before it, `test-unload.sh`
-deleted the clip `test-reselect.sh` needed, and step presses toggled whatever a
-previous run had left.
+This file used to carry a second copy, and the copies drifted: after the
+migration it was still naming `./scripts/test.sh` and two sweep scripts that no
+longer exist, and still telling the reader that the tier exits non-zero BY
+DESIGN because of a bug that had been fixed. A pointer cannot go stale that way.
 
-On the way out, every suite restarts the Move stack (`test_set_end`, trapped on
-`EXIT INT TERM`). Device tests leave movy open in overtake owning the LEDs and
-suppressing Move's own LED writes, so without the restart the pads and step
-buttons stay dark afterwards and the hardware looks broken. It costs ~10 s;
-`test-all-device.sh` suppresses the per-suite restarts and does one at the end.
+The short version:
 
-**Writing a device test:** source the library, call `test_set_begin`, add
-`trap test_set_end EXIT INT TERM`, and use
-`ts_tap_cc` / `ts_tap_note` / `ts_tap_two_steps` for gestures. Each inject is
-its own ssh round trip (~0.5 s), so a press/release pair driven as two injects
-is a >500 ms hold — long enough that movy reads it as a different gesture (a
-held step becomes an automation hold that enters no note; a held track button is
-momentary and reverts on release). The helpers deliver a whole gesture in one
-device-side script. See `scripts/fixtures/README.md` for the fixture format and
-the device behaviours it works around.
-
-Other useful commands:
-
-```bash
-# Build + deploy ui.js to device
-./scripts/deploy.sh [move.local]
-
-# Full automated test — deploy, open movy, inject knob CCs, check log (PASS/FAIL)
-./scripts/test.sh [move.local]
-
-# Device e2e: step automation stays audible after a real module reselect
-./scripts/test-reselect.sh [move.local]
-
-# Device e2e: the bottom CLICK JOG hint only appears after a ~1 s jog hold
-# (asserts on the real framebuffer's toast band, not the log)
-node scripts/test-jog-hint.mjs [move.local]
-
-# Device e2e: closing Movy mid-sequence releases every sounding note.
-# Fills all 16 steps first — one note on one step is silent for most of the
-# loop, so a teardown sampled at random would find no open gate and prove
-# nothing. Asserts '[movy] unload: released N' with N > 0.
-./scripts/test-unload.sh [move.local]
-
-# Capture the device's live screen as a PNG — verify what the Move actually
-# shows instead of inferring it from log lines. Drive the UI with
-# ../schwung-midi-inject-ui.py first (cc 40-43 tracks, cc 3 jog click,
-# cc 14 jog turn, cc 71-78 knobs), then grab.
-node scripts/grab-screen.mjs /tmp/shot.png [move.local] [scale]
-
-# Enable unified log (once per device boot; persists until cleared)
-ssh ableton@move.local 'touch /data/UserData/schwung/debug_log_on'
-
-# Live movy log tail
-ssh ableton@move.local 'tail -f /data/UserData/schwung/debug.log | grep "\[movy\]"'
-
-# Clear log
-ssh ableton@move.local '> /data/UserData/schwung/debug.log'
-```
-
-### Device-test harness gotchas
-
-- Playhead only advances with a **playing clip that has notes** (`len>0` in
-  `status`); an empty clip freezes `step`/`pos` at 0 even when `play=1`.
-- MIDI-inject to overtake is device-state-flaky (notes vs CCs drop unpredictably),
-  so **build test scenes with engine commands** via `seqCmd`: `tog`/`clen`/`aset`/
-  `clipdel`; read `status`/`diag` via `host_module_get_param`.
-- Verify **audibility** (the synth's real param value moving), not a proxy like a
-  repopulated host cache. Full context: automation-reselect fix + engine-command
-  method are in `CHANGELOG.md` and the session's `project_reselect-synthparams-cache` note.
+- `npm run test:device` is the device tier. It builds and deploys `dsp.so`
+  itself, and a clean run exits **0**.
+- New device tests are scenarios in `test-device/scenarios/`. The bash tier is
+  closed to additions and `browser-test/device-scripts.mjs` fails `npm test` on
+  a new `scripts/test-*.sh`.
+- Device tests are flaky: run once, report, do not chase.
 
 **Build system:** All source lives in `src/` (TypeScript). `npm run build:device`
 bundles everything to `ui.js` via esbuild (single ESM file, no stale-module
@@ -262,67 +264,14 @@ code splitting). Never edit `ui.js` directly — it is a build artifact.
 - **Hard limit: 200 lines.** If a file exceeds this, split it.
 - **Target: 50–100 lines.** One clear responsibility per file.
 - The limit exists so the relevant context for any change fits in one read.
+- **`browser-test/` is covered too, at a looser ~600-line ceiling** (a suite is
+  one coherent subsystem, so 200 would shred it). It was exempt by omission,
+  and `logic.mjs` quietly reached 12,620 lines — 63× the src limit — becoming
+  the most-edited and most-expensive-to-read file in the repo.
 
 ### Directory responsibilities
 
-```
-src/
-  types/         Shared interfaces only — no logic, no imports from src/
-    param.ts       KnobParam, ModuleConfig, KnobSlot, BankConfig
-    viewmodel.ts   ViewModel, ParamVM, ToastState, OverlayState
-    schwung.d.ts   Ambient globals: fill_rect, shadow_*, setLED, decodeDelta,
-                   constants (Black, MovePads, …) — device globals and QuickJS os
-
-  model/         Knob/param state machine — no display calls
-    constants.ts   Tick rates, grid sizes (NAME_POLL_TICKS, KNOBS_PER_PAGE, …)
-    state.ts       ModelState interface + createModelState() factory
-    hierarchy.ts   loadHierarchy() — fetches ui_hierarchy + chain_params → KnobParam[]
-    store.ts       applyKnobDelta(), refreshKnobValues(), pollModuleName(), formatValue()
-    tick.ts        processTick() — long-press timer, delta flush, poll/refresh scheduling
-    viewmodel.ts   buildViewModel() — assembles ViewModel from ModelState
-    index.ts       createModel(slot) public factory — composes all model pieces
-
-  renderer/      Pure display functions — no state, no model imports
-    layout.ts      Display constants (W=128, ROW0_Y, CELL_W, …)
-    header.ts      drawInvertedHeader(), drawBankBar()
-    knob.ts        drawKnobWidget(), drawArcKnob(), drawEnumKnob()
-    label.ts       drawLabelCell(), drawKnobRow()
-    overlay.ts     drawEnumOverlay() — full-screen scrollable enum list
-    knob-view.ts   renderKnobsView(vm)
-    keys-view.ts   renderKeysView(moduleName, rootNote, midiNoteName)
-    browse-view.ts renderBrowseView(modules, browseIndex)
-
-  modules/       Per-synth knob layout configs
-    loader.ts      loadModuleConfig(id) — tryFile override → bundled CONFIGS → null
-    plaits.json    Plaits OSC/MOD bank layout
-    wurl.json      Wurl WURL/FX bank layout
-    *.json         Add new synth configs here as JSON files
-
-  keyboard/      Pad note-on/off, LED colours, root-note shifting
-    notes.ts       midiNoteName(), PAD_MAP[]
-    state.ts       keyboardState: { rootNote, scale, lastPlayedNote }
-    held-notes.ts  live-note ledger: padNote → { track, pitch } (see below)
-    release.ts     emitNoteOff(), releaseAllLive(), releaseLiveOnTrack()
-    leds.ts        padLedColor()
-    handler.ts     noteOn(), noteOff(), setRoot(), changeRoot()
-
-  browser/       Module browser (scan → select → load)
-    state.ts       browserState: { modules[], browseIndex }
-    handler.ts     openBrowser(), loadSelectedModule()
-
-  midi/
-    router.ts      onMidiMessageInternal() — routes by status byte to all handlers
-
-  app/           Lifecycle and global wiring
-    state.ts       appState: { model, activeSlot, currentView, shiftHeld, dirty, … }
-    init.ts        init() — slot detection, model creation, reset
-    tick.ts        tick() — LED init batch, model.tick(), render dispatch
-    globals.ts     Assigns init/tick/onMidiMessageInternal to globalThis
-
-  font/
-    glyphs.ts      G[] glyph table (pixel font rasterised at 8pt)
-    index.ts       FONT_HEIGHT, fontPrint(), fontWidth()
-```
+Run `ls src/` for the current layout — the boundaries below are what matters.
 
 ### Key boundaries
 
@@ -341,15 +290,6 @@ src/
 1. Create `src/modules/<id>.json` following the `ModuleConfig` shape.
 2. In `src/modules/loader.ts`, add an import and register in `CONFIGS`.
 3. Run `npm run build:device` — the JSON is bundled in automatically.
-
-### Build commands
-
-```bash
-npm run build          # device bundle + browser modules
-npm run build:device   # src/ → ui.js (esbuild, single ESM, external: schwung shared)
-npm run build:browser  # src/ → dist/esm/ (bundled entry points, code splitting)
-npm run typecheck      # tsc --noEmit, zero errors required
-```
 
 ---
 
@@ -406,7 +346,7 @@ shadow_send_midi_to_dsp([status, d1, d2])     // inject MIDI to active slot's DS
 host_exit_module()                            // exit movy, return to shadow UI
 ```
 
-`ui_hierarchy` JSON shape (from `CLAUDE.md` in the schwung repo):
+`ui_hierarchy` JSON shape (from `CONVENTIONS.md` in the schwung repo):
 ```json
 {
   "levels": {
@@ -423,7 +363,9 @@ Param metadata (min/max/step/type) comes from `shadow_get_param(slot, "synth:cha
 
 ## open_tool_cmd protocol
 
-The only way to open a tool programmatically (used by `scripts/test.sh`):
+The only way to open a tool programmatically (the device harness does this
+through `test-device/bus.ts`'s `openTool`, which is how every scenario opens and
+reopens movy):
 
 ```python
 import mmap, json
@@ -466,4 +408,4 @@ the glyph data in `glyphs.ts` is the source of truth.
 
 ---
 > Source: [DimaDake/schwung-movy](https://github.com/DimaDake/schwung-movy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
