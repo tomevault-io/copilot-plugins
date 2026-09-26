@@ -1,188 +1,71 @@
 ## mediago-drama
 
-> Publishable Go library. Stack: **Go module + go-task + stdlib `testing`**.
+> These are the shared UI components from the MediaGo Drama workspace app — a
 
-# go-lib — Agent Guide
+## How to build with this design system
 
-Publishable Go library. Stack: **Go module + go-task + stdlib `testing`**.
-Project layout follows
-[golang-standards/project-layout](https://github.com/golang-standards/project-layout).
+These are the shared UI components from the MediaGo Drama workspace app — a
+shadcn-style kit (Radix primitives + Tailwind v4 tokens). Build real screens by
+composing these components and using this system's Tailwind utility classes for
+your own layout glue. Everything below is verified against the bundle.
 
-## Starter layout (what's actually on disk)
+### Setup & wrapping
+- **No global provider is needed for styling.** All design tokens are plain CSS
+  custom properties applied at `:root` from `styles.css` — just render components.
+- **Theme:** light is the default (`:root`). Dark mode = set
+  `data-theme="dark"` on `<html>` (`:root[data-theme="dark"]`). Don't toggle a
+  `.dark` class — this system keys off `data-theme`.
+- **Tooltip needs a provider.** Wrap tooltip usage in `<TooltipProvider>` (once,
+  high in the tree) or tooltips won't open.
+- **Toaster** is mounted once at the app root: render `<Toaster />` near the root,
+  then call sonner's `toast(...)` from anywhere to show notifications.
 
+### Styling idiom — Tailwind v4 with semantic tokens
+Style your own layout with utility classes. NEVER hardcode hex colors — always use
+these semantic color utilities (each maps to a CSS var, so it tracks theme). Note:
+`styles.css` is a prebuilt stylesheet — the utilities below are confirmed present;
+if you need a color the table doesn't list, prefer a CSS var (`style={{ color:
+"var(--accent)" }}`) over a utility class that may not be in the sheet.
+
+| Utility family | Real names in this system |
+|---|---|
+| Surfaces | `bg-background`, `bg-card`, `bg-popover`, `bg-muted` |
+| Text | `text-foreground`, `text-muted-foreground`, `text-card-foreground`, `text-popover-foreground` |
+| Brand / intent | `bg-primary` `text-primary-foreground` (brand blue), `bg-destructive` `text-destructive-foreground` |
+| Borders / focus | `border-border`, `border-input`, `ring-ring` |
+| IDE workbench surfaces | `bg-ide-panel`, `bg-ide-editor`, `bg-ide-toolbar`, `bg-ide-sidebar`, `bg-ide-list-hover`, `bg-ide-list-active` (and matching `*-foreground`) |
+| Status surfaces | `bg-success-surface`, `bg-info-surface`, `bg-warning-surface`, `bg-error-surface` (+ `*-border`, `*-foreground`) |
+
+Other idioms this system relies on: radii are small — default to `rounded-sm`;
+elevation via `shadow-sm` / `shadow-md` / `shadow-lg`; type via `text-xs` (the UI
+default), `text-sm`, `font-medium` / `font-semibold`; spacing via the normal
+Tailwind scale (`gap-2`, `p-3`, `px-2`, `h-8`). Component variants are props, not
+classes — e.g. `<Button variant="destructive" size="sm">`, `<Badge variant="outline">`,
+`<Alert variant="destructive">`.
+
+### Where the truth lives
+- `styles.css` (and its `@import`s, incl. `_ds_bundle.css`) — the full token +
+  utility stylesheet. Read it before inventing any class or color.
+- Each component's `<Name>.prompt.md` (usage) and `<Name>.d.ts` (props contract).
+
+### Idiomatic example
+```tsx
+<Card className="w-80">
+  <CardHeader>
+    <CardTitle>Render queue</CardTitle>
+    <CardDescription>3 clips waiting to export.</CardDescription>
+  </CardHeader>
+  <CardContent className="flex items-center justify-between text-xs">
+    <span className="text-muted-foreground">Status</span>
+    <Badge>Rendering</Badge>
+  </CardContent>
+  <CardFooter>
+    <Button size="sm">Open</Button>
+    <Button size="sm" variant="ghost">Cancel</Button>
+  </CardFooter>
+</Card>
 ```
-pkg/
-└── greeter/                 # placeholder public package — rename / replace
-    ├── greeter.go
-    └── greeter_test.go
-
-go.mod                       # module path = github.com/example/<name> — change before publishing
-Taskfile.yml                 # fmt / vet / test / tidy / check
-README.md
-LICENSE                      # Apache-2.0
-```
-
-The starter is intentionally minimal. The rest of the standard layout
-is **not** scaffolded — create directories only when you have real
-content to put in them. The cheatsheet below tells you which directory
-to use.
-
-## golang-standards/project-layout — directory cheatsheet
-
-Look up before creating a new top-level directory. Don't invent new ones.
-
-| Dir | Purpose | When to create |
-|-----|---------|----------------|
-| `/pkg` | **Public** library code. Anything importable by consumers. API == contract. | Already exists. Add a new subpackage `pkg/<feature>/` when grouping is needed. |
-| `/internal` | **Private** code. Go toolchain forbids imports from outside the module. | When you have helpers that must NOT leak to consumers (parsing internals, vendored utilities, version constants). |
-| `/cmd/<name>/` | Optional CLI(s) that ship alongside the library. `main.go` here must stay thin — flag parsing, then call into `pkg/`. | Only if the library has a companion executable (e.g. a code generator, a smoke-test binary). Pure libraries don't need it. |
-| `/examples/<name>/` | Runnable usage examples. Each subdir is `package main` with its own `main.go`. | When a public API is non-trivial; one example per major use case. |
-| `/api/` | Protocol contracts: OpenAPI, Proto, JSON Schema, gRPC IDL. | If the library publishes a wire protocol or codegen source. |
-| `/test/` | Integration / E2E tests + large test data. Unit tests stay next to source. | When you need a real backend (DB, network) or fixtures big enough to clutter source dirs. Gate with `//go:build integration`. |
-| `/docs/` | Design docs, ADRs, architecture notes. | When you accumulate enough non-README prose to justify a directory. |
-| `/scripts/` | Build, release, codegen, lint scripts. Treat as executable docs. | When something runs more than twice. |
-| `/build/` | Packaging configs (CI, Dockerfiles for release builds, goreleaser config). | When you ship binaries from `/cmd` or want reproducible release packaging. |
-| `/githooks/` | Repo-local git hooks. | If hooks are project-specific and not enforced by a separate tool. |
-| `/tools/` | Dev tooling pinned via `tools.go` blank imports. | When you need versioned dev tools (mockgen, stringer). |
-| `/third_party/` | Vendored / forked external code. | Rarely. Prefer `go.mod` replace directives. |
-
-**Directories that signal "this stopped being a library":** `/configs`,
-`/deployments`, `/web`, `/init`, `/assets`. If you find yourself
-reaching for these, the project is becoming an application — reconsider
-the scope or split into two modules.
-
-## Library contract — these are the rules
-
-A library is a public API. Every exported symbol is a promise.
-
-- **Only `pkg/**` is public.** Anything you don't want consumers to
-  import goes under `internal/`. Renaming, removing, or changing the
-  signature of an exported symbol in `pkg/` is a **breaking change**.
-- **Semantic versioning is non-negotiable.** Breaking changes bump
-  major. New features bump minor. Bugfixes bump patch.
-- **`v2+` requires a module path bump.** Append `/v2` (or `/v3`...) to
-  the module path in `go.mod` AND in import paths. There is no
-  shortcut.
-- **Every exported symbol has a doc comment** that starts with the
-  identifier name. `// Greet returns ...`, not `// Returns ...`.
-- **No `init()` side effects.** Consumers may not want them. Use
-  explicit constructors.
-- **Don't pollute global state.** No global mutable variables, no
-  hidden defaults that consumers can't override.
-- **Be conservative with dependencies.** Every dependency you add is
-  one your consumers must download and audit. Prefer the stdlib.
-  Vet bundle-size impact before pulling in anything heavy.
-- **Don't ship binaries from the root.** If you need a CLI, put it
-  under `cmd/<name>/`.
-
-## Engineering discipline — mandatory
-
-1. `task check` exits 0 (tidy + fmt + vet + test)
-2. `go test -race ./...` passes — every new exported symbol comes
-   with a test
-3. `go build ./...` compiles
-4. Stage explicitly: `git add <file>`. Never `git add -A`.
-5. Conventional commit messages: `feat(greeter): add multi-language Greet variants`.
-6. For breaking changes use `feat!:` or `fix!:` prefix AND describe
-   the breakage in the commit body.
-
-If any check fails, stop. Fix the root cause; don't paper over.
-
-## Testing conventions
-
-- **Unit tests live next to source** as `<name>_test.go`. `go test`
-  auto-discovers them.
-- **Table-driven tests** for cases with shared setup. Use `t.Run(tt.name, ...)`
-  for sub-tests so failures point at the specific case.
-- **Test the public API**, not internal helpers. If a helper is
-  important enough to test directly, ask whether it should be in
-  `pkg/` after all.
-- **No mocks for pure functions.** When impurity is unavoidable,
-  inject collaborators via interfaces. Define the interface in the
-  **consumer** package — not the producer (Go interface segregation).
-- **Race detector is mandatory.** `go test -race ./...` is part of
-  `task test`. Don't disable it.
-- **Integration tests** go under `/test/` with `//go:build integration`
-  build tag, run via `go test -tags=integration ./test/...`.
-- **Examples are tests too.** `func ExampleGreet()` in `pkg/greeter/`
-  compiles, runs, and verifies `// Output:` lines. Use them for the
-  most-used API surfaces.
-
-## Code style
-
-- ❌ **`interface{}` / `any`** unless you genuinely accept any type.
-  Prefer generics (`func F[T any](...)`) or concrete types.
-- ❌ **`(value, bool)` for "not found"** — use `(value, error)` with a
-  sentinel error and `errors.Is(err, ErrNotFound)`. Bool returns
-  don't compose with `errors.Wrap`.
-- ❌ **`panic` outside `init()` or `main`.** Libraries return errors.
-  A panic crashes the consumer.
-- ❌ **`log.Print*` / `fmt.Println` for diagnostics.** Libraries don't
-  own the logger. Accept one via constructor (`*slog.Logger` or an
-  interface), or return errors and let the consumer log.
-- ❌ **Reading env vars in library code.** Take values as parameters;
-  let the consumer decide where they come from.
-- ✅ **`context.Context` as the first parameter** for any function
-  that may block, do I/O, or be cancellable.
-- ✅ **Wrap errors with context**: `fmt.Errorf("decoding payload: %w", err)`.
-  Use `%w` for the cause, `%v` for non-wrapping formatting.
-- ✅ **Sentinel errors for branchable cases**: `var ErrNotFound = errors.New("...")`.
-- ✅ **Doc comments on every exported symbol**, starting with the
-  identifier name.
-
-## Adding a new public API — checklist
-
-1. Implement in `pkg/<feature>/<feature>.go` with a doc comment.
-2. Add table-driven tests in `pkg/<feature>/<feature>_test.go` (happy
-   path + each error case + boundary inputs).
-3. If the API benefits from a worked example, add
-   `func ExampleX()` in the same package — the godoc renders it.
-4. If non-trivial, add a runnable example under `examples/<feature>/main.go`.
-5. Run `task check` — must be green.
-6. Commit. Conventional message. If signature changes break consumers,
-   use `feat!:` and call out the breakage explicitly.
-
-## Adding a new internal helper
-
-1. Pick the right home:
-   - Reusable across `pkg/` subpackages but not for consumers →
-     `internal/<helper>/`
-   - Specific to one `pkg/` subpackage → `pkg/<feature>/<helper>.go`
-     (unexported) or `pkg/<feature>/internal/<helper>/`
-2. Tests next to source, same package.
-3. Never export from `internal/`. If you find yourself wanting to,
-   move the symbol to `pkg/`.
-
-## Versioning workflow
-
-```bash
-# 1. Make the change + commit.
-# 2. Tag the release.
-git tag v0.1.0
-git push origin v0.1.0
-# 3. For major bumps, update module path FIRST:
-#    go.mod:   module github.com/example/<name>/v2
-#    imports:  github.com/example/<name>/v2/pkg/...
-#    then tag v2.0.0
-```
-
-## Quality gates
-
-```bash
-task check          # tidy + fmt + vet + test
-task test:cover     # coverage report (look at -func output)
-go build ./...      # compiles cleanly
-```
-
-All must pass before declaring a change complete.
-
-## References
-
-- [golang-standards/project-layout](https://github.com/golang-standards/project-layout)
-- [Effective Go](https://go.dev/doc/effective_go)
-- [Go Code Review Comments](https://go.dev/wiki/CodeReviewComments)
-- [Module version numbering](https://go.dev/doc/modules/version-numbers)
 
 ---
 > Source: [mediago-dev/mediago-drama](https://github.com/mediago-dev/mediago-drama) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
