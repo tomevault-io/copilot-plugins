@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [splunk/token-meter](https://github.com/splunk/token-meter).
+Original source: `CLAUDE.md` in [splunk/token-meter](https://github.com/splunk/token-meter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -30,7 +30,7 @@ Original source: `AGENTS.md` in [splunk/token-meter](https://github.com/splunk/t
 - [token-meter](https://github.com/splunk/token-meter/tree/main/.agents/skills/token-meter-communication/SKILL.md)
 - [token-meter](https://github.com/splunk/token-meter/tree/main/.claude/skills/token-meter-communication/SKILL.md)
 
-From [splunk/token-meter](https://github.com/splunk/token-meter) — a repo with 100+ stars on GitHub.
+From [splunk/token-meter](https://github.com/splunk/token-meter) — a repo with 103+ stars on GitHub.
 
 ---
 
