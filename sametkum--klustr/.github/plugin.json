@@ -1,7 +1,7 @@
 {
   "name": "sametkum--klustr",
   "displayName": "klustr",
-  "description": "A native Kubernetes desktop client \u2014 nothing in your cluster, Helm + Argo CD + Gateway API built in. Free and MIT.",
+  "description": "klustr",
   "version": "1.0.0",
   "author": "SametKUM",
   "homepage": "https://github.com/SametKUM/klustr",
