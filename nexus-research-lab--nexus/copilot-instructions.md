@@ -1,24 +1,32 @@
 ## nexus
 
-> - `room-history-model.ts` 一次性完成内部草稿过滤、排序、活动项、外部 Session 标签、普通历史/IM 分组、单项与批量管理能力投影；只按服务端 `is_draft` 与结构化外部 Session 身份判定，标题不参与推断。两组内部各自保留原有活动时间顺序。
+> - `external-skill-model.ts` 统一外部技能身份、来源、安装量、导入状态和预览内容投影。
 
-# Room 历史
+# 外部技能
 
-- `room-history-model.ts` 一次性完成内部草稿过滤、排序、活动项、外部 Session 标签、普通历史/IM 分组、单项与批量管理能力投影；只按服务端 `is_draft` 与结构化外部 Session 身份判定，标题不参与推断。两组内部各自保留原有活动时间顺序。
-- 内部草稿只从历史投影中排除，仍留在标签目录和当前会话 Surface；首条用户输入使 `is_draft` 变为 `false` 后才进入历史。外部 Session 沿用既有展示规则，历史过滤不得驱动标签恢复或路由切换。
-- `room-history-selection.ts` 持有滚动列表多选状态；允许选择全部本地历史会话，外部渠道 Session 不参与删除。
-- `room-history-bulk-delete.ts` 全量清空时先确保一个内部草稿作为安全锚点，再把当前会话排在最后串行删除并聚合未确认项；单项失败不得阻断同批后续删除，也不得自动重放。
-- `room-history-menu.tsx` 负责固定高度的顶部锚定下拉、中部纵向滚动、切换、多选和删除确认；历史入口与 footer 动作复用 Button 原语，全选复用支持 mixed 状态的 `UiCheckbox`，条目整行复用 `UiListRow`，编辑与行内命令复用 `UiInput / UiListActionButton`，文本复用 App Typography，不得在菜单里复制控件状态样式。批量删除异常通过 `UiInlineNotice` 分别说明已确认完成数量、待确认数量和安全核对步骤，不提供普通“重试删除”；说明放在可滚动正文，不能挤掉固定操作区。
-- `room-history-item-model.ts` 将活动态、读取/编辑模式、本地化元信息和可用动作投影为封闭视图模型。
-- `room-history-item-view.tsx` 通过内容与动作映射渲染，不从原始会话重新判断权限或协议；`UiListRow` 是整行 hover/active/focus/键盘选择的唯一 owner，`UiListRowContent` 是标题、右侧时间和第二行来源的唯一布局，行内命令必须阻断冒泡。菜单用 `UiListSectionDivider` 把 IM 作为独立分区放在普通历史之后；外部来源行内只保留弱化的平台/账号元信息，不得重复 `IM`、在标题行放置品牌色胶囊，或用 `max-content` 造成时间和动作逐项跳动。
-- 外部 Session 和最少保留数量只影响单项删除能力；批量清空通过先创建或复用唯一内部草稿满足后端保留约束，删除主对话时仍由仓储事务提升回退会话。
-- 标题编辑以可空草稿表达完整状态，条目视图不维护第二份 `isEditing`。Enter/Escape 通过公共 IME 判断保留输入法选词；普通 Escape 先取消编辑，结束编辑后恢复重命名按钮焦点，随后才由公共浮层仲裁逐层关闭提示与历史。
-- 历史不再占用右侧辅助 Surface；菜单只装配滚动列表、单行标题、简短空状态、选择工具和删除确认，不显示会话计数副标题、装饰空态图标或协议说明。
-- 当前会话只用中性活动底面、更深文字与 `aria-current` 表达；不显示“当前”徽标、蓝色侧标、活动边框或阴影。当前与外部来源条目的可用动作保持常显，其余通过公共 ListAction 的 hover / 行内键盘焦点 / 无 hover 输入规则展示，不在外层再叠加透明度。时间与选择数量使用 metadata / muted，选择标签用 supporting，Footer 使用 sm Button。
-- “全选”作用于滚动列表里的全部本地历史会话，包括当前会话；确认后保留并切换到唯一的新草稿，草稿继续遵循首条用户输入后才进入历史的既有契约。
-- 历史批量删除属于紧凑 Header 动作，使用共享 `sm` Spinner；不得在触发器里重写旋转、尺寸或 reduced-motion class。
+## 职责
 
-- 菜单实例按 owner 与 Room 身份重建，批量完成不得跨已卸载实例切换会话或打开新菜单。单项重命名/删除与批量删除共用同步写入防重；失败条目在当前实例内禁止再次改名/删除，保留可读目录并显示核对说明，关闭菜单不清除该锁。
+- `external-skill-model.ts` 统一外部技能身份、来源、安装量、导入状态和预览内容投影。
+- `external-results-model.ts` 统一来源分组、筛选回退、排序和结果阶段判定。
+- `skills-external-results.tsx` 消费 controller 的来源作用域，并按结果阶段组合筛选器和列表。
+- `external-result-card.tsx` 通过共享 Skill 目录卡渲染单条结果、稳定数学曲线身份及其导入动作。
+- 预览、来源管理和私有来源编辑分别使用独立弹窗，只消费自身声明的具体模型或窄接口；私有来源表单不得读取或回显 Token。
+- 外部预览以 Skill 名称和正文为主，来源/导入状态进入正文首行元数据，不用头像或组合副标题重复目录卡；来源管理使用扁平行和 Switch，删除必须复用共享确认框，禁止调用浏览器原生 `confirm`。
+
+## 不变量
+
+- 搜索请求、预览请求和竞态仍由 `controller/` 管理，纯模型不得触发副作用。
+- 来源选择必须下推为服务端 `source_id`，禁止先联合搜索再只在浏览器过滤私有来源。
+- 外部技能身份必须使用 `externalSkillKey`，禁止在列表、弹窗或命令中重新拼接。
+- 已导入、同名冲突和可导入是封闭状态，展示与动作可用性必须来自同一状态表。
+- 来源缺失、筛选来源失效和无结果由结果模型统一归一化，视图不得各自修正。
+- 第三方提供的标题、说明和正文保持原文；Nexus 生成的缺省说明、状态、计数和来源说明必须由当前界面语言投影，服务端不得注入固定语言占位文案。
+- 来源管理列表不展示各适配器的教程式说明；实现差异留在服务合同和必要错误中，用户只需看到来源身份、地址和可操作状态。
+- 搜索阶段、来源空态、来源选择、来源列表和导入加载状态分别复用 ResourceState、Panel、ChoiceButton、Typography 与 Spinner；外部来源视图不得再创建私有状态卡或把选择态塞进普通动作按钮。
+- 私有来源的认证方式复用 `UiSegmentedControl showLabel`，以 pressed 状态暴露当前值且只显示一个具名 group；编辑草稿、切换时保留 Token、已保存凭证留空和 loading 锁继续归来源编辑器，公共选择器不解析或转换这些业务值。
+- 来源管理以 filled Panel 和静态 flush ListRow 拥有表面/行密度；名称和地址完整换行，凭据状态及错误使用 supporting，独立动作以来源名分组，Switch 关联该行地址和状态说明。编辑字段按实例关联，服务地址使用 code 字体，提交显式投影 busy；不改变列表排序、Token 留空、不可编辑地址、确认删除及保存结果语义。
+
+- 社区搜索和来源目录首读失败不得显示空结果；提供 ResourceState 只读恢复。来源未知写入不能因任意列表 GET 成功而解锁，只有已提交状态允许读取恢复后解锁；unknown 在用户核对后显式开启新意图，accepted 继续只读核对。外部预览标题使用实例 ID，原文链接保留 noopener noreferrer，导入按钮显式 aria-busy。
 
 ---
 > Source: [nexus-research-lab/nexus](https://github.com/nexus-research-lab/nexus) — distributed by [TomeVault](https://tomevault.io).
