@@ -1,23 +1,21 @@
 # buildable-plugin-skills
 
-> Tome by [suntay44](https://github.com/suntay44/buildable-plugin-skills) — distributed by [TomeVault](https://tomevault.io)
-
-Local-first AI app-builder brain for Claude Code, Codex, and Cursor: archetypes, golden templates, UI/UX playbooks, and review loops, designed to load less bundled context in evals.
+> Tome by [suntay44](https://github.com/suntay44/buildable-plugin-skills), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [suntay44/buildable-plugin-skills](https://github.com/suntay44/buildable-plugin-skills).
+Original source: `CLAUDE.md` in [suntay44/buildable-plugin-skills](https://github.com/suntay44/buildable-plugin-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [suntay44/buildable-plugin-skills](https://github.com/suntay44/buildable-plugin-skills) — a repo with 11+ stars on GitHub.
+From [suntay44/buildable-plugin-skills](https://github.com/suntay44/buildable-plugin-skills) — a repo with 54+ stars on GitHub.
 
 ---
 
