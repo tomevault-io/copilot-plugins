@@ -1,10 +1,10 @@
 ## mergelife
 
-> Guidance for Claude Code and other AI assistants working in this repository.
+> Guidance for Codex and other AI assistants working in this repository.
 
 # MergeLife
 
-Guidance for Claude Code and other AI assistants working in this repository.
+Guidance for Codex and other AI assistants working in this repository.
 
 ## Language and spelling
 
@@ -33,7 +33,7 @@ carry the full protocol; these are the rules that bite hardest.
   editors against one `Library/` corrupt it. Every gate goes through
   `unity/heaton-ca/tools/unity-gate.sh <compile|editmode|playmode|build-*>`,
   which takes a lock and refuses when an editor already has the project open.
-  In Claude Code that script must run with the Bash sandbox **disabled**:
+  In Codex that script must run with the Bash sandbox **disabled**:
   Unity needs its licensing IPC and its caches under `~/Library`, and
   sandboxed runs fail with misleading license errors. Agents write code and
   `.meta` files; the gates are run serially on the main checkout.
@@ -79,4 +79,4 @@ carry the full protocol; these are the rules that bite hardest.
 
 ---
 > Source: [jeffheaton/mergelife](https://github.com/jeffheaton/mergelife) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
