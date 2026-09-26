@@ -1,0 +1,9 @@
+{
+  "name": "ericandrechek--pacer",
+  "displayName": "Pacer",
+  "description": "Native macOS app for tracking Claude Code usage \u2014 tokens, cost, rate-limit pacing, per-project breakdowns. SwiftUI + SwiftData.",
+  "version": "1.0.0",
+  "author": "EricAndrechek",
+  "homepage": "https://github.com/EricAndrechek/Pacer",
+  "skills": []
+}
