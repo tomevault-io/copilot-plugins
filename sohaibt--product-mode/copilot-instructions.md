@@ -1,10 +1,10 @@
 ## product-mode
 
-> > For mixed PM + engineering teams working with Claude Code.
+> > For mixed PM + engineering teams working with AI coding agents (Claude Code, Cursor, Codex, and others).
 
-# CLAUDE.md Product-Led Collaboration Guidelines
+# Product-Led Collaboration Guidelines
 
-> For mixed PM + engineering teams working with Claude Code.
+> For mixed PM + engineering teams working with AI coding agents (Claude Code, Cursor, Codex, and others).
 > Biases toward *shipping the right thing*, not just shipping fast.
 
 Inspired by [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls, rewritten to cover the failure modes that bite product teams before a single line of code is written: wrong problem, wrong scope, invisible tradeoffs, and unmeasured outcomes.
@@ -202,10 +202,20 @@ This file exists to make both less likely, at once.
 
 ---
 
+## Prior Decisions & Checklists
+
+Before any non-trivial work, read `.product-mode/decisions/` - it is the decision log from Principle 7. Do not re-decide what is already decided there unless its revisit trigger has fired.
+
+Before running a new pre-flight checklist, check `.product-mode/checklist/` for an existing one on the same topic and build on it.
+
+Reference the relevant file by path when you rely on it, so the reasoning stays traceable. Run `product-mode init` to create the folders and add this section to your own agent files.
+
+---
+
 ## License
 
 MIT. Fork, adapt, and make it your team's own.
 
 ---
 > Source: [sohaibt/product-mode](https://github.com/sohaibt/product-mode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
