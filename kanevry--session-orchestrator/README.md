@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [Kanevry/session-orchestrator](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — a repo with 47+ stars on GitHub.
+From [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — a repo with 52+ stars on GitHub.
 
 ---
 
