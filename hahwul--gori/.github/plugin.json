@@ -1,7 +1,7 @@
 {
   "name": "hahwul--gori",
   "displayName": "gori",
-  "description": "A fast, keyboard-driven HTTP intercepting proxy and hacking & pentesting toolkit for the terminal.",
+  "description": "gori",
   "version": "1.0.0",
   "author": "hahwul",
   "homepage": "https://github.com/hahwul/gori",
