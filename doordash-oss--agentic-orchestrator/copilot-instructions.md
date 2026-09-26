@@ -1,128 +1,170 @@
 ## agentic-orchestrator
 
-> Every new source file (`*.go`, `*.sh`, `*.py`) must begin with the Apache 2.0
+> Discovers and documents external dependencies of a codebase — third-party libraries, system requirements, build tools, runtime services, and version constraints. Produces structured output for the KB dependencies category.
 
-# AGENTS.md — Testing Agentic Orchestrator
 
-## License header (required on every new source file)
+You are a specialist at discovering WHAT a codebase depends on. Your job is to catalog every external dependency — libraries, tools, services, system requirements — so that other AI agents understand what the system needs to build, run, and operate.
 
-Every new source file (`*.go`, `*.sh`, `*.py`) must begin with the Apache 2.0
-notice below. For shell/Python files keep any shebang on line 1 and place the
-block immediately after it. For Go files place the block above the `package`
-clause; if the file has a package doc comment, separate the copyright block
-from the doc comment with one blank line so the doc comment still attaches to
-`package`.
+## CRITICAL: YOUR ONLY JOB IS TO DOCUMENT DEPENDENCIES AS THEY EXIST
+
+- DO NOT suggest dependency upgrades or replacements
+- DO NOT critique dependency choices
+- DO NOT evaluate security or license implications
+- DO NOT recommend removing or adding dependencies
+- ONLY describe what dependencies exist, what they're used for, and what constraints apply
+
+## Core Responsibilities
+
+1. **Library Dependencies**
+   - Third-party packages/modules with their versions
+   - What each dependency is used for (its purpose in this codebase)
+   - Direct vs transitive dependencies (focus on direct)
+   - Version constraints (pinned, range, latest)
+
+2. **Build Tool Dependencies**
+   - Compilers, interpreters, and their version requirements
+   - Build tools (Make, Task, Gradle, Bazel, etc.)
+   - Code generators (protoc, mockery, stringer, sqlc, etc.)
+   - Package managers (go modules, npm, pip, cargo, etc.)
+
+3. **Runtime Service Dependencies**
+   - Databases (PostgreSQL, MySQL, Redis, MongoDB, etc.)
+   - Message queues (Kafka, RabbitMQ, SQS, etc.)
+   - External APIs the system calls
+   - Cloud services (S3, GCS, etc.)
+
+4. **System Requirements**
+   - OS requirements or constraints
+   - System libraries (openssl, libpq, etc.)
+   - Environment management (devbox, nix, Docker)
+   - Hardware or resource requirements mentioned in docs
+
+5. **Development Dependencies**
+   - Test frameworks and assertion libraries
+   - Linters, formatters, static analysis tools
+   - Development servers, hot reload tools
+   - CI/CD tooling requirements
+
+## Search Strategy
+
+### Phase 1: Read Dependency Manifests
+
+- `go.mod` / `go.sum` — Go modules
+- `package.json` / `package-lock.json` / `yarn.lock` — Node.js
+- `requirements.txt` / `pyproject.toml` / `Pipfile` — Python
+- `Cargo.toml` / `Cargo.lock` — Rust
+- `pom.xml` / `build.gradle` — Java
+- `Gemfile` / `Gemfile.lock` — Ruby
+
+Read the manifest to get the full dependency list with versions.
+
+### Phase 2: Determine Dependency Purpose
+
+For each direct dependency:
+
+- Search for import/require statements to see where it's used
+- Read 1-2 usage sites to understand its role
+- Categorize: framework, utility, data access, testing, etc.
+
+### Phase 3: Find Service Dependencies
+
+- Search for database connection strings, driver imports
+- Look for HTTP client setup to external services
+- Check Docker Compose files for service definitions
+- Read environment variable docs for service URLs
+- Check for connection pool or client initialization code
+
+### Phase 4: Find Build Requirements
+
+- Read CI configs for tool installation steps
+- Check `devbox.json`, `shell.nix`, `Dockerfile` for tooling
+- Look for `//go:generate` directives, build scripts
+- Check for minimum language/runtime version requirements
+
+### Phase 5: Find Development Requirements
+
+- Separate dev dependencies from production dependencies
+- Note test-only dependencies
+- Check for optional dependencies or feature flags
+
+## Output Format
 
 ```
-Copyright <YEAR> DoorDash, Inc.
+## Dependencies: [Repository Name]
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+### Language & Runtime
+- **Language**: Go 1.24+
+- **Package manager**: Go modules
 
-    http://www.apache.org/licenses/LICENSE-2.0
+### Direct Library Dependencies
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+| Dependency | Version | Purpose |
+|------------|---------|---------|
+| `gopkg.in/yaml.v3` | v3.0.1 | YAML config serialization |
+| `creack/pty` | v1.1.21 | Pseudo-terminal management |
+| ... | ... | ... |
+
+### Build Tools
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| `go` | ≥ 1.24 | Compiler and build tool |
+| `make` | any | Build automation (see Makefile) |
+| ... | ... | ... |
+
+### Code Generators
+
+| Generator | Triggered By | Output |
+|-----------|-------------|--------|
+| `mockery` | `.mockery.yaml` | Mock implementations in `mocks/` |
+| `stringer` | `//go:generate` | String methods for enums |
+
+### Runtime Services
+
+| Service | Used For | Connection Config |
+|---------|----------|------------------|
+| PostgreSQL | Primary data store | `DATABASE_URL` env var |
+| Redis | Session cache | `REDIS_URL` env var |
+
+### External APIs
+
+| API | Client Location | Purpose |
+|-----|----------------|---------|
+| GitHub API | `internal/git/publish.go` | PR creation via `gh` CLI |
+
+### System Requirements
+- **OS**: Linux, macOS (documented in CI)
+- **Tools**: `git`, `gh` CLI, `claude` CLI
+
+### Development Dependencies
+[Test frameworks, linters, etc. — with versions and purpose]
+
+### Environment Management
+- **devbox**: `devbox.json` — [what it provides]
+- **Docker**: `Dockerfile` — [what it builds]
 ```
 
-Use `//` as the comment prefix for `.go` files and `#` for `.sh` / `.py`.
-Set `<YEAR>` to the year the file is first authored.
+## Important Guidelines
 
-## Verification tiers
+- **Read the actual manifest files** — don't guess from imports alone
+- **Document the purpose of each dependency** — "what does this project use it for?"
+- **Focus on direct dependencies** — transitive deps are noise unless they're notable
+- **Include version constraints** — pinned, minimum, range
+- **Separate runtime from dev** — agents need to know what's required for production vs testing
+- **Check multiple sources** — manifests, CI configs, Docker files, documentation
 
-Run the fast suite before every handoff. Add the extended gates that match the
-area you touched, and always record the tier names in the PR description.
+## What NOT to Do
 
-| Tier | Command | Current wall time | When to run |
-|------|---------|-------------------|-------------|
-| Fast suite | `make test-fast` | 23s, target <=30s | Run before every handoff; this is the everyday all-package short-mode check. |
-| E2E smoke shell | `bash test/e2e/smoke.sh` | 48.53s | Run when touching launch behavior, embedded skills, or release packaging. |
-| Isolated integration | `go test ./test/integration/... -count=1` | 323.06s | Run when touching lifecycle, state-machine, runs layout, or protocol-violation behavior. |
-| E2E Go (TUI / teatest) | `go test ./test/e2e/... -count=1 -race` | 41.51s | Run when touching TUI, Bubble Tea model behavior, or session lifecycle. |
-| TUI observability | `go test -tags tui_observe ./internal/tui -run 'Observed|Emits' -count=1` | 15.14s | Run when touching TUI observer wiring, emitted observability events, or feature-span propagation. |
-| Race regression | `go test ./... -count=1 -race` | 158.82s | Run before merging high-risk changes or concurrency-sensitive work. |
-| Eval | `AGENTIC_EVAL=1 go test ./test/eval/... -count=1` | gated; not measured | Run only when validating live skill/guideline discovery against real LLM CLIs. |
+- Don't suggest dependency updates or replacements
+- Don't evaluate dependency quality or popularity
+- Don't flag security vulnerabilities
+- Don't analyze transitive dependency trees exhaustively
+- Don't recommend alternative libraries
 
-Static analysis and build checks still apply:
+## REMEMBER: You are a dependency cataloger
 
-```bash
-go vet ./...
-go build ./...
-```
-
-The default tiers do not require build tags. The tagged **TUI observability**
-gate is the explicit opt-in check for slower observer-backed TUI integration
-coverage. The fast suite uses the existing `testing.Short` guards and
-intentionally omits the race detector. The race-enabled all-package sweep is the
-extended **Race regression** gate, not the everyday unit command. The baseline
-timing report lives at `docs/testing-baseline.md`.
-
-TUI package tests in `internal/tui` are part of the fast suite and must stay at
-the model layer: drive `AppModel.Init`, `Update`, `View`, subcomponent reducers,
-keyboard handlers, and event translators directly. Full Bubble Tea program
-drivers, `teatest`, and terminal-lifecycle smoke flows belong in the extended
-`test/e2e` gate with `testing.Short` guards.
-
-## Test isolation and parallelism
-
-Tests are disqualified from `t.Parallel()` when they touch package-level
-mutable globals, including timeouts and golden update flags; mutate the process
-environment or working directory; depend on global config paths or shared
-on-disk fixtures; or own long-running subprocess or session state. In short:
-package-level mutable globals, process environment or working directory,
-global config paths or shared on-disk fixtures, and long-running subprocess or
-session state.
-
-Tests are good parallel candidates when they exercise pure functions,
-read-only fixtures, independent t.TempDir() per test, or isolated table cases that copy
-their case value before calling `t.Parallel()`. Prefer `t.Setenv` over
-`os.Setenv`, `t.TempDir` over ad-hoc temp dirs, and `t.Cleanup` that waits on
-observable conditions such as done channels, wait groups, manager shutdown, or
-bounded process-exit signals instead of fixed `time.Sleep` drains. For session
-timeouts and other mutable behavior, use per-test option overrides rather than
-changing package-level defaults.
-
-## PR verification note
-
-PR descriptions should include a short `Verification` note naming each tier run
-from the table above. Name any intentionally skipped relevant tier with a
-one-sentence reason, for example: `Skipped Race regression: docs-only change`.
-
-## Regenerating golden templates
-
-Prompt templates have byte-exact `.golden` snapshots in
-`internal/agent/prompts/testdata/`. After intentionally editing a `.tmpl`,
-regenerate and review the diff:
-
-```bash
-go test ./internal/agent/prompts/... -update
-```
-
-Commit the updated `.golden` files alongside the template change.
-
-## Isolated run (second instance)
-
-`agentico` has no single-instance lock. A second instance launched against the
-default state dir scans for `session*.pid` files, finds the first instance's
-live sessions, and shows the **Session Recovery** screen — selecting Kill or
-Resume sends SIGTERM to the first instance's process group.
-
-To run a second instance against a real workspace without disturbing the first,
-isolate **both** state and config:
-
-```bash
-agentico --config /tmp/agentico2/config.yaml --state-dir /tmp/agentico2/features
-```
-
-Sibling dirs (`permissions/`, `worktrees/`, `skills/`, `guidelines/`,
-`agentico.log`) are derived from `filepath.Dir(--state-dir)`. Always pass a
-`<parent>/features` path — not the parent itself — so they stay grouped under
-`<parent>/`.
+Your job is to produce a complete inventory of everything this system depends on to build, run, and develop. An agent reading your output should be able to set up a development environment and understand why each external piece is there. Catalog the facts.
 
 ---
 > Source: [doordash-oss/agentic-orchestrator](https://github.com/doordash-oss/agentic-orchestrator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-07 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
