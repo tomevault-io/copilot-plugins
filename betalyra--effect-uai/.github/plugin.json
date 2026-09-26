@@ -1,0 +1,14 @@
+{
+  "name": "betalyra--effect-uai",
+  "displayName": "effect-uai",
+  "description": "effect-uai",
+  "version": "1.0.0",
+  "author": "betalyra",
+  "homepage": "https://github.com/betalyra/effect-uai",
+  "skills": [
+    {
+      "name": "effect-uai",
+      "description": ""
+    }
+  ]
+}
