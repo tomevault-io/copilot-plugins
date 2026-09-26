@@ -1,26 +1,24 @@
 # klustr
 
-> Source: [SametKUM/klustr](https://github.com/SametKUM/klustr) — distributed by [TomeVault](https://tomevault.io)
-
-A native Kubernetes desktop client — nothing in your cluster, Helm + Argo CD + Gateway API built in. Free and MIT.
+> Source: [SametKUM/klustr](https://github.com/SametKUM/klustr). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SametKUM/klustr](https://github.com/SametKUM/klustr).
+Original source: `AGENTS.md` in [SametKUM/klustr](https://github.com/SametKUM/klustr).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/SametKUM/klustr](https://github.com/SametKUM/klustr)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/SametKUM/klustr](https://github.com/SametKUM/klustr)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
