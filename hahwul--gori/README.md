@@ -2,8 +2,6 @@
 
 > Source: [hahwul/gori](https://github.com/hahwul/gori). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-A fast, keyboard-driven HTTP intercepting proxy and hacking & pentesting toolkit for the terminal.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
