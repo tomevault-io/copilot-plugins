@@ -1,58 +1,40 @@
 ## book
 
-> [ 🌐 English Version ](#english-version)
+> - **项目名称**：Codex Web Copilot
 
-# 🤖 Codex 协作协议 (Codex Collaboration Protocol - CAP)
-
-[ 🌐 English Version ](#english-version)
+# 🤖 Codex 协作规约 (CAP) - Chrome 扩展规范
 
 ## 📌 项目指纹
-- **项目名称**：Codex 蓝皮书
-- **项目类型**：Markdown 指南 / 电子书项目
-- **写作风格**：专业、精炼、技术密度高、易读的中文，伴以恰当的格式与图表。
-- **引用规范**：链接必须使用 `file:///` 格式的绝对路径（例如：`[link text](file:///Users/hunkwu/Desktop/ai/book/README.md)`）。
-
-## 🎯 目标受众
-- 希望利用 AI 智能体（尤其是 OpenAI Codex）进行高效开发的专业开发者。
-- 想要自主构建商业级 MVP 的独立黑客与创业者。
-
-## 🛑 约束红线
-- **严禁使用占位符**：必须提供真实、可运行的示例代码和配置。
-- **注重实操**：每个章节必须包含逐步的代码片段、命令行执行或配置文件模版。
-- **链接完整**：确保各章节之间的链接引用正确，无死链。
-- **杜绝冗长摘要**：避免重复内容；专注于可落地的洞察、心智模型和步骤演练。
-
-## 🧪 验证标准
-- 所有 Markdown 文件必须语法正确，且链接到真实存在的目标路径。
-- 所有代码块必须带有正确的语言标签（例如：` ```bash `, ` ```markdown `, ` ```json `）。
+- **项目名称**：Codex Web Copilot
+- **架构规范**：Chrome Extension Manifest V3 (MV3)
+- **技术栈**：Vanilla JavaScript / Native Web APIs / Chrome Extensions API
+- **核心目标**：提供轻量、安全、零编译黑盒的浏览器伴侣插件沙盒样例。
 
 ---
+
+## 🛑 安全红线与 Anti-Loop 护栏
+
+1. **严格遵循 MV3 内容安全策略 (CSP)**：
+   - 严禁使用 `eval()`、`new Function()` 或外部远程代码（Remote Code）。
+   - 严禁在 HTML 中编写内联脚本（Inline `<script>`），所有交互逻辑必须抽离为独立 `.js` 文件。
+2. **最小权限原则 (Least Privilege)**：
+   - 严禁申请全站 Host 权限（`<all_urls>` 仅用于必要的内容读取，默认优先使用 `activeTab`）。
+   - 不得申请高危权限（如 `cookies`、`webRequestBlocking`），保障用户隐私安全。
+3. **防止 Service Worker 内存泄漏**：
+   - Background 脚本在 MV3 中为无状态 Service Worker，随时可能休眠。
+   - 严禁在全局变量中保存业务状态，必须通过 `chrome.storage.local` 进行状态持久化。
+4. **消息通信防死锁机制**：
+   - 在 `chrome.runtime.onMessage` 异步回复时，必须显式返回 `return true;`，否则将导致通信管道提前关闭。
+
 ---
 
-## 🌐 English Version
+## 🧪 验证标准 (Validation Specs)
 
-# 🤖 Codex Collaboration Protocol (CAP)
-
-## 📌 Project Signature
-- **Project Name**: Codex Blue Book
-- **Framework**: Markdown Guide / Book Project
-- **Coding Style**: Professional, concise, tech-rich, easy-to-read Chinese with proper formatting and diagrams.
-- **Reference Style**: Links should be absolute paths with `file:///` scheme (e.g. `[link text](file:///Users/hunkwu/Desktop/ai/book/README.md)`).
-
-## 🎯 Target Audience
-- Professional developers looking to leverage AI agents (especially OpenAI Codex) for high-efficiency development.
-- Indie Hackers / Entrepreneurs wanting to build commercial-grade MVPs autonomously.
-
-## 🛑 Hard Constraints
-- **Do not use placeholders**: Always provide real, functional examples and configurations.
-- **Keep it practical**: Every chapter must contain step-by-step code snippets, command executions, or configuration templates.
-- **Preserve Links**: Ensure all links between chapters are correctly referenced.
-- **No verbose summaries**: Avoid repeating contents; focus on actionable insights, mental models, and step-by-step walkthroughs.
-
-## 🧪 Verification Specs
-- All markdown files must be syntactically valid and link to actual target paths.
-- Code blocks must have language tags (e.g. ` ```bash `, ` ```markdown `, ` ```json `).
+在每次使用 Codex 进行功能迭代后，必须执行以下验证：
+1. **Manifest 校验**：`node -e 'JSON.parse(require("fs").readFileSync("manifest.json"))'` 返回合法 JSON。
+2. **语法检查**：所有 JS 文件通过 `node --check` 语法检查。
+3. **加载验证**：Chrome 开发者模式下无红字错误与 Warning。
 
 ---
 > Source: [aipmer/book](https://github.com/aipmer/book) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
