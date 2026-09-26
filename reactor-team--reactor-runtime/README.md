@@ -7,11 +7,11 @@ The Runtime for Real-Time
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [reactor-team/reactor-runtime](https://github.com/reactor-team/reactor-runtime).
+Original source: `AGENTS.md` in [reactor-team/reactor-runtime](https://github.com/reactor-team/reactor-runtime).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
