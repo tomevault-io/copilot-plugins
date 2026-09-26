@@ -1,7 +1,7 @@
 {
   "name": "jonasbaeumer--herdr-file-annotator",
   "displayName": "herdr-file-annotator",
-  "description": "A plugin for herder to maximize agentic development without losing touch with the actual codebase",
+  "description": "herdr-file-annotator",
   "version": "1.0.0",
   "author": "JonasBaeumer",
   "homepage": "https://github.com/JonasBaeumer/herdr-file-annotator",
