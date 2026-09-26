@@ -1,8 +1,6 @@
 # ripple
 
-> Source: [m1ckc3s/ripple](https://github.com/m1ckc3s/ripple) — distributed by [TomeVault](https://tomevault.io)
-
-A wavy, rippling distortion transition that dissolves one photo into another — a glowing, noise-warped GLSL/WebGL wavefront with live controls. Inspired by Minsang (@radiofun8).
+> Source: [m1ckc3s/ripple](https://github.com/m1ckc3s/ripple). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [m1ckc3s/ripple](https://github.com/m1ckc3s/ripp
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/m1ckc3s/ripple](https://github.com/m1ckc3s/ripple)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/m1ckc3s/ripple](https://github.com/m1ckc3s/ripple)
 
 ---
 
