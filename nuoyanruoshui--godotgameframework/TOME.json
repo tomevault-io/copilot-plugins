@@ -1,0 +1,519 @@
+{
+  "name": "GodotGameFramework",
+  "owner": "nuoyanruoshui",
+  "repo": "GodotGameFramework",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/help/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/start/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/ggf-dev/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/ggf-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/localize/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/localize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/luban-dev/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/luban-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/tech-debt/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/tech-debt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/skill-test/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/skill-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/setup-engine/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/setup-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/perf-profile/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/perf-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/skill-improve/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/skill-improve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/adopt/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/adopt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/security-audit/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/hotfix/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/hotfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/team-ui/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/team-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/reverse-document/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/reverse-document/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/team-qa/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/team-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/qa-plan/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/qa-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/onboard/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/estimate/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/estimate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/ux-design/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/ux-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/dev-story/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/dev-story/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/prototype/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/art-bible/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/art-bible/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/ux-review/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/ux-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/soak-test/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/soak-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/changelog/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/asset-spec/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/asset-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/gate-check/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/gate-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/bug-triage/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/bug-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/story-done/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/story-done/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/test-setup/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/test-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/team-level/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/team-level/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/team-audio/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/team-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/brainstorm/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/bug-report/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/bug-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/map-systems/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/map-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/team-polish/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/team-polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/team-combat/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/team-combat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/patch-notes/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/patch-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/project-stage-detect/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/project-stage-detect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/code-review/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/smoke-check/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/smoke-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/scope-check/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/scope-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/sprint-plan/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/sprint-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/asset-audit/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/asset-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/team-release/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/team-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/create-epics/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/create-epics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/test-helpers/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/test-helpers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/quick-design/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/quick-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/design-system/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/team-live-ops/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/team-live-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/day-one-patch/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/day-one-patch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/design-review/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/sprint-status/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/sprint-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/retrospective/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/retrospective/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/content-audit/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/content-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/balance-check/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/balance-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/test-flakiness/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/test-flakiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/team-narrative/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/team-narrative/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/create-stories/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/create-stories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/vertical-slice/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/vertical-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/review-all-gdds/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/review-all-gdds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/story-readiness/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/story-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/playtest-report/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/playtest-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/regression-suite/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/regression-suite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/milestone-review/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/milestone-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/launch-checklist/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/launch-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/consistency-check/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/consistency-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/release-checklist/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/release-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/architecture-review/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/architecture-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/create-architecture/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/create-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/test-evidence-review/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/test-evidence-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/architecture-decision/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/architecture-decision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/create-control-manifest/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/create-control-manifest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GodotGameFramework",
+      "path": "Godot/.claude/skills-archived/propagate-design-change/SKILL.md",
+      "github_url": "https://github.com/nuoyanruoshui/GodotGameFramework/tree/main/Godot/.claude/skills-archived/propagate-design-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nuoyanruoshui/GodotGameFramework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T00:44:48Z"
+}
