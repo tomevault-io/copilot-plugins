@@ -1,44 +1,72 @@
 ## codex-skills
 
-> Codex-Skills is a public, Codex-first Agent Skills library. Keep the public core curated, installable, inspectable, and honest about evidence.
+> Use this context when working on websites, landing pages, portfolios, product UI, frontend components, motion systems, accessibility, responsive QA, or final delivery.
 
-# Repository Operating Notes
+# Codex Premium Website Skills Context
 
-Codex-Skills is a public, Codex-first Agent Skills library. Keep the public core curated, installable, inspectable, and honest about evidence.
+Use this context when working on websites, landing pages, portfolios, product UI, frontend components, motion systems, accessibility, responsive QA, or final delivery.
 
-## Required Checks
+## Core Behavior
 
-Before a release or pull request that changes skills, collections, scripts, docs, or workflows, run:
+- Inspect the project before changing code.
+- Identify framework, entry files, styling system, interaction model, and available checks.
+- Make a brief implementation plan before meaningful edits.
+- Preserve existing project conventions unless a change clearly improves the result.
+- Prefer project-local dependencies and avoid unnecessary global installs.
 
-```bash
-python3 scripts/validate_skills.py
-python3 scripts/validate_public_package.py
-python3 scripts/test_catalog.py
-python3 scripts/test_skill_helpers.py
-python3 scripts/install_skills.py --list-collections
-python3 scripts/install_skills.py --dry-run
-python3 -m py_compile scripts/*.py
-git diff --check
-```
+## Website Quality Standard
 
-Regenerate `manifest.json` and `SKILL_INVENTORY.md` when skill folders change.
+- Make the first viewport visually decisive.
+- Use specific copy tied to the actual product, person, venue, or audience.
+- Avoid generic AI website patterns: vague headlines, centered hero plus card grids, random gradients, decorative blobs, fake product UI, placeholder testimonials, unsupported metrics, and weak mobile stacking.
+- Use typography, spacing, color, imagery, and layout as a coherent system.
+- Use visual assets when the subject benefits from them.
+- Keep text readable and prevent overflow across common mobile and desktop sizes.
 
-## Evidence Rules
+## Frontend Implementation
 
-- Label measured results, estimates, owner-only GitHub metrics, and derived calculations separately.
-- Never invent users, forks, issues, benchmark results, testimonials, or adoption claims.
-- Preserve the exact prompt, outputs, commands, and limitations for paired benchmarks.
-- Do not present fictional values inside a demo mockup as repository telemetry.
-- Treat browser, accessibility, performance, and security checks as unperformed until they actually run.
+- Use semantic markup and accessible controls.
+- Check responsive behavior and avoid horizontal overflow.
+- Add stable dimensions for toolbars, tiles, boards, cards, media, and counters.
+- Use existing components and helpers before inventing new abstractions.
+- Run available lint, build, and test commands when possible.
 
-## Change Hygiene
+## Motion And Interaction
 
-- Inspect the worktree before editing and use a branch for risky changes.
-- Keep installer behavior explicit and preserve dry-run and backup-on-replace safeguards.
-- Do not add secrets, private paths, credentials, generated caches, or machine-specific state.
-- Before public commits, verify the repository author/committer identity is suitable for publication; do not rely on an automatically inferred machine address.
-- Prefer focused changes that improve usefulness, safety, reproducibility, or documentation.
+- Use motion to clarify state, sequence, depth, focus, or tactility.
+- Respect reduced-motion preferences.
+- Avoid animation on frequent or keyboard-initiated actions unless it is instant and functional.
+- Prefer CSS for simple transitions, Motion for React state/layout animation, and GSAP for timeline-heavy or scroll-choreographed scenes.
+
+## QA And Handoff
+
+Before final delivery, report:
+
+- files changed
+- commands run
+- checks passed
+- checks not run
+- responsive/browser inspection notes
+- accessibility or reduced-motion notes
+- known limitations
+- recommended next steps
+
+## Agent Quality
+
+- Separate verified facts, inferences, assumptions, recommendations, and unknowns.
+- Use explicit premises and the narrowest conclusion the evidence supports.
+- Preserve source, date, scope, contradictions, and confidence in research work.
+- Reproduce and localize failures before changing code, then verify a regression guard.
+- Define tool limits, approval gates, retry bounds, and evaluation evidence for agent workflows.
+- Verify before claiming completion or production readiness.
+
+## Safety
+
+- Preserve user work.
+- Avoid destructive edits unless explicitly requested.
+- Create or explain a rollback path before risky edits.
+- Do not invent proof, testimonials, metrics, logos, or unsupported claims.
 
 ---
 > Source: [TheGoat395/Codex-Skills](https://github.com/TheGoat395/Codex-Skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
