@@ -1,22 +1,25 @@
 ## zag
 
-> When making changes to the code
+> Record before and after videos when fixing bugs or adding features
 
 
-### Pull Requests
+# Before / after recordings
 
-- Always create a changeset in the `.changeset` directory.
+When fixing a bug or adding a user-visible feature:
 
-```md
----
-@zag-js/<package-name>: minor|patch
----
+1. Record the affected interaction **before** changing code.
+2. Apply the change.
+3. Record the **same** interaction after.
 
-Summary of changes
-```
+Requirements:
 
-- PR convention is `fix: <description>` or `feat: <description>`
+- Real UI interaction (click, type, keyboard). A screenshot is not enough.
+- Output H.264 `.mp4`, not `.webm`.
+- Paths: `e2e/evidence/<issue-or-feature>/before-*.mp4` and `after-*.mp4`.
+- Playwright `recordVideo` writes WebM; convert with `ffmpeg -c:v libx264 -pix_fmt yuv420p -movflags +faststart`.
+- Do not commit recordings unless asked.
+- If recording is unavailable, say so. Do not imply a video exists.
 
 ---
 > Source: [chakra-ui/zag](https://github.com/chakra-ui/zag) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
