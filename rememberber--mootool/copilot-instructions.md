@@ -1,14 +1,18 @@
 ## mootool
 
-> - 用户要求：任何功能都尽量与 `next` Electron 版保持功能和布局一致。实现前阅读对应的 Electron 页面、组件和测试，以其功能入口、面板顺序、操作语义为基准；使用 macOS 原生控件适配系统交互。
+> MooTool Next Compose 独立桌面产品的编码与验收规范
 
-# 原生产品线实现约定
 
-- 用户要求：任何功能都尽量与 `next` Electron 版保持功能和布局一致。实现前阅读对应的 Electron 页面、组件和测试，以其功能入口、面板顺序、操作语义为基准；使用 macOS 原生控件适配系统交互。
-- 各产品线彼此独立。原生版可以拥有自己的实现和重复代码，不导入其他产品的源码，不共用数据、偏好设置、应用标识、安装名称或发布通道。
-- 在 `docs/parity.md` 记录实际完成范围与差异，不能把入口存在或截图成功等同于完整功能对齐。
-- 文档和工作区变更需验证旧数据兼容、切换/重开后的内容与状态恢复；布局变更检查深浅色和窄窗口。
+本规则仅约束 next-compose 内的工作。当前任务与 next-compose 无关时，不将这些技术选择或文档要求施加到其他产品。
+
+先读取工作区内 next-compose 的 AGENTS.md 与 docs/cursor-development-guide.md；若工作区根就是 next-compose，则使用该根下的对应文件。
+
+本产品采用 Compose Multiplatform Desktop，功能/布局主要参照 Electron，Java 为补充。各产品线独立，可重复代码，不依赖相邻产品构建、资源、安装或数据。仅修改当前授权范围。
+
+实现前读取 docs/baseline.md 与当前功能对应源码，按 docs/feature-parity.md 和 docs/ui-spec.md 建立真实闭环；架构、存储、平台要求分别见 docs/architecture.md 和 docs/data-platform-release.md。
+
+完成后更新 docs/acceptance.md。未运行的检查、未完成的功能和未经验证的平台必须明确标记，不以页面壳、mock 或无操作按钮冒充实现。
 
 ---
 > Source: [rememberber/MooTool](https://github.com/rememberber/MooTool) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
