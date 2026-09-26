@@ -1,6 +1,6 @@
 # pixel-scaler
 
-> Source: [irokaru/pixel-scaler](https://github.com/irokaru/pixel-scaler). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [irokaru/pixel-scaler](https://github.com/irokaru/pixel-scaler). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
