@@ -1,0 +1,51 @@
+{
+  "name": "maintenance_supporter",
+  "owner": "iluebbe",
+  "repo": "maintenance_supporter",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "maintenance_supporter",
+      "path": "skills/maintenance-setup-assistant/SKILL.md",
+      "github_url": "https://github.com/iluebbe/maintenance_supporter/tree/main/skills/maintenance-setup-assistant/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iluebbe/maintenance_supporter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T12:39:56Z"
+}
