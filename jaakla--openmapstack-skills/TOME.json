@@ -2,7 +2,7 @@
   "name": "openmapstack-skills",
   "owner": "jaakla",
   "repo": "openmapstack-skills",
-  "description": "AI-agent skill for reproducible, validated GIS analysis \u2014 from authoritative data discovery to interactive maps, on an open-first geospatial stack (OSM, Overture, STAC, DuckDB, PostGIS, QGIS, MapLibre).",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jaakla/openmapstack-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-11T08:56:11Z"
+  "distributed_at": "2026-09-26T18:16:35Z"
 }
