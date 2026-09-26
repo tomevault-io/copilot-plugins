@@ -1,17 +1,44 @@
 ## liquid-glass-webgl
 
-> This directory is slide-carrier only.
+> Use as a self-check before finishing **`index.html`**.
 
-# Deck Templates Agent Rules
+# Investment-banking pitch book — layout conventions
 
-This directory is slide-carrier only.
+Use as a self-check before finishing **`index.html`**.
 
-Read a deck template here only after the top-level `INDEX.md` carrier gate has confirmed the user wants PPT/deck/slides/演示稿/幻灯片/BP/路演.
+## Every slide
 
-Do not enter this directory for topic keywords alone, including 周报、报告、课程、融资、weekly, report, course, finance, or launch.
+- **Masthead**: advisory bank name + project codename + section label + page x/y.
+- **Confidentiality**: visible treatment ("Strictly Confidential — Discussion
+  Materials" or firm-standard ribbon).
+- **Footer**: page fraction, optional run id / skill trace for internal QA.
 
-Read the selected template `SKILL.md` first. Do not read `pattern.html` by default. Treat pattern files as layout references, not source code to copy.
+## Tables
+
+- Financial figures use **tabular numerals** (monospace or `font-feature-settings: "tnum"`).
+- Multiples use **×** (not `x`) where appropriate.
+- **Median / mean** summary rows differ visually from data rows (italic or tint).
+- **Subject company** row highlighted consistently.
+
+## Football field
+
+- Shared horizontal axis across methodologies; **current price** as vertical tick.
+- Range labels right-aligned; methodology labels left.
+
+## DCF sensitivity
+
+- Highlight **base case** cell (WACC × terminal growth).
+- State rounding rules in a foot line.
+
+## Strategic alternatives matrix
+
+- Four options; **recommended** option uses inverted emphasis (e.g. dark fill).
+- Each cell: headline, indicative value band, **for / against** bullets.
+
+## Disclaimer slide
+
+- Prepared for whom, sources, limitations, no reliance for transaction decisions.
 
 ---
 > Source: [martin65536/liquid-glass-webgl](https://github.com/martin65536/liquid-glass-webgl) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
