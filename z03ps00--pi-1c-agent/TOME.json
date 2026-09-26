@@ -1,0 +1,44 @@
+{
+  "name": "pi-1c-agent",
+  "owner": "z03ps00",
+  "repo": "pi-1c-agent",
+  "description": "Pi coding-agent profile for 1C:Enterprise: rules, commands, MCP opt-in. Original work MIT; third-party material kept and credited.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/z03ps00/pi-1c-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T23:24:07Z"
+}
