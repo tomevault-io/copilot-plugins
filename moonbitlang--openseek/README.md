@@ -2,8 +2,6 @@
 
 > Source: [moonbitlang/openseek](https://github.com/moonbitlang/openseek). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-DeepSeek-backed MoonBit coding agent.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
