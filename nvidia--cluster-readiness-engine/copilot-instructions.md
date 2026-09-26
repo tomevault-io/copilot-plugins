@@ -351,4 +351,4 @@ Architecture decision records are in `docs/designs/` (ADR-000 through ADR-081). 
 
 ---
 > Source: [NVIDIA/cluster-readiness-engine](https://github.com/NVIDIA/cluster-readiness-engine) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
