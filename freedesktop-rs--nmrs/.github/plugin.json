@@ -1,7 +1,7 @@
 {
   "name": "freedesktop-rs--nmrs",
   "displayName": "nmrs",
-  "description": "Rust bindings for NetworkManager over D-Bus.",
+  "description": "nmrs",
   "version": "1.0.0",
   "author": "freedesktop-rs",
   "homepage": "https://github.com/freedesktop-rs/nmrs",
