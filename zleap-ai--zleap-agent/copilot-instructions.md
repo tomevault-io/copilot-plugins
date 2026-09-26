@@ -1,42 +1,51 @@
 ## zleap-agent
 
-> Next.js 16 (App Router) + React 19 + Tailwind CSS v4 + shadcn/ui + radix-ui 的 AI agent 聊天前端。
+> Frontend design-system rules for packages/web (tokens, components, i18n)
 
-# AGENTS.md — packages/web (Zleap Web)
 
-Next.js 16 (App Router) + React 19 + Tailwind CSS v4 + shadcn/ui + radix-ui 的 AI agent 聊天前端。
+# Zleap Web 前端规范
 
-## 设计原则（对标 codex）
+目标：生产级、可开源、对标 codex 质感的中性克制 UI，铜金/琥珀为唯一强调色。
 
-- 中性克制骨架 + 铜金/琥珀单一强调色；cardless 优先，用分区/分隔/列表/留白替代堆卡片。
-- 两种字体封顶：Inter (sans) + JetBrains Mono (mono)，经 `next/font` 加载（见 `app/layout.tsx`）。
-- 克制动效，统一从设计 token 取值。
+## 设计 token（单一真源在 `app/globals.css`）
 
-## 单一真源
+- 颜色一律走语义 token，禁止 className 内写 `#hex` / `rgb()` / `oklch()` / Tailwind 调色板色阶（`emerald-500`、`sky-50`、`text-white`…）。
+  - 中性骨架：`bg-background`、`bg-card`、`bg-muted`、`text-foreground`、`text-muted-foreground`、`border-border`。
+  - 强调色：仅关键交互用 `primary`（发送、主操作、active）。
+  - 状态色：`success` / `warning` / `info` / `danger`，软底用 `bg-success/10 text-success` 等（自带 dark 适配）。
+- 间距 / 圆角 / 阴影 / 字号一律走 scale，禁止任意值 `[Npx]` / `text-[Npx]` / inline `style={{ fontSize }}`。
+  - 字号：`text-2xs`(11px) / `text-xs` / `text-sm` / `text-base` …
+  - 动效：className 时长走 `duration-[var(--duration-base)]`（fast / slow 同理换 token 名）+ `ease-out` / `ease-spring`（后两者经 `@theme` 已映射到 token，等同 `--ease-*`）；**禁止** Tailwind 原生步进时长（如 `duration-300`）与任意自定义缓动（ad-hoc cubic-bezier 的方括号写法）。framer-motion 不能读 CSS 变量，统一从 `@/lib/motion`（`EASE_OUT` / `EASE_SPRING` / `DURATION` / `SPRING_PANEL` / `SPRING_SNAPPY`）取值，禁止内联 `stiffness`/`duration` 字面量。
+  - hover 抬升统一 `hover:-translate-y-px`（克制，1px）。
+  - 以上由 `scripts/check-web-design-tokens.mjs` 在 CI 强制（`pnpm check:design`）；`components/ui/*` 生成的 shadcn 原语不受动效规则约束。
+- 例外（数据驱动）：用户可配置的 space/avatar accent 色经 inline style 注入是允许的；品牌 wordmark canvas 渲染、文档纸面预览（PPTX/HTML）可保留固定色。
+- 别名收敛：`surface`→`card`、`surface-2`→`muted`、`ink`→`foreground`、`border-strong`→`border` 为旧别名（与规范 token 1:1 映射），新代码一律用右侧规范名。
 
-- 设计 token 全在 `app/globals.css`（颜色 / 圆角 / 阴影 / 字号 / 动效）。组件零硬编码。
-- UI 原语在 `components/ui/*`，跨域复合原语在 `components/shared/*`。
-- 数据访问在 `lib/services/*`；React 状态 hooks 在 `lib/` / `hooks/`。
+## 组件库
 
-## 硬性规范
+- 交互元素必须用 `@/components/ui/*`（`Button`、`IconButton`、`Input`、`Textarea`、`Select`、`Dialog`…），禁止裸写 `<button>` / `<input>` / `<textarea>`。
+- 按钮走 `Button` 的 `variant` / `size` 体系，禁止自建按钮样式体系。
+  - **图标按钮一律用 `IconButton`**（强制 `aria-label`，统一 focus/hover/disabled）；尺寸 `icon-xs`(24)/`icon-sm`(28)/`icon`(32)。
+  - 例外：内容复合的可点元素（列表行、文件树节点、分段切换、富 chip）可保留 `<button>`，但必须自带 `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50`（行内可加 `ring-inset`）。
+- 弹窗页脚统一 `ManageDialog` + `ManageDialogFooterActions`（ghost 取消 + primary 确认，`busy` 自带 spinner）；表单字段统一 `ManageField`（`label`/`description`/`error`/`required`）；行内状态徽标统一 `ManageStatusBadge`（`size="sm"` 用于密集列表行）。
+- 空态 / 加载态 / 卡片 / 列表行用 `@/components/shared` 与 `@/components/ui` 的统一原语，禁止每处重写。
+- 对话框表单统一用 `ManageDialog` + `useEntityFormDialog`，不再复制 reset/submit/toast 样板。
+- 数据请求走 `lib/services/*`，组件内不直接 `fetch`/拼接 API 逻辑。
 
-- 禁止：className 内硬编码颜色 / 任意像素 / 裸 `<button>`/`<input>`/`<textarea>` / 组件内 `fetch` / 硬编码文案。
-- 必须：走 token、走 `components/ui`、走 `lib/services`、走 `t()` i18n（key 在 `lib/i18n/resources.ts`）。
-- 详见 `.cursor/rules/frontend.mdc`。
+## i18n
 
-## 常用命令
+- 所有用户可见文案必须走 `react-i18next` 的 `t()`，key 集中在 `lib/i18n/resources.ts`。
+- 禁止组件内硬编码中文/英文字面量，禁止散落 inline `defaultValue:'…'` 兜底文案。
 
-```bash
-pnpm --filter @zleap/web dev:next   # 本地开发
-pnpm --filter @zleap/web check      # tsc 类型检查
-pnpm --filter @zleap/web test       # vitest 回归
-pnpm --filter @zleap/web build      # 生产构建
-```
+## a11y / 响应式
 
-## 验收
+- 交互元素保留 `focus-visible` 环与 `aria-label`，可键盘操作。
+- 改动后过 desktop / tablet / mobile 三档断点。
 
-每次改动后跑 `check` + `test`；关键视图过 dark mode 与三档响应式断点。
+## 文件规模
+
+- 单个组件文件控制在 ~400 行内，超出按职责拆分（hooks / 子组件 / 纯函数 utils）。
 
 ---
 > Source: [Zleap-AI/Zleap-Agent](https://github.com/Zleap-AI/Zleap-Agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
