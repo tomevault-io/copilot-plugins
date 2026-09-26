@@ -1,478 +1,483 @@
 ## zed-laravel
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> <laravel-boost-guidelines>
 
-# CLAUDE.md
+<laravel-boost-guidelines>
+=== foundation rules ===
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Laravel Boost Guidelines
 
-## Project Overview
+The Laravel Boost guidelines are specifically curated by Laravel maintainers for this application. These guidelines should be followed closely to enhance the user's satisfaction building Laravel applications.
 
-This is a Zed editor extension that provides Laravel development support, similar to the Laravel VSCode extension. The extension is written in Rust and aims to provide features such as:
+## Foundational Context
+This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.
 
-- Clickable "go-to-definition" for Blade templates
-- Clickable "go-to-definition" for Livewire components
-- Clickable "go-to-definition" for Flux components
-- Other Laravel-specific IDE features
+- php - 8.4.22
+- filament/filament (FILAMENT) - v5
+- laravel/fortify (FORTIFY) - v1
+- laravel/framework (LARAVEL) - v12
+- laravel/prompts (PROMPTS) - v0
+- livewire/flux (FLUXUI_FREE) - v2
+- livewire/livewire (LIVEWIRE) - v4
+- livewire/volt (VOLT) - v1
+- laravel/mcp (MCP) - v0
+- laravel/pint (PINT) - v1
+- laravel/sail (SAIL) - v1
+- pestphp/pest (PEST) - v4
+- phpunit/phpunit (PHPUNIT) - v12
 
-**Important**: This is a learning project. The developer is learning Rust while building this extension, so explanations of Rust concepts, providing options, and teaching best practices are essential.
+## Conventions
+- You must follow all existing code conventions used in this application. When creating or editing a file, check sibling files for the correct structure, approach, and naming.
+- Use descriptive names for variables and methods. For example, `isRegisteredForDiscounts`, not `discount()`.
+- Check for existing components to reuse before writing a new one.
 
-## Development Commands
+## Verification Scripts
+- Do not create verification scripts or tinker when tests cover that functionality and prove it works. Unit and feature tests are more important.
 
-Zed extensions are typically developed using:
+## Application Structure & Architecture
+- Stick to existing directory structure; don't create new base folders without approval.
+- Do not change the application's dependencies without approval.
 
-```bash
-# Build the extension (assuming standard Rust project)
-cargo build
+## Frontend Bundling
+- If the user doesn't see a frontend change reflected in the UI, it could mean they need to run `npm run build`, `npm run dev`, or `composer run dev`. Ask them.
 
-# Run tests
-cargo test
+## Replies
+- Be concise in your explanations - focus on what's important rather than explaining obvious details.
 
-# Check code without building
-cargo check
+## Documentation Files
+- You must only create documentation files if explicitly requested by the user.
 
-# Format code
-cargo fmt
+=== boost rules ===
 
-# Run linter
-cargo clippy
+## Laravel Boost
+- Laravel Boost is an MCP server that comes with powerful tools designed specifically for this application. Use them.
 
-# Build for release
-cargo build --release
-```
+## Artisan
+- Use the `list-artisan-commands` tool when you need to call an Artisan command to double-check the available parameters.
 
-**IMPORTANT - Binary for Local Development:**
-The `.zed/settings.json` configures Zed to use the local build directly:
-```json
+## URLs
+- Whenever you share a project URL with the user, you should use the `get-absolute-url` tool to ensure you're using the correct scheme, domain/IP, and port.
+
+## Tinker / Debugging
+- You should use the `tinker` tool when you need to execute PHP to debug code or query Eloquent models directly.
+- Use the `database-query` tool when you only need to read from the database.
+
+## Reading Browser Logs With the `browser-logs` Tool
+- You can read browser logs, errors, and exceptions using the `browser-logs` tool from Boost.
+- Only recent browser logs will be useful - ignore old logs.
+
+## Searching Documentation (Critically Important)
+- Boost comes with a powerful `search-docs` tool you should use before any other approaches when dealing with Laravel or Laravel ecosystem packages. This tool automatically passes a list of installed packages and their versions to the remote Boost API, so it returns only version-specific documentation for the user's circumstance. You should pass an array of packages to filter on if you know you need docs for particular packages.
+- The `search-docs` tool is perfect for all Laravel-related packages, including Laravel, Inertia, Livewire, Filament, Tailwind, Pest, Nova, Nightwatch, etc.
+- You must use this tool to search for Laravel ecosystem documentation before falling back to other approaches.
+- Search the documentation before making code changes to ensure we are taking the correct approach.
+- Use multiple, broad, simple, topic-based queries to start. For example: `['rate limiting', 'routing rate limiting', 'routing']`.
+- Do not add package names to queries; package information is already shared. For example, use `test resource table`, not `filament 4 test resource table`.
+
+### Available Search Syntax
+- You can and should pass multiple queries at once. The most relevant results will be returned first.
+
+1. Simple Word Searches with auto-stemming - query=authentication - finds 'authenticate' and 'auth'.
+2. Multiple Words (AND Logic) - query=rate limit - finds knowledge containing both "rate" AND "limit".
+3. Quoted Phrases (Exact Position) - query="infinite scroll" - words must be adjacent and in that order.
+4. Mixed Queries - query=middleware "rate limit" - "middleware" AND exact phrase "rate limit".
+5. Multiple Queries - queries=["authentication", "middleware"] - ANY of these terms.
+
+=== php rules ===
+
+## PHP
+
+- Always use curly braces for control structures, even if it has one line.
+
+### Constructors
+- Use PHP 8 constructor property promotion in `__construct()`.
+    - <code-snippet>public function __construct(public GitHub $github) { }</code-snippet>
+- Do not allow empty `__construct()` methods with zero parameters unless the constructor is private.
+
+### Type Declarations
+- Always use explicit return type declarations for methods and functions.
+- Use appropriate PHP type hints for method parameters.
+
+<code-snippet name="Explicit Return Types and Method Params" lang="php">
+protected function isAccessible(User $user, ?string $path = null): bool
 {
-  "lsp": {
-    "laravel-lsp": {
-      "binary": {
-        "path": "laravel-lsp/target/release/laravel-lsp"
-      }
-    }
-  }
+    ...
 }
-```
-
-Development workflow:
-```bash
-cargo build --release
-# Then in Zed: Cmd+Shift+P → "zed: reload extensions"
-```
-
-No copying or symlinks needed - Zed reads the binary path from settings.
-
-## Running Diagnostics (Important for Zed)
-
-When using Claude Code in Zed, it doesn't have direct access to LSP diagnostics. Always run these commands to check for errors:
-
-### Check for Compilation Errors
-```bash
-cargo check
-```
-This is the fastest way to check if your code compiles without actually building the binary. Run this frequently while developing.
-
-### See Detailed Compiler Messages
-```bash
-cargo build
-```
-This compiles the project and shows all errors and warnings with detailed explanations. The Rust compiler gives very helpful error messages - always read them carefully!
-
-### Run Clippy for Best Practice Lints
-```bash
-cargo clippy
-```
-Clippy is Rust's linter that catches common mistakes and suggests more idiomatic code. Very useful when learning Rust!
-
-### Run Tests
-```bash
-cargo test
-```
-Runs all tests in the project. Add `-- --nocapture` to see println! output during tests.
-
-### Format Code
-```bash
-cargo fmt
-```
-Automatically formats your code according to Rust style guidelines. Run this before committing.
-
-### Install the Extension Locally in Zed
-```bash
-# Install for local development/testing
-zed: install dev extension
-```
-Use this command within Zed to load your extension for testing.
-
-**Important**: After making changes, always run `cargo check` or `cargo build` to see if your code compiles before proceeding with more changes.
-
-## Zed Extension Architecture
-
-Zed extensions follow the Extension API provided by Zed. Key concepts:
-
-- Extensions are written in Rust (or can use WebAssembly)
-- Extensions interact with the Zed editor through the Extension API
-- Language features like "go-to-definition" are typically implemented using the Language Server Protocol (LSP)
-- Extensions can provide custom language servers or enhance existing ones
-
-## Laravel-Specific Features to Implement
-
-### Go-to-Definition Targets
-
-1. **Blade Components**: `<x-component-name>` → `resources/views/components/component-name.blade.php`
-2. **Livewire Components**: `<livewire:component-name>` → `app/Livewire/ComponentName.php`
-3. **Flux Components**: `<flux:component>` → Flux component definition
-4. **View References**: `view('view.name')` → `resources/views/view/name.blade.php`
-5. **Route Names**: `route('route.name')` → route definition in `routes/` files
-6. **Config References**: `config('app.name')` → `config/app.php`
-
-## Architecture Notes
-
-- Zed extensions MUST be written in Rust (compiled to WebAssembly)
-- JavaScript/TypeScript cannot be used - VSCode extensions cannot be wrapped or ported
-- Zed uses tree-sitter for syntax parsing
-- May need custom tree-sitter queries for Laravel-specific patterns
-- Extensions use the `zed_extension_api` crate and implement the `Extension` trait
-- Language features use LSP (Language Server Protocol) integration
-
-## LSP Architecture (laravel-lsp/)
-
-### Core Components
-
-| File | Purpose |
-|------|---------|
-| `main.rs` | LSP server, request handlers, Backend trait impl |
-| `salsa_impl.rs` | Salsa incremental computation actor |
-| `queries.rs` | Tree-sitter queries for pattern extraction |
-| `parser.rs` | PHP and Blade tree-sitter parsing |
-| `config.rs` | Laravel project configuration discovery |
-| `env_parser.rs` | .env file parsing |
-| `service_provider_analyzer.rs` | Middleware/binding extraction |
-| `middleware_parser.rs` | Kernel.php and bootstrap/app.php parsing |
-
-### Salsa Actor Pattern
-
-The LSP uses a dedicated thread for Salsa incremental computation to avoid lifetime issues with async code:
-
-```
-┌─────────────────┐     oneshot channel     ┌─────────────────┐
-│  LSP Handlers   │ ──────────────────────► │   SalsaActor    │
-│  (async/await)  │ ◄────────────────────── │ (dedicated      │
-│                 │        response         │  thread)        │
-└─────────────────┘                         └─────────────────┘
-```
-
-**Key pattern for adding new Salsa features:**
-1. Add `#[salsa::input]` type in `salsa_impl.rs`
-2. Add data transfer type (no lifetimes) for async boundary
-3. Add `SalsaRequest` variant with oneshot sender
-4. Add `SalsaHandle` method (async interface)
-5. Add handler method in `SalsaActor`
-6. Add helper method in `main.rs` to register data
-
-### Salsa Components
-
-| Component | Input Type | Data Transfer Type | Purpose |
-|-----------|------------|-------------------|---------|
-| File Patterns | `SourceFile` | `ParsedPatternsData` | Cached parsed patterns per file |
-| Config | `ConfigFile` | `LaravelConfigData` | Project configuration |
-| Project Files | `ProjectFiles` | `ViewReferenceLocationData` | Reference finding across project |
-| Service Providers | `ServiceProviderFile` | `MiddlewareRegistrationData`, `BindingRegistrationData` | Middleware/binding lookups |
-| Env Variables | `EnvFile` | `EnvVariableData` | Environment variable lookups |
-
-### Important Conventions
-
-- **Data transfer types**: Use `*Data` suffix (e.g., `EnvVariableData`) for types crossing async boundaries
-- **Salsa inputs**: Use `#[salsa::input]` for source data, store in `HashMap` for O(1) lookup
-- **Registration pattern**: Call `register_*_with_salsa()` after successful parsing
-- **Fallback pattern**: Use Salsa cache first, fall back to direct computation if unavailable
-- **Priority merging**: Framework=0, Package=1, App=2 (higher wins)
-
-### Position Indexing Convention
-
-All positions are **0-based** throughout the stack:
-- Tree-sitter `Point`: row/column are 0-based
-- LSP `Position`: line/character are 0-based
-- All match structs: row/column/end_column are 0-based
-
-**Key fields in match structs:**
-
-| Field | Points to |
-|-------|-----------|
-| `column` | Start of entire pattern (e.g., `@` in `@include`) |
-| `end_column` | End of entire pattern (e.g., after `)` in `@include('x')`) |
-| `string_column` | Start of **content** inside quotes (first char after quote) |
-| `string_end_column` | End of content (position one past last char, before closing quote) |
-
-**Rule**: Never manually calculate string positions in `main.rs`. Use `string_column`/`string_end_column` from Salsa.
-
-### Cache Invalidation Architecture (CRITICAL)
-
-**All file-derived features MUST use Salsa incremental computation:**
-
-```
-did_change(file) → Debounce 250ms → Update Salsa input → Queries recompute → UI updates
-```
-
-**Rules:**
-1. **Never bypass Salsa** - All file parsing goes through Salsa inputs
-2. **Update on edit, not just save** - Wire `did_change` to Salsa (debounced)
-3. **Salsa handles invalidation** - Don't manually track what needs recomputing
-4. **Pure query functions** - Queries derive from inputs, no side effects
-
-**Pattern Types (all extracted via Salsa queries):**
-
-| Pattern | Example | Extracted From | Target |
-|---------|---------|----------------|--------|
-| Views | `view('welcome')` | SourceFile | `resources/views/*.blade.php` |
-| Blade Components | `<x-button>` | SourceFile | `resources/views/components/*.blade.php` |
-| Blade Directives | `@include('partial')` | SourceFile | `resources/views/*.blade.php` |
-| Livewire | `<livewire:counter>` | SourceFile | `app/Livewire/*.php` |
-| Translations | `__('messages.key')` | SourceFile | `lang/*/*.php` |
-| Assets | `asset('css/app.css')` | SourceFile | `public/*` |
-| Vite | `@vite('resources/js/app.js')` | SourceFile | `resources/*` |
-| Routes | `route('home')` | SourceFile | Route name in `routes/*.php` |
-| Config | `config('app.name')` | SourceFile | `config/*.php` |
-| Env | `env('APP_NAME')` | SourceFile | `.env` |
-| Middleware | `->middleware('auth')` | SourceFile | Alias in registry |
-| Bindings | `app('cache')` | SourceFile | Binding in registry |
-
-**File Type → Salsa Input Mapping:**
-
-| File Pattern | Salsa Input | What It Provides |
-|--------------|-------------|------------------|
-| `*.php`, `*.blade.php` | `SourceFile` | Pattern extraction (views, components, etc.) |
-| `bootstrap/app.php`, `Providers/*.php` | `ServiceProviderFile` | Middleware aliases, container bindings |
-| `.env`, `.env.*` | `EnvFile` | Environment variable values |
-| `config/*.php`, `composer.json` | `ConfigFile` | View paths, namespaces, PSR-4 mappings |
-
-**Target Files (existence only):**
-- View files, component files, Livewire classes, translation files, assets
-- Tracked via file existence cache with 5-minute TTL
-- No Salsa input needed - just check if file exists
-
-**Adding New Features:**
-1. Define `#[salsa::input]` for source data
-2. Define `#[salsa::tracked]` query function (pure, no side effects)
-3. Ensure `did_change` updates the input (automatic via file type detection)
-4. Query results are automatically cached and incrementally updated
-
-### Request Flow Example
-
-```
-User hovers over view('users.index')
-    │
-    ▼
-Backend::hover() in main.rs
-    │
-    ▼
-salsa.get_parsed_patterns(file_path, content)
-    │
-    ▼
-SalsaActor checks cache, returns ParsedPatternsData
-    │
-    ▼
-Find matching pattern at cursor position
-    │
-    ▼
-Resolve view name to file path using config
-    │
-    ▼
-Return HoverContents with file location
-```
-
-## Implementation Plan
-
-This project follows a phased approach designed for learning Rust while building:
-
-### Phase 1: Rust & Zed Extension Basics
-**Goal**: Create a minimal working Zed extension
-
-**Learning Focus**:
-- Rust project structure (`Cargo.toml`, `src/lib.rs`)
-- Basic Rust syntax (structs, traits, macros)
-- The `zed_extension_api` crate
-- What `impl` means and how traits work
-- The `register_extension!` macro
-- Rust's ownership model basics
-
-**Deliverable**: Extension that loads in Zed and prints "Hello from Laravel Extension"
-
-### Phase 2: File System Navigation
-**Goal**: Given a view name, find the corresponding `.blade.php` file
-
-**Learning Focus**:
-- Rust's `String` vs `&str` types
-- Working with file paths (`std::path::Path`)
-- Result and Option types (error handling)
-- Basic pattern matching with `match`
-- The `?` operator for error propagation
-- Why Rust doesn't have `null`
-
-**Deliverable**: Function that converts `view('users.profile')` → `resources/views/users/profile.blade.php`
-
-### Phase 3: Pattern Matching
-**Goal**: Detect Laravel patterns in code using regex
-
-**Learning Focus**:
-- Regular expressions in Rust (`regex` crate)
-- Iterators and closures
-- Borrowing and references (`&` and `&mut`)
-- Collections (`Vec`, `HashMap`)
-- Iterator methods (`.map()`, `.filter()`, `.collect()`)
-
-**Deliverable**: Function that finds all `view('...')` calls in a file
-
-### Phase 4: Tree-sitter Integration
-**Goal**: Parse Blade and PHP files properly using tree-sitter
-
-**Learning Focus**:
-- Working with tree-sitter's Rust API
-- Tree traversal algorithms
-- Lifetimes (what they are and why they matter)
-- Memory management and performance
-- Rust's zero-cost abstractions
-
-**Deliverable**: Parse `<x-button>` tags from Blade files
-
-### Phase 5: Go-to-Definition
-**Goal**: Implement clickable "go-to-definition" for Blade components
-
-**Learning Focus**:
-- Zed's LSP integration APIs
-- Async Rust (`async`/`await`, `Future` trait)
-- More advanced trait usage
-- Position/range calculations
-- How async works in Rust vs JavaScript
-
-**Deliverable**: Click `<x-button>` and jump to `components/button.blade.php`
-
-### Phase 6: Advanced Features
-**Goal**: Extend to Livewire, Flux, routes, config
-
-**Learning Focus**:
-- Code organization (modules, workspace structure)
-- Advanced error handling
-- Testing in Rust (`#[cfg(test)]`)
-- Documentation (`///` comments)
-- Publishing extensions
-
-**Deliverable**: Full-featured Laravel extension with multiple go-to features
-
-## Teaching Approach
-
-When working on this project:
-1. **Explain concepts first** - Explain Rust concepts before implementing them
-2. **Provide options** - Present multiple implementation approaches with trade-offs
-3. **Write code together** - Explain each line as it's written
-4. **Encourage questions** - Answer "why" questions about design decisions
-5. **Iterative development** - Build working code first, then refactor to be "more Rusty"
-6. **Help with compiler errors** - Rust's compiler is helpful; explain what errors mean
-
-## Resources
-
-- Zed Extension API documentation: https://zed.dev/docs/extensions
-- Existing Zed extensions for reference: https://github.com/zed-industries/extensions
-- Laravel VSCode extension (for feature reference): https://github.com/amiralizadeh9480/laravel-extra-intellisense
-
----
-
-## Session State (2026-02-08)
-
-### Last Session Summary
-
-**Focus**: Investigating whether to remove the bundled Blade language definition and rely on the separate Blade Zed extension, per Zed reviewer feedback. Explored Option C (LSP semantic tokens) in depth and found it's not viable yet.
-
-### Context: Zed Reviewer Feedback
-
-The Zed extension reviewer asked why this extension bundles its own Blade language definition when the existing Blade extension (`bajrangCoder/zed-laravel-blade`) already provides one. The reviewer suggested users could disable the Blade extension's language servers and use `laravel-lsp` instead.
-
-### Branch: `experiment/remove-blade-language`
-
-**What was done:**
-- Deleted `languages/blade/` (config.toml, highlights.scm, brackets.scm, indents.scm, injections.scm)
-- Deleted `languages/php_only/` (config.toml, highlights.scm)
-- Removed `[grammars.blade]` and `[grammars.php_only]` from `extension.toml`
-- Removed empty `languages/` directory
-- Updated README: replaced "Blade Language Support" section, updated project structure, added note about separate Blade extension
-- Changed LSP semantic token type from `KEYWORD` to `FUNCTION` in `main.rs` (so directive highlighting matches our `@function` tree-sitter capture)
-- Build passes, all 190 tests pass
-
-**What was NOT changed:**
-- `extension.toml` still lists `languages = ["PHP", "Blade", "XML", "Shell Script"]` for the LSP (correct — this just activates the LSP for those file types, doesn't own the language)
-- All LSP code (build.rs, parser.rs, queries.rs, etc.) still uses tree-sitter-blade internally for parsing
-
-### Key Findings
-
-1. **Zed does NOT support augmenting a language from another extension** — you either own the full language definition or you don't. No partial overrides. Community has requested this but it's not implemented.
-
-2. **Providing `languages/blade/` with .scm files but no `config.toml` errors** — Zed requires `config.toml` when it finds the directory.
-
-3. **Providing `config.toml` without grammar declarations works** — Zed resolves the `blade` grammar from the other Blade extension. BUT this takes full ownership of the language definition, replacing (not augmenting) the other extension's .scm files.
-
-4. **A file can only belong to ONE language in Zed** — creating a separate language name (e.g., "laravel-blade") doesn't work because the Blade extension's language servers are registered for "Blade", not the custom name.
-
-5. **The Blade extension (`bajrangCoder/zed-laravel-blade`) provides:**
-   - Language definition: config.toml, highlights.scm, brackets.scm, indents.scm, injections.scm, outline.scm, overrides.scm
-   - Grammars: tree-sitter-blade, tree-sitter-php (php_only)
-   - Language servers: emmet, intelephense, phptools, phpactor (all PHP LSPs wired to Blade files)
-   - No custom Blade LSP of its own
-   - Cloned to `/Users/mike/Developer/zed-laravel-blade` and installed as dev extension for testing
-
-6. **Semantic tokens (Option C) NOT viable yet:**
-   - Zed PR #46356 "editor: Implement semantic highlighting" merged to `main` on Feb 4, 2026
-   - But it has NOT been released in any build — not in stable (0.222.4) nor preview (0.223.2)
-   - The `semantic_tokens` setting, `lsp: restart language servers` command, and `dev: open highlights tree view` command do not exist in current Zed builds
-   - The documentation at https://zed.dev/docs/semantic-tokens is published ahead of the actual release
-   - Once released, users would need `"semantic_tokens": "combined"` in their Blade language settings
-   - The LSP already sends `FUNCTION` tokens for directives (changed from `KEYWORD` this session)
-
-### Detailed Feature Comparison (Our Extension vs Blade Extension)
-
-**Losses from removing our language files:**
-
-| Category | Impact | Details |
-|---|---|---|
-| **Directive highlighting** | **Significant** | Our `@function` (blue) vs their `@tag` (cyan) — directives become visually indistinguishable from HTML tags |
-| **Blade bracket pairs** | **Moderate** | `{{ }}`, `{!! !!}`, `{{-- --}}` bracket matching/pairing lost — they don't define these in config.toml |
-| **`{` auto-close** | **Minor** | We set `close = false` (LSP handles snippets), they set `close = true` |
-| **Hyphenated word selection** | **Minor** | We define `word_characters = ["-"]` on root + `element` + `string` overrides; they only define it on `string` |
-
-**No loss:**
-- Indentation (`indents.scm`) — identical files
-- Injections (`injections.scm`) — identical files
-- Bracket queries (`brackets.scm`) — identical files
-- `php_only` language — identical highlights and config (whitespace-only diff)
-
-**Features gained from Blade extension:**
-- `outline.scm` — comments in symbol outline panel
-- `overrides.scm` — TailwindCSS completions in attribute values
-- `wrap_characters` — HTML tag wrapping support
-
-### Network Issue (Resolved)
-
-- **Proxyman Guard** network extension was still active on macOS despite the app being uninstalled, causing connection timeouts to `api.zed.dev` and `zed-extensions.nyc3.digitaloceanspaces.com`
-- Disabled via System Settings > General > Login Items & Extensions > Network Extensions
-- `api.zed.dev` works after disabling Proxyman; DigitalOcean Spaces still has ISP-level routing issues (Lumen NYC edge router drops packets to DO's NYC3 region)
-- Workaround: `/etc/hosts` entry for `api.zed.dev` pointing to working Cloudflare IP `172.66.165.132` (can be removed when ISP routing resolves)
-- Blade extension installed as dev extension from `/Users/mike/Developer/zed-laravel-blade` to bypass download
-
-### Remaining Options
-
-1. **Option A: Contribute upstream** — PR our highlighting improvements (`@function` for directives, bracket pair definitions, `word_characters` config) to `bajrangCoder/zed-laravel-blade`. Cleanest long-term solution.
-2. **Option B: Keep owning the language definition without grammars** — Provide `languages/blade/` with our `.scm` files + `config.toml` but no `[grammars.*]` in `extension.toml`. Grammar resolves from Blade extension. Addresses reviewer's duplicate grammar concern but still duplicates language definition.
-3. **Option C: Wait for semantic tokens** — Once Zed ships the feature (PR #46356), the LSP's `FUNCTION` tokens will overlay directive highlighting. Doesn't solve bracket pairs or config differences. Can be combined with A or B later.
-
-### Current Status
-
-- Branch: `experiment/remove-blade-language`
-- Build: **Passing**
-- Tests: **190 tests passing**
-- Uncommitted changes: language files deleted, README updated, extension.toml grammar refs removed, LSP semantic token type changed to FUNCTION
-- Blade extension cloned to `/Users/mike/Developer/zed-laravel-blade` and installed as dev extension
-- Zed settings reverted (removed `semantic_tokens: "combined"` that was added for testing)
-- Decision pending on which option (A, B, or C) to pursue
+</code-snippet>
+
+## Comments
+- Prefer PHPDoc blocks over inline comments. Never use comments within the code itself unless there is something very complex going on.
+
+## PHPDoc Blocks
+- Add useful array shape type definitions for arrays when appropriate.
+
+## Enums
+- Typically, keys in an Enum should be TitleCase. For example: `FavoritePerson`, `BestLake`, `Monthly`.
+
+=== laravel/core rules ===
+
+## Do Things the Laravel Way
+
+- Use `php artisan make:` commands to create new files (i.e. migrations, controllers, models, etc.). You can list available Artisan commands using the `list-artisan-commands` tool.
+- If you're creating a generic PHP class, use `php artisan make:class`.
+- Pass `--no-interaction` to all Artisan commands to ensure they work without user input. You should also pass the correct `--options` to ensure correct behavior.
+
+### Database
+- Always use proper Eloquent relationship methods with return type hints. Prefer relationship methods over raw queries or manual joins.
+- Use Eloquent models and relationships before suggesting raw database queries.
+- Avoid `DB::`; prefer `Model::query()`. Generate code that leverages Laravel's ORM capabilities rather than bypassing them.
+- Generate code that prevents N+1 query problems by using eager loading.
+- Use Laravel's query builder for very complex database operations.
+
+### Model Creation
+- When creating new models, create useful factories and seeders for them too. Ask the user if they need any other things, using `list-artisan-commands` to check the available options to `php artisan make:model`.
+
+### APIs & Eloquent Resources
+- For APIs, default to using Eloquent API Resources and API versioning unless existing API routes do not, then you should follow existing application convention.
+
+### Controllers & Validation
+- Always create Form Request classes for validation rather than inline validation in controllers. Include both validation rules and custom error messages.
+- Check sibling Form Requests to see if the application uses array or string based validation rules.
+
+### Queues
+- Use queued jobs for time-consuming operations with the `ShouldQueue` interface.
+
+### Authentication & Authorization
+- Use Laravel's built-in authentication and authorization features (gates, policies, Sanctum, etc.).
+
+### URL Generation
+- When generating links to other pages, prefer named routes and the `route()` function.
+
+### Configuration
+- Use environment variables only in configuration files - never use the `env()` function directly outside of config files. Always use `config('app.name')`, not `env('APP_NAME')`.
+
+### Testing
+- When creating models for tests, use the factories for the models. Check if the factory has custom states that can be used before manually setting up the model.
+- Faker: Use methods such as `$this->faker->word()` or `fake()->randomDigit()`. Follow existing conventions whether to use `$this->faker` or `fake()`.
+- When creating tests, make use of `php artisan make:test [options] {name}` to create a feature test, and pass `--unit` to create a unit test. Most tests should be feature tests.
+
+### Vite Error
+- If you receive an "Illuminate\Foundation\ViteException: Unable to locate file in Vite manifest" error, you can run `npm run build` or ask the user to run `npm run dev` or `composer run dev`.
+
+=== laravel/v12 rules ===
+
+## Laravel 12
+
+- Use the `search-docs` tool to get version-specific documentation.
+- Since Laravel 11, Laravel has a new streamlined file structure which this project uses.
+
+### Laravel 12 Structure
+- In Laravel 12, middleware are no longer registered in `app/Http/Kernel.php`.
+- Middleware are configured declaratively in `bootstrap/app.php` using `Application::configure()->withMiddleware()`.
+- `bootstrap/app.php` is the file to register middleware, exceptions, and routing files.
+- `bootstrap/providers.php` contains application specific service providers.
+- The `app\Console\Kernel.php` file no longer exists; use `bootstrap/app.php` or `routes/console.php` for console configuration.
+- Console commands in `app/Console/Commands/` are automatically available and do not require manual registration.
+
+### Database
+- When modifying a column, the migration must include all of the attributes that were previously defined on the column. Otherwise, they will be dropped and lost.
+- Laravel 12 allows limiting eagerly loaded records natively, without external packages: `$query->latest()->limit(10);`.
+
+### Models
+- Casts can and likely should be set in a `casts()` method on a model rather than the `$casts` property. Follow existing conventions from other models.
+
+=== fluxui-free/core rules ===
+
+## Flux UI Free
+
+- This project is using the free edition of Flux UI. It has full access to the free components and variants, but does not have access to the Pro components.
+- Flux UI is a component library for Livewire. Flux is a robust, hand-crafted UI component library for your Livewire applications. It's built using Tailwind CSS and provides a set of components that are easy to use and customize.
+- You should use Flux UI components when available.
+- Fallback to standard Blade components if Flux is unavailable.
+- If available, use the `search-docs` tool to get the exact documentation and code snippets available for this project.
+- Flux UI components look like this:
+
+<code-snippet name="Flux UI Component Example" lang="blade">
+    <flux:button variant="primary"/>
+</code-snippet>
+
+### Available Components
+This is correct as of Boost installation, but there may be additional components within the codebase.
+
+<available-flux-components>
+avatar, badge, brand, breadcrumbs, button, callout, checkbox, dropdown, field, heading, icon, input, modal, navbar, otp-input, profile, radio, select, separator, skeleton, switch, text, textarea, tooltip
+</available-flux-components>
+
+=== livewire/core rules ===
+
+## Livewire
+
+- Use the `search-docs` tool to find exact version-specific documentation for how to write Livewire and Livewire tests.
+- Use the `php artisan make:livewire [Posts\CreatePost]` Artisan command to create new components.
+- State should live on the server, with the UI reflecting it.
+- All Livewire requests hit the Laravel backend; they're like regular HTTP requests. Always validate form data and run authorization checks in Livewire actions.
+
+## Livewire Best Practices
+- Livewire components require a single root element.
+- Use `wire:loading` and `wire:dirty` for delightful loading states.
+- Add `wire:key` in loops:
+
+    ```blade
+    @foreach ($items as $item)
+        <div wire:key="item-{{ $item->id }}">
+            {{ $item->name }}
+        </div>
+    @endforeach
+    ```
+
+- Prefer lifecycle hooks like `mount()`, `updatedFoo()` for initialization and reactive side effects:
+
+<code-snippet name="Lifecycle Hook Examples" lang="php">
+    public function mount(User $user) { $this->user = $user; }
+    public function updatedSearch() { $this->resetPage(); }
+</code-snippet>
+
+## Testing Livewire
+
+<code-snippet name="Example Livewire Component Test" lang="php">
+    Livewire::test(Counter::class)
+        ->assertSet('count', 0)
+        ->call('increment')
+        ->assertSet('count', 1)
+        ->assertSee(1)
+        ->assertStatus(200);
+</code-snippet>
+
+<code-snippet name="Testing Livewire Component Exists on Page" lang="php">
+    $this->get('/posts/create')
+    ->assertSeeLivewire(CreatePost::class);
+</code-snippet>
+
+=== volt/core rules ===
+
+## Livewire Volt
+
+- This project uses Livewire Volt for interactivity within its pages. New pages requiring interactivity must also use Livewire Volt.
+- Make new Volt components using `php artisan make:volt [name] [--test] [--pest]`.
+- Volt is a class-based and functional API for Livewire that supports single-file components, allowing a component's PHP logic and Blade templates to coexist in the same file.
+- Livewire Volt allows PHP logic and Blade templates in one file. Components use the `@volt` directive.
+- You must check existing Volt components to determine if they're functional or class-based. If you can't detect that, ask the user which they prefer before writing a Volt component.
+
+### Volt Functional Component Example
+
+<code-snippet name="Volt Functional Component Example" lang="php">
+@volt
+<?php
+use function Livewire\Volt\{state, computed};
+
+state(['count' => 0]);
+
+$increment = fn () => $this->count++;
+$decrement = fn () => $this->count--;
+
+$double = computed(fn () => $this->count * 2);
+?>
+
+<div>
+    <h1>Count: {{ $count }}</h1>
+    <h2>Double: {{ $this->double }}</h2>
+    <button wire:click="increment">+</button>
+    <button wire:click="decrement">-</button>
+</div>
+@endvolt
+</code-snippet>
+
+### Volt Class Based Component Example
+To get started, define an anonymous class that extends Livewire\Volt\Component. Within the class, you may utilize all of the features of Livewire using traditional Livewire syntax:
+
+<code-snippet name="Volt Class-based Volt Component Example" lang="php">
+use Livewire\Volt\Component;
+
+new class extends Component {
+    public $count = 0;
+
+    public function increment()
+    {
+        $this->count++;
+    }
+} ?>
+
+<div>
+    <h1>{{ $count }}</h1>
+    <button wire:click="increment">+</button>
+</div>
+</code-snippet>
+
+### Testing Volt & Volt Components
+- Use the existing directory for tests if it already exists. Otherwise, fallback to `tests/Feature/Volt`.
+
+<code-snippet name="Livewire Test Example" lang="php">
+use Livewire\Volt\Volt;
+
+test('counter increments', function () {
+    Volt::test('counter')
+        ->assertSee('Count: 0')
+        ->call('increment')
+        ->assertSee('Count: 1');
+});
+</code-snippet>
+
+<code-snippet name="Volt Component Test Using Pest" lang="php">
+declare(strict_types=1);
+
+use App\Models\{User, Product};
+use Livewire\Volt\Volt;
+
+test('product form creates product', function () {
+    $user = User::factory()->create();
+
+    Volt::test('pages.products.create')
+        ->actingAs($user)
+        ->set('form.name', 'Test Product')
+        ->set('form.description', 'Test Description')
+        ->set('form.price', 99.99)
+        ->call('create')
+        ->assertHasNoErrors();
+
+    expect(Product::where('name', 'Test Product')->exists())->toBeTrue();
+});
+</code-snippet>
+
+### Common Patterns
+
+<code-snippet name="CRUD With Volt" lang="php">
+<?php
+
+use App\Models\Product;
+use function Livewire\Volt\{state, computed};
+
+state(['editing' => null, 'search' => '']);
+
+$products = computed(fn() => Product::when($this->search,
+    fn($q) => $q->where('name', 'like', "%{$this->search}%")
+)->get());
+
+$edit = fn(Product $product) => $this->editing = $product->id;
+$delete = fn(Product $product) => $product->delete();
+
+?>
+
+<!-- HTML / UI Here -->
+</code-snippet>
+
+<code-snippet name="Real-Time Search With Volt" lang="php">
+    <flux:input
+        wire:model.live.debounce.300ms="search"
+        placeholder="Search..."
+    />
+</code-snippet>
+
+<code-snippet name="Loading States With Volt" lang="php">
+    <flux:button wire:click="save" wire:loading.attr="disabled">
+        <span wire:loading.remove>Save</span>
+        <span wire:loading>Saving...</span>
+    </flux:button>
+</code-snippet>
+
+=== pint/core rules ===
+
+## Laravel Pint Code Formatter
+
+- You must run `vendor/bin/pint --dirty --format agent` before finalizing changes to ensure your code matches the project's expected style.
+- Do not run `vendor/bin/pint --test --format agent`, simply run `vendor/bin/pint --format agent` to fix any formatting issues.
+
+=== pest/core rules ===
+
+## Pest
+### Testing
+- If you need to verify a feature is working, write or update a Unit / Feature test.
+
+### Pest Tests
+- All tests must be written using Pest. Use `php artisan make:test --pest {name}`.
+- You must not remove any tests or test files from the tests directory without approval. These are not temporary or helper files - these are core to the application.
+- Tests should test all of the happy paths, failure paths, and weird paths.
+- Tests live in the `tests/Feature` and `tests/Unit` directories.
+- Pest tests look and behave like this:
+<code-snippet name="Basic Pest Test Example" lang="php">
+it('is true', function () {
+    expect(true)->toBeTrue();
+});
+</code-snippet>
+
+### Running Tests
+- Run the minimal number of tests using an appropriate filter before finalizing code edits.
+- To run all tests: `php artisan test --compact`.
+- To run all tests in a file: `php artisan test --compact tests/Feature/ExampleTest.php`.
+- To filter on a particular test name: `php artisan test --compact --filter=testName` (recommended after making a change to a related file).
+- When the tests relating to your changes are passing, ask the user if they would like to run the entire test suite to ensure everything is still passing.
+
+### Pest Assertions
+- When asserting status codes on a response, use the specific method like `assertForbidden` and `assertNotFound` instead of using `assertStatus(403)` or similar, e.g.:
+<code-snippet name="Pest Example Asserting postJson Response" lang="php">
+it('returns all', function () {
+    $response = $this->postJson('/api/docs', []);
+
+    $response->assertSuccessful();
+});
+</code-snippet>
+
+### Mocking
+- Mocking can be very helpful when appropriate.
+- When mocking, you can use the `Pest\Laravel\mock` Pest function, but always import it via `use function Pest\Laravel\mock;` before using it. Alternatively, you can use `$this->mock()` if existing tests do.
+- You can also create partial mocks using the same import or self method.
+
+### Datasets
+- Use datasets in Pest to simplify tests that have a lot of duplicated data. This is often the case when testing validation rules, so consider this solution when writing tests for validation rules.
+
+<code-snippet name="Pest Dataset Example" lang="php">
+it('has emails', function (string $email) {
+    expect($email)->not->toBeEmpty();
+})->with([
+    'james' => 'james@laravel.com',
+    'taylor' => 'taylor@laravel.com',
+]);
+</code-snippet>
+
+=== pest/v4 rules ===
+
+## Pest 4
+
+- Pest 4 is a huge upgrade to Pest and offers: browser testing, smoke testing, visual regression testing, test sharding, and faster type coverage.
+- Browser testing is incredibly powerful and useful for this project.
+- Browser tests should live in `tests/Browser/`.
+- Use the `search-docs` tool for detailed guidance on utilizing these features.
+
+### Browser Testing
+- You can use Laravel features like `Event::fake()`, `assertAuthenticated()`, and model factories within Pest 4 browser tests, as well as `RefreshDatabase` (when needed) to ensure a clean state for each test.
+- Interact with the page (click, type, scroll, select, submit, drag-and-drop, touch gestures, etc.) when appropriate to complete the test.
+- If requested, test on multiple browsers (Chrome, Firefox, Safari).
+- If requested, test on different devices and viewports (like iPhone 14 Pro, tablets, or custom breakpoints).
+- Switch color schemes (light/dark mode) when appropriate.
+- Take screenshots or pause tests for debugging when appropriate.
+
+### Example Tests
+
+<code-snippet name="Pest Browser Test Example" lang="php">
+it('may reset the password', function () {
+    Notification::fake();
+
+    $this->actingAs(User::factory()->create());
+
+    $page = visit('/sign-in'); // Visit on a real browser...
+
+    $page->assertSee('Sign In')
+        ->assertNoJavascriptErrors() // or ->assertNoConsoleLogs()
+        ->click('Forgot Password?')
+        ->fill('email', 'nuno@laravel.com')
+        ->click('Send Reset Link')
+        ->assertSee('We have emailed your password reset link!')
+
+    Notification::assertSent(ResetPassword::class);
+});
+</code-snippet>
+
+<code-snippet name="Pest Smoke Testing Example" lang="php">
+$pages = visit(['/', '/about', '/contact']);
+
+$pages->assertNoJavascriptErrors()->assertNoConsoleLogs();
+</code-snippet>
+</laravel-boost-guidelines>
 
 ---
 > Source: [mike-bronner/zed-laravel](https://github.com/mike-bronner/zed-laravel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
