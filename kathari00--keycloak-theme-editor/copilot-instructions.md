@@ -11,16 +11,18 @@ Published to npm as `keycloak-theme-editor`. Deployed as a static site to keyclo
 ## Commands
 
 ```bash
-npm run dev          # start Vite dev server (localhost:5173)
-npm run build        # tsc + vite build -> dist/
-npm run lint         # ESLint
-npm run test         # Vitest unit tests (watch mode)
-npm run test:run     # Vitest unit tests (single run)
-npm run test:e2e     # Playwright E2E (starts dev server automatically)
-npm run test:keycloak-integration  # Real-Keycloak login theme test (Docker required)
-npm run build:jar    # Maven build for tools/preview-renderer
-npm run build:cli    # tsup build for bin/cli.js
+npm run dev                        # Vite dev server (localhost:5173)
+npm run build                      # tsc + vite build -> dist/
+npm run lint
+npm run test                       # Vitest, watch mode
+npm run test:run                   # Vitest, single run
+npm run test:e2e                   # Playwright; starts the dev server itself
+npm run test:keycloak-integration  # boots a real Keycloak container - requires Docker
+npm run build:jar                  # Maven build for tools/preview-renderer - requires Java
+npm run build:cli                  # tsup build for bin/cli.js
 ```
+
+Other scripts (`sync:keycloak`, `generate:preview`, `vendor:check`/`vendor:apply`, `build:keycloak-fixture`) are one-off tooling - see `package.json`.
 
 ## Architecture
 
@@ -29,12 +31,13 @@ Feature-based structure under `src/features/`:
 - `assets/` : file upload handling (fonts, images, backgrounds, logos, favicons)
 - `editor/` : core editor state (Zustand stores + actions + CodeMirror), QuickStart panel
 - `preview/` : iframe preview rendering, message passing between app and preview frame
-- `presets/` : preset management, theme path resolution
+- `presets/` : preset management; theme CSS paths built on `keycloak-theme/`'s path constants
+- `theme-document/` : canonical in-memory theme representation, projected into preview CSS and export output
 - `theme-export/` : JAR and folder export/import, CSS assembly
+- `i18n/` : curated catalog of locales Keycloak's base theme ships translations for
+- `keycloak-theme/` : low-level theme file path constants (`theme.properties`, `template.ftl`, resource/message paths)
 
-State management uses Zustand. The preview runs in an iframe and communicates via postMessage.
-
-Top-level components live in `src/components/` (Topbar, RightSidebar, ContextBar, SidebarPanel, ErrorBoundary).
+`src/lib/` holds small cross-feature utilities (CSS AST parsing, classnames). Top-level components live in `src/components/` (Topbar, RightSidebar, ContextBar, SidebarPanel, ErrorBoundary). The preview runs in an iframe and communicates with the editor via postMessage.
 
 ## Build outputs
 
@@ -45,17 +48,13 @@ Top-level components live in `src/components/` (Topbar, RightSidebar, ContextBar
 
 ## Tests
 
-Framework: Vitest (unit) + Playwright (E2E).
+Vitest (unit, `__tests__/` next to source, no React component tests yet) + Playwright (`e2e/`: smoke, export, import-roundtrip, quick-settings, upload-assets, languages).
 
-Unit tests live next to source in `__tests__/` subdirectories. Currently 25 test files, ~160 tests. No React component tests exist yet.
-
-The single E2E smoke test (`e2e/smoke.test.ts`) loads the app and checks for JS errors. Playwright's `webServer` config starts `npm run dev` automatically.
-
-`e2e/keycloak-integration/` is a separate Playwright suite (own config, no `webServer`) that boots a real Keycloak container (`testcontainers`) with a fixture theme jar (built by `tools/build-theme-fixture.ts`, reusing the real export pipeline) and asserts on the actual rendered login page - the one thing nothing else in this repo proves. Requires Docker. See `e2e/manual-qa-languages.md` for the manual checklist this suite automates.
+`e2e/keycloak-integration/` is a separate Playwright suite (own config, no `webServer`) that boots a real Keycloak container (`testcontainers`) against a fixture theme jar (built by `tools/build-theme-fixture.ts`, reusing the real export pipeline) and asserts on the actual rendered login page - the one thing nothing else in this repo proves. Requires Docker. See `e2e/manual-qa-languages.md` for the manual checklist this suite automates.
 
 ## CI
 
-GitHub Actions pipeline (`.github/workflows/pipeline.yml`): lint -> test -> build -> playwright -> real-Keycloak integration test. Runs on push to main and PRs. On push to main, also deploys to GitHub Pages.
+`.github/workflows/pipeline.yml`: lint -> test -> build -> build:jar -> build:cli -> `npm pack --dry-run` -> keycloak-integration test -> e2e test. Runs on push to main and PRs; push to main also deploys to GitHub Pages.
 
 ## Commit conventions
 
@@ -66,10 +65,11 @@ Do not add `Co-Authored-By` lines.
 - `vite.config.ts` : Vite + React + static copy config
 - `src/main.tsx` : React entry point
 - `src/app/EditorContent.tsx` : main layout component
+- `src/features/theme-document/theme-document.ts` : canonical theme model, entry point for the theme-document feature
 - `tools/generate-preview.ts` : CLI tool to generate preview HTML (uses Java JAR + FreeMarker)
 - `tools/sync-keycloak.ts` : syncs Keycloak FreeMarker templates
 - `bin/cli.ts` : `keycloak-theme-editor` CLI (local development mode)
 
 ---
 > Source: [kathari00/keycloak-theme-editor](https://github.com/kathari00/keycloak-theme-editor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
