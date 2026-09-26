@@ -182,4 +182,4 @@ iteration, print the current number, then sleep 1 second. Use the Bash tool."* â
 
 ---
 > Source: [vdaubry/bottega](https://github.com/vdaubry/bottega) â€” distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
