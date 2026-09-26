@@ -1,122 +1,150 @@
 ## openhlm
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This page documents the coordinate frame, quaternion, and rotation conventions
 
-# CLAUDE.md
+# Coordinate Frame and Rotation Conventions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This page documents the coordinate frame, quaternion, and rotation conventions
+used throughout the SONIC codebase. Getting these wrong causes silent bugs —
+the robot will move but in the wrong direction or with wrong orientation.
 
-## Installation and Setup
+## Coordinate Frames
 
-This is a Python package for motion retargeting to humanoid robots. Install in development mode:
+### Isaac Lab / MuJoCo (simulation)
 
-```bash
-conda create -n gmr python=3.10 -y
-conda activate gmr
-pip install -e .
-conda install -c conda-forge libstdcxx-ng -y
+- **Z-up**: Gravity is along -Z. Ground plane is XY.
+- **Right-handed**: X forward, Y left, Z up.
+- This is the convention used during training and evaluation.
+
+### SMPL / BVH (human motion data)
+
+- **Y-up**: Gravity is along -Y. Ground plane is XZ.
+- When loading SMPL or BVH data, set `smpl_y_up: true` in the motion library
+  config. The motion library automatically converts Y-up to Z-up internally.
+
+### Summary
+
+| System | Up axis | Convention |
+|--------|---------|------------|
+| Isaac Lab | Z | Z-up, right-handed |
+| MuJoCo | Z | Z-up, right-handed |
+| SMPL body model | Y | Y-up |
+| BVH motion files | Y | Y-up |
+| Retargeted PKL data | Z | Z-up (already converted) |
+
+## Quaternion Convention
+
+### Scalar-first (wxyz) — default throughout SONIC
+
+The SONIC codebase uses **scalar-first (wxyz)** quaternions everywhere:
+
+```
+q = [w, x, y, z]
 ```
 
-## Code Architecture
+This applies to:
 
-### Core Components
+- `gear_sonic/trl/utils/torch_transform.py` — all rotation utilities
+- `gear_sonic/isaac_utils/rotations.py` — Isaac Lab rotation helpers (use `w_last=False`)
+- Isaac Lab APIs (`body_quat_w`, `root_quat_w`, etc.)
+- Motion library internal storage
+- Retargeted PKL data (`root_rot` field)
 
-- **`GeneralMotionRetargeting`** (`general_motion_retargeting/motion_retarget.py`): Main class for motion retargeting using inverse kinematics (IK) solver built on mink/mujoco
-- **`KinematicsModel`** (`general_motion_retargeting/kinematics_model.py`): Handles robot kinematics calculations
-- **`RobotMotionViewer`** (`general_motion_retargeting/robot_motion_viewer.py`): MuJoCo-based visualization for robot motions
-- **Configuration System** (`general_motion_retargeting/params.py`): Simplified robot definitions and IK config mappings - cleaned to focus on core supported robots
+### Scalar-last (xyzw) — scipy only
 
-### Data Flow
+[SciPy's Rotation class](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.transform.Rotation.html)
+uses **scalar-last (xyzw)** convention:
 
-1. **Human Motion Input**: SMPL-X (AMASS/OMOMO) or BVH (LAFAN1) format
-2. **Motion Format**: Each frame = dict of (human_body_name, 3D translation + rotation)
-3. **Robot Output**: Tuple of (base_translation, base_rotation, joint_positions)
-4. **IK Configs**: JSON files in `general_motion_retargeting/ik_configs/` define human-to-robot body mappings
-
-### Supported Robots
-
-Core robot models in `assets/` directory:
-- Unitree G1 (`unitree_g1`) - 29 DOF humanoid
-- Booster T1 (`booster_t1`) - Full-body humanoid 
-- Booster K1 (`booster_k1`) - 22 DOF humanoid
-- Stanford ToddlerBot (`stanford_toddy`) - Research humanoid
-- Fourier N1 (`fourier_n1`) - Commercial humanoid
-- ENGINEAI PM01 (`engineai_pm01`) - Industrial humanoid
-- Kuavo S45 (`kuavo_s45`) - 28 DOF humanoid
-- HighTorque Hi (`hightorque_hi`) - 25 DOF humanoid
-- Galaxea R1 Pro (`galaxea_r1pro`) - 24 DOF wheeled humanoid
-
-Additional models retained in ROBOT_BASE_DICT for compatibility:
-- `unitree_g1_with_hands` (43 DOF with dexterous hands)
-- `dex31_left_hand`, `dex31_right_hand` (hand components)
-
-## Common Commands
-
-### Single Motion Retargeting
-```bash
-# SMPL-X to robot
-python scripts/smplx_to_robot.py --smplx_file <path> --robot <robot_name> --save_path <output.pkl>
-
-# BVH to robot  
-python scripts/bvh_to_robot.py --bvh_file <path> --robot <robot_name> --save_path <output.pkl>
+```
+q = [x, y, z, w]
 ```
 
-### Batch Processing
-```bash
-# Process datasets
-python scripts/smplx_to_robot_dataset.py
-python scripts/bvh_to_robot_dataset.py
+This is only used in the **data processing scripts** (`data_process/`) when
+calling `scipy.spatial.transform.Rotation`. The scripts convert to wxyz
+before saving:
+
+```python
+# In data processing (scipy xyzw → wxyz for storage)
+root_quat_xyzw = Rotation.from_euler("xyz", euler_angles).as_quat()  # scipy: xyzw
+root_quat_wxyz = root_quat_xyzw[:, [3, 0, 1, 2]]                    # convert to wxyz
 ```
 
-### Visualization
-```bash
-# Visualize saved robot motion
-python scripts/vis_robot_motion.py --robot <robot_name> --robot_motion_path <path.pkl>
+### The `w_last` parameter
+
+Functions in `gear_sonic/isaac_utils/rotations.py` accept a `w_last` boolean:
+
+```python
+quat_rotate(q, v, w_last=False)   # q is wxyz (scalar-first) — this is the default
+quat_rotate(q, v, w_last=True)    # q is xyzw (scalar-last)
 ```
 
-Add `--record_video --video_path <output.mp4>` to any visualization command to record video.
+**Always use `w_last=False`** unless you're interfacing with scipy or a system
+that explicitly uses xyzw.
 
-## Key Technical Details
+### Quick reference
 
-- **IK Solver**: Uses mink library with configurable solver (default: "daqp") and damping (default: 5e-1)
-- **Human Height Scaling**: Automatic scaling based on `actual_human_height` parameter vs config assumptions
-- **Real-time Performance**: Optimized for 60-70 FPS on high-end CPUs for teleoperation use cases
-- **Body Model Dependencies**: Requires SMPL-X body models in `assets/body_models/smplx/`
+| System | Convention | Order | Identity |
+|--------|-----------|-------|----------|
+| SONIC (torch_transform.py) | wxyz | `[w, x, y, z]` | `[1, 0, 0, 0]` |
+| Isaac Lab | wxyz | `[w, x, y, z]` | `[1, 0, 0, 0]` |
+| SciPy | xyzw | `[x, y, z, w]` | `[0, 0, 0, 1]` |
+| MuJoCo | wxyz | `[w, x, y, z]` | `[1, 0, 0, 0]` |
+| ROS | xyzw | `[x, y, z, w]` | `[0, 0, 0, 1]` |
 
-## File Organization
+### Converting between conventions
 
-- `scripts/`: Entry point scripts for different retargeting workflows
-- `general_motion_retargeting/`: Core library code
-- `assets/`: Robot models (MuJoCo XML) and body models (SMPL-X)
-- `general_motion_retargeting/ik_configs/`: JSON configuration files for human-to-robot body mappings:
-  - SMPL-X configs: `smplx_to_{g1,t1,k1,toddy,n1,pm01,kuavo,hi,r1pro}.json`
-  - BVH configs: `bvh_to_{g1,t1,toddy,n1,pm01}.json`
-  - FBX configs: `fbx_to_g1.json`
+```python
+# wxyz → xyzw
+q_xyzw = q_wxyz[..., [1, 2, 3, 0]]
 
-## Project Status & Features
+# xyzw → wxyz
+q_wxyz = q_xyzw[..., [3, 0, 1, 2]]
+```
 
-**Current State**: Production-ready motion retargeting system with extensive robot support
+## Rotation Representations
 
-**Key Capabilities**:
-- **Multi-format Input**: SMPL-X (AMASS/OMOMO), BVH (LAFAN1), FBX (OptiTrack)
-- **Real-time Performance**: 60-70 FPS on high-end hardware for teleoperation
-- **9 Robot Models**: From research platforms to commercial humanoids
-- **Robust IK**: Mink-based solver with automatic human height scaling
-- **Visualization**: MuJoCo-based viewer with video recording capabilities
-- **Batch Processing**: Dataset-level retargeting workflows
+The codebase uses multiple rotation representations depending on context:
 
-**Use Cases**:
-- Real-time whole-body teleoperation (see [TWIST](https://github.com/YanjieZe/TWIST))
-- RL policy training data generation
-- Motion capture to robot deployment
-- Cross-platform humanoid motion transfer
+| Representation | Shape | Used in |
+|---------------|-------|---------|
+| Quaternion (wxyz) | `(..., 4)` | Simulation, motion library, observations |
+| Axis-angle | `(..., 3)` | `pose_aa` field in motion PKLs |
+| Rotation matrix | `(..., 3, 3)` | Forward kinematics, 6D rotation encoding |
+| 6D rotation | `(..., 6)` | Some observation terms (first 2 columns of rotation matrix) |
+| Euler angles | `(..., 3)` | CSV motion data input (converted immediately) |
 
-**Recent Additions** (2025):
-- Booster K1 support (9th robot)
-- Dexterous hand integration (G1 + Dex31)
-- Wheeled humanoid support (Galaxea R1 Pro)
-- Enhanced OptiTrack real-time streaming
+### Axis-angle in motion data
+
+The `pose_aa` field in retargeted PKL files stores per-body **local** rotations
+as axis-angle vectors. The direction is the rotation axis, the magnitude is
+the angle in radians:
+
+```python
+pose_aa  # (T, num_bodies, 3) — axis-angle per body, MuJoCo body order
+```
+
+## Joint Ordering
+
+Isaac Lab and MuJoCo traverse the kinematic tree in different orders. The
+codebase provides bidirectional index mappings per robot:
+
+```python
+from gear_sonic.envs.manager_env.robots.g1 import (
+    G1_ISAACLAB_TO_MUJOCO_DOF,   # Reorder DOFs: IsaacLab → MuJoCo
+    G1_MUJOCO_TO_ISAACLAB_DOF,   # Reorder DOFs: MuJoCo → IsaacLab
+)
+
+# Convert joint positions from IsaacLab order to MuJoCo order:
+mujoco_joints = isaaclab_joints[..., G1_ISAACLAB_TO_MUJOCO_DOF]
+```
+
+Motion PKL data (`dof`, `pose_aa`) is stored in **MuJoCo order**. Isaac Lab
+simulation uses **IsaacLab order**. The training pipeline handles the conversion
+automatically via `order_converter.py`.
+
+See [Training on New Embodiments](../user_guide/new_embodiments.md) for how to
+define these mappings for a new robot.
 
 ---
 > Source: [OpenHLM-project/OpenHLM](https://github.com/OpenHLM-project/OpenHLM) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
