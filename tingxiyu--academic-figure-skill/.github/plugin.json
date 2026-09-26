@@ -1,0 +1,14 @@
+{
+  "name": "tingxiyu--academic-figure-skill",
+  "displayName": "academic-figure-skill",
+  "description": "academic-figure-skill",
+  "version": "1.0.0",
+  "author": "TingxiYu",
+  "homepage": "https://github.com/TingxiYu/academic-figure-skill",
+  "skills": [
+    {
+      "name": "academic-figure-skill",
+      "description": ""
+    }
+  ]
+}
