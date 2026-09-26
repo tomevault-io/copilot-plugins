@@ -1,87 +1,107 @@
 ## vulcanbench
 
-> <!-- Copyright 2025 The Fuchsia Authors
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-<!-- Copyright 2025 The Fuchsia Authors
+# CLAUDE.md
 
-Licensed under a BSD-style license <LICENSE-BSD>, Apache License, Version 2.0
-<LICENSE-APACHE or https://www.apache.org/licenses/LICENSE-2.0>, or the MIT
-license <LICENSE-MIT or https://opensource.org/licenses/MIT>, at your option.
-This file may not be copied, modified, or distributed except according to
-those terms. -->
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Instructions for AI Agents
+## About This Project
 
-## Agent Persona & Role
+Echo is a high performance, minimalist Go web framework. This is the main repository for Echo v4, which is available as a Go module at `github.com/labstack/echo/v4`.
 
-You are an expert Rust systems programmer contributing to **zerocopy**, a
-library for zero-cost memory manipulation which presents a safe API over what
-would otherwise be dangerous operations. Your goal is to write high-quality,
-sound, and performant Rust code that adheres to strict safety and soundness
-guidelines and works across multiple Rust toolchains and compilation targets.
+## Development Commands
 
-### Reviewing
+The project uses a Makefile for common development tasks:
 
-You may be authoring changes, or you may be reviewing changes authored by other
-agents or humans. When reviewing changes, in addition to reading this document,
-you **MUST** also read [agent_docs/reviewing.md](./agent_docs/reviewing.md).
+- `make check` - Run linting, vetting, and race condition tests (default target)
+- `make init` - Install required linting tools (golint, staticcheck)
+- `make lint` - Run staticcheck and golint
+- `make vet` - Run go vet
+- `make test` - Run short tests
+- `make race` - Run tests with race detector
+- `make benchmark` - Run benchmarks
 
-## Critical Rules
+Example commands for development:
+```bash
+# Setup development environment
+make init
 
-- **README Generation:** **DON'T** edit `README.md` directly. It is generated
-  from `src/lib.rs`. Edit the top-level doc comment in `src/lib.rs` instead.
-  - **To regenerate:**
-    `(cd .. && cargo -q run --manifest-path tools/Cargo.toml -p generate-readme) > README.md`
+# Run all checks (lint, vet, race)
+make check
 
-<!-- TODO-check-disable -->
-- **TODOs:** **DON'T** use `TODO` comments unless you explicitly intend to block
-  the PR (CI fails on `TODO`). Use `FIXME` for non-blocking issues.
-<!-- TODO-check-enable -->
+# Run specific tests
+go test ./middleware/...
+go test -race ./...
 
-- **Documentation:** **DO** ensure that changes do not cause documentation to
-  become out of date (e.g., renaming files referenced here).
+# Run benchmarks
+make benchmark
+```
 
-## Project Context
+## Code Architecture
 
-### Overview
+### Core Components
 
-Zerocopy is a library designed to make zero-copy memory manipulation safe and
-easy. It relies heavily on Rust's type system and specific traits to ensure
-memory safety.
+**Echo Instance (`echo.go`)**
+- The `Echo` struct is the top-level framework instance
+- Contains router, middleware stacks, and server configuration
+- Not goroutine-safe for mutations after server start
 
-### Project Structure
+**Context (`context.go`)**
+- The `Context` interface represents HTTP request/response context
+- Provides methods for request/response handling, path parameters, data binding
+- Core abstraction for request processing
 
-- `src/`: Core library source code.
-- `zerocopy-derive/`: Source code and tests for the procedural macros.
-- `tests/`: UI and integration tests for the main crate.
-- `../tools/`: Internal tools and scripts shared by this repository.
-- `ci/`: Zerocopy-specific CI scripts.
-- `../ci/`: Repository-wide CI scripts.
-- `../githooks/`: Git hooks for pre-commit/pre-push checks.
-- `testdata/`: Data used for testing.
-- `testutil/`: Utility code for tests.
+**Router (`router.go`)**
+- Radix tree-based HTTP router with smart route prioritization
+- Supports static routes, parameterized routes (`/users/:id`), and wildcard routes (`/static/*`)
+- Each HTTP method has its own routing tree
 
-## Development Workflow
+**Middleware (`middleware/`)**
+- Extensive middleware system with 50+ built-in middlewares
+- Middleware can be applied at Echo, Group, or individual route level
+- Common middleware: Logger, Recover, CORS, JWT, Rate Limiting, etc.
 
-When developing code changes, you **MUST** read
-[agent_docs/development.md](./agent_docs/development.md).
+### Key Patterns
 
-### Before submitting
+**Middleware Chain**
+- Pre-middleware runs before routing
+- Regular middleware runs after routing but before handlers
+- Middleware functions have signature `func(next echo.HandlerFunc) echo.HandlerFunc`
 
-Once you have made a change, you **MUST** read the relevant documents to ensure
-that your change is valid and follows the style guidelines.
+**Route Groups**
+- Routes can be grouped with common prefixes and middleware
+- Groups support nested sub-groups
+- Defined in `group.go`
 
-- [agent_docs/validation.md](./agent_docs/validation.md) for validating code
-  changes
-- [agent_docs/style.md](./agent_docs/style.md) for style and formatting
-  guidelines for files and commit messages
+**Data Binding**
+- Automatic binding of request data (JSON, XML, form) to Go structs
+- Implemented in `binder.go` with support for custom binders
 
-#### Pre-submission Checks
+**Error Handling**
+- Centralized error handling via `HTTPErrorHandler`
+- Automatic panic recovery with stack traces
 
-Run `../githooks/pre-push` before submitting. This runs a comprehensive suite of
-checks, including formatting, toolchain verification, and script validation. It
-catches many issues that would otherwise fail in CI.
+## File Organization
+
+- Root directory: Core Echo functionality (echo.go, context.go, router.go, etc.)
+- `middleware/`: All built-in middleware implementations
+- `_test/`: Test fixtures and utilities
+- `_fixture/`: Test data files
+
+## Code Style
+
+- Go code uses tabs for indentation (per .editorconfig)
+- Follows standard Go conventions and formatting
+- Uses gofmt, golint, and staticcheck for code quality
+
+## Testing
+
+- Standard Go testing with `testing` package
+- Tests include unit tests, integration tests, and benchmarks
+- Race condition testing is required (`make race`)
+- Test files follow `*_test.go` naming convention
 
 ---
 > Source: [morganlinton/VulcanBench](https://github.com/morganlinton/VulcanBench) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
