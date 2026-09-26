@@ -1,0 +1,14 @@
+{
+  "name": "openjiuwen-ai--agent-memory",
+  "displayName": "agent-memory",
+  "description": "agent-memory",
+  "version": "1.0.0",
+  "author": "openJiuwen-ai",
+  "homepage": "https://github.com/openJiuwen-ai/agent-memory",
+  "skills": [
+    {
+      "name": "agent-memory",
+      "description": ""
+    }
+  ]
+}
