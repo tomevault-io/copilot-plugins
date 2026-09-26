@@ -4,7 +4,7 @@
   "repo": "tracequant",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/PhoenixSss/tracequant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T14:52:20Z"
+  "distributed_at": "2026-09-26T00:52:02Z"
 }
