@@ -2,7 +2,7 @@
   "name": "book",
   "owner": "aipmer",
   "repo": "book",
-  "description": "\u300aCodex\u5b9e\u6218\u84dd\u76ae\u4e66\u300b\uff1aAI\u539f\u751f\u65f6\u4ee3\u7684\u4ea7\u54c1\u7814\u53d1\u4e0e\u591a\u7aef\u7f16\u6392\u5b9e\u6218\u6307\u5357\u3002",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aipmer/book",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T05:33:55Z"
+  "distributed_at": "2026-09-26T16:34:29Z"
 }
