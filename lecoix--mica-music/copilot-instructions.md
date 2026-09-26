@@ -1,29 +1,43 @@
 ## mica-music
 
-> Issues 和 PRDs 以 markdown 文件存放在 `.scratch/<feature-slug>/` 下。详见 `docs/agents/issue-tracker.md`。
+> 防止异步任务在新操作完成后通过新增副作用绕过 generation/requestId 保护
 
-## Agent skills
 
-### Issue tracker
+# 异步共享状态与副作用一致性
 
-Issues 和 PRDs 以 markdown 文件存放在 `.scratch/<feature-slug>/` 下。详见 `docs/agents/issue-tracker.md`。
+适用于扫描、清库、缓存、预热、媒体封面、浏览分组、Room、文件系统以及任何会把异步结果写入共享状态或发布给观察者的流程。
 
-### Triage labels
+## 必须遵守
 
-五个 canonical triage roles 使用默认 label 字符串。详见 `docs/agents/triage-labels.md`。
+1. 每次全量替换、清空、释放、重新加载或新请求都必须产生新的 generation、requestId 或等价 revision。取消旧任务只是优化，不能作为正确性条件。
+2. 每个不可取消的 `await`、IO、解析、文件操作或回调之后，在任何实际副作用之前都必须重新校验 token。只在入口校验不算保护。
+3. 一个流程有多个副作用阶段时，每个阶段都要重新校验。例如：建 keep-set 后再删除文件、提取后再写缓存、Room 写入后再发布内存快照。
+4. 同一共享状态的持久化、删除、清空和内存发布必须经过 owner 的统一同步 seam（例如 `storeSyncMutex`）。不得在 caller、`fire-and-forget` 回调或后台 IO 中绕过 owner。
+5. 局部批次不是全量 snapshot。歌词批次、预热结果等局部结果不能替换、清空或污染更新后的 snapshot；清库和释放必须使旧批次无法再写回。
 
-### Domain docs
+## 测试门槛
 
-Single-context 布局：根目录 `CONTEXT.md` + `docs/adr/`（尚未创建，skills 会在需要时懒创建）。详见 `docs/agents/domain.md`。
+新增或修改上述流程时，先补确定性的交错测试：
 
-### 音质改动（硬性）
+- 让旧操作停在真实副作用边界，而不是只停在入口；
+- 完成更新后的新操作；
+- 释放旧操作；
+- 断言最终状态仍属于新操作，并检查实际持久化、删除、缓存落盘或内存发布结果。
 
-任何可能**降音质**的改动须**事先向用户明确说明影响范围**，并**得到明确允许**后才能实现或默认启用。详见 `CONTEXT.md`（**Audio quality consent**）与 `.cursor/rules/audio-quality-consent.mdc`。
+只断言取消标志、任务计数或入口 generation 的测试不足以证明保护有效。
 
-### 超大曲库容量基线（硬性）
+## 评审清单
 
-任何涉及曲库的设计或改动，必须以“**10,000 首歌曲、每首均有完整逐字歌词、8 GB 内存 Android 手机**”作为容量基线，评估启动、扫描、加载、排序、保存、同步和缓存时的内存峰值与稳定性。不得非必要地全量解析、编码、复制或常驻歌词；优先使用懒加载、有界缓存、分批或流式处理。完成前须用测试、测量或可审查的内存上界说明该设备能够承受；无法确认时必须明确标注风险，不得宣称安全。
+提交前必须能回答：
+
+- generation/requestId 的 owner 是谁？
+- 每个 `await`、IO、解析和回调之后在哪里重新校验？
+- 所有实际副作用分别是什么？每一个是否都在校验之后？
+- 共享同步 seam 是什么？是否存在旁路写入？
+- 哪个交错测试证明旧操作释放后不能覆盖新结果？
+
+无法证明这些不变量时，必须标注风险，不得声称已修复。
 
 ---
 > Source: [lecoix/mica-music](https://github.com/lecoix/mica-music) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
