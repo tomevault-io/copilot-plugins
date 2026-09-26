@@ -1,43 +1,54 @@
-## project-structure
+## react-development
 
-> Project structure guidelines and organization
+> React development best practices and patterns
 
-# Project Structure Guidelines
+# React Development Guidelines
 
-## Directory Organization
-- Project Type: single
-- Source Directory: src/
-- Component Organization: type-based
+## Component Structure
+- Use functional components with hooks
+- Prefer composition over inheritance
+- Keep components small and focused (< 100 lines)
+- Use PascalCase for component names
 
-## File Naming Conventions
-- Components: camelCase
-- Files: camelCase
-- Import Style: relative
+## State Management
+- Use useState for local state
+- Use useReducer for complex state logic
+- Consider context for global state
+- Avoid prop drilling beyond 2-3 levels
 
-## Structure Requirements
-
-- Single application structure
-- Clear separation of concerns
-- Modular component organization
-
-
-## Best Practices
-- Keep related files together
-- Use consistent naming across the project
-- Maintain clear import/export patterns
-- Document architectural decisions
+## Performance Optimization
+- Use React.memo for expensive components
+- Implement useMemo and useCallback when needed
+- Avoid creating objects/functions in render
+- Use proper dependency arrays
 
 ## Code Examples:
 
-```
-src/
+```tsx
+// Good: Clean functional component
+const UserProfile = ({ userId }: { userId: string }) => {
+  const [user, setUser] = useState<User | null>(null);
+  
+  useEffect(() => {
+    fetchUser(userId).then(setUser);
+  }, [userId]);
 
-├── components/
-├── hooks/
-├── services/
-├── pages/
-└── utils/
+  if (!user) return <LoadingSpinner />;
+  
+  return (
+    <div className="user-profile">
+      <h1>{user.name}</h1>
+      <p>{user.email}</p>
+    </div>
+  );
+};
 
+// Bad: Complex component with mixed concerns
+const BadComponent = () => {
+  // Too much logic mixed together
+  // Multiple responsibilities
+  // Hard to test and maintain
+};
 ```
 
 ---
