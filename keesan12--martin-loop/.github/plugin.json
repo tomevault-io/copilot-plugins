@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "Keesan12",
   "homepage": "https://github.com/Keesan12/martin-loop",
-  "skills": []
+  "skills": [
+    {
+      "name": "martin-loop",
+      "description": ""
+    }
+  ]
 }
