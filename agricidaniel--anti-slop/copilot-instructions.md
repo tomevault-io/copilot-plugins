@@ -1,48 +1,15 @@
 ## anti-slop
 
-> The canonical agent entrypoint is `SKILL.md`; this file exists for agent
+> Gemini-specific note: this file can be imported from a global
 
-# Anti-Slop Brain Agent Instructions
+# Anti-Slop Brain Gemini Instructions
 
-The canonical agent entrypoint is `SKILL.md`; this file exists for agent
-runtimes that load project-level `AGENTS.md` instructions.
+@./AGENTS.md
 
-## Read Order
-
-1. `SKILL.md`
-2. `README.md`
-3. `docs/OPERATOR_KIT.md`
-4. `docs/PRODUCT_BOUNDARIES.md`
-5. `references/product-spec.md`
-6. `references/source-ledger.json`
-7. `references/adapter-manifest.json`
-8. `agents/anti-slop-secretary.md`
-
-## Operating Rules
-
-- Do not call this brain market-ready unless `scripts/audit_brain.py --require
-  market-ready` passes.
-- A scaffold is not a finished brain.
-- Domain-specific claims require dated trustworthy sources.
-- Research evidence must be recorded in `references/source-ledger.json`.
-- Adapter completion must be recorded in `references/adapter-manifest.json`.
-- Preserve `.raw/` as immutable source material.
-- Keep Obsidian `wiki/`, `CODEX.md`, dashboards, canvases, frontmatter,
-  wikilinks, graph hygiene, and source citations healthy.
-- V1 is advisory and read-only unless a future release defines approval and
-  rollback for mutations.
-- For grounded answers or vault maintenance, use `agents/anti-slop-secretary.md`.
-  It must cite a vault note and an official URL for any domain claim.
-
-## Verification
-
-```bash
-python -m compileall scripts anti_slop_brain tests
-python tests/test_pipeline.py
-python scripts/audit_brain.py --json
-python scripts/package_release.py --version 0.1.0
-```
+Gemini-specific note: this file can be imported from a global
+`~/.gemini/GEMINI.md` loader. The canonical operating rules remain in
+`SKILL.md` and `AGENTS.md`.
 
 ---
 > Source: [AgriciDaniel/anti-slop](https://github.com/AgriciDaniel/anti-slop) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
