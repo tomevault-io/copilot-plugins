@@ -2,8 +2,6 @@
 
 > Source: [superdoc/docx-corpus](https://github.com/superdoc/docx-corpus). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-The largest open corpus of classified docx documents
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
