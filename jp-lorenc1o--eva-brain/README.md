@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jp-lorenc1o/Eva-brain](https://github.com/jp-lorenc1o/Eva-brain).
+Original source: `CLAUDE.md` in [jp-lorenc1o/Eva-brain](https://github.com/jp-lorenc1o/Eva-brain).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
