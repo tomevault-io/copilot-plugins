@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "renmengwen",
   "homepage": "https://github.com/renmengwen/MuseDock",
-  "skills": []
+  "skills": [
+    {
+      "name": "MuseDock",
+      "description": ""
+    },
+    {
+      "name": "MuseDock",
+      "description": ""
+    },
+    {
+      "name": "MuseDock",
+      "description": ""
+    }
+  ]
 }
