@@ -1,0 +1,87 @@
+{
+  "name": "state-memory-mcp",
+  "owner": "putervision",
+  "repo": "state-memory-mcp",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "state-memory-mcp",
+      "path": ".agents/skills/video-ingest/SKILL.md",
+      "github_url": "https://github.com/putervision/state-memory-mcp/tree/main/.agents/skills/video-ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "state-memory-mcp",
+      "path": ".agents/skills/webcrypt-mcp/SKILL.md",
+      "github_url": "https://github.com/putervision/state-memory-mcp/tree/main/.agents/skills/webcrypt-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "state-memory-mcp",
+      "path": ".agents/skills/behavior-mcp/SKILL.md",
+      "github_url": "https://github.com/putervision/state-memory-mcp/tree/main/.agents/skills/behavior-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "state-memory-mcp",
+      "path": ".agents/skills/world-model-mcp/SKILL.md",
+      "github_url": "https://github.com/putervision/state-memory-mcp/tree/main/.agents/skills/world-model-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "state-memory-mcp",
+      "path": ".agents/skills/state-memory-mcp/SKILL.md",
+      "github_url": "https://github.com/putervision/state-memory-mcp/tree/main/.agents/skills/state-memory-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "state-memory-mcp",
+      "path": ".agents/skills/vision-memory-mcp/SKILL.md",
+      "github_url": "https://github.com/putervision/state-memory-mcp/tree/main/.agents/skills/vision-memory-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "state-memory-mcp",
+      "path": ".agents/skills/agent-reasoning-mcp/SKILL.md",
+      "github_url": "https://github.com/putervision/state-memory-mcp/tree/main/.agents/skills/agent-reasoning-mcp/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/putervision/state-memory-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T00:42:41Z"
+}
