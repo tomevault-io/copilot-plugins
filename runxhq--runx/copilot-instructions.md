@@ -1,309 +1,186 @@
 ## runx
 
-> - `spec` is the living contract.
+> This file applies to the OSS workspace under `oss/`. It complements
 
-# scafld Agent Contract
+# Runx OSS Conventions
 
-## Contract
+## Scope
 
-- `spec` is the living contract.
-- `session` is the durable evidence ledger.
-- `handoff` is transport, not source of truth.
-- `review` is the adversarial completion gate.
-
-You execute autonomously inside the contract. You do not close the task unchallenged.
-
-## Commands
-
-```bash
-scafld init
-scafld plan <task-id> --title "Title" --size small --risk low
-scafld harden <task-id>
-scafld harden <task-id> --mark-passed
-scafld validate <task-id>
-scafld approve <task-id>
-scafld build <task-id>
-scafld review <task-id>
-scafld complete <task-id>
-scafld status <task-id>
-scafld list
-scafld report
-scafld handoff <task-id>
-scafld update
-```
-
-For real review: `scafld review <task-id> --provider {codex|claude|command}`.
-`--provider local` is smoke-test only and cannot satisfy `complete`.
-Only an operator may use `scafld review <task-id> --human-reviewed --reason ...`.
-
-## Source Checkout
-
-Inside the scafld repo, use `./bin/scafld` or `go run ./cmd/scafld`. Do not use
-a copied compiled binary; stale binaries can report old lifecycle state.
-
-## Lifecycle
-
-```text
-plan -> harden -> approve -> build -> review -> complete
-```
-
-Hardening attacks the draft. Review attacks the result.
-Build opens one phase at a time. After implementing the opened phase, run
-`scafld build <task-id>` again to record evidence and advance.
-
-## Do Not
-
-- Edit outside declared scope, objectives, or invariants.
-- Reconstruct lifecycle state by scraping Markdown. Use `status --json`.
-- Mutate `.scafld/core/` by hand. Use `scafld update`.
-- Run `--provider local` for real review.
-- Cite files, commands, or review findings you have not verified.
-
-## Prompts
-
-`.scafld/prompts/*` overrides `.scafld/core/prompts/*` overrides built-ins.
-
-# runx OSS Agent Guide
-
-Canonical reference for AI coding agents working in the runx OSS workspace.
-This repo uses scafld for non-trivial work, but the architecture rules are the
-runx rules in `CONVENTIONS.md`, `docs/rust-kernel-architecture.md`, and
+This file applies to the OSS workspace under `oss/`. It complements
+`AGENTS.md`, `CLAUDE.md`, `docs/rust-kernel-architecture.md`, and
 `docs/trusted-kernel-package-truth.md`.
 
-**Key files:**
+## Contract Vocabulary
 
-- `.scafld/config.yaml` - Validation rules, rubric weights, safety controls, profiles
-- `.scafld/prompts/plan.md` - Planning mode prompt
-- `.scafld/prompts/exec.md` - Execution mode prompt
-- `.scafld/core/schemas/spec.json` - Spec validation schema
-- `CONVENTIONS.md` - Coding standards and patterns
+Governed runtime artifacts use the harness spine:
 
----
+- `harness`: governed execution boundary with attenuated authority.
+- `act`: contained payload with `intent`, `form`, and `closure`.
+- `receipt`: sealed proof of a harness node.
+- `decision`: accountable harness lifecycle choice.
+- `signal`: world-before-action input.
 
-## How scafld Works
+Do not introduce compatibility aliases, `.v2` contract ids, or retired central
+object names at governed boundaries. Product-facing skill names may remain
+recognizable; wire contracts must use the spine vocabulary.
 
-Spec-driven development: every non-trivial task becomes a machine-readable markdown specification before any code changes happen.
+## Package Boundaries
 
-1. **Plan** - Analyze task, explore codebase, generate spec in `.scafld/specs/drafts/`
-2. **Review** - Human reviews and approves the spec
-3. **Build** - Agent executes approved spec with validation
-4. **Complete** - Completed specs are marked through the scafld lifecycle
+Package names carry trust claims:
 
-The spec is the contract. Operate autonomously within its bounds; pause for approval on deviations.
+- contracts define portable schemas and generated validators.
+- Rust `runx-core` owns pure state-machine and policy decisions.
+- Deleted TypeScript core packages must not be restored as compatibility shims
+  or build-only fallbacks.
+- `runx-runtime` coordinates local execution, adapters, exact process
+  invocation and supervision, caller interaction, and receipts.
+- host adapters and protocol adapters touch external processes and protocols.
+- `runx-cli` is the native command shell over the runtime.
 
-For detailed planning instructions, read `.scafld/prompts/plan.md`. For execution, read `.scafld/prompts/exec.md`.
+OSS packages must not import cloud code. Core must not import runtime, adapter,
+CLI, host-adapter, filesystem, network, or subprocess concerns.
 
----
+## Connector and Tenant Neutrality
 
-## Spec Status Lifecycle
+Portable Runx behavior targets provider capabilities, not connector vendors or
+Runx-company tenancy. Skills and public contracts must not contain Nango
+connection ids, provider-config keys, hosted tenant ids, connector endpoints,
+or assumptions that credentials are held by Runx Cloud. The operator binds an
+eligible local, self-hosted, third-party, or Runx-hosted connector at runtime.
 
-```text
-draft → approved → review → completed
-  ↓         ↓          ↓
-(edit)   failed    cancelled
+Provider operations therefore have stable names, typed inputs, bounded result
+projections, target-resource constraints, access classification, idempotency,
+and readback semantics independent of the adapter that executes them. Hosted
+adapters are optional implementations of those contracts. They must never
+become prerequisites for an otherwise portable skill.
+
+## Ownership Before Abstraction
+
+Promote behavior into native code only for a runtime/security invariant or two
+independent existing consumers. Keep domain policy in its owning skill, delete
+the displaced path in the same cutover, and never expose fixture or package
+layout through a generic API. `skills/skill-lab/SKILL.md` owns the full skill
+authoring contract; `docs/skill-quality-standard.md` owns the review standard.
+
+## Packet Artifact Eligibility
+
+Every public runner must expose a complete inspectable input and output
+contract. That does not make every runner or skill a global packet owner.
+
+- Keep runner-specific nested values in `X.yaml` as ordinary JSON Schema.
+- Put nested output shape in the producing output declaration's `schema`; the
+  parser and runtime validate that same declaration and packet generation
+  projects it without a second schema owner.
+- Declare `packet: <packet-id>` only when the complete value crosses a named,
+  reusable skill, runtime, SDK, provider, receipt, or registry boundary.
+- Keep graph intermediates and one-run implementation values as typed step
+  inputs or outputs; do not mint packet ids to make inspection work.
+- A canonical Rust contract uses `public_packet_artifact` only when a native
+  producer or public cross-language boundary requires distribution without an
+  `X.yaml` producer. Existence in `runx-contracts` is not enough.
+- One packet id has one schema owner. Consumers reference it and never copy its
+  schema. Generated packet files are distribution outputs and must disappear
+  when their last declaration or explicit public native owner disappears.
+- A named packet schema describes its semantic fields or references another
+  canonical contract. Bare `type: object`, unconstrained `{}`, and an opaque
+  `additionalProperties` bag are not substitutes for a contract. An open JSON
+  value is valid only as an explicitly named protocol extension or generic data
+  payload inside an otherwise bounded semantic envelope.
+- This rule is recursive. Every `type: object` in an input or distributed
+  packet must declare structure or an explicit `additionalProperties` policy.
+  Use `type: json` when the value is intentionally arbitrary JSON rather than
+  disguising that intent as an object contract.
+
+Review the active producer and consumer before adding or retaining a packet
+artifact. An orphaned schema is legacy code, not compatibility evidence.
+
+## Rust Bar
+
+Rust code must keep the workspace green under:
+
+```sh
+cargo fmt --manifest-path crates/Cargo.toml --all --check
+cargo clippy --manifest-path crates/Cargo.toml --workspace --all-targets -- -D warnings
+cargo test --manifest-path crates/Cargo.toml --workspace
+cargo deny --manifest-path crates/Cargo.toml check bans licenses sources
 ```
 
-Valid transitions:
-
-- `draft` → `approved` → `review` → `completed`
-- active work can move to `failed` or `cancelled`
-- blocked work must be recorded in the spec state and handoff
-
----
-
-## Architectural Invariants
-
-These rules must not be violated. See `config.yaml` for the canonical invariant list.
-
-### Rust Trusted Runtime
-
-Rust owns trusted local execution, receipt sealing, runtime policy, harness
-replay, MCP, payment gates, and sandbox planning. TypeScript packages may wrap
-or present those paths, but must not reintroduce local execution fallback logic.
-
-### Pure Kernel Boundaries
-
-Pure crates and packages stay pure. `runx-core`, `runx-contracts`,
-`runx-parser`, and `runx-receipts` must not import filesystem, network,
-subprocess, CLI, adapter, or runtime concerns.
-
-### Stable Public Contracts
-
-Public contract changes require a clean cutover through Rust-owned schemas and
-fixtures. Do not add compatibility aliases, `.v2` ids, or dual-read runtime
-shims for governed wire shapes.
-
-### Generic Stateful Effects
-
-Official skills that drive stateful hosted apps emit generic effect transition
-packets. Put product identity in `effect_family` and the runner/action in
-`operation`; do not add product-specific `AuthorityResourceFamily` variants or
-`runx.<product>.*` packet namespaces. Stateful app memory belongs in the hosted
-stateful-effect substrate and its declared reducers/views, not in OSS core
-enums or bespoke runtime branches.
-
-### No Legacy Fallbacks
-
-No dual-reads, dual-writes, or runtime fallbacks. When changing schemas or identifiers, adopt the new scheme immediately. Use one-off migration scripts, not runtime code.
-
-### Loop Orchestration
-
-Long-running agent workflows are loops over governed turns, not resident kernel
-loops. The loop host lives in an app, hosted service, local script, or external
-orchestrator. It owns scheduling, durable loop state, wakeups, projections, and
-stop policy. A runx turn is one skill or graph run with explicit inputs,
-authority, `allowed_tools`, optional `context_skills`, bounded model/tool
-rounds, approval gates, and one sealed receipt.
-
-Handoffs are receipt-backed artifacts or tool-shaped results. Prior receipts and
-skill context are untrusted data for the next turn, not new authority. Do not add
-loop-specific authority families, packet namespaces, product branches, or
-schedulers to `runx-core`; build residency outside the kernel over ordinary runx
-submissions.
-
-### No Hardcoded Secrets
-
-Configuration from environment or secrets management, never hardcoded. No secrets in code, logs, or diffs.
-
-### Test-Logic Separation
-
-No test fixtures, mocks, or conditional test-only logic in production code. Test utilities stay in dedicated test helper modules.
-
----
-
-## Spec Management
-
-**Always use the `scafld` CLI for spec lifecycle management.** Never manually move, copy, or rename spec files between directories. Never manually change the `status` field. The CLI enforces validation, state transitions, and the review gate — bypassing it breaks the audit trail.
-
----
-
-## Operating Modes
-
-### Planning Mode
-
-- **When:** Starting a new task, exploring requirements
-- **Actions:** Search, read, analyze (NO code changes outside `.scafld/specs/`)
-- **Output:** Markdown spec in `.scafld/specs/drafts/` with status `draft`
-- **Prompt:** Read `.scafld/prompts/plan.md` before entering this mode
-
-### Execution Mode
-
-- **When:** Spec has status `approved`
-- **Actions:** Apply changes, run acceptance criteria, record scafld build evidence
-- **Output:** Code changes, validation results, updated spec
-- **Prompt:** Read `.scafld/prompts/exec.md` before entering this mode
-- **Autonomy:** Execute all phases without pausing unless blocked, deviating from spec, or hitting a destructive action not covered by spec
-
-For trivial changes (typos, single-line fixes), skip the spec workflow and work directly.
-
-### Review Mode
-
-- **When:** Build has passed and status is `review`
-- **Actions:** Run `scafld review`, then `scafld complete` only after the native review gate passes
-- **Output:** Review verdict recorded in the spec and available through `scafld status` / `scafld handoff`
-- **Prompt:** Read `.scafld/prompts/review.md` before entering this mode
-- **Mandate:** Find problems, not confirm success. A review that finds zero issues still needs grounded evidence from the changed files, validation commands, and spec scope.
-
----
-
-## Validation
-
-Validation profiles (`light`, `standard`, `strict`) and their check pipelines are defined in `config.yaml`. Agents select a profile based on `task.acceptance.validation_profile` or derive from `task.risk_level` (low→light, medium→standard, high→strict).
-
-**Per-phase:** Run configured checks after each phase completes.
-
-**Pre-commit:** Run full validation pipeline before marking task complete.
-
-**Self-evaluation:** Score work on rubric (defined in `config.yaml`). Threshold is 7/10; perform second pass if below.
-
----
-
-## Safety Controls
-
-Defined in `config.yaml` under `safety`. Key rules:
-
-**Require approval for:** Schema migrations, public API changes, data deletion, production deployments.
-
-**Automatically prevent:** Hardcoded secrets, unbounded queries, SQL injection, XSS vulnerabilities.
-
----
-
-## Coding Conventions
-
-See `CONVENTIONS.md` for full coding standards. Key points:
-
-- Match existing code style; keep diffs focused
-- Prefer existing helpers; keep code DRY
-- Explicit named imports, no confusing aliases
-- Clear module ownership; split mixed responsibility files when boundaries are
-  already visible in the code
-- Idempotent one-off migrations executed out of band, never hidden runtime
-  compatibility paths
-
----
-
-## Git Commits
-
-Only commit when explicitly asked by the user.
-
-**Format:** `type(scope): title` (conventional commits)
-
-**Types:** `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `style`
-
-**Rules:**
-
-- One logical change per commit
-- Title under 72 characters
-- Include what changed and why in the body
-- No unrelated edits bundled together
-- Pre-commit: code builds, tests pass, no secrets in diff, no debug code
-
----
-
-## Communication
-
-**Progress updates:** Report phase completion, acceptance criteria pass/fail counts, next action. Keep it concise - no verbose preambles.
-
-**When blocked:** State what's blocked, brief error, one recommendation, resolution options.
-
-**Final summary:** Phases completed, acceptance results, self-evaluation score, deviations, files changed.
-
----
-
-## Quick Reference
-
-### Key Paths
-
-| Path | Purpose |
-| ---- | ------- |
-| `.scafld/config.yaml` | Validation, rubric, safety, profiles |
-| `.scafld/prompts/plan.md` | Planning mode instructions |
-| `.scafld/prompts/exec.md` | Execution mode instructions |
-| `.scafld/prompts/review.md` | Adversarial review mode instructions |
-| `.scafld/core/schemas/spec.json` | Spec JSON schema |
-| `.scafld/specs/` | Task specs by lifecycle status |
-| `.scafld/runs/` | Session ledger, diagnostics, and handoffs |
-| `CONVENTIONS.md` | Coding standards |
-
-### Spec Lifecycle
-
-```bash
-# CLI (manages status, validation, file moves)
-scafld plan <task-id>            # scaffold a markdown spec in drafts/
-scafld list                      # show all specs
-scafld status <task-id>          # show details + phase progress
-scafld validate <task-id>        # check against schema
-scafld approve <task-id>         # approve the draft spec
-scafld build <task-id>           # run validation and move to review when checks pass
-scafld exec <task-id>            # execute configured task actions when used
-scafld review <task-id>          # run native review provider
-scafld complete <task-id>        # record review verdict and complete the task
-scafld handoff <task-id>         # render markdown handoff
-scafld fail <task-id>            # mark failed
-scafld cancel <task-id>          # mark cancelled
-scafld report                    # aggregate stats across all specs
-```
+Workspace lints deny unsafe code and common escape hatches such as unwrap,
+expect, panic, todo, unimplemented, dbg, and print macros. Do not work around
+these with broad allows.
+
+## Tests
+
+The default test for operator-visible behavior is an operator journey through
+the outermost stable interface. For the CLI, spawn the native `runx` binary and
+exercise the coherent lifecycle an operator actually follows: discover,
+inspect, run or pause, resume when needed, seal, verify, and read history. Keep
+human output, JSON output, exit codes, persisted state, and receipt evidence in
+the same journey when they belong to the same promise.
+
+Use focused unit or boundary tests when they prove a distinct invariant that a
+journey should not enumerate: pure algorithms, parser diagnostics, security
+rejections, wire compatibility, fault injection, and hard-to-reach platform
+edges. Do not add a narrow test merely to repeat an assertion already owned by
+a journey. When a journey absorbs existing coverage, delete the superseded
+test only after the replacement proves the same behavior at a stronger
+boundary.
+
+For skill behavior, the default is a replayable operator-story fixture through
+the skill's public runner. Composite-skill harnesses own the business scenario
+matrix: routing decisions, authority attenuation, approval and refusal stops,
+downstream handoffs, provider-evidence requirements, receipt lineage, durable
+readback, and replay or recovery. Use fixture agents and local or fake adapters;
+live-provider smoke tests are separate and opt-in. CLI journeys prove that Runx
+can drive a representative composite flow, but must not duplicate the skill's
+full scenario matrix.
+
+Native HTTP scenarios use one of two harness lanes. Legacy
+`caller.http_responses` binds response bytes to an exact URL and admits GET
+reads plus runtime-declared semantically read-only POST queries such as
+`artifact.allocate`. Request-sensitive `caller.http_exchanges` binds a response
+to the exact method, final URL, and explicit absent-or-JSON body, so a matched
+POST, PUT, PATCH, or DELETE can prove a mutation without reaching the network.
+Fixture URLs are canonicalized like native final URLs and reject credentials
+and fragments, which are not valid exchange identity.
+Exact exchanges are checked first; unmatched mutations fail closed, while the
+legacy URL lane retains its existing method rules. Declaring either lane
+activates harness-only transport with no live-network fallback. Fixture bytes
+still pass through the production admission, allowlist, redirect, extraction,
+digest, redaction, and response-bound logic for the selected capability. Live
+`http.execute` mutations are single-attempt. Keep live-provider availability
+checks in a separate opt-in smoke lane.
+
+A sealed status is engine coverage, not operator-value proof. Every kept public
+skill must have at least one semantic oracle through `expect.output`,
+`expect.step_outputs`, or replayed `caller.answers`. Stateful workflows put the
+whole transition and readback in one graph fixture. Individual fixtures must be
+independent: never share hidden state through filename order or reuse a
+single-use idempotency or capability key across cases.
+
+Harness scratch state is project-owned under `.runx/harness` and is removed
+after the run. Durable receipts remain under `.runx/receipts` or the explicit
+receipt directory. Catalog sweeps and core-skill trials likewise isolate
+disposable work under `.runx`; `/tmp` is reserved for an outer test framework
+that deliberately supplies a disposable project root.
+
+Rust integration modules remain consolidated into one test binary per crate.
+Adding more files must not create additional Cargo integration binaries.
+
+## Specs
+
+Scafld specs are execution contracts, not notes. A spec that is stale against
+the current harness spine or package truth must be repaired before approval or
+build. Completed specs with failed, blocked, or not-run hardening need an
+explicit follow-up or a recorded deviation before another spec treats them as
+authoritative evidence.
+
+## Fixtures
+
+Fixtures are parity evidence. Do not regenerate fixtures merely to make a new
+implementation pass. Preserve semantic meaning, review diffs, and add negative
+fixtures when a contract rejects retired vocabulary or unsafe payloads.
 
 ---
 > Source: [runxhq/runx](https://github.com/runxhq/runx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
