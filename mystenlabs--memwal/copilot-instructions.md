@@ -1,566 +1,336 @@
 ## memwal
 
-> |
+> Ultracite Rules - AI-Ready Formatter and Linter
 
 
-# Walrus Memory — Portable Agent Memory
+# Project Context
+Ultracite enforces strict type safety, accessibility standards, and consistent code quality for JavaScript/TypeScript projects using Biome's lightning-fast formatter and linter.
 
-Walrus Memory enables AI agents to operate reliably across apps and sessions, without losing context. It stores memories on Walrus (decentralized storage), encrypts them with SEAL, enforces ownership onchain via Sui smart contracts, and retrieves them with semantic (vector) search. Memory is portable by design — not tied to a single runtime or provider — and scoped by `owner + namespace` for isolation and coordination.
+## Key Principles
+- Zero configuration required
+- Subsecond performance
+- Maximum type safety
+- AI-friendly code generation
 
----
+## Before Writing Code
+1. Analyze existing patterns in the codebase
+2. Consider edge cases and error scenarios
+3. Follow the rules below strictly
+4. Validate accessibility requirements
 
-## When to Use
+## Rules
 
-Use Walrus Memory when your app or agent needs:
+### Accessibility (a11y)
+- Don't use `accessKey` attribute on any HTML element.
+- Don't set `aria-hidden="true"` on focusable elements.
+- Don't add ARIA roles, states, and properties to elements that don't support them.
+- Don't use distracting elements like `<marquee>` or `<blink>`.
+- Only use the `scope` prop on `<th>` elements.
+- Don't assign non-interactive ARIA roles to interactive HTML elements.
+- Make sure label elements have text content and are associated with an input.
+- Don't assign interactive ARIA roles to non-interactive HTML elements.
+- Don't assign `tabIndex` to non-interactive HTML elements.
+- Don't use positive integers for `tabIndex` property.
+- Don't include "image", "picture", or "photo" in img alt prop.
+- Don't use explicit role property that's the same as the implicit/default role.
+- Make static elements with click handlers use a valid role attribute.
+- Always include a `title` element for SVG elements.
+- Give all elements requiring alt text meaningful information for screen readers.
+- Make sure anchors have content that's accessible to screen readers.
+- Assign `tabIndex` to non-interactive HTML elements with `aria-activedescendant`.
+- Include all required ARIA attributes for elements with ARIA roles.
+- Make sure ARIA properties are valid for the element's supported roles.
+- Always include a `type` attribute for button elements.
+- Make elements with interactive roles and handlers focusable.
+- Give heading elements content that's accessible to screen readers (not hidden with `aria-hidden`).
+- Always include a `lang` attribute on the html element.
+- Always include a `title` attribute for iframe elements.
+- Accompany `onClick` with at least one of: `onKeyUp`, `onKeyDown`, or `onKeyPress`.
+- Accompany `onMouseOver`/`onMouseOut` with `onFocus`/`onBlur`.
+- Include caption tracks for audio and video elements.
+- Use semantic elements instead of role attributes in JSX.
+- Make sure all anchors are valid and navigable.
+- Ensure all ARIA properties (`aria-*`) are valid.
+- Use valid, non-abstract ARIA roles for elements with ARIA roles.
+- Use valid ARIA state and property values.
+- Use valid values for the `autocomplete` attribute on input elements.
+- Use correct ISO language/country codes for the `lang` attribute.
 
-- **Portable memory** — persists outside prompts and context windows, moves across agents, apps, and workflows
-- **Full owner control** — programmable permissions and explicit ownership define how memory is shared and accessed
-- **Agent coordination** — shared memory spaces help agents coordinate across long-running and multi-step workflows
-- **Semantic recall** — retrieve memories by meaning, not just keywords
-- **Verifiable integrity** — memory integrity can be independently verified without centralized trust
-- **Cross-app memory** — not tied to a single runtime or provider, share memory between apps via delegate keys
+### Code Complexity and Quality
+- Don't use consecutive spaces in regular expression literals.
+- Don't use the `arguments` object.
+- Don't use primitive type aliases or misleading types.
+- Don't use the comma operator.
+- Don't use empty type parameters in type aliases and interfaces.
+- Don't write functions that exceed a given Cognitive Complexity score.
+- Don't nest describe() blocks too deeply in test files.
+- Don't use unnecessary boolean casts.
+- Don't use unnecessary callbacks with flatMap.
+- Use for...of statements instead of Array.forEach.
+- Don't create classes that only have static members (like a static namespace).
+- Don't use this and super in static contexts.
+- Don't use unnecessary catch clauses.
+- Don't use unnecessary constructors.
+- Don't use unnecessary continue statements.
+- Don't export empty modules that don't change anything.
+- Don't use unnecessary escape sequences in regular expression literals.
+- Don't use unnecessary fragments.
+- Don't use unnecessary labels.
+- Don't use unnecessary nested block statements.
+- Don't rename imports, exports, and destructured assignments to the same name.
+- Don't use unnecessary string or template literal concatenation.
+- Don't use String.raw in template literals when there are no escape sequences.
+- Don't use useless case statements in switch statements.
+- Don't use ternary operators when simpler alternatives exist.
+- Don't use useless `this` aliasing.
+- Don't use any or unknown as type constraints.
+- Don't initialize variables to undefined.
+- Don't use the void operators (they're not familiar).
+- Use arrow functions instead of function expressions.
+- Use Date.now() to get milliseconds since the Unix Epoch.
+- Use .flatMap() instead of map().flat() when possible.
+- Use literal property access instead of computed property access.
+- Don't use parseInt() or Number.parseInt() when binary, octal, or hexadecimal literals work.
+- Use concise optional chaining instead of chained logical expressions.
+- Use regular expression literals instead of the RegExp constructor when possible.
+- Don't use number literal object member names that aren't base 10 or use underscore separators.
+- Remove redundant terms from logical expressions.
+- Use while loops instead of for loops when you don't need initializer and update expressions.
+- Don't pass children as props.
+- Don't reassign const variables.
+- Don't use constant expressions in conditions.
+- Don't use `Math.min` and `Math.max` to clamp values when the result is constant.
+- Don't return a value from a constructor.
+- Don't use empty character classes in regular expression literals.
+- Don't use empty destructuring patterns.
+- Don't call global object properties as functions.
+- Don't declare functions and vars that are accessible outside their block.
+- Make sure builtins are correctly instantiated.
+- Don't use super() incorrectly inside classes. Also check that super() is called in classes that extend other constructors.
+- Don't use variables and function parameters before they're declared.
+- Don't use 8 and 9 escape sequences in string literals.
+- Don't use literal numbers that lose precision.
 
----
+### React and JSX Best Practices
+- Don't use the return value of React.render.
+- Make sure all dependencies are correctly specified in React hooks.
+- Make sure all React hooks are called from the top level of component functions.
+- Don't forget key props in iterators and collection literals.
+- Don't destructure props inside JSX components in Solid projects.
+- Don't define React components inside other components.
+- Don't use event handlers on non-interactive elements.
+- Don't assign to React component props.
+- Don't use both `children` and `dangerouslySetInnerHTML` props on the same element.
+- Don't use dangerous JSX props.
+- Don't use Array index in keys.
+- Don't insert comments as text nodes.
+- Don't assign JSX properties multiple times.
+- Don't add extra closing tags for components without children.
+- Use `<>...</>` instead of `<Fragment>...</Fragment>`.
+- Watch out for possible "wrong" semicolons inside JSX elements.
 
-## When NOT to Use
+### Correctness and Safety
+- Don't assign a value to itself.
+- Don't return a value from a setter.
+- Don't compare expressions that modify string case with non-compliant values.
+- Don't use lexical declarations in switch clauses.
+- Don't use variables that haven't been declared in the document.
+- Don't write unreachable code.
+- Make sure super() is called exactly once on every code path in a class constructor before this is accessed if the class has a superclass.
+- Don't use control flow statements in finally blocks.
+- Don't use optional chaining where undefined values aren't allowed.
+- Don't have unused function parameters.
+- Don't have unused imports.
+- Don't have unused labels.
+- Don't have unused private class members.
+- Don't have unused variables.
+- Make sure void (self-closing) elements don't have children.
+- Don't return a value from a function with the return type 'void'
+- Use isNaN() when checking for NaN.
+- Make sure "for" loop update clauses move the counter in the right direction.
+- Make sure typeof expressions are compared to valid values.
+- Make sure generator functions contain yield.
+- Don't use await inside loops.
+- Don't use bitwise operators.
+- Don't use expressions where the operation doesn't change the value.
+- Make sure Promise-like statements are handled appropriately.
+- Don't use __dirname and __filename in the global scope.
+- Prevent import cycles.
+- Don't use configured elements.
+- Don't hardcode sensitive data like API keys and tokens.
+- Don't let variable declarations shadow variables from outer scopes.
+- Don't use the TypeScript directive @ts-ignore.
+- Prevent duplicate polyfills from Polyfill.io.
+- Don't use useless backreferences in regular expressions that always match empty strings.
+- Don't use unnecessary escapes in string literals.
+- Don't use useless undefined.
+- Make sure getters and setters for the same property are next to each other in class and object definitions.
+- Make sure object literals are declared consistently (defaults to explicit definitions).
+- Use static Response methods instead of new Response() constructor when possible.
+- Make sure switch-case statements are exhaustive.
+- Make sure the `preconnect` attribute is used when using Google Fonts.
+- Use `Array#{indexOf,lastIndexOf}()` instead of `Array#{findIndex,findLastIndex}()` when looking for the index of an item.
+- Make sure iterable callbacks return consistent values.
+- Use `with { type: "json" }` for JSON module imports.
+- Use numeric separators in numeric literals.
+- Use object spread instead of `Object.assign()` when constructing new objects.
+- Always use the radix argument when using `parseInt()`.
+- Make sure JSDoc comment lines start with a single asterisk, except for the first one.
+- Include a description parameter for `Symbol()`.
+- Don't use spread (`...`) syntax on accumulators.
+- Don't use the `delete` operator.
+- Don't access namespace imports dynamically.
+- Don't use namespace imports.
+- Declare regex literals at the top level.
+- Don't use `target="_blank"` without `rel="noopener"`.
 
-- Temporary conversation context that only matters in the current session
-- Large file storage (Walrus Memory is optimized for text memories)
-- Use cases that don't need encryption or decentralization
+### TypeScript Best Practices
+- Don't use TypeScript enums.
+- Don't export imported variables.
+- Don't add type annotations to variables, parameters, and class properties that are initialized with literal expressions.
+- Don't use TypeScript namespaces.
+- Don't use non-null assertions with the `!` postfix operator.
+- Don't use parameter properties in class constructors.
+- Don't use user-defined types.
+- Use `as const` instead of literal types and type annotations.
+- Use either `T[]` or `Array<T>` consistently.
+- Initialize each enum member value explicitly.
+- Use `export type` for types.
+- Use `import type` for types.
+- Make sure all enum members are literal values.
+- Don't use TypeScript const enum.
+- Don't declare empty interfaces.
+- Don't let variables evolve into any type through reassignments.
+- Don't use the any type.
+- Don't misuse the non-null assertion operator (!) in TypeScript files.
+- Don't use implicit any type on variable declarations.
+- Don't merge interfaces and classes unsafely.
+- Don't use overload signatures that aren't next to each other.
+- Use the namespace keyword instead of the module keyword to declare TypeScript namespaces.
 
----
+### Style and Consistency
+- Don't use global `eval()`.
+- Don't use callbacks in asynchronous tests and hooks.
+- Don't use negation in `if` statements that have `else` clauses.
+- Don't use nested ternary expressions.
+- Don't reassign function parameters.
+- This rule lets you specify global variable names you don't want to use in your application.
+- Don't use specified modules when loaded by import or require.
+- Don't use constants whose value is the upper-case version of their name.
+- Use `String.slice()` instead of `String.substr()` and `String.substring()`.
+- Don't use template literals if you don't need interpolation or special-character handling.
+- Don't use `else` blocks when the `if` block breaks early.
+- Don't use yoda expressions.
+- Don't use Array constructors.
+- Use `at()` instead of integer index access.
+- Follow curly brace conventions.
+- Use `else if` instead of nested `if` statements in `else` clauses.
+- Use single `if` statements instead of nested `if` clauses.
+- Use `new` for all builtins except `String`, `Number`, and `Boolean`.
+- Use consistent accessibility modifiers on class properties and methods.
+- Use `const` declarations for variables that are only assigned once.
+- Put default function parameters and optional function parameters last.
+- Include a `default` clause in switch statements.
+- Use the `**` operator instead of `Math.pow`.
+- Use `for-of` loops when you need the index to extract an item from the iterated array.
+- Use `node:assert/strict` over `node:assert`.
+- Use the `node:` protocol for Node.js builtin modules.
+- Use Number properties instead of global ones.
+- Use assignment operator shorthand where possible.
+- Use function types instead of object types with call signatures.
+- Use template literals over string concatenation.
+- Use `new` when throwing an error.
+- Don't throw non-Error values.
+- Use `String.trimStart()` and `String.trimEnd()` over `String.trimLeft()` and `String.trimRight()`.
+- Use standard constants instead of approximated literals.
+- Don't assign values in expressions.
+- Don't use async functions as Promise executors.
+- Don't reassign exceptions in catch clauses.
+- Don't reassign class members.
+- Don't compare against -0.
+- Don't use labeled statements that aren't loops.
+- Don't use void type outside of generic or return types.
+- Don't use console.
+- Don't use control characters and escape sequences that match control characters in regular expression literals.
+- Don't use debugger.
+- Don't assign directly to document.cookie.
+- Use `===` and `!==`.
+- Don't use duplicate case labels.
+- Don't use duplicate class members.
+- Don't use duplicate conditions in if-else-if chains.
+- Don't use two keys with the same name inside objects.
+- Don't use duplicate function parameter names.
+- Don't have duplicate hooks in describe blocks.
+- Don't use empty block statements and static blocks.
+- Don't let switch clauses fall through.
+- Don't reassign function declarations.
+- Don't allow assignments to native objects and read-only global variables.
+- Use Number.isFinite instead of global isFinite.
+- Use Number.isNaN instead of global isNaN.
+- Don't assign to imported bindings.
+- Don't use irregular whitespace characters.
+- Don't use labels that share a name with a variable.
+- Don't use characters made with multiple code points in character class syntax.
+- Make sure to use new and constructor properly.
+- Don't use shorthand assign when the variable appears on both sides.
+- Don't use octal escape sequences in string literals.
+- Don't use Object.prototype builtins directly.
+- Don't redeclare variables, functions, classes, and types in the same scope.
+- Don't have redundant "use strict".
+- Don't compare things where both sides are exactly the same.
+- Don't let identifiers shadow restricted names.
+- Don't use sparse arrays (arrays with holes).
+- Don't use template literal placeholder syntax in regular strings.
+- Don't use the then property.
+- Don't use unsafe negation.
+- Don't use var.
+- Don't use with statements in non-strict contexts.
+- Make sure async functions actually use await.
+- Make sure default clauses in switch statements come last.
+- Make sure to pass a message value when creating a built-in error.
+- Make sure get methods always return a value.
+- Use a recommended display strategy with Google Fonts.
+- Make sure for-in loops include an if statement.
+- Use Array.isArray() instead of instanceof Array.
+- Make sure to use the digits argument with Number#toFixed().
+- Make sure to use the "use strict" directive in script files.
 
-## Installation
+### Next.js Specific Rules
+- Don't use `<img>` elements in Next.js projects.
+- Don't use `<head>` elements in Next.js projects.
+- Don't import next/document outside of pages/_document.jsx in Next.js projects.
+- Don't use the next/head module in pages/_document.js on Next.js projects.
 
-```bash
-# Install the SDK
-pnpm add @mysten-incubation/memwal
+### Testing Best Practices
+- Don't use export or module.exports in test files.
+- Don't use focused tests.
+- Make sure the assertion function, like expect, is placed inside an it() function call.
+- Don't use disabled tests.
 
-# Optional: for Vercel AI SDK integration
-pnpm add ai zod
+## Common Tasks
+- `npx ultracite init` - Initialize Ultracite in your project
+- `npx ultracite fix` - Format and fix code automatically
+- `npx ultracite check` - Check for issues without fixing
 
-# Optional: for manual client (client-side SEAL encryption)
-pnpm add @mysten/sui @mysten/seal @mysten/walrus
-```
-
----
-
-## Quick Start
-
-### 1. Get Your Credentials
-
-You need a **delegate key** (Ed25519 private key) and **account ID** (Walrus Memory account object ID on Sui).
-
-Generate them at:
-- Production: https://memory.walrus.xyz
-- Staging: https://staging.memory.walrus.xyz
-
-### 2. Initialize the SDK
-
-```ts
-import { MemWal } from "@mysten-incubation/memwal";
-
-const memwal = MemWal.create({
-  key: process.env.MEMWAL_PRIVATE_KEY!,
-  accountId: process.env.MEMWAL_ACCOUNT_ID!,
-  serverUrl: process.env.MEMWAL_SERVER_URL ?? "https://relayer.memory.walrus.xyz",
-  namespace: "my-app",
-});
-```
-
-### 3. Store and Recall Memories
-
-```ts
-// Store one already-distilled fact and wait until it is indexed.
-await memwal.rememberAndWait(
-  "User prefers dark mode and works in TypeScript.",
-  undefined,
-  { timeoutMs: 30_000 },
-);
-
-// Recall by meaning
-const result = await memwal.recall({ query: "What are the user's preferences?" });
-console.log(result.results);
-
-// Extract facts from free-form text and wait until all accepted facts are indexed.
-const analyzed = await memwal.analyzeAndWait(
-  "I live in Hanoi and prefer dark mode.",
-  undefined,
-  { timeoutMs: 30_000 },
-);
-console.log(analyzed.facts.map((fact) => fact.text));
-
-// Check relayer health
-await memwal.health();
-```
-
-Use `*AndWait` when a workshop UI saves and then immediately recalls in the
-same flow. Indexing can lag by a few seconds, so `remember()` / `analyze()`
-may return before recall can find the new memory. Manual polling is still
-available for advanced async UIs:
-
-```ts
-const accepted = await memwal.remember("User likes Sui.");
-const stored = await memwal.waitForRememberJob(accepted.job_id, {
-  pollIntervalMs: 750,
-  timeoutMs: 30_000,
-});
-```
-
----
-
-## SDK Entry Points
-
-| Entry Point | Import | Description |
-|---|---|---|
-| `MemWal` | `@mysten-incubation/memwal` | **Default.** Relayer handles embedding, SEAL encryption, Walrus upload, vector search |
-| `MemWalManual` | `@mysten-incubation/memwal/manual` | Manual flow — client handles embedding and SEAL encryption |
-| `withMemWal` | `@mysten-incubation/memwal/ai` | Vercel AI SDK middleware — auto recall + save around AI conversations |
-| Account utils | `@mysten-incubation/memwal/account` | Account creation, delegate key management |
-
----
-
-## API Surface
-
-### Walrus Memory Methods
-
-| Method | Description | Returns |
-|---|---|---|
-| `remember(text, namespace?)` | Accept one memory job immediately | `{ job_id, status }` |
-| `rememberAndWait(text, namespace?, opts?)` | Store one memory and wait for completion | `{ id, job_id, blob_id, owner, namespace }` |
-| `recall({ query, limit?, namespace?, maxDistance? })` *(preferred)* or `recall(query, limit?, namespace?)` | Semantic search for memories | `{ results: [{ blob_id, text, distance }], total }` |
-| `analyze(text, namespace?)` | Extract facts and accept one memory job per fact | `{ job_ids, facts, fact_count, status, owner }` |
-| `analyzeAndWait(text, namespace?, opts?)` | Extract facts and wait for all fact jobs to complete | `{ results, facts, total, succeeded, failed, owner }` |
-| `restore(namespace, limit?)` | Rebuild missing index entries from Walrus | `{ restored, skipped, total, namespace, owner }` |
-| `health()` | Check relayer health | `{ status, version }` |
-| `getPublicKeyHex()` | Get hex-encoded public key | `string` |
-
-### Lower-Level Methods
-
-| Method | Description |
-|---|---|
-| `rememberManual({ blobId, vector, namespace? })` | Register pre-uploaded blob with pre-computed vector |
-| `recallManual({ vector, limit?, namespace? })` | Search with pre-computed vector (returns blob IDs only) |
-| `embed(text)` | Generate embedding vector (no storage) |
-
-### All Response Shapes
-
-```ts
-interface RememberAcceptedResult {
-  job_id: string;
-  status: string;
+## Example: Error Handling
+```typescript
+// ✅ Good: Comprehensive error handling
+try {
+  const result = await fetchData();
+  return { success: true, data: result };
+} catch (error) {
+  console.error('API call failed:', error);
+  return { success: false, error: error.message };
 }
 
-interface RememberJobStatus {
-  job_id: string;
-  status: "pending" | "running" | "uploaded" | "done" | "failed" | "not_found";
-  owner?: string;
-  namespace?: string;
-  blob_id?: string;
-  error?: string;
-}
-
-interface RememberResult {
-  id: string;
-  job_id?: string;
-  blob_id: string;
-  owner: string;
-  namespace: string;
-}
-
-interface RecallMemory {
-  blob_id: string;
-  text: string;
-  distance: number;
-}
-
-interface RecallResult {
-  results: RecallMemory[];
-  total: number;
-}
-
-interface RecallOptions {
-  limit?: number;
-  topK?: number;
-  namespace?: string;
-  maxDistance?: number;
-}
-
-interface RememberBulkAcceptedResult {
-  job_ids: string[];
-  total: number;
-  status: string;
-}
-
-interface AnalyzedFact {
-  text: string;
-  id: string;
-  job_id?: string;
-  blob_id?: string;
-}
-
-interface AnalyzeResult {
-  job_ids: string[];
-  facts: AnalyzedFact[];
-  fact_count: number;
-  status: string;
-  owner: string;
-}
-
-interface RememberBulkStatusItem {
-  job_id: string;
-  status: "pending" | "running" | "uploaded" | "done" | "failed" | "not_found";
-  blob_id?: string;
-  error?: string;
-}
-
-interface RememberBulkStatusResult {
-  results: RememberBulkStatusItem[];
-}
-
-interface RememberBulkItemResult {
-  id: string;
-  blob_id: string;
-  status: "done" | "failed" | "timeout";
-  namespace: string;
-  error?: string;
-}
-
-interface RememberBulkResult {
-  results: RememberBulkItemResult[];
-  total: number;
-  succeeded: number;
-  failed: number;
-}
-
-interface AnalyzeWaitResult extends RememberBulkResult {
-  facts: AnalyzedFact[];
-  owner: string;
-}
-
-interface EmbedResult {
-  vector: number[];
-}
-
-interface RestoreResult {
-  restored: number;
-  skipped: number;
-  total: number;
-  namespace: string;
-  owner: string;
-}
-
-interface HealthResult {
-  status: string;
-  version: string;
-  mode?: string;
-  prompt_versions?: {
-    extract: string;
-    ask: string;
-  };
-  relayerVersion?: string;
-  apiVersion?: string;
-  minSupportedSdk?: {
-    typescript: string;
-    python: string;
-    mcp: string;
-  };
-  featureFlags?: Record<string, boolean>;
-  deprecations?: Array<{
-    surface: string;
-    deprecatedSince: string;
-    removalApiVersion: string;
-    guidance: string;
-  }>;
-  build?: {
-    commit?: string;
-    buildTimestamp?: string;
-  };
-}
-```
-
-`facts[].text` is the extracted fact text to render in UIs. `job_ids[]`
-aligns with the accepted fact jobs; use `analyzeAndWait()` when the UI needs
-those facts indexed before continuing.
-
-### Namespace Semantics
-
-A namespace is an **opaque, flat string label** scoped to a single owner. It is the unit of memory isolation: a recall in namespace `A` will never surface entries written to namespace `B`, even for the same owner, and never surfaces other owners' entries even in the same namespace.
-
-#### Validation
-
-The server accepts any non-empty string as a namespace. There is no length cap, no character whitelist, no normalization (whitespace, case, Unicode). Whatever you send is stored verbatim and matched with exact equality. If you omit the namespace, the server falls back to the literal string `"default"`.
-
-> **Implication:** `"my-app"`, `" my-app"` (leading space), `"My-App"`, and `"my-app/"` are four distinct namespaces. Pick a convention and stick to it.
-
-#### Flat, not hierarchical
-
-Slashes and dots have **no special meaning**. `"chat/user-42"` is a single opaque label, not a path. The server uses `WHERE namespace = $1` exact-equality for every read; there is no prefix matching, no parent/child traversal, and no wildcard query. If you need hierarchy, build it in the application layer (e.g. recall across known namespaces and merge client-side).
-
-#### Overwrite behavior — `remember()` is **always append, never upsert**
-
-Every accepted `remember()` call creates a **new memory entry** with a freshly generated UUID. Sending the same text to the same `(owner, namespace)` twice will produce **two separate entries** that both surface in future recalls. The namespace is metadata for filtering, not a key for deduplication.
-
-```ts
-await memwal.remember("I prefer dark mode", "prefs");
-await memwal.remember("I prefer dark mode", "prefs");
-// recall("preferences", { namespace: "prefs" }) → 2 entries, both with the same text
-```
-
-If you need uniqueness, either dedupe before calling `remember()`, or delete the prior entry first.
-
-#### Isolation guarantees
-
-| Scenario | Visible to recall? |
-|---|---|
-| Same owner, same namespace | ✅ |
-| Same owner, different namespace | ❌ |
-| Different owner, same namespace | ❌ |
-| Different owner, different namespace | ❌ |
-
-Cross-namespace and cross-owner reads are not just filtered out of results — the server's SQL `WHERE` clause excludes them entirely, so they are never decrypted or transferred.
-
-### Restore Semantics
-
-`restore(namespace, limit?)` rebuilds **missing** local index entries for a namespace from Walrus. It is a recovery operation, not a sync — already-indexed blobs are left alone.
-
-#### Response fields
-
-| Field | Counts | Notes |
-|---|---|---|
-| `restored` | Blobs the relayer just rebuilt this call | Pulled from Walrus → SEAL decrypted → re-embedded → inserted as a new row |
-| `skipped` | On-chain blobs already in the local index | No work needed; relayer left them as-is |
-| `total` | All on-chain blobs the relayer saw for `(owner, namespace)` | Before the limit was applied |
-| `namespace` | Echo of the request | |
-| `owner` | Resolved owner address | |
-
-**Silent drops.** A blob that *cannot* be decrypted or embedded (e.g. wrong delegate key, malformed ciphertext, embedding API down) is dropped without counting in `restored` *or* `skipped`. `restored + skipped` is therefore a lower bound on healthy entries, not a strict equality with `total`.
-
-#### Default and limit
-
-* `limit` defaults to `10` in both TypeScript and Python SDKs and matches the server-side default. The Python SDK historically defaulted to `50`; it is now realigned with the server.
-* `limit` caps the **inspected** blob set, newest-first. It does not cap `restored` independently — if all 10 inspected blobs are already indexed, `restored = 0` and `skipped = 10`.
-* There is no enforced server-side maximum, but very large limits will dominate latency (see below).
-
-#### Pagination
-
-**Restore is single-shot — there is no cursor.** To rebuild a namespace larger than your chosen `limit`, call again with a larger `limit`, or delete local rows you want re-imported first. Pagination is on the roadmap; until it lands, treat `restore()` as a "top up to N most recent" operation.
-
-#### Performance
-
-Latency scales linearly in `limit`:
-
-* Up to **10 concurrent** Walrus aggregator downloads
-* Up to **3 concurrent** SEAL decrypts (CPU-bound, capped intentionally)
-* Embedding requests in parallel (bounded by the relayer's embedding pool)
-
-Expect **seconds per blob** on a cold cache. Use small limits (≤ 50) for interactive flows and run larger restores out-of-band.
-
-### Recall Distance and Filtering
-
-`recall()` returns the closest K memories by vector distance. There is no
-default relevance threshold, so small namespaces may return weak filler results
-because they are still the closest available matches.
-
-Lower distance means more similar:
-
-| Distance | Rough meaning |
-|---|---|
-| `< 0.25` | Duplicate or very close |
-| `0.25 - 0.55` | Related |
-| `0.55 - 0.7` | Weak/noisy |
-| `>= 0.7` | Usually unrelated |
-
-Use SDK-side filtering when you only want clearly relevant results:
-
-```ts
-const memories = await memwal.recall({
-  query: "what did I eat yesterday?",
-  limit: 10,
-  namespace: "reading-tracker",
-  maxDistance: 0.7,
-});
-```
-
-Equivalent manual filtering:
-
-```ts
-const memories = await memwal.recall({
-  query: "what did I eat yesterday?",
-  limit: 10,
-  namespace: "reading-tracker",
-});
-const relevant = memories.results.filter((memory) => memory.distance < 0.7);
-```
-
----
-
-## Configuration
-
-### MemWalConfig
-
-| Field | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `key` | `string` | Yes | — | Ed25519 delegate private key in hex |
-| `accountId` | `string` | Yes | — | Walrus Memory account object ID on Sui |
-| `serverUrl` | `string` | No | `https://relayer.memory.walrus.xyz` | Relayer URL |
-| `namespace` | `string` | No | `"default"` | Default namespace for memory isolation |
-
-### Managed Relayer Endpoints
-
-| Network | Relayer URL |
-|---|---|
-| **Production** (mainnet) | `https://relayer.memory.walrus.xyz` |
-| **Staging** (testnet) | `https://relayer-staging.memory.walrus.xyz` |
-
-### Framework and Key Handling
-
-Delegate private keys belong on the server only. In Next.js App Router, call
-Walrus Memory from server actions, route handlers, or other server-only modules that
-read `MEMWAL_PRIVATE_KEY` from server env.
-
-`"use server"` files can only export async functions; keep constants, schemas,
-and reusable client builders in a separate server-only module.
-
-```ts
-// app/actions/memory.ts
-"use server";
-
-import { getMemWal } from "@/lib/memwal";
-
-export async function savePreference(text: string) {
-  const memwal = getMemWal();
-  return memwal.rememberAndWait(text, "my-app", { timeoutMs: 30_000 });
+// ❌ Bad: Swallowing errors
+try {
+  return await fetchData();
+} catch (e) {
+  console.log(e);
 }
 ```
-
-```ts
-// lib/memwal.ts
-import "server-only";
-import { MemWal } from "@mysten-incubation/memwal";
-
-export function getMemWal() {
-  return MemWal.create({
-    key: process.env.MEMWAL_PRIVATE_KEY!,
-    accountId: process.env.MEMWAL_ACCOUNT_ID!,
-    serverUrl: process.env.MEMWAL_SERVER_URL ?? "https://relayer.memory.walrus.xyz",
-    namespace: "my-app",
-  });
-}
-```
-
-Namespace strategy: `owner + namespace` is the isolation boundary. Use one
-namespace per app by default, then split by user, team, or feature when a
-single app needs separate memory spaces.
-
-Relayer choice: use staging/testnet for learning and prototypes; use
-production/mainnet for production data. Do not mix staging credentials with
-mainnet relayer configs.
-
----
-
-## Vercel AI SDK Integration
-
-```ts
-import { openai } from "@ai-sdk/openai";
-import { streamText } from "ai";
-import { withMemWal } from "@mysten-incubation/memwal/ai";
-
-const model = withMemWal(openai("gpt-4o"), {
-  key: "<your-delegate-key>",
-  accountId: "<your-account-id>",
-  serverUrl: "https://relayer.memory.walrus.xyz",
-  namespace: "chat",
-  maxMemories: 5,
-  autoSave: true,
-  minRelevance: 0.3,
-});
-
-const result = streamText({
-  model,
-  messages: [{ role: "user", content: "What do you remember about me?" }],
-});
-```
-
-The middleware automatically:
-- Recalls relevant memories before generation
-- Extracts and saves facts from conversations after generation
-
----
-
-## OpenClaw / NemoClaw Plugin
-
-For OpenClaw agent integration, use the `@mysten-incubation/oc-memwal` plugin.
-
-### Install
-
-```bash
-openclaw plugins install @mysten-incubation/oc-memwal
-```
-
-### Configure
-
-Add to `~/.openclaw/openclaw.json`:
-
-```json
-{
-  "plugins": {
-    "slots": { "memory": "oc-memwal" },
-    "entries": {
-      "oc-memwal": {
-        "enabled": true,
-        "config": {
-          "privateKey": "${MEMWAL_PRIVATE_KEY}",
-          "accountId": "0x...",
-          "serverUrl": "https://relayer.memory.walrus.xyz"
-        }
-      }
-    }
-  }
-}
-```
-
-Lifecycle hooks run automatically:
-- `before_prompt_build` — injects relevant memories as context
-- `before_reset` — saves session summary
-- `agent_end` — captures last response
-
----
-
-## Troubleshooting
-
-| Symptom | Fix |
-|---|---|
-| `health()` returns error | Check relayer URL is correct and reachable |
-| `recall()` returns empty | Verify namespace matches what was used in `remember()` |
-| `recall()` returns unrelated filler | Recall is top-K without a default relevance threshold; filter by `distance`, for example `distance < 0.7` |
-| `401 Unauthorized` | Usually wrong `MEMWAL_PRIVATE_KEY`, key not registered on the account, account ID mismatch, or staging/mainnet mismatch. Check `.env.local` and dashboard credentials |
-| SDK import errors | Run `pnpm add @mysten-incubation/memwal` — check Node.js ≥ 18 |
-| Manual client errors | Install peer deps: `@mysten/sui @mysten/seal @mysten/walrus` |
-| Direct Sui reads fail or examples look stale | Prefer `SuiGrpcClient` from `@mysten/sui/grpc`; JSON-RPC snippets using `SuiClient` / `getFullnodeUrl` may be stale |
-| `forget` expectations are unclear | Current relayer `POST /api/forget` removes vector index rows so memories are unrecallable; Walrus blobs persist until epoch expiry |
-
----
-
-## Brand Terminology
-
-Until product confirms a canonical naming pass, these are the **working** assumptions reflected across this doc, the SDKs, and the relayer. Treat them as descriptive, not authoritative.
-
-| Surface | Canonical term | Notes |
-|---|---|---|
-| Product / docs / UI | **Walrus Memory** | Used in marketing copy, user-facing dashboards, and prose docs |
-| Package / env vars / internal shorthand | **memwal** | Used in `@mysten-incubation/memwal`, `pip install memwal`, `MEMWAL_*` env vars, internal logs, and codepaths |
-
-If you're writing user-facing copy, prefer "Walrus Memory". If you're writing an env var, import path, or grep-target, prefer `memwal`. Don't mass-rename existing identifiers — that requires a coordinated migration outside this skill's scope.
-
-## Links
-
-- **Docs**: https://memory.walrus.xyz
-- **SDK on npm**: https://www.npmjs.com/package/@mysten-incubation/memwal
-- **GitHub**: https://github.com/CommandOSSLabs/MemWal
-- **Dashboard**: https://memory.walrus.xyz
-- **llms.txt**: https://docs.wal.app/walrus-memory/llms.txt
 
 ---
 > Source: [MystenLabs/MemWal](https://github.com/MystenLabs/MemWal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
