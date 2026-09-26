@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mrinalwadhwa/fluent](https://github.com/mrinalwadhwa/fluent).
+Original source: `CLAUDE.md` in [mrinalwadhwa/fluent](https://github.com/mrinalwadhwa/fluent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -30,7 +30,7 @@ Original source: `AGENTS.md` in [mrinalwadhwa/fluent](https://github.com/mrinalw
 - [fluent](https://github.com/mrinalwadhwa/fluent/tree/main/skill-migrations/v0.1.4/review-architecture/SKILL.md)
 - [fluent](https://github.com/mrinalwadhwa/fluent/tree/main/skill-migrations/v0.1.4/review-documentation/SKILL.md)
 
-From [mrinalwadhwa/fluent](https://github.com/mrinalwadhwa/fluent) — a repo with 105+ stars on GitHub.
+From [mrinalwadhwa/fluent](https://github.com/mrinalwadhwa/fluent) — a repo with 106+ stars on GitHub.
 
 ---
 
