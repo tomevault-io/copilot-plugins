@@ -1,0 +1,133 @@
+## wrapture
+
+> wrapture is a Python library for attaching bindings to arbitrary Python call
+
+# Agent guidance for wrapture
+
+## Project
+
+wrapture is a Python library for attaching bindings to arbitrary Python call
+sites, without modifying the code being observed, for use in monkey patching,
+testing and tracing. It builds on wrapt (2.4.1+). See README.md
+for the project goals.
+
+The package uses a src layout: the code lives in src/wrapture/.
+
+Tests live in the tests/ directory. See TESTING.md for where tests are, how
+to run them, and conventions for adding new ones.
+
+The scratch/ directory is not part of the git repo. It holds temporary
+working files, such as reference material given to an agent or plans an
+agent is asked to generate. Its contents come and go, so never reference
+scratch/ files by name from code or documentation that will be committed.
+
+## Tooling: always use uv
+
+All Python environment and package management in this project is done with
+[uv](https://docs.astral.sh/uv/). Never use the Python venv module, bare
+pip, or python -m build directly.
+
+- Run commands in the project environment: `uv run <command>`
+  (e.g. `uv run pytest`)
+
+- Run a Python interpreter: `uv run python`
+
+- Build sdist and wheel: `uv build`
+
+- Add or remove dependencies (updates pyproject.toml): `uv add <package>`,
+  `uv remove <package>`
+
+- Sync the environment from pyproject.toml: `uv sync`
+
+## Common tasks: use the Justfile
+
+The Justfile defines targets for the common development tasks, wrapping
+the correct uv invocations (including details like the docs extra and
+per-version test environments). Prefer these targets over synthesizing
+the underlying commands yourself; run `just --list` to see everything.
+
+- `just test` runs the test suite on the default Python version. Extra
+  arguments pass through to pytest, so a specific file or test is
+  `just test tests/test_config.py` or `just test -k pattern`.
+
+- `just test-python 3.13t` runs the suite on one nominated Python
+  version; `just test-all` runs it on every supported version. Both
+  also pass extra arguments through to pytest.
+
+- `just lint` checks with the ruff linter and formatter; `just format`
+  reformats and applies auto-fixes.
+
+- `just typecheck` runs mypy.
+
+- `just docs` builds the documentation; `just docs-clean` clears a
+  stale incremental build after structural changes such as renamed or
+  removed pages.
+
+## Style
+
+- Do not use emdashes in any files in this project. Rephrase with commas,
+  parentheses, colons, or separate sentences instead.
+
+- In bulleted lists where items run to multiple lines, put a blank
+  line between the bullets: in docstrings, markdown files, and any
+  other prose. This is about the raw file being readable, not the
+  rendered form, which can look fine either way. Be consistent within
+  a list: if one item needs the spacing, space every item in that
+  list, never a mix.
+
+- Project code must always use Python type hints. Add them to all function
+  and method signatures (parameters and return types), and to attributes
+  and variables where the type is not obvious from the assignment. When
+  adding or modifying code that lacks type hints, add them.
+
+- Use vertical white space liberally inside function and method bodies.
+  Write code in paragraphs: group the statements that together perform one
+  step, and separate each group from the next with a blank line. Natural
+  paragraph boundaries include setup versus the main work versus the
+  result, before and after a conditional or loop, and around a with or
+  try block. Do not cram a body into one contiguous blob, and equally do
+  not put a blank line between every single statement; the blank lines
+  should mark where one thought ends and the next begins.
+
+- Where it helps the reader, start a paragraph of code with a short
+  comment saying what that step does or why it is needed. Prefer one
+  comment per logical block over line-by-line commentary, and skip the
+  comment entirely when the code already says it plainly.
+
+- Put a blank line between such a block comment and the code below it:
+  the comment introduces the paragraph rather than sitting flush against
+  its first line.
+
+- Put a blank line between a function or method docstring and the first
+  line of code in the body.
+
+- Every function, method or property that is part of the public API must
+  have a docstring saying what it does. The exceptions are cases that are
+  truly trivial and obvious, such as an accessor property named for the
+  attribute it returns, and dunder methods implementing standard
+  protocols.
+
+## Git
+
+- Git commit messages must never include a co-authored-by agent message or
+  any similar agent attribution trailer.
+
+- An AI agent must never commit changes on its own initiative. Finish the
+  piece of work, summarize it, and wait to be told to commit. Permission to
+  commit applies only to the work it was given for; it does not carry
+  forward to later steps of a multi-step plan, each of which needs its own
+  review and its own instruction to commit. Uncommitted changes are how the
+  review happens: once work is committed it can no longer be reviewed as
+  the pending diff, so committing early makes review harder, not easier.
+
+- When merging a feature branch back to develop and pushing to the remote,
+  do not treat the work as landed until the CI workflow on GitHub has run
+  against the pushed merge and passed. Check the run (for example with
+  `gh run list --branch develop` and `gh run watch`), and only once it is
+  green report that the changes are on the remote and clean up the feature
+  branch. If CI fails, leave the feature branch in place, report the
+  failure, and wait for instructions rather than deleting anything.
+
+---
+> Source: [GrahamDumpleton/wrapture](https://github.com/GrahamDumpleton/wrapture) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
