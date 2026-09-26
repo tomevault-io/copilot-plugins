@@ -1,0 +1,14 @@
+{
+  "name": "lennney--agent-search-mcp",
+  "displayName": "agent-search-mcp",
+  "description": "agent-search-mcp",
+  "version": "1.0.0",
+  "author": "lennney",
+  "homepage": "https://github.com/lennney/agent-search-mcp",
+  "skills": [
+    {
+      "name": "agent-search-mcp",
+      "description": ""
+    }
+  ]
+}
