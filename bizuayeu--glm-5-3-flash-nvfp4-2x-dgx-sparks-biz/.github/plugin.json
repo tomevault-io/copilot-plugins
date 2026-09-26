@@ -1,0 +1,9 @@
+{
+  "name": "bizuayeu--glm-5-3-flash-nvfp4-2x-dgx-sparks-biz",
+  "displayName": "GLM-5.3-Flash-NVFP4-2x-DGX-Sparks-BIZ",
+  "description": "NVFP4 BIZ: nvidia/GLM-5.3-Flash-NVFP4 on two DGX Spark-class GB10 systems with a pinned vLLM (TP=2, Marlin W4A16, FA2 prefill, MTP, prefix caching, image input, bit-reproducible completions); accepted",
+  "version": "1.0.0",
+  "author": "Bizuayeu",
+  "homepage": "https://github.com/Bizuayeu/GLM-5.3-Flash-NVFP4-2x-DGX-Sparks-BIZ",
+  "skills": []
+}
