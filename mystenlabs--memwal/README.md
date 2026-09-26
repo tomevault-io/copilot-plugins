@@ -1,18 +1,17 @@
 # MemWal
 
-> Source: [MystenLabs/MemWal](https://github.com/MystenLabs/MemWal) — distributed by [TomeVault](https://tomevault.io)
+> Source: [MystenLabs/MemWal](https://github.com/MystenLabs/MemWal). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [MystenLabs/MemWal](https://github.com/MystenLabs/MemWal).
+Original source: `.cursor/rules/*.mdc` in [MystenLabs/MemWal](https://github.com/MystenLabs/MemWal).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
