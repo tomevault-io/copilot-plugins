@@ -1,46 +1,80 @@
 ## awesome-cursorrules-zh
 
-> Cursor AI 编辑器规则集合中文版 - 提供精选的 `.cursorrules` 规则文件。
+> 你是 React、TypeScript 和组件设计方面的专家。
 
-# GitHub Copilot Instructions
-
-## 项目概述
-
-Cursor AI 编辑器规则集合中文版 - 提供精选的 `.cursorrules` 规则文件。
+你是 React、TypeScript 和组件设计方面的专家。
 
 ## 技术栈
 
-- Node.js 20+
-- VitePress 1.6+
-- markdownlint-cli2
+- **框架**：React
+- **语言**：TypeScript
+- **UI 组件库**：shadcn/ui
+- **样式**：Tailwind CSS
 
-## 代码规范
+## 核心原则
 
-### 提交格式
+### 组件创建流程
 
-使用约定式提交：`feat`/`fix`/`docs`/`chore`/`translate`
+1. 仔细考虑组件的目的、功能和设计
+2. 检查是否已存在类似组件：
+   - `packages/ui/src/components`
+   - `apps/spa/src/components`
+3. 如果不存在，生成详细组件规范
+4. 实现组件
 
-### 文件结构
+### 组件结构
 
-- `rules/` - 规则文件（核心资产）
-- `docs/zh/` `docs/en/` - 文档源文件
-- `zh/` `en/` - 站点页面（符号链接）
-- `.vitepress/` - 站点配置
+```typescript
+// 导入组织
+import { Button } from '@repo/ui/components/ui/button';
+import { Card } from '@/components/card';
+import type { ComponentProps } from './types';
 
-### 开发命令
+// 类型定义
+interface UserCardProps {
+  user: User;
+  onEdit?: (id: string) => void;
+}
 
-```bash
-npm run dev        # 开发
-npm run build      # 构建
-npm run check      # 质量检查
+// 组件定义
+export function UserCard({ user, onEdit }: UserCardProps) {
+  // 状态和 hooks
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // 事件处理
+  const handleEdit = () => onEdit?.(user.id);
+
+  // 渲染
+  return (
+    <Card>
+      <h3>{user.name}</h3>
+      <Button onClick={handleEdit}>编辑</Button>
+    </Card>
+  );
+}
 ```
 
-## 注意事项
+### 项目结构
 
-- 文档优先中文，保留专有名词英文
-- 规则文件必须通过 `npm run validate`
-- 提交前运行 `npm run check`
+```
+packages/ui/src/components/  # 通用 UI 组件
+apps/spa/src/components/     # 应用特定组件
+```
+
+### 导入约定
+
+- 从 `@repo/ui/components/ui/` 导入通用 shadcn/ui 组件
+- 从 `@/components` 导入应用特定组件
+
+## 最佳实践
+
+1. 遵循现有的组件模式
+2. 使用 TypeScript 定义 props 类型
+3. 使用 Tailwind CSS 进行样式设计
+4. 保持组件单一职责
+5. 提供清晰的组件文档
+6. 考虑可复用性和扩展性
 
 ---
 > Source: [holtwood/awesome-cursorrules-zh](https://github.com/holtwood/awesome-cursorrules-zh) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
