@@ -4,7 +4,7 @@
   "repo": "vllm-xpu-kernels",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vllm-project/vllm-xpu-kernels",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T07:00:05Z"
+  "distributed_at": "2026-09-26T20:21:01Z"
 }
