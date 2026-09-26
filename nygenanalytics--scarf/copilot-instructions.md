@@ -1,109 +1,162 @@
 ## scarf
 
-> These instructions apply to local profiling diagnostics and the Modal end-to-end profiler under
+> The optional `scarf[agent]` dependency provides a small interface for selecting and explaining
 
-# Profiling instructions
+# Agent analysis API reference
 
-These instructions apply to local profiling diagnostics and the Modal end-to-end profiler under
-`profiling/`.
+The optional `scarf[agent]` dependency provides a small interface for selecting and explaining
+RNA analysis settings. The root `scarf.agent` facade exports three objects:
 
-## Before cloud work
+```{eval-rst}
+.. autofunction:: scarf.agent.analyze_rna
 
-- Read `docs/source/concepts/benchmarks.md` for the current reference measurements and their
-  interpretation limits.
-- Run local profiling tests before using cloud resources:
+.. autoclass:: scarf.agent.AutomatedWorkflowResult
+   :members: plot_embedding, get_markers, report
 
-```bash
-uv run pytest -n 0 tests/test_profiling_*.py
+.. autoexception:: scarf.agent.AnalysisError
 ```
 
-- Copy `profiling/config.example.toml` to the ignored `profiling/config.toml`. Do not commit
-  machine-specific configs, endpoints, bucket names, secrets, or result identifiers.
-- Set a fresh, non-empty `runTag` for every end-to-end measurement.
-- Ask before starting a paid or long-running Modal job.
+## Start an analysis
 
-## Deployment boundary
+For model setup and a beginner walkthrough, see {doc}`../../tutorials/agent_workflow`.
 
-Never run `modal deploy`. Deployment is a user action. Ask the user to run:
+```python
+from scarf.agent import analyze_rna
 
-```bash
-uv run --group profiling modal deploy --env scarf_profiling \
-  -m profiling.modal_app
+result = analyze_rna(
+    "study.zarr",
+    model=model,
+    study_context="Human blood from one healthy donor, with no treatment comparison.",
+    study_objective="Identify stable major immune-cell populations.",
+    score_doublets=False,
+)
+result.plot_embedding()
+markers = result.get_markers()
+report_path = result.report()
 ```
 
-Do not create Modal environments, secrets, or credentials.
+The four required inputs are the source, configured Pydantic AI model, study context, and study
+objective. `assay` selects an RNA assay when several exist. `zarr_path` selects the destination
+when converting a supported input file. Other modalities in an existing store are ignored.
+Automated integration, HTO assignment, and biological significance or differential-expression
+hypothesis execution are outside this workflow. Experimental Context still explores individual
+and joint covariate patterns and possible explanations of the study design.
 
-## Standard workflow
+The beginner call returns only after completion. If it cannot complete, it raises `AnalysisError`,
+whose `result` provides the status, notes, and exact saved address for investigation or advanced
+resume. An identical repeated call reuses a completed analysis or resumes matching interrupted
+work. Input and model identity checks prevent attaching changed analysis intent to saved work.
 
-After the user confirms that the current app is deployed, prepare deterministic CELLxGENE samples
-and confirm the requested result before starting the funnel:
+## Doublet scoring and correction
 
-```bash
-uv run --group profiling modal run --env scarf_profiling \
-  -m profiling.modal_app -- prepare \
-  --config profiling/config.toml
+`analyze_rna` defaults to `score_doublets=False`. This disables optional advisory doublet
+scoring when Harmony is unavailable or prohibited. When the assessed design permits Harmony,
+the workflow still computes the doublet diagnostics required to compare native and corrected
+representations. Set `score_doublets=True` to request advisory scoring as well. Neither option
+automatically removes cells.
 
-uv run --group profiling modal run --env scarf_profiling \
-  -m profiling.modal_app -- run-e2e \
-  --config profiling/config.toml --size 1000000
+Correction requires an assessed design that protects relevant biology. When that design permits
+correction, the workflow evaluates Harmony rather than treating uncertain benefit as a reason
+to skip it. Demonstrated confounding can prohibit correction; improved mixing does not override
+that constraint or the preservation checks.
+
+## Use the result
+
+`plot_embedding()` displays the exact final UMAP colored by its clusters and returns Scarf's
+established `PlotResult`. It accepts `figsize`, `show`, `seed`, and `max_points` from 1 to 50,000.
+Sampling affects only display; cluster counts and final marker statistics describe the complete
+QC-retained population. The image provenance records the workspace, artifact references,
+population counts, and display sampling. No live metadata is created or overwritten.
+
+`get_markers()` returns the saved marker table using Scarf's standard `group_id`, `min_score`,
+and `min_frac_exp` filters. `report()` returns the local `index.html` path and can regenerate the
+single-page summary from saved evidence. It does not open a browser or rerun the analysis.
+
+The result stores a small address and outcome, including `zarrPath`, `workspace`, and
+`workflowRunId`. Requests, scientific reports, decision histories, and final artifacts remain
+owned by the orchestration journal. They are not repeated as public result fields.
+
+## Advanced control
+
+```python
+from scarf.agent.orchestrator import (
+    AgentOrchestrator,
+    AutomatedWorkflowConfig,
+    AutomatedWorkflowRequest,
+)
+
+runner = AgentOrchestrator(model, config=AutomatedWorkflowConfig(
+    inputPolicy="pause", scoreDoublets=False,
+))
+result = runner.run(AutomatedWorkflowRequest(
+    sourcePath="study.zarr",
+    workspace="analysis",
+    studyContext="The observed study design and metadata roles.",
+    studyObjective="The biological structure that must be preserved.",
+))
 ```
 
-`prepare` spawns work and returns immediately. Confirm that its requested H5AD exists before
-`run-e2e`.
+The advanced interface exposes numerical limits, provider limits, existing-store workspaces, and
+explicit pauses. Inspect its returned status and questions before continuing. The example sets
+`scoreDoublets=False` to match the beginner call. The advanced configuration retains
+`scoreDoublets=True` as its default, including for compatible older saved configurations.
 
-Use `run --stage ...` for a targeted stage, including repair of an incomplete `countsT`; use
-`run-local` for the Modal ephemeral-disk comparison.
+### Screening and work limits
 
-## 1M R2 gate
+`screeningCells=None` selects automatic sampling: 10% of the QC-retained cohort, rounded up,
+bounded to 10,000–100,000 cells, and capped by the retained population. An integer of at least 20 sets
+a fixed-size override. A compatible saved integer keeps its exact meaning on resume; the new
+default does not resize an existing screening population.
 
-The 1M gate is `run-e2e` on the product rotateOnce path. Use a fresh `runTag`, full funnel,
-size `1000000`, R2 backend (`scarf_profiling` env).
+| Default allowance | Limit |
+|---|---:|
+| Initial screening population | Automatic sampling as above |
+| Evidence-triggered enlargement | One, up to 100,000 cells |
+| Candidate evaluations per screening population | 24 |
+| Candidate evaluations across screening populations | 48 |
+| Additional full-cohort validation graphs | 4 |
+| Additional full-cohort validation partitions | 8 |
+| Targeted full-cohort repair | 1, within those graph and partition allowances |
 
-`profiling/config.example.toml` pins **8 CPU / 32 GiB** (Scarf budget ~24 GiB) on
-`createStore`, `writeCountsT`, `markHvgs`, and `findMarkers`. Leave other stage envelopes as in
-the example so the gate does not claim the whole 1M funnel fits in 32 GiB.
+The selected settings are executed and validated on all retained cells. Screening includes
+every retained cell in small datasets; those comparisons count in the screening allowance, and
+exact artifacts can be reused for final validation. The additional-validation allowance is not
+a cap on every graph built during all-cell screening. A recovery comparison and its required
+controls must fit the remaining allowance before execution. Four corrected resolutions plus
+four matched native controls, for example, use all eight additional partitions.
 
-```bash
-# User action only; agents never deploy.
-uv run --group profiling modal deploy --env scarf_profiling \
-  -m profiling.modal_app
+These limits count distinct admitted work, including failed attempts. Exact completed reuse
+does not spend another slot. They do not bound wall time, retries, diagnostic suboperations,
+or provider spend. QC, markers, stability, doublet diagnostics, I/O, and the final UMAP also
+have costs.
 
-uv run --group profiling modal run --env scarf_profiling \
-  -m profiling.modal_app -- prepare \
-  --config profiling/config.toml
+### Failures and saved history
 
-uv run --group profiling modal run --env scarf_profiling \
-  -m profiling.modal_app -- run-e2e \
-  --config profiling/config.toml --size 1000000
-```
+Beginner failures raise `AnalysisError`; its message includes the stage, reason, and available
+resume location. Its `result` retains the structured outcome used by advanced callers. Keep the
+store and repeat the same call, including model configuration and doublet setting, to reuse
+matching work. An unresolved scientific requirement may need investigation before a repeat can
+succeed. Changed data, metadata, study text, model configuration, or execution settings cannot
+silently reinterpret an existing history.
 
-Success: all stages ok; paired `countsT` with `complete=True`; HVG and markers finish without OOM;
-result JSON under the run's `runTag`. Expect hours of Modal time and real cost.
+The stage journal owns requests, committed evidence, validated decisions, rationales, and artifact
+references. Failed model attempts retain available usage and validation feedback. History
+separates attempted and completed operation calls from restored evidence and confirmed reuse.
+Counts of saved artifacts do not establish how many computations ran: a core call may itself
+reuse work, and older histories without operation records have unknown counts, not zero.
 
-## Durable execution
+Compatible histories can append a context-evidence revision when a requested joint or
+conditional question was unanswered. Previous records remain immutable; changed scientific
+evidence must be reassessed.
 
-- Long work must use `.spawn(...)`, never `.remote()`. A blocking call can be cancelled when the
-  local gRPC session disconnects.
-- Wait through short `FunctionCall.get(timeout=...)` polls or durable result JSON instead of one
-  long blocking request.
-- Treat `FAILURE`, `INIT_FAILURE`, `TERMINATED`, and `TIMEOUT` as terminal.
-  Modal can raise an empty `TimeoutError` for a failed input.
-- Give coordinators about 1 CPU and 2 to 4 GiB with `retries=0`. Do not assign stage-worker
-  resources to coordinators.
-- Prefer the broad `eu` region and leave the Modal cloud option unset unless the experiment
-  explicitly measures another placement.
-- Log start, plan, periodic progress, and completion lines.
-- Persist each stage result and `funnel.json` before treating a run as complete.
+The previous agent workflow records, result fields, candidate-budget aliases, and root imports
+are unsupported. Histories without mandatory objective requirements and completed comparison
+coverage cannot be resumed or used to regenerate reports under this contract. Start a new
+workflow; existing historical HTML remains readable. Numerical artifacts remain accessible through
+the ordinary Scarf artifact APIs; no saved records are silently migrated.
 
-## Measurement discipline
-
-- Never run two jobs with the same `runTag`.
-- Change one measured variable at a time and keep workflow seeds fixed.
-- Compare runs only when dataset, code revision, settings, storage conditions, and resource
-  envelope are stated.
-- Do not present measurements from different machine sizes as one scaling curve.
-- Do not generalize one run into a hardware guarantee or a biological correctness claim.
+For a complete executable example, see {doc}`../../tutorials/agent_workflow`.
 
 ---
 > Source: [NygenAnalytics/scarf](https://github.com/NygenAnalytics/scarf) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
