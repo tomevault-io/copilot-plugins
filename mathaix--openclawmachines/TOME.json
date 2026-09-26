@@ -1,0 +1,87 @@
+{
+  "name": "OpenClawMachines",
+  "owner": "mathaix",
+  "repo": "OpenClawMachines",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OpenClawMachines",
+      "path": "rootfs/skills/ocm-browser/SKILL.md",
+      "github_url": "https://github.com/mathaix/OpenClawMachines/tree/main/rootfs/skills/ocm-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenClawMachines",
+      "path": ".agents/skills/ocm-review/SKILL.md",
+      "github_url": "https://github.com/mathaix/OpenClawMachines/tree/main/.agents/skills/ocm-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenClawMachines",
+      "path": ".agents/skills/ocm-testing/SKILL.md",
+      "github_url": "https://github.com/mathaix/OpenClawMachines/tree/main/.agents/skills/ocm-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenClawMachines",
+      "path": ".agents/skills/ocm-debugging/SKILL.md",
+      "github_url": "https://github.com/mathaix/OpenClawMachines/tree/main/.agents/skills/ocm-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenClawMachines",
+      "path": "rootfs/skills/ocm-integrations/SKILL.md",
+      "github_url": "https://github.com/mathaix/OpenClawMachines/tree/main/rootfs/skills/ocm-integrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenClawMachines",
+      "path": ".agents/skills/ocm-self-hosted/SKILL.md",
+      "github_url": "https://github.com/mathaix/OpenClawMachines/tree/main/.agents/skills/ocm-self-hosted/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenClawMachines",
+      "path": "plugins/ocm-integrations-plugin/skills/ocm-integrations/SKILL.md",
+      "github_url": "https://github.com/mathaix/OpenClawMachines/tree/main/plugins/ocm-integrations-plugin/skills/ocm-integrations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mathaix/OpenClawMachines",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T10:34:13Z"
+}
