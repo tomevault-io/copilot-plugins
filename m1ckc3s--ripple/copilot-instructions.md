@@ -30,25 +30,22 @@ original is Metal/MSL; this is GLSL/WebGL with meaningful changes (see
 
 | File | Role |
 | --- | --- |
-| `src/components/RippleTransition.tsx` | Everything: GLSL source (VERT/FRAG), WebGL setup, texture loading, GSAP trigger/scrub, `Params` type, `DEFAULT_PARAMS`, `EASE_OPTIONS`. |
+| `src/components/RippleTransition.tsx` | The effect: GLSL source (VERT/FRAG), WebGL setup, texture loading, GSAP trigger/scrub. Default-exports only the component. |
+| `src/components/rippleParams.ts` | Non-component module: the `Params` / `RippleHandle` types, `DEFAULT_PARAMS`, `EASE_OPTIONS`. Split out of `RippleTransition.tsx` so that file only exports a component (satisfies `react-refresh/only-export-components` / Fast Refresh). |
 | `src/components/Controls.tsx` / `.css` | Collapsible, shadcn-style control panel (top-left) + Dev/Scrub section. Holds the `open` collapse state, the "Controls" pill, and the close (✕) button. |
 | `src/App.tsx` | Wires the component to the controls; holds `params` + `scrubValue` state. |
 | `public/image-a.png`, `image-b.png` | Demo images (Pinterest placeholders — not owned; see README). |
 
-## Running it
-
-- Dev server: `npm run dev` → **http://localhost:3000** (pinned via
-  `server.port: 3000` + `strictPort: true` in `vite.config.ts`, matching the
-  owner's other repos).
-- `.claude/launch.json` has a single `vite dev` entry on port 3000, started via
-  the Claude preview tool. Keep it to one entry — do not add a second
-  `vite preview` server.
-
 ## How the effect works (fragment shader)
 
-1. **Wavefront** — `waveFront = progress × waveSpeed`. Distance from `u_center`
-   (the normalized tap point) is compared to it. A Gaussian envelope around the
-   front × a `cos(delta × waveFreq)` term defines the bright ripple band.
+1. **Wavefront** — `waveFront = progress × coverage`, where
+   `coverage = 1.0 + 0.5*noiseWarp + 0.1` is auto-derived so the front always
+   reaches the farthest corner (normalized distance maxes at 1.0) plus the noise
+   margin by `progress` 1 — the sweep completes on any canvas/aspect. Distance
+   from `u_center` (the normalized tap point) is compared to it. A Gaussian
+   envelope around the front × a `cos(delta × waveFreq)` term defines the bright
+   ripple band. (There is no Wave Speed uniform — see "Wave Speed → Transition
+   Speed" below.)
 2. **Noise warp** — two cartesian FBM layers (`p*4` and `p*12`, value-noise +
    Hermite smoothing) perturb the distance field into cloud lobes. Amplitude is
    scaled by `warpScale = smoothstep(0.0, 0.05, progress)` so it starts as a
@@ -57,19 +54,48 @@ original is Metal/MSL; this is GLSL/WebGL with meaningful changes (see
 4. **Chromatic aberration** — R/G/B sampled at offset UVs (`caStrength`).
 5. **Color-dodge glow** — band blown toward white (`glow`).
 6. **Two-image reveal** — behind the front, `base` mixes into `target`.
-   `u_swap` (0/1) flips which texture is base vs target.
+   `u_swap` (0/1) flips which texture is base vs target. The reveal boundary is
+   feathered by `feather = 0.04 + 0.05·noiseLarge` so it reads as an organic edge,
+   not a hard ring.
 7. **Tail gate** — envelope fades out by `progress` 1 so nothing lingers.
 
 ## Interaction model
 
-- Click the canvas → ripple fires from the click point.
+- **Press the canvas → ripple + pinch fire from the press point.** The whole
+  effect is bound to `pointerdown` (mouse/touch/pen), not click — there is no
+  release/click path. `pointerdown` is guarded to the primary button, and pairs
+  with the image wrapper's `touch-action: none` so a press can't be a scroll.
+- **Pinch poke:** a snappy push-in dimple fires together with the wave when the
+  `pinch` toggle is on. Its depth is scaled by `pinchStrength` — the pinch tween
+  peaks at `pinchStrength` (no separate uniform; `u_pinch` already multiplies the
+  displacement). On by default at strength 0.3.
+  - **Geometry (shader).** The dimple is a Gaussian `pinchG = exp(-dist²/2σ²)`
+    with `pinchSigma = 0.10`. The radial displacement is its *slope*
+    (`pinchDisp = (dist/σ²)·pinchG·0.01·u_pinch`), so the pull is zero at the
+    exact contact point and far away, maxing around the rim — the sheet reads as
+    a physical lens dent that bends the picture, not painted-on shading. The
+    `0.01` factor is the hand-tuned displacement scale.
+  - **Sign convention.** `uvOffset = dir·(pushAmt − pinchDisp)` — *subtracting*
+    the pinch makes the band sample outward, so content gets sucked toward the
+    tap (the "pushed-in" look).
+  - **Frame pin / edge-fade.** `edgeFade = smoothstep(0, 0.14, dist-to-nearest-
+    border)` multiplies the dimple to zero as it nears any edge. Without it the
+    dent could drag the sample out of bounds, where `CLAMP_TO_EDGE` smears the
+    border and bleeds the other image in. Like paper anchored in a frame, the
+    very edge can't deform.
+  - **Contact shadow.** A soft `color.rgb *= 1 − 0.16·pinchG·edgeFade·u_pinch`
+    pools shade in the bottom of the dimple for depth. Pure Gaussian, no
+    high-frequency detail, so it never adds hard radiating lines; the `0.16`
+    depth is kept subtle so the geometric distortion stays the star.
 - **Ping-pong:** on tween complete, `state.swap` toggles and `progress` resets to
   0 *in the same frame*. The new base equals the just-revealed image, so there's
-  no flicker — successive clicks alternate A→B, B→A, …
-- **Click guard:** `animating` flag ignores clicks until the current transition
+  no flicker — successive presses alternate A→B, B→A, …
+- **Press guard:** `animating` flag ignores presses until the current transition
   finishes (no mid-animation restarts/double-swaps). `scrub()` clears it.
-- **Dev scrub slider** sets `progress` directly (kills any tween) for
-  frame-by-frame inspection. It scrubs the current direction.
+- **Progress scrub slider** (bottom of the panel, above Replay) sets `progress`
+  directly (kills any tween) for frame-by-frame inspection. It scrubs the current
+  direction. (The old "Dev / Scrub" label row was removed — it's just the
+  Progress slider + Replay now.)
 
 ## Controls panel & responsiveness
 
@@ -103,38 +129,37 @@ original is Metal/MSL; this is GLSL/WebGL with meaningful changes (see
   `atan` branch cut produced a visible seam radiating from the center (invisible
   in his hardcoded-center version, visible once center follows the tap).
 - **Tail gate** added so the wavefront dies out cleanly.
-- **Center parameterized** as `u_center` from the click.
-- **Ping-pong `u_swap`**, warp ramp, and click guard are all additions.
+- **Center parameterized** as `u_center` from the press point.
+- **Ping-pong `u_swap`**, warp ramp, and press guard are all additions.
 - **Texture orientation:** `UNPACK_FLIP_Y_WEBGL` is **false** (the vertex shader
   already flips v so screen-top → uv.y 0). Two flips = upside down; keep one.
 
 ## Current defaults (`DEFAULT_PARAMS`)
 
-`waveSpeed 1.6 · sigma (Wave Width) 0.15 · waveFreq (Ripple Density) 5 ·
+`sigma (Wave Width) 0.15 · waveFreq (Ripple Density) 5 ·
 pushAmt (Displacement) 0.145 · caStrength (RGB Split) 0.02 · glow 0.73 ·
-noiseWarp 1.0 · duration 1.8 · ease power2.inOut`
+noiseWarp 1.0 · duration 1.4 · ease power2.inOut · pinch true ·
+pinchStrength (Pinch Intensity) 0.3`
 
 These were dialed in by hand against reference frames. **When the user tunes new
 values, bake them into `DEFAULT_PARAMS`** so reloads/edits don't lose them.
 
-## Working conventions (learned this session)
+## Wave Speed → Transition Speed (control consolidation)
 
-- **Prefer small, targeted `Edit`s over rewriting whole files.** Full rewrites
-  remount the component, reset `params` state, and wipe the user's live-tuned
-  slider values. This was a repeated pain point.
-- The user tunes the look **live via the sliders**, then asks to set defaults.
-  Treat the control panel as the primary design surface.
-- Slider ranges live in `Controls.tsx` (`SLIDERS`). RGB Split max was raised to
-  `0.05` because `0.02` wasn't enough headroom.
-
-## Possible next steps
-
-- Optional **auto-loop** mode (transition every N seconds, no click).
-- Closer match to his **moderate cloud lobes** (his `noiseWarp` is lower than our
-  1.0 default — 1.0 tends toward tendrils).
-- Wider-area melt: `Wave Width` up gives `Displacement` more room to act.
-- Multiple images beyond two; reduced-motion fallback. (Basic touch/mobile
-  support — responsive layout, touch lock, collapsible panel — is now in place.)
+- **Wave Speed was removed.** Its old completion-gating job is now automatic: the
+  shader uses `coverage` (above) as the front's endpoint, so the sweep always
+  finishes. The old default Wave Speed (1.6) equals `coverage` at the default
+  Noise Warp (1.0), so removing it left the animation **byte-identical** at
+  defaults.
+- **Why:** Wave Speed and Duration both read as "perceived speed"
+  (`screen speed ≈ waveSpeed × 1/duration`). The only thing Wave Speed uniquely
+  did post-completion-fix was an "overshoot/hold" (finishing early then lingering)
+  — too subtle to keep as a slider. So they were merged into one knob.
+- **"Transition Speed"** is the renamed `duration` param. The slider is
+  **inverted** in `Controls.tsx` (`value = DUR_MIN + DUR_MAX - duration`) so
+  right = faster, and the readout is a multiplier vs the 1.4s default
+  (`DUR_DEFAULT / duration`, so default shows `1.00×`). The underlying param is
+  still `duration` in seconds — GSAP reads it unchanged.
 
 ## Credit
 
@@ -143,4 +168,4 @@ MIT © Mick Cesanek.
 
 ---
 > Source: [m1ckc3s/ripple](https://github.com/m1ckc3s/ripple) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
