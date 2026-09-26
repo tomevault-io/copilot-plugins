@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [echoVic/blade-agent-sdk](https://github.com/ech
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [echoVic/blade-agent-sdk](https://github.com/echoVic/blade-agent-sdk) — a repo with 53+ stars on GitHub.
+From [echoVic/blade-agent-sdk](https://github.com/echoVic/blade-agent-sdk) — a repo with 55+ stars on GitHub.
 
 ---
 
