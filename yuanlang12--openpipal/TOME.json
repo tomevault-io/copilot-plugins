@@ -1,0 +1,195 @@
+{
+  "name": "OpenPipal",
+  "owner": "yuanlang12",
+  "repo": "OpenPipal",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/doc/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/flier/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/flier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/slides/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/wireframe/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/wireframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/deck-stage/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/deck-stage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/html-email/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/html-email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/doc-design/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/doc-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/spreadsheet/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/spreadsheet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/hi-fi-design/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/hi-fi-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/web-research/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/web-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/hook-creator/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/hook-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/design-tokens/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/design-tokens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/tool-installer/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/tool-installer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/three-d-object/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/three-d-object/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/animation-basics/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/animation-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/trifold-brochure/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/trifold-brochure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/interactive-prototype/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/interactive-prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/skills/design-system-authoring/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/skills/design-system-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/system-agents/evolver/skills/dream/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/system-agents/evolver/skills/dream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/system-agents/evolver/skills/set-rule/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/system-agents/evolver/skills/set-rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/system-agents/evolver/skills/save-agent/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/system-agents/evolver/skills/save-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/system-agents/coding/skills/repo-onboarding/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/system-agents/coding/skills/repo-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPipal",
+      "path": "resources/system-agents/evolver/skills/extract-memory/SKILL.md",
+      "github_url": "https://github.com/yuanlang12/OpenPipal/tree/main/resources/system-agents/evolver/skills/extract-memory/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yuanlang12/OpenPipal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T10:37:59Z"
+}
