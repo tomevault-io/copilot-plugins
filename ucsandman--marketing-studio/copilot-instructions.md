@@ -1,33 +1,28 @@
 ## marketing-studio
 
-> Remotion (studio/) renders all final video for ALL products/brands; assets are copied
+> TypeScript CLI + Claude Code skill that launches developed projects across platforms.
 
-# animations: agent-driven animation studio
+# launch/ — project conventions (marketing-studio distribution layer)
 
-Remotion (studio/) renders all final video for ALL products/brands; assets are copied
-out to the product's repo at the end. brands/<id>.json holds per-product tokens
-(zod-validated via studio/src/lib/brand.ts; mark components in studio/src/brands/marks.ts);
-templates resolve getBrand(brandId) and never hardcode brand values. Feeders:
-feeders/blender (headless bpy), feeders/capture (Playwright), feeders/comfy (ComfyUI,
-non-load-bearing). Spec: docs/superpowers/specs/2026-07-09-animation-studio-design.md.
-skills/ is the shareable mirror of the user-level asset skills (installed via
-scripts/install-skills.mjs); when a skill changes, update both copies.
+TypeScript CLI + Claude Code skill that launches developed projects across platforms.
+Lives inside marketing-studio as its own package; the `/launch` skill is `../skills/launch/SKILL.md`.
 
-**Read docs/PLAYBOOK.md before any asset or feeder work** — engine map, brand
-onboarding, and verified gotchas (Blender 5.1.2 API traps, camera math, seamless-loop
-rules, capture lessons). Do not re-derive them. User-level skills (/logo-reveal,
-/social-clip, /product-demo, /launch-video, /og-assets) drive this repo from any repo.
+## Stack
 
-Rules:
-- Brand color rules live in each brand's JSON `voice` (noban: profit = gold #d6c23c
-  NEVER green; green = safe/simulation only).
-- Rendered proof: visual work is not done until a rendered frame was inspected;
-  final assets are not done until the user saw them.
-- Smoke check before claiming done: node scripts/smoke.mjs (every composition listed).
-- Generated props JSON is edited only via its builder script (scripts/build-*-props.mjs).
-- out/, assets/, studio/public/*/ are gitignored build products.
-- Blender via BLENDER_PATH in .env; ComfyUI on :8000/:8188 with documented fallback.
+- Node >= 24, ESM only (`"type": "module"`, NodeNext resolution — relative imports need `.js` extensions)
+- commander (CLI), zod (validation), vitest (tests), eslint flat config (lint)
+- Build `npm run build` (tsc → dist/), test `npm test`, lint `npm run lint`
+
+## Conventions
+
+- **Zod-first validation**: every persisted or external shape has a zod schema in `src/types.ts`; types are inferred, never hand-written duplicates.
+- **Dry-run default**: any command that could spend money or publish content must support `--dry-run` and default to the safe path. Live posting requires the explicit `--live` flag.
+- **Never log env values**: provider code may log which key is *missing*, never its value. No `console.log` of `process.env` contents anywhere.
+- **Per-target state** lives in `<target>/.launch/` via `LaunchStore` (`src/state.ts`) — don't read/write those files directly.
+- **Idempotency**: posting consults the ledger (`store.has(key)`) before any network call; completed posts append a `LedgerEntry`.
+- **Errors**: corrupted state files throw `CorruptedStateError` with the file path; CLI commands exit non-zero with a one-line message, no stack-trace vomit.
+- **Credential split**: social API keys come from `.env` (template: `.env.example`). DashClaw infra (domain/Vercel/Stripe/Resend/Twilio/DNS) is MCP-only — the CLI never holds those credentials.
 
 ---
 > Source: [ucsandman/marketing-studio](https://github.com/ucsandman/marketing-studio) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
