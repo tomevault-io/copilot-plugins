@@ -1,7 +1,7 @@
 {
   "name": "objectstack-ai--objectstack",
   "displayName": "objectstack",
-  "description": "A complex business system in 170k tokens. ObjectStack compresses an entire app \u2014 data model, UI, workflows, permissions \u2014 into typed metadata, an AI agent can hold in context, reason about, and refact",
+  "description": "objectstack",
   "version": "1.0.0",
   "author": "objectstack-ai",
   "homepage": "https://github.com/objectstack-ai/objectstack",
