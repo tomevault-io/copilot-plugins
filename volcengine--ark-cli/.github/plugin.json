@@ -1,0 +1,9 @@
+{
+  "name": "volcengine--ark-cli",
+  "displayName": "ark-cli",
+  "description": "ark-cli",
+  "version": "1.0.0",
+  "author": "volcengine",
+  "homepage": "https://github.com/volcengine/ark-cli",
+  "skills": []
+}
