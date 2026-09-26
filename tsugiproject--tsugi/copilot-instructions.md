@@ -1,50 +1,28 @@
 ## tsugi
 
-> Mandatory git hooks and production vendor autoload after any Composer work
+> Stay inside this Tsugi checkout. Never use the sibling htdocs/tsugi tree unless that is the open workspace.
 
 
-# Git hooks and vendored dependencies (MANDATORY for agents)
+# This checkout only
 
-Production commits `vendor/` but **gitignores dev packages**. Dev-mode autoload **breaks production** (e.g. missing `myclabs/deep-copy`).
+The workspace folder is the Tsugi you are editing. **Do not leave it.**
 
-## Session start
+On this machine there is often a second clone at `/Users/csev/htdocs/tsugi` (or `~/htdocs/tsugi`). That is a **different git repo**. It is out of bounds unless the Cursor workspace path **is** that folder.
 
-Verify the pre-commit hook is installed. If not, **run it before any other work**:
+## Do not
 
-```bash
-test -x .git/hooks/pre-commit && grep -q 'pre-commit-vendor-check' .git/hooks/pre-commit || bash qa/install-git-hooks.sh
-```
+- Read, write, grep, migrate, or "sync" files under `htdocs/tsugi` when the workspace is `htdocs/dj4e/tsugi` (or any other nested checkout).
+- Treat `$CFG->dirroot`, `../config.php`, or "the real tsugi-php" as permission to switch trees.
+- Copy Quiz1 (or any other change) into the sibling clone to make upgrade/Apache pick it up.
 
-## After ANY Composer command that changes dependencies
+## Do
 
-You **MUST NOT** mark composer/vendor work complete until this passes:
+- Edit, test, and run `php admin/upgrade.php` only inside the workspace root.
+- PHP includes for this repo must use `__DIR__` (e.g. `require_once __DIR__ . '/../config.php'`). A CWD-relative `../config.php` from `dj4e/tsugi` loads `dj4e/config.php`, which then loads **`htdocs/tsugi`** — that is how agents accidentally leave this tree.
+- If a command's `dirroot` is not the workspace path, **stop** and fix the invoke path. Do not follow that dirroot into another checkout.
 
-```bash
-composer run finalize-vendor
-```
-
-(`composer update` / `composer require` run this automatically via `post-update-cmd`; **still run it explicitly** after `composer require --no-update`, manual lock edits, or if unsure.)
-
-`finalize-vendor` runs `composer install --no-dev` when needed, then `qa/pre-commit-vendor-check.sh`.
-
-## Before committing vendor or composer files
-
-1. Hook installed (above).
-2. `composer run finalize-vendor` succeeded.
-3. Commit includes **`vendor/composer/`** with lockfile changes.
-4. **Inspect** `git diff vendor/composer/autoload_files.php` — must **not** contain `myclabs`, `phpunit`, `phpstan`, or `php-webdriver`.
-
-If the user asks you to commit vendor changes and the check fails, **fix it first** — do not commit.
-
-## Local dev tools (phpstan/phpunit)
-
-Re-install dev tools only for local QA (not for commits):
-
-```bash
-composer install --ignore-platform-reqs
-composer run finalize-vendor   # back to production autoload before commit
-```
+If the user opens `/Users/csev/htdocs/tsugi` as the workspace, that folder is in bounds and `dj4e/tsugi` is not.
 
 ---
 > Source: [tsugiproject/tsugi](https://github.com/tsugiproject/tsugi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
