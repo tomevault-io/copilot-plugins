@@ -1,8 +1,6 @@
 # AI instruction files for book
 
-> Sourced from [aipmer/book](https://github.com/aipmer/book) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-《Codex实战蓝皮书》：AI原生时代的产品研发与多端编排实战指南。
+> Sourced from [aipmer/book](https://github.com/aipmer/book), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [aipmer/book](https://github.com/aipmer/book).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [aipmer/book](https://github.com/aipmer/book) — a repo with 42+ stars on GitHub.
+From [aipmer/book](https://github.com/aipmer/book) — a repo with 54+ stars on GitHub.
 
 ---
 
