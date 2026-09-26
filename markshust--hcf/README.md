@@ -1,8 +1,6 @@
 # AI instruction files for hcf
 
-> Sourced from [markshust/hcf](https://github.com/markshust/hcf) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Autonomous development plugin for Claude Code. Define requirements with a PM, then let parallel workers implement everything using TDD.
+> Sourced from [markshust/hcf](https://github.com/markshust/hcf), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [markshust/hcf](https://github.com/markshust/hcf
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [markshust/hcf](https://github.com/markshust/hcf) — a repo with 9+ stars on GitHub.
+From [markshust/hcf](https://github.com/markshust/hcf) — a repo with 75+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
