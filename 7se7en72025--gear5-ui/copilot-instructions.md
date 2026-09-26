@@ -14,4 +14,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ---
 > Source: [7se7en72025/gear5-ui](https://github.com/7se7en72025/gear5-ui) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
