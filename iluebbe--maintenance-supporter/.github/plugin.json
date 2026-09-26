@@ -1,0 +1,14 @@
+{
+  "name": "iluebbe--maintenance-supporter",
+  "displayName": "maintenance_supporter",
+  "description": "maintenance_supporter",
+  "version": "1.0.0",
+  "author": "iluebbe",
+  "homepage": "https://github.com/iluebbe/maintenance_supporter",
+  "skills": [
+    {
+      "name": "maintenance_supporter",
+      "description": ""
+    }
+  ]
+}
