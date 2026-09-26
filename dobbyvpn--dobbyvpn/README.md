@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [DobbyVPN/DobbyVPN](https://github.com/DobbyVPN/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [DobbyVPN/DobbyVPN](https://github.com/DobbyVPN/DobbyVPN) — a repo with 62+ stars on GitHub.
+From [DobbyVPN/DobbyVPN](https://github.com/DobbyVPN/DobbyVPN) — a repo with 65+ stars on GitHub.
 
 ---
 
