@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--old-photo-restore",
+  "displayName": "old-photo-restore",
+  "description": "Open-source AI old photo restoration tool \u2014 production-ready Next.js SaaS that colorizes, denoises, and repairs damaged vintage photos. Free Remini alternative with Stripe billing, credits, NextAuth, ",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/old-photo-restore",
+  "skills": []
+}
