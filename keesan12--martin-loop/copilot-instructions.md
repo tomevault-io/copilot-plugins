@@ -1,22 +1,36 @@
 ## martin-loop
 
-> - Martin Loop ships both a repo-wide OSS/RC surface and a standalone publishable MCP package at `packages/mcp`.
+> Read `AGENTS.md` before making any change. `AGENTS.md` is the sole repository operating guide for agents.
 
-# AGENTS.md
+# Claude Code Instructions
 
-## Project Overview
-- Martin Loop ships both a repo-wide OSS/RC surface and a standalone publishable MCP package at `packages/mcp`.
+Read `AGENTS.md` before making any change. `AGENTS.md` is the sole repository operating guide for agents.
 
-## Build and Verify
-- For MCP-only changes, run `pnpm --filter @martinloop/mcp test`, `pnpm --filter @martinloop/mcp build`, and `pnpm --filter @martinloop/mcp smoke:pack`.
-- For release-surface or packaging changes that could affect CI, run `pnpm release:matrix:local`.
+Do not infer current release status from old branches, old PRs, old incident notes, audit documents, terminal history, or prior session handoffs.
 
-## MCP Registry Guardrails
-- Do not call `packages/mcp` registry-ready unless `packages/mcp/package.json` includes `mcpName` and `packages/mcp/server.json` exists with matching `name`, `version`, and npm package `identifier`.
-- npm publication happens before official MCP Registry publication.
-- The official MCP Registry flow runs from `packages/mcp`: `mcp-publisher login github`, then `mcp-publisher publish`.
-- The current official registry server name for the public MCP package is `io.github.keesan12/martin-loop`.
+For current version and release state, use only:
+
+- `package.json`
+- `packages/mcp/package.json`
+- `docs/release/VERSION-LEDGER.md`
+- current Git branch / commit state
+- current open PRs and required checks
+
+Repository authority:
+
+- development authority: a separate private maintainer repository
+- public distribution: `Keesan12/martin-loop`
+
+Required release order:
+
+private branch → private PR → private merge → private-main health proof → public staging → promotion guard → public PR → public merge → publish → fresh-install / E2E proof.
+
+Never develop directly in the public repository. Never bypass public-write or portability guards. Never use stale handoff files as release authority.
+
+Release evidence and handoff artifacts must live in a persistent repo-owned location such as `.release/<version>/`; do not place MartinLoop release work in `C:\\tmp`, OS temp directories, or disposable scratch folders.
+
+When a required gate fails, investigate only that exact failure. Do not start broad audits, revive superseded release processes, or create new acceptance phases unless a new deterministic P0/P1 requires it.
 
 ---
 > Source: [Keesan12/martin-loop](https://github.com/Keesan12/martin-loop) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-12 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
