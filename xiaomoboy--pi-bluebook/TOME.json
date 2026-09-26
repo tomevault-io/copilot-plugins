@@ -1,0 +1,69 @@
+{
+  "name": "pi-bluebook",
+  "owner": "xiaomoBoy",
+  "repo": "pi-bluebook",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pi-bluebook",
+      "path": "docs/public/examples/skill/action-list-review/SKILL.md",
+      "github_url": "https://github.com/xiaomoBoy/pi-bluebook/tree/main/docs/public/examples/skill/action-list-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-bluebook",
+      "path": "docs/public/examples-tw/skill/action-list-review/SKILL.md",
+      "github_url": "https://github.com/xiaomoBoy/pi-bluebook/tree/main/docs/public/examples-tw/skill/action-list-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-bluebook",
+      "path": "docs/public/examples/graduation-project/bluebook-graduation-review/SKILL.md",
+      "github_url": "https://github.com/xiaomoBoy/pi-bluebook/tree/main/docs/public/examples/graduation-project/bluebook-graduation-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-bluebook",
+      "path": "docs/public/examples-tw/graduation-project/bluebook-graduation-review/SKILL.md",
+      "github_url": "https://github.com/xiaomoBoy/pi-bluebook/tree/main/docs/public/examples-tw/graduation-project/bluebook-graduation-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xiaomoBoy/pi-bluebook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T10:39:44Z"
+}
