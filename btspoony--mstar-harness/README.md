@@ -1,8 +1,6 @@
 # mstar-harness
 
-> Tome by [btspoony](https://github.com/btspoony/mstar-harness) — distributed by [TomeVault](https://tomevault.io)
-
-A skill-driven Harness Engineering framework
+> Tome by [btspoony](https://github.com/btspoony/mstar-harness), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-p -->
