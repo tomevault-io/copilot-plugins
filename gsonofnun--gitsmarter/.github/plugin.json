@@ -1,7 +1,7 @@
 {
   "name": "gsonofnun--gitsmarter",
   "displayName": "GitSmarter",
-  "description": "A fast, dependency-free native Git client for Windows. C++20, Direct2D, direct git-internals parsing, single ~2.5 MB executable.",
+  "description": "GitSmarter",
   "version": "1.0.0",
   "author": "GSonofNun",
   "homepage": "https://github.com/GSonofNun/GitSmarter",
