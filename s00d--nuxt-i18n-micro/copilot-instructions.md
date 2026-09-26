@@ -1,41 +1,23 @@
 ## nuxt-i18n-micro
 
-> Mandatory checks that must pass before git push
+> Never edit docs/news unless the user explicitly asks
 
 
-# Pre-push checks
+# docs/news — hands off
 
-Before **any** `git push` (or asking the user to push), run this sequence and fix failures. Do not push with red checks.
+**Never** create, edit, delete, or "optionally update" `docs/news/index.md` (or any file under `docs/news/`).
 
-```bash
-pnpm run prepack
-pnpm run format
-pnpm run lint
-pnpm run typecheck
-pnpm run check:versions -- --npm
-pnpm run release:source
-pnpm run compare:published
-```
+Allowed **only** when the user explicitly asks in that message (e.g. "добавь в news", "update docs/news").
 
-## Order
+Do **not** treat as permission:
 
-1. **`prepack`** — build packages + main module (needed before compare/publish gates).
-2. **`format`** / **`lint`** / **`typecheck`** — style and types.
-3. **`check:versions -- --npm`** — bumped packages match registry expectations.
-4. **`release:source`** / **`compare:published`** — release source integrity vs published artifacts.
+- finishing a feature / fix / package bump
+- updating other docs (`docs/guide/`, README, API)
+- AGENTS / .cursorrules wording about "unreleased notes"
+- "document user-facing changes"
 
-## Rules
-
-- Run **all** commands above; do not skip because “only docs” or “only one package” unless the user explicitly waives them.
-- If `format` rewrites files, stage them and continue the rest of the list.
-- Pair with [package-versioning](package-versioning.mdc): version bump + `dist/` rebuild belong in the change set **before** these gates.
-- Full `pnpm run test` is still recommended when touching runtime/routing; it is **not** a substitute for this list.
-
-## Do not
-
-- Push after only `lint` + `test:unit`.
-- Treat `pnpm run preflight` or `release:check` as identical — this list is the required gate (includes `prepack`).
+If release notes seem useful, mention it in chat — do not write the file.
 
 ---
 > Source: [s00d/nuxt-i18n-micro](https://github.com/s00d/nuxt-i18n-micro) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
