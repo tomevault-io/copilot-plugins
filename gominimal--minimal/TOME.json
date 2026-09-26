@@ -2,7 +2,7 @@
   "name": "minimal",
   "owner": "gominimal",
   "repo": "minimal",
-  "description": "Build Software You Can Trust. Isolated, reproducible development environments and a secure package manager that give your whole team identical environments, while keeping AI agents off the laptop.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gominimal/minimal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-26T15:32:44Z"
+  "distributed_at": "2026-09-26T09:22:52Z"
 }
