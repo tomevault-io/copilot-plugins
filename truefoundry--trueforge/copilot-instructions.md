@@ -1,11 +1,40 @@
 ## trueforge
 
-> - `ISessionStore` is the session/turn persistence contract (no streaming/SSE); Postgres, SQLite, and `InMemorySessionStore` MUST implement it, and shared behavior MUST live in `storeContractSuite.ts` (backend wrappers only bind a store).
+> AgentUIServer / server-port types are defined only in assistant-ui-runtime; UI re-exports
 
-- `ISessionStore` is the session/turn persistence contract (no streaming/SSE); Postgres, SQLite, and `InMemorySessionStore` MUST implement it, and shared behavior MUST live in `storeContractSuite.ts` (backend wrappers only bind a store).
-- Changing an `ISessionStore` method, input, error, or semantic MUST update the interface, every implementation, and the contract suite in the same change.
-- Path filters for the `store` filter in `.github/workflows/ci.yml` MUST stay synchronized when store or contract-test paths are added, moved, or renamed.
+
+# Server types — runtime is the sole owner
+
+Canonical `AgentUIServer` / chat / builder / catalog port types live only in
+[`packages/assistant-ui-runtime`](packages/assistant-ui-runtime)
+(`src/server/types.ts` + `events.ts`).
+
+## Rules
+
+- [`packages/trueforge-ui/src/server/types.ts`](packages/trueforge-ui/src/server/types.ts)
+  is the host-facing barrel: re-export only from `@truefoundry/trueforge-assistant-ui-runtime`
+  (prefer `/server` when avoiding root name collisions). Do **not** put hand-written
+  server port/DTO interfaces there or elsewhere in this monorepo.
+- Hosts import types from `@truefoundry/trueforge-ui` only — they must not need the
+  runtime package for types.
+- Need a new field/method on the contract? Change runtime `server/types.ts` first,
+  then re-export and changeset both affected packages — never fork the shape in the UI SDK.
+- React wiring may stay here (`ServerContext`, `ShellModeContext`,
+  `TrueForgeServerConfig`). Those modules **import** runtime types; they do not
+  redefine ports.
+- Host adapters (e.g. frontend `harnessServer`) widen via generics / intersections
+  over runtime bases (`SkillMount` / `McpServerMount` stay opaque `object`).
+
+## Examples
+
+```typescript
+// ✅
+import type { AgentUIServer, ListResult } from './types.js';
+
+// ❌ local duplicate
+export interface AgentChatServer { /* ... */ }
+```
 
 ---
 > Source: [truefoundry/trueforge](https://github.com/truefoundry/trueforge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
