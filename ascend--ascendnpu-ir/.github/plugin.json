@@ -1,0 +1,9 @@
+{
+  "name": "ascend--ascendnpu-ir",
+  "displayName": "AscendNPU-IR",
+  "description": "AscendNPU-IR",
+  "version": "1.0.0",
+  "author": "Ascend",
+  "homepage": "https://github.com/Ascend/AscendNPU-IR",
+  "skills": []
+}
