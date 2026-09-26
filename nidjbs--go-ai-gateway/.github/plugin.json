@@ -1,0 +1,14 @@
+{
+  "name": "nidjbs--go-ai-gateway",
+  "displayName": "go-ai-gateway",
+  "description": "go-ai-gateway",
+  "version": "1.0.0",
+  "author": "nidjbs",
+  "homepage": "https://github.com/nidjbs/go-ai-gateway",
+  "skills": [
+    {
+      "name": "go-ai-gateway",
+      "description": ""
+    }
+  ]
+}
