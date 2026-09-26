@@ -1,0 +1,81 @@
+{
+  "name": "ArgusAgent",
+  "owner": "microsoft",
+  "repo": "ArgusAgent",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ArgusAgent",
+      "path": "plugins/argus/skills/argus-run/SKILL.md",
+      "github_url": "https://github.com/microsoft/ArgusAgent/tree/main/plugins/argus/skills/argus-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArgusAgent",
+      "path": "plugins/argus/skills/argus-status/SKILL.md",
+      "github_url": "https://github.com/microsoft/ArgusAgent/tree/main/plugins/argus/skills/argus-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArgusAgent",
+      "path": "contrib/pi-research-workflow-skill/SKILL.md",
+      "github_url": "https://github.com/microsoft/ArgusAgent/tree/main/contrib/pi-research-workflow-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArgusAgent",
+      "path": ".agents/skills/minimal-rigorous-work/SKILL.md",
+      "github_url": "https://github.com/microsoft/ArgusAgent/tree/main/.agents/skills/minimal-rigorous-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArgusAgent",
+      "path": "plugins/argus/skills/target-disease-research/SKILL.md",
+      "github_url": "https://github.com/microsoft/ArgusAgent/tree/main/plugins/argus/skills/target-disease-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArgusAgent",
+      "path": "integrations/agent-skills/argus-runtime-orchestration/SKILL.md",
+      "github_url": "https://github.com/microsoft/ArgusAgent/tree/main/integrations/agent-skills/argus-runtime-orchestration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/ArgusAgent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-26T12:36:07Z"
+}
