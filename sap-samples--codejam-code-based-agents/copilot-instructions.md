@@ -1,113 +1,133 @@
 ## codejam-code-based-agents
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> description: "Use when writing Python code for SAP AI Core integrations: CrewAI agents, LiteLLM models, SAP-RPT-1 API calls, Grounding Service queries, OAuth2 token handling. Covers tool patterns, model string format, error handling, and YAML/decorator conventions."
 
-# CLAUDE.md
+---
+description: "Use when writing Python code for SAP AI Core integrations: CrewAI agents, LiteLLM models, SAP-RPT-1 API calls, Grounding Service queries, OAuth2 token handling. Covers tool patterns, model string format, error handling, and YAML/decorator conventions."
+applyTo: "**/*.py"
+---
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Python SAP Tools Conventions
 
-## What this repo is
+## LLM Model Strings
 
-A hands-on **CodeJam workshop** for building multi-agent AI systems on SAP BTP. The scenario is an art-heist investigation solved by a three-agent crew. Two parallel implementation tracks exist (Python and TypeScript) — they solve the same problem with different stacks.
+Use the `sap/<model-name>` format matching the deployment name in SAP AI Launchpad:
 
-This is **teaching material**, not a maintained product. Most edits target the exercise markdown or keep the `solution/` code in sync with what learners build step-by-step.
-
-## Repo layout (the part that matters)
-
-```
-exercises/{Python,JavaScript}/0X-*.md   ← step-by-step instructions learners follow
-exercises/data/documents/                ← evidence text files; loaded into Grounding pipeline
-project/{Python,JavaScript}/starter-project/   ← intentionally near-empty; learners create files here
-project/{Python,JavaScript}/solution/    ← reference completed code (must stay in sync with exercises)
+```python
+llm = LLM(model="sap/gpt-4o")
 ```
 
-`starter-project/` is essentially empty by design (only `readme.md` is tracked). Every Python/TS file referenced in exercises is created by the learner during the lesson — when verifying an exercise edit, check the `solution/` for the canonical version.
+Never use bare provider strings like `"gpt-4o"` or `"openai/gpt-4o"` for SAP AI Core deployments.
 
-## Run commands
+## CrewAI Agent & Task Pattern
 
-### Python (CrewAI + LiteLLM)
+Agents and their tasks are defined in YAML; the Python method names **must exactly match** the YAML keys:
 
-From `project/Python/solution/` (or the learner's `starter-project/` once populated):
+```python
+@CrewBase
+class MyCrew():
+    agents_config = "config/agents.yaml"
+    tasks_config  = "config/tasks.yaml"
 
-```bash
-pip install -r requirements.txt          # solution
-# or, while doing the exercises:
-pip install litellm==1.82.6 crewai python-dotenv
+    @agent
+    def appraiser_agent(self) -> Agent:   # key in agents.yaml: appraiser_agent
+        return Agent(config=self.agents_config["appraiser_agent"], tools=[call_rpt1])
 
-python main.py                            # local run
+    @task
+    def appraisal_task(self) -> Task:     # key in tasks.yaml: appraisal_task
+        return Task(config=self.tasks_config["appraisal_task"])
+
+    @crew
+    def crew(self) -> Crew:
+        return Crew(agents=self.agents, tasks=self.tasks, process=Process.sequential)
 ```
 
-The exercise instructions also document a "from repository root" form: `python3 ./project/Python/starter-project/main.py`. **When adding or editing such commands, always include the full `./project/Python/starter-project/` prefix** — earlier exercises (02, 04) drifted by dropping this prefix after a folder restructure and had to be repaired.
+Always use `Process.sequential`; task outputs are automatically passed as context to subsequent tasks.
 
-### TypeScript (LangGraph + SAP Cloud SDK for AI)
+## Tool Pattern
 
-From `project/JavaScript/{starter-project,solution}/`:
+Tools are module-level functions decorated with `@tool`. Return error messages as plain strings so the LLM can recover gracefully — never raise exceptions out of a tool:
 
-```bash
-npm install
-npm run dev          # tsx src/main.ts        (local CLI run)
-npm run dev:server   # tsx src/server.ts      (A2A HTTP server, solution only)
-npm run build        # tsc → dist/
-npm start            # node dist/main.js
+```python
+from crewai.tools import tool
+
+@tool("call_rpt1")
+def call_rpt1(payload: dict) -> str:
+    """Docstring is the tool description shown to the agent."""
+    try:
+        response = rpt1_client.post_request(json_payload=payload)
+        if response.status_code == 200:
+            return json.dumps(response.json(), indent=2)
+        return f"Error {response.status_code}: {response.text}"
+    except Exception as e:
+        return f"Error calling RPT-1: {str(e)}"
 ```
 
-Node 22.x, TypeScript ESM (`"type": "module"`).
+## OAuth2 Client-Credentials Pattern (SAP AI Core)
 
-### Cloud Foundry deploy
+```python
+import os, requests
 
-From the respective `starter-project/` (or `solution/`): `cf push`. Manifests bind the `generative-ai-hub` service and inject credentials via `VCAP_SERVICES`. Python entrypoint is `uvicorn server:app`; TS entrypoint is `npm run start:server` (Express + `@a2a-js/sdk`).
-
-### Required env vars
-
-Both tracks need a `.env` in their `starter-project/` (not committed):
-
+data = {
+    "grant_type": "client_credentials",
+    "client_id": os.getenv("AICORE_CLIENT_ID"),
+    "client_secret": os.getenv("AICORE_CLIENT_SECRET"),
+}
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+resp = requests.post(os.getenv("AICORE_AUTH_URL"), data=data, headers=headers, timeout=30)
+resp.raise_for_status()
+token = resp.json()["access_token"]
 ```
-AICORE_CLIENT_ID, AICORE_CLIENT_SECRET, AICORE_AUTH_URL,
-AICORE_BASE_URL, AICORE_RESOURCE_GROUP,
-RPT1_DEPLOYMENT_URL
+
+Subsequent requests use `"Authorization": f"Bearer {token}"` and `"AI-Resource-Group": resource_group`.
+
+> **Token expiry**: the token is fetched once at init. For long-running crews, re-instantiate the client to refresh.
+
+## Grounding Service Query Pattern
+
+```python
+from gen_ai_hub.document_grounding.client import RetrievalAPIClient
+from gen_ai_hub.document_grounding.models.retrieval import RetrievalSearchInput, RetrievalSearchFilter
+from gen_ai_hub.orchestration.models.document_grounding import DataRepositoryType
+
+@tool("call_grounding_service")
+def call_grounding_service(user_question: str) -> str:
+    """Query evidence documents via SAP Grounding Service."""
+    client = RetrievalAPIClient()
+    search_filter = RetrievalSearchFilter(
+        id="vector",
+        dataRepositoryType=DataRepositoryType.VECTOR.value,
+        dataRepositories=["<YOUR_PIPELINE_ID>"],  # Replace with pipeline ID from SAP AI Launchpad
+        searchConfiguration={"maxChunkCount": 5},
+    )
+    search_input = RetrievalSearchInput(query=user_question, filters=[search_filter])
+    response = client.search(search_input)
+    return json.dumps(response.model_dump(), indent=2)
 ```
 
-There is **no startup validation** of these in the Python code — credential errors surface only on the first API call.
+Replace `<YOUR_PIPELINE_ID>` with the vector DB pipeline ID from SAP AI Launchpad before running.
 
-## Architecture
+## RPT-1 Payload
 
-Three sequential agents (same shape in both languages):
+Use the string `"[PREDICT]"` as the placeholder for values the model should infer. The schema (dtype, categories, value ranges) must match the deployed model exactly. Pass the payload dict directly from `main.py` inputs via the crew kickoff:
 
-| Agent | Tool | Role |
-|---|---|---|
-| Loss Appraiser | `call_rpt1` | Predicts art categories & insurance values via SAP-RPT-1 |
-| Evidence Analyst | `call_grounding_service` | RAG over evidence docs via SAP Grounding Service |
-| Lead Detective | _(none)_ | Synthesises findings, names the culprit |
+```python
+crew.kickoff(inputs={"payload": payload, "query": "Who stole the art?"})
+```
 
-### Python specifics
+## Environment Variables
 
-- `investigator_crew.py` is a `@CrewBase` class. Agents/tasks defined via `@agent`, `@task`, `@crew` decorators.
-- **Method names must exactly match the keys in `config/agents.yaml` and `config/tasks.yaml`.** Mismatches fail silently with no clear error.
-- Tools are plain functions decorated `@tool("Descriptive Name")`. They should return error strings (not raise) so the LLM can recover.
-- Always `Process.sequential` — task outputs flow as context to the next task in declared order.
-- LLM model strings use `sap/<model-name>` (e.g. `sap/gpt-4o`) matching SAP AI Launchpad deployments.
-- RPT-1 payloads use `[PREDICT]` as the inference placeholder; schema (dtype, categories, value ranges) must match exactly.
+Load `.env` once at the top of the entry-point module, before instantiating any client:
 
-### TypeScript specifics
+```python
+from pathlib import Path
+from dotenv import load_dotenv
 
-- Uses **LangGraph** with an explicit `AgentState` (`Annotation`-based) — state passing between nodes is typed and visible, unlike CrewAI's implicit context flow.
-- Each node returns a partial state update; renaming an `AgentState` field surfaces type errors at every consumer immediately.
-- `investigationWorkflow.ts` builds the graph; `agentConfigs.ts` holds system prompts; `tools.ts` wraps RPT-1 and Grounding calls.
+load_dotenv(dotenv_path=Path(__file__).parent / ".env")
+```
 
-## Known pitfalls
-
-- **Hardcoded Grounding pipeline ID** in `call_grounding_service` — must be replaced with the learner's own pipeline ID from SAP AI Launchpad.
-- **Grounding pipeline must be pre-loaded** with `exercises/data/documents/` content; an empty pipeline returns no results and agents will hallucinate.
-- **OAuth token refresh**: the Python `RPT1Client` fetches its token once at init. Long-running crews can outlive the token; re-instantiate if needed.
-- **YAML/decorator name mismatch** in CrewAI is the #1 silent failure mode — check both files when an agent or task "just doesn't run."
-- **Exercise/solution drift**: when changing folder structure under `project/`, grep the entire `exercises/` tree for old paths. The pattern `python3 \./[a-z_]+\.py` (no prefix) almost always indicates a stale "from repository root" command.
-
-## What CLAUDE should not do here
-
-- Do not add tests, linters, CI, or refactoring to the workshop code unless explicitly requested — learners read this code line-by-line and infrastructure additions distract from the lesson.
-- Do not "modernise" the solution beyond what the exercise text describes; the solution must stay step-for-step traceable to the exercises.
-- When fixing exercise text, mirror the formatting of the surrounding lesson (the Python track uses separate `_macOS / Linux / BAS_` subheaders per code block; the JS track uses `cd <dir>` then bare `npm` commands).
+Required keys: `AICORE_CLIENT_ID`, `AICORE_CLIENT_SECRET`, `AICORE_AUTH_URL`, `RPT1_DEPLOYMENT_URL`, `AICORE_RESOURCE_GROUP`, `AICORE_BASE_URL`.
 
 ---
 > Source: [SAP-samples/codejam-code-based-agents](https://github.com/SAP-samples/codejam-code-based-agents) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
