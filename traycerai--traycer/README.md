@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [traycerai/traycer](https://github.com/traycerai
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [traycerai/traycer](https://github.com/traycerai/traycer) — a repo with 1521+ stars on GitHub.
+From [traycerai/traycer](https://github.com/traycerai/traycer) — a repo with 1524+ stars on GitHub.
 
 ---
 
