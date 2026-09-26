@@ -1,0 +1,9 @@
+{
+  "name": "nf-core--website",
+  "displayName": "website",
+  "description": "website",
+  "version": "1.0.0",
+  "author": "nf-core",
+  "homepage": "https://github.com/nf-core/website",
+  "skills": []
+}
