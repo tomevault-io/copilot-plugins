@@ -7,11 +7,11 @@ Interactive patcher for the Claude Code native binary. Live inline thinking, det
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [anfreire/patch-cc](https://github.com/anfreire/patch-cc).
+Original source: `AGENTS.md` in [anfreire/patch-cc](https://github.com/anfreire/patch-cc).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
