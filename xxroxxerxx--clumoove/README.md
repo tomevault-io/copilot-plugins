@@ -7,11 +7,11 @@ Clumoove - Multi-cloud data migration & sync platform: resilient, privacy-friend
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [xXRoxXeRXx/clumoove](https://github.com/xXRoxXeRXx/clumoove).
+Original source: `AGENTS.md` in [xXRoxXeRXx/clumoove](https://github.com/xXRoxXeRXx/clumoove).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
