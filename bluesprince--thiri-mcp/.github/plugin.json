@@ -1,0 +1,9 @@
+{
+  "name": "bluesprince--thiri-mcp",
+  "displayName": "thiri-mcp",
+  "description": "Deterministic music-theory MCP server & API \u2014 chord analysis, Roman-numeral analysis, voicing & reharmonization for Claude & Cursor. Computed, not hallucinated. Hosted at mcp.thiri.ai \u00b7 npx @bluesprin",
+  "version": "1.0.0",
+  "author": "BluesPrince",
+  "homepage": "https://github.com/BluesPrince/thiri-mcp",
+  "skills": []
+}
