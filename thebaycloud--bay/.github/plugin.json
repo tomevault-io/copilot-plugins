@@ -1,0 +1,9 @@
+{
+  "name": "thebaycloud--bay",
+  "displayName": "bay",
+  "description": "The open-source cloud for the agentic era. Don't pick a database, a region, or a RAM slider - your coding agent and Bay decide, then keep the app alive and scaling 24/7",
+  "version": "1.0.0",
+  "author": "thebaycloud",
+  "homepage": "https://github.com/thebaycloud/bay",
+  "skills": []
+}
