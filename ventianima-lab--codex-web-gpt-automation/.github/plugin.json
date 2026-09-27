@@ -1,0 +1,9 @@
+{
+  "name": "ventianima-lab--codex-web-gpt-automation",
+  "displayName": "codex-web-gpt-automation",
+  "description": "Guarded, recoverable web ChatGPT automation for local Codex projects on Windows and macOS",
+  "version": "1.0.0",
+  "author": "ventianima-lab",
+  "homepage": "https://github.com/ventianima-lab/codex-web-gpt-automation",
+  "skills": []
+}
