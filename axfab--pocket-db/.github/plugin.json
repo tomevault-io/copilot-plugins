@@ -1,0 +1,9 @@
+{
+  "name": "axfab--pocket-db",
+  "displayName": "pocket-db",
+  "description": "The local database for Electron, desktop & CLI apps \u2014 one file, zero native bindings, a MongoDB-style API.",
+  "version": "1.0.0",
+  "author": "AxFab",
+  "homepage": "https://github.com/AxFab/pocket-db",
+  "skills": []
+}
