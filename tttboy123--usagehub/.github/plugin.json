@@ -1,0 +1,9 @@
+{
+  "name": "tttboy123--usagehub",
+  "displayName": "usagehub",
+  "description": "Local-first AI usage dashboard: menu-bar live summary, provider capacity/API spend, and daily token activity. Desktop client (Electron) with native SwiftUI build.",
+  "version": "1.0.0",
+  "author": "tttboy123",
+  "homepage": "https://github.com/tttboy123/usagehub",
+  "skills": []
+}
