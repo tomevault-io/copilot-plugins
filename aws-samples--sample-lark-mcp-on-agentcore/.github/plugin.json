@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--sample-lark-mcp-on-agentcore",
+  "displayName": "sample-lark-mcp-on-agentcore",
+  "description": "A hosted remote-MCP service that lets AI agents operate Feishu/Lark, reusing lark-cli's 200+ tools and 20+ Skills. One Feishu app shared across the team, centrally managed by IT;   members authorize o",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-lark-mcp-on-agentcore",
+  "skills": []
+}
