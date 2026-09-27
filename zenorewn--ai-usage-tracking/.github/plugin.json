@@ -1,0 +1,9 @@
+{
+  "name": "zenorewn--ai-usage-tracking",
+  "displayName": "AI-Usage-Tracking",
+  "description": "Native macOS menu-bar app for Codex, Claude Code and GitHub Copilot usage, quotas, projects and reference costs.",
+  "version": "1.0.0",
+  "author": "ZenoRewn",
+  "homepage": "https://github.com/ZenoRewn/AI-Usage-Tracking",
+  "skills": []
+}
