@@ -1,0 +1,44 @@
+{
+  "name": "mission-control-for-agents",
+  "owner": "ykbryan",
+  "repo": "mission-control-for-agents",
+  "description": "Mission Control for OpenClaw Gateways is a centralized hub for managing multiple gateways in real life. This portal gives you the visibility, control and analystics you need to keep your AI agents in check - security and financially (hopefully). All of these without DevOps team.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ykbryan/mission-control-for-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T20:46:10Z"
+}
