@@ -1,0 +1,9 @@
+{
+  "name": "memgrafter--gliner2-doom",
+  "displayName": "gliner2-doom",
+  "description": "Doom with GLiNER2. Dropped all but the embedder, I plan to change the embedder before retraining.",
+  "version": "1.0.0",
+  "author": "memgrafter",
+  "homepage": "https://github.com/memgrafter/gliner2-doom",
+  "skills": []
+}
