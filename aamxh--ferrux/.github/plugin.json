@@ -1,0 +1,9 @@
+{
+  "name": "aamxh--ferrux",
+  "displayName": "ferrux",
+  "description": "Rust-made reverse proxy server.",
+  "version": "1.0.0",
+  "author": "aamxh",
+  "homepage": "https://github.com/aamxh/ferrux",
+  "skills": []
+}
