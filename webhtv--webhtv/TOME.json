@@ -1,0 +1,44 @@
+{
+  "name": "webhtv",
+  "owner": "webhtv",
+  "repo": "webhtv",
+  "description": "WebHomeTV \u57fa\u4e8eFongMi\u4e8c\u6b21\u5f00\u53d1\uff0c\u589e\u5f3a\u4e86 WebHome \u81ea\u5b9a\u4e49\u9996\u9875\u3001App Native SDK\u3001\u7f51\u76d8\u94fe\u63a5\u68c0\u6d4b \u548c Nostr\u63a8\u8350\u9996\u9875\u3002  \u8fd9\u4e2a\u9879\u76ee\u7684\u6838\u5fc3\u76ee\u6807\u662f\u8ba9 CSP \u7ad9\u70b9\u9996\u9875\u53ef\u4ee5\u53d8\u6210\u4e00\u4e2a\u771f\u6b63\u53ef\u5f00\u53d1\u7684\u7f51\u9875\u5e94\u7528\uff1a\u5f00\u53d1\u8005\u53ef\u4ee5\u7528 HTML/CSS/JavaScript \u5b9a\u5236\u9996\u9875\uff0c\u518d\u901a\u8fc7 App \u66b4\u9732\u7684 Native \u80fd\u529b\u5b8c\u6210\u641c\u7d22\u3001\u64ad\u653e\u3001\u8de8\u57df\u8bf7\u6c42\u3001\u8d44\u6e90\u4ee3\u7406\u3001\u6700\u8fd1\u89c2\u770b\u3001\u7f51\u76d8\u68c0\u6d4b\u548c\u72b6\u6001\u540c\u6b65\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/webhtv/webhtv",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T13:25:13Z"
+}
