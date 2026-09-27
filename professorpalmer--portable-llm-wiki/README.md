@@ -7,13 +7,13 @@ Vendor-neutral, LLM-maintained personal-context wiki. Markdown in your git, quer
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [professorpalmer/portable-llm-wiki](https://github.com/professorpalmer/portable-llm-wiki).
+Original source: `AGENTS.md` in [professorpalmer/portable-llm-wiki](https://github.com/professorpalmer/portable-llm-wiki).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
