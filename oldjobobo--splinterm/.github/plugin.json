@@ -1,0 +1,9 @@
+{
+  "name": "oldjobobo--splinterm",
+  "displayName": "splinterm",
+  "description": "Omarchy-native Wayland terminal with daemon-owned, persistent shell sessions.",
+  "version": "1.0.0",
+  "author": "OldJobobo",
+  "homepage": "https://github.com/OldJobobo/splinterm",
+  "skills": []
+}
