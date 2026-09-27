@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--my-podcast",
+  "displayName": "my-podcast",
+  "description": "Open-source AI voiceover & podcast narration studio \u2014 production-ready Next.js SaaS with fine-grained voice controls (speed, pitch, volume) powered by MiniMax Speech 2.6. Free ElevenLabs & Murf AI alt",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/my-podcast",
+  "skills": []
+}
