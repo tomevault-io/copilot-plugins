@@ -1,0 +1,9 @@
+{
+  "name": "lyravoid--imageforge",
+  "displayName": "ImageForge",
+  "description": "Universal Android image patcher that runs entirely in your browser: analyze, patch, repack, verify and export. No server, no upload, and it never flashes a device.",
+  "version": "1.0.0",
+  "author": "LyraVoid",
+  "homepage": "https://github.com/LyraVoid/ImageForge",
+  "skills": []
+}
