@@ -1,0 +1,9 @@
+{
+  "name": "auth0--auth0-evals",
+  "displayName": "auth0-evals",
+  "description": "Benchmark AI agent accuracy on Auth0 integration tasks.",
+  "version": "1.0.0",
+  "author": "auth0",
+  "homepage": "https://github.com/auth0/auth0-evals",
+  "skills": []
+}
