@@ -1,0 +1,9 @@
+{
+  "name": "voygr-tech--placecall",
+  "displayName": "placecall",
+  "description": "The phone is your last API. Give your agent a voice to call any US business - reservations, inquiries, quotes. Verified outcome + transcript. First 250 calls free.",
+  "version": "1.0.0",
+  "author": "voygr-tech",
+  "homepage": "https://github.com/voygr-tech/placecall",
+  "skills": []
+}
