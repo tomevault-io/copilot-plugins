@@ -1,9 +1,0 @@
-{
-  "name": "tristan578--project-forge",
-  "displayName": "project-forge",
-  "description": "AI-native 3D game engine for the browser. MCP commands let LLMs and agents build complete games - scenes, physics, audio, particles, scripts, and export  via natural language. Powered by WebGPU, Rust/",
-  "version": "1.0.0",
-  "author": "Tristan578",
-  "homepage": "https://github.com/Tristan578/project-forge",
-  "skills": []
-}
