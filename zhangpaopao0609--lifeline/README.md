@@ -7,11 +7,11 @@ Remote-control the Cursor / CodeBuddy IDE on your machine — watch sessions, ap
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [zhangpaopao0609/lifeline](https://github.com/zhangpaopao0609/lifeline).
+Original source: `AGENTS.md` in [zhangpaopao0609/lifeline](https://github.com/zhangpaopao0609/lifeline).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
