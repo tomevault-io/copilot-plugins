@@ -1,0 +1,9 @@
+{
+  "name": "alexpolonsky--typecue",
+  "displayName": "TypeCue",
+  "description": "Menu bar app that types your script into any app - one block per hotkey press, as real keystrokes at a human pace. For demos, screencasts, and presentations.",
+  "version": "1.0.0",
+  "author": "alexpolonsky",
+  "homepage": "https://github.com/alexpolonsky/TypeCue",
+  "skills": []
+}
