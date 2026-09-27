@@ -2,7 +2,7 @@
   "name": "nono",
   "owner": "nolabs-ai",
   "repo": "nono",
-  "description": "Sandbox any AI agent in seconds - zero setup, zero latency.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nolabs-ai/nono",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-25T11:30:56Z"
+  "distributed_at": "2026-09-27T14:38:19Z"
 }
