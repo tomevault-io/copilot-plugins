@@ -1,0 +1,9 @@
+{
+  "name": "ai-haskell-compiler--aihc",
+  "displayName": "aihc",
+  "description": "Haskell compiler as a series of reusable libraries",
+  "version": "1.0.0",
+  "author": "ai-haskell-compiler",
+  "homepage": "https://github.com/ai-haskell-compiler/aihc",
+  "skills": []
+}
