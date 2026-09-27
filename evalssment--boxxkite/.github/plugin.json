@@ -1,0 +1,9 @@
+{
+  "name": "evalssment--boxxkite",
+  "displayName": "boxxkite",
+  "description": "Self-hostable sandbox for agent code execution \u2014 SandboxManager, control-plane, 4 SDKs, MCP server, running inside real Kubernetes pod isolation",
+  "version": "1.0.0",
+  "author": "EvAlssment",
+  "homepage": "https://github.com/EvAlssment/boxxkite",
+  "skills": []
+}
