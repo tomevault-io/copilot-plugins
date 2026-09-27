@@ -1,0 +1,9 @@
+{
+  "name": "sqliteai--blink",
+  "displayName": "blink",
+  "description": "An open-source, high-performance System One Model for one-pass typed decisions, with an embeddable C runtime and WebAssembly support.",
+  "version": "1.0.0",
+  "author": "sqliteai",
+  "homepage": "https://github.com/sqliteai/blink",
+  "skills": []
+}
