@@ -1,0 +1,44 @@
+{
+  "name": "SLB",
+  "owner": "mkih76",
+  "repo": "SLB",
+  "description": "\u7533\u8bbaAI\u6279\u6539\u5e73\u53f0 - AI\u667a\u80fd\u6279\u6539 + \u597d\u8bcd\u597d\u53e5\u9274\u8d4f + \u8584\u5f31\u70b9\u8ffd\u8e2a",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mkih76/SLB",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T16:37:54Z"
+}
