@@ -1,0 +1,9 @@
+{
+  "name": "eaviles--ollin",
+  "displayName": "Ollin",
+  "description": "A Metal-rendered creative-coding framework for Swift on Apple platforms: live reload and live coding, generative techniques, GPU shaders and effects, ray-traced 3D, physics and simulation, audio analy",
+  "version": "1.0.0",
+  "author": "eaviles",
+  "homepage": "https://github.com/eaviles/Ollin",
+  "skills": []
+}
