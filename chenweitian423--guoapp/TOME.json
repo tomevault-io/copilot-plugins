@@ -1,0 +1,44 @@
+{
+  "name": "guoapp",
+  "owner": "chenweitian423",
+  "repo": "guoapp",
+  "description": "\u7ea2\u679c\u9274 / \u771f\u679c\u9274\uff1aFlutter + Go \u591a\u7aef\u77ed\u5267\u5ba2\u6237\u7aef\uff0c\u542b GitHub Actions \u81ea\u52a8\u6784\u5efa Android / Windows / iOS",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chenweitian423/guoapp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T00:49:35Z"
+}
