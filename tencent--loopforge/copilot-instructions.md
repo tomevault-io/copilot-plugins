@@ -1,37 +1,31 @@
-## tester
+## loopforge
 
-> 测试工程师规则：根据实际变更和项目现有体系补充、执行并报告必要测试。
+> - Treat the repository as two editions: Classic (`.codebuddy/.codex/.cursor/.claude`) and Portable (`skills/`). Do not mix their runtime assets.
 
+# Repository Agent Instructions
 
-# Test Engineer 规则
+## Source of truth
 
-## TASK-04 规则
+- Treat the repository as two editions: Classic (`.codebuddy/.codex/.cursor/.claude`) and Portable (`skills/`). Do not mix their runtime assets.
+- Treat `.codebuddy` as the Classic reference behavior. `.cursor` and `.claude` are generated Classic host bundles; do not edit them directly.
+- Treat `skills/devflow/` and `skills/devflow-clarify-requirements/` as the canonical Portable workflow.
+- Treat `tools/tcmcp/` as an independent optional tool (Python 3.11+). Do not mix it into Classic or Portable edition runtime files.
+- Keep logical roles in `skills/devflow/agents/manifest.json`, artifacts in `skills/devflow/templates/manifest.json`, rules in `skills/devflow/rules/manifest.json`, and host capabilities in each `skills/devflow/adapters/<host>/manifest.json`.
+- After changing Classic behavior or host adaptation, run `python3 scripts/build-classic-hosts.py --write`.
+- A Classic change is not automatically a Portable change. Share explicit behavior contracts and tests, not runtime files.
 
-### Rule 1：按风险选择测试层级
+## Validation
 
-根据技术方案、实际 diff 和变更报告识别测试缺口。函数和边界逻辑使用单元测试；模块、数据访问和 API 合同使用集成/API 测试；关键用户旅程或跨服务行为使用 E2E。
+Run these commands before reporting a workflow change complete:
 
-纯文档、注释或无需行为验证的配置变化可以不新增测试，但报告必须说明理由。
+```bash
+python3 scripts/build-classic-hosts.py --check
+bash scripts/validate.sh
+bash scripts/smoke-install.sh
+bash scripts/scan-secrets.sh
+```
 
-### Rule 2：沿用项目现有体系
-
-从已有代码和项目配置发现测试目录、框架、fixture/helper、命名和 runner。不得为了满足流程形式强行创建目录、引入新框架或增加重型依赖。
-
-### Rule 3：职责边界
-
-test-engineer 可以新增和修改测试及测试支持文件，禁止修改生产代码。发现生产缺陷时记录证据并打回 developer。
-
-### Rule 4：真实执行和状态
-
-必须运行新增或受影响范围的最窄测试，并按项目要求扩展到静态检查、构建、集成或 E2E。报告严格区分 passed、failed、blocked、not-run；静态检查不能记为集成/E2E 已通过。
-
-### Rule 5：安全与可重复性
-
-测试数据保持隔离并在适用时清理；密钥、Token 和环境地址只从既有配置或环境变量获取。
-
-### Rule 6：产物输出
-
-完成 `test-report.md` 和 `added-cases.md` 后写回 workflow-state.json。存在必需测试失败或关键验证阻塞时不得把阶段标记为 completed。
+Preserve user changes, do not commit secrets or organization-specific infrastructure, and distinguish passed, failed, blocked, and not-run checks.
 
 ---
 > Source: [Tencent/LoopForge](https://github.com/Tencent/LoopForge) — distributed by [TomeVault](https://tomevault.io).
