@@ -1,0 +1,44 @@
+{
+  "name": "perfectman",
+  "owner": "caiotheodoro",
+  "repo": "perfectman",
+  "description": "Social simulation experiment with the goal is to make AI personas feel like people: noticing unevenly, replying late, lurking, masking, forming private alliances, misreading silence, and creating emergent social drama.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/caiotheodoro/perfectman",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T15:10:46Z"
+}
