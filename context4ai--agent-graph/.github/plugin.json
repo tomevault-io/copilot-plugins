@@ -1,0 +1,9 @@
+{
+  "name": "context4ai--agent-graph",
+  "displayName": "agent-graph",
+  "description": "Graph Engineering for Agent Skills: a specification and toolchain for dynamically discovering context and building observable, testable, and recoverable agent workflows.",
+  "version": "1.0.0",
+  "author": "context4ai",
+  "homepage": "https://github.com/context4ai/agent-graph",
+  "skills": []
+}
