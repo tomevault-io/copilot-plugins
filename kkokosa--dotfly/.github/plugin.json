@@ -1,0 +1,9 @@
+{
+  "name": "kkokosa--dotfly",
+  "displayName": "dotFly",
+  "description": "Native .NET inference engine for fly-connectome spiking models (MaleCNS, FlyWire) \u2014 and an honest demo of what such simulations are",
+  "version": "1.0.0",
+  "author": "kkokosa",
+  "homepage": "https://github.com/kkokosa/dotFly",
+  "skills": []
+}
