@@ -1,0 +1,153 @@
+{
+  "name": "simple-slides",
+  "owner": "alkrauss48",
+  "repo": "simple-slides",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "simple-slides",
+      "path": ".claude/skills/infer-conventions/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.claude/skills/infer-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".cursor/skills/infer-conventions/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.cursor/skills/infer-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".claude/skills/deploying-to-cloud/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.claude/skills/deploying-to-cloud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".cursor/skills/deploying-to-cloud/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.cursor/skills/deploying-to-cloud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".claude/skills/filament-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.claude/skills/filament-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".cursor/skills/filament-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.cursor/skills/filament-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".claude/skills/sluggable-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.claude/skills/sluggable-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".cursor/skills/sluggable-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.cursor/skills/sluggable-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".claude/skills/testing-best-practices/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.claude/skills/testing-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".cursor/skills/testing-best-practices/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.cursor/skills/testing-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".claude/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.claude/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".cursor/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.cursor/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".claude/skills/inertia-vue-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.claude/skills/inertia-vue-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".cursor/skills/inertia-vue-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.cursor/skills/inertia-vue-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".claude/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.claude/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".cursor/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.cursor/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".claude/skills/medialibrary-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.claude/skills/medialibrary-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-slides",
+      "path": ".cursor/skills/medialibrary-development/SKILL.md",
+      "github_url": "https://github.com/alkrauss48/simple-slides/tree/main/.cursor/skills/medialibrary-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alkrauss48/simple-slides",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T08:32:40Z"
+}
