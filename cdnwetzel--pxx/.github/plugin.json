@@ -1,0 +1,9 @@
+{
+  "name": "cdnwetzel--pxx",
+  "displayName": "pxx",
+  "description": "Local-first AI coding agent runtime \u2014 your models, fail-closed safety, evidence-gated self-improvement",
+  "version": "1.0.0",
+  "author": "cdnwetzel",
+  "homepage": "https://github.com/cdnwetzel/pxx",
+  "skills": []
+}
