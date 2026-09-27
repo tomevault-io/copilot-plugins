@@ -1,0 +1,9 @@
+{
+  "name": "mversic--co3",
+  "displayName": "co3",
+  "description": "Generate C bindings from Rust API",
+  "version": "1.0.0",
+  "author": "mversic",
+  "homepage": "https://github.com/mversic/co3",
+  "skills": []
+}
