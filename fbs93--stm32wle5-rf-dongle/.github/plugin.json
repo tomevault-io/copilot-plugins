@@ -1,0 +1,9 @@
+{
+  "name": "fbs93--stm32wle5-rf-dongle",
+  "displayName": "STM32WLE5_RF_dongle",
+  "description": "Compact RF dongle designed for wireless communication through USB.",
+  "version": "1.0.0",
+  "author": "FBS93",
+  "homepage": "https://github.com/FBS93/STM32WLE5_RF_dongle",
+  "skills": []
+}
