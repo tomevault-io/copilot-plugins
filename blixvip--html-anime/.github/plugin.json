@@ -1,0 +1,9 @@
+{
+  "name": "blixvip--html-anime",
+  "displayName": "html-anime",
+  "description": "Prompt an anime. A shot-sheet harness and skills so Claude, Codex, Cursor, or Grok can draw it in code.",
+  "version": "1.0.0",
+  "author": "blixvip",
+  "homepage": "https://github.com/blixvip/html-anime",
+  "skills": []
+}
