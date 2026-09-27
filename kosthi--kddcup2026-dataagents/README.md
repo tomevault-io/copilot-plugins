@@ -7,11 +7,11 @@ Team: Mamba Never Out (1366) Rank: 9/703
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Kosthi/kddcup2026-dataagents](https://github.com/Kosthi/kddcup2026-dataagents).
+Original source: `AGENTS.md` in [Kosthi/kddcup2026-dataagents](https://github.com/Kosthi/kddcup2026-dataagents).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
