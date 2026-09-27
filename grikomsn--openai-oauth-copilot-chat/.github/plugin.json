@@ -1,0 +1,9 @@
+{
+  "name": "grikomsn--openai-oauth-copilot-chat",
+  "displayName": "openai-oauth-copilot-chat",
+  "description": "Use OpenAI Codex models in GitHub Copilot Chat with ChatGPT OAuth",
+  "version": "1.0.0",
+  "author": "grikomsn",
+  "homepage": "https://github.com/grikomsn/openai-oauth-copilot-chat",
+  "skills": []
+}
