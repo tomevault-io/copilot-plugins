@@ -4,7 +4,7 @@
   "repo": "ai-comic-studio",
   "description": "Open-source workflow for manju (\u6f2b\u5267) \u2014 AI-generated episodic animated shorts.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neilalexanderlee/ai-comic-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T10:00:45Z"
+  "distributed_at": "2026-09-27T17:12:24Z"
 }
