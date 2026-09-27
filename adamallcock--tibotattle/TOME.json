@@ -1,0 +1,44 @@
+{
+  "name": "tibotattle",
+  "owner": "adamallcock",
+  "repo": "tibotattle",
+  "description": "Privacy-first monitoring for Codex allowance value. TiboTattle reads the session metadata that Codex already stores on your Mac, reconstructs your usage at standard API prices, and compares it with the quota movement your provider reports \u2014 so you can see where your allowance stands.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/adamallcock/tibotattle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T13:07:05Z"
+}
