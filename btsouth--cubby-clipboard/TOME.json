@@ -4,7 +4,7 @@
   "repo": "cubby-clipboard",
   "description": "A native-feeling Windows 11 clipboard history replacement: persistent, searchable, private, and reliable. Local OCR so screenshots are searchable.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/btsouth/cubby-clipboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T01:45:09Z"
+  "distributed_at": "2026-09-27T06:38:29Z"
 }
