@@ -1,0 +1,44 @@
+{
+  "name": "webcam-eyetracker-light-open",
+  "owner": "RealEye-io",
+  "repo": "webcam-eyetracker-light-open",
+  "description": "Webcam eye-tracker running in a web browser providing on-screen gaze coordinates. The \"Light\" version.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RealEye-io/webcam-eyetracker-light-open",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T19:15:10Z"
+}
