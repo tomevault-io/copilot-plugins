@@ -7,11 +7,11 @@ Northstar web browser, Open Source License: GPL v3. Northstar web browser is a r
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nordstjernen-web/northstar-browser](https://github.com/nordstjernen-web/northstar-browser).
+Original source: `AGENTS.md` in [nordstjernen-web/northstar-browser](https://github.com/nordstjernen-web/northstar-browser).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
