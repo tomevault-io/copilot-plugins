@@ -1,0 +1,44 @@
+{
+  "name": "HOi",
+  "owner": "daren866",
+  "repo": "HOi",
+  "description": "\u534e\u4e3a\u597d\u554a\u5927\u7c73A\u5927\u7c73\u52a0\u5927\u7c73\u5927\u7c73\u6263\u5927\u7c73\u52a0\u5927\u7c73\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daren866/HOi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T06:45:54Z"
+}
