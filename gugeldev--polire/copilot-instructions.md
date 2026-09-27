@@ -1,0 +1,189 @@
+## polire
+
+> Guidance for AI agents (and humans) contributing to this repository.
+
+# AGENTS.md
+
+Guidance for AI agents (and humans) contributing to this repository.
+
+## Project
+
+**Polire** is a desktop typing assistant that helps users write better text — primarily targeted at people writing in a non-native language.
+
+The app is designed to feel ambient: it runs in the system tray, stays out of the way, and is summoned with a global hotkey (`Ctrl+Alt+P`). From the root palette, `Esc` or the hotkey hides it back into the tray rather than quitting; on secondary views, `Esc` navigates back.
+
+The product name is **Polire**.
+
+## Stack
+
+- **Runtime:** [Electron](https://www.electronjs.org/) 42 (main + renderer processes)
+- **UI:** [React](https://react.dev/) 19 + [TypeScript](https://www.typescriptlang.org/) (strict mode)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) v4 (CSS-first config via `@import "tailwindcss"`, no `tailwind.config.js`)
+- **Icons:** [Phosphor Icons](https://phosphoricons.com/) — `@phosphor-icons/react`. Use only this library; do not introduce other icon sets (lucide, heroicons, etc). Always import with the `Icon` suffix (`GearIcon`, `SparkleIcon`, …) — the unsuffixed exports are deprecated and will trigger warnings.
+- **Bundler / dev server:** [Vite](https://vitejs.dev/) 6 with [`vite-plugin-electron`](https://github.com/electron-vite/vite-plugin-electron) (simple preset)
+- **Package manager / runner:** [Bun](https://bun.sh/) — use `bun install`, `bun run <script>`
+- **Formatter / linter:** [Biome](https://biomejs.dev/) — run `bun run format` before committing
+- **Target platforms:** Windows and Linux (X11 recommended for global shortcuts; Wayland support is limited)
+
+## Build outputs
+
+- `dist/` — bundled renderer (HTML + JS + CSS)
+- `dist-electron/` — bundled main + preload (`main.js`, `preload.mjs`)
+- `node_modules/.cache/tsc/` — TypeScript build info (project references)
+
+All three are gitignored.
+
+## Project structure
+
+```
+assets/
+├── brand/        # vector source mark for Polire branding
+├── app/          # native app icon master + Linux size variants
+└── tray/         # compact status-area icons (1x and 2x)
+electron/
+├── ipc/                     # shared IPC sender authorization + handler registration
+├── modules/
+│   ├── ai/                  # AI prompts, credentials, execution, validation + bridge API
+│   ├── app/                 # application-level renderer requests (external links)
+│   ├── notes/               # Markdown note persistence, validation + bridge API
+│   ├── settings/            # persisted application settings + bridge API
+│   ├── tray/                # system tray lifecycle, validation + bridge API
+│   ├── update/              # update status, notifications, checks + bridge API
+│   └── window/              # window lifecycle, validation + bridge API
+├── constants.ts             # shared paths, dimensions, hotkey and URLs
+├── preload-api.ts           # composed renderer-facing bridge contract types
+├── preload.ts               # bridge entry: exposes module APIs on `window.api`
+└── main.ts                  # entry: startup wiring + global shortcuts
+src/
+├── app.tsx                  # shell: wraps NavProvider + AnimatePresence + view renderer
+├── main.tsx                 # React entry — mounts <App /> into #root
+├── main.css                 # Tailwind v4 import + dark variant + base styles
+├── theme.ts                 # theme state: persistence + DOM apply
+├── i18n/                    # local UI translations + locale persistence (en, pt-BR, es)
+├── types.ts                 # shared types (CommandOption, View, ...)
+├── global.d.ts              # ambient types (window.api from preload)
+├── hooks/                   # context consumers + reusable interaction hooks
+├── providers/
+│   ├── i18n.tsx             # locale context + `t()` translation resolver
+│   ├── nav.tsx              # navigation stack (push/pop) + slide direction
+│   ├── correction.tsx       # correction request/result state
+│   ├── translation.tsx      # translation request/result state
+│   └── notes.tsx            # local notes list/create/update/remove state
+├── views/
+│   ├── palette.tsx          # root view: search + command list (no back)
+│   ├── settings.tsx         # settings overview: theme + nav to sub-pages
+│   ├── ai-settings.tsx      # AI sub-page: provider list + API key form
+│   ├── correction.tsx       # AI correction before/after screen
+│   ├── translation.tsx      # AI translation before/after screen
+│   └── notes.tsx            # notes controller: loading, editing + shortcuts
+└── components/
+    ├── ai-settings/         # provider rows/config + API key field
+    ├── notes/               # note list, editor, relative dates + footer hints
+    ├── palette/             # palette input, commands, list + save feedback
+    ├── settings/            # theme option list
+    └── ui/                  # shared layout, rows, hints, footer + result screens
+index.html         # renderer HTML shell
+vite.config.ts     # Vite + plugins (React, Tailwind, Electron)
+```
+
+`assets/` contains native runtime resources. Any future packaging configuration must include this directory so window and tray icons remain available outside development.
+
+Module-level state in `electron/` is intentional: `win` and `isQuitting` live as `let` bindings inside `modules/window/manager.ts` and are mutated by exported functions. Don't pull them out into a shared store — the encapsulation is the point.
+
+### Internationalization
+
+The renderer uses local translations through `I18nProvider` (`src/providers/i18n.tsx`) and `useI18n()` (`src/hooks/use-i18n.ts`). Message dictionaries live in `src/i18n/locales/` and support English (`en`), Brazilian Portuguese (`pt-BR`), and Spanish (`es`).
+
+- User-facing UI text must be resolved with `t("...")`; do not hardcode labels, placeholders, hints, empty states, or visible error text in React components or views.
+- When adding or changing a UI message, add the same key to all three locale dictionaries: `en.ts`, `pt-BR.ts`, and `es.ts`.
+- Technical strings that are not displayed as localized UI, such as IPC validation errors, provider identifiers, persisted values, or AI prompt instructions, do not need translation keys.
+
+### Navigation
+
+The renderer uses a tiny stack-based router exposed through `useNav()` (`src/hooks/use-nav.ts`), backed by `NavProvider` (`src/providers/nav.tsx`):
+
+- `push(view)` / `pop()` — mutate the stack
+- `current` — top of stack
+- `direction` — `1` (forward) or `-1` (back), drives the slide animation in `app.tsx`
+
+Views that are not the root render inside `<PageLayout title="...">` so they get the back button + footer for free. Views read `current` to know whether they're the active screen — `useEffect` keyboard handlers early-return when `isActive` is false, so the offscreen view (mid-transition) doesn't intercept input.
+
+When adding a new view: extend the `View` union in `src/types.ts`, add a branch in `renderView` (in `app.tsx`), and call `push("your-view")` from wherever it's triggered. Renderer imports may use the configured `@/` alias for `src/` modules.
+
+## Scripts
+
+| Command            | What it does                                                         |
+| ------------------ | -------------------------------------------------------------------- |
+| `bun install`      | Install dependencies                                                 |
+| `bun run dev`      | Start Vite + Electron with hot reload                                |
+| `bun run build`    | `tsc -b && vite build` → outputs to `dist/` and `dist-electron/`     |
+| `bun run preview`  | Serve the built renderer (without Electron) — rarely useful here     |
+| `bun run format`   | Run Biome to format and lint the whole repo                          |
+| `bun run test`     | Run unit and component tests with Bun                                |
+
+## Rules
+
+Non-negotiable do's and don'ts. These exist to keep the codebase coherent and avoid common footguns.
+
+### Forbidden
+
+- **No `useEffect`.** Strictly. If you think you need one, you almost certainly don't — derive state during render, use event handlers, or refs. If you cannot avoid it, stop and ask first.
+
+- **No `any`.** Type things properly. If a type is hard to express, reach for `unknown` + narrowing, generics, or `satisfies`. `as any` casts are also forbidden — if you hit a third-party type that's wrong, add a precise interface or use `@ts-expect-error` with a one-line reason.
+
+### Required
+
+- **Avoid `else`.** Prefer early returns, guard clauses, or restructuring. If you're reaching for `else`, the function probably wants splitting.
+
+  ```ts
+  // ❌ avoid
+  function toggleWindow() {
+    if (win.isVisible() && win.isFocused()) {
+      win.hide();
+    } else {
+      win.show();
+      win.focus();
+    }
+  }
+
+  // ✅ prefer
+  function toggleWindow() {
+    if (!win) return;
+    if (win.isVisible() && win.isFocused()) return win.hide();
+    showWindow();
+  }
+  ```
+
+- **Names must explain themselves.** Pick names that tell the reader *what* a thing is and *why* it exists. `toggleWindow` over `tw`; `isQuitting` over `flag`; `hideOnEscape` over `handler`. A caller should not need to open the body to know what a function does.
+
+- **JSDoc in English, when it adds signal.** Add a JSDoc comment on exported functions whenever the name alone does not capture: side effects, edge cases, why a function can return early, or what the params and return value actually mean. Use `@param` and `@returns` when their meaning is not obvious from the types alone. Skip JSDoc when the signature is fully self-evident — redundant comments are noise.
+
+  ```ts
+  /**
+   * Register the global hotkey. Logs an error if the OS refuses the binding
+   * (already in use, missing permission, etc).
+   */
+  function registerShortcuts() { /* ... */ }
+  ```
+
+  **React components are usually the exception.** Their props are typed and their names describe the rendered output (`SearchInput`, `OptionList`, `Footer`). Don't add JSDoc to a component unless it has non-obvious behavior — render side effects, controlled-vs-uncontrolled trade-offs, focus management, etc. Default to no JSDoc on components.
+
+- **File names are kebab-case.** Always. Even for React components: `search-input.tsx`, `option-list.tsx`, `app.tsx`, `kbd.tsx`. The exported identifier inside still uses PascalCase (`SearchInput`, `OptionList`) — only the filename changes. This keeps imports portable across case-sensitive filesystems (Linux) and case-insensitive ones (macOS, Windows) without surprises.
+
+### Workflow
+
+- **Always use Bun.** `bun install`, `bun run <script>`, `bunx <tool>`. Do not introduce `npm`, `pnpm`, `yarn`, or `node` commands unless the user explicitly asks for another runtime/tool.
+
+- **Use scoped Conventional Commits.** Write short commit messages in the form `<type>(<area>): <description>` when the changed area is clear (for example, `chore(docs): update contribution rules` or `feat(settings): reorder sections`). Use `<type>: <description>` when a useful scope does not apply. **Never add a body, paragraph, or bullet summary** — keep the message to a single subject line, even for multi-file or non-trivial changes; the diff carries the context. Do not add `Co-authored-by` trailers unless explicitly requested.
+
+- **Format before finishing.** Run `bun run format` after every task — this executes Biome to format and lint the whole repo. The task isn't done until the formatter passes clean.
+
+- **Test behavior, not markup.** Use `bun run test` for changed logic and interactive React flows. Prefer user-visible behavior and persistence rules over assertions about CSS classes, animation details, or presentational components alone.
+
+- **Colocate test files.** Keep each `*.test.ts` or `*.test.tsx` beside the source module it exercises. Reserve `test/` for shared test setup and helpers.
+
+- **Keep pre-commit checks enabled.** Husky runs `bun run format` and `bun run test` before commits, refreshing already-staged files after formatting. Do not bypass the hook unless explicitly requested.
+
+---
+> Source: [gugeldev/polire](https://github.com/gugeldev/polire) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
