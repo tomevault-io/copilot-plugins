@@ -1,0 +1,9 @@
+{
+  "name": "ryder-sun--meldwork",
+  "displayName": "Meldwork",
+  "description": "Local-first AI agent workspace for multi-agent collaboration, agent orchestration, scoped permissions, evidence-aware runs, and human-in-the-loop decisions.",
+  "version": "1.0.0",
+  "author": "Ryder-Sun",
+  "homepage": "https://github.com/Ryder-Sun/Meldwork",
+  "skills": []
+}
