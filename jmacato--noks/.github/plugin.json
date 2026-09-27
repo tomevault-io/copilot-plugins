@@ -1,0 +1,9 @@
+{
+  "name": "jmacato--noks",
+  "displayName": "Noks",
+  "description": "Noks emulates the Nokia 3310, a DCT3 handset, in C# on Avalonia and .NET 10.",
+  "version": "1.0.0",
+  "author": "jmacato",
+  "homepage": "https://github.com/jmacato/Noks",
+  "skills": []
+}
