@@ -1,0 +1,9 @@
+{
+  "name": "index-login--mobilere-skill",
+  "displayName": "MobileRE-Skill",
+  "description": "AI Agent \u9a71\u52a8\u7684\u79fb\u52a8\u7aef\u9006\u5411\u6280\u80fd\u96c6\uff1aFrida hook\u3001\u4e00\u952e\u8131\u58f3\u3001\u53cd\u68c0\u6d4b\u7ed5\u8fc7\u3001\u5185\u5b58 DEX dump\u3001Ghidra MCP \u7b26\u53f7/\u7ed3\u6784\u6062\u590d\u3002AI-agent skill system for mobile reverse engineering.",
+  "version": "1.0.0",
+  "author": "index-login",
+  "homepage": "https://github.com/index-login/MobileRE-Skill",
+  "skills": []
+}
