@@ -7,11 +7,11 @@ Split expenses with a link. No accounts for anyone. Any currency, offline, PWA. 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [peanutprotocol/peanutsplit](https://github.com/peanutprotocol/peanutsplit).
+Original source: `AGENTS.md` in [peanutprotocol/peanutsplit](https://github.com/peanutprotocol/peanutsplit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
