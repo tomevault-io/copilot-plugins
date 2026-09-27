@@ -1,0 +1,9 @@
+{
+  "name": "rahulmutt-ava--goverify",
+  "displayName": "goverify",
+  "description": "A powerful static analyzer for Go that catches bugs at build-time",
+  "version": "1.0.0",
+  "author": "rahulmutt-ava",
+  "homepage": "https://github.com/rahulmutt-ava/goverify",
+  "skills": []
+}
