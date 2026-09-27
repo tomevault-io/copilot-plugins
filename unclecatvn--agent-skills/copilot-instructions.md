@@ -1,57 +1,47 @@
 ## agent-skills
 
-> This file is the short operational guide for agents working on Odoo 16.
+> <!-- Merge into the project's CLAUDE.md (and AGENTS.md for other agents). Adjust version and layout. -->
 
-# Odoo 16 Development Guide
+# Odoo project rules
 
-This file is the short operational guide for agents working on Odoo 16.
+<!-- Merge into the project's CLAUDE.md (and AGENTS.md for other agents). Adjust version and layout. -->
 
-> For install/setup notes, see [AGENTS.md](./AGENTS.md).
+Odoo version: **18.0**. Addons roots, in `addons_path` order: `erp`, `erp-external`,
+`erp-internal` (Enterprise). Each is its own git repository.
 
-## Use These Guides
+Machine-local runtime lives in `.claude/odoo.json` (gitignored), read by the `odoo-workflow`
+helper:
 
-- `references/api-highlights.md` for version-specific differences from 17+.
-- `references/odoo-16-view-guide.md` for XML, inherited views, chatter, kanban.
-- `references/odoo-16-model-guide.md` for ORM and recordset behavior.
-- `references/odoo-16-field-guide.md` for fields and `group_operator=`.
-- `references/odoo-16-decorator-guide.md` for `@api.depends`, `@api.ondelete`, `@api.model_create_multi`.
-
-## Odoo 16 Rules That Matter
-
-| Concern | Odoo 16 rule |
-|---------|--------------|
-| List views | Use `<tree>` |
-| Dynamic attributes | Use `attrs="{...}"` / `states="..."` modifiers |
-| Aggregation | Use `group_operator=` |
-| Delete validation | Prefer `@api.ondelete(at_uninstall=False)` |
-| Batch create | Use `@api.model_create_multi` |
-| Kanban card template | Use `t-name="kanban-box"` |
-| Chatter | Use explicit `<div class="oe_chatter"> ... </div>` |
-
-## Review Heuristics
-
-- Prefer `attrs` / `states` for client-side dynamic view modifiers; direct `invisible="..."` is valid only for static/context-time visibility.
-- Check the view guide before rewriting inherited XML broadly.
-- Flag 18/19-only constructs such as `<list>`, `aggregator=`, `models.Constraint(...)`, or `<chatter/>`.
-
-## Common Safe Defaults
-
-```python
-@api.model_create_multi
-def create(self, vals_list):
-    return super().create(vals_list)
+```json
+{"odoo_version": "18.0", "odoo_root": "/path/to/odoo/18.0", "conf": "/path/to/odoo/18.0/odoo.conf",
+ "python": "/path/to/odoo/18.0/.venv/bin/python3", "dev_db": "v18_dev"}
 ```
 
-```xml
-<tree string="Records">
-    <field name="name"/>
-</tree>
-```
+## Every Odoo change
 
-```xml
-<field name="amount_total" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-```
+- Run the `odoo-workflow` skill first - before brainstorming or planning skills, which start
+  from its Context Brief - then the Odoo 18 pack for the guide you need.
+  No code without a Context Brief that cites `file:line` in the real source.
+- Throwaway databases only (`scratch_*`, `upg_*`). Never install or upgrade modules on
+  `v18_dev`, staging, or a customer copy unless asked by name.
+- Stored-field renames, removals, and type or selection-key changes ship with a manifest version
+  bump and a `migrations/<version>/` script.
+- Bind `sudo()` results to `<name>_sudo`; never return them from public methods.
+- Strings changed: regenerate `i18n/<module>.pot` and merge every `.po` (file names unchanged)
+  before commit.
+
+## Never
+
+- `ponytail:` or "simplified for now" comments in this repo.
+- `Co-Authored-By`, `Generated with`, or session links in commits or PR bodies.
+  Disable them at the source once with the Claude Code `attribution` setting
+  (`{"commit": "", "pr": ""}`, project or user level - see the agent-skills README).
+
+## Commits
+
+- Use the `odoo-commit` skill: `[TAG] module: description`, one module per commit, one commit
+  and PR per repository.
 
 ---
 > Source: [unclecatvn/agent-skills](https://github.com/unclecatvn/agent-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
