@@ -7,11 +7,11 @@ Open source agent harness, built from the ground up for cloud-native production 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [stacklok/mecatl](https://github.com/stacklok/mecatl).
+Original source: `AGENTS.md` in [stacklok/mecatl](https://github.com/stacklok/mecatl).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
