@@ -4,7 +4,7 @@
   "repo": "AMH",
   "description": "An operating harness for repositories maintained by AI coding agents. Memory hierarchy, verification ladder and reusable workflows.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/faded-penguin021/AMH",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T06:20:27Z"
+  "distributed_at": "2026-09-27T13:16:35Z"
 }
