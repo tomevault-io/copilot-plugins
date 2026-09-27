@@ -1,0 +1,9 @@
+{
+  "name": "berriai--liteagents",
+  "displayName": "liteagents",
+  "description": "A provider-independent agent SDK with the same query() interface as the Claude Agent SDK, allowing you to use the right model for every turn.",
+  "version": "1.0.0",
+  "author": "BerriAI",
+  "homepage": "https://github.com/BerriAI/liteagents",
+  "skills": []
+}
