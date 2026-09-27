@@ -1,0 +1,44 @@
+{
+  "name": "brok-pot-harness",
+  "owner": "river-li",
+  "repo": "brok-pot-harness",
+  "description": "brok-bot-harness 100% replica of Grokbot. Deploy Grokbot on your own PC/Mac/Server. Use your own agents like Claude Code or Codex",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/river-li/brok-pot-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T01:28:47Z"
+}
