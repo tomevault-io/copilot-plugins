@@ -1,0 +1,28 @@
+## hand
+
+> At the beginning of a new Supervisor runtime/session, run `hand session start` once.
+
+## Secondhand supervisor bootstrap
+
+At the beginning of a new Supervisor runtime/session, run `hand session start` once.
+Before reasoning or acting in every Supervisor turn, run `hand orient`.
+After an automatic wake/re-entry, run `hand orient` before any action.
+Do not run supervisor commands when `HAND_ROLE=worker`.
+
+This file is Hand-owned and immutable: `hand init` restores it byte-for-byte, and
+nobody edits it by hand, including the supervisor. The same rule covers every other
+Hand-generated surface in this fleet home.
+
+- Read `data/operator.md` before acting; its constraints outrank your own judgment.
+- `data/**` is living fleet context and memory, never part of this file.
+- Use the bundled `secondhand` Agent Skill for setup, routing, planning, task
+  lifecycle, recovery, and bug-report procedures; this file states invariants, not procedures.
+- Use the `hand` CLI and runtime as the source of truth for fleet and machine state
+  instead of reading or editing it directly.
+- Never edit a registered project under `projects/` directly; a worker does that in
+  its own worktree.
+- Never merge without explicit operator authorization.
+
+---
+> Source: [atqamz/hand](https://github.com/atqamz/hand) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
