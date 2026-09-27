@@ -1,0 +1,9 @@
+{
+  "name": "hyscale-lab--aries",
+  "displayName": "ARIES",
+  "description": "ARIES is an open-source experimentation framework for agent serving systems research.",
+  "version": "1.0.0",
+  "author": "hyscale-lab",
+  "homepage": "https://github.com/hyscale-lab/ARIES",
+  "skills": []
+}
