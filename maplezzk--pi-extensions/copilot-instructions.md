@@ -1,0 +1,112 @@
+## pi-extensions
+
+> This repository contains small, independently installable extensions for the [Pi coding agent](https://github.com/earendil-works/pi). The project is public and portable: changes must work without access to a maintainer's machine, private services, or local daemon.
+
+# pi-extensions agent and contributor guide
+
+This repository contains small, independently installable extensions for the [Pi coding agent](https://github.com/earendil-works/pi). The project is public and portable: changes must work without access to a maintainer's machine, private services, or local daemon.
+
+## Repository map
+
+```text
+pi-extensions/
+├── packages/
+│   ├── pi-extensions-i18n/      # Shared locale and catalog runtime
+│   ├── pi-extensions-tool-display/ # Tool-display host and shared rendering protocol
+│   ├── pi-model-request/ # Extension-side model requests (auth + provider session headers)
+│   ├── pi-distill/              # Tool-output distillation
+│   ├── pi-tool-supervisor/      # Post-edit file review
+│   ├── pi-terminal-mux/         # Terminal multiplexer abstraction (muxy/cmux/tmux/zellij/wezterm/herdr/otty/orca + headless fallback)
+│   ├── pi-metrics/               # Session metrics (live elapsed spinner, per-turn and total run summaries)
+│   ├── pi-models-discovery/     # Dynamic model discovery for providers marked with discoverModels
+│   ├── pi-session-tools/        # Bash pipe output cache and session_log/session_squash conversation squashing
+│   ├── pi-session-resources/    # Clickable tabbed # picker for session files, browser URLs, and PR/MR links
+├── scripts/                     # Repository checks and workspace helpers
+├── .github/workflows/           # CI and release automation
+├── README.md                    # English project documentation
+├── README.zh-CN.md              # Chinese project documentation
+├── AGENTS.md                    # This guide
+└── package.json                 # Private npm workspace root
+```
+
+Each package owns its entrypoint, tests, configuration example, localization resources, and package README. The public package source of truth is this repository; consumers should install the published npm packages instead of copying package source into another project.
+
+## Package boundaries
+
+- `pi-safety-guards` is independently installable; see `packages/pi-safety-guards/README.md` for its configuration, behavior, and tests.
+- `pi-nested-skills` is independently installable; see `packages/pi-nested-skills/README.md` for its configuration, behavior, and tests.
+- `pi-notifications` is independently installable; see `packages/pi-notifications/README.md` for its configuration, behavior, and tests.
+- `pi-naming` owns automatic Pi session titles and manual terminal naming; it uses pi-ai and terminal-mux, not session-tools. Automatic and manual naming share configurable session/workspace/tab targets.
+
+- `pi-distill` discovers active tools with object parameter schemas and observes their results through Pi's native `tool_call` and `tool_result` events. It does not register duplicate tools.
+- `pi-tool-supervisor` reviews the actual before/after diff of `edit` and `write` against configured rule files. It reports findings but is not an operating-system sandbox or an edit rollback mechanism.
+- `pi-extensions-tool-display` owns the actual Pi tool-display host, built-in tool renderer overrides, and the shared result-rendering middleware protocol. Feature packages register domain-specific panels through it.
+- `pi-extensions-i18n` owns locale selection, catalog validation, interpolation, and the `/pi-language` command. Feature packages use it instead of implementing separate locale runtimes.
+- `pi-model-request` owns how an extension issues its own model request: resolve auth from the model registry, add the provider session headers (`x-opencode-session`, `x-opencode-client`) that Pi's core adds to its own requests, apply a resolved `baseUrl`, and call the completion. Any package that calls `completeSimple`/`complete` itself must go through it instead of re-deriving those rules.
+- `pi-terminal-mux` owns terminal multiplexer detection and pane/surface operations. Extensions that need terminal interaction depend on it instead of re-implementing backend detection.
+- `pi-metrics` owns session metrics: the live elapsed spinner and per-turn/total summaries listen to Pi's native `input`, `agent_start`, `turn_start`, `turn_end`, `agent_end`, and `agent_settled` events without registering tools.
+- `pi-models-discovery` owns dynamic model discovery: it reads `discoverModels` providers from models.json, fetches `{baseUrl}/models`, persists a startup cache, and exposes `/model-discovery` plus `/model-discovery-refresh` commands.
+- `pi-session-tools` owns the bash pipe output cache (`tool_call` rewrites `grep`/`tail`/`head` pipelines with `tee`) and `session_log`/`session_squash` for non-destructive conversation squashing; the main agent writes the handoff summary directly into the `session_squash` call.
+- `pi-session-resources` observes successful tool results, rebuilds resources from the active session branch, and exposes file, browser, and PR/MR targets through a clickable, tabbed `#` picker above the editor without adding model-context messages.
+
+Keep packages composable and independently installable. Avoid coupling one extension to another extension's private implementation details or display state.
+
+## Portability and safety
+
+- Do not commit user-specific paths, credentials, private domains, internal service names, or machine-specific defaults.
+- Resolve user directories with `os.homedir()` or Pi's standard configuration directory. Support `PI_CODING_AGENT_DIR` where the package already exposes that configuration point.
+- Optional external tools must be detected at runtime and have a graceful fallback or noop path.
+- Do not make network calls, model assumptions, or local daemon availability implicit in deterministic tests.
+- Use configuration or injected adapters for environment-specific behavior.
+
+## User-facing text and localization
+
+User-visible messages, command descriptions, tool descriptions, and agent-facing prompts must be backed by a catalog containing both `zh-CN` and `en-US` entries. Use `pi-extensions-i18n`'s `createTranslator` and `loadCatalog` helpers.
+
+User-visible notices must go through `pi-extensions-i18n`'s `notifyWithSource`, not `ctx.ui.notify` directly. Pi renders `info` notices as one line of dim, unprefixed text, so every package carries a short source tag and the notice is drawn as a filled background block in the transcript (the same `customMessageBg` block Pi uses for extension messages):
+
+```ts
+const NOTICE_TAG = "distill";
+const NOTICE_COLOR: NoticeColor = NOTICE_TAG_COLOR;
+const NOTICE_SOURCE: NoticeSource = { tag: NOTICE_TAG, color: NOTICE_COLOR };
+
+notifyWithSource({ ctx, source: NOTICE_SOURCE, level: "warning", message: i18n.t("failed") });
+```
+
+Keep the tag short and unique per package, keep the level accurate, and do not add colors outside TUI mode — the helper already handles that. The tag color (`NOTICE_TAG_COLOR`) is deliberately the same muted color for every package: nine theme color slots cannot distinguish sixteen packages, so the tag text identifies the source and the color never does. Level colors (warning/error body text) remain semantic and unchanged. The transcript block is registered once by `pi-extensions-i18n`'s own extension entry, so a package that uses the helper must load `../pi-extensions-i18n/index.ts` in its `pi.extensions` list. Verdict-style notices with their own semantic color pass `textColor` instead of building a footer status line.
+
+Keep developer comments and implementation notes concise. Keep the English and Chinese README files separate so each language has a complete, readable entrypoint.
+
+## Development
+
+Requirements: Node.js 22 or newer and a compatible Pi extension runtime for manual smoke tests.
+
+```bash
+npm install
+npm run typecheck
+npm test
+npm run check
+```
+
+`npm run check` is the repository gate. It runs type checks, package tests, packaging checks, and the local-binding policy check. Tests should be deterministic and must not require API keys, a live reviewer model, or a particular filesystem layout.
+
+When changing a package, also inspect its package-level README and `config.example.json`. If the public behavior changes, add or update focused tests and document the configuration or compatibility impact.
+
+## Pull requests
+
+Use Conventional Commits such as `feat:`, `fix:`, `refactor:`, `docs:`, and `chore:`. A pull request should explain:
+
+1. the user problem or maintenance problem;
+2. the observable behavior that changed;
+3. package and documentation impact;
+4. validation performed, including any limitations.
+
+Keep unrelated refactors out of a focused pull request. Run `npm run check` before requesting review.
+
+## Releases
+
+Versions and changelogs are managed by release-please. Merging a release PR publishes changed packages to npm through the repository's OIDC trusted-publishing workflow with provenance. Do not publish manually from a local machine unless the release procedure explicitly requires it.
+
+---
+> Source: [maplezzk/pi-extensions](https://github.com/maplezzk/pi-extensions) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
