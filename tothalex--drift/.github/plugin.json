@@ -1,0 +1,9 @@
+{
+  "name": "tothalex--drift",
+  "displayName": "drift",
+  "description": "Review your working changes like a pull request \u2014 in the terminal. Block-scoped live diffs, GitHub/GitLab PR review, and send-to-AI-agent.",
+  "version": "1.0.0",
+  "author": "tothalex",
+  "homepage": "https://github.com/tothalex/drift",
+  "skills": []
+}
