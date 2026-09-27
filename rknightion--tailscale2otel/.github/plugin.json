@@ -1,0 +1,9 @@
+{
+  "name": "rknightion--tailscale2otel",
+  "displayName": "tailscale2otel",
+  "description": "Tailscale exporter for OpenTelemetry and Prometheus. Device fleet, network flow logs and audit logs as OTLP metrics & logs. Single Go binary, Grafana Cloud ready. Headscale supported.",
+  "version": "1.0.0",
+  "author": "rknightion",
+  "homepage": "https://github.com/rknightion/tailscale2otel",
+  "skills": []
+}
