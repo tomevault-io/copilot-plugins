@@ -1,0 +1,9 @@
+{
+  "name": "pledgeandgrow--pledgejs",
+  "displayName": "pledgejs",
+  "description": "A full-stack framework with App-directory routing, RSC streaming, SSR/SSG/ISR, edge deployment, and instant HMR powered by PledgePack, a Rust+Zig bundler for dramatically faster builds.",
+  "version": "1.0.0",
+  "author": "pledgeandgrow",
+  "homepage": "https://github.com/pledgeandgrow/pledgejs",
+  "skills": []
+}
