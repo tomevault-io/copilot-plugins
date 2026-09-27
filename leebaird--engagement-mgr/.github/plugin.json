@@ -1,0 +1,9 @@
+{
+  "name": "leebaird--engagement-mgr",
+  "displayName": "engagement-mgr",
+  "description": "Engagement Manager is a web application for tracking offensive security engagements. It features a modern UI, built with Next.js, Prisma, and PostgreSQL.",
+  "version": "1.0.0",
+  "author": "leebaird",
+  "homepage": "https://github.com/leebaird/engagement-mgr",
+  "skills": []
+}
