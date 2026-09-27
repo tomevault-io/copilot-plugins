@@ -1,0 +1,9 @@
+{
+  "name": "nshntarora--guidedreview",
+  "displayName": "guidedreview",
+  "description": "CLI and a Chrome Extension designed for you to review AI generated code locally and on GitHub PRs",
+  "version": "1.0.0",
+  "author": "nshntarora",
+  "homepage": "https://github.com/nshntarora/guidedreview",
+  "skills": []
+}
