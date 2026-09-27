@@ -1,0 +1,9 @@
+{
+  "name": "rawwerks--one-system",
+  "displayName": "one-system",
+  "description": "Use local and hosted classifiers aka decision models aka Jev-like models, all through a single TypeSafe API",
+  "version": "1.0.0",
+  "author": "rawwerks",
+  "homepage": "https://github.com/rawwerks/one-system",
+  "skills": []
+}
