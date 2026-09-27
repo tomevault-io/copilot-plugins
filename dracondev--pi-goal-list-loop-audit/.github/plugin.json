@@ -1,0 +1,9 @@
+{
+  "name": "dracondev--pi-goal-list-loop-audit",
+  "displayName": "pi-goal-list-loop-audit",
+  "description": "Goal. Loop. Audit. Done. A pi-coding-agent extension that supervises long-running work, with an isolated auditor on each completion. Beat bamboozling by design: the auditor runs in a fresh session wit",
+  "version": "1.0.0",
+  "author": "DraconDev",
+  "homepage": "https://github.com/DraconDev/pi-goal-list-loop-audit",
+  "skills": []
+}
