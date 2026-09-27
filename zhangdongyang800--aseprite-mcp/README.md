@@ -7,11 +7,11 @@ Most Aseprite MCPs give AI hands. This one gives it eyes — it draws, looks at 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ZhangDongyang800/Aseprite_MCP](https://github.com/ZhangDongyang800/Aseprite_MCP).
+Original source: `AGENTS.md` in [ZhangDongyang800/Aseprite_MCP](https://github.com/ZhangDongyang800/Aseprite_MCP).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
