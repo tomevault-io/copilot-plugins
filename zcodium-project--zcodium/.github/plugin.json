@@ -1,0 +1,9 @@
+{
+  "name": "zcodium-project--zcodium",
+  "displayName": "ZCodium",
+  "description": "ZCodium\uff0cIndependent audit fork of ZCode (ZCode \u2192 ZCodium). All monitoring and telemetry removed; upstream commits reviewed one by one. ZCode \u7684\u72ec\u7acb\u5ba1\u8ba1\u5206\u652f\uff08ZCode \u2192 ZCodium\uff09\uff1a\u5df2\u79fb\u9664\u76d1\u63a7\u4e0e\u9065\u6d4b\uff0c\u4e0a\u6e38\u6539\u52a8\u9010\u63d0\u4ea4\u5ba1\u9605\u3002",
+  "version": "1.0.0",
+  "author": "ZCodium-project",
+  "homepage": "https://github.com/ZCodium-project/ZCodium",
+  "skills": []
+}
