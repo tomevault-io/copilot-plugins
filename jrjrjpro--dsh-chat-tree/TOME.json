@@ -1,0 +1,44 @@
+{
+  "name": "dsh-chat-tree",
+  "owner": "JRJRJPRO",
+  "repo": "dsh-chat-tree",
+  "description": "\u628a \u5bf9\u8bdd\u5206\u652f \u753b\u6210 \u53ef\u70b9\u51fb\u7684\u6811",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JRJRJPRO/dsh-chat-tree",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T00:40:57Z"
+}
