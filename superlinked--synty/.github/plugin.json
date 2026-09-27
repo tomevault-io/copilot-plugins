@@ -1,0 +1,9 @@
+{
+  "name": "superlinked--synty",
+  "displayName": "synty",
+  "description": "Local-first memory for you and your coding agents. Every session and PR, searchable; the raw data is yours to analyze.",
+  "version": "1.0.0",
+  "author": "superlinked",
+  "homepage": "https://github.com/superlinked/synty",
+  "skills": []
+}
