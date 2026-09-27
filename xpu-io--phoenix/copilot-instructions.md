@@ -19,7 +19,7 @@ Phoenix is middleware for **direct I/O from storage to xPU (GPU/NPU)** via DMA, 
 | `adapters/vLLM/phxloader/` | vLLM weight loader (safetensors → GPU DMA) via pybind11, published `phxloader` pkg |
 | `adapters/lmcache/` | (roadmap) KV-cache acceleration |
 | `test/` | Correctness + performance tests (`test_regmem`, `test_io`, `test_batch`) |
-| `doc/` | All documentation (index: `doc/README.md`) |
+| `doc/` | All documentation (index: the Documentation table in `README.md`) |
 
 ## Build / test / install (reference environment)
 
@@ -60,5 +60,5 @@ Target a different vendor: `cmake -DPHXFS_VENDOR=AMD ../` (requires implementing
 - Roadmap (eng + research + MCP): `doc/roadmap.md`
 
 ---
-> Source: [xPU-IO/phoenix](https://github.com/xPU-IO/phoenix) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+> Source: [xPU-IO/Phoenix](https://github.com/xPU-IO/Phoenix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
