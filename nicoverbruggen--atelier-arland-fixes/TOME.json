@@ -1,0 +1,44 @@
+{
+  "name": "atelier-arland-fixes",
+  "owner": "nicoverbruggen",
+  "repo": "atelier-arland-fixes",
+  "description": "A mod that fixes the severe hitching in the Arland Atelier DX games on PC. Especially effective on Proton, but includes various quality of life improvements for anyone playing the PC ports.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nicoverbruggen/atelier-arland-fixes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T09:13:06Z"
+}
