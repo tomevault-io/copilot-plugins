@@ -1,0 +1,9 @@
+{
+  "name": "kubermeister--kubermeister",
+  "displayName": "kubermeister",
+  "description": "A fast, native desktop client for browsing and managing Kubernetes clusters.",
+  "version": "1.0.0",
+  "author": "kubermeister",
+  "homepage": "https://github.com/kubermeister/kubermeister",
+  "skills": []
+}
