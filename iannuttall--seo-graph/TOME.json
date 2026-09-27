@@ -4,7 +4,7 @@
   "repo": "seo-graph",
   "description": "Agent-ready SEO for JavaScript \u2014 schema.org JSON-LD graph builders, deterministic agent markdown with content negotiation, and an Astro integration.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iannuttall/seo-graph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T23:44:09Z"
+  "distributed_at": "2026-09-27T04:44:36Z"
 }
