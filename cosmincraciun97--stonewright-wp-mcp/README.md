@@ -7,11 +7,11 @@ Guarded, recoverable WordPress MCP automation for Elementor, Gutenberg, WooComme
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cosmincraciun97/stonewright-wp-mcp](https://github.com/cosmincraciun97/stonewright-wp-mcp).
+Original source: `AGENTS.md` in [cosmincraciun97/stonewright-wp-mcp](https://github.com/cosmincraciun97/stonewright-wp-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
