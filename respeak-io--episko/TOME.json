@@ -4,7 +4,7 @@
   "repo": "episko",
   "description": "A lightweight app for claude code cli agent organization in Rust",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/respeak-io/episko",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T00:13:49Z"
+  "distributed_at": "2026-09-27T05:00:31Z"
 }
