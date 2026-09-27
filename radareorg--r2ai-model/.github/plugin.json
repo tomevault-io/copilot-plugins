@@ -1,0 +1,9 @@
+{
+  "name": "radareorg--r2ai-model",
+  "displayName": "r2ai-model",
+  "description": "Dataset to train or finetune language models with knowledge about radare2",
+  "version": "1.0.0",
+  "author": "radareorg",
+  "homepage": "https://github.com/radareorg/r2ai-model",
+  "skills": []
+}
