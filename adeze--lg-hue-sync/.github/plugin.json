@@ -1,0 +1,9 @@
+{
+  "name": "adeze--lg-hue-sync",
+  "displayName": "lg-hue-sync",
+  "description": "Native LG webOS ambient sync for Philips Hue Entertainment and Nanoleaf 4D",
+  "version": "1.0.0",
+  "author": "adeze",
+  "homepage": "https://github.com/adeze/lg-hue-sync",
+  "skills": []
+}
