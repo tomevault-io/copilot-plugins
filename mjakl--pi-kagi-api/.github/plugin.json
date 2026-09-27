@@ -1,0 +1,9 @@
+{
+  "name": "mjakl--pi-kagi-api",
+  "displayName": "pi-kagi-api",
+  "description": "Use Kagi Search and Extract via their API",
+  "version": "1.0.0",
+  "author": "mjakl",
+  "homepage": "https://github.com/mjakl/pi-kagi-api",
+  "skills": []
+}
