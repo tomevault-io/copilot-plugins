@@ -1,0 +1,9 @@
+{
+  "name": "mkthingshq--mkgame-blocks",
+  "displayName": "mkgame-blocks",
+  "description": "A lightweight browser block puzzle game built with TanStack Start and Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "MkThingsHQ",
+  "homepage": "https://github.com/MkThingsHQ/mkgame-blocks",
+  "skills": []
+}
