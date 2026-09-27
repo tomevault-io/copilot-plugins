@@ -7,11 +7,11 @@ Self-hostable Cloudflare Mesh manager — nodes, devices, .mesh DNS, WireGuard, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bgwastu/meshflare](https://github.com/bgwastu/meshflare).
+Original source: `AGENTS.md` in [bgwastu/meshflare](https://github.com/bgwastu/meshflare).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
