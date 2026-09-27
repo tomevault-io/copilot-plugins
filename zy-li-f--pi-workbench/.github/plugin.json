@@ -1,0 +1,9 @@
+{
+  "name": "zy-li-f--pi-workbench",
+  "displayName": "pi-workbench",
+  "description": "Local-first desktop workbench for earendil-works/pi with native chat, model routing, inspectable agent teams, Kanban/DAG workflows, artifact previews, and optional automation.",
+  "version": "1.0.0",
+  "author": "ZY-LI-F",
+  "homepage": "https://github.com/ZY-LI-F/pi-workbench",
+  "skills": []
+}
