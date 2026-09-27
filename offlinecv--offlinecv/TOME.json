@@ -4,7 +4,7 @@
   "repo": "OfflineCV",
   "description": "A private, no-login job-search workbench for resume PDFs \u2014 drop one in and see what a plain-text extractor actually reads back, with an anonymous structure/specificity score. Runs entirely in your browser; no uploads. Stable at offlinecv.org; bleeding-edge dev build at dev.offlinecv.org.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/offlinecv/OfflineCV",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T10:15:07Z"
+  "distributed_at": "2026-09-27T17:29:23Z"
 }
