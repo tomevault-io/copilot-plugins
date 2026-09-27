@@ -1,0 +1,44 @@
+{
+  "name": "OneAsr",
+  "owner": "eclipse005",
+  "repo": "OneAsr",
+  "description": "\u672c\u5730\u79bb\u7ebf\u6279\u91cf\u97f3\u89c6\u9891\u8f6c SRT \u5b57\u5e55\uff08Qwen3-ASR + ForcedAligner\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eclipse005/OneAsr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T02:55:35Z"
+}
