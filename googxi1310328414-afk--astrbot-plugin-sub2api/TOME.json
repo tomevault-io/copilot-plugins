@@ -1,0 +1,44 @@
+{
+  "name": "astrbot_plugin_sub2api",
+  "owner": "googxi1310328414-afk",
+  "repo": "astrbot_plugin_sub2api",
+  "description": "AstrBot \u00d7 sub2api:QQ \u7fa4\u4f59\u989d\u73a9\u6cd5(\u7ed1\u5b9a/\u7b7e\u5230/\u6253\u52ab/\u67e5\u8be2)\u3001\u516c\u5f00\u5206\u7ec4\u72b6\u6001\u76d1\u63a7\u5361\u7247\u4e0e AI \u8131\u654f\u67e5\u8be2\u5de5\u5177;\u4e8b\u52a1\u8d26\u672c+\u81ea\u52a8\u6838\u8d26",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/googxi1310328414-afk/astrbot_plugin_sub2api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T23:10:14Z"
+}
