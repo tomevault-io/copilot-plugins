@@ -7,11 +7,11 @@ Monitor and control your Herdr AI coding agents from your iPhone with this mobil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Tomyail/herdr-connect](https://github.com/Tomyail/herdr-connect).
+Original source: `AGENTS.md` in [Tomyail/herdr-connect](https://github.com/Tomyail/herdr-connect).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
