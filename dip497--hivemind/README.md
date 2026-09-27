@@ -7,11 +7,11 @@ Build the workspace your coding agents work in.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dip497/hivemind](https://github.com/dip497/hivemind).
+Original source: `AGENTS.md` in [dip497/hivemind](https://github.com/dip497/hivemind).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
