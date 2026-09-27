@@ -1,0 +1,206 @@
+## workstream
+
+> This repository is for Workstream, source-agnostic governed contribution
+
+# AGENTS.md
+
+This repository is for Workstream, source-agnostic governed contribution
+infrastructure for work performed by humans, AI agents, or both.
+
+## Core Definition
+
+Workstream turns project-defined tasks, immutable submissions, policy-governed
+checks, and policy-governed acceptance into trusted `ContributionRecord` facts. Those
+facts establish who completed what, under which locked rules, using which exact
+artifact, and with what verified outcome. Applications and economic systems may
+consume the facts; they do not control Workstream lifecycle truth.
+
+Flow Identity is the current v0.1 external authentication provider, not the
+definition or ownership boundary of Workstream.
+
+## Working Rules
+
+- Workstream is developing its first, unreleased v0.1. Do not introduce
+  backward-compatibility layers, compatibility aliases, parallel old/new
+  implementations, or “legacy/modern” variants merely to preserve earlier
+  development code. When changing a module, replace the superseded implementation
+  and update its affected callers, tests, schemas and current documentation
+  together. Remove obsolete code and tests that exist only to preserve obsolete
+  behavior; retain or replace tests protecting required behavior. Renaming
+  duplicate implementations is not cleanup.
+
+  Perform this cleanup within the current work’s affected scope, not as a
+  repository-wide prerequisite. Trace shared consumers before deleting shared
+  code; identify any remaining dependency explicitly without adding another
+  compatibility path. Preserve authorization, locked lineage, atomicity and
+  immutable evidence. Business policy/submission versions and required external
+  protocol identifiers are not backward-compatibility implementations. Code
+  cleanup does not authorize deleting retained data.
+- Keep wording consistent with `README.md`, `docs/glossary.md`, and `docs/architecture_lockdown.md`.
+- Keep pre-submission intake quality checks distinct from post-submission work
+  evaluation. Intake failures prevent Submission creation; post-submit results
+  supply evidence for policy-governed routing, not checker-owned acceptance.
+  The locked ReviewPolicy requires human review by default; when false, passing
+  required checks invokes the same authorized final-acceptance operation used
+  by human `accept`. Never fabricate a Review or reviewer contribution.
+  Do not describe all checking as
+  deterministic or confuse setup-agent policy proposals with runtime evaluators.
+  Model-based judges require supported registered implementations; do not claim
+  them live merely because setup uses an agent.
+- Use the simple engineering loop:
+  `Intent -> Plan -> Bounded Change -> Tests -> Review -> PR -> Human Merge`.
+- Inspect existing owners, call paths, policies, contracts and tests before
+  designing a change. Prefer extending the existing operation over adding a
+  parallel subsystem. Different triggers for the same business outcome normally
+  share one operation and transaction, with explicit trigger provenance.
+  Add an abstraction, policy, state or workflow only for a concrete requirement
+  the existing design cannot safely meet; explain that gap in the change record.
+  Keep control flow and dependencies explicit. Prefer small, cohesive functions
+  and the fewest concepts needed for current behavior; do not add frameworks,
+  generic helpers, configuration knobs or indirection for hypothetical future use.
+  Make required behavior testable through stable owner interfaces and focused
+  fixtures. Tests should protect outcomes and failure boundaries rather than
+  mirror implementation details. Use broad fixtures or mock graphs only when
+  the integration risk requires them.
+  Simplicity must preserve authorization, locked lineage and atomicity.
+- Keep the engineering loop separate from the Workstream product lifecycle. Workstream product review decisions remain `accept`, `needs_revision`, and `reject`; internal engineering reviewer findings are process evidence, not product decisions.
+- Codex-discoverable repository skills live under `.agents/skills/`.
+- Codex custom reviewer agents live under `.codex/agents/`.
+- The lead uses the repository's Astra default; delegated work uses Sol with
+  high reasoning. `.codex/config.toml` and the custom agent files own executable
+  settings. Explicit user/session selections take precedence; do not silently
+  escalate models or claim an existing session changed model after editing TOML.
+- Durable engineering context uses the smallest applicable Commitrail record
+  under `.commitrail/`. `.commitrail/INDEX.md` is durable navigation; GitHub
+  open pull requests are the transient-work view. Review evidence is never an
+  active-work queue or authorization source.
+- `CONTRIBUTING.md` is the canonical human and agent entry path. GitHub
+  permissions and branch protection govern contribution authority. Planning
+  artifacts explain work; they do not authorize or block it.
+- Distinct initiatives may proceed concurrently in separate branches or
+  worktrees.
+- Do not add Claude-specific files unless the user explicitly asks for cross-tool support.
+- Do not use old names such as "task-production control plane" or "Garden roadmap".
+- Spreadsheet exports live locally under ignored `sheets/`; do not commit them.
+- Do not add extra sheets to local `sheets/workstream_roadmap.xlsx`; the workbook must contain one sheet only: `WorkStream RoadMap`.
+- Treat local `sheets/workstream_roadmap.xlsx` as the primary spreadsheet export. The CSV is fallback only.
+- If updating the roadmap, update both local XLSX and CSV exports.
+- Do not import XLSX into Google Sheets with "replace spreadsheet"; use a temporary sheet and copy only the roadmap tab.
+- Prefer evidence-backed docs over vague product claims.
+- Treat `docs/roadmap_status.md` as the current capability ledger. Calendar
+  plans, early chunk specifications, imported files under
+  `docs/reference_specs/`, and internal reviews are historical evidence unless
+  a current entry page explicitly adopts them. Canonical repository
+  specifications remain normative. Do not use dates, weeks, or delivery
+  windows as implementation authority.
+- For workflow states, persisted tokens, API enum values, roles, and lifecycle names, prefer subsystem- or actor-specific names over vague labels. If the naming has product or security impact and the user is unavailable, run the required internal reviewer tracks before locking it.
+- Keep v0.1 focused on project guide -> task -> pre-submission intake checks
+  -> submission -> post-submission work evaluation -> review
+  -> revision -> contribution records -> conditional compensation
+  awards/fulfillment -> contribution evidence for a future reputation
+  projection. Runtime reputation projection remains deferred.
+- Review decision stored values are only accept, needs_revision, or reject.
+- Frontend is locked as React + Vite + TypeScript.
+- Backend API is locked as Python with FastAPI.
+- ORM, migrations, and API schemas are locked as SQLAlchemy 2.x async + Alembic + Pydantic schemas.
+- Workstream verifies external Flow authentication tokens; do not add Workstream-owned login, signup, password reset, password storage, or primary auth sessions.
+- v0.1 delivery is backend-contract-first. Do not add frontend behavior until
+  the backing API contracts and lifecycle guards for that surface are stable
+  and tested.
+- Execution is async-first; do not document synchronous-first checkers or jobs.
+- FastAPI background tasks are acceptable for simple local v0.1 jobs; use Celery or equivalent durable workers when retries, scheduling, isolation, or distributed execution are needed.
+- Postgres is the record database.
+- Local filesystem storage is acceptable only behind the provider-neutral
+  `ArtifactStore`; AWS S3 is the v0.1 hosted provider and MinIO proves its
+  protocol locally and in CI.
+- Bounded private ephemeral processing scratch is not artifact storage. It may
+  use local files only through the canonical `ArtifactScratchManager` with
+  aggregate quotas, crash cleanup, and no durable product reference.
+- Do not expand into blockchain settlement, marketplace, external source adapters, automated routing, or agent workspace until the internal loop is proven.
+- External integrations must follow ADR 0014: extend the shared
+  `ExternalServiceAdapter` convention through a typed capability port and use a
+  typed `ExternalServiceAdapterFactory[TAdapter]` with explicit
+  composition-root registration. Do not add ad hoc factories, runtime plugin
+  discovery, generic service locators, concrete-adapter imports in product
+  services, compatibility aliases, fallback constructors, or dual factory
+  paths.
+- Every non-trivial task starts with the smallest useful Commitrail record: one
+  combined change record for meaningful bounded work, plus one concise
+  initiative overview only for multi-PR work.
+- Standalone changes use `.commitrail/changes/<lowercase-kebab-slug>.md`, declare
+  exactly one live `Initiative: None`, and need no initiative overview or index
+  row. Existing initiatives keep their records.
+  Editorial README/ordinary-doc corrections may use PR intent and scope only;
+  `.commitrail/README.md` lists process-control paths that always need a record.
+- Do not implement a bounded change until its allowed files, prohibited
+  changes, acceptance criteria, risk class, verification, reviewers, and human
+  review focus are explicit.
+- One bounded implementation change equals one pull request. The same PR
+  records its intended durable outcome. Update an initiative overview or index
+  row only when its durable disposition or next usable boundary changes. Use
+  only `Planned`, `Complete`, `Stopped`, or `Superseded`; never commit transient
+  review, CI, approval, or merge state.
+- Do not begin the next chunk automatically after finishing the current chunk.
+- Use internal sub-agent review proportionate to risk. Security, authorization,
+  payment, architecture, workflow, and broad product changes require focused
+  review; small low-risk changes do not require ceremonial fanout.
+- Select reviewers through `.ci/reviewer-evidence/REVIEWER_MATRIX.md` and the
+  current change's impact. The lead runs shared checks once, freezes a clean
+  candidate, and supplies bounded context. Reviewers independently inspect their
+  assigned risks and relevant unchanged owners. Batch valid repairs before
+  asking affected reviewers to replay; do not push between each reviewer finding.
+- Continue authorized work through fixes and verification. Repeated failure
+  requires a diagnosis of the failing assumption and a discriminating check.
+  Ask for direction only when a material decision or new authority is missing;
+  a repair counter, planning artifact, or reviewer session error is not a new
+  permission boundary.
+- For architecture, CI/workflow, docs, or reuse-sensitive chunks, add the matching reviewer track from `.codex/agents/`.
+- Do not report work complete while requested reviewer agents are still running. Wait for them, address valid findings, and close any open sub-agent sessions.
+- CodeRabbit, CI, and GitHub review are external checks. They supplement internal reviewer agents; they do not replace them.
+- Contributors may open a draft PR while work or review is ongoing. Do not mark
+  it ready for merge until applicable internal reviewers have run and valid
+  findings are addressed or documented.
+- Do not merge a PR unless the user explicitly approves that specific PR for merge.
+- Any push invalidates affected internal evidence and stale GitHub approval.
+  Fetch the PR head again after all checks and reviews finish. The most recent
+  reviewable push requires approval from an eligible human other than its
+  pusher, and every review conversation must be resolved before merge.
+- New or materially changed backend subsystems must remain at or above 90
+  percent test coverage. Until the dedicated global-coverage work reaches 90
+  percent, CI must also preserve the current repository-wide 78 percent
+  baseline and may not reduce it.
+
+## Done Criteria
+
+Before reporting completion:
+
+- run a stale wording scan
+- check markdown links
+- assess `docs/roadmap_status.md` in every PR before marking it ready. If the
+  change affects a capability, its exposure, completed work, remaining scope,
+  or next dependency, update the affected roadmap sections in that same PR to
+  reflect its intended merged outcome. Reconcile again after incorporating
+  relevant changes from `main`. If there is no roadmap impact, state why in
+  the PR; do not make a no-op roadmap edit. Do not defer an affected roadmap
+  update to a separate post-merge PR. Do not treat planned/open work as already
+  delivered on `main`.
+- Reconcile each affected capability across the roadmap's executive summary,
+  scoreboard, dependency diagram, remaining gates and trace references, plus
+  its current initiative overview/change record and index next boundary.
+  Compare with merged owners, routes and tests: implemented, publicly exposed
+  and deployed are different claims. Preserve every supported policy branch
+  in summaries and diagrams; do not imply a new dependency by omitting one.
+  Keep summaries short and link detailed evidence instead of repeating change
+  histories. Update only affected claims in the same PR; this is a review
+  responsibility, not a new gate, status file or post-merge reconciliation step.
+- verify the local XLSX has one sheet only when local sheet exports are present
+- verify the current Workstream definition appears in README and local sheet exports when local sheet exports are present
+- update related docs/templates and local sheet exports together when the roadmap changes
+- run applicable internal sub-agent reviewers and resolve or explicitly document every valid finding
+- confirm no sub-agent sessions remain open
+- update relevant plans, contracts, or review notes when they materially help
+  future contributors; do not create process artifacts solely to satisfy a gate
+
+---
+> Source: [Flow-Research/workstream](https://github.com/Flow-Research/workstream) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
