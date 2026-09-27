@@ -4,7 +4,7 @@
   "repo": "LAM-Cyberlab",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ahlfs/LAM-Cyberlab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T02:15:32Z"
+  "distributed_at": "2026-09-27T07:12:19Z"
 }
