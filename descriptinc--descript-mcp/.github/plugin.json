@@ -1,0 +1,9 @@
+{
+  "name": "descriptinc--descript-mcp",
+  "displayName": "descript-mcp",
+  "description": "Descript MCP plugin for Cursor, Claude Code, and Antigravity \u2014 edit video and audio by editing text, from your agent",
+  "version": "1.0.0",
+  "author": "descriptinc",
+  "homepage": "https://github.com/descriptinc/descript-mcp",
+  "skills": []
+}
