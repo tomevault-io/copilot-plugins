@@ -4,7 +4,7 @@
   "repo": "ultimate-scraper-skill",
   "description": "Multi-tier web scraper with intelligent tier escalation, anti-bot bypass, CAPTCHA solving, and AI-powered data extraction. 6 tiers (static \u2192 HTTP \u2192 stealth browser \u2192 anti-detect \u2192 AI \u2192   visual), CloakBrowser/Camoufox stealth, per-domain rate limiting, fingerprint persistence, and agent-first deployment.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yoloshii/ultimate-scraper-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T15:11:35Z"
+  "distributed_at": "2026-09-27T23:42:01Z"
 }
