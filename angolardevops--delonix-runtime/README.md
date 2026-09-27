@@ -7,13 +7,13 @@ Daemonless, rootless-first, kernel-native container & microVM runtime — Rust.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [angolardevops/delonix-runtime](https://github.com/angolardevops/delonix-runtime).
+Original source: `AGENTS.md` in [angolardevops/delonix-runtime](https://github.com/angolardevops/delonix-runtime).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
