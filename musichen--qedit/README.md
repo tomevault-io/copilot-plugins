@@ -7,11 +7,11 @@ rust-based lightweight editor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [musichen/qedit](https://github.com/musichen/qedit).
+Original source: `AGENTS.md` in [musichen/qedit](https://github.com/musichen/qedit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
