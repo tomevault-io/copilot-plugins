@@ -1,0 +1,14 @@
+{
+  "name": "geekplux--markvis",
+  "displayName": "markvis",
+  "description": "markvis",
+  "version": "1.0.0",
+  "author": "geekplux",
+  "homepage": "https://github.com/geekplux/markvis",
+  "skills": [
+    {
+      "name": "markvis",
+      "description": ""
+    }
+  ]
+}
