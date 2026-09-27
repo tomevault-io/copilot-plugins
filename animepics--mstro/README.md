@@ -7,11 +7,11 @@ This collaborative AI ecosystem claude-code and codex utilizes ultraprompts to m
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [animepics/mstro](https://github.com/animepics/mstro).
+Original source: `AGENTS.md` in [animepics/mstro](https://github.com/animepics/mstro).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
