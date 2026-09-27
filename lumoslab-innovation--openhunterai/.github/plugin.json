@@ -1,0 +1,9 @@
+{
+  "name": "lumoslab-innovation--openhunterai",
+  "displayName": "OpenHunterAI",
+  "description": "Local-first AI red team for web, API, and LLM application security. Attacker-style reasoning, evidence-backed findings, and skills for AI coding agents.",
+  "version": "1.0.0",
+  "author": "LumosLab-Innovation",
+  "homepage": "https://github.com/LumosLab-Innovation/OpenHunterAI",
+  "skills": []
+}
