@@ -4,7 +4,7 @@
   "repo": "coderook",
   "description": "A local-first coding agent with durable sessions, reviewable changes, and evidence-backed runs.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kyletser/coderook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T00:15:37Z"
+  "distributed_at": "2026-09-27T05:01:24Z"
 }
