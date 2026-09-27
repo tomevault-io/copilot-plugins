@@ -7,11 +7,11 @@ Docker socket proxy. Filter API requests by method and path with default-deny po
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [CodesWhat/sockguard](https://github.com/CodesWhat/sockguard).
+Original source: `AGENTS.md` in [CodesWhat/sockguard](https://github.com/CodesWhat/sockguard).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
