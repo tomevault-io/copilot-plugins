@@ -1,0 +1,9 @@
+{
+  "name": "dannote--jev-nx",
+  "displayName": "jev_nx",
+  "description": "Open decision models as a Jev backend, running in-process on Nx",
+  "version": "1.0.0",
+  "author": "dannote",
+  "homepage": "https://github.com/dannote/jev_nx",
+  "skills": []
+}
