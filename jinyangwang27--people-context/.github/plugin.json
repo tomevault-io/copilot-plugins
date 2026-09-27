@@ -1,0 +1,9 @@
+{
+  "name": "jinyangwang27--people-context",
+  "displayName": "people-context",
+  "description": "Local-first memory for AI agents about the people in your life. MCP server + CLI on SQLite. Never phones home.",
+  "version": "1.0.0",
+  "author": "JinyangWang27",
+  "homepage": "https://github.com/JinyangWang27/people-context",
+  "skills": []
+}
