@@ -1,0 +1,44 @@
+{
+  "name": "BattleCats-Web-Editor",
+  "owner": "thomas950321",
+  "repo": "BattleCats-Web-Editor",
+  "description": "\u8996\u89ba\u5316\u7db2\u9801\u4fee\u6539\u5668\uff0c\u8b93\u73a9\u5bb6\u53ef\u8f15\u9b06\u4fee\u6539\u300a\u8c93\u54aa\u5927\u6230\u722d\u300b\u904a\u6232\u5b58\u6a94\u7684\u5404\u9805\u6578\u503c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thomas950321/BattleCats-Web-Editor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T21:25:18Z"
+}
