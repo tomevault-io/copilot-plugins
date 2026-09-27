@@ -1,0 +1,9 @@
+{
+  "name": "eclipse005--oneasr",
+  "displayName": "OneAsr",
+  "description": "\u672c\u5730\u79bb\u7ebf\u6279\u91cf\u97f3\u89c6\u9891\u8f6c SRT \u5b57\u5e55\uff08Qwen3-ASR + ForcedAligner\uff09",
+  "version": "1.0.0",
+  "author": "eclipse005",
+  "homepage": "https://github.com/eclipse005/OneAsr",
+  "skills": []
+}
