@@ -1,0 +1,50 @@
+## aliangboard
+
+> K8s 多集群管理前端（Vue 3 + Vite + Pinia，纯 JS）+ 网关（`server/`，Node，透明透传 K8s API）。
+
+# AliangBoard
+
+K8s 多集群管理前端（Vue 3 + Vite + Pinia，纯 JS）+ 网关（`server/`，Node，透明透传 K8s API）。
+
+## 依赖政策
+
+仓库默认**不新增外部依赖**（见 `scripts/test.mjs` / `scripts/typecheck.mjs` 顶部注释：测试用自研零依赖运行器、类型用 `node --check`，刻意不引 vitest/jest/TypeScript）。
+
+以下为已裁决的**例外**（新增依赖须经同等审视并在此登记，附 rationale）：
+
+| 依赖 | 类别 | 引入原因 | 裁决来源 |
+|------|------|----------|----------|
+| `@tanstack/vue-query` | 运行时（dependencies） | 数据层终极优化：服务端状态归 Vue Query（去重/缓存/过期重取/三态/变更失效），Pinia 只留客户端状态。与 pinia/vue-router 同级的标准库。 | `/plan-eng-review` 2026-08-06：零依赖政策解读为「只约束工具链(test/build 不引 vitest/jest/ts)」，运行时可接受标准库 |
+| `vitest` + `@vue/test-utils` + `happy-dom` | 测试工具（devDependencies） | 66 页数据层迁移需组件/交互自动化安全网。纯逻辑仍优先用自研零依赖运行器覆盖。 | `/plan-eng-review` 2026-08-06：例外从运行时扩到测试工具 |
+| `marked` | 运行时（dependencies） | 工作台 chat agent 终答 markdown→HTML 解析（标准、~30KB）。 | 2026-08-10 workbench Cursor-style chat 设计 |
+| `dompurify` | 运行时（dependencies） | 消毒 marked 产出的 HTML（`conv.content` 为 LLM 生成、走 `v-html`，必须防 XSS）。 | 2026-08-10 workbench Cursor-style chat 设计 |
+| `echarts` | 运行时（dependencies） | 图表美化:折线/环形/表盘。`echarts/core` 按需引入(树摇,gzip 实测 ≈188KB,独立懒加载 chunk,未入主包),tooltip/渐变/过渡动画开箱即用。 | 2026-08-14 图表美化设计 `docs/superpowers/specs/2026-08-14-chart-beautification-design.md` |
+| `ssh2` | 运行时（dependencies） | SSH 客户端唯一可行纯 JS 实现(交互 shell 通道 + SFTP + password/keyboard-interactive/私钥认证)。系统 ssh 无法安全支持密码认证(sshpass 密码过 argv/环境变量)且容器须加装系统包。 | 2026-08-28 SSH 管理设计 `docs/superpowers/specs/2026-08-28-ssh-management-design.md` |
+| `@vue-flow/core` | 运行时（dependencies） | 拓扑页节点/连线画布:四列流水线迁 flow 画布,Ingress 规则→Service→Workload 只读连线+失配红虚线,为后续拖拽/布局/缩放留扩展空间。 | 2026-09-01 用户指定（拓扑连线化设计 `docs/superpowers/specs/2026-09-01-workload-topology-flow-design.md`） |
+| `qrcode` | 运行时（dependencies） | MFA 启用卡二维码(TOTP otpauth URI → 扫码图):扫码 UX 不可替代(~14KB gzip,纯 JS 无 canvas 样板),手输 secret 仅作降级通道。 | Wave 3 加固设计 spec D5（2026-09-07,`feat/w3` Task 4 裁决） |
+| `pg` | 运行时（dependencies） | db_query 适配器 PG 驱动:Node 无内置 PG 客户端,直连任何网络可达 PG。连接级只读+短连接,网关自身状态(会话/限流/审计锚点)仍留 SQLite,不触碰单进程不变式。 | 2026-09-12 凭据执行架构 v2 设计 `docs/superpowers/specs/2026-09-12-credential-adapters-v2-design.md`(用户裁决:初版即双驱动) |
+| `mysql2` | 运行时（dependencies） | db_query 适配器 MySQL 驱动:同上(市面主流双数据库,multipleStatements 恒 false)。 | 同上 |
+
+> 设计文档：`~/.gstack/projects/aliang-aliangboard/liang-feat-data-model-design-20260806-001249.md`（含 GSTACK REVIEW REPORT）。
+
+## 提交规范
+
+- 提交作者恒为 `aliang-one <aliangdone@gmail.com>`(用户 2026-09-01 裁决,取代 2026-08-26 的 `aliangone <aliangone@gmail.com>`;仓库 git config 已同步;**已推历史不改写,未推区间可按用户指令改写**);**禁止**在提交信息中加 `Co-Authored-By: Claude` 尾注(GitHub 会把尾注渲染成共同作者)。
+- **禁止改写已推送的历史**、禁止 force push(多会话并行开发,改写历史会使并行会话推送被拒);任何清理/修整只允许作用于**未推送的本地提交**。
+
+## 架构约束
+
+- **网关单进程不变式**(2026-08-28 显式化):`server/` 网关以「单进程 + 单 SQLite 库」为前提——`node:sqlite` 单连接同步写、会话/限流/看门狗全在内存 Map、审计链哈希(prevHash 单调)假设唯一写入者。双进程同库 = 静默脑裂。防线:启动时抢 `<db>.lock` 独占锁(`server/single-process-lock.mjs`,持锁者活着拒启、死 pid 接管);部署侧固定 `replicas: 1 + Recreate`(deployment.yaml)。**要水平扩展必须先做状态外移(会话/限流/审计锚点)的 ADR,禁止默认可扩。**
+- **路由鉴权单一事实源**:新端点必须先在 `server/route-auth-map.mjs` 的 `ROUTE_AUTH` 声明鉴权 class(none/session/platform/admin/apikey/mcp)——表外 `/api/*` 一律 404,守卫测试静态扫源码路径字面量强制登记。
+- **组件文本溢出治理**(2026-09-01 顶栏 cluster/ns chip 溢出事故固化):`truncate` 的安全配方——**列向**(`flex-col` + `items-start`)容器里,truncate 元素必须自带 `w-full` 或 `max-w-*`(fit-content 不受父级 max-w 钳制,nowrap 全文宽会穿透 UI);**行向**嵌套链上,中间 flex 子项必须有 `min-w-0`、overflow 收敛或 max-w 有界(`overflow:hidden` 只有直接长在 flex 子项上才把 min-width:auto 归零,隔一层 min-content 沿链传导撑破)。两类失效形态由 `scripts/overflow-guard.test.mjs` 静态扫全仓 .vue 强制,进 `npm test`。
+- **双轨 UI 语言**(2026-09-05 workbench 模块身份设计固化):界面分两套语言——**K 轨(平台通用语)**:K8s 资源管理域,全幅平铺中性 M3 面、文档式滚动、条带式 chrome,**无氛围/舞台/门面**;**W 轨(模块自有语)**:平台自研概念域(当前仅 workbench,路由 `meta.module='workbench'` + `fullHeight` 双必备),氛围画布(`wb-atmosphere` 三层)+ `WbStage` 舞台(圆角+回声线)+ 门面标题栏(品牌瓷砖)+ 专属动效词汇(wb-enter/wb-rise/wb-pulse/sheen)。**两轨不得交叉污染**;同一内容组件被「舞台页 + tab 内嵌」双重消费时,舞台归页壳、内容组件以 props 适配宿主(先例:WorkbenchLedger `chromeless`)。归属判定/接入清单/演进规则见 `docs/superpowers/specs/2026-09-05-dual-track-ui-language-design.md`;`meta.module` 白名单由 `scripts/ui-language-guard.test.mjs` 强制,进 `npm test`。
+
+## 测试
+
+- 服务端 + 纯逻辑：`npm test`（含 `scripts/test.mjs` 自研零依赖运行器 + `node --test server/*.test.mjs`）。
+- 前端单测：`npm run test:unit`（vitest，happy-dom + @vue/test-utils）。
+- 类型/语法基线：`npm run typecheck`（`node --check` 全 .js/.mjs；.vue 由 `npm run build` 覆盖）。
+
+---
+> Source: [aliang-one/aliangboard](https://github.com/aliang-one/aliangboard) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
