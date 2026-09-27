@@ -1,0 +1,9 @@
+{
+  "name": "devswha--gajae-code-app",
+  "displayName": "gajae-code-app",
+  "description": "Desktop and self-hosted interface for Gajae Code agent sessions.",
+  "version": "1.0.0",
+  "author": "devswha",
+  "homepage": "https://github.com/devswha/gajae-code-app",
+  "skills": []
+}
