@@ -1,0 +1,9 @@
+{
+  "name": "shuguang1994--project-blueprint",
+  "displayName": "project-blueprint",
+  "description": "Make any project AI-agent-ready in one command. Adaptive tech stack detection (7 languages \u00d7 14 frameworks \u00d7 61 components), auto-generates AGENTS.md, docs skeleton, CI/CD, and testing infrastructure.",
+  "version": "1.0.0",
+  "author": "shuguang1994",
+  "homepage": "https://github.com/shuguang1994/project-blueprint",
+  "skills": []
+}
