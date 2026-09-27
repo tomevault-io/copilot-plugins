@@ -7,11 +7,11 @@ LeRobot PI0 with RoboTTT fast weights and TBPTT sequence training
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Bala-la-la/lerobot-pi0-ttt](https://github.com/Bala-la-la/lerobot-pi0-ttt).
+Original source: `AGENTS.md` in [Bala-la-la/lerobot-pi0-ttt](https://github.com/Bala-la-la/lerobot-pi0-ttt).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
