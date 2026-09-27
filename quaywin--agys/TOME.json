@@ -4,7 +4,7 @@
   "repo": "agys",
   "description": "Effortless multi-profile isolation & real-time quota tracking for Antigravity CLI in Herdr via zero-pollution sandboxing.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/quaywin/agys",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T23:43:09Z"
+  "distributed_at": "2026-09-27T09:35:34Z"
 }
