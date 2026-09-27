@@ -1,0 +1,44 @@
+{
+  "name": "Nexus",
+  "owner": "kd9taw",
+  "repo": "Nexus",
+  "description": "An all-mode amateur radio operations center \u2014 FT8/FT4, CW (with an AI decoder), SSB phone, RTTY, SSTV, APRS and satellites in one modern app: native decode, waterfall, spots, live propagation map, POTA/SOTA & Field Day, and a DXCC logbook with LoTW/QRZ/ClubLog/eQSL. Rust + Tauri; GPLv3.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kd9taw/Nexus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T02:36:26Z"
+}
