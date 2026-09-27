@@ -7,11 +7,11 @@ Offline-first toolkit for agent-ready repositories: readiness scoring, instructi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Cynrath/agent-context-kit](https://github.com/Cynrath/agent-context-kit).
+Original source: `AGENTS.md` in [Cynrath/agent-context-kit](https://github.com/Cynrath/agent-context-kit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
