@@ -1,0 +1,9 @@
+{
+  "name": "cobibean--job-os",
+  "displayName": "job-os",
+  "description": "The job hunt, in one window. With your agent. An open-source, agent-native, local-first desktop workspace for job discovery, browsing, document editing, and human-agent collaboration. Built by @cobi_b",
+  "version": "1.0.0",
+  "author": "cobibean",
+  "homepage": "https://github.com/cobibean/job-os",
+  "skills": []
+}
