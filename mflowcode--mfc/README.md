@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [MFlowCode/MFC](https://github.com/MFlowCode/MFC
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [MFlowCode/MFC](https://github.com/MFlowCode/MFC) — a repo with 388+ stars on GitHub.
+From [MFlowCode/MFC](https://github.com/MFlowCode/MFC) — a repo with 423+ stars on GitHub.
 
 ---
 
