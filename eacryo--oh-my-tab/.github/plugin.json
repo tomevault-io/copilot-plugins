@@ -1,0 +1,9 @@
+{
+  "name": "eacryo--oh-my-tab",
+  "displayName": "oh-my-tab",
+  "description": "A macOS window switcher \u2014 an alternative to the system Cmd+Tab",
+  "version": "1.0.0",
+  "author": "eacryo",
+  "homepage": "https://github.com/eacryo/oh-my-tab",
+  "skills": []
+}
