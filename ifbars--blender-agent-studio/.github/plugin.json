@@ -1,0 +1,9 @@
+{
+  "name": "ifbars--blender-agent-studio",
+  "displayName": "blender-agent-studio",
+  "description": "Codex plugin for reproducible Blender modeling, validation, animation, MCP tooling, and agent benchmarking",
+  "version": "1.0.0",
+  "author": "ifBars",
+  "homepage": "https://github.com/ifBars/blender-agent-studio",
+  "skills": []
+}
