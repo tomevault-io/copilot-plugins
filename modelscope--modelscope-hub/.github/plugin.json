@@ -1,0 +1,9 @@
+{
+  "name": "modelscope--modelscope-hub",
+  "displayName": "modelscope_hub",
+  "description": "The official Python client to connect with ModelScope Hub.",
+  "version": "1.0.0",
+  "author": "modelscope",
+  "homepage": "https://github.com/modelscope/modelscope_hub",
+  "skills": []
+}
