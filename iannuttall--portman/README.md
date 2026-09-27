@@ -7,11 +7,11 @@ Every port on your Mac, and what's actually using it. A macOS menu bar app that 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [iannuttall/portman](https://github.com/iannuttall/portman).
+Original source: `AGENTS.md` in [iannuttall/portman](https://github.com/iannuttall/portman).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
