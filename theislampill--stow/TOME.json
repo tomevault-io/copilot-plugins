@@ -1,0 +1,44 @@
+{
+  "name": "stow",
+  "owner": "theislampill",
+  "repo": "stow",
+  "description": "Standardising Technical Output Writing: standard for producing clear user-facing output, reliable agent-to-agent meta-code, valid structured artifacts, and controlled technical writing without corrupting code, literals, evidence, or user contracts.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/theislampill/stow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T03:29:25Z"
+}
