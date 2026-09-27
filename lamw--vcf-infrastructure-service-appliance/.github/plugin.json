@@ -1,0 +1,9 @@
+{
+  "name": "lamw--vcf-infrastructure-service-appliance",
+  "displayName": "vcf-infrastructure-service-appliance",
+  "description": "Ubuntu-based virtual appliance that provides key infrastructure services for accelerating VMware Cloud Foundation (VCF) 9.1 lab and proof-of-concept deployments",
+  "version": "1.0.0",
+  "author": "lamw",
+  "homepage": "https://github.com/lamw/vcf-infrastructure-service-appliance",
+  "skills": []
+}
