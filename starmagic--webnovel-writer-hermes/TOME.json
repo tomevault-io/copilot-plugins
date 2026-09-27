@@ -1,0 +1,44 @@
+{
+  "name": "webnovel-writer-hermes",
+  "owner": "starMagic",
+  "repo": "webnovel-writer-hermes",
+  "description": "\u57fa\u4e8e Hermes Agent \u7684\u957f\u7bc7\u4e2d\u6587\u7f51\u6587 AI \u521b\u4f5c\u7cfb\u7edf\u300212 \u4e2a\u6280\u80fd + 6 \u5c42\u6570\u636e\u6d41 + 5 \u4e2a\u5b50 Agent + \u6545\u4e8b\u5408\u540c\u5f15\u64ce\u3002\u79fb\u690d\u81ea webnovel-writer (Claude Code) \u548c webnovel-writer-opencode (OpenCode)\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/starMagic/webnovel-writer-hermes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T16:55:23Z"
+}
