@@ -1,0 +1,44 @@
+{
+  "name": "topplecat",
+  "owner": "samzhu",
+  "repo": "topplecat",
+  "description": "\ud83d\udc31 Knocks over your AI agent's \"done\" claims with hidden retests, mutation gates, and executable acceptance contracts for Java. If it's hollow, it falls.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/samzhu/topplecat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T09:15:25Z"
+}
