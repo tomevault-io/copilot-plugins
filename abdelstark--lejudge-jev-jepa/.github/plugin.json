@@ -1,0 +1,9 @@
+{
+  "name": "abdelstark--lejudge-jev-jepa",
+  "displayName": "lejudge-jev-jepa",
+  "description": "Natural-language constraints for JEPA world-model planning, judged by a decision model instead of an LLM.",
+  "version": "1.0.0",
+  "author": "AbdelStark",
+  "homepage": "https://github.com/AbdelStark/lejudge-jev-jepa",
+  "skills": []
+}
