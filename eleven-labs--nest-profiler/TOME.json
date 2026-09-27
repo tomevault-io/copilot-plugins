@@ -1,0 +1,44 @@
+{
+  "name": "nest-profiler",
+  "owner": "eleven-labs",
+  "repo": "nest-profiler",
+  "description": "A Symfony Web Profiler-inspired toolkit for NestJS \u2014 profile every request with a rich panel UI. Powered & maintained by Eleven Labs.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eleven-labs/nest-profiler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T19:11:25Z"
+}
