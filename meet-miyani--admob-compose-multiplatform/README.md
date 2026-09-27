@@ -7,11 +7,11 @@ Plug-and-play Compose Multiplatform AdMob SDK for Android GMA Next-Gen and iOS G
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Meet-Miyani/admob-compose-multiplatform](https://github.com/Meet-Miyani/admob-compose-multiplatform).
+Original source: `AGENTS.md` in [Meet-Miyani/admob-compose-multiplatform](https://github.com/Meet-Miyani/admob-compose-multiplatform).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
