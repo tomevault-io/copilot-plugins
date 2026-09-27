@@ -4,7 +4,7 @@
   "repo": "exam_pool",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/seungyeon980808-pixel/exam_pool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T04:53:20Z"
+  "distributed_at": "2026-09-27T10:49:29Z"
 }
