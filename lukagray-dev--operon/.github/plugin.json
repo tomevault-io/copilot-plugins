@@ -1,0 +1,9 @@
+{
+  "name": "lukagray-dev--operon",
+  "displayName": "Operon",
+  "description": "Autonomous agent platform with a Rust-native harness, permission-scoped remote access, and multi-frontend support. Built solo, from scratch.",
+  "version": "1.0.0",
+  "author": "lukagray-dev",
+  "homepage": "https://github.com/lukagray-dev/Operon",
+  "skills": []
+}
