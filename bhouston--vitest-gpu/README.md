@@ -7,11 +7,11 @@ Vitest environments for real headless WebGL and WebGPU in Node, plus a pixel-dif
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bhouston/vitest-gpu](https://github.com/bhouston/vitest-gpu).
+Original source: `AGENTS.md` in [bhouston/vitest-gpu](https://github.com/bhouston/vitest-gpu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
