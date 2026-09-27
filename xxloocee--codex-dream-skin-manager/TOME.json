@@ -1,0 +1,44 @@
+{
+  "name": "Codex-Dream-Skin-Manager",
+  "owner": "xxloocee",
+  "repo": "Codex-Dream-Skin-Manager",
+  "description": "Codex \u684c\u9762\u7aef\u4e3b\u9898\u7ba1\u7406\u8f6f\u4ef6\uff0c\u968f\u65f6\u5207\u6362\u81ea\u5b9a\u4e49\u4e3b\u9898",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xxloocee/Codex-Dream-Skin-Manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T09:10:49Z"
+}
