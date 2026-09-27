@@ -1,0 +1,9 @@
+{
+  "name": "mohsinsurani--quackwrangler",
+  "displayName": "quackwrangler",
+  "description": "Fast data wrangling for Parquet, CSV, and JSON files powered by DuckDB",
+  "version": "1.0.0",
+  "author": "mohsinsurani",
+  "homepage": "https://github.com/mohsinsurani/quackwrangler",
+  "skills": []
+}
