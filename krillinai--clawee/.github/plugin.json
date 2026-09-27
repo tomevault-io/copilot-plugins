@@ -1,0 +1,9 @@
+{
+  "name": "krillinai--clawee",
+  "displayName": "Clawee",
+  "description": "Built by KrillinAI. Self-hosted enterprise Agent platform with local Codex Runtime, Desktop/Web workspace, MCP governance, RBAC, audit, Skill Hub, knowledge bases, and shared files.\u7531 KrillinAI \u6253\u9020\u3002\u53ef\u81ea\u6258\u7ba1",
+  "version": "1.0.0",
+  "author": "krillinai",
+  "homepage": "https://github.com/krillinai/Clawee",
+  "skills": []
+}
