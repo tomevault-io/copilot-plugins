@@ -1,0 +1,9 @@
+{
+  "name": "huisezhiyin--symphlo",
+  "displayName": "symphlo",
+  "description": "Local-first runtime for observable, debuggable AI-agent workflows with slidable autonomy and multi-agent/tool orchestration.",
+  "version": "1.0.0",
+  "author": "huisezhiyin",
+  "homepage": "https://github.com/huisezhiyin/symphlo",
+  "skills": []
+}
