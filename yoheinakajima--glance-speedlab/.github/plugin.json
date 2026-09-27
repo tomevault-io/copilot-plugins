@@ -1,0 +1,9 @@
+{
+  "name": "yoheinakajima--glance-speedlab",
+  "displayName": "glance-speedlab",
+  "description": "A measurement-first lab for low-latency local camera inference with Glance.",
+  "version": "1.0.0",
+  "author": "yoheinakajima",
+  "homepage": "https://github.com/yoheinakajima/glance-speedlab",
+  "skills": []
+}
