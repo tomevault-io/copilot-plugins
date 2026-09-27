@@ -1,0 +1,44 @@
+{
+  "name": "Serein",
+  "owner": "Yinglianchun",
+  "repo": "Serein",
+  "description": "\u96e8\u843d\u4e0b\u7684\u5730\u65b9\uff0c\u8bb0\u5fc6\u4f1a\u518d\u6b21\u5f00\u82b1\u3002\u53ef\u81ea\u90e8\u7f72\u7684 AI \u957f\u671f\u8bb0\u5fc6\u4e0e\u804a\u5929\u7f51\u5173\u3002Self-hosted AI memory & chat gateway for long-term conversations.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Yinglianchun/Serein",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T02:43:03Z"
+}
