@@ -4,7 +4,7 @@
   "repo": "herdr-logbook",
   "description": "Your terminal's working memory \u2014 offline, Markdown-first notes, decisions, and an active-task now.md for Herdr",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Resetnak/herdr-logbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T04:57:43Z"
+  "distributed_at": "2026-09-27T10:59:04Z"
 }
