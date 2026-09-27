@@ -4,7 +4,7 @@
   "repo": "BiliKit-Mac",
   "description": "\u4e3a Mac \u8bbe\u8ba1\u7684\u539f\u751f\u3001\u9ad8\u6027\u80fd\u3001\u975e\u5b98\u65b9 B \u7ad9\u6d4f\u89c8\u4e0e\u64ad\u653e\u5ba2\u6237\u7aef\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shiinayane/BiliKit-Mac",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T04:50:03Z"
+  "distributed_at": "2026-09-27T10:43:44Z"
 }
