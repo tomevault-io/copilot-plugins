@@ -1,0 +1,9 @@
+{
+  "name": "lbeilc--novelaipromptstudio",
+  "displayName": "NovelAIPromptStudio",
+  "description": "\u4ece NovelAI \u56fe\u7247\u4e2d\u6062\u590d\u3001\u6574\u7406\u3001\u7ffb\u8bd1\u5e76\u590d\u7528 Prompt\u3001\u751f\u6210\u53c2\u6570\u4e0e Vibe \u7684\u672c\u5730\u4f18\u5148\u684c\u9762\u5de5\u4f5c\u53f0\u3002",
+  "version": "1.0.0",
+  "author": "LBEILC",
+  "homepage": "https://github.com/LBEILC/NovelAIPromptStudio",
+  "skills": []
+}
