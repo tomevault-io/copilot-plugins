@@ -1,0 +1,44 @@
+{
+  "name": "oi.skill",
+  "owner": "FlashingChen",
+  "repo": "oi.skill",
+  "description": "\u82cf\u683c\u62c9\u5e95\u5f0f OI \u89e3\u9898\u5f15\u5bfc Agent Skill \u2014 \u8ba9\u4efb\u4f55 Agent \u90fd\u80fd\u4ee5\u52a9\u4ea7\u672f\u8f85\u5bfc\u4fe1\u606f\u5b66\u7ade\u8d5b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FlashingChen/oi.skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T09:46:25Z"
+}
