@@ -7,11 +7,11 @@ Apple's on-device frameworks (Vision, Core ML, RealityKit, SpeechAnalyzer, MLX .
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sygnalinc/Apple-Frameworks-for-TouchDesigner](https://github.com/sygnalinc/Apple-Frameworks-for-TouchDesigner).
+Original source: `AGENTS.md` in [sygnalinc/Apple-Frameworks-for-TouchDesigner](https://github.com/sygnalinc/Apple-Frameworks-for-TouchDesigner).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
