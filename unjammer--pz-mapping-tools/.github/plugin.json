@@ -1,0 +1,9 @@
+{
+  "name": "unjammer--pz-mapping-tools",
+  "displayName": "PZ_Mapping_Tools",
+  "description": "Unofficial Qt 5 continuation of Tim Baker\u2019s PZ mapping tools\u2014WorldEd, TileZed, and BuildingEd\u2014with 256/300-cell support, improved Lua APIs, and additional mapping tools. Based on Tim Baker\u2019s original ",
+  "version": "1.0.0",
+  "author": "Unjammer",
+  "homepage": "https://github.com/Unjammer/PZ_Mapping_Tools",
+  "skills": []
+}
