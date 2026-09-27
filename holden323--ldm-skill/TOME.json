@@ -1,0 +1,44 @@
+{
+  "name": "ldm-skill",
+  "owner": "Holden323",
+  "repo": "ldm-skill",
+  "description": "\u674e\u5927\u9b54\u7684 AI Skills \u5408\u96c6\uff1a\u628aAI\u5199\u7684\u4e2d\u6587\u6539\u6210\u4eba\u8bdd \u00b7 \u8ba9Agent\u6362\u4f1a\u8bdd\u4e0d\u4e22\u4e0a\u4e0b\u6587",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Holden323/ldm-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T11:30:46Z"
+}
