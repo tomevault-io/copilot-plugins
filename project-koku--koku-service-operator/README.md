@@ -7,11 +7,11 @@ Self managed cost management
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [project-koku/koku-service-operator](https://github.com/project-koku/koku-service-operator).
+Original source: `AGENTS.md` in [project-koku/koku-service-operator](https://github.com/project-koku/koku-service-operator).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
