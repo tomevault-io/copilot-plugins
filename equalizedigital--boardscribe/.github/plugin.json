@@ -1,0 +1,9 @@
+{
+  "name": "equalizedigital--boardscribe",
+  "displayName": "boardscribe",
+  "description": "Publish board meeting agendas and minutes on WordPress in an accessible, paginated table, built for public transparency and compliance.",
+  "version": "1.0.0",
+  "author": "equalizedigital",
+  "homepage": "https://github.com/equalizedigital/boardscribe",
+  "skills": []
+}
