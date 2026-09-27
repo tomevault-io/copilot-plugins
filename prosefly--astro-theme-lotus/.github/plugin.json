@@ -1,0 +1,9 @@
+{
+  "name": "prosefly--astro-theme-lotus",
+  "displayName": "astro-theme-lotus",
+  "description": "An installable documentation theme for Astro.",
+  "version": "1.0.0",
+  "author": "prosefly",
+  "homepage": "https://github.com/prosefly/astro-theme-lotus",
+  "skills": []
+}
