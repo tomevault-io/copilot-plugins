@@ -1,0 +1,9 @@
+{
+  "name": "aws--tools-for-devops-agent",
+  "displayName": "tools-for-devops-agent",
+  "description": "tools-for-devops-agent",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/tools-for-devops-agent",
+  "skills": []
+}
