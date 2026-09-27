@@ -4,7 +4,7 @@
   "repo": "Agent-Simulation-Environment",
   "description": "Agent-based simulation environment of the Liberata marketplace",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Liberata-Academic-Publishing/Agent-Simulation-Environment",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T10:27:04Z"
+  "distributed_at": "2026-09-27T18:46:33Z"
 }
