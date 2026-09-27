@@ -4,7 +4,7 @@
   "repo": "herdr-connect",
   "description": "Monitor and control your Herdr AI coding agents from your iPhone with this mobile companion app \u2014 read output, send follow-ups, and get notified when jobs finish, privately over LAN or Tailscale. No cloud, no accounts.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Tomyail/herdr-connect",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T00:20:35Z"
+  "distributed_at": "2026-09-27T05:10:53Z"
 }
