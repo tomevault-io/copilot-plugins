@@ -1,0 +1,9 @@
+{
+  "name": "0xdfi--glm-5-2-1m-4x-dgx-spark",
+  "displayName": "GLM-5.2-1M-4x-DGX-Spark",
+  "description": "Unpruned GLM-5.2 (744B) at 1M context on 4x DGX Spark (GB10/sm_121a) \u2014 NVFP4 compact-KV + B12X sparse-MLA + MTP-5. Tested, stable, honest measured numbers.",
+  "version": "1.0.0",
+  "author": "0xdfi",
+  "homepage": "https://github.com/0xdfi/GLM-5.2-1M-4x-DGX-Spark",
+  "skills": []
+}
