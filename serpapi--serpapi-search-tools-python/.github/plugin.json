@@ -1,0 +1,9 @@
+{
+  "name": "serpapi--serpapi-search-tools-python",
+  "displayName": "serpapi-search-tools-python",
+  "description": "Real-time web search tools for Python agents, powered by SerpApi with native support for popular agent SDKs.",
+  "version": "1.0.0",
+  "author": "serpapi",
+  "homepage": "https://github.com/serpapi/serpapi-search-tools-python",
+  "skills": []
+}
