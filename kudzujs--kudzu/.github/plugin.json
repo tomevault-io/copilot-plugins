@@ -1,0 +1,9 @@
+{
+  "name": "kudzujs--kudzu",
+  "displayName": "kudzu",
+  "description": "Compile React-shaped TypeScript and TSX into static HTML and route-specific JavaScript \u2014 no React runtime, virtual DOM, or hydration.",
+  "version": "1.0.0",
+  "author": "kudzujs",
+  "homepage": "https://github.com/kudzujs/kudzu",
+  "skills": []
+}
