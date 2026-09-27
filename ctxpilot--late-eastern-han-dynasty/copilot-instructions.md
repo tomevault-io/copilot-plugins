@@ -1,0 +1,67 @@
+## late-eastern-han-dynasty
+
+> > 本文件是给执行agent（Claude Code等）看的精简操作规则，详细设计见 `docs/` 下文档。
+
+# AGENTS.md — 执行agent必读
+
+> 本文件是给执行agent（Claude Code等）看的精简操作规则，详细设计见 `docs/` 下文档。
+> 每次会话开始前必须先读根目录 `HANDOFF.md`，再读 `docs/10-progress.md`，
+> 并扫一眼 `docs/12-system-map.md`（大系统清单与扩充顺序）与
+> `docs/35-phased-implementation-roadmap.md`（分布实施主线），
+> 按 `11-context-management.md` 的流程加载上下文。
+
+## 核心规则
+
+1. **数字真源**：武将/城市/宝物/技能等静态数据的规模数字，以 `08-data-dictionary.md` 为唯一真源。
+   `01/09/10/11` 中出现的数字均为摘要引用，若要变更规模数字，必须先改 `08-data-dictionary.md`，
+   再批量同步到其余文档，禁止只改单处。
+2. **Phase 0 先小后大**：Phase 0 已拆分为 `0-A`（小数据集验证架构：30城/9兵种(6陆+3水)/7阵型(6基础+1补录冲阵)/30技能/
+   30武将/20宝物/10女性/5子女，见 `09-roadmap.md`）与 `0-B`（扩容至全量规模）。必须先完成 0-A
+   全部验收（Zod校验通过 + 地图可渲染 + 可推进1回合 + 1次内政操作 + 1场最简战斗），
+   才能开始 0-B 的数据扩容任务。
+3. **Zod 先于 JSON**：`shared/validators`（P0-03）必须先于任何数据 JSON 文件生成完成。
+4. **进度双写**：更新 `docs/10-progress.md` 时 **必须同步更新根目录 `HANDOFF.md`**
+   （见 `00-dev-constitution.md`）。其余规范见 `00-dev-constitution.md` 与 `11-context-management.md`。
+5. **完成即文档（强制）**：**每完成一个新功能**（含 Demo 切片 / 简化版 / 占位实现），
+   必须在同一次收尾中更新：
+   - `docs/10-progress.md`（任务状态 + 会话日志；简化/占位须标明）
+   - 根目录 `HANDOFF.md`（进度双写）
+   - **所有被该功能触及的设计/接口/UI 文档**（如 `04` 规则、`06` API、`07` UI、
+     `03` 模型、`01` 摘要等）——禁止只写代码不改文档，也禁止只改进度不改相关设计说明。
+6. **自验证 + 及时记录**：任何功能改动完成后，必须先自行验证（跑起来实际点一遍/跑对应测试），
+   确认符合预期后再向用户报告"完成"；不允许仅凭代码写完就声称完成，也不允许只跑
+   typecheck/lint/Zod这类静态检查就当作功能验证——凡是要写进"怎么验证"给用户看的操作步骤
+   （点哪个按钮、选哪个选项、期望看到什么），必须自己先按这些步骤实际操作一遍确认真的能走通，
+   再写进报告，不能凭代码逻辑推断"应该可以"。验证方式和结果需要能用一两句话讲清楚给用户听。
+   验证通过后，立即按规则 5 更新进度与相关文档。如果本次实现是简化版/
+   占位版（例如规则写死的假AI、demo性质的架构），必须在会话日志里明确标注清楚，避免后续
+   被误判为对应正式任务已完成，导致依赖它的任务被跳过验收。
+7. **不确定先问；有好提议可告知用户**：实现中遇到设计未定/多种合理方案时，先问用户再选；
+   有明确可玩性/架构收益的提议可主动提出，由用户拍板后再改真源文档与代码。
+8. **先系统后细节**：扩充玩法前先对照 `12-system-map.md` 选中一个大系统 ID（S01~S27）；
+   一次会话主攻一个系统（可带最小依赖修补）；禁止并行新开多个大系统；
+   新增「并列大系统」须先改 `12-system-map.md` 再写代码。
+9. **美术版权铁律**：美术基调固定为「金石水墨·拓片简册·印信官职」三件套，仅使用公有领域
+   历史文物视觉语言（汉代画像砖/帛画/石刻拓片/竹简/官印/印绶）。详见 `00-dev-constitution.md` §十一。
+   - **禁**：商业字库（方正/汉仪等未授权）、现代立绘约稿、借鉴知名三国游戏构图、
+     二次元萌娘/页游大翅膀风、商业音效库未授权素材
+   - **准**：史书大段引用合法（《三国志》《后汉书》《资治通鉴》+裴注）；Natural Earth 等公有领域地理底图
+   - **字体资产闭环（Session 102 实装）**：禁止引用宿主系统字体（"微软雅黑"/"Arial" 等，Linux 极简发行版
+     无 CJK → 豆腐块 □□□）；必须用 `client/src/styles/fonts.css` 声明的工程内部别名
+     `HanDynastySerif`（思源宋体 SC，SIL OFL 1.1）/ `HanDynastySeal`（马善政体 Ma Shan Zheng，SIL OFL 1.1），
+     woff2 本地打包（`client/public/fonts/`，3 文件已就位 ~7MB），`font-display: block`。
+     详见 `00-dev-constitution.md` §11.3 + §11.7、`client/public/fonts/README.md`、`CONTRIBUTING.md`。
+   - **Canvas 屏障**：`client/src/App.tsx` 必须经 `waitForGameFonts()` 屏障后才渲染 Konva Stage；
+     Konva `<Text>` 必须显式 `fontFamily="HanDynastySerif"`（默认 Arial 跨平台不一致）
+   - **跨平台工程规范**：`.editorconfig` UTF-8 LF / `.gitattributes` `eol=lf` + `*.woff2 binary` /
+     GitHub Actions CI 编码门禁（typecheck/lint/test/validate-data + UTF-8 扫描）
+   - **武将头像三方案**（Phase 5 实装，已定为组合方案 A+C+B）：
+     - **A 拓片印章**（底图层）：汉代画像砖/拓片切片 20~30 张 + 宣纸纹理 + 朱砂姓名印
+     - **C 程序化拼图**（五官层）：5 脸型 × 10 冠冕 × 10 胡须 × 10 眉眼，按武将 ID 哈希派生
+     - **B 官职印信简册**（文字层）：氏族/官职篆印 + 汉制印绶颜色（紫/青/墨/黄绶）
+   - **头像数据落库**：`officers.json` 新增 `avatarGene` 字段（与 Session 100 `appearance` 战斗造型字段并存，
+     职责分离），0-A 30 武将手工填差异化 / 0-B 1000+ 武将脚本派生 + 重点人工校对
+
+---
+> Source: [CtxPilot/Late-Eastern-Han-Dynasty](https://github.com/CtxPilot/Late-Eastern-Han-Dynasty) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
