@@ -4,7 +4,7 @@
   "repo": "peanutsplit",
   "description": "Split expenses with a link. No accounts for anyone. Any currency, offline, PWA. AGPL, self-hostable.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peanutprotocol/peanutsplit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T05:18:16Z"
+  "distributed_at": "2026-09-27T12:35:52Z"
 }
