@@ -7,11 +7,11 @@ Local-first observability dashboard to monitor, compare and analyze Codex, Claud
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [DaniBelmonte/Nostraxis](https://github.com/DaniBelmonte/Nostraxis).
+Original source: `AGENTS.md` in [DaniBelmonte/Nostraxis](https://github.com/DaniBelmonte/Nostraxis).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
