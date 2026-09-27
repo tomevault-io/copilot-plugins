@@ -7,11 +7,11 @@ Local runtime for Claude Code and Codex — provider management, isolated sessio
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Aley3567/Agent-Hub](https://github.com/Aley3567/Agent-Hub).
+Original source: `AGENTS.md` in [Aley3567/Agent-Hub](https://github.com/Aley3567/Agent-Hub).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
