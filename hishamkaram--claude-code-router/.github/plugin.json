@@ -1,0 +1,9 @@
+{
+  "name": "hishamkaram--claude-code-router",
+  "displayName": "claude-code-router",
+  "description": "A local gateway that routes Claude Code sessions to OpenAI-compatible and Anthropic-compatible models, with same-session switching and visible compatibility behavior.",
+  "version": "1.0.0",
+  "author": "hishamkaram",
+  "homepage": "https://github.com/hishamkaram/claude-code-router",
+  "skills": []
+}
