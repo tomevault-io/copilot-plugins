@@ -1,0 +1,9 @@
+{
+  "name": "zoubingwu--learn-by-doing-skill",
+  "displayName": "learn-by-doing-skill",
+  "description": "An agent skill for hands-on technical learning",
+  "version": "1.0.0",
+  "author": "zoubingwu",
+  "homepage": "https://github.com/zoubingwu/learn-by-doing-skill",
+  "skills": []
+}
