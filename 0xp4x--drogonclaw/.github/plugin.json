@@ -1,0 +1,9 @@
+{
+  "name": "0xp4x--drogonclaw",
+  "displayName": "drogonclaw",
+  "description": "An autonomous, AI-powered offensive security framework. DrogonClaw uses an unrestricted ReAct engine to dynamically chain reconnaissance, exploitation, and post-exploitation workflows within isolated,",
+  "version": "1.0.0",
+  "author": "0xP4X",
+  "homepage": "https://github.com/0xP4X/drogonclaw",
+  "skills": []
+}
