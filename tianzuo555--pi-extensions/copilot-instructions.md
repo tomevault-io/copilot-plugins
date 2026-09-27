@@ -1,0 +1,38 @@
+## pi-extensions
+
+> A collection of independent extensions for the [pi coding agent](https://pi.dev) published as npm packages from a pnpm workspace monorepo.
+
+# AGENTS.md
+
+A collection of independent extensions for the [pi coding agent](https://pi.dev) published as npm packages from a pnpm workspace monorepo.
+
+## Stack & Architecture
+
+- **Runtime & Tooling:** Node 26, pnpm 11 workspaces (`pnpm-workspace.yaml`), TypeScript 7 (strict, `noEmit`, ESM).
+- **No Build Step:** Packages ship uncompiled TypeScript directly (`lib/`, `src/`). Use only erasable syntax supported by Node's type stripper: **no `enum`**, **no `namespace`**, and **no constructor parameter properties** (`constructor(readonly x: T)`).
+- **Frameworks:** [Effect v4](https://effect.website) (`effect@4.x`) for async orchestration, mutable state, and service layers. Pi runtime packages (`@earendil-works/*`, `typebox`) are peer dependencies provided at runtime; do not bundle them.
+- **Monorepo Layout:**
+  - `packages/<pkg>/` — source of truth for all extensions.
+  - `extensions/<pkg>.ts` — legacy re-export stubs; **never add logic here**.
+
+## Common Commands
+
+- Install: `pnpm install`
+- Typecheck: `pnpm run typecheck`
+- Effect check: `pnpm run check` (or scoped: `pnpm --filter <pkg> run check`)
+- Test all: `pnpm test` (or scoped: `pnpm --filter <pkg> test`)
+- Try locally: `pi -e ./packages/<pkg>`
+
+## Core Conventions
+
+- **TUI Width Safety:** All renderers (`Component.render(width)`, `setWidget`, tool renderers) must guarantee `visibleWidth(line) <= width` (e.g., via ANSI-aware truncation or wrapping).
+- **Prompt Separation:** Keep all model-facing text (tool descriptions, system prompts, schema strings) in a dedicated `prompt.ts` module (`lib/prompt.ts` or `src/prompt.ts`), separated from runtime execution logic.
+- **State & Auth:** Machine-local state and caches belong under `~/.pi/...`, never inside the repository.
+- **Publishing & Versioning:** Add a Changeset (`pnpm changeset`) for every publishable extension change; do not edit package versions or changelogs manually. To temporarily disable CI publishing for a package, set `"private": true` in its `package.json`.
+- **Fresh Pins:** `pnpm-workspace.yaml` refuses versions younger than 2 days on every install, `--frozen-lockfile` included (`ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION`); `minimumReleaseAgeStrict: false` only relaxes resolution. A younger pin is accepted only while listed in `minimumReleaseAgeExclude` — interactive `pnpm add`/`pnpm update` writes that entry, so commit it together with the lockfile. Dependabot security updates bypass `cooldown` and run `--no-save` (no entry written), so add it by hand or wait for the version to mature; otherwise `main` stays red (CI, audit, and the release gate all install frozen) until it does.
+- **Pre-push Verification:** Ensure `pnpm run typecheck`, `pnpm run check`, and `pnpm test` pass before committing.
+- **Cross-platform tests:** Tests spawn real processes only with platform-safe lifecycle. On Windows there are no process groups, `ps`, `lsof`, or signal delivery — `process.kill(-pgid)` throws EINVAL and leaves the child alive, and a leaked `spawn()` handle keeps the test-file subprocess's event loop alive forever, hanging `node --test` until the job timeout (observed: windows-latest cancelled at 20 min). Guard POSIX-semantics tests with `{ skip: process.platform === "win32" }` (see the `posix` const in `pi-antigravity/test/task-lifecycle.test.ts`) and use taskkill-aware cleanup helpers (e.g. `cleanPid`/`killTree` in `pi-antigravity/test/agy-children.test.ts`, `pi-background-terminals/manager.test.ts`). When a spawned child must survive a signal, make it prove readiness (e.g. a sentinel file written after installing its handler) before signalling — node startup under CI load outlasts fixed sleeps.
+
+---
+> Source: [TianZuo555/pi-extensions](https://github.com/TianZuo555/pi-extensions) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
