@@ -2,7 +2,7 @@
   "name": "jasy",
   "owner": "jasy-pdf",
   "repo": "jasy",
-  "description": "Monorepo including CLI, jasy-pdf and ZUGFeRD/XRechnung engine",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jasy-pdf/jasy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T01:10:34Z"
+  "distributed_at": "2026-09-27T19:13:11Z"
 }
