@@ -1,110 +1,54 @@
 ## fences
 
-> This file provides guidance to agents when working with code in this repository.
+> This file contains instructions for GitHub Copilot. It is not intended to be modified by
 
-# Coding Agent Instructions
 
-This file provides guidance to agents when working with code in this repository.
+# Copilot Instructions
 
-## Build Commands
+## How to Use This File
 
-```bash
-# Full build (clean, restore, build, test, package)
-./build.ps1
+This file contains instructions for GitHub Copilot. It is not intended to be modified by
+contributors. Human contributors should follow [CONTRIBUTING.md](../CONTRIBUTING.md), from which
+these guidelines derive.
 
-# Build only (no tests)
-dotnet build
+## What this repository is
 
-# Run all tests
-dotnet test
+Fences is a .NET resilience library — a community fork of
+[Polly](https://github.com/App-vNext/Polly), maintained by
+[Brighter Command](https://github.com/BrighterCommand). It shares an organisation with Brighter and
+Darker but **not their engineering conventions**; it inherits Polly's. Constants are `PascalCase`,
+there is no licence header, tests live in `test/`, and every public API change is recorded in a
+`.PublicAPI/` baseline.
 
-# Run a specific test project
-dotnet test ./test/Polly.Core.Tests/Polly.Core.Tests.csproj
+## Standing rules
 
-# Run a single test by filter
-dotnet test ./test/Polly.Core.Tests --filter "FullyQualifiedName~CircuitBreakerTests"
+- **Do not change the public API unless asked.** Any change you do make goes in
+  `src/<Project>/.PublicAPI/PublicAPI.Unshipped.txt`.
+- **A bug fix must include a test that fails without the fix.**
+- **Do not add or update dependencies unless asked.**
+- Do not change defaults or go beyond what was asked for.
+- Use `TimeProvider` — `DateTime.Now` and friends are banned by an analyser.
+- The build treats warnings as errors.
 
-# Run tests for a specific framework
-dotnet test ./test/Polly.Core.Tests --framework net10.0
+## Detailed Instructions
 
-# Mutation testing
-./build.ps1 -Target MutationTestsCore
-./build.ps1 -Target MutationTestsExtensions
-./build.ps1 -Target MutationTestsLegacy
-./build.ps1 -Target MutationTestsRateLimiting
-./build.ps1 -Target MutationTestsTesting
-```
-
-Lint runs in CI via GitHub Actions workflows (actionlint, zizmor, PSScriptAnalyzer).
-
-Linting for C# is enabled through analyzers configured to run during the build process.
-
-## Architecture
-
-Polly is a .NET resilience library. Version 8+ (`Polly.Core`) is a complete redesign; `Polly` (the root package) is the legacy pre-v8 API kept for backwards compatibility.
-
-### Core abstractions (`src/Polly.Core`)
-
-- **`ResiliencePipeline`** / **`ResiliencePipeline<T>`** — the main user-facing type. Wraps one or more strategies and executes them in sequence.
-- **`ResiliencePipelineBuilder`** / **`ResiliencePipelineBuilder<T>`** — fluent builder used to compose strategies.
-- **`ResilienceStrategy`** / **`ResilienceStrategy<T>`** — base class for all built-in and custom strategies.
-- **`ResilienceContext`** — per-execution context flowing through the pipeline (cancellation token, properties, result type, etc.).
-
-### Built-in strategies
-
-Strategies split into two categories:
-
-**Reactive** (respond to failures):
-
-- `RetryResilienceStrategy` — configurable backoff, jitter, attempt limits
-- `CircuitBreakerResilienceStrategy` — state machine: Closed → Open → HalfOpen
-- `FallbackResilienceStrategy` — returns an alternative value/action on failure
-- `HedgingResilienceStrategy` — fires parallel attempts and returns the fastest success
-
-**Proactive** (prevent overload):
-
-- `TimeoutResilienceStrategy` — bounds execution duration
-- `RateLimiterResilienceStrategy` (in `Polly.RateLimiting`) — wraps `System.Threading.RateLimiting`
-
-Each strategy has a corresponding `*Options` class (e.g., `RetryStrategyOptions`) that holds configuration.
-Predicates for which outcomes to handle are declared via the `PredicateBuilder` fluent API.
-
-### Supporting packages
-
-- **`Polly.Extensions`** — `IServiceCollection` extensions and telemetry/OpenTelemetry support.
-- **`Polly.Testing`** — `ResiliencePipelineDescriptor` and test helpers; accesses internals via `InternalsVisibleTo`.
-
-### Multi-targeting
-
-- `Polly.Core`: targets .NET Framework, .NET and .NET Standard.
-- Test projects: Target all supported versions of .NET plus the latest version of .NET Framework on Windows.
-- Targets for .NET 8 and later support native AoT.
-
-### Build system
-
-- **Cake** (bootstrapped by `build.ps1`) orchestrates the full pipeline via `cake.cs`.
-- **Centralized package management**: all NuGet versions in `Directory.Packages.props`.
-- **`Directory.Build.props` / `eng/Common.props`**: shared MSBuild properties (nullable enabled, warnings-as-errors, strong naming via `Polly.snk`, XML doc generation).
-- **`LegacySupport`**: a shared source project injected into `Polly` at compile time via a custom MSBuild target.
-- **MinVer** provides automatic SemVer versioning from git tags.
-
-### Testing patterns
-
-- **xUnit** for unit tests; **FsCheck** for property-based/fuzz tests.
-- Test projects access internals via `InternalsVisibleTo` declared in `eng/Library.targets` (brought in via the shared MSBuild imports).
-- `Polly.TestUtils` is a shared utilities project referenced by several test projects.
-- `Polly.AotTest` validates AOT compatibility by publishing a trimmed app.
-- Coverage is collected in CI and uploaded to Codecov.
-
-## General guidelines
-
-- Always ensure code compiles with no warnings or errors and tests pass locally before pushing changes.
-- Do not change the public API unless specifically requested.
-- Do not use APIs marked with `[Obsolete]`.
-- Bug fixes should **always** include a test that would fail without the corresponding fix.
-- Do not introduce new dependencies unless specifically requested.
-- Do not update existing dependencies unless specifically requested.
+- [Build and Development](../.agent_instructions/build_and_development.md) — build scripts, test
+  commands, mutation targets
+- [Project Structure](../.agent_instructions/project_structure.md) — the projects, target
+  frameworks, and the strategy taxonomy
+- [Code Style](../.agent_instructions/code_style.md) — C# conventions, and how they differ from
+  Brighter's
+- [Public API Changes](../.agent_instructions/public_api.md) — the `.PublicAPI/` discipline
+- [Testing](../.agent_instructions/testing.md) — TDD practice, test structure, mutation threshold
+- [Documentation](../.agent_instructions/documentation.md) — XML documentation, docfx, generated
+  snippets, ADRs
+- [ADR Frontmatter](../.agent_instructions/adr_frontmatter.md) — the ADR metadata schema
+- [Design Principles](../.agent_instructions/design_principles.md) — the architecture invariants
+- [Dependency Management](../.agent_instructions/dependency_management.md) — central package
+  management
+- [Release and Versioning](../.agent_instructions/release_and_versioning.md) — MinVer and the
+  release scripts
 
 ---
 > Source: [BrighterCommand/Fences](https://github.com/BrighterCommand/Fences) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
