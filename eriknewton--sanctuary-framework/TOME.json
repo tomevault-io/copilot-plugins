@@ -4,7 +4,7 @@
   "repo": "sanctuary-framework",
   "description": "Open-source security for AI agents: kernel-enforced egress control on macOS and Linux, keys only the operator holds, tamper-evident audit. One command protects Claude Code, Cursor, or any MCP harness. No vendor in the path.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eriknewton/sanctuary-framework",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T12:39:49Z"
+  "distributed_at": "2026-09-27T21:22:18Z"
 }
