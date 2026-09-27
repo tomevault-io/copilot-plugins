@@ -1,0 +1,9 @@
+{
+  "name": "remsky--comic-chat-web",
+  "displayName": "comic-chat-web",
+  "description": "Modern port of Microsoft Comic Chat 1996 on Cloudflare Durable Objects || Create custom strips, MCP, and live chat at comics.remsky.art",
+  "version": "1.0.0",
+  "author": "remsky",
+  "homepage": "https://github.com/remsky/comic-chat-web",
+  "skills": []
+}
