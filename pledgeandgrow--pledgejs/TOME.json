@@ -1,0 +1,44 @@
+{
+  "name": "pledgejs",
+  "owner": "pledgeandgrow",
+  "repo": "pledgejs",
+  "description": "A full-stack framework with App-directory routing, RSC streaming, SSR/SSG/ISR, edge deployment, and instant HMR powered by PledgePack, a Rust+Zig bundler for dramatically faster builds.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pledgeandgrow/pledgejs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T06:44:47Z"
+}
