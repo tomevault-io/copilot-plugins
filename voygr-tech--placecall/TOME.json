@@ -1,0 +1,44 @@
+{
+  "name": "placecall",
+  "owner": "voygr-tech",
+  "repo": "placecall",
+  "description": "The phone is your last API. Give your agent a voice to call any US business - reservations, inquiries, quotes. Verified outcome + transcript. First 250 calls free.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/voygr-tech/placecall",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T12:42:29Z"
+}
