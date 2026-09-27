@@ -1,0 +1,9 @@
+{
+  "name": "marstechhan--muxloom",
+  "displayName": "Muxloom",
+  "description": "A terminal-native control plane for persistent Codex, Claude Code, and shell sessions across local and SSH machines.",
+  "version": "1.0.0",
+  "author": "MarsTechHAN",
+  "homepage": "https://github.com/MarsTechHAN/Muxloom",
+  "skills": []
+}
