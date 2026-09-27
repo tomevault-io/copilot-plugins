@@ -1,0 +1,9 @@
+{
+  "name": "gregtech-odyssey--gtocore-main",
+  "displayName": "GTOCore-Main",
+  "description": "GTOCore main (public): com.gtocore + gtolib submodule mount",
+  "version": "1.0.0",
+  "author": "GregTech-Odyssey",
+  "homepage": "https://github.com/GregTech-Odyssey/GTOCore-Main",
+  "skills": []
+}
