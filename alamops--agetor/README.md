@@ -1,8 +1,6 @@
 # agetor
 
-> Tome by [alamops](https://github.com/alamops/agetor) — distributed by [TomeVault](https://tomevault.io)
-
-The harness orchestrator — a local-first kanban for running Claude Code, Codex, and other CLI coding agents in parallel, each in its own git worktree.
+> Tome by [alamops](https://github.com/alamops/agetor), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
