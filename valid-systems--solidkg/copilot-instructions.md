@@ -1,38 +1,48 @@
 ## solidkg
 
-> -   `npm test` - Run Jest tests
+> **Reminder: All AI usage must be disclosed in commit messages, see
 
-# Agent Instructions for pyright-scip
+**Reminder: All AI usage must be disclosed in commit messages, see
+CONTRIBUTING.md for more details.**
 
-## Development Commands
+## Build Commands
 
-### Testing
+```bash
+cargo build                    # Build all crates
+cargo test                     # Run all tests
+cargo test -p <crate>          # Run tests for a specific crate (e.g., cargo test -p hir-ty)
+cargo lint                     # Run clippy on all targets
+cargo xtask codegen            # Run code generation
+cargo xtask tidy               # Run tidy checks
+UPDATE_EXPECT=1 cargo test     # Update test expectations (snapshot tests)
+RUN_SLOW_TESTS=1 cargo test    # Run heavy/slow tests
+```
 
--   `npm test` - Run Jest tests
--   `npm run check-snapshots` - Check snapshot tests
--   `npm run update-snapshots` - Update snapshot tests
+## Key Architectural Invariants
 
-After making changes to the codebase, run tests with:
-1. `npm run build-agent` - Build the development version
-2. `npm run check-snapshots` - Run all tests including unit tests
+- Typing in a function body never invalidates global derived data
+- Parser/syntax tree is built per-file to enable parallel parsing
+- The server is stateless (HTTP-like); context must be re-created from request parameters
+- Cancellation uses salsa's cancellation mechanism; computations panic with a `Cancelled` payload
 
-### Building
+### Code Generation
 
--   `npm run webpack` - Development build
--   `npm run build` - Production build
--   `npm run watch` - Development build with watch mode
+Generated code is committed to the repo. Grammar and AST are generated from `ungrammar`. Run `cargo test -p xtask` after adding inline parser tests (`// test test_name` comments).
 
-### Formatting
+## Testing
 
--   `npm run fix:prettier` - Fix prettier formatting issues
--   `npm run check:prettier` - Check prettier formatting
+Tests are snapshot-based using `expect-test`. Test fixtures use a mini-language:
+- `$0` marks cursor position
+- `// ^^^^` labels attach to the line above
+- `//- minicore: sized, fn` includes parts of minicore (minimal core library)
+- `//- /path/to/file.rs crate:name deps:dep1,dep2` declares files/crates
 
-## Code Style
+## Style Notes
 
--   Follow existing TypeScript patterns in the codebase
--   Use the Sourcegraph ESLint config and Prettier config
--   When modifying pyright-internal code, keep changes minimal and add `NOTE(scip-python):` prefix to comments
+- Use `stdx::never!` and `stdx::always!` instead of `assert!` for recoverable invariants
+- Use `T![fn]` macro instead of `SyntaxKind::FN_KW`
+- Use keyword name mangling over underscore prefixing for identifiers: `crate` → `krate`, `fn` → `func`, `struct` → `strukt`, `type` → `ty`
 
 ---
 > Source: [Valid-Systems/SolidKG](https://github.com/Valid-Systems/SolidKG) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
