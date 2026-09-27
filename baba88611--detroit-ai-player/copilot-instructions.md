@@ -1,97 +1,131 @@
 ## detroit-ai-player
 
-> > 如果你是一个被用户交付了本仓库、要替他把这套系统跑起来的 AI agent（Claude Code、Codex 等），
+> 存放 `03_runner/` 执行实验后输出的原始结果 JSON 文件。此目录的文件由 runner 脚本自动生成，不应手动编辑。
 
-# AGENTS.md — 给 AI Agent 的部署与运行指引
+# 04_execution/results — 实验结果存储
 
-> 如果你是一个被用户交付了本仓库、要替他把这套系统跑起来的 AI agent（Claude Code、Codex 等），
-> 按本文件执行即可。它是 [README.md](README.md) 的"可执行摘要"，只讲怎么把它跑起来；
-> 项目是什么、能观测什么见 README。
->
-> *If you are an AI agent asked to deploy and run this repo for a user, follow this file.
-> It is the executable summary of README.md.*
+## 职责
 
-## 这是什么
+存放 `03_runner/` 执行实验后输出的原始结果 JSON 文件。此目录的文件由 runner 脚本自动生成，不应手动编辑。
 
-一个让 LLM 作为"玩家"自主跑通一款叙事游戏决策树的实验框架。你的任务通常是：**装好依赖 → 选一个模型后端 → 跑起来 → 把结果目录指给用户**。你不是"玩家"本身——真正做决策的是被 runner 调用的模型（API 或一个隔离的子 `claude` 进程）。
+> 本仓库不附带作者的实验结果——这个目录属于你：跑完实验后，你自己的结果会自动输出到这里。下文描述 runner 的输出格式，方便你阅读和分析自己的数据。
 
-## 前置检查
+## 文件命名规范
 
-1. **Python ≥ 3.10**（`python3 --version`）。
-2. **确认你在正确的目录**：所有命令假定在本仓库根目录下的 `03_runner/` 里运行。若用户机器上有多个副本或同名目录，**以用户交给你的那个路径为准**，别跑错副本。
-
-## 装依赖
-
-```bash
-cd 03_runner
-pip install -r requirements.txt
+```
+{chapter}_{model}_{persona}_{difficulty}_{experiment_id_short}.json
 ```
 
-## 选后端（决策树，按顺序判断）
+- `{chapter}`：章节标识，如 `ch01_the_hostage`
+- `{model}`：模型标识，对应 `02_setting/models.json` 中的 `id`
+- `{persona}`：人格设定名称，`default` 表示使用 JSON 自带的 system_prompt
+- `{difficulty}`：QTE 难度等级（`casual` / `experienced` / `hardcore`）
+- `{experiment_id_short}`：experiment_id 的前 8 位，用于区分同参数的多次实验
 
-### A. 用户有模型 API key（推荐，最通用）
+示例：
+- `ch01_the_hostage_deepseek-v4-pro_default_casual_afeed786.json`
+- `ch01_the_hostage_deepseek-v4-pro_machine_casual_5d98ec93.json`
 
-用 `--model default`，走 `03_runner/.env` 里的配置。**API key 是敏感信息——由用户自己填，你不要经手：**
+## 文件结构
 
-```bash
-cp .env.example .env      # Windows: copy .env.example .env
+每个结果文件包含以下顶层字段：
+
+```json
+{
+  "experiment_id": "完整 UUID",
+  "timestamp": "ISO 8601 时间戳",
+  "config": {
+    "model": "模型标识",
+    "temperature": 0.7,
+    "difficulty": "casual",
+    "persona": "default",
+    "language": "语言版本",
+    "chapter": "章节标识",
+    "dry_run": false,
+    "cross_chapter_state_injected": false,
+    "memory_summary_injected": false
+  },
+  "decisions": [
+    {
+      "node_id": "节点 ID",
+      "phase": "节点所属阶段",
+      "node_type": "choice / mandatory / narrative / qte_converted",
+      "timestamp": "本步完成时刻（ISO 8601）",
+      "context_shown": "发送给 AI 的场景描述",
+      "choices_shown": ["选项文字列表"],
+      "ai_response_raw": "AI 原始回复",
+      "ai_choice_id": "选项 ID",
+      "ai_choice_text": "选项文字",
+      "ai_reasoning": "AI 的决策理由",
+      "latency_ms": "模型响应耗时（毫秒；无选项节点为 null）",
+      "resolution_result": "QTE / 结局判定结果，无则 null",
+      "effects_applied": { "本步实际生效的效果（runner 内部数据，仅供分析与展示）" },
+      "state_after": { "决策后的状态快照" },
+      "messages_sent": null
+    }
+  ],
+  "ending": {
+    "id": "结局 ID",
+    "title": "结局标题",
+    "narrative": "结局叙事文字"
+  },
+  "token_usage": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0
+  }
+}
 ```
 
-- 你（agent）可替用户填**非敏感**项：`LLM_BASE_URL`（端点，如 `https://api.deepseek.com` 或 `https://api.openai.com/v1`）、`LLM_MODEL`（模型名，如 `deepseek-chat` / `gpt-4o`）。
-- **`LLM_API_KEY` 留给用户自己填**：请用户用自己的编辑器把 key 粘进 `.env`。**不要让用户在对话里把 key 发给你**，你也**不要 `cat` / `echo` / 读取 `.env` 或打印环境变量**——程序运行时会自行读取，你全程无需看到 key。
-- key 等同密码，`.env` 已被 `.gitignore` 排除，不会被提交。
+## 核心约束
 
-确认用户填好 key 后再运行。
+### 1. 只读目录
 
-### B. 用户没有 API key，但本机装了 Claude Code 并已登录
+结果文件由 runner 脚本生成后不得手动修改。需要修正实验参数时，重新执行实验生成新文件，不要编辑已有文件。这保证了实验结果的完整性和可追溯性。
 
-用 `--model claude-code`，走用户的订阅会话，**无需 `.env`、无需任何 key**：
+### 2. 不删除结果
 
-```bash
-python src/runner.py --json ../01_json/zh/ch01_the_hostage_zh.json --model claude-code
+即使实验失败或参数有误，也保留结果文件。异常结果本身是有价值的数据（如 AI 拒绝选择、解析失败等情况）。
+
+### 3. 可复现性
+
+每个结果文件的 `config` 字段必须完整记录所有实验参数（模型、温度、难度、人格、语言、章节），确保任何一轮实验都可以用相同参数重新执行。
+
+### 4. 信息隔离验证
+
+结果文件中的 `context_shown` 和 `choices_shown` 字段记录了实际发送给被测 AI 的内容。这些字段可用于事后验证信息隔离是否被正确执行——其中不应出现任何 system 层信息（概率数值、效果加减、结局条件等）。
+
+## Campaign 汇总文件
+
+当使用 campaign_runner 连续执行多章时，除了每章的单独结果文件外，还会输出一个 campaign 级汇总文件：
+
+```
+campaign_{model}_{persona}_{difficulty}_{campaign_id_short}.json
 ```
 
-- **如果你自己就是 Claude Code**：直接执行上面的命令即可。runner 会 spawn 一个带 `--safe-mode --tools ""` 的隔离子 `claude` 当玩家，正常认证。
-- **例外**：若你运行在某些托管/沙箱化环境里、子进程拿不到本地 keychain，会返回 `401 Invalid authentication credentials`。此时不要重试，改为把这条命令交给用户，让他在**普通终端**里运行。
-- 先决条件：终端能跑通 `claude`（用户装过并登录过一次）。
+汇总文件包含：
+- `campaign_id`：campaign 唯一标识
+- `status`：`complete` 表示整轮完整跑完；`partial` 表示运行中断或尚未完成的检查点
+- `progress`：`completed` / `requested` / `next_chapter_index`，标明已完成到第几章
+- `config`：实验参数（含 `chapter_count`；CLI 后端还含 `resolved_model` / `cli_version`）
+- `chapters`：各章结果的 experiment_id 列表
+- `final_cross_chapter_state`：最终跨章状态变量快照
+- `full_memory_summary`：完整的累积前情提要文本
 
-### C. 两者都没有
+**判断完整性：** 只有 `status=complete` 且 `progress.completed == progress.requested`（完整流程即 `== 32`）才是完整 campaign；`status=partial` 是逐章检查点——campaign_runner 每完成一章就覆盖写入同一文件，中断后保留最近一次进度。
 
-无法运行。告诉用户：需要**一个模型 API key**（走 A），**或**安装并登录 [Claude Code](https://claude.com/claude-code)（走 B）二选一。
+汇总文件同样遵守只读、不删除的约束。
 
-> **Codex 不能当玩家后端**：其 `read-only` 沙箱仍允许读任意文件、且无法关闭工具执行，破坏本项目的信息隔离。Codex 可以当"编排你部署"的 agent，但跑实验请用 A 或 B。
+## runs/ 目录（05_viewer 产物）
 
-## 跑起来
+用 `05_viewer/serve.py` 从浏览器开的每一局，会在 `04_execution/runs/<run_id>/` 留下 `meta.json`、`events.jsonl`（逐步事件流）、`stdout.log`、`stderr.log`。这些只服务于实时展示与排错，不入库（已 gitignore），不作为分析数据；权威结果仍是本目录的 JSON。
 
-```bash
-# 单章（第 1 章，中文版，默认人格，休闲难度）：
-python src/runner.py --json ../01_json/zh/ch01_the_hostage_zh.json --model default
+## 依赖关系
 
-# 全流程 campaign（ch01 → ch32 串联，跨章状态自动传递）：
-python src/campaign_runner.py --chapters ../01_json/zh/ch*.json --model default
-```
-
-（用 claude-code 后端时把 `--model default` 换成 `--model claude-code`。英文版把 `zh/` 换成 `en/`。）
-
-常用可选参数：`--persona <名字>`（人格，见 `02_setting/personas/`）、`--difficulty casual|experienced|hardcore`、`--temperature`。
-
-## 结果在哪
-
-结果写在 `04_execution/results/`，runner 每写一个文件都会把绝对路径打到 stderr。
-
-- **单章运行**：生成 1 个 `ch*.json`。
-- **完整 32 章 campaign**：生成 32 个 `ch*.json` + 1 个 `campaign_*.json`（共 33 个）。
-
-跑完**优先把 `campaign_*.json` 的绝对路径指给用户**（它是整轮汇总）。完整的判据：campaign 文件 `status=complete` 且 `progress.completed=config.chapter_count`；中断则为 `status=partial` 的检查点。
-
-## 硬约束（务必遵守，否则实验无效）
-
-- **不要给被测模型任何工具、不要开联网搜索**：不要把 `LLM_BASE_URL` 指向自带 web search 的聚合网关；claude-code 后端已用 `--safe-mode --tools ""` 强制隔离，**不要去掉这些开关或加工具**。
-- **信息隔离是最高红线**：被测模型只能看到 `player_facing` 层的叙事文本，绝不能接触 `system` 层（概率、状态、结局条件）。这由 runner 保证，你不要绕过。
-- **密钥不入库、不进日志**。
-
-更深的字段规范、状态机制见各目录下的 `CLAUDE.md`。
+- **由 `03_runner/` 写入：** runner 和 campaign_runner 执行实验后将结果 JSON 输出到本目录
+- **被 `04_execution/` 的分析脚本和报告引用：** 对比分析、推文内容创作均基于此目录中的数据
+- **被 `05_viewer/` 读取：** 可视化界面列出并回放本目录的结果文件
 
 ---
 > Source: [Baba88611/detroit-ai-player](https://github.com/Baba88611/detroit-ai-player) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
