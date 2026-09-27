@@ -4,7 +4,7 @@
   "repo": "witwin-channel",
   "description": "Differentiable RF Digital Twin for Wireless Research (MobiCom'26 )",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/witwin-ai/witwin-channel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T06:50:05Z"
+  "distributed_at": "2026-09-27T14:48:05Z"
 }
