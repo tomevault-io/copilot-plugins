@@ -7,11 +7,11 @@ GPU-accelerated terminal emulator library for wxWidgets with cross-platform supp
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [eranif/wxTerminalEmulator](https://github.com/eranif/wxTerminalEmulator).
+Original source: `AGENTS.md` in [eranif/wxTerminalEmulator](https://github.com/eranif/wxTerminalEmulator).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
