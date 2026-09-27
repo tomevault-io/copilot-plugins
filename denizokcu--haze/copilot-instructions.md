@@ -1,0 +1,131 @@
+## haze
+
+> Last updated: 2026-08-31 for the 1.2.0 release.
+
+# AGENTS.md
+
+Last updated: 2026-08-31 for the 1.2.0 release.
+
+Project instructions for haze coding agents. Keep this root file concise; read nested `AGENTS.md` files in the subtree you touch for precise contracts.
+
+Last analysis: 2026-08-15.
+
+## Project overview
+
+haze is a Node >=22 TypeScript ESM CLI package (`@denizokcu/haze`) for terminal-based agentic app building.
+
+Core shape:
+
+- React + Ink interactive terminal chat UI, themed through a built-in palette registry (`/themes`).
+- Vercel AI SDK with OpenAI-compatible providers.
+- Local tools for file discovery/read/search/edit/write, public URL fetch, foreground and managed background processes, LSP/MCP integration, global/project skills, image attachments, subagents/fleet, task tracking, session browsing/forking, and compaction.
+- Source lives in `src/`; generated `dist/` must not be edited.
+
+Verify current package version in `package.json` before release work.
+
+## Common commands
+
+```bash
+npm install
+npm ci                 # preferred in CI or clean checkouts
+npm run dev            # run CLI via tsx
+npm run haze           # alias for dev
+npm start              # run built dist CLI
+
+npm run typecheck      # tsc --noEmit
+npm test               # vitest run
+npm run lint           # eslint src/
+npm run context:report # estimated prompt/tool/context token breakdown
+
+npm run build          # clean + tsc
+npm pack --dry-run     # inspect published tarball
+```
+
+Before release/PR confidence: `npm run typecheck && npm test && npm run lint && npm run build`.
+
+## Repository map
+
+- `src/` — TypeScript/TSX source. See nested `src/**/AGENTS.md` files.
+- `tests/` — Vitest suite. See `tests/AGENTS.md`.
+- `bin/haze.js` — thin npm binary shim to built CLI.
+- `dist/` — generated build output; never edit directly.
+- `docs/*.html` — static docs pages in repo (`index.html` plus topic pages like `commands.html`, `tools.html`).
+
+## Global coding conventions
+
+- Strict TypeScript, ESM (`type: "module"`), NodeNext module resolution, ES2022 target.
+- Local TypeScript imports use `.js` extensions.
+- Prefer plain TypeScript for core logic; keep React/Ink in CLI/UI layers.
+- Use Zod for AI SDK tool schemas and generated-object schemas.
+- YAML parsing/writing uses the `yaml` package.
+- Avoid `any`; prefer `unknown`, type guards, or existing result types.
+- Preserve local formatting style; avoid broad formatting churn.
+- ESLint: unused vars are errors unless args start with `_`; `no-explicit-any` is an error.
+
+## Editing rules
+
+- Check `git status --short` before large work; do not overwrite unrelated user edits.
+- Never edit `dist/`, `node_modules/`, `.git/`, generated outputs, secrets, or ignored runtime state.
+- Do not edit `package-lock.json` unless dependency changes require it.
+- Prefer targeted edits over whole-file rewrites for source.
+- Do not commit, tag, publish, reset, delete, force-push, or run destructive cleanups unless explicitly requested.
+
+## Runtime contracts to preserve
+
+Recent decisions to preserve:
+
+- Runtime support floor is Node >=22. Keep docs, package metadata, and generated docs aligned.
+- Provider/model selection is explicit: do not silently fall back to the first configured provider/model.
+- Settings parsing should fail loudly for malformed files and preserve unrelated/unknown fields when patching.
+
+- No default provider/model. Users configure providers via `/provider`; no user-facing env vars for provider/model settings.
+- The provider surface stays OpenAI-compatible (plus the `chatgpt-codex` OAuth kind) for now; frontier models are reached through gateways (OpenRouter, Gemini's official OpenAI endpoint). Do not add native provider adapters without an explicit decision change — the `kind` union on `HazeProviderSettings` is the extension point.
+- File tools are confined to `process.cwd()`, respect `.gitignore` by default, and skip `.git`/`node_modules` walking; user-typed `@path` mentions and bare paths containing `/` are the exception and may bless host paths outside it for read-only tools (readFile, grep, listFiles). Mutating tools never honour the bless set. URL safety fails closed for malformed IPv6-shaped literals.
+- Secret files are hands-off for the file tools, always: SSH keys (`~/.ssh/**`, `id_*` private keys), shell history files, `.env`/`.envrc` (except `.example`/`.sample`/`.template` doc variants), `*.pem`/`*.key`, and common home credential stores (`core/safety/secretPaths.ts`). Reads and mutations are refused before any filesystem access with a terminal structured result (reason code `secret_file_protected`, `recoverable: false`, ask-the-user next step, no content echoed), the check covers lexical and real paths so symlinks cannot rename secrets into reach, and it overrides the bless set and `allowIgnored`; grep traversal excludes the names with negated-only globs appended after any model glob. The UI summarizes these as `blocked: protected secret file (path)`, distinct from ordinary failures. The shell tool is deliberately not hard-filtered; shell-side secret avoidance is instructed via the system prompt (`SECRET_FILE_RULE`), so the prompt rule and the file-tool refusal must stay aligned when either changes.
+- Output is aggressively bounded/reduced but raw large outputs may be retrievable by handle. Exact line paging uses bounded, signature-validated sparse indexes; subprocess teardown must not hang when escaped descendants retain stdio pipes; ignore rules are evaluated in-process from the repository/worktree boundary without requiring Git (reads fail open, mutation guards fail closed).
+- Failed file mutations activate read-only recovery only when their structured result explicitly requests `readFile`. Recovery state advances in the AI SDK's ordered `onStepEnd` callback, compares lexical workspace path identity (`a.ts` and `./a.ts` are equivalent), and repeated-tool suppression applies only to the immediately following step.
+- Abort causes are distinguished (user / turn deadline / model-stream idle stall). An idle stall with no emitted step output retries via the shared bounded model-retry pool (sized by the `modelRetries` setting, default 2, range 0–10; backoff base via `retryBaseDelayMs`, default 1000ms; reported as `maxRetries` in events), salvaging the conversation to the last completed step; the pool resets whenever a failed attempt completed steps since the previous retry, and an exhausted stall pauses the turn (status `failed`) preserving the active goal and exposing a one-key R resume interactively. Provider context-overflow errors recover through bounded compact-and-retry attempts with a progressively shrunk message budget (0.6 → 0.36), after which the goal checkpoints (`context_exhausted`) instead of hard-failing; silent and length-stop overflows are detected from provider usage through the classification table in `core/agent/overflow.ts`, and context estimation prefers provider usage via the turn-scoped usage anchor. Mid-turn compaction at epoch boundaries uses an LLM-written summary (iterative, split-turn aware) for large older halves and the heuristic excerpt otherwise. An attempt that ignores cancellation past a grace window is forcibly settled at turn level: owned resources close exactly once (bounded), the attempt's callbacks are permanently quarantined so late output cannot mutate the finished turn, and the turn resolves `aborted` with a truthful teardown report.
+- Completion is evidence-gated, not text-gated: a voluntary final is rejected while this turn's `writeTasks` list has pending/in-progress items or post-mutation validation is missing/stale/failed (implement/fix/test intents). Red→green is opportunistic: a fix need not capture a pre-edit failure, but if a recognized validation does fail before the first mutation, that same command must pass after the fix. Known test/build commands count automatically; custom checks use `shell` with `purpose=validation` so real process results become structured evidence. — with authority rules: validation-classified commands run under `pipefail` (POSIX), a passing validation whose unquoted command can mask a failing stage (`;`/`||`/`&` compounds) is demoted to unconfirmed (`generic`), validation-kind inference matches only the unquoted command shape, and a passing generic validation never clears a failed classifier-confirmed one (eval-hardened through model-backed adversarial evals). Rejected finals trigger autonomous goal continuation inside the same logical turn and budgets; a logical-goal supervisor (`runAgentGoal`) spans physical turns, so a step/tool budget boundary (including `tool-calls` finishes) automatically starts a fresh continuation turn against the preserved conversation while measurable progress continues and the goal deadline remains. Inside each attempt, every `ToolLoopAgent` instance is one completed SDK step wide: exact provider messages append into the next instance so prompt-cache prefixes survive routine resource rollover, while SDK result/step graphs become collectible. Active provider history is never tool-slimmed routinely; session persistence slims its own copy, and only true context-budget compaction may rewrite the provider prefix. Every supervisor boundary appends to a durable goal ledger in the session JSONL (crash-safe frontier; resumable on session resume), and headless `--until-done` relaunches transient model failures against it with a no-progress poison guard. It stops only for structured completion, hard blockers, user cancellation, the goal deadline, context exhaustion (`context_exhausted` — the supervisor pauses with the resumable checkpoint instead of relaunching the same oversized request), or one corrective physical turn without measurable outcome progress — never reporting incomplete work as `complete`. Old workspace task files never block unrelated turns; carried evidence hydrates continuation turns via seq baselines so validation debt survives the boundary.
+- Session state is JSONL under `~/.haze/sessions`; new sessions stay memory-only until the first resumable message, empty legacy files stay out of resume/latest listings, persisted sessions skip streaming `message_update` spam and slim large tool outputs, and file LLM logging under `~/.haze/logs` is enabled only by `--debug`.
+- The Ink transcript is append-only static output above a dynamic tail. Streamed assistant Markdown may move into static output only after a root block is stable; the final root remains plain and dynamic until another root begins or the response finishes. The dynamic tail (streaming roots, live tool groups, task bar) is clamped to a viewport-derived row budget so Ink never enters its scrollback-wiping overflow path; row estimates mirror Ink's own `wrap-ansi` wrapping.
+- Context files: global `~/.haze/AGENTS.md` wins over `~/.claude/CLAUDE.md`; ancestor `CLAUDE.md`/`AGENTS.md` load at startup; nested subtree files load lazily when tools touch that subtree and are reread when their signature changes.
+- Skills are Markdown instruction packages under global `~/.haze/skills/<name>/SKILL.md` or project `<workspace>/.haze/skills/<name>/SKILL.md`; they do not execute code. Project skills are untrusted repo content, real-path-confined to the workspace, visibly labeled, and take precedence over same-named global skills unless the project scope is disabled.
+- Themes are a settings-name-keyed registry: every built-in theme is one data entry in `src/ui/themes/registry.ts` (keyed by settings name; `purple` is the base/default spec), `resolveTheme` validates names loudly and `tests/ui/theme.test.ts` pins the registry keys and completeness. `theme` in settings selects the palette; `/themes` (picker or `/themes <name>`) switches it live — ChatScreen re-resolves on settings change. A theme owns both terminal defaults: OSC 10/11 are adopted at startup and restored on exit (`src/ui/terminalColors.ts`); already-rendered `<Static>` transcript keeps its old colors by design.
+
+## Testing expectations
+
+Run validation appropriate to the change:
+
+- General source: `npm run typecheck`, `npm test`, `npm run lint`.
+- Build/package: also `npm run build` and `npm pack --dry-run`.
+- Tool behavior: targeted `tests/hazeTools/*` plus relevant formatter tests.
+- Validation parser: `tests/core/validationParser.test.ts`.
+- Skills: `tests/skills/*` and example skills if public contract changes.
+
+If validation is skipped, state why in the final response.
+
+## Spec-Kit
+
+This repository uses the [spec-kit](https://github.com/github/spec-kit) workflow for AI-assisted feature development.
+Spec-kit is a convention for structuring feature specs, plans, and tasks in a `.specify/` directory so that AI agents can read and act on them.
+This project uses an opinionated local tooling layer to generate the artifacts that live there — the source of truth for the workflow itself is the spec-kit repo linked above.
+
+### `.specify/` directory
+
+| Path | Purpose |
+|------|---------|
+| `.specify/templates/` | Markdown templates for specs, plans, tasks, and checklists |
+| `.specify/memory/` | Long-lived context files (e.g. `constitution.md`) read by agents |
+| `.specify/scripts/` | Helper shell scripts for common workflow steps |
+| `.specify/hooks.yml` | CI/automation hook definitions |
+
+### How to use it
+
+- Start a new feature: `/speckit-specify` — creates a spec from a template and opens a clarification loop.
+- Generate a plan: `/speckit-plan` — converts an approved spec into a structured plan.
+- Break into tasks: `/speckit-tasks` — decomposes a plan into trackable tasks.
+- Implement: `/speckit-implement` — works through tasks and updates checklists.
+
+---
+> Source: [DenizOkcu/haze](https://github.com/DenizOkcu/haze) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
