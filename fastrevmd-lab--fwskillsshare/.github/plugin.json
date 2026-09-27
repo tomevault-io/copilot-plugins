@@ -1,0 +1,9 @@
+{
+  "name": "fastrevmd-lab--fwskillsshare",
+  "displayName": "fwskillsshare",
+  "description": "30 skills for firewall and network security work \u2014 Juniper SRX design, NAT, VPN, and MNHA playbooks; Security Director On-Prem and ClearPass deployment; cross-vendor parse, audit, convert, and diff ac",
+  "version": "1.0.0",
+  "author": "fastrevmd-lab",
+  "homepage": "https://github.com/fastrevmd-lab/fwskillsshare",
+  "skills": []
+}
