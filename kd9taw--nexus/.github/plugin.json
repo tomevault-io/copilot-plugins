@@ -1,0 +1,9 @@
+{
+  "name": "kd9taw--nexus",
+  "displayName": "Nexus",
+  "description": "An all-mode amateur radio operations center \u2014 FT8/FT4, CW (with an AI decoder), SSB phone, RTTY, SSTV, APRS and satellites in one modern app: native decode, waterfall, spots, live propagation map, POT",
+  "version": "1.0.0",
+  "author": "kd9taw",
+  "homepage": "https://github.com/kd9taw/Nexus",
+  "skills": []
+}
