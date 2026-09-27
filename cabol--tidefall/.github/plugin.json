@@ -1,0 +1,9 @@
+{
+  "name": "cabol--tidefall",
+  "displayName": "tidefall",
+  "description": "ETS-based buffer for high-throughput writes and batch processing.",
+  "version": "1.0.0",
+  "author": "cabol",
+  "homepage": "https://github.com/cabol/tidefall",
+  "skills": []
+}
