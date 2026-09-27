@@ -1,821 +1,730 @@
 ## falcato
 
-> Poder. Eficiencia. Iberofonía. Interlingua.
+> Lenguaje de bajo nivel *construido desde cero* sobre **Cranelift** (apuesta estratégica, no temporal). NO es traducción de Rust. Es **gramatipado** (la gramática española es el sistema de tipos) y **morfosemántico** (la morfología porta significado de máquina): género, tiempos verbales, ser/estar, subjuntivo.
 
 # Falcato — AGENTS.md
 
-## Filosofía del proyecto
+## Filosofía
+Lenguaje de bajo nivel *construido desde cero* sobre **Cranelift** (apuesta estratégica, no temporal). NO es traducción de Rust. Es **gramatipado** (la gramática española es el sistema de tipos) y **morfosemántico** (la morfología porta significado de máquina): género, tiempos verbales, ser/estar, subjuntivo.
 
-Poder. Eficiencia. Iberofonía. Interlingua.
-
-Falcato NO es una traducción de Rust al español. Es un lenguaje de bajo nivel
-*construido desde cero* sobre **Cranelift** — apuesta estratégica, no temporal.
-
-El sistema de tipos y semántica están diseñados aprovechando las dimensiones
-gramaticales del español que el inglés no tiene: género, tiempos verbales,
-ser/estar, subjuntivo, prefijos productivos, voz pasiva/activa, compuestos
-aglutinantes.
-
-### Visión estratégica
-
-Falcato + Cranelift + WASM = **toolchain nativa para código generado por IA**.
-
-- **Falcato**: lenguaje interlingua entre humanos (español), LLMs (lenguaje natural
-  estructurado, baja ambigüedad), y máquinas (WASM/Cranelift)
-- **Cranelift**: compilación ultra-rápida (JIT + AOT), ideal para ciclos LLM →
-  código → compilar → ejecutar → depurar
-- **WASM**: sandbox nativo para ejecución segura de código no confiable generado
-  por IA
-- **Bytecode Alliance** (Mozilla, Fastly, Intel, Arm, Google, Microsoft, Shopify):
-  alineación natural — necesitan ejecución rápida y segura de código arbitrario
-
-**Velocidad de compilación > velocidad de ejecución optimizada.**
-**Seguridad del sandbox > control total del hardware.**
-**Lenguaje cercano al humano > notación matemática.**
-
-Cranelift no es "lo que tocó" — es el backend oficial y estratégico.
-Contribuimos activamente a su ecosistema y roadmap. No planeamos migrar a LLVM.
-Si Cranelift necesita features para lenguajes nativos AOT, las implementamos.
-
-## Reglas de diseño
-
-1. **Cada palabra reservada debe aportar semántica, no solo sintaxis.**
-   No es `if` → `si`. Es usar el modo subjuntivo para codificar incertidumbre.
-   No es `fn` → `función`. Es usar el tiempo verbal para codificar modo de ejecución.
-
-2. **Cero abstracciones gratuitas.** Si una feature no se puede implementar
-   con costo cero en runtime, no pertenece al núcleo del lenguaje.
-
-3. **Explotar, no imitar.** Las features del español (género, ser/estar, etc.)
-   deben traducirse en *garantías de compilación*, no en azúcar sintáctico.
-
-4. **Iberofonía no es nacionalismo.** Es explorar si un idioma distinto al inglés
-   puede aportar algo nuevo a la ingeniería de lenguajes de programación.
+**Visión:** Falcato + Cranelift + WASM = toolchain nativa para código generado por IA. **Velocidad de compilación > velocidad de ejecución optimizada.**
 
 ## Los 5 Pilares
-
 | # | Pilar | Esencia | Estado |
 |---|-------|---------|--------|
-| I | **Género = Ownership** | `el`=owned mutable, `la`=borrowed immutable, `un`=option | ✅ Implementado |
-| II | **Ser/Estar = Const/Mut** | `es`=identidad permanente, `está`=estado temporal | ✅ Implementado (base) |
-| III | **Tiempos = Modos ejecución** | Presente=sync, Futuro=async, Subjuntivo=fallible | ✅ Subjuntivo + Futuro (18A MVP) |
-| IV | **C ABI por defecto** | Layout C, calling C, mangling off | ✅ Implementado |
-| V | **Prefijos semánticos** | `re-`=retry, `des-`=free, `pre-`=comptime | 📝 Documentados; `des-` parcial vía FFI manual |
+| I | Género = Ownership | `el`=owned mut, `la`=borrowed inmut, `un`=option | ✅ |
+| II | Ser/Estar = Const/Mut | `es`=permanente, `está`=temporal | ✅ |
+| III | Tiempos = Modos | Presente=sync, Futuro=async, Subjuntivo=fallible | ✅ |
+| IV | C ABI por defecto | Layout C, calling C, mangling off | ✅ |
+| V | ~~Prefijos semánticos~~ | ~~`re-`=retry~~ | ⛔ Retirado 2026-08-03 |
 
-### Estrategia de backend
+## Day-0 (no negociable)
+- **🚨 TODO EN ESPAÑOL**: lenguaje, errores, CLI, docs. Excepciones: términos técnicos sin traducción (Cranelift, CLIF, JSON, LSP, WASM).
+- **C ABI por defecto**: layout C, SystemV, mangling off, salida `.o`
+- **Span en cada nodo AST** — sin span no hay LSP
+- **Errores en español con códigos** `[T001] archivo.fc:7:12: mensaje` — S/T/O/C/M/I/W
+- **Documentar al agente**: cambios grandes → `falcato.md` + skill `falcato-language` en la misma tanda
+- **🚨 SEGURIDAD CRÍTICA**: red/sistema/entrada externa → revisión minuciosa antes de mergear
+- **NINGUNA ETIQUETA CAMBIA SEMÁNTICA** — etiqueta solo decide CÓMO se produce el binario
+- **`--destino` es la ÚNICA etiqueta de plataforma** — el `.fc` nunca sabe dónde corre
+- **Código portable o no compila**: builtin sin impl para target = error
+- **Impls juntas**: Windows + POSIX en la misma tanda
+- **VERSIONADO**: `MAYOR.menor.parche` — Bump en `Cargo.toml` + tag `vMAYOR.menor.parche`
+- **RELEASES EN ESPAÑOL** y **NOVEDADES POR EFECTO** (➕/🔧/🔁, no por fase)
 
-**Cranelift es el backend oficial y estratégico.** No es temporal ni migraremos a LLVM.
-Si Cranelift necesita features (mejor cold branch hinting, debug info AOT, etc.),
-las implementamos nosotros y contribuimos upstream. Bytecode Alliance comparte
-nuestra visión: código generado por IA necesita compilación rápida y ejecución segura.
+## Problemas abiertos de diseño de lenguaje
 
-### Innovación Fase 12: Concordancia de Posesión
+**Visión guía:** potencia de Rust · facilidad de Go · morfología española como superpoder para LLMs.
 
-Extensión del Pilar I con **tipos afines** como base teórica:
-- `el` = affine (usar 0 o 1 veces, owned)
-- `la` = no-lineal (usar N veces, borrowed)
-- `los`/`las` = shared ownership (reference-counted)
-- Lifetimes léxicos: `&dato Texto` en vez de `&'a T`
-- Borrow checker **gradual** (Nivel 0 permisivo → Nivel 2 estricto)
-- Diseño completo: `docs/diseno_ownership.md`
+Falcato no traduce Rust ni clona Go. Es **gramatipado y morfosemántico**: la gramática española ES el sistema de tipos, y la morfología verbal codifica modos de cómputo (presente=sync, futuro=async, subjuntivo=fallible). Eso da a los LLMs una propiedad única — el código se lee como español natural.
 
-## Innovación Implementada: Concordancia Lingüística
+Estamos en **"pasos de bebé"**: todavía hay tensiones de diseño que debemos resolver ANTES de comprometernos. Cada decisión acá es **casi irreversible** (cambia el "lenguaje sentido" durante años). Mejor resolver lento y bien que rápido y mal.
 
-Aprovechamos que en español los adjetivos **concuerdan** en género y número con
-el sustantivo. En Falcato, los valores deben "concordar" en tipo, ownership y estado.
+### Tensiones vivas
 
-**Errores intuitivos para hispanohablantes:**
+| # | Tensión | Estado | Próximo paso |
+|---|---------|--------|--------------|
+| **P-001** | Stdlib: por tipos (Go: `texto`, `archivo`, `red`) vs por intención (verbos: `hacer.archivo.leer`) | ✅ **RESUELTO 2026-08-28**: tipos fragmentados + verbos consistentes + namespaces explícitos (`::`) + conjugación como azúcar | Implementar en 0.8.0 |
+| **P-002** | Sintaxis namespace: `.` (colisión con métodos/campos) vs `::` (Rust-like) vs `snake_case` | ✅ **RESUELTO 2026-08-28**: `::` (evidencia LLMs; coma descartada) | Implementar en 0.8.0 |
+| **P-003** | Auto-import: prelude pequeño (Rust) vs todo-std auto (Python) | 🟡 Vinculado a P-001 | Diferir a 1.0 |
+| **P-004** | Doble API método/función: `t.contiene(sub)` vs `texto.contiene(t, sub)` | 🟡 Diseño inestable | Formalizar regla antes de 1.0 |
+| **P-005** | Builtins inflados: 30+ en Capa 1 (FFI) vs reducir a ~15 | 🟢 Activo | Migración gradual 0.8.x |
+| **P-006** | Default `Entero` = 32 (rompe ABI) vs 64 | 🟡 Diferido | RFC 0.8.0 con aliases |
+| **P-007** | Keyword renames: `apodo`/`alias`, `rasgo`/`protocolo`, `retornar`/`devolver` | 🟡 Diferido | Requiere `MAYOR` (1.0) |
+| **P-008** | Mensajes de error: `T001 disconcordancia` vs `no coincide` | 🟡 Diferido | Decisión de estilo 0.8.0 |
+
+#### Regla de migración de builtins (P-005)
+
+**Regla:** Builtins de **solo lectura** → Falcato puro. Builtins de **creación/escritura** → C.
+
+| Categoría | Builtins | ¿Por qué? |
+|-----------|----------|------------|
+| **Solo lectura** | `contiene`, `empieza_con`, `termina_con`, `longitud` | Solo comparan bytes, devuelven valores simples |
+| **Creación** | `mayusculas`, `minusculas`, `recortar`, `reemplazar` | Necesitan malloc para crear nuevo Texto |
+| **I/O** | `archivo_*`, `tcp_*`, `http_*` | Syscalls del SO |
+| **Hardware** | `lienzo_*`, `imagen_*`, `audio_*` | Win32/X11 APIs |
+
+**Implementación Falcato puro:**
+```falcato
+// Solo lectura — loop + comparación de bytes
+el función texto_contiene(la t: Texto, la sub: Texto) -> Booleano {
+    el largo_sub: Entero32 = texto_longitud(sub);
+    si largo_sub == 0 { retornar verdadero; }
+    el largo_t: Entero32 = texto_longitud(t);
+    si largo_sub > largo_t { retornar falso; }
+    el limite: Entero32 = largo_t - largo_sub;
+    el i: Entero32 = 0;
+    mientras i <= limite {
+        el encontrado: Booleano = verdadero;
+        el j: Entero32 = 0;
+        mientras j < largo_sub {
+            el byte_t: Entero8 = texto_obtener_byte(t, i + j);
+            el byte_s: Entero8 = texto_obtener_byte(sub, j);
+            si byte_t != byte_s {
+                encontrado = falso;
+                romper;
+            }
+            j = j + 1;
+        }
+        si encontrado { retornar verdadero; }
+        i = i + 1;
+    }
+    retornar falso;
+}
 ```
-[T001] test.fc:4:8: Disconcordancia de tipo: 'a' es 'Entero32' pero se declaró como 'Booleano'
-       │ sugerencia: Cambia el tipo a 'Entero32' o el valor
 
-[O001] test.fc:5:5: 'constante' no es mutable: se declaró con 'la' (inmutable)
-       │ sugerencia: Usa 'el constante' para hacerlo mutable
+**Builtins migrados (v0.8.0):**
+- `texto_contiene` → Falcato puro ✅
+- `texto_empieza_con` → Falcato puro ✅
+- `texto_termina_con` → Falcato puro ✅
+
+**Builtins que DEBEN quedarse en C:**
+- `texto_mayusculas/minusculas` — necesitan malloc
+- `texto_recortar` — necesita malloc
+- `vector_*` — necesitan acceso directo a memoria
+- `diccionario_*` — necesitan hashing + malloc
+- `archivo_*` — syscalls del SO
+- `tcp_*` — sockets
+- `http_*` — network I/O
+| **P-009** | Artículos opacos `el`/`la`/`un` (curva de aprendizaje) | 🟢 Activo | Tabla + sugerencias clippy |
+| **P-010** | Inconsistencia API: `archivo_escribir(ruta=Palabra)` vs `archivo_agregar(ruta=Texto)` | 🔴 Bug | F-019, fix 0.7.6 |
+| **P-011** | Concurrencia con keyword `paralelo { }` + integración con modos verbales (`fut`/`fuese`/`lanzar`) | 🟡 RFC abierta | Diseñar antes de 1.0; feature signature |
+| **P-012** | Tipos con rangos `T entre 0 y 10` | 🟡 Ya en roadmap (R7.7 F3) | Ejecutar; validar sintaxis propuesta |
+| **P-013** | Descubrimiento de API (`t.` → suggestions por tipo) | 🟢 Tooling, no lenguaje | Mejorar LSP en 0.8.0 |
+| **P-014** | Warning de `Resultado` no manejado (`must_use` español) | 🟢 Lint, no lenguaje | W-code en 0.8.0 |
+| **P-015** | Meta: no delayar features críticos (anti-Go: generics, ownership, errores desde el inicio) | 🟢 Filosofía | Documentar como principio Day-0 |
+| **P-016** | **Autofree determinístico** (el artículo ES el ownership → el compiler inserta `liberar()` con certeza). Feature crítica: completar la promesa morfosemántica. | 🟢 Activo | Diseñar RFC + escape hatch; validar contra V (que falla por adivinar ownership) |
+| **P-017** | **Complejidad accidental** (API inconsistente, comportamientos silenciosos, empaquetado manual). Epidemia de inconsistencias que penalizan a LLMs. | 🔴 Activo | Regla unificadora de API; fix por familia; ver tabla de detalle |
+
+### Detalle de problemas clave
+
+#### P-001 — Organización de stdlib
+
+**Tensión:** ¿cómo organizamos las ~50 funciones que pasarán de builtins a stdlib?
+
+- **Opción A — Por tipos (Go/Rust):** `std::texto::contiene`, `std::archivo::leer`, `std::red::get`. Familiar para devs con background en lenguajes establecidos.
+- **Opción B — Por intención (verbos):** `std::hacer::archivo::leer`, `std::saber::tiempo::ahora`, `std::decir::consola::imprimir`. Coherente con Pilar III.
+- **Opción C — Híbrido:** verbos para nivel alto (`hacer::red::get`), sustantivos para operaciones sobre datos (`texto::contiene`).
+
+**Análisis (2026-08-27):** la propuesta B (verbos puros) tiene tres fallos: (1) solapamiento entre `hacer.archivo.leer` y `leer.archivo`, (2) `.` colisiona con method-call syntax, (3) mezclar métodos y funciones viola "una sola forma de hacer cada cosa". **La idea de创新的 es integrar morfología verbal en signatures, no reorganizar namespaces.**
+
+**Decisión (2026-08-28) — DISEÑO APROBADO: "tipos fragmentados + verbos consistentes + namespaces explícitos".** Basado en evidencia de estudios sobre LLMs (namespaces se alinean con la arquitectura de atención; la sobrecarga/ADL es problemática incluso para humanos; los formatos explícitos benefician a modelos débiles). El diseño:
+1. **Tipos fragmentados por dominio** (sustantivos): `Archivo`, `Conexion`, `HttpCliente`, `Socket`, `Directorio` — cada uno con sus campos y estado.
+2. **Namespaces explícitos** (para LLMs): `archivo::abrir`, `red::abrir` — el contexto de dominio incrustado en el nombre.
+3. **Verbos consistentes** (uniformidad semántica): `abrir`, `leer`, `escribir`, `cerrar`, `conectar`, `enviar`, `recibir` son los MISMOS en todos los dominios — reduce la memorización.
+4. **Conjugación como azúcar OPCIONAL**: `abrir(archivo)` es azúcar para `archivo::abrir(archivo)` — el compilador lo expande, pero el LLM siempre puede usar la forma explícita.
+
+```falcato
+// Forma canónica (explícita, para LLMs)
+el archivo: archivo::Archivo = archivo::abrir("ruta.txt");
+el contenido: Texto = archivo::leer(archivo);
+archivo::cerrar(archivo);
+
+// Azúcar (conjugación, para humanos)
+el conexion: red::Conexion = abrir(conexion, host, puerto);
+el datos: Texto = leer(conexion);
+cerrar(conexion);
 ```
 
-## Day-0: Decisiones arquitectónicas vinculantes
+**Próximo paso:** implementar en 0.8.0. Los verbos canónicos se definen en un diccionario consultable (LSP + `falcato doc`).
 
-### C ABI por defecto (no negociable)
-- Layout de structs = C layout (`repr(C)` es el default)
-- Calling convention = SystemV/C
-- Name mangling = desactivado (símbolos literales)
-- Salida `.o` compatible con `gcc`/`clang`/`link.exe`
+> **📋 Borrador de diseño completo:** `docs/diseno_libest.md` (2026-08-28) — árbol completo de la libEst con 12 dominios (núcleo, colecciones, archivo, red, tiempo, proceso, sistema, matemáticas, visual, compat). Incluye capa visual/gráfica (ventana, control, layout, evento, color, geometria, lienzo, imagen, fuente, animacion, **sonido** para DAW R9.3, terminal_ui). Sintaxis verificada contra el compiler real (v0.7.5): `Option<T>` (no `Opcion`), `Resultado<T, E>` con 2 params, genéricos explícitos `<T>`, `Palabra`/`Texto` en español.
 
-### Span en cada nodo del AST (no negociable)
-- `Span { inicio: Posicion, fin: Posicion, archivo: Arc<str> }`
-- `Posicion { linea: u32, columna: u32, offset: u32 }`
-- Sin Span no hay errores con ubicación ni LSP futuro
+#### P-002 — Sintaxis de namespace
 
-### Errores en español con códigos (no negociable)
-- Formato: `[T001] archivo.fc:7:12: mensaje`
-- Categorías: S (sintaxis), T (tipo), O (ownership), C (FFI), M (módulos), I (interno), W (warning)
-- Sugerencia opcional en cada error
+**Tensión:** `.` ya significa method-call Y field-access en Falcato. Usar `.` para namespace requiere parser lookahead y reglas contextuales.
+
+| Sintaxis | Pros | Contras |
+|----------|------|---------|
+| `hacer.archivo.leer(...)` | "español natural" | Colisión con `.` (método/campo), parser hack |
+| `hacer::archivo::leer(...)` | Familiar Rust, parser simple | Menos "natural" |
+| `hacer_archivo_leer(...)` | Status quo | Pierde la propuesta de innovación |
+
+**Recomendación actual:** **Opción B (`::`)**. Coherente con `Resultado.Exito` (que ya se usa en pattern matching). Familiar para quien venga de Rust. Permite detectar en parse que es namespace vs method-call sin ambigüedad.
+
+**Decisión (2026-08-28) — CONFIRMADA:** `::` es el símbolo de namespace. La coma `,` queda descartada (ya es el separador universal: parámetros, campos, arrays, enums). La evidencia de estudios sobre LLMs refuerza `::`: los namespaces jerárquicos (`dominio::accion`) se alinean con la atención de los LLMs, reducen la ambigüedad, y son el patrón dominante en training data. Ver P-001 para el diseño completo.
+
+**Estado:** ✅ Resuelto en 0.8.0 con P-001.
+
+#### P-003 — Auto-import scope
+
+**Tensión:** ¿qué está disponible sin `usar`?
+
+- **Opción A — Prelude pequeño (Rust):** auto-import solo `imprimir`, `imprimir_linea`, `salir`. Resto requiere `usar std::*`.
+- **Opción B — Todo std auto (Python):** cero imports. Bueno para scripts, malo para sistemas grandes (shadowing, debugging difícil).
+- **Opción C — Híbrido:** prelude + std::núcleo auto, std::experimental explícito.
+
+**Recomendación actual:** **Opción A**. El control explícito es coherente con la Day-0 "ninguna etiqueta cambia semántica" — un import explícito es una declaración de intención, no un detalle.
+
+#### P-004 — Métodos vs funciones
+
+**Tensión:** la misma operación puede ser método (`t.contiene(sub)`) o función (`texto.contiene(t, sub)`). ¿Cuál es canónica?
+
+**Regla propuesta (a validar en 0.8.x):**
+- **Método** cuando `t` es el sujeto natural y la operación ES sobre `t`.
+- **Función en std** cuando hay DOS operandos del mismo tipo, o cuando `t` no es "sujeto".
+
+```falcato
+t.longitud()                  // ✅ método — unaria, t es sujeto
+t.contiene("hola")            // ✅ método — t es el receptor natural
+texto.unir(a, b)              // ✅ función — dos operandos del mismo tipo
+vector.agregar(v, x)          // ⚠️ ambigua: ¿método sobre v o función sobre v+x?
+```
+
+**Decisión pendiente:** la regla debe quedar escrita y ANTES de reorganizar stdlib, para no crear ambas formas accidentalmente.
+
+#### P-005 — Reducir builtins (migración gradual)
+
+**Problema:** demasiadas operaciones viven en Capa 1 (FFI C / Cranelift intrinsic) cuando deberían vivir en stdlib (Falcato puro). Builtins son costosas: 3 backends × N builtins = multiplicación de mantenimiento.
+
+**Plan:**
+- **Quedan en builtins** (irreducibles): constructores de heap (`texto_nuevo`, `vector_nuevo`), I/O primitives (`imprimir`, `imprimir_linea`), sizeof/alignment, FFI primitives.
+- **Mueven a stdlib:** todas las operaciones que se puedan expresar en Falcato puro sobre los tipos anteriores.
+
+| Builtin actual | Reemplazo en std | Versión |
+|----------------|------------------|---------|
+| `texto_agregar_texto` | `std::texto::agregar` | 0.8.0 |
+| `archivo_leer` | `std::archivo::leer` | 0.8.0 |
+| `tcp_conectar` | `std::red::tcp::conectar` | 0.8.1 |
+| `tls_conectar` | `std::red::tls::conectar` | 0.8.1 |
+| `proceso_crear` | `std::proceso::crear` | 0.8.2 |
+| `http_get` | `std::red::http::get` | 0.9.0 |
+| `json_serializar` | `std::json::serializar` | 0.9.0 |
+
+**Sin romper compatibilidad:** los nombres actuales se mantienen como aliases en `std::compat` durante 2-3 releases.
+
+#### P-011 — Concurrencia con keyword `paralelo { }`
+
+**Tensión:** no hay forma clara hoy de "corre esto en paralelo y sincroniza al final". `lanzar` es fire-and-forget; `fut` es async pero secuencial.
+
+**Propuesta (analizada 2026-08-27):**
+
+```falcato
+paralelo {
+    el a = computar(x);        // sync dentro del thread A
+    el b = computar(y) fuese;  // sync + puede fallar, thread B
+    fut c = obtener_async(z);  // async dentro del thread C
+}
+// sincronización implícita al salir del bloque (espera todos los hilos)
+```
+
+**Innovación real ≠ nombre bonito, es la integración coherente:** los modos verbales existentes (`fut`/`fuese`/`lanzar`) funcionan dentro de `paralelo { }` sin cambios. La gramática española se extiende sin forzarla.
+
+**Nota lingüística:** la propuesta inicial usaba "presente progresivo" como etiqueta, pero en español "progresivo" es un *aspecto* (gerundio), no un *modo verbal*. Los modos son indicativo/subjuntivo/imperativo. Forzar morfología verbal al bloque (`computando { }`) sería gramaticalmente forzado. **Recomendación: keyword dedicada (`paralelo`, `en_paralelo`), morfología aplicada a los verbos internos.**
+
+**Costo real:** ~150-200 LOC en parser + ~80 LOC en codegen (no ~100 como se estimó originalmente). El runtime ya tiene threads via `lanzar`.
+
+**Estado:** 🟡 RFC abierta. Diseñar antes de 1.0. **Feature signature de Falcato** si se implementa bien.
+
+#### P-012 — Tipos con rangos
+
+**Tensión:** bounds checks son verbosos, runtime, y propensos a olvidar.
+
+**Propuesta:**
+```falcato
+el x: Entero32 entre 0 y 10 = 5;          // subtipo de Entero32
+función dividir(la a: Entero32, la b: Entero32 entre 1 y 100) -> Entero32 {
+    retornar a / b;  // b ∈ [1, 100] garantizado
+}
+el i: Entero32 entre 0 y vector_longitud(v) - 1 = 0;  // válido para indexar v
+```
+
+**Estado:** 🟡 **Ya en roadmap como R7.7 F3** ("Rangos: verificación compile-time + runtime checks"). No duplicar — confirmar que la propuesta coincide y ejecutar.
+
+**Costo real:** ~500-600 LOC (mayor que la estimación inicial de 200). Cada operación aritmética debe chequear bounds; inferencia de subtipos se complica (`entre 0 y 10` es un tipo, no un literal).
+
+**Precursores:** Ada (subtypes), Zig (sentinel values), Rust (const generics limitado). Falcato puede hacerlo más legible con sintaxis natural.
+
+#### P-013 — Descubrimiento de API
+
+**Tensión:** usuarios (humanos y LLMs) tienen que memorizar o buscar la API de cada tipo.
+
+**Propuesta:**
+```falcato
+el t: Texto = texto_desde("hola");
+t.  // ← el compiler/LSP muestra métodos disponibles con firmas
+// t.contiene(otro: Texto) -> Booleano
+// t.empieza_con(prefijo: Texto) -> Booleano
+// t.longitud() -> Entero32
+// ...
+```
+
+**Estado:** 🟢 **Tooling, no lenguaje.** Ya existe el LSP; solo falta indexar métodos por tipo y exponerlos en completion. ~100 LOC en semántica + mejoras en LSP.
+
+**No es innovación** (VS Code lo tiene desde 2015 para TypeScript), pero es **necesario** para DX. Programar para 0.8.0 junto con P-005 (reducir builtins).
+
+#### P-014 — Warning de `Resultado` no manejado
+
+**Tensión:** un usuario puede aceptar un `Resultado` sin `fuese` y olvidarse de manejar el error.
+
+**Propuesta:**
+```falcato
+el r: Resultado<Texto> = procesar(dato, config);
+// [W001] Resultado no manejado. Usa `si r es Exito { ... }` o `r?`
+
+si r es Exito {
+    decir.consola.imprimir(r.valor);
+} sino {
+    decir.consola.imprimir("error");
+}
+```
+
+**Estado:** 🟢 **Lint, no lenguaje.** Patrón conocido (`#[must_use]` en Rust). ~80 LOC para análisis de flujo + emisión.
+
+**Nota:** `fuese` ya obliga a manejar (compile-time error). El warning es para el caso donde el usuario explícitamente acepta `Resultado` sin `fuese` — raro pero posible. W-code en 0.8.0, baja prioridad.
+
+#### P-015 — No delayar features críticos (anti-Go)
+
+**Principio:** generics, ownership, errores — todos desde el inicio. No esperar al "después" como Go.
+
+**Estado:** 🟢 Filosofía. Falcato YA cumple:
+- Generics: desde 0.6.x.
+- Ownership: desde el primer release.
+- Errores: `Resultado` + `?` desde el inicio.
+- Async: desde R7.
+
+**Por qué importa:** Go tardó 8 años en añadir generics (2009 → 2017 → estable 2021). Esa deuda costó: paquetes enteros reescritos, fragmentación del ecosistema, herramientas con APIs inconsistentes. **Falcato no puede permitirse esa hipoteca.**
+
+**Regla operativa:** si una feature es "necesaria para hacer el lenguaje usable", entra en 0.x. Si es "nice to have", va a roadmap. La línea está en si Cid podría escribir un programa no-trivial sin esa feature.
+
+#### P-016 — Autofree determinístico (feature crítica)
+
+**Problema:** hoy Falcato es Rust con artículos españoles. La morfosemántica es un empaque brillante, pero el motor de memoria (borrow checker con `el`/`la`/`un`/`los`/`las`) es Rust con otro disfraz. El programador (o el LLM) tiene que escribir `liberar()` a mano — la promesa morfosemántica queda a medias: el artículo declara ownership, pero el compilador no lo USA para gestionar la memoria.
+
+**La oportunidad:** Falcato YA tiene lo que a V le falta: un modelo de ownership explícito en cada variable. V's autofree falla porque **adivina** el ownership por análisis de escape (double-free, use-after-free, no puede auto-compilarse, solo cubre ~90%). Falcato **declara** el ownership con el artículo → el compilador puede insertar `liberar()` con **certeza**, no con heurística.
+
+**Propuesta (autofree determinístico por artículos):**
+- `el` = dueño → compiler inserta `liberar()` al salir del scope (caso común, sin `liberar()` manual).
+- `la`/`las` = prestado → nunca libera (el compiler sabe que no es dueño).
+- `un` = opcional → libera si está presente.
+- `los` = ref-count → libera cuando el contador llega a 0 (ya es ARC).
+- **Escape hatch:** `inseguro`/`manual` para quien quiera control fino (como `[manualfree]` de V, pero seguro porque el default es determinístico).
+
+**Por qué es innovación real (no re-empaque):**
+- **No es Rust** (Rust no libera automáticamente — obliga a RAII/drop).
+- **No es V** (V adivina; Falcato declara).
+- **No es GC** (estático, determinístico, zero-cost).
+- **Completa la promesa morfosemántica:** la gramática no solo describe el sistema de tipos, lo EJECUTA. El LLM genera `el`/`la` correctamente (gramática natural) y el compilador hace el resto — no tiene que recordar `liberar()`.
+
+**Riesgos (honestos):**
+- Requiere análisis de escape real en el compiler (hoy no existe). Trabajo no trivial.
+- Riesgo de regresión: bugs en autofree → double-free donde antes había manual. V es la advertencia.
+- Pérdida de control para quien QUIERE free manual.
+- **Recomendación:** default conservador — autofree como opt-in primero (como V), pero con la ventaja de ownership declarado. Validar contra el caso de Cid.
+
+**Estado:** 🟢 Activo. **Feature crítica** — completar la promesa morfosemántica. Diseñar RFC + escape hatch antes de implementar.
+
+#### P-017 — Complejidad accidental (epidemia de inconsistencias)
+
+**Problema:** Falcato creció por acumulación de features sin una regla unificadora de API. Cada builtin se añadió cuando se necesitó, con el tipo que parecía natural en ese momento, sin preguntarse "¿cómo se comportan sus hermanos?". Resultado: una epidemia de complejidad accidental que penaliza a los LLMs (que no pueden memorizar excepciones) y a los humanos.
+
+**Distinción clave:** complejidad **esencial** (aportar valor: ownership, generics, errores) vs **accidental** (solo dificulta sin beneficio). P-017 es sobre la accidental.
+
+**Regla unificadora propuesta:** *"Toda API debe ser consistente con su familia. Si hay dos formas de hacer lo mismo, es un bug de diseño, no una feature."*
+
+### Catálogo de complejidad accidental (por familia)
+
+**Familia 1 — Misma operación, tipos de argumento inconsistentes** (la peor)
+| Builtin | Espera | Hermano | Espera | Inconsistencia |
+|---------|--------|---------|--------|----------------|
+| `archivo_escribir` | `Palabra` | `archivo_agregar` | `Texto` | Misma familia, tipos distintos |
+| `tcp_conectar` | `Palabra` | `tls_conectar` | `Texto` | Misma red, tipos distintos |
+| `entero_a_texto` | `Entero64` | `flotante_a_texto` | `Flotante64` | Conversión, tipos arbitrarios |
+| `archivo_listar` | **crash** con `Palabra`, ok con `Texto` | — | — | Comportamiento según cómo pasas el arg |
+
+**Regla:** TODOS los builtins aceptan `Texto` y `Palabra` por igual (coerción uniforme). No hay razón para que `archivo_escribir` sea distinto de `archivo_agregar`.
+
+**Familia 2 — Comportamientos silenciosos incorrectos** (los más traicioneros)
+| Problema | Comportamiento | Riesgo |
+|----------|---------------|--------|
+| **F-020** | `"{f(x)}"` interpolación con llamada → imprime vacío | Silencio total, parece que funciona |
+| **F-021** | `a > 0` infiere `Entero32` no `Booleano` | Tipo equivocado, lógica rota |
+| **F-013** | campo `Entero64` trunca literal grande a i32 | Pérdida de datos silenciosa |
+| `archivo_listar` | literal `Palabra` → descriptor basura | Crash en runtime |
+
+**Regla:** *si no puedes hacerlo bien, da error.* Un `[S080]` en compile-time es infinitamente mejor que un vacío silencioso.
+
+**Familia 3 — API inflada y ambigua** (P-005 + P-004)
+- 30+ builtins en Capa 1 que el usuario tiene que memorizar; muchos expresables en Falcato puro.
+- Doble API: `t.contiene(sub)` Y `texto.contiene(t, sub)` — ¿cuál es canónica?
+- `texto_agregar` solo acepta literales `Palabra`, pero `texto_agregar_texto` acepta `Texto` — dos funciones para "agregar texto" con reglas distintas.
+
+**Familia 4 — Empaquetado manual de datos** (debería ser automático)
+- `terminal_dimensiones` devuelve ancho/alto empaquetados en un `Entero64` — el usuario hace bit-shifting a mano (`como_entero32(dims >> 32)`). Debería devolver un struct o dos valores.
+
+**Familia 5 — Inconsistencias sintácticas**
+- `retornar Struct { ... }` no parsea, pero asignar a variable sí.
+- `&buf[0]` vs `&buf` — el compiler convierte, pero el usuario no lo sabe.
+- `todos 0` infiere `Entero32` → falla con `[Entero8; N]`; el usuario tiene que usar `[Entero32; N]` para buffers crudos.
+
+**Familia 6 — Múltiples nombres para lo mismo** (P-007)
+`apodo`/`alias`, `rasgo`/`protocolo`, `retornar`/`devolver`, `función`/`funcion`/`fn`, `coincidir`/`emparejar`. Cada alias es una decisión extra.
+
+### Priorización
+
+| Prioridad | Problema | Esfuerzo | Impacto en LLMs |
+|-----------|----------|----------|-----------------|
+| 🔴 Alta | Coerción uniforme `Texto`/`Palabra` en todos los builtins | Medio | Elimina la peor clase de errores |
+| 🔴 Alta | Comportamientos silenciosos → errores compile-time | Bajo | El LLM ve el fallo y lo arregla |
+| 🟡 Media | `terminal_dimensiones` → struct o tupla | Bajo | Elimina bit-shifting manual |
+| 🟡 Media | Unificar doble API método/función (P-004) | Alto | Reduce ambigüedad |
+| 🟢 Baja | Renombres (P-007) | Requiere MAYOR | Menos decisiones |
+
+**Estado:** 🔴 Activo. **Regla unificadora de API como Day-0** — toda API nueva debe ser consistente con su familia. Fix por familia, no por builtin aislado.
+
+### Próximas decisiones a tomar
+
+| Plazo | Acciones |
+|-------|----------|
+| **🎯 META 0.8.0 — La gran actualización** | **Rediseño y mejora brutal del lenguaje.** Agrupa: P-002 (namespace), P-005 (reducir builtins), P-009 (artículos), P-013 (LSP), P-014 (warning Resultado), P-017 (regla unificadora API), `falcato formatea` (gofmt), stdlib HTTP+JSON (desbloquea Cid), modernizers (desbloquea P-007 renombres). Ver sección "R0.8.0 — La gran actualización". |
+| **Inmediato (0.7.6)** | P-010: fix F-019, F-020, F-021. **No romper nada.** |
+| **Corto plazo (0.8.x)** | P-005 (reducir builtins), P-009 (documentar artículos), P-013 (LSP completitud), P-014 (warning `Resultado`). **Decidir P-002 (sintaxis namespace).** **P-017: aplicar regla unificadora de API por familia (coerción `Texto`/`Palabra`, errores en vez de silencio).** |
+| **Mediano plazo (0.8.x-0.9.x)** | P-011 (diseñar `paralelo { }` con feature signature), P-012 ejecutar R7.7 F3 (rangos). **P-016 (autofree determinístico): diseñar RFC + escape hatch, validar contra V.** Validar con Cid. |
+| **Largo plazo (1.0)** | P-001 + P-003 + P-004 juntos con migration plan completo. Requiere RFC pública con casos de uso reales de Cid. P-015 seguir como principio rector. |
+| **Validación empírica** | Antes de reorganizar stdlib: esperar a que Cid genere 3 proyectos reales y observar qué patrones emergen. **No reorganizar antes de tener datos.** |
+
+### Principio guía para todas estas decisiones
+
+> **La morfología española ES el sistema de tipos.** Cualquier decisión de stdlib debe reforzar esto, no contradecirlo.
+>
+> Ejemplo: si los verbos del namespace (`hacer`, `saber`, `decir`) coinciden con los modos verbales del lenguaje (presente, subjuntivo, futuro), el código es autodocumentado:
+> ```falcato
+> hacer::red::get(url)              // presente → síncrono
+> fut hacer::red::get(url)          // futuro → asíncrono
+> hacer::red::get(url) fuese        // subjuntivo → fallible (devuelve Resultado)
+> ```
+> Esta integración namespace-morfología **sí es创新** y diferencia Falcato de todo lo demás. Pero requiere P-002 resuelto primero.
+
+> **Anti-Go: no delayar features críticos.** Generics, ownership, errores, async — todo desde el inicio. La línea divisoria: si Cid podría escribir un programa no-trivial sin esa feature, es 0.x. Si es nice-to-have, va a roadmap (ver P-015). Go tardó 8 años en añadir generics; **esa hipoteca es lo que Falcato no puede permitirse.**
+
+## Lecciones de Go (benchmark de plataforma, 2026-08-27)
+
+Go es hoy el benchmark explícito de "lenguaje ideal para AI-assisted software engineering" (Google Developers Blog, 2026-08). Compite por el MISMO público que Falcato (LLMs generando código), y en varias dimensiones de **plataforma** lo hace mejor que nosotros. La lección central: **Falcato no pierde contra Go en el lenguaje — pierde en la plataforma.** La gramática morfosemántica es genuinamente innovadora, pero Go tiene 16 años de plataforma pulida.
+
+### El gap #1: NO tenemos formateador automático (crítico para LLMs)
+
+Go tiene `gofmt` — un solo formato, enforzado por el toolchain. Todo el código Go se ve igual, sin importar quién (o qué LLM) lo escribió. Esto es crítico para LLMs porque:
+- **Datos de entrenamiento uniformes** → modelos generan mejor código en menos intentos (efecto de red).
+- **Detección de errores más rápida** → con formato predecible, un humano/LLM detecta una API alucinada o un fallo de lógica más rápido.
+- **Elimina el debate de estilo** → cero discusiones de "cómo se escribe esto".
+- **Reduce complejidad accidental (P-017)** → un solo formato canónico = menos decisiones = menos errores.
+
+**Falcato NO tiene formateador.** Cada LLM genera código con su propio estilo, y el humano tiene que descifrar la intención. Para un lenguaje cuyo público objetivo son LLMs, esto es casi un requisito de existencia.
+
+**Propuesta:** `falcato formatea` (alias `fmt`) como Day-0. Un solo estilo, enforzado. Prioridad máxima.
+
+### Los gaps de plataforma (tabla)
+
+| Herramienta Go | Falcato | Gap | Prioridad |
+|----------------|---------|-----|-----------|
+| `gofmt` | ❌ no existe | Formateo automático | 🔴 Crítica para LLMs |
+| `net/http` + `encoding/json` | `http_get` R9.0, JSON R9.1 (pendientes) | Stdlib HTTP/JSON — **bloquea Cid** | 🔴 Crítica |
+| Cross-compilation (`GOOS`/`GOARCH`) | `--destino` R8 (pendiente) | Compilar para múltiples targets | 🔴 Crítica para agentes |
+| Goroutines (M:N scheduler) | threads del OS via `lanzar` | Concurrencia masiva barata | 🟡 Alta |
+| Binario estático único | depende de runtime C (UCRT/VCRuntime) | `FROM scratch` sin dependencias | 🟡 Alta |
+| `go vet` / race detector | `verifica` (básico) | Análisis estático avanzado | 🟡 Media |
+| `go test -cover` | `prueba` | Cobertura de tests | 🟡 Media |
+| `go doc` | ❌ no existe | Documentación generada | 🟢 Media |
+| `go fix` + modernizers | ❌ no existe | Refactorización determinística | 🟢 Media |
+| Promesa de compatibilidad Go 1.0 | aliases, sin promesa formal | Garantía "código de hace 15 años compila hoy" | 🟢 Media |
+| `defer` | ❌ no existe | Limpieza idiomática de recursos | 🟢 (P-016 lo reduce) |
+| `context.Context` | ❌ no existe | Cancelación/deadlines estándar | 🟡 Alta para agentes |
+| `slog` (logging estructurado) | ❌ no existe | Logs estructurados en stdlib | 🟢 Media |
+| `range-over-func` | `para` sobre arrays/vectores/rangos | Iteradores arbitrarios | 🟢 Media |
+| `maps`/`slices` packages | Diccionario/Vector | Utilidades estándar anti-bugs | 🟢 Media |
+
+### El patrón común
+
+Falcato se ha centrado en el **lenguaje** (gramática, tipos, ownership) pero no en la **plataforma** (tooling, stdlib, runtime). Go ganó porque es "no solo un lenguaje, es una plataforma" — y para LLMs, la plataforma importa tanto como el lenguaje.
+
+### Lo que Go hace bien que DEBERÍAMOS copiar (sin vergüenza)
+
+| Gap | Prioridad | Esfuerzo |
+|-----|-----------|----------|
+| `falcato formatea` (gofmt) | 🔴 Crítica para LLMs | Bajo |
+| Stdlib HTTP + JSON (desbloquea Cid) | 🔴 Crítica | Medio |
+| Cross-compilation (`--destino`) | 🔴 Crítica para agentes | R8 |
+| Scheduler de goroutines (M:N) | 🟡 Alta | Alto |
+| Binario estático | 🟡 Alta | Medio |
+| `go vet` / race detector | 🟡 Media | Medio |
+| `go doc` | 🟢 Media | Bajo |
+| Promesa de compatibilidad formal | 🟢 Media | Bajo (política) |
+
+### Principios de diseño del estudio de Google (2026-08-11)
+
+El estudio "Why Go is an Ideal Language for AI-Assisted Software Engineering" (Google Developers Blog) revela principios accionables para Falcato:
+
+- **De escribir a revisar:** el bottleneck de la ingeniería con AI pasa de la generación a la **verificación**. Todo el toolchain debe optimizar revisar/verificar/mantener, no escribir.
+- **Ingeniería ≠ programación:** programar es resolver un problema; ingeniería es construir un sistema durable que un equipo (humano+AI) mantiene años. Falcato debe optimizar para lo segundo.
+- **AI y humanos tienen necesidades similares:** lo claro para humanos es claro para AI (y viceversa). No diseñar "para AI" por separado.
+- **Loop de auto-corrección:** "un primer paso 95% correcto, pasos compuestos degradan precisión y contaminan el contexto". Compilador rápido + formateador + verificación = loop barato de genera→verifica→arregla.
+- **Readability over writability:** legibilidad > escritura. Para AI = predictabilidad, explicitismo, estructura rígida. Conecta con P-017 (una forma de hacer cada cosa).
+- **Batteries-included = seguridad:** los LLMs sugieren dependencias stale/maliciosas de su training data. Una stdlib completa guía a usar paquetes oficiales → reduce superficie de supply chain. Refuerza R9.1 (JSON) y R9.0 (HTTP) como prioridades de **seguridad**, no solo conveniencia.
+- **Compatibilidad = requisito de seguridad/operación:** no lujo. Permite que código generado hoy funcione mañana.
+- **El lenguaje es MÁS importante que nunca con AI:** contraintuitivo pero cierto — un lenguaje claro+predecible+con toolchain vale más cuando AI escribe la mayoría del código.
+
+### Features de plataforma a adoptar (del estudio)
+
+| Feature Go | Falcato | Esfuerzo |
+|------------|---------|----------|
+| `go fix` + **modernizers** (migra patrones viejos determinísticamente) | ❌ | Desbloquea P-007 (renombres sin miedo) |
+| **Fuzzing nativo** en test framework | ❌ | Medio |
+| `govulncheck` (solo CVEs que tu código llama) | ❌ | Medio |
+| **PGO** (profile-guided optimization) en `--lanzar` | ❌ | Medio |
+| Profiling + execution tracing integrados | `perfil_*` básico | Medio |
+| **go-skills** (ecosistema de skills para agentes) | skill `falcato-language` única | Bajo |
+
+### Veredicto honesto
+
+Falcato no pierde contra Go en el lenguaje — pierde en la plataforma. El mayor error estratégico: **no tener formateador automático** (casi requisito de existencia para un lenguaje de LLMs) y **no tener HTTP/JSON** (bloquea a Cid, el primer dogfooding real).
 
 ## Stack técnico
+- **CLI:** `clap` 4.5 | **Lexer:** `logos` 0.14 | **Parser:** descendente manual + Pratt | **AST:** propio con span
+- **Semántica:** Concordancia Lingüística | **Codegen:** `cranelift-codegen` 0.112 | **LSP:** `tower-lsp` 0.20
+- **Target:** x86_64 Windows (msvc) | **Build:** `build.ps1` | **Estilo:** Rust inglés en compiler, español snake_case en lenguaje
 
-- **CLI:** `clap` 4.5 (Rust)
-- **Lexer:** `logos` 0.14 — errores léxicos reportados con span real
-- **Parser:** descendente manual modular (Pratt parser), recovery de errores, spans reales
-- **AST:** Propio con Span obligatorio, métodos `span()` en nodos
-- **Semántica:** "Concordancia Lingüística" — tipos + ownership + bounds
-- **Codegen:** `cranelift-codegen` 0.112 (puro Rust), spans reales, IDs únicos para strings
-- **LSP:** `tower-lsp` 0.20 — diagnósticos, autocompletado, hover, go-to-definition, find-references
-- **Testing:** 40 tests unitarios pasando
-- **Target:** x86_64 Windows (msvc)
-- **Build:** `build.ps1` (auto-detecta Visual Studio)
+### Patrones Cranelift (críticos)
+1. Loop header: NUNCA sellar antes del back-edge. Sellar DESPUÉS del `jump`.
+2. Cadena if/else con 1 predecesor: sellar inmediato es seguro.
+3. `compilar_sentencia` crea sub-bloques: padre sellado ANTES de llamarla.
+4. SSA dominance: valores de bloque A no se usan en bloque no-dominado.
+5. `iconst` 2º arg: siempre `i64`.
+6. `create_sized_stack_slot` (no `create_stack_slot` en 0.112).
+7. `FunctionBuilderContext`: desde `cranelift_frontend`.
+8. `define_function(func_id, &mut ctx)` — 2 args.
+9. Doble sellado = panic.
+10. `Linkage::Local` para funciones con cuerpo, `Import` solo para FFI.
 
-### Patrones Cranelift aprendidos (críticos para codegen)
-
-1. **Loop header sealing**: NUNCA sellar el loop header antes del back-edge. Sellar DESPUÉS del `jump` de regreso al header.
-2. **Cadena if/else con 1 predecesor**: Cada bloque de la cadena tiene exactly 1 predecesor → sellar inmediato es seguro.
-3. **`compilar_sentencia` crea sub-bloques**: El bloque padre debe estar sellado ANTES de llamar `compilar_sentencia`, porque internamente crea bloques (condicionales, loops) que resuelven SSA contra el padre.
-4. **SSA dominance**: Valores definidos en un bloque NO pueden usarse en bloques no-dominados. Crear constantes separadas por bloque.
-5. **`JumpTableData` en 0.112**: Requiere `BlockCall::new(block, &[args], &mut ValueListPool)` — API compleja. Preferir cadena if/else para dispatch simple.
-6. **`iconst` segundo argumento**: SIEMPRE `i64`. Usar `0xFFFFFFFF_u32 as i64` para INFINITE.
-7. **`create_sized_stack_slot`**: No `create_stack_slot` (no existe en 0.112).
-8. **Tokens parser**: `ParenAbre`/`ParenCierra` (no `ParentesisAbre`/`ParentesisCierra`).
-9. **`FunctionBuilderContext`**: Importar desde `cranelift_frontend`, no `cranelift_codegen::ir`.
-10. **`define_function`**: Toma 2 args: `(func_id, &mut ctx)`.
-11. **Doble sellado = panic**: `assertion failed: !self.is_sealed(block)` significa que se selló un bloque dos veces. Verificar flujo de sellado.
-12. **Funciones internas vs externas**: `Linkage::Local` para funciones con cuerpo (define_function). `Linkage::Import` solo para FFI sin cuerpo.
-
-## Pipeline Funcional End-to-End
-
+### Platform Runtime Layer (3 capas)
 ```
-archivo.fc → Lexer → Parser → Análisis Semántico → Codegen (Cranelift) → .o → Linker → .exe
+Capa A — C Runtime (lib/falcato_runtime/): ops multi-paso → staticlib
+Capa B — PlatformRuntime trait (src/platform/): primitivas sync → windows.rs/linux.rs/macos.rs
+Capa C — BuiltinRegistry (src/platform/registry.rs): remapeo nombre→función C
+```
+**Regla de oro:** codegen NUNCA hace `#[cfg(target_os)]`.
+
+## Pipeline
+```
+.fc → Lexer → Parser → Analisis Semantico → Codegen (Cranelift) → .o → Linker → .exe
 ```
 
-## Estructura del proyecto Rust
-
+## Estructura del proyecto
 ```
 src/
-├── main.rs              # CLI (clap) — build, run, check, version, lsp
-├── span.rs              # Span + Posición
-├── error.rs             # Errores en español con códigos alfanuméricos
-├── lexer.rs             # Lexer (logos) — tokens, keywords, artículos, operadores, arrays, ser/estar, subjuntivo, alias fn
-├── parser/              # Parser modular manual
-│   ├── mod.rs           # ParserCursor (lookahead, spans, recovery, scope de type params), ParserFalcato, tests
-│   ├── errores.rs       # ErrorSintaxis con códigos [S###], sugerencias
-│   ├── tipos.rs         # parse_articulo(), parse_tipo() incluyendo [T; N], genéricos, bounds
-│   ├── expresiones.rs   # Pratt parser + arrays + structs + enums + postfix
-│   ├── sentencias.rs    # Variables, asignación, condicionales (ser/estar/subjuntivo), bucles (mientras/para)
-│   └── declaraciones.rs # Funciones genéricas, structs, enums genéricos, parámetros con bounds
-├── ast.rs               # AST con Span — Expr, Sentencia, Declaración, Tipos, ModoVerbal, ParametroGenerico
-├── semantic.rs          # Concordancia Lingüística + Ownership + Arrays + Structs + Enums + Llamadas + Bounds
-├── codegen.rs           # Codegen Cranelift — funciones, variables, ops, condicionales, bucles, arrays, structs, enums, monomorfización
-└── lsp.rs               # Servidor LSP — diagnósticos, autocompletado, hover, go-to-definition
+├── main.rs, span.rs, error.rs, lexer.rs, parser/, ast.rs
+├── semantic/ (mod, tipos, ownership, funciones, sentencias)
+├── codegen/ (mod, funciones, sentencias, expresiones, generics, tipos) + builtins/
+├── platform/ (mod, registry, traits, linker, windows, linux, macos)
+├── futuros.rs, resolver.rs, backend.rs
+└── lsp/ (mod, indice, completar, diagnostico, hover, referencias)
+lib/falcato_runtime/   # Canal, Executor, Thread — staticlink
 ```
 
-## Historial de Fases (resumen)
+## Estado del proyecto (v0.7.5)
+Pipeline end-to-end operativo. Turing-completo:
+- **Core:** variables, ops, condicionales, bucles, arrays, structs, enums, generics, apodos
+- **Ownership:** `el`/`la`/`un`/`los`/`las`, `&T`/`&mut T`, field-level borrowing, lifetimes, `puro`/`muta`/`lee`
+- **Async:** threads, TCP, canales mpsc, thread pool, `seleccionar { }`
+- **Built-ins:** Texto, Vector, Diccionario, Conjunto, Resultado, Option, bitwise, I/O, file I/O, math, trig, sizeof
+- **Aritmética consciente:** `a + b fuese` (checked), `un x = a + b` (Option), `romper`/`continuar`
+- **Two-pass:** forward refs + shadowing T031-T035
+- **v0.7.5 (2026-08-21):** coerción polimórfica `42`→`Entero64`/`Natural`, azúcar `42 largo`/`natural largo`/`corto`, profiling `reloj_mono_ns`+`perfil_*`, cross-file `verifica a.fc b.fc`, fixes F-008/F-009/F-013/F-014/F-016/F-017
+- **54/54 tests + 19 unitest. 76/83 ejemplos compilan** (7 intencionales)
 
-- **Fase 1-3:** Core del lenguaje (variables, operaciones, condicionales, bucles, ownership básico) + pulido (spans, recovery de errores, LSP).
-- **Fase 3.5:** Arrays (`[T; N]`, literales, `todos`, acceso, asignación a elementos).
-- **Fase 4:** Structs con layout C (`estructural Punto { ... }`).
-- **Fase 5:** Verificación de llamadas, Ser/Estar (`es`/`está`), Subjuntivo (`fuese`).
-- **Fase 6:** Bucle `para` sobre arrays.
-- **Fase 7:** Enums tag+union con constructores y pattern matching.
-- **Fase 8A:** Const generics (`función longitud<N: Entero32>(...)`).
-- **Fase 8B:** Base AST/parser para enums genéricos (`enumeración alguno<T> { ... }`).
-- **Fase 8C:** Type generics con bounds (`fn máximo<T que Comparable>(...)`), alias `función`/`funcion`/`fn`, monomorfización por tipo concreto.
-- **Cold block optimization para Subjuntivo**: reordenamiento de bloques Cranelift (else hot path en línea, then cold path afuera).
-- **Ser/Estar real**: `ModoVerbal::Estativo`, bare `está` como truthiness check (enteros/booleanos/punteros, no floats).
-- **Find references en LSP**: handler `references` con traversal completo del AST.
-- **Fase 9 / 9.5:** Módulos e imports (`módulo`, `usar`, visibilidad `el`/`la`, multi-archivo, glob imports, type-checking cross-file).
-- **Backend trait + Resolver multi-archivo**: abstracción de codegen y resolución de dependencias entre archivos.
-
-## Features Implementadas
-
-### ✅ Core del lenguaje
-- Variables con tipos explícitos (`el x: Entero32 = 10`)
-- Operaciones aritméticas con precedencia (`+`, `-`, `*`, `/`, `%`)
-- Operaciones de comparación (`==`, `!=`, `<`, `>`, `<=`, `>=`)
-- Operadores lógicos (`&&`, `||`, `!`)
-- Asignación (`x = expr`) a identificadores y elementos de array
-- Retorno (`retornar valor`)
-
-### ✅ Control de flujo
-- Condicionales `si` / `sino` con modo indicativo, ser/estar y subjuntivo
-- Bucles `mientras`
-- Bucles `para` sobre arrays (`para num en nums { ... }`)
-
-### ✅ Ownership (Pilar I)
-- `el` = mutable (owned)
-- `la` = inmutable (borrowed)
-- Verificación en tiempo de compilación
-- Errores con sugerencias de artículos
-- **`mover x`** — transferencia explícita de ownership
-- **`copiar x`** — clone explícito
-- **Use-after-move detection** (Nivel 1: `verificado`)
-- **Borrow checker gradual**: Nivel 0 (permisivo) → Nivel 1 (`verificado`) → Nivel 2 (`estricto`)
-- Error `[O001]` con sugerencia concreta para use-after-move
-- **Referencias**: `&T` (inmutable), `&mut T` (mutable), `*ref` (dereferencia)
-- **Borrowing rules** (Nivel 2): 1 mutable XOR N inmutables, errores `[O002]`/`[O003]`/`[O004]`
-- **Field-level borrowing**: `&mut punto.x` vs `&mut punto.y` no conflictúan (resuelve false positive de Rust)
-- **Lifetimes léxicos**: `&dato Texto` en vez de `&'a T` — el lifetime ES el nombre de la variable
-- **Regiones**: `región nombre { ... }` — arena allocation determinístico, variables se liberan juntas
-- **Self-referential structs**: `&yo T` en campos de struct (resuelve limitación fundamental de Rust)
-- **Anotaciones de efecto**: `puro`, `muta(campo)`, `lee(campo)` — el compiler razona entre funciones
-- **Branch-aware liveness**: borrows mueren por rama del CFG (resuelve limitación de Rust)
-- **Artículos extendidos**: `los` = shared ownership (reference-counted), `las` = shared borrowed (solo lectura)
-- **Feedback educativo**: errores con múltiples opciones de fix (opción A, B, C)
-
-### ✅ Semántica
-- Verificación de tipos ("disconcordancia")
-- Detección de variables no declaradas
-- Verificación de retornos
-- Verificación de condiciones Booleanas
-- Verificación de firmas de funciones (cantidad y tipos de argumentos)
-- Bounds declarativos (`T que Comparable` / `T que Ordenable`)
-
-### ✅ Spans reales
-- Span en cada nodo AST: expresiones, sentencias, declaraciones, bloques
-- Spans combinados: expresiones binarias/unarias cubren todo el operando
-- Spans de funciones, parámetros, structs, enums
-
-### ✅ Pulido de calidad
-- **Lexer**: errores léxicos reportados con span real
-- **Parser**: recovery de errores con sincronización hasta siguiente declaración
-- **Semantic**: constantes nombradas para códigos de error
-- **Semantic**: mensajes de error en español con metáfora de "concordancia gramatical"
-- **Codegen**: spans reales en errores, IDs únicos para strings
-
-### ✅ LSP (Language Server Protocol)
-- **Diagnósticos en tiempo real**: lexer + parser + semántica al escribir
-- **Spans reales**: errores subrayados con ubicación exacta
-- **Autocompletado**: keywords, artículos (el/la/un), tipos primitivos
-- **Hover information**: tipo y artículo de variables al pasar el cursor
-- **Go to definition**: saltar a la declaración de variables y funciones
-- **Índice semántico**: construido desde el AST para navegación rápida
-- **Find references**: navegación a todas las referencias de un símbolo
-- **Comunicación stdio**: compatible con VS Code, Vim, Emacs
-
-### ✅ Arrays
-- Tipo `[T; N]`: `los nums: [Entero32; 5]`
-- Literal array: `[1, 2, 3]`
-- Inicialización `todos expr`: `todos 0`
-- Acceso por índice: `nums[0]`, `nums[i]`
-- Asignación a elementos: `nums[2] = 30`
-- Stack allocation, aritmética de punteros I64
-
-### ✅ Structs
-- Declaración: `estructural Punto { x: Entero32, y: Entero32 }`
-- Inicialización: `el p: Punto = Punto { x: 10, y: 20 }`
-- Acceso a campos: `p.x`, `p.y`
-- Layout C con alineación automática
-- Verificación semántica completa
-
-### ✅ Enums
-- Declaración: `enumeración Estado { Activo, Inactivo }`
-- Variantes con datos: `Exito(valor: Entero32)`
-- Constructor: `Estado.Activo`, `Resultado.Exito(42)`
-- Pattern matching: `si estado es Estado.Activo { ... }`
-- Layout tag+union en codegen (I32 tag + datos)
-- Verificación semántica: variantes existen, tipos concuerdan
-- Base AST/parser para enums genéricos (`enumeración alguno<T> { ... }`)
-
-### ✅ Generics
-- **Const generics**: `función longitud<N: Entero32>(los nums: [Entero32; N]) -> Entero32`
-- **Type generics**: `fn máximo<T que Comparable>(el a: T, el b: T) -> T`
-- **Bounds declarativos**: `que Comparable`, `que Ordenable`
-- Monomorfización en punto de llamada (const + type)
-- Inferencia de type params desde tipos de argumentos
-
-### ✅ Ser/Estar + Subjuntivo
-- `si x es 5` — identidad permanente (==)
-- `si x está 10` — estado temporal (==; semántica de estado futura)
-- `si x está { ... }` — bare está: truthiness en enteros/booleanos/punteros
-- `si x fuese es 100` — subjuntivo, cold path semántico
-- `ModoVerbal::Indicativo | Estativo | Subjuntivo` en AST
-- Cold block: subjuntivo reordena ramas (else hot path en línea, then cold path afuera)
-
-### ✅ Módulos e imports (Fase 9 / 9.5)
-- Declaración de módulos (`módulo nombre { ... }`)
-- Importación explícita (`usar modulo::simbolo`)
-- Importación glob (`usar modulo::*`)
-- Visibilidad con artículos (`el función` = pública, `la función` = privada)
-- Default: top-level de archivo = público; dentro de módulo = privado
-- Namespaces y resolución de nombres con spans
-- Compilación multi-archivo desde CLI (`falcato build a.fc b.fc`)
-- Codegen unificado: todos los módulos en un solo ObjectModule
-- Type-checking cross-file real con mapa de símbolos públicos compartido
-
-### ✅ Traits / rasgos (Fase 13)
-- Declaración de rasgos: `rasgo Nombre { función ...; ... }`
-- Implementación: `implementar Rasgo para Tipo { función ... { ... } ... }`
-- Verificación semántica: rasgo existe, métodos requeridos están presentes
-- Error `[T060]` si rasgo no existe
-- Error `[T061]` si falta método requerido
-- Base para bounds reales (`que Comparable` como trait lookup)
-
-### ✅ Método syntax generalizada + Operadores compuestos (Fase 15F)
-- `MetodoBitwise` → `Metodo` generalizado: `t.agregar()`, `t.tam()`, `t.liberar()`, `v.agregar()`, etc.
-- Tabla de dispatch por tipo: Texto, Vector, Enteros (bitwise)
-- `+` para Texto: `a + b` → `texto_concatenar(a, b)`
-- `[]` para Texto: `t[0]` → `texto_obtener_byte(t, 0)`, `t[0..5]` → `texto_subtexto(t, 0, 5)`
-- `[]` para Vector: `v[0]` → `vector_obtener(v, 0)`
-- Aliases: `devolver`/`retornar`, `emparejar`/`coincidir`, `decir`/`imprimir_linea`, `texto_tam`/`vector_tam`
-- Bypass polimórfico para `decir` en semántica
-- Removido `t.desde()` de tabla de métodos (sin sentido semántico)
-
-### ✅ Bitwise + I/O + Interpolación (Fase 14A)
-- Operadores bitwise type-safe: `& | ^ << >> ~ >>>`
-- Precedencia C estándar: `|| < && < | < ^ < & < == < < < << < + < *`
-- `>>>` shift lógico derecho (zero-fill siempre, incluso para signed)
-- Type-safe: solo enteros, error `[T001]` con sugerencia si se usa en float/bool
-- Built-ins I/O: `imprimir(msg)`, `imprimir_linea(msg)` — sin FFI manual
-- String interpolation: `imprimir_linea("x = {x}, y = {y}")` — type-aware
-- `tamaño_de::<T>()` — sizeof comptime (Entero8=1, Entero32=4, [T;N]=N*sizeof(T))
-- Sintaxis genérica directa: `nombre::<Tipo>(args)` (sin ruta de módulo)
-- Linker: `legacy_stdio_definitions.lib` para printf en Windows SDK moderno
-
-### ✅ Tooling
-- CLI con 5 comandos (build, run, check, lsp, version)
-- Script `build.ps1` automático
-- 40 tests unitarios pasando
-- Folder `ejemplos/` limpio (solo `.fc`)
+## Tipos naturales
+| Categoría | Nombre | Equiv. |
+|-----------|--------|--------|
+| Entero | `Entero` | `Entero32` |
+|  | `EnteroLargo` | `Entero64` |
+|  | `EnteroCorto` | `Entero16` |
+|  | `EnteroMínimo` | `Entero8` |
+| Natural | `Natural` | `Natural32` |
+| Real | `Real` | `Flotante64` |
+| Lógico | `Lógico` | `Booleano` |
+```falcato
+apodo ID = Entero64;
+el id: ID = 1234567890123;
+```
 
 ## Comandos CLI
-
 ```bash
-falcato build <archivo.fc>    # Compila a binario nativo .exe
-falcato run <archivo.fc>      # Compila y ejecuta
-falcato check <archivo.fc>    # Solo análisis (lexer + parser + semántica)
-falcato lsp                   # Inicia servidor LSP (stdio)
-falcato version               # Muestra versión
+falcato compila <file.fc> --salida out.exe
+falcato corre <file.fc>
+falcato verifica <file.fc>        # multi-archivo: verifica a.fc b.fc
+falcato prueba <file.fc>
+falcato lsp
+falcato instala --todo
 ```
 
-## Convenios
+## Plan R9.x — Integración nativa de Forge (`nuevo` / `limpia` / `vigila`)
 
-- Código fuente: `.fc`
-- Documentación en español (salvo código/comentarios técnicos internacionales)
-- Nombres de funciones/tipos: español, snake_case
-- Constantes: NOMBRE_MAYUSCULA
-- Código Rust del compilador: inglés
-- Versión: SemVer hasta 1.0
+Herramienta externa ofrecida (`forge`, Python) — la absorbemos como comandos nativos
+en Rust, en español e integrados con el CLI actual. Sin dependencias nuevas
+(polling con `std` en vez de `watchdog`).
 
-## Estado actual
+### `falcato nuevo <nombre>` — scaffold de proyecto ejecutable
+- Crea carpeta `<nombre>/`.
+- **Reusa** `paquete inicia`: genera `falcato.toml` + `falcato.lock` (mismo formato del
+  sistema de paquetes, `paquetes::Manifiesto` / `LockFile`).
+- Crea `main.fc` con punto de entrada **correcto** de Falcato:
+  `función principal() -> Entero32 { retornar 0; }`
+  (corrige el bug del forge original que generaba `fn main()`, que Falcato no reconoce).
+- Crea `build/` (directorio de salida que luego limpia `limpia`).
+- Alias ocultos: `new`, `crear`.
 
-**Fase 18A-18D COMPLETADA (Async: threads + TCP + canales + thread pool + cancelación).**
-Pipeline end-to-end operativo. Turing-completo con variables, operaciones aritméticas,
-condicionales, bucles, ownership básico, **arrays**, **structs**, **enums**,
-**verificación de tipos en llamadas**, **Ser/Estar** (`es`/`está`),
-**Subjuntivo** (`fuese`), **`para`**, **const generics**, **type generics con bounds**,
-**módulos e imports** (`módulo`, `usar`, visibilidad `el`/`la`, multi-archivo),
-**strings heap (`Texto`)**, **vectores dinámicos (`Vector<T>`)**, **FFI a C runtime**,
-**manejo de errores (`Resultado<T,E>`, operador `?`, pattern matching con `como`)**,
-**ownership con `mover`/`copiar`**, **use-after-move detection (Nivel 1: `verificado`)**,
-**borrow checker gradual (Nivel 0/1/2)**,
-**referencias (`&T`, `&mut T`, dereferencia `*ref`)**,
-**borrowing rules (1 mut XOR N inmut, Nivel 2: `estricto`)**,
-**field-level borrowing (`&mut punto.x` vs `&mut punto.y` no conflictúan)**,
-**lifetimes léxicos (`&nombre T` en vez de `&'a T`)**,
-**regiones (`región nombre { ... }` — arena allocation determinístico)**,
-**self-referential structs (`&yo T` en campos de struct)**,
-**anotaciones de efecto (`puro`, `muta(campo)`, `lee(campo)`)**,
-**branch-aware liveness (borrows mueren por rama del CFG)**,
-**artículos extendidos (`los` = shared ownership, `las` = shared borrowed)**,
-**feedback educativo (errores con múltiples opciones de fix)**,
-**traits/rasgos (`rasgo`, `implementar`, verificación de impls)**,
-**bitwise operators type-safe (`& | ^ << >> ~ >>>`)**,
-**built-ins I/O (`imprimir`, `imprimir_linea` — sin FFI manual)**,
-**string interpolation (`imprimir_linea("x = {x}")`)**,
-**`tamaño_de::<T>()` (sizeof comptime)**
-y servidor LSP completo.
-Backend Cranelift generando binarios nativos x86_64.
+### `falcato limpia [dir] [--binarios]` — borra artefactos
+- Default `dir = "."`.
+- Elimina `build/` (y lo recrea vacío) + `*.o` en el directorio (no recursivo).
+- `--binarios` también elimina `*.exe` generados en el directorio.
+- Alias ocultos: `clean`, `limpiar`.
 
-y **método syntax generalizada** (`.agregar()`, `.tam()`, `.liberar()` en Texto/Vector),
-**Diccionario<K,V> + Conjunto<T>** (hash map/set con resize automático y hash probe),
-**operadores compuestos** (`a + b` concatena Texto, `t[0]`/`t[0..5]` indexa Texto, `v[0]` indexa Vector),
-**aliases** (`devolver`/`emparejar`/`decir`/`texto_tam`/`vector_tam`),
-**i18n completa de "array" → "arreglo"** en docs y errores de compilador,
-y servidor LSP completo con **6 features para agentes**:
-  - Autocompletado completo (todos los keywords sin "próximamente", 60+ items)
-  - Signature help (parámetros al tipear `(`)
-  - Code actions (quick fixes desde diagnósticos [T001], [O001])
-  - Document symbols (outline: funciones, structs, enums, traits)
-  - Context-aware completion (variables en scope, campos de struct tras `.`)
-  - Hover mejorado (tablas de propiedades, structs/enums/traits)
-  - ✅ Integrado con OpenCode vía `opencode.jsonc` (global) + verificado end-to-end
-Backend Cranelift generando binarios nativos x86_64.
+### `falcato vigila [archivo]` — recompilación automática
+- Si hay `archivo`, vigila su directorio; si no, busca `main.fc` en el actual.
+- Compilación inicial vía `compilar(...)` (reusa el pipeline existente, sin duplicar).
+- Polling cada 500 ms sobre `.fc` (ignora `.falcato-cache`, `.git`, `build`): si cambia
+  el mtime, recompila.
+- `Ctrl+C` sale. Sin nuevas dependencias (evita `notify` / `watchdog`).
+- Alias ocultos: `watch`, `observar`.
 
-**Documentación completa de usuario:** GUIA.md (hub) + 15 capítulos en GUIA/ (03-15),
-INSTALL.md, REFERENCIA.md (built-ins), ERRORES.md (códigos de error),
-más skill `falcato-language` para LLMs en OpenCode.
+**Integración:** los tres reusan infraestructura existente (`Manifiesto`, `compilar`,
+`falcato.toml`). No tocan semántica de lenguaje ni etiquetas.
+**Estado: 📋 plan** (pendiente de implementar en `main.rs`).
 
-**🖼️ GUI-1: Ventana nativa Win32 operativa.** MessageBox via FFI directo,
-ventana completa con RegisterClassExA + CreateWindowExA + message loop via
-[trampolín C](lib/trampolin_win32.c) precompilado. `direccion_de`/`dir_de`
-para obtener punteros a funciones. `texto_a_puntero` y `como_entero64` built-ins.
-Auto-link de `lib/trampolin_win32.obj` desde `src/main.rs`.
-Diseño completo en [`docs/diseno_gui.md`](docs/diseno_gui.md).
+## Etiquetas del toolchain
+**Regla:** etiqueta solo decide CÓMO se produce el binario, no qué significa.
 
-**40/40 tests pasan. 50+ ejemplos funcionando. Auditoría completa: 0 crashes.**
+| Etiqueta | Alias | Para qué | Estado |
+|----------|-------|----------|--------|
+| `--emitir-clif` | `emit-clif` | CLIF debug | ✅ |
+| `--json` | — | Diagnósticos JSON | ✅ |
+| `--incremental` | — | Cache verificación <100ms | ✅ |
+| `--entrada` | `stdin` | `echo "code" \| verifica -` | ✅ |
+| `--destino <triple>` | `target` | Cross-compile — **única etiqueta plataforma** | 🟡 R8 |
+| `--lanzar` | `release` | Optimización global | 🔴 R8 |
+| `-o, --salida` / `--detallado` / `-g` | `output`/`verbose` | Output/verbosidad | ✅ |
 
-### Estado de distribución (v0.1.0 — pre-release)
+**Prohibidas:** N0/N1/N2, `--windows`, `--cfg(os)`, `--compat-*` (todo es lenguaje o `falcato.toml`)
 
-| Aspecto | Estado |
-|---------|--------|
-| Release build (6.4 MB, LTO) | ✅ `cargo build --release` produce `falcato.exe` |
-| Dependencias DLL | ⚠️ Requiere `VCRUNTIME140.dll` (local: bundle, CI: static) |
-| CRT estático | ⏳ Pendiente — funciona en GitHub Actions (VS completo), no en VS Insiders local |
-| GitHub repo | ✅ `CerebroCanibalus/falcato` (privado) |
-| GitHub Actions CI | ✅ build + test en push |
-| VS Code Extension | ✅ VSIX instalable, Falcato Dorado theme |
-| LSP para agentes (OpenCode) | ✅ 6 features, integrado globalmente, verificado |
-| Falso positivo Defender | ⚠️ Riesgo alto sin firma digital |
-| Instalador script | ❌ Pendiente |
+## Roadmap — Pendiente real
 
-## Roadmap hacia un lenguaje productivo
+### 🎯 R0.8.0 — La gran actualización (rediseño y mejora brutal del lenguaje)
 
-### Fase 9 — Módulos e imports
-- Declaración de módulos (`módulo nombre { ... }`)
-- Importación (`usar modulo::simbolo`, `usar modulo::*`)
-- Visibilidad con artículos (`el función` = pública, `la función` = privada)
-- Namespaces y resolución de nombres con spans
-- Compilación multi-archivo desde CLI
+**Meta:** 0.8.0 es la actualización que rediseña y mejora brutalmente el lenguaje. Agrupa los problemas de diseño abiertos más importantes y las lecciones de Go. Es el "gofmt + stdlib + rediseño" que lleva a Falcato de "Rust con artículos" a "lenguaje de plataforma para LLMs".
 
-### Fase 10 — Strings, vectores y allocación dinámica ✅ COMPLETADA
-- Tipo `Texto` growable heap-allocado (`{ ptr, len, cap }`)
-- Built-ins de Texto: `texto_nuevo()`, `texto_desde(Palabra)`, `texto_agregar(Texto, Palabra)`, `texto_longitud(Texto)`, `texto_liberar(Texto)`
-- Tipo `Vector<T>` genérico heap-allocado (`{ ptr, len, cap }`)
-- Built-ins de Vector: `vector_nuevo<T>()`, `vector_agregar<T>(Vector<T>, T)`, `vector_obtener<T>(Vector<T>, Entero32)`, `vector_longitud<T>(Vector<T>)`, `vector_liberar<T>(Vector<T>)`
-- Literales de string con secuencias de escape: `\\n`, `\\t`, `\\r`, `\\0`, `\\\\`, `\\"`, `\\xNN`
-- FFI a C runtime: `malloc`, `free`, `realloc`, `memcpy`, `strlen`
-- Linker actualizado: `ucrt.lib`, `vcruntime.lib`, `kernel32.lib` + LIBPATHs de Windows SDK
-- Convención de llamada Windows x64 (`WindowsFastcall`) para funciones externas e internas en Windows
-- LSP: autocompletado incluye `Texto`
-- Ejemplos: `texto_simple.fc`, `vector_simple.fc`, `hola_mundo.fc` (`puts`)
+**Alcance (agrupa P-002, P-005, P-009, P-013, P-014, P-017 + lecciones de Go):**
+- [x] **P-002 — Sintaxis namespace** (`::`): ✅ Parser soporta `mod::func` (resuelto 2026-08-28)
+- [ ] **P-005 — Reducir builtins**: mover de Capa 1 (FFI) a Capa 2 (Falcato puro), sin romper compatibilidad (aliases en `std::compat`)
+- [ ] **P-009 — Documentar artículos** `el`/`la`/`un`/`los`/`las`: tabla + sugerencias clippy
+- [ ] **P-013 — LSP completitud**: indexar métodos por tipo, completion
+- [ ] **P-014 — Warning de `Resultado` no manejado** (W-code)
+- [ ] **P-017 — Regla unificadora de API**: coerción uniforme `Texto`/`Palabra`, errores en vez de silencio, fix por familia
+- [ ] **`falcato formatea`** (gofmt): un solo estilo enforzado — prioridad máxima para LLMs
+- [ ] **Stdlib HTTP + JSON**: desbloquea Cid (R9.0/R9.1)
+- [ ] **Modernizers** (`falcato arregla`): migra patrones viejos determinísticamente — desbloquea P-007 (renombres sin miedo)
+- [ ] **P-007 — Renombres** (con modernizers + aliases): `apodo`/`alias`, `rasgo`/`protocolo`, `retornar`/`devolver`
+- [ ] **Promesa de compatibilidad formal**: "código de hoy compila en 10 años"
 
-### Fase 11 — Manejo de errores ✅ COMPLETADA
-- Tipo `Resultado<T, E>` (enum genérico built-in)
-- Operador de propagación `?` (extrae valor de `Exito`, propaga `Error`)
-- Pattern matching con `es Enum.Variante como variable`
-- Constructores: `Resultado.Exito(valor)`, `Resultado.Error(codigo)`
-- Verificación semántica: `?` requiere `Resultado<T,E>`, binding verifica tipo
-- Codegen: `?` extrae campo de datos; `es` compara tag
-- Ejemplos: `resultado_simple.fc`, `operador_interrogacion.fc`
+**Criterio de éxito:** Falcato pasa de "lenguaje con gramática innovadora" a "plataforma completa para LLMs" — formateador, stdlib, tooling integrado, compatibilidad.
 
-### Fase 12 — "Concordancia de Posesión" (Ownership + Borrow Checking) ✅ COMPLETADA
-> Diseño completo: `docs/diseno_ownership.md`
-> Tesis: superar a Rust en ergonomía sin sacrificar seguridad, aprovechando
-> gramática española + tipos afines + análisis gradual.
+### 📦 Estado actual de la libEst (2026-08-28)
 
-**Innovaciones clave (7):**
-1. **Lifetimes léxicos**: `&dato Texto` en vez de `&'a T` — el lifetime ES el nombre de la variable
-2. **Borrow checker gradual**: Nivel 0 (default, permisivo) → Nivel 1 (`verificado`) → Nivel 2 (`estricto`)
-3. **Field-level borrowing**: `&mut punto.x` y `&mut punto.y` no conflictúan (resuelve false positive de Rust)
-4. **Branch-aware analysis**: borrows mueren por rama del CFG (resuelve limitación de Rust)
-5. **Self-referential structs**: `&yo` + regiones de memoria (resuelve limitación fundamental de Rust)
-6. **Anotaciones de efecto**: `puro`, `muta(campo)`, `lee(campo)` — el compiler razona entre funciones
-7. **Feedback educativo**: errores con múltiples opciones de fix, no solo "no compila"
+**Diseño completo:** `docs/diseno_libest.md` (1361 líneas) — 12 dominios, 1300+ firmas.
 
-**Sintaxis de ownership (artículos extendidos):**
-```falcato
-el x: T = ...;           // owned, mutable (affine: usar 0 o 1 veces)
-la x: T = ...;           // borrowed, inmutable (no-lineal: usar N veces)
-los x: T = ...;          // shared ownership (reference-counted, como Arc)
-las x: &T = ...;         // shared borrowed
-un x: T = ...;           // optional (puede ser nulo)
-mover x a f;             // transferencia explícita de ownership
-copiar x;                // clone explícito
-prestar &x a f;          // borrow explícito
+**Archivos base creados (20 archivos, 10 módulos):**
+```
+libEst/
+├── nucleo/          texto.fc, numeros.fc, opcion.fc
+├── colecciones/     vector.fc, diccionario.fc, conjunto.fc
+├── archivo/         archivo.fc
+├── red/             tcp.fc, http.fc, json.fc
+├── tiempo/          tiempo.fc
+├── proceso/         proceso.fc
+├── sistema/         sistema.fc
+├── matematicas/     mate_fc (abs, maximo, minimo, raiz, potencia, seno, coseno, tangente, logaritmo, piso, techo, pi, e)
+├── visual/          ventana.fc, color.fc, lienzo.fc, imagen.fc, sonido.fc
+└── compat/          compat.fc (aliases builtins viejos)
 ```
 
-**Sub-fases:**
-- **12A**: ✅ Moves + `mover`/`copiar` + use-after-move detection (Nivel 1: `verificado`)
-- **12B**: ✅ Referencias (`&T`, `&mut T`, `*ref`) + Borrowing rules + Field-level
-- **12C**: ✅ Lifetimes léxicos (`&nombre T`) + Elisión + Compatibilidad
-- **12D**: ✅ Regiones (`región { ... }`) + Self-referential (`&yo`) + Arena allocation
-- **12E**: ✅ Efectos (`puro`, `muta(campo)`, `lee(campo)`) + Branch-aware liveness
-- **12F**: ✅ Artículos extendidos (`los`/`las`) + Feedback educativo
+**Compiler: namespace `::` funcional**
+- Parser: `mod::func` → `Llamada { funcion: "modulo::funcion" }` ✅
+- Semántico: resolución calificada contra `simbolos_publicos_importados` ✅
+- Codegen: `aplanar_con_prefijo` registra `modulo::funcion` → `FuncId` ✅
+- Lexer: `::` = dos `DosPuntos` consecutivos (no token dedicado) ✅
 
-**Limitaciones conocidas:**
-- Drop automático no implementado (requiere análisis de CFG, se hará en 12B)
-- `prestar` parseado pero no implementado en codegen
-- Nivel 2 (`estricto`) implementado para borrows + lifetimes
+**Clasificación builtins vs Falcato:** `docs/libest_clasificacion.md` — 120 builtins Rust (83%), 25 Falcato puro (17%). Builtins: FFI, OS, memoria, rendimiento. Falcato: constructores, constantes, algoritmos simples.
 
-**Para kernels:** regiones = arena allocation determinístico, stack-only por defecto,
-`inseguro` para hardware, `pre-` para comptime, sin GC.
+**Pendiente:** crear builtins Rust faltantes (texto_contiene, http_get, json_parsear, etc.) — indispensables para Cid.
 
-**Para IA:** Nivel 0 siempre compila (LLM genera → compiler sugiere → LLM refina),
-errores con código+span+fix concreto (parseables), WASM sandbox para ejecución segura.
+### R7.7 — Aritmética consciente (pendiente)
 
-### Fase 13 — Traits / interfaces lingüísticas ✅ COMPLETADA
-- Declaración de rasgos: `rasgo Nombre { función ...; ... }`
-- Implementación: `implementar Rasgo para Tipo { función ... { ... } ... }`
-- Verificación semántica: rasgo existe, métodos requeridos están presentes
-- Error `[T060]` si rasgo no existe
-- Error `[T061]` si falta método requerido
-- Base para bounds reales (`que Comparable` como trait lookup)
-- Keywords: `rasgo`, `implementar`, `para`
-- AST: `RasgoDecl`, `FirmaMetodo`, `ImplDecl`
+### R7.7 — Aritmética consciente (pendiente)
+- [ ] **F3 — Rangos** (`entre ... y ...`): verificación compile-time + runtime checks
+- [ ] **F4 — Unidades** (`por`/`entre`): dimensiones en tipos
+- [ ] **F5 — Decimal nativo**: `0.1 + 0.2 = 0.3` exacto
 
-### Fase 14 — Sprint de Usabilidad
-> Objetivo: que un programador pueda abrir Falcato y hacer algo real sin FFI manual.
-> Incluye bitwise operators (crítico para sistemas/kernels).
+### R9 — DAW + Cid
+- [ ] **R9.1.0 — Librería JSON mínima** (`librerias/json.fc`) — parser para MCP
+- [ ] **R9.2.0 — Cid core**: loop agente + contexto + MCP stdio
+- [ ] **R9.3.0 — DAW**: WAV, buffers, mezcla, secuenciador, efectos
 
-- **14A**: ✅ Bitwise operators type-safe (`& | ^ << >> ~ >>>`) + Built-ins I/O (`imprimir`, `imprimir_linea`) + interpolación `{x}` + `tamaño_de::<T>()`
-- **14B**: ✅ Rangos (`0..10`, `0..=10`) + `para` sobre rangos
-- **14C**: ✅ Closures (`|x| expr`) + captura de variables
-- **14D**: ✅ Match exhaustivo (`coincidir x { ... }`)
-- **14E**: ✅ Testing en el lenguaje (`prueba { afirmar(...) }`)
+### R8 — Sistema de paquetes P2P
+- Formato `falcato.toml` + `falcato.lock`, `falcato paquete add/publicar/buscar`
+- Cliente torrent + DHT (BEP44), 8 capas de seguridad (hash, solo fuente, ed25519, permisos por tipos, WoT, blocklist, transparency log)
+- **Pendientes seguridad R8S.1-7** (ver AGENTS previo): SET sin firma, DoS memoria/CPU, buffer slicing, `dht_consultar` len, `proceso_crear` inyección, auth peers — cerrar antes de exponer a red real
 
-**Bitwise — diseño concreto:**
-```falcato
-// Operadores tradicionales (type-safe: mismo ancho obligatorio, sin widening implícito)
-a & b      // AND    |  a | b   // OR     |  a ^ b   // XOR
-a << n     // shift left  |  a >> n  // shift right (arith signed, logical unsigned)
-~a         // NOT   |  a >>> n // shift lógico derecho (zero-fill siempre)
+### Calidad y deuda
+- [ ] Azure Trusted Signing (falso positivo Defender) + winget/Scoop
+- [ ] `cargo fix` warnings (100 en release), reducir panics <2/1000 LOC
 
-// Built-ins semánticos (zero-cost, 1-2 instrucciones cada uno):
-x.poner_bit(3)       // x |= (1 << 3)
-x.quitar_bit(3)      // x &= ~(1 << 3)
-x.alternar_bit(3)    // x ^= (1 << 3)
-x.extraer_bits(4, 8) // (x >> 4) & 0xFF
-x.ceros_izquierda()  // clz
-x.unos()             // popcount
-```
+### 📋 Mejoras 0.7.6 (reporte 2026-08-21)
+> **Bugs confirmados para 0.7.6 (no bloqueantes Cid, pero reporte pendiente):**
+- **F-019** `archivo_listar("literal")` — coerción Palabra→Texto con descriptor fantasma en rutas largas. Fix: misma `strlen+malloc+memcpy` que otros builtins + free temporal.
+- **F-020** `"{f(x)}"` interpolación con llamada → vacío silencioso. Fix: diagnóstico `[S080] interpolación con llamada no soportada, usa variable temporal` (implementación real en 0.8.0 si se pide).
+- **F-021** `a > 0` infiere `Entero32` no `Booleano` → `T011`. Fix: `Binaria` con `> < >= <= == !=` siempre `Booleano` en `codegen/tipos.rs` y `semantic/tipos.rs`.
 
-**Innovación clave (Fase 15B): Campos de bits como tipos:**
-```falcato
-estructural RegistroUART {
-    bits {
-        habilitado: Natural1,   // bit 0
-        modo_tx: Natural2,      // bits 1-2
-        baud_div: Natural12,    // bits 3-14
-    }
-}
-// reg.baud_div = 868; → compiler genera shifts+masks. Verifica rango en compile-time.
-// LLM genera "reg.baud_div = 868" en vez de calcular máscaras (donde alucina).
-```
+> **Sugerencias de lenguaje (defer a RFC 0.8.0, no a 0.7.6):**
+> Renombres con breaking change → necesitan `MAYOR` + aliases. No tocar en 0.7.6.
+> - `apodo` ↔ `alias` (RAE vs pureza), `rasgo` ↔ `protocolo`, `vector` ↔ `lista`, `Booleano`/`Lógico` unificar, `Entero` default 32→64 (rompe ABI), `retornar`→`devolver` canónico, `romper`→`salir`.
+> - Mensajes: traducir `Borrow`→`préstamo`, `Verifier`→`[C]` español, `T001 disconcordancia`→`no coincide`.
+> - Artículos `el/la/un` opacos → documentar tabla + sugerencias clippy.
+> - Azúcares `texto_desde→de`, `como_entero64→.entero64` → esperar 3 proyectos reales.
 
-### Fase 15 — Biblioteca estándar
-> Innovación: toda función de stdlib declara efectos (`puro`/`muta`/`lee`).
-> Ningún otro lenguaje de sistemas hace esto. Permite al compiler razonar
-> sobre aliasing, paralelización, y eliminación de código muerto de forma sound.
-
-- **15A**: ✅ Bitwise built-ins (`poner_bit`, `quitar_bit`, `alternar_bit`, `extraer_bits`, `ceros_izquierda`, `unos`)
-  - Sintaxis de método en enteros: `x.poner_bit(3)`, `x.unos()`, `x.extraer_bits(4, 8)`
-  - AST: `Expresion::MetodoBitwise(receptor, nombre, args, span)`
-  - Parser: postfix `.metodo(args)` detectado en `parse_postfix`
-  - Semantic: verifica receptor entero + args según método
-  - Codegen: desugarea a ops bitwise existentes (ishl, bor, band, bnot, bxor, ushr, clz, popcnt)
-  - `tamaño_de`, `alinear_de`, punteros raw (`*T`, `*mut T`) pendiente
-- **15B**: ✅ Campos de bits (`bits { }` en structs)
-  - Sintaxis: `estructural RegistroUART { bits { habilitado: Natural8, baud_div: Natural16 } }`
-  - AST: `CampoBits { nombre, ancho_bits, offset_bits, span }` en `EstructuralDecl.campos_bits`
-  - Parser: detecta `bits { }` dentro de struct, extrae ancho de NaturalN/EnteroN
-  - Semantic: `InfoStruct.campos_bits`, valida campos en init y acceso
-  - Codegen: struct respaldado por un entero (u8/u16/u32/u64 según total bits)
-    - Read: `(val >> offset) & ((1 << ancho) - 1)`
-    - Write: `reg = (reg & ~(mask << offset)) | ((val & mask) << offset)`
-    - `Lugar::Campo(expr, nombre)` para asignación a campos
-  - volatile read/write para MMIO pendiente
-- **15C**: ✅ String ops + `imprimir` polimórfico
-  - `texto_concatenar(a: Texto, b: Texto) -> Texto` — nuevo Texto con a+b (no modifica originales)
-  - `texto_subtexto(t: Texto, inicio: Entero32, fin: Entero32) -> Texto` — extrae bytes [inicio, fin)
-  - `texto_comparar(a: Texto, b: Texto) -> Entero32` — comparación byte a byte (0=iguales, <0 a<b, >0 a>b)
-  - `texto_obtener_byte(t: Texto, indice: Entero32) -> Entero8` — byte en posición dada
-  - `imprimir`/`imprimir_linea` ahora polimórficos: aceptan Texto, Entero32, Entero8, Booleano, Palabra
-  - Dispatch por tipo inferido: Texto→extrae ptr+puts, Entero→printf %d, Booleano→"verdadero"/"falso"
-  - Semántica: bypass de verificación de tipos para imprimir/imprimir_linea (polimórficos)
-  - Pattern Cranelift aprendido: loop header NUNCA sellar antes del back-edge; Variable::from_u32 (no ::new)
-- **15D**: ✅ File I/O con C runtime (fopen/fread/fwrite/fclose)
-  - `archivo_leer(ruta: Palabra) -> Texto` — lee archivo completo, Texto vacío si no existe
-  - `archivo_escribir(ruta: Palabra, contenido: Texto) -> Entero32` — escribe (0=ok, -1=error)
-  - `archivo_existe(ruta: Palabra) -> Booleano` — verifica existencia
-  - Codegen: bloques condicionales con merge (Variable SSA para descriptor resultado)
-  - Bug fix crítico: `crear_string_literal` no agregaba null terminator → crash silencioso en puts/printf
-  - `imprimir` polimórfico: Booleano imprime "verdadero"/"falso" con bloques condicionales
-- **15E**: ✅ Matemáticas (`abs`, `max`, `min`, `raiz`, `potencia`) + Literales flotantes + `imprimir` Flotante64
-  - `abs(x: Entero32) -> Entero32` — select con icmp SignedLessThan + ineg
-  - `max(a, b: Entero32) -> Entero32` — select con icmp SignedGreaterThan
-  - `min(a, b: Entero32) -> Entero32` — select con icmp SignedLessThan
-  - `raiz(x: Flotante64) -> Flotante64` — C `sqrt()` (ucrt.lib)
-  - `potencia(base, exp: Flotante64) -> Flotante64` — C `pow()` (ucrt.lib)
-  - `Literal::Flotante` en codegen: `builder.ins().f64const(n)`
-  - `imprimir` Flotante64: bitcast F64→I64 para Windows x64 variadic ABI (printf %f)
-  - Colecciones (`Diccionario`, `Conjunto`) pendiente — requiere hash + heap + generics reales
-
-**Stdlib con efectos — ejemplo real:**
-```falcato
-puro función longitud(la t: Texto) -> Entero64;           // sin side effects
-muta(ptr, len, cap) función agregar(el t: Texto, la s: Palabra);  // muta exactamente estos campos
-lee(fd) función escribir(el fd: Entero32, la datos: &[Entero8]) -> Resultado<Entero32, Entero32>;
-```
-
-### Fase 16 — Documentación
-- Libro oficial (estilo Rust Book): hola mundo → ownership → generics → async
-- Referencia del lenguaje completa
-- Guía de migración desde C/Rust/Python
-- Documentación de errores: cada código con explicación y fix
-
-### Fase 17 — Package manager
-- Manifiesto `Falcato.toml`
-- Dependencias locales y remotas (git / registry)
-- Comandos: `nuevo`, `agregar`, `construir`, `probar`, `publicar`
-
-### Fase 18 — Async / futuro
-> Diseño completo: `docs/diseno_async.md`
-> Ventaja Falcato: `&yo` resuelve Pin, `región` da arena para tareas, `puro`/`muta` razona seguridad.
-
-- **18A**: ✅ MVP async con threads reales del OS
-  - `fut función` = async fn, `esperar expr` = await, `lanzar expr` = spawn
-  - `bloquear(expr)` = bridge sync→async (error [T084] dentro de fut función)
-  - [T080]: `esperar` solo dentro de `fut función`
-  - `lanzar` → CreateThread real con wrapper `__hilo_N` + buffer heap para args
-  - `dormir(ms)` → Sleep de kernel32 (MVP, blocking)
-  - `esperar`/`bloquear` → pass-through en MVP (sin scheduling real)
-  - Concurrencia verificada: dos threads intercalando output
-- **18B**: ✅ TCP I/O (Winsock2 directo, blocking por thread)
-  - `tcp_vincular(puerto)` → WSAStartup + socket + bind + listen
-  - `tcp_aceptar(listener)` → accept (blocking)
-  - `tcp_leer(sock, buf, tam)` → recv
-  - `tcp_escribir(sock, buf, tam)` → send
-  - `tcp_cerrar(sock)` → closesocket
-  - Array-to-pointer decay en semantic para buffers
-  - `ws2_32.lib` en linker
-  - Echo server verificado end-to-end (multi-hilo con `lanzar`)
-  - IOCP real pendiente para 18D (multiplexing sin thread-per-conn)
-- **18C**: ✅ Canales mpsc + select pattern
-  - `canal_nuevo(cap)` → CreateMutexW + CreateSemaphoreW + ring buffer heap
-  - `canal_enviar(canal, valor)` → lock, write, unlock, ReleaseSemaphore
-  - `canal_recibir(canal)` → WaitForSingleObject(sem), lock, read, unlock
-  - `canal_intentar(canal)` → non-blocking try_recv (timeout=0), sentinel i32::MIN
-  - `canal_cerrar(canal)` → CloseHandle × 2 + free
-  - Productor-consumidor verificado (lockstep perfecto)
-  - Select pattern verificado (polling 2 canales con `canal_intentar`)
-  - `seleccionar { }` como sintaxis sugar ✅ (parser + semantic + codegen + LSP)
-  - `con_executor(hilos: N)` ✅ — thread pool real (CreateThread workers + ring buffer + mutex/semaphore)
-  - `lanzar` dentro de `con_executor` encola al pool (no CreateThread directo)
-  - `cancelar()` ✅ — cancelación estructurada (cancelled flag + drain skip + graceful in-flight)
-  - Cancelación con `región` integrada: tasks en queue se cancelan, in-flight terminan graceful
-- **18D**: ✅ Thread pool + cancelación estructurada
-  - `con_executor(hilos: N)` ✅ — thread pool real (CreateThread workers + ring buffer + mutex/semaphore)
-  - `lanzar` dentro de `con_executor` encola al pool (no CreateThread directo)
-  - `cancelar()` ✅ — cancelación estructurada (cancelled flag + drain skip + graceful in-flight)
-  - Cancelación con `región` integrada: tasks en queue se cancelan, in-flight terminan graceful
-- **18E**: Optimización (en progreso)
-  - Stackless desugaring (state machine) para futuros simples ✅ MVP
-    - `futuros.rs`: análisis de await points + liveness (vars que cruzan suspensión)
-    - `__init_N(args) -> ptr`: malloc struct + state=0 + store params
-    - `__poll_N(ptr) -> i64`: dispatch por state, timer check con GetTickCount64, 0=Pending/1=Ready
-    - Wrapper sync: init + poll loop con Sleep(1) (para uso fuera de executor)
-    - `esperar dormir(ms)` como punto de suspensión (deadline = GetTickCount64() + ms)
-    - Sellado de bloques Cranelift: 1 predecesor → sellar inmediato; loops → sellar después del back-edge
-    - Verificado end-to-end: futuro_simple.fc con 2 suspensiones compila y ejecuta correctamente
-  - Work-stealing scheduler, arena allocation en región (pendiente)
-  - Timer wheel O(1), stack pooling, benchmarks 100K+ tareas (pendiente)
-  - Integración con con_executor ✅: `lanzar fut_función` encola futuro (init+poll loop en worker thread)
-    - `compilar_hilos_pendientes` detecta `__poll_N`/`__init_N` → genera poll loop en wrapper `__hilo_N`
-    - Verificado end-to-end: futuro_executor.fc con 3 tareas en 2 workers, intercalado real
-
-### Fase 19 — Optimización y debug info
-- Optimizador de Cranelift activado (`opt_level`)
-- Generación de PDB/DWARF
-- Cold-block hints para subjuntivo
-- Auto-vectorización de loops `puro` sin aliasing (SIMD)
-- Profile-guided optimization (futuro)
-
-## Hoja de ruta priorizada (2026)
-
-> El Roadmap original (Fases 9-19) es el plan conceptual. Esta sección
-> define **lo que toca ahora**, en orden de prioridad real.
-
-### Fase R1 — Distribución e instalación (RELEASE) ✅ COMPLETADA
-| # | Tarea | Archivos | Estado |
-|---|-------|----------|--------|
-| 1 | Repositorio GitHub creado | `CerebroCanibalus/falcato` | ✅ |
-| 2 | `.gitignore` mejorado | 1 | ✅ |
-| 3 | `clean.ps1` — limpiar basura compilada | 1 | ✅ |
-| 4 | `bundle_dlls.ps1` — bundle VCRUNTIME140 para releases locales | 1 | ✅ |
-| 5 | `.github/workflows/ci.yml` — build + test en push | 1 | ✅ |
-| 6 | `.github/workflows/release.yml` — build + ZIP en tag | 1 | ✅ |
-| 7 | `install.ps1` — instalador interactivo con menú de componentes | 1 | ✅ |
-| 8 | `+crt-static` en CI | 1 línea | ⏳ Pendiente |
-
-**Resultado:** Repo listo con CI + instalador interactivo (`install.ps1`). El release build de GitHub Actions produce .exe sin DLLs externas.
-
-### Fase R2 — VS Code Extension ✅ COMPLETADA
-| # | Tarea | Archivos | Estado |
-|---|-------|----------|--------|
-| 1 | `package.json` (extension manifest) | 1 | ✅ |
-| 2 | `falcato.tmLanguage.json` (syntax highlighting) | 1 | ✅ |
-| 3 | `language-configuration.json` (brackets, comentarios) | 1 | ✅ |
-| 4 | `client.js` — LSP client (lanza `falcato lsp`) | 1 | ✅ |
-| 5 | `themes/falcato-color-theme.json` (tema "Falcato Dorado") | 1 | ✅ |
-| 6 | VSIX empaquetado | `npx vsce package` | ✅ |
-
-**Resultado:** Syntax highlighting + LSP + tema único "Falcato Dorado". Instalar vía VSIX.
-
-### Fase R3 — Documentación completa + Skills para IA ✅ COMPLETADA
-| # | Tarea | Archivos | Estado |
-|---|-------|----------|--------|
-| 1 | `INSTALL.md` — cómo instalar Falcato en 3 pasos | 1 | ✅ |
-| 2 | `QUICKSTART.md` — tutorial rápido | 1 | ⏳ (cubierto por GUIA/02, pendiente archivo separado) |
-| 3 | `REFERENCIA.md` — catálogo completo de built-ins | 1 | ✅ |
-| 4 | `ERRORES.md` — cada código [T###] explicado con causa y fix | 1 | ✅ |
-| 5 | Skill `falcato-language` (OpenCode) + reference/builtins.md | 2 | ✅ |
-| 6 | `AGENTS.md` como referencia de diseño del proyecto | 1 | ✅ |
-| 7 | Carpeta `GUIA/` con 15 capítulos + diagramas + ejemplos reales | 17 | ✅ |
-| 8 | i18n completa: "array" → "arreglo" en docs y errores del compilador | 7 | ✅ |
-
-**Resultado:** Documentación completa de usuario (GUIA.md hub + 15 capítulos), referencia (REFERENCIA.md + ERRORES.md), skill para IA (falcato-language con reference/builtins.md), e i18n de términos.
-
-### Fase R4 — Colecciones (Diccionario + Conjunto) ✅ COMPLETADA
-| # | Tarea | Archivos | Estado |
-|---|-------|----------|--------|
-| 1 | `Tipo::Diccionario(K,V)` + `Tipo::Conjunto(T)` en AST | `ast.rs` | ✅ |
-| 2 | Hash multiplicativo + probe loop en codegen | `codegen.rs` | ✅ (FNV-1a pendiente) |
-| 3 | Built-ins: `diccionario_nuevo/insertar/obtener/existe/eliminar/longitud/liberar` | `semantic.rs`, `codegen.rs` | ✅ + método syntax |
-| 4 | Built-ins: `conjunto_nuevo/insertar/contiene/eliminar/liberar` | `semantic.rs`, `codegen.rs` | ✅ (wrapper de diccionario) |
-| 5 | Resize automático (realloc + memset) | `codegen.rs` | ✅ (duplica al llenar) |
-| 6 | Hash probe con wrap-around | `codegen.rs` | ✅ (open addressing) |
-| 7 | LSP autocompletado | `lsp.rs` | ⏳ Pendiente |
-
-**Resultado:** Diccionario<K,V> y Conjunto<T> funcionales con resize y hash probe. ~700 líneas de código nuevo.
-
-### Fase R5 — Proyecto ejemplo 500+ líneas
-- Word counter: lee archivo, tokeniza, cuenta frecuencia con Diccionario, ordena con Vector
-- Valida el pipeline completo: módulos, colecciones, archivos, I/O
-
-### Fase R6 — Drop automático
-- Análisis de CFG para insertar `free` al final de scope
-- Elimina fugas en Texto, Vector, Diccionario, Conjunto, TCP sockets
-
-### Fase R7 — Package manager (post-v1)
-- `Falcato.toml`, dependencias git, comandos `nuevo`/`construir`
-
-## Checklist para release v0.2.0
-
-- [ ] `+crt-static` en CI (GitHub Actions tiene VS Build Tools completo)
-- [ ] Release build limpio (CI produce .exe sin DLLs externas)
-- [x] Script `bundle_dlls.ps1` para releases locales
-- [x] GitHub repo creado con README y LICENSE
-- [x] GitHub Actions CI (build + test)
-- [ ] GitHub Actions Release (tag → ZIP) — probar con tag
-- [x] VS Code Extension (syntax + LSP + theme Falcato Dorado)
-- [x] Documentación básica (INSTALL + REFERENCIA + ERRORES)
-- [x] GUIA completa (15 capítulos, ownership, arreglos, funciones, errores)
-- [x] Skill `falcato-language` para LLMs (con reference/builtins.md)
-- [ ] AGENTS.md genérico para cualquier LLM
-- [x] Diccionario + Conjunto implementados
-- [ ] Proyecto ejemplo >500 líneas funcionando
-- [ ] Falso positivo reportado a Microsoft Security Center
-- [x] Script `install.ps1` probado en máquina limpia
-
-## Curva de aprendizaje (diseño vinculante)
-
-Falcato es un lenguaje de bajo nivel (kernel-capable como C/Rust) pero con curva
-gradual. El programador sube de nivel cuando está listo, no cuando el compiler lo exige.
-
-```
-Nivel 0 (default — permisivo, como C):
-    Todo compila. El compiler SUGIERE pero no rechaza.
-    Un principiante escribe código C-like y funciona.
-
-Nivel 1 (verificado — como Rust gentil):
-    Use-after-move detection. Errores educativos con opciones A/B/C.
-    El compiler enseña ownership con feedback, no con rechazo.
-
-Nivel 2 (estricto — como Rust completo):
-    Borrow checker completo. 1 mut XOR N inmut. Lifetimes verificados.
-    Pero con &yo, región, puro/muta como herramientas EXTRA que Rust no tiene.
-```
-
-**Para kernels**: Nivel 2 + `inseguro` para hardware + `región` para arena determinístico.
-**Para LLMs**: Nivel 0 siempre compila → compiler sugiere → LLM refina → <3 iteraciones a Nivel 2.
-**Para humanos**: Python → C → Rust, en ese orden, en UN lenguaje.
+### Gotchas operativos (no bugs)
+- **Exe zombie:** `build.bat` falla pero `.exe` viejo sigue. Verificar siempre `target/release/falcato.exe` timestamp.
+- **PowerShell .ps1 sin BOM → ANSI corrompe acentos:** usar `write` con UTF-8 + anclas ASCII, nunca `Set-Content` directo en `.fc`.
+- **LSP cross-file:** `verifica a.fc b.fc` sí es cross-file, el LSP solo ve 1 archivo → ansiedad normal, no bug.
 
 ## Criterio de "listo para usar"
+1. Proyecto >500 líneas multi-archivo compilable
+2. stdlib suficiente (I/O, strings, colecciones)
+3. Errores sin `retornar 1` manual
+4. Borrow checker sin GC
+5. Docs claras para hispanohablante
+6. Registros hardware sin FFI manual (bitfields)
 
-Falcato será un lenguaje que valga la pena usar cuando:
-1. Exista un proyecto de >500 líneas compilable en varios archivos.
-2. Tenga stdlib suficiente para I/O, strings y colecciones.
-3. Tenga manejo de errores sin caer en `retornar 1` manual.
-4. El borrow checker evite fugas de memoria sin GC.
-5. Haya documentación clara para un programador hispanohablante nuevo.
-6. Un programador de sistemas pueda manipular registros hardware sin FFI manual.
-
-## Criterio de "superar a Rust"
-
-Falcato supera a Rust cuando:
-1. Un programador hispanohablante escribe un linked list **sin pelear con el compiler**.
-2. Un LLM genera código que compila en Nivel 0 y pasa a Nivel 2 con <3 iteraciones.
-3. Un kernel module se escribe en Falcato con **menos líneas** que en Rust equivalente.
-4. Los errores de ownership se entienden **sin leer documentación**.
-5. Self-referential structs funcionan sin workarounds vergonzosos.
-6. Un LLM genera código de bit manipulation **sin alucinar máscaras** (campos de bits como tipos).
-7. El compiler auto-vectoriza loops `puro` sin `unsafe` (Rust no puede hacer esto de forma sound).
-
-Hasta entonces, sigue siendo un demostrador técnicamente sólido y una plataforma de experimentación lingüística que explora el nicho de **toolchain nativa para código generado por IA**.
-
-## Agente experto de OpenCode
-
-Este archivo es la referencia de diseño del proyecto. Para la versión ultra-compacta usada por el agente experto de OpenCode, ver:
-
-`C:\Users\Lord Gatito\.config\opencode\agents\falcato.md`
+## Auditoría
+Ver `ESTADO.md` para criterios McCabe/SonarQube/Sebesta/HumanEval. Semáforo 🟢/🟡/🔴.
 
 ---
-> Source: [CerebroCanibalus/falcato](https://github.com/CerebroCanibalus/falcato) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+> Source: [CerebroCanibalus/Falcato](https://github.com/CerebroCanibalus/Falcato) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
