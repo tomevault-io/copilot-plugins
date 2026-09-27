@@ -4,7 +4,7 @@
   "repo": "windbg-mcp",
   "description": "MCP server exposing WinDbg/DbgEng (live user-mode, kernel, crash dumps, Time Travel Debugging) to AI agents over stdio",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/glslang/windbg-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T10:13:57Z"
+  "distributed_at": "2026-09-27T17:26:16Z"
 }
