@@ -1,0 +1,9 @@
+{
+  "name": "iewnfod--lumina-terminal",
+  "displayName": "lumina-terminal",
+  "description": "A modern, cross-platform terminal emulator built with Tauri, React, and Xterm.js \u2014 featuring a sleek UI, command palette, and customizable profiles.",
+  "version": "1.0.0",
+  "author": "iewnfod",
+  "homepage": "https://github.com/iewnfod/lumina-terminal",
+  "skills": []
+}
