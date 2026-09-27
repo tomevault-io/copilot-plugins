@@ -7,11 +7,11 @@ Everything you need to run TypeSafe's Jev with Claude Code: a tool-call guard, t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jonathanavis96/jev-kit](https://github.com/jonathanavis96/jev-kit).
+Original source: `AGENTS.md` in [jonathanavis96/jev-kit](https://github.com/jonathanavis96/jev-kit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
