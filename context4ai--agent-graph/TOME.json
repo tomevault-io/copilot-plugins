@@ -1,0 +1,44 @@
+{
+  "name": "agent-graph",
+  "owner": "context4ai",
+  "repo": "agent-graph",
+  "description": "Graph Engineering for Agent Skills: a specification and toolchain for dynamically discovering context and building observable, testable, and recoverable agent workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/context4ai/agent-graph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T10:53:28Z"
+}
