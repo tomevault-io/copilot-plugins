@@ -7,11 +7,11 @@ Free, open source, realtime task manager. Issues, boards, sprints, projects and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Noveum/orbit](https://github.com/Noveum/orbit).
+Original source: `AGENTS.md` in [Noveum/orbit](https://github.com/Noveum/orbit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
