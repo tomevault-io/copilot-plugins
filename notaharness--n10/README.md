@@ -7,11 +7,11 @@ AI Agent worktree and pull request manager
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [notaharness/n10](https://github.com/notaharness/n10).
+Original source: `AGENTS.md` in [notaharness/n10](https://github.com/notaharness/n10).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
