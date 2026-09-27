@@ -1,0 +1,9 @@
+{
+  "name": "maplezzk--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "Extensions for pi coding agent (i18n, distill, tool-supervisor)",
+  "version": "1.0.0",
+  "author": "maplezzk",
+  "homepage": "https://github.com/maplezzk/pi-extensions",
+  "skills": []
+}
