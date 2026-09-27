@@ -4,7 +4,7 @@
   "repo": "mogui-ADE-orchestrator",
   "description": "Run one AI agent as the orchestrator of your whole workspace, inside the Orca ADE, on the CLI subscription you already pay for. No API key, no model endpoint. Orca hosts and places every session; the harness dispatches workers under contract, verifies their output before accepting it, and hands the role to a fresh session when context runs out.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/baksohyeon/mogui-ADE-orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T00:30:33Z"
+  "distributed_at": "2026-09-27T05:19:35Z"
 }
