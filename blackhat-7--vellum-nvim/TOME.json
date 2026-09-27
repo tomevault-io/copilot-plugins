@@ -4,7 +4,7 @@
   "repo": "vellum.nvim",
   "description": "Live, beautiful GitHub-markdown preview beside your buffer in Neovim \u2014 mermaid diagrams as real images, in the terminal.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/blackhat-7/vellum.nvim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T17:56:43Z"
+  "distributed_at": "2026-09-27T01:10:22Z"
 }
