@@ -1,0 +1,9 @@
+{
+  "name": "shio-sh--shio",
+  "displayName": "shio",
+  "description": "The terminal for structured work. Native on Mac, iPhone, and iPad. SSH into machines you own.",
+  "version": "1.0.0",
+  "author": "shio-sh",
+  "homepage": "https://github.com/shio-sh/shio",
+  "skills": []
+}
