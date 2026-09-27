@@ -4,7 +4,7 @@
   "repo": "feishu-docs-cli",
   "description": "A lightweight CLI tool for Feishu/Lark document and wiki management, designed for Agentic Coding scenarios",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cliff-byte/feishu-docs-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T15:05:58Z"
+  "distributed_at": "2026-09-27T23:33:20Z"
 }
