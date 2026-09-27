@@ -1,0 +1,9 @@
+{
+  "name": "bytefolk--mem",
+  "displayName": "mem",
+  "description": "A portable, self-hosted memory plane for AI agents \u2014 one core across API, MCP, CLI, and UI.",
+  "version": "1.0.0",
+  "author": "bytefolk",
+  "homepage": "https://github.com/bytefolk/mem",
+  "skills": []
+}
