@@ -1,0 +1,9 @@
+{
+  "name": "microperceptron--virtio-accel",
+  "displayName": "virtio-accel",
+  "description": "Transport-neutral, vendor-agnostic virtual accelerator devices. First class cross-platform NPU backend support for Apple, Intel, AMD, Qualcomm devices, as well as Vulkan for cross-platform GPU support",
+  "version": "1.0.0",
+  "author": "MicroPerceptron",
+  "homepage": "https://github.com/MicroPerceptron/virtio-accel",
+  "skills": []
+}
