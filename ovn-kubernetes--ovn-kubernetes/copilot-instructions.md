@@ -1,108 +1,86 @@
 ## ovn-kubernetes
 
-> CRD type definitions and generated clients/informers/listers for OVN-Kubernetes
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md — CRDs
+# CLAUDE.md
 
-CRD type definitions and generated clients/informers/listers for OVN-Kubernetes
-custom resources. See the parent [`go-controller/AGENTS.md`](../../AGENTS.md)
-for build commands and overall conventions.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Package Layout
+## Repository
 
-Each CRD has its own sub-package with this structure:
+`github.com/go-playground/validator/v10` — struct and field validation library based on struct tags. The module path ends in `/v10`; changes must preserve v10 API compatibility. Contributions require test coverage (see `.github/CONTRIBUTING.md`).
 
-```text
-<crd-name>/
-  v1/
-    doc.go                   # Package doc + deepcopy-gen/groupName markers
-    register.go              # SchemeBuilder and resource registration
-    types.go (or *.go)       # CRD Go type definitions (Spec, Status, List)
-    zz_generated.deepcopy.go # Generated — DO NOT EDIT
-    apis/
-      clientset/             # Generated typed client — DO NOT EDIT
-      informers/             # Generated informers — DO NOT EDIT
-      listers/               # Generated listers — DO NOT EDIT
-      applyconfiguration/    # Generated apply configs — DO NOT EDIT
+## Commands
+
+```bash
+make test              # go test -cover -race ./...
+make lint              # installs golangci-lint v2.0.2 if missing, then runs it
+make bench             # go test -run=NONE -bench=. -benchmem ./...
+
+# Single test / subtest
+go test -run TestName ./...
+go test -run TestName/subtest_name ./...
+
+# Single benchmark
+go test -run=NONE -bench=BenchmarkFieldSuccess -benchmem ./...
 ```
 
-## CRDs
+Tests live alongside source in the package root (`validator_test.go`, `benchmarks_test.go`); run them from the repo root. Non-standard validators and translations are separate packages (`./non-standard/validators`, `./translations/...`) and are included by `./...`.
 
-| Sub-package | CRD |
-|-------------|-----|
-| `adminpolicybasedroute/` | AdminPolicyBasedRoute |
-| `clusternetworkconnect/` | ClusterNetworkConnect |
-| `egressfirewall/` | EgressFirewall |
-| `egressip/` | EgressIP |
-| `egressqos/` | EgressQoS |
-| `egressservice/` | EgressService |
-| `networkqos/` | NetworkQoS |
-| `routeadvertisements/` | RouteAdvertisements |
-| `userdefinednetwork/` | UserDefinedNetwork, ClusterUserDefinedNetwork |
-| `vtep/` | VTEP |
+## Architecture
 
-Shared types used across multiple CRDs live in `types/`.
+The library compiles validation tags into cached execution plans, then runs them against values via reflection. Understanding three layers is enough to be productive:
 
-## Coding Standards
+### 1. Registration & configuration — [validator_instance.go](validator_instance.go)
+`Validate` is the singleton entry point. It holds:
+- `validations` — tag → `FuncCtx` (the validator functions)
+- `aliases` — shorthand tag → expanded tag expression
+- `customFuncs` — `reflect.Type` → value extractor (for types like `sql.NullString` or anything implementing the `Valuer` interface, see [doc.go](doc.go))
+- `structLevelFuncs` — struct-level validators
+- `tagCache` and `structCache` — parsed-tag and parsed-struct caches (critical for performance; `Validate` is thread-safe and must be used as a singleton)
 
-Follow the Kubernetes [API Conventions](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md)
-and [API Changes](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api_changes.md)
-guides. Project-specific additions:
+Options live in [options.go](options.go) (`WithRequiredStructEnabled`, `WithPrivateFieldValidation`, etc.). `WithRequiredStructEnabled` is the forward-compatible default users should adopt before v11.
 
-- **Never hand-edit generated files** — files under `apis/` and
-  `zz_generated.deepcopy.go` are generated. Run `make codegen` from
-  `go-controller/` to regenerate after changing types. This also
-  regenerates CRD YAML manifests and copies them to
-  `helm/ovn-kubernetes/crds/` — commit those too.
-- **Markers** — use the correct code-generator markers in `doc.go`
-  (`+k8s:deepcopy-gen=package`, `+groupName=k8s.ovn.org`).
-- **Backwards compatibility** — CRD API changes must be backwards
-  compatible regardless of API maturity. Any breaking change requires a
-  new API version with a conversion or migration plan.
-- **Validation** — add kubebuilder validation markers on Spec fields
-  where applicable (e.g. `+kubebuilder:validation:Enum`,
-  `+kubebuilder:validation:Required`, `+kubebuilder:validation:MaxItems`,
-  `+kubebuilder:validation:MaxLength`). Use CEL validation rules
-  (`+kubebuilder:validation:XValidation`) for cross-field constraints and
-  complex invariants that markers alone cannot express.
-- **Status subresource** — use the status subresource pattern. Status
-  updates should not modify Spec and vice versa.
-- **Naming** — follow Kubernetes API conventions: PascalCase for type
-  names, camelCase for JSON tags, plural resource names.
-- **Group** — all OVN-Kubernetes CRDs belong to the `k8s.ovn.org` API group.
-- **Optional fields** — use pointers for optional fields so that zero-values
-  are distinguishable from unset (e.g. `*int32`, `*string`). Use the
-  `+optional` marker and `omitempty` JSON tag.
-- **Defaulting** — if a field has a default value, declare it with
-  `+kubebuilder:default=` in the marker. For complex defaulting logic,
-  use a defaulting webhook (`MutatingWebhookConfiguration`). Defaults
-  must not conflict with validation — a defaulted object must always
-  pass validation.
-- **Print columns** — add `+kubebuilder:printcolumn` markers on the root
-  type so `kubectl get` shows useful information without `-o yaml`.
-- **Finalizers** — use finalizers for resources that need cleanup logic
-  before deletion. The finalizer string should be scoped to the group
-  (e.g. `k8s.ovn.org/<purpose>`). Always remove the finalizer once
-  cleanup completes to avoid blocking deletion.
-- **Status conditions** — follow the standard `metav1.Condition` type.
-  Mark condition fields with `+listType=map`, `+listMapKey=type`, and
-  `+patchMergeKey=type` / `+patchStrategy=merge` so that Server-Side
-  Apply (SSA) can merge conditions from multiple controllers without
-  conflicts.
-- **Documentation** — CRD type changes must be accompanied by updating the
-  API reference docs in `docs/api-reference/`. Each CRD has a
-  `<name>-api-spec.md` file documenting its spec/status fields. New CRDs
-  must also be added to `mkdocs.yml` under "API Reference Guide" and to
-  `docs/api-reference/introduction.md`.
-- **Validation tests** — CRD schema changes must include validation tests
-  that verify field constraints (CEL rules, enums, required fields, max items,
-  etc.) are enforced by the API server. Prefer using
-  [`envtest`](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/envtest)
-  which spins up a real API server and etcd locally, giving accurate CRD
-  validation without a full cluster. Existing e2e tests in `test/e2e/` can
-  also be used but `envtest` is preferred for new validation tests going
-  forward.
+### 2. Baked-in validators — [baked_in.go](baked_in.go)
+All built-in tags (`required`, `email`, `uuid`, `oneof`, `gt`, cross-field `eqfield`, etc.) are registered here as `Func`/`FuncCtx` receiving a `FieldLevel` (see [field_level.go](field_level.go)). `restrictedTags` enumerates names that cannot be overridden. Cross-field validators resolve the other field via `fl.GetStructFieldOK*` against the parent struct captured in the execution context.
+
+Adjacent data tables:
+- [regexes.go](regexes.go), [postcode_regexes.go](postcode_regexes.go) — compiled regexps used by validators
+- [country_codes.go](country_codes.go), [currency_codes.go](currency_codes.go), [language_codes.go](language_codes.go) — lookup tables
+
+When adding a new tag: register it in `bakedInValidators` in [baked_in.go](baked_in.go), add its description to the table in [README.md](README.md), and add tests in [validator_test.go](validator_test.go).
+
+### 3. Execution — [validator.go](validator.go) + [cache.go](cache.go)
+- [cache.go](cache.go) parses struct tags into `cField` and `cTag` linked lists once per type and stores them in `structCache`/`tagCache`. `cTag.typeof` (`typeDefault`, `typeOmitEmpty`, `typeDive`, `typeStructOnly`, `typeOr`, etc.) tells the executor what to do.
+- [validator.go](validator.go) contains the per-call `validate` struct (pooled via `sync.Pool`) and the `validateStruct` / `traverseField` mutual recursion. `ns`/`actualNs` are the accumulated dotted namespaces used in error paths; `dive`, `keys`, `endkeys` push/pop through slices/maps.
+
+Public entry points live on `Validate`: `Struct`, `StructCtx`, `StructPartial`, `StructExcept`, `StructFiltered`, `Var`, `VarWithValue`, and their `Ctx` variants.
+
+### Errors
+[errors.go](errors.go) defines `ValidationErrors` (a `[]FieldError`) and `InvalidValidationError`. Per [README.md](README.md) and [doc.go](doc.go), callers type-assert `err.(validator.ValidationErrors)` after checking `err != nil`. Only `InvalidValidationError` signals misuse (e.g. passing a non-struct to `Struct`).
+
+### Struct-level & field-level custom validators
+[struct_level.go](struct_level.go) and [field_level.go](field_level.go) define the contexts passed to user-registered functions. Struct-level validators report errors via `StructLevel.ReportError` / `ReportValidationErrors` — they operate on the whole struct instead of a single field.
+
+### Translations — [translations.go](translations.go) + [translations/](translations/)
+Each locale under `translations/<locale>` registers a human-readable message per tag against a `ut.Translator`. `FieldError.Translate(trans)` consumes the registered `TranslationFunc`. When adding a new tag with a translation, add an entry in each locale package — translations are parallel packages, not a single table.
+
+### Non-standard validators — [non-standard/validators/](non-standard/validators/)
+Opt-in validators (`NotBlank`) users register manually. Keep niche or opinionated validators here rather than expanding `baked_in.go`.
+
+## Performance-sensitive areas
+
+Validation is on the hot path for many users. When touching [cache.go](cache.go), [validator.go](validator.go), or `baked_in.go` hot functions:
+- Avoid allocations in the success path — several baked-in validators and the executor reuse pooled buffers (`validate.misc`, `str1`, `str2`).
+- Benchmarks in [benchmarks_test.go](benchmarks_test.go) gate regressions; run `make bench` before and after significant changes and include results in the PR if they move.
+
+## Conventions
+
+- Go module minimum version is pinned in [go.mod](go.mod); don't lower it.
+- Don't introduce new top-level exported types without need — most extension happens through `Register*` methods on `Validate`.
+- `restrictedTags` (in [baked_in.go](baked_in.go)) is intentionally a denylist for aliases and registrations; adding a tag with one of those names will break the parser.
+- Examples live under `_examples/` (underscore prefix excludes them from the module build). Keep them runnable as standalone `main` packages.
 
 ---
 > Source: [ovn-kubernetes/ovn-kubernetes](https://github.com/ovn-kubernetes/ovn-kubernetes) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
