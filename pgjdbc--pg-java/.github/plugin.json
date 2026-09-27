@@ -1,0 +1,9 @@
+{
+  "name": "pgjdbc--pg-java",
+  "displayName": "pg-java",
+  "description": "A modern Java PostgreSQL driver",
+  "version": "1.0.0",
+  "author": "pgjdbc",
+  "homepage": "https://github.com/pgjdbc/pg-java",
+  "skills": []
+}
