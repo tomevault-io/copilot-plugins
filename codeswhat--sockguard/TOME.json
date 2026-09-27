@@ -4,7 +4,7 @@
   "repo": "sockguard",
   "description": "Docker socket proxy. Filter API requests by method and path with default-deny posture, structured audit logging, and Tecnativa drop-in compatibility.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CodesWhat/sockguard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T12:12:13Z"
+  "distributed_at": "2026-09-27T20:51:58Z"
 }
