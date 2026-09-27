@@ -1,0 +1,9 @@
+{
+  "name": "yusufmo1--mxmon",
+  "displayName": "mxmon",
+  "description": "Sudoless system monitor for Apple Silicon: power, thermals and per-process watts, in a terminal UI and as a JSON contract that scripts and AI agents can query",
+  "version": "1.0.0",
+  "author": "yusufmo1",
+  "homepage": "https://github.com/yusufmo1/mxmon",
+  "skills": []
+}
