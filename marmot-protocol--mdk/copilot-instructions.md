@@ -23,4 +23,4 @@ python3 integrations/hermes/tests/marmot/test_real_hermes_plugin.py \
 
 ---
 > Source: [marmot-protocol/mdk](https://github.com/marmot-protocol/mdk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
