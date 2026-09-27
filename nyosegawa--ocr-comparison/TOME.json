@@ -4,7 +4,7 @@
   "repo": "ocr-comparison",
   "description": "OCR\u6bd4\u8f03",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nyosegawa/ocr-comparison",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T12:22:59Z"
+  "distributed_at": "2026-09-27T20:59:33Z"
 }
