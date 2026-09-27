@@ -1,0 +1,9 @@
+{
+  "name": "aliyun--agent-exporter-to-langfuse",
+  "displayName": "agent-exporter-to-langfuse",
+  "description": "Plug-and-play observability exporter for AI coding agents (Claude Code, Qoder, OpenCode, Codex) to Langfuse",
+  "version": "1.0.0",
+  "author": "aliyun",
+  "homepage": "https://github.com/aliyun/agent-exporter-to-langfuse",
+  "skills": []
+}
