@@ -4,7 +4,7 @@
   "repo": "patch-cc",
   "description": "Interactive patcher for the Claude Code native binary. Live inline thinking, detailed tool calls, subagent model overrides, custom branding \u2014 and your ChatGPT/Codex-plan GPT models as native models. Pure Python.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anfreire/patch-cc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T02:28:37Z"
+  "distributed_at": "2026-09-27T08:59:36Z"
 }
