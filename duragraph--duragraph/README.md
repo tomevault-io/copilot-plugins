@@ -5,11 +5,10 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [Duragraph/duragraph](https://github.com/Duragraph/duragraph).
+Original source: `CLAUDE.md` in [Duragraph/duragraph](https://github.com/Duragraph/duragraph).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
