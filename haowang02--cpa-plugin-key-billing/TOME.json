@@ -4,7 +4,7 @@
   "repo": "cpa-plugin-key-billing",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haowang02/cpa-plugin-key-billing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T23:14:06Z"
+  "distributed_at": "2026-09-27T22:36:57Z"
 }
