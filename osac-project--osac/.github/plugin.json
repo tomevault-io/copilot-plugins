@@ -1,0 +1,9 @@
+{
+  "name": "osac-project--osac",
+  "displayName": "osac",
+  "description": "OSAC mono-repo: consolidates fulfillment-service, osac-operator, osac-aap, and osac-installer",
+  "version": "1.0.0",
+  "author": "osac-project",
+  "homepage": "https://github.com/osac-project/osac",
+  "skills": []
+}
