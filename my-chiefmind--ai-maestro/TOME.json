@@ -4,7 +4,7 @@
   "repo": "ai-maestro",
   "description": "Conduct a roster of AI coding agents against a work board \u2014 a board-driven multi-agent delivery kit.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/my-chiefmind/ai-maestro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T00:29:25Z"
+  "distributed_at": "2026-09-27T05:17:37Z"
 }
