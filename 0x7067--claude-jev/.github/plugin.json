@@ -1,0 +1,9 @@
+{
+  "name": "0x7067--claude-jev",
+  "displayName": "claude-jev",
+  "description": "Claude Code plugin: Jev for rule checks, verbatim compaction, and prompt routing",
+  "version": "1.0.0",
+  "author": "0x7067",
+  "homepage": "https://github.com/0x7067/claude-jev",
+  "skills": []
+}
