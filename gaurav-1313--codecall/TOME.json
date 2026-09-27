@@ -4,7 +4,7 @@
   "repo": "codecall",
   "description": "Agent skill to get on consent concept dive and quiz on the implementation just completed",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GAURAV-1313/codecall",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T01:56:33Z"
+  "distributed_at": "2026-09-27T06:47:00Z"
 }
