@@ -1,0 +1,9 @@
+{
+  "name": "tiangong-ai--langgraph-server",
+  "displayName": "langgraph-server",
+  "description": "Retired LangGraph source archive under tiangong-ai. Shared runtime retirement is managed separately.",
+  "version": "1.0.0",
+  "author": "tiangong-ai",
+  "homepage": "https://github.com/tiangong-ai/langgraph-server",
+  "skills": []
+}
