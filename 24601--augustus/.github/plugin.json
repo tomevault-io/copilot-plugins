@@ -1,0 +1,9 @@
+{
+  "name": "24601--augustus",
+  "displayName": "Augustus",
+  "description": "Agent skill for finding, building, evaluating, and improving decision-model systems. Compositional decision calculus, eval harnesses, and bounded prompt/program hill climbing for Software 3.0. TypeSaf",
+  "version": "1.0.0",
+  "author": "24601",
+  "homepage": "https://github.com/24601/Augustus",
+  "skills": []
+}
