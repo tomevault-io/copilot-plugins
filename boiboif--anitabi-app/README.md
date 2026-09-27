@@ -7,13 +7,13 @@ anitabi APP 为动画圣地巡礼而生。它把探索、收藏、计划和拍�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [boiboif/anitabi-app](https://github.com/boiboif/anitabi-app).
+Original source: `AGENTS.md` in [boiboif/anitabi-app](https://github.com/boiboif/anitabi-app).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
