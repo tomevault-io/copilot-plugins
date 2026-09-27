@@ -1,0 +1,51 @@
+## wright
+
+> <!-- SPECKIT START -->
+
+<!-- SPECKIT START -->
+For additional context about technologies to be used, project structure,
+shell commands, and other important information, read the current plan
+at specs/081-engineering-workflow-templates/plan.md
+
+Deferred output-content validation is planned in
+specs/081-engineering-workflow-templates/content-validation/plan.md, with the
+future-agent handoff in specs/081-engineering-workflow-templates/content-validation/quickstart.md.
+Do not activate it until the user assigns it and its all-30-output G0 gate passes.
+<!-- SPECKIT END -->
+
+Before changing the workflow/process editor or its workspace entry point, read
+`docs/contributing/workflow-ui-integration.md`. Locate the latest reviewed UI
+implementation and preserve its authoring capabilities when integrating runtime
+work. Verify the served build through the workspace Workflow/Workflows control;
+component tests or a separate editor route alone do not establish UI completion.
+
+
+Before every push to a branch with a pull request targeting `dev`, read
+`docs/contributing/dev-push-runbook.md` and run `scripts/check-dev-push.ps1`
+on Windows or `scripts/check-dev-push.sh` on Unix. Direct pushes to `dev` are
+not supported. Before merging a feature branch to `dev`, run
+`scripts/check-dev-merge.ps1` on Windows or `scripts/check-dev-merge.sh` on Unix,
+or document why a local host limitation prevented a specific gate. Before merging
+`dev` to `main`, run `scripts/check-prod-merge.sh`. These scripts are the
+merge-gate source of truth; when CI catches a failure that the scripts miss,
+update the scripts and contributor docs in the same fix.
+
+A production integration is not complete when the PR merges or the `main`
+push checks pass. Follow `docs/release/release-runbook.md` and track the release
+workflow through public PyPI verification, identical GHCR and Docker Hub
+digests, published native lifecycle tests on Linux, macOS, and Windows,
+versioned docs, and the GitHub Release published last. If a registry has just
+accepted an artifact but public lookup fails, check for bounded propagation
+delay and retry verification; never rebuild or republish the same version.
+
+After merging `dev` to `main`, compare their Git tree hashes when checking
+content synchronization. Different commit IDs are expected because `main`
+contains PR merge commits; matching tree hashes mean the files match.
+
+For engineering MCP server validation, follow the clean-container process in
+docs/mcp-catalog/mcp-server-testing-process.md. Do not add MCP-specific host
+software to the base Docker image just to make catalog validation pass.
+
+---
+> Source: [burhop/wright](https://github.com/burhop/wright) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
