@@ -1,0 +1,9 @@
+{
+  "name": "vangogh-7--group",
+  "displayName": "Group",
+  "description": "The agent underlying development framework in Rust.",
+  "version": "1.0.0",
+  "author": "VanGogh-7",
+  "homepage": "https://github.com/VanGogh-7/Group",
+  "skills": []
+}
