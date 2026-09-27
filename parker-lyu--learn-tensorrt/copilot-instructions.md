@@ -1,0 +1,227 @@
+## learn-tensorrt
+
+> transforms, resource ownership, synchronization, and non-obvious API choices.
+
+# Project Instructions For Codex
+
+This repository is a TensorRT deployment learning project. ISO C++17 is the primary implementation
+language for inference and systems lessons, while Python and shell scripts support model export,
+validation, profiling, and report generation. It should teach good engineering habits from the
+beginning, not quick demo shortcuts.
+
+## Required Development Container
+
+- Use the persistent `learn-tensorrt` container for all project code execution unless a lesson or
+  the user explicitly requires a different environment. This includes dependency commands,
+  configuration, compilation, tests, Python and shell scripts, inference, profiling, and report
+  generation; do not run these commands directly on the host by default.
+- The container uses the `learn-tensorrt:25.11` image built from `docker/Dockerfile.dev`, with
+  `nvcr.io/nvidia/pytorch:25.11-py3` as its pinned upstream image. The repository is bind-mounted at
+  `/workspace/Learn-TensorRT`.
+- Before running project code, start the existing container if necessary and execute the command in
+  its repository directory, for example:
+
+  ```bash
+  docker start learn-tensorrt >/dev/null
+  docker exec learn-tensorrt bash -lc \
+    'cd /workspace/Learn-TensorRT && <command>'
+  ```
+
+- Run only host and container-management work on the host, such as `git`, file editing, Docker image
+  and container management, driver checks, and NVIDIA Container Toolkit checks. A documented
+  host-native lesson or an explicit user request is an exception.
+- Reuse the persistent container instead of creating an ad hoc container. Follow
+  `00_environment_check/agent_env_setup.md` when the image or container must be built, recreated, or
+  repaired.
+
+## Course Baseline
+
+- Use `nvcr.io/nvidia/pytorch:25.11-py3` as the single upstream development image.
+- Target TensorRT 10.14 (`10.14.1.48` in the pinned image) and CUDA Toolkit 13.0.
+- Compile host C++ and CUDA C++ as ISO C++17 without GNU language extensions.
+- Use the PyTorch and ModelOpt stack supplied by the development image for model export and
+  explicit-Q/DQ workflows.
+- Build engines, timing caches, references, and benchmark evidence with TensorRT 10.14 in the pinned
+  development environment.
+
+## Course Style
+
+- Keep `README.md`, `docs/learning_roadmap.md`, and `docs/coverage_matrix.md` written for third-party
+  learners taking the course; keep agent-only implementation instructions in `AGENTS.md`.
+- Each implementation lesson should produce a runnable artifact and one concise README. Reporting
+  checkpoints should produce a reproducible report and document how it was generated.
+- Lesson code should be easy to read, but still structured like code that can evolve.
+- Prefer small, focused files over one large file when a lesson has multiple concepts.
+- Shared images, models, and reusable resources belong in the root `assets/` directory.
+- When a lesson needs an input image, use `assets/img.jpeg` by default.
+- Do not display images in GUI windows (for example, with `cv::imshow`); save images learners need
+  to inspect in the lesson's `output/` directory instead.
+- Transient build products, TensorRT engines, profiling captures, generated images, and local
+  benchmark outputs should go to ignored output directories.
+- Files under the root `reports/` directory are generated local evidence and must remain ignored.
+  Small test fixtures, manifests, and reproducibility metadata outside that directory may be
+  committed when they are intentional lesson deliverables.
+
+## Lesson Modules
+
+- Keep lesson directories as complete runnable implementations.
+- Course 00 documents the shared runtime environment; do not repeat it in every later lesson.
+- Design each lesson so a third party can reproduce it from scratch using only the repository at
+  that revision and its documented external prerequisites. A lesson may depend on earlier lessons,
+  but must not depend on files, generated artifacts, undocumented local state, or other resources
+  that existed during development and were later deleted. Document any cross-lesson dependencies
+  and the commands needed to reproduce the lesson in its README.
+- Do not add separate `_practice` lesson folders or TODO-only starter copies unless explicitly
+  requested.
+- When a lesson benefits from hands-on guidance, put concise checkpoints or experiments in that
+  lesson's README without duplicating the lesson directory.
+- Do not replace a complete lesson with a TODO-only version unless explicitly requested.
+- Do not create, switch, or push solution branches for the user unless explicitly requested.
+
+## Lesson README Structure
+
+- Treat `docs/learning_roadmap.md` as the course-level contract. A lesson README must implement the
+  roadmap's purpose, deliverables, and acceptance boundary without silently expanding or narrowing
+  them.
+- Use these learner-facing sections in this order:
+  1. `Purpose`
+  2. `Prerequisites`
+  3. `Deliverables`
+  4. Optional `Setup` for lesson-specific dependency, data, or environment preparation
+  5. Optional `Build` when the lesson compiles C++, CUDA, a plugin, or another native artifact
+  6. `Run` for executable lessons or `Generate the Report` for reporting checkpoints
+  7. `Outputs`
+  8. Optional `Tests` when automated checks exist
+  9. `Checkpoints`
+- `Purpose`, `Prerequisites`, `Deliverables`, the primary execution section, `Outputs`, and
+  `Checkpoints` are expected in every lesson README. Use `None` with a brief explanation only when a
+  required section genuinely has no content. Omit an optional `Setup`, `Build`, or `Tests` section
+  when it does not apply; do not invent an empty command merely to satisfy the format.
+- `Setup` is determined by lesson-specific preparation, not by implementation language. A Python
+  lesson that uses only dependencies from the baseline container does not need `Setup`; a compiled
+  lesson may use both `Setup` and `Build` when it first prepares additional dependencies or data.
+- Keep lesson-specific explanations under descriptive optional headings such as `Design`, `Data
+  Flow`, `Experiments`, `Failure Semantics`, `Troubleshooting`, or `Appendix`. These headings do not
+  replace the standard execution sections.
+- Put commands in the section that owns them: dependency and cross-lesson preparation under
+  `Prerequisites` or `Setup`, compilation under `Build`, the main learner workflow under `Run`, and
+  automated checks under `Tests`.
+- In each standalone lesson README's `Run` section, document every required command with a brief
+  explanation of what it does. For parameter-variant commands, explain the purpose of each variant
+  without repeating example output.
+- Under every primary/default command, include the actual result obtained by running that command on
+  the local development container (normally the persistent `learn-tensorrt` container). Do not invent
+  or predict results; if the command could not be run, state the limitation instead of presenting
+  sample output as fact.
+- Label command results as `Example output`. Keep output concise and follow these display rules:
+  - Fewer than 5 lines: show the output directly (not collapsed).
+  - 6–15 lines: place the output in a `<details>` block whose summary includes the needed
+    explanation, for example `<details><summary>Example output</summary>`.
+  - More than 15 lines: show at most 15 important lines and explicitly identify the excerpt as
+    partial, for example `<details><summary>Example output (partial)</summary>`.
+  - Do not add a separate standalone **Example output** label when the same wording already appears
+    in the collapsible summary; avoid redundant labels.
+- When `Tests` is present, provide exact runnable commands, describe what they cover, and state any
+  GPU, container, sanitizer, server, or target-hardware limitation. Keep tests optional at the
+  README-format level, but add them whenever the lesson contains reusable logic for which focused
+  automated verification is practical.
+- `Outputs` must distinguish committed deliverables from ignored, environment-specific generated
+  artifacts. Never imply that an engine, benchmark, server run, sanitizer run, or target-hardware
+  result exists unless it was actually produced.
+- `Checkpoints` are learner exercises and review questions. Do not use them as a substitute for
+  objective roadmap acceptance criteria or automated tests.
+
+## Industrial Code Expectations
+
+- Treat lesson code as production-style teaching code, not throwaway demos.
+- Prefer explicit ownership, error handling, and resource lifetime boundaries.
+- Keep APIs small, testable, and reusable across later TensorRT lessons.
+- When a lesson introduces reusable deployment logic, prefer library-style modules with clear
+  headers, source files, and narrow public APIs before wiring them into `main`.
+- Apply production-style practices proportionally to the lesson objective. Do not introduce
+  abstractions, dependencies, or framework layers that are not yet needed.
+- Make assumptions visible in names, validation, comments, or README notes.
+- Avoid global mutable state, hidden side effects, magic constants, and hard-coded local paths.
+- Structure code so later lessons can extend it toward long-running inference services.
+- Preserve a path from lesson code to a final portfolio project with separable preprocessing,
+  inference, postprocessing, pipeline, and reporting components.
+
+## C++ Style
+
+- Use ISO C++17 and target-based CMake. Do not raise the repository-wide language standard without
+  an explicit course decision.
+- Prefer RAII, standard containers, and clear ownership over manual memory management.
+- Validate inputs in public helper functions, not only in `main`.
+- Check file and resource errors explicitly.
+- Use `const`, `static_cast`, `<algorithm>` utilities, and standard library facilities where appropriate.
+- Add suitable comments for teaching code, especially around learning intent, data layout, coordinate
+  transforms, resource ownership, synchronization, and non-obvious API choices.
+- Keep comments concise and useful; avoid line-by-line narration or comments that merely restate the
+  code.
+- Avoid silent failures, hidden assumptions, and clever code that hurts readability.
+
+## CMake Style
+
+- Each C++ lesson should have its own `CMakeLists.txt`.
+- Use `target_compile_features(<target> PRIVATE cxx_std_17)`.
+- Set `CXX_EXTENSIONS OFF`. For targets that compile `.cu` sources, also require
+  `CUDA_STANDARD 17`, `CUDA_STANDARD_REQUIRED ON`, and `CUDA_EXTENSIONS OFF`.
+- Prefer target-specific include paths, libraries, and properties.
+- For lessons with reusable components, build those components as explicit library targets and link
+  a small executable target on top.
+- Prefer modular CMake that can later grow into root-level `cmake/`, `src/`, and `tests/`
+  organization without rewriting the lesson code.
+- Keep build artifacts in ignored build directories.
+
+## Testing Style
+
+- For C++ lessons that implement reusable algorithms or resource wrappers, add focused tests when
+  practical, especially for preprocessing, postprocessing, queues, batching, and RAII behavior.
+- Prefer Google Test for multi-case C++ tests once a lesson grows beyond a single smoke-test
+  executable.
+- Include defensive cases for invalid inputs, empty data, extreme image aspect ratios, boundary
+  coordinates, overlapping boxes, and resource-initialization failures where relevant.
+- Keep tests runnable from the lesson build directory and document the command in that lesson's
+  README.
+- Do not claim coverage percentages unless the repository actually measures them.
+
+## Container And Delivery Style
+
+- Do not install CUDA, TensorRT, or OpenCV directly on the host unless the user explicitly asks for a
+  host-native experiment.
+- A repository development Dockerfile may add course dependencies such as OpenCV, ONNX Runtime, and
+  test tools, but it must not silently replace the base image's CUDA, TensorRT, or PyTorch stack.
+- Add runtime-delivery Dockerfiles only when a lesson explicitly targets packaging; keep early
+  lessons focused on using the reproducible development environment.
+- When Docker packaging is introduced, separate development images from lean runtime images and
+  document what files must be copied into the runtime image.
+
+## Dependency And Compatibility Style
+
+- Preserve compatibility with TensorRT 10.14, CUDA Toolkit 13.0, and ISO C++17 in the pinned
+  development image unless a lesson explicitly studies portability to another environment.
+- Do not silently upgrade TensorRT, CUDA, OpenCV, ONNX, or Python package versions.
+- Avoid adding third-party dependencies when the standard library or an existing project dependency
+  is sufficient.
+- Treat serialized TensorRT engines as environment-specific generated artifacts; do not commit them
+  unless explicitly requested.
+- Generate engines, timing caches, golden outputs, and performance baselines in the pinned
+  development environment, and record the runtime, CUDA, GPU, driver, and container identity.
+
+## Verification
+
+Before finishing code changes, whenever practical:
+
+- Build the touched lesson.
+- Run the lesson executable or a focused smoke test.
+- Run verification in the persistent development container, including GPU-, CUDA-, and
+  TensorRT-dependent checks.
+- If the required container, GPU, model, or dependency is unavailable, run the strongest available
+  static or CPU-only checks and state the exact limitation.
+- Never claim that an executable, test, or benchmark passed unless it was actually run.
+- Run `git diff --check`.
+- Tell the user what was verified and what was not.
+
+---
+> Source: [Parker-Lyu/Learn-TensorRT](https://github.com/Parker-Lyu/Learn-TensorRT) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
