@@ -1,0 +1,9 @@
+{
+  "name": "typesafeai--jev-harness",
+  "displayName": "jev-harness",
+  "description": "A custom coding harness for TypeSafe AI's Jev: an LLM proposes, Jev answers narrow questions, code decides, every step leaves a receipt.",
+  "version": "1.0.0",
+  "author": "TypeSafeAI",
+  "homepage": "https://github.com/TypeSafeAI/jev-harness",
+  "skills": []
+}
