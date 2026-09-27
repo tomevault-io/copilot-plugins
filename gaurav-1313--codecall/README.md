@@ -7,11 +7,11 @@ Agent skill to get on consent concept dive and quiz on the implementation just c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [GAURAV-1313/codecall](https://github.com/GAURAV-1313/codecall).
+Original source: `AGENTS.md` in [GAURAV-1313/codecall](https://github.com/GAURAV-1313/codecall).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
