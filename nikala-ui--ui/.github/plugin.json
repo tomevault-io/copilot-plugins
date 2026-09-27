@@ -1,0 +1,9 @@
+{
+  "name": "nikala-ui--ui",
+  "displayName": "ui",
+  "description": "Lightweight copy-paste UI components and reactive primitives for SolidJS, built natively for Tailwind CSS v4 and Tauri v2.",
+  "version": "1.0.0",
+  "author": "nikala-ui",
+  "homepage": "https://github.com/nikala-ui/ui",
+  "skills": []
+}
