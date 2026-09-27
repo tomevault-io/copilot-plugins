@@ -7,11 +7,11 @@ A native, offline-first macOS Markdown reader and editor — open source, extens
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ashtree74/PreviewMD](https://github.com/ashtree74/PreviewMD).
+Original source: `AGENTS.md` in [ashtree74/PreviewMD](https://github.com/ashtree74/PreviewMD).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
