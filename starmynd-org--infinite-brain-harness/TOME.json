@@ -4,7 +4,7 @@
   "repo": "infinite-brain-harness",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/starmynd-org/infinite-brain-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T00:00:51Z"
+  "distributed_at": "2026-09-27T04:49:10Z"
 }
