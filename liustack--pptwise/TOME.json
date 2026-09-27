@@ -4,7 +4,7 @@
   "repo": "pptwise",
   "description": "A real PowerPoint, not a picture or HTML. Tell your AI what to cover and pptwise builds an editable deck on your own machine. Agent skill + DSH plugin, no account and no API key to render. | \u771f\u6b63\u7684 PPT\uff0c\u4e0d\u662f\u56fe\u7247\u4e5f\u4e0d\u662f HTML\u3002\u8ddf AI \u8bf4\u8981\u8bb2\u4ec0\u4e48\uff0cpptwise \u5728\u4f60\u81ea\u5df1\u7535\u8111\u4e0a\u505a\u51fa\u4e00\u4efd\u80fd\u6539\u7684 PPT\u3002Agent skill + DSH \u63d2\u4ef6\uff0c\u4e0d\u7528\u6ce8\u518c\uff0c\u6e32\u67d3\u4e0d\u7528 API key\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liustack/pptwise",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T00:28:18Z"
+  "distributed_at": "2026-09-27T05:16:22Z"
 }
