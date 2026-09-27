@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [LanyXiaosheng/bookflow](https://github.com/LanyXiaosheng/bookflow).
+Original source: `AGENTS.md` in [LanyXiaosheng/bookflow](https://github.com/LanyXiaosheng/bookflow).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [LanyXiaosheng/bookflow](https://github.com/LanyXiaosheng/bookflow) — a repo with 10+ stars on GitHub.
