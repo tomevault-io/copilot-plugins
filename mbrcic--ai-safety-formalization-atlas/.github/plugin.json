@@ -1,0 +1,9 @@
+{
+  "name": "mbrcic--ai-safety-formalization-atlas",
+  "displayName": "ai-safety-formalization-atlas",
+  "description": "The open workbench for AI safety, made formal. Turn safety questions into machine-checked Lean proofs \u2014 a shared launchpad where researchers and AI agents build provable safety together.",
+  "version": "1.0.0",
+  "author": "mbrcic",
+  "homepage": "https://github.com/mbrcic/ai-safety-formalization-atlas",
+  "skills": []
+}
