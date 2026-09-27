@@ -2,9 +2,9 @@
   "name": "gtmc",
   "owner": "techmc-wiki",
   "repo": "gtmc",
-  "description": "Graduate Texts in Minecraft - The online Minecraft textbook",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/techmc-wiki/gtmc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T13:08:53Z"
+  "distributed_at": "2026-09-27T19:24:11Z"
 }
