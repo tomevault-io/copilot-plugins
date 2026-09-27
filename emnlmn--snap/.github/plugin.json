@@ -1,0 +1,9 @@
+{
+  "name": "emnlmn--snap",
+  "displayName": "snap",
+  "description": "Typed decisions from unstructured state: one forward pass, zero generated text. Local, deterministic, Jev-compatible. Not affiliated with typesafe.ai.",
+  "version": "1.0.0",
+  "author": "emnlmn",
+  "homepage": "https://github.com/emnlmn/snap",
+  "skills": []
+}
