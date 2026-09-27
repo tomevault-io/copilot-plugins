@@ -6,125 +6,101 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## What is Starflow
+## Project Overview
 
-Starlake Starflow is a declarative data pipeline tool (Extract, Load, Transform, Orchestrate) written in Scala. It replaces custom ETL scripts with YAML configurations, supporting BigQuery, Snowflake, Redshift, DuckDB, PostgreSQL, Delta Lake, and Iceberg.
+This is a **Starlake Starflow** data pipeline project ("StarBake") — a sample bakery analytics system demonstrating data ingestion, transformation, and KPI computation. The default engine is **DuckDB** (configurable via environment files).
 
-## Build Commands
+## Starflow CLI
 
-**Requires:** JDK 17, SBT 1.11.5
+Before running any `starlake` command, verify the CLI is available in the PATH by running `starlake --version`. If not found, ask the user for the path to the starlake executable. On Windows, the command is `starlake.cmd` instead of `starlake`.
+
+The CLI is silent by default — exit code 0 with empty stdout means success, not a no-op. To see execution logs (SQL run, write strategies, audit inserts), prefix the command with `SL_LOG_LEVEL=info`.
+
+## Key Commands
 
 ```bash
-sbt compile                    # Compile
-sbt cc                         # Clean + compile (alias)
-sbt test                       # Run all tests (sequential, forked)
-sbt "testOnly *ClassName*"     # Run a single test class
-sbt "testOnly *ClassName* -- -z \"test name\""  # Run a single test
-sbt assembly                   # Build fat JAR (without Spark)
-sbt assemblyWithSpark          # Build fat JAR (with Spark embedded)
-sbt pl                         # Clean + publishLocal (alias)
-sbt scalafmtCheck              # Check formatting (CI runs this)
-sbt scalafmt                   # Auto-format code
-```
+# Validate project configuration
+starlake validate
 
-Code formatting (`scalafmt`) runs automatically on compile. Tests run sequentially (`parallelExecution := false`) and are forked (`Test / fork := true`). Tests require ~4GB heap (`-Xmx4g`).
+# Load source data (CSV/JSON) into the warehouse
+# Always specify --domains, --tables, and --files explicitly
+starlake load --domains starbake --tables customers --files "${SL_ROOT}/datasets/incoming/starbake/customers.csv"
+starlake load --domains starbake --tables orders --files "${SL_ROOT}/datasets/incoming/starbake/orders.json"
+starlake load --domains starbake --tables products --files "${SL_ROOT}/datasets/incoming/starbake/products.json"
 
-## Project Structure
+# Run a specific transformation
+starlake transform --name starbake_analytics.customer_purchase_history
+starlake transform --name starbake_analytics.order_items_analysis
+starlake transform --name starbake_kpis.overall_kpis
+# Run a transformation (use --recursive to execute all upstream dependencies in order)
+starlake transform --name starbake_kpis.overall_kpis --recursive
 
-Single SBT module. Scala 2.13.18. Main class: `ai.starlake.job.Main`.
+# Auto-infer schema and load
+starlake autoload
 
-```
-src/main/scala/ai/starlake/
-├── job/             # CLI commands and job execution
-│   ├── Main.scala   # Entry point, routes CLI commands to Cmd implementations
-│   ├── Cmd.scala    # Base trait for all commands: Cmd[T <: ReportFormatConfig]
-│   ├── ingest/      # Data loading (CSV, JSON, XML, Parquet, Kafka)
-│   ├── transform/   # SQL transformations (Spark, BigQuery, JDBC, Snowflake)
-│   ├── sink/        # Output to BigQuery, JDBC, Kafka, Elasticsearch
-│   ├── bootstrap/   # Project scaffolding
-│   ├── infer/       # Schema inference from data files
-│   └── metrics/     # Data quality metrics
-├── schema/
-│   ├── model/       # Domain model case classes (Domain, Table, Attribute, WriteStrategy, etc.)
-│   └── handlers/    # SchemaHandler (orchestrator), StorageHandler (filesystem abstraction)
-├── config/          # Settings, DatasetArea, ConnectionInfo, SparkEnv
-├── extract/         # JDBC/BigQuery data extraction
-├── workflow/        # IngestionWorkflow (composes Transform, Sink, Test, Metrics, Infer workflows)
-├── lineage/         # Table/column dependency tracking
-├── sql/             # SQL parsing, formatting, type mappings, dialect handling
-├── serve/           # REST API server mode
-├── tests/           # Data quality test framework
-├── migration/       # Schema migration tooling
-├── console/         # Interactive console
-└── utils/           # Shared utilities (YAML, Jinja, Spark, GCP, JDBC helpers)
+# Generate DAGs for orchestration
+starlake dag-generate
+
+# Print settings / test a connection
+starlake settings
+
+# Run integration tests
+starlake test
+
+# Switch environment (default: DuckDB)
+export SL_ENV=BQ        # BigQuery
+export SL_ENV=PG        # PostgreSQL
+export SL_ENV=SNOW      # Snowflake
+export SL_ENV=REDSHIFT  # Redshift
 ```
 
 ## Architecture
 
-### Command Pattern
-Every CLI operation is a `Cmd[T]` object (trait in `job/Cmd.scala`). Each command:
-- Parses args via `scopt` into a config case class `T`
-- Implements `run(config: T, schemaHandler: SchemaHandler): Try[JobResult]`
-- Is registered in `Main.scala`'s command list
-
-There are 45+ commands (LoadCmd, TransformCmd, ExtractSchemaCmd, BootstrapCmd, etc.).
-
-### Data Flow
-```
-Extract (JDBC/BQ) → Stage (landing) → Ingest (parse + validate + merge) → Transform (SQL) → Sink (output)
-```
-
-### Workflow Composition
-`IngestionWorkflow` is the main coordinator, composed via trait mixing:
-`TransformWorkflow + TestWorkflow + SinkWorkflow + MetricsSecurityWorkflow + InferWorkflow`
-
-### Schema Model
-YAML configs drive everything. Key model classes in `schema/model/`:
-- **DomainInfo**: Groups tables (like a DB schema)
-- **SchemaInfo/TableInfo**: Table definition with attributes and metadata
-- **AutoTaskInfo/AutoJobInfo**: SQL transformation definitions
-- **WriteStrategy**: Merge logic (UPSERT, APPEND, OVERWRITE, etc.)
-- **Metadata**: Format, inference, delimiter settings
-- **Sink/AllSinks**: Output destination config
-
-### Storage Abstraction
-`StorageHandler` trait with `LocalStorageHandler` and `HdfsStorageHandler` implementations.
-
-### Multi-Engine Support
-Transform jobs can target different engines via `Engine`: Spark, BigQuery, Snowflake, JDBC, DuckDB. Engine-specific implementations live in `job/transform/` (e.g., `SparkAutoTask`, `BigQueryAutoTask`, `JdbcAutoTask`).
-
-## Key Dependencies
-
-- **Spark 4.1.3** (provided scope — not bundled in standard assembly)
-- **Jackson 2.21.2** for JSON/YAML serialization
-- **scopt** for CLI parsing
-- **PureConfig** for typesafe config
-- **better-files** for file I/O
-- **jinjava** for Jinja2 template processing
-- **jsqlparser/jsqltranspiler** for SQL analysis
-- **DuckDB 1.5.0** for local engine support
-- **TestContainers** (PostgreSQL, MariaDB, Kafka) for integration tests
-
-## Testing
-
-Base class: `TestHelper` (extends ScalaTest `AnyFlatSpec`). Key traits:
-- `WithSettings`: Provides test `Settings` with isolated temp directories
-- `SpecTrait`: Manages domain/job YAML delivery and workflow testing
-- `PgContainerHelper`: PostgreSQL container for JDBC tests
-
-Tests create isolated `starlake-test-{uuid}` temp directories and configure test-specific Spark sessions. Integration tests use TestContainers for PostgreSQL, MariaDB, and Kafka.
-
-## YAML Metadata Layout (for user projects)
+### Data Pipeline Flow
 
 ```
-metadata/
-├── types/default.sl.yml          # Type definitions
-├── load/{domain}/_config.sl.yml  # Domain config
-├── load/{domain}/{table}.sl.yml  # Table schemas
-├── transform/{job}/*.sl.yml      # SQL transform tasks
-├── dags/*.sl.yml                 # DAG definitions
-└── expectations/*.sl.yml         # Data quality rules
+datasets/incoming/starbake/     →  Load (metadata/load/)
+    customers.*.csv                    ↓
+    orders.*.json               →  starbake domain tables
+    products.*.json                    ↓
+                                   Transform (metadata/transform/)
+                                       ↓
+                               starbake_analytics/
+                                 ├─ customer_purchase_history
+                                 └─ order_items_analysis
+                                       ↓
+                               starbake_kpis/
+                                 └─ overall_kpis
 ```
+
+### Project Structure
+
+- **`metadata/application.sl.yml`** — Main config: connections (DuckDB, BigQuery, Snowflake, PostgreSQL, Redshift), DAG references, schedule presets
+- **`metadata/env.sl.yml`** — Default env vars (`activeConnection: duckdb`). Override with `metadata/env.{BQ,PG,SNOW,...}.sl.yml`
+- **`metadata/load/starbake/`** — Source table schemas (3 tables). Each `.sl.yml` defines pattern, format, attributes, write strategy
+- **`metadata/transform/`** — SQL transformations with paired `.sl.yml` (task metadata) + `.sql` (query) files
+- **`metadata/types/`** — Custom data types with DDL mappings for each engine
+- **`metadata/expectations/`** — Jinja2 data quality templates (completeness, uniqueness, volume, etc.)
+- **`metadata/dags/`** — DAG definitions for Airflow (shell/Cloud Run/Fargate), Dagster, and Snowflake native
+- **`metadata/external/`** — External table definitions for reading outputs
+- **`datasets/`** — Sample data files and DuckDB database
+
+### Configuration Conventions
+
+- All metadata files use `.sl.yml` extension and start with `version: 1`
+- Variables use `{{VAR_NAME}}` Mustache-style templating, resolved from env files or shell environment
+- Load tables define `pattern`, `metadata.format` (DSV/JSON_FLAT), and `writeStrategy`
+- Transform tasks pair a `.sl.yml` (columns, domain, write strategy) with a `.sql` file (query logic)
+- SQL uses DuckDB syntax by default; alternative Snowflake/Redshift syntax is often commented in `.sql` files
+
+
+<claude-mem-context>
+# Recent Activity
+
+<!-- This section is auto-generated by claude-mem. Edit content outside the tags. -->
+
+*No recent activity*
+</claude-mem-context>
 
 ---
 > Source: [starlake-ai/starflow](https://github.com/starlake-ai/starflow) — distributed by [TomeVault](https://tomevault.io).
