@@ -1,0 +1,9 @@
+{
+  "name": "std-microblock--crossgram",
+  "displayName": "crossgram",
+  "description": "\u4f7f\u7528 Telegram \u5ba2\u6237\u7aef\u5728\u4efb\u4f55\u5e73\u53f0\u4e0a\u804a\u5929 | Bring any chat platform to Telegram clients.",
+  "version": "1.0.0",
+  "author": "std-microblock",
+  "homepage": "https://github.com/std-microblock/crossgram",
+  "skills": []
+}
