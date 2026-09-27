@@ -1,0 +1,23 @@
+## brot74-web
+
+> <!-- BEGIN:nextjs-agent-rules -->
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
+# Testing
+
+- No unit tests in this project, and none planned — `tests/integration/**` (Vitest + Postgres real, sin mocks de Prisma) ya cubre la lógica pura de `lib/**` indirectamente a través de los endpoints que la usan. No agregar una capa de unit tests separada.
+- Todo cambio de comportamiento en `app/api/**` lleva, como mínimo, un test de integración **positivo** (camino feliz) y uno **negativo** (rechazo/error/caso límite) en `tests/integration/`, en el mismo PR del fix o feature.
+- La UI (componentes en `app/**`/`components/**`) se valida manualmente por ahora — no hay Playwright ni tests de UI todavía.
+
+---
+> Source: [gastton/brot74-web](https://github.com/gastton/brot74-web) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
