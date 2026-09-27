@@ -1,240 +1,74 @@
 ## future-os
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> FutureOS desktop app: Tauri + React + TypeScript, frontend `src/`, Tauri backend `src-tauri/` (Rust), connects to the repo-root agent via gRPC. For overall monorepo architecture/build, see **repo-root `CLAUDE.md`**; this file covers `desktop/` only.
 
-# CLAUDE.md
+# Desktop Development Guide (`desktop/`)
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+FutureOS desktop app: Tauri + React + TypeScript, frontend `src/`, Tauri backend `src-tauri/` (Rust), connects to the repo-root agent via gRPC. For overall monorepo architecture/build, see **repo-root `CLAUDE.md`**; this file covers `desktop/` only.
 
-Rust (agent, channel) + TypeScript (TUI, CLI) + Tauri/React GUI + React Native Mobile. The Rust agent is the backend; the TS TUI provides the terminal interface. The TS CLI (`future`) handles auth, one-shot prompts (`run`), MCP tool calls, skills management, environment diagnostics (`doctor`), and account management. The GUI module (`gui/`) is a desktop app that connects to the agent over gRPC via its Tauri backend. The Android-first mobile app lives in `mobile/` and connects to the desktop remote bridge after scanning its pairing QR code. The channel binary bridges external messaging platforms (Feishu, DingTalk) to the agent via gRPC. The remote-control bridge is embedded in the GUI Tauri backend (`gui/src-tauri/src/remote/`) and relays desktop↔mobile/web over NATS; `remote/web/` is the verification web client it serves (design: `gui/DEV_MD/remote-control-*.md`).
+## Document Map (read relevant sections on demand — don't pull whole files into context)
 
-After `make install`, five independent binaries are available: `future-agent`, `future-channel`, `future-tui`, `future-gui`, `future`. Start components directly (e.g. `future-agent`) rather than through the CLI.
+> Development docs live under `docs/internals/desktop/` (repo-root-relative paths below; formerly `desktop/DEV_MD/`).
 
-## Build/Run/Test
+| Document | Content | When to Read / Modify |
+|---|---|---|
+| `docs/internals/desktop/PRODUCT.md` (~35KB) | Product positioning, module boundaries, workspace object semantics, desktop experience | **Read** when changing product behavior / adding features / confirming domain semantics; **modify** only when product decisions change |
+| `docs/internals/desktop/ER.md` (~42KB) | Data objects & relationships, table inventory, schema design decisions | **Read** when changing store / data flow; **modify** and keep in sync when schema changes |
+| `docs/internals/desktop/COLOR.md` (~5KB) | Color semantic tokens + quick usage reference | **Read** when picking colors / changing styles; **modify** only when adding/changing tokens |
+| `docs/internals/desktop/SANDBOX/COMMON.md` | Shared rules, tiers, approval UI/protocol, decisions and Codex references | **Read** for approval semantics; distinguish implemented behavior, accepted limitations and future plans |
+| `docs/internals/desktop/SANDBOX/MACOS.md` / `LINUX.md` / `WINDOWS.md` | Platform implementation, differences, diagnostics, progress, validation procedures and evidence | **Read** the relevant platform; historical PASS is not validation of a new candidate; preserve the accepted Windows unelevated and Linux snapshot boundaries |
+| `docs/internals/desktop/CONTEXT_COMPACTION.md` / `docs/internals/desktop/CONNECTION.md` | Compaction plans / remote product rationale, architecture, connection contract and implementation plan | **Read** for the corresponding feature; verify plan-vs-current against code |
+| `docs/internals/desktop/embedded-terminal.md` | Embedded terminal: architecture, wire protocol, security model, lifecycle, platform status | **Read** before touching `src-tauri/src/terminal/` or `src/features/terminal/`; **modify** when the protocol or its boundaries change |
 
-Prefer `make` targets from repo root. For more control, use cargo/npm directly.
+> `docs/internals/desktop/PRODUCT.md` / `docs/internals/desktop/ER.md` are large: use `Read` with `offset/limit` to read **specific sections** from the chapter index below — don't load the whole file.
+
+### Chapter Quick Reference
+- **PRODUCT.md**: §1 Positioning · §2 Module Boundaries · §3 Product Principles · §4 Work Objects (4.1 Workspace / 4.2 Chat / 4.3 Message / 4.4 Run / 4.5 Tool / 4.6 Approval / 4.7 Review / 4.8 Artifact / 4.9 Research / 4.10 Data / 4.11 Skill / 4.12 Attachment) · §5 Desktop Experience (5.1 Three-panel / 5.2 Left Nav / 5.3 Chat Area / 5.4 Right Context / 5.5 Colors / **5.6 Settings: Provider/Model/Login**) · §6 Agent Workflow · §9 Roadmap
+- **ER.md**: §2 Relationship Overview · §3 Naming Conventions · §4 Objects (4.1 Workspace … 4.8 Approval Request / 4.9 Review Changeset / 4.10 Review File Change (incl. **Shadow Review extension**: `review_snapshots` table + changeset/file_change extension columns) … 4.20 Object Reference) · §5 V1 Table Inventory · §6 Key Design Decisions (**6.8 Shadow Repo "Previous Change Set"** / **6.9 Provider/Model/Login Config**)
+
+> **Shadow Review** (run-level "previous change set"): product semantics in docs/internals/desktop/PRODUCT.md §4.7, data model in docs/internals/desktop/ER.md §4.10, design tradeoffs in docs/internals/desktop/ER.md §6.8. Read all three before modifying shadow repo / snapshot / changeset code (`src-tauri/src/shadow_review/`, `store/review_snapshots.rs`).
+
+> **Provider / Model / FutureGene Login**: product behavior in docs/internals/desktop/PRODUCT.md §5.6, storage & login implementation in docs/internals/desktop/ER.md §6.9, custom-provider field validation in `agent_providers/validate.rs` (frontend mirror: `CustomProviderDialog.tsx` + settings.json strings `idPattern`/`idLength`/`baseUrlInvalid`). Read these before modifying `agent_providers/` (Providers view + custom-provider upsert/delete) / `future_platform.rs` (platform / model-API URL resolution, shared by login/skills/debug) / `auth_store.rs` / `future_login.rs` / `commands/login.rs`.
+
+## Code Structure (`src/`)
+
+- `components/layout/` — `AppShell` (layout orchestration) + `ContextPanel` + `ActivityRail` (left nav) + dialog shells (`AppShellDialogs` / `WorkspaceDialogs` / `LeftPanelTitlebarToggle`); `hooks/` contains AppShell domain hooks: `useThreadStore` / `useAgentConnection` / `useApprovals` / `useAppSettings` / `useModelSelection` / `useNewConversation` (new-conversation create flow: pending prompt + `startNewConversation`) / `useThreadDialogs` / `useUnreadThreads` / `useWorkspaceDialogs` / `useDropUpMenu`
+- `components/ui/` — Generic presentational components (`Badge` / `DiffView` / `CopyablePre` / `TextInput` / `Select` / `Button` / `Overlay` / `ToastHost` …), no business logic
+- `features/{agent,review,runs,artifacts,filetree,skills,remote,terminal,settings,markdown,filepreview}/` — Domain-specific business components (Skills and Remote have user-facing navigation; Research/Data remain hidden — verify ActivityRail.tsx and PRODUCT.md §5.2). Large features split their logic out of the view: `agent/` keeps the send flow in a non-React `sendPipeline.ts` driven by hooks `useSendMessage` / `useRunReattach` / `useThreadMessages` (`useAgentThreadState` is now just the orchestrator), approval-payload parsing/validation in `approvalPayload.ts`, and the new-conversation workspace form in `useWorkspaceForm.ts` + `NewConversationWorkspaceForm.tsx`; `review/` splits into `GitChangesReview` / `LastRunReview`; `markdown/` renders through `renderers/` (`CodeBlock` / `SafeLink` (URL sanitization) / `FutureEmbed` / …); `filepreview/` renders the fullscreen local-file preview overlay — image + markdown + JSON + code / config text (`previewKind.ts`), every other file (PDFs included) opens with the OS default handler
+- `integrations/` — Boundary with the Tauri backend: `tauri/invoke.ts` (sole typed invoke entry point) + `tauri/useBuildInfo.ts`, `agent/`, `skills/` (`skillsClient.ts`), `storage/` (`threadStore.ts` is the barrel, domain modules in sibling files; `types.ts` + `typeGuards.ts` hold the stored-payload shapes and their runtime guards)
+- `i18n/` — `en`/`zh` locale bundles + init (language switch, PRODUCT.md §5.6). `lib/` stays i18n-free: locale-dependent helpers (`date.formatTime`) take a `locale` arg passed by callers, never import `i18n`
+- `lib/` — Dependency-free utilities: `usePolling` / `useAsyncResource` / `futureEvents` (typed event bus) / `cn` / `clipboard` / `date` (`formatTime` takes an optional `locale`) / `format` (`formatBytes`) / `errors` (`errorMessage`) / `platform` / `objects` / `useDismissableLayer` / `useFloatingScrollbar` / `useIsFullscreen` / `windowDrag`
+
+## GUI Development Principles (Long-term Memory)
+
+1. **Colors**: Use only semantic tokens from `docs/internals/desktop/COLOR.md`; no bare Tailwind colors (`blue-300`…). Status badges use `<Badge tone>`; categorical colors (event categories / error subtypes) are intentional exceptions.
+2. **Tauri Invoke**: All `invoke` calls go through `integrations/tauri/invoke.ts`'s `invokeCommand` — never call `invoke` directly. Command params: structured input via `{ input }`, single scalars via named keys. (Other `@tauri-apps/api` capabilities — event `listen`, dialog, `convertFileSrc`, window/webview — are not wrapped by `invoke.ts`; import them directly as needed.)
+3. **Cross-component Events**: Use `lib/futureEvents.ts` typed `emitFutureEvent` / `onFutureEvent`; never use raw `window` CustomEvent.
+4. **Async / Polling**: Cancellation-safe loading uses `lib/useAsyncResource`, polling uses `lib/usePolling` (don't hand-roll `cancelled` flag effects or `setInterval`). When polling connection/status changes, **don't flash `checking` on every tick** — retry silently, only update state when you have a result.
+5. **AppShell State**: Split by domain into hooks under `components/layout/hooks/`; AppShell only does layout orchestration. Hooks expose state via named destructuring to AppShell to minimize the change surface.
+6. **Data**: Schema changes must sync to `docs/internals/desktop/ER.md`; frontend store changes must account for corresponding backend `src-tauri/src/store/` (split by domain).
+7. **Released database migrations**: The GUI SQLite database is now in production. `SCHEMA` defines a fresh install only; changing it alone is never sufficient for an existing user database. For every database-structure change (tables, columns, constraints, indexes, data shape, or destructive cleanup), add or update a versioned migration and test both upgrade and fresh-install paths. Use the latest reachable release tag as the boundary (`git describe --tags --abbrev=0`): migrations already present in that tag are immutable; only an unreleased migration may be amended. For one target release tag, consolidate related schema work into **one new migration** whenever practical; create more only when a documented ordering/operational constraint requires it. Each migration must be ordered, transactional where SQLite permits, idempotent or safely resumable, and covered by a fixture/database representing the previous release tag.
+8. **Backend Errors**: Tauri commands return `Result<_, AppError>` (`thiserror`), **serialized as strings**; frontend handles them as strings. Backend loose colors have been tokenized / AppError'd — don't regress to `.map_err(|e| e.to_string())`.
+9. **Approval (v2 file-based + three-tier)**: Approval targets **file path access**, except manual shell and macOS/Linux whole-command escalation. Rules live in `${WS}/.future/approval_rule.json` and `~/.future/approval_rule.json`; Agent reads them, GUI writes through trusted `approval_rules.rs` + `commands/approvals.rs`. Tiers are `manual` / `sandbox` / `off`, sent via `set_sandbox_policy`. OS backends are macOS Seatbelt, Linux system Bubblewrap, and Windows unelevated write protection; availability follows `useSandboxAvailability`, not equivalent guarantees across platforms. `approval_requests` retains `action_payload` / `sandbox_boundary` / `save_suggestion`. Semantics and evidence: `docs/internals/desktop/SANDBOX/COMMON.md`, the platform document, and `docs/internals/desktop/ER.md §4.8`. Legacy SQLite rule/config tables were deleted on 2026-07-05.
+10. **Config-file IO**: The JSON config files the GUI owns under `~/.future/` (`models.json`, `auth.json`, `approval_rule.json`) go through `src-tauri/src/config_io.rs` — `read_json_object` (strict: corrupt/non-object is an **error**, never a silent reset that would clobber user-authored config), `write_json_atomic` (unique temp + `rename`, `owner_only` for `auth.json`), and `with_config_lock` (per-path lock serializing read-modify-write). Don't hand-roll `fs::read`/`fs::write` for these; a *cache* file may use `read_json_lenient`.
+11. **Run status writes**: A run's status is only ever written by the compare-and-set `store::update_run_status_if_active` (and `fail_run_if_active`) — the unguarded writer was removed so a late completion/failure can't clobber a concurrent abort's terminal state. Startup convergence no longer cancels orphaned runs outright: non-terminal runs are reconciled against the Agent's actual state (`reconcile_interrupted_runs` + `reanimate_run` + the active-run watchdog), and pending approvals via `reconcile_pending_approvals` — the Agent may have survived a GUI crash. Don't add an unguarded status `UPDATE`.
+12. **Store row mapping**: Each record's `*_COLUMNS` string and `*_from_row` are generated together from one field list by `sql_record!` (`store/record_macro.rs`) so they can't drift; declare fields once, in `SELECT` order, with names matching the SQL columns.
+13. **No emoji**: Never use emoji anywhere in the product — UI labels, icons, status indicators, code, comments, commit messages, or logs. Use a `lucide-react` icon (SVG) for any glyph; text labels stay plain. (Emoji render inconsistently across platforms/fonts and don't theme.) This is a hard rule, not a style preference.
+14. **Cross-platform (incl. Windows)**: Code must work on Windows as well as macOS/Linux. Don't assume POSIX: paths can use `\` separators and `.exe` suffixes and are case-insensitive; the agent's shell tool runs via PowerShell on Windows — pwsh 7 when on PATH, else Windows PowerShell 5.1 (`bash -c` elsewhere; see agent `sandbox::shell_invocation`); never hard-code `/`, `~`, or shell-specific syntax when a platform-neutral form exists. When parsing command strings or paths, handle both separators and casing.
+15. **Tool vs run status**: In tool-facing UI (e.g. the Runs panel) show the *tool's* own status (`running`/`completed`/`failed`), never the enclosing run's status or error. A tool still `running` after its run has ended was interrupted — treat it as `failed` (a user abort is indistinguishable from a real failure). Run-level errors belong only in run-level UI (the inspector banner), not on individual tool rows.
+16. **Embedded terminal**: The terminal is a PTY registry in `src-tauri/src/terminal/` served to the webview over a **loopback-only HTTP/WebSocket listener** (opencode's transport model), not over Tauri IPC. Output is a byte stream with an absolute cursor: a view resumes by asking for the bytes after the cursor it applied, so reopening the panel, reloading the webview or remounting a tab never re-renders history. Keep it that way — the socket is also what makes the feature verifiable without a GUI (`cargo test terminal::server` drives a real shell end to end). The webview's `authorization` header means every control request is CORS-preflighted; the listener answers the preflight and refuses foreign origins. Terminals are conversation-scoped: deleting a conversation or workspace closes its shells, and a shell must never outlive its context. Never route terminal bytes through the agent, RPC, remote control, logs or SQLite. Details: `docs/internals/desktop/embedded-terminal.md`.
+17. **i18n (user-facing text + dates/times)**: Every string a user reads goes through `react-i18next` `t(...)` with a key in **both** `i18n/locales/en` and `i18n/locales/zh` — never hard-code a literal (Chinese or English) in JSX/components. Dates and times are formatted with the caller's locale via `lib/date.formatTime(..., locale)` — never build a date string with a hard-coded format or a locale-less `toLocaleString()`; `lib/` stays i18n-free, so pass the locale in rather than importing `i18n` there. Exempt: model-facing prompt strings (e.g. `buildInlineAttachmentContext`) are sent to the LLM, not shown in the UI, so they're not localized.
+
+## Verification (Run After Every Change)
 
 ```bash
-# ─── Make targets (from repo root) ──────────────────────────────────────────
-make build              # Build agent, TUI, CLI, and GUI frontend
-make build-agent        # Build Rust agent only
-make build-tui          # Build TypeScript TUI only
-make build-cli          # Build TypeScript CLI only
-make build-gui          # Build React GUI frontend
-make build-channels      # Build channel bridge
-make build-mobile-android # Generate/build/install Android locally
-make test               # Run all tests (Rust crates + cli/tui/gui via bun/vitest)
-make lint               # Lint Rust + TypeScript + GUI
-make lint-agent         # cargo fmt --check && cargo clippy
-make lint-tui           # TUI: npx tsc --noEmit
-make lint-cli           # CLI: npx tsc --noEmit
-make lint-gui           # GUI: ESLint
-make stylelint-gui      # GUI: Stylelint
-make check-gui          # GUI lint/style/build + Tauri cargo check
-make check-mobile       # Mobile typecheck/lint/format-check/test
-make fmt                # Format Rust code with cargo fmt
-make run-agent          # Build and run Rust agent
-make run-tui            # Run TUI in dev mode (auto-installs npm deps)
-make run-cli            # Run CLI in dev mode (auto-installs npm deps)
-make run-gui            # Run Tauri GUI in dev mode (auto-installs npm deps)
-make run-mobile-android # Run Android app on a selected device
-make package-gui        # Build GUI desktop bundle via Tauri
-make run-channels        # Build and run channel bridge
-make profile-agent       # CPU profile: build + 90s bench → flamegraph SVG in profile-results/
-make profile-quick       # CPU profile: run N secs (PROFILE_SECS=30)
-make profile-heap        # Heap profile via dhat (feature dhat-heap) → dhat JSON in profile-results/
-make generate-models    # Fetch model data from APIs, regenerate models_generated.rs
-make generate-proto     # Compile proto/future.proto → Rust gRPC code
-make clean              # Remove target/, dist/, node_modules/
-make help               # Show all targets
-
-# ─── Direct commands ────────────────────────────────────────────────────────
-cd agent && cargo run                  # Start gRPC server on 127.0.0.1:50051
-cd agent && cargo test                 # Run all Rust tests
-cd agent && cargo test <test_name>     # Run a single test
-cd channels && cargo run                # Start channel bridge (connects to agent gRPC)
-cd channels && cargo build              # Build channel bridge (debug)
-cd channels && cargo build --release    # Build channel bridge (optimized)
-cd tui && npm run dev                  # Run TUI in dev mode (connects to agent)
-cd cli && npm run dev -- <command>     # Run CLI in dev mode (e.g., `npm run dev -- auth login`)
-cd gui && npm run tauri:dev            # Run desktop GUI (connects to agent via FUTURE_AGENT_GRPC_ADDR)
-cd mobile && npm run android:device     # Generate, build, and run Android locally
-
-# Proto codegen — regenerated by build.rs on every cargo build
-# Agent proto: proto/future.proto → agent/src/grpc/generated/proto.rs
-# Channel proto: channels/proto/feishu_ws.proto (pbbp2 frames) + proto/future.proto (gRPC client)
+cd desktop && npx tsc --noEmit && npx eslint "src/**/*.{ts,tsx}" && npx vitest run
+# If Tauri backend is affected, also run:
+cd desktop/src-tauri && cargo fmt --check && cargo clippy && cargo test
 ```
 
-The Rust binary (`future-agent`) is the backend, always running as a gRPC server at `127.0.0.1:50051`. The TS TUI, GUI Tauri backend, and channel bridge all connect to it via gRPC. The Rust binary itself has only one CLI flag: `--grpc-addr`.
-
-The TypeScript CLI (`future`) is a separate management tool — see the CLI section below.
-
-## Config
-
-Agent config is under `~/.future/agent/`:
-- `settings.json` — model defaults, steering/followUp modes, compaction, thinking level
-- `models.json` — user model overrides/provider configs (merged over built-in catalog)
-- `auth.json` — API keys by provider, plus a default key
-- `sessions/` — JSONL conversation persistence
-
-Model config reads purely from these files. No model-related CLI flags or env vars.
-
-The TUI persists client-side settings to `~/.future/tui/settings.json` (default model, thinking level, scoped model list). Most configuration flows through the agent via gRPC.
-
-Channel config is under `~/.future/channels/`:
-- `config.json` — agent gRPC address, per-channel settings (feishu with `enabled`, app credentials, policies)
-
-On first run, `config.json` is created with defaults if it doesn't exist.
-
-## Architecture
-
-```
-                         ┌──────────────────────────┐
-                         │   Rust Agent Backend     │
-                         │   (agent/ — gRPC server) │
-                         └──────────┬───────────────┘
-                                    │ gRPC (tonic)
-                  ┌─────────────────┼─────────────────┐
-                  │                 │                  │
-           TypeScript TUI     Channel bridge       TypeScript CLI
-           (tui/ via gRPC)   (channels/)            (cli/ future)
-                              Feishu ←→ WS+REST     auth, service mgmt,
-                              DingTalk ←→ Stream    MCP tools, skills,
-                              Mode WebSocket         launches TUI
-```
-
-### Rust backend (`agent/src/`)
-
-Entry point: `main.rs` — only CLI flag is `--grpc-addr`. Resolves model from settings.json, API key from auth.json → model built-in, then starts gRPC server.
-
-| Module | Role |
-|--------|------|
-| `agent/mod.rs` | Agentic loop: call LLM → stream events → execute tools → repeat. Supports interrupt/abort, steering/followUp queues, parallel tool execution, auto-retry with exponential backoff |
-| `engine/mod.rs` | `Engine` struct: wires provider, tools, session, and agent loop together |
-| `llm/mod.rs` | OpenAI-compatible streaming HTTP client (reqwest + SSE parsing). Supports thinking/reasoning content extraction, tool call accumulation from streaming chunks |
-| `grpc/mod.rs` | gRPC server using tonic. Implements `FutureAgent` service: `ExecuteCommand` (unary), `StreamEvents` (server-side streaming) |
-| `rpc/mod.rs` | Command handler dispatch (25+ commands) and `ServerSession` state management. SSE event broadcasting via tokio broadcast channel (capacity: 4096) |
-| `session/mod.rs` | Conversation persistence as JSONL files in `~/.future/agent/sessions/<encoded-cwd>/`. Tree-structured entries with ParentID for forks. `Manager` handles save/load/list |
-| `types/mod.rs` | Core types: `Message`, `StreamEvent`, `AgentTool`, `ToolDef`, `AgentConfig`, `LLMProvider` trait, `ContentBlock` (polymorphic text/image/tool_result) |
-| `sandbox/mod.rs` | OS-level sandbox for tool execution: `ResolvedSandbox` (tier: off/manual/seatbelt), `EscalationRequest`/`EscalationRequester` for post-hoc approval of out-of-sandbox operations. macOS Seatbelt via `seatbelt.rs`, cross-platform path rules via `rules.rs` |
-| `rpc/approval.rs` | Approval system: file-path access requests, sandbox boundary checks, escalation flow. Approval rules stored in `${WS}/.future/approval_rule.json` and `~/.future/approval_rule.json` |
-| `tools/mod.rs` | 4 tools: shell, read, write, edit. Each tool runs within `ToolExecutionScope` (workspace boundary, sandbox tier, interrupt flag). `coding_tools()` and `all_tools()` both return the same 4 tools |
-| `compaction/mod.rs` | Context compaction: estimates tokens (chars/4 heuristic), finds safe cut points, summarizes file ops |
-| `models/mod.rs` | Model registry: generated built-in catalog (`generated/`, 906 models) + user `models.json` overrides, resolution, fuzzy matching. Default model from settings.json |
-| `config/mod.rs` | Settings struct (7 fields: steering_mode, follow_up_mode, compaction, retry, max_turns, default_permission_level). Loads from `~/.future/agent/settings.json` (global) and `.future/agent/settings.json` (project), deep-merged |
-| `auth/mod.rs` | Reads API credentials from `~/.future/agent/auth.json` or `~/.future/agent-app/auth.json`, keyed by provider |
-| `skills/mod.rs` | Discovers skills from the global dirs `~/.future/agent/skills/` and `~/.agents/skills/` (project/cwd-relative dirs are not supported) — parses YAML frontmatter from SKILL.md. Discovery is cached process-wide with a 60s TTL |
-| `prompt/mod.rs` | Builds system prompt in 6 sections: Identity (tools + guidelines) → Skills → Project Context (AGENTS.md > CLAUDE.md > GEMINI.md) → Workspace Memory (FUTURE.md) → Append prompt → Environment (date/cwd/platform). All sections deterministic for prompt cache hits |
-| `events/mod.rs` | `EventBus` with pub/sub for bridging agent streaming events to frontends (thinking, tool calls, usage stats) |
-| `utils/mod.rs` | Session ID generation, cwd path encoding (base32), image MIME type detection |
-
-Provider model: `LLMProvider` trait (`stream_chat`). Uses OpenAI-compatible HTTP+SSE. Thinking/reasoning extraction via compat format parameters (deepseek, openrouter, zai, qwen).
-
-The remote-control bridge is embedded in the GUI Tauri backend (`gui/src-tauri/src/remote/`), not a separate crate: it subscribes to `p.{pairId}.cmd.>` → routes commands through the GUI persistence/agent path → publishes responses, and mirrors agent events to NATS `p.{pairId}.evt.{session}`. `remote/web/` holds the verification web client it serves over a local HTTP server. See `gui/DEV_MD/remote-control-*.md`. (The former standalone `remote/` Rust crate was removed — it was an auth-less L0 skeleton superseded by the embedded bridge.)
-
-API key resolution order: `auth.json` (by model ID) → `auth.json` (by provider) → model built-in key → `auth.json` default key.
-
-Session files are JSONL, tree-structured (each entry has ID + optional ParentID). Entry types: session_info, user, assistant, tool, compaction, model_change, thinking_level_change, branch_summary, label, custom.
-
-### gRPC API (`proto/future.proto`)
-
-The `FutureAgent` service has two RPCs:
-- `ExecuteCommand(RpcCommand) → RpcResponse` — unary, 30+ command types
-- `StreamEvents(StreamRequest) → stream StreamEvent` — server-side streaming for SSE events
-
-Commands include: prompt, steer, followUp, abort, new_session, switch_session, set_model, set_thinking_level, compact, fork, clone, export_html, cycle_model, cycle_thinking_level, list_sessions, delete_session, get_available_models, set_enabled_models, shell, abort_shell, and more.
-
-### TUI architecture (`tui/src/`)
-
-Follows a `Component`/`Container`/`Focusable` pattern with overlay stack:
-
-**Core framework** (`tui.ts`): `Component` interface (render/input/invalidation), `Container` class (addChild/removeChild, cascading invalidation), `OverlayHandle`, `InputListener` pipeline, `NodeTerminal` for raw-mode stdin with Kitty CSI-u, bracketed paste. Mouse tracking disabled — native text selection works, scroll via keyboard.
-
-**Rendering** (`app.ts`): Dual-phase scheduling (nextTick + setTimeout at ~60fps), differential rendering (changed-line ranges → minimal ANSI updates), overlay compositing, Kitty image lifecycle management.
-
-**Key systems**: `keys.ts` (Kitty CSI-u/xterm/legacy parsing), `keybindings.ts` (KeybindingManager with context filtering), `theme.ts` (256-color + style composers), `utils.ts` (Intl.Segmenter-based visibleWidth, ANSI-aware word wrap, CJK/emoji grapheme width).
-
-**14 components**: AutocompleteManager, Box, ChatArea, Container, Editor, Footer, Image, Input, Loader, MarkdownRenderer, ScopedModelsSelector, SelectList, Spacer, Text.
-
-**RPC** (`rpc/`): gRPC client (`grpc-client.ts`) connecting to the Rust backend. 30+ methods: session management (newSession, switchSession, clone, fork, listSessions, deleteSession, setSessionName), prompting (prompt, steer, followUp, abort), model control (setModel, cycleModel, getAvailableModels, setEnabledModels, setThinkingLevel, cycleThinkingLevel), session operations (compact, getState, getMessages, getForkMessages, getLastAssistantText, getSessionStats, exportHtml), and tool control (shell, abortShell, setSteeringMode, setFollowUpMode, setAutoCompaction, setAutoRetry, abortRetry).
-
-### TypeScript CLI (`cli/src/`)
-
-Entry point: `index.ts` — subcommand dispatcher. The CLI is installed via `make install` as `future`.
-
-| Command group | Subcommands | Role |
-|---------------|-------------|------|
-| `auth` | `login`, `status`, `logout`, `credential` | Device-flow OAuth against Future API. Saves API key to `~/.future/agent/auth.json`. `credential` outputs the API key for scripting |
-| `run` | `[options] [@files...] [message...]` | One-shot agent prompt. Supports `--model`, `--thinking`, `--fork`, `--session`, `--tools`, `--cwd`, `--mode json`, `--verbose` |
-| `skills` | `list`, `install`, `uninstall`, `install-builtin`, `update` | Manage skills in `~/.future/agent/skills/`. `install` with no name = install all builtins. `update` upgrades installed skills to latest |
-| `tools` | `list`, `call` | MCP client — lists and calls tools from a remote MCP server |
-| `doctor` | (no args) | Environment diagnostic: login, components, config, sessions, skills, providers |
-| `account` | `profile`, `balance`, `recharge` | Future platform account management |
-
-Key files:
-- `commands/auth.ts` — device code flow, API key persistence
-- `commands/run.ts` — one-shot prompt execution via gRPC RunClient
-- `commands/skills.ts` — skill discovery, install, update (reads YAML frontmatter)
-- `commands/doctor.ts` — environment diagnostic (components, config, sessions, skills)
-- `commands/tools.ts` — MCP JSON-RPC client
-- `commands/account.ts` — platform account management
-- `rpc/grpc-client.ts` — minimal gRPC client using @grpc/grpc-js with embedded proto
-
-### GUI (`gui/`)
-
-Tauri 2 + React + TypeScript desktop app. See `gui/CLAUDE.md` for detailed development guide. Architecture docs under `gui/DEV_MD/`: PRODUCT.md (product semantics), ER.md (data model), COLOR.md (design tokens), plus planning docs for approvals, sandbox, attachments, memory, and remote control.
-
-Key backend modules (`gui/src-tauri/src/`):
-- `agent_providers/` — Provider configuration UI: built-in catalog + custom providers. Tests reference dynamic catalog providers (not hardcoded names). Split into `catalog.rs`, `validate.rs`, `write.rs`, `tests.rs`
-- `agent_bridge/` — gRPC client for GUI→agent communication (session management, import)
-- `store/` — SQLite persistence (threads, runs, approvals, settings)
-- `auth_store.rs` — API key persistence in `~/.future/agent/auth.json`
-
-### Channel bridge (`channels/src/`)
-
-Entry point: `main.rs` — loads `config.json`, starts enabled channels as tokio tasks. Design is extensible: each channel implements its own `run()` method.
-
-| Module | Role |
-|--------|------|
-| `config.rs` | Unified config: `ChannelConfig` (agent + per-channel sections). Auto-creates default config on first run. Supports optional channel keys for future platforms |
-| `grpc_client.rs` | Shared gRPC client wrapping `FutureAgentClient`. Maps streaming proto events to `AgentEvent` enum (TextChunk, ThinkingStart/Delta/End, ToolStart/Delta/End, AgentStart/End) |
-| `feishu/mod.rs` | `FeishuChannel::run()` — creates WS client and Bridge, enters reconnect loop |
-| `feishu/feishu_ws.rs` | WebSocket long-connection client. Bootstrap flow: POST `/callback/ws/endpoint` → get WS URL → connect with pbbp2 protobuf frame protocol. Heartbeat with configurable intervals, reconnection on timeout |
-| `feishu/feishu_rest.rs` | REST API client: tenant token (cached), send/reply messages, upload images/files, download resources, CardKit CRUD (create card, update element, update card, streaming mode settings). CardKit settings API returns empty body — uses raw HTTP status check instead of `.json()` |
-| `feishu/bridge.rs` | Core orchestration: Feishu event → policy check → slash command or gRPC prompt → CardKit streaming response. Handles image/file download and base64 conversion for agent input. Streams agent events into a chronological markdown accumulator with 250ms throttle on CardKit element updates |
-| `feishu/card.rs` | Card builders for Message API and CardKit schema 2.0 formats (`to_cardkit_format()`). Card types: thinking indicator, streaming, complete (with `config.summary` for message list preview), error, tool, status, help |
-| `feishu/config.rs` | Feishu-specific config (app_id, app_secret, domain, policies). `api_base()` returns URL with `/open-apis`; `api_domain()` returns bare domain for WS bootstrap |
-| `feishu/policy.rs` | Permission engine: DM allowlist/disabled/open, group allowlist/disabled/open with per-chat overrides, require-mention enforcement |
-| `feishu/session_store.rs` | Maps (chat_id, thread_id) → agent session_id, persisted as JSON |
-
-**Feishu API base URLs:** `api_base()` = `https://open.feishu.cn/open-apis` (REST), `api_domain()` = `https://open.feishu.cn` (WS bootstrap). Do NOT append `/open-apis` again — `api_base()` already includes it.
-
-**CardKit streaming lifecycle:** Create card (`POST /cardkit/v1/cards`) → stream element updates (`PUT .../elements/{id}/content`) at 250ms throttle → finalize: FIRST `set_card_streaming_mode(false)`, THEN `update_cardkit_card` with complete card. Order matters — settings must come first to clear the "[生成中...]" status.
-
-**CardKit gotchas:** `update_multi` must stay `true` (cannot change to `false`, returns 300302). Settings API returns empty body on success (use HTTP status, not `.json()`). `config.summary.content` sets the message list preview text (first 120 chars of plain-text answer).
-
-**WebSocket:** Uses pbbp2 protobuf binary frames. Events filtered by `create_time` — messages older than 60s are skipped (stale reconnect replays). Message dedup via in-memory `HashSet` of processed message IDs.
-
-### DingTalk channel (`channels/src/dingtalk/`)
-
-Connects via Stream Mode (same as official `dingtalk-stream` Python SDK). No OAuth2 token needed — credentials go directly in the `open_connection` POST body.
-
-| Module | Role |
-|--------|------|
-| `mod.rs` | `DingtalkChannel::run()` — reconnect loop with exponential backoff |
-| `config.rs` | DingTalk-specific config (client_id, client_secret, domain defaults to `api.dingtalk.com`) |
-| `dingtalk_ws.rs` | Stream Mode WebSocket client. Opens connection via `POST /v1.0/gateway/connections/open`, connects WS with `?ticket=`, sends ACK responses matching SDK protocol, uses WebSocket-level ping for keepalive |
-| `dingtalk_rest.rs` | REST API client for sending replies. Access token auto-managed. Two reply modes: `reply_webhook()` (POST to sessionWebhook) and `reply_webhook_markdown()` (markdown format) |
-| `bridge.rs` | Core orchestration: DingTalk event → agent gRPC prompt → markdown response via sessionWebhook. Accumulates thinking as blockquote (`> 💭`) separated by `---` from main content |
-| `card.rs` | AI Card module: `create_ai_card()` / `stream_ai_card()` / `close_ai_card()` matching OpenClaw connector's card.ts API (template `02fcf2f4-...`). Currently standalone — not wired into bridge yet |
-
-**Stream Mode protocol (critical):**
-- Subscribe to `{"type": "CALLBACK", "topic": "/v1.0/im/bot/messages/get"}` — this is where bot messages arrive. Do NOT subscribe to `{"type": "EVENT", "topic": "*"}` — it prevents CALLBACK delivery.
-- ACK format: `{"code":200, "headers":{"messageId":"...","contentType":"application/json"}, "message":"", "data":"..."}`
-- The `data` field in CALLBACK frames is a JSON string (not an object). Parse it first, then extract text from `text.content`.
-- Reply by POSTing markdown to the `sessionWebhook` URL from the event (NOT the REST API).
-- Webhook replies create NEW messages each time — no in-place editing. For true streaming, AI Cards are needed (like Feishu CardKit).
+GPG signing fails in non-interactive terminals; commit with `git commit --no-gpg-sign`. Visual changes (colors, etc.) must be confirmed in a live `make run-desktop`.
 
 ---
 > Source: [futuregene/future-os](https://github.com/futuregene/future-os) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
