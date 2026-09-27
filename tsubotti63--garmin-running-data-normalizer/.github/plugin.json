@@ -1,0 +1,9 @@
+{
+  "name": "tsubotti63--garmin-running-data-normalizer",
+  "displayName": "garmin-running-data-normalizer",
+  "description": "Local-first Python CLI that turns Garmin Account Data Export into reproducible running, FIT, sleep, HRV, and training datasets with QA and provenance.",
+  "version": "1.0.0",
+  "author": "tsubotti63",
+  "homepage": "https://github.com/tsubotti63/garmin-running-data-normalizer",
+  "skills": []
+}
