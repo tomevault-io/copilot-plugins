@@ -1,0 +1,9 @@
+{
+  "name": "supabase--tanstack-db",
+  "displayName": "tanstack-db",
+  "description": "tanstack-db",
+  "version": "1.0.0",
+  "author": "supabase",
+  "homepage": "https://github.com/supabase/tanstack-db",
+  "skills": []
+}
