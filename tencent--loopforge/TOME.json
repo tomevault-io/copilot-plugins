@@ -4,7 +4,7 @@
   "repo": "LoopForge",
   "description": "Resumable multi-agent development workflows for coding agents (CodeBuddy, Codex, Cursor, Claude Code).",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Tencent/LoopForge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T22:10:48Z"
+  "distributed_at": "2026-09-27T02:58:54Z"
 }
