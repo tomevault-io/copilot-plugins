@@ -1,0 +1,9 @@
+{
+  "name": "hongshuo-wang--local-captcha-solver",
+  "displayName": "local-captcha-solver",
+  "description": "Local, privacy-first CAPTCHA recognition for Chrome and Edge. \u672c\u5730\u3001\u9690\u79c1\u4f18\u5148\u7684\u9a8c\u8bc1\u7801\u8bc6\u522b\u6269\u5c55\u3002",
+  "version": "1.0.0",
+  "author": "hongshuo-wang",
+  "homepage": "https://github.com/hongshuo-wang/local-captcha-solver",
+  "skills": []
+}
