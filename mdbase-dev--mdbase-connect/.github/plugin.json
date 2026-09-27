@@ -1,0 +1,9 @@
+{
+  "name": "mdbase-dev--mdbase-connect",
+  "displayName": "mdbase-connect",
+  "description": "Local-first access and hosted connectivity for mdbase collections",
+  "version": "1.0.0",
+  "author": "mdbase-dev",
+  "homepage": "https://github.com/mdbase-dev/mdbase-connect",
+  "skills": []
+}
