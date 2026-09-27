@@ -1,0 +1,9 @@
+{
+  "name": "assalabs--expo-turbo-starter",
+  "displayName": "expo-turbo-starter",
+  "description": "A small, opinionated Expo + Turborepo starter. The boring wiring is done.",
+  "version": "1.0.0",
+  "author": "assalabs",
+  "homepage": "https://github.com/assalabs/expo-turbo-starter",
+  "skills": []
+}
