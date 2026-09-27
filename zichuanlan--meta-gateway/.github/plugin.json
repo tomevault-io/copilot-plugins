@@ -1,0 +1,9 @@
+{
+  "name": "zichuanlan--meta-gateway",
+  "displayName": "meta-gateway",
+  "description": "OpenAI-compatible multi-channel LLM relay gateway with admin console",
+  "version": "1.0.0",
+  "author": "ZiChuanLan",
+  "homepage": "https://github.com/ZiChuanLan/meta-gateway",
+  "skills": []
+}
