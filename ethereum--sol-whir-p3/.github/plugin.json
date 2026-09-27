@@ -1,0 +1,9 @@
+{
+  "name": "ethereum--sol-whir-p3",
+  "displayName": "sol-whir-p3",
+  "description": "Solidity verifier for the Spartan-WHIR SNARK over the KoalaBear field",
+  "version": "1.0.0",
+  "author": "ethereum",
+  "homepage": "https://github.com/ethereum/sol-whir-p3",
+  "skills": []
+}
