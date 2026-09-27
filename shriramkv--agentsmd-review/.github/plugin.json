@@ -1,0 +1,9 @@
+{
+  "name": "shriramkv--agentsmd-review",
+  "displayName": "agentsmd-review",
+  "description": "It flags directives that were added, removed, weakened (must down to should), strengthened, reversed, or reworded, escalates anything touching a protected topic (secrets, force-push, production, delet",
+  "version": "1.0.0",
+  "author": "shriramkv",
+  "homepage": "https://github.com/shriramkv/agentsmd-review",
+  "skills": []
+}
