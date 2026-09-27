@@ -1,0 +1,14 @@
+{
+  "name": "stubbi--openclaw-operator",
+  "displayName": "openclaw-operator",
+  "description": "openclaw-operator",
+  "version": "1.0.0",
+  "author": "stubbi",
+  "homepage": "https://github.com/stubbi/openclaw-operator",
+  "skills": [
+    {
+      "name": "openclaw-operator",
+      "description": ""
+    }
+  ]
+}
