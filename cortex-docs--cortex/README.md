@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cortex-docs/cortex](https://github.com/cortex-docs/cortex).
+Original source: `CLAUDE.md` in [cortex-docs/cortex](https://github.com/cortex-docs/cortex).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cortex-docs/cortex](https://github.com/cortex-docs/cortex) — a repo with 3212+ stars on GitHub.
+From [cortex-docs/cortex](https://github.com/cortex-docs/cortex) — a repo with 3217+ stars on GitHub.
 
 ---
 
