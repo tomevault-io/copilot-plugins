@@ -1,0 +1,9 @@
+{
+  "name": "southgarden116--austrian-tax-helper",
+  "displayName": "austrian-tax-helper",
+  "description": "Austrian tax-return helper - computes capital gains, depreciation, and deductions, then maps them to FinanzOnline Kennzahlen. All data stays in your browser.",
+  "version": "1.0.0",
+  "author": "Southgarden116",
+  "homepage": "https://github.com/Southgarden116/austrian-tax-helper",
+  "skills": []
+}
