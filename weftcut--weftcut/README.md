@@ -7,11 +7,11 @@ Free, open-source AI video editor for macOS, Windows and Linux — drive the who
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [WeftCut/WeftCut](https://github.com/WeftCut/WeftCut).
+Original source: `AGENTS.md` in [WeftCut/WeftCut](https://github.com/WeftCut/WeftCut).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
