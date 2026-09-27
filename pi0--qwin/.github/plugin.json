@@ -1,0 +1,9 @@
+{
+  "name": "pi0--qwin",
+  "displayName": "qwin",
+  "description": "Windows Server Core in a container \u2014 zero-touch install, KVM-accelerated, ready to SSH in minutes.",
+  "version": "1.0.0",
+  "author": "pi0",
+  "homepage": "https://github.com/pi0/qwin",
+  "skills": []
+}
