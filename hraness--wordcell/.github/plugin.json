@@ -1,0 +1,9 @@
+{
+  "name": "hraness--wordcell",
+  "displayName": "wordcell",
+  "description": "A knowledge base for coding agents, built from Markdown, backlinks, semantic search, and Git context.",
+  "version": "1.0.0",
+  "author": "hraness",
+  "homepage": "https://github.com/hraness/wordcell",
+  "skills": []
+}
