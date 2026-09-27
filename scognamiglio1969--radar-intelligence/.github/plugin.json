@@ -1,0 +1,9 @@
+{
+  "name": "scognamiglio1969--radar-intelligence",
+  "displayName": "radar-intelligence",
+  "description": "Open-source media intelligence & social listening. A self-hostable, AI-agnostic alternative to Talkwalker and Brandwatch, built on free data sources with support for Anthropic Claude, OpenAI, and Grok",
+  "version": "1.0.0",
+  "author": "Scognamiglio1969",
+  "homepage": "https://github.com/Scognamiglio1969/radar-intelligence",
+  "skills": []
+}
