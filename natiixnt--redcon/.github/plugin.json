@@ -1,0 +1,9 @@
+{
+  "name": "natiixnt--redcon",
+  "displayName": "redcon",
+  "description": "a tool that reduces token usage and request waste in coding-agent workflows by selecting, compressing, caching, and budgeting repository context",
+  "version": "1.0.0",
+  "author": "natiixnt",
+  "homepage": "https://github.com/natiixnt/redcon",
+  "skills": []
+}
