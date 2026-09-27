@@ -4,7 +4,7 @@
   "repo": "personal-agent-open-source",
   "description": "A single-user personal agent with governed tools and a human-in-the-loop development workflow.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hensonzyw-git/personal-agent-open-source",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T17:49:17Z"
+  "distributed_at": "2026-09-27T01:03:09Z"
 }
