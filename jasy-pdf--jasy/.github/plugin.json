@@ -1,7 +1,7 @@
 {
   "name": "jasy-pdf--jasy",
   "displayName": "jasy",
-  "description": "Monorepo including CLI, jasy-pdf and ZUGFeRD/XRechnung engine",
+  "description": "jasy",
   "version": "1.0.0",
   "author": "jasy-pdf",
   "homepage": "https://github.com/jasy-pdf/jasy",
