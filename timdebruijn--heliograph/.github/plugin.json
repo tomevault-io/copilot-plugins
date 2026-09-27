@@ -1,0 +1,9 @@
+{
+  "name": "timdebruijn--heliograph",
+  "displayName": "heliograph",
+  "description": "ESP32 firmware that autodiscovers solar inverters over their native RS485 protocols and republishes them as MQTT/Home Assistant, Modbus TCP, REST and Prometheus",
+  "version": "1.0.0",
+  "author": "Timdebruijn",
+  "homepage": "https://github.com/Timdebruijn/heliograph",
+  "skills": []
+}
