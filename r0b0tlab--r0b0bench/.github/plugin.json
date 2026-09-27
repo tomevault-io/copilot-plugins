@@ -1,0 +1,9 @@
+{
+  "name": "r0b0tlab--r0b0bench",
+  "displayName": "r0b0bench",
+  "description": "Specification for a reproducible, provenance-bound multi-lane LLM benchmark suite.",
+  "version": "1.0.0",
+  "author": "r0b0tlab",
+  "homepage": "https://github.com/r0b0tlab/r0b0bench",
+  "skills": []
+}
