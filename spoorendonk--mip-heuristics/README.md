@@ -7,11 +7,11 @@ Four MIP primal heuristics (FeasibilityJump, FPR, LocalMIP, Scylla) implemented 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [spoorendonk/mip-heuristics](https://github.com/spoorendonk/mip-heuristics).
+Original source: `AGENTS.md` in [spoorendonk/mip-heuristics](https://github.com/spoorendonk/mip-heuristics).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
