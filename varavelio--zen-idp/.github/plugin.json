@@ -1,0 +1,9 @@
+{
+  "name": "varavelio--zen-idp",
+  "displayName": "zen-idp",
+  "description": "Declarative, zero-maintenance OIDC Identity Provider",
+  "version": "1.0.0",
+  "author": "varavelio",
+  "homepage": "https://github.com/varavelio/zen-idp",
+  "skills": []
+}
