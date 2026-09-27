@@ -1,0 +1,9 @@
+{
+  "name": "weiqiang136--super-code",
+  "displayName": "super-code",
+  "description": "Terminal AI coding assistant in Python with multi-agent orchestration, persistent memory, and snippet-based edit  safety.",
+  "version": "1.0.0",
+  "author": "weiqiang136",
+  "homepage": "https://github.com/weiqiang136/super-code",
+  "skills": []
+}
