@@ -1,0 +1,9 @@
+{
+  "name": "kevin-liu-01--local-search",
+  "displayName": "Local-Search",
+  "description": "Small Rust CLI that turns your local browser into a structured search API for Claude Code, Codex, Cursor, OpenClaw, and shell agents\u2014no hosted API key or metered search bill.",
+  "version": "1.0.0",
+  "author": "Kevin-Liu-01",
+  "homepage": "https://github.com/Kevin-Liu-01/Local-Search",
+  "skills": []
+}
