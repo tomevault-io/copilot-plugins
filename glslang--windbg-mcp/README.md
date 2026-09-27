@@ -7,11 +7,11 @@ MCP server exposing WinDbg/DbgEng (live user-mode, kernel, crash dumps, Time Tra
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [glslang/windbg-mcp](https://github.com/glslang/windbg-mcp).
+Original source: `AGENTS.md` in [glslang/windbg-mcp](https://github.com/glslang/windbg-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
