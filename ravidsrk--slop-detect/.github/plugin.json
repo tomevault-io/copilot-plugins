@@ -1,0 +1,9 @@
+{
+  "name": "ravidsrk--slop-detect",
+  "displayName": "slop-detect",
+  "description": "Score any landing page against the 27-pattern AI-design-slop fingerprint. Detect Cursor / v0 / Lovable / Bolt templates \u2014 and get a fix prompt to clean them up.",
+  "version": "1.0.0",
+  "author": "ravidsrk",
+  "homepage": "https://github.com/ravidsrk/slop-detect",
+  "skills": []
+}
