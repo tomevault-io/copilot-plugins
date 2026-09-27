@@ -1,13 +1,13 @@
-# HuaweiCloud-Devkit
+# AI instruction files for huaweicloud-devkit
 
-> Source: [huaweicloud/HuaweiCloud-Devkit](https://github.com/huaweicloud/HuaweiCloud-Devkit). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+> Sourced from [huaweicloud/huaweicloud-devkit](https://github.com/huaweicloud/huaweicloud-devkit), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
-华为云全能力插件 一集成 KooCLI、SDK、Terraform、APIG、Skills、MCP 六大开放能力，开箱即用；用自然语言操作云资源，开启智能云管理新体验。
+ Official Huawei Cloud plugin for AI agents — skills, MCP tools, safety guardrails, and cloud sandbox to help AI agents build, deploy, and operate on Huawei Cloud securely.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [huaweicloud/HuaweiCloud-Devkit](https://github.com/huaweicloud/HuaweiCloud-Devkit).
+Original source: `AGENTS.md` in [huaweicloud/huaweicloud-devkit](https://github.com/huaweicloud/huaweicloud-devkit).
 
 ## Also available for
 
@@ -17,14 +17,10 @@ Original source: `AGENTS.md` in [huaweicloud/HuaweiCloud-Devkit](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [huaweicloud/HuaweiCloud-Devkit](https://github.com/huaweicloud/HuaweiCloud-Devkit) — a repo with 9+ stars on GitHub.
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/huaweicloud/huaweicloud-devkit](https://github.com/huaweicloud/huaweicloud-devkit)
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install huaweicloud/HuaweiCloud-Devkit
-```
-Source: [github.com/huaweicloud/HuaweiCloud-Devkit](https://github.com/huaweicloud/HuaweiCloud-Devkit).
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
-<!-- genome:d-i-s -->
+<!-- genome:a-e-q -->
