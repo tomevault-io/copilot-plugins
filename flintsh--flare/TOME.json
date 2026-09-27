@@ -1,0 +1,165 @@
+{
+  "name": "Flare",
+  "owner": "FlintSH",
+  "repo": "Flare",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-cli/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-cli/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-fix/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-fix/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-test/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-test/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-review/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-review/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-cli-update/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-cli-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-cli-update/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-cli-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-iterative-dev/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-iterative-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-iterative-dev/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-iterative-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-zero-diff-task/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-zero-diff-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-zero-diff-task/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-zero-diff-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-use-session-data/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-use-session-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-use-session-data/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-use-session-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-increase-coverage/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-increase-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-increase-coverage/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-increase-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".agents/skills/meticulous-simulate-and-diff/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.agents/skills/meticulous-simulate-and-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flare",
+      "path": ".claude/skills/meticulous-simulate-and-diff/SKILL.md",
+      "github_url": "https://github.com/FlintSH/Flare/tree/main/.claude/skills/meticulous-simulate-and-diff/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/FlintSH/Flare",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T08:35:15Z"
+}
