@@ -4,7 +4,7 @@
   "repo": "skylight-mcp",
   "description": "Skylight Calendar MCP \u2014 read/write family calendar events, chores, rewards, and shared lists.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chrischall/skylight-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T10:25:49Z"
+  "distributed_at": "2026-09-27T18:45:11Z"
 }
