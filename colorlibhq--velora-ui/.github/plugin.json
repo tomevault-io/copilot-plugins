@@ -1,0 +1,9 @@
+{
+  "name": "colorlibhq--velora-ui",
+  "displayName": "velora-ui",
+  "description": "Free, MIT-licensed animated shadcn/ui components and complete landing page templates. Next.js 16 + Tailwind CSS 4 + Motion. Accessible, reduced-motion friendly, tuned for perfect Lighthouse scores.",
+  "version": "1.0.0",
+  "author": "ColorlibHQ",
+  "homepage": "https://github.com/ColorlibHQ/velora-ui",
+  "skills": []
+}
