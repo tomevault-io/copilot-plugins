@@ -1,0 +1,9 @@
+{
+  "name": "chagel--metis",
+  "displayName": "metis",
+  "description": "Metis is an open, self-hostable agent platform based on Pi harness",
+  "version": "1.0.0",
+  "author": "chagel",
+  "homepage": "https://github.com/chagel/metis",
+  "skills": []
+}
