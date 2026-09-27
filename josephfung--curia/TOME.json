@@ -4,7 +4,7 @@
   "repo": "curia",
   "description": "An open-source Digital Office of the CEO. Communications, scheduling, research, and knowledge work with governance-first architecture.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/josephfung/curia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T12:37:28Z"
+  "distributed_at": "2026-09-27T21:20:17Z"
 }
