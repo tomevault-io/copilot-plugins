@@ -1,0 +1,9 @@
+{
+  "name": "alexeylcp--angry-box",
+  "displayName": "angry-box",
+  "description": "Self-written SSH-only orchestrator for anti-DPI proxy infrastructure \u2014 drives sing-box-extended nodes (AmneziaWG / VLESS Reality+XHTTP / MTProxy) with multi-hop chains, takeover, node health, encrypte",
+  "version": "1.0.0",
+  "author": "AlexeyLCP",
+  "homepage": "https://github.com/AlexeyLCP/angry-box",
+  "skills": []
+}
