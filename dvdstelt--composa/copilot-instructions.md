@@ -1,0 +1,78 @@
+## composa
+
+> Composa is a from-scratch implementation of the macOS image editor [Compositor](https://github.com/robbietilton/Compositor). The upstream app is Swift on AppKit, SwiftUI, CoreImage, Metal and Vision, none of which are portable, so nothing is shared at the source level: this repository reimplements the same feature set in C# on .NET 10, Avalonia 12 and SkiaSharp 3. It is developed on Linux and released for Linux and Windows; macOS is planned, so keep new code free of platform assumptions. CI runs the whole suite on Windows as well.
+
+# Agent notes for Composa
+
+## What this is
+
+Composa is a from-scratch implementation of the macOS image editor [Compositor](https://github.com/robbietilton/Compositor). The upstream app is Swift on AppKit, SwiftUI, CoreImage, Metal and Vision, none of which are portable, so nothing is shared at the source level: this repository reimplements the same feature set in C# on .NET 10, Avalonia 12 and SkiaSharp 3. It is developed on Linux and released for Linux and Windows; macOS is planned, so keep new code free of platform assumptions. CI runs the whole suite on Windows as well.
+
+## Layout
+
+- `src/Composa.Core`: everything that is not UI. Document model, compositor, selections, brush engine, filters, adjustments, text layout (`Text/TextLayout`, `Text/TextEditor`), layer effects (`Rendering/LayerEffectsRenderer`), file IO (including the Photoshop reader in `IO/Psd`) and `EditorSession` (every editing command, split into partial files by area). It must never reference Avalonia.
+- `src/Composa.App`: the Avalonia desktop app. UI is built in C# (no XAML). `CanvasView` owns viewport, overlays and pointer tools (text editing in `CanvasView.Text`, rulers and guides in `CanvasView.Guides`); `LayersPanel` the layer stack and effect rows; `MainWindow.*` the menus, shortcuts (a `Shortcut` table for menu commands and tool keys, rebindable through `ShortcutsDialog`), tabs, options bar and file handling.
+- `tests/Composa.Core.Tests`: xUnit tests that drive `EditorSession` directly.
+- `tests/Composa.App.Tests`: Avalonia headless tests with real Skia rendering. They save screenshots to `artifacts/screenshots/` (git-ignored), which is the way to check UI changes visually without a display.
+
+## Rules that keep the editor correct
+
+- Bitmaps are immutable once they are part of a committed document. An edit copies the bitmap, changes the copy and swaps it into the layer. Undo snapshots (`Document.Clone()`) share bitmaps with the live document, so mutating or disposing a committed bitmap corrupts history and can crash in native code. Only dispose bitmaps you created during the same uncommitted edit.
+- Color bitmaps are `Rgba8888` premultiplied; masks and selections are `Alpha8`. Create them through `Pixels.NewColor` and `Pixels.NewMask`.
+- After changing a bitmap's pixels in place (only allowed during an uncommitted edit) call `Pixels.Invalidate(bitmap)` so cached `SKImage` wrappers are dropped.
+- Every user-visible change goes through `EditorSession.Begin`/`Commit`/`Cancel` (or `Apply`) so it is undoable, then raises `Invalidate`/`InvalidateAll` and `LayersChanged` as needed.
+- `DocumentRenderer.Render` splits large areas into bands rendered in parallel. Anything added to the render path must be a per-pixel operation that does not depend on neighbouring bands, or it must report a `SamplingMargin` (as the blur adjustments do): the renderer then draws each band with a halo that wide around it and leaves the halo out again, `EditorSession.AffectedArea` grows invalidations by it, and the halo stops at the canvas, whose edges a spatial adjustment must continue (clamp) rather than fade.
+- Never invalidate a visual or raise layout-affecting events from inside `CanvasView.Render`.
+- Avalonia's X11 backend sends text input only for a key press nobody marked handled. Key handlers must leave printable keys unhandled while text is being typed; the headless tests feed text directly, so check `e.Handled` in a test when touching key routing.
+- Layer lists are stored bottom to top; the Layers panel shows them reversed.
+- Layer effects are drawn from an image the renderer caches per (pixels, mask, effects); the image already has the mask applied, so `RenderUnit` must not apply the mask again when effects are present. `Layer.VisibleBounds` includes the effects' margin and is what invalidation uses.
+- Text layers are re-rendered from their `TextStyle` through `TextLayout` on every change. The layout's character positions are the caret geometry; keep drawing and layout in that one class so what is typed is what is rendered.
+- `EditorSession.TextEdit` is an open edit (a `Begin` without `Commit`); anything that starts another edit or changes the tool or layer selection must go through `FinishText`, which `FinishInteraction` and `SelectLayer` already do.
+- View options (rulers, grid, guides, snapping) live on `EditorSession.View` and are carried from tab to tab like the tool settings; guides themselves are document data and undo with it. The window copies them, Auto Select, the transform controls and the pixel grid into `Settings` on every change (`RememberToolSettings`), and the first document of a launch starts from `Settings.View`, so they survive a relaunch. Tests run with `Settings.Persist` off and read the window's `Settings` back.
+- Blend modes Skia cannot draw (`BlendMode.IsCustom`) are composited per pixel by `Rendering/SeparableBlend` from a finished tile sibling, so they take the general path in `RenderUnit`, never the fast raster path. A new mode needs its function there, a display name (the macOS manifest reader matches on it), a key in `PsdImport.Blends` and a place in `BlendModeExtensions.Groups`, which is the menu order.
+- The Camera Raw Filter lives in `Filters/CameraRaw.cs` (settings records, all with `Normalized()` clamps and an `Adjusts` flag per group) and `Filters/CameraRawPixels.cs` (the pipeline, stage for stage as the macOS app's C code: calibration, Light and Color, curve and mixer and grading, effects, grain, optics, detail). Every stage reads straight color and writes premultiplied bytes back; keep new stages row-parallel and alpha-preserving. The panel (`Dialogs/CameraRawDialog.cs`) hides a group by rendering `Without(group)`, so OK returns the grade as rendered.
+- Filters that push pixels past a layer's edges (`FilterSettings.Spreads`) return a grown bitmap with how far it grew; `EditorSession.Preview` shifts the layer back by that much. Vignette on an empty layer needs the layer grown to the canvas first, which `EditorSession.BeginFilter` does.
+- Camera RAW files go through `IO/RawImporter`: ImageMagick (LibRaw) decodes to a 16-bit PAM that `RawImage` parses, and `RawImage.Develop` builds one 16-bit-to-8-bit table per channel. The develop dialog previews from a sampled reduction; the import develops the full frame once, both off the UI thread.
+- Brush Smoothing is a string length in screen points, so `EditorSession.ViewZoom` must be set by the canvas before a stroke starts and while it runs; the first dab always lands, the last one catches up to the pointer on release.
+- The Photoshop reader (`IO/Psd`) is written from Adobe's published Photoshop File Formats Specification and must stay free of code taken from GPL readers. `PsdReader` only parses and decodes; `PsdImport` turns records into layers and the conversion report, and `PsdVector` and `PsdAdjustments` map shapes and adjustments. Photoshop is read, never written. `tests/Composa.Core.Tests/PsdWriter.cs` builds fixture files and is shared into the app tests by source.
+
+## Releasing and packaging
+
+- **The version comes from the nearest git tag, through MinVer. Never hand-edit a version anywhere.** An untagged commit builds as a pre-release of the next patch, so a development build reports something like `0.3.1-alpha.0.4` and is never mistaken for a release. Every checkout in CI needs `fetch-depth: 0`, or MinVer sees no tags and silently versions everything `0.0.0`. `AppInfo.Version` is the single place that reads it back, stripping the `+<sha>` build metadata.
+- **A test must never compare against `AppInfo.Version`.** It changes with the tag: the same assertion exercises a stable version on the day of a release and a pre-release the day after. `UpdateCheck` takes the running version as a parameter for exactly this reason, and tests state the versions they are about.
+- **Linux artifacts build on `ubuntu-22.04`, never `ubuntu-latest`.** A self-contained build links against the build machine's glibc, and 24.04 output refuses to start on Debian 12 or Ubuntu 22.04. The pin is deliberate and commented in both workflows.
+- `scripts/package/all.sh [rid] [out]` builds every Linux format; `stage.sh` lays out the one tree that the `.deb`, `.rpm` and AppImage all pack, so a layout bug is fixed once. The tarball is the only single-file build. `scripts/publish.sh` is now a thin wrapper around the tarball.
+- **Packaging scripts resolve output and staging directories to absolute paths as they read them**, because several of them `cd` into a temporary directory before writing. CI passes a relative `dist`, and a script that skips this writes the package somewhere nobody looks.
+- Every format spells architectures differently (`amd64`/`arm64` for dpkg, `x86_64`/`aarch64` for rpm and AppImage, `x64`/`arm64` for the .NET RID) and neither dpkg nor rpm accepts the `-` in a MinVer pre-release. Both mappings live in `scripts/package/common.sh` and belong nowhere else.
+- CI builds all four package formats on x86-64 for every push and pull request. That job exists because these scripts were once exercised only by a release, which meant a release rehearsal was the first thing to discover they could not run from a clean checkout.
+- `RELEASING.md` is the procedure: fill a **draft** release through a workflow dispatch, check it, then publish. A published release with no artifacts attached is worse than no release, because the update check points people at whatever is latest. GitHub creates the tag when the release is published, so no tag is ever pushed from a terminal.
+
+- **Magick.NET is bundled for every RID except Linux ones**, through the `BundleImageMagick` property in `Composa.App.csproj`. Linux packages leave out its 36 MB native library because the distributions ship ImageMagick; a developer build has no RID and bundles it, which is why the bundled path is tested on Linux too (`BundledImageMagickTests`). Code that uses it sits behind `#if BUNDLED_IMAGEMAGICK` or in `BundledImageMagick.cs`, which is left out of compilation otherwise.
+- **The licence notices travel with the library, never separately.** Bundling redistributes LGPL libraries (libraw, libheif, libde265 among them), so `THIRD-PARTY-NOTICES.txt` and Magick.NET's own notice (`ImageMagick-NOTICE.txt`) are items in the same conditional block as the package reference, and `windows.sh` refuses to package a build without them.
+- A publish drops every `.pdb`: SkiaSharp and HarfBuzzSharp ship 105 MB of native symbols for Windows that `DebugType=none` does not cover.
+- Composa's own folders come from `AppPaths` (XDG on Linux, `%APPDATA%` and `%LOCALAPPDATA%` on Windows, Application Support and Caches on macOS). Nothing else builds a config or cache path.
+- `scripts/package/windows.sh [rid] [out] [--no-installer]` publishes one tree and packs the zip and the Inno Setup installer (`packaging/windows/composa.iss`) from it. It runs in Git Bash on Windows and, without the installer, on Linux. Neither Windows build is single-file: that would unpack 40 MB of native libraries into `%TEMP%` on first launch. **The installer's `AppId` must never change**, or a new version installs beside the old one instead of upgrading it.
+- `.gitattributes` forces LF on `*.sh`, because the Windows runners run them in Git Bash and bash rejects CRLF scripts.
+
+## Rules for what the application tells the user about itself
+
+- `UpdateCheck` reports that a newer release exists and never downloads or installs anything. A stable build is never offered a pre-release; a pre-release sorts before the version it leads to; skipping applies to one version only.
+- **A build installed by a package manager must never mention updates.** The `UpdateChannel` build property is set to `managed` by the packaging scripts for the `.deb` and `.rpm`, read back from assembly metadata, and the Help menu then explains that apt or dnf owns updates instead of pointing people around them.
+- An automatic check that fails says nothing, but still records the attempt: otherwise someone offline or rate limited by GitHub sends another request on every launch.
+- `ImageMagick` (in `Composa.Core/IO`) resolves once which `IImageMagick` to use: `ImageMagickTool`, the installed command line, or `ImageMagick.Bundled`, the Magick.NET library that `Program.Main` registers in builds that carry it. Linux prefers the tool, everything else the bundled library. The tool asks each candidate to identify itself rather than trusting its name. **Never probe for `convert` on Windows**: `C:\Windows\System32\convert.exe` is the FAT-to-NTFS volume converter and is on the PATH of every Windows machine.
+
+## Commands
+
+```bash
+dotnet build
+dotnet test
+dotnet run --project src/Composa.App
+scripts/package/all.sh          # every Linux package into dist/
+scripts/publish.sh              # just the portable tarball
+scripts/package/windows.sh      # Windows zip and installer (--no-installer on Linux)
+scripts/make-icons.sh           # only when packaging/composa.svg changes
+```
+
+---
+> Source: [dvdstelt/Composa](https://github.com/dvdstelt/Composa) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
