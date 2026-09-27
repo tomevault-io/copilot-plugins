@@ -1,0 +1,9 @@
+{
+  "name": "muselinn--musepi",
+  "displayName": "MusePi",
+  "description": "MusePi \u2014 desktop-first AI coding assistant: Electron GUI + TUI/CLI + daemon + desktop companion. Native video understanding, MCP, advisor, memory, multi-domain skills; own update channel.",
+  "version": "1.0.0",
+  "author": "MuseLinn",
+  "homepage": "https://github.com/MuseLinn/MusePi",
+  "skills": []
+}
