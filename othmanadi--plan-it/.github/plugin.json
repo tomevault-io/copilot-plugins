@@ -1,0 +1,9 @@
+{
+  "name": "othmanadi--plan-it",
+  "displayName": "plan-it",
+  "description": "HTML-first persistent planning skill for Claude Code, Cursor, and 15 other agents. One self-contained plan.html. Survives /clear. SHA-256 attested.",
+  "version": "1.0.0",
+  "author": "OthmanAdi",
+  "homepage": "https://github.com/OthmanAdi/plan-it",
+  "skills": []
+}
