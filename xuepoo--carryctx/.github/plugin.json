@@ -1,0 +1,9 @@
+{
+  "name": "xuepoo--carryctx",
+  "displayName": "carryctx",
+  "description": "Offline-first project context and durable team management for coding agents. A local SQLite CLI for tasks, sessions, checkpoints, worktrees, and read-only team context.",
+  "version": "1.0.0",
+  "author": "Xuepoo",
+  "homepage": "https://github.com/Xuepoo/carryctx",
+  "skills": []
+}
