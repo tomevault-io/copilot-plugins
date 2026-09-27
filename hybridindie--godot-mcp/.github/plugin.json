@@ -1,0 +1,9 @@
+{
+  "name": "hybridindie--godot-mcp",
+  "displayName": "godot-mcp",
+  "description": "Combination of Godot Addon and MCP server for AI driven development \u2014 drive a live Godot editor from an AI agent",
+  "version": "1.0.0",
+  "author": "hybridindie",
+  "homepage": "https://github.com/hybridindie/godot-mcp",
+  "skills": []
+}
