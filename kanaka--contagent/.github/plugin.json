@@ -1,0 +1,9 @@
+{
+  "name": "kanaka--contagent",
+  "displayName": "contagent",
+  "description": "Contagent is a containerized runtime for coding agents on your local machine.",
+  "version": "1.0.0",
+  "author": "kanaka",
+  "homepage": "https://github.com/kanaka/contagent",
+  "skills": []
+}
