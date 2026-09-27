@@ -1,0 +1,44 @@
+{
+  "name": "run-shelf",
+  "owner": "RuochenLyu",
+  "repo": "run-shelf",
+  "description": "macOS \u672c\u5730\u811a\u672c\u7ba1\u7406\u5de5\u5177\uff1a\u8fd0\u884c\u3001\u5b9a\u65f6\u548c\u6392\u67e5 Shell \u811a\u672c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RuochenLyu/run-shelf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T15:00:25Z"
+}
