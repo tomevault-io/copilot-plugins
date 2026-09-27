@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "Personal Agentic skills",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arfar-x/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T04:59:53Z"
+  "distributed_at": "2026-09-27T11:00:56Z"
 }
