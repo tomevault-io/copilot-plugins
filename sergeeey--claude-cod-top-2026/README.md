@@ -7,11 +7,11 @@ Still trusting results that AI generated, tested, and declared successful by its
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sergeeey/Claude-cod-top-2026](https://github.com/sergeeey/Claude-cod-top-2026).
+Original source: `AGENTS.md` in [sergeeey/Claude-cod-top-2026](https://github.com/sergeeey/Claude-cod-top-2026).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
