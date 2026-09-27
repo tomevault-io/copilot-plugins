@@ -1,0 +1,9 @@
+{
+  "name": "juggernautsst--industrial-local-agent",
+  "displayName": "Industrial_Local_Agent",
+  "description": "Superproject for local scientific agents, simulation-result adapters, and secure research workflows",
+  "version": "1.0.0",
+  "author": "Juggernautsst",
+  "homepage": "https://github.com/Juggernautsst/Industrial_Local_Agent",
+  "skills": []
+}
