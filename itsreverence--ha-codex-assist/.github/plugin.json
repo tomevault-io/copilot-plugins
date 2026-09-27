@@ -1,0 +1,9 @@
+{
+  "name": "itsreverence--ha-codex-assist",
+  "displayName": "ha-codex-assist",
+  "description": "Unofficial Home Assistant Assist agent using ChatGPT/Codex subscription access",
+  "version": "1.0.0",
+  "author": "itsreverence",
+  "homepage": "https://github.com/itsreverence/ha-codex-assist",
+  "skills": []
+}
