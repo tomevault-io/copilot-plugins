@@ -1,0 +1,9 @@
+{
+  "name": "elixir-crab--rustq",
+  "displayName": "rustq",
+  "description": "Typed Rust and Rustler code generation from Elixir \u2014 quasiquoting, ASTs, and zero-handwritten-Rust NIF boundaries",
+  "version": "1.0.0",
+  "author": "elixir-crab",
+  "homepage": "https://github.com/elixir-crab/rustq",
+  "skills": []
+}
