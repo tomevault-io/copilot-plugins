@@ -4,7 +4,7 @@
   "repo": "claude-code-scenes",
   "description": "A fun Claude Code CLI with animated themes \u2014 prompt it, and it builds you your own!",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rezathepure/claude-code-scenes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T04:38:46Z"
+  "distributed_at": "2026-09-27T09:36:34Z"
 }
