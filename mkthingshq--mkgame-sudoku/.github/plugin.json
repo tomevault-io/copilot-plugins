@@ -1,0 +1,9 @@
+{
+  "name": "mkthingshq--mkgame-sudoku",
+  "displayName": "mkgame-sudoku",
+  "description": "A cozy cat-placement Sudoku puzzle built with TanStack Start and Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "MkThingsHQ",
+  "homepage": "https://github.com/MkThingsHQ/mkgame-sudoku",
+  "skills": []
+}
