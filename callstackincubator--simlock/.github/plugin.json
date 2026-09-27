@@ -1,0 +1,9 @@
+{
+  "name": "callstackincubator--simlock",
+  "displayName": "simlock",
+  "description": "A control plane so parallel coding agents stop fighting over the same simulator.",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/simlock",
+  "skills": []
+}
