@@ -1,0 +1,9 @@
+{
+  "name": "alphastorm--omp-session-gateway",
+  "displayName": "omp-session-gateway",
+  "description": "Secure, zero-touch mobile access to every running Oh My Pi session",
+  "version": "1.0.0",
+  "author": "alphastorm",
+  "homepage": "https://github.com/alphastorm/omp-session-gateway",
+  "skills": []
+}
