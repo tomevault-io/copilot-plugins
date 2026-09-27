@@ -4,7 +4,7 @@
   "repo": "postmill-app",
   "description": "Open-source, AI-native social media management & scheduling platform for 45+ channels. BYOK AI across 30+ providers with governance guardrails & spend caps, AI Designer + 46 media tools, persisted analytics, cross-channel comment inbox, campaigns, RBAC teams, public API & SDK. Self-hosted: Next.js + NestJS + PostgreSQL, jobs on Inngest.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/postmill-ai/postmill-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T02:14:38Z"
+  "distributed_at": "2026-09-27T07:03:39Z"
 }
