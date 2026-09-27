@@ -7,11 +7,11 @@ Create narrated interactive lessons with synchronized scenes and optional AI ass
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [scienceetonnante/tangible](https://github.com/scienceetonnante/tangible).
+Original source: `AGENTS.md` in [scienceetonnante/tangible](https://github.com/scienceetonnante/tangible).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
