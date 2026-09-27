@@ -4,7 +4,7 @@
   "repo": "OpsNerva",
   "description": "Secure, local-first AI operations agent for SSH automation, troubleshooting, deployment, and recovery, with approval control, sandboxing, and encrypted audit.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Enterpr1se0/OpsNerva",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T02:10:26Z"
+  "distributed_at": "2026-09-27T06:57:32Z"
 }
