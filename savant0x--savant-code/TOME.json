@@ -1,0 +1,44 @@
+{
+  "name": "savant-code",
+  "owner": "savant0x",
+  "repo": "savant-code",
+  "description": "Multi-agent orchestration \u2014 9 specialized agents coordinate via ECHO Protocol: Detective finds issues, Forge implements, Verifier audits, Recorder manages FIDs, Thinker reasons, Scout explores, Researcher investigates, Scribe documents.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/savant0x/savant-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T07:06:43Z"
+}
