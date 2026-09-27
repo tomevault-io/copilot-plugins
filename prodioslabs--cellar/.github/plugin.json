@@ -1,0 +1,9 @@
+{
+  "name": "prodioslabs--cellar",
+  "displayName": "cellar",
+  "description": "Cellar helps you run isolated microsandbox VMs on your own infra today.",
+  "version": "1.0.0",
+  "author": "prodioslabs",
+  "homepage": "https://github.com/prodioslabs/cellar",
+  "skills": []
+}
