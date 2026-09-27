@@ -1,0 +1,44 @@
+{
+  "name": "KACHOW-Teknofest-2026",
+  "owner": "chyp3r",
+  "repo": "KACHOW-Teknofest-2026",
+  "description": "Teknofest 2026 Do\u011fal Dil Ajanlar\u0131 Yar\u0131\u015fmas\u0131 1. Senaryo kapsam\u0131nda geli\u015ftirilen, kamu sekt\u00f6r\u00fc i\u00e7in resmi evrak analizi ve taslak \u00fcretimi yapan \u00e7oklu yapay zeka ajan\u0131 SaaS sistemi.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chyp3r/KACHOW-Teknofest-2026",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T11:23:06Z"
+}
