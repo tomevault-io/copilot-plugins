@@ -28,4 +28,4 @@ For an example of a simple check as well as its tests (both negative and positiv
 
 ---
 > Source: [Jump-App/credo_checks](https://github.com/Jump-App/credo_checks) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
