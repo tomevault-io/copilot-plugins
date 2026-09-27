@@ -1,0 +1,9 @@
+{
+  "name": "parithosh-varma--filedrop",
+  "displayName": "filedrop",
+  "description": "Peer-to-peer file transfer in the browser. No server, no storage. Drop a file, get a 12-char code plus QR link, stream it directly over WebRTC. Static Cloudflare Pages build.",
+  "version": "1.0.0",
+  "author": "Parithosh-Varma",
+  "homepage": "https://github.com/Parithosh-Varma/filedrop",
+  "skills": []
+}
