@@ -1,0 +1,9 @@
+{
+  "name": "nian27--cosyvoice3-mnn",
+  "displayName": "CosyVoice3-MNN",
+  "description": "CosyVoice3 local TTS on Android arm64 via MNN/OpenCL. Extracted from Legado Reading Archive. Distilled 2-step Flow. Honor Magic8 Pro verified.",
+  "version": "1.0.0",
+  "author": "Nian27",
+  "homepage": "https://github.com/Nian27/CosyVoice3-MNN",
+  "skills": []
+}
