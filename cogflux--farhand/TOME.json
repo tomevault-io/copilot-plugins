@@ -4,7 +4,7 @@
   "repo": "farhand",
   "description": "Remote hands for coding agents: an MCP server that runs OpenCode / Claude Code / Codex work on a remote host over SSH, keeps credentials and the local machine closed, and audits everything",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CogFlux/farhand",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T14:17:50Z"
+  "distributed_at": "2026-09-27T22:47:47Z"
 }
