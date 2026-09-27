@@ -1,0 +1,9 @@
+{
+  "name": "lenny-ts--caddy-analyzer",
+  "displayName": "caddy-analyzer",
+  "description": "Fast, zero-dependency access log analyzer, security threat inspector, and TUI dashboard for Caddy v2",
+  "version": "1.0.0",
+  "author": "lenny-ts",
+  "homepage": "https://github.com/lenny-ts/caddy-analyzer",
+  "skills": []
+}
