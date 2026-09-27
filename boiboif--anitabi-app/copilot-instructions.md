@@ -1,78 +1,26 @@
-## base
+## anitabi-app
 
-> Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+> Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
 
+# Expo HAS CHANGED
 
-# Karpathy behavioral guidelines
+Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+## UI Implementation
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+- For Expo UI, prefer Tamagui primitives and props (`XStack`, `YStack`, spacing tokens, color tokens, and variants) over React Native `StyleSheet.create`.
+- Before writing or modifying anything related to Tamagui, including components, configuration, themes, tokens, styling, integrations, debugging, or upgrades, consult `docs/tamagui-llms.txt` for the relevant APIs, options, concepts, and usage examples, and use it as the project-local Tamagui reference.
+- Use inline styles only when a value is dynamic or cannot be expressed with Tamagui props.
+- Keep mobile typography compact and preserve a clear hierarchy; do not increase font sizes without a specific design reason.
+- Do not start, restart, or verify a local development server after routine UI changes unless the user explicitly requests it.
 
-## 1. Think Before Coding
+## Build and Packaging Approval
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-Before implementing:
-
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-
-## 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
-
----
-
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+- Before running any packaging, bundling, build, prebuild, native compilation, export, or build-oriented verification command, ask the user for explicit permission and wait for their response.
+- This requirement includes commands such as `expo export`, `expo prebuild`, `expo run:android`, `expo run:ios`, Gradle/Xcode builds, EAS builds, documentation/site builds, and equivalent resource-intensive validation.
+- A request to implement, fix, or verify a feature does not implicitly authorize a build. Prefer lightweight checks such as linting, targeted type checking, and focused tests when they are sufficient.
+- Build permission applies only to the scope and duration explicitly authorized by the user. Ask again for later builds unless the user has clearly stated that subsequent build verification is allowed.
+- If the user says they will perform validation themselves, do not run build or packaging commands; report the lightweight checks completed and leave build validation to them.
 
 ---
 > Source: [boiboif/anitabi-app](https://github.com/boiboif/anitabi-app) — distributed by [TomeVault](https://tomevault.io).
