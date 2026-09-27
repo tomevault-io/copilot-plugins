@@ -1,0 +1,9 @@
+{
+  "name": "zilobase--zilobase",
+  "displayName": "zilobase",
+  "description": " Open-source company brain for teams: notes,   databases, comments, AI workflows, and context from   the tools your organization already uses. Self-hostable.",
+  "version": "1.0.0",
+  "author": "zilobase",
+  "homepage": "https://github.com/zilobase/zilobase",
+  "skills": []
+}
