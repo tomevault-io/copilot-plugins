@@ -1,0 +1,44 @@
+{
+  "name": "aigc_line",
+  "owner": "zhangtuo723",
+  "repo": "aigc_line",
+  "description": "AIGC CANVAS \u2014 \u57fa\u4e8e Electron\u3001Claude Agent\u3001React Flow\u3001ComfyUI\u3001Three.js \u548c Excalidraw \u7684\u5f00\u6e90 AI \u77ed\u5267\u4e0e\u5206\u955c\u89c6\u9891\u521b\u4f5c\u5de5\u4f5c\u53f0\uff0c\u652f\u6301\u89d2\u8272/\u573a\u666f\u53c2\u8003\u56fe\u3001\u8282\u70b9\u5f0f\u6587\u751f\u56fe\u4e0e\u56fe\u751f\u89c6\u9891\u30013D \u5bfc\u6f14\u9884\u6f14\u3001\u591a\u6a21\u6001\u751f\u6210\u53ca\u89c6\u9891\u5206\u6790\u3002Open-source agentic AI storyboard and video production canvas.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhangtuo723/aigc_line",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T06:55:18Z"
+}
