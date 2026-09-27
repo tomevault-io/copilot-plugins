@@ -1,0 +1,9 @@
+{
+  "name": "river-li--brok-pot-harness",
+  "displayName": "brok-pot-harness",
+  "description": "brok-bot-harness 100% replica of Grokbot. Deploy Grokbot on your own PC/Mac/Server. Use your own agents like Claude Code or Codex",
+  "version": "1.0.0",
+  "author": "river-li",
+  "homepage": "https://github.com/river-li/brok-pot-harness",
+  "skills": []
+}
