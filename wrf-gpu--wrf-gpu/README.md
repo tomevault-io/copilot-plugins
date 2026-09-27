@@ -7,11 +7,11 @@ A JAX based WRF v4 re-write optimized for modern GPUs.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wrf-gpu/wrf_gpu](https://github.com/wrf-gpu/wrf_gpu).
+Original source: `AGENTS.md` in [wrf-gpu/wrf_gpu](https://github.com/wrf-gpu/wrf_gpu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
