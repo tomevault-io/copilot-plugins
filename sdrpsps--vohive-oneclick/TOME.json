@@ -1,0 +1,44 @@
+{
+  "name": "vohive-oneclick",
+  "owner": "sdrpsps",
+  "repo": "vohive-oneclick",
+  "description": "\u628a\u5927\u7586 4G \u6a21\u5757\uff08EG25-G\uff09\u4f2a\u88c5\u6210\u79fb\u8fdc Quectel EC25 \u5e76\u90e8\u7f72 vohive \u5e73\u53f0\u5230 Linux \u7684\u4e00\u952e\u811a\u672c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sdrpsps/vohive-oneclick",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T06:47:52Z"
+}
