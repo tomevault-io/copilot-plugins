@@ -1,0 +1,9 @@
+{
+  "name": "devswha--chatmux",
+  "displayName": "chatmux",
+  "description": "ChatMux \u2014 provider-agnostic tmux chat web-terminal for coding agents (GJC/Codex/Claude/Cursor/OpenCode)",
+  "version": "1.0.0",
+  "author": "devswha",
+  "homepage": "https://github.com/devswha/chatmux",
+  "skills": []
+}
