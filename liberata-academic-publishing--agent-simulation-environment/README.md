@@ -7,11 +7,11 @@ Agent-based simulation environment of the Liberata marketplace
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Liberata-Academic-Publishing/Agent-Simulation-Environment](https://github.com/Liberata-Academic-Publishing/Agent-Simulation-Environment).
+Original source: `AGENTS.md` in [Liberata-Academic-Publishing/Agent-Simulation-Environment](https://github.com/Liberata-Academic-Publishing/Agent-Simulation-Environment).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
