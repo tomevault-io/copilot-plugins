@@ -1,0 +1,9 @@
+{
+  "name": "wolfiesch--omperator",
+  "displayName": "omperator",
+  "description": "OMP-native workspace for orchestrating coding agents across local and remote hosts",
+  "version": "1.0.0",
+  "author": "wolfiesch",
+  "homepage": "https://github.com/wolfiesch/omperator",
+  "skills": []
+}
