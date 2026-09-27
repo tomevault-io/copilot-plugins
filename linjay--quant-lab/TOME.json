@@ -1,0 +1,44 @@
+{
+  "name": "quant-lab",
+  "owner": "Linjay",
+  "repo": "quant-lab",
+  "description": "\u7cbe\u7b80\u7684\u7f8e\u80a1\u5206\u6790/\u56de\u6d4b/\u9884\u6d4b(\u6869)\u91cf\u5316\u7cfb\u7edf \u2014\u2014 \u9636\u6bb51 BABA \u9a8c\u8bc1 + meta-agent \u7b56\u7565\u8f6e\u52a8\u56e0\u5b50\u7814\u7a76",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Linjay/quant-lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T23:02:48Z"
+}
