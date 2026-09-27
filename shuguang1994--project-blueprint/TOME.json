@@ -1,0 +1,44 @@
+{
+  "name": "project-blueprint",
+  "owner": "shuguang1994",
+  "repo": "project-blueprint",
+  "description": "Make any project AI-agent-ready in one command. Adaptive tech stack detection (7 languages \u00d7 14 frameworks \u00d7 61 components), auto-generates AGENTS.md, docs skeleton, CI/CD, and testing infrastructure. \u4e00\u53e5\u8bdd\u8ba9\u4efb\u4f55\u9879\u76ee\u5177\u5907 AI \u5f00\u53d1\u80fd\u529b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shuguang1994/project-blueprint",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T04:53:02Z"
+}
