@@ -7,11 +7,11 @@ A single-user personal agent with governed tools and a human-in-the-loop develop
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hensonzyw-git/personal-agent-open-source](https://github.com/hensonzyw-git/personal-agent-open-source).
+Original source: `AGENTS.md` in [hensonzyw-git/personal-agent-open-source](https://github.com/hensonzyw-git/personal-agent-open-source).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
