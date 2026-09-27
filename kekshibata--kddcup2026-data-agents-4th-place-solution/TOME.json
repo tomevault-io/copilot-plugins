@@ -1,0 +1,44 @@
+{
+  "name": "kddcup2026-data-agents-4th-place-solution",
+  "owner": "kekshibata",
+  "repo": "kddcup2026-data-agents-4th-place-solution",
+  "description": "1st place (Phase 1) / 4th place + Merit Award (Phase 2 final) solution for the KDD Cup 2026 Data Agents Challenge",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kekshibata/kddcup2026-data-agents-4th-place-solution",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T10:57:56Z"
+}
