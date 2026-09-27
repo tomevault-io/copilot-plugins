@@ -1,0 +1,9 @@
+{
+  "name": "ziuus--vanta",
+  "displayName": "vanta",
+  "description": "The most complete keyboard-driven terminal dashboard in Rust. One pane, six modes \u2014 CPU, memory, disk, network, GPU, processes, clock, calendar, media visualizer. ~3MB binary, 2-5% CPU.",
+  "version": "1.0.0",
+  "author": "ziuus",
+  "homepage": "https://github.com/ziuus/vanta",
+  "skills": []
+}
