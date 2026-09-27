@@ -2,7 +2,7 @@
   "name": "future-os",
   "owner": "futuregene",
   "repo": "future-os",
-  "description": "Local-first AI agent workspace \u2014 terminal, desktop, and messaging platforms, all through one backend.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/futuregene/future-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T09:38:25Z"
+  "distributed_at": "2026-09-27T22:32:53Z"
 }
