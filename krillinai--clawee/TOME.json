@@ -1,0 +1,44 @@
+{
+  "name": "Clawee",
+  "owner": "krillinai",
+  "repo": "Clawee",
+  "description": "Built by KrillinAI. Self-hosted enterprise Agent platform with local Codex Runtime, Desktop/Web workspace, MCP governance, RBAC, audit, Skill Hub, knowledge bases, and shared files.\u7531 KrillinAI \u6253\u9020\u3002\u53ef\u81ea\u6258\u7ba1\u7684\u4f01\u4e1a\u7ea7 Agent \u5e73\u53f0\uff0c\u96c6\u6210\u672c\u5730 Codex Runtime\u3001\u684c\u9762\u7aef\u4e0e Web \u5de5\u4f5c\u53f0\u3001MCP \u6cbb\u7406\u3001RBAC\u3001\u5ba1\u8ba1\u3001Skill Hub\u3001\u77e5\u8bc6\u5e93\u548c\u5171\u4eab\u6587\u4ef6\u80fd\u529b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/krillinai/Clawee",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T03:05:19Z"
+}
