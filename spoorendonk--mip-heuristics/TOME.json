@@ -4,7 +4,7 @@
   "repo": "mip-heuristics",
   "description": "Four MIP primal heuristics (FeasibilityJump, FPR, LocalMIP, Scylla) implemented and benchmarked inside HiGHS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spoorendonk/mip-heuristics",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T14:46:36Z"
+  "distributed_at": "2026-09-27T23:18:06Z"
 }
