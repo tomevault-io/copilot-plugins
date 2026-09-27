@@ -4,7 +4,7 @@
   "repo": "typeless-toolkit",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jia131313/typeless-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T22:50:24Z"
+  "distributed_at": "2026-09-27T18:35:08Z"
 }
