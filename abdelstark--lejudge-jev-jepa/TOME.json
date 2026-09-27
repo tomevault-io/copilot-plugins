@@ -1,0 +1,44 @@
+{
+  "name": "lejudge-jev-jepa",
+  "owner": "AbdelStark",
+  "repo": "lejudge-jev-jepa",
+  "description": "Natural-language constraints for JEPA world-model planning, judged by a decision model instead of an LLM.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AbdelStark/lejudge-jev-jepa",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T20:39:34Z"
+}
