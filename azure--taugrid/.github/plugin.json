@@ -1,0 +1,9 @@
+{
+  "name": "azure--taugrid",
+  "displayName": "taugrid",
+  "description": "Cloud-native AI infrastructure for teams to run, schedule, and monitor AI workloads on GPU-enabled Kubernetes clusters, from data preparation to distributed training, fine-tuning, and inference.",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/taugrid",
+  "skills": []
+}
