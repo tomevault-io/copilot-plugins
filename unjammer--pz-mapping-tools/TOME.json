@@ -1,0 +1,44 @@
+{
+  "name": "PZ_Mapping_Tools",
+  "owner": "Unjammer",
+  "repo": "PZ_Mapping_Tools",
+  "description": "Unofficial Qt 5 continuation of Tim Baker\u2019s PZ mapping tools\u2014WorldEd, TileZed, and BuildingEd\u2014with 256/300-cell support, improved Lua APIs, and additional mapping tools. Based on Tim Baker\u2019s original repositories",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Unjammer/PZ_Mapping_Tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T12:57:42Z"
+}
