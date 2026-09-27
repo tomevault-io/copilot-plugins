@@ -4,7 +4,7 @@
   "repo": "anitabi-app",
   "description": "anitabi APP \u4e3a\u52a8\u753b\u5723\u5730\u5de1\u793c\u800c\u751f\u3002\u5b83\u628a\u63a2\u7d22\u3001\u6536\u85cf\u3001\u8ba1\u5212\u548c\u62cd\u6444\u653e\u8fdb\u4e00\u5f20\u5730\u56fe\uff0c \u8ba9\u201c\u6709\u4e00\u5929\u60f3\u53bb\u201d\u53d8\u6210\u4e00\u6bb5\u771f\u6b63\u5f00\u59cb\u7684\u65c5\u7a0b\u3002",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/boiboif/anitabi-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T02:00:30Z"
+  "distributed_at": "2026-09-27T18:35:41Z"
 }
