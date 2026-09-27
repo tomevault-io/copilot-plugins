@@ -1,0 +1,9 @@
+{
+  "name": "hraness--algal",
+  "displayName": "algal",
+  "description": "ALGAL is a new take on the agent graph: a language and runtime for agentic program evolution.",
+  "version": "1.0.0",
+  "author": "hraness",
+  "homepage": "https://github.com/hraness/algal",
+  "skills": []
+}
