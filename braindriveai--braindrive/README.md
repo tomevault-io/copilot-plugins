@@ -7,11 +7,11 @@ A personal AI system that helps you define, set, and reach your goals. Self-host
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [BrainDriveAI/BrainDrive](https://github.com/BrainDriveAI/BrainDrive).
+Original source: `AGENTS.md` in [BrainDriveAI/BrainDrive](https://github.com/BrainDriveAI/BrainDrive).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
