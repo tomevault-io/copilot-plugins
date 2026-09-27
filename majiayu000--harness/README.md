@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [majiayu000/harness](https://github.com/majiayu000/harness).
+Original source: `CLAUDE.md` in [majiayu000/harness](https://github.com/majiayu000/harness).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [majiayu000/harness](https://github.com/majiayu000/harness) — a repo with 74+ stars on GitHub.
+From [majiayu000/harness](https://github.com/majiayu000/harness) — a repo with 77+ stars on GitHub.
 
 ---
 
