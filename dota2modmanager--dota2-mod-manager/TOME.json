@@ -1,0 +1,44 @@
+{
+  "name": "dota2-mod-manager",
+  "owner": "dota2modmanager",
+  "repo": "dota2-mod-manager",
+  "description": "Desktop mod manager for Dota 2 \u2014 browse, install, toggle and share 1000+ cosmetic mods from the open D2PFX catalog. Windows and Linux, no account, no telemetry.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dota2modmanager/dota2-mod-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T03:18:40Z"
+}
