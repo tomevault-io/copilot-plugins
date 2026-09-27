@@ -4,7 +4,7 @@
   "repo": "ForgeLM",
   "description": "Config-driven LLM fine-tuning with safety evaluation, EU AI Act compliance, 6 alignment methods, and one-command bundled quickstart templates.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HodeTech/ForgeLM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T12:41:02Z"
+  "distributed_at": "2026-09-27T21:23:09Z"
 }
