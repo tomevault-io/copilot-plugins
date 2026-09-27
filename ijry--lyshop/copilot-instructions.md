@@ -1,0 +1,40 @@
+## lyshop
+
+> - 提交格式采用 `head + body`：
+
+# AGENTS 协作规则
+
+## 规则 1：Git 提交规范
+
+- 所有提交信息使用中文。
+- 提交格式采用 `head + body`：
+  - `head`：一句话概括本次变更。
+  - `body`：说明主要改动点、原因和影响范围。
+- 提交信息中不得包含 `Co-Authored-By` 等署名 trailer。
+
+## 规则 2：功能变更同步文档
+
+- 发生系统功能变更时，必须同步更新 `docs-site` 对应文档。
+- 文档更新至少覆盖：功能说明、接口变化、部署或配置影响（如有）。
+
+## 规则 3：优先升级现有接口
+
+- 开发实现前先评估是否可在现有接口上兼容升级。
+- 避免简单堆砌新功能或无节制新增接口。
+- 新增接口需给出必要性说明（现有接口无法满足、兼容成本过高或语义边界明确）。
+
+## 规则 4：文档默认写最新架构
+
+- 除非有特殊指定，文档默认直接描述“当前最新接口与架构”。
+- 不使用“升级说明、兼容过渡、旧新对照、历史迁移建议”等写法作为主叙述。
+- 若确有存量系统约束或迁移窗口，需在需求中明确指定后再补充对应迁移/兼容内容。
+
+## 规则 5：优先使用 uview-plus 组件
+
+- UI 组件优先使用 uview-plus（`up-*`）提供的组件，而非 uni-app 内置的 `uni-*` 组件。
+- 例如使用 `<up-actionsheet>` 替代 `<uni-actionsheet>`，`<up-button>` 替代 `<uni-button>` 等。
+- 仅当 uview-plus 没有对应组件时，才回退使用 uni-app 原生组件。
+
+---
+> Source: [ijry/lyshop](https://github.com/ijry/lyshop) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
