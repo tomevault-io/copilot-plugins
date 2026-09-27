@@ -1,0 +1,44 @@
+{
+  "name": "xinyuan",
+  "owner": "YUANGEGE1234",
+  "repo": "xinyuan",
+  "description": "\u946b\u6e90 Xinyuan \u2014\u2014 \u57fa\u4e8e Hermes Agent \u6539\u9020\u7684\u672c\u5730\u684c\u9762 AI \u52a9\u624b\uff0c\u89e3\u538b\u5373\u7528\u3002\u6e90\u7801 + \u4e2d\u6587\u8bf4\u660e + \u6253\u5305\u811a\u672c\u3002\u4e0a\u6e38\uff1aNousResearch/hermes-agent\uff08MIT\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YUANGEGE1234/xinyuan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T01:20:56Z"
+}
