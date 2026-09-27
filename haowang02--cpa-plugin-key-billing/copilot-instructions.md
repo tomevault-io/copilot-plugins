@@ -64,4 +64,4 @@ Source paths are relative to this repository's root:
 
 ---
 > Source: [haowang02/cpa-plugin-key-billing](https://github.com/haowang02/cpa-plugin-key-billing) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
