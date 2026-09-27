@@ -1,0 +1,9 @@
+{
+  "name": "shriramkv--mcp-conformance-kit",
+  "displayName": "mcp-conformance-kit",
+  "description": "mcp-conformance-kit: Making MCP Server Correctness Measurable",
+  "version": "1.0.0",
+  "author": "shriramkv",
+  "homepage": "https://github.com/shriramkv/mcp-conformance-kit",
+  "skills": []
+}
