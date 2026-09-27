@@ -1,0 +1,44 @@
+{
+  "name": "community-webtoon-agent-kit",
+  "owner": "Q0916",
+  "repo": "community-webtoon-agent-kit",
+  "description": "\uc0ac\ub78c\uc758 \uc758\ub3c4\uc640 WHY\ub97c AI \uc791\uac00\u00b7\ud3b8\uc9d1\uc790\uc5d0\uac8c \uc774\uc5b4\uc8fc\ub294 \ucee4\ubba4\ub2c8\ud2f0 \uc6f9\ud230 \uc81c\uc791 \ud0a4\ud2b8. \ucf58\ud2f0\u00b7\ucef7 \ubc30\uce58 \ud1f4\uace0, ima2-gen \uc0dd\uc131, \ud6c4\ubcf4 \uc120\ud0dd\uacfc \uc644\uc131 \ubcf4\uad00\uc744 \uc5f0\uacb0\ud569\ub2c8\ub2e4.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Q0916/community-webtoon-agent-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T05:18:28Z"
+}
