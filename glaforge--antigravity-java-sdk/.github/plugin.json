@@ -1,0 +1,9 @@
+{
+  "name": "glaforge--antigravity-java-sdk",
+  "displayName": "antigravity-java-sdk",
+  "description": "An unofficial Java port of the Antigravity AI Agent SDK.",
+  "version": "1.0.0",
+  "author": "glaforge",
+  "homepage": "https://github.com/glaforge/antigravity-java-sdk",
+  "skills": []
+}
