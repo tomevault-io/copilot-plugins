@@ -4,7 +4,7 @@
   "repo": "TaskWraith",
   "description": "Local-first desktop control room for coding agents. Run Codex, Claude Code, Cursor, Grok, Mistral, Pi, and local models together \u2014 each with its own role, permission posture, and receipts. Multi-agent ensembles in one thread, diff review, on-device history. macOS, Windows, Linux.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/boggspa/TaskWraith",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T10:37:04Z"
+  "distributed_at": "2026-09-27T19:06:00Z"
 }
