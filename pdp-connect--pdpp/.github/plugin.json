@@ -1,0 +1,9 @@
+{
+  "name": "pdp-connect--pdpp",
+  "displayName": "pdpp",
+  "description": "The Personal Data Portability Protocol specification (LFDT Community Specification)",
+  "version": "1.0.0",
+  "author": "PDP-Connect",
+  "homepage": "https://github.com/PDP-Connect/pdpp",
+  "skills": []
+}
