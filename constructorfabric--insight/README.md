@@ -7,11 +7,11 @@ Constructor Insight defines roles and activities, connects to your systems throu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [constructorfabric/insight](https://github.com/constructorfabric/insight).
+Original source: `AGENTS.md` in [constructorfabric/insight](https://github.com/constructorfabric/insight).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
