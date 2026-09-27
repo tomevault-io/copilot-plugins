@@ -1,0 +1,9 @@
+{
+  "name": "tortotech--torto",
+  "displayName": "torto",
+  "description": "Next Generation Ebook Reader, Written in Rust",
+  "version": "1.0.0",
+  "author": "TortoTech",
+  "homepage": "https://github.com/TortoTech/torto",
+  "skills": []
+}
