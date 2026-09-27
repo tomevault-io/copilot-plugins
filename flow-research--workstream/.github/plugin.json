@@ -1,0 +1,9 @@
+{
+  "name": "flow-research--workstream",
+  "displayName": "workstream",
+  "description": "Workstream is governed contribution infrastructure for coordinating, verifying, and recording work performed by humans, AI agents, or both. It transforms project-defined tasks, immutable submissions, ",
+  "version": "1.0.0",
+  "author": "Flow-Research",
+  "homepage": "https://github.com/Flow-Research/workstream",
+  "skills": []
+}
