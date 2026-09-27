@@ -1,42 +1,81 @@
 ## narrativeengine-p
 
-> > This project has a comprehensive system map and blast radius assessment in [`AI_CODEBASE_MAP.md`](file:///d:/Games/AI%20DM%20Project/Automated_system/mainApp/AI_CODEBASE_MAP.md).
+> This directory contains world lore files for an AI Game Master engine (mobile app + main app). All lore files must be formatted to be parsed by the engine's RegEx and RAG pipeline.
 
-# AGENTS.md — Narrative Engine Desktop (mainApp)
+# World Compendium — AI Instructions
 
-## Local AI Context Navigation
-> [!IMPORTANT]
-> This project has a comprehensive system map and blast radius assessment in [`AI_CODEBASE_MAP.md`](file:///d:/Games/AI%20DM%20Project/Automated_system/mainApp/AI_CODEBASE_MAP.md).
-> - **Always read `AI_CODEBASE_MAP.md` first** before starting any coding task to understand module boundaries, data flows, and dependencies.
-> - Refer to the **Blast Radius & Downstream Impact Matrix** in it to avoid regression failures when editing core store slices, database utilities, or orchestrator services.
+This directory contains world lore files for an AI Game Master engine (mobile app + main app). All lore files must be formatted to be parsed by the engine's RegEx and RAG pipeline.
 
-### Graphify Visual Dependency Graphs
-- Visual dependency reports exist at `d:\Games\AI DM Project\Automated_system\graphify-out\GRAPH_REPORT.md`.
-- After modifying imports or file configurations, run:
-  ```bash
-  node scripts/patch-graph-imports.mjs
-  ```
-  This will parse the codebase imports, rebuild the dependency map, and update `graphify-out/graph.json` and the interactive visual file `graphify-out/graph.html`.
+## MANDATORY FORMAT
 
----
+Every world lore file **must** follow the structure in [lore_template.md](lore_template.md) exactly. No exceptions. The format is machine-parsed — deviating from it breaks the engine.
 
-## Build, Test & Run Commands
-- **Start App (Frontend + Server concurrently)**: `npm run dev` (starts server on port 3001, Vite frontend on port 5173)
-- **Start Backend Server only**: `node server.js`
-- **Build Frontend Assets**: `npm run build`
-- **Lint Codebase**: `npm run lint` or `npx eslint .`
-- **Run Tests**: `npm run test` or `npx vitest`
-- **Run Tests with Coverage**: `npm run test:coverage`
+### Key rules:
 
----
+**Headers** must use `### Category — Title` format (double dash `—`, not `-`):
+- `### OVERVIEW — ...`
+- `### FACTION — [Name]`
+- `### LOCATION — [Name]`
+- `### CHARACTER — [Name]`
+- `### POWER_SYSTEM — [Name]`
+- `### ECONOMY — [Currency / Trade]`
+- `### EVENT — [Name]`
+- `### SYSTEM — Engine Seeds`
 
-## Coding Standards & Architecture
-- **Language**: TypeScript (strict mode) for frontend, Node.js ES Modules (ESM) for backend.
-- **State Management**: Central Zustand store (`src/store/useAppStore.ts`) combining slices for settings, campaigns, chat, and UI. Avoid ad-hoc state managers.
-- **Turn Orchestration**: The main game loop flows through `src/services/turn/turnOrchestrator.ts` (`runTurn()`). Swiping and swipe-commit lifecycles are staged in `src/services/turn/pendingCommit.ts`.
-- **Database & Storage**: JSON file store per campaign in `data/`, indexed by SQLite vector database (`data/embeddings.db`) using `sqlite-vec` for local semantic recall.
-- **Encryption**: Application settings presets and keys are encrypted via AES-256-GCM using `KeyVault` (`server/vault.js`).
+**Section numbers** (`## 1. WORLD OVERVIEW`, `## 2. FACTIONS`, etc.) must be present and in order.
+
+**CHARACTER entries** must include all bolded fields in this exact order:
+`Aliases`, `Appearance`, `Disposition`, `Personality`, `Voice`, `Status`, `Faction`, `Goals`, `StoryRelevance`, `Example Output`, `Affinity`
+
+**Character Intro Flags** (optional, but must use exact syntax if used):
+- `**Wandering: true**` — character can appear anywhere
+- `**Location: [Place Name]**` — character is place-bound
+- `**Intro Boost: [keyword1, keyword2]**` — triggers on these GM narration keywords
+
+**Engine Seed Tags** (end of file, required — copy this block structure exactly):
+
+```markdown
+## 6. ENGINE SEED TAGS (IMPORTANT)
+### SYSTEM — Engine Seeds
+
+**── TIER 1: SURPRISE ENGINE (mundane world flavor) ──**
+**Surprise Types:** [5-10 mundane situation archetypes]
+**Surprise Tones:** [5-10 emotional flavors]
+
+**── TIER 2: ENCOUNTER ENGINE (location-agnostic threat situations) ──**
+**Encounter Types:** [5-10 threat situation archetypes — write SITUATIONS not enemy names]
+**Encounter Tones:** [5-10 tones]
+
+**── TIER 3: QUEST HOOK ENGINE (world rumours & local hooks) ──**
+**Quest Hook Who:** [5-10 rumour sources]
+**Quest Hook What:** [5-10 inciting events]
+**Quest Hook Where:** [5-10 local areas]
+**Quest Hook Why:** [5-10 stakes/hooks]
+```
+
+The tier header lines (`**── TIER X: ... ──**`) must be present verbatim — they are parsed as delimiters. The section number for Engine Seed Tags varies (it comes after Economy/Events) — just keep it as the final `##` section.
+
+## FILE NAMING
+
+World lore files follow the pattern: `world_lore_[worldname].md`
+Starter prompts follow: `[worldname]_starterPrompt.md` or `starter_prompt.md`
+
+## CONTENT RULES
+
+- No AI name-slop (no "Aethermancer Zyn'kael the Voidweaver" type names — keep names grounded and pronounceable)
+- No default fantasy/sci-fi power clichés — every power system must have a specific cost or limitation
+- Tonal variety is preferred over monotone grimdark
+- NPC characters must feel like real people with conflicting loyalties — no sycophant companions
+- All factions should have internal tensions, not just be monolithic good/evil blocs
+
+## WHEN ADDING NEW LORE
+
+1. Use `lore_template.md` as your structural skeleton
+2. Generate content that fits the world's established tone and power ceiling
+3. All new CHARACTERS must have all required fields filled — no placeholders
+4. Engine Seeds must be tailored to the specific world's genre and setting
+5. When expanding an existing world file, match the existing style and header format exactly
 
 ---
 > Source: [Sagesheep/NarrativeEngine-P](https://github.com/Sagesheep/NarrativeEngine-P) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
