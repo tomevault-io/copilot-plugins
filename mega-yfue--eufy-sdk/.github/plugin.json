@@ -1,0 +1,9 @@
+{
+  "name": "mega-yfue--eufy-sdk",
+  "displayName": "eufy-sdk",
+  "description": "One typed client for the whole eufy ecosystem \u2014 devices, realtime events, and live media.",
+  "version": "1.0.0",
+  "author": "mega-yfue",
+  "homepage": "https://github.com/mega-yfue/eufy-sdk",
+  "skills": []
+}
