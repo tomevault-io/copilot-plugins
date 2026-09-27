@@ -1,0 +1,44 @@
+{
+  "name": "FREE-FX-Rates-by-Sera.CX",
+  "owner": "sera-cx",
+  "repo": "FREE-FX-Rates-by-Sera.CX",
+  "description": "Free foreign exchange rates by Sera.CX \u2014 served at fx.sera.cx",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sera-cx/FREE-FX-Rates-by-Sera.CX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T06:53:19Z"
+}
