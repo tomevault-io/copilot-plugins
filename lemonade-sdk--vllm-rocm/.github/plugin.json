@@ -1,0 +1,9 @@
+{
+  "name": "lemonade-sdk--vllm-rocm",
+  "displayName": "vllm-rocm",
+  "description": "vllm-rocm",
+  "version": "1.0.0",
+  "author": "lemonade-sdk",
+  "homepage": "https://github.com/lemonade-sdk/vllm-rocm",
+  "skills": []
+}
