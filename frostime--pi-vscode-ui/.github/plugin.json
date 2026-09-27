@@ -1,0 +1,9 @@
+{
+  "name": "frostime--pi-vscode-ui",
+  "displayName": "pi-vscode-ui",
+  "description": "A non-intrusive VS Code extension that offers GUI wrapper for the Pi Coding Agent.",
+  "version": "1.0.0",
+  "author": "frostime",
+  "homepage": "https://github.com/frostime/pi-vscode-ui",
+  "skills": []
+}
