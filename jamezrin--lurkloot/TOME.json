@@ -4,7 +4,7 @@
   "repo": "lurkloot",
   "description": "Automatically farm Twitch and Kick drops from your browser or a headless Docker setup.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jamezrin/lurkloot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T10:31:07Z"
+  "distributed_at": "2026-09-27T18:54:35Z"
 }
