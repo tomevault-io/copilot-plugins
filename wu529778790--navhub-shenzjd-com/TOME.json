@@ -4,7 +4,7 @@
   "repo": "navhub.shenzjd.com",
   "description": "\u6811\u5f62\u5bfc\u822a\u7ad9 \u00b7 \u7eaf\u53ea\u8bfb\u4e2a\u4eba\u4e66\u7b7e\u805a\u5408\uff0cVercel \u6781\u7b80\u98ce\u683c\uff0cTurso \u5b58\u50a8\uff0cSSR \u79d2\u5f00\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wu529778790/navhub.shenzjd.com",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T17:51:06Z"
+  "distributed_at": "2026-09-27T01:07:22Z"
 }
