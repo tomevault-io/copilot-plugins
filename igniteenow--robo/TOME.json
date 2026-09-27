@@ -1,0 +1,44 @@
+{
+  "name": "robo",
+  "owner": "igniteenow",
+  "repo": "robo",
+  "description": "Robo \u2014 an open-source AI agent for security work. Runs on your own machine: recon, threat analysis, and hands-on tasks in your terminal, desktop, or phone. Talks, listens, and reads files of any size.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/igniteenow/robo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T19:37:11Z"
+}
