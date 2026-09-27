@@ -1,0 +1,9 @@
+{
+  "name": "archibate--agent-skills",
+  "displayName": "agent-skills",
+  "description": "A curated collection of reusable agent skills for design, research, browser automation, and developer tooling.",
+  "version": "1.0.0",
+  "author": "archibate",
+  "homepage": "https://github.com/archibate/agent-skills",
+  "skills": []
+}
