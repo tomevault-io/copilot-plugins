@@ -14,4 +14,4 @@
 
 ---
 > Source: [dzshzx/codexcomp](https://github.com/dzshzx/codexcomp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
