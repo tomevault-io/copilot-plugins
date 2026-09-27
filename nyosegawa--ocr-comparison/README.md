@@ -7,11 +7,11 @@ OCR比較
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nyosegawa/ocr-comparison](https://github.com/nyosegawa/ocr-comparison).
+Original source: `AGENTS.md` in [nyosegawa/ocr-comparison](https://github.com/nyosegawa/ocr-comparison).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
