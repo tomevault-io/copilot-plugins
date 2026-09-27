@@ -1,0 +1,44 @@
+{
+  "name": "austrian-tax-helper",
+  "owner": "Southgarden116",
+  "repo": "austrian-tax-helper",
+  "description": "Austrian tax-return helper - computes capital gains, depreciation, and deductions, then maps them to FinanzOnline Kennzahlen. All data stays in your browser.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Southgarden116/austrian-tax-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T23:41:13Z"
+}
