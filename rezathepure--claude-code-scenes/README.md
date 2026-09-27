@@ -7,11 +7,11 @@ A fun Claude Code CLI with animated themes — prompt it, and it builds you your
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rezathepure/claude-code-scenes](https://github.com/rezathepure/claude-code-scenes).
+Original source: `AGENTS.md` in [rezathepure/claude-code-scenes](https://github.com/rezathepure/claude-code-scenes).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
