@@ -1,0 +1,9 @@
+{
+  "name": "morning-cml--paper-translator",
+  "displayName": "paper-translator",
+  "description": "\u4fdd\u7559\u6392\u7248\u7684\u6587\u6863\u7ffb\u8bd1\u5de5\u5177\uff1aPDF / Word / PPT / Markdown / \u5b57\u5e55\uff0c\u56fe\u7247\u3001\u516c\u5f0f\u3001\u8868\u683c\u4e0e\u7248\u5f0f\u539f\u6837\u4fdd\u7559\uff0c\u8bd1\u6587\u843d\u5728\u539f\u6587\u4f4d\u7f6e\u3002\u652f\u6301\u591a\u8bed\u8a00\u65b9\u5411\u3001\u626b\u63cf\u4ef6 OCR \u4e0e\u672c\u5730\u79bb\u7ebf\u7ffb\u8bd1\uff08Ollama\uff09\u3002Windows / macOS \u514d\u5b89\u88c5\uff0c\u53cc\u51fb\u5373\u7528\u3002",
+  "version": "1.0.0",
+  "author": "morning-cml",
+  "homepage": "https://github.com/morning-cml/paper-translator",
+  "skills": []
+}
