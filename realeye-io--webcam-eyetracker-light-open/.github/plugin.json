@@ -1,0 +1,9 @@
+{
+  "name": "realeye-io--webcam-eyetracker-light-open",
+  "displayName": "webcam-eyetracker-light-open",
+  "description": "Webcam eye-tracker running in a web browser providing on-screen gaze coordinates. The \"Light\" version.",
+  "version": "1.0.0",
+  "author": "RealEye-io",
+  "homepage": "https://github.com/RealEye-io/webcam-eyetracker-light-open",
+  "skills": []
+}
