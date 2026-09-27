@@ -1,0 +1,9 @@
+{
+  "name": "belluxx--aleph",
+  "displayName": "Aleph",
+  "description": "Give satellite imagery, terrain data, buildings, streetview photos to your LLM",
+  "version": "1.0.0",
+  "author": "Belluxx",
+  "homepage": "https://github.com/Belluxx/Aleph",
+  "skills": []
+}
