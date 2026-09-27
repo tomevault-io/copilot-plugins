@@ -4,7 +4,7 @@
   "repo": "Quake4-Translate-Subtitle",
   "description": "Quake 4 \u7b80\u4f53\u4e2d\u6587\u6c49\u5316\uff1a\u5168\u91cf\u7ffb\u8bd1 + \u5b57\u5e55\u7cfb\u7edf + \u601d\u6e90\u9ed1\u4f53 + Strogg \u5916\u661f\u6587\u8f6c\u8bd1\uff08\u57fa\u4e8e idTech4A++\uff09",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hazzzzzy/Quake4-Translate-Subtitle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T02:04:58Z"
+  "distributed_at": "2026-09-27T06:52:28Z"
 }
