@@ -1,0 +1,9 @@
+{
+  "name": "commit-plus--commit-plus",
+  "displayName": "commit-plus",
+  "description": "The Git client macOS deserves. Commit+ is a fast, native Git client built with Swift and SwiftUI",
+  "version": "1.0.0",
+  "author": "Commit-Plus",
+  "homepage": "https://github.com/Commit-Plus/commit-plus",
+  "skills": []
+}
