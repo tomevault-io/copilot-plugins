@@ -1,0 +1,9 @@
+{
+  "name": "irpina--digiemu",
+  "displayName": "digiemu",
+  "description": "Elektron Digitakt (mk1) emulator: runs the Digitakt's own firmware behind a clickable front panel, with live audio. Portable Windows app, bring your own .syx. Unofficial.",
+  "version": "1.0.0",
+  "author": "irpina",
+  "homepage": "https://github.com/irpina/digiemu",
+  "skills": []
+}
