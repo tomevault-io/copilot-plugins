@@ -1,0 +1,9 @@
+{
+  "name": "flanchanxwo--javdb-cli",
+  "displayName": "javdb-cli",
+  "description": "Unofficial JavDB App API CLI, public Go SDK, and agent-ready automation skill.",
+  "version": "1.0.0",
+  "author": "FlanChanXwO",
+  "homepage": "https://github.com/FlanChanXwO/javdb-cli",
+  "skills": []
+}
