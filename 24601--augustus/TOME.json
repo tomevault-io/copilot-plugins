@@ -1,0 +1,44 @@
+{
+  "name": "Augustus",
+  "owner": "24601",
+  "repo": "Augustus",
+  "description": "Agent skill for finding, building, evaluating, and improving decision-model systems. Compositional decision calculus, eval harnesses, and bounded prompt/program hill climbing for Software 3.0. TypeSafe Jev is the default hosted exemplar. Independent of TypeSafe.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/24601/Augustus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T01:05:07Z"
+}
