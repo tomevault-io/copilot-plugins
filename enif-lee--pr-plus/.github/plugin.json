@@ -1,0 +1,9 @@
+{
+  "name": "enif-lee--pr-plus",
+  "displayName": "pr-plus",
+  "description": "Chrome/Edge extension: stack-aware GitHub PR list + fast in-page review modal",
+  "version": "1.0.0",
+  "author": "enif-lee",
+  "homepage": "https://github.com/enif-lee/pr-plus",
+  "skills": []
+}
