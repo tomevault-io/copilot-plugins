@@ -1,0 +1,9 @@
+{
+  "name": "bubbleparticles--planar-jl",
+  "displayName": "Planar.jl",
+  "description": "Trading bot and backtesting framework written in julia",
+  "version": "1.0.0",
+  "author": "BubbleParticles",
+  "homepage": "https://github.com/BubbleParticles/Planar.jl",
+  "skills": []
+}
