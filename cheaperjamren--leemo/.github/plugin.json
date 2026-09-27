@@ -1,0 +1,9 @@
+{
+  "name": "cheaperjamren--leemo",
+  "displayName": "leemo",
+  "description": "A local-first desktop AI agent with a companion, real workspaces, tools, memory, Skills, MCP, and multi-provider routing.",
+  "version": "1.0.0",
+  "author": "CheaperjamRen",
+  "homepage": "https://github.com/CheaperjamRen/leemo",
+  "skills": []
+}
