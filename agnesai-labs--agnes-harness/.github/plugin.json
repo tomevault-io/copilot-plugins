@@ -1,0 +1,9 @@
+{
+  "name": "agnesai-labs--agnes-harness",
+  "displayName": "agnes-harness",
+  "description": "Agnes Harness: A pluggable agent harness for Forward Deployed Engineering (FDE). Built for trust. Made for the real world.",
+  "version": "1.0.0",
+  "author": "AgnesAI-Labs",
+  "homepage": "https://github.com/AgnesAI-Labs/agnes-harness",
+  "skills": []
+}
