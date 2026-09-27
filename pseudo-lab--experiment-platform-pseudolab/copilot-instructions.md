@@ -1,0 +1,84 @@
+## experiment-platform-pseudolab
+
+> Last-Updated: 2026-05-18
+
+# AGENTS.md — Team Working Rules
+
+Status: ratified
+Owner: soo
+Last-Updated: 2026-05-18
+
+이 문서는 다양한 에이전트/기여자가 공통으로 따르는 **팀 규칙**입니다.
+
+- 공용/개인 규칙 모두 `AGENTS.md` 단일 문서로 관리합니다.
+
+## 1) 공통 원칙
+1. 결과 중심으로 작업합니다. (말보다 코드/문서/검증)
+2. 민감정보(토큰/키/시크릿)는 절대 문서/코드에 평문으로 남기지 않습니다.
+3. 문서 상태 규칙(`active/superseded/archive`)과 구조 규칙을 준수합니다.
+
+## 2) 작업 시작 규칙
+1. 작업 시작 전 아래 문서를 순서대로 확인합니다.
+   - `AGENTS.md`
+   - `docs/reports/_index.md` (현재 기준 문서 인덱스)
+   - 에이전트/병렬 작업은 `docs/guides/agent_collaboration.md`
+2. 현재 작업이 요청 범위 안에 속하는지 먼저 판정합니다.
+3. 범위 밖이거나 확장이 필요한 경우 임의 확장하지 말고 확인 요청합니다.
+
+## 3) 병렬 협업 규칙
+1. 여러 사람/에이전트가 병렬 작업할 때는 가능한 한 도메인 경계를 나눠 작업합니다.
+2. 단일 도메인·저위험 변경은 빠르게 진행하되, 다른 도메인에 영향이 생기면 즉시 공유합니다.
+3. 병렬 작업 또는 여러 에이전트/에디터 창이 예상되면 기본적으로 `git worktree`로 작업공간을 분리합니다.
+   - 저장소 루트는 `main` 동기화와 조율용으로 둡니다.
+   - 작업별 linked worktree와 branch를 만들고, 하나의 worktree는 하나의 작업/역할만 소유합니다.
+   - 같은 파일은 한 번에 하나의 활성 작업자만 편집합니다.
+4. 아래 조건 중 하나라도 해당하면 PR 또는 명시적 핸드오프가 필요합니다.
+   - 여러 도메인을 동시에 변경하는 경우
+   - API 계약, 인증/권한, DB 스키마에 영향이 있는 경우
+   - 배포, 시크릿, 권한, 운영 토폴로지 변경이 포함되는 경우
+   - 기준 문서(`AGENTS.md`, `docs/guides/**`)를 변경하는 경우
+5. 작은 단일 작업은 별도 핸드오프 문서를 강제하지 않습니다. 대신 완료 후 3줄 리포트는 남깁니다.
+
+## 3-1) 도메인 소유권
+1. Backend: `backend/app/**`, `backend/migrations/**`, `backend/tests/**`
+2. Frontend Dashboard: `frontend/src/**`
+3. Example app: `frontend/src/features/example/**`
+4. Infra/Ops: `.github/**`, `docker-compose*.yml`, 배포/운영 매니페스트, 런타임 설정
+5. Docs/Process: `AGENTS.md`, `docs/**`
+6. 세부 파일 소유권과 Feature Flag 작업 기준은 `docs/guides/agent_collaboration.md`를 따릅니다.
+
+## 3-2) 에이전트 모드
+1. Team Lead Mode 또는 멀티 에이전트 위임은 사용자가 명시적으로 요청한 경우에만 사용합니다.
+2. `git worktree` 사용 자체는 Team Lead Mode를 의미하지 않습니다.
+3. 에이전트 간 결과가 충돌하면 `AGENTS.md` → `docs/reports/_index.md`의 기준 문서 → 사용자 의도 → 도메인 소유자 판단 순서로 해결합니다.
+
+## 4) UI/디자인 규칙
+1. UI 컴포넌트는 shadcn/ui 및 테마 변수(CSS Variables) 기준으로 작성합니다.
+2. 디자인 가이드는 아래 경로를 기준으로 따릅니다.
+   - `docs/guides/design_system.md`
+
+## 5) i18n 규칙 (필수)
+1. UI 텍스트 추가/수정/삭제 시 반드시 KO/EN을 동시에 반영합니다.
+2. 한쪽 언어만 수정하는 커밋은 금지합니다.
+
+## 6) 품질 규칙
+1. 핵심 로직은 테스트를 동반합니다.
+2. loading/error/empty/success 상태를 사용자 관점에서 점검합니다.
+3. 변경 후 관련 문서(가이드/리포트/핸드오프)를 최신화합니다.
+
+## 7) 문서화 규칙
+1. 모든 작업에 새 문서를 만들 필요는 없습니다.
+2. 저위험·단일 도메인 변경은 코드/PR/커밋 맥락이 명확하면 별도 문서를 생략할 수 있습니다.
+3. 큰 결정, 구조 변경, 운영 변경, 기준 문서 변경은 관련 리포트 또는 결정 로그에 남깁니다.
+
+## 8) 운영/배포 규칙
+1. docs-only 변경은 배포 파이프라인을 타지 않도록 유지합니다.
+2. k3s/ArgoCD 운영 시 시크릿은 평문 커밋 금지(SealedSecret/ESO 등 사용).
+
+---
+
+> 본 문서는 즉시 적용되는 팀 작업 기준입니다. 변경 시 문서와 규칙을 함께 업데이트합니다.
+
+---
+> Source: [Pseudo-Lab/experiment-platform-pseudolab](https://github.com/Pseudo-Lab/experiment-platform-pseudolab) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
