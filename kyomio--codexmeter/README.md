@@ -7,11 +7,11 @@ A lightweight Android quota dashboard for Codex and other AI providers.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [KyoMio/CodexMeter](https://github.com/KyoMio/CodexMeter).
+Original source: `AGENTS.md` in [KyoMio/CodexMeter](https://github.com/KyoMio/CodexMeter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
