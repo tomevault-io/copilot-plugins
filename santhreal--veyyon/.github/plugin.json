@@ -1,0 +1,9 @@
+{
+  "name": "santhreal--veyyon",
+  "displayName": "veyyon",
+  "description": "Local terminal coding agent: CLI + TUI. Bring your own key/sub. Fork of oh-my-pi. Determined to end Human Slop",
+  "version": "1.0.0",
+  "author": "santhreal",
+  "homepage": "https://github.com/santhreal/veyyon",
+  "skills": []
+}
