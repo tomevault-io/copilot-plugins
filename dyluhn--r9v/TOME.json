@@ -1,0 +1,69 @@
+{
+  "name": "R9V",
+  "owner": "Dyluhn",
+  "repo": "R9V",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "R9V",
+      "path": "skills/r9v-card-work/SKILL.md",
+      "github_url": "https://github.com/Dyluhn/R9V/tree/main/skills/r9v-card-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "R9V",
+      "path": ".agents/skills/r9v-card-work/SKILL.md",
+      "github_url": "https://github.com/Dyluhn/R9V/tree/main/.agents/skills/r9v-card-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "R9V",
+      "path": "skills/r9v-engineering-standards/SKILL.md",
+      "github_url": "https://github.com/Dyluhn/R9V/tree/main/skills/r9v-engineering-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "R9V",
+      "path": ".agents/skills/r9v-engineering-standards/SKILL.md",
+      "github_url": "https://github.com/Dyluhn/R9V/tree/main/.agents/skills/r9v-engineering-standards/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Dyluhn/R9V",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T10:32:47Z"
+}
