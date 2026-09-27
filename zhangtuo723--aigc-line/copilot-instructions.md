@@ -1,0 +1,243 @@
+## aigc-line
+
+> > 给 AI 协作者和开发者的项目导览。**重要：任何功能改动（新增节点、新增工作流、改 IPC、改目录结构）都必须同步更新本文档，保持它与代码一致。**
+
+# AGENTS.md
+
+> 给 AI 协作者和开发者的项目导览。**重要：任何功能改动（新增节点、新增工作流、改 IPC、改目录结构）都必须同步更新本文档，保持它与代码一致。**
+
+## 项目简介
+
+AIGC CANVAS：Electron 桌面应用，把 Claude Code / Codex Agent（对话）、React Flow 无限画布、Three.js 3D 导演台和 ComfyUI 生成管线整合在一个项目工作区里，用于 AI 分镜视频创作。用户在聊天里让 Agent 创建“参考图片 → 视频”节点链，在画布上连边、调参、触发生成；生成结果落盘到项目目录并回显到节点。生成片段直接由 video 节点承载，片段内生成 Shot 仍只存在于提示词时间线中；`director` 节点另有用于白模预演的可编辑 Shot/机位工程。
+
+技术栈：Electron + Vite + React 19 + TypeScript + Tailwind CSS 4 + @xyflow/react（画布）+ Excalidraw（图片编辑台）+ Three.js / React Three Fiber（3D 导演台）+ zustand（状态）+ @anthropic-ai/claude-agent-sdk + @openai/codex-sdk（Agent）+ zod（工具入参校验）。包管理用 pnpm。
+
+## 目录结构
+
+| 路径 | 作用 |
+|---|---|
+| `electron/main/` | Electron 主进程入口与服务 |
+| `electron/main/index.ts` | 主进程入口：窗口、`local-file://` / `workspace://` 自定义协议（本地媒体预览、Range 视频流；`.aigc-line` 默认拒绝，仅白名单只读画板预览 PNG）、注册全部 IPC handler |
+| `electron/main/ipc/` | IPC handler 层，只做参数转发 + 错误包装，业务逻辑在 services |
+| `electron/main/services/` | 主进程业务服务 |
+| `electron/main/services/agent/` | Agent 子系统：会话、流式输出、MCP 工具、系统提示词、画布桥接 |
+| `electron/main/services/agent/tools.ts` | 双 Agent 共用的 MCP 工具定义与处理器（zod schema 在这里） |
+| `electron/main/services/agent/codex-session.ts` | Codex SDK 会话：按项目排队、runStreamed 事件、恢复、AbortSignal 中断与上下文清空 |
+| `electron/main/services/agent/canvas-mcp.ts` | Codex 画布 MCP：每项目独立的 loopback HTTP 服务及随机 Bearer Token，共用工具 schema/处理器 |
+| `electron/main/services/agent/codex-runtime.ts` / `codex-client.ts` / `models.ts` | SDK 原生运行时与 ASAR 路径解析；子进程合并 NO_PROXY/no_proxy 并强制回环地址绕过代理，保留外网代理及原有排除项；没有显式代理环境变量时，通过 Electron resolveProxy 解析系统代理并传入 Codex 会话和模型发现子进程；只读模型发现；Claude/Codex 模型列表 |
+| `src/shared/agent-config.ts` | 项目 Agent 类型与模型校验、历史项目默认值 |
+| `src/components/CreateProjectDialog.tsx` | 新建项目弹窗：名称、Agent、模型与目录选择 |
+| `electron/main/services/agent/prompts.ts` | Agent 系统提示词（分镜创作规范） |
+| `electron/main/services/agent/builtin-plugin.ts` | 解析开发/打包环境中的内置 Claude Plugin 路径并生成 SDK 配置 |
+| `electron/main/services/agent/claude-runtime.ts` | 从 Claude SDK 解析同版本的平台原生程序，将 ASAR 虚拟路径映射到真实解包路径；模型发现与聊天会话共用 |
+| `electron/main/services/agent/skills.ts` | 枚举当前可用 Skill：活动 SDK 会话 + 应用内置、项目级、用户级目录兜底 |
+| `electron/main/services/comfyui.service.ts` | ComfyUI 全部交互：工作流模板注册、参数注入、上传媒体、排队、轮询、下载结果 |
+| `electron/main/services/google-image.service.ts` | Google Gemini 图片生成：Nano Banana 2 / Pro 的 2K 文生图与最多 14 张有序参考图生成，产物写入项目目录 |
+| `electron/main/services/seedream-image.service.ts` | 火山方舟 Seedream 图片生成：Doubao-Seedream-5.0-pro / lite 的 2K 文生图与最多 10 张有序参考图生成，产物写入项目目录 |
+| `electron/main/services/seedance-video.service.ts` | 火山方舟 Seedance 2.0 视频生成：Agent Plan 异步任务提交/轮询、项目内全模态参考素材编码、结果下载与落盘 |
+| `electron/main/services/google-network.service.ts` | Google API 网络层：使用 Electron 网络栈、可选独立 HTTP/HTTPS/SOCKS 代理及可读网络错误 |
+| `electron/main/services/qwen-video-analysis.service.ts` | 通用 Qwen 视频分析：接受项目内视频路径或公开 HTTP(S) URL，顺序扫描完整画面与音轨，按自由要求给出带时间证据、事实/转写/推断边界和不确定性的报告 |
+| `electron/main/services/project.store.ts` | 项目持久化：索引事务、清单、带消息索引缓存的追加式 JSONL 聊天事件日志、会话 id 与画布快照 |
+| `electron/main/services/atomic-file.ts` | 按文件串行事务、唯一临时文件原子替换与退出前写队列刷新 |
+| `electron/main/services/generation-task.service.ts` | 按项目/节点持久化生成状态、远端任务恢复、完成结果确认与未知提交人工解除限制 |
+| `electron/main/services/media-io.ts` | 读取前文件检查、有界读取、流式下载与媒体准备并发限制 |
+| `electron/main/services/project-media.service.ts` | 项目媒体资产：把本地图片/视频/音频复制到 `uploads/`，保存导演台构图、预演视频与画板导出到 `generated/director-stills/`、`generated/director-videos/`、`generated/image-edits/`，保存画板节点缩略图到 `.aigc-line/board-previews/`，扫描 `generated/` 与 `uploads/` 供资产面板使用 |
+| `electron/main/services/chat-attachment.service.ts` | 聊天通用文件附件：把长文本原样保存为 UTF-8 TXT，发送前校验普通文件并把项目外文件复制到 `uploads/chat-attachments/`，保证 Agent 只收到项目内可访问路径 |
+| `electron/main/services/settings.service.ts` | 应用设置：ComfyUI 与图片/视频/分析服务配置；Agent 使用各自本机配置 |
+| `electron/main/services/message-hub.ts` | 主进程内部事件总线（Agent 事件 → 渲染进程推送） |
+| `electron/preload/index.ts` | preload：`window.electronAPI` 的唯一出处，渲染进程只能用它访问主进程 |
+| `src/shared/` | 主进程与渲染进程共享的代码 |
+| `src/shared/ipc.types.ts` | 全部 IPC 请求/响应类型 + `CanvasNodeKind` + 节点 data 结构 |
+| `src/shared/ipc.channels.ts` | IPC 通道名常量（唯一定义处） |
+| `src/shared/node-capabilities.ts` | 节点能力注册表：每种节点可读写哪些字段、可调用哪些动作（Agent 通过它发现能力） |
+| `src/shared/director.types.ts` / `director-schema.ts` | 3D 导演台 v2 可序列化工程类型及共享严格 Zod schema：元素、Transform、Shot、人物路径、相机关键帧/跟随约束与 IPC 结果 |
+| `src/shared/director-element-catalog.ts` | 导演台素材注册表：统一 kind、分类、名称、用途、默认尺寸与颜色，供类型/schema、素材库和 Agent 能力复用；禁止引入 Three.js |
+| `src/features/director/DirectorAssetLibrary.tsx` / `DirectorPrimitive.tsx` / `director-primitive-parts.ts` | 导演台分类搜索素材库、基础几何渲染与室内建筑组合部件；几何保持在导演台懒加载边界内 |
+| `src/components/CanvasArea.tsx` | 画布核心：节点渲染、连线、工具栏、生成动作与任务恢复、撤销重做、canvas command 处理（Agent 操作画布的入口） |
+| `src/shared/snapshot-persistence.ts` / `pending-edits.ts` | 按项目保留待保存草稿；编辑器先提交、画布后落盘；离开/退出期间阻止新编辑 |
+| `src/shared/edit-history.ts` / `canvas-reference-index.ts` / `canvas-placement.ts` | 有界编辑历史、按节点订阅的图片入边索引、可见区域内新增节点避让 |
+| `src/shared/canvas-node-content.ts` | 按节点 id/data 复用内容列表，使拖动、选择和测量不触发媒体入边索引与 Artifact 内容同步 |
+| `src/components/ProjectAssetPreview.tsx` / `project-asset-preview-cache.ts` | 视区附近的图片缩略图/视频封面生成、两路解码与有界内存缓存 |
+| `src/components/CanvasMediaPreview.tsx` / `canvas-interaction.ts` | 图片按屏幕尺寸选择预览档位，手势结束后受限解码/升级原图；视频封面与点击后单播放器，关闭、离屏和卸载时释放资源 |
+| `src/components/CanvasBackground.tsx` | 随世界坐标移动的 CSS 点阵背景，平移时每动画帧仅移动独立合成层，点阵尺寸与纹理只在缩放时更新，避免逐帧背景重绘 |
+| `src/components/CanvasEdge.tsx` / `src/shared/canvas-edge-path.ts` | 在带缓冲的视区内绘制精确贝塞尔子段，限制超长连线光栅范围，保留真实端点箭头与连线交互 |
+| `src/features/director/director-history.ts` / `director-video-export.ts` / `director-webm-duration.ts` / `director-rig-resources.ts` | 导演台编辑历史、WebCodecs 逐帧 WebM 编码与包含末帧的 EBML 时长修正、实例独占骨骼资源清理 |
+| `src/features/image-editor/image-editor-model.ts` | 画板稳定 ID 素材合并、分项加载与导出前像素预算 |
+| `src/components/canvas-capabilities.ts` | 内置节点 kind 的能力声明（在这里注册新节点类型） |
+| `src/components/ChatArtifactCard.tsx` / `src/shared/canvas-artifacts.ts` | 聊天轻量产物卡片、图片/文档按需放大查看及旧文档迁移；弹窗复用 ArtifactRenderer 渲染图片、Markdown/HTML |
+| `electron/main/services/agent/artifact-file.ts` | PushArtifact 文件类型、项目真实路径、UTF-8 与大小校验；图片使用版本化 workspace URL，不内联 base64 |
+| `src/features/director/` | 3D 导演台：白模/道具编辑、人物路径、多机位与跟拍约束、构图截图与工程校验 |
+| `src/features/image-editor/` | 自由画板：无需输入即可打开全屏 Excalidraw，也可按连线载入图片；自动保存可序列化场景，多选内容右键导出 PNG 并回写画布输出节点 |
+| `src/components/` | 其他 UI：聊天面板、artifact 渲染、更新弹窗等 |
+| `src/pages/` | 三个页面：HomePage（项目列表）、ProjectPage（工作区）、SettingsPage |
+| `src/stores/app.store.ts` | zustand 全局状态（当前项目、artifacts 等） |
+| `resources/comfyui-workflows/` | ComfyUI API 格式工作流 JSON 模板，打包时复制到 resourcesPath |
+| `resources/claude-plugin/` | 应用内置 Claude Plugin；Skill 放在其 `skills/<name>/SKILL.md`，打包后从 resourcesPath 直接加载 |
+| `docs/` | 文档截图（README 配图） |
+| `test/` | vitest 单元测试 + `test/e2e/` Playwright 端到端测试 |
+| `dist/` `dist-electron/` `build/` | 构建产物，勿手改 |
+| `public/` | 静态资源（logo 等） |
+| `resources/app-icons/` | 应用品牌图标：生图源文件、PNG/ICO/ICNS、生成提示词与 Windows PowerShell 格式导出脚本；打包配置显式引用这里，不修改 `build/` 模板资源 |
+
+## 现有功能
+
+- **聊天产物**：`PushArtifact` 支持图片、Markdown、HTML 和常用 UTF-8 文本/代码（正文上限 1 MB，图片 20 MB）。全部产物只显示在聊天中的轻量卡片，点击后通过 `ChatArtifactCard` 懒加载 `ArtifactRenderer` 到放大查看弹窗，关闭后卸载正文、图片与 iframe；支持添加到对话。相同源路径重新推送后，聊天卡片打开最新内容，历史与正文持久化在聊天事件日志中；图片使用版本化 workspace URL，不内联 base64。`PushArtifact` 及历史聊天产物重放不得创建或更新任何画布节点；Agent 要把图片放入画布，必须通过 `CreateCanvasNodes` 创建 image 节点或通过 `UpdateCanvasNodes` 更新已有节点的项目内 `sourcePath`。历史上已经保存的产物图片节点保留，不自动删除。旧 `document` 类型只供兼容：读取项目画布/聊天时，先保存 `.aigc-line/canvas-snapshot.json.before-chat-documents.bak`，串行补齐聊天中缺失的文档，再移除旧文档节点及其连线；已有较新聊天产物优先，迁移幂等，失败保留原画布且禁止覆盖。新文档不写入画布快照，也不注册 Agent 节点能力。源文件 realpath、UTF-8、大小和 `.aigc-line` 禁读校验保持不变。HTML 资源相对源 HTML 所在目录解析，iframe 仅允许脚本，不允许同源访问；阅读 dialog 带 `data-canvas-node-editor-dialog`，Delete/Backspace 不得删除底层画布节点。PushArtifact 的 width/height 仅保留旧参数兼容，弹窗尺寸自适应窗口。
+
+- **启动加载页**：`electron/preload/startup-screen.ts` 在 React 加载前显示与主界面一致的深色黑金品牌屏，使用本地 `app-icon.png`、品牌文案和不表示百分比的加载指示，保留顶部窗口拖动区，支持窄屏和减少动态效果偏好。React 首次提交并绘制后由 `App.tsx` 发出就绪消息，启动屏淡出并清理监听/计时器；不再在 `root.render()` 后立即隐藏，也不再满 5 秒强制露出空白页。超过 15 秒未收到就绪消息时显示较慢提示和“重新加载”，不会伪造加载完成。
+
+- **应用图标**：黑金画框与播放标志统一用于安装包、应用窗口、标题栏、首页和聊天空状态。`resources/app-icons/icon.ico` 包含 16–256px 多尺寸，`icon.icns` 包含 16–1024px 多尺寸，`icon.png` 为 1024px；界面使用 `public/app-icon.png`（256px），Windows 窗口使用 `public/app-icon.ico`。源图更新后用 Windows PowerShell 运行 `resources/app-icons/export-icons.ps1` 同步导出，保留透明通道；原 `public/logo.svg` / `favicon.ico` 与 `build/icon.*` 只作为旧资源保留，不再用于主应用图标。
+
+- **项目管理**：新建项目弹窗选择名称、Claude Code / Codex、模型（动态列表/默认/自定义）及目录；项目索引与 `.aigc-line/manifest.json` 保存 `agent.provider/model`，缺失字段的历史项目默认 Claude Code。模型列表加载期间显示转圈动画与加载提示，并暂时禁用模型下拉框；完成或失败后恢复选择。模型列表使用 `chat:listModels` IPC；Claude 从 SDK `supportedModels()` 获取，Codex SDK 无模型发现方法，仅列表查询使用只读 app-server `model/list`。同目录重复创建或已有清单时拒绝覆盖；创建、删除、设置最近打开项目及索引读取通过同一事务队列，整个读改写过程串行；目录/清单写入成功后才更新索引。创建/打开/删除项目，每项目一个本地目录，聊天历史、画布快照、生成产物都持久化在项目内。应用启动时恢复退出前仍打开的项目；用户点击项目页“返回”时，先刷新待保存编辑，再通过 `project:close` IPC 按项目 ID 在索引事务中清除 `lastOpenedId`，成功后清空当前工作区并回首页，下次启动不再自动打开；保存或索引写入失败时保留项目并提示重试，旧项目关闭请求不得清除新项目的恢复目标。普通列表刷新或删除项目时保持当前页面，不触发自动导航。首页使用最大 1920px 的响应式项目网格，突出项目名称，分层展示目录、Agent、模型和创建日期；支持按名称/目录/Agent/模型搜索，默认按最新创建排序，也可按名称排序；打开与删除按钮独立，操作失败在首页显示错误。
+- **聊天持久化**：每个项目使用 `.aigc-line/chat-events.jsonl` 追加保存 `message.created` / `message.replaced` 事件，并按项目串行写入；首次加载时重放为消息列表，之后维护消息 ID/序号索引，普通更新不再完整读取日志；文件签名变化时重新校验，最多缓存 8 个项目。崩溃造成的末行不完整可忽略并在下次写入前备份、修复；中间行损坏必须明确报错，不得静默显示为空。旧 `chat-history.json` 不再读取或迁移。
+- **Agent 对话**：项目级动态路由到 Claude Agent SDK 或 `@openai/codex-sdk`。Claude 使用本机 user/project/local 配置与进程环境，设置页已移除 Agent URL/Token 配置且会话不再注入历史应用凭证。Codex 用 SDK `startThread/resumeThread/runStreamed`、按项目排队、`AbortSignal` 中断，支持本地图片和 Skill 路径指引；从 SDK 依赖解析原生运行时，打包时 `node_modules/@openai/codex-*/**` 解包，支持 `CODEX_EXECUTABLE` 显式覆盖。Codex 的工作目录不要求 Git 仓库。画布工具通过每项目独立的 `127.0.0.1` 随机端口 MCP 服务调用，随机 Token 仅传给对应 SDK 子进程，并校验 Host/Origin/请求大小/运行状态，服务随回合关闭；禁止往全局 Codex 配置或项目目录写入 MCP 凭证。Claude `session.json` 与 Codex `codex-session.json` 独立保存，不得混用恢复 ID。Codex 消息 ID 带每轮 UUID，避免 CLI `item_0` 重复覆盖历史；正文中间事件只更新界面，完成或中断后落盘，工具未完成则标记已中断；SDK `error` 重连事件展示连接状态并允许重试，只有 `turn.failed`、流异常或缺失完成事件才终结回合。流式输出，可中断；输入框键入 `/` 可搜索当前可用 Skill，并支持直接粘贴 PNG/JPEG/WebP/GIF 图片作为附件（写入项目 `uploads/images/` 后预览、发送与持久化），SDK 的 `/clear` 等控制命令不会混入 Skill 菜单；标题栏“新建上下文”会确认后清空当前 Agent 记忆但保留历史/画布，并持久化上下文分界线；选中任意画布节点可通过“添加到对话”作为节点引用附件，Agent 会按节点 id 读取并精确修改；通过 MCP 工具读写画布（GetCanvasOverview / GetCanvasNode / GetCanvasCapabilities / CreateCanvasNodes / UpdateCanvasNodes / ConnectCanvasNodes / InvokeNodeAction 等），并通过 PushArtifact 推送聊天产物。`GetCanvasOverview` 只返回无版本号的节点计数与轻量摘要，`GetCanvasNode` 按单个 ID 返回完整节点数据及其连接摘要；整图 `get-state` 仅供主进程内部服务使用。`AnalyzeVideo` 是与画布无关的通用工具，接受项目内视频路径或公开 HTTP(S) URL 和自由分析要求，固定调用 Qwen3.5-Omni Plus 顺序扫描完整画面与音轨，区分观察、转写与推断，以时间戳和不确定性说明支撑关键结论，并把 Markdown 报告保存到 `generated/analyses/`。聊天、工具状态、Artifact 和回合结束的实时 IPC 推送均携带 `projectId`，渲染进程只接收当前项目事件；项目历史异步加载也必须在写入状态前复核当前项目，避免切换竞态串线。工具状态监听 `PreToolUse` / `PostToolUse` / `PostToolUseFailure`；回合、流或应用结束后遗留的 `running` 调用会显示为“已中断”，不会永久 loading。
+- **聊天文件附件**：输入框文件选择器支持任意普通文件，包括 txt/md、mp4、mp3 等。发送前，项目外文件必须复制到当前项目 `uploads/chat-attachments/`，聊天历史和 Agent prompt 只保存/暴露项目内路径；任一文件缺失、不是普通文件或复制失败时整条消息拒绝发送，不得把 Agent 无法访问的项目外路径作为回退。
+- **聊天长文本附件**：输入超过 1000 个 Unicode 字符（恰好 1000 不转换，纯空白不转换）且停顿 300ms 后，通过 `chat:saveTextAttachment` 自动保存到当前项目 `uploads/chat-attachments/输入文本-<唯一标识>.txt`；UTF-8 原样保留换行和首尾空白，输入框改为读取附件的简短提示，开头的 `/Skill` 命令继续保留。中文输入法组合期间不转换；立即发送也执行同一转换并复用进行中的保存，保留已有附件与节点引用。文件写入失败保留原文，发送失败保留草稿；异步转换不得覆盖后续编辑或切换后的项目。
+- **内置 Skill**：`aigc-canvas` 本地 Plugin 随应用打包，Claude 由 SDK plugins 加载；项目级 `.claude/skills` 仍可自动发现。Codex 扫描项目 `.agents/skills`、用户 `.agents/skills` 与 `.codex/skills`，以及同一内置 Skill 目录；系统指令列出路径，显式斜杠调用会要求读取对应 SKILL.md。应用不会向项目复制或覆盖 Skill。
+  - `voiceover-to-video`：按旁白音频与 SRT 时间轴生成画面；图片提示词统一使用中文，视频提示词按一个节点内多个带时间段的子分镜描述统一风格、运镜、转场与音效；禁止生成 BGM，但允许不遮盖旁白的环境音和拟音。图片与视频生成前分别取得用户明确确认；生成视频后只核对节点状态和产物路径，逐段变速对齐后交给 `jianying-draft` 创建剪映草稿。
+  - `script-to-drama-video`：统一承接短剧创作、分镜规划、现有 image → video 链修改和连续性修复。主 Agent 串行调度三个真实子 Agent：资产 Agent 读取原剧本、生成/复用人物场景道具并输出 `资产报告.md`；分镜师 Agent 读取原剧本和资产报告，拆分 5/10/15 秒片段及内部 Shot、创建视频节点/引用/连线、逐片调用 H3 Skill 并输出 `分镜交接.md`；独立检查 Agent 只读实际画布，核对人物引用、分段连续性、必要补镜/描述和 prompt，输出每轮检查报告。未通过则优化后复查，直到全部待生成片段通过且获得用户生成授权才生成；阻塞不得跳过，通过后内容变更须复查。报告保存在项目 `generated/drama-reports/<本次任务标识>/`，交接规范在 `references/agent-handoffs.md`，导演方法在 `references/directing-and-continuity.md`。人物/场景/H3 专项 Skill 由对应角色调用，原参考图分阶段确认保留；生成后只核对节点状态和产物路径，不自动执行成片视频审核。
+  - `character-reference-generation`：每个角色先生成唯一身份底图，再以底图为单一参考通过图生图派生不同场景/服装/妆造/状态版本；所有图片均为从左到右“头部近景、自然站立全身正面、侧面、背面”的横向四联图，三个全身角度禁止 A-pose/T-pose。3D、半写实、国漫/游戏/影视 CG 人物必须读取 `references/3d-character-prompt-template.md`，按角色档案替换模板中的年龄、性别、身高、体型、骨相和服装示例。
+  - `environment-reference-generation`：为每个去重后的 `sceneId` 先文生图生成并审核一张无人基础环境底图，以其正面主墙面/入口确定空间方位；再以底图为唯一参考，通过图片编辑/参考生图生成一张无人 2×2 四宫格环境图。底图与四宫格分别为 image 节点，以 `底图 → 四宫格` 连线和单底图参考轨关联；固定左上 Front View（正面）、右上 Left View（左侧）、左下 Right View（右侧）、右下 Back View（背面）。四格使用平视相机和真实透视，继承底图布局、出入口、行动路线、材质与场景主光方向，不得镜像或重新布置。仅最终四宫格占一个视频参考名额；不生成俯视图或二维户型图，底图与四宫格生成前分别取得用户明确确认；底图重做后四宫格须重新生成和复核。
+  - `codex-cli-image-generation`：用户明确要求用 Codex/Codex CLI 内置 `image_gen` 生图、修图或参考生图时使用。AIGC CANVAS 项目中先通过 `CreateCanvasNodes` 创建带实际提示词的 image 节点并记录 nodeId，再通过本机 CLI 固定传入 `-m gpt-5.6-luna -c model_reasoning_effort=none` 出图；每批重新定位同时具有 `codex.exe` 与 `codex-code-mode-host.exe` 的安装目录，按各自会话日志从 `$CODEX_HOME/generated_images/<会话 ID>/` 取回并核验 PNG，不能假设固定尺寸。产物复制进项目目录后，用 `UpdateCanvasNodes` 的 `sourcePath` 写回原节点，不另建结果节点。该 Skill 不让普通图片工作流自动改走 Codex CLI；调用方原有生成授权门仍然适用。
+  - `h3-prompt-writing`：MiniMax H3 官方提示词写作 Skill，负责 T2VA / I2VA / FL2VA / L2VA / Ref2VA 的最终提示词格式、引用标签、时间戳、对白和声音字段；`script-to-drama-video` 提供完整逐片段导演包、片段内 Shot 时间线及真实引用数组顺序，并在 Ref2VA 视频生成或重做时调用它，不自行复制或猜测官方格式。
+  - `jianying-draft`：使用 pyJianYingDraft 生成剪映专业版草稿。
+- **画布**：React Flow，缩放/框选/连线/删除；快照防抖自动保存，工具栏新增节点按实际画布视区寻找空位并选中新节点；支持 `image-editor` 自由画板节点。旧版分镜表以及已废弃的 shot/text 节点自动迁移/清理为 image → video 链，旧文本内容会在目标 prompt 为空时转入直接相连的图片或视频。
+- **Excalidraw 自由画板**：`image-editor` 无需任何输入即可打开全屏空白工作区并使用画笔、图形、箭头和文字。连入其 target 的、已有 `sourcePath` 的 image 节点会作为可选择、移动、缩放和旋转的普通图片元素载入。绘制元素、当前连接图片的变换和安全的 appState 子集保存在节点只读字段 `boardState`，编辑时 600ms 防抖写回，关闭时同步刷新；重开时按稳定元素 ID 合并当前连接素材，断开的输入会移除。关闭画板时必须截取当前可视区域中心的 16:9 PNG 到 `.aigc-line/board-previews/<nodeId>.png`，写入 `boardPreviewPath/boardPreviewUpdatedAt`，节点卡片优先显示该截图；尚无截图时才以最多九格网格显示输入素材，超出部分显示剩余数量。图片必须通过画布连线进入，Excalidraw 自带的本地图片插入工具禁用，画布快照严禁写入图片 data URL。画板 portal 必须带 `data-canvas-node-editor-dialog` 与 `data-image-editor-dialog`；通用编辑器标记存在期间 `handleNodesChange` 必须过滤 React Flow 的 remove change，使 Delete/Backspace 只删除 Excalidraw 选中元素，不能删除底层画布节点。画板不提供右上角整图保存；用户框选或 Shift 多选元素后右键“导出所选素材”，将所选内容合成为 PNG 并安全保存到 `generated/image-edits/`，随后在外部画布创建只读 image 节点和 `image-editor → image` 输出连线。同一会话允许重复导出多个结果；PNG 写回前必须复核项目和画板节点，若导出基于连接图片还须复核该输入节点，并校验 PNG 头、IEND、真实尺寸、50MB 大小上限与 8192px 边长上限。
+- **3D 导演台**：`director` 节点按需懒加载 Three.js 全屏编辑器；v2 工程支持演员白模、群众阵列，以及立方体、球体、圆柱、墙体、地面、平台、六级楼梯、楔形斜坡、圆锥、胶囊体、门框、窗框、桌子、椅子、沙发、床、柜子和栏杆基础搭景素材，全部可移动/旋转/缩放、显隐和锁定。人物支持姿势、多机位、导演/机位视角、FOV/Roll、16:9 / 9:16 / 4:3 / 1:1 画幅和 24fps Shot 工程。场景元素的 Transform、姿势和显隐是工程级全局数据，切换 Shot 不得保存或恢复独立布局；每个 Shot 只保存机位、关键帧、相机约束、人物路径、时长和画幅。演员可在地面或基础几何模型表面点击绘制 Shot 内 XYZ 空间路径，沿三轴拖拽控制点、切换折线/平滑插值，并设置起止帧、行走/奔跑及自动朝向；底部人物轨道、播放、时间线拖动和 WebM 导出均按帧确定性采样三维人物位置与白模步态。导演视角显示当前 Shot 的最终相机运动轨迹；相机除自由关键帧外支持锁定注视演员和按演员朝向保持局部偏移的跟随模式，人物先采样、相机约束后求值。Agent 除更新完整 `directorProject` 外，可通过 `InvokeNodeAction` 的 `add-element`、`add-shot`、`set-actor-path`、`set-camera-constraint`、`set-camera-keyframe` 原子修改导演台。导演视角选中自由机位后复用 TransformControls：移动修改当前帧摄影机位置，旋转修改 target 并保留 Roll，拖动结束时一次性写入关键帧。镜头时长决定时间线终点；缩短时长会同时裁剪相机关键帧与人物路径范围。工程随画布节点持久化并通过共享严格 schema 和语义校验；旧 v1 工程不迁移，带旧 `elementStates` 的 v2 工程加载时移除该字段并保留全局元素布局。导演台 portal 必须带 `data-canvas-node-editor-dialog` 与 `data-director-stage-dialog`，打开期间 Delete/Backspace 不得删除底层导演台节点。拍摄或导出期间冻结编辑、强制保留地面网格并复用同一画幅裁切矩形；PNG 构图与 24fps WebM 预演分别安全保存并创建相连的只读图片/视频节点，每个异步阶段都要拒绝项目切换或源节点消失后的写回。
+- **节点显示尺寸**：`image` / `video` 节点使用 620px 宽媒体卡，预览区按所选画幅自动计算高度，prompt 输入框最小高度为 140px；图片/视频工作流选择器使用加宽触发框和下拉菜单以完整展示模型名称与类型标签；全模态参考轨保留图片/视频/音频数量显示和上限校验，但不再额外显示引用标签说明框。
+- **3D 导演台默认工程**：新建 director 工程的元素清单为空，不预置演员、群众或几何道具；仍保留一个默认 Shot/机位，供时间线、机位视角、截图和导出使用。损坏或不支持版本回退时也生成同样的空元素工程。
+- **3D 导演台素材库**：20 种素材按“人物 / 基础几何 / 建筑 / 家具”分类，入口仍在导演视角下视口底部、时间线上方；可搜索中文名、英文 kind 或用途，卡片显示图标和默认宽/高/深。新增门框、窗框、桌子、椅子、沙发、床、柜子、栏杆，门窗与栏杆保留真实空隙，家具表面可用于人物路径取点。点击添加后收起面板，支持 Escape 和点击外部收起；窄视口限制面板宽高并允许滚动，机位视角隐藏，拍摄/导出及人物路径绘制期间禁用。左侧栏只保留连线参考图、Agent 搭景要求和场景清单。
+- **3D 导演台物体复制**：导演视角中选中未锁定元素，可点击属性栏“复制”或按 Ctrl/Cmd+D，生成独立 ID 和深拷贝 Transform，沿 X 偏移 1 米；不复制人物路径或相机引用，并清除副本的 `referenceNodeId`，使后续参考图重建不会误删手工副本。输入框、拍摄/导出、路径绘制和变换拖动期间禁止触发复制。新增建筑与家具模块按单位外形建模，底面为 Y=0，属性栏尺寸直接表示米制宽/高/深；窗框默认贴地，嵌入墙面时手动调整位置 Y 或由 Agent 用 elevated 指定窗台高度。
+- **3D 导演台自动保存**：编辑器内元素、Shot、人物路径、相机与场景设置变更后 600ms 防抖提交；写回 director 节点后必须等待对应画布快照实际落盘，Header 才显示已自动保存。保存失败保留草稿并显示重试入口；提交串行，较旧保存完成不得掩盖更新草稿的待保存状态。工程语义校验失败时禁止自动保存。点击“保存并关闭”或提交参考图 Agent 搭景前必须同步刷新最后一次草稿，避免防抖窗口内丢失修改。
+- **3D 导演台物体激活与变换隔离**：导演视角中的场景元素只允许双击模型激活，单击只拦截当前射线且不得改变选中；只有已激活元素才显示 TransformControls 并可移动、旋转或缩放，顶部工具条显示“双击场景物体激活”或当前激活名称。元素列表中的明确点击仍可直接激活，人物路径绘制和路径点选择仍使用单击。TransformControls 开始拖动时锁定当前元素 ID并重新确认其选中状态，拖动结束才解除；锁定期间，相邻或后方模型的重叠射线命中以及 Canvas `onPointerMissed` 均不得切换或清空选中。
+- **3D 导演台人物白模**：主演员通过 `actorModelId` 走可替换模型注册层，当前 `director-rig-v1` 使用 `public/models/ue-mannequin-retopology.glb` 的真实 SkinnedMesh/骨骼与 `SkeletonUtils.clone` 实例隔离，`lightweight-v1` 是适合远景、群众和加载失败兜底的程序化白模；群众创建时固定优先轻量模型。GLB 原作者和 Sketchfab Standard 资产许可必须随 `public/models/ue-mannequin-retopology.license.txt` 与同目录 README 保留，不能把项目源码的 MIT 许可误用于模型。人物支持 `standard/heavy/slim/short/tall` 五种非等比体型，骨骼模型通过骨盆、脊柱、锁骨、四肢和头骨缩放实现，轻量模型通过独立身体比例实现，不能用统一缩放冒充体型。动作支持自然站立、行走、坐姿、抱臂、指向、单膝跪地、叉腰、挥手、举手、蹲下、前倾和回头；两种模型共用动作语义，路径播放仍以行走/奔跑步态覆盖静态动作。轻量白模双脚鞋头固定指向模型正面，脸部正面带眼镜和嘴巴标识；“单膝跪地”必须降低骨盆并表现一条承重腿和一条落地膝。模型注册与体型参数集中在 `src/features/director/actor-model.ts`，GLB 骨骼应用在 `RiggedActorModel.tsx`，不得改变持久化 `actorModelId/bodyType` 语义。
+
+- **导演台人物脚底锚点**：`DirectorElement.transform.position` 和人物路径点统一表示人物鞋底的世界坐标，TransformControls 必须绑定同一个根节点。轻量白模用 `actor-foot-anchor.ts` 的 `directorLightweightFootOffset` 按双腿、膝盖、鞋体几何和当前步态计算最低鞋底偏移，禁止使用固定经验高度；该 Three.js 几何计算必须保持在导演台懒加载边界内，不能放进会被首屏引用的 `actor-model.ts`。骨骼白模应用姿势后按精确包围盒归零，并把世界高度差除以父级世界缩放后再写入本地偏移。体型、身高、姿势或步态变化不得改变根节点与路径点的坐标语义。
+- **3D 导演台参考图搭景**：参考图来源严格等于连入导演台 target 的、有 `sourcePath` 输出的 image 节点，不扫描全画布，也不接受导演台指向图片的反向出边；编辑器直接显示连接图片的预览与名称，多图时点击缩略图选择，断开连接后立即移除。提交时保存当前工程，再向当前项目 Agent 会话发送带导演台/图片精确节点引用的可见消息；若 Agent 正忙则拒绝提交。Agent 用 GetCanvasNode 取得项目内 `sourcePath`，再用 Read 和当前多模态模型理解图片，不调用独立视觉模型；结果通过 `apply-scene-draft` 原子动作写入。共享 schema 只接受最多 40 个 `box/wall/cylinder/sphere/floor/platform/stairs/ramp/cone/capsule/doorframe/windowframe/table/chair/sofa/bed/cabinet/railing`、严格 Transform、十六进制颜色以及必填的 `ground/elevated` placement。基础几何使用底面锚点：`scale.y` 是完整高度，`position.y` 是底面离地高度；ground 元素在 mutation 层强制归零，避免模型按中心坐标理解导致悬浮，只有屋顶、横梁、招牌等真实离地结构使用 elevated 并保留高度。相同 `referenceNodeId` 重做时只替换其未锁定几何；存在锁定几何时明确报错，保留演员、其他参考图几何、手工道具和机位。
+- **媒体上传与资产库**：画布左侧独立工具栏提供“上传”和“资产”按钮。上传可多选本地图片、视频、音频，文件复制到当前项目 `uploads/<类型>/` 后自动创建对应节点；资产面板扫描当前项目 `generated/` 与 `uploads/` 下的可预览媒体，支持按类型筛选、刷新，并可拖到画布落点创建节点。媒体文件始终通过 `workspace://<projectId>/...` 预览。已有输出的视频节点可显式“提取音频”：主进程通过 ComfyUI `LoadVideo → GetVideoComponents → SaveAudio` 把音轨保存到 `generated/audio/`，画布在源视频右侧创建只读 audio 节点和来源连线；无音轨视频必须明确报错。
+- **前端隔离与异步状态**：HTML Artifact iframe 不得同时启用脚本与同源权限，当前使用无同源权限的 sandbox；画布快照加载和图片/视频/放大结果回写必须复核发起时的项目，防止切换项目后串写。Agent 运行状态按 `projectId` 保存，切回后台运行项目时仍能显示状态和停止按钮。ComfyUI 工作流列表在渲染进程共享缓存，避免每个节点重复 IPC 查询。
+- **画布写入语义**：Canvas MCP 写工具按节点 ID/字段直接应用，采用最后写入者生效（Last Write Wins），不接收或校验全局画布版本号；仍校验节点存在性、ID 唯一性、字段能力和连线合法性。
+- **节点类型**（`CanvasNodeKind`）：
+  - `document` 仅保留旧快照兼容类型，加载时备份并迁移到聊天，不再创建或渲染画布文档节点
+  - `image` 图片：ComfyUI 的 Krea 2 Turbo、Z-Image Turbo 当前仅文生图；Nano Banana 2 / Pro 支持最多 14 张有序参考图，Doubao-Seedream-5.0-pro / lite 支持最多 10 张有序参考图；画幅支持 16:9 / 9:16 / 1:1 / 4:3，全部模型使用 2K 输出，ComfyUI 图片工作流直接保存 VAE 解码结果且不经过 RTX 放大
+  - `image-editor` 画板：可直接打开空白 Excalidraw，也可把所有连入的有效图片作为普通元素载入；`boardState` 自动保存矢量场景和连接图片变换但不保存图片 data URL；多选右键导出后创建相连的只读 image 输出节点
+  - `video` 视频：MiniMax H3 文生视频 / 首尾帧 / 全模态参考（图片 9 + 视频 3 + 音频 3，提示词用 `<Picture n>` 等引用），全模态参考可选择标准 20 步或带 Turbo 8 步 LoRA 的加速工作流；H3 参考视频通过 `GetVideoComponents` 同时把画面接入 `ref_videos`、内嵌音轨接入相同下标的 `ref_video_audios`，画布仍可显式提取音轨生成独立 audio 节点并放入单独音频参考轨；也支持火山方舟 Agent Plan Doubao Seedance 2.0 文生视频与全模态参考，提示词用“图片 n / 视频 n / 音频 n”引用素材，默认 720p 并生成同步音频
+  - `audio` 音频：导入本地音频并预览
+  - `upscale` 视频放大：RTX Video Super Resolution，连入视频节点作为输入（多输入可点选，`inputNodeId`），倍数 2x/3x/4x，质量 FAST/MEDIUM/HIGH/ULTRA，帧率经 VHS_VideoInfo 自动跟随源视频
+  - `director` 3D 导演台：保存严格 v2 的可序列化 `directorProject`，包含全局稳定元素 ID/Transform/姿势、可锁定 Shot、人物路径、相机位置/目标/FOV/Roll、24fps 关键帧和注视/跟随人物约束；最近构图路径写入 `sourcePath`
+- **图片/视频生成集成**：ComfyUI 工作流模板在 `resources/comfyui-workflows/`，`comfyui.service.ts` 注入参数 → 排队 → 轮询 history → 下载结果；默认 ComfyUI 文生图为 `krea2-turbo-t2i`，使用 `krea2_turbo_fp8_scaled.safetensors` 和 8 步 Euler/simple 采样，Krea 2 Turbo 与 Z-Image Turbo 均直接以标准 2K 尺寸生成并保存，图片工作流不包含 RTX 放大节点；旧 Flux2 Klein 文生图/图生图工作流已移除且旧默认设置自动迁移到 Krea 2 Turbo。`minimax-h3-r2v` 是标准全模态参考，`minimax-h3-r2v-turbo` 是加载 `minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors` 的 8 步加速版本，两者共用相同参考轨语义；MiniMax H3 视频使用 1024 档，16:9 / 9:16 / 4:3 / 1:1 分别为 1024×576 / 576×1024 / 1024×768 / 1024×1024。火山方舟 `seedance-2.0` 工作流使用模型 `doubao-seedance-2-0-260128`，通过 `/contents/generations/tasks` 异步提交与轮询，支持 4–15 秒文生视频和最多 9 图 + 3 视频 + 3 音频的项目内参考素材，默认 720p、同步音频、无水印，完成后下载到 `generated/videos/`。ComfyUI/Google 图片使用标准 2K 映射：16:9 为 2048×1152、9:16 为 1152×2048、4:3 为 2048×1536、1:1 为 2048×2048；Seedream 使用官方 2K 参考尺寸 2816×1584、1584×2816、2368×1776、2048×2048。Google Gemini 图片 API 由 `google-image.service.ts` 调用 Nano Banana 2 / Pro；火山方舟图片 API 由 `seedream-image.service.ts` 调用 Doubao-Seedream-5.0-pro / lite；两者固定生成 2K 图片并支持项目内参考图。
+- **设置页**：宽屏使用 ComfyUI 基础服务单栏、AI 云服务三栏布局，同一排的配置卡片等宽等高；可配置 ComfyUI 地址、Google AI Studio API key 与可选代理、火山方舟 Seedream/Seedance 普通 API 或 Agent Plan Base URL/key、Qwen3.5-Omni Plus API URL/key 和默认生图模型，并提供 ComfyUI/Google AI/Qwen/方舟连接测试。方舟 Base URL 会自动移除用户误粘贴的一个或多个 `/images/generations` 后缀。Qwen/Google Key 使用 safeStorage；方舟 Key 按用户要求明文保存在本机 `settings.json`。所有配置统一使用页面顶部“保存配置”，方舟配置保存后再次读取主进程设置确认落盘，并在卡片内显示“已保存”与清除选项。
+- **自动更新**：electron-updater。
+
+- **快照与关闭保存**：按项目的 SnapshotPersistence 在组件卸载后仍保留最新待写草稿，写入串行且保存期间出现的新草稿会继续排空。返回首页或关闭应用时通过 pending-edits 先刷新画板/导演台，再刷新画布；等待期间设置编辑屏障。主进程通过带 requestId 的关闭握手等待渲染进程确认，再等待文件写队列，失败或超时保留窗口与草稿。快照/清单/会话文件使用唯一临时文件写入并原子替换；只有 ENOENT 可视作无快照，JSON 损坏、格式无效和读取错误必须显示错误、保留原件并暂停自动保存，不能用空画布覆盖。原子替换不等于断电级 fsync 保证。
+- **生成任务恢复**：ComfyUI 的图片、视频、放大、音频提取及 Seedance 任务按节点保存到 `.aigc-line/generation-tasks/`。提交前写 submitting，取得远端 ID 后立即写 running，输出落盘后写 succeeded；任务文件只保存白名单请求参数与状态，不保存设置凭据。相同节点进行中或成功未确认的任务阻止重复提交。进入项目及每 1.5 秒查询 `comfyui:listGenerationTasks`，主进程用当前配置恢复已有远端 ID 的查询/下载；画布验证目标节点后回填，快照保存成功后再调用 `comfyui:acknowledgeGenerationTask`。提取音频同时核对原视频路径，以稳定输出节点 ID 防重复创建。ComfyUI 空 history 会结合 running/pending 队列连续核对并再次查 history，确认任务消失后终结，正常排队不按固定总时长误判失败。
+- **未知提交与同步生图**：提交请求结果不明时标为 unknown，禁止自动重提；Google/Seedream 同步接口也登记本地任务和已完成结果，离开页面后仍可关联，但进程中断前未取得结果时没有可恢复的远端 ID。任务面板显示“提交结果待核实”；只有用户核实服务端未继续执行或已取回产物后，才能确认解除限制。`comfyui:dismissGenerationTask` 校验项目/节点/任务 ID，只接受非活动的 unknown/failed/succeeded，保留归档并标记已确认；这不取消远端任务，也不会立即重新生成，之后用户点击生成才提交新任务。列表 IPC 不暴露完整 request 或 fingerprint。
+- **聊天可靠性与分段展示**：同一 messageId 的完整正文推送按 ID 更新；工具事件按工具 ID 合并，历史请求使用加载代次与项目选择代次拒绝 A→B→A 的旧响应，并合并加载期间的新事件。读取历史只把没有实际执行者的遗留 running 工具标为中断。发送等待主进程确认，失败保留正文、文件附件及节点/Artifact 引用，成功也不能清掉期间新输入的草稿。界面初始显示最近 100 条，按 100 条加载更早消息并维持阅读位置；这属于前端分段展示，历史 IPC 仍返回完整消息列表，不是服务端分页。
+- **画布与导演台撤销重做**：画布保留最多 40 步会话内编辑，导演台最多 60 步，提供按钮、Ctrl/Cmd+Z 和 Ctrl/Cmd+Shift+Z（也支持 Ctrl/Cmd+Y）。覆盖添加、删除、连线/参数和导演台场景、路径、机位等编辑；拖拽提交合并为一步，画布同一输入焦点内的连续编辑合并。画布历史覆盖已应用的 UI/Agent 编辑，但不记录单纯生成状态、输出路径和预览更新；还原时保留现有节点的最新生成结果，不重提或撤销远端请求。导演台历史独立于外部画布，保留已完成截图元数据，播放帧与 Shot 导航不作为编辑步骤；输入框、编辑器弹层和路径绘制等场景遵循各自快捷键边界。历史不持久化，不能作为文件备份。
+- **画板容错与预算**：连接图片分项加载，最多同时解码 2 张；单图失败显示带名称的占位和重试，已保存的矢量绘图及其余图片仍可编辑。打开期间按稳定 ID 同步连线、断开和素材 URL 变化，保留图片变换。交互预览使用降采样图片；导出先计算选区尺寸，限制 8192px 边长与 16×1024×1024 总像素，必要时等比缩小并告知用户；只为选中图片重新读取匹配导出尺寸的素材，失败或来源改变时拒绝输出。后端 PNG 完整性、50MB 与 8192px 校验继续执行。素材预览缩小不代表无需首次原图解码。
+- **媒体预算与资产预览**：主进程先 stat/普通文件/大小校验再读取，有界读取防止文件增长绕过限制；ComfyUI 上传使用文件 Blob 与 UUID 文件名并关闭覆盖，远端下载流式写唯一 part 文件、检查累计大小后原子替换。需要 base64 的媒体准备/同步云请求最多并行 2 个，不能把 JSON/base64 接口误称为完全流式。资产面板在视区附近才生成最长边 320px 的图片缩略图或视频封面，与画布共用最多 2 路解码；320/640px 预览缓存上限 160 项/16MiB，1280px 细节缓存上限 40 项/16MiB，预算按 data URL 的 UTF-16 字符串占用计算。完成或离开视区后释放原始媒体解码器；缓存驻留内存，资产条目仍整体列出。
+- **多节点画布性能**：视频及放大结果默认显示最长边 640px 的静态封面，点击播放才创建原生播放器，同一画布最多打开一个；收起、结束、离屏、删除节点或切换项目时暂停并清除媒体源。播放错误只在预览内显示，不得覆盖生成任务状态。图片按卡片宽度 × zoom × DPR 选择最长边 640/1280px 预览，不能因放大就同时挂载全部原图；选中后原图也须通过两路解码池准备。整图平移、缩放、节点/框选拖动统一协调，全部手势结束 180ms 后才开始新媒体读取、像素复制/JPEG 编码与原图升级；失焦、取消和卸载必须解除等待，过时任务必须可取消。清晰度切换保留同 URL 旧图到新图就绪，缓存命中首次挂载即可显示；缓存键包含项目 URL 和尺寸，禁止把缩略图 data URL 写回节点/快照。节点卡片不随位置变化重渲染，提示词/放大参数面板按 id/data 订阅而不跟随全图位置变化；点阵背景使用 CSS 并按 RAF 合并更新。普通连线使用静态线条，历史快照的常驻流动动画也必须关闭。
+- **放大视图连线绘制**：`CanvasEdge` 保留 React Flow 的图结构、选择/删除与命中路径，仅将三次贝塞尔通过 De Casteljau 拆为视区内的精确子曲线，不能用折线近似或按“端点都离屏”直接隐藏仍穿过屏幕的连线。所有连线共享每画布一个视区订阅，裁剪窗口留 384 屏幕像素缓冲，视区距离边界不足 64px 或缩放变化时才整体刷新，平移逐像素时不必重算全部路径；箭头仅绘制在含真实源/目标端点的单子路径上，禁止在裁剪断点出现假箭头。未知路径格式回退原路径，不得丢边；绘制裁剪不写回画布快照。小地图通过独立合成层及 layout/paint containment 隔离主画布的重绘。
+- **导演台逐帧预演与资源**：WebM 导出通过 WebCodecs VideoEncoder 和 webm-muxer 按整数帧渲染、等待对应画面、赋予明确微秒时间戳并编码，优先 VP9、回退 VP8；环境不支持时明确报错，不回退实时录制。24fps、最多 60 秒，编码数据上限 128MiB；有进度、取消、等待超时和编码队列背压，编码输出帧数必须与目标一致才保存；封装后结构化读取 EBML 的 Segment/Info/Duration，修正 webm-muxer 5.1 仅计到末帧起点的问题，让总时长包含最后一帧，不能在压缩帧字节中搜索替换。慢渲染延长导出时间而不跳帧；实时播放仍使用小数帧采样。工程校验按不可变 draft 缓存；骨骼模型卸载仅释放实例独占材质与骨骼纹理，保留共用 GLTF geometry/texture。锁定演员的路径更新和清除都在 mutation 层拒绝。
+- **响应式编辑与配置保护**：聊天宽度随容器约束并记住用户宽度，可收起；导演台参考栏、属性栏和时间线可分别收起，窄窗口默认收起参考栏，时间线高度受视口约束。媒体编辑卡仍保留 620px 设计。设置页提供“有未保存修改”和返回时保存/放弃/继续编辑，未保存配置阻止直接退出；继续采用顶部统一保存配置。常用导演台文字和表单可访问名称已改善，但不声明全应用无障碍达标。logo 使用相对静态路径，字体使用本机字体栈，不依赖 Google Fonts 请求。
+- **仍未实现的搭景增强**：整套客厅/卧室/走廊预设、网格吸附、贴地/对齐、多选成组、批量排列、材质预设与最近使用仍属于后续产品设计，不得把本轮的 8 种建筑/家具素材与单物体复制描述为完整房间预设。
+
+## 核心代码在哪里
+
+| 要改什么 | 去哪里 |
+|---|---|
+| 画布交互/节点 UI/生成按钮 | `src/components/CanvasArea.tsx`（单文件，约 1800 行，含 PromptPanel / UpscalePanel / StoryNodeCard / CanvasFlow） |
+| 3D 导演台/白模/机位/Shot | `src/features/director/DirectorStageDialog.tsx` + `director-model.ts` + `src/shared/director.types.ts` |
+| 新增节点类型 | 见下方"新增节点 checklist" |
+| ComfyUI 生成逻辑、工作流参数注入 | `electron/main/services/comfyui.service.ts` |
+| 本地媒体上传、项目资产扫描 | `electron/main/services/project-media.service.ts` + `electron/main/ipc/project.handlers.ts` |
+| Agent 能用哪些工具、工具入参 schema | `electron/main/services/agent/tools.ts` |
+| Agent 行为约束/分镜规范 | `electron/main/services/agent/prompts.ts` |
+| 新增或修改应用内置 Skill | `resources/claude-plugin/skills/<name>/SKILL.md`；同时更新 Plugin 版本与本文档 |
+| 新增 IPC 接口 | `src/shared/ipc.types.ts` + `src/shared/ipc.channels.ts` + `electron/main/ipc/*.handlers.ts` + `electron/preload/index.ts` 四处一起改 |
+| 本地媒体预览协议 | `electron/main/index.ts` 的 `protocol.handle('workspace' | 'local-file')` |
+
+## 开发注意事项
+
+- **Claude 打包运行时**：`electron-builder.json` 必须显式解包 `node_modules/@anthropic-ai/claude-agent-sdk-*/**`。模型列表与聊天的 `query()` 都通过 `claude-runtime.ts` 指定 `pathToClaudeCodeExecutable`，将 `.asar/` 或 `.asar\\` 转为 `.asar.unpacked/` 或 `.asar.unpacked\\`。不能只依赖 SDK 自动解析：Electron 的文件存在检查能访问虚拟 ASAR 路径，但系统进程无法从该路径启动原生程序，SDK 会给出误导性的 Linux libc 通用报错。开发环境保留原始路径，真实程序缺失时明确提示；模型列表初始化失败也返回可读错误，不得在 `try` 外抛出。
+
+1. **新增节点类型 checklist**（漏一处就会出现"Agent 说改了但界面没变"之类的问题）：
+   - `src/shared/ipc.types.ts`：`CanvasNodeKind` 加 kind，`CanvasNodeData` 加字段
+   - `electron/main/services/agent/tools.ts`：`nodeFields` zod schema 加同样字段 —— **zod 默认静默丢弃未声明字段**，这是已踩过的坑
+   - `src/components/canvas-capabilities.ts`：`registerNodeCapabilities` 注册字段和动作
+   - `src/components/CanvasArea.tsx`：`nodeIcon`、`makeNode`、`KIND_LABELS`、工具栏列表、MiniMap 颜色、create-nodes 白名单、sourcePath→preview 派生条件、kind 动作注册（`registerNodeKindAction`）
+   - 如需后端生成：`ipc.channels.ts` + `ipc.types.ts` + handler + preload + `comfyui.service.ts`
+   - 如需新工作流：JSON 放 `resources/comfyui-workflows/`
+   - 最后更新本文档和 `README.md` / `README.zh-CN.md`
+2. **画布 command 容错设计**：`pickMutableNodeData` 对未注册字段静默忽略（有意为之）。字段必须先注册进能力表才写得到节点上。
+3. **kind 级动作**：生成类动作用 `registerNodeKindAction`（注册一次，离屏节点也能触发），不要用 per-node 注册。
+4. **ComfyUI 工作流**：VHS_VideoCombine 的 `frame_rate` 最小为 1，不能填 0；要跟随源视频帧率就接 VHS_VideoInfo。节点参数注入用 `setInput(nodeId, field, value)`，节点 id 以 workflow JSON 为准。
+5. **预览地址**：节点 `preview` 一律由 `sourcePath` 派生为 `workspace://<projectId>/<rel-path>`（每段 encodeURIComponent），不要手写 file://。缩略图缓存按完整 URL（含版本）区分：Agent 创建或明确更新 `sourcePath` 时生成新的 `?v=`，即使路径相同也刷新；生成完成和任务恢复共用任务 ID 作为稳定版本，资产拖入节点保留 `modifiedAt` 版本。仅改标题、提示词、位置不换版本；版本随画布快照持久化，不能在渲染或轮询时随机刷新。
+6. **生成状态**：`generationStatus`（idle/generating/error）是只读轮询字段；异步动作完成后必须复位，加载快照时会把残留的 generating 重置为 idle。
+7. **路径安全**：上传媒体前校验路径必须位于项目目录内（`uploadReferenceMedia` 已有检查，新代码沿用）。
+8. **提交前验证**：`pnpm typecheck` 必须通过；`pnpm test`（vitest）不要跑挂；UI 改动大的话跑 `pnpm test:e2e`（Playwright）。
+9. **样式约定**：深色画布（`#0a0a0f` 底 + `#d4af37` 金强调色），Tailwind 原子类，跟随 CanvasArea 现有面板风格。聊天区按信息层级展示：用户/AI 正文和 Artifact 使用消息卡片，连续工具调用使用无头像的紧凑执行时间线，工具入参与结果默认折叠，避免长回合被低价值过程信息撑高。
+10. **内置 Skill 隔离**：内置 Skill 只能放在 `resources/claude-plugin/` 并通过 SDK `plugins` 加载；不要复制到项目 `.claude/skills`。新增 Skill 使用 kebab-case 目录名和包含 `name`、`description` 的 `SKILL.md`，并提升 `.claude-plugin/plugin.json` 版本。
+11. **Skill 斜杠菜单**（Claude / Codex 按项目分别扫描目录）：`chat:listSkills` 扫描内置、项目和用户 Skill；活动 Query 的 `supportedCommands()` 只补充已发现 Skill 的元数据，不得把 `/clear`、`/batch` 等控制命令加入菜单。显式 `/<skill>` 必须保持在 Agent prompt 第一行；节点引用和附件上下文追加在命令之后。
+12. **新建上下文**：Codex 在空闲时清除其恢复 ID，下一轮用 SDK 新建 Thread，保留历史和画布；Claude 通过 `chat:clearContext` 向 SDK 发送隐藏的 `/clear`，仅在 Agent 空闲时允许执行；吞掉该命令的 `(no content)`，完成后追加并持久化 `event: 'context-cleared'` 分界消息。不要自动删除聊天历史、画布或项目文件。
+13. **旁白视频生成门**：`voiceover-to-video` 必须在实际生成图片、视频前分别询问并等待用户明确同意，重做也要重新确认；系统实际提交的图片提示词必须使用中文；每个视频提示词必须包含覆盖完整时长的一个或多个连续子分镜，默认优先可执行的单一连续 Shot，只有新增信息、关键反应或空间关系变化时才切镜；禁止 BGM，但可生成不遮盖原旁白的同步环境音和拟音。视频生成后只核对节点状态和 `sourcePath`，不自动执行质量审核。
+14. **剧本深化、导演方法、资产委派与片段层级**：`script-to-drama-video` 是唯一通用短剧分镜 Skill；`storyboard-production` 已删除。默认保留核心人物关系、事实、冲突、因果和结局方向，允许为视听表达补足动作、反应、潜台词、必要对白/旁白和声画衔接；改变核心动机、关键事件或结局必须先确认。先按 `references/directing-and-continuity.md` 建立节拍、blocking、切镜理由和连续性账本，再拆成可独立生成的 5/10/15 秒片段；每个片段直接创建一个 video 节点，片段内 Shot 使用连续时间范围写入导演包和 prompt，不创建 Canvas 节点。人物图必须调用 `character-reference-generation`：每个 `characterId` 先生成唯一身份底图，审核合格并取得 `sourcePath` 后，再由该底图直接连接所有场景/服装变体并通过单参考图图生图生成；禁止变体链式派生和不同场景独立文生图，底图重做后全部变体都要重做。场景图必须调用 `environment-reference-generation`：每个 `sceneId` 先文生图生成并审核基础环境底图，再以该底图为唯一参考，通过图片编辑/参考生图生成无人正面/左侧/右侧/背面四宫格；两个阶段分别确认，底图重做后四宫格须重做，只有四宫格进入视频参考轨。禁止在生产 Skill 内维护 prompt template。视频固定使用 `minimax-h3-r2v`，最终 Ref2VA prompt 必须调用 `h3-prompt-writing`。
+16. **设置版本与持久化校验**：Vite 可能只热更新渲染进程而 Electron 主进程仍为旧版本。设置页必须验证 `get/saveAppSettings` 返回值包含 Qwen、Google AI 与 Seedream 字段；缺失时提示完全重启，不能误报保存成功。主进程写入设置后必须重新读取并验证 URL 与 Key。Seedream 普通 API Base URL 为 `https://ark.cn-beijing.volces.com/api/v3`，Agent Plan Base URL 为 `https://ark.cn-beijing.volces.com/api/plan/v3`；设置、测试和运行时均须规范化完整生图地址，避免重复追加 `/images/generations`。Qwen / Google AI API Key 使用 safeStorage 加密并回填；Seedream API Key 按用户要求使用 `seedreamApiKey` 字段明文保存、回填和清除，保存新值时删除旧 `encryptedSeedreamApiKey`。Agent Token 仍不回显。
+17. **Google 图片生成**：Nano Banana 2 固定使用 `gemini-3.1-flash-image`，Nano Banana Pro 固定使用 `gemini-3-pro-image`，两者共用 Google AI Studio API Key。REST 请求必须使用 `generationConfig.imageConfig` 发送画幅简写与 `imageSize: "2K"`；不要使用 `responseFormat.image`，该 v1 端点会把画幅和尺寸按 `ImageResponseFormat` 枚举解析并对简写、符号枚举均返回 HTTP 400。最多 14 张参考图按 `referenceImageNodeIds` 顺序发送，只允许读取当前项目目录内的相对路径，单张不超过 20 MB。Google Key 按 Qwen Key 的持久化方式保存、回填与校验。请求必须经 `google-network.service.ts` 使用 Electron 网络栈；无法直连时可配置独立的 HTTP/HTTPS/SOCKS 代理，网络错误需保留底层原因而不是只显示 `fetch failed`。
+   - **Seedream 图片生成**：只注册 Doubao-Seedream-5.0-pro（API 模型 ID `doubao-seedream-5-0-260128`）与 Doubao-Seedream-5.0-lite（`doubao-seedream-5-0-lite-260128`），通过火山方舟 `/images/generations` 调用。API Base URL 与 Key 可配置，Key 明文保存在本机设置并支持 `ARK_API_KEY` 环境变量兜底；最多 10 张参考图按 `referenceImageNodeIds` 顺序以 `image` 数组发送，只能是当前项目内单张不超过 10 MB 的 PNG/JPEG。单节点固定关闭组图；2K 尺寸使用官方参考值：16:9 `2816×1584`、9:16 `1584×2816`、4:3 `2368×1776`、1:1 `2048×2048`。Seedream 5.0 Pro 自定义宽高的官方总像素范围从 `1280×720`（921600）起，不得再将运行时某次报错误写为模型通用最低 3686400 像素。连接测试优先读取 `/models`，不支持时使用缺失 prompt 的鉴权探测，禁止为测试生成计费图片。
+   - **Seedance 视频生成**：注册 Doubao-Seedance-2.0（API 模型 ID `doubao-seedance-2-0-260128`），复用方舟 Base URL 与 Key。创建任务后按任务 ID 轮询 `queued/running/succeeded/failed/cancelled/expired`，成功后立即下载临时 `video_url`。项目内参考素材必须经过 realpath 边界检查并按 data URI 发送；上限为图片 9 张（单张 30 MB）、视频 3 段（单段 50 MB）、音频 3 段（单段 15 MB）。画布提供 4–15 秒整数时长，服务端仍将时长收敛到官方 4–15 秒范围；固定 720p、开启同步音频、关闭水印。
+18. **Canvas 写入冲突策略**：`CreateCanvasNodes`、`UpdateCanvasNodes`、`DeleteCanvasNodes`、`ConnectCanvasNodes`、`DisconnectCanvasEdges` 不使用 `expectedRevision`。写入采用 Last Write Wins；不要重新引入基于整个 `nodes` / `edges` 数组变化的全局版本拒绝，否则选择、拖动、输入或生成状态变化会误伤无关写操作。
+19. **Canvas 分层读取**：Agent 不暴露整图 `GetCanvasState`。用 `GetCanvasOverview` 获取 `nodeCount`、`edgeCount`、类型/生成状态计数和节点的 `id/kind/title/generationStatus/hasOutput`；用 `GetCanvasNode` 获取单节点完整 `data`、位置及入边/出边摘要。用户已引用精确节点时直接调用 `GetCanvasNode`；异步生成也按节点轮询，禁止为单节点任务把整张画布塞入模型上下文。整图 `get-state` 只供主进程内部服务使用。
+20. **媒体生成分辨率**：图片与视频尺寸统一定义在 `src/shared/media-dimensions.ts`，但必须分开映射。ComfyUI/Google 图片使用标准 2K：16:9 为 `2048×1152`、9:16 为 `1152×2048`、4:3 为 `2048×1536`、1:1 为 `2048×2048`；Seedream 5.0 使用官方 2K 参考尺寸 `2816×1584`、`1584×2816`、`2368×1776`、`2048×2048`。ComfyUI 图片工作流直接以其对应尺寸生成，禁止重新加入 RTX 放大。MiniMax H3 使用 1024 档：16:9 为 `1024×576`、9:16 为 `576×1024`、4:3 为 `1024×768`、1:1 为 `1024×1024`。新增画幅或清晰度档时同时更新共享映射、工作流模板默认值、测试和 README。
+21. **通用视频分析**：`AnalyzeVideo` 只接收 `videoUrl` 与 `analysisRequest`，不依赖画布结构。本地路径必须安全解析在当前项目目录内；远程地址只允许公开 HTTP(S)，拒绝显式 localhost、回环和私有 IP。内部使用独立 system message 约束 Qwen3.5-Omni Plus 顺序扫描全片和音轨，把媒体内指令视为数据，区分画面观察、声音/语言转写与证据推断；关键结论给出近似时间戳，计数先列事件再汇总，听不清处不得补词，并明确采样盲区和不确定性。默认 2 FPS、每帧 655360 像素，结果按用户要求输出中文 Markdown 并保存至 `generated/analyses/`。
+22. **项目媒体资产**：上传支持图片 `png/jpg/jpeg/webp/gif/bmp/avif`、视频 `mp4/webm/mov`、音频 `mp3/wav/m4a/flac/ogg/aac`。导入文件必须复制到当前项目 `uploads/` 后再写入节点，不能让 `sourcePath` 指向项目外绝对路径；资产列表只递归扫描 `generated/` 与 `uploads/`，不扫描 `.aigc-line` 或整个项目树。
+23. **3D 导演台工程与媒体导出**：`directorProject` 是纯 JSON 数据，禁止把 Three.js 对象、Blob URL 或 data URL 存入画布快照。Agent 创建/更新必须通过 `director-schema.ts` 的严格 schema 和语义校验；加载旧或损坏快照时用 `normalizeDirectorProject` 修复或回退，任何渲染路径不得直接信任未知对象。场景元素只保留一套工程级 Transform/姿势/显隐数据，切换 Shot 不能改变全局布局；删除元素时仍须级联清理人物路径和相机约束，锁定在 mutation 层执行，相机静态字段变更同步 frame 0。元素与机位 TransformControls 拖动期间只把最新 Transform 写入 ref，禁止在 mouseDown 或每个 `onObjectChange` 帧写 React 状态；OrbitControls 由 Drei 内置 `dragging-changed` 联动自动禁用。正常 mouseup 以及全局 `pointerup` / `pointercancel` / window blur 都必须把暂存 Transform 一次性提交，避免控件丢失 mouseup 后位置恢复。导演台 Portal 必须从 40px 应用标题栏下方开始并设置 `app-no-drag`，禁止把交互按钮放进 Electron drag region 或 Windows 原生窗口控制覆盖区；Header/Footer 还要建立高于 WebGL 主区域的独立层叠上下文并保留 pointer events。编辑器通过 React lazy import 按需加载，避免 Three.js 进入首屏主包。构图截图只能通过 `canvas:saveDirectorStill` 写入当前项目 `generated/director-stills/`；预演视频只能通过 `canvas:saveDirectorVideo` 写入 `generated/director-videos/`。两者共用画幅裁切矩形，拍摄/录制期间冻结编辑，每个 await 后复核项目和导演节点；主进程分别验证 PNG 与 WebM 头、完整性、大小并使用唯一文件名。导演台导出的只读 video 是预演素材，不替代 ComfyUI/云模型生成的正式片段。
+
+- **导演台时间线视角语义**：拖动时间滑块、点击关键帧菱形或播放预演都会进入机位视角，以便立即检查当前帧的最终构图；编辑机位时再手动切回导演视角。
+
+- **导演台剪辑式轨道**：底部时间线使用统一时间标尺、贯穿所有轨道的播放头和 `分:秒:帧` 时间码；机位关键帧与各人物动作片段在独立轨道中对齐显示，人物轨道过多时轨道头与片段区必须同步滚动。传输控制支持回到开头、逐帧前进/后退和播放/暂停；底部紧凑 Shot 条负责切换镜头，不能移除原有时间滑块的可访问语义与逐帧拖动能力。实时播放按 RAF 的小数帧采样人物和相机，避免 24fps 整帧状态更新造成跳动；小数帧只用于内部求值，界面帧号必须显示为固定宽度整帧，禁止长浮点字符串引发布局重排。每次播放必须用运行令牌拒绝旧 RAF 回写，并在开始时退出临时机位控制。机位位置、look-at、Roll、FOV 与投影矩阵必须在绘制前的同一个 layout effect 中原子同步，禁止先渲染新位置再用 passive effect 补旧朝向。拖动、逐帧按钮和 WebM 导出仍使用确定性的整帧语义。人物路径展开结果与弧长必须按不可变轨道对象缓存，骨骼白模不得随每个步态相位重复执行精确包围盒落地计算。
+
+- **导演台全局场景布局**：人物与道具的 Transform、姿势和显隐只存放在 `project.elements`，所有 Shot 共享同一套场景布局。`DirectorShot` 不包含 `elementStates`；`normalizeDirectorProject` 只为兼容已有 v2 项目而剥离旧字段，保存后不得再次写回。
+
+- **导演台机位视角自由控制**：机位视角下 `W/S` 沿镜头朝向前后移动，`A/D` 沿镜头右向量左右移动，`Space/Ctrl` 按世界 Y 轴升降；按住鼠标左键拖动修改 yaw/pitch。连续控制期间只更新临时机位，松开全部移动键或鼠标时才一次性写入当前帧关键帧。
+
+- **导演台变换快捷键**：场景元素的移动/旋转/缩放工具分别使用 `V` / `R` / `Z`；缩放禁止再使用 `S`，因为机位视角将 `S` 固定用于后退。
+
+- **导演台人物路径与相机约束**：人物路径属于具体 Shot，每个演员最多一条，使用绝对 XYZ 世界坐标路径点、起止帧、linear/smooth、walk/run 与 `orientToPath`。路径绘制只响应 `Ctrl + 鼠标左键`，普通点击不得添加路径点；透明地面提供 `Y=0` 落点，全部非人物基础搭景素材的可见表面直接使用 R3F 世界交点，从而可沿楼梯、斜坡和高台取点。路径控制点 TransformControls 开放 X/Y/Z 三轴，并在拖动结束时扣除可视标记偏移后提交真实坐标，右侧同时提供精确 XYZ 数值编辑。刚开始绘制但未添加有效第二点就点击完成时，必须删除重复占位点轨道，不能留下阻止工程保存的无效路径。平滑路径先确定性展开为三维 Catmull-Rom 采样折线，再按三维弧长恒速采样，禁止累计上一帧位移。相机求值顺序固定为人物 Transform → 自由相机曲线 → look-at/follow 约束；follow 偏移位于人物局部坐标，轨迹辅助线显示约束后的最终机位。删除演员时必须级联删除其路径，并把引用该演员的相机约束重置为 free；缩短 Shot 时裁剪人物路径结束帧。
+
+- **导演工程版本**：当前严格 schema 为 `version: 2`，不兼容也不迁移 v1；旧版本或结构损坏输入统一由 `normalizeDirectorProject` 回退为新的 v2 默认场景。
+
+- **TransformControls 绑定对象**：必须用 `object={objectRef}` 直接绑定带 Transform 的场景元素；不要把已定位元素作为 children 包进 TransformControls 的内部 wrapper，否则实际拖动的是外层、持久化读取的是内层，重新选择元素时会恢复旧位置。
+
+## 常用命令
+
+- **Windows 发行产物**：`electron-builder.json` 同时生成 x64 NSIS 安装版 `AIGC CANVAS_<版本>_Setup.exe` 和单文件免安装版 `AIGC CANVAS_<版本>_Portable.exe`，通过 `portable.artifactName` 避免同名覆盖；免安装版以普通用户权限运行。`pnpm build` 和 Windows Actions 构建都会输出两者到 `release/<版本>/`。免安装只影响程序启动方式，设置仍保存在系统用户数据目录，项目保存在用户选定目录；macOS 继续输出 DMG/ZIP。
+
+- **自动打包**：`.github/workflows/build.yml` 只构建 Windows 和 macOS，矩阵设置 `fail-fast: false`，单个平台失败不得取消另一个平台。CI 沿用 `npm install`，React / React DOM 固定为本地已验证的 `19.2.7`，禁止自动漂移至当前 `@react-three/fiber` 不接受的 React 19.3；更新 React 时同时核对 Fiber 的 peer 范围。打包显式传入 `--publish never`，产物仅上传 Actions Artifacts（保留 5 天），不自动发布 GitHub Release。
+
+```bash
+pnpm dev          # 开发（vite + electron 热重载）
+pnpm typecheck    # 渲染进程 + 主进程/preload TypeScript 检查
+pnpm test         # vitest 单元测试
+pnpm test:e2e     # Playwright 端到端
+pnpm build        # vite build + electron-builder 打包
+```
+
+## 维护本文档
+
+- 新增/删除目录、节点类型、工作流、IPC 接口、Agent 工具时，更新对应小节。
+- 踩到新的坑（像 zod 剥字段、VHS frame_rate 校验这类），追加到"开发注意事项"。
+- 本文档过时的危害大于没有文档：改代码时顺手改它。
+
+- **Codex 事件兼容**：工具事件可能暂缺入参或包含 SDK 类型声明尚未覆盖的新类型；显示层以 null 表示缺失参数，对未知类型保留原始事件信息，不能因日志序列化失败中断 Agent 回合。
+
+- **Codex 消息队列**：输入框上方按项目显示待发送消息（`chat:codexQueue` 每 500ms 串行查询，内容未变不更新 state，切换项目后丢弃旧响应）。默认逐轮顺序发送；每条右侧“立即发送”通过 `chat:codexSendNow` 将选中消息提到队首，中断并等待旧 SDK 调用结束，再恢复同一会话继续，保留其他待发送消息。继续提示要求检查已有修改和生成任务以避免重复操作。普通停止仍清空队列；队列仅驻留内存，聊天消息已持久化。Claude 输入行为不变。
+
+- **视频时长**：MiniMax H3 视频节点支持 1–15 秒整数时长，使用秒数输入框，支持直接输入与步进调整；失焦或按 Enter 时规范化到有效整数范围；显示、Agent 节点能力、旧节点载入与生成请求统一保留该范围内的时长，不再回退到 5/10/15 档位。Seedance 沿用当前生成服务的 4–15 秒范围。共享规则位于 `src/shared/video-duration.ts`。
+
+- **Codex 排队消息展示**：用户消息通过 `deliveryStatus` 区分 queued/sent/cancelled；排队时仅显示输入框上方列表，开始 SDK 回合前更新持久化并推送 sent 后才显示聊天气泡，避免双重展示。普通停止和失败取消的消息标记 cancelled；加载历史时将无活动队列对应的遗留 queued 标记为取消。
+
+- **画布大幅平移开销**：保留 React Flow 可见节点裁剪，避免让所有离屏节点持续参与绘制与命中测试；`src/shared/canvas-node-measurements.ts` 过滤与已有 measured 相同的重复挂载尺寸通知，但保留实际尺寸变化、显式尺寸属性和 resize 状态。背景使用独立合成层 transform 平移，连线使用 `src/shared/canvas-render-window.ts` 的共享缓冲窗口。`src/components/canvas-visibility.ts` 为媒体预览共用 IntersectionObserver；图片原图升级仅在选中且邻近视区时进行，导演台构图、画板截图/输入网格复用有界缩略图，音频控件离屏释放源，画板截图失败仍回退到输入网格。平移优化不得隐藏连线、重置节点位置或改变媒体资源的持久化路径。
+
+---
+> Source: [zhangtuo723/aigc_line](https://github.com/zhangtuo723/aigc_line) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
