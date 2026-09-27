@@ -1,0 +1,9 @@
+{
+  "name": "tchivs--gsd-omp",
+  "displayName": "gsd-omp",
+  "description": "Oh My Pi host plugin for the GSD Embeddable Orchestration System \u2014 extension bindings, slash-command surface, Host-Integration SDK adapter, and optional Goal Mode status integration for AI coding agen",
+  "version": "1.0.0",
+  "author": "tchivs",
+  "homepage": "https://github.com/tchivs/gsd-omp",
+  "skills": []
+}
