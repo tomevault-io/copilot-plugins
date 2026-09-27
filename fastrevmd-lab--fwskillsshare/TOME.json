@@ -1,0 +1,44 @@
+{
+  "name": "fwskillsshare",
+  "owner": "fastrevmd-lab",
+  "repo": "fwskillsshare",
+  "description": "30 skills for firewall and network security work \u2014 Juniper SRX design, NAT, VPN, and MNHA playbooks; Security Director On-Prem and ClearPass deployment; cross-vendor parse, audit, convert, and diff across FWs; PCI/HIPAA/CMMC/CIS/ISO/SOC 2/DISA STIG evidence mapping. ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fastrevmd-lab/fwskillsshare",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T23:16:59Z"
+}
