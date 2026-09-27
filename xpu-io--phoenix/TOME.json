@@ -1,7 +1,7 @@
 {
-  "name": "phoenix",
+  "name": "Phoenix",
   "owner": "xPU-IO",
-  "repo": "phoenix",
+  "repo": "Phoenix",
   "description": "Phoenix is a direct hub between storage and xPU \u2014 plug in any accelerator (GPU/NPU) or AI app and stream data straight to the chip.",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/xPU-IO/phoenix",
+  "source_url": "https://github.com/xPU-IO/Phoenix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T05:17:53Z"
+  "distributed_at": "2026-09-27T17:09:39Z"
 }
