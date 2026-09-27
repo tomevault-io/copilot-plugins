@@ -1,0 +1,9 @@
+{
+  "name": "alignbase--filegrc",
+  "displayName": "filegrc",
+  "description": "Git & file-based SOC 2",
+  "version": "1.0.0",
+  "author": "Alignbase",
+  "homepage": "https://github.com/Alignbase/filegrc",
+  "skills": []
+}
