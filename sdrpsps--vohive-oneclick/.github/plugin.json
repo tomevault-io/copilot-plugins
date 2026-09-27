@@ -1,0 +1,9 @@
+{
+  "name": "sdrpsps--vohive-oneclick",
+  "displayName": "vohive-oneclick",
+  "description": "\u628a\u5927\u7586 4G \u6a21\u5757\uff08EG25-G\uff09\u4f2a\u88c5\u6210\u79fb\u8fdc Quectel EC25 \u5e76\u90e8\u7f72 vohive \u5e73\u53f0\u5230 Linux \u7684\u4e00\u952e\u811a\u672c",
+  "version": "1.0.0",
+  "author": "sdrpsps",
+  "homepage": "https://github.com/sdrpsps/vohive-oneclick",
+  "skills": []
+}
