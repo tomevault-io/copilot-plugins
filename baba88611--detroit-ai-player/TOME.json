@@ -2,9 +2,9 @@
   "name": "detroit-ai-player",
   "owner": "Baba88611",
   "repo": "detroit-ai-player",
-  "description": "Let Your AI Play Detroit\uff1aBecome Human",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Baba88611/detroit-ai-player",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T14:11:46Z"
+  "distributed_at": "2026-09-27T21:19:28Z"
 }
