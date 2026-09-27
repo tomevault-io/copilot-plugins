@@ -1,0 +1,9 @@
+{
+  "name": "orangelab-space--orange-lab",
+  "displayName": "orange-lab",
+  "description": "Private infrastructure on consumer hardware based on K3s, Tailscale, Pulumi and Longhorn",
+  "version": "1.0.0",
+  "author": "OrangeLab-space",
+  "homepage": "https://github.com/OrangeLab-space/orange-lab",
+  "skills": []
+}
