@@ -1,0 +1,9 @@
+{
+  "name": "shaunburdick--token-count",
+  "displayName": "token-count",
+  "description": "Count tokens in a string by model/tokenizer",
+  "version": "1.0.0",
+  "author": "shaunburdick",
+  "homepage": "https://github.com/shaunburdick/token-count",
+  "skills": []
+}
