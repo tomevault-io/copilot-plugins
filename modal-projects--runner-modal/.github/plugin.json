@@ -1,0 +1,9 @@
+{
+  "name": "modal-projects--runner-modal",
+  "displayName": "runner-modal",
+  "description": "GitHub Actions self-hosted runners on Modal Sandboxes.",
+  "version": "1.0.0",
+  "author": "modal-projects",
+  "homepage": "https://github.com/modal-projects/runner-modal",
+  "skills": []
+}
