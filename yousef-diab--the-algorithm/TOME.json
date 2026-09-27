@@ -1,0 +1,44 @@
+{
+  "name": "the-algorithm",
+  "owner": "Yousef-Diab",
+  "repo": "the-algorithm",
+  "description": "Interactive course on how price is really delivered \u2014 ICT Core (Months 1\u20134) + the 2022 Mentorship (Parts 1\u20136). 78 lessons, charts, quizzes and final exams",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Yousef-Diab/the-algorithm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T07:11:11Z"
+}
