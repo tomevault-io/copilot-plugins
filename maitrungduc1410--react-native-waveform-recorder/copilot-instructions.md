@@ -1,0 +1,173 @@
+## react-native-waveform-recorder
+
+> This file is the entry point for AI coding agents working in this repo. Read it before making changes. It's deliberately short — for the full deep-dive read [ARCHITECTURE.md](./ARCHITECTURE.md), for the field report of past bugs and their lessons read [LESSONS_LEARNED.md](./LESSONS_LEARNED.md), and for the user-facing surface read [README.md](./README.md).
+
+# AGENTS.md
+
+This file is the entry point for AI coding agents working in this repo. Read it before making changes. It's deliberately short — for the full deep-dive read [ARCHITECTURE.md](./ARCHITECTURE.md), for the field report of past bugs and their lessons read [LESSONS_LEARNED.md](./LESSONS_LEARNED.md), and for the user-facing surface read [README.md](./README.md).
+
+> **Read [LESSONS_LEARNED.md](./LESSONS_LEARNED.md) before changing any state-machine, async-callback, native-gesture, memory, or codegen-shape code.** Most of the subtle bugs we've already hit live there with both the root cause and the fix pattern. Re-deriving them from scratch wastes context.
+
+---
+
+## What this repo is
+
+`react-native-waveform-recorder` — a React Native (Fabric / New Architecture) audio recorder with a native live waveform. Standalone (zero JS peer deps). Pairs with [`react-native-waveform-player`](https://github.com/maitrungduc1410/react-native-waveform-player) for the playback half of a voice-message product.
+
+- **Languages**: TypeScript (JS surface), Swift (iOS native), Kotlin (Android native), a tiny Objective-C++ bridge (`ios/WaveformRecorderView.mm`).
+- **Build target**: React Native 0.85+ with New Architecture (Fabric + TurboModules). iOS 13+, Android API 24+ (API 29+ for opus).
+- **Package manager**: **Yarn 4 workspaces.** Do not use `npm`.
+
+---
+
+## Repo layout
+
+```
+.
+├── src/                                   JS/TS public surface
+│   ├── WaveformRecorderViewNativeComponent.ts   Codegen spec (source of truth)
+│   ├── WaveformRecorderView.tsx                 Public types + non-native fallback
+│   ├── WaveformRecorderView.native.tsx          Native wrapper (ref, permissions, CSV→array)
+│   ├── pcm-stream/index.tsx                     Opt-in PCM helpers (subpath import)
+│   └── index.tsx                                Public re-exports
+│
+├── ios/                                   Native iOS sources
+│   ├── WaveformRecorderView.h / .mm             Objective-C++ Fabric bridge
+│   ├── WaveformRecorderViewImpl.swift           Composite view, state machine, layout
+│   ├── AudioRecorderEngine.swift                Recording engine (AVAudioRecorder/AudioRecord)
+│   ├── AudioPlayerEngine.swift                  Preview playback (AVPlayer)
+│   ├── WaveformBarsView.swift                   Live + preview ribbon, scrub gesture
+│   ├── WaveformDecoder.swift                    64-bucket downsampler
+│   └── PlayPauseButton.swift                    Preview-only play/pause control
+│
+├── android/src/main/java/com/waveformrecorder/   Native Android sources
+│   ├── WaveformRecorderPackage.kt
+│   ├── WaveformRecorderViewManager.kt           Fabric view manager
+│   ├── WaveformRecorderView.kt                  Composite view (mirror of iOS impl)
+│   ├── AudioRecorderEngine.kt                   Recording engine
+│   ├── AudioPlayerEngine.kt                     Preview playback
+│   ├── WaveformBarsView.kt                      Live + preview ribbon
+│   ├── WaveformDecoder.kt                       64-bucket downsampler
+│   ├── PlayPauseButton.kt                       Preview-only play/pause control
+│   ├── WaveformRecorderBackgroundService.kt     Microphone foreground service
+│   └── WaveformRecorderEvent.kt                 DirectEvent helpers
+│
+├── plugin/                                Expo config plugin (plain JS, no build step)
+│   └── withWaveformRecorder.js                  iOS mic/UIBackgroundModes + Android service
+├── app.plugin.js                          Expo plugin entry point (re-exports plugin/)
+│
+├── example/                               Comprehensive example app + recipes
+│   ├── src/App.tsx                              Stack navigator entry
+│   ├── src/screens/*.tsx                        Per-screen demos + recipes
+│   └── src/components/*.tsx                     Shared UI (SentVoiceNote, etc.)
+│
+├── README.md                              User-facing docs
+├── ARCHITECTURE.md                        Internals, threading, memory bounds
+├── CONTRIBUTING.md                        How to set up + run + PR
+└── package.json                           Library manifest + codegen config
+```
+
+When adding files, follow the existing patterns — don't introduce parallel folders.
+
+---
+
+## Common commands
+
+Run from repo root unless stated otherwise.
+
+| Command | What it does |
+| --- | --- |
+| `yarn` | Install deps (root + example workspace). |
+| `yarn typecheck` | TypeScript check of the library + example. |
+| `yarn lint` | ESLint over `**/*.{js,ts,tsx}`. |
+| `yarn lint --fix` | Auto-fix lint + format. |
+| `yarn example start` | Start Metro for the example app. |
+| `yarn example android` | Build + install + run the example app on Android. |
+| `yarn example ios` | Build + install + run the example app on iOS. |
+| `yarn example build:android` | Headless Android Debug build (CI-friendly). |
+| `yarn example build:ios` | Headless iOS Debug build. |
+| `cd example/ios && pod install` | Regenerate iOS codegen. **Required after any change to `src/WaveformRecorderViewNativeComponent.ts`.** |
+| `yarn prepare` | Compile the library with `bob` (ESM + .d.ts in `lib/`). |
+| `yarn clean` | Delete `lib/`, native build dirs, example build dirs. |
+
+---
+
+## Mandatory conventions
+
+### Native changes
+
+- **iOS Swift code is bridged through `WaveformRecorderView.mm`.** When you add a prop, event, or command, change all of:
+  1. `src/WaveformRecorderViewNativeComponent.ts` (codegen spec — source of truth)
+  2. `src/WaveformRecorderView.tsx` (public types + JSDoc)
+  3. `src/WaveformRecorderView.native.tsx` (wrapper)
+  4. `ios/WaveformRecorderView.mm` (bridge entries)
+  5. `ios/WaveformRecorderViewImpl.swift` (handler)
+  6. `android/.../WaveformRecorderViewManager.kt` (Fabric view manager)
+  7. `android/.../WaveformRecorderView.kt` (handler)
+  8. Re-run `cd example/ios && pod install` so iOS codegen picks up the change. Android regenerates as part of gradle.
+- **Keep iOS and Android in lockstep.** When you fix a bug on one platform, fix or audit the same code path on the other. The two composite views (`WaveformRecorderViewImpl.swift` / `WaveformRecorderView.kt`) are intentional mirrors.
+- **Keep the Expo config plugin in sync with native manifest requirements.** `plugin/withWaveformRecorder.js` injects the iOS mic/`UIBackgroundModes` keys and the Android foreground `<service>` for Expo users. If you rename `WaveformRecorderBackgroundService`, change its `foregroundServiceType`, or add a new manifest/Info.plist requirement, update the plugin to match — Expo consumers don't get `android/src/main/AndroidManifest.xml` merged the same way bare apps do for the `<service>` node.
+- **Codegen DirectEvent payloads cannot contain arrays.** If you need to emit an array, serialise to a delimited string on the native side and parse it in `WaveformRecorderView.native.tsx` (existing precedent: `samplesCsv` → `samples: number[]`).
+
+### Threading
+
+- Touch UI views only from the main thread. Hop with `DispatchQueue.main.async` (iOS) / `mainHandler.post` (Android) when emitting events from background queues.
+- Long work (concat, decode, file I/O) must run off the main thread.
+- When you start a timer / display link / handler runnable, ensure it is cancelled in **every** state exit path (`pause`, `stop`, `cancel`, `tearDown`, `deinit` / `onDropViewInstance`).
+
+### Memory
+
+- Don't introduce indefinitely growing in-memory buffers. Reference [ARCHITECTURE.md#memory-bounds](./ARCHITECTURE.md#memory-bounds) for the current caps. If you need a new buffer, cap it with stride-merging or a ring strategy.
+- If you load file data into RAM, ensure peak usage is bounded by a configurable chunk size, not the file size.
+
+### Style
+
+- Don't add narrative comments that just paraphrase the code. Comments should explain non-obvious *why* — trade-offs, native-API quirks, race-condition guards. The existing native files are heavily commented in this style; match it.
+- Match the existing import order, naming, and formatting. Run `yarn lint --fix` before finishing.
+- Prefer editing existing files over creating new ones. The repo intentionally keeps the file count small.
+
+### Testing
+
+- There are no automated tests yet. Manual verification path:
+  1. `yarn typecheck && yarn lint`
+  2. `yarn example android` — exercise the changed screens
+  3. `yarn example ios` — exercise the same screens
+  4. For state-machine / concat / long-recording work, run the **`StressTestScreen`** for at least one full minute.
+- Add tests only if the user explicitly asks.
+
+---
+
+## Gotchas (real bugs we've already hit)
+
+These bit us during development. If your change touches a related area, double-check it didn't regress. **Each row links to a full write-up in [LESSONS_LEARNED.md](./LESSONS_LEARNED.md) — go there for the why and how-to-avoid.**
+
+| Symptom | Root cause | Fix pattern | Full write-up |
+| --- | --- | --- | --- |
+| iOS recipe screen's record button does nothing while Android works | `display: 'none'` on a parent `View` unmounts the Fabric host view on iOS, nulling the imperative ref | Use absolute off-screen positioning (`position: 'absolute', left: -100000`) when you need a recorder mounted but hidden | [§1.1](./LESSONS_LEARNED.md#11-display-none-unmounts-the-ios-host-view) |
+| Play button missing on Android in preview mode | Initial `View.GONE` prevents layout measurement; later `setVisibility(VISIBLE)` leaves it at 0×0 | Use `View.INVISIBLE` for the initial state and force `measure()`/`layout()` after visibility changes | [§1.2](./LESSONS_LEARNED.md#12-viewgone-on-android-prevents-layout-measurement) |
+| `Codegen` errors `Unable to determine event type for "samples": ReadonlyArray` | DirectEvent payloads can't contain arrays | Serialise to a delimited string + parse in the JS wrapper | [§1.3](./LESSONS_LEARNED.md#13-codegen-directevent-payloads-cant-contain-arrays) |
+| iOS build fails with `no member named 'foo' in WaveformRecorderViewProps` after adding a prop | Codegen output is stale | `cd example/ios && pod install` | [§1.4](./LESSONS_LEARNED.md#14-stale-codegen-after-spec-changes) |
+| iOS scrub conflicts with React Navigation swipe-back | Raw `touchesBegan/Moved/…` don't claim gesture priority | Use `UILongPressGestureRecognizer` with `minimumPressDuration = 0`, `allowableMovement = .greatestFiniteMagnitude`, `cancelsTouchesInView = false` | [§2.1](./LESSONS_LEARNED.md#21-react-navigations-swipe-back-gesture-intercepts-our-scrub) |
+| Play button stays visible after `exitPreview` | Direct assignment `compositeState = .paused` bypasses `updatePlayButtonVisibility` and `setNeedsLayout` | Always route transitions through `transitionComposite(target)` | [§3.1](./LESSONS_LEARNED.md#31-direct-compositestate--paused-bypassed-layout-updates) |
+| Duration label stuck at last value after `record → stop → cancel` | IDLE branch in engine-state callback cleared bars but didn't call `updateTimeLabel()` | Refresh **every** UI surface that reads the reset data, in the same branch as the reset | [§3.2](./LESSONS_LEARNED.md#32-idle-branch-cleared-bars-but-not-the-time-label) |
+| Waveform disappears after `record → pause → enterPreview → exitPreview` | `barsView.isRecording = true` setter clears the ring buffer (assumes a fresh session) | After re-arming `isRecording = true`, re-seed `recordingAmps` from the engine's `amplitudeHistorySnapshot` | [§3.3](./LESSONS_LEARNED.md#33-barsviewisrecording--true-setter-clears-the-buffer) |
+| Newest bar visibly slides leftward during its grow-in window | Slot math applied scroll offset to every bar uniformly, including the newest | Pin newest bar (`ageFromLatest == 0`) to slot 0; apply `rawProgress` only to older bars | [§3.4](./LESSONS_LEARNED.md#34-bar-animation-slot-math-pinned-the-wrong-bar) |
+| Stale snapshot callback re-enters preview after user cancelled | Async `snapshotForPreview` callback had no liveness guard | Bump `previewToken` on every state-mutating command; bail in the callback if the token advanced; delete any orphaned temp file | [§4.1](./LESSONS_LEARNED.md#41-stale-snapshotforpreview-callback-re-enters-preview-after-cancel) |
+| Temp concat files (`wfr_concat_*`) accumulating in caches | Multiple cleanup paths, none of them deleting the temp file | One `deleteIfTempConcat` helper called from every cleanup path (`exit`, `cancel`, `stopFromPreview`, `tearDown`, `deinit`, stale-token) | [§4.2](./LESSONS_LEARNED.md#42-temp-concat-files-leaked-on-every-preview-cleanup-path) |
+| Long multi-segment WAV recordings crash iOS at ~1 hour | WAV concat loads every segment fully into RAM and triple-copies via `Data + Data` | Stream segment-to-segment via 256 KB chunks (deferred — see roadmap) | [§6.3](./LESSONS_LEARNED.md#63-bounded-io-for-file-based-work) |
+| `futureBarStyle: 'line'` looks identical to `'dot'` | `barWidth × barWidth` rounded rect with `cornerRadius = barWidth/2` is just a circle | Make `line` a tall vertical pill (`barWidth × barWidth*4`) | — |
+| Display links / timers / handlers leaking after recording session ends | Cleanup wired into the happy path but missing on `cancel` / `error` / `deinit` | Every acquisition gets a matching `stop*()` companion; every state exit calls it | [§5](./LESSONS_LEARNED.md#5-resource-cleanup--the-every-exit-path-rule) |
+| Fabricated comparison-table entry in README (`SocketSomeone/react-native-waveforms`) | Cited from memory without fetching | Every external citation must be live-fetched and verified, both URL and claims | [§9](./LESSONS_LEARNED.md#9-documentation-honesty) |
+
+---
+
+## When in doubt
+
+1. **Read the existing comments.** Native files (`ios/WaveformRecorderViewImpl.swift`, `android/.../WaveformRecorderView.kt`, `ios/AudioRecorderEngine.swift`, `android/.../AudioRecorderEngine.kt`) carry a lot of "do not change this because X" context. Don't ignore it.
+2. **Mirror the other platform.** If the iOS code does it a certain way and the Android code doesn't, one of them is probably wrong or out of date — flag it.
+3. **Don't add JS in the metering hot path.** Bars are drawn natively for a reason — keep it that way.
+4. **Don't introduce a JS peer dep.** Zero-deps is a hard constraint of this library; using reanimated / svg / gesture-handler / vector-icons in the library code is a rejection-worthy change.
+
+---
+> Source: [maitrungduc1410/react-native-waveform-recorder](https://github.com/maitrungduc1410/react-native-waveform-recorder) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
