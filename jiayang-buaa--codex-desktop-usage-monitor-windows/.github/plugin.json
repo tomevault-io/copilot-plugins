@@ -1,0 +1,9 @@
+{
+  "name": "jiayang-buaa--codex-desktop-usage-monitor-windows",
+  "displayName": "Codex-Desktop-Usage-Monitor-Windows",
+  "description": "OpenAI Codex Desktop in-app usage monitor for Windows \u2014 tracks subscription quota/reset time, token usage, API accounts and API keys via local CDP injection. No app.asar patching.",
+  "version": "1.0.0",
+  "author": "JiaYang-BUAA",
+  "homepage": "https://github.com/JiaYang-BUAA/Codex-Desktop-Usage-Monitor-Windows",
+  "skills": []
+}
