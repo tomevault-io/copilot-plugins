@@ -1,0 +1,44 @@
+{
+  "name": "fnos-app-health-records",
+  "owner": "timor-m",
+  "repo": "fnos-app-health-records",
+  "description": "\u5065\u5eb7\u6863\u6848\u662f\u4e00\u6b3e\u9762\u5411\u5bb6\u5ead\u7528\u6237\u7684\u5065\u5eb7\u62a5\u544a\u5f52\u6863\u5e94\u7528\uff0c\u652f\u6301\u5728 fnOS \u6216 Docker \u4e2d\u90e8\u7f72\u3002\u9879\u76ee\u8ba1\u5212\u652f\u6301\u968f\u624b\u62cd\u7167\u6216\u4e0a\u4f20\u533b\u9662 PDF\uff0c\u901a\u8fc7\u672c\u5730 OCR \u4e0e\u53ef\u9009 AI \u751f\u6210\u7ed3\u6784\u5316\u8bb0\u5f55\uff0c\u4fdd\u7559\u539f\u4ef6\u8bc1\u636e\uff0c\u5e76\u6309\u533b\u9662\u62a5\u544a\u751f\u6210\u65e5\u671f\u5f62\u6210\u5bb6\u5ead\u6210\u5458\u5065\u5eb7\u65f6\u95f4\u8f74\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/timor-m/fnos-app-health-records",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T11:26:17Z"
+}
