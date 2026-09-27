@@ -1,0 +1,9 @@
+{
+  "name": "ha22yx--gridopoly",
+  "displayName": "Gridopoly",
+  "description": "Modular electronic board game platform with smart tiles, player round screens, RFID pieces, and a Raspberry Pi authority server.",
+  "version": "1.0.0",
+  "author": "Ha22yX",
+  "homepage": "https://github.com/Ha22yX/Gridopoly",
+  "skills": []
+}
