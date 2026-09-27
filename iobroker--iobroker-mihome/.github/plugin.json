@@ -1,0 +1,9 @@
+{
+  "name": "iobroker--iobroker-mihome",
+  "displayName": "ioBroker.mihome",
+  "description": "ioBroker.mihome",
+  "version": "1.0.0",
+  "author": "ioBroker",
+  "homepage": "https://github.com/ioBroker/ioBroker.mihome",
+  "skills": []
+}
