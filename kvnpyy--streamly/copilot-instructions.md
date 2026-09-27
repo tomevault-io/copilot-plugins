@@ -1,21 +1,12 @@
-## deploy
+## streamly
 
-> Production deploy policy — ship everything when user says deploy
+> <!-- BEGIN:nextjs-agent-rules -->
 
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
 
-# Deploy policy (Streamly / iptv-player)
-
-When the user says **deploy**, **push update**, or gives a green light for production:
-
-1. **Commit all related work** on the current branch (no leaving features on side branches).
-2. **Merge** any local feature branches whose work should ship; resolve conflicts before deploy.
-3. **Push** to `origin` so production matches git.
-4. Run `SKIP_VERSION_BUMP=1 npm run deploy:vps` (full deploy unless deps unchanged and user asked for quick).
-5. **Do not skip deploy** or leave features unmerged because of branch-name guards — the user expects what they approved to be live.
-
-`pre-deploy-check.sh` blocks dirty trees and unmerged local branches (not “wrong branch name”). Override only when the user explicitly asks: `STREAM_DEPLOY_ALLOW_DIRTY=1` or `STREAM_DEPLOY_SKIP_UNMERGED_CHECK=1`.
-
-After deploy, confirm health succeeded. If something could not ship, say what and why before claiming done.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [kvnpyy/streamly](https://github.com/kvnpyy/streamly) — distributed by [TomeVault](https://tomevault.io).
