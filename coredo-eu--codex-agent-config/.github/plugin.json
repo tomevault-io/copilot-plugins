@@ -1,0 +1,9 @@
+{
+  "name": "coredo-eu--codex-agent-config",
+  "displayName": "codex-agent-config",
+  "description": "Codex instructions and native specialist agent profiles for delegating, verifying, and recovering local coding work. Part of the COREDO agent tools family.",
+  "version": "1.0.0",
+  "author": "coredo-eu",
+  "homepage": "https://github.com/coredo-eu/codex-agent-config",
+  "skills": []
+}
