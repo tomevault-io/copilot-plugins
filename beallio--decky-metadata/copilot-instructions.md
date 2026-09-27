@@ -1,0 +1,388 @@
+## decky-metadata
+
+> This document is the project-local operating contract for agents working in this
+
+# Decky-Metadata — Agent Operating Contract
+## Self-Enforcing Agent Protocol
+
+Protocol Version: 2
+
+This document is the project-local operating contract for agents working in this
+directory or its subdirectories. It adapts the universal scripting standards from
+`project_template` to this repository's actual stack, and it wires in the
+`agent-orchestration` plan → implement → review → finalize engine.
+
+Decky-Metadata is a **Decky Loader plugin** for SteamOS / Steam Deck (Steam Gaming Mode):
+
+- **Frontend:** TypeScript / React in `src/*.ts(x)`, bundled by **rollup** into
+  `dist/index.js` (the committed plugin artifact). Tooling is **npm / pnpm**.
+- **Backend:** the Decky entry point `main.py` plus the `backend/` package,
+  using only the Python standard library and the Decky runtime.
+
+There is **no uv project layout** here, but Python backend tests run through
+`uv run --with pytest` in an ephemeral environment (`.protocol: TDD_REQUIRED=true`).
+The quality gate covers type checking, build, frontend tests, and backend checks.
+It is defined in `scripts/orchestration-hooks/quality-gates`.
+
+---
+
+# 1. Session Initialization
+
+Before implementation work, verify state with `pwd`, `ls`, `git status`, and config
+inspection, then output this handshake:
+
+```
+AGENT_PROTOCOL_HANDSHAKE
+
+Project Root:
+Detected Language(s): TypeScript/React, Python
+Execution Mode: Project
+Git Repository Present: (Yes/No)
+Cache Root: /tmp/Decky-Metadata
+Protocol Version: 2
+Command Wrapper: ./run.sh
+
+Confirmed Policies:
+[ ] Top-down planning
+[ ] Cache isolation (/tmp, never inside Dropbox)
+[ ] Verified filesystem state
+[ ] Verified dependency state (package.json / node_modules)
+[ ] Verified run wrapper
+
+STATUS: READY
+```
+
+If any field cannot be confirmed, pause and resolve it before implementation.
+
+---
+
+# 2. Project Structure
+
+```
+AGENTS.md                         # this contract
+.protocol                         # machine-readable policy flags
+.envrc / run.sh                   # cache-isolation env + command wrapper
+package.json / tsconfig.json      # frontend build config (rollup, tsc)
+rollup.config.js                  # bundles src/ -> dist/index.js
+src/*.ts(x)                       # TypeScript/React frontend
+dist/index.js                     # committed build artifact
+main.py                           # Decky backend entry point
+backend/                          # storage, matching, providers, and other backend modules
+plugin.json                       # Decky plugin manifest
+scripts/check_tdd.sh              # pre-commit sanity check
+scripts/orchestration            # symlink -> agent-orchestration engine
+scripts/orchestration-hooks/      # project quality-gates + finalize-release
+orchestration.conf                # orchestration engine config (committed)
+docs/specs/                       # durable behavior/interface specs
+```
+
+Never reference files that have not been confirmed through filesystem inspection.
+
+---
+
+# 3. Command and Cache Policy
+
+All temp files, tool caches, and installs must live under:
+
+```
+/tmp/Decky-Metadata/
+```
+
+Run project commands through the wrapper so the redirections apply:
+
+```
+./run.sh npm ci
+./run.sh npm run build
+./run.sh npx tsc --noEmit
+./run.sh python3 -m py_compile main.py
+```
+
+`run.sh` exports `TMPDIR`, `XDG_CACHE_HOME`, `npm_config_cache`, and
+`PYTHONPYCACHEPREFIX` under the cache root. **No generated caches, `node_modules`,
+or build temp may be committed inside the repo.** (`dist/index.js` is the one
+intentionally committed build output.)
+
+---
+
+# 4. Dependency Policy
+
+- Frontend deps come from `package.json` / `package-lock.json`. Install with
+  `npm ci` (or `pnpm install --frozen-lockfile`). Never assume a package exists —
+  verify it in `package.json` or `node_modules`.
+- The backend (`main.py`) targets the Python standard library and the Decky
+  runtime. Do not add third-party Python dependencies without an explicit plan
+  entry — Decky plugins ship without a package manager on-device.
+- If API behavior is uncertain: read the project source, then `@decky/*` or
+  official docs, then web search. Speculative code is forbidden.
+
+---
+
+# 5. Execution Protocol
+
+### Mandatory workflow routing
+
+| Trigger | Required start | Mutation boundary |
+| --- | --- | --- |
+| Implement/change/refactor | `scripts/decky doctor`, then `scripts/decky verify-change [BASE] --explain` | `--device` deploys; `--allow-launch` permits a configured launch fixture |
+| Diagnose Deck/log behavior | `scripts/decky doctor --deck`, `scripts/deck/logs.sh audit --json`, `scripts/decky capture` | read-only unless the user requests changes |
+| Inspect SteamUI | `scripts/decky steamui snapshot` / `search PATTERN` | snapshots only below `/tmp/Decky-Metadata` |
+| Package/send/check | `scripts/decky status --deck`, then `scripts/decky package-push` | require explicit `--build` / `--push` outside an authorized hook |
+
+Use [docs/runbooks/agent-workflow.md](docs/runbooks/agent-workflow.md) for the
+detailed flow. Hook and skill installers default to checks/dry-runs and require
+`--install`. Device deployment, launch, package copying, and the `dev` to `main`
+promotion retain their explicit flags and human gates.
+
+Lifecycle for a modifying task:
+
+```
+ANALYZE → PLAN → IMPLEMENT → VALIDATE → COMMIT → DOCUMENT
+```
+
+- **PLAN:** keep non-trivial native plans in task state. For an orchestration run,
+  edit the private path returned by `scripts/orchestration/new-plan <slug> <title>`
+  and validate it with `scripts/orchestration/validate-plan <slug>`.
+- **VALIDATE:** run the quality gate (Section 6) and confirm it passes.
+- **COMMIT:** Conventional Commits, on a feature branch (Section 7).
+- **DOCUMENT:** update maintained product documentation when behavior or usage
+  changes; report progress and verification in chat, not a session-log file.
+
+For review-only tasks that do not modify files, stop after ANALYZE and report
+findings.
+
+---
+
+# 6. Quality Gate (Definition of Done)
+
+Before any commit, the change must pass the project quality gate:
+
+```
+./scripts/orchestration-hooks/quality-gates
+```
+
+which runs:
+
+```
+npx tsc --noEmit          # frontend type-check
+npm run build             # rollup bundle -> dist/index.js
+python3 -m py_compile main.py   # backend syntax check
+uv run --with pytest -- pytest -q   # backend tests
+```
+
+A modifying task is complete only when:
+
+```
+[ ] tsc --noEmit passes
+[ ] npm run build succeeds (dist/index.js regenerated when frontend changed)
+[ ] vitest passes (frontend unit tests: src/**/*.test.ts)
+[ ] main.py byte-compiles
+[ ] pytest passes when tests/ exists
+[ ] README updated when behavior or usage changed
+[ ] caches/installs stayed under /tmp/Decky-Metadata
+[ ] progress and verification reported in chat
+[ ] on-device checks run for src/steam/ changes (see below)
+```
+
+**On-device verification.** Changes under `src/steam/` must additionally pass
+the live checks on the Deck — two shipped regressions were invisible to the
+static gates. Use the committed tooling in `scripts/deck/` (tunnel, CDP
+client, deploy loop, smoke suite) instead of recreating it ad hoc:
+
+```
+scripts/deck/deploy.sh            # build -> push -> hard reload -> wait
+scripts/deck/verify/run_all.sh    # launch / quick-links / re-render smokes
+```
+
+Which checks each change requires, plus debugging recipes and hazards
+(notably: NEVER enumerate MobX store instances — overview/details/appStore —
+inside a render-phase tree walk; it wedges the renderer), are documented in
+`docs/runbooks/on-device-verification.md`. For QAM/panel/editor focus and D-pad
+order, drive `scripts/deck/cdp.py input` (synthetic controller keys) plus the
+`js/gpfocus_dump.js` / `js/focus_order.js` probes — do not hand-roll a
+key-dispatch script (see that runbook's "Controller navigation & initial focus").
+
+The `scripts/check_tdd.sh` pre-commit hook runs the lighter staged-file subset of
+these checks.
+
+`scripts/post_commit.sh` is an optional build-package-push hook that builds +
+packages the plugin (`npm run package`, which stamps the short git hash into the
+plugin version) and `scp`s the fixed-name `Decky-Metadata.zip` to the Steam Deck
+for the Developer-Mode sideload loop. It runs only on `dev`/`main` by default (set
+`DECKY_POST_COMMIT_ALL=1` to force any branch), skips the push when the Deck is
+unreachable, and never blocks a commit. Config: `DECKY_DECK_HOST` (default `steamdeck`),
+`DECKY_DECK_DEST` (default `/home/deck/Downloads/`).
+
+Install the script as **both** hooks, each execing it (same pattern as
+`pre-commit`):
+
+- `.git/hooks/post-commit` — fires on direct `git commit` (e.g. feature-branch work).
+- `.git/hooks/post-merge` — fires on `git merge` / `git pull`. This one is
+  required for the orchestration flow: `dev` is advanced only by `git merge --no-ff`,
+  and **git merge fires `post-merge`, not `post-commit`**, so without it the auto
+  build/package/push never runs when work lands on `dev`.
+
+---
+
+# 7. Git Policy
+
+Work on feature branches, never directly on `main`:
+
+```
+feat/<feature>   fix/<bug>   refactor/<component>   docs/<topic>
+```
+
+Commits use Conventional Commits:
+
+```
+feat(achievements): add Xbox source fallback
+fix(steam): handle missing app id in news fetch
+refactor(backend): extract metadata matcher
+docs(readme): document RetroAchievements setup
+```
+
+Prefer small, atomic commits (one coherent change each). Commit the passing
+current change before starting an unrelated one. Generated artifacts (caches,
+`node_modules`, zips) must never be committed.
+
+Before the human-approved `dev` → `main` promotion, prepare the stable changelog
+rollover on `dev` as described below. After promotion, run `scripts/release.sh`;
+it creates the version commit when the metadata version changes (otherwise it
+tags the current `HEAD`), an annotated tag, and a hash-free package, but only
+prints the outward-facing push commands. Pushing the tag lets GitHub Actions
+publish `Decky-Metadata.zip` **plus** the self-updater sidecars
+`Decky-Metadata-<tag>.zip.sha256` and
+`Decky-Metadata-<tag>.manifest.json` (the manifest carries the whole-zip sha256
+the updater and Decky Loader verify). Then move the dev base to the next patch so
+the drift guard stays green:
+
+```
+# Replace X.Y.Z with the human-approved version matching the curated changelog.
+scripts/release.sh X.Y.Z
+git push origin main
+git push origin vX.Y.Z
+scripts/bump_next_patch.sh
+```
+
+**Release notes / CHANGELOG.** Stable releases require a curated, dated
+`## [X.Y.Z] - YYYY-MM-DD` section in `CHANGELOG.md` whose body begins with a
+non-bullet summary line. Both `scripts/release.sh` and stable-release CI enforce
+this via `scripts/changelog.py`; CI enriches the release title to
+`vX.Y.Z — <summary>` from that leading line.
+
+Prepare each release rollover on `dev`, before the `dev` → `main` promotion.
+Rename the existing `## [Unreleased]` header to
+`## [X.Y.Z] - <today>`—do not add a second `[X.Y.Z]` header—ensure its content
+begins with a non-bullet summary, add a fresh empty `## [Unreleased]` above it,
+and commit. Then merge `dev` → `main` with `--no-ff` and run
+`scripts/release.sh X.Y.Z` on clean `main`. Preparing the rename on `dev` keeps
+both branches aligned: after the release, `scripts/bump_next_patch.sh` on `dev`
+sits above the fresh `[Unreleased]`, preventing stale dev notes and a later
+dated-section merge conflict.
+
+The `decky-release-notes` skill's Mode B automates this full local cut, including
+the `dev` → `main` merge and `scripts/release.sh`. It stops before pushing by
+default and publishes only when the maintainer explicitly requests it for that
+invocation.
+
+Manual dev prereleases publish the current `## [Unreleased]` notes. Immediately
+after a stable cut that new section is empty, so `dev-release.yml` intentionally
+refuses to publish until a new entry is added; this is not a bug.
+
+**Plugin identity — distribution vs Decky display.** Two names, deliberately
+different. Do not "unify" them.
+
+- **Decky display: `Decky Metadata`** (with a space) — lives in `plugin.json`
+  `name`, in the QAM header via `titleView`, and in `EXPECTED_PLUGIN_NAME` in
+  `src/updater/deckyInstaller.ts`. Decky Loader keys an installed plugin off the
+  manifest `name`, and the self-updater passes that exact string to
+  `install_plugin` to replace in place. **Changing it breaks in-place updates for
+  everyone already installed.**
+- **Distribution: `Decky-Metadata`** (hyphenated) — the repository name,
+  `PLUGIN_FOLDER_NAME` in `scripts/package.mjs`, the ZIP root and filename, and
+  the installed directory `/home/deck/homebrew/plugins/Decky-Metadata` that
+  `scripts/deck/deploy.sh`, `install_release.sh`, and `decky_doctor.py` all
+  target. Its npm spelling is `decky-metadata`.
+
+Decky derives the settings, runtime, and log directories from the archive/install
+folder rather than from `plugin.json` `name`, which is why the two can differ
+safely.
+
+This split was made deliberately in `d0b8c49 refactor(identity): plugin identity
+'Decky-Metadata' -> 'Decky Metadata'` (branch `identity-space`, merged as
+`c4fb484`). An earlier version of this paragraph predated that commit and said
+the canonical identity was `Decky-Metadata` and to "not reintroduce a space into
+the `name` field" — following that instruction today would strip the space from
+`plugin.json` and break in-place updates. Corrected 2026-07-28.
+
+`Decky-SteamAchievements` uses the identical pattern (`Achievements Restored`
+display, `Decky-SteamAchievements` distribution), and the upstream reference is
+the installed `Storage Cleaner` plugin, whose folder is `decky-storage-cleaner`
+while its manifest/list name is `Storage Cleaner`.
+
+**Release channels.** Two GitHub prerelease flows exist and must not be
+conflated:
+- The rolling `dev-build` prerelease (auto-refreshed on every `dev` push, fixed
+  `dev-build` tag) is for the on-device sideload loop only. Its non-semver tag means the
+  self-updater's discovery deliberately skips it — it is **not** an update
+  source.
+- The **Dev Release** workflow (`.github/workflows/dev-release.yml`, manual
+  `workflow_dispatch`) publishes distinct `vX.Y.Z-dev.g<sha>` semver
+  prereleases with a manifest + checksum. These are what the updater's
+  "development" channel discovers and installs.
+
+Version grammar the updater parses (and `scripts/package.mjs --release-version`
+accepts): `X.Y.Z`, optionally `-dev.<id>` (development channel) and/or
+`+<build>` metadata. A local `npm run package` still stamps `X.Y.Z+<hash>`.
+The in-plugin updater does not replace it with a development prerelease, but
+offers an explicit **Move to Stable** handoff when canonical `X.Y.Z` is published.
+
+README screenshots are committed
+under `assets/` and use stable relative paths with a
+`?cacheBuster=YYYYMMDD` query. Bump that value whenever committed screenshots
+are re-captured so GitHub's image proxy serves the updated images.
+
+---
+
+# 8. Agent Orchestration (plan → implement → review → finalize)
+
+This repo uses `scripts/orchestration` and the effective settings from
+`orchestration.conf` plus `orchestration.conf.local`. Active plans and recovery data
+stay in private Git metadata by default. Project caches still use `/tmp/Decky-Metadata`.
+
+Two skills drive it:
+
+- **`orchestration-plan-author`** creates and validates a private local plan, then
+  stops. It does not commit a plan or start implementation.
+- **`/orchestrated-implementation`** explicitly launches an authorized implementer,
+  submits review findings through stdin with the captured run, round, plan version,
+  and completed revision, and integrates the feature only after approval.
+
+The companion **`decky-release-notes`** project skill drafts `CHANGELOG.md` notes
+and can perform the full local stable cut required by §7. Its Mode B stops before
+the public push by default and publishes only with explicit per-invocation
+authorization.
+
+Run `scripts/orchestration/run-quality-gates` before marking a round complete.
+`finalize` checks the approved target and invokes the release hook unless local-only
+mode disables it. Base-to-`main` promotion remains a human gate. See the shared
+engine's `USAGE.md` for the conversational workflow.
+
+---
+
+# 9. Documentation & Progress Reporting
+
+Report concise progress, decisions, and verification in chat. Do not create or
+commit process plans, review files, conversation exports, session logs, or
+verification reports. Keep active plans, findings, and recovery data local.
+Preserve maintained product documentation, fixtures, and unique research.
+
+---
+
+# 10. Failure Recovery
+
+On failure: capture the error output, identify the failing component, fix the
+root cause, and re-run the quality gate. Blind retries are forbidden.
+
+---
+> Source: [beallio/Decky-Metadata](https://github.com/beallio/Decky-Metadata) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
