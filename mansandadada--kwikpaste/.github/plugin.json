@@ -1,0 +1,9 @@
+{
+  "name": "mansandadada--kwikpaste",
+  "displayName": "KwikPaste",
+  "description": "\u5feb\u8d34 KwikPaste \u00b7 A fast, local-first clipboard manager for macOS and Windows, built with Tauri v2, Rust and React.",
+  "version": "1.0.0",
+  "author": "ManSanDADADA",
+  "homepage": "https://github.com/ManSanDADADA/KwikPaste",
+  "skills": []
+}
