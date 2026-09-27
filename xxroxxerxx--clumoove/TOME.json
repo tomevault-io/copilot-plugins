@@ -4,7 +4,7 @@
   "repo": "clumoove",
   "description": "Clumoove - Multi-cloud data migration & sync platform: resilient, privacy-friendly tool for lossless data migration and sync between cloud storage providers, NAS and servers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xXRoxXeRXx/clumoove",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T10:42:34Z"
+  "distributed_at": "2026-09-27T19:19:29Z"
 }
