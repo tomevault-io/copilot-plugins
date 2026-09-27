@@ -4,7 +4,7 @@
   "repo": "OpenShard",
   "description": "Modern open-source MMORPG server engine compatible with classic Ultima Online clients.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/youhide/OpenShard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T00:32:50Z"
+  "distributed_at": "2026-09-27T05:22:24Z"
 }
