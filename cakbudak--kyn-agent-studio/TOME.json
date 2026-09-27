@@ -1,0 +1,44 @@
+{
+  "name": "kyn-agent-studio",
+  "owner": "cakbudak",
+  "repo": "kyn-agent-studio",
+  "description": "Build typed agent workflows and operate every run from authoritative evidence \u2014 OpenAI Build Week 2026",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cakbudak/kyn-agent-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T09:25:14Z"
+}
