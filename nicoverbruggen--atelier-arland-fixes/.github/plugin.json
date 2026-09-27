@@ -1,0 +1,9 @@
+{
+  "name": "nicoverbruggen--atelier-arland-fixes",
+  "displayName": "atelier-arland-fixes",
+  "description": "A mod that fixes the severe hitching in the Arland Atelier DX games on PC. Especially effective on Proton, but includes various quality of life improvements for anyone playing the PC ports.",
+  "version": "1.0.0",
+  "author": "nicoverbruggen",
+  "homepage": "https://github.com/nicoverbruggen/atelier-arland-fixes",
+  "skills": []
+}
