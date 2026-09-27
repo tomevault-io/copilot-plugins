@@ -1,0 +1,9 @@
+{
+  "name": "savant0x--savant-code",
+  "displayName": "savant-code",
+  "description": "Multi-agent orchestration \u2014 9 specialized agents coordinate via ECHO Protocol: Detective finds issues, Forge implements, Verifier audits, Recorder manages FIDs, Thinker reasons, Scout explores, Resear",
+  "version": "1.0.0",
+  "author": "savant0x",
+  "homepage": "https://github.com/savant0x/savant-code",
+  "skills": []
+}
