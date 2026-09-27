@@ -7,11 +7,11 @@ Declarative automation for repetitive steps in herdr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [aorumbayev/herdr-workflows](https://github.com/aorumbayev/herdr-workflows).
+Original source: `AGENTS.md` in [aorumbayev/herdr-workflows](https://github.com/aorumbayev/herdr-workflows).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
