@@ -1,0 +1,9 @@
+{
+  "name": "pascalpixel--alchemy",
+  "displayName": "alchemy",
+  "description": "An automated, clean-room decompilation of Golden Sun, preserving the GBA classic as readable code and assets.",
+  "version": "1.0.0",
+  "author": "PascalPixel",
+  "homepage": "https://github.com/PascalPixel/alchemy",
+  "skills": []
+}
