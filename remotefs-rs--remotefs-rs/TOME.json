@@ -4,7 +4,7 @@
   "repo": "remotefs-rs",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/remotefs-rs/remotefs-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-26T07:09:56Z"
+  "distributed_at": "2026-09-27T19:17:18Z"
 }
