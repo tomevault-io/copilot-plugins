@@ -1,0 +1,9 @@
+{
+  "name": "adamallcock--tibotattle",
+  "displayName": "tibotattle",
+  "description": "Privacy-first monitoring for Codex allowance value. TiboTattle reads the session metadata that Codex already stores on your Mac, reconstructs your usage at standard API prices, and compares it with th",
+  "version": "1.0.0",
+  "author": "adamallcock",
+  "homepage": "https://github.com/adamallcock/tibotattle",
+  "skills": []
+}
