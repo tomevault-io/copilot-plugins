@@ -1,0 +1,44 @@
+{
+  "name": "KwikPaste",
+  "owner": "ManSanDADADA",
+  "repo": "KwikPaste",
+  "description": "\u5feb\u8d34 KwikPaste \u00b7 A fast, local-first clipboard manager for macOS and Windows, built with Tauri v2, Rust and React.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ManSanDADADA/KwikPaste",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T23:11:20Z"
+}
