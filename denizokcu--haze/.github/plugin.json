@@ -1,0 +1,9 @@
+{
+  "name": "denizokcu--haze",
+  "displayName": "haze",
+  "description": "A minimal AI agent that gives an LLM a handful of tools, then gets out of the way. ",
+  "version": "1.0.0",
+  "author": "DenizOkcu",
+  "homepage": "https://github.com/DenizOkcu/haze",
+  "skills": []
+}
