@@ -1,7 +1,7 @@
 {
   "name": "batonogov--terraform-provider-threexui",
   "displayName": "terraform-provider-threexui",
-  "description": "Terraform provider for 3x-ui (Xray/VLESS/Reality/WireGuard) \u2014 manage inbounds, clients, panel settings & Xray config as code. GitOps for your VPN panel.   ",
+  "description": "terraform-provider-threexui",
   "version": "1.0.0",
   "author": "batonogov",
   "homepage": "https://github.com/batonogov/terraform-provider-threexui",
