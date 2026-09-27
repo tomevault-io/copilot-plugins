@@ -4,7 +4,7 @@
   "repo": "Apple-Frameworks-for-TouchDesigner",
   "description": "Apple's on-device frameworks (Vision, Core ML, RealityKit, SpeechAnalyzer, MLX ...) as native TouchDesigner operators. macOS / Apple Silicon.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sygnalinc/Apple-Frameworks-for-TouchDesigner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-23T22:03:15Z"
+  "distributed_at": "2026-09-27T02:46:07Z"
 }
