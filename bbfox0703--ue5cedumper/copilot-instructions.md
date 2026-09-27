@@ -1,0 +1,270 @@
+## ue5cedumper
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+> For detailed specs, implementation history, and debugging notes, see the **[docs/](docs/)** directory.
+
+-----
+
+## Build & Deploy
+- Before testing a change, confirm the binary under test was rebuilt from it (its timestamp or SHA): a failed build leaves the old DLL or `dist\` in place, and a stale binary passes silently.
+- **Hand over an AOT-TRIMMED build, not the plain one.** `build.ps1` with no `-Mode` produces a
+  self-contained **non-trimmed** exe (~107 MB); `-Mode Publish` produces the Native-AOT **trimmed**
+  binary that ships (~54 MB). They are not the same program: reflection-shaped code — JSON without a
+  source-generated context, MVVM bindings, `ComboBox.SelectedItem` bound to a boxed value, the
+  reflection-based DataGrid column sort — compiles and runs fine untrimmed and fails **only** after
+  trimming. **Every AOT bug in this repo's history was found by the maintainer re-compiling with AOT
+  after being handed a non-trimmed build**, which costs a round trip every time.
+  Use plain `build.ps1` / `-Target DLL` / `-Target Test` for fast iteration, then run
+  `-Mode Publish` **before saying a UI change is ready to test**. It enters the VS DevShell itself
+  (Native AOT links with MSVC's `link.exe`; without it ILCompiler dies with `exited with code 9009`,
+  which reads like a broken toolchain rather than a missing environment).
+  ⚠⚠ **ANY run that reaches the publish step overwrites `dist\UE5DumpUI.exe` with the
+  non-trimmed exe** — `-Target UI`, `-Target Test` and a plain `build.ps1` alike; only
+  `-Mode Publish` leaves an AOT-trimmed `dist\` (~54 MB against ~107 MB non-trimmed). The
+  safest-looking command is the cheapest way to destroy the shippable binary.
+  **After ANY build that touches the UI, re-run `-Mode Publish` and check the size/SHA before
+  handing `dist\` over.** Let it bump the build number: the build number is the release number.
+
+-----
+
+## Code Changes
+- When asked to refactor or rename modules/files, make actual code changes (move files, update imports, rename classes) — not just documentation updates. Confirm structural changes before proceeding to docs.
+
+-----
+
+## Debugging
+- When fixing bugs, verify the fix against the actual memory layout or data structure rather than assuming. If the first fix doesn't work, re-examine fundamental assumptions about the data format before iterating.
+
+-----
+
+## Git Operations
+- When creating PRs, check for branch divergence and resolve merge conflicts before attempting `gh pr create`. Run `git status` and `git log --oneline -5` first.
+- ⚠ **Line endings are pinned by `.gitattributes` (`* text=auto eol=lf`), NOT by your git config
+  — never "fix" them with `core.autocrlf`, which is machine-local (`true` at `--system` here) and
+  does not travel between the two PCs.** Before the pin, `git checkout` silently rewrote an
+  `i/lf w/lf` file to CRLF and left `git status` **CLEAN**, so `git checkout -- <file>` could not
+  be trusted to revert a staged experiment byte-for-byte. `.gitattributes`' own header comments
+  carry the rationale, the 2026-08-23 measurements and the `text=auto`-never-bare-`text` reason
+  — read it before editing it.
+- ⚠ **A whole-file diff on a small edit means the file was CORRUPTED, not reformatted.** Twice on
+  2026-08-23 a patch script run through a shell heredoc had its `\\0` collapsed to `\0`, so Python
+  wrote a **literal NUL byte** into a source file (`Mimic.cpp`) and then into `docs/todo.md`. Git
+  and grep treat a NUL-bearing file as **binary**: the tells are `1483 insertions / 1470 deletions`
+  on a 13-line edit, and `grep` answering `Binary file docs/todo.md matches`. **Check for NUL before
+  blaming line endings**, and build a backslash numerically (`bytes([92])`) when patching through a
+  heredoc.
+
+-----
+
+## Cheat Engine
+- When working with CE Lua APIs, verify that functions/methods actually exist in the Cheat Engine Lua API before using them. Do not invent API calls.
+
+-----
+
+## Build & Dev Commands
+
+### Unified Build Script
+
+`build.ps1` handles VS DevShell setup, CMake configure, dotnet, and test execution, and it is the only builder that configures the tree or publishes `dist\`; bare `cmake` / `dotnet build` fail without the VS DevShell environment. For a verification-only DLL or C++ test build, use `py tools/verify/build_dll.py --targets <target...>`: it loads MSVC itself, never configures, and neither bumps `build_number.txt` nor touches `dist\`.
+
+```bash
+# Build everything (DLL + UI + Tests) — Release
+powershell -NoProfile -ExecutionPolicy Bypass -File "D:\Github\UE5CEDumper\build.ps1"
+
+# Build DLL + all 4 proxy DLLs (version/dinput8/dxgi/winmm — the injected artifacts)
+powershell -NoProfile -ExecutionPolicy Bypass -File "D:\Github\UE5CEDumper\build.ps1" -Target DLL
+
+# Build UI only
+# ⚠⚠ ALSO republishes dist\ NON-TRIMMED — see ## Build & Deploy.
+powershell -NoProfile -ExecutionPolicy Bypass -File "D:\Github\UE5CEDumper\build.ps1" -Target UI
+
+# Run tests only
+# ⚠ -Target Test does NOT compile the whole DLL. It builds 5 test executables, and
+#   **10 of the 31** dll/src .cpp files reach a test target at all: dll_core_test #includes
+#   Aura / Genau / Macht / Radar / Serie / Ubel / Denken / Flamme into one TU, and
+#   grausam_window_test / sein_retention_test take one each. The other 21 — **Fern.cpp and
+#   Stark.cpp among them** — are compiled by NO test target, so a syntax error there passes
+#   it clean. A green -Target Test after editing one of THOSE measures nothing about that
+#   file. Build the DLL target (build_dll.py --targets UE5Dumper, or -Target DLL) before
+#   claiming a C++ change builds. Both counts are pinned by `check_derived_counts`; do not
+#   hand-edit them.
+# ⚠⚠ It is ALSO NOT READ-ONLY: the C++ narrowness above is about the C++ side ONLY —
+#   it republishes dist\ NON-TRIMMED too. See ## Build & Deploy.
+powershell -NoProfile -ExecutionPolicy Bypass -File "D:\Github\UE5CEDumper\build.ps1" -Target Test
+
+# Debug build
+powershell -NoProfile -ExecutionPolicy Bypass -File "D:\Github\UE5CEDumper\build.ps1" -Mode Debug
+
+# Clean + publish (distribution)
+powershell -NoProfile -ExecutionPolicy Bypass -File "D:\Github\UE5CEDumper\build.ps1" -Mode Publish -Clean
+```
+
+> **Why not bare cmake/dotnet?** The C++ DLL requires MSVC x64 environment (include paths, linker). `build.ps1` loads this via `Enter-VsDevShell` automatically. Running `cmake --build` without it causes `fatal error C1083: No such file or directory` for standard headers.
+
+> ⚠ **CONFIGURE through `build.ps1` too, not bare `cmake`.** On a localized MSVC the `/showIncludes` prefix is localized, and CMake bakes whatever bytes it observed **at configure time** into `build/CMakeFiles/rules.ninja` as `msvc_deps_prefix`. Configure from a stock cmd/Git Bash shell and the bytes differ, Ninja matches nothing, and **a `.h` edit silently stops triggering a rebuild** — header-pinned tests then go green against objects that were never recompiled. `build.ps1` pins the console codepage before configuring and re-configures a mismatched tree itself; its `Repair-NinjaHeaderDeps` header carries the full explanation. To check by hand: `py tools/verify/build_dll.py --deps-check`. ⚠ **`#deps 0` alone is NOT the bad state** — `.rc.res`, `.asm.obj` and an **empty translation unit** legitimately have none, and mistaking that cost a whole spurious finding (`[PROXYDEPS]`). The discriminator is the object's CONTENT; `deps_health` in `build_dll.py` explains why and classifies on exactly that.
+
+### Manual Commands (reference only — prefer build.ps1)
+
+```bash
+# C++ DLL (requires VS DevShell loaded first)
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
+
+# C# UI
+dotnet build "ui/UE5DumpUI/UE5DumpUI.csproj" -c Release
+dotnet test "ui/UE5DumpUI.Tests/UE5DumpUI.Tests.csproj"
+```
+
+### Git Submodules
+
+```bash
+git submodule update --init --recursive
+```
+
+-----
+
+## Rules
+
+- **Language**: Code comments and UI strings in English
+- **Single Instance**: UI app uses Mutex to ensure only one instance runs
+- **Async everywhere**: All I/O, pipe operations, and alert actions must be async
+- **Platform Abstraction**: Any system/OS-dependent call (P/Invoke, Registry, OS commands) MUST go through an interface in `Core` project. `Core` must NEVER contain direct platform-specific code
+- **Log output**: all logs go to `%LOCALAPPDATA%\UE5CEDumper\Logs\<Process>\`, split by category — DLL 5 (init, scan, offsets, pipe, walk), UI 3 (init, pipe, view). Root `Logs\` has no loose files, only subfolders. **Retention is by AGE (21 days), not generation count** — `Grimoire::LOG_RETENTION_DAYS` / `Constants.LogMaxAgeDays`; the 8 MB per-file cap still rotates mid-session. Archive naming, folder staleness, and why a generation count could not express this: [docs/architecture.md](docs/architecture.md) § Logging
+- **App-data layout**: the `%LOCALAPPDATA%\UE5CEDumper` root holds ONLY files that are **app-wide and fixed in number** (`Constants.cs` enumerates them). Anything **per-game** — one more set on every game patch, forever — gets its own PascalCase subfolder beside `Logs\` / `Reports\`: today `Snapshots\`, `Bookmarks\`, `TeleportCoords\`. A new per-game family MUST add a subfolder, not a root file, via `Services/AppDataFolderMaintenance.Prepare` called **from the store's constructor** — a composition-root call site is one reorder away from silently reading the folder before it is migrated. Three invariants, each with its measurement in `AppDataFolderMaintenance.cs` / `Constants.cs`: a game's files **move and expire as a GROUP**; **"unused" = `LastWriteTimeUtc`, STAMPED by the store on use** — never last-access, which every AV/backup/indexer read refreshes; and **retention is the STORE's call, not the folder's** (`Snapshots\` 21 days; `Bookmarks\` and `TeleportCoords\` pass `0` — sweep off deliberately, do not "finish" it by enabling it)
+- **Magic words management**: All magic strings kept in one file per project with proper comments
+- **UI Strings**: English only. All UI strings in `Resources/Strings/en.axaml`, referenced via `StaticResource` bindings
+- **Keyword search boxes (space = AND + per-keyword memory)**: Every client-side keyword/filter box in the UI MUST behave identically:
+  - **space = AND**: split with `Helpers/ObjectTreeFilter.SplitTerms`, match with `MatchesAllTerms` (term-level AND, field-level OR) — never one `.Contains`/`IndexOf` over a concatenated string. Server-side matchers that can't AND client-side (ValueSearch, SPC query-time) are the only exemption.
+  - **per-keyword memory**: `Helpers/KeywordSearchMemory` — remember only keywords the user typed *and that matched*. Its header carries the 4-line VM wiring and the `TextBox`→`AutoCompleteBox` AXAML swap verbatim; `Flush()` before clearing the box on tab-switch/navigation.
+  - **an async / server-side count calls `Commit()`, never `Schedule()`** — a debounce probe races the async reload and reads a stale count.
+- **UE offsets**: All UObject/UStruct offsets must be dynamically verified via OffsetFinder, never hardcoded
+- **AOT compatible**: All C# code must be Native AOT / trimming compatible. No reflection-based APIs — use source generators instead (e.g. `[JsonSerializable]` context for `System.Text.Json`, `[ObservableProperty]` for MVVM). The UI is published as a self-contained trimmed binary
+- **Module naming (Frieren convention)**: every new C++ DLL module (a file with its own namespace) MUST take an unused name from the **Frieren roster** in [docs/naming-convention.md](docs/naming-convention.md) — never a plain-English name — carry the header comment that doc specifies, and flip that name to 🟢 in the roster. The kept-English exceptions and the finished plain-English migrations are that doc's own tables
+- **CE Lua output hygiene**: every CE Lua script we emit — the C# generators (`*ScriptGenerator.cs`, `CeXmlExportService`), the standalone `scripts/*.lua`, `scripts/UE5CEDumper.CT` — MUST be quiet by default so the CE Lua Engine window never covers Cheat Engine.
+  - **Gate every diagnostic/progress `print()`** behind `local DEBUG = UE5_DEBUG or 0` and a `dbg()` wrapper (standalone `.lua`/`.CT` gate inline on `(UE5_DEBUG or 0) ~= 0`); **real failures, and warnings that flag a genuine problem, stay ungated**.
+  - **Auto-close on clean success ONLY** — `CeLuaHygiene.CloseCall` when `DEBUG == 0` and nothing failed. On ANY error path, **a timeout included**, the close MUST be unreachable.
+  - **A bail-out that applied NOTHING must untick the record**, and the two script shapes are **not interchangeable** — *stateful toggles* untick-and-return, *momentary actions* (Teleport) flag and break so their **deferred** untick still runs. Pass the right `MailboxTimeout`. **Never report a mailbox failure by guessing**: `status` already says which failure it is, and a timeout must be a real `getTickCount()` deadline (`sleep(1)` is nowhere near 1 ms).
+  - ⛔ **Never hand-roll any of this** — call the `CeLuaHygiene.Append*` emitters, in every `{$lua}` block (locals don't cross `[ENABLE]`/`[DISABLE]`). Every rule above, with the measurement that produced it and the build-2743 story: the `Services/CeLuaHygiene.cs` header + its `MailboxTimeout` enum doc; `CeMailboxBailoutTests` / `CeLuaHygieneTests` assert them.
+- **CE Lua ↔ DLL contract version**: versioned on the **CONTRACT**, never the build number — a `.CT` saved months ago stays valid against a newer DLL until something it depends on moves. `Mimic::MAILBOX_CONTRACT` + `MAILBOX_CONTRACT_MIN` publish a **range** via the exported `g_mailboxContract`; scripts bake `CeMailboxLayout.ContractVersion` and check `MIN ≤ script ≤ CONTRACT` **before the first write**. Bump rules, what counts as the contract, and the rationale for every version so far live in [`dll/src/Mimic.h`](dll/src/Mimic.h); `tools/check_mailbox_contract.py` hashes that surface and fails CI on a forgotten bump, which is **worse than no versioning**. ⚠ **The hash covers field LAYOUT, not field MEANING** — a command that starts using a field it never touched is a real contract change the hash cannot see, so its "bumped but surface unchanged" branch refuses the bump until you record WHY.
+
+-----
+
+## Project Goal
+
+Develop a **C++ DLL + Cheat Engine Lua Bridge** Unreal Engine Dumper.
+Target: Support UE4 (4.18+) and UE5 (5.0 ~ 5.8+), find global pointers (GObjects / GNames / GWorld), build complete object/struct hierarchy, integrate with CE. Despite the "UE5" name, UE4 games are a priority target — many popular games use UE4, and RE-UE4SS demonstrates broad UE4 support is achievable.
+
+-----
+
+## Architecture Overview
+
+A **C++ DLL injected into the game** + a **Cheat Engine Lua bridge** + a **standalone Avalonia UI**
+that talks to the DLL over a named pipe.
+
+⚠ **This is a map, not a specification.** One line per module, and deliberately no detail: every
+module's own header comment carries its contract, [docs/architecture.md](docs/architecture.md) has
+the file tree, [docs/dll-spec.md](docs/dll-spec.md) the interface, and
+[docs/naming-convention.md](docs/naming-convention.md) the Frieren-name roster. **Counts drift —
+derive them, never hand-edit** (`tools/check_derived_counts.py` pins the ones written here).
+
+```
++------------------------------------------------------+
+|  Game Process
+|
+|  CE Lua:  UE5CEDumper.CT  ue5_dissect.lua
+|           ue5_invoke_helper.lua
+|      |  loadLibrary / callFunction (63 C ABI exports)
+|      v
+|  UE5Dumper.dll  [injected, or one of 4 proxy DLLs]
+|
+|   -- core ------------------------------------------
+|      +-- Macht    (Memory)        AOB scan, SEH r/w
+|      +-- Himmel   (Signatures)    the AOB tables
+|      +-- Genau    (OffsetFinder)  GObjects/GNames/GWorld/GEngine
+|      +-- Aura     (ObjectArray)   object pool, refs, graph paths
+|      +-- Serie    (FNamePool)     UE5 pool / UE4 TNameEntry
+|      +-- Ubel     (UStructWalker) FField + UProperty walk
+|      +-- Denken   (NativeDisasm)  Zydis property xref
+|      +-- Sein     (Logger)        5 categories, per process
+|      +-- Tot      (Cancellation)  cooperative abort flag
+|
+|   -- interfaces ------------------------------------
+|      +-- Frieren  (ExportAPI)     C ABI for CE Lua
+|      +-- Fern     (PipeServer)    JSON over named pipe; the live count is **99** commands
+|      +-- Mimic    (Mailbox)       shared-memory command channel for CE Lua
+|      +-- Stark    (GameThreadDispatch)  MinHook ProcessEvent hook
+|      +-- Lugner   (Proxy)         version/dinput8/dxgi/winmm forwarders
+|
+|   -- scanning --------------------------------------
+|      +-- Radar    (ValueScan)     CE-style value scan + group scan
+|      +-- Orden    (GroupMatch)    source-agnostic multi-value matcher
+|
+|   -- gameplay features -----------------------------
+|      +-- Wirbel   (Teleport)      markers, coords, POV, cursor
+|      +-- Solitar  (GodMode)       force AActor::bCanBeDamaged
+|      +-- Laufen   (MovementTuning) speed / gravity / jump knobs
+|      +-- Hemmung  (TimeDilation)  world + pawn time levers
+|      +-- Solide   (ForceField)    hold a field across a class tree
+|      +-- Edel     (CurrentTarget) auto-detect the player's target
+|      +-- Grausam  (ForegroundLock) keep the game "foreground"
+|      +-- Schlacht (SeeThrough)    hide occluders in the view
+|      +-- Linie    (LivePEProfiler) which UFunctions actually fired
++----------------------+-------------------------------+
+                       | \\.\pipe\UE5DumpBfx  (newline-delimited JSON)
++----------------------v-------------------------------+
+|  UE5DumpUI  (Avalonia + ReactiveUI, standalone exe)
+|
+|   -- browse ----------------------------------------
+|      +-- ObjectTreePanel        UObject hierarchy
+|      +-- ClassStructPanel       property grid
+|      +-- PointerPanel           global pointers
+|      +-- LiveWalkerPanel        instance drill-down
+|      +-- InstanceFinderPanel    find by class
+|      +-- RelatedObjectsPanel    an actor's neighbours
+|      +-- DumpExplorerPanel      offline .jsonl browser
+|
+|   -- search ----------------------------------------
+|      +-- PropertySearchPanel    by name, + Force
+|      +-- ValueSearchPanel       by value, single/group
+|      +-- InterestingFunctionsPanel / InterestingPropertiesPanel  scored
+|      +-- ConsolePanel           UFUNCTION(exec) discovery
+|      +-- LiveFuncsPanel         ProcessEvent call profiler
+|
+|   -- act / export ----------------------------------
+|      +-- TeleportPanel          teleport + the gameplay cards
+|      +-- ProxyDeployPanel       deploy + clean up proxy DLLs
+|      +-- CeXmlExport / CsxExport / CheatTableBuilder / StructReturnDecoder
+|
+|      +-- PipeClient             async pipe mgmt, two lanes
++------------------------------------------------------+
+```
+## Documentation Index
+
+⭐ **[docs/README.md](docs/README.md) is the FULL index** — every other document, one row each.
+Only the few below live here, because CLAUDE.md is loaded on **every turn** and a row nobody needs
+yet costs bytes on all of them. **A new document gets its row in `docs/README.md`.**
+⚠ The **bold counts** below are pinned by `tools/check_derived_counts.py` — leave them exactly as
+written, or update the registry with them.
+⛔ **The WHOLE FILE stays ≤ 40 KB (40,960 bytes)** — `ls -l CLAUDE.md` before committing; over the
+line, trim a row, do not grow.
+
+| Document | Contents |
+|----------|----------|
+| [docs/handover-2026-08-22.md](docs/handover-2026-08-22.md) | 🤝 **START HERE — the single entry point.** A fresh session's first ten minutes: tree state, computer-use grants, launching a fixture, the hard rules, gates/tests/builds, driving CE, what is open, traps, closing a row. |
+| [docs/todo.md](docs/todo.md) | **What's next** — open work only, with effort/risk tags. |
+| [docs/verification-register.md](docs/verification-register.md) | **What is shipped but not yet proven on a running game** — one row per check, each naming its acceptance test. ⛔ Read its charter before proposing to delete a row. |
+| [docs/dev-log.md](docs/dev-log.md) | **What shipped** — append-only, newest-first milestone history per build number. Read when investigating when or why X was added. |
+| [docs/architecture.md](docs/architecture.md) | Directory structure (**31 .cpp + 39 .h** DLL files, **195** test files, and what each does), git submodules, build environment, component interaction + startup sequence, log layout + retention. |
+| [docs/dll-spec.md](docs/dll-spec.md) | C++ DLL interface — C ABI exports (**63** — derive it, never hand-edit), the public headers, DynOff runtime offset tables, the CE Lua inject-only bridge. ⚠ The headers are ground truth; this doc trails them. |
+| [docs/working-lessons.md](docs/working-lessons.md) | ⭐ **How to work here.** Long — read the section the task needs: §1 before a verification claim, §2 before an audit, §3 before an Avalonia / CE / SQLite / build change, §4 for UE and CE facts, §6 before proposing an architecture or UX change (settled decisions). Write new lessons here. |
+| [docs/naming-convention.md](docs/naming-convention.md) | Frieren-themed C++ file / namespace mapping (Macht/Genau/Aura/Serie/Ubel/Frieren/Fern/...) |
+| [docs/README.md](docs/README.md) | **Everything else** — the full per-document index: specs, audits, evals, CE/Ghidra references, the archive. Open it whenever the answer is not in the rows above. |
+
+---
+> Source: [bbfox0703/UE5CEDumper](https://github.com/bbfox0703/UE5CEDumper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
