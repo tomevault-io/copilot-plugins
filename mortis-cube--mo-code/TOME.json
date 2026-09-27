@@ -1,0 +1,111 @@
+{
+  "name": "mo-code",
+  "owner": "mortis-cube",
+  "repo": "mo-code",
+  "description": "mo-code \u662f mortis \u4ece\u96f6\u5b9e\u73b0 Claude Code \u6838\u5fc3\u529f\u80fd\u7684\u5b9e\u9a8c\u9879\u76ee\uff0c\u76ee\u6807\u662f\u5b9e\u73b0\u4e00\u4e2a\u53ef\u8fd0\u884c\u3001\u53ef\u89e3\u91ca\uff0c\u5e76\u91cd\u70b9\u7814\u7a76\u5b89\u5168\u8fb9\u754c\u7684\u7ec8\u7aef Coding Agent\u3002",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/debugger/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/test-generator/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/test-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/diagnosing-bugs/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/diagnosing-bugs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/codebase-design/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/codebase-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/pr-review-expert/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/pr-review-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/senior-architect/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/senior-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mo-code",
+      "path": ".codex/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/mortis-cube/mo-code/tree/main/.codex/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mortis-cube/mo-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T20:30:23Z"
+}
