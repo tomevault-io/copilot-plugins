@@ -1,0 +1,9 @@
+{
+  "name": "confidential-dot-ai--confidential-inference",
+  "displayName": "confidential-inference",
+  "description": "Attested confidential inference integration on bare metal",
+  "version": "1.0.0",
+  "author": "confidential-dot-ai",
+  "homepage": "https://github.com/confidential-dot-ai/confidential-inference",
+  "skills": []
+}
