@@ -1,0 +1,9 @@
+{
+  "name": "philipbrembeck--pi-advisor",
+  "displayName": "pi-advisor",
+  "description": "Fully customizable Advisor and Executor flow plugin for the Pi Coding Agent",
+  "version": "1.0.0",
+  "author": "philipbrembeck",
+  "homepage": "https://github.com/philipbrembeck/pi-advisor",
+  "skills": []
+}
