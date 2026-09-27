@@ -4,7 +4,7 @@
   "repo": "CipherTalk-Backup",
   "description": "\u672c\u5730\u5907\u4efdCipherTalk\uff0c2026.7.23\uff0c\u539f\u5e93\u5730\u5740https://github.com/ILoveBingLu/CipherTalk",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nixer-2301/CipherTalk-Backup",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T04:56:35Z"
+  "distributed_at": "2026-09-27T10:54:38Z"
 }
