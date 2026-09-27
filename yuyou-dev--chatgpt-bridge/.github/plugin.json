@@ -1,0 +1,9 @@
+{
+  "name": "yuyou-dev--chatgpt-bridge",
+  "displayName": "ChatGPT-Bridge",
+  "description": "Codex plugin for generating and exporting ChatGPT images through the in-app browser.",
+  "version": "1.0.0",
+  "author": "yuyou-dev",
+  "homepage": "https://github.com/yuyou-dev/ChatGPT-Bridge",
+  "skills": []
+}
