@@ -7,11 +7,11 @@ Stop re-explaining your rules to your agent. Put them in the project.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chrono-meta/forge-harness](https://github.com/chrono-meta/forge-harness).
+Original source: `AGENTS.md` in [chrono-meta/forge-harness](https://github.com/chrono-meta/forge-harness).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
