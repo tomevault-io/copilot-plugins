@@ -7,11 +7,11 @@ CGo-free SQLite driver for Go
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [go-again/sqlite](https://github.com/go-again/sqlite).
+Original source: `AGENTS.md` in [go-again/sqlite](https://github.com/go-again/sqlite).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
