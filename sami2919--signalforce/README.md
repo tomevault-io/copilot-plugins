@@ -7,11 +7,11 @@ The open-source GTM engineer toolkit — signal-based prospecting for any ICP. D
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sami2919/SignalForce](https://github.com/sami2919/SignalForce).
+Original source: `AGENTS.md` in [sami2919/SignalForce](https://github.com/sami2919/SignalForce).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
