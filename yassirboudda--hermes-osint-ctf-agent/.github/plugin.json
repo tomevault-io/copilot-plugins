@@ -1,0 +1,9 @@
+{
+  "name": "yassirboudda--hermes-osint-ctf-agent",
+  "displayName": "hermes-osint-ctf-agent",
+  "description": "Public OSINT CTF agent template (DeepSeek + OpenRouter) \u2014 bring your own API keys",
+  "version": "1.0.0",
+  "author": "yassirboudda",
+  "homepage": "https://github.com/yassirboudda/hermes-osint-ctf-agent",
+  "skills": []
+}
