@@ -1,0 +1,44 @@
+{
+  "name": "MailFathom",
+  "owner": "Krzysztof318",
+  "repo": "MailFathom",
+  "description": "A brain for your mail: MailFathom turns IMAP mailboxes into a self-hosted, AI-native service. Mail synchronizes into your own PostgreSQL, is indexed for search and retrieval, and is served to AI agents over the Model Context Protocol. Semantic retrieval, answering, and gated write tools. .NET 10, AGPL-3.0-only.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Krzysztof318/MailFathom",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T10:51:21Z"
+}
