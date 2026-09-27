@@ -7,11 +7,11 @@ A local-first coding agent with durable sessions, reviewable changes, and eviden
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kyletser/coderook](https://github.com/kyletser/coderook).
+Original source: `AGENTS.md` in [kyletser/coderook](https://github.com/kyletser/coderook).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
