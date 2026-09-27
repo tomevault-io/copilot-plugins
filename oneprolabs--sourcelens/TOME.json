@@ -4,7 +4,7 @@
   "repo": "sourcelens",
   "description": "Harness-based Agentic RAG: search, understand, and answer questions over documents and code using an AI coding agent harness (Cursor, Claude Code, Codex, etc.) in a sandbox \u2014 no embeddings, no vector DB.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oneprolabs/sourcelens",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T08:46:07Z"
+  "distributed_at": "2026-09-27T17:08:46Z"
 }
