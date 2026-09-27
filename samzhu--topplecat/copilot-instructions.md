@@ -1,0 +1,139 @@
+## topplecat
+
+> ToppleCat is a delegation verification gate for Java/JUnit projects. Ordinary
+
+# ToppleCat Contributor Instructions
+
+ToppleCat is a delegation verification gate for Java/JUnit projects. Ordinary
+Java acceptance tests and typed JSON/YAML case data are authoritative; generated
+JSON and HTML are evidence.
+
+## Start Here
+
+Read `DEVELOPMENT.md` and `CONTEXT.md` first. Use the task map to find the
+relevant implementation documents and verification commands, and use the
+context glossary's formal terms consistently.
+
+Before proposing, comparing, reviewing, scoping, or delegating a new or changed
+product behavior, use the repository `topplecat-product-design` skill and
+present its Product Frame before solutions.
+
+Before changing supported behavior, read:
+
+- `README.md`
+- `docs/product.md`
+- `docs/architecture.md`
+- `docs/guide/authoring.md`
+- `docs/guide/verification-and-evidence.md`
+
+## Agent skills
+
+### Issue tracker
+
+Specs and issues use the repository-local Markdown tracker under `.scratch/`.
+See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+This is a single-context repository rooted at `CONTEXT.md`. See
+`docs/agents/domain.md`.
+
+## Design Records And Documentation
+
+- Do not leave an accepted product design only in a chat, prompt, issue, or
+  agent handoff. Before delegating implementation, record it under
+  `docs/design/` using the structure in `docs/design/README.md`.
+- Check the design index before creating a record. Merge a narrow follow-up into
+  its owning current document, and delete completed task plans or redundant
+  research after their lasting conclusion is recorded; do not create a
+  searchable archive of obsolete guidance.
+- Keep `AGENTS.md` short and durable: put mandatory boundaries, work rules, and
+  document routing here. Put feature examples, alternatives, detailed behavior,
+  failure semantics, and acceptance cases in the active design record.
+- Treat `docs/product.md`, `docs/architecture.md`, and the guides as the current
+  implemented product. Every retained design record is `Accepted`, describes
+  intended work only, and must not be presented as an available feature.
+- When implementation changes supported behavior, merge the lasting design
+  into Product, Architecture, the affected guide, glossary, tests, skills, and
+  user-facing documentation, then delete the completed design record in the
+  same change. Link to one canonical explanation instead of copying details.
+- If code, tests, design records, and current-product documentation disagree,
+  stop and identify the conflict. Do not silently choose the version that makes
+  the task easiest.
+
+## Product Boundaries
+
+- Humans and their external SDD, workflow, or task system choose the current
+  Spec, manage delivery history, and decide any organizational sign-off.
+  ToppleCat is not a task manager, Spec lifecycle manager, or approval system.
+- Humans remain responsible for making the selected rules and cases complete.
+  Do not make ToppleCat infer missing business requirements or judge behavior
+  outside the executable contract.
+- ToppleCat starts at the executable acceptance boundary: bind selected ACs to
+  ordinary Java/JUnit tests and typed case rows, keep the public contract handed
+  to the implementation agent identical to the contract run by verification,
+  and test the agent's done claim.
+- Treat a ToppleCat reviewer approval as a mechanical integrity seal over
+  contract bytes and verification policy, not proof of human or organizational
+  sign-off.
+- Treat generated JSON and HTML only as projections of the checked contract.
+  Rendering must not add, omit, or reinterpret rules, cases, expected values,
+  or compiler-defined scenario steps.
+- Keep the four-module layout: `topplecat-core`, `topplecat-junit`,
+  `topplecat-report`, and `topplecat-gradle-plugin`.
+- Keep public tests and case data under `src/test`; keep the complete
+  reviewer-only source set under `src/hiddenTest`.
+- Do not introduce a second authoring language, a command-line interface, or a
+  new compatibility surface.
+- Never put reviewer-only values, identifiers, paths, source names, or raw
+  failures from an actual delivery in public implementation-handoff material or
+  `agent-feedback.json`. The public project page is a separate human-facing
+  explanation surface: it may show a clearly labelled, fully synthetic red-team
+  demonstration, including synthetic report details, but must never present
+  material from an actual delivery as a demonstration.
+
+## Verification
+
+Develop with the narrowest relevant test, then run:
+
+```bash
+./gradlew check
+GRADLE_CMD=./gradlew scripts/verify-release.sh
+```
+
+`toppleCatVerify` and `build/topplecat/evidence.json` provide the final contract
+verdict. A green `test` task is development feedback only.
+
+## Human Communication
+
+- Explain product behavior with a concrete example before introducing the
+  implementation term. For example, first describe which checkout and coupon
+  cases run for one delivery, then name the mechanism "Spec-scoped hidden
+  retest."
+- Lead with the human problem and visible outcome. Introduce annotations,
+  Gradle task wiring, digests, schemas, gates, and class names only after the
+  reader understands what they solve.
+- Before asking someone to approve a technical rule, explain one concrete
+  example in plain language and say what ToppleCat can and cannot conclude.
+  Put the decision question after that explanation.
+- When presenting alternatives, reuse one simple domain example across all
+  options so the trade-off is easy to compare.
+- Translate jargon into plain language the first time it appears. Do not assume
+  a maintainer asking a product question wants an implementation-first answer.
+- Keep three layers distinct: what an external tool observed, how ToppleCat
+  attributed that observation to the executable contract, and the resulting
+  ToppleCat Gate verdict. Preserve an external tool's official outcome names
+  and definitions; do not silently rename or reinterpret them.
+- Do not use a bare status such as `FAIL`, `INCOMPLETE`, `detected`, or
+  `NO_COVERAGE` as its own explanation. State what ran, what happened, and why
+  that evidence supports—or cannot support—the verdict.
+
+## Git Safety
+
+Do not commit generated `build/` output, local `.topplecat/` escrow state,
+credentials, or temporary notes. Preserve unrelated worktree changes. Do not
+rewrite history, force-push, or publish without explicit user approval.
+
+---
+> Source: [samzhu/topplecat](https://github.com/samzhu/topplecat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
