@@ -1,0 +1,9 @@
+{
+  "name": "ddc-111--gorag-agent",
+  "displayName": "gorag-agent",
+  "description": "\u5f00\u7bb1\u5373\u7528\u7684GoRag\u667a\u80fd\u4f53\u5ba2\u670d \u2014 \u57fa\u4e8e Eino ADK + Gin \u7684\u5f00\u6e90\u667a\u80fd\u5ba2\u670d\u6846\u67b6\uff0c\u652f\u6301 SSE \u6d41\u5f0f\u5bf9\u8bdd\u3001RAG \u77e5\u8bc6\u5e93\u68c0\u7d22\u3001HITL \u4eba\u5de5\u4ecb\u5165",
+  "version": "1.0.0",
+  "author": "ddc-111",
+  "homepage": "https://github.com/ddc-111/gorag-agent",
+  "skills": []
+}
