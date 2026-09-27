@@ -1,0 +1,9 @@
+{
+  "name": "vladolaru--claude-code-codex-bridge",
+  "displayName": "claude-code-codex-bridge",
+  "description": "Automatically bridge your local Claude Code setup into Codex so both stay equally effective.",
+  "version": "1.0.0",
+  "author": "vladolaru",
+  "homepage": "https://github.com/vladolaru/claude-code-codex-bridge",
+  "skills": []
+}
