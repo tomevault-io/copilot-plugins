@@ -1,0 +1,44 @@
+{
+  "name": "Fluence-Desktop",
+  "owner": "raviumeshkulkarni-web",
+  "repo": "Fluence-Desktop",
+  "description": "Fluence is a lightning fast , privacy-first voice transcription application built for Windows. Seamlessly convert live speech or audio files into highly accurate text with an intuitive, distraction-free desktop interface. Designed to extend the Fluence ecosystem to your desktop..",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/raviumeshkulkarni-web/Fluence-Desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-27T17:28:15Z"
+}
