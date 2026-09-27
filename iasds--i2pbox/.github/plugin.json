@@ -1,0 +1,9 @@
+{
+  "name": "iasds--i2pbox",
+  "displayName": "i2pbox",
+  "description": "All i2pd-tools in a single binary \u2014 one make, one binary, zero confusion",
+  "version": "1.0.0",
+  "author": "iasds",
+  "homepage": "https://github.com/iasds/i2pbox",
+  "skills": []
+}
