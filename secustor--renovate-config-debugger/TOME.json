@@ -4,7 +4,7 @@
   "repo": "renovate-config-debugger",
   "description": "Validate and visiualize how your Renovate configurations merge",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/secustor/renovate-config-debugger",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T10:32:19Z"
+  "distributed_at": "2026-09-27T18:57:00Z"
 }
