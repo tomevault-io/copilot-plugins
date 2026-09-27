@@ -1,8 +1,6 @@
 # jasy
 
-> Tome by [jasy-pdf](https://github.com/jasy-pdf/jasy) — distributed by [TomeVault](https://tomevault.io)
-
-Monorepo including CLI, jasy-pdf and ZUGFeRD/XRechnung engine
+> Tome by [jasy-pdf](https://github.com/jasy-pdf/jasy), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [jasy-pdf/jasy](https://github.com/jasy-pdf/jasy
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jasy-pdf/jasy](https://github.com/jasy-pdf/jasy) — a repo with 8+ stars on GitHub.
+From [jasy-pdf/jasy](https://github.com/jasy-pdf/jasy) — a repo with 88+ stars on GitHub.
 
 ---
 
