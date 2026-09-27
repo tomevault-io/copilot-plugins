@@ -1,0 +1,9 @@
+{
+  "name": "heshengtao--exameow",
+  "displayName": "exameow",
+  "description": "AI-powered exam question generator. Upload study materials, get exam questions in seconds. Open source, local-first, cross-platform.",
+  "version": "1.0.0",
+  "author": "heshengtao",
+  "homepage": "https://github.com/heshengtao/exameow",
+  "skills": []
+}
