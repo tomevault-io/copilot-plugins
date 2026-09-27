@@ -1,0 +1,9 @@
+{
+  "name": "dota2modmanager--dota2-mod-manager",
+  "displayName": "dota2-mod-manager",
+  "description": "Desktop mod manager for Dota 2 \u2014 browse, install, toggle and share 1000+ cosmetic mods from the open D2PFX catalog. Windows and Linux, no account, no telemetry.",
+  "version": "1.0.0",
+  "author": "dota2modmanager",
+  "homepage": "https://github.com/dota2modmanager/dota2-mod-manager",
+  "skills": []
+}
