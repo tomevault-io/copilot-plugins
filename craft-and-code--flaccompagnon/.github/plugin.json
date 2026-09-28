@@ -1,0 +1,9 @@
+{
+  "name": "craft-and-code--flaccompagnon",
+  "displayName": "FlacCompagnon",
+  "description": "A Rust-powered cross-platform audio toolkit for analysing, verifying, organising and managing your music \u2014 from lossless authenticity to metadata, playback and conversion.",
+  "version": "1.0.0",
+  "author": "craft-and-code",
+  "homepage": "https://github.com/craft-and-code/FlacCompagnon",
+  "skills": []
+}
