@@ -1,0 +1,44 @@
+{
+  "name": "-FoxGo-AI-",
+  "owner": "jifeng-2025",
+  "repo": "-FoxGo-AI-",
+  "description": "\u5f08\u95f4 FoxGo \u00b7 \u56f4\u68cb AI \u8bad\u7ec3\u52a9\u624b\uff1a\u57fa\u4e8e KataGo \u7684\u672c\u5730\u56f4\u68cb\u8bad\u7ec3\u52a9\u624b\uff0c\u652f\u6301\u96be\u5ea6\u9009\u62e9\u3001\u524d\u4e09\u9009\u70b9\u5206\u6790\u4e0e SGF \u5bfc\u51fa\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jifeng-2025/-FoxGo-AI-",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T09:04:13Z"
+}
