@@ -4,7 +4,7 @@
   "repo": "bench-of-us",
   "description": "\u307f\u3093\u306a\u306e\u30ed\u30fc\u30ab\u30ebLLM\u30d9\u30f3\u30c1\u30de\u30fc\u30af\u7d50\u679c\u3092\u3042\u3064\u3081\u308b\u30ec\u30dd\u30b8\u30c8\u30ea",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jimoto-no-llm/bench-of-us",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T05:19:00Z"
+  "distributed_at": "2026-09-28T10:51:45Z"
 }
