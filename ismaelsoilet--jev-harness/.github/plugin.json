@@ -1,0 +1,9 @@
+{
+  "name": "ismaelsoilet--jev-harness",
+  "displayName": "jev-harness",
+  "description": "Zero-dependency System One decision harness: 5 semantic gates saving frontier AI agent tokens on trivial errors & doom loops. Python + TypeScript + Rust. MCP-compatible.",
+  "version": "1.0.0",
+  "author": "ismaelsoilet",
+  "homepage": "https://github.com/ismaelsoilet/jev-harness",
+  "skills": []
+}
