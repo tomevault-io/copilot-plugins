@@ -1,0 +1,44 @@
+{
+  "name": "ai-usage-widget",
+  "owner": "odrasile",
+  "repo": "ai-usage-widget",
+  "description": "Floating desktop widget for monitoring local AI coding CLI usage across Codex, Claude Code, and Gemini. Built with Tauri, TypeScript, and a local Node backend.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/odrasile/ai-usage-widget",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T01:36:39Z"
+}
