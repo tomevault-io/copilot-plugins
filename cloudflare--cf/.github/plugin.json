@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--cf",
+  "displayName": "cf",
+  "description": "cf",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/cf",
+  "skills": []
+}
