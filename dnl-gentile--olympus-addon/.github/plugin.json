@@ -1,0 +1,9 @@
+{
+  "name": "dnl-gentile--olympus-addon",
+  "displayName": "olympus-addon",
+  "description": "Live census of every Olympus guild in WoW: Forever - army size, leaders, map, decrees and tabard inspection",
+  "version": "1.0.0",
+  "author": "dnl-gentile",
+  "homepage": "https://github.com/dnl-gentile/olympus-addon",
+  "skills": []
+}
