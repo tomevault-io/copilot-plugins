@@ -1,0 +1,9 @@
+{
+  "name": "fabkury--p64",
+  "displayName": "p64",
+  "description": "Desktop LED matrix built on ESP32-S3",
+  "version": "1.0.0",
+  "author": "fabkury",
+  "homepage": "https://github.com/fabkury/p64",
+  "skills": []
+}
