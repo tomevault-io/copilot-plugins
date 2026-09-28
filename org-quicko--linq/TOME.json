@@ -4,7 +4,7 @@
   "repo": "linq",
   "description": "Self-hosted SaaS including URL Shortener, Dynamic Link and Link Tree Creator  ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/org-quicko/linq",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T02:33:35Z"
+  "distributed_at": "2026-09-28T06:53:10Z"
 }
