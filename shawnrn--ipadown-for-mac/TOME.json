@@ -1,0 +1,44 @@
+{
+  "name": "ipaDown-for-Mac",
+  "owner": "ShawnRn",
+  "repo": "ipaDown-for-Mac",
+  "description": "\u4e00\u6b3e\u4f7f\u7528 Swift \u5f00\u53d1\u7684\u3001\u8f7b\u91cf\u7ea7 macOS App Store \u5e94\u7528\u4e0b\u8f7d\u5de5\u5177\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ShawnRn/ipaDown-for-Mac",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T00:53:20Z"
+}
