@@ -1,0 +1,9 @@
+{
+  "name": "tobi--disktree",
+  "displayName": "disktree",
+  "description": "A treemap for finding and removing what fills your disk, for Omarchy. Rust + GPUI.",
+  "version": "1.0.0",
+  "author": "tobi",
+  "homepage": "https://github.com/tobi/disktree",
+  "skills": []
+}
