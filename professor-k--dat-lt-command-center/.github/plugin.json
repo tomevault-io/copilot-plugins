@@ -1,0 +1,9 @@
+{
+  "name": "professor-k--dat-lt-command-center",
+  "displayName": "dat-lt-command-center",
+  "description": "Next-gen line maintenance control dashboard for an airline outstation network - Fastify + Prisma + React, deployed on Railway",
+  "version": "1.0.0",
+  "author": "professor-k",
+  "homepage": "https://github.com/professor-k/dat-lt-command-center",
+  "skills": []
+}
