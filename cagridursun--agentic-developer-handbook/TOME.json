@@ -4,7 +4,7 @@
   "repo": "agentic-developer-handbook",
   "description": "Java-first open-source handbook for understanding and building agentic systems, one concept at a time.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cagridursun/agentic-developer-handbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T14:32:22Z"
+  "distributed_at": "2026-09-28T14:35:24Z"
 }
