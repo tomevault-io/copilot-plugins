@@ -1,0 +1,9 @@
+{
+  "name": "shinarin--alas-aos",
+  "displayName": "ALAS-AOS",
+  "description": "ALAS \u4e00\u4f53\u5316 Android APK\uff1aproot rootfs \u8fd0\u884c\u65f6 + Shizuku \u865a\u62df\u5c4f\u540e\u53f0\u6302\u673a\uff08\u5f00\u53d1\u4e2d\uff0c\u8def\u7ebf\u56fe\u89c1 docs/roadmap-v3.md\uff09",
+  "version": "1.0.0",
+  "author": "Shinarin",
+  "homepage": "https://github.com/Shinarin/ALAS-AOS",
+  "skills": []
+}
