@@ -4,7 +4,7 @@
   "repo": "inboxfm-connect",
   "description": "Self-hostable integration infrastructure for AI agents and SaaS apps: embedded account connections, tool discovery and execution via REST, MCP and TypeScript. Development preview built on Activepieces.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mihir-Rabari/inboxfm-connect",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T09:01:23Z"
+  "distributed_at": "2026-09-28T14:59:05Z"
 }
