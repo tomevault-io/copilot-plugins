@@ -1,0 +1,9 @@
+{
+  "name": "patrick-fu--emoji-ai",
+  "displayName": "emoji-ai",
+  "description": "Native macOS AI-powered emoji search and picker with BYOK support",
+  "version": "1.0.0",
+  "author": "patrick-fu",
+  "homepage": "https://github.com/patrick-fu/emoji-ai",
+  "skills": []
+}
