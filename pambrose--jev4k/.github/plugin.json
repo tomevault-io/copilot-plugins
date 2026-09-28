@@ -1,0 +1,9 @@
+{
+  "name": "pambrose--jev4k",
+  "displayName": "jev4k",
+  "description": "A Kotlin DSL and client for TypeSafe's Jev model",
+  "version": "1.0.0",
+  "author": "pambrose",
+  "homepage": "https://github.com/pambrose/jev4k",
+  "skills": []
+}
