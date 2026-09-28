@@ -1,0 +1,9 @@
+{
+  "name": "njanke96--steam-controller-dsu",
+  "displayName": "steam-controller-dsu",
+  "description": "DSU (CemuHook) server for the Steam Controller (2026 and Legacy)",
+  "version": "1.0.0",
+  "author": "njanke96",
+  "homepage": "https://github.com/njanke96/steam-controller-dsu",
+  "skills": []
+}
