@@ -1,0 +1,9 @@
+{
+  "name": "hermes-labs-ai--hermes-blind",
+  "displayName": "hermes-blind",
+  "description": "Recovers the original goal of a long Claude Code or Codex session from its first user turn, so you can restate it before continuing \u2014 plus a prompt wrapper that adds evidence and hedging constraints t",
+  "version": "1.0.0",
+  "author": "hermes-labs-ai",
+  "homepage": "https://github.com/hermes-labs-ai/hermes-blind",
+  "skills": []
+}
