@@ -4,7 +4,7 @@
   "repo": "pega-omni",
   "description": "OpenAI-compatible speech serving in Rust",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pegainfer-project/pega-omni",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T17:27:20Z"
+  "distributed_at": "2026-09-28T00:47:28Z"
 }
