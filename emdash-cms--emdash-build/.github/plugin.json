@@ -1,0 +1,9 @@
+{
+  "name": "emdash-cms--emdash-build",
+  "displayName": "emdash-build",
+  "description": "Chat-based site builder for EmDash CMS \u2014 describe a site, watch an AI agent build it in a Cloudflare Sandbox",
+  "version": "1.0.0",
+  "author": "emdash-cms",
+  "homepage": "https://github.com/emdash-cms/emdash-build",
+  "skills": []
+}
