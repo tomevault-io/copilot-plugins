@@ -1,0 +1,9 @@
+{
+  "name": "crabbuild--cellule",
+  "displayName": "cellule",
+  "description": "Embedded Rust framework for distributed SQLite-backed Cells with fenced writers, durable commands, and exact recovery.",
+  "version": "1.0.0",
+  "author": "crabbuild",
+  "homepage": "https://github.com/crabbuild/cellule",
+  "skills": []
+}
