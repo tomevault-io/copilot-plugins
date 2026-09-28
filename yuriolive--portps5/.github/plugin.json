@@ -1,0 +1,9 @@
+{
+  "name": "yuriolive--portps5",
+  "displayName": "PortPS5",
+  "description": "Converts decrypted PS5 game dumps into native Windows executables via binary relinking, replacement system libraries, and Vulkan. No CPU emulation.",
+  "version": "1.0.0",
+  "author": "yuriolive",
+  "homepage": "https://github.com/yuriolive/PortPS5",
+  "skills": []
+}
