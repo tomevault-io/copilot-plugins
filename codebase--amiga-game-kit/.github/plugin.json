@@ -1,0 +1,9 @@
+{
+  "name": "codebase--amiga-game-kit",
+  "displayName": "amiga-game-kit",
+  "description": "Build real Commodore Amiga games with AI agents: C toolchain, headless emulator tests, and art, sound and video pipelines.",
+  "version": "1.0.0",
+  "author": "codebase",
+  "homepage": "https://github.com/codebase/amiga-game-kit",
+  "skills": []
+}
