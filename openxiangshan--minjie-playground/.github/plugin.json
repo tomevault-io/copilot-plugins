@@ -1,0 +1,9 @@
+{
+  "name": "openxiangshan--minjie-playground",
+  "displayName": "minjie-playground",
+  "description": "MinJie is an open-source platform supporting agile hardware development flow. This is a playground for the MinJie agile chip design tools.",
+  "version": "1.0.0",
+  "author": "OpenXiangShan",
+  "homepage": "https://github.com/OpenXiangShan/minjie-playground",
+  "skills": []
+}
