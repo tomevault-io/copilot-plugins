@@ -1,0 +1,9 @@
+{
+  "name": "skylarkitchen--skills",
+  "displayName": "skills",
+  "description": "Agent skills for design work: 3D build guides and more.",
+  "version": "1.0.0",
+  "author": "SkylarKitchen",
+  "homepage": "https://github.com/SkylarKitchen/skills",
+  "skills": []
+}
