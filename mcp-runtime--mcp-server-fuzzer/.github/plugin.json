@@ -1,0 +1,9 @@
+{
+  "name": "mcp-runtime--mcp-server-fuzzer",
+  "displayName": "mcp-server-fuzzer",
+  "description": "A generic mcp server fuzzer",
+  "version": "1.0.0",
+  "author": "mcp-runtime",
+  "homepage": "https://github.com/mcp-runtime/mcp-server-fuzzer",
+  "skills": []
+}
