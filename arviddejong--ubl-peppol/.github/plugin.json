@@ -1,0 +1,9 @@
+{
+  "name": "arviddejong--ubl-peppol",
+  "displayName": "ubl-peppol",
+  "description": "Welcome to the comprehensive documentation for the UBL-PEPPOL package. This documentation helps you implement PEPPOL-compliant UBL invoices for Belgium and the Netherlands.",
+  "version": "1.0.0",
+  "author": "ArvidDeJong",
+  "homepage": "https://github.com/ArvidDeJong/ubl-peppol",
+  "skills": []
+}
