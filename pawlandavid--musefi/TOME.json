@@ -1,0 +1,44 @@
+{
+  "name": "MuseFi",
+  "owner": "PawlanDavid",
+  "repo": "MuseFi",
+  "description": "MuseFi is an open-source financial workspace for Muse. One pack gives the agent a desk language for research, risk caps, ticket drafts, and a local broker that can fill a book \u2014 stocks, memecoins, Polymarket-style events, sports lines, and whatever connector the human already bound.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PawlanDavid/MuseFi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T03:12:45Z"
+}
