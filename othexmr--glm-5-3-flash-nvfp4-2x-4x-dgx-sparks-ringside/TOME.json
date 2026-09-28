@@ -1,0 +1,44 @@
+{
+  "name": "GLM-5.3-Flash-NVFP4-2x-4x-DGX-Sparks-RiNGSiDE",
+  "owner": "othexmr",
+  "repo": "GLM-5.3-Flash-NVFP4-2x-4x-DGX-Sparks-RiNGSiDE",
+  "description": "GLM-5.3-Flash NVFP4 on two or four DGX Sparks cabled as a ring, with no switch: the RiNGSiDE serving recipe",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/othexmr/GLM-5.3-Flash-NVFP4-2x-4x-DGX-Sparks-RiNGSiDE",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T14:43:07Z"
+}
