@@ -1,0 +1,9 @@
+{
+  "name": "perixtar--jev-e2e",
+  "displayName": "jev-e2e",
+  "description": "Natural-language end-to-end tests for web apps, powered by Jev and Playwright.",
+  "version": "1.0.0",
+  "author": "perixtar",
+  "homepage": "https://github.com/perixtar/jev-e2e",
+  "skills": []
+}
