@@ -1,0 +1,44 @@
+{
+  "name": "rhinelab-blog-theme",
+  "owner": "JesseLee-CN",
+  "repo": "rhinelab-blog-theme",
+  "description": "Markdown + Git + \u9759\u6001\u90e8\u7f72\u7684\u4e2a\u4eba\u535a\u5ba2\u6a21\u677f\uff0c\u542b RhineLabUI \u4e09\u7ef4\u6863\u6848\u7ec8\u7aef /lab/\uff08\u8131\u654f\u5f00\u6e90\u7248\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JesseLee-CN/rhinelab-blog-theme",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T02:46:25Z"
+}
