@@ -26,4 +26,4 @@ Managed by Trellis. Edits outside this block are preserved; edits inside may be 
 
 ---
 > Source: [changexbc/workbuddy-switch](https://github.com/changexbc/workbuddy-switch) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-27 -->
