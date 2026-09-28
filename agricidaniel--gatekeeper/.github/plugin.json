@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--gatekeeper",
+  "displayName": "gatekeeper",
+  "description": "Routes each request to the right AI agent or skill before your AI picks one. Your rules decide what code can; Jev (TypeSafe) makes the typed call. Installs as Claude Code hooks.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/gatekeeper",
+  "skills": []
+}
