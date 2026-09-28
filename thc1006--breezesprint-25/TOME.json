@@ -1,0 +1,44 @@
+{
+  "name": "breezesprint-25",
+  "owner": "thc1006",
+  "repo": "breezesprint-25",
+  "description": "Taiwanese Mandarin and Mandarin-English speech-to-text with Breeze-ASR-25 on Google Colab TPU. Two-cell JAX/XLA notebook: upload audio and automatically download a timestamped TXT. No API key.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thc1006/breezesprint-25",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T01:13:21Z"
+}
