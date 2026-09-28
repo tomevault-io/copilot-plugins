@@ -1,0 +1,9 @@
+{
+  "name": "exceptionregret--kryfto",
+  "displayName": "Kryfto",
+  "description": "The open-source web-browsing backend for AI agents & workflow engines. Ships a 42-tool MCP server for Claude Code/Cursor/Codex, a full REST API for n8n/Zapier/Make, federated multi-engine search, anti",
+  "version": "1.0.0",
+  "author": "ExceptionRegret",
+  "homepage": "https://github.com/ExceptionRegret/Kryfto",
+  "skills": []
+}
