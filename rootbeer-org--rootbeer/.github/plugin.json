@@ -1,0 +1,9 @@
+{
+  "name": "rootbeer-org--rootbeer",
+  "displayName": "rootbeer",
+  "description": "Deterministically manage your system using Lua!",
+  "version": "1.0.0",
+  "author": "rootbeer-org",
+  "homepage": "https://github.com/rootbeer-org/rootbeer",
+  "skills": []
+}
