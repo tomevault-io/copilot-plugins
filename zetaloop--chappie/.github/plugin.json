@@ -1,0 +1,9 @@
+{
+  "name": "zetaloop--chappie",
+  "displayName": "chappie",
+  "description": "Use ChatGPT (not Codex) with Pi's local tools and extensions.",
+  "version": "1.0.0",
+  "author": "zetaloop",
+  "homepage": "https://github.com/zetaloop/chappie",
+  "skills": []
+}
