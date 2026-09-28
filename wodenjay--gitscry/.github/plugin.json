@@ -1,0 +1,9 @@
+{
+  "name": "wodenjay--gitscry",
+  "displayName": "GitScry",
+  "description": "Local Git history intelligence for developers and coding agents \u2014 find precedents, explain code, trace regressions, and discover related tests.",
+  "version": "1.0.0",
+  "author": "WodenJay",
+  "homepage": "https://github.com/WodenJay/GitScry",
+  "skills": []
+}
