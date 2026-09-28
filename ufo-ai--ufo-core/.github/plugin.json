@@ -1,0 +1,9 @@
+{
+  "name": "ufo-ai--ufo-core",
+  "displayName": "ufo-core",
+  "description": "Business agent operating system",
+  "version": "1.0.0",
+  "author": "ufo-ai",
+  "homepage": "https://github.com/ufo-ai/ufo-core",
+  "skills": []
+}
