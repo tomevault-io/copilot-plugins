@@ -1,0 +1,9 @@
+{
+  "name": "lizn-zn--veritile",
+  "displayName": "VeriTile",
+  "description": "Lean 4 framework for reasoning about Triton-style kernels.",
+  "version": "1.0.0",
+  "author": "Lizn-zn",
+  "homepage": "https://github.com/Lizn-zn/VeriTile",
+  "skills": []
+}
