@@ -1,0 +1,9 @@
+{
+  "name": "jonx--ferail",
+  "displayName": "Ferail",
+  "description": "A fast, native cross-platform file manager for advanced users written in Rust supporting macOS, Windows, but also Linux and AROS.",
+  "version": "1.0.0",
+  "author": "jonx",
+  "homepage": "https://github.com/jonx/Ferail",
+  "skills": []
+}
