@@ -4,7 +4,7 @@
   "repo": "atelier-store",
   "description": "A luxury e-commerce platform built in Next.js 16 to master agentic engineering with persistent project context, plan mode, permissions, skills, filesystem permissions, and context-isolated subagents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adrianhajdin/atelier-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T03:02:19Z"
+  "distributed_at": "2026-09-28T07:35:34Z"
 }
