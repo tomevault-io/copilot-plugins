@@ -1,0 +1,9 @@
+{
+  "name": "chenming0v0--ompiui",
+  "displayName": "OMPiUI",
+  "description": "Third-party web/desktop client for OMP (oh-my-pi) \u2014 PiUI visual shell + OMP official RPC runtime",
+  "version": "1.0.0",
+  "author": "chenming0v0",
+  "homepage": "https://github.com/chenming0v0/OMPiUI",
+  "skills": []
+}
