@@ -1,0 +1,9 @@
+{
+  "name": "podman-desktop--extension-kubernetes-dashboard",
+  "displayName": "extension-kubernetes-dashboard",
+  "description": "Kubernetes Dashboard extension for Podman Desktop",
+  "version": "1.0.0",
+  "author": "podman-desktop",
+  "homepage": "https://github.com/podman-desktop/extension-kubernetes-dashboard",
+  "skills": []
+}
