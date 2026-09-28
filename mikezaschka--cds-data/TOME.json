@@ -4,7 +4,7 @@
   "repo": "cds-data",
   "description": "Monorepo containing composable SAP CAP plugins for integrating remote services, moving data between systems, and persisting local aggregate snapshots \u2014 declarative via CDS annotations, with a shared pipeline engine underneath.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikezaschka/cds-data",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T18:45:09Z"
+  "distributed_at": "2026-09-28T03:26:47Z"
 }
