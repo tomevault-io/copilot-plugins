@@ -1,0 +1,9 @@
+{
+  "name": "miladjoodi--meetcast",
+  "displayName": "MeetCast",
+  "description": "A real-time video meeting platform built with Next.js, LiveKit, PostgreSQL, and TypeScript.",
+  "version": "1.0.0",
+  "author": "MiladJoodi",
+  "homepage": "https://github.com/MiladJoodi/MeetCast",
+  "skills": []
+}
