@@ -1,0 +1,44 @@
+{
+  "name": "line-dog-desktop-pet",
+  "owner": "ZYC99",
+  "repo": "line-dog-desktop-pet",
+  "description": "\u7ebf\u6761\u5c0f\u72d7\u684c\u5ba0\u9879\u76ee - Line Dog Desktop Pet",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZYC99/line-dog-desktop-pet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T00:43:42Z"
+}
