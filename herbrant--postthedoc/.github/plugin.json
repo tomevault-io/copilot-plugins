@@ -1,0 +1,9 @@
+{
+  "name": "herbrant--postthedoc",
+  "displayName": "PostTheDoc",
+  "description": "Email notifications about new academic job calls in Italian universities and research institutes.",
+  "version": "1.0.0",
+  "author": "Herbrant",
+  "homepage": "https://github.com/Herbrant/PostTheDoc",
+  "skills": []
+}
