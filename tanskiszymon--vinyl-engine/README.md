@@ -7,11 +7,11 @@ Turn an audio file into a record you can print on an ordinary FDM printer and pl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [TanskiSzymon/vinyl-engine](https://github.com/TanskiSzymon/vinyl-engine).
+Original source: `AGENTS.md` in [TanskiSzymon/vinyl-engine](https://github.com/TanskiSzymon/vinyl-engine).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
