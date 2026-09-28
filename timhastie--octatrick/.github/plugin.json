@@ -1,0 +1,9 @@
+{
+  "name": "timhastie--octatrick",
+  "displayName": "octatrick",
+  "description": "Octatrick: firmware modules for the Elektron Octatrack (OS 1.40C) built with octabam -- a paraphonic FM synth machine, scale quantizer with glide, direct jump. No firmware included: build from your ow",
+  "version": "1.0.0",
+  "author": "timhastie",
+  "homepage": "https://github.com/timhastie/octatrick",
+  "skills": []
+}
