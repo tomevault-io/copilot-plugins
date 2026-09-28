@@ -1,0 +1,9 @@
+{
+  "name": "evilstar2016--skill-doctor",
+  "displayName": "skill-doctor",
+  "description": "Local CLI for auditing AI agent skills, conflicts, duplicates, safety risks, and context cost across coding agents.",
+  "version": "1.0.0",
+  "author": "evilstar2016",
+  "homepage": "https://github.com/evilstar2016/skill-doctor",
+  "skills": []
+}
