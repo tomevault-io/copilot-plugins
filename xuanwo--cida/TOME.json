@@ -1,0 +1,44 @@
+{
+  "name": "cida",
+  "owner": "Xuanwo",
+  "repo": "cida",
+  "description": "\u8f9e\u8fbe\uff1a\u7528\u4f60\u9009\u62e9\u7684\u5927\u6a21\u578b\uff0c\u5728 Mac \u7684\u4efb\u4f55\u5730\u65b9\u7ffb\u8bd1\u548c\u6da6\u8272\u6587\u5b57\u3002Translate and polish text anywhere on your Mac.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Xuanwo/cida",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T02:56:01Z"
+}
