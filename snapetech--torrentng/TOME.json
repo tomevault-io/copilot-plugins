@@ -4,7 +4,7 @@
   "repo": "TorrentNG",
   "description": "Next-generation torrent client in Rust, with a universally compatible WebUI/API (including backwards compatibility with qbittorrent, rtorrent, transmission, deluge & more).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/snapetech/TorrentNG",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T07:49:52Z"
+  "distributed_at": "2026-09-28T13:41:35Z"
 }
