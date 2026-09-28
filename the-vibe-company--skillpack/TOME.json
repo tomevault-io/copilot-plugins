@@ -4,7 +4,7 @@
   "repo": "skillpack",
   "description": "Skillpack \u2014 a self-hostable, multi-tenant Skills Hub.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/The-Vibe-Company/skillpack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T05:05:20Z"
+  "distributed_at": "2026-09-28T10:08:38Z"
 }
