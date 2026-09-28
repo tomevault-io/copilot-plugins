@@ -1,0 +1,9 @@
+{
+  "name": "j3soon--runai-isaac",
+  "displayName": "runai-isaac",
+  "description": "Tools and Scripts for running Isaac Sim workloads on Run:ai",
+  "version": "1.0.0",
+  "author": "j3soon",
+  "homepage": "https://github.com/j3soon/runai-isaac",
+  "skills": []
+}
