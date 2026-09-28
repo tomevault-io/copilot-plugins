@@ -1,0 +1,9 @@
+{
+  "name": "frrazer--roblox-game-boilerplate",
+  "displayName": "roblox-game-boilerplate",
+  "description": "Roblox game boilerplate for AI agents: Rojo, Wally, typed Packet networking, ProfileStore data, strict Luau and an AGENTS.md",
+  "version": "1.0.0",
+  "author": "frrazer",
+  "homepage": "https://github.com/frrazer/roblox-game-boilerplate",
+  "skills": []
+}
