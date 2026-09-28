@@ -1,0 +1,44 @@
+{
+  "name": "homebrew-community-cask",
+  "owner": "maxinchun5",
+  "repo": "homebrew-community-cask",
+  "description": "This tap actively maintains updated casks, hosts apps removed from homebrew/cask due to gatekeeper, and welcomes unsigned releases from community developers.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/maxinchun5/homebrew-community-cask",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T16:34:26Z"
+}
