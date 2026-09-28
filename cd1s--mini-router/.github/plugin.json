@@ -1,0 +1,9 @@
+{
+  "name": "cd1s--mini-router",
+  "displayName": "mini-router",
+  "description": "Minimal Alpine-based router OS: one YAML file, one static binary, professional web UI, safe apply/rollback. Any architecture + Redmi AX6000 image.",
+  "version": "1.0.0",
+  "author": "Cd1s",
+  "homepage": "https://github.com/Cd1s/mini-router",
+  "skills": []
+}
