@@ -1,0 +1,9 @@
+{
+  "name": "infino-ai--supergrep",
+  "displayName": "supergrep",
+  "description": "Retrieval + inference offload for AI coding agents.",
+  "version": "1.0.0",
+  "author": "infino-ai",
+  "homepage": "https://github.com/infino-ai/supergrep",
+  "skills": []
+}
