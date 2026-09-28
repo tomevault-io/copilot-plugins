@@ -1,0 +1,9 @@
+{
+  "name": "tantosec--tturl",
+  "displayName": "tturl",
+  "description": "The HTTP/2 CLI for finding tiny timing differences and winning request races",
+  "version": "1.0.0",
+  "author": "tantosec",
+  "homepage": "https://github.com/tantosec/tturl",
+  "skills": []
+}
