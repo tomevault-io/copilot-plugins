@@ -1,0 +1,9 @@
+{
+  "name": "sbobyn--three-avbd",
+  "displayName": "three-avbd",
+  "description": "Augmented Vertex Block Descent (SIGGRAPH 2025) in TypeScript, Three.js and WebGPU",
+  "version": "1.0.0",
+  "author": "sbobyn",
+  "homepage": "https://github.com/sbobyn/three-avbd",
+  "skills": []
+}
