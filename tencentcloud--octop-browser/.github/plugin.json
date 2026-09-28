@@ -1,0 +1,9 @@
+{
+  "name": "tencentcloud--octop-browser",
+  "displayName": "octop-browser",
+  "description": "Agent-first lightweight browser automation \u2014 direct CDP, no Playwright, more accurate and more reliable.",
+  "version": "1.0.0",
+  "author": "TencentCloud",
+  "homepage": "https://github.com/TencentCloud/octop-browser",
+  "skills": []
+}
