@@ -1,0 +1,9 @@
+{
+  "name": "fadwen--ai-powershell-standards",
+  "displayName": "ai-powershell-standards",
+  "description": "Enterprise-grade PowerShell development standards, shipped as GitHub Copilot instructions and Claude Code rules, for consistent, secure, and high-quality PowerShell code across teams and projects.",
+  "version": "1.0.0",
+  "author": "fadwen",
+  "homepage": "https://github.com/fadwen/ai-powershell-standards",
+  "skills": []
+}
