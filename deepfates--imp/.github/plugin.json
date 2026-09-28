@@ -1,0 +1,9 @@
+{
+  "name": "deepfates--imp",
+  "displayName": "imp",
+  "description": "declarative self-improving language-model programs for Elixir \ud83d\ude07",
+  "version": "1.0.0",
+  "author": "deepfates",
+  "homepage": "https://github.com/deepfates/imp",
+  "skills": []
+}
