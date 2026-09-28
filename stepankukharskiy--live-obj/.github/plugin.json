@@ -1,0 +1,9 @@
+{
+  "name": "stepankukharskiy--live-obj",
+  "displayName": "live-obj",
+  "description": "an ongoing exploration of llm native capabilities to generate obj files directly and build a more robust system on top of that",
+  "version": "1.0.0",
+  "author": "StepanKukharskiy",
+  "homepage": "https://github.com/StepanKukharskiy/live-obj",
+  "skills": []
+}
