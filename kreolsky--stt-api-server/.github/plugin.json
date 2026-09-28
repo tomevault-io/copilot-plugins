@@ -1,0 +1,9 @@
+{
+  "name": "kreolsky--stt-api-server",
+  "displayName": "stt-api-server",
+  "description": "Self-hosted, OpenAI-compatible speech-to-text API with pluggable ASR backends (Whisper, GigaAM)",
+  "version": "1.0.0",
+  "author": "kreolsky",
+  "homepage": "https://github.com/kreolsky/stt-api-server",
+  "skills": []
+}
