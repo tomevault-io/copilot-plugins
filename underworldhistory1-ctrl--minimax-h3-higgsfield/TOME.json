@@ -1,0 +1,44 @@
+{
+  "name": "minimax-h3-higgsfield",
+  "owner": "underworldhistory1-ctrl",
+  "repo": "minimax-h3-higgsfield",
+  "description": "MiniMax H3 video studio for Windows and Linux: text, frames, named references, native audio, render options, and a creator-friendly UI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/underworldhistory1-ctrl/minimax-h3-higgsfield",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T10:37:33Z"
+}
