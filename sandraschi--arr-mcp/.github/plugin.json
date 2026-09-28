@@ -1,0 +1,9 @@
+{
+  "name": "sandraschi--arr-mcp",
+  "displayName": "arr-mcp",
+  "description": "Unified FastMCP 3.3 server for the *arr automation stack \u2014 Radarr, Sonarr, Lidarr, Prowlarr, Readarr, Overseerr, Bazarr. 25 MCP tools, cross-arr orchestration, Jellyfin bridge, Prefab-UI cards.",
+  "version": "1.0.0",
+  "author": "sandraschi",
+  "homepage": "https://github.com/sandraschi/arr-mcp",
+  "skills": []
+}
