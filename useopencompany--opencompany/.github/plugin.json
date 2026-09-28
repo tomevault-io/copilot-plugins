@@ -1,0 +1,9 @@
+{
+  "name": "useopencompany--opencompany",
+  "displayName": "opencompany",
+  "description": "AI workspace with chat, durable tasks and workflows, connected integrations, Brain knowledge, and cloud coding sessions.",
+  "version": "1.0.0",
+  "author": "useopencompany",
+  "homepage": "https://github.com/useopencompany/opencompany",
+  "skills": []
+}
