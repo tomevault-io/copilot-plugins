@@ -7,11 +7,11 @@ A free Mac app that shows you what’s taking up disk space and explains it in p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tldev/elbowroom](https://github.com/tldev/elbowroom).
+Original source: `AGENTS.md` in [tldev/elbowroom](https://github.com/tldev/elbowroom).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
