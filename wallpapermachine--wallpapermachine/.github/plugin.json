@@ -1,0 +1,9 @@
+{
+  "name": "wallpapermachine--wallpapermachine",
+  "displayName": "WallpaperMachine",
+  "description": "Native macOS live wallpaper app for Wallpaper Engine scenes, videos and web wallpapers, with a lock-screen extension. Apple Silicon.",
+  "version": "1.0.0",
+  "author": "WallpaperMachine",
+  "homepage": "https://github.com/WallpaperMachine/WallpaperMachine",
+  "skills": []
+}
