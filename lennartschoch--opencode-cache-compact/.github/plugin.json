@@ -1,0 +1,9 @@
+{
+  "name": "lennartschoch--opencode-cache-compact",
+  "displayName": "opencode-cache-compact",
+  "description": "Cache-friendly context compaction for OpenCode: summarize by append, then cut the outgoing context.",
+  "version": "1.0.0",
+  "author": "lennartschoch",
+  "homepage": "https://github.com/lennartschoch/opencode-cache-compact",
+  "skills": []
+}
