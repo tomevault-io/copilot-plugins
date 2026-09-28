@@ -1,0 +1,44 @@
+{
+  "name": "xenolith-graph",
+  "owner": "XenolithEngine",
+  "repo": "xenolith-graph",
+  "description": "AI-native, embeddable node-graph editor for the web. Blueprint-style typed pins, in-node widgets, macros, React/Vue adapters, and a built-in MCP server so Claude Desktop / Cursor can build graphs over a localhost bridge.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/XenolithEngine/xenolith-graph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T03:28:22Z"
+}
