@@ -1,0 +1,9 @@
+{
+  "name": "suites-dev--blackbox",
+  "displayName": "blackbox",
+  "description": "Runtime verification framework for software systems",
+  "version": "1.0.0",
+  "author": "suites-dev",
+  "homepage": "https://github.com/suites-dev/blackbox",
+  "skills": []
+}
