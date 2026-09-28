@@ -1,0 +1,9 @@
+{
+  "name": "zorn--local-cents",
+  "displayName": "local_cents",
+  "description": "LocalCents is an open-source expense-tracking application built for local-first, offline collaboration across multiple devices. The app can be run as a desktop application on macOS, Windows, and Linux",
+  "version": "1.0.0",
+  "author": "zorn",
+  "homepage": "https://github.com/zorn/local_cents",
+  "skills": []
+}
