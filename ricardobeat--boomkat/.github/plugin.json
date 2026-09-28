@@ -1,0 +1,9 @@
+{
+  "name": "ricardobeat--boomkat",
+  "displayName": "boomkat",
+  "description": "A lightweight JS engine with native TypeScript support. 100% compliance on ES5/ES6 spec.",
+  "version": "1.0.0",
+  "author": "ricardobeat",
+  "homepage": "https://github.com/ricardobeat/boomkat",
+  "skills": []
+}
