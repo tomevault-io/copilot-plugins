@@ -1,0 +1,44 @@
+{
+  "name": "Guanaco",
+  "owner": "Atomic-Germ",
+  "repo": "Guanaco",
+  "description": "While guanacos are slightly taller than llamas (measuring up to 6.2 feet from head to toe), they are generally slimmer and weigh less. Guanaco runs bigger models than it has any right to for given hardware.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Atomic-Germ/Guanaco",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T13:08:41Z"
+}
