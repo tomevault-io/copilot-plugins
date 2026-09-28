@@ -1,0 +1,9 @@
+{
+  "name": "potatovibes--photo2relief",
+  "displayName": "photo2relief",
+  "description": "Take a photo as input and create a depth-mapped 3d model as output for later CNC carving.",
+  "version": "1.0.0",
+  "author": "PotatoVibes",
+  "homepage": "https://github.com/PotatoVibes/photo2relief",
+  "skills": []
+}
