@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--quality-gate-encoder",
+  "displayName": "quality-gate-encoder",
+  "description": "Quality Gate's encoder for Jellyfin: automatic 720p HEVC, H.264 or AV1 versions of a library, with NVIDIA and Intel hardware acceleration",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/quality-gate-encoder",
+  "skills": []
+}
