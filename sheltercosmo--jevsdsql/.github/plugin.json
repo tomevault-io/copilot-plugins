@@ -1,0 +1,9 @@
+{
+  "name": "sheltercosmo--jevsdsql",
+  "displayName": "JevSDSQL",
+  "description": "A self-developing SQL database with JEV based semantic operators and natural language queries.",
+  "version": "1.0.0",
+  "author": "Sheltercosmo",
+  "homepage": "https://github.com/Sheltercosmo/JevSDSQL",
+  "skills": []
+}
