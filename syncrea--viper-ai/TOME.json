@@ -4,7 +4,7 @@
   "repo": "viper-ai",
   "description": "A phased development workflow for AI Agents that combats context rot.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/syncrea/viper-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T00:34:36Z"
+  "distributed_at": "2026-09-28T04:41:15Z"
 }
