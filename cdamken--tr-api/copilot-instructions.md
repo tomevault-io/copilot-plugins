@@ -1,0 +1,160 @@
+## tr-api
+
+> > Context for AI assistants. Humans: see [README.md](README.md).
+
+# CLAUDE.md — tr-api
+
+> Context for AI assistants. Humans: see [README.md](README.md).
+
+## What this is
+
+`tr-api` is the **canonical Python library** for talking to Trade
+Republic's backend (REST + WebSocket). Two downstream projects depend on
+it:
+
+- [`Trade-Republic-Dashboard`](https://github.com/cdamken/trade-republic-dashboard) — local single-user dashboard
+- [`Trade-Republic-owncloud`](https://github.com/cdamken/trade-republic-owncloud) — multi-user ownCloud port
+
+**This repo is upstream.** Any change that touches the TR protocol
+(endpoints, event schemas, auth flow, WS topics) lands here first, then
+the downstreams adopt it.
+
+## Two-mode auth
+
+The library supports both, side-by-side:
+
+1. **Cookie-import** (`tr_api.cookies.import_from_chrome`) — read TR's
+   session cookies from a real Chrome on the user's machine via
+   `pycookiecheat`. No Playwright at all. Used on workstations.
+2. **Programmatic login** (`tr_api.auth.initiate_login` /
+   `complete_login`) — phone+PIN, with `tr_api.waf.get_waf_token` running
+   the AWS WAF challenge under Playwright. Used on headless servers
+   (ownCloud, CI).
+
+The README and `docs/auth-modes.md` cover the trade-offs.
+
+## Session model + data availability (confirmed 2026-06-16)
+
+**Sesión:** cookies (`JSESSIONID`, `tr_refresh`, `tr_device`). **Keepalive GET
+cada 290s** porque la sesión del server de TR dura ~5 min; las cookies mueren
+tras días o por login concurrente (WS cierra con `3003 registered`).
+
+**Login (2026 redesign — v2 push-approval):** TR **deprecó `/api/v1/auth/web/login`**
+(426 CLIENT_VERSION_OUTDATED). El login web ahora es **`/api/v2/auth/web/login`**
+con **aprobación por push** — ya NO hay código de 4 dígitos; el usuario **aprueba
+en la app** (como SC). Flujo: POST v2 (headers `x-tr-platform`/`x-tr-app-version`/
+`x-tr-device-info`/`x-aws-waf-token` + cookie `aws-waf-token`) → `processId` →
+poll `GET /api/v2/auth/web/login/processes/{id}` hasta `APPROVED` (ventana ~90s).
+Implementado en `auth.web_login_v2()`; v1 (`initiate_login`/`complete_login`) queda
+de respaldo. Ref: pytr PR #355. Verificado live 2026-07-03.
+
+> **CONTRASTE con GBM**: TR **no** sufre el burn-down del access token de GBM.
+> NO apliques aquí el fix de refresh-Bearer proactivo de gbm-mx-api — el modelo
+> de TR es keepalive de cookie, distinto del de GBM (refresh-Bearer) y del de SC
+> (Auth0 + re-auth on-demand).
+
+**Disponibilidad de datos:** TR tiene **UNA sola cuenta** en 5 buckets
+(Stocks/ETFs, Bonds, Private Equity, Crypto, Cash). **No** existe una sub-cuenta
+"solo posiciones" análoga a la Trading USA de GBM — todo el timeline se captura
+por igual. Por eso la nota de UI "solo posiciones" es **exclusiva de GBM** y TR
+no la lleva. Detalle: ADR `2026-06-16 — TR` en
+[../Portfolio-Master/DECISIONS.md](../Portfolio-Master/DECISIONS.md).
+
+## Two WS timeline topics (the gotcha)
+
+TR splits the timeline across **two parallel topics**:
+
+| Topic | What it returns |
+|---|---|
+| `timelineTransactions` | Cash movements: card spending, deposits, transfers, interest, tax refunds, trades, dividends, savings-plan executions, corporate actions |
+| `timelineActivityLog` | Order lifecycle and informational events: order created/cancelled/expired, corporate-action notifications, chat, documents (NOT cash events for most accounts) |
+
+`pytr` subscribes to both back-to-back on **one WebSocket**. So do we
+(see `Trade-Republic-Dashboard/app/tr_fetch.py::_paginate_topic_on_ws`).
+
+**Critical**: when you open TWO separate WS connections (one per topic),
+TR returns 0 items on the second. Pytr's one-WS pattern is mandatory.
+
+`tr_api.transactions` and `tr_api.activity_log` give you per-topic
+fetch_all/fetch_since helpers, but each opens its own WS — fine for
+single-topic use, broken for combined fetches. Downstream apps
+implement the combined fetch themselves to share one socket.
+
+## eventType vocabulary (2026 rename)
+
+TR renamed almost every eventType during 2026. The pytr-era strings
+(`INCOMING_TRANSFER`, `TRADE_INVOICE`, `DIVIDEND`, etc.) no longer
+appear on live responses. Current strings use uppercase prefixes:
+
+| Prefix | Examples | Mapped category |
+|---|---|---|
+| `TRADING_` | `TRADING_SAVINGSPLAN_EXECUTED`, `TRADING_TRADE_EXECUTED` | Buy/Sell |
+| `BANK_TRANSACTION_` | `BANK_TRANSACTION_INCOMING`, `BANK_TRANSACTION_OUTGOING*` | Deposit / Withdrawal |
+| `SSP_` | `SSP_CORPORATE_ACTION_CASH`, `SSP_TAX_CORRECTION` | Dividend / Tax Refund |
+| `CARD_` | `CARD_TRANSACTION`, `CARD_REFUND` | Removal / Deposit |
+
+Full catalogue: `docs/events.md`. The map lives in downstream apps'
+`EVENT_TYPE_MAP` — keep it in sync between both.
+
+## Repo layout
+
+```
+src/tr_api/
+├── __init__.py        ← public re-exports
+├── account.py         ← /api/v2/auth/account + ping
+├── activity_log.py    ← timelineActivityLog topic (Phase 12+)
+├── auth.py            ← initiate_login / complete_login (programmatic mode)
+├── cli.py             ← `tr-api ...` command
+├── client.py          ← TrClient (authenticated REST)
+├── cookies.py         ← import_from_chrome / save / load / validate
+├── documents.py       ← bulk PDF download (combines transactions + activity_log + timeline_detail)
+├── exceptions.py      ← hierarchy: TrApiError → AuthError / ApiError / ...
+├── portfolio.py       ← snapshot() and snapshot_full() (WS)
+├── profiles.py        ← multi-account profile management
+├── protocol.py        ← TrWebSocket (async, low-level)
+├── timeline_detail.py ← timelineDetailV2 + extract_documents helper
+├── transactions.py    ← timelineTransactions topic
+└── waf.py             ← AWS WAF token via Playwright
+docs/
+├── auth-modes.md          ← cookie-import vs programmatic-login
+├── cli-contract.md        ← CLI surface
+├── documents.md           ← layout + tuning for `docs download`
+├── events.md              ← eventType vocabulary
+├── troubleshooting.md     ← 3003 registered, 401, 405, 429, etc.
+└── websocket-topics.md    ← timelineTransactions vs timelineActivityLog gap
+```
+
+## Workflow rules (read these before changing code)
+
+1. **Don't break the public surface.** `tr_api.transactions`,
+   `tr_api.activity_log`, `tr_api.portfolio`, `tr_api.auth` are used by
+   downstreams. If you must change a function signature, do it as an
+   add (new function) + deprecate, not a rename.
+2. **Event-type changes**: if TR adds a new eventType, document it in
+   `docs/events.md` AND update both downstream `EVENT_TYPE_MAP`s in
+   the same commit cycle. Mismatch = silently dropped data.
+3. **Tests**: this repo doesn't have a test suite yet. Validate
+   manually by running the downstream Dashboard's
+   `app/tr_fetch.py --non-interactive --full` and counting rows in the
+   resulting CSV.
+
+## Recently resolved investigations
+
+- **2026-05-28**: Bulk PDF downloads landed (`tr_api.documents` +
+  `tr-api docs download`). Matches pytr's `dl_docs` killer feature on
+  top of our timeline_detail wrapper. Layout: `<out>/<YYYY>/<kind>/`
+  with manifest.json. Both downstreams now expose a "Documents" button.
+  See `docs/documents.md`.
+- **2026-05-28**: `tr_api.timeline_detail` shipped — wraps
+  `timelineDetailV2` and exposes `extract_documents()`. Prerequisite
+  for the documents feature.
+- **2026-05-28**: "fetch_all returns only 330 items / no trades" was
+  the 2026 eventType rename — old map matched only ~5% of events. Fixed
+  in downstream `EVENT_TYPE_MAP`. See `docs/events.md`.
+- **2026-05-28**: Single-WS pattern matters. Two-WS gives 0 items on
+  the second topic. Downstream's `_paginate_topic_on_ws` is the
+  reference implementation.
+
+---
+> Source: [cdamken/tr-api](https://github.com/cdamken/tr-api) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-27 -->
