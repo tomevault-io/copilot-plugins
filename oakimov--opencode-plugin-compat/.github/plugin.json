@@ -1,0 +1,9 @@
+{
+  "name": "oakimov--opencode-plugin-compat",
+  "displayName": "opencode-plugin-compat",
+  "description": "Universal OpenCode plugin compatibility bridge \u2014 facades, one autodetection adapter, host kit, and doctor for OpenCode forks. MPL-2.0.",
+  "version": "1.0.0",
+  "author": "oakimov",
+  "homepage": "https://github.com/oakimov/opencode-plugin-compat",
+  "skills": []
+}
