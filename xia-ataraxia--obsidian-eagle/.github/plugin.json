@@ -1,0 +1,9 @@
+{
+  "name": "xia-ataraxia--obsidian-eagle",
+  "displayName": "obsidian-eagle",
+  "description": "Obsidian plugin that uploads pasted images to Eagle and renders them from a local vault cache.",
+  "version": "1.0.0",
+  "author": "Xia-Ataraxia",
+  "homepage": "https://github.com/Xia-Ataraxia/obsidian-eagle",
+  "skills": []
+}
