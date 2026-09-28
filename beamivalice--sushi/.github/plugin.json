@@ -1,0 +1,9 @@
+{
+  "name": "beamivalice--sushi",
+  "displayName": "sushi",
+  "description": "Custom engine for selected AI models.",
+  "version": "1.0.0",
+  "author": "beamivalice",
+  "homepage": "https://github.com/beamivalice/sushi",
+  "skills": []
+}
