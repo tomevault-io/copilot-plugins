@@ -1,0 +1,9 @@
+{
+  "name": "issundb--issun-db",
+  "displayName": "issun-db",
+  "description": "A fast embedded graph database for AI applications and graph analytics",
+  "version": "1.0.0",
+  "author": "IssunDB",
+  "homepage": "https://github.com/IssunDB/issun-db",
+  "skills": []
+}
