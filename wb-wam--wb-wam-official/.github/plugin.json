@@ -1,0 +1,9 @@
+{
+  "name": "wb-wam--wb-wam-official",
+  "displayName": "WB-WAM-Official",
+  "description": "WB-WAM: Heterogeneous Body\u2013Hand Pre-training for Humanoid Loco-Manipulation.",
+  "version": "1.0.0",
+  "author": "WB-WaM",
+  "homepage": "https://github.com/WB-WaM/WB-WAM-Official",
+  "skills": []
+}
