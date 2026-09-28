@@ -4,7 +4,7 @@
   "repo": "local_cents",
   "description": "LocalCents is an open-source expense-tracking application built for local-first, offline collaboration across multiple devices. The app can be run as a desktop application on macOS, Windows, and Linux, as well as on the web.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zorn/local_cents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T07:48:07Z"
+  "distributed_at": "2026-09-28T13:40:50Z"
 }
