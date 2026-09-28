@@ -1,0 +1,9 @@
+{
+  "name": "hraness--xcb",
+  "displayName": "xcb",
+  "description": "xcb routes coding tasks across the Claude, Codex, and Devin subscriptions you already pay for, picking an account that is signed in and idle.",
+  "version": "1.0.0",
+  "author": "hraness",
+  "homepage": "https://github.com/hraness/xcb",
+  "skills": []
+}
