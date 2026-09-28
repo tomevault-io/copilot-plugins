@@ -7,13 +7,13 @@ A modern microfrontend platform with Module Federation, real-time app monitoring
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [izzywdev/FuzeFront](https://github.com/izzywdev/FuzeFront).
+Original source: `CLAUDE.md` in [izzywdev/FuzeFront](https://github.com/izzywdev/FuzeFront).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
