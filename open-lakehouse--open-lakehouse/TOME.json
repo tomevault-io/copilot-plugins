@@ -4,7 +4,7 @@
   "repo": "open-lakehouse",
   "description": "An integrated, AI-friendly lakehouse stack using open source standards complete with table formats, query engines, streaming, governance, and agent orchestration/evaluation. This repo is actively maintained by the Databricks DevRel Team. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/open-lakehouse/open-lakehouse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T00:32:15Z"
+  "distributed_at": "2026-09-28T04:38:15Z"
 }
