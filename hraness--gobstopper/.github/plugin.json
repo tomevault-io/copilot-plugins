@@ -1,0 +1,9 @@
+{
+  "name": "hraness--gobstopper",
+  "displayName": "gobstopper",
+  "description": "Gobstopper makes long Claude Code and Codex sessions smaller. Preview each cut, write a compacted copy, and keep every original byte in a local vault.",
+  "version": "1.0.0",
+  "author": "hraness",
+  "homepage": "https://github.com/hraness/gobstopper",
+  "skills": []
+}
