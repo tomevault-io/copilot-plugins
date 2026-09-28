@@ -1,9 +1,8 @@
-## duplic
+## regrass
 
-> Evite a Duplicaçao de codigo sempre que possivel, o que significa verificar outras aresas do codigo que ja possam ter codigo e funcionalidades semelhantes
+> Sempre prefira soluçoes simples.
 
-
-Evite a Duplicaçao de codigo sempre que possivel, o que significa verificar outras aresas do codigo que ja possam ter codigo e funcionalidades semelhantes
+Sempre prefira soluçoes simples.
 
 ---
 > Source: [binsmaster/FetterApp](https://github.com/binsmaster/FetterApp) — distributed by [TomeVault](https://tomevault.io).
