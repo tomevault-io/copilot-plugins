@@ -1,0 +1,93 @@
+## sourceweft
+
+> - For every change intended for `main`, create or identify a GitHub Issue before implementation. Use the feature or bug Issue form when appropriate; use a blank Issue for maintenance or documentation. An urgent fix still needs an Issue and PR, with details completed as soon as practical.
+
+# Repository agent instructions
+
+## GitHub work tracking
+
+- For every change intended for `main`, create or identify a GitHub Issue before implementation. Use the feature or bug Issue form when appropriate; use a blank Issue for maintenance or documentation. An urgent fix still needs an Issue and PR, with details completed as soon as practical.
+- Keep the Issue's expected result and acceptance criteria current. Put only publishable information in public Issues and PRs. Confidential planning belongs in a restricted location; the private Project does not hide public Issue content.
+- Track each Issue as one card in the private [SourceWeft Work Project](https://github.com/orgs/SourceWeft/projects/1). Do not add a duplicate PR card. Assign an owner and move the Issue through Todo, In Progress, In Review, and Done. Move to In Review when the PR is ready for review, not while it is a draft.
+- Open a PR targeting `main` for every change. Link the Issue in its description using `Closes #number` only when all acceptance criteria are met; use `Refs #number` for partial work. Include summary, verification, and rollout risks. Merge only after applicable CI checks and review are complete.
+- Treat Done as an Issue closed after the final PR merges. Track release status separately. Use the existing `enhancement`, `bug`, and optional `documentation` labels; do not add status, priority, or module labels for this workflow.
+- PR CI intentionally skips the full Docker image and Compose startup validation. Tag releases and manual image publication run it. A skipped Docker Build on a PR is expected; do not report it as a failed PR check.
+
+## Superpowers document locations
+
+- `.docs/` is local-only. Never stage, commit, force-add, or push files under `.docs/`, including Superpowers specifications and plans. Before every commit, inspect `git diff --cached --name-only` and remove any `.docs/` entries.
+- Store all Superpowers-generated documents under `.docs/`, never under `docs/`.
+- Write brainstorming specifications to `.docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`.
+- Write implementation plans to `.docs/superpowers/plans/YYYY-MM-DD-<topic>.md`.
+- When a skill specifies a path beginning with `docs/` (including legacy `docs/plans/`), replace that prefix with `.docs/` and preserve the remaining path.
+- Use the actual `.docs/` paths in links, handoffs, review prompts, and subsequent execution steps. Create the required directories as needed.
+- These project-specific locations override the default document locations in Superpowers skills.
+
+## Fallback policy
+
+- Do not silently fallback to a different implementation, model, provider, data source, command, test strategy, or dependency.
+- If the requested path fails, first report the exact blocker and retry only when the retry addresses the blocker.
+- If sandbox, network, permission, auth, or dependency access is missing, request the needed approval instead of inventing a workaround.
+- Before using a fallback, state: original plan, failure reason, proposed fallback, behavior difference, and verification impact.
+- Prefer failing fast over producing an unverified approximation.
+
+## Global model Provider activation
+
+These rules apply to deployment-level/System model Providers. They do not replace database-backed BYOK state.
+
+- Keep Provider activation and credentials separate.
+- A Provider activation environment variable expresses deployment intent; a Provider API-key environment variable supplies only a credential.
+- Never activate a Provider because its API key is present.
+- Raw global gateway configuration uses an `activation` object:
+
+  ```json
+  {
+    "activation": {
+      "env": "ORCAROUTER_ENABLED",
+      "default": false
+    },
+    "apiKeyEnv": "ORCAROUTER_API_KEY"
+  }
+  ```
+
+- Remove and reject gateway-level raw `isActive`; no backwards-compatibility parser is required because this configuration format has not been released.
+- `activation.env` must name a strict boolean environment variable. Accept only `true`, `false`, `1`, or `0`, ignoring case and surrounding whitespace. Invalid values fail configuration loading.
+- If the activation environment variable is absent, use `activation.default`.
+- Resolve three distinct states:
+  - `enabled`: activation env/default result;
+  - `configured`: every global credential declared by the gateway is present, or the gateway declares no global credential;
+  - `globalReady`: `enabled && configured`.
+- OpenRouter uses `OPENROUTER_ENABLED`, defaults enabled, and uses `OPENROUTER_API_KEY` separately.
+- OrcaRouter uses `ORCAROUTER_ENABLED`, defaults disabled, and uses `ORCAROUTER_API_KEY` separately.
+- DeepInfra, DeepSeek, and SiliconFlow remain custom global Providers; do not add them back to the shipped default gateway list. Their documentation must state that env variables take effect only when referenced by a custom global gateway entry.
+- Profile-level `isActive`, route topology, `isDefault`, and `modelCatalog.enabled` remain configuration concerns and are not replaced by Provider activation env variables.
+- Persist global `enabled` in the existing gateway/provider `isActive` database columns. Preserve non-secret configured/readiness diagnostics separately and recompute runtime readiness from persisted enabled state plus actual credential presence.
+- GLOBAL routing and authenticated catalog discovery require `globalReady`.
+- Disabled or credential-incomplete Providers must not enter GLOBAL routing or authenticated catalog discovery.
+- Invalid config fails fast. A globally enabled Provider with a missing optional deployment credential may leave the service running, but must be reported as not configured/not ready and must not silently select an undeclared Provider.
+- A catalog failure for a globally ready Provider must not switch data sources or activate a partial configuration version. Abort the sync before activating the new version and retain the previously active version.
+- Include resolved base URL, activation source, enabled, configured, and globalReady in the safe configuration fingerprint. Never hash or expose credential contents. Credential absent/present changes the fingerprint; rotation from one non-empty value to another does not.
+- Docker and backend env examples expose separate `*_ENABLED` and `*_API_KEY` variables. Docker defaults are `OPENROUTER_ENABLED=true` and `ORCAROUTER_ENABLED=false`.
+
+## BYOK boundary
+
+- BYOK credentials remain encrypted in `model_gateway_byok_credentials`; BYOK models remain in `model_gateway_byok_models`.
+- BYOK credential/model `isActive` database values remain their activation controls.
+- Global `*_ENABLED` and `*_API_KEY` variables must not activate, deactivate, or satisfy BYOK credentials.
+- BYOK readiness depends on an active, authorized database credential/model, successful secret decryption, and complete Provider metadata.
+- BYOK may reuse a non-secret System Provider definition even when that Provider is disabled for GLOBAL traffic, but it must never reuse the global activation state or global API key.
+- BYOK changes do not alter the global model-gateway configuration hash.
+- The existing gateway-level `isBYOK` field is a billing/cost-ownership classification, not BYOK credential storage or Provider activation.
+
+## Verification requirements for Provider activation changes
+
+- Cover strict activation parsing, missing/malformed activation, rejection of raw gateway `isActive`, and every enabled/key readiness combination.
+- Cover OpenRouter and OrcaRouter defaults without depending on ambient developer environment variables.
+- Cover configuration-hash changes without secret exposure.
+- Cover sync persistence, catalog eligibility, atomic catalog failure, GLOBAL route filtering, and safe no-ready-target errors.
+- Cover BYOK operation while the same System Provider is globally disabled, and prove that global credentials cannot satisfy BYOK.
+- Cover Docker Compose defaults and consistency between shipped config and env examples.
+
+---
+> Source: [SourceWeft/SourceWeft](https://github.com/SourceWeft/SourceWeft) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
