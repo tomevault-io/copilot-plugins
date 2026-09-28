@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--forge",
+  "displayName": "forge",
+  "description": "forge",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/forge",
+  "skills": []
+}
