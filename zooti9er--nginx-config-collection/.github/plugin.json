@@ -1,0 +1,9 @@
+{
+  "name": "zooti9er--nginx-config-collection",
+  "displayName": "nginx-config-collection",
+  "description": "Nginx \u914d\u7f6e\u6587\u4ef6\u96c6\u5408\uff0c\u5305\u542b\u5404\u79cd\u4ee3\u7406\u914d\u7f6e\u548c\u6700\u4f73\u5b9e\u8df5",
+  "version": "1.0.0",
+  "author": "ZooTi9er",
+  "homepage": "https://github.com/ZooTi9er/nginx-config-collection",
+  "skills": []
+}
