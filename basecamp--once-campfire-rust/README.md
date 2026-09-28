@@ -7,11 +7,11 @@ ONCE Campfire in Rust: one binary, the Rails app's data, 19–44× faster
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [basecamp/once-campfire-rust](https://github.com/basecamp/once-campfire-rust).
+Original source: `AGENTS.md` in [basecamp/once-campfire-rust](https://github.com/basecamp/once-campfire-rust).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
