@@ -1,0 +1,9 @@
+{
+  "name": "sourceweft--sourceweft",
+  "displayName": "SourceWeft",
+  "description": "Your AI workforce, on your terms. An open-source workstation with multi-agent collaboration, a rich skill library, MCP, and sandboxed execution. Bring your models. Deploy anywhere. Work across devices",
+  "version": "1.0.0",
+  "author": "SourceWeft",
+  "homepage": "https://github.com/SourceWeft/SourceWeft",
+  "skills": []
+}
