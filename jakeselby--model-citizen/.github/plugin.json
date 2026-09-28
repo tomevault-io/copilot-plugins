@@ -1,0 +1,9 @@
+{
+  "name": "jakeselby--model-citizen",
+  "displayName": "model-citizen",
+  "description": "The control plane for your coding agents, however you run them. One checkout of rules, skills, subagents, hooks and stances, projected into Claude Code and Codex with your own primitives: hook-enforce",
+  "version": "1.0.0",
+  "author": "JakeSelby",
+  "homepage": "https://github.com/JakeSelby/model-citizen",
+  "skills": []
+}
