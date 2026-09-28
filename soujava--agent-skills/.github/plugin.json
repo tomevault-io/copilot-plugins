@@ -1,0 +1,9 @@
+{
+  "name": "soujava--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Open-sourced Agent Skills",
+  "version": "1.0.0",
+  "author": "soujava",
+  "homepage": "https://github.com/soujava/agent-skills",
+  "skills": []
+}
