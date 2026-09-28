@@ -1,0 +1,9 @@
+{
+  "name": "album3270--excel-assistant",
+  "displayName": "excel-assistant",
+  "description": "An AI agent in the Excel side panel: reads and edits the open workbook, runs locally, works with an Anthropic API key or any Anthropic-compatible API. Assembled from open-source parts.",
+  "version": "1.0.0",
+  "author": "ALbum3270",
+  "homepage": "https://github.com/ALbum3270/excel-assistant",
+  "skills": []
+}
