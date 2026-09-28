@@ -1,0 +1,9 @@
+{
+  "name": "odrasile--ai-usage-widget",
+  "displayName": "ai-usage-widget",
+  "description": "Floating desktop widget for monitoring local AI coding CLI usage across Codex, Claude Code, and Gemini. Built with Tauri, TypeScript, and a local Node backend.",
+  "version": "1.0.0",
+  "author": "odrasile",
+  "homepage": "https://github.com/odrasile/ai-usage-widget",
+  "skills": []
+}
