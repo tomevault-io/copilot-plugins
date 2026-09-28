@@ -4,7 +4,7 @@
   "repo": "PortPS5",
   "description": "Converts decrypted PS5 game dumps into native Windows executables via binary relinking, replacement system libraries, and Vulkan. No CPU emulation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yuriolive/PortPS5",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T09:16:10Z"
+  "distributed_at": "2026-09-28T15:11:54Z"
 }
