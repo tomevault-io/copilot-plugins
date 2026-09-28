@@ -1,0 +1,9 @@
+{
+  "name": "lloydbrian--claude-workspace-meta-assistant",
+  "displayName": "claude-workspace-meta-assistant",
+  "description": "Canonical scaffold for Claude project conventions \u2014 Context Memory protocols, operational discipline, and per-project overlays for Claude Code and claude.ai runtimes",
+  "version": "1.0.0",
+  "author": "lloydbrian",
+  "homepage": "https://github.com/lloydbrian/claude-workspace-meta-assistant",
+  "skills": []
+}
