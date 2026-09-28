@@ -1,0 +1,9 @@
+{
+  "name": "d1rty-pixel--lcars-homeassistant",
+  "displayName": "lcars-homeassistant",
+  "description": "My LCARS dashboard for Home Assistant",
+  "version": "1.0.0",
+  "author": "d1rty-pixel",
+  "homepage": "https://github.com/d1rty-pixel/lcars-homeassistant",
+  "skills": []
+}
