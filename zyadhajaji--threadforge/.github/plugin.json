@@ -1,0 +1,9 @@
+{
+  "name": "zyadhajaji--threadforge",
+  "displayName": "threadforge",
+  "description": "Open-source mockup platform for clothing brands \u2014 t-shirt mockup generator, brand kit, collections & exports. Built with Next.js 14, Fabric.js, Prisma, Stripe.",
+  "version": "1.0.0",
+  "author": "zyadhajaji",
+  "homepage": "https://github.com/zyadhajaji/threadforge",
+  "skills": []
+}
