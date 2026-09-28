@@ -1,0 +1,9 @@
+{
+  "name": "bells--elasticsearch-analysis-dynamic-synonym",
+  "displayName": "elasticsearch-analysis-dynamic-synonym",
+  "description": "elasticsearch-analysis-dynamic-synonym",
+  "version": "1.0.0",
+  "author": "bells",
+  "homepage": "https://github.com/bells/elasticsearch-analysis-dynamic-synonym",
+  "skills": []
+}
