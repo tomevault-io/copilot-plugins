@@ -1,0 +1,9 @@
+{
+  "name": "mattsmallman--komodo-alert-to-telegram",
+  "displayName": "komodo-alert-to-telegram",
+  "description": "Cloudflare Worker that sends Komodo alerts to Telegram, with debouncing and readable messages",
+  "version": "1.0.0",
+  "author": "mattsmallman",
+  "homepage": "https://github.com/mattsmallman/komodo-alert-to-telegram",
+  "skills": []
+}
