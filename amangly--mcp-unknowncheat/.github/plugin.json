@@ -1,0 +1,9 @@
+{
+  "name": "amangly--mcp-unknowncheat",
+  "displayName": "mcp-unknowncheat",
+  "description": "MCP server for UnknownCheats forum research",
+  "version": "1.0.0",
+  "author": "amangly",
+  "homepage": "https://github.com/amangly/mcp-unknowncheat",
+  "skills": []
+}
