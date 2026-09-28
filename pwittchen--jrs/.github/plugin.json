@@ -1,0 +1,9 @@
+{
+  "name": "pwittchen--jrs",
+  "displayName": "jrs",
+  "description": "A JVM build system, written in Rust",
+  "version": "1.0.0",
+  "author": "pwittchen",
+  "homepage": "https://github.com/pwittchen/jrs",
+  "skills": []
+}
