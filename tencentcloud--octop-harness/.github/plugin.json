@@ -1,0 +1,9 @@
+{
+  "name": "tencentcloud--octop-harness",
+  "displayName": "octop-harness",
+  "description": "A production-grade agent runtime engineered from the Harness Engineering philosophy.",
+  "version": "1.0.0",
+  "author": "TencentCloud",
+  "homepage": "https://github.com/TencentCloud/octop-harness",
+  "skills": []
+}
