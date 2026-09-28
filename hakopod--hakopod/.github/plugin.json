@@ -1,0 +1,9 @@
+{
+  "name": "hakopod--hakopod",
+  "displayName": "hakopod",
+  "description": "Deploy applications on your own servers, with a small Go control plane and a dashboard for everyday operations.",
+  "version": "1.0.0",
+  "author": "hakopod",
+  "homepage": "https://github.com/hakopod/hakopod",
+  "skills": []
+}
