@@ -1,0 +1,9 @@
+{
+  "name": "jgbrwn--rsync-web",
+  "displayName": "rsync-web",
+  "description": "Modern web UI for rsync with real-time output streaming, multiple concurrent jobs, command history, and full rsync options support.  *Warning, project is new and largely vibe-coded-- USE AT YOUR OWN R",
+  "version": "1.0.0",
+  "author": "jgbrwn",
+  "homepage": "https://github.com/jgbrwn/rsync-web",
+  "skills": []
+}
