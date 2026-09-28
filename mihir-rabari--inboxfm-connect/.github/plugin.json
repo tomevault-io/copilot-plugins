@@ -1,0 +1,9 @@
+{
+  "name": "mihir-rabari--inboxfm-connect",
+  "displayName": "inboxfm-connect",
+  "description": "Self-hostable integration infrastructure for AI agents and SaaS apps: embedded account connections, tool discovery and execution via REST, MCP and TypeScript. Development preview built on Activepieces",
+  "version": "1.0.0",
+  "author": "Mihir-Rabari",
+  "homepage": "https://github.com/Mihir-Rabari/inboxfm-connect",
+  "skills": []
+}
