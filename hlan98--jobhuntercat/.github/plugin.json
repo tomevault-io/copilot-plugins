@@ -1,0 +1,9 @@
+{
+  "name": "hlan98--jobhuntercat",
+  "displayName": "JobHunterCat",
+  "description": "\u4e00\u53ea\u771f\u6b63\u66ff\u4f60\u627e\u5de5\u4f5c\u7684 AI \u684c\u5ba0\uff1a\u5b83\u4f1a\u627e\u5c97\u4f4d\u3001\u5224\u65ad\u5339\u914d\u5ea6\u3001\u5e2e\u4f60\u6295\u9012\u3001\u76ef HR \u56de\u590d\uff0c\u5e76\u6839\u636e\u4f60\u7684\u6c42\u804c\u7ed3\u679c\u4e0d\u65ad\u8c03\u6574\u7b56\u7565",
+  "version": "1.0.0",
+  "author": "hlan98",
+  "homepage": "https://github.com/hlan98/JobHunterCat",
+  "skills": []
+}
