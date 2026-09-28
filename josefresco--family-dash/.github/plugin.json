@@ -1,0 +1,9 @@
+{
+  "name": "josefresco--family-dash",
+  "displayName": "family-dash",
+  "description": "Family dashboard of events and weather, optimized for older iPads.  Integration with Google Calendar and OpenWeather.",
+  "version": "1.0.0",
+  "author": "josefresco",
+  "homepage": "https://github.com/josefresco/family-dash",
+  "skills": []
+}
