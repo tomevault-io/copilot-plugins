@@ -1,7 +1,7 @@
 {
   "name": "aaditya-v-more--claude-graft",
   "displayName": "claude-graft",
-  "description": "Run several Claude Desktop accounts side by side on macOS, sharing Claude Code chats between them",
+  "description": "claude-graft",
   "version": "1.0.0",
   "author": "aaditya-v-more",
   "homepage": "https://github.com/aaditya-v-more/claude-graft",
