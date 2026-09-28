@@ -7,11 +7,11 @@ Angular DevTools : inspect components, signals, DI, and routes. Runs as a Chrome
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [santoshyadavdev/angular-devtools](https://github.com/santoshyadavdev/angular-devtools).
+Original source: `AGENTS.md` in [santoshyadavdev/angular-devtools](https://github.com/santoshyadavdev/angular-devtools).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
