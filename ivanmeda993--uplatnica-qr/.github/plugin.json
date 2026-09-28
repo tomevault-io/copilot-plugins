@@ -1,0 +1,9 @@
+{
+  "name": "ivanmeda993--uplatnica-qr",
+  "displayName": "uplatnica-qr",
+  "description": "Generate and scan NBS IPS QR codes, save recurring uplatnice, sync across devices. Next.js 16 + Elysia + Prisma + Better Auth.",
+  "version": "1.0.0",
+  "author": "ivanmeda993",
+  "homepage": "https://github.com/ivanmeda993/uplatnica-qr",
+  "skills": []
+}
