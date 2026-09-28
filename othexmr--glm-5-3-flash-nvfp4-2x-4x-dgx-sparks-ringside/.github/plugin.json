@@ -1,0 +1,9 @@
+{
+  "name": "othexmr--glm-5-3-flash-nvfp4-2x-4x-dgx-sparks-ringside",
+  "displayName": "GLM-5.3-Flash-NVFP4-2x-4x-DGX-Sparks-RiNGSiDE",
+  "description": "GLM-5.3-Flash NVFP4 on two or four DGX Sparks cabled as a ring, with no switch: the RiNGSiDE serving recipe",
+  "version": "1.0.0",
+  "author": "othexmr",
+  "homepage": "https://github.com/othexmr/GLM-5.3-Flash-NVFP4-2x-4x-DGX-Sparks-RiNGSiDE",
+  "skills": []
+}
