@@ -1,0 +1,9 @@
+{
+  "name": "kiritoking--midscene-jev-runner",
+  "displayName": "midscene-jev-runner",
+  "description": "Community-maintained JEV runner integration for Midscene Test",
+  "version": "1.0.0",
+  "author": "KiritoKing",
+  "homepage": "https://github.com/KiritoKing/midscene-jev-runner",
+  "skills": []
+}
