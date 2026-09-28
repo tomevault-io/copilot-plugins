@@ -4,7 +4,7 @@
   "repo": "tg-mcp-guarded",
   "description": "dual-plane telegram mcp: read-only analytics + guarded actions with anti-spam and block-risk controls",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matskevich/tg-mcp-guarded",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T01:09:16Z"
+  "distributed_at": "2026-09-28T05:21:35Z"
 }
