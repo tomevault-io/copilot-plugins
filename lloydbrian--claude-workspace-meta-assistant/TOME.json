@@ -4,7 +4,7 @@
   "repo": "claude-workspace-meta-assistant",
   "description": "Canonical scaffold for Claude project conventions \u2014 Context Memory protocols, operational discipline, and per-project overlays for Claude Code and claude.ai runtimes",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lloydbrian/claude-workspace-meta-assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T09:33:56Z"
+  "distributed_at": "2026-09-28T15:21:15Z"
 }
