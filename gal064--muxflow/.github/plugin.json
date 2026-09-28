@@ -1,0 +1,9 @@
+{
+  "name": "gal064--muxflow",
+  "displayName": "muxflow",
+  "description": "Muxflow desktop and mobile tmux client",
+  "version": "1.0.0",
+  "author": "gal064",
+  "homepage": "https://github.com/gal064/muxflow",
+  "skills": []
+}
