@@ -1,0 +1,9 @@
+{
+  "name": "tanskiszymon--vinyl-engine",
+  "displayName": "vinyl-engine",
+  "description": "Turn an audio file into a record you can print on an ordinary FDM printer and play on a real turntable. Lateral groove modulation, direct G-code, no server.",
+  "version": "1.0.0",
+  "author": "TanskiSzymon",
+  "homepage": "https://github.com/TanskiSzymon/vinyl-engine",
+  "skills": []
+}
