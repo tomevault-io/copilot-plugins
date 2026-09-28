@@ -1,0 +1,9 @@
+{
+  "name": "georgebashi--lunchmoney-mcp",
+  "displayName": "lunchmoney-mcp",
+  "description": "Fork of bm1549/lunchmoney-mcp: upstream 3.0.0 + MCP SDK v2 port, installable as a git dependency",
+  "version": "1.0.0",
+  "author": "georgebashi",
+  "homepage": "https://github.com/georgebashi/lunchmoney-mcp",
+  "skills": []
+}
