@@ -1,0 +1,9 @@
+{
+  "name": "d4umak--linkedin-outreach-mcp",
+  "displayName": "linkedin-outreach-mcp",
+  "description": "HeyLead: LinkedIn outreach from Claude, Cursor or ChatGPT. An MCP server that finds the right people, writes in your voice, follows up and handles replies.",
+  "version": "1.0.0",
+  "author": "D4umak",
+  "homepage": "https://github.com/D4umak/linkedin-outreach-mcp",
+  "skills": []
+}
