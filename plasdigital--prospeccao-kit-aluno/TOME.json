@@ -4,7 +4,7 @@
   "repo": "prospeccao-kit-aluno",
   "description": "Gera e qualifica leads de empresas: Google Maps + visita ao site + nota de 0 a 100. Baixe a pasta, abra o Claude Code dentro dela e peca em portugues.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/plasdigital/prospeccao-kit-aluno",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T03:21:08Z"
+  "distributed_at": "2026-09-28T08:33:31Z"
 }
