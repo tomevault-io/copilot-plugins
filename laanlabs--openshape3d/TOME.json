@@ -4,7 +4,7 @@
   "repo": "openshape3d",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/laanlabs/openshape3d",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T04:37:24Z"
+  "distributed_at": "2026-09-28T09:43:00Z"
 }
