@@ -1,0 +1,9 @@
+{
+  "name": "jkorf--deepcoin-net",
+  "displayName": "DeepCoin.Net",
+  "description": "C#/.NET client library for the DeepCoin.com cryptocurrency exchange REST and WebSocket APIs, supporting Spot and Futures trading and market data with strongly typed models.",
+  "version": "1.0.0",
+  "author": "JKorf",
+  "homepage": "https://github.com/JKorf/DeepCoin.Net",
+  "skills": []
+}
