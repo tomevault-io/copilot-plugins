@@ -1,0 +1,9 @@
+{
+  "name": "leciric--agentbox",
+  "displayName": "agentbox",
+  "description": "Devin-style that run on your own machine: each agent gets its own Linux machine, desktop and branch, directed by a lead chat. Claude Code, Codex and OpenCode.",
+  "version": "1.0.0",
+  "author": "leciric",
+  "homepage": "https://github.com/leciric/agentbox",
+  "skills": []
+}
