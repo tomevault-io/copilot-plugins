@@ -1,0 +1,9 @@
+{
+  "name": "cheenulabs--pi-agent-python-sdk",
+  "displayName": "pi-agent-python-sdk",
+  "description": "Use your installed Pi coding agent as a Python API. Stream responses, continue conversations, and control sessions from Python.",
+  "version": "1.0.0",
+  "author": "cheenulabs",
+  "homepage": "https://github.com/cheenulabs/pi-agent-python-sdk",
+  "skills": []
+}
