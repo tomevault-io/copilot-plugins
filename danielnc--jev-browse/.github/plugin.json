@@ -1,0 +1,9 @@
+{
+  "name": "danielnc--jev-browse",
+  "displayName": "jev-browse",
+  "description": "Fast, cheap browser sub-tasks for Claude and other agents: TypeSafe Jev decisions on top of browser-harness",
+  "version": "1.0.0",
+  "author": "danielnc",
+  "homepage": "https://github.com/danielnc/jev-browse",
+  "skills": []
+}
