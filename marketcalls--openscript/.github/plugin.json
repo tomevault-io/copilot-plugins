@@ -1,0 +1,9 @@
+{
+  "name": "marketcalls--openscript",
+  "displayName": "openscript",
+  "description": "An open trading language. Write a study or a strategy once, plot it, backtest it, trade it.",
+  "version": "1.0.0",
+  "author": "marketcalls",
+  "homepage": "https://github.com/marketcalls/openscript",
+  "skills": []
+}
