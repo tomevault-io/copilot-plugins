@@ -1,0 +1,9 @@
+{
+  "name": "olafkfreund--nix-skills",
+  "displayName": "nix-skills",
+  "description": "Reusable AI agent skills for the Nix language, grounded in the upstream Nix manual.",
+  "version": "1.0.0",
+  "author": "olafkfreund",
+  "homepage": "https://github.com/olafkfreund/nix-skills",
+  "skills": []
+}
