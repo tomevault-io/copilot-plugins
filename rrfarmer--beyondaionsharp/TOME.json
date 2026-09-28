@@ -4,7 +4,7 @@
   "repo": "BeyondAionSharp",
   "description": "C# Port of the Beyond AIon 4.8 Project",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rrfarmer/BeyondAionSharp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T04:31:13Z"
+  "distributed_at": "2026-09-28T09:28:49Z"
 }
