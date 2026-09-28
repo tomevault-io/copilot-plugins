@@ -1,0 +1,44 @@
+{
+  "name": "ai-director-film",
+  "owner": "bitqs",
+  "repo": "ai-director-film",
+  "description": "\u7528 AI \u5f53\u5bfc\u6f14\u62cd\u4e00\u90e8 3 \u5206\u949f\u77ed\u7247\uff1a\u300a\u8db3\u591f\u9707\u64bc\u300b\u300a\u6ea2\u51fa\u300b\uff08\u723d\u54e5\u8bf4\uff09\u7684\u5236\u4f5c\u6559\u7a0b\uff0c\u5c0f\u767d\u4e5f\u80fd\u4e0a\u624b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bitqs/ai-director-film",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T17:30:28Z"
+}
