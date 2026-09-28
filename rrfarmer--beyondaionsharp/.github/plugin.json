@@ -1,0 +1,9 @@
+{
+  "name": "rrfarmer--beyondaionsharp",
+  "displayName": "BeyondAionSharp",
+  "description": "C# Port of the Beyond AIon 4.8 Project",
+  "version": "1.0.0",
+  "author": "rrfarmer",
+  "homepage": "https://github.com/rrfarmer/BeyondAionSharp",
+  "skills": []
+}
