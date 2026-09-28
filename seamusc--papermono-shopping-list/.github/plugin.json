@@ -1,0 +1,9 @@
+{
+  "name": "seamusc--papermono-shopping-list",
+  "displayName": "papermono-shopping-list",
+  "description": "E-paper shopping list for the M5Stack PaperMono, with a FastAPI server and phone web UI",
+  "version": "1.0.0",
+  "author": "seamusc",
+  "homepage": "https://github.com/seamusc/papermono-shopping-list",
+  "skills": []
+}
