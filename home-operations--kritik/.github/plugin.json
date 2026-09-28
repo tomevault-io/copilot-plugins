@@ -1,0 +1,9 @@
+{
+  "name": "home-operations--kritik",
+  "displayName": "kritik",
+  "description": "Multi-tenant AI pull request reviewer for GitHub organisations, backed by Postgres and per-review Kubernetes Jobs",
+  "version": "1.0.0",
+  "author": "home-operations",
+  "homepage": "https://github.com/home-operations/kritik",
+  "skills": []
+}
