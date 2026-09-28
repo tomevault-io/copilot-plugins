@@ -1,0 +1,9 @@
+{
+  "name": "blacklineinteractive--nwiiurecomp",
+  "displayName": "nWiiURecomp",
+  "description": "Static recompilation and runtime toolkit for Nintendo Wii U (based on NWiiRecomp) to make native PC ports (and not only)",
+  "version": "1.0.0",
+  "author": "BlackLineInteractive",
+  "homepage": "https://github.com/BlackLineInteractive/nWiiURecomp",
+  "skills": []
+}
