@@ -1,0 +1,9 @@
+{
+  "name": "tailscale--aperture-recipes",
+  "displayName": "aperture-recipes",
+  "description": "Community-supported collection of third-party Aperture integration documentation, examples, and templates.",
+  "version": "1.0.0",
+  "author": "tailscale",
+  "homepage": "https://github.com/tailscale/aperture-recipes",
+  "skills": []
+}
