@@ -1,0 +1,9 @@
+{
+  "name": "wolfiora--innoengine",
+  "displayName": "InnoEngine",
+  "description": "A plugin-oriented cross-platform game engine based on .NET Framework.",
+  "version": "1.0.0",
+  "author": "Wolfiora",
+  "homepage": "https://github.com/Wolfiora/InnoEngine",
+  "skills": []
+}
