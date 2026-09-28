@@ -4,7 +4,7 @@
   "repo": "LichessDotCom",
   "description": "Chrome extension that makes Lichess look and sound like you're used to",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theophile-wallez/LichessDotCom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T22:33:59Z"
+  "distributed_at": "2026-09-28T22:34:53Z"
 }
