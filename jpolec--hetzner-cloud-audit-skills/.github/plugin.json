@@ -1,0 +1,9 @@
+{
+  "name": "jpolec--hetzner-cloud-audit-skills",
+  "displayName": "hetzner-cloud-audit-skills",
+  "description": "Evidence-backed attack paths, drift, and cost auditing for Hetzner Cloud.",
+  "version": "1.0.0",
+  "author": "jpolec",
+  "homepage": "https://github.com/jpolec/hetzner-cloud-audit-skills",
+  "skills": []
+}
