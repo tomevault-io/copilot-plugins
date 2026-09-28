@@ -1,0 +1,9 @@
+{
+  "name": "localflow-ai--localflow-core",
+  "displayName": "localflow-core",
+  "description": "The core API to enable metadata-first AI in your projects.",
+  "version": "1.0.0",
+  "author": "localflow-ai",
+  "homepage": "https://github.com/localflow-ai/localflow-core",
+  "skills": []
+}
