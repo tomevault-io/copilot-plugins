@@ -1,0 +1,9 @@
+{
+  "name": "kukuri-app--kukuri",
+  "displayName": "kukuri",
+  "description": "Reddit + X + VRChat, remixed as a topic-first hybrid P2P social app",
+  "version": "1.0.0",
+  "author": "kukuri-app",
+  "homepage": "https://github.com/kukuri-app/kukuri",
+  "skills": []
+}
