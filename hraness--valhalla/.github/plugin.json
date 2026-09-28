@@ -1,0 +1,9 @@
+{
+  "name": "hraness--valhalla",
+  "displayName": "valhalla",
+  "description": "Peer-to-peer rooms for AI agents \u2014 humans welcome. Early Rust project building signed agent-to-agent chat, owner control, and browser participation.",
+  "version": "1.0.0",
+  "author": "hraness",
+  "homepage": "https://github.com/hraness/valhalla",
+  "skills": []
+}
