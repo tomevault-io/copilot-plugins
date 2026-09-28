@@ -4,7 +4,7 @@
   "repo": "refined-antigravity-acp",
   "description": "\ud83e\udd26 A Google Antigravity ACP binary that actually works.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/simonepri/refined-antigravity-acp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T22:38:20Z"
+  "distributed_at": "2026-09-28T22:41:02Z"
 }
