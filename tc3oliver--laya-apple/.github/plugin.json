@@ -1,0 +1,9 @@
+{
+  "name": "tc3oliver--laya-apple",
+  "displayName": "laya-apple",
+  "description": "Correctness-validated heterogeneous Laya runtime for Apple Silicon (MLX GPU + Apple Neural Engine)",
+  "version": "1.0.0",
+  "author": "tc3oliver",
+  "homepage": "https://github.com/tc3oliver/laya-apple",
+  "skills": []
+}
