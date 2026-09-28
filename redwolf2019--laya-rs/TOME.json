@@ -4,7 +4,7 @@
   "repo": "laya-rs",
   "description": "Pure Rust runtime + HTTP server for Laya System-1 models\uff0cLinux / CPU-first / multilingual / ONNX Runtime",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/redwolf2019/laya-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T17:51:32Z"
+  "distributed_at": "2026-09-28T01:08:44Z"
 }
