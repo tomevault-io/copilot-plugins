@@ -1,13 +1,18 @@
 ## deepcoin-net
 
-> Conventions for using DeepCoin.Net library when working with the DeepCoin cryptocurrency exchange in C#/.NET. Apply when generating code that interacts with the DeepCoin API.
+> This repository is **DeepCoin.Net** - a strongly typed C#/.NET client library for the DeepCoin REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
 
+# Copilot Instructions for DeepCoin.Net
 
-# DeepCoin.Net Conventions
+This repository is **DeepCoin.Net** - a strongly typed C#/.NET client library for the DeepCoin REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
 
-This codebase uses **DeepCoin.Net** for DeepCoin cryptocurrency exchange access. Do not write raw `HttpClient` calls to DeepCoin endpoints.
+When generating code that consumes DeepCoin.Net, follow these conventions:
 
-## Client setup pattern
+## Use DeepCoin.Net, not raw HTTP
+
+Never generate `HttpClient` calls to DeepCoin endpoints. Always use `DeepCoinRestClient` or `DeepCoinSocketClient`. This keeps request signing, rate limiting, result handling, and WebSocket reconnect behavior in the library.
+
+## Client setup
 
 ```csharp
 using DeepCoin.Net;
@@ -21,100 +26,50 @@ var restClient = new DeepCoinRestClient(options =>
 
 For public market data only, no credentials are needed: `new DeepCoinRestClient()`.
 
-## Result pattern
+## Result handling
 
-All methods return `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before reading `.Data`:
+REST methods return `HttpResult<T>` / `HttpResult`; WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`. The error is on `.Error`.
 
-```csharp
-var tickers = await restClient.ExchangeApi.ExchangeData.GetTickersAsync(SymbolType.Spot);
-if (!tickers.Success) { /* tickers.Error */ return; }
-var eth = tickers.Data.FirstOrDefault(x => x.Symbol == "ETH-USDT");
-```
+## API structure
 
-## API surface
+- `restClient.ExchangeApi.ExchangeData` - public market data: tickers, symbols, klines, order book, funding rates
+- `restClient.ExchangeApi.Account` - balances, bills, leverage, deposit/withdraw history, listen keys
+- `restClient.ExchangeApi.Trading` - positions, orders, user trades, order history, TP/SL
+- `restClient.ExchangeApi.SharedApi` - CryptoExchange.Net shared REST interfaces
+- `socketClient.ExchangeApi` - public and private WebSocket subscriptions
+- `socketClient.ExchangeApi.SharedApi` - CryptoExchange.Net shared socket interfaces
 
-- `restClient.ExchangeApi.ExchangeData` for tickers, symbols, klines, order books, and funding rates
-- `restClient.ExchangeApi.Account` for balances, bills, leverage, deposit/withdraw history, and listen keys
-- `restClient.ExchangeApi.Trading` for positions, orders, user trades, order history, and TP/SL
-- `restClient.ExchangeApi.SharedApi` for shared REST interfaces
-- `socketClient.ExchangeApi` for public and private WebSocket subscriptions
-- `socketClient.ExchangeApi.SharedApi` for shared socket interfaces
+## DeepCoin symbol shape
 
-## Native symbols and account modes
-
-Use DeepCoin's native hyphenated symbols:
-
-```csharp
-"ETH-USDT"       // spot
-"ETH-USDT-SWAP"  // swap/futures
-```
-
-Use `SymbolType.Spot` for spot data and account balances, `SymbolType.Swap` for swap/futures data and positions. Use `TradeMode.Spot` for spot orders; use `TradeMode.Cross` or `TradeMode.Isolated` for swap/futures orders.
+DeepCoin spot symbols use hyphenated names such as `ETH-USDT`. Swap symbols use names such as `ETH-USDT-SWAP`. Use `SymbolType.Spot` for spot and `SymbolType.Swap` for swaps/futures.
 
 ## Order placement
 
-```csharp
-var order = await restClient.ExchangeApi.Trading.PlaceOrderAsync(
-    "ETH-USDT",
-    OrderSide.Buy,
-    OrderType.Limit,
-    quantity: 0.1m,
-    price: 2000m,
-    tradeMode: TradeMode.Spot);
-```
-
-For swap/futures orders include `positionSide: PositionSide.Long` or `PositionSide.Short` when the request is directional.
+Use `DeepCoinCredentials`, not generic `ApiCredentials`. For spot orders use `tradeMode: TradeMode.Spot`. For swap/futures orders use `TradeMode.Cross` or `TradeMode.Isolated` and include `positionSide` when opening or closing a directional position.
 
 ## WebSocket pattern
 
-```csharp
-var socketClient = new DeepCoinSocketClient();
-var sub = await socketClient.ExchangeApi.SubscribeToSymbolUpdatesAsync(
-    "ETH-USDT",
-    update => { /* update.Data.LastPrice */ });
-if (!sub.Success) { /* sub.Error */ return; }
+Store the returned `UpdateSubscription` and unsubscribe on shutdown via `socketClient.UnsubscribeAsync(sub.Data)`. Authenticated streams require a listen key from `restClient.ExchangeApi.Account.StartUserStreamAsync()`.
 
-await socketClient.UnsubscribeAsync(sub.Data);
-```
+## Cross-exchange
 
-Private streams require a listen key:
+For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces accessed via `.ExchangeApi.SharedApi`.
 
-```csharp
-var listenKey = await restClient.ExchangeApi.Account.StartUserStreamAsync();
-if (!listenKey.Success) { return; }
+The shared spot/futures symbol interfaces expose `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Returned symbols include `DisplayName` and base/quote asset type and subtype metadata; use the matching `GetSymbolsRequest` filters when callers need a particular asset classification.
 
-await socketClient.ExchangeApi.SubscribeToUserDataUpdatesAsync(listenKey.Data.ListenKey);
-```
+## Avoid
 
-## Multi-exchange code
-
-For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
-
-```csharp
-using CryptoExchange.Net.SharedApis;
-
-var shared = new DeepCoinRestClient().ExchangeApi.SharedApi;
-var ticker = await shared.GetTickerAsync(
-    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "ETH", "USDT")));
-```
-
-## Hard rules
-
-- Never write raw `HttpClient` to DeepCoin endpoints
-- Never use `.Result` or `.Wait()`
-- Never instantiate clients per request
-- Never skip checking `WebCallResult.Success`
-- Never use `DeepCoinClient`; use `DeepCoinRestClient`
-- Never use generic `ApiCredentials`; use `DeepCoinCredentials`
-- Never use Binance-style API branches such as `SpotApi` or `UsdFuturesApi`
-- Use DeepCoin native symbols with hyphens in native methods
-- Always store WebSocket subscriptions and unsubscribe on shutdown
+- Legacy or imagined `DeepCoinClient` class; use `DeepCoinRestClient`
+- Generic `ApiCredentials`; use `DeepCoinCredentials("key", "secret", "pass")`
+- Binance-style branches such as `SpotApi`, `UsdFuturesApi`, or `CoinFuturesApi`
+- Non-hyphenated symbols like `ETHUSDT` in native DeepCoin methods
+- Synchronous `.Result` / `.Wait()`; use `await`
+- Reading `.Data` before checking `.Success`
+- Instantiating clients per request; use DI or reuse clients
 
 ## Reference
 
-- `AGENTS.md` in repo root has fuller examples
-- `llms.txt` and `llms-full.txt` in repo root for AI context
-- `Examples/ai-friendly/` contains compilable examples
+For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, and `llms-full.txt` in the repository root, and `Examples/ai-friendly/` for compilable examples.
 
 ---
 > Source: [JKorf/DeepCoin.Net](https://github.com/JKorf/DeepCoin.Net) — distributed by [TomeVault](https://tomevault.io).
