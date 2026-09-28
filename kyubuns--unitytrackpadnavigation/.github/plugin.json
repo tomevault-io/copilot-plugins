@@ -1,0 +1,9 @@
+{
+  "name": "kyubuns--unitytrackpadnavigation",
+  "displayName": "UnityTrackpadNavigation",
+  "description": "Trackpad pan, zoom, and rotation for the Unity Editor on Apple Silicon Macs.",
+  "version": "1.0.0",
+  "author": "kyubuns",
+  "homepage": "https://github.com/kyubuns/UnityTrackpadNavigation",
+  "skills": []
+}
