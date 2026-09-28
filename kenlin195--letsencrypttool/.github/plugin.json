@@ -1,0 +1,9 @@
+{
+  "name": "kenlin195--letsencrypttool",
+  "displayName": "LetsEncrypttool",
+  "description": "MSTECH IIS SSL \u81ea\u52d5\u66f4\u65b0\u5de5\u5177\uff1aIIS\u3001win-acme \u8207 LetsEncrypt \u6191\u8b49\u7ba1\u7406\uff08v1.3\uff09",
+  "version": "1.0.0",
+  "author": "kenlin195",
+  "homepage": "https://github.com/kenlin195/LetsEncrypttool",
+  "skills": []
+}
