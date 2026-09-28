@@ -1,0 +1,9 @@
+{
+  "name": "sevwren--twitch-alternate-player",
+  "displayName": "twitch_alternate_player",
+  "description": "backup of Twitch_Alternat_Player extension until updates for Manifest V3 are made",
+  "version": "1.0.0",
+  "author": "SevWren",
+  "homepage": "https://github.com/SevWren/twitch_alternate_player",
+  "skills": []
+}
