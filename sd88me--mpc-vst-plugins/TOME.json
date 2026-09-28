@@ -1,0 +1,44 @@
+{
+  "name": "mpc-vst-plugins",
+  "owner": "sd88me",
+  "repo": "mpc-vst-plugins",
+  "description": "Native VST2 plugins with MPC screen skins for Akai MPC OS standalone (MPC Live/One/X/Key, Force)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sd88me/mpc-vst-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T02:45:35Z"
+}
