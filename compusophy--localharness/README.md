@@ -7,11 +7,11 @@ agents that own themselves
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [compusophy/localharness](https://github.com/compusophy/localharness).
+Original source: `AGENTS.md` in [compusophy/localharness](https://github.com/compusophy/localharness).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
