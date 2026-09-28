@@ -4,7 +4,7 @@
   "repo": "extension-kubernetes-dashboard",
   "description": "Kubernetes Dashboard extension for Podman Desktop",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/podman-desktop/extension-kubernetes-dashboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T03:45:31Z"
+  "distributed_at": "2026-09-28T09:11:46Z"
 }
