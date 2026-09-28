@@ -7,11 +7,11 @@ A Metal-rendered creative-coding framework for Swift on Apple platforms: live re
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [eaviles/Ollin](https://github.com/eaviles/Ollin).
+Original source: `AGENTS.md` in [eaviles/Ollin](https://github.com/eaviles/Ollin).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
