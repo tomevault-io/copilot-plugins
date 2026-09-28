@@ -1,0 +1,9 @@
+{
+  "name": "narrative-io--narrative-skills-marketplace",
+  "displayName": "narrative-skills-marketplace",
+  "description": "An agent skills marketplace from Narrative I/O \u2014 interactive, AI-powered slash-command workflows for the recurring work of a modern data company (NQL, Rosetta Stone mappings, identity graphs, and more",
+  "version": "1.0.0",
+  "author": "narrative-io",
+  "homepage": "https://github.com/narrative-io/narrative-skills-marketplace",
+  "skills": []
+}
