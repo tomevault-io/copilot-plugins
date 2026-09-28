@@ -1,0 +1,9 @@
+{
+  "name": "doeixd--incremental",
+  "displayName": "incremental",
+  "description": "A typed fold over object contributions: build an object piece by piece, know its exact shape at every step, and prove when it is complete.",
+  "version": "1.0.0",
+  "author": "doeixd",
+  "homepage": "https://github.com/doeixd/incremental",
+  "skills": []
+}
