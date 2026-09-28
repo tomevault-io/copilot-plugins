@@ -1,0 +1,9 @@
+{
+  "name": "hybridgroup--jeyzma",
+  "displayName": "jeyzma",
+  "description": "Jev in your browser written in Go using yzma and compiled to WebAssembly with TinyGo. Supports WebGPU.",
+  "version": "1.0.0",
+  "author": "hybridgroup",
+  "homepage": "https://github.com/hybridgroup/jeyzma",
+  "skills": []
+}
