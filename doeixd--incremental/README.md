@@ -7,11 +7,11 @@ A typed fold over object contributions: build an object piece by piece, know its
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [doeixd/incremental](https://github.com/doeixd/incremental).
+Original source: `AGENTS.md` in [doeixd/incremental](https://github.com/doeixd/incremental).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
