@@ -1,0 +1,9 @@
+{
+  "name": "openselena--omniget",
+  "displayName": "omniget",
+  "description": "Open-source download manager for courses (Udemy/Hotmart), YouTube, music & 1,800+ sites. Built with Tauri 2.0, Rust & Svelte.",
+  "version": "1.0.0",
+  "author": "OpenSelena",
+  "homepage": "https://github.com/OpenSelena/omniget",
+  "skills": []
+}
