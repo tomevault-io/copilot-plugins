@@ -1,0 +1,9 @@
+{
+  "name": "dawbarton--texlayout-jl",
+  "displayName": "TeXLayout.jl",
+  "description": "A TeX mathematics layout engine written in Julia and heavily inspired by KaTeX",
+  "version": "1.0.0",
+  "author": "dawbarton",
+  "homepage": "https://github.com/dawbarton/TeXLayout.jl",
+  "skills": []
+}
