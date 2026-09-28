@@ -1,0 +1,9 @@
+{
+  "name": "theagent-net--agentnet-cli",
+  "displayName": "agentnet-cli",
+  "description": "CLI tool to discover AI agents and connect them to the Agent-net marketplace",
+  "version": "1.0.0",
+  "author": "TheAgent-net",
+  "homepage": "https://github.com/TheAgent-net/agentnet-cli",
+  "skills": []
+}
