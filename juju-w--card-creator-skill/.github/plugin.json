@@ -1,0 +1,9 @@
+{
+  "name": "juju-w--card-creator-skill",
+  "displayName": "card-creator-skill",
+  "description": "\u7528\u4e00\u53e5\u8bdd\u751f\u6210\u5361\u9762\uff1b\u514d\u8d39\u5206\u4eab\u827a\u672f\u3001\u4ea4\u901a\u5361\u4e0e\u94f6\u884c\u5361\u4e3b\u9898\u7684\u5361\u9762\u753b\u5eca\u3002",
+  "version": "1.0.0",
+  "author": "juju-w",
+  "homepage": "https://github.com/juju-w/card-creator-skill",
+  "skills": []
+}
