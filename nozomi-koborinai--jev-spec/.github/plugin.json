@@ -1,0 +1,9 @@
+{
+  "name": "nozomi-koborinai--jev-spec",
+  "displayName": "jev-spec",
+  "description": "\u26a1 Catch spec drift on every commit: check your code against your Markdown specs with TypeSafe AI's Jev model.",
+  "version": "1.0.0",
+  "author": "nozomi-koborinai",
+  "homepage": "https://github.com/nozomi-koborinai/jev-spec",
+  "skills": []
+}
