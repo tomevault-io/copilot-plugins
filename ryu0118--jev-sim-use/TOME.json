@@ -4,7 +4,7 @@
   "repo": "jev-sim-use",
   "description": "\ud83d\udcf1 Reach any screen with sim-use at Jev speed",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ryu0118/jev-sim-use",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T02:48:52Z"
+  "distributed_at": "2026-09-28T07:06:00Z"
 }
