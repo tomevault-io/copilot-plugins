@@ -4,7 +4,7 @@
   "repo": "plan-it",
   "description": "HTML-first persistent planning skill for Claude Code, Cursor, and 15 other agents. One self-contained plan.html. Survives /clear. SHA-256 attested.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OthmanAdi/plan-it",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-27T23:42:32Z"
+  "distributed_at": "2026-09-28T03:55:39Z"
 }
