@@ -7,11 +7,11 @@ Agentic OS V2 starter: Obsidian cockpit + Jarvis HUD + voice, on your own Claude
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ctskool/agentic-os-starter-v2](https://github.com/ctskool/agentic-os-starter-v2).
+Original source: `AGENTS.md` in [ctskool/agentic-os-starter-v2](https://github.com/ctskool/agentic-os-starter-v2).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
