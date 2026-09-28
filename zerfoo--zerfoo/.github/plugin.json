@@ -1,0 +1,9 @@
+{
+  "name": "zerfoo--zerfoo",
+  "displayName": "zerfoo",
+  "description": "Pure Go machine learning framework. Train, run, and serve ML models with go build. Zero CGo.",
+  "version": "1.0.0",
+  "author": "zerfoo",
+  "homepage": "https://github.com/zerfoo/zerfoo",
+  "skills": []
+}
