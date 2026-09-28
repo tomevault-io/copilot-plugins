@@ -1,0 +1,9 @@
+{
+  "name": "aryrabelo--itaruby",
+  "displayName": "itaruby",
+  "description": "Inference-first Ruby type checker: finds real bugs with zero annotations",
+  "version": "1.0.0",
+  "author": "aryrabelo",
+  "homepage": "https://github.com/aryrabelo/itaruby",
+  "skills": []
+}
