@@ -4,7 +4,7 @@
   "repo": "nifihub",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Snowflake-Labs/nifihub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T18:39:24Z"
+  "distributed_at": "2026-09-28T08:34:56Z"
 }
