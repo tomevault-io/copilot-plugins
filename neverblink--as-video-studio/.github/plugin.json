@@ -1,0 +1,9 @@
+{
+  "name": "neverblink--as-video-studio",
+  "displayName": "as-video-studio",
+  "description": "Convierte lo que escribas en un video narrado y animado. Se instala en un VPS con una sola orden.",
+  "version": "1.0.0",
+  "author": "NeverBlink",
+  "homepage": "https://github.com/NeverBlink/as-video-studio",
+  "skills": []
+}
