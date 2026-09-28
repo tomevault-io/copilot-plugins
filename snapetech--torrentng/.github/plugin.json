@@ -1,0 +1,9 @@
+{
+  "name": "snapetech--torrentng",
+  "displayName": "TorrentNG",
+  "description": "Next-generation torrent client in Rust, with a universally compatible WebUI/API (including backwards compatibility with qbittorrent, rtorrent, transmission, deluge & more).",
+  "version": "1.0.0",
+  "author": "snapetech",
+  "homepage": "https://github.com/snapetech/TorrentNG",
+  "skills": []
+}
