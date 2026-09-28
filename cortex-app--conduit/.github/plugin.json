@@ -1,0 +1,9 @@
+{
+  "name": "cortex-app--conduit",
+  "displayName": "conduit",
+  "description": "Conduit - A Model Context Protocol (MCP) server for Phabricator and Phorge.",
+  "version": "1.0.0",
+  "author": "cortex-app",
+  "homepage": "https://github.com/cortex-app/conduit",
+  "skills": []
+}
