@@ -7,11 +7,11 @@ OpenAI-compatible speech serving in Rust
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pegainfer-project/pega-omni](https://github.com/pegainfer-project/pega-omni).
+Original source: `AGENTS.md` in [pegainfer-project/pega-omni](https://github.com/pegainfer-project/pega-omni).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
