@@ -1,0 +1,9 @@
+{
+  "name": "zy-ning--nano-scalemb",
+  "displayName": "nano-scalemb",
+  "description": "A nano-chat based repo for scaling embedding, reproducing Engram etc. on small models",
+  "version": "1.0.0",
+  "author": "zy-ning",
+  "homepage": "https://github.com/zy-ning/nano-scalemb",
+  "skills": []
+}
