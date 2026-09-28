@@ -7,11 +7,11 @@ A TeX mathematics layout engine written in Julia and heavily inspired by KaTeX
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dawbarton/TeXLayout.jl](https://github.com/dawbarton/TeXLayout.jl).
+Original source: `AGENTS.md` in [dawbarton/TeXLayout.jl](https://github.com/dawbarton/TeXLayout.jl).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
