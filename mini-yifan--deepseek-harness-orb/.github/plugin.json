@@ -1,0 +1,9 @@
+{
+  "name": "mini-yifan--deepseek-harness-orb",
+  "displayName": "deepseek-harness-orb",
+  "description": "A floating-orb remake of DeepSeek Harness: a clickable desktop orb that summons DeepSeek for chat or task execution anytime.",
+  "version": "1.0.0",
+  "author": "mini-yifan",
+  "homepage": "https://github.com/mini-yifan/deepseek-harness-orb",
+  "skills": []
+}
