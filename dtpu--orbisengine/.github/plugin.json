@@ -1,0 +1,9 @@
+{
+  "name": "dtpu--orbisengine",
+  "displayName": "OrbisEngine",
+  "description": "\ud83c\udfa5 Anything ever filmed, in 4D. Uses AI to reconstruct videos in immersive first-person.",
+  "version": "1.0.0",
+  "author": "dtpu",
+  "homepage": "https://github.com/dtpu/OrbisEngine",
+  "skills": []
+}
