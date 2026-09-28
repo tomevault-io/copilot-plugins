@@ -4,7 +4,7 @@
   "repo": "WallpaperMachine",
   "description": "Native macOS live wallpaper app for Wallpaper Engine scenes, videos and web wallpapers, with a lock-screen extension. Apple Silicon.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WallpaperMachine/WallpaperMachine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T07:19:26Z"
+  "distributed_at": "2026-09-28T13:06:51Z"
 }
