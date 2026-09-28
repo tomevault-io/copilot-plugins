@@ -1,0 +1,9 @@
+{
+  "name": "dhruvabansal00--robin-stocks-v2",
+  "displayName": "robin_stocks_v2",
+  "description": "This is a library to use with Robinhood Financial App. It currently supports trading crypto-currencies, options, and stocks. In addition, it can be used to get real time ticker information, assess the",
+  "version": "1.0.0",
+  "author": "DhruvaBansal00",
+  "homepage": "https://github.com/DhruvaBansal00/robin_stocks_v2",
+  "skills": []
+}
