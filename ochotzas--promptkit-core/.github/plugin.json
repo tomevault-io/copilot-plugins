@@ -1,0 +1,9 @@
+{
+  "name": "ochotzas--promptkit-core",
+  "displayName": "promptkit-core",
+  "description": "Lint and test your LLM prompts before they reach production.",
+  "version": "1.0.0",
+  "author": "ochotzas",
+  "homepage": "https://github.com/ochotzas/promptkit-core",
+  "skills": []
+}
