@@ -1,0 +1,9 @@
+{
+  "name": "easyhooon--windowinsets-info",
+  "displayName": "windowinsets.info",
+  "description": "Android window insets, display cutouts, corner radii and foldable hinge states for Samsung Galaxy and Google Pixel devices. Inspired by safearea.info.",
+  "version": "1.0.0",
+  "author": "easyhooon",
+  "homepage": "https://github.com/easyhooon/windowinsets.info",
+  "skills": []
+}
