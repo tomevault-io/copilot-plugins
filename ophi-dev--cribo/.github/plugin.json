@@ -1,0 +1,9 @@
+{
+  "name": "ophi-dev--cribo",
+  "displayName": "cribo",
+  "description": "Meet cribo: the Python bundler that fuses first-party modules into one .py",
+  "version": "1.0.0",
+  "author": "ophi-dev",
+  "homepage": "https://github.com/ophi-dev/cribo",
+  "skills": []
+}
