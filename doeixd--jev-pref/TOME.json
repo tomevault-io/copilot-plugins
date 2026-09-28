@@ -4,7 +4,7 @@
   "repo": "jev-pref",
   "description": "Turn your AGENTS.md preferences into a fast, Jev-powered AI linter.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/doeixd/jev-pref",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T18:58:55Z"
+  "distributed_at": "2026-09-28T02:52:57Z"
 }
