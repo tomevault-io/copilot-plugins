@@ -4,7 +4,7 @@
   "repo": "tally-integration",
   "description": "Set of instructions and quick setup for ai agents to interact with tally accounting software provided by https://tallysolutions.com",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/puneetkeshav/tally-integration",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T02:52:06Z"
+  "distributed_at": "2026-09-28T07:10:40Z"
 }
