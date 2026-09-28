@@ -1,0 +1,9 @@
+{
+  "name": "ziadkadry99--fxpro-rpm-sync",
+  "displayName": "FXPro-RPM-Sync",
+  "description": "SimHub plugin to sync the FX Pro's RPM lights to the actual car you're driving",
+  "version": "1.0.0",
+  "author": "ziadkadry99",
+  "homepage": "https://github.com/ziadkadry99/FXPro-RPM-Sync",
+  "skills": []
+}
