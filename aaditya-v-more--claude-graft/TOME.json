@@ -2,9 +2,9 @@
   "name": "claude-graft",
   "owner": "aaditya-v-more",
   "repo": "claude-graft",
-  "description": "Run several Claude Desktop accounts side by side on macOS, sharing Claude Code chats between them",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aaditya-v-more/claude-graft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T22:31:04Z"
+  "distributed_at": "2026-09-28T11:21:39Z"
 }
