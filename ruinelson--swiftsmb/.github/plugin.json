@@ -1,0 +1,9 @@
+{
+  "name": "ruinelson--swiftsmb",
+  "displayName": "SwiftSMB",
+  "description": "Access SMB shares with libsmb2 using Swift",
+  "version": "1.0.0",
+  "author": "RuiNelson",
+  "homepage": "https://github.com/RuiNelson/SwiftSMB",
+  "skills": []
+}
