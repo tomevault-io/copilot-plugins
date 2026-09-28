@@ -1,0 +1,9 @@
+{
+  "name": "infusius--masala",
+  "displayName": "masala",
+  "description": "A research workspace where an agent works beside you: chat, PDFs, notebooks and files in one dock, plus custom panes the agent builds on request.",
+  "version": "1.0.0",
+  "author": "infusius",
+  "homepage": "https://github.com/infusius/masala",
+  "skills": []
+}
