@@ -1,0 +1,9 @@
+{
+  "name": "kylederzweite--spellbook",
+  "displayName": "spellbook",
+  "description": "Self-hosted TCG collection manager with mobile scanning, OCR recognition, fast search, and cross-device sync",
+  "version": "1.0.0",
+  "author": "KyleDerZweite",
+  "homepage": "https://github.com/KyleDerZweite/spellbook",
+  "skills": []
+}
