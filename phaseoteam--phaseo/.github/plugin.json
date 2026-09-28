@@ -1,0 +1,9 @@
+{
+  "name": "phaseoteam--phaseo",
+  "displayName": "Phaseo",
+  "description": "Open-source, OpenAI-compatible AI gateway with health-aware routing, failover, and live telemetry (cost, latency, errors). Built for production.",
+  "version": "1.0.0",
+  "author": "phaseoteam",
+  "homepage": "https://github.com/phaseoteam/Phaseo",
+  "skills": []
+}
