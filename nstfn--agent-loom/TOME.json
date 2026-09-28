@@ -4,7 +4,7 @@
   "repo": "agent-loom",
   "description": "Agent skills management and synchronization app",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nstfn/agent-loom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T19:04:24Z"
+  "distributed_at": "2026-09-28T02:55:29Z"
 }
