@@ -1,0 +1,9 @@
+{
+  "name": "osolmaz--localpi",
+  "displayName": "localpi",
+  "description": "Swiss army knife for running Pi with local inference engines.",
+  "version": "1.0.0",
+  "author": "osolmaz",
+  "homepage": "https://github.com/osolmaz/localpi",
+  "skills": []
+}
