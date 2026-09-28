@@ -1,0 +1,9 @@
+{
+  "name": "kathoc--nesterm",
+  "displayName": "nesterm",
+  "description": "Play NES games as ASCII art in your terminal",
+  "version": "1.0.0",
+  "author": "kathoc",
+  "homepage": "https://github.com/kathoc/nesterm",
+  "skills": []
+}
