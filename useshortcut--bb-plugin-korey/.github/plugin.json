@@ -1,0 +1,9 @@
+{
+  "name": "useshortcut--bb-plugin-korey",
+  "displayName": "bb-plugin-korey",
+  "description": "Ask Korey to work with your connected tools from any bb harness.",
+  "version": "1.0.0",
+  "author": "useshortcut",
+  "homepage": "https://github.com/useshortcut/bb-plugin-korey",
+  "skills": []
+}
