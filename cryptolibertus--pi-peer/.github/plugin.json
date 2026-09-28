@@ -1,0 +1,9 @@
+{
+  "name": "cryptolibertus--pi-peer",
+  "displayName": "pi-peer",
+  "description": "Pi package for local Pi-to-Pi peer messaging.",
+  "version": "1.0.0",
+  "author": "CryptoLibertus",
+  "homepage": "https://github.com/CryptoLibertus/pi-peer",
+  "skills": []
+}
