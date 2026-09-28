@@ -1,0 +1,174 @@
+## innoengine
+
+> - 所有新增注释默认使用英文（尤其是公开 API）。
+
+# InnoEngine 开发规范（AGENTS）
+
+## 1. 项目风格目标
+- 保持当前仓库一致的可读性与可扩展性。
+- 优先保持层次清晰、边界明确、低耦合。
+- 所有新增注释默认使用英文（尤其是公开 API）。
+
+## 2. 命名规范
+- 文件名与主类型名保持一致。
+- 默认命名空间与目录层级保持一致；`src/editor` 使用第 13 节定义的项目级命名空间规则。
+- 类型名使用 `PascalCase`。
+- 接口以 `I` 前缀。
+- 成员参数使用语义化 `camelCase`。
+- 私有字段使用 `m_` 前缀。
+- 常量：`C_` 前缀（如 `C_MAX_COUNT`）或语义清晰的 `readonly static` 命名。
+- 代码中的 Unity 风格 API（现有的如 `transform`、`scene`、`active`、`name`）保持周边兼容。
+
+## 3. 成员声明组织（重要）
+- 在类中按访问级别及角色分组，尽量放在类顶部：
+  1. 常量（const / static）
+  2. 字段（m_）
+  3. 构造函数
+  4. 公共属性 / 方法
+  5. 受保护/内部成员
+  6. 私有方法与工具函数
+- 一个类内同作用域同类型成员应尽量集中放置，避免在类中散落。
+- “public 成员优先”：先写公开成员，再写受限成员。
+
+## 4. 封装与职责边界
+- 公开 API 以最小必要暴露原则实现。
+- 组合优先、继承次之。
+- 通过注册器 / 工厂 / 抽象接口解耦。
+
+## 5. 注释规范（必须英文）
+- 所有对外公开成员（`public`）以及可由外部派生类型重写的 `protected` 成员必须具有完整的英文 XML 注释：
+  - 类型与成员必须包含有实际说明意义的 `/// <summary>`，不得只重复成员名称。
+  - 每个参数必须有对应的 `/// <param>`；每个泛型参数必须有对应的 `/// <typeparam>`。
+  - 非 `void` 方法必须包含 `/// <returns>`，并说明返回值语义以及失败/空值状态。
+  - 对调用者可观察的重要异常必须使用 `/// <exception>` 说明触发条件。
+  - 重写或实现成员可以使用 `/// <inheritdoc />`，但新增的约束、异常或语义必须在当前成员补充说明。
+- 启用 XML 文档输出的项目应将 `CS1572`、`CS1573` 和 `CS1591` 视为编译错误，防止无效参数标签、遗漏参数说明或缺少公开成员注释。
+- 关键的 `internal` API 如果对行为有关键影响，也建议补齐 XML 注释。
+- 禁止中文注释；临时注释（如 TODO）避免长期留存。
+- 复杂逻辑可添加完整英文短句注释。
+
+## 6. 错误处理
+- 参数校验优先：`ArgumentNullException.ThrowIfNull`、清晰的 `ArgumentException`。
+- 安全失败与异常失败分离。
+- 对关键边界返回明确异常信息。
+
+## 7. 命名与清晰度（Transform / Identity 相关约定）
+- 对齐上层语义，保持现有 API 命名风格。
+- 本地变量避免与属性名重合，减少 shadowing 与可读性冲突。
+- 属性值更新后应保持内部缓存一致性，避免重复实时全量计算造成不必要代价。
+
+## 8. 测试边界
+- 除非我明确要求，否则不改 tests 部分。
+- 测试只在变更公共行为契约且你明确要求时调整。
+
+## 9. 编译安全约束
+- 每次对话结束前，当前改动目标范围内（非 tests 以外）不应引入可见编译错误。
+- 发现潜在编译风险时，要在提交说明中显式标注。
+
+## 10. 目录边界
+- `src/core`, `src/engine`, `src/assets`, `src/render`, `src/editor`, `src/platform`, `build`, `tests`
+- 新文件尽量放置在匹配现有分层与职责目录。
+
+## 11. Wiki 文档维护
+- API Wiki 统一位于根目录 `docs/`，入口为 `docs/README.md`。
+- Wiki 目录优先映射源码分层：`docs/core`、`docs/assets`、`docs/engine`、`docs/rendering`、`docs/editor`、`docs/platform`；每个分类必须有 `README.md` 索引。
+- 默认每个 `.csproj` 对应一个独立 Markdown 项目页，文件名使用完整项目名，例如 `docs/core/Inno.Extensibility.Types.md`。
+- 项目页至少包含：职责与边界、依赖/初始化顺序、所有 `public` API、面向派生实现者的重要 `protected` 扩展点、常见工作流、可编译风格示例、错误/生命周期/热重载注意事项、相邻页面导航。
+- API 表格与示例必须以当前源码为依据；不得把 `internal` 实现描述成稳定公开契约。若解释内部机制，应明确标注其非公开性质。
+- 新增、删除、重命名或改变公开 API 行为时，在同一变更中同步对应项目页和分类索引。新增项目时同步创建项目页并加入 `docs/README.md` 的覆盖状态。
+- 多页之间使用相对 Markdown 链接；每个项目页顶部至少提供分类索引和 Wiki 首页/相邻页面入口。移动页面时必须修复所有入站链接。
+- Wiki 正文默认使用中文以便项目查阅；API 名称、代码、代码注释和公开 XML 注释保持英文。不要复制大段源码，用小而完整的示例解释组合方式。
+- 文档应区分“当前稳定行为”“内部实现细节”“未来规划”，不得把规划写成已经存在的 API。
+- 续写前先从对应目录运行公开类型/成员检索并阅读相关 `.csproj` 依赖；完成后检查 Markdown 链接、页面索引和源码签名是否一致。
+
+## 12. Scripting API 清单
+- 参与脚本 API 的每个项目只允许一个 `Properties/ScriptingApi.cs`，不得把导出 attribute 分散到业务源码或集中到一个反向依赖所有模块的清单项目。
+- 使用 `ScriptingApiExport` 逐类型显式导出；禁止恢复按程序集暴露全部 public API 的 metadata/property 机制。
+- 使用稳定脚本分组名（如 `InnoEngine.Scene`、`InnoEngine.Mathematics`、`InnoEditor.Inspection`）和 `ScriptingApiNamespace` 映射真实 CLR namespace。
+- 新增模块（如 Rendering）只修改自己的 `Properties/ScriptingApi.cs`，不得在 Editor 编译器中维护中央程序集/type 白名单。
+- 运行时编译和 IDE project 必须共用同一组裁剪 reference assemblies；修改清单后需同时验证两条路径。
+- 完全禁止 compilation-wide/global using，包括手写指令、MSBuild `Using` item、隐式导入和通过 metadata 注入。所有源码与脚本必须在使用它们的文件中显式声明普通 `using`。
+- 脚本必须使用逻辑 namespace（如 `using InnoEngine.Scene;`），不得直接使用实现侧 `Inno.*` namespace。
+
+## 13. Editor 项目组织与引用边界
+- `src/editor` 中每个项目的业务源码统一使用与 `.csproj`/程序集名称完全相同的命名空间；功能目录只负责组织文件，不追加到命名空间。例如 `Inno.Editor.Inspection/PropertyDrawing` 中的类型仍使用 `namespace Inno.Editor.Inspection;`。
+- 可复用的 InspectionDrawer、PropertyDrawer、Registry 与 serialized property renderer 统一属于 `Inno.Editor.Inspection`；业务 Panel 只在自身项目中实现具体 Drawer，不得为了扩展检查显示而引用 `Inno.Editor.Panel.Inspector`。
+- 唯一命名空间例外是 `Inno.Editor.ImGui/Widgets`：其中所有类型使用 `namespace Inno.Editor.ImGui.ImGuiWidget;`。
+- `Inno.Editor.ImGui/Widgets` 只允许 `ImGuiWidget.*.cs` 文件。Widget 的 presentation、options、result 与私有状态应收口到对应的 `ImGuiWidget.<Feature>.cs`，不得创建独立的 Widget helper 文件。
+- Editor 项目内部按可独立理解的功能建立目录（如 `Interactions`、`Documents`、`Zoom`、`PropertyDrawing`）；同一功能内的 Action、Menu、DragDrop、Runtime 与 Presentation 不得仅按类型角色机械拆成多个细碎目录。禁止使用含义模糊的 `Internal` 目录，访问级别由 C# 声明表达，不由目录名表达。
+- Editor `.csproj` 的 `ProjectReference` 必须按公开 API 边界分组：第一个 `ItemGroup` 只放未出现在任何 public/protected API 中的实现依赖，并逐项设置 `PrivateAssets="compile"`；第二个 `ItemGroup` 只放公开签名、公开基类或公开接口实际泄漏的依赖。没有使用的引用应直接删除。
+- `ProjectReference` 是否公开必须根据真实 API 签名判断，不能因为运行时会使用某程序集就默认向下游传递。调整公开类型、基类、参数、返回值或属性后，应同步复核引用分组。
+
+## 14. Editor History 与 Workspace 状态
+- 可逆 Editor 数据修改统一进入 `EditorInteractions.history`；不要在 Panel 中维护第二套 Undo 栈，也不要把简单 `inverse Action` 当作通用模型。
+- Feature Module 先完成领域修改，再用 `RecordApplied(name, EditorHistoryChange)` 记录；History payload 只能保存 stable protocol kind、persistent ID、Stable Type ID、路径、索引、标量和中立序列化 bytes，禁止捕获 runtime 对象、插件 `Type`、extension 实例或来自 collectible ALC 的委托。
+- 每个 reload-safe 协议必须声明 `[EditorHistoryHandler(kind)]`。Handler 的 `Query` 只检查当前 generation 可用性；`Apply` 必须在失败时回滚本次部分修改。Handler Registry 与其他 Editor Registry 一起候选构建和原子切换。
+- `RecordValue`、委托式 `Execute` 与派生 `EditorHistoryOperation` 只允许 Host-only 兼容流程；这些 runtime-bound entry 会在 extension generation 改变时截断，不得用于 EditorScripts 或 Scene/Asset 等长期记录。
+- 稳定 `mergeKey` 只用于同一个逻辑值的连续输入；布尔开关、创建、删除和排序不得合并。多步骤修改使用 `BeginTransaction`，但每个 child 仍必须独立原子化。
+- Undo/Redo 失败时必须保持操作位于原栈，禁止移动指针或覆盖新状态。新操作必须释放 Redo 分支；被淘汰或清除的 operation 必须释放其文件、对象或插件代际引用。
+- 大 payload 使用 `EditorHistoryOptions` 自动溢出到 `<Project>/Library/Editor/History`；History 受 entry、resident bytes 与 disk bytes 三重预算限制，缓存不进入 `editor.ini`、Asset metadata 或 Scene 序列化。
+- 保存、打开、选择等纯工作流操作默认不进入数据 Undo；它们只有在确实修改项目数据时才记录对应的数据部分。
+- 跨启动的项目语义状态直接属于 Module/Panel；它们使用 Attribute 中必填、稳定且全局唯一的 ID，并通过 protected `Capture(EditorState)` / `Restore(EditorState)` hooks 参与持久化。扩展只调用参数对象的 `Get` / `Set`，不得在公开或 protected API 中暴露 JSON 实现。未 override Capture 的类型不进入状态 IO；不得恢复独立 Workspace interface、reader/writer 或第二个状态 ID。持久值只允许可重新解析的中立数据。
+- `editor.ini` 是统一且可读的项目级 Editor settings 文档：标准 ImGui section 保存 layout；每个 Module/Panel 分别使用 `[InnoEditor][Module.<id>]` / `[InnoEditor][Panel.<id>]`；Panel 开关使用 `[InnoEditor][Panels]`。禁止用 Base64 或单一 opaque payload 包装全部 Workspace。Undo 栈、dirty Scene 内容、runtime 引用和编译中间态不得持久化。
+- Editor Selection 是当前 session 的瞬时交互状态，不得写入 `editor.ini`。Workspace 可以保存可独立解释的导航位置、已打开文档和 active document，但启动后不得自动恢复 Asset、Scene、GameObject、Component 或 System selection。
+- Editor 正常退出时必须先捕获全部有状态的 Module/Panel，再捕获最新 ImGui layout，最后在 Module 停止和 Scene 卸载前强制原子写入一次完整 `editor.ini`。运行期间仍可节流保存，但不能把它当作退出保存的替代品。
+- Editor Scene 修改统一进入 `Inno.Editor.Scene.SceneEdits`。普通属性只保存单 property bytes；Component/System 保存 element identity/type/index/state；GameObject 删除保存最小 subtree；层级只保存受影响 placement；禁止为小修改序列化或恢复完整 Scene。
+- Module/Panel 状态恢复必须容忍缺失 Asset、损坏 payload 和脚本类型尚未进入 TypeCache。候选未完整准备好前不得破坏当前可编辑状态。
+- 有状态的 Module/Panel 必须先成功执行一次 protected `Restore`，之后才允许 `Capture` 覆盖磁盘 section。扩展 Registry 在启动或脚本激活期间可能重入刷新；恢复协调器必须按 Module/Panel 实例弱跟踪 `restoring/restored` 状态，禁止重入回调，也不能因为实例被新 snapshot 保留就误判其已经恢复。
+- Scene Workspace 恢复时必须区分“源文件确实缺失”和“Asset Source Index 尚未完成首轮对账”。物理源仍存在时应保留 pending scene setup 并重试，不能用暂时为空的运行时 Scene 集合覆盖项目设置。Editor 允许没有任何已加载 Scene，不得为恢复、启动或删除最后一个 Scene 隐式创建 Untitled Scene。
+
+## 15. 禁止 Legacy 兼容与 Schema Version
+- InnoEngine 是自用且始终按当前源码、当前 Project 数据共同演进的引擎。新增或修改功能时不支持旧版文件、旧版 schema、旧字段、旧缓存目录、旧 namespace、旧 API 或旧序列化布局，也不得为它们添加 fallback reader、migration、compatibility alias、former ID、deprecated wrapper 或双写逻辑。
+- 持久化模型、Attribute、Importer、Build Processor、History、Workspace、Scene、Prefab、Asset metadata、Catalog 和脚本 manifest 不得引入用于 legacy 适配的 `version`、`schemaVersion`、`formatVersion`、`formerVersion` 等字段。格式发生变化时直接更新当前 writer、reader、测试、文档和当前 Project 数据；旧数据可以明确失效并重新生成。
+- 不得因为“未来可能兼容”预留迁移分支。只有用户在具体任务中明确要求导入某一种旧格式时，才可以实现一次性、边界清晰的转换工具；转换逻辑不得进入正常运行路径。
+- 删除或重构 API 时同步修改所有调用方，不保留旧 overload、旧 namespace facade、转发类型或 `[Obsolete]` 兼容层，除非用户明确要求保留。
+- 以上规则不禁止保障当前运行正确性所需的运行时标识，例如 TypeCache/Assembly generation、并发 revision、change counter、content hash、artifact fingerprint、MVID、job handle generation，以及只用于拒绝损坏或错误格式输入的严格 magic/header。它们不得演变成读取多代 legacy schema 的兼容机制。
+- 代码审查或清理包含 `version`、`legacy`、`migration`、`compatibility`、`former`、`deprecated` 等名称的实现时，必须先判断其是否只服务于旧数据/API；如果是，应连同测试和文档一起删除，而不是继续扩展。
+
+## 16. 完成提示音
+- 在设计阶段等待用户作出会改变方案边界的决策前、最终设计完成后，以及完成用户要求的代码或文件操作并通过必要验证后，默认播放 `/System/Library/Sounds/Glass.aiff` 作为提示音，无需用户在每次任务中重复要求。
+- 如果当前环境无法访问音频设备，应在最终结果中明确说明提示音未能播放；用户明确要求静默时不播放。
+
+## 17. Rendering 强制边界
+- Rendering 的公开设计必须同时满足：跨平台、API 易用、扩展灵活和低耦合。不得以实现便利为由破坏其中任一项。
+- 只有 `Inno.Adapter.Rendering.Bgfx` 可以引用 `Inno.Native.Bgfx` 与 `Inno.Native.Bgfx.Tools`。BGFX handle、View ID、原生指针和 BGFX 枚举不得出现在其他项目的 public/protected API 中。
+- `Inno.Rendering.Core` 必须保持后端中立，且不得引用 Scene、Assets、Editor 或任何具体图形后端。上层模块通过资源描述、能力集合、RenderGraph 和命令编码接口工作。
+- 通用 Graph 不得引用 Rendering 或 ImGui；Rendering 也不得反向引用 ShaderGraph 或 Editor Graph。ShaderGraph 只能作为面向 Rendering 契约的上层编译前端。
+- 手写 Shader 与节点生成 Shader 必须进入同一个 Shader IR、编译、反射、验证和产物缓存链；不得维护第二套节点专用 shader 编译路径。
+- Pipeline、Feature、Pass、Shader Node、GPU 资源与编译产物必须 capability-aware、generation-scoped 且 reload-safe。持久状态只保存 Stable ID 与中立数据，禁止长期保存 collectible ALC 的 `Type`、delegate 或 runtime 对象。
+- Project 脚本扩展只允许使用后端中立 Rendering API。扩展失败必须隔离，候选成功后只能在帧安全点原子切换，并保留 last-good Pipeline、Shader 和 GPU 资源。
+- Rendering Core 只提供图形机制，不得内建 2D、2.5D、3D、PBR、Forward、Deferred、Light、Shadow、Camera、MeshRenderer 或任何具体渲染世界观。所有具体渲染模型必须能够由 Project 脚本或 Plugin 从零组合。
+- Shader、Technique、Material 与 Pipeline 通过开放 Stable ID 契约组合；内核不得维护封闭 Pass Tag、Render Path、资源语义或质量设置名单。
+
+## 18. Plugin 与结构化内容强制边界
+- Project 根目录的 `Plugins` 与 `Assets` 平级。`Assets` 是唯一官方可写创作源；完整 Project 通过 File 菜单的 `Export as Plugin` 直接导出 `.iplugin`，不创建 `PluginDefinitionAsset` 或第二套 package authoring asset。`Plugins/*.iplugin` 是唯一安装源；Folder Plugin、`.zip` Plugin 与其他扩展名均不支持。安装包必须经过完整校验并作为只读 Asset Source Mount 进入现有 Asset Catalog、Importer、依赖图和 Artifact 流程，禁止建立 Plugin 专用资产数据库。
+- File Browser 与所有 Asset mutation API 必须把 `.iplugin` 安装内容视为逻辑只读。外部替换 `.iplugin` 只表示安装内容更新并触发候选事务，不授予 Editor 内写权限；`Library/Plugins` 始终是不可编辑、可完全重建的缓存。
+- `.iplugin` 本质是使用 ZIP 容器格式的本地内容与代码包，不得引入 Package Manager、远程仓库、语义版本解析或平台产物发布系统。Plugin 依赖使用稳定 Plugin ID；导出器根据当前 active Plugin generation 自动声明依赖，并只在明确的 Editor Setting 开启时内嵌扁平、完整、确定性的依赖 `.iplugin`。规范化 source content hash 只用于候选、变化检测与缓存身份。
+- Project `Assets` 中以 `~` 开头的目录仍按普通创作内容导入并参与脚本编译，便于完整开发和验证；Project 导出为 `.iplugin` 时这些目录随源内容进入包。安装后的 Plugin Mount 将其视为必须显式 Import 到 Project 的 Sample 子树；Import 必须完整保留原目录名及全部前导 `~`，导入后按 Project 普通内容运行。任何 Source 中的 `~` 子树都不得进入最终 Player runtime closure。
+- 脚本引用同一 Source 内的资源必须使用 source-local Asset 路径协议，由脚本程序集的 Asset Source 元数据在 Project 开发态与 `.iplugin` 安装态自动解析；禁止在业务脚本中硬编码 Plugin source ID，也禁止为 Rendering 等具体领域建立 source mount 适配分支。
+- Plugin 扩展必须复用现有 `AssemblyDomain.InnoPlugin`、collectible ALC、TypeCache、TypeRegistry 和候选事务。持久状态不得保存 Plugin `Type`、实例或 delegate。
+- 所有结构化资产、Graph、Plugin 清单和 Project Settings 必须使用 `ISerializable`、`SerializableProperty`、Serialization Converter 与 `SerializationManager`。只有 C#、Shader source/include 和普通文档等天然文本允许保持文本格式；禁止为 Rendering、Plugin 或 Settings 建立独立 JSON 持久化旁路。
+- Plugin 可以同时贡献资产、Shader、Pipeline、Importer、Component、Editor 扩展、设置和玩法代码。Manifest 不得维护各领域类型名单；具体扩展继续由稳定 attribute 和 TypeRegistry 自动发现。
+
+## 19. 新系统完成标准
+- 新功能必须先定义清晰的程序集/领域边界与最小公开入口，再实现具体 UI 或平台适配；平台、存储、编译器和 presentation 通过可替换契约隔离，禁止把临时流程堆入 Panel、Application 或静态工具类。
+- 默认一次完成源码、调用方、项目引用、解决方案归类、公开 XML、Wiki、成功/失败/边界测试与必要构建验证。不得留下占位实现、静默 fallback、重复协议或“以后再重构”的妥协路径。
+- 公开 API 必须少而完整；能由引擎可靠推导的信息不得要求用户创建 companion asset、重复填写清单或修改无关调用方。新增公开 API 时必须在交付说明中列出其必要性与稳定语义。
+- 绝对禁止使用 `InternalsVisibleTo`、测试专用后门、反射穿透或扩大 `internal` 成员可见性来简化测试。测试只能通过真实公开契约和可替换 public boundary 验证行为。
+- 新项目和功能文件必须按职责归类，文件名与主类型一致；一个文件只承载紧密相关的契约或实现，不使用含义模糊的 helper/internal 目录，也不把互不相关的类型收进巨型文件。
+
+## 20. Identity、Missing、引用与热重载强制边界
+- 跨 UI、callback、queue、frame、Scene、Asset、Scripting 或 Plugin generation 边界定位 live object 时必须经过 `Inno.Core.Identity`。当前 domain 内瞬时解析使用 `Identity.runtimeId`，持久化、History 和跨代恢复只保存 `Identity.persistentId`；runtime ID 绝不进入 Scene、Prefab、Asset metadata、Settings、Plugin manifest 或 History。
+- Stable Type ID、Plugin/Feature/Importer 等 semantic ID、Artifact key 和 generation handle 各自保持独立语义，不得与 object Identity 混用。领域二级索引可以把 path/semantic key 映射到 persistent ID 或 immutable record，但不能成为跨 generation live object 的第二权威表。
+- Editor ImGui DragDrop 的 native payload 数据必须是源 identity 的 runtime ID；禁止使用随机 token 回查 managed source object。Preview 与 Delivery 都必须通过正确的 `IdentityAllocator` 重新解析并校验 generation；Drop 落盘或记录 History 时转换为 persistent ID。
+- Asset、Script Type、Plugin、Importer、Component/System、Graph node、Settings contribution 或 extension 暂时不可用时必须保留 Missing state：原 persistent ID、Stable ID、结构位置、property bytes、依赖和中立 extension state均不得丢失。Missing 与 null/Unassigned 必须在 API 和 UI 中严格区分。
+- 同一 identity/type/plugin 恢复后必须通过统一 candidate/recovery transaction 在 owner-thread safe point 原子重建；失败保留原 Missing 与诊断。不得让 Assets、Scene、Scripting、Plugins、Graph 或各 Panel 分别实现互不兼容的 resolver、placeholder 生命周期或恢复事务。
+- reload-safe Undo/Redo 只能保存 stable protocol kind、persistent ID、Stable ID、结构值和中立 bytes；不得捕获 runtime object、`Type`、delegate、extension instance 或 ALC。暂时 Missing 只能成为可恢复 barrier，不能丢弃、跳过或移动栈指针；恢复后原操作应自动重新可用。
+- 所有可能包含 Asset/Object reference 的序列化必须从 owner 取得完整 `SerializationContext`。除经类型与测试证明完全 context-free 的纯值图外，业务代码禁止直接从 `SerializationContext.empty` 临时拼接 resolver；缺少 required resolver 必须在 composition/startup 失败，不能延迟到 Play、Undo 或 recovery 才爆出。
+- Scripting、Plugin、Asset type、Serializer 和 extension generation 必须进入统一 candidate transaction。旧 collectible ALC 的成功退休必须执行 Full GC → `GC.WaitForPendingFinalizers()` → Full GC，并由弱 monitor 确认全部 context 不可达；在此之前 reload 不得报告 Success，也不得开始新的 reload、Play、Build 或 Export。
+- unload verification 的 timeout 只能触发明确异常和 `Faulted`，绝不能清空仍 Pending 的 monitor 后继续。失败必须列出 module/domain/scope/generation；Faulted 进程禁止继续 generation transaction，需完整重启 Host。static/event/task/thread/AsyncLocal/GCHandle/native callback/Editor transient state 等旧 generation 强引用必须被测试覆盖。
+- 完整规范、目标 API、当前差距和测试矩阵见 `docs/architecture/IDENTITY_REFERENCE_RELOAD_STANDARD.md`；修改 Identity、Scripting、Plugins、Assets、Scene、Editor Interactions/History 或任何 collectible extension 时必须同步核对此页。
+
+---
+> Source: [Wolfiora/InnoEngine](https://github.com/Wolfiora/InnoEngine) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
