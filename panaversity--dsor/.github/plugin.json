@@ -1,0 +1,9 @@
+{
+  "name": "panaversity--dsor",
+  "displayName": "dsor",
+  "description": "DSoR (Data System of Record): the governed layer between AI agents and a company's real systems. It checks permissions, limits and approvals itself, prevents duplicate actions, and keeps the evidence.",
+  "version": "1.0.0",
+  "author": "panaversity",
+  "homepage": "https://github.com/panaversity/dsor",
+  "skills": []
+}
