@@ -1,0 +1,9 @@
+{
+  "name": "plasdigital--prospeccao-kit-aluno",
+  "displayName": "prospeccao-kit-aluno",
+  "description": "Gera e qualifica leads de empresas: Google Maps + visita ao site + nota de 0 a 100. Baixe a pasta, abra o Claude Code dentro dela e peca em portugues.",
+  "version": "1.0.0",
+  "author": "plasdigital",
+  "homepage": "https://github.com/plasdigital/prospeccao-kit-aluno",
+  "skills": []
+}
