@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--once-campfire-rust",
+  "displayName": "once-campfire-rust",
+  "description": "ONCE Campfire in Rust: one binary, the Rails app's data, 19\u201344\u00d7 faster",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/once-campfire-rust",
+  "skills": []
+}
