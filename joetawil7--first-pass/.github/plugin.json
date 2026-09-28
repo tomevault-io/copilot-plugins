@@ -1,0 +1,9 @@
+{
+  "name": "joetawil7--first-pass",
+  "displayName": "first-pass",
+  "description": " Rules and checks that make Claude Code look around a change, not just at the lines it writes: ten questions before code, a reviewer that didn't write it, proof before done, bugs fixed as a class.",
+  "version": "1.0.0",
+  "author": "joetawil7",
+  "homepage": "https://github.com/joetawil7/first-pass",
+  "skills": []
+}
