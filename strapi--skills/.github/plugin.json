@@ -1,0 +1,9 @@
+{
+  "name": "strapi--skills",
+  "displayName": "skills",
+  "description": "AI Agent Skills A collection of skills for AI coding agents. Skills are packaged instructions and scripts that extend agent capabilities.",
+  "version": "1.0.0",
+  "author": "strapi",
+  "homepage": "https://github.com/strapi/skills",
+  "skills": []
+}
