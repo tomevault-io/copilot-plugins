@@ -1,0 +1,44 @@
+{
+  "name": "edu-agent-skills",
+  "owner": "yugash007",
+  "repo": "edu-agent-skills",
+  "description": "Reusable educational skills for AI coding agents. Turn agents (Gemini CLI, Claude Code, Cursor, etc.) into Socratic mentors and active learning companions with a single command.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yugash007/edu-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T15:13:44Z"
+}
