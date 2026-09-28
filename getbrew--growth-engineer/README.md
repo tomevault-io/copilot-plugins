@@ -7,11 +7,11 @@ Open-source catalog of go-to-market tools and workflows, written as markdown fil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [GetBrew/growth-engineer](https://github.com/GetBrew/growth-engineer).
+Original source: `CLAUDE.md` in [GetBrew/growth-engineer](https://github.com/GetBrew/growth-engineer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
