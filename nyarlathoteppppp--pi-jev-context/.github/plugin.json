@@ -1,0 +1,9 @@
+{
+  "name": "nyarlathoteppppp--pi-jev-context",
+  "displayName": "pi-jev-context",
+  "description": "Model performance first. Token savings second. A Pi extension with freshness-aware read dedupe, Jev log filtering, and searchable verbatim recall. Keeps existing message history intact.",
+  "version": "1.0.0",
+  "author": "Nyarlathoteppppp",
+  "homepage": "https://github.com/Nyarlathoteppppp/pi-jev-context",
+  "skills": []
+}
