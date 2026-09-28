@@ -4,7 +4,7 @@
   "repo": "agnes-harness",
   "description": "Agnes Harness: A pluggable agent harness for Forward Deployed Engineering (FDE). Built for trust. Made for the real world.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgnesAI-Labs/agnes-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-27T23:33:51Z"
+  "distributed_at": "2026-09-28T03:41:44Z"
 }
