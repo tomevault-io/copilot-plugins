@@ -4,7 +4,7 @@
   "repo": "jev-safety-gateway",
   "description": "\u4f4d\u4e8e nginx \u4e0e\u5927\u6a21\u578b\u540e\u7aef\u4e4b\u95f4\u7684\u524d\u7f6e\u8fc7\u6ee4\u53cd\u5411\u4ee3\u7406\uff1a\u9010\u8bf7\u6c42\u63d0\u53d6\u7528\u6237\u8f93\u5165\u4ea4\u7ed9 JEV \u5224\u5b9a\uff0c\u6709\u5bb3\u62e6\u622a\u3001\u6b63\u5e38\u900f\u660e\u653e\u884c",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dark-hxx/jev-safety-gateway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T02:59:14Z"
+  "distributed_at": "2026-09-28T07:27:23Z"
 }
