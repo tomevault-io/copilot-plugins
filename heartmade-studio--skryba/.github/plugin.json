@@ -1,0 +1,9 @@
+{
+  "name": "heartmade-studio--skryba",
+  "displayName": "skryba",
+  "description": "Hold Fn, speak, and your words appear wherever you type. A small macOS dictation app using Groq's Whisper.",
+  "version": "1.0.0",
+  "author": "heartmade-studio",
+  "homepage": "https://github.com/heartmade-studio/skryba",
+  "skills": []
+}
