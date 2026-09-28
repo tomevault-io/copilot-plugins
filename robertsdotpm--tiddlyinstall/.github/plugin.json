@@ -1,0 +1,9 @@
+{
+  "name": "robertsdotpm--tiddlyinstall",
+  "displayName": "tiddlyinstall",
+  "description": "TiddlyInstall \u2013 Single HTML file that makes cross-platform installers",
+  "version": "1.0.0",
+  "author": "robertsdotpm",
+  "homepage": "https://github.com/robertsdotpm/tiddlyinstall",
+  "skills": []
+}
