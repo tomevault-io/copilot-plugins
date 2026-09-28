@@ -1,0 +1,9 @@
+{
+  "name": "brianhong-dev--omo-jev-plugin",
+  "displayName": "omo-jev-plugin",
+  "description": "Jev-powered decision support for OmO and senpi agents",
+  "version": "1.0.0",
+  "author": "brianhong-dev",
+  "homepage": "https://github.com/brianhong-dev/omo-jev-plugin",
+  "skills": []
+}
