@@ -1,0 +1,9 @@
+{
+  "name": "fenner888--devin-tui",
+  "displayName": "devin-tui",
+  "description": "Unofficial full-screen terminal UI for Devin, driven by devin acp (Agent Client Protocol)",
+  "version": "1.0.0",
+  "author": "fenner888",
+  "homepage": "https://github.com/fenner888/devin-tui",
+  "skills": []
+}
