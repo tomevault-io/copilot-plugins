@@ -1,0 +1,9 @@
+{
+  "name": "oinsio--gnomish-factory",
+  "displayName": "gnomish-factory",
+  "description": "Autonomous AI Agent orchestrator for software development. Multi-instance AI coding agents (gnomes) automate SDLC pipelines, pick tasks from GitHub/Jira trackers, and run securely in container sandbox",
+  "version": "1.0.0",
+  "author": "oinsio",
+  "homepage": "https://github.com/oinsio/gnomish-factory",
+  "skills": []
+}
