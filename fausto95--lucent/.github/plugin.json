@@ -1,0 +1,9 @@
+{
+  "name": "fausto95--lucent",
+  "displayName": "lucent",
+  "description": "Write React Native native modules in TypeScript. Lucent compiles a checked subset to C++ and calls it through JSI: no Swift or Kotlin to write, and no JavaScript engine in native code.",
+  "version": "1.0.0",
+  "author": "Fausto95",
+  "homepage": "https://github.com/Fausto95/lucent",
+  "skills": []
+}
