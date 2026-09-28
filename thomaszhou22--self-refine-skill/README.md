@@ -7,14 +7,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Thomaszhou22/self-refine-skill](https://github.com/Thomaszhou22/self-refine-skill).
+Original source: `CLAUDE.md` in [Thomaszhou22/self-refine-skill](https://github.com/Thomaszhou22/self-refine-skill).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [Thomaszhou22/self-refine-skill](https://github.com/Thomaszhou22/self-refine-skill) — a repo with 9+ stars on GitHub.
