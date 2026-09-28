@@ -1,0 +1,9 @@
+{
+  "name": "exsesx--helium-new-tab",
+  "displayName": "helium-new-tab",
+  "description": "A lightweight, unofficial New Tab extension for Helium with search, a clock, and local customization.",
+  "version": "1.0.0",
+  "author": "exsesx",
+  "homepage": "https://github.com/exsesx/helium-new-tab",
+  "skills": []
+}
