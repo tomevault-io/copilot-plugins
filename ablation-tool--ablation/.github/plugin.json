@@ -1,0 +1,9 @@
+{
+  "name": "ablation-tool--ablation",
+  "displayName": "ablation",
+  "description": "Ablation is a reverse engineering framework",
+  "version": "1.0.0",
+  "author": "Ablation-Tool",
+  "homepage": "https://github.com/Ablation-Tool/ablation",
+  "skills": []
+}
