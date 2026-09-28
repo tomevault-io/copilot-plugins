@@ -1,0 +1,44 @@
+{
+  "name": "token-stats",
+  "owner": "Annihilater",
+  "repo": "token-stats",
+  "description": "CLI for tracking AI coding token usage & costs across Claude Code, Codex, Cursor, Gemini, OpenCode, OpenClaw and more \u2014 TUI stats, costs, and usage graphs.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Annihilater/token-stats",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T09:38:36Z"
+}
