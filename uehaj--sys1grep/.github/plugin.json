@@ -1,0 +1,9 @@
+{
+  "name": "uehaj--sys1grep",
+  "displayName": "sys1grep",
+  "description": "grep by meaning, across languages. TypeSafe Jev scores every line against a meaning; combine meanings with AND/OR/NOT. \u610f\u5473\u3067\u63a2\u3059 grep\u3002\u65e5\u672c\u8a9e\u3067\u82f1\u8a9e\u3092\u3001\u82f1\u8a9e\u3067\u65e5\u672c\u8a9e\u3092\u691c\u7d22\u3067\u304d\u308b",
+  "version": "1.0.0",
+  "author": "uehaj",
+  "homepage": "https://github.com/uehaj/sys1grep",
+  "skills": []
+}
