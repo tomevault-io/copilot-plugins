@@ -1,0 +1,9 @@
+{
+  "name": "thomaszhou22--self-refine-skill",
+  "displayName": "self-refine-skill",
+  "description": "\ud83e\ude9e Systematic self-reflection for AI agents. GENERATE \u2192 CRITIQUE \u2192 REFINE \u2192 CHECK. Based on peer-reviewed research. Zero API cost. Works with Claude Code, Cursor, Copilot, Codex CLI, and 10+ more platf",
+  "version": "1.0.0",
+  "author": "Thomaszhou22",
+  "homepage": "https://github.com/Thomaszhou22/self-refine-skill",
+  "skills": []
+}
