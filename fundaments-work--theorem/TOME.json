@@ -1,0 +1,44 @@
+{
+  "name": "Theorem",
+  "owner": "Fundaments-Work",
+  "repo": "Theorem",
+  "description": "Theorem \u2014 free, open-source, local-first reading app. Read EPUB, PDF, MOBI, CBZ, RSS. Highlight, annotate, TTS, vocabulary builder, P2P sync, Markdown export for Obsidian/Logseq. Built with Tauri, React, TypeScript, Rust.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Fundaments-Work/Theorem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T01:24:23Z"
+}
