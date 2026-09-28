@@ -1,11 +1,13 @@
-# AI instruction files for GEO-INFER
+# GEO_INFER
 
-> Sourced from [ActiveInferenceInstitute/GEO-INFER](https://github.com/ActiveInferenceInstitute/GEO-INFER) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Tome by [ActiveInferenceInstitute](https://github.com/ActiveInferenceInstitute/GEO_INFER), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+GEO-INFER — a 44-module geospatial inference monorepo from the Active Inference Institute. Spatial analysis, active inference, domain modeling, agent workflows, and reproducible repository validation in one uv/Python workspace (H3, Bayesian models, place & risk).
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ActiveInferenceInstitute/GEO-INFER](https://github.com/ActiveInferenceInstitute/GEO-INFER).
+Original source: `CLAUDE.md` in [ActiveInferenceInstitute/GEO_INFER](https://github.com/ActiveInferenceInstitute/GEO_INFER).
 
 ## Also available for
 
@@ -15,10 +17,14 @@ Original source: `CLAUDE.md` in [ActiveInferenceInstitute/GEO-INFER](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ActiveInferenceInstitute/GEO-INFER](https://github.com/ActiveInferenceInstitute/GEO-INFER)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ActiveInferenceInstitute/GEO_INFER](https://github.com/ActiveInferenceInstitute/GEO_INFER)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Install this config instantly:
+```
+npx tomevault install ActiveInferenceInstitute/GEO_INFER
+```
+Source: [github.com/ActiveInferenceInstitute/GEO_INFER](https://github.com/ActiveInferenceInstitute/GEO_INFER).
 
-<!-- genome:a-e-q -->
+<!-- genome:t-i-p -->
