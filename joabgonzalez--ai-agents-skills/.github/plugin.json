@@ -1,0 +1,9 @@
+{
+  "name": "joabgonzalez--ai-agents-skills",
+  "displayName": "ai-agents-skills",
+  "description": "Modular CLI for distributing 50+ AI agent skills across multiple coding assistants",
+  "version": "1.0.0",
+  "author": "joabgonzalez",
+  "homepage": "https://github.com/joabgonzalez/ai-agents-skills",
+  "skills": []
+}
