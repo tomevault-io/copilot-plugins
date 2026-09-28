@@ -1,0 +1,9 @@
+{
+  "name": "savoirfairelinux--virtual-engineer",
+  "displayName": "virtual-engineer",
+  "description": "Self-hosted AI orchestrator for ticket-driven coding and automated code review in isolated containers.",
+  "version": "1.0.0",
+  "author": "savoirfairelinux",
+  "homepage": "https://github.com/savoirfairelinux/virtual-engineer",
+  "skills": []
+}
