@@ -1,0 +1,9 @@
+{
+  "name": "neuron-core--router",
+  "displayName": "router",
+  "description": "Route inference calls to different providers based on a fallback condition, or a routing rule you define.",
+  "version": "1.0.0",
+  "author": "neuron-core",
+  "homepage": "https://github.com/neuron-core/router",
+  "skills": []
+}
