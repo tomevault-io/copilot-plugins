@@ -1,0 +1,9 @@
+{
+  "name": "annihilater--token-stats",
+  "displayName": "token-stats",
+  "description": "CLI for tracking AI coding token usage & costs across Claude Code, Codex, Cursor, Gemini, OpenCode, OpenClaw and more \u2014 TUI stats, costs, and usage graphs.",
+  "version": "1.0.0",
+  "author": "Annihilater",
+  "homepage": "https://github.com/Annihilater/token-stats",
+  "skills": []
+}
