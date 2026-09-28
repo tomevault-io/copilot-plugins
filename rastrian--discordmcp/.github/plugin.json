@@ -1,0 +1,9 @@
+{
+  "name": "rastrian--discordmcp",
+  "displayName": "DiscordMCP",
+  "description": "A multi-server Discord control plane that exposes Discord operations as MCP tools, resources, and prompts for AI clients, with a built-in conversational AI agent.",
+  "version": "1.0.0",
+  "author": "Rastrian",
+  "homepage": "https://github.com/Rastrian/DiscordMCP",
+  "skills": []
+}
