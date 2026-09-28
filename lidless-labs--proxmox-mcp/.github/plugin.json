@@ -1,0 +1,9 @@
+{
+  "name": "lidless-labs--proxmox-mcp",
+  "displayName": "proxmox-mcp",
+  "description": "Point an agent at your homelab and it can nuke a VM. proxmox-mcp gates every write before the Proxmox API sees it, so an AI client can operate the cluster without owning it.",
+  "version": "1.0.0",
+  "author": "lidless-labs",
+  "homepage": "https://github.com/lidless-labs/proxmox-mcp",
+  "skills": []
+}
