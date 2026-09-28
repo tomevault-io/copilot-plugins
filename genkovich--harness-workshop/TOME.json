@@ -1,0 +1,44 @@
+{
+  "name": "harness-workshop",
+  "owner": "genkovich",
+  "repo": "harness-workshop",
+  "description": "\u041f\u0440\u043e\u0441\u0442\u0438\u0439 \u043d\u0430\u0432\u0447\u0430\u043b\u044c\u043d\u0438\u0439 harness: TypeScript, \u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0438\u0439 \u0440\u0430\u043d\u0431\u0443\u043a, \u0434\u0432\u0430 \u0434\u043d\u0456 \u043f\u0440\u0430\u043a\u0442\u0438\u043a\u0438",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/genkovich/harness-workshop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T10:31:31Z"
+}
