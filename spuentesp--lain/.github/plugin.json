@@ -1,0 +1,9 @@
+{
+  "name": "spuentesp--lain",
+  "displayName": "lain",
+  "description": "High-performance MCP server for AI coding agents: persistent knowledge graph, blast radius analysis, semantic search. Built in Rust.",
+  "version": "1.0.0",
+  "author": "spuentesp",
+  "homepage": "https://github.com/spuentesp/lain",
+  "skills": []
+}
