@@ -7,11 +7,11 @@ Self-hosted systems + scientific programming language with epistemic types, unce
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio).
+Original source: `AGENTS.md` in [Sounio-lang/sounio](https://github.com/Sounio-lang/sounio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
