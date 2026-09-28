@@ -1,0 +1,9 @@
+{
+  "name": "imserhatdemir--ft-motion",
+  "displayName": "ft-motion",
+  "description": "Motion graphics as a pure function of time \u2014 Canvas 2D scenes, headless-Chrome rendering with motion blur, ffmpeg, synthesized sound, and a brief-to-video prompt for coding agents.",
+  "version": "1.0.0",
+  "author": "imserhatdemir",
+  "homepage": "https://github.com/imserhatdemir/ft-motion",
+  "skills": []
+}
