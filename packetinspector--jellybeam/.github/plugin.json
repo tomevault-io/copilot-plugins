@@ -1,0 +1,9 @@
+{
+  "name": "packetinspector--jellybeam",
+  "displayName": "jellybeam",
+  "description": "Native Android TV client for Jellyfin. Kotlin/Compose over a Rust core, Direct Play first.",
+  "version": "1.0.0",
+  "author": "packetinspector",
+  "homepage": "https://github.com/packetinspector/jellybeam",
+  "skills": []
+}
