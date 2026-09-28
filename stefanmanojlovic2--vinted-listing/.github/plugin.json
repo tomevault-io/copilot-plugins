@@ -1,0 +1,9 @@
+{
+  "name": "stefanmanojlovic2--vinted-listing",
+  "displayName": "vinted-listing",
+  "description": "An agent skill that turns phone photos of your clothes into ready-to-paste Vinted listings.",
+  "version": "1.0.0",
+  "author": "stefanmanojlovic2",
+  "homepage": "https://github.com/stefanmanojlovic2/vinted-listing",
+  "skills": []
+}
