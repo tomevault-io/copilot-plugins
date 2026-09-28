@@ -1,0 +1,9 @@
+{
+  "name": "hogbenderest--cloudflare-os-public",
+  "displayName": "cloudflare-os-public",
+  "description": "Public snapshot of a personal cloudflare/cloudflare-os fork featuring the Microsoft 365 gatekeeper (Outlook + Entra ID connector). Apache 2.0.",
+  "version": "1.0.0",
+  "author": "hogbenderest",
+  "homepage": "https://github.com/hogbenderest/cloudflare-os-public",
+  "skills": []
+}
