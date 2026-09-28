@@ -1,0 +1,9 @@
+{
+  "name": "mnaoumov--obsidian-test-mocks",
+  "displayName": "obsidian-test-mocks",
+  "description": "Fully-featured mocks for entire obsidian and and obsidian-typings/implementations modules.",
+  "version": "1.0.0",
+  "author": "mnaoumov",
+  "homepage": "https://github.com/mnaoumov/obsidian-test-mocks",
+  "skills": []
+}
