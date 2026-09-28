@@ -1,0 +1,9 @@
+{
+  "name": "taoeffect--dez",
+  "displayName": "dez",
+  "description": "Interact with LLMs inside of a plain text editor. Zed's Text Threads reborn as an independent app.",
+  "version": "1.0.0",
+  "author": "taoeffect",
+  "homepage": "https://github.com/taoeffect/dez",
+  "skills": []
+}
