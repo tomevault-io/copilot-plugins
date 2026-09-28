@@ -1,56 +1,92 @@
-## pr-ready-checklist
+## cupedia
 
-> CUpedia PR 合并前检查清单（源自 #201 review）
+> CUpedia is a Next.js 16 App Router platform for CUHK students. It contains several product domains, including Wiki, courses and professors, canteens, College Picker, Campus Transport, announcements, notifications, and product updates.
 
+# CUpedia agent guide
 
-# PR 合并前检查
+CUpedia is a Next.js 16 App Router platform for CUHK students. It contains several product domains, including Wiki, courses and professors, canteens, College Picker, Campus Transport, announcements, notifications, and product updates.
 
-每次提交 PR 前必须本地跑通：
+## Sources of truth
+
+Use the repository itself as the authority:
+
+- `package.json` defines runnable commands
+- `.github/workflows/ci.yml` and `scripts/ci-classifier.mjs` define hosted CI gates
+- `src/db/schema.ts` defines the current Drizzle schema
+- `CONTEXT-MAP.md` and the relevant `CONTEXT.md` define domain language and boundaries
+- `docs/adr/README.md` indexes accepted and proposed architectural decisions
+- `docs/README.md` routes development, operations, research, and historical documentation
+
+When prose conflicts with code or configuration, verify the live source and update stale prose when it is in scope.
+
+## Load context by task
+
+Read only the branch relevant to the task:
+
+- **Domain behavior or terminology**: read `CONTEXT-MAP.md`, then the relevant `CONTEXT.md` and ADRs. Follow `docs/agents/domain.md`.
+- **Local setup or environment**: read `docs/development/setup.md`.
+- **Database or migration work**: read `docs/development/database.md` before editing `src/db/schema.ts` or migrations.
+- **Tests, CI, or verification**: read `docs/development/testing.md`; use `docs/ci-topology.md` for hosted CI classification.
+- **Wiki persistence, drafts, search, or assets**: read `docs/development/wiki.md` and its linked ADRs.
+- **Issues, labels, or triage**: read `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md`.
+- **Pull requests or publishing work**: use `$create-pr`.
+
+## Repository map
+
+Core paths are `src/app/`, `src/components/`, `src/lib/`, `src/db/`, `tests/`, `e2e/`, `scripts/`, and `docs/`.
+
+Use `rg` or `rg --files` to locate code. For database questions, start with `src/db/schema.ts`; for authentication, start with `src/lib/auth.ts` and `src/lib/auth-guard.ts`; for a component, follow its import chain.
+
+## Engineering guardrails
+
+- Keep Server Components as the default. Add `"use client"` only when browser state or client hooks require it.
+- Put server actions in `src/lib/*-actions.ts` with `"use server"`.
+- Use kebab-case filenames, camelCase functions, PascalCase components, and the `@/` alias for `src/` imports.
+- Reuse the repository's authentication guards. Enforce authorization on the server for every write path.
+- Read email eligibility from `src/lib/email.ts`; do not copy domain rules into a new implementation.
+- Preserve unrelated working-tree changes. Stage only files that belong to the requested issue.
+
+## Change workflow
+
+1. Inspect `git status --short`, the current branch, and the relevant diff before changing files.
+2. Read the relevant context and decision documents.
+3. Split the work into independently verifiable steps.
+4. Run targeted WIP checks while iterating. Include both tracked changes and untracked source files; see `docs/development/testing.md`.
+5. Run the Ready baseline before completion or a PR:
 
 ```bash
-pnpm test          # 或相关子集
 pnpm lint
-pnpm tsc --noEmit  # Ready profile 硬性要求
+pnpm test
+pnpm typecheck
 ```
 
-## 数据库迁移
+Add checks based on the change:
 
-- 改 `schema.ts` 后运行 `pnpm drizzle-kit generate`，**禁止**手写 `.sql` 或手填 `_journal.json`。
-- 每次 migration 必须同时提交 `meta/NNNN_snapshot.json`。
-- 禁止 `drizzle-kit push`；用 `migrate`。
+| Change                              | Additional verification                                                      |
+| ----------------------------------- | ---------------------------------------------------------------------------- |
+| `src/components/**` or `src/app/**` | Manual browser check at `http://localhost:3000`                              |
+| Authentication                      | Complete the affected register, login, account-completion, and redirect flow |
+| API route                           | Exercise the route with a browser or HTTP client                             |
+| `src/db/schema.ts`                  | Generate and apply the migration, then run relevant database tests           |
+| Dependencies or build configuration | `pnpm install` and `pnpm build`                                              |
+| CSS or Tailwind                     | Check affected desktop and mobile states in a browser                        |
 
-## TypeScript
+The Ready commands are the local completion baseline. Hosted CI may select a smaller or larger plan from the changed paths; `docs/ci-topology.md` explains that classification.
 
-- API route 调用 server action 时，required 字段（如 `name`）须在 route 层校验后再传入，禁止 `body as Record<string, unknown>` 直接透传。
-- 测试里 route handler 第一参用 `NextRequest`，不要用 `{} as Request`。
-- 断言「列不存在」用 `expect("deletedAt" in cols).toBe(false)`，不要访问 `cols.deletedAt`（TS2339）。
+## Git and pull requests
 
-## UI 组件
+- Create one independent PR per GitHub issue.
+- In a worktree, keep the branch or another ref pointing to every needed commit. Remove the worktree only after the push or merge is confirmed.
 
-- 本项目 `Button` 基于 `@base-ui/react/button`，**不支持** Radix 的 `asChild`。
-- 链接样式按钮：`<Link className={buttonVariants({ variant, size })}>` 或 `Button` 的 `render` prop。
+## Completion report
 
-## API 鉴权
+Complete every task with these fields:
 
-- Admin API：`getAdminUserForApi()` from `@/lib/auth-guard`，未登录返回 403 JSON。
-- 不要为单个 feature 新建 `*-guard-api.ts` / `admin-api.ts` 重复封装。
-
-## 包管理
-
-- 仓库使用 **pnpm**；不要提交 `package-lock.json` 变更（除非刻意迁移包管理器）。
-
-## 子系统文档
-
-- 新 bounded context：添加 `docs/<context>/CONTEXT.md` 并注册到 `CONTEXT-MAP.md`；关键决策写 ADR。
-
-## 删除与隔离
-
-- 带 `canteenId` 的删除/更新：WHERE 必须同时匹配 `id` **与** `canteenId`，先校验再删，避免跨食堂误删。
-
-## 测试
-
-- 餐段等业务枚举排序用显式序数（`compareMealPeriods`），不要用 `localeCompare`。
-- Mock/种子数据禁止真实食堂名与菜名（见 #187）。
+```text
+Files: every file added, modified, or deleted
+Ran: every lint, test, typecheck, build, or manual check and its pass/fail result
+Not verified: anything not checked and the reason
+```
 
 ---
 > Source: [HomuraCatMadoka/CUpedia](https://github.com/HomuraCatMadoka/CUpedia) — distributed by [TomeVault](https://tomevault.io).
