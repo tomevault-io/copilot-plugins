@@ -1,0 +1,9 @@
+{
+  "name": "omersusin--tube2note",
+  "displayName": "tube2note",
+  "description": "YouTube channels, playlists and videos to Markdown/PDF for NotebookLM and RAG. Resumable, rate-limit polite, phone-friendly.",
+  "version": "1.0.0",
+  "author": "omersusin",
+  "homepage": "https://github.com/omersusin/tube2note",
+  "skills": []
+}
