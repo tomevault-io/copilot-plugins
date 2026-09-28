@@ -365,5 +365,5 @@ architecture-model behavior. Do not edit Groma-owned architecture files directly
 <!-- groma:end -->
 
 ---
-> Source: [MrLesk/Groma.md](https://github.com/MrLesk/Groma.md) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+> Source: [MrLesk/groma.md](https://github.com/MrLesk/groma.md) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
