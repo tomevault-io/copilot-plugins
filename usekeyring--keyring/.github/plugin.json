@@ -1,0 +1,9 @@
+{
+  "name": "usekeyring--keyring",
+  "displayName": "keyring",
+  "description": "The RBAC management service for lazy and smart developers",
+  "version": "1.0.0",
+  "author": "UseKeyring",
+  "homepage": "https://github.com/UseKeyring/keyring",
+  "skills": []
+}
