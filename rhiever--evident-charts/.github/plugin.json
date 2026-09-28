@@ -1,0 +1,9 @@
+{
+  "name": "rhiever--evident-charts",
+  "displayName": "evident-charts",
+  "description": "Teaches AI coding agents to make clear, honest charts, and checks each one before you see it. For Claude Code, Codex, Cursor, and more.",
+  "version": "1.0.0",
+  "author": "rhiever",
+  "homepage": "https://github.com/rhiever/evident-charts",
+  "skills": []
+}
