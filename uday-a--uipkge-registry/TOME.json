@@ -4,7 +4,7 @@
   "repo": "uipkge-registry",
   "description": "Open-source dual-framework UI registry for Vue 3.5 / Nuxt 4 and React 19 / Next.js 16: 200+ shadcn-compatible components, charts and blocks you copy into your project.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uday-a/uipkge-registry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T16:41:14Z"
+  "distributed_at": "2026-09-28T16:42:18Z"
 }
