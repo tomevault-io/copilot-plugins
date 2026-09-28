@@ -4,7 +4,7 @@
   "repo": "FuzeFront",
   "description": "A modern microfrontend platform with Module Federation, real-time app monitoring, and multi-integration support",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/izzywdev/FuzeFront",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-26T17:35:10Z"
+  "distributed_at": "2026-09-28T05:00:42Z"
 }
