@@ -1,0 +1,9 @@
+{
+  "name": "harvardmadsys--hybridinference",
+  "displayName": "hybridInference",
+  "description": "A Hybrid LLM Inference Gateway for Local GPUs and Cloud APIs",
+  "version": "1.0.0",
+  "author": "HarvardMadSys",
+  "homepage": "https://github.com/HarvardMadSys/hybridInference",
+  "skills": []
+}
