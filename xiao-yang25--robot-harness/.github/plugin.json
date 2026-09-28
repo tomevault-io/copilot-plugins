@@ -1,0 +1,9 @@
+{
+  "name": "xiao-yang25--robot-harness",
+  "displayName": "robot-harness",
+  "description": "A harness for embodied intelligence \u2014 connecting agents, robot skills and the physical world through execution, feedback and recovery.",
+  "version": "1.0.0",
+  "author": "xiao-yang25",
+  "homepage": "https://github.com/xiao-yang25/robot-harness",
+  "skills": []
+}
