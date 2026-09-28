@@ -1,0 +1,9 @@
+{
+  "name": "ryolang--ryo",
+  "displayName": "ryo",
+  "description": "A statically-typed, compiled language combining Python's ergonomics, Rust's memory safety, and Go's concurrency.   AOT & JIT via Cranelift.",
+  "version": "1.0.0",
+  "author": "ryolang",
+  "homepage": "https://github.com/ryolang/ryo",
+  "skills": []
+}
