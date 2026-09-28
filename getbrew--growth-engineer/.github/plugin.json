@@ -1,0 +1,9 @@
+{
+  "name": "getbrew--growth-engineer",
+  "displayName": "growth-engineer",
+  "description": "Open-source catalog of go-to-market tools and workflows, written as markdown files any agent can run. Includes a read-only MCP server.",
+  "version": "1.0.0",
+  "author": "GetBrew",
+  "homepage": "https://github.com/GetBrew/growth-engineer",
+  "skills": []
+}
