@@ -1,0 +1,203 @@
+## openvitals
+
+> This file is the implementation guide for future agents working in this repository.
+
+# AGENTS.md
+
+This file is the implementation guide for future agents working in this repository.
+
+Read this before adding a new feature or extending an existing metric screen.
+
+## Purpose
+
+The app is moving toward a consistent, period-based detail architecture for health metrics.
+
+The goal is:
+
+- dashboard-first navigation
+- feature-first code organization
+- clear separation between data access, feature state, and UI
+- reusable screen scaffolding without forcing all metrics into one generic chart system
+
+## Source Of Truth
+
+Use these docs together:
+
+- [docs/README.md](docs/README.md): doc index
+- [docs/engineering/architecture.md](docs/engineering/architecture.md): target architecture, package map, and the app-wide cross-cutting rules
+- [docs/engineering/feature-playbook.md](docs/engineering/feature-playbook.md): step-by-step guide for adding a feature, a settings section, a Room entity, or a device integration
+- [docs/engineering/development.md](docs/engineering/development.md): build and verification tasks, including the known translation-gate failure
+- [docs/engineering/test-parity/README.md](docs/engineering/test-parity/README.md): Flutter ↔ Kotlin test parity matrix and outstanding gaps
+- [docs/engineering/analysis/README.md](docs/engineering/analysis/README.md): code analysis (MVVM, Clean Architecture, Compose performance, refactor backlog)
+
+If code and docs disagree, prefer the docs for new work and refactor toward them incrementally.
+
+## Current State
+
+The codebase already has aligned period-based detail screens for:
+
+- steps/activity
+- sleep
+- heart
+- activities
+- body
+
+The global Browse feature has been removed. Entries and sessions should be browsable from the relevant dashboard widget/detail screen instead of through a standalone app destination.
+
+These features already show the intended direction.
+
+Beyond the metric screens, the app now carries three subsystems that are not metric features and do not follow the period-detail pattern:
+
+- `devices/` — the device layer: the Garmin GFDI protocol stack, the shared BLE radio lease, companion-device pairing, and notification forwarding. `features/watches` is its UI.
+- `features/devicesync/` — phone-to-phone Health Connect sync over Bluetooth Classic RFCOMM.
+- `data/migration/` — a one-time Flutter-to-Kotlin data importer that runs in two phases from `OpenVitalsApp.onCreate()`. Its ordering around `super.onCreate()` is load-bearing; read the architecture doc before touching startup.
+
+The following areas are still transitional and should not be copied as the default pattern:
+
+- duplicated period selection logic in multiple ViewModels
+- broad shared component files that still mix several concerns
+- oversized screen files that should keep being split into route, section, card, and helper files
+
+## Golden Path For New Metric Features
+
+When adding a new detail feature, follow this shape:
+
+1. Define the feature contract.
+   - screen state
+   - user actions
+   - any derived display fields
+
+2. Make the feature period-driven.
+   - support `Day / Week / Month / Year`
+   - use a selected anchor date
+   - support previous/next navigation
+   - cap navigation at the current period
+
+3. Keep the frame reusable, keep the charts specific.
+   - reuse the shared period scaffolding
+   - keep metric-specific cards and charts inside the feature package
+
+4. Keep repository APIs query-oriented.
+   - prefer `DatePeriod` or feature query objects over adding more ad hoc overloads
+   - keep Health Connect specifics below the feature layer
+
+5. Register the feature from the dashboard.
+   - dashboard card
+   - route
+   - top bar title
+
+6. Update docs if the pattern evolves.
+
+## Invariants
+
+Do not break these without an explicit decision. They are app-wide, and each has a section in [docs/engineering/architecture.md](docs/engineering/architecture.md).
+
+- **No `INTERNET` permission.** The manifest removes `INTERNET`, `ACCESS_NETWORK_STATE`, and `ACCESS_WIFI_STATE`. Phone-to-phone sync is Bluetooth Classic specifically so this stays true. Never add a dependency that needs a socket.
+- **One foreground service at a time.** Activity recording, the Apple Health import, and phone sync contend for the single foreground slot and refuse rather than queue.
+- **One BLE radio, leased per address.** Everything that opens a BLE link takes a lease from `devices/core/RadioLease.kt` under one of the four owner tags: `SYNC`, `FIND`, `SETTINGS`, `NOTIFICATIONS`. A lease is re-entrant per tag, so `SYNC` work (a sync, a file upload) also serialises on `GarminWatchSyncService.syncMutex`.
+- **A missing permission is `ScreenError.PermissionDenied`.** Use `isPermissionFailure()` / `toScreenError()`; never pattern-match exception messages. The screens render this as a grant affordance.
+- **Health Connect reads and record mapping live behind `healthconnect/*HealthReader`.** Writes go through `AppleHealthImportRepository.insertImportedRecords` with a deterministic `clientRecordId`.
+- **Nothing waits on the main thread.** No `runBlocking` in `app/src/main` (`NoRunBlockingRatchetTest` holds the allow-list). A receiver never holds a broadcast for a Health Connect read. Composables `remember` any pass over samples.
+- **`values-*/strings.xml` are Weblate-owned.** Add new strings to `values/strings.xml` only. See the translation-gate note in [development.md](docs/engineering/development.md).
+- **Room is at version 12.** A new entity means a `MIGRATION_12_13` and a bump, not `fallbackToDestructiveMigration`.
+- **The docs are checked against the code.** `ArchitectureDocTest` fails when a Room table, the Room version or a package is missing from the docs. `HealthConnectLayeringTest` and `DevicesLayeringTest` hold two layering rules. `FileSizeRatchetTest` stops a file passing 800 lines, and `FunctionLengthRatchetTest` stops a new function passing 150. When one fails, fix the code or the doc in the same commit.
+
+## Implementation Rules
+
+### Feature packages
+
+Prefer adding code under `features/<metric>/...`.
+
+A feature should own:
+
+- screen composables
+- screen state
+- screen ViewModel
+- feature-specific chart and row components
+- feature-specific formatting only when it is truly metric-specific
+
+### Shared code
+
+Shared code belongs in:
+
+- `ui/components` for reusable shell components
+- `core/period` for app-local period math and formatting
+- `domain/model`, `domain/insights`, and `domain/preferences` for app-local pure models, calculations, and preference enums
+- `core/presentation` for shared formatters, `ScreenError`, and UI models that remain repository-free
+- `core/fit` for FIT container decoding; interpretation stays with the consumer
+- `devices/core` for device-agnostic ports and the radio lease
+
+Do not put feature-specific business logic into `ui/components`.
+
+### ViewModels
+
+Prefer one ViewModel per screen.
+
+ViewModels should:
+
+- own loading state
+- own selected range/date state
+- call repositories or query services
+- prepare UI-ready state
+
+ViewModels should not:
+
+- contain large formatting blocks
+- duplicate generic period math forever
+- directly mirror raw Health Connect response structures if a cleaner UI model is needed
+
+### Repositories
+
+`HealthRepository` is intentionally narrow and should stay that way.
+
+When adding new capability:
+
+- prefer a feature-oriented API
+- prefer query objects or `DatePeriod`
+- avoid adding both `loadX(range)` and `loadX(start, end)` unless it is temporary during migration
+
+### UI composition
+
+New detail screens should follow this mental model:
+
+- scaffold: refresh + range selector + period navigator + error + date picker
+- content:
+  - `Day` mode
+  - `Week / Month / Year` mode
+  - optional list/breakdown
+
+### Health Connect screen shell
+
+Health Connect-backed destinations should use the shared shell instead of wiring access gates, sync banners, or permission callouts ad hoc:
+
+- `WithHealthConnectFeatureScreen` / `HealthConnectScreenShell` in `ui/components`
+- `HealthConnectFeature` + `HealthConnectScreenUxCoordinator` in `healthconnect`
+- `rememberHealthConnectPermissionLauncher` for permission requests
+
+Do not add per-screen `PermissionCallout`, inline `HealthConnectSyncStatusBanner`, or duplicate `HealthConnectAccessGate` wiring.
+
+### Do not copy these patterns
+
+- local coroutine loading directly in screens for new feature work
+- brand new navigator implementations per feature
+- new screen-specific period helper types if a shared one can be used
+- giant abstract base ViewModels
+- a universal chart abstraction that hides metric semantics
+- ad-hoc Health Connect permission UI outside the shared shell
+- a second FIT decoder, or a second radio-arbitration scheme
+- opening a BLE connection without taking a lease
+- editing `values-*/strings.xml` by hand to make `verifyTranslations` pass
+
+## Before Starting A New Feature
+
+Read [docs/engineering/feature-playbook.md](docs/engineering/feature-playbook.md) and follow the checklist there.
+
+If the feature would require copying code from `ActivityScreen`, `SleepScreen`, or `HeartScreen`, stop and ask:
+
+"Should this be a shared scaffold/component first?"
+
+In most cases, the answer should be yes for the shell, and no for the actual chart body.
+
+---
+> Source: [OpenVitals-mtu/OpenVitals](https://github.com/OpenVitals-mtu/OpenVitals) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-28 -->
