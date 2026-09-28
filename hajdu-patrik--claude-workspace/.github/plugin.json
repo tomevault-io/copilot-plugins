@@ -1,0 +1,9 @@
+{
+  "name": "hajdu-patrik--claude-workspace",
+  "displayName": "claude-workspace",
+  "description": "AI-powered multi-model workspace and routing system for Claude, Codex and other LLM agents. Provides intelligent prompt routing, agent orchestration, evaluation workflows, CLI integrations, MCP toolin",
+  "version": "1.0.0",
+  "author": "hajdu-patrik",
+  "homepage": "https://github.com/hajdu-patrik/claude-workspace",
+  "skills": []
+}
