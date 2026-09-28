@@ -1,0 +1,9 @@
+{
+  "name": "nobilix--bb-plugin-atlas",
+  "displayName": "bb-plugin-atlas",
+  "description": "A guide to the bb plugin SDK: every surface a plugin can occupy, generated from bb at a pinned release",
+  "version": "1.0.0",
+  "author": "nobilix",
+  "homepage": "https://github.com/nobilix/bb-plugin-atlas",
+  "skills": []
+}
