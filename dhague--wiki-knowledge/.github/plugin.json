@@ -1,0 +1,9 @@
+{
+  "name": "dhague--wiki-knowledge",
+  "displayName": "wiki-knowledge",
+  "description": "Git-enhanced LLM-Wiki optimised for LLM efficiency",
+  "version": "1.0.0",
+  "author": "dhague",
+  "homepage": "https://github.com/dhague/wiki-knowledge",
+  "skills": []
+}
