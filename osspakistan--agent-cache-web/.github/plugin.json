@@ -1,0 +1,9 @@
+{
+  "name": "osspakistan--agent-cache-web",
+  "displayName": "agent-cache-web",
+  "description": "Documentation caching engine. Paste any docs URL, get a clean Markdown ZIP for AI coding agents. Built with Hono + Bun.",
+  "version": "1.0.0",
+  "author": "osspakistan",
+  "homepage": "https://github.com/osspakistan/agent-cache-web",
+  "skills": []
+}
