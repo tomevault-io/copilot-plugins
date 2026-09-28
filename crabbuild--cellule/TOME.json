@@ -4,7 +4,7 @@
   "repo": "cellule",
   "description": "Embedded Rust framework for distributed SQLite-backed Cells with fenced writers, durable commands, and exact recovery.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/crabbuild/cellule",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T21:33:04Z"
+  "distributed_at": "2026-09-28T21:35:04Z"
 }
