@@ -4,7 +4,7 @@
   "repo": "llama.cpp-v100",
   "description": "V100\u4e13\u9879\u4f18\u5316",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/1115714829/llama.cpp-v100",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T12:31:30Z"
+  "distributed_at": "2026-09-28T15:42:22Z"
 }
