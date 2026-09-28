@@ -1,0 +1,9 @@
+{
+  "name": "adrianhajdin--atelier-store",
+  "displayName": "atelier-store",
+  "description": "A luxury e-commerce platform built in Next.js 16 to master agentic engineering with persistent project context, plan mode, permissions, skills, filesystem permissions, and context-isolated subagents.",
+  "version": "1.0.0",
+  "author": "adrianhajdin",
+  "homepage": "https://github.com/adrianhajdin/atelier-store",
+  "skills": []
+}
