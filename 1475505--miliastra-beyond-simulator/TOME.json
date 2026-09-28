@@ -1,0 +1,44 @@
+{
+  "name": "miliastra-beyond-simulator",
+  "owner": "1475505",
+  "repo": "miliastra-beyond-simulator",
+  "description": "\u5343\u661f\u6c99\u7bb1\u6a21\u62df\u5668\uff1aLua \u9a71\u52a8\u7684 2D \u5947\u57df\u5916\u7f6e\u6c99\u7bb1 \uff0c\u652f\u6301 DeepSeek Harness\u3001Web \u548c MCP",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1475505/miliastra-beyond-simulator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T00:48:48Z"
+}
