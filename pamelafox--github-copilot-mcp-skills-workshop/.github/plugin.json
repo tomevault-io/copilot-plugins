@@ -1,0 +1,9 @@
+{
+  "name": "pamelafox--github-copilot-mcp-skills-workshop",
+  "displayName": "github-copilot-mcp-skills-workshop",
+  "description": "A workshop of using GitHub Copilot with MCP servers and skills",
+  "version": "1.0.0",
+  "author": "pamelafox",
+  "homepage": "https://github.com/pamelafox/github-copilot-mcp-skills-workshop",
+  "skills": []
+}
