@@ -1,0 +1,9 @@
+{
+  "name": "yugash007--edu-agent-skills",
+  "displayName": "edu-agent-skills",
+  "description": "Reusable educational skills for AI coding agents. Turn agents (Gemini CLI, Claude Code, Cursor, etc.) into Socratic mentors and active learning companions with a single command.",
+  "version": "1.0.0",
+  "author": "yugash007",
+  "homepage": "https://github.com/yugash007/edu-agent-skills",
+  "skills": []
+}
