@@ -1,0 +1,9 @@
+{
+  "name": "mariocesar--beside-nvim",
+  "displayName": "beside.nvim",
+  "description": "A live rendering of the document you are editing, in a split beside it: leaf, glow, pandoc or any renderer you add",
+  "version": "1.0.0",
+  "author": "mariocesar",
+  "homepage": "https://github.com/mariocesar/beside.nvim",
+  "skills": []
+}
