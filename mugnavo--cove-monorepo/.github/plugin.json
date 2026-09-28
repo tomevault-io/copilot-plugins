@@ -1,0 +1,14 @@
+{
+  "name": "mugnavo--cove-monorepo",
+  "displayName": "cove-monorepo",
+  "description": "Vite+ monorepo template with \ud83c\udfdd\ufe0f TanStack Start, Better Auth, Drizzle ORM, shadcn/ui",
+  "version": "1.0.0",
+  "author": "mugnavo",
+  "homepage": "https://github.com/mugnavo/cove-monorepo",
+  "skills": [
+    {
+      "name": "cove-monorepo",
+      "description": ""
+    }
+  ]
+}
