@@ -1,0 +1,9 @@
+{
+  "name": "nihildigit--piko",
+  "displayName": "piko",
+  "description": "Lightweight, modern cross-platform client for PikPak powered by pikpak-kotlin. (Android & Windows Desktop)",
+  "version": "1.0.0",
+  "author": "NihilDigit",
+  "homepage": "https://github.com/NihilDigit/piko",
+  "skills": []
+}
