@@ -4,7 +4,7 @@
   "repo": "marp-ai-slide-generator",
   "description": "AI-powered slide generator using Marp - Create beautiful presentations from JSON with AI assistance",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/itarutomy97/marp-ai-slide-generator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T19:17:39Z"
+  "distributed_at": "2026-09-28T03:26:16Z"
 }
