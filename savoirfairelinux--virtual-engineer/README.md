@@ -7,11 +7,11 @@ Self-hosted AI orchestrator for ticket-driven coding and automated code review i
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [savoirfairelinux/virtual-engineer](https://github.com/savoirfairelinux/virtual-engineer).
+Original source: `AGENTS.md` in [savoirfairelinux/virtual-engineer](https://github.com/savoirfairelinux/virtual-engineer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
