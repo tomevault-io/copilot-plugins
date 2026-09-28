@@ -4,7 +4,7 @@
   "repo": "studium-generale--4444j99",
   "description": "Academic governance and research organ: commissions, defenses, senate structure",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/organvm-v-logos/studium-generale--4444j99",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T16:33:46Z"
+  "distributed_at": "2026-09-28T03:12:07Z"
 }
