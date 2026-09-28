@@ -1,0 +1,9 @@
+{
+  "name": "dark-crop--darkbrowser-chrome",
+  "displayName": "darkbrowser-chrome",
+  "description": "Chrome browser agent hard-locked to the Dark LLM gateway (fork of Claude for Chrome)",
+  "version": "1.0.0",
+  "author": "dark-crop",
+  "homepage": "https://github.com/dark-crop/darkbrowser-chrome",
+  "skills": []
+}
