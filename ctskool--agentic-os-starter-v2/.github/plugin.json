@@ -1,0 +1,9 @@
+{
+  "name": "ctskool--agentic-os-starter-v2",
+  "displayName": "agentic-os-starter-v2",
+  "description": "Agentic OS V2 starter: Obsidian cockpit + Jarvis HUD + voice, on your own Claude Code / Codex subscription. Windows and macOS.",
+  "version": "1.0.0",
+  "author": "ctskool",
+  "homepage": "https://github.com/ctskool/agentic-os-starter-v2",
+  "skills": []
+}
