@@ -1,0 +1,9 @@
+{
+  "name": "adamsardo--screenshot-renamer",
+  "displayName": "screenshot-renamer",
+  "description": "Native macOS screenshot renamer using on-device Apple Intelligence. Review, rename and undo.",
+  "version": "1.0.0",
+  "author": "adamsardo",
+  "homepage": "https://github.com/adamsardo/screenshot-renamer",
+  "skills": []
+}
