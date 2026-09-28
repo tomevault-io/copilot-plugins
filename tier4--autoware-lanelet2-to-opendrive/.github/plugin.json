@@ -1,0 +1,9 @@
+{
+  "name": "tier4--autoware-lanelet2-to-opendrive",
+  "displayName": "autoware_lanelet2_to_opendrive",
+  "description": "Conversion tool for Autoware lanelet2 and ASAM OpenDRIVE",
+  "version": "1.0.0",
+  "author": "tier4",
+  "homepage": "https://github.com/tier4/autoware_lanelet2_to_opendrive",
+  "skills": []
+}
