@@ -1,0 +1,44 @@
+{
+  "name": "Kryfto",
+  "owner": "ExceptionRegret",
+  "repo": "Kryfto",
+  "description": "The open-source web-browsing backend for AI agents & workflow engines. Ships a 42-tool MCP server for Claude Code/Cursor/Codex, a full REST API for n8n/Zapier/Make, federated multi-engine search, anti-bot stealth, and enterprise infrastructure (Postgres, Redis, BullMQ, MinIO). Self-host for $5/mo flat",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ExceptionRegret/Kryfto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T01:00:26Z"
+}
