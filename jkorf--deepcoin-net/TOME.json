@@ -4,7 +4,7 @@
   "repo": "DeepCoin.Net",
   "description": "C#/.NET client library for the DeepCoin.com cryptocurrency exchange REST and WebSocket APIs, supporting Spot and Futures trading and market data with strongly typed models.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JKorf/DeepCoin.Net",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T22:33:19Z"
+  "distributed_at": "2026-09-28T22:41:39Z"
 }
