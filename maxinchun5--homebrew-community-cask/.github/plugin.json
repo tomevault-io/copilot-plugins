@@ -1,0 +1,9 @@
+{
+  "name": "maxinchun5--homebrew-community-cask",
+  "displayName": "homebrew-community-cask",
+  "description": "This tap actively maintains updated casks, hosts apps removed from homebrew/cask due to gatekeeper, and welcomes unsigned releases from community developers.",
+  "version": "1.0.0",
+  "author": "maxinchun5",
+  "homepage": "https://github.com/maxinchun5/homebrew-community-cask",
+  "skills": []
+}
