@@ -4,7 +4,7 @@
   "repo": "elbowroom",
   "description": "A free Mac app that shows you what\u2019s taking up disk space and explains it in plain English - no digging required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tldev/elbowroom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T07:22:55Z"
+  "distributed_at": "2026-09-28T13:12:01Z"
 }
