@@ -4,7 +4,7 @@
   "repo": "wiki-knowledge",
   "description": "Git-enhanced LLM-Wiki optimised for LLM efficiency",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dhague/wiki-knowledge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T08:59:53Z"
+  "distributed_at": "2026-09-28T14:58:20Z"
 }
