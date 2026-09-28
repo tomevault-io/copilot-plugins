@@ -1,0 +1,9 @@
+{
+  "name": "aibochinese001--tokenflare-open-worker",
+  "displayName": "Tokenflare-open-worker",
+  "description": "\u65e0\u670d\u52a1\u5668\uff0c\u9002\u914dCloudflare workers\u96f6\u6210\u672c\u90e8\u7f72\u7684API\u4e2d\u8f6c\u7ad9\u2014\u2014\u805a\u5408\u5927\u8bed\u8a00\u6a21\u578bapi key\u5206\u53d1\uff0c\u591a\u7528\u6237\u548c\u6536\u94f6\u7cfb\u7edf\u3002Serverless OpenAI-compatible LLM API gateway for Cloudflare Workers (Hono + D1). ",
+  "version": "1.0.0",
+  "author": "aibochinese001",
+  "homepage": "https://github.com/aibochinese001/Tokenflare-open-worker",
+  "skills": []
+}
