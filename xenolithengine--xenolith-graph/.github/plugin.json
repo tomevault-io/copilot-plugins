@@ -1,0 +1,9 @@
+{
+  "name": "xenolithengine--xenolith-graph",
+  "displayName": "xenolith-graph",
+  "description": "AI-native, embeddable node-graph editor for the web. Blueprint-style typed pins, in-node widgets, macros, React/Vue adapters, and a built-in MCP server so Claude Desktop / Cursor can build graphs over",
+  "version": "1.0.0",
+  "author": "XenolithEngine",
+  "homepage": "https://github.com/XenolithEngine/xenolith-graph",
+  "skills": []
+}
