@@ -1,0 +1,9 @@
+{
+  "name": "bgivenb--flick-computer-use",
+  "displayName": "flick-computer-use",
+  "description": "Fast browser and macOS computer use for MCP agents. Local execution, TypeSafe Jev decisions, verified outcomes.",
+  "version": "1.0.0",
+  "author": "bgivenb",
+  "homepage": "https://github.com/bgivenb/flick-computer-use",
+  "skills": []
+}
