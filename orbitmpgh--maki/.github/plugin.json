@@ -1,0 +1,9 @@
+{
+  "name": "orbitmpgh--maki",
+  "displayName": "Maki",
+  "description": "Self-hosted manga collection manager and reader. Auto-monitors sources for new chapters, downloads them, and packages into CBZ+ComicInfo.xml. Can be read via built-in reader, Kavita integration, or OP",
+  "version": "1.0.0",
+  "author": "OrbitMPGH",
+  "homepage": "https://github.com/OrbitMPGH/Maki",
+  "skills": []
+}
