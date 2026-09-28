@@ -1,0 +1,44 @@
+{
+  "name": "BiliSponsorBlock",
+  "owner": "BitStandByYou",
+  "repo": "BiliSponsorBlock",
+  "description": "\u4e3a\u54d4\u54e9\u54d4\u54e9\u63d0\u4f9b\u6070\u996d\u7247\u6bb5\u81ea\u52a8\u8df3\u8fc7\u529f\u80fd\u7684 Xposed \u6a21\u5757",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BitStandByYou/BiliSponsorBlock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T18:32:18Z"
+}
