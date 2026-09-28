@@ -1,0 +1,9 @@
+{
+  "name": "runiq-net--runiq-ai",
+  "displayName": "Runiq.AI",
+  "description": "Build, test, and observe AI agents inside your .NET applications.",
+  "version": "1.0.0",
+  "author": "runiq-net",
+  "homepage": "https://github.com/runiq-net/Runiq.AI",
+  "skills": []
+}
