@@ -1,0 +1,9 @@
+{
+  "name": "unjs--upm",
+  "displayName": "upm",
+  "description": "\ud83d\udce6 A fast, tiny package manager for the npm registry, written in TypeScript.",
+  "version": "1.0.0",
+  "author": "unjs",
+  "homepage": "https://github.com/unjs/upm",
+  "skills": []
+}
