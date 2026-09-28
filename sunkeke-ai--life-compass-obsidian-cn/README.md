@@ -7,11 +7,11 @@ Compass 的非官方简体中文本地化；原项目由 Daniel Agrici（@Agrici
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sunkeke-ai/Life-Compass-Obsidian-CN](https://github.com/sunkeke-ai/Life-Compass-Obsidian-CN).
+Original source: `AGENTS.md` in [sunkeke-ai/Life-Compass-Obsidian-CN](https://github.com/sunkeke-ai/Life-Compass-Obsidian-CN).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
