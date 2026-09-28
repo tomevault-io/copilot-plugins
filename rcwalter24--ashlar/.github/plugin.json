@@ -1,0 +1,9 @@
+{
+  "name": "rcwalter24--ashlar",
+  "displayName": "ashlar",
+  "description": "Ashlar - let AI assistants (Claude, ChatGPT, Cursor...) survey, render, build and inspect a live Minecraft Paper server through MCP",
+  "version": "1.0.0",
+  "author": "rcwalter24",
+  "homepage": "https://github.com/rcwalter24/ashlar",
+  "skills": []
+}
