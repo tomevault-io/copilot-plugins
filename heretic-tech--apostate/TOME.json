@@ -4,7 +4,7 @@
   "repo": "apostate",
   "description": "Apostate is a 100% free, fully open-source anti-detect browser built on Chromium. Defeats every major commercial fingerprint detector with zero paywalls and fully verifiable GitHub Actions builds. 153 patches. FPJS Pro: suspect score 0. BrowserScan: 100% authentic. deviceandbrowserinfo.com: human. bot.sannysoft.com: all green. With proof.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/heretic-tech/apostate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T12:33:34Z"
+  "distributed_at": "2026-09-28T15:45:08Z"
 }
