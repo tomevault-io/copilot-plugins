@@ -1,0 +1,9 @@
+{
+  "name": "open-lakehouse--open-lakehouse",
+  "displayName": "open-lakehouse",
+  "description": "An integrated, AI-friendly lakehouse stack using open source standards complete with table formats, query engines, streaming, governance, and agent orchestration/evaluation. This repo is actively main",
+  "version": "1.0.0",
+  "author": "open-lakehouse",
+  "homepage": "https://github.com/open-lakehouse/open-lakehouse",
+  "skills": []
+}
