@@ -1,0 +1,9 @@
+{
+  "name": "devilcoolyue--agentbox",
+  "displayName": "agentbox",
+  "description": "Self-hosted browser workspace for Claude Code and Codex CLI, with Docker sessions, terminal, files, Git, and usage tracking.",
+  "version": "1.0.0",
+  "author": "devilcoolyue",
+  "homepage": "https://github.com/devilcoolyue/agentbox",
+  "skills": []
+}
