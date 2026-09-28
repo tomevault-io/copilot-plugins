@@ -1,9 +1,9 @@
 {
   "name": "activeinferenceinstitute--geo-infer",
-  "displayName": "GEO-INFER",
-  "description": "GEO-INFER",
+  "displayName": "GEO_INFER",
+  "description": "GEO-INFER \u2014 a 44-module geospatial inference monorepo from the Active Inference Institute. Spatial analysis, active inference, domain modeling, agent workflows, and reproducible repository validation ",
   "version": "1.0.0",
   "author": "ActiveInferenceInstitute",
-  "homepage": "https://github.com/ActiveInferenceInstitute/GEO-INFER",
+  "homepage": "https://github.com/ActiveInferenceInstitute/GEO_INFER",
   "skills": []
 }
