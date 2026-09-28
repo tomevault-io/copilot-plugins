@@ -1,0 +1,44 @@
+{
+  "name": "nginx-config-collection",
+  "owner": "ZooTi9er",
+  "repo": "nginx-config-collection",
+  "description": "Nginx \u914d\u7f6e\u6587\u4ef6\u96c6\u5408\uff0c\u5305\u542b\u5404\u79cd\u4ee3\u7406\u914d\u7f6e\u548c\u6700\u4f73\u5b9e\u8df5",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZooTi9er/nginx-config-collection",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T01:28:08Z"
+}
