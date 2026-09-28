@@ -1,0 +1,9 @@
+{
+  "name": "tldev--elbowroom",
+  "displayName": "elbowroom",
+  "description": "A free Mac app that shows you what\u2019s taking up disk space and explains it in plain English - no digging required.",
+  "version": "1.0.0",
+  "author": "tldev",
+  "homepage": "https://github.com/tldev/elbowroom",
+  "skills": []
+}
