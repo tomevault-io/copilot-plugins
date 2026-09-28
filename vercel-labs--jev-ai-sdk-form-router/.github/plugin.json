@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--jev-ai-sdk-form-router",
+  "displayName": "jev-ai-sdk-form-router",
+  "description": "Route form submissions to the right people with Jev and AI SDK.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/jev-ai-sdk-form-router",
+  "skills": []
+}
