@@ -1,0 +1,9 @@
+{
+  "name": "upstandplatform--openrive",
+  "displayName": "OpenRive",
+  "description": "Build inetractive UIs, motion, and game experiences in the OpenRive Editor, or let an AI agent generate them through the CLI, Your creations run natively across mobile, desktop, web, consoles, TVs, an",
+  "version": "1.0.0",
+  "author": "UpstandPlatform",
+  "homepage": "https://github.com/UpstandPlatform/OpenRive",
+  "skills": []
+}
