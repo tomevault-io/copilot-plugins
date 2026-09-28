@@ -1,0 +1,9 @@
+{
+  "name": "fundaments-work--theorem",
+  "displayName": "Theorem",
+  "description": "Theorem \u2014 free, open-source, local-first reading app. Read EPUB, PDF, MOBI, CBZ, RSS. Highlight, annotate, TTS, vocabulary builder, P2P sync, Markdown export for Obsidian/Logseq. Built with Tauri, Rea",
+  "version": "1.0.0",
+  "author": "Fundaments-Work",
+  "homepage": "https://github.com/Fundaments-Work/Theorem",
+  "skills": []
+}
