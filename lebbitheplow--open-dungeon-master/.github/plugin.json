@@ -1,0 +1,9 @@
+{
+  "name": "lebbitheplow--open-dungeon-master",
+  "displayName": "open-dungeon-master",
+  "description": "Open Dungeon Master,  the first easy-to-use, fully local AI DND 5e app. Story and inline scene images generated 100% on your machine (Qwen3.6 and comfyui). ",
+  "version": "1.0.0",
+  "author": "Lebbitheplow",
+  "homepage": "https://github.com/Lebbitheplow/open-dungeon-master",
+  "skills": []
+}
