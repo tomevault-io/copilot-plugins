@@ -1,0 +1,44 @@
+{
+  "name": "agentic-developer-handbook",
+  "owner": "cagridursun",
+  "repo": "agentic-developer-handbook",
+  "description": "Java-first open-source handbook for understanding and building agentic systems, one concept at a time.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cagridursun/agentic-developer-handbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T14:32:22Z"
+}
