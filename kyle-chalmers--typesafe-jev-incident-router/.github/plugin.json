@@ -1,0 +1,9 @@
+{
+  "name": "kyle-chalmers--typesafe-jev-incident-router",
+  "displayName": "typesafe-jev-incident-router",
+  "description": "Confidence-gated incident routing with TypeSafe Jev",
+  "version": "1.0.0",
+  "author": "kyle-chalmers",
+  "homepage": "https://github.com/kyle-chalmers/typesafe-jev-incident-router",
+  "skills": []
+}
