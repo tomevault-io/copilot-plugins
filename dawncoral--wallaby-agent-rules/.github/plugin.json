@@ -1,0 +1,9 @@
+{
+  "name": "dawncoral--wallaby-agent-rules",
+  "displayName": "wallaby-agent-rules",
+  "description": "AI remembers, you find. Long-term memory + project map for any AI coding tool \u2014 two paste-in prompts, five plain files.",
+  "version": "1.0.0",
+  "author": "Dawncoral",
+  "homepage": "https://github.com/Dawncoral/wallaby-agent-rules",
+  "skills": []
+}
