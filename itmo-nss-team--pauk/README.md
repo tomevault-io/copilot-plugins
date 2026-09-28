@@ -7,11 +7,11 @@ Knowlege graph generator for academic open-source ecosystems
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ITMO-NSS-team/PAUK](https://github.com/ITMO-NSS-team/PAUK).
+Original source: `AGENTS.md` in [ITMO-NSS-team/PAUK](https://github.com/ITMO-NSS-team/PAUK).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
