@@ -4,7 +4,7 @@
   "repo": "virtual-engineer",
   "description": "Self-hosted AI orchestrator for ticket-driven coding and automated code review in isolated containers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/savoirfairelinux/virtual-engineer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T00:39:05Z"
+  "distributed_at": "2026-09-28T04:43:52Z"
 }
