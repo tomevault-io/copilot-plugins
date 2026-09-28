@@ -7,11 +7,11 @@ Native Android TV client for Jellyfin. Kotlin/Compose over a Rust core, Direct P
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [packetinspector/jellybeam](https://github.com/packetinspector/jellybeam).
+Original source: `AGENTS.md` in [packetinspector/jellybeam](https://github.com/packetinspector/jellybeam).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
