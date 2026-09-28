@@ -1,0 +1,9 @@
+{
+  "name": "gh0str1pp3r--control-resonant-save-patcher",
+  "displayName": "control-resonant-save-patcher",
+  "description": "Windows and Linux x64 save utility for restoring known Control Resonant cosmetic flags, with automatic backups.",
+  "version": "1.0.0",
+  "author": "Gh0stR1pp3r",
+  "homepage": "https://github.com/Gh0stR1pp3r/control-resonant-save-patcher",
+  "skills": []
+}
