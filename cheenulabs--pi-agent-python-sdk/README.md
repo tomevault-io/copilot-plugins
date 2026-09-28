@@ -7,11 +7,11 @@ Use your installed Pi coding agent as a Python API. Stream responses, continue c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cheenulabs/pi-agent-python-sdk](https://github.com/cheenulabs/pi-agent-python-sdk).
+Original source: `AGENTS.md` in [cheenulabs/pi-agent-python-sdk](https://github.com/cheenulabs/pi-agent-python-sdk).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
