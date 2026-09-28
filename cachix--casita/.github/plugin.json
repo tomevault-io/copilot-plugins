@@ -1,0 +1,9 @@
+{
+  "name": "cachix--casita",
+  "displayName": "casita",
+  "description": "A content-addressed object store, written in Rust.",
+  "version": "1.0.0",
+  "author": "cachix",
+  "homepage": "https://github.com/cachix/casita",
+  "skills": []
+}
