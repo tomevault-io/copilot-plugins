@@ -1,0 +1,9 @@
+{
+  "name": "zhangyinxina-ui--ros2-hzj-dds",
+  "displayName": "ros2_hzj_dds",
+  "description": "ROS 2 / DDS refactored & optimized workspace for \u6866\u4e4b\u575a (TOPSUN) \u2014 evaluation-driven latency/jitter improvements; independent of topsun_dimos. Temporary location, to be transferred to topsun-bot.",
+  "version": "1.0.0",
+  "author": "zhangyinxina-ui",
+  "homepage": "https://github.com/zhangyinxina-ui/ros2_hzj_dds",
+  "skills": []
+}
