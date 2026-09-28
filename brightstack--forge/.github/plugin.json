@@ -1,0 +1,9 @@
+{
+  "name": "brightstack--forge",
+  "displayName": "forge",
+  "description": "Give your coding agent a delivery process you can trust. Spec \u2192 Plan \u2192 Build \u2192 Acceptance \u2192 Ship.",
+  "version": "1.0.0",
+  "author": "brightstack",
+  "homepage": "https://github.com/brightstack/forge",
+  "skills": []
+}
