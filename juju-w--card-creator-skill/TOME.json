@@ -1,0 +1,44 @@
+{
+  "name": "card-creator-skill",
+  "owner": "juju-w",
+  "repo": "card-creator-skill",
+  "description": "\u7528\u4e00\u53e5\u8bdd\u751f\u6210\u5361\u9762\uff1b\u514d\u8d39\u5206\u4eab\u827a\u672f\u3001\u4ea4\u901a\u5361\u4e0e\u94f6\u884c\u5361\u4e3b\u9898\u7684\u5361\u9762\u753b\u5eca\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/juju-w/card-creator-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T10:47:33Z"
+}
