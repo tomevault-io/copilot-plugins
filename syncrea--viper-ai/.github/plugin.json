@@ -1,0 +1,9 @@
+{
+  "name": "syncrea--viper-ai",
+  "displayName": "viper-ai",
+  "description": "A phased development workflow for AI Agents that combats context rot.",
+  "version": "1.0.0",
+  "author": "syncrea",
+  "homepage": "https://github.com/syncrea/viper-ai",
+  "skills": []
+}
