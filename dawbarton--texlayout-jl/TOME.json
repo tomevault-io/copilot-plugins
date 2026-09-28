@@ -4,7 +4,7 @@
   "repo": "TeXLayout.jl",
   "description": "A TeX mathematics layout engine written in Julia and heavily inspired by KaTeX",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dawbarton/TeXLayout.jl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T07:44:37Z"
+  "distributed_at": "2026-09-28T13:40:06Z"
 }
