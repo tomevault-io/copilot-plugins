@@ -1,0 +1,9 @@
+{
+  "name": "fredrik-lindseth--onesti-lock",
+  "displayName": "onesti-lock",
+  "description": "Home Assistant integration for Onesti and Nimly smart locks over ZHA",
+  "version": "1.0.0",
+  "author": "fredrik-lindseth",
+  "homepage": "https://github.com/fredrik-lindseth/onesti-lock",
+  "skills": []
+}
