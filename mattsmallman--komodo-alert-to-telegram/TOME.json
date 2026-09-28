@@ -1,0 +1,44 @@
+{
+  "name": "komodo-alert-to-telegram",
+  "owner": "mattsmallman",
+  "repo": "komodo-alert-to-telegram",
+  "description": "Cloudflare Worker that sends Komodo alerts to Telegram, with debouncing and readable messages",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mattsmallman/komodo-alert-to-telegram",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T08:54:33Z"
+}
