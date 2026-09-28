@@ -1,0 +1,9 @@
+{
+  "name": "janbuchar--difftsigns-nvim",
+  "displayName": "difftsigns.nvim",
+  "description": "Dim formatting noise in your gitsigns gutter using difftastic",
+  "version": "1.0.0",
+  "author": "janbuchar",
+  "homepage": "https://github.com/janbuchar/difftsigns.nvim",
+  "skills": []
+}
