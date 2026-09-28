@@ -1,0 +1,9 @@
+{
+  "name": "fancypantalons--amphitere",
+  "displayName": "Amphitere",
+  "description": "An Android port of NetHack with a specific focus on dual-screen devices",
+  "version": "1.0.0",
+  "author": "fancypantalons",
+  "homepage": "https://github.com/fancypantalons/Amphitere",
+  "skills": []
+}
