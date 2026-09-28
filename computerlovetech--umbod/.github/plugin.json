@@ -1,0 +1,9 @@
+{
+  "name": "computerlovetech--umbod",
+  "displayName": "umbod",
+  "description": "Agent access on your own infrastructure. Connect internal APIs and MCP servers, manage permissions by group, and let teams choose their agents.",
+  "version": "1.0.0",
+  "author": "computerlovetech",
+  "homepage": "https://github.com/computerlovetech/umbod",
+  "skills": []
+}
