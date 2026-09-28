@@ -1,0 +1,9 @@
+{
+  "name": "dejavumoe--edgetts",
+  "displayName": "edgeTTS",
+  "description": "a self-hosted API and browser workbench for Microsoft Edge speech synthesis.",
+  "version": "1.0.0",
+  "author": "DejavuMoe",
+  "homepage": "https://github.com/DejavuMoe/edgeTTS",
+  "skills": []
+}
