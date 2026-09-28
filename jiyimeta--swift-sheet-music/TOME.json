@@ -4,7 +4,7 @@
   "repo": "swift-sheet-music",
   "description": "Swift package for engraved music notation: MuseScore (.mscx/.mscz) & MusicXML import/export, a typed score model, MIDI rendering, SwiftUI/PDF rendering, AVFoundation playback, and an Android-compatible core.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jiyimeta/swift-sheet-music",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-24T18:10:18Z"
+  "distributed_at": "2026-09-28T01:51:04Z"
 }
