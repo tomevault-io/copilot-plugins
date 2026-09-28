@@ -1,0 +1,9 @@
+{
+  "name": "neurono-ml--typed-lm",
+  "displayName": "typed-lm",
+  "description": "Single-forward-pass semantic routing in Rust: turn dense LLMs (Llama, Qwen, Mistral, Gemma) into a typed decision API with LoRA/QLoRA training and FP8/FP4 quantization, built on Candle.",
+  "version": "1.0.0",
+  "author": "neurono-ml",
+  "homepage": "https://github.com/neurono-ml/typed-lm",
+  "skills": []
+}
