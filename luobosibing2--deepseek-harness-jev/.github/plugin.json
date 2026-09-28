@@ -1,0 +1,9 @@
+{
+  "name": "luobosibing2--deepseek-harness-jev",
+  "displayName": "deepseek-harness-jev",
+  "description": "Native DeepSeek Harness (DSH) plugin integrating TypeSafe Jev as a System One decision layer for agent selection, supervision, corrections, and approvals.",
+  "version": "1.0.0",
+  "author": "luobosibing2",
+  "homepage": "https://github.com/luobosibing2/deepseek-harness-jev",
+  "skills": []
+}
