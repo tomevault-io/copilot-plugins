@@ -1,0 +1,9 @@
+{
+  "name": "coekjan--crosspool",
+  "displayName": "CrossPool",
+  "description": "Efficient GPU Memory Pooling for Multi-LLM Serving via KV Cache and Weight Disaggregation",
+  "version": "1.0.0",
+  "author": "Coekjan",
+  "homepage": "https://github.com/Coekjan/CrossPool",
+  "skills": []
+}
