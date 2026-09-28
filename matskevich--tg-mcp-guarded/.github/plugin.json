@@ -1,0 +1,9 @@
+{
+  "name": "matskevich--tg-mcp-guarded",
+  "displayName": "tg-mcp-guarded",
+  "description": "dual-plane telegram mcp: read-only analytics + guarded actions with anti-spam and block-risk controls",
+  "version": "1.0.0",
+  "author": "matskevich",
+  "homepage": "https://github.com/matskevich/tg-mcp-guarded",
+  "skills": []
+}
