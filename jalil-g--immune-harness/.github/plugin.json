@@ -1,0 +1,9 @@
+{
+  "name": "jalil-g--immune-harness",
+  "displayName": "Immune-Harness",
+  "description": "Can we stop AI agents from going rogue before they take over the world?  Immune Harness is a security layer for AI agents. It checks every tool call before it runs and blocks the risky ones. When Jev ",
+  "version": "1.0.0",
+  "author": "Jalil-g",
+  "homepage": "https://github.com/Jalil-g/Immune-Harness",
+  "skills": []
+}
