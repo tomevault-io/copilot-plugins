@@ -7,11 +7,11 @@ Muxflow desktop and mobile tmux client
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [gal064/muxflow](https://github.com/gal064/muxflow).
+Original source: `AGENTS.md` in [gal064/muxflow](https://github.com/gal064/muxflow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
