@@ -1,0 +1,9 @@
+{
+  "name": "emir--claude-s40",
+  "displayName": "claude-s40",
+  "description": "A 2007 Nokia can't search Google anymore, so I gave it Claude. Unofficial J2ME app + tiny Go server.",
+  "version": "1.0.0",
+  "author": "emir",
+  "homepage": "https://github.com/emir/claude-s40",
+  "skills": []
+}
