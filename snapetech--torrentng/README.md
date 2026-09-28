@@ -7,11 +7,11 @@ Next-generation torrent client in Rust, with a universally compatible WebUI/API 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [snapetech/TorrentNG](https://github.com/snapetech/TorrentNG).
+Original source: `AGENTS.md` in [snapetech/TorrentNG](https://github.com/snapetech/TorrentNG).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
