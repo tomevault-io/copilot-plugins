@@ -1,0 +1,9 @@
+{
+  "name": "edly-io--pxc",
+  "displayName": "pxc",
+  "description": "A new standard for learning activities to replace SCORM, H5P, LTI",
+  "version": "1.0.0",
+  "author": "edly-io",
+  "homepage": "https://github.com/edly-io/pxc",
+  "skills": []
+}
