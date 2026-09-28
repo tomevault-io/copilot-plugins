@@ -1,0 +1,9 @@
+{
+  "name": "mavam--pi-agents",
+  "displayName": "pi-agents",
+  "description": "Multi-agent workflows for Pi",
+  "version": "1.0.0",
+  "author": "mavam",
+  "homepage": "https://github.com/mavam/pi-agents",
+  "skills": []
+}
