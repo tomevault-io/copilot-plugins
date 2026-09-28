@@ -7,11 +7,11 @@ Stop guessing llama.cpp flags. Calibrate them on your hardware.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SpeederX/calibr](https://github.com/SpeederX/calibr).
+Original source: `AGENTS.md` in [SpeederX/calibr](https://github.com/SpeederX/calibr).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
