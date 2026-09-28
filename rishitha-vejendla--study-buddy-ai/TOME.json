@@ -1,0 +1,44 @@
+{
+  "name": "study-buddy-ai",
+  "owner": "rishitha-vejendla",
+  "repo": "study-buddy-ai",
+  "description": "If you want it to sound a bit more impressive:  An AI study companion that helps students solve problems, understand concepts, and learn faster. Smart AI tool for homework help, step-by-step explanations, and study support. Turn questions into clear explanations instantly with AI-powered study assistance.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rishitha-vejendla/study-buddy-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T13:19:04Z"
+}
