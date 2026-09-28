@@ -1,0 +1,9 @@
+{
+  "name": "openevse--openevse-gui-nightshift",
+  "displayName": "openevse-gui-nightshift",
+  "description": "OpenEVSE WiFi Module GUI",
+  "version": "1.0.0",
+  "author": "OpenEVSE",
+  "homepage": "https://github.com/OpenEVSE/openevse-gui-nightshift",
+  "skills": []
+}
