@@ -4,7 +4,7 @@
   "repo": "b2-sdk-typescript",
   "description": "Backblaze-maintained TypeScript and JavaScript SDK for B2 Cloud Storage, currently incubating in Backblaze-Labs",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/backblaze-labs/b2-sdk-typescript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T00:37:45Z"
+  "distributed_at": "2026-09-28T04:42:35Z"
 }
