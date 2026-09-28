@@ -1,0 +1,9 @@
+{
+  "name": "stevelittlefish--llm-proxy",
+  "displayName": "llm_proxy",
+  "description": "LLM logging and translation proxy - exposes an ollama + openai compatible API and proxies requests onto either an Ollama server or an OpenAI compatible server (i.e. llama.cpp).  Logs all messages and ",
+  "version": "1.0.0",
+  "author": "stevelittlefish",
+  "homepage": "https://github.com/stevelittlefish/llm_proxy",
+  "skills": []
+}
