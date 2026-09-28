@@ -4,7 +4,7 @@
   "repo": "SoulStack",
   "description": "ProxySoul \u00d7 Empryo: skills, agents, an immune system and habits for coding agents. soulstack.proxysoul.com",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/proxysoul/SoulStack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T01:03:01Z"
+  "distributed_at": "2026-09-28T05:13:36Z"
 }
