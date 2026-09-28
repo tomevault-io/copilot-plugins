@@ -1,8 +1,8 @@
 {
-  "name": "GEO-INFER",
+  "name": "GEO_INFER",
   "owner": "ActiveInferenceInstitute",
-  "repo": "GEO-INFER",
-  "description": "",
+  "repo": "GEO_INFER",
+  "description": "GEO-INFER \u2014 a 44-module geospatial inference monorepo from the Active Inference Institute. Spatial analysis, active inference, domain modeling, agent workflows, and reproducible repository validation in one uv/Python workspace (H3, Bayesian models, place & risk).",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/ActiveInferenceInstitute/GEO-INFER",
+  "source_url": "https://github.com/ActiveInferenceInstitute/GEO_INFER",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T18:42:29Z"
+  "distributed_at": "2026-09-28T05:07:01Z"
 }
