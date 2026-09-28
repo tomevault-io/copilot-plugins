@@ -1,0 +1,9 @@
+{
+  "name": "xtool-org--openapplemacros",
+  "displayName": "OpenAppleMacros",
+  "description": "Open source implementations of Apple SDK macros",
+  "version": "1.0.0",
+  "author": "xtool-org",
+  "homepage": "https://github.com/xtool-org/OpenAppleMacros",
+  "skills": []
+}
