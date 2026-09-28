@@ -7,11 +7,11 @@ LocalCents is an open-source expense-tracking application built for local-first,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [zorn/local_cents](https://github.com/zorn/local_cents).
+Original source: `AGENTS.md` in [zorn/local_cents](https://github.com/zorn/local_cents).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
