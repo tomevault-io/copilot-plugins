@@ -1,0 +1,44 @@
+{
+  "name": "vinyl-engine",
+  "owner": "TanskiSzymon",
+  "repo": "vinyl-engine",
+  "description": "Turn an audio file into a record you can print on an ordinary FDM printer and play on a real turntable. Lateral groove modulation, direct G-code, no server.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TanskiSzymon/vinyl-engine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T05:23:50Z"
+}
