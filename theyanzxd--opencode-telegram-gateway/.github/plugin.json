@@ -1,0 +1,9 @@
+{
+  "name": "theyanzxd--opencode-telegram-gateway",
+  "displayName": "opencode-telegram-gateway",
+  "description": "Multi-provider OpenAI-compatible Telegram gateway with sessions, 10k+ proxy pool, admin channel gate, and SQLite state.",
+  "version": "1.0.0",
+  "author": "TheyanzXD",
+  "homepage": "https://github.com/TheyanzXD/opencode-telegram-gateway",
+  "skills": []
+}
