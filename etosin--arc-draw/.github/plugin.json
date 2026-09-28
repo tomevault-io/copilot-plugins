@@ -1,0 +1,9 @@
+{
+  "name": "etosin--arc-draw",
+  "displayName": "arc-draw",
+  "description": "ARC-DRAW is an SAP-aware Model Context Protocol (MCP) server for SAP Solution Architects. You describe an architecture in plain language; the AI agent places the correct SAP BTP icons and follows the ",
+  "version": "1.0.0",
+  "author": "etosin",
+  "homepage": "https://github.com/etosin/arc-draw",
+  "skills": []
+}
