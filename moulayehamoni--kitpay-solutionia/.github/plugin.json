@@ -1,0 +1,9 @@
+{
+  "name": "moulayehamoni--kitpay-solutionia",
+  "displayName": "kitpay-solutionia",
+  "description": "SMS-driven payment infrastructure for Mauritania. Turns Bankily/Masrvi/BIM/Click/Sedad/BCIPAY confirmation SMS into a Stripe-style REST API with hosted checkout and signed HTTP webhooks. MIT.",
+  "version": "1.0.0",
+  "author": "MoulayeHamoni",
+  "homepage": "https://github.com/MoulayeHamoni/kitpay-solutionia",
+  "skills": []
+}
