@@ -1,0 +1,9 @@
+{
+  "name": "rgenomicsetl--rducks",
+  "displayName": "Rducks",
+  "description": "Register 'R' User-Defined Functions in 'DuckDB'",
+  "version": "1.0.0",
+  "author": "RGenomicsETL",
+  "homepage": "https://github.com/RGenomicsETL/Rducks",
+  "skills": []
+}
