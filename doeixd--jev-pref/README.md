@@ -7,11 +7,11 @@ Turn your AGENTS.md preferences into a fast, Jev-powered AI linter.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [doeixd/jev-pref](https://github.com/doeixd/jev-pref).
+Original source: `AGENTS.md` in [doeixd/jev-pref](https://github.com/doeixd/jev-pref).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
