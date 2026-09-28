@@ -4,7 +4,7 @@
   "repo": "build-ai-multi-agent-lab",
   "description": "V4 learner template: Astro personal branding site + multi-agent labs (Use this template)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Onto-IQ/build-ai-multi-agent-lab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T04:34:08Z"
+  "distributed_at": "2026-09-28T09:40:33Z"
 }
