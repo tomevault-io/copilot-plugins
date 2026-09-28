@@ -4,7 +4,7 @@
   "repo": "skill-doctor",
   "description": "Local CLI for auditing AI agent skills, conflicts, duplicates, safety risks, and context cost across coding agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/evilstar2016/skill-doctor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T01:52:44Z"
+  "distributed_at": "2026-09-28T06:47:07Z"
 }
