@@ -1,0 +1,44 @@
+{
+  "name": "rsync-web",
+  "owner": "jgbrwn",
+  "repo": "rsync-web",
+  "description": "Modern web UI for rsync with real-time output streaming, multiple concurrent jobs, command history, and full rsync options support.  *Warning, project is new and largely vibe-coded-- USE AT YOUR OWN RISK | Put Caddy Basic Auth in front if exposed to internet*",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jgbrwn/rsync-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T01:19:32Z"
+}
