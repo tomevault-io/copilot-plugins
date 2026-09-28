@@ -4,7 +4,7 @@
   "repo": "PAUK",
   "description": "Knowlege graph generator for academic open-source ecosystems",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ITMO-NSS-team/PAUK",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T01:54:05Z"
+  "distributed_at": "2026-09-28T06:48:33Z"
 }
