@@ -1,0 +1,9 @@
+{
+  "name": "tuist--pulso",
+  "displayName": "pulso",
+  "description": "Headless observability",
+  "version": "1.0.0",
+  "author": "tuist",
+  "homepage": "https://github.com/tuist/pulso",
+  "skills": []
+}
