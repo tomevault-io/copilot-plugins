@@ -1,0 +1,44 @@
+{
+  "name": "ALAS-AOS",
+  "owner": "Shinarin",
+  "repo": "ALAS-AOS",
+  "description": "ALAS \u4e00\u4f53\u5316 Android APK\uff1aproot rootfs \u8fd0\u884c\u65f6 + Shizuku \u865a\u62df\u5c4f\u540e\u53f0\u6302\u673a\uff08\u5f00\u53d1\u4e2d\uff0c\u8def\u7ebf\u56fe\u89c1 docs/roadmap-v3.md\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Shinarin/ALAS-AOS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T03:15:44Z"
+}
