@@ -1,0 +1,44 @@
+{
+  "name": "MarkdownNote",
+  "owner": "ZyPLJ",
+  "repo": "MarkdownNote",
+  "description": "Windows \u684c\u9762 Markdown \u4fbf\u7b7e\u3002\u8f7b\u91cf\u3001\u53ef\u7f6e\u9876\uff0c\u9884\u89c8\u4e3a\u4e3b\uff0c\u652f\u6301\u56fe\u7247\u7c98\u8d34\u4e0e\u5386\u53f2\u7ba1\u7406\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZyPLJ/MarkdownNote",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T09:03:15Z"
+}
