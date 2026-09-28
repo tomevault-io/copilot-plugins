@@ -1,0 +1,9 @@
+{
+  "name": "lexica-bible--lexica",
+  "displayName": "lexica",
+  "description": "AI-powered Greek & Hebrew Bible word study tool",
+  "version": "1.0.0",
+  "author": "lexica-bible",
+  "homepage": "https://github.com/lexica-bible/lexica",
+  "skills": []
+}
