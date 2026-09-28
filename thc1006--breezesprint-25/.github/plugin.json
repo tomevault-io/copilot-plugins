@@ -1,0 +1,9 @@
+{
+  "name": "thc1006--breezesprint-25",
+  "displayName": "breezesprint-25",
+  "description": "Taiwanese Mandarin and Mandarin-English speech-to-text with Breeze-ASR-25 on Google Colab TPU. Two-cell JAX/XLA notebook: upload audio and automatically download a timestamped TXT. No API key.",
+  "version": "1.0.0",
+  "author": "thc1006",
+  "homepage": "https://github.com/thc1006/breezesprint-25",
+  "skills": []
+}
