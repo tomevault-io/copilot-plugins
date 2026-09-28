@@ -1,0 +1,9 @@
+{
+  "name": "sinnconsulting--loopboard",
+  "displayName": "LoopBoard",
+  "description": "VS Code extension that turns your TODO.md into an interactive Kanban board and runs autonomous Claude Code agent loops per task \u2014 markdown stays the source of truth.",
+  "version": "1.0.0",
+  "author": "SinnConsulting",
+  "homepage": "https://github.com/SinnConsulting/LoopBoard",
+  "skills": []
+}
