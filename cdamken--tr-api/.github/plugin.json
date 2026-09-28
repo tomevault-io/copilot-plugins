@@ -1,0 +1,9 @@
+{
+  "name": "cdamken--tr-api",
+  "displayName": "tr-api",
+  "description": "Minimal Python client for Trade Republic (DE) \u2014 programmatic login via Playwright + X-aws-waf-token, multi-account profiles, CLI + library",
+  "version": "1.0.0",
+  "author": "cdamken",
+  "homepage": "https://github.com/cdamken/tr-api",
+  "skills": []
+}
