@@ -1,0 +1,44 @@
+{
+  "name": "sys1grep",
+  "owner": "uehaj",
+  "repo": "sys1grep",
+  "description": "grep by meaning, across languages. TypeSafe Jev scores every line against a meaning; combine meanings with AND/OR/NOT. \u610f\u5473\u3067\u63a2\u3059 grep\u3002\u65e5\u672c\u8a9e\u3067\u82f1\u8a9e\u3092\u3001\u82f1\u8a9e\u3067\u65e5\u672c\u8a9e\u3092\u691c\u7d22\u3067\u304d\u308b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/uehaj/sys1grep",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-28T23:30:20Z"
+}
