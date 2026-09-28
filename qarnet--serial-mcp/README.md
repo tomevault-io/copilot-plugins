@@ -7,11 +7,11 @@ Serial port MCP server for Claude Code, Codex, Opencode and AI agents. Reliable 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [qarnet/serial-mcp](https://github.com/qarnet/serial-mcp).
+Original source: `AGENTS.md` in [qarnet/serial-mcp](https://github.com/qarnet/serial-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
