@@ -1,0 +1,9 @@
+{
+  "name": "unjs--oxbox",
+  "displayName": "oxbox",
+  "description": "\ud83d\udc02 Tiny, portable JS library for parsing and transforming JS/TS/JSX, powered by oxc",
+  "version": "1.0.0",
+  "author": "unjs",
+  "homepage": "https://github.com/unjs/oxbox",
+  "skills": []
+}
