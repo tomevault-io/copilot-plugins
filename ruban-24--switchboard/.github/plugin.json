@@ -1,0 +1,9 @@
+{
+  "name": "ruban-24--switchboard",
+  "displayName": "switchboard",
+  "description": "An open-source, model-agnostic decision router for Claude Code and Codex.",
+  "version": "1.0.0",
+  "author": "ruban-24",
+  "homepage": "https://github.com/ruban-24/switchboard",
+  "skills": []
+}
