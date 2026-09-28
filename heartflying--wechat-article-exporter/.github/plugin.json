@@ -1,0 +1,9 @@
+{
+  "name": "heartflying--wechat-article-exporter",
+  "displayName": "wechat-article-exporter",
+  "description": "\u5fae\u4fe1\u516c\u4f17\u53f7\u6587\u7ae0\u6293\u53d6\u5de5\u5177\uff1a\u901a\u8fc7 MITM \u4ee3\u7406\u6355\u83b7\u8ba4\u8bc1\u53c2\u6570\uff0c\u6309\u65e5\u671f\u8303\u56f4\u6293\u53d6\u6587\u7ae0\u5217\u8868\u5e76\u4e0b\u8f7d\u4e3a Markdown",
+  "version": "1.0.0",
+  "author": "HeartFlying",
+  "homepage": "https://github.com/HeartFlying/wechat-article-exporter",
+  "skills": []
+}
