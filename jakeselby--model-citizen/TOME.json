@@ -4,7 +4,7 @@
   "repo": "model-citizen",
   "description": "The control plane for your coding agents, however you run them. One checkout of rules, skills, subagents, hooks and stances, projected into Claude Code and Codex with your own primitives: hook-enforced guardrails, usage telemetry, cost postures and model tiering, under any rules library or orchestration layer.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JakeSelby/model-citizen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T04:38:47Z"
+  "distributed_at": "2026-09-28T09:44:48Z"
 }
