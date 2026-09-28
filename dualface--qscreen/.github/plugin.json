@@ -1,0 +1,9 @@
+{
+  "name": "dualface--qscreen",
+  "displayName": "qscreen",
+  "description": "Lightweight cross-platform terminal session manager \u2014 a simple tmux / GNU screen alternative for Windows, Linux, and macOS with detachable persistent sessions (ConPTY on Windows)",
+  "version": "1.0.0",
+  "author": "dualface",
+  "homepage": "https://github.com/dualface/qscreen",
+  "skills": []
+}
