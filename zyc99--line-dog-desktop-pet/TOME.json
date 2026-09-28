@@ -4,7 +4,7 @@
   "repo": "line-dog-desktop-pet",
   "description": "\u7ebf\u6761\u5c0f\u72d7\u684c\u5ba0\u9879\u76ee - Line Dog Desktop Pet",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZYC99/line-dog-desktop-pet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T00:43:42Z"
+  "distributed_at": "2026-09-28T04:48:09Z"
 }
