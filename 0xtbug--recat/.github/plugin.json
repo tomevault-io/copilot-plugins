@@ -1,0 +1,9 @@
+{
+  "name": "0xtbug--recat",
+  "displayName": "Recat",
+  "description": "A local workspace for security findings. Review findings from Hermes or other agents, inspect evidence, and export reports. Recat supports Web, Smart contract, and Other assets, including mobile, desk",
+  "version": "1.0.0",
+  "author": "0xtbug",
+  "homepage": "https://github.com/0xtbug/Recat",
+  "skills": []
+}
