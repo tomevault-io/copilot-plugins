@@ -1,0 +1,9 @@
+{
+  "name": "mark1708--opencode-usage-monitor",
+  "displayName": "opencode-usage-monitor",
+  "description": "OpenCode TUI sidebar plugin that displays API usage quotas for OpenAI and Z.AI (GLM) providers.",
+  "version": "1.0.0",
+  "author": "Mark1708",
+  "homepage": "https://github.com/Mark1708/opencode-usage-monitor",
+  "skills": []
+}
