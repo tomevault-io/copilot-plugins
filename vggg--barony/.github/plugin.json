@@ -1,0 +1,9 @@
+{
+  "name": "vggg--barony",
+  "displayName": "barony",
+  "description": "Barony \u2014 git-native governance for teams of AI coding agents: persona charters, enforced capabilities, ledgers, divergence radar, audit. CLI: baron.",
+  "version": "1.0.0",
+  "author": "vggg",
+  "homepage": "https://github.com/vggg/barony",
+  "skills": []
+}
