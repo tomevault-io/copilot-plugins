@@ -1,0 +1,9 @@
+{
+  "name": "loumtechnologies--ticketry",
+  "displayName": "ticketry",
+  "description": "Jira alternative, but with all the data in git",
+  "version": "1.0.0",
+  "author": "LoumTechnologies",
+  "homepage": "https://github.com/LoumTechnologies/ticketry",
+  "skills": []
+}
