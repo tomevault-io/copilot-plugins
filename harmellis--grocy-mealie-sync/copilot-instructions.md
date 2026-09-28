@@ -1,0 +1,108 @@
+## grocy-mealie-sync
+
+> - Prefer the documented npm scripts in [`README.md`](README.md) instead of ad-hoc commands when a script already exists.
+
+# AGENTS.md
+
+## Project Notes
+
+- Prefer the documented npm scripts in [`README.md`](README.md) instead of ad-hoc commands when a script already exists.
+- Treat `src/lib/grocy/client/**` and `src/lib/mealie/client/**` as generated artifacts. Regenerate them via the documented OpenAPI workflow instead of editing them by hand.
+
+## Language
+
+- Write everything published to GitHub in **English**: pull request titles and
+  bodies, issue text, commit messages, code comments and docs. This holds
+  regardless of the language used in discussion.
+
+## Release And Tag Prep
+
+When asked to prepare or create a new release tag, complete all of the steps below before creating the tag.
+
+1. Determine the previous tag with `git describe --tags --abbrev=0` and review the changes since that tag with `git log --oneline <previous-tag>..HEAD` plus `git diff --stat <previous-tag>..HEAD`.
+2. Update `CHANGELOG.md` for the upcoming release:
+   - add the new version section at the top using `## [x.y.z] - YYYY-MM-DD`
+   - summarize the changes since the previous tag in concise release notes
+   - group entries under `Added`, `Changed`, and `Fixed` when that structure fits the changes
+   - add or update the bottom comparison link so the new version compares `<previous-tag>...v<x.y.z>`
+3. Bump the app version in `package.json` to the new release version. Keep `package-lock.json` in sync as well, including its top-level `version` and the root package entry at `packages[""].version` when those mirrored fields change.
+4. Generate a fresh docs screenshot with `npm run docs:screenshot` and include the updated `docs/images/app-dashboard.png` in the release changes.
+5. Verify Drizzle migration completeness before tagging:
+   - run `npm run db:generate`
+   - if it generates new files or updates under `drizzle/`, review them, keep the generated migration artifacts, and do not tag until there are no missing schema migrations left to generate
+6. Verify the database upgrade path from `<previous-tag>` to the release candidate:
+   - create or migrate a database with the code at `<previous-tag>` in a temporary, non-destructive setup such as a separate git worktree
+   - run the current code against that same database and confirm the app's startup migrations complete successfully
+   - add or update targeted migration coverage when needed so release prep tests the specific upgrade path introduced since `<previous-tag>`
+7. Verify the release-prep edits before tagging. At minimum, run `npm run typecheck`, `npm test`, `npm test -- src/lib/db/__tests__/migrations.test.ts`, and any targeted tests needed for files touched during the release prep.
+   - If the settings API response shape has changed (fields added or removed in `src/app/api/settings/route.ts` or `src/lib/settings.ts`), verify that the `settingsBody` mock objects in all `scripts/test-*.mjs` Playwright scripts are updated to match. A mismatch causes a silent client-side crash that blocks the tests without a useful error. Run `npm run test:playwright` to confirm all Playwright tests pass before tagging.
+8. Keep the release changes commit-ready first (changelog, screenshot, version bump, and migration verification), but do not push the new `v<x.y.z>` tag yet.
+9. As the final release step, ask the user whether to push the release.
+   - only proceed when the user explicitly approves the push
+   - when approved, push the release commit through the repository's allowed path to `main` (typically: push a release branch and merge a PR into `main`)
+   - do not push the new `v<x.y.z>` tag until the release changes are merged into `main`
+   - wait for the `CI` workflow on the merged `main` commit (the commit that now contains the release changes) to complete successfully
+   - if the `CI` workflow fails, is cancelled, or never reaches a successful conclusion, stop and do not push the tag or create the GitHub draft release
+   - only after that successful `CI` run may the new `v<x.y.z>` tag be created or moved to that merged `main` commit and pushed to the remote
+   - after the push succeeds, create or update a GitHub draft release for `v<x.y.z>` using the new changelog section as the release notes body, but omit the `## [x.y.z] - YYYY-MM-DD` heading from the body itself
+   - keep the short introductory summary paragraph from the changelog section at the top of the GitHub release notes body, before any `### Added`, `### Changed`, or `### Fixed` headings
+   - always end the GitHub release notes with `**Full Changelog**: https://github.com/HarmEllis/grocy-mealie-sync/compare/<previous-tag>...v<x.y.z>`
+   - if any push, GitHub CLI auth, or GitHub release command fails in a way that may be caused by sandbox/network restrictions, retry that command with escalated permissions before concluding that auth or connectivity is actually broken
+   - prefer validating `gh` authentication and running the GitHub release command outside the sandbox when the first sandboxed attempt is inconclusive or reports credential/network problems
+   - if the user does not approve, stop after the local release commit and report that the release has not been pushed, tagged remotely, or drafted on GitHub
+
+## Pre-Release Tags
+
+A pre-release publishes a testable Docker image before a release is final, so
+changes can be tried on real data without anyone on a moving tag receiving them.
+It is deliberately lighter than the full release prep above.
+
+When asked to cut a pre-release:
+
+1. Pick the next release version plus a semver pre-release suffix, counting up
+   from any existing pre-release for that version: `v1.15.0-rc.1`, then
+   `-rc.2`. `-beta.N` and `-alpha.N` work too.
+2. Bump `package.json` to the pre-release version (`1.15.0-rc.1`), keeping
+   `package-lock.json` in sync including `packages[""].version`.
+3. Skip the release-only steps: no `CHANGELOG.md` section, no
+   `npm run docs:screenshot`, no migration upgrade-path verification. Those
+   belong to the final release, which is what users actually upgrade to.
+4. Run `npm run typecheck` and `npm test` locally before pushing.
+5. Push the branch and make sure CI passes on the exact commit you intend to
+   tag. The image workflow requires a green `CI` run for that commit and will
+   refuse to build without one. On a feature branch CI runs from the branch's
+   pull request, or from a manual `CI` workflow dispatch on that branch.
+6. Ask the user before pushing the tag, as with a release. When approved, tag
+   that exact commit and push the tag.
+7. Create the GitHub release for the tag **marked as a pre-release**
+   (`gh release create --prerelease`), with notes describing what needs testing.
+   A pre-release must never be marked as the latest release.
+
+The image workflow handles the rest: a tag containing `-` publishes only
+`<version>` (for example `1.15.0-rc.1`) and is blocked from ever owning
+`latest`, `{{major}}` or `{{major}}.{{minor}}`.
+
+Cutting the final release afterwards follows the full process above, including
+the `CHANGELOG.md` section covering everything the pre-releases contained.
+
+## Version Format
+
+- `package.json` uses plain semver like `1.2.0`.
+- Git tags use a `v` prefix like `v1.2.0`.
+- Pre-release versions append a semver suffix: `1.2.0-rc.1`, tagged `v1.2.0-rc.1`.
+  Semver build metadata (`+meta`) is not supported, because a Docker tag cannot
+  contain `+`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
+---
+> Source: [HarmEllis/grocy-mealie-sync](https://github.com/HarmEllis/grocy-mealie-sync) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
