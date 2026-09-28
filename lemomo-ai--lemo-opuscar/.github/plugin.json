@@ -1,0 +1,9 @@
+{
+  "name": "lemomo-ai--lemo-opuscar",
+  "displayName": "lemo-opuscar",
+  "description": "39 film styles, each a reusable style prompt plus a short film made entirely in code by Claude Opus 5.5. Pick a style, bring your own story, and let your agent direct. | Opus5.5 x 39 \u79cd\u5f71\u7247\u98ce\u683c\uff1a\u98ce\u683c\u63d0\u793a\u8bcd + \u7eaf\u4ee3\u7801",
+  "version": "1.0.0",
+  "author": "lemomo-ai",
+  "homepage": "https://github.com/lemomo-ai/lemo-opuscar",
+  "skills": []
+}
