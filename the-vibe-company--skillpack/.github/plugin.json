@@ -1,0 +1,9 @@
+{
+  "name": "the-vibe-company--skillpack",
+  "displayName": "skillpack",
+  "description": "Skillpack \u2014 a self-hostable, multi-tenant Skills Hub.",
+  "version": "1.0.0",
+  "author": "The-Vibe-Company",
+  "homepage": "https://github.com/The-Vibe-Company/skillpack",
+  "skills": []
+}
