@@ -4,7 +4,7 @@
   "repo": "HowToLiveBetter-mirror-949",
   "description": "High availability mirror and network topology specifications for eternity4719/HowToLiveBetter",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Shijiuwei/HowToLiveBetter-mirror-949",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-29T08:37:39Z"
+  "distributed_at": "2026-09-29T08:40:26Z"
 }
