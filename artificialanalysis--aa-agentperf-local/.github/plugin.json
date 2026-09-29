@@ -1,0 +1,9 @@
+{
+  "name": "artificialanalysis--aa-agentperf-local",
+  "displayName": "aa-agentperf-local",
+  "description": "Benchmark local LLM serving by replaying real agent trajectories",
+  "version": "1.0.0",
+  "author": "ArtificialAnalysis",
+  "homepage": "https://github.com/ArtificialAnalysis/aa-agentperf-local",
+  "skills": []
+}
