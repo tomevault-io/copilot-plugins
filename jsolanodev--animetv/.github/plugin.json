@@ -1,0 +1,9 @@
+{
+  "name": "jsolanodev--animetv",
+  "displayName": "AnimeTV",
+  "description": "Responsive anime catalog and player for web, mobile, tablet, and Android TV, with smart search, multi-source playback, Google Cast, and Vercel-optimized caching.",
+  "version": "1.0.0",
+  "author": "JSolanoDev",
+  "homepage": "https://github.com/JSolanoDev/AnimeTV",
+  "skills": []
+}
