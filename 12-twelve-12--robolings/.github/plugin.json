@@ -1,0 +1,9 @@
+{
+  "name": "12-twelve-12--robolings",
+  "displayName": "robolings",
+  "description": "Small exercises for robot learning, rustlings style: kinematics, dexterous hands, control, diffusion policy, flow matching. NumPy only.",
+  "version": "1.0.0",
+  "author": "12-Twelve-12",
+  "homepage": "https://github.com/12-Twelve-12/robolings",
+  "skills": []
+}
