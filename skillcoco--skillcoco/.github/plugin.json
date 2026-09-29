@@ -1,0 +1,9 @@
+{
+  "name": "skillcoco--skillcoco",
+  "displayName": "skillcoco",
+  "description": "Open-source, offline-capable adaptive learning desktop app \u2014 BKT + SM-2 spaced repetition, hands-on terminal labs, BYOK AI tutor. MIT.",
+  "version": "1.0.0",
+  "author": "skillcoco",
+  "homepage": "https://github.com/skillcoco/skillcoco",
+  "skills": []
+}
