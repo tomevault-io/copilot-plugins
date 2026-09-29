@@ -1,0 +1,9 @@
+{
+  "name": "k3nnethfrancis--carla",
+  "displayName": "carla",
+  "description": "A Loom TUI and Character Lab for developing AI characters from base models: branch text, curate anthologies, simulate conversations, and evaluate training data.",
+  "version": "1.0.0",
+  "author": "k3nnethfrancis",
+  "homepage": "https://github.com/k3nnethfrancis/carla",
+  "skills": []
+}
