@@ -1,0 +1,9 @@
+{
+  "name": "yuuuki-creation--po0-clash",
+  "displayName": "po0-clash",
+  "description": "po0-clash: FlClash-based proxy client with built-in po0 firewall auto-whitelist (po0fw)",
+  "version": "1.0.0",
+  "author": "yuuuki-creation",
+  "homepage": "https://github.com/yuuuki-creation/po0-clash",
+  "skills": []
+}
