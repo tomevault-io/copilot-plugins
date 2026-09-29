@@ -1,0 +1,9 @@
+{
+  "name": "chipfighter--codex-attachment-manager",
+  "displayName": "codex-attachment-manager",
+  "description": "Codex plugin: choose which past images go to the model with your next message. Unchecked images become placeholders, the task goes on, and requests stay small.",
+  "version": "1.0.0",
+  "author": "chipfighter",
+  "homepage": "https://github.com/chipfighter/codex-attachment-manager",
+  "skills": []
+}
