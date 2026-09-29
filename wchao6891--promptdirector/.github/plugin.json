@@ -1,0 +1,9 @@
+{
+  "name": "wchao6891--promptdirector",
+  "displayName": "PromptDirector",
+  "description": "\u591a\u7f51\u7ad9\u4e00\u952e\u91c7\u96c6\uff0c\u8ba9\u597d\u6848\u4f8b\u8fdb\u5165\u4e0b\u4e00\u6b21\u521b\u4f5c\u3002Save images, videos & prompts from Jimeng, Higgsfield, X, WeChat, HeyBox & Feishu. A local-first visual library for creators, connected to Codex, Claude Code & WorkBuddy via MCP.",
+  "version": "1.0.0",
+  "author": "wchao6891",
+  "homepage": "https://github.com/wchao6891/PromptDirector",
+  "skills": []
+}
