@@ -1,0 +1,9 @@
+{
+  "name": "lianjiatech--bella-openai4j",
+  "displayName": "bella-openai4j",
+  "description": "Java client library for Bella OPENAPI.Full support for all OpenAI API models including Completions, Chat, Edits, Embeddings, Audio, Files, Assistants-v2, Images, Moderations, Batch, and Fine-tuning.",
+  "version": "1.0.0",
+  "author": "LianjiaTech",
+  "homepage": "https://github.com/LianjiaTech/bella-openai4j",
+  "skills": []
+}
