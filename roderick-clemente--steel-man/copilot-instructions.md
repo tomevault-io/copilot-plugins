@@ -1,125 +1,72 @@
-## sprint-invocation
+## steel-man
 
-> |
+> Applies to every agent working in this repo — Factory Droid, Claude Code, Codex, or otherwise.
 
+# Agent Conventions
 
-> **ACTIVATION RULE: When this skill is loaded, ALWAYS begin your first response with "🏁 adversarial-sprint skill active" so the operator has visual confirmation.**
+Applies to every agent working in this repo — Factory Droid, Claude Code, Codex, or otherwise.
 
-# Sprint Invocation — Skill
+## Treat this repo as public
 
-Single-purpose: fire the runner via the **per-pilot overlay** —
-the one true entrypoint. No framework CLI surface in this skill.
+Assume anything committed here **will be read by outside parties**, including the vendors whose products it evaluates, and may become fully public. Write accordingly. There is no "it's private for now" state to rely on.
 
-Per pass-r3 finding H-1: this skill previously taught a runner CLI
-path (the framework runner, invoked with config + chunk-spec files
-that have since been moved out of `examples/` into the per-pilot
-overlay templates dir). That was the second operator-facing path
-the chunk-12b collapse didn't actually collapse. The per-pilot
-overlay is the **only** operator-facing entrypoint after chunk 13.
+### Never write here
 
-## Operator surface — one command, three modes
+- Personal or confidential context of any kind — private conversations, negotiations, process notes about people
+- Names of individuals at vendors or target companies, or anything traceable to a private conversation with them
+- Competitive or negotiating strategy
+- Secrets, credentials, tokens, internal customer names, or employer-confidential material
 
-```
-<PILOT_REPO>/.adversarial-sprint/bin/run-sprint                                  # real run, operator in seat
-<PILOT_REPO>/.adversarial-sprint/bin/run-sprint --dry-run --non-interactive       # wiring test
-<PILOT_REPO>/.adversarial-sprint/bin/run-sprint --unattended                      # unattended live
-```
+That material lives in a separate private repo. Keep the fence clean; do not reference the private side by path, either.
 
-If the overlay is not yet installed, the operator installs it once:
+### Do write here
 
-```sh
-# From the framework repo, with <PILOT_REPO> the absolute path of the pilot repo:
-mkdir -p <PILOT_REPO>/.adversarial-sprint/bin
-cp templates/overlay/sprint-loop-config.template.json \
-   <PILOT_REPO>/.adversarial-sprint/sprint-loop-config.json
-cp templates/overlay/sprint-loop-chunks-example.template.json \
-   <PILOT_REPO>/.adversarial-sprint/chunks.json
-cp templates/overlay/bin/run-sprint \
-   <PILOT_REPO>/.adversarial-sprint/bin/run-sprint
-chmod +x <PILOT_REPO>/.adversarial-sprint/bin/run-sprint
-# Then edit the config JSON: replace placeholder paths, set validators.
-```
+- Engineering rationale, design trade-offs, and what was tried and rejected
+- **Honest technical assessment, including unflattering findings.** Recording that a platform capability is immature, undocumented, or broken is legitimate engineering work and belongs in the record. The line is not "avoid criticism" — it is "keep it technical, sourced, and fair."
+- Reproducible evidence: commands, exit codes, observed output
 
-(For the scriptable version of that recipe, see
-`templates/overlay/README.md`. The skill is the high-level
-recap; the README is the line-by-line install.)
+The distinction that matters: *"deterministic hook blocking is unreliable under condition X, here's the repro"* is good. *"Their PM told me the roadmap is a mess"* is not — even though both are true, only one is engineering.
 
-## Flag semantics — what the overlay forwards
+## History hygiene
 
-- `--dry-run` — simulate the entire pipeline; do NOT invoke droid
-  exec; do NOT commit. The gate prints `[dry-run] auto-decision:
-  accept` and exits 0. The simulator's `COMPLETED · run_id=...`
-  banner is NOT a real-verdict: it is a §7 silent-green shape
-  (see §15 in `planning/phase-4.5/RUN-PROMPT.md`). Treat dry-run as a
-  wiring test, not as proof that a chunk would land.
-- `--non-interactive` — bypass the reconcile gate stdin pause.
-  The §5.3 machine-check still runs; refuse-on-blocker|high
-  is `SystemExit(4/5)`. Per pass-r3 H-2 (fixed in chunk 13),
-  this is *not* a synonym for `--dry-run`: the planner, both
-  reviewers, and the executor are still invoked for real.
-- `--unattended` — same as `--non-interactive`, but on §5.3
-  refusal writes a `checkpoint.json` and `SystemExit(4/5)`;
-  the operator resumes via `--resume-from <cp-path>`.
-- `--skip-reconcile` — same gate semantics as
-  `--non-interactive` (still runs §5.3) + prints a louder banner.
+The working tree being clean is not enough — git history travels with the repo. If anything sensitive is ever committed, squash or rewrite **before** the first push rather than adding a follow-up "scrub" commit that leaves the original in history.
 
-## Three example invocations (overlay form)
+## Multi-agent handoff
 
-**1. First dry-run against a new pilot repo (recommended start).**
+Three agents work in this repo — Factory Droid, Codex, and Claude Code. They share one working tree, so avoid simultaneous edits. Commits are the baton.
 
-```sh
-# Test the wiring without spending model credits. The simulator's
-# ``COMPLETED`` exit-0 banner proves the overlay → runner plumbing
-# is intact; it does NOT prove that a live run would accept.
-<PILOT_REPO>/.adversarial-sprint/bin/run-sprint --dry-run --non-interactive
-```
+**Branch by author:** `<agent>/<topic>` — `factory/`, `codex/`, `claude/`. Authorship stays obvious in history, a bad run is one `git branch -D`, and nobody has to reconstruct who wrote what from commit messages.
 
-If overlay exits 0 and the runner prints `COMPLETED · run_id=...`,
-the wiring is good. **Then move to a real run.**
+- Push branches to the private remote as you go. This machine is not a backup.
+- Hand off via `git diff`; the reviewing agent reads the diff, not the other agent's reasoning
+- Land work on `main` only after review, and keep convention/spec changes off feature branches so they don't ride along with unreviewed work
 
-**2. Real run on a known-good config (operator present at reconcile).**
+This mirrors the method the repo itself specifies — independent context, no transcript bleed. If it feels clumsy in practice, that is real signal about the design. Record it in `planning/phase-0/README.md` under Notes.
 
-```sh
-# Operator in the seat; type 'accept' / 'amend' / 'reject' at the gate.
-<PILOT_REPO>/.adversarial-sprint/bin/run-sprint
-```
+**A note on which agent does what.** Roles here are not interchangeable, and the split should be deliberate rather than whoever is open in a window: the agent that authored a plan should not be the one that approves it, and the agent that writes an implementation should not be the one that validates it. That is invariant #1 applied to the humans-and-agents layer, not just the runtime.
 
-If both reviewers flag a blocker|high finding, `accept` will refuse
-(`SystemExit 4`). Use `amend <reason>` to record a disposition, or
-`reject <reason>` to loop back to the planner.
+## Skill asset (canonical)
 
-**3. Unattended live run.**
+All three agents share **`skills/adversarial-sprint/SKILL.md`** as
+the canonical adversarial-sprint asset — the digest + index +
+rehydration hybrid that survives long-context compaction. Each
+agent's install path is documented in
+`tools/conventions/skill-distribution.md` and the project
+**does not** maintain per-agent body copies. Cursor is documented
+there for open-source reach even though it is not in this repo's
+roster.
 
-```sh
-# CI / "close the laptop" workload. §5.3 preconditions ALWAYS run.
-# Refusals write a checkpoint + SystemExit(4/5) — never silent.
-<PILOT_REPO>/.adversarial-sprint/bin/run-sprint --unattended
-# To resume if the run paused for a §5.3 refusal:
-<PILOT_REPO>/.adversarial-sprint/bin/run-sprint --resume-from <checkpoint.json>
-```
+When operating as the **planner / executor / validator** roles
+per `OPERATING-RULES §18`, agents **MUST** read the canonical
+asset at the start of their session and apply its principles. The
+rehydration step in the skill is the loop-closing rule: re-read
+`tools/OPERATING-RULES.md` whenever conversation crosses ~150k
+tokens, before a new chunk, on §13 disambiguation, or when an
+operator explicitly re-points the agent.
 
-## What this skill does NOT cover
+## Skill asset: sprint-invocation
 
-- The §1–§19 *operating rules*. Read `skills/adversarial-sprint/SKILL.md`
-  for the durable principles (digest + index + rehydration).
-- The chunk spec format. See `<PILOT_REPO>/.adversarial-sprint/chunks.json`
-  (installed from `templates/overlay/sprint-loop-chunks-example.template.json`)
-  alongside the rest of the overlay.
-- The role/prompt design. See `tools/sprint_loop/prompts/`.
-- The framework CLI. The overlay is the operator-facing surface;
-  the framework CLI is a debug-only surface (not operator-facing).
-  See `tools/sprint_loop/config.py` for the dataclass as the source
-  of truth, and `tools/run-with-model.sh` for the run-with-model
-  wrapper convention. (Historical H-1 fix: this skill used to point
-  operators at the framework CLI directly; the panel flagged that as
-  the second operator-facing path.)
-
-## Rehydration reminder
-
-When this skill has been loaded across many turns or conversation
-crosses ~150k tokens, re-read `tools/OPERATING-RULES.md` and the
-canonical meta-skill before firing the runner. That's §18 + §19 of
-the meta-skill's digest.
+See `skills/sprint-invocation/SKILL.md` for the project's sprint-invocation skill.
 
 ---
 > Source: [Roderick-Clemente/steel-man](https://github.com/Roderick-Clemente/steel-man) — distributed by [TomeVault](https://tomevault.io).
