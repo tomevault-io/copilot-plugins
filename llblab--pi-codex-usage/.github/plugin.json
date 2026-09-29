@@ -1,0 +1,9 @@
+{
+  "name": "llblab--pi-codex-usage",
+  "displayName": "pi-codex-usage",
+  "description": "Codex usage limits in the statusline",
+  "version": "1.0.0",
+  "author": "llblab",
+  "homepage": "https://github.com/llblab/pi-codex-usage",
+  "skills": []
+}
