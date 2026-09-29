@@ -1,0 +1,44 @@
+{
+  "name": "bridge",
+  "owner": "lamemustafa",
+  "repo": "bridge",
+  "description": "Local desktop app and MCP server connecting TallyPrime to AI assistants on your own computer: read your books, prepare vouchers, and post Journals only after you approve. For CA firms and accountants.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lamemustafa/bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-29T02:30:23Z"
+}
