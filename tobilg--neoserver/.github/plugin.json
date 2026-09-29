@@ -1,0 +1,9 @@
+{
+  "name": "tobilg--neoserver",
+  "displayName": "neoserver",
+  "description": "Multi-workspace geospatial server in Go: OGC API - Features and Tiles, WMS 1.3, WFS 2.0, WCS 2.0.1/2.1 and WMTS 1.0 for PostGIS, DuckDB, GeoParquet, vector files and GeoTIFF/COG",
+  "version": "1.0.0",
+  "author": "tobilg",
+  "homepage": "https://github.com/tobilg/neoserver",
+  "skills": []
+}
