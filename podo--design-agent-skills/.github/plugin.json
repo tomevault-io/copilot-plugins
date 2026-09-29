@@ -1,0 +1,14 @@
+{
+  "name": "podo--design-agent-skills",
+  "displayName": "design-agent-skills",
+  "description": "Design Skills for Agents",
+  "version": "1.0.0",
+  "author": "podo",
+  "homepage": "https://github.com/podo/design-agent-skills",
+  "skills": [
+    {
+      "name": "google-fonts-skill",
+      "description": ""
+    }
+  ]
+}
