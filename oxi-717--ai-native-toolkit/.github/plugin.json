@@ -1,0 +1,9 @@
+{
+  "name": "oxi-717--ai-native-toolkit",
+  "displayName": "ai-native-toolkit",
+  "description": "Open-source AI-native engineering plugins for Claude Code \u2014 project context, code review, security audit, task clarification, and more",
+  "version": "1.0.0",
+  "author": "OXI-717",
+  "homepage": "https://github.com/OXI-717/ai-native-toolkit",
+  "skills": []
+}
