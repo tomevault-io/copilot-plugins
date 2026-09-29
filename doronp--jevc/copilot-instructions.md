@@ -1,0 +1,73 @@
+## jevc
+
+> `jevc` compiles natural-language rules into **Jev programs**: a few narrow typed questions
+
+# AGENTS.md
+
+`jevc` compiles natural-language rules into **Jev programs**: a few narrow typed questions
+answered by TypeSafe's System One model, plus a reducer that computes the verdict in
+ordinary code. Read [README.md](README.md) first — it is the spec, and every number in it
+is recomputed from `fixtures/` by `test/examples.test.ts`.
+
+## Setup
+
+```bash
+npm install && npm run build   # Node >= 20; >= 22 to run the tests
+npm test                       # offline: no key, no network, no quota
+npm run typecheck              # tsc over src + test
+npm run gallery                # regenerate examples/GALLERY.md from fixtures/
+bash scripts/pack-smoke.sh     # opt-in: pack, install into an empty dir, run the gate there; secret scan
+bash scripts/check-ai-sdk.sh   # opt-in: an emitted ai-sdk module on the real @ai-sdk/typesafe-ai, local server
+bash scripts/check-langchain-a3.sh  # opt-in, uv: an emitted langchain module on the real langchain-typesafe a3
+```
+
+Run these from the repository root. `npm run check:live` is the only command that talks to
+TypeSafe; it needs `TYPESAFE_API_KEY` and must never be wired into `npm test`.
+`scripts/pack-smoke.sh` reaches the npm registry for the tarball's dependencies and nothing
+else; run it before a release, because only an installed tarball proves the packaging. The two
+`check-*` scripts fetch their package from npm or PyPI and answer every request locally.
+
+## Rules
+
+**Never write an API key to a file.** `TYPESAFE_API_KEY` lives in the environment and
+nowhere else. `.env.example` carries the placeholder only, and CI scans every commit in
+history for a real one.
+
+**A fixture is a recording, not a document.** `state` is the exact input a measured response
+was produced against, and `measured.answers` is what came back on 2026-09-18 from
+`jev-1.13.0`. Never hand-edit either to make something pass. If a recording is wrong, it is
+re-recorded with `check --live`, or it is deleted. Paraphrasing a `state` leaves the corpus
+asserting measured answers for a prompt nobody measured.
+
+**Measured or it does not ship.** Any number in the README, in a lint message, or in a doc
+must be a value a shipped fixture actually records. `test/ir.test.ts` enforces this for lint
+messages: a rule whose evidence leaves the corpus is removed, not reworded.
+
+**Quote rule text only from Apache-2.0 or MIT sources,** and add the row to
+[`fixtures/ATTRIBUTION.md`](fixtures/ATTRIBUTION.md) in the same change.
+
+**`docs/targets/*.md` is the normative contract for the emitters,** not the other way round.
+The conformance suites transcribe each consumer's own reducer and assert ours agrees over a
+grid; when an emitter and a target doc disagree, the doc wins until the doc is updated.
+
+## Layout
+
+| Path | What is in it |
+| --- | --- |
+| `src/ir.ts` | the IR, the reducer, and `lintProgram` — six checks, each grounded in a measured fixture |
+| `src/emit/` | one emitter per target: `sdk`, `json`, `ai-sdk`, `langchain`, `bouncer`, `toolgate` |
+| `fixtures/` | 58 recorded fixtures across five domains, plus `ATTRIBUTION.md` |
+| `docs/targets/` | the consumer contract each emitter is written against |
+| `docs/history/` | kept unedited for provenance; do not maintain it |
+| `plugin/`, `.claude-plugin/marketplace.json` | the Claude Code plugin (one skill and its manifest) and the marketplace that lists it. Keep the plugin root in `plugin/`: at the repository root, beside `package.json` and `package-lock.json`, installing would `npm ci` jevc's dev dependencies into every cached copy. Installed copies are pinned to `version` in `plugin.json`, so bump it when the skill changes |
+| `examples/` | runnable end-to-end examples, and `GALLERY.md` (generated). `sample-project/` is the round trip: rules scanned out of its `CLAUDE.md`, the compiled gate installed back into its `.claude/` |
+
+## About this file
+
+It is prose, which is the problem `jevc` exists for — nothing above is enforced by anything.
+`npx jevc scan .` finds it, and `npx jevc compile AGENTS.md --lift` turns it into a lowering
+request: the rules that can become typed questions, and the ones that cannot.
+
+---
+> Source: [doronp/jevc](https://github.com/doronp/jevc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-29 -->
