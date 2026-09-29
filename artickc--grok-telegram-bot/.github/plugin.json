@@ -1,0 +1,9 @@
+{
+  "name": "artickc--grok-telegram-bot",
+  "displayName": "grok-telegram-bot",
+  "description": "Control the official Grok Build CLI from Telegram over ACP (grok agent stdio). Sign in with your xAI account; projects, resume sessions, streamed diffs, scheduled tasks, multi-account, 24/7 service.",
+  "version": "1.0.0",
+  "author": "artickc",
+  "homepage": "https://github.com/artickc/grok-telegram-bot",
+  "skills": []
+}
