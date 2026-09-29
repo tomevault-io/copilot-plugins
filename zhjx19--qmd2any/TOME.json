@@ -4,7 +4,7 @@
   "repo": "qmd2any",
   "description": "Quarto (.qmd) / Markdown \u4e00\u952e\u5bfc\u51fa\u5fae\u4fe1\u516c\u4f17\u53f7 & \u77e5\u4e4e \u2014 VS Code \u6269\u5c55 + \u72ec\u7acb\u684c\u9762\u5ba2\u6237\u7aef",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhjx19/qmd2any",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-29T02:36:16Z"
+  "distributed_at": "2026-09-29T02:46:38Z"
 }
