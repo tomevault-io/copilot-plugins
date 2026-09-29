@@ -1,38 +1,40 @@
-## storylens-change-registration
+## storylens
 
-> StoryLens 功能变更必须登记到下一版本待发布池；日常不升版、不构建、不发布
+> 1. 先读 `README.md` 与 `docs/` 全部文档，再修改代码。
 
+# Codex 项目规则
 
-# StoryLens 变更登记规则
+## 总原则
 
-## 每次功能修改
+1. 先读 `README.md` 与 `docs/` 全部文档，再修改代码。
+2. 每次只完成一个明确阶段，禁止跨阶段大规模扩展。
+3. 所有模型输出必须经过 Pydantic 校验。
+4. 所有文学分析结论必须引用真实存在的段落 ID。
+5. 模型 Provider 不得写死在业务代码中。
+6. 本地模型与云端 API 必须使用统一调用协议。
+7. API Key 只能读取环境变量，禁止写入源码、日志和测试样本。
+8. 任何失败任务都必须可重试、可定位、可单项重跑。
+9. 修改后必须运行测试和 `scripts/check_project.py`。
+10. 不得自行引入图数据库、微服务、LoRA 训练等超出当前阶段的复杂度。
+11. 功能修改必须登记到 `release/changes/`（见 `docs/change-registration-and-release.md`）；日常不得修改 `VERSION`，不得在未确认时 bump / 正式构建 / 发布。
 
-1. 开始前创建或确认 change id：`python scripts/change_registry.py register ...`
-2. 源码提交必须关联 change id（优先 commit trailer `StoryLens-Change: CHG-...`，或 `attach-commit`）
-3. 完成后更新登记状态、测试与验证证据
-4. 日常功能修改**不得**修改 `VERSION`
-5. 用户未明确要求发布时**不得** `bump`
-6. 用户未明确要求发布时**不得**构建正式安装包
-7. 用户未明确要求发布时**不得**修改远端 `latest.json`
-8. 用户未明确同意时**不得**自动安装更新
+## 当前阶段边界
 
-## 状态
+当前只做：
+- 后端骨架
+- 文本导入与章节/段落编号
+- 模型网关
+- 一个场景分析任务闭环
+- SQLite 持久化
+- 基础测试
 
-`registered → implemented → tested → verified → ready-for-staging → ready → released`  
-无 commit / 无测试 / 无验证证据不得跳到 `ready`。
-
-## 完成报告必须输出
-
-- change id
-- 关联 commit
-- 登记状态
-- 是否进入下一版本
-- 是否修改 VERSION
-- 是否构建
-- 是否发布
-- 是否推送
-
-详细说明见 `docs/change-registration-and-release.md`。
+暂不做：
+- 完整桌面 UI
+- 自动训练
+- 多模型投票
+- 全书伏笔网络
+- Neo4j
+- 商业化权限与计费
 
 ---
 > Source: [fanjack510-ctrl/StoryLens](https://github.com/fanjack510-ctrl/StoryLens) — distributed by [TomeVault](https://tomevault.io).
