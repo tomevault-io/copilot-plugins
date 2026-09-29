@@ -1,0 +1,9 @@
+{
+  "name": "edenfunf--reelmimic",
+  "displayName": "reelmimic",
+  "description": "Show it a video you love. Get a new video in the same style. An AI crew (Claude Code or Codex) plans, builds and reviews it with you.",
+  "version": "1.0.0",
+  "author": "edenfunf",
+  "homepage": "https://github.com/edenfunf/reelmimic",
+  "skills": []
+}
