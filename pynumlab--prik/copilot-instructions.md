@@ -1,0 +1,343 @@
+## prik
+
+> The active codebase is entirely Python.
+
+# Repository Instructions
+
+The active codebase is entirely Python.
+Before starting implementation work, update or read the relevant docs first so the intended public behavior, ownership rules, and limitations are explicit; then implement code and tests to match that documented contract.
+
+Update `CHANGELOG.md` under **Unreleased** whenever a change adds or changes
+user- or maintainer-visible behavior, public APIs, supported features,
+examples, build or CI workflows, benchmark methodology, or documented
+limitations. Keep entries concise and outcome-focused; do not add release
+notes for internal cleanup that has no visible effect.
+
+Write user documentation as a concise guide to the current product. Lead with
+the task a user wants to complete, show the necessary command or example, and
+state only the behavior, choices, and limitations needed to use it correctly.
+Do not narrate implementation history, prior bugs, rejected designs, internal
+mechanics, defensive checks, or why a newly added behavior differs from an old
+one unless that context changes what the user must do. Integrate changes into
+the existing workflow instead of appending a change report, and remove any
+sentence whose only purpose is to justify the implementation or record the
+development process.
+
+Treat developer documentation as durable guides, not as per-change
+implementation logs. Do not update developer pages merely because code changed,
+and do not add incidental low-level details that are unnecessary for following
+the documented architecture or maintainer workflow. Update them only when a
+documented contract, ownership boundary, workflow, or limitation changes; keep
+routine implementation findings in the review summary or a concise CHANGELOG
+entry when appropriate.
+
+Ignore:
+- *.f90
+- *.f95
+- *.for
+- *.c
+- *.h
+- *.json
+
+Do not spend context window or analysis on those files unless explicitly requested.
+Keep one path for one question. When two entry points answer the same
+question -- one file and a project, a library route and its CLI wrapper, source
+discovery and compile ordering, a source build and a contract replay -- they
+must call the same owner and differ only in the inputs they pass, such as which
+files or modules are in scope. Do not write a second loop, list, inventory,
+regex, lexer, or conversion route that re-derives what an existing owner
+decides, even as a fast path: a fast path may narrow what the owner reads, but
+the owner's answer stays the only answer. Before adding a helper that
+enumerates or classifies something -- a module's procedures, a file's program
+units, a `use` nature, the intrinsic modules, Fortran source suffixes, a
+submodule's identity -- find the existing owner and extend it. When two copies
+are found, merge them into one owner instead of fixing only the copy that
+failed, and prove the merge with a test that runs both entry points on one
+input and compares their results.
+
+When asked to change or move an API, import path, command, feature, or behavior, do not add or keep compatibility layers, aliases, shims, fallback paths, or legacy entrypoints unless explicitly requested. A requested change means the old behavior should be removed.
+When updating tests, remove obsolete tests that only assert removed/old implementation behavior does not exist. Do not preserve rejection or absence checks for API/features that were intentionally removed unless explicitly requested.
+Do not add tests whose purpose is only to prove that removed or nonexistent features are rejected. Test supported behavior and meaningful validation boundaries instead. For example, if `ArrayCategory` is removed, delete its tests; do not add a test asserting that `ArrayCategory` now fails.
+
+Optimize the test suite for maximum confidence per test and minimum
+maintenance burden, not for test count. Treat end-to-end tests as the primary
+proof that a feature works: where practical, demonstrate a feature through the
+real workflow (source, preprocessing, parsing, semantic IR, `.pyi` contract,
+replay or build, generated wrapper, compile and link, import, runtime call) and
+finish by checking a concrete, repeatable result such as runtime values, native
+state, generated contract or source text, or the native build plan. One strong
+end-to-end test that covers several cooperating features should replace
+several lower-level tests that only repeat pieces of the same behavior.
+
+Delete a test, rather than preserve it because it exists, when its only
+purpose is to check implementation details, trivial getters, constructors,
+dataclass fields, or plumbing; to repeat behavior a stronger end-to-end test
+already proves; to assert an intermediate object only because it currently
+exists; to test a tiny helper that is exercised thoroughly elsewhere; to repeat
+one case at several stages; to lock internal architecture without protecting
+user-visible behavior; or to add near-identical permutations that do not
+represent distinct failure modes.
+
+Keep a focused isolated test only when it is the cheapest or clearest way to
+protect a boundary that end-to-end tests do not cover economically, and when
+it has a clear answer to: **what realistic regression does this catch that
+would otherwise be difficult, expensive, or ambiguous to detect?** Typical
+answers are parser grammar edge cases; preprocessing and source-discovery
+rules; semantic transformations with many meaningful combinations; export and
+re-export resolution; diagnostics and error locations; contract round trips;
+compiler-independent behavior that would otherwise need many native builds;
+subtle regressions whose end-to-end failure would not say which rule broke;
+and negative validation paths that are cumbersome or unsafe to reproduce
+through a full build. If there is no good answer, remove the test. In PRIK,
+scrutinize especially tests of parser internals, semantic IR details,
+policy and planning intermediates, generated-code string fragments,
+source-versus-build route parity, and duplicated source-versus-generated-`.pyi`
+assertions; where the two routes are meant to agree, prefer one shared parity
+test over the same behavioral assertions in both.
+
+When fixing a real bug, first ask whether an existing end-to-end test can be
+strengthened to cover the regression. If not, add the smallest focused
+regression test at the layer where the bug reproduces clearly. Do not add a
+unit test merely because production code changed. Before testing a subsystem
+in isolation, list the distinct realistic ways it could fail and test those
+behavioral boundaries with a small table of meaningful cases instead of
+mirroring the implementation line by line. Do not change production behavior
+to make a test easier to delete.
+
+Treat tests as evidence for a named invariant, not as specifications merely
+because they already exist. Add or retain automated tests when they protect at
+least one of the following:
+
+- externally observable behavior or a public API;
+- a documented diagnostic or serialized/generated format;
+- ABI, ownership, lifetime, memory-safety, build, or release behavior;
+- a stage handoff or architectural boundary whose violation would allow a
+  downstream stage to make an upstream decision; or
+- repository structure that is directly consumed by tooling.
+
+Do not add tests whose only purpose is to freeze prose, wording, heading or
+section order, private class or function names, complete file inventories,
+dataclass field inventories, exact internal call order, preferred inheritance,
+or incidental directory/module layout. Those are recommendations for
+contributor review unless the user explicitly promotes one to a maintained
+contract. Unit tests may construct internal models when their behavior or
+completed state is the invariant, but they should not assert implementation
+shape just to prevent refactoring.
+
+When an existing test fails after an intentional change, identify the behavior
+or risk it was meant to protect before changing production code. Keep or
+rewrite the test when that invariant remains a contract; remove it when it only
+records the previous implementation or a recommendation. Do not change correct
+behavior solely to satisfy a brittle test.
+
+Before adding a test, name the invariant, its feature or infrastructure owner,
+and the earliest stage that can prove it. Keep the resulting evidence concise:
+
+- One test may assert several related consequences of the same setup and
+  invariant. Do not create one test function per field or incidental detail.
+- Use parametrization when cases exercise the same operation and assertion
+  shape with different inputs, and give every row a descriptive ID. Keep only
+  the rows that exercise distinct code paths instead of a full matrix.
+- Prefer one end-to-end workflow that exercises several cooperating features
+  over a separate native build for every small operation.
+- Do not repeat the same invariant at adjacent stages. Add another stage test
+  only when it protects a real handoff, completed decision, generated artifact,
+  ABI mechanism, or runtime behavior.
+- Cover combinatorial language cases at the cheapest owning stage. End-to-end
+  tests should cover each distinct compilation, ABI, ownership, lifetime, or
+  runtime mechanism, not every combination already established below it.
+- When source and generated-contract builds must agree, compare the two lanes
+  in one test or shared case instead of maintaining unrelated duplicate tests.
+- When several tests use the same native project and require no isolated build
+  state, build it once through an appropriately scoped pytest fixture. Do not
+  share mutable native state unless the fixture resets it deterministically.
+- Prefer existing test helpers. Add a shared helper only when it removes
+  repeated setup from multiple tests without hiding the behavior being tested.
+- Do not duplicate a complete expected artifact in several tests. Keep one
+  reviewed golden or fixture as its authority and make focused tests assert
+  only the relevant property.
+- Do not assert complete generated source text when a focused structural or
+  behavioral assertion proves the invariant, unless the generated text is
+  itself a documented serialized format.
+- When removing or consolidating a test, identify the invariant it protected
+  and show where that invariant remains covered.
+
+Organize native test sources by their evidence owner:
+
+- A permanent source compiled by a test belongs in a fixture file.
+- A multi-file native project uses one fixture file per real source file.
+- A source shared by tests, or a substantial source of roughly 20 lines or
+  more, should normally be a fixture file.
+- A small syntax example should remain inline when locality makes the test
+  clearer.
+- Programmatically generated, parametrized, or deliberately mutated source may
+  remain inline and must be written only to pytest temporary directories.
+- Place fixtures beneath the feature or infrastructure mechanism that owns the
+  asserted behavior and beneath the relevant stage. Do not place
+  feature-specific sources in `_support` or create a global collection of
+  unrelated fixtures.
+
+The agent owns the review work that is not delegated to rigid tests. Before and
+after a refactor, compare the affected public behavior and stage outputs. When
+editing documentation, examples, diagnostics, or generated text, preserve the
+existing meaning, behavior, and wording as much as the request permits; inspect
+the diff and run the affected example or focused command when practical. Treat
+illustrative wording and demonstration output as review recommendations unless
+they are explicitly documented as stable formats. A command/result pair shown
+in a package guide must remain factual: run the command and compare stable
+output with the page, or validate only the displayed invariant when the output
+is an excerpt or depends on the active target. Do not duplicate that expected
+output in a separate test inventory.
+
+Before wrapper planning begins in `prik/planning/planner.py`, the
+post-IR policy stage must have completed every semantic decision needed by
+wrapper generation, including object kind, ownership, transfer, destruction,
+mutability/writeback, nullability, output projection, release responsibility,
+contract-value storage mode (`stack`, `heap`, or `alias`), getter behavior,
+native setter assignment, and Python setter exposure. Bridge and binding
+generators may only dispatch from those completed decisions into small named
+implementation methods. They must not infer or override semantic policy from
+datatype, `intent`, dotted-variable shape, `is_alias`, or local memory checks,
+and they must not contain a fallback that silently chooses a different
+behavior. When such a decision is found in bridge or binding code, remove it
+there and move it into post-IR policy completion. Backend-local helper
+temporaries may still be created inside the selected implementation method
+because they are emitted-code details, not semantic policy.
+
+For behavior changes, first try to express the change in completed semantic
+policy or the shared wrapper plan. Change binding or bridge lowering only when
+the selected plan requires a genuinely new emitted-code mechanism; those
+generators should otherwise keep reusing and dispatching existing planned
+paths.
+
+A decision is read, not recomputed. Completed policy moving forward also means a
+later stage must not derive the same answer a second time, which is harder to
+notice than an override because the second site often calls the same helper and
+so reads as reuse rather than as a second authority. When two places need one
+answer, ask: **if these two call sites disagreed, which one would be wrong?** If
+that has no answer, the decision has two authorities and no owner; if it has
+one, the other site must read the answer rather than compute it. This applies to
+derivation carrying state or a condition — a collision counter, a reservation
+ledger, a language gate, a default — because that is what drifts; calling a
+pure, total helper from several stages is fine. Read the owner's recorded
+output: the completed policy, the shared plan, or the metadata the owner wrote.
+Where a stage cannot run the owner's full completion, run the narrower
+completion step for that one decision rather than deriving it again — contract
+extraction must describe C that the direct-only wrapper would reject, so
+`emit_module_stubs` completes public-name policy for every module and the rest
+only where a build request allows it. Sharing the owner's helper is not enough
+when the derivation keeps a ledger: two allocators fed the same declarations in
+a different order produce the same set of names attached to different
+declarations, which every per-stage test still passes.
+
+A fix removes an interpretation path or it does not land. "The regression is
+fixed and the tests pass" is half an answer; the other half is **did this delete
+a way of deciding, or add one?** A representation that has to mean several
+things is the usual source of these bugs, and widening it with another flag or
+another fallback leaves every existing reader intact and adds a reader. So when
+a record cannot express a case, replace the record; when a lookup is reached by
+two key shapes, finish the migration to one; when a completed decision is
+ambiguous with an absent one, make completion record it; when a consumer
+special-cases what a plan should have decided, move the decision into the plan.
+Introducing a record, a small class, or a named reading is the preferred move
+when it lets a reader see the rule in one place, and it does not need a separate
+mandate: reach for it whenever it fixes the bug in fewer lines than another
+branch would, and change an existing structure freely when replacing it is what
+makes the code read more simply. Prefer that to a new condition threaded through
+existing paths, which each reader then has to hold in mind. The one condition is
+that the new thing is accepted only if it deletes the branches and helpers it
+replaces — moving them to another module, or wrapping them behind a new name,
+does not count. The practical test before committing: the file you changed
+should be no harder to read than before, and the count of places that answer
+your question should have gone down.
+
+Keep the regressions while doing it. The tests that pin bare, `only`, renamed
+and repeated `use` forms, route accessibility, transitive re-exports, merged
+generics, prototype collisions, exact `__all__`, and source-build versus
+generated-`.pyi` replay are the specification of what PRIK supports; simplify
+what sits under them, never by dropping the cases they cover.
+
+Where one decision reaches users through two artifacts, a test must compare
+those artifacts rather than only check each one. A built extension and the
+`.pyi` contract describing it are one such pair: each had passing tests while
+the names they published disagreed, because nothing asserted that they agreed.
+Treat the same comparison as a recommendation, not a requirement, for internal
+pairs such as a wrapper plan and the sources generated from it. Watch for a
+second policy or allocator instance, for a language, route, or flag gate at the
+consumer that the owner lacks, and for a `prik/printers/` helper that returns a
+name, kind, or decision rather than text.
+
+To answer an ABI question, or to decide whether something belongs in the
+binding or in the Fortran bridge, first ask: **how would this work for a
+`bind(C)` procedure, where there is no bridge at all?** A direct entrypoint has
+only the binding and the user's C ABI symbol, so whatever the direct route must
+do is binding-owned by definition. The bridge then owns exactly the remainder:
+the work that makes an ordinary non-`bind(C)` procedure reachable through that
+same completed plan. Deriving the boundary this way keeps one shared entrypoint
+contract for both routes instead of two parallel designs.
+
+The question is still decisive when the form cannot be `bind(C)` at all. A
+Fortran type that no interoperable interface can declare — a deferred-length
+`character(len=:)` dummy, for example, which the standard rejects in a
+`bind(C)` interface because character dummies there must have length 1 — proves
+that a generated Fortran adapter is mandatory rather than optional, and names
+what that adapter has to construct: the non-interoperable local the native
+dummy requires. Record that reasoning with the completed policy so the bridge
+implements a decided mechanism rather than rediscovering it.
+
+After every implementation task, the final summary must include a breakdown of
+the stages that actually changed. Relevant stages include parsing, semantic IR
+construction, post-IR policy completion, wrapper planning/direct lowering, binding
+generation, bridge generation, compilation/build integration, and
+documentation. For each changed stage, state what behavior or representation
+changed there. Do not include unchanged stages or empty stage headings. Also
+identify the tests that were added or updated, where they live, what behavior
+they cover, and the relevant verification results. When the implementation
+reused or improved an existing code path, name that path and explain how it was
+reused or changed. The stage breakdown is a required part of the summary, not a
+restriction on the rest of it: add any relevant cross-cutting outcomes,
+decisions, risks, limitations, verification gaps, or handoff details outside
+the stage breakdown when they help explain the implementation.
+
+Changes limited to wrapper planning, direct bridge/binding lowering, or native
+compilation should use the focused owners under
+`tests/fortran/infrastructure/codegen/`, feature-local
+`tests/fortran/*/codegen/` directories, and
+`tests/fortran/infrastructure/building/compiling/` as applicable. Include the
+relevant end-to-end feature tests whenever a generated or compiled mechanism
+changes; run a broader suite when behavior spans multiple stages.
+Run ad-hoc compiler and build commands outside the repository root, for example in a temporary
+directory, so no `.mod`, object, or library file lands there; the test session refuses to start
+while native build artifacts sit in the root, since a stale one silently shadows a later build.
+Run pytest with at most `-n 2`. Never `-n 4`, `-n 8`, or `-n auto`. The development machine has 12 cores but only about 7 GB of RAM, and every xdist worker loads NumPy while the Fortran end-to-end tests fork gfortran and cc per test on top of `pytest-monitor` profiling each one. Higher parallelism exhausts memory and thrashes swap, which has hard-frozen the machine and forced a reboot. Prefer the narrowest owning test path over a full suite run, and commit verified work promptly rather than batching it behind a long run.
+Do not run LAPACK wrapper tests locally unless the user explicitly asks for them. Local verification may run everything else, including BLAS-only real-library tests; leave LAPACK coverage to GitHub Actions by default.
+Do not run the full coverage workflow for routine changes. Run focused tests plus the required static-analysis suite. Reserve the complete CI-style coverage workflow for explicit pre-merge or pull-request verification, or when the user specifically requests it.
+When investigating coverage failures, mirror the GitHub Actions workflow before deciding the fix: run coverage with `COVERAGE_PROCESS_START=pyproject.toml`, combine parallel data with `python3 -m coverage combine`, then run `python3 -m coverage report`. Do not assume a plain local coverage run matches CI, especially when subprocess tests are involved.
+For documentation-only changes that do not modify executable Python code,
+runtime behavior, build configuration, or test logic, do not run the complete
+static-analysis suite by default. Run the focused documentation checks and
+whitespace check instead:
+- `python3 -m pytest -q tests/docs`
+- `git diff --check`
+Run the complete static-analysis suite when code, tests, build behavior, or
+tooling configuration changes, or when explicitly requested for pre-merge or
+pull-request verification:
+- `python3 -m ruff check .`
+- `python3 -m ruff format --check .`
+- `python3 tools/check_static_analysis_versions.py`
+- `python3 tools/check_codegen_complexity.py`
+- `python3 -m bandit -c pyproject.toml -r prik --severity-level medium --confidence-level medium`
+- `python3 -m vulture`
+- `python3 tools/check_radon_policy.py --base-ref auto`
+- `python3 -m radon cc prik -n C -s --total-average`
+- `python3 -m radon mi prik -s`
+Treat Ruff, Bandit, Vulture, and the Radon policy as blocking. The full Radon complexity and maintainability reports are advisory but must still be run. If a command cannot run because a dependency, network service, or CI-only environment value is unavailable, state that explicitly in the final response.
+
+The codegen complexity checker is also advisory: review and report its findings,
+but do not change correct behavior or fail the task solely to satisfy its
+structural recommendations.
+When you create a commit add this prefix to the message to know that you did push the commit "codex: ..."
+
+---
+> Source: [PyNumLab/prik](https://github.com/PyNumLab/prik) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-29 -->
