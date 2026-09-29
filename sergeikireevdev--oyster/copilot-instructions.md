@@ -1,0 +1,172 @@
+## oyster
+
+> This repo ships the pi extensions that power its features in `extensions/`:
+
+# Agent guidelines for oyster
+
+## Bundled pi extensions
+
+This repo ships the pi extensions that power its features in `extensions/`:
+
+| File | Tool / command | What it does |
+|---|---|---|
+| `extensions/file-explorer.ts` | `/files` command + `ctrl+o` shortcut | Browse the workspace from the TUI, then edit or download any file. |
+| `extensions/hublot.ts` | `hublot` tool | Open/close/list public Cloudflare tunnels to caller-provided local ports. |
+| `extensions/loop.ts` | `/loop` command + `loop` tool | Execute Markdown checklist items sequentially in isolated subagents, advancing only after an executable validation script passes. |
+| `extensions/pinned-widget.ts` | `pinned_widget` tool | Pin/list/group private files, media, Markdown, directories, and HTTPS links in the right sidebar. |
+| `extensions/routine.ts` | `routine` tool | Create/start/stop/teardown session-bound scripts with live progress reporting. |
+| `extensions/sudo.ts` | `bash` permission gate | Prompt through Oyster for a masked sudo password before a permissioned command executes. |
+
+pi loads extensions from `~/.pi/agent/extensions/`. To make these bundled files
+available (and keep them in sync with the repo), symlink or copy them:
+
+```sh
+mkdir -p ~/.pi/agent/extensions
+ln -sf "$(pwd)"/extensions/*.ts ~/.pi/agent/extensions/   # symlink — edits here apply immediately
+# or:
+# cp extensions/*.ts ~/.pi/agent/extensions/              # copy — stable snapshot
+```
+
+Restart pi afterwards. When developing an extension through Oyster, stop and restart every affected session runner after changing the extension; existing pi RPC sessions keep their originally loaded extension code. Sending `/reload` from Oyster does not reload an RPC session because `/reload` is handled only by pi's interactive mode, and refreshing the browser is also insufficient.
+
+## Built-in MCP endpoint (Claude Code and other MCP harnesses)
+
+pi has no MCP client, so the extensions above stay the pi integration. For MCP-capable harnesses, the Oyster server itself serves the same tools over MCP (Streamable HTTP, stateless) at `POST /mcp` — `hublot`, `pinned_widget`, `group_pinned_widgets`, `routine` — plus a `bash` tool whose `sudo=true` option mirrors `extensions/sudo.ts`: the complete command runs as root after Oyster's masked password dialog, brokered through `POST /runner/ui-request` to the runner's browser. The implementation lives in `server/http/routes/mcpRoutes.mjs`; its tools call the regular route handlers in-process through `server/http/internalDispatch.mjs`, so there is no second copy of the widget, tunnel, or routine logic and no loopback HTTP.
+
+Every request carries its caller: `POST /mcp?runner=<id>&session=<id>&workdir=<abs path>` with the usual bearer token. The Claude Code driver builds that URL per launch and passes it with `--mcp-config` as an `http` server, using the header `Authorization: Bearer ${OYSTER_TOKEN}`, which Claude Code expands from the inherited environment so the token never appears on a command line. It also allows every `mcp__oyster` tool. Nothing has to be registered in Claude Code's settings, and other MCP clients can use the same URL.
+
+Driver modules such as `server/runner-drivers/claude-code.mjs` are reached only through static imports, which the hot reloader does not cache-bust, so restart the Oyster service (not just the runner) after changing them. When changing a tool, update both the pi extension and the MCP endpoint. Verify with `node --test tests/mcp-routes.test.mjs`.
+
+Pinned files remain private and open through authenticated native Markdown, image, and video displays; use a hublot only for a public live interface. Opening a hublot requires a local `port` (1–65535), with an optional `description` label. Provision the service separately: hublot starts only cloudflared and persists its SQLite entry; closing the tunnel leaves the local service running. The `hublot` and `routine` tools discover the UI server
+from `OYSTER_URL` (default `http://127.0.0.1:8080`) and authenticate with
+`OYSTER_TOKEN` or the project-root `.ui-token` file.
+
+## Installation
+
+Oyster and its bundled pi submodule use separate lockfiles. Install and build both explicitly; do not run an unscoped workspace install across them.
+
+### Prerequisites
+
+- **Node.js ≥ 22.19** — check with `node --version`. This is required universally because the stable server uses the built-in `node:sqlite` application store, even when pi sessions use JSONL.
+- **`pi` source submodule** — initialize `pi/` and build its coding-agent CLI. `PI_BIN` can still select another compatible executable.
+- **`cloudflared`** (optional) — only needed for the tunnels feature. Install from [pkg.cloudflare.com](https://pkg.cloudflare.com) if you plan to use tunnel functionality.
+- **FFmpeg** (optional outside containers) — converts pinned AVI, MOV, MKV, and M4V videos to cached browser-compatible MP4 playback. Container images and `scripts/install.sh` include it.
+
+### Quick start
+
+```bash
+git clone --recurse-submodules <repo-url> oyster && cd oyster
+npm ci
+npm ci --prefix pi --ignore-scripts
+npm run build:pi
+npm run build
+node server/server.mjs
+```
+
+The server starts on `0.0.0.0:8080` and prints a random auth token to the console. On first run it also writes that token to `.ui-token` (git-ignored) so subsequent restarts keep the same token.
+
+Open `http://<host>:8080/#token=<TOKEN>` in your browser. The URL fragment also gets passed as your bearer token for API calls.
+
+### Configuration
+
+| Flag | Env | Default | Meaning |
+|---|---|---|---|
+| `--port` | `PORT` | `8080` | listen port |
+| `--host` | `HOST` | `0.0.0.0` | bind address |
+| `--token` | `OYSTER_TOKEN` | `.ui-token` file, else random | auth token |
+| `--unauthenticated` | `OYSTER_UNAUTHENTICATED` | off | disable Oyster token auth behind an authenticated outer proxy |
+| `--dir` | `PI_DIR` | cwd | working directory pi runs in |
+| `--pi` | `PI_BIN` | `pi/packages/coding-agent/dist/cli.js` | pi executable path |
+| `--pi-args "…"` | `PI_ARGS` | – | extra args appended to `pi --mode rpc` |
+| – | `OYSTER_DB_PATH` | `~/.pi/agent/oyster.sqlite` | separate SQLite database for oyster-owned application data |
+| `--tunnel-bin` | `TUNNEL_BIN` | `cloudflared` | binary for opening tunnels |
+
+### Running as a service
+
+A systemd user unit is provided as `oyster.service`: it auto-restarts on crash and starts on login. Before using it, update the hardcoded `WorkingDirectory=` and `ExecStart=` paths to match your clone location:
+
+```bash
+sed "s|__OYSTER_DIR__|$(pwd)|g" oyster.service > ~/.config/systemd/user/oyster.service
+systemctl --user daemon-reload
+systemctl --user enable --now oyster.service
+sudo loginctl enable-linger $USER   # keep running without an active login session
+```
+
+Logs: `journalctl --user -u oyster -f`.
+
+For a backgrounded foreground process instead:
+
+```bash
+nohup node server/server.mjs > /tmp/oyster.log 2>&1 &
+```
+
+## Run the tests after every feature or fix
+
+After implementing a feature or fixing a bug, run:
+
+```sh
+npm test
+```
+
+and make sure **all** tests pass before you consider the work done.
+
+When a unit of work is finished, run the complete validation suite:
+
+```sh
+./scripts/run-e2e-tests.sh
+```
+
+After validation passes, rebuild the UI before committing:
+
+```sh
+npm run build
+```
+
+Commit the completed changes only after the unit tests, end-to-end tests, and
+UI rebuild all succeed, then start the next unit of work.
+
+## Align remote branches with `origin/main`
+
+Before pushing a branch for review or merge, fetch the remote and rebase the branch onto the current `origin/main`. Verify that `git merge-base HEAD origin/main` equals `git rev-parse origin/main`; do not push a parallel history containing patch-equivalent copies of commits already on `origin/main`. If an already-published branch must be rebased, update it with `git push --force-with-lease`, never an unrestricted force push.
+
+Why this is non-negotiable in this repo: the server hot-reloads `server/app.mjs` and
+`public/index.html` **the moment you save them** — every edit deploys
+instantly to live browser sessions. There is no build step or review gate to
+catch mistakes. A single stale reference in the UI's inline script (e.g. a
+top-level `$("removedElement").addEventListener(...)`) aborts the whole
+script and takes down the page for everyone connected.
+
+The suite is fast (<1s). It includes guards that specifically catch
+hot-reload footguns:
+
+- `tests/ui-page.test.mjs` — the inline script must parse, and every DOM id
+  it references must exist in the markup. If you remove or rename an element
+  in `index.html`, remove or update the code that references it.
+- `tests/sessions.test.mjs`, `tests/checkpoints.test.mjs` — server-side
+  behavior.
+
+When you add a feature, prefer adding a test alongside it — especially for
+anything in `server/app.mjs` request handling, where a regression silently breaks
+remote clients.
+
+## Editing `public/index.html`
+
+- The whole UI is one file with one inline `<script>`. Top-level statements
+  run at load; if any of them throw, the page is dead. Guard optional
+  elements (`$("x")?.addEventListener(...)`) or wire listeners inside the
+  code that creates the element.
+- Saving the file broadcasts `ui_reload` to connected browsers, which may
+  refresh immediately. Don't save half-finished states; make edits atomic.
+
+## Editing `server/app.mjs`
+
+- Hot-reloaded via `init(state)`. All state that must survive a reload
+  (runners, SSE clients, buffers, tunnels) lives on the host-owned `state`
+  object from `server/server.mjs` — never in module-level variables.
+- If a reload fails to parse, the server keeps the previous version running
+  and broadcasts `code_reload_failed`; check the journal
+  (`journalctl --user -u oyster`) if your change doesn't seem to apply.
+
+---
+> Source: [SergeiKireevDev/oyster](https://github.com/SergeiKireevDev/oyster) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-29 -->
