@@ -7,11 +7,11 @@ High availability mirror and network topology specifications for eternity4719/Ho
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Shijiuwei/HowToLiveBetter-mirror-949](https://github.com/Shijiuwei/HowToLiveBetter-mirror-949).
+Original source: `AGENTS.md` in [Shijiuwei/HowToLiveBetter-mirror-949](https://github.com/Shijiuwei/HowToLiveBetter-mirror-949).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
