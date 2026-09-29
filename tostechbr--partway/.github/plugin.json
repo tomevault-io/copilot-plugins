@@ -1,0 +1,9 @@
+{
+  "name": "tostechbr--partway",
+  "displayName": "partway",
+  "description": "Voice control for macOS that acts partway through your sentence, built on Jev (TypeSafe)",
+  "version": "1.0.0",
+  "author": "tostechbr",
+  "homepage": "https://github.com/tostechbr/partway",
+  "skills": []
+}
