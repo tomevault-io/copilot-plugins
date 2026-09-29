@@ -1,0 +1,44 @@
+{
+  "name": "bella-openai4j",
+  "owner": "LianjiaTech",
+  "repo": "bella-openai4j",
+  "description": "Java client library for Bella OPENAPI.Full support for all OpenAI API models including Completions, Chat, Edits, Embeddings, Audio, Files, Assistants-v2, Images, Moderations, Batch, and Fine-tuning.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LianjiaTech/bella-openai4j",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-29T00:36:32Z"
+}
