@@ -1,0 +1,9 @@
+{
+  "name": "utkarsh-x--supreme",
+  "displayName": "Supreme",
+  "description": "A lean engineering constitution for coding agents. Evaluated across all 89 Terminal-Bench 2.1 tasks (267 isolated container runs) with full research paper and telemetry.",
+  "version": "1.0.0",
+  "author": "Utkarsh-X",
+  "homepage": "https://github.com/Utkarsh-X/Supreme",
+  "skills": []
+}
