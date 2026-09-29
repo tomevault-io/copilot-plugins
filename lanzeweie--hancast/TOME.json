@@ -1,0 +1,44 @@
+{
+  "name": "HanCast",
+  "owner": "lanzeweie",
+  "repo": "HanCast",
+  "description": "\u57fa\u4e8e Macast \u91cd\u6784\u7684\u73b0\u4ee3\u8de8\u5e73\u53f0\u6295\u5c4f\u4e0e\u63a5\u53d7\u6295\u5c4f\u5e94\u7528\uff0c\u91c7\u7528 Rust + Tauri 2.0 + Vue 3 + Python \u67b6\u6784\uff0c\u652f\u6301 DLNA/UPnP \u534f\u8bae\uff0c\u53ef\u5c06\u5a92\u4f53\u6587\u4ef6/\u94fe\u63a5\u6295\u5c4f\u5230\u5c40\u57df\u7f51\u667a\u80fd\u8bbe\u5907\uff0c\u540c\u65f6\u4f5c\u4e3a DLNA \u63a5\u6536\u7aef\u4f7f\u7528",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lanzeweie/HanCast",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-29T02:39:41Z"
+}
