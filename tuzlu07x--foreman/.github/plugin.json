@@ -1,0 +1,9 @@
+{
+  "name": "tuzlu07x--foreman",
+  "displayName": "foreman",
+  "description": "Your local AI agents talk to each other. You should know what they're saying. A terminal-first guardian that mediates every MCP call, scores it for risk, and asks before anything dangerous happens.",
+  "version": "1.0.0",
+  "author": "tuzlu07x",
+  "homepage": "https://github.com/tuzlu07x/foreman",
+  "skills": []
+}
