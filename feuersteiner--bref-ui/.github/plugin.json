@@ -1,0 +1,9 @@
+{
+  "name": "feuersteiner--bref-ui",
+  "displayName": "bref-ui",
+  "description": "A Svelte 5 component library for customizable websites and apps, with scoped CSS and source you can own.",
+  "version": "1.0.0",
+  "author": "feuersteiner",
+  "homepage": "https://github.com/feuersteiner/bref-ui",
+  "skills": []
+}
