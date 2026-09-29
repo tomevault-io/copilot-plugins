@@ -1,0 +1,9 @@
+{
+  "name": "openipc--onvif-tt",
+  "displayName": "onvif-tt",
+  "description": "Open-source, headless, CI- and AI-friendly ONVIF conformance test tool",
+  "version": "1.0.0",
+  "author": "OpenIPC",
+  "homepage": "https://github.com/OpenIPC/onvif-tt",
+  "skills": []
+}
