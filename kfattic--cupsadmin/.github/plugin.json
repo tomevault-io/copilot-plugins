@@ -1,0 +1,9 @@
+{
+  "name": "kfattic--cupsadmin",
+  "displayName": "cupsadmin",
+  "description": "Native macOS replacement for the CUPS web interface Apple removed in macOS 27 \u2014 SwiftUI app + CLI",
+  "version": "1.0.0",
+  "author": "kfattic",
+  "homepage": "https://github.com/kfattic/cupsadmin",
+  "skills": []
+}
