@@ -1,0 +1,44 @@
+{
+  "name": "Sims3-ApexRadiance",
+  "owner": "loinyx",
+  "repo": "Sims3-ApexRadiance",
+  "description": "Lighting, visuals and performance mod for The Sims 3. At night, lamps really light the ground, lots, walls, roofs and snow; ponds glow and mirror their shore. Fewer stutters: faster file lookups, lot lighting and wall shading spread out while the camera moves, multi-core texture compression. Plus color filters, SMAA/FXAA, depth blur, borderless.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/loinyx/Sims3-ApexRadiance",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-29T20:35:16Z"
+}
