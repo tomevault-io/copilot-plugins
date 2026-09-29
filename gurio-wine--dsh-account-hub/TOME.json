@@ -1,0 +1,44 @@
+{
+  "name": "dsh-account-hub",
+  "owner": "gurio-wine",
+  "repo": "dsh-account-hub",
+  "description": "DeepSeek Harness \u63d2\u4ef6\uff1aCodeArts / CodeBuddy / WorkBuddy / LobsterAI \u56db provider \u767b\u5f55\u4e0e\u51ed\u636e\u7ba1\u7406\uff08Gitee iJetLi/deepseek-harness-codearts \u7684 GitHub \u955c\u50cf\uff0c\u542b PR #3 LobsterAI \u5408\u5e76\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gurio-wine/dsh-account-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-29T08:38:34Z"
+}
