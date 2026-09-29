@@ -1,0 +1,9 @@
+{
+  "name": "selfishprimate--seekter",
+  "displayName": "seekter",
+  "description": "Seekter is a job-search agent that runs inside Claude Code: it searches job sources, filters postings against one candidate's rules, fills application forms in the user's own Chrome, and keeps the tra",
+  "version": "1.0.0",
+  "author": "selfishprimate",
+  "homepage": "https://github.com/selfishprimate/seekter",
+  "skills": []
+}
