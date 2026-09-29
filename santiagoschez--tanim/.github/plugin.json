@@ -1,0 +1,9 @@
+{
+  "name": "santiagoschez--tanim",
+  "displayName": "tanim",
+  "description": "Endless procedural screensaver animations for your terminal: 20+ pixel-art scenes in true color from a single Rust binary, also playable in the browser via WebAssembly.",
+  "version": "1.0.0",
+  "author": "SantiagoSchez",
+  "homepage": "https://github.com/SantiagoSchez/tanim",
+  "skills": []
+}
