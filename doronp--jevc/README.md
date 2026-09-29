@@ -7,11 +7,11 @@ Compile agent policy prose into deterministic verdict programs: narrow evidence 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [doronp/jevc](https://github.com/doronp/jevc).
+Original source: `CLAUDE.md` in [doronp/jevc](https://github.com/doronp/jevc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
