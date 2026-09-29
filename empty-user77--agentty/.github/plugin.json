@@ -1,0 +1,9 @@
+{
+  "name": "empty-user77--agentty",
+  "displayName": "Agentty",
+  "description": "A terminal for AI coding agents. Plugins build an agent for every environment; Agentty runs them all. Forward Deployed Engineering, built in.",
+  "version": "1.0.0",
+  "author": "empty-user77",
+  "homepage": "https://github.com/empty-user77/Agentty",
+  "skills": []
+}
