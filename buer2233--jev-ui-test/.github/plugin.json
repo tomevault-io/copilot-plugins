@@ -1,0 +1,9 @@
+{
+  "name": "buer2233--jev-ui-test",
+  "displayName": "jev-ui-test",
+  "description": "Jev \u51b3\u7b56\u6a21\u578b\u9a71\u52a8\u7684 UI \u81ea\u52a8\u5316\u6d4b\u8bd5\u6846\u67b6\uff1a\u4e0d\u751f\u6210\u300c\u4e0b\u4e00\u6b65\u505a\u4ec0\u4e48\u300d\u7684\u6587\u5b57\uff0c\u800c\u662f\u5728\u5019\u9009\u5143\u7d20\u91cc\u76f4\u63a5\u6253\u5206\uff1b\u4e00\u53e5\u8bdd\u5199\u7528\u4f8b\uff0cpytest \u6267\u884c\uff0cAllure \u51fa\u62a5\u544a\uff0c\u6bcf\u4e2a\u64cd\u4f5c\u51b3\u7b56\u4e2d\u4f4d 458 ms\uff08UI test automation driven by the Jev decision model \u2014 scored decisions, not generated prose; ~458 ms per ",
+  "version": "1.0.0",
+  "author": "buer2233",
+  "homepage": "https://github.com/buer2233/jev-ui-test",
+  "skills": []
+}
