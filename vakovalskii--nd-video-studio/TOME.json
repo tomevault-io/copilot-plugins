@@ -1,0 +1,44 @@
+{
+  "name": "nd-video-studio",
+  "owner": "vakovalskii",
+  "repo": "nd-video-studio",
+  "description": "Explainer videos from HTML (HyperFrames \u2192 MP4) with AI narrator, music and mixing \u2014 Claude Code / Codex skills on NeuralDeep models",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vakovalskii/nd-video-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-29T14:30:27Z"
+}
