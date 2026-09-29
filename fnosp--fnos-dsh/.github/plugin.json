@@ -1,0 +1,9 @@
+{
+  "name": "fnosp--fnos-dsh",
+  "displayName": "fnos-dsh",
+  "description": "DeepSeek Harness\u5e94\u7528\u4e0eharness\u63d2\u4ef6 monorepo",
+  "version": "1.0.0",
+  "author": "FNOSP",
+  "homepage": "https://github.com/FNOSP/fnos-dsh",
+  "skills": []
+}
