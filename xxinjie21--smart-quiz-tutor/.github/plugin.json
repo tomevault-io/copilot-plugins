@@ -1,0 +1,9 @@
+{
+  "name": "xxinjie21--smart-quiz-tutor",
+  "displayName": "Smart-Quiz-Tutor",
+  "description": "Smart Question Tutor \u2014 AI quiz generation, SM-2 spaced repetition, wrong answer tracking, learning heatmap, exam recognition. Ollama & OpenAI compatible / \u667a\u5b66\u52a9\u624b \u2014 AI\u51fa\u9898, SM-2\u95f4\u9694\u590d\u4e60, \u9519\u9898\u672c, \u70ed\u529b\u56fe, \u6574\u5377\u8bc6\u522b",
+  "version": "1.0.0",
+  "author": "xxinjie21",
+  "homepage": "https://github.com/xxinjie21/Smart-Quiz-Tutor",
+  "skills": []
+}
