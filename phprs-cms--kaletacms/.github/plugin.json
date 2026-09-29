@@ -1,0 +1,9 @@
+{
+  "name": "phprs-cms--kaletacms",
+  "displayName": "kaletacms",
+  "description": "Kaleta \u2013 an open-source CMS for business websites with a visual page builder, a token design system and Claude over MCP",
+  "version": "1.0.0",
+  "author": "phprs-cms",
+  "homepage": "https://github.com/phprs-cms/kaletacms",
+  "skills": []
+}
