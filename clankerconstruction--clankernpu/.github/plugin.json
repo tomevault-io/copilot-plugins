@@ -1,0 +1,9 @@
+{
+  "name": "clankerconstruction--clankernpu",
+  "displayName": "ClankerNPU",
+  "description": "Clankered firmware for Airoha NPU",
+  "version": "1.0.0",
+  "author": "ClankerConstruction",
+  "homepage": "https://github.com/ClankerConstruction/ClankerNPU",
+  "skills": []
+}
