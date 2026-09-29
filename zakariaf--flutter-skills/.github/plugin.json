@@ -1,0 +1,9 @@
+{
+  "name": "zakariaf--flutter-skills",
+  "displayName": "Flutter-Skills",
+  "description": "General, reusable Flutter engineering skills for AI coding agents \u2014 architecture, Riverpod 3.x, testing, persistence, i18n/RTL, accessibility, navigation & more. Agent Skills open standard; works with",
+  "version": "1.0.0",
+  "author": "zakariaf",
+  "homepage": "https://github.com/zakariaf/Flutter-Skills",
+  "skills": []
+}
