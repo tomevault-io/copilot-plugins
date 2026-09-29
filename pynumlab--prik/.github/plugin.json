@@ -1,0 +1,9 @@
+{
+  "name": "pynumlab--prik",
+  "displayName": "prik",
+  "description": "Bring Native Code to Python with editable .pyi contracts",
+  "version": "1.0.0",
+  "author": "PyNumLab",
+  "homepage": "https://github.com/PyNumLab/prik",
+  "skills": []
+}
