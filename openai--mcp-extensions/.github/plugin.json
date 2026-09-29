@@ -1,0 +1,9 @@
+{
+  "name": "openai--mcp-extensions",
+  "displayName": "mcp-extensions",
+  "description": "Build plugins that feel like native, first-class features of ChatGPT.",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/mcp-extensions",
+  "skills": []
+}
