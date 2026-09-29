@@ -1,0 +1,44 @@
+{
+  "name": "grok-telegram-bot",
+  "owner": "artickc",
+  "repo": "grok-telegram-bot",
+  "description": "Control the official Grok Build CLI from Telegram over ACP (grok agent stdio). Sign in with your xAI account; projects, resume sessions, streamed diffs, scheduled tasks, multi-account, 24/7 service.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/artickc/grok-telegram-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-29T02:50:47Z"
+}
