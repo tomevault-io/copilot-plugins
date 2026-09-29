@@ -1,0 +1,17 @@
+## partway
+
+> - Test: `make test` (plain `swift test` needs Xcode). Try without a mic: `swift run partway --text "…" --dry-run`.
+
+# Agents
+
+- Test: `make test` (plain `swift test` needs Xcode). Try without a mic: `swift run partway --text "…" --dry-run`.
+- Logic lives in `PartwayCore` and is tested offline. `Sources/partway` is thin glue over Apple APIs, checked by running it.
+- Swift 6 trap: a closure handed to an Apple API that calls back on its own queue (TCC permission prompts, Speech, audio taps) must be `@Sendable` or built in a `nonisolated` function. Built inside `@MainActor` code it inherits main-actor isolation and crashes at runtime with `dispatch_assert_queue_fail` (hit on 22/09 in `Listener.authorize`).
+- Changing question wording, criteria or thresholds: run `swift run jev-probe` (the eval, real API, ~1 cent) at least twice and compare scores, because results vary run to run. On 22/09 "what should the computer do first?" scored 6/9; the plain "what should the computer do?" scored 8/9 and 9/9.
+- Reading a run: `partway --log` writes `~/Library/Logs/partway/<time>.jsonl` (events: start, listening, heard, ask, answer, fire, run, pause, end, error). Latest file: `ls -t ~/Library/Logs/partway/*.jsonl | head -1`. Per utterance: `jq -r 'select(.event=="end") | "#\(.utterance) \(.transcript) → \([.fires[].command] | join(" · "))"'`. Decisions: `jq -c 'select(.event=="answer")'`.
+- Icon: `docs/icon.svg` is the source. `make icon` (Google Chrome draws the SVG) rewrites `Sources/partway/AppIcon.icns` and `docs/icon.png`; commit all three. `docs/social-preview.png` is the link card, uploaded by hand in the repo's Settings.
+- UI: Session writes `BarModel`; `BarView` (SwiftUI) draws it inside `BarPanel`, a non-activating panel that must never become key (typed text would land in the bar). Try it: `make app && open build/partway.app`. Quit it with `pkill -f build/partway.app`, never `pkill -x partway`: that also kills a `swift run` session in someone's terminal (happened on 22/09).
+
+---
+> Source: [tostechbr/partway](https://github.com/tostechbr/partway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-29 -->
