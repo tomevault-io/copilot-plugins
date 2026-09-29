@@ -1,0 +1,9 @@
+{
+  "name": "ivan-malinovski--vibetiles",
+  "displayName": "vibetiles",
+  "description": "Click-drag grid window tiler for KDE Plasma 6 / KWin on Wayland",
+  "version": "1.0.0",
+  "author": "Ivan-Malinovski",
+  "homepage": "https://github.com/Ivan-Malinovski/vibetiles",
+  "skills": []
+}
