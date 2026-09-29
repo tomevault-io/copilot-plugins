@@ -1,0 +1,9 @@
+{
+  "name": "datlechin--pitboard",
+  "displayName": "pitboard",
+  "description": "Switch between your own Claude Code and Codex logins, and see how much each one has left.",
+  "version": "1.0.0",
+  "author": "datlechin",
+  "homepage": "https://github.com/datlechin/pitboard",
+  "skills": []
+}
