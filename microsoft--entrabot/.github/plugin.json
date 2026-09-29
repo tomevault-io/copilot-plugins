@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--entrabot",
+  "displayName": "entrabot",
+  "description": "Give a device-local AI agent its own Microsoft Entra identity. Reference implementation for Microsoft Agent 365 and Entra Agent ID.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/entrabot",
+  "skills": []
+}
