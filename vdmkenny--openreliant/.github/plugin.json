@@ -1,0 +1,9 @@
+{
+  "name": "vdmkenny--openreliant",
+  "displayName": "openreliant",
+  "description": "An open-source reimplementation of StarLancer's engine, in Zig on SDL3. Needs your own copy of the game.",
+  "version": "1.0.0",
+  "author": "vdmkenny",
+  "homepage": "https://github.com/vdmkenny/openreliant",
+  "skills": []
+}
