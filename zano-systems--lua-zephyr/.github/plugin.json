@@ -1,0 +1,9 @@
+{
+  "name": "zano-systems--lua-zephyr",
+  "displayName": "lua_zephyr",
+  "description": "A module to enable developers to use Lua on Zephyr RTOS",
+  "version": "1.0.0",
+  "author": "zano-systems",
+  "homepage": "https://github.com/zano-systems/lua_zephyr",
+  "skills": []
+}
