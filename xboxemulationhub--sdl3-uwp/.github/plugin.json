@@ -1,0 +1,9 @@
+{
+  "name": "xboxemulationhub--sdl3-uwp",
+  "displayName": "SDL3-uwp",
+  "description": "SDL3 for Universal Windows Platform",
+  "version": "1.0.0",
+  "author": "XboxEmulationHub",
+  "homepage": "https://github.com/XboxEmulationHub/SDL3-uwp",
+  "skills": []
+}
