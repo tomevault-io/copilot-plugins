@@ -1,0 +1,9 @@
+{
+  "name": "hadicherkaoui--klartext",
+  "displayName": "klartext",
+  "description": "Native-Rust BMW F-series diagnostics over ENET (HSFZ/UDS) \u2014 reads faults and live data, decodes them via your own ISTA data, runs EDIABAS jobs; CLI + read-only MCP server (read-only mirror)",
+  "version": "1.0.0",
+  "author": "HadiCherkaoui",
+  "homepage": "https://github.com/HadiCherkaoui/klartext",
+  "skills": []
+}
