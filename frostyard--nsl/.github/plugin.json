@@ -1,0 +1,9 @@
+{
+  "name": "frostyard--nsl",
+  "displayName": "nsl",
+  "description": "NSpawn Subsystem for Linux: development environments for atomic hosts and people who want to keep the host clean",
+  "version": "1.0.0",
+  "author": "frostyard",
+  "homepage": "https://github.com/frostyard/nsl",
+  "skills": []
+}
