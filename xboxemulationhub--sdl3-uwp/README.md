@@ -7,11 +7,11 @@ SDL3 for Universal Windows Platform
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [XboxEmulationHub/SDL3-uwp](https://github.com/XboxEmulationHub/SDL3-uwp).
+Original source: `CLAUDE.md` in [XboxEmulationHub/SDL3-uwp](https://github.com/XboxEmulationHub/SDL3-uwp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
