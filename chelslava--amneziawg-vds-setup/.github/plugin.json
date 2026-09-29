@@ -1,0 +1,9 @@
+{
+  "name": "chelslava--amneziawg-vds-setup",
+  "displayName": "amneziawg-vds-setup",
+  "description": "Cross-platform Go CLI for deploying and maintaining AmneziaWG VPN on Ubuntu/Debian VDS over SSH (Legacy/WireSock + experimental upstream).",
+  "version": "1.0.0",
+  "author": "chelslava",
+  "homepage": "https://github.com/chelslava/amneziawg-vds-setup",
+  "skills": []
+}
