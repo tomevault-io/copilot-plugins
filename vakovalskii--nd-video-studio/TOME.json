@@ -4,7 +4,7 @@
   "repo": "nd-video-studio",
   "description": "Explainer videos from HTML (HyperFrames \u2192 MP4) with AI narrator, music and mixing \u2014 Claude Code / Codex skills on NeuralDeep models",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vakovalskii/nd-video-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-29T14:30:27Z"
+  "distributed_at": "2026-09-29T14:34:30Z"
 }
