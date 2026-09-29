@@ -1,0 +1,9 @@
+{
+  "name": "skymly--designpatterns",
+  "displayName": "DesignPatterns",
+  "description": ".NET design patterns toolkit: composable runtime primitives + Roslyn source generators + diagnostics. Singleton, Factory, Strategy, Chain, Composite, Decorator, Event Aggregator, State Machine \u2014 with ",
+  "version": "1.0.0",
+  "author": "Skymly",
+  "homepage": "https://github.com/Skymly/DesignPatterns",
+  "skills": []
+}
