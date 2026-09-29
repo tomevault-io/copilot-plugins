@@ -4,7 +4,7 @@
   "repo": "nsl",
   "description": "NSpawn Subsystem for Linux: development environments for atomic hosts and people who want to keep the host clean",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/frostyard/nsl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-29T18:31:34Z"
+  "distributed_at": "2026-09-29T18:33:59Z"
 }
