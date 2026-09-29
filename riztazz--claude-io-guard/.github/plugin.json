@@ -1,0 +1,9 @@
+{
+  "name": "riztazz--claude-io-guard",
+  "displayName": "claude-io-guard",
+  "description": "Catches the file and shell calls that go wrong in Claude Code: Windows Bash cutting long scripts, lost backslashes, CRLF wiped by Write, Edits that miss. It fixes them before they run.",
+  "version": "1.0.0",
+  "author": "Riztazz",
+  "homepage": "https://github.com/Riztazz/claude-io-guard",
+  "skills": []
+}
