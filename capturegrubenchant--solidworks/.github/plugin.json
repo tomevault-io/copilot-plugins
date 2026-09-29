@@ -1,0 +1,9 @@
+{
+  "name": "capturegrubenchant--solidworks",
+  "displayName": "SolidWorks",
+  "description": "SolidWorks MCP Server connects an AI assistant to a running SolidWorks instance. Sketch, extrude, fillet, export STEP/STL, generate macros.",
+  "version": "1.0.0",
+  "author": "CaptureGrubEnchant",
+  "homepage": "https://github.com/CaptureGrubEnchant/SolidWorks",
+  "skills": []
+}
