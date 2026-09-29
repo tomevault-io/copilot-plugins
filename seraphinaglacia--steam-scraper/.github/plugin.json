@@ -1,0 +1,9 @@
+{
+  "name": "seraphinaglacia--steam-scraper",
+  "displayName": "steam-scraper",
+  "description": "\u4e00\u4e2a\u7b80\u5355\u3001\u9ad8\u6548\u7684 Steam \u8bc4\u8bba\u6570\u636e\u722c\u866b\u3002\u722c\u53d6 Steam \u6e38\u620f\u8be6\u60c5\u548c\u8bc4\u8bba\u5386\u53f2\u8d8b\u52bf\u5230 SQLite / CSV\u3002",
+  "version": "1.0.0",
+  "author": "SeraphinaGlacia",
+  "homepage": "https://github.com/SeraphinaGlacia/steam-scraper",
+  "skills": []
+}
