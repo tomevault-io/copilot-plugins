@@ -1,0 +1,44 @@
+{
+  "name": "amneziawg-vds-setup",
+  "owner": "chelslava",
+  "repo": "amneziawg-vds-setup",
+  "description": "Cross-platform Go CLI for deploying and maintaining AmneziaWG VPN on Ubuntu/Debian VDS over SSH (Legacy/WireSock + experimental upstream).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chelslava/amneziawg-vds-setup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-29T02:51:42Z"
+}
