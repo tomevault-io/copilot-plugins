@@ -4,7 +4,7 @@
   "repo": "StoryLens",
   "description": "An open-source tool for visualizing novel structure, scenes and reader journey.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fanjack510-ctrl/StoryLens",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-29T02:34:46Z"
+  "distributed_at": "2026-09-29T02:49:57Z"
 }
