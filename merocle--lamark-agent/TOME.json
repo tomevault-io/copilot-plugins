@@ -1,0 +1,44 @@
+{
+  "name": "lamark-agent",
+  "owner": "merocle",
+  "repo": "lamark-agent",
+  "description": "Locally-hosted personal AI agent that learns about you over time and bakes accumulated context into its own model weights via nightly LoRA fine-tuning",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/merocle/lamark-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-29T08:45:25Z"
+}
