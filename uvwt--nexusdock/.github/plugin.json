@@ -1,0 +1,9 @@
+{
+  "name": "uvwt--nexusdock",
+  "displayName": "nexusdock",
+  "description": "Remote access to multiple devices through one MCP, with shared Recall memory, Workflow data, and centralized device status.",
+  "version": "1.0.0",
+  "author": "uvwt",
+  "homepage": "https://github.com/uvwt/nexusdock",
+  "skills": []
+}
