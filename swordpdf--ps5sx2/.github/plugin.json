@@ -1,0 +1,9 @@
+{
+  "name": "swordpdf--ps5sx2",
+  "displayName": "PS5SX2",
+  "description": "A port of PCSX2 for PS5",
+  "version": "1.0.0",
+  "author": "Swordpdf",
+  "homepage": "https://github.com/Swordpdf/PS5SX2",
+  "skills": []
+}
