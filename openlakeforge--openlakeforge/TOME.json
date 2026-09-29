@@ -4,7 +4,7 @@
   "repo": "openlakeforge",
   "description": "Cloud Agnostic data platform for both cloud or on prem ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenLakeForge/openlakeforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-29T07:33:50Z"
+  "distributed_at": "2026-09-29T07:34:46Z"
 }
