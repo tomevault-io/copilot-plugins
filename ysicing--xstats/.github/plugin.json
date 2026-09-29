@@ -1,0 +1,9 @@
+{
+  "name": "ysicing--xstats",
+  "displayName": "XStats",
+  "description": "Native macOS menu bar system monitor for Apple silicon, with widgets, network diagnostics, fan control, cleanup, and a Pomodoro timer.",
+  "version": "1.0.0",
+  "author": "ysicing",
+  "homepage": "https://github.com/ysicing/XStats",
+  "skills": []
+}
