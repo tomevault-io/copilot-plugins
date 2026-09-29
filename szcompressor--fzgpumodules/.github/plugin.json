@@ -1,0 +1,9 @@
+{
+  "name": "szcompressor--fzgpumodules",
+  "displayName": "FZGPUModules",
+  "description": "GPU-accelerated graph-composable compression pipeline builder for analytical workflows.",
+  "version": "1.0.0",
+  "author": "szcompressor",
+  "homepage": "https://github.com/szcompressor/FZGPUModules",
+  "skills": []
+}
