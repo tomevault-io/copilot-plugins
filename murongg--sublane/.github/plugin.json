@@ -1,0 +1,9 @@
+{
+  "name": "murongg--sublane",
+  "displayName": "SubLane",
+  "description": "A lightweight, self-hosted AI subscription gateway for internal teams, with account pooling, access control, and usage tracking.",
+  "version": "1.0.0",
+  "author": "murongg",
+  "homepage": "https://github.com/murongg/SubLane",
+  "skills": []
+}
