@@ -15,11 +15,6 @@ Original source: `AGENTS.md` in [rhinos0608/Pi-Subagents](https://github.com/rhi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [SKILL.md](https://github.com/rhinos0608/Pi-Subagents/tree/main/skills/pi-subagents/SKILL.md)
-- [SKILL.md](https://github.com/rhinos0608/Pi-Subagents/tree/main/skills/council-mode/SKILL.md)
-
 From [rhinos0608/Pi-Subagents](https://github.com/rhinos0608/Pi-Subagents) — a repo with 0+ stars on GitHub.
 
 ---
