@@ -1,0 +1,9 @@
+{
+  "name": "zoolutions--stationery",
+  "displayName": "stationery",
+  "description": "Pure-Ruby, Phlex-style PDF documents: box layout, TrueType fonts, images. No Prawn, no Chrome.",
+  "version": "1.0.0",
+  "author": "zoolutions",
+  "homepage": "https://github.com/zoolutions/stationery",
+  "skills": []
+}
