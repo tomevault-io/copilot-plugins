@@ -1,0 +1,9 @@
+{
+  "name": "merocle--lamark-agent",
+  "displayName": "lamark-agent",
+  "description": "Locally-hosted personal AI agent that learns about you over time and bakes accumulated context into its own model weights via nightly LoRA fine-tuning",
+  "version": "1.0.0",
+  "author": "merocle",
+  "homepage": "https://github.com/merocle/lamark-agent",
+  "skills": []
+}
