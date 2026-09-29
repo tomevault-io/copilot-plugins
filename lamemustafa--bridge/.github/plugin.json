@@ -1,0 +1,9 @@
+{
+  "name": "lamemustafa--bridge",
+  "displayName": "bridge",
+  "description": "Local desktop app and MCP server connecting TallyPrime to AI assistants on your own computer: read your books, prepare vouchers, and post Journals only after you approve. For CA firms and accountants.",
+  "version": "1.0.0",
+  "author": "lamemustafa",
+  "homepage": "https://github.com/lamemustafa/bridge",
+  "skills": []
+}
