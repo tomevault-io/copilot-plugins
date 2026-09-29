@@ -1,0 +1,9 @@
+{
+  "name": "lmixr--cv-deployment-skill",
+  "displayName": "CV_Deployment_skill",
+  "description": "Computer vision deployment resources and engineering workflow configuration",
+  "version": "1.0.0",
+  "author": "LMIXR",
+  "homepage": "https://github.com/LMIXR/CV_Deployment_skill",
+  "skills": []
+}
