@@ -1,0 +1,9 @@
+{
+  "name": "biodatageeks--datafusion-bio-formats",
+  "displayName": "datafusion-bio-formats",
+  "description": "Apache DataFusion table providers for bioinformatic file formats",
+  "version": "1.0.0",
+  "author": "biodatageeks",
+  "homepage": "https://github.com/biodatageeks/datafusion-bio-formats",
+  "skills": []
+}
