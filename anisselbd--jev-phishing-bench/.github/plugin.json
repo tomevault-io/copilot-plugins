@@ -1,0 +1,9 @@
+{
+  "name": "anisselbd--jev-phishing-bench",
+  "displayName": "jev-phishing-bench",
+  "description": "Jev (TypeSafe) vs Claude Haiku 4.5 on 2 000 phishing emails: accuracy, calibration, latency, cost. Reproducible benchmark.",
+  "version": "1.0.0",
+  "author": "anisselbd",
+  "homepage": "https://github.com/anisselbd/jev-phishing-bench",
+  "skills": []
+}
