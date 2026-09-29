@@ -1,0 +1,9 @@
+{
+  "name": "schaka--rocm-migraphx-ort-builder",
+  "displayName": "rocm-migraphx-ort-builder",
+  "description": "Builds per arch baseline images for MiGraphX with ORT and PyTorch",
+  "version": "1.0.0",
+  "author": "Schaka",
+  "homepage": "https://github.com/Schaka/rocm-migraphx-ort-builder",
+  "skills": []
+}
