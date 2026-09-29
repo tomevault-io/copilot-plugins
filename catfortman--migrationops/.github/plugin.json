@@ -1,0 +1,9 @@
+{
+  "name": "catfortman--migrationops",
+  "displayName": "MigrationOps",
+  "description": "MigrationOps is an open-source project designed to combine the principles of SQL source control and migration management. Inspired by tools like Redgate's SQL source control and Entity Framework's mig",
+  "version": "1.0.0",
+  "author": "CatFortman",
+  "homepage": "https://github.com/CatFortman/MigrationOps",
+  "skills": []
+}
