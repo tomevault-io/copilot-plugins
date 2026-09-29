@@ -1,0 +1,9 @@
+{
+  "name": "d4ncboz--museai",
+  "displayName": "museai",
+  "description": "High-performance OpenAI-compatible API gateway and bridge for muse.ai personal AI agents, ready for 9Router multi-model integration.",
+  "version": "1.0.0",
+  "author": "d4ncboz",
+  "homepage": "https://github.com/d4ncboz/museai",
+  "skills": []
+}
