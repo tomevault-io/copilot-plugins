@@ -1,0 +1,9 @@
+{
+  "name": "newsbubbles--ismail",
+  "displayName": "ismail",
+  "description": "A DAW for AI agents: write music as text, read the audio back as text. MCP server, CLI and an agent skill.",
+  "version": "1.0.0",
+  "author": "newsbubbles",
+  "homepage": "https://github.com/newsbubbles/ismail",
+  "skills": []
+}
