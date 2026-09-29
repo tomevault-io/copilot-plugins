@@ -4,7 +4,7 @@
   "repo": "jevc",
   "description": "Compile agent policy prose into deterministic verdict programs: narrow evidence questions for the model, the verdict computed in code. Install: npm i -g jev-compiler",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/doronp/jevc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-29T22:30:26Z"
+  "distributed_at": "2026-09-29T22:31:24Z"
 }
