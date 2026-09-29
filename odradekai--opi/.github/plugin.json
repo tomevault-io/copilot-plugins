@@ -1,0 +1,9 @@
+{
+  "name": "odradekai--opi",
+  "displayName": "opi",
+  "description": "AI agent toolkit in Rust \u2014 a reimplementation of earendil-works/pi.",
+  "version": "1.0.0",
+  "author": "OdradekAI",
+  "homepage": "https://github.com/OdradekAI/opi",
+  "skills": []
+}
