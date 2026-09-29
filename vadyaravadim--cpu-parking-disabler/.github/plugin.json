@@ -1,0 +1,9 @@
+{
+  "name": "vadyaravadim--cpu-parking-disabler",
+  "displayName": "cpu-parking-disabler",
+  "description": "Disable CPU core parking (unpark all cores) on Windows 10/11 - fix micro-stutters, input lag & frame drops. One-command PowerShell script, no install, auto-backup. Free open-source ParkControl / Quick",
+  "version": "1.0.0",
+  "author": "vadyaravadim",
+  "homepage": "https://github.com/vadyaravadim/cpu-parking-disabler",
+  "skills": []
+}
