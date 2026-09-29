@@ -1,0 +1,9 @@
+{
+  "name": "doronp--jevc",
+  "displayName": "jevc",
+  "description": "Compile agent policy prose into deterministic verdict programs: narrow evidence questions for the model, the verdict computed in code. Install: npm i -g jev-compiler",
+  "version": "1.0.0",
+  "author": "doronp",
+  "homepage": "https://github.com/doronp/jevc",
+  "skills": []
+}
