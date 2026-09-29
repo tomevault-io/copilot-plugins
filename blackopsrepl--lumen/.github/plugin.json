@@ -1,0 +1,9 @@
+{
+  "name": "blackopsrepl--lumen",
+  "displayName": "lumen",
+  "description": "Single-binary session service: isolated Chromium, Qt, Quickshell, and terminal sessions for agents, with a live, controllable viewer for humans",
+  "version": "1.0.0",
+  "author": "blackopsrepl",
+  "homepage": "https://github.com/blackopsrepl/lumen",
+  "skills": []
+}
