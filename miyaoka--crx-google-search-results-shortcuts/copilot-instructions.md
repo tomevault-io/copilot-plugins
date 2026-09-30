@@ -54,4 +54,4 @@ src/
 
 ---
 > Source: [miyaoka/crx-google-search-results-shortcuts](https://github.com/miyaoka/crx-google-search-results-shortcuts) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
