@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [gardener/etcd-backup-restore](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [gardener/etcd-backup-restore](https://github.com/gardener/etcd-backup-restore) — a repo with 330+ stars on GitHub.
+From [gardener/etcd-backup-restore](https://github.com/gardener/etcd-backup-restore) — a repo with 332+ stars on GitHub.
 
 ---
 
