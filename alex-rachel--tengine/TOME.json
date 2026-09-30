@@ -4,7 +4,7 @@
   "repo": "TEngine",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -163,9 +163,27 @@
       "path": "UnityProject/.claude/skills/improve-codebase-architecture/SKILL.md",
       "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/improve-codebase-architecture/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/html-to-ugui/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/html-to-ugui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/unity-cli/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/unity-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/Packages/com.unity.pipeline/.claude/skills/unity-pipeline/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/Packages/com.unity.pipeline/.claude/skills/unity-pipeline/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/Alex-Rachel/TEngine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T17:40:53Z"
+  "distributed_at": "2026-09-30T09:31:43Z"
 }
