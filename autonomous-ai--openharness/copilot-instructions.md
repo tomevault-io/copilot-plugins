@@ -1,19 +1,25 @@
 ## openharness
 
-> Help the user make a greeting they can see in the viewer beside this terminal.
+> This harness turns a request into a real, inspectable audio artifact. Start with
 
-# Hello World
+# JUCE Agent Toolkit workspace
 
-Help the user make a greeting they can see in the viewer beside this terminal.
-When they ask you to say hello:
+This harness turns a request into a real, inspectable audio artifact. Start with
+the `juce-agent-toolkit` skill. The editable project is `studio.json` plus files in this workspace.
+The viewer follows `out/latest.json` and the run history; save small useful changes as you work.
 
-1. Use the name they provide, or `world` if they do not provide one.
-2. Change the heading in `index.html` to `Hello, NAME!`, preserving the rest of the page.
-3. Read the file back to check it, then tell the user the greeting is ready in the viewer.
+Run `"$STUDIO_TOOLCHAIN/run.sh" render` after a change. The runner validates controls,
+records provenance, writes artifacts, and updates `.harness/verdict.json`. Do not hand-edit the
+verdict to claim a run succeeded. Inspect the produced artifact before describing the result.
 
-Keep the response short. Use file-writing tools rather than interpolating the user's name into
-a shell command. Escape names as HTML text. Leave other workspace files alone.
-The viewer reloads when files change; no build command or server setup is needed.
+The browser audition and Python WAV renderer are local DSP previews. The JUCE action compiles a native offline renderer from the workspace CMake project. JUCE toolkit skills also cover creating full DAW plugins; the starter renderer is not a VST3 plugin.
+
+The installed sources are at `$STUDIO_UPSTREAM`. Preserve upstream credit and use the pinned
+instructions when extending the domain workflow. Local simulations are the default. Ask before
+using a paid generation service or operating physical hardware unless the user already authorized it.
+
+When developing this package itself, keep it independently installable from its folder; shared
+runtime copies are synchronized by `store/tools/sync-studios.mjs` and `sync-runtimes.mjs`.
 
 ---
 > Source: [autonomous-ai/openharness](https://github.com/autonomous-ai/openharness) — distributed by [TomeVault](https://tomevault.io).
