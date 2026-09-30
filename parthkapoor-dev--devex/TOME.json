@@ -2,7 +2,7 @@
   "name": "devex",
   "owner": "ParthKapoor-dev",
   "repo": "devex",
-  "description": "\u26a1\ufe0f Devex \u2014 A Fast, Secure, and Scalable Repl-as-a-Service Platform built for Developers \ud83d\ude80",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ParthKapoor-dev/devex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T02:52:58Z"
+  "distributed_at": "2026-09-30T19:51:55Z"
 }
