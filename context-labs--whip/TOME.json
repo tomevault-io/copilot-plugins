@@ -1,0 +1,621 @@
+{
+  "name": "whip",
+  "owner": "context-labs",
+  "repo": "whip",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "golang-troubleshooting",
+      "path": ".agents/skills/golang-troubleshooting",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "golang-spf13-cobra",
+      "path": ".agents/skills/golang-spf13-cobra",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-spf13-cobra",
+      "description": ""
+    },
+    {
+      "name": "golang-continuous-integration",
+      "path": ".agents/skills/golang-continuous-integration",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-continuous-integration",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-do",
+      "path": ".agents/skills/golang-samber-do",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-do",
+      "description": ""
+    },
+    {
+      "name": "golang-cli",
+      "path": ".agents/skills/golang-cli",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-cli",
+      "description": ""
+    },
+    {
+      "name": "golang-dependency-management",
+      "path": ".agents/skills/golang-dependency-management",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-dependency-management",
+      "description": ""
+    },
+    {
+      "name": "golang-naming",
+      "path": ".agents/skills/golang-naming",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-naming",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-oops",
+      "path": ".agents/skills/golang-samber-oops",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-oops",
+      "description": ""
+    },
+    {
+      "name": "golang-testing",
+      "path": ".agents/skills/golang-testing",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-testing",
+      "description": ""
+    },
+    {
+      "name": "golang-database",
+      "path": ".agents/skills/golang-database",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-database",
+      "description": ""
+    },
+    {
+      "name": "golang-modernize",
+      "path": ".agents/skills/golang-modernize",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-modernize",
+      "description": ""
+    },
+    {
+      "name": "golang-observability",
+      "path": ".agents/skills/golang-observability",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-observability",
+      "description": ""
+    },
+    {
+      "name": "golang-context",
+      "path": ".agents/skills/golang-context",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-context",
+      "description": ""
+    },
+    {
+      "name": "golang-dependency-injection",
+      "path": ".agents/skills/golang-dependency-injection",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-dependency-injection",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-ro",
+      "path": ".agents/skills/golang-samber-ro",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-ro",
+      "description": ""
+    },
+    {
+      "name": "golang-stretchr-testify",
+      "path": ".agents/skills/golang-stretchr-testify",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-stretchr-testify",
+      "description": ""
+    },
+    {
+      "name": "golang-swagger",
+      "path": ".agents/skills/golang-swagger",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-swagger",
+      "description": ""
+    },
+    {
+      "name": "golang-benchmark",
+      "path": ".agents/skills/golang-benchmark",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-benchmark",
+      "description": ""
+    },
+    {
+      "name": "golang-grpc",
+      "path": ".agents/skills/golang-grpc",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-grpc",
+      "description": ""
+    },
+    {
+      "name": "golang-pkg-go-dev",
+      "path": ".agents/skills/golang-pkg-go-dev",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-pkg-go-dev",
+      "description": ""
+    },
+    {
+      "name": "golang-security",
+      "path": ".agents/skills/golang-security",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-security",
+      "description": ""
+    },
+    {
+      "name": "golang-structs-interfaces",
+      "path": ".agents/skills/golang-structs-interfaces",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-structs-interfaces",
+      "description": ""
+    },
+    {
+      "name": "golang-graphql",
+      "path": ".agents/skills/golang-graphql",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-graphql",
+      "description": ""
+    },
+    {
+      "name": "golang-uber-dig",
+      "path": ".agents/skills/golang-uber-dig",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-uber-dig",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-lo",
+      "path": ".agents/skills/golang-samber-lo",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-lo",
+      "description": ""
+    },
+    {
+      "name": "golang-documentation",
+      "path": ".agents/skills/golang-documentation",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-documentation",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-mo",
+      "path": ".agents/skills/golang-samber-mo",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-mo",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-hot",
+      "path": ".agents/skills/golang-samber-hot",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-hot",
+      "description": ""
+    },
+    {
+      "name": "golang-concurrency",
+      "path": ".agents/skills/golang-concurrency",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-concurrency",
+      "description": ""
+    },
+    {
+      "name": "golang-how-to",
+      "path": ".agents/skills/golang-how-to",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-how-to",
+      "description": ""
+    },
+    {
+      "name": "golang-project-layout",
+      "path": ".agents/skills/golang-project-layout",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-project-layout",
+      "description": ""
+    },
+    {
+      "name": "golang-refactoring",
+      "path": ".agents/skills/golang-refactoring",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-refactoring",
+      "description": ""
+    },
+    {
+      "name": "golang-safety",
+      "path": ".agents/skills/golang-safety",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-safety",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-slog",
+      "path": ".agents/skills/golang-samber-slog",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-slog",
+      "description": ""
+    },
+    {
+      "name": "golang-lint",
+      "path": ".agents/skills/golang-lint",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-lint",
+      "description": ""
+    },
+    {
+      "name": "golang-code-style",
+      "path": ".agents/skills/golang-code-style",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-code-style",
+      "description": ""
+    },
+    {
+      "name": "golang-uber-fx",
+      "path": ".agents/skills/golang-uber-fx",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-uber-fx",
+      "description": ""
+    },
+    {
+      "name": "golang-performance",
+      "path": ".agents/skills/golang-performance",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-performance",
+      "description": ""
+    },
+    {
+      "name": "golang-google-wire",
+      "path": ".agents/skills/golang-google-wire",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-google-wire",
+      "description": ""
+    },
+    {
+      "name": "golang-error-handling",
+      "path": ".agents/skills/golang-error-handling",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-error-handling",
+      "description": ""
+    },
+    {
+      "name": "golang-data-structures",
+      "path": ".agents/skills/golang-data-structures",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-data-structures",
+      "description": ""
+    },
+    {
+      "name": "golang-design-patterns",
+      "path": ".agents/skills/golang-design-patterns",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "golang-spf13-viper",
+      "path": ".agents/skills/golang-spf13-viper",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-spf13-viper",
+      "description": ""
+    },
+    {
+      "name": "golang-gopls",
+      "path": ".agents/skills/golang-gopls",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-gopls",
+      "description": ""
+    },
+    {
+      "name": "new-feature-development",
+      "path": ".agents/skills/new-feature-development",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/new-feature-development",
+      "description": ""
+    },
+    {
+      "name": "golang-popular-libraries",
+      "path": ".agents/skills/golang-popular-libraries",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-popular-libraries",
+      "description": ""
+    },
+    {
+      "name": "golang-stay-updated",
+      "path": ".agents/skills/golang-stay-updated",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-stay-updated",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/ponytail/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/ponytail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-cli/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/i-have-adhd/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/i-have-adhd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-grpc/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-grpc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-lint/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-gopls/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-gopls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-safety/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-naming/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-naming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-how-to/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-how-to/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-uber-fx/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-uber-fx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-graphql/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-graphql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-context/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-swagger/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-swagger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-database/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-security/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-uber-dig/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-uber-dig/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-samber-do/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-do/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-samber-mo/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-mo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-samber-lo/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-lo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-modernize/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-modernize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-benchmark/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-samber-ro/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-ro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-code-style/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-code-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-pkg-go-dev/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-pkg-go-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-samber-hot/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-hot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-samber-oops/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-oops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-google-wire/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-google-wire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-spf13-viper/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-spf13-viper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-concurrency/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-concurrency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-spf13-cobra/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-spf13-cobra/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-samber-slog/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-samber-slog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-performance/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-refactoring/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-stay-updated/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-stay-updated/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-documentation/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-observability/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-project-layout/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-project-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-error-handling/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-design-patterns/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-design-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-data-structures/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-data-structures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/new-feature-development/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/new-feature-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-stretchr-testify/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-stretchr-testify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-popular-libraries/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-popular-libraries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-structs-interfaces/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-structs-interfaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-dependency-injection/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-dependency-injection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-dependency-management/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-dependency-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "path": ".agents/skills/golang-continuous-integration/SKILL.md",
+      "github_url": "https://github.com/context-labs/whip/tree/main/.agents/skills/golang-continuous-integration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/context-labs/whip",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T04:30:24Z"
+}
