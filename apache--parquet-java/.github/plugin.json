@@ -1,0 +1,9 @@
+{
+  "name": "apache--parquet-java",
+  "displayName": "parquet-java",
+  "description": "parquet-java",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/parquet-java",
+  "skills": []
+}
