@@ -3,7 +3,7 @@
   "owner": "Alwurts",
   "repo": "simple-ai",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "simple-ai",
+      "path": ".agents/skills/registry/SKILL.md",
+      "github_url": "https://github.com/Alwurts/simple-ai/tree/main/.agents/skills/registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple-ai",
+      "path": ".agents/skills/architecture/SKILL.md",
+      "github_url": "https://github.com/Alwurts/simple-ai/tree/main/.agents/skills/architecture/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Alwurts/simple-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T06:47:32Z"
+  "distributed_at": "2026-09-30T07:35:11Z"
 }
