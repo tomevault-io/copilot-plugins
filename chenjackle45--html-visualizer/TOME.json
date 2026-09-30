@@ -1,0 +1,63 @@
+{
+  "name": "html-visualizer",
+  "owner": "chenjackle45",
+  "repo": "html-visualizer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "html-visualizer",
+      "path": "skills/chart/SKILL.md",
+      "github_url": "https://github.com/chenjackle45/html-visualizer/tree/main/skills/chart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "html-visualizer",
+      "path": "skills/diagram-design/SKILL.md",
+      "github_url": "https://github.com/chenjackle45/html-visualizer/tree/main/skills/diagram-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "html-visualizer",
+      "path": "skills/html-visualizer/SKILL.md",
+      "github_url": "https://github.com/chenjackle45/html-visualizer/tree/main/skills/html-visualizer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chenjackle45/html-visualizer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T13:32:11Z"
+}
