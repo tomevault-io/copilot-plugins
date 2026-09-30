@@ -1,7 +1,7 @@
 {
   "name": "cocofhu--grasp",
   "displayName": "grasp",
-  "description": "Grasp helps you manage multiple projects and parallel coding agents in one visual workflow, so humans can understand faster and ship more.",
+  "description": "grasp",
   "version": "1.0.0",
   "author": "cocofhu",
   "homepage": "https://github.com/cocofhu/grasp",
