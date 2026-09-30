@@ -1,0 +1,9 @@
+{
+  "name": "h2oai--marina",
+  "displayName": "marina",
+  "description": "A persistent world where humans and autonomous AI agents share memory, tools, reputation, and one interface.",
+  "version": "1.0.0",
+  "author": "h2oai",
+  "homepage": "https://github.com/h2oai/marina",
+  "skills": []
+}
