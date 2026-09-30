@@ -4,7 +4,7 @@
   "repo": "hyperbridge",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/polytope-labs/hyperbridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T15:13:04Z"
+  "distributed_at": "2026-09-30T22:49:00Z"
 }
