@@ -1,0 +1,9 @@
+{
+  "name": "crmne--omacal",
+  "displayName": "omacal",
+  "description": "Your calendar in the Omarchy bar: the stock calendar with your events laid over it, a day view, quick add, reminders and time tracking. HEY first, more backends to come.",
+  "version": "1.0.0",
+  "author": "crmne",
+  "homepage": "https://github.com/crmne/omacal",
+  "skills": []
+}
