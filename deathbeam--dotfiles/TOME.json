@@ -1,0 +1,189 @@
+{
+  "name": "dotfiles",
+  "owner": "deathbeam",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/prepare-plan/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/prepare-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/execute-plan/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/execute-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/precision-architect/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/precision-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/grilling/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/diagnosing-bugs/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/diagnosing-bugs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/domain-modeling/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/codebase-design/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/codebase-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/prototype/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/writing-for-agents/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/writing-for-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/resolving-merge-conflicts/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/resolving-merge-conflicts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/unslop/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/unslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/ponytail/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/ponytail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/ponytail-debt/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/ponytail-debt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/ponytail-audit/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/ponytail-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/ponytail-review/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/ponytail-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/technical-writing/SKILL.md",
+      "github_url": "https://github.com/deathbeam/dotfiles/tree/main/agents/.agents/skills/technical-writing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/deathbeam/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T11:32:59Z"
+}
