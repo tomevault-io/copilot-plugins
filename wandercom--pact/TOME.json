@@ -3,8 +3,8 @@
   "owner": "wandercom",
   "repo": "pact",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "pact",
+      "path": "skills/simulacrum/SKILL.md",
+      "github_url": "https://github.com/wandercom/pact/tree/main/skills/simulacrum/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pact",
+      "path": "skills/pact-engineer/SKILL.md",
+      "github_url": "https://github.com/wandercom/pact/tree/main/skills/pact-engineer/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/wandercom/pact",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T03:35:53Z"
+  "distributed_at": "2026-09-30T23:44:38Z"
 }
