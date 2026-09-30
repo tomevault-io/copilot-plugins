@@ -1,0 +1,9 @@
+{
+  "name": "thomasmeadows--hivedispatch",
+  "displayName": "HiveDispatch",
+  "description": "An Agent Orchestrating Agent for Code that uses tickets in a ticketing system to conduct agents.  This project can be used locally, or on a server so that you can remotely direct coding agents through",
+  "version": "1.0.0",
+  "author": "thomasmeadows",
+  "homepage": "https://github.com/thomasmeadows/HiveDispatch",
+  "skills": []
+}
