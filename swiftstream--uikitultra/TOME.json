@@ -1,0 +1,87 @@
+{
+  "name": "UIKitUltra",
+  "owner": "swiftstream",
+  "repo": "UIKitUltra",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "UIKitUltra",
+      "path": ".agent/skills/macos-ulist/SKILL.md",
+      "github_url": "https://github.com/swiftstream/UIKitUltra/tree/main/.agent/skills/macos-ulist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitUltra",
+      "path": ".agent/skills/state-binding/SKILL.md",
+      "github_url": "https://github.com/swiftstream/UIKitUltra/tree/main/.agent/skills/state-binding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitUltra",
+      "path": ".agent/skills/navigation-flow/SKILL.md",
+      "github_url": "https://github.com/swiftstream/UIKitUltra/tree/main/.agent/skills/navigation-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitUltra",
+      "path": ".agent/skills/view-composition/SKILL.md",
+      "github_url": "https://github.com/swiftstream/UIKitUltra/tree/main/.agent/skills/view-composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitUltra",
+      "path": ".agent/skills/constraint-system/SKILL.md",
+      "github_url": "https://github.com/swiftstream/UIKitUltra/tree/main/.agent/skills/constraint-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitUltra",
+      "path": ".agent/skills/gesture-integration/SKILL.md",
+      "github_url": "https://github.com/swiftstream/UIKitUltra/tree/main/.agent/skills/gesture-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UIKitUltra",
+      "path": ".agent/skills/uikitultra-visual-ui-diagnostics/SKILL.md",
+      "github_url": "https://github.com/swiftstream/UIKitUltra/tree/main/.agent/skills/uikitultra-visual-ui-diagnostics/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/swiftstream/UIKitUltra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T11:40:22Z"
+}
