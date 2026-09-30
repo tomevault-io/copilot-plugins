@@ -1,27 +1,20 @@
 ## regen-icons
 
-> Regen Icons is a source-first icon library. The canonical drawings are
+> Read [AGENTS.md](AGENTS.md) and [docs/spec.md](docs/spec.md) before changing an icon.
 
-# Regen Icons agent guide
+# Regen Icons
 
-Regen Icons is a source-first icon library. The canonical drawings are
-`src/<name>.icon.json`; never edit generated files in `dist/` or `../svg/`.
+Read [AGENTS.md](AGENTS.md) and [docs/spec.md](docs/spec.md) before changing an icon.
 
-Before changing icon geometry, read [docs/spec.md](docs/spec.md). It defines the drawing language,
-the visual system, and the review standard. Search `src/` for an existing icon before
-adding one, then use [dist/icons.json](dist/icons.json) after a build when keyword or
-category search is useful.
+- Canonical drawings live in `src/<name>.icon.json`; `dist/` and `../svg/` are
+  generated and must not be edited.
+- Search `src/` for an existing icon before adding a new one.
+- Validate with `pnpm check src/<name>.icon.json`.
+- Compare geometry beside related icons with `pnpm preview <name> <neighbour> --matrix`.
+- Run `pnpm test` before completing an icon change.
 
-Work in this order:
-
-1. Edit one source file with valid name, title, categories, and keywords.
-2. Run `pnpm check src/<name>.icon.json`.
-3. Compare it with related icons using `pnpm preview <name> <neighbour> --matrix`.
-4. Run `pnpm test` after accepting the visual result.
-
-Keep geometry on the prescribed grid and reuse established constructions where they fit.
-Validation proves the construction is valid; visual review decides whether it belongs in
-the family. Do not copy paths from another icon library.
+Use the smallest set of shapes that communicates the object. Preserve existing names
+and metadata when refining an icon, and never import another icon library's paths.
 
 ---
 > Source: [kazdenc/regen-icons](https://github.com/kazdenc/regen-icons) — distributed by [TomeVault](https://tomevault.io).
