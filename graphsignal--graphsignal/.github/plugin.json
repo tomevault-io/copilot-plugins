@@ -1,0 +1,14 @@
+{
+  "name": "graphsignal--graphsignal",
+  "displayName": "graphsignal",
+  "description": "graphsignal",
+  "version": "1.0.0",
+  "author": "graphsignal",
+  "homepage": "https://github.com/graphsignal/graphsignal",
+  "skills": [
+    {
+      "name": "graphsignal",
+      "description": ""
+    }
+  ]
+}
