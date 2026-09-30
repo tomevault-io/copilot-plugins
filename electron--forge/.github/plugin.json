@@ -1,0 +1,9 @@
+{
+  "name": "electron--forge",
+  "displayName": "forge",
+  "description": "forge",
+  "version": "1.0.0",
+  "author": "electron",
+  "homepage": "https://github.com/electron/forge",
+  "skills": []
+}
