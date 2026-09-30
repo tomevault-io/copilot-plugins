@@ -1,0 +1,51 @@
+{
+  "name": "deepseek-harness-desktop",
+  "owner": "dsh-tauri",
+  "repo": "deepseek-harness-desktop",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deepseek-harness-desktop",
+      "path": "skills/handle/SKILL.md",
+      "github_url": "https://github.com/dsh-tauri/deepseek-harness-desktop/tree/main/skills/handle/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dsh-tauri/deepseek-harness-desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T04:42:27Z"
+}
