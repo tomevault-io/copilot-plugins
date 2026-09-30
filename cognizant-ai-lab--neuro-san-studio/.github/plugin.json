@@ -1,0 +1,14 @@
+{
+  "name": "cognizant-ai-lab--neuro-san-studio",
+  "displayName": "neuro-san-studio",
+  "description": "neuro-san-studio",
+  "version": "1.0.0",
+  "author": "cognizant-ai-lab",
+  "homepage": "https://github.com/cognizant-ai-lab/neuro-san-studio",
+  "skills": [
+    {
+      "name": "neuro-san-studio",
+      "description": ""
+    }
+  ]
+}
