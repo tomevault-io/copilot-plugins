@@ -1,0 +1,9 @@
+{
+  "name": "docker--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "docker",
+  "homepage": "https://github.com/docker/skills",
+  "skills": []
+}
