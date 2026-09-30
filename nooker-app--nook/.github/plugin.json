@@ -1,0 +1,9 @@
+{
+  "name": "nooker-app--nook",
+  "displayName": "nook",
+  "description": "A small, native RSS reader for macOS and iOS. Offline-first, no account required.",
+  "version": "1.0.0",
+  "author": "nooker-app",
+  "homepage": "https://github.com/nooker-app/nook",
+  "skills": []
+}
