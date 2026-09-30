@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [coreos/coreos-assembler](https://github.com/cor
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [coreos/coreos-assembler](https://github.com/coreos/coreos-assembler) — a repo with 391+ stars on GitHub.
+From [coreos/coreos-assembler](https://github.com/coreos/coreos-assembler) — a repo with 395+ stars on GitHub.
 
 ---
 
