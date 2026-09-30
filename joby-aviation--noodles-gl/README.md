@@ -1,8 +1,6 @@
 # noodles.gl
 
-> Tome by [joby-aviation](https://github.com/joby-aviation/noodles.gl) — distributed by [TomeVault](https://tomevault.io)
-
-A node-based environment for creating bespoke map visuals and animations
+> Tome by [joby-aviation](https://github.com/joby-aviation/noodles.gl), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [joby-aviation/noodles.gl](https://github.com/jo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [joby-aviation/noodles.gl](https://github.com/joby-aviation/noodles.gl) — a repo with 53+ stars on GitHub.
+From [joby-aviation/noodles.gl](https://github.com/joby-aviation/noodles.gl) — a repo with 62+ stars on GitHub.
 
 ---
 
