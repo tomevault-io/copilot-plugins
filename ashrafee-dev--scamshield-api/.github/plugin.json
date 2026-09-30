@@ -1,0 +1,9 @@
+{
+  "name": "ashrafee-dev--scamshield-api",
+  "displayName": "scamshield-api",
+  "description": "A scam detection service built with FastAPI. ",
+  "version": "1.0.0",
+  "author": "ashrafee-dev",
+  "homepage": "https://github.com/ashrafee-dev/scamshield-api",
+  "skills": []
+}
