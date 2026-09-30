@@ -2,9 +2,9 @@
   "name": "ex-actor",
   "owner": "ex-actor",
   "repo": "ex-actor",
-  "description": "Modern C++ actor framework based on std::execution, only requires C++20.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ex-actor/ex-actor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T03:10:01Z"
+  "distributed_at": "2026-09-30T21:45:33Z"
 }
