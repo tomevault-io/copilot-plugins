@@ -1,14 +1,14 @@
 ## bartz
 
-> This file provides guidance to Claude Code when working with code in this repository.
+> This file provides guidance to coding agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code when working with code in this repository.
+This file provides guidance to coding agents when working with code in this repository.
 
 ## Project
 
-bartz (BART vectoriZed) — a fast implementation of Bayesian Additive Regression Trees (BART) in JAX. Trees are stored as heap arrays for efficient vectorized operations via `jit`/`vmap`/`lax.scan`.
+bartz (BART vectoriZed) — a fast implementation of Bayesian Additive Regression Trees (BART) in JAX. Trees are stored as heap arrays for efficient vectorized operations via `jit`/`vmap`/`lax.scan`. See `docs/math/full.tex` for a math reference.
 
 ## Commands
 
@@ -80,7 +80,7 @@ Interface hierarchy:
     - keep it short, short, short
     - no hard wrap, each paragraph on one physical line (github UI preserves source newlines, let it soft wrap instead)
     - don't include a "test plan". you are not going to actually follow it anyway
-    - remember to include your "Generated with Claude..." footer
+    - remember to include your "Generated with ..." attribution footer
 
 ## Code style
 
@@ -173,4 +173,4 @@ Interface hierarchy:
 
 ---
 > Source: [bartz-org/bartz](https://github.com/bartz-org/bartz) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
