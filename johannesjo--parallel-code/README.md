@@ -1,23 +1,21 @@
 # AI instruction files for parallel-code
 
-> Sourced from [johannesjo/parallel-code](https://github.com/johannesjo/parallel-code) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Run Claude Code, Codex, and Gemini side by side — each in      its own git worktree
+> Sourced from [johannesjo/parallel-code](https://github.com/johannesjo/parallel-code), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [johannesjo/parallel-code](https://github.com/johannesjo/parallel-code).
+Original source: `AGENTS.md` in [johannesjo/parallel-code](https://github.com/johannesjo/parallel-code).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/johannesjo/parallel-code](https://github.com/johannesjo/parallel-code)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/johannesjo/parallel-code](https://github.com/johannesjo/parallel-code)
 
 ---
 
