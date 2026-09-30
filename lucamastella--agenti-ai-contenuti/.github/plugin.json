@@ -1,0 +1,9 @@
+{
+  "name": "lucamastella--agenti-ai-contenuti",
+  "displayName": "agenti-ai-contenuti",
+  "description": "Toolkit del webinar Agenti AI per i contenuti (Agents Week di Learnn): prompt, skill, procedure e cartella di esempio per Claude Code, Cowork, Codex e ChatGPT",
+  "version": "1.0.0",
+  "author": "lucamastella",
+  "homepage": "https://github.com/lucamastella/agenti-ai-contenuti",
+  "skills": []
+}
