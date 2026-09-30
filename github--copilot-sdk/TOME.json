@@ -1,0 +1,75 @@
+{
+  "name": "copilot-sdk",
+  "owner": "github",
+  "repo": "copilot-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "copilot-sdk",
+      "path": ".github/skills/java-coding-skill/SKILL.md",
+      "github_url": "https://github.com/github/copilot-sdk/tree/main/.github/skills/java-coding-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-sdk",
+      "path": ".github/skills/rust-coding-skill/SKILL.md",
+      "github_url": "https://github.com/github/copilot-sdk/tree/main/.github/skills/rust-coding-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-sdk",
+      "path": ".github/skills/new-java-e2e-test-yaml-and-test/SKILL.md",
+      "github_url": "https://github.com/github/copilot-sdk/tree/main/.github/skills/new-java-e2e-test-yaml-and-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-sdk",
+      "path": ".github/skills/agentic-workflows/SKILL.md",
+      "github_url": "https://github.com/github/copilot-sdk/tree/main/.github/skills/agentic-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-sdk",
+      "path": ".github/skills/sdk-java-e2e-test/SKILL.md",
+      "github_url": "https://github.com/github/copilot-sdk/tree/main/.github/skills/sdk-java-e2e-test/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/github/copilot-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T07:30:25Z"
+}
