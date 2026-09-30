@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--transformerengine",
+  "displayName": "TransformerEngine",
+  "description": "TransformerEngine",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/TransformerEngine",
+  "skills": []
+}
