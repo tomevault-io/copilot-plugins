@@ -1,33 +1,11 @@
 ## nexus
 
-> - `external-skill-model.ts` 统一外部技能身份、来源、安装量、导入状态和预览内容投影。
+> 遵循本目录 CLAUDE.md。IconPickerPopover 统一原图标网格与 Humation 随机动作，复用既有关闭、禁用和焦点归还协议；不再提供部件编辑器。
 
-# 外部技能
+# 头像选择器
 
-## 职责
-
-- `external-skill-model.ts` 统一外部技能身份、来源、安装量、导入状态和预览内容投影。
-- `external-results-model.ts` 统一来源分组、筛选回退、排序和结果阶段判定。
-- `skills-external-results.tsx` 消费 controller 的来源作用域，并按结果阶段组合筛选器和列表。
-- `external-result-card.tsx` 通过共享 Skill 目录卡渲染单条结果、稳定数学曲线身份及其导入动作。
-- 预览、来源管理和私有来源编辑分别使用独立弹窗，只消费自身声明的具体模型或窄接口；私有来源表单不得读取或回显 Token。
-- 外部预览以 Skill 名称和正文为主，来源/导入状态进入正文首行元数据，不用头像或组合副标题重复目录卡；来源管理使用扁平行和 Switch，删除必须复用共享确认框，禁止调用浏览器原生 `confirm`。
-
-## 不变量
-
-- 搜索请求、预览请求和竞态仍由 `controller/` 管理，纯模型不得触发副作用。
-- 来源选择必须下推为服务端 `source_id`，禁止先联合搜索再只在浏览器过滤私有来源。
-- 外部技能身份必须使用 `externalSkillKey`，禁止在列表、弹窗或命令中重新拼接。
-- 已导入、同名冲突和可导入是封闭状态，展示与动作可用性必须来自同一状态表。
-- 来源缺失、筛选来源失效和无结果由结果模型统一归一化，视图不得各自修正。
-- 第三方提供的标题、说明和正文保持原文；Nexus 生成的缺省说明、状态、计数和来源说明必须由当前界面语言投影，服务端不得注入固定语言占位文案。
-- 来源管理列表不展示各适配器的教程式说明；实现差异留在服务合同和必要错误中，用户只需看到来源身份、地址和可操作状态。
-- 搜索阶段、来源空态、来源选择、来源列表和导入加载状态分别复用 ResourceState、Panel、ChoiceButton、Typography 与 Spinner；外部来源视图不得再创建私有状态卡或把选择态塞进普通动作按钮。
-- 私有来源的认证方式复用 `UiSegmentedControl showLabel`，以 pressed 状态暴露当前值且只显示一个具名 group；编辑草稿、切换时保留 Token、已保存凭证留空和 loading 锁继续归来源编辑器，公共选择器不解析或转换这些业务值。
-- 来源管理以 filled Panel 和静态 flush ListRow 拥有表面/行密度；名称和地址完整换行，凭据状态及错误使用 supporting，独立动作以来源名分组，Switch 关联该行地址和状态说明。编辑字段按实例关联，服务地址使用 code 字体，提交显式投影 busy；不改变列表排序、Token 留空、不可编辑地址、确认删除及保存结果语义。
-
-- 社区搜索和来源目录首读失败不得显示空结果；提供 ResourceState 只读恢复。来源未知写入不能因任意列表 GET 成功而解锁，只有已提交状态允许读取恢复后解锁；unknown 在用户核对后显式开启新意图，accepted 继续只读核对。外部预览标题使用实例 ID，原文链接保留 noopener noreferrer，导入按钮显式 aria-busy。
+遵循本目录 CLAUDE.md。IconPickerPopover 统一原图标网格与 Humation 随机动作，复用既有关闭、禁用和焦点归还协议；不再提供部件编辑器。
 
 ---
 > Source: [nexus-research-lab/nexus](https://github.com/nexus-research-lab/nexus) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
