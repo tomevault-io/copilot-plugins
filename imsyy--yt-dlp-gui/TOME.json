@@ -2,9 +2,9 @@
   "name": "yt-dlp-gui",
   "owner": "imsyy",
   "repo": "yt-dlp-gui",
-  "description": "A modern cross-platform GUI for yt-dlp. Download videos from YouTube, Bilibili, TikTok and 1000+ sites. Built with Tauri + Vue.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/imsyy/yt-dlp-gui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T14:55:17Z"
+  "distributed_at": "2026-09-30T10:04:11Z"
 }
