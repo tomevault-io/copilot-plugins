@@ -1,0 +1,405 @@
+{
+  "name": "festival",
+  "owner": "Obedience-Corp",
+  "repo": "festival",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "festival",
+      "path": "skills/fest-planning/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/fest-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/camp-projects/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/camp-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/fest-execution/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/fest-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/cross-campaign/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/cross-campaign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/camp-workitems/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/camp-workitems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/festival-intake/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/festival-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/campaign-commit/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/campaign-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/camp-navigation/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/camp-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/fest-methodology/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/fest-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/campaign-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/campaign-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/campaign-structure/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/campaign-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/fest-planning/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/fest-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/camp-projects/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/camp-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/fest-execution/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/fest-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/cross-campaign/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/cross-campaign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/camp-workitems/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/camp-workitems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/festival-intake/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/festival-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "skills/fest-standalone-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/skills/fest-standalone-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/campaign-commit/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/campaign-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/camp-navigation/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/camp-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/fest-methodology/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/fest-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/fest-planning/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/fest-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/camp-projects/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/camp-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/fest-planning/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/fest-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/fest-execution/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/fest-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/cross-campaign/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/cross-campaign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/camp-projects/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/camp-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/campaign-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/campaign-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/camp-workitems/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/camp-workitems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/campaign-structure/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/campaign-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/fest-execution/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/fest-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/cross-campaign/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/cross-campaign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/festival-intake/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/festival-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/camp-workitems/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/camp-workitems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/campaign-commit/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/campaign-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/camp-navigation/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/camp-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/fest-planning/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/fest-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/festival-intake/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/festival-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/camp-projects/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/camp-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/fest-methodology/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/fest-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/campaign-commit/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/campaign-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/camp-navigation/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/camp-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/fest-execution/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/fest-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/cross-campaign/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/cross-campaign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/fest-methodology/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/fest-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/camp-workitems/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/camp-workitems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/festival-intake/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/festival-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/campaign-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/campaign-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/campaign-structure/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/campaign-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/campaign-commit/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/campaign-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/camp-navigation/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/camp-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/fest-methodology/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/fest-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/campaign-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/campaign-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/campaign-structure/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/campaign-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".opencode/skills/fest-standalone-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.opencode/skills/fest-standalone-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/campaign-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/campaign-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/campaign-structure/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/campaign-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "claude-plugin/skills/fest-standalone-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/claude-plugin/skills/fest-standalone-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": ".cursor-plugin/skills/fest-standalone-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/.cursor-plugin/skills/fest-standalone-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "festival",
+      "path": "plugins/festival/skills/fest-standalone-workflows/SKILL.md",
+      "github_url": "https://github.com/Obedience-Corp/festival/tree/main/plugins/festival/skills/fest-standalone-workflows/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Obedience-Corp/festival",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T21:38:34Z"
+}
