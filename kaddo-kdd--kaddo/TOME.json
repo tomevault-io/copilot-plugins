@@ -1,0 +1,135 @@
+{
+  "name": "kaddo",
+  "owner": "Kaddo-kdd",
+  "repo": "kaddo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kaddo",
+      "path": "knowledge/skills/adr-writing/skill.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/adr-writing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "kaddo-power/skills/adr-writing/SKILL.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/adr-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "knowledge/skills/learning-capture/skill.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/learning-capture/skill.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "kaddo-power/skills/capsule-writing/SKILL.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/capsule-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "kaddo-power/skills/learning-capture/SKILL.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/learning-capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "knowledge/skills/work-item-refinement/skill.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/work-item-refinement/skill.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "knowledge/skills/ownership-suggestion/skill.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/ownership-suggestion/skill.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "knowledge/skills/graph-metadata-review/skill.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/graph-metadata-review/skill.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "kaddo-power/skills/work-item-refinement/SKILL.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/work-item-refinement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "kaddo-power/skills/ownership-suggestion/SKILL.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/ownership-suggestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "kaddo-power/skills/graph-metadata-review/SKILL.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/graph-metadata-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "knowledge/skills/implementation-planning/skill.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/implementation-planning/skill.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "kaddo-power/skills/implementation-planning/SKILL.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/implementation-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "knowledge/skills/module-context-refinement/skill.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/knowledge/skills/module-context-refinement/skill.md",
+      "description": ""
+    },
+    {
+      "name": "kaddo",
+      "path": "kaddo-power/skills/module-context-refinement/SKILL.md",
+      "github_url": "https://github.com/Kaddo-kdd/kaddo/tree/main/kaddo-power/skills/module-context-refinement/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Kaddo-kdd/kaddo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:45:12Z"
+}
