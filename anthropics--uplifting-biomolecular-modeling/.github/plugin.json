@@ -1,0 +1,14 @@
+{
+  "name": "anthropics--uplifting-biomolecular-modeling",
+  "displayName": "uplifting-biomolecular-modeling",
+  "description": "uplifting-biomolecular-modeling",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/uplifting-biomolecular-modeling",
+  "skills": [
+    {
+      "name": "uplifting-biomolecular-modeling",
+      "description": ""
+    }
+  ]
+}
