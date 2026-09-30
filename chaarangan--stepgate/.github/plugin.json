@@ -1,0 +1,9 @@
+{
+  "name": "chaarangan--stepgate",
+  "displayName": "Stepgate",
+  "description": "Agents can't skip steps: an MCP server that runs gated, API-only stepfiles on the client's own model.",
+  "version": "1.0.0",
+  "author": "Chaarangan",
+  "homepage": "https://github.com/Chaarangan/Stepgate",
+  "skills": []
+}
