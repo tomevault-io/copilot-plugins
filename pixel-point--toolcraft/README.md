@@ -1,8 +1,6 @@
 # AI instruction files for toolcraft
 
-> Sourced from [pixel-point/toolcraft](https://github.com/pixel-point/toolcraft) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A starter kit and UI library for building custom design apps with AI.
+> Sourced from [pixel-point/toolcraft](https://github.com/pixel-point/toolcraft), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [pixel-point/toolcraft](https://github.com/pixel
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [pixel-point/toolcraft](https://github.com/pixel-point/toolcraft) — a repo with 9+ stars on GitHub.
+From [pixel-point/toolcraft](https://github.com/pixel-point/toolcraft) — a repo with 866+ stars on GitHub.
 
 ---
 
