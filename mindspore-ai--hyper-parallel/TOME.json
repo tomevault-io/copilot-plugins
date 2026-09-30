@@ -1,0 +1,87 @@
+{
+  "name": "hyper-parallel",
+  "owner": "mindspore-ai",
+  "repo": "hyper-parallel",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hyper-parallel",
+      "path": ".agent/skills/autogit/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/hyper-parallel/tree/main/.agent/skills/autogit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyper-parallel",
+      "path": ".agent/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/hyper-parallel/tree/main/.agent/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyper-parallel",
+      "path": ".agent/skills/gate-doctor/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/hyper-parallel/tree/main/.agent/skills/gate-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyper-parallel",
+      "path": ".agent/skills/dist-op-dev/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/hyper-parallel/tree/main/.agent/skills/dist-op-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyper-parallel",
+      "path": ".agent/skills/add-unit-test/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/hyper-parallel/tree/main/.agent/skills/add-unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyper-parallel",
+      "path": ".agent/skills/dist-op-analysis/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/hyper-parallel/tree/main/.agent/skills/dist-op-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyper-parallel",
+      "path": ".agent/skills/parallel-strategy-analyzer/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/hyper-parallel/tree/main/.agent/skills/parallel-strategy-analyzer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mindspore-ai/hyper-parallel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:49:59Z"
+}
