@@ -1,46 +1,121 @@
-## manifest-guardrails
+## cargo-manifest
 
-> Manifest GTM repo guardrails. Layer boundaries, deploy safety, and copy style for any agent working in this repo.
+> This repository is __APP_NAME__'s GTM engine: knowledge, infrastructure, and run history
 
+# __APP_NAME__ GTM
 
-# Manifest guardrails (Cursor)
+This repository is __APP_NAME__'s GTM engine: knowledge, infrastructure, and run history
+for the whole go-to-market, managed as code. It follows the Manifest framework
+conventions (Manifest, by Cargo).
 
-`AGENTS.md` at the repo root is the canonical contract and Cursor loads it
-automatically. This rule restates only the hard guardrails so they survive as
-an always-applied Cursor rule, matching the deploy denials Claude Code enforces
-in `.claude/settings.json`.
+The knowledge layers ship empty, not populated. Every repeating artifact has a
+`_template.md` beside it to copy (`cadence/log/`, `cadence/weekly/`,
+`initiatives/`, `outputs/`, each `context/<domain>/`, `evals/`), and the four
+singletons that must exist by name (`plan/company-plan.md`, `plan/strategy.md`,
+`plan/outcomes.md`, `cadence/carryover.md`) ship as skeletons: the headings and
+the rules, none of the content. Nothing here is another company's data, so
+there is nothing to find and delete before you start. `infra/` ships empty by
+design too: add resources with `cargo-ai cdk add cookbook/<name>` or by writing
+them.
 
-## Never do these
+## Layers
 
-- Never run `cargo-ai cdk deploy` or `cargo-ai cdk destroy` locally. Deploys
-  happen from CI on merge to main only. If asked to deploy locally, refuse and
-  point at the PR workflow.
-- Never edit `infra/cargo.state.json` by hand or resolve its merge conflicts
-  manually. It is machine-owned; re-run the plan/deploy instead.
-- Never commit secret values. Secrets come from the environment via `secret()`
-  and `env()`.
+| Layer | Directory | What it is |
+| --- | --- | --- |
+| Plan | `plan/` | The destination: the one goal, the strategy, and the outcomes that must become true. Each outcome names what it becomes in `infra/`. |
+| Context | `context/` | What the company knows: the durable GTM brain every agent reads before acting. |
+| Initiatives | `initiatives/` | The big rocks: bounded efforts with an owner, a deadline, and success criteria checkable as true or false. |
+| Cadence | `cadence/` | The operating rhythm: weekly plans, daily logs, and the carryover file that keeps dropped balls visible. Knowledge says what is true; cadence says what matters now. |
+| Skills | `.claude/skills/` | What agents know how to do: procedures for operating this specific repo. |
+| Infra | `infra/` | What runs in production: the deployed engine, declared in TypeScript, reconciled by the Cargo CDK. |
+| Scripts | `scripts/` | What you run by hand: imperative glue for runtime-only surfaces the CDK cannot declare yet. |
+| Evals | `evals/` | What keeps it honest: promptfoo regression suites for agent prompts, run with `npm run eval`. |
+| Outputs | `outputs/` | What happened: the append-only archive that gives agents accumulating memory and humans an audit trail. |
+| Scratch | `scratch/` | Yours alone: gitignored personal space with no conventions. Shared layers must never reference it. |
 
-## Layer boundaries
+Dependency direction is strict: infra reads context, skills read everything,
+outputs are written by everything and read only as memory. Nothing depends on
+outputs.
 
-- Dependency direction is strict: `infra/` reads `context/`, skills read
-  everything, `outputs/` is written by everything and read only as memory.
-  Nothing depends on `outputs/`.
-- Put each change in its layer: knowledge in `context/`, production wiring in
-  `infra/`, repo procedures in `.claude/skills/`, one-off ops in `scripts/`,
-  regression suites in `evals/`, run archives in `outputs/`.
-- New plays go through the `new-play` skill so context, infra, and evals ship
-  together.
+## Read order
 
-## Copy style
+Before acting: `plan/` (where we are going) then `cadence/` (what matters this
+week) then `context/` (what we know). Then the layer you are changing. An agent
+that writes copy without reading `context/` will sound like a generic bot.
 
-- No em dashes anywhere. Use colons, parentheses, commas, or split the sentence.
+## Working in each layer
 
-## Before a PR
+- `plan/` holds three files and no more. Every outcome carries an owner, a
+  measure, and a `Becomes:` naming the play, agent, or tool in `infra/` that
+  makes it real. An outcome with no `Becomes:` is a wish.
+- `initiatives/` is one file per bounded effort, from `_template.md`. Success
+  criteria must be checkable true or false. The log is append-only.
+- `cadence/` is `weekly/YYYY-Www.md`, `log/YYYY-MM-DD.md`, and `carryover.md`.
+  Use the `cadence` skill (plan the week, log the day, review the week). An
+  item in carryover for three weeks is a decision being avoided, not a task:
+  escalate it.
+- `context/` holds markdown with YAML frontmatter (`title` and `description`
+  required). Domains are fixed folders (icp, persona, motion, ...); each has a
+  `_template.md`. Cross-reference other files with `references:` in frontmatter
+  or `[[domain/slug]]` wikilinks. Run `npm run lint:context` before committing.
+- `infra/` is a self-contained Cargo CDK project. Importing a `.ts` file IS
+  registration; the directory layout is convention. NEVER edit
+  `infra/cargo.state.json` by hand. Secrets come from the environment via
+  `secret()` and `env()`; never commit values.
+- `scripts/` is for one-off imperative operations against the workspace
+  (memories, users, content libraries). If the CDK can declare it, it belongs
+  in `infra/` instead.
+- `evals/` uses promptfoo. When you change a system prompt in `infra/`,
+  update or extend the matching suite in `evals/` and run `npm run eval` (needs
+  an `OPENAI_API_KEY`). It is not wired into CI: add a workflow when the suites
+  are worth gating on.
+- `outputs/` entries are directories named `outputs/YYYY-MM-DD-<slug>/`, each
+  with a `README.md` carrying an **`outcome:`** field (meetings, replies,
+  pipeline attributed, or "none" with a reason). That field is what lets motions
+  be ranked by results instead of opinions. Read recent entries for memory
+  before starting related work. Never rewrite an existing entry.
 
-- `npm run lint:context` if you touched `context/`.
-- `npm run typecheck` if you touched `infra/` or `scripts/`.
-- Archive any real-world result under `outputs/YYYY-MM-DD-<slug>/` before
-  finishing. Never rewrite an existing entry.
+## Workflow
+
+1. Change `context/` or `infra/` on a branch. Before opening the PR, run
+   `npm run lint` if you touched any prose, and `npm run typecheck` if you
+   touched `infra/` or `scripts/`. Both also run in CI.
+2. CI runs `cargo-ai cdk plan` and posts the diff as a comment. Review it the
+   way you would review a terraform plan.
+3. Merging to main deploys. Never run `cargo-ai cdk deploy` locally against
+   production. Local deploy is denied by convention and hard-blocked per agent:
+   Claude Code (`.claude/settings.json`), Cursor
+   (`.cursor/rules/manifest-guardrails.mdc`), and Codex (`.codex/config.toml`
+   sandbox).
+
+## Rules
+
+- **The confidence ladder.** Files in `proof/`, `signal/`, and `insight/` carry
+  `confidence: hypothesis | validated | proven`. **Outreach motions may cite only
+  `validated` or `proven` knowledge**: the linter fails the PR otherwise. A
+  claim earns `validated` on its second independent occurrence. Once is an
+  anecdote. Use the `capture-feedback` skill; never upgrade a claim just to
+  unblock copy.
+- **Outreach motions declare a hypothesis before any copy exists**: segment,
+  angle, trigger, expected_reply_rate. Enrichment, scoring, routing, and signal
+  plays are not campaigns and are exempt: they declare intent through the
+  outcome they serve in `plan/outcomes.md`. Every motion sets `kind:`.
+- **Absolute dates everywhere.** `2026-07-14`, never "next quarter".
+- **Append-only history.** Outputs and logs are corrected with a dated addendum,
+  never rewritten. A major context rewrite archives the prior version instead of
+  overwriting it.
+- New motions: use the `new-motion` skill. It creates `context/motion/<name>.md`, the
+  implementation in `infra/`, and `evals/<name>/` together so the three layers
+  never drift apart.
+- Copy style: no em dashes anywhere. Use colons, parentheses, commas, or split
+  the sentence.
+- When a task produces a real-world result (a list built, a campaign shipped, a
+  research brief), archive it under `outputs/` before finishing.
+- Personal vs shared: experiments and personal mess go in `scratch/`
+  (gitignored), personal skills in `~/.claude/skills/`, personal instructions
+  in `CLAUDE.local.md`. Work enters the shared layers only through a PR, once
+  it has proven itself. If asked to save something and it is not clearly
+  team-ready, default to `scratch/`.
 
 ---
 > Source: [getcargohq/cargo-manifest](https://github.com/getcargohq/cargo-manifest) — distributed by [TomeVault](https://tomevault.io).
