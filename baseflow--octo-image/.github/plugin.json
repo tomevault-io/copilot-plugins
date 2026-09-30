@@ -1,0 +1,9 @@
+{
+  "name": "baseflow--octo-image",
+  "displayName": "octo_image",
+  "description": "octo_image",
+  "version": "1.0.0",
+  "author": "Baseflow",
+  "homepage": "https://github.com/Baseflow/octo_image",
+  "skills": []
+}
