@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "ClickHouse",
   "homepage": "https://github.com/ClickHouse/click-ui",
-  "skills": [
-    {
-      "name": "click-ui",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
