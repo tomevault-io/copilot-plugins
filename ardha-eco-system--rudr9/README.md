@@ -2,8 +2,6 @@
 
 > Tome by [Ardha-Eco-System](https://github.com/Ardha-Eco-System/RUDR9), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-One command → full AI engineering team. Transforms Hermes Agent into a 9-role development organization with Kanban coordination, per-profile authority enforcement, and PAUL-inspired workflows.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
