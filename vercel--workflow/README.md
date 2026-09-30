@@ -1,27 +1,21 @@
 # workflow
 
-> Source: [vercel/workflow](https://github.com/vercel/workflow) — distributed by [TomeVault](https://tomevault.io)
-
-Workflow SDK: Build durable, reliable, and observable apps and AI Agents in TypeScript
+> Source: [vercel/workflow](https://github.com/vercel/workflow). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vercel/workflow](https://github.com/vercel/workflow).
+Original source: `AGENTS.md` in [vercel/workflow](https://github.com/vercel/workflow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [workflow](https://github.com/vercel/workflow/tree/main/skills/workflow)
-
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/vercel/workflow](https://github.com/vercel/workflow)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/vercel/workflow](https://github.com/vercel/workflow)
 
 ---
 
