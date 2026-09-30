@@ -1,54 +1,65 @@
 ## gamelink
 
-> This repo is a monorepo:
+> Scope: This file applies to the entire directory tree rooted at `backend/`.
 
-# Repository Guidelines
+# Agent Guide for GameLink Backend
 
-## Project Structure & Module Organization
+Scope: This file applies to the entire directory tree rooted at `backend/`.
 
-This repo is a monorepo:
-
-- `api/`: Go backend (Gin/GORM). Entry point: `api/cmd/main.go`. Main code lives in `api/internal/` (layered `handler/ → service/ → repository/ → model/`). Tests live alongside code (`*_test.go`) and under `api/tests/` for integration/load tooling.
-- `admin/`: Admin web UI (React + TypeScript + Vite). Source in `admin/src/`, unit tests in `admin/src/test/`, and Playwright E2E tests under `admin/tests/`.
-- `client/`: User/Player frontend (React + TypeScript + Vite). Source in `client/src/`.
-- `app/`: Taro mini‑program app. Source in `app/src/` (Taro conventions).
-- `docs/`: Architecture, standards, and feature docs. `scripts/`: deployment and Docker helper scripts (mostly PowerShell).
-
-## Build, Test, and Development Commands
-
-- Docker: `docker-compose up -d` (uses `.env`; start from `.env.example`).
-- Backend: `cd api && make deps && go run cmd/main.go` (run API locally).
-- Backend tests: `cd api && make test` or `make test-coverage` (writes `coverage.out`).
-- Backend quality: `cd api && make check` (runs `fmt`, `vet`, `lint`, `test`).
-- Admin: `cd admin && npm install && npm run dev` (Vite dev server).
-- Admin tests: `cd admin && npm run test` (Vitest) and `npm run test:e2e` (Playwright).
-- Client: `cd client && npm install && npm run dev`.
-- Taro app: `cd app && pnpm install && pnpm run dev:weapp` (or other `dev:*` targets).
-
-## Coding Style & Naming Conventions
-
-- Go: `gofmt` + `goimports` (local prefix `gamelink`), and `golangci-lint` configured in `api/.golangci.yml`.
-- TypeScript/React: ESLint is enabled in each frontend package; `admin/` also uses Prettier (`admin/.prettierrc`). Prefer existing patterns/components in the same module.
-- Naming: use `camelCase` for JS/TS identifiers, `PascalCase` for React components, and standard Go exported naming. Keep filenames descriptive (e.g., `order_service.go`, `OrderDetailPage.tsx`).
-
-## Testing Guidelines
-
-- Go: add/keep tests close to code (`*_test.go`). Prefer table-driven tests and `testify` assertions. Use build tag `integration` when a test requires external services.
-- Frontend: unit tests via Vitest; E2E tests via Playwright. Name unit tests `*.test.ts(x)` and keep E2E specs in `admin/tests/`.
-
-## Commit & Pull Request Guidelines
-
-- Commits follow Conventional Commits: `type(scope): subject` (examples: `feat(admin): ...`, `fix(ci): ...`, `test(integration): ...`).
-- PRs should include: a clear description, linked issue/PRD when applicable, screenshots for UI changes, and the commands/results you ran (e.g., `make test-coverage`, `npm run test`).
+Use this guide to align code style, structure, and commands when making changes with an agent. When in doubt, defer to docs/go-coding-standards.md and existing code patterns.
 
 ## Communication
 
-- 与用户交流时请使用中文（简体）。
+- 语言要求：所有与本仓库相关的代理回复一律使用中文（简体），除非用户在对话中明确要求使用其他语言。
 
-## Security & Configuration Tips
+## Project Structure
 
-- Never commit secrets. Use `.env.example` as the template and document new env vars in `README.md` or `docs/`.
+- Entry points: `cmd/<service>/main.go` (compose dependencies only; no business logic)
+- Core modules under `internal/`:
+  - `config` – configuration loading and defaults
+  - `handler` – HTTP routes, params binding, uniform API responses
+  - `service` – business rules, validation, caching, orchestration
+  - `repository` – interfaces and pagination utils; `repository/gormrepo` holds GORM impls
+  - `model` – entities, enums, DTOs
+- Docs live in `docs/`. Style rules: `docs/go-coding-standards.md`.
+
+If you add new top‑level folders, describe them in `docs/project-structure.md` as per org guidelines.
+
+## Coding Standards
+
+- Follow `docs/go-coding-standards.md` strictly.
+- Formatting/imports: `gofmt` + `goimports` with local prefix `gamelink`.
+- Naming: short lowercase package names; exported identifiers use UpperCamelCase.
+- JSON 字段命名：对前端暴露的 JSON 数据，键名必须使用小驼峰命名。
+- Errors: fail fast, wrap with `%w`, use `errors.Is`; use `service.ErrValidation` and `repository.ErrNotFound` consistently.
+- Context: pass `ctx` to external I/O (`db.WithContext(ctx)`, cache, etc.).
+- HTTP layer: RESTful, snake_case JSON, unified envelope `{success, code, message, data}`; admin routes must have auth + rate limit.
+- Service: validation, cache invalidation; no HTTP concerns.
+- Repository: normalize pagination; check `RowsAffected`; return `repository.ErrNotFound` when missing.
+
+## Commands
+
+- Dependencies: `make deps`
+- Lint: `make lint` (uses `.golangci.yml`); ensure `golangci-lint` installed
+- Tests: `make test`
+- Run: `make run CMD=user-service`
+- Build: `make build`
+
+## Agent Workflow Expectations
+
+- Prefer minimal, surgical patches using `apply_patch`.
+- Keep changes focused on the request; do not refactor unrelated code.
+- Maintain import grouping: stdlib, third‑party, then `gamelink`.
+- Update docs when adding behaviors, configs, or directories.
+- Do not introduce secrets or commit `.env` files.
+
+## Review Checklist
+
+- Code compiles locally (`go build ./...`) and tests pass (`go test ./...`).
+- `golangci-lint run` is clean (or justified in PR).
+- Public APIs preserve the response envelope and versioned paths.
+- New/changed configs are documented in `docs/`.
 
 ---
 > Source: [HXSLtim/GameLink](https://github.com/HXSLtim/GameLink) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
