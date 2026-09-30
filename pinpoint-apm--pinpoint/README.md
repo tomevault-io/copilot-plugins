@@ -15,19 +15,6 @@ Original source: `AGENTS.md` in [pinpoint-apm/pinpoint](https://github.com/pinpo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (10)
-
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/qa-pr/SKILL.md)
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/mvn-web/SKILL.md)
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/write-test/SKILL.md)
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/create-page/SKILL.md)
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/review-code/SKILL.md)
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/create-api-hook/SKILL.md)
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/add-translation/SKILL.md)
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/create-component/SKILL.md)
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/apply-review/SKILL.md)
-- [pinpoint](https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/merge-check/SKILL.md)
-
 From [pinpoint-apm/pinpoint](https://github.com/pinpoint-apm/pinpoint) — a repo with 13871+ stars on GitHub.
 
 ---
