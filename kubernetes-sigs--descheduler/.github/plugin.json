@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--descheduler",
+  "displayName": "descheduler",
+  "description": "descheduler",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/descheduler",
+  "skills": []
+}
