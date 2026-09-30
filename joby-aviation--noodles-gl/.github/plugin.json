@@ -1,7 +1,7 @@
 {
   "name": "joby-aviation--noodles-gl",
   "displayName": "noodles.gl",
-  "description": "A node-based environment for creating bespoke map visuals and animations",
+  "description": "noodles.gl",
   "version": "1.0.0",
   "author": "joby-aviation",
   "homepage": "https://github.com/joby-aviation/noodles.gl",
