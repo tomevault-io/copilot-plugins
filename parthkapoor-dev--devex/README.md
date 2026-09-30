@@ -1,8 +1,6 @@
 # AI instruction files for devex
 
-> Sourced from [ParthKapoor-dev/devex](https://github.com/ParthKapoor-dev/devex) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-⚡️ Devex — A Fast, Secure, and Scalable Repl-as-a-Service Platform built for Developers 🚀
+> Sourced from [ParthKapoor-dev/devex](https://github.com/ParthKapoor-dev/devex), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [ParthKapoor-dev/devex](https://github.com/Parth
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ParthKapoor-dev/devex](https://github.com/ParthKapoor-dev/devex) — a repo with 77+ stars on GitHub.
+From [ParthKapoor-dev/devex](https://github.com/ParthKapoor-dev/devex) — a repo with 79+ stars on GitHub.
 
 ---
 
