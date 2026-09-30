@@ -2,9 +2,9 @@
   "name": "habit-hooks",
   "owner": "habit-hooks",
   "repo": "habit-hooks",
-  "description": "Automated quality checks that nudge AI coding agents toward better habits",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/habit-hooks/habit-hooks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T12:35:24Z"
+  "distributed_at": "2026-09-30T14:45:36Z"
 }
