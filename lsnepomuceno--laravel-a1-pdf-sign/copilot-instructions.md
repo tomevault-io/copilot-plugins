@@ -1,263 +1,163 @@
 ## laravel-a1-pdf-sign
 
-> Rules about how the code is written, as opposed to what it must do. The rules
+> An agent can answer "is this contract signed, and by whom" by reading the
 
-# Conventions
+# AI agents
 
-Rules about how the code is written, as opposed to what it must do. The rules
-that break the product live in [the invariants](invariants.md); these break the
-codebase slowly instead, which is why they are written down rather than left to
-whoever reviews.
+An agent can answer "is this contract signed, and by whom" by reading the
+document itself, and, with a person's approval, sign one. The package provides
+the tools for both, on top of Laravel's own AI packages. It does not provide
+the agent: instructions, provider, model and cost are yours to choose.
 
-Each is checked at review. Where a rule can be checked by a machine, it is, and
-that is noted.
+| | Needs | Reached by | What it does |
+|---|---|---|---|
+| `validate_pdf_signature` | `laravel/mcp` | MCP clients and AI SDK agents | verifies every signature, says who signed |
+| `list_signature_fields` | `laravel/mcp` | MCP clients and AI SDK agents | lists the fields, signed and empty |
+| `sign_pdf` | `laravel/ai` | AI SDK agents | signs, **after a person approves** |
 
----
+**Reading goes through MCP and signing through the AI SDK**, and the split is
+deliberate. The AI SDK runs MCP tools, so a read tool written once reaches both
+worlds. Signing needs a person to approve every call, and only the AI SDK lets
+a tool insist on that: on the MCP side, approval is whatever the client was set
+to do ([0040](/decisions/0040-agents-read-through-mcp-and-sign-through-the-ai-sdk)).
 
-# 1. Laravel first
+## Installing
 
-**This package is a Laravel package. Before writing a helper, check whether the
-framework already has it, and use that.**
+Both SDKs are optional. Install the ones you use:
 
-The package requires `illuminate/support`, `illuminate/http`, `illuminate/process`
-and `illuminate/filesystem` outright. Everything in them is already installed, already
-tested, already documented, and already familiar to the person reading the code.
-A private reimplementation of any of it is code this project has to maintain,
-test and explain, in exchange for nothing.
-
-This is a rule, not a preference. It is checked at review, and part of it is
-checked by `tests/Project/ArchTest.php`.
-
----
-
-## The rule
-
-1. **Look in the framework first.** `Illuminate\Support\Str`, `Arr`,
-   `Collection`, `Facades\File`, `Facades\Process`, `Facades\Http`,
-   `Facades\Config`, `Facades\Cache`, the `Illuminate\Contracts\*` interfaces.
-2. **If it exists there, use it**, even when the native call is two characters
-   shorter.
-3. **If it does not, write it**, put it in `src/Support/`, and say in the
-   docblock what the framework does not provide. A helper whose docblock cannot
-   answer "why is this not `Str::something`" is a helper that should not exist.
-
-Exceptions are below and they are narrow. Everything not listed there follows
-the rule.
-
----
-
-## Reach for
-
-| Instead of | Use | Why |
-|---|---|---|
-| `file_get_contents`, `file_put_contents` | `Support\Files::read()`, `File::put()` | `Files::read()` exists because both the native call and `File::get()` return `false`, and that `false` reaching a `string` parameter was this package's most common typing defect |
-| `is_dir`, `mkdir`, `unlink`, `glob` | `File::isDirectory()`, `File::makeDirectory()`, `File::delete()`, `File::glob()` | one filesystem abstraction, fakeable in a host application's tests |
-| `uniqid`, `random_bytes` for a name | `Str::orderedUuid()`, `Str::random()` | already how `Support\TemporaryFile` names its files |
-| `exec`, `shell_exec`, `proc_open` | `Support\ProcessRunner` on `Illuminate\Process` | invariant 8, and `Process::fake()` in a consuming application |
-| `curl_*`, `stream_context_create` + `file_get_contents` | `Illuminate\Support\Facades\Http` | timeouts, retries and `Http::fake()`, instead of a hand-rolled stream context |
-| `array_map` / `array_filter` / `array_merge` chained over one value | `collect()` | one pipeline instead of three nested calls, when it genuinely reads better |
-| a hand-written `get($array, 'a.b.c')` | `Arr::get()` | |
-| reading config with a cast and a default | `Illuminate\Contracts\Config\Repository`, injected | already how the package reads every configuration key |
-| a hand-rolled `toArray()` on a value object | `Illuminate\Contracts\Support\Arrayable` | `Data\BaseData` already implements it |
-
-## Do not reach for
-
-These are the narrow exceptions, and each is load-bearing.
-
-| Keep the native call | Why |
-|---|---|
-| **`substr`, `strlen`, `strpos`, `str_replace` on PDF or DER bytes** | **`Str::substr()` and `Str::length()` are multibyte-aware.** Running them over a PDF or a CMS reinterprets binary as UTF-8 and returns the wrong offsets, which in this package means a corrupted signature. Byte work uses byte functions, always |
-| `preg_match`, `preg_match_all` | `Str::match()` returns the match and throws the offsets away, and offsets are what the incremental writer is built on. `Str::isMatch()` is fine where only the boolean is wanted |
-| `openssl_*` | the framework wraps none of it |
-| `pack`, `unpack`, `bin2hex`, `hex2bin`, `gzuncompress` | no framework equivalent, and all byte-exact |
-| `hash(..., binary: true)` | `Hash::` is password hashing, a different thing entirely |
-
-The first row is the one that matters. If a change swaps a byte-level `substr`
-for `Str::substr`, it will pass every test in this suite on ASCII fixtures and
-corrupt real documents in production.
-
-*Enforced by* `tests/Project/ArchTest.php`, which fails when `Illuminate\Support\Str` is
-used inside `src/Signing` or `src/Validation` at all: those namespaces are where
-the byte work lives, and the rule is easier to keep as "not here" than as "here,
-but only these methods".
-
----
-
-## Known outstanding
-
-`Signing\Cades\HttpTransport` builds its own `stream_context_create` and calls
-`file_get_contents` for the TSA, OCSP and CRL requests. `Http::` is the right
-tool and `guzzlehttp/guzzle` is already in the tree, so this is a gap in the
-rule rather than an exception to it. It is called out here rather than left for
-someone to find, and moving it also makes the network surface fakeable, which is
-the same argument that put `ProcessRunner` on `Illuminate\Process`.
-
-Rationale and alternatives: [0018](../decisions/0018-prefer-the-platforms-own-constructs.md).
-
----
-
-# 2. Enums, not class constants
-
-**A closed set of values is an enum.** A class constant is for the case where
-exactly one value can ever exist, and for nothing else.
-
-PHP has had enums since 8.1 and this package's floor is 8.4, so a set of related
-constants is a type the language will check for you that has been written as a
-set of integers it will not.
-
-| Write | Instead of |
-|---|---|
-| `enum SignatureProfile: string` | `const PADES_B_B = 'pades-b-b'` beside four siblings |
-| `enum CertificationLevel: string` | `const NO_CHANGES = 1`, `const FORM_FILLING = 2`, … |
-| `enum Asn1Tag: int` | `const SEQUENCE = 0x30`, `const SET = 0x31`, … |
-
-A constant stays a constant when it is a lone fact about the world rather than
-one of several choices:
-
-| Legitimate constant | Why |
-|---|---|
-| `CertificateVault::CIPHER` | one cipher, chosen once |
-| `IncrementalSigner::CONTENTS_HEX_LENGTH` | one reserved width |
-| `Pem::CERTIFICATE_MARKER` | one string, fixed by RFC 7468 |
-| `ByteRangeCalculator::FIELD` | one placeholder shape |
-| `LaravelA1PdfSignServiceProvider::CONFIG_PATH` | one path |
-| `XrefStreamWriter::WIDTHS` | one column layout, fixed by §7.5.8 |
-
-The test is not "is it private" or "is it an array". It is **"could a second
-value of this kind ever be right?"** If yes, it is an enum today, because the
-sibling arrives later and arrives as a constant beside the first one.
-
-## Enums that are not configuration may be int-backed
-
-`tests/Project/ArchTest.php` requires enums in `Enums\` to be string-backed, so a
-configuration file can name a case in plain text. That reason does not reach an
-enum nobody configures, like an ASN.1 tag whose values are fixed by
-ISO/IEC 8825-1 and are natural integers. Those are exempt by name in the arch
-rule, the way `sha1` is exempt for `SignatureDetails`, rather than by weakening
-the rule for every enum.
-
-## Known tension
-
-`Data\SealPlacement::LAST_PAGE` is an `int` sentinel of `-1`, and by this rule it
-would be an enum. It was one: `Enums\SealPage` existed and was removed during the
-v2 work on the grounds that "the page is one field of a placement, not a concept
-with its own behaviour"
-([the modernisation record](../history/v2-modernization.md)).
-
-That reasoning predates this rule and is not obviously wrong, and reversing it
-now would change the type of a public property. It stays as it is, named here so
-the next person finds a decision rather than an oversight.
-
----
-
-# 3. A docblock documents the thing under it
-
-Two failures, both of which shipped, both now checked by `tests/Project/ArchTest.php`
-rather than left to review.
-
-## Never leave two docblocks in a row
-
-```php
-/**
- * The signature applied last, which is the only one covering the whole file.
- */
-/**
- * The archive timestamps, which are reported separately from signatures.
- */
-public function timestamps(): array
+```bash
+composer require laravel/mcp   # the two read tools, and the MCP server
+composer require laravel/ai    # the signing tool
 ```
 
-That is real code from `Data\SignatureReport`. A method was inserted between a
-docblock and the method it described, so the first block ended up attached to
-the newcomer and `latest()` was left undocumented. **Every tool that reads
-docblocks then reports the wrong thing about two methods**, and the diff that
-caused it looks like a pure addition.
+The package requires `^1.0` of each and refuses to install beside anything
+else, so a version mismatch fails at `composer require` rather than on the
+first tool call. Nothing is registered for you: no route, no tool, no binding.
 
-Found four times across `src/` and `tests/` the day the rule was written.
+## Opening a disk
 
-When adding a method next to an existing one, put the new docblock **above the
-new method**, not above the old one. When a docblock and a `@param` block end up
-separated, merge them into one block; PHP associates only the last.
+**Out of the box, no tool reaches anything.** Agents address documents by a
+`Storage` disk and a path, and a disk is reachable only once you list it:
 
-## Never leave a `@param` naming a parameter that is gone
+```php
+// config/a1-pdf-sign.php
+'agents' => [
+    'disks' => ['contracts'],
+],
+```
 
-The other half of the same problem: the signature moved and the prose did not.
-A docblock that documents nothing is a comment nobody reads. A docblock that
-documents the wrong thing is worse than no docblock, because it is believed.
+Open a disk that holds what agents should see and nothing else. A disk scoped to
+a directory is the simplest way to get there:
 
-## Every file declares strict types
+```php
+// config/filesystems.php
+'contracts' => [
+    'driver' => 's3',
+    'bucket' => env('AWS_BUCKET'),
+    'root' => 'contracts',
+    // …
+],
+```
 
-`declare(strict_types=1);` at the top of every PHP file in `src/`, `tests/` and
-`config/`. Not optional, and not a preference.
+The disk list decides what is reachable at all. Who may reach which document
+is [your gate](#who-may-reach-which-document).
 
-A package that signs documents does arithmetic on byte offsets constantly, and
-without it `substr($pdf, "12")` and `str_repeat('0', 8.9)` are coerced in
-silence. Both produce a file that is subtly wrong rather than one that fails,
-which is the worst outcome available to a signature.
+### What is refused
 
-**The blast radius is smaller than it sounds, and worth knowing.** Strict types
-are decided by the *calling* file, so a consuming application that does not
-declare them keeps its own coercion when it calls this package. What becomes
-strict is this package calling itself, and this package calling PHP.
+Every path a model sends goes through `Agents\DocumentAccess` before a byte is
+read, and a tool's schema offers the open disks as an enum. The enum is a hint
+to the model; the guard is the control:
 
-It was switched off deliberately until 2026-08-12: `pint.json` carried
-`"declare_strict_types": false` and not one of the 169 files declared it.
-Turning it on changed no behaviour, and the whole suite passed unmodified,
-which says the code was already written as though it were on.
+| Refused | Because |
+|---|---|
+| a disk not in `agents.disks` | nobody opened it |
+| `/etc/deal.pdf`, `C:/deal.pdf` | absolute: a path is relative to its disk |
+| `2026/../../salaries.pdf` | `..` anywhere is refused, not normalised |
+| `contracts\deal.pdf`, a null byte | not a path a disk understands |
+| `notes.txt`, `deal.pdf.php` | only names ending in `.pdf` |
+| a document over `agents.max_bytes` | the model chooses the file, and the engine holds it in memory |
+| a destination that exists | a signed copy never overwrites |
 
-*Enforced by* `pint.json`, which writes the declaration, and by
-`tests/Project/ArchTest.php` twice: an arch expectation over `src/`, and a file walk for
-`tests/` and `config/`, where arch expectations cannot reach because those files
-declare no classes. `poc/` is out of scope, as it is for Pint and PHPStan.
+The refusal comes back to the model as the tool's error, worded so it can
+correct itself: it names the disks that are open, never a disk's root.
 
-## Never cite a file that does not exist, and write it first
+**A path is relative to its disk, and never starts with the disk's name.**
+`deal.pdf` on the disk `contracts` is `deal.pdf`, not `contracts/deal.pdf`. The
+tools tell the model so in their schema, because a model left to guess glues
+the disk's name to the front, as DeepSeek did the first time this was tried
+against a real provider.
 
-A comment, docblock or document may only name a path that resolves **at the
-moment it is written**. Not "will exist when the record is written up", not
-"exists on the branch that has not landed": now.
+The size limit is 50 MB by default, read from the disk's own metadata before a
+byte is loaded. Null removes it:
 
-**The record comes first.** When a change wants a decision record or a
-specification section, that file is created before the code referring to it, in
-the same change and earlier in it. The reverse order produces a reference to
-something nobody wrote, and the code then documents an argument that was never
-made.
+```php
+'agents' => [
+    'max_bytes' => 50 * 1024 * 1024,
+],
+```
 
-This is not hypothetical and it is not other people's mistake. A comment in
-`Signing\IncrementalSigner` was written citing a decision record numbered 0034,
-about holding the document once, while the fix it described was still being
-measured. The record was never written, the reference stayed, and the only
-reason it did not ship is that `tests/Project/SpecTest.php` refused the commit.
+## Who may reach which document
 
-**The first draft of this very section quoted that path in full, to illustrate
-the rule, and the gate refused that too.** Which is the right outcome: a scanner
-cannot tell an example of a bad reference from a bad reference, and a rule whose
-own text has to be exempted is a rule with a hole in it. Describe the missing
-file; do not spell it.
+A disk holds every customer's contracts; the user talking to the agent may see
+their own. That is a question Laravel already answers with a gate, so the tools
+ask yours ([0041](/decisions/0041-agents-are-authorised-per-document)):
 
-*Enforced by* `tests/Project/SpecTest.php`, which walks every `.php`, `.md`, `.yml` and
-`.yaml` file in the package and resolves every documentation path any of them
-cites. It is a gate rather than a review point, and it is the reason this rule
-can be stated so flatly.
+```php
+use LSNepomuceno\LaravelA1PdfSign\Agents\Ability;
 
-**Symbols are checked too**, on the same terms: a comment naming a class or a
-`Class::member` of this package must resolve. Restricted to
-`LSNepomuceno\LaravelA1PdfSign`, because prose legitimately names other
-people's classes, PHP functions and PDF syntax that looks like neither, and one
-comment has to be able to name `ddn/sapp` precisely because it is the thing
-deliberately absent. Within this package's own namespace the question is
-mechanically decidable and needs no allowlist.
+// AppServiceProvider::boot()
+Gate::define(Ability::Read->value, function (User $user, string $disk, string $path) {
+    return Contract::where('path', $path)->where('customer_id', $user->customer_id)->exists();
+});
 
-Only comment and docblock text is read from a PHP file: a `namespace` or `use`
-line is code, already answered by the autoloader and by PHPStan.
-`docs/history/` and `UPGRADE.md` are exempt, since recording what the package
-used to be is their whole job.
+Gate::define(Ability::Sign->value, function (User $user, string $disk, string $path, string $destinationDisk, string $destinationPath) {
+    return $user->can('sign', Contract::firstWhere('path', $path));
+});
+```
 
-## What is deliberately not checked
+| Ability | Asked by | Receives |
+|---|---|---|
+| `a1-pdf-sign.agents.read` | `validate_pdf_signature`, `list_signature_fields` | the user, the disk, the path |
+| `a1-pdf-sign.agents.sign` | `sign_pdf` | the user, the disk, the path, and where the copy would go |
 
-Whether the prose is *true*. No tool can, which is why the rules above are
-narrow: they catch the failures that are mechanical, and leave the rest where it
-belongs, with whoever changed the code.
+What to know about it:
+
+- **An ability you have not defined allows.** Until you define one, the disk
+  list is the only control, exactly as in 3.1.0.
+- **Once defined, a guest is refused** unless the ability's user is nullable,
+  as Laravel does everywhere. An MCP server over stdio has no user, so a
+  `Mcp::local` server with a defined ability needs a nullable user to answer
+  anything.
+- **The gate is asked before the document is looked at.** A refused user reads
+  "you may not read", never "there is no document", so a refusal does not tell
+  them what exists.
+- The user is whoever authenticated the request: the MCP route's guard, or the
+  default guard when an AI SDK agent runs. An agent on a queue has no user; see
+  [signing on a queue](/guide/agent-signing#an-agent-running-on-a-queue).
+
+`Agents\DocumentAccess::authorize()` and `allows()` are public, so a tool of your
+own can ask the same question the same way.
+
+## The CPF stays out of the model
+
+The validation tool reports each signer's name. The CPF or CNPJ on an
+ICP-Brasil certificate is personal data, and sending it to a model provider is
+your decision to make:
+
+```php
+'agents' => [
+    'expose_registry' => env('A1_PDF_SIGN_AGENTS_EXPOSE_REGISTRY', false),
+],
+```
+
+## Where to go next
+
+- [Reading through MCP](/guide/mcp): serving the tools to Claude Code, Cursor or
+  Boost, and handing them to an AI SDK agent.
+- [Signing through an agent](/guide/agent-signing): the approval flow, choosing
+  the certificate, and what happens after.
+- [Testing](/guide/testing#agents): faking the model and asserting on the tools.
 
 ---
 > Source: [lsnepomuceno/laravel-a1-pdf-sign](https://github.com/lsnepomuceno/laravel-a1-pdf-sign) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
