@@ -1,0 +1,9 @@
+{
+  "name": "rancher--elemental-toolkit",
+  "displayName": "elemental-toolkit",
+  "description": "elemental-toolkit",
+  "version": "1.0.0",
+  "author": "rancher",
+  "homepage": "https://github.com/rancher/elemental-toolkit",
+  "skills": []
+}
