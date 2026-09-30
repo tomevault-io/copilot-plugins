@@ -1,116 +1,83 @@
 ## sentry-cocoa
 
-> > Instructions for LLM agents. Keep edits minimal (headers + bullets). Use `/agents-md` skill when editing.
+> > Scope: `TestApps/**`. Also follow [root instructions](../AGENTS.md).
 
-# .github
+# Test Apps
 
-> Instructions for LLM agents. Keep edits minimal (headers + bullets). Use `/agents-md` skill when editing.
+> Scope: `TestApps/**`. Also follow [root instructions](../AGENTS.md).
 
-## Workflow Naming
+## Layout
 
-**Workflow names** — concise, action-oriented: `[Action] [Subject]`
+- Put source in `Sources/`, assets in `Resources/`, and Info.plist, entitlements, and xcconfig files in `Configuration/`
+- Preserve empty required directories with `.gitkeep`
 
-- `Release`, `UI Tests`, `Benchmarking`, `Lint SwiftLint`, `Test CocoaPods`
+## Project Generation
 
-**Job names** — no redundant prefixes, use action verbs, max 3-4 words, no tool versions:
+- Generate XcodeGen-based test app projects through Make targets, never by invoking `xcodegen` directly
+- Build one package-based test app with `swift build --package-path TestApps/<name>`
+- Generate one XcodeGen project with `make xcode-ci-<name>`
+- Generate all XcodeGen projects with `make xcode-ci`
+- Generate and build one testapp with `make build-testapp-<name>`
 
-| Category | Examples                                                                |
-| -------- | ----------------------------------------------------------------------- |
-| Build    | `Build XCFramework Slice`, `${{matrix.sdk}}`                            |
-| Test     | `Test ${{matrix.name}} V3 # Up the version...`, `Unit ${{matrix.name}}` |
-| Validate | `Validate XCFramework`, `Check API Stability`                           |
-| Lint     | `Lint` (when workflow name already specifies tool)                      |
-| Utility  | `Collect App Metrics`, `Detect File Changes`                            |
+## Validation
 
-### Flaky Test Tracking
+- Build affected test apps with `make build-testapp-<name>`
+- Run affected UI tests with `make test-testapp-<name>-ui` when behavior changes
+- Use `make test-ui-critical` for critical UI coverage
+- Follow assertion conventions in [`Tests/AGENTS.md`](../Tests/AGENTS.md)
 
-Version number in BOTH job name AND comment (monitoring captures names, ignores comments):
+## Generating TestApp Projects
 
-```yaml
-name: Test iOS Swift V5 # Up the version with every change to keep track of flaky tests
+**CRITICAL**: ALWAYS use the Makefile to regenerate test app projects. Never run `xcodegen` directly.
+
+```bash
+# Regenerate a specific project (without building)
+make xcode-ci-iOS-Swift
+
+# Regenerate all Xcode projects
+make xcode-ci
+
+# Regenerate AND build a specific test app
+make build-testapp-iOS-Swift
 ```
 
-## Concurrency
+## TestApp Workflow
 
-### Pattern 1: Conditional (most common)
+For each test app, you can:
 
-```yaml
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
-```
+1. **Generate** — Create/update Xcode project from `.yml` spec
+2. **Build** — Compile the test app
+3. **Test** — Run UI tests (for apps with UI test suites)
 
-Cancels PR runs on new push. Never cancels main/release/schedule.
+## Commands
 
-### Pattern 2: Always Cancel (PR-only workflows)
+| Command                         | Description                                                                                                                       |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Generate (Project Creation)** |                                                                                                                                   |
+| `make xcode-ci`                 | Regenerate all Xcode projects                                                                                                     |
+| `make xcode-ci-<name>`          | Regenerate specific project (e.g., `xcode-ci-SPM`)                                                                                |
+| **Build**                       |                                                                                                                                   |
+| `make build-testapps`           | Build all test apps                                                                                                               |
+| `make build-testapp-<name>`     | Build specific test app (e.g., `build-testapp-iOS-Swift`)                                                                         |
+| `make <target> FOR_AGENTS=true` | Reduce output for supported SDK platform build/test targets. Inspect `raw-*-output.log` only when reduced output is inconclusive. |
+| **Test (UI Tests)**             |                                                                                                                                   |
+| `make test-testapps-ui`         | Run all test app UI tests                                                                                                         |
+| `make test-testapp-<name>-ui`   | Run specific test app UI tests (e.g., `iOS-Swift-ui`)                                                                             |
+| `make test-ui-critical`         | Run critical UI test suites for validation                                                                                        |
 
-```yaml
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-```
+## Test Apps with UI Tests
 
-### Pattern 3: Fixed Group (special cases)
+The following test apps have UI test suites:
 
-```yaml
-concurrency:
-  group: "auto-update-tools"
-  cancel-in-progress: true
-```
+- `iOS-Swift` — Comprehensive UI tests for iOS Swift test app
+- `iOS-SwiftUI` — SwiftUI-specific UI tests including feedback
+- `iOS-Swift6` — Swift 6 compatibility tests
+- `iOS-ObjectiveC` — Objective-C UI tests
+- `macOS-Swift` — macOS app UI tests
+- `tvOS-Swift` — tvOS app UI tests
 
-Each concurrency block must include comments explaining purpose, resource considerations, and branch protection logic.
-
-## File Filters (`file-filters.yml`)
-
-- Every directory with code/tests/config must appear in at least one filter
-- Use `**` for recursive matching (`Sources/**`, not `Sources/*`)
-- Include related workflow and config files in each filter group
-
-### Templates
-
-```yaml
-# Unit tests
-run_unit_tests_for_prs:
-  - "Sources/**"
-  - "Tests/**"
-  - "SentryTestUtils/**"
-  - "SentryTestUtilsDynamic/**"
-  - "SentryTestUtilsTests/**"
-  - ".github/workflows/test.yml"
-  - ".github/file-filters.yml"
-  - "scripts/ci-*.sh"
-  - "test-server/**"
-  - "**/*.xctestplan"
-  - "Plans/**"
-  - "Sentry.xcodeproj/**"
-```
-
-```yaml
-# Lint
-run_lint_swift_formatting_for_prs:
-  - "**/*.swift"
-  - ".github/workflows/lint-swift-formatting.yml"
-  - ".github/file-filters.yml"
-  - ".swiftlint.yml"
-```
-
-```yaml
-# Build
-run_build_for_prs:
-  - "Sources/**"
-  - "Samples/**"
-  - ".github/workflows/build.yml"
-  - ".github/file-filters.yml"
-  - "Sentry.xcodeproj/**"
-  - "Package*.swift"
-```
-
-### When changing project structure
-
-1. List all new/renamed directories
-2. Check each against `file-filters.yml`
-3. Add missing patterns to appropriate filter groups
+Each UI test target follows the naming pattern `<TestAppName>-UITests` and references a test plan at `Plans/<TestAppName>_Base.xctestplan`.
 
 ---
 > Source: [getsentry/sentry-cocoa](https://github.com/getsentry/sentry-cocoa) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
