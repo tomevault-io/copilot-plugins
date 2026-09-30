@@ -1,0 +1,9 @@
+{
+  "name": "jontaylor--gb10-ram-reclaim",
+  "displayName": "gb10-ram-reclaim",
+  "description": "Experimental runtime reclamation of GB10 display-reserved memory into ordinary Linux RAM, with guarded driver, local signing, and reboot rollback.",
+  "version": "1.0.0",
+  "author": "jontaylor",
+  "homepage": "https://github.com/jontaylor/gb10-ram-reclaim",
+  "skills": []
+}
