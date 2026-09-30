@@ -1,13 +1,13 @@
-# AI instruction files for antigravity-mobile
+# Antigravity-Mobile
 
-> Sourced from [mohgomaa-art/antigravity-mobile](https://github.com/mohgomaa-art/antigravity-mobile), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+> Tome by [mohgomaa-art](https://github.com/mohgomaa-art/Antigravity-Mobile), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 An unofficial, local-first Flutter/Android control plane for Antigravity, backed by a Windows Fleet Station for local execution, orchestration, and multi-slot management, with LAN/USB connectivity and optional remote tunneling.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [mohgomaa-art/antigravity-mobile](https://github.com/mohgomaa-art/antigravity-mobile).
+Original source: `GEMINI.md` in [mohgomaa-art/Antigravity-Mobile](https://github.com/mohgomaa-art/Antigravity-Mobile).
 
 ## Also available for
 
@@ -17,10 +17,10 @@ Original source: `GEMINI.md` in [mohgomaa-art/antigravity-mobile](https://github
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mohgomaa-art/antigravity-mobile](https://github.com/mohgomaa-art/antigravity-mobile)
+From [mohgomaa-art/Antigravity-Mobile](https://github.com/mohgomaa-art/Antigravity-Mobile) — a repo with 8+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:a-e-p -->
+<!-- genome:t-c-s -->
