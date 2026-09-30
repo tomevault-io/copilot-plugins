@@ -1,0 +1,9 @@
+{
+  "name": "kotlin--kotlinx-coroutines",
+  "displayName": "kotlinx.coroutines",
+  "description": "kotlinx.coroutines",
+  "version": "1.0.0",
+  "author": "Kotlin",
+  "homepage": "https://github.com/Kotlin/kotlinx.coroutines",
+  "skills": []
+}
