@@ -15,10 +15,6 @@ Original source: `AGENTS.md` in [ClickHouse/click-ui](https://github.com/ClickHo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [click-ui](https://github.com/ClickHouse/click-ui/tree/main/.claude/skills/component-css-modules-migration/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ClickHouse/click-ui](https://github.com/ClickHouse/click-ui)
 
 ---
