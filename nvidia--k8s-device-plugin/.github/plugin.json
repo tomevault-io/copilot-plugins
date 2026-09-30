@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--k8s-device-plugin",
+  "displayName": "k8s-device-plugin",
+  "description": "k8s-device-plugin",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/k8s-device-plugin",
+  "skills": []
+}
