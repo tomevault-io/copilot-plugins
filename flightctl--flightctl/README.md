@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [flightctl/flightctl](https://github.com/flightc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [flightctl/flightctl](https://github.com/flightctl/flightctl) — a repo with 142+ stars on GitHub.
+From [flightctl/flightctl](https://github.com/flightctl/flightctl) — a repo with 157+ stars on GitHub.
 
 ---
 
