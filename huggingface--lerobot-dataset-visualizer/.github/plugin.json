@@ -1,7 +1,7 @@
 {
   "name": "huggingface--lerobot-dataset-visualizer",
   "displayName": "lerobot-dataset-visualizer",
-  "description": "Web application for visualizing robotics datasets in LeRobot format",
+  "description": "lerobot-dataset-visualizer",
   "version": "1.0.0",
   "author": "huggingface",
   "homepage": "https://github.com/huggingface/lerobot-dataset-visualizer",
