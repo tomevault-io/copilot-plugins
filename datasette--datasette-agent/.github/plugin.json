@@ -1,0 +1,9 @@
+{
+  "name": "datasette--datasette-agent",
+  "displayName": "datasette-agent",
+  "description": "datasette-agent",
+  "version": "1.0.0",
+  "author": "datasette",
+  "homepage": "https://github.com/datasette/datasette-agent",
+  "skills": []
+}
