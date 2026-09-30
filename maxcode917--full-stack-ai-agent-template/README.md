@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [MaxCode917/full-stack-ai-agent-template](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [MaxCode917/full-stack-ai-agent-template](https://github.com/MaxCode917/full-stack-ai-agent-template) — a repo with 8+ stars on GitHub.
+From [MaxCode917/full-stack-ai-agent-template](https://github.com/MaxCode917/full-stack-ai-agent-template) — a repo with 88+ stars on GitHub.
 
 ---
 
