@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "Alwurts",
   "homepage": "https://github.com/Alwurts/simple-ai",
-  "skills": []
+  "skills": [
+    {
+      "name": "simple-ai",
+      "description": ""
+    },
+    {
+      "name": "simple-ai",
+      "description": ""
+    }
+  ]
 }
