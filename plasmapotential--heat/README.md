@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [plasmapotential/HEAT](https://github.com/plasmapotential/HEAT).
+Original source: `AGENTS.md` in [plasmapotential/HEAT](https://github.com/plasmapotential/HEAT).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [plasmapotential/HEAT](https://github.com/plasmapotential/HEAT) — a repo with 83+ stars on GitHub.
+From [plasmapotential/HEAT](https://github.com/plasmapotential/HEAT) — a repo with 88+ stars on GitHub.
 
 ---
 
