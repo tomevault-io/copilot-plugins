@@ -2,9 +2,9 @@
   "name": "lerobot-dataset-visualizer",
   "owner": "huggingface",
   "repo": "lerobot-dataset-visualizer",
-  "description": "Web application for visualizing robotics datasets in LeRobot format",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huggingface/lerobot-dataset-visualizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T04:59:56Z"
+  "distributed_at": "2026-09-30T14:59:10Z"
 }
