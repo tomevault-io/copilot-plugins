@@ -1,0 +1,9 @@
+{
+  "name": "weave-os--checks",
+  "displayName": "checks",
+  "description": "The missing ingredient to your software factory: QA checks",
+  "version": "1.0.0",
+  "author": "weave-os",
+  "homepage": "https://github.com/weave-os/checks",
+  "skills": []
+}
