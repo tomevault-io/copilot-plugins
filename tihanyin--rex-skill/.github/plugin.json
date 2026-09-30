@@ -1,0 +1,14 @@
+{
+  "name": "tihanyin--rex-skill",
+  "displayName": "REx-skill",
+  "description": "REx-skill",
+  "version": "1.0.0",
+  "author": "tihanyin",
+  "homepage": "https://github.com/tihanyin/REx-skill",
+  "skills": [
+    {
+      "name": "REx-skill",
+      "description": ""
+    }
+  ]
+}
