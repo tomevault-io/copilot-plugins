@@ -1,0 +1,447 @@
+{
+  "name": "alphacode",
+  "owner": "dragonked2",
+  "repo": "alphacode",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/debug/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/devops/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/devops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/docker/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/database/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/refactor/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/code-audit/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/code-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/api-design/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/ctf/ctf/rev/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/ctf/ctf/rev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/api-builder/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/api-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/ctf/ctf/pwn/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/ctf/ctf/pwn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/backend-dev/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/backend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/test-writer/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/exploit-dev/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/exploit-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/vuln-hunter/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/vuln-hunter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/frontend-dev/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/frontend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/ctf/ctf/misc/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/ctf/ctf/misc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/api-security/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/api-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/optimization/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/crypto-audit/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/crypto-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/documentation/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/observability/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/data-pipeline/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/data-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/ctf/ctf/crypto/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/ctf/ctf/crypto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/cloud-security/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/cloud-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/security-audit/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/ctf/ctf/toolkit/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/ctf/ctf/toolkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/recon/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/recon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/report/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/backend-dev/auth/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/backend-dev/auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/backend-dev/rust/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/backend-dev/rust/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/dependency-audit/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/dependency-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/migration-planner/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/migration-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/incident-response/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/incident-response/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/frontend-dev/react/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/frontend-dev/react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/hunt-xss/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/hunt-xss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/backend-dev/nodejs/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/backend-dev/nodejs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/backend-dev/python/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/backend-dev/python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/frontend-dev/nextjs/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/frontend-dev/nextjs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/ctf/ctf/methodology/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/ctf/ctf/methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/hunt-idor/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/hunt-idor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/hunt-ssrf/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/hunt-ssrf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/hunt-sqli/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/hunt-sqli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/backend-dev/caching/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/backend-dev/caching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/hunt-cors/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/hunt-cors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/architecture-review/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/architecture-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/frontend-dev/testing/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/frontend-dev/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/backend-dev/database/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/backend-dev/database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/web3-audit/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/web3-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/frontend-dev/tailwind/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/frontend-dev/tailwind/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/hunt-desync/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/hunt-desync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/pentest-ops/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/pentest-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/hunt-memory/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/hunt-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/tool-doctor/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/tool-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/performance-profiling/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/performance-profiling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bug-bounty-methodology/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bug-bounty-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/frontend-dev/components/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/frontend-dev/components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/frontend-dev/performance/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/frontend-dev/performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/ctf/ctf/malware-analysis/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/ctf/ctf/malware-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/client-reverse/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/client-reverse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/ctf/ctf/solution-verifier/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/ctf/ctf/solution-verifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/evidence-locker/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/evidence-locker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/credential-attack/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/credential-attack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/findings-lifecycle/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/findings-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alphacode",
+      "path": "src/alphacode_base/bundled_skills/bugbounty/network-cloud-triage/SKILL.md",
+      "github_url": "https://github.com/dragonked2/alphacode/tree/main/src/alphacode_base/bundled_skills/bugbounty/network-cloud-triage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dragonked2/alphacode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T21:33:01Z"
+}
