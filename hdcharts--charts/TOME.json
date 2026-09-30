@@ -1,0 +1,129 @@
+{
+  "name": "charts",
+  "owner": "HDCharts",
+  "repo": "charts",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-pr/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-rc/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-rc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-ux/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-gif/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-gif/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-plan/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-docs/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-review/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-kotlin/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-kotlin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-testing/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-compose/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-compose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-changeset/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-concurrency/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-concurrency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-architecture/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charts",
+      "path": ".agents/skills/hdc-maintainability/SKILL.md",
+      "github_url": "https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-maintainability/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HDCharts/charts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T23:41:09Z"
+}
