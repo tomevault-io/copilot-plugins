@@ -2,8 +2,8 @@
   "name": "OpenSDL",
   "owner": "fl-sean03",
   "repo": "OpenSDL",
-  "description": "A modular Python foundation for reproducible computational and autonomous laboratories.",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,75 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/debug-run/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/debug-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/design-lab/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/design-lab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/create-lab/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/create-lab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/orient-lab/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/orient-lab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/start-here/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/start-here/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/add-adapter/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/add-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/author-skill/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/author-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/add-capability/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/add-capability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/add-domain-pack/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/add-domain-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSDL",
+      "path": ".agents/skills/develop-workflow/SKILL.md",
+      "github_url": "https://github.com/fl-sean03/OpenSDL/tree/main/.agents/skills/develop-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/fl-sean03/OpenSDL",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T05:03:30Z"
+  "distributed_at": "2026-09-30T21:56:42Z"
 }
