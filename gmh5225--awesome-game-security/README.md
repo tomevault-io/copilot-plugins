@@ -1,6 +1,6 @@
 # awesome-game-security
 
-> Source: [gmh5225/awesome-game-security](https://github.com/gmh5225/awesome-game-security). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [gmh5225/awesome-game-security](https://github.com/gmh5225/awesome-game-security). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [gmh5225/awesome-game-security](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (14)
+## Bundled Skills (18)
 
 - [anti-cheat](https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/anti-cheat)
 - [overview](https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/overview)
@@ -31,6 +31,10 @@ Original source: `AGENTS.md` in [gmh5225/awesome-game-security](https://github.c
 - [awesome-game-security](https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/graphics-api/SKILL.md)
 - [awesome-game-security](https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/windows-kernel/SKILL.md)
 - [awesome-game-security](https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/reverse-engineering/SKILL.md)
+- [awesome-game-security](https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/research-rigor/SKILL.md)
+- [awesome-game-security](https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/game-server-security/SKILL.md)
+- [awesome-game-security](https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/linux-platform-security/SKILL.md)
+- [awesome-game-security](https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/game-supply-chain-security/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/gmh5225/awesome-game-security](https://github.com/gmh5225/awesome-game-security)
 
