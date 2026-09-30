@@ -4,7 +4,7 @@
   "repo": "docs-governance",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qshanx/docs-governance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T03:06:33Z"
+  "distributed_at": "2026-09-30T23:58:36Z"
 }
