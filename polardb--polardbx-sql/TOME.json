@@ -1,0 +1,99 @@
+{
+  "name": "polardbx-sql",
+  "owner": "polardb",
+  "repo": "polardbx-sql",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "polardbx-sql",
+      "path": "polardbx-executor/src/main/resources/ai/skills/polardbx-ttl20/SKILL.md",
+      "github_url": "https://github.com/polardb/polardbx-sql/tree/main/polardbx-executor/src/main/resources/ai/skills/polardbx-ttl20/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polardbx-sql",
+      "path": "polardbx-executor/src/main/resources/ai/skills/polardbx-pagination/SKILL.md",
+      "github_url": "https://github.com/polardb/polardbx-sql/tree/main/polardbx-executor/src/main/resources/ai/skills/polardbx-pagination/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polardbx-sql",
+      "path": "polardbx-executor/src/main/resources/ai/skills/polardbx-online-ddl/SKILL.md",
+      "github_url": "https://github.com/polardb/polardbx-sql/tree/main/polardbx-executor/src/main/resources/ai/skills/polardbx-online-ddl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polardbx-sql",
+      "path": "polardbx-executor/src/main/resources/ai/skills/polardbx-sql-compat/SKILL.md",
+      "github_url": "https://github.com/polardb/polardbx-sql/tree/main/polardbx-executor/src/main/resources/ai/skills/polardbx-sql-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polardbx-sql",
+      "path": "polardbx-executor/src/main/resources/ai/skills/polardbx-ai-functions/SKILL.md",
+      "github_url": "https://github.com/polardb/polardbx-sql/tree/main/polardbx-executor/src/main/resources/ai/skills/polardbx-ai-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polardbx-sql",
+      "path": "polardbx-executor/src/main/resources/ai/skills/polardbx-plan-analysis/SKILL.md",
+      "github_url": "https://github.com/polardb/polardbx-sql/tree/main/polardbx-executor/src/main/resources/ai/skills/polardbx-plan-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polardbx-sql",
+      "path": "polardbx-executor/src/main/resources/ai/skills/polardbx-vector-search/SKILL.md",
+      "github_url": "https://github.com/polardb/polardbx-sql/tree/main/polardbx-executor/src/main/resources/ai/skills/polardbx-vector-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polardbx-sql",
+      "path": "polardbx-executor/src/main/resources/ai/skills/polardbx-ops-diagnostics/SKILL.md",
+      "github_url": "https://github.com/polardb/polardbx-sql/tree/main/polardbx-executor/src/main/resources/ai/skills/polardbx-ops-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polardbx-sql",
+      "path": "polardbx-executor/src/main/resources/ai/skills/polardbx-partition-design/SKILL.md",
+      "github_url": "https://github.com/polardb/polardbx-sql/tree/main/polardbx-executor/src/main/resources/ai/skills/polardbx-partition-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/polardb/polardbx-sql",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T23:37:11Z"
+}
