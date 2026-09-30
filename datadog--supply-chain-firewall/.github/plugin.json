@@ -1,0 +1,9 @@
+{
+  "name": "datadog--supply-chain-firewall",
+  "displayName": "supply-chain-firewall",
+  "description": "supply-chain-firewall",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/supply-chain-firewall",
+  "skills": []
+}
