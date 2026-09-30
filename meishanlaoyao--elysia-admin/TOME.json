@@ -1,0 +1,57 @@
+{
+  "name": "elysia-admin",
+  "owner": "meishanlaoyao",
+  "repo": "elysia-admin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "elysia-admin",
+      "path": ".qoder/skills/elysia-module-dev/SKILL.md",
+      "github_url": "https://github.com/meishanlaoyao/elysia-admin/tree/main/.qoder/skills/elysia-module-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elysia-admin",
+      "path": ".cursor/skills/elysia-module-dev/SKILL.md",
+      "github_url": "https://github.com/meishanlaoyao/elysia-admin/tree/main/.cursor/skills/elysia-module-dev/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/meishanlaoyao/elysia-admin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T18:12:47Z"
+}
