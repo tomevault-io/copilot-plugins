@@ -1,0 +1,69 @@
+{
+  "name": "compose-multiplatform-charts",
+  "owner": "gurgen-k-y",
+  "repo": "compose-multiplatform-charts",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "compose-multiplatform-charts",
+      "path": ".claude/skills/add-chart/SKILL.md",
+      "github_url": "https://github.com/gurgen-k-y/compose-multiplatform-charts/tree/main/.claude/skills/add-chart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compose-multiplatform-charts",
+      "path": ".claude/skills/upgrade-kmp/SKILL.md",
+      "github_url": "https://github.com/gurgen-k-y/compose-multiplatform-charts/tree/main/.claude/skills/upgrade-kmp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compose-multiplatform-charts",
+      "path": ".claude/skills/validate-charts/SKILL.md",
+      "github_url": "https://github.com/gurgen-k-y/compose-multiplatform-charts/tree/main/.claude/skills/validate-charts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compose-multiplatform-charts",
+      "path": ".claude/skills/prepare-release/SKILL.md",
+      "github_url": "https://github.com/gurgen-k-y/compose-multiplatform-charts/tree/main/.claude/skills/prepare-release/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gurgen-k-y/compose-multiplatform-charts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T09:36:20Z"
+}
