@@ -3,7 +3,7 @@
   "owner": "CybercentreCanada",
   "repo": "howler",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "howler",
-      "path": ".agents/skills/gh-fix-ci/SKILL.md",
-      "github_url": "https://github.com/CybercentreCanada/howler/tree/main/.agents/skills/gh-fix-ci/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "howler",
-      "path": ".agents/skills/gh-address-comments/SKILL.md",
-      "github_url": "https://github.com/CybercentreCanada/howler/tree/main/.agents/skills/gh-address-comments/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/CybercentreCanada/howler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T15:33:20Z"
+  "distributed_at": "2026-09-30T16:00:51Z"
 }
