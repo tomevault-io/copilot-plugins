@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [metacall/core](https://github.com/metacall/core
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [metacall/core](https://github.com/metacall/core) — a repo with 1810+ stars on GitHub.
+From [metacall/core](https://github.com/metacall/core) — a repo with 1820+ stars on GitHub.
 
 ---
 
