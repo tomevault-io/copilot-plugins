@@ -1,0 +1,75 @@
+{
+  "name": "TTstack",
+  "owner": "TTstack",
+  "repo": "TTstack",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "TTstack",
+      "path": ".claude/skills/x-live/SKILL.md",
+      "github_url": "https://github.com/TTstack/TTstack/tree/main/.claude/skills/x-live/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TTstack",
+      "path": ".claude/skills/x-check/SKILL.md",
+      "github_url": "https://github.com/TTstack/TTstack/tree/main/.claude/skills/x-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TTstack",
+      "path": ".claude/skills/x-review/SKILL.md",
+      "github_url": "https://github.com/TTstack/TTstack/tree/main/.claude/skills/x-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TTstack",
+      "path": ".claude/skills/x-commit/SKILL.md",
+      "github_url": "https://github.com/TTstack/TTstack/tree/main/.claude/skills/x-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TTstack",
+      "path": ".claude/skills/ttstack-development/SKILL.md",
+      "github_url": "https://github.com/TTstack/TTstack/tree/main/.claude/skills/ttstack-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TTstack/TTstack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:48:40Z"
+}
