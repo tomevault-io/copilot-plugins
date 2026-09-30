@@ -1,81 +1,60 @@
 ## containerd
 
-> This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
+> Before contributing, read [CONTRIBUTING.md](CONTRIBUTING.md) and the [org-wide contribution guide](https://github.com/containerd/project/blob/main/CONTRIBUTING.md). They cover change scope, tests, license headers, commit sign-offs, and AI attribution.
 
-# Agent Guidelines for go-toml
+# AGENTS.md
 
-This file provides guidelines for AI agents contributing to go-toml. All agents must follow these rules derived from [CONTRIBUTING.md](./CONTRIBUTING.md).
+## Preparing changes
 
-## Project Overview
+Before contributing, read [CONTRIBUTING.md](CONTRIBUTING.md) and the [org-wide contribution guide](https://github.com/containerd/project/blob/main/CONTRIBUTING.md). They cover change scope, tests, license headers, commit sign-offs, and AI attribution.
 
-go-toml is a TOML library for Go. The goal is to provide an easy-to-use and efficient TOML implementation that gets the job done without getting in the way.
+For AI-assisted work, follow the org guide's [Coding Agent Usage](https://github.com/containerd/project/blob/main/CONTRIBUTING.md#coding-agent-usage) policy and the repository's [submission requirements](CONTRIBUTING.md#automated-and-ai-generated-contributions). The human contributor reviews all content before submission and writes replies to review comments and issue discussions. Automated PR creation requires prior maintainer approval.
 
-## Code Change Rules
+- Before adding a capability, check [SCOPE.md](SCOPE.md). Its allow-list governs features and components.
+- Before adding packages or source files, read [Where to put packages](CONTRIBUTING.md#where-to-put-packages).
+- Before changing a public API or protobuf definition, read [Public API Stability](RELEASES.md#public-api-stability).
+- Before changing daemon configuration, read [Daemon Configuration](RELEASES.md#daemon-configuration) for compatibility and migration requirements.
 
-### Backward Compatibility
+When requirements leave behavior or API names ambiguous, resolve them with the human contributor before implementing the change.
 
-- **No backward-incompatible changes** unless explicitly discussed and approved
-- Avoid breaking people's programs unless absolutely necessary
+## Build and validation
 
-### Testing Requirements
+- **Builds and dependencies:** read [BUILDING.md](BUILDING.md) for prerequisites, binary targets, build tags, and vendoring. Regenerate `vendor/` with `make vendor`; never hand-edit vendored files.
+- **Protobuf changes:** follow [Updating protobuf files](CONTRIBUTING.md#updating-protobuf-files) to regenerate code and check formatting. Never hand-edit generated protobuf code.
+- **Lint:** run `make check` with the tools from [Setting up your local environment](CONTRIBUTING.md#setting-up-your-local-environment). If prerequisites are unavailable, report the blocker.
+- **Tests:** use [Testing containerd](BUILDING.md#testing-containerd) to select the suite and privileges needed for the changed behavior. Check for skipped tests before reporting coverage. For CRI changes, also read [CRI Plugin Testing Guide](docs/cri/testing.md).
 
-- **All bug fixes must include regression tests**
-- **All new code must be tested**
-- Run tests before submitting: `go test -race ./...`
-- Test coverage must not decrease. Check with:
-  ```bash
-  go test -covermode=atomic -coverprofile=coverage.out
-  go tool cover -func=coverage.out
-  ```
-- All lines of code touched by changes should be covered by tests
+Run `make clean-test` only on a dedicated test host: it kills every `containerd` and `runc` process and removes runtime state.
 
-### Performance Requirements
+Fix failing checks at the cause, or explain to the human contributor why the check is wrong. Never delete or weaken tests, add `//nolint`, or bypass a check just to make CI pass.
 
-- go-toml aims to stay efficient; avoid performance regressions
-- Run benchmarks to verify: `go test ./... -bench=. -count=10`
-- Compare results using [benchstat](https://pkg.go.dev/golang.org/x/perf/cmd/benchstat)
+## Subsystem context
 
-### Documentation
+Read the relevant docs before changing a subsystem:
 
-- New features or feature extensions must include documentation
-- Documentation lives in [README.md](./README.md) and throughout source code
+| Area                                      | Reference                                        |
+| ----------------------------------------- | ------------------------------------------------ |
+| Plugin registration and dependencies      | [Plugin model](docs/PLUGINS.md)                  |
+| Task execution and shim lifecycle         | [Runtime v2](docs/runtime-v2.md)                 |
+| Sandbox controllers                       | [Sandbox API](docs/sandbox-api.md)               |
+| CRI requests and kubelet integration      | [CRI architecture](docs/cri/architecture.md)     |
+| Content, snapshots, and their labels      | [Content flow](docs/content-flow.md)             |
+| Resource retention and garbage collection | [Garbage collection](docs/garbage-collection.md) |
+| Namespace propagation through context     | [Namespaces](docs/namespaces.md)                 |
+| Daemon-side image transfers               | [Transfer service](docs/transfer.md)             |
 
-### Code Style
+## Security findings
 
-- Follow existing code format and structure
-- Code must pass `go fmt`
-- Code must pass linting with the same golangci-lint version as CI (see version in `.github/workflows/lint.yml`):
-  ```bash
-  # Install specific version (check lint.yml for current version)
-  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(go env GOPATH)/bin <version>
-  # Run linter
-  golangci-lint run ./...
-  ```
+Before scanning for security issues, evaluating a suspected vulnerability, or drafting a security report, read all three:
 
-### Commit Messages
+- [Threat model](docs/security/THREAT_MODEL.md): trust boundaries, trusted components, and security exclusions.
+- [Triage guide](docs/security/TRIAGE_GUIDE.md): required evidence and finding classifications.
+- [Operator baseline](docs/security/OPERATOR_GUIDELINES.md#1-baseline-security-requirements): deployment assumptions used in triage.
 
-- Commit messages must explain **why** the change is needed
-- Keep messages clear and informative even if details are in the PR description
+Apply their scope and evidence requirements before calling a finding a vulnerability. Findings outside the threat model are not vulnerabilities.
 
-### Capabilities
-
-go-toml tracks system-level capabilities using [capslock](https://github.com/google/capslock). The baseline is in `capability_baseline.txt` and CI enforces that it does not grow.
-
-- **Do not introduce new capabilities.** PRs that increase the capability set (e.g., adding network access, subprocess execution, syscalls) are unlikely to be accepted.
-- If a change causes the capabilities check to fail, do not update the baseline to make it pass. Instead, rethink the approach to avoid requiring new capabilities.
-- To check locally: `./caps.sh check` (requires `capslock` installed via `go install github.com/google/capslock/cmd/capslock@latest`)
-
-## Pull Request Checklist
-
-Before submitting:
-
-1. Tests pass (`go test -race ./...`)
-2. No backward-incompatible changes (unless discussed)
-3. Relevant documentation added/updated
-4. No performance regression (verify with benchmarks)
-5. Capabilities are not increasing (`./caps.sh check`)
-6. Title is clear and understandable for changelog
+Raise suspected non-public vulnerabilities privately with the human contributor, who decides whether to use the [Security Advisories portal](https://github.com/containerd/containerd/security). Never disclose them in issues, PRs, commits, review comments, or public chat; containerd channels in the CNCF Slack are public.
 
 ---
 > Source: [containerd/containerd](https://github.com/containerd/containerd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
