@@ -15,6 +15,10 @@ Original source: `AGENTS.md` in [vikejs/vike](https://github.com/vikejs/vike).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
+## Bundled Skills (1)
+
+- [vike](https://github.com/vikejs/vike/tree/main/skills/vike/SKILL.md)
+
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/vikejs/vike](https://github.com/vikejs/vike)
 
 ---
