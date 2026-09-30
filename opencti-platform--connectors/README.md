@@ -5,12 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [OpenCTI-Platform/connectors](https://github.com/OpenCTI-Platform/connectors).
+Original source: `AGENTS.md` in [OpenCTI-Platform/connectors](https://github.com/OpenCTI-Platform/connectors).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
