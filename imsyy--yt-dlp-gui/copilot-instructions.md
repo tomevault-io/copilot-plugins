@@ -1,68 +1,54 @@
 ## yt-dlp-gui
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> yt-dlp-gui is a desktop video downloader built with Tauri 2, Rust, Vue 3, and TypeScript. The frontend is under `src/`; the Rust backend is under `src-tauri/src/`.
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Repository Instructions
 
 ## Project Overview
 
-yt-dlp-gui is a desktop application for downloading videos via yt-dlp. Built with **Tauri 2** (Rust backend) + **Vue 3** (TypeScript frontend). The UI is in Chinese.
+yt-dlp-gui is a desktop video downloader built with Tauri 2, Rust, Vue 3, and TypeScript. The frontend is under `src/`; the Rust backend is under `src-tauri/src/`.
 
 ## Development Commands
 
 ```bash
-pnpm install          # Install frontend dependencies
-pnpm tauri dev        # Run the full app in development (starts Vite + Rust backend)
-pnpm dev              # Run frontend only (Vite dev server on port 5688)
-pnpm build            # Type-check and build frontend (vue-tsc + vite build)
-pnpm tauri build      # Build production app bundle
+pnpm install
+pnpm dev
+pnpm build
+pnpm tauri dev
+pnpm tauri build
+pnpm test -- --run
+cargo check --manifest-path src-tauri/Cargo.toml
+cargo test --manifest-path src-tauri/Cargo.toml
 ```
 
-Rust backend builds are handled by Tauri automatically during `pnpm tauri dev` / `pnpm tauri build`. To check Rust code independently:
-```bash
-cd src-tauri && cargo check
-```
+Run focused checks while developing, then run the relevant frontend and Rust checks before handing off changes.
 
-## Architecture
+## Frontend Conventions
 
-### Frontend (`src/`)
-- **Vue 3 + TypeScript** with `<script setup>` SFCs
-- **Naive UI** component library, auto-imported via `unplugin-vue-components` (NaiveUiResolver)
-- **Auto-imports** configured in `vite.config.ts`: Vue, Vue Router, VueUse APIs, and Naive UI composables are available without explicit imports
-- **Pinia** for state with `pinia-plugin-persistedstate` for localStorage persistence
-- **Path alias**: `@` maps to `src/`
-- **Pages**: Home (video search/download UI), Downloads, Settings
-- **Tauri IPC**: Frontend calls Rust commands via `invoke()` from `@tauri-apps/api/core`
+- Use Vue 3 `<script setup lang="ts">` single-file components and the `@` alias for `src/` paths.
+- The project uses `unplugin-auto-import` and `unplugin-vue-components`, configured in `vite.config.ts`.
+- Vue, Vue Router, VueUse, and configured Naive UI APIs are automatically imported. Check `auto-imports.d.ts` before adding an explicit API import.
+- Components discovered by the component resolver are automatically imported. Check `components.d.ts` before adding an explicit component import.
+- Do not explicitly import an API or component that is already covered by automatic imports. For example, use `<ToolUrlInput />` directly when it appears in `components.d.ts`; do not add `import ToolUrlInput from "@/components/toolbox/ToolUrlInput.vue"`.
+- Treat `auto-imports.d.ts` and `components.d.ts` as generated declarations. Do not manually maintain entries that the Vite plugins generate.
+- Use Pinia for shared application state. Do not persist component-local state unless the feature explicitly requires restoration across navigation or application restarts.
+- Frontend-to-backend calls use Tauri `invoke` from `@tauri-apps/api/core`.
 
-### Backend (`src-tauri/src/`)
-- `lib.rs` — Tauri app builder, registers all commands and plugins
-- `commands/` — Tauri command handlers,按功能域拆分:
-  - `mod.rs` — shared types (DownloadState, DownloadParams, YtdlpStatus etc.)
-  - `setup.rs` — platform info, yt-dlp/Deno installation management
-  - `video.rs` — video info fetching (`-J`), cookie management
-  - `download.rs` — download task control (start/pause/resume/cancel/check_files_exist)
-- `parser.rs` — yt-dlp `--progress-template` JSON output parsing
-- `process.rs` — OS-level process control (suspend/resume/kill via Win32 API or signals)
-- `utils.rs` — Path helpers (yt-dlp, Deno, cookie paths in app data dir), platform-specific download URLs, JS runtime args builder
-- Binaries (yt-dlp, Deno) are downloaded to the Tauri app data directory at runtime, not bundled
-- Progress events emitted to frontend via `app.emit()` (e.g., `ytdlp-download-progress`, `deno-download-progress`)
-- Download progress uses `--progress-template` (structured JSON) instead of parsing stdout text
-- Final output file path retrieved via `--print-to-file after_move:filepath` to avoid Windows GBK encoding issues
+## Rust and Tauri Conventions
 
-### Frontend-Backend Communication
-- Tauri commands are invoked from Vue via `invoke<T>("command_name", { args })`
-- Real-time progress uses Tauri event system (`app.emit` on Rust side)
-- Shared types in `src/types/index.ts` mirror Rust structs in `commands/mod.rs`
+- Register Tauri commands in `src-tauri/src/lib.rs`.
+- Keep command implementations grouped by functional domain under `src-tauri/src/commands/` and database code under `src-tauri/src/db/`.
+- Prefer a single current-state record over an accumulating history table when a feature only needs to restore its latest state.
+- Run `cargo check` and the relevant Rust tests after changing commands, migrations, or database models.
+- Avoid formatting unrelated Rust files; preserve unrelated user changes in the working tree.
 
-## Key Conventions
+## Change Discipline
 
-- Windows builds use `CREATE_NO_WINDOW` flag (0x08000000) on all subprocess spawns to hide console windows
-- All yt-dlp commands set `PYTHONUTF8=1` environment variable and use `--ignore-config --color never`
-- Deno is optional — used as JS runtime for yt-dlp when installed (`--js-runtimes` flag)
-- Cookie support: text (Netscape format saved to file) or direct file path
+- Inspect the existing architecture and generated declarations before introducing helpers, imports, persistence, or abstractions.
+- Keep changes scoped to the requested behavior and remove superseded commands, tables, types, and comments.
+- Do not conflate transient/current UI state with user-facing history. History must be an explicit product requirement.
+- Preserve existing unrelated worktree changes.
 
 ---
 > Source: [imsyy/yt-dlp-gui](https://github.com/imsyy/yt-dlp-gui) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
