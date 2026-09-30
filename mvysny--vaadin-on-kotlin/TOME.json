@@ -4,7 +4,7 @@
   "repo": "vaadin-on-kotlin",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mvysny/vaadin-on-kotlin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T09:04:09Z"
+  "distributed_at": "2026-09-30T03:31:48Z"
 }
