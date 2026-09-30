@@ -1,17 +1,15 @@
 # geoscience-skills
 
-> Source: [SteadfastAsArt/geoscience-skills](https://github.com/SteadfastAsArt/geoscience-skills) — distributed by [TomeVault](https://tomevault.io)
-
-🌍 30 AI-powered geoscience skills for Claude Code, Cursor & GitHub Copilot. Seismic, well logs, 3D modelling, inversion, geostatistics, spatial regression, NetCDF, and more.
+> Source: [SteadfastAsArt/geoscience-skills](https://github.com/SteadfastAsArt/geoscience-skills). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SteadfastAsArt/geoscience-skills](https://github.com/SteadfastAsArt/geoscience-skills).
+Original source: `AGENTS.md` in [SteadfastAsArt/geoscience-skills](https://github.com/SteadfastAsArt/geoscience-skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
