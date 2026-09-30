@@ -1,0 +1,9 @@
+{
+  "name": "wiedymi--ass-rs",
+  "displayName": "ass-rs",
+  "description": "A modular, high-performance Rust implementation of the ASS (Advanced SubStation Alpha) subtitle format.",
+  "version": "1.0.0",
+  "author": "wiedymi",
+  "homepage": "https://github.com/wiedymi/ass-rs",
+  "skills": []
+}
