@@ -2,9 +2,9 @@
   "name": "argot",
   "owner": "get-tmonier",
   "repo": "argot",
-  "description": "A statistical code analyzer built from your repository's history.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/get-tmonier/argot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T13:16:24Z"
+  "distributed_at": "2026-09-30T10:32:49Z"
 }
