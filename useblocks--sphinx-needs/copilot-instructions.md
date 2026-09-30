@@ -2,497 +2,226 @@
 
 > The delta for this package. Everything repository-level — the workspace layout, the
 
-# AGENTS.md — packages/sphinx-codelinks
+# AGENTS.md — packages/sphinx-test-reports
 
 The delta for this package. Everything repository-level — the workspace layout, the
 commands, the lock, lint/format/type-check configuration, the release recipe, the pull
-request requirements and the commit-message convention — is in the ROOT
-[`AGENTS.md`](../../AGENTS.md), and this file does not repeat it. What is here is what an
-agent has to know that is true of sphinx-codelinks and not of the workspace.
+request requirements — is in the ROOT [`AGENTS.md`](../../AGENTS.md), and this file does not
+repeat it. What is here is what an agent has to know that is true of sphinx-test-reports and
+not of the workspace.
 
 ## Project Overview
 
-sphinx-codelinks is a Sphinx extension that provides fast source code traceability for
-sphinx-needs. It:
+sphinx-test-reports turns test results into needs. It has **three surfaces, and only one of
+them is a Sphinx extension** — which is the single most important thing to know about this
+package, because it shapes the manifest, the CI and the split that is coming:
 
-- **analyses source code** — scans C, C++, C#, Python, Rust, Go, YAML, JSON and Bash files
-  for special comment markers, with tree-sitter;
-- **creates needs from them** — turns discovered markers into sphinx-needs items;
-- **traces sources** — links documentation to exact source lines, and generates a
-  syntax-highlighted HTML page per traced file with line anchors;
-- **has a CLI** — `codelinks analyse`, `codelinks discover` and `codelinks write rst`,
-  for use outside a Sphinx build.
+- **the extension** — `test-file`, `test-suite`, `test-case`, `test-report`, `test-results`
+  and `test-env` directives, which read JUnit / ctest / googletest XML and tox-envreport
+  JSON and create sphinx-needs items from them, plus the `tr_link` dynamic function;
+- **the converter** — a `test-reports` console script that turns the same reports into a
+  `needs.json` **without running Sphinx at all**;
+- **the pytest plugin** — `sphinxcontrib.test_reports.pytest_plugin`, which writes the XML
+  shape the extension reads, including per-case properties for traceability.
 
-It is the only member of this workspace whose `src/` imports `sphinx_needs`, and it
-declares it as a **runtime** dependency with a tight floor (`sphinx-needs>=8.5.0,<9`,
-which `check_workspace.py` check (4) enforces against the sibling's current version, and
-`propagate_floors.py` moves at each sphinx-needs release).
+So **Sphinx and sphinx-needs are an `[project.optional-dependencies]` extra, not
+dependencies**: `pip install sphinx-test-reports` gets you `lxml` and the last two surfaces;
+`pip install "sphinx-test-reports[sphinx]"` gets you the extension. The published wheel's
+`Requires-Dist` is `lxml` alone. Two things in this repository exist because of that — the
+`toolchain-free` CI job and this package's `compat-requirements.txt` — and both are
+described below.
 
 ## Package structure
 
 ```text
-pyproject.toml          # `[project]`, `[project.urls]`, `[build-system]` and nothing else:
-                        #   ruff, ty, pytest and the dependency groups are the ROOT's
-.readthedocs.yaml       # this package's RTD project; every path in it is relative to the
-                        #   REPOSITORY root, not to the file
-README.md · LICENSE
+pyproject.toml          # `[project]`, `[project.urls]`, `[project.scripts]` and
+                        #   `[tool.flit.module]`. NOT ruff, ty, pytest or dependency
+                        #   groups: those are the root's, and check (7) refuses them here
+compat-requirements.txt # released deps the compat cell needs -- see "Releasing" below
+.readthedocs.yaml       # this package's RTD project; its paths are REPOSITORY-root relative
+AUTHORS · LICENSE · README.rst
 design/                 # import-commit-map.txt: old hash -> new hash for the 2026-09 import
 
-src/sphinx_codelinks/   # Main source code
-├── __init__.py         # `__version__` (public, in `__all__`) and the Sphinx `setup()`
-├── cmd.py              # CLI commands using Typer
-├── config.py           # Configuration dataclasses + TypedDicts, and the TOML loader
-├── logger.py           # Logging utilities
-├── needextend_write.py # Write RST files with Sphinx-Needs directives
-├── analyse/            # Code analysis module
-│   ├── analyse.py      # Main analysis orchestration
-│   ├── models.py       # dataclasses/TypedDicts/Enums for analysis results
-│   ├── oneline_parser.py # One-line comment parser
-│   ├── projects.py     # Project-specific analyzers (C++, Python, etc.)
-│   ├── utils.py        # Analysis utilities, including the git-root helpers
-│   └── preproc/        # the OPTIONAL libclang engine -- see below
-├── source_discover/    # Source file discovery
-│   ├── config.py       # Discovery configuration
-│   └── source_discover.py # File discovery logic
-└── sphinx_extension/   # Sphinx extension components
-    ├── source_tracing.py # Main Sphinx extension setup
-    ├── html_wrapper.py  # HTML output wrapper for traced source
-    ├── debug.py         # Debug utilities
-    ├── ub_sct.css       # CSS for source tracing UI
-    └── directives/      # Custom Sphinx directives
+src/sphinxcontrib/test_reports/
+├── __init__.py         # the lazy `setup` re-export; `sphinxcontrib` is a PEP 420 namespace
+├── test_reports.py     # the extension entry point: directives, config values, fields
+├── cli.py              # the `test-reports` converter command
+├── pytest_plugin.py    # the pytest plugin
+├── junitparser.py · jsonparser.py · results.py · identity.py · fields.py
+│                       # the toolchain-free core: parsers, the result vocabulary, the
+│                       #   deterministic case IDs, the one field table both writers share
+├── projectconfig.py    # the `[test_reports]` ubproject.toml model and its discovery walk
+├── needs_export.py · remote.py · config.py · environment.py · exceptions.py · toolchain.py
+├── directives/         # one module per directive, all inheriting TestCommonDirective
+├── functions/          # `tr_link`, a sphinx-needs dynamic function
+├── css/ · schemas/JUnit.xsd
+└── directives/test_report_template.txt   # the DEFAULT tr_report_template -- it SHIPS
 
-tests/                  # Test suite -- `tests/__init__.py` is why this path is NOT in the
-├── __init__.py         #   root `testpaths` (see the root AGENTS.md)
-├── conftest.py         # Pytest fixtures and configuration
-├── test_*.py           # 16 test modules
-├── __snapshots__/      # Syrupy snapshot test fixtures
-├── data/               # Test data and fixtures
-└── doc_test/           # minimal Sphinx projects for the integration tests
-
-docs/                   # Documentation source (RST) -- conf.py sits IN the source dir,
-├── conf.py             #   so `sphinx-build docs docs/_build/html` needs no `-c`
-├── ubproject.toml      # this docs project's own needs + codelinks configuration
-├── changelog.rst       # `bump.py` stamps this path; do not move it
-├── index.rst · basics/ · components/ · development/ · _static/
+tests/                  # `tests/__init__.py` is why this path is not in the root testpaths
+docs/                   # conf.py sits IN the source dir; changelog.rst is stamped by `bump`
 ```
 
-## The two facts that are workspace-specific
-
-### libclang is optional, and 56 tests depend on it
-
-The preprocessor-aware C/C++ engine (`analyse/preproc/`) needs `clang.cindex`, which comes
-from the `libclang` wheel. It is optional at runtime — the member's `libclang` extra — and
-`analyse/preproc/__init__.py` imports the loader **eagerly**, so importing anything under
-that package without the wheel raises.
-
-In this workspace the wheel is the root dependency group **`codelinks-libclang`**, not part
-of `test`: it is 23 MiB and 81 MB on disk, and every cell of every package would otherwise
-pay for it. Every `test-codelinks*` poe task adds the group, and so does CI's Extensions
-cell.
-
-**`test-codelinks` syncs the group into the DEFAULT `.venv`.** It has no
-`UV_PROJECT_ENVIRONMENT` of its own, unlike its three `-sphinx7/8/9` siblings, so the wheel
-lands in the environment every other command uses — and the next plain `uv sync --frozen`
-prunes it out again (`Uninstalled 1 package: - libclang==18.1.1`). So the two numbers only
-appear either side of that sync, and this is the sequence that shows both:
-
-```bash
-uv run poe test-codelinks                                            # 359 passed
-uv sync --frozen                                                     # removes libclang again
-uv run --frozen --no-sync pytest packages/sphinx-codelinks/tests     # 303 passed, 26 skipped
-```
-
-**Both runs are green, and only the first tested the engine.** The four modules that need
-it carry `pytest.importorskip("clang.cindex")`, so a run without the group skips politely
-rather than failing — which means a task or a CI line that quietly lost the group would
-look like a pass. (CI is fenced: the Extensions cell asserts `import clang.cindex` right
-after its sync.) If you are changing anything under `analyse/preproc/`, check the number.
-
-The summary prints **26 skipped**, not 56: three of the four guards are module-level
-`pytest.importorskip`, which pytest reports as one skip per module and never collects the
-tests inside. 56 is how many test cases stop running.
-
-### This package caps `click` and `typer`, and nothing else in the lock does
-
-`click < 8.2` (8.2 produces empty errors when the CLI is given no arguments) and
-`typer >=0.16.0,<0.26.8` (0.26.8 removed `rich_utils.STYLE_METAVAR`, which
-`sphinxcontrib-typer` still imports for the docs build). Measured across every
-`requires-dist` in `uv.lock`: **no other workspace MEMBER names either**, and for `click`
-no package in the lock does at all. `typer`, `rich` and `shellingham` are named by third
-parties there — `sphinxcontrib-typer` (which is exactly what the `typer` cap exists for),
-`typer` itself, `memray` and `textual` — so the `typer` cap is the one that could bind on
-someone else. The direction to watch is the reverse one: the day a root, `test` or `dev`
-dependency wants `click>=8.2`, `uv lock` will fail and the reason will be here.
-
-## Documentation
-
-`uv run poe docs-codelinks` (and `docs-codelinks-clean`). `-nW --keep-going`, no renderer:
-these docs draw no diagrams, so unlike `docs-needs` there is no `dot`, `java` or plantuml
-to install. They DO need two things a normal checkout has and a stripped one may not:
-
-- **a git remote and a readable git directory.** `src-trace` turns every traced source line
-  into a blob link at the current rev, read out of the git directory's `config` and `HEAD`.
-  Worktrees are handled (`_git_dir` / `_git_common_dir` in `analyse/utils.py`); a checkout
-  with no `origin` is not, and the build fails under `-nW` with five
-  `[codelinks.git_remote]` warnings.
-- **network for intersphinx** to `sphinx-needs.readthedocs.io` and `www.sphinx-doc.org`.
-
-These docs are the one end-to-end exercise of the extension — `src-trace` runs over four
-projects of this package's own source — which is why CI builds them on every pull request
-(`Docs codelinks` in `ci.yaml`).
-
-## Code Style Guidelines
-
-Formatting, linting and type checking are the ROOT's — one ruff configuration, one ty
-configuration, one prek config (`uv run poe lint`, `uv run poe typecheck`). The root's
-`[tool.ruff.lint.per-file-ignores]` carries this package's one entry
-(`packages/sphinx-codelinks/tests/*`: `E402` for the `importorskip` guard pattern, `SIM300`
-for a deliberate assert order). What is specific to this package:
-
-- **Type annotations**: complete annotations on every function signature. Configuration
-  and data structures are stdlib `@dataclass`, `TypedDict` and `Enum` — **there is no
-  pydantic in this package** (`grep -rn pydantic src/` is empty, and it is not a
-  dependency); a `TypedDict` describes the TOML shape and a `@dataclass` the loaded object.
-- **Docstrings**: Sphinx-style (`:param:`, `:return:`, `:raises:`). No types in the
-  docstring — they belong in the annotations.
-- **Immutability**: prefer immutable structures; `@dataclass(frozen=True)` where it fits.
-- **Pure functions** where possible.
-- **Error handling**: descriptive exceptions, custom types where they help.
-
-### Docstring Example
-
-```python
-def form_https_url(
-    git_url: str, rev: str, project_path: Path, filepath: Path, lineno: int
-) -> str | None:
-    """Build the blob URL for one traced source line.
-
-    :param git_url: The remote URL, in any form giturlparse accepts.
-    :param rev: The commit the link should point at.
-    :param project_path: The root `filepath` is made relative to.
-    :param filepath: The traced file, ABSOLUTE and under `project_path`.
-    :param lineno: The line to anchor on.
-    :return: The URL, or the unchanged `git_url` if the host is unsupported.
-    """
-    ...
-```
-
-## Testing Guidelines
-
-`uv run poe test-codelinks` (trailing arguments go to pytest), and
-`test-codelinks-sphinx7/8/9` for one matrix cell each. Snapshots:
-`uv run poe test-codelinks --snapshot-update`.
-
-**No `--` before the pytest arguments.** poe appends trailing words to the task's command
-verbatim and forwards a `--` along with them, and pytest then reads `--snapshot-update` as
-a file path: `poe test-codelinks -- --collect-only -q` collects **0 items**, where
-`poe test-codelinks --collect-only -q` collects 359.
-
-### Test Structure
-
-- Tests use `pytest` with fixtures from `conftest.py`, which also loads the workspace's
-  shared test layer, `packages/sphinx-needs-testkit` — the doctree snapshot extension and
-  the warning normalisation a build assertion goes through both come from there rather than
-  from a copy here, so a warning means the same thing in this suite as in the other two
-- Snapshot testing uses `syrupy` for complex output comparisons
-- Test data is in `tests/data/`
-- Sphinx integration tests use real Sphinx projects in `tests/doc_test/`
-- `tests/test_analyse_utils.py` builds real `git init` repositories and a real
-  `git worktree`, so `git` must be on PATH
-
-### Writing Tests
-
-1. For code analysis tests, create test data in `tests/data/` with source files
-2. Use `syrupy` for comparing complex analysis outputs (JSON, doctrees, etc.)
-3. For Sphinx integration, create minimal projects in `tests/doc_test/`
-4. Use parametrized tests for testing multiple language parsers
-
-### Test Best Practices
-
-- **Test coverage**: write tests for all new functionality and bug fixes
-- **Isolation**: each test independent of every other's state
-- **Descriptive names**: the function name says what is tested
-- **Snapshot testing**: `assert snapshot == result` for complex outputs
-- **Parametrization**: `@pytest.mark.parametrize` for multiple scenarios
-- **Fixtures**: reusable ones in `conftest.py`
-- **No CWD assumptions.** The suite must pass both from `packages/sphinx-codelinks` and
-  from the repository root, because CI runs it from the root. A test that resolves a
-  relative path against the CWD passes in one and fails in the other — that was
-  `test_form_https_url` until the import fixed it.
-
-### Example Test Pattern
-
-```python
-from pathlib import Path
-
-from sphinx_codelinks.analyse.analyse import SourceAnalyse
-from sphinx_codelinks.config import SourceAnalyseConfig
-
-
-def test_analyse_cpp_file(tmp_path: Path, snapshot) -> None:
-    """One C++ file with one one-line marker produces one need."""
-    # Arrange. The DEFAULT one-line style is `@` to end-of-line with comma-separated
-    # fields in the order title, id, type, links -- `[[...]]` in tests/data/dcdc is a
-    # configured `OneLineCommentStyle`, not the default. Each extractor is opt-in:
-    # `get_oneline_needs` is False unless asked for. And `SourceAnalyse` does NOT discover
-    # files -- `src_files` is what it reads, and `SourceDiscover` is what fills that list
-    # in the CLI and in the extension
-    source = tmp_path / "demo.cpp"
-    source.write_text("// @the demo function, IMPL_demo, impl\nvoid demo() {}\n")
-    config = SourceAnalyseConfig(
-        src_files=[source], src_dir=tmp_path, get_oneline_needs=True
-    )
-
-    # Act
-    analyse = SourceAnalyse(config)
-    analyse.git_remote_url = None   # a tmp_path is not a repository
-    analyse.git_commit_rev = None
-    analyse.run()
-
-    # Assert
-    assert analyse.all_marked_content == snapshot
-```
-
-## Architecture Overview
-
-### Analysis Pipeline
-
-The code analysis follows a multi-stage pipeline:
-
-```text
-Source Files → Discovery → Parsing → Analysis → Results (JSON) → RST Generation
-```
-
-1. **Discovery** (`source_discover/`): Scan directories for source files matching patterns
-2. **Parsing** (`analyse/oneline_parser.py`): Use tree-sitter to parse source code AST
-3. **Analysis** (`analyse/analyse.py`, `analyse/projects.py`): Extract markers and metadata
-4. **Output** (`needextend_write.py`): Generate RST with Sphinx-Needs directives
-
-### Sphinx Integration Flow
-
-The Sphinx extension hooks into multiple build events to provide source tracing:
-
-```mermaid
-flowchart TB
-    subgraph init["Initialization (config-inited)"]
-        setup["setup() in __init__.py"]
-        load_toml["load_config_from_toml()"]
-        sn_options["update_sn_extra_options()"]
-        sn_types["update_sn_types()"]
-        check_config["check_sphinx_configuration()"]
-    end
-
-    subgraph prepare["Build Preparation"]
-        builder_init["builder_inited: Copy CSS assets"]
-        env_prepare["env-before-read-docs: prepare_env()"]
-    end
-
-    subgraph generate["Page Generation (html-collect-pages)"]
-        gen_pages["generate_code_page()"]
-        html_wrap["html_wrapper()"]
-    end
-
-    subgraph context["Page Context (html-page-context)"]
-        add_css["add_custom_css()"]
-    end
-
-    subgraph finish["Build Finished"]
-        warnings["emit_warnings()"]
-        timing["debug.process_timing()"]
-    end
-
-    setup --> load_toml --> sn_options --> sn_types --> check_config
-    check_config --> builder_init --> env_prepare
-    env_prepare --> gen_pages --> html_wrap
-    html_wrap --> add_css --> warnings --> timing
-
-    style load_toml fill:#e1f5fe
-    style gen_pages fill:#e1f5fe
-    style html_wrap fill:#e1f5fe
-```
-
-#### Event Handlers
-
-The extension connects to these Sphinx events (in execution order):
-
-| Event                  | Handler                        | Purpose                                                              |
-| ---------------------- | ------------------------------ | -------------------------------------------------------------------- |
-| `config-inited`        | `load_config_from_toml()`      | Load configuration from TOML file if specified                       |
-| `config-inited`        | `update_sn_extra_options()`    | Register sphinx-needs extra options (project, file, directory, URLs) |
-| `config-inited`        | `update_sn_types()`            | Add `srctrace` need type to sphinx-needs                             |
-| `config-inited`        | `check_sphinx_configuration()` | Validate configuration and raise errors                              |
-| `builder-inited`       | `builder_inited()`             | Copy CSS assets to output directory                                  |
-| `env-before-read-docs` | `prepare_env()`                | Initialize timing measurements and debug filters                     |
-| `html-collect-pages`   | `generate_code_page()`         | Generate HTML pages for traced source files                          |
-| `html-page-context`    | `add_custom_css()`             | Inject custom CSS for source tracing UI                              |
-| `build-finished`       | `emit_warnings()`              | Emit collected warnings from analysis                                |
-| `build-finished`       | `debug.process_timing()`       | Output timing measurements if enabled                                |
-
-#### Key Integration Points
-
-1. **sphinx-needs Dependency**: The extension requires sphinx-needs and checks for its presence in `setup()`. It adds extra options (`project`, `file`, `directory`, URL fields) and a custom need type (`srctrace`).
-
-2. **TOML Configuration**: Configuration can be loaded from a TOML file specified in `conf.py` via `src_trace_config_from_toml`. The TOML is parsed and values are set on the Sphinx config object.
-
-3. **Source Page Generation**: The `generate_code_page()` function yields tuples of `(pagename, context, template)` for each traced source file, allowing Sphinx to generate standalone HTML pages with syntax-highlighted source code and line-number anchors.
-
-4. **CSS Injection**: Custom CSS (`ub_sct.css`) is copied to `_static/source_tracing/` and added only to pages that contain traced source code.
-
-### Key Components
-
-#### Configuration (`config.py`)
-
-Stdlib dataclasses, `TypedDict`s and `Enum`s — no pydantic, and no third-party validation
-library. Each configuration object comes in a pair: a `…ConfigType` `TypedDict` describing
-the shape a TOML file may carry, and a `@dataclass` holding the loaded, validated object.
-
-- `SourceAnalyseConfig` (`config.py:422`): the analysis configuration — the source
-  directory, the marker styles, the need fields
-- `CodeLinksConfig` / `CodeLinksProjectConfigType`: the top level, one entry per traced
-  project
-- `OneLineCommentStyle`, `NeedIdRefsConfig`, `MarkedRstConfig`, `PreprocessorConfig`: the
-  per-feature blocks
-- validation is `jsonschema`'s `validate(instance=…, schema=…)` per field, against a
-  schema each config class returns from its own `get_schema`, collected by its
-  `check_schema` and `check_*` methods into a list of error strings — not raised
-- the TOML loader is `load_config_from_toml` in `cmd.py`
-
-#### Source Discovery (`source_discover/`)
-
-- `SourceDiscover` (`source_discover.py:32`): walks `src_dir`, filters by `include` /
-  `exclude` and by the extension table `COMMENT_FILETYPE`, and exposes `source_paths`
-- `.gitignore` rules are honoured through the **`ignore-python`** dependency (not
-  `gitignore-parser`), when the `gitignore` field of `SourceDiscoverConfig` is set
-- `CommentType` (`source_discover/config.py:25`) is the language enum the rest of the
-  pipeline dispatches on
-
-#### Code Analysis (`analyse/`)
-
-- **`analyse.py`**: Main orchestrator that coordinates analysis across all source files
-- **`projects.py`**: `AnalyseProjects`, which runs one `SourceAnalyse` per configured
-  project. There is no per-language class — the language is a `CommentType` value
-- **`oneline_parser.py`**: Tree-sitter based parser for extracting comment markers
-- **`models.py`**: `@dataclass` / `TypedDict` / `Enum` results — `SourceComment`,
-  `SourceFile`, `Position`, `SourceMap`, and the `Metadata` hierarchy (`OneLineNeed`,
-  `NeedIdRefs`, `MarkedRst`)
-- **`utils.py`**: Helper functions for path handling, marker extraction
-
-#### Tree-sitter Integration
-
-- Uses tree-sitter parsers for each supported language
-- Extracts comments from AST nodes
-- Parses the one-line marker syntax inside a comment. The default `OneLineCommentStyle`
-  is `@` to end of line, comma-separated, fields `title, id, type, links` -- start and end
-  sequences, the split character and the field list are all configurable per project, and
-  `tests/data/dcdc` uses a `[[…]]` style to show that. Plus need-ID references and `@rst`
-  blocks
-- Maintains line number information for source tracing
-
-#### Sphinx Extension (`sphinx_extension/`)
-
-- **`source_tracing.py`**: Main extension setup with `setup()` function
-- **`html_wrapper.py`**: Wraps source code blocks with tracing metadata
-- **`debug.py`**: Debug utilities for development
-- Hooks into Sphinx build events to inject source tracing information
-
-### CLI Interface
-
-The CLI uses Typer. `analyse` and `discover` are commands on `app`; `write` is a
-sub-app (`write_app`, added with `app.add_typer(…, name="write")`), so its formats are
-SUB-COMMANDS rather than a positional argument:
-
-- `codelinks analyse <config.toml> [--project …]`: analyse the configured projects and
-  write the extracted markers as JSON
-- `codelinks discover <src_dir>`: list the source files discovery would feed to `analyse`
-- `codelinks write rst <markers.json> --outpath <file.rst>`: generate the needextend RST
-  from that JSON
-
-## Key Files
-
-- `pyproject.toml` - Project configuration, dependencies, and tool settings
-- `src/sphinx_codelinks/__init__.py` - Package entry point with `setup()` for Sphinx
-- `src/sphinx_codelinks/cmd.py` - CLI commands and argument parsing
-- `src/sphinx_codelinks/config.py` - configuration dataclasses and the TOML schema
-- `src/sphinx_codelinks/analyse/analyse.py` - Main analysis orchestration
-- `src/sphinx_codelinks/analyse/projects.py` - Language-specific analyzers
-- `src/sphinx_codelinks/analyse/oneline_parser.py` - Tree-sitter comment parser
-- `src/sphinx_codelinks/sphinx_extension/source_tracing.py` - Sphinx extension setup
-- `tests/conftest.py` - Pytest fixtures and test configuration
-
-## Debugging
-
-- `uv run poe test-codelinks --pdb` drops into the debugger on a failure (no `--` — see
-  Testing Guidelines above for why it breaks the passthrough)
-- `-v` for verbose output, `--log-cli-level=DEBUG` for logging
-- the docs task already passes `-T`, so a docs failure prints a full traceback
-- `sphinx_extension/debug.py` holds the development helpers (`measure_time`, the timing
-  report emitted on `build-finished`)
-
-## Common Patterns
-
-### Adding Support for a New Language
-
-A language is a `CommentType` member and four table entries — there is no analyzer class
-and no registry object to subclass.
-
-1. Add the tree-sitter grammar to `[project] dependencies` in `pyproject.toml`
-   (e.g. `tree-sitter-java>=0.23`), and re-lock at the workspace root
-2. Add the member to `CommentType` in `source_discover/config.py`, and its file extensions
-   to `COMMENT_FILETYPE` in the same file
-3. In `analyse/utils.py`: a `<LANG>_QUERY` tree-sitter query naming the comment nodes, a
-   branch in the `comment_type ==` chain that builds `Language(tree_sitter_<lang>.language())`,
-   and — if scope association is wanted — an entry in `SCOPE_NODE_TYPES`
-4. Add test files under `tests/data/`
-5. Add tests in `tests/test_analyse.py`, and a fixture row in
-   `tests/test_extraction_fixtures.py` if the language should be covered declaratively
-
-### Adding a New Marker Type
-
-1. Update marker regex patterns in `config.py` or analyzer
-2. Update `models.py` if new fields are needed
-3. Update parsing logic in `oneline_parser.py`
-4. Update RST generation in `needextend_write.py` if needed
-5. Add tests with new marker examples
-
-### Adding a CLI Command
-
-The CLI is `codelinks analyse`, `codelinks discover` and `codelinks write rst` —
-`write` is a Typer sub-app (`write_app`), the other two are commands on `app`.
-
-1. Add the function in `cmd.py` under `@app.command(no_args_is_help=True)` (or
-   `@write_app.command("<name>", …)` for a `write` subcommand):
-
-   ```python
-   @app.command(no_args_is_help=True)
-   def new_command(
-       arg: Annotated[Path, typer.Argument(..., help="Description")],
-   ) -> None:
-       """Command description."""
-   ```
-
-2. Add tests in `tests/test_cmd.py` (typer's `CliRunner`, in-process)
-3. Update documentation in `docs/components/cli.rst`
-
-### Adding Configuration Options
-
-1. Add the field to the relevant `@dataclass` in `config.py` (`SourceAnalyseConfig` for
-   analysis options) **and** to its `…ConfigType` `TypedDict`, which is what the TOML
-   schema is built from — the pair has to stay in step
-2. Add the field's schema to the class's `get_schema`, and any cross-field rule to a
-   `check_…` method beside the existing ones — they return error strings rather than
-   raising
-3. Update TOML configuration examples in `docs/` and `tests/data/configs/`
-4. Add tests for the new configuration option
-5. Document in `docs/components/configuration.rst`
-
-## Reference Documentation
-
-- [Sphinx Documentation](https://www.sphinx-doc.org/) · [Repository](https://github.com/sphinx-doc/sphinx)
-- [Sphinx-Needs Documentation](https://sphinx-needs.readthedocs.io/) · [Repository](https://github.com/useblocks/sphinx-needs)
-- [tree-sitter Documentation](https://tree-sitter.github.io/tree-sitter/) · [Repository](https://github.com/tree-sitter/tree-sitter)
-- [pytest Documentation](https://docs.pytest.org/) · [Repository](https://github.com/pytest-dev/pytest)
-- [Typer Documentation](https://typer.tiangolo.com/) · [Repository](https://github.com/fastapi/typer)
+## The things that are true here and nowhere else
+
+### The module name is DOTTED, and one workspace fence is silent because of it
+
+This package installs into the `sphinxcontrib` PEP 420 namespace, so its import name is
+`sphinxcontrib.test_reports` — not the distribution name with `-` → `_`. It says so in
+`[tool.flit.module] name`, and three readers honour that key: `check_workspace.Member.module`,
+`tools/src/sn_tools/import_check.py`, and (since this package's import) the `module=` step of
+`.github/workflows/release.yaml`.
+
+**`check_workspace.py` check (5) prints NO line at all for this member, and that is expected
+today.** Every other member gets an `OK … __version__ == <version>` line; this one is absent,
+and absence is not something a reader notices — so it is written down here. Two independent
+reasons, either of which alone would be enough:
+
+1. `module_version()` joins `member.module` as ONE path component, so it looks for
+   `src/sphinxcontrib.test_reports/__init__.py` — a directory that cannot exist. A dotted
+   name can never resolve.
+2. **This package has no `__version__` literal anywhere.** `check_module_version` treats a
+   module without one as "not an error" by design, so even a non-dotted name would print
+   nothing until the literal exists. (`test_reports.py` carries a separate, hand-written
+   `VERSION = "2.0.0"`, which no gate reads.)
+
+What the gap costs is that `[project] version` and a module literal could drift apart —
+which is nil in practice while nothing bumps this member. **Both reasons dissolve together**
+when the package is renamed and gains a real `__version__`, which is the release that follows
+this import. Until then, do not read check (5)'s silence as a pass.
+
+### The suite needs no renderer; the DOCS need two
+
+No test document here carries a rendering directive, so the suite needs neither `java` nor
+graphviz's `dot`, and nothing in it copies a jar. (`tests/doc_test/utils/plantuml.jar` used
+to sit there, 8.6 MB, and was dead: the three `custom_tr_*` configs pointed at it through
+`os.getcwd()`, which under pytest is the rootdir. It left with the import.)
+
+`uv run poe docs-reports` is the opposite case, and among the three EXTENSION packages it
+is the only docs build that renders: **13 `needflow` directives** across `filter.rst`, `functions.rst` and
+`examples/index.rst`. It needs `java` and `dot` on `PATH`, and it resolves the jar through
+the workspace chain — `PLANTUML_JAR`, then the committed `vendor/plantuml/` jar, then a
+`plantuml` executable — written out in `docs/conf.py` rather than imported, because a docs
+build must not import a test-only member. `.readthedocs.yaml` therefore keeps
+`apt_packages: [default-jdk, graphviz]`, where both siblings' deliberately have none.
+(sphinx-needs' own docs render far more than this -- 48 needflow directives -- and its
+config installs the same two packages; the contrast is with the two sibling EXTENSIONS.)
+
+### `poe test-reports` NAMES its path, and that is not a style choice
+
+The task's command is `pytest tests`, not the `--ignore=` form the sphinx-needs tasks use.
+**Eight modules of this package's own source are called `test_*.py`** — `test_reports.py`,
+and `directives/test_case.py`, `test_common.py`, `test_env.py`, `test_file.py`,
+`test_report.py`, `test_results.py`, `test_suite.py` — so a bare `pytest` from the package
+directory collects `src/` and tries to import the extension as a test module.
+
+The cost is poe's documented passthrough behaviour: trailing words are APPENDED, so
+`poe test-reports tests/test_cli_convert.py` runs that file *in addition to* the suite rather
+than instead of it. `-k` and `-m` behave as expected.
+
+The short name is **`reports`**, not `test-reports`: the naming rule takes the distribution
+name minus its `sphinx-` prefix, which here would collide with the task verb and give
+`test-test-reports`.
+
+### One test drives an in-process pytest session, and the default environment breaks it
+
+`tests/test_pytest_plugin.py`'s `NESTED` fixture starts a `pytest.main()` *inside* a
+`pytester` session. In a developer's default `.venv` that process has every installed plugin
+loaded, and **pytest-playwright** — from the root `js` group, which the default `dev` group
+includes — keeps a module-global soft-assertion scope, so the nested session dies with
+*nested soft assertion scopes are not supported*. Every CI cell syncs
+`--no-default-groups --group test --group sphinx-N`, where the plugin is absent. The fixture
+therefore passes `-p no:playwright`, and **that line has to stay one line**: a sibling test
+builds its own fixture from the same string by replacing the literal `str(inner)]) == 0`.
+
+This is the shape to remember: **run the suite in the default `.venv` AND in a cell.** Green
+in one proves nothing about the other.
+
+### `tests/doc_test/utils/*.xml` contain the string `sphinxcontrib/` — leave them alone
+
+Three fixture files carry paths like `file="sphinxcontrib/test_reports/junitparser.py"`.
+They are **test data** describing a historical pytest run, not paths anything opens. A
+`src/`-move `sed` over the tree would corrupt them silently. `grep -rn 'sphinxcontrib/'` here
+finds them; that is expected.
+
+### The `ubproject.toml` discovery boundary inside a monorepo
+
+`projectconfig.find_project_config()` walks UP from the start directory and stops at the
+first `ubproject.toml`, else at the project boundary — `.git`, and only where no `.git`
+exists anywhere above, `pyproject.toml`. **A `pyproject.toml` on the way up never ends the
+walk inside a repository**, deliberately, so a member at `packages/<name>/pyproject.toml`
+is understood to sit inside the project whose shared file is at the repository root. So the
+behaviour is identical before and after the import. Two consequences: a repository-root
+`ubproject.toml` (there is none today) would be picked up by every consumer under
+`packages/`, and the boundary tests are unaffected because they build under `tmp_path`,
+outside any repository.
+
+## Testing
+
+`uv run poe test-reports`, and `test-reports-sphinx7/8/9` for one matrix cell each. No
+`--` before pytest arguments — poe forwards it and pytest reads the next word as a path.
+
+The suite spawns Sphinx builds in three places, and all three go through
+`sphinx_needs_testkit.sphinx_build_command`, never the bare command resolved on `PATH`.
+`tests/test_subprocess_fence.py` is what keeps that true; it reads SOURCE, because a site
+that spawns the bare word passes in every environment where `PATH` happens to be right.
+
+**`toolchain-free` (a CI job in `ci.yaml`, not a cell) is the fence that keeps the converter
+and the plugin importable with no documentation toolchain.** It cannot be a `uv sync` cell,
+structurally: the root's `[project] dependencies` name every member, those are installed in
+every environment, and sphinx-needs declares sphinx at runtime — so every environment this
+root can produce has Sphinx in it. The job builds one outside the project with
+`uv pip install --no-sources "packages/sphinx-test-reports[pytest]"`, asserts `sphinx`,
+`sphinx_needs` and `docutils` are all absent, and runs the ten toolchain-free modules with
+`-m "not toolchain"`. The `toolchain` marker itself lives in the ROOT's `markers` list.
+
+## Releasing
+
+`compat-requirements.txt` names `sphinx` and `sphinx-needs`, and unlike both siblings' it
+covers the package's **own runtime** requirements rather than a test-only need — because they
+are optional. The compat cell installs a bare wheel path with no extras, so without that file
+the `import_check` walk fails `6 of 25 modules` on `sphinx_needs` before pytest even starts.
+
+## What the move into this workspace cost, deliberately
+
+Recorded here because none of it is visible in a diff:
+
+- **The sphinx-needs test axis went from five versions to one.** The retired `noxfile.py`
+  ran 6.0.1, 6.3.0, 7.0.0, 8.0.0 and 8.5.0; the workspace tests against the sibling in the
+  tree, and the published floor narrowed from `>=6.0.1` to `>=8.5.0,<9` with it.
+- **Five ruff rule families left**: `FURB`, `PERF`, `PGH`, `PIE`, `SLF`, which this package
+  enabled and the root's shared set does not. All five are at zero violations today, which
+  is exactly why the loss would otherwise be silent.
+- **`plugin_floor`** — the plugin against the oldest pytest of each Python — has no
+  replacement yet. It returns with the release that makes the plugin a shipped surface.
+- **mypy left for ty**, with the whole package checked rather than the 15-entry `exclude`
+  the mypy configuration carried.
+- **Beyond those five families, the root `extend-ignore`s `B904`, `ICN001`, `ISC004` and
+  `N818`**, which this package enabled and did not ignore. All four are at zero violations
+  today, so it costs nothing now.
+- **`linkcheck` retired with no replacement.** The retired CI ran one; the workspace's
+  `docs.yaml` is scoped `paths: [packages/sphinx-needs/docs/**]` and runs in that
+  directory, so **these docs are link-checked nowhere** -- which is worth knowing given the
+  import repointed three stale links. Widening `docs.yaml` is a follow-up, not this import.
+- **Three prek hooks retired with it**: `end-of-file-fixer`, `trailing-whitespace` and
+  `pretty-format-json`. The root config has no `pre-commit-hooks` repository at all.
+
+The docs still use `sphinx_immaterial` and the vendored `docs/ub_theme/`, where the rest of
+the workspace uses furo. Keeping it costs nothing in the lock (sphinx-immaterial is already
+there through sphinx-needs' `theme-im` extra); converging is a visible change to a live site
+with 41 Read the Docs versions and has an issue of its own.
+
+## History
+
+Imported from `useblocks/sphinx-test-reports` in 2026-09 with its full history, rewritten so
+that every historical commit already places its files under `packages/sphinx-test-reports/`.
+So `git log <path>` works with **no `--follow`**, and `design/import-commit-map.txt` maps
+every old hash to its hash here, for links into the archived old repository.
+
+**The import is not byte-for-byte faithful in exactly one respect**, and the commit map's
+header records it: three PlantUML jar blobs (19.97 MB, 94% of the import's weight) were
+stripped from every historical tree. A stripped historical checkout still installs, imports
+and runs its suite; what it cannot do is render a diagram in a docs build of a 2020-era tree.
 
 ---
 > Source: [useblocks/sphinx-needs](https://github.com/useblocks/sphinx-needs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
