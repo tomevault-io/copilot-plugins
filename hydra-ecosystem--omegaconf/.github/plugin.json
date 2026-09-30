@@ -1,0 +1,9 @@
+{
+  "name": "hydra-ecosystem--omegaconf",
+  "displayName": "omegaconf",
+  "description": "omegaconf",
+  "version": "1.0.0",
+  "author": "hydra-ecosystem",
+  "homepage": "https://github.com/hydra-ecosystem/omegaconf",
+  "skills": []
+}
