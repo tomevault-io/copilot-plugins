@@ -1,10 +1,57 @@
 ## spy
 
-> - when asked to write a test, write just the test without trying to fix it
+> - When running tests, always use the venv: e.g. `./venv/bin/pytest'
 
 # SPy Language - Dev Reference
 
-## General behavior of claude code
+## Common Commands
+- When running tests, always use the venv: e.g. `./venv/bin/pytest'
+- Run all tests: `pytest`
+- Run single test: `pytest spy/tests/path/to/test_file.py::TestClass::test_function`
+- Run backend-specific tests: `pytest -m interp` or `-m C` or `-m doppler`
+- Type checking: `mypy`
+
+## Compile SPy Code
+```bash
+spy your_file.spy                 # Execute (default)
+spy build your_file.spy           # Compile to executable
+spy build -x your_file.spy        # Compile to executable AND execute
+spy --help                        # To see other commands to inspect the pipeline
+```
+
+## When/how to run tests
+
+The full test suite is slow. When you work on a feature with a limited/precise scope,
+run just the tests relevant to the specific feature and/or the files that you are
+modifying (use your own judgment).
+
+When you want to run `tests/compiler` tests for a whole file and/or for the whole dir
+AND the file takes many seconds to run (e.g. if it contains many tests), prefer to run
+them backend-by-backend: `interp` tests are the fastest and catch most of the problems;
+`doppler` tests are a bit slower and catch doppler-specific tests; `C` backend are
+slowest and should be run only at the end.
+
+So, if you decide to run all the tests for the file `test_foo.py`, do this:
+
+1. `pytest test_foo.py -m interp`
+2. `pytest test_foo.py -m doppler`
+3. `pytest test_foo.py -m C`
+
+Beware that come test files define their own "extra" backends.
+
+If the test file is very short and it's quick to run, feel free to run with all backends
+in one go.
+
+If you modify something which is likely to impact everything, a good smoke test is
+`test_basic.py`: run it in isolation before running the whole test suite.
+
+Under normal development it is not necessary to run the full test suite before each
+commit, it is fine to run it only to make sure that the branch is ready. However, if you
+do whole-program modifications which are likely to break things "everywhere", then feel
+free to run it more often. Use your own judgment.
+
+
+## General behavior
 - when asked to write a test, write just the test without trying to fix it
 
 ## How to write comments
@@ -72,23 +119,6 @@ def foo():
     import time
 ```
 
-
-
-## Common Commands
-- When running tests, always use the venv: e.g. `./venv/bin/pytest'
-- Run all tests: `pytest`
-- Run single test: `pytest spy/tests/path/to/test_file.py::TestClass::test_function`
-- Run backend-specific tests: `pytest -m interp` or `-m C` or `-m doppler`
-- Type checking: `mypy`
-
-## Compile SPy Code
-```bash
-spy your_file.spy                 # Execute (default)
-spy -C your_file.spy              # Generate C code
-spy -c your_file.spy              # Compile to executable
-spy -O 1 -g your_file.spy         # With optimization and debug symbols
-```
-
 ## Code Style Guidelines
 - Use strict typing (mypy enforced)
 - Classes: PascalCase (`CompilerTest`)
@@ -123,10 +153,50 @@ spy -O 1 -g your_file.spy         # With optimization and debug symbols
   unless it's necessary. Prefer adding tests to the existing class. The general rule is
   one `Test*` class per `test_*.py` file.
 
+- do NOT pass triple-quoted strings directly as function arguments. Assign them to a
+  named variable first (typically `src` and `expected`) and pass the variable. This
+  keeps the call site readable. E.g. with the dump/expected/print_diff pattern (see
+  `assert_dump` in test_scope2.py, `assert_dump` in test_parser.py, etc.):
+  ```
+  # this is BAD:
+  self.assert_dump("""
+  ...src...
+  """, """
+  ...expected...
+  """)
+
+  # this is GOOD:
+  src = """
+  ...
+  """
+  self.analyze(src)
+  expected = """
+  ...
+  """
+  self.assert_dump(expected)
+  ```
+
+
+## When to write unit tests
+
+A unit test is worth writing only if the complexity of the thing being tested is
+high enough to justify it.
+
+A test that just mirrors a declaration or configuration is a **change-detector**,
+not a safety net. If updating the code always means updating the test in lockstep,
+the test adds no value — it only adds maintenance burden. Tests should verify
+*behavior that emerges from the interaction of multiple pieces*, not re-state what
+a single declaration says.
+
+If the logic is trivial AND it is exercised downstream by other tests (e.g.
+integration/compiler tests), it is fine to rely on those instead of writing
+dedicated unit tests. For example: if you put the wrong `@astnode("...")` spec on a
+node class, the compiler tests will catch it. A unit test that just asserts
+`SomeNode._valid_states == frozenset({"parsed"})` adds nothing.
 
 ## GH PR Guidelines
 - When creating a PR, describe what you did, but don't include the "test plan" section.
 
 ---
 > Source: [spylang/spy](https://github.com/spylang/spy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
