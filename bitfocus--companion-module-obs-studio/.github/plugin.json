@@ -1,0 +1,9 @@
+{
+  "name": "bitfocus--companion-module-obs-studio",
+  "displayName": "companion-module-obs-studio",
+  "description": "companion-module-obs-studio",
+  "version": "1.0.0",
+  "author": "bitfocus",
+  "homepage": "https://github.com/bitfocus/companion-module-obs-studio",
+  "skills": []
+}
