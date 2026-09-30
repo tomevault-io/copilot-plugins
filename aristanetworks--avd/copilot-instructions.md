@@ -47,4 +47,4 @@
 
 ---
 > Source: [aristanetworks/avd](https://github.com/aristanetworks/avd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
