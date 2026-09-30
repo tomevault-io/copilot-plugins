@@ -1,0 +1,14 @@
+{
+  "name": "syngnat--gonavi",
+  "displayName": "GoNavi",
+  "description": "GoNavi",
+  "version": "1.0.0",
+  "author": "Syngnat",
+  "homepage": "https://github.com/Syngnat/GoNavi",
+  "skills": [
+    {
+      "name": "GoNavi",
+      "description": ""
+    }
+  ]
+}
