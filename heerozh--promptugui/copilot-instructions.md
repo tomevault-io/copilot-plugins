@@ -2,13 +2,13 @@
 
 > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What This Is
 
-PromptUGUI is a Unity 6+ UPM package that translates compact `.ui.xml` files into runtime uGUI hierarchies. Target use case: pixel-art game that ships PC widescreen and mobile portrait from one description.
+PromptUGUI is a Unity 6+ UPM package that translates compact `.ui.xml` files into runtime uGUI hierarchies. Target use case: games that ship PC widescreen and mobile portrait from one description, with fully theme-swappable skins. Supports both **procedural high-definition surfaces** (the `<Style>`/`<Theme>` primitives drive SDF fills, glass, shaped corners and decorations — no textures required); **sprite-based aesthetics** such as pixel art (`.pxl`).
 
 The library is **content-agnostic at runtime**: it never reads the filesystem itself. Callers register a `Func<string, Awaitable<string>> SourceResolver` that maps an opaque `src` key to XML content; how the user obtains that content (Resources, Addressables, custom paths) is their concern. Built-in helpers: `UI.UseResourcesResolver(rootPath)` and (when `com.unity.addressables` ≥ 1.0 is installed) `UI.UseAddressableResolver()`.
 
@@ -32,7 +32,7 @@ Triggers requiring a SKILL update (route to the relevant file):
 - Public C# API surface changes (anything callers touch: `UI.*`, `IScreen`, `IControl`, `ControlRegistry`, `Variants`, `[UIAttr]` / `[Bind]`) → C# skill (Addressables skill if the change is `PROMPTUGUI_HAS_ADDRESSABLES`-gated)
 - Changes to the `id` path / scoping rules → both XML (declaration) and C# (`Get<T>` path) skills
 - New / changed parser-time errors that authors will hit → XML skill
-- Changes to a control / feature that has its own `reference/*.md` → edit **that file**, not (only) the main `SKILL.md`: `<Trigger>` / `<Animation>` → `reference/animations.md`; Btn/Tab/Toggle state visuals (`*Color` / `*Modulate` / `<Show on="state-*">` / `pressedSprite` / `selectedSprite`) → `reference/states.md`; `<TabBar>` / `<Tab>` → `reference/controls-tabs.md`; `<Carousel>` → `reference/controls-carousel.md`; `<Progress>` → `reference/controls-progress.md`; icon-name / SpriteSet discovery → `reference/icons.md`. Keep the main-doc primitive-catalog row + stub pointer in sync when attributes are added/removed.
+- Changes to a control / feature that has its own `reference/*.md` → edit **that file**, not (only) the main `SKILL.md`: `<Trigger>` / `<Animation>` → `reference/animations.md`; Btn/Tab/Toggle state visuals (`*Color` / `*Modulate` / `<Show on="state-*">` / `pressedSprite` / `selectedSprite`) → `reference/states.md`; `<TabBar>` / `<Tab>` / `<TabMenu>` → `reference/controls-tabs.md`; `<Collapsible>` / `<Header>` → `reference/controls-collapsible.md`; `<Pages>`（`selected` / 页规则 / `PUI-PAGES-*`）→ 主 `SKILL.md` 的 `### <Pages>` 小节（无 reference 文件），页内子视图配方在 `reference/controls-tabs.md`「Sub-views inside a page」; `<Carousel>` → `reference/controls-carousel.md`; `<Progress>` → `reference/controls-progress.md`; `<Scrollbar>`（`<ScrollList>` / `<Dropdown>` 的滚动条部件：`thickness` / `overlay` / `spacing` / `padding` / `handle*`，宿主认领与默认条）→ `reference/controls-scrollbar.md`; `<ScrollList>` 拖动排序（`reorder` / `reorderHold` / `reorderHandle` / `reorderDuration`、行内 `on="lift"` / `on="drop"` 挂钩、`OnReordered` 契约、取消规则）→ `reference/reorder.md`（`lift` / `drop` 在 `animations.md` 的 `on=` 表里也要同步）; `<ScrollList>` 行虚拟化与贴底（`virtualize` / `stickToEnd`、`PUI-SCROLL-VIRTUAL-*`、锚点 / 粘边规则、虚拟模式下 bind 回调的契约）→ `reference/virtualize.md`，带 key 的 `BindItems` / `ScrollToStart` / `ScrollToEnd` / `ScrollToIndex` / `IsAtEnd` / `OnAtEndChanged` / `ItemCount` 同时改 C# skill 的 **List / option push**; icon-name / SpriteSet discovery → `reference/icons.md`; glass fill (`glass` / `frost` / `depth` / `dispersion` / `lightAngle` / `lightIntensity` / `saturation` / `noise` / `weld`) → `reference/glass.md`；`<Decor>`（角/边装饰：`kind` / `at` / `extent` / `thickness` / `inset` / `offset` / `mirror`）→ `reference/decor.md`；噪声雾（`haze` / `hazeColor` / `hazeDensity` / `hazeDrift`：覆盖率色阶、Canvas 空间采样、时钟、玻璃上的叠层 / 焊接组排除）→ `reference/haze.md`. Keep the main-doc primitive-catalog row + stub pointer in sync when attributes are added/removed.
 
 Internal refactors, test-only changes, performance work, and Editor tooling that doesn't affect XML or the public API do **not** require a SKILL update.
 
@@ -45,19 +45,30 @@ Internal refactors, test-only changes, performance work, and Editor tooling that
 | `PromptUGUI.Tests.EditMode` | `Tests/EditMode/` | no |
 | `PromptUGUI.Tests.EditorOnly` | `Tests/EditMode/Editor/` | no (tests for `PromptUGUI.Editor`) |
 | `PromptUGUI.Tests.PlayMode` | `Tests/PlayMode/` | no |
+| `PromptUGUI.Tests.Perf` | `Tests/Perf/` | no (EditMode benchmarks — kept out of the regression, run by test name) |
 | `PromptUGUI.Tests.EditMode.Addressables` | `Tests/EditMode/Addressables/` | no (gated by `PROMPTUGUI_HAS_ADDRESSABLES`) |
 
-`Runtime/AssemblyInfo.cs` exposes internals to `PromptUGUI.Tests.EditMode`, `PromptUGUI.Tests.PlayMode`, `PromptUGUI.Editor`, and `PromptUGUI.Tests.EditMode.Addressables` via `InternalsVisibleTo`.
+`Editor/` extras worth knowing: `UiXmlLocator.cs` is the one Editor-side answer to "which file is this src / asset path" (Addressables address / GUID → asset path, Resources walk, `Packages/…` ↔ disk) — the lint menu (`UIXmlLintMenu.cs`) and the UI Preview share it; `Editor/Preview/` holds the Play-mode UI Preview tool (`UIPreview.cs` session + public statics, `UIPreviewOverlay.cs` IMGUI panel, `UIPreviewResolver.cs` / `UIPreviewRules.cs` pure logic, the built-in `UIPreview.unity`, the two settings singletons) — its component shell `UIPreviewHost` lives in `Runtime/Application/` under `#if UNITY_EDITOR` because Unity will not attach an Editor-assembly MonoBehaviour. Spec: `docs~/superpowers/specs/2026-09-18-ui-preview-tool-design.md`.
+
+`UiXmlImporter.cs` imports every `.ui.xml` through `XmlCommentStripper.cs`: `TextAsset.text` has no comments, yet every element keeps its line, so runtime locations still match the source. It is an override of Unity's native `.xml` importer (the `PoFileImporter` arrangement), put on exactly the `*.ui.xml` files by `UiXmlImporterAssigner` — on import / rename, plus a sweep once per domain reload for files imported before it existed; the package's own `.ui.xml.meta` files carry the override. Editor tools that need the source as written (lint, i18n extraction, XSD, UI Preview) read the file from disk, not the TextAsset. Spec: `docs~/superpowers/specs/2026-09-27-ui-xml-comment-stripping-design.md`.
+
+`Runtime/AssemblyInfo.cs` exposes internals to `PromptUGUI.Tests.EditMode`, `PromptUGUI.Tests.PlayMode`, `PromptUGUI.Tests.Perf`, `PromptUGUI.Editor`, and `PromptUGUI.Tests.EditMode.Addressables` via `InternalsVisibleTo`.
 
 `Runtime/` is split into:
-- `Core/IR/` — pure POCOs (`UIDocument`, `ScreenDef`, `TemplateDef`, `ElementNode`, `ImportRef`, `VariantBlock`, `AddDirective`)
+- `Core/IR/` — pure POCOs (`UIDocument`, `ScreenDef`, `TemplateDef`, `ElementNode`, `ImportRef`, `VariantBlock`, `AddDirective`, `StyleDef`, `ThemeBlock`) + 合并产物 `LoadedDoc` 与它的键 `TemplateKey` / `StyleKey`
 - `Core/Parser/` — `UIDocumentParser` (XML → IR) + `ParseException`
-- `Core/Template/` — `TemplateExpander` (inlines Template invocations) + `Substitution` / `Truthy`
+- `Core/Template/` — `DocumentAssembler` (Import 闭包合并 → `LoadedDoc`) + `TemplateExpander` (inlines Template invocations；并为 `itemTemplate=` 预展开一份 per-Screen 的 `ScreenDef.Templates`) + `StyleMerger` (`class=` 属性包合并 + 切主题重算) + `ThemeStyleResolver` / `ThemeStyleApplier` + `Substitution` / `Truthy`
 - `Core/Variants/` — `VariantResolver` (last-active-wins for `attr.var` overrides)
 - `Core/Layout/` — `AnchorResolver` / `MarginResolver` / `SizeSpec`
 - `Controls/` — built-in primitives (`Frame`, `Image`, `Text`, `VStack`, `HStack`, `Grid`, `Btn`) + the `Control` base class
 - `Registry/` — `ControlRegistry` + `ControlMeta` (reflects `[UIAttr]` / `[Bind]`)
 - `Application/` — `UI` static facade (loading/lifecycle), `Screen`, `ScreenInstantiator`, `DocumentLoader`, `DepGraph`, `VariantStore`, `BuiltinPrimitives`
+
+**Core 的 CLI 编译子集必须保持纯 C#。** `Core/IR` / `Core/Parser` / `Core/Template` / `Core/Lint` 这四个目录被 UIXmlLint 直接编译进一个在 Unity 之外运行的 exe —— **不得引用 `UnityEngine`，也不得反向依赖 `PromptUGUI.Application`**。一旦破例，CLI 的编译集就得缩水，规则与运行时的「单一实现」保证随之破裂。
+
+不在该子集内、因此不受此限的：`Core/Layout`（用 `Vector2` / `Vector4`）、`Core/Variants`（依赖 `VariantStore`）。
+
+这条约束决定了 IO 与语义的切线：异步取源（`Awaitable` + `SourceResolver`）留在 `Application/DocumentLoader`，Import 闭包的**合并语义**在 `Core/Template/DocumentAssembler` —— 两条路径（Unity 异步预取 / CLI 文件系统预取）都落到同一份合并实现上。
 
 Write Red test first, and then write implementation. Always use Unity MCP to run tests in the host Unity project.
 If MCP is unavailable, try reconnect or tell user to restart MCP.
@@ -100,7 +111,25 @@ dotnet run --project .lint/UIXmlLint -- Runtime/Resources/PromptUGUI/Modals/Mess
 dotnet run --project .lint/UIXmlLint -- Runtime/Resources/                   # 整个目录递归
 ```
 
-规则代码在 `Runtime/Core/Lint/`（纯 C#），跟 `ScreenInstantiator` 的 warning 路径共用同一份实现 —— 新增规则时只改一处。详见 `.lint/UIXmlLint/README.md`。
+规则代码在 `Runtime/Core/Lint/`（纯 C#），跟 `ScreenInstantiator` 的 warning 路径共用同一份实现 —— 新增规则时只改一处。
+
+CLI 对每份文档跑**两遍**（`Core/Lint/DocumentLinter.cs`，按 issue 去重）：**raw**（作者写的原样，能看到 `if="false"` 背后和没人调用的模板）+ **expanded**（`ScreenInstantiator` 真正构建的那棵树，能看到模板调用的真实父子关系、`class=` 带来的属性、以及 `GlassRules` 这类规则开口前必须知道的最终形态）。两者互不包含。它会跟着 `<Import>` 读盘（按「导入方所在目录 → 逐级上溯到 `Resources/`」猜 `src`）；**解析不到的 import 不算错误**，那份文档只是跳过展开遍、退回今天的行为（Addressables / 自定义 resolver 的工程没有磁盘形态）。展开失败（未知模板/样式名、Import 循环）报 `PUI-EXPAND`。输出是 `file:line: [CODE] msg`；**归属按 `ElementNode.OriginSrc` + `Line`**（`Parse(xml, src)` 打戳、展开期逐层传递）—— 问题出在被 import 的库里就报那个库的文件行号，不是入口文件。模板参与时追一段 `(via file:line)` 指出是哪一次调用（记最外层，内层每个实例都一样、区分不了）。跨入口文件去重。详见 `.lint/UIXmlLint/README.md`。
+
+**commons 也参与展开遍**：`PromptUGUISettings.commonLibraries` 的每一行都被当作每份文档隐含的 `<Import>`，按运行时 `AddCommonLibrary` / `MergeCommons` 同一份实现合并（`DocumentLinter.Walk(..., commons)`）。CLI 自己在入口文件所在的 `Assets/` 下找 settings 资产（`SettingsAssetReader`，纯 C#），也可显式 `--settings <file.asset>` / `--commons <src>[@<as>]`；短地址（Addressables / `UseResourcesResolver(root)`）解析不到时给 `--src-root <dir>`。**读、解析、格式化、跨文件去重都在 `Core/Lint/LintRun.cs` + `ImportClosure.cs`**，`Program.cs` 只剩参数与打印 —— 宿主 Unity 里的 **`Tools › PromptUGUI › Lint All UI XML`**（`Editor/UIXmlLintMenu.cs`）跑的是同一个 `LintRun`：扫 `Assets/` + embedded 包里的全部 `.ui.xml`，`<Import src>` 先查 Addressables 的地址 / GUID 表再退回磁盘猜测，commons 直接读 `PromptUGUISettings.Instance`，每条 finding 一行 Console（文件 TextAsset 作 context，可点 ping）。新前端只该改「文件从哪来、src 怎么变文件、行往哪打」，不要在前端里再写一遍规则或去重。
+
+### `.pxl` 渲染预览（PxlPreview CLI）
+
+写完或编辑任何 `.pxl` 之后，渲染成 PNG **然后真的去看那张图**——像素画的明暗、斜面方向、9-slice 边条是否均匀，逐行读字符是判断不出来的：
+
+```bash
+dotnet run --project .lint/PxlPreview -- Runtime/Resources/PromptUGUI/Defaults/pugui.pxl
+dotnet run --project .lint/PxlPreview -- Assets/UI/Buttons/ok.pxl --scale 16 --guides
+dotnet run --project .lint/PxlPreview -- Assets/UI/ --out-dir /tmp/pxl-check    # 整个目录递归
+```
+
+每个 `.pxl` 出一张 PNG（各 section 横向并排 + 透明棋盘格 + 标签），路径打到 stdout；`--guides` 叠加 9-slice 分割线。同时它也是 `.pxl` 的 linter：直接编译 `Editor/Pxl/` 里导入器自己的 `PxlParser` / `GplPalette` / `PxlColorResolver`，所以报错信息和行号跟 Unity 导入完全一致，exit code 非零。
+
+那三个共享源文件只依赖 `Color32` / `Vector4` 两个 UnityEngine 值类型，由 `.lint/PxlPreview/UnityValueShims.cs` 顶替 —— **改这三个文件时别引入新的 Unity 类型**，否则 CLI 编译不过（届时应该把该文件提纯，而不是往 shim 里加东西）。详见 `.lint/PxlPreview/README.md`。
 
 ## Pipeline (mental model)
 
@@ -138,9 +167,9 @@ Two entry points to this pipeline:
 
 **Templates are inlined at expansion time.** After `TemplateExpander.Expand`, no `<TitledPanel>` invocations remain — they've been replaced with their bodies. Don't try to look up Templates at runtime; the only post-expansion artifact is the `IsTemplateInstanceRoot` flag + `ScopedIds` for id-path resolution.
 
-**Common (auto-imported) Templates live in `_commonsPool` keyed by `(ns, name)`.** `LoadCommonLibraryAsync(src, [as])` populates it once at boot. Subsequent `LoadDocumentAsync` calls merge commons → entry templates with hard conflict errors.
+**Common (auto-imported) Templates / Styles live in `_commonsPool` / `_commonsStyles` keyed by `(ns, name)`.** Which libraries are common is declared ONCE, in `PromptUGUISettings.commonLibraries` (rows of `CommonLibraryEntry { src, as }` — src is a resolver key, same shape as `<Import src>`); `UI.EnsureCommonLibrariesAsync()` loads the rows not yet in the pool, idempotently and in order, and `LoadDocumentAsync` / `LoadDocumentWithCommonsAsync` (modals) / `ReloadAsync` call it first. `LoadCommonLibraryAsync(src, as)` is **internal** (tests + Ensure). The pool staging — namespace rebase, same-name conflict, `OriginSrc` stamp — is `DocumentAssembler.AddCommonLibrary` (Core, pure C#) so the linter merges commons exactly the way the runtime does: `DocumentLinter.Walk(..., commons)` treats each row as the `<Import>` every document implicitly has. `ResetForTests` hides the host project's rows behind `UI.CommonLibrariesForTests` (empty by default) — a test that wants commons assigns its own rows. Spec: `docs~/superpowers/specs/2026-09-18-commons-settings-design.md`.
 
-**Async-by-default load pipeline.** `SourceResolver` is `Func<string, Awaitable<string>>`. `LoadDocumentAsync` / `LoadCommonLibraryAsync` / `ReloadAsync` / `ReloadCommonLibraryAsync` are all `async Awaitable<...>`. EditMode tests synchronously unwrap with `.GetAwaiter().GetResult()` — `AwaitableHelpers.Completed(value)` (internal) produces a sync-completed `Awaitable<T>` so there's no real yield point and the call returns on the test thread. The sync `LoadDocument(label, xml)` overload remains for raw-XML callers. `HotReload.NotifyAssetChanged` stays `void`; internally it fires `_ = ReloadAsyncLogged(...)` / `_ = ReloadCommonLibraryAsyncLogged(...)` with try/catch + `Debug.LogError` because AssetPostprocessor is a sync context.
+**Async-by-default load pipeline.** `SourceResolver` is `Func<string, Awaitable<string>>`. `LoadDocumentAsync` / `EnsureCommonLibrariesAsync` / `ReloadAsync` / `ReloadCommonLibraryAsync` are all `async Awaitable<...>`. EditMode tests synchronously unwrap with `.GetAwaiter().GetResult()` — `AwaitableHelpers.Completed(value)` (internal) produces a sync-completed `Awaitable<T>` so there's no real yield point and the call returns on the test thread. The sync `LoadDocument(label, xml)` overload remains for raw-XML callers. `HotReload.NotifyAssetChanged` stays `void`; internally it fires `_ = ReloadAsyncLogged(...)` / `_ = ReloadCommonLibraryAsyncLogged(...)` with try/catch + `Debug.LogError` because AssetPostprocessor is a sync context.
 
 **Do not use .Net Threading.** for WebGL support purpose. Specifically, not use `Task` async return value, use Unity's `Awaitable` instead, and also TCS use `AwaitableCompletionSource`.
 
@@ -149,6 +178,10 @@ Two entry points to this pipeline:
 **Editor-only code goes through `PromptUGUI.Editor` asmdef OR `#if UNITY_EDITOR`.** The `UI.HotReload` nested class is wrapped in `#if UNITY_EDITOR` so Player builds don't see it. `Editor/UIAssetPostprocessor.cs` is the AssetPostprocessor that calls `UI.HotReload.NotifyAssetChanged`.
 
 **`Screen.Close()` branches on `Application.isPlaying`** to use `DestroyImmediate` in EditMode (so EditMode tests don't log "Destroy may not be called from edit mode"). Don't revert this back to a single `Object.Destroy` call.
+
+**Runtime warnings / errors about a node go through `UILog`, not bare `Debug.Log*`.** `UILog.Warn(this, …)` from a Control, `UILog.Warn(component, …)` from an internal MonoBehaviour (walks up the transforms to the owning Control), `UILog.Error(msg)` from a static with no node in hand (uses the node `ControlAttributeApplier` is applying), `UILog.Warn(node, issue)` for a lint finding in `ScreenInstantiator`. It appends `\n  at <Tag id='x'> src:line (via …)` — spelled by `Core/Lint/SourceLocation` so it greps like the CLI's output — and passes the GameObject as the Console context. `Control.SourceNode` is where the place comes from; `ScreenInstantiator` stamps it before `AttachTo`.
+
+**`Screen.Close()` is two-phase.** Begin unregisters the Screen (`UI.Get` → null), seals input, fires `OnClosing` and collects the motions that `<Animation on="close">` / `reverse-on="close"` hand back through `Screen.NotifyMotions` (the same hand-over point that parks `on="open"` motions for one tick while opening); Finish awaits them, hops a frame, then runs the destroy body (`CloseImmediate`). A Screen that collects nothing is destroyed synchronously — every existing "Close then assert the GameObject is gone" expectation still holds for it. Teardown paths must call the immediate variant (`UI.CloseImmediate` / `Screen.CloseImmediate` / `Dispose`): `UnloadAll`, `ResetForTests`, hot reload, `PromptUGUIDocumentHost.Clear`, the Router's orphan close. `_destroyed` is set before any handle is cancelled — LitMotion invokes `OnCancel` synchronously and a pending Finish continuation sits on it. Spec: `docs~/superpowers/specs/2026-09-16-close-transition-design.md`.
 
 **`anchor` has hard structural rules.** `anchor="stretch"` (or `stretch-X` / `X-stretch`) means the corresponding axis is pulled by margin, not size. Setting `size`/`width`/`height` on a stretched axis is a parse error, not a layout suggestion. See spec §6.2.
 
@@ -167,6 +200,8 @@ mcp__UnityMCP__read_console(action="get", types=["error"])
 ```
 
 `run_tests` is **async**: it returns a `job_id` immediately — poll `mcp__UnityMCP__get_test_job(job_id=...)` until it completes to read pass/fail counts. Filter to a single test class with `group_names=["ClassName"]` (or specific tests via `test_names=[...]`); there is **no** `filter` parameter.
+
+Benchmarks live in `PromptUGUI.Tests.Perf` and are **not** part of the regression above. `[Explicit]` alone would not keep them out: an `assembly_names` filter counts as an explicit match to the test framework, so an `[Explicit]` test inside a regression assembly runs with it. Run one by its full name — `run_tests(mode="EditMode", assembly_names=["PromptUGUI.Tests.Perf"], test_names=["PromptUGUI.Tests.Perf.<Class>.<Test>"])` — it logs its table to the console. A long one holds the editor: the MCP bridge disconnects meanwhile, and `get_test_job` answers again when it is done.
 
 After any source edit, refresh first, then check console for compile errors before running tests.
 
@@ -188,4 +223,4 @@ DO NOT Commit any file to main branch!
 
 ---
 > Source: [Heerozh/PromptUGUI](https://github.com/Heerozh/PromptUGUI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
