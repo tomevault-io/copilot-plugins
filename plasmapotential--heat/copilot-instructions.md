@@ -1,18 +1,24 @@
 ## heat
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Guidance for AI agents (and humans) working in this repository. Part 1 covers the
 
-# CLAUDE.md
+# AGENTS.md — HEAT
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for AI agents (and humans) working in this repository. Part 1 covers the
+repo itself: running, testing, releasing, and how the code is organized. Part 2 is the
+runbook for preparing and executing a HEAT simulation case.
 
 ## What is HEAT
 
 The **Heat flux Engineering Analysis Toolkit (HEAT)** is a Python suite for predicting heat flux incident on plasma-facing components (PFCs) in tokamaks. It combines CAD geometry, MHD equilibria, and multiple heat flux models (optical, ion gyro orbit, photon radiation, filaments, runaway electrons, 3D fields) into one framework. Developed by Tom Looby at Commonwealth Fusion Systems; used to design SPARC PFCs.
 
+---
+
+# Part 1 — Working in the repository
+
 ## Running HEAT
 
-HEAT runs inside Docker. The published image is `plasmapotential/heat:<tag>` (current tag set in `.github/workflows/integration-tests.yml` → `HEAT_IMAGE_TAG`).
+HEAT runs inside Docker. The published image is `plasmapotential/heat:<tag>`; the current tag is `HEAT_IMAGE_TAG` in `.github/workflows/integration-tests.yml` and the `image:` line of `docker/docker-compose.yml`. Substitute it for `<tag>` in every command below.
 
 **Start the GUI (web app on localhost:8050):**
 ```bash
@@ -21,7 +27,7 @@ cd docker && docker compose up
 
 **TUI/batch mode (inside container or from compose):**
 ```bash
-docker run --rm -v "$(pwd):/root/source/HEAT" plasmapotential/heat:v4.2.7 \
+docker run --rm -v "$(pwd):/root/source/HEAT" plasmapotential/heat:<tag> \
   --m t --f /root/source/HEAT/tests/integrationTests/nstxuTestCase/batchFile_optical.dat
 ```
 
@@ -39,14 +45,14 @@ All tests run inside the Docker container against the published image (they rely
 **Smoke test (sanity check the mount):**
 ```bash
 docker run --rm -v "$(pwd):/root/source/HEAT" --entrypoint "" \
-  plasmapotential/heat:v4.2.7 \
+  plasmapotential/heat:<tag> \
   python3 /root/source/HEAT/tests/integrationTests/ciTest.py
 ```
 
 **Single integration test case (e.g. optical):**
 ```bash
 docker run --rm -v "$(pwd):/root/source/HEAT" \
-  plasmapotential/heat:v4.2.7 \
+  plasmapotential/heat:<tag> \
   --m t --f /root/source/HEAT/tests/integrationTests/nstxuTestCase/batchFile_optical.dat
 ```
 
@@ -61,7 +67,7 @@ Available batch files in `tests/integrationTests/nstxuTestCase/`:
 **Photon radiation golden checks:**
 ```bash
 python3 tests/integrationTests/verify_nstxu_hf_rad_goldens.py \
-  --workspace "$(pwd)" --docker-image plasmapotential/heat:v4.2.7
+  --workspace "$(pwd)" --docker-image plasmapotential/heat:<tag>
 
 # or via pytest:
 pytest tests/integrationTests/test_nstxu_hf_rad_goldens.py -v
@@ -80,6 +86,8 @@ CI runs all of the above automatically on push/PR to `main` (`.github/workflows/
 ```
 
 This updates `HEAT_IMAGE_TAG` in CI and the docker-compose image tags, optionally builds the image, then prompts you to push and open a PR to `main`.
+
+To build and push the image in CI instead of locally: Actions → "Build and publish HEAT Docker image" → Run workflow. Pick the release branch in "Use workflow from" and set `image_tag` (e.g. `v4.3.3`). The Dockerfile comes from that branch and, by default, so does the HEAT source cloned into the container (`heat_ref`); set `heat_ref` only when they should differ. Publish before merging to `main`: CI pulls `HEAT_IMAGE_TAG` and fails until the image exists on Docker Hub.
 
 ## Architecture
 
@@ -121,7 +129,7 @@ HEAT is configured entirely via CSV input files. Each module has an `allowed_cla
 
 - **EFIT class** (ORNL): loaded from `~/source/EFIT/` — reads GEQDSK format equilibria
 - **FreeCAD**: for STEP→mesh; path set in `launchHEAT.py`
-- **MAFOT**: external binary for field-line integration with 3D perturbed fields
+- **MAFOT**: external binaries (`heatstructure`, `heatlaminar_mpi`) for field-line integration, including 3D perturbed fields. Built inside the image by `docker/buildMAFOT` from MAFOT's `install/make.inc.HEAT`. With `mafot_gpu, True` in the input file HEAT passes `-g` and MAFOT traces on the GPU; the binary only runs on GPU architectures listed in that file's `NVCCFLAGS` (`-gencode` per `sm_XY`), so add an entry there before deploying to a new GPU type. `MHDClass.runMAFOT` raises if a MAFOT call exits non-zero.
 - **OpenFOAM**: thermal conduction solver launched as subprocess
 - **Mitsuba / drjit**: photon ray tracing in `rayTracerClass.py` and `radClass.py`
 
@@ -145,5 +153,193 @@ HEAT writes results to `~/HEAT/data/<machine>/<shot>/<timestep>/` (controlled by
 `MachFlag` selects the tokamak: `sparc`, `arc`, `cmod`, `d3d`, `nstx`, `st40`, `step`, `west`, `kstar`, `aug`, `tcv`, `other`. Machine selection in `engineClass.setInitialFiles()` sets CAD and mesh directory paths under `dataPath`.
 
 ---
+
+# Part 2 — Preparing and running a HEAT case
+
+## Mental model
+
+- A **HEAT case** is a self-contained directory anywhere on the host, conventionally
+  `~/HEATruns/<MACHINE>/<caseName>/`. It contains a `batchFile.dat` plus one
+  subdirectory named after the machine flag (e.g. `sparc/`) holding every input file.
+- HEAT executes **inside the Docker container** (`plasmapotential/heat:<tag>`). The case
+  directory is bind-mounted at `/root/terminal`, so every path in the batch file is
+  resolved as `/root/terminal/<MachFlag>/<file>`.
+- One batch file row = one (tag, timestep) combination. Rows sharing a **Tag** form one
+  simulation; the CAD/PFC/Input/Output columns are only read from the **first row** of
+  each tag.
+- Results land on the host under `~/HEAT/data/<MachFlag>_<shot>_<tag>/<timestep>/<PFCname>/`
+  (VTP meshes / point clouds / CSVs, viewable in ParaView). The global log is
+  `~/HEAT/data/HEATlog.txt`.
+
+## Case directory layout
+
+```
+<case>/batchFile.dat
+<case>/<MachFlag>/            # e.g. sparc/
+    <equilibrium files>       # GEQDSK format
+    <CAD files>               # STEP / IGES / FCStd (or STL for BYOM)
+    PFCs*.csv                 # PFC definition file(s)
+    <MACHINE>_input.csv       # HEAT input file
+```
+
+`MachFlag` must be one of: `sparc, arc, cmod, d3d, nstx, st40, step, west, kstar, aug, tcv, other`.
+
+## Step-by-step: setting up a run
+
+Prefer copying an existing case (same machine, similar physics) and modifying it over
+building one from nothing. A batch file template can be generated with
+`launchHEAT.py --sB <path>`.
+
+### 1. Place the CAD
+
+- Put STEP/IGES/FCStd files in `<case>/<MachFlag>/`. Symlinks are fine **if they are
+  relative and their target is inside the case directory** (only the case dir is
+  mounted into the container; absolute symlinks or targets outside it will dangle).
+- Filenames with spaces survive batch-file parsing (comma-separated), but prefer
+  space-free names/symlinks to avoid downstream surprises.
+
+### 2. Verify PFC part names against the CAD
+
+The `PFCname`, `intersectName`, and `excludeName` entries must match the **FreeCAD
+import labels**, not names grepped out of the raw STEP text (FreeCAD auto-generates
+labels like `COMPOUND053` for unnamed compounds). Never assume a label — list them:
+
+```bash
+docker run --rm -v <case>/<MachFlag>:/CAD --entrypoint "" plasmapotential/heat:<tag> \
+  python3 -c "
+import sys; sys.path.append('/usr/lib/freecad-python3/lib')
+import FreeCAD, Import
+Import.open('/CAD/<file>.stp')
+print([o.Label for o in FreeCAD.ActiveDocument.Objects])
+"
+```
+
+This takes ~1–2 min for a large (~25 MB) assembly.
+
+### 3. Write the PFC file
+
+CSV with header (units: `resolution` in **mm**, `timesteps` in **s**):
+
+```
+timesteps, PFCname, resolution, DivCode, intersectName, excludeName
+0:10000, COMPOUND053, 0.5, LI, all, none
+```
+
+- One row per PFC to compute heat flux on; `#` comments allowed.
+- `DivCode` ∈ `UI, UO, LI, LO` (upper/lower, inner/outer). It selects which `frac??`
+  power fraction from the input file this PFC receives.
+- `intersectName`: parts that can shadow this PFC — `all`, or a `:`-separated list of
+  labels. `all` is physically safe but meshes the entire assembly (slow for big CAD).
+- `excludeName`: parts to exclude from intersection checks, or `none`.
+
+### 4. Bring the input file up to date
+
+Input files drift as HEAT gains variables. Diff the case's input file variable names
+against the canonical template `source/inputs/default_input.csv`:
+
+```bash
+diff <(grep -v '^#' source/inputs/default_input.csv | cut -d, -f1 | sed 's/ *$//' | sort) \
+     <(grep -v '^#' <case>/<MachFlag>/<input>.csv | cut -d, -f1 | sed 's/ *$//' | sort)
+```
+
+Add any missing variables with the default values from the template; keep the case's
+existing physics values. Sanity-check that the `fracUI/fracUO/fracLI/fracLO` values are
+consistent with the `DivCode`s used in the PFC file (a PFC whose DivCode has frac=0
+receives no power).
+
+### 5. Equilibrium files
+
+GEQDSK format, **psi in Wb/rad (already divided by 2π)**, with Bt0/Fpol/Psi/Ip signs
+reflecting COCOS. The `TimeStep` column in the batch file — not the EQ filename — is
+what HEAT uses for time.
+
+### 6. Write the batch file
+
+```
+MachFlag, Tag, Shot, TimeStep, GEQDSK, CAD, PFC, Input, Output
+sparc, myRun_nom, 1, 0.0, myEq.geqdsk, assy.stp, PFCs.csv, SPARC_input.csv, hfOpt:psiN:bdotn
+```
+
+- All file columns are **basenames** relative to `<case>/<MachFlag>/`.
+- **Tags become directory names** — no spaces; avoid exotic characters.
+- Time-varying run: repeat the tag on multiple rows, changing `TimeStep` + `GEQDSK`.
+- `Output` options (`:`-separated): `hfOpt, hfGyro, hfRad, hfFil, hfRE, B, psiN, pwrDir,
+  bdotn, norm, T, elmer, Btrace` — see the comment block in any existing batchFile.dat.
+- The column may be named `GEQDSK` or `EQ` (both accepted).
+
+### 7. Point docker-compose at the case
+
+In `docker/docker-compose.yml`, set the batch-mode bind mount and ensure the `command:`
+line is active:
+
+```yaml
+command: ["--m", "t", "--f", "/root/terminal/batchFile.dat"]
+volumes:
+  - ${HOME}/HEAT:/root/HEAT
+  - /abs/path/to/<case>:/root/terminal
+```
+
+`~/HEAT` must exist on the host (output + logs). Uncomment the repo-source mount only
+if the run needs unreleased code changes.
+
+### 8. Pre-flight validation (always do this)
+
+Parse the batch file exactly as HEAT does and check every referenced file resolves
+**inside the container** (this also exercises symlinks):
+
+```bash
+docker run --rm -v <case>:/root/terminal --entrypoint "" plasmapotential/heat:<tag> \
+  python3 -c "
+import pandas as pd, os
+os.chdir('/root/terminal')
+d = pd.read_csv('batchFile.dat', sep=',', comment='#', skipinitialspace=True)
+print(d.to_string())
+mach = d['MachFlag'].iloc[0].strip()
+eqCol = 'GEQDSK' if 'GEQDSK' in d else 'EQ'
+missing = [os.path.join(mach, r[c].strip()) for _, r in d.iterrows()
+           for c in [eqCol,'CAD','PFC','Input']
+           if not os.path.exists(os.path.join(mach, r[c].strip()))]
+print('MISSING:', missing) if missing else print('all files resolve')
+"
+```
+
+### 9. Run
+
+```bash
+cd docker && docker compose up          # runs all tags in the batch file
+```
+
+or as a one-off without editing compose:
+
+```bash
+docker run --rm -v ~/HEAT:/root/HEAT -v <case>:/root/terminal \
+  plasmapotential/heat:<tag> --m t --f /root/terminal/batchFile.dat
+```
+
+Watch for `Number of simulations to be scheduled from batchFile: N` early in stdout —
+if N is wrong, the batch file tag/comment structure is wrong. Errors like
+`Part <name> not a meshable CAD solid` or a part-not-found message mean step 2 was
+skipped or wrong.
+
+## Common pitfalls
+
+- **PFC names are FreeCAD labels**, generated at import time — verify them (step 2).
+- **Only the first row of a tag** sets CAD/PFC/Input/Output; later rows' values are
+  silently ignored.
+- **Stale mesh cache**: HEAT caches meshes under `~/HEAT/data/`; `overWriteMask, True`
+  in the input file forces shadow-mask recompute. If CAD changed but filenames didn't,
+  clear the old case output directory.
+- **`intersectName: all`** on a large assembly makes meshing the dominant cost.
+- **Symlinks** must stay within the mounted case directory.
+- **Units**: resolution mm, timesteps s, power MW (`P` in input file), lq in mm.
+- **radFile / elmerDir paths** in the input file are container paths
+  (`/root/terminal/...`), not host paths.
+- **`mafot_gpu, True` on a GPU MAFOT was not built for** fails at the first field-line
+  trace with `CUDA error ... no kernel image is available for execution on the device`,
+  then `MAFOT exited with code 1` from `MHDClass.runMAFOT`. Either set `mafot_gpu, False`
+  (CPU trace; `rayTracer` may stay `mitsuba_gpu`) or rebuild the image with that GPU's
+  `sm_XY` added to MAFOT's `NVCCFLAGS`.
+
+---
 > Source: [plasmapotential/HEAT](https://github.com/plasmapotential/HEAT) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
