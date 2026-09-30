@@ -1,0 +1,165 @@
+{
+  "name": "termscope",
+  "owner": "iurysza",
+  "repo": "termscope",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "termscope",
+      "path": ".agents/skills/bro/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/bro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/goal/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/readback/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/readback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/rephrase/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/rephrase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/better-ui/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/better-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/tech-spec/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/tech-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/reply-bro/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/reply-bro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/deslopify/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/deslopify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/setup-goal/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/setup-goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/gemini-tts/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/gemini-tts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/tool-install/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/tool-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/skill-cleaner/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/skill-cleaner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/type-breakdown/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/type-breakdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/domain-modeling/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/chatgpt-imagegen/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/chatgpt-imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/audio-transcribe/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/audio-transcribe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/technical-writing/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/technical-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "termscope",
+      "path": ".agents/skills/strunk-writing-quality/SKILL.md",
+      "github_url": "https://github.com/iurysza/termscope/tree/main/.agents/skills/strunk-writing-quality/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iurysza/termscope",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:43:24Z"
+}
