@@ -2,9 +2,9 @@
   "name": "LazyVerilog",
   "owner": "lazyverilog",
   "repo": "LazyVerilog",
-  "description": "A fast, practical SystemVerilog LSP for RTL coding.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lazyverilog/LazyVerilog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T21:32:45Z"
+  "distributed_at": "2026-09-30T20:28:34Z"
 }
