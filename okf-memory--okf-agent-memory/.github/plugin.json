@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "okf-memory",
   "homepage": "https://github.com/okf-memory/okf-agent-memory",
-  "skills": []
+  "skills": [
+    {
+      "name": "okf-agent-memory",
+      "description": ""
+    },
+    {
+      "name": "okf-agent-memory",
+      "description": ""
+    }
+  ]
 }
