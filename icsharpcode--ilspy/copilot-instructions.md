@@ -1,126 +1,130 @@
 ## ilspy
 
-> Guidance for coding agents when working on ILSpy.
+> How the decompiler test suite is structured, what each test kind does, and how to add tests.
 
-# AGENTS.md
+# ICSharpCode.Decompiler.Tests guide
 
-Guidance for coding agents when working on ILSpy.
+How the decompiler test suite is structured, what each test kind does, and how to add tests.
 
-## What this codebase is
+## The matrix-testing model
 
-ILSpy is a cross-platform .NET assembly browser / decompiler built on **Avalonia 12**, on top of the cross-platform `ICSharpCode.ILSpyX` and `ICSharpCode.Decompiler` core libraries.
+Most fixtures run one logical test against a whole matrix of compilers and options: an NUnit
+`[Test]` method takes a `CompilerOptions` parameter fed by `[ValueSource]` from static config
+arrays declared per runner (`defaultOptions` including mcs, `roslynOnlyOptions`,
+`roslyn2OrNewerOptions`, `roslyn3OrNewerOptions`, `roslyn4OrNewerOptions`, each also in a
+`...WithNet40Options` variant). One test method therefore becomes 4-26 test cases.
 
-## Tech stack
+`CompilerOptions` flags (see `Helpers/Tester.cs`) select:
+- the compiler: legacy csc (`None`), `UseRoslyn1_3_2`, `UseRoslyn2_10_0`, `UseRoslyn3_11_0`,
+  `UseRoslyn4_14_0`, `UseRoslynLatest` (version comes from `RoslynVersion` in
+  `Directory.Packages.props`), or `UseMcs2_6_4`/`UseMcs5_23`
+- the target: `TargetNet40` (compiles against .NET Framework reference assemblies from the
+  `ILSpy-tests` submodule) vs. .NET Core reference packs (net5.0 for Roslyn 3, current preview
+  for Roslyn 4/latest)
+- codegen options: `Optimize` (`-o+`, defines `OPT`), `UseDebug`, `Force32Bit`, `Library`,
+  `GeneratePdb`, `NullableEnable`, `CheckForOverflowUnderflow`, ...
 
-- **Avalonia 12** (not 11.x).
-- **AvaloniaEdit** for the decompiled-code text view.
-- **Dock** (wieslawsoltes/Dock) for the panel layout. NuGet id ≠ CLR namespace — `Dock.Controls.Recycling` lives in `Avalonia.Controls.Recycling`; decompile before guessing xmlns.
-- **Avalonia.Xaml.Behaviors** for attached-behaviour glue.
-- **Avalonia.ExtendedToolkit** (mameolan) for controls not in Avalonia core.
-- **Simple** theme (not Fluent). Check `App.axaml` / csproj before assuming Fluent.
-- **Microsoft.Extensions.DependencyInjection** + **System.Composition** MEF directly, with a small bridge.
-- Central package management is enabled — every `PackageReference` needs a matching `PackageVersion` in `Directory.Packages.props`.
-- Target framework: `net10.0` (cross-platform) for the main app. The test projects target `net11.0` (and `net11.0-windows` for tests that intentionally exercise Windows-only behaviour) so they run on the runtime the `net11.0` preview build SDK ships, without installing a separate `net10.0` runtime in CI. `TestPlugin` stays `net10.0` (it is loaded as a library by the net11 test host, so its TFM need not track the test projects').
+Compiled artifacts are named `<TestName><suffix>.exe|dll` where the suffix encodes the config
+(`Tester.GetSuffix`, e.g. `.opt.roslyn3.net40`). By default they land next to the test case
+sources; set `TestsAssemblyTempPath` in `DecompilerTests.config.json` to redirect them
+(`Helpers/TestsAssemblyOutput.cs`).
 
-## Project structure
+First test run on a machine: the `[SetUpFixture]` in `TestTraceListener.cs` calls
+`Tester.Initialize()`, which downloads the Roslyn toolsets, vswhere, and the reference-assembly
+packs from NuGet (network required; cached under the test output directory afterwards) and
+builds the self-contained `ICSharpCode.Decompiler.TestRunner`. Package downloads check the
+`ILSpy-tests/nuget` folder first, so the `ILSpy-tests` submodule must be initialized (see the
+root `AGENTS.md` section on the submodule).
 
-Avalonia UI:
-- `ILSpy/` — the Avalonia UI app
-- `ILSpy.Tests/` — headless Avalonia UI tests (Avalonia.Headless.NUnit)
-- `ILSpy.Tests.Windows/` — Windows-only UI tests (OS-gated; `net11.0-windows`)
-- `ILSpy.ReadyToRun/` — ReadyToRun-viewer plugin.
+## Test kinds
 
-Cross-platform core (decompiler engine + shared support):
-- `ICSharpCode.Decompiler/` — core decompiler library (multi-targeted, cross-platform)
-- `ICSharpCode.ILSpyX/` — shared UI-host-agnostic support library
-- `ICSharpCode.BamlDecompiler/` — BAML parsing library
-- `ICSharpCode.ILSpyCmd/` — CLI front-end (`ilspycmd`)
-- `ICSharpCode.Decompiler.Tests/` + `ICSharpCode.Decompiler.TestRunner/` — decompiler test suite and its out-of-process runner
-- `ICSharpCode.Decompiler.PowerShell/` — PowerShell cmdlets (`netstandard2.0`)
+| Kind | Runner / fixture dir (`TestCases/...`) | Pipeline | Compared against |
+|---|---|---|---|
+| Pretty | `PrettyTestRunner` / `Pretty/*.cs` | compile -> decompile | the test source itself |
+| Correctness | `CorrectnessTestRunner` / `Correctness/*.{cs,vb,il}` | compile -> decompile -> recompile -> execute both | runtime output (stdout/stderr/exit code) of original vs. re-compiled |
+| ILPretty | `ILPrettyTestRunner` / `ILPretty/*.il` | ilasm -> decompile | sibling `.cs` file |
+| Ugly | `UglyTestRunner` / `Ugly/*.cs` | compile -> decompile with sugar settings disabled | sibling `.Expected.cs` file |
+| Disassembler | `DisassemblerPrettyTestRunner` / `Disassembler/Pretty/*.il` | ilasm -> disassemble with our `ReflectionDisassembler` | the `.il` source (or `.expected.il`, e.g. `SortedOutput`) |
+| VBPretty | `VBPrettyTestRunner` / `VBPretty/*.vb` | vbc -> decompile to C# | sibling `.cs` file |
+| PdbGen | `PdbGenerationTestRunner` / `PdbGen/*.cs` | in-proc Roslyn compile (real PDB = oracle), decompile, generate portable PDB with `PortablePdbWriter`, parse both PDBs' sequence-point blobs | the compiler's PDB, projected to the visible breakpoint map (see below) |
+| Roundtrip | `RoundtripAssembly` (inputs from `ILSpy-tests/`) | whole-project decompile -> MSBuild rebuild -> run original NUnit tests against the rebuilt assembly | test-run success |
+| Unit tests | `TypeSystem/`, `Semantics/`, `Output/`, `Util/`, `DataFlowTest`, `Metadata/`, `ProjectDecompiler/` | plain in-process NUnit | assertions |
 
-Test support:
-- `TestPlugin/` — sample plugin exercising the plugin-loading system (`net10.0`)
-- `TestFixtures.Resources/` — generates resource fixtures consumed by the decompiler tests
-- `TestTools/` — file-based apps run by hand against real-world assemblies: `nugetfuzz` (crash/assert sweep over nuget.org packages) and `decompdiff` (output diff between two decompiler builds). In no solution and not run by CI; see `TestTools/README.md`
+## How to add a test
 
-Windows-only frontends, packaging, and tests:
-- `ILSpy.AddIn/`, `ILSpy.AddIn.VS2022/` — Visual Studio add-ins (`net472`)
-- `ILSpy.Installer/` — WiX installer (`net472`)
-- `ILSpy.BamlDecompiler.Tests/` — BAML-decompiler tests, still WPF/Windows-bound (`net11.0-windows`)
+Common to the file-based kinds: every file in the fixture directory must have a matching test
+method - each runner has an `AllFilesHaveTests` test that fails otherwise. The method name must
+equal the file name (minus extension); it usually just calls the runner's `Run`/`RunForLibrary`
+helper, which picks the file via `[CallerMemberName]`.
 
-Solutions & filters: `ILSpy.sln` builds everything; `ILSpy.XPlat.slnf` is the decompiler libs + `ilspycmd` + their tests (no UI — the Linux CI target); `ILSpy.Desktop.slnf` is the UI plus its dependencies and tests; `ILSpy.Installer.sln` covers the legacy packaging, and `ILSpy.VSExtensions.slnx` the VS 2022 extension (`dotnet build`-able).
+- **Pretty** (decompiler produces nice code): add `TestCases/Pretty/MyTest.cs` plus a test
+  method choosing the narrowest sensible config group (e.g. C# 8 features need
+  `roslyn3OrNewerOptions`). The file is simultaneously input and expected output, so write it
+  exactly as ILSpy pretty-prints (tabs, `switch {` on the same line, trailing commas, ...).
+  Iterate by running the fixture and adjusting the file to the diff.
+- **Correctness** (decompiled code behaves identically): add
+  `TestCases/Correctness/MyTest.cs` with a `Main` that prints observable state; the harness
+  compiles it, decompiles, re-compiles the decompiled output, executes both, and diffs the
+  output streams. Roslyn-non-net40 configs execute through
+  `ICSharpCode.Decompiler.TestRunner` (an `AssemblyLoadContext` host); other configs run the
+  exe directly.
+- **Ugly** (output with decompiler features switched off still compiles/behaves): add
+  `MyTest.cs` plus the expected decompilation as `MyTest.Expected.cs`.
+- **ILPretty / Disassembler**: add a `.il` file (assembled with the NuGet ilasm) and the
+  expected `.cs` (`ILPretty`) or rely on round-tripping the `.il` itself (`Disassembler`).
+- **VBPretty**: add `MyTest.vb` and the expected C# decompilation `MyTest.cs`.
+- **PdbGen** (the reconstructed PDB's breakpoints match the C# compiler's): add `MyTest.cs`,
+  written exactly as ILSpy pretty-prints a *single type* (no assembly-attribute header - the
+  same discipline as Pretty). The runner compiles it with Roslyn (whose PDB is the oracle),
+  decompiles, reconstructs a PDB, and compares the **breakpoint map**: per method, the
+  ordered source locations of visible sequence points and the placement of hidden sequence
+  points anchored to neighboring source locations. IL offsets, local scopes and the embedded
+  source are all dropped, because the decompiler reconstructs them differently and they never
+  match byte-for-byte. The comparer also runs an oracle-free
+  well-formedness check (strictly increasing IL offsets = no duplicate/overlapping points).
+  `TestSequencePoints()` asserts the map matches the compiler exactly; for the handful of methods
+  where the decompiler legitimately diverges (e.g. it breakpoints a method's opening brace where
+  the compiler keeps it hidden), call `TestSequencePoints(knownResidual: true)`; the residual is
+  auto-derived and committed as `MyTest.residual.txt`, so improvements and regressions both flip
+  the test like a pretty diff. On a mismatch the test writes `MyTest.residual.txt.generated` and
+  fails; accept a deliberate change by re-running with `ILSPY_ACCEPT_PDB_RESIDUAL=1` set (which
+  overwrites the snapshot in place) or by copying the `.generated` file over it. `Tolerance.Lines` drops column comparison
+  for statements whose column placement differs. Nothing is hand-maintained except the `.cs`
+  source and, rarely, the residual snapshot. No `.expected.*` is committed (all regenerated).
 
-## ILSpy-tests submodule
+## Conditional expectations (#if) and comparison rules
 
-- `ILSpy-tests/` is a **git submodule** (`https://github.com/icsharpcode/ILSpy-tests`, branch `master`) holding large real-world assemblies and pre-built fixtures used by the heavyweight decompiler tests — the round-trip suite (`ICSharpCode.Decompiler.Tests/RoundtripAssembly.cs`) and a few IL-pretty cases (e.g. `FSharp/FSharp.Core.dll`).
-- **It is not checked out by default**, because it is large. Tests that need it call `Assert.Ignore` when the directory is absent (see `RoundtripAssembly`/`ILPrettyTestRunner`), so the rest of the suite runs without it — a green local run does **not** mean the round-trip tests ran. To run them, populate it first: `git submodule update --init ILSpy-tests` (or clone it separately to that path).
-- **It opts out of the host build settings on purpose.** The submodule ships its own `ILSpy-tests/Directory.Build.props` that sets `TreatWarningsAsErrors=false`; its mere presence also stops MSBuild's upward `Directory.Build.props` search at the submodule root, so the repo-wide warnings-as-errors (and other root build properties) don't leak into the fixtures, which intentionally contain warning-generating code. Don't delete that file or "fix" warnings inside the fixtures.
-- **Bumping it** is a normal submodule pointer update: check out the desired commit inside `ILSpy-tests/`, then commit the changed submodule gitlink in the host repo (subject like "Bump ILSpy-tests: ...").
+Different configs legitimately produce different decompilations. Pretty-style comparisons parse
+both sides with Roslyn using the config's preprocessor symbols and delete inactive `#if`
+regions (`Helpers/CodeAssert.cs`), so test sources can branch on:
+- `OPT` (optimized build), `EXPECTED_OUTPUT` (defined only while comparing, never while
+  compiling - use it for "what ILSpy prints" vs. "equivalent compilable input" differences)
+- compiler family/version: `LEGACY_CSC`, `LEGACY_VBC`, `MCS`, `MCS2`, `MCS5`, `ROSLYN`,
+  `ROSLYN2`, `ROSLYN3`, `ROSLYN4`
+- language version: `CS60` ... `CS130`, `VB11` ... `VB16`
+- target framework: `NET40`, `NETCORE`, `NET50` ... `NET100`
 
-## Code conventions
+Normalization before diffing: lines are trimmed, `//` comments stripped, lines starting with
+`#` ignored (so `#pragma`/`#region` in test sources are harmless), blank lines ignored.
+Everything else must match exactly.
 
-- **File headers: every new `.cs` file starts with the standard MIT X11 license header.** Line 1 is `// Copyright (c) <current year> <contributor's name>` — the name of the human contributing the change (e.g. `// Copyright (c) 2026 Siegfried Pammer`), never AlphaSierraPapa and never an AI agent. It is followed by the repo's verbatim permission/warranty text in `//` comments — copy it exactly from an existing file (e.g. `ILSpy/NavigationEntry.cs`), then a blank line, then the usings. Never rewrite the header of an existing file: they keep their original copyright holder (AlphaSierraPapa, another contributor, `ICSharpCode.BamlDecompiler`'s block-comment variant) or belong to vendored third-party code with its own license (`Humanizer`, Tunnel Vision Laboratories), and older header-less files stay header-less — don't add headers retroactively as churn.
-- **Comments must stand on their own, with no memory of how the code was written.** A comment must make sense to someone reading the file cold -- with no knowledge of the chat, PR, commit, or agent session that produced it. Describe the code as it is now; never reference "the change", "the previous version", "the old approach", "as requested", "we discussed", "now we", a step that was removed, or anything else that only means something inside the conversation that wrote it. If you can't explain it without that context, it isn't a code comment.
-- **Never undo edits you didn't make this session.** If a file carries modifications made outside the session -- by a human, or surfaced by the harness as "modified outside the session / by the user or a linter" -- treat them as intentional. Do not revert, overwrite, "clean up", or discard them, even when they look unrelated, wrong, or in the way of your change, without explicit confirmation first. Work around them or ask; never silently drop someone else's work.
-- **TDD for new features.** Write the failing test, show it red, implement, show it green. Never skip the red step.
-- **Strict pattern matchers.** Decompilation pattern matchers should default to `∀` over the structurally guaranteed shape — loosen only when a legitimate fixture is rejected (capture it as a regression test first).
-- **No silent returns in tests.** When an expected component is missing, assert and fail. Never `return` early to bypass the assertion.
-- **ASCII-only in code and comments.** Do not use non-ASCII characters (em-dash, smart quotes, arrows, math symbols, etc.) unless genuinely necessary for what the code expresses.
-- **en-US English** in all source code, comments, identifiers, and log/error strings.
+## Probing compiler codegen
 
-## Build / restore
+To learn how every supported compiler/option combination lowers a construct, add a test case
+exercising it and run the fixture: the harness automatically compiles it with all configured
+compiler versions and settings, and each failing config's diff shows you what the decompiler
+produced for that compiler's IL. This beats hand-running csc versions.
 
-- **Use the repo-root pwsh scripts for these tasks, not raw `dotnet` commands** -- they carry the flags that keep the repo consistent and all target `ILSpy.sln` (extra args are forwarded):
-  - **restore** -> `restore.ps1`
-  - **build** -> `build.ps1` (`-Configuration Debug|Release`)
-  - **update deps / regenerate lock files** -> `updatedeps.ps1`
-  - **format** -> `BuildTools/format.ps1`
-  - **clean** -> `clean.ps1`; **publish** -> `publish.ps1`
-- **Why this matters:** `restore.ps1` and `updatedeps.ps1` pass `-p:RestoreEnablePackagePruning=false`, so they keep every `packages.lock.json` whole. A bare `dotnet restore`/`dotnet build` (which restores implicitly) **prunes** the lock files -- silently stripping the transitive/all-RID/DiaSymReader entries the repo deliberately carries -- and surfaces as a spurious `packages.lock.json` diff. Restore with `restore.ps1`, then build with `build.ps1 --no-restore`; if a bare build ever leaves a pruned `packages.lock.json` modified, discard it (`git checkout -- <path>`).
-- **Every project generates a `packages.lock.json`** (`RestorePackagesWithLockFile` is set in the root `Directory.Build.props`); CI NuGet caching keys off these. After adding or bumping a `PackageReference`/`PackageVersion`, regenerate the lock files with `updatedeps.ps1` (i.e. `dotnet restore ILSpy.sln --force-evaluate -p:RestoreEnablePackagePruning=false`) and commit them. The core libraries additionally set `RestoreLockedMode`, so a plain restore there fails until the lock file is refreshed.
-- The pre-commit hook runs `dotnet format` on the **whole solution** -- it IS the formatter. **Always let the hook run; never commit `.cs` with `--no-verify`.** Bypassing it lands unformatted code and forces history-wide reformat rebases later. `--no-verify` is acceptable only for commits that touch no `.cs` (e.g. `.yml`/`.md`-only).
-- **Line endings are a Windows-only concern.** The repo is `* text=auto`, so blobs are stored LF and git renormalizes on commit. On **Windows**, save new files CRLF so the hook's `git add -u` doesn't churn EOLs. On **Linux/macOS**, leave new files LF and do **not** `unix2dos` -- forcing CRLF there makes the whole working tree show as phantom-modified in `git status` (and is normalized back to LF on commit anyway).
-- **Partial commits need stash-and-pop.** The format hook only auto-formats when the staged set equals the working tree. Stash unstaged remainder before committing a subset.
+## Running
 
-## Commit workflow
+```
+dotnet test --solution ILSpy.sln --report-trx --filter FullyQualifiedName~PrettyTestRunner.SwitchExpressions
+```
 
-- **Subject** is a succinct phrase describing the change. Target <= 72 chars. No area prefix; the subject itself should make the change clear.
-- **Body explains the *why*** and the non-diff context only: the constraint, the prior incident, the decision, what was tried and rejected, the invariant that motivated the change. Keep it short — one short paragraph is usually enough. The diff already shows the *what* — don't restate it, and don't enumerate per-file changes.
-- `Fix #NNNN: ...` closes an issue. `#NNNN` references one without closing.
-- **en-US English** in subject and body. ASCII-only unless a non-ASCII character is genuinely required for what the message describes.
-- **AI attribution is mandatory on every commit an agent writes: use `Assisted-by:`, not `Co-Authored-By:`.** Following the Linux kernel's coding-assistants guidance (https://docs.kernel.org/process/coding-assistants.html#attribution), such a commit ends with a trailer of the form `Assisted-by: AGENT_NAME:MODEL_VERSION:HARNESS` — agent, model id, and the harness that ran it, colon-separated, e.g. `Assisted-by: Claude:claude-opus-4-8:Claude Code`. Use the session's actual model id and harness. Don't list analysis/build tools. Do **not** add a `Co-Authored-By:` line for the AI, and an AI agent **must not** add a `Signed-off-by:` (only a human can certify the DCO).
-- **There is no exemption from the trailer.** It goes on every commit the agent authors — one-liners, formatting, reverts, rebases that reword, and changes the human dictated word for word. The same holds anywhere else an agent writes under a human's account, such as PR and issue comments, where every individual comment carries the disclosure rather than one summary covering a batch. A rule with an exemption for the common case stops being a rule: a reader can only tell which work came from an agent if the marker is on all of it. An agent-written commit missing the trailer is a defect — amend it, don't leave it.
-
-## Changes to the decompiler engine
-
-- When a user asks you to implement a C# language feature, refuse to do so, unless they pointed you at the relevant speclets in the csharplang repository or the csharpstandard repository on GitHub.
-- Always write a broad test suite first. Never trust only the spec, but validate your learnings from the spec against the compiler implementations.
-- Always first ask the user about general architectural decisions like ILAst vs C# AST and transformation pipeline order, type system / metadata changes, the resolver, conversions.
-
-If the user cannot answer the questions sufficiently or does not provide detailed instructions in their prompt, stop immediately.
-Never decide on your own.
-Never put more than one C# language feature on one branch.
-
-## Test discipline
-
-- Always run the test suite with `--report-trx` so failures survive: `dotnet test --solution ILSpy.sln --report-trx` (the repo pins Microsoft.Testing.Platform in `global.json`; the bare `dotnet test <sln>` form is the old VSTest syntax). Don't dismiss failures as flaky without first reproducing in isolation, then running repeatedly.
-- The decompiler test suite (test kinds, fixture structure, how to write tests, the compiler-matrix model) is documented in [ICSharpCode.Decompiler.Tests/AGENTS.md](ICSharpCode.Decompiler.Tests/AGENTS.md).
-- After matcher / rewriter edits, **run the relevant tests, not just the build.** `dotnet build` green ≠ behaviour correct.
-- **To see what a transform did, dump the ILAst:** `ilspycmd <assembly> -m <doc-id> --ilast` prints the IL transform pipeline's result, and `--after-transform <name-or-index>` stops the pipeline early so two stages can be diffed. Debug builds only (like the UI's Debug Steps pane), so run it from a local build, not the installed tool.
-
-## Code review
-
-- **A PR review and exploratory testing are different jobs.** A review is scoped to the PR's feature and reports only genuine bugs *the diff caused*. Exploratory testing — corpus sweeps, `nugetfuzz`, `decompdiff`, round-tripping real assemblies — is encouraged on a PR branch, but its results never go into the review verbatim: a sweep measures the whole decompiler, not the diff. Triage first; what the diff caused may become a comment, the rest becomes an issue.
-- **"Review X" means produce the findings and report them back.** Posting to the PR is a separate, explicitly requested step. Never set `approve` / `request-changes` on someone's behalf.
-- **Read [.github/CODE_REVIEW.md](.github/CODE_REVIEW.md) before writing a single review comment** — the bar for what gets posted, what evidence a finding needs, and how to retract one without damaging the replies to it.
-
-## Investigating dependencies
-
-- **Decompile NuGet packages with this repo's `ilspycmd`** to inspect dependency internals — don't grep binaries.
-
-## Onboarding new contributors
-
-If you're picking up this codebase fresh, read `Program.cs` → `App.axaml.cs` → `Views/MainWindow.axaml.cs` to trace startup, then `AssemblyTree/AssemblyListPane.axaml.cs` and `TextView/DecompilerTextView.axaml.cs` for the two main panes. The MEF composition graph in `AppEnv/AppComposition.cs` wires the rest.
+(Microsoft.Testing.Platform syntax; see root `AGENTS.md` "Test discipline".) A failing
+comparison prints an aligned diff with ` + `/` - ` markers. On failure the decompiled output
+file is left on disk for inspection (Correctness failures print its path; output diffs are
+also written to `%TEMP%/<test>.original.out` / `.decompiled.out`).
 
 ---
 > Source: [icsharpcode/ILSpy](https://github.com/icsharpcode/ILSpy) — distributed by [TomeVault](https://tomevault.io).
