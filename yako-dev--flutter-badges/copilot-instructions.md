@@ -1,10 +1,10 @@
 ## flutter-badges
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Guidance for coding agents (Claude Code, Codex, ...) working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for coding agents (Claude Code, Codex, ...) working in this repository.
 
 ## Commands
 
@@ -18,11 +18,11 @@ flutter test --coverage --test-randomize-ordering-seed random
 # Run a single test file
 flutter test test/badges_test.dart
 
-# Lint
-flutter analyze .
+# Lint (CI runs exactly this; infos fail it)
+flutter analyze lib/ test/ example/
 
 # Format (CI enforces this — run before committing)
-flutter format .
+dart format .
 ```
 
 ## Architecture
@@ -72,4 +72,4 @@ When `child` is null, the badge renders standalone. When `child` is provided, it
 
 ---
 > Source: [yako-dev/flutter_badges](https://github.com/yako-dev/flutter_badges) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
