@@ -1,0 +1,9 @@
+{
+  "name": "heranhe--microduck-lab-cloud",
+  "displayName": "microduck-lab-cloud",
+  "description": "Cloud-ready reinforcement learning, interactive simulation and behavior suite for MicroDuck biped robots",
+  "version": "1.0.0",
+  "author": "heranhe",
+  "homepage": "https://github.com/heranhe/microduck-lab-cloud",
+  "skills": []
+}
