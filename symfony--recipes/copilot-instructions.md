@@ -113,4 +113,4 @@ things up in the project instead of relying on memory:
 
 ---
 > Source: [symfony/recipes](https://github.com/symfony/recipes) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
