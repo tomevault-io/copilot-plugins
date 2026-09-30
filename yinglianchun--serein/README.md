@@ -2,8 +2,6 @@
 
 > Source: [Yinglianchun/Serein](https://github.com/Yinglianchun/Serein). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-雨落下的地方，记忆会再次开花。可自部署的 AI 长期记忆与聊天网关。Self-hosted AI memory & chat gateway for long-term conversations.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
