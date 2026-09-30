@@ -1,0 +1,9 @@
+{
+  "name": "ibm--simrun",
+  "displayName": "simrun",
+  "description": "Attack Simulation Platform (ASP) for detection testing",
+  "version": "1.0.0",
+  "author": "IBM",
+  "homepage": "https://github.com/IBM/simrun",
+  "skills": []
+}
