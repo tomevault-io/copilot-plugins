@@ -4,7 +4,7 @@
   "repo": "celeb-couple",
   "description": "Do some actors and actresses consistently pair with partners judged more attractive than themselves? Four leaderboards, on screen and in real life, built from model judgments.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tonygwu/celeb-couple",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T02:46:30Z"
+  "distributed_at": "2026-09-30T07:27:45Z"
 }
