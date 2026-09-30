@@ -5,15 +5,22 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [RLinf/RPent](https://github.com/RLinf/RPent).
+Original source: `CLAUDE.md` in [RLinf/RPent](https://github.com/RLinf/RPent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (4)
+
+- [RPent](https://github.com/RLinf/RPent/tree/main/.agents/skills/review-pr/SKILL.md)
+- [RPent](https://github.com/RLinf/RPent/tree/main/.agents/skills/add-robot/SKILL.md)
+- [RPent](https://github.com/RLinf/RPent/tree/main/.agents/skills/docs-check/SKILL.md)
+- [RPent](https://github.com/RLinf/RPent/tree/main/.agents/skills/verify-change/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/RLinf/RPent](https://github.com/RLinf/RPent)
 
