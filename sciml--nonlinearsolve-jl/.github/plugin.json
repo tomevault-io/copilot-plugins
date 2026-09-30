@@ -1,0 +1,9 @@
+{
+  "name": "sciml--nonlinearsolve-jl",
+  "displayName": "NonlinearSolve.jl",
+  "description": "NonlinearSolve.jl",
+  "version": "1.0.0",
+  "author": "SciML",
+  "homepage": "https://github.com/SciML/NonlinearSolve.jl",
+  "skills": []
+}
