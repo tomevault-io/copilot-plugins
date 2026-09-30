@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "haydenbleasel",
   "homepage": "https://github.com/haydenbleasel/ultracite",
-  "skills": [
-    {
-      "name": "ultracite",
-      "description": ""
-    },
-    {
-      "name": "remotion-best-practices",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
