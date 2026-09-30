@@ -1,0 +1,159 @@
+{
+  "name": "celesto",
+  "owner": "CelestoAI",
+  "repo": "celesto",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "celesto",
+      "path": ".agents/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/teach/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/teach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/triage/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/wizard/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/wizard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/wayfinder/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/wayfinder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/prototype/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/wait-what/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/wait-what/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/domain-modeling/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/readme-guidelines/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/readme-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".claude/skills/readme-guidelines/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.claude/skills/readme-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/writing-for-agents/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/writing-for-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/cli-docs-guidelines/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/cli-docs-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".claude/skills/cli-docs-guidelines/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.claude/skills/cli-docs-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/resolving-merge-conflicts/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/resolving-merge-conflicts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celesto",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/CelestoAI/celesto/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/CelestoAI/celesto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T11:39:08Z"
+}
