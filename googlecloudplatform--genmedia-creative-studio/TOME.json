@@ -1,0 +1,117 @@
+{
+  "name": "genmedia-creative-studio",
+  "owner": "GoogleCloudPlatform",
+  "repo": "genmedia-creative-studio",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/skills/story-generator/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/skills/story-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/skills/agent-aware-cli/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/skills/agent-aware-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/skills/genmedia-producer/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/skills/genmedia-producer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/skills/build-mcp-genmedia/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/skills/build-mcp-genmedia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/skills/install-mcp-genmedia/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/skills/install-mcp-genmedia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/skills/genmedia-video-editor/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/skills/genmedia-video-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/skills/genmedia-image-artist/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/skills/genmedia-image-artist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/skills/genmedia-voice-director/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/skills/genmedia-voice-director/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/skills/genmedia-audio-engineer/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/skills/genmedia-audio-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/agent_tools/plugins/genmedia/skills/genmedia-image/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/agent_tools/plugins/genmedia/skills/genmedia-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/sample-agents/antigravity/.agents/skills/producer/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/sample-agents/antigravity/.agents/skills/producer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genmedia-creative-studio",
+      "path": "experiments/mcp-genmedia/sample-agents/geminicli/sample_extensions/google-genmedia/skills/producer/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio/tree/main/experiments/mcp-genmedia/sample-agents/geminicli/sample_extensions/google-genmedia/skills/producer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GoogleCloudPlatform/genmedia-creative-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T04:39:40Z"
+}
