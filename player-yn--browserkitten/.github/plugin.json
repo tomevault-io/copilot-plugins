@@ -1,0 +1,14 @@
+{
+  "name": "player-yn--browserkitten",
+  "displayName": "BrowserKitten",
+  "description": "BrowserKitten",
+  "version": "1.0.0",
+  "author": "Player-YN",
+  "homepage": "https://github.com/Player-YN/BrowserKitten",
+  "skills": [
+    {
+      "name": "BrowserKitten",
+      "description": ""
+    }
+  ]
+}
