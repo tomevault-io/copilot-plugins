@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Alex-Rachel/TEngine](https://github.com/Alex-Rachel/TEngine).
+Original source: `AGENTS.md` in [Alex-Rachel/TEngine](https://github.com/Alex-Rachel/TEngine).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (21)
+## Bundled Skills (24)
 
 - [TEngine](https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/caveman/SKILL.md)
 - [TEngine](https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/grill-me/SKILL.md)
@@ -38,6 +38,9 @@ Original source: `CLAUDE.md` in [Alex-Rachel/TEngine](https://github.com/Alex-Ra
 - [TEngine](https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/openspec-archive-change/SKILL.md)
 - [TEngine](https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/improve-codebase-architecture/SKILL.md)
 - [TEngine](https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/improve-codebase-architecture/SKILL.md)
+- [TEngine](https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/html-to-ugui/SKILL.md)
+- [TEngine](https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/unity-cli/SKILL.md)
+- [TEngine](https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/Packages/com.unity.pipeline/.claude/skills/unity-pipeline/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Alex-Rachel/TEngine](https://github.com/Alex-Rachel/TEngine)
 
