@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [symfony/recipes](https://github.com/symfony/rec
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [symfony/recipes](https://github.com/symfony/recipes) — a repo with 1027+ stars on GitHub.
+From [symfony/recipes](https://github.com/symfony/recipes) — a repo with 1029+ stars on GitHub.
 
 ---
 
