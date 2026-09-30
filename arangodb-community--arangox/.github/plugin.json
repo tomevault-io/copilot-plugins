@@ -1,0 +1,9 @@
+{
+  "name": "arangodb-community--arangox",
+  "displayName": "arangox",
+  "description": "arangox",
+  "version": "1.0.0",
+  "author": "ArangoDB-Community",
+  "homepage": "https://github.com/ArangoDB-Community/arangox",
+  "skills": []
+}
