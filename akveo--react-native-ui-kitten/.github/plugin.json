@@ -1,0 +1,14 @@
+{
+  "name": "akveo--react-native-ui-kitten",
+  "displayName": "react-native-ui-kitten",
+  "description": "react-native-ui-kitten",
+  "version": "1.0.0",
+  "author": "akveo",
+  "homepage": "https://github.com/akveo/react-native-ui-kitten",
+  "skills": [
+    {
+      "name": "react-native-ui-kitten",
+      "description": ""
+    }
+  ]
+}
