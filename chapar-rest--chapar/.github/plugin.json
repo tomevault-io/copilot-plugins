@@ -1,0 +1,14 @@
+{
+  "name": "chapar-rest--chapar",
+  "displayName": "chapar",
+  "description": "chapar",
+  "version": "1.0.0",
+  "author": "chapar-rest",
+  "homepage": "https://github.com/chapar-rest/chapar",
+  "skills": [
+    {
+      "name": "chapar",
+      "description": ""
+    }
+  ]
+}
