@@ -2,9 +2,9 @@
   "name": "r2-web",
   "owner": "vikiboss",
   "repo": "r2-web",
-  "description": "\ud83d\udcc1 \u8f7b\u76c8\u4f18\u96c5\u7684 Web \u539f\u751f Cloudflare R2 \u6876\u6587\u4ef6\u7ba1\u7406\u5668\uff0c\u4e00\u5207\u7686\u5728\u6d4f\u89c8\u5668\u4e2d\u5b8c\u6210\u3002 | \ud83d\udcc1 A lightweight, elegant, pure-browser Cloudflare R2 file manager. Everything happens right in your browser.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vikiboss/r2-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T06:23:18Z"
+  "distributed_at": "2026-09-30T10:58:24Z"
 }
