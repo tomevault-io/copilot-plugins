@@ -1,0 +1,9 @@
+{
+  "name": "bash-lsp--bash-language-server",
+  "displayName": "bash-language-server",
+  "description": "bash-language-server",
+  "version": "1.0.0",
+  "author": "bash-lsp",
+  "homepage": "https://github.com/bash-lsp/bash-language-server",
+  "skills": []
+}
