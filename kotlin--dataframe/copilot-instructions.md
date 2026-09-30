@@ -1,44 +1,41 @@
 ## dataframe
 
-> Guidance for this module. See the root `AGENTS.md` for repo-wide build/style/KoDEx rules; only module-specific
+> Guidance for this folder. See the root `AGENTS.md` for repo-wide build/style rules.
 
-# AGENTS.md — dataframe-compiler-plugin-core
+# AGENTS.md — plugins
 
-Guidance for this module. See the root `AGENTS.md` for repo-wide build/style/KoDEx rules; only module-specific
-details are here.
+Guidance for this folder. See the root `AGENTS.md` for repo-wide build/style rules.
 
-## What this module is (read this first)
+## Read this before using anything here
 
-`dataframe-compiler-plugin-core` (artifact `dataframe-compiler-plugin-core`) is **NOT a Kotlin compiler plugin.**
-It contains no `CompilerPluginRegistrar`, no FIR/IR extensions, no `@ExperimentalCompilerApi` entry points.
+**Most of this folder is dead code.** Three of the five modules are disabled, and none of the three is registered
+in `settings.gradle.kts` — so nothing in them is compiled, tested, or published by the normal build. Code in a
+disabled module can be arbitrarily out of date and **nothing will fail to tell you**. Do not cite it as evidence
+of how anything currently behaves, and do not change it expecting an effect.
 
-It is a **shaded subset of `:core`** — the runtime API and interpreter logic that the *real* Kotlin DataFrame
-compiler plugin bundles and calls into at compile time to evaluate DataFrame operations (compile-time interpreters
-of operations). It is bundled together with the compiler plugin in Kotlin, and by extension in IntelliJ.
+| Module | State |
+|---|---|
+| `kotlin-dataframe` | **Disabled legacy copy** of the Kotlin DataFrame compiler plugin. The live one is developed in the Kotlin repository: `github.com/JetBrains/kotlin/tree/master/plugins/kotlin-dataframe`. See issue #1290. |
+| `symbol-processor` | **Disabled** — KSP1 is not compatible with Kotlin 2.3+. |
+| `dataframe-gradle-plugin` | **Disabled** for the same reason (it drove `symbol-processor` to generate schemas from a data sample). |
+| `expressions-converter` | Active, in `settings.gradle.kts`. |
+| `public-api-modifier` | Active, in `settings.gradle.kts`. |
 
-The actual compiler plugin lives in the **Kotlin repository**, not here:
-`github.com/JetBrains/kotlin/tree/master/plugins/kotlin-dataframe`. (This repo's `plugins/kotlin-dataframe` is a
-disabled legacy copy — see the root `AGENTS.md`.)
+Plugins that are still used are being migrated to convention plugins in `build-logic/` — `keywords-generator`
+already went that way and is no longer here at all; it lives in `build-logic` as `dfbuild.keywordsGenerator`.
+(A stale `plugins/keywords-generator/build/` may still sit in your checkout; it is untracked leftovers.)
 
-## Structure
+## If you came here looking for the compiler plugin
 
-- **No `main` sources of its own.** The module is a repackaging (`ShadowJar`) of `:core`:
-  `implementation(projects.core)` plus a shadow config that strips what the interpreters don't need
-  (`jupyter/**`, `io/**`, `documentation/**`, `impl/io/**`, `kotlin-reflect`/`kotlin-stdlib`, kotlinpoet,
-  serialization, …). The surviving packages are the `:core` `api`, `impl/api`, `columns`, `schema`, `codeGen`,
-  and `annotations` code.
-- The only source file is the test `src/test/kotlin/org/jetbrains/kotlinx/dataframe/PluginApiUsages.kt`, which
-  verifies that — even with those dependencies excluded — the required runtime API (`convert`, `with`, `asColumn`,
-  `map`, `dataFrameOf`, …) still resolves and runs without exceptions.
-- Publishes under `publicationName = "shadowed"`.
+Two things in *this* repo actually affect it, and `plugins/kotlin-dataframe` is neither:
 
-## Working here
-
-- The guiding principle (from the module README): **aim to include only necessary code.** If you widen what the
-  compiler plugin needs from `:core`, update the shadow `exclude(...)` list accordingly and keep the surface minimal.
-- Don't add feature code here — put library logic in `:core`. This module only *repackages* `:core`.
-- If `PluginApiUsages.kt` starts failing, an exclude is likely stripping API the plugin depends on.
+- **`dataframe-compiler-plugin-core`** — a shaded subset of `:core` (its `api`, `impl/api`, `columns`, `schema`,
+  `codeGen`, `annotations`) that the real plugin, and by extension IntelliJ, bundles to run compile-time
+  interpreters. A change to `:core` ships inside the plugin through it. See its `AGENTS.md`.
+- **The `@Interpretable` / `@Converter` annotations** on `:core`'s public API — the real plugin's interpreters
+  read them. Adding or removing a parameter on an annotated function needs a matching interpreter change in the
+  Kotlin repository.
 
 ---
 > Source: [Kotlin/dataframe](https://github.com/Kotlin/dataframe) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
