@@ -1,6 +1,6 @@
 {
   "name": "feynman",
-  "owner": "companion-inc",
+  "owner": "Companion-Inc",
   "repo": "feynman",
   "description": "",
   "type": "config",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/companion-inc/feynman",
+  "source_url": "https://github.com/Companion-Inc/feynman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:32:38Z"
+  "distributed_at": "2026-09-30T13:55:33Z"
 }
