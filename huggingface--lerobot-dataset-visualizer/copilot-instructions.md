@@ -2,7 +2,7 @@
 
 > Always use **bun** (`bun install`, `bun dev`, `bun run build`, `bun test`). Never use npm or yarn.
 
-# CLAUDE.md — LeRobot Dataset Visualizer
+# AGENTS.md — LeRobot Dataset Visualizer
 
 ## Package manager
 
@@ -34,7 +34,7 @@ bun dev              # Next.js dev server
 bun test             # Run all unit tests (bun:test)
 bun run type-check   # tsc --noEmit (app) + tsc -p tsconfig.test.json --noEmit (tests)
 bun run lint         # next lint
-bun run validate     # type-check + lint + format:check
+bun run validate     # type-check + lint + format:check + test
 ```
 
 ## Architecture
@@ -43,11 +43,11 @@ bun run validate     # type-check + lint + format:check
 
 Three versions are supported. Version is detected from `meta/info.json` → `codebase_version`.
 
-| Version  | Path pattern                                                      | Episode metadata                           | Video                                          |
-| -------- | ----------------------------------------------------------------- | ------------------------------------------ | ---------------------------------------------- |
-| **v2.0** | `data/{episode_chunk:03d}/episode_{episode_index:06d}.parquet`    | None (computed from `chunks_size`)         | Full file per episode                          |
-| **v2.1** | Same as v2.0                                                      | None                                       | Full file per episode                          |
-| **v3.0** | `data/chunk-{N:03d}/file-{N:03d}.parquet` (via `buildV3DataPath`) | `meta/episodes/chunk-{N}/file-{N}.parquet` | Segmented (timestamps per episode, per camera) |
+| Version  | Path pattern                                                   | Episode metadata                           | Video                                          |
+| -------- | -------------------------------------------------------------- | ------------------------------------------ | ---------------------------------------------- |
+| **v2.0** | `data/{episode_chunk:03d}/episode_{episode_index:06d}.parquet` | None (computed from `chunks_size`)         | Full file per episode                          |
+| **v2.1** | Same as v2.0                                                   | None                                       | Full file per episode                          |
+| **v3.0** | `data/chunk-{N:03d}/file-{N:03d}.parquet`                      | `meta/episodes/chunk-{N}/file-{N}.parquet` | Segmented (timestamps per episode, per camera) |
 
 ### Routing to parsers
 
@@ -56,14 +56,22 @@ Three versions are supported. Version is detected from `meta/info.json` → `cod
 - `getEpisodeDataV2()` for v2.0 and v2.1
 - `getEpisodeDataV3()` for v3.0
 
+### `@huggingface/lerobot`
+
+Locating an episode (its video URLs and offsets, its data file and row range) and reading camera sizes go through [`@huggingface/lerobot`](https://github.com/huggingface/huggingface.js/tree/main/packages/lerobot). Don't build v3 data, video or episode-metadata paths by hand.
+
+- Create datasets with `leRobotDataset(repoId)` in `fetch-data.ts`: it passes the `DATASET_URL` endpoint and `authHeaders()`.
+- `episodes({ offset, limit })` reads the v3 episode index across every metadata chunk. `offset` is a position in the listing, not an `episode_index`.
+- `episode.data.fromRow` / `toRow` are row offsets **inside `episode.data.url`**, not dataset-wide frame indexes. Pass them straight to `rowStart` / `rowEnd`; never subtract the file's first `index`. `episode.data` is optional: it is absent when the data file can't be read.
+- Episode charts come from `frames()` (numeric and boolean series, bookkeeping columns left out). `loadEpisodeFrames` reads the task and language columns (`TEXT_COLUMNS`) from the same file alongside it, since `frames()` returns numbers only.
+- Camera sizes come from `parseInfo(...).cameras`. Never read them from `shape[0]` / `shape[1]`: some datasets declare channel-first shapes (`[3, H, W]`).
+- To upgrade, bump the version in `package.json` and run `bun install`. Read the package's changes first: 0.0.4 changed what `fromRow` / `toRow` mean.
+
 ### v3.0 specifics
 
-- Episode metadata row has named keys (`episode_index`, `data/chunk_index`, `data/file_index`, `dataset_from_index`, `dataset_to_index`, `videos/{key}/chunk_index`, etc.)
 - Integer columns from parquet come out as **BigInt** — always use `bigIntToNumber()` from `src/utils/typeGuards.ts`
-- Row-range selection: `dataset_from_index` / `dataset_to_index` allow reading only the episode's rows from a shared parquet file
 - Fallback format uses numeric keys `"0"`.."9"` when column names are unavailable
-- Episode metadata can span **multiple chunks** (when episode count exceeds `chunks_size`). Always walk via the `iterateEpisodeMetadataFilesV3(repoId, version)` async generator in `fetch-data.ts` — it advances chunk-000 → chunk-001 → … and stops on the first missing `file-000`. Never hardcode `chunk-000`.
-- Multi-task episodes: episode-metadata rows carry a `tasks` field (`list[str]`) — prefer it over the legacy single `task_index` lookup. `EpisodeMetadataV3.tasks?: string[]` exposes it.
+- Multi-task episodes: episodes carry a `tasks` list (`list[str]`) — prefer it over the legacy single `task_index` lookup. `EpisodeMetadataV3.tasks?: string[]` exposes it.
 - `meta/tasks.parquet` lookup: rows are **not** ordered by `task_index`, and the task string lives in a named pandas index (`__index_level_0__`). Always filter by the `task_index` **column** (`row.task_index === taskIndexNum`), never by row position.
 
 ### v2.x path construction
@@ -86,7 +94,6 @@ formatStringWithVars(info.data_path, {
 | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/app/[org]/[dataset]/[episode]/fetch-data.ts` | Main data-loading entry point; v2/v3 parsers; `computeColumnMinMax`                                                                      |
 | `src/utils/versionUtils.ts`                       | `getDatasetInfo`, `getDatasetVersionAndInfo`, `buildVersionedUrl`                                                                        |
-| `src/utils/stringFormatting.ts`                   | `buildV3DataPath`, `buildV3VideoPath`, `buildV3EpisodesMetadataPath`, padding helpers                                                    |
 | `src/utils/parquetUtils.ts`                       | `fetchParquetFile`, `readParquetAsObjects`, `formatStringWithVars`                                                                       |
 | `src/utils/dataProcessing.ts`                     | Chart grouping pipeline: `buildSuffixGroupsMap` → `computeGroupStats` → `groupByScale` → `flattenScaleGroups` → `processChartDataGroups` |
 | `src/utils/typeGuards.ts`                         | `bigIntToNumber`, `isNumeric`, `isValidTaskIndex`, etc.                                                                                  |
@@ -135,14 +142,22 @@ Reserved/bookkeeping columns from lerobot — see `EXCLUDED_COLUMNS` in `src/uti
 
 ## Design system
 
-CSS tokens in `src/app/globals.css` (Tailwind v4 `@theme inline`):
+Colours, surfaces and fonts follow the Hub (moon-landing). Tokens live in `src/app/globals.css`: light values on `:root`, dark under `:root.dark`, exposed as Tailwind colours. **Never hard-code** `text-slate-*`, `border-white/*`, `bg-white/*` or hex colours for UI chrome; use the tokens so both themes work:
 
-- Surfaces: `--bg #0a0e17`, `--surface-0`, `--surface-1`, `--surface-2`
-- Text: `--text-primary`, `--text-muted`, `--text-faint`
-- Accent: `--accent #38bdf8` (cyan) — primary interactive color across UI
+- Surfaces: `--bg`, `--surface-0` (chrome), `--surface-1` (cards), `--surface-2` — white / gray-50 / gray-100 light, gray-950 / gray-925 / gray-850 dark
+- Text: `text-fg`, `text-fg-soft`, `text-fg-muted`, `text-fg-faint`; accent text `text-accent-fg`, flag text `text-flag-fg`
+- Lines and fills: `border-line` / `border-line-subtle` / `border-line-strong`, `bg-fill` / `bg-fill-strong` (hover and control fills)
+- Charts: `var(--chart-grid)`, `var(--chart-axis)`, `var(--fg-muted)` for ticks; CSS variables work in Recharts' SVG attributes. Three.js needs real colours: read `useTheme()` from `src/utils/theme.ts`
+- Theme: `<html class="dark">`, set before paint by `THEME_INIT_SCRIPT` (`src/utils/theme-init.ts`) from `?__theme=` (what HF Spaces passes), then the saved choice, then the OS; `ThemeToggle` in the tab bar switches it. `dark:` utilities target that class
+- Fonts: Source Sans 3 (Source Sans Pro) and IBM Plex Mono via `next/font` in `layout.tsx`, as `font-sans` / `font-mono`
+- Accent: `--accent #ff9d00`, LeRobot orange (the logo colour) — primary interactive colour across UI. Use `bg-accent/10`, `border-accent/30`, `text-accent-fg` (a darker/lighter orange with readable contrast per theme), never raw `cyan-*`/`orange-*`
 - Helpers: `.panel`, `.panel-raised`, `.tabular` (tabular-nums)
-- **Color semantics**: cyan = primary/active, orange (`orange-400/500`) is reserved for **flagged-episode** UI only — don't reuse it for generic accents.
+- **Color semantics**: orange (accent) = primary/active; rose (`rose-500`, `text-flag-fg`, `.btn-flagged`) is reserved for **flagged-episode** UI only — don't reuse it for generic accents. The annotation role colours (task aug cyan, subtask yellow, …) are semantic and stay as they are.
+- **Playhead**: the playback position (chart cursor, annotation timeline) uses `--playhead`, a neutral near-white, so it never reads as a series, a role or a flag.
+- **Buttons**: `.btn` (secondary), plus `.btn-active` for a selected toggle, `.btn-flagged` for flag filters/actions and `.btn-primary` for the main action. They live in `@layer components`, so a utility on the element (size, width) overrides them.
+- **Analysis tabs** (Statistics, Filtering, Frames, Action Insights) build on `src/components/ui.tsx`: `PageHeader`, `StatCard`, `InlineLoading` / `Spinner`, `Switch`; `EpisodeHeader` heads every tab that plays an episode. Tab roots are `w-full max-w-5xl mx-auto py-6 space-y-6` (`w-full` matters: `mx-auto` in the flex-column content area otherwise sizes the column to its content). Section cards are `bg-[var(--surface-1)]/60 rounded-lg p-5 border border-white/10` with an `h3` of `text-sm font-semibold text-slate-200`.
+- **Annotations** keeps its own skin (`annotations-skin.css`) for role colours (subtask yellow, plan blue, …); generic UI in it (focus, selection, primary button) uses the app `--accent`.
 
 ---
 > Source: [huggingface/lerobot-dataset-visualizer](https://github.com/huggingface/lerobot-dataset-visualizer) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
