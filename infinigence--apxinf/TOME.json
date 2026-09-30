@@ -1,0 +1,63 @@
+{
+  "name": "ApxInf",
+  "owner": "infinigence",
+  "repo": "ApxInf",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ApxInf",
+      "path": "skills/analyze-model-impl/SKILL.md",
+      "github_url": "https://github.com/infinigence/ApxInf/tree/main/skills/analyze-model-impl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ApxInf",
+      "path": "skills/model-port-workflow/SKILL.md",
+      "github_url": "https://github.com/infinigence/ApxInf/tree/main/skills/model-port-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ApxInf",
+      "path": "skills/l3-reference-testing/SKILL.md",
+      "github_url": "https://github.com/infinigence/ApxInf/tree/main/skills/l3-reference-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/infinigence/ApxInf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:40:42Z"
+}
