@@ -1,0 +1,429 @@
+{
+  "name": "minimax-code",
+  "owner": "MiniMax-AI",
+  "repo": "minimax-code",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "init",
+      "path": "packages/local-runtime/assets/skills/init/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": ".agents/skills/retro/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/.agents/skills/retro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": ".agents/skills/cli-guide/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/.agents/skills/cli-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": ".agents/skills/testing-workflow/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/.agents/skills/testing-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": ".agents/skills/cross-layer-drift-sweep/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/.agents/skills/cross-layer-drift-sweep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": ".agents/skills/verify-all-runtime-sinks/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/.agents/skills/verify-all-runtime-sinks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/docx/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/llm-call/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/llm-call/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/cu-desktop/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/cu-desktop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/visual-page/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/visual-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/resume-codex/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/resume-codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/x-link-reader/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/x-link-reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/skill-refiner/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/skill-refiner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/deploy-website/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/deploy-website/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/mcode-tools-master/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/mcode-tools-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/edit-deployed-website/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/edit-deployed-website/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-im/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-im/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-vc/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-vc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-doc/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-mail/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-mail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-base/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-base/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-task/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-wiki/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-drive/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-drive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-event/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-event/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-slides/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-sheets/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-sheets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-shared/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-shared/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-minutes/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-minutes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-contact/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-contact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-calendar/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-approval/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-approval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime-v2/assets/agents/mavis/skills/minimax-code-product/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime-v2/assets/agents/mavis/skills/minimax-code-product/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-whiteboard/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-whiteboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-attendance/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-attendance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime-v2/assets/agents/mavis/skills/control-in-app-browser/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime-v2/assets/agents/mavis/skills/control-in-app-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-skill-maker/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-skill-maker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-whiteboard-cli/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-whiteboard-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-openapi-explorer/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-openapi-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-workflow-standup-report/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-workflow-standup-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-workflow-meeting-summary/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/packages/local-runtime/assets/skills/lark-tools/cli-skills/lark-workflow-meeting-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/long-name/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/long-name/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/valid-skill/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/valid-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/invalid-yaml/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/invalid-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/name-mismatch/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/name-mismatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/unknown-field/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/unknown-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/no-frontmatter/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/no-frontmatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/examples/extensions/dynamic-resources/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/examples/extensions/dynamic-resources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/nested/child-skill/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/nested/child-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/invalid-name-chars/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/invalid-name-chars/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/missing-description/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/missing-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/consecutive-hyphens/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/consecutive-hyphens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/multiline-description/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/multiline-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills-collision/first/calendar/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills-collision/first/calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/disable-model-invocation/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/disable-model-invocation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills-collision/second/calendar/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills-collision/second/calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minimax-code",
+      "path": "third_party/pi-mono/packages/coding-agent/test/fixtures/skills/root-skill-preferred/nested-child/SKILL.md",
+      "github_url": "https://github.com/MiniMax-AI/minimax-code/tree/main/third_party/pi-mono/packages/coding-agent/test/fixtures/skills/root-skill-preferred/nested-child/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MiniMax-AI/minimax-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T23:34:14Z"
+}
