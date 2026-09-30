@@ -70,11 +70,15 @@ Each scenario is a standalone binary using `holochain_wind_tunnel_runner` (or `k
 Scenarios that require custom zomes reference a `build = "../scenario_build.rs"` build script and declare `[package.metadata.required-dna]` / `[package.metadata.required-happ]` / `[package.metadata.fetch-required-happ]` sections in their `Cargo.toml` to build zomes and package them into hApps at build time.
 
 Common functionality available for scenarios:
+
 - Scenarios which use an instrumented client like `holochain_client_instrumented` will automatically record metrics for client calls. Custom metrics can also be recorded by getting a `Reporter` from the scenario context.
 - Setup/teardown hooks can be used to perform common tasks before or after the scenario. Use agent setup/teardown hooks for tasks that only apply to the current agent.
 - The scenario can check whether the framework is trying to shut down to break out of retry loops or stop other long-running work.
 - Named behaviors allow a scenario to be comprised of multiple agents, behaving differently while interacting with each other.
 - Report which environment variables affect scenario behavior. This *must* be used for any variable that changes the scenario's behavior, otherwise the summariser can't recognize different configurations of the same scenario.
+- Agent behaviours must not sleep to throttle their workload. Performance
+  degradation should surface through metrics. Use only the minimum delay needed
+  when polling is unavoidable or a tight loop would otherwise do no useful work.
 
 ### Shared Scenario Libraries (`scenarios_common/`)
 
@@ -172,4 +176,4 @@ These are the steps to be followed to update to a new Holochain release:
 
 ---
 > Source: [holochain/wind-tunnel](https://github.com/holochain/wind-tunnel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
