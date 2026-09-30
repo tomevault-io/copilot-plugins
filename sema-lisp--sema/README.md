@@ -1,8 +1,6 @@
 # AI instruction files for sema
 
-> Sourced from [sema-lisp/sema](https://github.com/sema-lisp/sema) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A Lisp with first-class LLM primitives, implemented in Rust
+> Sourced from [sema-lisp/sema](https://github.com/sema-lisp/sema), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
