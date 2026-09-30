@@ -2,9 +2,9 @@
   "name": "jev-trader",
   "owner": "jarrodwatts",
   "repo": "jev-trader",
-  "description": "One AI trade decision every Monad block. Jev on Kuru MON-USDC.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jarrodwatts/jev-trader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-17T04:45:19Z"
+  "distributed_at": "2026-09-30T12:18:49Z"
 }
