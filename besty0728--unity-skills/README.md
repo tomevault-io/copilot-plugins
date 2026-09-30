@@ -5,18 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [Besty0728/Unity-Skills](https://github.com/Besty0728/Unity-Skills).
+Original source: `AGENTS.md` in [Besty0728/Unity-Skills](https://github.com/Besty0728/Unity-Skills).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (71)
+## Bundled Skills (84)
 
 - [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/SKILL.md)
 - [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/xr/SKILL.md)
@@ -89,6 +88,19 @@ Original source: `` in [Besty0728/Unity-Skills](https://github.com/Besty0728/Uni
 - [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/shadergraph-design/SKILL.md)
 - [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/addressables-design/SKILL.md)
 - [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/behavior/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/hybridclr/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/unity-cli/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/primetween/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/primetween-design/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/pico-design/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/manual-scene/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/manual-material/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/manual-component/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/manual-gameobject/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/qframework/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/addressables/SKILL.md)
+- [Unity-Skills](https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/qframework-design/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Besty0728/Unity-Skills](https://github.com/Besty0728/Unity-Skills)
 
