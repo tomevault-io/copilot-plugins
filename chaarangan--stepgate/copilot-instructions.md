@@ -1,0 +1,34 @@
+## stepgate
+
+> A stepfile format (`docs/stepfile.md`, `server/schema/`) and Stepgate, the MCP server in `server/` that runs stepfiles (`docs/how-it-works.md`).
+
+# Stepgate
+
+A stepfile format (`docs/stepfile.md`, `server/schema/`) and Stepgate, the MCP server in `server/` that runs stepfiles (`docs/how-it-works.md`).
+
+## Commands
+
+Run everything from `server/`:
+
+- `npm run check`: type checker and all tests. Run it before calling a change done.
+- `npm run build`: compile to `dist/`.
+- `npm run new-stepfile -- <domain>/<id>`: scaffold a catalog entry in `awesome-stepfiles/<domain>/<id>/`.
+
+## Where things are
+
+- `server/src/engine/`: load and validate, the step loop (`run.ts`), OpenAPI and MCP tools, gates, ledger.
+- `server/src/server.ts`: stepfiles as MCP tools that start runs, plus `stepgate_call` and `stepgate_submit`, which the client drives each step with.
+- `server/test/harness.ts`: starts fixture servers and a client that plays scripted actions on each run. New tests use it.
+- `server/src/authoring.ts`: the tools that help an agent write a stepfile (guide, examples, API inspection, validation, draft rules).
+- `server/src/catalog.ts`: finds, validates and lists the `awesome-stepfiles/` catalog; the CLI takes catalog names as well as paths.
+- `awesome-stepfiles/<domain>/<id>/`: one catalog entry per folder, `<id>.stepfile.yaml` plus `README.md`; ids are unique across domains.
+
+## Rules
+
+- Use the vocabulary in `CONTEXT.md` (stepfile, step, gate, Stepgate, client, ledger).
+- A format change updates `docs/stepfile.md`, the schema and the code together.
+- Tests go through the MCP server with the harness; the scripted client is the only fake.
+
+---
+> Source: [Chaarangan/Stepgate](https://github.com/Chaarangan/Stepgate) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
