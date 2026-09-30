@@ -1,0 +1,9 @@
+{
+  "name": "jamesmattson--programmarr",
+  "displayName": "programmarr",
+  "description": "Turn your Plex library into curated, themed virtual TV channels in Tunarr \u2014 a self-hosted web app with a *arr-style UI.",
+  "version": "1.0.0",
+  "author": "jamesmattson",
+  "homepage": "https://github.com/jamesmattson/programmarr",
+  "skills": []
+}
