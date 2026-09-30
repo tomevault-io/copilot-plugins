@@ -1,0 +1,18 @@
+{
+  "name": "agentclientprotocol--kotlin-sdk",
+  "displayName": "kotlin-sdk",
+  "description": "kotlin-sdk",
+  "version": "1.0.0",
+  "author": "agentclientprotocol",
+  "homepage": "https://github.com/agentclientprotocol/kotlin-sdk",
+  "skills": [
+    {
+      "name": "kotlin-sdk",
+      "description": ""
+    },
+    {
+      "name": "kotlin-sdk",
+      "description": ""
+    }
+  ]
+}
