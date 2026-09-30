@@ -1,0 +1,9 @@
+{
+  "name": "qiskit--qiskit-ibm-runtime",
+  "displayName": "qiskit-ibm-runtime",
+  "description": "qiskit-ibm-runtime",
+  "version": "1.0.0",
+  "author": "Qiskit",
+  "homepage": "https://github.com/Qiskit/qiskit-ibm-runtime",
+  "skills": []
+}
