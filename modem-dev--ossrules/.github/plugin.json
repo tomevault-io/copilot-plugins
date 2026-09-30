@@ -1,7 +1,7 @@
 {
   "name": "modem-dev--ossrules",
   "displayName": "ossrules",
-  "description": "Discover agent rules and skill files from leading open source projects",
+  "description": "ossrules",
   "version": "1.0.0",
   "author": "modem-dev",
   "homepage": "https://github.com/modem-dev/ossrules",
