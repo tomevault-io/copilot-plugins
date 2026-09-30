@@ -2,11 +2,11 @@
 
 > - Install: `python -m pip install -e .`
 
-# CLAUDE.md - PyTorch Image Models (timm)
+# AGENTS.md - PyTorch Image Models (timm)
 
 ## Build/Test Commands
 - Install: `python -m pip install -e .`
-- Run tests: `pytest tests/`
+- Run tests: `pytest tests/` (the full suite is slow as it covers every model, run the tests relevant to your change)
 - Run specific test: `pytest tests/test_models.py::test_specific_function -v`
 - Run tests in parallel: `pytest -n 4 tests/`
 - Filter tests: `pytest -k "substring-to-match" tests/`
@@ -22,6 +22,12 @@
 - Error handling: Use try/except with specific exceptions
 - Conditional expressions: Use parentheses for complex expressions
 
+## Contributions
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
+- Please don't open issues or PRs for edge cases unlikely to be hit in real use. Maintainer time is limited, and small fixes like these add review load without helping users. Focus on bugs that affect real training, inference, or model-loading workflows, and include a realistic scenario that triggers the bug.
+- Keep diffs minimal: no reformatting, style changes, or refactors of code unrelated to the change.
+- Preserve backwards compatibility: existing models, pretrained weights, and public functions should produce the same outputs unless the change is fixing a real bug.
+
 ---
 > Source: [huggingface/pytorch-image-models](https://github.com/huggingface/pytorch-image-models) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
