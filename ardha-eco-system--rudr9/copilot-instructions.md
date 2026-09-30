@@ -1,63 +1,72 @@
 ## rudr9
 
-> One-command installer that transforms Hermes Agent into a 9-role AI engineering organization. Profiles, Kanban coordination, per-profile authority enforcement, PAUL-inspired workflow.
+> > This project uses the RUDR9 AI Engineering Organization.
 
-# RUDR9
+# [Project Name]
 
-## What This Is
+> This project uses the RUDR9 AI Engineering Organization.
+> All work flows through the Hermes Kanban board.
 
-One-command installer that transforms Hermes Agent into a 9-role AI engineering organization. Profiles, Kanban coordination, per-profile authority enforcement, PAUL-inspired workflow.
+## Engineering Organization
 
-## Repo Layout
+| Role | Profile | Responsibility |
+|------|---------|----------------|
+| CTO / Orchestrator | `default` | Coordinates workflow, assigns tasks, monitors progress |
+| Planner | `planner` | Specifications, acceptance criteria |
+| Software Architect | `architect` | Technical design, API contracts, system structure |
+| Version Control Manager | `vcm` | Git workflow, branches, PRs, merges |
+| Builder | `builder` | Implementation + inline validation |
+| Security Auditor | `security` | Security review of every PR |
+| Performance Auditor | `performance` | Performance review of every PR |
+| Reviewer | `reviewer` | Final quality gate before merge |
 
-- `install.sh` — the installer (preflight → profiles → SOULs → toolsets → skills → MCPs → Kanban → hooks → plugin → verify)
-- `assets/souls/` — 8 SOUL.md role templates
-- `assets/plugins/rudr9-guard/` — authority enforcement plugin (pre_tool_call hook)
-- `assets/hooks/rudr9-long-task/` — stuck loop alert
-- `assets/templates/` — project init files (AGENTS.md, PROJECT.md, STATE.md)
-- `Dockerfile` — isolated test environment
-
-## Development
+## How to Start Work
 
 ```bash
-# Dry run (no changes)
-./install.sh --dry-run
+# Check active tasks
+hermes kanban list
 
-# Guard plugin tests
-cd assets/plugins/rudr9-guard
-python3 -c "
-import sys; sys.path.insert(0, '.')
-from rules import is_allowed
-assert not is_allowed('planner', 'write_file')
-assert is_allowed('builder', 'write_file')
-assert not is_allowed('security', 'terminal')
-print('ok')
-"
+# See what's assigned to a role
+hermes kanban list --assignee builder
+```
 
-# Full Docker test
-docker build -t rudr9-test .
-docker run -d --name rudr9-test rudr9-test tail -f /dev/null
-docker exec -d rudr9-test bash -lc 'cd /home/rudr9/RUDR9 && ./install.sh > /tmp/install.log 2>&1'
-# wait ~8 min
-docker exec rudr9-test bash -lc 'hermes profile list && hermes kanban assignees'
-docker rm -f rudr9-test
+The CTO (default profile) creates tasks on the Kanban board. The dispatcher
+spawns the assigned profile as a worker. Workers read task context, do the
+work, and post results to task comments.
+
+## Project Structure
+
+```
+.rudr9/
+├── PROJECT.md           # This file — project context
+├── STATE.md             # Current loop position
+└── phases/
+    └── <phase-name>/
+        ├── PLAN.md      # Specification (Planner output)
+        ├── ARD.md       # Architecture design (Architect output)
+        ├── SUMMARY.md   # Closure (UNIFY output)
+        └── reports/
+            ├── SECURITY.md
+            ├── PERFORMANCE.md
+            └── REVIEW.md
 ```
 
 ## Conventions
 
-- Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`
-- Branch naming: `feat/`, `fix/`, `docs/`
-- All changes through PRs — no direct commits to main
-- Test before pushing: `./install.sh --dry-run` must pass
+- **Branch naming:** `feature/<name>`, `bugfix/<name>`, `hotfix/<name>`, `docs/<name>`, `refactor/<name>`
+- **Commits:** Conventional Commits — `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`
+- **All changes through PRs** — no direct commits to `main`
+- **Acceptance criteria:** BDD format — `Given [precondition] / When [action] / Then [outcome]`
 
-## Key Design Decisions
+## Rules
 
-- Guard plugin reads `HERMES_PROFILE` env var (set by Kanban dispatcher when spawning workers) — NOT `HERMES_HOME` basename
-- Builder+Checker fused into one profile (in-session validation loop)
-- Kanban is coordination bus + user dashboard (not just display)
-- Sequential-by-default (`max_in_progress_per_profile: 1`) — parallelism is opt-in
-- Install backs up SOUL.md before overwriting; uninstall restores
+- Every feature is a Kanban task chain.
+- No agent edits another agent's work directly.
+- All decisions flow through the Default (CTO) profile.
+- Git operations owned exclusively by the VCM.
+- Every feature closes with UNIFY (SUMMARY.md).
+- Authority is enforced by per-profile toolsets + the rudr9-guard plugin.
 
 ---
 > Source: [Ardha-Eco-System/RUDR9](https://github.com/Ardha-Eco-System/RUDR9) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
