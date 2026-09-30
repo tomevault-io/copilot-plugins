@@ -2,7 +2,7 @@
   "name": "endatix",
   "owner": "endatix",
   "repo": "endatix",
-  "description": "Endatix is a form management backend API for SurveyJS-based projects.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/endatix/endatix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-05T00:41:42Z"
+  "distributed_at": "2026-09-30T20:11:12Z"
 }
