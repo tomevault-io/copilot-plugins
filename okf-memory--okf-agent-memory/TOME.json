@@ -3,8 +3,8 @@
   "owner": "okf-memory",
   "repo": "okf-agent-memory",
   "description": "Git-native persistent memory for AI coding agents. Implements Google OKF v0.2 with sub-300\u00b5s in-memory BM25 search, embedded MCP server, and progressive disclosure. Slashes token bloat by 80% with zero external databases or dependencies. Built in pure Go.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "okf-agent-memory",
+      "path": "pkg/okf/assets/skill/SKILL.md",
+      "github_url": "https://github.com/okf-memory/okf-agent-memory/tree/main/pkg/okf/assets/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "okf-agent-memory",
+      "path": ".agents/skills/okf-memory/SKILL.md",
+      "github_url": "https://github.com/okf-memory/okf-agent-memory/tree/main/.agents/skills/okf-memory/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/okf-memory/okf-agent-memory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-06T01:30:20Z"
+  "distributed_at": "2026-09-30T23:33:06Z"
 }
