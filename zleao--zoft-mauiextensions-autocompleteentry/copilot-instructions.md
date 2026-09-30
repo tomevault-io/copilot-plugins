@@ -1,30 +1,72 @@
 ## zoft-mauiextensions-autocompleteentry
 
-> Repo-specific guidance for the AutoCompleteEntry MAUI control library and sample app.
+> This file is the shared entry point for coding assistants, regardless of provider or editor. Keep repository instructions here and task-specific detail in ordinary documentation; do not introduce parallel tool-specific instruction files. If a tool does not discover this file automatically, include it explicitly in the task context.
 
+# Repository guidance
 
-# AutoCompleteEntry MAUI library guidance
+This file is the shared entry point for coding assistants, regardless of provider or editor. Keep repository instructions here and task-specific detail in ordinary documentation; do not introduce parallel tool-specific instruction files. If a tool does not discover this file automatically, include it explicitly in the task context.
 
-## Control library rules
-- Keep the shared control contract in `src/AutoCompleteEntry/AutoCompleteEntry.cs`: bindable properties, event args, and cross-platform behavior belong there.
-- Keep platform behavior in `src/AutoCompleteEntry/Platforms/<Platform>/...` and in the partial `AutoCompleteEntryHandler` implementation for that platform.
-- If a platform needs cleanup, unsubscribe events in `DisconnectHandler` and release native resources in the platform view's cleanup method.
-- Do not move filtering logic into the control unless the feature explicitly requires it. The intended model is: app code reacts to text changes and updates `ItemsSource`.
+## Start here
 
-## API compatibility
-- This library is shipped as `zoft.MauiExtensions.Controls.AutoCompleteEntry`; preserve public member names and default property behavior unless the change is clearly opt-in.
-- Keep `UseZoftAutoCompleteEntry()` working as the single MAUI registration entry point.
-- Preserve the XAML namespace contract: `xmlns:zoft="http://zoft.MauiExtensions/Controls"`.
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) for branch conventions, setup, commands, and validation requirements.
+- Read the relevant sections of [README.md](README.md) for public API usage, platform limitations, and release procedures.
+- Inspect the working tree before editing and preserve existing user changes. Continue on the current work branch unless a new branch is requested; create a work branch before editing on `main`.
+- Keep changes focused on the requested task. Report what changed, the validation performed, and any checks that could not run.
 
-## Sample app expectations
-- The sample app is the closest thing this repo has to integration coverage. Use `WithBindingsPage` for binding-first scenarios and `WithEventsPage` for event-driven scenarios.
-- If a change affects platform behavior or public API usage, update the sample page that demonstrates that path.
+## Repository map
 
-## Platform-specific notes
-- Windows uses `AutoSuggestBox`, so MAUI `Entry` features are not always 1:1 there.
-- iOS and MacCatalyst share the custom `IOSAutoCompleteEntry` implementation and are the most relevant files when changing dropdown layout, keyboard behavior, or templated rendering.
-- Keep the README's documented limitation in mind: Windows support for `ItemTemplate` and `ShowBottomBorder` is still incomplete.
+| Path | Purpose |
+| --- | --- |
+| `src/AutoCompleteEntry/` | Published .NET MAUI control library |
+| `src/AutoCompleteEntry/AutoCompleteEntry.cs` | Public bindable properties, events, and shared state transitions |
+| `src/AutoCompleteEntry/Initialization.cs` | `UseZoftAutoCompleteEntry()` registration |
+| `src/AutoCompleteEntry/Handlers/` | Shared handler contract, property mapper, and command mapper |
+| `src/AutoCompleteEntry/Platforms/` | Native views, platform partial handlers, and extensions |
+| `src/Tests/AutoCompleteEntry.Tests/` | Shared control tests and linked platform-independent Android helpers |
+| `sample/AutoCompleteEntry.Sample/` | Reference app for binding, event, and native UI scenarios |
+| `src/Directory.build.props` | Shared library/test build and package metadata; does not apply to the sample |
+| `global.json` | SDK selection and roll-forward policy |
+| `.github/workflows/` | CI and publishing behavior |
+
+## Coding style
+
+- Follow the Microsoft C# conventions and repository exceptions in [CONTRIBUTING.md](CONTRIBUTING.md#coding-style). The root [.editorconfig](.editorconfig) is the machine-readable source of formatting and style preferences for the library, platform implementations, tests, and sample.
+- Use four spaces, Allman braces, braces around control-flow bodies, `System` imports first, C# type keywords, and explicit types when a local's type is not apparent. Use `_camelCase` private instance fields and `s_camelCase` private static fields; constants use PascalCase.
+- Preserve public API names, binding/XAML names, framework overrides, and generated members. Keep existing namespace declaration forms and descriptive test/event-handler names. Do not change behavior to satisfy a style preference.
+- Run the formatting checks in CONTRIBUTING.md after C# edits. Folder formatting covers platform files that the host's loaded project may exclude; semantic style checks and builds still need the appropriate target and host. Never edit generated files or claim native coverage from formatting.
+
+## Control contracts
+
+- Preserve public member names, property defaults, and binding behavior. Prefer additive or opt-in API changes.
+- Preserve `UseZoftAutoCompleteEntry()` and the XAML namespace `http://zoft.MauiExtensions/Controls`.
+- Consumers own filtering: they react to text changes and update `ItemsSource`. Do not move filtering into the control unless explicitly requested.
+- Preserve text-change reasons: `UserInput`, `ProgrammaticChange`, and `SuggestionChosen`. `TextChangedCommand` executes for user input; programmatic changes and selection must not accidentally trigger filtering loops.
+- Preserve the base `Entry.TextChanged` event as well as the control's own event.
+- `SelectedSuggestion` is two-way single-selection state; `SelectedSuggestions` is authoritative in multiple mode. `TextMemberPath` determines selected text; `DisplayMemberPath` determines suggestion display. Keep multiple-mode query text separate from the selection summary.
+- Keep shared behavior in the control and native wiring/rendering in platform implementations. Prefer platform partials over scattered conditional compilation in shared files.
+- Unsubscribe native events in `DisconnectHandler` and release owned resources through the platform view's cleanup mechanism.
+
+## Platform boundaries
+
+- Android wraps `AndroidAutoCompleteEntry`; Windows wraps `AutoSuggestBox`.
+- iOS and MacCatalyst each have their own `IOSAutoCompleteEntry`, handler, extensions, and table source files. These are separate, nearly identical implementations, not one shared source. Inspect both when changing Apple behavior and explain any intentional divergence.
+- `Handlers/AutoCompleteEntryHandler.Standard.cs` supports the plain .NET target with no-op mappings; native view creation throws. Do not implement native UI behavior there or treat plain .NET tests as native UI coverage.
+- Check README platform limitations before changing behavior. Windows supports `ItemTemplate` and `DataTemplateSelector`; `ShowBottomBorder` remains unsupported. Read the Android resize keyboard configuration notes before changing popup positioning.
+- For observable platform/API changes, extend the appropriate sample scenario when existing coverage does not exercise the change: `Views/WithBindingsPage` for bindings and `Views/WithEventsPage` for events.
+
+## Validation
+
+Use the change-specific validation table and manual checklist in [CONTRIBUTING.md](CONTRIBUTING.md#validation). Run relevant checks on supported hosts. State unavailable workloads, platform tooling, or device checks explicitly; do not present a successful build or plain .NET test run as proof of native interaction behavior.
+
+## Versions and releases
+
+- MinVer derives the NuGet package version from Git tags/history. Do not add or bump `Version` or `PackageVersion` properties to release this package.
+- Dependency versions, MAUI versions, the SDK version, and sample application versions are separate from the library's package version. Read their project/configuration files rather than copying version numbers into these instructions.
+- Release tags use `X.Y.Z` or `X.Y.Z-preview.N`, without a `v` prefix. Full Git history and tags are required for reliable version calculation.
+- Record user-visible changes under `[Unreleased]` in [CHANGELOG.md](CHANGELOG.md). Documentation, tooling, and internal-only changes do not require release notes.
+- Release notes come from the matching changelog section through CI-generated `src/ReleaseNotes.g.props`; do not commit that generated file.
+- Follow [README release instructions](README.md#-releasing) when a release is requested. Tag pushes publish automatically; ordinary development tasks do not imply creating release tags or publishing packages.
 
 ---
 > Source: [zleao/zoft.MauiExtensions.AutoCompleteEntry](https://github.com/zleao/zoft.MauiExtensions.AutoCompleteEntry) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
