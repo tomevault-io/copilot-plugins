@@ -1,15 +1,15 @@
 # ai-ready
 
-> Source: [johnpapa/ai-ready](https://github.com/johnpapa/ai-ready). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [johnpapa/ai-ready](https://github.com/johnpapa/ai-ready). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [johnpapa/ai-ready](https://github.com/johnpapa/ai-ready).
+Original source: `CLAUDE.md` in [johnpapa/ai-ready](https://github.com/johnpapa/ai-ready).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
