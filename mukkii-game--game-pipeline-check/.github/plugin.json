@@ -1,0 +1,9 @@
+{
+  "name": "mukkii-game--game-pipeline-check",
+  "displayName": "game-pipeline-check",
+  "description": "Pipeline verification run for the Phaser 4 template",
+  "version": "1.0.0",
+  "author": "mukkii-game",
+  "homepage": "https://github.com/mukkii-game/game-pipeline-check",
+  "skills": []
+}
