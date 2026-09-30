@@ -121,9 +121,33 @@
       "path": ".claude/skills/reverse-engineering/SKILL.md",
       "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/reverse-engineering/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/research-rigor/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/research-rigor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/game-server-security/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/game-server-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/linux-platform-security/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/linux-platform-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/game-supply-chain-security/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/game-supply-chain-security/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/gmh5225/awesome-game-security",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T20:34:48Z"
+  "distributed_at": "2026-09-30T02:30:25Z"
 }
