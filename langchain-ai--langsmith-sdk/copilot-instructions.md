@@ -1,61 +1,20 @@
 ## langsmith-sdk
 
-> This folder contains the Python version of the LangSmith SDK.
+> <!-- OPENWIKI:START -->
 
-# Instructions for code modifications in the Python SDK
+<!-- OPENWIKI:START -->
 
-This folder contains the Python version of the LangSmith SDK.
+## OpenWiki
 
-When modifying code in this library, **always** run the following commands from this directory before submitting a pull request:
+This repository has a generated `openwiki/` evidence index. It is optional just-in-time context, not required startup reading.
 
-```
-make format
-make lint
-make tests
-```
+- Treat source code and tests as authoritative. A brief's unknowns and review items are verification gaps, not automatic requirements.
+- Prefer the narrowest quiet validation that proves the changed behavior. Preserve complete failure output.
 
-These commands format the code, run static analysis, and execute the test suite respectively.
+The scheduled OpenWiki GitHub Actions workflow refreshes the repository wiki. Do not hand-edit generated OpenWiki pages unless explicitly asked; prefer updating source code/docs and letting OpenWiki regenerate.
 
-To run a particular test file or pass custom pytest arguments, set the `TEST` environment variable. For example:
-
-```bash
-TEST=tests/unit_tests/test_client.py make tests
-```
-
-Any pytest options may be included inside the `TEST` variable.
-
-## Releasing
-
-Releasing the SDK is governed **exclusively** by the "Cutting a release" section of
-[`../CONTRIBUTING.md`](../CONTRIBUTING.md). When asked to cut or publish a release,
-you **must** follow that process: use the documented `uv run bump2version` flow and
-open a version-bump PR against `main`. Do **not** hand-edit `langsmith/__init__.py`
-or `.bumpversion.cfg`, bump the version by any other means, push tags, or invent an
-alternative release path.
-
-## Notes
-
-- The project uses `uv` for dependency management and the Makefile commands will automatically run inside the `uv` environment.
-- `make tests` sets some environment variables (such as disabling network access) for reliability. If a test requires network access, adjust it accordingly.
-
-## Conventions
-
-### Constructing request URLs
-
-Do not hardcode a leading `/v1` (or other `api_url`-dependent prefix) into request
-paths. `LANGSMITH_ENDPOINT` may already include `/api/v1`, so a hardcoded
-`/v1/...` produces a duplicated `/api/v1/v1/...` path and 404s.
-
-For platform endpoints, build the path with the existing helpers so the `/v1`
-prefix is only added when the configured `api_url` does not already end in `/v1`:
-
-- `langsmith._internal._hub.platform_hub_path(api_url)` for hub (agent/skill) repos.
-- `_platform_path(api_url, path)` / `_dataset_examples_path(api_url, dataset_id)`
-  in `langsmith/client.py` for other platform paths.
-
-When adding a new platform endpoint, follow the same pattern instead of inlining
-`/v1/platform/...`.
+<!-- OPENWIKI:END -->
 
 ---
 > Source: [langchain-ai/langsmith-sdk](https://github.com/langchain-ai/langsmith-sdk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
