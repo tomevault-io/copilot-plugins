@@ -1,6 +1,6 @@
 # patina
 
-> Source: [devswha/patina](https://github.com/devswha/patina) — distributed by [TomeVault](https://tomevault.io)
+> Source: [devswha/patina](https://github.com/devswha/patina). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,11 +15,12 @@ Original source: `AGENTS.md` in [devswha/patina](https://github.com/devswha/pati
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
+## Bundled Skills (2)
 
 - [patina](https://github.com/devswha/patina/tree/main/SKILL.md)
+- [patina](https://github.com/devswha/patina/tree/main/integrations/aside/SKILL.md)
 
-From [devswha/patina](https://github.com/devswha/patina) — a repo with 200+ stars on GitHub.
+From [devswha/patina](https://github.com/devswha/patina) — a repo with 360+ stars on GitHub.
 
 ---
 
