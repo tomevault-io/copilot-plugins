@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [vincentlaucsb/csv-parser](https://github.com/vi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [vincentlaucsb/csv-parser](https://github.com/vincentlaucsb/csv-parser) — a repo with 1112+ stars on GitHub.
+From [vincentlaucsb/csv-parser](https://github.com/vincentlaucsb/csv-parser) — a repo with 1130+ stars on GitHub.
 
 ---
 
