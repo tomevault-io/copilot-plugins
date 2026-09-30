@@ -4,7 +4,7 @@
   "repo": "regen-icons",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/kazdenc/regen-icons",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T04:48:15Z"
+  "distributed_at": "2026-09-30T23:46:43Z"
 }
