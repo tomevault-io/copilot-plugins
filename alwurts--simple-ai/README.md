@@ -1,6 +1,6 @@
 # simple-ai
 
-> Source: [Alwurts/simple-ai](https://github.com/Alwurts/simple-ai). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [Alwurts/simple-ai](https://github.com/Alwurts/simple-ai). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -14,6 +14,11 @@ Original source: `AGENTS.md` in [Alwurts/simple-ai](https://github.com/Alwurts/s
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (2)
+
+- [simple-ai](https://github.com/Alwurts/simple-ai/tree/main/.agents/skills/registry/SKILL.md)
+- [simple-ai](https://github.com/Alwurts/simple-ai/tree/main/.agents/skills/architecture/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Alwurts/simple-ai](https://github.com/Alwurts/simple-ai)
 
