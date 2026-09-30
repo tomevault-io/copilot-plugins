@@ -1,0 +1,14 @@
+{
+  "name": "hirochachacha--go-smb2",
+  "displayName": "go-smb2",
+  "description": "go-smb2",
+  "version": "1.0.0",
+  "author": "hirochachacha",
+  "homepage": "https://github.com/hirochachacha/go-smb2",
+  "skills": [
+    {
+      "name": "go-smb2",
+      "description": ""
+    }
+  ]
+}
