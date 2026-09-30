@@ -15,11 +15,6 @@ Original source: `AGENTS.md` in [haydenbleasel/ultracite](https://github.com/hay
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [ultracite](https://github.com/haydenbleasel/ultracite/tree/main/skills/ultracite/SKILL.md)
-- [remotion-best-practices](https://github.com/haydenbleasel/ultracite/tree/main/packages/video/.agents/skills/remotion-best-practices/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/haydenbleasel/ultracite](https://github.com/haydenbleasel/ultracite)
 
 ---
