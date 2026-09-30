@@ -1,0 +1,129 @@
+{
+  "name": "TensorSharp",
+  "owner": "zhongkaifu",
+  "repo": "TensorSharp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/research/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/documents/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/documents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/market-data/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/market-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/canvas-design/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/canvas-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/theme-factory/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/theme-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/internal-comms/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/internal-comms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/doc-coauthoring/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/doc-coauthoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/algorithmic-art/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/algorithmic-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/slack-gif-creator/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/slack-gif-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/web-artifacts-builder/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/web-artifacts-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "TensorAgent/skills/playwright/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/TensorAgent/skills/playwright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "InferenceWeb.Tests/Fixtures/MultiAgent/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/InferenceWeb.Tests/Fixtures/MultiAgent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TensorSharp",
+      "path": "eng/validation/fixtures/skills/release-validation/SKILL.md",
+      "github_url": "https://github.com/zhongkaifu/TensorSharp/tree/main/eng/validation/fixtures/skills/release-validation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zhongkaifu/TensorSharp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:36:08Z"
+}
