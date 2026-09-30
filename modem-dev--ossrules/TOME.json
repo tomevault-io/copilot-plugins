@@ -2,7 +2,7 @@
   "name": "ossrules",
   "owner": "modem-dev",
   "repo": "ossrules",
-  "description": "Discover agent rules and skill files from leading open source projects",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/modem-dev/ossrules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-18T20:39:33Z"
+  "distributed_at": "2026-09-30T15:46:33Z"
 }
