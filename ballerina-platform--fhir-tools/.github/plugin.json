@@ -1,0 +1,9 @@
+{
+  "name": "ballerina-platform--fhir-tools",
+  "displayName": "fhir-tools",
+  "description": "fhir-tools",
+  "version": "1.0.0",
+  "author": "ballerina-platform",
+  "homepage": "https://github.com/ballerina-platform/fhir-tools",
+  "skills": []
+}
