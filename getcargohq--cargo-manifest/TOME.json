@@ -4,7 +4,7 @@
   "repo": "cargo-manifest",
   "description": "The software factory for go-to-market. An open-source monorepo holding your company context (ICP, personas, plays, proof, cadence) so AI agents can build and run a self-driving GTM engine.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getcargohq/cargo-manifest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T01:32:46Z"
+  "distributed_at": "2026-09-30T01:34:57Z"
 }
