@@ -1,0 +1,9 @@
+{
+  "name": "scalameta--scalafmt",
+  "displayName": "scalafmt",
+  "description": "scalafmt",
+  "version": "1.0.0",
+  "author": "scalameta",
+  "homepage": "https://github.com/scalameta/scalafmt",
+  "skills": []
+}
