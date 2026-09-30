@@ -1,0 +1,9 @@
+{
+  "name": "atlassian-labs--json-schema-viewer",
+  "displayName": "json-schema-viewer",
+  "description": "json-schema-viewer",
+  "version": "1.0.0",
+  "author": "atlassian-labs",
+  "homepage": "https://github.com/atlassian-labs/json-schema-viewer",
+  "skills": []
+}
