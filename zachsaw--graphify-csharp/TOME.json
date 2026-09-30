@@ -1,0 +1,57 @@
+{
+  "name": "graphify-csharp",
+  "owner": "zachsaw",
+  "repo": "graphify-csharp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "graphify-csharp",
+      "path": ".agents/skills/graphify/SKILL.md",
+      "github_url": "https://github.com/zachsaw/graphify-csharp/tree/main/.agents/skills/graphify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "graphify-csharp",
+      "path": ".agents/skills/graphify-csharp/SKILL.md",
+      "github_url": "https://github.com/zachsaw/graphify-csharp/tree/main/.agents/skills/graphify-csharp/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zachsaw/graphify-csharp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T10:01:43Z"
+}
