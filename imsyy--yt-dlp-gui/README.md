@@ -1,17 +1,15 @@
 # yt-dlp-gui
 
-> Source: [imsyy/yt-dlp-gui](https://github.com/imsyy/yt-dlp-gui) — distributed by [TomeVault](https://tomevault.io)
-
-A modern cross-platform GUI for yt-dlp. Download videos from YouTube, Bilibili, TikTok and 1000+ sites. Built with Tauri + Vue.
+> Source: [imsyy/yt-dlp-gui](https://github.com/imsyy/yt-dlp-gui). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [imsyy/yt-dlp-gui](https://github.com/imsyy/yt-dlp-gui).
+Original source: `AGENTS.md` in [imsyy/yt-dlp-gui](https://github.com/imsyy/yt-dlp-gui).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
