@@ -4,7 +4,7 @@
   "repo": "nook",
   "description": "A small, native RSS reader for macOS and iOS. Offline-first, no account required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nooker-app/nook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T01:31:16Z"
+  "distributed_at": "2026-09-30T01:34:20Z"
 }
