@@ -1,0 +1,9 @@
+{
+  "name": "getcargohq--cargo-manifest",
+  "displayName": "cargo-manifest",
+  "description": "The software factory for go-to-market. An open-source monorepo holding your company context (ICP, personas, plays, proof, cadence) so AI agents can build and run a self-driving GTM engine.",
+  "version": "1.0.0",
+  "author": "getcargohq",
+  "homepage": "https://github.com/getcargohq/cargo-manifest",
+  "skills": []
+}
