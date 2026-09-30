@@ -1,0 +1,9 @@
+{
+  "name": "deepgram--deepgram-dotnet-sdk",
+  "displayName": "deepgram-dotnet-sdk",
+  "description": "deepgram-dotnet-sdk",
+  "version": "1.0.0",
+  "author": "deepgram",
+  "homepage": "https://github.com/deepgram/deepgram-dotnet-sdk",
+  "skills": []
+}
