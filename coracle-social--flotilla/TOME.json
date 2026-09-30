@@ -1,0 +1,123 @@
+{
+  "name": "flotilla",
+  "owner": "coracle-social",
+  "repo": "flotilla",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman-net/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman-net/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman-lib/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman-lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman-app/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman-util/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman-util/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/flotilla-views/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/flotilla-views/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman-feeds/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman-feeds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/flotilla-state/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/flotilla-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman-store/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/flotilla-model/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/flotilla-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman-signer/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman-signer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman-domain/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman-domain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flotilla",
+      "path": ".agents/skills/welshman-editor/SKILL.md",
+      "github_url": "https://github.com/coracle-social/flotilla/tree/main/.agents/skills/welshman-editor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/coracle-social/flotilla",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T13:30:29Z"
+}
