@@ -1,0 +1,14 @@
+{
+  "name": "ibm--openapi-validator",
+  "displayName": "openapi-validator",
+  "description": "openapi-validator",
+  "version": "1.0.0",
+  "author": "IBM",
+  "homepage": "https://github.com/IBM/openapi-validator",
+  "skills": [
+    {
+      "name": "openapi-validator",
+      "description": ""
+    }
+  ]
+}
