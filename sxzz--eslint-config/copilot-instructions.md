@@ -1,63 +1,39 @@
 ## eslint-config
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This package publishes the `@sxzz/eslint-config` flat ESLint configuration. Source lives in `src/`: `index.ts` is the public entry point, `presets.ts` composes presets, and `configs/` contains focused configuration modules (for example, `typescript.ts`, `vue.ts`, and `jsonc.ts`). Shared helpers and types are in `utils.ts`, `globs.ts`, and `types.ts`. `src/typegen.ts` is generated; update it through the type-generation command rather than editing it directly. Build settings are in `tsdown.config.ts`; repository lint rules are in `eslint.config.ts`.
 
-# CLAUDE.md
+# Repository Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Structure & Module Organization
 
-## Commands
+This package publishes the `@sxzz/eslint-config` flat ESLint configuration. Source lives in `src/`: `index.ts` is the public entry point, `presets.ts` composes presets, and `configs/` contains focused configuration modules (for example, `typescript.ts`, `vue.ts`, and `jsonc.ts`). Shared helpers and types are in `utils.ts`, `globs.ts`, and `types.ts`. `src/typegen.ts` is generated; update it through the type-generation command rather than editing it directly. Build settings are in `tsdown.config.ts`; repository lint rules are in `eslint.config.ts`.
 
-```bash
-pnpm run build          # Generate types then bundle (typegen + tsdown)
-pnpm run build:typegen  # Regenerate src/typegen.ts from all presets
-pnpm run lint           # Lint with zero warnings tolerance
-pnpm run lint:fix       # Lint and auto-fix
-pnpm run typecheck      # Type-check with tsgo
-pnpm run dev            # Launch eslint-config-inspector for live testing
-```
+## Build, Test, and Development Commands
 
-After modifying any config in `src/configs/`, run `pnpm run build` to regenerate `src/typegen.ts` (type definitions derived from all preset configs).
+Use pnpm (the repository pins pnpm 12.5.0).
 
-## Architecture
+- `pnpm install` installs dependencies.
+- `pnpm build` generates types and bundles `dist/` with tsdown.
+- `pnpm build:typegen` regenerates `src/typegen.ts` after public API changes.
+- `pnpm lint` runs ESLint with zero warnings allowed; `pnpm lint:fix` applies safe fixes.
+- `pnpm typecheck` runs the native TypeScript checker without emitting files.
+- `pnpm format` formats the repository with the shared Prettier configuration.
+- `pnpm dev` launches the ESLint Config Inspector for manual configuration checks.
 
-This is a composable ESLint flat config library. The main export is the `sxzz()` function which returns a `FlatConfigComposer` from `eslint-flat-config-utils`.
+## Coding Style & Naming Conventions
 
-### Config modules (`src/configs/*.ts`)
+Write strict ESM TypeScript using the existing project formatting: two-space indentation, single quotes, no semicolons, and trailing commas where Prettier applies them. Use lowercase kebab-free filenames that match the config subject, such as `src/configs/regexp.ts`. Keep configuration modules narrowly scoped and export named presets or helpers consistently with neighboring files. Do not hand-edit generated `src/typegen.ts`.
 
-Each file exports a function returning `Config[]`. Configs are named with the `sxzz/` prefix (e.g., `sxzz/typescript`). All configs are re-exported through `src/configs/index.ts`.
+## Testing Guidelines
 
-### Two-tier plugin model
+There is currently no automated test suite: `pnpm test` prints `Skip`. Validate changes with `pnpm lint`, `pnpm typecheck`, and `pnpm build`. For rule or preset changes, also use `pnpm dev` or the inspector build to verify representative JavaScript, TypeScript, Vue, Astro, and data-file behavior as applicable.
 
-- **Bundled plugins** (in `dependencies`): always available, statically imported in `src/plugins.ts` (e.g., `eslint-plugin-vue`, `typescript-eslint`)
-- **Optional plugins** (in `peerDependencies` with `optional: true`): user must install themselves. These use **dynamic `import()`** in their config file (e.g., `src/configs/astro.ts`, `src/configs/unocss.ts`)
+## Commit & Pull Request Guidelines
 
-### Auto-detection (`src/env.ts`)
+Follow the Conventional Commits style used in history: `feat: add ...`, `fix: disable ...`, `refactor: ...`, or `chore: upgrade deps`. Keep commits focused; use an imperative, concise subject and include an issue/PR reference when relevant (for example, `fix: correct rule default (#178)`).
 
-Uses `isPackageExists()` to detect frameworks (Vue, Astro, UnoCSS, TypeScript) and auto-enable their configs in `sxzz()`.
-
-### Presets (`src/presets.ts`)
-
-Composable preset functions build on each other: `presetJavaScript` → `presetBasic` → `presetAll`. The `sxzz()` function is the main entry point, accepting an `Options` object to toggle features.
-
-### Type generation (`scripts/typegen.ts`)
-
-Runs `presetAll()`, feeds all configs to `eslint-typegen`, and writes `src/typegen.ts`. This provides typed rule names and config names. The generated file is committed to the repo.
-
-### Dependency versions (`pnpm-workspace.yaml`)
-
-All plugin/parser/dev dependency versions are managed via pnpm catalogs (`catalog:plugins`, `catalog:parsers`, `catalog:dev`).
-
-## Adding a new config
-
-1. Create `src/configs/<name>.ts` exporting a function returning `Config[]`
-2. For bundled plugins: add static import to `src/plugins.ts`, add dependency to `package.json` and catalog
-3. For optional plugins: use dynamic `import()` in the config (see `unocss.ts` or `astro.ts` as examples), add as optional `peerDependency` and `devDependency`
-4. Export from `src/configs/index.ts` (keep sorted)
-5. If auto-detected: add detection to `src/env.ts`, wire into `src/presets.ts` Options + `sxzz()` function
-6. Add to `presetAll()` if it should be included in the full preset
-7. Run `pnpm run build` to regenerate types
+Pull requests should explain the user-visible config or rule change, identify affected presets and optional integrations, and list validation commands run. Include before/after lint output or Inspector screenshots when a behavioral change is easiest to review visually.
 
 ---
 > Source: [sxzz/eslint-config](https://github.com/sxzz/eslint-config) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
