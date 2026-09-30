@@ -1,11 +1,11 @@
-# AI instruction files for feynman
+# feynman
 
-> Sourced from [companion-inc/feynman](https://github.com/companion-inc/feynman) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Source: [Companion-Inc/feynman](https://github.com/Companion-Inc/feynman). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [companion-inc/feynman](https://github.com/companion-inc/feynman).
+Original source: `AGENTS.md` in [Companion-Inc/feynman](https://github.com/Companion-Inc/feynman).
 
 ## Also available for
 
@@ -15,10 +15,10 @@ Original source: `AGENTS.md` in [companion-inc/feynman](https://github.com/compa
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [companion-inc/feynman](https://github.com/companion-inc/feynman) — a repo with 7009+ stars on GitHub.
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Companion-Inc/feynman](https://github.com/Companion-Inc/feynman)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:a-e-s -->
+<!-- genome:d-c-q -->
