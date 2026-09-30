@@ -1,31 +1,28 @@
 ## mirrord
 
-> `SPEC.md` describes the behavior that exists in this crate today. It is the source of truth for "what does the mirrord TUI currently do."
+> `mirrord-operator-websocket` owns the WebSocket transport shared by operator API consumers:
 
-# Agent instructions
+# `mirrord-operator-websocket`
 
-## Keep SPEC.md in sync with the code
+## Overview
 
-`SPEC.md` describes the behavior that exists in this crate today. It is the source of truth for "what does the mirrord TUI currently do."
+`mirrord-operator-websocket` owns the WebSocket transport shared by operator API consumers:
 
-**Whenever you generate, modify, or remove code in this crate, you should update `SPEC.md` in the same change so that it continues to accurately describe the current functionality.**
+- `connection`: adapts an upgraded WebSocket to `mirrord-protocol` streams and sinks.
+- `upgrade`: establishes WebSocket connections through the Kubernetes API server or a direct HTTPS endpoint.
 
-This applies to any code change which alters user-viewable behaviour, including:
+Keep this crate limited to transport concerns. It is used by the agent, so it must not depend on operator CRDs, credentials, configuration, analytics, progress reporting, or other high-level mirrord client packages.
 
-### How to update
+## Command Reference
 
-1. Make the code change.
-2. Open `SPEC.md` and edit the affected sections so they describe the new state of the app — not the diff, and not aspirational behavior.
-3. Do not add speculative or planned behavior to `SPEC.md`. It documents what the code does right now.
+```bash
+CARGO_BUILD_WARNINGS=deny cargo clippy -p mirrord-operator-websocket --all-targets --keep-going
+```
 
-### When a code change does *not* require a SPEC.md update
+## Compatibility
 
-- Pure refactors that do not change observable behavior, module boundaries listed in the spec, or the dependency list.
-- Formatting, comment, or rename changes with no behavioral effect.
-- Changes to files the spec does not describe (e.g. CI config, this file).
-
-If you are unsure whether a change is observable, err on the side of updating `SPEC.md`.
+The WebSocket handshake and binary message framing are shared wire behavior. Preserve the Kubernetes API-server upgrade contract and the mirrord protocol encoding when making changes.
 
 ---
 > Source: [metalbear-co/mirrord](https://github.com/metalbear-co/mirrord) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
