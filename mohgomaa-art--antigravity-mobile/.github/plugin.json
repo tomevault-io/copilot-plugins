@@ -1,9 +1,9 @@
 {
   "name": "mohgomaa-art--antigravity-mobile",
-  "displayName": "antigravity-mobile",
+  "displayName": "Antigravity-Mobile",
   "description": "An unofficial, local-first Flutter/Android control plane for Antigravity, backed by a Windows Fleet Station for local execution, orchestration, and multi-slot management, with LAN/USB connectivity and",
   "version": "1.0.0",
   "author": "mohgomaa-art",
-  "homepage": "https://github.com/mohgomaa-art/antigravity-mobile",
+  "homepage": "https://github.com/mohgomaa-art/Antigravity-Mobile",
   "skills": []
 }
