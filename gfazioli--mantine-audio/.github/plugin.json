@@ -1,0 +1,9 @@
+{
+  "name": "gfazioli--mantine-audio",
+  "displayName": "mantine-audio",
+  "description": "A Mantine-native audio player for React with waveform visualization and live spectrum analyzer, built on Web Audio API. Compound component API + headless useAudio hook.",
+  "version": "1.0.0",
+  "author": "gfazioli",
+  "homepage": "https://github.com/gfazioli/mantine-audio",
+  "skills": []
+}
