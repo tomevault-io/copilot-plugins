@@ -1,0 +1,9 @@
+{
+  "name": "socketdev--bun-security-scanner",
+  "displayName": "bun-security-scanner",
+  "description": "bun-security-scanner",
+  "version": "1.0.0",
+  "author": "SocketDev",
+  "homepage": "https://github.com/SocketDev/bun-security-scanner",
+  "skills": []
+}
