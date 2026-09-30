@@ -1,0 +1,14 @@
+{
+  "name": "wheelos--apollo-lite",
+  "displayName": "apollo-lite",
+  "description": "A high-performance autonomous driving system",
+  "version": "1.0.0",
+  "author": "wheelos",
+  "homepage": "https://github.com/wheelos/apollo-lite",
+  "skills": [
+    {
+      "name": "apollo-lite",
+      "description": ""
+    }
+  ]
+}
