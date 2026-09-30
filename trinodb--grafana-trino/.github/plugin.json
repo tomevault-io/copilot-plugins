@@ -1,0 +1,9 @@
+{
+  "name": "trinodb--grafana-trino",
+  "displayName": "grafana-trino",
+  "description": "grafana-trino",
+  "version": "1.0.0",
+  "author": "trinodb",
+  "homepage": "https://github.com/trinodb/grafana-trino",
+  "skills": []
+}
