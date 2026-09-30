@@ -1,0 +1,9 @@
+{
+  "name": "kubevirt--containerized-data-importer",
+  "displayName": "containerized-data-importer",
+  "description": "containerized-data-importer",
+  "version": "1.0.0",
+  "author": "kubevirt",
+  "homepage": "https://github.com/kubevirt/containerized-data-importer",
+  "skills": []
+}
