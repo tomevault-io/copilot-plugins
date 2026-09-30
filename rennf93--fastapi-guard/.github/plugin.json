@@ -1,0 +1,14 @@
+{
+  "name": "rennf93--fastapi-guard",
+  "displayName": "fastapi-guard",
+  "description": "fastapi-guard",
+  "version": "1.0.0",
+  "author": "rennf93",
+  "homepage": "https://github.com/rennf93/fastapi-guard",
+  "skills": [
+    {
+      "name": "fastapi-guard",
+      "description": ""
+    }
+  ]
+}
