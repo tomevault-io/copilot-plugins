@@ -1,0 +1,14 @@
+{
+  "name": "eko24ive--pi-ask",
+  "displayName": "pi-ask",
+  "description": "pi-ask",
+  "version": "1.0.0",
+  "author": "eko24ive",
+  "homepage": "https://github.com/eko24ive/pi-ask",
+  "skills": [
+    {
+      "name": "pi-ask",
+      "description": ""
+    }
+  ]
+}
