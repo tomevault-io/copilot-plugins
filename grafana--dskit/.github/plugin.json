@@ -1,0 +1,9 @@
+{
+  "name": "grafana--dskit",
+  "displayName": "dskit",
+  "description": "dskit",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/dskit",
+  "skills": []
+}
