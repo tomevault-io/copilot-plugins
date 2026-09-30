@@ -1,0 +1,75 @@
+{
+  "name": "ZamzamKit",
+  "owner": "basememara",
+  "repo": "ZamzamKit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ZamzamKit",
+      "path": ".claude/skills/swiftui-pro/SKILL.md",
+      "github_url": "https://github.com/basememara/ZamzamKit/tree/main/.claude/skills/swiftui-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZamzamKit",
+      "path": ".claude/skills/swift-testing-pro/SKILL.md",
+      "github_url": "https://github.com/basememara/ZamzamKit/tree/main/.claude/skills/swift-testing-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZamzamKit",
+      "path": ".claude/skills/swift-format-style/SKILL.md",
+      "github_url": "https://github.com/basememara/ZamzamKit/tree/main/.claude/skills/swift-format-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZamzamKit",
+      "path": ".claude/skills/swift-concurrency-pro/SKILL.md",
+      "github_url": "https://github.com/basememara/ZamzamKit/tree/main/.claude/skills/swift-concurrency-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ZamzamKit",
+      "path": ".claude/skills/swift-api-design-guidelines-skill/SKILL.md",
+      "github_url": "https://github.com/basememara/ZamzamKit/tree/main/.claude/skills/swift-api-design-guidelines-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/basememara/ZamzamKit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T09:49:21Z"
+}
