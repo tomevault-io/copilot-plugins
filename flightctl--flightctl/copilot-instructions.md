@@ -1,177 +1,64 @@
 ## flightctl
 
-> `internal/service` currently holds the monolithic `Service` interface
+> Use this runtime mapping when placing server-side code under `internal/`.
 
-# internal/service – Service layer codegen conventions
+# Internal architecture and package layout
 
-`internal/service` currently holds the monolithic `Service` interface
-(`service.go`, ~140 methods across all resource types), its generated mock
-(`mock_service.go`), and its hand-written tracing wrapper
-(`traced_service.go`). This package is being decomposed into focused
-`internal/service/{resource}/` sub-packages (Epic EDM-4668), each with its
-own interface, handler, mock, and tracing wrapper. This file documents the
-conventions those sub-packages must follow, established as part of
-EDM-4675 (the sub-package migration itself, and creation of `service.go`
-under each resource sub-package, happens in later stories).
+Use this runtime mapping when placing server-side code under `internal/`.
 
-## Mock generation convention
+The repository uses two server-side patterns:
 
-Each `internal/service/{resource}/` sub-package must carry its own
-`docs.go` with a single per-interface `//go:generate mockgen` directive,
-following the same shape already used across `internal/agent/**`
-(e.g. `internal/agent/device/fileio/docs.go`):
+- **Legacy/shared:** `internal/service/<resource>/`,
+  `internal/store/<resource>/`, shared models in `internal/store/model/`, and
+  flat tasks in `internal/tasks/`.
+- **Component-based:** `internal/<component>/{service,store,tasks}`; each
+  component may use resource subpackages or an established aggregate/flat
+  package.
 
-```go
-package {resource}
+| Runtime | Pattern and ownership |
+|---------|-----------------------|
+| `flightctl-api`, `flightctl-worker`, `flightctl-periodic` | Legacy/shared; workers use flat `internal/tasks/`. |
+| `flightctl-alert-exporter`, `flightctl-alertmanager-proxy`, `flightctl-remote-access` | Consume legacy/shared services and stores. |
+| `flightctl-delta-worker` | Owns component-based `internal/delta_worker/{service,store,tasks}/<resource>`; consumer and wiring stay at `tasks/`. |
+| `flightctl-imagebuilder-api` | Owns aggregate component packages `internal/imagebuilder_api/{service,store}`. |
+| `flightctl-imagebuilder-worker` | Owns flat `internal/imagebuilder_worker/tasks/` and consumes ImageBuilder/shared services and stores. |
+| `flightctl-db-migrate`, `flightctl-restore` | Use shared stores; own no service or task packages. |
+| `flightctl-agent` | Uses `internal/agent/`; follow [internal/agent/AGENTS.md](agent/AGENTS.md). |
 
-//go:generate go run -modfile=../../../tools/go.mod go.uber.org/mock/mockgen -source=service.go -destination=mock.go -package={resource}
-```
+- Modify legacy/shared code in place; put new component-owned code under its
+  component namespace. Component roots may consume shared services and wire
+  stores, but stores must not depend on services, and tasks or unrelated
+  services use service APIs instead of importing stores.
+- Service packages following the interface/handler convention use `service.go`,
+  `handler.go`, `docs.go`, adjacent tests, and generated `mock.go` and
+  `traced.gen.go`; see [internal/service/AGENTS.md](service/AGENTS.md).
+- Put new task families under the owning component's `tasks/<task>/`; preserve
+  established flat task packages unless migration is in scope.
 
-- Use `go run -modfile=<path>/tools/go.mod go.uber.org/mock/mockgen ...`,
-  **not** a bare `mockgen` binary invocation. This pins mockgen to the
-  version declared in `tools/go.mod` (`go.uber.org/mock v0.4.0`), so
-  `make generate` reproducibly regenerates mocks in CI without depending on
-  a globally installed `mockgen`.
-- Adjust the relative path to `tools/go.mod` for the sub-package's nesting
-  depth. `internal/service/{resource}/` sits one level deeper than
-  `internal/service/`, so the path is `../../../tools/go.mod` (three
-  levels up), not the two-level `../../tools/go.mod` used by the removed
-  monolithic directive.
-- No `Makefile` change is required for new directives to take effect. The
-  `generate` target runs `go generate -v $(go list ./... | grep -v -e api/grpc)`,
-  which already discovers every `//go:generate` directive in the tree,
-  including new ones added under `internal/service/{resource}/`.
+## Mutation results
 
-The monolithic `//go:generate` directive that used to live in
-`internal/service/docs.go` (regenerating `mock_service.go` for the full
-`Service` interface) has been removed. `service.go` and `mock_service.go`
-are left in place for now — they still compile and are still used by
-existing tests — and will be deleted once all resource types have been
-migrated to their own sub-packages.
+- When a database mutation determines the resulting state, return that state
+  from the same atomic operation (for example, with `RETURNING`) and propagate
+  it to callers. Do not immediately re-read the row merely to discover what the
+  mutation wrote.
+- Drive dependent events and other side effects from the returned mutation
+  result instead of re-querying independently at each layer.
+- Re-fetch only when the mutation cannot return the required data or when the
+  operation intentionally requires a fresh, independent read.
 
-## Tracing wrapper (`traced.gen.go`) pattern
+## Interfaces and constructors
 
-Each resource's tracing wrapper is **generated by [gowrap](https://github.com/hexdigest/gowrap)**,
-using the shared template at `internal/service/templates/service-tracing`. It started
-out hand-written (mockgen has no equivalent for tracing wrappers, and no
-suitable generator was known at the time), but was converted to generated
-code once the pattern was fully established across every resource
-sub-package — the mechanical, 1:1-per-method boilerplate is exactly what
-codegen is for, and hand-writing it risked silent drift between packages.
-
-Each `internal/service/{resource}/` sub-package's `docs.go` carries a
-second `//go:generate` directive alongside the mockgen one:
-
-```go
-//go:generate go run -modfile=../../../tools/go.mod github.com/hexdigest/gowrap/cmd/gowrap gen -g -p . -i Service -t ../templates/service-tracing -o traced.gen.go -v TracerName=flightctl/service/{resource}
-```
-
-- `-g` suppresses gowrap's own embedded `//go:generate` comment in the
-  output file, since the directive already lives in `docs.go` (matching
-  the mockgen convention of centralizing generate directives there).
-- `-p .` and `-i Service` point at the resource's own `service.go`
-  interface, generating the wrapper into the same package (so the
-  interface type appears unqualified in the generated code, e.g. `Service`
-  not `fleet.Service`).
-- `-t ../templates/service-tracing` references the template
-  checked into the repo (not a network-hosted template), so `make
-  generate` never depends on internet access.
-- `-v TracerName=flightctl/service/{resource}` parametrizes the tracer
-  name per resource; the template defaults to the bare `TracedService`
-  decorator name unless overridden with `-v DecoratorName=...`.
-- `device` is the one exception: it passes
-  `-v DecoratorName=TracedDeviceService` to keep its established
-  resource-prefixed struct name (`TracedDeviceService`,
-  `NewDeviceServiceHandler`), per that story's literal AC instruction —
-  every other package uses the template's default `TracedService`.
-- Like `mockgen`, gowrap is invoked via `go run -modfile=.../tools/go.mod
-  github.com/hexdigest/gowrap/cmd/gowrap`, pinning it to the version
-  declared in `tools/go.mod` (also listed in `tools/tools.go`) so `make
-  generate` is reproducible without a globally installed `gowrap` binary.
-
-The template (`internal/service/templates/service-tracing`) implements the structural
-pattern established by the original hand-written wrappers:
-
-- A `{Decorator}` struct (default `TracedService`) wraps the inner focused
-  interface for that resource.
-- A `WrapWithTracing(inner Service) Service` constructor returns `nil`
-  unchanged and otherwise returns the wrapper.
-- One method per interface method: start a span, delegate to the inner
-  implementation, end the span, return the result unchanged.
-- Result handling branches on the method's last return type: a
-  `domain.Status` result is passed straight to `endSpan`; an `error`
-  result is converted to a `domain.Status` first
-  (`domain.StatusOK()`/`domain.StatusInternalServerError(err.Error())`);
-  any other or absent result just calls `endSpan(span, domain.StatusOK())`
-  (or, for a method with no return values at all, `span.End()` directly).
-  These are the only three shapes that occur across every resource's
-  `Service` interface today — see the template's `{{if eq $last.Type
-  "domain.Status"}}...{{else if $method.ReturnsError}}...{{else}}` branch.
-- The generated receiver is named `_d`, not `t`: at least one interface
-  method (`syncstate.Service.SetSyncStateLastCheckedAt`) has a parameter
-  literally named `t`, which would collide with a `t`-named receiver.
-  `_d` mirrors gowrap's own built-in templates for the same reason and is
-  verified (by grepping every `internal/service/*/service.go`) not to
-  collide with any current parameter name.
-
-### Span naming convention
-
-Each method starts its span with:
-
-```go
-ctx, span := tracing.StartSpan(ctx, "flightctl/service/{resource}", "{Method}")
-```
-
-- `tracerName` (`tracing.StartSpan`'s first argument) is
-  `"flightctl/service/{resource}"` (e.g. `"flightctl/service/device"`) —
-  extending the legacy monolith's constant `"flightctl/service"` tracer
-  name with a resource segment. Set per-package via the `-v TracerName=...`
-  generator argument, not hardcoded in the template.
-- `spanName` (the second argument) remains the bare method name (e.g.
-  `"Get"`), which `tracing.StartSpan` kebab-cases internally.
-
-Together these produce the identifier referenced by the design doc,
-`flightctl/service/{resource}.{Method}` (e.g. `flightctl/service/device.Get`)
-— the two segments map to `tracing.StartSpan`'s two existing parameters
-rather than being concatenated into one combined, kebab-cased string
-(which would mangle the intended dotted format). This was confirmed
-against real generated/compiled code once every resource's `traced.gen.go`
-existed, resolving the uncertainty an earlier version of this document
-flagged before any `traced.gen.go` had been written.
-
-If a resource's interface ever needs a method shape the template doesn't
-handle (e.g. more than one non-`domain.Status`/non-`error` trailing
-result, or a method that shouldn't be traced at all), extend
-`internal/service/templates/service-tracing` rather than hand-editing a generated
-`traced.gen.go` — hand edits are silently overwritten by the next `make
-generate`.
-
-## Known migration coupling (for subsequent EDM-4668 stories)
-
-`internal/service/teststore_framework_test.go` (the hand-written
-`TestStore`/`Dummy*` fake-store framework used by `internal/service/*_test.go`)
-has **no** coupling to `NewServiceHandler` — existing unit tests (e.g.
-`internal/service/device_test.go`) construct `ServiceHandler{...}` struct
-literals directly, bypassing the constructor entirely. Unit tests in this
-package are therefore unaffected by constructor signature changes made
-during the migration.
-
-The real `NewServiceHandler`/`NewAuthProviderServiceHandler` constructor
-coupling that later migration stories must account for lives in the real
-wiring call sites and the integration test harness:
-
-- `internal/api_server/server.go`
-- `internal/api_server/agentserver/server.go`
-- `internal/worker_server/server.go`
-- `internal/periodic_checker/server.go`
-- `cmd/flightctl-alert-exporter/main.go`
-- `cmd/flightctl-alertmanager-proxy/main.go`
-- `internal/imagebuilder_worker/worker.go`
-- `internal/imagebuilder_api/server.go` (via `NewAuthProviderServiceHandler`)
-- `internal/remote_access_server/server.go` (via `NewAuthProviderServiceHandler`)
-- `test/harness/test_harness.go` (holds a `ServiceHandler service.Service`
-  field, populated via `service.NewServiceHandler(...)`)
+- Reuse an existing provider-owned interface. Create one only when required by
+  the owning area, multiple production implementations, a system perimeter, or
+  an explicit request; otherwise use the concrete service type.
+- Do not add caller-side subsets or function fields solely for testing. Split a
+  broad service into cohesive provider-owned services instead.
+- New constructors validate required nil-able dependencies. Preserve existing
+  constructor signatures unless their contract is deliberately being migrated.
+- Required dependencies need no method-level nil checks; initialize optional
+  dependencies with a no-op where practical and preserve documented optional
+  behavior.
 
 ---
 > Source: [flightctl/flightctl](https://github.com/flightctl/flightctl) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
