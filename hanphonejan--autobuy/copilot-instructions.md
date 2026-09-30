@@ -1,10 +1,10 @@
 ## autobuy
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents (Claude Code, opencode, Cursor, etc.) working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents (Claude Code, opencode, Cursor, etc.) working with code in this repository.
 
 ## Project Overview
 
@@ -30,6 +30,12 @@ uv run python seckill.py tb --time "2025-03-19 11:00:00.000000"
 ```
 
 Windows 用户可直接双击 `start.bat` 一键启动。
+
+## 环境要求
+
+- Python 版本 **>=3.10**（代码使用了 `str | None` 等 PEP 604 类型注解语法）
+- 项目通过 `.python-version` 锁定版本，`uv sync` 会自动安装匹配的 Python
+- 浏览器：Google Chrome（最新版），ChromeDriver 由 `webdriver-manager` 自动管理
 
 ## Architecture
 
@@ -77,6 +83,12 @@ Windows 用户可直接双击 `start.bat` 一键启动。
 - 遮罩层移除脚本在页面加载时注入 (`Page.addScriptToEvaluateOnNewDocument`) 并每 500ms 循环执行
 - 通过 CDP 隐藏 `navigator.webdriver` 属性以规避反爬检测
 
+## 开发约定
+
+- 遵循现有代码风格与命名习惯，保持架构分层清晰
+- 修改 `PlatformConfig` 选择器时需同时验证淘宝/京东两端
+- 前端进度条依赖后端日志关键词推进，新增日志时注意与 `static/js/seckill.js` 中的关键词匹配保持一致
+
 ---
 > Source: [HanphoneJan/AutoBuy](https://github.com/HanphoneJan/AutoBuy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
