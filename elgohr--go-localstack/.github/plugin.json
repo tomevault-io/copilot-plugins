@@ -1,0 +1,9 @@
+{
+  "name": "elgohr--go-localstack",
+  "displayName": "go-localstack",
+  "description": "go-localstack",
+  "version": "1.0.0",
+  "author": "elgohr",
+  "homepage": "https://github.com/elgohr/go-localstack",
+  "skills": []
+}
