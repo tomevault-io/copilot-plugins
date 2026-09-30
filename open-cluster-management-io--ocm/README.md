@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [open-cluster-management-io/ocm](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [open-cluster-management-io/ocm](https://github.com/open-cluster-management-io/ocm) — a repo with 1072+ stars on GitHub.
+From [open-cluster-management-io/ocm](https://github.com/open-cluster-management-io/ocm) — a repo with 1100+ stars on GitHub.
 
 ---
 
