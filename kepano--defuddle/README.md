@@ -1,27 +1,21 @@
 # defuddle
 
-> Source: [kepano/defuddle](https://github.com/kepano/defuddle) — distributed by [TomeVault](https://tomevault.io)
-
-Get the main content of any page as Markdown.
+> Source: [kepano/defuddle](https://github.com/kepano/defuddle). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kepano/defuddle](https://github.com/kepano/defuddle).
+Original source: `AGENTS.md` in [kepano/defuddle](https://github.com/kepano/defuddle).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [defuddle](https://github.com/kepano/defuddle/tree/main/skills/defuddle)
-
-From [kepano/defuddle](https://github.com/kepano/defuddle) — a repo with 7654+ stars on GitHub.
+From [kepano/defuddle](https://github.com/kepano/defuddle) — a repo with 9554+ stars on GitHub.
 
 ---
 
