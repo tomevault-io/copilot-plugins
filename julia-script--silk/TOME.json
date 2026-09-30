@@ -1,0 +1,225 @@
+{
+  "name": "silk",
+  "owner": "julia-script",
+  "repo": "silk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "silk",
+      "path": ".codex/skills/silk-now/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/silk-now/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/silk-work/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/silk-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/silk-sync/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/silk-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/silk-now/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/silk-now/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/silk-sync/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/silk-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/silk-work/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/silk-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/silk-demand/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/silk-demand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/silk-triage/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/silk-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/silk-triage/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/silk-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/silk-demand/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/silk-demand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/silk-discover/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/silk-discover/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/silk-discover/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/silk-discover/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".agents/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.agents/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".agents/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.agents/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".agents/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.agents/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".agents/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.agents/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".agents/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.agents/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".codex/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.codex/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "silk",
+      "path": ".agents/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/julia-script/silk/tree/main/.agents/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/julia-script/silk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:51:28Z"
+}
