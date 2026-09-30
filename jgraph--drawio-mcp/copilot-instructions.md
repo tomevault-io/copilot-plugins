@@ -1,143 +1,38 @@
 ## drawio-mcp
 
-> The official draw.io MCP (Model Context Protocol) server that enables LLMs to open and create diagrams in the draw.io editor.
+> Alternative approach that works without installing the MCP server. Users add instructions to a Claude Project that teach Claude to generate draw.io URLs using Python code execution.
 
-# Draw.io MCP Server
+# Project Instructions
 
-The official draw.io MCP (Model Context Protocol) server that enables LLMs to open and create diagrams in the draw.io editor.
+Alternative approach that works without installing the MCP server. Users add instructions to a Claude Project that teach Claude to generate draw.io URLs using Python code execution.
 
-## Repository Structure
+## Key Files
 
-- **`shared/`** — Shared XML generation reference (`xml-reference.md`), the single source of truth for all LLM prompts.
-- **`mcp-app-server/`** — MCP App server (renders diagrams inline in chat via iframe). Hosted at `https://mcp.draw.io/mcp`. Can also be self-hosted via Node.js or Cloudflare Workers.
-- **`mcp-tool-server/`** — Original MCP tool server (stdio-based, opens browser). Published as `@drawio/mcp` on npm.
-- **`project-instructions/`** — Claude Project instructions (no MCP required, no install).
-- **`skill-cli/`** — Claude Code skill (generates native `.drawio` files, opens in desktop app). No MCP required.
-- **`shape-search/`** — Shape search index generator. Loads draw.io's `app.min.js` via jsdom to extract all shape styles and tags into `search-index.json`, which powers the `search_shapes` MCP tool. Re-run after updating `drawio-dev` to pick up new or changed shapes.
+| File | Purpose |
+|------|---------|
+| `claude-project-instructions.txt` | Instructions to paste into Claude Project settings |
 
-Each subdirectory has its own `CLAUDE.md` with implementation details.
+## How It Works
 
-## MCP App Server Tool
+1. Claude generates diagram code (Mermaid, XML, or CSV)
+2. Executes Python code to compress and encode the diagram
+3. The script outputs a complete HTML page with the URL embedded as a clickable button
+4. Claude presents the HTML as an artifact — the user clicks the button to open draw.io
 
-### `create_diagram`
+## XML Reference
 
-- **Input**: `{ xml: string }` - draw.io XML in mxGraphModel format
-- **Output**: Interactive diagram rendered inline via the draw.io viewer library
-- **Features**: Zoom, pan, layers, fullscreen, "Open in draw.io" button
-
-### `search_shapes`
-
-- **Input**: `{ query: string, limit?: number }` - Search keywords and optional max results (default: 10, max: 50)
-- **Output**: Array of matching shapes with `{style, w, h, title}` — style strings can be used directly in mxCell attributes
-- **Search**: AND logic across space-separated terms, exact + Soundex phonetic matching
-- **Coverage**: ~10,000+ shapes across all draw.io libraries (AWS, Azure, GCP, P&ID, electrical, Cisco, Kubernetes, UML, BPMN, etc.)
-- **Use case**: Call before `create_diagram` only for diagrams needing industry-specific icons (cloud, network, P&ID, electrical, Cisco, Kubernetes). Skip for standard diagrams (flowcharts, UML, ERD, org charts) that use basic geometric shapes
-
-## MCP Tool Server Tools
-
-### `open_drawio_xml`
-
-Opens the draw.io editor with XML content.
-
-**Parameters:**
-- `content` (required): Draw.io XML content
-- `lightbox` (optional): Open in read-only lightbox mode (default: false)
-- `dark` (optional): Dark mode - "true" or "false" (default: false)
-
-**Example XML:**
-```xml
-<mxGraphModel adaptiveColors="auto">
-  <root>
-    <mxCell id="0"/>
-    <mxCell id="1" parent="0"/>
-    <mxCell id="2" value="Hello" style="rounded=1;" vertex="1" parent="1">
-      <mxGeometry x="100" y="100" width="120" height="60" as="geometry"/>
-    </mxCell>
-  </root>
-</mxGraphModel>
-```
-
-### `open_drawio_csv`
-
-Opens the draw.io editor with CSV data that gets converted to a diagram.
-
-**⚠️ Note:** CSV relies on draw.io's server-side processing and may occasionally fail or be unavailable. Consider using Mermaid for org charts when possible.
-
-**Parameters:**
-- `content` (required): CSV content
-- `lightbox` (optional): Open in read-only lightbox mode (default: false)
-- `dark` (optional): Dark mode - "true" or "false" (default: false)
-
-**⚠️ Avoid** using `%column%` placeholders in style attributes (like `fillColor=%color%`) - this can cause "URI malformed" errors.
-
-### `open_drawio_mermaid`
-
-Opens the draw.io editor with a Mermaid.js diagram definition.
-
-**Parameters:**
-- `content` (required): Mermaid.js syntax
-- `lightbox` (optional): Open in read-only lightbox mode (default: false)
-- `dark` (optional): Dark mode - "true" or "false" (default: false)
-
-## Quick Decision Guide
-
-| Need | Use | Reliability |
-|------|-----|-------------|
-| Flowchart, sequence, ER diagram | `open_drawio_mermaid` | High |
-| Custom styling, precise positioning | `open_drawio_xml` | High |
-| Org chart from data | `open_drawio_csv` | Medium |
-
-**Default to Mermaid** — it handles most diagram types reliably.
-
-## Best Practices for LLMs
-
-1. **Default to Mermaid**: It handles flowcharts, sequences, ER diagrams, Gantt charts, and more — all reliably
-2. **Use XML for precision**: When you need exact positioning, custom colors, or complex layouts
-3. **Avoid CSV for critical diagrams**: CSV processing can fail; prefer Mermaid for org charts when possible
-4. **Validate syntax**: Ensure Mermaid/CSV/XML syntax is correct before sending
-5. **Return the URL to users**: Always provide the generated URL so users can open the diagram in their browser
-
-## Shared References (Single Source of Truth)
-
-Two canonical reference files live in `shared/` and feed every delivery mechanism (MCP App Server, MCP Tool Server, Skill + CLI, Project Instructions):
-
-- **`shared/xml-reference.md`** — draw.io XML generation reference: styles, edge routing, containers, layers, tags, metadata, dark mode, well-formedness rules. Consumed by `create_diagram` (mcp-app-server) and `open_drawio_xml` (mcp-tool-server).
-- **`shared/mermaid-reference.md`** — Mermaid syntax reference for all 26 supported diagram types (flowchart, sequence, class, state, ER, gantt, mindmap, timeline, quadrant, C4, architecture, radar, packet, venn, treemap, kanban, zenuml, …) plus flowchart styling (`style`, `classDef`, `linkStyle`). Consumed by `open_drawio_mermaid` (mcp-tool-server).
-
-The MCP servers read these files at startup and append them to the relevant tool description. The skill and project instructions reference them via GitHub URL.
-
-When updating diagram-generation guidance, edit only these files — changes propagate to all consumers automatically.
+The detailed draw.io XML generation reference (edge routing, containers, layers, tags, metadata, dark mode, style properties, XML well-formedness) lives in `shared/xml-reference.md` at the repo root — the single source of truth for all prompts. Users should copy its contents into their Claude Project alongside `claude-project-instructions.txt`.
 
 ## Coding Conventions
 
 - **Allman brace style**: Opening braces go on their own line for all control structures, functions, objects, and callbacks.
-
-```js
-function example()
-{
-  if (condition)
-  {
-    doSomething();
-  }
-  else
-  {
-    doOther();
-  }
-}
-```
-
 - Prefer `function()` expressions over arrow functions for callbacks.
+- See the root `AGENTS.md` for examples.
 
-## Troubleshooting
+## Why HTML Output?
 
-| Error | Cause | Solution |
-|-------|-------|----------|
-| XML comments in output | `<!-- -->` comments found in generated XML | Remove all XML comments — they are strictly forbidden |
-| "URI malformed" | Special characters in CSV style attributes | Use hardcoded colors instead of `%column%` placeholders |
-| "Service nicht verfügbar" | draw.io CSV server unavailable | Retry later or use Mermaid instead |
-| Blank diagram | Invalid Mermaid/XML syntax | Check syntax, ensure proper escaping |
-| Diagram doesn't match expected | Mermaid version differences | Simplify syntax, avoid edge cases |
+The generated URL contains compressed base64 data. LLMs silently corrupt base64 strings when reproducing them token by token. By having the Python script output a complete HTML page with the link embedded, the URL never passes through Claude's text generation — ensuring the link is always correct.
 
 ---
 > Source: [jgraph/drawio-mcp](https://github.com/jgraph/drawio-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
