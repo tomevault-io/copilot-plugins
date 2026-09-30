@@ -4,7 +4,7 @@
   "repo": "wgpu",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,21 @@
       "path": ".claude/skills/webgpu-specs/SKILL.md",
       "github_url": "https://github.com/gfx-rs/wgpu/tree/main/.claude/skills/webgpu-specs/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "wgpu",
+      "path": ".agents/skills/cts-triage/SKILL.md",
+      "github_url": "https://github.com/gfx-rs/wgpu/tree/main/.agents/skills/cts-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wgpu",
+      "path": ".agents/skills/webgpu-specs/SKILL.md",
+      "github_url": "https://github.com/gfx-rs/wgpu/tree/main/.agents/skills/webgpu-specs/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/gfx-rs/wgpu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T05:38:58Z"
+  "distributed_at": "2026-09-30T23:30:21Z"
 }
