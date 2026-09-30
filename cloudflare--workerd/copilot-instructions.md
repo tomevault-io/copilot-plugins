@@ -1,119 +1,221 @@
 ## workerd
 
-> Custom Bazel rules (`wd_*` macros) for C++, TypeScript, Rust, Cap'n Proto, and test orchestration. Uses bzlmod (`MODULE.bazel`), not WORKSPACE. This is build system definitions, NOT build output (`bazel-bin/`).
+> An informal specification of how a `node:http` `Server` drives the web
 
-# build/ — Bazel Build Rules
+# node:http server × web streams
 
-## OVERVIEW
+An informal specification of how a `node:http` `Server` drives the web
+streams underneath it — the `Request` body it pumps into the
+`IncomingMessage`, and the `ReadableStream` the `ServerResponse` builds as
+the body of the `Response` it hands back to `fetch()` — derived from and
+kept in lockstep with the test suite in this directory. **The tests are
+the normative artifact**; this document maps behaviors to the tests that
+assert them. Every test runs against the C++ streams implementation
+(`http-server-cpp.wd-test`) and the TypeScript one
+(`http-server-ts.wd-test`). The general server surface (headers, options,
+ports, `listen`/`close` lifecycle, `cloudflare:node` helpers) is owned by
+`src/workerd/api/node/tests/http-server-nodejs-test.js`; this suite owns
+the STREAMS interaction only.
 
-Custom Bazel rules (`wd_*` macros) for C++, TypeScript, Rust, Cap'n Proto, and test orchestration. Uses bzlmod (`MODULE.bazel`), not WORKSPACE. This is build system definitions, NOT build output (`bazel-bin/`).
+The implementation under test is `src/node/internal/internal_http_server.ts`
+(`Server#onRequest`/`#toReqRes` and its `[captureRejectionSymbol]`, and
+`ServerResponse`: the Response promise, `#toFetchResponse`,
+`destroy`/`#emitClose`),
+`internal_http_incoming.ts` (`IncomingMessage#tryRead`, `_read`,
+`_destroy`) and the `OutgoingMessage` write path in
+`internal_http_outgoing.ts`.
 
-## KEY RULES
+## Infrastructure
 
-| Rule                                       | Purpose                                                                                           |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| `wd_cc_library.bzl`                        | Wraps `cc_library`; `strip_include_prefix="/src"`, arch-specific CPU flags (CRC32C)               |
-| `wd_cc_binary.bzl`                         | Wraps `cc_binary`; macOS dead-strip linkopts; creates `_cross` alias for prebuilt arm64 binaries  |
-| `wd_cc_embed.bzl`                          | Binary/text data -> C++ via C23 `#embed`; auto-detects text vs binary by extension                |
-| `wd_cc_benchmark.bzl`                      | Google Benchmark wrapper; generates CSV report genrule                                            |
-| `wd_test.bzl`                              | `.wd-test` config test runner; generates up to 3 variants per test                                |
-| `kj_test.bzl`                              | C++ unit test wrapper; also generates test variants                                               |
-| `wpt_test.bzl`                             | Web Platform Tests; generates JS runner + `.wd-test` config from WPT tree; delegates to `wd_test` |
-| `wd_ts_bundle.bzl`                         | TypeScript compilation + JS bundle generation                                                     |
-| `wd_js_bundle.bzl`                         | JS bundle -> Cap'n Proto `Modules.Bundle` embedding via generated `.capnp`                        |
-| `wd_capnp_library.bzl`                     | Cap'n Proto schema compilation                                                                    |
-| `wd_rust_crate.bzl` / `wd_rust_binary.bzl` | Rust build rules                                                                                  |
-| `lint_test.bzl`                            | ESLint integration                                                                                |
-| `//tools/clang-tidy:workerd-lint`          | Custom clang-tidy plugin (source: `tools/clang-tidy/workerd-lint.c++`); ships the `jsg-visit-for-gc`, `workerd-consume`, and `workerd-unsafe-continuation-capture` checks |
+No sidecar. The worker is bound to itself as `SERVICE`; its default
+handler (`main.js`) routes every incoming Request to the current test's
+server through `handleAsNodeRequest`. `harness.js` offers the two ways a
+Request reaches a server:
 
-**Conventions:**
+- `env.SERVICE.fetch(...)`: through the service binding. The runtime pumps
+  bodies across it (the production shape); a cancellation on one side
+  reaches the other only once the exchange completes.
+- `dispatch(new Request(...))`: an in-isolate Request handed to the server
+  directly, so its body stream IS the test's stream and cancellation is
+  observable at once. Tests that need it call `remember(env, ctrl)` first.
 
-- `_cross` alias pattern: every `wd_cc_binary` gets a `name_cross` alias selecting prebuilt arm64 or source build
-- Test tags: `off-by-default`, `requires-container-engine`, `no-asan`, `no-coverage`
-- Variant generation controllable per-test via `generate_*_variant` booleans
-- `BUILD.*` files: overlay build files for third-party deps (sqlite3, zlib, simdutf, pyodide, wpt)
+Tests run sequentially, one server (`withServer`) at a time.
 
-## CLANG-TIDY PLUGIN
+## Core semantics
 
-`//tools/clang-tidy:workerd-lint` builds a shared-object clang-tidy plugin
-that adds workerd-specific static checks:
+### The request body
 
-- `jsg-visit-for-gc`: flags JSG resource types whose visitable fields
-  (`jsg::Ref`, `jsg::JsRef`, `jsg::V8Ref`, `jsg::Function`, `jsg::Promise`,
-  `jsg::BufferSource`, `jsg::Value`, etc., plus `kj::Maybe`/`Array`/`Vector`/
-  `OneOf` and `jsg::Optional` wrappers thereof) are missing from `visitForGc()`.
-- `workerd-consume`: flags calls to methods annotated with `WD_CONSUME` when
-  the call is made directly through `kj::Ptr` instead of through
-  `consume(kj::mv(ptr))->method(...)`.
-- `workerd-unsafe-continuation-capture`: flags lambdas passed to async sinks
-  (e.g. `kj::Promise::then`) that capture bare references, raw pointers, or
-  non-owning views.
+- The `Request` body is pumped into the `IncomingMessage` by one default
+  reader, acquired on the first `_read()` and held for the message's
+  lifetime; the pump reads until `push()` reports backpressure or EOF and
+  `_read()` restarts it with the same reader. A request without a body
+  (GET) ends at once with `complete` set.
+- Chunks arrive as Buffers (strings under `setEncoding`), whole and in
+  order; a body the client streams arrives incrementally and is chunked
+  (no Content-Length), a `FixedLengthStream` body announces its length. A
+  'data' listener attached inside the handler still sees the body.
+- `pause()` holds delivery, `resume()` continues it without loss, also for
+  a body larger than the high-water mark. `pipe()` to one or several node
+  destinations and `pipeline(req, TransformStream, res)` work; `pipe()` is
+  the Readable's: a destination's backpressure pauses the body and 'drain'
+  resumes it, the destination hears 'pipe'/'unpipe', a destination that
+  errors is unpiped (no further write reaches it), `unpipe()` stops
+  delivery and pauses a source left without destinations, and a source
+  error is not forwarded to the destination (that is `pipeline()`'s job).
+- `destroy()`: 'aborted' when the body was not complete, 'error' only when
+  the message has an 'error' listener (an unlistened `destroy(err)` is
+  swallowed), 'close' always; the body stream is cancelled with the destroy
+  reason (`undefined` for a bare `destroy()`), through the held reader when
+  the pump had acquired one, unless the body was already read to completion.
+  A read pending across `destroy()` is dropped, however the stream settles
+  it — also on the runtime's stream across the binding (ledger #1).
+- The body stream failing under the message — erroring mid-upload, or while
+  the handler has the message paused with a read pending underneath, or
+  yielding a chunk the message cannot take (a view over a detached
+  ArrayBuffer: the conversion's `TypeError`) — aborts it: 'aborted', the
+  error, 'close' with `complete` false; the response can still be sent.
+  `pause()` then `resume()` inside every 'data' loses nothing.
 
-Usage:
+### The response body
 
-- Run via `just clang-tidy <target>` (e.g., `just clang-tidy //src/workerd/api/...`).
-- Plugin sources live in `tools/clang-tidy/workerd-lint.c++` and
-  `tools/clang-tidy/unsafe-continuation-capture.c++`, built as a
-  `cc_shared_library` target `//tools/clang-tidy:workerd-lint`. The sources are
-  also exported via `exports_files` so downstream projects can rebuild
-  against their own clang/LLVM headers.
-- The clang-tidy binary itself is published to `cloudflare/workerd-tools`
-  releases (see `deps/build_deps.jsonc`, entries `clang_tidy_*`); the matching
-  `*_dev.tar.xz` archive provides the clang/LLVM headers needed to build the
-  plugin out-of-tree. Available for Linux amd64/arm64 and macOS arm64; a
-  single archive (linux-amd64) serves all platforms since the AST-matching
-  plugin doesn't depend on the arch-specific config macros that vary.
-- Wrapper script `build/tools/clang_tidy/clang_tidy_wrapper.sh` loads the
-  plugin via `--load=`.
-- Suppress an intentional non-visit with `// NOLINT(jsg-visit-for-gc)` plus a
-  comment explaining why the field is safe to skip (see `src/workerd/api/streams/queue.h`
-  for `ByteQueue::Entry::store` and `src/workerd/api/node/diagnostics-channel.h`
-  for `Channel::name`).
+- Headers go out at the first `write()`/`end()` (`writeHead()` only formats
+  them; the first write sends them implicitly if needed), which resolves
+  the `Response` — while the handler is still writing. The body is a
+  `new ReadableStream({ type: 'bytes' })`: writes before the headers are
+  buffered and flushed into it at that point, later writes are enqueued
+  as they come, so a client reads chunks before `end()`.
+- Every chunk type is delivered (string, Buffer, `Uint8Array`, explicit
+  encoding), empty writes contribute nothing, many small and large writes
+  arrive whole. A declared Content-Length caps the body (extra bytes
+  dropped, fewer sent as they are) at `parseInt`'s reading of it — a
+  non-numeric value leaves the body uncapped, zero or a negative value
+  drops every chunk, a fraction or padded number caps at its integer part.
+  (The header value itself is not validated; whether a malformed one keeps
+  reaching the client is deliberately unpinned.) 204 and 304, and the reply to a HEAD
+  (marked bodiless before the handler runs), have a null body and drop
+  their writes — accepted, callback called — or, under the server's
+  `rejectNonStandardBodyWrites` option, refuse them with
+  `ERR_HTTP_BODY_NOT_ALLOWED`. A web `ReadableStream` can be `pipeline()`d
+  into the response.
+- A written buffer stays the caller's: the response copies each chunk as
+  it flushes it into the body stream (whose enqueue would otherwise
+  transfer, i.e. detach, the buffer), so a buffer is reusable once the
+  write's callback has fired and a mutation after that is not sent (one in
+  the same tick as the write is, as with Node's corked socket). Views over
+  a `SharedArrayBuffer` or a `WebAssembly.Memory` are written like any
+  other; zero-length views, detached ones included, contribute nothing.
+- `write()` reports backpressure against the response's own buffer before
+  the headers, with 'drain' following; once the headers are out every
+  write is accepted (the body stream queues whatever the handler writes;
+  the client's consumption does not feed back), so no 'drain' is owed.
+  `cork()`/`uncork()` batch writes (`writableLength` counts the header
+  bytes too). The server's `highWaterMark` option is the response's
+  `writableHighWaterMark`.
 
-### Incremental check rollout
+### The response lifecycle
 
-Some checks produce many warnings on existing code and need incremental rollout.
-The `CHECK_PATH_FILTERS` dict in `build/tools/clang_tidy/check_path_filters.bzl`
-supports this:
+- 'finish' fires once the body has been handed off, and closes the stream;
+  'close' follows it (a microtask later), once, and marks the response
+  destroyed (`stream.finished(res)` reports that 'close', as in Node): a
+  `write()` after `end()` fails through its callback with
+  `ERR_STREAM_WRITE_AFTER_END` (a second `end()` is inert) and, once the
+  response is closed, never as an 'error' event.
+- Once `end()` has been called, `destroy()` — with or without an error,
+  from inside 'finish' or right after `end()` — aborts nothing: the body
+  was handed off by `end()`, so the whole of it reaches the client, no
+  'error' fires and 'close' still follows 'finish', once. The response is
+  marked `destroyed` (and `errored` with the reason) at once, as Node's
+  `OutgoingMessage.destroy(error)` marks it, so a write that follows fails
+  through its callback alone. Nothing escapes the isolate. (`destroy()`
+  takes the error alone, as Node's does; there is no callback.)
+- Before that, `destroy(err)` emits 'error' then 'close'. Before the
+  headers, the Response promise rejects with `err` — or, for a bare
+  `destroy()`, with `ERR_STREAM_PREMATURE_CLOSE` (a `TypeError` 'Premature
+  close') — so the fetch fails instead of waiting. After the headers, the
+  body errors with `err` or that `ERR_STREAM_PREMATURE_CLOSE`; nothing
+  reaches the body's controller once it has closed or errored — a chunk the
+  message buffer still holds when the response is destroyed is dropped, as
+  a destroyed socket's pending writes are in Node.
+- A request listener that throws synchronously destroys the response with
+  the error ('error', 'close') and the fetch rejects with it — also after
+  `writeHead()` and a `write()`, whose Response is then discarded. An
+  async listener whose promise rejects ends the same way (the server
+  captures its listeners' rejections; Node's process would die of the
+  unhandled rejection, a Worker cannot): before any header the fetch
+  rejects with the error, after a partial body the Response's body errors
+  with it.
+- Another event's listener rejecting (a 'listening' listener, say) is
+  reported as `EventEmitter`'s own capture fallback reports one: as the
+  server's 'error' event — heard by an 'error' listener, thrown uncaught
+  without one. An 'error' listener's own rejection is re-raised uncaught,
+  once, never emitted as another 'error'.
+- The body stream's `cancel(reason)` — a client abandoning the response —
+  destroys the response with `reason`: 'error', 'close', later writes fail
+  with `ERR_STREAM_DESTROYED`.
 
-1. Add the check to `.clang-tidy` Checks list
-2. Add an entry to `CHECK_PATH_FILTERS` with an empty list (runs nowhere)
-3. Add packages as they are cleaned up
-4. Remove the entry once fully rolled out (runs everywhere)
+## Compatibility flags
 
-Example:
+| Flag (enable date) | Selects | Unflagged behavior tested by |
+| --- | --- | --- |
+| `streams_enable_constructors` (2022-11-30) | the `ServerResponse` can build its body stream (and the tests their web streams) | `legacyFirstBodyWriteHitsConstructorGate`, `legacyUncaughtGateErrorFailsFetch` |
+| `transformstream_enable_standard_constructor` (2022-11-30) | `new TransformStream({ transform })` in the pipeline tests (gate pinned in `src/tests/node/stream`) | — |
+| `enable_nodejs_http_modules`, `enable_nodejs_http_server_modules` (2025-08-15 / 2025-09-01) | the server classes; pinned in every cell | — |
+| `unhandled_rejection_after_microtask_checkpoint` (2026-03-03) | accurate `unhandledrejection` reporting, which `collectUncaught` relies on: the C++ implementation settles a read pending at `cancel()` through a rejected promise adopted a tick later, which the earlier tracker reported before its handler ran (ledger #1) | `legacyPendingReadCancelMisfiresAsUnhandledRejection` |
 
-```python
-CHECK_PATH_FILTERS = {
-    "workerd-unsafe-continuation-capture": [
-        "//src/workerd/io",
-        "//src/workerd/api",
-    ],
-}
-```
+`nodejs_compat_v2` is deliberately absent from every cell: the http layer
+must not depend on its globals. `http-server-ts.wd-test` omits the three
+flags the TypeScript implementation does not consult —
+`streams_enable_constructors`, `transformstream_enable_standard_constructor`
+and `unhandled_rejection_after_microtask_checkpoint` — and its variants
+prove the implementation is indifferent to them (its cancel resolves a
+pending read `done`, so no rejected promise exists for the earlier tracker
+to misreport).
 
-Package prefixes match themselves and all subpackages (`//src/workerd/io`
-matches `//src/workerd/io:*` and `//src/workerd/io/subdir:*`).
+## Divergence ledger (C++ vs TypeScript)
 
-To run a filtered check everywhere during development:
+Every assertion holds unchanged under both implementations; the one
+divergence underneath is swallowed by the message and is observable only
+through the isolate's rejection bookkeeping.
 
-```bash
-bazel build --config=clang-tidy-unsafe-continuation-capture //src/...
-```
+| # | Area | C++ | TypeScript | Pinned in |
+| --- | --- | --- | --- | --- |
+| 1 | The body pump's read pending when `destroy()` cancels the runtime's body stream (across the binding) | the read rejects with the cancel reason ("Stream was cancelled." for a bare `destroy()`); `#tryRead` swallows it (the message is already destroyed). Without `unhandled_rejection_after_microtask_checkpoint` the tracker reports the rejected promise before that handler runs: a spurious `unhandledrejection` | the read resolves `done` (spec); nothing to report at any compat date | `destroyWithPendingReadAcrossBinding` (identical events, nothing escapes, under both — the cpp cell pins the flag), `legacyPendingReadCancelMisfiresAsUnhandledRejection` (the misfire, unflagged C++); the pure-streams behavior is `src/tests/streams/identity` ledger #20 |
 
-## DEPENDENCY MANAGEMENT
+(A second divergence would surface if the response fed its controller after
+closing it: with a chunk still queued, the TypeScript implementation honors
+a late `controller.error()` per spec while the C++ one ignores it. The
+response never does so — see "The response lifecycle" — and the
+pure-streams behavior belongs to `src/tests/streams/readable`.)
 
-Lives in `deps/`. Uses jsonc manifests + codegen:
+## Assertion catalogue
 
-- `deps.jsonc`, `build_deps.jsonc`, `shared_deps.jsonc` — dependency specifications
-- `update-deps.py [dep_name]` — fetches latest versions, computes hashes, regenerates `gen/` MODULE.bazel fragments
-- `gen/` — **autogenerated**; do not hand-edit
-- `*.MODULE.bazel` (e.g., `rust.MODULE.bazel`, `v8.MODULE.bazel`) — included by root `MODULE.bazel`
-- `workerd-v8/` — separate Bazel module wrapping V8 dependency
+| Module | Asserts |
+| --- | --- |
+| `request-body.js` | GET ends at once; Buffer/string chunks and `complete`; late 'data' listener; 256 KiB in several events; streaming body incremental + chunked headers; `FixedLengthStream` Content-Length; pause/resume (small chunks, and a body above the high-water mark); pipe echo; several pipe destinations; `pipeline` through a `TransformStream` |
+| `request-destroy.js` | `destroy(err)` with listener; bare `destroy()` closes quietly; unlistened `destroy(err)` swallowed; mid-body destroy cancels the body stream with the reason and stops 'data'; bare destroy cancels with `undefined`; destroy with the pump's read pending on the runtime's stream across the binding (aborted, closed incomplete, response sent, nothing escapes — ledger #1); no cancel after completion |
+| `response-body.js` | implicit headers and chunk types; streaming before `end()`; large and many writes; Content-Length capping; 204/304; HEAD (`_hasBody`, dropped writes, null body); `rejectNonStandardBodyWrites`; cork/uncork; backpressure signaling and 'drain' parity; acceptance after headers with `highWaterMark`; web source pipelined in; 'finish' then 'close' with `closed`; `finished(res)` after 'close'; write after end via callback only; Content-Length lies cap the body at `parseInt`'s reading (`abc` uncapped, `0` and negative empty, fraction and padded at the integer part; the header echo deliberately unasserted) |
+| `piping.js` | 1 MiB into a 16 KiB slow sink: bounded buffer, pauses/resumes, all bytes; `unpipe()` after the first chunk ('pipe'/'unpipe' on the destination, delivery stops, source paused, rest to a 'data' listener, destination not ended); erroring destination unpiped ('unpipe' before its 'error', one write only, source paused); source error not forwarded (destination stays piped, open, unerrored) |
+| `request-body-failures.js` | body stream erroring mid-upload and while paused (aborted, error, close incomplete, response still sent); a detached-view chunk (`TypeError`) |
+| `reentrancy.js` | `destroy()` and `destroy(err)` inside 'finish' (body whole, 'close' once, no 'error', nothing escapes); pause/resume inside every 'data' |
+| `then-pollution.js` | transparent patched `then`: request and response bodies intact |
+| `data-volumes.js` | an 8 MiB request body across the binding (whole, in order, several chunks); 20,000 one-byte response writes; alternating string/Buffer/Uint8Array/empty writes; a body with UTF-8 sequences split byte by byte, reassembled by `setEncoding('utf8')` |
+| `buffer-lifecycle.js` | fill/write/refill after the callback (intact, not detached, both payloads received); chunk given to `end()` and its parent allocation intact; mutation after the callback not sent; SAB and WebAssembly.Memory views written, 'finish' only; Content-Length-trimmed writes leave their buffers intact; empty and detached views accepted and skipped |
+| `response-lifecycle.js` | `destroy(err)` before headers rejects the fetch with it; bare destroy before headers → 'Premature close'; `destroy(err)` after headers errors the body, 'error' then 'close'; bare destroy after headers → premature close, 'close' only; `destroy(err)` after `end()` aborts nothing (chunk in `end()`, bare `end()` after a write, nothing written): marked destroyed and errored at once, a later write fails through its callback, body whole, 'finish' then 'close', no 'error', nothing escapes; client cancel → destroyed with the reason, `ERR_STREAM_DESTROYED` on later writes; a listener throwing before headers / after a partial body → fetch rejects with it, nothing else escapes; an async listener rejecting before headers / after a partial body → destroyed with the error, fetch or body failing with it |
+| `listener-rejections.js` | an async 'listening' listener rejecting → the server's 'error' event (heard by a listener; thrown uncaught without one); an async 'error' listener's own rejection → uncaught once, not re-emitted |
+| `harness.js`, `which-impl.js` | shared machinery (`collectUncaught` gathers what escapes the isolate during a test) |
 
-Pyodide package metadata lives in `build/python_metadata.bzl`; the checked-in, pre-filtered
-package lock files live in `src/pyodide/python-lock/`.
+## Legacy (unflagged) behaviors
+
+Guarded by `http-server-cpp-legacy.wd-test` (C++ only):
+
+| Behavior | Asserted by |
+| --- | --- |
+| `writeHead()` succeeds; the first body write throws the constructor-gate `Error` synchronously; a handler that catches it and ends anyway never yields a Response — the fetch fails with 'Premature close' | `legacyFirstBodyWriteHitsConstructorGate` |
+| The gate `Error` left uncaught fails the fetch with that `Error` | `legacyUncaughtGateErrorFailsFetch` |
+| 204, 304 and the reply to a HEAD construct no stream: status and headers delivered, body null, writes dropped | `legacyBodilessResponsesWork` |
+| The request body (a runtime stream) is pumped as usual | `legacyRequestBodyIsPumped` |
+| Without `unhandled_rejection_after_microtask_checkpoint`, `req.destroy()` with the pump's read pending on the runtime's stream surfaces a spurious `unhandledrejection` ('Stream was cancelled.') — the message still aborts and the response is sent (ledger #1) | `legacyPendingReadCancelMisfiresAsUnhandledRejection` |
 
 ---
 > Source: [cloudflare/workerd](https://github.com/cloudflare/workerd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
