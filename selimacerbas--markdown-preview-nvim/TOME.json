@@ -2,9 +2,9 @@
   "name": "markdown-preview.nvim",
   "owner": "selimacerbas",
   "repo": "markdown-preview.nvim",
-  "description": "Live Markdown preview for Neovim with Mermaid diagrams, LaTeX math (KaTeX), scroll sync, and syntax highlighting. Pure Lua, zero npm dependencies.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/selimacerbas/markdown-preview.nvim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:16:34Z"
+  "distributed_at": "2026-09-30T21:47:26Z"
 }
