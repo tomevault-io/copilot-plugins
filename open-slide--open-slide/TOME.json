@@ -1,0 +1,123 @@
+{
+  "name": "open-slide",
+  "owner": "open-slide",
+  "repo": "open-slide",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "open-slide",
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/.agents/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": ".agents/skills/apple-design/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/.agents/skills/apple-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": ".agents/skills/emil-design-eng/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/.agents/skills/emil-design-eng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": ".agents/skills/review-animations/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/.agents/skills/review-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": "packages/core/skills/create-slide/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/packages/core/skills/create-slide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": "packages/core/skills/create-theme/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/packages/core/skills/create-theme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": "packages/core/skills/current-slide/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/packages/core/skills/current-slide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": "packages/core/skills/apply-comments/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/packages/core/skills/apply-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": "packages/core/skills/slide-authoring/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/packages/core/skills/slide-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-slide",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/open-slide/open-slide/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/open-slide/open-slide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T09:40:11Z"
+}
