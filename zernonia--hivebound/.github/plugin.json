@@ -1,0 +1,9 @@
+{
+  "name": "zernonia--hivebound",
+  "displayName": "hivebound",
+  "description": "Hivebound: a cozy bee exploration game (Nuxt 4 + TresJS)",
+  "version": "1.0.0",
+  "author": "zernonia",
+  "homepage": "https://github.com/zernonia/hivebound",
+  "skills": []
+}
