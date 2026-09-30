@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--ais-k8s",
+  "displayName": "ais-k8s",
+  "description": "ais-k8s",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/ais-k8s",
+  "skills": []
+}
