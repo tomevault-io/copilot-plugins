@@ -1,15 +1,17 @@
-## gki
+## tebox
 
-> Project source layout, ARM64 build and Android GPU validation
+> Read `AGENTS.md` before editing this project. Shared skills are linked from
 
+# GKI workspace
 
-Read `AGENTS.md` for this workspace's source boundaries and boot invariants.
-Skills are shared through `.cursor/skills/` → `.ai/skills/`; prompts are in
-`.ai/prompts/`. Use `scripts/env.sh` for paths, and `.ci/README.md` /
-`.ai/README.md` for build/CI and agent wiring.
-Preserve current GPU rendering and user data when changing build configuration.
-Track `qemu/` + `thirdparty/` sources and this variant’s `*.img`; ignore only
-compile products under `out/` / `prebuilts/` / `dist/`.
+Read `AGENTS.md` before editing this project. Shared skills are linked from
+`.agents/skills/` into `.ai/skills/` (Gemini CLI's supported workspace alias).
+Use the relevant prompt in `.ai/prompts/` and the build instructions in
+`.ci/README.md`.
+
+Keep the verified VirGL fixes, portrait display and touchscreen behavior.
+Report actual test results and platform limitations without assuming that a
+successful build means the guest display works.
 
 ---
 > Source: [opencecs/tebox](https://github.com/opencecs/tebox) — distributed by [TomeVault](https://tomevault.io).
