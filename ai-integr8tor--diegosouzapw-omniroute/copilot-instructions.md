@@ -1,23 +1,86 @@
 ## diegosouzapw-omniroute
 
-> - Treat `npm run test:coverage` as a required gate for PR work.
+> **Purpose**: 134 service modules (top-level) powering request routing, rate limiting, quota management, token refresh, fallback strategies, and runtime state. The combo routing engine (`combo.ts`) is the core; supporting services handle resilience, accounting, and decision-making.
 
-# OmniRoute PR and Coverage Instructions
+# open-sse/services/ — Routing Engine & Cross-Cutting Services
 
-- Treat `npm run test:coverage` as a required gate for PR work.
-- The repository minimum is `60%` for statements, lines, functions, and branches.
-- If a PR changes production code in `src/`, `open-sse/`, `electron/`, or `bin/`, it must include automated tests in the same PR.
-- When reviewing or updating a PR, if the report shows missing tests or coverage below `60%`, do not stop after reporting the problem. Add or update tests in the PR first, rerun the coverage gate, and only then ask for confirmation.
-- Prefer the smallest test layer that proves the behavior:
-  - unit tests first
-  - integration tests when multiple modules or DB state are involved
-  - e2e only when the behavior is truly UI or workflow-dependent
-- For bug issues, try to encode the reproduction as an automated test before or alongside the fix.
-- In the final PR report, include:
-  - the commands you ran
-  - the changed test files
-  - the final coverage result
+**Purpose**: 134 service modules (top-level) powering request routing, rate limiting, quota management, token refresh, fallback strategies, and runtime state. The combo routing engine (`combo.ts`) is the core; supporting services handle resilience, accounting, and decision-making.
+
+Live count: `ls open-sse/services/*.ts | wc -l` (currently 134). More including sub-dirs like `autoCombo/` and `compression/`.
+
+---
+
+## Combo Routing Engine
+
+- **`combo.ts`** — Entry point for multi-model routing. **`handleComboChat()`** iterates through targets in order until success or all fail. **`resolveComboTargets()`** expands combo config into ordered `ResolvedComboTarget[]` (provider + model + account + credentials).
+- **Strategies** (17): `priority`, `weighted`, `fill-first`, `round-robin`, `P2C`, `random`, `least-used`, `reset-aware`, `reset-window`, `cost-optimized`, `strict-random`, `auto`, `lkgp`, `context-optimized`, `context-relay`, `headroom`, `fusion`. Source: `ROUTING_STRATEGY_VALUES` in `src/shared/constants/routingStrategies.ts`.
+- Each target calls **`handleSingleModel()`** which wraps `handleChatCore()` with per-target error handling and circuit breaker checks.
+
+## Key Services
+
+### Quota & Rate Limiting
+
+- **`rateLimitManager.ts`** — Token bucket per API key + provider combo. Rejects before dispatch.
+- **`usage.ts`** — Per-request token/cost consumption tracking.
+- **`quotaCache.ts`** — In-memory quota snapshots, pre-loaded at startup.
+
+### Account & Token Management
+
+- **`tokenRefresh.ts`** — OAuth token expiration detection and refresh.
+- **`accountFallback.ts`** — Account switching on quota/rate-limit. Also houses model lockout.
+- **`sessionManager.ts`** — Request session state across retries.
+
+### Request Routing & Intelligence
+
+- **`wildcardRouter.ts`** — Wildcard route matching in combo configs.
+- **`intentClassifier.ts`** — Request intent classification for intelligent routing.
+- **`taskAwareRouter.ts`** — Task-type-based routing (reasoning → o1, code-gen → Cursor).
+- **`thinkingBudget.ts`** — Thinking token allocation for o1/o3 models.
+- **`contextManager.ts`** — Routing context injection (system prompts, memory).
+
+### Model Lifecycle & Fallback
+
+- **`modelDeprecation.ts`** — Deprecated model detection and successor routing.
+- **`modelFamilyFallback.ts`** — T5 intra-family fallback chains.
+- **`emergencyFallback.ts`** — Last-resort fallback to stable free providers.
+
+### State & Detection
+
+- **`workflowFSM.ts`** — Multi-turn workflow state machine.
+- **`backgroundTaskDetector.ts`** — Long-running task detection for batch routing.
+- **`ipFilter.ts`** — IP-based routing rules.
+- **`signatureCache.ts`** — Request signature caching for deduplication.
+- **`volumeDetector.ts`** — Volume spike detection for rate-limit escalation.
+- **`contextHandoff.ts`** — Session context serialization for A2A handoff.
+
+### Prompt Compression Pipeline (`compression/`)
+
+- **`strategySelector.ts`** — Compression mode selection (off/lite/standard/aggressive/ultra/rtk/stacked).
+- **`lite.ts`** — 5 lite techniques (whitespace, dedup, tool results, redundant removal, image URLs).
+- **`caveman.ts` / `cavemanRules.ts`** — Caveman-style semantic condensation with rule packs.
+- **`engines/rtk/`** — RTK tool-output compression (command detection, JSON filters, dedup, truncation).
+- **`engines/registry.ts`** — Engine registry for standalone and stacked pipelines.
+- **`stats.ts`** — Per-request compression stats.
+- **`types.ts`** — Shared types (`CompressionMode`, `CompressionConfig`, `CompressionStats`).
+
+---
+
+## Adding a New Service
+
+1. Create `open-sse/services/[serviceName].ts`
+2. Export main handler function
+3. Add unit tests in `tests/unit/services/`
+4. Integrate into `handlers/chatCore.ts` (if routing-related) or `combo.ts`
+5. Document in this file
+
+## Anti-Patterns
+
+- Synchronous DB calls in `combo.ts` hot path — pre-compute and cache
+- Retry logic in handlers — use `retry()` from resilience service
+- Direct provider config access — use `providerRegistry` getter functions
+- Hardcoded fallback chains — define in `modelFamilyFallback.ts`
+- State mutations across concurrent requests — use request-scoped context only
 
 ---
 > Source: [ai-integr8tor/diegosouzapw-OmniRoute](https://github.com/ai-integr8tor/diegosouzapw-OmniRoute) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
