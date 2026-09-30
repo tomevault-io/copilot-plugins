@@ -1,0 +1,159 @@
+{
+  "name": "univer-workspace",
+  "owner": "dream-num",
+  "repo": "univer-workspace",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/doc/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/core/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/base/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/base/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/blob/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/blob/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/slide/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/slide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/sheet/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/sheet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/board/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/board/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/embed/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/embed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/html-view/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/html-view/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "apps/cli/skill-data/cross-unit-formula/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/apps/cli/skill-data/cross-unit-formula/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "packages/dsh-univer-workspace-plugin/skills/univer/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/packages/dsh-univer-workspace-plugin/skills/univer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "packages/dsh-univer-workspace-plugin/skills/univer-doc/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/packages/dsh-univer-workspace-plugin/skills/univer-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "packages/dsh-univer-workspace-plugin/skills/univer-base/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/packages/dsh-univer-workspace-plugin/skills/univer-base/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "packages/dsh-univer-workspace-plugin/skills/univer-slide/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/packages/dsh-univer-workspace-plugin/skills/univer-slide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "packages/dsh-univer-workspace-plugin/skills/univer-sheet/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/packages/dsh-univer-workspace-plugin/skills/univer-sheet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "packages/dsh-univer-workspace-plugin/skills/univer-board/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/packages/dsh-univer-workspace-plugin/skills/univer-board/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "packages/dsh-univer-workspace-plugin/skills/univer-embed/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/packages/dsh-univer-workspace-plugin/skills/univer-embed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "packages/dsh-univer-workspace-plugin/skills/univer-html-view/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/packages/dsh-univer-workspace-plugin/skills/univer-html-view/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "univer-workspace",
+      "path": "packages/dsh-univer-workspace-plugin/skills/univer-cross-unit-formula/SKILL.md",
+      "github_url": "https://github.com/dream-num/univer-workspace/tree/main/packages/dsh-univer-workspace-plugin/skills/univer-cross-unit-formula/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dream-num/univer-workspace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T04:37:59Z"
+}
