@@ -2,8 +2,6 @@
 
 > Tome by [Hyr1sky](https://github.com/Hyr1sky/TheGrandQuiz), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-Local-first learning agent that turns your materials into grounded conversations, adaptive assessments, and durable memory—with observable, replayable traces.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
