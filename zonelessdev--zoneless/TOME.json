@@ -1,0 +1,63 @@
+{
+  "name": "zoneless",
+  "owner": "zonelessdev",
+  "repo": "zoneless",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zoneless",
+      "path": ".agents/skills/zoneless-store/SKILL.md",
+      "github_url": "https://github.com/zonelessdev/zoneless/tree/main/.agents/skills/zoneless-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zoneless",
+      "path": ".agents/skills/zoneless-payments/SKILL.md",
+      "github_url": "https://github.com/zonelessdev/zoneless/tree/main/.agents/skills/zoneless-payments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zoneless",
+      "path": ".agents/skills/zoneless-marketplace/SKILL.md",
+      "github_url": "https://github.com/zonelessdev/zoneless/tree/main/.agents/skills/zoneless-marketplace/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zonelessdev/zoneless",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:34:48Z"
+}
