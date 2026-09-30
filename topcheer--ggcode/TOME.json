@@ -1,0 +1,351 @@
+{
+  "name": "ggcode",
+  "owner": "topcheer",
+  "repo": "ggcode",
+  "description": "Fresh Agentic CLI",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ggcode",
+      "path": "agent/skills/figma/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/figma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/figma/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/figma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/slideshow/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/slideshow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/media-use/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/media-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/seam-craft/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/seam-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/slideshow/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/slideshow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/hyperframes/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/pr-to-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/pr-to-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/media-use/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/media-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/seam-craft/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/seam-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/hyperframes/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/cut-the-curve/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/cut-the-curve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/general-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/general-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/pr-to-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/pr-to-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/music-to-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/music-to-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/motion-doctrine/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/motion-doctrine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/motion-graphics/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/motion-graphics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/cut-the-curve/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/cut-the-curve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/general-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/general-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/changelog-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/changelog-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/hyperframes-cli/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/hyperframes-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/music-to-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/music-to-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/hyperframes-core/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/hyperframes-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/oversized-cursor/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/oversized-cursor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/captions-overlay/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/captions-overlay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/embedded-captions/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/embedded-captions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/motion-doctrine/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/motion-doctrine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/motion-graphics/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/motion-graphics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/changelog-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/changelog-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/hyperframes-cli/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/hyperframes-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/talking-head-recut/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/talking-head-recut/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/faceless-explainer/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/faceless-explainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/hyperframes-core/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/hyperframes-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/oversized-cursor/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/oversized-cursor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/captions-overlay/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/captions-overlay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/embedded-captions/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/embedded-captions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/talking-head-recut/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/talking-head-recut/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/product-launch-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/product-launch-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/faceless-explainer/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/faceless-explainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/hyperframes-registry/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/hyperframes-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/hyperframes-creative/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/hyperframes-creative/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/hyperframes-keyframes/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/hyperframes-keyframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/hyperframes-animation/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/hyperframes-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/product-launch-video/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/product-launch-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/hyperframes-registry/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/hyperframes-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/hyperframes-creative/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/hyperframes-creative/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/hyperframes-keyframes/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/hyperframes-keyframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "agent/skills/remotion-to-hyperframes/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/agent/skills/remotion-to-hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/hyperframes-animation/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/hyperframes-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": "skills/verify-keybinding-reachability/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/skills/verify-keybinding-reachability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ggcode",
+      "path": ".agents/skills/remotion-to-hyperframes/SKILL.md",
+      "github_url": "https://github.com/topcheer/ggcode/tree/main/.agents/skills/remotion-to-hyperframes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/topcheer/ggcode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:37:51Z"
+}
