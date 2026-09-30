@@ -1,0 +1,9 @@
+{
+  "name": "oleost--visionstate",
+  "displayName": "VisionState",
+  "description": "Teach a local AI what your camera sees and turn it into Home Assistant sensors \u2014 garage door open/closed, gate shut, car parked. 100% local, any CPU.",
+  "version": "1.0.0",
+  "author": "oleost",
+  "homepage": "https://github.com/oleost/VisionState",
+  "skills": []
+}
