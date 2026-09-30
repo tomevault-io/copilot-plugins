@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "CybercentreCanada",
   "homepage": "https://github.com/CybercentreCanada/howler",
-  "skills": []
+  "skills": [
+    {
+      "name": "howler",
+      "description": ""
+    },
+    {
+      "name": "howler",
+      "description": ""
+    }
+  ]
 }
