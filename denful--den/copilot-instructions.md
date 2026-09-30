@@ -27,9 +27,9 @@ modules/                   — NixOS-module-style option declarations and batter
   options.nix              — den.hosts, den.homes, den.schema, den.classes, den.quirks
   aspects/batteries/       — built-in batteries (define-user, home-manager, hostname, etc.)
   policies/                — core and flake-level policy declarations
-templates/                 — example flakes + CI test suite
-  ci/                      — 133+ test files in modules/features/, deadbugs/ for regressions
-  minimal/, default/, example/, noflake/, microvm/, nvf-standalone/
+templates/                 — example flakes (one per directory) + the CI test suite
+  ci/modules/              — tests, bucketed: public-api/, internal-api/, features/,
+                             deadbugs/ (regressions), deprecated/
 ```
 
 ## Core concepts
@@ -74,6 +74,8 @@ nix develop -c just ci nested-aspects
 nix develop -c just ci nested-aspects.test-direct-nesting-basic
 
 # run tests directly via nix-unit (more control)
+# the attr is the SUITE. Appending a cell (…#.tests.<suite>.<cell>) reports
+# `🎉 0/0 successful` and exits 0 — a false green. Use `just ci <suite>.<cell>`.
 nix-unit --override-input den . --flake ./templates/ci#.tests.<suite>
 
 # check a template
@@ -83,11 +85,13 @@ nix flake check --override-input den . ./templates/<template>
 just repl
 ```
 
+`just ci` writes `✅` to stdout and `❌`, the failure list and the summary to **stderr**. A stdout-only pipeline therefore reads a red run as a short green one — always `2>&1`, and read the exit code unpiped.
+
 ## Testing
 
-Tests live in `templates/ci/modules/features/`. Bug regressions go in `deadbugs/`.
+Tests live in `templates/ci/modules/`, bucketed by what they pin: `public-api/`, `internal-api/`, `features/`, `deprecated/`, and `deadbugs/` for regressions.
 
-Test files export `flake.tests.<suite>.<test-name>` using the `denTest` helper:
+Test files export `flake.tests.<suite>.<test-name>` using the `denTest` helper. `<suite>` is the file's subject, never its directory — `flake.tests.projected-hasaspect`, not `flake.tests.deadbugs.projected-hasaspect`, because `just ci` splits its argument on the first dot and a nested suite makes a passing cell report `❌ … 😢 0/1`.
 
 ```nix
 { denTest, ... }:
@@ -123,15 +127,17 @@ New test files must be `git add`'d before nix can evaluate them. Use `--override
 - Idiomatic Nix: use `lib.optional` `lib.optionals` `lib.optionalAttrs` for basic conditionals
 - Idiomatic Nix: avoid `with` — prefer `inherit` to bring names into scope. `with` obscures where bindings come from and breaks tooling.
 - Error messages: prefix with `den:` for traceability (e.g., `throw "den: multiple __functor definitions at ..."`)
-- Internal markers: double-underscore prefixed attrs (`__contentValues`, `__provider`, `__fn`) are pipeline internals. Don't add new ones without understanding the classification and structural key filtering in `key-classification.nix`.
+- Internal markers: double-underscore prefixed attrs (`__contentValues`, `__aspectChain`, `__fn`) are pipeline internals. Don't add new ones without understanding the classification and structural key filtering in `key-classification.nix`.
 - Commenting: comments should describe why not what, code should be self documenting as to what
 - Minimal changes: fix the bug, don't refactor surroundings
 - Diagnose before reverting: the fix is usually one targeted change
 - After 3+ workarounds in the same area, redesign the component instead of patching further
 
-## Claude Code skills
+## Agent tooling
 
-- **den-debugging** (`.claude/skills/den-debugging.md`) — structured workflow for reproducing, isolating, and fixing bugs. Guides through: understand report → trace code path → write failing test → fix → validate. Includes an entry point table mapping symptoms to source files.
+Harness-neutral agent material lives in `.agents/`. Each harness reaches it through a bridge in its own hardcoded location, so the content has one home and no copies.
+
+- `.agents/skills/den-debugging/SKILL.md` — the bug workflow: read the report, trace the code path, write a failing test, fix, validate. Read it when starting on a bug. Claude Code discovers it through `.claude/skills/den-debugging`, a tracked symlink, and loads it from its own frontmatter description.
 
 ## Diagrams (den-diagram)
 
@@ -194,4 +200,4 @@ Use `--show-trace` with `nix-unit` for full Nix evaluation stack traces on error
 
 ---
 > Source: [denful/den](https://github.com/denful/den) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
