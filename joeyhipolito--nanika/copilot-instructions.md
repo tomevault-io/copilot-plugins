@@ -1,28 +1,49 @@
 ## nanika
 
-> When the user asks for a direct review, PR review, or "look up the change and review it":
+> Read [CLAUDE.md](CLAUDE.md) and [CONTRIBUTING.md](CONTRIBUTING.md) before making
 
-# AGENTS.md
+# Public Nanika agent guide
 
-## Direct Review Protocol
+Read [CLAUDE.md](CLAUDE.md) and [CONTRIBUTING.md](CONTRIBUTING.md) before making
+changes. Use retrieval from this public checkout to establish behavior; installed
+private tools can differ from the source here.
 
-When the user asks for a direct review, PR review, or "look up the change and review it":
+## Checked references
 
-- Resolve the exact review target first: issue ID, PR number, branch, base/head SHAs, or the specific commit range. Do not review the current working tree by default if the request is about a discrete change.
-- Review the clean diff, not unrelated local edits. If the checkout is dirty, anchor the review to the exact commit range or use a detached worktree so unrelated modifications do not contaminate findings.
-- Treat GitHub PR review as diff-centric. If Codex is reviewing in GitHub, match comments to the actual PR diff and merged context, not to later local changes.
-- Findings come first and are ordered by severity. Use file/line references when the problem is code-level. Keep summaries brief and secondary.
-- Review for real behavior, not just intent:
-  - confirm the change actually does what the issue or PR says it does
-  - verify entrypoints and call sites, not only leaf helpers
-  - check fresh-run, resume, retry, rollback, degraded, and missing-dependency paths when they are relevant
-  - for test-only changes, verify the tests prove the production path rather than re-testing helper internals
-- Distinguish levels of review:
-  - code-level bugs, regressions, unsafe assumptions, and missing assertions are findings
-  - systems-level gaps include unverified boundaries, silent failure paths, missing observability, and rollout or rollback risks
-- If no material issues are found, say that explicitly and note any residual risk or testing gap instead of giving a drive-by approval.
-- Verification is part of review. Run targeted tests or checks when feasible, and state exactly what was or was not verified.
+| Task | Reference |
+|------|-----------|
+| Build, install, or run Rust native execution | [Rust guide](skills/orchestrator-rs/README.md) |
+| Build or run the Go mission CLI | [Orchestrator README](skills/orchestrator/README.md) |
+| Decompose a mission into PHASE lines | [Decomposer skill](skills/decomposer/.claude/skills/decomposer/SKILL.md) |
+| Use the shared Claude Code Go SDK | [SDK README](shared/sdk/README.md) |
+| Track local issues | [Tracker skill](plugins/tracker/skills/SKILL.md) |
+| Schedule local jobs | [Scheduler skill](plugins/scheduler/skills/SKILL.md) |
+| Work with an Obsidian vault | [Obsidian skill](plugins/obsidian/skills/SKILL.md) |
+| Use Nen via MCP | [Nen MCP skill](plugins/nen_mcp/skills/SKILL.md) |
+| Send authorized Discord messages | [Discord skill](plugins/discord/skills/SKILL.md) |
+| Send authorized Telegram messages | [Telegram skill](plugins/telegram/skills/SKILL.md) |
+| Work on the desktop/protocol source | [Dust README](plugins/dust/README.md) |
+
+This is a curated public index. Some `.claude/skills` symlinks resolve to absent
+sources in a fresh clone; the orchestrator skill symlink is one of them. Use the
+README above for CLI behavior. Do not require private skills, repositories,
+backlog systems, or local absolute paths to contribute.
+
+## Execution and review
+
+For complex work, use a mission when the installed CLI is available and configured;
+verify its version and syntax first. Keep phases bounded, make dependencies
+explicit, and review resulting changes. Mission execution and natural-language
+planning previews can invoke providers. Do not run them merely to check docs.
+
+Build/test only affected modules and report known baseline failures separately.
+Sending messages, changing external systems, and publishing require the user's
+authorization. Inspect changes before committing and preserve unrelated work.
+
+The routing-index generator rewrites AGENTS.md and portions of CLAUDE.md from
+local skill discovery. Preview it first; regeneration is not required for a
+documentation or source-only change.
 
 ---
 > Source: [joeyhipolito/nanika](https://github.com/joeyhipolito/nanika) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
