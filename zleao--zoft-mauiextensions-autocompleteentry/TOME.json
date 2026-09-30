@@ -4,7 +4,7 @@
   "repo": "zoft.MauiExtensions.AutoCompleteEntry",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zleao/zoft.MauiExtensions.AutoCompleteEntry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T20:03:48Z"
+  "distributed_at": "2026-09-30T12:14:33Z"
 }
