@@ -1,64 +1,21 @@
 ## tablecn
 
-> You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+> <!-- intent-skills:start -->
 
-# Expert Guidelines
+<!-- intent-skills:start -->
 
-You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+## Skill Loading
 
-## Code Style and Structure
+Before editing files for a substantial task:
 
-- Write concise, technical TypeScript code with accurate examples.
-- Use functional and declarative programming patterns; avoid classes.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-- Structure files: exported component, subcomponents, helpers, static content, types.
-- Use console.log({ value }) instead of console.log(value)
-- Use onCallback instead of handleCallback
-- Use flex and gap instead of space-x-n and space-y-n
-- Use cn to compose class names
-- Just pass ref directly to the component because of react 19
+- Run `npx @tanstack/intent@latest list` from the workspace root to see available local skills.
+- If a listed skill matches the task, run `npx @tanstack/intent@latest load <package>#<skill>` before changing files.
+- Use the loaded `SKILL.md` guidance while making the change.
+- Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.
+- Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.
 
-## Naming Conventions
-
-- Use lowercase with dashes for directories (e.g., components/auth-wizard).
-- Favor named exports for components.
-
-## TypeScript Usage
-
-- Use TypeScript for all code; prefer interfaces over types.
-- Avoid enums; use maps instead.
-- Use functional components with TypeScript interfaces.
-
-## Syntax and Formatting
-
-- Use the "function" keyword for pure functions.
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-- Use declarative JSX.
-
-## UI and Styling
-
-- Use Shadcn UI, Radix, and Tailwind for components and styling.
-- Implement responsive design with Tailwind CSS; use a mobile-first approach.
-
-## Performance Optimization
-
-- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
-- Wrap client components in Suspense with fallback.
-- Use dynamic loading for non-critical components.
-- Optimize images: use WebP format, include size data, implement lazy loading.
-
-## Key Conventions
-
-- Optimize Web Vitals (LCP, CLS, FID).
-- Limit 'use client':
-  - Favor server components and Next.js SSR.
-  - Use only for Web API access in small components.
-  - Avoid for data fetching or state management.
-- Follow Next.js docs for Data Fetching, Rendering, and Routing.
-
-Make sure not to start the dev server or run type of lint checking on agent mode.
+<!-- intent-skills:end -->
 
 ---
 > Source: [sadmann7/tablecn](https://github.com/sadmann7/tablecn) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
