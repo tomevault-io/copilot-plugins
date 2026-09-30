@@ -1,23 +1,21 @@
 # claude-command-center
 
-> Source: [nubbymong/claude-command-center](https://github.com/nubbymong/claude-command-center) — distributed by [TomeVault](https://tomevault.io)
-
-Mission control for Claude Code: run many sessions in parallel with multi-account isolation, transcript viewer, cost tracking, and memory dashboards. Windows + macOS (Apple Silicon).
+> Source: [nubbymong/claude-command-center](https://github.com/nubbymong/claude-command-center). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nubbymong/claude-command-center](https://github.com/nubbymong/claude-command-center).
+Original source: `AGENTS.md` in [nubbymong/claude-command-center](https://github.com/nubbymong/claude-command-center).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/nubbymong/claude-command-center](https://github.com/nubbymong/claude-command-center)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/nubbymong/claude-command-center](https://github.com/nubbymong/claude-command-center)
 
 ---
 
