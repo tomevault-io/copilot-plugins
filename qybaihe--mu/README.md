@@ -2,8 +2,6 @@
 
 > Source: [qybaihe/mu](https://github.com/qybaihe/mu). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-mu (μ): a coding agent that thinks before it acts. A small, fast judge makes the routine calls, the big model does the work. Built on pi and AionUi.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
