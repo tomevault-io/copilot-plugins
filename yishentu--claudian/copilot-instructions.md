@@ -1,26 +1,15 @@
 ## claudian
 
-> - This scope owns the dedicated authenticated LAN Project-authority-transfer binding and client. Its version is independent from Project-control v9, Git v1, and physical Host-transfer v6.
+> - Keep both npm and Bun lockfiles consistent and run `npm run check:lockfile` after dependency edits. Bundle-critical packages require exact parity across both lockfiles; `runtimeDependencyParity.mjs` owns that inventory.
 
-# LAN authority-transfer binding
+# Build constraints
 
-## Ownership
-
-- This scope owns the dedicated authenticated LAN Project-authority-transfer binding and client. Its version is independent from Project-control v9, Git v1, and physical Host-transfer v6.
-- Package-owned DTO meaning is adapted at this boundary. Method, path, LAN envelope, version, request source, bearer extraction, authentication, active-versus-terminal admission, dispatch, success status, and parameter matching remain local. Do not create a second shared operation/codec registry or change existing LAN control routes for import convenience.
-- Source-active routes authorize Member proposal, exact Host acceptance, source status, quiescence/capture coordination, and pre-cutover cancellation. Target-only-staged routes expose only exact target acceptance, provisional authority proof, bounded checkpoint receipt/stage status, and source-fence observation; they deny ordinary Project control, Git, Host start, claim redemption, and discovery advertisement. After exact source relinquishment, `LanHostCoordinator` atomically promotes that same staged target registration to target-active with the next authority generation. Target-active routes authorize an authenticated unbound imported Member to redeem only its exact Cloud-to-LAN transfer claim, atomically install its already persisted client-generated credential hash, and receive the replayable target-signed receipt; this is not Join or membership creation. Terminal-only source routes authorize exact transfer status, redirect, retrieval of only the authenticated former Member's retained claim, and forwarding of that Member's target-signed redemption receipt.
-
-## Listener lifecycle
-
-- The real Vault-scoped HTTPS listener and all four registration states remain owned by `LanHostCoordinator`. Authority transfer requests source-active, target-only-staged, atomic target-active promotion, or terminal-source registration through that owner; it does not open a hidden listener, reuse the physical Host-transfer provisional router, or retain a parallel router.
-- Target-active and terminal-source claim routes are authenticated, content-minimal, restart-recoverable, and bounded to the transfer's 30-day expiry. Target expiry scrubs the imported raw claim batch and transfer-private target state before terminal cleanup; source expiry removes only the exact responder and source-held claims through their owning transfer record. Terminal routing cannot start a Host, admit ordinary Project traffic, mint replacement claims, change membership/role, or serve another Member's claim.
-- Target-only-staged, target-active, and terminal-source routes pin the listener endpoint until removal or expiry because their signed or previously distributed URL has no update operation. Every production installation of one of these states supplies its durable expected endpoint; listener reconstruction binds that exact address and port or fails closed without trying a fallback. A proposal-only source-active route may follow the existing transactional listener rebind because the active LAN membership is updated before the old listener closes. Host acceptance adds the durable expected endpoint to that same registration, making it pinned until proven cancellation or terminal transition.
-- Listener replacement, preferred-address change, shutdown, and process restart must preserve the exact registration state. A target-only-staged registration recovers inert until exact Cloud relinquishment proof permits promotion, and a terminal source can never return to source-active. Reinstalling the same terminal-source or target-active transfer in the same state is idempotent and retains the already registered service; a different transfer or state remains a conflict. The coordinator closes route resources and sockets in its existing order.
-
-## Verification
-
-- Binding tests cover independent version negotiation, target-only ordinary-control/Git/Host-start denial, exact source-active/target-active/terminal-source authorization, promotion only after exact source-fence proof, wrong-Member and cross-Project denial without identity leakage, replayable claim and receipt delivery, listener replacement, restart, expiry, and shutdown cleanup.
+- Keep both npm and Bun lockfiles consistent and run `npm run check:lockfile` after dependency edits. Bundle-critical packages require exact parity across both lockfiles; `runtimeDependencyParity.mjs` owns that inventory.
+- Community Plugin installation does not fetch arbitrary chunks or vendor files. Preserve a self-contained distributable and avoid artifact references resembling self-update behavior. Run `check:performance` against the production build: artifact and eager-startup violations fail; timing thresholds report warnings or require review rather than failing the command.
+- Electron has browser timers alongside Node modules. Preserve desktop `ws`/Markdown resolution, SDK import-meta adaptation, and renderer-safe timer guards; headless Node success cannot prove renderer compatibility.
+- Locale JSON imports participate in compressed bundling. Import changes require the compression round-trip/dependency-envelope tests, not just TypeScript checks.
+- Use CI's affected-path rules for additional macOS/Windows process and Pi launch checks rather than assuming Linux tests suffice.
 
 ---
 > Source: [YishenTu/claudian](https://github.com/YishenTu/claudian) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
