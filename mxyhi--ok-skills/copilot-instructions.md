@@ -1,142 +1,43 @@
 ## ok-skills
 
-> A composable component for displaying AI agent configuration with model, instructions, tools, and output schema.
+> - 遵循 KISS，优先选择简单、可维护的方案。
 
-# Agent
+## 核心原则
 
-A composable component for displaying AI agent configuration with model, instructions, tools, and output schema.
+- 遵循 KISS，优先选择简单、可维护的方案。
+- 事实优先：先检查当前源码、配置、日志和运行状态，再引用历史结论。
+- 以可验证的性能目标指导优化，避免无测量的过度设计。
+- 所有用户可见回复、方案和任务清单使用中文。
 
-The `Agent` component displays an interface for showing AI agent configuration details. It's designed to represent a configured agent from the AI SDK, showing the agent's model, system instructions, available tools (with expandable input schemas), and output schema.
+## 工作流程
 
-See `scripts/agent.tsx` for this example.
+- 复杂任务：调研 → 方案 → 确认 → 分解 → 执行 → 验证。
+- 简单任务：直接执行并完成必要验证。
+- 涉及外部库、API、CLI 或可能变化的行为时，查阅最新文档和源码。
+- 完成任务后自动判断是否产生了可复用的经验、命令、坑点或验证方式；有价值时自动更新 memory，没有新增经验时跳过。
+- 当前源码和运行状态优先于历史 session、memory 或截图。
 
-## Installation
+## Skill 使用
 
-```bash
-npx ai-elements@latest add agent
-```
+- 涉及 skills、rules、docs、env、知识同步或知识沉淀时，默认使用 `teamai` 管理。
+- session 产生可复用经验时，使用 `teamai-share-learnings` 归档。
+- 涉及代码库架构、组件关系、跨模块分析或代码知识库构建时，使用 `team-wiki-codebase`，不限定仓库数量。
+- 涉及最小实现、文件化计划、代码质量或领域建模时，按任务需要使用 `ponytail`、`planning-with-files`、`karpathy-guidelines` 和 `domain-modeling`。
 
-## Usage with AI SDK
+## 代码规范
 
-Display an agent's configuration alongside your chat interface. Tools are displayed in an accordion where clicking the description expands to show the input schema.
+- 关键业务逻辑、复杂决策和异常路径必须有必要的注释与结构化日志。
+- IO 密集场景优先异步实现。
+- TypeScript 禁止使用 `any` 和 `as any`；公共接口按需要显式声明类型。
+- 代码达到可读性阈值后拆分模块。
+- 默认不保证向后兼容；破坏旧格式时记录迁移边界和影响。
+- 领域概念、边界、状态模型或重要架构决策变化时，使用 `domain-modeling`，并维护 `CONTEXT.md` 或 ADR。
 
-```tsx title="app/page.tsx"
-"use client";
+## 工具提示
 
-import { tool } from "ai";
-import { z } from "zod";
-import {
-  Agent,
-  AgentContent,
-  AgentHeader,
-  AgentInstructions,
-  AgentOutput,
-  AgentTool,
-  AgentTools,
-} from "@/components/ai-elements/agent";
-
-const webSearch = tool({
-  description: "Search the web for information",
-  inputSchema: z.object({
-    query: z.string().describe("The search query"),
-  }),
-});
-
-const readUrl = tool({
-  description: "Read and parse content from a URL",
-  inputSchema: z.object({
-    url: z.string().url().describe("The URL to read"),
-  }),
-});
-
-const outputSchema = `z.object({
-  sentiment: z.enum(['positive', 'negative', 'neutral']),
-  score: z.number(),
-  summary: z.string(),
-})`;
-
-export default function Page() {
-  return (
-    <Agent>
-      <AgentHeader
-        name="Sentiment Analyzer"
-        model="anthropic/claude-sonnet-4-5"
-      />
-      <AgentContent>
-        <AgentInstructions>
-          Analyze the sentiment of the provided text and return a structured
-          analysis with sentiment classification, confidence score, and summary.
-        </AgentInstructions>
-        <AgentTools>
-          <AgentTool tool={webSearch} value="web_search" />
-          <AgentTool tool={readUrl} value="read_url" />
-        </AgentTools>
-        <AgentOutput schema={outputSchema} />
-      </AgentContent>
-    </Agent>
-  );
-}
-```
-
-## Features
-
-- Model badge in header
-- Instructions rendered as markdown
-- Tools displayed as accordion items with expandable input schemas
-- Output schema display with syntax highlighting
-- Composable structure for flexible layouts
-- Works with AI SDK `Tool` type
-
-## Props
-
-### `<Agent />`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `...props` | `React.ComponentProps<` | - | Any props are spread to the root div. |
-
-### `<AgentHeader />`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `name` | `string` | Required | The name of the agent. |
-| `model` | `string` | - | The model identifier (e.g.  |
-| `...props` | `React.ComponentProps<` | - | Any other props are spread to the container div. |
-
-### `<AgentContent />`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `...props` | `React.ComponentProps<` | - | Any other props are spread to the container div. |
-
-### `<AgentInstructions />`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `string` | Required | The instruction text. |
-| `...props` | `React.ComponentProps<` | - | Any other props are spread to the container div. |
-
-### `<AgentTools />`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `...props` | `React.ComponentProps<typeof Accordion>` | - | Any other props are spread to the Accordion component. |
-
-### `<AgentTool />`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `tool` | `Tool` | Required | The tool object from the AI SDK containing description and inputSchema. |
-| `value` | `string` | Required | Unique identifier for the accordion item. |
-| `...props` | `React.ComponentProps<typeof AccordionItem>` | - | Any other props are spread to the AccordionItem component. |
-
-### `<AgentOutput />`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `schema` | `string` | Required | The output schema as a string (displayed with syntax highlighting). |
-| `...props` | `React.ComponentProps<` | - | Any other props are spread to the container div. |
+- 网络异常时可先执行 `source ~/proxy.sh`。
+- 可使用 `gh`、`opensrc` 和 kimi bridge。
 
 ---
 > Source: [mxyhi/ok-skills](https://github.com/mxyhi/ok-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
