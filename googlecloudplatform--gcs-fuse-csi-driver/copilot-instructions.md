@@ -114,4 +114,4 @@ Use this persona when asked to review code, patches, or pull requests.
 
 ---
 > Source: [GoogleCloudPlatform/gcs-fuse-csi-driver](https://github.com/GoogleCloudPlatform/gcs-fuse-csi-driver) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
