@@ -4,7 +4,7 @@
   "repo": "ok-skills",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -283,9 +283,33 @@
       "path": "product-decision-agent/SKILL.md",
       "github_url": "https://github.com/mxyhi/ok-skills/tree/main/product-decision-agent/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "ax/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/ax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "diagram-design/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/diagram-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "deep-research/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "ponytail/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/ponytail/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/mxyhi/ok-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T17:33:23Z"
+  "distributed_at": "2026-09-30T07:31:43Z"
 }
