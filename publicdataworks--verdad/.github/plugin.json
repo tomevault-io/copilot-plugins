@@ -1,0 +1,14 @@
+{
+  "name": "publicdataworks--verdad",
+  "displayName": "verdad",
+  "description": "verdad",
+  "version": "1.0.0",
+  "author": "PublicDataWorks",
+  "homepage": "https://github.com/PublicDataWorks/verdad",
+  "skills": [
+    {
+      "name": "verdad",
+      "description": ""
+    }
+  ]
+}
