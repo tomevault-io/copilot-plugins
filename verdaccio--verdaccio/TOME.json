@@ -1,0 +1,87 @@
+{
+  "name": "verdaccio",
+  "owner": "verdaccio",
+  "repo": "verdaccio",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "verdaccio",
+      "path": ".agents/skills/triage/SKILL.md",
+      "github_url": "https://github.com/verdaccio/verdaccio/tree/main/.agents/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "verdaccio",
+      "path": ".agents/skills/plugins/SKILL.md",
+      "github_url": "https://github.com/verdaccio/verdaccio/tree/main/.agents/skills/plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "verdaccio",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/verdaccio/verdaccio/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "verdaccio",
+      "path": ".agents/skills/review-code/SKILL.md",
+      "github_url": "https://github.com/verdaccio/verdaccio/tree/main/.agents/skills/review-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "verdaccio",
+      "path": ".agents/skills/pull-requests/SKILL.md",
+      "github_url": "https://github.com/verdaccio/verdaccio/tree/main/.agents/skills/pull-requests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "verdaccio",
+      "path": ".agents/skills/testing-changes/SKILL.md",
+      "github_url": "https://github.com/verdaccio/verdaccio/tree/main/.agents/skills/testing-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "verdaccio",
+      "path": ".agents/skills/implement-change/SKILL.md",
+      "github_url": "https://github.com/verdaccio/verdaccio/tree/main/.agents/skills/implement-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/verdaccio/verdaccio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T04:41:07Z"
+}
