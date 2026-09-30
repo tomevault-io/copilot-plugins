@@ -17,8 +17,8 @@ For changes with more than 10 lines, the other two bb linters from `.github/work
 
 - `bb --config dev-bb.edn lint:ns-docstrings`
 - `bb --config dev-bb.edn lint:minimize-public-vars`
-- `bb test`
+- `bb clj:test`
 
 ---
 > Source: [cldwalker/bb-clis](https://github.com/cldwalker/bb-clis) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
