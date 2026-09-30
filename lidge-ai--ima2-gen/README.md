@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [lidge-ai/ima2-gen](https://github.com/lidge-ai/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [lidge-ai/ima2-gen](https://github.com/lidge-ai/ima2-gen) — a repo with 846+ stars on GitHub.
+From [lidge-ai/ima2-gen](https://github.com/lidge-ai/ima2-gen) — a repo with 847+ stars on GitHub.
 
 ---
 
