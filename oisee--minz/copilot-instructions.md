@@ -1,0 +1,763 @@
+## minz
+
+> Enables zero-overhead widening/narrowing arithmetic via operator syntax.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code when working with the MinZ compiler repository.
+
+---
+
+## 🚨 CURRENT PRIORITIES
+
+### 1. Register Allocator & Loop Codegen Bugs
+**Status:** Known, not yet fixed. Blocks complex programs.
+- While/for loops: register allocator overwrites operands (same phys reg for two live virtuals)
+- `loadToHL` uses stale HL values in multi-expression contexts
+- Loop rerolling too aggressive across function call boundaries
+- See `docs/adr/` for ADR-0006, ADR-0007
+
+### 2. Iterator Chain Fusion
+**Status:** Pipeline correct (11/11 E2E), fusion optimizer live. ~5x perf overhead from memory-backed registers.
+- 11/11 E2E hex-verified: forEach, take, skip, map, filter, lambda map/filter, multi-stage chains
+- Fusion optimizer inlines small callbacks into DJNZ loops (eliminates CALL/RET)
+- **Broken on Z80:** enumerate (B=counter+index conflict), reduce (A overwritten by 2nd SMC param)
+- **Bottleneck:** Register allocator puts all virtuals through $F0xx memory (~207T actual vs ~43T ideal per element)
+- 87+ tests across 7 layers
+- See [Iterator Implementation Status](docs/Iterator_Implementation_Status.md)
+
+### 3. MIR2 Open Bugs
+**Status:** 8 tracked bugs (4 fixed, 4 open — 1 blocking 🔴). See **[docs/Open_Bugs_RCA.md](docs/Open_Bugs_RCA.md)** for full RCA.
+- 🔴 **BUG-008** Arena codegen: impossible `LD IXL, (IX+d)` + self-pointer loss (blocks struct methods)
+- 🟡 **BUG-001** GCD parallel-copy bloat + `$0000` ROM spills (PBQP affinity / spill relocation)
+- 🟡 **BUG-006** Zero-size struct globals not emitted (undefined symbol at link time)
+- 🟡 **BUG-007** Spurious adapter LD when caller/callee share PFCCO convention
+- ✅ **BUG-002** forEach constant rematerialization — fixed 2026-03-12
+- ✅ **BUG-003** `ptr[i]` in while loop — fixed 2026-03-12
+- ✅ **BUG-004** Non-zero-lo LUT pipeline ordering — fixed 2026-03-12
+- ✅ **BUG-005** `applySubSwapNeg` u16 guard — fixed 2026-03-12
+
+### 4. LIR Backend (Guided PBQP+WFC Register Allocation)
+**Status:** 🚧 Production-matching codegen for leaf functions, 94.6% C89 corpus convergence.
+- **Branch:** `feat/lir-backend` (24+ commits, ~7500 LOC)
+- **Pipeline:** MIR2 → Bridge → Combine(ISLE) → isel(PatternTable) → WFC(PBQP-guided) → peephole → emit
+- **PBQP→WFC synthesis:** PBQP provides global allocation hints, WFC enforces Z80-specific constraints. Output matches production codegen for leaf functions.
+- **Call support:** OpCall lowering with arg setup moves, `DstAllowed` class constraints, tail call opt (CALL+RET → JP, saves 17T)
+- **IXH/IXL L2 spill:** Undocumented IX/IY half-registers as call-safe storage (8T). 4 bytes of fast spill without touching stack. No existing Z80 compiler uses this.
+- **WFC passes:** forward, backward, vregConsistency, clobberPass (call-safe narrowing), Collapse with `pickPreferred(hints)`
+- **Save-before-overwrite:** Bridge-level insertion of save moves for vregs at risk from destructive ALU ops (Z80 accumulator architecture)
+- **Peephole:** LD r,r no-op elimination, tail call CALL+RET→JP
+- **ISLE combining:** load16_le fusion (FatFS ld_word: 8→2 ops), MUL strength reduction
+- **WFC Dimension 2:** Inter-block constraint propagation across CFG edges — `ProgWFC` with RPO collapse, back-edge fixpoint
+- **Z80 descriptor:** 22 locs (GPR + IX/IY halves + spill), 41+ patterns, DD/FD prefix rules
+- **Corpus:** **948/948 pipeline completion** (100%); VM-verified: **97.9%** C89 on risc32 (15 struct/fptr divergences)
+- **Runtime:** `__mul8` (A×B→A, ~80T), `__mul16` (HL×DE→HL, ~200T) — shared routines, emitted once per module
+- **Remaining:** EXX shadow regs (L3), ISLE const-MUL reduction, production switch as default `--lir`
+- See [Architecture](docs/LIR_Backend_Architecture.md), [Reference](docs/LIR_Backend_Reference.md), [Report 094](reports/2026-03-18-094-LIR-100-Percent-C89-Corpus.md), [ADR-0033](docs/adr/0033-lir-pipeline-integration.md)
+
+### 5. VIR — retired as a backend, kept as an offline oracle
+**Status:** ⏸️ **Removed from the compiler on 2026-08-21.** See
+[ADR-0043](docs/adr/0043-vir-demoted-to-offline-oracle.md).
+
+The `--vir` flag no longer exists and the pipeline no longer calls the Z3 solver. VIR was the
+default until it was measured against the path it replaced:
+
+| Corpus | PBQP (production) | VIR |
+|---|---|---|
+| `examples/c89`, Z80 asserts on the emulator | **37 pass / 2 fail** | 33 / 6 |
+| `examples/abap`, assembles | **28 / 30** | **0 / 30** |
+
+Our own `TestVIR_Assert_GCD` fails — `gcd(12,8)` returns 0 — and nobody saw it because `pkg/vir`
+takes ~25 minutes while `go test` gives up at 10. This also matches the April decision recorded in
+`reports/2026-04-08-Session-Report-EN.md`: *"Z3 parked as `--vir` flag, PBQP stays production
+default."* `DefaultOptions` honoured that; the CLI flag did not.
+
+**What survives.** `pkg/vir` keeps the machine description, the regalloc tables, the GPU mul/div
+tables and the peephole rules — all imported by `cmd/mzv`, `cmd/mir2asm` and `cmd/gpu-bench`, none
+of which want an SMT solver. The solver itself is now `cmd/vir-oracle`, a research tool that
+reports what an optimal allocation *would* be so the precomputed tables have something independent
+to be checked against. It needs `z3` on PATH; the compiler needs nothing.
+
+```bash
+make vir-oracle
+./vir-oracle prog.c            # human-readable comparison against production
+./vir-oracle --json prog.nanz  # one record per function
+```
+
+It compares **size, not correctness** — it reports `gcd` as two instructions tighter than
+production, on the function it miscompiles.
+
+**PFCCO is unaffected.** The per-function calling-convention optimiser is `pkg/mir2/contracts.go`
+and runs on the production path; `research/abi-paper/` documents that implementation. The separate
+Z3 reimplementation in `pkg/vir/pfcco.go` is Phase 0 of the oracle's own solve and stays there for
+now — but its encoding is broken (a bare `(ite …)` at SMT top level; z3 prints `unsupported` and
+the bool-return cost term is silently dropped), so the oracle's convention choices should not be
+trusted until it is fixed or removed.
+
+> The performance claims previously in this section — "-60% vs SDCC", "645/645 functions (100%)",
+> "non-leaf production", "O(1) regalloc for 91% of corpus" — were not supportable. See
+> [Report 116](reports/2026-08-21-116-Prior-Art-and-Novelty-Audit.md).
+
+### 6. Rewrite Triad (ISLE + Grace + Datalog)
+**Status:** ✅ Wired into pipeline, 94.1% convergence. See [Report 097](reports/2026-03-19-097-Rewrite-Triad-Infrastructure.md).
+- **Package:** `pkg/rewrite/` — zero imports from hir/mir2/lir, operates on abstract `IRGraph`/`IRGraphMut` interfaces
+- **ISLE:** Term rewriting with guards `(if (< ?n 256))` + extern Go callbacks. 542 LOC.
+- **Grace:** Graph pattern matching on CFG (Cypher-equivalent). 1255 LOC, 13 tests across 7 Cypher categories.
+- **Datalog:** Fact database with wildcard queries. 101 LOC.
+- **Pipeline integration:** `Options{UseGrace: true}` enables Grace path. 5 rules (DSE, CondRetSink, SplitJoinRet, DeadBlockArgElim, FuseAbsDiff) with custom Go actions. 370 LOC runner.
+- **Convergence:** 17/17 pass verification (100%), 16/17 byte-identical assembly (94.1%). 89 funcs processed, 63 rewrites applied.
+- **Stats:** `GraceStats` tracks per-rule fire counts across module compilation.
+- **NOT a Z80 constraint solver:** Grace handles CFG patterns. Z80 register constraints / reject+backtrack is done by WFC in LIR (§4 above).
+
+### 7. LSP / DAP / Developer Tooling
+**Status:** Not started. Planned after core language stability.
+
+---
+
+## 🎓 Quick Start for AI Colleagues
+
+- **[MinZ Crash Course for AI Colleagues](AI_COLLEAGUES_MINZ_CRASH_COURSE.md)** - Complete training
+- **[GenPlan.md](docs/GenPlan.md)** - Development plan & roadmap
+- **[Open Bugs & RCA](docs/Open_Bugs_RCA.md)** - Known issues with root cause analysis
+
+## 🏗️ Architecture References
+
+- **[LIR_Backend_Architecture.md](docs/LIR_Backend_Architecture.md)** - PBQP+WFC+ISLE: how three solvers cooperate
+- **[LIR_Backend_Reference.md](docs/LIR_Backend_Reference.md)** - Quick reference: pipeline, DSLs, data structures
+- **VIR Backend** (`pkg/vir/`) - Z3 unified solver: joint isel+regalloc, PFCCO, inline runtime — see §5 in Current Priorities
+- **[INTERNAL_ARCHITECTURE.md](minzc/docs/INTERNAL_ARCHITECTURE.md)** - Complete compiler internals
+- **[COMPILER_SNAPSHOT.md](COMPILER_SNAPSHOT.md)** - Current state tracking
+- **[149_World_Class_Multi_Level_Optimization_Guide.md](docs/149_World_Class_Multi_Level_Optimization_Guide.md)** - Revolutionary optimization strategy
+- **[Report 097: Rewrite Triad](reports/2026-03-19-097-Rewrite-Triad-Infrastructure.md)** - ISLE+Grace+Datalog declarative optimization engines (infrastructure, not yet in pipeline)
+- **[Report 111: GPU Regalloc Table](reports/2026-03-24-111-GPU-Precomputed-Regalloc-Table.md)** - Precomputed register allocation from CUDA brute-force (61 entries, O(1) lookup)
+- **[GPU Bruteforce Roadmap](../z80-optimizer/BRUTEFORCE_ROADMAP.md)** - Beyond peephole: constant multiply, division, screen address, sin/cos — all via exhaustive GPU search
+
+## 🎯 Custom Commands
+
+### Core Development
+- `/upd` - Update all documentation
+- `/release` - Prepare new release
+- `/test-all` - Comprehensive test suite
+- `/benchmark` - Performance benchmarks
+- `/inbox` - Process articles from inbox/ to docs/
+
+### AI Orchestration  
+- `/ai-testing-revolution` - Build testing infrastructure
+- `/parallel-development` - Execute multiple tasks
+- `/performance-verification` - Verify optimization claims
+
+### Fun Commands 🎉
+- `/cuteify` - Add emojis and fun
+- `/celebrate` - Achievement recognition
+
+## 🛠️ Development Tools & Status (v0.22.0)
+
+### Self-Contained Toolchain
+- **MZC** - MinZ Compiler (Go, ~90K LOC)
+- **MZA** - Z80 Assembler (table-driven, `[addr]` bracket syntax)
+- **MZE** - Z80 Emulator (100% coverage via remogatto/z80)
+- **MZX** - ZX Spectrum Emulator (T-state accurate, AY sound, Ebitengine)
+- **MZD** - Z80 Disassembler (IDA-like analysis, ABI propagation, register tracking)
+- **MZR** - Interactive REPL
+- **MZRUN** - Remote runner (DZRP protocol)
+
+---
+
+## 📊 Feature Status Legend
+
+| Tag | Meaning |
+|-----|---------|
+| ✅ **DONE** | Working in production |
+| 🚧 **WIP** | In active development |
+| 📋 **TOBE** | Planned for implementation |
+| ⏸️ **PARKED** | Deferred, may return later |
+| ❌ **REJECTED** | Will NOT be implemented |
+
+---
+
+## ✅ DONE (Working Features)
+
+### Core Language
+- Types: `u8`, `u16`, `i8`, `i16`, `bool`, `void`
+- Functions: `fun`/`fn` declaration, multiple returns, nested functions
+- Control flow: `if`/`else`, `while`, `for i in 0..n`
+- Structs: declaration and field access
+- Enums: `enum State { IDLE, RUNNING }` with values, `State.IDLE` dot syntax
+- Type aliases: `type PlayerID = u8` — structural, zero-cost
+- Arrays: declaration, indexing (literals need optimization)
+- Global variables: `global` keyword
+- Function overloading: multiple signatures
+- **Native parser**: Participle-based (pure Go, replaced tree-sitter Feb 2026)
+
+### Advanced Features
+- **Ruby interpolation**: `"Hello #{name}!"` ✅
+- **UFCS**: `obj.method()` via zero-cost interfaces ✅
+- **Lambdas**: Full closure support, zero-cost ✅
+- **TRUE SMC**: Self-modifying code optimization ✅
+- **CTIE**: Compile-Time Interface Execution (trait monomorphization) ✅
+- **@extern FFI**: Call external ROM/BIOS functions ✅
+- **RST optimization**: Auto-convert to RST instructions ✅
+- **Operator overloading**: Custom operators for types ✅
+
+### Metafunctions
+- `@define("template", args)` - Text substitution ✅
+- `@print` - Optimized string output ✅
+- `@if/@elif/@else` - Conditional compilation ✅
+- `@error` - Error propagation with CY flag ✅
+
+### Tooling
+- Error messages with file:line:col format ✅
+- Multi-backend: Z80 (production), C (partial), i8080/M68k (untested), 6502/GB/WASM/LLVM/Crystal (stubs/broken) ✅
+- 100% Z80 instruction coverage in emulator ✅
+- **Compilation provenance tracing**: per-function ASM annotations (backend, passes, splits, fallbacks) + module summary + label audit ✅
+
+---
+
+## 🚧 WIP (In Development)
+
+- **LIR backend**: PBQP→WFC guided regalloc, production-matching leaf codegen, IXH/IXL spill, tail call opt (see §4 above, `feat/lir-backend`)
+- **Iterator chain fusion**: 11/11 E2E correct, fusion optimizer live, ~5x perf overhead (register allocator bottleneck)
+- **Pattern matching**: Syntax parses, codegen partial
+- **@minz[[[...]]]**: Limited compile-time execution
+- **MIR VM**: Arrays/structs working (mirvm package, MZV runner works)
+- **Array literal optimization**: IR skeleton exists, codegen not yet
+- **Rewrite Triad**: ISLE+Grace+Datalog in `pkg/rewrite/` — wired into pipeline (`UseGrace: true`), 94.1% convergence with Go originals on Nanz corpus. 63 rewrites across 89 functions. See §5, [Report 097](reports/2026-03-19-097-Rewrite-Triad-Infrastructure.md)
+- **MZR REPL**: ❌ Broken — `compileModule()` returns empty module, `:run` unimplemented
+
+---
+
+## 📋 TOBE (Planned)
+
+- **DAP debugger** - Step-through debugging (native, beyond DeZog)
+- **MZR REPL** - Fix compilation pipeline (semantic analysis not wired)
+- **WASM playground** - Online demo
+- **Generator syntax** - `gen`/`yield` for lazy iteration
+
+---
+
+## ⏸️ PARKED (Deferred)
+
+- **Generics `<T>`** - Use function overloading instead
+- **Option/Result types** - Use `@error` pattern instead
+- **`?` operator** - Use explicit error checking
+
+---
+
+## ❌ REJECTED (Won't Implement)
+
+- **C++ style templates** - Too complex for Z80 target
+- **Multiple inheritance** - Use interfaces instead
+- **Garbage collection** - Manual memory for retro targets
+- **Exceptions** - Use `@error` with CY flag instead
+- **Runtime reflection** - No runtime overhead allowed
+- **Dynamic dispatch vtables** - Zero-cost interfaces only
+
+## 🎯 Metafunction Design Decisions
+
+**CRITICAL:** These are settled design decisions - do not confuse them!
+
+- **@minz[[[...]]]** - Immediate compile-time execution
+  - Takes NO ARGUMENTS (not a template!)
+  - Uses @emit() to generate code line by line
+  - Example: `@minz[[[ @emit("fun foo() -> void {}") ]]]`
+
+- **@define("template", args...)** - Preprocessor macro substitution
+  - Processed BEFORE parsing (pure text replacement)
+  - Uses {0}, {1} placeholders for arguments
+  - Example: `@define("fun {0}() -> {1}", "getName", "str")`
+  - Status: ✅ FULLY IMPLEMENTED AND WORKING!
+
+- **@lua[[[...]]]** - Lua compile-time execution
+  - Full Lua scripting for complex metaprogramming
+  - Has emit() function for code generation
+
+See `docs/Metafunction_Design_Decisions.md` for complete details.
+
+## 🚀 TSMC: Revolutionary Paradigm
+
+**True Self-Modifying Code** - Programs rewrite themselves for optimization:
+- **Smart Patching**: Single-byte opcode changes (7-20 T-states vs 44+)
+- **Parameter Injection**: Values patched into instruction immediates
+- **Behavioral Morphing**: One function, infinite behaviors
+- Complete docs: `docs/145_TSMC_Complete_Philosophy.md`
+
+### TSMC Tunnels (Register Preservation Across CALLs)
+
+TSMC tunnels save/restore register values across CALL instructions by patching the immediate byte of a subsequent LD instruction:
+
+```z80
+; 8-bit: save A across CALL (20T total, SP untouched)
+LD (.tsmc_n+1), A      ; 13T — patch the NN byte below
+CALL some_function      ; clobbers A
+.tsmc_n:
+LD A, 0                 ; 7T — 0 was overwritten! Reads saved value as immediate
+
+; 16-bit: save DE across CALL via patching LD DE,NNNN (44T total)
+LD A, E / LD (.tsmc+1), A / LD A, D / LD (.tsmc+2), A  ; 34T save
+CALL func
+.tsmc: LD DE, 0000      ; 10T — both bytes patched
+
+; NOT recursion-safe: nested call overwrites the patched byte!
+```
+
+**Spill tier hierarchy for VIR Z3 solver:**
+- **L0: Primary regs (A-L)** — 0T, 7 slots
+- **L1: IXH/IXL/IYH/IYL** — 8T, 4 slots, callee-saved, always safe
+- **L2: I register** — 18T, 1 slot, clobbers P/V flag. **UNSAFE in IM 2** (I = interrupt vector table high byte). Safe in IM 0/1 or with DI/EI bracket. CP/M: usually safe. ZX Spectrum IM 2 demos: NEVER touch I.
+- **L2b: R register** — 18T, 1 slot, R[7] preserved, R[6:0] auto-increments (recoverable if compiler knows instruction count N between save/restore)
+- **L3: TSMC 8-bit tunnel** — 20T, unlimited, safe when no recursion between endpoints
+- **L3b: Shadow regs (EXX/EX AF,AF')** — 4T batch swap, 7+7 slots, ALL swap simultaneously
+- **L4: PUSH/POP pairs** — 21T, unlimited, always safe, @error needs N×POP cleanup
+- **L5: Memory spill** — 26T, unlimited, always safe
+
+**TSMC wins for 8-bit** (20T vs PUSH/POP 21T + saves whole pair). **PUSH/POP wins for 16-bit pairs** (21T vs TSMC 44T). For @error propagation: PUSH/POP + compiler-generated stack cleanup (N×POP on error path) is cheaper than TSMC for pairs.
+
+## 🏆 Zero-Cost Abstractions on Z80
+
+### ✅ Zero-Cost Lambda Iterators (v0.10.0) 🎊
+```minz
+numbers.iter()
+    .map(|x| x * 2)
+    .filter(|x| x > 5)
+    .forEach(|x| print_u8(x));
+```
+**Revolutionary**: Lambda-to-function transform with DJNZ optimization!
+
+### ✅ Zero-Cost Interfaces
+```minz
+circle.draw()  // Direct CALL Circle_draw - NO vtables!
+```
+
+### ✅ Zero-Overhead Lambdas
+```minz
+let add = |x: u8, y: u8| => u8 { x + y };
+add(5, 3)  // Direct CALL - 100% performance
+```
+
+## 📚 GPU-Optimal Arithmetic Library (NEW)
+
+**Status:** Production. Scalar operator overloading + GPU-proven optimal sequences.
+
+### Scalar Operator Overloading
+`fun *(a: u8, b: u8) -> u16` — widening multiply fires transparently for scalar types.
+Multi-dispatch by (lhsTy, rhsTy): exact type match for scalars, legacy struct match for custom types.
+Enables zero-overhead widening/narrowing arithmetic via operator syntax.
+
+### GPU-Precomputed Tables (from z80-optimizer)
+| Table | Entries | Source | Used in |
+|-------|---------|--------|---------|
+| mul8 A×K→A | 254/254 | `mulopt8_clobber.json` | VIR pipeline, inlined at `CALL __mul8` |
+| mul16 HL×K→HL | 254/254 | `mulopt16_complete.json` | VIR pipeline, inlined at `CALL __mul16` |
+| u32 ops (DEHL) | 13 ops | `u32_ops.json` | Loaded, codegen pending |
+| divmod8 A÷K | WIP | multiply-and-shift (analytical + GPU verify) | Pending |
+
+### u32 Arithmetic (DEHL convention, verified optimal)
+| Op | T-states | Insts | Key insight |
+|----|----------|-------|-------------|
+| SHL32 | 34T | 4 | ADD HL,HL + EX + ADC HL,HL + EX (proven optimal) |
+| SHR32 | 32T | 4 | SRL D / RR E / RR H / RR L (proven optimal) |
+| SAR32 | 32T | 4 | SRA D (preserves sign) / RR chain |
+| ADD32 | 54T | 6 | POP BC / ADD HL,BC / POP BC / EX / ADC HL,BC / EX |
+| SUB32 | 58T | 7 | OR A (clear CY) + SBC HL,BC chain |
+| NEG32 | 57T | 12 | XOR A / SUB L / LD A,0 (not XOR! preserves CY) / SBC chain |
+| CMP32==0 | 16T | 4 | LD A,D / OR E / OR H / OR L |
+| SEXT16→32 | 24T | 5 | RLA + SBC A,A trick (sign → CY → 0xFF/0x00) |
+| XOR32 | 100T | 16 | Byte-by-byte (no native 16-bit XOR) |
+| ROTR32 | 32-40T | 6 | For SHA-256 rounds (~800T/round, 15ms/block @3.5MHz) |
+
+### widemath.nanz — Arithmetic showcase (31 asserts)
+Widening mul (u8×u8→u16), abs, sign, min, max, clamp, sat_add, sat_sub,
+abs_diff, pixel_distance, brightness_blend. Both scalar overload + newtype W8 variants.
+
+### mul16 GPU Speedups
+| Constant | GPU-optimal | Generic loop | Speedup |
+|----------|------------|--------------|---------|
+| ×3 | 26T | ~200T | 7.7× |
+| ×10 | 48T | ~200T | 4.2× |
+| ×100 | 92T | ~200T | 2.2× |
+
+## 📚 Standard Library (v0.15.0+)
+
+MinZ includes a comprehensive stdlib optimized for Z80/retro systems:
+
+| Module | Description |
+|--------|-------------|
+| `math/fast` | Sin/cos/sqrt lookup tables (256 entries each) |
+| `math/random` | LFSR PRNG, noise functions, probability helpers |
+| `graphics/screen` | Pixel/line/circle/rectangle (ZX Spectrum optimized) |
+| `input/keyboard` | Keyboard matrix reading, debouncing, game helpers |
+| `text/string` | strlen, strcmp, strcpy, strcat, trim, etc. |
+| `text/format` | Number to string (decimal, hex, binary) |
+| `sound/beep` | Beeper SFX (click, buzz, jump, explosion) |
+| `time/delay` | Frame timing, delays, animation helpers |
+| `mem/copy` | Fast memcpy/memset/memcmp using LDIR |
+| `cpm/bdos` | CP/M BDOS system calls |
+| `tui/render` | VT100 TUI primitives (cursor, color, input, box drawing) |
+| `sql/sqlite` | Z80 SQLite bridge via I/O ports ($41/$43/$45/$47) |
+
+### Usage Example
+```minz
+import stdlib.graphics.screen;
+import stdlib.input.keyboard;
+import stdlib.time.delay;
+
+fun main() -> void {
+    clear_screen();
+    draw_circle(128, 96, 50);
+
+    loop {
+        wait_frame();
+        let dx = get_key_dx();
+        // Move sprite based on input...
+    }
+}
+```
+
+## 📋 Development Commands
+
+### Cross-Session Communication (dedelulu)
+Multiple Claude Code sessions can communicate via dedelulu:
+```bash
+# Discover all active sessions
+dedelulu explore
+
+# Send a message to another session
+dedelulu send <session_id>:main "your message here"
+
+# Example: send to the main minz repo session
+dedelulu send bazyqg2s:main "Hey! VIR solver results for screen_alv.nanz..."
+```
+Sessions are identified by `session_id:worker_name`. Use `dedelulu explore` to find live sessions.
+Messages appear as `[from:main]` in the recipient's conversation. Reply with `dedelulu send`.
+
+Active project sessions:
+- `~/dev/minz` — the only MinZ working copy (see note below)
+- `~/dev/z80-optimizer` — CUDA superoptimizer (602K rules, GPU regalloc)
+- `~/dev/dedelulu` — cross-session messaging tool itself
+
+**One clone only (since 2026-09-17).** `~/dev/minz-abap`, `~/dev/minz-vir` and
+`~/dev/minz-parallel` were deleted: all three were clones of this same repository
+(`oisee/minz` and `oisee/minz-ts` resolve to one repo) and held no commits that
+`master` lacked. Their unversioned content — untracked session notes, the
+precomputed `enriched_4v.z80t` table, and 18 stashes as patches — is archived in
+`~/dev/minz-clones-archive-2026-09-17/`, which has its own README.
+
+### Releasing
+**IMPORTANT:** Before creating a release, ALWAYS check the latest version on GitHub:
+```bash
+gh release list --repo oisee/minz --limit 3
+```
+Bump from the latest GitHub version, not from what CLAUDE.md says (it may be stale).
+
+### Build & Test
+```bash
+# Build everything (mz, mza, mze, mzd, mzx, mzv, mzn, mzlsp, mzrun, mztap, mzr)
+cd minzc && make all
+make mz            # just the compiler
+make help          # list every target
+
+# Compile with optimizations
+cd minzc && ./mz program.minz -O --enable-smc
+
+# Corpus check — counts Z80-VALIDATE errors across all examples
+cd minzc && go build -o mz ./cmd/minzc && bash ../scripts/validate_corpus.sh
+
+# Go unit tests
+cd minzc && make test-all
+```
+There is no `make build` target and no `./compile_all_examples.sh`; the compiler
+binary is `mz`, not `minzc`. Example sweeps live in `scripts/` —
+`validate_corpus.sh` is the maintained one.
+
+### Multi-Backend Compilation
+```bash
+mz program.minz -b z80 -o program.a80       # Z80 (default, production)
+mz program.minz -b c -o program.c           # C99 (testing)
+mz program.minz -b crystal -o program.cr    # Crystal (testing)
+```
+
+### Codegen Debugging with mzd
+```bash
+# 1. Compile to .a80 (has ABI comments) and binary
+mz program.minz -o program.a80
+mza program.a80 -o program.bin
+
+# 2. Disassemble with register annotations
+mzd --regs program.bin               # shows IN/OUT/CLOBBER per function
+
+# 3. Verify codegen against compiler-declared ABI
+mzd --regs --verify-abi program.a80 program.bin
+# Output: "ABI verify: 5/5 functions matched, all OK"
+# ...or mismatches like:
+#   board_set  IN: extra=D (declared=A,C,B detected=A,C,B,D)  ← codegen bug!
+
+# 4. Other useful mzd flags
+mzd --cycles program.bin              # T-state counts per instruction
+mzd --regs --stats program.com        # full analysis with statistics
+mzd -t cpm --regs program.com         # CP/M platform (auto-detect BDOS ABI)
+```
+
+**How --verify-abi works:**
+- Parses `; fun name(p: type = REG) -> type = REG ; clobbers: REG` from .a80
+- Assembles .a80 internally to resolve label→address mapping
+- Compares declared IN/OUT/CLOBBER vs detected (provenance-tracked) register usage
+- Mismatches = likely codegen bugs (register allocator, calling convention, clobber)
+
+**Provenance tracking** traces values through `EX DE,HL`, `LD r,r'`, and PUSH/POP chains. ABI-aware CALL consumption uses BDOS/ROM profiles to avoid false inputs.
+
+## 📁 Project Structure
+
+```
+minz/
+├── minzc/              # Go compiler
+│   ├── cmd/           # CLI tools (minzc, mza, mze, mzd, mzx, mzrun, ...)
+│   ├── pkg/           # Compiler packages
+│   │   ├── spectrum/  # MZX ZX Spectrum emulator
+│   │   ├── emulator/  # Z80 CPU emulator (FUSE-tested)
+│   │   ├── z80asm/    # MZA assembler
+│   │   ├── disasm/    # MZD disassembler
+│   │   └── ...        # Parser, semantic, IR, codegen, etc.
+│   └── tests/         # Test files
+├── stdlib/            # Standard library
+│   ├── math/         # fast.minz, random.minz
+│   ├── graphics/     # screen.minz
+│   ├── input/        # keyboard.minz
+│   ├── text/         # string.minz, format.minz
+│   ├── sound/        # beep.minz
+│   ├── time/         # delay.minz
+│   ├── mem/          # copy.minz
+│   ├── cpm/          # bdos.minz (CP/M BDOS API)
+│   └── agon/         # mos.minz, vdp.minz (Agon Light 2)
+├── examples/          # MinZ programs
+├── docs/             # Technical documentation (by topic)
+├── reports/          # Progress reports (date-numbered)
+└── releases/         # Release packages
+```
+
+## 🎯 Design Philosophy
+
+### Ruby-Style Developer Happiness
+```minz
+// Flexible function declaration
+fn add(a: u8, b: u8) -> u8 { ... }    // or 'fun'
+fun subtract(a: u8, b: u8) -> u8 { ... }
+
+// Clear global variables
+global counter: u8 = 0;
+
+// Function overloading
+print(42);     // No more print_u8!
+print("Hi");   // Just print!
+```
+
+### Memory Access via Pointers
+```nanz
+// ^ = pointer type (in declarations), postfix deref (in expressions)
+let p: ^u8 = 0x4000        // p points to address 0x4000
+let val: u8 = p^            // READ: p^ → LD A,(HL) on Z80
+p^ = val xor 0xFF           // WRITE: p^ = ... → LD (HL),A on Z80
+p^ = p^ xor 0xFF            // READ-MODIFY-WRITE: LD A,(HL); XOR 0xFF; LD (HL),A
+
+// Pointer arithmetic
+let next: ^u8 = p + 1       // next byte
+let screen: ^u8 = 0x5800 + y * 32 + x   // ZX attribute address
+
+// IMPORTANT: ^ in expressions = deref, NOT XOR!
+// Use `xor` keyword for bitwise XOR:  a xor b
+// Use `&` for AND, `|` for OR
+```
+
+### Target Architecture
+One backend, multiple targets:
+```bash
+mz program.minz -b z80 --target=spectrum  # ZX Spectrum
+mz program.minz -b z80 --target=cpm       # CP/M
+mz program.minz -b z80 --target=agon      # Agon Light 2 (eZ80)
+```
+
+### Agon Light 2 Support (NEW)
+Native eZ80 support with MOS/VDP APIs:
+```minz
+import stdlib.agon.mos;
+import stdlib.agon.vdp;
+
+fun main() {
+    set_mode(MODE_320x240x64);
+    fill_circle(160, 120, 50);
+    mos_puts("Hello Agon!");
+}
+```
+
+### 8. Self-Hosting Pipeline (Nanz compiles Nanz)
+**Status:** 🚧 Stage 1+2 complete, Stage 3-4 in progress.
+- **Stage 1**: .nanz → tokenizer → parser → .lanz ✅ (480 LOC Nanz, MZV)
+- **Stage 2**: .lanz → S-expr parser → AST tree ✅ (262 LOC Nanz, MZV)
+- **Stage 3**: AST → .mir2 → regalloc via enriched tables 🔧 (Go helper)
+- **Stage 4**: assignment → peephole → .a80 🔧 (Go helper)
+- **Stage 5**: .a80 → mza → .com ✅ (existing)
+- Proven: `fun add(a: u8, b: u8) -> u8 { return a + b }` → `ADD A, C / RET`
+- Interned strings (Pascal-style, pointer equality for keywords)
+- Three arenas: strings (0x9000), AST (0x8000), tokens (0xB000)
+- See [Self-Hosting Pipeline Report](reports/2026-03-29-Self-Hosting-Pipeline.md)
+
+---
+
+## 📊 Current Metrics (v0.24.0+, sessions 12-15)
+
+| Metric | Value |
+|--------|-------|
+| Nanz examples | **35/35** (100%) — all compile + assemble. [Report #110](reports/2026-03-24-110-Reliability-Sprint-35-of-35.md) |
+| Core examples | 71/73 (97%) |
+| All examples | 131/173 (75%) — failures in agon, cpm, feature_tests, zvdb, zx_demos |
+| Stdlib modules | 12 documented (real), ~35-40 of 55 files compile |
+| Z80 emulator coverage | 100% (1335/1335 FUSE) |
+| Peephole patterns | 67 (asm) + MIR passes + 500 GPU-proven peephole rules |
+| GPU mul tables | 254 mul8 (A×K→A) + 254 mul16 (HL×K→HL) + 13 u32 ops |
+| Scalar op overload | `fun *(a: u8, b: u8) -> u16` — widening arithmetic via operator syntax |
+| Production backends | 1 (Z80) + 1 partial (C) + 1 QBE (correctness oracle) + 8 experimental |
+| LIR backend | **948/948 pipeline** (100%), **97.9% VM-verified** (C89/risc32) — PBQP→WFC guided, IXH/IXL spill, __mul8/__mul16, tail call opt |
+| VIR backend | **645/645 functions** (100%), **55/55 Z80-verified**, **-60% vs SDCC** — Z3 unified solver, Z3-PFCCO, inline runtime, zero PBQP fallback |
+| MIR backend tests | 9/11 pass, 2 known bugs (ADR-0006) |
+| Frontends | 8 (Nanz, C89, PL/M, Lanz, Lizp, Pascal, ABAP, **Frill**) — all route through HIR→MIR2→Z80 |
+| Frill (.frl) | ML-style functional: 38 features — let, if/then/else, pipe \|>, compose >>, match+guards, ADT, lambda, currying, tuples, type classes, QTT linearity (!/~), while, for, mutation, peek/poke, property testing. 1000+ compile-time checks. See [Frill Guide](docs/Frill_Language_Guide.md) |
+
+> **Note on C frontend:** C17 conformant (freestanding) + C23 extensions. First Z80 compiler
+> with C11/C17. Use for benchmarking against SDCC. Recommend **Nanz** as primary language.
+>
+> **C test asserts:** Always add DUAL asserts for new C test programs:
+> ```c
+> // assert func(args) == expected via mir2
+> // assert func(args) == expected via z80
+> ```
+> `via mir2` = MIR2 VM (fast, u16 arithmetic). `via z80` = full Z80 compile+emulate.
+> Exceptions: pointer tests → z80 only. u8 overflow → z80 only (mir2 does u16).
+> Test files: `examples/c89/` (legacy C89) and `examples/c/` (C99+, new tests go here).
+| C89 corpus | 350/350 asserts, 38 files in `examples/c89/` (MIR2) |
+| C99+ corpus | 174/174 asserts, 13 files in `examples/c/` (MIR2) — C99/C11/C23 |
+| C total | **524/524** asserts across 51 test files |
+| C conformance | **C17** (freestanding) + C23 extensions (#embed, nullptr, bool) |
+| ABAP examples | 8 programs (hello, fibonacci, fizzbuzz, guessing, bubblesort, forms, oop, sysinfo) |
+| E2E Z80 tests | 24 (fibonacci, flag-return, div8, div16, mod8, divmod-combined + 6502) |
+| Parser | Participle (native Go, zero deps) |
+| Toolchain binaries | 10 working (mz, mza, mze, mzx, mzd, mzn, mzlsp, mzrun, mztap, mzv) + vir-oracle (offline) + mzv1 (MIR1) + mzr (broken) |
+| Go test packages | 26/26 pass, 0 fail |
+
+---
+
+## 🔧 Toolchain Component Status
+
+| Tool | Status | Description |
+|------|--------|-------------|
+| **MZC** | ✅ DONE | MinZ Compiler (Go) |
+| **MZA** | ✅ DONE | Z80 Assembler (table-driven encoder) |
+| **MZE** | ✅ DONE | Z80 Emulator (1335/1335 FUSE tests) |
+| **MZX** | ✅ DONE | ZX Spectrum emulator (T-state accurate, Ebitengine) |
+| **MZD** | ✅ DONE | Z80 Disassembler (IDA-like analysis, `--regs` IN/OUT/CLOBBER, `--verify-abi`) |
+| **MZN** | ✅ DONE | Native compiler — Nanz → C99/QBE → AMD64 (`--emit-c`, `--emit-qbe`, `--disasm`) |
+| **MZLSP** | ✅ DONE | Language Server Protocol (diagnostics, hover, goto-def, completion) |
+| **MZRUN** | ✅ DONE | Remote runner (DZRP) |
+| **MZTAP** | ✅ DONE | TAP file loader |
+| **MZV** | ✅ DONE | MIR2 VM runner with TUI display + ZX font OCR (Tetris verified) |
+| **MZV1** | ⏸️ ARCHIVED | MIR1 Virtual Machine runner (superseded by MZV) |
+| **MZR** | ❌ BROKEN | Interactive REPL (compileModule returns empty, :run unimplemented) |
+| **DAP** | 📋 TOBE | Debug Adapter Protocol (native, beyond DeZog) |
+
+### MZRUN Usage
+```bash
+# Start ZXSpeculator with DZRP on port 11000, then:
+./mzrun program.minz --reset -v
+```
+
+## Documentation System
+
+### Two directories, two purposes:
+
+| Directory | Purpose | Naming Convention | Examples |
+|-----------|---------|-------------------|----------|
+| `reports/` | Progress reports, analysis, status updates | `YYYY-MM-DD-NNN-Topic.md` | `2026-02-23-009-MZX_Phase2_Progress_Report.md` |
+| `docs/` | Technical documentation, guides, references | `Topic_Name.md` (or date-prefixed for legacy) | `INTERNAL_ARCHITECTURE.md`, `Metafunction_Design_Decisions.md` |
+
+### Reports (`reports/`)
+Date-numbered, chronologically sorted. Tracking progress over time.
+- Format: `YYYY-MM-DD-NNN-Topic.md`
+- Sequential NNN counter (check `ls reports/ | sort | tail -1` for next number)
+- Content: progress reports, analysis results, benchmarks, status snapshots
+
+### Docs (`docs/`)
+Topic-organized, canonical reference material. One file per topic.
+- Format: `Topic_Name.md` (descriptive, underscored)
+- Legacy files keep their date-prefixed names
+- Content: architecture guides, design decisions, ADRs, API references
+
+### Workflow for Claude
+```
+# Writing a progress report:
+Write to: reports/YYYY-MM-DD-NNN-Topic.md
+
+# Writing technical documentation:
+Write to: docs/Topic_Name.md
+
+# DO NOT use inbox/ — write directly to the correct directory
+```
+
+### Finding Documents
+```bash
+ls reports/ | sort          # Reports chronologically
+ls docs/ | sort             # Docs alphabetically
+grep -rl "TSMC" docs/      # Find by topic
+ls reports/2026-02-*        # All February 2026 reports
+```
+
+## 🤖 AI Colleague Consultation
+
+**Purpose**: Leverage AI tools (GPT-4, o4-mini, Claude) as virtual colleagues for architectural decisions, debugging, and design reviews.
+
+### When to Consult
+- Major architectural choices (parser strategy, optimization approaches)
+- Stuck issues or nonobvious bugs  
+- Design trade-offs and brainstorming
+- Sanity-checking assumptions before large refactors
+
+### How to Consult Effectively
+1. **Provide full context**: Problem statement, what you've tried, relevant code snippets, constraints
+2. **End with specific ask**: "Pros/cons of ANTLR vs hand-written parser" vs "Help with parser"
+3. **Cross-check multiple models**: Run same question through 2+ AI colleagues for consensus
+4. **Include concrete constraints**: Performance targets, maintenance concerns, team skills
+
+### Evaluating AI Advice
+- Treat as input for team discussion, not final authority
+- Cross-check factual claims against official docs
+- Plan small proof-of-concept to validate suggestions  
+- When multiple models agree, confidence increases (but still validate)
+
+### Documentation
+Keep an **AI Consultation Log** in relevant docs:
+- Date, participants (which AI models), original prompt
+- Key advice given and follow-up questions
+- Outcome and rationale for following/rejecting advice
+- Link to related issues/PRs/commits
+
+**Example Success**: August 2024 - Consulted GPT-4 and o4-mini on ANTLR vs hand-written parser for Z80 assembler. Both recommended keeping hand-written parser and fixing encoder issues instead. Decision saved significant development time and led to identifying the real problem.
+
+### Best Practices
+- Never merge critical changes solely on AI advice
+- Always do code reviews and team discussion for broad-impact decisions
+- Create prompt templates for consistent, high-quality consultations
+- Review consultation logs in retrospectives to improve question quality
+
+## 🔧 Documentation Style: "Pragmatic Humble Solid"
+
+- ✅ **Transparent**: "Core features work" / "Experimental"  
+- 🚧 **Status indicators**: Working/In Progress/Missing
+- 📊 **Specific**: "60% of examples compile"
+- ⚠️ **Honest warnings**: "Not production ready"
+
+Celebrate real achievements without hype. Ground excitement in facts.
+
+---
+
+*MinZ: Modern programming abstractions with zero-cost performance on vintage Z80 hardware.*
+
+---
+> Source: [oisee/minz](https://github.com/oisee/minz) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
