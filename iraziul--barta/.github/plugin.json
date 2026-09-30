@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "iRaziul",
   "homepage": "https://github.com/iRaziul/barta",
-  "skills": []
+  "skills": [
+    {
+      "name": "barta",
+      "description": ""
+    }
+  ]
 }
