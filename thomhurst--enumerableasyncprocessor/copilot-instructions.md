@@ -1,16 +1,14 @@
 ## enumerableasyncprocessor
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to coding agents working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents working in this repository.
 
 ## Repository Overview
 
 EnumerableAsyncProcessor is a NuGet library for processing asynchronous tasks with controlled concurrency: one at a time, batched, rate limited, timed rate limited (e.g. requests-per-second), or fully parallel. The library multi-targets `net8.0`, `net9.0`, and `net10.0` and is strong-named (`Directory.Build.props` signs with `strongname.snk`; internals are visible to the test project).
-
-`agents.md` is a symlink to this file (`claude.md` resolves to `CLAUDE.md` on Windows' case-insensitive filesystem).
 
 ## Commands
 
@@ -66,4 +64,4 @@ All processors implement `IDisposable`/`IAsyncDisposable`; the README documents 
 
 ---
 > Source: [thomhurst/EnumerableAsyncProcessor](https://github.com/thomhurst/EnumerableAsyncProcessor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
