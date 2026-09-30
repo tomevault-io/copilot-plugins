@@ -1,8 +1,6 @@
 # endatix
 
-> Source: [endatix/endatix](https://github.com/endatix/endatix) — distributed by [TomeVault](https://tomevault.io)
-
-Endatix is a form management backend API for SurveyJS-based projects.
+> Source: [endatix/endatix](https://github.com/endatix/endatix). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [endatix/endatix](https://github.com/endatix/end
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/endatix/endatix](https://github.com/endatix/endatix)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/endatix/endatix](https://github.com/endatix/endatix)
 
 ---
 
