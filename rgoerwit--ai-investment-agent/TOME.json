@@ -1,0 +1,111 @@
+{
+  "name": "ai-investment-agent",
+  "owner": "rgoerwit",
+  "repo": "ai-investment-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-investment-agent",
+      "path": ".claude/skills/add-agent/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.claude/skills/add-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".claude/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.claude/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".agents/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.agents/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".agents/skills/add-agent/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.agents/skills/add-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".claude/skills/diagnose-run/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.claude/skills/diagnose-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".agents/skills/run-pipeline/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.agents/skills/run-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".agents/skills/diagnose-run/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.agents/skills/diagnose-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".claude/skills/analyze-ticker/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.claude/skills/analyze-ticker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".agents/skills/analyze-ticker/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.agents/skills/analyze-ticker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".claude/skills/validation-batch/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.claude/skills/validation-batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-investment-agent",
+      "path": ".agents/skills/maintain-agent-metadata/SKILL.md",
+      "github_url": "https://github.com/rgoerwit/ai-investment-agent/tree/main/.agents/skills/maintain-agent-metadata/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rgoerwit/ai-investment-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T21:37:06Z"
+}
