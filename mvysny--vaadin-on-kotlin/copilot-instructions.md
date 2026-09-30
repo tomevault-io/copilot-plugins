@@ -1,79 +1,89 @@
 ## vaadin-on-kotlin
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Vaadin-on-Kotlin is a web-application framework for database-backed apps in Kotlin. It enforces neither MVC,
 
-# CLAUDE.md
+# Vaadin-on-Kotlin — AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## What this is
 
-## What this repo is
+Vaadin-on-Kotlin is a web-application framework for database-backed apps in Kotlin. It enforces neither MVC,
+dependency injection nor service-oriented architecture, and uses neither Spring nor JavaEE. The view layer is
+[Vaadin](https://vaadin.com)'s component-oriented model; persistence is [ktorm](https://www.ktorm.org/) — typed-SQL
+DSL, entity sequences, no XML — wrapped by [ktorm-vaadin](https://github.com/mvysny/ktorm-vaadin). VoK owns the glue
+between the two plus REST server and client support; depend on `vok-framework` alone and bring your own persistence.
 
-Vaadin-on-Kotlin (VoK) is a published **library** (`eu.vaadinonkotlin:*` on Maven Central), not an application. The repo is a multi-module Gradle build of the library's modules plus one demo app (`vok-example-crud`) used both as a runnable example and as the integration-test harness for the framework.
+## Promises
 
-Home page: https://www.vaadinonkotlin.eu
+- **No container, no magic.** No DI, no MVC, no service layer: a VoK app is plain Kotlin that calls Vaadin and the database directly.
+- **Upstream stays reachable.** VoK is glue, never a facade — Vaadin and ktorm APIs stay in full view, and an app may depend on `vok-framework` alone and bring its own persistence.
+- **Typed from view to SQL.** Views, queries and REST filters are Kotlin the compiler checks; no XML, no string-named beans.
 
-Current library version lives in `build.gradle.kts` (`allprojects { version = ... }`). Release procedure is in `CONTRIBUTING.md`.
+## Design docs
 
-## Build / test commands
+| File | Owns | Loaded |
+|---|---|---|
+| `README.md` | the pitch, getting started, the code examples | — |
+| `AGENTS.md` (this) | promises, invariants, the module map, conventions, commands | every turn |
+| `design/architecture.md` | how the modules compose — dependency direction, the boot sequence, the flows; normative | lazy |
+| `design/decisions.md` | why this and not that — `D_` entries, FAQ-shaped | lazy |
+| `design/research.md` | what the libraries we don't own actually do — `R_` entries, each claim with provenance | lazy |
+| `<module>/README.md` | how to use one published module: its API surface and its wire format | — |
+| `CONTRIBUTING.md` | how to contribute, and the release-to-Maven-Central procedure | — |
+| `docs/` | the Jekyll site behind www.vaadinonkotlin.eu — the user-facing guides | — |
+| doc comments | what one symbol does and why it is shaped so | at the symbol |
 
-```bash
-./gradlew build                       # full build + tests (also the default task: clean + build)
-./gradlew test                        # all unit tests across modules
-./gradlew :vok-framework:test         # tests for one module
-./gradlew :vok-rest:test --tests '*PersonRestTest*'   # single test class
-./gradlew vok-example-crud:run        # launch demo app on http://localhost:8080
-./gradlew clean build -Pvaadin.productionMode        # production Vaadin build (npm bundling, prod frontend)
-```
+Every fact lives in exactly one of these; the others link to it.
 
-JDK 21 is the minimum (Vaadin 25 requirement); CI matrix runs JDK 21/24 on Linux/macOS/Windows. Both source/target Java compatibility and Kotlin's `jvmTarget` are pinned to 21.
+## Invariants
 
-## Module structure & boundaries
+- **Module dependencies point one way.** `vok-framework` ← `vok-framework-vokdb` ← `vok-rest`; a DB dependency in `vok-framework`, or an ORM one in `vok-rest-client`, breaks every app that brings its own persistence. The composition is `design/architecture.md`'s.
+- **`VaadinOnKotlin.dataSource` is assigned before `init()`.** Its setter is what connects `ActiveKtorm.database`, so anything ktorm does before that assignment throws.
+- **Every database access runs inside `db { }`.** `database` and the enclosing transaction exist only on that receiver; a query outside one has no connection to run on.
+- **A DB test deletes its own rows.** The H2 in-memory database lives for the whole run, so leftovers fail the next test — see `AbstractAppTest`'s `@BeforeEach @AfterEach cleanupDb`.
 
-Dependency direction is strict; respect it when adding code:
+## Module map
 
-- `vok-framework` — core. Bootstrap (`VaadinOnKotlin.init()/destroy()`), `Session`, `Cookies`, async executor, i18n bundle, Vaadin/Karibu helpers. Depends on `karibu-dsl` (the main artifact, not the `-v23` variant — that variant pins Vaadin 23) and `vaadin-core`. No DB dependency.
-- `vok-framework-vokdb` — Vaadin + SQL via [ktorm](https://www.ktorm.org/) + [ktorm-vaadin](https://github.com/mvysny/ktorm-vaadin). Provides `VaadinOnKotlin.dataSource` (which also wires `ActiveKtorm.database`), `toId()` Binder helper, and `enumFilterField()`. Depends on `vok-framework` + `ktorm-vaadin`. ktorm-vaadin re-exports `Table<E>.dataProvider`, `EntityDataProvider`, `EntityToIdConverter`, and the filter components (`FilterTextField`, `DateRangePopup`, `NumberRangePopup`, `BooleanFilterField`, `EnumFilterField`).
-- `vok-rest` — REST **server** support. Javalin 5 + Gson. Exposes ktorm tables as CRUD endpoints via `KtormCrudHandler<E>` / `Table<E>.getCrudHandler()`. Depends on `vok-framework-vokdb`. Read endpoints (GET-all, GET-one, ?count=true) are implemented; create/update/delete return 501 pending a Gson↔ktorm Entity adapter.
-- `vok-rest-client` — REST **client** helpers built on the JDK `HttpClient`. No ORM dependency. `CrudClient<T>` is `AbstractBackEndDataProvider<T, Map<String, String>>` — caller supplies an eq-only filter map and pre-formats values as strings.
-- `vok-example-crud` — runnable demo (Vaadin Boot, embedded Jetty via `MainKt#main`) and the de-facto integration test for the published modules. Also where you'll find end-to-end test patterns (`AbstractAppTest`, `MockVaadin.setup(routes)`).
+- `vok-framework` — the core: bootstrap, `Session`, `Cookies`, async executor, i18n, Vaadin helpers. No DB.
+- `vok-framework-vokdb` — Vaadin + SQL: `VaadinOnKotlin.dataSource`, `toId()`, `enumFilterField()`; re-exports ktorm-vaadin.
+- `vok-rest` — REST server: Javalin + Gson, `Table<E>.getCrudHandler()`, `Javalin.crud2()`.
+- `vok-rest-client` — REST client over the JDK `HttpClient`: `CrudClient<T>`, Gson converters. No ORM.
+- `vok-example-crud` — the runnable demo, and the framework's integration-test harness.
 
-Add a dependency to a published module only through the version catalog (`gradle/libs.versions.toml`) — direct `"group:artifact:version"` strings in `build.gradle.kts` are reserved for the test JUnit-platform-launcher line.
+## Conventions
 
-## Published-API contract
+- **Kotlin, JDK 21 floor.** Java source/target and Kotlin's `jvmTarget` are pinned to 21 — Vaadin 25's minimum.
+- **Published modules declare `explicitApi()`.** Every new top-level or public declaration needs an explicit visibility modifier; `vok-example-crud` is exempt.
+- **Dependencies come from `gradle/libs.versions.toml`.** A literal `"group:artifact:version"` in a `build.gradle.kts` is reserved for the `junit-platform-launcher` test line.
+- **A new published module calls `configureMavenCentral(artifactId, description)`** at the bottom of its `build.gradle.kts`, exactly like the existing ones.
+- **Tests: JUnit Jupiter + Karibu-Testing.** `MockVaadin.setup(routes)` in `@BeforeEach`, `MockVaadin.tearDown()` in `@AfterEach`; `vok-example-crud/src/test/kotlin/example/crudflow/AbstractAppTest.kt` is the pattern.
+- **Session-scoped state is a `Session.getOrPut { }` extension property**, never a container — see `D_no_di`.
+- **Check Maven Central before bumping a version**, through the `maven-tools` MCP; the pins that lag on purpose are `R_pinned_deps`.
+- **Pre-1.0: break APIs freely**, with a note at the top of the README and the new shapes in the per-module READMEs.
 
-All library modules declare `kotlin { explicitApi() }`. Every new top-level/public declaration needs an explicit visibility modifier (`public`, `internal`, …) — the compiler will reject it otherwise. The example app (`vok-example-crud`) does not have this enabled.
+## Commands
 
-Each published module wires up Maven Central + signing via the `configureMavenCentral(artifactId, description)` helper defined in the root `build.gradle.kts`. When adding a new published module, call this helper at the bottom of its `build.gradle.kts` exactly like the existing ones do.
+- `./gradlew build` — full build + tests; also the default task (`clean build`), and what CI runs (`.github/workflows/gradle.yml`, JDK 21/24 × Linux/macOS/Windows).
+- `./gradlew test` / `./gradlew :vok-framework:test` / `./gradlew :vok-rest:test --tests '*PersonRestTest*'` — every test, one module, one class.
+- `./gradlew vok-example-crud:run` — the demo app on http://localhost:8080.
+- `./gradlew clean build -Pvaadin.productionMode` — production Vaadin build (npm bundling, prod frontend).
+- `./design/verify_design_tripwires.sh` — the doc-layer checks; wired into `./gradlew check` (skipped on Windows) and run as its own CI job.
 
-## Testing conventions
+## Skills this project follows
 
-- **JUnit Jupiter (JUnit 6)** — every module's `build.gradle.kts` uses `useJUnitPlatform()`. Tests use `@BeforeAll`/`@BeforeEach`/`@Test` from `org.junit.jupiter.api`.
-- **Karibu-Testing v24** is the Vaadin testing layer (`MockVaadin.setup(routes)` in `@BeforeEach`, `MockVaadin.tearDown()` in `@AfterEach`). See `vok-example-crud/src/test/kotlin/.../AbstractAppTest.kt` for the canonical lifecycle pattern.
-- **DB tests** boot the app via `Bootstrap().contextInitialized(null)` and use H2 in-memory; tests are expected to clean their own rows (`Persons.deleteAll()` — the ktorm-vaadin `Table<E>` extension — between tests).
-- `vok-rest-client` has minimal tests of its own — it's exercised through `vok-rest`'s and `vok-example-crud`'s test suites, which spin up a real Jetty.
+- **Component-oriented:** self-sufficient components that reach the DB directly, no MVC layers; the `cop` skill has the rules.
+- **KDoc:** document the contract, cut what the code already says, and keep each fact at the level it belongs; the `writing-kdoc` skill.
+- **Karibu-Testing:** browserless Vaadin tests through `MockVaadin` and `_get` / `_click` lookups; the `karibu-testing` skill.
 
-## Bootstrap pattern
+## Maintenance of this file
 
-VoK has no DI container. The expected app shape (mirrored in `vok-example-crud/.../Bootstrap.kt`) is:
-
-1. Build a `HikariDataSource`, assign to `VaadinOnKotlin.dataSource` (extension from `vok-framework-vokdb`). The setter also wires `ActiveKtorm.database = Database.connect(value)` so ktorm queries work without an extra step.
-2. `VaadinOnKotlin.init()`.
-3. Run Flyway migrations against `VaadinOnKotlin.dataSource`.
-4. On shutdown: `VaadinOnKotlin.destroy()`.
-
-Entities are ktorm `Entity<E>` interfaces (proxied; backed by a `LinkedHashMap`). Use `ActiveEntity<E>` (from ktorm-vaadin) to get `save()` / `create()` / `delete()` instance methods. Define a `Table<E>` object alongside each entity. Run queries inside `db { database.sequenceOf(Foos)...  }` blocks — `db { }` wraps `useTransaction` and exposes `database` + `transaction` on a `KtormContext` receiver.
-
-Session-scoped state goes on the `Session` object via `getOrPut { … }` extension properties (see `vok-framework/README.md` "Support for Session"); don't introduce a DI framework to solve this.
-
-## Library version checks
-
-When bumping a dependency in `gradle/libs.versions.toml`, verify the latest GA on Maven Central via the `maven-tools` MCP — training data lags reality. Notable pins that intentionally lag and should NOT be auto-bumped without thought:
-
-- **Javalin is pinned to 5.6.3** (`libs.javalin`). Javalin 7 is now out and supports Jetty 12 (vaadin-boot itself moved to 7.2.0), so this pin can be revisited — but the bump is unrelated to the Vaadin 25 work and was deferred. The catalog comment still references the old "wait for Javalin 7" rationale.
-- **Jetty** is on the `ee10` artifacts (`jetty-ee10-webapp`, `jetty-ee10-websocket-jakarta-server`) — match the `ee10` namespace when editing. Vaadin 25.1 still works on Jakarta EE 10 (Servlet 6.x), so we have not moved to `ee11`.
-- **Karibu-Testing** artifact id is `karibu-testing-v24` despite the name (a historical holdover); versions 2.6.x+ support Vaadin 25. Do not switch the artifact id to a non-existent `karibu-testing-v25` — it does not exist on Maven Central as of this writing.
-- **`ktorm-vaadin` is at 0.1** (single-maintainer, the same author as the VoK example app `mvysny/beverage-buddy-ktorm`). Brings ktorm-core 4.1.1, ktorm-support-postgresql (only for `ilike`, which happens to work on H2 too), and Hibernate-Validator 9 (required for validating interface-backed entity getters) transitively.
+Loaded every turn; cap 34 KB, a module's own `AGENTS.md` 10 KB. Over it, in this order:
+delete what has no home — status, history, class lists, what the code already says; trim
+each line to its fact plus one clause and send the explanation home — why →
+`design/decisions.md`, how across symbols → `design/architecture.md`, how in one symbol →
+its doc comment, what upstream does → `design/research.md`; only then a module's own
+`AGENTS.md`, peripheral modules first, never the core. Never paraphrase a lazy entry into a
+line here. `design/verify_design_tripwires.sh` checks the caps and the cites.
 
 ---
 > Source: [mvysny/vaadin-on-kotlin](https://github.com/mvysny/vaadin-on-kotlin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
