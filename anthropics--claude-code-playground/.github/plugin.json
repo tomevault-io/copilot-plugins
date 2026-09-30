@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--claude-code-playground",
+  "displayName": "claude-code-playground",
+  "description": "claude-code-playground",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/claude-code-playground",
+  "skills": []
+}
