@@ -3,7 +3,7 @@
   "owner": "pinpoint-apm",
   "repo": "pinpoint",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,69 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/qa-pr/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/qa-pr/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/mvn-web/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/mvn-web/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/write-test/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/write-test/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/create-page/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/create-page/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/review-code/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/review-code/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/create-api-hook/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/create-api-hook/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/add-translation/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/add-translation/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/create-component/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/create-component/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/apply-review/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/apply-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pinpoint",
-      "path": "web-frontend/src/main/v3/.claude/skills/merge-check/SKILL.md",
-      "github_url": "https://github.com/pinpoint-apm/pinpoint/tree/main/web-frontend/src/main/v3/.claude/skills/merge-check/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/pinpoint-apm/pinpoint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T02:31:39Z"
+  "distributed_at": "2026-09-30T04:00:20Z"
 }
