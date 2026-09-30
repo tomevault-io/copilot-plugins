@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [openshift/microshift](https://github.com/opensh
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [openshift/microshift](https://github.com/openshift/microshift) — a repo with 835+ stars on GitHub.
+From [openshift/microshift](https://github.com/openshift/microshift) — a repo with 846+ stars on GitHub.
 
 ---
 
