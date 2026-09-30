@@ -1,0 +1,117 @@
+{
+  "name": "AgodaAnalyzers",
+  "owner": "agoda-com",
+  "repo": "AgodaAnalyzers",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-rule-design/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-rule-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-analyzer-scope/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-analyzer-scope/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-analyzer-testing/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-analyzer-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-analyzer-packaging/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-analyzer-packaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-rule-documentation/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-rule-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-analyzer-performance/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-analyzer-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-syntax-shape-coverage/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-syntax-shape-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-symbol-based-detection/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-symbol-based-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-real-codebase-validation/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-real-codebase-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-codefix-fix-all-and-parity/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-codefix-fix-all-and-parity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-codefix-syntax-construction/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-codefix-syntax-construction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgodaAnalyzers",
+      "path": ".claude/skills/roslyn-codefix-semantic-preservation/SKILL.md",
+      "github_url": "https://github.com/agoda-com/AgodaAnalyzers/tree/main/.claude/skills/roslyn-codefix-semantic-preservation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agoda-com/AgodaAnalyzers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:47:02Z"
+}
