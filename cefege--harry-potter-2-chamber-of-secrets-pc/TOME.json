@@ -4,7 +4,7 @@
   "repo": "harry-potter-2-chamber-of-secrets-pc",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cefege/harry-potter-2-chamber-of-secrets-pc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T02:38:01Z"
+  "distributed_at": "2026-09-30T07:18:02Z"
 }
