@@ -2,7 +2,7 @@
 
 > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -97,4 +97,4 @@ DNN tests require pre-downloaded models. Run `devenv shell -- download-models` b
 
 ---
 > Source: [ryoppippi/zigcv](https://github.com/ryoppippi/zigcv) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
