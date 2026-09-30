@@ -39,4 +39,4 @@ pnpm fmt        # Run oxfmt formatter
 
 ---
 > Source: [oxc-project/playground](https://github.com/oxc-project/playground) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
