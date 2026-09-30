@@ -1,0 +1,109 @@
+## ekonlpy
+
+> Korean NLP library for economic analysis: it extends the KoNLPy `Mecab` tagger so economic terms,
+
+# eKoNLPy
+
+Korean NLP library for economic analysis: it extends the KoNLPy `Mecab` tagger so economic terms,
+financial institutions, and company names are treated as single nouns, and adds sentiment scoring
+for monetary policy text (hawkish or dovish). Package `ekonlpy`, sources under `src/ekonlpy/`.
+
+`README.md` and the docs site (https://ekonlpy.entelecheia.ai) carry the usage detail. This file
+covers what an agent needs before its first commit.
+
+## Commands
+
+- Install: `make install` (uv sync, then installs the pre-commit hooks)
+- Check: `make check` (lock-file consistency, `pre-commit run -a`, `deptry .`)
+- Test: `make test` (pytest with coverage, writes `tests/pytest.xml` and `coverage.xml`)
+- Build: `make build` (wheel via hatch), Docs: `make docs-test` (strict mkdocs build), `make docs`
+- Bare `make` prints the target list (`.DEFAULT_GOAL := help`).
+
+## Verifying your work
+
+```bash
+make check && make test
+```
+
+- **Run both before reporting a task complete, and paste the output.** Run `make install` first in a
+  fresh clone, or the hooks `make check` invokes are not present.
+- Make recipes use Bash; the test recipe explicitly enables `pipefail` (also on macOS Make 3.81).
+  A failing pytest run must fail `make test` while still
+  writing the coverage log. Windows contributors can use Git Bash for Make commands.
+- When a test fails, fix the code, not the test. Do not weaken a gate to make a run pass.
+- CI runs on every PR and on master pushes changing source, tests, dependency metadata, Makefile,
+  Python pin, hooks, or the test workflow. It tests Python 3.12-3.14 on Linux/macOS/Windows
+  and 3.9-3.11 on Linux, including installed wheel tests outside the checkout. The Linux 3.14
+  job also tests the sdist. Quality checks run separately on 3.12.
+- Minimal test setup: `uv sync --no-default-groups --group test`; then
+  `UV_NO_SYNC=true make test`. Set `UV_PYTHON` to override the development interpreter in CI.
+
+## Code navigation (ripwire)
+
+[ripwire](https://github.com/redhat-et/ripwire) is an optional local CLI for call-graph questions;
+query it before reading whole files. It is not installed in CI and is not a gate.
+
+```bash
+ripwire . --for="<the change in words>"    # entry points for a task
+ripwire . --impact=SYM                     # blast radius before editing SYM
+ripwire . --situ                           # tests to run for the files you changed
+ripwire . --quality-delta --legend=compact # what your change made worse; run before calling it done
+ripwire src --clones --legend=compact      # duplication, concentrated in src/ekonlpy/sentiment/
+```
+
+- **`--quality-delta` complements `make check && make test`, it does not replace them.** Fix its
+  `duplication` and `complexity` findings. Its `dead-code` rows on `test_*` functions (pytest calls
+  them, the graph cannot see that) and `short-horizon-churn` rows (a git-history signal on recently
+  edited files) are not actionable.
+- **The data files are invisible to the graph.** The 35 `.txt` dictionaries and lexicons and
+  `src/ekonlpy/data/model/MPKC.nbc` are unindexed, and `src/ekonlpy/data/lexicon/LM.csv` is skipped as oversize. Tags,
+  synonyms, lemmas, and vocabularies drive tagger and sentiment behavior, so an empty `--impact`
+  does not mean a dictionary edit is safe; run the tests.
+- **`pos` and `parse` are ambiguous names.** `tag/_mecab.py::Mecab`, `mecab/_mecab.py::Mecab`, and
+  `base/base.py::BaseMecab` all define them, so bare-name queries are split or declined. Use the
+  full id, e.g. `--callers='src/ekonlpy/tag/_mecab.py::Mecab::pos'`.
+
+## Conventions
+
+- Python 3.12 is pinned for development (`.python-version`); the package supports >=3.9,<4.0, and
+  ruff targets py39, so do not use syntax newer than 3.9 in shipped code. Line length 120.
+- Commit messages are gated: the commitizen `commit-msg` pre-commit hook rejects anything that is
+  not a conventional commit.
+- Versioning is automated with python-semantic-release; do not bump versions by hand.
+- Tooling is **configured but not all wired into a gate**. `pyproject.toml` holds settings for ruff
+  (including bandit `S` rules), black, isort, flake8, mypy, deptry, and coverage, yet `make check`
+  runs only the lock check, the configured pre-commit hooks, and `deptry`. The pre-commit hooks are
+  pygrep checks, whitespace and end-of-file fixers scoped to Python, YAML/JSON/large-file checks,
+  and the commitizen `commit-msg` gate. Run the formatters and linters yourself (`uv run ruff check
+  .`, `uv run black --check .`, `uv run mypy src`) or through the `.tasks.toml` poe tasks; nothing
+  else will.
+
+## Things the agent gets wrong
+
+- **`src/ekonlpy/_version.py` is generated** by semantic-release (`version_variables` in
+  `pyproject.toml`). black and isort exclude it and flake8 carries a `W292` per-file ignore for it.
+  Never hand-edit it.
+- **The lock file is local, not committed**: `uv.lock` is gitignored and generated by `make install`
+  (`uv sync`). `make check` starts with `uv lock --locked`, which fails when the generated lock no
+  longer matches `pyproject.toml`, so re-run `uv lock` (or `make install`) after editing
+  dependencies. There is nothing to stage for it.
+- **`deptry` flags dependency drift**: an import that is not a declared dependency, or a declared
+  dependency nothing imports, fails the gate.
+- **pre-commit is `fail_fast`**: the first failing hook stops the run, so fix hooks in order rather
+  than assuming one failure is the only one.
+- **Tests live in `tests/ekonlpy/`** and `testpaths = ["tests"]`; flake8 excludes `tests`, and ruff
+  keeps its rules there minus four per-file ignores: `S101`, `UP035`, `UP006`, `S603`.
+- **Tagger behavior changed in 2.0.0**: the extended tagger is the default and `Mecab` is importable
+  from `ekonlpy` directly; `use_original_tagger=True` restores the original path, and `Mecab.pos()`
+  takes `text`, not `phrase`. Changing tagger defaults is user-visible and needs a test.
+- **The dictionary is a dependency, not vendored**: `mecab-ko-dic` and `fugashi` supply it, so a
+  tagging difference across machines is usually a dependency version difference.
+
+---
+
+Contract and update rule for this file: `_meta/rules/development-lifecycle.md` §6 in the workspace
+repo. When the same mistake appears twice, add the correction here in the same PR.
+
+---
+> Source: [entelecheia/eKoNLPy](https://github.com/entelecheia/eKoNLPy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
