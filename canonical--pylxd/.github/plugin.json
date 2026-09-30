@@ -1,0 +1,9 @@
+{
+  "name": "canonical--pylxd",
+  "displayName": "pylxd",
+  "description": "pylxd",
+  "version": "1.0.0",
+  "author": "canonical",
+  "homepage": "https://github.com/canonical/pylxd",
+  "skills": []
+}
