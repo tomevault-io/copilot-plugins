@@ -1,0 +1,81 @@
+{
+  "name": "Paxeer-X-Network",
+  "owner": "Sidiora-Labs",
+  "repo": "Paxeer-X-Network",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Paxeer-X-Network",
+      "path": ".agents/skills/codify-workflow/SKILL.md",
+      "github_url": "https://github.com/Sidiora-Labs/Paxeer-X-Network/tree/main/.agents/skills/codify-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Paxeer-X-Network",
+      "path": "explorer/frontend/.cursor/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/Sidiora-Labs/Paxeer-X-Network/tree/main/explorer/frontend/.cursor/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Paxeer-X-Network",
+      "path": "explorer/frontend/.cursor/skills/deploy-demo/SKILL.md",
+      "github_url": "https://github.com/Sidiora-Labs/Paxeer-X-Network/tree/main/explorer/frontend/.cursor/skills/deploy-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Paxeer-X-Network",
+      "path": "explorer/frontend/.cursor/skills/prepare-release/SKILL.md",
+      "github_url": "https://github.com/Sidiora-Labs/Paxeer-X-Network/tree/main/explorer/frontend/.cursor/skills/prepare-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Paxeer-X-Network",
+      "path": "explorer/frontend/.cursor/skills/check-github-cli/SKILL.md",
+      "github_url": "https://github.com/Sidiora-Labs/Paxeer-X-Network/tree/main/explorer/frontend/.cursor/skills/check-github-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Paxeer-X-Network",
+      "path": "explorer/frontend/.cursor/skills/get-checks-status/SKILL.md",
+      "github_url": "https://github.com/Sidiora-Labs/Paxeer-X-Network/tree/main/explorer/frontend/.cursor/skills/get-checks-status/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Sidiora-Labs/Paxeer-X-Network",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T09:46:22Z"
+}
