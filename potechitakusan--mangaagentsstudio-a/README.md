@@ -2,8 +2,6 @@
 
 > Sourced from [potechitakusan/MangaAgentsStudio-A](https://github.com/potechitakusan/MangaAgentsStudio-A), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
-The "A" in the repository name stands for "Astra."
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
