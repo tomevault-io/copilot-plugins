@@ -1,0 +1,9 @@
+{
+  "name": "appium--dotnet-client",
+  "displayName": "dotnet-client",
+  "description": "dotnet-client",
+  "version": "1.0.0",
+  "author": "appium",
+  "homepage": "https://github.com/appium/dotnet-client",
+  "skills": []
+}
