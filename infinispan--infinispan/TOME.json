@@ -4,7 +4,7 @@
   "repo": "infinispan",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/infinispan/infinispan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T23:45:47Z"
+  "distributed_at": "2026-09-30T10:21:29Z"
 }
