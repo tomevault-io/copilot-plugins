@@ -1,0 +1,9 @@
+{
+  "name": "openwrt-iac--uapi",
+  "displayName": "uapi",
+  "description": "Native HTTP REST API for OpenWrt, designed as the backend for a Terraform provider",
+  "version": "1.0.0",
+  "author": "openwrt-iac",
+  "homepage": "https://github.com/openwrt-iac/uapi",
+  "skills": []
+}
