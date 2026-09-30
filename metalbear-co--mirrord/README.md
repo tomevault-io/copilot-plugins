@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [metalbear-co/mirrord](https://github.com/metalb
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [metalbear-co/mirrord](https://github.com/metalbear-co/mirrord) — a repo with 5324+ stars on GitHub.
+From [metalbear-co/mirrord](https://github.com/metalbear-co/mirrord) — a repo with 5346+ stars on GitHub.
 
 ---
 
