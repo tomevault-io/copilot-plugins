@@ -15,11 +15,7 @@ Original source: `AGENTS.md` in [esengine/DeepSeek-Reasonix](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix/tree/main/internal/skill/builtincontent/reasonix-guide/SKILL.md)
-
-From [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix) — a repo with 0+ stars on GitHub.
+From [esengine/DeepSeek-Reasonix](https://github.com/esengine/DeepSeek-Reasonix) — a repo with 35718+ stars on GitHub.
 
 ---
 
