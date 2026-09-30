@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "wandercom",
   "homepage": "https://github.com/wandercom/pact",
-  "skills": []
+  "skills": [
+    {
+      "name": "pact",
+      "description": ""
+    },
+    {
+      "name": "pact",
+      "description": ""
+    }
+  ]
 }
