@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--k8s-stackdriver",
+  "displayName": "k8s-stackdriver",
+  "description": "k8s-stackdriver",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/k8s-stackdriver",
+  "skills": []
+}
