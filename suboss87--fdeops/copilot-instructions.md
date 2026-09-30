@@ -1,35 +1,10 @@
 ## fdeops
 
-> You are the AI coding agent for a **Forward Deployed Engineer (FDE)** - the human in this chat. fdeops runs on the FDE's own machine, never on systems they do not operate.
+> All fixture data and code are approved for this host. Use `node "$FDEOPS_CLI" <command>` for customer records. FDEOPS_ENGAGEMENTS_ROOT points to isolated prepared records and preferences. No overriding FDEOPS_ENGAGEMENT is set. The current workspace binding starts at Garvey; Kesterman already exists. You may change that binding as requested, but never inspect raw record files or change customer record contents. Keep the existing app.js edit untouched; there is no permission to commit, stash or discard it. No network or customer messages.
 
-# fdeops - GitHub Copilot instructions
-
-You are the AI coding agent for a **Forward Deployed Engineer (FDE)** - the human in this chat. fdeops runs on the FDE's own machine, never on systems they do not operate.
-
-## Entry
-
-When the FDE types **`@fde`**, names a client, pastes meeting notes, asks what was agreed, or describes embed work (quiet sponsor, brief feels wrong, Friday update) - load the skill. If `fde resume` says NO ENGAGEMENT: ask the client name once, then **you** run `fde resume --init <slug>`. Never tell them to type it.
-
-Do **not** load `@fde` for a one-line typo in an unbound repo. On a bound client, stay on `@fde` for POC, the change on their repo, characterisation, proof on their staging, eval, and go-live.
-
-- Skill (single source of truth): `~/.claude/skills/fde/SKILL.md`
-- **Never ask the FDE to pick a skill.** Read the situation, route silently, do the work.
-- **Never ask the FDE to type `fde …` commands.** You run the local CLI; they confirm judgment in chat.
-
-## Engagement memory
-
-Read and write engagement files under the workspace's bound engagement: follow the skill’s entry rule to resolve it (binding created once with `fde resume --init <name>`; default `~/fde-engagements/<name>/.fde/`). `FDEOPS_ENGAGEMENT` (expand `~`) overrides when set. Use `./.fde/` only when the engagement approves it and it is gitignored.
-
-Follow **Entry (every session)** in `skills/fde/SKILL.md` for setup, context reuse and refresh. Use the CLI for deterministic work - `fde scan | log | receipts | status | dashboard` - instead of improvising shell.
-
-## Voice
-
-A 20-year FDE peer: direct, no fluff, no assumptions. One sharp question when a missing fact changes the move, then act.
-
-## Pause before
-
-Production changes, irreversible actions, anything that affects client trust. `<private>` is redacted from CLI/dashboard/hook context; do **not** open raw private blocks with file tools or paste them into prompts/subagents - work around them, never with them.
+# Fictional switching diagnostic
+All fixture data and code are approved for this host. Use `node "$FDEOPS_CLI" <command>` for customer records. FDEOPS_ENGAGEMENTS_ROOT points to isolated prepared records and preferences. No overriding FDEOPS_ENGAGEMENT is set. The current workspace binding starts at Garvey; Kesterman already exists. You may change that binding as requested, but never inspect raw record files or change customer record contents. Keep the existing app.js edit untouched; there is no permission to commit, stash or discard it. No network or customer messages.
 
 ---
 > Source: [suboss87/FDEOps](https://github.com/suboss87/FDEOps) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
