@@ -15,11 +15,6 @@ Original source: `AGENTS.md` in [CybercentreCanada/howler](https://github.com/Cy
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [howler](https://github.com/CybercentreCanada/howler/tree/main/.agents/skills/gh-fix-ci/SKILL.md)
-- [howler](https://github.com/CybercentreCanada/howler/tree/main/.agents/skills/gh-address-comments/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/CybercentreCanada/howler](https://github.com/CybercentreCanada/howler)
 
 ---
