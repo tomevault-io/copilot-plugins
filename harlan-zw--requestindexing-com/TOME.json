@@ -1,0 +1,69 @@
+{
+  "name": "requestindexing.com",
+  "owner": "harlan-zw",
+  "repo": "requestindexing.com",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "requestindexing.com",
+      "path": ".claude/skills/nuxt-skilld/SKILL.md",
+      "github_url": "https://github.com/harlan-zw/requestindexing.com/tree/main/.claude/skills/nuxt-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "requestindexing.com",
+      "path": ".claude/skills/nuxt-ui-skilld/SKILL.md",
+      "github_url": "https://github.com/harlan-zw/requestindexing.com/tree/main/.claude/skills/nuxt-ui-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "requestindexing.com",
+      "path": ".claude/skills/nuxt-og-image-skilld/SKILL.md",
+      "github_url": "https://github.com/harlan-zw/requestindexing.com/tree/main/.claude/skills/nuxt-og-image-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "requestindexing.com",
+      "path": ".claude/skills/nuxt-auth-utils-skilld/SKILL.md",
+      "github_url": "https://github.com/harlan-zw/requestindexing.com/tree/main/.claude/skills/nuxt-auth-utils-skilld/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/harlan-zw/requestindexing.com",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T09:45:04Z"
+}
