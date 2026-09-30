@@ -1,0 +1,9 @@
+{
+  "name": "midudev--mcp-higgsfield-landing",
+  "displayName": "mcp-higgsfield-landing",
+  "description": "Landing de Arko, restaurante nikkei de Barcelona: un paseo en v\u00eddeo por el local al hacer scroll, generado con Higgsfield MCP y Claude Code. Astro, GSAP, Lenis y Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "midudev",
+  "homepage": "https://github.com/midudev/mcp-higgsfield-landing",
+  "skills": []
+}
