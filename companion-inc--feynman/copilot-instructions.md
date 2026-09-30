@@ -30,6 +30,36 @@ Keep this file focused on cross-agent repo conventions:
 
 Do **not** restate per-agent prompt text here unless there is a repo-wide constraint that applies to all agents.
 
+## Feature scope
+
+Feynman must stay simple yet potent. It is an AI researcher, not a bundle of adjacent productivity workflows.
+
+Every new feature must fight for its life before implementation. Keep or add a feature only when it directly improves at least one core research job:
+
+- discovering relevant papers, code, datasets, or prior art
+- reading, extracting, and understanding paper content
+- ranking evidence, methods, reproducibility, or citation structure
+- verifying claims against sources, code, data, or experiments
+- planning or running reproductions and research experiments
+- synthesizing research into auditable artifacts
+- visualizing research structure when the visualization changes a research decision
+- improving speed, observability, provenance, or reliability of the research loop
+
+Reject adjacent product lanes by default. Funding, proposal, sales, admin, generic writing, and project-management workflows do not belong in Feynman unless the user explicitly scopes them as support for a specific active research run.
+
+Before adding a command, prompt, tool, extension, dashboard, document page, or release-note item, state the core research job it serves and the smallest existing surface that can absorb it. If the value is not concrete and testable, do not add it.
+
+## Pi runtime changes
+
+- Feynman wraps Pi. Before changing telemetry, tools, extensions, runtime package setup, model/prompt handoff, or child-process env, read the installed Pi package version, `node_modules/@earendil-works/pi-coding-agent/docs/`, and the matching runtime source.
+- Before writing a local Pi extension or tool shim, search Pi package docs plus npm/GitHub for an existing Pi extension or plugin; use the existing package, patch it, or record why it fails before adding a Feynman-owned implementation.
+- Treat parent CLI wiring as incomplete until the actual Pi launch path is verified: check `src/pi/launch.ts`, `src/pi/runtime.ts`, the package `pi` manifest, the `packages` entries `ensureFeynmanSettings` writes, and every extension those packages load. `node scripts/check-pi-rpc.mjs` boots the CLI in RPC mode and checks what loaded.
+- For observability changes, verify session/agent/tool lifecycle coverage inside Pi itself and keep prompts, tool arguments, paper text, and file paths out of emitted telemetry.
+
+## Docs parity
+
+- For user-visible changes, completion includes public-facing docs parity: update `README.md`, `RELEASES.md`, `metadata/commands.mjs`, and the `website/` docs/pages when they describe the changed command, setup flow, tool, or runtime state. `CHANGELOG.md` and plan files are internal trackers only.
+
 ## Output conventions
 
 - Research outputs go in `outputs/`.
@@ -58,7 +88,7 @@ Never use generic names like `research.md`, `draft.md`, `brief.md`, or `summary.
 
 ## Workspace changelog
 
-- `CHANGELOG.md` is a lab notebook, not release notes.
+- `CHANGELOG.md` is a local, untracked lab notebook (ignored by git), not release notes. Release notes live in `RELEASES.md`.
 - Read `CHANGELOG.md` before resuming substantial work when it exists.
 - Append concise entries after meaningful progress, failed approaches, major verification results, or new blockers.
 - Each entry should identify the active slug or objective and end with the next recommended step.
@@ -83,5 +113,5 @@ Never use generic names like `research.md`, `draft.md`, `brief.md`, or `summary.
 - For critical claims, require at least one adversarial verification pass after synthesis. Fix fatal issues before delivery or surface them explicitly.
 
 ---
-> Source: [companion-inc/feynman](https://github.com/companion-inc/feynman) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-11 -->
+> Source: [Companion-Inc/feynman](https://github.com/Companion-Inc/feynman) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
