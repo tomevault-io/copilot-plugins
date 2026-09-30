@@ -1,7 +1,7 @@
 {
   "name": "pepe-agent--pepe",
   "displayName": "pepe",
-  "description": "An Elixir/OTP AI agent runtime: define agents, connect any OpenAI-compatible model, and run a tool-calling loop. CLI, HTTP API, web dashboard, Telegram, WhatsApp.",
+  "description": "pepe",
   "version": "1.0.0",
   "author": "pepe-agent",
   "homepage": "https://github.com/pepe-agent/pepe",
