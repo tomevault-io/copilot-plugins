@@ -1,0 +1,9 @@
+{
+  "name": "mynamescrax--il2csharp",
+  "displayName": "il2csharp",
+  "description": "IL2CPP to C# decompiler: global-metadata.dat + GameAssembly.dll in, a real source tree out, every method body lifted from native x64.",
+  "version": "1.0.0",
+  "author": "mynamescrax",
+  "homepage": "https://github.com/mynamescrax/il2csharp",
+  "skills": []
+}
