@@ -1,0 +1,57 @@
+{
+  "name": "design-services-standard-agreement",
+  "owner": "studionaeo",
+  "repo": "design-services-standard-agreement",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "design-services-standard-agreement",
+      "path": "xhs-tools/minitool-zip-builder/SKILL.md",
+      "github_url": "https://github.com/studionaeo/design-services-standard-agreement/tree/main/xhs-tools/minitool-zip-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-services-standard-agreement",
+      "path": ".agents/skills/design-services-standard-agreement/SKILL.md",
+      "github_url": "https://github.com/studionaeo/design-services-standard-agreement/tree/main/.agents/skills/design-services-standard-agreement/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/studionaeo/design-services-standard-agreement",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T09:51:58Z"
+}
