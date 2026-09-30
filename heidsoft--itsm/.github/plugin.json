@@ -1,7 +1,7 @@
 {
   "name": "heidsoft--itsm",
   "displayName": "itsm",
-  "description": "Enterprise IT Service Management Platform built with Go/Gin and Next.js",
+  "description": "itsm",
   "version": "1.0.0",
   "author": "heidsoft",
   "homepage": "https://github.com/heidsoft/itsm",
@@ -20,6 +20,118 @@
     },
     {
       "name": "frontend-maintenance",
+      "description": ""
+    },
+    {
+      "name": "frontend-testing-guide",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "description": ""
+    },
+    {
+      "name": "itsm",
       "description": ""
     }
   ]
