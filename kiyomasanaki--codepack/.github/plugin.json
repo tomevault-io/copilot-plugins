@@ -1,0 +1,9 @@
+{
+  "name": "kiyomasanaki--codepack",
+  "displayName": "codepack",
+  "description": "CLI tool to extract folder structure and file contents with a directory excluded possibility",
+  "version": "1.0.0",
+  "author": "kiyomasanaki",
+  "homepage": "https://github.com/kiyomasanaki/codepack",
+  "skills": []
+}
