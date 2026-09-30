@@ -1,0 +1,14 @@
+{
+  "name": "teoslayer--shell-online",
+  "displayName": "shell.online",
+  "description": "shell.online",
+  "version": "1.0.0",
+  "author": "TeoSlayer",
+  "homepage": "https://github.com/TeoSlayer/shell.online",
+  "skills": [
+    {
+      "name": "shell.online",
+      "description": ""
+    }
+  ]
+}
