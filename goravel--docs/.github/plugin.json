@@ -1,0 +1,14 @@
+{
+  "name": "goravel--docs",
+  "displayName": "docs",
+  "description": "docs",
+  "version": "1.0.0",
+  "author": "goravel",
+  "homepage": "https://github.com/goravel/docs",
+  "skills": [
+    {
+      "name": "docs",
+      "description": ""
+    }
+  ]
+}
