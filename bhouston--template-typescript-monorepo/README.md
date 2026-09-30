@@ -1,0 +1,28 @@
+# template-typescript-monorepo
+
+> Source: [bhouston/template-typescript-monorepo](https://github.com/bhouston/template-typescript-monorepo). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [bhouston/template-typescript-monorepo](https://github.com/bhouston/template-typescript-monorepo).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/bhouston/template-typescript-monorepo](https://github.com/bhouston/template-typescript-monorepo)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install bhouston/template-typescript-monorepo
+```
+Source: [github.com/bhouston/template-typescript-monorepo](https://github.com/bhouston/template-typescript-monorepo).
+
+<!-- genome:d-i-q -->
