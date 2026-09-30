@@ -2,9 +2,9 @@
   "name": "itsm",
   "owner": "heidsoft",
   "repo": "itsm",
-  "description": "Enterprise IT Service Management Platform built with Go/Gin and Next.js",
+  "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,177 @@
       "path": "itsm-frontend/.trae/skills/frontend-maintenance",
       "github_url": "https://github.com/heidsoft/itsm/tree/main/itsm-frontend/.trae/skills/frontend-maintenance",
       "description": ""
+    },
+    {
+      "name": "frontend-testing-guide",
+      "path": ".trae/skills/frontend-testing-guide",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/frontend-testing-guide",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/frontend-ci-fix/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/frontend-ci-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/ticket-module-dev/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/ticket-module-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/itsm-backend-guide/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/itsm-backend-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/frontend-e2e-check/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/frontend-e2e-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/backend-testing-guide/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/backend-testing-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/route-and-menu-config/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/route-and-menu-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/itsm-frontend-ux-audit/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/itsm-frontend-ux-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/frontend-testing-guide/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/frontend-testing-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/ticket-lifecycle-check/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/ticket-lifecycle-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/product-roadmap-manager/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/product-roadmap-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/api-integration-testing/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/api-integration-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".trae/skills/product-feature-validation/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.trae/skills/product-feature-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": ".claude/skills/speckit-agent-context-update/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/.claude/skills/speckit-agent-context-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": "itsm-frontend/.trae/skills/frontend-audit-fix/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/itsm-frontend/.trae/skills/frontend-audit-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": "itsm-frontend/.trae/skills/env-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/itsm-frontend/.trae/skills/env-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": "itsm-frontend/.trae/skills/frontend-maintenance/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/itsm-frontend/.trae/skills/frontend-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": "itsm-frontend/.trae/skills/frontend-ui-details-fix/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/itsm-frontend/.trae/skills/frontend-ui-details-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "itsm",
+      "path": "itsm-frontend/.trae/skills/component-standardization/SKILL.md",
+      "github_url": "https://github.com/heidsoft/itsm/tree/main/itsm-frontend/.trae/skills/component-standardization/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/heidsoft/itsm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T20:30:09Z"
+  "distributed_at": "2026-09-30T23:00:25Z"
 }
