@@ -1,0 +1,14 @@
+{
+  "name": "ianalloway--solvent-agent",
+  "displayName": "solvent-agent",
+  "description": "solvent-agent",
+  "version": "1.0.0",
+  "author": "ianalloway",
+  "homepage": "https://github.com/ianalloway/solvent-agent",
+  "skills": [
+    {
+      "name": "solvent-agent",
+      "description": ""
+    }
+  ]
+}
