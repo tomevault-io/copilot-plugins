@@ -2,7 +2,7 @@
 
 > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -35,9 +35,49 @@ All three implementations share the same command interface:
 | `claude-profile create <name>` | Create a new profile |
 | `claude-profile list` | List all profiles (marks default and active) |
 | `claude-profile default [name]` | Get or set the default profile |
+| `claude-profile local [name]` | Show, set, or `--remove` the directory-local `.claude-profile` |
+| `claude-profile auto [on\|off\|status]` | Control directory-local auto-switching (sh/ps1 only) |
+| `claude-profile skills ...` | Manage the shared skill pool and per-profile selections (see below) |
 | `claude-profile which [name]` | Show the resolved config directory path |
 | `claude-profile delete <name>` | Delete a profile (with confirmation) |
 | `claude-profile help` | Show help |
+
+## Directory-Local Profiles
+
+A `.claude-profile` file (first non-empty, non-comment line = profile name) switches `CLAUDE_CONFIG_DIR` when the shell enters that directory or any descendant, and reverts on leaving. An explicit `claude-profile use` pins the session and wins until `claude-profile auto on`.
+
+The pin is tracked via an exported `CLAUDE_PROFILE_AUTO_SET` marker: auto-switching only manages `CLAUDE_CONFIG_DIR` when its value equals that marker, so anything set by hand (or inherited from outside) is left alone. Exporting it means nested shells keep auto-managing rather than treating the inherited value as manual.
+
+Directory-change hooks differ per shell: zsh `chpwd`, bash `PROMPT_COMMAND`, `cd` wrapper elsewhere; PowerShell 6+ `LocationChangedAction`, PowerShell 5.1 `prompt` wrapper. cmd.exe has no hook — a bare `call claude-profile.cmd` resolves the dotfile at invocation time instead.
+
+Because bash re-runs the resolver on every prompt, `_cp_auto_switch` short-circuits when `$PWD` is unchanged and the upward walk uses only parameter expansion (no `dirname` fork per component). That short-circuit also rate-limits the "invalid/missing profile" warnings to once per directory entry.
+
+## Per-Profile Skills
+
+A shared skill pool lives at `<data-root>/skills/` (the profile name
+`skills` is therefore reserved and rejected by validation in all three
+implementations, including the `.claude-profile` resolvers). `skills
+register <name> <path>` links a skill source directory (must contain
+`SKILL.md`) into the pool — `ln -s` on POSIX, directory junctions
+(`mklink /J`, no admin rights) on Windows including via Git Bash
+(`cmd //c mklink /J` + `cygpath -w`) so all three implementations share
+the links.
+
+Each profile may have a `skills.conf` manifest (one pool-skill name per
+line, `#` comments, same parser style as `.claude-profile`). Absent
+manifest = all pool skills (backward-compatible default); empty manifest
+= none. `skills add`/`remove` first materialize the implicit "all" list
+into `skills.conf` so edits stay sticky.
+
+Sync (`skills sync`, also run by `create` and every manifest-editing
+command) is two-pass: remove managed links that are dangling or
+undesired, then create missing ones. A link is *managed* iff its literal
+target lies under the pool directory — anything else in
+`<profile>/skills/` (hand-made symlinks, real dirs) is never touched;
+name collisions warn and the unmanaged entry wins. Sync never runs on
+`use` or the auto-switch hot path. In cmd, link targets are read by
+parsing `dir /AL` output and managed detection is an exact-target
+comparison against `<pool>\<name>`.
 
 ## Validation Rules
 
@@ -66,8 +106,8 @@ Use `git worktree` (via `.worktrees/`) for parallel branch work.
 
 ## When Modifying
 
-Any behavioral change must be applied to all three implementations (`claude-profile.sh`, `claude-profile.cmd`, `claude-profile-init.ps1`) plus updated in `README.md`. The install scripts (`install.sh`, `install.ps1`) reference `https://raw.githubusercontent.com/pegasusheavy/claude-code-profiles/main/` for download URLs.
+Any behavioral change must be applied to all three implementations (`claude-profile.sh`, `claude-profile.cmd`, `claude-profile-init.ps1`) plus updated in `README.md`. The install scripts (`install.sh`, `install.ps1`) reference `https://raw.githubusercontent.com/quinnjr/claude-code-profiles/main/` for download URLs.
 
 ---
 > Source: [quinnjr/claude-code-profiles](https://github.com/quinnjr/claude-code-profiles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
