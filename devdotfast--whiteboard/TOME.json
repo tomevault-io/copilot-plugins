@@ -1,0 +1,57 @@
+{
+  "name": "whiteboard",
+  "owner": "devdotfast",
+  "repo": "whiteboard",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "whiteboard",
+      "path": "packages/agent-plugins/pi/skills/whiteboard/SKILL.md",
+      "github_url": "https://github.com/devdotfast/whiteboard/tree/main/packages/agent-plugins/pi/skills/whiteboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "whiteboard",
+      "path": "apps/review-desktop/code-oss/.agents/skills/launch/SKILL.md",
+      "github_url": "https://github.com/devdotfast/whiteboard/tree/main/apps/review-desktop/code-oss/.agents/skills/launch/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/devdotfast/whiteboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T18:20:31Z"
+}
