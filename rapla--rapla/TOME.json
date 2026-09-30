@@ -1,0 +1,183 @@
+{
+  "name": "rapla",
+  "owner": "rapla",
+  "repo": "rapla",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rapla",
+      "path": ".agents/skills/wrap-up/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/wrap-up/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/profiling/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/profiling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/github-cli/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/github-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/oauth-flow/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/oauth-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/java-debugger/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/java-debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/git-worktrees/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/retrospective/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/retrospective/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/design-dialog/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/design-dialog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/agents-cleanup/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/agents-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/prd-management/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/prd-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/test-deployment/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/test-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/doc-coauthoring/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/doc-coauthoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/coverage-report/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/coverage-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/skill-authoring/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/skill-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/angular-frontend/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/angular-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/test-jnlp-launch/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/test-jnlp-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/server-lifecycle/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/server-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/storage-inspection/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/storage-inspection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/swing-client-launch/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/swing-client-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/testing-conventions/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/testing-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/data-leak-prevention/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/data-leak-prevention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/bulk-refactor-scripts/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/bulk-refactor-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rapla",
+      "path": ".agents/skills/rest-endpoint-creation/SKILL.md",
+      "github_url": "https://github.com/rapla/rapla/tree/main/.agents/skills/rest-endpoint-creation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rapla/rapla",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T09:34:26Z"
+}
