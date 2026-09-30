@@ -1,0 +1,22 @@
+{
+  "name": "grafana--grafana-zabbix",
+  "displayName": "grafana-zabbix",
+  "description": "grafana-zabbix",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafana-zabbix",
+  "skills": [
+    {
+      "name": "grafana-zabbix",
+      "description": ""
+    },
+    {
+      "name": "grafana-zabbix",
+      "description": ""
+    },
+    {
+      "name": "grafana-zabbix",
+      "description": ""
+    }
+  ]
+}
