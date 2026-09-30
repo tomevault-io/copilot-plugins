@@ -5,15 +5,20 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wandercom/pact](https://github.com/wandercom/pact).
+Original source: `CLAUDE.md` in [wandercom/pact](https://github.com/wandercom/pact).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (2)
+
+- [pact](https://github.com/wandercom/pact/tree/main/skills/simulacrum/SKILL.md)
+- [pact](https://github.com/wandercom/pact/tree/main/skills/pact-engineer/SKILL.md)
 
 From [wandercom/pact](https://github.com/wandercom/pact) — a repo with 165+ stars on GitHub.
 
