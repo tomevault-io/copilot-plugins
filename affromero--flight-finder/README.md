@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [affromero/flight-finder](https://github.com/aff
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [affromero/flight-finder](https://github.com/affromero/flight-finder) — a repo with 115+ stars on GitHub.
+From [affromero/flight-finder](https://github.com/affromero/flight-finder) — a repo with 162+ stars on GitHub.
 
 ---
 
