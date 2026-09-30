@@ -1,0 +1,394 @@
+{
+  "name": "context-labs--whip",
+  "displayName": "whip",
+  "description": "whip",
+  "version": "1.0.0",
+  "author": "context-labs",
+  "homepage": "https://github.com/context-labs/whip",
+  "skills": [
+    {
+      "name": "golang-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "golang-spf13-cobra",
+      "description": ""
+    },
+    {
+      "name": "golang-continuous-integration",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-do",
+      "description": ""
+    },
+    {
+      "name": "golang-cli",
+      "description": ""
+    },
+    {
+      "name": "golang-dependency-management",
+      "description": ""
+    },
+    {
+      "name": "golang-naming",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-oops",
+      "description": ""
+    },
+    {
+      "name": "golang-testing",
+      "description": ""
+    },
+    {
+      "name": "golang-database",
+      "description": ""
+    },
+    {
+      "name": "golang-modernize",
+      "description": ""
+    },
+    {
+      "name": "golang-observability",
+      "description": ""
+    },
+    {
+      "name": "golang-context",
+      "description": ""
+    },
+    {
+      "name": "golang-dependency-injection",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-ro",
+      "description": ""
+    },
+    {
+      "name": "golang-stretchr-testify",
+      "description": ""
+    },
+    {
+      "name": "golang-swagger",
+      "description": ""
+    },
+    {
+      "name": "golang-benchmark",
+      "description": ""
+    },
+    {
+      "name": "golang-grpc",
+      "description": ""
+    },
+    {
+      "name": "golang-pkg-go-dev",
+      "description": ""
+    },
+    {
+      "name": "golang-security",
+      "description": ""
+    },
+    {
+      "name": "golang-structs-interfaces",
+      "description": ""
+    },
+    {
+      "name": "golang-graphql",
+      "description": ""
+    },
+    {
+      "name": "golang-uber-dig",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-lo",
+      "description": ""
+    },
+    {
+      "name": "golang-documentation",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-mo",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-hot",
+      "description": ""
+    },
+    {
+      "name": "golang-concurrency",
+      "description": ""
+    },
+    {
+      "name": "golang-how-to",
+      "description": ""
+    },
+    {
+      "name": "golang-project-layout",
+      "description": ""
+    },
+    {
+      "name": "golang-refactoring",
+      "description": ""
+    },
+    {
+      "name": "golang-safety",
+      "description": ""
+    },
+    {
+      "name": "golang-samber-slog",
+      "description": ""
+    },
+    {
+      "name": "golang-lint",
+      "description": ""
+    },
+    {
+      "name": "golang-code-style",
+      "description": ""
+    },
+    {
+      "name": "golang-uber-fx",
+      "description": ""
+    },
+    {
+      "name": "golang-performance",
+      "description": ""
+    },
+    {
+      "name": "golang-google-wire",
+      "description": ""
+    },
+    {
+      "name": "golang-error-handling",
+      "description": ""
+    },
+    {
+      "name": "golang-data-structures",
+      "description": ""
+    },
+    {
+      "name": "golang-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "golang-spf13-viper",
+      "description": ""
+    },
+    {
+      "name": "golang-gopls",
+      "description": ""
+    },
+    {
+      "name": "new-feature-development",
+      "description": ""
+    },
+    {
+      "name": "golang-popular-libraries",
+      "description": ""
+    },
+    {
+      "name": "golang-stay-updated",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    },
+    {
+      "name": "whip",
+      "description": ""
+    }
+  ]
+}
