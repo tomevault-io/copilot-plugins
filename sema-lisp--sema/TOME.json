@@ -2,7 +2,7 @@
   "name": "sema",
   "owner": "sema-lisp",
   "repo": "sema",
-  "description": "A Lisp with first-class LLM primitives, implemented in Rust",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sema-lisp/sema",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T12:32:11Z"
+  "distributed_at": "2026-09-30T05:49:39Z"
 }
