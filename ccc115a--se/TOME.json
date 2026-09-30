@@ -1,0 +1,69 @@
+{
+  "name": "se",
+  "owner": "ccc115a",
+  "repo": "se",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "se",
+      "path": "05-agent/Skill.md",
+      "github_url": "https://github.com/ccc115a/se/tree/main/05-agent/Skill.md",
+      "description": ""
+    },
+    {
+      "name": "se",
+      "path": "_more/refbook/opencode.school/.opencode/skills/school-analytics/SKILL.md",
+      "github_url": "https://github.com/ccc115a/se/tree/main/_more/refbook/opencode.school/.opencode/skills/school-analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "se",
+      "path": "_more/code/agent/_more/_bak/v2-agent-claude/agent2context_claude/SKILL.md",
+      "github_url": "https://github.com/ccc115a/se/tree/main/_more/code/agent/_more/_bak/v2-agent-claude/agent2context_claude/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "se",
+      "path": "_more/code/agent/_more/_bak/v2-agent-claude/agent2context_claude/memory/skills/system_info/SKILL.md",
+      "github_url": "https://github.com/ccc115a/se/tree/main/_more/code/agent/_more/_bak/v2-agent-claude/agent2context_claude/memory/skills/system_info/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ccc115a/se",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:59:24Z"
+}
