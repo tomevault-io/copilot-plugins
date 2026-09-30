@@ -2,7 +2,7 @@
   "name": "humanize",
   "owner": "humanfia",
   "repo": "humanize",
-  "description": "The agent flow system for token maxxing.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/humanfia/humanize",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-21T23:36:39Z"
+  "distributed_at": "2026-09-30T21:58:59Z"
 }
