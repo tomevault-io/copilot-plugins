@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [aristanetworks/avd](https://github.com/aristane
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [aristanetworks/avd](https://github.com/aristanetworks/avd) — a repo with 402+ stars on GitHub.
+From [aristanetworks/avd](https://github.com/aristanetworks/avd) — a repo with 415+ stars on GitHub.
 
 ---
 
