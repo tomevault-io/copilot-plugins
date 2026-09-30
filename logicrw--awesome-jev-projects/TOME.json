@@ -1,0 +1,81 @@
+{
+  "name": "awesome-jev-projects",
+  "owner": "logicrw",
+  "repo": "awesome-jev-projects",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "awesome-jev-projects",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/logicrw/awesome-jev-projects/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-jev-projects",
+      "path": "public/skill.md",
+      "github_url": "https://github.com/logicrw/awesome-jev-projects/tree/main/public/skill.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-jev-projects",
+      "path": "skills/awesome-jev/SKILL.md",
+      "github_url": "https://github.com/logicrw/awesome-jev-projects/tree/main/skills/awesome-jev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-jev-projects",
+      "path": "public/.well-known/skills/default/skill.md",
+      "github_url": "https://github.com/logicrw/awesome-jev-projects/tree/main/public/.well-known/skills/default/skill.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-jev-projects",
+      "path": "public/.well-known/skills/awesome-jev/SKILL.md",
+      "github_url": "https://github.com/logicrw/awesome-jev-projects/tree/main/public/.well-known/skills/awesome-jev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-jev-projects",
+      "path": "public/.well-known/agent-skills/awesome-jev/SKILL.md",
+      "github_url": "https://github.com/logicrw/awesome-jev-projects/tree/main/public/.well-known/agent-skills/awesome-jev/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/logicrw/awesome-jev-projects",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T11:41:45Z"
+}
