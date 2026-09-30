@@ -1,0 +1,14 @@
+{
+  "name": "opencoredev--social-sdk",
+  "displayName": "social-sdk",
+  "description": "social-sdk",
+  "version": "1.0.0",
+  "author": "opencoredev",
+  "homepage": "https://github.com/opencoredev/social-sdk",
+  "skills": [
+    {
+      "name": "social-sdk",
+      "description": ""
+    }
+  ]
+}
