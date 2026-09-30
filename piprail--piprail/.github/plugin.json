@@ -1,0 +1,9 @@
+{
+  "name": "piprail--piprail",
+  "displayName": "piprail",
+  "description": "x402 (HTTP 402 Payment Required) SDK + MCP server: let any API charge for itself and any AI agent pay for itself, USDC & stablecoins across EVM, Solana & 8 more chain families, in a couple of lines. B",
+  "version": "1.0.0",
+  "author": "piprail",
+  "homepage": "https://github.com/piprail/piprail",
+  "skills": []
+}
