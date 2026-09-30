@@ -1,0 +1,9 @@
+{
+  "name": "uwolfer--gerrit-rest-java-client",
+  "displayName": "gerrit-rest-java-client",
+  "description": "gerrit-rest-java-client",
+  "version": "1.0.0",
+  "author": "uwolfer",
+  "homepage": "https://github.com/uwolfer/gerrit-rest-java-client",
+  "skills": []
+}
