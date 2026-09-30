@@ -11,7 +11,7 @@ These guidelines ensure consistency across the Barta SMS package codebase.
 ### General Rules
 
 - Always use `declare(strict_types=1);` at the top of every PHP file
-- Use PHP 8.4+ features (constructor promotion, named arguments, readonly, etc.)
+- Use PHP 8.2+ features (constructor promotion, named arguments, readonly, etc.)
 - Follow PSR-12 coding standards (enforced by Laravel Pint)
 - Run `composer format` before committing
 
@@ -64,8 +64,8 @@ final class ClassName
 
 1. Extend `AbstractDriver`
 2. Mark as `final class`
-3. Implement `send(): ResponseData`
-4. Override `validate()` to check driver-specific config
+3. Implement `sendSms(): ResponseData`
+4. Implement `validateConfig()` to check driver-specific config
 5. Use `$this->recipients` (array) and `$this->message` (string)
 
 ### Driver Template
@@ -85,9 +85,8 @@ final class NewGatewayDriver extends AbstractDriver
 {
     private string $baseUrl = 'https://api.gateway.com';
 
-    public function send(): ResponseData
+    protected function sendSms(): ResponseData
     {
-        $this->validate();
 
         $response = Http::baseUrl($this->baseUrl)
             ->withToken($this->config['api_token'])
@@ -111,9 +110,8 @@ final class NewGatewayDriver extends AbstractDriver
         );
     }
 
-    protected function validate(): void
+    protected function validateConfig(): void
     {
-        parent::validate();
 
         if (! $this->config['api_token']) {
             throw new BartaException('Please set api_token for NewGateway in config/barta.php.');
@@ -130,12 +128,11 @@ final class NewGatewayDriver extends AbstractDriver
 
 - [ ] Extends `AbstractDriver`
 - [ ] Uses `final class`
-- [ ] Calls `$this->validate()` first in `send()`
 - [ ] Uses `implode(',', $this->recipients)` for bulk support
 - [ ] Uses `$this->timeout`, `$this->retry`, `$this->retryDelay`
-- [ ] Returns `ResponseData` object
+- [ ] Returns `ResponseData` object from `sendSms()`
 - [ ] Throws `BartaException` on API errors
-- [ ] Validates required config in `validate()`
+- [ ] Validates required config in `validateConfig()`
 - [ ] Registered in `BartaManager`
 - [ ] Config added to `config/barta.php`
 - [ ] Has comprehensive tests
@@ -272,7 +269,7 @@ throw BartaException::missingMessage();
 
 ## ResponseData Contract
 
-Always return `ResponseData` from driver's `send()`:
+Always return `ResponseData` from driver's `sendSms()`:
 
 ```php
 return new ResponseData(
@@ -296,4 +293,4 @@ Before committing:
 
 ---
 > Source: [iRaziul/barta](https://github.com/iRaziul/barta) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
