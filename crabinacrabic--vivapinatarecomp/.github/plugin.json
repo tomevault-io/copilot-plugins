@@ -1,0 +1,9 @@
+{
+  "name": "crabinacrabic--vivapinatarecomp",
+  "displayName": "VivaPinataRecomp",
+  "description": "Static recompilation of Viva Pinata (Xbox 360, 2006, 4D5307F2) with the ReXGlue SDK v0.10",
+  "version": "1.0.0",
+  "author": "crabinacrabic",
+  "homepage": "https://github.com/crabinacrabic/VivaPinataRecomp",
+  "skills": []
+}
