@@ -1,0 +1,14 @@
+{
+  "name": "lombiq--open-source-orchard-core-extensions",
+  "displayName": "Open-Source-Orchard-Core-Extensions",
+  "description": "Open-Source-Orchard-Core-Extensions",
+  "version": "1.0.0",
+  "author": "Lombiq",
+  "homepage": "https://github.com/Lombiq/Open-Source-Orchard-Core-Extensions",
+  "skills": [
+    {
+      "name": "Open-Source-Orchard-Core-Extensions",
+      "description": ""
+    }
+  ]
+}
