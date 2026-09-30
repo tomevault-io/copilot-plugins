@@ -1,0 +1,18 @@
+{
+  "name": "thinkflowlab--system1-agents",
+  "displayName": "system1-agents",
+  "description": "system1-agents",
+  "version": "1.0.0",
+  "author": "ThinkFlowLab",
+  "homepage": "https://github.com/ThinkFlowLab/system1-agents",
+  "skills": [
+    {
+      "name": "system1-agents",
+      "description": ""
+    },
+    {
+      "name": "system1-agents",
+      "description": ""
+    }
+  ]
+}
