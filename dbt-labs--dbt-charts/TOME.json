@@ -1,0 +1,189 @@
+{
+  "name": "dbt-charts",
+  "owner": "dbt-labs",
+  "repo": "dbt-charts",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/intro/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/intro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/kpi-row/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/kpi-row/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/mcp-setup/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/mcp-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/board-build/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/board-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/cloud-setup/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/cloud-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/board-design/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/board-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/board-review/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/board-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/report-design/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/report-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/troubleshooting/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/board-replicate/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/board-replicate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/drill-down-link/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/drill-down-link/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/analyst-runbook/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/analyst-runbook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/data-exploration/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/data-exploration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/time-series-trend/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/time-series-trend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/top-n-with-detail/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/top-n-with-detail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/board-visual-review/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/board-visual-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/single-metric-bignum/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/single-metric-bignum/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/board-pack-scaffolding/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/board-pack-scaffolding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/board-structural-review/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/board-structural-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/faceted-small-multiples/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/faceted-small-multiples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/before-after-comparison/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/before-after-comparison/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/two-by-two-grid-overview/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/two-by-two-grid-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/filter-bar-with-variables/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/filter-bar-with-variables/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-charts",
+      "path": "src/dbt_charts/ai/skills/table-heavy-ops-dashboard/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-charts/tree/main/src/dbt_charts/ai/skills/table-heavy-ops-dashboard/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dbt-labs/dbt-charts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T09:43:07Z"
+}
