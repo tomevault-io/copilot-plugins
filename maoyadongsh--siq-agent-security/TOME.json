@@ -1,0 +1,165 @@
+{
+  "name": "siq-agent-security",
+  "owner": "maoyadongsh",
+  "repo": "siq-agent-security",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "siq-agent-security",
+      "path": "skills/secure-report/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/skills/secure-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "skills/secure-delivery/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/skills/secure-delivery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "skills/secure-research/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/skills/secure-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "skills/siq-agent-security/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/skills/siq-agent-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "skills/siq-agent-security/evals/fixtures/frontmatter-mismatch/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/skills/siq-agent-security/evals/fixtures/frontmatter-mismatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "skills/siq-agent-security/evals/fixtures/tampered-clean-enhancer/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/skills/siq-agent-security/evals/fixtures/tampered-clean-enhancer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "skills/siq-agent-security/evals/fixtures/clean-finreport-enhancer/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/skills/siq-agent-security/evals/fixtures/clean-finreport-enhancer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "skills/siq-agent-security/evals/fixtures/toxic-finreport-enhancer/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/skills/siq-agent-security/evals/fixtures/toxic-finreport-enhancer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/internal/admission/testdata/skills/benign/pure-doc/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/internal/admission/testdata/skills/benign/pure-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/internal/admission/testdata/skills/malicious/homoglyph/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/internal/admission/testdata/skills/malicious/homoglyph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/internal/admission/testdata/skills/malicious/deception/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/internal/admission/testdata/skills/malicious/deception/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/internal/admission/testdata/skills/malicious/env-webhook/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/internal/admission/testdata/skills/malicious/env-webhook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/internal/admission/testdata/skills/benign/cred-read-only/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/internal/admission/testdata/skills/benign/cred-read-only/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/internal/admission/testdata/skills/malicious/py-env-exfil/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/internal/admission/testdata/skills/malicious/py-env-exfil/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/internal/admission/testdata/skills/malicious/docs-code-exec/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/internal/admission/testdata/skills/malicious/docs-code-exec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/evals/fixtures/frontmatter-mismatch/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/evals/fixtures/frontmatter-mismatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/evals/fixtures/tampered-clean-enhancer/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/evals/fixtures/tampered-clean-enhancer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/evals/fixtures/clean-finreport-enhancer/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/evals/fixtures/clean-finreport-enhancer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "siq-agent-security",
+      "path": "apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/evals/fixtures/toxic-finreport-enhancer/SKILL.md",
+      "github_url": "https://github.com/maoyadongsh/siq-agent-security/tree/main/apps/agentshield/testdata/releases/siq-agent-security-v0.2.0/evals/fixtures/toxic-finreport-enhancer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/maoyadongsh/siq-agent-security",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T17:53:41Z"
+}
