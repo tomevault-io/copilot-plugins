@@ -1,0 +1,9 @@
+{
+  "name": "dbt-msft--dbt-sqlserver",
+  "displayName": "dbt-sqlserver",
+  "description": "dbt-sqlserver",
+  "version": "1.0.0",
+  "author": "dbt-msft",
+  "homepage": "https://github.com/dbt-msft/dbt-sqlserver",
+  "skills": []
+}
