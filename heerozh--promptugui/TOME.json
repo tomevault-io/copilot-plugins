@@ -2,9 +2,9 @@
   "name": "PromptUGUI",
   "owner": "Heerozh",
   "repo": "PromptUGUI",
-  "description": "A solution that enables Unity 6+ uGUI development through LLM.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Heerozh/PromptUGUI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T03:05:35Z"
+  "distributed_at": "2026-09-30T02:35:31Z"
 }
