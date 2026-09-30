@@ -1,0 +1,9 @@
+{
+  "name": "kubevirt--cloud-provider-kubevirt",
+  "displayName": "cloud-provider-kubevirt",
+  "description": "cloud-provider-kubevirt",
+  "version": "1.0.0",
+  "author": "kubevirt",
+  "homepage": "https://github.com/kubevirt/cloud-provider-kubevirt",
+  "skills": []
+}
