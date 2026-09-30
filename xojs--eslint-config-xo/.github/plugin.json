@@ -1,0 +1,9 @@
+{
+  "name": "xojs--eslint-config-xo",
+  "displayName": "eslint-config-xo",
+  "description": "eslint-config-xo",
+  "version": "1.0.0",
+  "author": "xojs",
+  "homepage": "https://github.com/xojs/eslint-config-xo",
+  "skills": []
+}
