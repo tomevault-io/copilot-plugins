@@ -1,0 +1,44 @@
+{
+  "name": "llama.cpp-mirai-s",
+  "owner": "alesha-pro",
+  "repo": "llama.cpp-mirai-s",
+  "description": "llama.cpp with Mirai S (2.4-bit Qwen3.8-27B) support: 128K context on a 12 GB GPU",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alesha-pro/llama.cpp-mirai-s",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T18:40:26Z"
+}
