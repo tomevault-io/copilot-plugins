@@ -2,9 +2,9 @@
   "name": "geoscience-skills",
   "owner": "SteadfastAsArt",
   "repo": "geoscience-skills",
-  "description": "\ud83c\udf0d 30 AI-powered geoscience skills for Claude Code, Cursor & GitHub Copilot. Seismic, well logs, 3D modelling, inversion, geostatistics, spatial regression, NetCDF, and more.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SteadfastAsArt/geoscience-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T16:59:15Z"
+  "distributed_at": "2026-09-30T02:55:14Z"
 }
