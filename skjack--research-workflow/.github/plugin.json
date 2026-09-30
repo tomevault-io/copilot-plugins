@@ -1,0 +1,14 @@
+{
+  "name": "skjack--research-workflow",
+  "displayName": "research-workflow",
+  "description": "research-workflow",
+  "version": "1.0.0",
+  "author": "skJack",
+  "homepage": "https://github.com/skJack/research-workflow",
+  "skills": [
+    {
+      "name": "research-workflow",
+      "description": ""
+    }
+  ]
+}
