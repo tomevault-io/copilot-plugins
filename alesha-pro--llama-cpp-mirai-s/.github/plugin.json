@@ -1,0 +1,9 @@
+{
+  "name": "alesha-pro--llama-cpp-mirai-s",
+  "displayName": "llama.cpp-mirai-s",
+  "description": "llama.cpp with Mirai S (2.4-bit Qwen3.8-27B) support: 128K context on a 12 GB GPU",
+  "version": "1.0.0",
+  "author": "alesha-pro",
+  "homepage": "https://github.com/alesha-pro/llama.cpp-mirai-s",
+  "skills": []
+}
