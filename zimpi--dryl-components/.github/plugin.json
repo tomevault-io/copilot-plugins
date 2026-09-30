@@ -1,0 +1,9 @@
+{
+  "name": "zimpi--dryl-components",
+  "displayName": "DRYL.Components",
+  "description": "An AI-Native, Zero-NPM, Glassmorphic UI Component Library for Blazor. Built for the era of LLMs and high-performance SaaS applications.",
+  "version": "1.0.0",
+  "author": "Zimpi",
+  "homepage": "https://github.com/Zimpi/DRYL.Components",
+  "skills": []
+}
