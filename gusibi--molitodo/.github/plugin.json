@@ -1,0 +1,14 @@
+{
+  "name": "gusibi--molitodo",
+  "displayName": "MoliTodo",
+  "description": "MoliTodo",
+  "version": "1.0.0",
+  "author": "gusibi",
+  "homepage": "https://github.com/gusibi/MoliTodo",
+  "skills": [
+    {
+      "name": "MoliTodo",
+      "description": ""
+    }
+  ]
+}
