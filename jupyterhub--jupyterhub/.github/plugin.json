@@ -1,0 +1,9 @@
+{
+  "name": "jupyterhub--jupyterhub",
+  "displayName": "jupyterhub",
+  "description": "jupyterhub",
+  "version": "1.0.0",
+  "author": "jupyterhub",
+  "homepage": "https://github.com/jupyterhub/jupyterhub",
+  "skills": []
+}
