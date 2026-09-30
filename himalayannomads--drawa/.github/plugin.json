@@ -1,0 +1,9 @@
+{
+  "name": "himalayannomads--drawa",
+  "displayName": "drawa",
+  "description": "A browser canvas for coding agents: run Claude Code, OpenCode and Codex sessions side by side, watch what they touch, review every change.",
+  "version": "1.0.0",
+  "author": "HimalayanNomads",
+  "homepage": "https://github.com/HimalayanNomads/drawa",
+  "skills": []
+}
