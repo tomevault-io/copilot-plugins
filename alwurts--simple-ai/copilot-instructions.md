@@ -1,50 +1,69 @@
 ## simple-ai
 
-> - `npm run dev` - Start dev server with Turbopack
+> Tier-1 entry for anyone working in this repo, human or agent. Commands,
 
-# Agent Guidelines for simple-ai starter
+# AGENTS.md
 
-## Build/Lint/Test Commands
+Tier-1 entry for anyone working in this repo, human or agent. Commands,
+conventions, and an index. Follow the links for detail.
 
-- `npm run dev` - Start dev server with Turbopack
-- `npm run build` - Build production bundle
-- `npm run typecheck` - Type check without emitting files
-- `npm run lint` - Run Biome linter and auto-fix (only checks `src/`)
-- `npm run db:generate` - Generate migrations (NEVER run automatically, prompt user to run)
-- `npm run db:migrate` - Run migrations (NEVER run automatically, prompt user to run)
-- No test suite configured yet
+> `AGENTS.md` and `.claude/CLAUDE.md` are kept **byte-identical** — mirrored as
+> real copies, not a symlink. Change one, copy it over the other.
 
-## Code Style
+## Commands
 
-- **Formatting**: Biome with tabs (width 2), double quotes, trailing commas, semicolons, 100 line width
-- **Files**: kebab-case naming (enforced by linter)
-- **Imports**: Use `@/` path alias, organize imports automatically, no unused imports
-- **Types**: TypeScript strict mode, use `type` for object shapes, `interface` for extensible types
-- **Naming**: camelCase variables/functions, PascalCase components/types, SCREAMING_SNAKE_CASE constants
-- **Error Handling**: Try-catch in async functions, return appropriate HTTP status codes (404, 500)
+Run from the **monorepo root**:
 
-## Client
+| Task | Command |
+| --- | --- |
+| Install | `pnpm install` |
+| Generate registry | `pnpm --filter @workspace/registry generate` |
+| Check generated files | `pnpm --filter @workspace/registry generate:check` |
+| Docs dev (port 4567) | `pnpm --filter docs dev` |
+| Typecheck | `pnpm typecheck` |
+| Lint (check) | `pnpm lint:check` |
+| Lint (fix) | `pnpm lint:fix` |
 
-- **React**: Use "use client" directive when needed, functional components, hooks at top level
-- **RPC Client**: `apiClient` from `hono/client` typed with `AppType`, enables type-safe API calls
-- **React Query**: Custom hooks in `src/hooks/query/` use `apiClient` for type-safe mutations/queries
-- **State Management**: Use React Query for server state whenever possible, create custom hooks in `src/hooks/query/`
-- **UI Components**: Use shadcn/ui components with Tailwind, keep default shadcn variables/styles unless instructed otherwise. If a component is not installed, run `npx shadcn@latest add <component-name>`
+After changing a registry item, run `generate` and commit `registry.json`,
+`packages/registry/src/generated.ts`, and `apps/docs/public/r`.
 
-## Server
+## Conventions
 
-- **Hono API**: Routes in `src/hono/routes/{public,protected}`, exported as `AppType` for RPC client
-- **API Routes**: Hono router, separate public/protected routes, type-safe context with `HonoContextWithAuth`
-- **Validation**: Zod schemas for API validation with `zValidator`, infer types with `z.infer<typeof schema>`
-- **Database**: Drizzle schemas in `src/db/schema/`, services in `src/db/services/` with CRUD operations
-- **Database**: Drizzle ORM, use prepared statements, always filter by userId for multi-tenant data
-- **Auth**: better-auth, protected routes use `honoAuthMiddleware` and `HonoContextWithAuth` type
-- **Environment**: Type-safe env vars with `@t3-oss/env-nextjs` in `src/env.ts`, import from `@/env`
+- This is a **shadcn registry of agent examples**, not a finished app and not a
+  chat-component kit. `chat-page` is the example you copy. shadcn is how you
+  add it.
+- Gallery and `chat-page` stay **mocked**. Do not wire a live model into the
+  docs site.
+- Documented UI is listed in `apps/docs/content/docs/components/meta.json`.
+  `shell` and `reasoning` are registry internals that `chat-page` pulls in.
+- Item `docs` / `envVars` (when present) are the CLI post-add instructions. Keep
+  them in sync with Installation.
+- Prefer no code comments. Comment only when names and types cannot express an
+  invariant, hazard, or external constraint.
+- Public host is `https://www.simple-ai.dev`. Hosted items are
+  `/r/{name}.json`.
 
-## AI
+## Where things live
 
-- **SDK**: Use Vercel AI SDK (`ai` package) for AI features
+- **What the system is** → [`docs/architecture.md`](docs/architecture.md)
+- **How to add or change a registry item** → skill `registry`
+- **Human setup** → [`README.md`](README.md), [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- **Release** → [`RELEASING.md`](RELEASING.md)
+- **Local `shadcn add` smoke** → [`TESTING.md`](TESTING.md)
+
+## Skills
+
+Canonical copies live in `.agents/skills/`. `.claude/skills/` is relative
+symlinks into that tree.
+
+| Skill | Why load it |
+| --- | --- |
+| `architecture` | Layout of apps/packages and the catalog rules |
+| `registry` | Item defs, generate, dual registry, mocked gallery |
+
+Load the matching skill before changing registry source or the docs app
+structure.
 
 ---
 > Source: [Alwurts/simple-ai](https://github.com/Alwurts/simple-ai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
