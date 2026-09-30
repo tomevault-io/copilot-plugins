@@ -1,0 +1,9 @@
+{
+  "name": "digitalocean--csi-digitalocean",
+  "displayName": "csi-digitalocean",
+  "description": "csi-digitalocean",
+  "version": "1.0.0",
+  "author": "digitalocean",
+  "homepage": "https://github.com/digitalocean/csi-digitalocean",
+  "skills": []
+}
