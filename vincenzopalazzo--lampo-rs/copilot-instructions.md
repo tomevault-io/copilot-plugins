@@ -1,45 +1,95 @@
 ## lampo-rs
 
-> - `make fmt` — Run linting and formatting (rustfmt + clippy)
+> Guidance for coding agents working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
+
+Guidance for coding agents working in this repository.
 
 ## Build & Test
 
-- `make fmt` — Run linting and formatting (rustfmt + clippy)
-- `make check` — Run all tests
-- `cargo check -p <crate>` — Type-check a single crate
-- `cargo test -p <crate>` — Test a single crate
+- `make fmt` — rustfmt (+ clippy when enabled)
+- `make check` — full test suite
+- `cargo check -p <crate>` / `cargo test -p <crate>` — single crate
+
+Always run `make fmt` before committing.
+
+## Simulation harness (`simulations/`)
+
+Pre-prod soak scripts live in `simulations/`. Full usage: [`simulations/README.md`](simulations/README.md).
+
+### When to run them
+
+- After changes to shutdown, pid-lock, wallet sync, channel lifecycle, BOLT11/12 pay, or chain/reorg handling: run **Phase 1** at least.
+- Before calling a release / pre-prod branch “soak-green”: run **Phase 1 + Phase 2**.
+- Do **not** invent a second ad-hoc cluster; extend `simulations/` instead.
+
+### Phase 1 (recover + stress)
+
+```bash
+cargo build --release -p lampod-cli
+export BIN=$PWD/target/release/lampod-cli REPO=$PWD
+export SIMDIR=$PWD/sim-run-recover
+SEED=99 MATRIX=1 STRESS=1 STRESS_CYCLES=25 ./simulations/recover.sh
+```
+
+Gate: `RECOVERY COMPLETE: … PASS / 0 FAIL` (campaign baseline: 46/0).
+
+### Phase 2 (N-node soak — send/receive proof)
+
+```bash
+export BIN=$PWD/target/release/lampod-cli REPO=$PWD
+export SIMDIR=$PWD/sim-run-phase2
+NODES=10 ROUNDS=20 SEED=99 CHAOS_EVERY=3 \
+  API_BASE=8310 P2P_BASE=20210 ./simulations/simulate.sh
+```
+
+Gates:
+
+- Edge-role matrix: every node sends and receives (`ROLE_MATRIX=1`).
+- Coverage: CSV Success rows include every node as `src` and as `dst`.
+- Final line: `SIMULATION COMPLETE: …` after `edge coverage OK: …`.
+
+Smoke: `NODES=3 ROUNDS=2 CHAOS_EVERY=2 ./simulations/simulate.sh`.
+
+Do **not** treat SimLN-only LDK-edge traffic as a send/recv proof for lampo —
+see `simulations/simln/README.md`. Use `multihop.sh` for structural
+`hs—hm—hr` path assertions.
+
+### Sacred constraints (non-negotiable)
+
+- Regtest bitcoind only (default `CORE_URL=http://127.0.0.1:18332`).
+- Never delete `lampod.pid` to “unstick” a node.
+- Never point `SIMDIR` / `BIN` at mainnet or production data directories.
+- Never stop or reconfigure production / sacred lampo nodes from these scripts.
+- Remote deploy: set `LAMPO_HOST` explicitly; `simulations/ship.sh` has no default host.
+
+### Harness design rules
+
+- Prefer extending `lib.sh` / chaos hooks over one-off shell.
+- Assert payment `state=="Success"` **and** preimage — never grep log prose.
+- Phase 2 must prove lampo as **sender and receiver** (edge-role matrix +
+  coverage gate), not only as a relay under SimLN.
+- Wait for funding tx in mempool **before** mining.
+- After tip-invalidate / reorg chaos: settle (wallet sync + payment probe) before the next pay round.
+- Keep `simulate.sh` runnable standalone (soak must not depend on mid-run edits).
 
 ## Code Style
 
-- Follow Rust standard formatting (`cargo fmt`). Always run `make fmt` before committing.
-- Use `unwrap` only when: (1) it's provably safe (add `// SAFETY:` comment), (2) panic indicates a bug, or (3) in test code.
-- Use `expect` only for unmet invariants from bad inputs or environment.
-- Imports: group by `std` → external deps → `crate::` locals, separated by blank lines.
-- Logging: always include a `target`, e.g. `log::info!(target: "lampo-chain", "...")`. Most logs should be at debug level.
-- Use `FIXME` comments for unclear optimizations or ugly corner cases.
-- Keep code simple. Don't overdesign. Write for today, not hypothetical futures.
+- Match existing Rust style; `cargo fmt` is mandatory.
+- `unwrap` only when provably safe (`// SAFETY:`), panic = bug, or tests.
+- Logging: always set `target`, prefer `debug` for routine traces.
+- Imports: `std` → external → `crate::`, blank line between groups.
+- Keep changes small; no drive-by refactors.
 
-## Git Commits
+## Git & PRs
 
-- Commit messages must be imperative, capitalized, no period: "Add support for X" not "Added support for X."
-- Subject line ≤ 50 chars. Wrap body at 72 chars.
-- Each commit must pass all tests, lints, and checks independently.
-- **Never include fixup commits in a PR.** If a commit introduces a problem (e.g. formatting), squash the fix into the original commit. Do not leave separate "fix formatting" or "fix lint" commits in the history.
-- May include a crate prefix: `cli:`, `chain:`, `node:`, `docs:`, `ci:`.
-
-## PR Workflow
-
-- Keep changesets small, specific, and uncontroversial.
-- Isolate changes in separate commits for review, but each must be self-contained.
-- Rebase on `main` when needed. Do not merge commits.
-- Don't make unrelated changes unless it's an obvious improvement to code you're already touching.
-
-## Dependencies
-
-- Check with maintainers before adding new dependencies.
+- Imperative commit subjects ≤ 50 chars, body wrapped at 72.
+- Each commit must pass `make fmt` / relevant checks alone.
+- No fixup commits left in a PR — squash into the offending commit.
+- Optional prefixes: `cli:`, `chain:`, `node:`, `sim:`, `docs:`, `ci:`.
+- Ask maintainers before adding dependencies.
 
 ---
 > Source: [vincenzopalazzo/lampo.rs](https://github.com/vincenzopalazzo/lampo.rs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
