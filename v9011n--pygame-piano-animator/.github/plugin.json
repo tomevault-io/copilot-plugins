@@ -1,0 +1,9 @@
+{
+  "name": "v9011n--pygame-piano-animator",
+  "displayName": "pygame-piano-animator",
+  "description": "Plays MIDI files as falling notes with procedurally animated hands and automatic fingering. Vibe-coded with Claude Opus 5.5.",
+  "version": "1.0.0",
+  "author": "V9011N",
+  "homepage": "https://github.com/V9011N/pygame-piano-animator",
+  "skills": []
+}
