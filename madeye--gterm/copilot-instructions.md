@@ -1,138 +1,44 @@
 ## gterm
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> `gterm` is an iOS SwiftUI SSH terminal app backed by Ghostty's rendering engine. Source lives under `Sources/`:
 
-# CLAUDE.md
+# Repository Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Structure & Module Organization
 
-## What is gterm
+`gterm` is an iOS SwiftUI SSH terminal app backed by Ghostty's rendering engine. Source lives under `Sources/`:
 
-gterm is an iOS terminal app that renders using ghostty's `libghostty` engine (GPU/Metal, full VT/xterm emulation) and connects over SSH via swift-nio-ssh. iOS can't `fork`/`exec`, so gterm uses a custom **passthru IO backend** added to a fork of ghostty — the terminal surface is driven entirely by bytes arriving over an SSH channel.
+- `Sources/App/`: app entry point.
+- `Sources/UI/`: SwiftUI screens and connection/key management views.
+- `Sources/Ghostty/`: Swift bridge and terminal surface/input integration.
+- `Sources/SSH/`: `swift-nio-ssh` transport, PTY channel, known-host handling, and key parsing.
+- `Sources/Terminal/` and `Sources/Model/`: terminal protocol abstractions, persistence, and Keychain helpers.
 
-## Build Commands
+`project.yml` is the XcodeGen source of truth. `gterm.xcodeproj`, `Info.plist`, and `GhosttyKit.xcframework` are generated and ignored. `scripts/build-ghostty-xcframework.sh` builds the Ghostty engine from a sibling `../ghostty` checkout.
 
-### Prerequisites
+## Build, Test, and Development Commands
 
-```sh
-brew install zig@0.15    # keg-only patched zig
-brew install xcodegen
-git submodule update --init ghostty   # if not already checked out
-```
+- `./scripts/build-ghostty-xcframework.sh`: build and copy `GhosttyKit.xcframework`. Requires patched Homebrew `zig@0.15`; override with `ZIG=...` or `GHOSTTY_DIR=...`.
+- `xcodegen generate`: regenerate `gterm.xcodeproj` and generated app metadata from `project.yml`.
+- `xcodebuild -project gterm.xcodeproj -scheme gterm -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build`: compile the app for simulator without signing.
+- Open `gterm.xcodeproj` in Xcode for simulator/device runs after regeneration.
 
-### Build the terminal engine (one-time, or when ghostty submodule changes)
+## Coding Style & Naming Conventions
 
-```sh
-./scripts/build-ghostty-xcframework.sh
-```
+Use Swift 5 language mode, four-space indentation, and existing Swift API naming. Types use `UpperCamelCase`; methods, properties, and enum cases use `lowerCamelCase`. Keep UI code in `Sources/UI`, SSH/networking code in `Sources/SSH`, and C/Ghostty interop isolated in `Sources/Ghostty`. Prefer small, explicit types and avoid blocking callbacks from Ghostty or NIO threads; hop to the appropriate event loop or main thread.
 
-Produces `GhosttyKit.xcframework` (macOS + iOS device + iOS simulator slices). Requires the patched `/opt/homebrew/opt/zig@0.15/bin/zig`; proxy env vars must be unset (the script handles this). Override with `ZIG=...` or `GHOSTTY_DIR=...`. Under Xcode 27 the script also patches zig's bundled `float.h` (backup kept as `float.h.orig`) because the macOS 27 SDK's math.h needs clang's `__need_infinity_nan` protocol, which zig 0.15's LLVM 20 headers lack; without it the libc++ build fails with `undeclared identifier 'INFINITY'`.
+## Testing Guidelines
 
-### Generate Xcode project and build
+Three test targets exist, all defined in `project.yml`: `gtermTests` (logic-only, compiles `Sources/LLM` + `Tests/`, run with `xcodebuild -scheme gtermTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' test`), `gtermSSHTests` (macOS), and `gtermUITests` (XCUITest, `UITests/`). Run the UI suite offscreen with `python3 scripts/test-ipad-ui.py` (needs `paramiko`; `--device-type NAME` targets another simulator such as `"iPhone 17 Pro Max"` or the iPhone Duo). Every change should at least pass the simulator build command above. For behavior touching SSH auth, host-key trust, terminal input, resize, or Keychain persistence, also do a manual simulator/device smoke test. Name test files after the feature under test, for example `SSHKeyParserTests.swift`.
 
-Signing config (team id, ASC key) lives in a git-ignored `.env` — copy
-`env.example` to `.env` and fill it in once. Source it before `xcodegen`
-so `${DEVELOPMENT_TEAM}` in `project.yml` expands (not needed for
-`CODE_SIGNING_ALLOWED=NO` simulator/test builds):
+## Commit & Pull Request Guidelines
 
-```sh
-set -a; source .env; set +a
-xcodegen generate
-xcodebuild -project gterm.xcodeproj -scheme gterm \
-  -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-  CODE_SIGNING_ALLOWED=NO build
-```
+Recent commits use concise, imperative subjects with the `gterm:` prefix, for example `gterm: SSH private-key management`. Keep commits focused and mention generated artifacts only when the source file that produces them changed. PRs should describe the user-visible behavior, list build/manual verification, link related issues, and include screenshots or short recordings for UI changes.
 
-Or open `gterm.xcodeproj` in Xcode after `xcodegen generate`.
+## Security & Configuration Tips
 
-### Run tests
-
-```sh
-xcodegen generate
-xcodebuild -project gterm.xcodeproj -scheme gtermTests \
-  -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16' \
-  test
-```
-
-The `gtermTests` target compiles only `Sources/LLM` + `Tests/` — no GhosttyKit or UIKit dependency, so tests are fast and hermetic.
-
-### Build unsigned IPA (AltStore/SideStore sideloading)
-
-```sh
-./scripts/build-altstore-ipa.sh
-# → build/altstore/gterm-<version>-<build>.ipa
-```
-
-### App Store metadata
-
-```sh
-set -a; source .env; set +a        # Appfile/Deliverfile read team + key from env
-fastlane deliver                   # uploads metadata + screenshots from fastlane/metadata/
-```
-
-## Generated / git-ignored artifacts
-
-`gterm.xcodeproj`, `Info.plist`, and `GhosttyKit.xcframework` are all generated and in `.gitignore`. The source of truth for the Xcode project is `project.yml` (XcodeGen). Always run `xcodegen generate` after modifying `project.yml`.
-
-## Architecture
-
-### Source modules (`Sources/`)
-
-| Module | Purpose |
-|--------|---------|
-| `App/` | SwiftUI app entry point (`GTermApp.swift`) |
-| `Ghostty/` | Swift bridge to libghostty: `GhosttyApp` (app lifecycle + CADisplayLink tick), `TerminalSurfaceView` (UIView + CAMetalLayer + passthru callbacks), `GhosttyInput` (key/mod mapping), `AccessoryKeyboardView` (on-screen Esc/Ctrl/Alt/Tab/arrows), `GhosttyConfig` (theme/font), extensions for scroll, selection, link detection, hardware keyboard, and inline completions |
-| `SSH/` | `SSHSession` (swift-nio-ssh connect, password + public-key auth, PTY channel, window-change), `PTYChannelHandler`, `GlueHandler`, `SSHKeyParser`, `KnownHosts` (TOFU), `PortForwardManager` |
-| `Terminal/` | `TerminalSession` protocol — the abstraction between a surface view and its byte source/sink. `SSHSession` and `LoopbackSession` both conform. |
-| `LLM/` | Pure Foundation (no UIKit/GhosttyKit) — LLM autocompletion core: `LLMProvider` (OpenAI + Anthropic SDK wrappers), `Completion` (policy, prompt factory, sanitizer), `CommandAssistant`, `ProviderProfile`. This module is compiled standalone in the test target. |
-| `Model/` | Persistence & engines: `ConnectionStore`, `KeyStore`, `PortForwardStore`, `ProviderStore`, `Keychain`, `CompletionEngine` (debounced LLM requests), `CommandAssistantEngine`, `CommandHistory` |
-| `UI/` | SwiftUI screens: connection list, add/edit connection, terminal screen, key management, AI settings, onboarding, port-forward UI, settings, theme picker, browser |
-| `Browser/` | In-app `WKWebView` for tunneled port-forward HTTP |
-
-### The passthru data flow (the crux of the design)
-
-```
-SSH channel data → SSHSession.channelRead → TerminalSurfaceView.receive(_:)
-    → ghostty_surface_pty_data() → libghostty renders on CAMetalLayer
-
-User keystroke → ghostty encoder → passthru queueWrite callback
-    → TerminalSurfaceView.didProduceOutput → SSHSession → SSH channel.write
-
-Terminal resize → passthru resize callback → SSHSession → WindowChangeRequest
-```
-
-Passthru callbacks fire on ghostty's IO thread — always hop to the NIO event loop (SSH) or main thread (UI) and never block.
-
-### Layout selection (iPad vs iPhone vs iPhone Duo)
-
-`RootView.usesWorkspace` picks the split-view workspace when the idiom is
-`.pad` or the window is regular in **both** size classes (the iPhone Duo's
-inner display); everything else gets the phone tabs. Do not use
-`horizontalSizeClass == .regular` alone: Max-class iPhones are regular-width
-in landscape and must keep tabs. Never reintroduce `UIScreen.main`; use
-`TerminalSurfaceView.displayScale`, which follows the display the view is on.
-
-### C interop
-
-GhosttyKit is a static Zig library linked with `-ObjC -lstdc++`. The `Ghostty/` module uses `Unmanaged`, C function-pointer callbacks, and raw struct access against `ghostty.h`. The project uses **Swift 5 language mode** because this low-level interop is substantially simpler than under Swift 6 strict concurrency.
-
-## Coding Conventions
-
-- Swift 5, four-space indentation, standard Swift API naming
-- Commit messages use `gterm:` prefix, imperative mood (e.g. `gterm: add port-forward UI`)
-- UI code in `Sources/UI`, SSH/networking in `Sources/SSH`, C/Ghostty interop in `Sources/Ghostty`
-- Keep the `Sources/LLM` module free of UIKit/GhosttyKit imports so it stays testable standalone
-
-## Project Configuration
-
-- Bundle ID: `io.github.madeye.gterm`
-- Deployment target: iOS 17.0
-- Team: from `DEVELOPMENT_TEAM` in the git-ignored `.env` (see `env.example`); App Store Connect only accepts builds signed by the current team there — the old `SK4GFF6AHN` team is stale
-- Version/build: `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in `project.yml`
-- Dependencies: swift-nio-ssh, swift-crypto, OpenAI (MacPaw), SwiftAnthropic
-- iPhone Duo: full edge-to-edge use of the inner display needs a build against the iOS 27.1 SDK (Xcode 27.1+); the deployment target stays 17.0
-- CI: `.github/workflows/build.yml` — builds the engine on macOS-15, caches `~/.cache/zig`
+Do not commit secrets, private keys, provisioning material, or local config. `.gitignore` already excludes `*.p8`, `local.properties`, `secrets.xcconfig`, generated build output, and `GhosttyKit.xcframework`. Store SSH passwords and imported keys through the app's Keychain paths, not in source fixtures or logs.
 
 ---
 > Source: [madeye/gterm](https://github.com/madeye/gterm) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
