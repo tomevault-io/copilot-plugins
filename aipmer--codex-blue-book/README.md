@@ -2,8 +2,6 @@
 
 > Source: [aipmer/codex-blue-book](https://github.com/aipmer/codex-blue-book). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-《Codex实战蓝皮书》：AI原生时代的产品研发与多端编排实战指南。
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
