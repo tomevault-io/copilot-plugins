@@ -1,0 +1,159 @@
+{
+  "name": "fsharp",
+  "owner": "dotnet",
+  "repo": "fsharp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "creating-skills",
+      "path": ".github/skills/creating-skills",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/creating-skills",
+      "description": ""
+    },
+    {
+      "name": "hypothesis-driven-debugging",
+      "path": ".github/skills/hypothesis-driven-debugging",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/hypothesis-driven-debugging",
+      "description": ""
+    },
+    {
+      "name": "ilverify-failure",
+      "path": ".github/skills/ilverify-failure",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/ilverify-failure",
+      "description": ""
+    },
+    {
+      "name": "postmortem",
+      "path": ".github/skills/postmortem",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/postmortem",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/postmortem/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/postmortem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/creating-skills/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/creating-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/ilverify-failure/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/ilverify-failure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/fsharp-diagnostics/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/fsharp-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/flaky-test-detector/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/flaky-test-detector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/reviewing-compiler-prs/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/reviewing-compiler-prs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/hypothesis-driven-debugging/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/hypothesis-driven-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/vsintegration-ide-debugging/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/vsintegration-ide-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/pr-description/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/pr-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/binlog-analysis/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/binlog-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/realsig-codegen/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/realsig-codegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/code-compaction/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/code-compaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/feature-completeness/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/feature-completeness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fsharp",
+      "path": ".github/skills/proposing-pr-rewrites/SKILL.md",
+      "github_url": "https://github.com/dotnet/fsharp/tree/main/.github/skills/proposing-pr-rewrites/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dotnet/fsharp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-09-30T11:30:25Z"
+}
