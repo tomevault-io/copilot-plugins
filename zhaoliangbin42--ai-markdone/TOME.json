@@ -2,9 +2,9 @@
   "name": "AI-MarkDone",
   "owner": "zhaoliangbin42",
   "repo": "AI-MarkDone",
-  "description": "Immersive reading mode, messages folding, bookmark system, Markdown & PDF export, one\u2011click LaTeX copy for ChatGPT / Gemini / Claude / DeepSeek.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhaoliangbin42/AI-MarkDone",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T23:41:53Z"
+  "distributed_at": "2026-09-30T14:09:55Z"
 }
