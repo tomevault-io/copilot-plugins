@@ -1,7 +1,7 @@
 {
   "name": "ex-actor--ex-actor",
   "displayName": "ex-actor",
-  "description": "Modern C++ actor framework based on std::execution, only requires C++20.",
+  "description": "ex-actor",
   "version": "1.0.0",
   "author": "ex-actor",
   "homepage": "https://github.com/ex-actor/ex-actor",
