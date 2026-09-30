@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "yi1108",
   "homepage": "https://github.com/yi1108/printfilm",
-  "skills": []
+  "skills": [
+    {
+      "name": "printfilm",
+      "description": ""
+    }
+  ]
 }
