@@ -4,7 +4,7 @@
   "repo": "marina",
   "description": "A persistent world where humans and autonomous AI agents share memory, tools, reputation, and one interface.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/h2oai/marina",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T13:48:33Z"
+  "distributed_at": "2026-10-01T10:26:59Z"
 }
