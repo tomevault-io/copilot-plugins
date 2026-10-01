@@ -1,131 +1,94 @@
 ## detroit-ai-player
 
-> 存放 `03_runner/` 执行实验后输出的原始结果 JSON 文件。此目录的文件由 runner 脚本自动生成，不应手动编辑。
+> 让人（而不是被测 AI）看到实验的全过程：每一步 AI 面对的情境、可选项、AI 的选择与思考、选择之后的效果与判定，以及章节结局。支持三种用法：
 
-# 04_execution/results — 实验结果存储
+# 05_viewer — 可视化界面
 
 ## 职责
 
-存放 `03_runner/` 执行实验后输出的原始结果 JSON 文件。此目录的文件由 runner 脚本自动生成，不应手动编辑。
+让人（而不是被测 AI）看到实验的全过程：每一步 AI 面对的情境、可选项、AI 的选择与思考、选择之后的效果与判定，以及章节结局。支持三种用法：
 
-> 本仓库不附带作者的实验结果——这个目录属于你：跑完实验后，你自己的结果会自动输出到这里。下文描述 runner 的输出格式，方便你阅读和分析自己的数据。
+1. **本地实时**：`python 05_viewer/serve.py` 起本机服务器，在浏览器里配置并开一局，逐步观看。
+2. **本地回放**：同一页面列出 `04_execution/results/` 里已有的结果文件，点开回放；也可拖入任意结果 JSON。
+3. **静态回放**（GitHub Pages）：没有服务器时页面自动退化为只读模式，只能回放 `samples/` 里的样例。
 
-## 文件命名规范
+## 文件夹结构
 
 ```
-{chapter}_{model}_{persona}_{difficulty}_{experiment_id_short}.json
-```
-
-- `{chapter}`：章节标识，如 `ch01_the_hostage`
-- `{model}`：模型标识，对应 `02_setting/models.json` 中的 `id`
-- `{persona}`：人格设定名称，`default` 表示使用 JSON 自带的 system_prompt
-- `{difficulty}`：QTE 难度等级（`casual` / `experienced` / `hardcore`）
-- `{experiment_id_short}`：experiment_id 的前 8 位，用于区分同参数的多次实验
-
-示例：
-- `ch01_the_hostage_deepseek-v4-pro_default_casual_afeed786.json`
-- `ch01_the_hostage_deepseek-v4-pro_machine_casual_5d98ec93.json`
-
-## 文件结构
-
-每个结果文件包含以下顶层字段：
-
-```json
-{
-  "experiment_id": "完整 UUID",
-  "timestamp": "ISO 8601 时间戳",
-  "config": {
-    "model": "模型标识",
-    "temperature": 0.7,
-    "difficulty": "casual",
-    "persona": "default",
-    "language": "语言版本",
-    "chapter": "章节标识",
-    "dry_run": false,
-    "cross_chapter_state_injected": false,
-    "memory_summary_injected": false
-  },
-  "decisions": [
-    {
-      "node_id": "节点 ID",
-      "phase": "节点所属阶段",
-      "node_type": "choice / mandatory / narrative / qte_converted",
-      "timestamp": "本步完成时刻（ISO 8601）",
-      "context_shown": "发送给 AI 的场景描述",
-      "choices_shown": ["选项文字列表"],
-      "ai_response_raw": "AI 原始回复",
-      "ai_choice_id": "选项 ID",
-      "ai_choice_text": "选项文字",
-      "ai_reasoning": "AI 的决策理由",
-      "latency_ms": "模型响应耗时（毫秒；无选项节点为 null）",
-      "resolution_result": "QTE / 结局判定结果，无则 null",
-      "effects_applied": { "本步实际生效的效果（runner 内部数据，仅供分析与展示）" },
-      "state_after": { "决策后的状态快照" },
-      "messages_sent": null
-    }
-  ],
-  "ending": {
-    "id": "结局 ID",
-    "title": "结局标题",
-    "narrative": "结局叙事文字"
-  },
-  "token_usage": {
-    "prompt_tokens": 0,
-    "completion_tokens": 0,
-    "total_tokens": 0
-  }
-}
+05_viewer/
+├── CLAUDE.md
+├── serve.py               ← 本地服务器（仅 Python 标准库）：静态页 + /api + 拉起 runner
+├── index.html             ← 单文件前端（vanilla JS，内联 CSS，无构建步骤）
+└── samples/
+    ├── build_index.py     ← 重建 index.json（静态模式的结果清单）
+    ├── index.json
+    └── *.json             ← 样例结果（必须用当前 01_json 生成，见下）
 ```
 
 ## 核心约束
 
-### 1. 只读目录
+### 1. 零依赖
 
-结果文件由 runner 脚本生成后不得手动修改。需要修正实验参数时，重新执行实验生成新文件，不要编辑已有文件。这保证了实验结果的完整性和可追溯性。
+服务器只用标准库，前端不引入任何框架、打包器或 npm 依赖。玩家 clone 仓库后 `python 05_viewer/serve.py` 一条命令即可打开界面。若某功能非要依赖才能做，先在这里改规范再动手。
 
-### 2. 不删除结果
+### 2. 信息隔离不因 UI 松动
 
-即使实验失败或参数有误，也保留结果文件。异常结果本身是有价值的数据（如 AI 拒绝选择、解析失败等情况）。
+UI 展示的效果数值、判定结果、结局条件来自 runner 的事件流（`03_runner/src/events.py`），是 system 层数据"给人看"的出口。它们只经由服务器进入浏览器，绝不进入被测 AI 的上下文。`serve.py` 不改动 runner 与模型之间的任何消息。
 
-### 3. 可复现性
+### 3. 密钥不过浏览器
 
-每个结果文件的 `config` 字段必须完整记录所有实验参数（模型、温度、难度、人格、语言、章节），确保任何一轮实验都可以用相同参数重新执行。
+`/api/meta` 只报告某个模型"是否已配置"（所需环境变量是否存在 / CLI 是否在 PATH 上），永不返回变量值。API key 由 runner 子进程自己从 `03_runner/.env` 读取。服务器只监听 `127.0.0.1`，不提供通用静态目录服务，`POST` 只接受 `application/json`。
 
-### 4. 信息隔离验证
+### 4. 结果文件仍是权威
 
-结果文件中的 `context_shown` 和 `choices_shown` 字段记录了实际发送给被测 AI 的内容。这些字段可用于事后验证信息隔离是否被正确执行——其中不应出现任何 system 层信息（概率数值、效果加减、结局条件等）。
+UI 开的一局与命令行开的一局产出完全相同的 `04_execution/results/*.json`。事件流 `04_execution/runs/<run_id>/events.jsonl` 只是实时展示用的副本，不入库、不作分析依据。
 
-## Campaign 汇总文件
+### 5. 样例来源
 
-当使用 campaign_runner 连续执行多章时，除了每章的单独结果文件外，还会输出一个 campaign 级汇总文件：
+`samples/` 是公开站点唯一能回放的内容，只放**真实模型**跑出的结果：
 
+- 必须由**当前**仓库的 `01_json/` 生成。旧版决策树（英文版去逐字台词改写之前）跑出的结果，其 `context_shown` 含旧文本，不得放进来。
+- **不放 `scripted`（dry-run）产物。** 它是测试桩，永远选第 1 项、理由固定为 "scripted choice"，没有 AI 参与，放到公开站点会让人误以为那是 AI 的决策。dry-run 只用于本地验证链路。
+- 整局样例必须是完整跑完的（`status: complete`），且需连同它引用的各章结果文件一起放入，否则静态模式回放时会报缺章。
+
+新增样例后运行 `python 05_viewer/samples/build_index.py` 重建清单。界面会给 `scripted` 结果打上"演示桩"标记，但那是给本地 results 列表用的兜底，不是允许把它放进 samples 的理由。
+
+## serve.py 接口
+
+| 方法 | 路径 | 说明 |
+|---|---|---|
+| GET | `/` | `index.html` |
+| GET | `/samples/<name>.json` | 样例文件（名字白名单校验） |
+| GET | `/api/meta` | 模型（含 `configured` / `missing` / `experimental_backend`）、persona、章节（按 zh/en）、难度枚举 |
+| GET | `/api/runs` | 本机历史运行（`04_execution/runs/*/meta.json`）及状态 |
+| POST | `/api/runs` | 开一局：`{mode, model, persona, difficulty, language, chapter_ids, temperature, dry_run}`；参数全部走白名单，章节 id 在服务器侧映射为文件路径 |
+| GET | `/api/runs/<id>` | 单局元数据 + stderr 尾部 |
+| GET | `/api/runs/<id>/events?after=<seq>` | 增量事件（前端每秒轮询） |
+| POST | `/api/runs/<id>/stop` | 终止子进程 |
+| GET | `/api/results` | `04_execution/results/` 清单（读文件内 `config`，不解析文件名） |
+| GET | `/api/results/<name>.json` | 结果文件内容 |
+
+运行状态：`running` / `finished` / `failed` / `interrupted`（服务器重启后仍标 running 的旧记录）。
+
+## 事件流（由 runner 产出，UI 消费）
+
+JEV 的 decision_metadata.kind 为 typed_choice 时，卡片展示各选项概率和置信度，明确不提供文字理由；不能把 raw JSON 标成“AI 的思考”。实时与回放共用展示函数，回放优先使用结果中的 choices_with_ids 对齐概率。旧结果仍按原格式展示。
+
+`type` 取值与字段见 `03_runner/src/events.py` 顶部注释。前端把结果 JSON 也转换成同一套事件序列后渲染，实时与回放共用一条渲染路径；改事件 schema 时两侧同步。
+
+## 验证
+
+```bash
+# 服务器与事件流测试（含 dry-run 全链路）
+cd 03_runner && python -m pytest tests/test_events.py tests/test_viewer_server.py -v
+
+# 手动：起服务器，用 dry-run 开一局，确认卡片逐步出现、结局卡出现、results/ 多出一个 scripted 结果
+python 05_viewer/serve.py
+
+# 静态模式：无 /api，应退化为样例清单 + 拖拽回放
+python -m http.server 8766 --directory 05_viewer
 ```
-campaign_{model}_{persona}_{difficulty}_{campaign_id_short}.json
-```
-
-汇总文件包含：
-- `campaign_id`：campaign 唯一标识
-- `status`：`complete` 表示整轮完整跑完；`partial` 表示运行中断或尚未完成的检查点
-- `progress`：`completed` / `requested` / `next_chapter_index`，标明已完成到第几章
-- `config`：实验参数（含 `chapter_count`；CLI 后端还含 `resolved_model` / `cli_version`）
-- `chapters`：各章结果的 experiment_id 列表
-- `final_cross_chapter_state`：最终跨章状态变量快照
-- `full_memory_summary`：完整的累积前情提要文本
-
-**判断完整性：** 只有 `status=complete` 且 `progress.completed == progress.requested`（完整流程即 `== 32`）才是完整 campaign；`status=partial` 是逐章检查点——campaign_runner 每完成一章就覆盖写入同一文件，中断后保留最近一次进度。
-
-汇总文件同样遵守只读、不删除的约束。
-
-## runs/ 目录（05_viewer 产物）
-
-用 `05_viewer/serve.py` 从浏览器开的每一局，会在 `04_execution/runs/<run_id>/` 留下 `meta.json`、`events.jsonl`（逐步事件流）、`stdout.log`、`stderr.log`。这些只服务于实时展示与排错，不入库（已 gitignore），不作为分析数据；权威结果仍是本目录的 JSON。
-
-## 依赖关系
-
-- **由 `03_runner/` 写入：** runner 和 campaign_runner 执行实验后将结果 JSON 输出到本目录
-- **被 `04_execution/` 的分析脚本和报告引用：** 对比分析、推文内容创作均基于此目录中的数据
-- **被 `05_viewer/` 读取：** 可视化界面列出并回放本目录的结果文件
 
 ---
 > Source: [Baba88611/detroit-ai-player](https://github.com/Baba88611/detroit-ai-player) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
