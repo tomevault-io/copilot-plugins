@@ -1,0 +1,9 @@
+{
+  "name": "omacom--omarchy-mac-installer",
+  "displayName": "omarchy-mac-installer",
+  "description": "Apple Silicon macOS installer development: standalone extraction, shared Omarchy integration, and validation.",
+  "version": "1.0.0",
+  "author": "omacom",
+  "homepage": "https://github.com/omacom/omarchy-mac-installer",
+  "skills": []
+}
