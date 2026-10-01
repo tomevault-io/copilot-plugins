@@ -1,24 +1,33 @@
-## publish-uefn-ducky-store
+## seamless-store-heal
 
-> >-
+> HARD — Ducky + plugins heal themselves; never homework for end users
 
 
-# Publish desktop plugins to UEFN Ducky Store
+# Seamless for other people's chats
 
-The **app** is this repo. Each **plugin** is
-`C:\Users\tas13\Documents\GitHub\uefn-plugins\uefn-plugin-<id>\`.
+Breakage reported by anyone using UEFN-Ducky (Codex, Store plugins, MCP
+approvals, CLI shims) is healed **inside the app and its Store plugins**.
+Other people's chats must keep working with no extra click.
 
-```bash
-cd /c/Users/tas13/Documents/GitHub/uefn-plugins/uefn-plugin-<id>
-py -3 scripts/release.py --publish --changelog "vN: …"
-```
+**Never tell an end user to:**
 
-`--publish` commits + pushes the clone first (every shippable file). It refuses
-to upload if anything real is still dirty. Do not zip or `uds_release` a dirty tree.
+- Settings → Store → Update / Enable
+- enable MCP connections, approve tools, or edit `~/.codex/config.toml`
+- start a new chat / say continue here / paste a prompt into Cursor
+- sideload a zip or copy into `%LOCALAPPDATA%/UEFN-Ducky/uefn_plugins/`
 
-Needs `DUCKYOS_API_KEY` (or `~/.cursor/mcp.json` Bearer).
+**Do this instead:**
 
-Do not bundle plugins into the EXE. Do not commit `*.ducky-plugin.zip` / `deploy/`.
+1. Fix the shared function in `UEFN-Ducky-Release` or the standalone
+   `uefn-plugin-<id>` clone.
+2. Publish the plugin (`py -3 scripts/release.py --publish`). The panel
+   auto-applies published Store updates on start.
+3. Heal on `register()` / launch — rewrite CLI config, skip broken shims,
+   auto-install the CLI. Do not wait for the next user message if a file
+   write can fix it now.
+
+Developers still publish through the Store and never hot-patch AppData.
+That is not end-user homework.
 
 ---
 > Source: [UEFN-Ducky/UEFN-Ducky](https://github.com/UEFN-Ducky/UEFN-Ducky) — distributed by [TomeVault](https://tomevault.io).
