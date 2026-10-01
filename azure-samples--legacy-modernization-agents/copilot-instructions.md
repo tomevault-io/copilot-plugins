@@ -1,26 +1,29 @@
 ## legacy-modernization-agents
 
-> All documentation should be stored in the `docs/` directory, but the `README.md` and `.devcontainer/README.md` and the `CHANGELOG.md`.
+> Comments explain **why**, never **what**.
 
-All documentation should be stored in the `docs/` directory, but the `README.md` and `.devcontainer/README.md` and the `CHANGELOG.md`.
+Comments explain **why**, never **what**. 
 
-All documentation should be written in .md markdown files. Mermaid diagrams inside of the markdown files should be used where appropriate to illustrate complex concepts, architectures, or workflows.
+Do not use XML documentation tags (`<summary>`, `<param>`, `<returns>`, `<remarks>`) or `///` doc comments. Use plain `//` comments.
 
-`README.md`should provide a high-level overview of the project, its purpose, and how to get started, as well as references to deep dives for specific features or components. These deep dive documentation files are always located in the `docs/` directory. 
+Keep every comment to 1-2 lines. If an explanation needs more, the code needs restructuring or the reasoning belongs in `docs/`.
 
-`.devcontainer/README.md` should provide instructions specific to the development container environment, including how to set it up, how to use it for development, and any environment-specific considerations.
+Only comment when the reason is genuinely not derivable from the code. Write a comment when it records:
+- a non-obvious constraint or invariant, e.g. `// Parse-time closure follows copybooks only; CALL targets are runtime dependencies.`
+- why an alternative was rejected, e.g. `// Stale by semantic version — treat as a miss without deleting.`
+- a mechanism whose shape is not visible locally, e.g. `// Two-stage delete: collect oldest N row identities, then drop.`
+- a deliberate deviation from what a reader would otherwise assume
 
-`CHANGELOG.md` format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+Do not write a comment that:
+- restates the signature or the next statement
+- labels an obvious block, e.g. `// Loop through files`, `// Return the result`
+- describes a test that the test name already describes
+- narrates history, e.g. `// Changed to fix bug`, `// Added in v2` — that is what git is for
 
-All documentation in the `docs/` directory should have a speaking filename and a **Last updated**: YYYY-MM-DD date at the top of the file. 
+Prefer a precise name for a variable, method or classover a comment.
 
-Workflows, CI/CD pipelines and agents should be mentioned in a short list on the bottom of the `README.md`. There is no deep dive documentation needed and they also do not need to be mentioned in the `CHANGELOG.md`.
-
-General rules:
-- clear, precise and technical tone, not promotional
-- avoid redundancies
+These rules apply to code and tests.
 
 ---
 > Source: [Azure-Samples/Legacy-Modernization-Agents](https://github.com/Azure-Samples/Legacy-Modernization-Agents) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-12 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
