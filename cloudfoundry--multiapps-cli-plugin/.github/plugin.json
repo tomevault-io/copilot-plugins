@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--multiapps-cli-plugin",
+  "displayName": "multiapps-cli-plugin",
+  "description": "multiapps-cli-plugin",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/multiapps-cli-plugin",
+  "skills": []
+}
