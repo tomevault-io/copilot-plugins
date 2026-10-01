@@ -1,0 +1,9 @@
+{
+  "name": "luginf--d110-vst-emulator",
+  "displayName": "d110-vst-emulator",
+  "description": "VST3 emulator of the Roland D-110, built on munt's mt32emu engine + JUCE",
+  "version": "1.0.0",
+  "author": "luginf",
+  "homepage": "https://github.com/luginf/d110-vst-emulator",
+  "skills": []
+}
