@@ -4,7 +4,7 @@
   "repo": "mcp-higgsfield-landing",
   "description": "Landing de Arko, restaurante nikkei de Barcelona: un paseo en v\u00eddeo por el local al hacer scroll, generado con Higgsfield MCP y Claude Code. Astro, GSAP, Lenis y Cloudflare Workers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/midudev/mcp-higgsfield-landing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T06:33:20Z"
+  "distributed_at": "2026-10-01T08:47:15Z"
 }
