@@ -1,0 +1,9 @@
+{
+  "name": "leacreative--slateos",
+  "displayName": "SlateOS",
+  "description": "An OS for the PineTime Smartwatch",
+  "version": "1.0.0",
+  "author": "LeaCreative",
+  "homepage": "https://github.com/LeaCreative/SlateOS",
+  "skills": []
+}
