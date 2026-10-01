@@ -15,10 +15,6 @@ Original source: `CLAUDE.md` in [bkrem/react-d3-tree](https://github.com/bkrem/r
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [react-d3-tree](https://github.com/bkrem/react-d3-tree/tree/main/.agents/skills/npm-release/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/bkrem/react-d3-tree](https://github.com/bkrem/react-d3-tree)
 
 ---
