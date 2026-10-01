@@ -1,0 +1,9 @@
+{
+  "name": "goodnessmbakara--agentrouter-opencode-proxy",
+  "displayName": "agentrouter-opencode-proxy",
+  "description": "Local proxy that lets OpenCode use AgentRouter (agentrouter.org) by routing requests through Python sync httpx to bypass the Aliyun WAF fingerprint check",
+  "version": "1.0.0",
+  "author": "Goodnessmbakara",
+  "homepage": "https://github.com/Goodnessmbakara/agentrouter-opencode-proxy",
+  "skills": []
+}
