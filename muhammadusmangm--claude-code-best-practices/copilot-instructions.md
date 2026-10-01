@@ -1,131 +1,99 @@
 ## claude-code-best-practices
 
-> This repository is a **documentation wiki** about Claude Code. It is also a
+> <!-- Starter kit for Rust projects (services with Axum or Actix, libraries,
 
-# CLAUDE.md — claude-code-best-practices
+# CLAUDE.md
 
-This repository is a **documentation wiki** about Claude Code. It is also a
-dogfood: the `.claude/` directory and this file show how we use Claude Code on
-the very repo that teaches Claude Code. Read this before making changes.
+<!-- Starter kit for Rust projects (services with Axum or Actix, libraries,
+     CLIs). Edit the sections marked <!-- edit --> to match your codebase. -->
 
-## What this repo is
+## Project
 
-- Markdown guides in `guides/`, stack-specific CLAUDE.md examples in
-  `examples/`, shell tools in `tools/`, plugins in `plugins/`, whole-project
-  starter kits in `starters/`.
-- No application code. No build step. No package manager for the content
-  itself (mkdocs-material is used only to render the published site).
-- Quality gates are enforced in CI: `shellcheck`, `markdownlint`, a link
-  checker, and `tools/lint-claude-md.sh` against every template.
+<!-- edit --> One-paragraph description of what this crate does and who uses it.
+
+- Language: Rust (edition 2021)
+- Framework: <!-- edit --> Axum / Actix / CLI (clap) / library crate
+- Async runtime: Tokio (services only)
+- Database: <!-- edit --> SQLx with PostgreSQL / none
+- Tests: built-in `cargo test`, integration tests in `tests/`
 
 ## Commands
 
-This repo has no application build. The "commands" are the lint and content
-tools. All of them run locally from the repo root.
+- `cargo build` — compile all targets
+- `cargo test` — run all tests (unit + integration)
+- `cargo test <name>` — run tests matching `<name>`
+- `cargo clippy -- -D warnings` — lint; warnings are errors
+- `cargo fmt` — auto-format; `cargo fmt --check` in CI
+- `cargo run` — run the binary (services read config from the environment)
+- `cargo sqlx prepare` — refresh offline query metadata (SQLx projects only)
 
-- `bash tools/lint-claude-md.sh <file>` — validate a `CLAUDE.md` against
-  structure, content-quality, and common-mistake checks.
-- `bash tools/lint-claude-md.sh CLAUDE.md` — validate this file.
-- `bash tools/benchmark.sh --help` — show harness flags. Actual runs require
-  `claude` installed and `ANTHROPIC_API_KEY` set.
-- `bash tools/benchmark-summary.sh` — regenerate `benchmarks/latest.md` from
-  the CSVs under `benchmarks/history/`.
-- `bash tools/generate-claude-md.sh` — interactive CLAUDE.md scaffolder (for
-  new projects, not for this repo).
-- `shellcheck $(find . -name '*.sh' -not -path './.git/*')` — run the same
-  shellcheck gate CI runs.
-- `markdownlint '**/*.md' --config .markdownlint.json --ignore-path .markdownlintignore`
-  — run the same markdownlint gate CI runs.
-- `mkdocs serve` — preview the site locally (needs `pip install -r requirements-docs.txt`).
+Run `cargo fmt && cargo clippy -- -D warnings && cargo test` before opening a
+PR. CI blocks on all three.
+
+## Architecture
+
+- `src/main.rs` — entry point; wiring only, no business logic.
+- `src/lib.rs` — crate root; re-exports the public interface.
+- `src/routes/` or `src/handlers/` — HTTP layer; thin, delegates downward.
+- `src/services/` — business logic; no HTTP types.
+- `src/repositories/` — database access; SQLx compile-time checked queries.
+- `src/models/` — domain types and row structs.
+- `src/errors.rs` — one error enum with `thiserror`; `IntoResponse` impl for HTTP.
+- `migrations/` — SQLx migrations; never edit an applied migration.
+
+Handlers call services, services call repositories. Never skip a layer, and
+never let HTTP types leak below `routes/`.
+
+## Error Handling
+
+- One unified error type (`AppError`) derived with `thiserror`. All fallible
+  functions return `Result<T, AppError>` and propagate with `?`.
+- Add context with `anyhow::Context` at the boundary where the error leaves
+  the layer that caused it.
+- Map error variants to status codes in one place — the `IntoResponse` impl —
+  not in individual handlers.
+
+## Conventions
+
+- No `unwrap()` or `expect()` outside tests. Return errors.
+- No `unsafe` without a `// SAFETY:` comment and a human reviewer.
+- Owned types (`String`, `Vec<T>`) in structs and returns; borrows (`&str`,
+  `&[T]`) in function parameters.
+- Derive `Debug, Clone, Serialize, Deserialize` on public API types.
+- Typed IDs, not raw strings: `OrderId(Uuid)`, not `String`.
+- `tracing` for logging. No `println!` in library code.
+- Prefer `mod.rs` exporting the public interface; keep implementation in
+  sibling modules.
 
 ## Testing
 
-The repo has no runtime tests. Correctness is enforced through the four CI
-gates — each is the "test" for a specific class of error:
+- Unit tests live in `#[cfg(test)] mod tests` at the bottom of each module.
+- Integration tests live in `tests/<feature>.rs` and exercise the public API.
+- SQLx projects: use `#[sqlx::test]` for automatic per-test rollback.
+- Build test data through constructor functions, not hand-built structs at
+  every call site.
 
-- `shellcheck.yml` catches shell bugs before merge.
-- `markdownlint.yml` catches markdown structural errors.
-- `links.yml` catches broken internal and external links.
-- `lint-claude-md.yml` catches CLAUDE.md structural errors in every template.
+## Do NOT
 
-Before opening a PR, run the repo-local `/lint-docs` skill (or the four
-commands it wraps) and confirm all checks pass.
+- Add dependencies without asking. `Cargo.toml` is reviewed.
+- Use `.clone()` to silence the borrow checker without trying ownership fixes
+  first.
+- Block the async runtime: no `std::fs` or blocking IO inside async contexts —
+  use `tokio::fs` or `spawn_blocking`.
+- Commit `target/` or `Cargo.lock` changes unrelated to your dependency edit.
 
-## How to help here
+## Available skills
 
-- **Edit existing files over creating new ones.** Only add a new guide when an
-  existing one can't absorb the content without losing focus.
-- **Follow `CONTRIBUTING.md` exactly**: H1 per file, 100–180 lines, fenced
-  code blocks with language tags, relative links, "See Also" at the bottom,
-  no emojis.
-- **Cross-links are bidirectional.** When you add a new guide, update the
-  related guides' "See Also" sections too.
-- **Touch the README when you add a guide, tool, example, plugin, or skill.**
-  The README's tables are the index; a file that isn't linked is invisible.
-- **Update `CHANGELOG.md`** under the current unreleased / next-version section
-  for any user-facing change.
-
-## Style
-
-- Direct, second-person ("you"). No filler, no hedging, no "in this guide we
-  will explore." Lead with the answer.
-- Tables for comparisons and option references. Bullets for lists.
-- Prefer published numbers over adjectives. "~25% of Opus cost" beats "much
-  cheaper." If you don't have the number, say so — don't invent one.
-- No emojis in guide content. The only exceptions are the status markers
-  already used in `guides/benchmarks.md` tables (✅ ⚠️ ❌).
-
-## Shell scripts
-
-- All `.sh` files must pass `shellcheck` with no warnings. CI enforces this.
-- Start with `#!/usr/bin/env bash` and `set -euo pipefail`.
-- Quote all variable expansions. Use `[ ]` with explicit `-z` / `-n` checks,
-  not `[[ ]]` unless the script already uses it.
-- Scripts that are hooks read JSON from stdin; prefer `jq` with a `sed`
-  fallback so the script still works on minimal systems.
-- Exit codes for hooks: `0` = allow, `2` = block with stderr surfaced.
-  Anything else is treated as a script bug.
-
-## Skills and plugins
-
-- A skill is a single `SKILL.md` with YAML frontmatter (`name`, `description`,
-  `allowed-tools`). The `description` is how Claude decides when to invoke it —
-  be specific about *when* it applies, not just *what* it does.
-- A plugin is a directory with `plugin.json`, optional `skills/`, optional
-  `hooks/`. See `plugins/commit-helper/` as the reference implementation.
-- Never include `Co-Authored-By` lines in generated commits unless the user
-  asks. Never `git push` from a skill.
-
-## Commits
-
-- Conventional Commits: `type(scope): subject`, imperative mood, ≤ 72 chars,
-  no trailing period.
-- One topic per PR (see `CONTRIBUTING.md`).
-- Never `--amend` a pushed commit. Never `--no-verify`.
-
-## Benchmarks
-
-- Numbers in `guides/benchmarks.md` are representative. When you rerun them,
-  update the "Last run" line and the tables together — don't partially update.
-- `tools/benchmark.sh` is the source of truth for reproducibility. Update it
-  first if the methodology changes, then regenerate the guide's tables.
-
-## What to avoid
-
-- Adding dependencies. This repo has no `package.json`, no `requirements.txt`,
-  and that's intentional — everything runs with bash + common Unix tools.
-- Long code blocks copied from external docs. Link to the canonical source
-  instead and explain the Claude Code–specific angle.
-- Speculation presented as fact. If you haven't verified a behavior against
-  the current version of Claude Code, mark it as "as of vX.Y" or cut it.
+- `/add-endpoint` — scaffold a route across handlers, services, and
+  repositories with tests, following the project's layering.
 
 ## See also
 
-- [CONTRIBUTING.md](CONTRIBUTING.md) — contribution and style rules
-- [README.md](README.md) — index of guides, examples, and tools
-- [.claude/README.md](.claude/README.md) — how the dogfooded Claude Code
-  setup for this repo is wired
+- [starters/README.md](../README.md) — how this kit was assembled and how to
+  adapt it
+- [../../guides/claude-md-guide.md](../../guides/claude-md-guide.md) — how to
+  write a good CLAUDE.md
 
 ---
 > Source: [MuhammadUsmanGM/claude-code-best-practices](https://github.com/MuhammadUsmanGM/claude-code-best-practices) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
