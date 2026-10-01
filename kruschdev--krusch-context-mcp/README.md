@@ -1,6 +1,6 @@
 # krusch-context-mcp
 
-> Source: [kruschdev/krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [kruschdev/krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [kruschdev/krusch-context-mcp](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [kruschdev/krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp) — a repo with 68+ stars on GitHub.
+From [kruschdev/krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp) — a repo with 71+ stars on GitHub.
 
 ---
 
