@@ -1,0 +1,44 @@
+{
+  "name": "hhru",
+  "owner": "axisrow",
+  "repo": "hhru",
+  "description": "CLI-\u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442 \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430 \u0432\u0430\u043a\u0430\u043d\u0441\u0438\u0439, \u043e\u0442\u043a\u043b\u0438\u043a\u043e\u0432 \u0438 \u043f\u043e\u0434\u043d\u044f\u0442\u0438\u044f \u0440\u0435\u0437\u044e\u043c\u0435 \u043d\u0430 hh.ru \u0447\u0435\u0440\u0435\u0437 LLM \u0430\u0433\u0435\u043d\u0442\u043e\u0432: Claude Code, Cursor, OpenCode \u0438 \u0434\u0440.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/axisrow/hhru",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T22:44:42Z"
+}
