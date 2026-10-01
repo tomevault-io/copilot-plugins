@@ -1,0 +1,9 @@
+{
+  "name": "censusreporter--census-postgres-scripts",
+  "displayName": "census-postgres-scripts",
+  "description": "census-postgres-scripts",
+  "version": "1.0.0",
+  "author": "censusreporter",
+  "homepage": "https://github.com/censusreporter/census-postgres-scripts",
+  "skills": []
+}
