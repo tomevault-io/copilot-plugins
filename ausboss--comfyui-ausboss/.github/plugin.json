@@ -1,0 +1,9 @@
+{
+  "name": "ausboss--comfyui-ausboss",
+  "displayName": "ComfyUI-AusBoss",
+  "description": "ComfyUI nodes I made for my own workflows, mostly for outpainting, inpainting, video and LoRAs. I keep adding more.",
+  "version": "1.0.0",
+  "author": "ausboss",
+  "homepage": "https://github.com/ausboss/ComfyUI-AusBoss",
+  "skills": []
+}
