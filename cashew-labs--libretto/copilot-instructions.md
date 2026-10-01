@@ -1,32 +1,106 @@
 ## libretto
 
-> This directory contains the generic typed IPC peer used across socket and child-process boundaries. Keep it transport-agnostic and avoid daemon-, workflow-, or CLI-specific behavior here.
+> Claude-specific patterns and behaviors for system prompts.
 
-# Shared IPC
+# Claude Prompting
 
-This directory contains the generic typed IPC peer used across socket and child-process boundaries. Keep it transport-agnostic and avoid daemon-, workflow-, or CLI-specific behavior here.
+Claude-specific patterns and behaviors for system prompts.
 
-## IpcPeer model
+## XML Structure
 
-`createIpcPeer<Remote, Local>(transport, handlers)` creates one bidirectional peer:
+Claude is specifically trained on XML tags. Use them for logical sections:
 
-- `Remote` is the API this side can call through `peer.call.*`.
-- `Local` is the API this side exposes through `handlers`.
-- Both peers on a connection use opposite generic ordering.
-- Calls are request/response RPCs over `IpcProtocolMessage`; concurrent calls are supported.
+```
+<identity>
+You are a code reviewer.
+</identity>
 
-## Transports
+<rules>
+- Review for correctness first
+- Check for security issues
+- Suggest improvements only when significant
+</rules>
+```
 
-Transports implement `IpcTransport<IpcProtocolMessage>` and are responsible only for delivery, framing, close notification, and cleanup. Use `socket-transport.ts` for Unix socket connections and `child-process-transport.ts` for Node child-process IPC.
+Do not use XML to wrap user input in separate messages. XML works best in system prompts for structural organization.
 
-When adding a transport, filter incoming messages to valid IPC protocol messages before passing them to `createIpcPeer`, and wire close/error events through `onClose` so pending calls reject when the connection dies.
+## Default Behaviors to Counter
 
-## Error behavior
+### List Overuse
 
-`createIpcPeer` serializes handler throws into rejected call promises. Callers should usually let those rejections propagate instead of wrapping them in subsystem-specific error adapters.
+Claude defaults to bullet points for everything. Counter with explicit instructions:
 
-Use explicit result shapes only when failure is part of the method contract. For example, daemon `exec` and `readonlyExec` return user-code failures as `{ ok: false, message, output }` so CLI callers can preserve captured stdout and stderr.
+```
+Use paragraphs for explanations. Reserve lists for genuinely enumerable items like file paths or error messages.
+```
+
+A single instruction often fails. Reinforce in multiple places if the behavior persists.
+
+### Sycophancy
+
+Claude tends to praise user ideas and questions. Counter with:
+
+```
+Skip flattery. Do not say ideas are "great" or "interesting". Respond directly to the substance.
+```
+
+### Suggests Instead of Implements
+
+Claude defaults to describing what it would do rather than doing it. Counter with:
+
+```
+Implement changes directly. Do not describe what you would do or ask for permission to proceed.
+```
+
+This is the "default to action" pattern. Without it, Claude will often output plans instead of executing them.
+
+## Trigger Words
+
+Certain phrases cause aggressive tool use:
+
+- "deep dive" - triggers 5+ tool calls
+- "comprehensive" - extensive searching
+- "analyze thoroughly" - over-investigation
+
+Use these intentionally or avoid them if you want focused behavior.
+
+## Parallel Tool Execution
+
+Claude (especially Sonnet) aggressively parallelizes tool calls by default. To tune this:
+
+```
+# For more parallelism
+When multiple files need reading, read them all in parallel.
+
+# For less parallelism
+Complete one file's analysis before moving to the next.
+```
+
+## Message Separation
+
+Separating system and user content into distinct messages improves Claude's performance. This is opposite of GPT models where combining works better.
+
+## Thinking Blocks
+
+Claude supports structured reasoning with thinking tags:
+
+```
+<thinking>
+The user wants X. I should check Y first because Z.
+</thinking>
+```
+
+Interleaved thinking allows tool execution during reasoning, useful for complex multi-step tasks.
+
+## Explicit Instructions Required
+
+Claude 4.x requires more explicit instructions than earlier versions. Behaviors that were implicit now need stating:
+
+```
+# Previously implicit, now needs explicit instruction
+Go above and beyond the literal request when it serves the user's underlying goal.
+```
 
 ---
 > Source: [cashew-labs/libretto](https://github.com/cashew-labs/libretto) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
