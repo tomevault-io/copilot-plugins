@@ -1,158 +1,80 @@
 ## evolve
 
-> Register, read, replace, and delete custom agents.
+> Register a custom agent so Evolve can install and run it for evaluations.
 
 
-Use `agents()` or `hosted().agents` for registered custom agents. Built-in harness capabilities come from [`meta()`](/sdk-reference/methods/meta). Examples use a configured `client`. Python examples run inside an async function.
+Register an install script or agent directory, plus a command to run. Use the registration's name with `evolve run -a`.
 
-## create
+### Install script
 
-Register a custom agent from an install script or local directory.
-
-```ts TypeScript
-const agent = await client.create({
-  name: "my-agent",
-  directory: "./agent-source",
-  run_command: "my-agent --headless",
-});
+```bash
+evolve agent add my-agent \
+  --install-script ./install.sh \
+  --run "my-agent --headless"
 ```
 
-```python Python
-agent = await client.create(
-    name="my-agent",
-    directory="./agent-source",
-    run_command="my-agent --headless",
-)
+Evolve uploads the script's contents.
+
+### Agent directory
+
+```bash
+evolve agent add my-agent \
+  --dir ./my-agent \
+  --run "./bin/my-agent --headless" \
+  --agent-env MODE=eval
 ```
 
-**Returns:** `Agent`. See [agent fields](#agent-fields).
+Evolve uploads the directory as an archive.
 
-### Parameters and behavior
+Use exactly one source. Both forms require `--run`.
 
-| Parameter | Type and meaning |
+## Registration options
+
+| Option | Meaning |
 | --- | --- |
-| `name` | Required string. Read naming rules and reserved names from `meta().agent_registration`. |
-| `install_script` or `directory` | Exactly one. Script is its text, not a path. Directory is packed and uploaded. |
-| `run_command` | Required command string, run headlessly with `sh -c` in the task working directory. |
-| `env?` | String-to-string map. Injected at run time; platform-owned environment keys are refused. |
-| `org?` | Organization slug or id. Overrides client default, then falls back to your personal organization. |
+| `--install-script <path>` | Local install script. |
+| `--dir <path>` | Local agent directory. |
+| `--run <command>` | Required command, executed with `sh -c`. |
+| `--agent-env <KEY=VALUE>`, `--ae <KEY=VALUE>` | Runtime environment variables. Repeatable. |
+| `--org <name>` | Owning organization; otherwise the saved CLI default, then personal. |
 
-The build has internet access but no secrets. Its dependencies must be publicly fetchable, and installation must leave executables under `$PREFIX/bin`. Read [custom agents](/core-concepts/agents) for the run contract.
+The registration belongs to you and an organization. Its members can use it in jobs; only you can change or remove it.
 
-## list
+For the execution contract and model access, see [Agents](/core-concepts/agents).
 
-Browse registered agents visible in the chosen scope.
+## List and inspect
 
-```ts TypeScript
-const page = await client.list({
-  scope: "org",
-  limit: 20,
-});
+```bash
+evolve agent list --scope org
+evolve agent show my-agent
 ```
 
-```python Python
-page = await client.list(
-    scope="org",
-    limit=20,
-)
+`agent list` accepts `--scope <my|shared|org>` and all shared [list options](/cli-reference/index#list-options).
+
+`agent show` takes the registered agent's name. This group manages custom registrations; it is not the list of built-in harnesses.
+
+## Run it
+
+```bash
+evolve run \
+  -d harbor-examples@1.0 -i hello-world \
+  -a my-agent -m gpt-6-luna \
+  --max-trial-spend 0.30 --max-retries 0 \
+  --watch
 ```
 
-**Returns:** `AgentPage` when awaited; an `Agent` per iteration.
+The supplied model must be suitable for your agent's implementation.
 
-### Parameters and behavior
+## Remove a registration
 
-| Parameter | Type and meaning |
-| --- | --- |
-| `scope?` | `my` (default): yours. `shared`: other members’ registrations in your organizations. `org`: all registrations in your organizations, including yours. |
-| `limit?`, `cursor?` | Collection pagination; default 50, maximum 200. Await one page or use `for await` / `async for`. |
-
-Page fields are `items`, `nextCursor`, `hasMore` in TypeScript; `items`, `next_cursor`, `has_more` in Python.
-
-## get
-
-Read a registered agent by name.
-
-```ts TypeScript
-const agent = await client.get("my-agent");
+```bash
+evolve agent remove my-agent
 ```
 
-```python Python
-agent = await client.get("my-agent")
-```
+Past jobs keep their recorded agent configuration. Removal has no CLI confirmation prompt.
 
-**Returns:** `Agent`.
-
-### Parameters and behavior
-
-`name` is a required string. This reads registered agents; use `meta()` to discover built-in harnesses.
-
-## upsert
-
-Create or fully replace the registration under a name.
-
-```ts TypeScript
-const agent = await client.upsert("my-agent", {
-  directory: "./agent-source",
-  run_command: "my-agent --headless",
-  env: { AGENT_MODE: "eval" },
-});
-```
-
-```python Python
-agent = await client.upsert(
-    "my-agent",
-    directory="./agent-source",
-    run_command="my-agent --headless",
-    env={"AGENT_MODE": "eval"},
-)
-```
-
-**Returns:** `Agent` after replacement.
-
-### Parameters and behavior
-
-The first argument is the required name. Remaining fields match [`create`](#create), except `name` is not repeated in the TypeScript input.
-
-This replaces the entire registration: omitting `env` clears it. The owning organization cannot change. Existing registrations can be updated without a delete-and-create gap.
-
-## delete
-
-Remove a registered agent.
-
-```ts TypeScript
-await client.delete("my-agent");
-```
-
-```python Python
-await client.delete("my-agent")
-```
-
-**Returns:** No value (`void` / `None`).
-
-### Parameters and behavior
-
-`name` is required. Past jobs retain their recorded agent identity.
-
-## Agent fields
-
-### Agent response
-
-Both SDKs use the same fields; Python returns an `Agent` dataclass. `source` identifies how it was registered. The response does not contain the install script or source archive.
-
-```ts Fields
-interface Agent {
-  name: string;
-  org: string | null;
-  source: AgentSource;
-  run_command: string;
-  env: Record<string, string>;
-  created_at: string;
-  updated_at: string;
-}
-
-type AgentSource = "install_script" | "tarball";
-```
+[Global options](/cli-reference/index#global-options) apply. The plural `agents` is reserved; use `agent`.
 
 ---
 > Source: [evolving-machines-lab/evolve](https://github.com/evolving-machines-lab/evolve) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
