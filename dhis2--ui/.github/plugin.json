@@ -1,0 +1,9 @@
+{
+  "name": "dhis2--ui",
+  "displayName": "ui",
+  "description": "ui",
+  "version": "1.0.0",
+  "author": "dhis2",
+  "homepage": "https://github.com/dhis2/ui",
+  "skills": []
+}
