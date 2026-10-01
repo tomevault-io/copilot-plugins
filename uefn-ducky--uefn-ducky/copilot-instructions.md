@@ -1,24 +1,25 @@
-## never-edit-uefn-digests
+## project-folder-storage
 
-> HARD — never edit UEFN digests; Verse build then look inside (UEFN auto-edits them)
+> HARD — never store Ducky side-files in UEFN project except .ducky/**
 
 
-# UEFN digests — READ ONLY; UEFN auto-edits them
+# Project folder storage — `.ducky` only
 
-**NEVER** write, edit, delete, rename, or `workspace_write_file` any `*.digest.verse`
-(Fortnite / Verse / UnrealEngine / Assets).
+**NEVER** create Ducky side-files inside the UEFN project folder except under
+`.ducky/**` (tests, tasks).
 
-**UEFN rewrites digests itself** on Verse build / import. You do not touch the files.
+| Allowed in project | Forbidden |
+|--------------------|-----------|
+| `.ducky/**` (JSON/tasks — never `.py`) | `Saved/DuckyCaptures`, `.uefn-ducky`, caches, temps, extra `*.py` / `*.pyc` |
+| `Content/**` game content (Verse, assets) | Agent scratch, dumps, plugin junk |
+| `Content/Python/init_unreal.py` only (Ducky-managed listener — **never delete**) | Any other `Content/Python/**` file |
 
-## Workflow
+**Put everything else here:**
 
-1. Write project code under `Content/Verse/**/*.verse` only.
-2. When UEFN is open: `workspace_compile_verse` (Verse build).
-3. Then **look inside** digests: `list_verse_digests` → `search_verse_digest` /
-   `get_verse_api` / `list_verse_types` (Assets digest especially after new
-   materials / meshes / prefabs).
+- `%LOCALAPPDATA%/UEFN-Ducky/` (tool_captures, memory, diagnostics, plugins, …)
+- OS temp when truly ephemeral
 
-Missing a type? Build first, then re-search — never invent by patching a digest.
+Captures / snips → AppData `tool_captures` only. Never mirror into the island.
 
 ---
 > Source: [UEFN-Ducky/UEFN-Ducky](https://github.com/UEFN-Ducky/UEFN-Ducky) — distributed by [TomeVault](https://tomevault.io).
