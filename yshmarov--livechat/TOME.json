@@ -4,7 +4,7 @@
   "repo": "livechat",
   "description": "Open-source live chat for Rails: drop-in support widget + team inbox, in your own database. Alternative to Crisp, Intercom, Chatwoot \u2014 inside your Rails app, not another service.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yshmarov/livechat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T16:08:53Z"
+  "distributed_at": "2026-10-01T22:23:34Z"
 }
