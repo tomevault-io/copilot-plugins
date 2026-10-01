@@ -1,0 +1,9 @@
+{
+  "name": "xiong-wenjun--maple-guard",
+  "displayName": "MAPLE-Guard",
+  "description": "Memory-Aware Propagation and Link Enforcement Guard for defending LLM-based multi-agent systems against memory-link poisoning",
+  "version": "1.0.0",
+  "author": "xiong-wenjun",
+  "homepage": "https://github.com/xiong-wenjun/MAPLE-Guard",
+  "skills": []
+}
