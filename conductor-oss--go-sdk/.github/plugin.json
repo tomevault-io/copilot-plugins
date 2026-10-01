@@ -1,0 +1,18 @@
+{
+  "name": "conductor-oss--go-sdk",
+  "displayName": "go-sdk",
+  "description": "go-sdk",
+  "version": "1.0.0",
+  "author": "conductor-oss",
+  "homepage": "https://github.com/conductor-oss/go-sdk",
+  "skills": [
+    {
+      "name": "go-sdk",
+      "description": ""
+    },
+    {
+      "name": "go-sdk",
+      "description": ""
+    }
+  ]
+}
