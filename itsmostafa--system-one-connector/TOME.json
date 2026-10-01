@@ -2,7 +2,7 @@
   "name": "system-one-connector",
   "owner": "itsmostafa",
   "repo": "system-one-connector",
-  "description": "System One MCP connector to evaluate anything fast and cheap. Give your AI agent direct access to models like: Typesafe AI's Jev model and Laya",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/itsmostafa/system-one-connector",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-28T03:36:21Z"
+  "distributed_at": "2026-10-01T02:30:35Z"
 }
