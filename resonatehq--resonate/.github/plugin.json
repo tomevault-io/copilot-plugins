@@ -1,0 +1,18 @@
+{
+  "name": "resonatehq--resonate",
+  "displayName": "resonate",
+  "description": "resonate",
+  "version": "1.0.0",
+  "author": "resonatehq",
+  "homepage": "https://github.com/resonatehq/resonate",
+  "skills": [
+    {
+      "name": "resonate",
+      "description": ""
+    },
+    {
+      "name": "resonate",
+      "description": ""
+    }
+  ]
+}
