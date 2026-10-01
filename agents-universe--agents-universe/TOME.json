@@ -2,7 +2,7 @@
   "name": "agents-universe",
   "owner": "agents-universe",
   "repo": "agents-universe",
-  "description": "\u8ba9\u667a\u80fd\u4f53\u50cf\u4eba\u4e00\u6837\u5b66\u4e60\u548c\u5de5\u4f5c",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agents-universe/agents-universe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T02:19:02Z"
+  "distributed_at": "2026-10-01T02:28:26Z"
 }
