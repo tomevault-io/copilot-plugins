@@ -4,7 +4,7 @@
   "repo": "opendoc",
   "description": "A deterministic, embeddable Word-document engine written in Rust \u2014 it reads and writes .docx, holds the document in a normalized editable model, and lays it out and renders it to pixels, for native, WebAssembly, and headless hosts that need real DOCX fidelity without a browser, a server, or a UI framework.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CasualOffice/opendoc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T13:51:42Z"
+  "distributed_at": "2026-10-01T21:51:52Z"
 }
