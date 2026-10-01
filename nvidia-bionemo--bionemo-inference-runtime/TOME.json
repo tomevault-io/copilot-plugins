@@ -2,9 +2,9 @@
   "name": "BioNeMo-Inference-Runtime",
   "owner": "NVIDIA-BioNeMo",
   "repo": "BioNeMo-Inference-Runtime",
-  "description": "Easy, fast, and memory-efficient structure prediction inference",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA-BioNeMo/BioNeMo-Inference-Runtime",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T12:16:06Z"
+  "distributed_at": "2026-10-01T19:51:00Z"
 }
