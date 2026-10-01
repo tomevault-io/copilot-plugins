@@ -2,9 +2,9 @@
   "name": "Pulse",
   "owner": "qunqin24",
   "repo": "Pulse",
-  "description": "A floating macOS monitor for how much Claude Code, Codex, Antigravity, OpenCode Go and Kimi Code you have left",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qunqin24/Pulse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T09:32:58Z"
+  "distributed_at": "2026-10-01T17:59:27Z"
 }
