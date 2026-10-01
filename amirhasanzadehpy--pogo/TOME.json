@@ -4,7 +4,7 @@
   "repo": "Pogo",
   "description": "Runtime-aware Django ORM language server (LSP 3.16) \u2014 completion, hover, diagnostics, signature help, and definitions for Django models, querysets, and managers. Go coordinator + embedded Python worker.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amirhasanzadehpy/Pogo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T18:43:29Z"
+  "distributed_at": "2026-10-01T22:53:14Z"
 }
