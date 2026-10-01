@@ -1,17 +1,13 @@
 ## kliveide
 
-> <!-- BEGIN:nextjs-agent-rules -->
+> Claude Code reads this file; the shared guidance for every AI assistant lives in `AGENTS.md`.
 
-<!-- BEGIN:nextjs-agent-rules -->
+# CLAUDE.md
 
-# This is NOT the Next.js you know
+Claude Code reads this file; the shared guidance for every AI assistant lives in `AGENTS.md`.
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
+@AGENTS.md
 
 ---
 > Source: [Dotneteer/kliveide](https://github.com/Dotneteer/kliveide) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
