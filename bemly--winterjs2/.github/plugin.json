@@ -1,0 +1,9 @@
+{
+  "name": "bemly--winterjs2",
+  "displayName": "winterjs2",
+  "description": "\u2744\ufe0f Node.js-like JS runtime on SpiderMonkey (servo/mozjs), pure Rust \u2014 node: compat to Bun height",
+  "version": "1.0.0",
+  "author": "Bemly",
+  "homepage": "https://github.com/Bemly/winterjs2",
+  "skills": []
+}
