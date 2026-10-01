@@ -1,67 +1,96 @@
 ## eddi
 
-> Start with **[AGENTS.md](AGENTS.md)**. It owns workflow, branch policy, quality gates, the
+> React + **Tailwind CSS v4** components from the EDDI-Manager app (black & gold brand).
 
-# CLAUDE.md — EDDI Manager
+# EDDI-Manager design system
 
-@AGENTS.md
+React + **Tailwind CSS v4** components from the EDDI-Manager app (black & gold brand).
+Every component is imported from the bundle (`window.EDDI.*`) and styled by Tailwind
+utility classes that read EDDI's design tokens. Build screens by composing these
+components and styling your own layout with the same utility classes + tokens below.
 
-Start with **[AGENTS.md](AGENTS.md)**. It owns workflow, branch policy, quality gates, the
-i18n mandate, architecture, API conventions and constraints — all of it applies. This file
-adds the layer AGENTS.md does not cover: **what UI should be built from and what it should
-look like.**
+## Styling idiom — Tailwind utilities over CSS variables
 
-## Load a skill before writing UI
+Style layout/spacing with Tailwind utility classes; never hand-write CSS or invent a
+class system. Colors come from EDDI's tokens (defined as CSS custom properties), used
+via the semantic Tailwind color names below — NOT raw hex.
 
-| Task | Skill |
+| Token (class suffix) | Meaning |
 |---|---|
-| Anything that renders — a component, a card, a dialog | `.claude/skills/eddi-ui` |
-| A whole page — list, detail, config editor, wizard | `.claude/skills/eddi-screens` |
-| Data, routes, forms, i18n, tests | `.claude/skills/eddi-data` |
+| `primary` / `primary-foreground` | brand gold (`#f59e0b`) + text on it |
+| `secondary` / `secondary-foreground` | muted neutral surface |
+| `background` / `foreground` | page bg + body text |
+| `card` / `card-foreground` | card surface + text |
+| `muted` / `muted-foreground` | subtle surface + secondary text |
+| `border`, `input` | hairline borders, field borders |
+| `destructive` / `destructive-foreground` | danger red |
+| `warning` / `warning-foreground` | caution amber + text on it |
 
-## The five rules that catch most mistakes
+Use them as `bg-primary`, `text-primary-foreground`, `text-muted-foreground`,
+`border-border`, `bg-card`, `text-destructive`, etc. A caution surface is
+`border-warning/30 bg-warning/5` with `text-warning` on the icon and heading — do not
+reach for a raw `amber-*` class, and do not use `destructive` for something that is
+not dangerous. Common scales also apply:
+spacing (`p-5`, `gap-2`), radius
+(`rounded-lg`, `rounded-xl`), text (`text-sm`, `font-medium`), flex/grid.
+Dark mode: add the `dark` class to a root ancestor — tokens flip automatically.
+Many components forward `className` to extend their styling (merged with `cn()`),
+but not all (e.g. `BackLink` only takes `to`/`label`) — check each component's
+`.d.ts` for whether `className` is in its props.
 
-1. **Compose, don't recreate.** `src/components/ui/` (primitives) and
-   `src/components/shared/` (app-level components) already exist — list the directories;
-   `eddi-ui` describes each. Import them. Do not
-   pull in a fresh shadcn/ui component, and do not hand-roll a button, badge, card,
-   dialog, empty state or error state.
-2. **Colors come from tokens, never hex.** `bg-primary`, `text-muted-foreground`,
-   `border-border`, `bg-card`, `text-destructive`. Tokens are declared in `@theme` in
-   `src/index.css` and flip in dark mode. A literal `#f59e0b` in a component is a bug.
-3. **Logical properties only.** `ps-*` / `pe-*` / `ms-*` / `me-*` / `start-*` / `end-*` /
-   `text-start` / `text-end`. Never `pl-`, `pr-`, `ml-`, `mr-`, `left-`, `right-`. The app
-   ships Arabic; `e2e/rtl.spec.ts` will catch you.
-4. **Every user-visible string goes through `t("key", "Fallback")`** — then into
-   `en.json` and all 10 other locales in the same commit (AGENTS.md §2).
-5. **`data-testid` on anything a test asserts on** — rows, buttons, inputs, states.
-   Existing naming: `channel-row-${id}`, `create-channel-btn`, `view-toggle-card`.
+## Variant props (don't restyle — use the prop)
 
-## Variant props, not restyling
+- **Button** — `variant`: `primary` | `secondary` | `destructive` | `warning` | `outline` | `ghost` | `link`; `size`: `sm` | `md` | `lg` | `icon`. Put a lucide icon as a child for an icon+label button.
+- **Badge** — `variant`: `default` | `secondary` | `success` | `warning` | `destructive` | `outline`.
+- **Card** — compose `Card` > `CardHeader` (`CardTitle`, `CardDescription`) + `CardContent` + `CardFooter`.
 
-`<Button variant="outline" size="sm">` — not `<Button className="border bg-transparent">`.
-Same for `Badge`. If a variant is missing, add it to the `cva` config in the primitive so
-the whole app gets it; don't patch it at the call site.
+## App chrome — compose the shell, don't invent one
 
-## Design system mirror
+The synced surface includes EDDI's real page chrome, so a full screen is composed from
+it rather than reimplemented:
 
-The synced surface is whatever `.design-sync/config.json`'s `componentSrcMap` lists — most
-of `ui/` and `shared/` plus five pieces of chrome from `src/components/layout/` (`Sidebar`,
-`TopBar`, `PlatformStatus`, `PageLoader`, `MockDataBanner`). Read that map rather than a count
-here. `AppLayout` and `ConfigEditorLayout` are excluded on purpose — both pull Monaco into the
-bundle. Others are unsynced too: `UpdateCheckCard` and `UpdateBanner` are newer than the last
-sync, `ChipInput` and `StepDots` are left out deliberately (NOTES.md says why), and
-`ResizeHandle` and the two `ConnectionReference*` components have not been considered yet. `.design-sync/conventions.md` is the styling contract;
-`.design-sync/NOTES.md` explains the build wiring. (`.ds-sync/` is the vendored converter
-toolchain that reads this configuration — not a second design system.)
+- **`Sidebar`** — `collapsed` / `onToggle`. The nav rail: brand mark, Manager/Workforce
+  switcher, collapsible sections, external links, version footer. It fills its parent's
+  height, so give it a height-constrained flex container.
+- **`TopBar`** — `onMenuClick` / `sidebarVisible`. Breadcrumb (derived from the router),
+  platform-status pill, and the theme/language controls.
+- **`PlatformStatus`**, **`PageLoader`**, **`MockDataBanner`** — the connectivity pill, a
+  route-level skeleton, and the demo-mode strip. All take no props.
 
-**Adding a component to `ui/`, `shared/` or `layout/` does not add it to the design system**
-— it must also be added to `.design-sync/ds-entry.tsx`, `config.json`'s `componentSrcMap`
-**and `dtsPropsFor`** (the hand-written props contract — the repo has no `.d.ts` tree, so
-without an entry the component ships an empty API), and a preview in
-`.design-sync/previews/`. If it reads a token no other synced file uses,
-check that token still reaches `:root` in the compiled CSS: Tailwind v4 tree-shakes `@theme`
-tokens, so an unscanned utility means a missing variable (see NOTES.md).
+There is no `AppLayout` in the bundle — it is deliberately excluded. Build the frame as a
+full-height flex row: `Sidebar` beside a column of `TopBar` + your `<main>`, and give that
+main region `p-6` yourself (the app's layout supplies it, so pages never repeat it).
+
+Also available beyond the leaf components: **`DropdownMenu`** (Radix wrapper — compose
+`DropdownMenuTrigger` / `Content` / `Item` / `Separator` / `Label`), **`ModeSwitcher`**, and
+**`RefetchErrorNotice`** (inline "could not refresh" strip that keeps stale data on screen).
+
+## Where the truth lives
+
+- `styles.css` (+ its `@import`ed `_ds_bundle.css` and token CSS) — the complete token + utility vocabulary. Read it before styling.
+- `components/<group>/<Name>/<Name>.d.ts` — the exact props for each component.
+- `components/<group>/<Name>/<Name>.prompt.md` — per-component usage notes.
+
+## Idiomatic example
+
+```tsx
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button, Badge } from "<bundle>";
+
+<Card className="max-w-md">
+  <CardHeader>
+    <div className="flex items-center justify-between">
+      <CardTitle>Customer Support</CardTitle>
+      <Badge variant="success">Deployed</Badge>
+    </div>
+    <CardDescription>Resolves tier-1 tickets and routes escalations.</CardDescription>
+  </CardHeader>
+  <CardContent className="text-sm text-muted-foreground">1,284 conversations · 96% resolved</CardContent>
+  <CardFooter className="gap-2">
+    <Button size="sm">Open</Button>
+    <Button size="sm" variant="outline">Configure</Button>
+  </CardFooter>
+</Card>
+```
 
 ---
 > Source: [labsai/EDDI](https://github.com/labsai/EDDI) — distributed by [TomeVault](https://tomevault.io).
