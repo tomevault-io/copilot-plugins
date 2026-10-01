@@ -1,0 +1,9 @@
+{
+  "name": "retsu-ai--qq",
+  "displayName": "qq",
+  "description": "A composable harness for running and orchestrating AI agents.",
+  "version": "1.0.0",
+  "author": "retsu-AI",
+  "homepage": "https://github.com/retsu-AI/qq",
+  "skills": []
+}
