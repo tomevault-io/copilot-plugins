@@ -1,0 +1,9 @@
+{
+  "name": "diggerhq--opendots",
+  "displayName": "opendots",
+  "description": "An always-on personal agent you own, on the model you choose. A model-agnostic alternative to OpenAI's Dots, built on OpenComputer Serverless Agents.",
+  "version": "1.0.0",
+  "author": "diggerhq",
+  "homepage": "https://github.com/diggerhq/opendots",
+  "skills": []
+}
