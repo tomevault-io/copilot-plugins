@@ -1,288 +1,428 @@
 ## design-system
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with the @equinor/eds-mobile-components package.
+> Conventions for AI agents working in `apps/design-system-docs` — the public
 
-# CLAUDE.md
+# AGENTS.md — EDS Documentation Site
 
-This file provides guidance to Claude Code (claude.ai/code) when working with the @equinor/eds-mobile-components package.
+Conventions for AI agents working in `apps/design-system-docs` — the public
+EDS documentation site (eds.equinor.com), built with **Docusaurus 3.10**.
+Repo-wide conventions (commits, secrets, formatting, component code style)
+live in the root [`AGENTS.md`](../../AGENTS.md); this file covers only what is
+specific to this app.
 
-## Package Overview
+## What this app is
 
-This package is the core React Native component library implementing the Equinor Design System. It provides UI components with full support for light/dark theming and comfortable/spacious density modes.
+A versioned Docusaurus site documenting EDS. Three doc versions exist:
 
-## Local Development
+| Version                             | Content dir                          | URL path                                            | Status                                                   |
+| ----------------------------------- | ------------------------------------ | --------------------------------------------------- | -------------------------------------------------------- |
+| `current` (labelled **3.0.0-beta**) | `docs/`                              | `/docs/Next/…` (capital N, baked into footer links) | where new work goes                                      |
+| `2.0.0-beta`                        | `versioned_docs/version-2.0.0-beta/` | `/docs/2.0.0-beta/…`                                | frozen snapshot, rendered with the redesign              |
+| `1.1.0`                             | `versioned_docs/version-1.1.0/`      | `/docs/…`                                           | **frozen archive — never restyle or edit its rendering** |
 
-From this package directory:
+**Version scoping is the #1 footgun.** Anything that styles doc _content_
+must be scoped so 1.1.0 keeps its stock rendering. Current and the frozen
+2.0.0-beta both render with the redesign, so every scope names both:
 
-```bash
-# Build the component library
-pnpm build
+- CSS: pair `html:is([class*='docs-version-current'], [class*='docs-version-2.0.0-beta'])`
+  (the redesigned versions) with `html:not([class*='docs-version-'])`
+  (unversioned pages: landing, /foundation, /getting-started, /about).
+  Per-element rules use `html:where(…)` to keep specificity at 0,0,2 so
+  single-class component rules still win. The one exception is the version
+  badge in `site-chrome.css`, hidden on current only so frozen pages still
+  say which version they are.
+- React: the DocItem hero gate checks `REDESIGN_VERSIONS` (`'current'` and
+  `'2.0.0-beta'`).
+- Freezing another version means adding its `docs-version-*` class and name
+  to both lists.
+- Chrome (navbar, sidebar, TOC, footer) is deliberately version-independent.
 
-# Watch mode for development (auto-rebuilds on changes)
-pnpm dev
+**The current and 1.1.0 paths are pinned explicitly, and both must stay that way.**
+`docusaurus.config.ts` sets `lastVersion: 'current'` plus
+`'1.1.0': { path: '' }`. Neither is decoration:
 
-# Lint
-pnpm lint
+- Without `lastVersion`, Docusaurus defaults it to the newest entry in
+  `versions.json` (`2.0.0-beta`), which silently makes a frozen snapshot the target
+  of every `type: 'docSidebar'` navbar item and of the version dropdown — while
+  the footer and landing pages link to `/docs/Next/…`. The site then
+  contradicts its own chrome and the redesign is unreachable from the primary
+  navigation.
+- With `lastVersion: 'current'`, a non-last version takes its version _name_ as
+  its path, so `'1.1.0': { path: '' }` is what keeps the archive at `/docs/…`
+  instead of relocating it to `/docs/1.1.0/…` and breaking every existing link.
 
-# Type check
-pnpm types
+Two sanctioned changes to the archive's rendering, and only these two:
 
-# Clean build artifacts
-pnpm clean
-```
+1. It carries Docusaurus's standard "no longer actively maintained" banner,
+   because it genuinely is not the latest version. Suppress with
+   `banner: 'none'` on the `1.1.0` entry if that is ever unwanted.
+2. It has no breadcrumbs. `breadcrumbs: false` is a docs-**plugin** option,
+   not a per-version one, so the redesign's choice to drop them necessarily
+   applies to the archive too. There is no way to scope it; re-enabling for
+   1.1.0 alone would mean a second plugin instance.
 
-From the monorepo root, the equivalents are `pnpm build:mobile`, `pnpm watch:mobile`, and `pnpm check-types:mobile` (hand-sequenced to build this package first). There's no root-level lint equivalent — root's `eslint.config.mjs` ignores this package outright (ESLint's flat config doesn't cascade per-directory, so linting it from the root would otherwise apply root's Prettier-style rules — single quotes, no semicolons — to code written in this package's own style). `pnpm lint:all` exits 0 on these files (with an easy-to-miss "File ignored" warning) rather than actually checking them. Use `pnpm --filter @equinor/eds-mobile-components run lint` (or run it from this directory) to get this package's own config.
+Anything else that changes how 1.1.0 renders is a bug.
 
-## Architecture
-
-### Token and Theming System
-
-The library uses a token-based theming system sourced from `@equinor/eds-tokens`:
-
-**Token Sources:**
-
-- `theme.colors.*` — color tokens (`ColorToken`)
-- `theme.spacing.*` — spacing tokens (`SpacingToken`)
-- `theme.typography.*` — typography tokens (`TypographyToken`)
-- `theme.geometry.*` / `theme.timing.*` — static constants (no `@equinor/eds-tokens` equivalent yet)
-
-**Theme Context:**
-
-- `EDSProvider` wraps the app and provides theme context via React Context
-- Accepts `colorScheme` ("light" | "dark") and `density` ("comfortable" | "spacious")
-- Creates a `MasterToken` that resolves theme values based on current scheme/density
-- Internally wraps app in `GestureHandlerRootView`, `PortalProvider`, `ScrimProvider`, and `DialogServiceProvider`
-
-**Creating Theme-Aware Styles:**
-
-```tsx
-// Define styles using EDSStyleSheet.create
-const themeStyles = EDSStyleSheet.create((token) => ({
-    container: {
-        backgroundColor: token.colors.bg.neutral.surface,
-        padding: token.spacing.spacing.inset.lg.horizontal,
-    },
-}));
-
-// Resolve styles in component using useStyles hook
-const MyComponent = () => {
-    const styles = useStyles(themeStyles);
-    return <View style={styles.container} />;
-};
-```
-
-**Conditional Styling with Props:**
-
-```tsx
-const themeStyles = EDSStyleSheet.create(
-    (token, props: { highlighted?: boolean }) => ({
-        container: {
-            backgroundColor: props.highlighted
-                ? token.colors.bg.accent.fillEmphasis.default
-                : token.colors.bg.neutral.surface,
-        },
-    })
-);
-
-const MyComponent = ({ highlighted }: { highlighted?: boolean }) => {
-    const styles = useStyles(themeStyles, { highlighted });
-    return <View style={styles.container} />;
-};
-```
-
-**Direct Token Access:**
-
-- Use `useToken()` hook to access token values directly in component logic
-- Prefer `EDSStyleSheet` + `useStyles` for styling
-- Only use `useToken()` when you need token values for non-style purposes
-
-### Directory Structure
+## Directory map
 
 ```
-src/
-├── components/        # All UI components (Button, Paper, TextField, Dialog, etc.)
-├── hooks/            # Shared hooks (useEDS, useStyles, useToken, useBreakpoint, etc.)
-├── styling/          # Theming system (EDSStyleSheet, token types, color/spacing)
-│   └── tokens/       # Token type definitions
-├── utils/            # Utility functions and types
-└── assets/           # Fonts and static assets
+docs/                      current-version content (md/mdx)
+versioned_docs/1.1.0/      frozen archive — do not touch
+versioned_docs/version-2.0.0-beta/  frozen snapshot — content not edited
+src/css/                   the five global stylesheets (see below)
+src/components/            shared site components (docs- prefixed CSS)
+src/theme/                 Docusaurus swizzles + MDXComponents registry
+src/pages/                 unversioned React pages (index, foundation, …)
+src/clientModules/         syncColorScheme (data-theme → data-color-scheme),
+                           pageTransitions (View Transitions on route change)
+scripts/                   check-viewport-overflow.mjs (needs a running
+                           server) and check-story-references.mjs (static)
+sidebars.ts                hand-maintained; category link docs must NOT be
+                           repeated in their own items array
+docusaurus.config.ts       aliases + webpack rules (see Config)
 ```
 
-Each component typically exports:
+## Global CSS — five files, strict responsibilities
 
-- Main component (e.g., `Button`)
-- Type definitions (e.g., `ButtonProps`)
-- Sub-components if applicable (e.g., `Dialog.Alert`, `Dialog.Confirm`)
+| File                           | Owns                                                                                                                                                        |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/css/theme-variables.css`  | token/font imports, every `--ifm-*` override, the site typography scale. Variables, with one deliberate exception (below).                                  |
+| `src/css/docs-components.css`  | the `--docs-*` design variables (typography roles, rhythm, breakpoint convention) + tiny utilities (`.docs-section`)                                        |
+| `src/css/site-chrome.css`      | navbar, sidebar, TOC, footer rules (no breadcrumbs — `breadcrumbs: false`)                                                                                  |
+| `src/css/doc-layouts.css`      | doc-page layouts: default card, `.docs-landing` breakout, hero-band chrome for component and foundation docs, colour reference tables, table scroll shadows |
+| `src/css/page-transitions.css` | route-change cross-fade tuning (View Transitions pseudos + chrome `view-transition-name`s); driven by `src/clientModules/pageTransitions.ts`                |
 
-### Build System
+The exception in `theme-variables.css`: the per-level heading line-heights at
+the end of the file set `line-height` on `h1`–`h6` directly, not through a
+variable. Infima has only one shared `--ifm-heading-line-height` while the
+token scale ships an absolute value per level, so there is no variable to
+override. They use `html:where(…)` to stay at specificity 0,0,2 so single-class
+component rules still win. Everything else in the file is variables.
 
-**Build Configuration:**
+Component styling is colocated (`src/components/X/x.css`). Convention:
+**plain CSS files, not CSS modules**, `docs-` prefixed root class, BEM-style
+elements, `data-*` attributes for variants. One exception:
+`src/theme/DocItem/Layout/styles.module.css` stays a module because it tracks
+the upstream Docusaurus file.
 
-- Uses `tsup` for bundling (ESM format, tree-shaking enabled)
-- `tsc` generates TypeScript declarations separately
-- Entry: All `.ts/.tsx` files in `src/` (excluding tests and type definitions)
-- Output: `dist/` directory with bundled JS and declaration files
-- Font assets (`.otf`) are copied to `dist/assets/fonts/`
+Two stylelint rules are switched off for this app in `.stylelintrc.yaml`:
+`selector-class-pattern` (the site must select Infima/Docusaurus classes it
+does not own) and `no-descending-specificity` (the version-scoping strategy
+above deliberately relies on specificity order). Every other rule applies —
+`pnpm run lint:css:docs`.
 
-**Build Process:**
+## Tokens — two bundles, one collision
 
-1. `tsup` bundles source code with splitting and tree-shaking
-2. `tsc --emitDeclarationOnly` generates `.d.ts` files
-3. In watch mode (`pnpm dev`), both steps run automatically on file changes
+**RULE: site styling derives ONLY from the semantic layer of the Tokens
+Studio bundle** — `--eds-background-*`, `--eds-text-*`, `--eds-border-*`,
+`--eds-icon-*`, `--eds-typography-*`, `--eds-font-*`, `--eds-spacing-*`,
+`--eds-corner-radius-*`, `--eds-elevation-*`. Never reference primitives
+(`--eds-primitives-*`, `--eds-light-*`/`--eds-dark-*`, palette steps like
+`--eds-accent-9`), the density layer (`--eds-density-*`), or legacy
+`--eds-color-*` names. There is one sanctioned exception: the semantic
+typography bridge in `theme-variables.css` (`:root:root` re-declarations
+resolving the header-* font-size collision below).
 
-### Key Dependencies
+**Elevation is a composite token — use it as one.** `--eds-elevation-low` and
+`--eds-elevation-high` are `boxShadow` composites in the Tokens Studio
+semantic layer, each already composed into a full two-layer (key + ambient)
+`box-shadow` value. Consume those two names directly. Do not compose a shadow
+from the `--eds-shadow-{low,high}-{key,ambient}-{x,y,blur,spread,color}` parts
+they are built from — those are the composite's internals, and restating the
+composition in site CSS silently goes stale if a layer is ever added.
 
-**Peer Dependencies** (must be installed by consumers):
+Both token bundles load (see imports in `theme-variables.css`):
 
-- `react`, `react-dom`, `react-native` - Core React Native
-- `react-native-gesture-handler` - Touch gestures
-- `react-native-reanimated` - Animations
-- `react-native-svg` - SVG support
-- `expo-font` - Font loading
+1. **Tokens Studio bundle** (ADR-0011) — the source of truth for the site's
+   own colours, typography and elevation. Imported as
+   `@equinor/eds-tokens/next/css/variables.css` via a webpack alias to the
+   committed `packages/eds-tokens/src/tokens/css/variables.css`. Names:
+   `--eds-background-*`, `--eds-text-*`, `--eds-border-*`,
+   `--eds-corner-radius-*`, `--eds-typography-{ui,header}-*`,
+   `--eds-font-family-*`, `--eds-font-weight-*` (max weight `bolder` = 500),
+   `--eds-elevation-{low,high}`.
+2. **Legacy bundle** (`@equinor/eds-tokens/css/variables`) — retained ONLY for
+   `--eds-container-space-*` and the embedded `/next` component previews,
+   which consume legacy names. Do not use legacy `--eds-color-*` names in
+   site CSS. **It must stay the first of the two imports:** it also declares
+   `--eds-elevation-low/high`, at the same specificity as the Tokens Studio
+   pair (both 0,1,0), so import order is the only thing making the Tokens
+   Studio composite win. The values agree today, so a reordering would not
+   show up visually — it would just silently pin the site to the legacy flat
+   shadow, which does not flip with the colour scheme.
 
-**Internal Dependencies:**
+## Fonts
 
-- `@equinor/eds-tokens` - Design token source
-- `@floating-ui/react-native` - Popover positioning
-- `react-error-boundary` - Error boundary utilities
+Equinor comes from the CDN (`cdn.eds.equinor.com`); Inter is self-hosted via
+`@fontsource/inter`, imported in `theme-variables.css`.
 
-### Font Loading
+**Import the `latin-NNN.css` entrypoints, never the unsuffixed `NNN.css`.**
+The unsuffixed ones pull seven subsets each (latin, latin-ext, cyrillic,
+cyrillic-ext, greek, greek-ext, vietnamese). The site is `locales: ['en']`, and
+the six extra subsets cost more than their file size: their smaller `.woff2`
+files fall under Docusaurus's asset-inlining threshold, so they get base64'd
+straight into the render-blocking stylesheet. Measured, that was 31 inlined
+blobs and 28 `@font-face` rules, and it held the global sheet at 279.9 kB gzip
+compressing at only 2.2:1. Latin-only: 4 rules, no base64, **47.7 kB gzip**.
 
-Consumers must call `useEDS()` hook before rendering components to load required fonts:
+Safe because every non-ASCII character in `docs/` and `src/` is inside the
+latin subset's `unicode-range`. The ones that are not — arrows, `≈`, `≥`, `⌘`,
+emoji — are absent from _all_ of Inter's subsets, so they render from a
+fallback font either way.
 
-```tsx
-export default function App() {
-    const [hasLoadedEds, edsLoadError] = useEDS();
-    if (!hasLoadedEds) return null;
+Weights 400, 500, 600 and 700 are all loaded. 400 and 500 are the site's own
+(`--docs-font-weight-emphasis` is `bolder` = 500); 600 and 700 back Infima's
+`--ifm-font-weight-{semibold,bold}`, and `<strong>` really does compute to 700.
+Do not trim to 400+500 on the strength of the "never 600/700" rule in the root
+AGENTS.md — that rule is about EDS component CSS, and dropping them here would
+lighten every bold run of prose on the site.
 
-    return (
-        <SafeAreaProvider>
-            <EDSProvider colorScheme="light" density="comfortable">
-                <YourApp />
-            </EDSProvider>
-        </SafeAreaProvider>
-    );
-}
-```
+**Collision gotcha:** both bundles define `--eds-typography-header-*-font-size`
+with different values, and webpack CSS ordering lets the legacy bundle win.
+The semantic typography bridge in `theme-variables.css` (`:root:root`
+specificity 0,2,0) pins the semantic names to the Tokens Studio values, so
+site CSS consumes the semantic `--eds-typography-header-*` names normally.
+Do not remove the bridge and do not reference `--eds-density-*` directly.
 
-## Development Workflow
+Dark mode: `src/clientModules/syncColorScheme.ts` mirrors Docusaurus's
+`data-theme` to `data-color-scheme` on `<html>`, which is what both token
+bundles key on. New colours must come from tokens so they flip automatically.
 
-### When Working on Components
+## Typography — one scale, defined once
 
-1. Make changes in `src/`
-2. Run `pnpm dev` for watch mode (auto-rebuilds)
-3. Test changes in storybook app: `cd ../../ && pnpm dev:mobile` (requires macOS/Xcode — use `pnpm start:mobile` for the cross-platform Metro bundler instead)
-4. **Always use tokens** (`theme.colors`, `theme.spacing`, `theme.typography`) for new work
-5. All components must support both light/dark mode and comfortable/spacious density
+`docs-components.css` defines the `--docs-font-*` roles; everything consumes
+them. Never hardcode font sizes/weights/line-heights in component CSS.
 
-### Logging Migration Findings
+| Role              | Variable                                             | Token (desktop)                                                                    |
+| ----------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Display (heroes)  | `--docs-font-display-*`                              | site-local 44px/1.15 (above the token scale); steps to `header-4xl` 32px on phones |
+| h1 markdown       | `--ifm-h1-font-size`                                 | `header-4xl` 32px                                                                  |
+| h2 / sections     | `--docs-font-section-*`                              | `header-3xl` 24/32                                                                 |
+| h3 / sub-sections | `--docs-font-subsection-*`                           | `header-xl` 21/24                                                                  |
+| Card titles / h4  | `--docs-font-card-title-*`                           | `header-lg` 18/24                                                                  |
+| Lead paragraphs   | `--docs-font-lead-size`                              | `ui-xl` 18px                                                                       |
+| Body prose        | `--docs-font-body-size` + `--docs-prose-line-height` | `ui-lg` 16px, lh 1.6 (site-local)                                                  |
+| Secondary text    | `--docs-font-body-sm-*`                              | `ui-md` 14/20                                                                      |
+| Captions/badges   | `--docs-font-caption-*`                              | `ui-sm` 12/16                                                                      |
+| Emphasis weight   | `--docs-font-weight-emphasis`                        | `bolder` = 500 (never 600/700)                                                     |
 
-While working on a component (migration, docs, bug fix, or review), you may notice gaps that aren't in scope for the current PR — things the Figma design doesn't account for, patterns missing from the EDS web Storybook, accessibility gaps, or API inconsistencies across components. Do not silently drop these.
+Docusaurus re-declares heading size vars **on the markdown heading elements**
+(`.markdown h1:first-child`, `.markdown > h2/h3`), so overrides must be
+restated at those exact scopes — see `theme-variables.css`.
 
-Append them as a checklist item to the tracking issue: **[#152 — Tracking: Findings from component migration](https://github.com/equinor/design-system-mobile/issues/152)** (this issue will be transferred to this repo once `design-system-mobile` is archived — see equinor/design-system#5138). Each item should include:
+## Responsive rules
 
-- **What** — one-line description of the gap
-- **Rationale** — why it matters (a11y, parity with web, dev ergonomics, etc.)
-- **Where it surfaced** — the component or task that revealed it
+- Exactly **two breakpoints**: `996px` (Infima's layout flip) and `600px`
+  (phone). Documented in `docs-components.css`; don't add others.
+- Phone adjustments live in ONE `@media (max-width: 600px)` block overriding
+  the `--docs-*` variables — not per component.
+- Grids prefer `repeat(auto-fill|auto-fit, minmax(…))` over breakpoint
+  columns (footer, entry/resource grids, gallery, team grid all do this).
+- Regression gate: `node scripts/check-viewport-overflow.mjs` (dev server
+  running) asserts no horizontal scroll on 8 key pages × 375/768/1440px.
+  Run it after any layout change.
 
-If the finding needs real work, open a dedicated issue and link it next to the checkbox. The tracking issue is for _discovery_, not _completion_.
+## Shared components (registered globally in `src/theme/MDXComponents.tsx`)
 
-### When Adding New Components
+MDX docs use these without imports; React pages import them from
+`@site/src/components/*`.
 
-1. Create component in `src/components/YourComponent/`
-    - Main component file: `YourComponent.tsx`
-    - Types file: `YourComponent.types.ts` (if complex)
-    - Styles using `EDSStyleSheet.create`
-    - Test file: `YourComponent.test.tsx` — write it alongside the component, not as a follow-up. See `Divider.test.tsx` for the minimal shape: render via `test-utils` (wraps `@testing-library/react-native` with `EDSProvider`) and assert it renders plus any accessibility basics.
-2. Export from `src/index.ts`
-3. Add a storybook screen in `../../apps/mobile-storybook/app/(tabs)/components/yourcomponent.tsx`
-   (lowercase filename — Expo Router derives the route from it), then register it in that
-   directory's `_layout.tsx` and `index.tsx`
-4. Create developer documentation in `docs/YourComponent.mdx` — run `/document-component` for the full workflow and structure
-5. Follow existing patterns for prop naming and component structure
+- `DocsSection` — section + container + SectionHeading boilerplate
+  (`title`, `subtitle`, `tone="muted"`, `as`, `id`)
+- `Hero`, `SectionHeading`, `IconCard`/`IconCardGrid`, `CtaSection`,
+  `TeamCard`, `Icon` — landing-page building blocks
+- `GalleryCard`/`GalleryGrid` — live-preview cards on `/components`
+  (previews import real components from `@equinor/eds-core-react/next`)
+- `StorybookEmbed` — iframe of the deployed Storybook; `showLink` derives
+  the View-in-Storybook link from the `id` (never hand-write those links).
+  Now only used for Foundation stories that have no registry entry
+  (`foundation/design-tokens/typography.md`); component docs use StoryCanvas.
+- `StoryCanvas` — **what every component doc uses**: renders actual CSF story
+  files natively via `composeStories()` (`src/components/StoryCanvas/`).
+  Registry in `stories.ts` (one namespace import + one `composeStories` entry
+  per component, alphabetical); usage
+  `<StoryCanvas of="Button/Default" showLink />`. No `height` — canvases
+  auto-size. Stories that drive their own state through Storybook's `useArgs()`
+  render but cannot be interacted with here (`Switch/Introduction` is the one
+  such case) — prefer a story with local `useState` when the doc needs
+  interactivity.
 
-**MDX handoff to EDS Storybook:** Files in `docs/` are consumed by `packages/eds-core-react` via a `workspace:^` link in this monorepo, which wraps each one with source/npm `<Links>` inside `<PlatformTabs>` — changes appear as soon as both packages are built, no release needed. Mobile MDX should not import `<Links>` or `<PlatformTabs>` itself — write component-focused content only. The consumer-side wrapping pattern (in `packages/eds-core-react/src/components/<Component>/<Component>.docs.mdx` — most under `next/`, but `EdsProvider` and `Typography.new` sit outside it) is:
+Both reference styles fail **silently** at runtime — an unknown StoryCanvas
+`of` logs to the console and renders nothing, and a wrong StorybookEmbed `id`
+renders Storybook's error frame inside the iframe, which the Docusaurus build
+never sees. `pnpm run check:docs-stories`
+(`scripts/check-story-references.mjs`) is the gate: it resolves every `of`
+against the registry and the story file's real exports, and every `id` against
+ids derived with Storybook's own `toId`/`storyNameFromExport`, so it cannot
+drift from how Storybook slugifies a title. It runs in CI. Note that the
+registry itself gives no such guarantee — `of` is a plain `string`.
 
-```tsx
-<PlatformTabs
-    mobile={
-        <>
-            <Links
-                sourceUrl="https://github.com/equinor/design-system/blob/main/packages/eds-mobile-components/src/components/SelectionControls/Switch.tsx"
-                npmUrl="https://www.npmjs.com/package/@equinor/eds-mobile-components"
-            />
-            <MobileDocs />
-        </>
-    }
-/>
-```
+- `DocsLanding` — wrapper that opts an MDX doc into the full-width landing
+  layout (styled in `doc-layouts.css`)
+- `DotField` — the EDS dot grid for hero bands: 2px dots on an 18px pitch plus
+  a pointer-following spotlight that both brightens and enlarges the dots it
+  passes over. Render it as a child of the band and add
+  `docs-dot-host` to the band, which becomes its positioning context and drives
+  the hover. `Hero` wires this up behind its `dots` prop; the component and
+  foundation doc hero band does it directly in the `DocItem/Layout` swizzle. A
+  band that comes from markdown and cannot host an element can set
+  `background-image: var(--docs-dot-grid)` instead (resting grid, no
+  spotlight); no band on the site does this today.
+  All the geometry lives in `--docs-dot-*` in `docs-components.css`; the three
+  gradients resolve at `:root`, so overriding `--docs-dot-size` per band has no
+  effect by design. The size falloff is two stacked lit layers (`::before` at
+  `--docs-dot-size-lit` over the whole radius, `::after` at
+  `--docs-dot-size-lit-near` over `--docs-dot-spotlight-core` of it) because a
+  background tile has a single size for the entire layer — one layer cannot
+  scale its dots by distance.
 
-### Component Development Checklist
+New site components follow the root AGENTS.md recipe transposed to `docs-`
+prefixes; no default exports (Docusaurus swizzles and `Prerequisites` are the
+grandfathered exceptions — `Prerequisites` keeps its default export because
+the 1.1.0 archive imports it).
 
-- [ ] Uses `EDSStyleSheet.create` for all theming
-- [ ] Supports both light and dark modes automatically via tokens
-- [ ] Supports both comfortable and spacious density modes
-- [ ] Uses `theme.colors.*`, `theme.spacing.*`, and `theme.typography.*` tokens
-- [ ] Exports TypeScript types for all props
-- [ ] Follows existing component patterns (prop naming, structure)
-- [ ] Has corresponding storybook story for visual testing
-- [ ] Has a `YourComponent.test.tsx` covering rendering and accessibility basics
-- [ ] Has developer MDX doc in `docs/` (Features → Usage → Examples → Props → Accessibility → Related components)
+## Swizzled theme components (`src/theme/`)
 
-## Important Patterns
+- `DocItem/Layout` — eject tracking upstream 3.10.2 verbatim + the hero band
+  for component and foundation docs (gated on `hide_title` + a `components/`
+  or `foundation/` id + a redesigned version). Re-diff against upstream on
+  Docusaurus upgrades.
+- `DocRoot/Layout/Sidebar` — eject tracking upstream 3.10.2 + two changes: it
+  seeds `hiddenSidebar` from the container flag so a remount cannot strand the
+  sidebar half-collapsed, and it remembers the collapsed state across page
+  loads in `localStorage` (`src/utils/sidebarPreference.ts`). A `headTags`
+  script in `docusaurus.config.ts` marks `<html>` with
+  `data-docs-sidebar-restore` before first paint, so the sidebar starts
+  collapsed instead of opening and animating shut on hydration; the sidebar and
+  hero stylesheets draw the collapsed width while it is set. Re-diff against
+  upstream on Docusaurus upgrades.
+- `Footer` — full custom footer; styled via Infima `footer__*` classes in
+  `site-chrome.css`.
+- `MDXComponents` — the global registry (wrap).
+- `Root` — capture-phase click interceptor that runs internal navigations
+  inside a View Transition (`src/utils/pageTransitions.ts` holds the shared
+  state; the `pageTransitions` client module settles it on route commit).
+- `SearchBar` — wrapper div (`.docs-search-bar`) giving a stable styling
+  scope over the search-local plugin; selectors mirror plugin DOM and may
+  need adjusting on plugin upgrades.
 
-### Portal System
+## Config (`docusaurus.config.ts`)
 
-- Components can render content in portals using `<Portal>` and `<Portal.Host>`
-- Root portal host is automatically provided by `EDSProvider`
-- Used by Dialog, Menu, and other overlay components
-- Allows components to render outside their parent hierarchy (useful for modals, tooltips)
+The `eds-resolver` webpack plugin holds all aliases — trailing `$` means
+exact-match so subpath imports still resolve through package `exports`:
 
-### Dialog Service
+- `@equinor/eds-core-react/next$` → built dist (`/next` is deliberately NOT
+  in the committed exports map — beta-only, issue #4395). **Requires
+  eds-core-react to be built**; if components are missing, rebuild in order:
+  `pnpm --filter @equinor/eds-utils run build` → `pnpm run build:core-react`.
+- `@equinor/eds-tokens/next/css/variables.css$` → committed Tokens Studio
+  bundle.
+- `@eds-core-react-src` → `packages/eds-core-react/src` (portable stories).
+  Mirrored in `tsconfig.json` `paths` — note `paths` REPLACES the inherited
+  `@site/*` mapping, so it is restated there; never remove it. Also listed in
+  the root `eslint.config.mjs` `import/no-unresolved` ignore list for this app,
+  because the shared import resolver only covers `packages/*`.
+- `@storybook/addon-docs/blocks$` → `src/stubs/storybook-addon-docs-blocks.tsx`.
+  Story files import `Stack` from `packages/eds-core-react/.storybook/components`,
+  whose barrel also re-exports helpers built on Storybook's docs blocks; those
+  need a docs context that does not exist here. The stub keeps them inert.
+- Module rules: babel-compiles `packages/eds-core-react/src` **and its
+  `.storybook` helpers** with `@docusaurus/babel/preset`, and stubs
+  `*.docs.mdx` imports inside story files as `asset/source` (Storybook MDX is
+  not Docusaurus-compilable).
 
-- Imperative dialogs available via `Dialog.alert()`, `Dialog.confirm()`, etc.
-- Service provider is automatically included in `EDSProvider`
-- Returns promises for user actions
-- Example: `const result = await Dialog.confirm({ title: "Confirm?", message: "Are you sure?" });`
+`tsconfig.json` also pulls in
+`packages/eds-core-react/src/components/styled.d.ts`: portable stories reach
+legacy components that read token values off styled-components'
+`DefaultTheme`, and without that augmentation every `theme.entities.…` access
+is a type error in this project.
 
-### Scrim Provider
+Webpack config changes require a dev-server restart; content and CSS
+hot-reload.
 
-- Manages backdrop/overlay layers
-- Automatically provided by `EDSProvider`
-- Used by dialogs and modals
-- Provides consistent dimming/backdrop behavior
+### Dependencies
 
-### Animation
+Only declare what **this app's own source** imports. Portable stories drag
+`styled-components`, `react-hook-form`, `@storybook/react-vite` and
+`storybook/{actions,preview-api}` into the bundle, but those are imported by
+story files inside `packages/eds-core-react`, so webpack resolves them from
+that package's `node_modules`, where eds-core-react declares them. They are
+correctly absent from this manifest; adding them only lets two declarations
+drift apart.
 
-- Use `react-native-reanimated` for animations
-- Animation values defined in `styling/animations.ts`
-- Common easing curves and durations available via token
-- Prefer token-based animation values for consistency
+`@storybook/react` is the exception and belongs in `dependencies`, not
+`devDependencies`: `StoryCanvas/stories.ts` imports `composeStories` from it, so
+it ships in the production bundle. Its required peer `storybook` sits alongside
+it.
 
-## Component Migration (Figma → Mobile)
+**Keep both ranges equal to eds-core-react's Storybook version — the exact
+version, not just the major.** Nothing enforces this, and a patch-level gap is
+enough to break the model: when a Dependabot bump moved eds-core-react to
+`^10.5.10` while this app stayed on `^10.5.7`, pnpm installed both, so
+`composeStories` resolved from one copy while the story files'
+`storybook/preview-api` resolved from another. Portable stories still rendered,
+but that is the shape of the failure to watch for — anything relying on
+Storybook's preview singleton (decorators, `useArgs`) is where it would surface.
+When eds-core-react's Storybook moves, move these two with it.
 
-All components are being redesigned to match the EDS Figma design. Follow these principles:
+## Verification workflow
 
-- **Match Figma as closely as possible** — use the Figma MCP tools to extract design context, variables, and screenshots
-- **Scale for mobile** — Figma designs are web-first; determine an appropriate scale factor per component for mobile touch targets (minimum 44×44pt recommended by Apple)
-- **Use semantic tokens** — never hardcode spacing or colors; map Figma CSS variables to `theme.spacing.*` and `theme.colors.*` token paths
-- **Use typography tokens** — map fontSize, fontWeight, lineHeight, letterSpacing to `theme.typography.*` token paths
-- **Pressed = Figma hover** — mobile has no hover state; use the Figma hover background as the pressed state
-- **Use `Pressable` not `PressableHighlight`** — Figma doesn't show a gray overlay on press
-- **Run `/migrate-component`** to follow the full step-by-step migration workflow
+All five run in CI, but they are spread across three jobs of
+`.github/workflows/checks.yaml` — see the note under the list.
 
-## Migration Notes
+1. `npx tsc --noEmit -p apps/design-system-docs`
+2. `pnpm run format:check:docs` — scoped to `{src,docs,scripts}` plus the app's
+   root files. `versioned_docs/version-1.1.0/` is deliberately excluded: 25 of
+   its files are Prettier-unclean and the archive is frozen, so the gate would
+   otherwise demand edits nobody is allowed to make.
+3. `pnpm run lint:css:docs` and `pnpm run lint:docs`
+4. `pnpm run check:docs-stories` — StoryCanvas / StorybookEmbed references.
+5. `pnpm run build:docs` — `onBrokenLinks: 'throw'` is the link gate.
+   Known-acceptable warnings: two broken anchors on the **photography** pages
+   (`foundation/assets/photography` links to the resources page). The
+   current-version one is a false positive — `SectionHeading` slugifies its
+   `title`, so `#external-references` does resolve at runtime, invisibly to the
+   checker. The 1.1.0 one is a **real** broken link (`#external-resources` vs
+   the archive's `#external-references`), left unfixed because the archive is
+   frozen. Also css-minimizer warnings on modern CSS functions
+   (`tan(atan2())`) in compiled component source.
 
-A core goal of the component migration is integrating the colour, spacing, and typography foundations into the React Native component library. Every migrated or newly created component **must** use the EDS token system exclusively.
+**Which job runs what**, since "the docs job" is only two thirds true and it
+matters if anyone ever narrows one of them: the `docs` job runs 2, the CSS half
+of 3 (`lint:css:docs`), 4 and 5. Step 1 runs in the **`types`** job, via
+`pnpm run types` → `design-system-docs typecheck`. The `lint:docs` half of 3
+runs in the **`lint`** job, via `lint:all` (which lints the whole repo,
+this app included). Note also that the root `pnpm run build` does **not** build
+this app — that is why the `docs` job exists and why it `needs: build`, since
+the webpack aliases point at eds-core-react's built artifacts.
 
-**When migrating or creating components:**
+Not in CI (both need a running server):
 
-- **Replace hardcoded values** (hex colors, spacing numbers, font sizes) with semantic tokens where an equivalent exists
-- **Use `theme.colors.*`, `theme.spacing.*`, `theme.typography.*`** — these are the only token paths
-- Check recent commits for migration patterns
+6. `node scripts/check-viewport-overflow.mjs [baseUrl]` — 8 pages ×
+   375/768/1440px. Serve the build on a spare port (`npx docusaurus serve
+--port 3100`) rather than assuming 3000 is free; the dev server usually has
+   it.
+7. Browser pass in light AND dark mode. Standard regression set: `/`,
+   `/foundation`, `/getting-started`, `/about`, `/docs/Next/components`,
+   `/docs/Next/components/inputs/button`,
+   `/docs/Next/foundation/accessibility`, and
+   `/docs/components/inputs/button` (1.1.0 — must not change).
 
-**Unmigrated components (Slice 2–4):** these are excluded from `tsconfig.json` type-checking during the migration period. Removing a component directory from the `exclude` list in `tsconfig.json` is the signal that it has been migrated.
+## Content conventions
+
+- Doc writing style: `documentation/agent-instructions/COMPONENT_DOC_STYLE.md`
+  (British English, no em-dashes, section order).
+- Component and foundation docs use frontmatter `hide_title: true` +
+  `description`, and the swizzled DocItem hero renders both. The body has no
+  `# h1` and starts after the lead. Always set `description` explicitly:
+  without it Docusaurus takes the first paragraph, which then shows in the hero
+  and again in the body. It is plain text, so a lead that needs a link or
+  inline markup keeps that sentence in the body.
+- The frozen 2.0.0-beta foundation pages still carry their title in a
+  markdown `# h1`, so they render with the default doc card and no hero.
+- Never hand-write Storybook URLs in content; use `showLink` /
+  `StoryCanvas`.
 
 ---
 > Source: [equinor/design-system](https://github.com/equinor/design-system) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
