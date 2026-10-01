@@ -3,7 +3,7 @@
   "owner": "ilyas-hallak",
   "repo": "romm-ios-app",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "romm-ios-app",
-      "path": ".agents/skills/swiftui-expert-skill/SKILL.md",
-      "github_url": "https://github.com/ilyas-hallak/romm-ios-app/tree/main/.agents/skills/swiftui-expert-skill/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/ilyas-hallak/romm-ios-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T23:32:21Z"
+  "distributed_at": "2026-10-01T00:14:28Z"
 }
