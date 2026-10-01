@@ -1,0 +1,9 @@
+{
+  "name": "gstranded--autocast-boss-assistant",
+  "displayName": "autocast-boss-assistant",
+  "description": "AutoCast-Boss\u6d77\u6295\u52a9\u624b\uff1aBOSS\u76f4\u8058\u7f51\u9875\u7aef\u7b5b\u9009 + \u4e00\u952e\u6d77\u6295 Chrome \u6269\u5c55\u3002\u5148\u7b5b\u5c97\u4f4d\uff0c\u518d\u81ea\u52a8\u6279\u91cf\u6253\u62db\u547c\u3001\u53d1\u7b80\u5386\u3002",
+  "version": "1.0.0",
+  "author": "gstranded",
+  "homepage": "https://github.com/gstranded/autocast-boss-assistant",
+  "skills": []
+}
