@@ -1,0 +1,9 @@
+{
+  "name": "mic-dkfz--nnunet",
+  "displayName": "nnUNet",
+  "description": "nnUNet",
+  "version": "1.0.0",
+  "author": "MIC-DKFZ",
+  "homepage": "https://github.com/MIC-DKFZ/nnUNet",
+  "skills": []
+}
