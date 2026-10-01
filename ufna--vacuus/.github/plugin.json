@@ -1,0 +1,9 @@
+{
+  "name": "ufna--vacuus",
+  "displayName": "VaCuus",
+  "description": "Modern, ultra-optimized multithreaded web UI for Unreal Engine (Win/Mac/Linux/Android/iOS) \u2014 RmlUi + QuickJS on a dedicated UI thread",
+  "version": "1.0.0",
+  "author": "ufna",
+  "homepage": "https://github.com/ufna/VaCuus",
+  "skills": []
+}
