@@ -2,7 +2,7 @@
   "name": "tasktrooper",
   "owner": "makifbaysal",
   "repo": "tasktrooper",
-  "description": "Local-first agent platform: board + role agents + Claude Code runs, all on your own Mac",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/makifbaysal/tasktrooper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-16T16:33:05Z"
+  "distributed_at": "2026-10-01T10:14:41Z"
 }
