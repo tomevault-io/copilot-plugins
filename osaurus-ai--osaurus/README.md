@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [osaurus-ai/osaurus](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [osaurus-ai/osaurus](https://github.com/osaurus-ai/osaurus) — a repo with 7372+ stars on GitHub.
+From [osaurus-ai/osaurus](https://github.com/osaurus-ai/osaurus) — a repo with 8016+ stars on GitHub.
 
 ---
 
