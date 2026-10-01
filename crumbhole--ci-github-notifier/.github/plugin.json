@@ -1,0 +1,9 @@
+{
+  "name": "crumbhole--ci-github-notifier",
+  "displayName": "ci-github-notifier",
+  "description": "ci-github-notifier",
+  "version": "1.0.0",
+  "author": "crumbhole",
+  "homepage": "https://github.com/crumbhole/ci-github-notifier",
+  "skills": []
+}
