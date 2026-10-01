@@ -1,0 +1,9 @@
+{
+  "name": "general-liquidity--gordon",
+  "displayName": "gordon",
+  "description": "Gordon is the frontier trading agent. The world's first agent harness for financial markets.",
+  "version": "1.0.0",
+  "author": "general-liquidity",
+  "homepage": "https://github.com/general-liquidity/gordon",
+  "skills": []
+}
