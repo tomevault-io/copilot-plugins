@@ -15,7 +15,12 @@ Original source: `CLAUDE.md` in [47ng/nuqs](https://github.com/47ng/nuqs).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [47ng/nuqs](https://github.com/47ng/nuqs) — a repo with 10703+ stars on GitHub.
+## Bundled Skills (2)
+
+- [nuqs](https://github.com/47ng/nuqs/tree/main/.agents/skills/bundle-size-bake-off/SKILL.md)
+- [nuqs](https://github.com/47ng/nuqs/tree/main/.claude/skills/bundle-size-bake-off/SKILL.md)
+
+From [47ng/nuqs](https://github.com/47ng/nuqs) — a repo with 10865+ stars on GitHub.
 
 ---
 
