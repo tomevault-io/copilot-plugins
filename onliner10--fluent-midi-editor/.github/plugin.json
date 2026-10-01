@@ -1,0 +1,9 @@
+{
+  "name": "onliner10--fluent-midi-editor",
+  "displayName": "fluent-midi-editor",
+  "description": "Finally, a MIDI editor for REAPER that feels good. Multi-track piano roll, installable via ReaPack.",
+  "version": "1.0.0",
+  "author": "onliner10",
+  "homepage": "https://github.com/onliner10/fluent-midi-editor",
+  "skills": []
+}
