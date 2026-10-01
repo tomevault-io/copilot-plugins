@@ -1,7 +1,7 @@
 {
   "name": "michaelkinsy--pig",
   "displayName": "PiG",
-  "description": "PiG (Pi in Go) is a faithful Go port of upstream Pi, the TypeScript codebase behind the Pi coding agent. It is a parity-bound translation, not a rewrite: upstream behavior is the contract, and Go is t",
+  "description": "PiG",
   "version": "1.0.0",
   "author": "MichaelKinsy",
   "homepage": "https://github.com/MichaelKinsy/PiG",
