@@ -1,0 +1,9 @@
+{
+  "name": "be1zebub--perfgraph",
+  "displayName": "PerfGraph",
+  "description": "CDP-powered perf CLI: goes beyond Lighthouse scores, builds causal degradation graphs. Tells you why it's slow, not just that it is.",
+  "version": "1.0.0",
+  "author": "Be1zebub",
+  "homepage": "https://github.com/Be1zebub/PerfGraph",
+  "skills": []
+}
