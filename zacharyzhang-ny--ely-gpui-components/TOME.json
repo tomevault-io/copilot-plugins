@@ -1,0 +1,44 @@
+{
+  "name": "Ely-GPUI-Components",
+  "owner": "ZacharyZhang-NY",
+  "repo": "Ely-GPUI-Components",
+  "description": "A component library for GPUI, in light and dark. Every component runs live in the browser.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZacharyZhang-NY/Ely-GPUI-Components",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T09:53:11Z"
+}
