@@ -349,4 +349,4 @@ target path, and Claude Code finds neither the skills nor this guide.
 
 ---
 > Source: [verdaccio/verdaccio](https://github.com/verdaccio/verdaccio) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
