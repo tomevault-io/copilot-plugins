@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [cloudfoundry/bosh-agent](https://github.com/clo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cloudfoundry/bosh-agent](https://github.com/cloudfoundry/bosh-agent) — a repo with 61+ stars on GitHub.
+From [cloudfoundry/bosh-agent](https://github.com/cloudfoundry/bosh-agent) — a repo with 62+ stars on GitHub.
 
 ---
 
