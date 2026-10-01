@@ -1,0 +1,9 @@
+{
+  "name": "aigengen5-ship-it--llm-lightnovel-generator",
+  "displayName": "llm_lightnovel_generator",
+  "description": "Lightnovel generator using GUI",
+  "version": "1.0.0",
+  "author": "aigengen5-ship-it",
+  "homepage": "https://github.com/aigengen5-ship-it/llm_lightnovel_generator",
+  "skills": []
+}
