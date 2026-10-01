@@ -4,7 +4,7 @@
   "repo": "prism",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Shailesh200/prism",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T17:40:25Z"
+  "distributed_at": "2026-10-01T22:36:41Z"
 }
