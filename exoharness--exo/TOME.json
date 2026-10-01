@@ -2,9 +2,9 @@
   "name": "exo",
   "owner": "exoharness",
   "repo": "exo",
-  "description": "Exo is an agent + harness architecture that is fully recursive, able to safely edit all aspects of itself at runtime to get better at your tasks.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/exoharness/exo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T13:34:23Z"
+  "distributed_at": "2026-10-01T16:23:11Z"
 }
