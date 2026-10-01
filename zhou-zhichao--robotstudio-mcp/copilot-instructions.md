@@ -1,0 +1,43 @@
+## robotstudio-mcp
+
+> - **问题**：传送带长度有限，大约只能同时容纳 4 个绿色大方块（或更多小方块）。如果一次性生成超过容量的方块，传送带会停止运动，后续方块会堆叠、掉落或飞出。
+
+# RobotStudio MCP 使用经验与注意事项
+
+## 关键经验教训
+
+### 1. 传送带容量有限 —— 不能一次性生成所有方块
+- **问题**：传送带长度有限，大约只能同时容纳 4 个绿色大方块（或更多小方块）。如果一次性生成超过容量的方块，传送带会停止运动，后续方块会堆叠、掉落或飞出。
+- **错误做法**：先用 FOR 循环生成全部 6 个方块，再逐个拾取。
+- **正确做法**：**交替生成和拾取**（Generate-Pick-Place 交替循环），每次只生成 1 个方块，等待它到达传感器后拾取并放置，然后再生成下一个。这样传送带上始终只有 1-2 个方块，不会溢出。
+
+### 2. 调试时必须分阶段截图
+- **问题**：如果只在程序执行很久之后才截图，无法发现中间过程的问题（如传送带溢出、方块掉落等）。
+- **正确做法**：在关键阶段分步截图检查：
+  - 方块生成阶段：确认方块是否规整地排列在传送带上
+  - 拾取阶段：确认机器人是否正确抓取
+  - 放置阶段：确认方块是否正确落在目标位置
+- 不要盲目等待很长时间再检查结果，应该在每个关键节点都验证状态。
+
+### 3. 使用 WO_Place_pq 而非 WO_Place_gr 放置方块
+- `WO_Place_pq`（对应 Euro Pallet_2，世界坐标 y≈0.65m）的目标点已验证可达。
+- `WO_Place_gr`（对应 Euro Pallet，世界坐标 y≈-1.365m）的目标点在使用相同 confdata 时可能不可达，需要调整机器人构型参数。
+- 如果需要使用 WO_Place_gr，需要单独测试并确定正确的 confdata。
+
+### 4. 放置方块前必须先查询尺寸
+- 不要假设方块的尺寸，使用 `get_scene_objects` 返回的 `boundingBox.sizeX/Y/Z` 字段查询实际尺寸
+- 绿色方块放置时释放高度偏移为 +140mm
+- 橙色方块放置时释放高度偏移为 +40mm
+
+### 5. IO 信号说明
+- `DO_Caja_gr`：生成绿色大方块（Set 触发生成，需要 Reset 复位）
+- `DO_Caja_pq`：生成橙色小方块
+- `DO_Ventosa`：真空吸盘（1=吸取，0=释放）
+- `DI_Sensor_Inf`：下方传感器（检测方块存在）
+- `DI_Sensor_Sup`：上方传感器（检测大方块，小方块不触发）
+- 绿色方块：DI_Sensor_Inf=1 AND DI_Sensor_Sup=1
+- 橙色方块：DI_Sensor_Inf=1 AND DI_Sensor_Sup=0
+
+---
+> Source: [zhou-zhichao/robotstudio-mcp](https://github.com/zhou-zhichao/robotstudio-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
