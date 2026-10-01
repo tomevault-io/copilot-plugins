@@ -1,0 +1,9 @@
+{
+  "name": "rhinoqdev--rhinoq",
+  "displayName": "RhinoQ",
+  "description": "Open-source async Task platform for Node.js, NestJS and Go \u2014 PostgreSQL/BullMQ queue, Task API, realtime UI and safe recovery.",
+  "version": "1.0.0",
+  "author": "RhinoQDev",
+  "homepage": "https://github.com/RhinoQDev/RhinoQ",
+  "skills": []
+}
