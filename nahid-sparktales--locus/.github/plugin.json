@@ -1,0 +1,9 @@
+{
+  "name": "nahid-sparktales--locus",
+  "displayName": "locus",
+  "description": "Native AI workspace for macOS. Local and hosted models, agents, browser, terminal, voice, and mobile access. Locus is wallet-free; LocusX adds wallets.",
+  "version": "1.0.0",
+  "author": "nahid-sparktales",
+  "homepage": "https://github.com/nahid-sparktales/locus",
+  "skills": []
+}
