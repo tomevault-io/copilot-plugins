@@ -1,0 +1,9 @@
+{
+  "name": "open-cluster--oc-control-plane",
+  "displayName": "oc-control-plane",
+  "description": "OpenCluster control plane \u2014 organizations, placements, reasoning, and truth. Proprietary.",
+  "version": "1.0.0",
+  "author": "open-cluster",
+  "homepage": "https://github.com/open-cluster/oc-control-plane",
+  "skills": []
+}
