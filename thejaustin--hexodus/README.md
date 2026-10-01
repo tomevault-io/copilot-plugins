@@ -1,24 +1,25 @@
 # hexodus
 
-> Tome by [thejaustin](https://github.com/thejaustin/hexodus) — distributed by [TomeVault](https://tomevault.io/claim/thejaustin)
+> Tome by [thejaustin](https://github.com/thejaustin/hexodus), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [thejaustin/hexodus](https://github.com/thejaustin/hexodus).
+Original source: `` in [thejaustin/hexodus](https://github.com/thejaustin/hexodus).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/thejaustin)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/thejaustin/hexodus](https://github.com/thejaustin/hexodus)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/thejaustin) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
