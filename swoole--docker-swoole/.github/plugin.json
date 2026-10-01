@@ -1,0 +1,9 @@
+{
+  "name": "swoole--docker-swoole",
+  "displayName": "docker-swoole",
+  "description": "docker-swoole",
+  "version": "1.0.0",
+  "author": "swoole",
+  "homepage": "https://github.com/swoole/docker-swoole",
+  "skills": []
+}
