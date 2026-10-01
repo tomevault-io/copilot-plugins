@@ -1,0 +1,85 @@
+## mneme
+
+> dsh-mneme 是 DSH 宿主的记忆插件（蒸馏 / 注入 / 检索 / 巩固 / scope 隔离）。本文件是模块地图与闸门清单：接手任何 PR 之前先读这里，改完结构顺手更新这里。
+
+# AGENTS.md — 给维护者、贡献者与 AI agent 的项目入口
+
+dsh-mneme 是 DSH 宿主的记忆插件（蒸馏 / 注入 / 检索 / 巩固 / scope 隔离）。本文件是模块地图与闸门清单：接手任何 PR 之前先读这里，改完结构顺手更新这里。
+
+**定位（讨论 #221 定）**：本文件是**薄入口**——只放纪律与索引，模块地图为附表；正文随域文档演进（`dsh-mneme/docs/`，按「职责边界 / 对外接口 / 内部文件 / 已知坑」统一模板），不在这里堆细节。
+
+## 仓库布局
+
+- `dsh-mneme/` — 包本体
+  - `src/` — 源码（唯一手写处）
+  - `lib/` — **同步产物，禁止手改**：`npm run sync` 从 src 生成，`scripts/check-sync.js` 锁平价
+  - `test/` — `node --test`（`npm test`）
+  - `scripts/` — 同步、徽章、基准与压测脚本
+- 仓库根 — README（双语）、CHANGELOG、CONTRIBUTING、docs/
+
+## 并行工作区与多 agent 协作
+
+本仓库的开发常由多个 agent / 多个终端并行推进。**并行时一条硬规则：一个工作进程一棵树**，不共用同一个工作目录；单人串行开发不受影响。
+
+- 用 `git worktree add .worktrees/<lane> -b <branch>` 开独立车道；`.worktrees/` 已忽略，**检索、清点、批量替换一律排除它**，否则会数出两份副本；
+- 车道内的 `node_modules` 可以软链到主树那份（Windows 用 junction），省下重复安装：**任一侧 `npm install` 前先确认另一侧没在跑测试**；
+- `lib/` 是 sync 产物（见上）：各自树内同步，`npm run sync` **只在准备提交前跑一次**，别当保存键用；
+- 共享资源同一时刻只有一个写入者：`npm install`、`npm publish`（且只在 `dsh-mneme/` 内执行；发布走 GitHub Actions 的 release.yml，不在本机跑）、插件 relink——**被 link 的那棵树才是「活」的**；
+- 不 `amend` / force-push 别人的提交，不把别人未提交的改动 `stash` 走；
+- **提交不得有 AI 署名**（无 `Co-Authored-By`、无 "Generated with"）——见 [CONTRIBUTING](CONTRIBUTING.md)；
+- **本机私有信息不进公开文件**：车道分配、端口占用、记忆库路径这类只对某台机器成立的东西，放不进库的本地板（`.worktrees/coordination.md`）或 `.git/info/exclude`；本文件只放对所有人都成立的纪律（定位见开头：薄入口）；
+- 两个宿主都加载本插件时：`memoryDir` 可共用（`src/store.js` 的 `busy_timeout` + WAL 已为多进程就绪），但 `externalApiEnabled`（默认端口 8790）与 `autoDream` 后台任务**只能一边开**，否则 EADDRINUSE + 重复做梦（镜像/审计双写）。
+
+## 模块地图（按功能面）
+
+| 功能面 | 文件 | 一句话 |
+|---|---|---|
+| 宿主挂载入口 | `src/index.js` | ctx 接线、memoryDir 解析、各管线启动、实体抽取触发点 |
+| 存储 | `src/store.js` | SQLite schema（memories / 实体三表 / dream_runs / recall_runs / 审计表）、幂等迁移 |
+| 存储生命周期 | `src/maintenance.js` | 无损回收维护入口（#275 第一批；`dsh-mneme reclaim`，默认 dry-run，VACUUM 单独指定） |
+| 服务层 | `src/service.js` | saveWithDedupe（去重键 type+title+scope 三元组）、fuseRecall 检索融合（keyword/vector/bm25/entity）、注入候选、镜像同步、冲突队列 |
+| 写入准入 | `src/write-admission.js` | 写入前的会话写入预算与同话题冷却（#254；第一阶段只计量不拦截，测量点落 `llm_audit_logs`） |
+| 注入 | `src/inject.js` | 注入位构造、内容截断、跨轮轮换 |
+| 蒸馏 | `src/summarize.js` + `src/quality-filter.js` | 会话 → 记忆；质量打分与处置（归档/降权） |
+| 巩固与睡眠 | `src/dream.js` + `src/dream/{decisions,clustering,sleep}.js` | LLM 巩固决策、dream_runs 审计回执 |
+| 实体 | `src/entities/extractor.js`（存储侧在 store 三表） | 写入时 LLM 抽取实体/属性/关系 |
+| 检索辅助 | `src/search/{bm25,adaptive}.js`、`src/vector-index.js`、`src/embedding.js`、`src/local-embedder.js`、`src/reranker.js` | BM25 / 自适应阈值 / 向量索引 / 嵌入 / 重排 |
+| 热度 | `src/heat.js` | 纯函数遗忘曲线（opt-in） |
+| 复用统计 | `src/recall-stats.js` | recall_runs 只读聚合（#217，Top-N 召回 + 僵尸率） |
+| 冷启动 | `src/bootstrap.js` | 从仓库文件反向构建初始记忆（POST /bootstrap） |
+| 配置 | `src/config.js`（schema + lightMode）、`src/settings.js`（feature flags 白名单） | 一切行为开关的家 |
+| API 面 | `src/api.js`（宿主内 /api/dsh-mneme/*）、`src/api-standalone.js`（Bearer 数据面）、`bin/dsh-mneme-mcp.mjs`（MCP stdio） | 对外三张脸 |
+| 面板 | `lib/client.js` | 面板侧产物，无 src 对应物 |
+| 运行时 | `src/runtime/*` | 模型下载（断点续传）/ 校验 / adopt |
+| 命令 | `src/commands.js` | 斜杠命令注册与派发 |
+| 双语 | `src/lang.js` | 文案与语言解析 |
+
+## 新改动自查清单
+
+1. 行为开关一律 **opt-in 默认关** + `settings.js` 白名单注册 + 考虑 lightMode（`config.js` 的 `LIGHT_MODE_OFF`）；
+2. 新配置键：`config.js` schema 与 `settings.js` 白名单**成对出现**，`test/api.test.js` 的旗标计数锁要同步 +1；
+3. 改 `src/` 必跑 `npm run sync`（lib-smoke 测试会抓未同步）；
+4. 新行为必须带回归测试；schema 变更配幂等迁移（PRAGMA 检查 + ALTER，存量库启动即建）；
+5. **防御段改动要保守**：幂等迁移、单调时间戳、scope 归一化、审计 receipt——都是踩坑沉淀，动前先读注释；
+6. 提交署名可归属与 AI 内容核验义务见 [CONTRIBUTING](CONTRIBUTING.md)（硬性要求）；
+7. **发布/打包只在 `dsh-mneme/` 包目录内执行**——根目录历史上发出过坏包（0.6.9、0.7.0–0.7.10），此条为防复发红线；
+8. **注释写「为什么」，不写「是什么」**：非常规实现、防御段、行为开关的动机（issue 编号、消融数据、基准数字）必须落注释，代码含义靠命名与测试名表达；测试同样适用——锁形状/锁字面量的用例要注释写清它在防哪类回归（例：`test/recall-evals.test.js` 的 signals 形状锁）。
+
+## 闸门清单
+
+- `npm test`（CI 矩阵：ubuntu + windows × node 22/24）
+- check-sync（src ↔ lib 平价）
+- CodeRabbit 自动评审（每个 PR）
+- codecov 补丁覆盖率
+- CONTRIBUTING 署名要求
+
+## 尺寸约定与拆分方向（2026-09 讨论 #221）
+
+- 单文件参考线约 **2000 行**；超线文件被功能改动碰到时，顺手把一个内聚块拆出去（advisory，不拦合并）；
+- 拆法：原文件保留为 barrel 出口、调用方零改动；纯搬移走独立 PR；防御段最后动或不动；
+- **前置**：`scripts/sync-lib.js` 支持子目录映射之后，才可做 store/ 目录化这类拆分（否则平价锁误伤纯搬移）；
+- 已知热点：`src/store.js`、`src/service.js`、`lib/client.js`。
+
+---
+> Source: [slow-stack/mneme](https://github.com/slow-stack/mneme) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
