@@ -3,8 +3,8 @@
   "owner": "yexiyue",
   "repo": "ratatui-kit",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ratatui-kit",
+      "path": "skills/ratatui-kit/SKILL.md",
+      "github_url": "https://github.com/yexiyue/ratatui-kit/tree/main/skills/ratatui-kit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ratatui-kit",
+      "path": ".claude/skills/dev-workflow/SKILL.md",
+      "github_url": "https://github.com/yexiyue/ratatui-kit/tree/main/.claude/skills/dev-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ratatui-kit",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/yexiyue/ratatui-kit/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ratatui-kit",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/yexiyue/ratatui-kit/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ratatui-kit",
+      "path": ".codex/skills/ratatui-docs-demo-loop/SKILL.md",
+      "github_url": "https://github.com/yexiyue/ratatui-kit/tree/main/.codex/skills/ratatui-docs-demo-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ratatui-kit",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/yexiyue/ratatui-kit/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ratatui-kit",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/yexiyue/ratatui-kit/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/yexiyue/ratatui-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T03:07:29Z"
+  "distributed_at": "2026-10-01T03:33:29Z"
 }
