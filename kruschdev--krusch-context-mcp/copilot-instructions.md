@@ -1,16 +1,13 @@
 ## krusch-context-mcp
 
-> You are paired with a developer using `krusch-context-mcp` (v1.8.0) for cross-session working memory.
+> You are connected to `krusch-context-mcp`, a persistent working memory engine. You MUST follow this lifecycle protocol across all coding sessions:
 
-# Agent Operating Manual & Memory Protocol (`krusch-context-mcp`)
+# Krusch Context Protocol for Cursor Agents
 
-You are paired with a developer using `krusch-context-mcp` (v1.8.0) for cross-session working memory.
-Memory is stored locally in `.agent/context.db` (SQLite).
+You are connected to `krusch-context-mcp`, a persistent working memory engine. You MUST follow this lifecycle protocol across all coding sessions:
 
-## The 5-Verb Memory Protocol
-
-### 1. 🔄 Session Start: Hydrate Context
-At the beginning of any non-trivial session or task, call `krusch_context_retrieve`:
+## 1. Session Start: State Hydration
+At the beginning of your session or before starting a new task, call `krusch_context_retrieve` with `include_state: true`:
 ```json
 {
   "query": "*",
@@ -18,54 +15,55 @@ At the beginning of any non-trivial session or task, call `krusch_context_retrie
   "limit_tokens": 4000
 }
 ```
-*Purpose*: Loads active project invariants, recent architectural decisions, open blockers, and decay review candidates into your prompt context.
+*Review the active project invariants, recent architectural decisions, open blockers, and decay review items before proposing edits.*
 
-### 2. 📝 During Development: Record Lasting Knowledge
-When you make a significant design choice, discover a framework quirk, or diagnose a tricky defect, call `krusch_context_remember`:
+## 2. During Work: Recording Critical Knowledge
+Whenever you make a lasting architectural choice, resolve an elusive regression, or establish a non-negotiable rule, call `krusch_context_remember`:
 ```json
 {
   "category": "decision",
-  "content": "<succinct explanation of the decision and trade-off>"
+  "content": "<concrete explanation of the design choice or invariant>"
 }
 ```
-*Categories (Closed Taxonomy)*:
-- `decision`: Architectural commitments, design directions, library selections.
-- `invariant`: Non-negotiable code rules (e.g. error envelopes, auth patterns).
-- `bug`: Diagnosed root causes and anti-regression rules.
-- `lesson`: Operational findings and implementation discoveries.
-- `blocker`: Active dependencies or external obstacles.
+*Category MUST be one of*: `decision | invariant | bug | lesson | blocker`.
 
-### 3. ⚠️ Handling Near-Duplicate Warnings
-If `remember` returns `warning: 'near_duplicate'`, do not ignore it:
-- If the new fact replaces or refines the existing one, call `krusch_context_revise(action: 'supersede', target_id: <id>, content: '...')`.
-- If the fact is contrasting or deliberately separate, leave it active.
+### Handling Near-Duplicate Warnings
+If `krusch_context_remember` returns a `warning: 'near_duplicate'`, read the candidate ID. If your new knowledge updates or replaces that candidate, call `krusch_context_revise`:
+```json
+{
+  "action": "supersede",
+  "target_id": <candidate_id>,
+  "content": "<updated authoritative rule>",
+  "category": "decision"
+}
+```
 
-### 4. 🗑️ Retiring Obsolete Rules
-When an invariant, pattern, or dependency is retired, call `krusch_context_revise`:
+## 3. Retiring Stale Knowledge
+If a rule, secret, endpoint, or constraint is revoked, call `krusch_context_revise` with `action: 'invalidate'` and a mandatory reason:
 ```json
 {
   "action": "invalidate",
-  "target_id": <id>,
-  "reason": "<mandatory non-empty reason explaining why this rule was revoked>"
+  "target_id": <old_id>,
+  "reason": "<why this rule or invariant is no longer valid>"
 }
 ```
 
-### 5. 🛡️ Pre-Commit Audit
-Before completing multi-file changes or pushing commits, audit diffs using `krusch_context_nudge`:
+## 4. Pre-Commit / Pre-Edit Audit
+Before committing code or submitting final multi-file edits, audit your changes against recorded project invariants with `krusch_context_nudge`:
 ```json
 {
   "trigger": "pre_commit",
-  "code": "<modified code or diff snippet>"
+  "code": "<diff or modified code snippet>"
 }
 ```
-*Purpose*: Ensures your changes do not violate active project invariants. Capped at 3 actionable findings.
+*Address any high-severity invariant violations before finishing.*
 
-### 6. 🩺 Health & Diagnostic Hygiene
-Inspect store statistics and review aged (>30 days) memories with `krusch_context_health`:
+## 5. Diagnostic Hygiene
+To verify store health or check for decaying memories (>30 days), call `krusch_context_health`:
 ```json
 {}
 ```
 
 ---
 > Source: [kruschdev/krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
