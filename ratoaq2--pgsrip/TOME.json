@@ -1,0 +1,99 @@
+{
+  "name": "pgsrip",
+  "owner": "ratoaq2",
+  "repo": "pgsrip",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pgsrip",
+      "path": ".claude/skills/ship/SKILL.md",
+      "github_url": "https://github.com/ratoaq2/pgsrip/tree/main/.claude/skills/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pgsrip",
+      "path": ".claude/skills/plan/SKILL.md",
+      "github_url": "https://github.com/ratoaq2/pgsrip/tree/main/.claude/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pgsrip",
+      "path": ".claude/skills/spec/SKILL.md",
+      "github_url": "https://github.com/ratoaq2/pgsrip/tree/main/.claude/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pgsrip",
+      "path": ".claude/skills/resume/SKILL.md",
+      "github_url": "https://github.com/ratoaq2/pgsrip/tree/main/.claude/skills/resume/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pgsrip",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/ratoaq2/pgsrip/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pgsrip",
+      "path": ".claude/skills/investigate/SKILL.md",
+      "github_url": "https://github.com/ratoaq2/pgsrip/tree/main/.claude/skills/investigate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pgsrip",
+      "path": ".claude/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/ratoaq2/pgsrip/tree/main/.claude/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pgsrip",
+      "path": ".claude/skills/writing-style/SKILL.md",
+      "github_url": "https://github.com/ratoaq2/pgsrip/tree/main/.claude/skills/writing-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pgsrip",
+      "path": ".claude/skills/knowledge-audit/SKILL.md",
+      "github_url": "https://github.com/ratoaq2/pgsrip/tree/main/.claude/skills/knowledge-audit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ratoaq2/pgsrip",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T07:37:39Z"
+}
