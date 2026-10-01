@@ -1,0 +1,9 @@
+{
+  "name": "elijaht-dev--mistralai-conversation",
+  "displayName": "mistralai-conversation",
+  "description": "Mistral AI conversation integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "Elijaht-dev",
+  "homepage": "https://github.com/Elijaht-dev/mistralai-conversation",
+  "skills": []
+}
