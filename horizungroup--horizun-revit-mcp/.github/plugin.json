@@ -1,0 +1,9 @@
+{
+  "name": "horizungroup--horizun-revit-mcp",
+  "displayName": "horizun-revit-mcp",
+  "description": "Open-source MCP for Autodesk Revit 2023\u20132027. Downloadable Windows installer with runtime included; no Git or .NET SDK required. Typed BIM automation, families and model verification.",
+  "version": "1.0.0",
+  "author": "HorizunGroup",
+  "homepage": "https://github.com/HorizunGroup/horizun-revit-mcp",
+  "skills": []
+}
