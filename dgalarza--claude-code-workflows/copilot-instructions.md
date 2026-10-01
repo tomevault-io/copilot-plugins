@@ -1,10 +1,10 @@
 ## claude-code-workflows
 
-> A plugin marketplace for Claude Code — skills, agents, and bundles that extend Claude's capabilities with specialized workflows.
+> A plugin marketplace for Codex — skills, agents, and bundles that extend Codex's capabilities with specialized workflows.
 
-# Claude Code Workflows
+# Codex Workflows
 
-A plugin marketplace for Claude Code — skills, agents, and bundles that extend Claude's capabilities with specialized workflows.
+A plugin marketplace for Codex — skills, agents, and bundles that extend Codex's capabilities with specialized workflows.
 
 For architecture details, design decisions, and the reasoning behind the plugin structure, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -13,23 +13,23 @@ For architecture details, design decisions, and the reasoning behind the plugin 
 ```
 plugins/                        # Each subdirectory is a standalone plugin
   <plugin-name>/
-    .claude-plugin/plugin.json  # Name, version, description, author
+    .Codex-plugin/plugin.json  # Name, version, description, author
     README.md                   # User-facing documentation
     skills/<skill-name>/
       SKILL.md                  # Frontmatter + instructions (required)
       scripts/                  # Executable code (optional)
       references/               # Docs loaded into context as needed (optional)
       assets/                   # Templates, files used in output (optional)
-.claude-plugin/marketplace.json # Registry of all available plugins
+.Codex-plugin/marketplace.json # Registry of all available plugins
 .agents/skills/                 # Locally installed skills (e.g., skill-creator)
-configs/                        # Claude Code configuration guides
+configs/                        # Codex configuration guides
 tips/                           # Short-form workflow guides
 scripts/                        # Utility scripts
 ```
 
 ## Key Conventions
 
-- Plugin versions live in two places — bump both `plugins/<name>/.claude-plugin/plugin.json` AND `.claude-plugin/marketplace.json`
+- Plugin versions live in two places — bump both `plugins/<name>/.Codex-plugin/plugin.json` AND `.Codex-plugin/marketplace.json`
 - SKILL.md frontmatter requires `name` (kebab-case, max 64 chars) and `description` (max 1024 chars, no angle brackets)
 - Skill instructions use imperative/infinitive form, not second person
 - All JSON files must be valid — CI checks this automatically
@@ -57,8 +57,8 @@ Documentation-only changes (README updates, tips, configs) don't need a release.
 
 ### Release Checklist
 
-1. **Bump plugin version** in `plugins/<name>/.claude-plugin/plugin.json` — follow semver (patch for fixes, minor for features, major for breaking changes)
-2. **Sync version** in `.claude-plugin/marketplace.json` — must match the plugin.json version
+1. **Bump plugin version** in `plugins/<name>/.Codex-plugin/plugin.json` — follow semver (patch for fixes, minor for features, major for breaking changes)
+2. **Sync version** in `.Codex-plugin/marketplace.json` — must match the plugin.json version
 3. **Commit** the version bumps with the feature/fix commit (or as a separate `chore: bump <plugin> to X.Y.Z` commit)
 4. **Tag the release** after merging to `main`:
    ```bash
@@ -75,11 +75,11 @@ Documentation-only changes (README updates, tips, configs) don't need a release.
 
 ## Adding a New Plugin
 
-1. Create `plugins/<name>/.claude-plugin/plugin.json` with name, version, description, author
+1. Create `plugins/<name>/.Codex-plugin/plugin.json` with name, version, description, author
 2. Create `plugins/<name>/skills/<skill-name>/SKILL.md` with frontmatter and instructions
-3. Add the plugin entry to `.claude-plugin/marketplace.json`
+3. Add the plugin entry to `.Codex-plugin/marketplace.json`
 4. Add a `plugins/<name>/README.md` for users
 
 ---
 > Source: [dgalarza/claude-code-workflows](https://github.com/dgalarza/claude-code-workflows) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
