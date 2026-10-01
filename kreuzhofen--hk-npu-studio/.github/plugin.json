@@ -1,0 +1,9 @@
+{
+  "name": "kreuzhofen--hk-npu-studio",
+  "displayName": "hk-npu-studio",
+  "description": "HK NPU STUDIO \u2014 Local AI for Snapdragon\u00ae PCs. NPU-accelerated image generation for Windows 11 ARM64. Featuring Phoenix Boost.",
+  "version": "1.0.0",
+  "author": "Kreuzhofen",
+  "homepage": "https://github.com/Kreuzhofen/hk-npu-studio",
+  "skills": []
+}
