@@ -1,47 +1,61 @@
-## invariant-tests
+## lessons-learned
 
-> Before OTA/Ambient DFU or claiming those fixes, run scripts/run_invariant_tests.ps1
+> Mandatory regression gates for paint/OTA/BLE/power — read lessons-learned, checklist, Do not regress
 
 
-# Invariant tests (mandatory before OTA / Ambient ship)
+# Regression gates (mandatory)
 
-The N-19 OTA lock-step and m44 Ambient-display gates are encoded in PC tests.
-**Do not package DFU or claim those areas fixed without running them.**
+You **will** follow these. Recurring blank-face / OTA / Ambient bugs cost real
+operator time; prose alone was not enough.
 
-## When you must run
+## Before coding (gated areas)
 
-Run from repo root **in the same turn** before:
+If the task touches **any** of: paint / display lists, OTA, BLE session or
+reconnect, power / Ambient, screen ownership, notifications overlays:
 
-- Packaging / handing over `slate_dfu` / `slate-dfu.zip` after OTA or Ambient /
-  power-policy / `main.cpp` sleep-path changes
-- Claiming an OTA stall or blank-face-after-Ready fix is done
-- Weakening or “cleaning up” `OtaSenderState`, `ambient_display_action`, or
-  the app_loop Ambient switch
+1. **Read** `docs/lessons-learned.md` (or confirm you already did this session).
+2. **Skim** the matching section (OTA, Ambient, ownership, popups).
+3. Do **not** reintroduce items under **Do not bring back** (full-screen
+   notif/calendar popups without a proven design).
 
-Also run after editing any of: `OtaXfer.kt`, `OtaXferTest.kt`,
-`SlateOtaService.kt`, `ota_xfer.*`, `ambient_power_policy.hpp`,
-`test_ambient_power_policy.cpp`, or the Ambient block in `main.cpp`.
+## Before claiming done / packaging DFU
 
-## Command
+Run the anti-pattern checklist in `docs/lessons-learned.md`. In particular:
+
+- No full-screen paint inside AppInbox drain
+- OTA: `sendable == 0` while `sentOffset != acknowledgedOffset`
+- `power::enter(Ambient)` only when Core is sleeping
+- No call-site-only paint gates that belong in `Core::show_current`
+
+**If the change touches OTA or Ambient/power display policy**, also run in the
+same turn (must exit 0):
 
 ```powershell
 powershell -File scripts/run_invariant_tests.ps1
 ```
 
-Exit 0 required. Report pass/fail in the handover.
+See `.cursor/rules/invariant-tests.mdc`.
 
-## What it runs
+## Required in the user-facing handover
 
-1. `python scripts/check_paint_in_drain.py` (paint-in-drain Layer A)
-2. `:sdp-tests:test --tests slate.ota.OtaXferTest` (N-19)
-3. Host `test_ambient_power_policy` + `test_paint_drain_guard` +
-   `test_paint_drain_storm` (m44 + Layer B + app-loop sim)
+End with:
 
-Also run after editing `paint_loop_harness.hpp`, `test_paint_drain_storm.cpp`,
-or drain-path handlers in `local_core` / `main` / `session`.
+```text
+Do not regress:
+- …
+- …
+```
 
-Details: `docs/invariant-tests-plan.md`, `docs/paint-in-drain-analysis-plan.md`,
-`docs/agent-enforcement.md`.
+If you removed a helper or “cleaned up” a gate, name the replacement choke
+point. Silent deletion of m40-style paint helpers / Ambient gates is a
+regression.
+
+## Same-turn docs
+
+- Update `docs/issue-prompts-open.md` current state for the fix.
+- If the fix teaches a durable rule, add it to `docs/lessons-learned.md`.
+
+Full policy: `AGENTS.md`, `docs/agent-enforcement.md`.
 
 ---
 > Source: [LeaCreative/SlateOS](https://github.com/LeaCreative/SlateOS) — distributed by [TomeVault](https://tomevault.io).
