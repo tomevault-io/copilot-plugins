@@ -7,11 +7,11 @@ LocoVLA - Learn robot control, RL and VLA on a wheeled biped (Upkie + MuJoCo). 5
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Yhx888/LocoVLA](https://github.com/Yhx888/LocoVLA).
+Original source: `CLAUDE.md` in [Yhx888/LocoVLA](https://github.com/Yhx888/LocoVLA).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
