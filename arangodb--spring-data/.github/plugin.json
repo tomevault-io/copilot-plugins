@@ -1,0 +1,9 @@
+{
+  "name": "arangodb--spring-data",
+  "displayName": "spring-data",
+  "description": "spring-data",
+  "version": "1.0.0",
+  "author": "arangodb",
+  "homepage": "https://github.com/arangodb/spring-data",
+  "skills": []
+}
