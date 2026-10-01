@@ -27,4 +27,4 @@ When creating or modifying Ginkgo E2E test files:
 
 ---
 > Source: [redhat-developer/gitops-operator](https://github.com/redhat-developer/gitops-operator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
