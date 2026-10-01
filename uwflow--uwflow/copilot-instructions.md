@@ -1,35 +1,35 @@
 ## uwflow
 
-> This directory is the canonical relational schema and GraphQL authorization contract. Migrations define Postgres state; metadata defines GraphQL exposure, relationships, actions, and role permissions.
+> Cross-feature product components and reusable UI primitives. `ui/` is the design-system destination; the other folders contain legacy and composed components that should migrate incrementally.
 
-# Hasura schema and GraphQL contract
+# Shared components
 
 ## Purpose
 
-This directory is the canonical relational schema and GraphQL authorization contract. Migrations define Postgres state; metadata defines GraphQL exposure, relationships, actions, and role permissions.
-
-## Key paths
-
-| Path | Responsibility |
-| --- | --- |
-| `migrations/default/` | Immutable timestamped forward and rollback SQL |
-| `metadata/databases/default/tables/` | Per-table relationships, permissions, and event configuration |
-| `metadata/databases/default/tables/tables.yaml` | Registration of per-table metadata files |
-| `metadata/actions.*` | Custom GraphQL action schema and handlers |
-| `config.yaml` | Hasura CLI project configuration |
+Cross-feature product components and reusable UI primitives. `ui/` is the design-system destination; the other folders contain legacy and composed components that should migrate incrementally.
 
 ## For AI agents
 
-- Read `README.md` and `../styleguide/backend-styleguide.md` before making a schema change.
-- Create a new timestamped migration with `up.sql` and `down.sql`; never rewrite applied history.
-- Update registration, relationships, and every relevant role's select/insert/update/delete permissions.
-- Review constraints and indexes as part of the same change. Application validation does not replace database invariants.
-- Apply forward migration and metadata locally, exercise the affected query/mutation under realistic roles, then test rollback.
-- Search `../../uwflow_frontend/src/graphql` for consumers and regenerate frontend types when the schema contract changes.
-- Do not put secrets in metadata or migration files.
+- Read `../../styleguide/design-system-styleguide.md` and `.agents/skills/create-component/SKILL.md` from the repository root before UI work.
+- Search existing primitives and components before creating one.
+- New or modified visual UI uses Tailwind with named tokens; do not add styled-components.
+- `ui/` primitives remain product-agnostic and use named exports, native props, refs, semantic CVA variants, and `cn()`.
+- Preserve Radix accessibility and focus behavior. Call sites own placement; primitives own internal visuals and interaction states.
+- Promote a feature component only after a second use or when centralized interaction/accessibility behavior clearly warrants it.
+- After adding or changing a Radix/shadcn primitive, run focused interaction tests, `bun run lint-nofix`, and `bun run build:vercel`.
 
-<!-- MANUAL: Add durable schema-specific notes below this line. -->
+## Existing design-system seeds
+
+| File | Role |
+| --- | --- |
+| `ui/button.tsx` | Destination button primitive and CVA variant pattern |
+| `input/DropdownList.tsx` | Shared dropdown used by the design-system examples and profile menu |
+| `ui/popover.tsx` | Radix popover composition |
+| `../lib/utils.ts` | Tailwind-aware `cn()` utility (outside this directory) |
+| `../constants/GlobalTheme.tsx` | Legacy token source mirrored by Tailwind (outside this directory) |
+
+<!-- MANUAL: Add durable component-specific notes below this line. -->
 
 ---
 > Source: [UWFlow/uwflow](https://github.com/UWFlow/uwflow) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
