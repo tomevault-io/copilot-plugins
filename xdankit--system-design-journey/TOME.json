@@ -4,7 +4,7 @@
   "repo": "system-design-journey",
   "description": "System design resources and examples for beginner to expert, Season 1.  This is not an app. There is no root build, lint, or test command. Each video topic lives in its own folder.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xDAnkit/system-design-journey",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T15:57:46Z"
+  "distributed_at": "2026-10-01T18:12:50Z"
 }
