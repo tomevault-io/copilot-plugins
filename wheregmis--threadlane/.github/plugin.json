@@ -1,0 +1,9 @@
+{
+  "name": "wheregmis--threadlane",
+  "displayName": "threadlane",
+  "description": "Threadlane brings project workspaces, persistent conversation sessions, coding-agent execution, and developer tools into one native application. Its Rust workspace includes provider integrations, exte",
+  "version": "1.0.0",
+  "author": "wheregmis",
+  "homepage": "https://github.com/wheregmis/threadlane",
+  "skills": []
+}
