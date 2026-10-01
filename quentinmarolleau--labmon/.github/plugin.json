@@ -1,0 +1,9 @@
+{
+  "name": "quentinmarolleau--labmon",
+  "displayName": "labmon",
+  "description": "Self-hosted lab monitoring: Arduino/serial sensors \u2192 InfluxDB 3 \u2192 Grafana, with unit-aware calibration.",
+  "version": "1.0.0",
+  "author": "quentinmarolleau",
+  "homepage": "https://github.com/quentinmarolleau/labmon",
+  "skills": []
+}
