@@ -1,0 +1,75 @@
+{
+  "name": "heatmap-tracker",
+  "owner": "mokkiebear",
+  "repo": "heatmap-tracker",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "heatmap-tracker",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/mokkiebear/heatmap-tracker/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "heatmap-tracker",
+      "path": ".claude/skills/add-language/SKILL.md",
+      "github_url": "https://github.com/mokkiebear/heatmap-tracker/tree/main/.claude/skills/add-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "heatmap-tracker",
+      "path": ".claude/skills/debug-timezone/SKILL.md",
+      "github_url": "https://github.com/mokkiebear/heatmap-tracker/tree/main/.claude/skills/debug-timezone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "heatmap-tracker",
+      "path": ".claude/skills/review-dependabot-pr/SKILL.md",
+      "github_url": "https://github.com/mokkiebear/heatmap-tracker/tree/main/.claude/skills/review-dependabot-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "heatmap-tracker",
+      "path": ".claude/skills/add-tracker-parameter/SKILL.md",
+      "github_url": "https://github.com/mokkiebear/heatmap-tracker/tree/main/.claude/skills/add-tracker-parameter/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mokkiebear/heatmap-tracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T09:35:14Z"
+}
