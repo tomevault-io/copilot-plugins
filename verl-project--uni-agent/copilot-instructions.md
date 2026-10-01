@@ -1,178 +1,82 @@
 ## uni-agent
 
-> An Agent defines who solves a Task and how the solving loop runs. Every Agent receives a started Sandbox, an OpenAI-style message list, and a runtime-injected model endpoint.
+> This workspace already contains one prepared KernelBench operator task. Use
 
-# Agent
+# Triton Ascend KernelBench Rollout
 
-An Agent defines who solves a Task and how the solving loop runs. Every Agent receives a started Sandbox, an OpenAI-style message list, and a runtime-injected model endpoint.
+This workspace already contains one prepared KernelBench operator task. Use
+`INSTRUCTIONS.md` as the source of truth.
 
-Uni-Agent supports two integration styles:
+Read only the small working set by default:
+- `INSTRUCTIONS.md`
+- `src/<op_name>.py`
+- `output/verify/verify_result_summary.json` after a verifier failure
+- `tools/verify_once.sh` only as the validation wrapper
 
-- **White-box Agent:** Uni-Agent owns the interaction loop, model calls, Tool dispatch, and transcript.
-- **Black-box Agent:** an external harness owns the loop and runs as a process inside the Sandbox.
+Do not explore the workspace. Avoid broad file discovery such as `.claude/**`,
+`.claude/skills/**`, `.claude/refs/**`, `src/*`, or `**/*`. Do not read verifier
+source, full `verify_result.json`, full `*.raw.log`, or full skill/reference docs
+unless the compact summary is missing and the exact file is necessary.
+Do not run `ls`, `find`, `grep`, `ps`, `pgrep`, cache deletion, environment
+probes, process inspection, `sleep`, `tail -f`, `nohup`, background `&`, or
+reads from `/tmp/claude*` / `*/tasks/*`.
 
-## Configuration
+Workflow:
+1. Read `INSTRUCTIONS.md` and the reference file.
+2. Read the target stub once to satisfy Claude Code's Write guard, then use
+   `Write` to replace it with a complete `ModelNew`. Read the target file again
+   only after a verifier failure or before a small exact `Edit`.
+3. Run the synchronous verifier wrapper from `INSTRUCTIONS.md`; it performs
+   AST precheck, staging, NPU verify, and a benchmark after full correctness.
+4. Repair only from the compact verifier summary with the smallest targeted
+   change.
+5. Once `passed_cases == total_cases`, invoke the exact local
+   `triton-latency-optimizer` Skill and make one small performance change.
+6. Re-run the same verifier after each performance change. It automatically
+   benchmarks every fully-correct candidate and keeps only a strictly better
+   best snapshot.
+7. If the verifier hook reports an early stop, stop immediately.
 
-All Agent configurations inherit from `AgentConfig`:
+Hard constraints:
+- Keep reasoning and prose short.
+- Do not write markdown summaries, status files, or extra implementation notes.
+- Do not write literal `<tool_call>` / `<function=...>` markup. Invoke the real
+  Claude Code tool when a tool is needed.
+- Keep generated Python source ASCII-only, including code comments and
+  docstrings. Use `input-to-output`, `>=`, and `<=` instead of Unicode symbols.
+- Do not invoke `triton-task-extractor`; task extraction is complete.
+- Do not use task-management or planning tools.
+- Do not run benchmark commands or ad hoc latency probes. Use only the exact
+  `triton-latency-optimizer` Skill for optimization guidance; the verifier
+  wrapper performs the benchmark automatically after full correctness.
+- Do not edit, replace, wrap, or change permissions on `tools/verify_once.sh`
+  or verifier files under `.claude/skills/`; they resolve to immutable
+  image-owned tools.
+- Do not run bare `python3 -c` probes that import `torch`, `torch_npu`,
+  `triton`, or the implementation module. Use `bash tools/verify_once.sh <op>`.
+- Treat `No module named torch` or `No module named triton` from bare
+  `python3` as an invalid probe, not as a code failure.
+- Use `Write` for the initial full target implementation or any large rewrite;
+  use `Edit` only for small exact replacements.
+- Preserve partial best attempts; avoid broad rewrites unless the structure is
+  clearly impossible.
+- If AST or compilation reports the same issue twice, simplify the kernel shape
+  handling instead of adding another special case.
+- Run verifier commands in the foreground. Do not rerun timed-out validation
+  as a background task or poll background task files.
+- When invoking Bash for `tools/verify_once.sh`, set `timeout=3600000` and
+  `run_in_background=false`.
 
-```python
-class AgentConfig(BaseModel):
-    name: str
-    model: ModelConfig
-```
+Common rejected patterns:
+- Passing `.data_ptr()` to kernels.
+- Using `tl.to(...)` instead of `value.to(tl.float32)`.
+- Tuning Ascend-rejected kwargs such as `num_warps`, `num_ctas`, or `num_stages`.
+- Host-side core computation in `ModelNew.forward()`.
+- Runtime Python control flow inside `@triton.jit` kernels.
 
-`ModelConfig` contains:
-
-- `base_url`, `api_key`, and `model_name`.
-- Optional `temperature`, `top_p`, and `top_k` overrides.
-- Per-turn and episode token budgets.
-
-The model endpoint is runtime state. Dataset rows and Task YAML may override sampling behavior; omitted sampling
-fields inherit the endpoint default (the rollout configuration during RL training). The live runner or Gateway
-injects `base_url`, credentials, and served model name last.
-
-## Agent Contract
-
-Every Agent implements:
-
-```python
-async def run(
-    *,
-    sandbox: Sandbox,
-    messages: list[dict],
-    workdir: str | None = None,
-) -> AgentResult:
-    ...
-```
-
-The Task has already started the Sandbox. The Agent must not stop it. `workdir` optionally selects the Agent's working directory inside the Sandbox.
-
-`AgentResult` can carry:
-
-- `output`: final structured output.
-- `transcript`: messages and Tool observations produced by a white-box loop.
-- `info`: implementation-specific metadata such as token counts or process status.
-- `finished`: whether the episode completed normally. Defaults to `null`, meaning the Agent does not report a completion state; such episodes stay trainable.
-
-The Task decides how the resulting Sandbox state and AgentResult are scored.
-
-## White-Box Agent
-
-The built-in ReAct Agent demonstrates the white-box pattern:
-
-1. Build a Toolbox from configured Tool specs.
-2. Send messages and Tool schemas to an OpenAI-compatible model endpoint.
-3. Execute returned Tool calls.
-4. Append Tool observations to the transcript.
-5. Stop on `submit`/`finish`, token limit, timeout budget, or max steps.
-
-ReAct configuration exposes the loop:
-
-```yaml
-agent:
-  name: react
-  max_steps: 200
-  action_timeout: 300
-  tools:
-    - name: str_replace_editor
-    - name: stateful_shell
-    - name: submit
-  model:
-    temperature: 0.8
-    top_p: 0.9
-    max_total_tokens: 65536
-```
-
-Use this style when you need complete control over Tool schemas, observations, transcripts, and stopping behavior.
-
-## Black-Box Agent
-
-The Claude Code Agent demonstrates the black-box pattern:
-
-1. Ensure the external CLI is installed inside the Sandbox.
-2. Convert `ModelConfig` into the environment variables expected by the harness.
-3. Launch the harness through `sandbox.exec()`.
-4. Return process metadata while the Task evaluates the modified Sandbox.
-
-Claude Code sets `AgentResult.finished=true` when the process exits with code `0`.
-
-```yaml
-agent:
-  name: claude_code
-  max_turns: 200
-  run_timeout: 4800
-  model:
-    temperature: 1.0
-    top_p: 0.95
-    max_total_tokens: 131072
-```
-
-Claude Code speaks the Anthropic Messages protocol. Uni-Agent sets `ANTHROPIC_BASE_URL` to either a direct model endpoint or a session-scoped Gateway endpoint.
-
-Use this style when an existing Agent Harness already owns its loop and Tools.
-
-## Custom Agent
-
-Create an Agent-specific configuration and implementation:
-
-```python
-from typing import Any
-
-from pydantic import Field
-
-from uni_agent.agents.base import Agent, AgentConfig, AgentResult
-from uni_agent.agents.registry import register_agent
-
-
-class MyAgentConfig(AgentConfig):
-    name: str = "my_agent"
-    run_timeout: float = Field(default=1800)
-
-
-@register_agent("my_agent")
-class MyAgent(Agent):
-    config_model = MyAgentConfig
-
-    async def run(
-        self,
-        *,
-        sandbox,
-        messages: list[dict[str, Any]],
-        workdir: str | None = None,
-    ) -> AgentResult:
-        config: MyAgentConfig = self.config
-        result = await sandbox.exec(
-            ["my-agent", "--endpoint", config.model.base_url],
-            timeout=config.run_timeout,
-            workdir=workdir,
-        )
-        return AgentResult(
-            info={
-                "exit_code": result.exit_code,
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            }
-        )
-```
-
-Register the lazy module:
-
-```python
-AGENT_MODULES["my_agent"] = "my_package.agent"
-```
-
-`TaskConfig` resolves an Agent mapping through this registry, so Agent-specific fields remain typed and validated.
-
-## Implementation Rules
-
-- Validate required model endpoint fields before starting work.
-- Treat the Sandbox as already started and Task-owned.
-- Return `AgentResult` even when the Task primarily scores filesystem changes.
-- Keep Agent-specific launch settings in the Agent config; keep task metadata and reward logic in the Task.
-- For white-box loops, use Toolbox lifecycle management and preserve a useful transcript.
-- For black-box harnesses, map model settings explicitly and enforce process timeouts.
-- Register the class and add a lazy module entry so optional dependencies remain isolated.
+Validation output is authoritative. AST success is only a precheck; correctness
+requires verifier `passed_cases == total_cases`.
 
 ---
 > Source: [verl-project/uni-agent](https://github.com/verl-project/uni-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
