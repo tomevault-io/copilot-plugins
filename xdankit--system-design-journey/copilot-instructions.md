@@ -1,30 +1,16 @@
-## api
+## backend
 
-> GET /items pagination contract for every server
+> How servers in this repo are installed and run
 
 
-# GET /items
+# Backend
 
-One route. Two query styles. No `mode` parameter.
-
-| Request | Behavior |
-|---|---|
-| `GET /items` | `page=1`, `limit=10` |
-| `?page=3` | Page 3, `limit=10` |
-| `?page=3&limit=40` | Page 3, `limit=40` |
-| `?cursor=...` | Cursor wins. `page` is ignored |
-| `?limit=500` | `limit` becomes 100 |
-| `?limit=0` | `limit` becomes 1 |
-
-`limit` defaults to 10. Values below 1 clamp to 1. Values above 100 clamp to 100.
-
-Page response includes `totalCount`. Cursor response does not.
-
-Cursor response includes `hasPrev`, `hasNext`, `previousCursor`, `nextCursor`, `links.prev`, and `links.next`. The first page has `previousCursor` null. The last page has `nextCursor` null.
-
-A bench hits one fixed URL. Do not follow `links` during a run. Keep `limit` fixed for that run.
-
-Item fields are `id`, `name`, `city`, and `note`.
+- Use `pnpm`. Do not use `npm` or `yarn` for these servers.
+- Each server has its own `package.json`.
+- Phase 1 is vertical only: 1 instance, 1 port, cluster workers inside that process.
+- Run one server at a time. Start it, test it, stop it, then start the next. Do not run the four servers together.
+- Do not kill a process yourself. Ask the user, or let the user run the bench.
+- Horizontal scaling, extra machines, and nginx are out of phase 1.
 
 ---
 > Source: [xDAnkit/system-design-journey](https://github.com/xDAnkit/system-design-journey) — distributed by [TomeVault](https://tomevault.io).
