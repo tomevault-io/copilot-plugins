@@ -1,0 +1,9 @@
+{
+  "name": "inftyai--nebula",
+  "displayName": "Nebula",
+  "description": "The control plane for GPUaaS. ",
+  "version": "1.0.0",
+  "author": "InftyAI",
+  "homepage": "https://github.com/InftyAI/Nebula",
+  "skills": []
+}
