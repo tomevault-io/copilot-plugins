@@ -1,0 +1,9 @@
+{
+  "name": "adrianbonpin--gridline",
+  "displayName": "gridline",
+  "description": "A lightweight, open-source database GUI for PostgreSQL and SQLite.",
+  "version": "1.0.0",
+  "author": "AdrianBonpin",
+  "homepage": "https://github.com/AdrianBonpin/gridline",
+  "skills": []
+}
