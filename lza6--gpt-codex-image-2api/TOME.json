@@ -4,7 +4,7 @@
   "repo": "GPT-Codex-image-2api",
   "description": "\u9762\u5411\u4f01\u4e1a\u7aef\u5185\u90e8\u5de5\u5177\uff0c\u5177\u5907\u53f7\u6c60\u7ba1\u7406\u3001ip\u6c60\u7ba1\u7406\u3001codex\u548cGPT\u7f51\u9875\u9006\u5411\u51fa\u56fe\u7684\u4e00\u6b3ePython\u751f\u4ea7\u7ea7\u9879\u76ee\uff0c\u5177\u5907\u9ad8\u5e76\u53d1\u3001\u9ad8\u6027\u80fd\u3001\u4e00\u5206\u949f\u4e07\u6b21\u4efb\u52a1\u5b8c\u6210",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lza6/GPT-Codex-image-2api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T23:32:55Z"
+  "distributed_at": "2026-10-01T23:33:42Z"
 }
