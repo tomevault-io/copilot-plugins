@@ -1,0 +1,9 @@
+{
+  "name": "fasterxml--jackson-modules-base",
+  "displayName": "jackson-modules-base",
+  "description": "jackson-modules-base",
+  "version": "1.0.0",
+  "author": "FasterXML",
+  "homepage": "https://github.com/FasterXML/jackson-modules-base",
+  "skills": []
+}
