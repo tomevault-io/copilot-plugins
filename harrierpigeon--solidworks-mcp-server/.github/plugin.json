@@ -1,0 +1,9 @@
+{
+  "name": "harrierpigeon--solidworks-mcp-server",
+  "displayName": "Solidworks-MCP-Server",
+  "description": "Ever wanted Claude to do your CAD for you?",
+  "version": "1.0.0",
+  "author": "HarrierPigeon",
+  "homepage": "https://github.com/HarrierPigeon/Solidworks-MCP-Server",
+  "skills": []
+}
