@@ -3,8 +3,8 @@
   "owner": "sgl-project",
   "repo": "sglang-omni",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "sglang-omni",
+      "path": ".claude/skills/tune-ci-thresholds/SKILL.md",
+      "github_url": "https://github.com/sgl-project/sglang-omni/tree/main/.claude/skills/tune-ci-thresholds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-omni",
+      "path": ".claude/skills/running-eval-suite/SKILL.md",
+      "github_url": "https://github.com/sgl-project/sglang-omni/tree/main/.claude/skills/running-eval-suite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-omni",
+      "path": ".claude/skills/model-profiling/SKILL.md",
+      "github_url": "https://github.com/sgl-project/sglang-omni/tree/main/.claude/skills/model-profiling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sglang-omni",
+      "path": ".claude/skills/omni-gpu-deep-dive/SKILL.md",
+      "github_url": "https://github.com/sgl-project/sglang-omni/tree/main/.claude/skills/omni-gpu-deep-dive/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/sgl-project/sglang-omni",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T04:06:01Z"
+  "distributed_at": "2026-10-01T03:31:21Z"
 }
