@@ -4,7 +4,7 @@
   "repo": "neal",
   "description": "A plan-driven, multi-agent coding loop: separate planner, coder, and reviewer roles, each on the provider and model you choose, work together to implement your plan.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/navels/neal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T18:24:05Z"
+  "distributed_at": "2026-10-01T22:49:50Z"
 }
