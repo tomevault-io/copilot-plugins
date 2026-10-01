@@ -1,126 +1,123 @@
 ## goldeneye-pc-port
 
-> - `n64decomp/007`: WIP decompilation of GoldenEye 007 (N64), byte-matches US/EU/JP ROMs.
+> This file auto-loads every session. It is the operating manual. The full
 
-# AGENTS.md — GoldenEye 007 PC Port
+# CLAUDE.md — GoldenEye 007 PC port
 
-## What this is
+This file auto-loads every session. It is the operating manual. The full
+rules are in `AGENTS.md` (imported below); this file adds the two
+checklists that were being skipped.
 
-- `n64decomp/007`: WIP decompilation of GoldenEye 007 (N64), byte-matches US/EU/JP ROMs.
-- Active work: **PC port** modelled on the Perfect Dark PC port (same Rare "Indy" engine family).
-- **Reference docs:** `docs/internals.md` — architecture, GE-specific RSP deltas, phased plan (§1–§10). `docs/dev/findings.md` — the `Dxx` finding log (§F + §H). **Look up findings via `docs/dev/findings-index.csv` (label, one-liner, status; regenerate with `tools_pc/gen_findings_index.py`), then read only the specific `## Dxx` entry (multi-pass labels like D202/D176(a) have large sections — grep within the section or read with offset/limit, don't slurp it whole). Never linear-read.** `docs/porting-notes.md` — the recurring N64→PC bug classes (dense; skim the headers, read what's relevant).
-- **Current status:** the README "Status" section, and `docs/dev/LEVEL-STATUS.md` for the per-level sweep. Current task + environment: `docs/HANDOFF.md` (a rolling local working file — may be absent in a fresh clone; fall back to the README "Status" section).
-- **Dispatching subagents?** `docs/dev-process.md` — task budgets/deadlines, file partitioning, pre-flight, the standard brief template. Every investigation subagent reads `docs/porting-notes.md` first and appends to it.
+@AGENTS.md
 
-## Non-negotiables
+## Doc load order — read deliberately, not everything
 
-1. **N64 build untouched.** `Makefile`, `tools/`, `rsp/`, `ld/` belong to the N64 build. Never modify them for the PC port.
-2. **Game logic is unmodified.** The decomp's control flow and behavior are ground truth for 1:1 fidelity — never change them. All N64 *hardware* dependencies are satisfied by the `port/` layer; if a game file seems to need a behavioral change, stop and check the exception below before assuming the fix belongs in `port/`. **Diagnosis is never restricted — only the fix.** Trace a bug as deep into `src/game` state as the evidence leads, and name the exact struct/field/logic responsible, before deciding which of three buckets it falls in (full framing: `docs/dev-process.md`). **Narrow exception (ABI/layout only):** the 32→64-bit pointer-width transition forces a small class of mechanical, semantics-preserving edits that cannot be isolated in `port/` — **any struct-layout or pointer-width-driven misread caused by 32→64-bit widening**, whether in a ROM-serialized record (a struct with a 32-bit-pointer field misaligns when read as 64-bit) or a **live runtime struct/union** (a raw-byte offset alias into a union arm whose true field shifted because an earlier member in the same union widened — the D209/D210/D255 pattern; see `docs/porting-notes.md` §A1 for the full catalogue and its diagnostic tells). These follow the PD ground-truth pattern (store the embedded address as `u32` and cast to a real pointer at the use site; or read the correctly-named/typed field instead of a raw-offset/mistyped alias), change no logic or behavior, and are each documented in `docs/dev/findings.md` §F/D3x, cross-tagged to §A1 where that pattern applies. **A genuine behavioral difference** — the decomp's byte-identical code, given verified-correct inputs, still diverging from real N64 behavior — is not covered by this exception and requires the rule-2 sign-off procedure (`docs/dev-process.md`) before any `src/game` edit. No other game-code edits are permitted.
-3. **Region macros mirror the Makefile.** `CMakeLists.txt` `REGION_DEFS` must match the N64 Makefile's per-region macro set exactly (finding A1). Divergence = silent branch divergence + link failures.
-4. **`src/libultrare/Makefile.libultrare` is ground truth** for original-vs-Rare libultra files (finding B3). The PC build compiles: `libultra/audio`, `libultrare/audio` (drvrNew/env/reverb), `libultra/gu`, and `libultrare/io/vitbl.c` only. All other `io/` + `os/` files are excluded and shimmed in `port/src/libultra.c`.
-5. **`rsp/graphics/gmain.s` is the RSP ground truth** — the authoritative reference for which GBI commands GE emits (modified fast3d, 1545 lines). We do not run it on PC; `port/fast3d/` replaces it. Use it to validate the software RSP's command decoding and the custom CC/RM modes.
+Context is scarce. Load by tier; do not blind-read whole files.
 
-## Critical files
+- **Tier 0 — always (auto-loaded):** `CLAUDE.md`, `AGENTS.md`. Nothing
+  else auto-loads.
+- **Tier 1 — every session start:**
+  `docs/HANDOFF.md` (current state + next task + environment — a rolling
+  local working file; may be absent in a fresh clone, in which case read
+  the README "Status" section instead) — read fully;
+  `docs/porting-notes.md` (recurring bug classes) — skim the section
+  headers, read the classes relevant to the task.
+- **Tier 2 — on demand only, do NOT read start-to-finish:**
+  - `docs/internals.md` — architecture / RSP deltas / phased plan (§1–§10).
+    Read the section you need.
+  - Findings: look up via `docs/dev/findings-index.csv` (label, one-liner,
+    status), then read only the specific `## Dxx` entry in
+    `docs/dev/findings.md` (multi-pass labels like D202/D176(a) have large
+    sections — grep within or offset/limit). Never linear-read.
+  - `docs/dev/HANDOFF-ARCHIVE.md` — prior-session narrative (M-2…). Only
+    when tracing the history of one fix.
+  - `docs/dev-process.md` — before dispatching a subagent (also Tier 1
+    if you may dispatch this session).
 
-| File | Role |
-|---|---|
-| `docs/internals.md` | Architecture + RSP deltas + phased plan (§1–§10). Reference, not a linear read. |
-| `docs/dev/findings.md` | The `Dxx` finding log (§F/§H); lookups via `docs/dev/findings-index.csv`. |
-| `CMakeLists.txt` | PC build (parallel to the N64 Makefile). Source list + `REGION_DEFS` live here. |
-| `port/src/` | Shims: `libultra.c` (OS API), `gesched.c` (scheduler), `n64stubs.c` (boot/TLB/FPU/rmon), `random.c` (PRNG ported verbatim from `random.s`), `ucode.c` (microcode segment markers), `main.c`, `video.c`, … |
-| `port/fast3d/` | Software RSP (adapted from the PD port). The main Phase 2 work. |
-| `rsp/graphics/gmain.s` | GE's RSP ucode — ground truth for GBI/CC/RM. |
-| `reference/mouse-injector/README.md` | **Stub only** — the vendored GEPD-Edition Mouse Injector source (GPLv2) was removed from the public repo 2026-09-19 (license hygiene: GPL code + prebuilt binary in an MIT project; it was never compiled here). The stub records provenance + how to re-vendor locally (gitignored). The ported mouse-aim model lives in `port/src/input.c` (D194 lineage); design record: `docs/dev/GEPD-INPUT-PLAN.md`. |
-| A local **Perfect Dark PC port** checkout ([fgsfdsfgs/perfect_dark](https://github.com/fgsfdsfgs/perfect_dark)) | **Standing reference** — consult it whenever a work item has a PD analogue (same Rare engine family): port-layer ground truth (`port/fast3d/`, crash/system/video), plus copy candidates `port/src/preprocess/` (N64→PC asset conversion; `filemodel.c` is the D43 near-analogue) and `mixer.c`/`input.c`/`fs.c`. Port-layer files only; same family ≠ identical format — validate per field. Full audit: `docs/internals.md` §2.4. |
+## Session preflight — do this in your FIRST few tool calls, before acting
 
-## Build
+Having a concrete "next step" from the handoff is NOT license to skip this.
 
-```sh
-./build-pc.sh ntsc-final   # or pal-final / jpn-final
-```
+1. Read the Tier 1 docs: `docs/HANDOFF.md` (immediate task, standing
+   procedure, environment gotchas — or the README "Status" section if it is
+   absent) and `docs/porting-notes.md` (recurring bug classes — you will
+   re-derive catalogued bugs if you don't).
+2. Skim the README "Status" section for where the project stands.
+3. If you may dispatch a subagent this session, read `docs/dev-process.md`
+   NOW — not at dispatch time.
 
-Needs CMake + SDL2 + zlib + OpenGL, and must run from the MSYS2 MINGW64 shell
-(see `build-pc.sh` header and `docs/building.md`). ROM goes in `./data/`
-(not distributed); assets must be extracted from it first (`docs/building.md`).
+## Dispatch preflight — EVERY Agent/Task spawn, no exceptions
 
-**Windows build environment (three recurring failure modes — diagnose in this order):**
+A subagent brief is INVALID and must not be sent unless it contains all of:
 
-1. **`Cannot create temporary file in C:\Windows\: Permission denied`** at the
-   link step. The PE toolchain (ninja → cmd → gcc/ld) needs a writable
-   TMP/TEMP; the msys→native env conversion drops it in non-login shells
-   (agent harnesses; the `C:/msys64` tree here was built for `D:/M/msys64`,
-   so its conversion is unreliable). `build-pc.sh` now **self-heals**: it
-   probes a native child's TMP (via a file — piped `cmd.exe` stdout is
-   unreliable under msys console emulation) and, if broken, re-runs
-   cmake+build under PowerShell with `TMP`/`TEMP` set natively (the
-   native→native boundary passes env through intact; only msys→native is
-   broken). If you run cmake/ninja *by hand* from a broken shell: run them
-   from cmd/PowerShell with `C:\msys64\mingw64\bin` on PATH.
-   **Guard revision (2026-09-28):** the re-exec writes a self-contained
-   `.ps1` to a temp file and runs `powershell -File` with plain path/word
-   args only (the msys→native argv conversion mangles `$`-bearing
-   `-Command` strings; a file write is conversion-free). Inside: PATH is
-   built explicitly (never trust the inherited value); TMP is chosen from
-   writable candidates (`%LocalAppData%\Temp` first —
-   `[System.IO.Path]::GetTempPath()` honours the inherited *broken* TMP,
-   observed as `C:\Windows\`); every native step self-logs to
-   `build-pc/ge007-native-reexec-{diag,cmake,build}.log`; a null
-   `$LASTEXITCODE` ("did not execute") is a distinct failure (exit 2/3) —
-   in PS 5.1 a piped native command errors out non-terminating and never
-   sets it, so an unguarded `if ($LASTEXITCODE -ne 0)` passes vacuously.
-   In `.ps1`, `-DROMID=$Var` is a literal (bare tokens don't expand) — it
-   must be `"-DROMID=$Var"`. Launch powershell plainly — `env -i` before it
-   breaks the nested cmake launch (verified 2026-09-28).
-   **OPEN (next session):** the guard still fails *inside* `build-pc.sh`
-   (cmake "did not execute": the `.ps1` runs, but `$LASTEXITCODE` stays
-   empty) while the *identical* standalone invocation succeeds (cmake runs
-   and the build completes — that is how the D401 builds were made). First
-   test: diff the heredoc-generated `.ps1` against a hand-extracted copy
-   (suspect: heredoc line-ending/whitespace corruption).
-   **Working workaround:** extract the heredoc `.ps1` and run
-   `powershell -NoProfile -ExecutionPolicy Bypass -File <ps1> "C:\msys64\usr\bin" "C:\msys64\mingw64\bin" C:/msys64 <repo-win-path> build-pc <romid>`.
-   Re-confirmed 2026-09-28: in-script re-exec fails again (cmake configure
-   dies inside the ps1; re-exec logs left stale) while the identical
-   standalone invocation reconfigured and built cleanly (extract with
-   `awk "/<<'PS1'\$/{f=1;next} /^PS1\$/{f=0} f" build-pc.sh > /tmp/ps1`
-   — mind the leading whitespace, and `export PATH` to include mingw/bin
-   first, failure mode 3).
-2. **`cannot open output file ge007.x86_64.exe: Permission denied`.** A
-   **running** `ge007.x86_64.exe` locks the output file (Windows rule; you
-   can't relink over a live PE). Check with `Get-Process | Where-Object {
-   $_.ProcessName -like '*ge007*' }` and close the game before rebuilding.
-   An agent must not kill the user's game process to make a link succeed.
-3. **`cc1.exe: ... libmpfr-6.dll: cannot open shared object file`.** The
-   calling PATH lacks `C:\msys64\mingw64\bin` (the gcc driver finds cc1 via
-   its own directory, but the child needs the mingw DLL dir on PATH). In an
-   msys shell: `export PATH="/c/msys64/mingw64/bin:/c/msys64/usr/bin:$PATH"`
-   before building.
+- **FILES YOU MAY TOUCH** — disjoint from every other running agent.
+- **BUDGET** — `<= N build->run->inspect cycles` or `~M min`. Tight for
+  cheap-class bugs (truncations, off-by-ones); more room for structural ones
+  (matrix handedness, format specs). Escalate the default as the project hardens.
+- **ON EXPIRY** — stop, revert temp probes, write up what you have in
+  `docs/dev/findings.md` §F with an explicit confidence rating. A good
+  write-up of a half-solved bug is a deliverable, not a failure.
+- **KNOWN-GOOD / RULED OUT**, **CONSTRAINTS** (no game-logic changes;
+  ABI/layout/format only; `#ifdef PORT`; documented in §F), **REPORT** shape.
+- **VERIFY** — the exact `tools_pc/verify.sh` / probe invocation that proves
+  the task done, or an explicit "runtime verification impossible here; a human
+  must run X".
+- Instruction to read `docs/porting-notes.md` first and append any
+  generalisable quirk to it.
 
-## Verification ritual (after any build-affecting change)
+Full template: `docs/dev-process.md` -> "Investigation-brief template".
 
-1. **Undefined symbols.** Every symbol referenced by the compiled set (see `CMakeLists.txt`: `SRC_GAME`, `SRC_ENGINE`, `SRC_LIBAUDIO`, `SRC_LIBULTRARE_AUDIO`, `SRC_LIBULTRARE_DATA`, `SRC_GU`, `SRC_PORT*`) must be defined exactly once in the compiled set or in `port/`. Symbols that live in EXCLUDED files (`libultra/io/*`, `libultrare/io/*` except `vitbl.c`, `libultra/os/*`, `libultrare/os/*`, `sched.c`, `rmon.c`, `vi.c`, `src/*.s`) must be provided by `port/src/libultra.c`, `gesched.c`, `n64stubs.c`, `random.c`, or `ucode.c`.
-2. **Duplicates.** No symbol defined twice across the compiled set (watch `sp_*` stacks, `rmon*`, `os*` shims, segment markers).
-3. **Syntax.** Every touched file must parse; `./build-pc.sh` is the final word.
+## Verification cadence (integrator / overseer)
 
-Run `/linkcheck` for this sweep. Record new findings in `docs/dev/findings.md` §F/§H style (next `Dxx` label after the last used) and add the label to the §F index.
+- **Per merged patch:** single-frame `GE_PCDUMP` capture diffed against the
+  committed golden baseline. Cheap. Do NOT gate every patch on a long soak.
+- **Per batch / integration checkpoint:** one 60s `-level_09` crash-free run.
+- Subagents on small disjoint subsystems (input, audio, saves, converters)
+  don't run the game — the overseer verifies.
 
-## Phase status (summary — see README + `docs/dev/findings.md` for detail)
+## Local Qwen dispatch (cost-free, data-local worker)
 
-- **Phase 0–1.5:** done. Build system, boot chain, OS-shim layer, fast3d
-  integration, first frames, full intro rendering.
-- **Phase 2 (rendering):** in progress. All 20 solo missions (plus the
-  ending-credits sequence, `-level_54`) load + render + survive an
-  unattended window; front end (menu → mission select → briefing →
-  start) is functional; file-backed EEPROM saves work. Cosmetic defects are
-  parked in `docs/dev/GRAPHICS-BACKLOG.md`.
-- **Phase 3 (audio + input):** input layer done (`port/src/input.c`); polish
-  bugs open (D118* mouse-look residuals; interactive feel-checks owed). Audio
-  mixer done (libaudio → SDL software mixer, D198–D201); D204 tempo drift
-  fixed + measured; D202 stuck door loop root-caused with a port-side
-  expiration (M-66b) awaiting by-ear verification.
-- **Phase 4 (saves + polish):** file-backed EEPROM done; widescreen, config,
-  rebinding UI outstanding.
+A local Qwen3.8-27B is wired in via the `delegate-local` MCP server (see
+`C:\Users\james\Source\Repos\20260902-qwen38claudepair`). Use it as a
+*subagent whose compute runs on-machine* for scoped, checkable work — the lead
+still owns judgment, planning, and the verification gate.
+
+- **Tools:** `local_backend_status()` (run once before first dispatch),
+  `list_local_agents()`, `delegate_to_local_agent(agent_name, task, workdir, max_turns?, max_tokens?)`.
+- **Workers** (`~/.claude/agents/`): `repo-mapper` (read-only ingest/map),
+  `mechanical-coder`, `test-writer`, `triage` (read-only root-cause + patch),
+  `refactor-bot`.
+- **Dispatch when ALL hold:** narrow blast radius, clear spec, output checkable
+  by a build/test/diff. Keep on Claude: ABI/handedness/format reasoning, novel
+  debugging, anything you can't cheaply verify.
+- **Backend reality:** ~1 inference slot, slow per token — dispatch
+  **sequentially**, `max_tokens` ~4–8K, treat as batch work. Needs the LiteLLM
+  proxy (`litellm/run.ps1`) + Unsloth Studio both up.
+- **Corrected 2026-09-04:** the "worker's shell is `cmd.exe`, no grep/cat"
+  claim that used to live here was WRONG — verified directly against the
+  harness's own `_run_bash` (`C:\Users\james\tools\claude-code-delegate-local`):
+  `grep`, `sed`, `cat`, `ls`, `head`, pipes, and `grep -rn` all work fine
+  (Git-for-Windows/MSYS2 toolchain on PATH). The stale claim, baked into 4 of
+  5 local agent `.md` files, caused a real dispatch (a multi-file
+  cross-referencing investigation) to burn its whole turn budget
+  full-`read_file`-ing files instead of grepping them, hit the turn limit, and
+  returned nothing. Agent files fixed. Always still spot-check the returned
+  artifact against the real files before integrating — the 27B will
+  confidently fabricate if a read fails, independent of this.
+- **Landing delegate output on its own branch: branch off `main` explicitly,
+  never off whatever's currently checked out.** (2026-09-12: a delegate's
+  docs-only writeup got `git branch <name> <sha>` where `<sha>` happened to
+  sit on top of an unrelated in-flight feature branch — the resulting PR
+  silently carried that branch's whole history, including code that had
+  since been reverted, and it only surfaced as a CI failure (a stale
+  env-probe-index check), not from inspecting the diff.) Before creating the
+  branch, confirm you're branching from `main`/`origin/main` HEAD, not from
+  `HEAD` of the session's current checkout; after pushing, sanity-check with
+  `git log --oneline main..<branch>` that it contains only the commit(s) the
+  delegate's task actually produced.
+- Fits the **dispatch preflight** rules above (FILES / BUDGET / ON EXPIRY /
+  CONSTRAINTS / REPORT) — write the `task` string to that shape.
 
 ---
 > Source: [jkdansereau/goldeneye-pc-port](https://github.com/jkdansereau/goldeneye-pc-port) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
