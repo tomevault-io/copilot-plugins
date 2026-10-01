@@ -2,8 +2,6 @@
 
 > Source: [agentsea/nautilo](https://github.com/agentsea/nautilo). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-AI goes multiplayer. A self-hosted workspace for people and machine people. Create, code, and work together across desktop, mobile, and web. Open source. MIT licensed.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
