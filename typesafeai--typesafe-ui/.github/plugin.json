@@ -1,0 +1,9 @@
+{
+  "name": "typesafeai--typesafe-ui",
+  "displayName": "typesafe-ui",
+  "description": "shadcn-style reusable components and blocks for using TypeSafe AI.",
+  "version": "1.0.0",
+  "author": "TypeSafeAI",
+  "homepage": "https://github.com/TypeSafeAI/typesafe-ui",
+  "skills": []
+}
