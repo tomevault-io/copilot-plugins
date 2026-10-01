@@ -1,26 +1,47 @@
-## i2c-bus
+## invariant-tests
 
-> Normative I2C/TWI bus rules for PineTime TWIM1 (mutex, timeouts, no raw register poking)
+> Before OTA/Ambient DFU or claiming those fixes, run scripts/run_invariant_tests.ps1
 
 
-# I2C / TWI bus (Slate)
+# Invariant tests (mandatory before OTA / Ambient ship)
 
-Full rules: `docs/i2c-bus.md`. Follow those before changing bus or sensor code.
+The N-19 OTA lock-step and m44 Ambient-display gates are encoded in PC tests.
+**Do not package DFU or claim those areas fixed without running them.**
 
-## Non-negotiable
+## When you must run
 
-1. **Only `twi::write` / `read` / `write_read`** talk to TWIM1. No driver-local TWIM register poking.
-2. **Mutex stays on** for FreeRTOS (`SLATE_HAS_FREERTOS=1`) around every transfer and `sleep`/`wake`/`recover_bus` — same idea as InfiniTime `TwiMaster` and `spi_bus` mutex. Do not add a second I2C path that skips it.
-3. **Assume multi-task use**: `app` (touch/BMA/raise) and `hr` (HRS every ~100 ms) share the bus, including while the display is asleep.
-4. **Timeouts + recovery** required; never infinite spin on the app task.
-5. **No `twi::init()` in poll paths** — ENABLE=0 preserves config; transfers wake/sleep themselves.
-6. **CST816S NACKs when idle are normal** — not a reason to drop locking or re-init the bus.
-7. **Do not hand-edit TWIM SHORTS bit numbers** — N-31 killed all I2C once. Match nRF52832 PS / bitfields.
-8. Pins: SDA=P0.06, SCL=P0.07, open-drain S0D1. Addrs: touch `0x15`, BMA `0x18`, HRS `0x44`.
+Run from repo root **in the same turn** before:
 
-## Smoke if you touch HR or locking
+- Packaging / handing over `slate_dfu` / `slate-dfu.zip` after OTA or Ambient /
+  power-policy / `main.cpp` sleep-path changes
+- Claiming an OTA stall or blank-face-after-Ready fix is done
+- Weakening or “cleaning up” `OtaSenderState`, `ambient_display_action`, or
+  the app_loop Ambient switch
 
-HR Off → raise still works after sleep. HR On → BPM can lock on-wrist; raise still works.
+Also run after editing any of: `OtaXfer.kt`, `OtaXferTest.kt`,
+`SlateOtaService.kt`, `ota_xfer.*`, `ambient_power_policy.hpp`,
+`test_ambient_power_policy.cpp`, or the Ambient block in `main.cpp`.
+
+## Command
+
+```powershell
+powershell -File scripts/run_invariant_tests.ps1
+```
+
+Exit 0 required. Report pass/fail in the handover.
+
+## What it runs
+
+1. `python scripts/check_paint_in_drain.py` (paint-in-drain Layer A)
+2. `:sdp-tests:test --tests slate.ota.OtaXferTest` (N-19)
+3. Host `test_ambient_power_policy` + `test_paint_drain_guard` +
+   `test_paint_drain_storm` (m44 + Layer B + app-loop sim)
+
+Also run after editing `paint_loop_harness.hpp`, `test_paint_drain_storm.cpp`,
+or drain-path handlers in `local_core` / `main` / `session`.
+
+Details: `docs/invariant-tests-plan.md`, `docs/paint-in-drain-analysis-plan.md`,
+`docs/agent-enforcement.md`.
 
 ---
 > Source: [LeaCreative/SlateOS](https://github.com/LeaCreative/SlateOS) — distributed by [TomeVault](https://tomevault.io).
