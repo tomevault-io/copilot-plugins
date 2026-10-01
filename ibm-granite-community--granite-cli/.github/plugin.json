@@ -1,0 +1,9 @@
+{
+  "name": "ibm-granite-community--granite-cli",
+  "displayName": "granite-cli",
+  "description": "granite-cli",
+  "version": "1.0.0",
+  "author": "ibm-granite-community",
+  "homepage": "https://github.com/ibm-granite-community/granite-cli",
+  "skills": []
+}
