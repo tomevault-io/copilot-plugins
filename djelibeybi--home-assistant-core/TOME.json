@@ -3,7 +3,7 @@
   "owner": "Djelibeybi",
   "repo": "home-assistant-core",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,45 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "SKILL.md",
-      "path": ".claude/skills/bump-dependency/SKILL.md",
-      "github_url": "https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/bump-dependency/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "SKILL.md",
-      "path": ".claude/skills/ha-pr-reviewer/SKILL.md",
-      "github_url": "https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-pr-reviewer/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "SKILL.md",
-      "path": ".claude/skills/ha-review/SKILL.md",
-      "github_url": "https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "SKILL.md",
-      "path": ".claude/skills/ha-pr-comment-audit/SKILL.md",
-      "github_url": "https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-pr-comment-audit/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "SKILL.md",
-      "path": ".claude/skills/ha-integration-knowledge/SKILL.md",
-      "github_url": "https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-integration-knowledge/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "SKILL.md",
-      "path": ".claude/skills/ha-quality-scale-verify/SKILL.md",
-      "github_url": "https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-quality-scale-verify/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/Djelibeybi/home-assistant-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T18:30:50Z"
+  "distributed_at": "2026-10-01T09:45:04Z"
 }
