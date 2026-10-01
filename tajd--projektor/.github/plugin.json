@@ -1,7 +1,7 @@
 {
   "name": "tajd--projektor",
   "displayName": "projektor",
-  "description": "Self hosted Wiki + Jira-style AI native issue tracker on Cloudflare Workers",
+  "description": "projektor",
   "version": "1.0.0",
   "author": "TAJD",
   "homepage": "https://github.com/TAJD/projektor",
