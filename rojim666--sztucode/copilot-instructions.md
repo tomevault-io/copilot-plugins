@@ -1,10 +1,10 @@
 ## sztucode
 
-> > Current product path: Python. The default daemon, Agent Loop, bus protocol, CLI, and evaluation runner live under `py-runtime/src/sztu_code`. The TypeScript chain (`packages/`, `desktop/`) remains available via `npm run daemon:ts` / `npm run cli:ts`; the desktop workbench connects to the TypeScript daemon.
+> The current product runtime is Python. The default daemon, Agent Loop, bus protocol, CLI, and evaluation runner live under `py-runtime/src/sztu_code`. The TypeScript chain (`packages/`, `desktop/`) remains available via `npm run daemon:ts` / `npm run cli:ts`; the desktop workbench connects to the TypeScript daemon.
 
-# AGENT.md
+# AGENTS.md
 
-> Current product path: Python. The default daemon, Agent Loop, bus protocol, CLI, and evaluation runner live under `py-runtime/src/sztu_code`. The TypeScript chain (`packages/`, `desktop/`) remains available via `npm run daemon:ts` / `npm run cli:ts`; the desktop workbench connects to the TypeScript daemon.
+The current product runtime is Python. The default daemon, Agent Loop, bus protocol, CLI, and evaluation runner live under `py-runtime/src/sztu_code`. The TypeScript chain (`packages/`, `desktop/`) remains available via `npm run daemon:ts` / `npm run cli:ts`; the desktop workbench connects to the TypeScript daemon.
 
 ## Commands
 
@@ -22,34 +22,10 @@ npm run cli -- ping
 
 ## Architecture
 
-The default kernel is the Python daemon (`py-runtime/src/sztu_code/core`, 127.0.0.1:7437); `npm run daemon` and `npm run cli` use it. The Tauri desktop workbench and the Node terminal client (`npm run daemon:ts` / `npm run cli:ts`) connect to the persistent TypeScript daemon (`packages/runtime-ts`, 127.0.0.1:7438) over JSON-RPC 2.0 NDJSON.
+The Tauri + Vue desktop workbench and Node terminal client connect to the TypeScript daemon (`npm run daemon:ts`, 127.0.0.1:7438) over JSON-RPC 2.0 NDJSON; the default `npm run daemon` / `npm run cli` start the Python daemon (`py-runtime/src/sztu_code`, 127.0.0.1:7437). Shared TS contracts live in `packages/protocol`; Python bus contracts live in `py-runtime/src/sztu_code/core/bus`.
 
-```
-packages/runtime-ts (daemon)
-  └─ 127.0.0.1:7438
-       ↑ JSON-RPC 2.0 NDJSON
-packages/cli   desktop (Tauri + Vue)
-```
-
-Shared request, response, event, and workflow types live in `packages/protocol`. Runtime behavior belongs in `packages/runtime-ts`; do not add product contracts to external scripts or generated files. The desktop application is the primary user-facing surface and must be built after UI changes.
-
-## TypeScript conventions
-
-- Keep public RPC parameters and results typed in `packages/protocol`.
-- Prefer discriminated unions for protocol state and event handling.
-- Keep filesystem and workspace boundaries in runtime helpers; never accept an unchecked path from an RPC request.
-- Add focused tests for permission, session, persistence, provider, and error-path changes.
-- Use Node built-ins and existing workspace dependencies before adding a package.
-- Comments should explain non-obvious constraints, not restate code.
-
-## Python boundary
-
-Python is the default product runtime. Keep new product behavior in `py-runtime/src/sztu_code` with focused pytest coverage. The Skill directories under `packages/runtime-ts/skills` with Python scripts are isolated subprocess tools and must not define daemon, CLI, protocol, or desktop behavior for the Python chain.
-
-## Documentation
-
-Current user, contributor, architecture, testing, and operations documentation lives in `docs/`; historical proposals are under `docs/archive/` and do not define current behavior. Protocol documentation is generated with `npm run docs:protocol`.
+Keep new product behavior in Python (`py-runtime/src/sztu_code`). Python scripts under `packages/runtime-ts/skills` are isolated helpers for artifact formats whose mature libraries are Python-first.
 
 ---
 > Source: [rojim666/SztuCode](https://github.com/rojim666/SztuCode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
