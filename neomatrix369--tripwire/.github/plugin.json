@@ -1,0 +1,9 @@
+{
+  "name": "neomatrix369--tripwire",
+  "displayName": "tripwire",
+  "description": "Sandboxed multi-scanner security for AI skills, MCP servers, and package trees \u2014 coverage honesty, SIE judging, heatmap posture, guided triage and fix. Scan what agents install; fail closed.",
+  "version": "1.0.0",
+  "author": "neomatrix369",
+  "homepage": "https://github.com/neomatrix369/tripwire",
+  "skills": []
+}
