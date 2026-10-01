@@ -1,23 +1,10 @@
 ## unity-mrutilitykitsample
 
-> Use Meta Quest Agentic Tools for Meta Quest and Horizon OS samples
+> This is a Meta Quest / Horizon OS sample.
 
+This is a Meta Quest / Horizon OS sample.
 
-This repository is a Meta Quest / Horizon OS sample.
-
-Prefer the Meta Horizon extension, the `hzdb` MCP server, and Meta Quest Agentic Tools before giving generic Unity or device-debugging advice.
-
-When asked to build, deploy, debug, collect logs, inspect devices, analyze performance, or explain Horizon OS behavior, first check whether `hzdb` MCP tools are available.
-
-Recommended extension:
-
-https://marketplace.visualstudio.com/items?itemName=meta.meta-vr-dev
-
-Recommended MCP setup:
-
-```sh
-npx -y @meta-quest/hzdb mcp install cursor
-```
+Use `AGENTS.md` as the canonical instruction file. Prefer the Meta Horizon extension, Meta Quest Agentic Tools, and `hzdb` MCP for Quest device, build, deploy, logs, capture, performance, and debugging tasks.
 
 ---
 > Source: [oculus-samples/Unity-MRUtilityKitSample](https://github.com/oculus-samples/Unity-MRUtilityKitSample) — distributed by [TomeVault](https://tomevault.io).
