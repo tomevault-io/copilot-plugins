@@ -1,15 +1,19 @@
 ## perspective
 
-> `<perspective-viewer>` ships with an embedded LLM agent which drives the viewer
+> <!-- description: Perspective's perspective-viewer includes an opt-in LLM agent which turns plain-language questions into pivots, filters, expressions and charts by driving the viewer's public API. It works with Anthropic, OpenAI, Gemini, OpenRouter and local models such as Ollama, LM Studio and WebLLM. -->
 
-# Configuring the LLM agent
+# LLM and agent-driven analytics
 
-`<perspective-viewer>` ships with an embedded LLM agent which drives the viewer
-through its public API — reading the schema, writing the `ViewerConfig`,
-choosing a plugin, authoring ExprTK expressions and managing panels. It is
-**opt-in**: the **Chat** tab in the settings sidebar stays hidden, and no
-network request is ever made, until you call
-`HTMLPerspectiveViewerElement::agentConfig`.
+<!-- description: Perspective's perspective-viewer includes an opt-in LLM agent which turns plain-language questions into pivots, filters, expressions and charts by driving the viewer's public API. It works with Anthropic, OpenAI, Gemini, OpenRouter and local models such as Ollama, LM Studio and WebLLM. -->
+
+`<perspective-viewer>` ships with an embedded LLM agent. A user types "show me
+monthly revenue by region as a stacked bar, top five only", and the agent
+reads the table's schema, writes the view configuration, authors any computed
+columns it needs, picks the chart, and applies it — through the same public
+API your own code would use.
+
+It is **opt-in**. The Chat tab stays hidden and no network request is made
+until you configure a model:
 
 ```javascript
 import { providers } from "@perspective-dev/viewer";
@@ -21,123 +25,47 @@ viewer.agentConfig({
 });
 ```
 
-## Connecting to a model
+## Why an agent fits Perspective
 
-The agent core connects via OpenAI chat-completions conventional API, over
-primitive connection fields. Exactly one of `url` or `engine` is required:
+An LLM is good at translating intent into a small, structured configuration,
+and unreliable at arithmetic over data it has to read. Perspective's
+configuration is exactly that kind of target: a complete analysis — grouping,
+column splits, aggregates, filters, sorts, expressions, chart type — is a few
+lines of JSON, and the numbers are computed by the engine, not the model.
 
-- `url` — a full chat-completions endpoint. Any OpenAI-compatible service works:
-  the Anthropic and Gemini compatibility endpoints, OpenRouter, LM Studio,
-  Ollama, llama.cpp, vLLM, or your own proxy.
-- `engine` — an in-page engine object exposing
-  `chat.completions.create(request)`, e.g.
-  [WebLLM](https://github.com/mlc-ai/web-llm)'s `MLCEngine`. Mutually exclusive
-  with `url`.
+- The agent's tools read the table's schema and the viewer's configuration —
+  none of them read rows, so your data is not sent to the model.
+- Every answer is an ordinary, inspectable viewer configuration. The user can
+  see exactly what was grouped and filtered, adjust it by hand, and save it.
+- Because the engine is incremental, an agent-built view over streaming data
+  keeps updating after the conversation ends.
 
-The remaining connection fields are `headers`, `apiKey` (sugar for an
-`Authorization: Bearer` header), `model`, and `name`. The `providers` export
-supplies presets for the common ones — `anthropic`, `gemini`, `openai`,
-`openrouter`, `lmstudio` and `ollama` — and spread order is override order:
+## Any model, including local ones
 
-```javascript
-viewer.agentConfig({
-    ...providers.anthropic,
-    apiKey: "sk-ant-...",
-    model: "claude-haiku-4-5", // overrides the preset's default
-});
-```
+The agent speaks the OpenAI chat-completions convention, so it works with
+Anthropic, OpenAI, Gemini and OpenRouter endpoints, with local servers such as
+[Ollama](https://ollama.com/), [LM Studio](https://lmstudio.ai/), llama.cpp and
+vLLM, and with in-page engines such as
+[WebLLM](https://github.com/mlc-ai/web-llm) — in which case the data, the
+query engine and the model all run inside the browser tab.
 
-Local servers usually need their CORS opt-in enabled first:
-[LM Studio](https://lmstudio.ai/) has a setting in its developer server panel,
-and Ollama reads `OLLAMA_ORIGINS`.
+## Keys and production use
 
-> **A key in `agentConfig` is a key in the browser tab.** It is sent directly to
-> the provider from the page, which is fine for local development and internal
-> tools, but for anything shared you should point `url` at a proxy you control
-> and keep the credential on the server.
+A key passed to `agentConfig` is a key in the browser. That is fine for local
+development and internal tools; for anything shared, point `url` at a proxy
+you control and keep the credential on the server. See
+[Configuring the LLM agent](../how_to/javascript/agent.md) for the full
+connection options.
 
-Tool-calling quality varies more than general chat quality does. Frontier models
-handle the viewer's tool surface reliably; among local models, recent Qwen and
-Llama instruct builds are the ones to try first.
+## Driving Perspective from your own agent
 
-### In-page engines
-
-An `engine` runs the model in the tab, so no prompt and no data leave the
-machine and no key is involved. [WebLLM ](https://github.com/mlc-ai/web-llm) for
-example:
-
-```javascript
-import * as webllm from "@mlc-ai/web-llm";
-
-const engine = await webllm.CreateMLCEngine(
-    "Hermes-3-Llama-3.1-8B-q4f16_1-MLC",
-    { initProgressCallback: (x) => console.log(x.text) },
-    { context_window_size: 16384 },
-);
-
-viewer.agentConfig({
-    name: "webllm",
-    engine,
-    systemRole: "user",
-});
-```
-
-## The documentation bundle
-
-`<perspective-viewer>` publishes a metadata bundle at
-`dist/docs/perspective-docs.json` containing a searchable corpus of the
-Perspective documentation plus generated JSON schemas for the viewer's config
-types. Passing it as `docs` is optional, but without it the agent will not be
-very capable — it is what lets the agent look things up rather than guess:
-
-```javascript
-import docs from "@perspective-dev/viewer/dist/docs/perspective-docs.json" with { type: "json" };
-
-viewer.agentConfig({ ...providers.anthropic, apiKey: "sk-ant-...", docs });
-
-// ... or ...
-
-viewer.agentConfig({
-    ...providers.anthropic,
-    apiKey: "sk-ant-...",
-    docs: fetch(
-        "node_modules/@perspective-dev/viewer/dist/docs/perspective-docs.json",
-    ),
-});
-```
-
-Without it the agent still works: `search_docs` searches an empty corpus and the
-tool parameter schemas degrade to permissive objects. The practical difference
-is how often a weaker model invents a field name that doesn't exist, or writes
-an ExprTK expression against syntax Perspective doesn't have.
-
-### Telling the agent about your data
-
-The agent learns column names and types from `get_schema`, but not what they
-_mean_ — that `Discount` is a ratio rather than a percent, or that a negative
-`Profit` is a return rather than an error. Add those notes as extra corpus
-entries:
-
-```javascript
-import bundle from "@perspective-dev/viewer/dist/docs/perspective-docs.json" with { type: "json" };
-
-const DATASET_DOCS = [
-    {
-        title: "Superstore columns",
-        text: "`Discount` is a ratio in [0, 1], not a percent. `Profit` is net of `Discount` and is negative for returns.",
-    },
-];
-
-viewer.agentConfig({
-    ...providers.anthropic,
-    apiKey: "sk-ant-...",
-    docs: { ...bundle, chunks: [...bundle.chunks, ...DATASET_DOCS] },
-});
-```
-
-An inline `[{title?, text}]` array may also be passed as `docs` on its own, when
-you have host notes but no packaged bundle.
+The agent uses no private hooks. `restore()`, `save()`, `Table.schema()` and
+`View` are the complete surface, and a view configuration is plain JSON — so
+an external agent, a notebook assistant or an MCP tool can produce the same
+results by emitting a `ViewerConfig`. The guide is published for that purpose
+as Markdown at [`/llms.txt`](https://perspective-dev.github.io/llms.txt) and
+[`/llms-full.txt`](https://perspective-dev.github.io/llms-full.txt).
 
 ---
 > Source: [perspective-dev/perspective](https://github.com/perspective-dev/perspective) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
