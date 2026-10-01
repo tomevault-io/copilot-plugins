@@ -1,0 +1,9 @@
+{
+  "name": "qovery--qovery-cli",
+  "displayName": "qovery-cli",
+  "description": "qovery-cli",
+  "version": "1.0.0",
+  "author": "Qovery",
+  "homepage": "https://github.com/Qovery/qovery-cli",
+  "skills": []
+}
