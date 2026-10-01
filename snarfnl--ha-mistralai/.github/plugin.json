@@ -1,0 +1,9 @@
+{
+  "name": "snarfnl--ha-mistralai",
+  "displayName": "HA_MistralAI",
+  "description": "HA_MistralAI",
+  "version": "1.0.0",
+  "author": "SnarfNL",
+  "homepage": "https://github.com/SnarfNL/HA_MistralAI",
+  "skills": []
+}
