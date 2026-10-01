@@ -4,7 +4,7 @@
   "repo": "sshlg-skills",
   "description": "Install and update nine Agent Skills packs for UX, delivery, design, integrations, SEO, agent systems, Telegram, coordination, and skill authoring.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ssheleg/sshlg-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T16:48:27Z"
+  "distributed_at": "2026-10-01T22:35:00Z"
 }
