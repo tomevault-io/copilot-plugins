@@ -1,0 +1,44 @@
+{
+  "name": "xcpc-helper",
+  "owner": "Inkyo-007",
+  "repo": "xcpc-helper",
+  "description": "\u4e3a\u7b97\u6cd5\u7ade\u8d5b\u9009\u624b\u800c\u751f\u7684\u8f85\u52a9\u8f6f\u4ef6\uff1a\u4fbf\u6377\u5730\u7ba1\u7406\u4f60\u7684\u7b97\u6cd5\u6a21\u677f\u5e93\uff0c\u8d5b\u65f6\u5feb\u901f\u68c0\u9605\uff0c\u5e76\u628a\u6a21\u677f\u7f16\u6392\u6210\u53ef\u4ee5\u6253\u5370\u5e26\u8d5b\u573a\u7684\u518c\u5b50\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Inkyo-007/xcpc-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T23:42:27Z"
+}
