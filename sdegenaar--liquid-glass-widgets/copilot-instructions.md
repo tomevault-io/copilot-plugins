@@ -80,4 +80,4 @@ Read that file before generating or reviewing any Flutter UI code that uses this
 
 ---
 > Source: [sdegenaar/liquid_glass_widgets](https://github.com/sdegenaar/liquid_glass_widgets) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
