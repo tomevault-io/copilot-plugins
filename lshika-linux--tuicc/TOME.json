@@ -1,0 +1,44 @@
+{
+  "name": "tuicc",
+  "owner": "Lshika-linux",
+  "repo": "tuicc",
+  "description": "TUI control center for tiling WMs (Sway, working on i3, more coming). One key, one place \u2014 windowswitcher, WS reconstruction from tree, launcher, sessions - save and restore, WiFi, BT, media control, power menu, system info,clock, weather.. Looking for contributors!  (/friends.. :3). ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lshika-linux/tuicc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T23:57:53Z"
+}
