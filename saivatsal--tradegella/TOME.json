@@ -1,0 +1,44 @@
+{
+  "name": "tradegella",
+  "owner": "SaiVatsal",
+  "repo": "tradegella",
+  "description": "**Apex Journal** is a high-performance, dark-mode-first trading journal and analytics workspace engineered for Forex, Crypto, and Prop Firm traders (ICT / Smart Money Concepts / Price Action). Built for speed, security, and lifetime reliability using ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SaiVatsal/tradegella",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T20:21:37Z"
+}
