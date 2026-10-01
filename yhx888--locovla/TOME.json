@@ -4,7 +4,7 @@
   "repo": "LocoVLA",
   "description": "LocoVLA - Learn robot control, RL and VLA on a wheeled biped (Upkie + MuJoCo). 58-lesson open course: classical control, state estimation, reinforcement learning, vision-language-action, C++/ROS2 deployment.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Yhx888/LocoVLA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T17:50:41Z"
+  "distributed_at": "2026-10-01T22:39:50Z"
 }
