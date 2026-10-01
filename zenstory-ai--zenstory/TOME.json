@@ -2,7 +2,7 @@
   "name": "zenstory",
   "owner": "zenstory-ai",
   "repo": "zenstory",
-  "description": "\u5bf9\u8bdd\u5373\u521b\u4f5c \u00b7 AI Agent \u9a71\u52a8\u7684\u5c0f\u8bf4\u5199\u4f5c\u5de5\u4f5c\u53f0 \uff5c Chat to create \u2014 an AI-agent-driven novel-writing workbench",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zenstory-ai/zenstory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-01T05:17:59Z"
+  "distributed_at": "2026-10-01T20:41:55Z"
 }
