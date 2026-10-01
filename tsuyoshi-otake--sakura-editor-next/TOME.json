@@ -1,0 +1,44 @@
+{
+  "name": "sakura-editor-next",
+  "owner": "tsuyoshi-otake",
+  "repo": "sakura-editor-next",
+  "description": "VS Code\u7d1a\u306e\u6a5f\u80fd\u3092\u3001\u30cd\u30a4\u30c6\u30a3\u30d6\u306e\u901f\u3055\u3067\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tsuyoshi-otake/sakura-editor-next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T21:34:49Z"
+}
