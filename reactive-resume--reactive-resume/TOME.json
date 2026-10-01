@@ -4,7 +4,7 @@
   "repo": "reactive-resume",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/reactive-resume/reactive-resume",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T04:45:55Z"
+  "distributed_at": "2026-10-01T03:40:40Z"
 }
