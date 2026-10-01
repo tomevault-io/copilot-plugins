@@ -1,0 +1,9 @@
+{
+  "name": "clickety-clacks--tightbeam",
+  "displayName": "tightbeam",
+  "description": "A gateway that coordinates agent sessions across machines: durable turns, work items, assignments, and gate statutes over a closed verb set.",
+  "version": "1.0.0",
+  "author": "clickety-clacks",
+  "homepage": "https://github.com/clickety-clacks/tightbeam",
+  "skills": []
+}
