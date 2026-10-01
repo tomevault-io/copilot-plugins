@@ -1,6 +1,6 @@
 # dash
 
-> Tome by [syv-ai](https://github.com/syv-ai/dash) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [syv-ai](https://github.com/syv-ai/dash), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
