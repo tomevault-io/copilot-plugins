@@ -1,10 +1,10 @@
 ## counterfeiter
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance for working with code in this repository.
 
-# CLAUDE.md
+# Repository guidance
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance for working with code in this repository.
 
 ## What this is
 
@@ -104,4 +104,4 @@ Keep `main.go` simple, avoid adding CLI options, avoid adding internal complexit
 
 ---
 > Source: [maxbrunsfeld/counterfeiter](https://github.com/maxbrunsfeld/counterfeiter) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
