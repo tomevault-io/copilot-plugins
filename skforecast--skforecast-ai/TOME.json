@@ -3,8 +3,8 @@
   "owner": "skforecast",
   "repo": "skforecast-ai",
   "description": "AI-assisted time series forecasting workflows built on skforecast",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,111 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/drift-detection/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/drift-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/metric-selection/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/metric-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/feature-selection/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/feature-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/statistical-models/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/statistical-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/feature-engineering/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/feature-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/prediction-intervals/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/prediction-intervals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/baseline-forecasting/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/baseline-forecasting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/choosing-a-forecaster/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/choosing-a-forecaster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/foundation-forecasting/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/foundation-forecasting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/complete-api-reference/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/complete-api-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/backtesting-configuration/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/backtesting-configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/deep-learning-forecasting/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/deep-learning-forecasting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/forecasting-single-series/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/forecasting-single-series/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/hyperparameter-optimization/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/hyperparameter-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/forecasting-multiple-series/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/forecasting-multiple-series/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/troubleshooting-common-errors/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/troubleshooting-common-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skforecast-ai",
+      "path": "skforecast_ai/skills/autocorrelation-and-lag-selection/SKILL.md",
+      "github_url": "https://github.com/skforecast/skforecast-ai/tree/main/skforecast_ai/skills/autocorrelation-and-lag-selection/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/skforecast/skforecast-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T01:33:47Z"
+  "distributed_at": "2026-10-01T01:34:27Z"
 }
