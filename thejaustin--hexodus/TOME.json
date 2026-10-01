@@ -4,7 +4,7 @@
   "repo": "hexodus",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -39,7 +39,6 @@
   ],
   "skills": [],
   "source_url": "https://github.com/thejaustin/hexodus",
-  "claim_url": "https://tomevault.io/claim/thejaustin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T09:09:22Z"
+  "distributed_at": "2026-10-01T22:17:24Z"
 }
