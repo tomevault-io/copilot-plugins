@@ -4,7 +4,7 @@
   "repo": "MailStack",
   "description": "Self-hosted open-source team email server with Django, Postfix, Dovecot, MariaDB, Nginx, team mailbox management, and one-click VPS installation.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vibtools/MailStack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T01:54:52Z"
+  "distributed_at": "2026-10-01T15:43:43Z"
 }
