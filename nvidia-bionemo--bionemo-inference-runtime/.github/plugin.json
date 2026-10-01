@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-bionemo--bionemo-inference-runtime",
+  "displayName": "BioNeMo-Inference-Runtime",
+  "description": "Easy, fast, and memory-efficient structure prediction inference",
+  "version": "1.0.0",
+  "author": "NVIDIA-BioNeMo",
+  "homepage": "https://github.com/NVIDIA-BioNeMo/BioNeMo-Inference-Runtime",
+  "skills": []
+}
