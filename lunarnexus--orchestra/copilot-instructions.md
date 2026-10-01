@@ -1,0 +1,111 @@
+## orchestra
+
+> These rules apply to all AI coding agents working on this project.
+
+# AI Agent Rules
+
+These rules apply to all AI coding agents working on this project.
+
+## Core Principles
+
+- Keep the implementation aligned with `DECISIONS.md`, `ARCHITECTURE.md`, and any active operational artifacts.
+- Treat `DECISIONS.md` as the authoritative record of owner-approved project decisions. Do not remove, weaken, reinterpret, or supersede a recorded decision without explicit owner approval. Treat `ARCHITECTURE.md` as the current implementation map. Treat `PLAN.md` and `RESEARCH.md` as Orchestra operational artifacts for the current orchestrator session, not casual edit targets. `PLAN.md` is temporary local planning state and should stay ignored by git.
+- Favor simple MVP work over speculative framework building.
+- Prefer small, reviewable changes with clear verification.
+- Be explicit about what is implemented now versus only planned.
+- The main-session orchestrator owns project documentation and standard artifact edits. Subagents inspect docs and return evidence, implications, or proposed wording; they do not edit project documentation.
+- Public documentation calls launched Orchestra agents **subagents**, never workers. Internal code/schema identifiers may retain existing `worker` names for compatibility.
+
+## Schema & Data Changes
+
+- Record owner-approved schema decisions in `DECISIONS.md` and document the current schema design in `ARCHITECTURE.md` or relevant technical docs before applying changes.
+- Run migrations/validations immediately after data structure changes.
+
+## Destructive Work
+
+- Delete files only after confirming nothing references them.
+- Drop database tables/collections only with explicit approval.
+- Always show the diff before destructive operations execute.
+
+## Verification & Review
+
+- Code reviews must check the diff against the plan, not just the final state.
+- Do not claim checks passed unless you ran them successfully.
+- If a check is skipped or blocked, say so clearly.
+
+## Changelog
+
+- `ROADMAP.md` is a living document and should be committed on every commit even when its updates are not directly related to the code change.
+- `ROADMAP.md` is for future work only.
+- Completed roadmap items belong in `CHANGELOG.md`, not `ROADMAP.md`.
+- When asked to update the changelog, check both git commits since the latest `vX.Y.Z` tag and `ROADMAP.md`.
+- Draft the changelog update, show it for owner approval, then edit `CHANGELOG.md`.
+- Do not tag or push a release until the owner approves.
+
+## Project-Specific Commands
+
+```bash
+python3 -m pytest
+python3 -m ruff check .
+python3 -m mypy src tests
+python3 -m build
+```
+
+CLI verification targets:
+
+```bash
+orchestra --help
+orchestra doctor
+orchestra do --session-id manual:demo --goal "smoke test"
+orchestra history --session-id manual:demo
+```
+
+Pi host-extension verification targets require the global extension installed at `~/.pi/agent/extensions/orchestra/index.ts`:
+
+```bash
+orchestra init pi --force
+pi --no-approve --session-id orch-demo -p "/orch help"
+pi --no-approve --session-id orch-demo -p "/orch doctor"
+pi --no-approve --session-id orch-demo -p "/orch do smoke test from host"
+pi --no-approve --session-id orch-demo -p "/orch history 10"
+```
+
+Hermes host-plugin verification targets (live checks; unit/source tests never depend on them):
+
+```bash
+python3 scripts/smoke-hermes-live        # isolated HERMES_HOME plugin check; no credentials needed
+python3 scripts/smoke-hermes-live --llm  # one-shot /orch help; prints exact manual command and skips (exit 0) when no inference provider is configured locally
+```
+
+The `--llm` path requires a locally configured Hermes inference provider. If it is unavailable, record the printed skip reason rather than forcing the check.
+
+Source copy for the global Pi host extension lives at `extensions/pi/orchestra/index.ts`.
+
+## Secret Safety
+
+- Never hardcode tokens, keys, or passwords. Use `.env` files or environment variables.
+- Orchestra is YAML-first for app config; default global Pi config lives under `${PI_CODING_AGENT_DIR:-~/.pi/agent}/orchestra/`. Use environment variables for local machine setup, secrets, or external tool requirements.
+- If this project adds stable environment variables, document them in `.env.example`.
+- Do not read `.env` directly; use safe tooling or app abstractions.
+
+## Quality Rules
+
+- Target Python 3.11+.
+- Use `src/` layout for Python package code.
+- Add or update tests with behavior changes.
+- Run lint and type checks for touched Python code.
+- Run `python3 -m build` before claiming packaging changes are complete.
+- Keep logs, prompts, and transcripts lean by default; verbose capture belongs behind explicit debug paths.
+- Harness additions should use the harness plugin/adapter pattern, not ad hoc command branching in the CLI.
+- Host adapters must retrieve runtime session ids from runtime context, not from user prompts or model output.
+- CLI `--session-id` is local/manual mode only and must not be described as a runtime host identity source.
+- Generic command/help/tool/report wording belongs in the Python core or core config, not duplicated in host adapters.
+- Shared tool descriptions own cross-host capabilities, delegation-by-default, whole-request lookahead, one-call-per-slice fan-out, role selection, parallelism, dependency basics, and return expectations. Host-specific prompt snippets must stay minimal.
+- Do not solve Orchestra cost, time, or repeated-test overhead by weakening delegation-by-default or telling agents to dispatch fewer subagents. Strong default subagent dispatch is required for Orchestra to work reliably. Optimize by eliminating duplicate parent/subagent work, sharpening role boundaries, reusing returned evidence, and avoiding repeated test execution.
+- Skills own stricter workflow, artifact gates, methodology, approvals, and role-specific process; do not rely on a skill for basic tool operation.
+- Host adapters must stay thin: runtime session identity, host UI/rendering, notifications, and host message injection only.
+- If changing public output strings, prompt labels, or tool metadata, update core/config, host fallback metadata, and tests; do not patch only `extensions/pi/orchestra/index.ts`.
+
+---
+> Source: [lunarnexus/orchestra](https://github.com/lunarnexus/orchestra) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
