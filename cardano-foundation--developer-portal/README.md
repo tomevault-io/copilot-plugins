@@ -5,17 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cardano-foundation/developer-portal](https://github.com/cardano-foundation/developer-portal).
+Original source: `` in [cardano-foundation/developer-portal](https://github.com/cardano-foundation/developer-portal).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cardano-foundation/developer-portal](https://github.com/cardano-foundation/developer-portal) — a repo with 434+ stars on GitHub.
+From [cardano-foundation/developer-portal](https://github.com/cardano-foundation/developer-portal) — a repo with 441+ stars on GitHub.
 
 ---
 
