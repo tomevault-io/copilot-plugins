@@ -1,0 +1,9 @@
+{
+  "name": "thestrangeadventurer--capstan",
+  "displayName": "capstan",
+  "description": "A lightweight, extensible terminal coding agent built in C with an embedded Lua runtime.",
+  "version": "1.0.0",
+  "author": "theStrangeAdventurer",
+  "homepage": "https://github.com/theStrangeAdventurer/capstan",
+  "skills": []
+}
