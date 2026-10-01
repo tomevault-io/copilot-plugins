@@ -1,0 +1,9 @@
+{
+  "name": "webkubor--museav-cli",
+  "displayName": "museav-cli",
+  "description": "MUSE AV \u4e2d\u53f0\u547d\u4ee4\u884c\u5de5\u5177 \u2014\u2014 \u51fa\u56fe\u3001\u8bfb\u56fe\u3001\u56fe\u7247\u8f6c\u6a21\u677f\u3001\u7d20\u6750\u4e0a\u4f20\u3002\u4e00\u4e2a apiKey \u5c31\u6709\u51fa\u56fe\u80fd\u529b\u3002",
+  "version": "1.0.0",
+  "author": "webkubor",
+  "homepage": "https://github.com/webkubor/museav-cli",
+  "skills": []
+}
