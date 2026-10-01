@@ -4,7 +4,7 @@
   "repo": "jev-lint",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/mizchi/jev-lint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T18:31:42Z"
+  "distributed_at": "2026-10-01T07:41:08Z"
 }
