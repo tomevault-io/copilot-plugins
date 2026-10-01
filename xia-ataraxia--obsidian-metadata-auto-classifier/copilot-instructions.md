@@ -1,40 +1,85 @@
 ## obsidian-metadata-auto-classifier
 
-> <!-- Parent: ../AGENTS.md -->
+> > Git strategy, branch naming, commit convention, and release management are defined in the **root CLAUDE.md**. This file covers plugin-specific details only.
 
-<!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-03-25 | Updated: 2026-03-25 -->
+# CLAUDE.md — Metadata Auto Classifier
 
-# src/domain/auth/ — OAuth and Token Management
+> Git strategy, branch naming, commit convention, and release management are defined in the **root CLAUDE.md**. This file covers plugin-specific details only.
 
-## Purpose
+## Project Overview
 
-Pure domain logic for OAuth token management, PKCE flow, and authentication constants. NO Obsidian imports. Handles token expiry checking, JWT parsing, token refresh lifecycle, and OAuth provider configuration.
+Obsidian plugin: AI-powered automatic metadata classification and generation. Automatically classifies and generates note frontmatter via AI providers.
 
-## Key Files
+- Entry: `src/main.ts` → `AutoClassifierPlugin extends Plugin`
+- Package manager: **pnpm** (do NOT use npm or yarn)
 
-| File | Purpose |
-|------|---------|
-| `token-manager.ts` | Token validation, expiry checking, JWT claim parsing, token lifecycle utilities |
-| `oauth-server.ts` | PKCE server implementation for OAuth authorization code flow |
-| `pkce.ts` | PKCE challenge generation (code challenge, code verifier) |
-| `oauth-constants.ts` | OAuth provider configurations (Codex/Anthropic OAuth endpoints) |
-| `index.ts` | Barrel export of public auth APIs |
+## Build & Dev Commands
 
-## For AI Agents
+```bash
+pnpm run dev            # vault selection + esbuild watch + hot reload
+pnpm run dev:build      # esbuild watch only (no vault)
+pnpm run build          # tsc type-check + esbuild production (single-shot)
+pnpm run test           # Vitest unit tests
+pnpm run test:watch     # Vitest watch mode
+pnpm run test:coverage  # Vitest with coverage report
+pnpm run lint           # ESLint (flat config v9)
+pnpm run lint:fix       # ESLint auto-fix
+pnpm run ci             # build + lint + test
+pnpm run release:patch  # run CI → patch bump → auto-push tag
+pnpm run release:minor  # run CI → minor bump → auto-push tag
+pnpm run release:major  # run CI → major bump → auto-push tag
+```
 
-- All functions are pure and deterministic
-- Token validation happens before API requests in `ui/` layer
-- PKCE server runs locally; no external dependencies
-- JWT parsing is defensive (no assumptions about token structure)
-- Unit tests require minimal setup (no mocks for pure functions)
+## Architecture (4-module boundary)
 
-## Dependencies
+```
+src/
+├── provider/     # Pure API layer (HTTP, OAuth, prompt generation)
+├── classifier/   # Business logic (ClassificationService, CommandService)
+├── settings/     # UI layer (settings tabs, modals, components)
+├── lib/          # Pure utilities (frontmatter, sanitizer, ErrorHandler)
+└── main.ts       # Plugin entry point
+```
 
-- Imports from: `types/` (auth types) only
-- Do NOT import from: `obsidian`, `ui/`, or other domain modules
-- Exports to: `ui/auth/`, `main.ts`
+**ESLint boundary rules enforced**:
+- `settings` cannot import from `provider` directly
+- `provider` cannot import from `settings` or `classifier`
+- `lib` cannot import from any domain module
+- `classifier` can orchestrate across `provider` + `lib` + `settings`
+
+## Testing
+
+- Framework: Vitest
+- Test location: `__tests__/` (mirrors src/ structure)
+- Obsidian API mock: `__mocks__/obsidian.ts`
+- Coverage: v8, HTML + LCOV reports
+- Config: `vitest.config.ts` (includes path aliases)
+
+## TypeScript Path Aliases
+
+```
+main       → src/main
+provider   → src/provider/index
+lib        → src/lib/index
+settings   → src/settings/index
+classifier → src/classifier/index
+```
+
+## Tooling
+
+- ESLint flat config v9 + `eslint-plugin-boundaries` + `eslint-plugin-sonarjs`
+- Prettier (2 spaces, semicolons, trailing commas)
+- Husky pre-commit → lint-staged (changed .ts files only)
+- `boiler.config.mjs` — configures dev deploy (copy mode), version staging (`manifest.json`, `versions.json`), and release artifact packaging
+
+## Release
+
+1. `pnpm run ci` — MUST pass (build + lint + test)
+2. `pnpm release:patch|minor|major` — run CI → version bump → auto-push tag
+3. GitHub Actions handles CI + Release workflows
+
+**DENIED by settings.json:** `git tag`, `git push --tags`, `gh release` — only `pnpm release:*` is allowed.
 
 ---
 > Source: [Xia-Ataraxia/obsidian-metadata-auto-classifier](https://github.com/Xia-Ataraxia/obsidian-metadata-auto-classifier) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
