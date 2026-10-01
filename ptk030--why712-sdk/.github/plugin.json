@@ -1,0 +1,9 @@
+{
+  "name": "ptk030--why712-sdk",
+  "displayName": "why712-sdk",
+  "description": "Find out exactly why an EIP-712 signature fails.",
+  "version": "1.0.0",
+  "author": "PTK030",
+  "homepage": "https://github.com/PTK030/why712-sdk",
+  "skills": []
+}
