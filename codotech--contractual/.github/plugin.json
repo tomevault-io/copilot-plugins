@@ -1,0 +1,9 @@
+{
+  "name": "codotech--contractual",
+  "displayName": "contractual",
+  "description": "Schema contract lifecycle CLI and GitHub Action for OpenAPI and JSON Schema",
+  "version": "1.0.0",
+  "author": "codotech",
+  "homepage": "https://github.com/codotech/contractual",
+  "skills": []
+}
