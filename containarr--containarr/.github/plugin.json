@@ -1,0 +1,9 @@
+{
+  "name": "containarr--containarr",
+  "displayName": "containarr",
+  "description": "The easiest way to self-host Docker Containers. Built-in HTTPS, Dynamic DNS, Auto-Updates & much more!",
+  "version": "1.0.0",
+  "author": "Containarr",
+  "homepage": "https://github.com/Containarr/containarr",
+  "skills": []
+}
