@@ -1,0 +1,9 @@
+{
+  "name": "yhx888--locovla",
+  "displayName": "LocoVLA",
+  "description": "LocoVLA - Learn robot control, RL and VLA on a wheeled biped (Upkie + MuJoCo). 58-lesson open course: classical control, state estimation, reinforcement learning, vision-language-action, C++/ROS2 depl",
+  "version": "1.0.0",
+  "author": "Yhx888",
+  "homepage": "https://github.com/Yhx888/LocoVLA",
+  "skills": []
+}
