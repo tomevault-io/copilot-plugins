@@ -1,0 +1,9 @@
+{
+  "name": "h2oai--h2o4gpu",
+  "displayName": "h2o4gpu",
+  "description": "h2o4gpu",
+  "version": "1.0.0",
+  "author": "h2oai",
+  "homepage": "https://github.com/h2oai/h2o4gpu",
+  "skills": []
+}
