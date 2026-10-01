@@ -2,8 +2,6 @@
 
 > Tome by [Sev7eNup](https://github.com/Sev7eNup/NodePilot), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-Agentless Windows workflow orchestration - a modern, open replacement for Microsoft System Center Orchestrator
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
