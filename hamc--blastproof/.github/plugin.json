@@ -1,0 +1,9 @@
+{
+  "name": "hamc--blastproof",
+  "displayName": "blastproof",
+  "description": "AI testing agent for pull requests: maps the blast radius of a diff, runs only the tests that cover it, drafts the ones that are missing, and gates the merge on a score. Plain-English YAML, no selecto",
+  "version": "1.0.0",
+  "author": "hamc",
+  "homepage": "https://github.com/hamc/blastproof",
+  "skills": []
+}
