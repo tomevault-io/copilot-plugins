@@ -1,0 +1,44 @@
+{
+  "name": "Orbis",
+  "owner": "AZHi-xinxin",
+  "repo": "Orbis",
+  "description": "Orbis \u00b7 \u539f\u751f Android AI \u5ba2\u6237\u7aef\uff1a\u804a\u5929\u4e0e\u966a\u4f34\u3001\u672c\u5730\u540e\u82b1\u56ed\u3001\u85cf\u4e66\u9601\u5171\u8bfb\u3001\u6d77\u9f9f\u6c64\u3001\u7fa4\u804a\u548c\u53ef\u9009\u624b\u673a\u5de5\u5177\u3002\u53ef\u672c\u5730\u4f7f\u7528\uff0c\u4e5f\u53ef\u8fde\u63a5\u81ea\u5efa\u670d\u52a1\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AZHi-xinxin/Orbis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T11:02:57Z"
+}
