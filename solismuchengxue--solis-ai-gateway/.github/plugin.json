@@ -1,0 +1,9 @@
+{
+  "name": "solismuchengxue--solis-ai-gateway",
+  "displayName": "Solis_AI_Gateway",
+  "description": "\u7528\u4e00\u4efd Docker Compose\uff0c\u628a ChatGPT Web \u80fd\u529b\u5c01\u88c5\u6210\u53ef\u7531\u672c\u5730 Agent\u3001IDE\u3001SDK \u4e0e\u81ea\u52a8\u5316\u5de5\u5177\u8c03\u7528\u7684\u7edf\u4e00 API \u5165\u53e3\u3002",
+  "version": "1.0.0",
+  "author": "Solismuchengxue",
+  "homepage": "https://github.com/Solismuchengxue/Solis_AI_Gateway",
+  "skills": []
+}
