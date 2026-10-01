@@ -1,0 +1,9 @@
+{
+  "name": "mikemcquaid--agentide",
+  "displayName": "AgentIDE",
+  "description": "\ud83e\udeaa IDE for Agents: prompt a worktree, review another, ship a third, repeat",
+  "version": "1.0.0",
+  "author": "MikeMcQuaid",
+  "homepage": "https://github.com/MikeMcQuaid/AgentIDE",
+  "skills": []
+}
