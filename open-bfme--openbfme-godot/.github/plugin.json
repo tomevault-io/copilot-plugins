@@ -1,0 +1,9 @@
+{
+  "name": "open-bfme--openbfme-godot",
+  "displayName": "openbfme-godot",
+  "description": "BFME Godot: A modern implementation of BFME 2 into Godot using the game's original assets",
+  "version": "1.0.0",
+  "author": "Open-BFME",
+  "homepage": "https://github.com/Open-BFME/openbfme-godot",
+  "skills": []
+}
