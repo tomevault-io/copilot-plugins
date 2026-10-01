@@ -1,0 +1,9 @@
+{
+  "name": "navels--neal",
+  "displayName": "neal",
+  "description": "A plan-driven, multi-agent coding loop: separate planner, coder, and reviewer roles, each on the provider and model you choose, work together to implement your plan.",
+  "version": "1.0.0",
+  "author": "navels",
+  "homepage": "https://github.com/navels/neal",
+  "skills": []
+}
