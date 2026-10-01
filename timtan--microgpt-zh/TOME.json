@@ -1,0 +1,44 @@
+{
+  "name": "MicroGPT-zh",
+  "owner": "timtan",
+  "repo": "MicroGPT-zh",
+  "description": "MicroGPT \u7684\u8a73\u89e3\uff0c\u4e26\u4e14\u6539\u6210\u4f7f\u7528\u4e2d\u6587\u540d\u7a31",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/timtan/MicroGPT-zh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T18:01:11Z"
+}
