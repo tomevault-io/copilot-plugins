@@ -1,0 +1,264 @@
+## zzz-archive
+
+> generates per machine in `.idea/runConfigurations/`, one per Xcode configuration.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+```bash
+./gradlew :desktopApp:run                    # Run desktop app
+./gradlew :desktopApp:hotRun                 # Run desktop with hot reload
+./gradlew lintKotlin                         # ktlint check (CI gate)
+./gradlew formatKotlin                       # ktlint auto-fix
+./gradlew :composeApp:testAndroidHostTest    # Unit tests (CI gate) — covers commonTest too
+./gradlew :composeApp:desktopTest            # Same commonTest, run on the desktop JVM target
+./gradlew :composeApp:iosSimulatorArm64Test  # Same commonTest, run on the iOS simulator (macOS only)
+```
+
+Run a single test class or method with the standard Gradle filter:
+
+```bash
+./gradlew :composeApp:testAndroidHostTest --tests "feature.agent.presentation.AgentsListViewModelTest"
+./gradlew :composeApp:desktopTest --tests "*AgentsListUseCaseTest.getFactionsList*"
+```
+
+The same commands are committed as shared IDE run configurations under `.run/` — `AndroidApp Dev`,
+`AndroidApp Live Install`, `DesktopApp Dev` / `Live` / `Hot Reload`, `Lint Kotlin`, `Format Kotlin`,
+`Unit Tests` and `Unit Tests All Platforms`. They sit outside `.idea/` (which is gitignored) so every
+machine gets the same list. iOS is not among them: it runs from the `iosApp *` entries Android Studio
+generates per machine in `.idea/runConfigurations/`, one per Xcode configuration.
+
+### Build variant
+
+`Dev` / `Live` is decided by **one** Gradle property, `zzz.variant`, defaulting to `Dev` in
+`gradle.properties`. The root `build.gradle.kts` validates it (an unknown value fails the build) and
+hands it to every module through `extra["zzzVariant"]`, which `composeApp` turns into
+`ZzzConfig`, `androidApp` into its product flavor, and `desktopApp` into its package id.
+
+```bash
+./gradlew :androidApp:assembleLiveRelease -Pzzz.variant=Live   # Live
+./gradlew :desktopApp:run                                      # Dev, from gradle.properties
+```
+
+To build Live from the IDE, where `-P` is not available, set `zzz.variant=Live` in
+`~/.gradle/gradle.properties` — it outranks the project file in Gradle's property precedence, so it
+switches the machine without touching a tracked file. Never commit a non-`Dev` value to
+`gradle.properties`; CI asserts the committed default, because a `Live` default would silently point
+every local build at the production asset branch.
+
+Only the flavor named by the property is created, so `assembleLiveRelease` exists **only** under
+`-Pzzz.variant=Live` — a mismatched pair fails as an unknown task rather than quietly shipping the
+wrong asset branch. iOS has no Gradle entry point of its own: each Xcode configuration sets a
+`VARIANT` build setting (`Dev Debug` → `Dev`, `Production Release` → `Live`) and the framework build
+phase forwards it as `-Pzzz.variant`.
+
+## Architecture
+
+### Module topology
+
+Three Gradle modules, but only one holds code: **`:composeApp`** is the KMP module containing every
+feature, the design system, DI, networking, and persistence. `:androidApp`, `:desktopApp` and
+`iosApp/` are thin platform shells (entry point, platform DI bindings, packaging config) that depend
+on it. Adding a feature means adding a package under `composeApp/src/commonMain/kotlin/feature/`,
+not a new Gradle module.
+
+### Feature layering
+
+Each `feature/<name>/` is self-contained and internally layered:
+
+```
+feature/<name>/
+├── presentation/   *Screen.kt, *Content, *ViewModel.kt, *Action.kt
+├── domain/         *UseCase.kt
+├── data/           repository/, database/, mapper/
+├── model/          *Response.kt (DTO), *State.kt (UI state), domain models
+└── components/     feature-local Composables
+```
+
+Cross-feature code lives at the top level: `network/`, `database/`, `datastore/`, `di/`, `ui/`,
+`utils/`, `root/`.
+
+### MVI, and where navigation actions are handled
+
+A screen is split into a **stateful `*Screen`** (resolves the ViewModel via `koinViewModel()`,
+collects `uiState`) and a **stateless `*Content`** (takes `uiState` + `onAction`). The non-obvious
+part is that `*Screen` **intercepts navigation actions before they reach the ViewModel** and routes
+them to nav lambdas instead:
+
+```kotlin
+onAction = { action ->
+    when (action) {
+        is AgentsListAction.ClickAgent -> onAgentClick(action.agentId)
+        AgentsListAction.ClickBack -> onBackClick()
+        else -> viewModel.onAction(action)
+    }
+}
+```
+
+So navigation-flavoured branches inside a ViewModel's `onAction` are unreachable — they exist only
+to keep the `when` exhaustive. ViewModels never touch the NavController.
+
+State is a single `data class *State` in `model/`, held in a `MutableStateFlow`, exposed via
+`stateIn(viewModelScope, SharingStarted.WhileSubscribed(15000L), …)` with initial work kicked off in
+`.onStart { }`.
+
+### Data flow: Room is the source of truth
+
+Repositories do **not** return network responses to the UI. The pattern is:
+
+1. `requestAndUpdate<X>DB()` fetches from Ktor and writes entities into Room, returning `Result<Unit>`.
+2. `get<X>()` returns a `Flow` straight from the DAO, mapped entity → domain model.
+3. The UI observes that Flow; a refresh is a write to Room, which re-emits.
+
+`UpdateDatabaseUseCase` (in `database/`) is the cross-feature entry point ViewModels call to trigger
+a refresh.
+
+There are **two Room databases**, split by migration policy rather than by feature — both built in
+`databaseModule`, each with its own folder under `composeApp/schemas/`:
+
+- `ZzzCacheDB` (`database/`) holds every re-downloadable table — currently `AgentsListItemEntity`
+  and `CoverImageListItemEntity`, one DAO each. It is built with
+  `fallbackToDestructiveMigration(true)`, so a schema change never needs a hand-written migration.
+  New cache tables belong here; only add one if losing its rows is harmless.
+- `HoYoLabAccountDB` stays on its own because losing its rows means the user has to link every
+  HoYoLab account by hand again. It cannot take the destructive shortcut, so keeping it apart keeps
+  the two policies apart. The session cookies themselves are **not** in it — see
+  [HoYoLab credentials](#hoyolab-credentials).
+
+`RoomDatabaseFactory.deleteLegacyCacheDatabases()` drops `agent_list.db` and
+`cover_images_list.db`, the pre-consolidation caches, the first time `ZzzCacheDB` is built. It is
+temporary — remove it, and `ZzzCacheDB.LEGACY_DATABASE_NAMES`, once those versions are out of
+circulation.
+
+### HoYoLab credentials
+
+The `ltoken_v2` / `ltuid_v2` cookies the user pastes in are the one genuinely sensitive thing the
+app stores, and they do **not** go into Room. `HoYoLabCredentialStore`
+(`feature/hoyolab/data/credential/`) keeps them in **KSafe**, whose AES-GCM key is held by the
+platform rather than compiled into the binary: Android Keystore, the iOS Keychain, the host OS
+secret store on desktop. Keys are `hoyolab_ltoken_<uid>` / `hoyolab_ltuid_<uid>`, one pair per
+account row. Everything else about an account (uid, region, level, nickname, image urls) stays in
+Room, because the multi-account list is a query.
+
+Desktop is the weak corner and should not be described as hardware-backed: the JVM has no
+Keystore/Keychain equivalent that the app alone can reach, so anything running as the same user can
+still get at the key. What it buys there is a key that differs per machine instead of one shared by
+every install.
+
+Until 1.7.x the cookies sat in Room, AES-CBC encrypted under `ZzzConfig.AES_KEY` — one constant
+baked into the binary, and a *public* constant in any build made from these sources.
+`HoYoLabCredentialMigrationUseCase`, run from `InitViewModel` before anything else, moves them
+across once and blanks the columns; a row it cannot decrypt is unlinked and the user is asked to
+link it again. Until that migration is deleted:
+
+- **The `AES_KEY` CI secret must not be rotated.** Rotating it makes every existing user's cookies
+  undecryptable, and the migration's only answer to that is to unlink the account.
+- `ZzzCrypto` / `ZzzCryptoImpl` / `ByteArrayConverter`, the `lToken` / `ltUid` columns on
+  `HoYoLabAccountEntity`, `ZzzConfig.AES_KEY` and the `cryptography-*` dependencies all exist only
+  to serve it. Remove them together, with a real Room migration, once the releases that still run
+  it are out of circulation.
+
+### Networking
+
+One interface + `Impl` pair per remote source in `network/` (`ZzzHttp`, `OfficialWebHttp`,
+`PixivHttp`, `HoYoLabHttp`, `GoogleDocHttp`, `ForumHttp`), each with its own `HttpClient` built by a
+factory function in `ZzzHttpClientFactory.kt`. Engines are injected per platform (OkHttp on
+Android/desktop, Darwin on iOS) from `platformModule`.
+
+Game data is not a real API: it is JSON committed to the separate **`mrfatworm/ZZZ-Archive-Asset`**
+repo and fetched from `raw.githubusercontent.com`. The branch is chosen by build variant — `Live`
+reads that repo's `main`, `Dev` reads its `dev` — via `ZzzConfig.API_PATH` / `ASSET_PATH`, generated
+by the BuildConfig plugin in `composeApp/build.gradle.kts` from `zzz.variant`.
+
+### DI (Koin)
+
+`initKoin()` in `di/InitKoin.kt` registers six modules: `platformModule` (an `expect val`,
+`actual` per platform), `databaseModule`, `dataStoreModule`, `repositoryModule`, `useCaseModule`,
+`viewModelModule`. Each platform shell calls `initKoin` at startup. ViewModels are obtained in
+Composables with `koinViewModel()`; constructor injection everywhere else. The two DataStores are
+distinguished by Koin qualifiers `named("PreferenceDataStore")` / `named("ConfigDataStore")`.
+
+### Design system
+
+**Do not use `MaterialTheme` colors/typography.** The app provides its own `AppTheme` object backed
+by `staticCompositionLocalOf` — `AppTheme.colors`, `.typography`, `.shape`, `.spacing`, `.size`,
+`.adaptiveLayoutType`, `.contentType`, `.themeController`. All of it is installed by
+`ZzzArchiveTheme` in `ui/theme/Theme.kt`, which also hosts the global `SnackbarHost` and overrides
+`LocalUriHandler` with a snackbar-aware safe handler.
+
+`ThemeController` carries user-adjustable `isDark`, `fontScale` and `uiScale` (both scales clamped
+0.5–2.0). `provideTypography(fontScale)` and `provideSize(uiScale)` re-derive tokens from them, so
+new tokens must be added there rather than hardcoded — otherwise they ignore the user's scale
+setting.
+
+Shared Composables live in `ui/components/<category>/` (buttons, cards, chips, dialogs, items,
+navigation) and are prefixed `Zzz*` when they wrap a Material 3 component.
+
+### Adaptive layout
+
+`AdaptiveLayout()` maps the window size class onto two enums in `ui/utils/WindowsStateUtils.kt`:
+`AdaptiveLayoutType` (Compact / Medium / Expanded) drives navigation chrome — `MainContainer` shows
+a `ZzzArchiveNavigationRail` at Medium+ and a bottom bar at Compact — while `ContentType`
+(Single / Dual) drives list-detail. Screens that behave differently are split into explicit
+`*ScreenSingle` / `*ScreenDual` files rather than branching inline.
+
+Every screen is expected to handle all three widths.
+
+### Navigation
+
+Type-safe Navigation Compose. Destinations are `@Serializable` members of the `Screen` sealed
+interface (`ui/navigation/Screen.kt`); top-level tabs are `MainFlow` entries that each name a
+`startScreen`. Graphs are nested: `RootNavGraph` → `MainNavGraph` → per-area graphs in
+`ui/navigation/graph/app/`. `NavActions` wraps the controller so screens never see it directly.
+
+### Resources and localization
+
+Compose Resources under `composeApp/src/commonMain/composeResources/` — a single `strings.xml` per
+locale (`values`, `values-zh`, `values-zh-rCN`, `values-ja`), plus `drawable/` and `font/`. The
+`Language` enum in `utils/Language.kt` maps app languages to both the resource code and the
+`officialCode` used when querying HoYoverse endpoints; `changePlatformLanguage` is an `expect fun`.
+
+## Testing
+
+Every test lives in **`commonTest`** — Repository, UseCase, mapper *and* ViewModel — so all three
+platforms run the same suite. There are no mocks: hand-written `Fake*` classes live next to the
+tests they serve (`FakeZzzHttp`, `FakeAgentListDao`, `FakeAgentRepository`, …). Reuse the existing
+Fake instead of reaching for a mocking library.
+
+Because UseCases are concrete classes rather than interfaces, a ViewModel test builds the *real*
+UseCase on top of Fake repositories, and asserts against the repository's own state instead of
+verifying calls. Only three collaborators are faked at the UseCase level, because their production
+implementations are platform-bound: `LanguageUseCase`, `AppInfoUseCase` and `AppActionsUseCase`.
+
+ViewModels need a `Dispatchers.Main`, which desktop and iOS do not have by default. Test classes
+extend **`MainDispatcherTest`** (`commonTest/kotlin/MainDispatcherTest.kt`), the multiplatform
+replacement for the old JUnit 4 `MainDispatcherRule`; it installs an `UnconfinedTestDispatcher` from
+its `init` block so the ViewModel can be built in a subclass property initializer.
+
+`testAndroidHostTest` compiles and runs `commonTest`, so it is a sufficient local gate, but CI runs
+`testAndroidHostTest` + `desktopTest` on Linux and `iosSimulatorArm64Test` on macOS.
+`desktopTest` and `iosTest` add only a placeholder test each of their own.
+
+## Conventions
+
+- New Kotlin files carry the MIT copyright header block used throughout the repo (present in 311 of
+  357 files; nothing enforces it, so it drifts).
+- ktlint via kotlinter, configured in `.editorconfig`: `android_studio` style, 120-column limit,
+  function signatures forced multiline at 2+ parameters, `@Composable` exempt from function naming.
+  `ignoreLintFailures = false` — lint failures break the build.
+- Version catalog (`gradle/libs.versions.toml`) is the only place versions are declared;
+  `zzzVersionName` / `zzzVersionCode` there drive every platform's packaging.
+- `main` is the development branch, `release/x.x.x` are release branches, and hotfixes pushed to
+  `release/**` auto-forward-port to `main` via `.github/workflows/forward-port-hotfix.yml`.
+- **Finishing a change: squash merge straight into `main`** — one feature, one clean commit. The
+  `squash-merge` skill holds that flow (gate → squash → push → delete branch). Pull requests are
+  reserved for outside contributions and for changes that genuinely need review; the PR process in
+  [CONTRIBUTING.md](CONTRIBUTING.md) is written for contributors, not for the maintainer's own work.
+- Commit messages follow Conventional Commits (see [CONTRIBUTING.md](CONTRIBUTING.md)).
+
+---
+> Source: [mrfatworm/ZZZ-Archive](https://github.com/mrfatworm/ZZZ-Archive) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
