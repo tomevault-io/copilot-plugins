@@ -1,101 +1,107 @@
 ## agents-universe
 
-> Full-stack enterprise AI agent framework running in Linux containers: autonomous planning, multi-LLM providers (Anthropic / OpenAI / Azure OpenAI / Google Gemini), on-demand knowledge loading, Codex-style web UI.
+> Vue 3 + TypeScript + Vite. Codex-style three-panel layout.
 
-# Agents Universe — Enterprise AI Agent Framework
+# web Package
 
-## Project Overview
+Vue 3 + TypeScript + Vite. Codex-style three-panel layout.
 
-Full-stack enterprise AI agent framework running in Linux containers: autonomous planning, multi-LLM providers (Anthropic / OpenAI / Azure OpenAI / Google Gemini), on-demand knowledge loading, Codex-style web UI.
+## Stack
 
-**Core principle:** project knowledge loads in full on project selection. No embedding model — context via MD cross-references (`[[slug]]`).
+- 框架: Vue 3.5 + `<script setup>` + TypeScript
+- 状态管理: Pinia 2 (`stores/`)
+- 路由: Vue Router 4 (`router/`)
+- 构建: Vite 5 + @vitejs/plugin-vue
+- 样式: Tailwind CSS 3 + 手写 CSS（`index.css` + `styles/layout.css`）
+- Markdown: markdown-it + markdown-it-highlightjs
+- 图标: lucide-vue-next
+- 编辑器: CodeMirror 6（`Composer.vue`）
+- 图表: mermaid + dompurify（`MermaidBlock.vue`）
+- HTTP: 原生 fetch 封装（`api/client.ts`）
 
-## Monorepo Layout
+## Layout
 
-- `packages/agent-core/` — Python 3.12 LLM orchestration engine (pure library, no HTTP)
-- `packages/api/` — Python 3.12 FastAPI web service: auth, DB, WebSocket
-- `packages/web/` — TypeScript + Vue 3 Codex-style browser UI
-- `agents/` — agent definitions (`*.agent.md`) and skills (`skills/**/*.md`)
-- `knowledge/` — global framework knowledge base (system/, technical/, _template/)
-- `workflows/` — workflow definitions (`*.workflow.md`); agent reads and follows
+```
+AppLayout.vue
+├── Top nav — 会话 / 工作区 / 发布 / 定时任务（pageSegment 正则解析当前页签）
+├── Left sidebar (collapsible)
+│   ├── ProjectTree.vue      — 项目列表，点击切换
+│   └── AgentSwitcher.vue    — 智能体列表，点击切换
+│
+├── Center panel
+│   └── ChatPage.vue → ChatPanel.vue
+│       ├── 消息列表 (MessageBubble.vue)
+│       └── Composer.vue (底部固定)
+│
+└── Right panel (collapsible, tabbed)
+    ├── Tab: 会话  — ConversationTreePanel.vue
+    ├── Tab: 知识  — KnowledgePanel.vue
+    └── Tab: 记忆  — MemoryPanel.vue
+    (ContextMeter.vue 始终显示在顶部)
+```
 
-## Development Commands
+## State Management
+
+Pinia stores in `stores/`. **不要用 Vue provide/inject** 做跨面板状态。
+
+- `project.ts` — 当前工作区、项目、项目列表；切换项目时 reset 其他 stores
+- `conversation.ts` — 消息、流式内容、Token 用量、任务列表、工具调用
+- `knowledge.ts` — 知识文件、完整度、本轮加载、动态加载
+- `agent.ts` — 智能体列表、当前智能体、模型配置
+- `memory.ts` — 会话笔记、个人记忆、情节记忆
+- `schedules.ts` — 定时任务列表、加载态（`loadSeq` 守卫）；`setEnabled`/`runNow` 复用 `mutate()`
+- `auth.ts` — 用户信息、认证状态
+
+**项目切换**时 `projectStore.setCurrentProject()` 自动 reset conversation/knowledge/memory/schedules stores（`clearProject()` 的 `Promise.all` 链里也要同步加）。
+
+## WebSocket
+
+`composables/useWebSocket.ts` 接收 `conversationId: Ref<string | null>`：
+- `watch(conversationId)` 管理连接生命周期
+- 指数退避重连（3 次，1s/2s/4s）
+- 分发 ~20 种事件类型到 Pinia stores（含 `conversation_updated` — 定时任务投递结果后触发 `_reloadHistory`）
+- 返回 `{ send, abort, status }`
+
+脚本运行的实时日志走 `/ws/script-runs/{run_id}`，由 `composables/useScriptRunLog.ts` 统一封装（`WorkspacePage.vue` 与 `SchedulesPage.vue` 共用；composable 自带 `onBeforeUnmount` 关连接）。
+
+## Composer (`components/chat/composer/`)
+
+使用 **CodeMirror 6** — 不是 `<textarea>`。关键行为：
+- `Ctrl/Cmd + Enter` 发送；`Enter` 换行
+- `@` 触发 `MentionPopup.vue`（搜索知识 + 个人记忆）
+- `/` 触发 `SlashPopup.vue`（内置命令列表）
+- 附件：回形针选择、剪贴板粘贴、拖拽文件到**对话面板任意位置**（`ChatPanel.vue` 是放置区）三条入口都汇入 `Composer.vue` 的 `addFiles`，上传队列与附件条只在 Composer 里
+
+## API Layer
+
+`api/` 为类型化 fetch 封装，统一使用 `apiFetch<T>`（`credentials: include`）。
+
+## Token Meter
+
+`ContextMeter.vue` 读取 `conversationStore` 的 `contextTokens / (contextWindow ?? tokenBudget)` —— 展示**当前上下文占用 / provider 窗口**，不是累计消耗。数据来自 `token_update` 事件的 `context_tokens/context_window` 字段（每轮由 provider usage 上报），刷新后从会话的 `context_tokens/context_window` 列恢复。`tokensUsed/tokenBudget` 保留为计费镜像（生命周期累计，只增不减），表盘不读它。颜色阈值：
+- < 75%: 蓝色
+- 75–90%: 琥珀色
+- > 90%: 红色
+
+## 独立运行
+
+完全自包含在 `packages/web/`，不依赖 monorepo 其他包：
+```bash
+cd packages/web
+npm install
+npm run dev    # 开发服务器
+npm run build  # 生产构建（类型检查 + vite build）
+```
+API 地址通过 `.env` 中的 `VITE_API_BASE_URL` 配置（默认 `http://127.0.0.1:8000`）。
+
+## Testing
 
 ```bash
-# API (from packages/api/)
-PYTHONPATH=src python -m uvicorn api.main:app --port 8000
-
-# Frontend (from packages/web/)
-npm run dev
-
-# Run knowledge indexer for a project
-python -m agent_core.knowledge.index --project {slug}
-
-# DB migrations (from packages/api/)
-alembic upgrade head
-alembic revision --autogenerate -m "description"
-
-# Docker local stack
-docker compose up
-docker compose up --build
+npm run test      # Vitest
+npm run test:ui   # Vitest UI
+npm run build     # vue-tsc + vite build
 ```
-
-## Key Conventions
-
-1. **Token security** — Encrypted tokens are never logged, printed, or included in error messages. AES-256-GCM in `token_vault.py`.
-2. **Knowledge cross-links** — `[[slug]]` inside Markdown files; resolved to `knowledge_id` at index time.
-3. **Project context loading** — `knowledge/loader.py` two-tier model on project selection: primary files load in full from disk; `knowledge_level: detail` files are indexed in DB (metadata + summary only) and loaded on demand via `knowledge_rw`.
-4. **DB primary keys** — Always `UNIQUEIDENTIFIER DEFAULT NEWID()`. Never `IDENTITY`.
-5. **SQL Server driver** — Use `mssql+aioodbc`. Never `pymssql`.
-6. **Project isolation** — Knowledge queries always scope to `project_id = :current OR project_id IS NULL`. No cross-project queries.
-7. **Agent definitions** — Markdown frontmatter + body in `agents/*.agent.md` (global, synced at startup). **Project-scoped agents** live in `{PROJECTS_ROOT}/{slug}/agents/{project_slug}--{name}.agent.md` with matching `skills/` and `workflows/` dirs; lazily synced to the `agents` table (column `project_id`), selectable only within their project, shadowing global skills/workflows of the same slug at runtime. Created/deleted via the 智能体定制专家 conversation (file write/delete + lazy sync) — no restart needed. Models are NOT defined per-agent: configured in Settings → AI Models (`user_model_configs` table), one per conversation. `model_low/mid/high` on the `agents` table and `complexity.py` are legacy — no complexity-based routing at runtime.
-8. **Skill types** — `guidance` (LLM instructions), `template` (code templates), `executable` (runnable code blocks), `composite` (chains other skills).
-9. **Workflow definitions** — Same format as skills; files end in `.workflow.md`. No YAML engine — agent reads and executes.
-10. **Image outputs** — Stored in `{PROJECTS_ROOT}/{slug}/.tmp/media/{conversation_id}/`; served via `/api/media/` with JWT auth. Never stored as DB blobs.
-11. **Secret management** - Two-tier encrypted storage: `user_tokens` (per-user, cross-project), `project_secrets` (per-project); both AES-256-GCM in `token_vault.py`. `secret_vault` manages the user vault (list/save/delete); `api_request` resolves secrets via `secret_ref`/`secret_refs` + `secret_scope` (project->user fallback). Secret prompts (`user_confirm` / `api_request`) use `save_to_project_secrets` or `save_to_user_tokens` (mutually exclusive) - plaintext never reaches the LLM. Secrets never stored in `personal_memories` (`memory_rw` rejects them). Keys never put in URL query parameters.
-
-## Sub-project Workspace Structure
-
-`PROJECTS_ROOT` is a **required** env var pointing to an external directory (outside the repo). Sub-projects created via `POST /api/projects` get an isolated workspace:
-
-```
-{PROJECTS_ROOT}/
-└── {slug}/
-    ├── agents/        ← project-scoped agent definitions (*.agent.md)
-    ├── skills/        ← project-scoped skills (shadow global same-slug)
-    ├── workflows/     ← project-scoped workflows (shadow global same-slug)
-    ├── knowledge/      ← initialized from knowledge/_template/
-    ├── tests/          ← QA agent generates test scripts here
-    └── .tmp/
-        ├── media/{conversation_id}/   ← screenshots and generated images
-        └── work/                      ← temporary working files
-```
-
-## Architecture Decisions
-
-- **Python for agent-core + API**: Richer AI/ML ecosystem (all LLM SDKs).
-- **No embedding model**: knowledge loaded in full per project; no vector search, no sentence-transformers dependency.
-- **CodeMirror 6 in Composer**: Multi-line Markdown input with `@mention` and `/command` support.
-- **Completeness score denormalized**: stored in `knowledge_metadata` to avoid recomputation on every read.
-- **Redis for session + active users**: OAuth session keyed `session:{session_id}` (TTL=24h), active users tracked via sorted set.
-- **Agentic Loop**: `plan_task` tool triggers structured task planning; tasks tracked in `agent_tasks` DB table.
-
-## Files Never to Commit
-
-- `.env` — all secrets
-- `.claude/settings.local.json`
-- Anything under `PROJECTS_ROOT` — sub-project workspaces are user data, not application code
-
-## Model Routing
-
-- 分析代码或编写代码时，通过 Agent 工具指定 `model: "opus"` 或切换到 Opus 子代理执行
-
-## Testing Strategy
-
-- `agent-core`: pytest + pytest-asyncio; mock LLM providers via recorded VCR cassettes.
-- `api`: pytest + httpx AsyncClient; test DB uses SQLite in-memory (SQLAlchemy 2.x is dialect-agnostic for most queries).
-- `web`: Vitest + Vue Test Utils.
 
 ---
 > Source: [agents-universe/agents-universe](https://github.com/agents-universe/agents-universe) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
