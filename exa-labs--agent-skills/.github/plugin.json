@@ -1,0 +1,9 @@
+{
+  "name": "exa-labs--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "exa-labs",
+  "homepage": "https://github.com/exa-labs/agent-skills",
+  "skills": []
+}
