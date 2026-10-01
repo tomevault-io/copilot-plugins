@@ -1,0 +1,9 @@
+{
+  "name": "hunterphillips--realign",
+  "displayName": "realign",
+  "description": "macOS utility: save and quickly restore your window layout. Auto-apply when connecting or disconnecting external monitors. ",
+  "version": "1.0.0",
+  "author": "hunterphillips",
+  "homepage": "https://github.com/hunterphillips/realign",
+  "skills": []
+}
