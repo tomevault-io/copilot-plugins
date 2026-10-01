@@ -1,0 +1,9 @@
+{
+  "name": "syren0914--nvcc-techclub-website",
+  "displayName": "NVCC-Techclub-Website",
+  "description": "A modern, responsive website for the TechClub at NVCC built with Next.js, TypeScript, Tailwind CSS, and Supabase.",
+  "version": "1.0.0",
+  "author": "Syren0914",
+  "homepage": "https://github.com/Syren0914/NVCC-Techclub-Website",
+  "skills": []
+}
