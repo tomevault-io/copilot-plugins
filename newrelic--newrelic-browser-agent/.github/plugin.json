@@ -1,0 +1,9 @@
+{
+  "name": "newrelic--newrelic-browser-agent",
+  "displayName": "newrelic-browser-agent",
+  "description": "newrelic-browser-agent",
+  "version": "1.0.0",
+  "author": "newrelic",
+  "homepage": "https://github.com/newrelic/newrelic-browser-agent",
+  "skills": []
+}
