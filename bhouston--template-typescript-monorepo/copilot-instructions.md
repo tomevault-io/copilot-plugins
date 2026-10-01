@@ -8,4 +8,4 @@ Read and follow [CONTRIBUTING.md](CONTRIBUTING.md) before starting work. It is t
 
 ---
 > Source: [bhouston/template-typescript-monorepo](https://github.com/bhouston/template-typescript-monorepo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
