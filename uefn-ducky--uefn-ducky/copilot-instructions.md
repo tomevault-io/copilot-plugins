@@ -1,27 +1,24 @@
-## publish-always-bump
+## publish-uefn-ducky-store
 
-> Desktop Store publish always uses the default auto-bump path
+> >-
 
 
-# Desktop publish — ALWAYS bump
+# Publish desktop plugins to UEFN Ducky Store
 
-Publish the desktop app with the default command only:
+The **app** is this repo. Each **plugin** is
+`C:\Users\tas13\Documents\GitHub\uefn-plugins\uefn-plugin-<id>\`.
 
+```bash
+cd /c/Users/tas13/Documents/GitHub/uefn-plugins/uefn-plugin-<id>
+py -3 scripts/release.py --publish --changelog "vN: …"
 ```
-py -3 release/publish_app.py --notes "…"
-```
 
-It bumps patch, builds Setup, commits + pushes, uploads. **Never** pass
-`--no-bump`, `--set-version`, `--version`, or `--exe` unless the user
-types that flag themselves. A local `__version__` that is already ahead
-of the Store is not a reason to skip the bump — let it bump again.
+`--publish` commits + pushes the clone first (every shippable file). It refuses
+to upload if anything real is still dirty. Do not zip or `uds_release` a dirty tree.
 
-**HARD — run the local EXE before Store publish.** Do not `publish_app.py`
-until you have launched the latest local `dist/UEFN-Ducky-*/UEFN-Ducky.exe`
-(or the just-built one-dir EXE) and exercised the changed UI yourself.
-Source/`py -m` is not a substitute. Finish the feature in that EXE, then
-publish. If the EXE is not built yet: `py -3 build/build_exes.py`, run it,
-then publish.
+Needs `DUCKYOS_API_KEY` (or `~/.cursor/mcp.json` Bearer).
+
+Do not bundle plugins into the EXE. Do not commit `*.ducky-plugin.zip` / `deploy/`.
 
 ---
 > Source: [UEFN-Ducky/UEFN-Ducky](https://github.com/UEFN-Ducky/UEFN-Ducky) — distributed by [TomeVault](https://tomevault.io).
