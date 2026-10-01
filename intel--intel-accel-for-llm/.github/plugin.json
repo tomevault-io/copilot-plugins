@@ -1,0 +1,9 @@
+{
+  "name": "intel--intel-accel-for-llm",
+  "displayName": "intel-accel-for-llm",
+  "description": "intel-accel-for-llm",
+  "version": "1.0.0",
+  "author": "intel",
+  "homepage": "https://github.com/intel/intel-accel-for-llm",
+  "skills": []
+}
