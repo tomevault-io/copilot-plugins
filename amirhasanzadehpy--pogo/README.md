@@ -7,11 +7,11 @@ Runtime-aware Django ORM language server (LSP 3.16) — completion, hover, diagn
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [amirhasanzadehpy/Pogo](https://github.com/amirhasanzadehpy/Pogo).
+Original source: `CLAUDE.md` in [amirhasanzadehpy/Pogo](https://github.com/amirhasanzadehpy/Pogo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
