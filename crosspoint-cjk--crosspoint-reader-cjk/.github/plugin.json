@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "CrossPoint-CJK",
   "homepage": "https://github.com/CrossPoint-CJK/crosspoint-reader-cjk",
-  "skills": []
+  "skills": [
+    {
+      "name": "crosspoint-reader-cjk",
+      "description": ""
+    }
+  ]
 }
