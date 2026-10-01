@@ -7,11 +7,11 @@ Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rehan-remade/universal-modder](https://github.com/rehan-remade/universal-modder).
+Original source: `AGENTS.md` in [rehan-remade/universal-modder](https://github.com/rehan-remade/universal-modder).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
