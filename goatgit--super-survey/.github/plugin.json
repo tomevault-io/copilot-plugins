@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "GoatGit",
   "homepage": "https://github.com/GoatGit/super-survey",
-  "skills": [
-    {
-      "name": "super-survey",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
