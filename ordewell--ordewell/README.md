@@ -7,17 +7,23 @@ Multi-agent task orchestration for coding agents. Turn one goal into an ordered 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ordewell/ordewell](https://github.com/ordewell/ordewell).
+Original source: `CLAUDE.md` in [ordewell/ordewell](https://github.com/ordewell/ordewell).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ordewell/ordewell](https://github.com/ordewell/ordewell) — a repo with 8+ stars on GitHub.
+## Bundled Skills (3)
+
+- [ordewell](https://github.com/ordewell/ordewell/tree/main/packages/core/skills/to-spec/SKILL.md)
+- [ordewell](https://github.com/ordewell/ordewell/tree/main/packages/core/skills/grilling/SKILL.md)
+- [ordewell](https://github.com/ordewell/ordewell/tree/main/packages/core/skills/improve-codebase-architecture/SKILL.md)
+
+From [ordewell/ordewell](https://github.com/ordewell/ordewell) — a repo with 183+ stars on GitHub.
 
 ---
 
