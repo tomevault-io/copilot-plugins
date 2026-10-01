@@ -1,0 +1,44 @@
+{
+  "name": "pek2026-value-stream-to-practice",
+  "owner": "skijima404",
+  "repo": "pek2026-value-stream-to-practice",
+  "description": "Platform Engineering Kaigi 2026\u306e\u304a\u571f\u7523\u7f6e\u304d\u5834",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/skijima404/pek2026-value-stream-to-practice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T22:40:31Z"
+}
