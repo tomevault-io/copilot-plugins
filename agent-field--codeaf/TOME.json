@@ -3,8 +3,8 @@
   "owner": "Agent-Field",
   "repo": "CodeAF",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,171 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/home/.claude/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/home/.claude/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/links/home/shared/linked/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/links/home/shared/linked/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/home/.claude/skills/no-name/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/home/.claude/skills/no-name/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/shadow/home/.codex/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/shadow/home/.codex/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/shadow/home/.claude/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/shadow/home/.claude/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/home/.claude/skills/nested/inner/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/home/.claude/skills/nested/inner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/shadow/project/.claude/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/shadow/project/.claude/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/home/.claude/skills/too-long-name/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/home/.claude/skills/too-long-name/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/home/.claude/skills/colon-description/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/home/.claude/skills/colon-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/home/.claude/skills/mismatched-folder/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/home/.claude/skills/mismatched-folder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.codex/skills/.system/pdf/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.codex/skills/.system/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/home/.claude/skills/broken-frontmatter/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/home/.claude/skills/broken-frontmatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/roots/project/.codeaf/skills/duplicate/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/roots/project/.codeaf/skills/duplicate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/roots/project/.claude/skills/duplicate/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/roots/project/.claude/skills/duplicate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.codex/skills/.system/image-lite/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.codex/skills/.system/image-lite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/outside/escaped/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/outside/escaped/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/1.0.0/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/1.0.0/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/1.0.0/extra/extra-notes/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/1.0.0/extra/extra-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/split/suite/abc123/skills/other-half/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/split/suite/abc123/skills/other-half/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/split/suite/abc123/skills/sheet-merge/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/split/suite/abc123/skills/sheet-merge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/1.0.0/skills/tidy-commits/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/1.0.0/skills/tidy-commits/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/0.9.0/skills/stale-version/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/market/tidy/0.9.0/skills/stale-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/split/suite/abc123/skills/ledger-close/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/split/suite/abc123/skills/ledger-close/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/market/dormant/1.0.0/skills/dormant-helper/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/market/dormant/1.0.0/skills/dormant-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/cache/market/projonly/1.0.0/skills/project-helper/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/cache/market/projonly/1.0.0/skills/project-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CodeAF",
+      "path": "internal/skills/testdata/plugins/home/.claude/plugins/marketplaces/market/plugins/never/skills/never-installed/SKILL.md",
+      "github_url": "https://github.com/Agent-Field/CodeAF/tree/main/internal/skills/testdata/plugins/home/.claude/plugins/marketplaces/market/plugins/never/skills/never-installed/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Agent-Field/CodeAF",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T16:42:16Z"
+  "distributed_at": "2026-10-01T09:33:17Z"
 }
