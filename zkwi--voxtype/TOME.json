@@ -2,9 +2,9 @@
   "name": "VoxType",
   "owner": "zkwi",
   "repo": "VoxType",
-  "description": "Privacy-conscious, open-source AI voice typing for Windows.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zkwi/VoxType",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T19:18:59Z"
+  "distributed_at": "2026-10-01T04:08:13Z"
 }
