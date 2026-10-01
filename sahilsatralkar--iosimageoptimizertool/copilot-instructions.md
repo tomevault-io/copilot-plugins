@@ -1,73 +1,66 @@
 ## iosimageoptimizertool
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - Keep responses concise and preserve unrelated work in the working tree.
 
-# CLAUDE.md
+# iOSImageOptimizer Agent Instructions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+- Keep responses concise and preserve unrelated work in the working tree.
+- Read the relevant source and tests before changing behavior. `README.md` describes usage; `iOSImageOptimizer/implementation-plan.md` is an initial plan, not an authoritative description of the current implementation.
 
-## Commands
+## Project layout and requirements
 
-### Build
-```bash
-cd iOSImageOptimizer
+- This repository builds a macOS command-line analyzer for iOS projects. The Swift package root is `iOSImageOptimizer/`, not the repository root.
+- `iOSImageOptimizer/Package.swift` declares Swift tools 5.9 and macOS 13 as the minimum platform. Source uses CoreGraphics and ImageIO; verify on macOS.
+- The executable target is `iOSImageOptimizer`; its ArgumentParser command name is `ios-image-optimizer`.
+- Sources live in `iOSImageOptimizer/Sources/iOSImageOptimizer/`; XCTest tests and fixtures live in `iOSImageOptimizer/Tests/iOSImageOptimizerTests/`.
+- Dependencies are ArgumentParser, Files, and Rainbow. The manifest uses version ranges, not exact pins. Keep dependency or platform changes scoped to the request.
+
+## Component responsibilities
+
+- `main.swift`: positional project path, verbose/JSON flags, and command execution.
+- `ProjectAnalyzer.swift`: analysis orchestration, unused-image cross-validation, report models, console output, and JSON encoding.
+- `ImageScanner.swift`: standalone and asset-catalog image discovery, dimensions, scale, PNG interlacing, and color-profile metadata.
+- `ProjectParser.swift`: project-file and asset-catalog parsing, plus references from property lists, strings files, and Settings bundles.
+- `UsageDetector.swift`: source/interface references, constants, dynamic loading patterns, and interpolation detection.
+- `SemanticAnalyzer.swift`: variable assignments and string-interpolation reference inference. It does not own scale-variant or asset-organization validation.
+- `AppleComplianceValidator.swift`: image checks, issue classification, and compliance scoring.
+- `FileIteratorHelper.swift`: filtered recursive traversal shared by analysis components.
+
+## Behavior guardrails
+
+- Preserve analysis-only behavior: scanning a user's project must not modify, recompress, move, or delete its files.
+- Treat unused-image findings as heuristic candidates for review, not proof that deletion is safe. Preserve dynamic-reference handling, name/scale variants, cross-validation, and system-managed asset exemptions when changing detection.
+- Preserve early pruning of build, dependency, and version-control directories. `ImageScanner` has its own traversal/exclusion logic in addition to `FileIteratorHelper`; check both when changing scan behavior. Avoid introducing unfiltered recursive walks that revisit huge excluded trees.
+- Keep malformed files, missing metadata, and invalid paths in mind when changing parsing or scanning. Use fixtures and temporary directories for regression cases.
+- Keep console output and encoded report changes deliberate. Check the complete CLI output when changing JSON mode: the current command prints an analysis banner before the JSON payload.
+- Compliance scores and dimensional checks are implemented heuristics. Do not describe them as guarantees of App Store approval. Verify current official Apple documentation before adding or changing claims about Apple requirements.
+
+## Build and verification
+
+Run these commands from `iOSImageOptimizer/`:
+
+```sh
 swift build
-```
-
-### Run Tests
-```bash
-cd iOSImageOptimizer
 swift test
+```
 
-# Run with code coverage
+Useful targeted checks and CLI commands:
+
+```sh
+swift test --filter UsageDetectorTests
 swift test --enable-code-coverage
-
-# Run a specific test
-swift test --filter TestClassName
+swift run iOSImageOptimizer /path/to/project
+swift run iOSImageOptimizer /path/to/project --verbose
+swift run iOSImageOptimizer /path/to/project --json
 ```
 
-### Run the Tool
-```bash
-cd iOSImageOptimizer
-swift run iOSImageOptimizer /path/to/ios/project
-
-# With verbose output
-swift run iOSImageOptimizer /path/to/ios/project --verbose
-
-# Export to JSON
-swift run iOSImageOptimizer /path/to/ios/project --json
-```
-
-### Clean Build
-```bash
-cd iOSImageOptimizer
-swift package clean
-swift build
-```
-
-## Architecture
-
-### Core Components
-- **ProjectAnalyzer**: Main orchestrator that coordinates the analysis process
-- **ImageScanner**: Finds and analyzes image files in the project directory
-- **ProjectParser**: Parses Swift, Objective-C, and Storyboard files to find image references
-- **UsageDetector**: Detects dynamic image loading patterns including string interpolation
-- **AppleComplianceValidator**: Validates images against Apple's Human Interface Guidelines
-- **SemanticAnalyzer**: Analyzes relationships between images (scale variants, asset organization)
-
-### Key Features
-- Detects unused images with enhanced pattern matching for dynamic loading
-- Validates PNG interlacing, color profiles, and asset catalog organization
-- Provides Apple compliance scoring (0-100)
-- Supports both static and dynamic image reference detection
-- Works with standard iOS project structures including .xcodeproj directories
-
-### Testing
-- 154 comprehensive unit tests covering all major components
-- Test fixtures include mock projects, images, and JSON files
-- CI/CD pipeline runs tests automatically on pull requests
-- Code coverage reporting integrated with GitHub Actions
+- For source, manifest, or resource changes, build and run relevant tests; run the full test suite before handing off a behavioral change. Add focused regression coverage for detection and parsing fixes.
+- Fixtures are copied as test resources by `Package.swift`. Reuse existing test utilities and mock-image helpers; keep intentional corrupted fixtures intact.
+- Documentation-only changes need a diff/whitespace check, not a build.
+- Report actual verification results and any blockers. Do not repeat the historical test count or coverage percentage in README/CLAUDE guidance as a current measured result.
+- Verification is performed locally; this repository has no CI workflow. Run the applicable commands above before committing and report their results.
+- Do not commit build output, coverage output, `.DS_Store`, editor/user data, secrets, or machine-specific paths. `Package.resolved` is currently ignored by repository policy.
 
 ---
 > Source: [sahilsatralkar/iOSImageOptimizerTool](https://github.com/sahilsatralkar/iOSImageOptimizerTool) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
