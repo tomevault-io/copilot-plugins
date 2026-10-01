@@ -1,0 +1,9 @@
+{
+  "name": "watt-mind--factory",
+  "displayName": "factory",
+  "description": "The factory that builds software \u2014 and itself. A runtime for self-improving agentic loops: the tracker is the control plane, git is the truth, CI is the gate.",
+  "version": "1.0.0",
+  "author": "watt-mind",
+  "homepage": "https://github.com/watt-mind/factory",
+  "skills": []
+}
