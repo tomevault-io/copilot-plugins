@@ -1,32 +1,27 @@
-## response-style
+## safety
 
-> Chat and repo language. Always apply. Do not override.
+> Do not mutate dev state or weaken safety files without asking. Always apply.
 
 
-# Language
+# Dev state
 
-| Where | Language |
-|---|---|
-| Chat replies to the user | Hinglish (Hindi + English mix) |
-| Repo files, docs, code, comments, commits | English only |
+Do not write or delete database data, and do not kill or restart a process, without asking first. Say the command and the reason, then wait for the answer.
 
-Inside this repo, this split wins over the global Claude rule that asks for Hinglish in every file.
+This includes test cleanup. Read-only checks are allowed: `find`, `count`, `ps`, `lsof`, `SELECT`.
 
-# Response style
+# Files the agent must not change
 
-| Rule | Meaning |
-|---|---|
-| No over-explain | Get to the point. Skip extra background. |
-| Simple words | Use easy words. Avoid heavy jargon. |
-| Hinglish in chat | Chat replies use a Hindi + English mix. |
-| English in the repo | Every file in the repo stays in English. |
-| No long paragraphs | Break the answer into short pieces. |
-| Points and tables | Use bullets or tables. |
-| Proper spacing | Leave space between lines. Do not pack text together. |
-| Crisp | Say only what is needed. |
-| No em-dashes | Do not use an em-dash. Use a comma or a period. |
+Do not edit or delete these unless the user explicitly asks in this turn:
 
-Apply this to every response: code, explanation, and discussion.
+- `rules/always/safety.md`
+- `hooks/`
+- `.githooks/`
+- `.cursor/hooks.json`
+- `.claude/settings.json`
+- `.git/`
+- `.env` files
+
+Do not skip git hooks with `--no-verify`. Do not change `core.hooksPath`. Do not add a package lifecycle script that deletes files.
 
 ---
 > Source: [xDAnkit/system-design-journey](https://github.com/xDAnkit/system-design-journey) — distributed by [TomeVault](https://tomevault.io).
