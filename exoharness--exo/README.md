@@ -2,16 +2,15 @@
 
 > Source: [exoharness/exo](https://github.com/exoharness/exo). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Exo is an agent + harness architecture that is fully recursive, able to safely edit all aspects of itself at runtime to get better at your tasks.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [exoharness/exo](https://github.com/exoharness/exo).
+Original source: `` in [exoharness/exo](https://github.com/exoharness/exo).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
