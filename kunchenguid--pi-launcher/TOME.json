@@ -4,7 +4,7 @@
   "repo": "pi-launcher",
   "description": "A signed macOS launcher for your Pi agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kunchenguid/pi-launcher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T15:47:35Z"
+  "distributed_at": "2026-10-01T22:14:36Z"
 }
