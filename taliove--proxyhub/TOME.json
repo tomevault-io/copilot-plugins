@@ -1,0 +1,44 @@
+{
+  "name": "proxyhub",
+  "owner": "taliove",
+  "repo": "proxyhub",
+  "description": "\u628a\u591a\u4e2a\u673a\u573a\u8ba2\u9605\u805a\u5408\u6210\u4e00\u4e2a\u7edf\u4e00\u8ba2\u9605\u5730\u5740 \u2014\u2014 \u81ea\u52a8\u7b5b\u9009\u6700\u4f18\u8282\u70b9\uff0c\u4e00\u4e2a\u94fe\u63a5\u5168\u8bbe\u5907\u901a\u7528\u3002Self-hosted proxy subscription aggregator for Clash / V2Ray / Sing-box.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/taliove/proxyhub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T22:32:13Z"
+}
