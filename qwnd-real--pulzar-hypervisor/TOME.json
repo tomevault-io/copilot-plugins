@@ -4,7 +4,7 @@
   "repo": "pulzar-hypervisor",
   "description": "Type-1 AMD svm hypervisor",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qwnd-real/pulzar-hypervisor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T14:36:23Z"
+  "distributed_at": "2026-10-01T21:56:15Z"
 }
