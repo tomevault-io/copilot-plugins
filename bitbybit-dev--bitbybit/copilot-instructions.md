@@ -1,96 +1,87 @@
 ## bitbybit
 
-> The handful of conventions that hold everywhere in Bitbybit - colour ranges, which way is up, and the defaults that surprise people.
+> The MCP server that documents the API for coding agents. Like `cad-cloud-sdk`, it is a Node
 
+# CLAUDE.md - `@bitbybit-dev/mcp`
 
-# Conventions That Hold Everywhere
+The MCP server that documents the API for coding agents. Like `cad-cloud-sdk`, it is a Node
+package outside the browser bundle conventions of `packages/dev/CLAUDE.md`:
 
-A few conventions run through the whole library. None of them is guessable, each one has a reasonable
-alternative that other tools picked instead, and each is worth five minutes now rather than an hour
-of confusion later.
+- Vitest (`npm test`, `npm run test:coverage`), NodeNext at ES2022, published from its own root
+  through the `files` allowlist, with a `prepublishOnly` build
+- a `bin` (`bitbybit-mcp`, `dist/stdio.js`) beside the library exports (`.`, `./server`,
+  `./index-loader`, `./installed-version`, `./json-schema`, `./package.json`)
+- it depends on none of the other `@bitbybit-dev` packages; its runtime dependencies are exactly
+  `@modelcontextprotocol/server` and `zod`, and `src/dependencies.test.ts` holds it there
 
-## Colours are 0 to 1, not 0 to 255
+## Shape
 
-A colour given as an array is three numbers between **0 and 1**.
+- `src/registry.ts` describes a tool once, independent of any transport (`ToolDefinition`,
+  `Registry`, `toHttp`). `src/server.ts` binds a registry to the MCP SDK: `createMcpServer` for
+  a connection that lives (stdio), `createRequestHandler` for stateless HTTP, one handler built
+  once whose `fetch(request, context)` serves each request with the context that request carries.
+  `src/stdio.ts` is the executable. Nothing else imports the SDK, and the dependency test asserts it.
+- `src/json-schema.ts` is the one inliner of local `$ref` pointers in the JSON schema zod renders,
+  used for every advertised tool schema and exported for anyone who renders the same convention.
+- `src/identity.ts` is what the server says about itself on `initialize` beside its name and
+  version: the title, the docs page and the icon, in the shape the protocol's implementation
+  info takes, so a client that renders icons shows one. `server.json` repeats them for the
+  registry and `dependencies.test.ts` keeps the two equal.
+- The seven tools live in `src/tools/`; every title and description is in `src/descriptions.ts`,
+  because a description is what a model reads to choose a tool, so a change there changes
+  behaviour and is made deliberately.
+- Answers come from the API index (`src/index-types.ts` is its shape; `src/index-url.ts` addresses
+  one version of it; `src/index-loader.ts` fetches and caches it on a file system). The package
+  root (`src/index.ts`) imports no Node built-in, so a bundler can take it into an edge runtime;
+  only `index-loader.ts`, `installed-version.ts` and `stdio.ts` may, and the dependency test holds
+  that line. `src/index-reader.ts` is the lookup, search and
+  nearest-path logic; `src/render.ts` turns a record into the markdown a model reads.
+- `src/guides.generated.ts` is generated from `docs/learn/using-ai-with-bitbybit/agentic-cad.md`
+  by `npm run sync:guides`; `npm run check:guides` and `src/guides.test.ts` fail when the page and
+  the file disagree. Edit the page, then regenerate.
 
-```
-[1, 0, 0]        red
-[1, 0.5, 0]      orange
-[0, 0, 0]        black
-```
+## What the code does not say
 
-Many graphics tools use 0 to 255 instead, so `[255, 128, 0]` is a natural thing to write. It is not
-orange here. Those numbers are 255 times too large, and the result is clamped to white.
+The source carries no comments, JSDoc included: `bitbybit/no-loose-comments` runs here with
+`allowJsDoc: false`, because nothing reads a comment in this package. A name, an extracted function
+or a line here is where an explanation goes.
 
-If you pass a value outside the range, a message in the console tells you so and names the likely
-cause. Divide by 255 and you have the right numbers.
+- The index is addressed by exact version only, never by `latest`: `index-url.ts` refuses
+  anything that is not a release version, and `IndexNotPublishedError` names the newest version
+  known to have an index when the caller knows it. A published index is immutable, so a cached copy
+  is never revalidated. The cache directory is `$XDG_CACHE_HOME/bitbybit-mcp` or
+  `~/.cache/bitbybit-mcp` (an empty variable counts as unset); a failed cache write is ignored,
+  because the cache is a convenience and a read-only home directory must not stop the server.
+- `stdio.ts` picks the version to serve in this order: `--version`, `BITBYBIT_VERSION`, the
+  `@bitbybit-dev/*` packages installed around the working directory (`installed-version.ts` lists
+  them most authoritative first; disagreeing versions are reported and the first wins), then this
+  package's own version. When the detected version has no published index, the package's own
+  version is served with a note on stderr; an explicit flag or variable is never second-guessed.
+- `registry.ts` caps a server at eight tools (`TOOL_CEILING`): past that, agents pick the wrong tool
+  more often than the right one. Its `inputJsonSchema` inlines every local `$ref` of the schema zod
+  renders (`json-schema.ts`), because the hosts that read a tool's arguments (the Claude API among
+  them) want the object at every position; a cyclic reference stays in place with the table it
+  needs. The schema is rendered for input, so a field with a default is optional. `toHttp` serves only tools with a
+  handler, and arguments that fail the schema come back as an error result, never as a throw.
+- `index-reader.ts` answers an unknown path with the members it most plausibly meant, in this
+  order: a case difference, siblings under the same parent a few edits away, members sharing the
+  last segment anywhere (closest whole path first), then a lexical match.
+- `render.ts` writes a member as the facts first, the prose after, the examples last; the one-line
+  form is what a list shows.
+- `search` and `fetch` are the shapes ChatGPT's connectors require: results of id, title and url;
+  one document with id, title, text, url and metadata.
+- `guides-split.ts` splits the guide page into its `##` and `###` sections; a `##` body runs to
+  the next `##` and so contains its subsections, the frontmatter and anything before the first
+  heading are dropped, and a heading becomes its id as lower-case words joined by dashes.
+  `get-guide.ts` maps the short names agents reach for onto those ids.
 
-You can also pass a hex string like `"#ff8000"` anywhere a colour is accepted, which avoids the
-question entirely.
+## Tests
 
-### Geometry can carry its own colour, and it wins
-
-JSCAD shapes can have a colour baked onto the geometry itself. When they do, that colour beats the one
-in your draw options.
-
-This is intentional: the colour on the geometry is the more specific instruction. It is also why a
-colour you chose in the options appears to be ignored for some shapes and respected for others. If you
-want your option to apply, remove the colour from the geometry rather than fighting it.
-
-## Y is up
-
-Bitbybit treats **Y** as the up axis, throughout.
-
-Many CAD systems treat Z as up instead. When you import from one, the model arrives lying on its side,
-which is what the `adjustZtoY` option on the STEP and IGES importers is for.
-
-Two related mappings, if you are building points by hand:
-
-- A 2D point becomes 3D as `[x, y]` to `[x, y, 0]`.
-- When drawings are flattened to 2D for DXF export, the **Y** value is dropped: 3D X becomes DXF X, and
-  3D Z becomes DXF Y.
-
-## Both sides of a surface are drawn by default
-
-`drawTwoSided` is **on** unless you explicitly set it to `false`.
-
-This is usually what you want. An open surface, or a solid you are looking into, shows its back faces
-rather than disappearing. The back faces are drawn in their own colour so you can tell which side you
-are seeing.
-
-Turn it off when you know your geometry is a closed solid viewed from outside, and you would rather not
-pay for the second set of faces.
-
-## Camera settings are tuned for a 20-unit scene
-
-Camera distance, the near and far clipping limits, and the pan and zoom sensitivities are all worked
-out from the size of your scene, using a 20-unit scene as the baseline.
-
-**This only happens if you pass no camera options at all.** Supplying any camera option switches the
-calculation off completely, and your values are used exactly as given.
-
-The practical consequence: a set of camera options that felt right for one model can feel wrong for a
-model ten times the size, because you have opted out of the scaling that would have adapted them. If a
-camera behaves oddly after a change of scale, try removing the options and letting them be derived.
-
-## Drawing a tag gives you back the tag
-
-Almost everything you draw gives you back a mesh or a scene object. Tags are the exception.
-
-A tag is a text label. It is not geometry - it is an HTML element sitting on top of the canvas, moved
-to follow a point in the scene. So drawing one gives you back the tag itself.
-
-You update it the same way as anything else, by passing what you got back into the next draw call. But
-if you are storing drawn results and expecting them all to be meshes, tags will not be.
-
-## A decal needs its material switched on
-
-Applying a decal to a mesh takes two steps, not one. Assigning the decal is the first. The mesh's
-material also has to have decals enabled on it.
-
-Doing only the first renders nothing at all, which looks like the feature is broken rather than
-half-configured.
+Unit tests run against `src/__fixtures__/index.sample.json`, a small index at version `9.9.9`, so
+they need no network. `src/network.test.ts` fetches the real index for this package's version and
+runs only when `BITBYBIT_MCP_NETWORK=1` (the nightly workflow sets it); it skips itself while the
+version's index is not yet published.
 
 ---
 > Source: [bitbybit-dev/bitbybit](https://github.com/bitbybit-dev/bitbybit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
