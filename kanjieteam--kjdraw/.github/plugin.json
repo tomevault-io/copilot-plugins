@@ -1,0 +1,14 @@
+{
+  "name": "kanjieteam--kjdraw",
+  "displayName": "kjdraw",
+  "description": "kjdraw",
+  "version": "1.0.0",
+  "author": "KanJieTeam",
+  "homepage": "https://github.com/KanJieTeam/kjdraw",
+  "skills": [
+    {
+      "name": "kjdraw",
+      "description": ""
+    }
+  ]
+}
