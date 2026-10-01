@@ -1,0 +1,9 @@
+{
+  "name": "amirhasanzadehpy--pogo",
+  "displayName": "Pogo",
+  "description": "Runtime-aware Django ORM language server (LSP 3.16) \u2014 completion, hover, diagnostics, signature help, and definitions for Django models, querysets, and managers. Go coordinator + embedded Python worke",
+  "version": "1.0.0",
+  "author": "amirhasanzadehpy",
+  "homepage": "https://github.com/amirhasanzadehpy/Pogo",
+  "skills": []
+}
