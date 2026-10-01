@@ -7,11 +7,11 @@ A plan-driven, multi-agent coding loop: separate planner, coder, and reviewer ro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [navels/neal](https://github.com/navels/neal).
+Original source: `CLAUDE.md` in [navels/neal](https://github.com/navels/neal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
