@@ -4,7 +4,7 @@
   "repo": "universal-modder",
   "description": "Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod almost any PC game you own: recon, reverse engineering, fal-generated art/3D/audio, in-game testing, showcase videos.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rehan-remade/universal-modder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T07:37:50Z"
+  "distributed_at": "2026-10-01T09:55:08Z"
 }
