@@ -1,0 +1,44 @@
+{
+  "name": "OpenLongevity",
+  "owner": "edison7009",
+  "repo": "OpenLongevity",
+  "description": "Longevity technology should not be reserved for the wealthy. Open Longevity(\u5f00\u6e90\u5ef6\u5bff) takes Bryan Johnson\u2019s longevity plan as a starting blueprint.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/edison7009/OpenLongevity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T22:52:21Z"
+}
