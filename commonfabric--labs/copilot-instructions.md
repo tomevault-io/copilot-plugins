@@ -1,76 +1,124 @@
 ## labs
 
-> Converts TypeScript types to Common Fabric JSON Schemas (2020-12 dialect + repo
+> `agent()` asks an agent runner to do a piece of work — find and read data
 
-# @commonfabric/schema-generator — Agent Guide
+# Agent Requests
 
-Converts TypeScript types to Common Fabric JSON Schemas (2020-12 dialect + repo
-extensions). Consumed at compile time by `packages/ts-transformers`
-(SchemaGeneratorTransformer constructs a `SchemaGenerator`); also the repo's
-wrapper-type vocabulary oracle — ts-transformers imports `cell-brand`,
-`common-fabric-symbols`, `default-brand`, `scope-brand`, `wrapper-names`,
-`property-name`, `property-optionality`, `numeric-expression`, `type-node` via
-subpath exports. Entry point is `src/index.ts` (not `mod.ts`).
+`agent()` asks an agent runner to do a piece of work — find and read data
+through tools, and answer in a shape the pattern declares — as the pattern's
+user. It is a reactive node like `generateObject`, never a promise: call it in
+the pattern body and read `pending` / `error` / `result` reactively.
 
-## Where answers live
+The builtin is behind the `agentBuiltin` experimental flag, which is **on by
+default**; see
+[`EXPERIMENTAL_OPTIONS.md`](../../development/EXPERIMENTAL_OPTIONS.md#agentbuiltin).
+With the flag set to `false`, every request settles with `pending: false`
+and an `error` naming the flag.
 
-| Question                                                                 | Read                                                                                                               |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| Full type→schema mapping rules                                           | `docs/specs/schema-generator/ts_to_json_schema_mapping.md` (sources-of-truth table first)                          |
-| The runtime schema dialect (asCell, ifc, additionalProperties tri-state) | `docs/specs/json_schema.md` + the `JSONSchema` type in `packages/api/index.ts` (the type is authoritative)         |
-| Wrapper vocabulary (spelling vs resolved kind)                           | `src/typescript/wrapper-names.ts` (header comment) + `src/typescript/cell-brand.ts`                                |
-| Cross-package contract with ts-transformers                              | bare WeakMaps `typeRegistry` / `schemaHints` — see `packages/ts-transformers/src/core/cross-stage-state.ts` header |
-| How the generator is structured                                          | `src/schema-generator.ts` (formatter chain) + `src/interface.ts` (GenerationContext)                               |
+## Calling it
 
-## Facts that will bite you
+```typescript
+// Shown inside a pattern body.
+const recommendation = agent<{ picks: { book: string; why: string }[] }>({
+  task: "Which of the finished books would a reader who likes the listed " +
+    "authors enjoy? Return up to five.",
+  inputs: { finished: booksRead, likes: favoriteAuthors },
+  resultSchema: {
+    type: "object",
+    properties: {
+      picks: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: { book: { type: "string" }, why: { type: "string" } },
+          required: ["book", "why"],
+        },
+      },
+    },
+    required: ["picks"],
+  },
+  tools: ["loom_search", "loom_page_read"],
+});
 
-- Formatter chain order is behavior: CommonFabric → NativeType → Union →
-  Intersection → Array → Primitive → Object (`src/schema-generator.ts`).
-  CommonFabricFormatter owns wrapper types AND CFC alias→`ifc.*` lowering.
-- Hoisting emits `$defs` / `#/$defs/...` (all named non-wrapper types; cycles
-  get `AnonymousType_N`). Anything that says `definitions` is out of date.
-- Wrapper markers are `asCell` ARRAY entries — `["cell"]`, `["stream"]`,
-  `["opaque"]`, nested `["cell","cell"]`. There is no `asStream` field anymore.
-- Semantic sentinels: `any` → `true`; `unknown` → `{ type: "unknown" }`; `never`
-  → `false`; `void` → `{ asCell: ["opaque"] }`; `undefined` survives in unions
-  (`{ type: "undefined" }`). The `unknown`/`undefined` type values are
-  deliberate non-standard extensions, as are the `FabricPrimitive` type names
-  (`{ type: "FabricBytes" }` and friends — each the `.schemaType` its class
-  reports, listed at runtime by `FABRIC_PRIMITIVE_SCHEMA_TYPES` in
-  `packages/data-model/src/fabric-primitives/impl.ts`), emitted for fields
-  authored against those classes.
-- Fail-loud inventory: `Map`/`Set`/`WeakMap`, `Cell<Stream<T>>`,
-  `Default<undefined>`, unresolvable DeepDefault keys, and circular aliases
-  THROW rather than degrade. An unformattable type also throws (complete
-  formatter coverage is asserted).
-- CFC alias recognition is NAME-keyed with no source-file check (unlike
-  `Default`'s brand check) — a user type named e.g. `Integrity` will lower to
-  `ifc` metadata. Known foot-gun; don't "fix" silently, it's load-bearing for
-  api aliases.
-- JSDoc flows into schemas: first doc → `description`, `#hashtags` → `tags`,
-  conflicting docs → `$comment`. Declaration files are excluded.
-- Two analysis paths — type-based and node-based (synthetic TypeNodes from
-  ts-transformers, or `any`-widened types). They can encode literals differently
-  (`const:` vs `enum:`); when output looks inconsistent, check which path ran
-  (`shouldUseNodeBasedAnalysis`).
+const view = recommendation.pending
+  ? "working"
+  : recommendation.error
+  ? `failed: ${recommendation.error}`
+  : recommendation.result?.picks.map((pick) => pick.book).join(", ");
+```
 
-## Test workflow
+- `task` is context for the run, not a command to execute. It is the one
+  value the request carries, so the sink gate measures it: interpolating
+  labeled data into the text puts that label on the request. Pass the cell
+  under `inputs` instead.
+- `inputs` are cells, keyed by the names the run sees them under. Each
+  reaches the run as a reference, and the run reads through it with the
+  tools it has; nothing here is copied into the request.
+- `resultSchema` is the schema the run's structured result is validated
+  against before it is written.
+- `maxConfidentiality` (optional) bounds what the run may observe. Declared,
+  it can only tighten what the deployment allows, and a request whose own
+  reads already exceed it is refused before it is staged. Absent, the run's
+  ceiling is the deployment's; a deployment whose `agent` sink ceiling is
+  `[]` refuses every labeled read in the request, references included, whether
+  or not this is declared (see below).
+- `tools` (optional) names the tools the run may use, from the list the
+  deployment publishes (`AGENT_TOOL_NAMES` in
+  `packages/runner/src/builtins/agent-schemas.ts`). A name the user's
+  registered runner does not offer fails the request with `INVALID_INPUT`
+  before it is staged; with no runner registered the request queues.
 
-`deno task check` and `deno task test`. The check task excludes raw fixture
-inputs because the fixture runner supplies their synthetic wrapper prelude.
-Golden fixtures support `UPDATE_GOLDENS=1`, single-fixture `FIXTURE=<name>`, and
-`SKIP_INPUT_CHECK` (see `deno.jsonc` test task's env allowlist). End-to-end
-emission is also pinned by ts-transformers fixtures (`schema-transform/`,
-`schema-injection/` suites) — behavior changes here fail that package's goldens
-too; run both.
+## Reading the result
 
-## When you change behavior
+- `pending` is `true` from the moment the request is staged until the run
+  reaches a terminal state: `completed`, `failed`, `refused`, or `cancelled`.
+- `result` is a link to the document the run's harness wrote, present once
+  the run has completed. Reading through it resolves that document, and every
+  reference in it keeps its own label.
+- `error` carries the run's error code when it ended any other way —
+  `INVALID_INPUT`, `LIMIT_REACHED`, `PROVIDER_FAILURE`, `RUNNER_LOST`,
+  `CANCELLED`, `REFUSED` — or the refusal text when the request never left
+  the graph.
+- `run` is a link to the run's `AgentRun` record: its `state`, `stateSince`,
+  and, once finished, `outcome`, `usage`, `modelTurns`, and `toolCalls`, for
+  a pattern that wants to show progress or cost. `host` is the origin of the
+  toolshed serving the record's space, for a reader on another host.
+- `requestHash` identifies the request. The same request in the same user
+  instance yields the same record, so a re-run of the node over unchanged
+  inputs is a memo hit and creates nothing; a pattern that wants a fresh run
+  includes an input that changes.
 
-Update the mapping spec in the same change (it is descriptive: code wins, spec
-must follow). If you change wrapper vocabulary, `wrapper-names.ts`'s exhaustive
-classification tables make every consumer site a compile error until it
-classifies the new spelling — that's the intended workflow, not an obstacle.
+## Who runs the request
+
+A request becomes an `AgentRun` record in the requesting space, listed in the
+requester's home-space agent queue
+([`HOME_SPACE.md`](../conventions/HOME_SPACE.md#agent-queue)). The requester's
+runner, `cf agent runner`, claims it from there and runs it; with no runner
+started, the record stays `queued`. A pattern reads whether one is registered
+from `wish({ query: "#agent_queue" })`, whose `agentRunner` is absent until a
+runner starts. A request made where the home space holds no queue ends
+`refused`.
+
+To stop a run, set `cancelRequestedAt` on its record — the `cancel` stream of
+`packages/patterns/system/agent-run.tsx` does — and the runner ends it
+`cancelled`.
+
+## What the request carries, and what is measured
+
+The request is staged under the `agent` sink and measured at the commit
+boundary like any other sink request. What the transaction consumed is the
+task text and the pointer label of each input reference — a link position
+carries its target's label.
+
+**Present limit.** Under the max-enforcement posture the `agent` sink's
+ceiling is `[]`, so a request passing a labeled cell by reference is refused,
+as is a task built from labeled data; only a request over unlabeled
+references and a plain task fits. Declaring `maxConfidentiality` does not
+change that, since it can only tighten. A deployment that declares no ceiling
+for the `agent` sink applies no gate to the request. A refused
+request settles with `pending: false` and an `error` naming the sink; the
+reason's detail is not handed to the pattern.
 
 ---
 > Source: [commonfabric/labs](https://github.com/commonfabric/labs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
