@@ -1,94 +1,96 @@
 ## abi
 
-> Composition root for module orchestrations and built-in service maintenance jobs.
+> > Catalog: [`README.md`](README.md). Module: `signals.x` + `naas_abi_marketplace.applications.x` (dataset sync config on marketplace module).
 
-# Dagster application
+# X scripts — AGENTS.md
 
-## Purpose
+> Catalog: [`README.md`](README.md). Module: `signals.x` + `naas_abi_marketplace.applications.x` (dataset sync config on marketplace module).
 
-Composition root for module orchestrations and built-in service maintenance jobs.
-Keep Dagster imports here; services and outbound ports remain framework-independent.
+## When to use which script
 
-## Files
+| Goal | Script | Writes? |
+|------|--------|---------|
+| Check envelope lag before/after backfill | `audit_envelope_bookkeeping.py` | **No** |
+| Catch up `envelopes_v1` / posts from storage | `backfill_x_datasets.py` | **Yes** |
+| Fill null `author_stats_v1.first_post_at` from posts | `backfill_author_first_post_at.py` | **Yes** (`--dry-run` is read-only) |
 
-- `dagster.py`: loads the engine and merges module and service definitions.
-- `DatasetCompaction.py`: dataset flush/compaction and pressure-monitoring jobs,
-  resource binding, and schedules.
-- `DatasetCompaction_test.py`: job selection, schedule, empty catalog, and failure tests.
+Steady-state ingest uses Dagster (`x_sensor_recent_tweets_put_search_recent_tweets` for new puts, `x_reprocess_recent_tweets_files_schedule_*` for catch-up including dataset-only when graph ⊃ dataset) and `sync_envelope_paths` inside orchestrations—not these CLIs.
 
-## Port and service API
+## `audit_envelope_bookkeeping.py`
 
-Inject `DatasetService` through the `dataset_compaction_service` Dagster resource.
-The jobs call `list`, `describe`, `check_catalog_pressure`, `flush`, and `compact`;
-DuckLake SQL belongs in the dataset
-secondary adapter. See `../../services/dataset/AGENTS.md` for the service contract.
+- Lists `.json` envelopes under `--envelope-prefix` (default `x/search_recent_tweets`) via object storage `walk`.
+- Compares to `envelope_path` rows in namespace **`x`**, table **`envelopes_v1`**.
+- Fields: `pending_ingest`, `ingested_not_in_storage`, `in_sync`.
+- `--strict`: exit 1 when out of sync.
+- Fix lag with `backfill_x_datasets.py` (not the audit script).
+- Logic: `naas_abi_marketplace.applications.x.apps.x_proxy.dataset.envelope_bookkeeping`.
 
-## Adapters and factory
+Use `apps/x_proxy/dataset/count_audit.py` or `dataset/api.graph_totals` for row-count sanity checks.
 
-`dataset_compaction_definitions(service)` builds the job and schedule with the
-engine's configured service. Register only when `dataset_available()` is true.
-Preserve module definitions when adding other built-in jobs.
+## `backfill_author_first_post_at.py`
 
-## Operations
-
-Launch `dataset_compaction_job` manually, or use `dataset_compaction_daily` in
-Dagster. The schedule defaults to running at 02:00 UTC. Each dataset is checked for
-catalog pressure, flushed regardless of its inline count, then compacted.
-Scheduled execution requires a running Dagster daemon. A previously saved stopped
-schedule remains stopped until explicitly enabled in Dagster.
-
-`dataset_catalog_monitor_job` checks all datasets without flushing or compacting.
-Its `dataset_catalog_monitor_hourly` schedule defaults to running hourly, in UTC.
-It emits a `DatasetCatalogPressure` event through the service when unflushed
-insertion records reach the configured limit. No extra scan is added to writes.
-
-Default run config processes all service datasets sequentially. Optional Launchpad
-config targets a namespace or a single dataset:
-
-```yaml
-ops:
-  compact_datasets:
-    config:
-      namespace: analytics
-      name: events
-      inline_warning_threshold: 100000
-```
-
-Omit `name` to process every dataset in the namespace; omit both for all namespaces.
-A name without a namespace targets `default`. Each flush and compaction has its
-own transaction; a failure fails the run and earlier completed work remains
-committed. A failed flush prevents the corresponding compaction. Adapter
-conflict retries apply; no additional Dagster retries are configured.
-
-The monitoring op uses `ops.check_dataset_catalogs.config.inline_warning_threshold`
-with the same 100,000-record default. Set a positive integer. Warnings are emitted
-on every over-limit check, including the daily check; they are not a strict size
-limit or immediate notification on crossing. Counts include historical/deleted
-insertion records, but exclude separate inline delete markers and catalog metadata.
-Event publication failure is logged and does not block flushing/compaction.
-
-Maintenance preserves partition boundaries and snapshot history. It does not
-expire snapshots or clean up files. Explicit table selection also
-means DuckLake's bulk-call `auto_compact` exclusion is not consulted. Compaction
-size follows the catalog's `target_file_size` setting; one file per partition per
-day is not guaranteed. Logging uses Dagster run
-logs for per-dataset results and output metadata for the processed dataset count;
-no new metrics or tracing stack is introduced.
-
-## Tests
-
-From the repository root:
+One-shot: `MIN(created_at)` per `author_id` from canonical posts, written onto `author_stats_v1` rows where `first_post_at` is still null. Does not re-ingest envelopes. `--dry-run` prints `missing_before` only.
 
 ```bash
-uv run pytest -o addopts='' libs/naas-abi-core/naas_abi_core/apps/dagster libs/naas-abi-core/naas_abi_core/services/dataset
+docker compose exec -T abi env LOG_LEVEL=INFO uv run python \
+  src/signals/x/scripts/backfill_author_first_post_at.py --config config.local.yaml --dry-run
+
+docker compose exec -T abi env LOG_LEVEL=INFO uv run python \
+  src/signals/x/scripts/backfill_author_first_post_at.py --config config.local.yaml
 ```
 
-## Adding a new adapter
+**Production EC2 (`axi-ai-abi-1`):**
 
-Implement the dataset port including `flush`, `compact`, and `inlined_row_count`;
-unsupported maintenance must raise
-`NotImplementedError`. Do not add adapter-specific SQL to the Dagster job.
+```bash
+docker exec -w /app axi-ai-abi-1 env LOG_LEVEL=INFO uv run python \
+  src/signals/x/scripts/backfill_author_first_post_at.py --dry-run
+
+docker exec -w /app axi-ai-abi-1 env LOG_LEVEL=INFO uv run python \
+  src/signals/x/scripts/backfill_author_first_post_at.py
+```
+
+## Running locally
+
+Compose sets `LOG_LEVEL=DEBUG` on the shared `abi` anchor; one-off CLIs are quieter with **`LOG_LEVEL=INFO`** (still shows backfill batch lines and `sync_envelope_paths` summaries).
+
+```bash
+docker compose exec -T abi env LOG_LEVEL=INFO uv run python \
+  src/signals/x/scripts/audit_envelope_bookkeeping.py --config config.local.yaml
+
+docker compose exec -T abi env LOG_LEVEL=INFO uv run python \
+  src/signals/x/scripts/backfill_x_datasets.py --config config.local.yaml \
+  --pending-from-audit --batch-size 8
+```
+
+Host `uv run` fails if config uses Docker service names (`fuseki`, `minio`, `postgres`).
+
+**Production EC2 (`axi-ai-abi-1`):** the running stack uses `config.local.yaml` and secrets in `/app/.env`. Do not pass bare `config.yaml` from a one-off `docker exec` unless `.env` is loaded — scripts preload dotenv automatically when you use the default config pick:
+
+```bash
+docker exec -w /app axi-ai-abi-1 env LOG_LEVEL=INFO uv run python \
+  src/signals/x/scripts/backfill_x_datasets.py --batch-size 32
+
+docker exec -w /app axi-ai-abi-1 env LOG_LEVEL=INFO uv run python \
+  src/signals/x/scripts/backfill_x_datasets.py --config config.local.yaml \
+  --batch-size 32
+```
+
+If secrets still fail, verify `/app/.env` contains keys referenced in config (e.g. `AWS_ACCESS_KEY_ID` when Bedrock is enabled).
+
+**Count buckets only** (no search envelope replay):
+
+```bash
+docker exec -w /app axi-ai-abi-1 env LOG_LEVEL=INFO uv run python \
+  src/signals/x/scripts/backfill_x_datasets.py --count-envelopes-only --batch-size 32
+```
+
+**Pending ingest on prod:** build `/tmp/x_pending.txt` once (audit JSON), then backfill with `--paths-file` only — avoid re-running the full audit before every backfill. (Audit is search-prefix only; use `--count-envelopes-only` for count lag.)
+
+## Do not
+
+- Run `backfill_x_datasets.py --force` without user confirmation (re-ingests all listed paths).
+- Confuse `envelopes_v1` with Fuseki `graph/x` (graph mapping is orchestration pipeline, not this audit).
 
 ---
 > Source: [jupyter-naas/abi](https://github.com/jupyter-naas/abi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
