@@ -1,0 +1,9 @@
+{
+  "name": "dockroute--dockroute",
+  "displayName": "Dockroute",
+  "description": "DockRoute, the External-DNS for plain Docker hosts",
+  "version": "1.0.0",
+  "author": "Dockroute",
+  "homepage": "https://github.com/Dockroute/Dockroute",
+  "skills": []
+}
