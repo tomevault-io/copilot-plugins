@@ -3,7 +3,7 @@
   "owner": "kazdenc",
   "repo": "regen-icons",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "regen-icons",
-      "path": "generator/.dev/SKILL.md",
-      "github_url": "https://github.com/kazdenc/regen-icons/tree/main/generator/.dev/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/kazdenc/regen-icons",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T23:46:43Z"
+  "distributed_at": "2026-10-01T00:58:01Z"
 }
