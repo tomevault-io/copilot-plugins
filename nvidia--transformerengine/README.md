@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NVIDIA/TransformerEngine](https://github.com/NVIDIA/TransformerEngine).
+Original source: `CLAUDE.md` in [NVIDIA/TransformerEngine](https://github.com/NVIDIA/TransformerEngine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [NVIDIA/TransformerEngine](https://github.com/NVIDIA/TransformerEngine) — a repo with 3557+ stars on GitHub.
+From [NVIDIA/TransformerEngine](https://github.com/NVIDIA/TransformerEngine) — a repo with 3559+ stars on GitHub.
 
 ---
 
