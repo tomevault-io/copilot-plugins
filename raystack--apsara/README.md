@@ -5,15 +5,22 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [raystack/apsara](https://github.com/raystack/apsara).
+Original source: `CLAUDE.md` in [raystack/apsara](https://github.com/raystack/apsara).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (4)
+
+- [apsara](https://github.com/raystack/apsara/tree/main/.agents/skills/apsara/SKILL.md)
+- [apsara](https://github.com/raystack/apsara/tree/main/.agents/skills/add-new-component/SKILL.md)
+- [apsara](https://github.com/raystack/apsara/tree/main/.agents/skills/apsara-review/SKILL.md)
+- [apsara](https://github.com/raystack/apsara/tree/main/.agents/skills/design-review/SKILL.md)
 
 From [raystack/apsara](https://github.com/raystack/apsara) — a repo with 70+ stars on GitHub.
 
