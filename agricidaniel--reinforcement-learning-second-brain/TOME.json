@@ -1,0 +1,44 @@
+{
+  "name": "reinforcement-learning-second-brain",
+  "owner": "AgriciDaniel",
+  "repo": "reinforcement-learning-second-brain",
+  "description": "Your RL second brain: 34 source-cited topics from Q-learning to GRPO and agentic RL, kept fresh monthly. Obsidian vault + AI agent layer, Brainstein SSS+.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AgriciDaniel/reinforcement-learning-second-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T05:39:30Z"
+}
