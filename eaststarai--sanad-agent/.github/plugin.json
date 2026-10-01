@@ -1,0 +1,9 @@
+{
+  "name": "eaststarai--sanad-agent",
+  "displayName": "sanad-agent",
+  "description": "Open-source AI agent and cross-platform client for local and remote development workflows.",
+  "version": "1.0.0",
+  "author": "EastStarAI",
+  "homepage": "https://github.com/EastStarAI/sanad-agent",
+  "skills": []
+}
