@@ -2,8 +2,6 @@
 
 > Sourced from [itsmostafa/system-one-connector](https://github.com/itsmostafa/system-one-connector), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
-System One MCP connector to evaluate anything fast and cheap. Give your AI agent direct access to models like: Typesafe AI's Jev model and Laya
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [itsmostafa/system-one-connector](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [itsmostafa/system-one-connector](https://github.com/itsmostafa/system-one-connector) — a repo with 303+ stars on GitHub.
+From [itsmostafa/system-one-connector](https://github.com/itsmostafa/system-one-connector) — a repo with 337+ stars on GitHub.
 
 ---
 
