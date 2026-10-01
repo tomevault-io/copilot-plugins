@@ -1,0 +1,39 @@
+## code-review
+
+> How to review code changes in this repo (read-only unless asked to fix)
+
+
+# Code review
+
+When asked to review: **do not modify code** unless explicitly asked to fix.
+
+Review the actual diff and relevant surrounding code (callers, schema, auth).
+
+## Priority order
+
+1. Correctness
+2. Security / tenant isolation
+3. Data integrity (soft delete, FKs, cache write-through)
+4. API compatibility
+5. Error handling
+6. Concurrency / idempotency
+7. Performance (complexity, redundant work)
+8. Cleanliness (unused/duplicated code, **comment bloat**) — not personal style
+
+When reviewing: flag (or remove if asked to fix) comments that narrate obvious code, exceed ~2 lines without a non-obvious *why*, or make the diff harder to read. Prefer deletion over rewriting essays.
+
+## Finding format
+
+`[P0]` Critical · `[P1]` High · `[P2]` Medium · `[P3]` Low
+
+Each finding: severity, file/line, problem, why it matters, recommended fix.
+
+Only real, actionable issues — no nitpicks on style that matches the repo.
+
+## Verdict
+
+End with one of: `APPROVE` · `APPROVE WITH FIXES` · `REQUEST CHANGES`
+
+---
+> Source: [yuviz-ai/yuviz](https://github.com/yuviz-ai/yuviz) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
