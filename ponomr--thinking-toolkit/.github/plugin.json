@@ -1,0 +1,9 @@
+{
+  "name": "ponomr--thinking-toolkit",
+  "displayName": "thinking-toolkit",
+  "description": "30 thinking models as one portable agent skill \u2014 Claude Code, Codex CLI, OpenClaw, and any SKILL.md runtime",
+  "version": "1.0.0",
+  "author": "ponomr",
+  "homepage": "https://github.com/ponomr/thinking-toolkit",
+  "skills": []
+}
