@@ -1,0 +1,33 @@
+## z-sync
+
+> - `ios/` — Z-Sync iOS app (XcodeGen: `ios/project.yml` → `ios/ZenCompanion.xcodeproj`, regenerate with `xcodegen` from inside `ios/`). App sources live in `ZenCompanion/{App,Spaces,Browser,Settings,SignIn,Activity}/`, shared code in `Shared/{Sync,Data,UI}/`, tests in `ZenCompanionTests/{Contract,App}/`. Also `ShareExtension/`, `scripts/`.
+
+# AGENTS.md
+
+## Repo layout
+
+- `ios/` — Z-Sync iOS app (XcodeGen: `ios/project.yml` → `ios/ZenCompanion.xcodeproj`, regenerate with `xcodegen` from inside `ios/`). App sources live in `ZenCompanion/{App,Spaces,Browser,Settings,SignIn,Activity}/`, shared code in `Shared/{Sync,Data,UI}/`, tests in `ZenCompanionTests/{Contract,App}/`. Also `ShareExtension/`, `scripts/`.
+- `android/` — Android app (Kotlin + Jetpack Compose, Gradle). Feature packages under `app/src/main/java/de/kjell/zencompanion/` (`sync/`, `data/`, `ui/`, `share/`, `favicon/`).
+- `shared/` — cross-platform sync contract only: `shared/contract/SPEC.md` plus golden JSON under `shared/contract/fixtures/{crypto,wire,auth}/` and `shared/contract/http/`. Never place executable code, platform sources, or generated files here.
+- Platform code stays inside its platform folder. The only exception is `shared/`, which is spec + fixtures, not code. Display name is **Z-Sync**. Xcode/Gradle module and bundle id still use `ZenCompanion` / `de.kjell.zencompanion` (App Store identity).
+- Canonical privacy text: `docs/privacy.md`. Apple Team ID lives in gitignored `ios/Config/Team.local.xcconfig` (see the `.example` next to it).
+
+## Platform parity
+
+iOS and Android ship together. Every feature change must land on **both** platforms in the same piece of work — never one now and the other later. Only leave a platform out when the user explicitly scopes the task to a single platform. This is the rule from `CONTRIBUTING.md`, restated here so it is never missed.
+
+## Language
+
+The whole app is English-only. Never add or keep localizations (de, fr, …) — all strings are English regardless of the device locale.
+
+## Testing
+
+Run the full test suite once a complete piece of work is finished **and the user has given the go-ahead to run it**. Do not run the full suite after every intermediate step. Intermediate work should implement and may do a cheap compile check when useful, but must not block on full test runs. Wait for the user's go-ahead, then run the suite once and report the results from that single consolidated run.
+
+## Signing and stores
+
+Do not commit keystores, Team IDs, `.p8` keys, or store credentials. Do not upload to App Store Connect or Google Play. Store releases are maintainer-only. Never bump build or version numbers yourself — that is maintainer-only too.
+
+---
+> Source: [Kjell6/Z-Sync](https://github.com/Kjell6/Z-Sync) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
