@@ -1,0 +1,9 @@
+{
+  "name": "ninja-5000--smokebench",
+  "displayName": "smokebench",
+  "description": "Lightweight TUI for quickly testing LLMs via OpenAI- or Anthropic-compatible endpoints",
+  "version": "1.0.0",
+  "author": "Ninja-5000",
+  "homepage": "https://github.com/Ninja-5000/smokebench",
+  "skills": []
+}
