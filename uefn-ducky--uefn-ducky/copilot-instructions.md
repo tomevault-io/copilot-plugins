@@ -1,25 +1,27 @@
-## project-folder-storage
+## publish-always-bump
 
-> HARD — never store Ducky side-files in UEFN project except .ducky/**
+> Desktop Store publish always uses the default auto-bump path
 
 
-# Project folder storage — `.ducky` only
+# Desktop publish — ALWAYS bump
 
-**NEVER** create Ducky side-files inside the UEFN project folder except under
-`.ducky/**` (tests, tasks).
+Publish the desktop app with the default command only:
 
-| Allowed in project | Forbidden |
-|--------------------|-----------|
-| `.ducky/**` (JSON/tasks — never `.py`) | `Saved/DuckyCaptures`, `.uefn-ducky`, caches, temps, extra `*.py` / `*.pyc` |
-| `Content/**` game content (Verse, assets) | Agent scratch, dumps, plugin junk |
-| `Content/Python/init_unreal.py` only (Ducky-managed listener — **never delete**) | Any other `Content/Python/**` file |
+```
+py -3 release/publish_app.py --notes "…"
+```
 
-**Put everything else here:**
+It bumps patch, builds Setup, commits + pushes, uploads. **Never** pass
+`--no-bump`, `--set-version`, `--version`, or `--exe` unless the user
+types that flag themselves. A local `__version__` that is already ahead
+of the Store is not a reason to skip the bump — let it bump again.
 
-- `%LOCALAPPDATA%/UEFN-Ducky/` (tool_captures, memory, diagnostics, plugins, …)
-- OS temp when truly ephemeral
-
-Captures / snips → AppData `tool_captures` only. Never mirror into the island.
+**HARD — run the local EXE before Store publish.** Do not `publish_app.py`
+until you have launched the latest local `dist/UEFN-Ducky-*/UEFN-Ducky.exe`
+(or the just-built one-dir EXE) and exercised the changed UI yourself.
+Source/`py -m` is not a substitute. Finish the feature in that EXE, then
+publish. If the EXE is not built yet: `py -3 build/build_exes.py`, run it,
+then publish.
 
 ---
 > Source: [UEFN-Ducky/UEFN-Ducky](https://github.com/UEFN-Ducky/UEFN-Ducky) — distributed by [TomeVault](https://tomevault.io).
