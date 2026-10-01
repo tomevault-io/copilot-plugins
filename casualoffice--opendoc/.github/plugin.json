@@ -1,0 +1,9 @@
+{
+  "name": "casualoffice--opendoc",
+  "displayName": "opendoc",
+  "description": "A deterministic, embeddable Word-document engine written in Rust \u2014 it reads and writes .docx, holds the document in a normalized editable model, and lays it out and renders it to pixels, for native, W",
+  "version": "1.0.0",
+  "author": "CasualOffice",
+  "homepage": "https://github.com/CasualOffice/opendoc",
+  "skills": []
+}
