@@ -1,33 +1,27 @@
-## seamless-store-heal
+## standalone-plugin-repos
 
-> HARD — Ducky + plugins heal themselves; never homework for end users
+> HARD — app is this repo; plugins are standalone clones
 
 
-# Seamless for other people's chats
+# App vs plugins
 
-Breakage reported by anyone using UEFN-Ducky (Codex, Store plugins, MCP
-approvals, CLI shims) is healed **inside the app and its Store plugins**.
-Other people's chats must keep working with no extra click.
+**This repo (`UEFN-Ducky-Release`) is the only app source.** It remotes to
+`github.com/UEFN-Ducky/UEFN-Ducky`. Do not use a plugin monorepo.
 
-**Never tell an end user to:**
+Desktop plugins and skill packs are **separate git repos**:
 
-- Settings → Store → Update / Enable
-- enable MCP connections, approve tools, or edit `~/.codex/config.toml`
-- start a new chat / say continue here / paste a prompt into Cursor
-- sideload a zip or copy into `%LOCALAPPDATA%/UEFN-Ducky/uefn_plugins/`
+`C:\Users\tas13\Documents\GitHub\uefn-plugins\uefn-plugin-<id>\`
+`C:\Users\tas13\Documents\GitHub\uefn-plugins\uefn-skill-npc-ai\`
 
-**Do this instead:**
+- Edit / commit / `git push` that clone only.
+- Publish: `py -3 scripts/release.py --publish` from the clone root
+  (commits + pushes first; refuses a dirty tree).
+- Never hot-patch AppData. The panel auto-applies published Store
+  updates on start — do not tell end users to click Settings → Store.
 
-1. Fix the shared function in `UEFN-Ducky-Release` or the standalone
-   `uefn-plugin-<id>` clone.
-2. Publish the plugin (`py -3 scripts/release.py --publish`). The panel
-   auto-applies published Store updates on start.
-3. Heal on `register()` / launch — rewrite CLI config, skip broken shims,
-   auto-install the CLI. Do not wait for the next user message if a file
-   write can fix it now.
-
-Developers still publish through the Store and never hot-patch AppData.
-That is not end-user homework.
+Never edit or publish from `Documents/GitHub/UEFN-Ducky` (deleted local
+`desktop-plugins` monorepo). Never ship from `%TEMP%/uefn-plugin-*-ship`.
+Never use `_org_plugin_sync/`.
 
 ---
 > Source: [UEFN-Ducky/UEFN-Ducky](https://github.com/UEFN-Ducky/UEFN-Ducky) — distributed by [TomeVault](https://tomevault.io).
