@@ -1,0 +1,9 @@
+{
+  "name": "sauravtom--phone-use",
+  "displayName": "phone-use",
+  "description": "Control Android phones from coding agents through MCP, a CLI, or a skill. No API keys required.",
+  "version": "1.0.0",
+  "author": "sauravtom",
+  "homepage": "https://github.com/sauravtom/phone-use",
+  "skills": []
+}
