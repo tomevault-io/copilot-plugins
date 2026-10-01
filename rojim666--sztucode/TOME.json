@@ -4,7 +4,7 @@
   "repo": "SztuCode",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rojim666/SztuCode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T01:44:36Z"
+  "distributed_at": "2026-10-01T06:15:17Z"
 }
