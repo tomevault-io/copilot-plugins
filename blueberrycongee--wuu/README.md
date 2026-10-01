@@ -1,8 +1,6 @@
 # wuu
 
-> Tome by [blueberrycongee](https://github.com/blueberrycongee/wuu) — distributed by [TomeVault](https://tomevault.io)
-
-Terminal-native AI coding agent. Written in Go.
+> Tome by [blueberrycongee](https://github.com/blueberrycongee/wuu), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [blueberrycongee/wuu](https://github.com/blueber
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/blueberrycongee/wuu](https://github.com/blueberrycongee/wuu)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/blueberrycongee/wuu](https://github.com/blueberrycongee/wuu)
 
 ---
 
