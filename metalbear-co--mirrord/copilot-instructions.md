@@ -25,4 +25,4 @@ The WebSocket handshake and binary message framing are shared wire behavior. Pre
 
 ---
 > Source: [metalbear-co/mirrord](https://github.com/metalbear-co/mirrord) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
