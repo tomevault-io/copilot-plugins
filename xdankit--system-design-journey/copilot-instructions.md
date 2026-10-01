@@ -1,29 +1,34 @@
-## bench
+## repo
 
-> k6 bench inputs and the result table
+> Repo map and topic boundaries. Always apply.
 
 
-# Bench
+# Repo map
 
-Use k6. Do not add autocannon, vegeta, or wrk2.
+This is not an app. It is the Season 1 system design repo for a YouTube playlist. There is no root build, lint, or test command. Do not call it a personal project.
 
-The CLI asks, in order: scaling, processes, req/s, duration, compression. Phase 1 runs vertical only.
-
-Compression choices: `all`, `off`, `gzip`, `brotli`, `zstd`. `all` means `off`, `gzip`, `brotli`, and `zstd`. Level is 1.
-
-Each server gets its own table. Do not mix servers in one table. Do not mix vertical and horizontal in one table.
-
-| Column | Meaning |
+| Path | Contents |
 |---|---|
-| Compression | `off` or the algorithm at level 1 |
-| Req/s | Achieved rate |
-| Data out | Bytes on the wire per second |
-| CPU | Server process CPU, not the k6 process |
-| p95 | Latency |
-| Pass | Responses that succeeded |
-| Fail | Responses that failed |
+| `season-1/1.compressions/` | Topic folder |
+| `season-1/2.vertical-vs-horizontal-scaling/` | Topic folder |
 
-After the tables, show a winner: fail rate under 1 percent, then the highest req/s. If req/s ties, the lower p95 wins.
+New topic path: `season-1/<number>.<topic-name>/`.
+
+# Working rules
+
+- Do the work for one topic inside that topic's folder.
+- Do not edit another topic's files.
+- There is no root `package.json`. If a topic contains its own project, go into that folder and follow its config.
+- `Codes/`, `Repos/`, `Tasks/`, `Designs/`, and `Notes/` are not in this repo. Do not assume they exist.
+- Do not edit reference or copied folders unless the user explicitly asks.
+
+Shared contracts, loaded when their paths are open:
+
+| File | What it locks |
+|---|---|
+| `rules/scoped/api.md` | `GET /items` pagination |
+| `rules/scoped/backend.md` | `pnpm`, one server at a time, vertical phase 1 |
+| `rules/scoped/bench.md` | k6, compression, result columns |
 
 ---
 > Source: [xDAnkit/system-design-journey](https://github.com/xDAnkit/system-design-journey) — distributed by [TomeVault](https://tomevault.io).
