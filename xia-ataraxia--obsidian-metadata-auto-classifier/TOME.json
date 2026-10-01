@@ -4,7 +4,7 @@
   "repo": "obsidian-metadata-auto-classifier",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Xia-Ataraxia/obsidian-metadata-auto-classifier",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T11:10:56Z"
+  "distributed_at": "2026-10-01T02:37:09Z"
 }
