@@ -1,0 +1,9 @@
+{
+  "name": "zimiaoworkshop--touchpad-shield",
+  "displayName": "Touchpad-Shield",
+  "description": "\u89e6\u63a7\u677f\u9632\u8bef\u89e6\u5de5\u5177\uff1a\u96c6\u4e2d\u8c03\u8282 Precision Touchpad \u7075\u654f\u5ea6\u3001\u7f13\u51b2/\u9632\u8bef\u89e6\u533a\uff1b\u76d1\u63a7\u5916\u63a5\u8f93\u5165\u8bbe\u5907\uff08\u9f20\u6807/\u952e\u76d8/\u624b\u67c4\uff09\u8fde\u63a5\u72b6\u6001\uff0c\u81ea\u52a8\u5173\u95ed\u6216\u6062\u590d\u5185\u7f6e\u89e6\u63a7\u677f\u3002WinUI 3 \u00b7 C++/WinRT \u00b7 NSIS \u00b7 ZiMiaoWorkshop",
+  "version": "1.0.0",
+  "author": "ZiMiaoWorkshop",
+  "homepage": "https://github.com/ZiMiaoWorkshop/Touchpad-Shield",
+  "skills": []
+}
