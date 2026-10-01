@@ -1,0 +1,9 @@
+{
+  "name": "redhat-developer--gitops-operator",
+  "displayName": "gitops-operator",
+  "description": "gitops-operator",
+  "version": "1.0.0",
+  "author": "redhat-developer",
+  "homepage": "https://github.com/redhat-developer/gitops-operator",
+  "skills": []
+}
