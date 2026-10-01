@@ -4,7 +4,7 @@
   "repo": "piprail",
   "description": "x402 (HTTP 402 Payment Required) SDK + MCP server: let any API charge for itself and any AI agent pay for itself, USDC & stablecoins across EVM, Solana & 8 more chain families, in a couple of lines. Backendless, no fee, self-custodial, paid straight to your wallet. TypeScript, MIT.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/piprail/piprail",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T13:44:19Z"
+  "distributed_at": "2026-10-01T10:20:05Z"
 }
