@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--sample-voice-ai-agent-studio",
+  "displayName": "sample-voice-ai-agent-studio",
+  "description": "sample-voice-ai-agent-studio",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-voice-ai-agent-studio",
+  "skills": []
+}
