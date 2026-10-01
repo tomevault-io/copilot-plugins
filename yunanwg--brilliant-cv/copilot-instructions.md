@@ -1,62 +1,92 @@
 ## brilliant-cv
 
-> Brilliant CV is a **Typst package** (`@preview/brilliant-cv`) for creating modular, multilingual CVs and cover letters. Published to Typst Universe.
+> This folder is a CV and cover-letter workspace. It was created with
 
-# Project Instructions
+# CV Workspace
 
-Brilliant CV is a **Typst package** (`@preview/brilliant-cv`) for creating modular, multilingual CVs and cover letters. Published to Typst Universe.
+This folder is a CV and cover-letter workspace. It was created with
+`typst init @preview/brilliant-cv`. The package renders the documents. This
+folder and its content belong to the user.
 
-## Before You Start
+## Layout
 
-Run `just link` before any local development. This registers the local package with Typst's resolver. Without it, all imports fail. Run `just` to see all available commands.
+| Path | Holds |
+|---|---|
+| `profile_<name>/metadata.toml` | Identity, contact data, and layout settings of one profile |
+| `profile_<name>/*.typ` | CV content: education, experience, projects, skills |
+| `cv.typ`, `letter.typ` | Entry points. `--input profile=<name>` selects the profile (default `en`) |
+| `assets/` | Photo, logos, signature, bibliography |
 
-## Critical Architecture
+For a tailored application, keep one folder per job, for example
+`applications/<company>/` with the posting, a `cv.typ`, and a `letter.typ`.
+Keep `profile_<name>/` as the single source of truth and change facts there
+only.
 
-**`src/` is the published package. `template/` is the user-facing starter project.** They are separate concerns:
-- `src/lib.typ` — Package entry point, exports `cv()` and `letter()`
-- `template/profile_<name>/metadata.toml` — Each profile is a complete, self-contained CV configuration. v4 has no root `metadata.toml`.
-- `template/profile_<name>/*.typ` — Content modules per profile (education, professional, projects, certificates, publications, skills)
+## Rules
 
-Changes to `src/` affect all downstream users. Never break backward compatibility without a deprecation path.
+1. **Do not invent facts.** Tailor by selecting, ordering, and rephrasing
+   what the profile already contains. If a posting asks for something that
+   the profile does not show, tell the user. Do not add it.
+2. **Check the profile before you use it.** Dates, degrees, locations, and
+   header badges must agree with each other. Report a contradiction to the
+   user instead of choosing a version yourself.
+3. **Take the API from the installed package, not from memory.** The
+   `#import "@preview/brilliant-cv:<version>"` lines pin the version. The
+   doc-comments in that version's `src/lib.typ` and `src/cv.typ` are the
+   reference. Typst caches the package at `<cache>/typst/packages/preview/brilliant-cv/<version>/`,
+   where `<cache>` is `~/Library/Caches` (macOS), `~/.cache` (Linux), or
+   `%LOCALAPPDATA%` (Windows). The field reference for `metadata.toml` is
+   `metadata.toml.schema.json` in this folder.
+4. **Verify every change by compiling.**
+   - `typst compile cv.typ --input profile=<name>`
+   - For a file in a subfolder that reads `../../profile_<name>/`, add
+     `--root .` and run from this folder:
+     `typst compile --root . applications/<company>/cv.typ`
+   - To check the page count without rendering (Typst 0.15+):
+     `typst eval --input brilliant-cv-query=1 'query(<brilliant-cv>).last().value.pages' --in cv.typ`.
+     On Typst 0.14, use `typst query cv.typ '<brilliant-cv>' --field value --input brilliant-cv-query=1`
+     and read `pages` from the last element. Each element also reports the
+     `page` on which it ends, so you can list what spilled to page 2; the
+     `cv()` doc-comment lists the fields.
+   - To see the layout, compile to PNG, one file per page:
+     `typst compile --root . applications/<company>/cv.typ "applications/<company>/cv-{p}.png"`.
+     Typst does not create a missing output folder.
+5. **Keep personal data local.** A scanned signature, a phone number, and
+   application folders do not belong in a public repository. Before the
+   first commit, add `applications/`, `*.pdf`, and `assets/signature.*` to a
+   `.gitignore` in this folder.
 
-## Things You Will Get Wrong Without Reading This
+## Tailor a CV for one application
 
-### Schema migration guards panic, they don't silently fall back
-`src/lib.typ:_check-v3-legacy` panics on v3-only fields (`language`, `non_latin_font`, `non_latin_name`, `[lang.*]`). The same applies to v2 inject keys (`inject_ai_prompt`, `inject_keywords`). These are **intentional** — do not "fix" them. The v4 design picks panic-with-migration-message over silent fallback to avoid hiding behavior changes.
+1. Copy `cv.typ` and `letter.typ` to `applications/<company>/`. In both
+   copies, change `"profile_"` to `"../../profile_"` and `"assets/` to
+   `"../../assets/`.
+2. Keep only the modules you need, or paste the chosen entries from
+   `profile_<name>/*.typ` into this file. Do not edit the profile for one job.
+3. Override a profile value for this application only:
+   `#metadata.insert("header_quote", "…")` before `cv.with(metadata)`.
+4. In the letter copy, set `recipient-name`, `recipient-address`, `subject`,
+   and a fixed `date:` (the default is today, so it changes on every compile).
+5. Verify with the commands in rule 4 from this folder, with `--root .`.
 
-### Some files are auto-generated — do not edit manually
-- `docs/web/docs/api-reference.md` ← generated from `src/` doc-comments
-- `docs/web/docs/configuration.md` ← generated from `template/profile_en/metadata.toml` comments (profile_en is the canonical reference)
+## Useful patterns
 
-Regenerate with `just docs-generate`. Edit the **source comments**, not the output files.
-
-### Each profile's metadata.toml is the single source of truth for that profile
-All user configuration flows through `template/profile_<name>/metadata.toml`. v4 has no merging or inheritance — one profile = one complete CV configuration. When adding new config options, update the comments in `template/profile_en/metadata.toml` first (it drives docs generation), then mirror to other profiles as needed.
-
-### Tests live in `tests/` and use tytanic + a panic shell runner
-Visual tests run in Docker (`tests/Dockerfile`) on both maintainer machines and CI — refs are pixel-deterministic, no cross-OS noise to absorb. `just test` for the full suite (Docker). `just test-fast` for native sub-second feedback (panics + units only). `just fmt-check` runs typstyle in the same image. CJK regression tests use Noto Sans CJK SC (Linux baseline) instead of macOS Heiti SC — Heiti SC visual fidelity is verified manually by the maintainer with `just dev`. See `tests/README.md` for the full layout.
-
-## Public API Design
-
-Brilliant CV deliberately balances simplicity against flexibility. Before adding a public parameter or configuration field:
-
-- First check whether existing components, content composition, or a documented recipe can express the use case clearly.
-- Add new API only for recurring needs that cannot be composed cleanly and have a stable, broadly useful meaning.
-- Avoid adding a separate option for every isolated styling preference; each option becomes a compatibility and documentation commitment.
-- When new API is justified, keep the surface minimal, preserve backward compatibility, document it, and add a regression test.
-
-See the “Public API design” section in `CONTRIBUTING.md` for the contributor-facing rationale and decision checklist.
-
-## Conventions
-
-- Conventional commits (`feat:`, `fix:`, `docs:`, etc.)
-- Run `just build && just test` before committing
-- Don't commit PDFs (handled by .gitignore and pre-commit hooks)
-- Tytanic ref PNGs live next to each `test.typ`; commit intentional regenerations alongside the layout change that caused them
-- When fixing a reported issue, add a regression test (tytanic ref or panic shell) that reproduces the reported scenario in the same PR. Skip only when the change is docs-only or policy-only.
-- When writing Typst snippets in `docs/`, compile-test them against `/src` before committing. Drop the snippet into a temp `.typ`, set up `cv-metadata.update(minimal-metadata)` from `/tests/common.typ`, and run `typst compile --root . <file>` inside the test image. Don't ship code from memory — every public function name and parameter has to come from the actual signature in `src/`. `cv()` and `letter()` live in `src/lib.typ`; the component functions (`cv-entry`, `cv-honor`, `cv-skill*`, `cv-publication`, …) live in `src/cv.typ`. Match the file you check against the import the snippet uses.
-- Read `CONTRIBUTING.md` for the full contribution workflow
+- To change the size, weight, style, color, or font of one kind of text,
+  for example all section titles, set `[layout.parts.<name>]` in
+  `metadata.toml`. `metadata.toml.schema.json` lists the part names. Do not
+  copy or edit the package for a style change.
+- For a structural layout change that `[layout]` and `[layout.parts]`
+  cannot make, copy the package to `vendor/preview/brilliant-cv/<version>/`,
+  compile with `--package-path vendor`, and edit the copy. Record each change
+  in `vendor/CHANGES.md`: the copy gets no fixes from new versions. Details:
+  https://yunanwg.github.io/brilliant-CV/recipes/#change-the-layout-beyond-the-configuration
+- The cover-letter body is 12pt. `[layout] font_size` applies to the CV only.
+- To keep the closing, the signature, and the name together on one page,
+  put them in `#block(breakable: false)[…]` at the end of the letter.
+- Letter addresses use small caps by default, which prints "ß" as "SS" and
+  e-mail addresses in capitals. Pass `address-style: "normal"` to keep them
+  as written.
 
 ---
 > Source: [yunanwg/brilliant-CV](https://github.com/yunanwg/brilliant-CV) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
