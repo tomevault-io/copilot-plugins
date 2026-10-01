@@ -3,8 +3,8 @@
   "owner": "Harmeet10000",
   "repo": "AgentNexus-LangChain-FastAPI",
   "description": "Langchain FastAPI server ",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,141 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "langchain-langgraph",
+      "path": ".github/skills/langchain-langgraph",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/langchain-langgraph",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/caveman-help/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/caveman-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/fastapi-skill/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/fastapi-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/fastmcp-skill/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/fastmcp-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/crawl4ai-skill/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/crawl4ai-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/pgvector-skill/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/pgvector-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/ast-grep-skill/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/ast-grep-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/caveman-commit/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/caveman-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/caveman-review/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/caveman-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/caveman-compress/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/caveman-compress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/cognee-quickstart/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/cognee-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/pg-textsearch-skill/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/pg-textsearch-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/langchain-langgraph/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/langchain-langgraph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentNexus-LangChain-FastAPI",
+      "path": ".github/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI/tree/main/.github/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Harmeet10000/AgentNexus-LangChain-FastAPI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T18:09:34Z"
+  "distributed_at": "2026-10-01T01:31:27Z"
 }
