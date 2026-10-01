@@ -7,11 +7,11 @@ x402 (HTTP 402 Payment Required) SDK + MCP server: let any API charge for itself
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [piprail/piprail](https://github.com/piprail/piprail).
+Original source: `AGENTS.md` in [piprail/piprail](https://github.com/piprail/piprail).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
