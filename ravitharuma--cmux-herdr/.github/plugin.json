@@ -1,0 +1,9 @@
+{
+  "name": "ravitharuma--cmux-herdr",
+  "displayName": "cmux-herdr",
+  "description": "cmux plugin for Herdr: live sidebar status pills, tab/pane mirroring, nested agents CLI",
+  "version": "1.0.0",
+  "author": "RaviTharuma",
+  "homepage": "https://github.com/RaviTharuma/cmux-herdr",
+  "skills": []
+}
