@@ -1,0 +1,9 @@
+{
+  "name": "canonical--now",
+  "displayName": "now",
+  "description": "The 'now' tool brings AI onto sensitive terminal environments in a classic way.",
+  "version": "1.0.0",
+  "author": "canonical",
+  "homepage": "https://github.com/canonical/now",
+  "skills": []
+}
