@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vicb/flyXC](https://github.com/vicb/flyXC).
+Original source: `CLAUDE.md` in [vicb/flyXC](https://github.com/vicb/flyXC).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (7)
+## Bundled Skills (21)
 
 - [flyXC](https://github.com/vicb/flyXC/tree/main/.github/skills/nx-import/SKILL.md)
 - [flyXC](https://github.com/vicb/flyXC/tree/main/.github/skills/monitor-ci/SKILL.md)
@@ -24,6 +24,20 @@ Original source: `AGENTS.md` in [vicb/flyXC](https://github.com/vicb/flyXC).
 - [flyXC](https://github.com/vicb/flyXC/tree/main/.github/skills/nx-workspace/SKILL.md)
 - [flyXC](https://github.com/vicb/flyXC/tree/main/.github/skills/nx-run-tasks/SKILL.md)
 - [flyXC](https://github.com/vicb/flyXC/tree/main/.github/skills/link-workspace-packages/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-import/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.agents/skills/monitor-ci/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-plugins/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-import/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-generate/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.opencode/skills/monitor-ci/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-workspace/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-run-tasks/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-plugins/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-generate/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-workspace/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-run-tasks/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.agents/skills/link-workspace-packages/SKILL.md)
+- [flyXC](https://github.com/vicb/flyXC/tree/main/.opencode/skills/link-workspace-packages/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/vicb/flyXC](https://github.com/vicb/flyXC)
 
