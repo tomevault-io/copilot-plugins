@@ -1,135 +1,111 @@
 ## rlark
 
-> Brief for AI coding agents working on RLark. For full contribution flow, code style, and PR process see [CONTRIBUTING.md](CONTRIBUTING.md).
+> Agent 运行在每个数据面集群中。`rlarkadm` 创建的 Kubernetes 部署包括：
 
-# AGENTS.md
+# Agent 安装与升级
 
-Brief for AI coding agents working on RLark. For full contribution flow, code style, and PR process see [CONTRIBUTING.md](CONTRIBUTING.md).
+## 安装
 
-**Quick orientation:** RLark is a cross-cluster embodied intelligence platform built with **Go** (control plane + agents) and **TypeScript/React** (web UI). It uses **kcp** as a lightweight Kubernetes API server and operates across multi-runtime data planes (Kubernetes / Docker / Raw). The control plane manages CRDs (Domain, Node, Job, Task, Workflow) and the data plane agents handle workload orchestration and cross-cluster Pod networking via TUN + gVisor + SSH tunnels. All user-facing changes need tests and docs.
+Agent 运行在每个数据面集群中。`rlarkadm` 创建的 Kubernetes 部署包括：
 
----
+- `rlark-agent` Deployment，以 `--mode=cluster` 运行，负责集群级同步。
+- `rlark-agent-node` DaemonSet，以 `--mode=node` 运行，负责节点网络和镜像预拉取。
 
-## Code structure
+### 前置条件
 
-- **`api/`** -- CRD type definitions (`rlinf.io/v1alpha1`) + generated Kubernetes client code (`kubeclients/`) + code generation scripts (`hack/`).
-- **`apps/rlark/`** -- Main Go project (control plane + data plane agents):
-  - `cmd/` -- Entry points: `server/`, `gateway/`, `controller-manager/`, `agent/`, `network-sidecar/`, `rlarkadm/`, `rlarkctl/`, `crd-api-docgen/`.
-  - `pkg/` -- Core logic: `server/`, `gateway/`, `agent/`, `controllermanager/`, `network/`, `auth/`, `db/`, `log/`, `metrics/`, `rlarkadm/`, `rlarkctl/`, `addons/`, `apis/`, `configs/`, `utils/`.
-- **`apps/embodied-runtime/`** -- Embodied runtime: manages robot (ROS) and camera hardware on edge nodes via Kubernetes Device Plugin.
-  - `cmd/` -- `device-plugin/`, `ros-controller/`, `camera-controller/`, `rosctr/`, `camctr/`.
-  - `pkg/` -- `deviceplugin/`, `roscontroller/`, `cameracontroller/`, `cli/`.
-- **`apps/rlark-ui/`** -- Frontend management UI: React + TypeScript + Vite. Nginx serves static files and proxies `/api/` to Gateway.
-- **`sdks/embodied-runtime-go/`** -- Go SDK for embodied-runtime gRPC stubs.
-- **`sdks/embodied-runtime-python/`** -- Python SDK for embodied-runtime (RobotClient / CameraClient).
-- **`proto/embodied-runtime/`** -- Proto definitions for embodied-runtime gRPC services.
-- **`apps/rlark/docs/`** -- RLark core documentation (EN + CN): architecture, concepts, quickstart, deployment, API reference, examples.
+- 具有 `kubectl` 访问权限的 Kubernetes 集群。
+- 能够出方向访问 Server HTTPS/WSS 端口，通常为 8443。
+- 为该集群签发的 CA 证书、Agent 证书和 Agent 私钥。
+- Server TLS 证书包含实际使用的主机名或 IP。
 
----
+### 使用 rlarkadm 安装（推荐）
 
-## How RLark works
+项目中没有 `rlarkagent` 命令。把管理控制台或 Gateway API 返回的证书值写入 `DeployConfig`，然后执行 `rlarkadm install`：
 
-### Control Plane
-
-The control plane runs on **kcp** (a lightweight Kubernetes API server) and consists of:
-
-1. **Server** -- Central hub: HTTPS API for Gateway, SSH server for Agent tunnels, reverse proxy to agents, X.509 + SSH certificate management.
-2. **Gateway** -- REST API gateway: exposes CRD operations, auth, storage, cluster, and job log endpoints. Proxies requests to agents via Server.
-3. **Controller Manager** -- Reconciles CRDs: Job controller splits Jobs into Tasks and drives state machines; Domain/Node/Workflow controllers manage resource lifecycle.
-4. **Web UI (Nginx)** -- Serves the React frontend, proxies `/api/` requests to Gateway.
-
-### Data Plane
-
-Each data plane cluster runs an **Agent** with two modes:
-
-- **Cluster Agent** (Deployment) -- Pull controllers: syncs control plane CRs to local K8s resources (Jobs → Pods, ConfigMaps, PVCs). Push controllers: reports local K8s state back to control plane.
-- **Node Agent** (DaemonSet) -- Node-level network operations: SSH tunnel setup for cross-cluster Pod networking.
-
-### Cross-Cluster Networking
-
-Pods communicate across clusters via a virtual network:
-1. Sidecar (TUN device + gVisor netstack) intercepts Pod traffic.
-2. NodeServer makes routing decisions based on DomainPeer CRs.
-3. SSHDialer establishes SSH tunnels between clusters.
-4. Traffic flows through the tunnel without NAT traversal.
-
----
-
-## Build and run
-
-```bash
-# Build all rlark binaries
-make build
-
-# Build specific components
-make build-server
-make build-gateway
-make build-controller-manager
-make build-agent
-make build-network-sidecar
-make build-rlarkadm
-
-# Build embodied-runtime
-make -C apps/embodied-runtime build
-
-# Generate proto code
-make proto
-
-# Build Docker images
-make docker-build
-make docker-build-ui
-
-# Lint
-make lint
-make -C apps/rlark-ui lint
+```yaml
+apiVersion: rlark.io/v1alpha1
+kind: DeployConfig
+plane: data
+control-plane-address: https://rlark.example.com:8443
+cert:
+  ca-cert: /path/to/ca-cert.pem
+  agent-cert: /path/to/agent-cert.pem
+  agent-key: /path/to/agent-key.pem
+kubernetes:
+  kubeconfig: ~/.kube/config
+  agent-image: rlark:latest
+  image: rlark:latest
+  # containerd-socket: /run/k3s/containerd/containerd.sock
 ```
 
-### Running locally
+三个证书字段都可填写内联 PEM 或已存在的文件路径。`kubernetes.image` 可选；设置后启用网络 Sidecar 和 SSH 支持。建议从仓库维护的示例开始：
 
 ```bash
-# Start control plane
-./bin/server --kubeconfig ~/.kube/config --port 8443
-./bin/gateway --port 8080 --server-address localhost:8443
-./bin/controller-manager --kubeconfig ~/.kube/config
-
-# Start data plane agent
-./bin/agent --kubeconfig ~/.kube/config --server-url https://localhost:8443
+cp apps/rlark/docs/examples/deploy-data-plane.yaml deploy-data-plane.yaml
+rlarkadm install -f deploy-data-plane.yaml
 ```
 
-### Deployment
+多节点 Kubernetes 数据面不要在单个 Deployment 中混合 cluster 和 node 模式。`rlarkadm` 会创建正确的 Deployment、DaemonSet、证书 Secret、RBAC、Socket 挂载和容器运行时挂载。
+
+`rlarkadm` 为节点 Agent 分配独立的 `rlark-agent-node` ServiceAccount。本地集群 RBAC 仅允许读取当前 Node 以及列出和监听 Node Event，不会继承集群 Agent 的资源管理权限。
+
+### 验证
 
 ```bash
-# Deploy control plane to K8s cluster
-./bin/rlarkadm install -f apps/rlark/docs/examples/deploy-control-plane.yaml
+kubectl get deployment/rlark-agent daemonset/rlark-agent-node -n rlark-system
+kubectl rollout status deployment/rlark-agent -n rlark-system
+kubectl rollout status daemonset/rlark-agent-node -n rlark-system
 
-# Deploy data plane agent
-./bin/rlarkadm install -f apps/rlark/docs/examples/deploy-data-plane.yaml
+kubectl logs -n rlark-system deployment/rlark-agent --tail=100
+kubectl logs -n rlark-system daemonset/rlark-agent-node --tail=100
+
+# 通过 UI 到 Gateway 的代理验证注册资源。
+kubectl port-forward -n rlark-system svc/rlark-ui 8080:80
+curl --fail http://localhost:8080/api/v1/rlinf.io/v1alpha1/nodes
 ```
 
----
+8443 是 Server 隧道和代理流量端口，不是 Gateway REST 端点。Agent 在 `:8081` 暴露指标，但没有专用 HTTP 健康路由，因此应检查 rollout 状态、日志和资源注册。
 
-## Key concepts
+### 验证清单
 
-- **Domain** -- A security domain representing a physical or logical cluster boundary. Each domain has its own X.509 certificate.
-- **Node** -- A compute node (GPU server, edge device, robot) within a Domain. Supports `unschedulable` for cordon/uncordon.
-- **Job** -- A training job composed of multiple Tasks with DAG dependencies.
-- **Task** -- A single workload unit (e.g., a Ray head or worker). Supports PVC mounting via `pvcStorageMap`.
-- **Workflow** -- A DAG of Job templates for complex training pipelines.
-- **DomainPeer** -- Defines cross-cluster network connectivity between two Domains.
+| 检查项 | 预期结果 |
+|--------|----------|
+| 集群 Agent | `rlark-agent` Deployment 可用 |
+| 节点 Agent | `rlark-agent-node` 的期望和就绪数量一致 |
+| 连接 | 日志显示成功连接 Server，且没有反复出现 TLS 错误 |
+| 集群状态 | 管理后台显示在线 |
+| 节点注册 | Worker 节点显示预期标签和容量 |
+| Task 创建 | 测试 Job 能创建并运行 Task 工作负载 |
+| 网络 | 配置 `kubernetes.image` 后，网络 Sidecar 和 SSH 正常 |
 
----
+## 升级
 
-## Style and contributing
+查看[发布说明](../reference/changelog.md)，备份清单和证书，并先在非关键集群测试。两个 Agent 工作负载应与控制面使用同一发行版本：
 
-- **Go**: Follow [Effective Go](https://go.dev/doc/effective_go) and standard Go conventions. Run `make lint` before committing.
-- **TypeScript/React**: Follow standard React conventions. Run `make -C apps/rlark-ui lint` before committing.
-- **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) format. Every commit must include `Signed-off-by:` (use `git commit -s`).
-- **PRs**: Same title format as commits. Fill in the PR template. Link related issues.
-- **Tests**: New features should include tests where applicable. Go tests use standard `go test`.
-- **Docs**: All user-facing changes must include documentation updates. Both EN and CN versions should be kept in sync.
+```bash
+kubectl set image deployment/rlark-agent agent=<new-image> -n rlark-system
+kubectl set image daemonset/rlark-agent-node agent=<new-image> -n rlark-system
+kubectl rollout status deployment/rlark-agent -n rlark-system
+kubectl rollout status daemonset/rlark-agent-node -n rlark-system
+```
 
-Full details: [CONTRIBUTING.md](CONTRIBUTING.md).
+也可以修改部署配置中的 `agent-image`，再执行 `rlarkadm install -f deploy-data-plane.yaml`。项目中没有 `rlarkagent upgrade` 命令。
+
+## 配置参考
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--mode` | `cluster` | `cluster`、`node` 或 `both`；Kubernetes `rlarkadm` 使用分离的 cluster/node 工作负载 |
+| `--agent-type` | `Kubernetes` | 运行时类型：Kubernetes、Docker 或 Raw |
+| `--server-address` | `https://localhost:8443` | Server HTTPS/WSS 地址 |
+| `--metrics-bind-address` | `:8081` | 指标监听地址 |
+| `--image` | `""` | 网络 Sidecar 和 SSH 镜像 |
+| `--leader-election` | `false` | Leader Election；需要多副本时 `rlarkadm` 为集群 Agent 启用 |
+| `--enable-cross-cluster-direct` | `true` | 允许跨集群 Pod 直连路由 |
+| `--containerd-socket` | `/run/containerd/containerd.sock` | 节点 Agent 的 Containerd Socket |
+
+完整参数列表参见[配置项参考](../reference/configuration.md#rlark-agent)。
 
 ---
 > Source: [RLinf/RLark](https://github.com/RLinf/RLark) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
