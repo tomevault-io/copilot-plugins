@@ -1,0 +1,9 @@
+{
+  "name": "kamafozilov--nerda-browser",
+  "displayName": "nerda.browser",
+  "description": "A light macOS web browser on WebKit, written in Swift",
+  "version": "1.0.0",
+  "author": "kamafozilov",
+  "homepage": "https://github.com/kamafozilov/nerda.browser",
+  "skills": []
+}
