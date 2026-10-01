@@ -1,0 +1,9 @@
+{
+  "name": "po1nt9--omp-web",
+  "displayName": "omp-web",
+  "description": "Local web UI for the oh-my-pi (omp) coding agent \u2014 session browsing, live chat, models/skills/plugins management",
+  "version": "1.0.0",
+  "author": "Po1nt9",
+  "homepage": "https://github.com/Po1nt9/omp-web",
+  "skills": []
+}
