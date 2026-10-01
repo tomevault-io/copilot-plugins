@@ -1,0 +1,9 @@
+{
+  "name": "gillespiejameson--personal-finance-tracker",
+  "displayName": "personal-finance-tracker",
+  "description": "Local-first personal finance tracker: CSV/OFX + SimpleFIN import, rules, budgets, safe-to-spend, net worth, forecasts. Next.js + SQLite.",
+  "version": "1.0.0",
+  "author": "gillespiejameson",
+  "homepage": "https://github.com/gillespiejameson/personal-finance-tracker",
+  "skills": []
+}
