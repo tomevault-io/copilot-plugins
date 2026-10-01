@@ -1,0 +1,9 @@
+{
+  "name": "khasky--awesome-agents-md",
+  "displayName": "awesome-agents-md",
+  "description": "One self-contained AGENTS.md with shared rules for AI coding agents: Claude Code, OpenAI Codex, Gemini, Cursor Agent, and more.",
+  "version": "1.0.0",
+  "author": "khasky",
+  "homepage": "https://github.com/khasky/awesome-agents-md",
+  "skills": []
+}
