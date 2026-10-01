@@ -1,10 +1,10 @@
 ## flow
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
 
@@ -27,6 +27,8 @@ The theme, the conversation components (message, thread, streaming text, actions
 - `docs/` — the Astro site behind flowui.stac.dev. `contracts/` — the SDK wire contract.
 
 ## Commands
+
+**Don't write tests for now.** `packages/flow_ui` has no `test/` yet: the component surface is still being reshaped design-first, so tests written now would mostly encode values about to change. Verify a change with `flutter analyze` and by exercising it in the `playground/` app, not by adding a test file. If something seems to genuinely need one, say so and let the user decide.
 
 **Don't write comments unless asked.** No doc comments, file headers or inline explanations in new or edited code; the code and the commit message carry the intent. The one exception is a comment a lint requires (for example `document_ignores` above an `// ignore`), kept to one line. Public API dartdoc is written only when the user asks for it.
 
@@ -79,6 +81,8 @@ Status legend: ⬜ Todo · ✅ Done
 
 `ThemeExtension`-based design tokens for **colors and typography**; every component consumes these two token sets (no hardcoded colors or text styles). Spacing and corner radii are deliberately *not* tokens: following Material's structure, each component bakes its own metrics from the Figma file as private spec constants and exposes per-widget overrides (`padding:`, `borderRadius:`) where hosts retheme.
 
+Values come from the Flow UI Figma file. Role names follow Material 3's `ColorScheme` so a host can map an existing scheme across; Flow adds a third ink level (`onSurface` / `onSurfaceVariant` 75% / `onSurfaceMuted` 50%), `success` / `warning` groups beside `error`, and a `shadow` role (the ink at 2%, alpha included) that the composer, the menu card, attachment tiles and the jump disc draw their shadows with. Three rules hold the palette together: the ink ramp, the outlines (`outline` the faint hairline, `outlineVariant` the firm one) and the container ladder `Lowest → Highest` are **translucent** ink washes, so the same label, hairline and fill read correctly on the page and on a raised card; accent containers are their accent at 8% (statuses 6%) with the accent as the `on` colour; and the grounds — `surface` and `surfaceBright` — are **opaque**. The raised card — the composer, menus, sheets — sits on `surfaceBright` (white / `#1E1E1E`), the one surface that lifts off the page in both themes.
+
 | # | Component | Notes | Status |
 |---|-----------|-------|--------|
 | 1 | Design tokens | colors, typography; metrics are per-component spec values | ✅ |
@@ -128,4 +132,4 @@ Status legend: ⬜ Todo · ✅ Done
 
 ---
 > Source: [StacDev/flow](https://github.com/StacDev/flow) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
