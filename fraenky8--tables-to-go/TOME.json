@@ -4,7 +4,7 @@
   "repo": "tables-to-go",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fraenky8/tables-to-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T01:57:05Z"
+  "distributed_at": "2026-10-01T12:26:21Z"
 }
