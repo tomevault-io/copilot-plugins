@@ -2,16 +2,14 @@
 
 > Sourced from [ViceVerse-cz/Serein](https://github.com/ViceVerse-cz/Serein), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
-Tiny, Performant & 100% Native client for Discord made in Rust
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ViceVerse-cz/Serein](https://github.com/ViceVerse-cz/Serein).
+Original source: `CLAUDE.md` in [ViceVerse-cz/Serein](https://github.com/ViceVerse-cz/Serein).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
