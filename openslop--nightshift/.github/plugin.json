@@ -1,0 +1,14 @@
+{
+  "name": "openslop--nightshift",
+  "displayName": "nightshift",
+  "description": "nightshift",
+  "version": "1.0.0",
+  "author": "openslop",
+  "homepage": "https://github.com/openslop/nightshift",
+  "skills": [
+    {
+      "name": "nightshift",
+      "description": ""
+    }
+  ]
+}
