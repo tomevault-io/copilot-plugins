@@ -2,8 +2,6 @@
 
 > Source: [magickaichen/knowledge-loom](https://github.com/magickaichen/knowledge-loom). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Agent-neutral protocols and skills for governed local Markdown knowledge vaults
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
