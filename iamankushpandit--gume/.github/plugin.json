@@ -1,0 +1,9 @@
+{
+  "name": "iamankushpandit--gume",
+  "displayName": "Gume",
+  "description": "Open-source ESP32 educational game console firmware \u2014 40 games, two-player play over BLE, CYD touchscreen, browser flasher, no telemetry",
+  "version": "1.0.0",
+  "author": "iamankushpandit",
+  "homepage": "https://github.com/iamankushpandit/Gume",
+  "skills": []
+}
