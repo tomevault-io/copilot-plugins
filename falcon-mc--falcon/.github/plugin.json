@@ -1,0 +1,9 @@
+{
+  "name": "falcon-mc--falcon",
+  "displayName": "Falcon",
+  "description": "Minecraft: Bedrock Edition server software written from scratch in C++",
+  "version": "1.0.0",
+  "author": "Falcon-MC",
+  "homepage": "https://github.com/Falcon-MC/Falcon",
+  "skills": []
+}
