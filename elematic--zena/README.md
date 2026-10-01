@@ -1,17 +1,15 @@
 # AI instruction files for zena
 
-> Sourced from [elematic/zena](https://github.com/elematic/zena) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A new programming language for WASM
+> Sourced from [elematic/zena](https://github.com/elematic/zena), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [elematic/zena](https://github.com/elematic/zena).
+Original source: `CLAUDE.md` in [elematic/zena](https://github.com/elematic/zena).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
