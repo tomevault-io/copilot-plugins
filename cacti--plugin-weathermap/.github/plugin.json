@@ -1,0 +1,9 @@
+{
+  "name": "cacti--plugin-weathermap",
+  "displayName": "plugin_weathermap",
+  "description": "plugin_weathermap",
+  "version": "1.0.0",
+  "author": "Cacti",
+  "homepage": "https://github.com/Cacti/plugin_weathermap",
+  "skills": []
+}
