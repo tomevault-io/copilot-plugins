@@ -1,0 +1,18 @@
+## nerda-browser
+
+> - **Changelog**: a change people would notice gets its line in `CHANGELOG.md` under `## [Unreleased]`, in the same commit. How to write it: [docs/releasing.md](docs/releasing.md).
+
+# Nerda
+
+- **Changelog**: a change people would notice gets its line in `CHANGELOG.md` under `## [Unreleased]`, in the same commit. How to write it: [docs/releasing.md](docs/releasing.md).
+- **Commits** follow Conventional Commits: `type(scope): description`, lowercase, imperative, at most 72 characters, no full stop, e.g. `fix(tabs): end a rename with a click anywhere`. The scope is the part of Nerda (`sidebar`, `tabs`, `updates`); the description says what a person using Nerda gets, not how it was built. No AI attribution in commits, pull requests or comments.
+- **Pull requests**: one change each, squash-merged, so the title is a commit subject as above. The body has the sections of `.github/pull_request_template.md`, in its order: What changed, Screenshots, How it works, Testing, Changelog. What it changes on screen can have its picture in `build/screenshots/`: each screen of something new, and a before and an after of each thing that was there (`2-extensions-menu.before.png`, `2-extensions-menu.after.png`), numbered in reading order. Pushing the branch uploads them (`.githooks/pre-push`, on with `git config core.hooksPath .githooks`) and the Screenshots check puts them in the pull request; without pictures it passes all the same. Testing lists only what was really run. The whole guide: [docs/pull-requests.md](docs/pull-requests.md).
+- **Versions** stay 0.0.x, one patch step per release (`./release.sh` with no argument), until the owner announces the public 1.0.0. Choose another version only when the owner asks for it.
+- **Nerda Dev** (`./watch.sh`, `./build.sh debug`) is the app to build and run while working. After a change, `./watch.sh once` puts the new build in the owner's Nerda Dev for them to try: behind the window in use, and not while they are using it. Never open it here any other way. `build/Nerda.app` is the release app and shares the owner's real data.
+- **Trying things on screen** (clicks, keys, windows, screenshots) happens only when the owner asks for it, on this Mac, without moving their pointer, typing into the front app or bringing a window forward. Use **Nerda Test** (`./build.sh test`), with its own data, and open it behind the window in use with `open -g "build/Nerda Test.app"`. Changes to the default browser, notifications, keychain and system settings, and checks that need Touch ID or the camera, go to the owner.
+- **Decisions** and their reasons: [docs/decisions.md](docs/decisions.md).
+- **Performance**: `./bench.sh` takes about 8 minutes and needs the Mac left alone, so it is not a routine check. When a change clearly touches speed or memory (tab or page loading, WebKit setup, the blocker, launch), ask the owner before timing it before and after, and compare the numbers.
+
+---
+> Source: [kamafozilov/nerda.browser](https://github.com/kamafozilov/nerda.browser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
