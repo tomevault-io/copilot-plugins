@@ -4,7 +4,7 @@
   "repo": "wayfinder-app",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rodtay72/wayfinder-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T13:56:27Z"
+  "distributed_at": "2026-10-01T10:33:48Z"
 }
