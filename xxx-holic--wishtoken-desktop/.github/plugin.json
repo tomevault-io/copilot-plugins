@@ -1,0 +1,9 @@
+{
+  "name": "xxx-holic--wishtoken-desktop",
+  "displayName": "wishtoken-desktop",
+  "description": "WishToken desktop companion for Codex: local accounts, explicit BPS/native channels, isolated App/CLI launch and visual comparisons.",
+  "version": "1.0.0",
+  "author": "xxx-holic",
+  "homepage": "https://github.com/xxx-holic/wishtoken-desktop",
+  "skills": []
+}
