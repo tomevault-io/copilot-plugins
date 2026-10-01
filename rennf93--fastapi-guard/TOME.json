@@ -4,7 +4,7 @@
   "repo": "fastapi-guard",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/rennf93/fastapi-guard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T04:43:36Z"
+  "distributed_at": "2026-10-01T01:47:05Z"
 }
