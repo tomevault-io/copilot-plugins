@@ -1,0 +1,9 @@
+{
+  "name": "localai-org--talking-portrait-cpp",
+  "displayName": "talking-portrait.cpp",
+  "description": "Animate portrait photos with your voice - presently implements FLOAT",
+  "version": "1.0.0",
+  "author": "localai-org",
+  "homepage": "https://github.com/localai-org/talking-portrait.cpp",
+  "skills": []
+}
