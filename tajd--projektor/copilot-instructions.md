@@ -1,8 +1,10 @@
 ## projektor
 
-> Guidance for AI agents (and humans) working **on** the projektor codebase.
+> Architecture contract and conventions for working on the Projektor codebase.
 
-# AGENTS.md
+> **Note:** this page is generated from [`AGENTS.md`](https://github.com/TAJD/projektor/blob/main/AGENTS.md)
+> in the repo root by `scripts/gen-conventions-page.ts`. Edit that file, not this page — it is
+> overwritten on every generate.
 
 Guidance for AI agents (and humans) working **on** the projektor codebase.
 Read this before making changes — it captures conventions that aren't obvious from the code alone.
@@ -55,9 +57,10 @@ editing anything:
   not how fast you can ask.
 - **A refused claim tells you who to talk to.** Rejection is all-or-nothing: nothing is
   claimed, and the error names the issue and agent holding the path — message them with
-  `post_message` if you need it. Nothing is pushed to the holder either way, including
-  when you use `force` (that posts an audit message to *your* issue scope, not theirs), so
-  if you override someone, tell them yourself. Every contended path is recorded regardless.
+  `post_message` if you need it. Nothing is pushed to the holder on a plain rejection —
+  its claim didn't change. `force` is different: it posts to both your issue scope (audit)
+  and theirs (PROJ-635), since you just took something they thought they still held. Every
+  contended path is recorded regardless.
 
 This is the mechanism; the mechanical call sequence for this repo is under "Fleet
 coordination protocol" below, and the design rationale (why leases, claims, and the
@@ -87,7 +90,7 @@ mcp/<domain>.ts      (MCP wrapper)   ─┘     (ALL business logic + SQL live h
 3. **Validation happens inside the service** via a shared Zod schema in `schemas/<domain>.ts` — so REST and MCP are validated identically. Never trust raw `unknown` input in a wrapper.
 4. **Services throw typed errors** from `services/errors.ts` (`ValidationError`, `NotFoundError`, `ForbiddenError`, `ConflictError`). The wrappers translate them:
    - REST: `http/error-adapter.ts` → HTTP status (400/404/403/409)
-   - MCP: `mcp/error-adapter.ts` → JSON-RPC code (`-32602` for validation, `-32000` otherwise). Never return raw `String(err)` to clients.
+   - MCP: `mcp/error-adapter.ts` → a tool result with `isError: true` and `{error: {code, message, fields?, hint?, details?}}` (PROJ-893; `code` is the service error kind). JSON-RPC `error` is only for protocol faults and unexpected internal errors. Never return raw `String(err)` to clients.
 5. **Context** is a `ServiceCtx` (`services/types.ts`): `{ db, kv, r2, workspaceId, userId, role? }`. Build it with `ctxFromHono(c)` in REST; the MCP dispatch (`routes/mcp.ts`) builds the equivalent and passes `role` through `PluginContext`.
 
 ### Deliberate REST↔MCP parity exceptions
@@ -123,9 +126,10 @@ audits:
 - **Public feedback submission (`POST /api/feedback/submit`)** — REST-only.
   Anonymous end-user feedback from a third-party product, authenticated by a per-source
   bearer token, not a session — there's no ServiceCtx user/role for an MCP tool to act as.
-  Feedback *source management* (create/list/update/rotate/revoke) has full REST+MCP
-  parity, same as every other admin-facing domain; only the anonymous submit endpoint
-  itself is the exception.
+  Feedback *source management* (create/list/update/rotate/revoke) and authenticated
+  *read/triage* (`list_feedback`, `update_feedback_status`, `convert_feedback_to_issue`)
+  both have full REST+MCP parity, same as every other domain; only the anonymous submit
+  endpoint itself is the exception (PROJ-668).
 - **OAuth consent (`GET/POST /oauth/authorize`, `services/oauth.ts`)** — REST-only, and
   browser-only. The whole point of the consent screen is that a *human* decides which
   client may act as them; an agent is the subject of a grant, never the party that
@@ -183,7 +187,8 @@ When adding/changing a domain (issues, projects, wiki, comments, …):
 
 ## Conventions & gotchas
 
-- **Adding a migration?** After adding a new `.sql` file to `packages/db/migrations/`, you must also add a corresponding `?raw` import to `apps/api/src/test/migrations.ts` and append it to the `MIGRATIONS` array. Without this the test DB won't have the new table and integration tests will silently fail or error. Migrations are **hand-written SQL** — drizzle-kit's generator is deliberately not wired up (PROJ-643): its journal was abandoned after `0001`, so `drizzle-kit generate` diffed against a snapshot ~52 migrations stale and emitted a full `CREATE TABLE` for every table, which would fail against any non-empty database. Don't re-add it without re-baselining the snapshot first.
+- **Adding a migration?** After adding a new `.sql` file to `packages/db/migrations/`, you must also add a corresponding `?raw` import to `apps/api/src/test/migrations.ts` and append it to the `MIGRATIONS` array. Without this the test DB won't have the new table and integration tests will silently fail or error. Migrations are **hand-written SQL** — drizzle-kit's generator is deliberately not wired up (PROJ-643): its journal was abandoned after `0001`, so `drizzle-kit generate` diffed against a snapshot ~52 migrations stale and emitted a full `CREATE TABLE` for every table, which would fail against any non-empty database. Don't re-add it without re-baselining the snapshot first. A migration that adds an index ends with `PRAGMA optimize;` so the planner has fresh statistics (PROJ-857).
+- **Deletes never rely on FK cascades.** Deleting a row that other tables reference must remove (or null) those rows explicitly in the service, in the same `db.batch()` - `ON DELETE CASCADE/SET NULL` in the schema is not the cleanup (PROJ-407/918), and FTS mirrors, R2 objects and non-FK references have no cascade at all. Adding an FK with `ON DELETE` means adding the cleanup and an entry in `apps/api/src/test/architecture/fk-cleanup-allowlist.ts`; `fk-cleanup.node.test.ts` fails otherwise. (`PRAGMA foreign_keys = OFF` is a no-op on D1/Miniflare, so tests can't switch cascades off to prove cleanup.)
 - **camelCase at the boundary, snake_case in the DB.** Input schemas use `assigneeId`, `parentId`, etc.; the service maps to the `assignee_id` column. Keep both surfaces on the same naming.
 - **JSON columns** (`labels`, `scopes`) are stored via `JSON.stringify` and returned as raw JSON strings — callers `JSON.parse` on read. There is no automatic (de)serialization.
 - **Timestamps** are unix seconds: `Math.floor(Date.now() / 1000)`.
@@ -218,6 +223,33 @@ All island↔API calls go through `apps/web/src/utils/api-client.ts`:
 
 No raw `fetch(` calls in island components. No local `buildHeaders` copies.
 This mirrors the backend service-layer contract: routes are thin wrappers; islands are thin callers.
+
+## Frontend: project identity (`apps/web/src/lib/project-context.ts`)
+
+Islands are separate `client:load` roots (each its own Preact tree), so Preact context can't
+cross between them. Project identity instead lives in a module-level `@preact/signals` store:
+`currentProject`, `projectsList`, `projectError`, `projectReady`. Module state survives Astro's
+`ClientRouter` navigations, so whichever island resolves first writes it and every sibling
+island, plus the next in-app navigation, reads it without a refetch.
+
+Islands call `ensureProjectResolved(workspaceSlug, urlHint?, matches?)` (or the `useCurrentProject`
+hook) instead of parsing `?projectId=`/`?id=` or fetching `/api/projects` themselves. Resolution
+persists the resolved id back to the address bar via `history.replaceState` (see
+`resolve-project-id.ts`'s `persistProjectId`), so copied URLs stay shareable. This is the only
+`@preact/signals` usage in the codebase and the only module-level store pattern for cross-island
+state — reach for it, don't invent a second one, before adding a new island that needs project
+identity.
+
+The identity param is a boundary concern, not a transport mechanism: links between pages that
+stay within the resolved project (`ProjectNav`'s tabs, in-app links to a project's own issues,
+wiki pages, etc.) carry no project param at all — the store survives the `ClientRouter`
+navigation those `<a>` tags trigger, so the destination resolves instantly with no refetch.
+`?projectId=` (the project UUID) is written only where identity actually crosses a boundary: the
+cold-start entry point (`ProjectList`'s project cards), a full non-SPA reload
+(`window.location.href` assignments, which drop all in-memory state), or an explicit project
+switch. `?id=` is reserved for a page's own entity (an issue on `/issues/view`, for example) and
+is never used for project identity in newly-written links — the resolver still accepts it (along
+with `?project=`) on read, for backward compatibility with existing shared URLs.
 
 ## Dev workflow
 
@@ -289,6 +321,44 @@ file.
 What *is* repo-specific and stays here: the mechanical call sequence agents use to
 avoid colliding in this particular repo's git worktree/file layout.
 
+### Session identity (PROJ-894)
+
+`register_agent` (and `start_work`) records the credential the call authenticated with on
+the session (`agent_sessions.credential_id` + `auth_method`). A lone agent on its own
+credential may then omit the agent id on `claim_issue`, `heartbeat_agent` and `end_agent`.
+**Fleets that share one credential (one `pk_` token for every worker) should still pass
+`agentId` explicitly**: with several live sessions on the credential an omitted id is
+ambiguous and is rejected. No per-connection state exists; the session is looked up from the
+credential on every call (PROJ-452 statelessness holds).
+
+### The two-call path (PROJ-929)
+
+`start_work` and `finish_work` collapse the sequence below into two calls:
+
+1. `start_work({ issue, paths, name })` at session start — registers the session, claims
+   the issue and files (if given), and posts the start message. All-or-nothing with
+   compensating cleanup, not a single atomic write (D1 has no cross-call interactive
+   transaction): on any conflict (the same `claim_issue`/`claim_files` errors as before)
+   the session is ended and nothing is left claimed. If the process crashes mid-call
+   (so that cleanup never runs), the claims it made become reclaimable once the
+   session's heartbeat goes stale after the 120s TTL, same as any other stale holder.
+   Save the returned `sessionId`.
+2. `finish_work({ sessionId, issue, completionReport?, status? })` when done — optionally
+   transitions the issue via the same path `update_issue` uses (completion-report rules
+   apply unchanged), then releases every claim/lease the session holds and ends it.
+
+`claim_issue`/`claim_files`/`update_issue`/`post_message` calls made with a live agent
+session id refresh that session's heartbeat as a side effect, and `finish_work` ends the
+session outright, so an explicit `heartbeat_agent` is optional on this path — call it
+anyway if a lot of work happens between `start_work` and `finish_work` with no other
+agent-scoped call in between.
+
+### The five-call path (still supported)
+
+The primitives above compose from these, which remain available for finer-grained
+control (e.g. claiming files separately from the issue, or checking `list_file_claims`
+before deciding whether to `force`):
+
 1. `register_agent` at session start, linking the issue you're implementing — save the returned `id`.
 2. `claim_files` before touching any file (check `list_file_claims` first; back off, don't `force`).
 3. `post_message` to `scope: "issue:<uuid>"` when you start/blocker/finish; `scope: "workspace"` for fleet-wide notices.
@@ -308,7 +378,7 @@ This repo is built out via parallel workers in separate git worktrees. To avoid 
 
 ### Spawn prompt requirement
 
-Workers will not use the coordination primitives unless explicitly told to. Every spawn prompt for a parallel worker **must** include a `## Coordination (required)` section stating the 5-step sequence from "Fleet coordination protocol" above.
+Workers will not use the coordination primitives unless explicitly told to. Every spawn prompt for a parallel worker **must** include a `## Coordination (required)` section stating the call sequence (either the two-call `start_work`/`finish_work` path or the five-call path) from "Fleet coordination protocol" above.
 
 A full spawn prompt also needs a **Finish** section (what "done" means for the task,
 and what to report back) alongside the Coordination section above.
@@ -372,8 +442,8 @@ and in the fleet manifest.
 All tools are available via `POST /mcp/<workspaceId>` (JSON-RPC 2.0). Connect with:
 
 ```bash
-claude mcp add projektor --transport http https://<host>/mcp/<workspaceId> \
-  --header "Authorization: Bearer <token>"
+claude mcp add --transport http --header "Authorization: Bearer <token>" \
+  projektor https://<host>/mcp/<workspaceId>
 ```
 
 **The full tool list is generated from source — do not hand-maintain a copy here.**
@@ -385,6 +455,8 @@ used by the fleet protocol above) from **Project data** tools.
 
 **Tip:** `get_issue` accepts `ref: "PROJ-42"` (project key + number) — you don't need the UUID when you have the display key.
 
+**`tools/list` caching:** the response carries `ttlMs`/`cacheScope` hints (SEP-2549); `cacheScope` is `"private"` because the list varies per query string (`?domains=`, PROJ-716). These are advisory only — projektor has no server-side cache backing them — so a client that caches `tools/list` must key on the full request URL (path + query), not the path alone, or it will serve one caller's filtered catalog to another.
+
 ---
 > Source: [TAJD/projektor](https://github.com/TAJD/projektor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
