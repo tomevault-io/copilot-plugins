@@ -1,42 +1,34 @@
 ## osaurus
 
-> When to run tests — full suite only before PR submission, targeted tests during development
+> Every new or renamed setting must update SettingsSearchIndex, its landing anchor, and the self-find probe.
 
 
-# Testing Workflow
+# Settings catalog
 
-The full unit suite (`make test`, ~5000 tests) takes about 30 minutes. Do NOT
-run it during normal development iterations.
+`SettingsSearchIndex` is the single catalog for Management search and the
+Orchestrator (`osaurus_help` action `find`). Do not add a second settings
+list to the orchestrator prompt.
 
-## During development
+When you add, remove, rename, move, or relabel a user-facing setting:
 
-- Run only targeted tests scoped to what you changed, using `--filter`:
+1. Update the row in `SettingsSearchIndex.swift` (id, tab, exact UI title,
+   keywords, `subTab`, `disambiguation`, `declarativeSection`).
+2. Put the same id on the control (`settingsLandingAnchor` / `anchorId`).
+3. Fix any guide path that names the old location (`guide-settings.md` and
+   related topics).
+4. Add the on-screen label to `SettingsSearchSelfFindProbe.swift`.
 
-```bash
-OSAURUS_DISABLE_KEYCHAIN_FOR_TESTS=1 \
-OSAURUS_TEST_ROOT=/tmp/osaurus-test \
-OSU_MODELS_DIR=/tmp/osaurus-test-models \
-swift test --package-path Packages/OsaurusCore --filter "SuiteOrTestName"
+A control that is not in the catalog is not shipped.
+
+```swift
+// BAD — new toggle, no catalog row
+SettingsToggle(title: L("Smooth Streaming"), isOn: $smooth)
+
+// GOOD — same id in the index and on the control
+SettingsToggle(title: L("Smooth Streaming"), isOn: $smooth)
+    .settingsLandingAnchor("settings.chat.smoothStreaming")
 ```
-
-- A plain `swift build --package-path Packages/OsaurusCore` is enough to
-  verify compilation after edits.
-
-## Before submitting a PR
-
-- Run the full suite exactly once, right before the PR is created:
-
-```bash
-OSAURUS_DISABLE_KEYCHAIN_FOR_TESTS=1 \
-OSAURUS_TEST_ROOT=/tmp/osaurus-test \
-OSU_MODELS_DIR=/tmp/osaurus-test-models \
-make test
-```
-
-- Keychain-gated suites (e.g. `PluginAgentScopingTests`) fail by design under
-  `OSAURUS_DISABLE_KEYCHAIN_FOR_TESTS=1`; run those without the flag when
-  their area was touched.
 
 ---
 > Source: [osaurus-ai/osaurus](https://github.com/osaurus-ai/osaurus) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
