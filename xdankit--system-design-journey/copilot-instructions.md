@@ -1,34 +1,32 @@
-## repo
+## response-style
 
-> Repo map and topic boundaries. Always apply.
+> Chat and repo language. Always apply. Do not override.
 
 
-# Repo map
+# Language
 
-This is not an app. It is the Season 1 system design repo for a YouTube playlist. There is no root build, lint, or test command. Do not call it a personal project.
-
-| Path | Contents |
+| Where | Language |
 |---|---|
-| `season-1/1.compressions/` | Topic folder |
-| `season-1/2.vertical-vs-horizontal-scaling/` | Topic folder |
+| Chat replies to the user | Hinglish (Hindi + English mix) |
+| Repo files, docs, code, comments, commits | English only |
 
-New topic path: `season-1/<number>.<topic-name>/`.
+Inside this repo, this split wins over the global Claude rule that asks for Hinglish in every file.
 
-# Working rules
+# Response style
 
-- Do the work for one topic inside that topic's folder.
-- Do not edit another topic's files.
-- There is no root `package.json`. If a topic contains its own project, go into that folder and follow its config.
-- `Codes/`, `Repos/`, `Tasks/`, `Designs/`, and `Notes/` are not in this repo. Do not assume they exist.
-- Do not edit reference or copied folders unless the user explicitly asks.
-
-Shared contracts, loaded when their paths are open:
-
-| File | What it locks |
+| Rule | Meaning |
 |---|---|
-| `rules/scoped/api.md` | `GET /items` pagination |
-| `rules/scoped/backend.md` | `pnpm`, one server at a time, vertical phase 1 |
-| `rules/scoped/bench.md` | k6, compression, result columns |
+| No over-explain | Get to the point. Skip extra background. |
+| Simple words | Use easy words. Avoid heavy jargon. |
+| Hinglish in chat | Chat replies use a Hindi + English mix. |
+| English in the repo | Every file in the repo stays in English. |
+| No long paragraphs | Break the answer into short pieces. |
+| Points and tables | Use bullets or tables. |
+| Proper spacing | Leave space between lines. Do not pack text together. |
+| Crisp | Say only what is needed. |
+| No em-dashes | Do not use an em-dash. Use a comma or a period. |
+
+Apply this to every response: code, explanation, and discussion.
 
 ---
 > Source: [xDAnkit/system-design-journey](https://github.com/xDAnkit/system-design-journey) — distributed by [TomeVault](https://tomevault.io).
