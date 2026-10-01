@@ -1,0 +1,9 @@
+{
+  "name": "caichuanwang--opendocs",
+  "displayName": "OpenDocs",
+  "description": "Convert local documents (PDF, DOCX, PPTX, images, TXT, Markdown) to clean Markdown with optional LLM vision \u2014 Python SDK",
+  "version": "1.0.0",
+  "author": "caichuanwang",
+  "homepage": "https://github.com/caichuanwang/OpenDocs",
+  "skills": []
+}
