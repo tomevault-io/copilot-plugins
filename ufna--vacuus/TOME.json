@@ -1,0 +1,44 @@
+{
+  "name": "VaCuus",
+  "owner": "ufna",
+  "repo": "VaCuus",
+  "description": "Modern, ultra-optimized multithreaded web UI for Unreal Engine (Win/Mac/Linux/Android/iOS) \u2014 RmlUi + QuickJS on a dedicated UI thread",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ufna/VaCuus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T02:58:12Z"
+}
