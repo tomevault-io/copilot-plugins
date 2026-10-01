@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "ilyas-hallak",
   "homepage": "https://github.com/ilyas-hallak/romm-ios-app",
-  "skills": [
-    {
-      "name": "romm-ios-app",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
