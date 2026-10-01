@@ -1,0 +1,44 @@
+{
+  "name": "discrete6502",
+  "owner": "epatel",
+  "repo": "discrete6502",
+  "description": "A MOS 6502 CPU rebuilt from 4,051 discrete transistors on a 291x322mm six-layer board that reproduces the original die layout",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/epatel/discrete6502",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T22:26:26Z"
+}
