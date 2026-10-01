@@ -1,0 +1,9 @@
+{
+  "name": "fpv-labs--stera-app",
+  "displayName": "stera-app",
+  "description": "Stera Capture: a mobile-phone-native stack for collecting high-fidelity multimodal RGB-D data.",
+  "version": "1.0.0",
+  "author": "fpv-labs",
+  "homepage": "https://github.com/fpv-labs/stera-app",
+  "skills": []
+}
