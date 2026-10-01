@@ -1,0 +1,9 @@
+{
+  "name": "drewpo28--pico-speccy",
+  "displayName": "pico-speccy",
+  "description": "ZX Spectrum emulator for Raspberry Pi Pico 2 / RP2350 (ESPectrum port)",
+  "version": "1.0.0",
+  "author": "drewpo28",
+  "homepage": "https://github.com/drewpo28/pico-speccy",
+  "skills": []
+}
