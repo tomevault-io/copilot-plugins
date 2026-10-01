@@ -1,7 +1,7 @@
 {
   "name": "itsmostafa--system-one-connector",
   "displayName": "system-one-connector",
-  "description": "System One MCP connector to evaluate anything fast and cheap. Give your AI agent direct access to models like: Typesafe AI's Jev model and Laya",
+  "description": "system-one-connector",
   "version": "1.0.0",
   "author": "itsmostafa",
   "homepage": "https://github.com/itsmostafa/system-one-connector",
