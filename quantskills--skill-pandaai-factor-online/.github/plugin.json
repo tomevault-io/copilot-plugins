@@ -1,0 +1,9 @@
+{
+  "name": "quantskills--skill-pandaai-factor-online",
+  "displayName": "skill-pandaai-factor-online",
+  "description": "PandaAI \u56e0\u5b50\u5927\u8d5b\u4e0a\u624b\u4e0e\u5728\u7ebf\u6316\u6398\u6280\u80fd\uff1a\u73af\u5883\u4f53\u68c0\u3001\u767b\u5f55\u3001\u5b57\u6bb5\u7b97\u5b50\u901f\u67e5\u3001\u53ef\u7eed\u8dd1\u6279\u91cf\u56de\u6d4b\u4e0e\u6210\u672c\u6298\u7b97\u590d\u76d8 \u00b7 Onboarding and online factor mining for PandaAI",
+  "version": "1.0.0",
+  "author": "quantskills",
+  "homepage": "https://github.com/quantskills/skill-pandaai-factor-online",
+  "skills": []
+}
