@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [CESNET/ndk-fpga](https://github.com/CESNET/ndk-fpga).
+Original source: `CLAUDE.md` in [CESNET/ndk-fpga](https://github.com/CESNET/ndk-fpga).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -20,7 +20,7 @@ Original source: `AGENTS.md` in [CESNET/ndk-fpga](https://github.com/CESNET/ndk-
 - [ndk-fpga](https://github.com/CESNET/ndk-fpga/tree/main/.agents/skills/ndk-cocotb-ver/SKILL.md)
 - [ndk-fpga](https://github.com/CESNET/ndk-fpga/tree/main/.agents/skills/vhdl-lint/SKILL.md)
 
-From [CESNET/ndk-fpga](https://github.com/CESNET/ndk-fpga) — a repo with 97+ stars on GitHub.
+From [CESNET/ndk-fpga](https://github.com/CESNET/ndk-fpga) — a repo with 99+ stars on GitHub.
 
 ---
 
