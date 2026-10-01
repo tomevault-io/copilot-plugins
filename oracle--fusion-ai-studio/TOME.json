@@ -1,0 +1,63 @@
+{
+  "name": "fusion-ai-studio",
+  "owner": "oracle",
+  "repo": "fusion-ai-studio",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fusion-ai-studio",
+      "path": ".agents/skills/aistudio/SKILL.md",
+      "github_url": "https://github.com/oracle/fusion-ai-studio/tree/main/.agents/skills/aistudio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fusion-ai-studio",
+      "path": ".agents/skills/aistudio-apps-succession-management/SKILL.md",
+      "github_url": "https://github.com/oracle/fusion-ai-studio/tree/main/.agents/skills/aistudio-apps-succession-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fusion-ai-studio",
+      "path": ".agents/skills/aistudio-apps-warehouse-operations-shortages/SKILL.md",
+      "github_url": "https://github.com/oracle/fusion-ai-studio/tree/main/.agents/skills/aistudio-apps-warehouse-operations-shortages/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oracle/fusion-ai-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T13:30:38Z"
+}
