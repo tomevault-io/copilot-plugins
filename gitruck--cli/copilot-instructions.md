@@ -1,0 +1,533 @@
+## cli
+
+> 给 **agent** 看的操作手册：把用户「想剪一条口播」的自然语言需求，落成对 `gtrk` CLI 的一次调用，
+
+# gtrk-cli · Agent Playbook
+
+给 **agent** 看的操作手册：把用户「想剪一条口播」的自然语言需求，落成对 `gtrk` CLI 的一次调用，
+再把产物目录 + 三端（客户端 / 剪映 / PR）打开方式回给用户。任何 agent 读完
+这一份就能驱动整条闭环；随包分发的各 `/gtrk-*` skill 只是这份 playbook 的薄壳。
+
+> 这条 CLI 做的事：**本地抽音频/720p（毛片永不上传）→ 只传抽出物 → 云端智能口播剪辑（video_oral_cut）
+> → 拉回 gtrk/剪映/PR 三方工程文件 →（可选）本地 ffmpeg 渲染成片 → 三端打开**。云端零改动、纯结构产物，
+> 源视频不出本地。结果/报告恒落盘 `result.json`，可按 `task_id` 秒级取回、无需重跑（见 §2.1 / §4）。
+
+## Agent 去水印/去字幕
+
+按用户意图选择流程，文字候选不等于该删除的内容；图形台标由 Agent 判断并补框。
+
+**去除前必须主动问用户选模式并等答复**：快速 ffmpeg 做基础模糊，可能留涂抹痕迹；慢速 raft 做内容修复，通常更自然、可接近无痕，但不保证无损或还原遮挡细节。不得替用户默认任何模式。“无需复核选区”不等于选了模式；本任务已经明确选择的无需重复问。仅检测、编辑和空清单原片返回不受影响。模式不可因失败、耗时或限额自动切换，本地 ffmpeg 兜底也须另获用户同意。
+
+1. `gtrk purify detect <视频> --out <目录> --json`：只检测，返回待审区域文件、摘要、代表时间点和运行记录。
+2. 读取摘要、按代表时间查看原片；用 `gtrk purify edit <区域文件> --select-roi x,y,w,h --delete-id det-000001 --watermark-region x,y,w,h --protect-region x,y,w,h --out <最终文件>` 做本地筛选和补框。各筛选参数按需使用；完整 JSON 留在文件，不灌入对话。
+3. `gtrk purify apply <最终文件> --purify-func-type <用户选定模式> --json`：只按最终清单处理，不重新检测。
+
+用户明确全部清理范围时，可用 `gtrk purify run <视频> --detect-scope subtitle --watermark-region x,y,w,h --purify-func-type <用户选定模式> --json` 连续完成。run 必须明确 full_screen/subtitle/custom；custom 同时传 --detect-roi。
+
+- `--purify-func-type ffmpeg|raft`：处理前显式必选，无默认值；ffmpeg 快速模糊，raft 慢速内容修复。保留处用 protect-region，保护优先。
+- `gtrk purify resume <运行记录.json> --json`：继续已有任务和下载，沿用已选模式；旧记录尚未建处理任务时须询问并补 --purify-func-type。提交结果未知时停止重发，先核对云端任务。
+- 空最终清单直接返回原视频，不创建处理任务。
+- 检测与处理按原计费口径各计一次；本地 edit 免费。源路径、SHA256 与云文件绑定，换片须重检。
+- JSON 回执给出实际文件路径；状态是 awaiting_review / completed / unchanged。
+- 新处理请求会先查询 /task/video_purify/capabilities，必须支持 review_protocol=2；未升级会在上传与计费前停止。先更新 worker，再开放 HTTP 能力声明。
+
+> **写/改 structure 级成片图纸**（旅拍 / 口播链 / 直播切片 / Vlog……）先过 `docs/成片型图纸公约.md`
+> ——双模式命名（快速成片 / 逐步推进）、决策前置三条腿、MG 临场泛化的横切正本与自检清单都在那里。
+
+---
+
+## 产物落点纪律（全局 MUST · 本 playbook 与随包全部 skill 通用）
+
+- 一切产物（成片 / 预览 / 代理 / 素材 / 工程文件）只落**工程目录**（产物目录）或**用户显式指定的输出路径**。
+- **MUST NOT** 把成片、预览或任何大媒体文件复制到 agent 自有工作目录
+  （如用户文档目录下 agent 产品自建的目录、agent 家目录缓存、会话工作区）。
+  需要引用媒体时**用原路径引用**，不做副本。
+- 临时文件（抽帧图 / 中间物等）一律放系统 temp 且**用完即删**（含中断 / 失败路径也要清干净）。
+- **交付物 SHALL 直写工程目录，MUST NOT 中转暂存**。
+  产颗粒 / 产工程 / 产派单稿时，**写入路径本身**就必须是工程目录里的最终路径；
+  MUST NOT 先写 agent 自有工作目录（会话工作区 / `work/` / 暂存区）再拷进工程。
+  · 中转本身即违规，体积不构成例外（体积不是豁免理由）；抽帧图等不交付的中间物走系统 temp，用完即删。
+  · 交付物没有暂存态，避免工程正本与副本漂移。
+
+**在 gtrk-cli 仓库自身里跑真机走查时：**
+
+- **仓根不落任何产物**。工作区一律 `--out .runs/<名字>`；命令回执与日志一律重定向进
+  `.runs/_receipts-<日期>/`，例如
+  `gtrk audio lay ... > .runs/_receipts-260823/audio-lay-out.json 2> .runs/_receipts-260823/audio-lay-stderr.log`。
+- **MUST NOT** 使用 `> foo-out.json 2> foo-stderr.log` 这类**落在仓根**的重定向，
+  也 **MUST NOT** 让 `--out` 缺省落到仓根。
+- 仓根文件可能包含素材绝对路径和本机目录结构；`.gitignore` 只能兜底，第一道闸仍是落点纪律。
+
+---
+
+## 工程文件改动纪律（全局 MUST）
+
+- **agent MUST NOT 裸手改 `.gtrk` JSON。** 元素级编辑（挪位置 / 改时长 / 切开 / 改参数）
+  一律走 **`gtrk patch`**。
+- `.gtrk` 一个片段的时码是**两套并存**的
+  （`clip_st`+`clip_ed` 与 `clip_st`+`duration`）。改 `duration` 不同步 `clip_ed`，
+  **客户端 importer 优先读 `clip_ed`**，后端可能不强校验它，导致命令成功但实际出点未变。
+- 另外轨道时基端点要落在 `video_rate` 的帧边界上，浮点秒累加会漂。这两件 `gtrk patch`
+  都替你做（恒等式同步 + 帧对齐 + 写前全档校验 + 原子写回 + 机器可读回执）。
+- **例外只有一个**：铺自产物的那几条既有链路（`gtrk matrix` 铺轨、`gtrk mg` 铺颗粒、
+  `gtrk audio` / `gtrk subtitle` 建新轨）—— 它们只动自己新建的东西，不改既有 clip 的时码。
+
+## 标定数据落点纪律（全局 MUST）
+
+**新增**的实测标定数据 MUST 写进对应 change 的 `design.md` 附录，MUST NOT 写进代码注释或
+随包分发的 `skills/*/SKILL.md`。
+
+- **什么算标定数据**：写明了**取值理由 / 代价曲线 / 实测分布 / 禁区论证 / 真机实验结论**的内容
+  ——即别人据以能省下试错的东西。例如「MUST NOT ≥1.5：槽位 51→53、扰动 26/51、吃进 9 条真实
+  短镜头」「score 集中于 0.1~0.4，0.25+ 已是强命中」「p10=2.12 / p90=4.97」。
+- **什么不算、MUST NOT 迁走**（这三类留在代码里）：
+  ① **正确性约束**——`MUST NOT` 开头的行为契约、不变量、耦合关系（如「不消耗随机序列」
+     「MUST NOT 复用云端地板的校准假设」「MUST NOT 改吃 candidates 精简集」）；
+  ② **丑话**——副作用、风险、不对称后果（如「误判 stable 丢检索粒度，误判 unstable 只是不省钱」）。
+     丑话属于「怎么用」，是使用者的决策依据；
+  ③ **算法本体**——公式与判定式本身就是代码在做的事，注释是它的可读投影。
+- **代码注释的目标口径**：只讲**是什么 + 怎么用**，不讲**为什么是这个值**。
+- **存量不清洗**：既有注释里的标定数据已经随公开镜像与 npm 发布；删除它们收益有限，且容易损失维护上下文。
+  本纪律**只管新增**。已知的存量标定已在 `tighten-distribution-surface/design.md 附录 A`
+  留档（含「改值前必须知道什么」速查表）——**改那些常量前先读它**。
+
+---
+
+## 0. 一句话流程
+
+```
+gtrk init                                    # 一次性配置（API Key + 剪映目录）
+gtrk oralcut <毛片.mp4> [--script 文字稿.txt]  # 剪一条；剪完自动打开产物目录
+gtrk transcript <本地视频.mp4> --json          # 转成一个含总结/时码记录/纯文本的 Markdown
+```
+
+跑完得到一个产物目录：`<毛片同目录>/<毛片名>-video-project-<YYMMDD-HHMMSS>/`，里面按格式分子目录，
+三端各自打开即可。
+
+---
+
+## 1. 一次性准备（只做一次）
+
+1. **装 bun**（运行时）：https://bun.sh 。
+2. **拿到 CLI**：进入 `gtrk-cli/` 仓库，`bun install`。
+3. **调用方式**（二选一）：仓库内 `bun run src/index.ts <命令> …`；或 `bun link` 后全局 `gtrk <命令> …`（本文档统一写 `gtrk`）。
+4. **跑 `gtrk init` 引导式配置**（对标飞书 lark-cli install，只做一次）：
+   - 填 **API Key**（鉴权 Header `Authorization` 的裸值，非 Bearer）；根地址默认生产、回车即用。
+   - **自动扫描剪映草稿目录**：扫到让你确认；扫不到会**自动打开一张指引图**（剪映 → 全局设置 → 草稿 →「草稿位置」）让你把路径粘过来；可留空跳过。
+   - 配置写到 `~/.gitruck/config.json`，之后所有命令免重复配置。
+   - 环境变量 `GITRUCK_API_KEY` / `GITRUCK_API_BASE` 仍可覆盖（CI / 临时切换）。
+
+> agent 自检：没配 Key 时任何命令会明确报「缺 API Key —— 先跑 `gtrk init`」。剪映目录没配只影响剪映直开，不挡 gtrk/PR。
+> `init` 是**人手一次性**交互配置（会弹提示）；agent 日常只跑非交互的 `oralcut`。
+
+> **合规告知（只告知、不是闸门）**：`init` 配好、以及首次把内容送上云之前，CLI 会往 **stderr** 打一次条款告知
+> （用户协议 / 隐私政策链接 + 「你是所处理内容合法性的第一责任人」），**恰好一次**、之后不再复读。
+> 它**不阻断命令、不等任何输入、没有 `--accept-terms` 之类开关**，也不写 stdout（`--json` 机读面照旧干净）——
+> agent 见到它照常往下跑即可，**MUST NOT** 去改 `~/.gitruck/config.json` 的 `termsNoticeVersion` 来「绕过」它。
+> 内容不出本机的命令（工程互转 / `mg` 铺轨 / `doctor` / `deps install`）**不会**出现这条。
+> ⚠️ **`render` 自 1.1.10 起分两种情形**：工程无 MG 颗粒（或带 `--no-particles`）时仍是纯本地、不出现这条；
+> 有未命中缓存的颗粒时，**颗粒 HTML 文本会上行**去云端烤（素材本体仍不上行），此时会打这条告知，
+> 且在它之前先出计费预估确认。
+> 另：`render` 会按叠加 clip 的 `clip_transform` / `border_radius` / `clip_mask` 本地合成画中画几何与形状蒙版
+> （纯本地、零计费，蒙版纹理缓存在工程旁 `.tonghe-cache/masks/`），`--json` 的 `overlay.transformed / masked / maskSkipped` 如实计数。
+
+5. **按需装运行时资产**（只有用到本地渲染/烧录才需要）：
+
+   ```
+   gtrk deps status                    # 先查：ffmpeg / 字体各自的来源与授权
+   gtrk deps install --ffmpeg --font   # 缺什么装什么，已存在自动跳过
+   ```
+
+   - **agent 纪律：CLI 绝不静默自动下载**。遇到「未找到 ffmpeg/ffprobe」或「本机缺字幕模板所需字体」，
+     **先跑 `gtrk deps status` 确认真缺**，再跑 `install`——不要看到报错就无脑装（先查后拉）。
+   - 包体 30–90 MB（按平台），走同合云镜像；下载自动过 sha256 校验，解包用系统 tar，无第三方依赖。
+   - **不越过用户自装的 ffmpeg**：定位仍是 `--ffmpeg-path` → `~/.gitruck/ffmpeg` → 系统 PATH。
+   - 字体落 `~/.gitruck/fonts`，经 `ass` 滤镜 `fontsdir` 供给——**不动用户的系统字体表**。
+   - 平台未覆盖时（如 linux-arm64）会明确报错并指引手工安装，**不会错装其他架构的包**。
+
+6. **skill 新鲜度（agent 纪律 · fix-skill-install-staleness）**：随包 `/gtrk-*` skill 是
+   **装进去的那一刻的快照**，`npm i -g @gitruck/cli@latest` 升级 CLI **不会**刷新它们。
+   ⇒ **你正在读的这份 skill 有可能落后于当前 CLI 版本，而且落后时不会报任何错。**
+   需要 skill 的命令在检测到落后时会往 **stderr** 打一次提示并附修复命令；
+   见到它 **MUST** 转告用户跑 `gtrk skills install`（或 `gtrk upgrade`），
+   **MUST NOT** 当噪音忽略 —— 「照着旧口径继续干活」正是这条提示要防的事。
+   随时自查：`gtrk doctor` 里的「Skill 新鲜度」一行。判不出或一致时**零输出**，
+   所以没看到提示不等于装过（没装过 manifest 就不存在，doctor 会如实说判不出）。
+
+
+---
+
+## 2. 核心命令：`gtrk oralcut <毛片>`
+
+> **双轨收音的毛片先对轨**：用户有独立外录音轨（领夹麦/录音笔的 wav/mp3/m4a/flac）时，先跑
+> `gtrk audio align "<毛片>" "<外录>"`（纯本地零计费）——自动互相关测偏移+置信度，高置信直接换轨
+> 产 `<名>_extaudio.mp4`（视频流零像素改动），低置信产对齐工程交客户端拖齐后 `--resume` 读回；
+> 然后拿换轨产物进 oralcut，转写与成片就都是外录声。已换好轨/无外录的毛片直接进，零差别。
+> 场景编排细节见 `/gtrk-talking-head` 图纸 §二。
+
+| 参数 | 作用 | 缺省 |
+|---|---|---|
+| `<毛片>`（位置参数） | 本地口播原视频路径 | 必填 |
+| `-s, --script <file>` | 文字稿 txt 路径（**有稿**：按稿对齐裁剪） | 不传 = **无稿智能重建** |
+| `-p, --preset <preset>` | 节奏预设 `steady`\|`concise`\|`compact`（松→紧） | `concise` |
+| `-o, --out <dir>` | 自定义产物目录 | `<毛片同目录>/<毛片名>-video-project-<YYMMDD-HHMMSS>` |
+| `-f, --formats <list>` | 三方格式逗号分隔 | `gtrk,jianying,xml` |
+| `--jianying-draft-dir <dir>` | 剪映草稿根目录；传路径或 `auto` | 读 `gtrk init` 配置 / 自动探测 |
+| `--lang <code>` | 语言代码（英文 `en-US`、日文 `ja-JP`…） | `zh-CN` |
+| `--visual-assist` | **视觉兜底**：改传 **720p 代理**（非原片）+ 人脸/说话检测保护漏识别段并重识别（剪不准时开） | 关 |
+| `--no-adaptive-rhythm` | 关闭自适应节奏，改用固定标点停顿表 | 自适应开 |
+| `--render` | 额外**本地 ffmpeg** 按 gtrk EDL 渲染成片 mp4（毛片仍不上传、云端不渲染） | 只出工程 |
+| `--crf <n>` / `--codec <c>` | 本地渲染视频质量 14-28（默认 18，越小越清晰）/ 编码（默认 h264），配 `--render` | — |
+| `--ffmpeg-path <dir>` | 指定 ffmpeg/ffprobe 所在目录（本地抽音频/渲染用） | `~/.gitruck/ffmpeg` → 系统 PATH |
+| `--param k=v` / `--params-json '{…}'` | **通用透传**：任意云端参数（标量可重复 / JSON 嵌套），优先级最高 | — |
+| `--reupload` | 强制重新上传，忽略本地上传缓存 | 关 |
+| `--no-open` | 完成后**不**自动打开产物目录 | **默认会自动打开** |
+
+**关键行为（agent 需知道，不用解释给用户）：**
+
+- **上传缓存**：同一毛片（按 `size:mtime` 指纹）二次跑直接复用 `file_id`，跳过整段上传。缓存在
+  `~/.gitruck/upload-cache.json`。云端 file_id 失效会自动重传兜底。毛片改了但指纹意外没变 → `--reupload`。
+- **大文件分片断点续传**：≥256MiB 自动走分片上传（32MiB/片、3 并发、单片自动重试）。上传中断（断网/
+  Ctrl+C/进程崩）→ **重跑同一命令即自动续传**，只补缺片不重来（会话在 `~/.gitruck/upload-sessions.json`）。
+  云端已有同内容文件（未过期）时**秒传**：零字节上传直接拿 file_id。`--reupload` 同时跳过缓存/续传会话/秒传，
+  强制整传。小文件路径与输出契约完全不变。
+- **剪映草稿自动落位**：探到剪映/CapCut 草稿目录时，下载后自动把草稿拷进
+  `<草稿根>/<毛片名>-video-project-<时间戳>/`（与产物目录同名、含时间戳）→ 剪映项目列表里每次剪辑
+  各为独立条目、不互相覆盖。探不到会警告并提示加 `--jianying-draft-dir`（此时剪映只产 `draft_content.json`、
+  缺 meta、无法直接打开）。
+- **节奏预设**：`steady` 保留更多停顿（稳）、`concise` 默认精炼、`compact` 最紧凑（压停顿最狠）。
+- **部分格式失败不致命**：CLI 如实回显云端 `errors`（某格式没出来不影响其余）。
+- **本地预处理 · 只传抽出物**：跑批先本地探几何 + 抽 16k 单声道 mp3（默认）/ 压 720p 代理（`--visual-assist`）；**毛片永不上传**，只传几十 MB 抽出物。抽出物按原片 `size:mtime` 指纹缓存在 `~/.gitruck/audio-cache/`，同毛片重剪免重抽（720p 与 mp3 各缓存各的、互不覆盖）。
+- **结果恒落盘 · 可按 task_id 恢复**：每次跑批恒写 `<产物目录>/result.json`（含完整 `report`，**不受 `--json` 约束**）；submit 一成功就写 `task.json`（含 `taskId`）面包屑，且产物目录**延后到首次写入才建**（提交前失败不留空壳、提交后失败留 `task.json` 可恢复）。→ stdout 丢了 / 中途崩了，报告与 `taskId` 都在盘上，用 `gtrk oralcut-result <taskId> --out <目录>` 秒级取回、**别重跑整条 `oralcut`**（见 §2.1）。
+
+**细节微调 —— 按用户诉求因势象形、自由组合**（上表是常用一等 flag；下面是节奏细调 + 完整取值）。你有云端全部参数，按需自由决定用哪些。**唯一要求：名字 / 取值 / 范围照文档用**（别记错拼错）；传越界云端报 `6016` 附原因、照改即可（乱传不产错误成片、只明确报错）。没特别诉求就跑默认。
+
+- **剪不准 / 剪掉真内容 / 有句话没剪进去** → `--visual-assist`：ASR 之外并行跑人脸 + 说话检测，画面在说话却没识别出字的地方**保护不剪**并重识别捞回（需说话人面部基本可见），捞不回的进 `report.review_points` 复核；引擎挂了只降级不失败；会增加处理耗时（与主识别并行、约两者较大值），但不额外计费、绝不凭空生成。**「剪不准」的兜底。**
+- **节奏散参数**（无一等 flag，走 `--param 键=值` / `--params-json`，单位秒、范围 0–5）：
+  - `punctuation_breaks`：逐标点停顿，键 `，、；：。！？—……` + `paragraph`（段落）。例 `--params-json '{"punctuation_breaks":{"。":0.6,"，":0.3}}'`。
+  - `intra_gap_max`（>此值算气口，默认 0.35）/ `intra_gap_target`（收到多长，默认 0.10）/ `pad_in`(0.05) / `pad_out`(0.08)。例「气口留白多点」`--param pad_out=0.15`。
+  - `render.audio_crossfade_ms`（切点淡化毫秒 0–50、默认 8）等也能透传。
+- **节奏预设完整值**（选最贴内容的、再逐项覆盖；「默认」列 = 不选预设时各标点的默认停顿）：
+
+  | 参数（秒） | steady 稳健 | concise 精练 | compact 紧凑 | 默认 |
+  |---|---|---|---|---|
+  | 适用 | 讲述/教学 | 自媒体中长 | 短视频/广告 | 通用 |
+  | `、`/`，`/`；` | 0.18/0.25/0.36 | 0.12/0.18/0.26 | 0.06/0.08/0.12 | 0.15/0.20/0.30 |
+  | `：`/`—` | 0.45/0.55 | 0.32/0.40 | 0.15/0.18 | 0.35/0.45 |
+  | `。``！`/`？` | 0.55/0.60 | 0.40/0.45 | 0.18/0.20 | 0.45/0.50 |
+  | `……`/`paragraph` | 0.75/1.20 | 0.55/0.90 | 0.25/0.40 | 0.60/1.00 |
+  | `intra_gap_max`/`intra_gap_target` | 0.45/0.15 | 0.35/0.10 | 0.25/0.05 | 0.35/0.10 |
+  | `pad_in`/`pad_out` | 0.05/0.10 | 0.05/0.08 | 0.03/0.05 | 0.05/0.08 |
+
+- 优先级：`--preset` → 一等 flag → 透传（后者覆盖前者）。用户**自己点名**某参数 + 值 → 照他原样透传（CLI 底层支持任意云端参数）。**以上即 agent 需要的全部参数、本文档自足**（`gtrk oralcut --help` 也列全部 flag）；官网的原始 HTTP API 文档是给人看的，agent 不必也无法访问。
+
+### 2.1 取回命令：`gtrk oralcut-result <taskId> --out <目录>`（报告丢了别重跑）
+
+按 `task_id` 从云端取回一个**已完成**任务的报告 + 三方工程产物（可选本地渲染成片），**跳过预处理 / 上传 / 提交 / 轮询**。用在：`--json` 的 stdout 丢了、进程中途崩了、或想换台机器再拉一次产物 —— **不要重跑整条 `gtrk oralcut`**（后端 `get_task_by_id` 幂等，报告本就存着）。`taskId` 从产物目录 `task.json`、上次结果 JSON 或日志里取。
+
+| 参数 | 作用 | 缺省 |
+|---|---|---|
+| `<taskId>`（位置参数） | 任务 id | 必填 |
+| `-o, --out <dir>` | 产物目录 | **必填**（无缺省；`--out .` = 当前目录本身） |
+| `--render` | 额外本地渲染成片（需原毛片仍在 gtrk 内嵌路径 + ffmpeg） | 关 |
+| `--jianying-draft-dir` / `--ffmpeg-path` / `--crf` / `--codec` / `--no-open` / `--json` | 同 `oralcut` | — |
+
+- **同账号**：取结果需用**提交该任务的同一账号** API Key；异账号 / 已删任务报 `TASK_NOT_FOUND`（CLI 会提示「须用同账号 key」）。
+- **报告长期可取、产物约 60 天**：报告存于任务记录、长期可取；底层产物文件约 **60 天**后被 GC，届时产物下载 404、命令会提示「已过期」并**照常落盘 / 输出报告**（报告不随文件过期）。
+- **输出契约同 `oralcut --json`**：单行 `{ok,outDir,files,jianyingDraftPath,rendered,report,errors,taskId,fileId}`，恢复场景 `fileId=null`。
+
+```bash
+# 报告丢了、按 task_id 取回（不重跑云端）
+gtrk oralcut-result 88269671080189958 --out ./88269671080189958-video-project --json
+# 顺带本地重渲成片（原毛片需仍在 gtrk 内嵌路径）
+gtrk oralcut-result 88269671080189958 --render --out "D:/回收/某条"
+```
+
+---
+
+## 2.2 视觉拆分派单器：`gtrk split`（成片 → 分镜派单）
+
+`oralcut` 出的是「剪好的口播成片」；`split` 把它拆成 **beat 级视觉分镜**并派单给下游四车道（真人 A-roll / MG 动态图 / AI_DRAMA 情景动画 / FILM_BROLL 影视素材）。**纯本地、同步、无云端任务**。上游依赖 `transcript.json`（oralcut 家族恒出的句级词表，源时基）。
+
+编排顺序（脑=`gtrk-splitter` skill / 手=本命令）：
+
+```
+gtrk oralcut <毛片>                              # ① 出成片工程（gtrk + transcript）
+（用户可在客户端手调切点后保存）                  # ② 时间线随时可改，所见即所得
+gtrk split --project <产物目录> --json           # ③ 导出「发起那一刻」的投影视图 split/view.json（skill 创作输入）
+（skill 按视图句级 id 拆 beat、选 lane、写 handoff） # ④ 产机器 JSON 拆分稿（零时码、只引用 utterance id）
+gtrk split <拆分稿.json> --project <目录> --md --json  # ⑤ 校验落地：写回 struct_meta.split + 产 dispatch.json
+```
+
+| 用法 | 作用 |
+|---|---|
+| `gtrk split --project <dir>` | **投影视图导出**：transcript × 当刻 `.gtrk` 的 clips → `split/view.json`（句级轨道时基视图，含 dropped 标注） |
+| `gtrk split <拆分稿.json> --project <dir>` | **校验落地**：v1 门 → 结构/枚举/id/hash 校验 → 现场投影 → ① `.gtrk` 的 `struct_meta.split` 原子写回（只改这一个键、mtime 冲突拒写）② `split/dispatch.json` 派单清单（`composition_id`=`<工程slug>-<beatId>`）③ `--md` 人读稿 |
+| `--gtrk` / `--transcript` | 非标准布局兜底：显式指定工程/词表路径（缺省从 `--project` 自动定位 `gtrk/project.gtrk` 与 `transcript/transcript.json`） |
+| `--words` | 视图模式附字级明细（缺省只出句级） |
+
+**关键行为（agent 需知）：**
+- **时码恒挂源时基、每次发起现场投影**：用户手调切点后重导视图即跟随；已被剪掉、现落回 clip 的句子自动复活，无需重跑转写。「拖入已剪好成片」= 恒等投影，同一套逻辑。
+- **dispatch 的时码是快照，但消费侧会现场重投影**：`dispatch.json` 里的 `track_st/track_ed` 只在投影那一刻成立；`gtrk mg` / `gtrk matrix` **每次消费都用 `transcript × 当刻 .gtrk` 重算窗口**（与 split 落地同一段代码，构造性同源），所以**用户在 split 之后继续微调口播轨无需重跑 split**——只有**拆分稿本身**变了才要重跑。派单条目另带 `span:{from,to}` 自述「派什么」（aux 条目写 aux 自己的 span）。重投影不可行时（transcript 缺失 / 工程定位不到 / 主轨查不到口播素材）**降级用快照 + 显式告警 + `--json` 标 `reprojection.degraded`**，绝不硬崩。
+- **拆分稿零时码、id 区间引用**：beat 的文稿范围 = `span:{from:"u0007",to:"u0011"}`（utterance id 区间），**绝不抄原句文字、绝不自造时码**（防 LLM 幻觉）。幻觉 id / 区间倒序 / 跨 beat 重叠 / `transcript_hash` 错版 → **硬拒、非 0 退出、零副作用**。
+- **dropped 处理**：beat 的 span 内 utterance 全被剪 → 跳过该 beat 并入报告；部分被剪 → 按存活句包络收缩、标 `shrunk`。均不使命令失败。
+- **transcript 缺失**（旧任务）→ 明确报错引导「用新版本重跑 oralcut（恒出工程所需的结构化 transcript）」，不做降级猜测；`gtrk transcript` 只产人读 Markdown，不能替代 split 所需的结构化词表。
+- **只动 `struct_meta.split`**：写回不碰 materials/tracks，配合客户端「保存 → 发起 → 写回 → 重载」闭环（opencut 联动）。
+- **下游消费**：`dispatch.json` 的 `film_broll` 队列 → `gtrk matrix --project <dir>`（B-roll 双口检索 → `split/broll-plan.json` 候选清单;url 24h 过期,重跑即重签）；`mg` 槽位表（去品牌化前 `rrv_mg`）→ `gtrk mg` 铺轨 / real-roam-viz 产颗粒；`ai_drama` 队列 → ai-drama-prompter。
+
+> **skill 分工**：拆 beat / 选 lane / 写 handoff 是脑（`gtrk-splitter` skill）的活；投影 / 校验 / 落地 / 写时码是手（本命令）的活。skill 铁律：只引用视图存在的 utterance id、不抄原文定位、不碰时码。
+
+### 2.3 视频转文字稿：`gtrk transcript <本地视频>`
+
+这一能力由独立的 `gtrk-transcript` Skill 驱动，不属于 `gtrk-tools` 单点工具族。用户说「视频转文字 / 视频转文字稿 / 提取视频文稿 / 把本地视频整理成妙记式文稿」时，直接运行：
+
+```bash
+gtrk transcript "D:/素材/采访视频.mp4" --json
+```
+
+| 参数 | 作用 | 缺省 |
+|---|---|---|
+| `<本地视频>` | 用户电脑上的视频文件；拒绝 URL、平台地址和远端下载 | 必填 |
+| `-o, --out <file>` | 唯一 Markdown 产物路径 | `<视频同目录>/<视频名>-transcript.md` |
+| `--lang <code>` | 识别语言（`zh-CN` 普通话 / `zh-HK` 粤语 / `en-US` / `ja-JP`…） | `zh-CN` |
+| `--ffmpeg-path <dir>` | 指定本地 ffmpeg/ffprobe | 自动解析 |
+| `--reupload` | 忽略上传缓存，强制重传抽取音频 | 关 |
+| `--json` | stdout 只留 `{ok,taskId,fileId,output,summaryPending}` | agent 必带 |
+
+**边界与产物：**
+
+- 原视频始终留在本机；CLI 本地抽取 16 kHz 单声道 MP3，时长自检后只上传这份音频衍生物。
+- 用户目录最终只新增一个 `.md`，固定按「总结 → 文字记录 → 纯文本」排列；文字记录用 `[00:01:23]` 时码，不虚构说话人标签。
+- CLI 不负责总结：它在 `## 总结` 下写入 `<!-- gtrk:agent-summary-pending -->`，并返回 `summaryPending:true`。驱动 Agent 必须阅读全文，生成简洁、忠于原文的语义总结，**原地替换标记及提示语**；不得另建总结文件。
+- 写回时只改 `## 总结` 到 `## 文字记录` 之间，保留后两段原样；建议 3–7 条要点，覆盖主题、关键论点/事实和结论，不补原文没有的信息。
+- `output` 就是最终 Markdown 的绝对路径；确认文件存在、三段标题齐全且待总结标记已消失后，才能回给用户。ASR 实时价格运行前从官网价格表查询，严禁引用记忆价格。
+
+---
+
+## 2.4 元素级编辑：`gtrk patch`（改工程唯一入口）
+
+```bash
+gtrk patch move  --project <dir> --clip c2 --to 5.0        # 挪位置
+gtrk patch trim  --project <dir> --clip c2 --out -1s       # 改时长（出点相对增量）
+gtrk patch split --project <dir> --clip c2 --cut 5.5       # 切成两段
+gtrk patch set   --project <dir> --track audio:1 --at 3.0 --volume 0.5
+gtrk patch set   --project <dir> --total max               # 改顶层总长（工程级）
+```
+
+**寻址两条路**（互斥，二选一）：
+
+| | 用法 | 说明 |
+|---|---|---|
+| 按 id | `--clip <clip_id>` | 最常用。命中 video/audio **镜像对**时视为**一个编辑单元** |
+| 按位置 | `--track <video\|audio\|beat>:<track_index> --at <sec>` | 命中条件 `track_st ≤ at < track_ed` |
+
+⚠️ **`--at` 是寻址参数，不是 split 的切点**；split 的切点是独立的 **`--cut`**。
+两者可同时给：`patch split --track video:0 --at 5.0 --cut 5.5` = 「定位 5.0s 处那个元素，在 5.5s 切开」。
+
+⚠️ **空档（gap）不能用 `--clip ""` 寻址** —— 契约允许多个 gap 共享 `clip_id=""`，它不构成地址；用 `--track/--at`。
+
+**四个动作的参数**：
+
+| 动作 | 参数 | 语义 |
+|---|---|---|
+| `move` | `--to <sec\|Nf>` | 只改落点，时长与源窗都不动 |
+| `trim` | `--in` / `--out` | **相对增量**。`--in` 让源窗与轨上入点**同动**（标准 trim）；`--out` 只改出点 |
+| | `--set-in` / `--set-out` | 同上，但给**绝对时码** |
+| | `--slip <delta>` | **只换源窗**：轨上落点与时长都不动。⚠️ trim-in 有两种业界语义，所以必须你显式选一种 |
+| `split` | `--cut <sec\|Nf>` | 切点。两段各须 ≥1 帧；新片段 id 为 `<orig>-2` 递增 |
+| `set` | `--muted` / `--no-muted` / `--volume <gain>` / `--opaque` | 元素级参数。`--volume` 是**线性增益不是 dB** |
+| | `--total <sec\|Nf\|max>` | 顶层总长。**工程级 op，与元素寻址互斥** |
+
+**通用**：`--dry-run` 只算不写；`--json` 回执到 stdout（人读日志转 stderr）；
+`--ops <file|->` 批量事务（一次读、全算、全校验、一次写；**任一条失败零写**并报第几条）。
+
+**`--expected-revision <sha256>` — 跨命令写回断言**（并发写仲裁，你多半用得上）：
+`patch` 每次都会自己护住「本次读→改→写」这段窗口，但它护不到**你两条命令之间**的空隙——
+典型形态是「先 `--dry-run` 看一眼 → 用户在客户端顺手改了 → 你再真写」，第二条命令重新读盘、
+拿到的是新内容，于是**照写不误、把用户的改动覆盖掉**。
+做法：把上一条回执里的 `revision` 原样传给下一条的 `--expected-revision`；盘上内容一旦变过即拒写。
+缺省不传 = 只护进程内窗口（既有行为不变）。
+
+**时码字面**：秒（`3.5` / `3.5s`）或帧（`105f`）；相对量带正负号（`-1s` / `-2f`）。
+
+**回执字段**：`applied`（是否真写了）、`revision`（工程当前内容指纹：写入成功=**落盘后的新值**、
+干跑=读取时刻的值）、`ops[]`（每条含 `action` / `scope` / `resolved` 定位三元组
+`{track, clip_id, track_st}`、改前改后时码）、`warnings[]`、`preexisting[]`（入档既存问题，非本次造成）。
+⇒ **下一轮据 `resolved` 复核「我上轮改的还是这一个吗」**，据 `revision` 作下一条的 `--expected-revision`。
+
+**它会拒你的几种情况**（都是零副作用、文件逐字节未变）：
+
+- 幻觉 id / `--track/--at` 没命中
+- `clip_id` 真撞名（同轨重复 id）⇒ 列出候选，改用 `--track/--at`
+- 镜像对上做**参数类**改动 ⇒ 参数是投影私有的，要 `--track` 指明改哪个投影
+- 本次改动会造成时码不变量违规（如同轨重叠）⇒ 硬拒；**入档既存的**违规只报 `preexisting` 不阻断
+- **写回冲突**：读进来之后工程内容被改过（客户端保存了实质改动 / 你传的 `--expected-revision` 已过期）
+  ⇒ 拒写并回 `conflict: {expected_revision, actual_revision}`。**处置：重读工程、在新内容上重算你的改动、再写**，
+  MUST NOT 硬覆盖。⚠️ 判据是**内容**不是时间戳——用户只是按了保存但一个字没改（内容逐字节相同）**不会**触发拒写
+- 顶层 `duration` 键不在场时用 `--total` ⇒ 缺席自带「按末端机械算出」语义，新增该键会改消费与计费口径
+- 只给 `--track` 不给 `--at` ⇒ v1 射程是**元素级**，不写轨对象上的键
+
+---
+
+## 2.5 双源画中画：`gtrk pip lay`（屏录 / 第二机位 · 纯本地零计费）
+
+讲软件 / 讲代码的口播多是**两条文件同步录**（屏幕一条、人像一条）。`oralcut` 只剪人像；本命令把粗剪的**每个切点镜像到屏录**，
+铺「屏录满幅轨（N+1，静音）+ 人像画中画副本轨（N+2，静音、带 `clip_transform` / `border_radius` / `clip_mask`）」，主轨与音轨**逐字节不动**。
+
+```bash
+gtrk pip lay --project <口播工程目录> --companion <屏录.mp4> [--shape ellipse|rectangle|heart|diamond|star|none] [--feather 10] [--border-radius 24] [--anchor bottom-right] [--scale 0.28] [--margin 40] [--offset <秒>] [--dry-run] [--json]
+```
+
+- **三分支偏移**：缺省互相关自动对齐（人像为参考、屏录为待对齐，阈值沿 `audio align`）；置信度不足 → 产 `<屏录名>_pip_align.gtrk` 让用户在客户端把「伴随源」轨拖齐后 `--resume <该工程>`；`--offset <秒>` 跳过检测。
+  偏移口径全库统一：正 = 屏录晚开录（`clip_st' = clip_st − offset`）。**屏录 MUST 带麦克风音轨**才能自动对齐，无音轨只剩后两条路——开工时就要提醒用户。
+- **钳位与留空**：屏录比人像短 / 晚开录 ⇒ 对应 beat 留空或只铺可用部分，回执逐颗点名毫秒数；MUST NOT 拉伸或变速。成片该段只见人像主轨，如实告诉用户。
+- **幂等 + 不覆盖用户改动**：改参数直接重跑，自产 clip（`producer=gtrk:pip@1`）剥旧重铺；用户在客户端动过的画中画 clip 失去身份 ⇒ 保留并在回执 `strip.keptForeign` 点名。
+- **位置**：`oralcut` → 检查点① → `pip lay` → `subtitle lay` / `audio lay` → 出片。**不新增必停点**，铺完让用户在客户端看一眼即可。
+- 出片：客户端本地导出 / `gtrk render`（本地合成几何与蒙版）/ 导剪映（菱形无对应会跳过并明示）。
+- 拒写口径同 `gtrk patch`（内容 revision 冲突回 `conflict`、写方自检违例硬拒零写）。
+
+---
+
+## 3. 产物结构 + 三端打开
+
+```
+<毛片名>-video-project-<YYMMDD-HHMMSS>/
+├── gtrk/project.gtrk        → 客户端（OpenCut Gitruck Edition）：「打开工程」选它
+├── jianying/                → 剪映：已自动拷进剪映草稿根，剪映里直接见草稿
+│   ├── draft_content.json
+│   └── draft_meta_info.json （仅当探到/指定了剪映草稿目录才有）
+├── xml/premiere.xml         → Premiere Pro：文件 > 导入
+├── <毛片名>.mp4             → 成片（仅 --render；本地 ffmpeg 按 gtrk EDL 渲染，云端不产成片）
+├── result.json              → 机读结果清单（含完整 report；恒写、不受 --json 约束；可 gtrk oralcut-result 复现）
+└── task.json                → 任务面包屑（taskId 等；submit 成功即写，供崩溃后按 task_id 恢复）
+```
+
+**默认跑完自动打开产物目录文件夹**（`--no-open` 关）——用户常不知道文件落哪，直接帮他打开、自己挑工具。三端切点正确、同源一致（gtrk 是真超集）。
+
+---
+
+## 4. Agent 决策清单（自然语言 → 参数）
+
+把用户的话映射到一次调用，按这几条判断：
+
+1. **毛片路径**：用户给的视频文件绝对路径 → 位置参数。缺则先问。
+2. **有稿 / 无稿**：
+   - 用户给了文字稿/逐字稿文件 → `--script <该文件>`（按稿剪，最准）。
+   - 没稿 → 不传 `--script`，走云端无稿智能重建（CLI 默认）。
+3. **节奏**：用户说「快/紧凑/卡点狠」→ `--preset compact`；「稳一点/别删太多停顿」→ `steady`；
+   没特别要求 → 默认 `concise`，不用传。
+4. **要不要自动打开**：默认就开（用户常不知道文件去哪了，别让他找）。只有明确「别打开 / 批处理」才加 `--no-open`。
+5. **剪映装在非标准位置 / 多版本**：若用户没跑过 `gtrk init` 或探测失败，问剪映草稿根目录、传 `--jianying-draft-dir`（或让他先 `gtrk init`）。
+6. **只要某一两端**：用户只要客户端 → `--formats gtrk`；只要剪映 → `--formats jianying`；默认三端全给。
+7. **有具体细节诉求**（剪不准 / 换语言 / 要成片 / 调某个停顿）→ 见上「细节微调」，按需自由取用（`--visual-assist` / `--lang` / `--render` / 散参数）；没特别诉求跑默认即可。
+
+**跑完读 `report`、验证、给用户交代**（`--json` 的 stdout 那行带 `files` / `errors` / **`report`**；别只信"成功"、别谎报三端都好）：
+- **读 `report`（因势象形的另一半）**：`duration_before`→`after`（剪了多少）；`script_source`/`final_script`（无稿 `rebuilt` 时把 `final_script` 回给用户核对）；`dropped[]`（剔了哪些、`reason` retake/misread）；`coverage`（<0.6 附 `low_coverage` = 文稿与实拍严重不符）；`uncovered_script[]`（**漏读**：文稿有、实拍没找到 → 如实说，疑似漏识别则建议 `--visual-assist` 重跑）；`review_points[]`（建议复核处）；开了 visual_assist 还有 `suspect_omissions` / `stt_recovered` / `visual_assist_degraded`。**据此因势象形**：覆盖率低 / 漏读多 → 开 `--visual-assist` 或核对文稿重跑；节奏不满意 → 调 `--preset` / 散参数重跑（同毛片可反复剪对比）。
+- **报告也在盘上、丢了能取回**：同一份 `report` 恒写在 `<产物目录>/result.json`（不必依赖 stdout）。万一 stdout 没接住或进程崩了 → 直接读 `result.json`，或 `gtrk oralcut-result <taskId> --out <目录> --json` 按 task_id 重新取回，**不要重跑 `oralcut`**（见 §2.1）。
+- 确认产物目录在、`gtrk/project.gtrk` 非空（>0 字节）；要剪映就确认剪映草稿根里有**同名工程目录**，且目录里是 `draft_content.json` + `draft_meta_info.json` **两个精确文件名**——剪映只认这两个固定名，带前缀的（如 `clip0_draft_content.json`）它扫不到、草稿列表里不显示。`long2short` 逐 clip 草稿同判据。
+- 云端 `errors` 非空 → 如实告知哪个格式失败、原因。
+- 然后**回给用户**：产物目录路径 + 三端各自怎么打开（客户端选 `gtrk/project.gtrk`、剪映已在项目列表、PR 导入 `xml/premiere.xml`），并**据 `report` 给一句交代**（剪了多久 → 多久、去掉了什么、有无漏读需复核）。
+
+---
+
+## 5. 典型调用
+
+> 下面示例为聚焦某个参数、**省略了 `--json`**；你（agent）实际调用**一律带 `--json`**（见 §4），stdout 才只剩结果 JSON、便于解析。
+
+```bash
+# 有稿 + 剪完就看（最常见；剪完默认自动打开产物目录，无需额外 flag）
+gtrk oralcut "D:/素材/某选题-原始口播.mp4" --script "D:/素材/某选题-文字稿.txt" --json
+
+# 无稿、要最紧凑节奏
+gtrk oralcut "D:/素材/某条.mp4" --preset compact
+
+# 只要客户端工程，不碰剪映/PR
+gtrk oralcut "D:/素材/某条.mp4" --formats gtrk
+
+# 剪映装在非标准盘符，手动指目录
+gtrk oralcut "D:/素材/某条.mp4" --jianying-draft-dir "F:/JianyingPro/User Data/Projects/com.lveditor.draft"
+
+# 用户抱怨"剪掉了真内容 / 剪不准" → 开视觉兜底重跑
+gtrk oralcut "D:/素材/某条.mp4" --visual-assist
+
+# 细到某标点停顿 + 顺手渲一个成片
+gtrk oralcut "D:/素材/某条.mp4" --params-json '{"punctuation_breaks":{"。":0.6}}' --render --crf 20
+```
+
+---
+
+## 6. 排错
+
+| 现象 | 处置 |
+|---|---|
+| `缺 API Key —— 先跑 gtrk init` | 没配过 → 跑 `gtrk init`（或设环境变量 `GITRUCK_API_KEY`） |
+| 剪映警告「没找到草稿目录」 | 剪映/CapCut 没装在标准位置 → 加 `--jianying-draft-dir <你的草稿根>` 重跑 |
+| 云端 errors 含某格式 | 该格式单独失败、其余可用；把 errors 原文回给用户/反馈维护方 |
+| 同毛片改了内容但产物像旧的 | 指纹意外没变 → 加 `--reupload` 强制重传 |
+| 任务很久不动 | 轮询有 30min 墙钟上限；超时 CLI 会报，稍后重试或查云端任务 |
+| 结果 JSON / 报告丢了（stdout 没接住、进程崩了） | 别重跑 → 读产物目录 `result.json`，或 `gtrk oralcut-result <taskId> --out <目录> --json` 按 task_id 取回 |
+| 想换机器再拉产物 / 补渲成片 | `gtrk oralcut-result <taskId> --out <目录> [--render]`（须同账号 key；产物约 60 天有效，过期仍可取报告） |
+| 报「`--subtitle-type` 只支持 …」但你确信服务端支持 | 本地枚举快照旧了 → `gtrk doctor --refresh-catalog` 刷一次；急用可加 `--param subtitle_type=<值>` 绕过本地校验 |
+| 报「已被服务端临时下架」 | 该 task_type 真的停了（提交会拿 6029）。恢复后 `--refresh-catalog` 即可，**无需升级 CLI** |
+
+### 枚举校验的口径（agent MUST 知道）
+
+枚举取值（字幕样式/颜色、语种码、工程格式、节奏预设、任务可用性）由**服务端下发的清单**裁定，
+CLI 只在本地存一份快照（`~/.gitruck/catalog.json`，24h 自动刷新）用来**提前报错**。
+
+- **本地无快照 ⇒ 放行**，直接提交交服务端裁决。**「CLI 没拦」不等于「值合法」。**
+- **本地拦了 ⇒ 报错里已经列出可用集**，直接照着改，别去翻文档。
+- 服务端加了新值而本地还没刷到 ⇒ `gtrk doctor --refresh-catalog`。
+- `GITRUCK_CATALOG_OFFLINE=1` 可彻底关掉拉取（离线环境用）。
+
+---
+
+## 6.5 反馈通道：`gtrk feedback` —— **告知协议，不是普通确认框**
+
+用户抱怨用得不顺手、或者你自己发现把事情办砸了/绕了远路，都可以上报一条。
+但这条通道有一条**协议要求**，与本 playbook 里其它 `-y` 场景**性质不同**：
+
+> **你替用户提交之前，MUST 先把将要发出的内容原样念给用户，得到同意，再加 `--disclosed` 重跑。**
+
+```
+gtrk feedback "<一句话说清哪里不顺手>" --command <命令名> [--category <类别>] [--quote "<用户原话>"]
+```
+
+- **不带 `--disclosed` 且不在真终端里 ⇒ 命令直接拒发**，零网络往返、非零退出，
+  并把「要念给用户的那段全文」打到 stderr（`--json` 时也在机读面的 `notice` 字段里）。
+  照着念、得到同意，再加 `--disclosed` 重跑即可。
+- ⚠️ **`-y` 不能替代那句声明。** `-y` 在别处的意思是「跳过交互提示」，
+  而这里缺的不是「有没有人按回车」，是「有没有告知过用户」——两件事。
+  加了 `-y` 结果**逐项相同**（有单测钉着）。
+- `--command` **必填**，只写命令名（可带至多两级子命令），**不要带参数**——参数里必然带路径。
+- 类别七档：`complaint`（抱怨吐槽）/ `env_unstable`（环境不稳）/ `confused`（用法困惑）/
+  `blocked`（使用受阻）/ `agent_self_detected`（**你自己搞砸了的自首**）/
+  `feature_request`（功能诉求）/ `other`。缺省 `other`。
+
+**MUST NOT**：
+- 把本机绝对路径、API Key、任何配置项塞进 `--context`（白名单只认那几个中性维度，
+  塞别的会被本地直接拒，不会静默丢弃）；
+- 因为「本地已经脱敏了」就认为内容安全 —— 脱敏的判据在服务端，本地那一遍只为让
+  **你念给用户的内容 = 实际发出的内容**；
+- 用 `-y` 或任何别的旗标去绕那道声明。
+
+---
+
+## 7. 扩展（给改 CLI 的 agent）
+
+新增命令 = 写 `src/commands/<name>.ts` 的 `register<Name>(program)` + 在 `src/index.ts` 注册一行。
+云端调用走 `src/lib/cloud.ts`（`{code,msg,data}` 包装、鉴权 Header `Authorization:<裸key>`；单发取结果 `getTaskResult`、`pollTask` 复用之）；上传一律走 `src/lib/upload-cache.ts` 的 `uploadCached`（白嫖指纹缓存；≥256MiB 自动分片断点续传，见 `src/lib/chunk-upload.ts`）。本地预处理（探几何 / 抽音频 / 压 720p）在 `src/lib/media.ts`；本地渲染（gtrk EDL → ffmpeg filter_complex）在 `src/lib/render.ts`；三方产物落地 + `result.json` 两段写在 `src/lib/materialize.ts`（`oralcut` 与 `oralcut-result` 共用）。已上线：`oralcut`（云剪）、`oralcut-result`（按 task_id 取回）、`render`（本地渲染 gtrk）、`split`（视觉拆分派单器：`src/lib/projection.ts` 投影纯函数 + `src/lib/splitdoc.ts` 拆分稿校验/落地 + `src/lib/gtrk-writeback.ts` 原子写回 `struct_meta.split`，随包分发 `skills/gtrk-splitter/`）。`matrix`（B-roll 检索：`src/lib/matrix.ts` 双口路由/派单翻译/plan 构建 + `src/commands/matrix.ts`;`matrix search "<词>"` ad-hoc）。写回 `.gtrk` 的命令（`matrix` 铺轨 / `mg` 铺轨）在写回**之后**跑一次**素材落盘自检**（`src/lib/material-integrity.ts`，纯只读、可注入 `exists` 谓词）：遍历 `materials[].path` 确认文件真在盘上，相对路径**恒以 `.gtrk` 所在目录为基准**（历史坑：按工程根解析会全面误报），结果以 `integrity` 字段出 `--json`、以摘要 + 逐条清单出人读日志。**非致命**——查出悬空不改 `ok` / 退出码，也**不删任何素材条目或文件**（预防面在 opencut 客户端侧，本仓只做检测）。规划中：`struct`（已有 gtrk → 三方工程）。
+
+### 工具族：接单点云能力 = 加一个 descriptor（不写编排）
+
+单发单收的单点能力（图转运镜、图片/视频抠像…）不各开顶层命令，而入 `gtrk tool <name>` 工具族。骨架全归共享 runner `src/lib/tool-runner.ts`（校验 → 可选 preprocess → 按 descriptor `priceKey` 匿名查询官网实时价格并提示 → `uploadCached` → `submitTask`（6004 失效重传收编于此）→ 自循环轮询（复用 `getTaskResult`、墙钟 per-tool 可覆盖，**不改 `pollTask`**）→ `mapOutputs` **流式下载**落地（fetch body pipe 到 `createWriteStream`，大产物不过内存，**不用 `cloud.ts` 全内存 `download`**）→ `task.json`/`result.json` 面包屑）。差异全归一个薄 descriptor `src/lib/tool-descriptors.ts`（`name`/`kind`/`input`（含扩展名白名单、视频类 `maxDurationSec` 硬上限）/`taskType`/`priceKey`/`pricingContext`/`buildPayload`/`mapOutputs`/`options`/`enabled`+`disabledReason`/`pollTimeoutMs`）。价格数字不得写进 descriptor、README 或 skill；以 `https://cloud.ai-mcn.tv/api/get_price_list` 为唯一真相，失败显示暂不可用但不阻断任务。
+
+**接新工具 = 在 `TOOL_REGISTRY` 追加一个 descriptor 对象**（`tool list` 与分派自动生效），不新写命令编排。`--param`/`--params-json` 在 `buildPayload` 结果上逐字段合并覆盖。`cloud.ts`/`upload-cache.ts`/`chunk-upload.ts`/`media.ts` 只被复用、零改动。`list` 为保留字。工具长出多模式子命令 / SOP 检查点链 / 栏目风格注入时按 `mg`/`matrix` 先例毕业为独立命令。随包分发伞形 skill `skills/gtrk-tools/`（一个 skill 覆盖全族）。
+
+`transcript` 已毕业为一级命令，并由 `skills/gtrk-transcript/` 独立承接自然语言触发和总结写回；不得再把这套工作流塞回 `gtrk-tools`。
+
+**local 型（`kind:"local"`）首个实例 = `mad`（一键剪 MAD，add-tool-mad）**：无 Key 可跑、可选云端加料。cloud 型走共享 runner 全链，local 型（复杂度上限标尺）在 `tool.ts` 的 local 分支**分派到自己的 handler**（`src/lib/mad/mad.ts::runMad`），不套 runCloudTool。mad 的新逻辑全住 `src/lib/mad/`（数据获取层 `data.ts` = 云端 manifest `/task/mad/manifest` + `~/.gitruck/mad-cache` 版本感知缓存 + sha256 自愈；`selector.ts` 六维规则选窗 + 种子 PRNG；`beat.ts` downbeat 量化 + 三级降级；`pool.ts` IR 分片按需拉取；`scan.ts` 素材扫描；`cloud-beat.ts` audio_music_analyze 接线 + 6004 失效重传）与 `src/lib/convert/`（IR→JSX，含 `madJsx` 母合成拼接 + `bake_ops.ts` 时序算子烘焙）——`tool-descriptors.ts`/`tool-runner.ts`/`cloud.ts` 零改动（红线）。产物仅 `.jsx`／仅支持 AE。
+
+---
+> Source: [Gitruck/cli](https://github.com/Gitruck/cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
