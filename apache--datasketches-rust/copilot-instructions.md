@@ -1,15 +1,15 @@
 ## datasketches-rust
 
-> Before planning or modifying this repository, read [CONTRIBUTING.md](CONTRIBUTING.md) in full and treat its build, test, integration-test layout, and serialization snapshot guidance as repository requirements.
+> - Start each example with concise module documentation describing the scenario and the behavior it demonstrates.
 
-# Repository instructions for agents
+# Example Style
 
-Before planning or modifying this repository, read [CONTRIBUTING.md](CONTRIBUTING.md) in full and treat its build, test, integration-test layout, and serialization snapshot guidance as repository requirements.
-
-For test changes, pay particular attention to the "Integration test layout" and "Serialization snapshots" sections. Keep the documented workflow synchronized with structural changes, and run the applicable `cargo x check`, `cargo x test`, and `cargo x lint` commands before handing work back.
-
-For every change, follow the [changelog guidance](CONTRIBUTING.md#changelog) in `CONTRIBUTING.md` as the single source of truth.
+- Start each example with concise module documentation describing the scenario and the behavior it demonstrates.
+- Omit run commands, basic Cargo instructions, and comments that merely restate the code. Assume readers know how to run a Rust example.
+- Keep each example focused on a small, coherent scenario. Explain relevant semantic differences beside the code; avoid catalogs of unrelated primitives.
+- Keep example explanations in the example source. The repository README only needs a concise entry point.
+- Register each example in `datasketches/Cargo.toml` with an explicit `[[example]]` section and its `required-features`, since every sketch feature is opt-in.
 
 ---
 > Source: [apache/datasketches-rust](https://github.com/apache/datasketches-rust) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
