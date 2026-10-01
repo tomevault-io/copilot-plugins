@@ -4,7 +4,7 @@
   "repo": "flyXC",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -79,9 +79,93 @@
       "path": ".github/skills/link-workspace-packages/SKILL.md",
       "github_url": "https://github.com/vicb/flyXC/tree/main/.github/skills/link-workspace-packages/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".agents/skills/nx-import/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".agents/skills/monitor-ci/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.agents/skills/monitor-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".agents/skills/nx-plugins/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".opencode/skills/nx-import/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".agents/skills/nx-generate/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".opencode/skills/monitor-ci/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.opencode/skills/monitor-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".agents/skills/nx-workspace/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".agents/skills/nx-run-tasks/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.agents/skills/nx-run-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".opencode/skills/nx-plugins/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".opencode/skills/nx-generate/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".opencode/skills/nx-workspace/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".opencode/skills/nx-run-tasks/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.opencode/skills/nx-run-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".agents/skills/link-workspace-packages/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.agents/skills/link-workspace-packages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flyXC",
+      "path": ".opencode/skills/link-workspace-packages/SKILL.md",
+      "github_url": "https://github.com/vicb/flyXC/tree/main/.opencode/skills/link-workspace-packages/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/vicb/flyXC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T05:33:41Z"
+  "distributed_at": "2026-10-01T09:30:40Z"
 }
