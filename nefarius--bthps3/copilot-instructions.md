@@ -1,0 +1,28 @@
+## bthps3
+
+> BthPS3CfgUI WPF hover tooltips use a 200 ms delay
+
+
+# BthPS3CfgUI tooltip delay
+
+Every WPF hover tooltip in `BthPS3CfgUI/` must show quickly.
+
+- Set `ToolTipService.InitialShowDelay="200"` on every new or modified `ToolTip`.
+- Preserve that delay when editing existing tooltip bindings or literals.
+- Do not rely on the slower WPF default (~400 ms).
+- Native Windows tray `TooltipText` and slider `AutoToolTipPlacement` drag popups are out of scope; they are not WPF hover tooltips and do not expose this delay.
+
+```xml
+<!-- BAD -->
+<CheckBox Content="Automatically re-enable filter" ToolTip="Re-enable the L2CAP patch after the grace period." />
+
+<!-- GOOD -->
+<CheckBox
+    Content="Automatically re-enable filter"
+    ToolTip="Re-enable the L2CAP patch after the grace period."
+    ToolTipService.InitialShowDelay="200" />
+```
+
+---
+> Source: [nefarius/BthPS3](https://github.com/nefarius/BthPS3) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
