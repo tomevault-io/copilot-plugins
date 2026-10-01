@@ -1,0 +1,9 @@
+{
+  "name": "kunchenguid--pi-launcher",
+  "displayName": "pi-launcher",
+  "description": "A signed macOS launcher for your Pi agent.",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/pi-launcher",
+  "skills": []
+}
