@@ -1,0 +1,9 @@
+{
+  "name": "coldensjo--monx",
+  "displayName": "MONx",
+  "description": "A monster editor for OpenTibia servers. Open a workspace, pick a monster, edit, save. Supports the most popular engines and has a wide variety of features that makes creating monsters a breeze.",
+  "version": "1.0.0",
+  "author": "Coldensjo",
+  "homepage": "https://github.com/Coldensjo/MONx",
+  "skills": []
+}
