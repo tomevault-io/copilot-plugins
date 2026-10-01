@@ -3,8 +3,8 @@
   "owner": "tylerprogramming",
   "repo": "ai",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ai",
+      "path": "claude_skill_agent_builder/skill/SKILL.md",
+      "github_url": "https://github.com/tylerprogramming/ai/tree/main/claude_skill_agent_builder/skill/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/tylerprogramming/ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T02:50:48Z"
+  "distributed_at": "2026-10-01T03:39:38Z"
 }
