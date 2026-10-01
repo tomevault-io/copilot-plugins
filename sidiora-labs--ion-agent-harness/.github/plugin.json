@@ -1,0 +1,9 @@
+{
+  "name": "sidiora-labs--ion-agent-harness",
+  "displayName": "ion-agent-harness",
+  "description": "One persistent agent. Durable memory. Bounded execution. Visible evidence.",
+  "version": "1.0.0",
+  "author": "Sidiora-Labs",
+  "homepage": "https://github.com/Sidiora-Labs/ion-agent-harness",
+  "skills": []
+}
