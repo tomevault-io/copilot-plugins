@@ -1,7 +1,7 @@
 {
   "name": "libnativeapi--nativeapi",
   "displayName": "nativeapi",
-  "description": "A modern cross-platform C++ library providing seamless, unified access to native system APIs across multiple platforms.",
+  "description": "nativeapi",
   "version": "1.0.0",
   "author": "libnativeapi",
   "homepage": "https://github.com/libnativeapi/nativeapi",
