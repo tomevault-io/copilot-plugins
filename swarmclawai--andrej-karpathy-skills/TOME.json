@@ -4,7 +4,7 @@
   "repo": "andrej-karpathy-skills",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/swarmclawai/andrej-karpathy-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T14:10:40Z"
+  "distributed_at": "2026-10-01T15:02:35Z"
 }
