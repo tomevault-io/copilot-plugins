@@ -1,0 +1,9 @@
+{
+  "name": "naptila--recaf-mcp",
+  "displayName": "recaf-mcp",
+  "description": "An MCP server for headless Recaf analysis, decompilation, search, bytecode patching, and JVM/Android reverse engineering.",
+  "version": "1.0.0",
+  "author": "Naptila",
+  "homepage": "https://github.com/Naptila/recaf-mcp",
+  "skills": []
+}
