@@ -4,7 +4,7 @@
   "repo": "Enterprise-Agentic-RAG",
   "description": "Self-correcting Agentic RAG for enterprise document Q&A, built with LangGraph, Chroma, OpenAI/Ollama, Tavily, FastAPI, and React\u2014with quality gates, privacy controls, provenance, bounded retries, and metadata-only observability.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rhenus-Q/Enterprise-Agentic-RAG",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T12:58:02Z"
+  "distributed_at": "2026-10-01T21:39:45Z"
 }
