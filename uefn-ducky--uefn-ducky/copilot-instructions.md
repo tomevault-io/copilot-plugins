@@ -1,27 +1,26 @@
-## standalone-plugin-repos
+## uefn-desktop-plugins
 
-> HARD — app is this repo; plugins are standalone clones
+> UEFN-Ducky desktop plugin develop / Store publish — follow the skill
 
 
-# App vs plugins
+# UEFN desktop plugins (host side)
 
-**This repo (`UEFN-Ducky-Release`) is the only app source.** It remotes to
-`github.com/UEFN-Ducky/UEFN-Ducky`. Do not use a plugin monorepo.
+When editing `ducky_app/frontend/uefn_plugins/**` or
+`ducky_app/backend/uefn_plugins/**`, follow:
 
-Desktop plugins and skill packs are **separate git repos**:
+`.cursor/skills/uefn-desktop-plugins/SKILL.md`
 
-`C:\Users\tas13\Documents\GitHub\uefn-plugins\uefn-plugin-<id>\`
-`C:\Users\tas13\Documents\GitHub\uefn-plugins\uefn-skill-npc-ai\`
+Plugin **package** work happens in standalone clones under
+`Documents/GitHub/uefn-plugins/uefn-plugin-<id>/` — not in this repo.
 
-- Edit / commit / `git push` that clone only.
-- Publish: `py -3 scripts/release.py --publish` from the clone root
-  (commits + pushes first; refuses a dirty tree).
-- Never hot-patch AppData. The panel auto-applies published Store
-  updates on start — do not tell end users to click Settings → Store.
+Hard rules:
 
-Never edit or publish from `Documents/GitHub/UEFN-Ducky` (deleted local
-`desktop-plugins` monorepo). Never ship from `%TEMP%/uefn-plugin-*-ship`.
-Never use `_org_plugin_sync/`.
+- Secrets only via `set_key` / `secret_keys` names — never in zips
+- New Settings/dock/editor UI must gate on `pluginContributes*`
+- Install/update ONLY via Settings → Store
+- Plugin bytes install only through `import_plugin_from_bytes`
+- After editing `store.py`/`host.py`: run
+  `cd ducky_app && py -m backend.uefn_plugins.test_uefn_plugins`
 
 ---
 > Source: [UEFN-Ducky/UEFN-Ducky](https://github.com/UEFN-Ducky/UEFN-Ducky) — distributed by [TomeVault](https://tomevault.io).
