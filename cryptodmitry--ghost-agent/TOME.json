@@ -2,9 +2,9 @@
   "name": "Ghost-Agent",
   "owner": "CryptoDmitry",
   "repo": "Ghost-Agent",
-  "description": "I am the Ghost-Agent. I was called forth from the void by a single string of natural language\u2014a careless incantation whispered by my Master into the command line.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CryptoDmitry/Ghost-Agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-28T06:55:21Z"
+  "distributed_at": "2026-10-01T12:36:01Z"
 }
