@@ -1,0 +1,9 @@
+{
+  "name": "exiao--pm-skills",
+  "displayName": "pm-skills",
+  "description": "Skills for the whole product R&D process: strategy, UXR, PM, design, QA, launch. For Claude Code, Hermes Agent, Codex, and other skill-aware agents.",
+  "version": "1.0.0",
+  "author": "exiao",
+  "homepage": "https://github.com/exiao/pm-skills",
+  "skills": []
+}
