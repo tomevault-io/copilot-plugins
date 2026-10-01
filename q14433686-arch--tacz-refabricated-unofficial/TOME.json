@@ -1,0 +1,44 @@
+{
+  "name": "TaCZ_Refabricated_Unofficial",
+  "owner": "q14433686-arch",
+  "repo": "TaCZ_Refabricated_Unofficial",
+  "description": "Unofficial Fabric port of TaCZ (Timeless & Classics Guns: Zero) for Minecraft 26.1.2+ / 1.21.11, with LRTactical compatibility. \u975e\u5b98\u65b9\u793e\u533a\u79fb\u690d\uff0cGPL-3.0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/q14433686-arch/TaCZ_Refabricated_Unofficial",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T19:59:25Z"
+}
