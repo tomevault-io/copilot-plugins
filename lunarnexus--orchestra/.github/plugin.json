@@ -1,0 +1,9 @@
+{
+  "name": "lunarnexus--orchestra",
+  "displayName": "orchestra",
+  "description": "Agent-agnostic orchestration control plane",
+  "version": "1.0.0",
+  "author": "lunarnexus",
+  "homepage": "https://github.com/lunarnexus/orchestra",
+  "skills": []
+}
