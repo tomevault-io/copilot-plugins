@@ -1,0 +1,9 @@
+{
+  "name": "felipenalves--dokke",
+  "displayName": "Dokke",
+  "description": "Dock manager \u2014 sync apps between Mac and any device via WebSocket. macOS app + PWA + Android WebView.",
+  "version": "1.0.0",
+  "author": "felipenalves",
+  "homepage": "https://github.com/felipenalves/Dokke",
+  "skills": []
+}
