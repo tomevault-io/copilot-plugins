@@ -2,7 +2,7 @@
   "name": "django-absurd",
   "owner": "lincolnloop",
   "repo": "django-absurd",
-  "description": "Django integration for Absurd, a Postgres-native durable workflow system.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lincolnloop/django-absurd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-29T01:24:31Z"
+  "distributed_at": "2026-10-01T20:55:38Z"
 }
