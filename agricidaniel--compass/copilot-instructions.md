@@ -5,8 +5,8 @@
 Read `AGENTS.md` first; it is the canonical instruction file for every agent in this vault.
 @AGENTS.md
 
-Claude Code additions: the claude-obsidian plugin (a Claude Code plugin, https://github.com/AgriciDaniel/claude-obsidian) skills (`/claude-obsidian:save`, `/claude-obsidian:wiki-query`, `/claude-obsidian:wiki-ingest`, `/claude-obsidian:wiki-lint`) are the only route that writes under `wiki/`. Never pass `--force`. Details in `Guide/15 claude-obsidian.md`.
+Gemini CLI note: there is no wiki transaction skill here; treat `wiki/` as read-only and say so if asked to write there.
 
 ---
 > Source: [AgriciDaniel/compass](https://github.com/AgriciDaniel/compass) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
