@@ -1,0 +1,9 @@
+{
+  "name": "adird--agent-shell-hamelech",
+  "displayName": "agent-shell-hamelech",
+  "description": "Reusable skills, commands, and rules for coding agents (Cursor, Claude Code, Codex).",
+  "version": "1.0.0",
+  "author": "AdirD",
+  "homepage": "https://github.com/AdirD/agent-shell-hamelech",
+  "skills": []
+}
