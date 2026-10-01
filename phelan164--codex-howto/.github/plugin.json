@@ -1,0 +1,9 @@
+{
+  "name": "phelan164--codex-howto",
+  "displayName": "codex-howto",
+  "description": "Engineering-first OpenAI Codex guide: 14 modules, 9 installable skills, reproducible benchmarks, testing, review, orchestration, and a Living Wiki.",
+  "version": "1.0.0",
+  "author": "Phelan164",
+  "homepage": "https://github.com/Phelan164/codex-howto",
+  "skills": []
+}
