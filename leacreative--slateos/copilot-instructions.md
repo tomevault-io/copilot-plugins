@@ -1,24 +1,26 @@
-## companion-install
+## i2c-bus
 
-> Always install companion when versionCode bumps and a phone is on adb
+> Normative I2C/TWI bus rules for PineTime TWIM1 (mutex, timeouts, no raw register poking)
 
 
-# Companion install on version bump
+# I2C / TWI bus (Slate)
 
-Whenever `companion/app/build.gradle.kts` `versionCode` / `versionName` is
-bumped for an installable build (or companion code that needs to land on the
-Pixel is finished):
+Full rules: `docs/i2c-bus.md`. Follow those before changing bus or sensor code.
 
-1. Check `adb devices` (use `%ANDROID_HOME%\platform-tools\adb.exe` on Windows
-   if `adb` is not on PATH).
-2. If a suitable device is connected (Pixel / `device` state; skip boards that
-   fail minSdk), run from `companion/`:
-   `gradlew.bat :app:installDebug`
-3. Prefer pinning the Pixel serial with `-s` when multiple devices are listed.
-4. Do this in the same turn as the bump — do not wait for the operator to ask.
+## Non-negotiable
 
-Firmware DFU packaging is separate; still package `slate_dfu` when firmware
-changed, but companion install is mandatory whenever the APK version moves.
+1. **Only `twi::write` / `read` / `write_read`** talk to TWIM1. No driver-local TWIM register poking.
+2. **Mutex stays on** for FreeRTOS (`SLATE_HAS_FREERTOS=1`) around every transfer and `sleep`/`wake`/`recover_bus` — same idea as InfiniTime `TwiMaster` and `spi_bus` mutex. Do not add a second I2C path that skips it.
+3. **Assume multi-task use**: `app` (touch/BMA/raise) and `hr` (HRS every ~100 ms) share the bus, including while the display is asleep.
+4. **Timeouts + recovery** required; never infinite spin on the app task.
+5. **No `twi::init()` in poll paths** — ENABLE=0 preserves config; transfers wake/sleep themselves.
+6. **CST816S NACKs when idle are normal** — not a reason to drop locking or re-init the bus.
+7. **Do not hand-edit TWIM SHORTS bit numbers** — N-31 killed all I2C once. Match nRF52832 PS / bitfields.
+8. Pins: SDA=P0.06, SCL=P0.07, open-drain S0D1. Addrs: touch `0x15`, BMA `0x18`, HRS `0x44`.
+
+## Smoke if you touch HR or locking
+
+HR Off → raise still works after sleep. HR On → BPM can lock on-wrist; raise still works.
 
 ---
 > Source: [LeaCreative/SlateOS](https://github.com/LeaCreative/SlateOS) — distributed by [TomeVault](https://tomevault.io).
