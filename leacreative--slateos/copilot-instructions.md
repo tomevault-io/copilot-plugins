@@ -1,35 +1,24 @@
-## ambient-power
+## companion-install
 
-> Ambient profile is radio-only while awake — power::Ambient only when Core sleeping (m44)
+> Always install companion when versionCode bumps and a phone is on adb
 
 
-# Ambient vs display sleep (m44)
+# Companion install on version bump
 
-## Non-negotiable
+Whenever `companion/app/build.gradle.kts` `versionCode` / `versionName` is
+bumped for an installable build (or companion code that needs to land on the
+Pixel is finished):
 
-1. `apply_profile(Ambient)` = **radio interval only** — must not blank LCD.
-2. `power::enter(Ambient)` turns backlight off + ST7789 SLPIN. Call it **only
-   when `Core` is sleeping** (or from Core’s own sleep path with matching wake).
-3. If Core is awake and `power::current() == Ambient`, enter **Active** (or
-   equivalent lit state). `wake_seconds == 0` does **not** protect against
-   Ambient blanking.
-4. Symptom “face blank, swipes work” after Ready/OTA → check Ambient/power
-   **and** ownership/paint (differential, not last milestone only).
+1. Check `adb devices` (use `%ANDROID_HOME%\platform-tools\adb.exe` on Windows
+   if `adb` is not on PATH).
+2. If a suitable device is connected (Pixel / `device` state; skip boards that
+   fail minSdk), run from `companion/`:
+   `gradlew.bat :app:installDebug`
+3. Prefer pinning the Pixel serial with `-s` when multiple devices are listed.
+4. Do this in the same turn as the bump — do not wait for the operator to ask.
 
-## Before editing
-
-Read `docs/lessons-learned.md` invariant 4 and case study B; see
-`docs/invariant-tests-plan.md` §2.
-
-Before packaging DFU or claiming an Ambient/blank-face fix:
-
-```powershell
-powershell -File scripts/run_invariant_tests.ps1
-```
-
-## Handover
-
-Include: `Do not regress: power::Ambient only while Core sleeping (m44)`.
+Firmware DFU packaging is separate; still package `slate_dfu` when firmware
+changed, but companion install is mandatory whenever the APK version moves.
 
 ---
 > Source: [LeaCreative/SlateOS](https://github.com/LeaCreative/SlateOS) — distributed by [TomeVault](https://tomevault.io).
