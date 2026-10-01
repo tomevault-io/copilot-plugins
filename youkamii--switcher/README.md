@@ -7,11 +7,11 @@ Multi-account switcher widget for Claude Code and Codex CLI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Youkamii/switcher](https://github.com/Youkamii/switcher).
+Original source: `CLAUDE.md` in [Youkamii/switcher](https://github.com/Youkamii/switcher).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
