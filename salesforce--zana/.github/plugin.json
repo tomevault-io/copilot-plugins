@@ -1,0 +1,9 @@
+{
+  "name": "salesforce--zana",
+  "displayName": "zana",
+  "description": "Run, schedule, and coordinate fleets of coding agents from one desktop app",
+  "version": "1.0.0",
+  "author": "salesforce",
+  "homepage": "https://github.com/salesforce/zana",
+  "skills": []
+}
