@@ -1,262 +1,89 @@
 ## silkcircuit
 
-> > Instructions for AI assistants working on the SilkCircuit theme
+> A status line for [Claude Code](https://code.claude.com/docs/en/statusline):
 
-# Claude Coding Guidelines for SilkCircuit
+# Claude Code
 
-> Instructions for AI assistants working on the SilkCircuit theme
+A status line for [Claude Code](https://code.claude.com/docs/en/statusline):
+a powerline drawn on the same six-step ramp as the Starship prompt, so the
+prompt above the input box and the status line below it read as one
+instrument.
 
-## Project Overview
+Left to right, the line carries the session badge (vim mode, agent name, and
+session name, when any of them is set), the directory, and the git branch with
+its dirty flags, upstream distance, the lines added and removed this session,
+and the open pull request as a clickable link coloured by its review state. A
+linked worktree gets its own glyph. The node version and Kubernetes context follow.
+On the right sit the model with its fast mode and effort level, context usage
+as tokens and a percentage, the session cost, the five-hour and seven-day rate
+limit windows, the output style, and the clock.
 
-SilkCircuit is a unified design system featuring neon purples, electric pinks, and glowing cyan accents. It themes your entire dev environment — Neovim (flagship, with 40+ plugin integrations), VS Code, Chrome, terminals, and 20+ CLI/system tools. The project prioritizes performance, WCAG AA accessibility, and consistent visual identity across all targets.
+A reading that reaches 80 percent (context or a rate limit window) turns into a
+warning pill, and at 90 a danger pill, in the variant's own warning and danger
+colours. A snowflake after the context reading means the prompt cache has gone
+cold and the next request re-reads the whole prefix.
 
-## Core Principles
+When the terminal is narrower than the line, readings drop in order: the tech
+probes, then output style, cost, and rate limits, then the git details, the
+session badge, and last the clock. The model and the context reading never
+drop.
 
-1. **Performance First** - Theme loads in <5ms with bytecode compilation
-2. **Accessibility** - All colors meet WCAG AA contrast standards
-3. **Plugin Auto-Detection** - Automatically detect and theme installed plugins
-4. **User Choice** - Three variants (neon/vibrant/soft) with persistent preferences
+## Install
 
-## Code Style Guidelines
+Claude Code reads one script, so pick a variant and copy it:
 
-### Lua Conventions
-
-```lua
--- Module structure
-local M = {}
-
--- Function definitions
-function M.function_name(param1, param2)
-  -- Implementation
-end
-
-return M
+```bash
+cp extras/claude/silkcircuit-neon.sh ~/.claude/statusline.sh
 ```
 
-### Naming Conventions
+Then point Claude Code at it in `~/.claude/settings.json` and restart:
 
-- Files: `snake_case.lua`
-- Functions: `snake_case`
-- Local variables: `snake_case`
-- Constants: `UPPER_SNAKE_CASE` (rare)
-- Highlight groups: `PascalCase`
-
-### Comments
-
-- Avoid unnecessary comments
-- Document complex logic only
-- Use present tense ("Returns" not "Will return")
-- No decorative comments
-
-## Key Files and Their Purposes
-
-### Core Files
-
-- `init.lua` - Entry point, loads theme
-- `palette.lua` - Color definitions and semantic mappings
-- `theme.lua` - Core highlight group definitions
-- `config.lua` - Configuration management
-- `util.lua` - Utility functions and compilation
-
-### Integration System
-
-- `integrations/init.lua` - Plugin detection and loading
-- `integrations/{plugin}.lua` - Individual plugin themes
-
-### User Features
-
-- `commands.lua` - User commands (`:SilkCircuit`, etc.)
-- `preferences.lua` - Persistent settings
-- `glow.lua` - Glow mode implementation
-- `variants.lua` - Theme variant system
-
-## Adding New Features
-
-### New Integration
-
-1. Create `integrations/{plugin}.lua`
-2. Add to detection in `integrations/init.lua`
-3. Add to integration list
-4. Test with and without plugin
-
-Template:
-
-```lua
-local M = {}
-
-function M.get(colors, opts)
-  return {
-    PluginElement = { fg = colors.purple },
-    -- Map plugin UI to semantic colors
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "refreshInterval": 30
   }
-end
-
-return M
+}
 ```
 
-### New Command
+`refreshInterval` is optional. Without it the line redraws on every message,
+which is enough for everything except the clock.
 
-1. Add to `commands.lua`
-2. Follow naming pattern `:SilkCircuit{Feature}`
-3. Add to `:checkhealth` documentation
-4. Update help docs
+The installer does the copy and prints that block: `./install.sh --variant
+neon`. It leaves `settings.json` alone, because Claude Code owns that file and
+rewrites it as hooks, plugins, and permissions change.
 
-## Testing Guidelines
+## Needs a Nerd Font
 
-### Before Committing
+The powerline separators and the segment glyphs come from a
+[Nerd Font](https://www.nerdfonts.com/), so the terminal running Claude Code
+has to use one.
 
-1. Run `make lint` - Must pass
-2. Test all variants - `:SilkCircuit neon/vibrant/soft`
-3. Check compilation - `:SilkCircuitCompile`
-4. Verify contrast - `:SilkCircuitContrast`
-5. Run checkhealth - `:checkhealth silkcircuit`
+## Fast by design
 
-### Manual Testing
+The script needs no jq. The payload is read with bash regex matches, which
+keeps it linear on the two kilobytes Claude Code sends; a prefix strip would
+be quadratic on the bash 3.2 macOS ships. One `git status` call per render
+carries the branch, upstream distance, and every flag, and the node and
+kubectl probes are cached for a minute per directory. A render lands in about
+twenty milliseconds on a stock Mac, most of it git.
 
-- Open various file types (Lua, JS, YAML, Markdown)
-- Test with neo-tree open
-- Verify git status colors
-- Check floating windows
+## Files
 
-## Performance Considerations
+<!-- extras:start target=claude -->
 
-### Do
+| Variant | File |
+| ------- | ---- |
+| neon | `extras/claude/silkcircuit-neon.sh` |
+| vibrant | `extras/claude/silkcircuit-vibrant.sh` |
+| soft | `extras/claude/silkcircuit-soft.sh` |
+| glow | `extras/claude/silkcircuit-glow.sh` |
+| dawn | `extras/claude/silkcircuit-dawn.sh` |
 
-- Use `vim.tbl_deep_extend` for merging
-- Cache expensive operations
-- Compile regex patterns once
-- Use early returns
-
-### Don't
-
-- Parse files repeatedly
-- Create unnecessary tables
-- Use global variables
-- Block the main thread
-
-## Color Usage
-
-### Semantic Mapping
-
-Always use semantic colors from `palette.lua`:
-
-```lua
--- Good
-{ fg = sem.keyword }
-
--- Bad
-{ fg = colors.purple }
-```
-
-### Contrast
-
-All foreground/background pairs must meet WCAG AA (4.5:1 ratio).
-
-## User Communication
-
-### Notifications
-
-```lua
--- Use vim.notify with appropriate level
-vim.notify("Message", vim.log.levels.INFO)
-```
-
-### Unicode Symbols
-
-- `→` for arrows/flow
-- `√` for success
-- `!` for warnings
-- `»` for tips
-- Avoid emojis
-
-## Common Tasks
-
-### Update Existing Highlight
-
-1. Find in `theme.lua` or relevant integration
-2. Modify using semantic colors
-3. Test in all variants
-
-### Fix Contrast Issue
-
-1. Run `:SilkCircuitContrast`
-2. Identify failing pair
-3. Adjust in `palette.lua`
-4. Re-test
-
-### Add Config Option
-
-1. Add to defaults in `config.lua`
-2. Document in README
-3. Handle in relevant module
-4. Add to `:checkhealth`
-
-## Git Workflow
-
-### Commit Messages
-
-- Use conventional commits
-- Be specific about changes
-- Reference issues if applicable
-
-Examples:
-
-- `fix: correct YAML key highlighting`
-- `feat: add mason.nvim integration`
-- `perf: optimize theme compilation`
-
-### Pull Requests
-
-- Update CHANGELOG.md
-- Run all tests
-- Include before/after screenshots for visual changes
-
-## Debugging
-
-### Common Issues
-
-1. **Highlights not applying**: Check `:hi {GroupName}`
-2. **Plugin not detected**: Verify in `:SilkCircuitIntegrations`
-3. **Slow loading**: Run `:SilkCircuitCompile`
-4. **Colors look wrong**: Check terminal true color support
-
-### Debug Mode
-
-```lua
-vim.g.silkcircuit_debug = true
-```
-
-## Don'ts
-
-- × Don't add emojis to code
-- × Don't create files unless necessary
-- × Don't use hard-coded colors
-- × Don't skip contrast validation
-- × Don't add verbose comments
-- × Don't break existing functionality
-
-## Quick Reference
-
-### Commands
-
-- `:SilkCircuit {variant}` - Switch variant
-- `:SilkCircuitGlow` - Toggle glow mode
-- `:SilkCircuitContrast` - Check WCAG compliance
-- `:SilkCircuitCompile` - Compile for performance
-- `:SilkCircuitIntegrations` - Show detected plugins
-- `:checkhealth silkcircuit` - Full diagnostics
-
-### File Locations
-
-- Colors: `lua/silkcircuit/palette.lua`
-- Highlights: `lua/silkcircuit/theme.lua`
-- Plugin themes: `lua/silkcircuit/integrations/`
-- User config: `~/.config/nvim/lua/plugins/silkcircuit.lua`
-
----
-
-*When in doubt, prioritize user experience and maintain the vibrant aesthetic.*
+<!-- extras:end -->
 
 ---
 > Source: [hyperb1iss/silkcircuit](https://github.com/hyperb1iss/silkcircuit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
