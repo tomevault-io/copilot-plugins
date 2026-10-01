@@ -6,150 +6,102 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## What this is
 
-Official Go client library for the NATS messaging system. Provides core pub/sub, request/reply, JetStream (streams, consumers, KV, object store), and a micro services framework. Module path: `github.com/nats-io/nats.go`.
+`counterfeiter` is a CLI (module `github.com/maxbrunsfeld/counterfeiter/v6`) that generates Go test doubles ("fakes") for interfaces, function types, and whole packages. It is typically invoked via `//go:generate` directives. Requires Go modules; CI runs on `stable` and `oldstable` Go on Linux and Windows.
 
-## Build and Test Commands
+## Commands
 
-This project uses a **dual module** setup: `go.mod` for production (minimal deps) and `go_test.mod` for testing (includes nats-server, protobuf). Always use `-modfile=go_test.mod` when running tests or any command that needs test dependencies.
+Full CI pipeline (vet → regenerate fakes → verify clean git tree → tests):
 
-```bash
-# Build
-go build ./...
-
-# Run all tests (race detector + internal_testing tag, sequential)
-go test -modfile=go_test.mod -race -v -p=1 ./... --failfast -vet=off -tags=internal_testing
-
-# Run NoRace tests (must be run separately, without -race flag)
-go test -modfile=go_test.mod -v -run=TestNoRace -p=1 ./... --failfast -vet=off
-
-# Run a specific test
-go test -modfile=go_test.mod -race -run TestName ./... -tags=internal_testing
-
-# Run tests for a specific package
-go test -modfile=go_test.mod -race ./jetstream/... --failfast
-go test -modfile=go_test.mod -race ./micro/... --failfast
-
-# Coverage
-./scripts/cov.sh
-
-# Formatting
-go fmt ./...
-
-# Vet
-go vet -modfile=go_test.mod ./...
-
-# Static analysis (as CI does it)
-staticcheck -modfile=go_test.mod ./...
-
-# Linting (golangci-lint runs only on jetstream/)
-golangci-lint run --timeout 5m0s ./jetstream/...
-
-# Spell check
-find . -type f -name "*.go" | xargs misspell -error -locale US
-
-# Update test dependencies (never change go.mod for test deps)
-go mod tidy -modfile=go_test.mod
+```shell
+./scripts/ci.sh          # Linux/macOS
+.\scripts\ci.ps1         # Windows
 ```
 
-## Important Build Tags
+Individual steps:
 
-- **`internal_testing`** -- Exposes internal test helpers (e.g., `AddMsgFilter`, `CloseTCPConn`) from `testing_internal.go`. Required for many tests in `./test/`.
-- **`skip_no_race_tests`** -- Skips the NoRace tests. Used by coverage scripts.
-- **`!race && !skip_no_race_tests`** -- NoRace tests in `test/norace_test.go` only run when the race detector is OFF.
-- **`compat`** -- Compatibility tests in `test/compat_test.go`.
-
-## CI Pipeline (ci.yaml)
-
-1. **lint** -- `go fmt`, `go vet`, `staticcheck`, `misspell` (all packages), `golangci-lint` (jetstream only).
-2. **test** -- Matrix of Go 1.24 and 1.25. Runs NoRace tests first (`-run=TestNoRace` without `-race`), then full race-enabled tests with `-tags=internal_testing`.
-
-## Project Structure
-
-```
-nats.go                 # Core connection, pub/sub, request/reply (~6500 lines)
-parser.go               # Client-side protocol parser
-ws.go                   # WebSocket transport support
-js.go                   # Legacy JetStream API (deprecated, see jetstream/)
-jsm.go                  # Legacy JetStream management
-kv.go                   # Legacy KeyValue API
-object.go               # Legacy Object Store API
-enc.go                  # EncodedConn (deprecated)
-netchan.go              # Go channel bindings
-timer.go                # Internal timer utilities
-context.go              # Context-aware request methods
-nats_iter.go            # Go 1.23+ iterator support (go:build go1.23)
-testing_internal.go     # Internal test hooks (go:build internal_testing)
-
-jetstream/              # New JetStream API (preferred over legacy)
-  jetstream.go          #   Top-level JetStream interface
-  stream.go             #   Stream management
-  stream_config.go      #   Stream configuration types
-  consumer.go           #   Consumer management
-  consumer_config.go    #   Consumer configuration types
-  pull.go               #   Pull consumer implementation
-  push.go               #   Push consumer (deprecated)
-  ordered.go            #   Ordered consumer
-  publish.go            #   JetStream publish methods
-  kv.go                 #   KeyValue store
-  object.go             #   Object store
-  message.go            #   JetStream message types
-  errors.go             #   JetStream error types
-  test/                 #   Integration tests (package test, uses nats-server)
-
-micro/                  # Micro services framework
-  service.go            #   Service interface and implementation
-  request.go            #   Request handling
-  test/                 #   Integration tests
-
-internal/
-  parser/               # NATS protocol parser (used by core client)
-  syncx/                # Concurrent map utility
-
-encoders/
-  builtin/              # Default encoders (JSON, GOB, string)
-  protobuf/             # Protocol Buffers encoder
-
-test/                   # Integration tests for core package (package test)
-  helper_test.go        #   Server setup helpers (RunDefaultServer, RunBasicJetStreamServer, etc.)
-  norace_test.go        #   Tests that cannot run with -race (build tag guarded)
-  js_internal_test.go   #   Tests requiring internal_testing tag
-  configs/              #   NATS server config files for tests
-
-bench/                  # Benchmarking utilities
-examples/               # Example command-line tools (nats-pub, nats-sub, etc.)
-scripts/cov.sh          # Coverage collection script
+```shell
+go vet ./...
+go generate ./...                  # regenerate all fakes under fixtures/ (directives use `go run`, so no install needed)
+./scripts/checkclean.sh            # fail if regenerated fakes differ from committed ones
+./scripts/cleanfakes.sh            # delete every */*fakes/fake*.go (then `go generate ./...` to rebuild)
+go test -race . ./fixtures/...   # packages that exercise fakes or the generator concurrently
+go test ./arguments/ ./command/ ./generator/ ./integration/
 ```
 
-## Test Architecture
+Run a single package's tests or a single spec. Tests use `sclevine/spec` + `gomega`; spec names are nested, so match with a regex on the top-level test function and the spec path:
 
-- **Root `nats_test.go`** (package `nats`) -- White-box unit tests with access to unexported internals.
-- **`test/`** (package `test`) -- Black-box integration tests. Tests start an embedded nats-server using helpers from `test/helper_test.go`. These require `-modfile=go_test.mod` since nats-server is a test-only dependency.
-- **`jetstream/test/`** (package `test`) -- Integration tests for the new JetStream API, also use embedded nats-server.
-- **`micro/test/`** (package `test`) -- Integration tests for the micro services framework.
-- **NoRace tests** -- Prefixed `TestNoRace*`, guarded by `//go:build !race && !skip_no_race_tests`. Must be run separately without `-race`.
-- Tests always run with `-p=1` (no parallel packages) because they start embedded servers on shared ports.
+```shell
+go test ./generator/ -run TestGenerator
+go test ./integration/ -run 'TestIntegration/round_trip_as_module/working_with_a_module'
+go test ./arguments/ -run TestParsingArguments -v
+go test ./command/ -run TestRunner
+go test -run TestFakes .                           # generated_fakes_test.go at repo root
+go test -race -run TestConcurrency .              # concurrency_test.go at repo root; only meaningful with -race
+go test -bench . -benchmem .                       # benchmark_test.go at repo root
+```
 
-## Code Conventions
+Debug env vars: `COUNTERFEITER_DEBUG=1` enables log output; `COUNTERFEITER_DISABLECACHE=1` bypasses the package-load cache; `COUNTERFEITER_PROFILE=1` writes `counterfeiter.profile`; `COUNTERFEITER_NO_GENERATE_WARNING=1` silences the "use -generate" warning. In tests, `log.SetOutput(io.Discard)` is set in the top-level test functions — comment it out to see generator logs.
 
-- **License header** -- Every `.go` file starts with the Apache 2.0 license header (Copyright year range).
-- **Error variables** -- Exported errors defined as `var Err... = errors.New("nats: ...")` in `nats.go`. JetStream errors in `jetstream/errors.go` follow the same pattern.
-- **Options pattern** -- Connection options use functional options: `nats.Connect(url, nats.Name("myapp"), nats.MaxReconnects(5))`. JetStream and micro use similar patterns.
-- **No external dependencies in production** -- Only `klauspost/compress`, `nkeys`, `nuid` in `go.mod`. Test deps (nats-server, protobuf) are isolated in `go_test.mod`. PRs adding dependencies are scrutinized heavily.
-- **Commits require sign-off** -- Use `git commit -s` (DCO: `Signed-off-by`).
-- **US English spelling** -- Enforced by `misspell -locale US` in CI.
-- **Interface-driven design** -- JetStream and micro packages define interfaces (`JetStream`, `Stream`, `Consumer`, `Service`) with concrete unexported implementations.
+## Architecture
 
-## Key Types
+Pipeline for one run (`main.go` is intentionally thin and should stay that way):
 
-- `nats.Conn` -- Core connection, handles all NATS protocol operations.
-- `nats.Msg` -- Message type for pub/sub and request/reply.
-- `nats.Subscription` -- Represents a subscription (sync, async, or channel-based).
-- `jetstream.JetStream` -- Entry point for new JetStream API (created via `jetstream.New(nc)`).
-- `jetstream.Stream`, `jetstream.Consumer` -- Stream and consumer management.
-- `micro.Service` -- Micro service instance (created via `micro.AddService(nc, config)`).
+1. **`command.Detect`** (`command/runner.go`) turns the process into a list of `Invocation`s. In normal mode that is the single CLI invocation (it reads `GOFILE`/`GOLINE` from `go generate`). In `-generate` mode it scans every `.go` file in the cwd package for lines starting with `//counterfeiter:generate ` and builds one invocation per line. This is why `-generate` is much faster than many `//go:generate` lines: one process, one package load.
+2. **`arguments.New`** (`arguments/parser.go`) parses each invocation's flags and positional args into `ParsedArguments`: source package dir, package path, interface name, fake name (`Fake` + exported interface name), output path (default `<pkgdir>/<pkg>fakes/fake_<snake_case>.go`), destination package name, and modes (`-p` package mode, `-` print to stdout, `-q`, `-header`). A `-header` on the top-level `-generate` line is inherited by directives that lack one (handled in `main.go`).
+3. **`generator.NewFake`** (`generator/fake.go`) loads packages with `golang.org/x/tools/go/packages` (`loader.go`), finds the target `types.TypeName` (`findPackage`), and populates the `Fake` struct: `Methods` (from `interface_loader.go` / `package_loader.go`) or a single `Function` (`function_loader.go`), `Params`/`Returns` (`param.go`, `return.go`), and `Imports`.
+4. **`Fake.Generate`** executes one of three `text/template`s — `interface_template.go`, `function_template.go`, `package_template.go` — then runs `goimports` (`imports.Process`) on the output. `main.go` runs `go/format` again and writes the file.
+
+Key supporting pieces:
+
+- **`generator.Imports`** (`import.go`) dedupes imports by package path and guarantees unique aliases (appends `a`, `b`, … on collision). `addImportsFor` in `loader.go` walks `types.Type` recursively to collect every package a fake needs; add a case there when a new `types.Type` kind shows up (it logs `!!! WARNING: Missing case`).
+- **Generics**: `findPackage` / `getGenericTypeData` (`loader.go`) extract type params/constraints into `GenericTypeParameters*` strings used by the template. The compile-time assertion for a generic fake is emitted inside a blank generic func (`func _[T C]() { var _ pkg.I[T] = new(FakeI[T]) }`) so any constraint kind works. A target that is itself a constraint interface (unions or `~T`) is rejected up front because it cannot be implemented.
+- **Package loading** (`loadPackages` in `loader.go`): the target package is the root of a single `packages.Load` call with `NeedName | NeedFiles | NeedImports | NeedTypes | NeedSyntax`, deliberately without `NeedDeps` or `NeedTypesInfo`. go/packages then type-checks only the target package from source and reads everything it imports from export data via `go list -export` (built through the normal go build cache), instead of type-checking the whole dependency graph on every run. `NeedSyntax` is what forces the root itself to come from source: export data omits unexported types that nothing exported refers to, which would break faking an unexported interface. When the target does not compile, `go list -export` attaches the compiler transcript as an unpositioned `ListError`, which `loadPackages` skips (`isBuildTranscript`) in favor of the positioned type errors. Nothing in the generator reads `TypesInfo`; do not add it back. Of the target package's own errors only `ParseError` is fatal; the rest (unresolved imports, type errors in other files) are kept in `Fake.loadErrors` and generation proceeds. It fails later, quoting them, only if the target's signatures mention an unresolved type (`hasInvalidType`, which does not look inside named types because they print by name) or the interface embeds one (`hasInvalidEmbed`, since the type checker silently drops such an embed from the method set).
+- **Same-package fakes**: `main.go` passes the output directory via `generator.WithDestinationDir`. When it equals the target package's directory (`packages.Package.Dir`, symlinks resolved), `findPackage` sets `inTargetPackage`: the target package is not imported, its names print unqualified (the `types.Qualifier` returns `""` for packages absent from `Imports`), and the assertion is emitted even for unexported targets. A stale same-package fake never blocks regeneration because its type errors are tolerated like any other (see package loading). Extend `NewFake` only through `...Option`; its existing parameters are public API.
+- **`Cacher`** (`cache.go`): `Cache` memoizes `packages.Load` results per package path across invocations in a `-generate` run; `FakeCache` is the no-op used by tests and `COUNTERFEITER_DISABLECACHE`.
+- **`ctx.go`** holds `getBuildContext`, which returns `build.Default` with `build.Context.Dir` set to the working directory.
+
+## Testing conventions
+
+- `fixtures/` is a large corpus of interfaces exercising edge cases (aliases, dot imports, variadics, embedded interfaces, generics, hyphenated packages, package mode, vendored-style external packages, etc.). Each has `//go:generate` or `//counterfeiter:generate` directives; the generated fakes live in sibling `*fakes/` dirs and **are committed**. CI fails if `go generate ./...` produces a diff, so after changing templates or the generator, run `go generate ./...` and commit the regenerated fakes.
+- `generated_fakes_test.go` (repo root) uses the committed fixture fakes as a behavioral test of the fake API (`Stub`, `CallCount`, `ArgsForCall`, `Returns`, `ReturnsOnCall`, `Invocations`).
+- `concurrency_test.go` (repo root) drives `generator.NewFake` / `Generate` and `CachedFileReader` from several goroutines through shared caches. It only proves anything under `-race`, which is why it lives in the root package: CI runs `-race` there and on `fixtures/...` only, since `generator`, `integration`, `arguments`, and `command` are single-threaded and the race detector triples their run time. Anything concurrent added to the tool needs coverage here, not in its own package.
+- `generator/generator_internals_test.go` unit-tests `NewFake`/`Generate` against fixtures directly.
+- `integration/roundtrip_test.go` copies fixtures into a temp module, generates fakes, and runs `go build` on the result; some cases compare byte-for-byte against `integration/testdata/expected_*.txt`. Set `writeToTestData = true` in that file to dump actual output to `integration/testdata/output/` (gitignored) when debugging a mismatch.
+- `.golangci.yaml` skips `fixtures/` from linting.
+
+## Package layout
+
+Keep the existing layout: `main.go` at the module root and the three subpackages `arguments`, `command`, and `generator`. `main.go` must stay at the root because users invoke the tool by module path (`go run github.com/maxbrunsfeld/counterfeiter/v6`, `go get -tool ...`); do not move it under `cmd/`. Do not restructure packages toward a different layout (for example Ben Johnson's Standard Package Layout, which the maintainer likes in general but has chosen not to apply here). Put new code in whichever of the three existing packages owns that pipeline stage.
+
+## Development workflow: red → green → refactor
+
+Every fix or feature follows strict TDD:
+
+1. **Red** — write a spec (`sclevine/spec` + `gomega`, matching the surrounding test file) that reproduces the issue and fails. For generator behavior this usually means adding a fixture interface under `fixtures/` plus an assertion in `generator/generator_internals_test.go` or `integration/roundtrip_test.go`. Run it and confirm it fails for the expected reason.
+2. **Green** — write the simplest code that makes the spec pass. Nothing more.
+3. **Refactor** — with the spec passing, look for duplication or simplification opportunities in the code just touched, keeping the suite green. Then regenerate fakes (`go generate ./...`) and run `./scripts/ci.sh`.
+
+Do not skip step 1, even for "obvious" one-line fixes.
+
+## Commits and pull requests
+
+Every commit carries a DCO sign-off from the person making it: always `git commit -s`.
+
+Write commit messages and PR descriptions in plain, first-person prose, the way the maintainer does (see `git log --author=Fitzgerald` and PRs #123, #124, #125):
+
+- Subject: short, lowercase, imperative ("allow fakes to be generated into the interface's own package"). No conventional-commit prefixes.
+- Body only when the diff does not explain itself: what was wrong, what changes for the user. A few sentences, not headings or bullet inventories of files and functions.
+- `Fixes #n` on its own line at the end when it closes an issue.
+- PR body: describe the problem and the outcome for users, not the commit list. No commit hashes, no narrating the process (do not mention TDD, red/green, or how carefully it was tested; just say what is covered). Mention issues that are fixed or related at the end.
+- Squash follow-up tweaks into the commit they belong to before pushing.
+- No AI attribution or co-author lines.
+
+## Contribution constraints (from README)
+
+Keep `main.go` simple, avoid adding CLI options, avoid adding internal complexity, and keep unit coverage high.
 
 ---
 > Source: [cloudfoundry/bosh-agent](https://github.com/cloudfoundry/bosh-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
