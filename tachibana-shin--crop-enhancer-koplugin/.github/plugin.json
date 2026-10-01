@@ -1,0 +1,9 @@
+{
+  "name": "tachibana-shin--crop-enhancer-koplugin",
+  "displayName": "crop_enhancer.koplugin",
+  "description": "Replaces KOReader's built-in page auto-crop algorithm with leptonica connected-component analysis. Better at ignoring thin borders, page-edge noise, and scan artifacts that fool the original pixel-cou",
+  "version": "1.0.0",
+  "author": "tachibana-shin",
+  "homepage": "https://github.com/tachibana-shin/crop_enhancer.koplugin",
+  "skills": []
+}
