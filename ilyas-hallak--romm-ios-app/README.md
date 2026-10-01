@@ -15,10 +15,6 @@ Original source: `CLAUDE.md` in [ilyas-hallak/romm-ios-app](https://github.com/i
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [romm-ios-app](https://github.com/ilyas-hallak/romm-ios-app/tree/main/.agents/skills/swiftui-expert-skill/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ilyas-hallak/romm-ios-app](https://github.com/ilyas-hallak/romm-ios-app)
 
 ---
