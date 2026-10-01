@@ -1,141 +1,88 @@
 ## web
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - Consult `../docs-dev/style.md` before making changes in `app/`.
 
-# CLAUDE.md
+# Agents.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Style guide
 
-## Prerequisites
+- Consult `../docs-dev/style.md` before making changes in `app/`.
+- Follow the repository logging guidance there: for app/runtime diagnostics,
+  prefer `appLogger` over raw `console.*` calls.
 
-This project uses [Runme](https://runme.dev/) to execute tasks defined in markdown files. Install Runme before proceeding:
+## Documentation and comments
 
-```bash
-# via npm
-npm install -g runme
+- User-facing documentation belongs in the repo-root `docs/` directory (not `docs-dev/`).
+- Prefer user-facing documentation in notebook form so examples are executable. For Runme notebooks, prefer JSON notebook files when possible.
+- Functions and classes should have comments explaining what they do
+- Comments should capture important design decisions
+- Comments should explain how state is being managed via contexts and other react features
+- Assume the person reading and reviewing the code is not very familiar with REACT and typescript and add
+   comments to help explain the code.
+
+- Add identifiers to "divs" to make it easier to debug layout and styling issues by making it easy to select elements in the chrome debug tools and then use the identifier
+  to link them to the source code
+
+## Notebook architecture (model/view + tabs)
+
+- NotebookData is the in-memory model for a notebook. It owns the Notebook proto and emits change events on mutations.
+- React views subscribe via `useNotebookSnapshot` (backed by `useSyncExternalStore`) and render from immutable snapshots to avoid tearing under concurrent rendering.
+- Snapshots are clones; do not mutate them directly. Use NotebookData/CellData methods for updates.
+- `loaded` distinguishes placeholder models (created before async load) from fully loaded notebooks; only `loadNotebook` flips it true.
+- NotebookContext seeds `storeRef` and `openNotebooks` once from sessionStorage so models exist early; async loads populate existing models and emit.
+- Tabs keep content mounted with `Tabs.Content forceMount` and `TabPanel` hides inactive tabs via `visibility`/`position` to preserve scroll/Monaco layout.
+- Loading gates live inside `NotebookTabContent` and use snapshot.loaded to decide when to show content.
+
+## Avoid Common Mistakes
+
+- Enumerate notebook `files` and pending `driveCreates` only through
+  `readTablePage()` (bounded projected metadata pages) or `scanTable()` (streaming
+  one record at a time) from `storage/tableScan.ts`. Do not call `toArray()`,
+  `bulkGet()`, or other bulk enumeration methods directly on those tables, even
+  with a row limit: legacy records may still contain very large inline bodies.
+  Load an individual payload explicitly through `getFileRecord()` when needed.
+  The storage lint rule and app tests enforce the common direct/chained/alias
+  access patterns; keep new storage readers within this boundary.
+
+In the the tree element use children property not render to set the render for each node.
+Here is an example of correct code.
+
+```tex
+   <Tree
+            data={treeNodes}
+            openByDefault={true}
+            width="100%"
+            height={360}
+            indent={20}
+            children={renderNode}
+            onToggle={handleToggle}
+            onClick={() => setContextMenu(null)}
+          />
 ```
 
-```bash
-# or via Homebrew (macOS/Linux)
-brew install runme
-```
+## Review guidelines for app/
 
-See [runme.dev](https://runme.dev/) for other installation options.
+### Graceful recovery from corrupt notebooks
 
-## Build & Development Commands
+- Corrupt files or inconsistent saved history must not prevent a notebook from opening or make its recovered content read-only. Keep recoverable cells editable and ensure edits can be saved and reopened.
+- Isolate damage to the affected cell, output, or record. Preserve original bytes/history; never silently replace a damaged notebook with an empty one or delete conflicting records to make validation pass.
+- For ambiguous execution results, show a useful error in that cell's outputs. Clear the diagnostic when the cell runs again, and let the new execution supply fresh output. Do not serialize recovery diagnostics as real execution results.
+- Use explicit causal history to reconcile updates. Do not guess the correct output from wall-clock timestamps or arbitrary file order.
+- Review recovery changes with corrupt-input regression tests covering open, edit, save, reopen, and rerun. An error boundary or read-only fallback alone is not recovery.
 
-Use `runme run <task>` to execute tasks defined in README.md:
+* Ensure code changes are consistent with the design, practices, and styles defined in `docs-dev/architecture.md`.
+* Ensure that tests are properly updated to verify bug fixes and prevent regressions, including adding new tests where needed.
+  * Ensure CUJs as defined in `docs-dev/cujs` are updated if necessary.
+  * Ensure E2E tests and CUJs are in sync.
+* Ensure artifacts uploaded by tests confirm that the tests are validating what they claim to test.
 
-| Command               | Description                                                 |
-| --------------------- | ----------------------------------------------------------- |
-| `runme run configure` | Set up pnpm to use Buf registry                             |
-| `runme run setup`     | Install all dependencies                                    |
-| `runme run build`     | Build all packages                                          |
-| `runme run dev`       | Start development server (builds renderers + console first) |
-| `runme run test`      | Run tests (requires build first)                            |
-| `runme run clean`     | Clean build artifacts                                       |
+## Backend/Fake Implementation Policy
 
-**IMPORTANT**: After making code changes, you MUST run `runme run build test` to ensure everything works correctly.
-
-See [README.md](README.md) for additional build and test commands.
-
-## Git Commit Requirements
-
-**IMPORTANT**: This project requires all contributors to sign off on the Developer Certificate of Origin (DCO) as required by CNCF/LF.
-
-You MUST use the `-s` flag with every git commit:
-
-```bash
-git commit -s -m "Your commit message"
-```
-
-This adds a "Signed-off-by" line to your commit message, certifying that you have the right to submit the code under the project's license.
-
-**Never commit without the `-s` flag.** Commits without DCO signoff cannot be merged.
-
-## Pull Request Requirements
-
-When you open a follow-up PR that fixes an issue, include an issue-closing reference in the PR description so GitHub auto-closes the issue on merge.
-
-- Use one of GitHub's auto-close keywords with an issue number, for example: `Fixes #123`, `Closes #123`, or `Resolves #123`.
-- Put this in the PR body (not just a comment) so the issue is linked and automatically closed when the PR merges.
-
-## Architecture
-
-This is a pnpm workspace monorepo with two publishable packages and one app:
-
-| Package                     | Description                                                   |
-| --------------------------- | ------------------------------------------------------------- |
-| **app/**                    | Main Vite+React 19 SPA - uses packages below                  |
-| **@runmedev/react-console** | React wrapper for `<runme-console>` web component             |
-| **@runmedev/renderers**     | Lit.js web components + xterm.js terminal + WebSocket streams |
-
-**Build order matters**: `renderers` → `console` → `app`
-
-### Key App Directories
-
-- **`app/src/routes/`** - React Router v7 route definitions
-- **`app/src/components/`** - Main UI components (MainPage, Actions, SidePanel, etc.)
-- **`app/src/contexts/`** - React Context providers for app state
-- **`app/src/storage/`** - Storage implementations (Google Drive, filesystem, HTTP API, local)
-- **`app/src/lib/`** - Utility libraries and hooks
-
-### Package Entry Points
-
-- `packages/renderers/src/index.ts` - Web components, Streams class, messaging utilities
-- `packages/react-console/src/index.tsx` - Console React component wrapper
-
-### Web + React Component Stack
-
-The console architecture builds from low-level web components up to high-level React components: `console-view` (xterm.js terminal) is wrapped by `runme-console` (WebSocket orchestration), which is wrapped by the React `Console` component, which is finally integrated into `CellConsole` for notebook cell execution.
-
-```mermaid
-flowchart TD
-    A["<b>console-view</b><br/><i>Web Component</i><br/>━━━━━━━━━━━━━━<br/>xterm.js with styling,<br/>addons, and<br/>x-sandbox messaging"]
-    B["<b>runme-console</b><br/><i>Web Component</i><br/>━━━━━━━━━━━━━━<br/>Websockets messaging<br/>with Golang-backed Runner"]
-    C["<b>Console</b><br/><i>React Component</i><br/>━━━━━━━━━━━━━━<br/>Thin wrapper for<br/>WC -&gt; React"]
-    D["<b>CellConsole</b><br/><i>React Component</i><br/>━━━━━━━━━━━━━━<br/>Console &lt;&gt; Cell Proto<br/>Coupling"]
-
-    A --> B
-    B --> C
-    C --> D
-
-    classDef webc fill:#e1f5ff,stroke:#01579b,stroke-width:2px
-    classDef reactc fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-
-    class A,B webc
-    class C,D reactc
-```
-
-## Technology Stack
-
-- **React 19** with TypeScript
-- **React Router v7** for routing
-- **Radix UI** themes and primitives
-- **xterm.js** for terminal emulation (in renderers)
-- **Monaco Editor** for code editing
-- **ConnectRPC** for RPC communication
-- **Lit.js** for web components (in renderers)
-- **Vite** for build tooling
-- **Tailwind CSS** for styling
-- **Vitest** for testing
-- **Dexie/IndexedDB** for local storage
-
-## Storage Backends
-
-The app supports multiple notebook storage backends:
-
-- `DriveNotebookStore` - Google Drive via GAPI
-- `FilesystemNotebookStore` - Browser File System Access API
-- `LocalNotebooks` - IndexedDB-backed local mirror and app-facing notebook store
-
-## Protobuf Types
-
-Types are generated from buf.build registries:
-
-- `@buf/runmedev_runme.bufbuild_es` - Core Runme types
-- `@buf/googleapis_googleapis.bufbuild_es` - Google API types
+- Test backends and fake services must be implemented in Go.
+- Do not add new Python/Node-based fake backend servers for browser integration tests or CUJs.
+- If a TypeScript test harness needs to spin up a fake service, it should invoke a Go command (for example `go run ...`) rather than embedding the server in JavaScript.
+- Shared fake backend binaries should live under the repo-root `testing/` directory.
 
 ---
 > Source: [runmedev/web](https://github.com/runmedev/web) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
