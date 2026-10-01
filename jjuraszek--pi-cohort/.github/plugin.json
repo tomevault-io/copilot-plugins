@@ -1,0 +1,9 @@
+{
+  "name": "jjuraszek--pi-cohort",
+  "displayName": "pi-cohort",
+  "description": "pi extension for async subagent delegation with truncation, artifacts, and session sharing",
+  "version": "1.0.0",
+  "author": "jjuraszek",
+  "homepage": "https://github.com/jjuraszek/pi-cohort",
+  "skills": []
+}
