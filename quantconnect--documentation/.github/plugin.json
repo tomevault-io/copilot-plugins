@@ -1,0 +1,386 @@
+{
+  "name": "quantconnect--documentation",
+  "displayName": "Documentation",
+  "description": "Documentation",
+  "version": "1.0.0",
+  "author": "QuantConnect",
+  "homepage": "https://github.com/QuantConnect/Documentation",
+  "skills": [
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    },
+    {
+      "name": "Documentation",
+      "description": ""
+    }
+  ]
+}
