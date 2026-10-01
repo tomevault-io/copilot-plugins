@@ -1,22 +1,30 @@
 ## chia-gaming
 
-> Alpha has no installed base; do not treat format breaks as bugs
+> Keep unreleased app formats strict and external contracts compatible
 
 
-# Alpha: no compatibility
+# Unreleased app formats and deployed compatibility
 
-This project is alpha. There is no installed base. Do not preserve, migrate, or dual-read old formats.
+No player app or hub persistence format has been released. Keep explicit
+browser envelope versions, WASM cradle schemas, IndexedDB upgrade boundaries,
+and peer capability hooks so future released formats have centralized migration
+and negotiation points.
 
-Not bugs:
-- Changing a persistence, wire, CLVM, or API shape
-- Dropping an old save schema, localStorage key, or envelope version
-- Requiring a new session after a format change
-- Missing a migration, fallback decoder, or "existing users" path
+For unreleased app-owned persistence and internal schemas:
+- Advance the relevant version for incompatible changes.
+- Decode only the current format unless a released predecessor explicitly
+  requires migration.
+- Do not add migrations, fallback decoders, aliases, dual reads, or
+  compatibility-only serde defaults for formats that never shipped.
+- Keep the current encoder and decoder symmetric: data written by this build
+  must round-trip and restore in this build.
 
-Do not propose compatibility shims, version dual-paths, or "this will break saved games" as a finding.
-
-Still a bug: the **current** encoder and decoder disagree, so a value written now cannot be read now in the same build (refresh, resume, round-trip in this code). Fix that by making today's format consistent, not by keeping an old one.
+This policy does not relax compatibility with deployed external contracts.
+Preserve wallet RPC and simulator JSON behavior, Chia offer compression
+dictionaries and bech32 handling, on-chain and peer protocol behavior, and
+historical signed-unroll recognition. Treat changes to those contracts as
+compatibility-sensitive even while app-owned save formats remain unreleased.
 
 ---
 > Source: [Chia-Network/chia-gaming](https://github.com/Chia-Network/chia-gaming) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
