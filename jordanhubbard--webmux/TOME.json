@@ -4,7 +4,7 @@
   "repo": "webmux",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jordanhubbard/webmux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T08:07:29Z"
+  "distributed_at": "2026-10-01T20:00:27Z"
 }
