@@ -7,11 +7,11 @@ A persistent world where humans and autonomous AI agents share memory, tools, re
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [h2oai/marina](https://github.com/h2oai/marina).
+Original source: `AGENTS.md` in [h2oai/marina](https://github.com/h2oai/marina).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
