@@ -1,0 +1,9 @@
+{
+  "name": "psrl-project--psrl",
+  "displayName": "psrl",
+  "description": "An Efficient Asynchronous RL Framework for LLM Post-Training",
+  "version": "1.0.0",
+  "author": "psrl-project",
+  "homepage": "https://github.com/psrl-project/psrl",
+  "skills": []
+}
