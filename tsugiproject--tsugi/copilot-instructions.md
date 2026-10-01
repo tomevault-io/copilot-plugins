@@ -1,28 +1,25 @@
 ## tsugi
 
-> Stay inside this Tsugi checkout. Never use the sibling htdocs/tsugi tree unless that is the open workspace.
+> Files and Pages persistence lives in repositories, not controllers.
 
 
-# This checkout only
+# Files and Pages repositories
 
-The workspace folder is the Tsugi you are editing. **Do not leave it.**
+Do **not** add persistence, blob/folder writes, SQL, or href/path helpers to `Tsugi\Controllers\Files` or `Tsugi\Controllers\Pages`. Put those on the repositories.
 
-On this machine there is often a second clone at `/Users/csev/htdocs/tsugi` (or `~/htdocs/tsugi`). That is a **different git repo**. It is out of bounds unless the Cursor workspace path **is** that folder.
+| HTTP / HTML | Rows, blobs, invariants |
+|---|---|
+| `Tsugi\Controllers\Files` | `Tsugi\Services\Files\FileRepository` |
+| `Tsugi\Controllers\Pages` | `Tsugi\Services\Pages\PageRepository` |
 
-## Do not
+`Quiz1Repository` is the naming model (static methods, no DI, not `*Service`).
 
-- Read, write, grep, migrate, or "sync" files under `htdocs/tsugi` when the workspace is `htdocs/dj4e/tsugi` (or any other nested checkout).
-- Treat `$CFG->dirroot`, `../config.php`, or "the real tsugi-php" as permission to switch trees.
-- Copy Quiz1 (or any other change) into the sibling clone to make upgrade/Apache pick it up.
-
-## Do
-
-- Edit, test, and run `php admin/upgrade.php` only inside the workspace root.
-- PHP includes for this repo must use `__DIR__` (e.g. `require_once __DIR__ . '/../config.php'`). A CWD-relative `../config.php` from `dj4e/tsugi` loads `dj4e/config.php`, which then loads **`htdocs/tsugi`** — that is how agents accidentally leave this tree.
-- If a command's `dirroot` is not the workspace path, **stop** and fix the invoke path. Do not follow that dirroot into another checkout.
-
-If the user opens `/Users/csev/htdocs/tsugi` as the workspace, that folder is in bounds and `dj4e/tsugi` is not.
+- Controllers keep `routes`, HTTP actions, CSRF/flash/HTML, and `ROUTE` / `NAME` / `REDIRECT`. Files may alias repository folder constants for templates.
+- `FileRepository` owns course Files rules (folders, Public/Student/Private, `backref=files`, sha256 hrefs, `importBytes`). Leave `BlobUtil` / `Access` as the generic blob store.
+- `PageRepository` owns `{prefix}pages` / `page_history` SQL, `importHtml`, cartridge HTML, logical keys, canonicalize/expand.
+- Pages picker helpers (`lessonsDocumentForPicker`, `lessonsLinkPickerPayload`) stay on the Pages controller until a Lessons extract.
+- Schema for Pages stays `lib/src/Services/Pages/database.php`. Files uses existing `blob_file` / `blob_blob`.
 
 ---
 > Source: [tsugiproject/tsugi](https://github.com/tsugiproject/tsugi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
