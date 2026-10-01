@@ -1,24 +1,31 @@
 ## sema
 
-> If a `../CLAUDE.md` and `../repos.tsv` exist beside this repo, you are inside the
+> Build an anonymous, reusable **actor** value from an options map: a configured brain with
 
-@AGENTS.md
 
-## Sema workspace (if present)
+Build an anonymous, reusable **actor** value from an options map: a configured brain with
+a system prompt, tools, model, and turn budget that owns its own tool loop. This is the
+plain constructor; the named form is `defagent`. Run one with `agent/run`, or
+hand it to a workflow `step` via `:agent` to run it as a journaled step.
 
-If a `../CLAUDE.md` and `../repos.tsv` exist beside this repo, you are inside the
-**sema-lisp workspace** meta-repo, and its `../CLAUDE.md` is MANDATORY here:
+`opts` keys (all optional): `:system` (system prompt string), `:tools` (a list/vector of
+`deftool` values), `:model` (provider model id; omit for the default), `:max-turns` (tool-loop
+cap, default `10`), and `:name` (empty for an anonymous agent).
 
-- Create/remove git worktrees ONLY via `jake wt-new` / `jake wt-rm` run from the
-  workspace root — never `git worktree add` by hand, and never outside
-  `../.worktrees/`.
-- Rust builds run with incremental compilation on and NO rustc wrapper
-  (`../.cargo/config.toml`; policy rationale in `docs/build-time-report.md`).
-  Don't re-add an sccache wrapper — it hard-fails incremental builds. Reclaim
-  disk with `jake sweep` (worktree hygiene matters more with incremental on).
+```sema
+(deftool get-weather "Get weather" {:city {:type :string}}
+  (lambda (city) (format "{\"temp\": 22}")))
 
-Read `../CLAUDE.md` before creating worktrees or running large builds.
+;; anonymous actor — omit :model to use the default provider/model
+(define bot (agent {:tools [get-weather]}))
+(agent/run bot "Weather in Oslo?")            ; multi-turn tool loop
+
+;; the same brain, run as a journaled workflow step
+(step "Weather in Oslo?" {:agent bot})
+```
+
+See also: `defagent`, `agent/run`, `agent/name`, `step`.
 
 ---
 > Source: [sema-lisp/sema](https://github.com/sema-lisp/sema) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
