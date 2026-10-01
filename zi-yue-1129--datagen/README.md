@@ -16,7 +16,7 @@ Original source: `` in [zi-yue-1129/DATAGEN](https://github.com/zi-yue-1129/DATA
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [zi-yue-1129/DATAGEN](https://github.com/zi-yue-1129/DATAGEN) — a repo with 1807+ stars on GitHub.
+From [zi-yue-1129/DATAGEN](https://github.com/zi-yue-1129/DATAGEN) — a repo with 1810+ stars on GitHub.
 
 ---
 
