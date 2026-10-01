@@ -1,38 +1,58 @@
-## code-review
+## core
 
-> How to review code changes in this repo (read-only unless asked to fix)
+> Core engineering workflow, coding standards, and communication for yuviz
 
 
-# Code review
+# Core engineering
 
-When asked to review: **do not modify code** unless explicitly asked to fix.
+Read `CURSOR.md` before non-trivial work. Codebase wins over docs if they disagree.
 
-Review the actual diff and relevant surrounding code (callers, schema, auth).
+## Flow
 
-## Priority order
+UNDERSTAND → PLAN → IMPLEMENT → VERIFY → REVIEW
 
-1. Correctness
-2. Security / tenant isolation
-3. Data integrity (soft delete, FKs, cache write-through)
-4. API compatibility
-5. Error handling
-6. Concurrency / idempotency
-7. Performance (complexity, redundant work)
-8. Cleanliness (unused/duplicated code, **comment bloat**) — not personal style
+- Small fixes: skip long plans; inspect callers, change, verify.
+- Larger changes: inspect existing implementation first, brief plan, then implement.
+- Multi-stage features: use the SDLC skills (`/sdlc-new` …) — see `.cursor/README.md`.
+- Never start editing without reading the code you are changing.
 
-When reviewing: flag (or remove if asked to fix) comments that narrate obvious code, exceed ~2 lines without a non-obvious *why*, or make the diff harder to read. Prefer deletion over rewriting essays.
+## Communication
 
-## Finding format
+Be short, direct, actionable. No restating the request, no lecture, no long summaries.
 
-`[P0]` Critical · `[P1]` High · `[P2]` Medium · `[P3]` Low
+Completed work — a few bullets:
 
-Each finding: severity, file/line, problem, why it matters, recommended fix.
+- What changed
+- Tests/checks actually run
+- Anything left
 
-Only real, actionable issues — no nitpicks on style that matches the repo.
+Minimize shell narration; batch related checks; don't paste command output unless needed.
 
-## Verdict
+## Coding
 
-End with one of: `APPROVE` · `APPROVE WITH FIXES` · `REQUEST CHANGES`
+- Match existing naming, formatting, module layout, and patterns exactly.
+- Reuse `libs/*` and existing service helpers; no new dependencies without need.
+- No unrelated refactors or “cleaner” rewrites of working systems.
+- Inspect callers before changing shared functions; inspect schema/tests before behavior changes.
+- Efficient by default (avoid redundant passes/copies). No unused imports/vars/dead branches.
+- Don't introduce a variable used once with no clarity benefit — inline it.
+- Extract duplicated logic only when it already fits an existing abstraction pattern.
+
+## Comments
+
+Prefer code that needs little explanation. Comments are for non-obvious *why*, not narration of *what*.
+
+- Do not add comments that restate the next line, walk through control flow, or cite design docs at length.
+- Keep necessary comments to **1–2 lines**. Delete essay comments when touching that code.
+- On implement **and** review: strip comment bloat from the change before finishing.
+- Docstrings: one short purpose line (two if a contract is truly subtle). No multi-paragraph essays on new or edited APIs.
+
+## Git
+
+- Inspect the diff before finishing; no debug leftovers or secrets.
+- **Never commit or push.** Stop when ready; ask the user to review and run commit/push themselves.
+- Never rewrite history or force-push.
+- **Attribution:** do not add or mention Cursor, AI, Copilot, or similar as author, co-author, contributor, or collaborator in commits, PRs, or any Git metadata (`Co-authored-by`, committer identity, PR body, etc.).
 
 ---
 > Source: [yuviz-ai/yuviz](https://github.com/yuviz-ai/yuviz) — distributed by [TomeVault](https://tomevault.io).
