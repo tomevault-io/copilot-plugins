@@ -1,134 +1,135 @@
 ## apsara
 
-> This file contains important guidelines and preferences for AI agents working on this project. Following these guidelines will help maintain code quality, consistency, and project standards.
+> Apsara (`@raystack/apsara`) is an open-source React 19 component library. It is built on Base UI primitives and styled with CSS Modules and `--rs-*` design tokens. The repo is a pnpm and Turborepo monorepo.
 
-# Agent Guidelines
+# Repository guidelines
 
-This file contains important guidelines and preferences for AI agents working on this project. Following these guidelines will help maintain code quality, consistency, and project standards.
+Apsara (`@raystack/apsara`) is an open-source React 19 component library. It is built on Base UI primitives and styled with CSS Modules and `--rs-*` design tokens. The repo is a pnpm and Turborepo monorepo.
 
-## 🎯 Project Overview
+This file has the rules. For everything else, read:
 
-This is **Apsara Design System** - a React component library built with:
-- **TypeScript** for type safety
-- **CSS Modules** for styling
-- **Vitest** for testing
-- **pnpm** for package management
-- **Biome** for code formatting and linting
-- **Monorepo structure** with documentation site
+- [DEVELOPMENT.md](./DEVELOPMENT.md): setup, scripts, project structure, and package exports.
+- [CONTRIBUTING.md](./CONTRIBUTING.md): branches, commits, pull requests, and releases.
 
-## 🏗️ Project Structure
+`CLAUDE.md` is a symlink to this file.
 
-```
-packages/raystack/           # Main component library
-├── components/             # React components
-├── hooks/                 # Custom hooks
-├── icons/                 # Icon components
-├── styles/               # Global styles
-├── types/                # Type definitions
-└── test-utils/           # Testing utilities
+## Agent skills
 
-apps/www/                  # Documentation site
-├── src/content/docs/     # Component documentation
-└── src/components/playground/ # Demo examples
-```
+Skills are in `.agents/skills/`. `.claude/skills` is a symlink to that folder, so each skill exists once. A skill holds the steps for one task. Do not repeat the rules from this file in a skill.
 
-## 🚨 Critical Rules
+- `add-new-component`: every step to add a component, from source to docs.
+- `apsara-review`: reviews a diff for bugs, tests, simplifications, and docs. Run it only when someone asks for it by name (`/apsara-review` or `$apsara-review`). Do not run it for a general review request or after you finish a change.
+- `apsara`: for apps that use the library. It is not for work in this repo.
+- `design-review`: reviews the design of a PR, a branch, or an existing module: API surface, maintenance cost, and whether the machinery fits the problem. Run it only when someone asks for it by name (`/design-review` or `$design-review`).
 
-- **NO `any` TYPES** - Use specific types, `unknown`, or generics
-- **NO direct npm/yarn** - Always use `pnpm`
-- **NO ignored linting errors** - Fix all issues properly
-- **NO outdated documentation** - Keep docs in sync with code
-- **NO CSS-in-JS or inline styles** - Use CSS Modules only
-- **NO Tailwind CSS** - Use CSS Modules for all styling
+## Code
 
-## 📦 Package Management
+- Each component is in `packages/raystack/components/<name>/`. Its `index.tsx` only re-exports.
+- Export new components from `packages/raystack/index.tsx`, in alphabetical order.
+- Wrap Base UI primitives, for example `import { Tabs as TabsPrimitive } from '@base-ui/react'`. Do not rebuild behavior that Base UI already has.
+- For plain elements, use `useRender` and `mergeProps` so the `render` prop works.
+- Pass `ref` as a normal prop (React 19). Do not use `forwardRef`.
+- Use `cva` for variants and `cx` to merge class names. Both come from `class-variance-authority`.
+- For compound components, use `Object.assign(Root, { List, Tab })`. Set `displayName` on each part, for example `'Tabs.List'`.
+- Every rendered part has a `data-slot` attribute in kebab case, prefixed with the component name, for example `tabs-list`. Slot names are public API. List them in the Slots table on the docs page, and test them in `__tests__/data-slots.test.tsx` with the helpers in `~/test-utils/data-slots`.
+- Do not use `any`. Use a specific type, `unknown`, or a generic.
 
-- **Always use `pnpm`** - Never use `npm` or `yarn`
-- Installing dependencies: `pnpm add <package>` or `pnpm add -D <package>`
-- Running scripts: `pnpm run <script>` or `pnpm <script>`
+## Styling
 
-## 📝 TypeScript Best Practices
+- Use CSS Modules only. Do not use Tailwind, CSS-in-JS, or static inline styles. Inline `style` is fine for values computed at runtime, for example Grid templates.
+- Use `--rs-*` tokens for colors, spacing, radius, and font sizes instead of hardcoded values.
+- Use `~/shared/gap` for gap props. Do not add new spacing classes.
+- Name variant classes `<prop>-<value>`, for example `direction-row` or `size-small`.
 
-- **Never use `any` type** - This is a strict rule
-- Use specific types, interfaces, or union types instead
-- Prefer `unknown` over `any` when type is genuinely unknown
-- Use generic types `<T>` for reusable components/functions
-- Always provide explicit return types for functions
+## Docs
 
-## 🎨 Styling & Design
+- When you change props, variants, or behavior, update the docs page.
+- `props.ts` is written by hand, not generated, and `<auto-type-table>` renders it. Check each prop name and value against the component. The two often get out of sync.
+- `demo.ts` exports demo objects: `{ type: 'code', code }` for examples and `{ type: 'playground', controls, getCode }` for the playground. The code strings render live with the library in scope.
+- Set `defaultValue` on playground controls. The generated code then leaves out props that are at their default.
 
-- **Use CSS Modules exclusively** for component styling
-- File naming: `component-name.module.css`
-- Import: `import styles from './component-name.module.css'`
-- Usage: `className={styles.className}`
-- **Follow accessibility standards** (ARIA labels, keyboard navigation)
-- **Ensure responsive design** works across different screen sizes
-- **Use semantic HTML** elements appropriately
+## Lint, types, and format
 
-## 🧪 Testing Standards
+- Use `pnpm`. Do not use `npm` or `yarn`. If a command fails because dependencies are missing, for example in a new worktree, run `pnpm install` and try again.
+- Biome lints and formats the code. The pre-commit hook runs `pnpm format` on staged files.
+- Run `pnpm lint` before you push. Fix the issues instead of suppressing them.
+- Run `pnpm exec tsc --noEmit` in `packages/raystack` to check types. Do not add new errors.
 
-- **Use Vitest** for all tests (migrated from Jest)
-- Write comprehensive tests for utilities and components
-- Use proper TypeScript types in tests (never use `any`)
-- Import from `vitest` not `jest`
-- Test file pattern: `__tests__/component.test.tsx`
+## Tests
 
-## 📚 Documentation Requirements
+- Tests use Vitest and Testing Library in jsdom. Import from `vitest`, not `jest`.
+- To test one component, run `pnpm test -- components/<name>` in `packages/raystack`, for example `pnpm test -- components/flex`. To run all tests from the root, run `pnpm test:apsara`.
+- Check class names through the imported CSS module, for example `styles['direction-row']`. Do not hardcode class strings.
+- Base UI popups do not behave like a browser in jsdom:
+  - To select a portaled item, call `fireEvent.pointerDown` and then `fireEvent.click`. See `combobox.test.tsx`.
+  - Select needs a microtask flush after render and after open. See `flushMicrotasks` in `select.test.tsx`.
+- Test the behavior you changed. Do not add tests for unrelated code.
 
-When adding/updating components:
-- **Component docs**: Update `apps/www/src/content/docs/components/`
-- **Demo examples**: Update `apps/www/src/components/playground/`
-- **Props documentation**: Keep API docs in sync with implementation
+## Commits and pull requests
 
-Required for:
-- New components or hooks
-- API/props changes
-- New styling variants
-- Behavior modifications
+Read [Commit convention](./CONTRIBUTING.md#commit-convention) and [Sending a pull request](./CONTRIBUTING.md#sending-a-pull-request) in CONTRIBUTING.md before you commit or open a PR. In short:
 
-## 🚀 Development Workflow
+- Commit subjects and PR titles use `<type>: [<component>] <summary>`, for example `feat: [grid] introduce css modules`. `<type>` is `feat`, `fix`, `refactor`, `test`, or `chore`. No `!` and no `(scope)`. CI fails PRs whose title does not match.
+- Branches are `<type>/<name>`, for example `feat/flex-inline`.
+- The PR body follows `.github/PULL_REQUEST_TEMPLATE.md`: a `## Summary` of up to 5 bullets, `Closes #<issue>`, and the ticked checkbox.
+- This is a public repo. Do not put internal tracker IDs, tracker links, or internal names in branches, commits, or PRs.
 
-1. **Analyze existing patterns** before implementing new features
-2. **Run `pnpm format`** after making changes
-3. **Write tests** using Vitest for new utilities/components
-4. **Update documentation** when changing component APIs
-5. **Start with minimal viable implementation** then enhance
-6. **Test early and often** during development
+Rules for agents:
 
-## 🤝 Communication & Best Practices
+- Write the PR description from the full branch (`git log main..HEAD` and `git diff main...HEAD --stat`), not from the last commit.
+- Only claim what you checked. Do not say tests pass or a browser was checked unless you did it.
+- Do not add AI attribution, watermarks, or "Generated with" footers.
 
-- **Be transparent** about limitations or uncertainties
-- **Ask for clarification** when requirements are ambiguous
-- **Explain your reasoning** for architectural decisions
-- **Provide detailed error messages** with context
-- **Include relevant code snippets** when reporting issues
+## Writing style
 
-## ✅ Quality Checklist
+These rules apply to code comments, JSDoc, docs, commit messages, PRs, and review replies. Write simple technical English. Say what is true in as few words as you need. If a sentence tells the reader nothing that the code or diff does not already show, delete it.
 
-Before completing any task:
-- [ ] Code follows TypeScript best practices (no `any`)
-- [ ] Styling uses CSS Modules correctly  
-- [ ] Tests are written and passing
-- [ ] Documentation is updated
-- [ ] Code is formatted with `pnpm format`
-- [ ] Follows existing project patterns
-- [ ] No linting errors remain
-- [ ] Accessibility considerations addressed
-- [ ] Error states and edge cases handled
+### Words
 
-## 📋 Task Completion
+- Use plain words: "is", not "serves as"; "has", not "features" or "boasts"; "can", not "has the ability to"; "use", not "leverage" or "utilize"; "to", not "in order to".
+- Do not use: additionally, comprehensive, crucial, delve, enhance, foster, pivotal, robust, seamless, showcase, streamline, underscore, vital.
+- Do not praise the code ("powerful", "elegant", "effortless"). Describe what it does.
+- Delete filler: "It is important to note that", "Note that", "Basically", "Simply".
+- Do not hedge ("might potentially", "should hopefully"). State the fact, or leave it out.
+- Use one name for one thing. Do not switch between synonyms like "prop", "option", and "setting" for the same thing.
 
-When finishing a task:
-1. **Summarize what was implemented** - Key features and changes
-2. **Note any limitations** - What wasn't implemented or edge cases
-3. **Provide usage examples** - How to use the new functionality
-4. **Suggest next steps** - Potential improvements or related tasks
-5. **Confirm all requirements met** - Review against original request
+### Sentences
 
----
+- Keep sentences short, with one idea each.
+- Use active voice with a clear subject: "The hook reads the value", not "The value is read". Write "You do not need a config file", not "No config file needed".
+- Do not add an "-ing" phrase to the end of a sentence to add meaning, as in "..., ensuring a consistent layout". Write a second sentence or delete it.
+- Avoid "not X, but Y" and "not just X, it's Y". Avoid short fragments at the end of a sentence, such as "no guessing".
+- Do not group items in threes to sound complete. List only what is real.
+- Do not announce what comes next ("Here's what changed:", "Let's look at"). Say it.
+- Do not end with a summary or a positive line ("This makes Flex more flexible."). End on the last fact.
 
-Following these guidelines ensures high-quality, maintainable code that aligns with project standards and team expectations.
+### Formatting
+
+- Do not use em dashes or en dashes. Use a period, comma, colon, or parentheses.
+- Use straight quotes (`"` and `'`), not curly quotes.
+- Do not use emojis.
+- Use bold rarely. Do not start list items with a bold label and a colon.
+
+### Comments and JSDoc
+
+- Use comments sparingly. The default is no comment.
+- Add a comment only when the code cannot explain itself, for example a browser workaround or a non-obvious constraint. The comment says why, not what.
+- Describe the code as it is now. Do not describe the change ("now uses", "was changed to", "previously"). That belongs in the commit message.
+- JSDoc for a prop is one line, plus `@default` if the prop has a default. Usage guidance goes in the `.mdx` page.
+
+  ```ts
+  /**
+   * Renders as `inline-flex` instead of `flex`.
+   * @default false
+   */
+  inline?: boolean;
+  ```
+
+### Review replies
+
+- Start with the result (fixed, won't fix, or a question), then give one line of reason.
+- Do not use chat phrases: "I hope this helps", "Let me know if", "Great catch!", "You're absolutely right".
 
 ---
 > Source: [raystack/apsara](https://github.com/raystack/apsara) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
