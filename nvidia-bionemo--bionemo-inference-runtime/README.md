@@ -2,16 +2,14 @@
 
 > Source: [NVIDIA-BioNeMo/BioNeMo-Inference-Runtime](https://github.com/NVIDIA-BioNeMo/BioNeMo-Inference-Runtime). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
-Easy, fast, and memory-efficient structure prediction inference
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NVIDIA-BioNeMo/BioNeMo-Inference-Runtime](https://github.com/NVIDIA-BioNeMo/BioNeMo-Inference-Runtime).
+Original source: `CLAUDE.md` in [NVIDIA-BioNeMo/BioNeMo-Inference-Runtime](https://github.com/NVIDIA-BioNeMo/BioNeMo-Inference-Runtime).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
