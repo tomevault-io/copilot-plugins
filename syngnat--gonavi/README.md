@@ -15,10 +15,6 @@ Original source: `CLAUDE.md` in [Syngnat/GoNavi](https://github.com/Syngnat/GoNa
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [GoNavi](https://github.com/Syngnat/GoNavi/tree/main/npm/gonavi-cli/skill/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Syngnat/GoNavi](https://github.com/Syngnat/GoNavi)
 
 ---
