@@ -1,0 +1,9 @@
+{
+  "name": "kserve--models-web-app",
+  "displayName": "models-web-app",
+  "description": "models-web-app",
+  "version": "1.0.0",
+  "author": "kserve",
+  "homepage": "https://github.com/kserve/models-web-app",
+  "skills": []
+}
