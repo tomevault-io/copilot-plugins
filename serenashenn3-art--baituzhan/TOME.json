@@ -4,7 +4,7 @@
   "repo": "baituzhan",
   "description": "\u767e\u56fe\u65a9 \u00b7 A style-agnostic illustration-replication skill: harvest any style from 1\u20133 reference images, then illustrate any article in it. Claude Code / Codex / Kimi / Hermes compatible.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/serenashenn3-art/baituzhan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T18:03:37Z"
+  "distributed_at": "2026-10-01T22:43:05Z"
 }
