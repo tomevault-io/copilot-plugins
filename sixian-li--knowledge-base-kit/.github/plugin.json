@@ -1,0 +1,9 @@
+{
+  "name": "sixian-li--knowledge-base-kit",
+  "displayName": "knowledge-base-kit",
+  "description": "Source-backed Markdown knowledge bases for Claude Code and Codex.",
+  "version": "1.0.0",
+  "author": "Sixian-Li",
+  "homepage": "https://github.com/Sixian-Li/knowledge-base-kit",
+  "skills": []
+}
