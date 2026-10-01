@@ -163,4 +163,4 @@ XiHan.BasicApp 是基于 XiHan.Framework 的 .NET 10 模块化后端与基于 Xi
 
 ---
 > Source: [XiHanFun/XiHan.BasicApp](https://github.com/XiHanFun/XiHan.BasicApp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
