@@ -4,7 +4,7 @@
   "repo": "containerd",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/containerd/containerd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T11:02:08Z"
+  "distributed_at": "2026-10-01T02:39:23Z"
 }
