@@ -1,0 +1,9 @@
+{
+  "name": "itisnomatter--kojev",
+  "displayName": "kojev",
+  "description": "Kotlin Multiplatform client for Jev that returns your own enum/sealed types instead of string keys.",
+  "version": "1.0.0",
+  "author": "ItisNoMatter",
+  "homepage": "https://github.com/ItisNoMatter/kojev",
+  "skills": []
+}
