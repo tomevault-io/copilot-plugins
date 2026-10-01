@@ -1,0 +1,9 @@
+{
+  "name": "yshmarov--livechat",
+  "displayName": "livechat",
+  "description": "Open-source live chat for Rails: drop-in support widget + team inbox, in your own database. Alternative to Crisp, Intercom, Chatwoot \u2014 inside your Rails app, not another service.",
+  "version": "1.0.0",
+  "author": "yshmarov",
+  "homepage": "https://github.com/yshmarov/livechat",
+  "skills": []
+}
