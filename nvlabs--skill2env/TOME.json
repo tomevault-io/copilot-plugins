@@ -4,7 +4,7 @@
   "repo": "Skill2Env",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVlabs/Skill2Env",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T18:05:46Z"
+  "distributed_at": "2026-10-01T19:40:55Z"
 }
