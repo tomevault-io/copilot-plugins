@@ -1,0 +1,69 @@
+{
+  "name": "androguard",
+  "owner": "androguard",
+  "repo": "androguard",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "androguard",
+      "path": ".claude/skills/find-refs/SKILL.md",
+      "github_url": "https://github.com/androguard/androguard/tree/main/.claude/skills/find-refs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "androguard",
+      "path": ".claude/skills/scan-vulns/SKILL.md",
+      "github_url": "https://github.com/androguard/androguard/tree/main/.claude/skills/scan-vulns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "androguard",
+      "path": ".claude/skills/analyze-apk/SKILL.md",
+      "github_url": "https://github.com/androguard/androguard/tree/main/.claude/skills/analyze-apk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "androguard",
+      "path": ".claude/skills/decompile-apk/SKILL.md",
+      "github_url": "https://github.com/androguard/androguard/tree/main/.claude/skills/decompile-apk/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/androguard/androguard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T03:38:30Z"
+}
