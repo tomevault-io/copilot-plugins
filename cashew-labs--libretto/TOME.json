@@ -3,8 +3,8 @@
   "owner": "cashew-labs",
   "repo": "libretto",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,177 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "libretto",
+      "path": ".agents/skills/push/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/errore/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/errore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/review/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/libretto/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/libretto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".claude/skills/libretto/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.claude/skills/libretto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/prompting/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/prompting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/spec-review/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/spec-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/update-docs/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/update-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/generate-spec/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/generate-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/writing-tests/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/writing-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/implement-spec/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/implement-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/get-pr-reviews/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/get-pr-reviews/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/address-review/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/address-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/glimpse-changes/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/glimpse-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/cli-development/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/cli-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/push-everything/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/push-everything/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/generate-spec-v2/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/generate-spec-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/libretto-readonly/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/libretto-readonly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".claude/skills/libretto-readonly/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.claude/skills/libretto-readonly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/technical-writing/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/technical-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": "packages/libretto/skills/libretto/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/packages/libretto/skills/libretto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/fix-merge-conflicts/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/fix-merge-conflicts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/external-electron-apps/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/external-electron-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": "packages/libretto/skills/libretto-readonly/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/packages/libretto/skills/libretto-readonly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libretto",
+      "path": "packages/browser-tools/benchmarks/skills/dev-browser/SKILL.md",
+      "github_url": "https://github.com/cashew-labs/libretto/tree/main/packages/browser-tools/benchmarks/skills/dev-browser/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/cashew-labs/libretto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T03:50:00Z"
+  "distributed_at": "2026-10-01T01:41:21Z"
 }
