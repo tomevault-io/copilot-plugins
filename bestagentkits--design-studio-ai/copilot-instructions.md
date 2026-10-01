@@ -1,66 +1,192 @@
 ## design-studio-ai
 
-> Use [docs/README.md](docs/README.md) to find the owning guidance before changing a contract. Product-agent usage belongs in [docs/agents.md](docs/agents.md) and the [design skill](skills/design-studio-ai/SKILL.md); this file governs repository work.
+> Design Studio AI exposes one shared document contract through REST, network MCP, browser WebMCP, and `dsa`. The CLI package is maintained under [packages/cli](../packages/cli/README.md). Its executable bundles the shared validators, theme/template/block catalog, targeted operations, and safe static renderers. It does not require a running local project checkout after installation.
 
-# Working in this repository
+# Agent access and CLI
 
-Use [docs/README.md](docs/README.md) to find the owning guidance before changing a contract. Product-agent usage belongs in [docs/agents.md](docs/agents.md) and the [design skill](skills/design-studio-ai/SKILL.md); this file governs repository work.
+Design Studio AI exposes one shared document contract through REST, network MCP, browser WebMCP, and `dsa`. The CLI package is maintained under [packages/cli](../packages/cli/README.md). Its executable bundles the shared validators, theme/template/block catalog, targeted operations, and safe static renderers. It does not require a running local project checkout after installation.
 
-## Preserve the requested behavior
+## Install and connect
 
-- Deliver the requested scope. Do not substitute mock provider responses, fake exports, or fixture projects for real behavior.
-- Keep browser, REST, MCP, WebMCP and CLI edits on the shared validators and services. When changing a public contract, inspect each affected client and its documentation rather than introducing a second document format.
-- Keep webapp features, API endpoints, CLI commands, MCP tools, WebMCP, official documentation, API documentation, the agent skill, `llms.txt`, and `llms-full.txt` synchronized in the same change. Follow the [documentation source and build ownership](docs/web-documentation.md); update source documents and regenerate derived references rather than editing generated output.
-- Preserve separate brief and document revisions. Keep scope approval explicit; do not interpret unanswered questions as approval or bypass conflicts by retrying with a higher revision.
-- Keep authorization and validation on the server. A UI check must not replace project ownership, OAuth scope, asset isolation, or revision checks.
+Follow the [CLI installation instructions](../README.md#agent-access) for the released tarball. The package is not published to the npm registry.
 
-## Prioritize people and agents
+To build from source, install dependencies with `npm ci` and `npm ci --prefix packages/cli`, then run `npm run build --prefix packages/cli`. From `packages/cli`, run `npm pack`; install the resulting tarball with `npm install -g <path-to-tarball>`. The build also generates `dist/document.schema.json` and `dist/operations.schema.json`.
 
-- Treat UX (User Experience) and AX (AI Agent Experience) as the highest product priorities. Evaluate each feature through both the human workflow and the agent workflow, including discoverability, feedback, errors, and recovery.
-- Build mobile-first, responsive layouts and preserve cross-browser compatibility. Feature-detect browser-dependent capabilities and provide usable fallbacks. Verify affected interactions at mobile and desktop sizes, and report which browsers were actually tested; Chromium-only coverage does not establish cross-browser support.
+Set `DESIGN_STUDIO_URL=https://studio.agentkit.best` and inject `DESIGN_STUDIO_API_KEY` from workspace Settings. `dsa` does not save a configuration file, keychain record, or login session. `--url` and `--api-key` override these values for one invocation; use environment injection to avoid shell history. HTTP is accepted for localhost development only.
 
-## Protect data and credentials
+Install the [companion skill](../skills/design-studio-ai/SKILL.md) by copying its directory into the installed skills directory of your agent runtime. The repository layout is also suitable for a skill installer that accepts a repository and skill path. Copy the complete directory, including `references/`. The skill routes each design kind to composition and review guidance, alongside brief capture, catalog discovery, targeted edits, and authorized exports/publishing. Start with its [shared layout and quality reference](../skills/design-studio-ai/references/layout-and-quality.md); the [skill index](../skills/design-studio-ai/SKILL.md#choose-the-design-kind-guidance) links the kind-specific references.
 
-- Add migrations; do not rewrite applied migration files or reset a deployed database to make a change pass.
-- Never commit real dotenv files, provider keys, OAuth secrets, session tokens, or private user content. Use placeholders in examples; keep browser traces and screenshots free of credentials before sharing them.
-- Preserve the existing `ENCRYPTION_KEY` across restarts and deployments. Read [deployment and backups](docs/deployment.md#backups-and-rollback) before changing persistence or secret storage.
-- Keep tests isolated from real accounts and projects. The [production smoke script](scripts/smoke-production.mjs) creates accounts, calls renderers, and deletes its test data; do not use it as a routine local test.
-- In Cloudflare server fetches, use `redirect: 'manual'` and reject redirect responses before forwarding credentials. Do not restore `redirect: 'error'`: the Workers runtime used here rejects that value. Follow the existing [provider transport](server/providers.ts) and [GitHub transport](server/github-login.ts).
+Connect a coding agent directly to the network MCP server with `dsa mcp install <agent>`; it prints the server config snippet by default and only touches the agent's config file when `--write` is passed (with a `.bak` backup and no-clobber merge).
 
-## Run the appropriate checks
+## CLI command surface
 
-Use npm with the Node version declared in [package.json](package.json). Install both dependency trees on a fresh checkout: `npm ci` and `npm ci --prefix packages/cli`.
+This reference follows the current [CLI source](../packages/cli/src/dsa.ts) and [library commands](../packages/cli/src/design-system-commands.ts). The linked release can lag these capabilities; inspect installed command help and build from source when a needed command is absent.
 
-| Change | Verification |
+| Commands | Behavior |
 | --- | --- |
-| Focused TypeScript behavior | `npx tsx --test tests/briefs.test.ts`, substituting the relevant existing `*.test.ts` file |
-| Renderer or publication behavior | Run `node scripts/build-renderer.mjs` before the focused test; install Chromium with `npx playwright install chromium` if absent |
-| CLI behavior | Run `npm run build:cli` before `npx tsx --test tests/cli.test.ts` |
-| Browser workflow | Run `npm run build`, then `npm run test:e2e -- tests/onboarding-ui.spec.ts --project=mobile`, substituting the affected spec/project |
-| Shared contracts or cross-module implementation | `npm run typecheck`, `npm test`, and `npm run build`; rebuild the CLI first when running its tests |
-| Documentation only | Check changed links, commands, configuration names and claims against their owners; do not start servers or rerun unrelated suites |
+| `health`, `config` | Public health and configuration; no credential persistence |
+| `schema [--operations]` | JSON Schema from the shared validators; semantic checks still run on writes |
+| `catalog`, `themes list/get`, `templates list/get/instantiate`, `blocks list/get` | Bundled design resources; instantiated IDs are unique |
+| `projects list/get/create/rename/delete/clone` | Persisted project management; clone copies owned asset bytes |
+| `projects paint ID --file command.json` | Server-rendered stroke/fill using observed revision, painting generation and exact retry ID |
+| `projects document get/put/patch` | Canonical document reads and atomic expected-revision writes |
+| `projects document merge/changes` | Three-way merge using the exact earlier base, and revision polling |
+| `brief get/put/interview/approve` | Persisted interactive questions, answers, scope and explicit version-bound approval |
+| `observability summary/events/trace` | Owner-scoped activity, provider usage, and correlated spans; global reads require configured operator authorization |
+| `projects check` | Read-only preflight hints with exact layer IDs; inspect the actual preview too |
+| `projects inspect ID`, `projects overview` | Private saved-page, project contact-sheet, and workspace-cover PNGs with revision and pagination metadata |
+| `projects import/export`, `render` | Canonical JSON import; authenticated cloud export; offline JSON/HTML/SVG rendering |
+| `assets list/upload/download` | Authenticated asset storage; node placement is a separate document edit |
+| `generate` | Real provider document proposal; no implicit save |
+| `fonts --query`, `providers models PROVIDER --query` | Search catalog metadata with explicit live/cache/fallback provenance |
+| `design-systems schema/list/get/versions/create/update/apply/insert/remove/import/export` | Shared reusable libraries, immutable versions and conflict-checked project writes; `import`/`export` round-trip portable `DESIGN.md` + `tokens.css` + `manifest.json` folders |
+| `providers list/set/remove` | Masked configuration; provider secret from environment/stdin |
+| `tokens list/create/revoke` | Token metadata and lifecycle; new token returned once |
+| `mcp install AGENT` | Generate the network MCP server config for `claude`/`codex`/`cursor`/`opencode`. Prints by default; `--write` persists into the agent config with a `.bak` backup and a merge that never clobbers an existing entry |
+| `motion-template list/instantiate` | Compile a validated motion primitive (`reveal`/`stagger`/`kinetic-type`/`chart-race`) into timeline keyframes and a video document |
+| `publish`, `unpublish`, `preview`, `unpreview`, `share`, `unshare` | Public immutable snapshot creation and removal; preview/share are naming-specific aliases for the same public snapshot contract, and each removal alias removes all public snapshots |
+| `media generate/status` | OpenAI image/edit/speech; fal image, video/edit, music/effects, and source-audio jobs |
+| `google-slides` | Server export using a short-lived Google OAuth token |
+| `api METHOD /api/path` | Same-origin REST escape hatch; JSON input from file/stdin |
 
-The [CI workflow](.github/workflows/ci.yml) owns the full release gates. Fix observed failures instead of weakening assertions or claiming an unrun check passed. Distinguish provider configuration/error checks from successful live generation, and inspect actual exported files before claiming format fidelity.
+All option details are available through command `--help`. Document and operation files accept `--file -` for stdin. The default output is JSON; document/export/template content is raw when sent to stdout. `--output` writes the artifact and returns JSON metadata. Errors are JSON on stderr. Exit codes are 0 success, 1 input/API/conflict, 2 auth, 3 network/invalid response, and 4 local runtime/file errors.
 
-The TypeScript, unit and build gates always run in full. The browser lane is selected by [scripts/test-plan.mjs](scripts/test-plan.mjs) from the changed paths: pushes to `main`, CI-critical paths, unclassified paths and any selector error run every spec, documentation-only changes skip the browser lane, and everything else runs the mapped specs plus the always-run security set (`account-ui`, `oauth-browser`, `community-publish-ui`, `community-moderation-ui`, `workspace`). Reproduce a selection locally with `npm run test:e2e -- $(node scripts/test-plan.mjs --format=args)`; `npm run test:e2e` with no arguments still runs everything. Add a new spec to the area table in that script, or it runs on every code change by design.
+## Visual inspection
 
-Pushes to `main` and the [nightly workflow](.github/workflows/nightly.yml) execute the full browser suite, so a pull request only exercises the lanes mapped to its changed paths.
+Use visual inspection to see saved pages, slides, views, boards, or scenes before judging the result. It renders private images without publishing, calling an AI provider, or changing the document or brief. Save browser edits and confirm the returned document revision first: these images never include unsaved canvas changes. Deterministic `inspect_design` / `projects check` findings remain a separate quality aid.
 
-## Avoid competing processes and generated edits
+The [shared inspection contract](../src/shared/visual-inspection.ts) owns request limits and metadata. Discover `visualInspection` and `workspaceInspection` through `/api/schema`, or read `dsa projects inspect --help` and `dsa projects overview --help` in the installed CLI.
 
-- Use [scripts/run-e2e.mjs](scripts/run-e2e.mjs) through `npm run test:e2e` for isolated browser tests. Keep its per-device databases and production rate limits intact.
-- Coordinate the E2E port before starting a review server. Do not run another harness on port 8791 while E2E owns it, or attach tests to an unrelated process that happens to answer health checks.
-- Track servers you start by PID, port and checkout; reuse an existing owned process when appropriate, and stop your processes when finished. Never kill an unrelated listener to free a port.
-- Edit renderer/viewer sources and public-doc components, then rebuild. Do not hand-edit `dist/`, `public/studio-renderer.js`, or `public/studio-viewer.js`; [build scripts](package.json) own those outputs.
-- Run `npm pack` from `packages/cli` when packaging the CLI. Do not rely on `npm pack --prefix packages/cli`; that invocation packaged the repository root in this environment.
+| Surface | Project page/contact sheet | Owner workspace covers |
+| --- | --- | --- |
+| REST | `POST /api/projects/{id}/inspect` | `POST /api/projects/inspect` |
+| Network MCP | `inspect_project` | `inspect_workspace` |
+| Browser WebMCP | `studio_api_post_projects_id_inspect` | `studio_api_post_projects_inspect` |
+| CLI | `dsa projects inspect ID --output review.png` | `dsa projects overview --output-dir review` |
 
-## Finish without creating documentation drift
+REST returns `scope`, `source: saved`, `total`, `offset`, `nextOffset`, `items`, and PNG `images`. Each item identifies the project, kind, saved revision, page ID/index/name, original dimensions, sampled time, image index and pixel bounds within that image. MCP/WebMCP return this metadata as text alongside actual image content blocks. Browser inputs use `parameters: {id}` and a `body` matching REST. CLI writes PNGs and replaces base64 with `images[].path` and `bytes` in stdout JSON; a failed API request creates no image files. Workspace filenames use `workspace-OFFSET-IMAGE_INDEX.png` and repeat requests replace those files.
 
-- Update the smallest owning document when behavior, setup, security or a public contract changes. Link to executable owners rather than copying schemas, command inventories, or test counts into more files.
-- Keep plans and release evidence under `plans/`; do not treat a completed plan as the current product contract. Follow the existing timestamped plan-directory convention when a task needs a plan.
-- Use focused conventional commits without AI attribution when committing is in scope. Review the staged content for secrets and unrelated changes before pushing; use `gh` for GitHub operations.
-- Report what changed, which checks actually ran, and material remaining limits. Do not claim universal browser support, provider success, export parity, or an audit-clean dependency tree without evidence.
+Inspection renders 3D scenes at the tile size, not the page size. Bloom and grain keep their full-size look. Each request has a 45-second deadline covering every page it renders. A missed deadline returns `504 render_timeout` and no image. To fix it, request fewer or smaller pages: `limit` or `tileSize` in overview mode, `maxDimension` in page mode. You can also remove transmission from most materials and reduce depth of field, light shafts and emitter density. Retrying the same request will not help.
+
+Browser inspection tools are available in the signed-in workspace and editor when WebMCP is supported. Open-document editing tools still require the editor; visual inspection always uses saved server state.
+
+```sh
+dsa projects inspect PROJECT_ID --mode overview --revision OBSERVED_REVISION --output pages.png
+dsa projects inspect PROJECT_ID --mode page --page 0 --revision OBSERVED_REVISION --time 1.5 --output page.png
+dsa projects overview --output-dir workspace-review
+```
+
+Project inspection defaults to an overview of six pages. Page mode accepts either a saved `pageId` (`--page-id`) or zero-based `pageIndex` (`--page`), never both; omitting both selects the first page. Overview/workspace requests use `offset` and `limit`, and callers must follow non-null `nextOffset` to inspect the remaining items. A workspace overview covers the first page of each owned project in ID order. Its revisions describe individual project snapshots, not one atomic workspace snapshot; concurrent project creation/deletion can change offset pagination. Empty results contain no images or items.
+
+Open the returned PNG with your host's image-viewing capability, or actually examine the MCP/WebMCP image blocks, before claiming visual review. A contact sheet is for composition and coverage; inspect individual pages for text fitting and fine details. Sample relevant motion times and review playback separately; one frame cannot prove animation, sound, responsiveness, or cross-browser behavior. Use observed revision checks to keep a review tied to the intended saved content. Rendering, invalid selection and stale-revision errors are explicit; resolve them before reporting inspection success. See the installable skill's [visual review workflow](../skills/design-studio-ai/references/visual-inspection.md).
+
+## Activity, usage, and traces
+
+Use `dsa observability summary`, `dsa observability events`, and `dsa observability trace TRACE_ID` to inspect saved activity. Network MCP exposes `get_observability_summary`, `list_activity_events`, and `get_activity_trace`; discover their schemas before calling. The browser API tools use the same authenticated REST contracts, while the human Activity view lives at `/activity` on the configured server. Read the [query and result contract](../src/shared/observability.ts) and installed command help for current filters.
+
+Reads default to the authenticated owner's events. A user ID in `OBSERVABILITY_ADMIN_IDS` may request `scope=all` with an application session or API key; OAuth credentials never grant this global operator view. Actor filtering requires operator scope. Shared filters include time window, project, channel, kind, status, and action. Use returned `nextCursor` for event pagination; do not invent cursor values. A trace can be filtered or truncated, so an incomplete result does not prove no other spans existed.
+
+Events link `traceId` and `parentId` across supported request/tool/provider work. `running` means completion has not yet been observed; `interrupted` means the recorded operation outlived its completion lease, not proof the external provider failed. Recent activity is not online presence, and repeated actions are not a verified retry count. Browser events are reported interactions, not authoritative proof that a server write succeeded.
+
+Token and USD cost values come from provider-reported fields. Missing values remain `null`; never treat them as zero or infer a price from an unverified model name. Summary totals may include only measured calls: retain `measuredTokenCalls`, `measuredCostCalls`, and coverage limitations when reporting usage. Inspect storage degradation and dropped-event indicators before interpreting an empty result. Queries exclude events outside the 30-day retention window; no pre-instrumentation history is reconstructed.
+
+The [deployment guide](deployment.md#activity-retention-and-optional-posthog) owns operator configuration, retention cleanup, and optional PostHog forwarding. Use activity metadata to locate a failure, then inspect the real project/artifact before claiming recovery.
+
+## Revision workflow
+
+Start prompt-driven projects with a saved brief. `update_design_brief` (CLI `brief put`) accepts a request and agent-authored contextual questions/scope; it needs no BYOK key when the agent uses its own model. `interview_design_brief` optionally uses a configured provider. Show questions in the host conversation or Studio, save answers, review the scope, and call `approve_design_brief` only after the human approves that version. Brief revisions and document revisions are independent. Any brief edit invalidates approval. Provider generation requires approval when a brief exists. Manual editing remains available.
+
+Run `inspect_design` (CLI `projects check`) after saving: findings point to specific nodes and suggest corrections for fitting, bounds, media and contrast. These deterministic hints supplement visual inspection; overlapping backgrounds, font metrics, rotation and animated extremes require preview.
+
+1. Read `projects get PROJECT_ID` and record `project.revision` with the document.
+2. Inspect `schema --operations`, page/node IDs, and the relevant catalog entry.
+3. Apply a short operation array with `projects document patch PROJECT_ID --revision N --file edits.json`.
+4. If a conflict occurs, read the current project and reconcile the requested change. Do not blindly retry with a higher revision.
+5. Inspect output at the intended viewport, then export, preview, publish, or share within the user's requested scope. `preview` and `share` return a public immutable snapshot URL; `unpreview`, `unshare`, and `unpublish` all remove the project's public snapshots.
+
+`generate` follows the same rule: its response is a proposal that can be read by document PUT, and the original revision is required to save it. CLI renames also use revision-checked document writes. Clone is a distinct new project and copies referenced owned assets so source deletion does not break the clone.
+
+For simultaneous human/agent edits, retain the document and revision you actually read. `projects document merge PROJECT_ID --file merge.json` accepts `{base,document,baseRevision}`; network MCP exposes `merge_design` and `get_design_changes`. Independent properties merge, while overlapping edits return conflict paths. Never alter the base or retry with an invented revision to bypass a conflict. The editor's Live mode displays saved changes without a reload and autosaves local edits. Turning Live off leaves explicit Save available.
+
+The shared operation schema includes grouping/reparenting, structured page/node layout, track replacement/removal and keyframe upsert/removal. Component props, mesh/UV data, material settings, bones and weights use the same document validator as the browser. Discover exact fields from `/api/schema` or `dsa schema`; do not invent a separate scene format.
+
+Browser registration uses compact input envelopes for operation batches and full-document writes so expanded nested schemas do not exhaust host registration limits. Call `studio_capabilities` before composing those payloads; it returns the canonical schemas. Local operations and server writes still run the complete shared validators. Tool names, revision checks, and credential boundaries are unchanged.
+
+WebMCP adds `studio_capabilities` and `studio_apply_operations` for the open document, plus documented project API operations registered by [browser-design-tools.ts](../src/app/browser-design-tools.ts). API tools accept query parameters; the asset-upload tool converts `{name,mimeType,base64}` into the same multipart file route used by the browser. Credential-management operations remain outside browser tools. Local operations appear immediately and autosave when Live is enabled. Server API tools operate on saved state. Browser support remains feature-detected. The REST documentation includes a real request playground and `/api/openapi`; keys are held only in page memory, and executing a mutation affects the actual selected project.
+
+## Reusable design systems
+
+Discover definitions with `dsa design-systems schema`. Create/update accepts `--file`; update requires `--system-version` with the version actually read. Pinned get/apply/insert also accept `--system-version`. Apply/insert require `--revision` for the target project; insert additionally needs `--page` and `--item`. A stale library or project returns a conflict. Do not replace the observed version with a later one without reconciling the user's changes.
+
+Network MCP exposes the same library operations through [design-system-tools.ts](../server/design-system-tools.ts). Projects embed applied tokens/components and pin the saved version. Library definitions support reusable page compositions with remapped IDs. Private project assets must be embedded or replaced with portable references before library capture. Deleting a library leaves embedded project designs intact.
+
+A design system can also be authored as a portable folder — `manifest.json` (id/name/description/system/source), `DESIGN.md` (agent-facing prose) and `tokens.css` (compiled custom properties) — and imported with `dsa design-systems import --folder <dir>` or MCP `import_design_system_folder`. `dsa design-systems export <id> --folder <dir>` reverses it. The compiler maps `--bg/--fg/--accent/--surface/--border/--muted` and `--font-display/--font-body/--space-N/--radius` into the versioned theme, and a guard rejects missing required tokens or prose/token mismatches. The folder is an ingest surface; the versioned JSON remains the runtime authority.
+
+## Capability boundaries
+
+The CLI's `projects export` requests real file bytes from `/api/projects/:id/export`; discover formats and fields through `/api/schema` and installed command help. Binary downloads require `--output` (or `--out`). Raster, motion and 3D formats require a configured Cloudflare/self-host browser renderer; missing configuration and unavailable encoders return errors. Optional `--revision` ensures the server exports the inspected revision, and `--page` selects a zero-based page where supported. React packages a runnable frontend prototype without a business backend. GLB/glTF preserve supported geometry, textures, skinning and sampled animation. Cloud rendering embeds owned assets; remote media must be imported first. Motion exports are capped at 60 seconds and MP4 requires encoder support. Browser and cloud motion exports share timeline audio cue timing and mixing. PowerPoint preserves editable text/primitives and rasterizes complex nodes.
+
+For 3D review, REST export and MCP `export_project` accept `format:"scene-angles"`, `start`, optional `end` and `reviewSamples` (2–25, default 5). CLI uses `--format scene-angles --start 0 --end 4 --review-samples 5 --output review.zip`. Without `end`, this preserves the four static PNG filenames; with `end`, it renders four angles at each sampled time plus a contact sheet and diagnostics. `reviewSamples` differs from the `samples` field on geometry scans/camera fitting and the `fps` field for frame archives. `format:"editable-scene"` additionally requires the imported model's `nodeId` (CLI `--node`) and returns canonical JSON with a hidden original-GLB checkpoint; export does not save it. See [3D characters](3d-characters.md#imported-animation-and-editable-interchange) for conversion limits and the separate revision-checked write.
+
+Offline `render` supports JSON/HTML/SVG and preserves asset references without fetching private media. Its 3D representation is static; server HTML export can include the trusted interactive 3D/timeline viewer, while cloud raster export uses real WebGL rendering. Google Slides requires real authorization and supports native text/shapes/HTTPS images, rejecting unsupported complex nodes and private image URLs.
+
+Media generation accepts `--source-asset ID`, `--duration SECONDS`, and `--strength NUMBER` for the modes described in [providers](providers.md). For example, `dsa media generate PROJECT_ID --kind image --provider openai --source-asset ASSET_ID --prompt-file edit.txt` edits an owned source image. `dsa media generate PROJECT_ID --kind audio --provider fal --duration 30 --prompt-file music.txt` queues music/effects generation. Poll a returned job with `dsa media status PROJECT_ID JOB_ID`; placing the resulting asset in the document remains a separate revision-safe edit. Provider secrets should come from `--key-env` or `--key-stdin`, and Google access tokens use the same secret-input pattern.
+
+Network MCP lives at `/mcp` with the server's advertised protocol versions, API-token or OAuth authentication, and the same ownership/revision protections. Delivery tools include `publish_project`/`unpublish_project`, `preview_project`/`unpreview_project`, `share_project`/`unshare_project`, and `export_project`. Preview/share tools return public immutable snapshot URLs; clients should discover actual schemas and tools rather than guess names. WebMCP registers through the available browser model-context API and uses the current authenticated user. Unsupported browsers continue to use the ordinary application and network MCP.
+
+## Implementation decisions and verification
+
+The CLI is the scoped agentization deliverable in [release phase](https://github.com/bestagentkits/design-studio-ai/blob/1a23d4a4a4ca4c14c6c15f2ae7318004a908ce2b/plans/2026-09-07-bootstrap-design-studio-ai/phase-04-integration-release.md). Curated command families cover common workflows; the explicit API escape hatch covers new REST endpoints. Structured operation arrays provide bounded batch edits without arbitrary code execution. Tokens remain stateless, requests reject redirects, and error output redacts the application token.
+
+CLI tests live in [tests/cli.test.ts](../tests/cli.test.ts); follow the build prerequisites in [repository verification guidance](../AGENTS.md#run-the-appropriate-checks). They build and execute the distributable in real subprocesses, inspect schema/template output, and exercise authenticated project editing against the SQLite-backed handler. Renderer/server tests cover actual binary export. External provider and Google success require separate credential-dependent checks. Release evidence belongs in the [finalization report](https://github.com/bestagentkits/design-studio-ai/blob/1a23d4a4a4ca4c14c6c15f2ae7318004a908ce2b/plans/2026-09-07-bootstrap-design-studio-ai/reports/finalization.md).
+
+Build the complete installable skill archive with `npm run pack:skill`. The [packaging script](../scripts/package-skill.mjs) includes the entrypoint and all design-kind references in `dist/design-studio-ai-skill.zip`.
+
+## Creative documents
+
+Clients must read both v1 and v2 and preserve typed boards, paintings, semantic diagram metadata and immutable assets. Discover shared board transforms, paste, diagram and generation-checked layer/group operations through the live operation schema. Use `POST /api/projects/{id}/paint`, MCP `paint_document`, or `dsa projects paint PROJECT_ID --file command.json` for server-rendered strokes/fills; `paintingCommand` in `/api/schema` owns the request shape, and generated WebMCP exposes the same endpoint. Carry the observed document revision, painting generation and operation ID. Retry the identical command under that ID after uncertain delivery; never fabricate pixel hashes or retry with a guessed revision. See [creative tools](creative-tools.md) for recovery, Elements/GIF timing, publication privacy and device limits. A v1-only client cannot save an upgraded v2 project.
+
+Native diagram appearance uses `diagram-style` with a partial `style`, optional `elementIds`, `setDefault` and `savePreset`. An empty selection changes no existing objects; omitting it targets semantic nodes and connectors. `diagram-update` edits labels and text sizing; `diagram-edge` edits bindings-independent routing, bends, label position and color. Preserve user overrides and use the shared live schema for exact fields. Bundled Vietnamese fonts and SVG geometry are shared with the editor.
+
+## Catalog and editor parity
+
+Discover built-in templates and themes through REST `/api/catalog`, `dsa templates list`, `dsa themes list`, or the available MCP/WebMCP catalog tools. The shared [catalog](../src/shared/catalog.ts) owns discovery; [presets](../src/shared/catalog-presets.ts) supply starting points that still need the user's content and review. A visual theme does not add a component library or a working business backend.
+
+For edits corresponding to the component and scene inspectors, discover the [operation schema](../src/shared/operations.ts) with `dsa schema --operations`. Use `update-node` for component properties or scene materials, `update-page` for camera/light settings, and `reparent-node` for layer order or nesting. Preserve the other fields from the object you read when sending a nested `component` or `scene` change: these objects are replaced, not recursively merged. Keep texture assets in the target project and use its owned asset ID. The [3D skill reference](../skills/design-studio-ai/references/3d.md) covers composition and export review.
+
+Visual presets reference [Ant Design](https://ant.design/docs/react/customize-theme), [shadcn/ui](https://ui.shadcn.com/docs/theming), [Material 3](https://m3.material.io/styles/color/roles), [IBM Carbon](https://carbondesignsystem.com/elements/color/overview/), and [Atlassian](https://atlassian.design/foundations/color). They are adaptations to the studio’s supported renderers, not official distributions of those systems.
+
+## Provider connections
+
+Use the shared [provider guide](providers.md#official-and-custom-connections) for official DeepSeek, Gemini/OpenAI/Leonardo/Grok image generation and custom API connections. API-key MCP clients can call `list_provider_connections` to find saved custom IDs without receiving credentials. REST `/api/schema` exposes provider IDs and configuration/generation schemas; MCP and WebMCP use the same IDs. Saved custom IDs start with `custom-`. Credential management remains account/API-key only; MCP OAuth and WebMCP can generate with configured providers but cannot change credentials. CLI `providers set --help` describes base URL, API format and auth options; inject credentials through environment variables or stdin. Model catalog fallback is not proof of provider capability.
+
+## Character motion
+
+See [character motion](character-motion.md) and discover current operation schemas. `dsa motion PROJECT_ID --node NODE_ID --time 1` / MCP `inspect_motion` reads poses. Motion generation returns baseRevision/baseBriefRevision; carry both into the explicit document write (`expectedRevision`, `expectedBriefRevision`). Frame exports accept `--start`, `--end`, `--fps`; `motion`, `png-sequence`, and `spritesheet` return ZIPs. Native motion is not a Spine interchange format.
+
+## 3D authoring
+
+Use `dsa scene schema`, `scene inspect`, and revision-checked `scene command` (preview by default, `--apply` to save). WebMCP provides `studio_scene_command` and `studio_inspect_scene`; network MCP provides `author_scene` and `inspect_scene`. See [3D characters](3d-characters.md) for coordinates, operation boundaries, rigging and export review.
+
+The open-editor tools `studio_imported_model` inventory or preview/apply editable GLB conversion, and `studio_frame_scene_shot` preview/apply animated-subject framing with optional portrait/square duplication. They are WebMCP tools; network clients use existing document/operation writes and editable-scene export. `scene.importedClips`, named-bone wing/jaw commands, page lights/fog/bloom/emitters, camera `safeFrame` and timeline audio cue fields all belong to the shared document and scene-command schemas. Read `/api/schema` before composing payloads and preserve nested fields when replacing `scene` or `data`.
+
+Asset upload adds a library entry only; insert an observed asset explicitly. Shared `replace-asset` accepts existing `assetId` and `replacementId` of the same MIME media kind and updates document references while retaining placements/timing and both assets. Use the ordinary revision-checked patch route, MCP `patch_design`, CLI `projects document patch`, or local `studio_apply_operations`; inspect the replacement's clips and media duration afterward.
+## Persistent project covers
+
+Project summaries include `thumbnailUrl` (current saved revision) and `thumbnailRevision` (latest completed cover or null). GET `/api/projects/{id}/thumbnail?revision=N` returns a private PNG, or 202 with `Retry-After: 2` while rendering is busy. MCP `get_project_thumbnail`, WebMCP `studio_api_get_projects_id_thumbnail`, and `dsa projects thumbnail ID --revision N --output cover.png` use the same cache. A 202 is pending, not a completed download; retry after the indicated delay. Only the two latest completed covers are retained. Cloud render asset/import limits apply; no provider call occurs.
+
+See [durable operation jobs](operation-jobs.md) for save/export recovery, result retention and Cloudflare queue provisioning.
+
+## Community sharing
+
+Discover `community_capabilities` through network MCP or `studio_community_capabilities` on Community pages. The [shared operation inventory](../src/shared/community-endpoints.ts) owns REST, MCP, WebMCP and `dsa community` command parity. Use `dsa community schema` and installed command help before composing requests. See [Community](community.md) for preflight/consent, pinned versions, portable files, exact retries and moderation boundaries. Browser Community tools are registered separately from editor tools to keep host schemas bounded.
+
+Community preflight checks PNG-sequence and spritesheet frame budgets before accepting publication. Explicit `start`, `end` and `fps` values are preserved; `render_budget_exceeded` reports a usable frame-rate limit or requests a smaller range/page. Review any quality or range change with the person, then submit a fresh preflight. The browser recommends a visible frame-archive FPS for the full animation; API clients must choose their own options. Preflight also reports `render_media_budget` above 30 MiB of referenced owned media and `json_media_budget` above 20 MiB when the JSON download is selected; any reported issue blocks the publication with `413` and that code, so deselect JSON or keep the package download instead of retrying a build that cannot finish. A queued receipt is not publication success: wait for `succeeded` before announcing that a design is live.
+
+`community_generate_profile` / `studio_community_generate_profile` / `dsa community generate-profile --file request.json` uses the owner's configured text provider to suggest display name, handle and bio. Omitting `provider` uses the first configured text connection. Only supplied draft fields and optional `prompt` are sent; this incurs provider usage and never saves the profile. Show the returned `suggestion` to the person before the separate revision-checked `set-profile` operation. Availability is checked again at save time.
+
+For listing Title, Description and Tags, use `community_generate_metadata` / `studio_community_generate_metadata` / `dsa community generate-metadata --file request.json`. Supply the owned `projectId` and observed `expectedProjectRevision`; optional fields are `provider`, `title`, `description`, `tags` and `prompt`. The server sends a bounded summary of visible saved text/structure plus these fields, checks the revision before and after generation, and returns `{suggestion, provider, projectRevision}` without persistence. Review the suggestion with the person before preflight using the approved metadata. Generation does not grant publication consent; a revision conflict requires rereading and reviewing the saved project.
 
 ---
 > Source: [bestagentkits/design-studio-ai](https://github.com/bestagentkits/design-studio-ai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
