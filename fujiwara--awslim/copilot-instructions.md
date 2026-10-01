@@ -1,10 +1,10 @@
 ## awslim
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents when working with code in this repository.
 
 ## Project Overview
 
@@ -97,4 +97,4 @@ Tests live in the root package as `package sdkclient_test`. `export_test.go` exp
 
 ---
 > Source: [fujiwara/awslim](https://github.com/fujiwara/awslim) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
