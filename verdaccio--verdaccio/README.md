@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [verdaccio/verdaccio](https://github.com/verdaccio/verdaccio).
+Original source: `CLAUDE.md` in [verdaccio/verdaccio](https://github.com/verdaccio/verdaccio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -25,7 +25,7 @@ Original source: `AGENTS.md` in [verdaccio/verdaccio](https://github.com/verdacc
 - [verdaccio](https://github.com/verdaccio/verdaccio/tree/main/.agents/skills/testing-changes/SKILL.md)
 - [verdaccio](https://github.com/verdaccio/verdaccio/tree/main/.agents/skills/implement-change/SKILL.md)
 
-From [verdaccio/verdaccio](https://github.com/verdaccio/verdaccio) — a repo with 17901+ stars on GitHub.
+From [verdaccio/verdaccio](https://github.com/verdaccio/verdaccio) — a repo with 17907+ stars on GitHub.
 
 ---
 
