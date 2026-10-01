@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--examples",
+  "displayName": "examples",
+  "description": "examples",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/examples",
+  "skills": []
+}
