@@ -4,7 +4,7 @@
   "repo": "tightbeam",
   "description": "A gateway that coordinates agent sessions across machines: durable turns, work items, assignments, and gate statutes over a closed verb set.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clickety-clacks/tightbeam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T20:18:51Z"
+  "distributed_at": "2026-10-01T23:48:49Z"
 }
