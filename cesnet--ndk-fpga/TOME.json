@@ -4,7 +4,7 @@
   "repo": "ndk-fpga",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/CESNET/ndk-fpga",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-09T01:53:52Z"
+  "distributed_at": "2026-10-01T09:32:14Z"
 }
