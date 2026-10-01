@@ -1,0 +1,44 @@
+{
+  "name": "RCH",
+  "owner": "ChangfengluoO71",
+  "repo": "RCH",
+  "description": "RCH\u2014\u2014\u672c\u5730\u4f18\u5148\u7684\u6f2b\u753b\u8bfb\u8005\u548c\u56fe\u4e66\u9986\u7ecf\u7406  \u4e00\u4e2a\u57fa\u4e8eFlutter + Rust\u6784\u5efa\u7684\u8de8\u5e73\u53f0\u6f2b\u753b\u9605\u8bfb\u4e0e\u4e2a\u4eba\u6f2b\u753b\u5e93\u7ba1\u7406\u5668\u3002RCH\u4e0d\u4ec5\u4ec5\u662f\u4e00\u4e2a\u201c\u6253\u5f00\u6f2b\u753b\u6587\u4ef6\u201d\u7684\u9605\u8bfb\u5668\uff0c\u800c\u662f\u5e0c\u671b\u628a\u672c\u5730\u6f2b\u753b\u3001NAS\u3001\u8fdc\u7a0b\u7f51\u76d8\u3001\u9605\u8bfb\u8bb0\u5f55\u3001\u6807\u7b7e\u3001\u5143\u6570\u636e\u3001\u5b58\u50a8\u548c\u591a\u8bbe\u5907\u540c\u6b65\u7edf\u4e00\u5230\u4e00\u4e2a\u672c\u5730\u4f18\u5148\u7684\u6f2b\u753b\u5e93\u7cfb\u7edf\u4e2d\u3002  ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ChangfengluoO71/RCH",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T21:41:32Z"
+}
