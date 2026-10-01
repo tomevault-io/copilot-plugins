@@ -1,58 +1,17 @@
-## core
+## git-attribution
 
-> Core engineering workflow, coding standards, and communication for yuviz
+> No AI co-author trailers in commits or PR descriptions
 
 
-# Core engineering
+# Git attribution
 
-Read `CURSOR.md` before non-trivial work. Codebase wins over docs if they disagree.
+Do not add a `Co-Authored-By:` trailer naming an AI tool (Cursor, Claude,
+Copilot, Codex, ChatGPT, etc.) to any commit message. Do not add a
+"Generated with <tool>" footer to any commit message or PR description.
 
-## Flow
-
-UNDERSTAND → PLAN → IMPLEMENT → VERIFY → REVIEW
-
-- Small fixes: skip long plans; inspect callers, change, verify.
-- Larger changes: inspect existing implementation first, brief plan, then implement.
-- Multi-stage features: use the SDLC skills (`/sdlc-new` …) — see `.cursor/README.md`.
-- Never start editing without reading the code you are changing.
-
-## Communication
-
-Be short, direct, actionable. No restating the request, no lecture, no long summaries.
-
-Completed work — a few bullets:
-
-- What changed
-- Tests/checks actually run
-- Anything left
-
-Minimize shell narration; batch related checks; don't paste command output unless needed.
-
-## Coding
-
-- Match existing naming, formatting, module layout, and patterns exactly.
-- Reuse `libs/*` and existing service helpers; no new dependencies without need.
-- No unrelated refactors or “cleaner” rewrites of working systems.
-- Inspect callers before changing shared functions; inspect schema/tests before behavior changes.
-- Efficient by default (avoid redundant passes/copies). No unused imports/vars/dead branches.
-- Don't introduce a variable used once with no clarity benefit — inline it.
-- Extract duplicated logic only when it already fits an existing abstraction pattern.
-
-## Comments
-
-Prefer code that needs little explanation. Comments are for non-obvious *why*, not narration of *what*.
-
-- Do not add comments that restate the next line, walk through control flow, or cite design docs at length.
-- Keep necessary comments to **1–2 lines**. Delete essay comments when touching that code.
-- On implement **and** review: strip comment bloat from the change before finishing.
-- Docstrings: one short purpose line (two if a contract is truly subtle). No multi-paragraph essays on new or edited APIs.
-
-## Git
-
-- Inspect the diff before finishing; no debug leftovers or secrets.
-- **Never commit or push.** Stop when ready; ask the user to review and run commit/push themselves.
-- Never rewrite history or force-push.
-- **Attribution:** do not add or mention Cursor, AI, Copilot, or similar as author, co-author, contributor, or collaborator in commits, PRs, or any Git metadata (`Co-authored-by`, committer identity, PR body, etc.).
+This repo's CI (`no-ai-coauthor` check, required on `main` and `redesign`)
+rejects any PR containing such a trailer — write commits as if authored
+by the human running this session.
 
 ---
 > Source: [yuviz-ai/yuviz](https://github.com/yuviz-ai/yuviz) — distributed by [TomeVault](https://tomevault.io).
