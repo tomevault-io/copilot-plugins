@@ -1,6 +1,6 @@
 # imageio
 
-> Source: [imageio/imageio](https://github.com/imageio/imageio). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [imageio/imageio](https://github.com/imageio/imageio). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
