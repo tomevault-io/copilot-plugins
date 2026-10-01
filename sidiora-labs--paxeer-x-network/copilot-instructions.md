@@ -1,58 +1,110 @@
 ## paxeer-x-network
 
-> An agent is software you allow to spend money. The interesting question is not how to let it spend - that is one call - but what stops it when it goes wrong.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Agents and budgets
+# CLAUDE.md
 
-An agent is software you allow to spend money. The interesting question is not how to let it spend - that is one call - but what stops it when it goes wrong.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## The ceiling that survives a compromise
+## Commands
 
-A budget is a protocol object in the budget module. You create it, you fund it, and spending past what is funded is refused by the transition function. That refusal does not depend on your agent behaving, on the agent runtime being intact, or on `layerx-agentd` still being in the request path. It is the same kind of guarantee as conservation of supply.
+```bash
+# Development
+yarn dev                    # Start dev server
+yarn build                  # Production build (Next.js only)
+yarn build:next             # Full build with asset downloading and sprite building
 
-Anything narrower than the funded budget - a per-call limit, a counterparty allow-list, a rate - is enforced by the agent layer or by your own code. It is real, and it is worth having, and it is not a protocol guarantee. This documentation labels it accordingly, and so should your product copy.
+# Linting
+yarn lint:eslint            # ESLint check
+yarn lint:eslint:fix        # ESLint auto-fix
+yarn lint:tsc               # TypeScript type check
+yarn lint:cspell            # Spell check
+yarn lint:envs-validator:test  # Validate environment variable schemas
 
-## Capabilities
+# Testing
+yarn test:vitest            # Unit tests (Vitest, matches **/*.spec.ts(x))
+yarn test:pw                # Playwright component/E2E tests (matches *.pw.tsx)
+yarn test:pw:docker         # Playwright tests in Docker
 
-A capability is what `layerx-agentd` will let a holder do. You create one, attenuate it into something narrower, and revoke it when you are done.
+# Assets
+yarn svg:build-sprite       # Rebuild SVG sprite
+yarn chakra:typegen         # Regenerate Chakra UI types
+```
 
-| Operation | Effect |
-|---|---|
-| `capability.create` | Mints a capability for an agent |
-| `capability.attenuate` | Produces a strictly narrower capability |
-| `capability.revoke` | Ends it |
-| `capability.list` | Shows what is outstanding |
+**Requirements:** Node >=22.14.0, npm >=10.9.0
 
-Attenuation only ever narrows. There is no widening operation, so a capability handed down a chain cannot regain authority on the way.
+## Architecture
 
-## Approval holds
+**Stack:** Next.js 15 (Pages Router, not App Router), React 19, Chakra UI v3, React Query 5, Wagmi 2 / Viem 2, Valibot for schema validation, Vitest + Playwright for testing.
 
-Some activity should not happen without a person. The approval module lets the agent layer hold an activity and surface it for a decision, carrying the held activity's structured disclosure, the digest of its canonical bytes, the reason it was held, and a deterministic expiry.
+**Key directories:**
+- `pages/` — Next.js page components (require default exports)
+- `ui/` — React UI components organized by feature (~65 subdirectories)
+- `lib/` — Business logic, API utilities, custom hooks, context providers
+- `toolkit/` — Design system layer: `toolkit/chakra/` (custom Chakra components), `toolkit/theme/` (semantic color tokens), `toolkit/hooks/`
+- `configs/app/` — Runtime app configuration (features, API endpoints, UI settings)
+- `nextjs/` — Next.js config utilities: headers, rewrites, redirects, type-safe routes via `nextjs-routes`
+- `mocks/` — Mock data for tests
+- `deploy/tools/envs-validator/` — Environment variable validation schema and tests
 
-| Operation | Effect |
-|---|---|
-| `approval.list` | Pending holds |
-| `approval.get` | One hold with its disclosure |
-| `approval.approve` | Releases exactly the held activity |
-| `approval.reject` | Ends it |
+**Data flow:** Pages use React Query for server state. Global UI state lives in React Context providers (`AppContextProvider`, `SettingsContextProvider`, etc.) initialized in `pages/_app.tsx`. WebSocket real-time data flows through `SocketProvider`.
 
-The digest matters: approving a hold approves the exact bytes that were disclosed, not a re-derived intent that might differ.
+**Routing:** Use `nextjs-routes` / `nextjs/routes` utilities for constructing links to application pages — never string concatenation. The full route list is in `nextjs/nextjs-routes.d.ts`.
 
-## The write path
+## Design System Rules
 
-Agent writes are always prepare, sign, submit, then track or wait. Preparing gives you the canonical bytes and a disclosure describing them; signing binds the disclosure; submitting hands it to the network; tracking resolves the outcome. If a submission cannot be classified, the answer is `Unknown` - see [Retries and unknown outcomes](concepts-idempotency.html).
+These are enforced by ESLint and must be followed:
 
-## Enforced by
+- **Always import from `toolkit/chakra/**`** before falling back to native Chakra UI. If a custom version exists in `toolkit/chakra/`, use it.
+- **Never use hardcoded colors** (RGB, hex). Use semantic color tokens from `toolkit/theme/foundations/semanticTokens.ts` and `toolkit/theme/foundations/colors.ts` (e.g., `text.secondary`, `border.divider`, `icon.secondary`).
+- **No custom `box-shadow`** — use design system shadow tokens.
+- Don't override spacing on internal parts of compound components (e.g., don't add custom padding to `DialogHeader` inside a `Dialog`).
+- Use `toolkit/chakra/link` instead of `next/link`.
+- Use `lib/date/dayjs.ts` instead of importing `dayjs` directly.
+- Date/time rendering must use the shared `Time` or `TimeWithTooltip` components.
 
-| Capability | Layer | What that means here |
-|---|---|---|
-| Protocol budget ceilings | `protocol` | The funded budget holds even against a fully compromised agent runtime. |
-| Programs never write balances | `protocol` | An agent calling a program cannot use it to exceed its own authority. |
-| Capability attenuation | `agent-layer` | Binds callers that go through `layerx-agentd`. A principal reaching the protocol another way is bound by protocol budgets, not by this. |
-| Approval holds | `agent-layer` | The hold exists while the daemon is in the request path. |
-| Agent tenancy isolation | `agent-layer` | Sessions are scoped to an agent's tenancy. This is an agent-layer boundary, not a protocol one. |
-| Unknown is a real outcome | `agent-layer` | An unclassifiable submission is reported as `Unknown`, never guessed. |
+## Global Type Declarations
+
+- **Never use `(window as any)`** to access third-party globals. Instead, declare the property in `global.d.ts` inside the existing `declare global { interface Window { ... } }` block.
+- Use `decs.d.ts` only for untyped third-party module declarations (`declare module 'foo'`).
+
+## TypeScript Conventions
+
+- Prefer `interface` over `type`. Use `interface extends` over `&` intersection (performance).
+- No `enum` — use `as const` objects instead.
+- Use top-level `import type { Foo }` not inline `import { type Foo }`.
+- Default exports only when required by the framework (Next.js pages). All other exports are named.
+- Declare return types on top-level module functions.
+- `readonly` properties by default; omit only when genuinely mutable.
+- Use `satisfies` for type validation instead of `as MyType[]` assertions.
+- Outside generic functions, use `any` extremely sparingly; prefer `unknown` with proper narrowing.
+- Extract magic numbers as `UPPER_SNAKE_CASE` constants above the component definition.
+- Define empty array/object defaults as static constants outside components (not inline `?? []`).
+- Wrap `.filter()`, `.map()`, `.reduce()` results in `useMemo` when passed as props or used as hook deps.
+- Type parameters in generics are prefixed with `T` (e.g., `TKey`, `TValue`).
+
+## Adding Environment Variables
+
+When adding, renaming, or removing an environment variable, all of the following must be updated:
+
+1. `docs/ENVS.md` — document name, type, whether required, default, and example
+2. `configs/app/` — add to the appropriate section (`features/`, `ui.ts`, `api.ts`, etc.)
+3. `deploy/tools/envs-validator/schema.ts` — add/update validation schema
+4. `deploy/tools/envs-validator/test/.env.base` — add to test presets
+5. `nextjs/csp/policies/` — update CSP if the variable references an external (non-asset) URL
+6. `deploy/scripts/download_assets.sh` — add to `ASSETS_ENVS` if it's an asset URL
+7. If it's a JSON config URL: add example to `deploy/tools/envs-validator/test/assets/configs/` and extend `envsWithJsonConfig` in `deploy/tools/envs-validator/index.ts`
+
+## Testing
+
+**Vitest** (unit): Files named `*.spec.ts` / `*.spec.tsx`. Run a single file with `yarn test:vitest path/to/file.spec.ts`.
+
+**Playwright** (component/E2E): Files named `*.pw.tsx`. Three test projects run against each test: `default` (desktop Chrome 1200×750), `mobile` (iPhone 13 Pro), `dark-color-mode`. Tag tests with `@mobile` or `@dark-mode` to target specific projects; use `-@default` to exclude desktop.
+
+- Use roles, test IDs, and text content as selectors — never CSS class selectors.
+- Import mock values from existing files in `mocks/` rather than hardcoding them.
+- Avoid the `testFn: TestFixture<...>` pattern unless sharing logic across multiple suites.
 
 ---
 > Source: [Sidiora-Labs/Paxeer-X-Network](https://github.com/Sidiora-Labs/Paxeer-X-Network) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
