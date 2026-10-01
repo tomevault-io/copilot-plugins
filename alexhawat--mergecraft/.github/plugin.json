@@ -1,0 +1,9 @@
+{
+  "name": "alexhawat--mergecraft",
+  "displayName": "mergeCraft",
+  "description": "An evidence-first AI code review engine combining deterministic analysis, model reasoning, independent verification, and policy-driven merge gates",
+  "version": "1.0.0",
+  "author": "alexhawat",
+  "homepage": "https://github.com/alexhawat/mergeCraft",
+  "skills": []
+}
