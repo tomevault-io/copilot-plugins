@@ -1,0 +1,9 @@
+{
+  "name": "rhenus-q--enterprise-agentic-rag",
+  "displayName": "Enterprise-Agentic-RAG",
+  "description": "Self-correcting Agentic RAG for enterprise document Q&A, built with LangGraph, Chroma, OpenAI/Ollama, Tavily, FastAPI, and React\u2014with quality gates, privacy controls, provenance, bounded retries, and ",
+  "version": "1.0.0",
+  "author": "rhenus-Q",
+  "homepage": "https://github.com/rhenus-Q/Enterprise-Agentic-RAG",
+  "skills": []
+}
