@@ -42,4 +42,4 @@ Claude Code plugin 使用者靠 tag 拿更新；claude.ai / Cowork 使用者要�
 
 ---
 > Source: [chenjackle45/html-visualizer](https://github.com/chenjackle45/html-visualizer) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
