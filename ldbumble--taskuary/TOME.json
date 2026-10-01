@@ -1,0 +1,57 @@
+{
+  "name": "taskuary",
+  "owner": "ldbumble",
+  "repo": "taskuary",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "taskuary",
+      "path": "taskuary/skills/taskuary-setup/SKILL.md",
+      "github_url": "https://github.com/ldbumble/taskuary/tree/main/taskuary/skills/taskuary-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "taskuary",
+      "path": "taskuary/skills/soul-interview/SKILL.md",
+      "github_url": "https://github.com/ldbumble/taskuary/tree/main/taskuary/skills/soul-interview/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ldbumble/taskuary",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T07:44:26Z"
+}
