@@ -1,0 +1,14 @@
+{
+  "name": "web3p--ethereum-tx",
+  "displayName": "ethereum-tx",
+  "description": "ethereum-tx",
+  "version": "1.0.0",
+  "author": "web3p",
+  "homepage": "https://github.com/web3p/ethereum-tx",
+  "skills": [
+    {
+      "name": "ethereum-tx",
+      "description": ""
+    }
+  ]
+}
