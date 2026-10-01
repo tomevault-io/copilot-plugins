@@ -1,0 +1,14 @@
+{
+  "name": "librechat-ai--docs",
+  "displayName": "docs",
+  "description": "docs",
+  "version": "1.0.0",
+  "author": "LibreChat-AI",
+  "homepage": "https://github.com/LibreChat-AI/docs",
+  "skills": [
+    {
+      "name": "docs",
+      "description": ""
+    }
+  ]
+}
