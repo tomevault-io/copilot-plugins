@@ -1,0 +1,9 @@
+{
+  "name": "sdrpsps--beatprints-web",
+  "displayName": "beatprints-web",
+  "description": "BeatPrints Web \u2014 \u4e3a BeatPrints \u6253\u9020\u7684\u97f3\u4e50\u6d77\u62a5 API \u4e0e Web \u524d\u7aef",
+  "version": "1.0.0",
+  "author": "sdrpsps",
+  "homepage": "https://github.com/sdrpsps/beatprints-web",
+  "skills": []
+}
