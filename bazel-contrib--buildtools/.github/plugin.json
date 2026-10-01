@@ -1,0 +1,9 @@
+{
+  "name": "bazel-contrib--buildtools",
+  "displayName": "buildtools",
+  "description": "buildtools",
+  "version": "1.0.0",
+  "author": "bazel-contrib",
+  "homepage": "https://github.com/bazel-contrib/buildtools",
+  "skills": []
+}
