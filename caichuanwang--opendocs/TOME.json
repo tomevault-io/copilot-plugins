@@ -1,0 +1,44 @@
+{
+  "name": "OpenDocs",
+  "owner": "caichuanwang",
+  "repo": "OpenDocs",
+  "description": "Convert local documents (PDF, DOCX, PPTX, images, TXT, Markdown) to clean Markdown with optional LLM vision \u2014 Python SDK",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/caichuanwang/OpenDocs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T20:10:47Z"
+}
