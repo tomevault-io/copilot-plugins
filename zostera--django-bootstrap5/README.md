@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zostera/django-bootstrap5](https://github.com/zostera/django-bootstrap5).
+Original source: `CLAUDE.md` in [zostera/django-bootstrap5](https://github.com/zostera/django-bootstrap5).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [zostera/django-bootstrap5](https://github.com/zostera/django-bootstrap5) — a repo with 450+ stars on GitHub.
+From [zostera/django-bootstrap5](https://github.com/zostera/django-bootstrap5) — a repo with 452+ stars on GitHub.
 
 ---
 
