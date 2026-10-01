@@ -16,7 +16,7 @@ Original source: `` in [perspective-dev/perspective](https://github.com/perspect
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [perspective-dev/perspective](https://github.com/perspective-dev/perspective) — a repo with 11130+ stars on GitHub.
+From [perspective-dev/perspective](https://github.com/perspective-dev/perspective) — a repo with 11266+ stars on GitHub.
 
 ---
 
