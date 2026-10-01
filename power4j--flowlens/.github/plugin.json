@@ -1,0 +1,9 @@
+{
+  "name": "power4j--flowlens",
+  "displayName": "flowlens",
+  "description": "command-line network traffic analyzer",
+  "version": "1.0.0",
+  "author": "power4j",
+  "homepage": "https://github.com/power4j/flowlens",
+  "skills": []
+}
