@@ -119,4 +119,4 @@ Clean Architecture with 6 modules:
 
 ---
 > Source: [DesarrolloAntonio/Shiori-Android-Client](https://github.com/DesarrolloAntonio/Shiori-Android-Client) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
