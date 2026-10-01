@@ -1,0 +1,9 @@
+{
+  "name": "duclm1x1--muse-chat-mcp",
+  "displayName": "Muse-Chat-MCP",
+  "description": "MCP server + OpenAI-compatible shim to use Meta Muse (muse.ai, Hatch) by driving the real logged-in Chrome.",
+  "version": "1.0.0",
+  "author": "duclm1x1",
+  "homepage": "https://github.com/duclm1x1/Muse-Chat-MCP",
+  "skills": []
+}
