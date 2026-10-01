@@ -15,15 +15,6 @@ Original source: `CLAUDE.md` in [gfx-rs/wgpu](https://github.com/gfx-rs/wgpu).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (6)
-
-- [cts-triage](https://github.com/gfx-rs/wgpu/tree/main/.claude/skills/cts-triage)
-- [webgpu-specs](https://github.com/gfx-rs/wgpu/tree/main/.claude/skills/webgpu-specs)
-- [wgpu](https://github.com/gfx-rs/wgpu/tree/main/.claude/skills/cts-triage/SKILL.md)
-- [wgpu](https://github.com/gfx-rs/wgpu/tree/main/.claude/skills/webgpu-specs/SKILL.md)
-- [wgpu](https://github.com/gfx-rs/wgpu/tree/main/.agents/skills/cts-triage/SKILL.md)
-- [wgpu](https://github.com/gfx-rs/wgpu/tree/main/.agents/skills/webgpu-specs/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/gfx-rs/wgpu](https://github.com/gfx-rs/wgpu)
 
 ---
