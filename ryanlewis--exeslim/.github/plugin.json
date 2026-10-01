@@ -1,0 +1,9 @@
+{
+  "name": "ryanlewis--exeslim",
+  "displayName": "exeslim",
+  "description": "Minimal exe.dev base image for deployment targets \u2014 systemd and full platform wiring, without the agent workstation toolchain",
+  "version": "1.0.0",
+  "author": "ryanlewis",
+  "homepage": "https://github.com/ryanlewis/exeslim",
+  "skills": []
+}
