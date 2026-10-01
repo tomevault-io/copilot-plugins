@@ -1,226 +1,220 @@
 ## django-absurd
 
-> Django app wrapping [Absurd](https://earendil-works.github.io/absurd/) (Postgres-native
+> How to WRITE tests here. For how to RUN them (suite invocations, compose services, the
 
-# django-absurd — project instructions
+# django-absurd — test-authoring conventions
 
-Django app wrapping [Absurd](https://earendil-works.github.io/absurd/) (Postgres-native
-workflow engine). Package at repo root (`django_absurd/`, no `src/`). Specs live in
-`docs/specs/`, plans in `docs/plans/`.
+How to WRITE tests here. For how to RUN them (suite invocations, compose services, the
+pre-commit gates), see [`../CLAUDE.md`](../CLAUDE.md).
 
-This file is about **maintaining** the project — conventions, testing, tooling. For
-how-to / integration / usage (configuring the backend, enqueuing, workers, releasing),
-see [`django_absurd/AGENTS.md`](django_absurd/AGENTS.md), the user-facing guide; don't
-duplicate that material here.
+- pytest, **function-based only** (never class-based).
+- **Non-fixture test helpers live in a `utils.py`** module (never `support.py` or other
+  invented names) — e.g. `tests/utils.py`, `tests/core/test_admin/utils.py`,
+  `tests/pg_cron/utils.py`. Import the module (`from tests import utils`) and qualify.
+- **Same for the fixture task modules**: `from tests import tasks` /
+  `from tests import atasks`, then `tasks.add`, `tasks.routed`, `atasks.aecho`. Never
+  `from tests.tasks import routed` — a bare adjective at the call site says nothing
+  about what runs, and it forces rename-aliases like `make_group as make_group_task`.
+- **`from pytest_django import Settings`**, always, and annotate bare:
+  `settings: Settings`. Never `pytest_django.fixtures.Settings`, quoted or otherwise — a
+  quoted one passes the test run and fails mypy, so it survives until the slow gate.
+- **Assert a boolean by identity: `is True` / `is False`**, never `assert x` or
+  `assert not x`. Applies to every `.exists()` — `assert qs.exists() is False`, not
+  `assert not qs.exists()`. Truthiness passes for the wrong object too: drop the
+  `.exists()` call in a refactor and `assert qs` still passes on a non-empty queryset,
+  while `is True` fails. Same for any predicate helper returning `bool`.
+- **Shared fixtures live in the parent `tests/conftest.py`**, inherited by all four
+  suites via `--confcutdir=..` in each suite's `pytest.toml` (each suite's rootdir is
+  its own dir, so without `confcutdir` a parent conftest isn't discovered). Do NOT
+  re-import fixtures into a suite conftest — a suite `conftest.py` holds only
+  suite-specific fixtures. Per-test pg_cron isolation is not a suite-local fixture; it
+  comes from the mechanisms described in [`../CLAUDE.md`](../CLAUDE.md).
+- An **autouse `_enable_db(db)` fixture** (in `tests/conftest.py`) gives every test DB
+  access — do NOT decorate tests with `@pytest.mark.django_db`. Only add
+  `@pytest.mark.django_db(transaction=True)` (or markers for multi-DB / reset-sequences)
+  when a test needs transactions/commits or DDL (`migrate`, `create_queue`).
+- **Any test that EXECUTES anything — enqueue, drain, a worker, cleanup deleting rows —
+  freezes time through the `dj_absurd` fixture**, not through time-machine directly:
+  `with dj_absurd.freeze_time() as frozen_time:`, then
+  `frozen_time.shift(Δ)`/`move_to(instant)`, enqueueing INSIDE the block — **never
+  `time.sleep`**. It moves Postgres and Python together, which is mandatory: Postgres
+  ahead of Python is an unkillable deadlock for a sync task. The fixture works unchanged
+  in an `async def` test. See
+  [Testing — the `dj_absurd` fixture](../docs/web/testing.md#the-dj_absurd-fixture).
+  - **`tests/benchmarks` is exempt.** It drives a measurement harness through real
+    `absurd_worker` children and real sleeps, and elapsed time on a real clock is the
+    thing being measured; freezing either clock erases it.
+- **`time_machine.travel(..., tick=False)` directly is for pure-Python math only** —
+  cron arithmetic (`get_next_datetime`) and the like, where no row, worker, or Absurd
+  deadline is involved. Reaching for the fixture there would write a database GUC for
+  nothing; reaching for time-machine on an executing test leaves Postgres on real time
+  (that mistake shipped once — `test_cleanup.py` passed only because `cleanup_ttl` was
+  0). Two ticking uses are sanctioned:
+  - `tests/core/test_scheduler.py`'s live worker crossing a `*/1` boundary, which needs
+    real time to pass.
+  - `tests/benchmarks/utils.py`'s `nap_the_wall_clock`, which walks `time.time` away
+    from `perf_counter` on purpose — that disagreement is the only input the harness's
+    suspension guard reads, so here the drift IS the phenomenon under test. The
+    `dj_absurd` fixture is wrong twice over: it moves Postgres too, erasing the
+    disagreement, and its GUC never reaches an `absurd_worker` child. Safe only because
+    nothing in the harness's own process derives a database deadline from the wall clock
+    — every drain deadline is monotonic and every recorded timestamp is a Postgres
+    column.
+- **freezegun is banned** — it patches `time.monotonic`, which IS asyncio's event-loop
+  clock, so a frozen freezegun deadlocks the drain unkillably. Do not reintroduce it.
+  `pytest-asyncio` is a dev dependency for writing `async def` tests; nothing in
+  `django_absurd/` may depend on it.
+- **A test needing the Absurd schema out of reach uses `utils.hide_absurd_schema()`** —
+  it renames the schema and renames it back, so nothing is destroyed and no migration
+  state moves. Never unapply migrations for this: it replays the whole install per test,
+  and it stops working outright once a schema delta lands (Absurd publishes no downgrade
+  SQL).
+- **No monkeypatching / `unittest.mock.patch`.** Test observable behavior, not
+  internals. If a test needs to patch our own functions to reach a branch, restructure
+  so a real input drives that branch instead.
+  - **One carve-out: the resolver that names the central pg_cron database.** An
+    `absurd.E012` test may `monkeypatch`
+    `django_absurd.connection.resolve_cron_database` to aim the probe at an
+    extension-free database — the real central one has the extension, and no setting
+    renames it. The guard state itself is a real input: `OPTIONS["PG_CRON_ON_TEST_DB"]`
+    decides whether the fail-safe is inert under the suite, so never patch the
+    environment-detection seam. The probe and the check must run for real. Use pytest's
+    `monkeypatch`, never `unittest.mock.patch`.
+- **Test at a high, behavioral level — through real entrypoints, never helper units.**
+  - **Admin features are HTTP-tested**: drive the real request cycle (log in, then
+    `client.get`/`post` the admin URLs) and assert observable side effects, not by
+    calling admin/helper methods directly.
+  - **Side effects belong on `.save()`/`.delete()` signals so they fire centrally** for
+    the ORM save/delete paths (admin, direct ORM) — don't expose a standalone emitter
+    for callers or tests to invoke. Exercise the effect through the write path and
+    assert the outcome; don't unit-test the emitter in isolation. (Caveat:
+    `QuerySet.update()` / `bulk_*` send no signals — call that out where it matters.)
+  - **Never unit-test an internal helper** (a merge function, a serializer, a builder).
+    Assert its behavior through the real objects that use it — construct a `Task`,
+    enqueue it, run the command, and check the outcome. A test that calls the helper
+    directly is a hollow implementation defence: it re-states the code, survives a wrong
+    design, and dies on any refactor. If a helper's behavior has no observable
+    expression yet, the test belongs in the later task that adds the surface that
+    expresses it.
+  - Reuse existing fixtures/utilities rather than re-rolling equivalents; inventory a
+    suite's `conftest.py` and a sibling test before writing new ones.
+  - **Don't wrap two lines in a helper.** Inline short setup (claiming a task, opening a
+    cursor) at each call site rather than hiding it behind an indirection.
+  - **A function that is never invoked gets no real body.** When a task or a decorator
+    target exists only for its object, signature, decorator, or import path — enqueued
+    but never run, or only inspected — a working body is dead code and a coverage miss.
+    Applies to `@task` fixtures and to throwaway `def send_report(...)` stubs in guard
+    tests alike. Two forms:
+    - **`raise NotImplementedError` with a reason** — the default. Write it as the
+      two-line errmsg-lint idiom and annotate `-> t.Never`:
 
-## Naming
+      ```python
+      def capped(a: int, b: int) -> t.Never:
+          msg = "path-resolved for its decorator; never run"
+          raise NotImplementedError(msg)
+      ```
 
-- **Functions must contain a verb** (`get_declared_queues`, `sync_queues`,
-  `check_absurd_queues`) — never a bare noun (`queue_policies`, `absurd_client`). Avoid
-  pointless `_`-prefixed helpers; if a helper exists, give it a real verb-name.
-- Exception: autouse pytest fixtures never called directly (e.g. `_enable_db`) may keep
-  the `_` + plain-name form.
-- **Test fixture tasks read at their call site, not their definition.** The shared ones
-  in `tests/tasks.py` / `tests/atasks.py` are always reached module-qualified
-  (`tasks.capped`, `tasks.routed` — see Testing conventions), so a terse adjective name
-  is fine there: the module supplies the missing noun. A task defined **locally in a
-  test module** has no such prefix, so it must carry the verb itself
-  (`make_group_on_immediate_backend`, `echo_int`), never a bare property or provenance
-  (`off_backend`, `defined_elsewhere`, `plain`, `folded`). When a test binds a resulting
-  `Task` _object_ to a local name, prefix it `task_` (`task_with_folded_defaults`) — the
-  object is a noun, the function is not.
-- **No leading-underscore module constants or helpers** — use plain names
-  (`MUTABLE_OPTION_KEYS`, not `_MUTABLE_OPTION_KEYS`).
-- **Module layout:** put helper functions BELOW the public function(s) that use them.
+      `[tool.coverage.report] exclude_also` in `pyproject.toml` carries a regex for
+      exactly this shape, so **both** lines are excluded — it costs nothing in coverage
+      and still fails loudly if something ever does call it.
 
-## Imports
+    - **A docstring and no body** — fine for a throwaway local stub. Also costs no
+      counted lines, but the return annotation must be `-> None` or mypy raises
+      `[empty-body]`, and an accidental call silently returns `None`.
 
-- **Always `import typing as t`** — never `from typing import X`. Use `t.Any`,
-  `t.TYPE_CHECKING`, `t.Sequence`, etc.
-- **Absolute imports only** — no relative imports. Enforced by ruff
-  (`ban-relative-imports = "all"`).
+    Save real bodies for tasks a worker or the immediate backend actually executes.
+    **Check across every suite before concluding a shared fixture is never invoked** —
+    `tests/tasks.py` is imported by all of them but each suite is a separate coverage
+    run, so a body that looks dead under `tests/core` may be executed by `tests/pg_cron`
+    (`capped` and `on_reports` are). Codecov combines the runs; a single local suite
+    does not.
 
-## Comments
+  - Name a variable for the thing it holds (its type/role), not a generic placeholder.
+- **Test management commands AND system checks by running them**:
+  `call_command("check", "django_absurd")` / `call_command("absurd_sync_queues")`,
+  capture output with pytest `capsys`, and **assert on the emitted output, never on
+  internal return values** — by equality against the whole of it, per the rule below.
+- **A check test that must ERROR uses `pytest.raises(SystemCheckError)`**, not a helper
+  that captures output — a helper passes whether or not the check fired, and the
+  `try/except/else` shape it invites leaves an unreachable `else` that fails the
+  patch-coverage gate (this recurred twice). The output-capturing helpers are for
+  tolerant sweeps: asserting an ID is ABSENT, or reading several messages at once.
+- Drive check/command states with real DB conditions (sync via the command; drop the
+  schema; `override_settings` for an unreachable DB) — not mocks.
+- HTTP mocking (when ever needed): the `responses` library, not `mock`.
+- **Comment hygiene:** don't write comments that restate code or justify
+  obviously-needed lines — let tests validate necessity. Remove noisy/distracting test
+  comments.
+- **Multi-entrypoint rule tests (validators):** one case table per rule, **parametrized
+  over the real enforcing entrypoints** (`validate_<source>` subjects, e.g. the system
+  check + `full_clean`), integration-style — never re-assert the same rule per
+  entrypoint. Validators are pure functions raising `ValidationError`, enforced
+  **model-first** (on the model + reused by the checks); a plain `VALID` baseline dict
+  so a single override isolates one rule.
+- **A rule that mirrors an external system gets a parity suite** beside the rule table,
+  asserting the same expressions against that system directly — everything the rule
+  accepts is accepted there, everything it rejects is rejected there, with the reject
+  list DERIVED from the rule table so a new case cannot be added without the external
+  system agreeing. Where we deliberately diverge, pin the external behaviour that
+  justifies it in its own table, so the test fails (and tells us to drop the divergence)
+  if the other side ever changes.
+  `tests/pg_cron/test_pg_cron_grammar_matches_extension.py` is the worked example:
+  pg_cron accepts a 6-field expression and silently truncates it, so our validator
+  refuses what pg_cron allows.
+- **Assert the whole captured output by equality, spelled out inline as a literal**,
+  never a fragment (fragments are unreadable, brittle, and a `not in id` assertion goes
+  vacuous the moment that id stops existing). No helper composes the expected string —
+  repeating the literal per call site is the point.
+- **Narrow `# type: ignore[...]` is expected when a test deliberately passes something
+  the checker rejects** — our runtime error states are part of the public contract
+  (users may not type-check at all), so they must be exercised. This is the one place
+  ignores don't need asking for; keep them narrow (specific error code) and on the
+  offending line only. `warn_unused_ignores` (on via `strict`) fails the build if the
+  error stops occurring, so a stale ignore can't hide a regressed guard.
+- **Always alphabetize** `@pytest.mark.parametrize` values and fixture `params`.
+- **Alphabetize a test function's own fixture parameters** too (e.g.
+  `def test_x(admin_user: User, client: Client)`, not `client` then `admin_user`) — no
+  ruff/flake8-pytest-style rule enforces this (checked; no `PT0xx` rule covers parameter
+  order), so it's a manual convention only.
 
-- **A comment answers "why this, not the obvious alternative" — in ≤2 lines.** Longer
-  reasoning goes in the commit message (why we changed it), `docs/WHY.md` (why the
-  design is this shape), or a spec.
-- **Delete-test:** if removing it costs a reader nothing the code already tells them,
-  delete it. Never restate what the code does, narrate rejected alternatives, or
-  describe what the code used to be.
-- **Exception: write it out when the reason lives outside the code.**
-  `names_a_queue_table` in `queues.py` explains that Postgres populates no
-  `diag.table_name` for that error, which is why the match reads `message_primary`.
-  Nothing in the code says that, so deleting the comment invites the next edit to undo
-  it.
+## Fast iteration
 
-## Django system-check messages
+Measured on this repo; the point is to spend the slow gate once, not per edit.
 
-- `msg` states the PROBLEM only; `hint` states the RESOLUTION. Never duplicate fix text
-  in both.
+- **Iterate with a targeted, coverage-free run:** `uv run pytest <path> -q --no-cov`.
+  Every suite's `pytest.toml` turns coverage on via `addopts`, and that instrumentation
+  dominates a single-file run; `-q` keeps the output scannable.
+- **Run `tox -e dev` once, before the commit** — not after every edit. It is ~2.5
+  minutes because it builds four suites; nothing about a one-file change needs that
+  loop.
+- **`-n4` for a whole-suite run**, which every suite tolerates including
+  `tests/pg_cron`. Skip it for a single file, where the worker spin-up costs more than
+  it saves.
+- **Reach for `--create-db` when failures stop making sense.** A killed frozen test can
+  leave a database-level `absurd.fake_now` behind, which makes later durable tests
+  unclaimable for reasons invisible in their own code. Rebuild before diagnosing.
+- **Changing the worker count needs `--create-db` once.** `--reuse-db` keys test
+  databases per worker (`…_gw0`), so going from 2 workers to 6 reuses two and builds
+  four, and the mixed state surfaces as
+  `DuplicateFunction: function "current_time" already exists` — a migration error that
+  reads like a code bug and is not one.
+- **A test asserting `Created: <queue>` needs `_isolate_queues`** or a queue name unique
+  to its file. The catalog row outlives the per-test flush, so the second `--reuse-db`
+  run of that file reports nothing created. Passes alone, fails on repeat.
+- **A deadlock/duplicate-key storm across unrelated tests means a concurrent run**, not
+  a code defect — suites from a worktree reach this checkout's Postgres on 5442 unless
+  it exported its own `PGPORT`/`PGPORT_PGCRON`. Confirm nothing else is running before
+  bisecting.
 
-## Exception hierarchy
+### When an agent runs the gates
 
-- django-absurd raises its **own** exception types for its own failure modes, all under
-  `DjangoAbsurdError`, defined in `django_absurd/exceptions.py`. Prefer a specific type
-  over a bare stdlib/Django one when the condition is specific to this package.
-- The type name carries the condition (`QueueNotDeclaredError`,
-  `QueueNotProvisionedError`), and **the exception owns its message** — constructors
-  take the data, callers never assemble text and no `format_*` helper is imported to
-  build one.
-- Named for the distributing package, not the upstream SDK: `DjangoAbsurdError`, never
-  `AbsurdError`, because modules import from both `absurd_sdk` and `django_absurd` and
-  the short name reads as the SDK's.
-- Be honest about coverage: `except DjangoAbsurdError` catches the typed errors, not
-  every error the package can raise — plain `ImproperlyConfigured`/`RuntimeError`/
-  `TypeError` remain in `checks.py`, `connection.py`, and `test.py`'s guards for now.
-
-## Exception chaining
-
-- Re-raising a curated error inside an `except` always chains with `from exc` — never
-  `from None`. Add `as exc` to the handler if it doesn't already bind a name.
-  `from None` hides the real cause exactly when the curated message turns out to be the
-  wrong guess.
-- Pair this with narrowing the catch: classify first, re-raise the original untouched
-  when the error isn't about what your curated message claims, chain with `from exc`
-  when it is. `from exc` is not a licence to relabel broadly — see `names_a_queue_table`
-  in `django_absurd/queues.py` for the worked example of both together.
-
-## Testing
-
-Test-authoring conventions live in [`tests/CLAUDE.md`](tests/CLAUDE.md) — read it before
-writing or editing any test file. Running the suites:
-
-- Tests run on the HOST via uv/tox (no app container). Three suites, each with its own
-  `pytest.toml` and settings; invoke explicitly (a bare `uv run pytest` at repo root
-  collects nothing and exits code 5 — intentional):
-  - `uv run pytest tests/core` — core django-absurd; `django_absurd.pg_cron` NOT
-    installed; plain `db` service (`PGPORT`, default 5432).
-  - `uv run pytest tests/pg_cron` — pg_cron app installed; requires the `db_pg_cron`
-    service (`PGPORT_PGCRON`, default 5434); an ORDINARY test DB (`test_absurd_pg_cron`)
-    with no extension — the central `cron.database_name` on that server is `postgres`, a
-    different database entirely, and jobs reach it cross-database.
-  - `uv run pytest tests/multidb` — multi-DB router suite; plain `db`.
-- Two compose services: `db` (plain `postgres:18`) and `db_pg_cron`
-  (`Dockerfile.pg_cron` + `shared_preload_libraries=pg_cron`). Start both:
-  `docker compose up -d db db_pg_cron`. **These must be running before any suite.** If a
-  connection is refused / `pg_isready` fails, the container is stopped (they don't
-  survive a machine restart or a new session) — bring it up FIRST; don't diagnose it as
-  anything cleverer.
-- **The two gates to run before a commit** — not five separate commands:
-  - `uvx --with tox-uv tox -e dev` — all three suites against the dev env only. Reach
-    for the bare `uvx --with tox-uv tox` (full Python×Django matrix + min-max mypy) only
-    when a change could plausibly break on another version, not while iterating.
-  - `uv run pre-commit run --all-files` — owns ruff-check, ruff-format, **mypy**, and
-    prettier. Never invoke `ruff` or `mypy` directly; pre-commit already runs them, and
-    a hand-rolled invocation drifts from the hook's flags and exclusions.
-  - Iterating on one file is still `uv run pytest <path> -v`.
-- **Codecov gates the MERGED coverage at 100%** (`codecov.yml`, project + patch status).
-  The target is on the project status only, never per-flag: a single flag cannot reach
-  100% because some branches exist on one Django version and not another (the
-  central-extension check's `databases` guard is reachable on 6.0, skipped on 6.1), so
-  only the union across the matrix is exact. Nothing equivalent sits in
-  `[tool.coverage.report]` — a local run is one env, where those gaps are legitimate.
-- **The combined coverage number only exists after all three suites run in order.**
-  `tests/core` passes `--cov` (no append, truncating `.coverage`); the other two append.
-  So a suite run alone leaves `.coverage` holding a partial picture, and `coverage.xml`
-  is overwritten by whichever suite ran last. Read a total only after a full
-  `tox -e dev`; a single-suite percentage means nothing on its own.
-- **Every tox test env runs the suites under `pytest-xdist`** (`-n auto` on each
-  `pytest` command line, mypy envs excluded), so parallel safety is exercised on every
-  push instead of only when someone remembers to pass `-n`. Worker count is xdist's own
-  `PYTEST_XDIST_AUTO_NUM_WORKERS`, which applies to `auto` only: CI pins it to 2 in
-  `test.yml`, a workstation sets it in a git-ignored `.envrc`, and unset takes every
-  core. `tox -e dev -- -n0` gives a serial baseline for telling a real failure from an
-  xdist-only one. A bare `uv run pytest <path>` is unaffected — `-n` is in no suite's
-  `addopts`, so pass it there yourself.
-- Each suite runs with `--reuse-db` (addopts); add `--create-db` to rebuild after a
-  migration change — including `tests/pg_cron`: its test DB is an ordinary one that
-  pg_cron's launcher holds no session on (the launcher only ever connects to the central
-  `cron.database_name` database, `postgres`), so `--create-db`'s DROP+CREATE just works,
-  same as any other suite. No eviction dance needed. (Per-test isolation is separate and
-  automatic: the pytest plugin's auto-cleanup hook
-  (`django_absurd.test.install_absurd_cleanup`, wrapping
-  `TransactionTestCase._post_teardown`) calls `flush_absurd_state()` after every
-  DB-committing test, whose pg_cron branch runs the SCOPED
-  `teardown_crons(include_admin=True)` — unschedules django-absurd's own
-  settings-and-admin-authored jobs, never touching an unrelated cluster job. Files that
-  vary queue/schema topology additionally apply the non-autouse `_isolate_queues`
-  fixture (`tests/conftest.py`), which hard-drops the schema before AND after via
-  `flush_absurd_state(drop_schema=True)`.)
-
-## Typing is an extra layer, not the contract
-
-- **Type checking is optional for our users.** They may run mypy, pyright, or nothing at
-  all. Downstream projects are under no obligation to type-check.
-- **We are on mypy specifically**, not by preference: `django-stubs` ships a mypy plugin
-  (`plugins = ["mypy_django_plugin.main"]`) that resolves settings and models, and no
-  other checker can load it. So our own gate is mypy strict.
-- That asymmetry means public API typing should stay **checker-agnostic** where it can —
-  plain overloads and explicit signatures rather than mypy-specific behavior — so
-  pyright users get the same errors. Verify with `uvx pyright` when designing a typed
-  surface.
-- So **runtime behavior is the contract.** Every rule we enforce must raise a correct,
-  self-explanatory Python error on its own — never rely on a checker having caught it
-  first. Annotations, overloads, and `Never`/`NoReturn` tricks are a bonus layer that
-  catches mistakes earlier for the users who opt in.
-- When a nicer static message and a nicer runtime message conflict, **the runtime
-  message wins**. Errors state the rule and show the fix (see the system-check
-  convention above: problem in `msg`, resolution in `hint`).
-- Don't lie to the checker to buy a tidier static error (e.g. hiding a method behind
-  `if not t.TYPE_CHECKING` so it looks absent). Prefer a construction that is true at
-  both layers.
-- **Validate where it's important; don't go crazy.** Worth validating: configuration
-  (`absurd.E009` on `DEFAULT_MAX_ATTEMPTS`), user-authored data that persists (pg_cron
-  schedule grammar, model `full_clean`), and anything whose failure is silent or lands
-  far from its cause. Not worth it: re-stating the SDK's own types at a call site when a
-  wrong value blows up loudly on its own — a wrong signature or wrong type should fail
-  the way Python or Postgres fails it, and duplicated policy drifts from the pinned SQL.
-- Curated errors are for a **different category**: the caller is at the wrong door, not
-  holding the wrong data — a param that belongs on `.using()`, a per-invocation field
-  used at a definition site. Python's own message can't point at the right API, so those
-  get a message naming the rule and showing the fix. Wrong _data_ gets no such
-  treatment.
-
-## Runtime
-
-- Floor: **Django 6.0 / Python 3.12**.
-- Requires the **psycopg (v3)** Django backend — the absurd SDK reuses Django's
-  connection and needs psycopg3. Validate/assert this where we hand the connection to
-  the SDK.
-- One `AbsurdBackend` per project (deliberate). A non-default `DATABASES` alias requires
-  `django_absurd.routers.AbsurdRouter` in `DATABASE_ROUTERS` (`absurd.E005`).
-- No network at migrate time; Absurd SQL comes only from the pinned `absurdctl` wheel
-  (dev dep).
-
-## Changelog
-
-`CHANGELOG.md` is rendered from the conventional-commit subjects by git-cliff
-(`cliff.toml`), and the GitHub Release body is a slice of its top section — so the
-commit title IS the changelog entry. Cutting a release:
-`.claude/skills/release/SKILL.md`.
-
-- `chore`, `ci`, `test`, `style` and `refactor` are dropped wholesale — including every
-  Renovate commit, which is always `chore` (`renovate.json` pins `semanticCommitType`).
-- **Raising a supported floor** (Django, Python, `absurd-sdk`, `croniter`) is
-  user-facing: title it `feat` (or `feat!`) with the floor named in the subject — never
-  `chore(deps)`, which would silently vanish from the changelog.
-- `build` is kept as a **Requirements** section: the safety net for a hand-authored
-  dependency change. Renovate cannot emit `build`, so a `build:` commit is always ours.
-- **A breaking change is titled `feat!` or `fix!`** — never `refactor!`/`chore!`.
-  Skipping happens before the Breaking-changes section is assembled, so a `!` on a
-  dropped type takes the breaking change down with it, and it also goes missing from the
-  `git-cliff --unreleased` summary the version decision is made from.
-- **`revert:` renders**, in its own Reverts section — it is an allowed PR-title type,
-  and taking a shipped feature back away is exactly what a user needs told.
-- Only ever **prepend** to `CHANGELOG.md`. Regenerating it (`git-cliff -o`) destroys the
-  hand-written history, `v0.1.0a2`–`a4` included.
-
-## Workflow
-
-- `superpowers:brainstorming` → `writing-plans` →
-  `executing-plans`/`subagent-driven-development` on any non-trivial feature or bugfix.
+The full `tox -e dev` exceeds a subagent's foreground command limit, so the harness
+backgrounds it and the subagent ends its turn reporting "waiting for the run" — a dead
+cycle that costs more than the run. Have implementers run only the targeted tests and
+`pre-commit`, and let the coordinator own the `tox` gate after the commit. Measured on
+this repo, 2026-08-04: the same task shape took ~160s under that split versus 500-900s
+when the implementer owned `tox`.
 
 ---
 > Source: [lincolnloop/django-absurd](https://github.com/lincolnloop/django-absurd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
