@@ -1,0 +1,9 @@
+{
+  "name": "perfecto25--photorust",
+  "displayName": "photorust",
+  "description": "1:1 clone of photoshop CS6 in Rust and C++",
+  "version": "1.0.0",
+  "author": "perfecto25",
+  "homepage": "https://github.com/perfecto25/photorust",
+  "skills": []
+}
