@@ -99,4 +99,4 @@ dart run melos run test
 
 ---
 > Source: [fastforgedev/fastforge](https://github.com/fastforgedev/fastforge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
