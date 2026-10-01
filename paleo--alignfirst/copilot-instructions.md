@@ -35,4 +35,4 @@ Run project commands from the project or worktree directory: your shell initiali
 
 ---
 > Source: [paleo/alignfirst](https://github.com/paleo/alignfirst) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
