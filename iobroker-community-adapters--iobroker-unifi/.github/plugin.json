@@ -1,0 +1,9 @@
+{
+  "name": "iobroker-community-adapters--iobroker-unifi",
+  "displayName": "ioBroker.unifi",
+  "description": "ioBroker.unifi",
+  "version": "1.0.0",
+  "author": "iobroker-community-adapters",
+  "homepage": "https://github.com/iobroker-community-adapters/ioBroker.unifi",
+  "skills": []
+}
