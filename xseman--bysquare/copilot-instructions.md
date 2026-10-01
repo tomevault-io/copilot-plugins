@@ -1,42 +1,44 @@
 ## bysquare
 
-> - After each change make sure all README.md files are up to date
+> The npm package and CLI. Read `README.md` for the API.
 
-# Test Creation and Maintenance Guidelines
+# bysquare (TypeScript)
 
-- After each change make sure all README.md files are up to date
-- Make sure all tests pass after significant changes
-- If there is logical change analyze if there should be new tests added or existing modified
+The npm package and CLI. Read `README.md` for the API.
 
-# Testing Pattern Instructions
+## Commands
 
-- Use `describe` blocks to group related tests
-- Use `test` blocks for individual test cases
-- Use only `test` and `expect` from `bun:test`
+```sh
+bun run test            # bun test src/ with coverage
+bun run typecheck       # tsc --noEmit
+bun run fmt             # dprint fmt
+bun run build           # tsc --build into lib/
+bun test src/pay/encode_test.ts
+```
+
+## Tests
+
+- Use only `describe`, `test` and `expect` from `bun:test`
+- Tests sit next to the code as `*_test.ts`; fixtures live in the `testdata/`
+  directory of the module they belong to
 - Import the modules directly in the test, to make it clear what's being tested
-- Do not create tests for files with side effects such as database operations
-- Do not edit CHANGELOG, it's auto-generated
+- Do not create tests for files with side effects
+- Use `test.each()` for uniform cases with identical logic, a `for` loop with
+  `test()` when a case needs conditional logic or its own setup
+- Nest `describe` blocks at most 2-3 levels: functionality, scenario type,
+  specific cases
+- Name tests by what they check: "encodes/decodes ...", "preserves ...",
+  "validates ...", "throws ...", "handles ..."
+- Property-based tests for encode/decode: at least 50 iterations of valid
+  random data, assert invariants rather than specific outputs
 
-# Code style
+## Code style
 
-## Comment Language
-
-All comments must be written in **English** for consistency and international
-accessibility. This includes:
-
-- JSDoc comments and docstrings
-- Inline comments
-- Module-level documentation in test files
-
-For domain-specific terms from the Slovak PAY by Square specification,
-reference the specification section number (e.g., `@see 3.10.`) rather than
-including Slovak terminology.
-
-## Formatting
+### Formatting
 
 - For long numbers use underscores as thousand separators, e.g., `1_000_000`
 
-## Naming convention
+### Naming convention
 
 When the names are in camelCase or PascalCase, always follow the rules of them
 even when the parts of them are acronyms.
@@ -120,24 +122,6 @@ Related resources:
 - <https://docs.deno.com/runtime/contributing/style_guide/>
 - <https://google.github.io/styleguide/tsguide.html>
 
-## AAA Pattern (Arrange, Act, Assert)
-
-- Always structure test cases using the AAA pattern for clarity:
-- Don't add explicit comments for AAA, as the structure should be self-explanatory
-- Don't add comments for each step, as the code should be clear enough
-
-```typescript
-test("should calculate total price with tax correctly", () => {
-	const basePrice = 100;
-	const taxRate = 0.08;
-	const expected = 108;
-
-	const result = calculateTotal(basePrice, taxRate);
-
-	expect(result).toBe(expected);
-});
-```
-
 ---
 > Source: [xseman/bysquare](https://github.com/xseman/bysquare) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
