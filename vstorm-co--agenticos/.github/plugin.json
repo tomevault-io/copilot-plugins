@@ -1,0 +1,9 @@
+{
+  "name": "vstorm-co--agenticos",
+  "displayName": "agenticos",
+  "description": "One place to build, run and govern your company's AI agents \u2014 skills, context files, MCP at registry scale, automations, budgets and an audit trail. Self-hosted and open source, on your own Postgres a",
+  "version": "1.0.0",
+  "author": "vstorm-co",
+  "homepage": "https://github.com/vstorm-co/agenticos",
+  "skills": []
+}
