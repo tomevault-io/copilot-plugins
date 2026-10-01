@@ -1,0 +1,819 @@
+## explainroo
+
+> This file tells you, the coding agent, how to make a video with explainroo.
+
+# explainroo for coding agents
+
+This file tells you, the coding agent, how to make a video with explainroo.
+The user usually gives you a topic, and maybe a length or a style. You write
+the words and the pictures. explainroo makes the video.
+
+explainroo turns two files into an MP4 video with narration. `script.md`
+holds what the voice says. `scenes.js` draws what the viewer sees. Every
+drawing can appear on a word the voice says. A voice model (Kokoro) reads the
+script on this computer. Whisper listens to the recording and writes down
+when each word is spoken. Chrome draws the frames in the background.
+explainroo adds music and sound effects, and ffmpeg makes the MP4. You need
+no API key unless the user wants AI images.
+
+The full documentation for people is at https://www.explainroo.com/docs/.
+
+## Before you start
+
+Maybe the user pasted the prompt from the README or from explainroo.com, and
+you are not in an explainroo folder yet. Then clone it into the current
+folder first. If the user named another place, use that.
+
+```bash
+git clone https://github.com/vincentsch/explainroo.git
+cd explainroo
+```
+
+Run this once in the explainroo folder:
+
+```bash
+npm install
+node bin/explainroo.js doctor --fetch
+```
+
+`doctor` checks Node, ffmpeg and Chrome. It also downloads the speech models,
+about 400 MB, the first time only. If the user ran `npm link`, you can write
+`explainroo` instead of `node bin/explainroo.js` in the commands below. Every
+command takes the project folder first and accepts `--json`.
+
+### When to ask the user
+
+Decide the normal things yourself, like the look, the length, the voice, the
+layout and the wording. Ask only when you cannot go on without an answer.
+When you ask, put everything you need in one message. Typical reasons to ask:
+
+- The topic is unclear, or you need a fact you cannot check.
+- The user wants AI images and there is no OpenRouter key (see Images).
+- The user wants something explainroo cannot do, like video shot with a
+  camera.
+
+## Making a video, step by step
+
+1. **Learn the subject.** Read the code, docs or pages the user points to.
+   Write down the facts you will use. Never make up numbers, quotes or claims.
+   If a number matters and you cannot check it, leave it out.
+
+2. **Create the project.**
+
+   ```bash
+   node bin/explainroo.js init videos/<name> --theme paper --title "..."
+   ```
+
+   Projects go in `videos/`. Git ignores that folder. Pick the look that fits
+   the audience: `paper` (friendly, hand drawn, the default), `clean`
+   (products and business), `chalk` (teaching), `blueprint` (engineering) or
+   `midnight` (developer tools). Pick the size for the place the video goes,
+   for example `--size tiktok` or `--size linkedin`. The sizes are listed in
+   "Sizes for each platform" below. Add `--pace 1.2` when the user wants a
+   quicker video.
+
+3. **Write `script.md`.** The narration comes first. It sets the timing for
+   everything else. See "How to write the narration" below.
+
+4. **Make the voice.**
+
+   ```bash
+   node bin/explainroo.js voice videos/<name>
+   ```
+
+   The command prints how long each scene is and how many words the speech
+   check confirmed. If a word is not confirmed, the voice probably said it
+   wrong. Fix it with `{shown|spoken}` in the script and run the command
+   again. Only the scenes you changed are made again.
+
+5. **Plan the pictures.** For each scene, decide what is on screen when each
+   marker or important word is spoken. Decide where each thing sits and what
+   leaves the screen. Keep things in the same place from scene to scene.
+
+6. **Make images, if the video needs them.** Icons and diagrams cover most
+   technical topics. Everyday how-to topics like cooking, cars or gardening
+   work better with pictures. See "Images" below.
+
+7. **Write `scenes.js`.** Write one function per scene. Tie every picture to
+   the narration with `at: 'word'` or `at: '#marker'`. The scene API is at
+   the end of this file.
+
+8. **Check.**
+
+   ```bash
+   node bin/explainroo.js check videos/<name>
+   ```
+
+   Fix every error and every warning. You decide what to do with the hints.
+
+9. **Look at the frames.** You cannot watch the video, so this is how you see
+   it.
+
+   ```bash
+   node bin/explainroo.js still videos/<name>                 # the end of each scene
+   node bin/explainroo.js still videos/<name> intro@2.5 12.0  # any moment
+   node bin/explainroo.js sheet videos/<name> --scene intro   # one scene over time
+   node bin/explainroo.js sheet videos/<name>                 # the whole video
+   ```
+
+   Open the images and judge them like a viewer would. Is the text big
+   enough? Is anything cut off or on top of something else? Is half the frame
+   empty? Does the sheet show something new every few seconds? Fix what is
+   wrong and look again.
+
+10. **Make the video and check the file.**
+
+    ```bash
+    node bin/explainroo.js render videos/<name> --draft   # quick half-size version
+    node bin/explainroo.js render videos/<name>           # final video
+    node bin/explainroo.js verify videos/<name>
+    ```
+
+    `render` makes the video. `verify` measures the loudness and looks for
+    black frames and silence. It also runs the speech check on the finished
+    sound to make sure the voice is still clear over the music.
+
+11. **Tell the user** where `out/video.mp4` is, how long it is, what verify
+    said, and what you could not check.
+
+## How to write the narration
+
+Unless the user asks for another style, write the way a person explains
+something to a friend at a table.
+
+- Use regular, down-to-earth English and everyday words. Explain things in
+  simple terms. If you need a technical word, say what it means the first
+  time.
+- Keep sentences short, about 8 to 18 words, one idea each.
+- Say who does what: "The browser asks a resolver."
+- Every sentence adds a fact. Cut half sentences that repeat something.
+- Do not use em dashes or dashes between phrases. Use a comma or a new
+  sentence.
+- Leave out slogans and punchlines ("Just code."), "not X, but Y" twists,
+  colon reveals, chains of three short sentences, metaphors, and filler words
+  like "just", "simply", "really", "actually" and "exactly".
+- Do not tell the viewer to do obvious things ("Let's dive in", "Stay tuned").
+- End with a plain sentence that sums up the main point.
+
+Length and pace:
+
+- Aim for 45 to 120 seconds unless the user says otherwise. A finished video
+  has about 150 words a minute, pauses included.
+- Start with the question or problem. Explain it in small steps. Give one
+  concrete example, then sum up.
+- One idea per scene, usually 1 to 3 sentences (4 to 15 seconds).
+- Lists read aloud ("A, B, C and D") only work when each item appears on
+  screen.
+
+Script syntax:
+
+```markdown
+# Title of the video
+
+## scene-id {hold=1.5}
+Narration for this scene. [#marker] A marker names a moment you can animate on.
+[pause 0.6] adds silence. {SQL|sequel} shows "SQL" in captions but says "sequel".
+> Lines starting with > are notes for you and are not spoken.
+```
+
+- `## scene-id` starts a scene. The id must match a function in `scenes.js`.
+- Put a `[#marker]` wherever a picture should change. Every sentence should
+  trigger at least one picture.
+- Use `{shown|spoken}` for anything the voice may misread: acronyms
+  (`{CLI|C L I}`), versions (`{v2.1|version two point one}`), symbols and
+  domains (`{example.com|example dot com}`, otherwise the voice says "example
+  comm").
+- A scene can have these settings in the braces after its id: `hold`
+  (seconds after the voice, default 0.7), `min` (the shortest the scene can
+  be, in seconds), `lead` (seconds before the voice, default 0.35) and
+  `transition` (`fade`, `slide`, `wipe`, `zoom`, `brush`, `cut`).
+- A scene without narration lasts `min` seconds (default 3).
+
+## What makes the pictures good
+
+- **Show it when it is said.** A picture appears as the voice mentions it.
+  Use word cues.
+- **Something changes every 2 to 4 seconds.** A new element, an arrow, a
+  highlight or a camera move. `check` points out long stretches where nothing
+  moves.
+- **Short screen text.** Labels, numbers and key phrases of a few words. The
+  whole narration never goes on screen. When the narration should be readable,
+  turn on captions (`"captions": true`). Then do not also show the sentence
+  the voice is saying as text.
+- **Few things at once.** At most five or six elements. Take things off the
+  screen with `out` before the next idea.
+- **Big and readable.** Titles 80 to 110 px, labels 40 to 56 px, small text
+  at least 32 px on a 1920 x 1080 canvas. Stay inside `s.safe`.
+- **Same meaning, same color.** Give each thing one color and one place and
+  keep them. Use the accent color for the one thing that matters most.
+- **Real examples.** A command you can run, a number with its source or a
+  picture of the real screen is better than three boxes with general words.
+- **A clear last frame** that shows the main point.
+
+## Images
+
+explainroo can make illustrations with AI image models through OpenRouter.
+This is optional. It costs money on the user's OpenRouter account, roughly 7
+to 13 cents per image at the time of writing.
+
+If the user wants images and there is no key, ask them for an OpenRouter API
+key (from openrouter.ai/keys). Save it in a `.env` file in the explainroo
+folder as `OPENROUTER_API_KEY=...`, or set it as an environment variable. Git
+ignores `.env`. Never print the key, and never put it in a script, a commit
+or a log.
+
+```bash
+node bin/explainroo.js image videos/<name> cables "Two cars parked nose to nose with their hoods open, jumper cables between the batteries"
+node bin/explainroo.js images videos/<name>    # what was made and what it cost
+```
+
+This saves `assets/cables.png`. Use it in a scene with
+`s.image('assets/cables.png', { w: 1100, frame: 'card', at: 'cables' })`.
+
+- `--model best` (default) uses OpenAI GPT Image 2. It does what you ask and
+  is worth the price for most images.
+- `--model cheap` uses Google Gemini 3.1 Flash Image. It costs about half,
+  but it often ignores parts of the prompt.
+- `--aspect` sets the shape of the image: `16:9` (default for landscape
+  videos), `9:16`, `1:1`, `4:3`, `3:2` and their portrait forms.
+- `--ref assets/a.png` sends an earlier image along, so a person or object
+  keeps the same look. Separate several files with commas.
+- Every image gets a default style (flat, soft colors, no text). Set your own
+  in `video.json` with `"images": { "style": "...", "model": "best" }`, or
+  turn the style off with `--no-style`.
+
+**Always open every image and check it.** Image models get details wrong:
+extra fingers, cables on the wrong terminal, text that looks like writing but
+is not. If anything is wrong, change the prompt and make the image again.
+Keep text out of images. Put words on screen with `s.text` instead. Use
+images for things icons cannot show, and keep one style through the whole
+video.
+
+## Product demos
+
+A product demo is the kind of video software companies make to show their
+app. You rebuild the app's screens with `s.ui`, which has cards, fields,
+buttons, dropdowns, toggles and status labels in the app's colors and fonts.
+A mouse pointer clicks through the screens and types into the fields, and the
+camera zooms in on what the voice talks about. `examples/unspar-demo` is a
+complete one.
+
+**Keep it true.** A demo is advertising, so everything in it has to be right.
+
+- Take the wording from the app itself: its templates and language files
+  (for example `lang/en/*.php`, `locales/`, or the components). Copy labels,
+  buttons and status names exactly.
+- Show only features that exist and that customers can use. Leave out admin
+  screens, debug views and plans that are not built yet.
+- Example data must look like example data: `example.com`, a made up project,
+  a made up article title. Never invent customers, numbers or results.
+- Claims in the narration come from the product's live website. Show prices
+  only if the website shows them.
+- Ask the user if the website and the app say different things.
+
+**Set up the brand** in `video.json`. Use the `clean` look.
+
+```json
+{
+  "theme": "clean",
+  "brand": {
+    "accent": "#245cff",
+    "background": "#f8f6f1",
+    "font": "Figtree",
+    "headline": "Instrument Serif",
+    "logo": "assets/logo.svg"
+  },
+  "fonts": [
+    { "family": "Figtree", "src": "assets/fonts/Figtree-600.woff2", "weight": 600 }
+  ]
+}
+```
+
+- `accent` is the main button color. Find it in the app's Tailwind config or
+  CSS. `background` is the color behind the screens, `ink` the color of text
+  drawn right on it.
+- `font` is the app's font. Inter is built in; other fonts go in
+  `assets/fonts/` and in `fonts` (`.woff2`, `.woff`, `.ttf` or `.otf`, one
+  entry per weight, or `"weight": "100 900"` for a variable font, and
+  `"style": "italic"`). Copy the font's license file next to it.
+- `headline` is the font for big headlines. Instrument Serif is built in. If
+  the brand has no serif, use its own font and pass `{ weight: 700,
+  italic: false }` to `u.headline()`.
+- `logo` is the product's logo from the app or website, best as SVG.
+
+**Build a scene** in this order: background, camera, headline, screens,
+cursor last so it stays on top.
+
+```js
+hook(s) {
+  const u = s.ui;
+  u.backdrop();
+  u.floaters();
+  s.camera([{ at: '#site', x: 900, y: 600, zoom: 1.3 }]);
+  u.headline('Tell it what to *write about*', s.W / 2, 178, { size: 84, at: 0.15 });
+  u.panel(410, 270, 1100, 600, { at: 0.3 }, (x, y, w, h) => {
+    u.input(x + 56, y + 296, 560, 62, { label: 'Website URL', value: u.typed('https://example.com', '#site', 24), focus: 1, caret: true });
+    u.button('Get ideas', x + 760, y + 516, 280, 60, { press: u.press('#go') });
+  });
+  u.cursor([
+    { at: 0.5, x: 1500, y: 900 },
+    { at: s.time('#site') - 0.7, x: 740, y: 596 },
+    { at: '#site', click: true },
+  ]);
+}
+```
+
+Draw the headline after `s.camera()`, or the zoomed screens slide under it.
+When the camera zooms in, either keep the headline fully in view (zoom up to
+about 1.1) or zoom far enough that it leaves the frame (about 1.3 and more).
+In between it gets cut in half.
+
+Time every click to a `[#mark]` in the script, so it happens when the voice
+says it. A cursor move starts at its `at` and arrives `dur` seconds later
+(0.7 by default), so start the move a little more than `dur` before the
+click. The first 0.7 seconds of a scene are covered by the transition from
+the scene before, so put no clicks there.
+
+The watermark sits in the bottom right corner. When the camera zooms in, it
+can cover what is there, so keep important text out of that corner.
+
+Use the product's name as plain text in the first frame. The first frame is
+also the video's cover.
+
+**`s.ui` reference.** Positions are in the frame (1920 wide for 16:9). Times
+take seconds, spoken words or `"#marks"`, like everywhere else.
+
+| Call | What it draws |
+|---|---|
+| `u.backdrop(color?)`, `u.floaters({ alpha, tint })` | the brand background, and faint cards drifting around the edges (`tint: 'white'` on a colored background) |
+| `u.panel(x, y, w, h, { at, out, from, rise, sfx, fill, border, lift }, fn)` | a card that pops in at `at`; `fn(x, y, w, h)` draws inside it |
+| `u.card(x, y, w, h, o)` | a card without an entrance |
+| `u.browser(x, y, w, h, { url, at }, fn)` | a panel with a browser bar; `fn` gets the page area |
+| `u.modal(x, y, w, h, { at, out }, fn)`, `u.over(fn)` | a dialog over a dimmed frame, and a layer for your own menus or popups; `check` does not report text in one layer as overlapping text in another |
+| `u.toast(text, { at, out, icon, tone })` | a message that slides up, with a chime |
+| `u.headline(text, x, y, { size, at, out, align, weight, italic, color, accent, tracking })` | big text that blurs in word by word; `*stars*` mark words in the `accent` color |
+| `u.text(text, x, y, { size, weight, color, align, base, font, italic, tracking, alpha, maxW, check })`, `u.para(text, x, y, maxW, o)`, `u.eyebrow(text, x, y)` | text, wrapped text (`\n` starts a new line), and a small uppercase label; `font` is `'ui'`, `'headline'` or a family; `check: false` hides text from `check`; `u.measure(text, size, weight)` gives the width |
+| `u.button(label, x, y, w, h, { variant, press, icon, loading, color, caps })` | `primary`, `secondary` or `ghost` |
+| `u.input(x, y, w, h, { label, value, placeholder, focus, caret, icon })`, `u.textarea(x, y, w, h, o)` | a text field, and a taller one where the text wraps |
+| `u.select(x, y, w, h, { label, value, open, options, hover, selected })` | a dropdown; returns the y of each option row |
+| `u.toggle(x, y, on)`, `u.checkbox(x, y, on)`, `u.radio(x, y, on)` | `on` goes from 0 to 1, so it can animate |
+| `u.chip(label, x, y, { selected })`, `u.chipWidth(label, o, selected)` | option chips; a selected chip grows by its check mark, so leave room |
+| `u.pill(label, x, y, tone, { align, dot, pulse })` | a status badge: `gray`, `blue`, `yellow`, `green`, `red`, `purple` or `accent` |
+| `u.spinner(x, y, r)`, `u.progress(x, y, w, p)`, `u.avatar(x, y, r, initials, { image })`, `u.icon(name, x, y, size, color)`, `u.lines(x, y, w, n)`, `u.logo(x, y, w)` | small parts; `lines` draws grey bars in place of body text |
+| `u.pop(at, cx, cy, fn, { sfx })` | pops anything in around a point |
+| `u.wipe(at, { color })` | the accent color spreads out until it fills the frame |
+| `u.cursor(keys, { out })` | the mouse; a key `{ at, x, y, dur, arc }` moves it (`arc` bends the path, 0 is straight), `{ at, click: true }` clicks with a sound |
+| `u.press(at)`, `u.typed(text, at, cps, { gain, sfx })`, `u.stream(text, at, wps)`, `u.count(to, at, dur)` | a button press (0 to 1 and back), text typed so far with typing sounds, text appearing word by word like an AI reply, a number counting up |
+| `u.colors` | `accent`, `accentDark`, `accentTint`, `background`, `ink`, `text`, `soft`, `muted`, `faint`, `line`, `field`, `surface`, `panel`; `brand.colors` in `video.json` replaces the grays, for example `{ "text": "#141413", "line": "#e8e6dc" }` for a warm brand |
+
+`check` sees the text of `s.ui` too. It reports text that runs off the frame
+(not while the camera zooms in), text that is too small and text that
+overlaps. A dropdown or dialog may cover what is under it. Look at stills at
+the moments the camera is zoomed in, and check the cursor does not hide the
+word it points at.
+
+Panels and headlines from `s.ui` make no sound unless you pass `sfx`.
+`check` does not see clipping: text you hide by clipping still counts, so
+do not draw text that should not show. Try a product name with its plain
+spelling first; only respell it when the speech check mishears it.
+
+Many sounds under the voice make it hard to follow, and `verify` then
+understands less of it. Keep long typing quiet (`u.typed(text, at, cps, {
+gain: 0.25 })`) and give each moment one sound, not three.
+
+A blur filter on every frame makes rendering slow. The kit blurs things once
+and reuses them. Do the same if you add your own blur.
+
+## Sizes for each platform
+
+Set `size` to the place the video goes. `explainroo formats` lists the sizes.
+
+| Size | Pixels | For |
+|---|---|---|
+| `youtube` (or `16:9`) | 1920 x 1080 | YouTube and other wide players |
+| `shorts` | 1080 x 1920 | YouTube Shorts |
+| `tiktok` | 1080 x 1920 | TikTok |
+| `reels` | 1080 x 1920 | Instagram and Facebook Reels |
+| `vertical` | 1080 x 1920 | one file for Shorts, TikTok and Reels |
+| `instagram` | 1080 x 1350 | Instagram and Facebook feed posts |
+| `linkedin` | 1080 x 1350 | the LinkedIn feed |
+| `square` (or `1:1`) | 1080 x 1080 | square posts on X, LinkedIn and Facebook |
+
+`9:16`, `4:5` and `WIDTHxHEIGHT` also work.
+
+Shorts, TikTok and Reels put their own buttons, the account name and the post
+text on top of the video. With `shorts`, `tiktok`, `reels` and `vertical`,
+explainroo keeps your content away from those spots. `s.safe` is the part the
+app leaves free, and `s.cx` and `s.cy` are its center. The captions sit right
+above the app's bottom band, and the watermark moves to the top right corner.
+`check` warns about any text outside that area. Plain `9:16` has no such
+margins, so use it only when the video is not meant for those apps.
+
+Vertical videos have little room. Stack things instead of putting them side
+by side, use fewer words on screen, and place everything from `s.safe`.
+`explainroo formats` prints the content area of each size in pixels, for
+example 745 x 746 on TikTok.
+
+### Where the captions sit
+
+Captions are on by default for vertical, 4:5 and square videos. On Shorts,
+TikTok and Reels they sit right above the app's bottom band. On 4:5, square
+and wide videos they sit at the bottom, above the watermark. On a plain
+`9:16` video they sit about a quarter of the way up. In every case `s.safe`
+ends above them. So anything placed inside `s.safe` stays clear of them, and
+`check` warns about text in the caption band. Do not put the same sentence on
+screen as text while the captions show it.
+
+The first frame is often the cover picture on social apps. When the first
+elements draw themselves in, frame one is empty. Give the title
+`enter: 'none'` so it is there from the first frame, or pick another cover
+frame in the app.
+
+## Pace
+
+`pace` makes the whole video quicker or slower. At 1.3 the voice speaks 30%
+faster. The pauses, the time before and after each scene, the transitions and
+every animation also get 30% shorter. Word and marker cues follow the voice.
+So if you tie pictures to words, the rhythm stays right at any pace. Times in
+seconds are real seconds of the scene, like `s.t` and `s.cue()`. So
+`at: s.cue('word') + 0.3` means 0.3 seconds after the word at any pace. A
+fixed time like `at: 4` does not move with the pace. That is one more reason
+to use cues. 1 is the normal pace. 1.15 to 1.3 suits social media and viewers
+who know the topic. Above 1.4 the video gets hard to follow. `speed` changes
+only the voice.
+
+## The watermark
+
+Every video gets a small "explainroo.com" in the bottom right corner. On
+Shorts, TikTok and Reels it sits in the top right corner, because the app
+covers the bottom one. The user can turn it off with `"watermark": false` in
+`video.json`, or change it to their own text. If the user asks about it, tell
+them it is their choice, and that keeping it helps more people find this free
+project.
+
+## Project files and settings
+
+```
+videos/<name>/
+  video.json    look, size, voice, music, captions, watermark
+  script.md     the narration, one "## scene-id" per scene
+  scenes.js     one drawing function per scene
+  assets/       images: screenshots, logos, generated illustrations
+  build/        voice, timing and audio made by explainroo (safe to delete)
+  out/          video.mp4, draft.mp4, stills/, sheets, report.json
+```
+
+`video.json` settings, all optional:
+
+| Setting | Default | What it does |
+|---|---|---|
+| `title` | from the script | shown in the preview |
+| `theme` | `paper` | `paper`, `clean`, `chalk`, `blueprint`, `midnight` |
+| `size` | `16:9` | a platform (`youtube`, `shorts`, `tiktok`, `reels`, `vertical`, `instagram`, `linkedin`, `square`), `16:9`, `9:16`, `1:1`, `4:5` or `WIDTHxHEIGHT` |
+| `fps` | 30 | 24, 25, 30, 50 or 60 |
+| `voice` | `af_heart` | see `explainroo voices` |
+| `speed` | 0.9 | voice speed only, 0.6 to 1.6 |
+| `pace` | 1 | speed of the whole video (voice, pauses, animations), 0.7 to 1.6 |
+| `music` | `true` | `true` (the look's style), `warm`, `upbeat`, `calm`, `tech`, `playful`, `{ "style", "volume" }` or `false` |
+| `sfx` | `true` | sound effects: `true`, `"minimal"` or `false` |
+| `captions` | `"auto"` | text of the narration at the bottom; auto turns it on for vertical and square videos |
+| `transition` | `"auto"` | the look's default, or `fade`, `slide`, `wipe`, `zoom`, `brush`, `cut` |
+| `lead`, `hold`, `end` | 0.35, 0.7, 1.4 | seconds before the voice, after it, and extra at the very end |
+| `sentenceGap`, `paragraphGap` | 0.3, 0.55 | pauses in the narration |
+| `loudness` | -14 | target loudness in LUFS |
+| `boil` | 0 | redraws per second of hand-drawn lines; 0 keeps them still |
+| `watermark` | `"explainroo.com"` | small text in a corner, or `false` |
+| `images` | none | `{ "model": "best" or "cheap", "style": "..." }` |
+| `brand` | none | colors, fonts and logo for `s.ui`, see [Product demos](#product-demos) |
+| `fonts` | none | the video's own font files, see [Product demos](#product-demos) |
+
+The looks:
+
+| Look | What it looks like | Transition | Music |
+|---|---|---|---|
+| `paper` | marker drawings on warm paper | brush | warm |
+| `clean` | flat cards with soft shadows | slide | upbeat |
+| `chalk` | chalk on a green board | brush | calm |
+| `blueprint` | white drawings on blueprint blue | wipe | tech |
+| `midnight` | dark background with glowing colors | zoom | tech |
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `init <dir>` | creates a project (`--theme`, `--size`, `--pace`, `--voice`, `--title`) |
+| `voice [project]` | makes the narration and the word times, saved per scene so only changed scenes are made again |
+| `preview [project]` | a live preview in the browser that reloads when you save |
+| `still [project] [times]` | PNG pictures at `12.5`, `scene`, `scene@2.4` or `scene@end` |
+| `sheet [project]` | one image with many frames of the video or of one scene (`--scene`, `--every`) |
+| `check [project]` | finds layout, timing and pronunciation problems |
+| `render [project]` | the MP4 (`--draft`, `--from`, `--to`, `--workers`, `--out`) |
+| `verify [project]` | checks the finished file: loudness, black frames, silence, clear voice |
+| `image [project] <name> "<prompt>"` | makes an illustration with OpenRouter |
+| `images [project]` | lists the images and what they cost |
+| `voices`, `say "text"` | lists the 28 voices, or makes a sample |
+| `themes`, `formats`, `icons <word>` | lists the looks and the sizes, searches the 1,854 icons |
+| `doctor` | checks the setup (`--fetch` downloads the speech models) |
+
+## Scene API
+
+Each scene function draws one frame. explainroo calls it for every frame with
+a fresh `s`, so everything in the scene depends only on the time. Do not keep
+values between calls and do not use timers. Give each element an `at` time,
+and the look animates it in. Give it an `out` time, and the look animates it
+out.
+
+```js
+export default {
+  intro(s) {
+    s.title('How DNS works', { at: 0 });
+    s.icon('globe', { y: 700, at: 'browser' });
+  },
+};
+```
+
+The canvas is 1920 x 1080 for 16:9. It is 1080 x 1920 for the vertical sizes,
+1080 x 1080 for square, and 1080 x 1350 for `instagram`, `linkedin` and 4:5.
+Positions are in pixels, counted from the top left corner. `x` and `y` are
+the center of an element unless the method says otherwise.
+
+### Time
+
+| Member | Meaning |
+|---|---|
+| `s.t` | seconds since the scene started |
+| `s.T` | seconds since the video started |
+| `s.dur` | length of the scene in seconds |
+| `s.voice` | `{ start, end }` of the narration in the scene |
+| `s.words` | the spoken words: `{ text, start, end }` in scene seconds |
+| `s.cue(word, n = 1)` | when the n-th time a word or phrase is spoken starts |
+| `s.cueEnd(word, n = 1)` | when it ends |
+| `s.mark(name)` | the time of a `[#name]` marker |
+| `s.time(v)` | turns a number, a word or `"#marker"` into seconds |
+| `s.pace` | the video's pace (1 is normal) |
+| `s.p(at, dur = 0.6, ease = 'inOut')` | 0 to 1 progress for your own animation |
+| `s.since(at)`, `s.between(a, b)` | seconds since a time, or whether now is between two times |
+| `s.video` | `{ duration, frames, fps, width, height, scenes }` of the whole video |
+
+Every `at` and `out` accepts seconds (`2.4`), a spoken word (`'resolver'`) or
+a marker (`'#ask'`). Word cues ignore case and punctuation. A phrase works
+too. A wrong word or marker stops with an error that lists the closest words.
+
+An easing sets how a movement speeds up and slows down. The easing names are
+`linear`, `in`, `out`, `inOut`, `outBack`, `outElastic`, `outQuart` and
+`inOutSine`. `s.ease.out(p)`, `s.lerp(a, b, p)` and `s.clamp(v, lo, hi)` are
+there for your own math.
+
+### Layout
+
+| Member | Meaning |
+|---|---|
+| `s.W`, `s.H`, `s.cx`, `s.cy` | canvas size and its center (on Shorts, TikTok and Reels the center of `s.safe`) |
+| `s.safe` | `{ x, y, w, h, left, top, right, bottom }`: the area for content (a 7% margin, or the part a platform leaves free) |
+| `s.row(n, { width, x })` | n x positions spread over a width |
+| `s.col(n, { height, y })` | n y positions spread over a height, centered in `s.safe` |
+| `s.grid(cols, rows, { x, y, w, h, gap })` | cells `{ x, y, w, h }`, row by row, filling `s.safe` |
+| `s.get(id)` | size and position of an element drawn earlier with that `id` |
+
+Most elements return `{ x, y, w, h, left, right, top, bottom }`, so you can
+place the next thing below or beside them.
+
+### Options most elements take
+
+| Option | Meaning |
+|---|---|
+| `at`, `out` | when it appears and when it leaves |
+| `enter` | `draw`, `write`, `type`, `words`, `sync`, `pop`, `rise`, `fade`, `zoom`, `drop`, `slide-left`, `slide-right`, `slide-up`, `slide-down`, `none` |
+| `exit` | `fade`, `pop`, `rise`, `drop`, `slide-left`, `slide-right`, `none` |
+| `dur` | length of the entrance in seconds (shortened by the pace) |
+| `outDur` | length of the exit in seconds (0.45) |
+| `id` | a name for arrows, `annotate` and `s.get` |
+| `color` | a color name (`blue`, `accent`, `ink`, `muted`, ...) or any CSS color |
+| `opacity`, `scale`, `rotate` | extra changes, `rotate` in degrees |
+| `float` | pixels of slow drift that keeps a still element alive |
+| `sfx` | the sound on entrance, or `false` |
+
+In `paper`, `chalk` and `blueprint`, shapes are drawn line by line and text
+is written out. In `clean` and `midnight`, shapes pop and text rises. Use
+`at: -1` for things that were already on screen in the previous scene. They
+are there from the start and make no sound.
+
+### Text
+
+```js
+s.title('How DNS works', { at: 0 });                     // display font, 104 px, at 44% height
+s.subtitle('the phone book of the internet', { at: 1 }); // 46 px, muted, at 60% height
+s.text('Every site has an *address*', { y: 300, size: 64, at: 'address' });
+s.note('about 20 ms', { x: 1400, y: 820, at: 3 });        // 32 px, muted
+```
+
+`s.text(str, options)` takes these options: `x`, `y`, `size` (48), `font`
+(`display`, `body`, `hand`, `mono`), `weight` or `bold: true`, `align`
+(`left` means x is the left edge), `valign` (`top` means y is the top),
+`maxWidth`, `lineHeight`, `color`, `mark` (color of `*starred*` words), `bg`
+(a card behind the text), `padding`, `radius`, `border`. Text can also enter
+with `write`, `type` (with `cps`), `words` and `sync`. `sync` shows each word
+as the voice says it. Words in `*stars*` get the accent color. `\n` starts a
+new line.
+
+### Shapes and arrows
+
+```js
+s.box('Resolver', { id: 'res', x: 960, y: 540, icon: 'server', color: 'blue', at: 'resolver' });
+s.circle({ id: 'you', x: 400, y: 540, r: 90, label: 'You', at: 0.5 });
+s.arrow('you', 'res', { label: 'asks', at: 'asks' });
+s.arrow([300, 900], [1600, 900], { bend: 0.3, dashed: true, at: 5 });
+s.line([[200, 800], [900, 700]], { color: 'accent', at: 2 });
+s.path('M0 0 C 200 -150 400 150 600 0', { x: 660, y: 540, at: 3 });
+```
+
+`s.box(label, options)` is a card that fits its label. Options: `w`, `h`,
+`minW`, `minH`, `size`, `font`, `icon`, `iconSize`, `iconColor`, `color`
+(outline and a light fill), `fill`, `stroke`, `width`, `dashed`,
+`border: false`, `radius`, `shape: 'ellipse'`, `textColor`, `fillStyle`
+(hand-drawn looks: `solid`, `hachure`, `cross-hatch`, `zigzag`, `dots`).
+`s.circle({ r, label })` takes the same options.
+
+`s.arrow(from, to, options)` draws an arrow. `from` and `to` are `[x, y]`,
+`{ x, y }` or the `id` of an element drawn earlier. With an `id`, the arrow
+stops at the edge of that element. Options: `bend` (about -1 to 1), `head`
+(`end`, `start`, `both`, `none`), `label`, `labelSize`, `labelColor`,
+`labelFont` (the handwritten font by default; `'body'` suits `clean`),
+`labelOffset`, `gap`, `dashed`, `width`, `headSize`. `s.connect` does the
+same.
+
+### Icons and images
+
+```js
+s.icon('database', { x: 1500, y: 540, size: 140, color: 'purple', at: 'database' });
+s.icon('lock', { bg: 'circle', color: 'green', label: 'Encrypted', at: 4 });
+s.image('assets/app.png', { w: 1100, frame: 'browser', url: 'app.example.com', at: 0.5 });
+s.image('assets/cables.png', { w: 1000, frame: 'card', at: 'cables', kenburns: true });
+```
+
+The 1,854 icons come from Lucide. Search them with `explainroo icons <word>`.
+Old Lucide names work too. Icon options: `size` (120), `color`, `weight` (2),
+`bg` (`true`, `'circle'`, `'square'` or a color), `bgScale`, `label`,
+`labelSize`, `labelColor`, `labelFont`.
+
+`s.image(src, options)` draws a file from `assets/`. Options: `w` and/or `h`
+(the image keeps its shape), `fit` (`cover` or `contain`), `radius`, `frame`
+(`none`, `card`, `browser`, `window`, `phone`), `url` (for the browser frame),
+`border`, `shadow: false`, `kenburns: true` for a slow zoom.
+
+### Pointing things out
+
+```js
+s.text('It is *not* magic', { id: 'claim', y: 400, at: 0 });
+s.annotate('claim', { type: 'underline', at: 'magic' });
+s.annotate({ x: 960, y: 700, w: 400, h: 90 }, { type: 'circle', color: 'red', at: 3 });
+```
+
+`s.annotate(target, options)` marks an element or a box. `type` is
+`underline`, `circle`, `box`, `highlight`, `strike`, `cross` or `bracket`.
+Options: `color`, `padding`, `width`, `dur`.
+
+### Lists, numbers and charts
+
+```js
+s.list(['Browser cache', 'Resolver', 'Root server'], { x: 360, y: 280, at: 'first', stagger: 1.1 });
+s.number(1500000, { suffix: ' requests', at: 'million', y: 480 });
+s.bars([{ label: '2023', value: 19 }, { label: '2024', value: 31 }], { at: 1, suffix: 'k' });
+s.lineChart([3, 5, 4, 8, 13, 21], { labels: ['M', 'T', 'W', 'T', 'F', 'S'], at: 1 });
+s.pie([{ label: 'Images', value: 55 }, { label: 'Other', value: 45 }], { donut: 0.55, at: 1 });
+```
+
+- `s.list(items, options)`: items are text or `{ text, at, icon, color, out }`.
+  `x` is the left edge and `y` the top. Options: `size` (50), `width`, `gap`,
+  `bullet` (`dot`, `dash`, `number`, `check`, `arrow` or an icon name),
+  `bulletColor`, `at` (a start time or a list of times), `stagger` (0.7),
+  `enter`.
+- `s.number(value, options)` counts up with ticking sounds. Options: `from`,
+  `dur` (1.4), `prefix`, `suffix`, `decimals`, `separator`, `group: false`,
+  plus the text options.
+- `s.bars(data, options)`: items are `{ label, value, color, at }`. A bar
+  with its own `at` grows when that word is spoken. Options: `x`, `y`, `w`,
+  `h`, `max`, `stagger`, `growDur`, `values: false`, `prefix`, `suffix`,
+  `format(v)`, `labelSize`, `valueSize`, `fillStyle`.
+- `s.lineChart(values, options)`: `x`, `y`, `w`, `h`, `min`, `max`,
+  `labels`, `dots: false`, `area: false`, `color`, `dur`.
+- `s.pie(data, options)`: `x`, `y`, `r`, `donut` (0 to 0.8), `labels: false`,
+  `labelOffset`, `dur`.
+
+### Code and terminal
+
+```js
+s.code("const res = await fetch(url);", { lang: 'js', title: 'app.js', at: 0.5 });
+s.terminal(['$ npm install', 'added 42 packages in 3s'], { at: 1 });
+```
+
+`s.code(source, options)` shows code. Options: `lang` (`js`, `ts`, `py`,
+`go`, `rust`, `php`, `sh`, `sql`, `json`, `md`), `size` (32), `w`, `title`
+(or `false`), `lineNumbers: false`, `reveal` (`type`, `lines`, `none`),
+`cps`, `lineDelay`, `highlight` (line numbers) and `highlightAt`. `check`
+reports lines that are wider than the window.
+
+`s.terminal(lines, options)` shows a terminal. Lines that start with `$ ` are
+typed as commands. Other lines are output. A line can also be `{ cmd, at }`
+or `{ out, at, color }`. Options: `w`, `size`, `rows`, `title`, `prompt`,
+`cps` (22), `outputDelay`, `lineGap`.
+
+### Camera, groups and your own drawing
+
+- `s.camera([{ at, x, y, zoom, dur, rotate }])` moves the view. Call it first
+  in the scene function.
+- `s.group({ x, y, scale, rotate, at, out, enter }, () => { ... })` moves a
+  set of elements together. Inside the group, positions count from `x`, `y`.
+- `s.draw({ x, y, at, out }, (ctx, life) => { ... })` gives you the canvas 2D
+  context, so you can draw anything the other methods cannot. `life.p` is the
+  entrance progress from 0 to 1. `s.ctx` is also available.
+- `s.burst({ x, y, at, count, colors })` fires confetti.
+- `s.bg(color)` paints over the background.
+- `s.rand(i)`, `s.noise(x)` and `s.wiggle(amount, speed)` give random values
+  that come out the same every time you render.
+
+### Sound
+
+Elements make a sound when they enter. The look picks the sound. Drawn lines
+scribble, cards pop, arrows whoosh, list items play rising notes, numbers
+tick, typing clicks, and scenes change with a swipe. `sfx: false` silences
+one element. `"sfx": "minimal"` in `video.json` keeps only the transitions
+and the sounds you add yourself.
+
+`s.sfx(name, at, { gain, dur, pitch })` adds a sound: `pop`, `click`,
+`whoosh`, `swipe`, `tick`, `type`, `ding`, `chime`, `thud`, `scribble`,
+`chalk`, `rise`, `sparkle`, `blip`, `error`. `dur` sets the length of `type`,
+`scribble`, `chalk` and `rise` (`rise` ends at `at + dur`). The music is made
+to fit the video, and it gets quieter while the voice speaks.
+
+### Colors and fonts
+
+For product demos in a brand's own colors and fonts, see
+[Product demos](#product-demos).
+
+Color names: `accent`, `ink`, `muted`, `bg`, `surface`, `red`, `orange`,
+`yellow`, `green`, `teal`, `blue`, `purple`, `pink`, `gray`. Each look has its
+own version of each color, so scenes keep working when you change the look.
+`s.color(name)` returns the CSS color and `s.tint(name)` the light fill. The
+font roles are `display`, `body`, `hand` and `mono`.
+
+## Things that break
+
+- Calling an element only sometimes, like `if (s.t > 3) s.box(...)`. Always
+  call it, and use `at` and `out` for the timing. The sound effects and the
+  checks depend on this.
+- An arrow or annotation that points to an `id` drawn later in the function.
+- `s.camera()` after other elements. It has to come first.
+- An `at` later than the end of the scene. Make the scene longer with
+  `{hold=2}` or `{min=6}` in the script.
+- Random values from anything other than `s.rand()`, `s.noise()` or
+  `Math.random()` inside the scene function. Only those three come out the
+  same on every render.
+- Text in AI images. Put words on screen with `s.text`.
+- A cue word that is spoken twice. `at: 'writes'` means the first time. Use
+  `s.cue('writes', 2)` or a `[#marker]` for a later one. `check` lists such
+  words as hints.
+- Apostrophes in cue words. Cues ignore punctuation, so "visitor's" is heard
+  as "visitors". `at: 'visitor'` then waits for the next plain "visitor".
+  Use a `[#marker]` there.
+- Elements inside `s.group`. Each one makes its sound at its own `at`, even
+  while the group is still hidden. Give them the group's `at`, or
+  `sfx: false`.
+- Words that sound like other words. The speech check hears "won" as "one"
+  and "plain" as "plane", and `{shown|spoken}` cannot fix that. Reword the
+  sentence. For acronyms that are spelled out letter by letter, write
+  `{API|A, P, I}`. Do not write `A.P.I.`, because the voice reads the dots
+  like a web address.
+- Growing a shape by changing `w` or `h` over time in the hand-drawn looks.
+  The outline is drawn fresh every frame, so it wobbles. Animate `scale`
+  instead.
+- A scene change in the middle of one diagram. The default transition of
+  `clean` slides the whole frame. Give scenes that share a diagram
+  `{transition=fade}` or `{transition=cut}`.
+- Arrows from an icon that has a label. The `id` of an icon covers the icon
+  only, not its label, so an arrow that leaves downward crosses the label.
+- Colored text in `paper` and `clean`. Green, orange and red are light enough
+  for shapes but often too light for text. `check` warns about low contrast.
+  Use `ink`, `accent` or a darker hex color for text.
+
+`check` looks at text only. It finds text off the frame, too close to the
+edge (3.5%), too small, with low contrast (against the page, or against the
+text's own `bg`), on top of other text, or under the captions. It does not
+see shapes, arrows and icons, or drawings made with `s.draw`. Look at the
+stills for those.
+
+## Working on explainroo itself
+
+- `src/` is the part that runs in Node: script, voice, word timing, timeline,
+  server, rendering, checks and images. `engine/` is the part that runs in
+  the browser page: the scene API (`stage.js`), drawing (`pen.js`), looks,
+  transitions, captions and audio (`engine/audio/`).
+- Run `npm test` after changes. After engine changes, also render the videos
+  in `examples/` and look at their stills and sheets.
+- `dev/audio-lab.mjs` renders every music style and sound and measures them.
+- `npm run build:icons` rebuilds the icons from `lucide-static`, and
+  `npm run build:fonts` downloads the fonts again.
+
+---
+> Source: [vincentsch/explainroo](https://github.com/vincentsch/explainroo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
