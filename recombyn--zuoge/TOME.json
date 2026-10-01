@@ -1,0 +1,249 @@
+{
+  "name": "zuoge",
+  "owner": "recombyn",
+  "repo": "zuoge",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zuoge",
+      "path": "skills/domains/icon_set/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/icon_set/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/color/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/color/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/image_gen/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/image_gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/brush_ops/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/brush_ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/banner_ad/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/banner_ad/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": ".agents/skills/shadcn_ui/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/.agents/skills/shadcn_ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/shadcn_ui/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/shadcn_ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/polish/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/layout/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/ip_as_logo/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/ip_as_logo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/imagery/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/imagery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/long_scroll/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/long_scroll/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/landing_page/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/landing_page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/poster_craft/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/poster_craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/dashboard_ui/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/dashboard_ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": ".agents/skills/garden_style/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/.agents/skills/garden_style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/garden_style/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/garden_style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/type_specimen/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/type_specimen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/mobile_app_ui/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/mobile_app_ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/resume_layout/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/resume_layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/typography/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/typography/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/responsive/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/responsive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/composition/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/design_brief/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/design_brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "plugins/skills/festival_poster/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/plugins/skills/festival_poster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/anti_ai_slop/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/anti_ai_slop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/motion_animation/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/motion_animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/design_review/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/design_review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/design_system/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/design_system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/ecommerce_surface/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/ecommerce_surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": ".agents/skills/awesome_design_md/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/.agents/skills/awesome_design_md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/awesome_design_md/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/awesome_design_md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/foundation/visual_direction/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/foundation/visual_direction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zuoge",
+      "path": "skills/domains/animation_workbench/SKILL.md",
+      "github_url": "https://github.com/recombyn/zuoge/tree/main/skills/domains/animation_workbench/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/recombyn/zuoge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T13:32:17Z"
+}
