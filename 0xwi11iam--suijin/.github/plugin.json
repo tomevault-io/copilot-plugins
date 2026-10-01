@@ -1,0 +1,9 @@
+{
+  "name": "0xwi11iam--suijin",
+  "displayName": "Suijin",
+  "description": "Suijin is an open-source AI agentic red and blue teaming framework powered by LangGraph and designed for bug bounty hunters and CTF players.",
+  "version": "1.0.0",
+  "author": "0xwi11iam",
+  "homepage": "https://github.com/0xwi11iam/Suijin",
+  "skills": []
+}
