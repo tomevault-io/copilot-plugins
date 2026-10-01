@@ -1,0 +1,9 @@
+{
+  "name": "elselawi--dicom-toolkit",
+  "displayName": "dicom_toolkit",
+  "description": "Flutter/Dart toolkit for dicom images",
+  "version": "1.0.0",
+  "author": "elselawi",
+  "homepage": "https://github.com/elselawi/dicom_toolkit",
+  "skills": []
+}
