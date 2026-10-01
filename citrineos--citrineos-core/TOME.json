@@ -4,7 +4,7 @@
   "repo": "citrineos-core",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/citrineos/citrineos-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T22:53:21Z"
+  "distributed_at": "2026-10-01T11:02:05Z"
 }
