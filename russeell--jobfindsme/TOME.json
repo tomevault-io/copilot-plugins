@@ -1,0 +1,44 @@
+{
+  "name": "jobfindsme",
+  "owner": "russeell",
+  "repo": "jobfindsme",
+  "description": "AI\u684c\u9762\u6c42\u804c\u52a9\u624b\uff1a\u627e\u5c97\u4f4d\uff08BOSS\u76f4\u8058\u3001\u730e\u8058\u3001\u667a\u8054\u62db\u8058\u548c\u524d\u7a0b\u65e0\u5fe7\uff09\u3001\u6539\u7b80\u5386\u3001\u51c6\u5907\u9762\u8bd5\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/russeell/jobfindsme",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T18:55:41Z"
+}
