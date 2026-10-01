@@ -412,4 +412,4 @@ recipe for driving the surface and killing the link on purpose.
 
 ---
 > Source: [Agent-Field/CodeAF](https://github.com/Agent-Field/CodeAF) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
