@@ -1,23 +1,27 @@
 # jcode
 
-> Tome by [1jehuang](https://github.com/1jehuang/jcode) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [1jehuang](https://github.com/1jehuang/jcode), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 Coding Agent Harness
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [1jehuang/jcode](https://github.com/1jehuang/jcode).
+Original source: `CLAUDE.md` in [1jehuang/jcode](https://github.com/1jehuang/jcode).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/1jehuang/jcode](https://github.com/1jehuang/jcode)
+## Bundled Skills (1)
+
+- [jcode](https://github.com/1jehuang/jcode/tree/main/.jcode/skills/optimization/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/1jehuang/jcode](https://github.com/1jehuang/jcode)
 
 ---
 
