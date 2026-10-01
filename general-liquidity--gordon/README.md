@@ -7,11 +7,11 @@ Gordon is the frontier trading agent. The world's first agent harness for financ
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [general-liquidity/gordon](https://github.com/general-liquidity/gordon).
+Original source: `CLAUDE.md` in [general-liquidity/gordon](https://github.com/general-liquidity/gordon).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
