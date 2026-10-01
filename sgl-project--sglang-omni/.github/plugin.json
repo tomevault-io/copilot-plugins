@@ -5,5 +5,22 @@
   "version": "1.0.0",
   "author": "sgl-project",
   "homepage": "https://github.com/sgl-project/sglang-omni",
-  "skills": []
+  "skills": [
+    {
+      "name": "sglang-omni",
+      "description": ""
+    },
+    {
+      "name": "sglang-omni",
+      "description": ""
+    },
+    {
+      "name": "sglang-omni",
+      "description": ""
+    },
+    {
+      "name": "sglang-omni",
+      "description": ""
+    }
+  ]
 }
