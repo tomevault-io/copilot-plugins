@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kerim0x1/bettercode](https://github.com/kerim0x1/bettercode).
+Original source: `GEMINI.md` in [kerim0x1/bettercode](https://github.com/kerim0x1/bettercode).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [kerim0x1/bettercode](https://github.com/kerim0x1/bettercode) — a repo with 82+ stars on GitHub.
+From [kerim0x1/bettercode](https://github.com/kerim0x1/bettercode) — a repo with 87+ stars on GitHub.
 
 ---
 
