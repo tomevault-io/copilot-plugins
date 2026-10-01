@@ -1,0 +1,9 @@
+{
+  "name": "xl0--lovely-mermaid",
+  "displayName": "lovely-mermaid",
+  "description": "Render Mermaid diagrams as Unicode box-drawing art for terminals",
+  "version": "1.0.0",
+  "author": "xl0",
+  "homepage": "https://github.com/xl0/lovely-mermaid",
+  "skills": []
+}
