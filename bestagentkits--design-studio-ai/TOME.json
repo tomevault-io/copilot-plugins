@@ -2,9 +2,9 @@
   "name": "design-studio-ai",
   "owner": "bestagentkits",
   "repo": "design-studio-ai",
-  "description": "Open-source design workspace for AI agents and humans. Cloud editing, 3D, motion, MCP, WebMCP, CLI and BYOK. MIT.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bestagentkits/design-studio-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-13T07:31:43Z"
+  "distributed_at": "2026-10-01T00:44:31Z"
 }
