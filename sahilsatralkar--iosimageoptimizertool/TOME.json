@@ -2,9 +2,9 @@
   "name": "iOSImageOptimizerTool",
   "owner": "sahilsatralkar",
   "repo": "iOSImageOptimizerTool",
-  "description": "iOS Image Optimizer Tool",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sahilsatralkar/iOSImageOptimizerTool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T15:25:46Z"
+  "distributed_at": "2026-10-01T02:27:38Z"
 }
