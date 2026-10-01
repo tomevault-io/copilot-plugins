@@ -1,0 +1,44 @@
+{
+  "name": "arkit-3dgs-scanner",
+  "owner": "KuoFengYuan",
+  "repo": "arkit-3dgs-scanner",
+  "description": "Scan with an iPhone and train 3D Gaussian Splatting on the device (Metal), or export a COLMAP dataset. ARKit poses, optional LiDAR fusion, on-device data refinement, and a live 3DGS preview and model viewer.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KuoFengYuan/arkit-3dgs-scanner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T14:46:01Z"
+}
