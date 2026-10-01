@@ -1,58 +1,44 @@
-## touchpad-shield-build
+## touchpad-shield-code
 
-> Touchpad Shield 版本管理与编译规范（强制执行）
+> Touchpad Shield 代码维护约定（禁止重复提议的 refactor）
 
 
-# Touchpad Shield 版本与编译规范
+# Touchpad Shield 代码维护约定
 
-## 版本号
+完整说明见 `PRD/Touchpad_Shield_开发指导.md` §6.1。以下为 AI 与审查者必须遵守的摘要。
 
-- 语义化版本号（人工维护）：`MAJOR.MINOR.PATCH`，定义于 `version/Version.props`
-- 构建号（源码变动时自动递增）：4 位数字 `BUILD`，与版本号分开维护
-- 展示格式：`MAJOR.MINOR.PATCH build BUILD`（例如 `1.0.0 build 0006`）
-- 渠道后缀（仅展示字符串，不影响 BUILD 数字与 assembly 版本）：
-  - `build-debug.ps1` → ` (alpha)`，例如 `1.1.0 build 0101 (alpha)`
-  - `build-beta.ps1` → ` (beta)`
-  - `build-release.ps1` → 无后缀
-- Windows 资源字符串（`.rc`）与 UI 使用展示格式；`app.manifest` 的 `assemblyIdentity` 使用四段数字 `MAJOR.MINOR.PATCH.buildInt`
+## 禁止再提议的「优化」
 
-## 产物目录
+除非用户**明确新需求**，不得建议或实施：
 
-- `Touchpad Shield App/debug/`：Debug 可执行文件，启用 debug 日志
-- `Touchpad Shield App/beta/`：NSIS 打包的 debug 版安装包（仅用户指令时编译）
-- `Touchpad Shield App/release/`：正式发布 NSIS 安装包（仅用户指令时编译）
+1. **合并 Curtain / SuperCurtain 事件 handler**（`SmartAreaSwitch_Toggled`、`SmartEdgeSwitch_Toggled`、`CurtainValueChanged`、`SuperCurtainValueChanged`）——有意保留四个独立 handler。
+2. **抽象 WindowBoundsHelper 与 TrayIconService 的 `SetWindowSubclass` 样板**——两处处理的消息语义不同，保持独立。
+3. **合并 TouchpadParametersService 进 RegistryService**——SPI 封装层，保持独立文件。
+4. **删除 `Assets/TouchpadShieldLogo.png` 的 CopyAssets**——PNG 供图标生成脚本使用。
+5. **移除 WebView2 依赖**——WinAppSDK C++/WinRT 构建需要。
 
-## 编译策略
+## 禁止恢复的反模式（v1.1.1 已移除）
 
-- 每次修改源码后：**自动编译 debug 版本**并输出到 `Touchpad Shield App/debug/`
-- beta / release：**仅在用户明确指令时**编译与打包
-- 技术栈：WinUI 3 unpackaged + C++/WinRT + NSIS
+除非用户**明确新需求**，不得建议或实施：
+
+1. **`RootLayoutGrid` 构造函数 / XAML 设置 `MinWidth/MinHeight` 1560×900**——窗口最小尺寸仅由 `WindowBoundsHelper::ApplyInitialClientBounds` + `WM_GETMINMAXINFO` 约束。
+2. **`AutostartHandledSessionId` / `ShouldSkipStartupLaunch` / defer 尺寸到 `ShowFromTray`**——自启重复判定用 Session Mutex；尺寸在 `CompletePlatformSetup` → `EnsureInitialWindowSize` 应用。
+3. **`ActivateExistingInstance` 裸 `ShowWindow` 回退**——二次打开必须 `PostMessage(ShowMainWindow)` → `ShowFromTray`。
+4. **`WindowBoundsHelper` 分离的 `Apply` + `ResizeClientToLogicalSize` 对外 API**——统一为 `ApplyInitialClientBounds`。
+5. **`LaunchToTrayOnly` 内重复 `m_trayIcon.Create`**——托盘由 `UpdateTrayIconState` 统一创建。
+
+## 已完成清理（勿重复）
+
+- HID 源文件已移除；注册表键为 `InputAutoTouchpadEnabled` / `MonitoredInputDevices`；**无** HID 实验键迁移
+- PnP watcher 在关闭自动启停时仍运行（仅 reconcile 关闭）；见开发指导 §3.3.1（1）
+- pch 已瘦身；`XamlLocalTypes.h` 仅服务 `XamlTypeInfo.g.cpp`
+- `BuildContainerPropertyNamesList()`、`BuildInputDeviceListRow()` 已提取共用
+- `ShouldMinimizeToTrayOnClose` 已删除
+- v1.1.1：`Local\TouchpadShield_SingleInstance_v2`、计划任务自启、`ApplyInitialClientBounds`、遗留 `AutostartHandledSessionId` 启动清理
 
 ## 需求变更
 
-- 需求理解阶段有疑问必须与用户确认，不可自行决定解决方案
-
-## 版本号与文档同步（发布前必查）
-
-版本号或 BUILD 变更后（含 `bump-build.ps1`、改 `Version.props`、打 Release/Beta 包），**必须**同步并复查以下位置是否与 `version/Version.props` 一致：
-
-| 检查项 | 路径 / 位置 |
-|--------|-------------|
-| 对外版本行 | `README.md` 文首「当前版本」、下载表安装包文件名 |
-| 版本规则示例 | `README.md` §版本号规则表 |
-| 开发指导基线 | `PRD/Touchpad_Shield_开发指导.md` 文首、§5.1 当前基线、§5.2 产物示例、§7.1 标题 |
-| Patch 变更说明 | `PRD/Touchpad_Shield_v1.0.0_to_v1.1.0_变更说明.md` 对应 §七附 / §七附2 |
-| 安装包文件名 | `Touchpad Shield App/release/TouchpadShield-{semver}-build{BUILD}-setup.exe` 与 NSIS 脚本 |
-| Git tag / Release | `v{MAJOR.MINOR.PATCH}-build{BUILD}` |
-
-**提交 git / push / 打 tag 前：** 用 `grep` 或全文搜索旧 BUILD 号（如 `0109`），确认文档与 `Version.props` 无遗漏。
-
-## GitHub Release 发布规范
-
-- 使用 `scripts/publish-github-release.ps1`；Release 简介正文来自 `scripts/release-notes-body.template.md`（或 `-ReleaseNotesFile` 指定 UTF-8 文件）
-- **Windows 上 `gh --notes-file` 必须 UTF-8 BOM**（脚本 `Write-Utf8BomFile` 会校验 BOM）；禁止直接用系统 ANSI 编码的临时文件
-- 发布后立即执行 `gh release view <tag> --repo ZiMiaoWorkshop/Touchpad-Shield`，确认网页简介中文正常、无乱码（如 `姝ｅ紡` 类 mojibake）
-- 若 Release 已存在但简介乱码：`gh release edit <tag> --notes-file <UTF-8 BOM 文件>` 或重跑 `publish-github-release.ps1 -SkipTagPush`
+有疑问必须与用户确认，不可自行决定解决方案（与 build 规则一致）。
 
 ---
 > Source: [ZiMiaoWorkshop/Touchpad-Shield](https://github.com/ZiMiaoWorkshop/Touchpad-Shield) — distributed by [TomeVault](https://tomevault.io).
