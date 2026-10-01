@@ -4,7 +4,7 @@
   "repo": "DRYL.Components",
   "description": "An AI-Native, Zero-NPM, Glassmorphic UI Component Library for Blazor. Built for the era of LLMs and high-performance SaaS applications.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Zimpi/DRYL.Components",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T13:54:30Z"
+  "distributed_at": "2026-10-01T10:30:26Z"
 }
