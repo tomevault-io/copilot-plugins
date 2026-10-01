@@ -1,0 +1,9 @@
+{
+  "name": "datadog--dd-sdk-flutter",
+  "displayName": "dd-sdk-flutter",
+  "description": "dd-sdk-flutter",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/dd-sdk-flutter",
+  "skills": []
+}
