@@ -2,9 +2,9 @@
   "name": "HoldSpeak",
   "owner": "karolswdev",
   "repo": "HoldSpeak",
-  "description": "Cross-platform local voice typing and meeting transcription for macOS and Linux.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/karolswdev/HoldSpeak",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T09:02:06Z"
+  "distributed_at": "2026-10-01T00:23:34Z"
 }
