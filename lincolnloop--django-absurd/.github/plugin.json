@@ -1,7 +1,7 @@
 {
   "name": "lincolnloop--django-absurd",
   "displayName": "django-absurd",
-  "description": "Django integration for Absurd, a Postgres-native durable workflow system.",
+  "description": "django-absurd",
   "version": "1.0.0",
   "author": "lincolnloop",
   "homepage": "https://github.com/lincolnloop/django-absurd",
