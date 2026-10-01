@@ -1,0 +1,345 @@
+{
+  "name": "Amethyst",
+  "owner": "Wayn-Git",
+  "repo": "Amethyst",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-svg/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-svg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-web/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-text/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-flip/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-flip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-core/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gpt-taste/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gpt-taste/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/unslop-ui/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/unslop-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-setup/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-utils/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-utils/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-react/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-easing/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-easing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/i-have-adhd/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/i-have-adhd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/shader-glsl/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/shader-glsl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/unslop-code/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/unslop-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/unslop-text/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/unslop-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-plugins/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-observer/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-observer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/minimalist-ui/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/minimalist-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-timeline/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-timeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/svg-animation/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/svg-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/glassmorphism/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/glassmorphism/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-draggable/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-draggable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-utilities/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-utilities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/emil-design-eng/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/emil-design-eng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/60fps-animation/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/60fps-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-frameworks/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/ascii-animation/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/ascii-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/particle-system/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/particle-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/scroll-3d-scene/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/scroll-3d-scene/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/lottie-animation/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/lottie-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-performance/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/scaffold-3d-site/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/scaffold-3d-site/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/micro-interaction/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/micro-interaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/threejs-animation/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/threejs-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/gsap-scrolltrigger/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/gsap-scrolltrigger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/optimize-3d-assets/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/optimize-3d-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/add-postprocessing/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/add-postprocessing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/3d-website-architect/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/3d-website-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/accessible-animation/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/accessible-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/high-end-visual-design/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/high-end-visual-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/industrial-brutalist-ui/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/industrial-brutalist-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "backend/skills/builtin/amethyst-intro/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/backend/skills/builtin/amethyst-intro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "backend/skills/builtin/tasks-and-lists/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/backend/skills/builtin/tasks-and-lists/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/page-transition-animation/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/page-transition-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "backend/skills/builtin/writing-documents/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/backend/skills/builtin/writing-documents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "backend/skills/builtin/connector-trouble/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/backend/skills/builtin/connector-trouble/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "agents/skills/typograpyh/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/agents/skills/typograpyh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amethyst",
+      "path": "backend/skills/builtin/interactive-artifacts/SKILL.md",
+      "github_url": "https://github.com/Wayn-Git/Amethyst/tree/main/backend/skills/builtin/interactive-artifacts/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Wayn-Git/Amethyst",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T11:34:32Z"
+}
