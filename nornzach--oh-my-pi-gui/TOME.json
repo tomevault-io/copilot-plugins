@@ -1,0 +1,44 @@
+{
+  "name": "oh-my-pi-gui",
+  "owner": "nornzach",
+  "repo": "oh-my-pi-gui",
+  "description": "Desktop GUI for the omp coding agent: parallel sessions, visual tool calls, model/provider management, and usage analytics.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nornzach/oh-my-pi-gui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T23:01:16Z"
+}
