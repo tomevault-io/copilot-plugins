@@ -1,0 +1,9 @@
+{
+  "name": "sii-system--agent-fleet",
+  "displayName": "agent-fleet",
+  "description": "agent-fleet",
+  "version": "1.0.0",
+  "author": "sii-system",
+  "homepage": "https://github.com/sii-system/agent-fleet",
+  "skills": []
+}
