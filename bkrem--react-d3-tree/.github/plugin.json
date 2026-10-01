@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "bkrem",
   "homepage": "https://github.com/bkrem/react-d3-tree",
-  "skills": [
-    {
-      "name": "react-d3-tree",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
