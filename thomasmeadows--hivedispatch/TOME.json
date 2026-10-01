@@ -4,7 +4,7 @@
   "repo": "HiveDispatch",
   "description": "An Agent Orchestrating Agent for Code that uses tickets in a ticketing system to conduct agents.  This project can be used locally, or on a server so that you can remotely direct coding agents through a ticketing system such as JIRA or Github Projects.  ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thomasmeadows/HiveDispatch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T11:54:32Z"
+  "distributed_at": "2026-10-01T10:12:33Z"
 }
