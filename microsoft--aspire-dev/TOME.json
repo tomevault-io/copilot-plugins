@@ -1,0 +1,123 @@
+{
+  "name": "aspire.dev",
+  "owner": "microsoft",
+  "repo": "aspire.dev",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/hex1b/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/hex1b/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/aspire/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/doc-tester/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/doc-tester/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/doc-writer/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/doc-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/update-samples/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/update-samples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/container-images/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/container-images/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/twoslash-validator/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/twoslash-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/update-integrations/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/update-integrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": "src/frontend/public/.well-known/agent-skills/getting-started-with-aspire/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/src/frontend/public/.well-known/agent-skills/getting-started-with-aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/doc-pr-reviewer/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/doc-pr-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire.dev",
+      "path": ".agents/skills/whatsnew/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire.dev/tree/main/.agents/skills/whatsnew/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/aspire.dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T15:30:41Z"
+}
