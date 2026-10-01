@@ -1,0 +1,44 @@
+{
+  "name": "personal-finance-tracker",
+  "owner": "gillespiejameson",
+  "repo": "personal-finance-tracker",
+  "description": "Local-first personal finance tracker: CSV/OFX + SimpleFIN import, rules, budgets, safe-to-spend, net worth, forecasts. Next.js + SQLite.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gillespiejameson/personal-finance-tracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T10:39:01Z"
+}
