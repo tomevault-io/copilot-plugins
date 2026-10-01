@@ -1,0 +1,105 @@
+{
+  "name": "ModularRSI",
+  "owner": "IQuestLab",
+  "repo": "ModularRSI",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ModularRSI",
+      "path": "skills/publish/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/skills/publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ModularRSI",
+      "path": "skills/rewardkit/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/skills/rewardkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ModularRSI",
+      "path": "skills/create-adapter/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/skills/create-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ModularRSI",
+      "path": "examples/tasks/hello-skills/environment/skills/generate-greeting/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/examples/tasks/hello-skills/environment/skills/generate-greeting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ModularRSI",
+      "path": "src/harbor/agents/terminus_2_modular/self_evo/editor_skills/adding-a-variant/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/src/harbor/agents/terminus_2_modular/self_evo/editor_skills/adding-a-variant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ModularRSI",
+      "path": "src/harbor/agents/terminus_2_modular/self_evo/editor_skills/kernel-boundaries/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/src/harbor/agents/terminus_2_modular/self_evo/editor_skills/kernel-boundaries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ModularRSI",
+      "path": "src/harbor/agents/terminus_2_modular/self_evo/editor_skills/editing-conventions/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/src/harbor/agents/terminus_2_modular/self_evo/editor_skills/editing-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ModularRSI",
+      "path": "src/harbor/agents/terminus_2_modular/self_evo/editor_skills/module-architecture/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/src/harbor/agents/terminus_2_modular/self_evo/editor_skills/module-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ModularRSI",
+      "path": "src/harbor/agents/terminus_2_modular/self_evo/editor_skills/adding-a-solver-tool/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/src/harbor/agents/terminus_2_modular/self_evo/editor_skills/adding-a-solver-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ModularRSI",
+      "path": "src/harbor/agents/terminus_2_modular/self_evo/editor_skills/failure-mode-checklist/SKILL.md",
+      "github_url": "https://github.com/IQuestLab/ModularRSI/tree/main/src/harbor/agents/terminus_2_modular/self_evo/editor_skills/failure-mode-checklist/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/IQuestLab/ModularRSI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T11:43:29Z"
+}
