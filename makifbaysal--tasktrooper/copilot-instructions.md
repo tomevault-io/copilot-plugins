@@ -1,44 +1,89 @@
 ## tasktrooper
 
-> Three parts, one product: the macOS desktop app. Read the directory's own
+> React + TypeScript + Vite SPA. It is the **desktop app's** UI: `..` (the desktop shell)
 
-# TaskTrooper — monorepo
+# TaskTrooper UI
 
-Three parts, one product: the macOS desktop app. Read the directory's own
-`CLAUDE.md` before working in it.
+React + TypeScript + Vite SPA. It is the **desktop app's** UI: `..` (the desktop shell)
+bundles `dist/` and serves it from `app://tasktrooper`. It also runs in a
+browser against a local server, which is the development path. It is not a
+deployable web app — no hosting, no CDN, no multi-tenant anything.
 
-| dir | what | verify |
-|---|---|---|
-| `server/` | Go backend (hexagonal), embedded Postgres, agent runtime | `go build ./... && go vet ./... && go test ./...` |
-| `desktop/` | Electron shell: supervises the backend + embedder, serves the UI from `app://tasktrooper` | `npm run typecheck && npm run lint && npm test` |
-| `desktop/ui/` | React UI, bundled into the app | `npx tsc --noEmit && npm run build && npm run check:locales` |
+Docs index:
 
-`make test` runs all three.
+- [Frontend Components (Atomic Design)](.ai/frontend-components.md) — mandatory
+- [API Specification](.ai/api-spec.md) — the endpoints this app calls
 
-## Shape
+## Code comments
 
-- **Local only.** One user, no login. The UI authenticates to the backend with
-  one bearer token: the desktop generates it and passes it to the server as
-  `SERVER_API_KEY` and to the page as `window.__tasktrooperDesktop.apiToken`;
-  `make dev` uses `VITE_API_KEY`.
-- **The desktop app is the backend's supervisor.** It spawns `bin/agent-server`
-  with `PORT=0`, reads the `LISTENING http://127.0.0.1:<port>` line, polls
-  `/health`, then opens the window. The server starts its own Postgres from
-  the zonky binaries under the data directory when `DATABASE_URL` is empty.
-- **Two contracts cross directories and move together:**
-  `desktop/src/ipc/host.ts` ↔ `desktop/ui/src/lib/desktop-bridge.ts` (the
-  bridge), and the server's env/stdout contract in `server/README.md` ↔
-  `desktop/src/main/supervisor/`.
+Do not add code comments unless truly necessary — a non-obvious invariant, a
+workaround, or a WHY that isn't clear from the code itself. Never explain WHAT
+the code does; well-named identifiers already do that.
 
-## Rules
+## Frontend UI rule (mandatory)
 
-- No code comments that explain WHAT. Only a non-obvious invariant, a
-  workaround, or a WHY.
-- `domain`/`application` never import `adapter` in `server/`.
-- Nothing multi-tenant, no cloud, no control plane comes back: no Firebase, no
-  tunnel, no `X-Internal-*` headers, no team/invite/billing-plan UI.
-- Secrets never go on argv; children are `spawn`ed with `shell: false`.
+All UI in `src/` follows **Atomic Design**: atom → molecule → organism →
+template → page. Before writing any UI:
+
+1. **Reuse first.** Never hand-roll a button, card, badge, input, dialog,
+   header, empty state or list row — import the shared component.
+2. **No ad-hoc equivalents.** A `<div className="rounded-lg border p-4">` that
+   duplicates `Card`, or a bare styled `<button>` that duplicates `Button`, is
+   a bug. Raw elements are for genuinely one-off layout wrappers only.
+3. **Place new components at the correct atomic level.** Atoms only in
+   `src/components/ui/`; molecules/organisms in the closest feature directory
+   (`chat/`, `board/`, `workspace/`, `agent/`, `projects/`, `admin/`, `runner/`,
+   `setup/`) or `layout/` for structural pieces; pages in `src/pages/`.
+4. **Update shared components backward-compatibly.** New props get defaults.
+   Before any breaking change, `grep -rn "<ComponentName" src` for every caller
+   and update them in the same change.
+
+The full rules and the component inventory live in
+[.ai/frontend-components.md](.ai/frontend-components.md). Read it before UI
+work; it is the authority, this section is the summary.
+
+## Auth
+
+There is no login screen and no account. `src/lib/auth.ts` resolves one bearer
+token — the desktop shell's `window.__tasktrooperDesktop.apiToken`, else
+`VITE_API_KEY` — and `main.tsx` renders `ConfigErrorPage` when there is none.
+Nothing else in `src/` may read a credential.
+
+## API calls
+
+- One function per endpoint in `src/api.ts`, all through `request()`, which
+  goes to `apiUrl()` (`src/lib/apiBase.ts`) with `authHeaders()`.
+- `apiUrl()` prefixes the desktop shell's `apiBase` if present, else
+  `VITE_API_BASE`, else nothing (the dev proxy).
+- Never point an `<img src>` at `/v1/attachments/{id}` — it needs the
+  Authorization header; use `attachments/useAttachmentBlob`.
+- No route outside `/v1`, `/admin` and `/health` exists. There is no gateway,
+  no control plane and no OAuth broker to call.
+
+## Desktop bridge
+
+`src/lib/desktop-bridge.ts` is one half of a contract whose other half is
+`../src/ipc/host.ts`. They are separate declarations because this app
+builds with no knowledge of that package; **change both together**. The shell
+exposes `info()`, `apiBase`, `apiToken` and `runner` (process supervision,
+preflight, settings, diagnostics); `runner.connect()`/`disconnect()` start and
+stop the **backend**, not a tunnel.
+
+## Locales
+
+`src/locales/en.ts` is the source of truth and defines `Dict`; `tr.ts` is typed
+as `Dict`, so a missing or extra key fails `tsc`. Keys built at runtime escape
+that check — `npm run check:locales` compares the two flattened key sets.
+
+## Verify before committing
+
+```bash
+npm ci
+npx tsc --noEmit
+npm run build
+npm run check:locales
+```
 
 ---
 > Source: [makifbaysal/tasktrooper](https://github.com/makifbaysal/tasktrooper) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
