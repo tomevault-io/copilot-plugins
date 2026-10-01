@@ -1,7 +1,7 @@
 {
   "name": "gregorbiswanger--featherspec",
   "displayName": "featherspec",
-  "description": "A featherweight spec-driven development template with a Memory Bank, for Claude Code and GitHub Copilot.",
+  "description": "featherspec",
   "version": "1.0.0",
   "author": "GregorBiswanger",
   "homepage": "https://github.com/GregorBiswanger/featherspec",
