@@ -4,7 +4,7 @@
   "repo": "Skill2Env",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVlabs/Skill2Env",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T14:20:50Z"
+  "distributed_at": "2026-10-01T07:58:24Z"
 }
