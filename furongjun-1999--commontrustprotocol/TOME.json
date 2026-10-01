@@ -1,0 +1,44 @@
+{
+  "name": "CommonTrustProtocol",
+  "owner": "FuRongJun-1999",
+  "repo": "CommonTrustProtocol",
+  "description": "Common Trust Protocol (CTP) \u5171\u540c\u4fe1\u4efb\u534f\u8bae | Intelligentics \u667a\u80fd\u8bba\uff0c\u7814\u7a76\u667a\u80fd\u7cfb\u7edf\u5b58\u7eed\u7684\u5e95\u5c42\u7ed3\u6784\u6761\u4ef6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FuRongJun-1999/CommonTrustProtocol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T13:16:13Z"
+}
