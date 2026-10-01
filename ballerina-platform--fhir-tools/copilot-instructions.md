@@ -1,10 +1,10 @@
 ## fhir-tools
 
-> This file provides guidance to AI coding agents (Claude Code, Codex, Cursor, etc.) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to AI coding agents (Claude Code, Codex, Cursor, etc.) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this repo is
 
@@ -360,4 +360,4 @@ don't guess from the package name.
 
 ---
 > Source: [ballerina-platform/fhir-tools](https://github.com/ballerina-platform/fhir-tools) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
