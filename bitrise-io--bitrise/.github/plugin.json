@@ -1,0 +1,14 @@
+{
+  "name": "bitrise-io--bitrise",
+  "displayName": "bitrise",
+  "description": "bitrise",
+  "version": "1.0.0",
+  "author": "bitrise-io",
+  "homepage": "https://github.com/bitrise-io/bitrise",
+  "skills": [
+    {
+      "name": "bitrise",
+      "description": ""
+    }
+  ]
+}
