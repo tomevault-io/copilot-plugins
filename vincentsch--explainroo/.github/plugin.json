@@ -1,0 +1,9 @@
+{
+  "name": "vincentsch--explainroo",
+  "displayName": "explainroo",
+  "description": "Explainer videos and product demos made by your AI agent. Free and open source: a local voice (Kokoro), word timing (Whisper) and a canvas renderer turn a script into a narrated MP4.",
+  "version": "1.0.0",
+  "author": "vincentsch",
+  "homepage": "https://github.com/vincentsch/explainroo",
+  "skills": []
+}
