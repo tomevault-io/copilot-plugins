@@ -2,8 +2,6 @@
 
 > Tome by [agents-universe](https://github.com/agents-universe/agents-universe), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
-让智能体像人一样学习和工作
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
