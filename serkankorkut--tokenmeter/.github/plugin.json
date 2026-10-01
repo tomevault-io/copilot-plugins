@@ -1,0 +1,9 @@
+{
+  "name": "serkankorkut--tokenmeter",
+  "displayName": "tokenmeter",
+  "description": "Claude Code token usage and cost dashboard. Cost per prompt, cache misses and usage limits for Claude Code, Codex and GitHub Copilot CLI, read from local logs. Zero dependencies, nothing leaves your m",
+  "version": "1.0.0",
+  "author": "serkankorkut",
+  "homepage": "https://github.com/serkankorkut/tokenmeter",
+  "skills": []
+}
