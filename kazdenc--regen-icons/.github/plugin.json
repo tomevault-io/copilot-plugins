@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "kazdenc",
   "homepage": "https://github.com/kazdenc/regen-icons",
-  "skills": [
-    {
-      "name": "regen-icons",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
