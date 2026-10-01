@@ -2,9 +2,9 @@
   "name": "smelt",
   "owner": "leonardcser",
   "repo": "smelt",
-  "description": "TUI coding agent",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leonardcser/smelt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T11:13:36Z"
+  "distributed_at": "2026-10-01T17:34:21Z"
 }
