@@ -16,7 +16,7 @@ Original source: `` in [Azure-Samples/Legacy-Modernization-Agents](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Azure-Samples/Legacy-Modernization-Agents](https://github.com/Azure-Samples/Legacy-Modernization-Agents) — a repo with 213+ stars on GitHub.
+From [Azure-Samples/Legacy-Modernization-Agents](https://github.com/Azure-Samples/Legacy-Modernization-Agents) — a repo with 221+ stars on GitHub.
 
 ---
 
