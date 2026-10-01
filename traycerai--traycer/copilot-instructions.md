@@ -41,4 +41,4 @@ the site does not serve them.
 
 ---
 > Source: [traycerai/traycer](https://github.com/traycerai/traycer) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
