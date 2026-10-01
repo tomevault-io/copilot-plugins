@@ -1,33 +1,32 @@
 ## agentkit
 
-> **Purpose:** Given a written defect observation from a manufacturing quality control inspection, assess its severity, hypothesize the root cause, recommend an action, and explain the reasoning — as structured JSON.
+> Maintenance Evidence Copilot is a supervised synthetic-maintenance demonstration. It turns one API maintenance event into a bounded assessment for the drive-end rolling-element bearing on `MTR-101`.
 
-# Manufacturing Defect Triage Agent
-
-**Purpose:** Given a written defect observation from a manufacturing quality control inspection, assess its severity, hypothesize the root cause, recommend an action, and explain the reasoning — as structured JSON.
+# Maintenance Evidence Copilot
 
 ## Overview
 
-This agent is built for factories, production lines, and manufacturing QC teams who need to quickly triage defect reports without a human manually judging severity for every observation. It's designed to sit downstream of either a human inspector or an automated vision system (e.g. a YOLOv8-based defect detector) — either can produce the text description this agent consumes.
+Maintenance Evidence Copilot is a supervised synthetic-maintenance demonstration. It turns one API maintenance event into a bounded assessment for the drive-end rolling-element bearing on `MTR-101`.
 
 ## Flow
 
-**defect-triage**: `API Request → Generate JSON → API Response`
+`triage-maintenance-event` runs deterministic evidence preparation, structured evidence synthesis, and a final guard/assembly step. The final guard preserves deterministic telemetry and priority, forces `rootCauseConfirmed` to `false`, allowlists source IDs, and blocks unsafe autonomous instructions.
 
-1. Accepts `defectDescription` (string) — a free-text defect observation
-2. A Gemini 3.5 Flash Lite model, constrained to a structured output schema, assesses severity, root cause, recommended action, and reasoning
-3. Returns the structured result directly
+## Application boundary
+
+The included Next.js app calls only the deployed `triage-maintenance-event` flow. It offers three fixed scenarios and formats a local CMMS-style draft only after explicit human approval. It has no authentication, persistence, retrieval, external integrations, or second AI call.
+
+## Required configuration
+
+The app requires `LAMATIC_API_KEY`, `LAMATIC_PROJECT_ID`, `LAMATIC_API_URL`, and `TRIAGE_MAINTENANCE_EVENT_FLOW_ID` in `apps/.env.local`.
 
 ## Guardrails
 
-- The model is instructed to base its assessment strictly on what the description states, never inventing details not present in the input
-- If the input is vague or incomplete, the agent defaults to `severity: medium` and `recommended_action: escalate` rather than guessing confidently
-- Output is constrained to a fixed schema (severity, root_cause_hypothesis, recommended_action, reasoning) so downstream systems can rely on consistent structure
-
-## Integration
-
-Intended to be called via API with a single `defectDescription` field. Fits naturally as a step after an image-based defect detector, or as a direct entry point for manual QC notes.
+- Possible explanations are visibly unconfirmed.
+- The assessment is read-only before approval.
+- Approval creates a local draft only; it does not send a handoff or work order.
+- Root cause remains unconfirmed and physical work must follow approved isolation procedures.
 
 ---
 > Source: [Lamatic/AgentKit](https://github.com/Lamatic/AgentKit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
