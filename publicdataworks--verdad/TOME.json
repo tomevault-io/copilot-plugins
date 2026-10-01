@@ -4,7 +4,7 @@
   "repo": "verdad",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/PublicDataWorks/verdad",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T11:50:38Z"
+  "distributed_at": "2026-10-01T05:37:05Z"
 }
