@@ -1,0 +1,141 @@
+{
+  "name": "second-yourself",
+  "owner": "HurricaHjz",
+  "repo": "second-yourself",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/lint/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/attic/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/attic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/query/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/adopt/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/adopt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/ingest/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/gather/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/gather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/output/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/output/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/project/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/reflect/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/reflect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/delegate/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/delegate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/deep-lint/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/deep-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/qmd-search/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/qmd-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/export-template/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/export-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/delegate/lane-home-src/lint-slice/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/delegate/lane-home-src/lint-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/delegate/lane-home-src/compile-core/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/delegate/lane-home-src/compile-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "second-yourself",
+      "path": ".claude/skills/delegate/lane-home-src/reflect-slice/SKILL.md",
+      "github_url": "https://github.com/HurricaHjz/second-yourself/tree/main/.claude/skills/delegate/lane-home-src/reflect-slice/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HurricaHjz/second-yourself",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T01:38:25Z"
+}
