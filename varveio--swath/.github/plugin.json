@@ -1,0 +1,9 @@
+{
+  "name": "varveio--swath",
+  "displayName": "swath",
+  "description": "Parallel, resumable S3 listing for very large buckets. Learns the key distribution as it runs.",
+  "version": "1.0.0",
+  "author": "varveio",
+  "homepage": "https://github.com/varveio/swath",
+  "skills": []
+}
