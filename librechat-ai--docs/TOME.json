@@ -1,0 +1,51 @@
+{
+  "name": "docs",
+  "owner": "LibreChat-AI",
+  "repo": "docs",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docs",
+      "path": "public/.well-known/agent-skills/librechat-docs/SKILL.md",
+      "github_url": "https://github.com/LibreChat-AI/docs/tree/main/public/.well-known/agent-skills/librechat-docs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LibreChat-AI/docs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T15:32:33Z"
+}
