@@ -1,0 +1,9 @@
+{
+  "name": "patriceckhart--hrdx",
+  "displayName": "hrdx",
+  "description": "Yet another minimal and lightweight terminal multiplexer built for the agent era.",
+  "version": "1.0.0",
+  "author": "patriceckhart",
+  "homepage": "https://github.com/patriceckhart/hrdx",
+  "skills": []
+}
