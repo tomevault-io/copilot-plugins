@@ -1,0 +1,9 @@
+{
+  "name": "minimax-ai--openagentcore",
+  "displayName": "OpenAgentCore",
+  "description": "Open-source, self-hosted implementation of the OpenAI Agents API with multiple native harnesses.",
+  "version": "1.0.0",
+  "author": "MiniMax-AI",
+  "homepage": "https://github.com/MiniMax-AI/OpenAgentCore",
+  "skills": []
+}
