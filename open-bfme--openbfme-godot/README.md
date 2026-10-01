@@ -7,11 +7,11 @@ BFME Godot: A modern implementation of BFME 2 into Godot using the game's origin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Open-BFME/openbfme-godot](https://github.com/Open-BFME/openbfme-godot).
+Original source: `CLAUDE.md` in [Open-BFME/openbfme-godot](https://github.com/Open-BFME/openbfme-godot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
