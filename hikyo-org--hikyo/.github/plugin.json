@@ -1,0 +1,9 @@
+{
+  "name": "hikyo-org--hikyo",
+  "displayName": "Hikyo",
+  "description": "Fully open-source, self-hosted control plane for validated secrets and configuration across environments.",
+  "version": "1.0.0",
+  "author": "Hikyo-Org",
+  "homepage": "https://github.com/Hikyo-Org/Hikyo",
+  "skills": []
+}
