@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "catid",
   "homepage": "https://github.com/catid/leopard",
-  "skills": []
+  "skills": [
+    {
+      "name": "leopard",
+      "description": ""
+    }
+  ]
 }
