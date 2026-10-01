@@ -1,0 +1,9 @@
+{
+  "name": "ai-routing-research-institute--codex-provider-hub",
+  "displayName": "codex-provider-hub",
+  "description": "Codex \u4e0e Claude Code \u672c\u5730\u591a\u4f9b\u5e94\u5546\u8def\u7531\u4e2d\u67a2\uff1a\u96c6\u6210 CC Switch\uff0c\u652f\u6301\u5373\u65f6\u5207\u6362\u3001\u81ea\u52a8\u91cd\u8bd5\u3001Token \u7edf\u8ba1\u3001\u5065\u5eb7\u76d1\u63a7\u4e0e\u517c\u5bb9\u4f20\u8f93\u3002 Local provider hub for Codex and Claude Code.",
+  "version": "1.0.0",
+  "author": "AI-Routing-Research-Institute",
+  "homepage": "https://github.com/AI-Routing-Research-Institute/codex-provider-hub",
+  "skills": []
+}
