@@ -1,0 +1,9 @@
+{
+  "name": "openspindle--openspindle",
+  "displayName": "openspindle",
+  "description": "An open-source Makera CNC controller",
+  "version": "1.0.0",
+  "author": "openspindle",
+  "homepage": "https://github.com/openspindle/openspindle",
+  "skills": []
+}
