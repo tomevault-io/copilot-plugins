@@ -5,17 +5,24 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sgl-project/sglang-omni](https://github.com/sgl-project/sglang-omni).
+Original source: `CLAUDE.md` in [sgl-project/sglang-omni](https://github.com/sgl-project/sglang-omni).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [sgl-project/sglang-omni](https://github.com/sgl-project/sglang-omni) — a repo with 1296+ stars on GitHub.
+## Bundled Skills (4)
+
+- [sglang-omni](https://github.com/sgl-project/sglang-omni/tree/main/.claude/skills/tune-ci-thresholds/SKILL.md)
+- [sglang-omni](https://github.com/sgl-project/sglang-omni/tree/main/.claude/skills/running-eval-suite/SKILL.md)
+- [sglang-omni](https://github.com/sgl-project/sglang-omni/tree/main/.claude/skills/model-profiling/SKILL.md)
+- [sglang-omni](https://github.com/sgl-project/sglang-omni/tree/main/.claude/skills/omni-gpu-deep-dive/SKILL.md)
+
+From [sgl-project/sglang-omni](https://github.com/sgl-project/sglang-omni) — a repo with 1303+ stars on GitHub.
 
 ---
 
