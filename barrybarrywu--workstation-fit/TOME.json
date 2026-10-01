@@ -1,0 +1,44 @@
+{
+  "name": "workstation-fit",
+  "owner": "BarryBarrywu",
+  "repo": "workstation-fit",
+  "description": "\u5c31\u4f4d\uff1a\u8f93\u5165\u8eab\u9ad8\uff0c\u83b7\u5f97\u684c\u6905\u4e0e\u663e\u793a\u5668\u7684\u5efa\u8bae\u8d77\u59cb\u8303\u56f4\uff0c\u5e76\u901a\u8fc7 3D \u573a\u666f\u5b8c\u6210\u8eab\u4f53\u6821\u51c6\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BarryBarrywu/workstation-fit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-01T12:28:05Z"
+}
