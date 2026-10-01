@@ -15,15 +15,6 @@ Original source: `AGENTS.md` in [Djelibeybi/home-assistant-core](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (6)
-
-- [SKILL.md](https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/bump-dependency/SKILL.md)
-- [SKILL.md](https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-pr-reviewer/SKILL.md)
-- [SKILL.md](https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-review/SKILL.md)
-- [SKILL.md](https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-pr-comment-audit/SKILL.md)
-- [SKILL.md](https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-integration-knowledge/SKILL.md)
-- [SKILL.md](https://github.com/Djelibeybi/home-assistant-core/tree/main/.claude/skills/ha-quality-scale-verify/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Djelibeybi/home-assistant-core](https://github.com/Djelibeybi/home-assistant-core)
 
 ---
