@@ -1,0 +1,9 @@
+{
+  "name": "vibtools--mailstack",
+  "displayName": "MailStack",
+  "description": "Self-hosted open-source team email server with Django, Postfix, Dovecot, MariaDB, Nginx, team mailbox management, and one-click VPS installation.",
+  "version": "1.0.0",
+  "author": "vibtools",
+  "homepage": "https://github.com/vibtools/MailStack",
+  "skills": []
+}
