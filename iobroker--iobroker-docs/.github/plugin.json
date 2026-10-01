@@ -1,0 +1,9 @@
+{
+  "name": "iobroker--iobroker-docs",
+  "displayName": "ioBroker.docs",
+  "description": "ioBroker.docs",
+  "version": "1.0.0",
+  "author": "ioBroker",
+  "homepage": "https://github.com/ioBroker/ioBroker.docs",
+  "skills": []
+}
