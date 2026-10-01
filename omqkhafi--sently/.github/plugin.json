@@ -1,0 +1,9 @@
+{
+  "name": "omqkhafi--sently",
+  "displayName": "sently",
+  "description": "Open-source TypeScript messaging infrastructure for Email, SMS, WhatsApp & Push with interchangeable providers.",
+  "version": "1.0.0",
+  "author": "omqkhafi",
+  "homepage": "https://github.com/omqkhafi/sently",
+  "skills": []
+}
