@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [jupyter-naas/abi](https://github.com/jupyter-na
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jupyter-naas/abi](https://github.com/jupyter-naas/abi) — a repo with 162+ stars on GitHub.
+From [jupyter-naas/abi](https://github.com/jupyter-naas/abi) — a repo with 163+ stars on GitHub.
 
 ---
 
