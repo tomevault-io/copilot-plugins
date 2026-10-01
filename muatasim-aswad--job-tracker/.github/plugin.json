@@ -1,0 +1,9 @@
+{
+  "name": "muatasim-aswad--job-tracker",
+  "displayName": "job-tracker",
+  "description": "Track the opportunity, not the URL: one record per job across reposts, platforms, and email. Self-hosted job application tracker with browser capture and a Kanban dashboard.",
+  "version": "1.0.0",
+  "author": "Muatasim-Aswad",
+  "homepage": "https://github.com/Muatasim-Aswad/job-tracker",
+  "skills": []
+}
