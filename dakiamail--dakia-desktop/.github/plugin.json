@@ -1,0 +1,9 @@
+{
+  "name": "dakiamail--dakia-desktop",
+  "displayName": "dakia-desktop",
+  "description": "Privacy-minded desktop mail client for macOS, Windows, and Linux",
+  "version": "1.0.0",
+  "author": "DakiaMail",
+  "homepage": "https://github.com/DakiaMail/dakia-desktop",
+  "skills": []
+}
