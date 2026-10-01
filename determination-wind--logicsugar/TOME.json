@@ -4,7 +4,7 @@
   "repo": "LogicSugar",
   "description": "A user-friendly Mindustry logic editor mod with readable for, while, and switch blocks, indentation, folding, and vanilla-compatible output.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DeterMination-Wind/LogicSugar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T02:01:47Z"
+  "distributed_at": "2026-10-01T19:41:37Z"
 }
