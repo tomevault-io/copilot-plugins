@@ -1,0 +1,395 @@
+## a11
+
+> - `a11/` defines the current Python API and behavioural contract. `cpp/` is
+
+# A11 Engineering Guide
+
+## Source of truth and layout
+
+- `a11/` defines the current Python API and behavioural contract. `cpp/` is
+  its native implementation and should converge on the same semantics.
+  `actionengine/` is historical reference material, not the source of truth.
+- Keep independently linkable C++ components (`core`, `data`, `concurrency`,
+  `stores`, `net`, `nodes`, `actions`, and `service`). Each `cpp/a11/<part>/`
+  owns its source list in its local `CMakeLists.txt`; the target and dependency
+  graph remain visible in `cpp/CMakeLists.txt`.
+- Concurrency types live directly in `namespace a11`, even though their files
+  remain under `a11/concurrency/`. Do not recreate `a11::concurrency`.
+- Byte-level primitives that several unrelated components need are **header-only
+  inline** functions, so sharing them costs no link dependency: `a11/utf8.h`
+  (`IsContinuation`, `SequenceWidth`, `Utf16Units`, `IsValid`) and
+  `a11/percent.h` (`HexDigit`, `Decode`, `DecodeStrict`, `Encode`). That is what
+  lets `a11::flow_lang`, which links nothing but Abseil and nlohmann, use the
+  same UTF-8 rules as the serializer. Reach for these rather than open-coding a
+  lead-byte ladder or a `%xx` loop, and add new ones to
+  `cpp/tests/header_canary.cc`. The strict UTF-8 validator has one home,
+  `a11::IsValidUtf8` in `a11/json_codec.h`; `FindUnencodableString` beside it is
+  iterative on purpose, because fiber stacks are small and fixed.
+- Public stateful Python runtime types reuse the bound native class objects;
+  do not add shadow Python implementations or facade subclasses for concrete
+  native types. Attach thin, asynchronous, idiomatic protocols to the bound
+  classes, while retaining deliberate virtual adapters such as
+  `LocalChunkStore` where Python subclass overrides must cross into C++.
+- Pydantic-style validation, JSON, copy, and schema helpers augment native
+  binary and schema values; they must not introduce a second public data model.
+  Python serializers and deserializers continue to operate on those native
+  values.
+- A Python reimplementation of logic the native library already has needs a
+  reason a caller can feel: pydantic and `IntEnum` ergonomics, the exception a
+  Python developer expects, duck typing a C++ signature cannot express. Parity
+  is not a reason. Where the only difference is language, delegate to the
+  binding and delete the copy — a second implementation is one that falls
+  behind, and the fix is to remove it rather than to test it. This does not
+  license collapsing the per-language *data tables* below (serial tags, status
+  chunks): those exist once per language because each language needs its own
+  literals, and `testdata/` pins them to each other.
+- Flow is the language whose programs are compositions of actions that are
+  themselves actions. **The language lives in `cpp/a11/flow/`**: the lexer, the
+  highlighter, the parser, the resolver, the inspector, the formatter, the
+  completion **and the runtime** are native, and every surface is a frontend over
+  them — the `a11 flow` CLI, the `a11._native.flow` bindings, the standalone
+  `a11-flow` binary, and the IntelliJ plugin. Nothing about the language is
+  implemented in Python: `a11/flow/plan.py` and `a11/flow/runtime.py` are glue over
+  `a11._native.flow`, and `flow.loads` is the strict door onto it.
+    - The point of the move is that there is **one** implementation of each language
+      judgement. There is no lexer, parser, resolver, inspector or word list in
+      Kotlin, Python or a grammar file any more, and there must not be one again: a
+      second copy is a copy that falls behind, and the fix is to delete it rather
+      than test it. `a11/flow/tests/test_editor_support.py` now holds the *absence*
+      of those copies.
+    - The language tooling is `a11::flow_lang`, and it links **nothing but Abseil and
+      nlohmann**. No sockets, no nodes, no OpenSSL. That is what lets it ship as
+      `a11-flow` (a few megabytes, `A11_BUILD_FLOW_TOOL`) on platforms where the full
+      runtime is not built, so keep it that way. The executing half is the separate
+      `a11::flow_runtime` (`values.cc`, `runtime.cc`), which does link the node and
+      action layers — and `a11_flow_test`'s link line is the proof the language does
+      not.
+    - The runtime is **fibers over one monitor**: `thread::` primitives only (never
+      `std::mutex`), one lock and one condition variable per run, and blocking work
+      done with the lock released. That is what makes giving up on a run possible at
+      all — a pump waiting for a reader that will never come has to be woken. Every
+      fiber gets a stack an interpreter frame chain fits in, because any of them can
+      reach the `HostBridge`.
+    - `HostBridge` is the three questions only the host can answer: coerce a value
+      into a registered type, read one out of a chunk, write one into a chunk. The
+      Python bindings answer them against the Python registry -- which is where a
+      pydantic model actually lives -- and the standalone tool answers them with the
+      C++ registry. A `Value` the language cannot take apart is carried as an opaque
+      host object; the language only ever renders, indexes, compares or truth-tests
+      one.
+    - `cpp/a11/flow/service.cc` is the one service: a method name, a document, and an
+      envelope back. `a11-flow serve --protocol json|lsp`, `a11 flow serve` and
+      `a11._native.flow.request` are adapters over it, so a capability added there
+      reaches all of them. Add a method there rather than a special case in one
+      frontend.
+    - Problems are **diagnostics, not exceptions**: the parser and resolver collect
+      and recover, because an editor is looking at a file somebody is in the middle
+      of typing. A strict entry point turns the first error into the
+      `FlowSyntaxError` Python has always raised, with the same line, column and
+      message. Every code is published in `testdata/flow/codes.json`, generated from
+      the C++ table; the envelopes (`flow.diagnostics/v1` and friends, documented in
+      `doc/docs/guides/flow-tooling.md`) are additive — adding a field is not a
+      version change, and a reader must ignore what it does not know.
+    - A fix travels **with** the diagnostic, as edits. A frontend applies them blind;
+      nothing downstream re-derives what a repair should be.
+- Flow must stay a layer *on* the public
+  A11 surface, adding no runtime behaviour A11 does not already expose. A flow's
+  semantics are the language's contract: steps run concurrently, every called
+  output is drained, a local call's nodes stay off the wire, a stream read inside
+  a loop or branch is materialised once and replayed, and a stream is produced
+  only once something reads it (reading a status waits, and may end a node).
+  Status codes are Abseil's canonical ones; every significant word is accepted in
+  lower or upper case but never mixed. Changing any of that is a language change,
+  so keep `a11/flow/tests/`, the grammar and `REFERENCE` in
+  `a11/flow/__init__.py`, and `cpp/a11/flow/vocabulary.cc` in step with it.
+  An editor that can run a process asks the language (`a11-flow serve`); one that
+  cannot — a static grammar file — is **generated** from the vocabulary by
+  `a11 flow syntax --target sublime --generate`, and `a11 flow syntax` fails when
+  the checked-in file is not what the generator would write.
+- A chunk's metadata is the only thing that says how to read its bytes. The
+  media type is the representation; a `type` parameter names the value when the
+  format does not already describe it. The seven JSON-native shapes (`object`,
+  `array`, `string`, `integer`, `number`, `boolean`, `null`) carry no parameter,
+  so a bare `application/json` or `application/x-msgpack` is complete and
+  decodes to a dict / `nlohmann::json` / plain object / map. Nothing inside a
+  payload names a type: a declared model's fields say what they hold, and
+  schemaless data is just data. A caller naming an `obj_type` gets a best effort
+  and a real deserialization error when the data will not fit.
+- A serializable type carries the *same* wire tag in every language:
+  `a11.<Class>` for the runtime's own types, `a11.sdk.<Class>` for the SDKs,
+  subpackages omitted and the name chosen for what the type is. The table lives
+  once per language — `a11/data/serial_tags.py` (an `A11_SERIAL_TAG` ClassVar
+  per class), `cpp/a11/data/serial_tags.h` (returned by the `A11SerialTag` ADL
+  point), `js/src/serial_tags.ts`, `kotlin/.../SerialTags.kt` — and
+  `testdata/serial_tags.json` pins all four, with each suite asserting its own
+  constants against it. Renaming a tag is a wire change: add the old spelling to
+  the legacy alias map so readers keep accepting it, and never emit it again.
+- A status carried as data is a *status chunk*: mimetype
+  `application/x-a11-status`, payload the concatenated-MessagePack
+  `(code, message, details)` record, built in one place per language
+  (`a11::data::MakeStatusChunk`, `statusToChunk`, `status_to_chunk`) and read
+  back through that language's decoder. Action dispatch/completion statuses,
+  node aborts and the closure marker a drained writer tees all use that one
+  shape; `testdata/status_chunk.json` pins the mimetype, the `a11-close`
+  marker attribute and the payload bytes, with each suite asserting its own
+  helpers against it. It stays outside the serialization registry on purpose:
+  `StatusOr` cannot carry a non-OK status as a *value*, which is what the
+  dedicated helpers and the `DecodedStatus` box exist for.
+
+## Concurrency architecture
+
+- Thread is A11's scheduling substrate. In A11 code, explicitly spell
+  `thread::Mutex`, `thread::MutexLock`, `thread::CondVar`, and
+  `thread::SleepFor`. Mutex members are `mu`/`mu_`; condition variables are
+  `cv`/`cv_`.
+- Protect shared state with Abseil annotations (`ABSL_GUARDED_BY`,
+  `ABSL_EXCLUSIVE_LOCKS_REQUIRED`, and `ABSL_LOCKS_EXCLUDED`) and keep
+  `-Wthread-safety` clean.
+- Boost.Context/Fiber is an implementation detail of Thread. No header may
+  include or expose a Boost type. Fixed, stack-resident opaque storage is
+  preferred for small Boost-backed primitives; implementation size/alignment
+  assertions must guard it.
+- The native `std::mutex`/`std::condition_variable` pair in Thread's Boost
+  scheduler is deliberate: it parks an OS worker when no fiber is runnable.
+  Do not replace that scheduler-internal pair with fiber-aware primitives.
+  A11 state and ordinary Thread APIs must use the fiber-aware primitives.
+- Use fibers near user-facing synchronous-looking APIs where they improve
+  clarity. Use fair, bounded, stackless callback pumps for high-cardinality
+  internal state machines. `ChunkStoreReader` and `ChunkStoreWriter` share
+  stackless schedulers; never add a permanently allocated fiber per instance.
+- Root-fiber stack size is configurable through
+  `THREAD_DEFAULT_FIBER_STACK_SIZE` and `thread::TreeOptions::stack_size`.
+  Avoid extra context switches and do not introduce unbounded queues.
+- Thread changes require cooperative-concurrency tests: cancellation and tree
+  propagation, `Select`/`SelectUntil`, `SleepFor`, timed waits, FIFO behaviour,
+  deadlock resistance, waiter cleanup, and joined/detached fiber lifetime.
+- **Debug a hang with `thread/introspect.h` before anything else.** A11's own
+  `.claude/settings.json` enforces this: `scripts/hook_fiber_debugging.sh` puts
+  the procedure in context at session start and on any prompt about a hang,
+  deadlock or timeout. Do not add print statements, raise a timeout, or read
+  code speculatively until a fiber report has been read.
+- Prose rules are enforced too. `scripts/hook_writing_style.sh context` states
+  the writing style at session start, with examples and counterexamples;
+  `... filter` refuses a Write or Edit carrying the phrases it names. In short:
+  describe the artefact in a present-tense factual verb; delete history,
+  counterfactual warnings, intent emphasis and value framing rather than
+  rephrasing them; lead documentation with what the reader can do; and compare
+  to a named product by granting its strengths and stating A11's own limits,
+  never with a superlative. Commits `14c8e9ba`, `bac44c5` and `76499e8` are
+  where the rules were applied wholesale.
+- A blocked fiber's stack is parked where no OS thread points at it, so `bt` and
+  a core dump miss the frames that explain a hang. `thread/introspect.h` records
+  each fiber's wait kind, wait object and frame pointer when it blocks, and
+  unwinds the parked stacks from those frame pointers on request:
+  `A11_FIBER_WATCHDOG=<seconds>`, `kill -USR2`, `thread::FormatFiberReport()`,
+  `a11.debug.fiber_report()`, or `scripts/a11_fibers.py` under LLDB or GDB for a
+  core file. The repo's `.lldbinit` and `.gdbinit` load that script; both
+  debuggers need a one-line opt-in before reading a directory-local init
+  file. A new blocking path in Thread needs a `THREAD_WAIT_SCOPE` where it
+  blocks, or it appears in reports as `running`. The walk requires the frame
+  pointers `A11_FRAME_POINTERS` keeps. See
+  `doc/docs/guides/debugging-concurrency.md`.
+
+## C++ API and implementation rules
+
+- Model ownership with `std::unique_ptr` and `std::shared_ptr`; use raw pointers
+  for temporary non-owning access. Prefer `make_unique`/`make_shared`, write
+  `ptr == nullptr` or `ptr != nullptr`, and apply `absl_nonnull`,
+  `absl_nullable`, or `absl_nullability_unknown` to raw-pointer contracts.
+- Avoid reference counting where ownership is singular or scope-bound. Prefer
+  inline storage, contiguous data, `absl::InlinedVector`, bounded arenas, or a
+  stack-optimised pImpl when lifetime and size justify them.
+- Thread is an accepted public A11 dependency. Keep direct members and inline
+  implementations when Thread was the only reason for a pImpl. Hide other
+  third-party implementation types with forward declarations or pImpl unless
+  they are intrinsically part of a public data contract.
+- Use `absl::flat_hash_map` and `absl::flat_hash_set`. Use
+  `absl::node_hash_map` only when mapped-value addresses truly must remain
+  stable; pointer-valued flat maps already have stable pointees. Test lookup
+  iterators instead of using `.contains()`.
+- Use unqualified `size_t`, not `std::size_t`.
+- Virtual functions have no default arguments. Provide non-virtual convenience
+  overloads when defaults are useful.
+- Initialise every aggregate field deliberately. Treat use-after-move,
+  implicit narrowing, and partially initialised state as correctness bugs.
+
+## Exceptions
+
+- **A11 does not throw.** Every A11 library is compiled `-fno-exceptions`, so a
+  `throw` or a `try` in A11's own code is a compile error. Errors are
+  `absl::Status`; a violated invariant is a `CHECK`. **There is no build option
+  for this** -- it is what A11 is, not how it happens to be configured, and a
+  half nobody compiles is the half that rots. It constrains A11's own translation
+  units only: a consumer compiles its own with exceptions if it likes, links
+  normally, and throws freely in its own frames.
+- Exceptions survive in exactly the translation units that *call* code which can
+  throw, and each one names itself in the exception policy block of
+  `cpp/CMakeLists.txt`: boost fiber's internals, libdatachannel's `rtc::` API,
+  whisper.cpp, nlohmann's two entry points with no non-throwing overload
+  (`a11/json_codec.cc`), and the per-library `boundary.cc` files. Adding to that
+  list needs a throwing callee to point at; wanting to catch something A11 would
+  have raised is not a reason, because A11 raises nothing.
+- A callable a *caller* hands us is the one real boundary. Wrap it with
+  `a11::exception_guard::Wrap` where A11 adopts it -- where `on_message` is
+  stored, where a codec is registered -- never with a `try` at the call. A `try`
+  in one of A11's own frames protects nothing: the exception would have to unwind
+  through a `-fno-exceptions` frame first, which is undefined and skips its
+  destructors.
+  `a11/exception_guard.h` explains this in full, including
+  `exception_guard::Attempt`, which is the form for a template in a header.
+- Implementations of A11's interfaces -- `WireStream`, `ChunkStore` -- report
+  through their `Status` return and must not throw. The Python trampolines
+  already convert (`cpp/python/interop.cc`); a C++ implementation that calls a
+  throwing library is expected to catch in its own translation unit.
+- nlohmann defines `JSON_NOEXCEPTION` under `-fno-exceptions`, which turns its
+  throws into `std::abort()`. Parse untrusted text and dump arbitrary bytes
+  through `a11/json_codec.h`, which returns `Status`; everywhere else, precede a
+  `get<T>()` or a subscript with the `is_*()`/`find()` check that makes it
+  well-typed, as the existing JSON code does.
+- Public headers must compile both ways. `tests/header_canary.cc` compiles every
+  installed header with exceptions disabled; add new ones to it.
+- **A header containing a `try` may only be included where exceptions are on, and
+  do not rely on the compiler to tell you.** `a11/internal/exception_guard_impl.h`
+  is the one such header; it carries an `#error` for the no-exceptions case
+  because whether a `try` in an *uninstantiated* template body is a diagnostic is
+  compiler-dependent -- GCC and clang up to ~17 reject it at parse time, Apple
+  clang 21 accepts it. `a11/exception_guard.cc` included it for years of nothing
+  and then broke only on the CI macOS runner. If you need the `Failure` trait
+  without the wrappers, include `a11/internal/exception_guard_failure.h`, which
+  has no `try` and needs no opt-out.
+
+## Abseil conventions
+
+- Abseil `Status`, `StatusOr`, `Time`, and `Duration` are the native error and
+  timing types. Prefer `ABSL_RETURN_IF_ERROR` and `ABSL_ASSIGN_OR_RETURN`.
+- For `absl::StatusOr<absl::Status>`, use `AssignStatus` to represent an outer
+  error; do not add a wrapper type or conflate it with the inner status value.
+- Log through Abseil (`LOG(ERROR)`, `DLOG`, and checks), never `std::cerr`.
+  Add `AbslStringify` to custom value types used in diagnostics.
+- Preserve structured A11 status details across C++, MessagePack/JSON, and
+  Python. Python callers must receive `a11.status.StatusException`, not a
+  generic or pybind11-specific exception.
+
+## Networking
+
+- WebSocket transport and WebSocket signalling use A11's nghttp2/HTTP2 stack.
+  libdatachannel is reserved for WebRTC data channels and peer connections.
+- All channel transports use the Action Engine-compatible byte-chunking wire
+  format. Keep `ChannelFramingOptions` aligned with `ByteChunkingOptions`,
+  enforce message and pending-byte bounds, and retain out-of-order/interleaved
+  reassembly tests. WebRTC chunk sizes must remain below SCTP limits;
+  WebSocket chunking also prevents large messages from monopolising a stream.
+
+## Python boundary
+
+- Python-specific policy belongs only in `cpp/python/` and thin Python facade
+  modules. Core A11 and Thread must not know about the GIL, asyncio, pybind11,
+  or Python exception classes.
+- Binding callbacks may arrive from fibers, libuv, or libdatachannel threads.
+  Acquire the GIL before touching Python, release it around blocking native
+  waits, marshal coroutine work to its captured asyncio loop, and retain Python
+  objects until completion without leaking references.
+- Native `absl::Time`, `absl::Duration`, and `absl::Status` may back Python
+  convenience types, but arithmetic, exceptions, reprs, and async methods must
+  continue to feel native to Python.
+- Synchronous binding methods returning `absl::Status` or `StatusOr` must use
+  the shared status boundary so failures raise `a11.status.StatusException`;
+  never expose a raw Abseil or pybind11 status exception to callers.
+- Attach the Python protocol as a readable `class` body and copy it onto the
+  bound native class with `a11._native_protocol.attach_protocol`, rather than a
+  flat list of `NativeClass.method = _fn` assignments. Keep native descriptor
+  captures (`_native_x = NativeClass.x`) as module globals before the attach,
+  and keep truly-internal helpers module-level so they stay out of the stub.
+  Export the public native classes with `from a11._native import X` (an import
+  alias griffe and type checkers resolve to the class), not `X = _native.X`
+  (an opaque attribute assignment). Field-driven option structs stay with
+  `a11._native_options.install_native_options`.
+- An LLM SDK client (`a11/sdk/<backend>/interact_with_*.py`) owns exactly what is
+  specific to its backend: the wire shapes, the streaming accumulator that
+  rebuilds a tool call from that SDK's events, and the request it builds. The
+  action-call bridge is **shared** and lives in `a11/sdk/llm.py` —
+  `ToolCall`, `ActionCallAdapter`, `add_tool_calls_to_interaction`,
+  `decode_action_output_fragments`, `build_tool_results`, `stringify_content`,
+  `encode_backend_value`. Turning a model's tool call into A11 action inputs, and
+  action outputs back into text, is not a per-backend judgement, and three copies
+  of it drifted apart before this was written down. A backend that shapes its
+  result message differently passes a formatter to `build_tool_results` rather
+  than reimplementing the loop.
+
+## Documentation
+
+- Docs live in `doc/` and build to `doc/site` via `doc/build.sh` (see
+  `doc/README.md`): MkDocs Material + `mkdocstrings` for the Python API and
+  guides, Doxygen + doxygen-awesome-css for the C++ API. The Python site
+  is static — `griffe` reads `a11/` and the `a11/_native/` stubs, so no native
+  build is needed to generate it. CI builds and deploys it
+  (`.github/workflows/docs.yml`).
+- One griffe extension in `doc/` makes the generated stubs documentable:
+  `griffe_overloads.py` keeps overload-only members. A native submodule is a
+  file of the stub package (`a11/_native/flow.pyi`), so
+  `from a11._native.flow import X` resolves with nothing added.
+- Python: Google-style docstrings. Write for a developer *building an AI agent* —
+  explain the asynchronous, streaming intent and when to reach for a thing, not
+  just its mechanics. Keep symbols briefly but accurately
+  documented.
+- C++ / pybind11: give every `.def*` real parameter names (`py::arg("...")`, not
+  `arg0`) and a docstring. Keep them brief and accurate. After changing
+  bindings, rebuild the extension and regenerate the `a11/_native/` stubs with
+  `scripts/generate_stubs.py`; `--check` gates it in CI.
+- Implementation comments are at most three lines and exist only for
+  unconventional code paths or complex decisions. API docstrings retain useful
+  parameter descriptions, nuanced behaviour, and in-context examples, and may
+  be longer when that material cannot be stated clearly in three lines. Delete
+  historical explanations and counterfactual warnings; state current
+  constraints directly. All comment lines stay within 80 columns. Preserve
+  licence headers verbatim, even when their required form exceeds these limits.
+  Keep namespace and header-guard closing comments.
+- Preserve operational comments that prevent misuse or wasted work: generated
+  file warnings, regeneration commands, required call ordering, ignored-work
+  explanations, and non-obvious usage constraints. These may exceed three lines
+  when the complete instructions need the space, but remain within 80 columns.
+
+## Dependencies, installation, and wheels
+
+- Non-system C++ dependencies are statically linked. Shared objects are allowed
+  only where a runtime/module boundary requires them; any such dependency must
+  use loader-relative RPATH/RUNPATH and never an absolute build-machine path.
+- Abseil is pinned and fetched from upstream because A11 depends on current
+  status macros. Boost, OpenSSL, nghttp2, uvw/libuv, and libdatachannel targets
+  must pass the static-target checks. Installed CMake targets must pass the
+  out-of-tree smoke test.
+- `scripts/build_wheels.py` builds architecture-specific CPython 3.11-3.14
+  wheels for macOS x86_64/arm64 and Linux x86_64/aarch64. Do not emit
+  `universal2` wheels: Boost.Context contains architecture-specific assembly.
+- On macOS, build both macOS and Linux matrices; on Linux, Linux-only is valid.
+  The dependency bootstrap builds static archives per target architecture and
+  deployment target. scikit-build outputs stay in ABI-specific build trees;
+  generated extensions must never enter the sdist or leak into another ABI's
+  wheel.
+- Every wheel must contain exactly one `a11/_native` extension and pass
+  `scripts/audit_wheel.py`, which rejects non-system loader dependencies,
+  absolute RPATH/RUNPATH entries, and universal wheels.
+
+## Verification
+
+- Build the native tree through the CMake presets (see BUILDING.md); export
+  `A11_DEPS_PREFIX` first:
+
+  ```sh
+  cmake --preset debug
+  cmake --build --preset debug -j 8
+  ctest --preset debug
+  .venv/bin/pytest -q
+  scripts/smoke_cmake_install.sh
+  ```
+
+- Format C++ with the root `.clang-format`; run the configured `.clang-tidy`
+  checks when the tool is available. Keep Python formatted with Black/Ruff and
+  regenerate `uv.lock` after dependency or Python-version changes.
+- Add regression tests at the lowest useful layer. Remove or update tests that
+  assert obsolete pure-Python internals, while retaining language-native public
+  behaviour and cross-language callback/error tests.
+
+---
+> Source: [hpnkv/a11](https://github.com/hpnkv/a11) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
