@@ -1,25 +1,17 @@
 ## pdf-translate
 
-> ﻿# Cursor Rules for PDF-Translate Skill
+> ﻿# Windsurf Rules for PDF-Translate Skill
 
-﻿# Cursor Rules for PDF-Translate Skill
+﻿# Windsurf Rules for PDF-Translate Skill
 # High-fidelity vector PDF translation, layout preservation, and automated audit.
 
-# Rule 1: Layout & Height Preservation
-- Always enforce CSS @page size (e.g. A4 portrait, margin 12mm 15mm).
-- Always wrap each page in a container with class `.page` and strict `max-height: 270mm` with `overflow: hidden`.
-- Never allow unconstrained flex or table heights that expand across pages.
-
-# Rule 2: Zero Hallucination Pipeline
-- Always extract clause hierarchy trees and numerical metrics into a structured schema before filling templates.
-- Never summarize, merge, or omit statutory sub-clauses (e.g. 2.1.1~2.1.8).
-- Never fabricate non-existent numbers, dates, or workflow steps.
-
-# Rule 3: Automated Verification
-- After generating HTML, run `python scripts/render_pdf.py input.html output.pdf --strict-overflow`.
-- Always audit using `python scripts/audit_pdf.py --src original.pdf --tgt output.pdf`.
-- Any Critical Error from `audit_pdf.py` must trigger self-repair before user delivery.
+# Execution Workflow:
+1. Document Structure Inspection via PyMuPDF (fitz)
+2. Two-stage schema extraction (extract clause numbers, parameters, table dictionaries)
+3. HTML5 + CSS @page vector reconstruction (max-height: 270mm, overflow: hidden)
+4. Playwright headless render with JS overflow check (scripts/render_pdf.py)
+5. Mandatory page-by-page audit with scripts/audit_pdf.py
 
 ---
 > Source: [lxsssssss/pdf-translate](https://github.com/lxsssssss/pdf-translate) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
