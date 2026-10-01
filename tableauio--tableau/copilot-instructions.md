@@ -1,14 +1,23 @@
 ## tableau
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Guidance for coding agents working in this repository. Keep `AGENTS.md` and `CLAUDE.md` synchronized.
 
-# CLAUDE.md
+# Repository Agent Guidance
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for coding agents working in this repository. Keep `AGENTS.md` and `CLAUDE.md` synchronized.
+
+## Current Documentation
+
+When a task asks about a library, framework, SDK, API, CLI tool, or cloud service, use the `ctx7` CLI to fetch current documentation, including for API syntax, configuration, migrations, setup, and library-specific debugging. This does not apply to refactoring, writing scripts from scratch, debugging business logic, code review, or general programming concepts.
+
+1. Resolve the official library name with `npx ctx7@latest library <name> "<specific topic>"` and choose the best relevant `/org/project` ID.
+2. Fetch docs with `npx ctx7@latest docs <libraryId> "<specific topic>"`. Use separate requests for distinct concepts, with at most three Context7 commands per question.
+3. Use a versioned ID from the library output for version-specific questions. Do not put secrets in queries.
+4. If Context7 fails with a quota error, report it and suggest `npx ctx7@latest login` or `CONTEXT7_API_KEY`. If it fails with a network or DNS error in the sandbox, retry outside the sandbox.
 
 ## Project Overview
 
-Tableau is a Go-based configuration converter that transforms Excel/CSV/XML/YAML files into protobuf-defined configuration files (JSON, Text, Bin). It uses Protocol Buffers (proto3) to define the structure of input data, extended with custom tableau options (field numbers 50000-99999 on `google.protobuf.*Options`).
+Tableau is a Go-based configuration converter that transforms Excel/CSV/XML/YAML files into protobuf-defined configuration files (JSON, Text, Bin). It uses Protocol Buffers (proto3), extended with custom tableau options on `google.protobuf.*Options` (field numbers 50000-99999).
 
 ## Common Commands
 
@@ -21,7 +30,7 @@ go install github.com/tableauio/tableau/cmd/tableauc@latest
 ### Testing
 ```bash
 # Run all unit tests
-go test -v -timeout 30m -race ./...
+go test -v -timeout 30m ./...
 
 # Run a single test
 go test -v -run TestFunctionName ./path/to/package/
@@ -35,11 +44,13 @@ go test -run ^Test_genConf$ -cpuprofile=cpu.prof ./test/bench/
 go tool pprof -http :8888 cpu.prof
 ```
 
+On Windows, do not run Go tests with the `-race` flag. Go in this environment is built with CGO disabled, while the race detector requires CGO.
+
 ### Vet & Lint
 ```bash
 go vet ./...
 
-# Full lint (CI uses golangci-lint v2.2.1)
+# Full lint (CI runs golangci-lint)
 golangci-lint run
 
 # Buf proto linting & build
@@ -148,7 +159,7 @@ Tableau extends protobuf descriptors at field numbers 50000:
 
 ### Concurrency Model
 
-- `xerrors.Collector`: Thread-safe error accumulator with configurable max capacity. Forms parent-child hierarchies. Uses `golang.org/x/sync/errgroup` for goroutine management.
+- `xerrors.Collector`: Thread-safe error accumulator with configurable max capacity, forming parent-child hierarchies.
 - `Collector.NewGroup()`: Creates an errgroup with the collector's context; goroutines call `g.Go()`.
 - `Collector.NewChild()`: Creates a child collector with its own capacity, registered under the parent.
 - The collector stops accepting new errors once full (`IsFull()` returns true), propagating early termination up the tree.
@@ -156,8 +167,8 @@ Tableau extends protobuf descriptors at field numbers 50000:
 ### Error Handling
 
 - Structured errors with key-value fields (`xerrors.NewKV`, `xerrors.WrapKV`).
-- Each error chain has exactly one stack trace (captured at creation via `callers()`).
-- Error codes (E0001-E3003) are generated from i18n config via `internal/tools/cmd/ecode`. Source: `internal/x/xerrors/ecode_generated.go`.
+- Each error chain has exactly one stack trace.
+- Error codes (E0001-E3003) are generated from i18n config via `internal/tools/cmd/ecode` into `internal/x/xerrors/ecode_generated.go`.
 - Errors carry structured fields: `module`, `bookName`, `sheetName`, `pbMessage`, `position` (Excel cell coordinates).
 - At debug log level, errors include full stack traces (`%+v`); at higher levels, concise format (`%v`).
 
@@ -171,7 +182,6 @@ Tableau extends protobuf descriptors at field numbers 50000:
 
 - Proto definitions live in `proto/tableau/protobuf/` and are published to the Buf Schema Registry (BSR) as `buf.build/tableauio/tableau`.
 - `buf.yaml` defines two modules: a named one (published, excludes `internal/` and `unittest/`) and an unnamed one (for internal protos used in testing).
-- Generated Go code goes to `proto/tableaupb/` via `buf generate`.
 - CI checks that generated `.pb.go` files are committed and up-to-date.
 - Dependency: `buf.build/bufbuild/protovalidate` for field validation.
 
@@ -193,17 +203,22 @@ Tableau extends protobuf descriptors at field numbers 50000:
 
 ## Code Conventions
 
+Go code must follow [Effective Go](https://go.dev/doc/effective_go) for formatting, naming, comments, and idioms. Run `gofmt` on changed Go files.
+
 ### Patterns to Follow
 
 - **Functional options**: Use `options.Option` closures for configurable constructors.
 - **Context propagation**: Pass `context.Context` through the call chain; embed custom state via `strcase.NewContext()`, `metasheet.NewContext()`.
 - **Error wrapping**: Always use `xerrors.WrapKV` with structured keys (`KeyModule`, `KeyBookName`, `KeySheetName`, etc.) to preserve diagnostic context.
-- **sync.Pool**: Used for frequently allocated objects (e.g., `tableaupb.FieldOptions` in `fieldOptionsPool`).
+- **Parser metadata**: Cache immutable field descriptors and option templates per parser.
 - **Map-reduce**: Concurrent parsing of multiple importers uses `Collector.NewGroup().Go()` for fan-out, mutex-guarded slice for fan-in.
 - **Interface-based importers**: All input formats implement the `Importer` interface (`Filename()`, `BookName()`, `Format()`, `GetSheets()`, `GetSheet(name)`).
 
 ### Naming
 
+- Keep names clear and concise. Use package and receiver context to avoid repeating information already visible at the call site.
+- Prefer verb-based names for functions and methods that perform actions (for example, `Parse`, `Load`, `Generate`); choose names that make the action intuitive.
+- Follow Go accessor conventions: name getters for the value (for example, `Owner()`), without a redundant `Get` prefix; use `SetOwner()` for a setter.
 - Proto field names use `snake_case`; Go struct fields use `PascalCase`.
 - CSV files: `<BookName>#<SheetName>.csv`.
 - Generated config files: `<MessageName>.<ext>` (e.g., `ItemConf.json`).
@@ -234,4 +249,4 @@ Tableau extends protobuf descriptors at field numbers 50000:
 
 ---
 > Source: [tableauio/tableau](https://github.com/tableauio/tableau) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
