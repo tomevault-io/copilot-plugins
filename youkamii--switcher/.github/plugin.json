@@ -1,0 +1,9 @@
+{
+  "name": "youkamii--switcher",
+  "displayName": "switcher",
+  "description": "Multi-account switcher widget for Claude Code and Codex CLI",
+  "version": "1.0.0",
+  "author": "Youkamii",
+  "homepage": "https://github.com/Youkamii/switcher",
+  "skills": []
+}
