@@ -1,0 +1,9 @@
+{
+  "name": "neondatabase--ui",
+  "displayName": "ui",
+  "description": "The official Neon UI Registry production-ready components, blocks, and starter kits for building modern applications on Neon.",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/ui",
+  "skills": []
+}
