@@ -1,0 +1,22 @@
+{
+  "name": "oracle--fusion-ai-studio",
+  "displayName": "fusion-ai-studio",
+  "description": "fusion-ai-studio",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/fusion-ai-studio",
+  "skills": [
+    {
+      "name": "fusion-ai-studio",
+      "description": ""
+    },
+    {
+      "name": "fusion-ai-studio",
+      "description": ""
+    },
+    {
+      "name": "fusion-ai-studio",
+      "description": ""
+    }
+  ]
+}
