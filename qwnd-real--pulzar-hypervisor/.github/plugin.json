@@ -1,0 +1,9 @@
+{
+  "name": "qwnd-real--pulzar-hypervisor",
+  "displayName": "pulzar-hypervisor",
+  "description": "Type-1 AMD svm hypervisor",
+  "version": "1.0.0",
+  "author": "qwnd-real",
+  "homepage": "https://github.com/qwnd-real/pulzar-hypervisor",
+  "skills": []
+}
