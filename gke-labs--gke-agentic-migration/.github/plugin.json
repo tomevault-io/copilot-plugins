@@ -1,0 +1,9 @@
+{
+  "name": "gke-labs--gke-agentic-migration",
+  "displayName": "gke-agentic-migration",
+  "description": "gke-agentic-migration",
+  "version": "1.0.0",
+  "author": "gke-labs",
+  "homepage": "https://github.com/gke-labs/gke-agentic-migration",
+  "skills": []
+}
