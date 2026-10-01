@@ -1,0 +1,9 @@
+{
+  "name": "rusudinu--orbit-mcp",
+  "displayName": "orbit-mcp",
+  "description": "MacOS menu bar app that exposes local Apple Reminders, Calendar, Notes, and date/time utilities to MCP-compatible clients through a local Streamable HTTP server.",
+  "version": "1.0.0",
+  "author": "rusudinu",
+  "homepage": "https://github.com/rusudinu/orbit-mcp",
+  "skills": []
+}
