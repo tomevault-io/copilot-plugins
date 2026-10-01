@@ -1,0 +1,9 @@
+{
+  "name": "nornzach--oh-my-pi-gui",
+  "displayName": "oh-my-pi-gui",
+  "description": "Desktop GUI for the omp coding agent: parallel sessions, visual tool calls, model/provider management, and usage analytics.",
+  "version": "1.0.0",
+  "author": "nornzach",
+  "homepage": "https://github.com/nornzach/oh-my-pi-gui",
+  "skills": []
+}
