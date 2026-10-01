@@ -1,97 +1,103 @@
 ## personaljarvis
 
-> Compressed index of the binding agent rules. The FULL contract (same section
+> Recursive, decentralized learning + memory layer for AI agents. Implements the **Agentic Context Engine (ACE)** loop with diagnostic guardrails (AgentDoG + LATS) and CRDT-based peer-to-peer sync between instances. Design source: `../Self-learning/KI-Fehlervermeidung und Wissensaustausch (1).md` (treated as research survey, not literal spec — engineering decisions live in `docs/adr/`).
 
-# CLAUDE.md
+# Skillbook
 
-Compressed index of the binding agent rules. The FULL contract (same section
-numbers, unabridged) is [`docs/agent-contract.md`](docs/agent-contract.md) —
-read it before deep work.
+Recursive, decentralized learning + memory layer for AI agents. Implements the **Agentic Context Engine (ACE)** loop with diagnostic guardrails (AgentDoG + LATS) and CRDT-based peer-to-peer sync between instances. Design source: `../Self-learning/KI-Fehlervermeidung und Wissensaustausch (1).md` (treated as research survey, not literal spec — engineering decisions live in `docs/adr/`).
 
-## 0. Mirror rule (BINDING)
-`CLAUDE.md` ≡ `AGENTS.md` (byte-identical); `.claude/{agents,commands,skills}/`
-≡ `.agents/{...}`. Auto-synced by hook + pre-commit + CI. Write for EVERY
-coding agent, never Claude Code alone.
+## Hard Constraints
 
-## 1. Language (BINDING, HIGHEST PRIORITY)
-Every committed artifact is ENGLISH. German ONLY on the closed product surface
-(runtime voice/chat output, i18n files, speech-input vocabulary, tests quoting
-them); register `scripts/ci/german-allowlist.txt` / inline `i18n-allow`;
-translate legacy German you touch. Runtime output language: ONE resolver
-(`jarvis/core/turn_language.py::resolve_output_language`) decides each turn
-for ALL layers; no layer re-derives it; all locales (de/en/es/…) equal.
+1. **All code lives under `skillbook/`.** Anything outside this directory is read-only — including `wiki/obsidian-vault/`, which is fully off-limits.
+2. **Memory-layer storage is schema-isolated.** The skillbook database file and all tables/keys are namespaced and never reuse a user-data schema.
+3. **No production stubs, TODOs, NotImplementedError, or "fix later" placeholders** in any path the capstone test exercises. Test mocks are allowed and expected.
 
-## 2. GitHub (BINDING)
-ONE public repo: `github.com/PersonalJarvis/PersonalJarvis`. **A push is
-`git push`** — no staging trees, clones, builds, or file audits. `.gitignore`
-first (data/, .env, jarvis.toml, Vault, keys never tracked); never commit
-credentials; secret scanning ON; whole-tree checks live in CI, never pre-push.
-Default = plain push; Release ONLY when explicitly asked (SemVer + tag +
-CHANGELOG + published GitHub Release; `check_release_completeness.py` before
-and after). Never push unless the maintainer asks.
+## Module Boundaries
 
-## 3. Open-source universality (BINDING)
-Assume an arbitrary downloader, never the maintainer: ANY single key works
-(capability-gated, cross-family fallback, honest degradation, AP-21/22); every
-OS incl. headless `python:3.11-slim` (base stays torch-free; GPU deps in
-`[local-voice]`); credentials recoverable IN-APP (keyring → ENV → file).
-macOS/Linux ship in the SAME change behind one capability probe or degrade
-honestly (+ `docs/os-parity.md`). Done = the four non-maintainer paths (§3).
-Device triage: version lag → setup divergence → OS gap.
+```
+┌──────────────────────────────────────────────────────────────────┐
+│ tests/test_capstone.py     (end-to-end ACE loop oracle)          │
+└──────────────────────────────────────────────────────────────────┘
+                                 │
+   ┌─────────────────────────────┼─────────────────────────────┐
+   ▼                             ▼                             ▼
+┌──────────────┐         ┌──────────────────┐         ┌──────────────────┐
+│ p2p_sync     │         │ ace_core         │         │ symcon_bridge    │
+│ (CRDT delta) │◄────────│ Generator        │◄────────│ MQTT + JSON-RPC  │
+└──────────────┘         │ Reflector(REPL)  │         └──────────────────┘
+                         │ Curator          │
+                         └────────┬─────────┘
+                                  │
+                  ┌───────────────┴──────────────┐
+                  ▼                              ▼
+           ┌──────────────┐              ┌──────────────────┐
+           │ guardrails   │              │ memory_layer     │
+           │ AgentDoG     │              │ Temporal KG +    │
+           │ LATS         │              │ Skillbook store  │
+           └──────────────┘              └──────────────────┘
+```
 
-## 4. Naming (BINDING)
-Internal: **Jarvis-Agents**. User-visible brand is DYNAMIC from the wake word
-(`{name}-Agent`, fallback "Assistant-Agent") — never hardcode. Retired
-codenames stay dead; `openclaw` binary strings + back-compat aliases stay AS-IS.
+**Dependency direction (strict, enforced by package layout):**
 
-## 5. Architecture essentials (+ §6 safety)
-8-layer rule (protocols down, frozen `EventBus` events laterally); plugins via
-entry-points, no `jarvis.*` import inside (then `pip install -e . --no-deps`);
-streaming-first; secrets only via `get_secret`; brain multi-provider +
-capability-gated; router = pure dispatcher over `ROUTER_TOOLS` (ADR-0011);
-`scrub_for_voice` regex-only; `jarvis.toml` only via `config_writer.py`;
-CLI-first contract (feature = REST route → auto-CLI + registry + danger
-metadata); five-layer enum pattern; workers in fresh git worktrees w/
-kill-on-crash + tool broker (ADR-0025/26); UTF-8 + `NO_WINDOW_CREATIONFLAGS`
-on every subprocess. Safety tiers safe/monitor/ask/block, blacklist >
-whitelist > default; only `ToolExecutor.execute()`; skills stay `draft`.
+- `memory_layer` depends on stdlib + numpy only.
+- `guardrails` depends on `memory_layer` (reads rules) and stdlib.
+- `ace_core` depends on `memory_layer` + `guardrails` + stdlib.
+- `symcon_bridge` depends on stdlib (and optionally `aiomqtt` for real broker use).
+- `p2p_sync` depends on `memory_layer` (reads/writes deltas) + stdlib.
+- Tests live in `tests/`; production modules never import from `tests/`.
+- Circular imports are a build failure.
 
-## 7. Anti-patterns AP-1..31 + bug classes (BINDING)
-Full register: `docs/agent-contract.md` §7–8. Essence: no keys via voice/chat;
-enum strings in ALL five layers; no spawn tools in worker sets; atomic TOML
-writes only; preflight every new worktree (restore trap!); nothing heavy on
-the boot critical path; no LLM in the voice scrubber; native inference = lock
-+ fresh-model recover; GPU wake gates ONLY on the inference probe; wake
-verification word-agnostic, never transcript content; no `isinstance` gates
-on unpinned libs; signing private keys ONLY in GH Actions secrets; no silent
-`except`; no unread config switch. Bug classes → [`docs/BUGS.md`](docs/BUGS.md).
+## Interface Types
 
-## 9. Operational reality & git
-Working tree is SHARED: stage only YOUR files (`git add -p`/pathspec, never
-`git add -A`/`.`); auto-commit each logical step (Conventional Commits); never
-push automatically; never commit secrets. **Coding agents NEVER restart, quit,
-kill, or relaunch the desktop app** (no restart API/CLI, `Stop-Process`, or
-equivalent). If Python changes need a restart, explain why and let the maintainer
-click Restart in the desktop UI. The desktop WebView
-has no F5/console — frontend fix = `npm run build` in
-`jarvis/ui/web/frontend/`, nothing else: open windows reload themselves
-(`src/lib/bundleWatch.ts`). Never end a frontend change by asking for a restart.
-Check `MEMORY.md` before larger decisions.
+Public surface uses `Protocol` (PEP 544) for swap-ability and `pydantic.BaseModel` for wire-format data. Internal helpers use `@dataclass(slots=True, frozen=True)`. No abstract base classes (`ABC`) unless inheritance is required.
 
-## 10. Run & test
-Install `pip install -e . --no-deps` + `-r requirements.txt` + `".[dev]"`;
-launch `run.bat` (`--headless` = API only); lint `ruff check jarvis/ && ruff
-format jarvis/ && mypy jarvis/`; tests `pytest tests/` (fakes, not mocks;
-fast `-m "not slow"`); guards `test_routing.py`, `test_output_filter.py`,
-`test_hangup_reason_parity.py`; new providers pass `tests/contract/`.
+Key interfaces:
 
-## 11. Pointers
-[`docs/agent-contract.md`](docs/agent-contract.md) (FULL contract) ·
-[`docs/architecture-overview.md`](docs/architecture-overview.md) ·
-[`CLOUD.md`](CLOUD.md) · [`docs/PHILOSOPHY.md`](docs/PHILOSOPHY.md) ·
-[`docs/BUGS.md`](docs/BUGS.md) · `docs/adr/` ·
-[`docs/jarvis-cli.md`](docs/jarvis-cli.md).
+- `MemoryStore` — `Protocol`, async; `put_fact`, `query_facts`, `put_rule`, `query_rules`, `delete_rule`.
+- `Embedder` — `Protocol`, sync; `embed(text: str) -> np.ndarray`.
+- `Actor` — `Protocol`, async; `call(name, params, timeout) -> ActorResult`. Mocked in tests.
+- `LLM` — `Protocol`, async; `complete(prompt) -> str`. Deterministic mock when `ANTHROPIC_API_KEY` is unset.
+- `Transport` — `Protocol`, async; `gossip(peer_id, payload)`, `subscribe(handler)`. Used by `p2p_sync`.
+
+Concrete data models live in `skillbook.{module}.models` modules (pydantic v2).
+
+## Tech-Stack Choices (one ADR per choice)
+
+| Concern | Choice | ADR |
+|---|---|---|
+| Python runtime | 3.11+ (3.12 preferred, uv-managed) | ADR-0001 |
+| Dependency manager | uv | ADR-0001 |
+| Repo layout | `src/skillbook/{module}/`, `tests/`, `data/` | ADR-0001 |
+| Persistent storage | SQLite under `data/`, file-per-instance | ADR-0002 |
+| Embeddings | sentence-transformers if installed + cached, deterministic hash fallback | ADR-0003 |
+| LLM provider | Anthropic SDK if `ANTHROPIC_API_KEY` present, deterministic mock otherwise | ADR-0004 |
+| MQTT stack | `aiomqtt` for production; tests use injected mock bridge | ADR-0005 |
+| P2P transport | OR-Set CRDT over async Transport protocol; default in-process queue, asyncio-TCP available | ADR-0006 |
+| Reflector sandbox | Subprocess REPL with restricted globals + result-via-stdout JSON | ADR-0007 |
+| Guardrails taxonomy | Enum-driven AgentDoG (Source/FailureMode/Consequence) | ADR-0008 |
+| Survey deviations | See ADR-0009 | ADR-0009 |
+
+## Test Pyramid
+
+- **Unit tests** (`tests/unit/{module}/`): one behavior per file, mock at module boundary.
+- **Integration tests** (`tests/integration/`): two-module flows (e.g. Reflector → Curator → memory).
+- **Capstone** (`tests/test_capstone.py`): full 7-step scenario from the goal.
+- Every test is deterministic under `--seeds=N`. A `seed` fixture parametrizes over `range(N)`. Tests that consume `seed` run N times; tests that don't run once. Failure under any seed = failure.
+
+## Definition of Done
+
+All five must be demonstrably true in code (referenced by line number) before this skillbook is "done":
+
+1. **DoD-1 (capstone passes under stress):** `pytest skillbook/ -x -q --seeds=5` from the repo root exits 0 with no skip/xfail/patch-around. Verified by re-run in a clean `/tmp` checkout.
+2. **DoD-2 (no production stubs):** `grep -rn "TODO\|FIXME\|NotImplementedError" skillbook/src` returns no matches. Test files (`skillbook/tests/`) may use `pytest.skip` *only* if a real environmental precondition is unmet — none of the capstone-path tests do.
+3. **DoD-3 (no escape from `skillbook/`):** Every file modified by skillbook code is under `skillbook/`. Verified by inspecting `git diff --name-only` of the skillbook branch — every path begins with `skillbook/`.
+4. **DoD-4 (schema-isolated memory):** Every SQLite write goes through `memory_layer.store.MemoryStore`, which uses tables prefixed `skb_` and a database file under `skillbook/data/`. Verified by `grep -rn "CREATE TABLE" skillbook/src` showing only `skb_*` tables and `grep -rn "sqlite3.connect\|aiosqlite.connect" skillbook/src` showing only `data/` paths.
+5. **DoD-5 (closed loop on both peers):** After P2P sync, peer B's skillbook contains the corrective rule emitted by peer A's Curator, and a follow-up actor call that would have timed out on the naive path completes successfully on both peers. Verified by `tests/test_capstone.py` assertions.
+
+## Pre-existing State
+
+The parent repository (Personal Jarvis) may carry unrelated in-progress working-tree changes. That state is **grandfathered** per the parent's AGENTS.md doctrine: skillbook commits never touch those files, and `git status` may continue to show them as modified/deleted until the parent team commits or discards them. The "git status clean" criterion in the goal applies to the skillbook scope: no uncommitted skillbook-owned files at completion.
 
 ---
 > Source: [PersonalJarvis/PersonalJarvis](https://github.com/PersonalJarvis/PersonalJarvis) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
