@@ -1,0 +1,9 @@
+{
+  "name": "termimus--termimus-ssh",
+  "displayName": "termimus-ssh",
+  "description": "A modern, open-source & self-hosted SSH client and server manager. Local-first, zero-knowledge encryption, and seamless multi-device sync.",
+  "version": "1.0.0",
+  "author": "termimus",
+  "homepage": "https://github.com/termimus/termimus-ssh",
+  "skills": []
+}
