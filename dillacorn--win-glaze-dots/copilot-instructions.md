@@ -1,0 +1,572 @@
+## win-glaze-dots
+
+> Guidance for AI coding agents and LLMs working in the win-glaze-dots repository.
+
+# AGENTS.md
+
+Guidance for AI coding agents and LLMs working in the win-glaze-dots repository.
+
+This file describes project-specific architecture, invariants, workflows, and validation expectations. It is intentionally separate from any user's general LLM personality or custom instructions.
+
+## Core rule
+
+Inspect the current repository before acting.
+
+win-glaze-dots changes over time. Current code, tests, CI, Git state, and the exact requested branch/tag/release take precedence over remembered architecture, old conversations, old documentation, or assumptions based on similar projects.
+
+If this file conflicts with the current implementation, verify the implementation and update this file as part of the relevant work when appropriate.
+
+## Project identity
+
+- win-glaze-dots is a Windows 10/11 dotfiles and configuration project maintained by dillacorn.
+- `wgdot` is the native Windows maintenance system for installing, reviewing, updating, resetting, and testing managed configuration. Its primary runtime is compiled locally from inspectable repository C# source by `wgdot/bootstrap.cmd`, so normal operation does not depend on `.ps1` execution being allowed.
+- The project also documents manual Windows/application setup that is intentionally not fully automated.
+- The repository is a local open-source utility. Do not introduce telemetry, hosted-service dependencies, or data collection without an explicit project decision.
+
+## Source-of-truth priority
+
+When sources disagree, use this order unless the task explicitly targets historical behavior:
+
+1. Exact user-requested target and current Git state.
+2. Current implementation on that target.
+3. Tests and CI that exercise the implementation.
+4. Current release/tag metadata when release behavior is involved.
+5. Current repository documentation.
+6. Recent relevant Git history.
+7. This `AGENTS.md` file.
+8. Memory, prior conversations, or older architecture knowledge.
+
+Never let memory override inspectable repository evidence.
+
+## System map
+
+```text
+Windows 10/11
+    |
+    +--> wgdot/bootstrap.cmd
+    |       |
+    |       +--> downloads/uses inspectable wgdot-native.cs
+    |       +--> compiles locally with Windows .NET Framework csc.exe
+    |       v
+    |   %LOCALAPPDATA%\wgdot\bin\wgdot.exe
+    |       |
+    |       +--> runtime self-refresh from main
+    |       +--> explicit feature-branch refresh while maintainer-testing
+    |       +--> stable release resolver
+    |       +--> managed config planner/executor
+    |       +--> required WinGet bootstrap + software reconciliation
+    |       +--> reversible application startup / uninstall manager
+    |       +--> adjacent backup manager
+    |       +--> Git-testing mode
+    |
+    +--> wgdot/manifest.json
+    |       |
+    |       +--> managed components
+    |       +--> Normal/Work defaults
+    |       +--> GlazeWM profile mapping
+    |       +--> WinGet package catalog
+    |       +--> explicit migrations
+    |
+    +--> wgdot/wgdot.ps1 + MANUAL_POWERSHELL.md
+            |
+            +--> compatibility/reference implementation
+            +--> paste-only PowerShell fallback for restricted environments
+
+Managed source files
+    |
+    +--> UserProfile/.glzr/
+    +--> UserProfile/.config/
+    +--> UserProfile/AppData/
+    +--> UserProfile/scripts/
+
+Validation
+    |
+    +--> tests/test-wgdot.ps1
+    +--> .github/workflows/validate-wgdot.yml
+```
+
+## Desktop runtime independence
+
+WGDot is primarily a management/configuration tool. Narrow, compiled desktop-session helpers are allowed only where the desired behavior cannot be reproduced cleanly by GlazeWM, YASB, Windows, or the target application.
+
+**Runtime-helper last-resort rule:** do not introduce, extend, or route ordinary desktop behavior through `wgdot.exe` or `wgdotw.exe` merely because WGDot can implement it. First exhaust the target application's own configuration, keybindings, commands, plugins, and APIs; then existing Windows, GlazeWM, YASB, Yazi, terminal, or other already-installed native mechanisms. Reuse an existing approved WGDot runtime helper only when it already owns the required primitive cleanly. Add or extend compiled WGDot runtime behavior only when those native/configuration paths cannot provide the required behavior reliably and the exception is narrow, documented, and covered by tests. If a task can be solved cleanly without WGDot runtime code, solving it through WGDot is an architectural regression.
+
+- Managed GlazeWM and YASB configuration should remain broadly usable when copied manually without WGDot, but approved custom surfaces may degrade when the compiled helper is absent.
+- Runtime ownership is hybrid and capability-driven. Ordinary actions already supported cleanly by GlazeWM, YASB, Windows, or the target application must stay native; WGDot runtime helpers are allowed only for custom behavior that genuinely requires code, cross-component state coordination, or low-level Windows APIs.
+- GlazeWM owns GlazeWM keybindings and binding modes. YASB owns its native widgets and callbacks where those widgets satisfy the intended behavior. Installed applications should be launched directly when practical.
+- The Awtarchy-style fullscreen power surface is an explicit compiled WGDot exception. YASB owns only the bar button; the button and `Super+P` dispatch `wgdotw.exe power-menu`. Keep the surface single-instance, theme-aware, windowless at dispatch, and animated with fade-in/fade-out so it never flashes an unstyled bright frame.
+- Runtime commands launched from YASB must not flash console windows. Use a windowless compiled WGDot frontend/worker path for the small set of approved runtime helpers.
+- `wgdotw.exe` must preserve each incoming argument boundary when it forwards to adjacent `wgdot.exe`; never rebuild the child command line with a raw space join. Keep the frontend explicitly versioned, and make runtime self-refresh ensure that version before recording the refreshed WGDot revision so wrapper security fixes reach existing installs without recompiling an unchanged frontend on every update.
+- Native ownership must stay literal for actions that have a clean native surface: screenshots, Windows Settings, workspace movement, and GlazeWM pause/mode state must not be bounced through WGDot merely for convenience. EarTrumpet remains the owner of its mixer window and Alt+V hotkey; the only approved WGDot bridge is the bar-only `eartrumpet-mixer-toggle` action because upstream YASB cannot emit the application-owned hotkey itself. The application launcher is an explicit exception because upstream YASB cannot provide the required trigger-aware placement or a native CLI/widget-action interface.
+- Neither Normal nor Work desktop runtime may depend on `.ps1` files. All managed GlazeWM/YASB runtime profiles must contain zero runtime references to `.ps1` files, and `desktop-scripts` must not be a default runtime component for either profile. For genuine custom runtime behavior that native owners cannot provide cleanly, use a narrowly scoped compiled WGDot helper. Do not use `-ExecutionPolicy Bypass`.
+- WGDot runtime helpers are permitted for narrowly scoped custom primitives that native owners cannot provide cleanly, including coordinated YASB/GlazeWM auto-hide, live Awtarchy-style theme application/synchronization and selector-window toggling, the Awtarchy-style power surface, the Awtarchy-style application launcher, the Normal-profile btop terminal toggle, the bar-only one-shot Clipboard History opener, the bar-only EarTrumpet mixer-hotkey trigger, the narrow RawAccel GUI toggle, and the Yazi outbound file-drag bridge while Windows Terminal lacks OSC 72 drag-and-drop. `yazi-drag` must stay a short-lived `wgdotw.exe` helper with one dedicated WinForms drag surface: explicit `d g` or the managed `Drag out...` context action may open it for the current selection/hovered item; internal `Current:drag()` must remain Yazi-only Copy/Move behavior and must not auto-launch the surface. The surface must resolve `CurrentYasbThemeId()` through the managed `YasbTheme` palette and style the complete borderless window from that current theme, with safe fallback colors and no unthemed frame flash. Open the drag surface centered in the active interaction screen's working area rather than adjacent to the pointer. It may expose only native file-drop data through OLE/WinForms and close after a successful drop or explicit user close; no runtime auto-refresh, clipboard mutation, key injection, global hook, or terminal-pointer escape tracking. RawAccel Windows-login startup must apply the saved RawAccel configuration without leaving a GUI/window resident: prefer the bundled `writer.exe settings.json` startup path, and use only a bounded launch-then-close GUI fallback when that writer/settings pair is unavailable. The explicit RawAccel toggle remains the only WGDot path that intentionally leaves a visible, centered, custom-sized RawAccel GUI open. The retired idle inhibitor, mouse-mode low-level pointer hook, and Super+L low-level keyboard-hook experiment are not approved live runtime primitives. Do not turn WGDot into a general desktop broker.
+- Anti-cheat safety is a hard runtime boundary. Production WGDot must not inject DLLs or remote threads into other processes, call process-memory read/write primitives, install global `SetWindowsHookEx` input hooks, enumerate every running process, or inspect arbitrary process module lists. Explicit window diagnostics may enumerate top-level windows without opening process memory. When package maintenance must diagnose a file lock, use a Windows facility scoped to the exact target files, such as Restart Manager, and report the returned holders instead of automatically terminating unrelated applications. Package-specific process control is allowed only for explicitly named applications that are part of that package's declared maintenance lifecycle; never broaden it into generic process inspection.
+- Keep Windows Micro theme behavior aligned with Awtarchy: WGDot vendors the mapped Micro colorschemes under `%USERPROFILE%\.config\micro\colorschemes` by default and the runtime honors `MICRO_CONFIG_HOME` / `XDG_CONFIG_HOME` when selecting Micro's active config directory and the theme manager updates only `colorscheme` in `%APPDATA%\\micro\\settings.json` while preserving other Micro settings. Theme mappings are Carbon Night/Electric Blue=`geany`, Catppuccin Frappe=`catppuccin-frappe-transparent`, Crimson Red=`zenburn`, Gruvbox=`gruvbox`, Iron Forge=`gotham`, Obsidian Night=`railscast`, Pink=`catppuccin-mocha-transparent`, and Pip-Boy=`cmc-16`.
+- Live Awtarchy-style theme application is an approved compiled WGDot responsibility for both Normal and Work. Theme application must not reload GlazeWM, must preserve unrelated Windows Terminal configuration, and must remain isolated from unrelated desktop actions.
+- WGDot remains responsible for installation, software management, source/version selection, managed-file planning, backups, updates, resets, migrations, audits, and other explicit maintenance operations.
+- Tests must enforce the hybrid boundary: reject WGDot for actions with clean native ownership, allow only explicitly approved custom runtime commands, require both Normal and Work runtime configs to be `.ps1`-free, and reject visible-console runtime dispatch.
+
+## Runtime vs managed configuration
+
+WGDot runtime and managed configuration intentionally have different lifecycles.
+
+- The installed WGDot runtime may refresh from `main`.
+- Root-level `i.ps1` is the deliberately tiny public convenience entrypoint for `irm https://github.com/dillacorn/win-glaze-dots/raw/main/i.ps1 | iex`. It may only download and run `wgdot/bootstrap.cmd`; keep real installation logic in the native batch bootstrap so the short wrapper cannot drift into a second installer. Stage the live batch under `%LOCALAPPDATA%\wgdot`, not `%TEMP%`: first-run tools such as privacy.sexy may legitimately clean the Windows temporary directory while WGDot is still open, which must not delete the suspended bootstrap before it resumes.
+- A normal interactive `wgdot/bootstrap.cmd` install launches the newly installed WGDot menu directly after WinGet verification, so first use does not depend on the launching shell noticing the persistent user `PATH` update. `--no-launch` is the automation/CI escape hatch. Do not terminate, restart, or attempt to mutate the already-running parent shell; its process environment cannot be rewritten by the child installer, while future terminals inherit the persisted user `PATH` normally.
+- Normal user-facing WGDot invocations compare the recorded runtime revision with the configured runtime branch head before dispatch and run the refreshed runtime immediately when they differ.
+- Every newly added direct user-facing maintenance command must be added to the runtime auto-refresh policy before dispatch. Direct subcommands must not require the user to run plain `wgdot` first to receive current runtime behavior.
+- Because Windows cannot reliably overwrite the currently running executable, a refreshed staged runtime schedules its own post-exit replacement of the installed `wgdot.exe` and records the exact revision only after that swap succeeds.
+- WGDot runtime replacement must tolerate ordinary transient executable locks and retry safely. Runtime-refresh and Git-testing compiles must use unique staged executable paths rather than deterministic revision-only filenames, because a staged runtime for that same revision may already be executing and Windows will lock its image. If a Git-testing runtime replacement is already pending, the outer auto-refresh staged process must not schedule a competing replacement on exit. Desktop-session behavior must not require long-lived WGDot workers. Do not add new runtime-swap preservation logic for bar/window-manager helpers. Internal runtime-swap commands must never recursively schedule another staged replacement.
+- Normal managed-config update/reset/review operations must use an exact published stable release, never the current `main` config tree and never an installed runtime's feature-branch source. Explicit branch content is reachable only through `git-review` / `git-update` / `git-reset` or the explicit dots-only bootstrap testing path.
+- A runtime refresh from `main` must not silently change the release manifest used for a stable config operation.
+- The selected stable release supplies its own `wgdot/manifest.json` and managed source files.
+- Development branches are accessible only through explicit Git-testing mode.
+- Restricted/corporate networks may allow `raw.githubusercontent.com` while blocking `github.com` archive downloads and `api.github.com`. An explicitly bootstrapped full 40-character revision is already immutable and may be reused exactly without a branch-head API lookup. Managed source acquisition should prefer the normal GitHub archive path but fall back to downloading the revision's manifest plus all manifest-declared managed source files from `raw.githubusercontent.com`. A failed optional runtime-refresh API check must never make an already-installed exact runtime unusable. Do not weaken normal Git branch-membership validation for `git-review` / `git-update` / `git-reset`; the raw fallback is source transport, not a replacement for branch verification.
+- Strict work-PC/config-only migration uses `bootstrap.cmd --dots-only --profile <normal|work>`. That bootstrap path installs/refreshes only the WGDot management runtime and then dispatches the installed runtime's `dots-only` command; it must bypass `ensure-winget`, software reconciliation/uninstall, elevated software workers, driver/install helpers, and browser setup. `dots-only` selects only file-backed managed components that default on for the requested profile, forces the matching GlazeWM/YASB profile pair, preserves any existing package/tweak/browser selection state without acting on it, and suppresses non-file/system post-actions such as Yazi package install, YAZI_FILE_ONE mutation, legacy shell-hotkey migration, and cursor registry application. Neither profile may select or deploy `desktop-scripts` as a live desktop runtime component. Tracked `theme.css` / `appearance.css` remain ordinary managed files. If a managed apply writes `theme.css` or WGDot-managed Windows Terminal settings, reapply the remembered selected WGDot theme afterward so user-selected visual state survives dots-only and normal managed updates. With an exact bootstrapped revision and `WGDOT_FORCE_RAW_SOURCE=1`, this path must not require `api.github.com` or the GitHub archive endpoint.
+- Bootstrap source download prefers `curl.exe`, but managed Windows environments can expose Schannel failures even when .NET HTTPS works. If curl is unavailable or its download fails, bootstrap may fall back to in-box Windows PowerShell 5.1 `Net.WebClient` with TLS 1.2. This fallback is transport-only: do not pass execution-policy bypass flags, do not run a `.ps1`, and do not couple it to WinGet/software setup. CI may force this path with `WGDOT_FORCE_POWERSHELL_DOWNLOAD=1`.
+
+Do not collapse runtime state, stable config state, Git-testing state, and baseline state into one version value.
+
+## Stable release model
+
+Normal users update managed configuration from published stable releases with semantic tags of the form `vMAJOR.MINOR.PATCH`.
+
+A stable source must:
+
+- be a published GitHub Release;
+- not be a draft;
+- not be a prerelease for normal stable mode;
+- have a semantic version tag;
+- resolve to an immutable commit SHA;
+- contain a WGDot-compatible `wgdot/manifest.json`.
+
+A Git branch is not a stable release.
+
+Do not treat pre-WGDot releases as WGDot-compatible merely because they are published.
+
+Do not use post-release release-note entries as a delivery mechanism. WGDot stable update/reset/review resolves managed dots from immutable published release tags; editing an existing release body does not change the files users receive. If a merged change affects managed dots/configuration and should reach normal users, publish a new semantic stable release after the change is tested and approved. Runtime-only fixes may still self-refresh from `main` where the current architecture explicitly supports that separate lifecycle, but they must not be presented as a "post-release patch" to the previous managed-config release.
+
+### Stable release notes
+
+Inspect the latest published stable release for release-specific context, but do not blindly copy its structure or repeat setup instructions that already belong in the canonical guides. `INSTALL.md` and `UPDATE.md` are the canonical user instructions for installation and maintenance; release notes should link to them instead of duplicating them.
+
+A normal WGDot stable release body must include:
+
+- the release title and a short overview of the release;
+- an **Install and update** section near the top linking to the canonical `main` versions of `INSTALL.md` and `UPDATE.md`;
+- the **Install** link before the **Update** link;
+- concise feature/change bullets appropriate to the release;
+- validation claims only when grounded in tests, CI, or runtime checks that actually passed for the release target;
+- no **Post-release updates** section or placeholder.
+
+Release notes should remain proportionate to the release. Keep routine patch/minor releases concise and user-facing. Debugging chronology, temporary implementation details, and internal test-by-test narration belong in issues, PRs, or commit history instead.
+
+Installation and update procedures belong in `INSTALL.md` and `UPDATE.md`. Repeat procedural detail in release notes only when that release itself changes the procedure and users need migration-specific instructions.
+
+A GitHub release, Git tag, branch, release body, and repository documentation are different targets. When working on a release:
+
+- identify the exact release/tag first;
+- inspect the published target and current body before writing;
+- edit only the requested release artifact;
+- do not move, recreate, or delete a tag merely to change release notes;
+- do not substitute `README.md`, `INSTALL.md`, `UPDATE.md`, another branch, or another release for the requested release body;
+- do not increment the version unless explicitly requested;
+- after a write, re-read the complete published release body and verify the release name, draft/prerelease state, target commit, and tag SHA are unchanged unless the task explicitly changes them.
+
+### Editing or creating releases when the connected GitHub tool lacks release-write actions
+
+If the exact GitHub release must be created or edited but the connected GitHub tool does not expose the required Release mutation, do not declare the release inaccessible and do not substitute another repository target. Use the proven one-use GitHub Actions release bridge when the repository permits it.
+
+- Start from the exact current `main` commit on an isolated temporary helper branch. Do not merge the helper branch merely to create or edit release metadata.
+- Add a narrowly guarded one-use job to an existing PR-triggered workflow on that helper branch, then open a specifically named temporary PR to trigger it.
+- Guard the job on the exact PR title, head branch, base branch, and `pull_request` event.
+- Use YAML-safe folded expressions for guards when strings contain characters such as `:`; invalid workflow YAML will prevent Actions from registering the run.
+- Give only the one-use release job `permissions: contents: write`; keep repository-wide workflow permissions unchanged.
+- For an existing release edit, use `gh release view` first and derive the new body from the currently published body so unrelated sections are preserved.
+- Update only the existing release body with `gh release edit <tag> --notes-file <file>`. Never recreate, delete, or move the tag/release just to change notes.
+- For release creation, verify the intended target commit and tag do not already exist before `gh release create`; refuse to replace an existing release/tag unless explicitly requested.
+- Immediately re-read the release with `gh release view`, compare the complete published body to the intended body, and verify the tag SHA plus release metadata.
+- Close the temporary PR without merging and delete the helper branch/workflow machinery after successful verification.
+- If a direct authenticated Release create/update action is available in the current tool surface, prefer it over the temporary bridge.
+
+## Git-testing model
+
+Git testing is explicit maintainer/developer behavior.
+
+- The user selects a remote branch.
+- An optional exact revision must be a full 40-character commit SHA.
+- The exact commit must belong to the selected branch.
+- Git-testing state remains separate from the remembered stable release.
+- Git-testing Update/Reset must keep the installed native WGDot runtime aligned with the exact selected branch revision. Compile and self-test that revision's `wgdot/wgdot-native.cs` before applying managed changes, then schedule the installed runtime swap only after the managed apply succeeds. Git-testing Review must remain non-mutating and must not retarget runtime.
+- Do not record the selected Git-testing revision as the installed runtime revision until the post-exit swap succeeds. A failed swap must leave the previous installed revision visible so normal runtime refresh can retry.
+- Stable update/reset returns to the published release stream and resets runtime source tracking to `main` so later normal invocations cannot remain pinned to a feature branch.
+- Never accept a hidden branch/commit override in normal stable update paths.
+
+Do not merge a testing branch merely because tests pass. Merge only when explicitly authorized.
+
+## Managed configuration boundaries
+
+WGDot manages individual files declared in `wgdot/manifest.json`.
+
+Important rules:
+
+- Never recursively synchronize or delete an entire `%USERPROFILE%`, `%APPDATA%`, or `%LOCALAPPDATA%` subtree.
+- Never delete a live file merely because it disappeared from the repository.
+- Upstream removal of a previously managed file is preserve-by-default.
+- Deletion requires an explicit migration with positive identification of the known old managed artifact.
+- Before replacing an existing live managed file, create an adjacent WGDot backup unless the file is already byte-identical to the target.
+- Preserve unrelated files in the same directories.
+- Treat files with no trusted baseline conservatively.
+- User-modified files must never be silently overwritten during a normal update.
+- Reset/reconfigure may replace selected managed files, but must back up differing existing files first.
+
+## Baseline model
+
+WGDot compares three states:
+
+```text
+local live file
+previous trusted baseline
+new selected release target
+```
+
+Typical classifications include:
+
+- `NEW`
+- `CURRENT`
+- `UPSTREAM`
+- `USER`
+- `BOTH`
+- `LEGACY`
+- `REMOVED-UPSTREAM`
+
+The baseline is updated only after a successful apply.
+
+When both local and upstream changed, use a merge only for manifest-declared merge-safe text files. A merge conflict must preserve the local file and report the conflict rather than force replacement.
+
+## Backup model
+
+WGDot backups are adjacent to the live file and WGDot-identifiable:
+
+```text
+config.yaml.wgdot.backup
+config.yaml.wgdot.backup.YYYYMMDD-HHMMSS
+```
+
+The backup manager must operate only on WGDot-recognizable backups associated with managed paths. Do not treat arbitrary `.backup` files as WGDot-owned.
+
+Backup deletion must support review/dry-run behavior and explicit confirmation.
+
+## GlazeWM profile model
+
+- The managed GlazeWM profiles include a `noalt` binding mode toggled with `Win+Alt+N`, modeled after Awtarchy's noalt submap. Normal mode should preserve practical Awtarchy parity where Windows has a safe native equivalent: `Alt/Super+Ctrl+Shift+Arrow` moves the active workspace between monitors, `Alt/Super+[ / ]` changes workspace, `Alt/Super+Shift+R` toggles tiling direction, `Alt/Super+Shift+Enter` opens the terminal, and `Super+Ctrl+H/J/K/L` resizes. Keep `Super+Ctrl+Arrow` free for native Windows virtual-desktop behavior. Because GlazeWM binding modes replace rather than inherit global bindings, noalt must explicitly retain the Super forms plus Super-based workspace focus/move, focus-direction, move-direction, launcher, terminal, theme, tiling, close, float, fullscreen, and default-window-behavior controls that should remain available in the mode. Do not add a WGDot runtime dependency merely to preserve a native GlazeWM binding.
+- The managed profiles include only `noalt` and `vm` desktop binding modes. `Win+Alt+N` and `Win+Alt+V` enter the corresponding mode; the same mode chord disables that mode, and mode-to-mode transitions explicitly disable the current mode before enabling the next one. YASB's native `GlazewmBindingModeWidget` displays the active mode. Clicking the visible active-mode text must call `disable_binding_mode` and must never cycle between modes.
+- Real GlazeWM pause is independent of binding modes and uses both `LWin+Alt+P` and `RWin+Alt+P`. Duplicate that `wm-toggle-pause` binding inside modes where necessary so pause remains reachable. Do not add a WGDot pause-status helper or YASB polling path; pause remains owned directly by GlazeWM.
+- The interactive setup-tweak menu no longer exposes `disable-windows-shell-hotkeys`. Normal GlazeWM operation does not require a Windows shell-hotkey policy. Keep its selective Explorer `DisabledHotkeys` implementation only as legacy rollback compatibility, preserving native Win+V/Win+N while restoring any WGDot-owned state during managed GlazeWM updates. The retired 2026-09-20 experiment used `HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoWinKeys=1`; blanket NoWinKeys breaks Windows shell shortcuts and is no longer part of the design. Managed updates must still migrate only an exact WGDot-owned legacy NoWinKeys value when the matching registry snapshot exists, restore its pre-WGDot value, retire that old snapshot, preserve any user-modified replacement value, and request UAC before opening the protected legacy policy key for write on a non-elevated process. Do not reintroduce NoWinKeys.
+- `NoWinKeys` does not disable a lone Windows-key press, and runtime testing showed GlazeWM bare `lwin` / `rwin` `wm-redraw` bindings do not reliably stop Start from opening. Any future lone-Super suppression must be implemented as a portable dotfile-owned non-elevated helper, must allow normal Super chords unchanged, and must bypass suppression while VM mode is active. WGDot must not own or be required by that live keyboard filter. Until such a standalone helper is implemented and maintainer-tested, do not claim lone-Super suppression is active.
+- Launcher hotkeys are GlazeWM-owned and dispatch the approved compiled launcher directly through `shell-exec --hide-window %LOCALAPPDATA%\wgdot\bin\wgdot.exe launcher ...` because current upstream YASB Quick Launch cannot distinguish bar-click placement from keyboard placement and `yasbc` exposes no widget-action command. This direct hidden GlazeWM path deliberately avoids cold-starting `wgdotw.exe` only to spawn `wgdot.exe`; the YASB bar button still uses `wgdotw.exe launcher bar` because YASB does not provide GlazeWM's hidden shell-exec path. Use deterministic `%LOCALAPPDATA%\wgdot\bin` paths so long-running desktop processes do not depend on a stale inherited PATH. Do not restore `flow-launcher.ps1`, `yasb-quick-launch.ps1`, SendKeys, a private/synthetic F24 relay, or any fake YASB key injection. `launcher bar` must stay flush with the active display's left edge below the top bar; `launcher hotkey` must remain horizontally centered, including the existing fullscreen/auto-hide centering behavior. Global `Alt+P` and `Super+D` open the compiled launcher; `noalt` keeps `Super+D` but deliberately leaves plain `Alt+P` uncaptured. Flow Launcher is retired from the WGDot software catalog; preserve only narrow legacy-state cleanup for old selections and never reintroduce it as a launcher dependency.
+- GlazeWM's current official Windows installer writes `HKLM\SOFTWARE\glzr.io\GlazeWM\InstallDir` and installs its CLI as `<InstallDir>\cli\glazewm.exe` (normally `%ProgramFiles%\glzr.io\GlazeWM\cli\glazewm.exe`). Fresh-install startup integration must resolve that registry-backed path directly and must not depend on the already-running WGDot process inheriting GlazeWM's newly added system PATH entry or on Start Menu indexing.
+- Clipboard/audio ownership is intentionally simple after real-Windows failures. `Super+V` stays the native Windows Clipboard History shortcut and GlazeWM must not capture it. The YASB clipboard button may use only the one-shot `wgdotw.exe clipboard-history-open` helper to inject native `Win+V`; it must not pause GlazeWM, create an anchor window, claim bar-relative placement, or own a keyboard shortcut. Do not revive `Super+C`, `clipboard-anchor`, or the retired generic clipboard worker/window.
+- EarTrumpet owns `Alt+V` through its own application hotkey setting. GlazeWM must not capture `Alt+V` or `Super+V`, and WGDot must not rewrite EarTrumpet's mixer hotkey during software reconciliation. YASB volume right-click uses only `wgdotw.exe eartrumpet-mixer-toggle`, which verifies/starts EarTrumpet from its Start Menu shortcut and injects the application-owned Alt+V chord so EarTrumpet itself executes `OpenOrClose()`. Do not revive direct AppsFolder activation for mixer toggling. Native Windows `Super+V` stays free for Clipboard History.
+- Flameshot owns its own `Win+Shift+X` capture hotkey. GlazeWM must not launch Flameshot or bind `Win+Shift+X`, `Win+Alt+S`, or `Win+Shift+S`; the latter stays available to the standard Windows Snipping Tool. WGDot must not sit in the live screenshot path. The tracked Flameshot INI must contain no user-specific absolute profile paths or obsolete shortcut entries current Flameshot rejects, and it is intentionally non-merge-managed so dots-only/reset replaces stale invalid keys instead of preserving them.
+- Windows RawAccel matches Awtarchy on `Alt+Shift+M` plus `Win+Shift+M` / `Super+Shift+M` in normal mode; `noalt` keeps only the Super form so plain Alt remains available to applications. Prefer a direct RawAccel executable/native interface when it can provide the required toggle semantics exactly; otherwise use only the narrowly scoped compiled WGDot RawAccel helper. Neither profile may reference `rawaccel-toggle.ps1` at runtime. When a RawAccel hotkey launches the GUI, the compiled helper must size it proportionally to the active monitor working area rather than using fixed pixels: width `62.5%`, height `82.5%`, centered on the interaction monitor. The helper must wait until GlazeWM has applied its float rule and briefly reapply the target geometry so the final floating placement is authoritative across different resolutions and Windows display scaling. This sizing is hotkey-only: `WGDot.rawaccel` Windows-login startup must keep the application's normal window sizing behavior.
+- Theme switching must not reload GlazeWM. Keep the focused-window border theme-neutral at `#a1a1a1`. Both profiles use the approved compiled WGDot theme helper for the custom theme workflow; neither profile may invoke `theme-switcher.ps1` at runtime.
+- The experimental GlazeWM/WGDot mouse binding mode was retired after real-Windows testing showed pointer lag and unreliable tiled-window dragging. Do not reintroduce a low-level WGDot mouse hook or `Win+Alt+M` mouse mode. Preserve the native workspace mover arrows independently of that retired mode.
+- `~/.config/yasb/theme.css` and `~/.config/yasb/appearance.css` are tracked managed dotfiles. Deploy them like the rest of the portable desktop config. After a managed apply that writes `theme.css` or WGDot-managed Windows Terminal settings, reapply the remembered selected theme through the existing compiled theme manager; this preserves user state without removing the files from management. `appearance.css` remains a normal tracked file.
+- Windows Terminal ANSI colors are semantic terminal foreground colors, not raw YASB surface colors. Theme generation must enforce readable contrast for ANSI slots and preserve recognizable hues where possible. In particular, Yazi uses ANSI `blue` for directory names and ANSI `cyan` for PDF/document names, so dark YASB focus/hover colors must not be copied directly into those slots.
+- Yazi launcher binding uses both `lwin+shift+e` and `rwin+shift+e`.
+
+There are two maintained GlazeWM source profiles:
+
+- Normal: `UserProfile/.glzr/glazewm/config.yaml`
+- Work: `UserProfile/.glzr/glazewm/custom_work_config.yaml`
+
+Both map to the same live destination:
+
+`%USERPROFILE%\.glzr\glazewm\config.yaml`
+
+The selected profile is remembered. Normal updates use the remembered profile. Reset/reconfigure may switch profiles and must back up the existing live config before replacement when it differs.
+
+Do not deploy both source files as active configs.
+
+## Awtarchy-to-YASB bar parity
+
+The `feat/awtarchy-yasb-bar` work treats the current Awtarchy Quickshell bar as the visual/behavioral reference while keeping Windows behavior native to YASB, GlazeWM, or Windows.
+
+- Verify a current upstream YASB/GlazeWM capability before translating an Awtarchy bar feature. Do not infer widget options from old YASB themes or invent unsupported config keys.
+- Prefer direct native widgets and commands over helper scripts. A missing feature should remain documented as missing rather than be simulated solely for visual parity.
+- Keep the Windows bar flat and compact around Awtarchy's current defaults: 28 px horizontal height, `#353535` background, `#d0d0d0` foreground, square controls, subtle hover/active fills, no decorative taskbar/bar animations.
+- Preserve WGDot's existing reload-free reservation model on this branch: YASB is `always_on_top: true`, `windows_app_bar: false`, and both GlazeWM profiles use the current requested 35 px top `outer_gap`. Migrating a live session to AppBar reservation would require a GlazeWM config reload; do not force that layout-disrupting reload merely for a palette/theme change.
+- Match Awtarchy's Noto Sans Mono Nerd Font typography at 14 px. The upstream `NotoSansMNerdFontMono-Regular.ttf` exposes the embedded Windows family name `NotoSansM NFM`; YASB CSS and WGDot font registration must use that exact Windows family name rather than the upstream long face label. WGDot manages the font from the official `ryanoasis/nerd-fonts` `Noto.zip` release as a current-user font; YASB keeps `JetBrainsMono NFP` as a fallback because dots-only updates intentionally perform no software/font installation. `wgdot bar-font-install` is the approved narrow management action for installing only this font without reconciling unrelated software, and dots-only should warn when the font is absent. Keep the action idempotent: if the managed TTF already exists and may be loaded by YASB, reuse it and repair the registry mapping rather than overwriting the locked file. A newly installed Noto font requires YASB restart before assuming Qt has picked it up. Keep JetBrains Mono Nerd Font managed as well because Windows Terminal still uses it. Keep bar text and real task/application icons at 14 px, but preserve Awtarchy's Nerd Font glyph tuning: generic/CPU/memory/brightness/clock/network/clipboard/control-center glyphs 18 px, battery 17 px, DND 19 px, and volume/power 20 px. The launcher glyph is 18 px. On Windows/Noto, use the heavier Nerd Font workspace-move arrows at 18 px rather than thin Unicode arrows. Keep the separate GlazeWM tiling-direction indicator compact at 14 px in a fixed 26 px centered slot with its 1 px baseline correction. Preserve the confirmed 1 px bottom adjustment on right-side metric text so it aligns visually with the enlarged glyphs.
+- Keep the Caps Lock warning native to YASB using `yasb.language.LanguageWidget`: place the conditional `⇪` indicator immediately left of CPU in both profiles, poll at YASB’s 1-second minimum, collapse it to zero width while Caps Lock is off, and show it in the normal bar foreground color only while `.caps-lock-on` is active. Do not add a WGDot/session helper for keyboard lock state.
+- Normal/personal GlazeWM defaults to `focus_follows_cursor: true`; Work intentionally remains `false`. Keep that profile difference explicit and covered by tests.
+- Normal/personal mirrors Awtarchy's btop launcher on `Super+Shift+B` (both left/right Windows keys), including inside the Normal `noalt` mode because GlazeWM binding modes do not inherit global bindings. Route the chord through the narrow windowless `wgdotw.exe btop-toggle` helper: resolve the installed executable by preferring the WinGet `btop.exe` command/link with a bounded `aristocratos.btop4win` package-payload fallback, open one dedicated Windows Terminal titled `btop`, and close that exact terminal on the next invocation. Float/center the `btop` terminal by title. Do not add this binding to Work while btop remains default OFF there.
+- Both GlazeWM profiles keep `cursor_jump.enabled: true` with `cursor_jump.trigger: "monitor_focus"` so cursor warping occurs when focus crosses monitors without forcing same-monitor window/workspace focus to recenter the pointer.
+- Use YASB's native DDC/CI brightness support rather than a translated Awtarchy DDC script.
+- Keep YASB systray `use_hook: false`. Upstream documents `use_hook: true` as an `explorer.exe` DLL-injection path. Do not introduce that extra hook for cosmetic parity, especially on a gaming-oriented setup.
+- Do not substitute GPU temperature for Awtarchy's CPU-temperature module. Do not require Libre Hardware Monitor solely to make the bar look equivalent.
+- The bar idle inhibitor was retired after real-Windows testing because its custom-widget state refresh was not worth the complexity and full YASB reload caused visible bar disappearance/reappearance. Do not render an idle eye, poll idle state, start a keep-awake worker, or reload YASB for idle state. Retain only legacy runtime stop cleanup so an older WGDot idle worker can be terminated during upgrade.
+- Use the approved compiled Awtarchy-style application launcher as the primary launcher surface. YASB owns only the bar button and dispatches `wgdotw.exe launcher bar`; GlazeWM dispatches `wgdot.exe launcher hotkey` for `Alt+P` and `wgdot.exe launcher super-d` for `Super+D` through `shell-exec --hide-window`. The launcher searches installed Start Menu applications, stays theme-aware, and does not grow Flow Launcher-style provider/scaling complexity unless explicitly requested.
+- Launcher placement is trigger/context aware: with the 28 px visible top bar, both ordinary placements sit essentially flush below it with only a 1 px gap; a bar click stays top-left on the active display while keyboard activation stays horizontally centered. YASB auto-hide or a fullscreen/borderless foreground window forces center-screen placement on the relevant monitor. Keep the launcher single-instance, compact at roughly half the original 720 px width, windowless at dispatch, and immediate with no spawn fade. Prevent the white/unpainted first-frame flash by creating the launcher transparent, painting the complete themed surface once, and revealing it immediately in the same `Shown` event; do not add a timer or intentional spawn delay. Keep repeat opens fast through a persistent WGDot-owned Start Menu index cache under the local cache directory: read it before the launcher is shown, refresh the real Start Menu index asynchronously, and rewrite the cache only when needed. Prewarm that index during real runtime install/refresh rather than adding a resident launcher daemon/service. Launcher first paint must not synchronously call Windows shell icon extraction; queue icon loads off the UI thread and repaint results as icons become available. `launcher super-d` may use only a bounded post-key-release focus recovery to dismiss a transient Windows Start surface; it must not install a resident keyboard hook, kill shell processes, or delay the first launcher frame. The results viewport must use pixel-smooth wheel scrolling rather than item-stepped WinForms ListBox scrolling. Keep the themed custom scrollbar easy to acquire: 16 px track hit area, 12 px thumb, `--active`/field track, `--focus` edge/hover, and `--foreground` idle thumb. Keep the search field vertically compact. Start Menu shortcut activation must use Windows shell execution. For ordinary `.lnk` results, resolve the underlying target/icon metadata where Windows exposes it so the launcher prefers clean application icons rather than shortcut-style presentation; retain shortcut-icon fallback for packaged/special entries that do not expose a normal executable target.
+- Clipboard History is separate from the launcher. Do not revive the old Quick Launch clipboard provider merely to expose history; the dedicated native Clipboard History/button experiment is tracked separately.
+- Use YASB's native `ControlCenterWidget` for Awtarchy-style quick settings. Keep brightness/volume/microphone/media, DND, Windows dark mode, display/network/Bluetooth behavior native. Theme every native Qt slider in this surface, plus the standalone display brightness/contrast sliders, through the existing YASB theme variables: no default Windows/Qt blue, no hard-coded accent palette, and no separate slider theme state. Filled tracks/thumbs follow `--foreground`; unfilled grooves follow `--active` with `--focus` edges. Use a two-column inline-label quick-action grid so the whole action cell is filled and readable rather than rendering sparse icon-only boxes. The `Floating Windows` action sits directly below `Displays` and uses only the approved windowless `wgdotw.exe glazewm-window-behavior-toggle` helper to atomically toggle the live GlazeWM `window_behavior.initial_state` between `tiling` and `floating`, reload GlazeWM, roll back on reload failure, and notify the resulting state. Keep this default new-window behavior toggle bar-only in Normal and `noalt`; do not bind `Super+Alt+F` to it because that hidden persistent state is easy to confuse with ordinary active-window floating. VM mode deliberately keeps its separate `Super+Alt+F` active-window float behavior because the VM binding mode replaces globals. This helper changes only the default state for newly managed windows; it does not retile/refloat existing windows. The bar Wi-Fi/Ethernet control opens Windows' native `ms-settings:network-status` surface and the Bluetooth control opens Windows' native `ms-settings:bluetooth` surface; do not restore the rejected YASB `toggle_menu` mini flyouts merely for toggle-close behavior. NoAlt/VM quick actions still change GlazeWM modes; if YASB cannot launch `glazewm.exe` invisibly, an approved windowless WGDot dispatch may invoke the GlazeWM CLI solely to avoid a console flash. Running applications stay visible and unshaded; screenshot remains Flameshot.
+- Awtarchy's single notification/mute control maps to one native YASB `DndWidget`: left click uses BaseWidget's native `exec notification_center` system-function mapping to open Windows Notification Center, middle click does nothing, and right click uses the widget's native `toggle_status` callback for Windows Do Not Disturb. Use bell/muted-bell state styling on that one control; do not reintroduce a separate Notifications widget or cross-widget hook. YASB documents its DND backend as the Windows QuietHoursSettings COM API, which is undocumented by Windows and may change.
+- Match Awtarchy task controls with native YASB callbacks where possible: middle-click closes and right-click uses `toggle_window` for minimize/restore. Keep the documented left-click mismatch because YASB has no activate-only task callback.
+- Awtarchy's horizontal bars show the globally focused active-window title on every monitor. Keep YASB ActiveWindow `monitor_exclusive: false` for that behavior; task icons and workspaces remain monitor-local.
+- YASB workspace labels must render GlazeWM `display_name`, not raw workspace `name`. Keep all GlazewmWorkspaces populated/empty/active/focused label templates on `{display_name}`. Both Normal/personal and Work profiles ship with numbers-only `display_name` defaults (`1` through `10`) at the normal 14 px bar text scale. Do not hard-code numbers in YASB: users must remain free to edit each GlazeWM `display_name` to any custom workspace label and have YASB render it directly.
+- Do not use `yasbc toggle-bar` for bar hiding: it can strand an invisible bar and does not coordinate the GlazeWM top gap. Both profiles use the approved compiled WGDot auto-hide helper. The helper must coordinate YASB `auto_hide` with the 35 px/5 px GlazeWM top gap and reload only the affected applications; neither profile may invoke `bar-autohide.ps1` at runtime.
+- Keep native YASB volume left-click mute, middle alternate-label behavior, and wheel volume changes. Volume right-click must call only the narrow windowless `wgdotw.exe eartrumpet-mixer-toggle` bridge; direct AppsFolder activation does not toggle EarTrumpet's mixer and must not return.
+- Awtarchy's microphone indicator is muted-only. Preserve the native YASB Microphone widget but keep its normal icon empty and collapse its normal padding; rely on YASB's native `muted` class to reveal the red muted indicator rather than adding polling/helper logic.
+- YASB's Battery widget has no native details popup. Map Awtarchy battery-menu clicks to Windows' own `ms-settings:powersleep` Power & battery surface on left/right click, and retain middle-click for YASB's alternate label rather than building a custom battery popup.
+- YASB theme and appearance files are tracked dotfiles, not disposable generated state. Keep the Carbon Night palette in `styles.css` as a fallback, import tracked `theme.css` for palette variables, then import tracked `appearance.css` last. The compiled WGDot theme manager keeps lightweight selected-theme state under `~/.config/win-glaze`, updates the live `theme.css`, and synchronizes only its own Windows Terminal scheme/UI entries while preserving unrelated Terminal settings. Any managed update/reset that writes `theme.css` or WGDot-managed Terminal settings must reapply the remembered selected theme after file application. Preserve the current Awtarchy palette names/colors unless intentionally changing the shared visual catalog. Never reload or restart GlazeWM for theme-only changes.
+- A successful non-review managed update/reset must verify each copied file against its source before committing the baseline. If the plan writes anything beyond theme-only `yasb-theme` / `terminal-settings` state and GlazeWM or YASB is currently running, restart the live desktop session after the apply so the new managed dots are actually loaded. A running GlazeWM restart owns the paired YASB stop/start through its managed shutdown/startup commands; do not restart either application for a theme-only change.
+- Normal update/reset and dots-only applies may write managed `yazi-*` files while Yazi is running. Do not terminate `yazi.exe`, prompt for closure, or cancel an otherwise valid managed apply because Yazi is open. Existing Yazi sessions may continue using their old in-memory configuration; when an applied plan changes managed Yazi files, finish the update normally and print a concise restart notice afterward. Keep the same behavior in the PowerShell maintenance path.
+- Route quick-settings theme launch and `Super+Alt+T` through `wgdotw.exe theme-window-toggle`, which owns only single-instance selector-window toggle/relocation. If the existing `Win Glaze Themes` window is visible on the currently focused monitor/workspace, the next invocation closes it; if it is on another monitor or a cloaked workspace, close/recreate exactly one selector in the current focused context. The interactive selector itself remains `wgdot.exe theme` inside Windows Terminal and theme application still must not reload GlazeWM.
+- In Normal, launch the standalone selector in Windows Terminal titled `Win Glaze Themes`. Restricted Work must not require that script/title path; its compiled WGDot theme helper owns Work theme changes without reloading GlazeWM.
+- Keep the four native workspace-move arrows directly visible and usable through the YASB Applications widget. The retired mouse-mode slot must disappear completely: no neutral hub glyph, no placeholder widget, and no fake Grouper hover parent. If upstream YASB later gains a clean reveal mechanism that does not require a visible placeholder, it can be reconsidered separately.
+- Current stable YASB bar alignment supports only `top` and `bottom`; do not expose fake left/right bar-position choices. Its native blank-bar context menu also has no position-changing action, so a right-click position picker would require an upstream change or maintained YASB fork.
+- Windows reserves `Win+L` for session locking. The former WGDot Super+L low-level keyboard-hook experiment is retired and must not return to the production runtime. Do not add `Super+L` back to managed GlazeWM config through a global hook; `Super+Right` remains the supported fallback.
+- The visible GlazeWM binding-mode widget must reflect native `noalt` / `vm` state. Left/right click should disable the current active mode rather than cycle. Real pause stays native through `wm-toggle-pause`.
+- Do not add AutoHotkey, whkd, DLL injection, third-party general-purpose input daemons, or any WGDot global low-level keyboard/pointer hook. Other native-capable interactions must not be pulled into WGDot.
+
+## Work-PC constraints
+
+Some Work systems can run PowerShell commands but cannot freely execute downloaded `.ps1` files.
+
+Therefore:
+
+- Do not use `Set-ExecutionPolicy`.
+- Do not invoke PowerShell with `-ExecutionPolicy Bypass`.
+- Do not require a downloaded opaque custom executable for WGDot maintenance. A native helper may be compiled locally from repository source with Windows-provided tooling, but the source must remain inspectable and the manual fallback must not depend on it.
+- A native bootstrap must not invoke PowerShell to work around execution policy. It may only perform behavior implemented natively.
+- Automatic WGDot and manual PowerShell behavior must derive from the same manifest/planning rules.
+- Preserve a pasteable PowerShell path for important operations.
+- If local policy blocks `.ps1`, do not work around policy; use the manual paste-only path.
+- Both Normal and Work profiles must remain usable with no desktop/session `.ps1` runtime dependency. Tests must reject `.ps1` runtime references in all four managed GlazeWM/YASB runtime configs and reject `desktop-scripts` being default-enabled for either profile.
+
+## Native runtime and PowerShell fallback compatibility
+
+The primary WGDot runtime is `wgdot/wgdot-native.cs`, compiled locally with the Windows .NET Framework C# compiler. Keep it compatible with the compiler/framework available on supported Windows 10/11 systems and do not add a dependency on a separately installed .NET SDK unless explicitly approved.
+
+The compatibility/reference PowerShell runtime and paste-only fallback target Windows PowerShell 5.1 unless the project intentionally raises that requirement.
+
+Avoid PowerShell 7-only syntax and semantics in PowerShell fallback/runtime files, including:
+
+- ternary expressions;
+- null-coalescing operators;
+- pipeline chain operators;
+- PS7-only cmdlet parameters without compatibility handling.
+
+Use `powershell.exe -NoProfile` for Windows PowerShell validation and `pwsh` as an additional compatibility check when available.
+
+## WinGet behavior
+
+Software management is separate from managed-dot updates.
+
+- WinGet is a WGDot prerequisite. `wgdot/bootstrap.cmd` invokes the native `ensure-winget` path after installing the runtime. If `winget.exe` is missing, WGDot automatically uses Microsoft's supported `Microsoft.WinGet.Client` / `Repair-WinGetPackageManager` bootstrap and requests current-user App Installer registration. Do not use unofficial WinGet bootstrap scripts or execution-policy bypasses.
+- An already working WinGet installation must be left alone; bootstrap is missing-only.
+- Package IDs live in `wgdot/manifest.json`. For WinGet-backed entries they are exact WinGet IDs; explicit non-WinGet install modes may use a stable WGDot selection identity that still follows the manifest ID shape.
+- Verify every WinGet-backed package with exact-ID WinGet lookup before installation or upgrade. Do not send explicit direct-source packages through a fake WinGet probe.
+- Never silently run `winget upgrade --all`.
+- Updates may detect available software upgrades and ask for explicit user consent.
+- After the user explicitly approves an exact WinGet package upgrade, a failed `winget upgrade` automatically falls back inside the same bounded elevated worker to exact-ID `winget uninstall` followed by exact-ID `winget install`. If exact-ID uninstall reports multiple installed matches, retry that same package with `--all-versions`; do not broaden to unrelated package IDs. Packages may declare narrowly scoped blocking process names in the manifest: close ordinary GUI applications gracefully, force-stop only explicitly approved infrastructure processes such as GlazeWM, and restart GlazeWM unelevated after successful maintenance when it had been running. This recovery applies only to WinGet-backed packages already approved for upgrade; do not apply it to direct-source install modes or unapproved packages. Count recovery as successful only after reinstall succeeds, and surface uninstall/reinstall failures clearly.
+- OBS Studio has a narrower second-stage recovery for WinGet `0x8A150111` / `-1978334959`: the OBS Vulkan implicit layer can leave `graphics-hook64.dll` / `graphics-hook32.dll` mapped into unrelated graphics applications even after OBS itself is closed or uninstalled. Only after that exact OBS package-in-use failure, temporarily disable the registered OBS Vulkan implicit-layer values and set `DISABLE_VULKAN_OBS_CAPTURE=1`, close processes proven to have the OBS graphics-hook DLL loaded, retry the exact OBS WinGet install once, then restore the previous layer values/environment. Never terminate protected Windows shell/core processes for this recovery; fail with their names instead.
+- A missing OBS installation may still leave `%ProgramData%\obs-studio-hook` behind. Before reinstalling OBS, remove only that OBS-owned global hook directory and its OBS Vulkan implicit-layer registrations when present. If automatic package-in-use recovery still returns `0x8A150111`, fall back once to WinGet `--interactive` so the official OBS installer can identify an otherwise-unidentifiable lock holder instead of returning a context-free failure.
+- Maintainer Windows testing identified `ASUS NodeJS Web Framework` (`asus_framework.exe`, normally launched by the `\ASUS\Framework Service` scheduled task) as a real OBS graphics-hook lock holder. During OBS install/reinstall only, if that process is running, stop its full process tree before cleaning `%ProgramData%\obs-studio-hook`, then restart the ASUS scheduled task after the OBS WinGet operation returns. Do not disable or uninstall Armoury Crate/ASUS services permanently.
+- Long-running install/update stages must print immediate progress before blocking work begins. This includes bootstrap compilation/self-test/WinGet checks, runtime-refresh download/compile/self-test, exact package validation, per-package upgrade scans, elevated software batch start, and batch result collection.
+- Deselecting a package must not uninstall it.
+- Removal is a separate, explicit `Software / startup manager -> Uninstall individual applications` operation with its own review/confirmation. Successful removals must also remove the package from WGDot's desired package selection so the next reconcile does not reinstall it.
+- Generic uninstall must never guess at kernel-driver teardown. Packages using `official-github-archive-driver` remain manual/upstream uninstall unless an explicit verified uninstall implementation is added.
+- WGDot-owned portable application directories may be deleted only when the manifest positively identifies the install directory/file that WGDot itself created.
+- Removal/retirement of software requires explicit project behavior and ownership tracking.
+- Normal software reconciliation keeps the interactive WGDot UI unelevated. After the user approves the selection, missing WinGet/installer/driver package installs, explicitly approved package upgrades, and selected administrator-only tweaks are grouped into one internal elevated WGDot worker so normal installs do not trigger one UAC prompt per package. Explicit user-level portable packages stay in the normal process and must not be launched from that elevated worker.
+- The elevated software worker may consume only a WGDot-created plan under the WGDot state directory, must validate package/tweak IDs against the active manifest/source revision, and must not launch browser configuration or ordinary user-level post-install configuration while elevated.
+- Every elevated software plan must be bound to the exact JSON bytes approved by the caller. The elevated worker must read and hash the plan once, compare the expected SHA-256 before parsing, and parse those already-verified bytes rather than reopening the plan path.
+- Elevated WinGet execution must use the validated absolute current-user App Installer alias beneath `%LOCALAPPDATA%\Microsoft\WindowsApps`. Do not resolve or launch a bare `winget.exe` from inherited `PATH` inside the elevated worker.
+- Protected registry-only setup may run inside that bounded elevated worker. This includes Firefox extension policy registry mutation and registry-heavy Windows tweaks; Betterfox profile work, Brave/Mullvad browser interaction, EarTrumpet app configuration, and browser/app launches stay unelevated.
+- RNNoise microphone suppression is an explicit optional/default-off maintenance tweak, not a desktop-session helper. Keep it native to `wgdot.exe`: install only the verified official Equalizer APO x64 installer plus Werman RNNoise release, resolve the current default multimedia capture endpoint through Core Audio, scope Equalizer APO config with the endpoint GUID, and preserve unrelated Equalizer APO configuration behind the bounded WGDot `Include:` block. Mono is the default; expose `wgdot mic-suppression enable|disable|mono|stereo|status`. Werman requires 48000 Hz: when the selected endpoint is at another rate, WGDot should first attempt a targeted Windows endpoint-format change, verify 48000 Hz before proceeding, and preserve/restore the exact prior endpoint and mix formats if the driver rejects it or any later RNNoise setup stage fails. Do not leave a partially changed sample-rate state. Endpoint registration may use elevation and package-specific `DeviceSelector` process control during Equalizer APO installation, but must not broaden into generic process enumeration. Disabling suppression removes only the active WGDot include and leaves installed audio software/endpoint registration intact for fast reversible toggling.
+- If a later standalone tweak unexpectedly gets `UnauthorizedAccessException` under the normal token, retry only that explicit tweak through the existing elevation path and label the retry. Do not let an unlabeled access-denied exception abort the whole menu.
+- privacy.sexy integration must not disable antivirus, add antivirus exclusions, or fake an unsupported headless API. The optional recommendation-level selector uses `Skip`, not `Cancel`; Skip bypasses only privacy.sexy and continues/finishes WGDot without implying that already-completed software work was cancelled. The privacy.sexy installer may auto-launch the desktop app; detect that process before launching another copy, and wait for the single desktop instance to close before returning to the WGDot workflow.
+- Keep the setup-tweak menu conservative. Do not expose the retired Flameshot Print Screen interception tweak, the retired Windows shell-hotkey filter, or the legacy Oops cursor entry there; cursor selection belongs in Cursor themes. Disable Enhance pointer precision, Disable Snap Assist, Disable Remote Assistance, Enable Windows sudo, Reduce visual effects, and Classic context menu all default OFF in both profiles. A one-time saved-selection migration may clear those six preference-sensitive choices so existing installs see the new defaults once; after migration, an explicit user re-selection must persist.
+- Keep the privacy.sexy Clipboard History recovery as an action-only Windows tweak, not a persistent selection. It may restore `HKCU\\Software\\Microsoft\\Clipboard\\EnableClipboardHistory`, remove `HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System\\AllowClipboardHistory` only when that policy is the disabled value `0`, and restore `cbdhsvc` startup only when privacy.sexy left it Disabled. Do not enable cross-device clipboard sync or broadly revert unrelated privacy.sexy settings.
+- Keep screenshot-border compatibility equally narrow. `restore-screenshot-border-control` is action-only and may delete only privacy.sexy's known `HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy\\LetAppsAccessGraphicsCaptureWithoutBorder` Force Deny (`2`) plus missing/empty companion app-list values, then restore `graphicsCaptureWithoutBorder` consent from `Deny` to `Allow`. Preserve any non-empty/custom companion list, any different policy value, and all programmatic screen-capture policy. Automatic repair after WGDot-launched privacy.sexy is allowed only when no screenshot-border policy or `Deny` consent existed before privacy.sexy opened; never auto-override a pre-existing organization/custom policy.
+- Privacy.sexy compatibility recovery is automatic only with positive WGDot/privacy.sexy evidence. When WGDot launches privacy.sexy, it may automatically restore newly introduced known Clipboard History and screenshot-border breakage while preserving any matching state that existed before launch. A normal managed **Update** may also auto-repair those exact known footprints only when `tweaks.json` records a prior completed WGDot privacy.sexy run; do not apply these system repairs during Review, Reset, or dots-only. Existing-system Clipboard History auto-repair requires the known machine `AllowClipboardHistory=0` policy or a disabled `cbdhsvc` service, not merely a user-level disabled/missing history value. Existing-system screenshot-border auto-repair requires the exact known privacy.sexy Force Deny pattern. Request elevation only when a repair is actually needed, and keep both action-only recovery entries available for manual repair.
+- Software reconciliation must preserve human-readable failure reasons from the elevated worker and print them in the main WGDot window. Never collapse package/tweak/browser-policy failures into only an anonymous numeric failure count.
+- Registry mutation helpers must open existing keys with the minimum rights needed to query/set values before falling back to key creation. Do not use `CreateSubKey` unconditionally on existing Windows-owned keys; some taskbar/search keys permit value writes while denying broader key-creation rights.
+- `clean-taskbar-items` treats an access-denied write to the user-level `TaskbarDa` Widgets value as a Windows-build compatibility case. Discard the un-applied TaskbarDa rollback snapshot and fall back to Microsoft's machine-level `SOFTWARE\Policies\Microsoft\Dsh\AllowNewsAndInterests=0` policy inside the already-elevated batch. If Windows also denies that machine-policy write, discard its un-applied rollback snapshot, warn that Widgets alone were left unchanged, continue the remaining taskbar cleanup, and do not count that compatibility case as a software-reconciliation failure. Preserve/restore the machine policy through the normal registry snapshot model only when WGDot actually writes it.
+- `automatic-time-and-timezone` is default ON and administrator-level. Use only Windows' built-in time/location stack: keep W32Time available, enable `tzautoupdate` with `Start=3`, enable device Location through `CapabilityAccessManager\ConsentStore\location\Value=Allow`, request a bounded/best-effort `w32tm /resync /rediscover`, and report the resulting Windows time zone. Do not add an external IP-geolocation dependency. Preserve the pre-WGDot registry values for rollback; rollback must not deliberately rewind the current clock or time zone.
+- Do not prepend `runas`, `sudo`, or another elevation wrapper to every individual WinGet command. Elevate the bounded WGDot batch once, then return to the normal user process.
+- Software preflight must not issue a network-backed exact-ID lookup for packages already known installed. Take one bounded WinGet installed-state snapshot first, then validate only missing packages.
+- Silent WinGet preflight/list/show checks must use noninteractive mode and a finite timeout. A hung WinGet query must stop or skip the affected preflight with a clear message rather than freeze WGDot indefinitely.
+- Actual WinGet installs must also be bounded when a package declares `wingetInstallTimeoutSeconds`. On timeout, terminate the stuck WinGet process tree before continuing.
+- A WinGet install timeout/failure may fall back only when the package manifest explicitly declares an approved official GitHub repository and a narrow asset regex. Never invent or scrape third-party mirrors.
+- Flow Launcher is retired from the software catalog. Loading older installation state may discard its retired package/tweak selections, but WGDot must not silently uninstall an already-installed copy solely because catalog support was removed.
+- Double Commander is retired from the software catalog. Yazi + Explorer are the preferred file-manager path. Loading older installation state must discard the retired `Alexx2000.DoubleCommander` selection without uninstalling an existing Double Commander installation.
+- Open-Shell remains selectable but defaults OFF for both Normal and Work on a fresh selection. Existing remembered package selections remain authoritative, and changing the default must never be treated as permission to uninstall an existing Open-Shell installation. Run its post-install setup only when the package was explicitly selected for installation.
+
+## Application startup ownership
+
+- Startup management is separate from installation. Manifest packages may declare a narrow `startupHandler` and `startupDefault`.
+- WGDot startup entries are current-user `HKCU\Software\Microsoft\Windows\CurrentVersion\Run` values named `WGDot.<handler>`. Never overwrite, delete, or reinterpret unrelated vendor/user Run values.
+- Current managed startup handlers are GlazeWM, AltSnap, Flameshot, EarTrumpet, MicLockTray, and RawAccel. The Startup Applications UI must expose a handler when its package is selected or the supported application is positively detected as already installed. An installed-but-unselected app defaults OFF unless the user already has an explicit remembered startup preference. RawAccel startup is independently remembered in `startup.json` and defaults OFF; enabling its WGDot-owned login entry must not alter the RawAccel acceleration configuration/profile. RawAccel upstream resolves themes and settings relative to `Environment.CurrentDirectory`, so a bare HKCU Run command for `rawaccel.exe` is invalid: keep `WGDot.rawaccel` under HKCU Run but route login startup through the windowless compiled WGDot helper, positively resolve the RawAccel GUI from explicit known locations/registration/PATH, and set its working directory to the executable directory before launch. EarTrumpet login startup must likewise avoid the known-bad `explorer.exe shell:AppsFolder\\...` Run command that can fall back to Explorer/Documents; use the windowless helper to launch the positively detected Start Menu application instead. The startup UI labels the GlazeWM entry as `GlazeWM + YASB`: YASB is deliberately not a second Windows startup entry because the managed GlazeWM config already starts/stops YASB through `startup_commands` / `shutdown_commands`.
+- Keep the managed AltSnap INI rebased on the upstream AltSnap 1.68 template while preserving the approved WGDot behavior: `AutoFocus=1`, `Hotkeys=A4 A5 5B 5C`, GlazeWM-friendly snapping/maximized-window choices, and `yasb.exe` plus `wgdotw.exe` in the process blacklist. Do not restore removed pre-1.68 `KBMoveStep`/`KBMoveSStep` keys.
+- GlazeWM startup must use its real executable plus `start --config=<live config>`; do not rely on an arbitrary shell working directory.
+- `startup.json` under WGDot state owns user enable/disable preferences. A software reconcile or successful normal/Git managed update/reset applies those remembered preferences; a selected startup-capable package gets its manifest default only when no preference exists yet. This lets newly introduced startup metadata reach existing selected installations without overriding an explicit prior OFF choice. Strict `dots-only` must not mutate startup registration.
+- The startup manager must expose individual enable/disable selection plus a one-action `Disable all WGDot-managed startup` path that keeps software installed.
+- Uninstalling a startup-managed package must remove WGDot's startup entry and persist the disabled preference first.
+
+- The native software catalog audit is strictly non-mutating: no installer downloads, installs, upgrades, app launches, registry writes, or elevation. It checks every manifest package with exact-ID `winget show`, validates known post-install action names, and resolves declared official GitHub fallback assets using the same resolver as real fallback installs.
+- Treat catalog audit success as metadata/source coverage only. It does not prove an installer can execute successfully or that application-specific runtime configuration works after installation.
+- `acceptance-audit` is the preferred broad maintainer smoke test. It must stay safe against the live system: actual mutation/rollback tests run only in an isolated `WGDOT_TEST_ROOT`; live checks are read-only planner/state/source/GPU inspections plus the no-install software audit.
+- The acceptance audit must explicitly name what remains inherently interactive: OS hotkey behavior, browser extension consumption/approval, at least one real managed-dots apply/rollback cycle, and any intentionally exercised DDU reboot flow.
+- Packages intentionally unavailable from WinGet may declare `installMode: official-page` with an HTTPS publisher download page and installed display name. The audit validates the official page without downloading an installer. Reconcile may offer to open that publisher page, but must not invent a third-party mirror or silently scrape/execute an unverified changing binary.
+- FileZilla Client is an `official-page` package because Microsoft's WinGet repository flags FileZilla Client/Server as blocked from the community repository for redistribution/licensing reasons. Keep its historical ID only as WGDot selection identity; do not attempt `winget install` for it.
+- RustDesk is an `official-github` package backed by `rustdesk/rustdesk`. Current WinGet community data does not expose the historical `RustDesk.RustDesk` package, so audit/reconcile must not report or probe that dead WinGet path as its primary source. Use the verified publisher GitHub release asset resolver directly.
+- `official-github-portable` is for a publisher-owned standalone executable that WGDot copies into the current user's LocalAppData Programs tree and launches only from the normal process. Validate downloaded executable payloads before use.
+- `official-github-archive-driver` is for a publisher-owned ZIP that contains a driver installer. Extract through path-traversal-safe logic, run the upstream installer from its extracted release directory inside the bounded elevated worker, and verify concrete driver/service markers because an upstream installer exit code alone may be unreliable.
+- Raw Accel uses `RawAccelOfficial/rawaccel` and verifies the `rawaccel` kernel-driver service plus driver/application files after installation. It requires a Windows restart but WGDot must not reboot automatically.
+- MicLockTray uses the publisher-owned `dillacorn/MicLockTray` standalone release executable and remains a user-level portable install.
+- Do not invent WinGet package IDs. Verify changed or questionable WinGet IDs against current WinGet data before committing them. Stable direct-source selection identities must map to an explicit verified source mode.
+
+## Cursor themes
+
+- The default WGDot cursor is Awtarchy's Bibata Modern Ice equivalent. Cursor selection is independent runtime state under `%LOCALAPPDATA%\wgdot\state\cursor.json`.
+- Keep all 12 Awtarchy Bibata combinations: Ice/Classic/Amber, Modern rounded/Original sharp, and normal/right-handed variants. Resolve Windows ZIP assets only from the official `ful1e5/Bibata_Cursor` GitHub release and use its regular-size Windows cursor directory.
+- Keep Oops-all-links available as a legacy alternative. Switching between Bibata, Oops, and Windows-default must restore the other WGDot cursor snapshot first so rollback returns to the pre-WGDot registry values rather than another WGDot theme.
+- Use the existing safe ZIP extractor for all cursor archives. Do not require administrator rights merely to apply Bibata; the files may live under WGDot's user-local install root and HKCU may point to them.
+
+## Development menu
+
+- Keep maintainer diagnostics separate from normal maintenance. `Audit all software (no install)`, `Automated acceptance audit (safe)`, and `Advanced / Git testing` belong under the clearly labeled `Development / testing` menu.
+
+## Browser configuration
+
+- Browser-specific option metadata lives in the top-level `browserOptions` section of `wgdot/manifest.json`, keyed by WinGet package ID.
+- Persist user browser selections in `installation.json` under `browserOptions`. Keep operational ownership/rollback metadata separate in `browser-management.json`.
+- Existing installation state that predates `browserOptions` must be preserved. Do not silently apply new browser defaults during a plain reconcile until the user has entered/reviewed browser options.
+- Firefox extension automation may use only Mozilla-supported signed add-on deployment. WGDot uses the current-user `Extensions.Install` Windows policy, preserves unrelated policy URLs, and removes only install requests that WGDot previously owned.
+- Firefox defaults DuckDuckGo No-AI Search ON through DuckDuckGo's publisher-owned signed AMO extension (`duckduckgo-no-ai-search`). Prefer that supported extension over editing Firefox search databases or inventing a custom search-engine policy; the extension owns the AI-free DuckDuckGo default-search behavior and can be deselected like other Firefox options.
+- Firefox Betterfox uses a dedicated `Profiles/wgdot.betterfox` profile. Back up affected Firefox metadata and `user.js`, change the default profile only after explicit user approval, and restore the prior default only when WGDot still owns that default choice.
+- Deselecting Betterfox must preserve the dedicated Firefox profile. Removing `user.js` alone is not a full preference rollback after Firefox has applied it, so isolation is the rollback boundary.
+- Brave on unmanaged Windows uses guided official Chrome Web Store pages and normal browser approval. Full uBlock Origin is the exception: expose Brave's own supported `brave://settings/extensions/v2` Manifest V2 path, default OFF, instead of pretending the Chrome Web Store still provides full uBO. Do not introduce silent sideloading, developer-mode loading, fake enterprise enrollment, or unsigned extensions.
+- Mullvad Browser must remain upstream-as-shipped: no WGDot extensions, Betterfox/user.js, preference changes, or hardening overlays. Its anti-fingerprinting consistency takes precedence over sharing the Firefox configuration.
+
+## Yazi migration safety
+
+The current Windows Yazi clipboard helper is:
+
+`UserProfile/AppData/Roaming/yazi/config/plugins/system-clipboard.yazi/main.lua`
+
+Windows Terminal must explicitly unbind its default `Ctrl+C` and `Ctrl+V` actions so those chords always reach terminal applications; retain `Ctrl+Shift+C` / `Ctrl+Shift+V` for terminal text copy/paste. In Yazi, both `Ctrl+C` and `c y` must run the same proven sequence: native `yank` first, then the managed `system-clipboard` plugin to mirror the copied files to the Windows FileDrop clipboard. The plugin must show a short Yazi success notification after the Windows clipboard is set.
+
+Use Yazi's native wraparound movement actions for list navigation: Up/`k` use `arrow prev` and Down/`j` use `arrow next`. This intentionally wraps from the first item to the last and from the last item to the first. Preserve native `g` Go To prefix behavior, `gg` top, and `G` bottom.
+
+Keep file creation/search aligned with upstream Yazi: inherit native `a` for create, `/` for forward find, `n` for next match, and `N` for previous match. Do not add a custom `n` create binding. The existing custom `?` Help binding remains intentional for now; Yazi still exposes Help through its other native help keys. The managed `init.lua` defines `Linemode:size_and_mtime`, and `yazi.toml` selects it by default so rows show readable size followed by a compact `M/D/YY` modified date at the far right. Keep row metadata compact; detailed modified time belongs in the bottom status for the currently highlighted item. Default to `Modified: M/D/YY HH:mm` using 24-hour time. `m t` toggles the highlighted-item clock between 24-hour and 12-hour display, the binding description must remain visible in Yazi Help, and the chosen format must persist between Yazi sessions through Yazi's retained DDS static message `@wgdot-yazi-time-format`. Keep using stable Yazi's hovered `cha.mtime` metadata without filesystem polling.
+
+Keep the managed Yazi mouse path usable as a conventional file manager without replacing keyboard operation. Left- or right-clicking the visible current-directory header path copies the current directory path with Yazi's native `copy dirpath` action and shows a short `Copied to clipboard: <path>` notification. A first left-click selects. A second left-click on an already highlighted item must not act until Mouse1 is released: releasing on a directory enters it, releasing on a file opens it, and starting a drag cancels that pending open. Middle-clicking a directory opens it in a new Yazi tab. Enter remains context-aware (directory -> enter, file -> open). Right-clicking an item opens the managed clickable item-actions menu; right-clicking blank space in the current pane opens folder actions. Right-clicking an already-selected item must preserve the whole selection; right-clicking an unselected item must collapse the target to that item before actions run. Context-menu rows must show the equivalent keyboard shortcuts and support hover highlighting so mouse use teaches the keyboard workflow. Keep the popup compact and cursor-adjacent: open it just beside the right-click position, flip it left/up near terminal edges, and do not add a separate footer because the shortcut hints are already inline with each action row. Hover highlighting requires managed `mouse_events = ["click", "scroll", "drag", "move"]`; keep it event-driven and do not introduce a polling loop. Keep `Ctrl+C`/`Ctrl+X`/`Ctrl+V` mapped to Yazi copy/cut/paste semantics. `Ctrl+C` and `c y` must use native Yazi `yank` as the authoritative copy operation and then invoke the same managed Windows FileDrop plugin. `Ctrl+V` remains native Yazi paste. The clipboard plugin may use the in-box PowerShell/WinForms FileDrop API, but it must not call `ya.async()` from its async plugin entry and must not involve `wgdot.exe` or `wgdotw.exe`. Windows Terminal owns the critical routing fix: its inherited `Ctrl+C`/`Ctrl+V` actions must remain explicitly unbound so focus changes cannot cause Terminal to consume those keys instead of Yazi. Do not reuse `Ctrl+X` as a selection-clear shortcut. Keep `Ctrl+Space` as individual keyboard toggle selection. Shift+Up/Down starts or extends a dedicated visual range; the first plain Up/Down after Shift is released commits that range before moving, so Space is not required to finish it. Stable Yazi currently parses Ctrl/Shift mouse modifiers internally but does not expose them to Lua, so do not claim Ctrl+click or Shift+click support until that API exists. Manager `Esc` must delegate to Yazi's native `escape` after WGDot-specific delete-menu/maximized-preview handling. Preserve upstream one-layer-at-a-time precedence (`find`/visual/filter before selection, then search) so an active command/state consumes the first Esc and a subsequent Esc clears selected files. Do not reimplement selection clearing in Lua. `q` and `Q` require the managed confirmation prompt, preserving `Q` no-cwd-file semantics; confirmation accepts Y/Enter/Space and cancels with N/Esc. Because `Ctrl+C` is repurposed from upstream tab-close to file copy, keep `Ctrl+W` as the replacement: close the current tab when multiple tabs exist, otherwise use the same quit confirmation. Multi-selection status may show only the cheap selected-item count, not recursive aggregate size. Keep `d d` and physical `Delete` on the managed two-row delete modal: `Move to trash` is selected by default, Up/Down moves between it and `Permanently delete...`, Enter submits the highlighted row, Esc cancels, `y` selects trash, and `D` selects permanent delete. Outside the modal, `y` must remain normal Yazi yank/copy and `D` must remain the direct native permanent-delete path. The trash row is itself the confirmation and may use forced trash; the permanent row must still invoke Yazi's native permanent-delete confirmation. Keep `g r` as file-only recently-opened history: record only files actually opened through managed Yazi open paths, including Enter/double-click/Open with, never directory navigation; plugin command arguments must preserve full local/network paths rather than dropping arguments after the plugin verb; retain up to 1000 newest unique paths in `%APPDATA%\\yazi\\state\\wgdot-recent-files.txt` and materialize them on `g r` into the real local folder `%APPDATA%\\yazi\\state\\collections\\Recently Opened`; Enter/second-click resolves the marker and reveals the real file, middle-click opens its parent in a new tab and reveals it, deleting a marker removes only the recent-history entry, stale targets are pruned on activation, and DDS remains only live cross-instance state fan-out. Do not reintroduce a custom VFS provider for this collection. ZIP creation/extraction stays in Yazi Lua, uses 7-Zip directly, avoids destructive archive-name collisions, exposes both extract-here and extract-to-folder, and must not invoke `wgdotw.exe`. Internal drag-to-folder also stays in Yazi: `Current:drag()` owns the gesture, cancels any pending click-open, and releasing selected items over a directory opens Copy/Move choices backed by Yazi tasks. Only outbound OS drag may call the narrow `wgdotw.exe yazi-drag` bridge, and only from that actual current-pane drag gesture. Keep blank-space actions on native create/paste plus Windows Terminal in the current directory, and keep `t e` as the explicit Terminal-here keyboard parity binding. Keep Windows Yazi right-click on the proven custom Lua `Modal` path used by stable main: `Current:click()` / `Entity:click()` open `WgdotYaziContextMenu`, the modal renders/clicks rows directly, and upstream `Root:click()` remains untouched so Yazi can discover modal children through its native `reflow()` routing. `Root:move()` may forward hover movement while the menu is visible. Do not route the Windows context popup through `ya.which()`, do not override `Root:click()`, `Root:redraw()`, `Root:layout()`, or `Root:reflow()`, and do not inject or reserve popup geometry inside Current/Parent panes. Preserve this compatibility baseline before changing menu styling or adding more mouse behavior.
+Keep the extended Windows Yazi usability layer aligned with the Awtarchy behavior where platform capabilities match: `g b` explicitly enters the persistent bookmark collection, while plain `b` toggles that collection and returns to the exact source directory remembered per Yazi tab; plain `B` bookmarks/unbookmarks the highlighted real file or folder, and the blank-space/current-folder context menu may use `B` for the current directory. `g r` explicitly enters Recent files, while plain `r` toggles Recents with the same per-tab return behavior; uppercase `R` is Rename and `F2` remains an alias. Keep `g` for Go/navigation semantics and do not restore `g B` as a bookmark mutation binding; precise file/folder bookmarking remains available from the managed item context menu; keep up to 1000 bookmarks in `%APPDATA%\\yazi\\state\\wgdot-bookmarks.txt`, represent bookmarked directories as marker directories and files as marker files, make Enter/second-click resolve the marker and navigate to the real target without opening bookmarked files, middle-click open the target in a new tab, and deleting a marker remove only the bookmark entry. Do not reintroduce a custom VFS provider for this collection; DDS only fans live changes across running instances, and `Ctrl+F` opens recursive current-tree filename/content search through Yazi's native `search` action with `via = "fd"` / `via = "rg"`; do not model fd/rg as plugins. Keep the header path as a clickable breadcrumb with a dim remembered forward trail that clears when navigation leaves that path. Render active header command suffixes such as `(filter: ...)`, search, and find in a distinct command color rather than the cwd color. Preserve native `v` visual mode and `p` paste; use `m v` to toggle the preview pane and `m x` to maximize/restore preview, with manager Esc restoring a maximized preview before otherwise dispatching normal `escape`. Preview ratio changes must dispatch Yazi's app-layer `app:resize` and rely on that native action's built-in reflow + `mgr:peek`; do not add a second delayed cache deletion/forced peek, because redundant image/PDF regeneration causes lag and flicker. Managed text wrapping must reflow to the new width. Keep image preview bounds large enough for a maximized pane, but do not claim arbitrary image upscaling: stable Yazi's built-in image renderer downsizes to fit and does not enlarge source images beyond their native pixel size. For maximized text previews, expose the managed `Select text [m c]` control; `m c` must also work directly on any highlighted text-like file without requiring maximize first. MIME detection may be unavailable on Windows, so use a conservative text-extension/name fallback and show a warning for unsupported files instead of silently returning. Launch the blocking plain-text PowerShell view through `-EncodedCommand` so cmd quoting cannot corrupt spaces, apostrophes, ampersands, Unicode, or network paths; clear the terminal before rendering, release Yazi mouse capture, let normal mouse highlighting work, and rely on existing `copyOnSelect` to copy the selection automatically. Do not globally remap Ctrl+C or alter terminal-wide clipboard semantics. The preview pane also reserves a bottom-right, non-overlapping clickable Nerd Font control using `󰹶 [m x]` for maximize and `󰘕 [m x]` for restore so the UI teaches the keyboard shortcut; it invokes the same maximize action and must not overlay preview content. The current-file pane reserves its own bottom row with `󰞔 [m v]` while preview is visible and `󰞓 [m v]` while hidden, positioned at the right edge immediately beside the preview pane; clicking it toggles preview visibility and must not cover file rows. Keep `Select text [m c]` on maximized text previews so all three preview controls expose their matching `m` shortcut. `Ctrl+T` creates a new Yazi tab in the current directory, `Ctrl+W` closes the active Yazi tab while retaining last-tab quit confirmation, and `Ctrl+1` through `Ctrl+9` switch directly to Yazi tabs. Windows Terminal must not bind `Ctrl+T`, `Ctrl+W`, or `Ctrl+0` through `Ctrl+9`, so those keys reach terminal applications. Context menus remain type/selection aware and multi-selection rename delegates to native Yazi bulk rename. Keep managed Yazi cell styling square: `theme.toml` removes rounded/powerline caps from tabs, mode/status cells, and current-pane indicator padding; custom context-menu borders use `ui.Border.PLAIN`, with a compact action-only body and inline shortcut text rather than a separate footer. `t n` opens the hovered directory in a new tab. `g m` is Windows-specific: show Yazi-discovered mounted drives/volumes and navigate to the selected root; do not import Linux `udisksctl`, sudo, or fake eject behavior. Git status signs must augment rather than replace the size/date linemode. Background-task status must use `cx.tasks.summary` and remain event-driven; `w` stays the native task manager binding. Managed plugins are vendored through the WGDot manifest rather than relying on a separate `ya pkg` network install. On Windows, managed Yazi Lua must not spawn shell processes through `io.popen` or `os.execute`; use Yazi `Command` for subprocesses and Yazi `fs.*` APIs for filesystem work so child processes cannot compete with Yazi for console signals.
+
+
+The obsolete `%APPDATA%\yazi\config\plugins\clipboard.yazi` directory may be removed only when positively identified as the known old managed XYenon plugin. A same-named user/custom directory must be preserved with a warning.
+
+Do not reintroduce Linux `wl-copy`/`wl-paste` assumptions into the Windows helper.
+
+## Installation navigation safety
+
+- Installation/reconfiguration is a staged wizard. `Q`/Esc from nested selectors backs up one wizard stage instead of immediately cancelling the whole installer.
+- Backing out past the first installation-profile screen must show an explicit quit confirmation. Quitting requires an explicit `Y`; repeated `Q`/Esc input must never count as confirmation.
+- `N`, Enter, Up/Down, PgUp/PgDn, Home, or End at the quit confirmation means the user wants to keep configuring and returns to the current installation menu.
+- Preserve in-progress selections while navigating backward/forward. If a fresh install changes Normal/Work scope, rebuild downstream scope-dependent defaults rather than mixing defaults from the previous scope.
+
+## Investigation vs modification
+
+Treat review, investigation, diagnosis, explanation, comparison, research, and planning requests as read-only unless the user explicitly asks for changes.
+
+When the user clearly requests a fix, implementation, update, or creation, perform the scoped change and validation without unnecessary reconfirmation.
+
+Do not turn a focused implementation into unrelated cleanup.
+
+## Git workflow
+
+Before Git writes, verify the repository, branch/ref, remote state, and requested destination.
+
+- Use a feature/testing branch for substantial WGDot work unless the user explicitly requests direct `main` changes.
+- Keep `main` untouched while Windows runtime behavior still needs maintainer testing.
+- Use concise, human-readable commit messages.
+- Do not force-push, rewrite history, delete branches/tags/releases, or recreate published artifacts unless explicitly requested.
+- Preserve unrelated repository changes.
+- After a write, re-read or otherwise verify the exact target.
+
+## Validation strategy
+
+Static validation does not prove Windows runtime behavior.
+
+For WGDot changes, use the relevant combination of:
+
+```text
+powershell -NoProfile -File tests\test-wgdot.ps1
+pwsh -NoProfile -File tests/test-wgdot.ps1
+wgdot\bootstrap.cmd
+%LOCALAPPDATA%\wgdot\bin\wgdot.exe self-test
+```
+
+The GitHub Actions native-bootstrap job is the authoritative automated Windows compile/install test and also runs the isolated native maintenance self-test.
+
+Also inspect the final diff and require CI success on the feature branch/PR.
+
+CI must validate at minimum:
+
+- `wgdot/manifest.json` parses;
+- the native runtime compiles and self-tests with the Windows-provided .NET Framework compiler;
+- isolated native maintenance tests exercise apply/backup/baseline/merge/migration behavior;
+- the compatibility PowerShell runtime can be parsed/dot-sourced on Windows PowerShell 5.1;
+- no WGDot runtime/bootstrap/manual path contains execution-policy bypasses;
+- stable and Git-testing paths remain separated;
+- managed destinations stay within approved user-local roots;
+- GlazeWM Normal/Work variants target the same live config path;
+- destructive recursive profile/AppData deletion is not introduced;
+- `winget upgrade --all` is not introduced into WGDot runtime behavior.
+
+Do not claim interactive Windows behavior is confirmed from CI alone. Real menu interaction, application reload behavior, and Work-policy behavior require runtime testing on an actual Windows machine.
+
+## Documentation discipline
+
+Documentation must match the current implementation.
+
+- Distinguish stable-release instructions from unreleased branch testing.
+- Do not claim WGDot is released merely because it exists on a feature branch or `main`.
+- Keep manual PowerShell instructions aligned with the same manifest and safety rules used by automatic WGDot behavior.
+- The paste-only restricted-network manual workflow must not require `api.github.com`, `github.com` archive/clone access, or execution of downloaded scripts. Pin its documented stable tag to the exact immutable release commit and update that tag/SHA pair whenever a new stable release becomes the supported manual source.
+- Prefer updating stale existing setup docs over creating redundant competing guides.
+
+## Maintaining this file
+
+Update `AGENTS.md` when architecture, state ownership, updater/release behavior, Git-testing behavior, managed-file boundaries, security rules, or required validation materially change.
+
+Do not turn this file into a changelog or duplicate the package manifest.
+
+
+## GPU driver maintenance
+
+- GPU detection is native and hardware-based: enumerate present Display-class devices with SetupAPI and classify PCI vendor IDs (AMD `1002`, NVIDIA `10DE`, Intel `8086`). Do not infer GPU vendor solely from installed apps.
+- Hybrid GPU systems are valid. Intel+NVIDIA and Intel+AMD must not be treated as mismatches when both physical adapters are present.
+- A stale/mismatched vendor candidate is a display-driver vendor with no corresponding present GPU, or an active vendor provider that does not match the present adapter's PCI vendor.
+- DDU is recovery/refresh tooling, not a routine updater. Never launch DDU, change BCD, or reboot without explicit user confirmation.
+- Before DDU Safe Mode: ensure DDU is installed locally, persist the target vendor, register `*WGDotGpuSafeModeResume` under HKLM RunOnce, then set `{current}` safeboot minimal.
+- Bind the final GPU Safe Mode state bytes to a SHA-256 carried by the HKLM RunOnce command and preserve that digest through any UAC re-elevation. Parse only the already-verified state bytes.
+- On Safe Mode resume: remove the safeboot BCD value successfully before launching DDU. If normal boot cannot be restored, do not launch DDU.
+- Safe Mode resume must re-resolve DDU from an existing path beneath Program Files or Program Files (x86). The `dduPath` stored in user-writable state is diagnostic only and must never control elevated execution.
+- Persist `driver-needed` state before DDU launches so a DDU-triggered reboot cannot lose the reinstall reminder.
+- Vendor driver tooling must come from vendor-owned HTTPS endpoints: AMD Auto-Detect from `drivers.amd.com`, NVIDIA App from `us.download.nvidia.com`, Intel Driver & Support Assistant from `dsadata.intel.com`.
+- Normal driver install/repair uses hardware autodetection first, then launches the vendor's own auto-detect/assistant for every detected AMD/NVIDIA/Intel GPU vendor. Hybrid systems may therefore launch more than one vendor assistant.
+- After software reconciliation, a detected GPU whose matching vendor display driver is not active launches its official vendor assistant automatically; do not ask a redundant second yes/no question after the user already approved software reconciliation.
+- AMD resolver logic must tolerate AMD support-page markup changes while remaining pinned to `drivers.amd.com`: try the current generic support page and a current official Radeon family page, and accept only the Auto-Detect web-installer URL shape. Installer download may use Windows curl with the vendor page as referrer, with WebClient as a fallback. Invalid/non-PE payloads fail closed; never fall back to a third-party driver source.
+
+
+- `Super+Alt+T` opens the theme selector. `Super+T` and normal global `Alt+T` toggle tiling. The `noalt` mode must retain `Super+T` tiling and `Super+Alt+T` themes but must not capture plain `Alt+T`.
+
+- All supported native YASB popup/menu offsets on the managed bar must use `offset_top: 0` so their surfaces touch the top bar. Keep the compiled launcher scrollbar theme-aware; do not restore the bright native Windows ListBox scrollbar.
+
+---
+> Source: [dillacorn/win-glaze-dots](https://github.com/dillacorn/win-glaze-dots) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
