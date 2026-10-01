@@ -4,7 +4,7 @@
   "repo": "octo_image",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Baseflow/octo_image",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-30T14:51:13Z"
+  "distributed_at": "2026-10-01T10:29:32Z"
 }
