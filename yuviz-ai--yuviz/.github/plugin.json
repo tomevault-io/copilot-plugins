@@ -1,0 +1,9 @@
+{
+  "name": "yuviz-ai--yuviz",
+  "displayName": "yuviz",
+  "description": "Voice AI platform: STT -> LLM (tool-calling, RAG, transfer) -> TTS, over real SIP telephony or browser-based testing",
+  "version": "1.0.0",
+  "author": "yuviz-ai",
+  "homepage": "https://github.com/yuviz-ai/yuviz",
+  "skills": []
+}
