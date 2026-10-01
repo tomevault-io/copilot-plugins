@@ -1,0 +1,9 @@
+{
+  "name": "kavo-labs--kavo",
+  "displayName": "kavo",
+  "description": "\ud83d\ude80 The fastest way to build CRUD APIs in TypeScript. Works with your favorite JavaScript framework and ORM, featuring filtering, sorting, pagination, and OpenAPI support.",
+  "version": "1.0.0",
+  "author": "kavo-labs",
+  "homepage": "https://github.com/kavo-labs/kavo",
+  "skills": []
+}
