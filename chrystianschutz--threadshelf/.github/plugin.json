@@ -1,0 +1,9 @@
+{
+  "name": "chrystianschutz--threadshelf",
+  "displayName": "ThreadShelf",
+  "description": "Local-first archive, semantic search, and continuation for AI conversations across ChatGPT, Claude, Gemini, Grok, OpenRouter, LM Studio and Google/Gemini Ai Studio ",
+  "version": "1.0.0",
+  "author": "ChrystianSchutz",
+  "homepage": "https://github.com/ChrystianSchutz/ThreadShelf",
+  "skills": []
+}
