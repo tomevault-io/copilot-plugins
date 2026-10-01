@@ -1,0 +1,9 @@
+{
+  "name": "ssheleg--sshlg-skills",
+  "displayName": "sshlg-skills",
+  "description": "Install and update nine Agent Skills packs for UX, delivery, design, integrations, SEO, agent systems, Telegram, coordination, and skill authoring.",
+  "version": "1.0.0",
+  "author": "ssheleg",
+  "homepage": "https://github.com/ssheleg/sshlg-skills",
+  "skills": []
+}
