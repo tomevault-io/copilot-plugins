@@ -1,0 +1,9 @@
+{
+  "name": "lucashenriquediniz--jikan-edge",
+  "displayName": "jikan-edge",
+  "description": "Jikan-parity anime/manga REST API on Cloudflare Workers - MyAnimeList data at the edge with D1 caching",
+  "version": "1.0.0",
+  "author": "LucasHenriqueDiniz",
+  "homepage": "https://github.com/LucasHenriqueDiniz/jikan-edge",
+  "skills": []
+}
