@@ -4,7 +4,7 @@
   "repo": "q-skills",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TyrealQ/q-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-25T00:10:10Z"
+  "distributed_at": "2026-10-01T19:01:01Z"
 }
