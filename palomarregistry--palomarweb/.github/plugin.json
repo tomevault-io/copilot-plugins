@@ -1,0 +1,9 @@
+{
+  "name": "palomarregistry--palomarweb",
+  "displayName": "PalomarWeb",
+  "description": "Static human-facing explorer for the Palomar database",
+  "version": "1.0.0",
+  "author": "PalomarRegistry",
+  "homepage": "https://github.com/PalomarRegistry/PalomarWeb",
+  "skills": []
+}
