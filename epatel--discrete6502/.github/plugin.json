@@ -1,0 +1,9 @@
+{
+  "name": "epatel--discrete6502",
+  "displayName": "discrete6502",
+  "description": "A MOS 6502 CPU rebuilt from 4,051 discrete transistors on a 291x322mm six-layer board that reproduces the original die layout",
+  "version": "1.0.0",
+  "author": "epatel",
+  "homepage": "https://github.com/epatel/discrete6502",
+  "skills": []
+}
