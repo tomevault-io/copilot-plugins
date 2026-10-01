@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--terraform-google-enterprise-application",
+  "displayName": "terraform-google-enterprise-application",
+  "description": "terraform-google-enterprise-application",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/terraform-google-enterprise-application",
+  "skills": []
+}
