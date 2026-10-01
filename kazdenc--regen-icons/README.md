@@ -15,10 +15,6 @@ Original source: `CLAUDE.md` in [kazdenc/regen-icons](https://github.com/kazdenc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [regen-icons](https://github.com/kazdenc/regen-icons/tree/main/generator/.dev/SKILL.md)
-
 From [kazdenc/regen-icons](https://github.com/kazdenc/regen-icons) — a repo with 184+ stars on GitHub.
 
 ---
