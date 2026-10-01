@@ -4,7 +4,7 @@
   "repo": "counterfeiter",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maxbrunsfeld/counterfeiter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T00:30:24Z"
+  "distributed_at": "2026-10-01T08:33:23Z"
 }
