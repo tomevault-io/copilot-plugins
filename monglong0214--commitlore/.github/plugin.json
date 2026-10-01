@@ -1,0 +1,9 @@
+{
+  "name": "monglong0214--commitlore",
+  "displayName": "commitlore",
+  "description": "Git-native decision memory for Claude Code, Codex, Cursor and other coding agents. Preserve constraints and rejected alternatives; surface only the decisions still in force.",
+  "version": "1.0.0",
+  "author": "MongLong0214",
+  "homepage": "https://github.com/MongLong0214/commitlore",
+  "skills": []
+}
