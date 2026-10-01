@@ -1,0 +1,9 @@
+{
+  "name": "censusreporter--census-api",
+  "displayName": "census-api",
+  "description": "census-api",
+  "version": "1.0.0",
+  "author": "censusreporter",
+  "homepage": "https://github.com/censusreporter/census-api",
+  "skills": []
+}
