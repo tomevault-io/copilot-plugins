@@ -1,0 +1,9 @@
+{
+  "name": "minio--minio-java",
+  "displayName": "minio-java",
+  "description": "minio-java",
+  "version": "1.0.0",
+  "author": "minio",
+  "homepage": "https://github.com/minio/minio-java",
+  "skills": []
+}
