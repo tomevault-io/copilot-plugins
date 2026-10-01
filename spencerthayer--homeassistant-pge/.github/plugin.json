@@ -1,0 +1,9 @@
+{
+  "name": "spencerthayer--homeassistant-pge",
+  "displayName": "homeassistant-pge",
+  "description": "Home Assistant custom integration for Portland General Electric (PGE) energy usage, billing, and programs \u2014 not California PG&E.",
+  "version": "1.0.0",
+  "author": "spencerthayer",
+  "homepage": "https://github.com/spencerthayer/homeassistant-pge",
+  "skills": []
+}
