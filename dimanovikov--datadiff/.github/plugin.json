@@ -1,0 +1,9 @@
+{
+  "name": "dimanovikov--datadiff",
+  "displayName": "datadiff",
+  "description": "Semantic diff for JSON, YAML, CSV, TOML and XML that plugs into git diff. Ignores key order and formatting, matches arrays by key, and reports changes as data paths: spec.replicas: 3 \u2192 5",
+  "version": "1.0.0",
+  "author": "dimanovikov",
+  "homepage": "https://github.com/dimanovikov/datadiff",
+  "skills": []
+}
