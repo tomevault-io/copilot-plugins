@@ -1,90 +1,59 @@
 ## crosspoint-reader-cjk
 
-> Guidance for autonomous coding agents working in `crosspoint-reader-cjk`.
+> Development instructions for Claude and other assistants in `crosspoint-reader-cjk`.
 
-# AGENTS.md
+# CLAUDE.md
 
-Guidance for autonomous coding agents working in `crosspoint-reader-cjk`.
-This repository is a CJK-focused fork of CrossPoint Reader. A successful upstream merge must preserve the fork's user-visible behavior, not merely compile.
+Development instructions for Claude and other assistants in `crosspoint-reader-cjk`.
+Read `AGENTS.md` first; it is the authoritative repository guide. This file highlights the rules most likely to be missed during automated work.
 
-## 1. Project and hardware
+## Repository identity
 
-- Firmware: PlatformIO + Arduino, primarily C++20 (`-std=gnu++2a`) with Python build/test utilities.
-- Main target: Xteink X4/X3, ESP32-C3, 16 MB flash, no PSRAM.
-- Additional CI target: Seeed Studio XIAO ePaper Display Board / "Sticky", ESP32-S3.
-- Main entry point: `src/main.cpp`; recovery entry point: `src/recovery/RecoveryMain.cpp`.
-- The C3 is memory-constrained. The display buffer is required baseline memory, not a leak. Avoid file-sized buffers, repeated hot-path allocation, and unbounded containers.
-- Exceptions are disabled. Allocation and I/O failures must be handled explicitly.
+This is the CJK-focused CrossPoint Reader fork, not a stock upstream checkout. It targets memory-constrained Xteink ESP32-C3 hardware and also keeps the ESP32-S3 `sticky` target buildable. Upstream code may be a useful baseline, but upstream behavior does not automatically supersede this fork's tested behavior.
 
-## 2. Clone and submodules
-
-Clone recursively:
+Before work begins:
 
 ```bash
-git clone --recursive <repo-url>
-cd crosspoint-reader-cjk
-git submodule update --init --recursive
-```
-
-Required submodules:
-
-- `freeink-sdk/`: mandatory for all firmware builds. `platformio.ini` consumes SDK libraries through `symlink://freeink-sdk/...`, including display, input, storage, power, board configuration, UI, icons, and secure networking.
-- `freeink-sdk/libs/assets/Icons/lucide`: nested source asset submodule used when regenerating Lucide-derived SDK icons. It is not needed to compile already-generated icon headers, but recursive initialization keeps the SDK checkout complete and matches CI.
-`.gitmodules` names this fork's SDK update branch; the repository gitlink pins the reproducible SDK commit. Do not replace that gitlink with upstream SDK HEAD or edit the SDK incidentally. If an SDK change is required, verify the API in the checked-out submodule, commit it in the SDK repository first, and then update this repository's gitlink in a separate, intentional change.
-
-Quick verification:
-
-```bash
+git branch --show-current
+git remote -v
+git status --short
 git submodule status --recursive
 ```
 
-A leading `-` means the submodule is not initialized. A leading `+` means the checkout differs from the recorded gitlink.
+Preserve unrelated changes. Do not assume branch or remote names. Never rewrite shared history, force-push, or perform destructive device flashing without explicit authorization.
 
-## 3. Tooling and first build
+## Submodules are build inputs
 
-Required tools:
-
-- Python 3 (CI uses 3.14)
-- PlatformIO Core (`pio`)
-- clang-format 21+
-- Pillow for built-in CJK font generation
-
-The first build is slower because `custom_sdkconfig` rebuilds Arduino/ESP-IDF components. On macOS, retain any machine-specific CMake/toolchain workaround in gitignored `platformio.local.ini`; never commit that file.
-
-Enable the repository's local Git hooks once per checkout:
+Initialize recursively:
 
 ```bash
-./bin/install-git-hooks
+git submodule update --init --recursive
 ```
 
-The pre-commit hook formats tracked C/C++ changes, and the pre-push hook runs the
-same cppcheck command as CI. A push is blocked when cppcheck reports any low, medium,
-or high defect. For an exceptional one-off push when PlatformIO cannot run, explicitly
-use `CROSSPOINT_SKIP_PRE_PUSH_CHECKS=1 git push`; CI still remains authoritative.
+- `freeink-sdk/` is mandatory. `platformio.ini` references its libraries with local `symlink://` dependencies; a non-recursive or missing checkout will not produce a valid build.
+- `freeink-sdk/libs/assets/Icons/lucide` is a nested source asset submodule used when regenerating Lucide-derived icons. Ordinary compilation can use the existing generated icon headers, but recursive initialization keeps the SDK checkout complete and matches CI.
+- The recorded SDK gitlink belongs to this fork. Do not silently advance it to another SDK branch or upstream HEAD.
+- Verify uncertain display, storage, network, board, and input APIs against the checked-out SDK source before using them.
+- SDK implementation changes and the main-repository gitlink update should be deliberate and separately reviewable.
 
-If an interrupted core rebuild reports multiple definitions of `app_main`, follow the cleanup command documented in `platformio.ini`. Do **not** use `git clean -fdX`, because it can delete local configuration and other intentionally ignored assets.
+## Build environments
 
-## 4. PlatformIO environments
+Use the correct environment:
 
-Use the environment that matches the artifact or test:
+- `default`: normal ESP32-C3 development firmware; EN/SC/TC/JA.
+- `gh_release` / `gh_release_rc`: Simplified Chinese release line; EN/SC/JA.
+- `gh_release_tc` / `gh_release_rc_tc`: Traditional Chinese release line; EN/TC/JA.
+- `slim`: C3 size-focused build without serial logging.
+- `device_test`: device automation with serial input injection; test-only and never a release artifact.
+- `recovery`: minimal English SD recovery firmware with a separate source filter.
+- `sticky`: ESP32-S3 target used by CI; it is not an X4-compatible binary.
 
-| Environment | Purpose | Languages / notes |
-|---|---|---|
-| `default` | Normal ESP32-C3 development build | EN, Simplified Chinese, Traditional Chinese, Japanese; debug serial logging |
-| `gh_release` | Simplified Chinese release | EN, SC, JA |
-| `gh_release_rc` | Simplified Chinese release candidate | Inherits the SC release language set |
-| `gh_release_tc` | Traditional Chinese release | EN, TC, JA |
-| `gh_release_rc_tc` | Traditional Chinese release candidate | Inherits the TC release language set |
-| `slim` | Size-focused C3 build | All four shipping languages; serial logging disabled |
-| `device_test` | Physical-device automation | Test-only serial input injection; never publish this artifact |
-| `recovery` | Minimal SD recovery firmware | English-only, separate source filter |
-| `sticky` | ESP32-S3 Sticky development/CI build | Different MCU/toolchain; not interchangeable with X4 firmware |
-
-Common commands:
+Useful commands:
 
 ```bash
-pio run -e default
-pio run -e sticky
+./bin/clang-format-fix -g
+pio check --fail-on-defect low --fail-on-defect medium --fail-on-defect high
+pio run -e default -e sticky
 pio run -e gh_release
 pio run -e gh_release_tc
 pio run -e recovery
@@ -92,39 +61,96 @@ pio run -e default --target upload
 pio device monitor
 ```
 
-The registered upload target is partition-aware for Xteink C3 environments. It writes application partitions and updates OTA selection while preserving the bootloader, partition table, and data partitions such as NVS, SPIFFS, and coredump; it does not preserve old application images in factory/OTA slots. Do not bypass `scripts/register_safe_upload.py` / `scripts/upload_ota_slots.py` with an arbitrary whole-flash command unless the task explicitly requires and validates the complete partition layout.
+CI intentionally builds `default` and `sticky` in one `pio` invocation. Reproduce that shape when checking CI failures because separate invocations can invalidate artifacts as toolchains change.
 
-After physical tests with `device_test` or screenshot-only configurations, remove temporary overrides and restore a `default` development firmware to the device.
+For Xteink C3 uploads, retain the registered safe upload path. It writes application partitions and updates OTA selection while preserving the bootloader, partition table, and data partitions such as NVS, SPIFFS, and coredump; it does not preserve old factory/OTA application images. After testing `device_test` or temporary screenshot configurations, remove temporary overrides and restore `default` firmware.
 
-## 5. Build-time scripts and generated files
+`platformio.local.ini` is machine-local and gitignored. Never commit it. Do not use `git clean -fdX`; it can remove this file and other intentionally ignored assets.
 
-`platformio.ini` wires these scripts into every applicable build:
+## Generated sources
 
-- `scripts/patch_wolfssl.py`: applies/checks the constrained-heap wolfSSL integration.
-- `scripts/build_html.py`: walks `src/` and generates adjacent `*.generated.h` headers from Web `*.html` and `*.js` inputs, including nested `src/network/html/` directories.
-- `scripts/gen_i18n.py`: generates `lib/I18n/I18nKeys.h`, `I18nStrings.h`, and `I18nStrings.cpp` from `lib/I18n/translations/*.yaml`, filtered by the environment's `custom_i18n_languages`.
-- `scripts/gen_builtin_cjk_font.py`: generates size/weight-matched CJK UI font headers from the shipping translation corpus and the tracked source fonts in `fonts/`.
-- `scripts/git_branch.py`: supplies development version metadata.
-- `scripts/patch_jpegdec.py`: verifies/applies the JPEG decoder safety patch.
-- `scripts/register_unit_tests_target.py`: registers the PlatformIO host/unit-test target.
-- `scripts/register_safe_upload.py`: registers safe application upload behavior.
+PlatformIO runs these pre/post scripts:
 
-Generated/derived areas must not be edited as source:
+- `scripts/patch_wolfssl.py`
+- `scripts/build_html.py` (walks `src/`; generates adjacent headers from Web `.html` and `.js` inputs)
+- `scripts/gen_i18n.py`
+- `scripts/gen_builtin_cjk_font.py`
+- `scripts/git_branch.py`
+- `scripts/patch_jpegdec.py`
+- `scripts/register_unit_tests_target.py`
+- `scripts/register_safe_upload.py`
 
-- `src/**/*.generated.h` produced beside HTML/JavaScript Web inputs
-- `lib/I18n/I18nKeys.h`
-- `lib/I18n/I18nStrings.h`
-- `lib/I18n/I18nStrings.cpp`
-- `lib/GfxRenderer/cjk_ui_font_*.h`
-- `lib/Epub/Epub/hyphenation/generated/*`
+Do not hand-edit generated outputs:
 
-Edit the corresponding HTML, translation YAML, font-generation inputs/scripts, or hyphenation source and regenerate. Some generated outputs are intentionally tracked while others are ignored; follow `git status` and existing repository policy rather than assuming all generated files should be committed.
+- `src/**/*.generated.h`: edit the adjacent Web `.html` or `.js` input.
+- `lib/I18n/I18nKeys.h`, `I18nStrings.h`, `I18nStrings.cpp`: edit `lib/I18n/translations/*.yaml` or the generator.
+- `lib/GfxRenderer/cjk_ui_font_*.h`: edit the tracked font inputs/generation scripts and regenerate.
+- `lib/Epub/Epub/hyphenation/generated/*`: change the source/generator path.
 
-For i18n/CJK changes, remember that the selected PlatformIO environment changes both the generated language tables and built-in glyph corpus. Verify both SC and TC release environments so one locale is not accidentally omitted. Environment-specific builds rewrite the tracked CJK headers; after those builds, regenerate/restore the canonical all-shipping-language headers (for example with `python3 scripts/gen_builtin_cjk_font.py`) and run `python3 scripts/check_cjk_ui_font_charset.py` before committing.
+The active PlatformIO environment filters translation tables and the CJK glyph corpus. An i18n change that builds only `default` is insufficient release verification: build both SC and TC release environments and check generated glyph coverage. Those environment-specific builds rewrite tracked CJK headers, so finish by regenerating/restoring the canonical all-shipping-language headers (for example with `python3 scripts/gen_builtin_cjk_font.py`) and run `python3 scripts/check_cjk_ui_font_charset.py` before committing.
 
-## 6. Verification commands
+## Fork preservation contract
 
-Baseline before a PR:
+Read `docs/fork-features.md` before an upstream merge or a refactor in a high-risk subsystem. Preserve behavior, not merely symbol names.
+
+### Fonts and catalog
+
+- Reader SD font and UI SD font are independent persisted selections and runtime roles.
+- Official UI packages contain physical 8, 10, and 12 pt faces. Load UI faces 12 -> 10 -> 8; incomplete manually installed families may use the nearest size within the same family.
+- Keep locale-aware Noto Sans identities distinct; do not conflate SC, TC, JP, Serif, or arbitrary variants through fuzzy name matching.
+- Rendering-affecting font unload/reload and registry updates follow the established render lock and cache-release ordering.
+- `.cpfont` and `.cpfontpkg` installation is transactional. Preserve staged files, validation, rollback, legacy `.bak` recovery, cancellation, and the last usable family.
+- Before TLS-heavy catalog work, release manifest family storage, glyph/renderer caches, and restorable resident SD fonts in the established order. Restore them only at the intended lifecycle points.
+- On ESP32-C3/X4, the Wi-Fi selector intentionally stays on built-in CJK UI fonts. Do not reload configured 8/10/12 pt SD UI faces after STA startup and before manifest TLS: that allocation order repeatedly reduced the largest block below wolfSSL's measured 21,492-byte requirement, and freeing the faces afterwards did not repair fragmentation. Restore configured SD UI fonts after the transfer/parse lifecycle or on exit.
+- Keep manifest and payload processing streaming and bounded. `HttpDownloader::maxBytes` is a generic upper bound, not an exact content-length assertion.
+- Wi-Fi-selection return restores only the UI font; it must not mutate the reader-font selection.
+
+### CJK, display, and input
+
+- EN, Simplified Chinese, Traditional Chinese, and Japanese workflows must retain complete labels and required built-in glyphs.
+- Missing built-in CJK UI glyphs may use a compatible SD-font fallback without unexpectedly changing Latin UI metrics.
+- CJK line breaking, punctuation attachment, justification, indentation, actual installed reader sizes, and batched/metrics-only SD glyph access are intentional fork behavior.
+- Dark-mode visible updates use `DarkRedrive` or its window equivalent. Do not replace them with `HALF_REFRESH` or ordinary `FAST_REFRESH` unless a documented hardware reason is verified on-device.
+- Images and covers preserve their intended polarity in dark mode; UI background inversion must not double-invert image data.
+- Reader orientation and full-UI Portrait/Portrait Inverted orientation are separate persisted settings. Input mapping follows the orientation actually drawn.
+- Use logical mapped buttons in activities, not raw GPIO indices, except where the remapping implementation itself requires physical indices.
+- **The front-button orientation policy is a hard regression contract. It has been accidentally overwritten and reimplemented multiple times; never resolve an upstream conflict by restoring an older `MappedInputManager` implementation or deleting `FrontButtonOrientation` / `test/run_front_button_orientation_mapping_test.py`.** Use the live renderer orientation. Portrait Inverted + follow enabled mirrors all four front hardware roles once, without an additional previous/next swap. Follow disabled leaves input raw and mirrors only the displayed hints. Landscape Counter-Clockwise keeps its semantic navigation swap. Physical remap capture, Bluetooth page turning, side buttons, touch/gestures, tilt, and serial test input stay outside this conversion. Run the focused host test and physically verify inverted UI with follow both enabled and disabled.
+
+### Responsiveness, Web, and storage
+
+- Home must become interactive before expensive cover extraction. Cover generation remains deferred, one item at a time, cancellable, cache-aware, and protected against stale render commits.
+- Show indexing/progress UI before blocking reader work, and keep main-loop input polling ahead of blocking rendering, networking, display waits, and SD operations.
+- Long rendering, indexing, SD, Web, WebDAV, download, and upload loops remain watchdog-safe and cancellation-aware.
+- Deferred Web response callbacks must own durable state; never capture handler-local buffers by reference.
+- Uploads and firmware writes stream with bounded memory and do not replace a valid destination on timeout, cancellation, invalid input, or partial write.
+- Shared SD operations use `HalStorage` and existing locking/serialization. Do not introduce long-lived owning file handles in each SD font.
+- New Wi-Fi scans clear stale scan state. Preserve bounded recovery, hidden-SSID entry, the pre-association `CN` country seed, and 802.11d so channels 12/13 remain discoverable.
+
+### Persistence and recovery
+
+Treat persisted JSON keys, enum values/order, defaults, negative SD font IDs, and migrations as data-format APIs. Reader/UI orientation, reader/UI font roles, sleep settings, and button mappings must remain backward-compatible.
+
+Recovery and firmware update changes must validate image target, size, chip/device, and partition compatibility before writing. Preserve the fixed partition/dual-OTA recovery contract.
+Preserve boot-button entry to the SD firmware picker. Flush deferred reader progress/crash-recovery state before deep sleep, and clear stale Calibre or other session-derived administrative values when their owning session ends.
+
+Do not remove transaction, rollback, cancellation, generation-token, storage-locking, TLS teardown, dark-refresh, or migration code simply because it looks redundant. Much of it exists because a simpler path failed on real hardware.
+
+## Embedded coding rules
+
+- Exceptions are disabled; check every allocation and fallible operation.
+- The ESP32-C3 has no PSRAM. Avoid file-sized buffers, unbounded data structures, and repeated allocation in render/directory/network loops.
+- The approximately 48-52 KiB framebuffer is required display memory, not evidence of a leak.
+- Keep stack allocations modest; use checked, bounded heap allocation for large temporary buffers and release them promptly.
+- Use `memcpy` for potentially unaligned multi-byte serialized reads.
+- Use `LOG_DBG`, `LOG_INF`, and `LOG_ERR`. Do not leave routine heap/timing telemetry enabled in production paths.
+- Use i18n keys for user-visible text.
+- Stop FreeRTOS tasks and release callbacks, files, fonts, and buffers before an activity is destroyed.
+- Follow existing singleton/HAL patterns (`SETTINGS`, `APP_STATE`, `GUI`, `Storage`, `I18N`) rather than introducing an isolated architecture rewrite.
+- Respect `.clang-format`; do not manually format around it.
+
+## Verification
+
+Minimum broad verification:
 
 ```bash
 ./bin/clang-format-fix -g  # use the all-files form only in an otherwise clean checkout
@@ -137,121 +163,22 @@ git diff --check
 git status --short
 ```
 
-CI builds `default` and `sticky` in one PlatformIO invocation. Preserve this pattern when reproducing CI because separate invocations can invalidate or remove environment build artifacts after the second toolchain is installed.
-
-Tests are primarily focused host-side runners rather than a single conventional `pio test` suite. Run the narrow `test/run_*.py` or shell runner for the subsystem touched. Important examples:
+Use focused host-side runners from `test/` for changed behavior; examples include:
 
 ```bash
-./test/run_hyphenation_eval.sh
-./test/run_hyphenation_eval.sh english
 python3 test/run_i18n_translation_test.py
 python3 test/run_cpfont_validator_test.py
 python3 test/run_font_manifest_streaming_test.py
+python3 test/run_font_catalog_ui_font_lifecycle_test.py
 python3 test/run_home_existing_cover_reuse_test.py
 python3 test/run_dark_mode_cover_background_test.py
+./test/run_hyphenation_eval.sh <language>
 ```
 
-When font catalog, UI font lifecycle, low-memory networking, SD font caching, Web uploads, persistence, display refresh, orientation, recovery, or hardware input changes, run the matching focused tests listed in `test/` and perform physical-device verification. Do not dismiss an existing test failure without determining whether it is pre-existing and documenting the evidence.
+Hardware-dependent display refresh, heap fragmentation/TLS, Wi-Fi scanning, SD timing, buttons/orientation, sleep, and OTA/recovery behavior require physical-device verification. Report exactly what was run; never claim device verification from a host build alone.
 
-## 7. C++ style and embedded constraints
-
-- `.clang-format` is authoritative: 2 spaces, 120-column limit, attached braces, `Type* ptr` pointer alignment.
-- Include what you use. Prefer matching header, platform/external headers, standard headers, then other project headers.
-- Classes/types: `PascalCase`; functions/variables: `camelCase`; macros and most constants: `UPPER_SNAKE_CASE`.
-- Use fixed-width integers for persisted/protocol fields and `size_t` for sizes/indices.
-- Prefer `const` correctness, references, and `std::unique_ptr`; avoid `std::shared_ptr` unless ownership truly requires it.
-- Use `std::string` internally and Arduino `String` at Arduino/WebServer boundaries, following nearby code. Avoid allocation-heavy string construction in render and directory loops.
-- Prefer early returns. Check allocation, SD, network, and parser results immediately.
-- Use `LOG_DBG`, `LOG_INF`, and `LOG_ERR`; do not add routine periodic telemetry to normal builds.
-- After `strncpy`, force null termination.
-- Never dereference potentially unaligned serialized data through a wider pointer; use `memcpy`.
-- Keep long loops watchdog-safe and cancellation-aware. Yield/feed the watchdog where existing policy requires it.
-- Use `HalStorage` and repository locking conventions. Do not keep owning SD file handles resident in each font object or access the card concurrently outside the established serialization paths.
-- Activities are heap allocated and destroyed on transition. Stop tasks and release files, buffers, fonts, and callbacks before activity destruction.
-- User-facing strings must use i18n keys; logging text may be literal.
-- Follow existing singleton access (`SETTINGS`, `APP_STATE`, `GUI`, `Storage`, `I18N`) rather than introducing isolated dependency-injection architecture.
-
-## 8. Fork behavior that upstream merges must preserve
-
-`docs/fork-features.md` is the detailed behavior contract and post-merge checklist. Read it before resolving upstream conflicts in high-risk paths. At minimum preserve these invariants:
-
-### CJK i18n and releases
-
-- EN/SC/TC/JA workflows remain complete, including settings, Wi-Fi, font catalog, errors, updates, and recovery-facing labels.
-- Built-in CJK UI glyphs come from the selected shipping translations and required UI symbols.
-- Missing built-in CJK UI glyphs may fall back to a compatible SD font without unexpectedly changing Latin UI metrics.
-- Build both `gh_release` and `gh_release_tc`; they intentionally have different language sets and version suffixes.
-
-### Independent reader and UI fonts
-
-- Reader and UI SD font selections are separate persisted settings and separate runtime roles.
-- UI packages require physical 8/10/12 pt faces for official packages. Runtime fallback may reuse the nearest installed size within the same family when a manually installed family is incomplete.
-- UI faces load largest-first (12, 10, 8) to make low-memory fallback deterministic.
-- Do not merge Noto Sans identities by name substring in a way that conflates SC, TC, JP, Serif, or unrelated variants.
-- Font unload/reload and registry changes that affect rendering must hold the established render lock.
-
-### Font catalog and network memory
-
-- `.cpfont`/`.cpfontpkg` install and replacement are staged transactions. Failure, cancellation, restart, or a stale `.bak` must not destroy the last usable family.
-- Validate byte bounds, SHA-256, CPFont structure/version, range responses, and final paths before activation.
-- Release manifest families, glyph/renderer caches, and resident SD fonts before TLS-heavy transfers; restore only at the lifecycle points established by the catalog.
-- On ESP32-C3/X4, keep resident SD UI fonts unloaded from Wi-Fi STA startup through the manifest TLS handshake. Loading the configured 8/10/12 pt CJK UI faces inside `WifiSelectionActivity` fragments the heap below wolfSSL's measured 21,492-byte contiguous-allocation requirement, and unloading them later does not coalesce it. The selector intentionally uses built-in CJK UI fonts; restore configured SD UI fonts only after manifest transfer/parse or activity exit. Do not revert this to make the selector visually match the configured UI font.
-- Keep streaming/range downloads bounded. `HttpDownloader::maxBytes` is an upper bound, not an exact expected object length.
-- The OTA update check (`OtaUpdateActivity`) must mirror the font-catalog heap contract: run `releaseGlyphCaches()` + `sdFontSystem.releaseResidentFonts()` + font-cache clear before `WiFi.mode(WIFI_STA)`, use the wolfSSL transport with TLS 1.2 for GitHub domains, and never hold the release-metadata body in RAM during the transfer. Stage it on the SD card with `HttpDownloader::downloadToFile` (font-manifest pattern) and parse only after the TLS client is destroyed. Every large `std::string` allocation in the transfer window has aborted on device: a 16 KB reserve before `wolfSSL_connect` starves the handshake (-125 MEMORY_E, handshake needs ~34 KB free), and a 12 KB reserve at the first body chunk died with bad_alloc -> abort because the contiguous max block there is under 12 KB even at ~36 KB free (WiFi selector scan leftovers fragment the heap, so field heap state is worse than clean automated test runs).
-
-- Wi-Fi selector restoration is UI-font-only; it must not unexpectedly replace the reader font.
-
-### Display, orientation, and Home
-
-- In dark mode, visible updates use `DarkRedrive` (buffer or window variant). Do not fall through to `HALF_REFRESH` or ordinary `FAST_REFRESH` without a documented, device-tested hardware reason.
-- Reader images/covers preserve their polarity while surrounding dark UI fills invert appropriately.
-- Reader orientation and full-UI Portrait/Portrait Inverted orientation are independent persisted settings. Input mapping follows the orientation actually rendered.
-- **Front-button rotation is a regression-sensitive hardware contract that has been overwritten and reimplemented repeatedly. Do not replace or simplify `FrontButtonOrientation`, `MappedInputManager::currentOrientation()`, front hardware-index mapping, hint-slot mapping, or their focused test during upstream merges.** The verified behavior is: use the live renderer orientation; in Portrait Inverted with `frontButtonFollowOrientation` enabled, mirror all four front input roles exactly once and do not also swap previous/next semantics; with following disabled, keep raw input roles and mirror only button hints; Landscape Counter-Clockwise retains its semantic previous/next swap. Raw remapping capture must continue returning physical hardware indices, and Bluetooth page turns, side buttons, touch/gestures, tilt input, and serial test input must remain unaffected. Run `python3 test/run_front_button_orientation_mapping_test.py` and repeat physical-device checks for both follow-on and follow-off states before accepting any change to these paths.
-- Home cover extraction/conversion is deferred, one item at a time, cancellable, and guarded against stale renders. Do not move expensive EPUB/XTC cover generation back into initial draw or input handling.
-- Show indexing/progress UI before blocking reader work, and keep main-loop input polling ahead of blocking rendering, networking, display waits, and SD operations.
-
-### Web, Wi-Fi, storage, and persistence
-
-- Long Web/WebDAV/upload responses use bounded streaming, durable callback state, watchdog-safe writes, and rollback for partial uploads.
-- A new Wi-Fi scan clears stale Arduino scan state. Recovery is bounded, hidden SSID entry remains available, and the pre-association `CN` seed plus 802.11d behavior preserves channels 12/13 hotspot discovery.
-- Persisted JSON keys, enum numeric values/order, defaults, negative SD font IDs, and migration behavior are compatibility APIs.
-- Firmware/recovery writes validate target and partition constraints before writing and preserve the dual-OTA recovery contract.
-- Preserve boot-button entry to the SD firmware picker, flush deferred reader progress/crash-recovery state before deep sleep, and clear stale Calibre/session-derived administrative values when their session ends.
-
-Do not "simplify" transaction, rollback, cancellation, render-generation, TLS teardown, storage-locking, dark-refresh, or migration logic merely because it appears repetitive. These paths encode fixes for real device failures.
-
-## 9. Upstream and Git workflow
-
-Before editing or merging:
-
-```bash
-git branch --show-current
-git remote -v
-git status --short
-git submodule status --recursive
-```
-
-- Preserve unrelated user modifications and local ignored assets.
-- Do not assume `origin` is upstream or that the primary branch is named `main`.
-- Review upstream merges by behavior and by the high-risk path table in `docs/fork-features.md`, not only by conflict count.
-- Keep main-repository and `freeink-sdk` commits separate where practical.
-- Never commit `.pio/`, `platformio.local.ini`, credentials, device screenshots containing SSIDs/MAC addresses, or temporary diagnostic assets.
-- Use focused semantic commits and list exact verification performed.
-- Do not rewrite shared history or force-push unless the user explicitly authorizes that destructive operation; use explicit `--force-with-lease` when authorized.
-
-## 10. High-risk paths
-
-Consult `docs/fork-features.md` for the maintained table. Common conflict hotspots include:
-
-- `platformio.ini`, `partitions.csv`, `scripts/*`, and the `freeink-sdk` gitlink
-- `lib/I18n/*`, `lib/GfxRenderer/*`, `lib/EpdFont/*`, `lib/ExternalFont/*`, `lib/ReaderRuntime/*`
-- `src/CrossPointSettings.*`, `src/SettingsList.h`, `src/SdCardFontSystem.*`
-- Home, reader, Wi-Fi, font settings/catalog, firmware update, and recovery activities
-- `src/network/CrossPointWebServer.*`, `HttpDownloader.*`, WebDAV/upload code
-- `lib/hal/HalStorage.*` and SD/cache serialization paths
-
-For any change in these areas, read nearby code, retain existing guard order, run focused contract tests, build relevant environments, and verify on hardware when behavior depends on e-paper refresh, heap fragmentation, Wi-Fi/TLS, SD timing, buttons, sleep, or OTA partitions.
+Before finishing, confirm that no `.pio/`, `platformio.local.ini`, credentials, serial logs, temporary scripts, or screenshots containing real SSIDs/MAC addresses are staged.
 
 ---
 > Source: [CrossPoint-CJK/crosspoint-reader-cjk](https://github.com/CrossPoint-CJK/crosspoint-reader-cjk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
