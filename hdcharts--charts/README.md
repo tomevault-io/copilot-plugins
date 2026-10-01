@@ -15,23 +15,6 @@ Original source: `CLAUDE.md` in [HDCharts/charts](https://github.com/HDCharts/ch
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (14)
-
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-pr/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-rc/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-ux/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-gif/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-plan/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-docs/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-review/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-kotlin/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-testing/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-compose/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-changeset/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-concurrency/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-architecture/SKILL.md)
-- [charts](https://github.com/HDCharts/charts/tree/main/.agents/skills/hdc-maintainability/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/HDCharts/charts](https://github.com/HDCharts/charts)
 
 ---
