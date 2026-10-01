@@ -1,0 +1,9 @@
+{
+  "name": "determination-wind--logicsugar",
+  "displayName": "LogicSugar",
+  "description": "A user-friendly Mindustry logic editor mod with readable for, while, and switch blocks, indentation, folding, and vanilla-compatible output.",
+  "version": "1.0.0",
+  "author": "DeterMination-Wind",
+  "homepage": "https://github.com/DeterMination-Wind/LogicSugar",
+  "skills": []
+}
