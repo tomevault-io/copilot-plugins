@@ -1,0 +1,9 @@
+{
+  "name": "pungme--superagent-desktop",
+  "displayName": "superagent-desktop",
+  "description": "The desktop home for your coding agent \u2014 Claude Code or Codex. A persistent chat, a real browser it drives on your own logins, your phone in the loop, and routines on a schedule. Local, on your own su",
+  "version": "1.0.0",
+  "author": "pungme",
+  "homepage": "https://github.com/pungme/superagent-desktop",
+  "skills": []
+}
