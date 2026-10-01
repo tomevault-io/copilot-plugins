@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--well-architected-iac-analyzer",
+  "displayName": "well-architected-iac-analyzer",
+  "description": "well-architected-iac-analyzer",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/well-architected-iac-analyzer",
+  "skills": []
+}
