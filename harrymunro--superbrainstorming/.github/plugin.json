@@ -1,0 +1,9 @@
+{
+  "name": "harrymunro--superbrainstorming",
+  "displayName": "superbrainstorming",
+  "description": "Brainstorm the design with your coding agent, approve it, and it builds. The brainstorming step from Superpowers, for frontier models.",
+  "version": "1.0.0",
+  "author": "harrymunro",
+  "homepage": "https://github.com/harrymunro/superbrainstorming",
+  "skills": []
+}
