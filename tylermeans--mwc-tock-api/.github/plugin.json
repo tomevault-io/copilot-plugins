@@ -1,0 +1,9 @@
+{
+  "name": "tylermeans--mwc-tock-api",
+  "displayName": "mwc-tock-api",
+  "description": "Midwest Cards reservation board \u2014 Tock webhook -> n8n (PII redaction) -> Google Sheet -> kiosk display board",
+  "version": "1.0.0",
+  "author": "Tylermeans",
+  "homepage": "https://github.com/Tylermeans/mwc-tock-api",
+  "skills": []
+}
