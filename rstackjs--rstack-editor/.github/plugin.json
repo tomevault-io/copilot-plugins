@@ -1,0 +1,9 @@
+{
+  "name": "rstackjs--rstack-editor",
+  "displayName": "rstack-editor",
+  "description": "Editor integrations for Rstack.",
+  "version": "1.0.0",
+  "author": "rstackjs",
+  "homepage": "https://github.com/rstackjs/rstack-editor",
+  "skills": []
+}
