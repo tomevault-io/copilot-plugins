@@ -1,0 +1,9 @@
+{
+  "name": "samchon--automovie",
+  "displayName": "automovie",
+  "description": "LLM-authored 3D models and motion via function calling. AI directs, the engine films deterministically. The structured-output alternative to diffusion video.",
+  "version": "1.0.0",
+  "author": "samchon",
+  "homepage": "https://github.com/samchon/automovie",
+  "skills": []
+}
