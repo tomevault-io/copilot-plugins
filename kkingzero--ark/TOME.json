@@ -4,7 +4,7 @@
   "repo": "ARK",
   "description": "ARK C2 by Zypheron: Speed \u00b7 Stealth \u00b7 Control. AI-native C2 for authorized red teaming. Human-in-the-loop, modular, cross-platform.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KKingZero/ARK",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T01:58:24Z"
+  "distributed_at": "2026-10-02T02:16:05Z"
 }
