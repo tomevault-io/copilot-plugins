@@ -7,11 +7,11 @@ Real-time lyric motion for what's playing on your Spotify, rendered with JIZURA
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Saqoosha/jizura-sync](https://github.com/Saqoosha/jizura-sync).
+Original source: `AGENTS.md` in [Saqoosha/jizura-sync](https://github.com/Saqoosha/jizura-sync).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
