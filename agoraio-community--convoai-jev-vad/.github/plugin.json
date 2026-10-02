@@ -1,0 +1,9 @@
+{
+  "name": "agoraio-community--convoai-jev-vad",
+  "displayName": "convoai-jev-vad",
+  "description": "Jev VAD: client-side turn detection for Agora Conversational AI \u2014 manual SoS/EoS and semantic barge-in judged by TypeSafe Jev",
+  "version": "1.0.0",
+  "author": "AgoraIO-Community",
+  "homepage": "https://github.com/AgoraIO-Community/convoai-jev-vad",
+  "skills": []
+}
