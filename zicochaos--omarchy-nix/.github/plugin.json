@@ -1,0 +1,9 @@
+{
+  "name": "zicochaos--omarchy-nix",
+  "displayName": "omarchy-nix",
+  "description": "NixOS port of basecamp/omarchy (Quattro) \u2014 vendored upstream, not rewritten",
+  "version": "1.0.0",
+  "author": "zicochaos",
+  "homepage": "https://github.com/zicochaos/omarchy-nix",
+  "skills": []
+}
