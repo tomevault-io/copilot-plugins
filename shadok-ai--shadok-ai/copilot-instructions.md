@@ -1,0 +1,1151 @@
+## shadok-ai
+
+> Read this first. It exists so you can evolve shadok-ai **without re-scanning
+
+# CLAUDE.md — shadok-ai
+
+Read this first. It exists so you can evolve shadok-ai **without re-scanning
+the whole codebase** and **without repeating the mistakes already made**.
+Keep it up to date when you change architecture, invariants, or the protocol.
+
+## What shadok-ai is
+
+A **web cockpit that drives multiple real Claude Code TUI sessions in
+parallel**. Each "channel" in the UI is one `claude` process. It runs on the
+user's **Claude subscription** (not the API), via a pseudo-terminal or tmux —
+so it's Claude Code piloting Claude Code, with a browser chat on top.
+
+It largely **built itself** (agents in git worktrees). See `docs/architecture.md`
+for the deep dive; `docs/superpowers/specs/*` for per-feature design specs.
+
+## Build / run / restart (do it exactly this way)
+
+```bash
+npm run build          # tsc → dist/  (ALWAYS build before restarting)
+```
+
+The server runs under a **detached supervisor**, `node dist/main.js`, launched
+from the repo. The supervisor doesn't run your working tree: it runs the
+**npm-installed** copy (`~/.shadok-ai/app/node_modules/shadok-ai/dist/server.js`)
+and auto-updates it. Every merge to main publishes a new version
+(`.github/workflows/publish.yml`, version = `major.minor.<commits since that minor>`), so a
+running instance picks up merged work on its own within minutes.
+
+UI: **http://localhost:3789**. Logs: `~/.shadok-ai/local-supervisor.log`.
+Health: `curl -s -o /dev/null -w '%{http_code}' localhost:3789/`.
+
+- `package.json` stays at `0.1.0` locally — the CI computes the published
+  version. A local version "behind" npm is normal, not a symptom.
+- `CLAUDE_CODE_OAUTH_TOKEN` is only for the `/usage` (pace) endpoint; `claude`
+  itself authenticates via the keychain.
+- Never `cat` the token or print it. Extract it in the shell, pass via env.
+
+### Running YOUR build (to check a fix before merging)
+
+**Run it side by side on a free port. Never take over 3789.** Stopping the
+running instance kills every sibling `sk-*` session mid-work — including, when an
+agent does it, the very session driving the change (invariant 8,
+`context/pilot-prompt.md`). Don't edit `~/.shadok-ai/config.json` either: the
+running instance reads it.
+
+```bash
+npm run build
+PORT=3899 SHADOK_VERSION_CHECK_MIN=0 node dist/server.js
+```
+
+Three properties make that safe, and all three are load-bearing — change one and
+you're back to the old failure:
+
+- `PORT` sets where the port walk *starts* (`START_PORT`, server.ts:102). It does
+  not remove the walk: `MAX_PORT_TRIES = 20` still applies, so a busy 3899 climbs
+  to 3900 — never down toward 3789.
+- `SHADOK_VERSION_CHECK_MIN=0` closes the gate on the version poll
+  (`if (VERSION_CHECK_MIN > 0)`, server.ts:878). That poll is what would install
+  the npm release and exit for the supervisor to respawn — i.e. your build
+  vanishing without a word. Note `triggerUpdate` has a *second* caller, the
+  `POST /autoupdate` handler (server.ts:893); it needs a deliberate request, so
+  just don't tick the GUI checkbox. `autoUpdate: false` in the config reaches the
+  same end, but by mutating state the running instance shares — prefer the env var.
+- The Telegram token is keyed by **launch dir** (`cfg.tokens?.[cwd]`,
+  config.ts:98), so an instance started from a worktree has no token and starts no
+  bridge. That's what lets the two coexist: only one process can long-poll the bot.
+  A `TELEGRAM_BOT_TOKEN` in the env overrides the per-dir lookup and *would* steal
+  the bot — so confirm your startup output has no `telegram:` line.
+
+Verify you're really on your build: `curl -s localhost:3899/version` must report
+the local `current` (0.1.0), not the published one. Check
+`curl -s -o /dev/null -w '%{http_code}' localhost:3789/` still answers `200`
+before and after. Stop your instance when done; nothing to restore.
+
+No interactive browser? Borrow Playwright from `~/projects/aibrowser`
+(`node_modules/playwright`, required by absolute path — don't install into the
+worktree), screenshot, and **read the screenshots back**. Capture the console too:
+a CSP violation or a failed module import is how invariants 10 and 12 show up, and
+both are silent in the DOM.
+
+## Architecture map (file → responsibility)
+
+| File | Responsibility |
+|---|---|
+| `src/server.ts` | HTTP + WebSocket server. Session registry (`sessions` Map), the `Live` object, the WS message handlers, all endpoints. The hub. |
+| `src/session.ts` | `PtyPilot` — drives `claude` in a **node-pty** PTY + `@xterm/headless`. Dies with the server. |
+| `src/claude-bin.ts` | Makes sure a RUNNABLE `claude` is there before every spawn, and says which binary that is. On a fresh machine the bare `pty.spawn("claude")` threw an opaque `posix_spawnp failed`; `resolveBin` looks it up on PATH and `ensureClaude` installs `@anthropic-ai/claude-code` ONCE on demand (`ensureClaudeOnce` in `server.ts`, single-flight), falling back to a clear "install it manually + sign in" message. The one-time Claude sign-in is the user's own — no install forces it. Since the split packaging, "a file named claude that is executable" is NOT "a claude that works": `classifyBin` recognises the npm placeholder, `findClaudeBin` falls back to the native binary behind it, and `claudeCommand` is the ONE answer to "which binary do we spawn" — the pilots, the auth probe, the sign-in and the version probe all go through it. See invariant 32. It also never installs over Claude Code's own self-update: `claudeInstallInProgress` spots npm's reify directory and `ensureClaude` waits for it (bounded), then looks again after a failed install before calling the CLI missing. Pure cores (`classifyBin`, `platformPkg`, `nativeBinCandidates`, `findClaudeBin`, `findClaudeBinWithRetry`, `rewriteInProgress`, `globalScopeDirs`) tested; the placeholder is also read off a real file on disk. |
+| `src/node-pty-fix.ts` | The OTHER `posix_spawnp failed`: node-pty's prebuilt `spawn-helper` must be `chmod +x` to run. The package `postinstall` does that, but via a RELATIVE path that only holds for a dev checkout; installed as a dependency (npx / managed `~/.shadok-ai/app`) node-pty is **hoisted** to the parent `node_modules` and the chmod silently misses — so a colleague's very first agent died with `posix_spawnp` even though `claude` was fine. `ensureSpawnHelperExecutable` (called at boot in `server.ts`) chmods it from node-pty's REAL location, resolved at runtime — every install layout. `spawnHelperPaths` is pure, tested; the real chmod is covered end-to-end. |
+| `src/tmux.ts` | `TmuxPilot` — same interface as `PtyPilot`, but runs `claude` in a **detached tmux session** (`sk-<sessionId>`). **Survives server restart** (reattaches). Default transport when tmux is present. A spawn goes through `launcherScript`: secrets and prompts are written to a private one-shot script and the tmux command is just `sh <script>`, never the values themselves; `tmuxErrorMessage` keeps any tmux failure down to the subcommand and tmux's own complaint. Both pure and tested — the script is RUN by the tests. See invariant 36. |
+| `src/tmux-install.ts` | Auto-installs tmux at boot when it's missing, so the durable transport is the default without setup (node-pty agents die on every auto-update). `tmuxInstallCommand` (pure, tested) picks the package manager — `brew` on macOS (no root), `apt-get`/`apk`/`dnf`/`yum`/`pacman` on Linux (root, else non-interactive `sudo`). `ensureTmux` runs it best-effort and NEVER blocks the boot: on failure it stays on node-pty with a clear message. The boot caller (`server.ts`) flips the `let USE_TMUX` on once the install lands, so the same process picks tmux up. `SHADOK_TMUX=0` skips it. |
+| `src/tail.ts` | Tails a session's `.jsonl` transcript → streams assistant text/tool_use/tool_result + token usage. **This is the source of truth for content**, not the screen. Also emits a `silent` event where such a block is dropped — dropping it without a trace made the parent-notification guard UNREACHABLE (`notifyParent` reads the last STREAMED block, and that one never became one), so a quiet child still woke its parent: empty, or carrying a stray earlier thought. Also owns `isNothingToShow` — a text block that is *only* `NOTHING TO SHOW` is dropped (a cron with no signal must be able to stay silent); the twin filters live in `loadHistory` and the web live preview. A `text` event carries `afterInternal` when a HIDDEN block (a skipped `thinking`, or a dropped `NOTHING TO SHOW`) separated it from the previous visible one, so the client keeps its speaker label instead of gluing "text · &lt;think&gt; · text" into one wordless run under a single label. The SAME boundary is needed one level up, between TURNS: a hidden USER prompt (a `cron` fire or a parent notification) is dropped, so the answer it triggered would stream/replay adjacent to the previous turn and merge under one label (a daily report gluing onto an unrelated earlier answer). `loadHistory` sets `HistoryTurn.afterInternal` on that turn (and stops merging it), and live the server flags it via `Live.gapBeforeNextText` (set when a `cron`-origin prompt is submitted un-echoed, consumed by the next streamed text) — both surface as the client's `.after-gap`. The path re-resolution that follows a MOVED transcript is paced by `resolveStep` (pure, tested): never while the file grows, the old ~1s cadence while it is missing, exponential backoff capped at ~10s while it is silent — see invariant 38. |
+| `src/extract.ts` | Parse the transcript / screen: `loadHistory`, `detectDialog`, `listSessions`, `findSessionId`, `transcriptFilePath` (the shared `<id>.jsonl` resolver, reused by `GET /download`). `loadHistory` also emits a `file` turn for a `SendUserFile` so a delivered file's card survives a reload (other tool blocks are dropped as noise). |
+| `src/download.ts` | Files an agent hands the user via the harness `SendUserFile` tool (`tool_use` name `SendUserFile`, `input.files` = absolute paths). Pure helpers, tested: `toolFiles` (a tool_use's sent paths), `fileCard` (`{path, name, image}`), `isImageFile` / `telegramPhotoable` / `contentTypeFor`, and `sentFilePaths(transcript)` — the SECURITY core of `GET /download`: a path is servable ONLY if it appears in that session's transcript as a sent attachment, so the endpoint can never be walked into an arbitrary file. shadok surfaces sent files as a download / inline-image card on the web and an upload (sendPhoto / sendDocument) on Telegram. |
+| `src/whisper.ts` | Local speech-to-text for Telegram voice notes, provisioned **ON DEMAND** at the first voice message and never at boot — the live VPS builds its images from a host-side Dockerfile of its own, so anything baked into the repo image reaches no running instance, while a first-use download reaches every instance the moment it updates. Three parts, not one: `cmake` (whisper.cpp's Makefile has been a **cmake shim** since v1.9 — `make` alone does not build it, and upstream publishes no prebuilt Linux binary), a **static ffmpeg** fetched as a RAW binary (the usual `.tar.xz` builds are unusable here: `xz` is absent from the image), and a model. **`ggml-small-q5_1.bin` (181 MB) is the default on a MEASUREMENT, not a preference**: same clip, same machine, 15.2s against `medium-q5_0`'s 49.6s for IDENTICAL output, on 11 seconds of audio — a 30-second note would take two minutes on medium. The honest limit of that measurement is one clip of clear studio English; noisy or accented speech is exactly where medium earns its size back, which is why `SHADOK_WHISPER_MODEL` makes the choice a download and never a code change. Everything is pinned to an exact version, never a moving tag, the rule the updater already follows. Single-flight, because two voice notes a second apart would otherwise start two 514 MB downloads and two compiles over one tree — that is precisely how the first-boot `ENOTEMPTY` happened. A failure is announced ONCE and remembered until restart: retrying would turn every voice note into a failed 514 MB download. `ffmpegAsset` REFUSES an unknown platform rather than guessing (a wrong-arch binary dies at `execve`, invariant 32's family), and `modelLooksComplete` catches an HTML error page saved as a model. Shared between containers via `SHADOK_WHISPER_DIR` — shadok can only make the path configurable; the common mount is an operator gesture, and without it this degrades correctly to one copy per container. Pure cores tested. |
+| `src/files.ts` | Files an agent OFFERS the user through shadok's own path, beside the harness's `SendUserFile`. It exists because that tool is NOT on every agent: a tmux agent keeps the Claude Code binary it was spawned with (that is what lets it survive an auto-update), so one older than the tool never sees it — measured, 67 live panes of 67 on a pre-upgrade binary — and an instance answered *"cet outil n'existe pas dans ma session"* then invented a `fichier: /path` line of its own. A registry of OFFERS, not a copy: `~/.shadok-ai/files/<enc>.json`, keyed like channels and crons. `offerVerdict` keeps **missing and unreadable APART** (they send the agent to different places) and requires an ABSOLUTE path, because the server's cwd is its launch dir and never the agent's (invariant 1) — the skill resolves it agent-side. `offeredPaths` is the read gate and the twin of `sentFilePaths`: **a path is servable only if THIS session offered it**, so `GET /download` still cannot be walked into an arbitrary file. Re-offering supersedes rather than appends. Pure cores tested, including that another session's offer never authorises this one. Because an offer lives in the registry and NOT the transcript, `loadHistory` (which replays `SendUserFile` as `file` turns) never saw it — so a skill-delivered image showed once, live, then vanished on the next web reload while Telegram, which uploaded the bytes, kept it. `historyWithOffers` (`server.ts`) merges the session's offers back into the `history` it sends, interleaved by timestamp, so the web card survives a reload like everything else. |
+| `src/bang.ts` + `public/bang.js` | Running an agent's `!` command from the chat, on the HUMAN's behalf. Its own WS message (`run`), never the prompt path: shadok prepends `⟦web · time · who⟧` to every human prompt, so a `!` sent as a prompt reaches the MODEL as text — measured, the model then ran it through its own Bash tool, i.e. a model turn plus guardrails plus classifier between the click and the command. Shell mode is NOT the Bash tool, so **a profile's `deny` does not apply** — measured under `Shadok-Boss`, whose profile denies `Bash(git commit:*)`: a shell-mode `git commit` created the commit. That is the escape hatch wanted, and why `run` is accepted ONLY on a same-origin browser connection (`fromBrowser`, decided once at connect from the upgrade headers): pilotctl and the agents connect with no Origin (invariant 11) and must never reach it. `runRefusal` refuses empty, multi-line (shell mode reads ONE line; joining lines would run something nobody saw written) and oversized commands; the server types `!`, WAITS for `isShellMode` (column-0 `!` + NBSP — never a fixed delay, invariant 3), then reuses `submit`, and presses Escape on failure so no stray `!` turns the next prompt into a command. `parseBashMessage` reads the TUI's own `<bash-input>` / `<bash-stdout>` user messages, so the exchange is CONTENT from the transcript: streamed as `stream-bash`, replayed as a `bash` history turn — which also rescues a command typed by hand in the terminal view, previously dropped by `userPromptText`'s `<` guard. `bangCommands` (client, pure) offers a ▶ button only for `! cmd` in inline code or on its own line, never for prose with an exclamation mark. Found only in the browser: `parseLine` rejected every non-array `message.content`, and the TUI writes `<bash-input>` as a STRING — so the command ran, the reload showed it, and the live chat said nothing. Pinned by a tail test. |
+| `src/detect.ts` | `screenShowsWork(screen)` — the fragile "is Claude working" heuristic. Also `idleStep`, one poll of the "is this turn over?" loop, pure and shared by BOTH pilots (it lived twice, and could only be exercised by spawning a process). A turn ends on an ABSENCE of change — no work marker plus a byte-identical screen for `stableMs` — which is conservative on purpose. `stableMs` is a parameter because the bar is not always the same: after an explicit interrupt the end state was REQUESTED, not inferred, so `finishTurn` lowers it to 400ms and the composer comes back in a fraction of the time. What no caller can shorten past is the work check, which sits above the window. Also `inputText`; `typeIntoBox`, the paste-until-it-shows loop both pilots share, which compares the box with what it showed BEFORE the paste rather than with empty (an idle box can display an example prompt — invariant 23); and `describeStuckScreen`, which names a recognisable blocking state (first-run screen, masked field, pending question) so a submit failure says WHY instead of accusing the input box. See invariant 23. Also `backgroundTasks` → `{shells, monitors}`: what the pane says is still running, read from the TUI's **own** footer and not from the turn line, which scrolls away. The two share ONE segment, comma-separated (`· 1 shell, 1 monitor ·`), which is why the rule matches the segment **whole** — split on `·`, accept a part only if it is entirely a comma-separated list of counts — rather than hunting a number before `shell`: anchored on a leading `·`, the monitor sitting after a comma is invisible. Matching whole is also what keeps prose out (invariant 2's family), and only the last few non-empty lines are read. Unlike the pre-invariant-24 context gauge, this string is native: verified with no `statusLine` configured, on 61 of 64 live panes. |
+| `src/context.ts` | How full the model's context window is, from the TRANSCRIPT's token usage — `contextTokens` (input + cache creation + cache read; output excluded), `windowForModel` (the `[1m]` SETTING, never the model name), `effectiveWindow` (an over-run PROVES the assumed window too small → promote), `pctFromUsage`. Pure, tested against a real message whose CLI footer read 41%. See invariant 22. |
+| `src/worktree.ts` | Git worktree isolation: create, diff, list past sessions, recreate a reclaimed checkout. |
+| `src/selfrepo.ts` | The working copy of shadok-ai's OWN source (`~/.shadok-ai/self/shadok-ai`) behind the "Tweak Shadok-AI" CTA: anonymous clone (no auth needed to start), `main` hard-reset to the remote on each use, never the launch directory. Only the base clone is refreshed — a live tweak session's worktree is a separate checkout and is never touched. Pure cores (`selfRepoPlan`, `gitFailReason`) tested. |
+| `context/tweak-prompt.md` | Role of the tweak agent, written for the person it answers to rather than for the procedure: the non-developer rule comes FIRST and governs the rest (a named banned-words table — pull request / branch / CI / diff — with what to say instead, a three-line answer budget, never hand back a technical decision), and the job ends when the change is VISIBLE, not when it is merged — so the agent reads `updateChannel` / `autoUpdate` off `/version` and never promises a beta instance something only a release will bring. Then the technical half: `CLAUDE.md` first, verify on a free port and never touch 3789, deliver as fork + PR, watch it through. Injected via the managed `Shadok-Tweak` profile, whose `systemPrompt` is refreshed from this file at every boot (`seedTweakProfile` / `withManagedPrompt`) — only that field, so a secret or model the user attached survives. `test/tweak-role.test.ts` locks the intent: prose is the one thing a refactor can quietly undo. |
+| `context/tweak-pr-check.sh` | The cron guard behind that watch, seeded to `~/.shadok-ai/` at boot (`seedTweakPrCheck`) — **outside** the agent's worktree, which is pruned once its tree is clean. Prints nothing until the PR's state / mergeability / review / CI actually changes; a `gh` failure stays silent and exits 0, because stderr would wake the agent every five minutes (invariant 16). Two things that silence hides, and that the tests now pin: a host with **no `gh` at all** made it permanently inert — silent forever while looking like coverage — so it falls back to the **public REST API** via `curl`, which needs no credential on a public repo; and GitHub computes mergeability lazily, so an `UNKNOWN`/`null` slot is **skipped**, otherwise `UNKNOWN → MERGEABLE → UNKNOWN` woke the agent three times for one non-event. Tested against a fake `gh` AND a fake `curl` in `test/tweak-pr-check.test.ts`. |
+| `src/usage.ts` | Fetches subscription usage (5h/7d) from `/api/oauth/usage`. |
+| `src/pace.ts` | The quota **guardrail**: ideal-pace computation + block verdict. |
+| `src/retry.ts` | Auto-retry of turns that died on a transient API error (529, 5xx, timeout). |
+| `src/channels.ts` | Server-side persistence of the channel + group lists, and **the one answer to "where does this session live"** — `resolveSessionTarget` / `resumeTarget` (pure, tested), which EVERY caller acting on a session's behalf goes through; on a resume the registry beats whatever the caller sent (see invariant 1). keyed by launch dir (`~/.shadok-ai/channels/<enc>.json`). `isMirrored` = does this channel live in Telegram too (opt-in per channel; falls back to "has a binding" so existing setups don't change). Also the Telegram board-group binding. Forces the main channel's name to `general`. `model` joins `profile` in `SERVER_OWNED` and for the same reason: it is applied AT SPAWN, so a resume or restart that forgot it would quietly move a running agent onto another model. Assert-only on `start` (invariant 24) — a client that omits the key must never erase it. `isHomeChannel` (pure, tested) is the ONE definition of the home base — the server-owned `home` flag, or a bound board's General (`threadId == null` **and** `chatId < 0`, since a DM has no topic either and must stay closable). It replaced three copies of that condition: `endChannel`, the client's `isMain`, and a comment in `telegram.ts`. `homeAdoptionTarget` gives a pre-flag cockpit its home base and **refuses when it cannot tell** (zero or several candidates): a wrong adoption is irreversible from the UI, since the channel becomes precisely the one that cannot be closed. `homeChannelForGeneral` (pure, tested) is the twin for the OTHER direction: when a board's General is first opened, `bridgeFor` resumes the web home session (`home: true`, not yet Telegram-bound) instead of spawning a SECOND "general" beside it — the home channel gains the binding rather than being duplicated. `channelWriteAllowed` (pure, tested) gates `PUT /channels`/`/groups` on the caller's `x-shadok-instance` key so a stale tab can't write to an instance that took over its port; `dropForeignHomes` (pure, tested, applied on load AND save) strips another instance's `home` "general". `profilePatch` (pure, tested) makes `profile` assert-only in the `start` upsert, so a resume that carries none never null-writes over the channel's stored role (invariant 1). See invariant 35. |
+| `src/telegram.ts` | The Telegram bridge — `attachmentOf` now recognises `voice` FIRST and as its own KIND, because a voice note carries neither photo nor document and used to fall through to `null`: you spoke and nothing whatsoever happened. Its own kind is what stops an `.ogg` being handed as a path to an agent that cannot read audio; it is transcribed and the TEXT becomes the prompt. What was understood is **echoed back into the topic before it is acted on** — load-bearing, not a courtesy: a transcription can be wrong, and a misheard instruction acted on in silence is far worse than a voice note that was ignored. An empty transcription says so; it never falls through as silence. (DMs belong to ONE user — `dmGate` + `…-telegram-owner.json`; the owner is adopted at boot from an existing DM binding or the board group's creator): one topic = one agent. Owns the bot long-poll, the command dispatcher (`/spawn`, `/stop`, `/secret`…), Markdown→Telegram HTML, dialogs as inline keyboards, attachments. Each binding holds a **WS client to our own server** — so a Telegram session is the same `Live` the web sees. |
+| `src/main.ts` | The `npx shadok-ai` entry point: parses flags, first-run token prompt, then runs the **supervisor**. Not the server. |
+| `src/supervisor.ts` / `src/updater.ts` / `src/update-flag.ts` | Self-update: the supervisor runs the npm-installed server as a child, restarts it on the update exit code; the updater installs the channel's resolved version into `~/.shadok-ai/app` (an EXACT version, never a tag — the caller already chose). |
+| `src/update-channel.ts` | Which release stream an instance follows: `alpha` (every merge) or `beta` (promotions only, the default). Pure `resolveChannel` (anything malformed → `beta`, never a throw) and `pickTarget` (alpha takes the newer of `alpha`/`latest`, so a promotion cannot make the fast channel downgrade). The beta channel reads the `latest` dist-tag — see invariant 29. |
+| `Dockerfile` | The official image (README "Running in Docker"): Claude Code + shadok-ai + a **bundled headless browser** (Playwright Chromium at `/opt/playwright-browsers`, `--with-deps` so the OS libs are present), plus `git`/`gh`/`tmux`/toolchain. COPYs nothing (installs from npm); `.dockerignore` is `*`. NB: NOT what a given deployment necessarily runs — the live VPS builds from a host-side Dockerfile of its own. |
+| `src/open-browser.ts` | Opens the cockpit on launch. Done by the SERVER, not the supervisor, because only it knows the port the walk landed on (`START_PORT` is where the walk BEGINS). The supervisor sets `SHADOK_OPEN=1` on the FIRST spawn only — it respawns the server on every auto-update, and a tab popping open several times a day is a nuisance. `shouldOpenBrowser` / `openCommand` are pure and tested; refuses in a container, over SSH, and on a display-less Linux. Fire-and-forget: a browser that will not open must never keep the server from serving. |
+| `src/preprompt.ts` | Pure `prepromptParts` — what shadok adds to an agent's context, as labelled sections with their source. Captured in `makePilot` AT SPAWN and kept in `prepromptById`, never recomputed: a profile or the permission mode can change under a live agent, and the panel must show what the RUNNING process got (the gap the UI already models as `profile` vs `appliedProfile`). It takes secret **names**, never values — values live in the child's env and never in its args, so the signature makes a leak impossible rather than merely unlikely. Sent with every `ready`, so it survives a reload. The **capabilities** section is read from DISK at spawn rather than assumed from the seeded list: a seed that failed must show as missing. Skills are listed by DESCRIPTION only, because that is what Claude Code loads into context — the body is read when it decides to use one — and because they are installed for the whole machine and rewritten at every boot, which the panel says on screen. |
+| `src/csp.ts` | The Content-Security-Policy (`cspHeader`) and the nonce injection into the page (`injectNonce`, marker `__CSP_NONCE__`). Also `injectAssetVersion` (`__ASSET_V__`) and `injectInstanceKey` (`__INSTANCE_KEY__`) — the launch-dir key stamped into the page so the client namespaces its localStorage channel cache SYNCHRONOUSLY (invariant 34). Pure, tested. See invariant 12. |
+| `src/net.ts` | Where we listen and who may speak: `resolveHost` (`SHADOK_HOST`, loopback by default), `bindRefusal` (fail-closed: no network bind without a password), `originAllowed` (same-origin, see invariant 11). Pure, tested. |
+| `src/heartbeat.ts` | Keeps **idle** `/ws` connections alive behind a reverse proxy: an idle agent sends no traffic, so a proxy (nginx `proxy_read_timeout` 60s, Cloudflare ~100s) cuts the socket and the client loops on "reconnecting" — with nothing actually broken. `startHeartbeat(wss)` pings every client every 25s (`SHADOK_WS_PING_MS`) and `terminate()`s the one that misses its pong. `heartbeatSweep` is pure, tested. |
+| `src/config.ts` | `~/.shadok-ai/config.json` (600): port, **per-launch-dir** Telegram token/allowed chats/on-off, GUI password, `autoUpdate`, `permissionMode`, `timezone`, `cockpitTitle` (**per-launch-dir** display name, `titleForCwd`/`setTitleForCwd` — the header brand + browser tab, so several cockpits stay apart), and `cockpitTheme` (**per-launch-dir** colour palette key, `themeForCwd`/`setThemeForCwd`, validated against `COCKPIT_THEMES`; default/unknown → cleared). Config is authoritative over env once set. |
+| `src/crons.ts` | Per-channel scheduled prompts (`~/.shadok-ai/crons/<enc>.json`) + the deterministic `check` that avoids waking the LLM for nothing. Three `kind`s: `interval`, `daily` and `once` (an absolute instant, fired a single time — `stateAfterFire` DISABLES it before the fire, since it cannot advance to a next slot, and `settleCron` re-arms it on a transient loss). `nextRunFor` computes a `daily` in an **explicit IANA zone** (`cron.tz` → config `timezone` → machine): without it the hour follows the machine, and a server running UTC shifts everything silently. `nextRunAfterFailure` decides where to reschedule a fire whose delivery was lost (see invariant 15). WHERE a cron runs is no longer decided here: `fireCron` calls `resolveSessionTarget` (`channels.ts`) once and hands the result to the guard AND to the resume (see invariant 1). The fire itself lives in `server.ts` (`cronTick` / `fireCron` / `driveChannel` / `settleCron`). Also carries `CRON_PROMPT_MARK`: a cron prompt's text is prefixed, because it ends up in the transcript like an ordinary user message — hiding only the direct echo let it come back on a web reload and in a Telegram backfill, both of which re-read `loadHistory`. Twin of `NOTHING TO SHOW`. |
+| `src/lock.ts` | Single-instance lock, keyed by launch dir: two servers from the same directory share a registry and a Telegram bridge, so the second refuses to start. `pidAlive` treats a **zombie** as dead — `kill(pid, 0)` succeeds on one, and in a container pid 1 is the application rather than an init that reaps, so a stopped instance held its lock FOREVER and every later start was refused while naming a pid that no longer existed. It reads `/proc/<pid>/stat` (`stateFromProcStat`, pure and tested — parsed from the LAST `)`, since the command name is parenthesised and may itself contain spaces and brackets); with no `/proc` the signal's answer stands. |
+| `src/kinship.ts` | Who launched whom, and what a parent is told about it. `linkRefusal` (self / cycle / unknown parent / depth / fan-out — every refusal **explicit**, never a silently dropped field), `chainDepth`, `childrenOf`, `notificationText` (the child's own summary + pointers, **never the diff**: the parent is the biggest session in the tree), and `AGENT_PROMPT_MARK` — twin of `CRON_PROMPT_MARK`, since a notification also lands in the transcript as an ordinary user message. Pure, tested. The delivery itself lives in `server.ts` (`notifyParent` / `deliverToParent` / `parentInbox` / `flushParentInbox`). |
+| `src/promptmeta.ts` | The context header prepended to a HUMAN prompt (web/telegram/cli) before it reaches the TUI: `⟦platform · time · who⟧` on its own first line. The agent sees it (who is talking, when — nothing else told it); the display strips it (`stripPromptMeta`), cousin of the cron/agent marks — but here only the header line goes, the message stays. `promptMetaHeader`/`markPromptMeta`/`stripPromptMeta`/`hasPromptMeta`/`parsePromptMeta` are pure, tested. Applied in `server.ts` (the `prompt` handler, before `pilot.submit`; the echo stays clean) and stripped in `extract.ts` (`loadHistory`). NOT added to terminal input nor cron/agent prompts. A transcribed **voice note** is marked in the PLATFORM field (`⟦telegram vocal · …⟧`, from a `voice: true` on the `prompt` message) and deliberately NOT through a different `origin`: the server adds the header only when the origin is exactly `web`/`telegram`/`cli`, so an origin of `telegram vocal` would have dropped the whole header — time and sender — to gain one word. `parsePromptMeta` reads the platform first and the sender as everything past the time, so neither is widened; verified end to end, the transcript receives the mark with both intact. The mark gives the agent a FACT; the BEHAVIOUR lives in the pilot prompt (read intention over letter, ask when a load-bearing token looks garbled), locked by `test/skill-auth-docs.test.ts`. `loadHistory` also `parsePromptMeta`s the header it strips, carrying `from`/`origin` onto the `HistoryTurn` so a REPLAYED message shows who spoke via the client's `echoAuthor` (Ada · telegram for a Telegram message; "you" for your own web prompt — the human driving the cockpit, no longer the metaphor label "pilot") — without it a Telegram sender came back as the generic "pilot" on every reload. |
+| `src/secrets.ts` | Central secret vault (`~/.shadok-ai/secrets.json`, 600). Profiles reference secrets **by name**; values are injected as env at spawn. `secretWriteVerdict` (pure, tested) is the no-silent-overwrite rule behind `PUT /secrets`: an existing name is refused unless the caller passes `overwrite: true`. HTTP is the only way an AGENT can reach the vault (Telegram's `/secret` calls `setSecret()` directly), so that endpoint is exactly the machine boundary. |
+| `context/secrets-skill/` | The `shadok-secrets` skill, seeded into `~/.claude/skills/` at boot (`seedSecretsSkill`, twin of `seedSchedulerSkill`): lets an agent store a credential it OBTAINED itself. `scripts/secret.mjs` has `list` and `set NAME --stdin` and **no `get`** — `--stdin` is required so a value can never sit in `argv`, which `ps` exposes machine-wide. |
+| `context/reload-skill/` | The `shadok-reload` skill (seeded by `seedReloadSkill`, twin of the above): an agent respawns **itself** to pick up a changed pilot prompt or newly-seeded skills (the prompt/skills are fixed at spawn). Calls `POST /reload` scoped by `SHADOK_SESSION_KEY` → `restartSession` (a `--resume`, history kept). Only the agent holding the key can reload that session. Because a `--resume` loads the conversation but drives no turn, the respawn would sit **idle** — so `/reload` chains `continueAfterReload`, a HIDDEN nudge delivered over the cron/notification loopback (`driveChannel` + `markAgentPrompt`) once the new process is ready, telling the agent it was reloaded and to resume. Scoped to the self-reload ONLY — not the GUI reload, `restart-all`, or an auto-update respawn, which touch many agents at once and would wake every idle one. |
+| `context/files-skill/` | The `shadok-files` skill (seeded by `seedFilesSkill`, twin of secrets/reload/ledger): `send.mjs <abs path…> [--caption]` → `POST /files`, authenticated by `SHADOK_SESSION_KEY`. **The seeding is the point**: `copyFileSync` at every boot, so it reaches agents that ALREADY EXIST with no reload — which the pilot prompt cannot do, and which is exactly what an old fleet needs. Its SKILL.md carries the rule that made this necessary twice over: cite a path when the path is the point, attach when the file is the deliverable, never publish an artifact instead — and **if a capability is missing, say so and stop**, because a made-up `fichier:` convention looks like a feature to the reader and is not one. |
+| `context/ledger-skill/` + `context/ledger-reflex.md` | The `shadok-ledger` skill (seeded by `seedLedgerSkill`, twin of secrets/scheduler) and its **gated** pilot-prompt reflex, so agents stop re-surfacing what a sibling already resolved. A **per-instance state table** (`~/.shadok-ai/ledger/<enc-launch-dir>.json`, keyed like channels/crons; the server hands each agent the path in `SHADOK_LEDGER_FILE`, since an agent's cwd is a worktree — a hand-run CLI falls back to the legacy `ledger.json`), one row per entity — `check`/`record`/`list`, **supersede, not append**, so size is bounded by live topics. `check` RANKS by word overlap weighted by IDF computed over the table itself (`searchEntries`), because the substring match it replaced only ever answered a caller who already knew the exact wording — i.e. one who did not need to ask. Measured on the live 64-row table against fifteen queries agents really typed: **zero returned anything**, while the matching row sat there in plain sight (`claude launcher stub spawn failure` vs `claude-launcher-stub-breaks-spawns`), and each got the UNKNOWN line — which the reflex reads as *there is nothing here*, the exact silo this feature exists to close. Three parts are load-bearing. Stopwords are **derived from the table** (a term in ≥4 rows AND >40% of it), never a hand-written list: `to` is one here and `ledger` is not, and no list would have known. A term the table has never seen is **discounted (×0.2), not ignored** — ignoring it let a query whose subject is absent score a PERFECT match on the filler words it happened to share with a note, while counting it in full threw away long real queries whose subject IS recorded under other words. And the result is **two tiers**, `strong` (your answer) and `weak` (merely shares words with your question): collapsing them would destroy the reflex's third state, since a search that always returns something makes "nothing recorded is UNKNOWN" unreachable — so on a weak-only hit the CLI prints the UNKNOWN line FIRST and unchanged, then the leads under a heading saying they may not answer. Each row carries a short **id** (`[a1b2]`), a durable handle preserved across supersedes: `record --id <id>` updates a row in place (no retyping the entity, no typo-forked twin); `resolveId` accepts a unique prefix, refuses empty/ambiguous (invariant 17). The reflex ("verify a status before you assert/act — `git`/`gh` for code, the ledger otherwise, else hedge; and read the pushed `⟦ledger⟧` delta") is appended to the pilot prompt **only when `ledgerEnabled`** (config, `POST /ledger`, or `SHADOK_LEDGER`) — **ON by default**; an explicit config choice or `SHADOK_LEDGER=0` turns it off, and an instance that already turned it off keeps that choice. A **version-menu toggle** flips it and **restarts all agents** so the reflex lands at once (the standalone `Restart all agents` button, `/restart-all`, does the respawn on its own too). A **read-only GUI viewer** (a header icon → `GET /ledger`) lists the table so a human can consult it without the CLI. `ledger-core.mjs` is the pure logic (upsert with id-preserve, `resolveId`, find, age), tested by `test/ledger.test.ts`. Design: `docs/superpowers/specs/2026-08-25-shared-ledger-design.md`, push: `docs/superpowers/specs/2026-08-28-ledger-push-design.md`, recall: `docs/superpowers/specs/2026-09-09-ledger-recall.md`. |
+| `src/ledger.ts` | The SERVER side of the shared ledger (the skill's `ledger-core.mjs` is the agent side). `ledgerFileFor(cwd)` — the per-instance path; `ensureLedgerFile` — boot migration (seed the scoped file from the legacy global once, backfill ids), best-effort; `deltaSince(rows, watermark, cap)` + `formatLedgerBlock` — the **push**: ahead of each prompt that starts a turn — human (web/telegram/cli), **cron, or an agent notification** (`ledgerEnabled` only) — the rows changed since this agent last saw the ledger are prepended as a `⟦ledger · N updates since your last message⟧` block, so siblings learn resolutions in near-real-time without a `check`; a monitoring cron benefits as much as a human turn (reporting an issue a sibling just fixed is the very silo this closes). The block is stripped from the display (`stripLedgerBlock` in `extract.ts` `loadHistory`) run BEFORE `stripPromptMeta` (its `⟦ledger⟧` line also looks like the platform header) AND before the `isCronPrompt`/`isAgentPrompt` classification — otherwise a cron/agent prompt would no longer start with its hiding mark and would leak into the display. The watermark is **persisted** (`ledgerSeenFileFor` / `seenFor` / `recordSeen`, a sessionId→instant map beside the table, pruned against the live channel list). It used to live only on the `Live`, anchored to the attach instant — and a `Live` is rebuilt on every server restart, i.e. on **every auto-update**, and again whenever a dormant channel is woken, so the next delta came back EMPTY. Measured on a real instance before the fix: of the pushes that were due, **two in three never arrived**, and the misses landed exactly on merge times — a merge publishes, the instance updates, every watermark resets, and the burst of ledger activity that merge produced is precisely what gets swallowed. Nothing surfaces: an empty delta and a delta that was erased look identical. Restoring it keeps the two answers apart — **no record is a NEW agent** (anchored to now, no history flood), a record is an agent that came back (it gets its backlog, bounded by `LEDGER_PUSH_CAP`); `seenFor` therefore returns `undefined` rather than 0, since 0 would replay the whole table into a freshly spawned agent. And it advances only **after** `pilot.submit` resolves: advancing first meant a submit that threw (a wedged screen, invariant 23) burned the block for good. A delta is usually empty, so most prompts still carry nothing. Pure parts tested by `test/ledger-inject.test.ts`. |
+| `src/claude-home.ts` | Seeds Claude Code's first-run state in `~/.claude.json` — the globals at boot, `projects[<cwd>]` before **every** spawn (a worktree is a new directory, so a new trust dialog every time) — plus an explicit `tui` in `~/.claude/settings.json`, which kills the fullscreen-renderer upsell. Same idea for `autoModeEnvSetup.dismissed`, which answers “Teach auto mode about your environment?” — a BLOCKING form offering to scan the shell history (PRE-TICKED) and other repos, so shadok picks the screen’s own “Don’t show again” rather than let someone hit Continue and opt into a scan they never chose. Its gate, read out of the 2.1.241 binary: `numStartups >= 5` **and** `denials >= 5` **and** mode `auto` **and** not dismissed, fired at `query_end` — AFTER a turn, which is why no start-up probe ever caught it. `denials` counts refusals by the auto-mode **classifier** (not a profile’s `deny` rules, which are a different decision path), and shadok runs its agents in auto mode by default, so every instance drifts towards that screen through ordinary use. That key is merged on the **sub-key**, the one exception to seeding a whole key at a time: the CLI writes `{denials: n}` by itself from the first refusal, so an additive-on-the-whole-key rule no-ops from then on and would protect only instances that can never reach the threshold. That upsell appears only AFTER a sign-in and is **blocking**, so no signed-out probe can find it: the signed-out screens are not the whole set. ADDITIVE except for ONE key: `hasTrustDialogAccepted` is **asserted**, because shadok is what chose the directory and a stale `false` — from an older shadok, a restored config, a hand-run `claude` — would bring the trust dialog back on every single spawn, forever. Everything else is never overwritten, which is why it needs no Docker gate — contrast `src/ssh.ts` (invariant 19). Also the single writer of `~/.claude/settings.json`'s `model` (`getDefaultModel`/`setDefaultModel`), because it already writes `tui` there and two writers on one JSON file eventually erase each other. Verified 2026-09-25 on 2.1.282, and BOTH halves mattered: a `model` in that file is honoured with no `--model` flag, AND it survives shadok also passing `--settings` for a profile's guardrails — so the flag merges rather than replacing, without which the setting would have been silently inert for every agent carrying a profile. Atomic write; an unparseable file is left alone rather than "repaired" — but it now SAYS SO on stdout, as does a failed seed: the silent version made a seeding that never ran indistinguishable from one that did, and cost a long investigation into first-run screens with no trace anywhere. Pure `seedPlan` / `parseClaudeVersion` tested. |
+| `src/first-agent.ts` | The lead agent an instance starts life with: `general` on the `Shadok-Boss` profile, in the launch dir, no worktree. `firstAgentPlan` is pure and tested — it spawns only when there is **no channel at all** AND the auth state is `signed-in` (`unknown` is not signed in: that is the zombie shape, cf. invariant 27). That "no channel" condition is what makes it idempotent, so `startFirstAgent` (`server.ts`) can be called both at boot and after a successful sign-in without either knowing about the other — and a brand-new instance, signed out at boot, gets its agent from the sign-in call. It spawns through a **loopback WS to our own server**, like the Telegram bridge and the cron driver: there is no server-side path that opens a session without a client, and adding one would be a second way to start an agent. Also owns the **status the cockpit shows while that spawn is under way** (`announceFirstAgent` / `settleFirstAgent` / `firstAgentStatus`, served as `GET /first-agent`): the browser cannot tell "a first agent is coming" from "the user closed their last tab" — both are zero channels (invariant 18) — and guessing invites a SECOND lead agent while the first is being born. `announceFirstAgent` fires at boot BEFORE the deferred spawn, because `openBrowser` runs first and the page would otherwise load inside that gap and be told nothing is coming. `settleFirstAgent` is the only way out and it is unconditional — called from `ensureFirstAgent`'s `finally` (so `ready`, `error`, `exited`, a socket failure and the 60s guard all end the wait), from the `!plan.spawn` branch (a signed-out instance spawns nothing and must not read "starting your first agent…" forever) and from `startFirstAgent`'s `catch`, for a throw that never reaches the `finally`. |
+| `src/ground.ts` | What kind of project a directory holds, read **deterministically** — fs only, no model call, no network, no process spawn (not even `git`). The cron guard's move applied to onboarding: recognising a `Gemfile` is not reasoning, so it costs no quota and cannot hang. Reports version control (`.git` matched as a FILE too — that is what it is inside a worktree, which is where every shadok agent lives), stack markers (`package.json`, `Gemfile`, `go.mod`, `Cargo.toml`, `pyproject.toml`, `*.xcodeproj`, `*.csproj`…) each carrying **the marker that proved it**, so the layer above names what it SAW rather than a category word the user never wrote, CI configuration, and the project's own convention files. The load-bearing finding is the empty one: `empty` (no entries at all) and `unrecognised` (no VCS, no stack, no CI) are kept as **separate facts**, and neither is a failure — an invented stack is the one thing a greeting cannot recover from. `unrecognised` is deliberately NOT `stacks.length === 0`: a git repo of pure Markdown is recognised as a repo while its stack stays honestly unknown, and a README never counts as recognition or a folder of prose could never reach the honest register. `readGround` is pure over an injected listing (`ListDir`), like `spawnHelperPaths` and `classifyBin`, so its fixtures are directory SHAPES; `readGroundAt` is the thin real-fs half. Read by `src/greeting.ts`, at the moment the lead agent is born. Design: `docs/superpowers/specs/2026-08-31-onboarding-agent-design.md`. |
+| `src/greeting.ts` | What the lead says the first time a cockpit opens, as a BRIEF the model writes from — never finished prose. It carries the ground `readGround` recognised, the roles the vault really holds, the ONE offer that fits, and the copy rules. Generated because the introduction has to describe the profiles that exist HERE, including ones the user minted after this file was written: hardcoding the list is the drift this file documents half a dozen times. `greetingRegister` is the design — `specific` only when a marker AND a shadok mechanism back it, `informed` when something was recognised but nothing fits (name what you saw, then ASK), `honest` when `empty`/`unrecognised` (one line, the `UNIVERSAL_OFFER`, and an explicit ban on naming any stack: an invented one is the single failure a greeting cannot recover from). `greetingProfiles` drops the managed roles — `isManagedProfile`'s reason, since a greeting enumerating roles is a list where one PICKS one — and the lead itself, which is the one speaking. The facts are handed over rather than looked up, and the brief forbids reading the project first: reading it properly is what the greeting OFFERS. Delivery is `greetHomeAgent` (`server.ts`), a hidden `markAgentPrompt` over the loopback with `deliverWithRetry`, fired ONLY from `ensureFirstAgent`'s `onReady` — `firstAgentPlan`'s "no channel at all" is already per launch directory, and a second trigger would be a second way to greet. `SHADOK_GREETING=0` turns it off. Pure cores tested; the copy rules are locked like `tweak-role.test.ts` locks the tweak role's. |
+| `src/claude-auth.ts` | Auth status and the interactive sign-in. `claude auth login --claudeai` needs **no PTY**: run with pipes it prints the OAuth URL on stdout and reads the code from stdin — so the sign-in touches NONE of the screen heuristics. One instance-global flow, two doors (the web card, Telegram `/login`+`/code`). Success is a clean **exit**, never a parsed string (see invariant 27). Pure `parseAuthStatus` / `parseLoginUrl` / `parseLoginOutcome` tested. |
+| `src/ssh.ts` | Persistent per-container SSH identity (`ensureSshIdentity`, called at boot in `server.ts`). **Docker-only** (`/.dockerenv`): generates an ed25519 key under `~/.shadok-ai/ssh/` — on the `shadok-data` volume, so it survives restart AND recreate — and symlinks `~/.ssh` to it so agents' `git`/`ssh` use it. NO-OP on a normal host (never touches `~/.ssh`). Pure `sshPaths`/`planDotSshWiring`/`inContainer` are unit-tested. See invariant 19. |
+| `src/profiles.ts` | Agent profiles (GLOBAL, `~/.shadok-ai/profiles.json` 600; deliberately deleted starter roles are remembered in `profiles-declined.json` — the seed installs the shipped roles a vault is MISSING, including ones a later release added, so it must not resurrect what you removed): role (`--append-system-prompt`) + permission guardrails (`--settings` deny/allow) + secrets + model, applied at spawn via `profileArgs`. **A shipped role stores NO prompt until the user edits it** — `effectiveProfile` resolves it from the build at spawn, so it cannot go stale; `promptOrigin` reports `tracked` / `edited` / `outdated` (their fork, and the build has moved since — `promptBase` records what they forked from) / `custom`. `adoptTracking` + `migrateToTracking` drop a stored copy that merely repeats the build, which is how pre-tracking instances catch up. Restoring DROPS the stored prompt rather than copying today's text, or the fresh snapshot would start going stale immediately. Stored on the channel (`profile`) → re-applied on resume/restart. SOFT (same OS user, not a sandbox). `COCKPIT_DENY` is a cockpit POLICY rather than a role guardrail — `"Artifact"` is denied for **every** agent, profile or not. It lives in `profileArgs` and not in the shipped roles for two reasons: `Shadok-dev` carries no deny list and a bare spawn carries no profile, so a per-role rule would miss exactly the common cases; and `profileBadges` derives a role's access badge from its deny list, so putting it there would label a full-access role restricted over something unrelated to files or git. An artifact is a page on claude.ai when the person asked for a file. Verified WITH A CONTROL on real agents (a settings-validator probe proved nothing — a bogus tool name warns no differently): deny active → the agent reports the tool ABSENT, `SHADOK_ALLOW_ARTIFACTS=1` → PRESENT. It does not reproduce under `claude -p`, which never offers the tool at all (invariant 29's trap, again). A shipped role **earns its place on guardrails, secrets or method — never on topic** (two roles differing only in subject matter are one role with two briefs), so the catalogue is really a set of guardrail SHAPES: no `deny` at all (`Shadok-dev`), `READONLY_DENY` (git blocked, files open — the roles whose deliverable IS a file), `SOURCE_WRITE_DENY` (the mirror image: the source blocked, git open, so `Shadok-QA` delivers a branch carrying a failing test it cannot then make pass), and both at once (`Shadok-Product`; `Shadok-Release` adds the bare `Write`/`Edit` denies — it may run the deployment path and may not edit what that path ships, since changing the source while shipping it means what went out is not what was verified). `SOURCE_WRITE_DENY` enumerates `src`/`lib`/`app` twice each (anchored and `**/`-prefixed, for a monorepo) and stops there: every extra entry is a directory some other ecosystem uses for something else, and on a SOFT layer a false block costs more than a missed one. `READ_THE_GROUND` is the shared paragraph every role that lands in an unknown project opens with — one constant, not a copy per prompt, because it is the fix for a bug (a role naming THIS repository's convention files as if every project had them, cf. `src/ground.ts`) and three copies of a fix drift back one at a time. `test/role-catalogue.test.ts` locks that prose for the whole catalogue the way `test/boss-role.test.ts` locks the lead's. |
+| `src/peers.ts` | PEERS — other instances allowed to reach this one's agents, the cross-instance twin of a web account. A peer **enrols like a user**: `POST /peers` hands out a **single-use ticket**, `POST /peers/enrol` (the only peer route BEFORE the password gate, since an invitee has no credential yet) consumes it and returns the durable token the peer then keeps — so the long-lived credential never travels through an invitation, a chat or the invitee's transcript, only a ticket that dies on first use does. The token is **salted per peer** (`Peer.salt`, in the MAC): it used to be `hmac(secret, "peer:"+name)`, which is deterministic, so revoking a row and re-inviting the same name minted the IDENTICAL token and handed a leaked credential back — revocation was not rotation. `withSalts` backfills a pre-salt row, deliberately invalidating its old token. Non-expiring once enrolled (a cross-instance link must not hit the 7-day cookie cliff) and revocable by the registry: `peerFromToken` requires the name listed, the row ENROLLED (a pending `invite` authenticates nothing) and the MAC to match that row's salt. `redeemVerdict` refuses an unknown, used or expired ticket with ONE wording, so a guesser learns nothing. `ownedByPeer` is the single check behind every peer scope — a peer only ever touches the agents it created (`Channel.createdByPeer`), never the fleet. `agentInvitePrompt` is the copy-paste invitation, and carries the ticket, never a token. |
+| `src/accounts.ts` | Web accounts, PER INSTANCE (`~/.shadok-ai/users/<key>.json`, 600): roles (`admin`/`member`), salted scrypt hashes, single-use invitations, and the signed session token. The signing secret (`<key>.key`) is per instance and **never exported into an agent's env** — the GUI password is, so signing with it would let an agent mint a cookie for anyone. `SHADOK_GUI_PASSWORD` stays the door and IS the `admin` account; with no password everything is dormant. `promptAuthor` is where the web's author comes from the SESSION and never from the frame. Also `signSessionKey` / `readSessionKey` — the per-session key an AGENT authenticates with (`x-shadok-session-key`), DERIVED from the session id by HMAC so it needs no server state and carries no issue time. See invariant 33. Pure cores tested. |
+| `src/paths.ts` | `instanceKey(cwd)` — the launch directory encoded as a filename, for anything stored per instance. |
+| `src/cli.ts` | One-shot CLI (`node dist/cli.js "prompt"`), separate from the server. |
+| `public/index.html` | The entire web client (no framework, no build). Agents (creation is a **popin**, `#setupOverlay`, profile-first: a grid of cards, the rest folded away; the channel is only born at "Start agent", see invariant 18), groups, dialogs, engine room, diff panel, pace/usage gauges, context bars. UI copy says **agent**; the code, endpoints and storage keys still say `channel`. |
+| `public/live-text.js` | Pure `extractLiveText(screen)` — pulls the in-flight assistant text block from the TUI screen for the web live preview. ESM: loaded by the browser (bridged to `window.extractLiveText`) AND imported by `test/live-text.test.ts`. |
+| `public/echo-author.js` | Pure `echoAuthor(msg)` — the author label above a prompt that came from ANOTHER client: the sender's name when the emitting client knows it (Telegram does), else its origin, else the generic wording. ESM: loaded by the browser AND imported by `test/echo-author.test.ts`. |
+| `public/channel-store.js` | Pure `pickChannelSource` / `dirKey` — how the client's boot restore chooses its channel list. `pickChannelSource` makes a fulfilled `/channels` (even `[]`) AUTHORITATIVE, so only a FAILED fetch consults the origin-scoped localStorage cache; `dirKey` namespaces that cache key by launch dir. Together they close the cross-dir channel leak (invariant 34). `serverSwapped(pageKey, serverKey)` — did the instance answering this origin change under the tab (a port taken over after a stop)? — drives the "cockpit replaced, reload" banner (invariant 35). ESM: loaded by the browser (bridged, with boot-critical stubs that mirror the real logic — see invariant 10) AND imported by `test/channel-store.test.ts`. |
+| `public/notify.js` | Pure `notifyState(channels, {hidden, phase})` → `{color, badge, blink}` — the favicon/title/blink decision. The badge only blinks when the browser tab is hidden AND an **unmuted** channel is waiting for an answer; both phases stay visible (a browser-throttled timer must never make the page look calm). ESM: loaded by the browser AND imported by `test/notify.test.ts`. |
+| `public/profile-card.js` | Pure `profileBlurb` / `profileBadges` — the labels a profile card shows, derived from `systemPrompt` / `deny` / `model` / `secrets` (nothing added to `Profile`) — plus `defaultAgentName(profile, cwd)`, the name proposed for a new agent (profile → directory → `"agent"`), and `isManagedProfile` — the server-owned roles (`Shadok-Tweak`) that must never appear in a list where one PICKS a profile, since their prompt is rewritten at every boot. ESM: loaded by the browser AND imported by `test/profile-card.test.ts`. |
+| `public/tour-steps.js` | Pure `TOUR_STEPS` / `visibleSteps` / `unionRect` / `bubblePlacement` — the guided tour's step data and geometry. A step whose target is not on screen is **dropped, never faked** (an empty cockpit has no agent menu), so the counter reads over the RETAINED steps. **An empty rect is not a point at the origin**: `unionRect` DROPS `{0,0,0,0}` members and returns null only when none survive. Without that, `reflowHeaderTools` parking five tool buttons in the closed ⋯ menu below 640px pinned the union's `Math.min` to zero and stretched the toolbar spotlight from the viewport's corner across the header — measured `top -6px, left -6px, 367x51` — framing the brand and the gauges while the body described buttons that were not on screen. Same family as `.hdr-tools`, which is `display: contents` on desktop and has **no box at all**; that one dropped its step honestly, this one kept it and lied. Dropping empties is also what lets one step carry BOTH layouts' selectors (`["#tabbar", "#chanSelect"]`), which is how the phone stopped losing every step that mentions agents — it used to get 3 of 6. Two copy rules the tests hold, both learned from real drift: **never promise an order** ("left to right" put the ledger's name on the profiles icon the day the ledger was inserted) and **never name a position** ("at the bottom" describes the column, and the phone's `<select>` has no bottom and no *Tweak Shadok-AI*). ESM: loaded by the browser AND imported by `test/tour-steps.test.ts`. |
+| `src/claude-models.ts` | Which models THIS Claude Code build supports, **read out of the binary's strings** — one scan per upgrade, cached on the binary's path+size+mtime. There is no CLI command that enumerates models (and `claude models` is NOT a subcommand: it is taken as a PROMPT and answered, which costs a turn), so the names come from where they live. `parseModelNames` is deliberately NARROW because a strings dump GLUES adjacent bytes and mints plausible rubbish — this binary really contains `claude-haiku-3-55` and `claude-fable-5-mythos-5` — so only `claude-<family>-<major>[-<minor>]` with a single-digit minor survives, and `-v1` / dated forms are dropped as the same model spelled longer. Known limit, written down rather than rediscovered: a two-digit minor would be skipped, which is the price of keeping `3-55` out; the family aliases never depend on the scan. **An empty result is never cached — not in the file and not in the memo** (`memo?.length`, since an empty array is truthy): a failed scan is the NORMAL case during a claude-code upgrade (invariant 32), and memoising one froze the picker family-only for the life of the process. Pure cores tested. |
+| `public/model-choice.js` | Pure `MODEL_CHOICES` / `composeModel` / `isLongContext` — the model a SINGLE agent runs on, picked in the creation popin and overriding its profile's. The choices are ALIASES (`opus`, `sonnet`…), never pinned model names: an alias resolves to the latest model of its family, while a pinned name rots — the profile panel still suggests `claude-opus-4-8`, current when it was written and stale now. The long window is a `[1m]` SUFFIX on the setting, not a model of its own, which is why it is a checkbox beside the picker and why `composeModel("", true)` is null: a bare `[1m]` is invalid, and silently dropping the flag would leave the box ticked over an agent on the standard window. `test/model-choice.test.ts` pins the round trip against `windowForModel`, since the gauge reads that same suffix back (invariant 22). ESM: loaded by the browser AND imported by the tests. |
+| `public/gauge-dial.js` | Pure `dialPos` / `dialAngle` / `dialColor` / `arcSegments` / `dialTitle` — the geometry of the 240° quota dial, whose centre is the ideal pace and whose right end is exhaustion. ESM: loaded by the browser AND imported by `test/gauge-dial.test.ts`. |
+| `public/upload.js` | Pure `uploadFailure(status, contentType)` — should `attachFile` refuse to parse a `/paste` response, and with what message? A proxy rejects an oversized body with its OWN `413 text/html` page that never reaches our JSON route, so `r.json()` on it threw `Unexpected token '<'` and the composer showed that instead of "too large". Returns null for a JSON response (the caller parses it), else a plain string (413 → "too large", else the status). The server accepts 50 MB (`PASTE_LIMIT`), so a `<html>` here is always the proxy — see the README "Upload size" note. ESM: bridged to `window.uploadFailure` AND imported by `test/upload.test.ts`. |
+| `public/update-ready.js` | Pure `claudeUpdateState(screen)` → `"restart"` / `"failed"` / `null` — reads Claude Code's OWN update footer from the agent's TUI screen (which the client already has as `t.screenText`): `Update installed · Restart to apply` → the binary is in, reload to apply; `Auto-update failed · … npm i -g …` → the auto-update failed, the cockpit installs it (`POST /claude-update`) then reloads. Scanned only in the **tail** of the screen (last lines) so an agent that merely PRINTS the phrase up-screen doesn't trip the badge — the invariant-2 false-positive class. Surfaced as a per-agent ↻/⚠ badge on the tab + a chanBar button. ESM: bridged to `window.claudeUpdateState` AND imported by `test/update-ready.test.ts`. |
+| `context/pilot-prompt.md` | System prompt appended to **every piloted session** via `--append-system-prompt` (wired in `makePilot`, server.ts). Tells the agent it runs under the cockpit (chat rendering, sibling sessions, worktree discipline). `SHADOK_PILOT_PROMPT=0` disables. |
+| `context/agents-skill/` (`pilotctl.mjs`) | The `shadok-ai-agents` skill: a thin client that lets an agent spawn/pilot other agents through the server. **Seeded globally at boot** (`seedAgentsSkill`, twin of secrets/scheduler) so an agent in ANY repo has it — it used to live only in the repo's `.claude/skills`, a project skill invisible to agents working elsewhere (e.g. a lead in another repo told to delegate). SKILL.md invokes it by its seeded path (`~/.claude/skills/shadok-ai-agents/pilotctl.mjs`); `REPO_ROOT` (the in-repo server auto-start) is guarded so a globally-seeded copy never `npm build`s `$HOME`. It uses Node's **built-in `WebSocket`** (a tiny `makeWS` shim adds the `ws`-style `.on`/`.once`), NOT the `ws` package: seeded outside a repo there is no `node_modules` to resolve `ws` from, and the missing module broke every out-of-repo pilot with `ERR_MODULE_NOT_FOUND`. |
+
+## Core model
+
+- **One session = one `claude` process = one `Live` object**, shared by N
+  WebSocket clients (several tabs/devices follow the same session live).
+- **Content** flows from the `.jsonl` tail (complete, streamed, survives
+  everything). **Control** (submit, detect turn end, dialogs, engine-room
+  screen) flows through the pilot's rendered screen. Don't scrape the screen
+  for response text — that's what caused truncation; use the tail.
+  - The **context gauge** used to break this rule and paid for it: it scraped
+    `ctx:NN%` off the footer, a string only a custom statusLine ever prints, so
+    it worked nowhere but the author's machine. It now comes from the transcript
+    like every other datum (`src/context.ts`, invariant 22).
+  - **One deliberate exception (web only): the live text *preview*.** The
+    `.jsonl` writes a text block only once it's *complete*, so a long paragraph
+    stays invisible during generation then appears at once. `public/live-text.js`
+    (`extractLiveText`) reads the in-flight block from the screen and shows it in
+    a **provisional** grey bubble, **always replaced 1-for-1** by the authoritative
+    tail block on `stream-text` (or dropped on `turn-done`/`dialog`). Never
+    persisted; if extraction fails it returns `""` → falls back to block-level.
+  - **The `preface` of a `dialog` comes from that same screen extraction**, so it
+    can be the *previous* turn's answer when the new turn hasn't written yet.
+    `isStalePreface` (telegram.ts) drops it when it matches a block already
+    streamed (`Live.recentTexts`, last 8). Deliberately looser than
+    `prefaceMatches`: dropping a fresh preface only delays it (the tail still
+    delivers it), whereas keeping a stale one leaves a permanent duplicate —
+    nothing ever comes to edit it away.
+- **Sessions outlive clients** on *disconnect* (reload, another device, a
+  dropped WS): the process keeps running and is reclaimed only after
+  `SHADOK_IDLE_MIN` min (default 60) with no client. With tmux, it also
+  outlives the server. **Explicit close ends it everywhere**: the tab ✕, "End
+  session", Telegram `/end`, and closing a topic all send `stop`, which drops
+  the session from the registry and archives its Telegram topic.
+
+## WebSocket protocol (`/ws`)
+
+**client → server:** `start` (cwd/resume/continue/worktree/branch/repo/profile/
+`parent` — who launched this agent; pilotctl puts its own `SHADOK_SESSION_ID`
+there, so the link needs no configuring. A refused link is DROPPED and logged,
+never fatal to the spawn: killing an agent over a bad link would be worse than an
+agent that reports to nobody./
+`origin` — "web"/"cron"/"telegram"…, echoed back in `prompt-echo` to say WHO
+spoke/
+`name` — the tab name for a NEW agent (pilotctl `--name`); ASSERT-only and applied
+on a spawn ONLY, so a resume never clobbers a rename made in the UI),
+`prompt` (text, `force?`), `run` (`command` — a one-line command typed into the pane's SHELL MODE on the human's behalf; **browser connections only**, since shell mode bypasses a profile's `deny`; see `src/bang.ts`), `choose` n, `toggle` n, `confirm`, `freetext` n
+text, `key`, `settle`, `restart`, `set-parent` (`parent` — the channel told when
+this one finishes, blocks or dies; `null` detaches. Refused **explicitly** on a
+cycle, an unknown parent or a cap),
+`set-profile` (`profile` — the profile's name or
+`null`; `restart?` to apply it right away by respawning in place. This is the
+ONLY legitimate path: `profile` is `SERVER_OWNED` on the channel, so a browser
+PUT `/channels` cannot touch it),
+`set-model` (`model` — an alias like `opus`, optionally `[1m]`-suffixed, or
+`null` = the profile's; the twin of `set-profile` for the per-agent model, shown
+and changed in the agent menu. `--model` is a spawn arg, so it ALWAYS respawns to
+apply — no "at next reload" gap. `model` is `SERVER_OWNED` too), `stop`
+(`sessionId?` — kills a specific channel, so the UI can remove a zombie).
+
+**server → client:** `ready` (carries `instanceKey` — which instance answers this origin, so a stale tab whose port was taken over detects the swap, invariant 35), `working` (carries `elapsedMs` — how long the turn has been running; the client anchors on the DURATION and never on a server instant, or the stopwatch is off by the whole gap between the two clocks), `turn-done`, `stream-text`,
+`stream-tool` (carries `files` — `{path,name,image}[]` — when it's a `SendUserFile`, so the client renders a download / inline-image card instead of a folded tool line, and Telegram uploads them), `stream-result`, `stream-bash` (`command` then `output`/`isError` — a shell-mode exchange read from the transcript), `history` (whose turns may be `role:"file"` for a delivered file, or `role:"bash"` for a shell-mode exchange), `dialog`, `screen`, `tokens`,
+`context`, `background` (`shells` + `monitors` — what the pane reports still running; live only, never stored, like the context percentage), `parent` (the parent channel changed — broadcast, so every tab follows),
+`profile` (the `{profile, applied}` pair — desired vs the one the running process
+actually carries; their gap is what the UI shows as "at next reload" — and it
+also carries `model`, the per-agent model the agent menu shows/changes),
+`prompt-echo`, `pace-blocked` / `pace-hold` / `pace-resumed`,
+`auto-retry-*`, `version`, `server-reload`, `gone`, `error`, `exited`,
+`stopped`. `error` carries an optional `code` — `"busy"` (prompt refused
+mid-turn), `"link-refused"` (a `set-parent` the server will not accept) or
+`"logged-out"` (a spawn refused because the instance is not signed in to Claude)
+— so a machine client can classify a refusal without matching on the message
+text.
+
+**HTTP:** `/usage` (5h/7d + pace verdict), `/live` (running sessions),
+`/sessions` `/recover` (resumable), `/diff`, `/channels` `/groups` (GET/PUT,
+persisted per launch dir; the GET of `/channels` adds a **derived** `crons` —
+the channel's schedules, for the tab's ⏰ — never stored, see invariant 6; the
+PUT carries an `x-shadok-instance` header and is refused **409** on a mismatch
+with the server's own launch dir — invariant 35),
+`/defaults` (server cwd, plus `instanceKey`),
+`/first-agent` (GET — `{pending, reason}`: is this instance's lead agent on its
+way? Polled by the page only while it has no tab, and faster while `pending`),
+`/title` (GET/PUT — the cockpit's per-launch-dir
+name; empty PUT reverts to default), `/theme` (GET/PUT — the cockpit's
+per-launch-dir colour palette; default/unknown reverts to default),
+`/tweak/prepare` (POST — clone/refresh
+shadok-ai's own source, returns the cwd to start the tweak agent in),
+`/profiles` `/secrets`
+(GET/PUT/DELETE). `/secrets`: GET returns NAMES only, and PUT refuses an
+existing name with 409 unless `overwrite: true`. `PUT /profiles` writes the
+GUARDRAILS and is **browser-only** (cf. the profile-guardrail invariant);
+agents get exactly two profile writes, and neither can reach a guardrail:
+`/profiles/prompt` (PUT) — a `systemPrompt`, its own or, under the lead profile,
+any — and `/profiles/secret` (PUT) — attach to ITS OWN profile a vault secret
+IT created (provenance from `secret-origin.json`; no exception for the lead,
+cf. invariant 37). `GET /profiles`
+adds a **derived** `origin` per profile (`stock` / `edited` / `custom`, never
+stored, cf. invariant 6): seeding only ever fills an EMPTY vault, so a starter
+profile edited once never catches up on a newer upstream wording — the panel
+marks it. `/profiles/restore` (POST, browser-only) puts that prompt back to the
+build's, and only that field: deny/allow/secrets/model are the user's and
+survive, exactly as `withManagedPrompt` does for the managed role.
+`/users` (GET/POST/DELETE) and `/users/role` — accounts, **admin only**;
+`/peers` (GET/POST/DELETE) — cross-instance peers, **admin only** (POST returns
+the token ONCE); a peer authenticates the WS and `GET /diff` with `x-shadok-peer`,
+scoped to its own agents (`src/peers.ts`);
+`/invite/:token` (GET/POST) — redeeming an invitation, reachable WITHOUT a
+session; `/me` — who the caller is;
+`/models` (GET — the families, the versions discovered in the binary, and the machine-wide default; POST `/models/default` — pin it, **browser-only** like `PUT /profiles`, since it writes a key every agent on the machine reads), `/telegram` (GET/PUT — bot config from the GUI), `/version`,
+`/autoupdate`, `/permission-mode`, `/reload` (POST — an agent respawns ITSELF,
+scoped by `SHADOK_SESSION_KEY` like `/profiles/prompt`, used by the
+`shadok-reload` skill), `/ledger` (GET — the table for the read-only viewer;
+POST — flip the ledger reflex from the GUI;
+**restarts all agents** when it changes so the reflex lands), `/restart-all`
+(POST — respawn every agent, the version-menu button; an optional
+`{sessions:[ids]}` body limits it to those agents, which is how *Reload N agents
+to apply update* reloads ONLY the ones flagged as running on the old Claude Code
+binary, `restartAllSessions(ids)`). Both restart **one at a
+time, in the background** (`restartAllSessions` returns at once): a concurrent
+herd of `claude --resume` trips the upstream OAuth refresh-token race (~30+
+agents) and spikes resources — the manual single reload is safe only because it
+is isolated. `/claude-update` (POST, **browser-only**, single-flight — `npm i -g
+@anthropic-ai/claude-code` via `installClaudeCli`, then drops the cached binary
+path so the next spawn re-resolves it; the GUI shows the button when an agent's
+TUI footer reports `Auto-update failed`, and reloads the agent afterwards. Not an
+agent-reachable action: it touches the whole machine's CLI). `/login`,
+`/vendor/marked.js`,
+`/paste` (POST — ANY file pasted OR dropped into the composer, not just images;
+lands in the same `MEDIA_DIR` as Telegram attachments, keeps the original name
+via the `x-filename` header so the extension stays truthful, and returns
+`{path, line}` — `line` is the ready-made `[Attached image: …]` / `[Attached
+file: …]` from `attachmentPrompt`, the ONE format for the agent whatever the
+surface. Accepts every content type (`express.raw({type:()=>true})`).
+Browser-origin only: it writes a file. The client no longer types `line` into
+the textarea: a paste/drop becomes a **chip** in the composer strip
+(`#composerAtts`, thumbnail for an image via `GET /media`, named tag otherwise),
+and the `[Attached …: path]` line is composed back from the ready chips only at
+submit — so the agent reads exactly what it always did while the user sees a
+preview, and an image renders inline in their own message bubble
+(`renderUserAttachments`, invariant 13's twin: the path is trusted server output,
+not agent Markdown)),
+`/media/:name` (GET — serves a file back from `MEDIA_DIR` for inline display in
+the chat and the composer chip. Basename only + a `sandbox` CSP and
+`nosniff`, like `/download`; a raster image is `inline`, everything else
+`attachment`. No transcript check because these are files the USER supplied, not
+paths an agent named — the traversal guard is the whole gate),
+`/files` (POST — an agent offers a file through shadok's own path, authenticated by `x-shadok-session-key`; refusals name the path and say why, and a partial success reports WHICH file did not make it),
+`/download` (GET — `session` + `path`: streams back a file the agent DELIVERED via `SendUserFile` **or offered through `POST /files`** — two sources, one rule. The path is verified against that session's transcript
+(`sentFilePaths`), so it can never be walked into an arbitrary file; the response
+carries `X-Content-Type-Options: nosniff` + a `sandbox` CSP so an agent-authored
+HTML/SVG cannot run script in the cockpit's origin even if opened directly. A
+raster image is served `inline` (renders in the chat's `<img>`), everything else
+`attachment`).
+
+Everything except `/login` sits behind the optional password gate (see the
+Auth section of `docs/architecture.md`).
+
+## Invariants & hard-won gotchas (DO NOT relearn these the hard way)
+
+1. **The registry is the authority on where a session lives — resolve, never
+   guess.** `loadHistory` is keyed by the cwd (encoded →
+   `~/.claude/projects/<enc>/<id>.jsonl`), so a worktree session resumed at the
+   repo root wakes with **no history at all**. That directory, plus the
+   `branch`/`repo` needed to rebuild a reclaimed checkout, is recorded on the
+   channel when the session is created. Every caller acting on a session's
+   behalf reads it back through `resolveSessionTarget` / `resumeTarget`
+   (`src/channels.ts`) instead of naming a directory of its own — and on a
+   resume the registry's answer **beats whatever the caller sent**.
+   That single lookup is not a preference, it is the fix for the same bug three
+   times over: the browser sent `repo: serverCwd` for every channel (right only
+   while every worktree came from the launch repo — the tweak agent was the
+   first that didn't), `driveChannel` sent `cwd: process.cwd()` while the cron
+   guard ten lines above already had the channel's own directory, and the
+   `start` handler fell back to the server's cwd. `process.cwd()` is the
+   server's, never a session's.
+   The other half is writing it down: at `ready` the server ASSERTS `cwd`,
+   `branch` and `repo` from `session.worktree` and never clears them. `branch:
+   worktree?.branch ?? null` erased the branch on the first resume, because a
+   resume has no `worktree` object and `upsertInto` writes anything that is not
+   `undefined`. Omit the key; never write a null.
+   **`profile` is in that same assert-only family, and it was the one still
+   written unconditionally.** It is SERVER_OWNED, so the browser never sends it —
+   a resume's `msg.profile ?? null` is null, and writing that erased the
+   channel's role, so the agent came back with no guardrails and no badge. Nine
+   agents lost their profile this way during the 2026-09-24 restart churn (a
+   corruption the running processes' applied role could not be recovered from —
+   Claude Code writes neither `--append-system-prompt` to the transcript nor a
+   readable role to `/proc`, so the fix was a hand-restore from the user's
+   intent). `profilePatch(profile, msg.profile !== undefined)` (`src/channels.ts`,
+   pure, tested) keeps the stored profile unless the client chose one explicitly
+   (a name, or null for "no profile") — the same "omit, never null-by-omission"
+   rule as `branch`.
+2. **Detection heuristics are fragile.** `screenShowsWork` must ignore a
+   *quoted* "esc to interrupt" (Claude explaining shadok-ai tripped it →
+   session stuck "busy"). `detectDialog` must strip a right-hand **preview
+   column** (AskUserQuestion charts) or option labels get mangled.
+3. **Single-select dialogs are navigated, not typed.** `choose` moves the `❯`
+   cursor with arrow keys then Enter — preview-style dialogs ignore digit keys.
+   Multi-select `toggle` uses the digit; `confirm` does Tab→Submit→Enter.
+   **`moveToOption` must WAIT for the cursor to move between presses, never poll a
+   fixed delay** (`src/detect.ts`, pure-tested via a lag-simulating fake pilot).
+   A `TmuxPilot.screen()` is a MIRROR refreshed on a ~300ms poll (`SCREEN_FAST_MS`),
+   so a keystroke is invisible until the next capture: a 160ms read came back with
+   the cursor still on the old option, the loop pressed again, and it sailed past
+   the target — single-select answers all landed on the LAST option, so every form
+   "did nothing" and re-appeared. This broke EVERY select in web mode on the
+   default (tmux) transport; `PtyPilot.screen()` is synchronous and hid it
+   entirely, which is why only an end-to-end run against a real tmux agent found
+   it. `waitFor` (both pilots have it) polls until the move lands — correct on
+   either transport.
+4. **The resume-from-summary prompt is auto-answered** ("full session as-is")
+   at startup and never surfaced (`SHADOK_RESUME_SUMMARY=1` to disable).
+5. **Worktrees never lose work — but an empty one is pruned on close.**
+   `pruneWorktree` (called when a session ends) removes the checkout *only* if
+   it's clean (`git worktree remove` without `--force`), and deletes the branch
+   *only* if it has zero commits beyond the base — i.e. an agent that did
+   nothing. Uncommitted changes → the whole worktree stays. Commits → the branch
+   survives even if the checkout goes, and `/recover` recreates the checkout from
+   it. Never add `--force` here.
+6. **Persistence must never save a partial/empty list.** The channel list
+   eroded to one because `persistChannels` skipped tabs without a sessionId and
+   pushed mid-restore. Restored tabs get their sessionId **immediately**; pushes
+   are suppressed during restore; a failed fetch must never PUT `[]`.
+7. **A restart must not eat content.** The tail persists its byte offset
+   (`~/.shadok-ai/tail/<id>.pos`) and resumes there — starting at EOF silently
+   dropped everything an agent wrote during a restart, i.e. on **every
+   auto-update**. The web recovered (it reloads history); Telegram never did.
+   And resuming is useless if nobody reads: `reconcileOnBoot` reattaches the
+   bridges whose tmux agent is still alive. Keep both halves.
+   **Boot is not the only moment a bridge dies.** A bridge goes with its
+   WebSocket (`ws.on("close")` drops it from `bridges`), so ending a session —
+   a restart, a killed pane, a crash — takes it too, and rebuilding it only at
+   boot left a restarted channel deaf towards Telegram until something unrelated
+   restarted the server. The 5s `reconcileWebChannels` loop could not save it
+   either: it only ever looked at channels with NO binding. Both reconcilers now
+   share one rule, `shouldReattachBridge` — bound **chat**, no bridge, **and a live
+   tmux session**. That last term is load-bearing: without it the loop would
+   respawn a `claude` under every idle mirrored channel, and mirroring an idle
+   channel is the topic's job, not a live process's.
+   **Bound CHAT, not bound topic.** Keying that rule on `threadId` silently
+   excluded the board's General, which by construction has none — that is how
+   `mergeChannels` recognises the main channel. Its bridge was therefore never
+   rebuilt once it died: the web channel kept working while Telegram went quiet,
+   with nothing in the log to show for it. A DM has no topic either, and keys as
+   `private:<id>`, never `group:<id>`.
+8. **Don't let an agent restart the server.** It kills sibling PTY sessions
+   mid-work. (tmux mitigates, but still.) Only the human / top-level restarts it.
+   To try your own build, run it side by side on a free port — see "Running YOUR
+   build" above. An agent that stops 3789 to free the port also cuts the session
+   it is being driven from.
+9. **Never `git merge` blind in the shared repo.** Parallel agents leaving
+   conflict markers in `.ts`/`.html` = broken build + crashed server + a whole
+   afternoon lost. Agents work in **isolated worktrees**; landing is a reviewed,
+   conflict-checked, build-verified step. This is the #1 source of past chaos.
+10. **The ESM bridge in `index.html` isn't ready at parse time.** The
+   `<script type="module">` that puts `extractLiveText` / `profileBlurb` on
+   `window` runs **after** the document is parsed; the classic `<script>` below
+   it runs **during**. Anything that paints on load must wait for
+   `DOMContentLoaded` (or guard on `window.<fn>`). The profile grid painted
+   immediately, `window.profileBlurb` was `undefined`, the first card threw, and
+   the grid stayed empty **in silence** — the call site is an unawaited async
+   function, so nothing surfaced. tsc and the tests were green; only the browser
+   showed it.
+   **Worse than that race: ONE failing module kills EVERY bridge.** The block
+   imports six files; if any of them 404s, 500s or throws, the whole script is
+   discarded and not one `window.*` is assigned — so the first click raises
+   `TypeError: window.X is not a function` on a name that has nothing to do with
+   the file that failed (a broken `gauge-dial.js` surfaced as
+   `window.visibleSteps`, a user hit it as `window.profileBadges`). Guarding call
+   sites one at a time kept losing: `profileBadges` threw five lines from a
+   correctly guarded twin, and eleven calls were still bare. So the classic
+   script installs a neutral **stub per bridged name** before wiring any button,
+   the module `dispatchEvent`s `shadok-bridge-ready` so anything painted with
+   stubs is repainted, and a stub still in place three seconds after `load`
+   raises a visible banner — an amputated UI in silence is worse than the error
+   it replaces. `test/esm-bridge.test.ts` locks the name↔stub pairing, the way
+   `test/csp.test.ts` locks the nonce.
+   **And the pairing itself is now impossible.** What actually failed in the
+   wild was a NEW `index.html` (importing `secretUsers`) served next to an OLD
+   cached `profile-card.js` that did not export it — the page is a dynamic
+   route, the modules go through `express.static`, so the two can drift. The
+   import URLs therefore carry `?v=<running version>`, injected beside the nonce
+   (`injectAssetVersion`): a page of one version can only ever request that
+   version's modules. `test/csp.test.ts` refuses a bare module URL.
+11. **The origin guard must let `Origin`-less clients through.** `src/net.ts`
+   refuses a browser whose `Origin` isn't the request's own `Host` (a WebSocket
+   ignores the same-origin policy, so any visited page could otherwise drive an
+   agent). But the Telegram bridge, `pilotctl`, the CLI and the scheduler skill
+   all open loopback connections **with no `Origin` at all** — tightening that
+   branch to a deny would cut Telegram off from its own sessions. The bind
+   (`SHADOK_HOST`, loopback by default) and the password are what stop a network
+   attacker; this guard only ever addresses browsers.
+12. **Every inline `<script>` in `index.html` must carry `__CSP_NONCE__`.** The
+   page is served by a dedicated route (not `express.static`) that replaces that
+   marker with a nonce drawn on every request, and the CSP refuses
+   `unsafe-inline` — which is what neutralises the HTML an agent writes into the
+   transcript. A block added without the marker **does not run, silently**. Same
+   for inline handlers (`onclick=`), which the nonce does NOT cover: go through
+   `addEventListener`. `test/csp.test.ts` locks both down.
+13. **The agent's Markdown is always sanitised before `innerHTML`.**
+   `DOMPurify.sanitize(marked.parse(…))` — `marked` lets raw HTML through, and
+   this Markdown derives from what the agent read (a cloned README, a web page, a
+   Telegram message). With no DOMPurify loaded, we fall back to `textContent`
+   rather than injecting unfiltered HTML.
+14. **Pace guard** blocks a prompt when `used > idealPace + PACE_EPSILON`
+   (currently 2). A prompt can bypass with `force: true`. A blocked spawn is
+   silent to the parent — surface it if you touch that path.
+15. **A cron fire must say what it did, and a lost one must be replayed.**
+   `cronTick` still advances `nextRun` *before* firing (that's what stops a long
+   run from double-firing) — but `driveChannel` now returns a typed
+   `DriveOutcome`, and `settleCron` reschedules a **transient** miss
+   (`pace-blocked` / `busy` / `ws-error` / `exited`) ~10 min out via
+   `nextRunAfterFailure`, capped at 3 tries and **never past the next normal
+   slot**. The invariant survives because a retry is always written in the
+   future and `cronsFiring` holds until `fireCron` settles. Non-transient
+   (`error`, `timeout`) is never replayed: the timeout means the turn is still
+   running, so replaying would stack two prompts. Every fire logs one `cron:
+   <id8> …` line — including the quiet one, otherwise "ran, nothing to say" and
+   "never ran" stay indistinguishable, which is the bug this fixed.
+16. **A guard's exit code is not a failure signal.** `grep`/`diff`/`test` exit 1
+   with no output exactly when a cron guard has nothing to report. `runCronCheck`
+   keys on **stdout** for news; a non-zero exit only counts as broken when it
+   also wrote to **stderr** (or was killed / never spawned). A broken guard wakes
+   the agent so the monitoring doesn't die in silence — it costs tokens each slot
+   until it's repaired.
+17. **A cron id is never displayed in full — so every API that takes one must
+   accept a PREFIX.** The three `list` views (web, skill, Telegram) print only 8
+   characters. `DELETE /crons` compared the full UUID for strict equality and
+   answered `{ok:true}` whatever happened: deleting from the skill deleted
+   nothing and announced "deleted". Resolution is now unique and pure
+   (`resolveCronId`) — an empty prefix and an ambiguous prefix are **refused**,
+   never settled at random (a bare `/cron del` used to erase whichever cron came
+   first).
+
+18. **`active` (the current channel, web side) CAN be null.** Creation lives in a
+   popin (`#setupOverlay`) and only creates the tab at "Start agent": opening it
+   then backing out no longer leaves a stillborn tab, but nothing guarantees a
+   channel exists any more — closing the last one leaves `active === null` and the
+   central panel shows `#emptyState`. `refreshChrome` handles that case
+   explicitly; every new `active.xxx` must be guarded. Corollary: a popin is added
+   by carrying `.overlay` (no list of ids left to update — it was that oversight
+   that let the cron panel render in the page flow).
+
+19. **The SSH identity must never touch a real host's `~/.ssh`, and must live on
+    the mounted volume — not `/root/.ssh`.** `ensureSshIdentity` (`src/ssh.ts`)
+    runs at boot but is a NO-OP unless `/.dockerenv` is present: on a developer's
+    Mac it must not read, move, or symlink `~/.ssh`. In a container it puts the
+    key under `~/.shadok-ai/ssh/` **because that is the only path on a volume that
+    survives `docker rm`+recreate** (the ephemeral `/root/.ssh` does not — a plain
+    restart keeps it, a recreate wipes it, which is exactly the failure this
+    fixes). Wiring `~/.ssh` is best-effort and **never destructive**: it migrates a
+    pre-existing `~/.ssh` into the volume without clobbering the managed key/config
+    and never deletes a user file; on any doubt it leaves `~/.ssh` alone and falls
+    back to `GIT_SSH_COMMAND`. The whole thing is swallowed on error — an SSH-setup
+    failure must never take down the boot path.
+
+20. **The browser's socket scheme follows the page's — never hardcode `ws://`.**
+    `openLink` (`public/index.html`) built `` `ws://${location.host}/ws` ``. That is
+    correct on every developer setup, because they are all `http://localhost:3789`,
+    and it breaks the moment the cockpit sits behind a TLS reverse proxy: the
+    browser blocks a `ws://` socket from an HTTPS page as mixed content. The
+    failure mode is the nasty one — the page is static HTML, so it paints
+    perfectly, and only the channels never connect. Nothing appears in the DOM,
+    tsc and the tests were green, and the server even answers `101` to a `curl`
+    upgrade, so the proxy looks correct. It shipped to two HTTPS instances before
+    anyone noticed. `test/ws-url.test.ts` scans `index.html` for it, the same way
+    `test/csp.test.ts` locks the nonce. The proxy side has a twin trap: it must
+    forward `Upgrade`/`Connection` or the socket dies before reaching us (README,
+    "Behind TLS"). The server-side sockets (`telegram.ts`, `server.ts`) stay
+    `ws://` on purpose — they dial 127.0.0.1, where there is no TLS.
+
+21. **Dialog detection belongs to the screen watcher, not to one input path.**
+    `detectDialog` used to be reachable only from `finishTurn`, i.e. only from the
+    handlers that submit on the user's behalf (`prompt`, `choose`, `toggle`,
+    `confirm`, `freetext`). `case "key"` — the terminal view — writes the
+    keystrokes straight to the pilot and returns, so a question asked after typing
+    there was **never announced**: it sat on the screen, visible in the engine room
+    and absent from the chat, with `/live` reporting `busy: false` because the
+    server never knew a turn had started. The `isWorking()` line in the watcher
+    was not a safety net either — by the time a dialog is up, the screen no longer
+    looks busy, so it never fired. The watcher now runs `detectDialog` on every
+    screen change while `!busy`, which covers `key` and anything that ever bypasses
+    `finishTurn`. That is affordable only because `publishDialog` dedups on
+    `dialogKey` (question + labels, deliberately NOT the ❯ position nor the
+    checkbox states — a cursor move is not a new question, and a multi-select
+    toggle re-renders through its own direct broadcast). `finishTurn` clears the
+    key on `turn-done` so asking the SAME question twice still reaches the clients
+    — and, for the same reason, it now also clears the key in its **dialog**
+    branch before publishing. `finishTurn` is only reached by a deliberate
+    transition (a prompt or an answered dialog that ran a turn), so a dialog
+    present when it settles is a FRESH ask even when its text is byte-for-byte the
+    one just answered. Two back-to-back CLI permission prompts ("Do you want to
+    proceed? Yes/No") share a `dialogKey`, and so do two AskUserQuestions with the
+    same options; without the clear, the dedup swallowed the second as a repaint
+    and the session sat wedged on an invisible question. The `SUBMIT_PAGE` guard
+    in `publishDialog` still runs first, so clearing the key can never re-surface
+    the multi-question recap.
+
+22. **The context gauge reads the transcript, never the footer — and the window is
+    a SETTING, not a model.** The percentage used to come from
+    `screen.match(/ctx:\s*(\d+)\s*%/)`. That string is not produced by Claude
+    Code: it comes from a **custom statusLine** the user happens to have
+    configured. So the gauge worked on the author's machine and on essentially no
+    one else's — every fresh install and every container showed no bar at all,
+    silently, because a footer that never matches is indistinguishable from a
+    session that has not answered yet. It is now computed from the `.jsonl` token
+    usage, which is where the rest of the content already comes from. Two traps
+    live in that arithmetic. **Cache reads count** — they are context the model
+    was given, and excluding them under-reports a long session by most of its
+    size; output does not count, the next request does not start from it. And the
+    1M window is **per-session**, written as a suffix on the model setting
+    (`"opus[1m]"`), while the transcript records the RESOLVED name
+    (`claude-opus-4-8`) with the suffix stripped — so it cannot be recovered from
+    the transcript, and matching on model NAMES is wrong, the same model runs at
+    either size. When nothing is configured (a container's `settings.json` has no
+    model), the standard window is assumed and `effectiveWindow` promotes it on
+    proof: 409k tokens cannot fit in 200k. Verified end to end — the same message
+    the CLI footer showed as `ctx:41%` computes to 41%, with or without the model
+    setting.
+
+23. **A restart must GUARANTEE a new process — `TmuxPilot.start()` adopts an
+    existing pane by design.** That adoption is what makes an agent survive a
+    server restart, and it is also the trap: if the pane outlives the stop, the
+    "restart" silently reattaches to the very process the user wanted gone. Same
+    pane, same wedged state, no error, nothing in the log — `Reload agent` became
+    a no-op. Two things allowed it. `stop()` began with `if (this.exited) return`,
+    and `exited` **latches on a single failed `has-session` probe** (`tmuxOk`
+    swallows every tmux error into `false`), so a pilot that wrongly believed
+    itself dead returned without killing. And the graceful exit runs through
+    `submit("/exit")`, which needs an input box — precisely what a wedged TUI does
+    not have, so the very situation a restart exists to rescue is the one where
+    the graceful path cannot work. Now: `stop()` consults `hasSession()` and never
+    the flag, and `restartSession` **enforces** the outcome (hard `tmuxKillSession`
+    + re-check) instead of merely watching its wait loop expire. The rule
+    generalises — any code that respawns must verify the old process is gone, not
+    assume a stop worked.
+    Where the wedged agents came from is worth keeping too: `/root/.claude.json`
+    holds the onboarding state and is **not** on a volume, so a container recreate
+    loses it. `reconcileOnBoot` respawns sessions ~1s after boot, i.e. before a
+    post-`run` `docker cp` can restore the file — the agents land on Claude Code's
+    first-run screen and never reach a prompt. **`src/claude-home.ts` closes that
+    race**: `ensureClaudeHome()` runs before `ensureSshIdentity()` in the boot
+    path, so the file is written before anything can spawn and the
+    `docker create` → `docker cp` → `docker start` ordering is no longer needed.
+    Keep the history anyway — the symptom it names is what a *future* onboarding
+    change would surface again.
+    `describeStuckScreen` (`src/detect.ts`) now names such a screen in the submit
+    error: the bare "the text never appeared in the input box" points at an input
+    box that does not exist, and sent two investigations to the wrong subsystem.
+    The input box has the mirror-image trap: **an empty box does not always read
+    empty.** Before a session's first prompt, Claude Code (2.1.285) shows an
+    example in it — `❯ Try "refactor <filepath>"`, a different one per start — and
+    puts it back after a Ctrl-U; `inputText` reads it like typed text.
+    `typeIntoBox` took "non-empty" for "the paste landed", so on such a start it
+    returned before anything was pasted and a dropped paste was followed by Enter
+    on a box holding nothing — the agent's first prompt lost, with no error. It
+    now waits for the box to DIFFER from what it showed just before the paste
+    (re-read each attempt), and treats "back to that state" as cleared. No list of
+    hint strings: that would rot with the next release. Not every start shows one
+    (a 2.1.269 probe found a blank box) and what decides it is unknown. The send
+    check (`screenShowsWork || inputText === ""`) is unaffected: verified live, the
+    example does not come back after a real send.
+
+24. **A field accepted in `start` is not a field STORED — and only the browser
+    tells you.** `parent` was added to the `start` message, sent by `pilotctl`
+    from its own `SHADOK_SESSION_ID`, typed in `ClientMessage`, and covered by
+    unit tests. `tsc` was clean, 408 tests were green, and the automatic link —
+    the entire point of the feature — did **nothing**: the handler simply never
+    read `msg.parent`, so it was dropped between the wire and `upsertChannel`.
+    Only an end-to-end run against a real server on a free port surfaced it. The
+    class generalises beyond this field: a `start` payload is a plain object,
+    every unknown key is silently ignored, and no type in the union proves that
+    anyone consumed it. When you widen `start`, assert the value came out the
+    other side. Two smaller rules came with it: the link is validated exactly
+    like `set-parent` (a cycle costs the same either way), but a refusal at
+    start only DROPS the link instead of failing the spawn — killing an agent
+    over a bad link is worse than one that reports to nobody — and it is logged,
+    so it is not a silent loss. And `parent` is ASSERT-only on the channel, like
+    `branch` and `repo` (invariant 1): a client that omits the key must never
+    erase a link that already exists.
+
+25. **The diff baseline is COMPUTED, never stored — and `A...B` is the wrong
+    way to compute it.** `Worktree` used to carry a `baseSha` frozen at spawn,
+    and `gitDiff` diffed against it. Two ways that goes wrong, in opposite
+    directions: a sha frozen days ago is no longer where the branch forks once
+    the agent rebases (the panel then shows main's work as the agent's), and
+    diffing against the base's *tip* instead has the same effect from the start.
+    Both disappear with `git merge-base <base> HEAD` recomputed on each call —
+    one field of state removed rather than added. The trap in the fix is the
+    obvious spelling: `git diff <base>...HEAD` also picks the merge-base, but it
+    stops at the branch **tip**, so everything the agent has not committed yet
+    vanishes from the panel — and uncommitted work is most of what the panel is
+    for. Diff against the merge-base COMMIT (`git diff <mb>`), which compares it
+    to the working tree. Same split in `listPastSessions`: `hasChanges` needed
+    the three-dot form (it compares two refs, no working tree involved), while
+    `commits` was already right as `base..branch` — that range excludes the
+    base's commits by construction, even ones the agent merged in.
+
+26. **A profile carries the GUARDRAILS, so an agent must never be able to write
+    one.** `PUT /profiles` accepts `deny`/`allow`/`secrets`/`model`, and until
+    now nothing stopped an agent from calling it: `requestAuthed` returns true
+    outright when no GUI password is set, and the origin guard deliberately lets
+    Origin-less callers through (invariant 11, for Telegram and pilotctl). A
+    read-only agent could therefore `curl -X PUT /profiles -d '{"deny":[]}'` and
+    hand itself git writes. That route now requires a real same-origin `Origin`
+    header (`browserOrigin`, stricter than `originAllowed` on purpose), and
+    agents get `PUT /profiles/prompt`, which only ever writes `systemPrompt` —
+    an update reuses the stored profile, so guardrails survive by construction,
+    and a created role gets `secrets: []` whatever the body asked for. Scoping
+    is the per-session `SHADOK_SESSION_KEY` from the agent's env, **never the
+    session id**: `/live` publishes every id, so it proves nothing. Two limits
+    to keep honest — a managed prompt (`Shadok-Tweak`) is refused rather than
+    swallowed, since a boot would silently overwrite it; and none of this is a
+    sandbox. Agents run as the same OS user and can rewrite
+    `~/.shadok-ai/profiles.json` directly. This removes the accident and takes
+    the capability off the documented surface; a hard boundary needs a separate
+    OS user or a container per agent.
+27. **A signal you never observed is not a signal — and the sign-in's success is
+    one of them.** `claude auth login --claudeai` prints `Invalid code. Please
+    make sure the full code was copied.` on a refusal; that wording was captured
+    from the real binary. It presumably prints *something* on success too, but
+    nobody ever saw it, and matching a guessed phrase would produce the worst
+    failure this feature can have: a sign-in that completed fine, reported as
+    never finishing, forever. So success is taken from the child **exiting
+    cleanly** after a code was submitted — an observable fact. Two neighbours
+    follow the same rule. An invalid code does **not** end the flow (verified: the
+    CLI re-prompts, so a retry reuses the same child and needs no new URL).
+    Generalise it: when a state can be read from an exit code, a file, or an API,
+    prefer that over the prose next to it.
+    **Corollary, learned the hard way one day later: "I observed it is signed
+    out" and "I could not look" are DIFFERENT facts.** `parseAuthStatus` first
+    collapsed them, reading unparseable output as *signed out* on the argument
+    that a spurious card costs one click. It does not: the card **spawns a
+    `claude auth login` child** and the same verdict **refuses every spawn**. And
+    the probe is a ~850ms process spawn whose error `execFile` was silently
+    dropping, so a busy machine popped the sign-in card on instances that were
+    signed in the whole time. `AuthState` is now three-valued; only `signed-out`
+    is ever asserted, `unknown` retries once, is never cached, never opens the
+    card and never blocks a spawn.
+
+28. **On a phone the viewport is THREE different rectangles, and CSS only knows
+    two of them.** The cockpit is a fixed chassis, so its height is load-bearing:
+    `100%` is the *layout* viewport, which assumes the URL bar retracted — that is
+    what put the composer under the browser's own bar. `100dvh` follows the bar.
+    Neither follows the **keyboard**: when it opens, the layout viewport keeps its
+    full height, the composer ends up underneath, and the browser then scrolls the
+    document to reveal the field — which is the "everything jumps up" symptom, the
+    header leaving by the top. Only `visualViewport` reports the keyboard, so
+    `syncViewport` sizes the chassis from it (`--app-h`, `body.vv-sized`) and the
+    browser's rescue scroll has nothing left to do. Guarded on `(pointer: coarse)`:
+    on a desktop `visualViewport` also tracks pinch-zoom, and resizing the page on
+    every pinch would be a regression for nobody's benefit.
+    The sideways drift had the same single root cause as the jump, and it is not
+    where anyone looks: **Safari zooms into any focused field whose font is under
+    16px.** The zoom makes the layout viewport wider than the screen, so the whole
+    interface can suddenly be dragged left and right — and whatever sat at the
+    right edge of the header (the 🔑) is simply off-screen. Nothing overflows,
+    every element measures correctly, and a desktop browser narrowed to 390px
+    reproduces none of it. The fix is 16px fields, **not** `maximum-scale=1`: that
+    would take pinch-zoom from the people who need it. Each rule has to match or
+    beat the specificity of the one it corrects (`#composer textarea` beats a bare
+    `textarea`) or it silently loses. `test/mobile-viewport.test.ts` locks all of
+    it, the way `test/csp.test.ts` locks the nonce.
+
+29. **The beta channel IS the `latest` dist-tag — CI can only ever SET a tag, not
+    move one.** npm Trusted Publishing (OIDC) authenticates `npm publish` and
+    [nothing else](https://docs.npmjs.com/trusted-publishers): `npm dist-tag add`
+    needs a traditional token, so the obvious design — publish everything as
+    `alpha`, then move `beta`/`latest` on promotion — would put a long-lived npm
+    credential back in repository secrets, undoing the reason Trusted Publishing
+    was adopted. Since `npm publish --tag X` *sets* X, an ordinary merge publishes
+    `--tag alpha` and a promotion publishes with no tag, which is what moves
+    `latest`. Two consequences to keep: **do not add a `beta` dist-tag** thinking
+    it is tidier — it cannot be maintained without the token; and a promotion
+    leaves `alpha` pointing at the PREVIOUS build, so for one merge the fast
+    channel resolves older than the calm one. `pickTarget` fixes that client-side
+    (alpha takes the newer of the two tags) rather than in CI, because an alpha
+    instance that downgrades itself is worse than the window it closes.
+    Promotion is decided from the REGISTRY (`package.json` minor vs the minor
+    `latest` points at), never from git history, so a workflow re-run or a replay
+    cannot promote twice. The NUMBER follows one rule: `<major>.<minor>.<commits
+    since this minor began>`, so the patch **restarts at 0 on every promotion**
+    and a version says where it sits inside its generation. A promotion is not a
+    special case — the promoting merge is the commit that set the minor, so its
+    count is 0. Two earlier spellings were worse: the global commit count gave
+    `0.3.77`, which reads as the 77th patch of a 0.3 series that never had one;
+    special-casing the promotion to `.0` fixed the milestone but left alphas
+    numbered by repository age. Changing this rule **requires promoting in the
+    same merge** — restarting the count alone publishes a version LOWER than the
+    one already tagged `alpha` (0.5.2 against a published 0.5.123), and every
+    alpha instance silently stops updating, since `isNewer` is false, until the
+    next promotion.
+
+30. **A multi-question `AskUserQuestion` is a form with a tab bar, not one
+    dialog — answer each question, never auto-drive past it.** When Claude asks
+    several questions in one call, the TUI shows a `←  ☐ Q1  ☐ Q2  ✔ Submit  →`
+    tab bar and one question at a time. A SINGLE-select question already worked:
+    `choose` sends the cursor + Enter, which advances to the next question, and
+    `finishTurn` re-detects and publishes it. A MULTI-select question did NOT:
+    the `confirm` handler pressed **Tab then Enter** — fine for a *standalone*
+    multi-select (Tab opens the recap page), but in a multi-question form Tab
+    moves to the NEXT question and that Enter silently answered it with its
+    default, corrupting the form (the user's report was "I answered and it said I
+    declined"). Now `confirm` inspects what Tab produced: the recap page → let
+    `finishTurn` submit; a further question → `publishDialog` it so the user
+    answers it. Two more rules fell out: the recap page ("Ready to submit your
+    answers? · Submit answers / Cancel") is **not a real question** — it
+    mis-parses as a multi-select and would flash a broken, disabled dialog — so
+    `publishDialog` drops it (guarded by `SUBMIT_PAGE`) and `finishTurn`
+    auto-confirms it (Enter defaults to "Submit answers"). Verified end-to-end
+    against a live agent: single, standalone-multi, and multi-question forms with
+    a multi-select all land the exact answers with no decline.
+
+31. **One agent = one channel row: dedup by `sessionId` at BOTH ends, because a
+    duplicate self-feeds.** A spawn-time race (the spawn's `upsertChannel` +
+    the holder's) could momentarily put two rows for one session into a client's
+    tab list; `mergeChannels` iterated `clientList` and pushed each without a
+    within-list dedup, so both were persisted — and `syncChannels` builds
+    `tabById` ONCE, so a `/channels` list carrying the same id twice created a
+    second tab (createTab isn't seen mid-loop). The two tabs then re-persisted
+    the duplicate: same agent, twice in the left column, surviving every reload.
+    Neither layer alone was enough — the fix dedups by id in `mergeChannels` AND
+    `loadChannels` (server, so a corrupted file self-heals on the next save) AND
+    the `syncChannels` loop (client, so a stale/duplicate list never renders
+    twice). `dedupById` is pure and tested.
+
+29. **The transcript is ASSERTED, not merely un-poisoned — a session that writes
+    none runs, works, and says nothing.** Every piece of content the cockpit
+    shows comes from the `.jsonl` (`src/tail.ts`); the screen is only ever used
+    for control. So an agent whose transcript is disabled is silent in the web
+    chat, silent in Telegram and empty on reload, while looking perfectly alive
+    in the engine room — the same silent-loss class as invariant 7, and worse,
+    because there is nothing to resume from afterwards.
+    Claude Code disables transcript writing when it inherits
+    `CLAUDE_CODE_CHILD_SESSION`, and it sets that marker **itself** on the
+    environment it hands to its own tool subprocesses. So the marker is not
+    something a careless operator exports: **any agent that shells out to
+    `claude` passes it on**, without anyone choosing to.
+    Both transports already strip `/^(CLAUDE|CLAUDECODE|AI_AGENT)/` at spawn and
+    that stays. It is not sufficient on its own for two reasons. Subtraction
+    assumes we have enumerated every name that can suppress a transcript, and it
+    stops working **in silence** the day a new one appears. And `TmuxPilot.start()`
+    skips the whole strip when it adopts an existing pane (`this.attached = true`,
+    invariant 25) — which is what makes an agent survive a server restart, and
+    also means a pane created wrong stays wrong forever, including across a
+    "Reload agent" that re-adopts it. `FORCED_CLAUDE_ENV` (`src/session.ts`) is
+    therefore applied **last** in both transports, after the profile's secrets, so
+    nothing a profile carries can switch it off even by accident of naming.
+    **The trap in verifying this: it does not reproduce under `claude -p`.** A
+    headless run writes its transcript with the marker set, so a `-p` test comes
+    back green and proves nothing. It was confirmed the only way that works — a
+    throwaway tmux session in interactive mode, where the marker alone produces
+    the "Transcript saving is off" footer and adding the flag removes it.
+
+32. **An executable file named `claude` is not a working `claude` — and the npm
+    launcher is, intermittently, a 500-byte shell placeholder.** Since the split
+    packaging (verified on 2.1.250), `@anthropic-ai/claude-code` ships
+    `bin/claude.exe` as a placeholder and its postinstall hardlinks the ~223 MB
+    native binary from an optional dependency (`…-linux-x64`, `…-darwin-arm64`,
+    one per platform) over it. That placeholder is mode 0755, so `resolveBin`'s
+    `X_OK` test hands it back happily, `ensureClaude` reported `{ok:true}`, and
+    the spawn died on its `Error: claude native binary not installed.` + exit 1
+    — the same "agent zombie / failed to start" shape as the two `posix_spawnp`
+    traps above, with nothing in the log to name it.
+    It is not only the `--ignore-scripts` / `--omit=optional` case, which would
+    at least be permanent and obvious. `placeBinary` in their `install.cjs`
+    **unlinks the destination before relinking**, and restores the placeholder if
+    the copy fails, so EVERY claude-code upgrade opens a window where the
+    launcher is absent or is the placeholder again. Measured here: sampling every
+    2 s for a minute, 1 sample in 30 was broken, and a `claude --version`
+    answered `No such file or directory` while `/usr/local/bin/claude` plainly
+    existed. Anthropic fixed a cousin of this for their own background sessions
+    in 2.1.246; we had no equivalent.
+    Four rules came out of it, and each is load-bearing.
+    **Recognise the placeholder, do not condemn everything else.** `classifyBin`
+    matches its own wording in a file under 4 kB (the test `install.cjs` uses on
+    its own stub) and calls anything unrecognised usable. The tempting rule —
+    "the real one is an ELF of hundreds of MB, so a small file is broken" —
+    would also condemn pnpm/volta/asdf shims and npm's Windows `.cmd` shim,
+    which work fine. Same discipline as invariant 27: assert only what you saw.
+    **Do not probe by executing.** A `claude --version` before each spawn costs a
+    process launch and is no more sound: its answer is stale the moment it
+    returns, and the window is milliseconds wide. A stat plus a 512-byte read is
+    exactly as raceable and costs microseconds.
+    **Resolve the fallback at runtime, never hard-code it.** `nativeBinCandidates`
+    walks `node_modules` ancestors from the launcher's own package, because npm
+    HOISTS that optional dependency as readily as it nests it — assuming the
+    nested layout is precisely what made `node-pty-fix.ts`'s chmod silently miss.
+    **Never cache a verdict about it.** The path rots on the next upgrade, so
+    `claudeCommand` re-validates on every call (one stat, next to a process spawn
+    the caller is about to pay for anyway) and `ensureClaudeOnce` re-runs when its
+    cached path stops classifying as usable. Caching "ok" across the window is
+    what would turn milliseconds into a permanently broken instance.
+    **And a busy binary is a THIRD shape, distinct from both.** The kernel
+    refuses to execute a file that is being written — `ETXTBSY`, where "text"
+    is the old Unix word for a program's code segment. `placeBinary` rewrites
+    ~214 MB in place, so that window is SECONDS wide, and a machine that follows
+    releases lands in it repeatedly: three times in one day here, each one
+    killing an agent spawn and surfacing as a dead agent, a `pilotctl` `dialog`
+    that hung, and turns cut between an agent's last write and its commit. The
+    cure is the opposite of the placeholder's: the file is exactly right and
+    merely busy, the condition resolves on its own, and the only mistake
+    available is concluding too early. `isBinaryBusyError` / `startWithBusyRetry`
+    wait it out; `findClaudeBinWithRetry` cannot help, because it retries a STAT
+    and a busy binary stats perfectly — you only learn at `execve`. `TmuxPilot`
+    reaches the same path from the other end: `tmux new-session` returns once the
+    pane exists, so a pane ALREADY gone means its command never ran.
+    A placeholder is also NOT a reason to `npm i -g`: the package is plainly
+    installed, and reinstalling while someone else's postinstall is mid-rewrite
+    makes it worse. Say what is wrong instead (`claudeStubMessage`), in the
+    spirit of `claudeMissingMessage` and `describeStuckScreen`.
+    **And "missing" can be a lie too — Claude Code updates ITSELF.** Its
+    auto-updater runs `npm install --global @anthropic-ai/claude-code@<version>`,
+    and while npm reifies it moves the package directory aside, so for a few
+    seconds there is no launcher at all. On a fresh instance (an image a few weeks
+    old, so the first `claude` it runs updates straight away) `findClaudeBinWithRetry`
+    gave up inside that window, `ensureClaude` started a SECOND `npm i -g` into the
+    first one's reify, and it died on `ENOTEMPTY` — shown to the user as "installing
+    it failed (npm exited with code 217)", 217 being 256 − 39. The auto-updater's own
+    install, started two seconds earlier, had succeeded: the npm debug logs carry
+    both command lines, which is how the second actor was identified rather than
+    guessed. Two things now stop it. `claudeInstallInProgress` looks for npm's
+    reify directory (`@anthropic-ai/.claude-code-<hash>` — the name is derived from
+    the path, which is exactly why a second install collides on it) and
+    `ensureClaude` WAITS for it, bounded at 90s and ignoring a leftover older than
+    ten minutes, so a crashed install cannot stall every future one. And a failed
+    install is followed by one more `find`: losing a race to an install that
+    landed is not a missing CLI. Same rule as the placeholder, applied to the
+    absent case — never install over someone else's rewrite.
+
+33. **A credential frozen into a process's environment cannot be refreshed — so
+    it must not be one that expires.** Every agent is handed `SHADOK_AUTH`, the
+    bootstrap admin's cookie, at spawn. That cookie carries its issue time and
+    `readSession` refuses it past `SESSION_TTL_MS` (a week). An environment
+    variable cannot be updated in a running process, and shadok's agents run for
+    weeks — so on day eight an agent started getting `401` on **every** call to
+    its own server: `schedule.mjs`, `pilotctl`, the vault, `/channels`. Nothing
+    is logged, nothing is on screen, and the agent's own report is accurate to
+    the word: *nothing changed on my side*. The self-repair path is behind the
+    same door — `shadok-reload` reads `SHADOK_AUTH` too — so the one thing that
+    would have fixed it is the one thing it could not do. A human must hit
+    *Reload agent*.
+    The fix is the OTHER credential it already carries. `SHADOK_SESSION_KEY`
+    proves "I am this agent", which is a fact with no expiry date, and it grants
+    exactly what the cookie granted (the bootstrap admin) — so accepting it via
+    `x-shadok-session-key` removes the cliff without widening anything. Three
+    things make it work, and each replaced something that did not.
+    **Derive the key, never store it.** It was a `randomUUID` in an in-memory
+    `Map`, which had the same class of cliff one level down: the Map dies with
+    the server, a tmux agent does not, so every auto-update invalidated the key
+    of every surviving agent and `/reload` answered 403 forever after. An HMAC of
+    the session id needs no state to survive a restart.
+    **Carry the id inside the key** (`<id>.<mac>`), so verification recovers it
+    with no lookup and the wire format stays one opaque string — nothing that
+    presents a key had to learn a second field.
+    **Bound it by the CHANNEL, not by `sessions`.** A key that cannot expire
+    needs something to revoke it, and the obvious choice is wrong: after a
+    restart the server does not re-adopt a web session until a client opens it
+    (`reconcileOnBoot` reattaches Telegram bridges, not sessions), so a tmux
+    agent can be running, executing tools, and absent from `sessions` for hours.
+    Measured, not reasoned — pane alive, `/live` empty, key refused — which would
+    have rebuilt this very cliff one restart wide instead of a week. The channel
+    list is on disk, survives the restart, and loses its entry when the agent is
+    closed, which is exactly when the key should stop working.
+    One consequence to state plainly: an agent that predates this fix holds a
+    random UUID no derivation can recognise, and an expired cookie. Nothing
+    unforgeable survives in its env, so it needs **one** reload — and then never
+    again.
+    And SAY it where an agent will read it. The scripts authenticate on their
+    own, so nothing about this is discoverable from a failure: an agent that
+    writes its own `curl` — an ordinary thing to do — gets a bare `401` and, with
+    no sentence anywhere naming the header, stops there. That is what a
+    production agent actually did. The rule therefore lives in the four
+    `SKILL.md` (what to send, what a `401` means, and that the pre-fix case needs
+    a human) and as one line in `context/pilot-prompt.md`, for the agent that
+    loaded no skill at all. `test/skill-auth-docs.test.ts` locks that prose, the
+    way `test/tweak-role.test.ts` locks the tweak role's — a code change can
+    never make it go red, which is precisely why it needs a test. Note the two
+    reach agents differently: skills are `copyFileSync`'d over at **every boot**,
+    so a merged SKILL.md lands on existing agents with no reload, whereas the
+    pilot prompt is fixed at spawn and only reaches new ones.
+
+34. **Per-launch-dir isolation is a CLIENT property too — the localStorage
+    channel cache is scoped by ORIGIN, not by directory.** Everything the SERVER
+    stores is keyed by launch dir (`channels/<enc>.json`, crons, ledger, the
+    per-dir config fields) and is correctly isolated. But the web client keeps a
+    fallback copy of the channel list in `localStorage` (`cp.channels`,
+    `cp.groups`), and `localStorage` is keyed by `scheme://host:port` — the same
+    key for every launch dir served on that port. Two instances RUNNING at once
+    can't collide (the port walk gives them different origins), but sequentially
+    they share one: stop the main cockpit, launch shadok in another dir, and it
+    binds the now-free 3789 — the browser hands the new instance the MAIN
+    project's cached channels. The old restore then made it worse two ways: it
+    fell back to that cache whenever `/channels` was merely EMPTY (exactly a
+    fresh dir), rendered and RESUMED the foreign channels, and `persistChannels`
+    wrote them back into the new dir's own server file. Reported as "I launch a
+    shadok in another directory and all the main project's channels come out".
+    Three parts close it, and each is load-bearing.
+    **A fulfilled `/channels` is authoritative — even `[]`.** `pickChannelSource`
+    (`public/channel-store.js`) consults the cache ONLY on a failed fetch; an
+    empty-but-successful response means "this dir has no channels", never
+    "consult the cache". This alone stops the leak in the normal case.
+    **Namespace the cache by launch dir.** `dirKey(base, instanceKey)` suffixes
+    the key, so two dirs on one origin keep separate buckets even when a fetch
+    DOES fail. The legacy un-namespaced keys are dropped on restore (the server
+    is authoritative, so nothing is lost) — never MIGRATED into the current dir's
+    namespace, which would re-create the leak by stamping one dir's data as
+    another's.
+    **The key must be known SYNCHRONOUSLY, or an early write beats it.**
+    `instanceKey` is STAMPED into the page (`injectInstanceKey`, marker
+    `__INSTANCE_KEY__`, like the nonce) rather than fetched from `/defaults`:
+    `persistChannels` fires on an early WS `ready`, and if the dir is not yet
+    known `dirKey` falls back to the bare (cross-dir) key and writes it. For the
+    same reason the bridged STUBS of `pickChannelSource`/`dirKey` (invariant 10)
+    mirror the REAL logic instead of being neutral — persist can run before the
+    ESM module lands, and a `(base) => base` stub silently wrote the bare key
+    (this is precisely what the first browser repro caught, twice, after the
+    unit tests were green). Verified end to end: a fake cache under the old key,
+    a reload → the fake never renders, the bare key is gone, only the dir's own
+    channel survives. Not reproducible by curl (the leak is client localStorage)
+    and invisible to `tsc`/tests — it needs a real browser on a shared port.
+    One thing this does NOT touch: a global `TELEGRAM_BOT_TOKEN` env override
+    still lets a second instance adopt the board group's topics (the per-dir
+    token store is what normally isolates it) — a deliberate override, documented
+    under "Running YOUR build", not a leak to fix here.
+
+35. **A browser tab belongs to the instance it was LOADED from — gate writes on
+    the instance key, because two instances share a port sequentially.** Invariant
+    34 (localStorage) was a real vector but NOT the one the reported bug hit. The
+    actual mechanism, found only by reproducing with the user watching the Network
+    tab: you launch a cockpit, the browser opens a tab, you STOP that server and
+    relaunch one from a DIFFERENT directory on the same port. The stale tab's
+    WebSocket reconnects to the new instance, and the tab still holds the old
+    instance's channels in memory — so its next `persistChannels` **PUTs them into
+    the new instance's file** (the user's own words: "la première page envoie ses
+    canaux à l'instance, et paf"). The GET was empty; the PUT is what fills it,
+    which is why it looked like it "came from the server" and appeared after a
+    delay (the 4 s `syncChannels` poll reads the now-poisoned `/channels`). Zero
+    tabs open → no source → no leak. The fix reuses invariant 34's stamped
+    `instanceKey` as an IDENTITY: the client sends it (`x-shadok-instance`) on
+    every `PUT /channels`/`/groups`, and the server **refuses (409) an explicit
+    mismatch** (`channelWriteAllowed`, `src/channels.ts`) — a stale A-tab can no
+    longer write to instance B. A no-key client is allowed (a pre-fix page, or the
+    non-browser callers that never PUT channels). The server also re-states its
+    `instanceKey` in every `ready`; the client compares it to the page's
+    (`serverSwapped`, `public/channel-store.js`) and, on a mismatch, freezes all
+    pushes and shows a "this cockpit was replaced — reload" banner, so the user
+    isn't silently driving the wrong instance. And `dropForeignHomes` (applied in
+    BOTH `loadChannels` and `saveChannels`) strips any `home:true` channel whose
+    cwd is a different launch dir — a foreign "general" has no place in this file —
+    which **self-heals the already-poisoned files** the old bug left behind (an
+    empty cwd is kept: it's an own home whose cwd is not yet asserted). The deeper
+    point the user named — that a tab can not only WRITE but DRIVE another
+    instance's sessions on a shared port — is left for a follow-up; the same
+    instance-key-on-the-wire primitive extends to it. Verified at the HTTP layer:
+    a PUT with a matching header writes, a mismatched one is 409, and a foreign
+    home in a matching PUT is dropped on save.
+
+36. **Nothing secret may ride on a command line — not the vault's own spawn
+    either.** `TmuxPilot` started every agent as one string on `tmux new-session`:
+    `env KEY=VALUE … claude <args>`, i.e. every secret VALUE of the profile plus
+    every system prompt. That broke in two ways at once, found together on a real
+    instance. **tmux refuses a command over ~16 KB** — measured in the container:
+    16 000 bytes pass, 17 000 answer `command too long` — so once the vault held
+    47 secrets (one of them a 2.4 KB service-account JSON), the lead role could no
+    longer be launched at all, while `Shadok-dev` on the SAME vault still could.
+    The difference was the role prompt (~2.8 KB against ~0.9 KB), not the
+    secrets, which made the failure look role-specific and nothing like a size
+    limit. And **the failure displayed the credentials**: `execFileSync` builds
+    its message as "Command failed: <every argument>", the start handler forwarded
+    it to the client untouched, and the web UI showed forty-six secret values —
+    database password, Cloudflare token, encryption keys included. The values were
+    also, for the life of the spawn, arguments of a process, which `ps` shows to
+    anyone on the machine: the exact exposure the `shadok-secrets` skill was
+    designed to rule out on the WRITE side.
+    Now the spawn writes a one-shot script (`launcherScript`) into
+    `~/.shadok-ai/run/` (dir 0700, file 0600, created with `wx` after a forced
+    remove so a stale file cannot keep a looser mode) and tmux runs `sh <script>`
+    — a few dozen bytes whatever the vault holds. Values are set with the `export`
+    **builtin**, so they are never any process's argument; a name the shell cannot
+    export is skipped and logged by NAME, never half-written. The script deletes
+    itself before `exec` (`sh` already holds it open), and every failure path
+    before that — tmux refusing, the pane dying at once on ETXTBSY — removes it
+    too. Invariant 29's ordering survives unchanged: strip the CLAUDE* markers,
+    then the profile's env, then `FORCED_CLAUDE_ENV` last. Independently,
+    `tmux()` now never lets its arguments into an error (`tmuxErrorMessage`):
+    `send-keys` carries the user's prompt text, which has no place in one either.
+    The tests RUN the generated script rather than read it — a hostile value
+    (quotes, `$`, backticks, a newline) arrives byte for byte, the forced vars win
+    over a same-named secret, the file is gone — and one spawns a real tmux pane
+    carrying 40 KB of secrets, the shape that used to be refused. Sabotaging the
+    export order turns both that test and the source scan in
+    `test/transcript-persistence.test.ts` red.
+
+37. **An agent may attach a secret it CREATED, and that word is the whole
+    security boundary.** The vault is global — one file for every profile and
+    every instance — so "let an agent attach a secret to its profile" is one
+    rule away from "any agent grants itself every credential on the machine".
+    The rule is provenance: `PUT /secrets` records the creating PROFILE in a
+    sidecar (`~/.shadok-ai/secret-origin.json`), and `PUT /profiles/secret`
+    attaches a name only when that origin equals the caller's own profile. An
+    agent therefore gains NO access it did not already have — it held that value
+    already; it only makes it survive into its next sessions. Three details
+    carry the weight. The origin is recorded **only on a creation**, never on an
+    overwrite, or an agent could clobber a human's secret to become its
+    "creator" and then claim the name. A **missing** origin means a human stored
+    it, which must read as a refusal — absence denies, it never grants. And the
+    lead profile gets **no exception**, deliberately unlike `promptEditVerdict`:
+    editing any prompt gives the lead nothing it lacks (it can already spawn a
+    full-access agent), whereas handing out vault secrets would. The value lands
+    in the env at the **next spawn**, so the skill pairs it with `shadok-reload`
+    — a live process's environment cannot be changed. Unchanged, and worth
+    repeating: this is soft isolation. An agent with a shell can still rewrite
+    `profiles.json` itself (cf. the profile-guardrail invariant).
+
+
+38. **A job every agent runs periodically must not cost in proportion to GLOBAL
+    state.** The tail re-resolves each transcript's path about once a second, to
+    follow a `.jsonl` that Claude Code re-homes when an agent switches worktree.
+    That search (`newestTranscriptById`) lists `~/.claude/projects` and stats the
+    session's file in EVERY directory — so its cost was agents × directories, and
+    on a long-lived instance both only grow: every worktree an agent creates adds
+    a directory for good. On the instance that develops shadok (61 agents, 224
+    directories) that one search was ~24% of a CPU core, half of the server's
+    use, and the reason that instance cost five times more than BioSense with
+    twice the agents; nothing was wrong, it simply got worse by existing.
+    Two fixes, each measured against the production code on those 224
+    directories, with an identical result before and after. The miss is the
+    common case — the file lives in exactly one directory — so it is reported
+    with `statSync(…, { throwIfNoEntry: false })` instead of a thrown-and-caught
+    exception: 3.99 ms → 1.23 ms per search. And the search runs only when it can
+    find something: a transcript that is still growing has not moved, so
+    `resolveStep` never searches while the file grows, keeps the old ~1s cadence
+    while it is missing (a new session, where finding where it lands is the
+    point), and backs off exponentially to a ~10s cap while it is silent. An idle
+    agent goes from 60 searches a minute to 8, and 61 idle agents from ~24% of a
+    core to ~1%. The one visible cost is bounded and deliberate: an agent that
+    sits idle and THEN switches worktree shows its first new message up to ~10s
+    late; a move right after activity is still caught within ~1s.
+    The general rule: before adding a per-agent timer, ask what it costs when the
+    machine has ten times the agents and ten times the history — the product of
+    the two is what a server that runs for weeks actually pays.
+
+39. **A LARGE prompt is recorded inside `<pasted_content>`, and the history must
+    UNWRAP it, never drop it — the ledger push is what pushes ordinary prompts
+    over that line.** Claude Code's TUI wraps a big pasted input as
+    `<pasted_content id="…">…</pasted_content>` in the transcript. `userPromptText`
+    (`src/extract.ts`) dropped any user message starting with `<` — a guard meant
+    for injected `<system-reminder>` blocks — so such a prompt vanished from the
+    web history **while the agent had answered it**: the reply is there, the
+    question is gone. Invisible until the ledger became on by default (invariant
+    for `ledgerEnabled`): the server prepends a `⟦ledger · N updates⟧` delta to
+    every prompt, and a fat delta (49 rows, ~1 KB) routinely tips an otherwise
+    small prompt over the paste threshold — so the whole assembled prompt (ledger
+    + `⟦platform·time·who⟧` meta + the user's words) lands inside one
+    `<pasted_content>`. Found on biosense, 2026-09-22: the transcript's last human
+    turn began `\n\n<pasted_content id="71ed">\n⟦ledger …`. The fix peels the
+    wrapper tags (open + close, with or without the echoed id) BEFORE the
+    `<`-guard and keeps the inner text; the ledger/meta headers it exposes are
+    stripped downstream as usual. Only `pasted_content` is unwrapped — a genuine
+    `<system-reminder>` is still dropped. Not caught by `tsc`/most tests because
+    the fixtures were small; it takes a prompt big enough to be paste-wrapped,
+    which the default-on ledger now produces constantly.
+
+## Conventions
+
+- TypeScript, ESM, Node 20. `.js` extensions in imports (NodeNext).
+- Comments explain **why**.
+- **Everything written into the repo is in English**: code comments, identifiers,
+  commit messages, PR titles and bodies, specs, docs, test names, log and error
+  strings. The history was mixed FR/EN until a one-off pass translated it all;
+  keep it that way, and never let a French comment back in. That pass is not to
+  be repeated — a diff that only changes the language of untouched lines buries
+  the real change.
+  Chat replies to the user are **not** covered by this — they follow the user's
+  language (see `context/pilot-prompt.md`). The web UI's own copy is English.
+- Feature work: write a spec in `docs/superpowers/specs/`, build in a worktree,
+  land reviewed.
+- **Docs ship with the change that makes them wrong** — same PR, not a catch-up
+  pass. `README.md` for anything user-visible (feature, flag, command, endpoint,
+  WS message), `docs/architecture.md` for a new or reshaped subsystem and the
+  trade-offs behind it, this file for a new module or a fresh invariant. See
+  "Keeping the docs honest" in the README for the split.
+  `docs/architecture.md` once drifted **48 commits**: by then it was missing whole
+  subsystems and its line numbers pointed hundreds of lines off, which misleads a
+  reader rather than merely leaving them uninformed. Prefer citing **symbols**
+  (`finishTurn`) over line numbers, which do not survive a refactor.
+- After any change with runtime surface: `npm run build`, then verify in the
+  browser (not just tsc) — side by side on a free port, never by taking over
+  3789. See "Running YOUR build" above.
+
+---
+> Source: [shadok-ai/shadok-ai](https://github.com/shadok-ai/shadok-ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
