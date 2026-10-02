@@ -1,0 +1,9 @@
+{
+  "name": "open-athena--mumwelt",
+  "displayName": "mumwelt",
+  "description": "mumwelt provides the environment for an agent to effectively commune with the Marin project",
+  "version": "1.0.0",
+  "author": "Open-Athena",
+  "homepage": "https://github.com/Open-Athena/mumwelt",
+  "skills": []
+}
