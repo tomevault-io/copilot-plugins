@@ -1,0 +1,44 @@
+{
+  "name": "DaSiWa-TrainFlow",
+  "owner": "darksidewalker",
+  "repo": "DaSiWa-TrainFlow",
+  "description": "Portable Go wrapper around the sd-scripts and Musubi Python training stacks \u2014 train LoRAs and Textual Inversions for Anima, SDXL/Pony/Illustrious, LTX 2.3/Wan 2.2 video, and Krea 2 image models from a single embedded UI on Linux and Windows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/darksidewalker/DaSiWa-TrainFlow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T14:06:17Z"
+}
