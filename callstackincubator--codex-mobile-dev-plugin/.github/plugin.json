@@ -1,0 +1,9 @@
+{
+  "name": "callstackincubator--codex-mobile-dev-plugin",
+  "displayName": "codex-mobile-dev-plugin",
+  "description": "A Codex plugin for a better mobile development experience for android and iOS",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/codex-mobile-dev-plugin",
+  "skills": []
+}
