@@ -1,0 +1,9 @@
+{
+  "name": "matheusfillipe--diffler",
+  "displayName": "diffler",
+  "description": "Terminal code review for AI coding agents. Live diffs, comments the agent answers, PR review, MCP built in.",
+  "version": "1.0.0",
+  "author": "matheusfillipe",
+  "homepage": "https://github.com/matheusfillipe/diffler",
+  "skills": []
+}
