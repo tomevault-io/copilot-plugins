@@ -1,0 +1,9 @@
+{
+  "name": "cichlider--killfield",
+  "displayName": "killfield",
+  "description": "A search-based agent for a maze tank duel. Most of its kills are bank shots.",
+  "version": "1.0.0",
+  "author": "Cichlider",
+  "homepage": "https://github.com/Cichlider/killfield",
+  "skills": []
+}
