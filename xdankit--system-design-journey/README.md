@@ -7,14 +7,14 @@ System design resources and examples for beginner to expert, Season 1.  This is 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [xDAnkit/system-design-journey](https://github.com/xDAnkit/system-design-journey).
+Original source: `CLAUDE.md` in [xDAnkit/system-design-journey](https://github.com/xDAnkit/system-design-journey).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [xDAnkit/system-design-journey](https://github.com/xDAnkit/system-design-journey) — a repo with 9+ stars on GitHub.
