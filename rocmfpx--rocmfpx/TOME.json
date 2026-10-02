@@ -4,7 +4,7 @@
   "repo": "ROCmFPX",
   "description": "This will be the official ROCmFPX stack and studio",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ROCmFPX/ROCmFPX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T00:11:06Z"
+  "distributed_at": "2026-10-02T01:32:31Z"
 }
