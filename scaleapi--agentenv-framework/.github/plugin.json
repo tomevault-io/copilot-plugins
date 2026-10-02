@@ -1,0 +1,9 @@
+{
+  "name": "scaleapi--agentenv-framework",
+  "displayName": "agentenv-framework",
+  "description": "Creating realistic RL environments requires collaboration between researchers, engineers, and domain experts across many dimensions: artifacts, environments tools, dynamism of the environment, reprodu",
+  "version": "1.0.0",
+  "author": "scaleapi",
+  "homepage": "https://github.com/scaleapi/agentenv-framework",
+  "skills": []
+}
