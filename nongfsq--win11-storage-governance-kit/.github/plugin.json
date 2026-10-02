@@ -1,0 +1,9 @@
+{
+  "name": "nongfsq--win11-storage-governance-kit",
+  "displayName": "win11-storage-governance-kit",
+  "description": "Codex Skills kit for safe Windows 11 C-drive cleanup, storage migration, and cache governance",
+  "version": "1.0.0",
+  "author": "Nongfsq",
+  "homepage": "https://github.com/Nongfsq/win11-storage-governance-kit",
+  "skills": []
+}
