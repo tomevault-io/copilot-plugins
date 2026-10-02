@@ -1,0 +1,9 @@
+{
+  "name": "ind-igo--bend-frontend",
+  "displayName": "bend-frontend",
+  "description": "Composable Bend 2 frontend: checks full Bend and exports a typed Core.Program for backends.",
+  "version": "1.0.0",
+  "author": "ind-igo",
+  "homepage": "https://github.com/ind-igo/bend-frontend",
+  "skills": []
+}
