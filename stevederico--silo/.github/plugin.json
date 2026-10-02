@@ -1,0 +1,9 @@
+{
+  "name": "stevederico--silo",
+  "displayName": "silo",
+  "description": "a private ai assistant for iOS. Chat with LLMs with no tracking or censorship. Local and completely on-device, no internet required.",
+  "version": "1.0.0",
+  "author": "stevederico",
+  "homepage": "https://github.com/stevederico/silo",
+  "skills": []
+}
