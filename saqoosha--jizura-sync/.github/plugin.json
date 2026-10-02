@@ -1,0 +1,9 @@
+{
+  "name": "saqoosha--jizura-sync",
+  "displayName": "jizura-sync",
+  "description": "Real-time lyric motion for what's playing on your Spotify, rendered with JIZURA",
+  "version": "1.0.0",
+  "author": "Saqoosha",
+  "homepage": "https://github.com/Saqoosha/jizura-sync",
+  "skills": []
+}
