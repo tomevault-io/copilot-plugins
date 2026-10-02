@@ -1,0 +1,9 @@
+{
+  "name": "kaithoughtarchitect--titration",
+  "displayName": "titration",
+  "description": "Let your coding agent fix a prompt until it actually works, and prove it did. A self-hosted MCP server: cross-vendor judges, frozen baselines and memory.",
+  "version": "1.0.0",
+  "author": "kaithoughtarchitect",
+  "homepage": "https://github.com/kaithoughtarchitect/titration",
+  "skills": []
+}
