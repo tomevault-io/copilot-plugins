@@ -1,0 +1,9 @@
+{
+  "name": "syndicalt--docjev",
+  "displayName": "docjev",
+  "description": "Natural-language queries for document collections. No index, no embeddings \u2014 just jev().",
+  "version": "1.0.0",
+  "author": "syndicalt",
+  "homepage": "https://github.com/syndicalt/docjev",
+  "skills": []
+}
