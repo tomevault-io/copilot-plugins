@@ -1,0 +1,44 @@
+{
+  "name": "modbus_connector",
+  "owner": "cramen",
+  "repo": "modbus_connector",
+  "description": "Cross-platform Modbus toolkit (PySide6): master client with register table, polling, live graphs, alarms and bus scanner; device simulator (slave) with register map and expression rules; passive RTU sniffer. EN/RU UI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cramen/modbus_connector",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T22:41:58Z"
+}
