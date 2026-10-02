@@ -1,0 +1,9 @@
+{
+  "name": "minhtran3124--agent-harness",
+  "displayName": "agent-harness",
+  "description": "Risk-gated /skills for Claude Code \u2014 14 invocable skills carry a change from brainstorm \u2192 ship.",
+  "version": "1.0.0",
+  "author": "minhtran3124",
+  "homepage": "https://github.com/minhtran3124/agent-harness",
+  "skills": []
+}
