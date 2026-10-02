@@ -1,0 +1,9 @@
+{
+  "name": "cmer--solid-queue-listen-notify",
+  "displayName": "solid_queue-listen_notify",
+  "description": "PostgreSQL LISTEN/NOTIFY support for Solid Queue",
+  "version": "1.0.0",
+  "author": "cmer",
+  "homepage": "https://github.com/cmer/solid_queue-listen_notify",
+  "skills": []
+}
