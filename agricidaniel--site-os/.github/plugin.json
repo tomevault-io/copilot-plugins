@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--site-os",
+  "displayName": "site-os",
+  "description": "A responsive Next.js Site OS template with a locked single-window experience and an optional draggable desktop.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/site-os",
+  "skills": []
+}
