@@ -1,0 +1,9 @@
+{
+  "name": "launch80--awesomelist",
+  "displayName": "AwesomeList",
+  "description": "A directory of works discussed in the Launch80 discord server",
+  "version": "1.0.0",
+  "author": "launch80",
+  "homepage": "https://github.com/launch80/AwesomeList",
+  "skills": []
+}
