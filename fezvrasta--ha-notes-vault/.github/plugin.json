@@ -1,0 +1,9 @@
+{
+  "name": "fezvrasta--ha-notes-vault",
+  "displayName": "ha-notes-vault",
+  "description": "A note on every entity, device and area, stored as an Obsidian vault you can sync over WebDAV. Your AI assistant writes down what it learns about the house and reads it back next time.",
+  "version": "1.0.0",
+  "author": "FezVrasta",
+  "homepage": "https://github.com/FezVrasta/ha-notes-vault",
+  "skills": []
+}
