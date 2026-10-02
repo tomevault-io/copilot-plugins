@@ -1,0 +1,44 @@
+{
+  "name": "simplelogin-mcp",
+  "owner": "enthouan",
+  "repo": "simplelogin-mcp",
+  "description": "Self-hostable MCP server for SimpleLogin email aliases, mailbox lookups, and account info via stdio or Streamable HTTP. Docker-ready.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/enthouan/simplelogin-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T12:37:56Z"
+}
