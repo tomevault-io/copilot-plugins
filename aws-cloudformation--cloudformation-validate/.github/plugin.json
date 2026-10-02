@@ -1,0 +1,9 @@
+{
+  "name": "aws-cloudformation--cloudformation-validate",
+  "displayName": "cloudformation-validate",
+  "description": "AWS CloudFormation Validate",
+  "version": "1.0.0",
+  "author": "aws-cloudformation",
+  "homepage": "https://github.com/aws-cloudformation/cloudformation-validate",
+  "skills": []
+}
