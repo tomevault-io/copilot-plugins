@@ -1,0 +1,9 @@
+{
+  "name": "deepsqlai--deepsql",
+  "displayName": "deepsql",
+  "description": "The database agent for Postgres and MySQL - Point it at PostgreSQL or MySQL and ask questions in plain English \u2014 schema exploration, query generation, slow query analysis, index recommendations, gener",
+  "version": "1.0.0",
+  "author": "DeepSQLAI",
+  "homepage": "https://github.com/DeepSQLAI/deepsql",
+  "skills": []
+}
