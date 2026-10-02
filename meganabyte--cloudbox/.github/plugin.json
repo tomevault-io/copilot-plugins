@@ -1,0 +1,9 @@
+{
+  "name": "meganabyte--cloudbox",
+  "displayName": "cloudbox",
+  "description": "a durable cloud runtime for coding agents",
+  "version": "1.0.0",
+  "author": "meganabyte",
+  "homepage": "https://github.com/meganabyte/cloudbox",
+  "skills": []
+}
