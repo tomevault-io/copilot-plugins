@@ -1,0 +1,24 @@
+## dota2-grid-toolkit
+
+> User decision, 2026-09-28. These rules supersede the previous automatic server deployment workflow.
+
+# GridStudio development rules
+
+User decision, 2026-09-28. These rules supersede the previous automatic server deployment workflow.
+
+- Work locally. Do not run a production build until the user explicitly requests a build. Development server, syntax checks and tests are allowed.
+- User decision, 2026-09-29: work in progress is reviewed on the staging site dev.gridstudio.me. Staging builds (labelled `-dev.<sha>`) may be rebuilt and redeployed there at any time; staging has its own API, database, secret and bot and never touches production data. Moving work to production still needs the user's explicit command.
+- Do not deploy, push commits/tags, publish a GitHub release or post release announcements until the user explicitly approves that release for publication. Approval to build alone is not approval to publish.
+- Number releases with SemVer. `package.json` is the source of the application version. The existing 1.0.0 is the numbering baseline, not a claim that a tagged release exists. Increment only when preparing the next authorized build; keep unfinished changes under Unreleased in CHANGELOG.md.
+- Every approved release must have a source commit/tag on GitHub and a reviewed changelog. Contributor account: justkiddingxd; upstream: linsisss/dota2-grid-toolkit. Without write access, publish a branch in the contributor's fork and open a PR. Never force-push upstream.
+- Release announcements use puregram sendRichMessage (not ordinary sendMessage), chat -1004309207941, topic 2, custom emoji 5316617119524236973. Real h1 heading: «Обновление VERSION»; native checked task list items with nested lists. Sending a test needs its own user authorization; the initial test was explicitly requested on 2026-09-28.
+- Tokens belong only in ignored local environment files or secret environment variables. Never place them in frontend code, VITE_* variables, logs, GitHub, or for_github.
+- Catalog moderation uses puregram in chat -1004309207941, topic 6 (approve grids here). Submission/report cards and decision updates are authorized catalog behavior, separate from release announcements. Any current human member may approve/reject; verify membership on every callback. This does not authorize unsolicited test messages. Keep one polling worker per bot and database; do not silently replace an existing webhook.
+- Optional Telegram login uses the same worker in private chats. A user-initiated login opens the bot; one bot button completes sign-in automatically, without comparing codes or confirming again on the site. Preserve browser-bound, expiring, single-use verification internally. Account workspaces and likes are documented in docs/accounts-workspaces.md. User update: signing in automatically attaches guest files to that account, with durable local copies and retry-safe remote IDs. Never move files already owned by another account.
+- Preserve the autosave storage key and schema across application releases. Back up raw documents before migration. Never replace an unreadable project with a demo. Test recovery, quota errors and competing tabs when changing persistence.
+- Read docs/releases.md and docs/project-storage.md for the release and recovery implementation. Update both context documents when behavior changes. Do not copy the private root project.md into the public for_github directory.
+- Existing dirty/untracked files are project work. Do not clean/reset them. Before a release review exactly which files will be committed; local deployment files and user exports are not release source.
+
+---
+> Source: [linsisss/dota2-grid-toolkit](https://github.com/linsisss/dota2-grid-toolkit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-02 -->
