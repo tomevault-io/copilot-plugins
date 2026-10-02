@@ -1,0 +1,9 @@
+{
+  "name": "bjarkehautop--causalstructures-jl",
+  "displayName": "CausalStructures.jl",
+  "description": "Julia package for representing, validating, and reasoning about causal graphs",
+  "version": "1.0.0",
+  "author": "BjarkeHautop",
+  "homepage": "https://github.com/BjarkeHautop/CausalStructures.jl",
+  "skills": []
+}
