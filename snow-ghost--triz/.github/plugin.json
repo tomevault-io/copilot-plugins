@@ -1,0 +1,9 @@
+{
+  "name": "snow-ghost--triz",
+  "displayName": "triz",
+  "description": "Portable evidence-first TRIZ Agent Skill for software engineering contradictions",
+  "version": "1.0.0",
+  "author": "snow-ghost",
+  "homepage": "https://github.com/snow-ghost/triz",
+  "skills": []
+}
