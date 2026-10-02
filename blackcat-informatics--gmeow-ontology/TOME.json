@@ -4,7 +4,7 @@
   "repo": "gmeow-ontology",
   "description": "Ground LLM output as provenance-tracked claims, not truths. A maximal super-ontology + native RDF-1.2 logic: reasoning engine \u2014 OWL, SHACL, SSSOM, EDOAL are generated lossy projections; a correspondence calculus losslessly subsumes external vocabularies. Rust-first (pip / MCP / GTS).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Blackcat-Informatics/gmeow-ontology",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T08:27:05Z"
+  "distributed_at": "2026-10-02T12:43:38Z"
 }
