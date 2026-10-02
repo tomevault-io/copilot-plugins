@@ -1,0 +1,9 @@
+{
+  "name": "decoderesearch--interp-engine",
+  "displayName": "interp-engine",
+  "description": "Fast, standardized, and easy-to-use interpretability engine.",
+  "version": "1.0.0",
+  "author": "decoderesearch",
+  "homepage": "https://github.com/decoderesearch/interp-engine",
+  "skills": []
+}
