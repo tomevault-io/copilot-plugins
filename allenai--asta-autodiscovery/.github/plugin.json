@@ -1,0 +1,9 @@
+{
+  "name": "allenai--asta-autodiscovery",
+  "displayName": "asta-autodiscovery",
+  "description": "Data-driven scientific discovery via Bayesian surprise",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/asta-autodiscovery",
+  "skills": []
+}
