@@ -4,7 +4,7 @@
   "repo": "osai-exam-copilot",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Zamrax/osai-exam-copilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T20:52:40Z"
+  "distributed_at": "2026-10-02T00:01:05Z"
 }
