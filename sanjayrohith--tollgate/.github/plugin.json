@@ -1,0 +1,9 @@
+{
+  "name": "sanjayrohith--tollgate",
+  "displayName": "Tollgate",
+  "description": "x402-compatible API gateway for AI agent payments: hard spend caps, sub-agent budget delegation via signed EIP-712 capability chains, and verifiable per-charge receipts.Rust \u00b7 Base Sepolia \u00b7 native US",
+  "version": "1.0.0",
+  "author": "sanjayrohith",
+  "homepage": "https://github.com/sanjayrohith/Tollgate",
+  "skills": []
+}
