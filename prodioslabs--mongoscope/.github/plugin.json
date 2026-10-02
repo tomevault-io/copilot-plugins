@@ -1,0 +1,9 @@
+{
+  "name": "prodioslabs--mongoscope",
+  "displayName": "mongoscope",
+  "description": "MongoDB log & profile analyzer in the terminal. Slow-query patterns, currentOp, COLLSCAN, replica lag, indexes \u2014 keyboard-driven TUI (Bun + OpenTUI).",
+  "version": "1.0.0",
+  "author": "prodioslabs",
+  "homepage": "https://github.com/prodioslabs/mongoscope",
+  "skills": []
+}
