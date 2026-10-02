@@ -1,0 +1,9 @@
+{
+  "name": "zkmn73--simpleshot",
+  "displayName": "SimpleShot",
+  "description": "A free, simple, open-source screenshot tool for macOS. Fully native \u2014 built with Swift and AppKit.",
+  "version": "1.0.0",
+  "author": "zkmn73",
+  "homepage": "https://github.com/zkmn73/SimpleShot",
+  "skills": []
+}
