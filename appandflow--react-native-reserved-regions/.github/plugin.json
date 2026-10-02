@@ -1,0 +1,9 @@
+{
+  "name": "appandflow--react-native-reserved-regions",
+  "displayName": "react-native-reserved-regions",
+  "description": "Provider-scoped reserved display regions for React Native",
+  "version": "1.0.0",
+  "author": "appandflow",
+  "homepage": "https://github.com/appandflow/react-native-reserved-regions",
+  "skills": []
+}
