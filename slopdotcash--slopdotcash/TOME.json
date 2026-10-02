@@ -4,7 +4,7 @@
   "repo": "slopdotcash",
   "description": "Make money shipping slop",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SlopDotCash/slopdotcash",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T05:34:39Z"
+  "distributed_at": "2026-10-02T08:19:57Z"
 }
