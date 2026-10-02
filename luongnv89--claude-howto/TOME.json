@@ -2,7 +2,7 @@
   "name": "claude-howto",
   "owner": "luongnv89",
   "repo": "claude-howto",
-  "description": "A visual, example-driven guide to Claude Code \u2014 from basic concepts to advanced agents, with copy-paste templates that bring immediate value.",
+  "description": "",
   "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -39,37 +39,133 @@
   ],
   "skills": [
     {
-      "name": "doc-generator",
-      "path": "03-skills/doc-generator",
-      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/doc-generator",
+      "name": "asm",
+      "path": "skills/hello-world/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/skills/hello-world/SKILL.md",
       "description": ""
     },
     {
-      "name": "blog-draft",
-      "path": "03-skills/blog-draft",
-      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/blog-draft",
+      "name": "asm",
+      "path": "skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/skills/skill-creator/SKILL.md",
       "description": ""
     },
     {
-      "name": "brand-voice",
-      "path": "03-skills/brand-voice",
-      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/brand-voice",
+      "name": "asm",
+      "path": "skills/find-me-skills/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/skills/find-me-skills/SKILL.md",
       "description": ""
     },
     {
-      "name": "refactor",
-      "path": "03-skills/refactor",
-      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/refactor",
+      "name": "asm",
+      "path": "skills/skill-upstream-pr/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/skills/skill-upstream-pr/SKILL.md",
       "description": ""
     },
     {
-      "name": "code-review",
-      "path": "03-skills/code-review",
-      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/code-review",
+      "name": "asm",
+      "path": "skills/skill-index-updater/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/skills/skill-index-updater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "skills/skill-auto-improver/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/skills/skill-auto-improver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/invalid-effort/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/invalid-effort/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/actual-dir-name/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/actual-dir-name/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/effort-xhigh-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/effort-xhigh-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-fail/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-fail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-fail/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-fail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-fail/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-fail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-fail/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-fail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-pass/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "tests/fixtures/skills/well-formed/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/tests/fixtures/skills/well-formed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "tests/fixtures/skills/missing-frontmatter/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/tests/fixtures/skills/missing-frontmatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "skills/skill-install-improved/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/skills/skill-install-improved/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "asm",
+      "path": "skills/skill-shortener/SKILL.md",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/skills/skill-shortener/SKILL.md",
       "description": ""
     }
   ],
   "source_url": "https://github.com/luongnv89/claude-howto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T22:33:50Z"
+  "distributed_at": "2026-10-02T06:27:02Z"
 }
