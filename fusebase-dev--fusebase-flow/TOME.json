@@ -4,7 +4,7 @@
   "repo": "fusebase-flow",
   "description": "The framework client-facing teams use to build internal & client apps with AI. Two agents \u2014 a Product Owner that advises what to build, and an AI Developer that ships it.  Built by FuseBase.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fusebase-dev/fusebase-flow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T11:45:23Z"
+  "distributed_at": "2026-10-02T15:10:05Z"
 }
