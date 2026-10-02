@@ -1,0 +1,9 @@
+{
+  "name": "ginuim--multi-screen-wireframe",
+  "displayName": "multi-screen-wireframe",
+  "description": "Generate offline multi-screen wireframes with canvas + demo navigation. Zero Node/npm.",
+  "version": "1.0.0",
+  "author": "ginuim",
+  "homepage": "https://github.com/ginuim/multi-screen-wireframe",
+  "skills": []
+}
