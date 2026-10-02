@@ -7,11 +7,11 @@ A macOS desktop pet that keeps your notes and reminders in view and waves when y
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Eyakub/Rallo](https://github.com/Eyakub/Rallo).
+Original source: `AGENTS.md` in [Eyakub/Rallo](https://github.com/Eyakub/Rallo).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
