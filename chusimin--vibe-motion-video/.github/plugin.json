@@ -1,0 +1,9 @@
+{
+  "name": "chusimin--vibe-motion-video",
+  "displayName": "vibe-motion-video",
+  "description": "\u628a\u4efb\u610f\u5185\u5bb9\u81ea\u52a8\u505a\u6210\u8bbe\u8ba1\u5e08\u7ea7\u89c6\u9891\u7684\u7aef\u5230\u7aef skill:AI \u5199\u5206\u955c JSON,Remotion \u6e32\u67d3\u30028 \u6b65\u6d41\u6c34\u7ebf:\u8bfb\u53d6\u2192\u5b9a\u8c03\u2192\u65b9\u5411\u2192\u5206\u955c\u2192\u914d\u97f3\u2192\u5206\u6bb5\u6e32\u67d3\u2192\u5408\u6210\u4f53\u68c0\u2192\u5bfc\u51fa\u3002",
+  "version": "1.0.0",
+  "author": "chusimin",
+  "homepage": "https://github.com/chusimin/vibe-motion-video",
+  "skills": []
+}
