@@ -1,0 +1,9 @@
+{
+  "name": "jakubmelka--exyokioffice",
+  "displayName": "ExyokiOffice",
+  "description": "A modern, MIT-licensed native C++ library for creation and modification of Open XML documents (DOCX, XLSX, PPTX), designed for cross-platform and dependency-free use.",
+  "version": "1.0.0",
+  "author": "JakubMelka",
+  "homepage": "https://github.com/JakubMelka/ExyokiOffice",
+  "skills": []
+}
