@@ -1,0 +1,9 @@
+{
+  "name": "stackrats--mast",
+  "displayName": "mast",
+  "description": "Mast: control tower for local Sail development",
+  "version": "1.0.0",
+  "author": "stackrats",
+  "homepage": "https://github.com/stackrats/mast",
+  "skills": []
+}
