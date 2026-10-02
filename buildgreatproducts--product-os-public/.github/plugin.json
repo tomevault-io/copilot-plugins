@@ -1,0 +1,9 @@
+{
+  "name": "buildgreatproducts--product-os-public",
+  "displayName": "product-os-public",
+  "description": "The open-source version of ProductOS, your operating system for building, launching and growing any software product or startup",
+  "version": "1.0.0",
+  "author": "BuildGreatProducts",
+  "homepage": "https://github.com/BuildGreatProducts/product-os-public",
+  "skills": []
+}
