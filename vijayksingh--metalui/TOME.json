@@ -4,7 +4,7 @@
   "repo": "metalui",
   "description": "Soft Hardware components for React and SwiftUI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vijayksingh/metalui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T03:53:33Z"
+  "distributed_at": "2026-10-02T05:30:26Z"
 }
