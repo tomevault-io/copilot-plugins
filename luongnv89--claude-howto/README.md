@@ -1,8 +1,6 @@
 # claude-howto
 
-> Source: [luongnv89/claude-howto](https://github.com/luongnv89/claude-howto) — distributed by [TomeVault](https://tomevault.io)
-
-A visual, example-driven guide to Claude Code — from basic concepts to advanced agents, with copy-paste templates that bring immediate value.
+> Source: [luongnv89/claude-howto](https://github.com/luongnv89/claude-howto). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,15 +15,31 @@ Original source: `CLAUDE.md` in [luongnv89/claude-howto](https://github.com/luon
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (5)
+## Bundled Skills (21)
 
-- [doc-generator](https://github.com/luongnv89/claude-howto/tree/main/03-skills/doc-generator)
-- [blog-draft](https://github.com/luongnv89/claude-howto/tree/main/03-skills/blog-draft)
-- [brand-voice](https://github.com/luongnv89/claude-howto/tree/main/03-skills/brand-voice)
-- [refactor](https://github.com/luongnv89/claude-howto/tree/main/03-skills/refactor)
-- [code-review](https://github.com/luongnv89/claude-howto/tree/main/03-skills/code-review)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/skills/hello-world/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/skills/skill-creator/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/skills/find-me-skills/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/skills/skill-upstream-pr/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/skills/skill-index-updater/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/skills/skill-auto-improver/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/invalid-effort/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/actual-dir-name/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/effort-xhigh-pass/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-pass/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/runtime-budget-fail/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-fail/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-fail/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-semver-pass/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-author-present-pass/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-fail/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/src/eval/providers/skill-best-practice/v1/fixtures/metadata-version-present-pass/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/tests/fixtures/skills/well-formed/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/tests/fixtures/skills/missing-frontmatter/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/skills/skill-install-improved/SKILL.md)
+- [asm](https://github.com/luongnv89/claude-howto/tree/main/skills/skill-shortener/SKILL.md)
 
-From [luongnv89/claude-howto](https://github.com/luongnv89/claude-howto) — a repo with 27839+ stars on GitHub.
+From [luongnv89/claude-howto](https://github.com/luongnv89/claude-howto) — a repo with 0+ stars on GitHub.
 
 ---
 
