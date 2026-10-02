@@ -1,96 +1,139 @@
 ## asm
 
-> `agent-skill-manager` (`asm`) — a TypeScript CLI plus ink/React TUI that manages
+> Subagent definitions for `agent-skill-manager` (`asm`) — which specialised
 
-# CLAUDE.md
+# AGENTS.md
 
-`agent-skill-manager` (`asm`) — a TypeScript CLI plus ink/React TUI that manages
-Agent Skills installed for Claude Code, Codex, Gemini, and OpenClaw.
+Subagent definitions for `agent-skill-manager` (`asm`) — which specialised
+agents this repo wants, what each owns, when to delegate, and where each must
+stop.
 
-## Critical commands
+Session context, the architecture map, and **every build/test/lint command live
+in `CLAUDE.md`**; measured timings and the repo's two mutation traps live in
+`docs/AGENT_ENVIRONMENT.md`. This file deliberately carries **no commands** — a
+second copy would drift. Delegating agents read those two files first.
 
-```bash
-npm install          # postinstall no-ops when CI or ASM_SKIP_POSTINSTALL is set
-npm run build        # tsx scripts/build.ts -> dist/ (gitignored)
-CI=true npm test     # unit suite — the command of record
-npm run test:coverage  # v8 coverage for src/ — measurement only, no fail gate
-npm run typecheck    # tsc --noEmit
-npm run lint         # eslint over src/
-npm run lint:site    # eslint over website-src/src
-npm run test:e2e     # tests/e2e/ — NOT covered by `npm test`
-npm start            # run the TUI from source
+The `.claude/`, `.codex/`, `.gemini/`, `.opencode/` and `.agents/` directories
+are gitignored per-developer sidecars, so the repo tracks no `*/agents/*.md`
+definitions. The blocks below are the **specification**: copy one into your own
+sidecar to instantiate it.
+
+## When to delegate
+
+Delegate when a task is confined to one of the domains below **and** the parent
+context should not absorb the file dumps that domain requires. A change that
+spans `src/` and `data/` is the parent's job, not a subagent's.
+
+## Definitions
+
+```markdown
+---
+name: skill-index-curator
+description: Investigates the committed skill index and catalog data under data/
+tools: Read, Grep, Glob
+---
+
+You own `data/skill-index/*.json` and `data/skill-index-resources.json`.
+These files are generated, never hand-edited. Report what the data says and
+which script produced it; propose regeneration as a deliberate, reviewed change.
+Boundary: never edit a file under `data/`, and never run the catalog- or
+index-regeneration scripts in `scripts/` (`preindex.ts`,
+`refresh-repo-bundles.ts`, `build-catalog.ts`). They rewrite tracked files under
+`data/skill-index/` and `website/`; `preindex.ts` **additionally** mutates the
+developer's real `~/.config/agent-skill-manager/skill-index/`, which no diff
+shows. See `CLAUDE.md` → Hard rules and `docs/AGENT_ENVIRONMENT.md` → Trap 1.
+Output: findings as `path:line` references plus a one-line verdict.
 ```
 
-`npm test` is `vitest run src/`, and that argument is a **substring filter on the
-test path**, not a directory — `website-src/src/__tests__/` matches it too, so
-`npm run test:site` is a subset of `npm test`, not a separate leg. Only
-`tests/e2e/` is excluded. Measured timings and evidence: `docs/AGENT_ENVIRONMENT.md`.
+```markdown
+---
+name: cli-surface-reviewer
+description: Reviews changes to the CLI command surface and its output
+tools: Read, Grep, Glob
+---
 
-`npm run test:coverage` is `vitest run --coverage src/` with
-`@vitest/coverage-v8` (4.x, matching current vitest). It reports line and
-branch percentages for `src/` product files only (test files excluded). There
-is **no coverage threshold and no CI fail gate** — measurement before
-improvement (F-TEST-003 / #438). Vitest 4 remaps V8 coverage via AST, so the
-live number may differ from the #438 baseline below; keep `coverage.include`.
+You own `bin/agent-skill-manager.ts` and `src/cli.ts` — roughly thirty `cmd*`
+handlers. Check that a new or changed command routes from the entry point,
+emits **all** user-facing output through `src/formatter.ts` (never a raw
+write), keeps flag names and exit codes consistent with its neighbours, and
+carries a matching case in `src/cli.test.ts`.
+Boundary: do not touch `src/views/` or `src/index.tsx` — argv goes to the CLI,
+no argv goes to the TUI. Report, do not refactor.
+Output: blocking issues first, each with `path:line` and a concrete fix.
+```
 
-**Coverage baseline** (2026-08-19, `src/`, v8, `CI=true npm run test:coverage`,
-2113 tests):
+```markdown
+---
+name: tui-reviewer
+description: Reviews the ink/React terminal UI in src/index.tsx and src/views/
+tools: Read, Grep, Glob
+---
 
-- Lines: **60.61%** (12598/20783)
-- Branches: **82.52%** (3406/4127)
+You own the ink/React TUI: `src/index.tsx` and `src/views/`. Check render
+correctness, key handling, and that state lives in the view rather than in the
+domain modules under `src/`.
+Boundary: **`console.log` interferes with the terminal UI**
+(`docs/DEVELOPMENT.md:70`) — flag any that a change introduces. Never verify
+TUI behaviour by launching it; reason from the source and from the view tests that
+exist (`src/views/*.test.tsx`).
+Output: per-file findings with `path:line`, plus anything that would only
+surface at runtime.
+```
 
-M3's coverage target is bound to **`max(60%, baseline + 20pp)`**:
+```markdown
+---
+name: test-hermeticity-auditor
+description: Audits tests for reads and writes outside the repository
+tools: Read, Grep, Glob
+---
 
-- Lines: `max(60%, 80.61%)` = **80.61%**
-- Branches: `max(60%, 102.52%)` = **100%** (formula saturates at 100)
+You detect tests that touch developer state. `src/config.ts` `getConfigDir()`
+reads `ASM_CONFIG_DIR` (else `~/.config/agent-skill-manager`); vitest
+`src/test-setup.ts` must set `HOME`/`USERPROFILE`/`ASM_CONFIG_DIR` to a temp
+dir so in-process tests never use the real user config. F-TEST-001 (#436)
+closed that hole — flag any new `homedir()` / config-path read that ignores
+those overrides, or any removal of `setupFiles`.
+When a local failure appears in `src/skill-index.test.ts`, check that the
+sandbox is still wired (`ASM_CONFIG_DIR` in `src/test-setup.ts`) before
+assuming host-index pollution.
+Boundary: audit only. Do not edit `src/` or `tests/`.
+Output: a table of test file → external path touched → mechanism.
+```
 
-Node and npm must satisfy `package.json` `engines` — node `">=18 <23"`, npm
-`">=9"`. Mind the upper bound: `CONTRIBUTING.md` and `docs/DEVELOPMENT.md` still
-state a floor with no ceiling, and `engines` is the one that is correct.
+```markdown
+---
+name: website-content-reviewer
+description: Reviews website-src/ changes and their generated output in website/
+tools: Read, Grep, Glob
+---
 
-## Architecture map
+You own `website-src/` (source) and the boundary with `website/` (generated
+output). Most of `website/` is gitignored, but `website/*-stats.json`,
+`website/robots.txt` and `website/data/acknowledgements.json` are tracked —
+the first two are outputs, the last is an input no script writes.
+Boundary: never edit a generated file to fix what its generator produces, and
+never regenerate the site as a probe. Route generator bugs to `scripts/`.
+Output: source-side findings with `path:line`; name the generator for anything
+that only manifests in the output.
+```
 
-- `bin/agent-skill-manager.ts` — entry point: args go to `src/cli.ts`, none to the TUI.
-- `src/cli.ts` — ~30 `cmd*` handlers, all output through `src/formatter.ts`.
-- `src/index.tsx` + `src/views/` — the ink/React TUI.
-- `src/*.ts` — one module per domain (scanner, installer, auditor, skill-index, …),
-  each with its `*.test.ts` beside it.
-- `data/skill-index/` — committed per-repo index JSON; generated, never hand-edited.
-- `website-src/` — site source; `website/` — its published output.
-- `scripts/` — build, preindex, catalog generation.
-- Detail: `docs/ARCHITECTURE.md`, `docs/DEVELOPMENT.md`.
+## Shared boundaries
 
-## Hard rules
+- Every agent above is **read-only by default**; the parent applies edits.
+- Ground each claim in a `path:line` reference. An unverifiable claim is a
+  question, not a finding.
+- Keep to one domain. Hand back anything outside your files instead of widening
+  scope.
+- Never delete or rewrite untracked scratch files at the repo root — other
+  sessions own them.
 
-- **YOU MUST NOT run `npm run preindex`, `npm run build:website`, or
-  `npm run refresh:repo-bundles` as a probe.** They rewrite tracked files under
-  `data/skill-index/` and `website/`. Run them only when regenerating the catalog
-  is the point of the change, then review the diff.
-- **IMPORTANT: `npm run preindex` also rewrites the developer's real
-  `~/.config/agent-skill-manager/skill-index/`** — a mutation no git diff shows.
-- **Unit tests sandbox user state.** `src/test-setup.ts` (vitest `setupFiles`)
-  sets `HOME`, `USERPROFILE`, and `ASM_CONFIG_DIR` to a temp dir. `getConfigDir()`
-  in `src/config.ts` reads `ASM_CONFIG_DIR` (fallback `~/.config/agent-skill-manager`).
-  Do not remove that setup — without it the suite writes the real user config.
-- **IMPORTANT: `CI=true` does not itself isolate the suite**; hermeticity is the
-  env override + lazy `getConfigDir()`, not the `CI` flag.
-- Never commit `dist/` or `node_modules/`. Most of `website/` is gitignored, but its
-  `*-stats.json` and `robots.txt` are tracked — commit those only on a deliberate regeneration.
-- Never delete or rewrite untracked scratch files at the repo root; other sessions
-  own them.
-- Conventional Commits; branch from `main` as `<type>/<issue>-<description>`; PR
-  into `main`.
+## Editing this file
 
-## Workflow preferences
-
-- Iterate with the narrowest runner — `npx vitest run src/<module>.test.ts` — and
-  run `CI=true npm test` only before pushing.
-- Run `npm run typecheck` after a series of edits; do not wait for the commit hook.
-- Change `src/<name>.ts` and its `src/<name>.test.ts` together.
-- Install both hook stages; a plain `pre-commit install` silently skips pre-push:
-  `pre-commit install --hook-type pre-commit --hook-type pre-push`.
-- Prettier runs on commit — do not hand-format markdown, TS, or JSON to match it.
-- Keep changes minimal and scoped to the task; do not opportunistically refactor.
+`asm` itself treats a project-root `AGENTS.md` as a file it manages:
+`src/uninstaller.ts` detects and removes regions delimited by
+`<!-- agent-skill-manager: <skill> -->` … `<!-- /agent-skill-manager: <skill> -->`.
+Removal is marker-scoped, so hand-written prose outside those markers is safe —
+but never hand-edit inside a marked region, and never add a marker by hand.
 
 ## Token Efficiency
 
@@ -104,4 +147,4 @@ state a floor with no ceiling, and `engines` is the one that is correct.
 
 ---
 > Source: [luongnv89/asm](https://github.com/luongnv89/asm) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-09 -->
