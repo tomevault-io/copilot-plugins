@@ -4,7 +4,7 @@
   "repo": "Gume",
   "description": "Open-source ESP32 educational game console firmware \u2014 40 games, two-player play over BLE, CYD touchscreen, browser flasher, no telemetry",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iamankushpandit/Gume",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T22:53:53Z"
+  "distributed_at": "2026-10-02T00:48:41Z"
 }
