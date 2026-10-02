@@ -1,0 +1,9 @@
+{
+  "name": "dolores-research--wagmi-bench",
+  "displayName": "wagmi-bench",
+  "description": "Deterministic BTC perps survival benchmark for trading agents \u2014 sealed, replayable evidence bundles",
+  "version": "1.0.0",
+  "author": "Dolores-Research",
+  "homepage": "https://github.com/Dolores-Research/wagmi-bench",
+  "skills": []
+}
