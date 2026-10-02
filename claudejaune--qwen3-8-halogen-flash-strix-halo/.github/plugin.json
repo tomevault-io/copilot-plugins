@@ -1,0 +1,9 @@
+{
+  "name": "claudejaune--qwen3-8-halogen-flash-strix-halo",
+  "displayName": "Qwen3.8-Halogen-Flash-Strix-Halo",
+  "description": "Run Qwen3.8-Flash-Next (180B, 6B active) on a single AMD Strix Halo via the halogen-flash-server container",
+  "version": "1.0.0",
+  "author": "claudejaune",
+  "homepage": "https://github.com/claudejaune/Qwen3.8-Halogen-Flash-Strix-Halo",
+  "skills": []
+}
