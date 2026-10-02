@@ -1,0 +1,9 @@
+{
+  "name": "yunohost-apps--seerrng",
+  "displayName": "seerrng",
+  "description": "Seerr fork adding Music and Books, to existing Music & TV Requests.",
+  "version": "1.0.0",
+  "author": "YunoHost-Apps",
+  "homepage": "https://github.com/YunoHost-Apps/seerrng",
+  "skills": []
+}
