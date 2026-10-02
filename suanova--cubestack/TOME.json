@@ -4,7 +4,7 @@
   "repo": "cubestack",
   "description": "Suanova CubeStack is an AI Cloud Operating System / AI Platform (\u667a\u7b97\u4e91\u64cd\u4f5c\u7cfb\u7edf) engineered for managing GPU compute clusters and AI workloads.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/suanova/cubestack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T07:42:42Z"
+  "distributed_at": "2026-10-02T12:18:56Z"
 }
