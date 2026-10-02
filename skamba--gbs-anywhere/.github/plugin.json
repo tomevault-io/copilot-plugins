@@ -1,0 +1,9 @@
+{
+  "name": "skamba--gbs-anywhere",
+  "displayName": "gbs-anywhere",
+  "description": "Grind-by-Sync for the Mahlk\u00f6nig E64 WS with any espresso machine",
+  "version": "1.0.0",
+  "author": "Skamba",
+  "homepage": "https://github.com/Skamba/gbs-anywhere",
+  "skills": []
+}
