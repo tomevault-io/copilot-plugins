@@ -1,0 +1,9 @@
+{
+  "name": "ardi4s--feedme",
+  "displayName": "feedme",
+  "description": "feedme \u2014 RSS feed creator. Turn any web page into a feed and serve it as RSS 2.0, Atom 1.0 or JSON Feed 1.1 from one static binary.",
+  "version": "1.0.0",
+  "author": "ardi4s",
+  "homepage": "https://github.com/ardi4s/feedme",
+  "skills": []
+}
