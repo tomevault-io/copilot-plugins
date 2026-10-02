@@ -1,0 +1,9 @@
+{
+  "name": "timwukp--claude-code-on-aws-bedrock-token-monitoring-alarm-system",
+  "displayName": "Claude-code-on-AWS-Bedrock-Token-monitoring-alarm-system",
+  "description": "AWS Bedrock token monitoring & cost governance platform \u2014 ML-powered anomaly detection, automated alerting, forensic analytics, real-time dashboard. Built with CDK, Lambda, CloudWatch, Athena, EventBr",
+  "version": "1.0.0",
+  "author": "timwukp",
+  "homepage": "https://github.com/timwukp/Claude-code-on-AWS-Bedrock-Token-monitoring-alarm-system",
+  "skills": []
+}
