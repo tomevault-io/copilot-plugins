@@ -1,0 +1,9 @@
+{
+  "name": "audiocn--ui",
+  "displayName": "ui",
+  "description": "Audio UI components for React, built the shadcn way.",
+  "version": "1.0.0",
+  "author": "audiocn",
+  "homepage": "https://github.com/audiocn/ui",
+  "skills": []
+}
