@@ -4,7 +4,7 @@
   "repo": "pragma",
   "description": "\u2728\u2728 Orchestrate Claude Code, Codex, OpenCode, Cursor, and more in parallel worktrees, with terminals, diffs, scratchpads, and pull requests in one native app. Use on mobile with Pragma Go. \u2728\u2728 ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pragma-sh/pragma",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T10:13:04Z"
+  "distributed_at": "2026-10-02T14:03:49Z"
 }
