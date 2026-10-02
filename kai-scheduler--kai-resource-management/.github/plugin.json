@@ -1,0 +1,9 @@
+{
+  "name": "kai-scheduler--kai-resource-management",
+  "displayName": "kai-resource-management",
+  "description": "KAI Resource Management is an open source Kubernetes-native resource management layer for KAI Scheduler, adding projects, departments, node pools, queues, and workload placement at scale.",
+  "version": "1.0.0",
+  "author": "kai-scheduler",
+  "homepage": "https://github.com/kai-scheduler/kai-resource-management",
+  "skills": []
+}
