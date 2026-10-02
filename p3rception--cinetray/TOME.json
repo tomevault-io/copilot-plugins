@@ -4,7 +4,7 @@
   "repo": "CineTray",
   "description": "Movies, shows and music from your media servers and your own folders, in the macOS menu bar.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/p3rception/CineTray",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T10:26:39Z"
+  "distributed_at": "2026-10-02T14:16:12Z"
 }
