@@ -1,0 +1,9 @@
+{
+  "name": "sundoge--wabou",
+  "displayName": "wabou",
+  "description": "Cross-platform native GUI runtime for SolidJS, powered by Taffy + Vello",
+  "version": "1.0.0",
+  "author": "SunDoge",
+  "homepage": "https://github.com/SunDoge/wabou",
+  "skills": []
+}
