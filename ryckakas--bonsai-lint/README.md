@@ -7,11 +7,11 @@ Multi-language cognitive complexity linter, as a single static binary
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ryckakas/bonsai-lint](https://github.com/ryckakas/bonsai-lint).
+Original source: `AGENTS.md` in [ryckakas/bonsai-lint](https://github.com/ryckakas/bonsai-lint).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
