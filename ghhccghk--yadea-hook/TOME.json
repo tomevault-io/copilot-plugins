@@ -1,0 +1,44 @@
+{
+  "name": "Yadea_Hook",
+  "owner": "ghhccghk",
+  "repo": "Yadea_Hook",
+  "description": "\u96c5\u8fea\u667a\u884cHook\u52a0\u5f3a\u5de5\u5177\uff0c\u57fa\u4e8eXpoesd 102",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ghhccghk/Yadea_Hook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T11:09:29Z"
+}
