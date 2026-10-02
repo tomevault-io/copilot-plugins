@@ -1,0 +1,9 @@
+{
+  "name": "tritiumr--pps",
+  "displayName": "pps",
+  "description": "Proxy Policy Steering: inference-time adaptation for robotics foundation models",
+  "version": "1.0.0",
+  "author": "TritiumR",
+  "homepage": "https://github.com/TritiumR/pps",
+  "skills": []
+}
