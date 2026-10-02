@@ -1,0 +1,9 @@
+{
+  "name": "threadlines--threadlines",
+  "displayName": "threadlines",
+  "description": "An open-source desktop workspace for Codex and Claude Code with a live browser, project files, and real source control.",
+  "version": "1.0.0",
+  "author": "Threadlines",
+  "homepage": "https://github.com/Threadlines/threadlines",
+  "skills": []
+}
