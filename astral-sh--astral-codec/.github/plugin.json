@@ -1,0 +1,9 @@
+{
+  "name": "astral-sh--astral-codec",
+  "displayName": "astral-codec",
+  "description": "Fast, async format encoder/decoders for Rust",
+  "version": "1.0.0",
+  "author": "astral-sh",
+  "homepage": "https://github.com/astral-sh/astral-codec",
+  "skills": []
+}
