@@ -1,0 +1,494 @@
+## prism
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Build & test commands
+
+```bash
+make                         # build bin/prism for the host
+make prism-linux-amd64       # cross-compile for Linux amd64
+make prism-linux-arm64       # cross-compile for Linux arm64
+make prism-windows-amd64     # cross-compile bin/prism-windows-amd64.exe
+make clean                   # remove bin/
+go test ./...                # run all Go tests
+go vet ./...                 # vet host target
+GOOS=windows GOARCH=amd64 go vet ./...   # vet Windows target too
+```
+
+There is no linter wired up beyond `go vet`. End-to-end testing means
+running `prism up && prism test && prism down` against a real cluster.
+`prism test` exercises both backends; `prism test anthropic` and
+`prism test openai` scope it to one tunnel.
+
+## Architecture: direct cluster app tunnels
+
+Prism tunnels traffic to two cluster-wide Teleport apps (`anthropic` and
+`openai`) via `tsh proxy app` (interactive login) or `tbot` (Machine ID).
+A local HTTP router on 127.0.0.1:7331 dispatches by path and applies
+Bedrock-compatibility scrubbing to Anthropic requests.
+
+```
+Client → 127.0.0.1:7331 (local HTTP router + Bedrock scrubbing)
+  /v1/chat/completions          → chatcompat shim → /v1/responses → openai tunnel
+  /v1/responses, /v1/models, /v1/embeddings                      → openai tunnel
+  /v1/messages, everything else                                  → anthropic tunnel
+```
+
+**tsh mode**: Two `tsh proxy app` subprocesses (anthropic + openai).
+**tbot mode** (default when configured): One `tbot start` process with
+two `application-tunnel` services in a generated tbot.yaml.
+
+There are no beams, no embedded binaries, no in-beam proxy, and no
+rotation. The cluster-wide apps are permanent and don't expire.
+
+## Where the pieces live
+
+```
+cmd/prism/             local CLI (up, down, claude, codex, exec, daemon, etc.)
+  daemon.go            starts tunnel services + router; branches tsh/tbot
+  up.go                resolves identity, app login, picks ports, launches daemon
+  claude.go            shared runToolWithPrism() for claude/codex/pi/exec
+  pi.go                `prism pi` launcher + ~/.pi/agent/models.json setup
+  usage_cmd.go         `prism usage` subcommand (reads usage.jsonl)
+  launchd.go           macOS LaunchAgent management (darwin only)
+  systemd.go           systemd user service management (linux only)
+  service_stub.go      no-op stubs for non-linux/non-darwin platforms
+internal/router/       local HTTP router: path dispatch
+  router.go            mux, proxy setup, path canonicalisation, request logging
+  capture.go           usage-capture middleware (parsing lives in internal/capture)
+internal/capture/      shared response capture: token usage, status/size;
+                       used by both the router and the MITM proxy
+internal/scrub/        shared request scrubbing (Bedrock + OpenAI compat);
+                       used by both the router and the MITM proxy
+internal/proxyerr/     shared ReverseProxy ErrorHandler classification
+                       (client cancel vs real upstream failure);
+                       used by both the router and the MITM proxy
+internal/chatcompat/   /v1/chat/completions → Responses API shim
+  chatcompat.go        handler + adaptive unsupported-parameter retry
+  translate.go         request/reply body translation
+  stream.go            SSE event translation
+internal/mitm/         forward-proxy MITM for Claude Code Remote Control compat
+  ca.go                CA generation/persistence, leaf cert issuance
+  proxy.go             CONNECT handler: intercept anthropic, blind-tunnel rest
+internal/logfile/      date-rotating log writer with compression
+internal/tunnel/       subprocess supervisor (tsh proxy app or tbot) + health loop
+internal/tbot/         tbot config rendering, sidecar, bootstrap/configure, diag probing
+internal/identity/     polls tsh status, fires OnExpired/OnRecovered callbacks
+internal/state/        ~/.config/prism/state.json persistence
+internal/config/       ~/.config/prism/config.json (proxy, identity, tbot.dir, claude_forward_proxy_mode)
+internal/usage/        token usage tracking (JSONL writer, reader, aggregation)
+internal/tshwrap/      thin wrappers around tsh apps/status commands
+```
+
+## State file
+
+`~/.config/prism/state.json` stores the daemon PID and port assignments.
+Much simpler than before — no beam IDs, no certificates, no bearer tokens.
+
+## Listener ports
+
+A running prism in tbot mode owns four 127.0.0.1 listeners:
+
+- **Router** (default 7331): user-facing HTTP. Path-dispatches to the
+  tunnels and serves `/_prism/health`.
+- **Anthropic tunnel** (~7333): internal, fronted by tsh/tbot.
+- **OpenAI tunnel** (~7334): internal, fronted by tsh/tbot.
+- **tbot diag** (~7332): tbot's `--diag-addr`; serves `/livez` and
+  `/readyz/<service>`. Only present in tbot mode.
+
+In tsh mode there's no diag port, so three listeners total. There is no
+separate control/health port — `/_prism/health` is hung off the router.
+
+## Identity backends
+
+- **tsh** (default): uses the user's interactive `tsh login`. Subject to
+  12-24h SSO expiry. The identity watcher detects expiry and restarts the
+  subprocess when the user re-logs-in.
+- **tbot** (recommended for unattended use): Machine ID with bound-keypair
+  join. Self-refreshing. Configure via `prism tbot bootstrap` +
+  `prism tbot configure`. Resource names include the hostname
+  (e.g. `prism-bot-athena`, `prism-bot-role-athena`).
+
+## Bedrock scrubbing
+
+The cluster's Anthropic gateway is Bedrock-backed. The shared scrub
+package (`internal/scrub/anthropic.go`) mutates `/v1/messages`
+requests, identically for the router and the MITM forward proxy:
+
+- **Strips top-level fields**: `metadata`, `context_management`,
+  `thinking`, `diagnostics`, `output_config`, `fallbacks`. Pi sends
+  `fallbacks` for models with refusal fallbacks, but the Bedrock-backed
+  gateway does not support Anthropic's server-side fallback beta. Add new
+  fields to `anthropicStripFields` when a client feature breaks; as a
+  stopgap before a release, `prism config set anthropic_strip_fields
+  a,b` adds to the list at daemon startup.
+- **Sanitizes `cache_control`** objects everywhere (system, message
+  content, tools) down to `{type, ttl}`. Claude Code in forward-proxy
+  (OAuth) mode adds `scope` (prompt-caching-scope beta), which Bedrock
+  rejects with a generic "inference provider rejected the request" 400.
+- **Drops unsupported server tools** from `tools` by type prefix
+  (`anthropicStripToolTypePrefixes`, currently `advisor_`). Claude Code
+  adds the `advisor_YYYYMMDD` tool, which Bedrock rejects with "tool
+  type '...' is not supported for this model". A `tool_choice` naming a
+  dropped tool goes too, as do `tools`/`tool_choice` if nothing is left.
+  Extra prefixes can be added without a release via
+  `prism config set anthropic_strip_tool_types a_,b_` (comma-separated,
+  additive to the built-ins, read at daemon startup). For some users
+  prism is the only path to inference, so this is the escape hatch.
+- **Caps `max_tokens`** to 8192 for non-streaming requests. Confirmed
+  required: above 8192 Bedrock rejects non-streaming calls with
+  "request needs to use streaming" (8192 → 200, 8193 → 400).
+- **Short-circuits** requests with `output_config.format` (400
+  immediately; Claude Code strips the field and retries on its own).
+
+Everything else is forwarded untouched — tamper with requests as little
+as possible. The gateway accepts `Anthropic-Version`, `Anthropic-Beta`,
+and `X-Stainless-*` headers, and ignores unknown per-tool keys (e.g.
+Claude Code's `defer_loading`/`eager_input_streaming` advanced-tool-use
+fields), so none of those are stripped.
+A "The inference provider rejected the request as invalid" 400 is a
+Bedrock-side rejection of some body field — bisect the body (replay it
+through the router with fields removed) rather than guessing.
+
+## OpenAI scrubbing
+
+The scrub package (`internal/scrub/openai.go`) normalises OpenAI requests
+on the paths that are proxied directly:
+
+- **Renames `max_tokens` → `max_completion_tokens`** when the new field
+  isn't already present. Newer models reject the legacy name; older
+  models accept both.
+- **Config-supplied strip lists** (`openai_strip_fields`,
+  `openai_strip_tool_types`, empty by default) apply to `/v1/responses`
+  here and to `/v1/chat/completions` inside `internal/chatcompat`, which
+  builds its own upstream request and calls `scrub.StripOpenAIFields`.
+  Tool types only matter on `/v1/responses` (the shim rejects tools).
+  With nothing configured, Responses bodies pass byte-for-byte. All four
+  `{anthropic,openai}_strip_*` lists live in `scrub.Extra`, installed once
+  by the daemon via `scrub.SetExtra`.
+
+It deliberately holds **no per-model knowledge**. Reasoning models reject
+parameters like `temperature` and `top_p`, but which ones varies by model,
+so `internal/chatcompat` discovers that at runtime instead. Don't
+reintroduce a hardcoded model list here — the `strings.HasPrefix` version
+that used to live here silently stopped matching once model ids gained an
+`openai.` vendor prefix.
+
+## chat/completions shim
+
+Newer gateways serve OpenAI models only on `/v1/responses`, rejecting
+every model on `/v1/chat/completions` ("model ... isn't supported on this
+route"). `internal/chatcompat` translates, so chat/completions-only
+clients (MacWhisper, Teleport session summaries) keep working.
+
+- **Enabled by default.** `prism config set openai_chat_completions_shim
+  false` relays `/v1/chat/completions` byte-for-byte instead, which is what
+  lets a current prism talk to a legacy Beam. The config field is a
+  `*bool` so an absent key means enabled.
+- **Adaptive parameter retry.** The gateway names the field it won't
+  accept (`Unsupported parameter: 'temperature' is not supported with this
+  model.`). The handler parses that name, drops the field, retries, and
+  remembers it per model in memory. In-memory on purpose: a persisted
+  cache would keep stripping a parameter after the gateway started
+  accepting it again. The retry runs in both modes, so legacy gateways get
+  the same treatment without a model list.
+- **Text only.** A request carrying `tools` gets a 400 pointing at
+  `/v1/responses`. Unknown fields are forwarded untouched — the retry
+  cleans up whatever the gateway actually rejects.
+- Translated requests log as
+  `POST /v1/chat/completions [-> /v1/responses] 200 ...`, plumbed through
+  `chatcompat.PathNote` on the request context.
+- Reasoning items in the Responses `output` array carry no plaintext, so
+  only `output_text` parts of `message` items may be concatenated.
+- Reasoning tokens count against `max_output_tokens`, so a client sending
+  a small `max_tokens` can get `finish_reason: "length"` with little text.
+  That's gateway accounting, not something to paper over.
+
+## No hardcoded model names
+
+Nothing in prism names a model. The gateway aliases unknown model names to
+whatever it currently serves, and accepts a request with `model` omitted
+entirely while reporting which model it used. So `prism test` omits the
+field by default and prints what came back, `prism pi config` writes
+placeholder ids unless given `--anthropic-model` / `--openai-model`, and
+usage records prefer the response's model over the request's.
+
+`rg -n '"(claude-|gpt-|o[134]-|openai\.gpt)' --type go` should stay empty
+outside tests.
+
+## Auto mode classifier
+
+Newer Claude Code builds can run auto mode's safety classifier
+server-side: the request carries a top-level `safeguards` field (plus a
+beta) and the response is expected to carry `safeguard_results`. The
+Bedrock-backed gateway never returns those. When Claude Code thinks it's
+talking to the first-party API (`ANTHROPIC_BASE_URL` unset or
+`api.anthropic.com` — i.e. forward-proxy mode) it has no local fallback,
+and every auto-mode tool call is denied with "The server-side auto mode
+classifier gave no verdict ...".
+
+`toolEnv` therefore sets `CLAUDE_CODE_AUTO_MODE_SERVER=0` for `claude`
+(unless the user already set it), and `prism env` exports it with a
+`${...:-0}` default. That makes Claude Code use its local classifier — an
+ordinary `/v1/messages` side request. Don't try to fix this by scrubbing
+`safeguards`: the client still waits for a verdict that never comes.
+
+## Auth header stripping
+
+Both the Anthropic and OpenAI scrub middlewares strip client-supplied
+auth headers (`Authorization`, `X-Api-Key`) before forwarding to the
+tunnel. The tunnel authenticates via mTLS — dummy tokens from env vars
+(e.g. `teleport`) would otherwise be rejected by the gateway.
+
+`internal/chatcompat` gets there differently: it builds a fresh upstream
+request carrying only `Content-Type` and `Accept`, so client auth headers
+can't leak through by accident.
+
+## Forward proxy mode (Remote Control compatibility)
+
+Claude Code disables Remote Control when `ANTHROPIC_BASE_URL` points at
+a non-Anthropic host. To work around this, prism offers an opt-in
+forward-proxy mode (`prism config set claude_forward_proxy_mode true`).
+
+When enabled, `prism claude` sets `HTTPS_PROXY` and `NODE_EXTRA_CA_CERTS`
+instead of `ANTHROPIC_BASE_URL`. The daemon's CONNECT handler
+(`internal/mitm/proxy.go`) intercepts connections to
+`api.anthropic.com:443`: TLS-terminates using a locally-generated CA
+(`~/.config/prism/ca.pem`), applies the same Bedrock scrubbing, and
+forwards to the Anthropic tunnel. All other CONNECT requests are
+blind-tunneled (TCP passthrough) so Remote Control, telemetry, MCP
+connectors, etc. pass through unmodified.
+
+The CA is generated once on first daemon start with the flag enabled
+(`internal/mitm/ca.go`). Leaf certs for `api.anthropic.com` are issued
+on demand and cached in memory.
+
+## Token usage tracking
+
+The router captures token usage from API responses (both streaming SSE
+and non-streaming JSON) and appends records to
+`~/.config/prism/usage.jsonl`. Each record includes timestamp, model,
+backend (anthropic/openai), Teleport proxy, and token counts (input,
+output, cache read, cache creation).
+
+## Daemon log rotation
+
+The daemon writes to dated log files (`~/.config/prism/logs/daemon-YYYY-MM-DD.log`)
+via `internal/logfile`. On date rollover, older `.log` files are gzip'd
+in the background. On first startup after upgrade from the old single-file
+layout, `~/.config/prism/daemon.log` is compressed to
+`~/.config/prism/logs/daemon-legacy.log.gz`.
+
+Panics and early fatal errors (before the rotating writer initializes)
+go to `~/.config/prism/logs/crash.log` (set via launchd plist or
+fork-exec stderr redirect).
+
+The capture writer (`internal/capture`) wraps the ResponseWriter to
+inspect response data without adding latency:
+- Non-streaming: buffers the response body, extracts the `usage` object.
+- Streaming: scans SSE lines inline as they flush through (Anthropic
+  `message_start`/`message_delta`; OpenAI final chunk `usage` field).
+
+It is shared by the router (`internal/router/capture.go` supplies the
+middleware) and the MITM forward proxy, for the same reason
+`internal/scrub` is: both front the same gateway and must account for it
+identically. Records prefer the model the **response** reports — the
+gateway aliases unknown names and clients may omit the field entirely.
+Don't re-fork this per path; the copies drifted last time and the
+forward proxy spent that time logging `usage: ?`.
+
+## One log line per request
+
+`observeRequests` (`internal/router/capture.go`) does request logging and
+usage capture in a single middleware, emitting one line:
+
+```
+POST /v1/messages 200 req=747024B resp=2073B model=claude-opus-5 in=2 out=89 cache_read=18807 cache_write=209741 2.721s
+```
+
+They are one middleware on purpose. Token counts are only known once the
+response has streamed through, so as separate layers the request line and
+the usage line were printed by different wrappers — two writes that
+interleave under concurrency, with no reliable way to pair them.
+
+`capture.Summary` owns the usage fields and is used by the forward proxy
+too, so the two paths can't drift. **Every field is always present,
+zeros included, and an unreported model is `model=?`** — the line is
+meant to be parseable without checking which fields it happens to carry.
+Requests that never had usage capture (GETs, non-`/v1` paths) get the
+line without the usage fields; don't add a sixth field without updating
+`TestSummaryFieldCount`.
+
+`prism usage [--week|--all|--json]` reads the JSONL file and displays
+per-model and per-proxy summaries.
+
+## Client cancels aren't gateway failures
+
+`httputil.ReverseProxy` derives the outbound request's context from the
+inbound one, so a client that aborts its own request (Claude Code
+dropping a stale or speculative call) cancels the outbound call too and
+arrives at `ErrorHandler` as `context.Canceled`. Reported as an upstream
+error that reads like the gateway died, and sent a 502 nobody is left to
+receive.
+
+`internal/proxyerr` owns that distinction: `HandleClientCanceled` logs a
+`client canceled` line and answers 499 (nginx's "client closed request";
+net/http has no constant, so `proxyerr.StatusClientClosedRequest`).
+Every `ErrorHandler` calls it first and returns early — one in
+`internal/router`, three in `internal/mitm`. It is shared for the same
+reason `scrub` and `capture` are: both paths front the same tunnels, and
+four private copies of this check is how they drift.
+
+`context.DeadlineExceeded` is deliberately **not** treated as a cancel —
+a timeout talking to the gateway is a real upstream failure and keeps its
+502. Match with `errors.Is`, never on message text.
+
+## Request path canonicalisation
+
+Prism hands out `ANTHROPIC_BASE_URL` as a bare root because the official
+Anthropic SDKs append `/v1/messages` themselves. The Vercel AI SDK
+(OpenCode and anything else built on it) appends only `/messages`, and
+the gateway accepts both — so version-less requests used to work while
+silently skipping everything gated on the `/v1` prefix: dispatch,
+logging, usage capture and Bedrock scrubbing.
+
+`canonicalAPIPath` (`internal/router/router.go`) rewrites a known
+version-less endpoint to its `/v1` spelling as the outermost layer of
+the non-proxy chain, so every downstream gate sees one spelling and
+upstream receives the path the official SDKs send. Unknown paths are
+forwarded untouched — in particular `/` must not become `/v1/`.
+
+When adding a `/v1`-gated behaviour, gate on the canonical path rather
+than adding another prefix test. The request log deliberately covers
+*everything proxied* (only `/_prism/` is skipped) so an unfamiliar path
+shape can never go completely dark again.
+
+## Daemon lifecycle
+
+`prism up` resolves identity, picks ports, writes state.json, then
+launches the daemon. On Linux with systemd installed (`prism install`),
+it delegates to `systemctl --user start prism.service`. Otherwise it
+fork-execs with `Setsid: true` (Unix) so it survives the parent terminal.
+
+The daemon owns the tbot/tsh subprocess(es) and exits cleanly on SIGTERM
+(sent by `prism down`). On Unix, if the daemon is SIGKILL'd, the tbot
+subprocess gets reparented to PID 1 and keeps holding its port — manual
+cleanup is `pkill -x tbot`. On Windows, Job Objects
+(`internal/tunnel/job_windows.go`) tie subprocess lifetime to the daemon.
+
+### Health-based restart
+
+In tbot mode, the tunnel supervisor's health loop polls the tbot diag
+endpoint (`/readyz`) every 10s. After 6 consecutive failures (~60s), it
+kills the tbot subprocess; the supervisor then restarts it with
+exponential backoff. This handles cases where tbot loses connectivity
+to the Auth Service but doesn't exit on its own.
+
+### systemd / launchd integration
+
+`cmd/prism/systemd.go` (linux) / `cmd/prism/launchd.go` (darwin) /
+`cmd/prism/service_stub.go` (!linux && !darwin) provide platform-agnostic
+function names: `isServiceManaged()`, `plistIsStale()`,
+`serviceStart()`, `serviceStop()`, `serviceIsActive()`, `journalFollow()`.
+These are called from `up.go`, `down.go`, `logs.go`, and `status.go`.
+
+On macOS, `prism up` auto-detects a stale LaunchAgent plist (binary
+path changed, or missing crash.log reference) and re-runs `cmdInstall`
+before bootstrapping. The plist uses `KeepAlive.SuccessfulExit=false`
+for crash restart and `RunAtLoad=true` for login persistence.
+
+## Pi integration
+
+Pi (`~/.pi/agent/`) ignores `ANTHROPIC_BASE_URL` / `OPENAI_BASE_URL`
+env vars. It reads model base URLs from its own registry
+(`models-store.json`) with overrides in `models.json`. `prism pi [args...]`
+uses the shared tool runner to start the daemon and supervise Pi, but runs a
+Pi-specific setup step before exec.
+
+**Overrides match by model id.** An entry whose id Pi doesn't already know
+is just an extra model nobody selects — it intercepts nothing, and Pi keeps
+using its registry's real base URL. Before every launch, `prism pi` reads Pi's
+catalog and writes the Anthropic/OpenAI entries back with only `baseUrl`
+repointed at the current router port. Other custom providers already in
+`models.json` are preserved; this is important for local providers such as
+llama-swap. That keeps model names out of prism (the ids come from Pi at
+runtime) while preserving each entry's `cost`, `contextWindow`, `maxTokens`,
+`compat` and `thinkingLevelMap`, which Pi needs.
+
+On a fresh install, or when either provider is absent from the catalog,
+`prism pi` runs `pi update --models` first. `toolEnv` supplies dummy Anthropic
+and OpenAI keys so both catalogs are available. The router strips those keys
+before forwarding. The generated `models.json` also carries
+`"apiKey": "teleport"` per provider, since Pi hides a provider's models when
+it has no API key. Pi's `PI_CODING_AGENT_DIR` override is honored for both the
+catalog and generated config — expanded with the shared `expandHome` helper,
+with no attempt to emulate Pi's own Windows shell-path conversion.
+
+`prism pi config` remains the setup-only command. Its
+`--anthropic-model` / `--openai-model` flags narrow the rewrite to one id,
+synthesising a minimal entry if Pi's catalog doesn't have it. Launch a
+narrowed config with `prism exec pi`; `prism pi` deliberately restores every
+catalog model. Pi's own unrelated `pi config` TUI is reached with
+`prism exec pi config`.
+
+Anthropic models get the router root as `baseUrl`, OpenAI models the `/v1`
+suffix. Pi speaks the Responses API (`"api": "openai-responses"`), so it
+doesn't depend on the chat/completions shim.
+
+## Cross-platform notes
+
+`proc_unix.go` / `proc_windows.go` carry platform-specific bits (signal
+handling, detach attrs). Windows has no SIGTERM — `prism down` uses
+`p.Kill()`.
+
+## Releasing
+
+Releases are cut by pushing a lightweight `vX.Y.Z` tag; the GitHub Actions
+workflow (`.github/workflows/release.yml`) runs the tests, builds the five
+platform binaries and publishes the release. There is no version constant to
+bump — `main.version` comes from `-ldflags`.
+
+Every release gets a **public-facing changelog entry**, written for users
+rather than paraphrased from commit subjects:
+
+1. Add the version's section to the top of `CHANGELOG.md` (newest first,
+   Added / Changed / Fixed, plus its compare link at the bottom). Describe
+   user-visible impact and the symptom a fix cures; note when an entry
+   supersedes an earlier one.
+2. Tag and push, then set the GitHub release body to that section —
+   `gh release edit vX.Y.Z --notes-file <file>`. Don't leave releases with
+   only the auto-generated compare link.
+
+   **Unwrap first.** `CHANGELOG.md` is hard-wrapped to ~80 columns to match
+   the repo's other docs, but a release body is free text and those breaks
+   read badly there. Pipe the section through `tools/unwrap-md.py`, which
+   collapses each bullet or paragraph onto one line while leaving headings,
+   list structure, fenced code blocks and indented sub-paragraphs alone.
+   Release bodies must not be hard-wrapped.
+
+   That script has its own tests — `python3 tools/unwrap_md_test.py`, also run
+   by the release workflow. They cover the real `CHANGELOG.md` sections, so run
+   them after changing the script: a subtle break there silently mangles a
+   release body, which is how a paragraph following a bullet list once got
+   swallowed into the last bullet.
+3. Update `Formula/prism.rb` in the homebrew-tap repo: `url`, `sha256` of
+   `https://github.com/webvictim/prism/archive/refs/tags/vX.Y.Z.tar.gz`, and
+   the `caveats` summary. Commit as `prism X.Y.Z: <summary>`.
+
+## What not to do
+
+- Don't add beam-related code — that architecture has been removed.
+- Don't hardcode model names, or per-model behaviour keyed off a name.
+  The gateway aliases unknown names and accepts requests with `model`
+  omitted; per-model quirks are learned from its error messages. See
+  [No hardcoded model names](#no-hardcoded-model-names).
+- Don't reach for `golang.org/x/sys` for things stdlib `syscall` provides.
+- Don't depend on `tsh` version-specific behaviour — use `--format=json`.
+
+---
+> Source: [webvictim/prism](https://github.com/webvictim/prism) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
