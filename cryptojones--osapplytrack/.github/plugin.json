@@ -1,0 +1,9 @@
+{
+  "name": "cryptojones--osapplytrack",
+  "displayName": "OSApplyTrack",
+  "description": "WCAG 2.2 AA-focused, multi-tenant, self-hosted job tracking application with AI Cover letter generation, PDF Import, and automated job discovery.",
+  "version": "1.0.0",
+  "author": "CryptoJones",
+  "homepage": "https://github.com/CryptoJones/OSApplyTrack",
+  "skills": []
+}
