@@ -4,7 +4,7 @@
   "repo": "foxhollow",
   "description": "Foxhollow: a native port of Star Fox Adventures built on the SFA decompilation and Aurora",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JackPriceBurns/foxhollow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T22:35:35Z"
+  "distributed_at": "2026-10-02T22:36:27Z"
 }
