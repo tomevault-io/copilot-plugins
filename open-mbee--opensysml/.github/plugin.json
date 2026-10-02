@@ -1,0 +1,9 @@
+{
+  "name": "open-mbee--opensysml",
+  "displayName": "OpenSysML",
+  "description": "Open Source SysML v2 Implementation in Go",
+  "version": "1.0.0",
+  "author": "Open-MBEE",
+  "homepage": "https://github.com/Open-MBEE/OpenSysML",
+  "skills": []
+}
