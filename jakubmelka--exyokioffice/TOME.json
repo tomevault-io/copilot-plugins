@@ -4,7 +4,7 @@
   "repo": "ExyokiOffice",
   "description": "A modern, MIT-licensed native C++ library for creation and modification of Open XML documents (DOCX, XLSX, PPTX), designed for cross-platform and dependency-free use.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JakubMelka/ExyokiOffice",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T05:47:57Z"
+  "distributed_at": "2026-10-02T08:42:08Z"
 }
