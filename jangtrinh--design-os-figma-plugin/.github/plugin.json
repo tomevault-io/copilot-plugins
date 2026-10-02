@@ -1,0 +1,9 @@
+{
+  "name": "jangtrinh--design-os-figma-plugin",
+  "displayName": "design-os-figma-plugin",
+  "description": "Free Figma plugin + CLI so Claude Code, Codex or any shell agent can read and edit the Figma file you have open. Local WebSocket, one undo step per mutation, no seat.",
+  "version": "1.0.0",
+  "author": "jangtrinh",
+  "homepage": "https://github.com/jangtrinh/design-os-figma-plugin",
+  "skills": []
+}
