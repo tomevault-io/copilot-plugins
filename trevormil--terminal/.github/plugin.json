@@ -1,0 +1,9 @@
+{
+  "name": "trevormil--terminal",
+  "displayName": "TerMinal",
+  "description": "A standalone, local-first software factory for coding agents \u2014 hosts the real Claude Code / Codex CLI with a live cockpit, autonomous build loop, scheduling, and cross-repo observability. No server, n",
+  "version": "1.0.0",
+  "author": "trevormil",
+  "homepage": "https://github.com/trevormil/TerMinal",
+  "skills": []
+}
