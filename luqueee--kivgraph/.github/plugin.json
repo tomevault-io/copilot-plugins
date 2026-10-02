@@ -1,0 +1,9 @@
+{
+  "name": "luqueee--kivgraph",
+  "displayName": "kivgraph",
+  "description": "A local MCP server for cross-repository semantic code intelligence in TypeScript and Go, backed by a persistent LadybugDB graph.",
+  "version": "1.0.0",
+  "author": "Luqueee",
+  "homepage": "https://github.com/Luqueee/kivgraph",
+  "skills": []
+}
