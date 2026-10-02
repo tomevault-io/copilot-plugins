@@ -1,0 +1,44 @@
+{
+  "name": "frosty-vl",
+  "owner": "Blackfrost-AI",
+  "repo": "frosty-vl",
+  "description": "Qwen Image 2.1 in Frosty Studio: create and edit with 10 references, official prompt enhancement, RGBA and recoverable galleries. Includes Frosty VL video workflows, Scene Lab, and 12 MCP tools for agents, with local Windows/CUDA setup and agent installation guides.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Blackfrost-AI/frosty-vl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T10:17:25Z"
+}
