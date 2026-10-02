@@ -1,0 +1,9 @@
+{
+  "name": "denysdovhan--ha-ukr-hmc",
+  "displayName": "ha-ukr-hmc",
+  "description": "An integration for weather, radiation, and hydrology data from the Ukrainian Hydrometeorological Center for Home Assistant",
+  "version": "1.0.0",
+  "author": "denysdovhan",
+  "homepage": "https://github.com/denysdovhan/ha-ukr-hmc",
+  "skills": []
+}
