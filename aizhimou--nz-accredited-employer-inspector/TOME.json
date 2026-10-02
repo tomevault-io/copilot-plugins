@@ -1,0 +1,44 @@
+{
+  "name": "nz-accredited-employer-inspector",
+  "owner": "aizhimou",
+  "repo": "nz-accredited-employer-inspector",
+  "description": "Chrome extension and Cloudflare Worker for checking New Zealand accredited employers on SEEK and LinkedIn.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aizhimou/nz-accredited-employer-inspector",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T12:07:29Z"
+}
