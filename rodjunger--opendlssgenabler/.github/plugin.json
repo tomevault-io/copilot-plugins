@@ -1,0 +1,9 @@
+{
+  "name": "rodjunger--opendlssgenabler",
+  "displayName": "opendlssgenabler",
+  "description": "Open source dlss frame gen enabler for 30 series graphics cards",
+  "version": "1.0.0",
+  "author": "rodjunger",
+  "homepage": "https://github.com/rodjunger/opendlssgenabler",
+  "skills": []
+}
