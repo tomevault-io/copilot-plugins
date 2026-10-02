@@ -4,7 +4,7 @@
   "repo": "letigre.run",
   "description": "Web oficial de Le Tigr\u00e9 Running Club",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/midudev/letigre.run",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T01:47:22Z"
+  "distributed_at": "2026-10-02T02:06:10Z"
 }
