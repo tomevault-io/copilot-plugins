@@ -4,7 +4,7 @@
   "repo": "OWASP-Faction-2",
   "description": "Next Generation AI Assisted Pen testing Reporting and Collaboration Framework",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/factionsecurity/OWASP-Faction-2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T22:58:40Z"
+  "distributed_at": "2026-10-02T23:03:59Z"
 }
