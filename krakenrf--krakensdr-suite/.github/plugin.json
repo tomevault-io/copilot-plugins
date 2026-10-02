@@ -1,0 +1,9 @@
+{
+  "name": "krakenrf--krakensdr-suite",
+  "displayName": "krakensdr_suite",
+  "description": "krakensdr_suite",
+  "version": "1.0.0",
+  "author": "krakenrf",
+  "homepage": "https://github.com/krakenrf/krakensdr_suite",
+  "skills": []
+}
