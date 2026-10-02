@@ -1,0 +1,9 @@
+{
+  "name": "gringoestrangeiro--openrad",
+  "displayName": "openrad",
+  "description": "Open-source Rust reimplementation of Radmin VPN with a native Linux desktop app, CLI, and TCP/UDP peer transports.",
+  "version": "1.0.0",
+  "author": "gringoestrangeiro",
+  "homepage": "https://github.com/gringoestrangeiro/openrad",
+  "skills": []
+}
