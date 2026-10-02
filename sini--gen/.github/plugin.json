@@ -1,0 +1,9 @@
+{
+  "name": "sini--gen",
+  "displayName": "gen",
+  "description": "Unified documentation for the gen Nix library ecosystem",
+  "version": "1.0.0",
+  "author": "sini",
+  "homepage": "https://github.com/sini/gen",
+  "skills": []
+}
