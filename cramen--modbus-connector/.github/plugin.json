@@ -1,0 +1,9 @@
+{
+  "name": "cramen--modbus-connector",
+  "displayName": "modbus_connector",
+  "description": "Cross-platform Modbus toolkit (PySide6): master client with register table, polling, live graphs, alarms and bus scanner; device simulator (slave) with register map and expression rules; passive RTU s",
+  "version": "1.0.0",
+  "author": "cramen",
+  "homepage": "https://github.com/cramen/modbus_connector",
+  "skills": []
+}
