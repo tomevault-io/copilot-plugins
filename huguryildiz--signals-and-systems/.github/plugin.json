@@ -1,0 +1,9 @@
+{
+  "name": "huguryildiz--signals-and-systems",
+  "displayName": "signals-and-systems",
+  "description": "Interactive course material for an undergraduate signals and systems course: step-by-step derivations, laboratories, worked problems and runnable Python code, with printable lecture notes and an indep",
+  "version": "1.0.0",
+  "author": "huguryildiz",
+  "homepage": "https://github.com/huguryildiz/signals-and-systems",
+  "skills": []
+}
