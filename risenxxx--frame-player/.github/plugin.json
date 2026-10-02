@@ -1,0 +1,9 @@
+{
+  "name": "risenxxx--frame-player",
+  "displayName": "frame-player",
+  "description": "A video player for Windows and macOS built on Tauri 2 and libmpv: local files, links, torrent streaming with a built-in catalog, casting to Chromecast and DLNA televisions, and watching together in sy",
+  "version": "1.0.0",
+  "author": "risenxxx",
+  "homepage": "https://github.com/risenxxx/frame-player",
+  "skills": []
+}
