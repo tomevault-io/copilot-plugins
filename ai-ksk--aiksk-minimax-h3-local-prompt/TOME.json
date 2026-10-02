@@ -1,0 +1,44 @@
+{
+  "name": "aiksk-minimax-h3-local-prompt",
+  "owner": "AI-KSK",
+  "repo": "aiksk-minimax-h3-local-prompt",
+  "description": "MiniMax H3 \u5168\u57df\u63d0\u793a\u8bcd\u5de5\u7a0b Skill v1.7\uff5cAIMixer Director \u5bfc\u6f14\u53f0\u751f\u4ea7\u89c4\u5219\uff5cT2VA / I2VA / FL2VA / L2VA / Ref2VA\uff5cSubject \u4e0e Picture \u8bed\u4e49\u5206\u79bb\u3001\u8de8\u955c\u5934\u56e0\u679c\u6865\u3001\u4eba\u7269\u4e00\u81f4\u6027\u3001\u89c6\u9891\u7f16\u8f91\u3001\u52a8\u4f5c\u53c2\u8003\u3001\u97f3\u9891\u63a7\u5236\u3001Prompt \u4fee\u590d\uff5cComfyUI / RunningHub / Codex",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AI-KSK/aiksk-minimax-h3-local-prompt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T09:06:13Z"
+}
