@@ -1,0 +1,9 @@
+{
+  "name": "funchs--opensurge-fnos",
+  "displayName": "opensurge-fnos",
+  "description": "OpenSurge \u98de\u725b NAS (fnOS) \u79fb\u690d\u7248 \u2014 \u65c1\u8def\u7531\u7f51\u5173\u5f62\u6001\uff0cDocker \u4ea4\u4ed8\u3002Fork of YTwsy/OpenSurge-for-Mac (GPL-3.0).",
+  "version": "1.0.0",
+  "author": "funchs",
+  "homepage": "https://github.com/funchs/opensurge-fnos",
+  "skills": []
+}
