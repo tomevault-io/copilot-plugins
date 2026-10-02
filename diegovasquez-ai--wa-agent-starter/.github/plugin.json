@@ -1,0 +1,9 @@
+{
+  "name": "diegovasquez-ai--wa-agent-starter",
+  "displayName": "wa-agent-starter",
+  "description": "Boilerplate de agentes de IA de WhatsApp: OpenRouter + Redis + frontend pluggable (Cloud API, GHL, Chatwoot, YCloud, web) + deploy en Coolify.",
+  "version": "1.0.0",
+  "author": "diegovasquez-ai",
+  "homepage": "https://github.com/diegovasquez-ai/wa-agent-starter",
+  "skills": []
+}
