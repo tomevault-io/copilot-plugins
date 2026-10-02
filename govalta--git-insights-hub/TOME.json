@@ -1,0 +1,44 @@
+{
+  "name": "GIT-INSIGHTS-HUB",
+  "owner": "GovAlta",
+  "repo": "GIT-INSIGHTS-HUB",
+  "description": "The current Git Insights Hub, integrating deep code scanning and report generation for GitHub Enterprise",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/GovAlta/GIT-INSIGHTS-HUB",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T10:30:23Z"
+}
