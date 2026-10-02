@@ -1,0 +1,9 @@
+{
+  "name": "berkaycari--evren-codex-proxy",
+  "displayName": "evren-codex-proxy",
+  "description": "OpenAI Codex CLI'yi EVREN LLM API ve deepseek-v4.1-flash ile kullanmak i\u00e7in yerel uyumluluk k\u00f6pr\u00fcs\u00fc.",
+  "version": "1.0.0",
+  "author": "berkaycari",
+  "homepage": "https://github.com/berkaycari/evren-codex-proxy",
+  "skills": []
+}
