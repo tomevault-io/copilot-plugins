@@ -1,0 +1,9 @@
+{
+  "name": "taochangle--lingcast",
+  "displayName": "LingCast",
+  "description": "End-to-end AI digital-human live-streaming platform: create avatars (image / Edge-TTS voice / persona) \u2192 LivePortrait base video \u2192 Edge-TTS + Wav2Lip lip-sync \u2192 DeepSeek LLM live replies \u2192 SRS streami",
+  "version": "1.0.0",
+  "author": "taochangle",
+  "homepage": "https://github.com/taochangle/LingCast",
+  "skills": []
+}
