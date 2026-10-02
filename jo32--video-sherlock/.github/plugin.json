@@ -1,0 +1,9 @@
+{
+  "name": "jo32--video-sherlock",
+  "displayName": "video-sherlock",
+  "description": "Evidence-backed video understanding for coding agents.",
+  "version": "1.0.0",
+  "author": "jo32",
+  "homepage": "https://github.com/jo32/video-sherlock",
+  "skills": []
+}
