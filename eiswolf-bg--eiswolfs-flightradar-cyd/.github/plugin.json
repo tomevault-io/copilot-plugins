@@ -1,0 +1,9 @@
+{
+  "name": "eiswolf-bg--eiswolfs-flightradar-cyd",
+  "displayName": "eiswolfs-flightradar-CYD",
+  "description": "Live ADS-B flight radar for the Cheap Yellow Display (CYD / ESP32-2432S028) - radar sweep, aircraft silhouettes, weather effects, web UI, MQTT & more",
+  "version": "1.0.0",
+  "author": "Eiswolf-BG",
+  "homepage": "https://github.com/Eiswolf-BG/eiswolfs-flightradar-CYD",
+  "skills": []
+}
