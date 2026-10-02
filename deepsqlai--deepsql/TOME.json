@@ -4,7 +4,7 @@
   "repo": "deepsql",
   "description": "The database agent for Postgres and MySQL - Point it at PostgreSQL or MySQL and ask questions in plain English \u2014 schema exploration, query generation, slow query analysis, index recommendations, generated dashboards. Self-hosted and air-gapped.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DeepSQLAI/deepsql",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T00:02:14Z"
+  "distributed_at": "2026-10-02T01:00:12Z"
 }
