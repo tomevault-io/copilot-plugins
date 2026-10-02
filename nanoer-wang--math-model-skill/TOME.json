@@ -1,0 +1,44 @@
+{
+  "name": "math-model-skill",
+  "owner": "Nanoer-Wang",
+  "repo": "math-model-skill",
+  "description": "\u4e13\u95e8\u7528\u4e8e\u6570\u5b66\u5efa\u6a21\u7684skill\uff0c\u6587\u732e\uff0c\u6570\u636e\uff0c\u6a21\u578b\uff0c\u6c42\u89e3\uff0c\u7ed8\u56fe\uff0c\u8bba\u6587\uff0c\u6392\u7248\u4e00\u7ad9\u5f0f\u6253\u901a\uff01",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Nanoer-Wang/math-model-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T13:39:24Z"
+}
