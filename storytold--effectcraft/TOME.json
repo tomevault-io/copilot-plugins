@@ -4,7 +4,7 @@
   "repo": "effectcraft",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/storytold/effectcraft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T19:33:08Z"
+  "distributed_at": "2026-10-02T19:36:10Z"
 }
