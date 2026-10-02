@@ -1,0 +1,9 @@
+{
+  "name": "iwe-org--dev-workspace",
+  "displayName": "dev-workspace",
+  "description": "Memory for your coding agent \u2014 markdown project graph template: product, plans, features, bugs, specs, architecture, releases",
+  "version": "1.0.0",
+  "author": "iwe-org",
+  "homepage": "https://github.com/iwe-org/dev-workspace",
+  "skills": []
+}
