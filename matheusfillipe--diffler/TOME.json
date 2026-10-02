@@ -4,7 +4,7 @@
   "repo": "diffler",
   "description": "Terminal code review for AI coding agents. Live diffs, comments the agent answers, PR review, MCP built in.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matheusfillipe/diffler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T10:14:41Z"
+  "distributed_at": "2026-10-02T14:04:32Z"
 }
