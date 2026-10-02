@@ -1,0 +1,9 @@
+{
+  "name": "taegost--homelab-k8s",
+  "displayName": "homelab-k8s",
+  "description": "All of my homelab setup in Kubernetes",
+  "version": "1.0.0",
+  "author": "Taegost",
+  "homepage": "https://github.com/Taegost/homelab-k8s",
+  "skills": []
+}
