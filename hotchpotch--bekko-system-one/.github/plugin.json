@@ -1,0 +1,9 @@
+{
+  "name": "hotchpotch--bekko-system-one",
+  "displayName": "bekko-system-one",
+  "description": "Small System One decision models (17M\u2013400M) for Yes/No, Choice, Score, and reranking. Training toolkit, Python inference, and ONNX support for Node.js and browsers.",
+  "version": "1.0.0",
+  "author": "hotchpotch",
+  "homepage": "https://github.com/hotchpotch/bekko-system-one",
+  "skills": []
+}
