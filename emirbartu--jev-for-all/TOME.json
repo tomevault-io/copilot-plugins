@@ -1,0 +1,44 @@
+{
+  "name": "jev-for-all",
+  "owner": "emirbartu",
+  "repo": "jev-for-all",
+  "description": "Jev for every agentic development workflow \u2014 the System One decision model wired into whatever harness an agent codes in: OpenCode today, Claude Code and Hermes adapters next.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/emirbartu/jev-for-all",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T02:55:36Z"
+}
