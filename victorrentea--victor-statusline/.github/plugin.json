@@ -1,0 +1,9 @@
+{
+  "name": "victorrentea--victor-statusline",
+  "displayName": "victor-statusline",
+  "description": "Rich status lines for Claude Code and GitHub Copilot CLI \u2014 cost, quota, context and prompt-cache health at a glance",
+  "version": "1.0.0",
+  "author": "victorrentea",
+  "homepage": "https://github.com/victorrentea/victor-statusline",
+  "skills": []
+}
