@@ -1,0 +1,9 @@
+{
+  "name": "vasuquantdev--drug-discovery",
+  "displayName": "drug-discovery",
+  "description": "A batteries-included computational chemistry and informatics pipeline for open antiviral drug discovery, developed in collaboration with the ASAP Discovery Consortium.",
+  "version": "1.0.0",
+  "author": "vasuquantdev",
+  "homepage": "https://github.com/vasuquantdev/drug-discovery",
+  "skills": []
+}
