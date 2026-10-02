@@ -1,0 +1,9 @@
+{
+  "name": "phitoduck--lose-it",
+  "displayName": "lose-it",
+  "description": "Unofficial Lose It! Python SDK and CLI (reverse-engineered GWT-RPC API)",
+  "version": "1.0.0",
+  "author": "phitoduck",
+  "homepage": "https://github.com/phitoduck/lose-it",
+  "skills": []
+}
