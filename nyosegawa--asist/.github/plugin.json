@@ -1,0 +1,9 @@
+{
+  "name": "nyosegawa--asist",
+  "displayName": "asist",
+  "description": "A realtime assistant for Mac and Windows. Talk to it and it answers aloud, shows your schedule and mail as cards, and hands longer work to an agent.",
+  "version": "1.0.0",
+  "author": "nyosegawa",
+  "homepage": "https://github.com/nyosegawa/asist",
+  "skills": []
+}
