@@ -1,0 +1,9 @@
+{
+  "name": "jyooi--agent-simple-english",
+  "displayName": "agent-simple-english",
+  "description": "A linter enforcing ASD-STE100 Simplified Technical English for your coding agent (TypeScript + Effect)",
+  "version": "1.0.0",
+  "author": "jyooi",
+  "homepage": "https://github.com/jyooi/agent-simple-english",
+  "skills": []
+}
