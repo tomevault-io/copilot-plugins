@@ -1,0 +1,9 @@
+{
+  "name": "blackcat-informatics--gmeow-ontology",
+  "displayName": "gmeow-ontology",
+  "description": "Ground LLM output as provenance-tracked claims, not truths. A maximal super-ontology + native RDF-1.2 logic: reasoning engine \u2014 OWL, SHACL, SSSOM, EDOAL are generated lossy projections; a corresponden",
+  "version": "1.0.0",
+  "author": "Blackcat-Informatics",
+  "homepage": "https://github.com/Blackcat-Informatics/gmeow-ontology",
+  "skills": []
+}
