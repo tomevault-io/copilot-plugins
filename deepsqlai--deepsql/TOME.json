@@ -1,0 +1,44 @@
+{
+  "name": "deepsql",
+  "owner": "DeepSQLAI",
+  "repo": "deepsql",
+  "description": "The database agent for Postgres and MySQL - Point it at PostgreSQL or MySQL and ask questions in plain English \u2014 schema exploration, query generation, slow query analysis, index recommendations, generated dashboards. Self-hosted and air-gapped.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DeepSQLAI/deepsql",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T00:02:14Z"
+}
