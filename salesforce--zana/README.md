@@ -7,13 +7,13 @@ Run, schedule, and coordinate fleets of coding agents from one desktop app
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [salesforce/zana](https://github.com/salesforce/zana).
+Original source: `AGENTS.md` in [salesforce/zana](https://github.com/salesforce/zana).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
