@@ -1,0 +1,9 @@
+{
+  "name": "tdk-99--snapplai",
+  "displayName": "SnapplAI",
+  "description": "\ud83d\udd0d Stop refreshing LinkedIn. This pipeline scrapes new job listings based on your settings, uses AI agents to summarize each one and score it against your CV, then delivers only the best matches straig",
+  "version": "1.0.0",
+  "author": "TDK-99",
+  "homepage": "https://github.com/TDK-99/SnapplAI",
+  "skills": []
+}
