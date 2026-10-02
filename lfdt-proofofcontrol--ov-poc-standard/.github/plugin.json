@@ -1,0 +1,9 @@
+{
+  "name": "lfdt-proofofcontrol--ov-poc-standard",
+  "displayName": "ov-poc-standard",
+  "description": "The Proof-of-Control Standard (PoC) is a catalogue of verifiable requirements for AI agent systems: independent, tamper-evident evidence of what an agent actually did \u2014 the data it touched, the author",
+  "version": "1.0.0",
+  "author": "LFDT-ProofOfControl",
+  "homepage": "https://github.com/LFDT-ProofOfControl/ov-poc-standard",
+  "skills": []
+}
