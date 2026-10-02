@@ -1,0 +1,9 @@
+{
+  "name": "evergreen-it-dev--folio",
+  "displayName": "folio",
+  "description": "The AI-assisted, open-source alternative to Notion and Confluence: a team wiki that lives in Git, with real-time editing, data tables, whiteboards, offline mode, and first-class AI agents.",
+  "version": "1.0.0",
+  "author": "evergreen-it-dev",
+  "homepage": "https://github.com/evergreen-it-dev/folio",
+  "skills": []
+}
