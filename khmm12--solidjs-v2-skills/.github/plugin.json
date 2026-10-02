@@ -1,0 +1,9 @@
+{
+  "name": "khmm12--solidjs-v2-skills",
+  "displayName": "solidjs-v2-skills",
+  "description": "Agent skills for SolidJS 2.0 \u2014 write, migrate, and review solid-js 2.x code without React/1.x reflexes",
+  "version": "1.0.0",
+  "author": "khmm12",
+  "homepage": "https://github.com/khmm12/solidjs-v2-skills",
+  "skills": []
+}
