@@ -1,0 +1,9 @@
+{
+  "name": "hyparam--hypaware",
+  "displayName": "hypaware",
+  "description": "Records sessions, logs, and telemetry from your AI agents into one queryable history",
+  "version": "1.0.0",
+  "author": "hyparam",
+  "homepage": "https://github.com/hyparam/hypaware",
+  "skills": []
+}
