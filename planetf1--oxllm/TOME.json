@@ -1,0 +1,44 @@
+{
+  "name": "oxllm",
+  "owner": "planetf1",
+  "repo": "oxllm",
+  "description": "\ud83e\udd80 Ultra-minimalist, high-resilience LLM routing gateway in Rust. OpenAI-compatible with auto-retry, backoffs, circuit breakers, SIGHUP hot-reloads, and open telemetry. Ideal for free provider surfing.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/planetf1/oxllm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T08:04:03Z"
+}
