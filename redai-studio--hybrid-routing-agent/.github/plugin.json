@@ -1,0 +1,9 @@
+{
+  "name": "redai-studio--hybrid-routing-agent",
+  "displayName": "hybrid-routing-agent",
+  "description": "Hybrid GUI + MCP computer-use agents with reinforcement learning for tool use and multimodal context compression on OSWorld. Includes training, inference, and evaluation pipelines.",
+  "version": "1.0.0",
+  "author": "redai-studio",
+  "homepage": "https://github.com/redai-studio/hybrid-routing-agent",
+  "skills": []
+}
