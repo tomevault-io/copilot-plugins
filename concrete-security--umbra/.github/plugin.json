@@ -1,0 +1,9 @@
+{
+  "name": "concrete-security--umbra",
+  "displayName": "umbra",
+  "description": "Secure cloud sandboxes for AI coding agents, powered by attested confidential VMs, governed networking, and proxy-injected secrets.",
+  "version": "1.0.0",
+  "author": "concrete-security",
+  "homepage": "https://github.com/concrete-security/umbra",
+  "skills": []
+}
