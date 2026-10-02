@@ -1,0 +1,9 @@
+{
+  "name": "nmor--the-claude-council",
+  "displayName": "the-claude-council",
+  "description": "A principal-level, 16-division multi-agent Council for Claude Code. Drop-in ~/.claude/ config: 15 Floor + 160 Library rules, 121 skills, 32 agents, 33 commands, 14 hook-enforced quality gates. Runs on",
+  "version": "1.0.0",
+  "author": "Nmor",
+  "homepage": "https://github.com/Nmor/the-claude-council",
+  "skills": []
+}
