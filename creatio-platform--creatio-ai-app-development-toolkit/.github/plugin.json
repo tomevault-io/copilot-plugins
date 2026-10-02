@@ -1,0 +1,9 @@
+{
+  "name": "creatio-platform--creatio-ai-app-development-toolkit",
+  "displayName": "creatio-ai-app-development-toolkit",
+  "description": "AI-driven toolkit for generating BA-style Business Plans for Creatio apps from natural-language requests. The Business Plan and Technical Implementation Handoff are the final deliverables. A separate ",
+  "version": "1.0.0",
+  "author": "Creatio-Platform",
+  "homepage": "https://github.com/Creatio-Platform/creatio-ai-app-development-toolkit",
+  "skills": []
+}
