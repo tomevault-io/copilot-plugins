@@ -1,0 +1,9 @@
+{
+  "name": "ingvarch--urga",
+  "displayName": "urga",
+  "description": "Terminal UI for HashiCorp Nomad. One binary, no config to write, no browser.",
+  "version": "1.0.0",
+  "author": "ingvarch",
+  "homepage": "https://github.com/ingvarch/urga",
+  "skills": []
+}
