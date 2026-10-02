@@ -1,0 +1,9 @@
+{
+  "name": "lmtydotcom--skills",
+  "displayName": "skills",
+  "description": "Agent Skills for competitive GTM work - battlecards, win-loss, positioning, pricing, launches, deal prep and sales enablement. Installs into Claude Code, Codex, Copilot CLI, Cursor, Gemini CLI and any",
+  "version": "1.0.0",
+  "author": "LMTYdotcom",
+  "homepage": "https://github.com/LMTYdotcom/skills",
+  "skills": []
+}
