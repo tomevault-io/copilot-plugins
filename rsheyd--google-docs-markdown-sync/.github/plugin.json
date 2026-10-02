@@ -1,0 +1,9 @@
+{
+  "name": "rsheyd--google-docs-markdown-sync",
+  "displayName": "google-docs-markdown-sync",
+  "description": "Two-way synchronization between Google Docs, Google Sheets, Markdown, and CSV workspaces",
+  "version": "1.0.0",
+  "author": "rsheyd",
+  "homepage": "https://github.com/rsheyd/google-docs-markdown-sync",
+  "skills": []
+}
