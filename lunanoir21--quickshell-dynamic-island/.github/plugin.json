@@ -1,0 +1,9 @@
+{
+  "name": "lunanoir21--quickshell-dynamic-island",
+  "displayName": "quickshell-dynamic-island",
+  "description": "A monochrome Dynamic Island for Hyprland, built on Quickshell \u2014 MPRIS media with a cava-driven spectrum, timers and alarms, a pixel-art clock, and live mic/camera privacy indicators.",
+  "version": "1.0.0",
+  "author": "lunanoir21",
+  "homepage": "https://github.com/lunanoir21/quickshell-dynamic-island",
+  "skills": []
+}
