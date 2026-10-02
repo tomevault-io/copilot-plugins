@@ -4,7 +4,7 @@
   "repo": "forecast",
   "description": "Decompilation of the Wii's Forecast Channel (USA/NTSC v7)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GuestDreemurr/forecast",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T10:57:46Z"
+  "distributed_at": "2026-10-02T14:51:23Z"
 }
