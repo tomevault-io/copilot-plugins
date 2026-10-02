@@ -1,0 +1,9 @@
+{
+  "name": "nexus-879--ai-journal-companion",
+  "displayName": "AI-Journal-Companion",
+  "description": "AI Journal Companion OOP 3 assessment project using Kotlin, Jetpack Compose, Python FastAPI, and local Ollama.",
+  "version": "1.0.0",
+  "author": "NeXuS-879",
+  "homepage": "https://github.com/NeXuS-879/AI-Journal-Companion",
+  "skills": []
+}
