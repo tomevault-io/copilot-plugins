@@ -1,0 +1,9 @@
+{
+  "name": "ruinelson--rarftp",
+  "displayName": "rarftp",
+  "description": "Upload the contents of a RAR archive to an FTP server without extracting it to disk",
+  "version": "1.0.0",
+  "author": "RuiNelson",
+  "homepage": "https://github.com/RuiNelson/rarftp",
+  "skills": []
+}
