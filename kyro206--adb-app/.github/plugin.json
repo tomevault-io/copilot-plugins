@@ -1,0 +1,9 @@
+{
+  "name": "kyro206--adb-app",
+  "displayName": "ADB-App",
+  "description": "Visual manager for the Android Debug Bridge (ADB).",
+  "version": "1.0.0",
+  "author": "kyro206",
+  "homepage": "https://github.com/kyro206/ADB-App",
+  "skills": []
+}
