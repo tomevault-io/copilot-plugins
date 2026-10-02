@@ -1,0 +1,9 @@
+{
+  "name": "otnc--package-license-viewer",
+  "displayName": "package-license-viewer",
+  "description": "Shows the license of every dependency inline, dimmed at the end of the line.",
+  "version": "1.0.0",
+  "author": "otnc",
+  "homepage": "https://github.com/otnc/package-license-viewer",
+  "skills": []
+}
