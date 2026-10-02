@@ -1,0 +1,9 @@
+{
+  "name": "jagnat--lindale",
+  "displayName": "lindale",
+  "description": "Lindal\u00eb - VST3 audio plugin framework in Odin",
+  "version": "1.0.0",
+  "author": "jagnat",
+  "homepage": "https://github.com/jagnat/lindale",
+  "skills": []
+}
