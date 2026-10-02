@@ -1,33 +1,34 @@
-## tenant-isolation
+## testing
 
-> Multi-tenant isolation, auth, and secrets — critical invariants
+> Testing and verification expectations for yuviz changes
 
 
-# Tenant isolation & security
+# Testing
 
-yuviz is multi-tenant. Isolation is a hard invariant.
+## When to add tests
 
-## Identity
+- Bug fix → add/adjust a regression test when practical.
+- New business logic → add tests in the nearest existing `tests/` package.
+- Isolation-sensitive behavior → cover **allowed** access and **cross-tenant reject**.
 
-- Never trust tenant_id, user id, email, or role from the client body/query/headers.
-- Use `CurrentUser` from verified JWT (`services/config/deps.get_current_user`).
-- `superadmin` may be unscoped (`tenant_id` null); `admin`/`viewer` are tenant-scoped.
-- Writes that mutate config require `require_role("superadmin", "admin")` (viewer is read-only).
+Follow existing pytest layout: `services/<svc>/tests/test_*.py`, `libs/*/tests/`. Gateway: GoogleTest under `tests/`, run via `ctest`.
 
-## Data access
+## How to run
 
-- Scope owned-data queries by tenant (UUID `tenant_id` on most tables; `calls.tenant_id` is a slug — follow existing call code).
-- Reject cross-tenant FK assignment (e.g. agent pointing at another tenant's provider) — see existing checks in `agents.py` / provider routers and `test_*cross_tenant*`.
-- Soft-delete with `deleted_at`; don't hard-delete unless the surrounding code already does.
-- Enforce authorization server-side in routers/services; UI checks are not enough.
+```bash
+pytest                                 # or a focused path
+pytest services/config/tests/test_api.py -k cross_tenant
+ctest --test-dir build --output-on-failure   # C++ after cmake build
+cd admin-ui && npm run lint                  # UI
+```
 
-## Secrets
+Config Service tests share a session-scoped asyncio loop (see `pyproject.toml`) — don't "fix" that without understanding why.
 
-- Never log, commit, or return decrypted API keys, JWT secrets, passwords, or `SECRET_ENCRYPTION_KEY`.
-- Store credentials as `enc:` / `k8s:` / `env:` refs via `libs/config_sdk/secrets.py` — never plaintext in Postgres.
-- Do not commit `deployment/.env` or invent hardcoded fallbacks for real secrets.
+## Before claiming done
 
-When a change touches owned data, auth, roles, or permissions: explicitly consider cross-tenant impact and prefer a regression test for both allowed and rejected access.
+Run the checks that matter for the change. Never claim pass unless executed.
+
+No repo-wide mypy/ruff is configured — don't invent a gate. Prefer pytest for Python behavior.
 
 ---
 > Source: [yuviz-ai/yuviz](https://github.com/yuviz-ai/yuviz) — distributed by [TomeVault](https://tomevault.io).
