@@ -1,0 +1,9 @@
+{
+  "name": "runzhi--codebuddy-statusline",
+  "displayName": "codebuddy-statusline",
+  "description": "CodeBuddy Code statusline plugin - display git branch, model, cost in your terminal",
+  "version": "1.0.0",
+  "author": "runzhi",
+  "homepage": "https://github.com/runzhi/codebuddy-statusline",
+  "skills": []
+}
