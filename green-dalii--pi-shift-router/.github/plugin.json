@@ -1,0 +1,9 @@
+{
+  "name": "green-dalii--pi-shift-router",
+  "displayName": "pi-shift-router",
+  "description": "Per-turn model routing for the Pi coding agent: a small judge picks the cheap or the strong tier for each message, with multi-model failover, task-level orchestration, and an optional decision-model j",
+  "version": "1.0.0",
+  "author": "green-dalii",
+  "homepage": "https://github.com/green-dalii/pi-shift-router",
+  "skills": []
+}
