@@ -1,0 +1,44 @@
+{
+  "name": "100x-skill-tiktok",
+  "owner": "kezd088",
+  "repo": "100x-skill-tiktok",
+  "description": "\u2726 TikTok / UGC \u5185\u5bb9\u521b\u4f5c\u6280\u80fd",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kezd088/100x-skill-tiktok",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T02:15:15Z"
+}
