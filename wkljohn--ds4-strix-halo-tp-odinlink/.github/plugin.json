@@ -1,0 +1,9 @@
+{
+  "name": "wkljohn--ds4-strix-halo-tp-odinlink",
+  "displayName": "ds4-strix-halo-tp-odinlink",
+  "description": "Tensor-parallel DeepSeek V4 Flash inference on dual AMD Strix Halo over OdinLink USB4/TB5 RDMA or Mellanox RoCE v2.",
+  "version": "1.0.0",
+  "author": "wkljohn",
+  "homepage": "https://github.com/wkljohn/ds4-strix-halo-tp-odinlink",
+  "skills": []
+}
