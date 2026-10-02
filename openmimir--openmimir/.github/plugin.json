@@ -1,0 +1,9 @@
+{
+  "name": "openmimir--openmimir",
+  "displayName": "openmimir",
+  "description": "Talk to all your coding agents. One hands-free, full-duplex voice conversation over Claude Code, Codex and OpenCode. Runs on your Mac.",
+  "version": "1.0.0",
+  "author": "openmimir",
+  "homepage": "https://github.com/openmimir/openmimir",
+  "skills": []
+}
