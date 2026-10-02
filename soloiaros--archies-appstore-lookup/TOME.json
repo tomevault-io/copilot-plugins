@@ -4,7 +4,7 @@
   "repo": "archies-appstore-lookup",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/soloiaros/archies-appstore-lookup",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T16:06:18Z"
+  "distributed_at": "2026-10-02T06:48:28Z"
 }
