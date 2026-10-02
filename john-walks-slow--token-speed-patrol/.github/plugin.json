@@ -1,0 +1,9 @@
+{
+  "name": "john-walks-slow--token-speed-patrol",
+  "displayName": "token-speed-patrol",
+  "description": "LLM API \u5b9a\u65f6\u6d4b\u901f\u5de1\u68c0 + \u9759\u6001\u770b\u677f\uff08GitHub Actions \u514d\u670d\u52a1\u5668\uff09",
+  "version": "1.0.0",
+  "author": "john-walks-slow",
+  "homepage": "https://github.com/john-walks-slow/token-speed-patrol",
+  "skills": []
+}
