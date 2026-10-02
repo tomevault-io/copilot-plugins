@@ -7,11 +7,11 @@ Lightweight structural index for coding agents: imports, hotspots, traces
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [polyfoil/ProArch](https://github.com/polyfoil/ProArch).
+Original source: `AGENTS.md` in [polyfoil/ProArch](https://github.com/polyfoil/ProArch).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
