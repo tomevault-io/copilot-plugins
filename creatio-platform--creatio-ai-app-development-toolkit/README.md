@@ -7,11 +7,11 @@ AI-driven toolkit for generating BA-style Business Plans for Creatio apps from n
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Creatio-Platform/creatio-ai-app-development-toolkit](https://github.com/Creatio-Platform/creatio-ai-app-development-toolkit).
+Original source: `AGENTS.md` in [Creatio-Platform/creatio-ai-app-development-toolkit](https://github.com/Creatio-Platform/creatio-ai-app-development-toolkit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
