@@ -1,0 +1,9 @@
+{
+  "name": "nebu1eto--choco-pi",
+  "displayName": "choco-pi",
+  "description": "opinionated, project-aware configuration for the Pi coding agent",
+  "version": "1.0.0",
+  "author": "Nebu1eto",
+  "homepage": "https://github.com/Nebu1eto/choco-pi",
+  "skills": []
+}
