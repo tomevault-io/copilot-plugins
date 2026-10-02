@@ -1,17 +1,25 @@
-## git-attribution
+## sdlc
 
-> No AI co-author trailers in commits or PR descriptions
+> Staged SDLC feature pipeline (PRD → design → security → plan → build → review → test → ship → QA)
 
 
-# Git attribution
+# SDLC pipeline
 
-Do not add a `Co-Authored-By:` trailer naming an AI tool (Cursor, Claude,
-Copilot, Codex, ChatGPT, etc.) to any commit message. Do not add a
-"Generated with <tool>" footer to any commit message or PR description.
+For multi-stage feature work, use the skills under `.cursor/skills/` (`/sdlc-new`, `/sdlc-design`, …).
+Do not collapse the pipeline into one free-form chat when the user asks for a stage.
 
-This repo's CI (`no-ai-coauthor` check, required on `main` and `redesign`)
-rejects any PR containing such a trailer — write commits as if authored
-by the human running this session.
+## Invariants
+
+- Artifacts live in `.sdlc/<slug>/`; current slug in `.sdlc/current`.
+- Orchestrators spawn `.cursor/agents/` specialists via Task; critics always start **fresh**.
+- Author fix rounds use Task `resume` with the prior agent ID (warm context).
+- Cap fix loops: 2 rounds normally, 3 for security. Report leftovers; do not grind.
+- Every specialist reads `.sdlc/lessons.md` first.
+- Do not paste PRD/design/review bodies into chat — point at the file.
+- Between stages, wait for the user unless they chained the next skill.
+
+Ad-hoc small fixes still use the normal UNDERSTAND → IMPLEMENT → VERIFY path in `core.mdc`.
+`/sdlc-ship` is the explicit exception to “never commit/push” — only when that skill is invoked.
 
 ---
 > Source: [yuviz-ai/yuviz](https://github.com/yuviz-ai/yuviz) — distributed by [TomeVault](https://tomevault.io).
