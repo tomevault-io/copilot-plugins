@@ -1,0 +1,9 @@
+{
+  "name": "liangfb--saastoagent",
+  "displayName": "saastoagent",
+  "description": " Transform SaaS REST APIs into AI Agent. Get a semantically-enhanced, governed MCP Servers + Agent Playground for natural-language interaction.",
+  "version": "1.0.0",
+  "author": "liangfb",
+  "homepage": "https://github.com/liangfb/saastoagent",
+  "skills": []
+}
