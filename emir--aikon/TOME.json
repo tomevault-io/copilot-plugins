@@ -1,10 +1,10 @@
 {
-  "name": "aikon",
+  "name": "AIKON",
   "owner": "emir",
-  "repo": "aikon",
+  "repo": "AIKON",
   "description": "A 2007 Nokia can't search Google anymore, so I gave it Claude, ChatGPT, Gemini and Grok. J2ME app for Nokia S40/S60 + tiny Go server.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/emir/aikon",
+  "source_url": "https://github.com/emir/AIKON",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T12:28:28Z"
+  "distributed_at": "2026-10-02T13:33:29Z"
 }
