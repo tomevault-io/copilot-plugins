@@ -1,0 +1,9 @@
+{
+  "name": "townsendmerino--goinfer",
+  "displayName": "goinfer",
+  "description": "Pure-Go, no-cgo local LLM inference \u2014 run Gemma, Qwen, Llama and friends from safetensors or GGUF in a single static binary.",
+  "version": "1.0.0",
+  "author": "townsendmerino",
+  "homepage": "https://github.com/townsendmerino/goinfer",
+  "skills": []
+}
