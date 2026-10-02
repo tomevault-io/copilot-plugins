@@ -1,0 +1,9 @@
+{
+  "name": "hseeberger--tellus",
+  "displayName": "tellus",
+  "description": "A resilient world of actors for Rust: typed messages, supervision trees, death watch.",
+  "version": "1.0.0",
+  "author": "hseeberger",
+  "homepage": "https://github.com/hseeberger/tellus",
+  "skills": []
+}
