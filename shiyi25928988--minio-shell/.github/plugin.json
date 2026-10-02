@@ -1,0 +1,9 @@
+{
+  "name": "shiyi25928988--minio-shell",
+  "displayName": "minio-shell",
+  "description": " \u258e MinIO Shell is a lightweight gateway that adds multi-user authentication, per-user file isolation, web file management, sharing, and S3-client access on top of MinIO \u2014deploy as a single jar or dock",
+  "version": "1.0.0",
+  "author": "shiyi25928988",
+  "homepage": "https://github.com/shiyi25928988/minio-shell",
+  "skills": []
+}
