@@ -4,7 +4,7 @@
   "repo": "cnpg-headlamp-plugin",
   "description": "Headlamp plugin for CNPG",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TamaraNocentini/cnpg-headlamp-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T22:37:23Z"
+  "distributed_at": "2026-10-02T00:38:42Z"
 }
