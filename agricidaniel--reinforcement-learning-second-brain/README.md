@@ -7,11 +7,11 @@ Your RL second brain: 34 source-cited topics from Q-learning to GRPO and agentic
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AgriciDaniel/reinforcement-learning-second-brain](https://github.com/AgriciDaniel/reinforcement-learning-second-brain).
+Original source: `AGENTS.md` in [AgriciDaniel/reinforcement-learning-second-brain](https://github.com/AgriciDaniel/reinforcement-learning-second-brain).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
