@@ -1,0 +1,9 @@
+{
+  "name": "mikenomitch--rustyriver",
+  "displayName": "rustyriver",
+  "description": "A rust library inspired by (slopforked from*) litestream",
+  "version": "1.0.0",
+  "author": "mikenomitch",
+  "homepage": "https://github.com/mikenomitch/rustyriver",
+  "skills": []
+}
