@@ -1,0 +1,9 @@
+{
+  "name": "adobe--second-o-pi-nion",
+  "displayName": "second-o-pi-nion",
+  "description": "A pi-coding-agent extension that lets the LLM ask a different LLM for a second opinion when it gets stuck.",
+  "version": "1.0.0",
+  "author": "adobe",
+  "homepage": "https://github.com/adobe/second-o-pi-nion",
+  "skills": []
+}
