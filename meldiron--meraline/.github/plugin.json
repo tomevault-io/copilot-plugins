@@ -1,0 +1,9 @@
+{
+  "name": "meldiron--meraline",
+  "displayName": "meraline",
+  "description": "Ask AI anything from \u2325 Space in any Mac app, then let it go. Apple Intelligence, API keys, Ollama, Claude Code, Codex. Chats stay in memory only.",
+  "version": "1.0.0",
+  "author": "Meldiron",
+  "homepage": "https://github.com/Meldiron/meraline",
+  "skills": []
+}
