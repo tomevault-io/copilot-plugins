@@ -1,0 +1,9 @@
+{
+  "name": "openvetta--vetta-official-marketplace",
+  "displayName": "vetta-official-marketplace",
+  "description": "Official ability marketplace for the Vetta desktop application",
+  "version": "1.0.0",
+  "author": "openvetta",
+  "homepage": "https://github.com/openvetta/vetta-official-marketplace",
+  "skills": []
+}
