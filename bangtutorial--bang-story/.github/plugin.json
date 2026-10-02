@@ -1,0 +1,9 @@
+{
+  "name": "bangtutorial--bang-story",
+  "displayName": "bang-story",
+  "description": "Aplikasi desktop untuk mengubah ide cerita jadi video YouTube dengan AI. Masukin ide cerita: naskha, gambar, video jadi otomatis.",
+  "version": "1.0.0",
+  "author": "bangtutorial",
+  "homepage": "https://github.com/bangtutorial/bang-story",
+  "skills": []
+}
