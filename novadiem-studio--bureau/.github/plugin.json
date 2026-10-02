@@ -1,0 +1,9 @@
+{
+  "name": "novadiem-studio--bureau",
+  "displayName": "bureau",
+  "description": "Multi-agent engineering with cold review, artifact validation and resumable run state.",
+  "version": "1.0.0",
+  "author": "Novadiem-Studio",
+  "homepage": "https://github.com/Novadiem-Studio/bureau",
+  "skills": []
+}
