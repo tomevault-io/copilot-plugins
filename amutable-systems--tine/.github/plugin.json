@@ -1,0 +1,9 @@
+{
+  "name": "amutable-systems--tine",
+  "displayName": "tine",
+  "description": "Build packages, go/Rust projects, and OS images with Buck2",
+  "version": "1.0.0",
+  "author": "amutable-systems",
+  "homepage": "https://github.com/amutable-systems/tine",
+  "skills": []
+}
