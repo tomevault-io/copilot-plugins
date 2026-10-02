@@ -1,0 +1,9 @@
+{
+  "name": "zirekhq--dengjen-tts",
+  "displayName": "dengjen-tts",
+  "description": "A cross-platform inference engine for neural TTS models.",
+  "version": "1.0.0",
+  "author": "ZirekHQ",
+  "homepage": "https://github.com/ZirekHQ/dengjen-tts",
+  "skills": []
+}
