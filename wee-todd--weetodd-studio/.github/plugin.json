@@ -1,0 +1,9 @@
+{
+  "name": "wee-todd--weetodd-studio",
+  "displayName": "WeeTodd-Studio",
+  "description": "Standalone AI video and image studio for Apple Silicon, with Draw Things integration, native MLX features, and maintained ComfyUI nodes.",
+  "version": "1.0.0",
+  "author": "wee-todd",
+  "homepage": "https://github.com/wee-todd/WeeTodd-Studio",
+  "skills": []
+}
