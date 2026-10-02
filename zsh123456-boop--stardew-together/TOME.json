@@ -1,0 +1,44 @@
+{
+  "name": "stardew-together",
+  "owner": "Zsh123456-BOOP",
+  "repo": "stardew-together",
+  "description": "\u540c\u884c \u00b7 Together \u2014 \u9762\u5411\u81ea\u4e3b\u7ecf\u8425\u3001\u4efb\u52a1\u4e0e\u5168\u6210\u5c31\u63a8\u8fdb\u7684 Stardew Valley AI Agent\u3002\u539f\u751f\u5de5\u5177\u3001\u6301\u7eed\u8ba1\u5212\u3001\u6e38\u620f\u8bb0\u5fc6\u4e0e\u73a9\u5bb6\u8f85\u52a9\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Zsh123456-BOOP/stardew-together",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T00:52:03Z"
+}
