@@ -1,0 +1,9 @@
+{
+  "name": "austinv11--frameport",
+  "displayName": "frameport",
+  "description": "Port Meta Quest standalone games to the Valve Steam Frame: suggested patches, automated validation, one-click install (Python + Flet GUI/CLI)",
+  "version": "1.0.0",
+  "author": "austinv11",
+  "homepage": "https://github.com/austinv11/frameport",
+  "skills": []
+}
