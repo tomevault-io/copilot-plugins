@@ -1,0 +1,9 @@
+{
+  "name": "darksidewalker--dasiwa-trainflow",
+  "displayName": "DaSiWa-TrainFlow",
+  "description": "Portable Go wrapper around the sd-scripts and Musubi Python training stacks \u2014 train LoRAs and Textual Inversions for Anima, SDXL/Pony/Illustrious, LTX 2.3/Wan 2.2 video, and Krea 2 image models from a",
+  "version": "1.0.0",
+  "author": "darksidewalker",
+  "homepage": "https://github.com/darksidewalker/DaSiWa-TrainFlow",
+  "skills": []
+}
