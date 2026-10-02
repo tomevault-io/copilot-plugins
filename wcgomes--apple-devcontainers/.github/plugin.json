@@ -1,0 +1,9 @@
+{
+  "name": "wcgomes--apple-devcontainers",
+  "displayName": "apple-devcontainers",
+  "description": "Native Swift CLI that reads devcontainer.json and runs dev containers on Apple container.",
+  "version": "1.0.0",
+  "author": "wcgomes",
+  "homepage": "https://github.com/wcgomes/apple-devcontainers",
+  "skills": []
+}
