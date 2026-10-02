@@ -7,11 +7,11 @@ a private ai assistant for iOS. Chat with LLMs with no tracking or censorship. L
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [stevederico/silo](https://github.com/stevederico/silo).
+Original source: `AGENTS.md` in [stevederico/silo](https://github.com/stevederico/silo).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
