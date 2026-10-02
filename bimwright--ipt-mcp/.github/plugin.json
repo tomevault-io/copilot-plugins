@@ -1,0 +1,9 @@
+{
+  "name": "bimwright--ipt-mcp",
+  "displayName": "ipt-mcp",
+  "description": "MCP gateway for Autodesk Inventor 2022-2027 (parts, sketches, features, parameters, iProperties, export)",
+  "version": "1.0.0",
+  "author": "bimwright",
+  "homepage": "https://github.com/bimwright/ipt-mcp",
+  "skills": []
+}
