@@ -1,0 +1,9 @@
+{
+  "name": "clowbrow--bomb-box-state",
+  "displayName": "bomb-box-state",
+  "description": "rules/turn engine for a game",
+  "version": "1.0.0",
+  "author": "CLowbrow",
+  "homepage": "https://github.com/CLowbrow/bomb-box-state",
+  "skills": []
+}
