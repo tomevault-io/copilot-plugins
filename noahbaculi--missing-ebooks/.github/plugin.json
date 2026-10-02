@@ -1,0 +1,9 @@
+{
+  "name": "noahbaculi--missing-ebooks",
+  "displayName": "missing-ebooks",
+  "description": "Lightweight web server to show audiobook folders that are missing ebooks",
+  "version": "1.0.0",
+  "author": "noahbaculi",
+  "homepage": "https://github.com/noahbaculi/missing-ebooks",
+  "skills": []
+}
