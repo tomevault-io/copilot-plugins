@@ -1,0 +1,9 @@
+{
+  "name": "abnersantosss--curupira",
+  "displayName": "curupira",
+  "description": "Baixe v\u00eddeos e m\u00fasicas sem assinatura \u2014 interface web para o yt-dlp, com fila em tempo real, lote, MP4 at\u00e9 4K e MP3. Next.js 16 \u00b7 Docker.",
+  "version": "1.0.0",
+  "author": "AbnerSantosss",
+  "homepage": "https://github.com/AbnerSantosss/curupira",
+  "skills": []
+}
