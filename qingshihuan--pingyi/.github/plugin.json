@@ -1,0 +1,9 @@
+{
+  "name": "qingshihuan--pingyi",
+  "displayName": "pingyi",
+  "description": "Privacy-first offline screenshot OCR and translation for Windows and Ubuntu. English/Chinese UI, PaddleOCR, Google Cloud, llama.cpp and Ollama.",
+  "version": "1.0.0",
+  "author": "qingshihuan",
+  "homepage": "https://github.com/qingshihuan/pingyi",
+  "skills": []
+}
