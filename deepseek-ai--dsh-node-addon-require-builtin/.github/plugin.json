@@ -1,0 +1,9 @@
+{
+  "name": "deepseek-ai--dsh-node-addon-require-builtin",
+  "displayName": "dsh-node-addon-require-builtin",
+  "description": "An internal component used by DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "deepseek-ai",
+  "homepage": "https://github.com/deepseek-ai/dsh-node-addon-require-builtin",
+  "skills": []
+}
