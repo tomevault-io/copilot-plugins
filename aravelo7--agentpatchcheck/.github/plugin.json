@@ -1,0 +1,9 @@
+{
+  "name": "aravelo7--agentpatchcheck",
+  "displayName": "AgentPatchCheck",
+  "description": "Coding Agent Runtime & Evaluation Harness for controlled repository-level software repair",
+  "version": "1.0.0",
+  "author": "aravelo7",
+  "homepage": "https://github.com/aravelo7/AgentPatchCheck",
+  "skills": []
+}
