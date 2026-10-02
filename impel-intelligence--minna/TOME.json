@@ -4,7 +4,7 @@
   "repo": "Minna",
   "description": "A local-first search index and assistant for your Mac.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/impel-intelligence/Minna",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T10:00:39Z"
+  "distributed_at": "2026-10-02T13:59:12Z"
 }
