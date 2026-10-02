@@ -1,48 +1,42 @@
-## fusebase-flow-security
+## fusebase-flow-specs
 
-> Fusebase Flow security/permissions rules. Use when changes touch auth, secrets, env files, deploy config, external messages, or production data.
+> Fusebase Flow specification phase rules. Use when drafting docs/specs/*, docs/decisions/*, docs/tmp/handoff/*, docs/backlog/*.
 
 
-# Fusebase Flow — security & permissions rules
+# Fusebase Flow — Mode B (full) for spec-side artifacts
 
-## Hard prohibitions
+Files in this glob are read by AI sessions, not human readers. Optimize for AI context efficiency.
 
-- Never print secret values (FR-12). Redact in any output.
-- Never `git add` `.env`, credentials, private keys (FR-06).
-- Never write a customer-visible external message without `external_customer_visible_message` approval artifact (FR-12).
-- Never use a session key / cookie without `session_key_or_cookie_use` approval artifact (FR-12).
-- Never modify auth/permission code without `auth_or_permission_change` approval artifact (FR-12).
+## Mode B principles (full)
 
-## Approval artifacts
+1. Front-load the answer — first sentence/cell IS the answer; reasoning second.
+2. Tables over prose for structured data (3+ comparable rows → table).
+3. Bullets over paragraphs for enumerables (3+ items → bullets).
+4. Concrete over abstract — `T17`, `sha:abc1234`, `repository.ts:42-58` — never "the earlier change".
+5. Predictable section names — use `templates/` headers verbatim.
+6. No narrative storytelling — "Decision: X. Reason: Y. Alternatives: Z (rejected: A)." not "I considered X then thought about Y..."
+7. Cross-references precise — `spec.md:42-58` not "see above".
+8. No restatement of context already in adjacent loaded files.
+9. Status fields tag-style — `Status: DONE`, `Lock status: LOCKED`.
+10. No hedging unless filing as a clarify item.
+11. Consistent vocabulary — use FLOW_RULES.md / AGENTS.md project-specific terms verbatim.
+12. No human-onboarding preamble — open with payload.
 
-If an action requires approval per `policies/approval-policy.yml`, an approval artifact must exist on disk. **The agent authors it on the operator's approval — never the operator by hand at a terminal.** For a Full-lane deploy, on the DP.6 phrase `approve deploy now` (forgiving — any case/spacing; legacy `APPROVE-DEPLOY-NOW` also passes) — the operator types only the phrase, never a composed sentence (Lightweight lane: a plain chat go-ahead, recorded via `approve-local.sh lightweight_deploy` — DP.12); for any other approval-gated action (protected-path edit, FR-25 baseline adoption, database migration, auth/permission change), once the operator OKs that specific action in chat. Authoring with NO operator authorization is self-approval and forbidden:
+## Substrates
 
-```
-state/approvals/<action>-<slug>-<YYYYMMDD>.json
-```
+- `docs/specs/<slug>/spec.md` ← `templates/spec.md`
+- `docs/specs/<slug>/decisions.md` ← `templates/decisions.md`
+- `docs/specs/<slug>/tasks.md` ← `templates/tasks.md`
+- `docs/specs/<slug>/verification-gate.md` ← `templates/verification-gate.md`
+- `docs/tmp/handoff/<YYYY-MM-DD>-<slug>-<stage>.md` ← workflow templates in `workflows/`
+- `docs/problem-catalog/<slug>/problem.md` ← `templates/problem-catalog-entry.md`
 
-The agent runs this on that approval — the operator types no command: `bash hooks/local/approve-local.sh <action> <slug> "<reason>"`.
+## Anti-patterns
 
-Hooks check for an unexpired artifact before allowing the action.
-
-## Secret-pattern scanning
-
-`policies/secret-patterns.yml` defines patterns that hooks block. If the operator pastes a secret-shaped string in chat, the `user_prompt_submit` hook surfaces a warning. If a write would persist a secret to disk, the `pre_tool_use` hook blocks.
-
-## Categories that trigger this rule
-
-- Auth middleware, permission checks, role/scope code, login/logout flows
-- `.env`, secrets handling, credential storage, encryption code
-- Outbound external messages (email, SMS, webhooks, public posts)
-- Data export, bulk import, customer data movement
-- Production DB writes outside the established repository pattern
-- Deploy config, CI/CD pipeline, infra-as-code
-
-## What this rule does NOT do
-
-- General code review (use the `code-review` skill)
-- Style/formatting concerns
-- Performance (out of v0.1 scope)
+- ASCII visuals in spec.md/decisions.md/tasks.md (visuals belong in chat per FR-08)
+- Restating constitution / spec content inside decisions.md
+- Free-form decision write-ups instead of letter-prefixed matrix
+- Long preambles ("This document captures...")
 
 ---
 > Source: [fusebase-dev/fusebase-flow](https://github.com/fusebase-dev/fusebase-flow) — distributed by [TomeVault](https://tomevault.io).
