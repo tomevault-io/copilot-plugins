@@ -1,0 +1,9 @@
+{
+  "name": "msk-labs--grok-build-gui",
+  "displayName": "grok-build-gui",
+  "description": "A desktop control plane for Grok Build, speaking ACP to a local grok agent.",
+  "version": "1.0.0",
+  "author": "msk-labs",
+  "homepage": "https://github.com/msk-labs/grok-build-gui",
+  "skills": []
+}
