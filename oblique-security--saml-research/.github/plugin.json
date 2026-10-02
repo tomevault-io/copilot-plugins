@@ -1,0 +1,9 @@
+{
+  "name": "oblique-security--saml-research",
+  "displayName": "saml-research",
+  "description": "SAML hacking pipeline for Claude Code",
+  "version": "1.0.0",
+  "author": "oblique-security",
+  "homepage": "https://github.com/oblique-security/saml-research",
+  "skills": []
+}
