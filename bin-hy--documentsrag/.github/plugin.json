@@ -1,0 +1,9 @@
+{
+  "name": "bin-hy--documentsrag",
+  "displayName": "documentsRag",
+  "description": "\u57fa\u4e8eRag\uff0c\u65e0\u6846\u67b6\u6784\u5efa\u4e00\u4e2a\u6587\u6863\u77e5\u8bc6\u5e93\uff0c\u652f\u6301LLM\u5bf9\u8bdd\uff0c\u6587\u6863\u5185\u5bb9\u68c0\u7d22, oidc\u767b\u5f55\uff0cmcp\u670d\u52a1\u3002",
+  "version": "1.0.0",
+  "author": "Bin-hy",
+  "homepage": "https://github.com/Bin-hy/documentsRag",
+  "skills": []
+}
