@@ -1,0 +1,92 @@
+## rarftp
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+`rarftp` streams the contents of a RAR, ZIP, 7z or tar archive to an FTP server without extracting to disk (C++17, CMake). See `README.md` for options and behaviour. `rarftp-gui` is a desktop front-end for the same engine (Tauri 2 + vanilla HTML/CSS/JS in `gui/`) that talks to it through the `rarftpcore` shared library.
+
+## Build and test
+
+UnRAR sources are **not in the repo** (license) and must exist in `unrarsrc/` (gitignored) or CMake fails at configure time; the exact `curl` + `tar` commands are in `README.md`.
+
+```bash
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release   # add -DRARFTP_BUNDLED_CURL=ON to build FTP-only libcurl from source (what CI does)
+                                                           # add -DRARFTP_BUILD_LIBRARY=ON for the shared library the GUI links
+cmake --build build                                        # produces build/rarftp (and build/librarftpcore.{dylib,so} / rarftpcore.dll)
+ctest --test-dir build --output-on-failure                 # unit tests (doctest); with the library also the C API smoke test (tests/test_capi.cpp)
+build/tests/rarftp_tests -tc="*pipe*"                      # single unit test case, doctest filter
+python3 tests/integration/run.py --rarftp build/rarftp --rar /path/to/rar [--7z /path/to/7zz] [-k NAME] [--big] [--lib build/librarftpcore.dylib]   # e2e
+cd gui && cargo tauri build                                # GUI bundle (macOS: gui/src-tauri/target/release/bundle/macos/rarftp-gui.app); `cargo tauri dev` runs it
+cargo test --manifest-path gui/src-tauri/Cargo.toml        # Rust tests (memory file, FFI wrapper)
+```
+
+- Integration tests need Docker (vsftpd via `delfer/alpine-ftp-server`), RARLAB's `rar`, and Python 3.9+ stdlib only (ZIP fixtures come from `zipfile`; the Zstandard one needs 3.14+). 7-Zip (`7zz`, for 7z, AES/split/Deflate64 ZIP) and Info-ZIP `zip` are optional: tests whose archive could not be made are skipped (`env.require`). `-k` filters tests by name substring. Active-mode tests only work on Linux. `--lib` adds the `lib_*` tests (`-k lib_`), which drive the C API with `ctypes` and check the JSON contract at every poll; they are skipped without it.
+- The GUI build needs Rust, `cargo install tauri-cli --version "^2" --locked` and the library already built: `gui/src-tauri/build.rs` looks for it in `build/` (or `RARFTP_LIB_DIR`) and fails with the CMake command otherwise. The bundle configs (`tauri.macos.conf.json`, `tauri.linux.conf.json`; Windows has none, it is built with `--no-bundle`) hard-code `../../build/...` (the macOS one is read even without bundling); with another `RARFTP_LIB_DIR` override them with `cargo tauri build --config '<json>'` (the CLI exports it to the build script as `TAURI_CONFIG`; setting `TAURI_CONFIG` by hand reaches only the build script, not the bundler).
+- Formatting: `.clang-format` (Google style, 115 columns, left pointer alignment). Warnings are strict (`-Wall -Wextra -Wpedantic -Wshadow -Wconversion`; `/W4` on MSVC).
+- Dependencies (fmt, CLI11, FTXUI, doctest, optionally curl) are fetched by `FetchContent` with pinned URL + SHA-256 in `cmake/Dependencies.cmake`; bump the hash together with the version. UnRAR is built from `unrarsrc/` by `cmake/UnRAR.cmake` as a static library using the DLL API (`RAR_TEST` mode). libarchive and its dependencies (zlib with prefixed symbols, bzip2 via our `cmake/bzip2/CMakeLists.txt`, xz, zstd, lz4, mbed TLS on Linux only) are `ExternalProject`s in `cmake/LibArchive.cmake` (libarchive's configure links test programs against them, so FetchContent cannot work), always Release, installed into `build/archive-deps`, toolchain settings forwarded through `build/archive-deps-cache.cmake`; the imported target is `rarftp::libarchive`, whose system libs (iconv on macOS, bcrypt on Windows) are listed by hand. Rust crates are pinned by `gui/src-tauri/Cargo.lock`; new ones must be added to `THIRD_PARTY_NOTICES.md`.
+
+## Architecture
+
+`rarftp_core` (static library) is the engine only: archive reading, plan, FTP, transfer pipeline, progress/log, JSON and text helpers. It has no CLI11/FTXUI. It is linked into the `rarftp` executable (`src/main.cpp`, `options.cpp`, `ui_plain.cpp`, `ui_tui.cpp`: the only code using CLI11 and FTXUI), into `tests/`, and into the `rarftpcore` shared library (only with `RARFTP_BUILD_LIBRARY`).
+
+Pipeline (`src/transfer.cpp`), two threads joined by a bounded `Pipe` (`src/pipe.hpp`):
+
+1. **Extractor thread**: an `Archive` (`src/archive.hpp`) decompresses and verifies each entry in memory and feeds `on_data`, which pushes `PipeMessage`s (`EnsureDir`, `FileBegin`, `Data`, `FileEnd`, `End`).
+2. **Uploader thread**: pops messages and streams `Data` to a single libcurl FTP `STOR` on one control connection (`src/ftp_client.cpp`).
+
+Key invariants:
+- The `Pipe` capacity counts only `Data` bytes; that is what couples decompression speed to upload speed (`--buffer`, default 64 MiB). Oversized messages are accepted when the queue is empty.
+- A file counts as uploaded only after the extractor reports `FileEnd` with `ok` (checksum verified). On any error the pipeline is **fail-fast**: both threads stop and the partial remote file is deleted.
+- Cancellation (`Transfer::cancel`) is thread-safe and callable from the UI thread or the signal watcher.
+
+Archives: `open_archive()` (`src/archive.cpp`) picks the backend by content, not extension, and has no signatures of its own: `libarchive_format()` asks libarchive's own detection (bidding), opening the parts with one format reader at a time (ZIP, 7z, tar) → `LibArchiveReader` (`src/libarchive_reader.cpp`, seekable ZIP reader, split `.001` parts opened together with `archive_read_open_filenames`); the tar probe includes libarchive's gzip/bzip2/xz/lzma/zstd/lz4 filters (registered only if `ARCHIVE_OK`: `ARCHIVE_WARN` means libarchive would run an external program); anything else → `RarArchive` (`src/rar_archive.cpp`, UnRAR, which also handles SFX). Both throw `ArchiveError` with a `Kind` (`MissingPassword`, `BadPassword`, `Other`) instead of returning codes. libarchive specifics: every call runs under a thread-local UTF-8 locale (`Utf8Locale`: `uselocale` on POSIX, per-thread CRT locale `.UTF8` on Windows); data-read warnings are failures (7z reports a bad CRC as `ARCHIVE_WARN`); the passphrase callback answers once per archive object (libarchive keeps asking after a wrong one); in `List` mode the first encrypted ZIP entry is partly read so a wrong password fails the listing (GUI re-prompt); names without a declared charset (unflagged ZIP, tar without pax) come as raw bytes on every OS (`compat-2x` format option) and are read as UTF-8 if valid, else CP437 (ZIP) or Latin-1 (tar); names are NFC (`to_nfc` on macOS, where libarchive gives NFD); 7z with a password is rejected; tar has `ArchiveFlags::checksums = false` (no data checksum: `list_archive` warns), and sparse holes are filled from the block offsets (the EOF offset is the real size). `ArchiveFlags::skip_decompresses` (solid RAR, every 7z, compressed tar) makes `Transfer` skip already-uploaded files with `test()` + discard.
+
+Streamed archives (`ArchiveFlags::stream_only`: compressed tar, decompressed only once): `list_archive` only opens it (no entries), `build_plan` returns an empty plan with `streamed`, and the probe phase is skipped. `Transfer::extract_streamed` plans each entry with `Planner` (shared with `build_plan`) into a `std::deque` (references stay valid), and the uploader asks `RemoteProbe` (shared with `probe_remote`: one directory check + listing per directory, then SIZE) before each file; a file already there is drained with `discard_file()`. `Progress` starts with `totals_known = false` (totals grow as the uploader decides; `End` makes them known) and tracks `archive_read`/`archive_size` (`Archive::bytes_read()` = `archive_filter_bytes(-1)`), from which the UIs and the JSON derive the archive-level percentage and ETA. Skipped/ignored counts live in `TransferResult` (summary_lines takes only the result).
+
+Before transfer (`main.cpp` orchestration, repeated by `Job` in `src/capi/job.cpp`): `list_archive` reads all headers of all volumes → `plan.cpp` sanitizes names (UnRAR-style: no `..`, absolute paths or control chars), detects duplicates/case collisions, ignores links, and builds a `TransferPlan` → `probe_remote` marks files already on the server with the same size as `Skip` (this is what makes re-runs resumable at file granularity).
+
+CLI UI: `ui.hpp` declares two front-ends, `run_tui` (FTXUI full-screen, `ui_tui.cpp`) and `run_plain` (`ui_plain.cpp`, for `--no-tui` or non-terminals). Both observe `Progress` (thread-safe counters/speeds/ETAs) and `Logger` (log lines plus a bounded list of warnings/errors reprinted in the final summary). `summary.cpp` builds the final summary lines shared with the GUI. Platform/text helpers live in `src/util/`.
+
+Exit codes: `0` ok, `1` error, `2` usage, `130` cancelled.
+
+### Shared library and GUI
+
+- `rarftpcore` (`src/capi/`): C API in `rarftp.h` (`rarftp_job_start/poll/answer_password/cancel/free`, `rarftp_version`, `rarftp_free`). `Job` (`job.cpp`) runs what `main.cpp` does (list archive → FTP login and destination check → plan and probe → `Transfer`) on its own controller thread, with GUI wording in its messages (no `--mkdir` etc.), and `poll()` returns the whole state as JSON (`src/util/json.hpp`): every key always present, `null` when not applicable, log lines numbered with a cursor (last 5000 kept). Only `rarftp_*` is exported (`-exported_symbol`, ELF version script, `dllexport`); UnRAR, libarchive (and its libraries), libcurl and fmt are static inside it.
+- GUI backend (`gui/src-tauri`, Rust): `ffi.rs` (bindings + safe `Job` wrapper), `memory.rs` (Memory Save/Recall/Clear in `~/.config/rarftp-gui/memory.ini`, plain text, the archive password is never stored), `lib.rs` (Tauri commands: `start_transfer`, `poll_transfer`, `answer_password`, `cancel_transfer`, `close_transfer`, `memory_*`, `app_info`; one job at a time, dropped on exit). `build.rs` links the library and sets rpaths.
+- GUI frontend (`gui/ui`, vanilla JS, no npm, `withGlobalTauri`): polls `poll_transfer` every ~200 ms and renders the JSON (`archive.format` is "RAR", "ZIP", "7z" or "tar", `archive.compression` null or the tar compression, `archive.files/bytes/bytes_text` null for a streamed archive; `progress.totals_known`, `archive_read`, `archive_size`; the prompt kind is `archive_password`). `tests/test_capi.cpp` and the `lib_*` integration tests check the same JSON, so change it in all three places. ZIP/7z/tar test archives for the C++ tests are byte arrays in `tests/archive_fixtures.hpp`.
+
+More invariants:
+- `--archive-password` (CLI) / `archive_password` (C API, GUI) is the archive password; `--rar-password` is a hidden alias (both together is a usage error).
+- `PasswordSource` takes a prompt function (terminal in the CLI, GUI dialog in `Job`) and asks at most once per instance. `Job::read_archive` builds a new one and re-asks on `ArchivePasswordError` (prompt error `Wrong password`), and calls `disable_prompt()` before the transfer threads start.
+- `FtpClient::set_cancel_check` lets `Job::cancel` interrupt a server that does not answer; `FtpConfig::mention_flags = false` keeps CLI options out of FTP error hints.
+- `poll()` copies the log while holding the state lock, so a snapshot saying `finished` already has every log line.
+- The CLI must never link the shared library (UnRAR and libarchive stay static in `rarftp`). `src/version.hpp` must not exist: it would shadow UnRAR's `version.hpp`, included as `<version.hpp>` by `rar_archive.cpp`; hence `app_version.hpp`.
+
+## CI
+
+`.github/workflows/ci.yml` builds Linux/macOS/Windows with bundled static libcurl, downloads UnRAR sources (pinned SHA-256), runs the unit tests only (the Docker integration tests are local-only), and publishes a `.rar` per platform as an artifact (RARLAB's `rar` is used only to create those archives). A `gui` job builds `rarftpcore` (bundled curl, its `capi` test), runs `cargo test` and builds the GUI: AppImage (Linux x64/arm64, checks the library resolves inside it), universal `.app` (macOS, ad-hoc signed), `rarftp-gui.exe` + `rarftpcore.dll` with static CRTs (Windows, `--no-bundle`); the `package` job makes `rarftp-gui-<platform>.rar` too.
+
+## Releases
+
+Use the CI-generated artifacts to get the RAR files for binary distribution.
+
+The macOS artifacts must be signed with the maintainer's Developer ID and notarized before they are published (CI only signs ad hoc); the Linux and Windows ones are uploaded as CI made them. Steps:
+
+1. Tag `vX.X.X` on `main`, wait for the CI run on the tag, and `gh run download` its 8 `.rar` artifacts.
+2. Extract `rarftp-macos-universal.rar` and `rarftp-gui-macos-universal.rar` (with RARLAB's `rar`).
+3. Sign with `codesign --force --options runtime --timestamp --sign "<Developer ID Application identity>"`: the CLI binary with `--identifier io.github.ruinelson.rarftp`; for the app, `Contents/Frameworks/librarftpcore.dylib` first, then `rarftp-gui.app` (no entitlements needed).
+4. Notarize: `ditto -c -k` each into a zip (`--keepParent` for the `.app`), then `xcrun notarytool submit <zip> --keychain-profile <notary profile> --wait`.
+5. `xcrun stapler staple rarftp-gui.app` (a bare CLI binary cannot be stapled). Check with `spctl -a -vv` (the CLI with `-t open --context context:primary-signature`).
+6. Repack each with `rar a -r -m5 -ma5` (same file names and contents as the CI archives, `LICENSE`, `README.md` and `THIRD_PARTY_NOTICES.md` included).
+7. `gh release create vX.X.X --title "Version X.X.X"` with the 6 Linux/Windows archives from CI and the 2 signed macOS ones.
+
+The project uses semantic versioning, tag the repository (`vX.X.X`), the GitHub version name follows the format `Version X.X.X`
+
+Release notes format is a list of what's new for the user (do not include changes not relevant to the end user such as documentation, CI, etc.), ordered by significance.
+
+---
+> Source: [RuiNelson/rarftp](https://github.com/RuiNelson/rarftp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
