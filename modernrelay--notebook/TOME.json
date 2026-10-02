@@ -4,7 +4,7 @@
   "repo": "notebook",
   "description": "Generative UI notebooks for Omnigraph",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ModernRelay/notebook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T04:22:12Z"
+  "distributed_at": "2026-10-02T06:12:19Z"
 }
