@@ -4,7 +4,7 @@
   "repo": "Rallo",
   "description": "A macOS desktop pet that keeps your notes and reminders in view and waves when your coding agent needs you. Local only, CLI first.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Eyakub/Rallo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T04:53:39Z"
+  "distributed_at": "2026-10-02T07:02:34Z"
 }
