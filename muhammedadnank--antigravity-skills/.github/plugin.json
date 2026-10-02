@@ -1,0 +1,18 @@
+{
+  "name": "muhammedadnank--antigravity-skills",
+  "displayName": "Antigravity-Skills",
+  "description": "Antigravity-Skills",
+  "version": "1.0.0",
+  "author": "muhammedadnank",
+  "homepage": "https://github.com/muhammedadnank/Antigravity-Skills",
+  "skills": [
+    {
+      "name": "extract-design-md",
+      "description": ""
+    },
+    {
+      "name": "suggesting-cursor-rules",
+      "description": ""
+    }
+  ]
+}
