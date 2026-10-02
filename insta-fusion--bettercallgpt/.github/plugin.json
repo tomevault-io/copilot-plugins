@@ -1,0 +1,9 @@
+{
+  "name": "insta-fusion--bettercallgpt",
+  "displayName": "bettercallgpt",
+  "description": "Put Claude Code on a voice call. Talk while it codes; GPT Realtime talks back.",
+  "version": "1.0.0",
+  "author": "insta-fusion",
+  "homepage": "https://github.com/insta-fusion/bettercallgpt",
+  "skills": []
+}
