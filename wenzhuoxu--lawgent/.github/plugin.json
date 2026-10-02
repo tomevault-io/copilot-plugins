@@ -1,0 +1,9 @@
+{
+  "name": "wenzhuoxu--lawgent",
+  "displayName": "lawgent",
+  "description": "Lawgent \u2014 an open-source legal AI agent. Grounded, multi-jurisdiction (CN \u00b7 US \u00b7 EU \u00b7 ET \u00b7 ICAO), citation-verified: every pinpoint round-tripped against the primary source.",
+  "version": "1.0.0",
+  "author": "WenzhuoXu",
+  "homepage": "https://github.com/WenzhuoXu/lawgent",
+  "skills": []
+}
