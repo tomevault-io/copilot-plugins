@@ -1,0 +1,9 @@
+{
+  "name": "amir20--halo-app",
+  "displayName": "Halo.app",
+  "description": "A native macOS disk-space visualizer, written in SwiftUI.",
+  "version": "1.0.0",
+  "author": "amir20",
+  "homepage": "https://github.com/amir20/Halo.app",
+  "skills": []
+}
