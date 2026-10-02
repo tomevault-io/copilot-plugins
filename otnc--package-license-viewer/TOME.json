@@ -4,7 +4,7 @@
   "repo": "package-license-viewer",
   "description": "Shows the license of every dependency inline, dimmed at the end of the line.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/otnc/package-license-viewer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T06:51:03Z"
+  "distributed_at": "2026-10-02T11:37:41Z"
 }
