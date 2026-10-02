@@ -1,0 +1,9 @@
+{
+  "name": "health-assistant-io--health-assistant",
+  "displayName": "health-assistant",
+  "description": "Self-hosted, privacy-first health records. Bring labs, visits, medications, and wearable data into one place you control \u2014 with biomarker trends, an AI assistant that proposes but never writes, and pr",
+  "version": "1.0.0",
+  "author": "health-assistant-io",
+  "homepage": "https://github.com/health-assistant-io/health-assistant",
+  "skills": []
+}
