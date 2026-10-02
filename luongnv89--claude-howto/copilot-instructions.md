@@ -1,165 +1,169 @@
 ## claude-howto
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> <!-- i18n-source: CLAUDE.md -->
+
+<!-- i18n-source: CLAUDE.md -->
+<!-- i18n-source-sha: a70777e -->
+<!-- i18n-date: 2026-04-27 -->
 
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、本リポジトリ内のコードを扱う際の Claude Code（claude.ai/code）向けガイドである。
 
-## Project Overview
+## プロジェクト概要
 
-Claude How To is a tutorial repository for Claude Code features. This is **documentation-as-code** — the primary output is markdown files organized into numbered learning modules, not an executable application.
+Claude How To は Claude Code 機能のチュートリアルリポジトリである。これは **ドキュメント・アズ・コード** であり、主な成果物は実行可能アプリケーションではなく、番号付きの学習モジュールに整理された Markdown ファイルである。
 
-**Architecture**: Each module (01-10) covers a specific Claude Code feature with copy-paste templates, Mermaid diagrams, and examples. The build system validates documentation quality and generates an EPUB ebook.
+**アーキテクチャ：** 各モジュール（01〜10）は Claude Code の特定の機能を、コピー＆ペースト可能なテンプレート、Mermaid 図、サンプルとともに解説する。ビルドシステムはドキュメントの品質を検証し、EPUB 電子書籍を生成する。
 
-## Common Commands
+## よく使うコマンド
 
-### Pre-commit Quality Checks
+### pre-commit 品質チェック
 
-All documentation must pass four quality checks before commits (these run automatically via pre-commit hooks):
+すべてのドキュメントは、コミット前に 4 つの品質チェックを通過しなければならない（pre-commit フックで自動実行される）：
 
 ```bash
-# Install pre-commit hooks (runs on every commit)
+# pre-commit フックをインストール（毎コミットで実行）
 pre-commit install
 
-# Run all checks manually
+# 全チェックを手動で実行
 pre-commit run --all-files
 ```
 
-The four checks are:
-1. **markdown-lint** — Markdown structure and formatting via `markdownlint`
-2. **cross-references** — Internal links, anchors, code fence syntax (Python script)
-3. **mermaid-syntax** — Validates all Mermaid diagrams parse correctly (Python script)
-4. **link-check** — External URLs are reachable (Python script)
-5. **build-epub** — EPUB generates without errors (on `.md` changes)
+4 つのチェックは以下のとおり：
+1. **markdown-lint** — `markdownlint` による Markdown 構造とフォーマット
+2. **cross-references** — 内部リンク、アンカー、コードフェンスの構文（Python スクリプト）
+3. **mermaid-syntax** — すべての Mermaid 図が正しくパースされるかを検証（Python スクリプト）
+4. **link-check** — 外部 URL が到達可能か（Python スクリプト）
+5. **build-epub** — EPUB がエラーなく生成されるか（`.md` 変更時）
 
-### Development Environment Setup
+### 開発環境のセットアップ
 
 ```bash
-# Install uv (Python package manager)
+# uv（Python パッケージマネージャ）をインストール
 pip install uv
 
-# Create virtual environment and install Python dependencies
+# 仮想環境を作成して Python 依存関係をインストール
 uv venv
 source .venv/bin/activate
 uv pip install -r scripts/requirements-dev.txt
 
-# Install Node.js tools (markdown linter and Mermaid validator)
+# Node.js ツール（Markdown リンタと Mermaid バリデータ）をインストール
 npm install -g markdownlint-cli
 npm install -g @mermaid-js/mermaid-cli
 
-# Install pre-commit hooks
+# pre-commit フックをインストール
 uv pip install pre-commit
 pre-commit install
 ```
 
-### Testing
+### テスト
 
-Python scripts in `scripts/` have unit tests:
+`scripts/` 内の Python スクリプトはユニットテストを持つ：
 
 ```bash
-# Run all tests
+# 全テストを実行
 pytest scripts/tests/ -v
 
-# Run with coverage
+# カバレッジ付きで実行
 pytest scripts/tests/ -v --cov=scripts --cov-report=html
 
-# Run specific test
+# 特定のテストを実行
 pytest scripts/tests/test_build_epub.py -v
 ```
 
-### Code Quality
+### コード品質
 
 ```bash
-# Lint and format Python code
+# Python コードをリント・整形
 ruff check scripts/
 ruff format scripts/
 
-# Security scan
+# セキュリティスキャン
 bandit -c scripts/pyproject.toml -r scripts/ --exclude scripts/tests/
 
-# Type checking
+# 型チェック
 mypy scripts/ --ignore-missing-imports
 ```
 
-### EPUB Build
+### EPUB ビルド
 
 ```bash
-# Generate ebook (renders Mermaid diagrams via Kroki.io API)
+# 電子書籍を生成（Mermaid 図を Kroki.io API でレンダリング）
 uv run scripts/build_epub.py
 
-# With options
+# オプション付き
 uv run scripts/build_epub.py --verbose --output custom-name.epub --max-concurrent 5
 ```
 
-## Directory Structure
+## ディレクトリ構造
 
 ```
-├── 01-slash-commands/      # User-invoked shortcuts
-├── 02-memory/              # Persistent context examples
-├── 03-skills/              # Reusable capabilities
-├── 04-subagents/           # Specialized AI assistants
-├── 05-mcp/                 # Model Context Protocol examples
-├── 06-hooks/               # Event-driven automation
-├── 07-plugins/             # Bundled features
-├── 08-checkpoints/         # Session snapshots
-├── 09-advanced-features/   # Planning, thinking, backgrounds
-├── 10-cli/                 # CLI reference
+├── 01-slash-commands/      # ユーザーが起動するショートカット
+├── 02-memory/              # 永続コンテキストの例
+├── 03-skills/              # 再利用可能な能力
+├── 04-subagents/           # 専門 AI アシスタント
+├── 05-mcp/                 # Model Context Protocol の例
+├── 06-hooks/               # イベント駆動の自動化
+├── 07-plugins/             # バンドル機能
+├── 08-checkpoints/         # セッションのスナップショット
+├── 09-advanced-features/   # プランニング、シンキング、バックグラウンド
+├── 10-cli/                 # CLI リファレンス
 ├── scripts/
-│   ├── build_epub.py           # EPUB generator (renders Mermaid via Kroki API)
-│   ├── check_cross_references.py   # Validates internal links
-│   ├── check_links.py          # Checks external URLs
-│   ├── check_mermaid.py        # Validates Mermaid syntax
-│   └── tests/                  # Unit tests for scripts
-├── .pre-commit-config.yaml    # Quality check definitions
-└── README.md               # Main guide (also module index)
+│   ├── build_epub.py           # EPUB ジェネレータ（Mermaid を Kroki API でレンダリング）
+│   ├── check_cross_references.py   # 内部リンクを検証
+│   ├── check_links.py          # 外部 URL を検証
+│   ├── check_mermaid.py        # Mermaid 構文を検証
+│   └── tests/                  # スクリプトのユニットテスト
+├── .pre-commit-config.yaml    # 品質チェック定義
+└── README.md               # メインガイド（モジュール索引も兼ねる）
 ```
 
-## Content Guidelines
+## コンテンツ作成ガイド
 
-### Module Structure
-Each numbered folder follows the pattern:
-- **README.md** — Overview of the feature with examples
-- **Example files** — Copy-paste templates (`.md` for commands, `.json` for configs, `.sh` for hooks)
-- Files are organized by feature complexity and dependencies
+### モジュール構造
+番号付きフォルダはいずれも以下のパターンに従う：
+- **README.md** — 機能の概要と例
+- **サンプルファイル** — コピー＆ペースト可能なテンプレート（コマンドは `.md`、設定は `.json`、フックは `.sh`）
+- ファイルは機能の複雑さと依存関係に従って整理されている
 
-### Mermaid Diagrams
-- All diagrams must parse successfully (checked by pre-commit hook)
-- EPUB build renders diagrams via Kroki.io API (requires internet)
-- Use Mermaid for flowcharts, sequence diagrams, and architecture visuals
+### Mermaid 図
+- すべての図は正常にパースできること（pre-commit フックで検査）
+- EPUB ビルドは Kroki.io API で図をレンダリングする（インターネット接続が必要）
+- フローチャート、シーケンス図、アーキテクチャ可視化に Mermaid を使用する
 
-### Cross-References
-- Use relative paths for internal links (e.g., `(01-slash-commands/README.md)`)
-- Code fences must specify language (e.g., ` ```bash `, ` ```python `)
-- Anchor links use `#heading-name` format
+### 相互参照
+- 内部リンクは相対パスを使う（例：`(01-slash-commands/README.md)`）
+- コードフェンスは言語指定が必須（例：` ```bash `、` ```python `）
+- アンカーリンクは `#heading-name` 形式
 
-### Link Validation
-- External URLs must be reachable (checked by pre-commit hook)
-- Avoid linking to ephemeral content
-- Use permalinks where possible
+### リンク検証
+- 外部 URL は到達可能であること（pre-commit フックで検査）
+- 一時的なコンテンツへのリンクは避ける
+- 可能な限りパーマリンクを使用する
 
-## Key Architecture Points
+## 主要なアーキテクチャ上のポイント
 
-1. **Numbered folders indicate learning order** — The 01-10 prefix represents the recommended sequence for learning Claude Code features. This numbering is intentional; do not reorganize alphabetically.
+1. **番号付きフォルダは学習順序を示す** — 01〜10 のプレフィックスは Claude Code 機能の推奨学習順序を表す。この番号付けは意図的なものなので、アルファベット順に並べ替えてはならない。
 
-2. **Scripts are utilities, not the product** — The Python scripts in `scripts/` support documentation quality and EPUB generation. The actual content is in the numbered module folders.
+2. **スクリプトはユーティリティであり製品ではない** — `scripts/` の Python スクリプトはドキュメント品質と EPUB 生成を支援するものである。実際のコンテンツは番号付きモジュールフォルダにある。
 
-3. **Pre-commit is the gatekeeper** — All four quality checks must pass before a PR is accepted. The CI pipeline runs these same checks as a second pass.
+3. **pre-commit がゲートキーパー** — PR が承認される前に 4 つの品質チェックがすべて通過しなければならない。CI パイプラインは同じチェックを 2 回目のパスとして実行する。
 
-4. **Mermaid rendering requires network** — The EPUB build calls Kroki.io API to render diagrams. Build failures here are typically network issues or invalid Mermaid syntax.
+4. **Mermaid のレンダリングにはネットワークが必要** — EPUB ビルドは図のレンダリングに Kroki.io API を呼び出す。ここでビルドが失敗する場合は、ネットワーク問題か Mermaid 構文エラーが典型的な原因である。
 
-5. **This is a tutorial, not a library** — When adding content, focus on clear explanations, copy-paste examples, and visual diagrams. The value is in teaching concepts, not providing reusable code.
+5. **これはチュートリアルでありライブラリではない** — コンテンツを追加する際は、明快な解説、コピー＆ペースト可能な例、視覚的な図を重視する。価値は概念を教えることにあり、再利用可能なコードを提供することではない。
 
-## Commit Conventions
+## コミット規約
 
-Follow conventional commit format:
+Conventional Commits 形式に従う：
 - `feat(slash-commands): Add API documentation generator`
 - `docs(memory): Improve personal preferences example`
 - `fix(README): Correct table of contents link`
 - `refactor(hooks): Simplify hook configuration examples`
 
-Scope should match the folder name when applicable.
+スコープは該当するフォルダ名に合わせる。
 
 ---
 > Source: [luongnv89/claude-howto](https://github.com/luongnv89/claude-howto) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
