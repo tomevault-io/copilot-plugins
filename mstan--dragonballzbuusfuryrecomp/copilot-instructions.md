@@ -1,0 +1,39 @@
+## dragonballzbuusfuryrecomp
+
+> This game repository defers platform behavior and debugging rules to:
+
+# CLAUDE.md - DragonBallZBuusFuryRecomp
+
+This game repository defers platform behavior and debugging rules to:
+
+- `gbarecomp/CLAUDE.md`
+- `gbarecomp/PRINCIPLES.md`
+- `gbarecomp/DEBUG.md`
+- `gbarecomp/TCP.md` (this game uses port 19889)
+
+## Build target
+
+Initialize both submodules before building. Generated cart code is intentionally
+not committed and must be recreated with `tools/regen.ps1` from a verified
+user-supplied USA ROM. Build with MSYS2 mingw64, CMake, and Ninja. Keep large
+generated translation units at modest parallelism and run compilation at low
+priority.
+
+## Game-specific rules
+
+1. The supported ROM is the clean USA revision 0 (`BG3E`) image, SHA-1
+   `f1c4b07554d2a3b1ad2f325307051e775ce68087`. Do not weaken the identity gate.
+2. ROMs, BIOS images, generated C/C++, saves, screenshots, and runtime caches
+   are local artifacts and must never be committed.
+3. Generated code is never edited. Fix `game.toml`, the recompiler, or the
+   runtime and regenerate.
+4. Adaptive widescreen is a game-owned optional mod. Native 240x160 rendering
+   must remain unchanged when the feature is disabled.
+5. Overworld extensions must resolve authored field-resource chunks. Do not
+   repeat the hardware tilemap ring into expanded margins.
+6. Visibility patches must target exact renderer reads. Do not mutate camera
+   state or actor world coordinates to make expanded actors appear.
+
+---
+> Source: [mstan/DragonBallZBuusFuryRecomp](https://github.com/mstan/DragonBallZBuusFuryRecomp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
