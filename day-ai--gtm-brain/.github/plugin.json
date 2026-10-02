@@ -1,0 +1,9 @@
+{
+  "name": "day-ai--gtm-brain",
+  "displayName": "gtm-brain",
+  "description": "Claude Code Harness for Day AI Workspace Adminstration & Configuration",
+  "version": "1.0.0",
+  "author": "day-ai",
+  "homepage": "https://github.com/day-ai/gtm-brain",
+  "skills": []
+}
