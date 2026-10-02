@@ -4,7 +4,7 @@
   "repo": "LoopAgentTeams",
   "description": "Spec-driven multi-agent teamwork for any skills-capable agent (Claude Code, Codex, and more) \u2014 plan, dispatch, monitor, QA. No framework lock-in.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ouob-tw/LoopAgentTeams",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T03:58:45Z"
+  "distributed_at": "2026-10-02T05:40:53Z"
 }
