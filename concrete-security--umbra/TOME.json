@@ -4,7 +4,7 @@
   "repo": "umbra",
   "description": "Secure cloud sandboxes for AI coding agents, powered by attested confidential VMs, governed networking, and proxy-injected secrets.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/concrete-security/umbra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T07:39:19Z"
+  "distributed_at": "2026-10-02T12:15:38Z"
 }
