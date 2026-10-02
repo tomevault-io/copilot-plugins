@@ -4,7 +4,7 @@
   "repo": "unifi-mcp-server",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -197,5 +197,5 @@
   ],
   "source_url": "https://github.com/enuno/unifi-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T11:03:41Z"
+  "distributed_at": "2026-10-02T11:05:14Z"
 }
