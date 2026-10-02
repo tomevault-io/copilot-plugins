@@ -1,0 +1,9 @@
+{
+  "name": "breferrari--vigia",
+  "displayName": "vigia",
+  "description": "A live diff monitor for the terminal pane beside your coding agent. Built to stay open, not opened once per review.",
+  "version": "1.0.0",
+  "author": "breferrari",
+  "homepage": "https://github.com/breferrari/vigia",
+  "skills": []
+}
