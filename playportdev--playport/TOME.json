@@ -4,7 +4,7 @@
   "repo": "playport",
   "description": "Playport runs x86-64 Windows games on a stock, non-jailbroken iPhone. Install a game from your library onto the phone, pick up a controller and press Play. The game runs on the phone's own CPU and GPU: no PC, no cloud, no stream.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/playportdev/playport",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T11:06:35Z"
+  "distributed_at": "2026-10-02T15:01:23Z"
 }
