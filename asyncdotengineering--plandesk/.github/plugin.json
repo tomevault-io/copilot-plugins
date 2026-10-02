@@ -1,0 +1,9 @@
+{
+  "name": "asyncdotengineering--plandesk",
+  "displayName": "plandesk",
+  "description": "Local-first, self-hostable planning workspace \u2014 canvas + docs-on-nodes + tasks + board + MCP for product teams and agent workflows.",
+  "version": "1.0.0",
+  "author": "asyncdotengineering",
+  "homepage": "https://github.com/asyncdotengineering/plandesk",
+  "skills": []
+}
