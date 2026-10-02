@@ -1,0 +1,9 @@
+{
+  "name": "amplitude--amplitude-mcp-analytics-node",
+  "displayName": "Amplitude-MCP-Analytics-Node",
+  "description": "Amplitude MCP Analytics SDK - MCP tracking for Amplitude Analytics. :sparkles: :calendar: Book a session with us :arrow_down: ",
+  "version": "1.0.0",
+  "author": "amplitude",
+  "homepage": "https://github.com/amplitude/Amplitude-MCP-Analytics-Node",
+  "skills": []
+}
