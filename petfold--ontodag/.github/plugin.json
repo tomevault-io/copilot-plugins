@@ -1,0 +1,9 @@
+{
+  "name": "petfold--ontodag",
+  "displayName": "ontodag",
+  "description": "Associative memory and categories based on a directed acyclic graph data structure",
+  "version": "1.0.0",
+  "author": "petfold",
+  "homepage": "https://github.com/petfold/ontodag",
+  "skills": []
+}
