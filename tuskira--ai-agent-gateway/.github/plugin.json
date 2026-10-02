@@ -1,0 +1,9 @@
+{
+  "name": "tuskira--ai-agent-gateway",
+  "displayName": "ai-agent-gateway",
+  "description": "AI Agent Gateway - an open-source gateway that secures, governs and observes AI agents' MCP tool calls and LLM traffic",
+  "version": "1.0.0",
+  "author": "Tuskira",
+  "homepage": "https://github.com/Tuskira/ai-agent-gateway",
+  "skills": []
+}
