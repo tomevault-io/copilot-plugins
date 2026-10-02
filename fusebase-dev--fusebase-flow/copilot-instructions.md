@@ -1,54 +1,48 @@
-## fusebase-flow-implementation
+## fusebase-flow-security
 
-> Fusebase Flow implementation phase rules. Use when editing source code per a locked spec.
+> Fusebase Flow security/permissions rules. Use when changes touch auth, secrets, env files, deploy config, external messages, or production data.
 
 
-# Fusebase Flow — AI Developer discipline
+# Fusebase Flow — security & permissions rules
 
-Use only when in AI Developer role with a locked spec.
+## Hard prohibitions
 
-## Self-check before any code edit
+- Never print secret values (FR-12). Redact in any output.
+- Never `git add` `.env`, credentials, private keys (FR-06).
+- Never write a customer-visible external message without `external_customer_visible_message` approval artifact (FR-12).
+- Never use a session key / cookie without `session_key_or_cookie_use` approval artifact (FR-12).
+- Never modify auth/permission code without `auth_or_permission_change` approval artifact (FR-12).
 
-- [ ] Spec exists at `docs/specs/<slug>/spec.md` and is referenced
-- [ ] Decisions are LOCKED in `docs/specs/<slug>/decisions.md`
-- [ ] Tasks list exists with the current T-number declared
-- [ ] Pre-task git checkpoint clean (`git status --short` empty)
-- [ ] Worker-undisturbed paths from `policies/protected-paths.yml` will show empty diff for this task
+## Approval artifacts
 
-If any check fails, STOP and ask the operator.
-
-## Per-task discipline
-
-- One task = one commit (FR-03)
-- Lint + typecheck clean per commit (FR-13)
-- Stage files explicitly by name — never `git add -A` / `git add .` (FR-06)
-- Commit message format: `<type>(<scope>): T<n> <one-liner>`
-  - `feat(spa): T17 ...`
-  - `fix(extension): T18 ...`
-  - `test(backend): T19 ...`
-  - `docs(post-deploy): T20 ...`
-
-## Pre-commit attestation (output before each commit)
+If an action requires approval per `policies/approval-policy.yml`, an approval artifact must exist on disk. **The agent authors it on the operator's approval — never the operator by hand at a terminal.** For a Full-lane deploy, on the DP.6 phrase `approve deploy now` (forgiving — any case/spacing; legacy `APPROVE-DEPLOY-NOW` also passes) — the operator types only the phrase, never a composed sentence (Lightweight lane: a plain chat go-ahead, recorded via `approve-local.sh lightweight_deploy` — DP.12); for any other approval-gated action (protected-path edit, FR-25 baseline adoption, database migration, auth/permission change), once the operator OKs that specific action in chat. Authoring with NO operator authorization is self-approval and forbidden:
 
 ```
-T<n> pre-commit check:
-☐ Lint clean
-☐ Typecheck clean
-☐ Worker-undisturbed unchanged
-☐ One task scope (no bundling)
-☐ No TODO/FIXME/WIP markers
-☐ Commit message cites T<n>
-
-→ Committing T<n>: <scope>
+state/approvals/<action>-<slug>-<YYYYMMDD>.json
 ```
 
-## Stop at gate
+The agent runs this on that approval — the operator types no command: `bash hooks/local/approve-local.sh <action> <slug> "<reason>"`.
 
-When tasks T<first>..T<gate> are committed, produce the gate report per `docs/specs/<slug>/verification-gate.md`. Do NOT proceed to T<deploy>. Wait for an explicit deploy handoff (FR-05).
+Hooks check for an unexpired artifact before allowing the action.
 
-## Forbidden without operator confirmation
+## Secret-pattern scanning
 
-`rm -rf`, `git push --force`, `git reset --hard`, `git checkout -- .`, `git clean -fdx`, `git add .`, `git add -A`, `--no-verify`. Full list at `policies/command-policy.yml`.
+`policies/secret-patterns.yml` defines patterns that hooks block. If the operator pastes a secret-shaped string in chat, the `user_prompt_submit` hook surfaces a warning. If a write would persist a secret to disk, the `pre_tool_use` hook blocks.
+
+## Categories that trigger this rule
+
+- Auth middleware, permission checks, role/scope code, login/logout flows
+- `.env`, secrets handling, credential storage, encryption code
+- Outbound external messages (email, SMS, webhooks, public posts)
+- Data export, bulk import, customer data movement
+- Production DB writes outside the established repository pattern
+- Deploy config, CI/CD pipeline, infra-as-code
+
+## What this rule does NOT do
+
+- General code review (use the `code-review` skill)
+- Style/formatting concerns
+- Performance (out of v0.1 scope)
 
 ---
 > Source: [fusebase-dev/fusebase-flow](https://github.com/fusebase-dev/fusebase-flow) — distributed by [TomeVault](https://tomevault.io).
