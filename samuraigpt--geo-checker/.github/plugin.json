@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--geo-checker",
+  "displayName": "geo-checker",
+  "description": "Open-source AI GEO (Generative Engine Optimization) auditor \u2014 production-ready Next.js SaaS that checks how well landing pages are cited by AI search engines like ChatGPT, Perplexity, and Gemini. Free",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/geo-checker",
+  "skills": []
+}
