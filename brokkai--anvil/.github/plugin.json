@@ -1,0 +1,9 @@
+{
+  "name": "brokkai--anvil",
+  "displayName": "anvil",
+  "description": "Portable Rust Agent Client Protocol (ACP) server with model routing, tools, permissions, sandboxing, sessions, and MCP integration.",
+  "version": "1.0.0",
+  "author": "BrokkAi",
+  "homepage": "https://github.com/BrokkAi/anvil",
+  "skills": []
+}
