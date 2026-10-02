@@ -1,0 +1,9 @@
+{
+  "name": "achimala--claude-toons",
+  "displayName": "claude-toons",
+  "description": "Replace your Claude status spinner with dynamically generated cartoons",
+  "version": "1.0.0",
+  "author": "achimala",
+  "homepage": "https://github.com/achimala/claude-toons",
+  "skills": []
+}
