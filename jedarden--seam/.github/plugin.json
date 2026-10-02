@@ -1,0 +1,9 @@
+{
+  "name": "jedarden--seam",
+  "displayName": "SEAM",
+  "description": "Self-documenting Endpoint Access Mediator - unified secret-injecting proxy gateway",
+  "version": "1.0.0",
+  "author": "jedarden",
+  "homepage": "https://github.com/jedarden/SEAM",
+  "skills": []
+}
