@@ -4,7 +4,7 @@
   "repo": "Hikyo",
   "description": "Fully open-source, self-hosted control plane for validated secrets and configuration across environments.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hikyo-Org/Hikyo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T21:48:37Z"
+  "distributed_at": "2026-10-02T00:15:32Z"
 }
