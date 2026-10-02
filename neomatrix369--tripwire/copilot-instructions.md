@@ -1,7 +1,6 @@
-## code-review-graph
+## tripwire
 
-> Prefer code-review-graph MCP tools before Grep/Glob/Read when exploring or reviewing this codebase
-
+> <!-- code-review-graph MCP tools -->
 
 <!-- code-review-graph MCP tools -->
 ## MCP Tools: code-review-graph
@@ -41,6 +40,60 @@ Fall back to Grep/Glob/Read **only** when the graph doesn't cover what you need.
 2. Use `detect_changes` for code review.
 3. Use `get_affected_flows` to understand impact.
 4. Use `query_graph` pattern="tests_for" to check coverage.
+
+---
+
+## Slice-first rule (MUST NOT skip)
+
+**Never write code before a slice stub exists AND a branch is created.**
+
+When `/enhanced-flow-planner` detects continuation mode:
+1. Run plan-health-check
+2. Run plan-modifier to **add the slice to TRAIL.md + PROGRESS.md + a slice stub file** under `docs/plan/slices/`
+3. Create a branch: `git checkout -b slice/<N>-<short-name>`
+4. Only then write code
+
+"Keep it simple" narrows scope. It does not bypass the slice stub or the branch. The stub *is* the requirement contract — without it there is no acceptance criteria and no gate evidence. The branch *is* the delivery unit — without it there is no reviewable PR.
+
+## Branch-before-commit rule (enforced by hook)
+
+**Never commit directly to `main`.** The `pre-commit` hook blocks it.
+
+Every piece of work — however small — goes on a branch:
+```bash
+git checkout -b <type>/<short-description>   # feat/ fix/ docs/ slice/ chore/
+```
+
+Emergency override (coordinators only, never for feature work):
+```bash
+ALLOW_MAIN_COMMIT=1 git commit ...
+```
+
+The hook allows merge commits through automatically. Everything else on `main` is blocked.
+
+---
+
+## PR Composition
+
+When creating or updating a PR with `/create-pr` or `/update-pr`, include a **Checklist**
+section in the generated body (after Test Results, before Closes):
+
+```markdown
+## Checklist
+
+- [x] `./scripts/quality-gates.sh` passes locally
+- [x] New tests added or updated (or change is docs-only)
+- [x] Docs updated where applicable
+- [ ] No secrets or credentials committed
+```
+
+**Auto-tick rules:**
+- Tick quality-gates and tests if the Test Results section shows all stacks passing
+- Tick docs if the commit subjects mention docs/chore/refactor (no new behaviour)
+- Leave "No secrets" **always unchecked** — the reviewer confirms this manually
+
+This mirrors `.github/PULL_REQUEST_TEMPLATE.md` so human-opened and skill-opened PRs
+share the same Checklist structure.
 
 ---
 > Source: [neomatrix369/tripwire](https://github.com/neomatrix369/tripwire) — distributed by [TomeVault](https://tomevault.io).
