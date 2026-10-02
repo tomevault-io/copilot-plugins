@@ -1,0 +1,44 @@
+{
+  "name": "factory-switcher",
+  "owner": "lhfer",
+  "repo": "factory-switcher",
+  "description": "\ud83d\udd01 Native macOS menu-bar app to switch between your own Factory (Droid) accounts \u2014 quota at a glance, backup-first switching with auto-rollback. \u83dc\u5355\u680f\u4e00\u952e\u5207\u6362 Factory \u591a\u8d26\u53f7\uff0c\u989d\u5ea6\u4e00\u76ee\u4e86\u7136\uff0c\u5148\u5907\u4efd\u518d\u5207\u6362\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lhfer/factory-switcher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T07:00:44Z"
+}
