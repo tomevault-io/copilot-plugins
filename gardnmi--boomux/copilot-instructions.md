@@ -1,0 +1,263 @@
+## boomux
+
+> Use `DEVELOPMENT.md` for the human development lifecycle and local build loop.
+
+# Repository Workflow
+
+## Start Here
+
+Use `DEVELOPMENT.md` for the human development lifecycle and local build loop.
+Use product documentation in this order:
+
+1. `CONTEXT.md` defines canonical product terms and distinctions. Preserve those
+   semantics when names in code are less precise.
+2. `docs/architecture.md` describes the current implementation boundaries and
+   cross-cutting invariants.
+3. Contract documents such as `docs/cli-json.md`, `docs/event-stream.md`, and
+   `docs/live-pty-handoff.md` govern their
+   named interfaces and guarantees.
+4. `docs/adr/` records accepted decisions and rationale.
+5. `docs/lifecycle-validation.md` records compatibility evidence from specific
+   host versions; it is evidence, not a general specification.
+6. `docs/roadmap.md` is non-authoritative future intent. Documents marked as
+   historical explain how the design was reached but do not override current
+   architecture, source, or tests.
+
+For exact protocol and persistence versions, source and compatibility tests are
+authoritative. Start a change in the owning module listed in the architecture
+module map, then read its colocated tests and the relevant contract document.
+
+## Local Build Cache
+
+- Use kache for local Rust builds. `.cargo/config.toml` selects
+  `scripts/rustc-cache.sh`, so ordinary `cargo check`, `build`, `test`, and
+  `clippy` commands use it automatically when `kache` is on PATH.
+- Manage project development tools with **mise**; keep version pins in
+  `mise.toml`. Run `mise install` when setting up a checkout. Kache **0.27.0**
+  is installed from its official GitHub release through mise, alongside Zig.
+  Do not install a separate kache binary with Cargo or a manual download.
+- Use `mise exec -- cargo ...` in agent/non-interactive shells so the pinned
+  tools are on PATH; an activated mise shell may use ordinary Cargo commands.
+  Check `mise exec -- kache --version` before the first build on a new machine.
+  If unavailable, report that caching is disabled; the wrapper permits an
+  uncached build. Do not run `kache init`:
+  project configuration already enables it without editing global Cargo/shell
+  settings or installing a login service.
+- `.kache.toml` selects local-only caching, automatic garbage collection, and a
+  **20 GiB store budget**. Adaptive/forced incremental caching is disabled to
+  avoid accumulating per-worktree incremental state. Native build-script runs
+  (including Ghostty's Zig build) remain uncached; Rust compiler outputs are
+  cached. Do not enable remote uploads or broaden native caching implicitly.
+- Keep each worktree's own `target/` directory. Kache shares reusable artifacts;
+  do not point concurrent worktrees at one Cargo target directory.
+- Inspect reuse with `kache report --last-build --root "$PWD"` and `kache stats`.
+  A Cargo-fresh build may invoke no compiler and produce no new cache events.
+  Do not claim a hit rate or speedup without checking the actual report.
+  `kache doctor` may flag our delegating wrapper because it expects a direct
+  kache wrapper; do not replace project configuration with `doctor --fix`.
+- Use `KACHE_DISABLED=1 cargo ...` for a temporary uncached comparison. CI skips
+  this wrapper's cache and retains its existing caching workflow. Preserve exact
+  compiler arguments and exit status; never retry a failed cached compile
+  automatically as an uncached build.
+- Cache GC does not cap all project disk usage: target files can retain shared
+  blocks. Inspect `kache targets` and a cleanup dry run before removing stale
+  outputs. **Never broadly clean `target/`** without preserving
+  `target/desktop-dev/`, which contains development session/configuration data.
+  Follow the existing worktree-removal rules; caches do not authorize deleting
+  worktrees or user work.
+
+See [the local build-cache guide](DEVELOPMENT.md#local-build-cache).
+
+## Validation
+
+Use focused local checks during development. PR CI owns the complete validation
+selected by `docs/ci.md`; do not run the full root/Desktop suites or a release
+build locally as a routine prerequisite to opening or updating a PR. Require all
+selected CI checks to pass before merging.
+
+Do not over-apply validation. Choose the smallest check that answers a concrete
+question about the changed behavior, then stop when it passes. Do not stack
+`cargo check`, Clippy, full tests, and release builds "just to be safe," or treat
+the command lists below as mandatory local gates. Documentation-only edits need
+no Rust checks. Small UI edits do not automatically justify a full test build.
+Do not repeat successful checks unless subsequent changes affect what they
+validated. Report any unverified behavior plainly and leave comprehensive
+coverage to PR CI; do not delay reviewable work to duplicate CI locally.
+
+| Change | Local development validation |
+| --- | --- |
+| Unpackaged Markdown/guidance only | Review links and claims; `git diff --check` |
+| Desktop Rust only, optionally with guidance | Formatting and `cargo check -p boomux-desktop --locked`; focused tests or a manual UI check for the changed behavior |
+| CI/workflow or packaging scripts without Rust/dependency changes | Relevant Python/Bun/shell fixtures and shell syntax; actionlint for workflow changes |
+| Backend Rust | Formatting, `cargo check --locked`, and focused unit/integration tests for the changed behavior |
+| Shared dependencies, Cargo/toolchain, or vendored code | Check affected packages and run focused compatibility checks; let PR CI cover the full matrix |
+
+Scale local checks to the change. A filtered Rust test still compiles its test
+binary and dependencies, so use `cargo check` first for small compile-only edits.
+Do not add tests that only mirror cosmetic UI changes. Broaden local validation
+only for a concrete failure, an identified affected behavior, CI diagnosis, or an
+explicit user request. State what the additional check will resolve; generic
+caution or a desire for extra confidence is not sufficient. Unknown or mixed
+inputs select full validation in CI, not automatically on
+the development machine. Use local release builds for performance measurements,
+release-only issues, or packaging work that needs the actual optimized artifact.
+
+The full commands below are a reference for reproducing CI failures or explicitly
+requested comprehensive local validation, not a per-edit or pre-PR checklist.
+Clippy already checks every benchmark target.
+
+The complete root validation set is:
+
+```console
+cargo fmt --all -- --check
+cargo clippy --all-targets --all-features --locked -- -D warnings
+cargo test --lib --bins --locked -- --test-threads=1
+cargo test --test config_cli --locked -- --test-threads=1
+cargo test --test native_backend --locked -- --test-threads=1
+cargo test --test benchmark_harness --features benchmark-internals --locked
+cargo bench --bench core_cpu --bench wire --features benchmark-internals --locked -- --test
+cargo deny check
+bun test integrations/opencode/boomux.test.js integrations/opencode/boomux-tui.test.js integrations/pi/boomux.test.js
+```
+
+The workspace also contains `desktop/`; read `desktop/AGENTS.md` for GUI changes.
+Core commands above select the default root package and require no Zig or display
+SDK. For comprehensive backend/shared-code validation, the additional set is:
+
+```console
+cargo clippy -p boomux-desktop --all-targets --all-features --locked -- -D warnings
+cargo test -p boomux-desktop --locked -- --test-threads=1
+cargo build -p boomux-desktop --release --locked
+python3 -m unittest discover -s .github/scripts -p 'test_ci_*.py'
+python3 desktop/scripts/test-installer.py
+python3 desktop/scripts/test-smoke.py
+python3 -m unittest discover -s desktop/scripts -p 'test_package*.py'
+bun install --cwd .github/release-tests --frozen-lockfile
+bun test --cwd .github/release-tests
+```
+
+Desktop requires Zig 0.15.2 and the graphics dependencies listed in
+`.github/workflows/desktop-build.yml`. Bundle changes also require X11 and
+Wayland smoke tests described in `docs/desktop/releases.md`.
+
+Run the narrowest relevant tests while iterating and leave the complete selected
+set to PR CI. Native backend tests are intentionally serial because they exercise
+process, socket, PTY, and daemon lifecycle behavior.
+
+### Testing By Change Type
+
+| Change | Expected coverage |
+| --- | --- |
+| Protocol field or request | Protocol serialization/defaulting and minimum-version tests, client negotiation tests, and native mixed-version behavior |
+| Persisted state shape | `state_store.rs` migration tests and a cold-recovery native test |
+| PTY, attachment, or process lifecycle | Colocated unit tests plus serial `native_backend` scenarios |
+| Graceful handoff | Serial native tests covering rollback, reconnect, PID preservation, and later cleanup |
+| TUI state or rendering | Focused `tui.rs` model, input, and rendering tests |
+| Performance hot path or benchmark | Semantic tests, deterministic benchmark fixtures, benchmark smoke, and before/after evidence from the same machine |
+| OpenCode, Pi, Claude, Codex, or Kiro reducer | The corresponding focused reducer tests, including `boomux-tui.test.js` for OpenCode TUI claims |
+| Host compatibility claim | Focused fixtures plus an update to `docs/lifecycle-validation.md` when validated live |
+
+## Performance And Memory
+
+Treat CPU efficiency and memory use as design constraints for every runtime
+change, not as cleanup work deferred until after correctness. Consider both the
+fixed daemon footprint and the marginal cost of each Shell, active terminal,
+Agent, attachment, and remote Node.
+
+- Evaluate idle and output-heavy behavior at realistic scale. A change that is
+  cheap for one terminal or client may be unacceptable across hundreds or
+  thousands.
+- Avoid per-Shell or per-attachment heavyweight runtimes, duplicate terminal
+  state, unnecessary output copies, polling loops, and work proportional to all
+  managed resources when only one resource changed.
+- Bound queues, buffers, histories, caches, projections, and persisted
+  collections. Define overload behavior explicitly rather than allowing memory
+  growth to become implicit backpressure.
+- Reclaim runtime state promptly after attachments disconnect and Shells,
+  Agents, or Nodes close. Test repeated create/attach/detach/close cycles when a
+  change could retain allocations, tasks, descriptors, or subprocesses.
+- Preserve idle efficiency. Background maintenance should be event-driven or
+  use bounded adaptive intervals, and should not wake per managed resource
+  without evidence that the cost is necessary.
+- For performance-sensitive changes, measure before and after using the same
+  machine, build profile, fixtures, and workload. Report fixed cost, marginal
+  cost per scaled resource, steady-state CPU, peak memory, and retained memory
+  after cleanup when applicable.
+- Do not trade correctness, lifecycle authority, or bounded behavior for a
+  benchmark result. Document any intentional performance or memory regression
+  with evidence and rationale in the PR.
+
+## Safety And Compatibility
+
+- `boomux daemon stop` terminates every managed process. Prefer
+  `boomux daemon restart` when testing compatible rebuilt binaries.
+- Preserve exact argument vectors; do not introduce shell interpolation into
+  launchers, commands, process adapters, or integration execution.
+- Treat shell runs and Agent instances as run-scoped. Never infer permanent
+  Agent completion from process exit or quiet terminal output.
+- Do not persist attachment environments. They are ephemeral startup input and
+  may contain private data.
+- Preserve persistence-before-event publication and the documented daemon lock
+  order when changing coordinated mutations.
+
+### Protocol Changes
+
+- Bump `PROTOCOL_VERSION` only when wire behavior requires it.
+- Update `Request::minimum_protocol_version` for new requests.
+- Define additive defaults and old-client response filtering or downgrade
+  behavior.
+- Add round-trip, old-peer, client-negotiation, and native compatibility tests.
+- Update advertised capabilities when the new behavior is integration-visible.
+- Update the protocol history in `docs/architecture.md` and any affected
+  contract document.
+
+### Persistence Changes
+
+- Bump `STATE_VERSION` when the durable representation changes.
+- Retain the previous schema and add an explicit migration; never silently
+  reinterpret persisted fields.
+- Add migration, invalid-state, cold-recovery, and graceful-handoff coverage as
+  applicable.
+- Keep state bounded, owner-validated, atomically replaced, and reproducible.
+- Document changes to recovery guarantees in `docs/architecture.md`.
+
+## Commits
+
+- Use Conventional Commits for every commit: `type(scope): description` or
+  `type: description`.
+- Use `feat` for user-visible capabilities, `fix` for user-visible corrections,
+  `perf` for performance improvements, and `refactor` for internal product
+  improvements that preserve behavior. Use `docs`, `test`, `build`, `ci`, or
+  `chore` when the change is not release-note material.
+- Mark breaking changes with `!` after the type or scope and explain them in a
+  `BREAKING CHANGE:` footer.
+- Keep the description imperative, lowercase, and concise.
+
+## Pull Requests And Releases
+
+- Use a Conventional Commit title for every PR. The title must describe the
+  release impact of the complete PR, for example `feat: add workspace previews`
+  or `fix(agent): preserve lifecycle registration`.
+- Choose a Release Please-recognized title deliberately: `feat` triggers a minor
+  release; `fix`, `perf`, and `refactor` trigger a patch release; and `!` or a
+  `BREAKING CHANGE:` footer triggers a major release. Use non-release types such
+  as `docs`, `test`, `build`, `ci`, or `chore` only when the PR has no
+  release-visible impact. Never mislabel internal work solely to force a
+  version.
+- Squash-merge PRs into `main` so the conventional PR title becomes the
+  main-branch commit consumed by Release Please.
+- Normal Release Please runs are triggered only after CI succeeds for the exact
+  `main` commit. Manual tag dispatch is reserved for explicit release recovery.
+- Before merging, update the PR title if its release type or scope changed.
+- If a PR contains existing non-conventional commits, add a Release Please
+  commit override to the PR body and squash-merge it:
+
+  ```text
+  BEGIN_COMMIT_OVERRIDE
+  feat: describe the complete release-visible change
+  END_COMMIT_OVERRIDE
+  ```
+
+---
+> Source: [gardnmi/boomux](https://github.com/gardnmi/boomux) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
