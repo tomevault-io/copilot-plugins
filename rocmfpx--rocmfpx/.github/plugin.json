@@ -1,0 +1,9 @@
+{
+  "name": "rocmfpx--rocmfpx",
+  "displayName": "ROCmFPX",
+  "description": "This will be the official ROCmFPX stack and studio",
+  "version": "1.0.0",
+  "author": "ROCmFPX",
+  "homepage": "https://github.com/ROCmFPX/ROCmFPX",
+  "skills": []
+}
