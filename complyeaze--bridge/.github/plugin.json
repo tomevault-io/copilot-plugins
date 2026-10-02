@@ -1,0 +1,9 @@
+{
+  "name": "complyeaze--bridge",
+  "displayName": "bridge",
+  "description": "ComplyEaze Bridge: TallyPrime MCP server for Claude Desktop, for CA firms and accountants. Reads the books on your own computer: outstandings with ageing, trial balance and vouchers. Posting Journal, ",
+  "version": "1.0.0",
+  "author": "ComplyEaze",
+  "homepage": "https://github.com/ComplyEaze/bridge",
+  "skills": []
+}
