@@ -1,0 +1,9 @@
+{
+  "name": "davidkhjo--ebmkit",
+  "displayName": "ebmkit",
+  "description": "Energy-based models in PyTorch. Samplers, losses, and evaluation.",
+  "version": "1.0.0",
+  "author": "davidkhjo",
+  "homepage": "https://github.com/davidkhjo/ebmkit",
+  "skills": []
+}
