@@ -1,0 +1,44 @@
+{
+  "name": "token-speed-patrol",
+  "owner": "john-walks-slow",
+  "repo": "token-speed-patrol",
+  "description": "LLM API \u5b9a\u65f6\u6d4b\u901f\u5de1\u68c0 + \u9759\u6001\u770b\u677f\uff08GitHub Actions \u514d\u670d\u52a1\u5668\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/john-walks-slow/token-speed-patrol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T06:43:07Z"
+}
