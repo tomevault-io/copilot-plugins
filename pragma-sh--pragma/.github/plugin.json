@@ -1,0 +1,9 @@
+{
+  "name": "pragma-sh--pragma",
+  "displayName": "pragma",
+  "description": "\u2728\u2728 Orchestrate Claude Code, Codex, OpenCode, Cursor, and more in parallel worktrees, with terminals, diffs, scratchpads, and pull requests in one native app. Use on mobile with Pragma Go. \u2728\u2728 ",
+  "version": "1.0.0",
+  "author": "pragma-sh",
+  "homepage": "https://github.com/pragma-sh/pragma",
+  "skills": []
+}
