@@ -4,7 +4,7 @@
   "repo": "SploitAgent",
   "description": "An open library of 161 security skills for AI agents \u2014 pentest, bug bounty & defense across 20 domains (web, API, cloud, AI/LLM, AD, mobile, and more). Load into Claude Code, Codex, Gemini, or a local model.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NoorQureshi/SploitAgent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T05:36:28Z"
+  "distributed_at": "2026-10-02T08:25:01Z"
 }
