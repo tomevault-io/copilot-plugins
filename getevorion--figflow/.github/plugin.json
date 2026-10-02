@@ -1,0 +1,9 @@
+{
+  "name": "getevorion--figflow",
+  "displayName": "FigFlow",
+  "description": "Figma to Dear ImGui: turn a .fig design into a working C++ Dear ImGui project.",
+  "version": "1.0.0",
+  "author": "getevorion",
+  "homepage": "https://github.com/getevorion/FigFlow",
+  "skills": []
+}
