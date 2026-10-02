@@ -4,7 +4,7 @@
   "repo": "tine",
   "description": "Build packages, go/Rust projects, and OS images with Buck2",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amutable-systems/tine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T00:00:08Z"
+  "distributed_at": "2026-10-02T00:58:39Z"
 }
