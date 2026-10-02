@@ -1,0 +1,9 @@
+{
+  "name": "agustinsacco--phosphor",
+  "displayName": "phosphor",
+  "description": "Desktop IDE for the pi coding agent: chat, diffs, files, terminal and artifacts in one window. Every pi provider, plus Claude Pro/Max and ChatGPT subscriptions. macOS, Linux, Windows.",
+  "version": "1.0.0",
+  "author": "agustinsacco",
+  "homepage": "https://github.com/agustinsacco/phosphor",
+  "skills": []
+}
