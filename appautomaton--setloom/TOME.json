@@ -4,7 +4,7 @@
   "repo": "setloom",
   "description": "Taste-first club-music production that automates everything but the judgment. You direct in plain language; the agent writes each track's source, drives the synths, renders, and inspects. You never operate a DAW or plug-in; you make every musical call. Open-source, keyboard-first.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/appautomaton/setloom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T09:31:18Z"
+  "distributed_at": "2026-10-02T13:06:42Z"
 }
