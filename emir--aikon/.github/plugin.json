@@ -1,9 +1,9 @@
 {
   "name": "emir--aikon",
-  "displayName": "aikon",
+  "displayName": "AIKON",
   "description": "A 2007 Nokia can't search Google anymore, so I gave it Claude, ChatGPT, Gemini and Grok. J2ME app for Nokia S40/S60 + tiny Go server.",
   "version": "1.0.0",
   "author": "emir",
-  "homepage": "https://github.com/emir/aikon",
+  "homepage": "https://github.com/emir/AIKON",
   "skills": []
 }
