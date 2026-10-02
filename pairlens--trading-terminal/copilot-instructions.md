@@ -1,0 +1,71 @@
+## trading-terminal
+
+> Pairlens is an AI-native trading terminal for crypto spot, perpetual futures, prediction markets and US equities. The primary distribution is a Tauri desktop app, a hosted web terminal runs at `terminal.pairlens.finance`, and below 768px that same URL serves the mobile terminal — a five-tab, chart-centric phone surface built from the same codebase. All three are shipped products; the browser is not a dev harness. This repo is the public, source-available side (licensed FSL-1.1-Apache-2.0): the terminal, desktop shell, CLI, plugin registry, marketing site, and all shared packages. The optional App Server backend (auth, sync, AI proxy) lives in a separate private repo; the charting library (`@pairlens/fast-financial-charts`) lives in the public `Pairlens/fast-financial-charts` repo (MIT), is published to NPM by its own CI, and is consumed here as a semver dependency.
+
+# Pairlens — Agent Guide
+
+Pairlens is an AI-native trading terminal for crypto spot, perpetual futures, prediction markets and US equities. The primary distribution is a Tauri desktop app, a hosted web terminal runs at `terminal.pairlens.finance`, and below 768px that same URL serves the mobile terminal — a five-tab, chart-centric phone surface built from the same codebase. All three are shipped products; the browser is not a dev harness. This repo is the public, source-available side (licensed FSL-1.1-Apache-2.0): the terminal, desktop shell, CLI, plugin registry, marketing site, and all shared packages. The optional App Server backend (auth, sync, AI proxy) lives in a separate private repo; the charting library (`@pairlens/fast-financial-charts`) lives in the public `Pairlens/fast-financial-charts` repo (MIT), is published to NPM by its own CI, and is consumed here as a semver dependency.
+
+**Full project guidance — architecture, commands, code style, environment, key patterns — lives in [CLAUDE.md](CLAUDE.md). Read it before working in this repo.** The essentials:
+
+- `bun install` to set up, `bun run dev` to start the terminal, `bun test packages/<name>` for individual suites.
+- Before finalizing any work: `bun run typecheck && bun run lint && bun run format && bun run test` — all must pass.
+- Code style: Prettier (no semicolons, single quotes), TypeScript strict, Bun as the package manager (never npm/yarn).
+- Exchange credentials are local-only — the OS keychain on desktop, the encrypted credential vault in a browser — and must never be sent to or stored on the App Server.
+- The 14 CEX spot connectors are a bridge over a pinned, patched `ccxt@4.5.71` (`packages/plugins/src/ccxt-connector/`; patch in `patches/`), and the three perpetual-futures venues ride a sibling factory on the same pinned ccxt (`packages/plugins/src/ccxt-futures-connector/`). Never import the ccxt barrel — venues deep-import `ccxt/js/src/pro/<id>.js` — and after any ccxt bump, re-verify the venue-local bug patches and browser-verify the binary-frame venues (HTX, Upbit, MEXC): bun tests cannot catch browser-only frame handling. See the "CCXT bridge" section in CLAUDE.md.
+- The mobile shell lives entirely under `apps/terminal/src/mobile/` and is separable: it imports into the app, the app does not import from it (a test pins the three sanctioned exceptions). A helper both shells need goes in `src/hooks/` or `src/lib/`, never in `src/mobile/`.
+- User-facing strings are translated into 17 locales. Add new keys to `apps/terminal/src/locales/en/translation.json` and the other sixteen in the same change — a parity test enforces it.
+- Docs ship with the change. After any user-visible change, grep `apps/marketing/src/content/docs/` for the surfaces you touched, update the pages that describe them, and bump their `updated:` frontmatter. No linter catches a stale page, and a page describing the old way is a confident wrong answer. See "Docs ship with the change" in CLAUDE.md.
+- Product metrics ship with the change too. A new feature or significant UI change needs a decision on whether PostHog product events should track its usage — if we can't tell whether anyone uses it, we can't decide its future. Events are declared in the typed taxonomy in `apps/terminal/src/lib/analytics-events.ts` (read its privacy-rule header first) and emitted via `track()`, never `captureEvent()` directly. Check for an existing event before adding a near-duplicate, and if you deliberately skip metrics, say so in the commit body. See "Product metrics ship with the change" in CLAUDE.md.
+- Never write an em dash or en dash in any copy or UI text: terminal strings, docs, marketing, READMEs, release notes, CLI output. Restructure with commas, colons, parentheses, or separate sentences, and grep your changed files for `—` and `–` before committing. Write in the project voice (lead with what it does and why the reader cares, concrete specifics, varied sentence length). See "Voice and tone" in CLAUDE.md. Internal text like this file is exempt.
+
+The section below is auto-generated by GitNexus — do not edit it by hand. Its contents are pinned by the committed `.gitnexusrc` (`name: pairlens`, `noStats`), so a reindex from any worktree regenerates it byte-for-byte. Requires gitnexus >= 1.6.9; older versions ignore that file and rewrite the block with the worktree's directory name.
+
+<!-- gitnexus:start -->
+# GitNexus — Code Intelligence
+
+This project is indexed by GitNexus as **pairlens**. Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+
+> Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
+
+## Always Do
+
+- **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
+- **MUST run `detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows. For regression review, compare against the default branch: `detect_changes({scope: "compare", base_ref: "main"})`.
+- **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
+- When exploring unfamiliar code, use `query({search_query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
+- When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `context({name: "symbolName"})`.
+- For security review, `explain({target: "fileOrSymbol"})` lists taint findings (source→sink flows; needs `analyze --pdg`).
+
+## Never Do
+
+- NEVER edit a function, class, or method without first running `impact` on it.
+- NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
+- NEVER rename symbols with find-and-replace — use `rename` which understands the call graph.
+- NEVER commit changes without running `detect_changes()` to check affected scope.
+
+## Resources
+
+| Resource | Use for |
+|----------|---------|
+| `gitnexus://repo/pairlens/context` | Codebase overview, check index freshness |
+| `gitnexus://repo/pairlens/clusters` | All functional areas |
+| `gitnexus://repo/pairlens/processes` | All execution flows |
+| `gitnexus://repo/pairlens/process/{name}` | Step-by-step execution trace |
+
+## CLI
+
+| Task | Read this skill file |
+|------|---------------------|
+| Understand architecture / "How does X work?" | `.claude/skills/gitnexus/gitnexus-exploring/SKILL.md` |
+| Blast radius / "What breaks if I change X?" | `.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md` |
+| Trace bugs / "Why is X failing?" | `.claude/skills/gitnexus/gitnexus-debugging/SKILL.md` |
+| Rename / extract / split / refactor | `.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md` |
+| Tools, resources, schema reference | `.claude/skills/gitnexus/gitnexus-guide/SKILL.md` |
+| Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
+
+<!-- gitnexus:end -->
+
+---
+> Source: [Pairlens/trading-terminal](https://github.com/Pairlens/trading-terminal) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
