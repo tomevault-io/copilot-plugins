@@ -7,11 +7,11 @@ Cartograph turns any GitHub repo into an interactive dependency map by parsing r
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [adrianhajdin/cartograph](https://github.com/adrianhajdin/cartograph).
+Original source: `AGENTS.md` in [adrianhajdin/cartograph](https://github.com/adrianhajdin/cartograph).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
