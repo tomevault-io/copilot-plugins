@@ -1,0 +1,70 @@
+## avi
+
+> - Avi is a local Electron desktop workspace for AI conversations, providers, tools, MCP servers, context discovery, and multi-agent orchestration.
+
+# Avi project guide
+
+## Project overview
+- Avi is a local Electron desktop workspace for AI conversations, providers, tools, MCP servers, context discovery, and multi-agent orchestration.
+- The project is an ESM JavaScript application. Bun runs scripts and dependency management, Electron hosts privileged runtime code, React renders the UI, Vite builds the renderer, and Cascadium compiles XCSS.
+- Start architecture discovery at `src/main/main.js`, `src/main/runtime.js`, `src/preload/preload.cjs`, and `src/renderer/main.jsx`. User-facing behavior is documented under `docs/`.
+
+## Architecture and boundaries
+- `src/main/` owns Electron lifecycle, persistence, providers, chat execution, tools, MCP, plugins, filesystem operations, and IPC handlers. Read `.agents/AGENTS.MainProcess.md` before changing this boundary.
+- `src/preload/preload.cjs` is the only renderer privilege bridge. Renderer code consumes `window.chatApp`; it must not import Electron or Node APIs.
+- `src/renderer/` contains the main and Quick Chat React applications. Styles are authored under `src/styles/`; read `.agents/AGENTS.Renderer.md` before UI or style work.
+- `src/providers/` contains built-in provider implementations registered by `src/providers/index.js`. Keep provider-specific protocol/authentication behavior there; shared selection, retries, and stream handling belong in `src/main/model-provider.js`.
+- `src/prompts/` contains base/personality prompts and the authoring source for context shipped with Avi. Read `.agents/AGENTS.Prompts.md` before changing prompts or bundled context.
+- `plugins/` contains trusted install-wide plugin sources and managed materialized context. Read `.agents/AGENTS.Plugins.md` before plugin work.
+- `src/shared/` is code shared across runtime boundaries. `scripts/` contains builds and focused executable tests. `dist/`, `artifacts/`, and `plugins/.avi/` are generated or managed output.
+
+## Commands
+Run commands from the repository root.
+
+- Install dependencies: `bun install`
+- Develop with Vite, Cascadium watch, and Electron: `bun run dev`
+- Develop with renderer DevTools: `bun run dev:devtools`
+- Build the renderer: `bun run build`
+- Parse-check `scripts/` and `src/main/`: `bun run syntax`
+- Package installers: `bun run package -- --publish never`
+- Run a focused test through its `package.json` script when available. Tests live in `scripts/test-*.mjs`; some focused tests intentionally have no package alias.
+
+Do not run provider/network/AI-consuming tests unless the changed behavior requires them and the needed account or endpoint is configured. Packaging is a release-level validation, not the default check for ordinary changes.
+
+## Project-wide conventions
+- Make the smallest coherent change and preserve the existing cross-process separation.
+- Every Avi change must be reflected in the applicable public API surface: Core, MCP, or RPC. Update the corresponding implementation, contracts, tests, and API reference in the same change.
+- Every Avi change must also update the relevant user or developer documentation and the applicable changelog in the same change. Do not consider implementation complete while API, documentation, or changelog coverage is pending.
+- Keep the IPC API synchronized across `src/preload/preload.cjs`, the logical handlers in `src/main/runtime.js`, and renderer callers.
+- Treat `src/renderer/styles.css` as tracked generated output. Edit `src/styles/**/*.xcss` and regenerate it with `bun run styles`.
+- Do not edit `dist/`, `artifacts/`, or `plugins/.avi/` as source.
+- Electron-dependent modules can fail under plain Bun because native modules and Electron exports require the Electron runtime. Use the repository's Electron-based test command or `bun x electron ...` when the target imports Electron/native persistence code.
+- Keep user documentation aligned when changing visible behavior, settings, context discovery, provider configuration, or plugin contracts. `docs/Plugins.md` is the authoritative public plugin contract.
+
+## Changelog maintenance
+- Update the applicable changelog in the same change as the implementation; do not defer changelog reconstruction until release time.
+- Maintain `CHANGELOG.md` for application releases. Keep the unreleased section at the top as `## [Canary]`; when publishing, rename that section to the released version and date, then create a new empty `Canary` section above it.
+- Maintain `CHANGELOG.plugins.md` independently for public Plugin API releases. Keep its unreleased API section as `## [Canary]`; only replace it with the published Plugin API version and date when that API version is released, then create a new empty `Canary` section.
+- A change that affects both the application release and the public plugin contract must update both changelogs. Plugin implementation changes that do not alter the public contract belong only in `CHANGELOG.md`.
+- Use these subsections, in this order, and omit empty ones: `Added` for new features, `Changed` for behavior changes, `Fixed` for corrected bugs or glitches, `Docs` for documentation updates, `Chores` for small maintenance work, and `Tests` for test updates. Record removals under `Changed` and identify them explicitly as removals.
+- In `CHANGELOG.plugins.md`, every added feature, changed behavior, or removal must state whether it is `Breaking` or `Backward compatible` and give an explicit supported Plugin API version range. For a breaking entry, state the first breaking API version and the last compatible API version; for example, `Compatibility: Breaking in API v3; last compatible version: API v2.` For a backward-compatible entry, state the full supported range; for example, `Compatibility: Backward compatible; supports API v2–v3.` Derive these claims from the implemented validation and public contract rather than guessing.
+
+## Validation
+1. Run the narrowest affected `scripts/test-*.mjs` or `bun run test:<area>` command.
+2. Run `bun run syntax` for main-process or script changes; it does not cover JSX, preload, or `src/providers/`.
+3. Run `bun run styles` after XCSS changes and include the regenerated `src/renderer/styles.css` diff.
+4. Run `bun run build` for renderer, preload-facing, or packaging-boundary changes.
+5. Use the Electron smoke path for IPC/window/runtime changes: in PowerShell, set `CHAT_APP_SMOKE_TEST=1`, run `bun x electron .`, then remove the variable.
+6. Review the final diff and report unrelated failures separately.
+
+## Instruction map
+- `.agents/AGENTS.Project.md`: project-wide architecture, commands, conventions, changelog rules, and validation.
+- `.agents/AGENTS.MainProcess.md`: applies to `src/main/`, `src/providers/`, `src/preload/`, and related runtime scripts and tests.
+- `.agents/AGENTS.Renderer.md`: applies to `src/renderer/`, `src/styles/`, and renderer-facing assets and tests.
+- `.agents/AGENTS.Design.md`: optional design guidance for workspace, panels, navigation, settings, composer, and visual philosophy.
+- `.agents/AGENTS.Prompts.md`: applies to `src/prompts/` and bundled context sources.
+- `.agents/AGENTS.Plugins.md`: applies to `plugins/`, the public plugin contract, and plugin host integration.
+
+---
+> Source: [aivaxlabs/avi](https://github.com/aivaxlabs/avi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
