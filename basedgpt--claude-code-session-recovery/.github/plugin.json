@@ -1,0 +1,9 @@
+{
+  "name": "basedgpt--claude-code-session-recovery",
+  "displayName": "claude-code-session-recovery",
+  "description": "Diagnose and repair Claude Desktop session metadata bugs on Windows and Mac \u2014 missing conversation history, lost transcripts, duplicate sessions, junction-induced splits, lost groupings.",
+  "version": "1.0.0",
+  "author": "BasedGPT",
+  "homepage": "https://github.com/BasedGPT/claude-code-session-recovery",
+  "skills": []
+}
