@@ -7,11 +7,11 @@ Taste-first club-music production that automates everything but the judgment. Yo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [appautomaton/setloom](https://github.com/appautomaton/setloom).
+Original source: `AGENTS.md` in [appautomaton/setloom](https://github.com/appautomaton/setloom).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
