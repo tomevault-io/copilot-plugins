@@ -1,0 +1,9 @@
+{
+  "name": "aizhimou--nz-accredited-employer-inspector",
+  "displayName": "nz-accredited-employer-inspector",
+  "description": "Chrome extension and Cloudflare Worker for checking New Zealand accredited employers on SEEK and LinkedIn.",
+  "version": "1.0.0",
+  "author": "aizhimou",
+  "homepage": "https://github.com/aizhimou/nz-accredited-employer-inspector",
+  "skills": []
+}
