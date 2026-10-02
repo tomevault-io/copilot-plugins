@@ -1,0 +1,9 @@
+{
+  "name": "playcanvas--skills",
+  "displayName": "skills",
+  "description": "Reusable skills for AI coding agents working with PlayCanvas products",
+  "version": "1.0.0",
+  "author": "playcanvas",
+  "homepage": "https://github.com/playcanvas/skills",
+  "skills": []
+}
