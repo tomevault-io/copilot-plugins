@@ -1,0 +1,9 @@
+{
+  "name": "forgemind-git--forgegrowth-oss",
+  "displayName": "ForgeGrowth-OSS",
+  "description": "Self-hosted, WhatsApp-native growth stack: Meta ad \u2192 click-to-WhatsApp conversation \u2192 lead \u2192 funnel stage \u2192 payment, joined by one key. Express + React + Postgres. MIT licensed.",
+  "version": "1.0.0",
+  "author": "Forgemind-git",
+  "homepage": "https://github.com/Forgemind-git/ForgeGrowth-OSS",
+  "skills": []
+}
