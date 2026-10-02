@@ -1,0 +1,9 @@
+{
+  "name": "ezra144israel--agent-teamwork-kit",
+  "displayName": "agent-teamwork-kit",
+  "description": "Six skills tell coding agents how to work. Two guards enforce the parts that should not depend on judgment.",
+  "version": "1.0.0",
+  "author": "Ezra144israel",
+  "homepage": "https://github.com/Ezra144israel/agent-teamwork-kit",
+  "skills": []
+}
