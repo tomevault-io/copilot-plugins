@@ -1,0 +1,9 @@
+{
+  "name": "qiqianfu--qev",
+  "displayName": "Qev",
+  "description": "Jev-like model: Qev, fine-tunes Qwen into a decision model",
+  "version": "1.0.0",
+  "author": "QiqianFu",
+  "homepage": "https://github.com/QiqianFu/Qev",
+  "skills": []
+}
