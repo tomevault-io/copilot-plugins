@@ -1,0 +1,9 @@
+{
+  "name": "outerloop-science--outerloop",
+  "displayName": "outerloop",
+  "description": "Autonomous research agents that co-develop benchmark tracked repos",
+  "version": "1.0.0",
+  "author": "outerloop-science",
+  "homepage": "https://github.com/outerloop-science/outerloop",
+  "skills": []
+}
