@@ -1,0 +1,9 @@
+{
+  "name": "wso2--dpdp-accelerator",
+  "displayName": "dpdp-accelerator",
+  "description": "DPDP Accelerator is a collection of artifacts, reference implementations, and documentation that help organizations accelerate the adoption of DPDP Act.",
+  "version": "1.0.0",
+  "author": "wso2",
+  "homepage": "https://github.com/wso2/dpdp-accelerator",
+  "skills": []
+}
