@@ -1,0 +1,9 @@
+{
+  "name": "dsx-ai-factory--cluster-api-provider-nico",
+  "displayName": "cluster-api-provider-nico",
+  "description": "cluster-api-provider-nico",
+  "version": "1.0.0",
+  "author": "dsx-ai-factory",
+  "homepage": "https://github.com/dsx-ai-factory/cluster-api-provider-nico",
+  "skills": []
+}
