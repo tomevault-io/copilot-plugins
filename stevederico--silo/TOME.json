@@ -4,7 +4,7 @@
   "repo": "silo",
   "description": "a private ai assistant for iOS. Chat with LLMs with no tracking or censorship. Local and completely on-device, no internet required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stevederico/silo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T04:48:23Z"
+  "distributed_at": "2026-10-02T06:57:25Z"
 }
