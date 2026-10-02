@@ -1,0 +1,9 @@
+{
+  "name": "atomicpages--sensored",
+  "displayName": "sensored",
+  "description": "A free streaming-first open-source redaction toolit",
+  "version": "1.0.0",
+  "author": "atomicpages",
+  "homepage": "https://github.com/atomicpages/sensored",
+  "skills": []
+}
