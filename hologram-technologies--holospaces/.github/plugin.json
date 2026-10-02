@@ -1,0 +1,9 @@
+{
+  "name": "hologram-technologies--holospaces",
+  "displayName": "holospaces",
+  "description": "Holospaces is a workload control plane that treats the browser as a first-class compute substrate, alongside local and remote infrastructure.",
+  "version": "1.0.0",
+  "author": "Hologram-Technologies",
+  "homepage": "https://github.com/Hologram-Technologies/holospaces",
+  "skills": []
+}
