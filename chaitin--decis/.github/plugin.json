@@ -1,0 +1,9 @@
+{
+  "name": "chaitin--decis",
+  "displayName": "Decis",
+  "description": "Self-hosted, Jev-compatible decision-model API \u2014 one /v1/systemone endpoint, open weights (Laya, kev), one Docker image per engine.",
+  "version": "1.0.0",
+  "author": "chaitin",
+  "homepage": "https://github.com/chaitin/Decis",
+  "skills": []
+}
