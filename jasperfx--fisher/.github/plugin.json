@@ -1,0 +1,9 @@
+{
+  "name": "jasperfx--fisher",
+  "displayName": "fisher",
+  "description": "Sqlite Backed Document and Event Store within the Critter Stack",
+  "version": "1.0.0",
+  "author": "JasperFx",
+  "homepage": "https://github.com/JasperFx/fisher",
+  "skills": []
+}
