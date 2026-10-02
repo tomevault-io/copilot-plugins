@@ -1,0 +1,9 @@
+{
+  "name": "nic2045--presenceguard",
+  "displayName": "PresenceGuard",
+  "description": "Control your Microsoft Teams presence from Home Assistant \u2014 UI OAuth login, self-healing reauth in Repairs, a live presence sensor and services (set offline / status / status message). HACS-ready cust",
+  "version": "1.0.0",
+  "author": "nic2045",
+  "homepage": "https://github.com/nic2045/PresenceGuard",
+  "skills": []
+}
