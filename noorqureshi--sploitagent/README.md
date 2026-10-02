@@ -7,11 +7,11 @@ An open library of 161 security skills for AI agents — pentest, bug bounty & d
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [NoorQureshi/SploitAgent](https://github.com/NoorQureshi/SploitAgent).
+Original source: `AGENTS.md` in [NoorQureshi/SploitAgent](https://github.com/NoorQureshi/SploitAgent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
