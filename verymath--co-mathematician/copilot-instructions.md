@@ -1,32 +1,63 @@
-## co-mathematician-roles
+## co-mathematician
 
-> Co-Mathematician canonical role routing for Cursor Agent
+> Coding-agent-driven AI Co-Mathematician workspace rules
 
 
-# Co-Mathematician Role Adapter
+# Coding-Agent Co-Mathematician Rules
 
-Cursor does not use `.codex/agents/*.toml` or `.claude/agents/*.md` as native
-agent definitions. Treat `agents/roles/` as the canonical role layer and use
-Cursor Agent sessions, focused chats, or fresh reviewer prompts as the adapter.
+This repository is a coding-agent-driven AI Co-Mathematician workspace.
 
-Canonical role cards:
+When Cursor is operating in this repository:
 
-- `proof_explorer`: `agents/roles/proof_explorer.md`
-- `computational_experimenter`: `agents/roles/computational_experimenter.md`
-- `logic_reviewer`: `agents/roles/logic_reviewer.md`
-- `adversarial_reviewer`: `agents/roles/adversarial_reviewer.md`
-- `citation_checker`: `agents/roles/citation_checker.md`
-- `synthesis_agent`: `agents/roles/synthesis_agent.md`
+- The active Cursor Agent chat/session is the Project Coordinator.
+- The repository filesystem is the shared artifact store.
+- `agents/roles/` is the canonical role layer.
+- `.cursor/rules/co-mathematician-roles.mdc` is the Cursor adapter for those roles.
+- Separate Agent chats, fresh reviewer prompts, or available agent delegation features are workstream coordinators, specialized agents, and reviewers.
+- The harness only provides schemas, state files, gates, report skeletons, and validation scripts.
+- Do not build a new multi-agent platform here.
+- Do not start a mathematical research project during workspace initialization.
 
-When asked to perform one of these roles:
+Default workspace-mode flow:
 
-- Read the matching canonical role card before acting.
-- Work only on the approved goal or workstream supplied by the Project Coordinator.
-- Save artifacts, failed explorations, reviews, and reports in the workstream directory.
-- Keep provenance and uncertainty explicit.
-- Do not start new goals or workstreams.
-- Do not mark any workstream complete.
-- Do not self-approve your own report.
+```text
+onboarding -> research question formalization -> goal approval -> workstreams -> reviewer loop -> final working paper
+```
+
+If the user explicitly invokes a project-local domain Skill, or accepts a Skill
+suggested by `co-math suggest-skills`, enter skill-guided mode instead. Record
+the handoff with `co-math skill-handoff` and follow that Skill's own opening,
+modeling, and approval flow for the inner task. Promote the task into goals and
+workstreams only when the user wants durable research output, reviewer-gated
+claims, or a final working paper.
+
+Hard rules:
+
+- Default workspace mode runs onboarding before goal approval.
+- During workspace-mode onboarding, ask the user to choose a workspace document language policy.
+- Refresh the project-local skill registry at session start, after skill installation, and before formalizing goals.
+- Before creating any workstream, match the workstream scope against the project-local skill registry and read any relevant `SKILL.md`.
+- Always get explicit user approval of goals before starting any workstream.
+- Never start a workstream for an unapproved goal.
+- Important claims must include provenance.
+- Failed explorations must be saved as durable artifacts.
+- Uncertainty must be exposed explicitly in reports and status updates.
+- Every workstream report must be reviewed by an independent reviewer pass or agent.
+- A workstream whose review has not passed must not be marked complete.
+- Final output must be a working paper, not a chat summary.
+
+Cursor operating notes:
+
+- Read `AGENTS.md`, `agents/roles/`, `.agents/skills/co-mathematician/SKILL.md`, and `.cursor/rules/co-mathematician-roles.mdc` before running a research project.
+- Use Agent mode to edit durable files under `workspace/`.
+- Install or copy project-specific Skills into `.agents/skills/` by default, not global skill roots, unless the user explicitly asks for a personal cross-project install.
+- Use `co-math` only for initialization, skill registry and handoff records, message append, workstream creation, gate checks, and final rendering.
+- If native subagents are unavailable, create independent reviewer passes with fresh prompts and save reviewer outputs in `workspace/workstreams/<id>/reviews/`.
+- Never self-approve a workstream report.
+- Record the user's language policy in `workspace/project/PROJECT.md`,
+  `workspace/project/PROJECT_STATUS.md`, and the `language_policy` block of
+  `workspace/project/GOALS.yaml`; keep schema keys, gate names, statuses, and
+  harness commands in English.
 
 ---
 > Source: [VeryMath/co-mathematician](https://github.com/VeryMath/co-mathematician) — distributed by [TomeVault](https://tomevault.io).
