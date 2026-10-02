@@ -7,11 +7,11 @@ Generative UI notebooks for Omnigraph
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ModernRelay/notebook](https://github.com/ModernRelay/notebook).
+Original source: `AGENTS.md` in [ModernRelay/notebook](https://github.com/ModernRelay/notebook).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
