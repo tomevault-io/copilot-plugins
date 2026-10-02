@@ -1,0 +1,9 @@
+{
+  "name": "kmarchais--pyvista-blender",
+  "displayName": "pyvista-blender",
+  "description": "Render PyVista plotter scenes through Blender (bpy) for photoreal output.",
+  "version": "1.0.0",
+  "author": "kmarchais",
+  "homepage": "https://github.com/kmarchais/pyvista-blender",
+  "skills": []
+}
