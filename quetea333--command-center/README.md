@@ -7,11 +7,11 @@ A framework for building agentic apps
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [QueTea333/Command-Center](https://github.com/QueTea333/Command-Center).
+Original source: `AGENTS.md` in [QueTea333/Command-Center](https://github.com/QueTea333/Command-Center).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
