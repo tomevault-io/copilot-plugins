@@ -1,0 +1,9 @@
+{
+  "name": "kevinrivm--nea-agent",
+  "displayName": "nea-agent",
+  "description": "Nea \u2014 agente de IA de agendamiento para WhatsApp, open source y self-hosted. Funciona en pareja con Vocero CRM.",
+  "version": "1.0.0",
+  "author": "kevinrivm",
+  "homepage": "https://github.com/kevinrivm/nea-agent",
+  "skills": []
+}
