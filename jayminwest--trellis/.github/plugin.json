@@ -1,0 +1,9 @@
+{
+  "name": "jayminwest--trellis",
+  "displayName": "trellis",
+  "description": "Keep growing TypeScript codebases maintainable. Trellis measures complexity, duplication, and import cycles, pinpoints structural debt, and tracks regressions offline.",
+  "version": "1.0.0",
+  "author": "jayminwest",
+  "homepage": "https://github.com/jayminwest/trellis",
+  "skills": []
+}
