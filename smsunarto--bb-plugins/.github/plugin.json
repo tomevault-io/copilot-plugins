@@ -1,0 +1,9 @@
+{
+  "name": "smsunarto--bb-plugins",
+  "displayName": "bb-plugins",
+  "description": "Monorepo for personal bb plugins: amp, notification, gh-stack, agentation, agent-proxy, etc",
+  "version": "1.0.0",
+  "author": "smsunarto",
+  "homepage": "https://github.com/smsunarto/bb-plugins",
+  "skills": []
+}
