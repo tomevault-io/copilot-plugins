@@ -1,0 +1,44 @@
+{
+  "name": "float-android",
+  "owner": "shiaho777",
+  "repo": "float-android",
+  "description": "\u4e00\u90e8\u88c5\u5728 Android \u91cc\u7684 AI \u865a\u62df\u624b\u673a\uff1a\u62df\u771f\u684c\u9762\u3001\u804a\u5929\u3001\u670b\u53cb\u5708\u3001\u67e5\u624b\u673a\u3001\u5730\u56fe\u5b9a\u4f4d\u3001\u8bed\u97f3/\u89c6\u9891\u901a\u8bdd\u3001\u65e5\u8bb0\u65e5\u5386\u3002AI \u89d2\u8272\u6709\u4f5c\u606f\u3001\u65e5\u7a0b\u3001\u4f4d\u7f6e\u548c\u957f\u671f\u8bb0\u5fc6\uff0c\u4f1a\u4e3b\u52a8\u53d1\u6d88\u606f\u3001\u53d1\u5e16\u4e92\u52a8\u3002\u6570\u636e\u5168\u5728\u8bbe\u5907\u672c\u5730\uff0c\u8054\u7f51\u53ea\u8c03\u4f60\u81ea\u5df1\u914d\u7f6e\u7684 LLM/\u751f\u56fe/\u8bed\u97f3 API\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shiaho777/float-android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T07:43:41Z"
+}
