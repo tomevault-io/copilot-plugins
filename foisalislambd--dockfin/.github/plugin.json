@@ -1,0 +1,9 @@
+{
+  "name": "foisalislambd--dockfin",
+  "displayName": "dockfin",
+  "description": "An open-source, self-hostable PaaS alternative to Vercel, Heroku, Netlify and coolify deploy static sites, databases, full-stack applications, and 400+ one-click apps and services on your own servers ",
+  "version": "1.0.0",
+  "author": "foisalislambd",
+  "homepage": "https://github.com/foisalislambd/dockfin",
+  "skills": []
+}
