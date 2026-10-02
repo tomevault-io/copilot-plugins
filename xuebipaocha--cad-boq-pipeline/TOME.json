@@ -1,0 +1,44 @@
+{
+  "name": "cad-boq-pipeline",
+  "owner": "xuebipaocha",
+  "repo": "cad-boq-pipeline",
+  "description": "CAD\u56fe\u7eb8\u8bc6\u522b\uff0c\u8ba1\u7b97\u5de5\u7a0b\u91cf\uff0c\u7f16\u5236\u5de5\u7a0b\u91cf\u6e05\u5355\uff0c\u5168\u6d41\u7a0b\u81ea\u52a8\u5316\u5de5\u4f5c\u6d41\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xuebipaocha/cad-boq-pipeline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T11:39:46Z"
+}
