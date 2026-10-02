@@ -1,0 +1,9 @@
+{
+  "name": "calmray-solutions--uptime-guard",
+  "displayName": "uptime-guard",
+  "description": "Self-hosted uptime, TCP, DNS, TLS-cert, domain & heartbeat monitoring on Cloudflare Workers - with escalating Telegram + Web Push alerts, SLA/incident history, and public status pages. Runs free.",
+  "version": "1.0.0",
+  "author": "CalmRay-Solutions",
+  "homepage": "https://github.com/CalmRay-Solutions/uptime-guard",
+  "skills": []
+}
