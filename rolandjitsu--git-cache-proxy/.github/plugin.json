@@ -1,0 +1,9 @@
+{
+  "name": "rolandjitsu--git-cache-proxy",
+  "displayName": "git-cache-proxy",
+  "description": "A simple read-only proxy cache for git.",
+  "version": "1.0.0",
+  "author": "rolandjitsu",
+  "homepage": "https://github.com/rolandjitsu/git-cache-proxy",
+  "skills": []
+}
