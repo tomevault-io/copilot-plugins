@@ -1,0 +1,9 @@
+{
+  "name": "leonvanzyl--cubefarm",
+  "displayName": "cubefarm",
+  "description": "A cartoon 3D office where a swarm of Claude Code agents (plus QA testers) works through your GitHub issues",
+  "version": "1.0.0",
+  "author": "leonvanzyl",
+  "homepage": "https://github.com/leonvanzyl/cubefarm",
+  "skills": []
+}
