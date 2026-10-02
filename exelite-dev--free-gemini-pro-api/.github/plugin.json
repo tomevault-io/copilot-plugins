@@ -1,0 +1,9 @@
+{
+  "name": "exelite-dev--free-gemini-pro-api",
+  "displayName": "Free-Gemini-pro-API",
+  "description": "Free, unlimited Google Gemini Pro API proxy completely compatible with OpenAI and Anthropic standards. Features auto cookie refresh, account pooling, and a beautiful admin dashboard.",
+  "version": "1.0.0",
+  "author": "exelite-dev",
+  "homepage": "https://github.com/exelite-dev/Free-Gemini-pro-API",
+  "skills": []
+}
