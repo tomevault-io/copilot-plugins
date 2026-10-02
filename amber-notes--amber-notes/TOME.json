@@ -4,7 +4,7 @@
   "repo": "amber-notes",
   "description": "Amber Notes: the free, open-source notes app for iPhone and Mac that ChatGPT and Claude can use (MCP).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amber-notes/amber-notes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T11:38:16Z"
+  "distributed_at": "2026-10-02T15:07:22Z"
 }
