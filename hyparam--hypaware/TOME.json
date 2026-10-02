@@ -4,7 +4,7 @@
   "repo": "hypaware",
   "description": "Records sessions, logs, and telemetry from your AI agents into one queryable history",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hyparam/hypaware",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T11:50:44Z"
+  "distributed_at": "2026-10-02T15:12:32Z"
 }
