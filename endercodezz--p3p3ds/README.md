@@ -7,11 +7,11 @@ Persona 3 Portable port for New Nintendo 3DS
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [endercodezz/P3P3DS](https://github.com/endercodezz/P3P3DS).
+Original source: `AGENTS.md` in [endercodezz/P3P3DS](https://github.com/endercodezz/P3P3DS).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
