@@ -4,7 +4,7 @@
   "repo": "hwpx-builder",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hwpx-builder/hwpx-builder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T01:58:56Z"
+  "distributed_at": "2026-10-02T00:46:28Z"
 }
