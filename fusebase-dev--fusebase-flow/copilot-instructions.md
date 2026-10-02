@@ -1,12 +1,54 @@
-## fusebase-flow
+## fusebase-flow-implementation
 
-> Read `AGENTS.md`, then `FLOW_RULES.md` through `## Amendment log`. Copilot supplies no Flow skill bodies: read `flow-skills/communication/SKILL.md`, `flow-skills/role-discipline/SKILL.md`, and `flow-skills/role-discipline/references/<role>.md`. Then read the active workflow and ticket/handoff. Use the attestation and state footer from `FLOW_RULES.md`.
+> Fusebase Flow implementation phase rules. Use when editing source code per a locked spec.
 
-# GitHub Copilot / VS Code adapter for Fusebase Flow
 
-Read `AGENTS.md`, then `FLOW_RULES.md` through `## Amendment log`. Copilot supplies no Flow skill bodies: read `flow-skills/communication/SKILL.md`, `flow-skills/role-discipline/SKILL.md`, and `flow-skills/role-discipline/references/<role>.md`. Then read the active workflow and ticket/handoff. Use the attestation and state footer from `FLOW_RULES.md`.
+# Fusebase Flow — AI Developer discipline
 
-Canonical lifecycle skills, workflows, policies, hooks, templates, provider/runtime precedence, active project context, and update safety are indexed from `AGENTS.md`. Scoped security and validation instructions live in `.github/instructions/`. Copilot has no native Flow lifecycle hooks in this template; use the Git fallback hooks and the same role/approval contract. CLI provider skills remain authoritative for Fusebase Apps runtime, MCP, and SDK behavior.
+Use only when in AI Developer role with a locked spec.
+
+## Self-check before any code edit
+
+- [ ] Spec exists at `docs/specs/<slug>/spec.md` and is referenced
+- [ ] Decisions are LOCKED in `docs/specs/<slug>/decisions.md`
+- [ ] Tasks list exists with the current T-number declared
+- [ ] Pre-task git checkpoint clean (`git status --short` empty)
+- [ ] Worker-undisturbed paths from `policies/protected-paths.yml` will show empty diff for this task
+
+If any check fails, STOP and ask the operator.
+
+## Per-task discipline
+
+- One task = one commit (FR-03)
+- Lint + typecheck clean per commit (FR-13)
+- Stage files explicitly by name — never `git add -A` / `git add .` (FR-06)
+- Commit message format: `<type>(<scope>): T<n> <one-liner>`
+  - `feat(spa): T17 ...`
+  - `fix(extension): T18 ...`
+  - `test(backend): T19 ...`
+  - `docs(post-deploy): T20 ...`
+
+## Pre-commit attestation (output before each commit)
+
+```
+T<n> pre-commit check:
+☐ Lint clean
+☐ Typecheck clean
+☐ Worker-undisturbed unchanged
+☐ One task scope (no bundling)
+☐ No TODO/FIXME/WIP markers
+☐ Commit message cites T<n>
+
+→ Committing T<n>: <scope>
+```
+
+## Stop at gate
+
+When tasks T<first>..T<gate> are committed, produce the gate report per `docs/specs/<slug>/verification-gate.md`. Do NOT proceed to T<deploy>. Wait for an explicit deploy handoff (FR-05).
+
+## Forbidden without operator confirmation
+
+`rm -rf`, `git push --force`, `git reset --hard`, `git checkout -- .`, `git clean -fdx`, `git add .`, `git add -A`, `--no-verify`. Full list at `policies/command-policy.yml`.
 
 ---
 > Source: [fusebase-dev/fusebase-flow](https://github.com/fusebase-dev/fusebase-flow) — distributed by [TomeVault](https://tomevault.io).
