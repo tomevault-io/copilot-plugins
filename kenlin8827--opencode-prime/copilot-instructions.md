@@ -1,0 +1,119 @@
+## opencode-prime
+
+> This repo is **OpenCode Prime (OCP)** — a multi-agent configuration suite for [OpenCode](https://opencode.ai). It ships agent prompts, plugins, profiles, and an installer into `~/.config/opencode`. See `DEVELOPING.md` for architecture and contribution details.
+
+# OpenCode Agent & Development Guidelines (AGENTS.md)
+
+This repo is **OpenCode Prime (OCP)** — a multi-agent configuration suite for [OpenCode](https://opencode.ai). It ships agent prompts, plugins, profiles, and an installer into `~/.config/opencode`. See `DEVELOPING.md` for architecture and contribution details.
+
+---
+
+## 0. Design Principle — Architectural Legitimacy
+
+This is an open-source project: **every design decision must withstand public scrutiny.** Architectural legitimacy outranks implementation convenience.
+
+- **Capability-preserving efficiency** — reduce token cost by removing redundancy, not by weakening outcomes. A feature that impairs correct delivery, verification, or informed judgment is a regression; prefer scoped, on-demand capability over permanent context exposure.
+- **Native mechanisms first** — prefer the platform's designed extension points (skills for on-demand disclosure, command files for slash commands, hooks for runtime behavior) over ad-hoc workarounds. A hack that "works" but defies the platform's design is a liability that invites criticism.
+- **Refactor over patch** — when a mechanism is structurally wrong (e.g., static prompt injection where on-demand loading belongs), fix the architecture. Do NOT accumulate compensating hacks on top of a flawed foundation.
+- **Defendability gate** — refactoring cost never justifies shipping a design the maintainers themselves cannot defend in public. If it would be embarrassing to explain, redesign it before merging.
+- **Top-tier engineering floor** — code that fails top-tier engineering **quality** (correctness, performance, security, testability, type safety, error/edge-case handling) **or philosophy** (maintainability, defensibility, platform-native design, simplicity, fit with project design principles) MUST be triaged on encounter (refactor inline / file-as-issue / explicit-out-of-scope, by impact on current task) and MUST clear both (a) the explicit rule set (`cp-<slug>` baseline + per-language hard rules) and (b) the Defendability gate above. "Do less / lazy / pragmatic / good-enough" rationales are evaluated as **YAGNI**: welcome when the dropped work was genuinely unneeded, rejected when they bypass the floor under a YAGNI label. This floor does not override `cp-abstract` (≥3 use cases before abstraction) or `cp-understand` (understand before changing).
+- **Match injection mechanism to content type** — `tools: [...]` description for declarative capabilities (state, availability); `skills/<name>/SKILL.md` for on-demand workflow (L2, body loads only when relevant); `ctx.session.hook("context")` injection only for imperative policy or protocol the model must internalize. Never duplicate tool capability in fixed system-prompt text; never put a workflow guide in a fixed prompt when a skill can carry it. Decision matrix and OCP examples: `DEVELOPING.md` §"Plugin authoring — injection mechanism".
+
+---
+
+## Cost Red Line — Model Pricing
+
+**Hard cap on every model referenced in shipped configs (per M tokens): input ≤ $3.00, output ≤ $15.00.** Applies to `profiles/**`, `providers/**`, `opencode.template.jsonc`, and any other file that names a `provider/model` ref. Violating models are excluded regardless of capability — e.g. `gpt-6-astra` ($10/$50) and `claude-opus-5` ($5/$25) breach the cap and must not be referenced. Price source: `models.dev` provider catalogs. Scope: the cap binds metered per-token picks; flat-rate subscriptions (coding/token plans) and local router gateways (`codex-router`, `claude-code-router`, `omniroute`, `qoder-router`, `llm-router`, `antigravity-router`) have no per-token price in models.dev — their picks are bounded by plan inclusion and gateway availability, not by this numeric cap (but a profile referencing them must not imply API pricing). When adding or re-tiering a profile, verify both rates before committing; an over-cap pick is a build failure. The cap bounds spend, not capability: within the cap, always pick the strongest model for the tier's job — `max` feeds advisor/architect and deep/final `code-review` (review quality is paramount; family profiles must use the family's strongest reviewer even when a cheaper cross-family rival exists), while routine review triage uses the pro-tier `code-review-fast`; `pro` should track the vendor's latest code-specialized model. Price-capability sanity source: the LLM Price–Capability Kill Line (https://mappedinfo.github.io/llm-price-kill-line/) — prefer kill-line frontier survivors; never reference models flagged deprecated there.
+
+---
+
+## Ships vs. Dev-Only
+
+- **Ships** (injected into OpenCode agent system prompts): `instructions/*.md`, `prompts/*.md`, `skills/*/SKILL.md`, plus all files under `plugins/`, `profiles/`, `providers/`. These are the actual prompts users consume — every line costs tokens on every session, forever.
+- **Dev-only** (repo tooling, never shipped): `AGENTS.md`, `DEVELOPING.md`, `scripts/`, `docs/`, `install/`, `bin/`. These guide contributors working on this repository and are never injected into a user's OpenCode session.
+
+All rules in this document (token budget, cross-references, release flow) exist to serve the shipped prompts. When you edit `instructions/` or `prompts/`, you are editing what every OpenCode session will load.
+
+---
+
+## License & Dependency Compatibility
+
+OCP is licensed **AGPL-3.0-or-later** (`LICENSE`, SPDX in `package.json`). Dependency rules:
+
+- **Compatible to bundle** (import/ship): AGPL-3.0, GPL-3.0, Apache-2.0, MIT/BSD/ISC/0BSD, MPL-2.0 — keep upstream license notices.
+- **Not compatible to bundle** (source-available or non-commercial terms — gitnexus, PolyForm, Elastic/BSL, proprietary): keep as opt-in external integrations behind default-off switches, isolated from shipped code (existing pattern: `gitnexus` in `options.jsonc`).
+- Any new shipped dependency MUST state its license in the inline comment where it is wired (`options.jsonc` / `opencode.template.jsonc`).
+
+---
+
+## 1. Language Standards
+
+All source code, agent prompts, instructions, plugin protocols, and contributor guidelines (`AGENTS.md`, `DEVELOPING.md`) must be **100% English**.
+
+User docs are strictly bilingual: `README.md` + `docs/**` (outside `docs/zh/`) = English; `README.zh-CN.md` + `docs/zh/**` = Chinese. Never mix.
+
+### Generated-view i18n — ADR glossary (8 world languages)
+
+- **Grammar labels stay English forever** (ADR-0.40.0#02): never localized, never per-label parenthesized in records.
+- **Generated files are byte-stable and English-only** (`INDEX.md`, …): locale-following content is forbidden in anything regenerated — it flips bytes per generating session. Locale-following rendering is allowed ONLY in ephemeral TUI output (`/adr glossary [locale]`).
+- **Single source of truth for translations**: `ADR_GLOSSARY` in `plugins/tui/i18n.ts`, complete across all 8 registered locales (en, zh-CN, es, fr, ru, ar, pt, ja). Never hand-copy translation tables into docs, records, or code.
+- **Adding a locale**: register it in `LOCALES` (`i18n.ts`, `as const`) and fill every `ADR_GLOSSARY` meaning — `GlossaryLocale` derives from the registry, so a missing meaning is a compile error; the unit test enforces non-empty values. Both string surfaces are complete per locale and test-enforced: `STRINGS` by `tests/test-i18n-coverage-unit.ts` (614 keys × 8 locales), glossary meanings at compile time. `tr()` still falls back to English, but only as the runtime net for a key added to `en.ts` before its 7 translations land — never as the shipping state.
+- **Repo docs stay strictly bilingual** (rule above): the 8-locale support is plugin runtime content, never a `docs/`-tree expansion.
+
+---
+
+## 2. Token Budget — Prompt Compression
+
+Prompts follow a **disclosure-layer** model (details: `docs/core/prompt-layers.md`): **L0** = `opencode.jsonc:instructions` (paid every step × every agent — iron rules only, hard budget enforced by `scripts/measure-prompts.ts`); **L1** = rule files assembled into an agent's `prompt` via `{file:}` markers (paid only while that agent runs); **L2** = `skills/*/SKILL.md` (paid only when the agent loads the skill). **Token cost is real money.** Bloated prompts violate the project's core philosophy of efficiency.
+
+### Rules
+
+0. **Pick the layer first** — any new rule **MUST** be placed at the cheapest layer whose violation cost it tolerates: universal iron rule → L0; role rule → L1 (attach in `opencode.template.jsonc` routing matrix); scenario rule → L2 skill.
+1. **Instruction files** (`instructions/*.md`) — **MUST** stay under **60 lines**. If a rule needs more, split it into a separate file or compress. Tables over prose, rules over explanations.
+2. **Agent prompts** (`prompts/*.md`) — **SHOULD** stay under **120 lines**. Competency lists, hard rules, output format. Cut prose, keep structure.
+3. **No redundant explanations** — if a rule says "prefer X over Y", don't follow with 3 sentences explaining why Y is bad. The rule itself is the explanation. RFC 2119 keywords carry weight; trust them.
+4. **Examples** — max 1 concise example per rule. If the rule is clear without an example, omit it.
+5. **Cross-reference, don't duplicate** — in shipped prompt files (`instructions/*.md`, `prompts/*.md`), if a rule exists in another shipped file, reference it by shorthand (`cp-readable` = slug in `coding-principles.md`; slugs are permanent, row numbers are not) instead of restating it. Shorthand is only valid **within one disclosure unit**: the LLM resolves it at runtime only when both files are attached to the same agent prompt. Never use such shorthand in dev-only files (`AGENTS.md`, `DEVELOPING.md`) — token economy only matters for shipped prompts.
+6. **Review before merge** — any new instruction or agent file **SHOULD** be reviewed for token economy. If a section can be cut without losing normative power, cut it.
+
+> **Principle**: Every line in a prompt file costs money on every single session, forever. A 200-line instruction file that could be 50 lines wastes 150 tokens × every session × every user. Compress ruthlessly.
+
+---
+
+## 3. Release, Manifest & Packaging
+
+The manifest (`install/versions/<VERSION>.manifest.txt`) is auto-generated from `install/src/manifest.ts` (`SHIPPED_DIRS` + `SHIPPED_FILES`). **Never hand-edit it.** Manifests are **immutable per-version historical records**: `verify.ps1`/`verify.sh` fail if any historical manifest differs from git HEAD (the current version's manifest is exempt — it is the release in progress). Deleting manifests below `minVersion` and rewriting `history.manifest.txt` are the legitimate compaction flow — the gate exempts them.
+
+### Version Bump Steps
+
+1. Bump `version` in `install/version.json` (e.g. `2.1.0`). Raise `minVersion` only when you also want to compact older manifests into `install/versions/history.manifest.txt`. Sync `package.json` `version` + `install/README.md` title.
+2. Run `bun run manifest:generate` to regenerate the manifest and compact manifests below `minVersion`.
+3. Pre-release gate: `pwsh scripts/pack.ps1 && pwsh scripts/verify.ps1` (or `.sh` variants).
+
+> **Pitfall**: `generate` names its output file after the CURRENT value of `version.json`. Running it **before** step 1 silently overwrites the old version's manifest with today's file tree. Always bump first; if you spot a polluted historical manifest, restore it from the parent commit (`git show <parent>:<file> > <file>`).
+
+### Full Release & Deploy Flow
+
+After version bump, manifest regeneration, and pre-release gate pass:
+
+1. **Stay on the release line** — tag from the line that owns the version (`dev-v1` for 0.x-v1, `dev-v2.x` for the v2 line). Do **not** merge to `main` first: each line is its own release line. Merging into `main` is optional (snapshot only) and never a prerequisite for tagging.
+2. **Tag** — `git tag v<VERSION>` on that line (e.g. `v2.1.0`).
+3. **Push** — `git push origin <release-branch>` then `git push origin v<VERSION>` (tag push triggers the Release workflow automatically; `--follow-tags` may not push annotated tags reliably).
+4. **GitHub Actions auto-run**:
+   - `Release` workflow (triggered by `v*` tag): runs `pack.sh` + `verify.sh`, creates GitHub Release with `tar.gz`/`zip` + `latest` aliases. Works from any branch that carries the tag.
+   - `Deploy Docs` workflow (triggered by push to `main` or `dev-v*` with `docs/**` changes): builds VitePress and deploys to GitHub Pages. Pages is single-site: the most recent qualifying push wins.
+5. **Verify** — `gh run list --workflow=release.yml --limit 1` and `gh run list --workflow=deploy-docs.yml --limit 1`; both must show `success`.
+
+> **Pitfall**: `git push origin <branch> --follow-tags` does NOT reliably push lightweight tags. Always push the tag explicitly: `git push origin v<VERSION>`.
+
+### What Ships
+
+- **Auto-discovered** (`SHIPPED_DIRS`): `prompts/`, `instructions/`, `plugins/`, `profiles/`, `providers/`, `skills/` — all files in these dirs ship automatically. Agent prompt fragments ship as `prompts/`, never `agents/`: opencode auto-discovers `agents/*.md` as agent definitions whose frontmatter silently overrides the jsonc `agents` block (verified on v1.18.25; v2 keeps the discovery — `~/.config/opencode/agents/` and `.opencode/agents/`).
+- **Explicit** (`SHIPPED_FILES` in `manifest.ts`): `opencode.template.jsonc`, `plugin-scope.json`, `tiers.json`, `cli.template.jsonc`, `scripts/serena-workspace-daemon.mjs`, `scripts/headroom-proxy-daemon.mjs`.
+- `scripts/` is NOT in `SHIPPED_DIRS` — only the runtime scripts above are installed; the rest (`pack.*`, `verify.*`, `capture-*.ts`) stays repo-side. New standalone ship files must be added to `SHIPPED_FILES`.
+- `install/` and `bin/` are auto-mirrored during packaging.
+- **Plugin export contract**: files in `plugins/` are dynamically discovered and loaded by OpenCode. Do not add or restore production exports solely to make unit tests import private helpers: an extra runtime export can change plugin loading behavior. Test through the plugin's exported entry point and registered hooks; if direct helper coverage is essential, move the helper to a non-plugin module with an intentional, documented export contract.
+
+---
+> Source: [kenlin8827/opencode-prime](https://github.com/kenlin8827/opencode-prime) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-02 -->
