@@ -1,0 +1,9 @@
+{
+  "name": "totally-tim--braindance",
+  "displayName": "braindance",
+  "description": "Volumetric capture and non-linear editing for the Kinect v2: record what a depth sensor saw, then fly a camera through the recording afterwards.",
+  "version": "1.0.0",
+  "author": "totally-tim",
+  "homepage": "https://github.com/totally-tim/braindance",
+  "skills": []
+}
