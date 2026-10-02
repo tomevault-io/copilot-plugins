@@ -1,0 +1,9 @@
+{
+  "name": "kyle-ye--swiftydownloadmanager",
+  "displayName": "SwiftyDownloadManager",
+  "description": "An Apple-native download manager with optimized HTTP Range segmentation, parallel connections, and persistent resume.",
+  "version": "1.0.0",
+  "author": "Kyle-Ye",
+  "homepage": "https://github.com/Kyle-Ye/SwiftyDownloadManager",
+  "skills": []
+}
