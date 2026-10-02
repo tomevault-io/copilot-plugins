@@ -1,0 +1,741 @@
+## eiswolfs-flightradar-cyd
+
+> Lies diese Datei ZUERST, bevor du irgendwas am Code änderst. Sie enthält die
+
+# Eiswolfs Flightradar (CYD) — Projektkontext für Claude Code
+
+Lies diese Datei ZUERST, bevor du irgendwas am Code änderst. Sie enthält die
+Dinge, die man wissen muss, um nicht dieselben Fehler nochmal zu machen, die
+in der Entwicklung schon mal aufgetreten und behoben wurden.
+
+## Was ist das Projekt?
+
+Ein Live-ADS-B-Flugradar auf einem ESP32 "Cheap Yellow Display" (CYD,
+ESP32-2432S028), 240x320 Touch-TFT. Zeigt Flugzeuge in der Nähe auf einem
+rotierenden Radarschirm, mit Detail-Panel (Modell, Höhe, Speed, Route,
+Squawk), Näherungs-LED-Alarm, WLAN-Verwaltung (bis zu 3 Netzwerke),
+Standort-Presets (auch für fremde Orte weltweit), Airline-Filter, Flugbuch
+mit Statistik, und Menüs/Splash-Screen mit einer dezenten twinkelnden
+Sterne-Animation.
+
+Aktuelle Versionsnummer: siehe `Config::APP_VERSION` in `src/config.h`
+(dort immer aktuell, hier bewusst nicht mehr hart eingetragen, damit diese
+Datei nicht wieder veraltet). Öffentliches Repo:
+https://github.com/Eiswolf-BG/eiswolfs-flightradar-CYD
+
+## Wer nutzt das?
+
+Alex — kompletter Anfänger bei Arduino/Embedded-Entwicklung, arbeitet mit
+VS Code + PlatformIO auf einem Mac. Bitte auf Deutsch antworten. Erklärungen
+gerne etwas ausführlicher, nicht von Fachbegriffen ausgehen, die als bekannt
+vorausgesetzt werden.
+
+## Tech-Stack
+
+- PlatformIO, `platform = espressif32`, `board = esp32dev`, `framework = arduino`
+- TFT_eSPI (Display), XPT2046_Touchscreen (Touch), ArduinoJson, TinyGPSPlus
+- Dual-Core-Design: Netzwerk (WLAN, ADS-B-Polling) auf Core 0, Display/Touch
+  auf Core 1 — die UI blockiert nie durch Netzwerk-Requests.
+- Daten: [adsb.lol](https://adsb.lol) (Flugzeugpositionen, `api.adsb.lol`),
+  [hexdb.io](https://hexdb.io) (Modell-Lookups), [ip-api.com](https://ip-api.com)
+  (IP-Geolocation)
+  - Bis vor Kurzem wurde adsb.fi genutzt - Wechsel zu adsb.lol, weil adsb.fi
+    dem ESP32-Client trotz gueltigem HTTP 200 und validem JSON dauerhaft
+    leere Flugzeuglisten lieferte (curl von demselben Netzwerk aus lieferte
+    jederzeit volle Daten) - vermutlich Cloudflare-Bot-Management/TLS-
+    Fingerprinting gegen den mbedTLS-Client des ESP32. adsb.lol hat
+    identisches URL-/JSON-Schema (nur `/v2/...` statt `/api/v3/...`,
+    Feldnamen unveraendert) und war ohne Parser-Anpassung nutzbar. Falls das
+    Thema nochmal auftaucht: siehe `Config::ADSB_API_HOST`/
+    `Config::ADSB_HTTP_TIMEOUT_MS` in `config.h` sowie `adsb_client.cpp`.
+
+## ⚠️ WICHTIGSTE FALLE: Der eigene Font ist grundlinien-verankert
+
+Die eingebauten TFT_eSPI-Fonts (GLCD, Font2 etc.) sind reines ASCII. Für
+Umlaute/Akzente (Deutsch, Türkisch, Französisch, Spanisch, Italienisch,
+brasilianisches Portugiesisch, Niederländisch)
+gibt's einen **selbst generierten Font** (`src/ui_font.h`, via
+`tft.setFreeFont(&UiFont11pt)` global in `main.cpp::setup()` aktiviert, gilt
+danach für JEDEN `print()`/`drawString()`-Aufruf in der ganzen App).
+
+**Der entscheidende Unterschied zu den eingebauten Fonts:** Bei
+`setCursor(x, y); print(...)` ist `y` bei unserem Font die **Grundlinie**
+(Baseline), NICHT die obere Kante wie beim alten GLCD-Font. Der Text wächst
+von `y` aus nach OBEN (um den Ascent, ca. 9px bei Size 1, ca. 16-18px bei
+Size 2), nicht nach unten.
+
+**Das hat in der Vergangenheit zu folgenden Bugs geführt (alle behoben, aber
+Vorsicht bei neuem Code!):**
+- Zu kleine y-Werte (z.B. `setCursor(10, 2)`) → Text ragt oben aus dem
+  Bildschirm/Container heraus oder wird abgeschnitten. **Faustregel:
+  y sollte bei Size 1 nie kleiner als ~14 sein, bei Size 2 nie kleiner als
+  ~24-26 (abhängig vom Container).**
+- Eingabefelder/Boxen: Baseline muss nahe der UNTERKANTE der Box liegen,
+  nicht in der Mitte wie man's vom alten Font gewohnt wäre.
+- Zwei Textgrößen kurz hintereinander in einem eng bemessenen Layout
+  (Label Size 1 direkt über Wert Size 2) sind fehleranfällig — im
+  Statistik-Screen deshalb bewusst auf EINHEITLICHE Größe (nur Farbe
+  unterscheidet Label/Wert) umgestellt, das ist robuster.
+- `drawString()` mit `setTextDatum(MC_DATUM)` (zentriert) ist NICHT
+  betroffen — TFT_eSPI rechnet die Zentrierung selbst korrekt aus, egal ob
+  Baseline- oder Top-verankert. Nur rohes `setCursor()`+`print()` ist die
+  Gefahrenzone.
+- Langer, mehrzeiliger Text (z.B. Erklärtexte) NIE mit TFT_eSPI's
+  eingebautem Auto-Wrap verlassen — das bricht mitten im Wort ab. Stattdessen
+  den `layoutWrapped()`-Helper verwenden (in `location_presets_screen.cpp`,
+  `wifi_manage_screen.cpp` und `radar_screen.cpp` je einmal implementiert,
+  macht wortweisen Umbruch anhand echter Pixel-Breite, meist plus
+  optionales Scrollen). **NIE** eine Variante verwenden, die Text nur bis
+  zu einem festen Zeilenlimit umbricht, ohne JEDE resultierende Zeile
+  erneut auf ihre tatsächliche Pixel-Breite zu prüfen (Beispiel für genau
+  diesen Fehler: `drawWrappedCenteredHint()` in `radar_screen.cpp`, fest
+  auf höchstens 2 Zeilen begrenzt — bei einem längeren deutschen Text im
+  Höhen-Farben-Legende-Overlay lief die Zeile dadurch links UND rechts
+  über den Bildschirmrand hinaus, siehe Git-Historie/Bugfix). Ein
+  festes Zeilenlimit ist nur dann unkritisch, wenn zusätzlich VORHER
+  geprüft wird, dass der Text in ALLEN 8 Sprachen tatsächlich in dieses
+  Limit passt — im Zweifel immer das uneingeschränkte `layoutWrapped()`
+  nehmen.
+
+Falls neue Screens/Textstellen dazukommen: lieber einmal mehr testen (idealerweise
+mit Foto vom echten Display), bevor der Code als fertig gilt.
+
+## Pflichtprüfung: Textbreite/-höhe in ALLEN 8 Sprachen
+
+Jeder neu hinzugefügte oder geänderte Text auf JEDEM Screen muss vor
+Abschluss der Aufgabe nachweislich innerhalb der verfügbaren
+Bildschirmbreite/-höhe bleiben — in ALLEN 8 Sprachen, nicht nur der
+zuletzt getesteten (meist Deutsch/Englisch). Bei jeder neuen
+Text-Ausgabe ist zu prüfen/sicherzustellen, dass `layoutWrapped()`
+(oder ein gleichwertiger, wortweise und pro Zeile pixel-breiten-
+geprüfter Mechanismus, siehe oben) verwendet wird — niemals eine
+Methode, die Text ungeprüft an fester Position zeichnet oder Zeilen
+nach dem Umbruch nicht erneut auf Breite prüft. Diese Prüfung ist
+verpflichtender Teil JEDER Aufgabe, die Text-Ausgaben verändert oder
+neu hinzufügt, unabhängig davon, ob der Auftrag das explizit erwähnt.
+Bei mehrzeiligem Text zusätzlich bedenken: wenn nachfolgende
+UI-Elemente unterhalb des Textes fest positioniert sind, muss deren
+Y-Position dynamisch vom tatsächlichen Ende des (ggf. unterschiedlich
+langen) Textes abhängen, nicht von einem für die kürzeste Sprache
+passenden festen Offset — sonst verschieben sich in längeren Sprachen
+nachfolgende Elemente ineinander oder aus dem sichtbaren Bereich.
+
+**Gilt ausdrücklich auch für Titel/Überschriften, nicht nur Fließtext**
+(Lücke, die in der Praxis bereits einmal zu echten Überlauf-Bugs
+geführt hat, siehe Git-Historie/Bugfix bei mehreren Info-Bildschirm-
+Titeln): JEDER Text auf JEDEM Screen — insbesondere auch Titel und
+Info-Bildschirm-Überschriften — MUSS denselben automatischen Wrapping-/
+Verkleinerungs-Mechanismus nutzen, den `MenuScreen::infoScreen()`
+(`menu_screen.cpp`, öffentlich erreichbar über
+`MenuScreen::showInfoScreen()`) bereits vorbildlich vormacht: Titel
+werden dort über `wrapTitleLines()` (öffentliche Hülle:
+`MenuScreen::layoutTitleLines()`) automatisch auf mehrere Zeilen
+umgebrochen und bei Bedarf in der Textgröße reduziert, statt sie per
+festem `tft.println()`/`setCursor()` ungeprüft an eine Position zu
+zeichnen. Ein neuer Screen mit eigenem "?"-Info-Bildschirm SOLL
+`MenuScreen::showInfoScreen()` direkt wiederverwenden statt eine neue,
+eigene Scroll-/Layout-Implementierung zu bauen (Body-Absätze werden
+dafür einfach mit `"\n\n"` zu einem String verkettet, siehe
+`main.cpp::showWeatherInfo()` als Vorbild). Nur wenn ein Screen
+zusätzliches, von `showInfoScreen()` nicht abgedecktes Layout unterhalb
+des Titels braucht (z.B. der QR-Code in `webui_screen.cpp`), wird
+stattdessen NUR `MenuScreen::layoutTitleLines()` für den Titel
+wiederverwendet, statt eine eigene Umbruch-Logik neu zu erfinden. Diese
+Prüfung gilt für ALLE 8 Sprachen bei JEDER neuen oder geänderten
+Textausgabe (Titel wie Fließtext), unabhängig davon, ob der Auftrag das
+explizit erwähnt.
+
+## i18n (8 Sprachen)
+
+- `src/i18n.h`: `enum class StringId` — jeder feste UI-Text hat eine ID.
+- `src/i18n_en.h`, `i18n_de.h`, `i18n_fr.h`, `i18n_tr.h`, `i18n_es.h`,
+  `i18n_it.h`, `i18n_pt.h` (brasilianisches Portugiesisch), `i18n_nl.h`
+  (Niederländisch): je ein `static const char* const[]`-Array, in **exakt
+  derselben Reihenfolge** wie das Enum.
+- Jede Datei hat am Ende einen `static_assert`, der die Array-Größe gegen
+  `StringId::COUNT` prüft — **wenn der Build wegen eines fehlschlagenden
+  static_assert bricht, fehlt in mindestens einer Sprachdatei ein Eintrag
+  oder es ist einer zu viel.** Neue StringId → in ALLEN 8 Dateien an
+  derselben Position ergänzen, sonst verschiebt sich die Zuordnung.
+- Eigennamen der Sprachen (`I18n::languageName()`) sind separat in
+  `i18n.cpp` hinterlegt, mit korrekten landessprachlichen Sonderzeichen
+  (z.B. "Français", "Türkçe", "Español", "Português", "Nederlands").
+
+## UI-Konventionen (bitte einhalten für neue Screens)
+
+- **Farbschema:** Schwarzer Hintergrund (`TFT_BLACK`), Rahmen/Text/Buttons
+  in der projektweiten UI-Akzentfarbe `UiTheme::accentColor(tft)`
+  (`src/ui_theme.h/.cpp` - Grün/Amber/Blau/Rot/Lila, folgt Menü > System >
+  Radar-Darstellung > "Farben" (eigener Unterscreen, siehe
+  `radar_theme_screen.cpp::runColorsScreen()`), `SettingsStore::
+  radarThemeIndex()`), aktive/ausgewählte Einträge invertiert (Akzentfarbe
+  gefüllt, schwarzer Text). Destruktive Aktionen (Abbrechen/Löschen) in Rot
+  (`TFT_RED`). Neue Screens: immer `UiTheme::accentColor(tft)` statt fest
+  verdrahtetem `TFT_GREEN` verwenden, `#include "ui_theme.h"` nicht
+  vergessen.
+  **Ausnahmen** (bleiben literal, NICHT themenabhängig, da sie eine eigene
+  Bedeutung tragen): Flugzeug-Höhenfarben (Grün <3000m/Gelb 3000-9100m/Rot
+  >9100m, `colorForAltitude()` in `radar_screen.cpp` und
+  `aircraft_list_screen.cpp`), Status-Ringe (Notfall-Rot, Beobachtungs-
+  Cyan, Militär-/Behörden-Orange), sowie einfache Erfolg/Fehler-Anzeigen
+  (z.B. Backup/Restore-Rückmeldung: Grün=erfolgreich/Rot=fehlgeschlagen).
+  **Feste Grundregel für jedes (aktuelle UND zukünftige) Farbthema:** Ein
+  Farbthema MUSS immer an die LED gebunden sein (`led_alert.cpp::
+  themeLedChannels()`) UND systemweit auf ALLEN Screens wirken -
+  einschließlich Ruhebildschirm (`main.cpp`), Boot-Sequenz
+  (`splash_screen.cpp`/Terminal-Bootsequenz), sämtlichen Menüs und der
+  Web-UI (`web_export_server.cpp::THEME_PALETTES`). Kein Farbthema darf
+  nur auf einzelnen Screens wirken - wird ein neues Thema ergänzt (wie Rot/
+  Lila), sind alle diese Stellen Pflicht, nicht optional. Falls eine
+  LED-Mischung eines neuen Themas mit einer bereits vergebenen Signalfarbe
+  (z.B. Notfall-Rot, Update-Verfügbar-Weiß) kollidieren würde, muss die
+  PWM-Mischung gezielt abgestimmt werden, bis sie eindeutig unterscheidbar
+  ist (siehe `AMBER_GREEN_BRIGHTNESS`/`PURPLE_RED_BRIGHTNESS` in
+  `led_alert.cpp` als Vorbild) - niemals einfach dieselbe Mischung
+  zweitverwenden. Das Update-Verfügbar-Signal ist bewusst Weiß (nicht
+  Magenta) - dadurch bleibt Magenta als einfache 1:1-Rot+Blau-Mischung frei
+  nutzbar, z.B. für ein Farbthema wie Lila.
+- Jeder Screen hat i.d.R. eine lokale `struct Rect` mit `contains(x,y)` und
+  eine `drawButton()`-Hilfsfunktion (Copy-Paste-Muster aus den bestehenden
+  Screens, kein gemeinsames Rect/Button-Modul — das ist bewusst so, um
+  jeden Screen unabhängig lauffähig zu halten).
+- **Jeder neue Ein/Aus-Schalter (Toggle-Button) bekommt automatisch einen
+  "?"-Info-Button direkt in derselben Button-Zeile**, der in 1-2 Sätzen
+  erklärt, was der Schalter bewirkt - nach dem Muster, das bei
+  CRT-Phosphor/Radar-Puls/Klassik-Radar/Militär-Behördenflug-Erkennung
+  (`radar_theme_screen.cpp`) und beim ISS-Marker (`menu_screen.cpp`,
+  Anzeigefilter-Seite) bereits umgesetzt ist: kleiner Button (20×20px),
+  rechts in der Zeile, mit ausreichend Abstand zum Zeilenrahmen (siehe
+  `rowInfoBtnRect()`/`drawRowInfoButton()` in den beiden genannten
+  Dateien, dort bewusst dupliziert statt geteilt). Öffnet den kurzen
+  Infotext über `MenuScreen::showInfoScreen()`. Gilt für ALLE
+  zukünftigen Toggle-Buttons, nicht nur für ausgewählte - auch ohne
+  expliziten Auftrag im jeweiligen Prompt. Neue StringIds für Label +
+  Infotext-Titel + Infotext-Body dafür immer in allen 8 Sprachen
+  ergänzen (siehe i18n-Abschnitt oben).
+- **Sterne-Animation** (`src/menu_stars.h/.cpp`): Läuft im Hintergrund auf
+  JEDEM schwarzen Menü-/Splash-Screen. Neue Screens sollten
+  `MenuStars::reset()` einmal beim Betreten aufrufen und
+  `MenuStars::update(tft)` in jeder Warte-/Idle-Schleife (Loop läuft sonst
+  ungenutzt, da die Funktion sich intern selbst auf ~60ms drosselt).
+- Warteschleifen-Pattern für Touch-Eingabe:
+  ```cpp
+  TouchInput::Point tap;
+  while (true) {
+      if (TouchInput::wasTapped(tap)) break;
+      MenuStars::update(tft);
+      delay(20);
+  }
+  ```
+- Menüstruktur (Stand v4.0.0): Hauptmenü → 4 Kategorien (Land/Region,
+  WLAN/Netzwerk, System, Flugoptionen). WLAN/Netzwerk hat weiterhin KEIN
+  eigenes Untermenü, springt direkt in die Netzwerk-Verwaltung.
+
+  System → 3 Kategorie-Buttons + Zurück:
+    - Anzeige: Helligkeit, Bildschirm-Timeout, Nachtmodus, Invertieren,
+      Radar-Farbschema, Zurück
+    - Werkzeuge: Kalibrierung, Web-Livekarte, Sicherung & Reset (eigenes
+      Untermenü: Sichern, Wiederherstellen, Werksreset, Zurück), Zurück
+    - Nach Update suchen (direkte Aktion, KEIN Untermenü - bewusst so,
+      bleibt immer sofort sichtbar mit Version + rotem Update-Punkt und
+      darf bei künftigen Umbauten nicht vergraben werden)
+    - Zurück
+
+  Flugoptionen → 5 Buttons + Zurück:
+    - Listen: Flugzeugliste, Beobachtungsliste, Squawk-Wachliste, Zurück
+    - Statistik & Logbuch: Statistiken, Statistik-Verlauf, Logbuch-Dateien,
+      Flugbuch an/aus, Zurück
+    - LED-Alarme: Heartbeat, Notfall-Alarm, Näherungs-LED, Zurück
+    - Anzeigefilter: Airline-Filter, Bodenfahrzeuge ausblenden,
+      Nur Helikopter anzeigen, Nur Niedrigflieger, ISS-Marker, Zurück
+    - Standort-Presets (direkt, kein eigenes Untermenü mehr - das frühere
+      "Werkzeuge"-Untermenü wurde aufgelöst, da nach Entfernung des
+      Beobachtungsalarm-Schalters nur noch Standort-Presets übrig blieb;
+      ein Watchlist-Treffer löst den LED-Alarm seitdem immer unbedingt aus)
+    - Zurück
+
+  System und Flugoptionen sind damit selbst auch Kategorie-Seiten
+  (gleiches Bild-Prinzip wie das Hauptmenü), keine flachen Listen mehr.
+  Alle Unterseiten mit mehr als 3 Eintraegen nutzen dafuer
+  `subMenuRowRect(index, count)` in menu_screen.cpp statt fester
+  Zeilenhoehen-Konstanten pro Seite (ersetzt die fruehere FLIGHT_ROW_H/
+  SYSTEM_ROW_H/BACKUP_RESET_ROW_H-Wiederholung).
+- Viele Screens mit Text-Eingabe (Airline-Code, Koordinaten, WLAN-Passwort)
+  haben einen "?"-Info-Button oben rechts, der einen scrollbaren
+  Erklär-Screen öffnet (Muster: `location_presets_screen.cpp` und
+  `wifi_manage_screen.cpp`, jeweils eigene `layoutWrapped()`-Kopie).
+
+## Sonstige feste Werte (Config::…)
+
+- Näherungsalarm-Radius: 3 km
+- Notfall-Squawks: 7500 (Entführung), 7600 (Funkausfall), 7700 (Notfall)
+- Radar-Reichweiten: 10/25/50/100 km
+- ADS-B-Abruf-Intervall: alle 8 Sekunden
+- Höhen-Farbcodierung: Grün <10.000ft, Gelb 10-30.000ft, Rot >30.000ft
+- Max. 3 WLAN-Netzwerke, max. 3 Standort-Presets, max. 10 gefilterte Airlines
+
+## Code-Stil
+
+- Kommentare durchgehend auf Deutsch, ohne Umlaute in Kommentaren selbst
+  unüblich (ae/oe/ue sind hier ok, das ist nur ein Stil-Ding für
+  Kommentare, NICHT für die UI-Texte in den i18n-Dateien — dort echte
+  Umlaute verwenden, siehe oben).
+- Build-Check nach JEDER Änderung: `pio run` im Projektverzeichnis, auf
+  Warnungen UND Errors prüfen (nicht nur "compiles").
+- Nach JEDER umgesetzten Aufgabe, die den Firmware-Code ändert (neues
+  Feature, Bugfix, Refactoring), MUSS die Zusammenfassung den aktuellen
+  Flash-Speicherstand (Bytes + Prozent, aus dem `pio run`-Build-Output)
+  enthalten - auch wenn die Änderung vermutlich nur minimal ist. Das gilt
+  für jede Aufgabe, unabhängig davon, ob der Auftrag das explizit
+  verlangt.
+- Immer least-invasive Änderungen bevorzugen — bestehende Funktionen/Namen
+  nicht ohne Grund umbenennen.
+- Commits enthalten KEINEN "Co-Authored-By: Claude"-Trailer (siehe
+  `.claude/settings.json`, `"includeCoAuthoredBy": false`). Grund: das
+  hatte frueher dazu gefuehrt, dass Claude selbst als GitHub-Contributor
+  im oeffentlichen Repo auftauchte - liess sich nur durch eine aufwaendige
+  Git-History-Neuschreibung wieder entfernen. Bitte bei jedem Commit
+  beachten, auch wenn `.claude/settings.json` aus irgendeinem Grund mal
+  fehlen sollte.
+
+## Flash-Speicher: Große statische Daten bevorzugt auf SD-Karte
+
+Die SD-Karte ist für dieses Projekt zwingend erforderliche Hardware (das
+Gerät startet ohne erkannte SD-Karte gar nicht erst, siehe
+`main.cpp::haltWithSdRequiredScreen()`), UND der Flash-Speicher ist
+konstant knapp (Stand v6.5.5: >93% belegt, siehe Flash-Analyse-Bericht im
+Chat-Verlauf zu i18n-Sprachtabellen/Flughafendatenbank/GitHub-Logo als
+größten Verbrauchern). Deshalb gilt ab sofort:
+
+Bei JEDEM neuen Feature, das eine größere statische Datentabelle braucht
+(z.B. Lookup-Tabellen, Bilder/Icons, längere Textblöcke, Sprachdaten o.ä.),
+zuerst prüfen, ob diese Daten stattdessen zur Laufzeit von der SD-Karte
+geladen werden können, statt sie fest ins Flash-Image (PROGMEM/`const`-
+Array) einzubetten. Nur echter Programmcode/Logik, der zwingend ausführbar
+im Flash liegen muss, bleibt davon ausgenommen — reine Daten sind der
+Regelfall für eine Auslagerung, keine Ausnahme.
+
+Bei SD-basierten Daten gilt zwingend:
+- **Automatisches, sauberes Anlegen/Herunterladen** der benötigten Datei
+  beim ersten Bedarf (z.B. per HTTPS-Download bei erstem Zugriff, siehe
+  `github_logo_cache.cpp` als Vorbild, oder per Einmal-Seed von einer noch
+  im Flash verbleibenden Quelle, siehe `sd_storage.cpp::seedAirportsFile()`)
+  - KEIN manueller Nutzer-Schritt, KEIN Reinstall nötig, ein normales
+    OTA-Update muss genügen.
+- **Sauberer Fallback ohne Absturz**, falls das Lesen/Laden fehlschlägt
+  (z.B. defekte Karte, kein WLAN für einen nötigen Erst-Download, korrupte
+  Datei) - die Funktion/Anzeige fällt dann einfach weg oder auf einen
+  einfacheren Zustand zurück, nie ein Crash oder eine verunsichernde
+  Fehlermeldung.
+
+## Sprache: Projekt-Außendarstellung immer Englisch
+
+Alle nach außen sichtbaren Texte sind IMMER auf Englisch zu verfassen —
+unabhängig davon, in welcher Sprache die Unterhaltung mit Alex geführt
+wird. Das betrifft insbesondere:
+- `README.md`
+- `index.html` (Webseite/Flasher-Seite)
+- GitHub-Release-Notes / -Beschreibungen
+- Commit-Messages
+- Jeglicher sonstiger Beschreibungs- oder Bugfix-Text, der öffentlich
+  sichtbar ist (z.B. auf GitHub)
+
+Ausnahme: Die Firmware-UI selbst bleibt mehrsprachig wie gehabt
+(`i18n_de/en/fr/tr/es/it/pt/nl.h`) — diese Regel betrifft NUR die
+Projekt-Außendarstellung (Repo, Release Notes, Webseite), nicht die
+App-Oberfläche auf dem Gerät. Interne Code-Kommentare bleiben ebenfalls
+wie gehabt auf Deutsch (siehe „Code-Stil" oben) — diese Regel gilt nur
+für nach außen sichtbare Texte.
+
+## Bekannte offene Punkte / mögliche nächste Schritte
+
+Keine feste Liste hier gepflegt, da sie erfahrungsgemäß schnell veraltet -
+offene Ideen/Bugs bitte direkt als GitHub Issues im Repo tracken statt hier
+in der CLAUDE.md.
+
+## Bekannte Probleme (technisch, noch ungelöst)
+
+Anders als die "offenen Punkte" oben: das hier ist keine Feature-Idee,
+sondern ein bereits mehrfach reproduzierter, noch ungelöster technischer
+Defekt - bewusst hier festgehalten, damit künftige Sessions ihn nicht für
+behoben halten oder denselben gescheiterten Lösungsansatz wiederholen.
+
+- **Intermittierendes `IncompleteInput` beim ADS-B-JSON-Parsen bei 100km
+  Radius** (`adsb_client.cpp::fetch()`): Bei großen, gefilterten Antworten
+  (~85-95KB, ~130-150 Flugzeuge) schlägt `deserializeJson()` gelegentlich
+  mit `IncompleteInput` bzw. `NoMemory` fehl, abhängig von der aktuellen
+  Heap-Fragmentierung - bei 10/25/50km tritt es praktisch nicht auf. Der
+  ArduinoJson-Feldfilter (`DeserializationOption::Filter`, nur die 12
+  tatsächlich benötigten Felder) ist bereits aktiv, reicht aber allein
+  nicht aus. Ein Versuch, ein einziges wiederverwendetes `JsonDocument`
+  statt eines lokalen pro Aufruf zu nutzen (um Alloziier-/Freigabe-
+  Fragmentierung zu vermeiden), wurde getestet und wieder zurückgerollt:
+  er hielt dauerhaft ~45KB Heap belegt und brachte dadurch die TLS-
+  Handshakes (RSA/BIGNUM-Operationen von mbedTLS brauchen selbst
+  substanziellen zusammenhängenden Speicher) reihenweise zum Scheitern -
+  schwerwiegender als das ursprüngliche Problem. Aktueller Code-Stand ist
+  bewusst wieder auf lokales, pro Aufruf freigegebenes `JsonDocument`
+  zurückgesetzt. Kein Fix vorhanden, Stand: v4.1.0.
+
+- **hexdb.io testweise mit komplettem Ausfall beobachtet** (30.08.,
+  `aircraft_details.cpp`, Modell- UND Routen-Endpunkt gleichermaßen
+  betroffen): Per `curl -v` von außerhalb des Geräts verifiziert - DNS
+  löst auf, TCP-Connect (~20ms) und TLS-Handshake (~50ms, gültiges
+  Zertifikat) laufen sofort durch, aber die eigentliche HTTP-Antwort kam
+  in 8/8 Testanfragen nie zurück (Timeout). Eindeutig ein serverseitiges
+  Problem bei hexdb.io/dessen Cloudflare-Origin, kein Client-/Netzwerk-
+  Problem. Unklar, ob Dauerzustand oder vorübergehend. Dabei zusätzlich
+  gefunden und behoben: `httpGetString()` setzte intern immer
+  `http.setTimeout(5000)`, was den vom Aufrufer gesetzten
+  `client.setTimeout()`-Wert überschrieb - die beabsichtigten kürzeren
+  Timeouts für hexdb.io griffen dadurch nie (alle fünf API-Aufrufe liefen
+  faktisch einheitlich mit 5s). Seit dem Fix bekommt hexdb.io einen
+  eigenen, jetzt wirksamen 1200ms-Timeout und wurde in der Routen-
+  Fallback-Kette ans Ende verschoben (adsbdb.com vorgezogen, siehe
+  Kommentare in `aircraft_details.cpp`). Hinweis aus dem Live-Test: der
+  tatsächliche Zeitbedarf bis zum Fehlschlag lag trotz 1200ms-Timeout bei
+  ~2,7-2,8s (nicht 1,2s) - vermutlich TCP-Connect-/TLS-Overhead auf der
+  ESP32-Hardware, der vom `http.setTimeout()`-Wert nicht mit abgedeckt
+  wird (separater `_connectTimeout`, bleibt beim HTTPClient-Standardwert
+  5000ms). Kein weiterer Fix vorgenommen, da bereits deutliche
+  Verbesserung gegenüber vorher (~5s pro Fehlschlag).
+
+- **Unerklärte automatische Neu-Auswahl eines Flugzeugs ohne Touch-Eingabe**
+  (30.08., beobachtet via Diagnose-Log am Testgerät): Bei einem frischen
+  Boot wurden - ohne jede Touch-Interaktion - zweimal kurz hintereinander
+  (~35s Abstand, beide innerhalb der ersten ~70s nach Boot) automatisch
+  unterschiedliche Flugzeuge ausgewählt (`RadarScreen::selectAircraft()`/
+  `AircraftDetails::request()` liefen jeweils für ein Flugzeug, das nicht
+  über den in dieser Sitzung eigens eingebauten Test-Trigger ausgelöst
+  wurde - dessen eigener Aufruf lag zeitlich nachweislich NICHT davor).
+  Alle drei bekannten Aufrufer von `AircraftDetails::request()`
+  (`radar_screen.cpp::handleTap()` zweimal, `selectAircraft()`) sind
+  eigentlich touch-gebunden. Mögliche Ursache: spontane/spurious
+  Touch-Ereignisse vom XPT2046-Touch-Controller kurz nach dem Booten
+  (bekannte Fehlerklasse bei resistiven Touch-Controllern, z.B. durch
+  SPI-Bus-Störungen während der Display-Initialisierung). In den
+  restlichen ~2,5 Minuten desselben Testlaufs trat es nicht erneut auf -
+  wirkt daher eher wie ein Boot-Zeit-Phänomen als ein dauerhaft
+  wiederkehrendes Problem, könnte aber auf Alex' Gerät unter anderen
+  elektrischen/Umgebungsbedingungen häufiger auftreten. NICHT
+  ursächlich für einen mehrminütigen "lädt..."-Hänger geprüft/bestätigt -
+  reine Beobachtung, die weitere Untersuchung verdient, falls das
+  gemeldete Hängenbleiben erneut auftritt. Kein Fix vorgenommen, Stand:
+  v4.6.0+.
+
+- **Einmaliger Geräte-Neustart nach einem Farbwechsel aus der Web-UI**
+  (22.09., waehrend der Live-Diagnose des "Farbwechsel kommt verzoegert
+  an"-Bugs beobachtet, siehe Git-Historie/Chat): Alex meldete einen
+  Neustart des Geraets direkt nach einem Farbwechsel im Web-Live-Radar,
+  vermutete zunaechst eine Nebenwirkung des neuen Cross-Core-Signals
+  (`WebExportServer::consumeRemoteSettingsChanged()`/`forceRedraw` in
+  `main.cpp::loop()`, siehe Standard-Workflow-Historie zu v6.8.0). Trotz
+  gezielter Reproduktionsversuche (mehrere Farbwechsel hintereinander per
+  `curl` an `/control/theme` sowie durch Alex selbst ueber die echte
+  Web-UI, jeweils mit laufendem seriellem Mitschnitt) trat der Neustart
+  kein zweites Mal auf - kein Crash-Log, kein Reset-Grund, keine
+  Absturzschleife gefunden, das Signal selbst lief in allen
+  Wiederholungsversuchen (inkl. eines 150s-Dauertests im kombinierten
+  v6.8.0-Release-Stand) sauber durch. Beobachtet, NICHT reproduzierbar -
+  im Auge behalten, falls es erneut auftritt (dann moeglichst sofort mit
+  laufendem seriellem Monitor reproduzieren, siehe Abschnitt
+  "Eigenstaendige Seriell-Diagnose" unten). Kein Fix vorgenommen (mangels
+  reproduzierbarer Ursache), Stand: v6.8.0.
+
+## Standard-Workflow: Push & Release
+
+WICHTIG - wann dieser Workflow startet: Der komplette Release-Workflow
+(README-Update, Commit, Tag, Push) darf NUR gestartet werden, wenn Alex
+EXPLIZIT danach fragt (z.B. "lass pushen", "können wir releasen", "mach den
+Release-Workflow"). Ein einfaches "ja" auf eine Rückfrage (z.B. zu einer
+CLAUDE.md-Änderung oder einem anderen Detail) ist KEINE Aufforderung, den
+Release-Workflow zu starten. Bei kleineren Fixes/Änderungen bitte NUR bauen
+und flashen (siehe Abschnitt "Nach jedem erfolgreichen Build automatisch
+flashen" unten), aber NICHT committen/taggen/pushen, bis ausdrücklich danach
+gefragt wird.
+
+⚠️ ZWINGEND, KEINE AUSNAHME - Test-Schritte VOR Commit/Tag/Push/Release
+IMMER zuerst tatsächlich durchführen UND als erfolgreich bestätigen, bevor
+irgendein Commit/Tag/Push/Release passiert (Vorfall v6.7.6, siehe
+Git-Historie/Chat: Commit+Tag+Push+GitHub-Release liefen VOR dem in Alex'
+eigener Anweisung an Position 5 stehenden "bauen, flashen, live testen,
+bestätigen" - die dabei entdeckte Absturzschleife war zu diesem Zeitpunkt
+bereits oeffentlich veroeffentlicht). Nennt Alex' Push-/Release-Wunsch
+selbst eine nummerierte Schritt-Reihenfolge, die einen Bau-/Flash-/
+Test-/Bestätigungs-Schritt VOR den Commit-/Tag-/Push-/Release-Schritten
+enthält (unabhängig davon, ob das der Standard-Workflow unten oder eine
+davon abweichende eigene Nummerierung ist), gilt diese Reihenfolge als
+ZWINGEND und STRIKT einzuhalten - niemals Commit/Tag/Push/Release VORZIEHEN,
+auch nicht um Zeit zu sparen oder weil andere Vorbereitungsschritte (README,
+Versionsnummer, Changelog) schon fertig sind. Ergibt der vorgelagerte Test
+IRGENDEIN Problem (Absturz, Fehlverhalten, unklares Ergebnis): Workflow
+SOFORT anhalten, NICHTS committen/taggen/pushen/veröffentlichen, Alex aktiv
+über den Fund informieren und auf Rückmeldung warten - nicht erst selbst
+stundenlang weiter debuggen und schon veröffentlichte Artefakte nachträglich
+korrigieren. Diese Regel gilt zusätzlich zu und unabhängig von der Frage,
+ob der Release ueberhaupt angefordert wurde (das war er in diesem Vorfall
+durchaus) - sie betrifft ausschliesslich die REIHENFOLGE der Ausführung.
+
+Sobald der Workflow explizit angefordert wurde, automatisch folgende Schritte
+in dieser Reihenfolge:
+
+0. Versionsnummer festlegen: Die neue Versionsnummer kommt IMMER exakt von
+   Alex - er nennt sie im Push-Wunsch (z.B. über Claude/den Sandbox-
+   Assistenten: "Alex will auf Version X.Y.Z pushen"). Karl trägt GENAU
+   diese Nummer in `Config::APP_VERSION` (`src/config.h`) ein - niemals
+   selbst hochzählen, erraten oder von der letzten Version ableiten (auch
+   nicht bei kleinen Patches). Das gilt auch für größere Sprünge (z.B.
+   2.6 -> 3.0), die Alex bewusst und absichtlich machen kann - Karl
+   übernimmt in jedem Fall die genannte Nummer 1:1, ohne eigene Annahmen.
+   `Config::APP_VERSION` ist die EINZIGE Stelle im Code, die pro Release
+   gepflegt werden muss - sie erscheint automatisch auf dem "Nach Update
+   suchen"-Button im System-Menü (seit der frühere separate Info-Screen,
+   `src/about_screen.cpp`/`.h`, entfernt wurde; diese Dateien existieren
+   nicht mehr und dürfen bei künftigen Releases nicht mehr gesucht werden).
+   Falls im Push-Wunsch keine explizite Versionsnummer genannt wurde, bei
+   Alex nachfragen statt zu raten. Zusammen mit `APP_VERSION` IMMER auch
+   den Changelog fuer DIESES Release aktualisieren - der ist MEHRSPRACHIG
+   (alle 8 Sprachen wie der Rest der Geraete-UI), liegt in
+   `src/changelog.cpp` als acht Konstanten (`CHANGELOG_EN`, `CHANGELOG_DE`,
+   `CHANGELOG_FR`, `CHANGELOG_TR`, `CHANGELOG_ES`, `CHANGELOG_IT`,
+   `CHANGELOG_PT`, `CHANGELOG_NL`, jeweils eine kurze Bullet-Liste),
+   ausgewaehlt ueber `changelogLatest()` (deklariert in `src/changelog.h`)
+   nach `SettingsStore::language()`. ALLE 8 Sprachen muessen aktualisiert
+   werden, nicht nur Englisch - sonst zeigt das Geraet nach dem naechsten
+   Update fuer 7 von 8 Sprachen noch den Changelog des VORHERIGEN
+   Releases. Wird auf dem Geraet nach einem erfolgreichen OTA-Update auf
+   dem "Update installiert"-Screen angezeigt.
+
+   FESTE REIHENFOLGE innerhalb jedes Changelog-Eintrags (gilt ab sofort
+   fuer alle 8 Sprachen und alle zukuenftigen Releases, Alex' ausdruecklicher
+   Wunsch seit v5.5.0): zuerst ALLE "Neu"-Punkte (in der jeweiligen Sprache:
+   "New"/"Neu"/"Nouveau"/"Yeni"/"Novedad"/"Novità"/"Novo"/"Nieuw"), danach,
+   klar abgetrennt, ALLE "Fix"-Punkte (bzw. "Fix"/"Correction"/"Düzeltme"/
+   "Corrección"/"Correzione"/"Correção"/"Fix") - NICHT gemischt in freier
+   Reihenfolge, wie es vor v5.5.0 gehandhabt wurde. Diese Reihenfolge gilt
+   pro Sprachversion identisch (die uebersetzten Bullet-Texte selbst
+   koennen je nach Release natuerlich variieren, die Neu-vor-Fix-Struktur
+   nicht).
+
+   WICHTIG - Versionsnummer NUR an dieser Stelle im Code eintragen, nicht
+   frueher: Waehrend des vorherigen Entwickelns/Testens (Build+Flash-Zyklen
+   vor dem eigentlichen Push-Wunsch, siehe "Nach jedem erfolgreichen Build
+   automatisch flashen" unten) bleibt `Config::APP_VERSION` immer auf der
+   zuletzt veroeffentlichten Nummer stehen - Karl aendert sie dort NIEMALS
+   selbst, auch nicht vorlaeufig oder testweise, auch wenn zwischendurch
+   beliebig oft `pio run`+Flash zum Testen laeuft. Erst wenn der Push-Wunsch
+   mit der neuen Nummer tatsaechlich kommt, wird `APP_VERSION` genau einmal
+   hier in Schritt 0 auf die neue Nummer gesetzt (kein eigener, separater
+   `pio run`-Verifizierungsschritt direkt danach - der Code selbst wurde ja
+   bereits waehrend der vorherigen Test-Zyklen durchgebaut, nur Versions-
+   nummer und Changelog-Text sind neu). Direkt weiter mit dem Rest des
+   bekannten Workflows (README, Tag, index.html, Commit/Push). Der EINE
+   Build, der die neue Versionsnummer tatsaechlich in die Binaries backt,
+   passiert erst in Schritt 5 (dort wird ohnehin gebaut, um die
+   Bin-Dateien fuers Release vorzubereiten) - nicht vorher als eigener
+   Zwischenschritt.
+   (Bewusst NICHT flashen nach diesem Build - Ausnahme von der sonst
+   geltenden Auto-Flash-Regel, siehe Abschnitt "Nach jedem erfolgreichen
+   Build automatisch flashen" weiter unten. Das Testgerät soll auf der
+   bisherigen Version bleiben, damit das neue Release per OTA getestet
+   werden kann.)
+1. Prüfen, ob seit dem letzten Commit neue/geänderte Features hinzugekommen
+   sind, die für Endnutzer sichtbar sind (neue Menüpunkte, geändertes
+   Verhalten, neue Screens) - falls ja, **README.md entsprechend ergänzen**
+   (gleicher Stil: Emoji-Überschriften, Ankerlinks zwischen "Features"-Liste
+   und den Deep-Dive-Sektionen, kurze Beispiele wo sinnvoll). Reine interne
+   Bugfixes/Refactorings ohne sichtbare Nutzerauswirkung brauchen keinen
+   README-Eintrag.
+2. Code committen (aussagekräftige Commit-Message).
+3. Falls es sich um einen Versionssprung handelt: Git-Tag mit
+   Versionsnummer + Beschreibung der Änderungen erstellen.
+4. Prüfen, ob `index.html` (Web-Flasher) noch die alte Versionsnummer zeigt -
+   falls ja, aktualisieren. **NICHT OPTIONAL, darf bei KEINEM Release-Push
+   übersprungen werden** - auch nicht bei kleinen Patch-Versionen. Immer als
+   fester Doppel-Schritt zusammen mit Schritt 1 (README) behandeln: wann
+   immer die README (oder auch nur die Versionsnummer) auf eine neue Version
+   aktualisiert wird, IMMER im selben Zug auch `index.html` prüfen und
+   synchron mitziehen.
+4b. Web-Flasher-Versionsauswahl aktuell halten: Bevor die Wurzel-.bin-Dateien
+    mit dem neuen Build überschrieben werden, die BISHERIGEN (noch alten)
+    bootloader.bin/partitions.bin/firmware.bin in einen neuen Ordner
+    `versions/vALT/` archivieren (vALT = die Versionsnummer, die index.html
+    vor diesem Update zeigte) - dort auch eine `manifest.json` ablegen
+    (identischer Inhalt wie die Wurzel-manifest.json, siehe
+    `versions/v3.6.2/manifest.json` als Vorlage). Danach im Ordner
+    `versions/` nur die 2 neuesten Versionsordner (nach Versionsnummer
+    sortiert, nicht nach Datei-Datum) behalten - ältere Ordner löschen.
+    Anschließend in `index.html` den Versions-Dropdown
+    (`<select id="versionSelect">`) aktualisieren: 3 Optionen - die neue
+    aktuelle Version (`value="manifest.json"`, `data-version="vNEU"`, Text
+    "vNEU (latest)") plus die beiden jetzt in `versions/` verbliebenen
+    Versionen (`value="versions/vX.Y.Z/manifest.json"`, neueste zuerst).
+5. `pio run` bauen (dies ist der EINE Build des gesamten Release-Workflows,
+   siehe Kommentar in Schritt 0 - erst hier steckt die neue Versionsnummer
+   tatsächlich in den Binaries). Danach `bootloader.bin`, `firmware.bin`,
+   `partitions.bin` im Hauptverzeichnis mit dem frischen Build in
+   `.pio/build/esp32dev/` überschreiben.
+6. Alle diese Änderungen (Code + README + Web-Flasher-Dateien) zusammen
+   committen und pushen (`git push`, plus `git push origin vX.Y.Z` falls ein
+   Tag erstellt wurde).
+7. GitHub Release erstellen UND die `.bin`-Datei in einem Schritt hochladen
+   (per `gh` CLI, seit v2.7.5 eingerichtet und authentifiziert - siehe
+   `gh auth status`). Das Release-Asset heißt einfach `firmware.bin`, keine
+   Umbenennung nötig - die meisten Nutzer laden ohnehin über den
+   Web-Flasher, das Asset ist nur noch für die wenigen Leute relevant, die
+   über eine CYD-Launcher-App direkt eine `.bin`-Datei brauchen (dafür ist
+   der Dateiname egal):
+
+       gh release create vX.Y.Z .pio/build/esp32dev/firmware.bin \
+           --repo Eiswolf-BG/eiswolfs-flightradar-CYD \
+           --title "vX.Y.Z" \
+           --notes "<Release-Notes-Text>"
+
+   Der Release-Notes-Text kommt aus dem jeweiligen Push-Wunsch (derselbe
+   Text, der auch für die Tag-Message verwendet wird) - falls im
+   Push-Wunsch kein Text mitgegeben wurde, aus dem `git log` seit dem
+   letzten Tag ableiten, wie bisher auch für die Tag-Message.
+8. Kurze Zusammenfassung am Ende: was committet/getaggt/gepusht wurde, ob
+   die README aktualisiert wurde (und falls ja, welche Abschnitte), sowie
+   die URL des erstellten GitHub Release. Der GitHub-Release-Schritt ist
+   damit vollautomatisch - kein manuelles Nacharbeiten von Alex mehr
+   nötig, außer `gh` sollte einmal die Authentifizierung verlieren (dann
+   erneut `gh auth login`, siehe oben).
+
+## Silent Push (Minimal-Fix ohne neues Release)
+
+Manchmal bittet Alex explizit um einen "Silent Push" - das ist ein bewusst
+abweichender, schlankerer Ablauf für sehr kleine Änderungen (z.B. Textkorrekturen,
+Wording-Fixes, kleine Anzeige-Logik-Umkehrungen), bei denen sich ein vollständiges
+neues Release nicht lohnt. Grund: Alex möchte nicht mehrfach am Tag eine neue
+Versionsnummer veröffentlichen müssen.
+
+Ein Silent Push bedeutet IMMER:
+
+- KEINE Versionsänderung (Config::APP_VERSION in config.h bleibt exakt wie sie ist)
+- KEIN Changelog-Eintrag (src/changelog.cpp wird nicht angefasst)
+- KEINE README-Ergänzung
+- KEIN neuer Git-Tag
+- KEINE Änderung an versions/ (kein Archivieren, keine neue Version dort)
+- KEINE Änderung an der Versions-Dropdown-Liste in index.html
+
+Was Karl bei einem Silent Push stattdessen tut:
+
+1. Die angeforderte Code-Änderung umsetzen (z.B. Text-/Logik-Fix)
+2. pio run bauen (Pflicht, wie immer - liefert die neuen Binaries)
+3. Die Binaries in-place ersetzen: die drei Root-.bin-Dateien
+   (bootloader.bin/firmware.bin/partitions.bin) sowie die entsprechenden
+   Dateien im Web-Flasher (die Dateien der AKTUELL bestehenden Version -
+   es wird KEIN neuer Eintrag angelegt)
+4. Committen und pushen (ohne neuen Tag)
+5. Das bestehende GitHub Release der aktuellen Version aktualisieren, indem
+   das firmware.bin-Asset per `gh release upload <bestehende-version> .pio/build/esp32dev/firmware.bin --clobber --repo Eiswolf-BG/eiswolfs-flightradar-CYD`
+   ersetzt wird - es wird KEIN neues Release erstellt
+6. Das Geraet direkt per USB flashen (z.B. `pio run -t upload`), NICHT auf
+   OTA verlassen - das ist bei einem Silent Push IMMER Pflicht, nicht optional,
+   da die OTA-Update-Suche den Fix wegen der unveraenderten Versionsnummer nie
+   als verfuegbares Update anzeigen wird. Falls das Geraet gerade nicht per USB
+   angeschlossen/erreichbar ist, bitte Alex explizit darauf hinweisen, dass sie
+   es zum Flashen anschliessen muss, bevor der Fix bei ihr ankommt.
+
+Wichtiger Hinweis: Weil sich die Versionsnummer nicht aendert, erkennt die
+In-App-OTA-Update-Pruefung (Vergleich von Config::APP_VERSION gegen den
+GitHub-Release-Tag-Namen) den Silent-Push-Fix NICHT als verfuegbares Update -
+das Geraet meldet "up to date", obwohl die neue Binary bereits veroeffentlicht
+ist. Deshalb ist Schritt 6 (direktes USB-Flashen durch Karl) bei einem Silent
+Push zwingend und nicht optional - anders als beim normalen Release-Workflow,
+bei dem Alex selbst per OTA aktualisiert.
+
+Bitte NICHT den normalen Workflow (Schritt 0 Versionsnummer, Changelog,
+README, Tag) anwenden, wenn Alex explizit "Silent Push" sagt - nur wenn sie
+das nicht sagt, gilt der normale Standard-Workflow.
+
+## Nach jedem erfolgreichen Build automatisch flashen
+
+Sobald `pio run` (Build) erfolgreich ohne Fehler durchgelaufen ist, IMMER direkt
+im Anschluss auch flashen (`pio run --target upload`), ohne extra danach zu
+fragen - außer der Nutzer sagt ausdrücklich "nur bauen, nicht flashen" o.ä.
+Kurz danach bestätigen, dass der Upload ebenfalls erfolgreich war (inkl.
+"[SUCCESS]"-Zeile am Ende).
+
+AUSNAHME: Innerhalb der Push & Release-Routine (siehe Abschnitt
+"Standard-Workflow: Push & Release") NICHT automatisch flashen, selbst
+nach erfolgreichem Build - dort wird bewusst nur gebaut. Grund: Alex
+möchte das Testgerät auf der bisherigen Version belassen, um das neue
+Release anschließend über die OTA-Update-Funktion zu testen, statt es
+direkt per Kabel zu flashen. Für alle anderen Anlässe (normales
+Entwickeln/Testen, einzelne Fixes) gilt die automatische Flash-Regel
+unverändert weiter.
+
+WICHTIG - `Config::APP_VERSION` beim normalen Entwickeln/Testen NIEMALS
+ändern: Für jede dieser normalen Test-Iterationen (dieser Abschnitt hier,
+nicht die Push & Release-Routine oben) gilt ganz normal `pio run` +
+Flashen wie gewohnt, aber die Versionsnummer in `src/config.h` bleibt dabei
+immer unverändert auf der zuletzt veröffentlichten Nummer stehen - auch
+wenn ein größeres, noch unveröffentlichtes Feature getestet wird (z.B.
+ein geplanter Sprung auf eine neue Hauptversion). Der Versionssprung
+passiert ausschließlich einmalig in Schritt 0 der Push & Release-Routine,
+sobald Alex den Push tatsächlich anfordert - nie vorher, auch nicht
+versuchsweise oder "damit man es schon sieht". Grund: Alex will nach dem
+Push sauber per OTA von der zuletzt veröffentlichten auf die neue Version
+aktualisieren können; zeigt das Testgerät zwischendurch schon eine neue
+(aber noch nicht veröffentlichte) Nummer an, funktioniert dieser Versions-
+vergleich nicht mehr zuverlässig.
+
+## "Rochade" - echten OTA-Ablauf testen, ohne neues Release zu brauchen
+
+Wenn Alex sagt "wir machen eine Rochade" (oder "mach nochmal eine
+Rochade"), ist damit folgender Test-Trick gemeint: `Config::APP_VERSION`
+in `src/config.h` WIRD hier (bewusste Ausnahme von der obigen Regel,
+gilt NUR fuer diesen expliziten Auftrag) einmalig testweise auf eine
+aeltere, bereits veroeffentlichte Versionsnummer gesetzt (z.B. die vorige
+Release-Version), damit das Geraet beim naechsten "Nach Update suchen"
+die aktuell schon veroeffentlichte, echte GitHub-Release-Version wieder
+als neu erkennt - so kann der komplette echte OTA-Download-/Install-/
+Neustart-Ablauf (inkl. Fortschrittsanzeige, Erfolgs-Screen) am echten
+Geraet getestet werden, ohne dass Alex dafuer auf einen neuen
+Release-Zyklus warten muss.
+
+Ablauf bei jeder Rochade (immer alle Schritte, in dieser Reihenfolge):
+
+1. `Config::APP_VERSION` testweise auf eine aeltere, bereits
+   veroeffentlichte Nummer setzen (z.B. die direkt vorherige Version).
+2. `pio run` bauen.
+3. Flashen (`pio run --target upload`, ggf. mit explizitem
+   `--upload-port`, falls mehrere serielle Geraete angeschlossen sind).
+4. `Config::APP_VERSION` SOFORT direkt danach im Working Tree wieder auf
+   die echte, aktuelle Versionsnummer zuruecksetzen.
+5. Mit `git diff --stat HEAD -- src/config.h` bestaetigen, dass die Datei
+   wieder exakt dem letzten Commit entspricht (leere Ausgabe erwartet) -
+   es darf NIE eine testweise geaenderte Versionsnummer im Working Tree
+   stehen bleiben.
+6. Alex kurz Bescheid geben, dass sie auf dem Geraet "Nach Update suchen"
+   antippen kann.
+
+Eine Rochade wird NIE committet/getaggt/gepusht - sie ist ausschliesslich
+ein lokaler Test-Kniff auf dem Testgeraet. Gilt unabhaengig vom sonstigen
+Kontext (auch mitten in einer laufenden Diagnose- oder Bugfix-Aufgabe),
+sobald Alex das Wort "Rochade" benutzt.
+
+## Wann temporäre Diagnose-Instrumentierung sinnvoll ist
+
+Nur bei Aufgaben, die explizit Fehlersuche/Verhalten-zur-Laufzeit betreffen
+(Netzwerk-/Verbindungsprobleme, Timing-/Race-Bugs, Zustände, die sich nicht
+allein durch Codelektüre beweisen lassen). Bei reinen Layout-/Text-/Farb-/
+Struktur-Änderungen genügt Codelektüre + einmaliger Build+Flash - kein
+Serial-Logging, kein zweiter Flash-Durchgang, sofern nicht der Nutzer
+ausdrücklich eine Live-Verifikation verlangt.
+
+## Eigenständige Seriell-Diagnose
+
+Wenn zur Fehlerdiagnose ein Mitschnitt des seriellen Monitors nötig ist,
+führt Karl das eigenständig mit eigenen Testinstrumenten durch: den
+seriellen Monitor selbst starten (inkl. Zeitstempel-Filter, falls nötig),
+eine sinnvolle Zeit lang mitlesen, die Ausgabe selbst auswerten, die
+Ursache diagnostizieren und - falls sich ein Fix ergibt - diesen auch
+gleich umsetzen. Alex soll dafür nicht selbst den Monitor beobachten oder
+Log-Zeilen von Hand kopieren müssen.
+
+---
+> Source: [Eiswolf-BG/eiswolfs-flightradar-CYD](https://github.com/Eiswolf-BG/eiswolfs-flightradar-CYD) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
