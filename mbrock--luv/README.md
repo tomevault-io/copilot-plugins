@@ -7,11 +7,11 @@ A Common Lisp Vulkan atelier
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mbrock/luv](https://github.com/mbrock/luv).
+Original source: `AGENTS.md` in [mbrock/luv](https://github.com/mbrock/luv).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
