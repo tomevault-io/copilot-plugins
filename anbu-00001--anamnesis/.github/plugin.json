@@ -1,0 +1,9 @@
+{
+  "name": "anbu-00001--anamnesis",
+  "displayName": "Anamnesis",
+  "description": "A local CLI for logging predictions before the outcome and checking whether your \"80% sure\" comes true 80% of the time.",
+  "version": "1.0.0",
+  "author": "Anbu-00001",
+  "homepage": "https://github.com/Anbu-00001/Anamnesis",
+  "skills": []
+}
