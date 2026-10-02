@@ -1,0 +1,9 @@
+{
+  "name": "vercidium-audio--vaudio-godot-native-openal-3d",
+  "displayName": "vaudio-godot-native-openal-3d",
+  "description": "Source code for the Standard Godot addon for Vercidium Audio",
+  "version": "1.0.0",
+  "author": "vercidium-audio",
+  "homepage": "https://github.com/vercidium-audio/vaudio-godot-native-openal-3d",
+  "skills": []
+}
