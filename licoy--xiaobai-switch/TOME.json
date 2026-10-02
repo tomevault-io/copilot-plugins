@@ -1,0 +1,44 @@
+{
+  "name": "xiaobai-switch",
+  "owner": "Licoy",
+  "repo": "xiaobai-switch",
+  "description": "\u5c0f\u767d\u4e5f\u80fd\u4e0a\u624b\u7684 Claude Code / Codex \u4e0a\u6e38\u914d\u7f6e\u5207\u6362\u684c\u9762\u5e94\u7528 | A cross-platform, site-driven desktop app for switching Claude Code & Codex providers",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Licoy/xiaobai-switch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T11:07:32Z"
+}
