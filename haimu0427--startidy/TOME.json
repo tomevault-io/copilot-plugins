@@ -4,7 +4,7 @@
   "repo": "Startidy",
   "description": "Turn messy GitHub Stars into organized Lists automatically with AI agent skills and npm CLI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haimu0427/Startidy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T04:41:28Z"
+  "distributed_at": "2026-10-02T06:36:16Z"
 }
