@@ -1,0 +1,9 @@
+{
+  "name": "rudybear--shaderopt",
+  "displayName": "shaderopt",
+  "description": "Measurement-driven shader optimization lab: SPIR-V lifted into an editable IR, AI-proposed and lossy rewrites predicted on the CPU and proven on real GPUs",
+  "version": "1.0.0",
+  "author": "rudybear",
+  "homepage": "https://github.com/rudybear/shaderopt",
+  "skills": []
+}
