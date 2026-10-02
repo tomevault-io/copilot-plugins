@@ -1,0 +1,9 @@
+{
+  "name": "rall-digital--radar-dash",
+  "displayName": "radar-dash",
+  "description": "NEXRAD radar wall dashboard cards for Home Assistant",
+  "version": "1.0.0",
+  "author": "rall-digital",
+  "homepage": "https://github.com/rall-digital/radar-dash",
+  "skills": []
+}
