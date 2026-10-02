@@ -4,7 +4,7 @@
   "repo": "miliup",
   "description": "MILIUP - Financial literacy platform for Korean military service members (Next.js + Supabase)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/betterself90-del/miliup",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T02:49:49Z"
+  "distributed_at": "2026-10-02T04:01:28Z"
 }
