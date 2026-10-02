@@ -7,11 +7,11 @@ Foxhollow: a native port of Star Fox Adventures built on the SFA decompilation a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [JackPriceBurns/foxhollow](https://github.com/JackPriceBurns/foxhollow).
+Original source: `CLAUDE.md` in [JackPriceBurns/foxhollow](https://github.com/JackPriceBurns/foxhollow).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
