@@ -4,7 +4,7 @@
   "repo": "chinese-erotic-fiction-writing",
   "description": "\u4e2d\u6587\u6210\u4eba\u5411(H)\u5c0f\u8bf4\u521b\u4f5c\u901a\u7528\u6280\u80fd(Hermes Agent skill) - \u9700\u6c42\u52d8\u5bdf+\u901a\u7528\u5199\u4f5c\u89c4\u8303+\u6279\u91cf\u6269\u5199\u5de5\u7a0b",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xWebt/chinese-erotic-fiction-writing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T05:32:54Z"
+  "distributed_at": "2026-10-02T08:18:18Z"
 }
