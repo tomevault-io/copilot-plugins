@@ -1,0 +1,9 @@
+{
+  "name": "gardnmi--boomux",
+  "displayName": "boomux",
+  "description": "Boomux is a persistent terminal workspace manager for running, organizing, and supervising multiple coding agents across projects.",
+  "version": "1.0.0",
+  "author": "gardnmi",
+  "homepage": "https://github.com/gardnmi/boomux",
+  "skills": []
+}
