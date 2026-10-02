@@ -1,0 +1,9 @@
+{
+  "name": "robertpitt--cycle",
+  "displayName": "cycle",
+  "description": "Cycle is a local first ai agent driven ticket system backed by a git repository",
+  "version": "1.0.0",
+  "author": "robertpitt",
+  "homepage": "https://github.com/robertpitt/cycle",
+  "skills": []
+}
