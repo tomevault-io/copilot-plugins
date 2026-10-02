@@ -1,0 +1,44 @@
+{
+  "name": "ov-poc-standard",
+  "owner": "LFDT-ProofOfControl",
+  "repo": "ov-poc-standard",
+  "description": "The Proof-of-Control Standard (PoC) is a catalogue of verifiable requirements for AI agent systems: independent, tamper-evident evidence of what an agent actually did \u2014 the data it touched, the authority it exercised, the tools it invoked \u2014 in a form anyone can check without trusting the operator.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LFDT-ProofOfControl/ov-poc-standard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T06:56:28Z"
+}
