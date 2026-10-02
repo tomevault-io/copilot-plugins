@@ -1,0 +1,9 @@
+{
+  "name": "touchmybar--cooper",
+  "displayName": "cooper",
+  "description": "Open-source Copper (shadcn's capture app) for Windows, macOS & Linux. A to-do list + clipboard + scratchpad for AI work with ChatGPT, Claude, Cursor. Tauri, local-only, no account.",
+  "version": "1.0.0",
+  "author": "TouchMyBar",
+  "homepage": "https://github.com/TouchMyBar/cooper",
+  "skills": []
+}
