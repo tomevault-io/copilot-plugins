@@ -1,0 +1,9 @@
+{
+  "name": "x-sharn--weather",
+  "displayName": "Weather",
+  "description": "Weather app",
+  "version": "1.0.0",
+  "author": "x-sharn",
+  "homepage": "https://github.com/x-sharn/Weather",
+  "skills": []
+}
