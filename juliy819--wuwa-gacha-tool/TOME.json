@@ -1,0 +1,44 @@
+{
+  "name": "wuwa-gacha-tool",
+  "owner": "juliy819",
+  "repo": "wuwa-gacha-tool",
+  "description": "\u9e23\u6f6e\u62bd\u5361\u8bb0\u5f55\u7ba1\u7406\u4e0e\u5206\u6790\u5de5\u5177\uff0c\u6570\u636e\u672c\u5730\u5316\u5b58\u50a8\uff0c\u652f\u6301\u672c\u5730\u65e5\u5fd7\u89e3\u6790\u3001\u94fe\u63a5\u3001JSON\u3001OCR\u3001\u4e91\u9e23\u6f6e\u3001\u624b\u52a8\u7b49\u591a\u79cd\u5bfc\u5165\u65b9\u5f0f\uff0c\u62e5\u6709\u5217\u8868\u3001\u5bab\u683c\u3001\u8868\u683c\u8fd9\u4e09\u79cd UI \u5e03\u5c40\u6837\u5f0f\uff0c\u652f\u6301\u5168\u91cf\u5386\u53f2\u6570\u636e\u7684\u6c47\u603b\u5206\u6790\u5206\u6790\u3001\u8d8b\u52bf\u9884\u6d4b\u7b49",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/juliy819/wuwa-gacha-tool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T00:42:55Z"
+}
