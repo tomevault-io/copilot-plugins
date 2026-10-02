@@ -1,0 +1,9 @@
+{
+  "name": "cardmagic--solid-objects-ruby",
+  "displayName": "solid-objects-ruby",
+  "description": "Open Source Durable Objects for Rails, backed by your existing SQL database",
+  "version": "1.0.0",
+  "author": "cardmagic",
+  "homepage": "https://github.com/cardmagic/solid-objects-ruby",
+  "skills": []
+}
