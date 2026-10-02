@@ -1,0 +1,9 @@
+{
+  "name": "yakisoba0728--vrfkit",
+  "displayName": "vrfkit",
+  "description": "VALORANT replay (.vrf) parser and analysis toolkit \u2014 lossless, every value exported. Rust.",
+  "version": "1.0.0",
+  "author": "yakisoba0728",
+  "homepage": "https://github.com/yakisoba0728/vrfkit",
+  "skills": []
+}
