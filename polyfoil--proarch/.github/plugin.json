@@ -1,0 +1,9 @@
+{
+  "name": "polyfoil--proarch",
+  "displayName": "ProArch",
+  "description": "Lightweight structural index for coding agents: imports, hotspots, traces",
+  "version": "1.0.0",
+  "author": "polyfoil",
+  "homepage": "https://github.com/polyfoil/ProArch",
+  "skills": []
+}
