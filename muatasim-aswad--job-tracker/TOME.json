@@ -4,7 +4,7 @@
   "repo": "job-tracker",
   "description": "Track the opportunity, not the URL: one record per job across reposts, platforms, and email. Self-hosted job application tracker with browser capture and a Kanban dashboard.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Muatasim-Aswad/job-tracker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T22:47:21Z"
+  "distributed_at": "2026-10-02T00:47:09Z"
 }
