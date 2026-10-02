@@ -1,0 +1,9 @@
+{
+  "name": "yonie--wetchorus",
+  "displayName": "WetChorus",
+  "description": "An open-source bucket-brigade stereo chorus modelled as the circuit in a 1970s solid-state guitar combo: drifting sweep, compander breathing, the noise left in. Free, MIT, VST3 and AU for Windows, mac",
+  "version": "1.0.0",
+  "author": "yonie",
+  "homepage": "https://github.com/yonie/WetChorus",
+  "skills": []
+}
