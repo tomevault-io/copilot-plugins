@@ -1,0 +1,9 @@
+{
+  "name": "cascode-ai--analog-canvas",
+  "displayName": "analog-canvas",
+  "description": "Circuit design assets, SPICE fixtures, and an auditable Agent workflow",
+  "version": "1.0.0",
+  "author": "cascode-ai",
+  "homepage": "https://github.com/cascode-ai/analog-canvas",
+  "skills": []
+}
