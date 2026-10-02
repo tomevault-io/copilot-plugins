@@ -1,0 +1,9 @@
+{
+  "name": "ulises-jeremias--agent-toolkit",
+  "displayName": "agent-toolkit",
+  "description": "\ud83d\udee0\ufe0f Composable AI agent toolkit \u2014 skills, agents, loops, and MCP templates for Claude Code, Cursor, OpenCode, Copilot, Windsurf, and Pi",
+  "version": "1.0.0",
+  "author": "ulises-jeremias",
+  "homepage": "https://github.com/ulises-jeremias/agent-toolkit",
+  "skills": []
+}
