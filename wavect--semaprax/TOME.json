@@ -4,7 +4,7 @@
   "repo": "semaprax",
   "description": "The AI agent-native systems programming language: Meaning in. Verified machine code out. All target OS, memory managed through Ownership & fully interoperable with existing ecosystems & object-oriented AI Agents with payment capability.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wavect/semaprax",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T22:44:42Z"
+  "distributed_at": "2026-10-02T22:45:39Z"
 }
