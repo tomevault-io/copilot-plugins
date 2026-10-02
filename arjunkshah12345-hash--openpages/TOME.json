@@ -4,7 +4,7 @@
   "repo": "openpages",
   "description": "Open-source AI workspace for humans and agents \u2014 SuperCompress as the core context layer.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arjunkshah12345-hash/openpages",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T04:03:45Z"
+  "distributed_at": "2026-10-02T05:45:38Z"
 }
