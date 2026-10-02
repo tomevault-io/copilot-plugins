@@ -1,0 +1,9 @@
+{
+  "name": "ypyik0669--claude-web",
+  "displayName": "claude-web",
+  "description": "Claude Code \u7684\u53ef\u89c6\u5316\u5de5\u4f5c\u53f0\uff08\u7f51\u9875 + \u684c\u9762\uff09\uff0c\u4e5f\u80fd\u9a71\u52a8 Codex / Gemini CLI / Qwen / OpenCode \u7b49 CLI agent \u00b7 A GUI workbench for Claude Code and other CLI agents",
+  "version": "1.0.0",
+  "author": "ypyik0669",
+  "homepage": "https://github.com/ypyik0669/claude-web",
+  "skills": []
+}
