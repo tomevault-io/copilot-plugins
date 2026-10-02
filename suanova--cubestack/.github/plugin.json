@@ -1,0 +1,9 @@
+{
+  "name": "suanova--cubestack",
+  "displayName": "cubestack",
+  "description": "Suanova CubeStack is an AI Cloud Operating System / AI Platform (\u667a\u7b97\u4e91\u64cd\u4f5c\u7cfb\u7edf) engineered for managing GPU compute clusters and AI workloads.",
+  "version": "1.0.0",
+  "author": "suanova",
+  "homepage": "https://github.com/suanova/cubestack",
+  "skills": []
+}
