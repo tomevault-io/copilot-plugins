@@ -1,0 +1,44 @@
+{
+  "name": "melra",
+  "owner": "XAGI-Lab",
+  "repo": "melra",
+  "description": "The open-source autonomy kernel MELRA \u2014 Modular Execution Layer for Reliable Autonomy. An agent-independent effect runtime for governed, durable, and verifiable autonomous execution. MELRA begins where the tool call leaves the model loop.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/XAGI-Lab/melra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T00:42:00Z"
+}
