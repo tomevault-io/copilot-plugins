@@ -1,0 +1,9 @@
+{
+  "name": "tinyactors-dev--scxmljs",
+  "displayName": "scxmljs",
+  "description": "A correctness-first SCXML 1.0 interpreter (ECMAScript data model) with custom elements for interactive statecharts",
+  "version": "1.0.0",
+  "author": "tinyactors-dev",
+  "homepage": "https://github.com/tinyactors-dev/scxmljs",
+  "skills": []
+}
