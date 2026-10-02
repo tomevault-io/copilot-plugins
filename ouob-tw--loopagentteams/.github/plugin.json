@@ -1,0 +1,9 @@
+{
+  "name": "ouob-tw--loopagentteams",
+  "displayName": "LoopAgentTeams",
+  "description": "Spec-driven multi-agent teamwork for any skills-capable agent (Claude Code, Codex, and more) \u2014 plan, dispatch, monitor, QA. No framework lock-in.",
+  "version": "1.0.0",
+  "author": "ouob-tw",
+  "homepage": "https://github.com/ouob-tw/LoopAgentTeams",
+  "skills": []
+}
