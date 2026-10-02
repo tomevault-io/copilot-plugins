@@ -1,0 +1,9 @@
+{
+  "name": "openshift-online--hypershell",
+  "displayName": "hypershell",
+  "description": "OpenShell-as-a-service across multiple clouds",
+  "version": "1.0.0",
+  "author": "openshift-online",
+  "homepage": "https://github.com/openshift-online/hypershell",
+  "skills": []
+}
