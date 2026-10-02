@@ -1,0 +1,9 @@
+{
+  "name": "leemour--tg-cli",
+  "displayName": "tg-cli",
+  "description": "Telegram CLI",
+  "version": "1.0.0",
+  "author": "leemour",
+  "homepage": "https://github.com/leemour/tg-cli",
+  "skills": []
+}
