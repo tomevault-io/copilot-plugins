@@ -1,0 +1,9 @@
+{
+  "name": "rhenus-q--enterprise-office-agent",
+  "displayName": "Enterprise-Office-Agent",
+  "description": "Self-correcting Agentic RAG engine on LangGraph, plus a deterministic Office Agent that routes free-text requests to seven local capabilities \u2014 with a thin FastAPI adapter and a React observability wo",
+  "version": "1.0.0",
+  "author": "rhenus-Q",
+  "homepage": "https://github.com/rhenus-Q/Enterprise-Office-Agent",
+  "skills": []
+}
