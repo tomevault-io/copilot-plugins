@@ -1,0 +1,9 @@
+{
+  "name": "shadok-ai--shadok-ai",
+  "displayName": "shadok-ai",
+  "description": "Run Claude Code agents on a schedule. They stay silent unless there's something worth telling you \u2014 a quiet day costs zero tokens.",
+  "version": "1.0.0",
+  "author": "shadok-ai",
+  "homepage": "https://github.com/shadok-ai/shadok-ai",
+  "skills": []
+}
