@@ -1,0 +1,121 @@
+## victor-statusline
+
+> Published status lines for Claude Code and GitHub Copilot CLI, each as a
+
+# victor-statusline
+
+Published status lines for Claude Code and GitHub Copilot CLI, each as a
+runnable script plus a companion doc that embeds the same script verbatim.
+
+## Commit and push every change — no asking
+
+**Every time you change anything in this repo, commit it and push it in the same
+turn.** Do not leave the tree dirty and do not ask "shall I commit?" — the answer
+is always yes. This is a standing instruction from Victor and it overrides the
+default "only commit when asked" behaviour.
+
+The reason is what this repo is *for*: it is the published copy. `~/.claude/` is
+not a git repo, so the working tree here is the only version history these
+scripts have, and the raw GitHub URLs are what other people install from. A
+change sitting uncommitted is a change that exists on exactly one laptop.
+
+## The live scripts are the source of truth — and each lives in THREE places
+
+The files you actually run live outside this repo. Every one of them exists three
+times, and all three must move together in one commit:
+
+| # | Copy | Path |
+|---|------|------|
+| 1 | **live** (what runs) | `~/.claude/statusline-command.sh` — **symlink → copy 2** |
+| 2 | **repo** (what people install) | `claude/statusline-command.sh` |
+| 3 | **embedded** (what makes the doc self-contained) | the fenced block under `## The full script` in `claude/victor-claude-statusline.md` |
+
+Same rule for `copilot/statusline.sh` and `copilot/quota-refresh.sh` against
+`copilot/victor-copilot-statusline.md` (`## File 1` / `## File 2`).
+
+Editing only the live script is the failure mode this repo keeps hitting: the
+flower's colour ramp shipped once with copies 2 and 3 left a whole revision
+behind, so the published script and the doc both described a version that no
+longer existed.
+
+**For `statusline-command.sh`, copies 1 and 2 are now the same inode**:
+`~/.claude/statusline-command.sh` is a symlink to `claude/statusline-command.sh`
+here. Editing either path edits both, and the drift above is structurally
+impossible rather than merely forbidden. Do **not** `cp` between the two paths —
+that is now a self-copy, which errors at best and truncates the file at worst.
+Edit in place, then re-sync only the embedded block (copy 3).
+
+The remaining copies are still plain files and still need the copy-then-sync
+dance: everything under `claude/hooks/` and all of `copilot/`. Symlinking those
+the same way is the obvious next step and has not been done yet.
+
+The three `claude/hooks/quota-*.sh` now have a copy 3 as well — embedded under
+`## Hook 1` / `## Hook 2` / `## Hook 3` in `claude/victor-claude-statusline.md`,
+and compared by `check-sync.sh` like the rest. So for a hook the dance is: edit
+the live file, `cp` it into `claude/hooks/`, re-sync the embedded block, run the
+checker.
+
+### Always run the checker before committing
+
+```sh
+./check-sync.sh          # exits non-zero on the first mismatch
+```
+
+It compares copy 2 against copy 3 for all six scripts. It cannot see copy 1 —
+nothing can — so **diff the live file against the repo file yourself** as well.
+
+Careful: `diff` here is rewritten by an rtk hook that summarises instead of
+comparing, and it has reported "Files are identical" for files that differ. Use
+`cmp`, `md5`, or `rtk proxy diff -u` when the answer actually matters.
+
+## Regenerate the screenshots in the same commit, and push
+
+Any change to the shape of a segment — a new field, a dropped separator, a chip,
+a renamed glyph — ends with:
+
+```sh
+./docs/screenshots/make-lines.sh     # sample payloads -> docs/screenshots/lines/*.ansi
+python3 docs/screenshots/render.py   # *.ansi + the field notes -> *.png
+git add -A && git commit && git push
+```
+
+**Do not wait to be asked for either step.** The README leads with those five
+pictures, so a bar change that skips them ships a README describing a status line
+that no longer exists — and `git push` is what makes any of it real, since the
+raw GitHub URLs are what people install from.
+
+`render.py` finds each annotated field by REGEX and dies on the first field that
+stops matching, which is the mechanism that catches this. Treat that failure as
+the screenshot's way of reporting drift, and fix the regex AND the prose next to
+it — do not work around it. It had been failing silently on `\d+K/1M` (the Opus
+1M window stopped printing its denominator) and on `(miss=$…)`, which means the
+pictures had been stale through several bar changes before anyone re-ran it.
+
+The bar's type size is **computed to fit**, not fixed: `build()` measures the
+longest row in printable columns and shrinks `--lfs` below 20px only when the
+line would otherwise run past the card. Adding the Copilot session segment had
+silently clipped the reset clock off the right edge of `copilot.png` — an
+overflowing line is cropped by the PNG without a word of warning, which is the
+same stale-picture failure the regex check exists to catch. Don't hand-tune font
+sizes; add the segment and re-render.
+
+`make-lines.sh` needs no terminal: the Copilot line's width comes from
+`COPILOT_STATUSLINE_COLS`, forced to 0 there, because that script otherwise sizes
+itself off `/dev/tty` and an agent-run generator produced a picture of a line
+ending in "…". Its clock is pinned the same way, with `COPILOT_STATUSLINE_NOW` set
+to a Wednesday afternoon: the Copilot "today" segment has no percentage or pace
+arrow on a weekend, and a Sunday run of the generator drew that fallback shape
+and stopped `render.py` on the missing field (13 Sep 2026).
+
+## The behaviour docs are part of the change, not a follow-up
+
+Both scripts carry a MAINTENANCE RULE in their header saying the companion doc
+must be updated in the same change as any behaviour change (format, segments,
+colours, thresholds, turn-state logic). The doc is written as prose that argues
+*why* each choice was made, so when a decision is reversed, **rewrite the passage
+that argued for the old behaviour** — don't just append the new rule underneath
+it and leave the doc making both cases at once.
+
+---
+> Source: [victorrentea/victor-statusline](https://github.com/victorrentea/victor-statusline) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
