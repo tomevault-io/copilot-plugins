@@ -1,0 +1,9 @@
+{
+  "name": "finbackyu--kimi-code-hud",
+  "displayName": "kimi-code-hud",
+  "description": "Customizable status line HUD for Kimi Code CLI \u2014 context bar, token speed, quota usage at a glance",
+  "version": "1.0.0",
+  "author": "FinbackYu",
+  "homepage": "https://github.com/FinbackYu/kimi-code-hud",
+  "skills": []
+}
