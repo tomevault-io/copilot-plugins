@@ -4,7 +4,7 @@
   "repo": "co-mathematician",
   "description": "Co-mathematician project for collaborative AI-assisted mathematical research.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VeryMath/co-mathematician",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T01:38:54Z"
+  "distributed_at": "2026-10-02T08:24:14Z"
 }
