@@ -4,7 +4,7 @@
   "repo": "earnings-edge",
   "description": "Multi-agent (LangGraph + Claude) app that turns an earnings call into a source-attributed analyst brief: ingest - FinBERT tone + KPI-vs-consensus - SurpriseSignal - grounding check - delivery.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/suhaas/earnings-edge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T09:44:16Z"
+  "distributed_at": "2026-10-02T13:37:42Z"
 }
