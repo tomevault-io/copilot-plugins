@@ -1,0 +1,9 @@
+{
+  "name": "robertogallea--laravel-judgment",
+  "displayName": "laravel-judgment",
+  "description": "Judgment as a first-class Laravel primitive: probabilistic assessments with deterministic decisions, powered by Jev.",
+  "version": "1.0.0",
+  "author": "robertogallea",
+  "homepage": "https://github.com/robertogallea/laravel-judgment",
+  "skills": []
+}
