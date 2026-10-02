@@ -1,0 +1,9 @@
+{
+  "name": "babelize--babelize-elements",
+  "displayName": "babelize-elements",
+  "description": "Open-source Localization UI components \u2014 copy-paste React & Tailwind for language switchers, locale pickers, translation widgets, and more.",
+  "version": "1.0.0",
+  "author": "babelize",
+  "homepage": "https://github.com/babelize/babelize-elements",
+  "skills": []
+}
