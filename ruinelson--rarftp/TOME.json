@@ -4,7 +4,7 @@
   "repo": "rarftp",
   "description": "Upload the contents of a RAR archive to an FTP server without extracting it to disk",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RuiNelson/rarftp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T04:15:43Z"
+  "distributed_at": "2026-10-02T05:55:46Z"
 }
