@@ -1,0 +1,9 @@
+{
+  "name": "openreliant--openreliant",
+  "displayName": "openreliant",
+  "description": "An open-source reimplementation of StarLancer's engine, in Zig on SDL3. Needs your own copy of the game.",
+  "version": "1.0.0",
+  "author": "OpenReliant",
+  "homepage": "https://github.com/OpenReliant/openreliant",
+  "skills": []
+}
