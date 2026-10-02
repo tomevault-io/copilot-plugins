@@ -1,0 +1,44 @@
+{
+  "name": "nhplug-sdk",
+  "owner": "PLUG-OpenAPI",
+  "repo": "nhplug-sdk",
+  "description": "NH\ud22c\uc790\uc99d\uad8c PLUG Open API \ud30c\uc774\uc36c SDK \u2014 \uc0d8\ud50c\u00b7\uc885\ubaa9\ub9c8\uc2a4\ud130 \ud30c\uc11c\u00b7AI \uaddc\uce59 (\ub098\ubb34\u00b7N2 \uacf5\uc6a9)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PLUG-OpenAPI/nhplug-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T12:03:08Z"
+}
