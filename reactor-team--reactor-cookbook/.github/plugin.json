@@ -1,0 +1,9 @@
+{
+  "name": "reactor-team--reactor-cookbook",
+  "displayName": "reactor-cookbook",
+  "description": "Practical, runnable recipes for building with the Reactor platform",
+  "version": "1.0.0",
+  "author": "reactor-team",
+  "homepage": "https://github.com/reactor-team/reactor-cookbook",
+  "skills": []
+}
