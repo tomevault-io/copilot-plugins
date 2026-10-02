@@ -1,0 +1,9 @@
+{
+  "name": "mbrock--luv",
+  "displayName": "luv",
+  "description": "A Common Lisp Vulkan atelier",
+  "version": "1.0.0",
+  "author": "mbrock",
+  "homepage": "https://github.com/mbrock/luv",
+  "skills": []
+}
