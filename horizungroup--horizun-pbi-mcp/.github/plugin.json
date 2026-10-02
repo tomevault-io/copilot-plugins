@@ -1,0 +1,9 @@
+{
+  "name": "horizungroup--horizun-pbi-mcp",
+  "displayName": "horizun-pbi-mcp",
+  "description": "Open-source Power BI MCP to build, audit and repair Desktop models and PBIP reports with DAX, TOM, TMDL and PBIR.",
+  "version": "1.0.0",
+  "author": "HorizunGroup",
+  "homepage": "https://github.com/HorizunGroup/horizun-pbi-mcp",
+  "skills": []
+}
