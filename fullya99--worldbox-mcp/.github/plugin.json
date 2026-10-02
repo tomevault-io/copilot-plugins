@@ -1,0 +1,9 @@
+{
+  "name": "fullya99--worldbox-mcp",
+  "displayName": "worldbox-mcp",
+  "description": "An MCP server that lets any AI agent (Claude Code, OpenCode, Codex, Cursor, ...) directly control the game WorldBox. Includes a BepInEx C# mod that exposes a local HTTP API to the game's internals, an",
+  "version": "1.0.0",
+  "author": "fullya99",
+  "homepage": "https://github.com/fullya99/worldbox-mcp",
+  "skills": []
+}
