@@ -1,0 +1,9 @@
+{
+  "name": "cyclops-team--cyclops",
+  "displayName": "cyclops",
+  "description": "The terminal workspace for working with coding agents",
+  "version": "1.0.0",
+  "author": "cyclops-team",
+  "homepage": "https://github.com/cyclops-team/cyclops",
+  "skills": []
+}
