@@ -1,0 +1,9 @@
+{
+  "name": "aivaxlabs--avi",
+  "displayName": "avi",
+  "description": "A local desktop workspace for AI conversations, tools, and orchestration.",
+  "version": "1.0.0",
+  "author": "aivaxlabs",
+  "homepage": "https://github.com/aivaxlabs/avi",
+  "skills": []
+}
