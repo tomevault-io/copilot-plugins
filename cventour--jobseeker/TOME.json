@@ -1,0 +1,44 @@
+{
+  "name": "jobseeker",
+  "owner": "cventour",
+  "repo": "jobseeker",
+  "description": "A local-first job-search assistant: watches your email, chats and calendar, finds roles worth your time, and surfaces the few things that need you today. Never applies or sends without approval.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cventour/jobseeker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T06:08:32Z"
+}
