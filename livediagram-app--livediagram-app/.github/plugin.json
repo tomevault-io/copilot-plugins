@@ -1,0 +1,9 @@
+{
+  "name": "livediagram-app--livediagram-app",
+  "displayName": "livediagram.app",
+  "description": "livediagram.app mono repo. Containing frontend and backend code.",
+  "version": "1.0.0",
+  "author": "livediagram-app",
+  "homepage": "https://github.com/livediagram-app/livediagram.app",
+  "skills": []
+}
