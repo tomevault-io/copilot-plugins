@@ -1,0 +1,9 @@
+{
+  "name": "kanetran29--uigraph",
+  "displayName": "uigraph",
+  "description": "Your app generates its own verified UI transition graph \u2014 screens as nodes, guarded (event, effect) edges. Proof-gated verification, trust tiers, model-free MCP for AI agents.",
+  "version": "1.0.0",
+  "author": "kanetran29",
+  "homepage": "https://github.com/kanetran29/uigraph",
+  "skills": []
+}
