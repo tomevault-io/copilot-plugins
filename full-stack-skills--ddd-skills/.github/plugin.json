@@ -1,0 +1,9 @@
+{
+  "name": "full-stack-skills--ddd-skills",
+  "displayName": "ddd-skills",
+  "description": "Domain-Driven Design skills - COLA, microservices, hexagonal, clean",
+  "version": "1.0.0",
+  "author": "full-stack-skills",
+  "homepage": "https://github.com/full-stack-skills/ddd-skills",
+  "skills": []
+}
