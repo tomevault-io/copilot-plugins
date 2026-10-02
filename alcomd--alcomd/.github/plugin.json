@@ -1,0 +1,9 @@
+{
+  "name": "alcomd--alcomd",
+  "displayName": "ALCOMD",
+  "description": "ALCOMD3 is a VRChat package manager client that supports MCP and adopts the Material Design 3 design style.",
+  "version": "1.0.0",
+  "author": "ALCOMD",
+  "homepage": "https://github.com/ALCOMD/ALCOMD",
+  "skills": []
+}
