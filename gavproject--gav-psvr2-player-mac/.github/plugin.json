@@ -1,0 +1,9 @@
+{
+  "name": "gavproject--gav-psvr2-player-mac",
+  "displayName": "gav-psvr2-player-mac",
+  "description": "Native 180\u00b0/360\u00b0 VR video player for PlayStation VR2 on macOS (Apple Silicon) \u2014 no kexts, no Sony software, just the official PC adapter",
+  "version": "1.0.0",
+  "author": "GAVProject",
+  "homepage": "https://github.com/GAVProject/gav-psvr2-player-mac",
+  "skills": []
+}
