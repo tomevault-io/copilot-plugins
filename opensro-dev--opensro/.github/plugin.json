@@ -1,0 +1,9 @@
+{
+  "name": "opensro-dev--opensro",
+  "displayName": "opensro",
+  "description": "OpenSRO: a Silkroad Online v1.150 server in Go and a WebGPU browser client",
+  "version": "1.0.0",
+  "author": "opensro-dev",
+  "homepage": "https://github.com/opensro-dev/opensro",
+  "skills": []
+}
