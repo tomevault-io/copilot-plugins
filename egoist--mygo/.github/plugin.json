@@ -1,0 +1,9 @@
+{
+  "name": "egoist--mygo",
+  "displayName": "mygo",
+  "description": "Desktop apps with Go and a web frontend, on the system webview or CEF",
+  "version": "1.0.0",
+  "author": "egoist",
+  "homepage": "https://github.com/egoist/mygo",
+  "skills": []
+}
