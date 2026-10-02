@@ -1,0 +1,44 @@
+{
+  "name": "openshorts",
+  "owner": "jnMetaCode",
+  "repo": "openshorts",
+  "description": "OpenShorts (Kaipian) \u2014 open-source, local-first short-video pipeline: topic in, publish-ready video out (script \u2192 footage / on-device AI \u2192 TTS \u2192 captions \u2192 mp4). Free path costs $0, no key needed with local Ollama. Talking-head shorts + AI mini-drama. | \u5f00\u7247\uff1a\u5f00\u6e90\u3001\u672c\u5730\u4f18\u5148\u7684\u77ed\u89c6\u9891\u751f\u4ea7\u7ebf\uff0c\u8bdd\u9898\u8fdb\u3001\u6210\u7247\u51fa\uff0c\u514d\u8d39\u8def\u5f84 0 \u5143",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jnMetaCode/openshorts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T02:26:59Z"
+}
