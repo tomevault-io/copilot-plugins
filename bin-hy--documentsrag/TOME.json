@@ -1,0 +1,44 @@
+{
+  "name": "documentsRag",
+  "owner": "Bin-hy",
+  "repo": "documentsRag",
+  "description": "\u57fa\u4e8eRag\uff0c\u65e0\u6846\u67b6\u6784\u5efa\u4e00\u4e2a\u6587\u6863\u77e5\u8bc6\u5e93\uff0c\u652f\u6301LLM\u5bf9\u8bdd\uff0c\u6587\u6863\u5185\u5bb9\u68c0\u7d22, oidc\u767b\u5f55\uff0cmcp\u670d\u52a1\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Bin-hy/documentsRag",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T00:32:18Z"
+}
