@@ -1,0 +1,9 @@
+{
+  "name": "patrickschiller--openclockwork",
+  "displayName": "openclockwork",
+  "description": "Self-hosted, open-source time tracking and attendance for teams worldwide. Roadmap: invoicing and CAUR-based agent billing.",
+  "version": "1.0.0",
+  "author": "patrickschiller",
+  "homepage": "https://github.com/patrickschiller/openclockwork",
+  "skills": []
+}
