@@ -4,7 +4,7 @@
   "repo": "Agent402",
   "description": "agent402.tools: 500+ pay-per-call tools, metered models and finished reports for AI agents, paid per call in USDC over x402 and MPP or by card. Open source, self-hostable, MCP-native. The applied layer of agentic finance.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MikeyPetrillo/Agent402",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T08:35:40Z"
+  "distributed_at": "2026-10-02T12:49:41Z"
 }
