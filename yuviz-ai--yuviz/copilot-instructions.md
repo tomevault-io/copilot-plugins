@@ -1,25 +1,33 @@
-## sdlc
+## tenant-isolation
 
-> Staged SDLC feature pipeline (PRD → design → security → plan → build → review → test → ship → QA)
+> Multi-tenant isolation, auth, and secrets — critical invariants
 
 
-# SDLC pipeline
+# Tenant isolation & security
 
-For multi-stage feature work, use the skills under `.cursor/skills/` (`/sdlc-new`, `/sdlc-design`, …).
-Do not collapse the pipeline into one free-form chat when the user asks for a stage.
+yuviz is multi-tenant. Isolation is a hard invariant.
 
-## Invariants
+## Identity
 
-- Artifacts live in `.sdlc/<slug>/`; current slug in `.sdlc/current`.
-- Orchestrators spawn `.cursor/agents/` specialists via Task; critics always start **fresh**.
-- Author fix rounds use Task `resume` with the prior agent ID (warm context).
-- Cap fix loops: 2 rounds normally, 3 for security. Report leftovers; do not grind.
-- Every specialist reads `.sdlc/lessons.md` first.
-- Do not paste PRD/design/review bodies into chat — point at the file.
-- Between stages, wait for the user unless they chained the next skill.
+- Never trust tenant_id, user id, email, or role from the client body/query/headers.
+- Use `CurrentUser` from verified JWT (`services/config/deps.get_current_user`).
+- `superadmin` may be unscoped (`tenant_id` null); `admin`/`viewer` are tenant-scoped.
+- Writes that mutate config require `require_role("superadmin", "admin")` (viewer is read-only).
 
-Ad-hoc small fixes still use the normal UNDERSTAND → IMPLEMENT → VERIFY path in `core.mdc`.
-`/sdlc-ship` is the explicit exception to “never commit/push” — only when that skill is invoked.
+## Data access
+
+- Scope owned-data queries by tenant (UUID `tenant_id` on most tables; `calls.tenant_id` is a slug — follow existing call code).
+- Reject cross-tenant FK assignment (e.g. agent pointing at another tenant's provider) — see existing checks in `agents.py` / provider routers and `test_*cross_tenant*`.
+- Soft-delete with `deleted_at`; don't hard-delete unless the surrounding code already does.
+- Enforce authorization server-side in routers/services; UI checks are not enough.
+
+## Secrets
+
+- Never log, commit, or return decrypted API keys, JWT secrets, passwords, or `SECRET_ENCRYPTION_KEY`.
+- Store credentials as `enc:` / `k8s:` / `env:` refs via `libs/config_sdk/secrets.py` — never plaintext in Postgres.
+- Do not commit `deployment/.env` or invent hardcoded fallbacks for real secrets.
+
+When a change touches owned data, auth, roles, or permissions: explicitly consider cross-tenant impact and prefer a regression test for both allowed and rejected access.
 
 ---
 > Source: [yuviz-ai/yuviz](https://github.com/yuviz-ai/yuviz) — distributed by [TomeVault](https://tomevault.io).
