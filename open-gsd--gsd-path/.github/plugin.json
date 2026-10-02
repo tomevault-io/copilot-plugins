@@ -1,0 +1,9 @@
+{
+  "name": "open-gsd--gsd-path",
+  "displayName": "gsd-path",
+  "description": " Disk-backed pipeline that takes AI coding agents from raw idea to shipped code \u2014 gated phases, orchestrated subagent builds, and crash-proof state, from a single milestone to a full multi-milestone p",
+  "version": "1.0.0",
+  "author": "open-gsd",
+  "homepage": "https://github.com/open-gsd/gsd-path",
+  "skills": []
+}
