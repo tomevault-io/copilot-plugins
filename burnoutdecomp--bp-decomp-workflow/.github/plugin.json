@@ -1,0 +1,9 @@
+{
+  "name": "burnoutdecomp--bp-decomp-workflow",
+  "displayName": "BP-Decomp_Workflow",
+  "description": "The orchestration repository for the Burnout 5 / Burnout Paradise decompilation. Includes tools, IDA databases, and reference files to assist agentic reconstruction of the game's C++ source code.",
+  "version": "1.0.0",
+  "author": "BurnoutDecomp",
+  "homepage": "https://github.com/BurnoutDecomp/BP-Decomp_Workflow",
+  "skills": []
+}
