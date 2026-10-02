@@ -1,0 +1,44 @@
+{
+  "name": "Decis",
+  "owner": "chaitin",
+  "repo": "Decis",
+  "description": "Self-hosted, Jev-compatible decision-model API \u2014 one /v1/systemone endpoint, open weights (Laya, kev), one Docker image per engine.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chaitin/Decis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T07:34:44Z"
+}
