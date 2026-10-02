@@ -1,0 +1,9 @@
+{
+  "name": "nradchenko--pe-builder",
+  "displayName": "pe-builder",
+  "description": "Open-source, cross-platform tool for building bootable Windows XP live CDs from your own install media - a modern Bart's PE Builder revival.",
+  "version": "1.0.0",
+  "author": "nradchenko",
+  "homepage": "https://github.com/nradchenko/pe-builder",
+  "skills": []
+}
