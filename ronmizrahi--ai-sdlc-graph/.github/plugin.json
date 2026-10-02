@@ -1,0 +1,9 @@
+{
+  "name": "ronmizrahi--ai-sdlc-graph",
+  "displayName": "ai-sdlc-graph",
+  "description": "An executable, no-code SDLC graph that carries a feature from spec to PR \u2014 with explicit nodes, guards, bounded retry loops, and durable state.  No framework. No SDK. No runtime to install. Your codin",
+  "version": "1.0.0",
+  "author": "RonMizrahi",
+  "homepage": "https://github.com/RonMizrahi/ai-sdlc-graph",
+  "skills": []
+}
