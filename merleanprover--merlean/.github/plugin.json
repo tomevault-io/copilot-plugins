@@ -1,0 +1,9 @@
+{
+  "name": "merleanprover--merlean",
+  "displayName": "MerLean",
+  "description": "An autonomous Lean 4 + Mathlib theorem-proving system, built as Claude Code skills and subagents over a plan graph.",
+  "version": "1.0.0",
+  "author": "MerLeanProver",
+  "homepage": "https://github.com/MerLeanProver/MerLean",
+  "skills": []
+}
