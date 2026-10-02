@@ -1,0 +1,9 @@
+{
+  "name": "xiaochengzina--driftlet",
+  "displayName": "Driftlet",
+  "description": "A Windows desktop skin manager built with Tauri 2 + Vite / vanilla JavaScript. It presents web pages as desktop widgets, offering transparent windows, frameless windows, always on top, and pin to desk",
+  "version": "1.0.0",
+  "author": "xiaochengzina",
+  "homepage": "https://github.com/xiaochengzina/Driftlet",
+  "skills": []
+}
