@@ -1,0 +1,9 @@
+{
+  "name": "home-operations--kritika",
+  "displayName": "kritika",
+  "description": "Repository-aware AI pull request reviewer for GitHub",
+  "version": "1.0.0",
+  "author": "home-operations",
+  "homepage": "https://github.com/home-operations/kritika",
+  "skills": []
+}
