@@ -1,0 +1,9 @@
+{
+  "name": "plug-openapi--nhplug-sdk",
+  "displayName": "nhplug-sdk",
+  "description": "NH\ud22c\uc790\uc99d\uad8c PLUG Open API \ud30c\uc774\uc36c SDK \u2014 \uc0d8\ud50c\u00b7\uc885\ubaa9\ub9c8\uc2a4\ud130 \ud30c\uc11c\u00b7AI \uaddc\uce59 (\ub098\ubb34\u00b7N2 \uacf5\uc6a9)",
+  "version": "1.0.0",
+  "author": "PLUG-OpenAPI",
+  "homepage": "https://github.com/PLUG-OpenAPI/nhplug-sdk",
+  "skills": []
+}
