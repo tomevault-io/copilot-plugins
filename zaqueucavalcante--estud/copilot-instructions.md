@@ -1,0 +1,533 @@
+## estud
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Important constraints
+
+### Não comentar o óbvio
+
+**Não** escrever um comentário em cima de cada mudança explicando o que ela faz ou por que foi feita. O código já diz o que faz, e a justificativa da mudança pertence à resposta do chat ou à mensagem de commit — não ao arquivo. Isso vale para todo tipo de comentário: `//`, `/* */`, `<!-- -->`, JSDoc e XML docs.
+
+Comentário só se justifica quando o código sozinho engana: uma decisão contra-intuitiva que alguém tentaria "consertar", um workaround de bug de terceiro, um invariante que não dá pra ler ali. Nesses casos, uma ou duas linhas, explicando o **porquê** — nunca o quê.
+
+**Errado:**
+```vue
+<!-- Estado e cidade dividem a linha só a partir do `sm` — o mesmo ponto em que
+     o `useIsMobile` para de valer e o modal deixa de ser fullscreen. Abaixo
+     disso o select e o input ficam estreitos demais lado a lado. -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+```
+
+```csharp
+// Busca o curso pelo id
+var course = await ctx.Courses.FirstOrDefaultAsync(x => x.Id == id);
+```
+
+**Correto:**
+```vue
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+```
+
+```csharp
+// O Google devolve `email_verified` como string em alguns fluxos legados.
+var verified = claim.Value is "true" or "True";
+```
+
+Na dúvida, não comentar.
+
+## Backend conventions
+
+### Checagem de strings — usar `HasValue()` / `IsEmpty()`
+
+Em `if`s que checam strings, **sempre** usar as extensions `HasValue()` e `IsEmpty()` (definidas em `Back/Shared/Extensions/StringExtensions.cs`).
+**Nunca** usar `string.IsNullOrEmpty`, `string.IsNullOrWhiteSpace` nem suas negações.
+
+**Correto:**
+```csharp
+if (name.HasValue()) { ... }
+if (name.IsEmpty()) { ... }
+```
+
+**Errado:**
+```csharp
+if (!string.IsNullOrEmpty(name)) { ... }
+if (string.IsNullOrWhiteSpace(name)) { ... }
+```
+
+### Comentários XML (`<summary>` / `<remarks>`) — sempre multi-linha
+
+Nos comentários XML dos controllers, **sempre** colocar as tags de abertura e fechamento em linhas próprias, com o conteúdo numa linha separada. **Nunca** colocar o conteúdo na mesma linha da tag.
+
+**Correto:**
+```csharp
+/// <summary>
+/// Matricular aluno em oferta de curso
+/// </summary>
+/// <remarks>
+/// Vincula um aluno a uma oferta de curso, criando uma matrícula.
+/// </remarks>
+```
+
+**Errado:**
+```csharp
+/// <summary>Matricular aluno em oferta de curso</summary>
+/// <remarks>Vincula um aluno a uma oferta de curso, criando uma matrícula.</remarks>
+```
+
+### Enums — valor inteiro sempre explícito
+
+Todo membro de enum **sempre** declara explicitamente seu valor inteiro. **Nunca** depender da numeração implícita do compilador: os valores são persistidos no banco e expostos na API, então reordenar ou inserir um membro no meio mudaria o significado dos dados já gravados.
+
+Ao adicionar um membro novo, usar o próximo valor livre (nunca reaproveitar nem renumerar os existentes).
+
+**Correto:**
+```csharp
+public enum ClassLessonStatus
+{
+    [Description("Pendente")]
+    Pending = 0,
+
+    [Description("Concluída")]
+    Finalized = 1,
+}
+```
+
+**Errado:**
+```csharp
+public enum ClassLessonStatus
+{
+    [Description("Pendente")]
+    Pending,
+
+    [Description("Concluída")]
+    Finalized,
+}
+```
+
+### LINQ — sempre method syntax, nunca query syntax
+
+**Nunca** usar a query syntax do LINQ (`from ... join ... where ... select ...`). **Sempre** usar method syntax com as navigation properties do EF Core, deixando o EF montar os joins.
+
+**Errado:**
+```csharp
+var schedules = await (
+    from s in ctx.Schedules.AsNoTracking()
+    join c in ctx.Classes.AsNoTracking() on s.ClassId equals (int?)c.Id
+    where s.ClassroomId != null && classroomIds.Contains(s.ClassroomId.Value)
+        && c.Id != id && c.Status != ClassStatus.Finalized
+    select s
+).ToListAsync();
+```
+
+**Correto:**
+```csharp
+var schedules = await ctx.Schedules.AsNoTracking()
+    .Where(s => s.ClassroomId != null && classroomIds.Contains(s.ClassroomId.Value)
+        && s.Class!.Id != id && s.Class.Status != ClassStatus.Finalized)
+    .ToListAsync();
+```
+
+Se não existir navigation property para o relacionamento, criar uma no entity/config em vez de recorrer a `join`.
+
+### Raw SQL — palavras-chave em maiúsculo
+
+Em SQL escrito à mão (`FromSql`, `SqlQueryRaw`, Dapper, migrations), as palavras-chave do SQL **sempre** vão em
+maiúsculo: `SELECT`, `FROM`, `WHERE`, `JOIN`, `ON`, `AND`, `OR`, `NOT`, `IS NULL`, `AS`, `GROUP BY`, `ORDER BY`,
+`FILTER`... Nomes de tabelas, colunas e funções (`count`, `to_tsvector`, `unaccent`) continuam em minúsculo.
+
+**Correto:**
+```sql
+SELECT * FROM estud.class_lessons
+WHERE planned_content IS NOT NULL
+  AND to_tsvector('portuguese', unaccent(planned_content)) @@ to_tsquery('simple', ...)
+```
+
+**Errado:**
+```sql
+select * from estud.class_lessons
+where planned_content is not null
+  and to_tsvector('portuguese', unaccent(planned_content)) @@ to_tsquery('simple', ...)
+```
+
+## Frontend conventions
+
+### Zod validation — campos opcionais/undefined
+
+Campos de formulário que podem ficar `undefined` (ex: selects não preenchidos) exigem `required_error` em português. Usar apenas `.min(1, '...')` não cobre o caso `undefined` e resulta na mensagem padrão do Zod em inglês ("Invalid input: expected string, received undefined").
+
+**Correto (Zod v4):**
+```ts
+z.string({ error: 'Campo obrigatório' }).min(1, 'Campo obrigatório')
+```
+
+**Errado:**
+```ts
+z.string().min(1, 'Campo obrigatório')          // não cobre undefined
+z.string({ required_error: '...' })             // API do Zod v3, não funciona no v4
+```
+
+### Event handlers (`@click` e similares) — sempre arrow function
+
+Handlers de evento no template **sempre** usam arrow function com corpo em bloco. **Nunca** usar inline statement (a expressão solta, direto no atributo).
+
+Vale para todos os handlers (`@click`, `@change`, `@submit`, `@keydown`, ...), inclusive quando o corpo é uma única atribuição.
+
+**Correto:**
+```vue
+<UButton @click="() => { open = false }" />
+<UButton @click="() => { open = false; selected = null }" />
+<UInput @change="(e) => { search = e.target.value }" />
+```
+
+**Errado:**
+```vue
+<UButton @click="open = false" />
+<UButton @click="open = false; selected = null" />
+<UInput @change="search = $event.target.value" />
+```
+
+Chamada direta de um método já existente continua permitida: `@click="close"` ou `@click="() => { close() }"`.
+
+### Tooltip em botão que abre modal/slideover
+
+Botão com `UTooltip` que abre um modal/slideover ao clicar mantém o foco depois que o overlay fecha, deixando o tooltip preso na tela. Sempre dar `blur()` no elemento no `@click`:
+
+```vue
+<UTooltip text="Notificações">
+  <UButton @click="(e) => { (e.currentTarget as HTMLElement).blur(); isOpen = true }" />
+</UTooltip>
+```
+
+## Project Overview
+
+**Estud** is an open-source academic management system (SGA) for educational institutions.
+
+## Tech Stack
+
+- **Backend**: ASP.NET Core (C#), PostgreSQL, EF Core + Dapper, Quartz.NET, HybridCache, OpenTelemetry, Serilog, Scalar (API docs)
+- **Frontend**: Nuxt.js (Vue 3 / TypeScript) with Nuxt UI — located in `Web/`
+- **Tests**: NUnit + FluentAssertions, `WebApplicationFactory`-based integration tests against PostgreSQL and RustFS via Testcontainers
+- **Infra**: Docker, Railway, GitHub Actions CI/CD
+
+## Commands
+
+### Backend
+
+```bash
+# Run the full stack
+docker-compose up
+docker-compose build --no-cache   # rebuild after code changes
+
+# Migrations
+dotnet ef migrations add <MigrationName>          # create new migration
+dotnet ef migrations script -o all_migrations.sql  # generate full SQL script
+dotnet ef migrations script <FromMigration> <output>.sql  # single migration SQL
+```
+
+### Tests
+
+```bash
+# All tests
+dotnet test --output Detailed
+
+# Unit tests only
+dotnet test --filter "FullyQualifiedName~UnitTests"
+
+# Integration tests only
+dotnet test --filter "FullyQualifiedName~IntegrationTests"
+
+# Single test (by name substring)
+dotnet test --filter "FullyQualifiedName~Should_create_course"
+
+# Code coverage (Cobertura em ./TestResults)
+dotnet test --coverage --coverage-settings Tests/coverage.settings.xml \
+  --coverage-output-format cobertura --coverage-output coverage.cobertura.xml \
+  --results-directory ./TestResults
+```
+
+### Frontend
+
+```bash
+cd Web
+pnpm install
+pnpm dev
+```
+
+## Architecture
+
+### Vertical Slice Architecture
+
+All backend features live in `Back/Features/`, organized by user role:
+
+```
+Back/Features/
+  Academic/   Teacher/   Student/   Adm/   Cross/   Identity/   Users/
+```
+
+Each feature is a self-contained folder (e.g. `CreateCourse/`) containing:
+
+| File | Purpose |
+|---|---|
+| `CreateCourseController.cs` | HTTP endpoint, auth attribute, rate limiter, Swagger examples |
+| `CreateCourseService.cs` | Business logic, FluentValidation, Result Pattern |
+| `CreateCourseMapper.cs` | Entity → DTO extension methods |
+| `Course.cs` | Domain entity |
+| `CourseConfig.cs` | EF Core `IEntityTypeConfiguration<T>` |
+| `CreateCourseIn/Out.cs` | DTOs (may live inline or in separate files) |
+
+Test files mirror the same folder structure under `Tests/Features/`.
+
+### Result Pattern
+
+Services return `OneOf<TOut, EstudError>`. Controllers use:
+
+```csharp
+var result = await service.Create(data);
+return result.Match<IActionResult>(Ok, BadRequest);
+```
+
+Errors are singletons defined in `Back/Errors/EstudInvalidErrors.cs` and `EstudNotFoundErrors.cs`:
+
+```csharp
+public class InvalidCourseName : EstudError
+{
+    public static readonly InvalidCourseName I = new();
+    public override string Code { get; set; } = nameof(InvalidCourseName);
+    public override string Message { get; set; } = "Nome de curso inválido.";
+}
+```
+
+Validators are nested private classes inside the Service and run via `V.Run(data, out var error)`.
+
+### DbContext Conventions
+
+`EstudDbContext` carries the current `InstitutionId` and `UserId` populated per-request (via middleware). Use these directly in services for multi-tenant scoping — never pass institution/user IDs manually through the call chain.
+
+EF is configured with snake_case naming (`UseSnakeCaseNamingConvention`) and the `estud` schema.
+
+### Async Command Processing
+
+Business flows that are naturally asynchronous (emails, notifications, webhooks) use the `Command` system:
+
+1. A service creates a `Command` via `ctx.AddCommand(...)` — persisted in the `commands` table.
+2. A Quartz.NET job (`CommandsProcessorJob`) picks up pending commands and dispatches them to handlers.
+3. Commands support: parent-child relationships, retry with exponential backoff, delayed execution (`NotBefore`).
+
+### API Documentation
+
+Every controller action uses XML summary comments + `SwaggerResponseExample`/`ErrorExamplesProvider` for Scalar docs. Input/output DTOs implement `IApiDto<T>` to provide named examples. Error types are passed as generic type parameters to `ErrorExamplesProvider<T1, T2, ...>`.
+
+### POST Endpoint Pattern
+
+Every POST feature follows the same 4-file structure. Below is the `CreateRole` feature as the canonical reference.
+
+#### `CreateRoleController.cs` — HTTP layer only
+
+```csharp
+[ApiController, Authorize(Policies.CreateRole)]        // policy matches feature name
+public class CreateRoleController(CreateRoleService service) : ControllerBase
+{
+    /// <summary>Criar perfil de acesso</summary>
+    /// <remarks>Cria um novo perfil de acesso vinculado à organização do usuário logado.</remarks>
+    [HttpPost("identity/roles")]
+    [SwaggerResponseExample(200, typeof(ResponseExamples))]
+    [SwaggerResponseExample(400, typeof(ErrorsExamples))]
+    public async Task<IActionResult> Create([FromBody] CreateRoleIn data)
+    {
+        var result = await service.Create(data);
+        return result.Match<IActionResult>(Ok, BadRequest);
+    }
+}
+
+internal class RequestExamples : ExamplesProvider<CreateRoleIn>;   // declared even if unused
+internal class ResponseExamples : ExamplesProvider<CreateRoleOut>;
+internal class ErrorsExamples : ErrorExamplesProvider<
+    InvalidRoleName,
+    InvalidRoleDescription,
+    InvalidPermissionsList,
+    RoleNameAlreadyExists,
+    InvalidRolePermissions
+>;
+```
+
+- Controller holds **no logic** — just wires HTTP to the service.
+- `Authorize(Policies.XYZ)` attribute name always matches the feature.
+- XML `<summary>` (short) + `<remarks>` (full description) required on every action.
+- `result.Match<IActionResult>(Ok, BadRequest)` is the only allowed result unwrapping.
+- All possible error types are listed in `ErrorExamplesProvider<...>`.
+
+#### `CreateRoleService.cs` — business logic
+
+```csharp
+public class CreateRoleService(EstudDbContext ctx) : IEstudService
+{
+    private class Validator : AbstractValidator<CreateRoleIn>
+    {
+        public Validator()
+        {
+            RuleFor(x => x.Name).NotEmpty().WithError(InvalidRoleName.I);
+            RuleFor(x => x.Name).MaximumLength(50).WithError(InvalidRoleName.I);
+            // ... more rules
+        }
+    }
+    private static readonly Validator V = new();
+
+    public async Task<OneOf<CreateRoleOut, EstudError>> Create(CreateRoleIn data)
+    {
+        if (V.Run(data, out var error)) return error;   // validation first
+
+        var orgId = ctx.RequestUser.InstitutionId;      // multi-tenant scoping from ctx
+        var exists = await ctx.Roles.AnyAsync(x => x.InstitutionId == orgId && x.NormalizedName == ...);
+        if (exists) return RoleNameAlreadyExists.I;     // domain checks after validation
+
+        var role = new EstudRole(orgId, data.Name, data.Description, data.Permissions);
+        ctx.Add(role);
+        await ctx.SaveChangesAsync();
+
+        return new CreateRoleOut { Id = role.Id };
+    }
+}
+```
+
+- `IEstudService` marker interface on every service.
+- `Validator` is always a **private nested class**; static singleton `V`.
+- Validation runs first via `V.Run(data, out var error)`.
+- Institution/user context always comes from `ctx.RequestUser` — never from method parameters.
+- Return `OneOf<TOut, EstudError>`; early-return errors as singletons (`.I`).
+
+#### `CreateRoleIn.cs` — input DTO
+
+```csharp
+public class CreateRoleIn : IApiDto<CreateRoleIn>
+{
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public List<int> Permissions { get; set; } = [];
+
+    public static IEnumerable<(string, CreateRoleIn)> GetExamples() =>
+    [
+        ("Exemplo", new CreateRoleIn { Name = "Admin", Description = "...", Permissions = [1, 2, 3] }),
+    ];
+}
+```
+
+- Implements `IApiDto<T>` and provides at least one named example in `GetExamples()`.
+
+#### `CreateRoleOut.cs` — output DTO
+
+```csharp
+public class CreateRoleOut : IApiDto<CreateRoleOut>
+{
+    public int Id { get; set; }
+
+    public static IEnumerable<(string, CreateRoleOut)> GetExamples() =>
+    [
+        ("Exemplo", new CreateRoleOut { Id = 1 }),
+    ];
+}
+```
+
+- Same `IApiDto<T>` contract; `GetExamples()` drives the Scalar response example.
+
+## Integration Tests
+
+Tests use `WebApplicationFactory<Program>` (`BackFactory`). `IntegrationTestBase.OneTimeSetUp` sobe o Postgres via Testcontainers (`DatabaseFactory`, container reusável `estud-tests-db` em `localhost:5445`, que fica de pé após os testes) e apaga/recria o banco antes de cada classe de teste.
+
+All integration tests are partial classes of `IntegrationTests`:
+
+```csharp
+public partial class IntegrationTests : IntegrationTestBase
+{
+    [Test]
+    public async Task Should_create_course()
+    {
+        var client = await _back.LoggedAsAcademic();
+        CreateCourseOut course = await client.CreateCourse("ADS", CourseType.Tecnologo, []);
+        course.Id.Should().NotBeEmpty();
+    }
+}
+```
+
+For tests that trigger async command processing use:
+
+```csharp
+await _back.AwaitCommandsProcessing();
+```
+
+### Montar o cenário sempre via API/endpoints
+
+Os testes de integração **sempre** devem montar o cenário (arrange) e exercitar o fluxo usando a **própria API e seus endpoints**, através dos helpers do `TestsHttpClient`. Acessar o banco direto via `EstudDbContext` (`_back.GetDbContext()`) é permitido **apenas em último caso** — quando não existe endpoint que produza o estado necessário, ou para *asserts* de estado que a API não expõe.
+
+Se faltar um helper no `TestsHttpClient` pra um endpoint, **crie o helper** em vez de recorrer ao banco.
+
+**Correto** (cria a config de SSO pelos endpoints):
+```csharp
+var config = await director.CreateSsoConfiguration().Success();
+await director.UpdateSsoConfiguration(config.Id, requireSso: true);
+```
+
+**Errado** (semeia direto no banco quando existe endpoint pra isso):
+```csharp
+await using var ctx = _back.GetDbContext();
+var config = new SsoConfiguration(institutionId, ...) { RequireSso = true };
+await ctx.SaveChangesAsync(config);
+```
+
+Ler o banco via `EstudDbContext` num *assert* final (ex.: conferir `EmailConfirmed`, contar linhas) continua válido quando a API não devolve aquele dado.
+
+### Test file structure — `#region` grouping
+
+Each feature's integration test file groups its tests into `#region` blocks, in this fixed order:
+
+```csharp
+public partial class IntegrationTests
+{
+    #region Authentication
+    // unauthenticated request → 401 Unauthorized
+    #endregion
+
+    #region Authorization
+    // authenticated but missing permission → 403 Forbidden
+    #endregion
+
+    #region Validation errors
+    // invalid input or domain errors → ShouldBeError(SomeError.I)
+    #endregion
+
+    #region Happy path
+    // valid request → asserts on result.Success
+    #endregion
+}
+```
+
+- **Not every feature needs every region.** Only include the regions that apply to the feature. For example, a `GET` endpoint with no input parameters (e.g. `GetRoles`, `GetDisciplines`) has nothing to validate, so it omits the **Validation errors** region entirely.
+- Keep the regions that are present in the order above.
+- Test method names follow `{Feature}_{Endpoint}_Should_{...}` (e.g. `Disciplines_GetDisciplines_Should_not_get_disciplines_when_not_authenticated`).
+- Auth/authorization/error assertions use `result.ShouldBeError(...)`; happy-path assertions read the value via `result.Success`. This requires the corresponding `TestsHttpClient` method to return `OneOf<TOut, ErrorOut>` (via `response.Resolve<TOut>()`), not the raw DTO.
+
+### `result.Success` / `.Error` nunca dentro de query LINQ
+
+`Success`, `Error`, `IsSuccess` e `IsError` (definidos em `Back/Shared/Extensions/ResultExtensions.cs`) são **extension properties** (C# 14). Elas não podem aparecer dentro de lambdas que viram árvore de expressão — ou seja, dentro de `Where`/`Select`/`Any`/`First` de um `IQueryable` (EF Core). O compilador falha com *"An expression tree may not contain an extension property access"*.
+
+Sempre extrair o valor para uma variável local antes da query.
+
+**Correto:**
+```csharp
+var studentId = result.Success.Id;
+var user = await ctx.Students.Where(s => s.Id == studentId).Select(s => s.User!).FirstAsync();
+```
+
+**Errado:**
+```csharp
+var user = await ctx.Students.Where(s => s.Id == result.Success.Id).Select(s => s.User!).FirstAsync();
+```
+
+Fora de query (asserts, ifs, atribuições) o uso normal continua valendo.
+
+---
+> Source: [ZaqueuCavalcante/estud](https://github.com/ZaqueuCavalcante/estud) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
