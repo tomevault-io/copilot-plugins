@@ -1,0 +1,9 @@
+{
+  "name": "xfischer--pg-protoexport",
+  "displayName": "pg_protoexport",
+  "description": "Postgres network captures protocol exporter",
+  "version": "1.0.0",
+  "author": "xfischer",
+  "homepage": "https://github.com/xfischer/pg_protoexport",
+  "skills": []
+}
