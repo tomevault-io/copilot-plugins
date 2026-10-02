@@ -1,0 +1,9 @@
+{
+  "name": "lexasoft123--qc-mcp",
+  "displayName": "qc-mcp",
+  "description": "MCP server for the Neural DSP Quad Cortex \u2014 build, edit and control presets and scenes from Claude or any MCP client, over the reverse-engineered USB-HID protocol. macOS + Windows.",
+  "version": "1.0.0",
+  "author": "lexasoft123",
+  "homepage": "https://github.com/lexasoft123/qc-mcp",
+  "skills": []
+}
