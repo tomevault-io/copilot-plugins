@@ -1,0 +1,161 @@
+## oh-my-claudian
+
+> Claudian is an Obsidian plugin that embeds provider-backed coding agents in a sidebar and inline-edit flow. Claude is the default provider. The built-in selectable providers are Claude, Codex, Cursor, Grok, OMP (Oh My Pi), OpenCode, and Pi; ACP is shared transport infrastructure, not a selectable provider. All providers plug into the same conversation model through `Conversation.providerId` and opaque provider-owned `providerState`.
+
+# AGENTS.md
+
+## Project
+
+Claudian is an Obsidian plugin that embeds provider-backed coding agents in a sidebar and inline-edit flow. Claude is the default provider. The built-in selectable providers are Claude, Codex, Cursor, Grok, OMP (Oh My Pi), OpenCode, and Pi; ACP is shared transport infrastructure, not a selectable provider. All providers plug into the same conversation model through `Conversation.providerId` and opaque provider-owned `providerState`.
+
+Do not assume provider parity. Check each provider's `capabilities.ts`, `registration.ts`, and UI config before wiring shared behavior.
+
+## Scope Guides
+
+- Before editing a scoped area, read its nearest scoped guide:
+  - `src/app/AGENTS.md`
+  - `src/core/AGENTS.md`
+  - `src/features/AGENTS.md`
+  - `src/features/chat/AGENTS.md`
+  - `src/features/chat/execution/AGENTS.md`
+  - `src/features/chat/tabs/AGENTS.md`
+  - `src/providers/AGENTS.md`
+  - `src/providers/acp/AGENTS.md`
+  - `src/providers/claude/AGENTS.md`
+  - `src/providers/codex/AGENTS.md`
+  - `src/providers/cursor/AGENTS.md`
+  - `src/providers/grok/AGENTS.md`
+  - `src/providers/omp/AGENTS.md`
+  - `src/providers/opencode/AGENTS.md`
+  - `src/providers/pi/AGENTS.md`
+  - `src/style/AGENTS.md`
+
+## AGENTS.md Maintenance
+
+- AGENTS.md is execution context for agents, not general documentation. Keep only repository- or scope-specific information that a capable agent would not reliably know; every statement must change implementation, review, or verification behavior.
+- Keep repository-wide rules here; put local ownership, dependencies, invariants, failure modes, verification, and active decisions in the narrowest scoped guide that governs them.
+- Do not duplicate inherited guidance or silently contradict it. State a necessary local exception and its rationale explicitly.
+- Omit tours, ordinary implementation details, temporary status, and general engineering advice.
+- Record a decision only when it is active, surprising from the code, expensive to reverse, and reflects a real tradeoff. State the decision, rationale, and any concrete reconsideration condition; use Git history as the archive.
+- `CLAUDE.md` files should import the nearest `AGENTS.md`; do not duplicate shared guidance there.
+
+## Commands
+
+```bash
+pnpm run dev
+pnpm run build
+pnpm run typecheck
+pnpm run lint
+pnpm run lint:fix
+pnpm run test
+pnpm run test:watch
+pnpm run test:coverage
+```
+
+The default full check is:
+
+```bash
+pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build
+```
+
+Tests mirror `src/` under `tests/unit/` and `tests/integration/`.
+
+## Architecture
+
+Scoped guides define the source of truth and allowed mutators for state in their area.
+
+| Area | Responsibility |
+| --- | --- |
+| `src/main.ts` | Plugin lifecycle and concrete application composition |
+| `src/app/` | Application conversation, settings, provider-host, and storage services |
+| `src/core/` | Provider-neutral runtime, registry, storage, tool, and type contracts |
+| `src/providers/acp/` | Shared ACP transport, interaction, and session primitives without provider policy |
+| `src/providers/*/` | Provider adaptors, provider-owned runtime protocol, history, storage, settings, and UI |
+| `src/features/chat/` | Sidebar chat orchestration against provider-neutral contracts |
+| `src/features/inline-edit/` | Inline edit modal and provider-backed edit services |
+| `src/features/settings/` | Shared settings shell and provider tab assembly |
+| `src/shared/` | Reusable UI components |
+| `src/style/` | Modular CSS built into `styles.css` |
+
+### Dependency Direction
+
+In the rules below, `A -> B` means `A` may import or call `B`:
+
+```text
+composition root (`src/main.ts`) -> app services + features + provider registrations + core
+app services -> core contracts
+features -> FeatureHost + core contracts + shared UI
+providers -> ProviderHost + core contracts + shared provider and UI primitives
+```
+
+- `core/` must not import feature code, app composition, or provider implementations.
+- Feature code must not import provider implementations. Resolve provider behavior through core registries and contracts.
+- Provider runtime and protocol code must not import chat views, feature controllers, or other feature orchestration.
+- Existing Claude compatibility re-exports that point into `src/app/` are migration seams, not an allowed general dependency direction. Do not add new provider-to-app imports; move shared contracts into `core/` when touching those seams materially.
+- `src/providers/acp/` may contain protocol primitives shared by ACP providers. Provider-specific launch policy, extensions, normalization, history, and state remain in the owning provider.
+- If a dependency does not fit these directions, introduce or extend an explicit contract at the owning boundary instead of reaching across layers.
+
+### Cross-Layer Ownership
+
+- `src/main.ts` owns plugin lifecycle and wiring; it does not become the home for feature or provider behavior.
+- `src/app/` owns application-scoped repositories, settings transactions, host adapters, and persistence coordination. See its scoped guide for exact state authority.
+- `src/features/*/` owns user-facing orchestration and presentation state, not provider-native processes or storage formats.
+- `src/providers/*/` owns native protocol, process, session, transcript, settings, and provider-state interpretation.
+- `src/core/` owns provider-neutral contracts and shared lifecycle mechanisms, not concrete provider behavior.
+
+Provider-specific session fields belong behind typed helpers in the owning provider directory.
+
+## Naming Conventions
+
+- **Symbols**: no `I` prefix on interfaces. Treat acronyms as words (`SdkSessionReadResult`), except in types mirroring an external SDK (`SDKMessage`).
+- **Files**: name the file after its primary exported concept in `PascalCase.ts`; use `camelCase.ts` only for utility bags with no dominant export (when in doubt, `PascalCase`). Use `kebab-case.ts` only to mirror an external package name (`tests/__mocks__/claude-agent-sdk.ts`). Barrels stay `index.ts`, type buckets stay `types.ts`, tests mirror the source name plus `.test.ts` (qualifiers allowed: `fileLink.dom.test.ts`).
+- **Folders**: `kebab-case`.
+- **Imports**: no `.ts` extensions; prefer `@/` aliases over deep relative paths.
+
+## Development Rules
+
+- Write code, comments, identifiers, commit messages, and code blocks in English.
+- Do not use `console.*` in production code.
+- Settings writers must merge rather than replace provider-owned configuration.
+- Put non-committed notes, handoff files, traces, and throwaway scripts in `.context/`.
+- Use the format `<type>/<short-kebab-description>`, for example `feat/tool-file-links`, `fix/omp-model-discovery`, `chore/update-dependencies`, `docs/provider-guide`, or `refactor/session-storage`.
+- Choose a type that describes the primary intent: `feat/` for user-visible behavior, `fix/` for a bug correction, `refactor/` for behavior-preserving structure changes, `test/` for test-only work, `docs/` for documentation, `chore/` for maintenance/tooling, and `perf/` for performance work.
+- Keep names lowercase, concise, specific, and stable; use hyphens, avoid ticket-only names, personal names, provider names without a change, vague words such as `work` or `tmp`, and branch names that encode an agent or tool identity. Never use `codex/` as a branch prefix.
+
+### Upstream Divergence Policy
+
+- Treat upstream Claudian as a source of fixes and ideas, not as an implementation baseline. Before syncing a change, record the user problem it solves, the affected provider capabilities, and the impact on Oh My Claudian's local-first product direction.
+- Prefer a focused adaptation at an existing ownership boundary over merging a large upstream feature branch. Preserve provider-neutral contracts, provider-owned state, external file safety, and recoverable runtime lifecycles.
+- Do not import upstream defaults or infrastructure solely for parity. In particular, collaboration services, LAN project authority, hosted state, and provider-default changes require an explicit product decision and separate design review.
+- Keep useful upstream engineering improvements—security fixes, portability fixes, regression tests, build checks, and release verification—separate from product-direction changes so they can be evaluated and merged independently.
+- Branch from the intended integration base, keep one coherent change per branch, and do not reuse a branch after its pull request has been closed or merged.
+
+## TDD Workflow
+
+- For new behavior or bug fixes, work one observable slice at a time: add or update the failing test in the mirrored `tests/` path, make it pass, then refactor.
+- Test through the closest stable owner or public interface; do not expose or test private methods only for convenience.
+- Mock environment and provider boundaries. Prefer real Claudian code, fixtures, or lightweight fakes for Claudian-owned collaborators.
+- For shared provider contracts, test provider-neutral behavior first, then cover each provider adapter's distinct behavior separately.
+- If a change cannot be tested directly, document why and cover the closest stable contract instead.
+
+## Provider Rules
+
+- Provider-neutral provider-layer rules live in `src/providers/AGENTS.md`; ACP transport rules live in `src/providers/acp/AGENTS.md`.
+- The built-in provider list is composed in `src/providers/index.ts`. Adding or changing a provider requires checking every registered provider's `ProviderId` usage, capabilities, settings, workspace services, UI configuration, history, and nearest provider guide.
+- Model, permission, plan-mode, command, MCP, skill, and subagent behavior is provider-specific unless the core contract explicitly makes it shared.
+- Only explicitly enabled models belong in the chat selector: no synthetic provider entries, hidden session models, or provider-default fallback when none are enabled.
+
+## Review Checks
+
+Reviews must enforce the dependency, ownership, provider-boundary, and state-lifetime constraints above.
+
+Reviews of upstream-derived changes must also answer:
+
+- What user-visible problem does this solve for Oh My Claudian?
+- Does it preserve our provider capability matrix and local-first trust model?
+- Can it be implemented inside an existing boundary without importing unrelated upstream infrastructure?
+- What is our deliberate improvement over the upstream behavior?
+
+---
+> Source: [lee259/oh-my-claudian](https://github.com/lee259/oh-my-claudian) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
