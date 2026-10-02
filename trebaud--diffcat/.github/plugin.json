@@ -1,0 +1,9 @@
+{
+  "name": "trebaud--diffcat",
+  "displayName": "diffcat",
+  "description": "TUI for visualizing git diffs",
+  "version": "1.0.0",
+  "author": "trebaud",
+  "homepage": "https://github.com/trebaud/diffcat",
+  "skills": []
+}
