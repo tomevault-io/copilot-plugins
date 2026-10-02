@@ -4,7 +4,7 @@
   "repo": "YUI",
   "description": "DesktopPet with custom VRM support and compatible with Openai Response api.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yw0nam/YUI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T08:22:26Z"
+  "distributed_at": "2026-10-02T12:41:48Z"
 }
