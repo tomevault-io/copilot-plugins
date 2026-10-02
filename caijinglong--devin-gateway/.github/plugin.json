@@ -1,0 +1,9 @@
+{
+  "name": "caijinglong--devin-gateway",
+  "displayName": "devin-gateway",
+  "description": "Lightweight Docker gateway exposing Devin/Windsurf Cascade through OpenAI- and Anthropic-compatible APIs.",
+  "version": "1.0.0",
+  "author": "CaiJingLong",
+  "homepage": "https://github.com/CaiJingLong/devin-gateway",
+  "skills": []
+}
