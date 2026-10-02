@@ -1,0 +1,9 @@
+{
+  "name": "boson-ai--pipecat-boson",
+  "displayName": "pipecat-boson",
+  "description": "Build low-latency voice agents with Higgs Realtime and Pipecat.",
+  "version": "1.0.0",
+  "author": "boson-ai",
+  "homepage": "https://github.com/boson-ai/pipecat-boson",
+  "skills": []
+}
