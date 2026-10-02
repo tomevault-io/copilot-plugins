@@ -1,0 +1,44 @@
+{
+  "name": "LingCast",
+  "owner": "taochangle",
+  "repo": "LingCast",
+  "description": "End-to-end AI digital-human live-streaming platform: create avatars (image / Edge-TTS voice / persona) \u2192 LivePortrait base video \u2192 Edge-TTS + Wav2Lip lip-sync \u2192 DeepSeek LLM live replies \u2192 SRS streaming + Next.js viewer. Built with Go (Gin), MariaDB, Redis, RustFS, Docker, and a Python (uv) AI worker (macOS MPS / Linux CUDA / AMD ROCm).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/taochangle/LingCast",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T10:38:41Z"
+}
