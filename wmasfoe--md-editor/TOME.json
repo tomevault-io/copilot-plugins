@@ -4,7 +4,7 @@
   "repo": "md-editor",
   "description": "a daily-usable Markdown and MDX-compatible desktop editor",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wmasfoe/md-editor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T08:32:18Z"
+  "distributed_at": "2026-10-02T12:49:00Z"
 }
