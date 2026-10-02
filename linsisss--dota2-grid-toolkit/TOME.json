@@ -1,0 +1,44 @@
+{
+  "name": "dota2-grid-toolkit",
+  "owner": "linsisss",
+  "repo": "dota2-grid-toolkit",
+  "description": "\u0422\u0440\u0438 \u043e\u0444\u043b\u0430\u0439\u043d-\u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0430 \u0434\u043b\u044f \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u0441\u0435\u0442\u043e\u043a \u0433\u0435\u0440\u043e\u0435\u0432 \u0432 Dota 2",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/linsisss/dota2-grid-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T20:40:08Z"
+}
