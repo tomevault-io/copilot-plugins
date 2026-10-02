@@ -1,0 +1,9 @@
+{
+  "name": "robertn702--opencode-jev-router",
+  "displayName": "opencode-jev-router",
+  "description": "Adaptive reasoning effort for OpenCode via Jev, with an in-process plugin and Responses API proxy",
+  "version": "1.0.0",
+  "author": "robertn702",
+  "homepage": "https://github.com/robertn702/opencode-jev-router",
+  "skills": []
+}
