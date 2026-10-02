@@ -1,0 +1,9 @@
+{
+  "name": "rodvieira--enterprise-microfrontend-boilerplate",
+  "displayName": "enterprise-microfrontend-boilerplate",
+  "description": "Production-grade React micro-frontend boilerplate: a Module Federation 2.0 orchestrator (Rspack) that composes remotes living in other repositories \u2014 everything crosses the boundary as props, so a rem",
+  "version": "1.0.0",
+  "author": "rodvieira",
+  "homepage": "https://github.com/rodvieira/enterprise-microfrontend-boilerplate",
+  "skills": []
+}
