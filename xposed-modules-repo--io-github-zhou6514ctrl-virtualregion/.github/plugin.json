@@ -1,0 +1,9 @@
+{
+  "name": "xposed-modules-repo--io-github-zhou6514ctrl-virtualregion",
+  "displayName": "io.github.zhou6514ctrl.virtualregion",
+  "description": "\u4e00\u4e2a\u9488\u5bf9\u5b89\u5353SIM gps \u57fa\u7ad9 \u84dd\u7259 wifi\u73af\u5883\u865a\u62df\u6d4b\u8bd5\u6a21\u5757",
+  "version": "1.0.0",
+  "author": "Xposed-Modules-Repo",
+  "homepage": "https://github.com/Xposed-Modules-Repo/io.github.zhou6514ctrl.virtualregion",
+  "skills": []
+}
