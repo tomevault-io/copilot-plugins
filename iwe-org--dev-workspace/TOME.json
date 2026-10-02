@@ -4,7 +4,7 @@
   "repo": "dev-workspace",
   "description": "Memory for your coding agent \u2014 markdown project graph template: product, plans, features, bugs, specs, architecture, releases",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iwe-org/dev-workspace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T05:54:50Z"
+  "distributed_at": "2026-10-02T08:47:01Z"
 }
