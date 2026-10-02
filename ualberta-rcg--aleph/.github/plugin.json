@@ -1,0 +1,9 @@
+{
+  "name": "ualberta-rcg--aleph",
+  "displayName": "aleph",
+  "description": "A science inference cluster \u2014 every model, from protein folding to LLMs, behind one OpenAI/Anthropic-compatible endpoint and a single key. Built to run beside HPC so agentic AI researchers can drive s",
+  "version": "1.0.0",
+  "author": "ualberta-rcg",
+  "homepage": "https://github.com/ualberta-rcg/aleph",
+  "skills": []
+}
