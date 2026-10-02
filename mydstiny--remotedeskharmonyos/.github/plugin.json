@@ -1,0 +1,9 @@
+{
+  "name": "mydstiny--remotedeskharmonyos",
+  "displayName": "RemoteDeskHarmonyOS",
+  "description": "RemoteDesktop \u00b7 \u9762\u5411 HarmonyOS NEXT \u7684\u539f\u751f\u8fdc\u7a0b\u8fde\u63a5\u5de5\u4f5c\u53f0 \u00b7 RDP / RustDesk / SSH & SFTP / VNC / Moonlight \u00b7 \u624b\u673a\u3001\u5e73\u677f\u4e0e PC \u00b7 \u8fdc\u7a0b\u684c\u9762\u3001\u7ec8\u7aef\u3001\u6587\u4ef6\u4e0e\u4e32\u6d41",
+  "version": "1.0.0",
+  "author": "Mydstiny",
+  "homepage": "https://github.com/Mydstiny/RemoteDeskHarmonyOS",
+  "skills": []
+}
