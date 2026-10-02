@@ -1,0 +1,9 @@
+{
+  "name": "blackfrost-ai--frosty-vl",
+  "displayName": "frosty-vl",
+  "description": "Qwen Image 2.1 in Frosty Studio: create and edit with 10 references, official prompt enhancement, RGBA and recoverable galleries. Includes Frosty VL video workflows, Scene Lab, and 12 MCP tools for ag",
+  "version": "1.0.0",
+  "author": "Blackfrost-AI",
+  "homepage": "https://github.com/Blackfrost-AI/frosty-vl",
+  "skills": []
+}
