@@ -1,0 +1,9 @@
+{
+  "name": "fangpin--remote-nvim-nvim",
+  "displayName": "remote-nvim.nvim",
+  "description": "Remote development in Neovim \ud83d\udd25",
+  "version": "1.0.0",
+  "author": "fangpin",
+  "homepage": "https://github.com/fangpin/remote-nvim.nvim",
+  "skills": []
+}
