@@ -1,0 +1,9 @@
+{
+  "name": "strepto42--virtual-ac3-encoder",
+  "displayName": "virtual-ac3-encoder",
+  "description": "Software Dolby Digital Live / DTS Connect-style encoder for Windows: a virtual 5.1 audio device that encodes any multichannel PCM to AC3 (Dolby Digital) in real time and streams it over S/PDIF (Toslin",
+  "version": "1.0.0",
+  "author": "strepto42",
+  "homepage": "https://github.com/strepto42/virtual-ac3-encoder",
+  "skills": []
+}
