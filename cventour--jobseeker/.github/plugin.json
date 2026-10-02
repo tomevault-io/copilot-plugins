@@ -1,0 +1,9 @@
+{
+  "name": "cventour--jobseeker",
+  "displayName": "jobseeker",
+  "description": "A local-first job-search assistant: watches your email, chats and calendar, finds roles worth your time, and surfaces the few things that need you today. Never applies or sends without approval.",
+  "version": "1.0.0",
+  "author": "cventour",
+  "homepage": "https://github.com/cventour/jobseeker",
+  "skills": []
+}
