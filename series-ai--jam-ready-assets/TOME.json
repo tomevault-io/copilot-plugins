@@ -4,7 +4,7 @@
   "repo": "jam-ready-assets",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/series-ai/jam-ready-assets",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T04:19:18Z"
+  "distributed_at": "2026-10-02T06:06:08Z"
 }
