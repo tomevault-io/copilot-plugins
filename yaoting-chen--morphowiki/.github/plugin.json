@@ -1,0 +1,9 @@
+{
+  "name": "yaoting-chen--morphowiki",
+  "displayName": "Morphowiki",
+  "description": "Inspired by Andrej Karpathy's LLM Wiki \u2014 a private, local-first English vocabulary learning tool.",
+  "version": "1.0.0",
+  "author": "yaoting-chen",
+  "homepage": "https://github.com/yaoting-chen/Morphowiki",
+  "skills": []
+}
