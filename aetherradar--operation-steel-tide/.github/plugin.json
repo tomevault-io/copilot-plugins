@@ -1,0 +1,9 @@
+{
+  "name": "aetherradar--operation-steel-tide",
+  "displayName": "operation-steel-tide",
+  "description": "Open-source Godot 4 tactical extraction FPS set in Jianghai Old City, with AI squadmates, online co-op, persistent loot and loadouts, and 5v5 demolition.",
+  "version": "1.0.0",
+  "author": "AetherRadar",
+  "homepage": "https://github.com/AetherRadar/operation-steel-tide",
+  "skills": []
+}
