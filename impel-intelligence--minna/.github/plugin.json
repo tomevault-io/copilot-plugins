@@ -1,0 +1,9 @@
+{
+  "name": "impel-intelligence--minna",
+  "displayName": "Minna",
+  "description": "A local-first search index and assistant for your Mac.",
+  "version": "1.0.0",
+  "author": "impel-intelligence",
+  "homepage": "https://github.com/impel-intelligence/Minna",
+  "skills": []
+}
