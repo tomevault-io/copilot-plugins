@@ -7,11 +7,11 @@ Open-source ESP32 educational game console firmware — 40 games, two-player pla
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [iamankushpandit/Gume](https://github.com/iamankushpandit/Gume).
+Original source: `CLAUDE.md` in [iamankushpandit/Gume](https://github.com/iamankushpandit/Gume).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
