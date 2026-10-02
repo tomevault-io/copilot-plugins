@@ -1,0 +1,9 @@
+{
+  "name": "nomicsadmin--hub-agentes-ia",
+  "displayName": "hub-agentes-ia",
+  "description": "Seu pr\u00f3prio Agente de IA treinado no seu m\u00e9todo: hub de agentes com login, venda autom\u00e1tica e painel admin. Next.js + Supabase + OpenAI. Monte com IA, sem programar.",
+  "version": "1.0.0",
+  "author": "nomicsadmin",
+  "homepage": "https://github.com/nomicsadmin/hub-agentes-ia",
+  "skills": []
+}
