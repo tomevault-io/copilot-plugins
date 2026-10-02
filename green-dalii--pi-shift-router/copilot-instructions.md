@@ -1,0 +1,129 @@
+## pi-shift-router
+
+> This document is the developer handbook for pi-shift-router. It defines the philosophy, code standards, architecture principles, and collaboration conventions that every contribution must follow.
+
+# pi-shift-router — Development Principles
+
+This document is the developer handbook for pi-shift-router. It defines the philosophy, code standards, architecture principles, and collaboration conventions that every contribution must follow.
+
+## Philosophy
+
+- **Simplicity over complexity.** Every line is a potential bug. Prefer expressions over statements. Avoid `if` when an expression will do.
+- **Delete before adding.** Before submitting a change, ask: "is this truly needed?" Dead code is worse than missing code.
+- **DRY.** If two places do similar work, extract an abstraction. If three, design a pattern.
+- **Explicit over implicit.** No hidden side effects, no obscured state, no "happy coincidence" behavior.
+- **Small files.** One file, one job, done well.
+- **Flat over nested.** Two levels of indentation is a refactoring signal. Use early returns.
+- **Tests are not optional.** The core routing algorithm must have coverage. We don't do TDD but we backfill tests.
+
+## Code Standards
+
+- **TypeScript only.** No `any` (except when interfacing with undocumented pi-agent APIs). Prefer `interface` over `type`.
+- **No classes** unless state + behavior genuinely requires encapsulation. Default to pure functions and data structures.
+- **No third-party dependencies** beyond `@earendil-works/pi-coding-agent` (peer), `@earendil-works/pi-tui` (devDep for local builds), and `typebox` (peer). The runtime has zero external libraries.
+- **Side-effect isolation.** Pure functions at the top. IO passed in.
+- **Errors are values, not exceptions.** Log to console and fall back. Never crash the host process.
+
+## Architecture Principles
+
+- **Two tiers, not three.** The only meaningful classification axis is **role** — fast Engineer (drives the whole turn for routine execution) vs smart CTO (drives the whole turn for complex / high-stakes / irreversible work). Calling the smart tier "judgment" is misleading: the chosen tier does **not** hand off work — it executes the entire agent run (thinking, tool calls, message content) at that tier's intelligence. The third "light" tier was removed in v0.3.0 because it was unused in real pi-agent sessions.
+- **LLM Judge, not regex.** The LLM is the sole classifier. There are no keyword lists, no scoring rules, no heuristic fallbacks. When the Judge is unavailable, hold position on the current tier — never guess.
+- **`session_start` is read-only.** The router must never override the user's default model at session start. The first model switch happens during `before_agent_start` if and only if a routing decision demands it.
+- **Hard API constraints over soft prompts.** When the provider supports JSON mode (OpenAI-compatible: `response_format: { type: "json_object" }`; Anthropic: assistant prefill), use it. Prompt-only constraints are weak and break on reasoning models.
+- **One-way module dependency:** `index.ts → router.ts → judge.ts|tier.ts → config.ts → types.ts`. TUI components live in `src/tui/` and do not pollute the core algorithm.
+- **Configuration sinks to `types.ts`.** Magic numbers and defaults live in `DEFAULT_CONFIG`. Nothing else embeds constants.
+- **Single entry point.** pi-agent lifecycle hooks are registered only through `index.ts`. Other modules never touch pi's API surface directly.
+- **State is centralized.** `RouterState` is the only mutable state object. Functions receive it, modify it, return it.
+- **TUI components manage their own input.** When implementing `Focusable`, intercept all keyboard input in `handleInput()` and dispatch to children (Input, SelectList, etc.) manually. `Container` does **not** auto-route keys to focused children — pi's `ModelSelectorComponent` follows this pattern.
+
+## Collaboration Conventions
+
+- **SPEC-driven development.** SPEC changes are discussed before code. The SPEC is the source of truth for design decisions.
+- **MEMORY.md is the decision log.** It records *why* (rationale, rejected alternatives, gotchas, open questions) — specs record *what*. When a decision would otherwise be re-litigated by a future contributor (or by the agent after context loss), append an entry (newest first). Keep entries short; put detail in SPEC/ROADMAP and link them.
+- **Phased development.** MVP proves the core path first. Iterate on polish and breadth afterward.
+- **Commit messages use module prefix:** `feat:` / `fix:` / `refactor:` / `docs:` / `test:` / `chore:`.
+- **TDD on all logic changes.** Write failing tests first (red), then implement (green). The core routing, EV-decision, audit, and config logic MUST have test coverage — a change without a failing-then-passing test is incomplete. Contract changes may update existing tests, but only as a documented part of the change (the PR body lists which old-contract assertions moved); never silently weaken a test to make it pass.
+- **Never merge or publish autonomously. Every change must pass, in order: (1) local gates, (2) CI green, (3) user e2e — only then merge.** Local gates = `vitest` → `tsc` → `copy-assets` → `pack:check` → `check:isolated` → `shazam_verify` (same order CI runs them). Then push + open a PR and WAIT for CI to be green (`gh pr checks`). Then ask the user to e2e-test the BUILT working tree (see pre-e2e checklist). The agent must NOT `gh pr merge`, self-approve, or `npm publish` until the user has explicitly approved after their e2e — even if CI is green. Merging before user e2e is a process violation.
+- **Principle changes update SPEC first.** Any change to philosophy, architecture, or user-facing contract must land in `SPEC.md` (or `AGENTS.md` for developer-policy changes) before code.
+- **PRs stay focused.** One logical change per PR. Split large changes into smaller reviewable pieces.
+- **Mandatory pre-e2e checklist.** Whenever asking the user to e2e-test changes, the agent MUST, in the same turn:
+  1. Run `npm run build` (tsc + copy-assets) — an un-built change is invisible to the user. NOTE: `dist/` is only read by pi when the plugin is installed from THIS working copy (see step 4) — a fresh build alone proves nothing about what the user's runtime loads.
+  2. Explicitly state: "已构建 ✓，请完全退出并重启 pi" — extensions only load at startup.
+  3. Never assume `dist/` is current. A stale build means the user wastes a full test cycle on old code. The startup banner `[ShiftRouter] vX.Y.Z loaded` exists precisely so stale builds are detectable at a glance.
+  4. **Verify the runtime install source before asking for e2e.** Read `~/.pi/agent/settings.json` → `packages`:
+     - If it contains `npm:pi-shift-router` (or any published-version entry), the user's pi runs the **published** version — every unreleased working-copy change is invisible to it no matter how fresh `dist/` is. This silently invalidated a whole e2e cycle (2026-09-05: v1.4.2 "passed" e2e while the runtime was still npm-installed 1.4.1; the missing-fix "bug report" that followed was just 1.4.1 behavior).
+     - The dev-install is `pi remove pi-shift-router && pi install .` from the repo root — the packages entry becomes the repo path (e.g. `../../project/pi-shift-router`) and pi then loads this working copy's `dist/`.
+     - Re-check after any `pi install` of other packages: an npm re-install of pi-shift-router flips the entry back to `npm:` and silently reverts the runtime to the published version.
+     - The startup banner `[ShiftRouter] vX.Y.Z loaded` must show the version from THIS repo's `package.json` — ask the user to confirm it (or check `pi list`) before trusting any e2e observation.
+- **Hard Stop before `git push`, `npm publish`, `gh pr create`, and `gh pr merge` — explicit user approval required.** The agent must NOT run `git push origin ...`, `npm publish` (or `NPM_CONFIG_CACHE=... npm publish`), `gh pr create`, or `gh pr merge` without the user first saying "push" / "发布` / "go" / "ship it" in the same turn. The reasoning is that "commit" is local and reversible, but push / PR creation / merge / publish are public, irreversible, and visible to every downstream user — silently pushing has shipped broken or unwanted state more than once. Branch protection on `main` (see next section) provides a second layer of defense, but the agent still needs explicit user approval **before** opening the PR or pushing the branch. Bumping the version in `package.json` is also part of the release workflow and must be coordinated with the user, not done implicitly.
+- **Version bump on every release.** Every push that is meant to be `npm publish`-able must bump `package.json` from `X.Y.Z` to the next semver (use `npm version patch` / `minor` / `major` based on the change kind, or edit the file directly) and update `CHANGELOG.md` with a new top entry. The repo version in `package.json` must always match the latest published npm version — a stale `package.json` version is a release-process bug.
+
+### Branch Protection
+
+GitHub branch protection is enabled on `main` with at least one required review approval. **All commits to `main` must flow through a pull request with review.** Direct `git push origin main` is blocked by GitHub and is no longer a valid workflow — even for the agent.
+
+**Standard flow for any change (including release bumps and hotfixes):**
+
+1. **Branch off `main` — and prove the baseline first.** Run `git branch --show-current && git status -sb` and confirm you are ON `main` before `git checkout -b <branch>`. A feature branch left checked out is the documented cause of a **release PR silently carrying feature commits**: 2026-09-18, `chore/release-v1.6.0` was cut from `feat/pi-model-registry-alignment` instead of `main`, so PR #38 shipped the feature *and* the bump while the feature PR #37 stayed open and had to be closed as superseded (an empty squash once its diff was already on `main`). Create a descriptive branch (e.g., `fix/orchestrate-trigger`, `docs/pr-1-followup`, `chore/release-v1.1.0`, `hotfix/v1.0.1-cache-leak`).
+2. **Commit granularity — one commit per *concern*; amend only within a concern.** The branch must be neither a single mega-commit nor a stream of fixups. Split by concern: feature code, behaviour change, migration/compat fix, docs, process/tooling. Every commit should build and pass tests on its own (`git checkout <sha> && node --experimental-vm-modules node_modules/vitest/vitest.mjs run`) so `git bisect` works and a reviewer reads one decision at a time. Fixups *inside* a concern are **amended** (`git commit --amend` + `git push --force-with-lease`); a *different* concern gets a new commit. The squash on merge (`gh pr merge --squash`) keeps `main` linear but is not a licence to skip this.
+   - **Why (observed failure):** the v1.7.0 Judge-modes branch (2026-09-23) was amended ~8 times into one commit — 15 files / ~2.5k lines covering four distinct concerns. Review degenerated to reading a whole-feature diff, `git bisect` became useless, and it was no longer clear which change introduced a behaviour shift. The opposite failure (a `fix:` commit per iteration) buries the signal in noise. Both were corrected by rebuilding the branch into one commit per concern.
+   - **Mechanism:** commit concerns as they land. When a concern is identified late, `git reset --soft <boundary>` and re-commit the changes in concern order, verifying each commit builds.
+3. **Push the branch** — requires explicit user approval per the Hard Stop rule above (`push` / `发布` / `go` / `ship it`).
+4. **Open a PR** with `gh pr create` against `main`. The PR body must summarize the change, link any related issues (`Closes #N` / `Refs #N`), and note any breaking changes or follow-up work. Requires explicit user approval.
+5. **Wait for review.** The agent must NOT self-approve or auto-merge. Wait for the user (or another reviewer) to leave a review. The agent may post a review comment summarizing its own audit findings (e.g., via `gh pr comment`) so the human reviewer has full context.
+6. **Merge via GitHub** using `gh pr merge --squash --delete-branch` after the user explicitly approves the merge. Squash keeps history linear and the PR title becomes the commit subject.
+
+**CI gate — never merge red. The agent MUST verify CI status before merging.** After pushing a branch (and after the squash commit lands), run `gh pr checks <PR>` (and `gh run list`) and wait until **every required check passes** before `gh pr merge`. A red or pending CI is a hard merge blocker:
+- **Never merge with failing checks** — not even for "small" or "doc-only" changes. The user reported the exact failure this rule prevents: a PR was merged while CI was failing (tests/pack-isolation failed because the workflow ran Test before Build), and the broken workflow shipped to `main` and npm.
+- If CI fails, fix the cause and re-run before merging. Inspect the failing job's log (`gh run view <run-id> --log-failed`) — do not guess.
+- "Local checks pass" is NOT sufficient: CI runs from a fresh checkout (gitignored artifacts like `dist/` do not exist there) and may differ from the local environment. If CI and local disagree, CI wins and local must be reconciled (e.g. run the same step order: `npm ci → typecheck → build → test → coverage → pack:check → check:isolated`).
+- The merge must also be preceded by the normal review step (step 5); the CI gate is additional, not a replacement.
+7. **Verify on `main`.** `git pull`, run `shazam_verify`, confirm working tree is clean. The `src/index.ts` (or any other) uncommitted changes that existed before the PR flow must NOT survive onto `main` — they live on the branch.
+
+**Edge cases:**
+
+- **Hotfixes** (e.g., v1.0.0 has a critical bug): same flow, branch name `hotfix/vX.Y.Z`. Still PR + review, still needs a version bump + CHANGELOG entry. No "fast path" bypasses review.
+- **Version bumps** for releases are also a PR (e.g., `chore: bump v1.1.0`). The agent never edits `package.json` on `main` directly.
+- **Tag pushes** (`v1.0.0`, etc.) happen *after* the release commit is on `main` via PR. Tag creation/push is separate from the PR flow but still subject to Hard Stop approval.
+- **Working-tree-only fixes** (e.g., debug logs that never get committed) do not need a PR — but anything that gets committed must follow the flow above.
+- **Reverts** are also PRs, not force-pushes to `main`. Use `gh pr create` with a body like `Reverts #N because <reason>`.
+
+**Why two layers (Hard Stop + branch protection):** Branch protection prevents *any* push to `main`, including from the agent acting without the user in the loop. The Hard Stop rule is the agent's own discipline: even when branch protection allows a push to a feature branch, the agent must wait for the user to say "go". The two layers are complementary, not redundant.
+
+### Release Workflow
+
+Every public release (`npm publish`) goes through a fixed 9-step sequence. The agent must follow the order; skipping a step is a release-process bug.
+
+0. **Branch from up-to-date `main`, with the feature PR already merged.** In order:
+   - `git checkout main && git pull origin main` — the release branch **must** start from `main`; never from a feature branch. `git log --oneline -1` must show the last merged PR, not an unmerged feature commit.
+   - `gh pr view <feature-PR> --json state` must return `MERGED`. A feature whose PR is still open is not released yet.
+   - `git checkout -b chore/release-vX.Y.Z`.
+   - **Self-check before opening the release PR:** `gh pr diff <release-PR> --name-only` must list **only** version/doc files (`package.json`, `CHANGELOG.md`, `README*.md`, `ROADMAP.md`, `docs/*`, `AGENTS.md`). Any source file (`src/**`, `tests/**`, `scripts/**`, `SPEC.md`) in a release diff is a **red flag** — the release branch was cut from the wrong base; abandon it, merge the feature PR, and redo.
+   - After merge, verify no orphan PRs remain: `gh pr list --state open` should show nothing that is already contained in `main` (`git diff main origin/<head-branch>` empty ⇒ close it as superseded rather than merging an empty squash).
+
+1. **Verify locally.** Run, in order:
+   - `node --experimental-vm-modules node_modules/vitest/vitest.mjs run` — all tests pass (currently 373 tests across 17 files).
+   - `node node_modules/typescript/lib/tsc.js` — TypeScript strict compile passes.
+   - `node scripts/copy-assets.mjs` — syncs `src/prompts/` into `dist/prompts/`.
+   - `node scripts/pack-check.mjs` — `pack:check` passes (engines.node, files, allowlisted host deps, etc.).
+   - `node scripts/check-isolated-load.mjs` — `check:isolated` passes (pack → isolated install with pi's flags → native load of every dist module).
+   - `shazam_verify` (a shell function defined in the pi-agent harness; the agent invokes it via the `shazam_verify` tool). If any of these fail, abort the release and fix the issue first.
+2. **Bump version in `package.json`.** Semver:
+   - `patch` (0.0.X) — bug fixes, docs-only changes, prompt-only changes, test-only changes.
+   - `minor` (0.X.0) — new features, new tier, new command, new TUI component, new docs section.
+   - `major` (X.0.0) — breaking config changes, breaking API changes, removal of a feature.
+   - The repo `package.json` version must always be the **next** version higher than the latest published npm version (`npm view pi-shift-router version`). A stale `package.json` is a release bug.
+3. **Update `CHANGELOG.md`.** New top entry `## [X.Y.Z] — <one-line summary>` with sub-sections `### Added` / `### Changed` / `### Fixed` / `### Removed` (Keep a Changelog format). The summary line must be ≤ 10 words. Each user-facing change gets one bullet.
+4. **Update the README head metadata** in `README.md` / `README.zh-CN.md`. Both have a non-visible SEO block at the top of the file and it IS a version callout: `latest: vX.Y.Z`, `last-updated: YYYY-MM`, plus `features:` / `search-intents:` for anything user-visible the release added. **This drifted silently from v1.4.0 to v1.5.0** (both READMEs still said `latest: v1.4.0` / `last-updated: 2026-08` while npm was on 1.5.0) — treat these two lines as mandatory release fields, not optional prose.
+5. **Commit the release locally.** One commit,
+   - `chore: release vX.Y.Z` (or `feat: ...` / `fix: ...` if the release is a single-purpose change).
+   - The commit message body recaps the changelog bullets.
+6. **Hard Stop.** Tell the user: "Ready to push and publish vX.Y.Z. Confirm with `push` / `发布` / `go` before I run `git push` and `npm publish`." The agent must NOT proceed past this point without explicit user approval in the same turn.
+7. **Push only after the user confirms.** Run `git push origin main` (with `GIT_SSH_COMMAND="ssh -o ServerAliveInterval=30 -o ServerAliveCountMax=3"` if SSH host key freshness is uncertain). Then create / move the tag (`git tag -a vX.Y.Z -m "vX.Y.Z — <summary>" && git push origin vX.Y.Z`).
+8. **Publish only after the user confirms again.** Run `NPM_CONFIG_CACHE=/tmp/npm-cache npm publish --ignore-scripts --registry=https://registry.npmjs.org/`. The `--registry` flag is mandatory; the sandbox npm default registry may not be the public one. The `--ignore-scripts` flag is mandatory because the post-install script tries to run outside the sandbox. `/tmp/npm-cache` is mandatory because the default `~/.npm` cache is root-owned in the sandbox.
+
+**Reversibility rules.** `git commit` is reversible with `git reset`. `git push` is reversible with `git reset --hard HEAD~1 && git push --force-with-lease` (but only if no one has pulled). `npm publish` is **not reversible** — you can `npm unpublish` within 72 hours, but after that the version is permanent. Always wait for explicit user approval before step 7 and 8.
+
+---
+> Source: [green-dalii/pi-shift-router](https://github.com/green-dalii/pi-shift-router) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
