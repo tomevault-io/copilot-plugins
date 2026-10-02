@@ -1,0 +1,44 @@
+{
+  "name": "Qwen3.8-Halogen-Flash-Strix-Halo",
+  "owner": "claudejaune",
+  "repo": "Qwen3.8-Halogen-Flash-Strix-Halo",
+  "description": "Run Qwen3.8-Flash-Next (180B, 6B active) on a single AMD Strix Halo via the halogen-flash-server container",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/claudejaune/Qwen3.8-Halogen-Flash-Strix-Halo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T12:25:36Z"
+}
