@@ -1,0 +1,44 @@
+{
+  "name": "mongoscope",
+  "owner": "prodioslabs",
+  "repo": "mongoscope",
+  "description": "MongoDB log & profile analyzer in the terminal. Slow-query patterns, currentOp, COLLSCAN, replica lag, indexes \u2014 keyboard-driven TUI (Bun + OpenTUI).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/prodioslabs/mongoscope",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T22:30:25Z"
+}
