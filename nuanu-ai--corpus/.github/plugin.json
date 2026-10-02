@@ -1,0 +1,9 @@
+{
+  "name": "nuanu-ai--corpus",
+  "displayName": "Corpus",
+  "description": "Company knowledge. With receipts. A self-hosted AI workspace for documents, connected business data, and answers grounded in evidence.",
+  "version": "1.0.0",
+  "author": "nuanu-ai",
+  "homepage": "https://github.com/nuanu-ai/Corpus",
+  "skills": []
+}
