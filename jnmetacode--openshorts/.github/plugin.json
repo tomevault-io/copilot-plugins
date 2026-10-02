@@ -1,0 +1,9 @@
+{
+  "name": "jnmetacode--openshorts",
+  "displayName": "openshorts",
+  "description": "OpenShorts (Kaipian) \u2014 open-source, local-first short-video pipeline: topic in, publish-ready video out (script \u2192 footage / on-device AI \u2192 TTS \u2192 captions \u2192 mp4). Free path costs $0, no key needed with",
+  "version": "1.0.0",
+  "author": "jnMetaCode",
+  "homepage": "https://github.com/jnMetaCode/openshorts",
+  "skills": []
+}
