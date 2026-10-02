@@ -1,0 +1,44 @@
+{
+  "name": "anke-shelf",
+  "owner": "gighi-947",
+  "repo": "anke-shelf",
+  "description": "\u5b89\u79d1\u4e66\u67b6 AnkeShelf \u2014 NGA/Gululu \u5b89\u79d1\u4e00\u7ad9\u5f0f\u9605\u8bfb\u5668\uff08Windows/Android\uff09\uff1a\u5e16\u5b50\u4e0b\u8f7d\u3001\u8fde\u8f7d\u70ed\u66f4\u65b0\u3001EPUB \u5bfc\u51fa\u4e0e\u5b8c\u6574\u5b89\u79d1\u89c6\u89c9\u98ce\u683c\u8fd8\u539f\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gighi-947/anke-shelf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T00:29:36Z"
+}
