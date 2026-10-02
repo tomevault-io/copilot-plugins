@@ -7,11 +7,11 @@ Secure cloud sandboxes for AI coding agents, powered by attested confidential VM
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [concrete-security/umbra](https://github.com/concrete-security/umbra).
+Original source: `AGENTS.md` in [concrete-security/umbra](https://github.com/concrete-security/umbra).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
