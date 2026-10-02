@@ -1,42 +1,43 @@
-## fusebase-flow-specs
+## fusebase-flow-validation
 
-> Fusebase Flow specification phase rules. Use when drafting docs/specs/*, docs/decisions/*, docs/tmp/handoff/*, docs/backlog/*.
+> Fusebase Flow validation/verification phase rules. Use when running gate checks, reviewing diffs, or verifying smoke prompts.
 
 
-# Fusebase Flow — Mode B (full) for spec-side artifacts
+# Fusebase Flow — validation rules
 
-Files in this glob are read by AI sessions, not human readers. Optimize for AI context efficiency.
+## Gate report (AI Developer-side)
 
-## Mode B principles (full)
+Required fields are canonical in `policies/gate-contracts.yml: gate_report` (machine schema); the producer template is `templates/gate-report.md`. Do not restate the field list.
 
-1. Front-load the answer — first sentence/cell IS the answer; reasoning second.
-2. Tables over prose for structured data (3+ comparable rows → table).
-3. Bullets over paragraphs for enumerables (3+ items → bullets).
-4. Concrete over abstract — `T17`, `sha:abc1234`, `repository.ts:42-58` — never "the earlier change".
-5. Predictable section names — use `templates/` headers verbatim.
-6. No narrative storytelling — "Decision: X. Reason: Y. Alternatives: Z (rejected: A)." not "I considered X then thought about Y..."
-7. Cross-references precise — `spec.md:42-58` not "see above".
-8. No restatement of context already in adjacent loaded files.
-9. Status fields tag-style — `Status: DONE`, `Lock status: LOCKED`.
-10. No hedging unless filing as a clarify item.
-11. Consistent vocabulary — use FLOW_RULES.md / AGENTS.md project-specific terms verbatim.
-12. No human-onboarding preamble — open with payload.
+If any field is missing, redirect: "Gate report missing <field>. Per FR-05, complete reports only. Re-run."
 
-## Substrates
+## Reproducibility before fix (FR-10)
 
-- `docs/specs/<slug>/spec.md` ← `templates/spec.md`
-- `docs/specs/<slug>/decisions.md` ← `templates/decisions.md`
-- `docs/specs/<slug>/tasks.md` ← `templates/tasks.md`
-- `docs/specs/<slug>/verification-gate.md` ← `templates/verification-gate.md`
-- `docs/tmp/handoff/<YYYY-MM-DD>-<slug>-<stage>.md` ← workflow templates in `workflows/`
-- `docs/problem-catalog/<slug>/problem.md` ← `templates/problem-catalog-entry.md`
+When operator describes a single observed failure ("the system did X"):
 
-## Anti-patterns
+1. Don't draft a fix immediately.
+2. Reproduce 3 times under the same conditions.
+3. Outcomes:
+   - 3/3 reproduce → systemic; draft fix
+   - 1/3 or 2/3 → likely model variance / non-determinism; document and recommend no-op close
+   - 0/3 → close as no-op-needed
 
-- ASCII visuals in spec.md/decisions.md/tasks.md (visuals belong in chat per FR-08)
-- Restating constitution / spec content inside decisions.md
-- Free-form decision write-ups instead of letter-prefixed matrix
-- Long preambles ("This document captures...")
+## Smoke prompts (post-deploy)
+
+When `verification-gate.md` defines numbered S1..Sn:
+
+- Follow `flow-skills/smoke-testing/SKILL.md`
+- Verify the operator-visible outcome, not only supporting checks
+- Inspect the ground-truth diagnostic surface named by S<n>
+- Persist evidence to `docs/tmp/handoff/<date>-<slug>-smoke/`
+- Compute pass ratio against gate contract threshold
+- If below threshold or end-to-end smoke is not feasible, do NOT mark spec DONE; surface failure or `PENDING-OPERATOR-SMOKE` with concrete `S<n> observed Y, expected Z` / missing prerequisite
+
+## What this rule does NOT do
+
+- Approve deploy (that's `release-deploy-reporting`)
+- Auto-fix lint/typecheck errors
+- Skip reproducibility-before-fix
 
 ---
 > Source: [fusebase-dev/fusebase-flow](https://github.com/fusebase-dev/fusebase-flow) — distributed by [TomeVault](https://tomevault.io).
