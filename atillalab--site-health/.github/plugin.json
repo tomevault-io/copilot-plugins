@@ -1,0 +1,9 @@
+{
+  "name": "atillalab--site-health",
+  "displayName": "site-health",
+  "description": "A fast CLI for checking website and domain health.",
+  "version": "1.0.0",
+  "author": "atillalab",
+  "homepage": "https://github.com/atillalab/site-health",
+  "skills": []
+}
