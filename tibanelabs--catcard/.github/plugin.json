@@ -1,0 +1,9 @@
+{
+  "name": "tibanelabs--catcard",
+  "displayName": "catcard",
+  "description": "Clean-room open-source Rust firmware for Coldcard hardware wallets. MIT licensed, no-std, Cortex-M4F.",
+  "version": "1.0.0",
+  "author": "TibaneLabs",
+  "homepage": "https://github.com/TibaneLabs/catcard",
+  "skills": []
+}
