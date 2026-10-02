@@ -1,0 +1,44 @@
+{
+  "name": "gsd-path",
+  "owner": "open-gsd",
+  "repo": "gsd-path",
+  "description": " Disk-backed pipeline that takes AI coding agents from raw idea to shipped code \u2014 gated phases, orchestrated subagent builds, and crash-proof state, from a single milestone to a full multi-milestone program.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/open-gsd/gsd-path",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T01:53:30Z"
+}
