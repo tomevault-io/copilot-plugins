@@ -1,0 +1,9 @@
+{
+  "name": "agent-wow--agent-wow",
+  "displayName": "agent-wow",
+  "description": "AzerothCore WoW client designed for autonomous AI agent players.",
+  "version": "1.0.0",
+  "author": "agent-wow",
+  "homepage": "https://github.com/agent-wow/agent-wow",
+  "skills": []
+}
