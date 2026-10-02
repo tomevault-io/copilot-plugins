@@ -1,0 +1,9 @@
+{
+  "name": "putao520--bao",
+  "displayName": "bao",
+  "description": "A Rust-native programmable browser runtime built on Servo and SpiderMonkey. Web APIs + Node/Bun APIs + CDP automation in one runtime.",
+  "version": "1.0.0",
+  "author": "putao520",
+  "homepage": "https://github.com/putao520/bao",
+  "skills": []
+}
