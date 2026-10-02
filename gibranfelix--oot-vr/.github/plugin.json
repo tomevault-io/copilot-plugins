@@ -1,0 +1,9 @@
+{
+  "name": "gibranfelix--oot-vr",
+  "displayName": "oot-vr",
+  "description": "Ocarina of Time in first person, native on the Meta Quest 3S. Ship of Harkinian + OpenXR on GLES.",
+  "version": "1.0.0",
+  "author": "gibranfelix",
+  "homepage": "https://github.com/gibranfelix/oot-vr",
+  "skills": []
+}
