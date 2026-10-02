@@ -1,0 +1,9 @@
+{
+  "name": "modernrelay--notebook",
+  "displayName": "notebook",
+  "description": "Generative UI notebooks for Omnigraph",
+  "version": "1.0.0",
+  "author": "ModernRelay",
+  "homepage": "https://github.com/ModernRelay/notebook",
+  "skills": []
+}
