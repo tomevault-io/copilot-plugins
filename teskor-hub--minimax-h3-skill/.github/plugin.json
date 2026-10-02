@@ -1,0 +1,9 @@
+{
+  "name": "teskor-hub--minimax-h3-skill",
+  "displayName": "minimax-h3-skill",
+  "description": "A Claude Code skill for MiniMax H3 \u2014 the open-weight omni-modal video model. Prompt framework, ComfyUI model/quant reference and troubleshooting for T2V, I2V, FLF2V and R2V (reference-to-video).",
+  "version": "1.0.0",
+  "author": "teskor-hub",
+  "homepage": "https://github.com/teskor-hub/minimax-h3-skill",
+  "skills": []
+}
