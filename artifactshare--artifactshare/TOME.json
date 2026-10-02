@@ -4,7 +4,7 @@
   "repo": "artifactshare",
   "description": "Share AI-generated work with your team.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/artifactshare/artifactshare",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T22:38:01Z"
+  "distributed_at": "2026-10-02T22:39:00Z"
 }
