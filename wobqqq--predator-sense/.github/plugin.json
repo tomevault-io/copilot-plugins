@@ -1,0 +1,9 @@
+{
+  "name": "wobqqq--predator-sense",
+  "displayName": "predator-sense",
+  "description": "\ud83d\udc09 PredatorSense for Linux: turbo toggle, thermal profiles, fan control, RGB keyboard and battery health for Acer Predator laptops (DKMS driver + CLI)",
+  "version": "1.0.0",
+  "author": "wobqqq",
+  "homepage": "https://github.com/wobqqq/predator-sense",
+  "skills": []
+}
