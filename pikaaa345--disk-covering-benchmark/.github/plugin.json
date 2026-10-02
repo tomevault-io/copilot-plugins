@@ -1,0 +1,9 @@
+{
+  "name": "pikaaa345--disk-covering-benchmark",
+  "displayName": "disk-covering-benchmark",
+  "description": "An AI mathematical research benchmark for optimal unit-disk coverings, with test prompts, answer fingerprinting tools, report templates, and test records.",
+  "version": "1.0.0",
+  "author": "pikaaa345",
+  "homepage": "https://github.com/pikaaa345/disk-covering-benchmark",
+  "skills": []
+}
