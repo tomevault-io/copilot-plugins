@@ -4,7 +4,7 @@
   "repo": "cartograph",
   "description": "Cartograph turns any GitHub repo into an interactive dependency map by parsing real code to analyze structure, trace imports, calculate blast radius, and explain modules without AI guessing edges.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adrianhajdin/cartograph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T17:31:25Z"
+  "distributed_at": "2026-10-02T17:32:29Z"
 }
