@@ -1,0 +1,9 @@
+{
+  "name": "jaksilikov--souplite",
+  "displayName": "souplite",
+  "description": "Ultra-lightweight LLM Fine-Tuning & Post-Training Framework (< 2GB RAM) by Mukhtar Zhaksylykov",
+  "version": "1.0.0",
+  "author": "jaksilikov",
+  "homepage": "https://github.com/jaksilikov/souplite",
+  "skills": []
+}
