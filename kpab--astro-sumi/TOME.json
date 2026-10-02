@@ -4,7 +4,7 @@
   "repo": "astro-sumi",
   "description": "A minimal Astro 7 blog theme in ink and washi paper, with dual light/dark palettes, zero client JavaScript on article pages, and a WebGL ink simulation on the front page.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kpab/astro-sumi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T07:03:09Z"
+  "distributed_at": "2026-10-02T12:02:27Z"
 }
