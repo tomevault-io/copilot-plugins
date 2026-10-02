@@ -1,0 +1,9 @@
+{
+  "name": "leophh--bookplate",
+  "displayName": "bookplate",
+  "description": "A docker image for a self-hosted bookshelf/library app",
+  "version": "1.0.0",
+  "author": "LeoPhh",
+  "homepage": "https://github.com/LeoPhh/bookplate",
+  "skills": []
+}
