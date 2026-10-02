@@ -1,0 +1,9 @@
+{
+  "name": "noorqureshi--sploitagent",
+  "displayName": "SploitAgent",
+  "description": "An open library of 161 security skills for AI agents \u2014 pentest, bug bounty & defense across 20 domains (web, API, cloud, AI/LLM, AD, mobile, and more). Load into Claude Code, Codex, Gemini, or a local",
+  "version": "1.0.0",
+  "author": "NoorQureshi",
+  "homepage": "https://github.com/NoorQureshi/SploitAgent",
+  "skills": []
+}
