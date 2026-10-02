@@ -7,11 +7,11 @@ Runs Claude Code and pi agents in parallel on your Mac, one Docker sandbox per i
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jaqubowsky/fleet](https://github.com/jaqubowsky/fleet).
+Original source: `AGENTS.md` in [jaqubowsky/fleet](https://github.com/jaqubowsky/fleet).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
