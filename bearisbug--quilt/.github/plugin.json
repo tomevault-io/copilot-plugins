@@ -1,0 +1,9 @@
+{
+  "name": "bearisbug--quilt",
+  "displayName": "Quilt",
+  "description": "AI-native infinite-canvas design tool: describe an app, get multi-screen HTML designs on an infinite canvas, click through them as a prototype, and let your local coding agent read and write the canva",
+  "version": "1.0.0",
+  "author": "Bearisbug",
+  "homepage": "https://github.com/Bearisbug/Quilt",
+  "skills": []
+}
