@@ -1,0 +1,130 @@
+## 2027-cyber-jobs
+
+> A job board rendered by GitHub. `listings.json` holds every accepted role, the `README.md`
+
+# 2027-cyber-jobs
+
+A job board rendered by GitHub. `listings.json` holds every accepted role, the `README.md`
+tables and `companies.md` are rebuilt from it, and GitHub Actions do all the writing on `main`.
+The audience is cybersecurity students, so the intern and new-grad tables come first and a
+change is judged by what a student sees. A wrong row on the board costs more than a missed one.
+
+## Charter
+
+A row belongs only if it is all three: a cybersecurity role (or any engineering role at a
+`security_company: true` employer), internship or new grad or 0 to 2 years, and in the US or
+Remote (US). CONTRIBUTING.md states the rules for humans; `classify.evaluate_job` is the
+executable version, and the two must agree.
+
+## Who writes what
+
+Bots own these on `main`: `listings.json`, the README tables and stats block, `companies.md`,
+and `.github/data/`. Change the board by changing its inputs (`companies.yml`, the scripts, or
+an approved issue), never by editing the outputs.
+
+Three workflows share the `readme-updates` concurrency group and commit as
+`github-actions[bot]`: the scrape at 11:17 and 23:17 UTC, the link check at 09:43 UTC that
+marks 🔒, and add-listing when a maintainer applies the `approved` label. Each runs
+`check_outputs.py` before committing, and `health.yml` runs `health_check.py` after each one to
+keep the "Scraper health" issue current. A branch a day old is
+behind `main`. Rebase before opening a PR, and take `main` for any conflict in a bot-owned file.
+
+## Module map
+
+- `classify.py` is the taxonomy and the US location rules. Stdlib only, so
+  `test_classification.py` runs on a bare interpreter and the scraper, the issue flow and the
+  tests share one source of truth.
+- `common.py` is URL normalisation and issue-body parsing, shared for the same reason: dedup
+  only works when the scraper and the submission flow normalise identically.
+- `scrape_jobs.py` owns one `scrape_<ats>` function per platform, persistence
+  (`seen_jobs.json` is per-posting last-seen, `board_baseline.json` is per-board counts for the
+  silent-board alarm), and `main()`, which runs purge, renormalise, reclassify, the
+  stored-row re-evaluation, the location repair, the vanished-req retire and the orphan retire
+  (a row whose company has no board for its source in `companies.yml`) over existing rows
+  before dedup and insert of new ones.
+- `check_links.py` is the daily link check. It only visits rows the scraper cannot retire:
+  Community rows, amazon.jobs rows and rows with no req id in the URL. A 404 or 410 closes the
+  row on its second day. For a Community row, a 200 whose `<title>` reads as not found or is
+  empty, or a redirect that drops the req id, closes it on its third day, and a Community row
+  120 days old ages out.
+- `notify.py` turns the events file a scrape or add-listing run writes into a GitHub Release
+  and one comment per matching alert issue, unlocking and relocking each thread.
+  `test_notify.py` covers it.
+- `compare_runs.py` diffs two dry-run logs; see "Verifying a scraper change".
+- `rebuild_readme.py` regenerates the tables between the `TABLE_START <type>` markers.
+- `validate_issue.py` and `process_approved.py` are the community path: issue form, one
+  advisory verdict comment edited in place, `approved` label, row added, issue closed after
+  the push lands. `test_community.py` covers them.
+- `check_outputs.py` and `health_check.py` are stdlib-only guards on the bot's output and runs;
+  `test_health.py` covers them. Against main's listings.json, `check_outputs.py` also fails a
+  new scraped row the charter rules reject and a run that closes more than a quarter of the
+  open rows. Rerun the writer by hand with `allow_mass_close` once the cause is understood.
+- `build_site.py` turns `site/` (plain HTML, CSS and JS, no build step) and `listings.json` into
+  the untracked `_site/`: the Pages board, its trimmed data file and the Atom feeds.
+  `pages.yml` deploys it after each writer finishes, because a push made with `GITHUB_TOKEN`
+  starts no Pages build. `test_site.py` covers it.
+
+## Changing the classifier
+
+Every keyword or location change lands with a case in `test_classification.py`, and the PR
+names the example titles that flip. Rejects are cheap. An accept rule costs precision, so it
+needs a real title the current rules miss and a reason no existing rule should catch it.
+Every rule reaches existing rows on the next scrape. Each row gets the title rules under its
+company's current `security_company` flag, and a row whose posting is still in the feed also
+goes through the full `judge_job` pipeline, which drops it or refreshes its type, category and
+🇺🇸 flag. A missing description never drops a row. A new category is added in `CATEGORY_RULES` and in the issue template
+dropdown together.
+
+## Verifying a scraper change
+
+1. `ruff check .github/scripts`, then every test script under `.github/scripts/`:
+   `test_classification.py`, `test_scrapers.py`, `test_community.py`, `test_health.py`,
+   `test_notify.py` and `test_site.py`. All offline, and `tests.yml` runs the same set.
+2. `scrape_jobs.py --dry-run --board <ats> --limit 3` while iterating on one parser.
+3. A full `--dry-run` on `main` and on the branch, minutes apart, each redirected to a log,
+   then `compare_runs.py before.log after.log`. A clean exit is the equivalence proof; the
+   flipped rows it prints are the example titles the PR names.
+
+Workday tenants are most of the wall clock, the workflow times out at 30 minutes, and a
+cancelled run drops the whole scrape. Anything new that runs per Workday job needs the full
+dry-run timing before merge.
+
+## Adding or repairing a board
+
+`companies.yml` carries no comments; the reason for a slug fix or drop goes in the commit
+message. Two skills under `.claude/skills/` hold the procedures, and each ends on a `Checking
+<board>... ok (N postings` line as its proof:
+
+- [add-company](.claude/skills/add-company/SKILL.md) takes a careers URL to a verified entry.
+- [triage-board](.claude/skills/triage-board/SKILL.md) takes a failed, regressed or silent
+  board to a repaired or dropped entry. It holds what each ATS status code means.
+
+## Code and test style
+
+Everything under `.github/scripts/` is plain Python 3.12 checked by the `ruff.toml` at the
+root. Beyond what the linter enforces:
+
+- A comment says why, never what. Most comments in this repo cite the title or board that
+  broke and the issue number; match that.
+- Public functions carry a short docstring; private helpers do not.
+- `classify.py` and `common.py` import from the standard library only. New third-party
+  dependencies belong in `scrape_jobs.py`. Add them to `requirements.in`, then regenerate the
+  hash-locked `requirements.txt` and `requirements-dev.txt` with the `uv pip compile` command
+  at the top of each `.in` file. The workflows install with `--require-hashes`.
+- Tests are plain scripts run with `python <file>`, no pytest. `test_classification.py` is
+  data tables of `(input, expected)` rows looped through `check`; `test_scrapers.py` is
+  `test_*` functions over mocked HTTP, each registered in the tuple at the bottom of the
+  file. Add a row or a function in the same shape.
+- A scraper function returns `None` for a broken fetch and `[]` for an empty board. The
+  health check relies on the difference.
+
+## Commits
+
+Conventional Commits, lowercase, present tense, no trailing period, with scope `classify`,
+`scraper`, `companies`, `skills`, `readme` or `ci`, as in `fix(classify): reject non-cyber
+titles`. Every scraper or classifier PR states the example titles it flips. The bot commit
+subjects are fixed strings the workflows own.
+
+---
+> Source: [HackedRico/2027-cyber-jobs](https://github.com/HackedRico/2027-cyber-jobs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-02 -->
