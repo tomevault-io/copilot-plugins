@@ -1,0 +1,9 @@
+{
+  "name": "enthouan--simplelogin-mcp",
+  "displayName": "simplelogin-mcp",
+  "description": "Self-hostable MCP server for SimpleLogin email aliases, mailbox lookups, and account info via stdio or Streamable HTTP. Docker-ready.",
+  "version": "1.0.0",
+  "author": "enthouan",
+  "homepage": "https://github.com/enthouan/simplelogin-mcp",
+  "skills": []
+}
