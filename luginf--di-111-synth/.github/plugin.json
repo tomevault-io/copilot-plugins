@@ -1,0 +1,9 @@
+{
+  "name": "luginf--di-111-synth",
+  "displayName": "Di-111-synth",
+  "description": "VST3 emulator of the Roland D-110, built on munt's mt32emu engine + JUCE",
+  "version": "1.0.0",
+  "author": "luginf",
+  "homepage": "https://github.com/luginf/Di-111-synth",
+  "skills": []
+}
