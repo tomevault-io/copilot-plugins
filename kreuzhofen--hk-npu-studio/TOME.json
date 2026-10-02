@@ -4,7 +4,7 @@
   "repo": "hk-npu-studio",
   "description": "HK NPU STUDIO \u2014 Local AI for Snapdragon\u00ae PCs. NPU-accelerated image generation for Windows 11 ARM64. Featuring Phoenix Boost.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kreuzhofen/hk-npu-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T23:43:17Z"
+  "distributed_at": "2026-10-02T10:19:08Z"
 }
