@@ -1,0 +1,9 @@
+{
+  "name": "jessire--doubanpurify",
+  "displayName": "DouBanPurify",
+  "description": "\u8c46\u74e3 Android \u5ba2\u6237\u7aef\u7cbe\u7b80\u4e0e\u53bb\u5e7f\u544a Xposed/LSPosed \u6a21\u5757 (API 102)",
+  "version": "1.0.0",
+  "author": "Jessire",
+  "homepage": "https://github.com/Jessire/DouBanPurify",
+  "skills": []
+}
