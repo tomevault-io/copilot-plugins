@@ -1,0 +1,9 @@
+{
+  "name": "jaqubowsky--fleet",
+  "displayName": "fleet",
+  "description": "Runs Claude Code and pi agents in parallel on your Mac, one Docker sandbox per issue. A host agent hands out the work, watches every sandbox and brings back tested, reviewed pull requests.",
+  "version": "1.0.0",
+  "author": "jaqubowsky",
+  "homepage": "https://github.com/jaqubowsky/fleet",
+  "skills": []
+}
