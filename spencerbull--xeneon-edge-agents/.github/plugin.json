@@ -1,0 +1,9 @@
+{
+  "name": "spencerbull--xeneon-edge-agents",
+  "displayName": "xeneon-edge-agents",
+  "description": "A fail-closed Omarchy and Herdr agent command center for the Corsair XENEON EDGE.",
+  "version": "1.0.0",
+  "author": "spencerbull",
+  "homepage": "https://github.com/spencerbull/xeneon-edge-agents",
+  "skills": []
+}
