@@ -1,0 +1,9 @@
+{
+  "name": "qeude--defi",
+  "displayName": "Defi",
+  "description": "A fast, native scrollable-tiling window manager for macOS, inspired by Niri.",
+  "version": "1.0.0",
+  "author": "qeude",
+  "homepage": "https://github.com/qeude/Defi",
+  "skills": []
+}
