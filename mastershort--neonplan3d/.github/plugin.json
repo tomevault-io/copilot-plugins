@@ -1,0 +1,9 @@
+{
+  "name": "mastershort--neonplan3d",
+  "displayName": "neonplan3d",
+  "description": "Draw your home in Home Assistant and control it in a neon 3D view",
+  "version": "1.0.0",
+  "author": "Mastershort",
+  "homepage": "https://github.com/Mastershort/neonplan3d",
+  "skills": []
+}
