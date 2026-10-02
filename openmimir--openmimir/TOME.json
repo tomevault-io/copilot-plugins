@@ -1,0 +1,44 @@
+{
+  "name": "openmimir",
+  "owner": "openmimir",
+  "repo": "openmimir",
+  "description": "Talk to all your coding agents. One hands-free, full-duplex voice conversation over Claude Code, Codex and OpenCode. Runs on your Mac.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/openmimir/openmimir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T15:43:41Z"
+}
