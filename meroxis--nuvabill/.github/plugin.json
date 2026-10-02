@@ -1,0 +1,9 @@
+{
+  "name": "meroxis--nuvabill",
+  "displayName": "nuvabill",
+  "description": "Free, open-source WHMCS alternative for hosting companies: billing, invoices, domains and support tickets, with cPanel, DirectAdmin, Plesk, Proxmox and Virtualizor automation, Stripe, PayPal and a WHM",
+  "version": "1.0.0",
+  "author": "meroxis",
+  "homepage": "https://github.com/meroxis/nuvabill",
+  "skills": []
+}
