@@ -1,0 +1,9 @@
+{
+  "name": "govalta--git-insights-hub",
+  "displayName": "GIT-INSIGHTS-HUB",
+  "description": "The current Git Insights Hub, integrating deep code scanning and report generation for GitHub Enterprise",
+  "version": "1.0.0",
+  "author": "GovAlta",
+  "homepage": "https://github.com/GovAlta/GIT-INSIGHTS-HUB",
+  "skills": []
+}
