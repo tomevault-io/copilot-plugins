@@ -4,7 +4,7 @@
   "repo": "jizura-sync",
   "description": "Real-time lyric motion for what's playing on your Spotify, rendered with JIZURA",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Saqoosha/jizura-sync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T04:08:59Z"
+  "distributed_at": "2026-10-02T05:50:38Z"
 }
