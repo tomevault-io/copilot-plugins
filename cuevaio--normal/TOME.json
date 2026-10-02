@@ -4,7 +4,7 @@
   "repo": "normal",
   "description": "Cool WhatsApp MCP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cuevaio/normal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T00:44:45Z"
+  "distributed_at": "2026-10-02T01:56:15Z"
 }
