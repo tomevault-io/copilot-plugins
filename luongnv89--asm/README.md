@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [luongnv89/asm](https://github.com/luongnv89/asm).
+Original source: `AGENTS.md` in [luongnv89/asm](https://github.com/luongnv89/asm).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (20)
+## Bundled Skills (21)
 
 - [asm](https://github.com/luongnv89/asm/tree/main/skills/hello-world/SKILL.md)
 - [asm](https://github.com/luongnv89/asm/tree/main/skills/skill-creator/SKILL.md)
@@ -37,8 +37,9 @@ Original source: `CLAUDE.md` in [luongnv89/asm](https://github.com/luongnv89/asm
 - [asm](https://github.com/luongnv89/asm/tree/main/tests/fixtures/skills/well-formed/SKILL.md)
 - [asm](https://github.com/luongnv89/asm/tree/main/tests/fixtures/skills/missing-frontmatter/SKILL.md)
 - [asm](https://github.com/luongnv89/asm/tree/main/skills/skill-install-improved/SKILL.md)
+- [asm](https://github.com/luongnv89/asm/tree/main/skills/skill-shortener/SKILL.md)
 
-From [luongnv89/asm](https://github.com/luongnv89/asm) — a repo with 891+ stars on GitHub.
+From [luongnv89/asm](https://github.com/luongnv89/asm) — a repo with 0+ stars on GitHub.
 
 ---
 
