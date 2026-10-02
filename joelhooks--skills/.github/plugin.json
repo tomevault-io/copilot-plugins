@@ -1,0 +1,9 @@
+{
+  "name": "joelhooks--skills",
+  "displayName": "skills",
+  "description": "Public-safe, generally useful agent skills",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/skills",
+  "skills": []
+}
