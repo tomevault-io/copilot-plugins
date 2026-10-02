@@ -1,0 +1,9 @@
+{
+  "name": "uttamdeb--agent-telemetry",
+  "displayName": "agent-telemetry",
+  "description": "Live local dashboard for AI coding-tool usage \u2014 Claude Code, Claude Desktop, Codex, GitHub Copilot, Cursor, opencode. Zero deps; your data stays on your machine.",
+  "version": "1.0.0",
+  "author": "uttamdeb",
+  "homepage": "https://github.com/uttamdeb/agent-telemetry",
+  "skills": []
+}
