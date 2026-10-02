@@ -1,0 +1,9 @@
+{
+  "name": "getsubwave--subwave-desktop",
+  "displayName": "subwave-desktop",
+  "description": "Native desktop player for the SUB/WAVE internet radio station, built on the Native SDK (Zig)",
+  "version": "1.0.0",
+  "author": "getsubwave",
+  "homepage": "https://github.com/getsubwave/subwave-desktop",
+  "skills": []
+}
