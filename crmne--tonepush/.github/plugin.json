@@ -1,0 +1,9 @@
+{
+  "name": "crmne--tonepush",
+  "displayName": "tonepush",
+  "description": "Open-source editor and tone library for Line 6 HX pedals and the StompStation PRO. Shared GUI, CLI, cloud library, and reverse-engineered USB protocols.",
+  "version": "1.0.0",
+  "author": "crmne",
+  "homepage": "https://github.com/crmne/tonepush",
+  "skills": []
+}
