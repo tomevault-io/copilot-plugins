@@ -1,0 +1,9 @@
+{
+  "name": "ryckakas--bonsai-lint",
+  "displayName": "bonsai-lint",
+  "description": "Multi-language cognitive complexity linter, as a single static binary",
+  "version": "1.0.0",
+  "author": "ryckakas",
+  "homepage": "https://github.com/ryckakas/bonsai-lint",
+  "skills": []
+}
