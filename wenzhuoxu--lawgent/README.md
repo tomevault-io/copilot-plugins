@@ -7,11 +7,11 @@ Lawgent — an open-source legal AI agent. Grounded, multi-jurisdiction (CN · U
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [WenzhuoXu/lawgent](https://github.com/WenzhuoXu/lawgent).
+Original source: `AGENTS.md` in [WenzhuoXu/lawgent](https://github.com/WenzhuoXu/lawgent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
