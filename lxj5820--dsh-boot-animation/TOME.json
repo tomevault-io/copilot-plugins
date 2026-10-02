@@ -1,0 +1,44 @@
+{
+  "name": "dsh-boot-animation",
+  "owner": "lxj5820",
+  "repo": "dsh-boot-animation",
+  "description": "DSH plugin: replaces the kernel boot page with a full-window video clip, then dissolves into the app. \u4e2d\u6587\u8bf4\u660e\u89c1 MANUAL.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lxj5820/dsh-boot-animation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T14:52:06Z"
+}
