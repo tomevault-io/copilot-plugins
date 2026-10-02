@@ -7,11 +7,11 @@ The factory that builds software — and itself. A runtime for self-improving ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [watt-mind/factory](https://github.com/watt-mind/factory).
+Original source: `AGENTS.md` in [watt-mind/factory](https://github.com/watt-mind/factory).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
