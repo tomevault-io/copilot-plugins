@@ -22,7 +22,7 @@ It is **not** a monolithic tool. It is two layers:
   Each entry has a `when_to_use` line. You match the task against `when_to_use` to pick a
   tool. Entries are `bundled:true` (shipped in `skills/`) or `bundled:false` (fetched on
   demand via `tools/fetch.py <id>`).
-- **`brain/`** — the orchestrator: a 7-phase state machine
+- **`brain/`** — the orchestrator: an 8-phase state machine (numbered 0-7)
   (`intake → fingerprint → plan → static → dynamic → native → synthesize → verify`).
   Each phase writes a JSON artifact; the next phase reads only that artifact. See
   `brain/SKILL.md` (full operating manual) and `brain/artifacts/` (the JSON schemas).
@@ -95,5 +95,5 @@ It is **not** a monolithic tool. It is two layers:
   (`python catalog/targets.py --write`).
 
 ---
-> Source: [warterbili/AUTO_REVERSE](https://github.com/warterbili/AUTO_REVERSE) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-01 -->
+> Source: [warterbili/auto_reverse_](https://github.com/warterbili/auto_reverse_) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-09-30 -->
