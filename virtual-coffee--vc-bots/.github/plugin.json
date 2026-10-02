@@ -1,0 +1,9 @@
+{
+  "name": "virtual-coffee--vc-bots",
+  "displayName": "vc-bots",
+  "description": "VirtualCoffee's Slack/Zoom automation",
+  "version": "1.0.0",
+  "author": "Virtual-Coffee",
+  "homepage": "https://github.com/Virtual-Coffee/vc-bots",
+  "skills": []
+}
