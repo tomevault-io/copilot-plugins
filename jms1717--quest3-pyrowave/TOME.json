@@ -1,0 +1,44 @@
+{
+  "name": "Quest3-Pyrowave",
+  "owner": "JMS1717",
+  "repo": "Quest3-Pyrowave",
+  "description": "Experimental Quest 3 PCVR with PyroWave 4:4:4, high-bitrate presets, runtime-gated refresh and reproducible ALVR builds",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JMS1717/Quest3-Pyrowave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T14:53:06Z"
+}
