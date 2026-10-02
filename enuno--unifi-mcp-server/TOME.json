@@ -55,9 +55,147 @@
       "path": ".claude/skills/unifi-mcp-tool-builder",
       "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.claude/skills/unifi-mcp-tool-builder",
       "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".claude/skills/fastmcp/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.claude/skills/fastmcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".claude/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.claude/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".claude/skills/unifi-mcp-tool-builder/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.claude/skills/unifi-mcp-tool-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/fastmcp/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/fastmcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-pr/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-lint/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-docs/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-test/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-clean/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-clean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-setup/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-format/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/unifi-mcp-tool-builder/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/unifi-mcp-tool-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-security/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-check-deps/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-check-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-build-docker/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-build-docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-unifi-mcp-add-tool/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-unifi-mcp-add-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-unifi-mcp-update-docs/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-unifi-mcp-update-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-unifi-api-docs-update/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-unifi-api-docs-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-unifi-mcp-release-prep/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-unifi-mcp-release-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-unifi-mcp-test-coverage/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-unifi-mcp-test-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-server",
+      "path": ".agents/skills/source-command-unifi-api-docs-update-2/SKILL.md",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.agents/skills/source-command-unifi-api-docs-update-2/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/enuno/unifi-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T14:32:33Z"
+  "distributed_at": "2026-10-02T11:03:41Z"
 }
