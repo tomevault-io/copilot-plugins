@@ -1,0 +1,9 @@
+{
+  "name": "xflawlessdev--ignitify",
+  "displayName": "ignitify",
+  "description": "Self-hosted deployment and operations control plane for Docker, Compose, Git builds, domains, and remote infrastructure.",
+  "version": "1.0.0",
+  "author": "xFlawlessDev",
+  "homepage": "https://github.com/xFlawlessDev/ignitify",
+  "skills": []
+}
