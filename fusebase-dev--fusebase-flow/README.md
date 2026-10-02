@@ -7,11 +7,11 @@ The framework client-facing teams use to build internal & client apps with AI. T
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [fusebase-dev/fusebase-flow](https://github.com/fusebase-dev/fusebase-flow).
+Original source: `AGENTS.md` in [fusebase-dev/fusebase-flow](https://github.com/fusebase-dev/fusebase-flow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
