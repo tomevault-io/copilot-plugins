@@ -7,11 +7,11 @@ Browse, review and trim a whole HDZero goggle card, then export for DaVinci, You
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nkghxst/flightdvr-studio](https://github.com/nkghxst/flightdvr-studio).
+Original source: `CLAUDE.md` in [nkghxst/flightdvr-studio](https://github.com/nkghxst/flightdvr-studio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
