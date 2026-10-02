@@ -1,0 +1,44 @@
+{
+  "name": "quickshell-dynamic-island",
+  "owner": "lunanoir21",
+  "repo": "quickshell-dynamic-island",
+  "description": "A monochrome Dynamic Island for Hyprland, built on Quickshell \u2014 MPRIS media with a cava-driven spectrum, timers and alarms, a pixel-art clock, and live mic/camera privacy indicators.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lunanoir21/quickshell-dynamic-island",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T11:56:52Z"
+}
