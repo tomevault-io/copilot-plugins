@@ -1,0 +1,44 @@
+{
+  "name": "creatio-ai-app-development-toolkit",
+  "owner": "Creatio-Platform",
+  "repo": "creatio-ai-app-development-toolkit",
+  "description": "AI-driven toolkit for generating BA-style Business Plans for Creatio apps from natural-language requests. The Business Plan and Technical Implementation Handoff are the final deliverables. A separate implementing code agent uses the Business Plan output to build the app via clio MCP tools.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Creatio-Platform/creatio-ai-app-development-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T04:20:46Z"
+}
