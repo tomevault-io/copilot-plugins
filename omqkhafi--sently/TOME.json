@@ -4,7 +4,7 @@
   "repo": "sently",
   "description": "Open-source TypeScript messaging infrastructure for Email, SMS, WhatsApp & Push with interchangeable providers.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/omqkhafi/sently",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-01T13:41:41Z"
+  "distributed_at": "2026-10-02T06:23:11Z"
 }
