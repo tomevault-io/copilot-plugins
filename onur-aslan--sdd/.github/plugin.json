@@ -1,0 +1,9 @@
+{
+  "name": "onur-aslan--sdd",
+  "displayName": "sdd",
+  "description": "Spec-Driven Development workflow system optimized for smaller models, with modular skills, clearer context separation, and human-in-the-loop task extraction.",
+  "version": "1.0.0",
+  "author": "onur-aslan",
+  "homepage": "https://github.com/onur-aslan/sdd",
+  "skills": []
+}
