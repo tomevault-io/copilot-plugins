@@ -1,0 +1,9 @@
+{
+  "name": "luanmorenommaciel--seamwise",
+  "displayName": "seamwise",
+  "description": "A seam-first planning system that transforms project intent into explicit swim lanes, dependency lags, validation boundaries, and implementation-ready TaskSpecs.",
+  "version": "1.0.0",
+  "author": "luanmorenommaciel",
+  "homepage": "https://github.com/luanmorenommaciel/seamwise",
+  "skills": []
+}
