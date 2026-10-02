@@ -1,0 +1,9 @@
+{
+  "name": "magnus919--slopsearx",
+  "displayName": "SlopSearX",
+  "description": "Cloud-native, stateless, AI-agent-first meta search engine. Drop-in SearXNG replacement built for the GroktoCrawl stack.",
+  "version": "1.0.0",
+  "author": "magnus919",
+  "homepage": "https://github.com/magnus919/SlopSearX",
+  "skills": []
+}
