@@ -7,11 +7,11 @@ OpenSurge 飞牛 NAS (fnOS) 移植版 — 旁路由网关形态，Docker 交付�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [funchs/opensurge-fnos](https://github.com/funchs/opensurge-fnos).
+Original source: `AGENTS.md` in [funchs/opensurge-fnos](https://github.com/funchs/opensurge-fnos).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
