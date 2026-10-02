@@ -1,0 +1,9 @@
+{
+  "name": "hmitchr--cadenceslicer",
+  "displayName": "CadenceSlicer",
+  "description": "OrcaSlicer fork that prints with two different nozzle sizes in one print, each at its own layer height.",
+  "version": "1.0.0",
+  "author": "HMITCHR",
+  "homepage": "https://github.com/HMITCHR/CadenceSlicer",
+  "skills": []
+}
