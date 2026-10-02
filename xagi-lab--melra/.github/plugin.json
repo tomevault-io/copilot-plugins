@@ -1,0 +1,9 @@
+{
+  "name": "xagi-lab--melra",
+  "displayName": "melra",
+  "description": "The open-source autonomy kernel MELRA \u2014 Modular Execution Layer for Reliable Autonomy. An agent-independent effect runtime for governed, durable, and verifiable autonomous execution. MELRA begins wher",
+  "version": "1.0.0",
+  "author": "XAGI-Lab",
+  "homepage": "https://github.com/XAGI-Lab/melra",
+  "skills": []
+}
