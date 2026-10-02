@@ -1,0 +1,44 @@
+{
+  "name": "Infidex_176_v_IDENTIDEM_design_remix",
+  "owner": "acornelissen",
+  "repo": "Infidex_176_v_IDENTIDEM_design_remix",
+  "description": "Remix of Denis Aminev's Infidex 176 V open source panoramic 35mm camera: sprocket-driven frame counter, optional two-piece light-tight body, heat-set hardware throughout",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/acornelissen/Infidex_176_v_IDENTIDEM_design_remix",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T04:07:12Z"
+}
