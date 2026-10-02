@@ -1,0 +1,9 @@
+{
+  "name": "jpivarski--hyperbolic-map",
+  "displayName": "hyperbolic-map",
+  "description": "A JavaScript map widget that draws vector graphics on the hyperbolic plane, projected as a Poincar\u00e9 disk.",
+  "version": "1.0.0",
+  "author": "jpivarski",
+  "homepage": "https://github.com/jpivarski/hyperbolic-map",
+  "skills": []
+}
