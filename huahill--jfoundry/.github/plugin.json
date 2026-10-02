@@ -1,0 +1,9 @@
+{
+  "name": "huahill--jfoundry",
+  "displayName": "jfoundry",
+  "description": "jfoundry is a practical DDD framework for Java, built on jMolecules and designed for Hexagonal Architecture and Onion Architecture. | jfoundry \u662f\u4e00\u4e2a\u9762\u5411 Java \u7684\u53ef\u843d\u5730 DDD \u5f00\u53d1\u6846\u67b6\uff0c\u57fa\u4e8e jMolecules \u6784\u5efa\uff0c\u9002\u7528\u4e8e\u516d\u8fb9\u5f62\u67b6\u6784\u548c\u6d0b\u8471\u67b6\u6784\u3002",
+  "version": "1.0.0",
+  "author": "huahill",
+  "homepage": "https://github.com/huahill/jfoundry",
+  "skills": []
+}
