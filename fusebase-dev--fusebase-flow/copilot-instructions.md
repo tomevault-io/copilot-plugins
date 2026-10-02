@@ -1,43 +1,12 @@
-## fusebase-flow-validation
+## fusebase-flow
 
-> Fusebase Flow validation/verification phase rules. Use when running gate checks, reviewing diffs, or verifying smoke prompts.
+> Read `AGENTS.md`, then `FLOW_RULES.md` through `## Amendment log`. Copilot supplies no Flow skill bodies: read `flow-skills/communication/SKILL.md`, `flow-skills/role-discipline/SKILL.md`, and `flow-skills/role-discipline/references/<role>.md`. Then read the active workflow and ticket/handoff. Use the attestation and state footer from `FLOW_RULES.md`.
 
+# GitHub Copilot / VS Code adapter for Fusebase Flow
 
-# Fusebase Flow — validation rules
+Read `AGENTS.md`, then `FLOW_RULES.md` through `## Amendment log`. Copilot supplies no Flow skill bodies: read `flow-skills/communication/SKILL.md`, `flow-skills/role-discipline/SKILL.md`, and `flow-skills/role-discipline/references/<role>.md`. Then read the active workflow and ticket/handoff. Use the attestation and state footer from `FLOW_RULES.md`.
 
-## Gate report (AI Developer-side)
-
-Required fields are canonical in `policies/gate-contracts.yml: gate_report` (machine schema); the producer template is `templates/gate-report.md`. Do not restate the field list.
-
-If any field is missing, redirect: "Gate report missing <field>. Per FR-05, complete reports only. Re-run."
-
-## Reproducibility before fix (FR-10)
-
-When operator describes a single observed failure ("the system did X"):
-
-1. Don't draft a fix immediately.
-2. Reproduce 3 times under the same conditions.
-3. Outcomes:
-   - 3/3 reproduce → systemic; draft fix
-   - 1/3 or 2/3 → likely model variance / non-determinism; document and recommend no-op close
-   - 0/3 → close as no-op-needed
-
-## Smoke prompts (post-deploy)
-
-When `verification-gate.md` defines numbered S1..Sn:
-
-- Follow `flow-skills/smoke-testing/SKILL.md`
-- Verify the operator-visible outcome, not only supporting checks
-- Inspect the ground-truth diagnostic surface named by S<n>
-- Persist evidence to `docs/tmp/handoff/<date>-<slug>-smoke/`
-- Compute pass ratio against gate contract threshold
-- If below threshold or end-to-end smoke is not feasible, do NOT mark spec DONE; surface failure or `PENDING-OPERATOR-SMOKE` with concrete `S<n> observed Y, expected Z` / missing prerequisite
-
-## What this rule does NOT do
-
-- Approve deploy (that's `release-deploy-reporting`)
-- Auto-fix lint/typecheck errors
-- Skip reproducibility-before-fix
+Canonical lifecycle skills, workflows, policies, hooks, templates, provider/runtime precedence, active project context, and update safety are indexed from `AGENTS.md`. Scoped security and validation instructions live in `.github/instructions/`. Copilot has no native Flow lifecycle hooks in this template; use the Git fallback hooks and the same role/approval contract. CLI provider skills remain authoritative for Fusebase Apps runtime, MCP, and SDK behavior.
 
 ---
 > Source: [fusebase-dev/fusebase-flow](https://github.com/fusebase-dev/fusebase-flow) — distributed by [TomeVault](https://tomevault.io).
