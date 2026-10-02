@@ -1,0 +1,9 @@
+{
+  "name": "amortized-ai--amortized",
+  "displayName": "amortized",
+  "description": "Build task models that replace frontier API calls",
+  "version": "1.0.0",
+  "author": "amortized-ai",
+  "homepage": "https://github.com/amortized-ai/amortized",
+  "skills": []
+}
