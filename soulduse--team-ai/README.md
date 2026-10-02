@@ -7,11 +7,11 @@ Multi-account relay and TUI for Claude Code and Codex CLI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [soulduse/team-ai](https://github.com/soulduse/team-ai).
+Original source: `AGENTS.md` in [soulduse/team-ai](https://github.com/soulduse/team-ai).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
