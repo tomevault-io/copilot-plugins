@@ -1,0 +1,9 @@
+{
+  "name": "lqs--sixup",
+  "displayName": "sixup",
+  "description": "\ud83c\udf10 IPv6 router daemon for Linux, fully automatic. DHCPv6-PD, RA, DHCPv6 server, NDP proxy, NAT64, DS-Lite/MAP-E tunnels. One static binary.",
+  "version": "1.0.0",
+  "author": "lqs",
+  "homepage": "https://github.com/lqs/sixup",
+  "skills": []
+}
