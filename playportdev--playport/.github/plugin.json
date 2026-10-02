@@ -1,0 +1,9 @@
+{
+  "name": "playportdev--playport",
+  "displayName": "playport",
+  "description": "Playport runs x86-64 Windows games on a stock, non-jailbroken iPhone. Install a game from your library onto the phone, pick up a controller and press Play. The game runs on the phone's own CPU and GPU",
+  "version": "1.0.0",
+  "author": "playportdev",
+  "homepage": "https://github.com/playportdev/playport",
+  "skills": []
+}
