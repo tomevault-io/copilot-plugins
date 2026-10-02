@@ -1,0 +1,9 @@
+{
+  "name": "kaifcodec--phonsint",
+  "displayName": "phonsint",
+  "description": "\ud83d\udd75\ufe0f\u200d\u2642\ufe0f Advanced phone number OSINT suite engineered for silent reconnaissance. Extracts masked emails, profile avatars and  uncovers cross-platform account registrations, and enriches identity footprin",
+  "version": "1.0.0",
+  "author": "kaifcodec",
+  "homepage": "https://github.com/kaifcodec/phonsint",
+  "skills": []
+}
