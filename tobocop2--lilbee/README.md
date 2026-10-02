@@ -20,7 +20,7 @@ Original source: `AGENTS.md` in [tobocop2/lilbee](https://github.com/tobocop2/li
 - [lilbee](https://github.com/tobocop2/lilbee/tree/main/src/lilbee/skills/lilbee_mcp/SKILL.md)
 - [lilbee](https://github.com/tobocop2/lilbee/tree/main/docs/agent-skills/lilbee-mcp-wiki/SKILL.md)
 
-From [tobocop2/lilbee](https://github.com/tobocop2/lilbee) — a repo with 59+ stars on GitHub.
+From [tobocop2/lilbee](https://github.com/tobocop2/lilbee) — a repo with 0+ stars on GitHub.
 
 ---
 
