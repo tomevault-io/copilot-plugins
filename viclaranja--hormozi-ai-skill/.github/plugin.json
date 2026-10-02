@@ -1,0 +1,9 @@
+{
+  "name": "viclaranja--hormozi-ai-skill",
+  "displayName": "hormozi-ai-skill",
+  "description": "Local business-diagnosis skill for Claude Code and Codex. Searches 9,330 timestamped passages from public MoreMozi videos and writes a full written diagnosis with exact citations.",
+  "version": "1.0.0",
+  "author": "viclaranja",
+  "homepage": "https://github.com/viclaranja/hormozi-ai-skill",
+  "skills": []
+}
