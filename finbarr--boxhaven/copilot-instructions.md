@@ -1,0 +1,157 @@
+## boxhaven
+
+> This file is the working agreement for changes in this repository.
+
+# AGENTS.md
+
+This file is the working agreement for changes in this repository.
+
+## Workflow
+
+1. Make the requested code or docs change directly.
+2. Verify it thoroughly.
+3. Commit and push each independently verified piece of work before moving to
+   the next one. Keep commits small enough that they can be reviewed or reverted
+   on their own.
+
+When behavior, commands, defaults, docs, backend contracts, deployment scripts,
+or VM runtime behavior change, check EVERY user-facing surface and update the
+ones that mention the changed behavior:
+
+- [README.md](README.md)
+- the docs site in [docs](docs) (deploys to docs.boxhaven.dev; pay special
+  attention to the homepage hero and getting-started examples)
+- the web console in [backend/app](backend/app), especially the logged-out
+  landing, the onboarding card, and any copy that demonstrates CLI commands
+- [backend/README.md](backend/README.md)
+- [deploy/digitalocean/README.md](deploy/digitalocean/README.md)
+- the CLI usage/help text in [cmd/bh](cmd/bh)
+
+Example commands shown on these surfaces must demonstrate the canonical
+workflow (create, run an agent, disconnect, connect to reattach) and must
+stay runnable as written. When console or docs UI/copy changes, screenshot
+the affected pages headlessly (Playwright; log in by setting the
+boxhaven.backend.token localStorage key to a session token) and actually
+look at the screenshots before calling the change done — text wrapping,
+column overflow, and stale examples are only visible by looking.
+
+Do not stop at unit tests when behavior can be exercised for real. If full
+end-to-end verification is blocked by the environment, state exactly what was
+run, what was not run, and why.
+
+When creating production or browser smoke tests, keep them as reusable scripts
+checked into the repo instead of one-off local commands.
+
+When verification inside a BoxHaven remote box exposes a reusable environment
+problem, fix that environment issue as a separate committed change instead of
+working around it locally. Examples include missing Go cache paths, stale
+platform-specific Node dependencies, missing runtime tools, or other box setup
+drift that would make future agents hit the same failure. Keep the environment
+fix independent from the feature or bugfix that uncovered it.
+
+The laptop agent skill is maintained in `skills/boxhaven`. When its contents
+change, update `metadata.version`, keep `metadata.minimum-bh-version` and
+`compatibility` accurate, and update the version pin in `docs/agent-skill.md`.
+Verify with `make skill-test` and `python3 scripts/smoke-skill-install.py`.
+After pushing the verified commit, publish the matching
+`boxhaven-skill-v<version>` Git tag; never move an existing skill release tag.
+CLI release tags also include the skill from the same source revision.
+
+## Build Commands
+
+```bash
+make build          # Build the bh binary
+make test           # Run Go, backend, backup, and skill launcher tests
+make backup-test    # Run the application-backup integrity tests
+make lint           # Run go vet and golangci-lint when available
+make backend-build  # Build the TypeScript backend and web app
+make smoke-remote   # Run the fast one-box production/prod-equivalent remote smoke
+make smoke-remote-full  # Run the remote smoke with backend restart/reconnect
+make smoke-remote-two-box  # Run two-box production/prod-equivalent coverage
+npm --prefix backend run smoke:console  # Run seeded console screenshots and DOM checks
+npm run deploy:app  # Self-hosted app/API deploy; pass -- --target user@host
+npm run deploy:runtime  # Slow remote VM image rebuild, activation, and backend restart
+make install        # Install bh to ~/.local/bin
+make clean          # Remove built binary
+```
+
+## Verification Standard
+
+For non-trivial CLI changes, start here:
+
+```bash
+make clean && make build && make test
+make lint
+./bh version
+./bh help
+./bh config
+```
+
+For backend changes, also run:
+
+```bash
+npm --prefix backend run build
+npm --prefix backend test
+```
+
+For console UI changes, also run:
+
+```bash
+npm --prefix backend run smoke:console
+```
+
+For remote VM, SSH, sync, snapshot, or agent changes, unit tests are not enough.
+Run a production or production-equivalent smoke before calling the change done.
+For ordinary remote-path changes, `make smoke-remote` creates one machine from
+the active snapshot, syncs a project, runs direct SSH/runtime/preview checks, and
+destroys the machine. For agent reconnect or backend restart changes, run
+`make smoke-remote-full` with `BOXHAVEN_SMOKE_RESTART_BACKEND_CMD` set so it
+also restarts the backend and runs another command after the reconnect window.
+Use `make smoke-remote-two-box` only when concurrency, provider import, or
+multiple-machine behavior needs coverage.
+
+## Code Map
+
+- `cmd/bh`: lightweight CLI for `bh create`, `bh list`, `bh destroy`,
+  `bh connect`, `bh run`, auth, sync, and config.
+- `backend`: Fastify/Better Auth control plane and browser console.
+- `deploy/digitalocean`: production and image-builder deployment scripts.
+
+## Hard Learnings
+
+- Distributions with additional modules must deploy their complete Compose
+  overlay. Verify their authenticated module routes as well as public health;
+  generic health checks alone do not prove those modules are running.
+- Never add feature flags, env-gated conditional UI, compatibility shims,
+  deprecated aliases, legacy redirects, or any other backup code paths unless
+  Finbarr explicitly asks for them. The product is built as a whole: features
+  ship fully on, dead paths get deleted, and breaking changes are fine because
+  we control every surface. Required credentials are configuration, not
+  feature flags.
+- Remote backend auth should use Better Auth for users, passwords, and sessions.
+  Do not hand-roll auth flows.
+- CLI control-plane HTTP calls should stay on HTTP/1.x unless the production
+  proxy path is proven safe for slow provisioning requests.
+- Direct SSH must use backend-signed short-lived user certificates and
+  persistent host-key pinning, not reusable private keys or blanket host-key
+  suppression.
+- The CLI should stay thin. Setup commands, command wrapping, and tmux lifecycle
+  belong behind backend/VM-agent RPC endpoints.
+- Remote project storage is `/opt/boxhaven/project`; sync copies bytes there,
+  and command/session RPC runs from there.
+- Remote VM runtime dependencies belong in the golden image. If expected tools
+  are missing on a user-created VM, fail loudly and rebuild the image.
+- Golden remote VM snapshots must be built from committed source or a pushed
+  release ref. Before snapshotting, clean cloud-init state, machine identity,
+  authorized keys, and SSH host keys.
+- Runtime image rebuilds should be incremental from the active
+  `BOXHAVEN_REMOTE_IMAGE` snapshot by default. Use `--full-base-image` only for
+  base OS or heavyweight toolchain dependency changes.
+- User VMs must not receive account-level cloud SSH keys. Use backend-issued
+  short-lived SSH certificates for user access.
+- VM agents must reconnect on WebSocket `error` as well as `close`, and should
+  watchdog backend `pong`s.
+
+---
+> Source: [finbarr/boxhaven](https://github.com/finbarr/boxhaven) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-01 -->
