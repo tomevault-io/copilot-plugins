@@ -1,26 +1,41 @@
-## sently-first-provider-model
+## sently
 
-> Sently-first provider model — channel senders are the API; vendors are transports.
+> sently is a runtime-agnostic TypeScript channel-delivery library (email, SMS, WhatsApp, Web Push, FCM) for Node.js, Bun, Deno, and Cloudflare Workers. ESM-only, zero runtime dependencies. One sender shape / error model / retry path as channels grow — not a hosted orchestration platform.
 
+# sently — agent contract
 
-# Sently-first provider model
+sently is a runtime-agnostic TypeScript channel-delivery library (email, SMS, WhatsApp, Web Push, FCM) for Node.js, Bun, Deno, and Cloudflare Workers. ESM-only, zero runtime dependencies. One sender shape / error model / retry path as channels grow — not a hosted orchestration platform.
 
-Apps use **sently channel senders**, not vendor SDKs.
+## Sently-first provider model
 
-- Email → `createMailer` / `createSMTPMailer` + `Transport`
-- SMS → `createSmsSender` + `SmsTransport`
-- WhatsApp → `createWhatsAppSender` + `WhatsAppTransport`
-- Push → `createPushSender` + `PushTransport`
+Apps use **channel senders**, not vendor SDKs:
 
-**Providers are transports** under those senders. Swap the transport; app code stays on sently.
+| Channel | Sender | Contract |
+|---------|--------|----------|
+| Email | `createMailer` / `createSMTPMailer` | `Transport` |
+| SMS | `createSmsSender` | `SmsTransport` |
+| WhatsApp | `createWhatsAppSender` | `WhatsAppTransport` |
+| Push | `createPushSender` | `PushTransport` |
 
-**Do not** make a mega vendor client (`new Taqnyat()`, `new Msegat()` as a full SDK) the primary surface.
+Providers are transports under those senders. Vendor extras (OTP, account utilities) live on the concrete transport class — never on the shared channel contract.
 
-**Multi-product vendors** (Taqnyat SMS / WhatsApp / mail / verify): one transport per channel (`taqnyat-sms`, `taqnyat-whatsapp`, …), each wired into the matching `create*Sender`.
+## Docs
 
-**Vendor extras** (OTP send/verify, cost, templates): methods on the concrete transport only (pattern: `MsegatTransport.sendOtp` / `verifyOtp`). Never add them to the shared channel contract.
+- Handbook: `site/content/docs/` (Fumadocs)
+- Machine index: `/llms.txt` on the docs site
 
-**New channels** (e.g. Voice): add a library-wide sender + types first; then provider transports.
+## Commands
+
+```sh
+bun install
+bun test            # unit/integration only — never runs *.live.test.ts
+bun run test:live   # local-only provider live suites (requires *_LIVE=1)
+bun run site:dev
+bun run site:build
+bun run verify      # lint, typecheck, build, site:build, then bun test
+```
+
+Do not invent APIs. Prefer imports from published subpaths (`sently/mailer`, `sently/sms`, `sently/transports/*`).
 
 ---
 > Source: [omqkhafi/sently](https://github.com/omqkhafi/sently) — distributed by [TomeVault](https://tomevault.io).
