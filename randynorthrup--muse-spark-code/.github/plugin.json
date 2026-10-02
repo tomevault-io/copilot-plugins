@@ -1,0 +1,9 @@
+{
+  "name": "randynorthrup--muse-spark-code",
+  "displayName": "muse-spark-code",
+  "description": "Meta's Muse Spark as a coding agent inside VS Code: streaming chat, tool calls with diffs, permission modes, session history, voice dictation. Unofficial.",
+  "version": "1.0.0",
+  "author": "RandyNorthrup",
+  "homepage": "https://github.com/RandyNorthrup/muse-spark-code",
+  "skills": []
+}
