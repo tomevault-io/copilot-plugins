@@ -1,0 +1,9 @@
+{
+  "name": "tester-army--e2e",
+  "displayName": "e2e",
+  "description": "Next generation e2e testing framework for web and mobile apps.",
+  "version": "1.0.0",
+  "author": "tester-army",
+  "homepage": "https://github.com/tester-army/e2e",
+  "skills": []
+}
