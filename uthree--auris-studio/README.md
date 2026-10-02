@@ -7,11 +7,11 @@ A DAW for the AI ​​Era
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [uthree/auris-studio](https://github.com/uthree/auris-studio).
+Original source: `AGENTS.md` in [uthree/auris-studio](https://github.com/uthree/auris-studio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
