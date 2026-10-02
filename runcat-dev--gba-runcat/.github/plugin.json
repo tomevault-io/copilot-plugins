@@ -1,0 +1,9 @@
+{
+  "name": "runcat-dev--gba-runcat",
+  "displayName": "gba-runcat",
+  "description": "RunCat endless game for GBA",
+  "version": "1.0.0",
+  "author": "runcat-dev",
+  "homepage": "https://github.com/runcat-dev/gba-runcat",
+  "skills": []
+}
