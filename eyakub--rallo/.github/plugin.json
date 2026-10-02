@@ -1,0 +1,9 @@
+{
+  "name": "eyakub--rallo",
+  "displayName": "Rallo",
+  "description": "A macOS desktop pet that keeps your notes and reminders in view and waves when your coding agent needs you. Local only, CLI first.",
+  "version": "1.0.0",
+  "author": "Eyakub",
+  "homepage": "https://github.com/Eyakub/Rallo",
+  "skills": []
+}
