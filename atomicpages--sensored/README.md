@@ -7,11 +7,11 @@ A free streaming-first open-source redaction toolit
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [atomicpages/sensored](https://github.com/atomicpages/sensored).
+Original source: `AGENTS.md` in [atomicpages/sensored](https://github.com/atomicpages/sensored).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
