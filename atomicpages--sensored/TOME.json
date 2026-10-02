@@ -4,7 +4,7 @@
   "repo": "sensored",
   "description": "A free streaming-first open-source redaction toolit",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atomicpages/sensored",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T05:03:51Z"
+  "distributed_at": "2026-10-02T07:48:45Z"
 }
