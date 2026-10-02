@@ -4,7 +4,7 @@
   "repo": "BP-Decomp_Workflow",
   "description": "The orchestration repository for the Burnout 5 / Burnout Paradise decompilation. Includes tools, IDA databases, and reference files to assist agentic reconstruction of the game's C++ source code.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BurnoutDecomp/BP-Decomp_Workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T10:02:32Z"
+  "distributed_at": "2026-10-02T13:59:56Z"
 }
