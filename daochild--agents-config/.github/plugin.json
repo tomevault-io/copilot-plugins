@@ -1,0 +1,9 @@
+{
+  "name": "daochild--agents-config",
+  "displayName": "agents-config",
+  "description": "Agents config for development",
+  "version": "1.0.0",
+  "author": "daochild",
+  "homepage": "https://github.com/daochild/agents-config",
+  "skills": []
+}
