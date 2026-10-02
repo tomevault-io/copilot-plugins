@@ -1,0 +1,9 @@
+{
+  "name": "zenzig--agent-thread-tools",
+  "displayName": "agent-thread-tools",
+  "description": "Health checks, handoffs, and archives for Claude Code and Codex sessions",
+  "version": "1.0.0",
+  "author": "zenzig",
+  "homepage": "https://github.com/zenzig/agent-thread-tools",
+  "skills": []
+}
