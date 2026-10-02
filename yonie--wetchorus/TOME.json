@@ -1,0 +1,44 @@
+{
+  "name": "WetChorus",
+  "owner": "yonie",
+  "repo": "WetChorus",
+  "description": "An open-source bucket-brigade stereo chorus modelled as the circuit in a 1970s solid-state guitar combo: drifting sweep, compander breathing, the noise left in. Free, MIT, VST3 and AU for Windows, macOS and Linux.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yonie/WetChorus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T02:52:12Z"
+}
