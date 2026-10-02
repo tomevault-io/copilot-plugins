@@ -1,0 +1,44 @@
+{
+  "name": "Ordo",
+  "owner": "Zeroska",
+  "repo": "Ordo",
+  "description": "An AI-powered intelligence analysis assistant built to support investigations, combining persistent memory with curated knowledge bases derived from my analytical methodology the more investigations it runs, the sharper it gets.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Zeroska/Ordo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T02:04:23Z"
+}
