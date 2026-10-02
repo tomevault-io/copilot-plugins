@@ -1,0 +1,9 @@
+{
+  "name": "ovilli--ravenswatchmodmanager",
+  "displayName": "RavenswatchModManager",
+  "description": "Mod manager and modding SDK for Ravenswatch install mods in one click, or build your own. Windows + Linux.",
+  "version": "1.0.0",
+  "author": "Ovilli",
+  "homepage": "https://github.com/Ovilli/RavenswatchModManager",
+  "skills": []
+}
