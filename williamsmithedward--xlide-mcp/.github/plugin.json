@@ -1,0 +1,9 @@
+{
+  "name": "williamsmithedward--xlide-mcp",
+  "displayName": "xlide_mcp",
+  "description": "Read, write, analyze and test the VBA inside Excel, Word, PowerPoint and Access files, and edit the document around it. No Office installation needed.",
+  "version": "1.0.0",
+  "author": "WilliamSmithEdward",
+  "homepage": "https://github.com/WilliamSmithEdward/xlide_mcp",
+  "skills": []
+}
