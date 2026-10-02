@@ -7,11 +7,11 @@ ARK C2 by Zypheron: Speed · Stealth · Control. AI-native C2 for authorized red
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KKingZero/ARK](https://github.com/KKingZero/ARK).
+Original source: `CLAUDE.md` in [KKingZero/ARK](https://github.com/KKingZero/ARK).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
