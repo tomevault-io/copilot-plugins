@@ -1,0 +1,9 @@
+{
+  "name": "wizzardsk--pcee2-libretro",
+  "displayName": "pcee2-libretro",
+  "description": "PCEE2 \u2014 libretro core port of current PCSX2 (PlayStation 2 emulator)",
+  "version": "1.0.0",
+  "author": "WizzardSK",
+  "homepage": "https://github.com/WizzardSK/pcee2-libretro",
+  "skills": []
+}
