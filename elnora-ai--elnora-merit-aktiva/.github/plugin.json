@@ -1,0 +1,9 @@
+{
+  "name": "elnora-ai--elnora-merit-aktiva",
+  "displayName": "elnora-merit-aktiva",
+  "description": "Merit Aktiva accounting + Merit Palk payroll API \u2014 CLI and Claude Code plugin. Universal, config-driven.",
+  "version": "1.0.0",
+  "author": "Elnora-AI",
+  "homepage": "https://github.com/Elnora-AI/elnora-merit-aktiva",
+  "skills": []
+}
