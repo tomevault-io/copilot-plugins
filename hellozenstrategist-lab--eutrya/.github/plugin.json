@@ -1,0 +1,9 @@
+{
+  "name": "hellozenstrategist-lab--eutrya",
+  "displayName": "eutrya",
+  "description": "Jev-native AI security harness for autonomous research, multi-agent swarms, persistent hunt boards, and long-running agent workflows. CLI-first, open source, and built for authorized security research",
+  "version": "1.0.0",
+  "author": "hellozenstrategist-lab",
+  "homepage": "https://github.com/hellozenstrategist-lab/eutrya",
+  "skills": []
+}
