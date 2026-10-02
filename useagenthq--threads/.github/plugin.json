@@ -1,0 +1,9 @@
+{
+  "name": "useagenthq--threads",
+  "displayName": "threads",
+  "description": "Agents you can inspect, replay and trust. An agent framework for TypeScript and Python, built on an append-only event log.",
+  "version": "1.0.0",
+  "author": "useagenthq",
+  "homepage": "https://github.com/useagenthq/threads",
+  "skills": []
+}
