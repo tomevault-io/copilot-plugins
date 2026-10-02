@@ -1,0 +1,44 @@
+{
+  "name": "jiandao",
+  "owner": "Xuanwo",
+  "repo": "jiandao",
+  "description": "\u7b80\u9053\u7ffb\u8bd1\uff1a\u628a\u4f60\u6b63\u5728\u8bfb\u7684\u7f51\u9875\u7ffb\u8bd1\u6210\u4f60\u7684\u8bed\u8a00\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Xuanwo/jiandao",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T23:32:11Z"
+}
