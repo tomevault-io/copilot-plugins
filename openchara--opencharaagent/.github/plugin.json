@@ -1,0 +1,9 @@
+{
+  "name": "openchara--opencharaagent",
+  "displayName": "OpenCharaAgent",
+  "description": "An open source AI roleplay agent harness. One click builds an autonomous character agent that creates with you. Websites, code, music, videos, drawings, stories. Runs any SillyTavern card, deploys in ",
+  "version": "1.0.0",
+  "author": "OpenChara",
+  "homepage": "https://github.com/OpenChara/OpenCharaAgent",
+  "skills": []
+}
