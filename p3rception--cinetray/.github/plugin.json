@@ -1,0 +1,9 @@
+{
+  "name": "p3rception--cinetray",
+  "displayName": "CineTray",
+  "description": "Movies, shows and music from your media servers and your own folders, in the macOS menu bar.",
+  "version": "1.0.0",
+  "author": "p3rception",
+  "homepage": "https://github.com/p3rception/CineTray",
+  "skills": []
+}
