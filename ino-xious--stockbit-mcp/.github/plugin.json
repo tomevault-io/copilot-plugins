@@ -1,0 +1,9 @@
+{
+  "name": "ino-xious--stockbit-mcp",
+  "displayName": "stockbit-mcp",
+  "description": "Model Context Protocol (MCP) server for Stockbit (Indonesian / IDX market) \u2014 broker summary / bandarmology, quotes, top movers, orderbook, fundamentals, sentiment, your portfolio, and your real chart.",
+  "version": "1.0.0",
+  "author": "INo-xious",
+  "homepage": "https://github.com/INo-xious/stockbit-mcp",
+  "skills": []
+}
