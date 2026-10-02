@@ -7,11 +7,11 @@ KAI Resource Management is an open source Kubernetes-native resource management 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kai-scheduler/kai-resource-management](https://github.com/kai-scheduler/kai-resource-management).
+Original source: `CLAUDE.md` in [kai-scheduler/kai-resource-management](https://github.com/kai-scheduler/kai-resource-management).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
