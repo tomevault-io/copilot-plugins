@@ -1,0 +1,9 @@
+{
+  "name": "google--lightflow",
+  "displayName": "lightflow",
+  "description": "Lightweight, local-first Python DAG workflow compiler and execution engine with human-in-the-loop checkpoints for CLI and AI-agent workflows.        ",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/lightflow",
+  "skills": []
+}
