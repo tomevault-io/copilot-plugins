@@ -4,7 +4,7 @@
   "repo": "braindance",
   "description": "Volumetric capture and non-linear editing for the Kinect v2: record what a depth sensor saw, then fly a camera through the recording afterwards.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/totally-tim/braindance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T05:38:14Z"
+  "distributed_at": "2026-10-02T08:26:32Z"
 }
