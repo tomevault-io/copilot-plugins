@@ -4,7 +4,7 @@
   "repo": "trading-terminal",
   "description": "Pairlens is an AI-native, feature rich trading terminal. Free, local-first and source-available.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Pairlens/trading-terminal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T05:43:13Z"
+  "distributed_at": "2026-10-02T08:35:04Z"
 }
