@@ -1,0 +1,9 @@
+{
+  "name": "pairlens--trading-terminal",
+  "displayName": "trading-terminal",
+  "description": "Pairlens is an AI-native, feature rich trading terminal. Free, local-first and source-available.",
+  "version": "1.0.0",
+  "author": "Pairlens",
+  "homepage": "https://github.com/Pairlens/trading-terminal",
+  "skills": []
+}
