@@ -1,0 +1,9 @@
+{
+  "name": "mstcgalis--scratchpad-launcher",
+  "displayName": "scratchpad-launcher",
+  "description": "A minimal Android launcher with an always-visible scratchpad. Fork of Olauncher.",
+  "version": "1.0.0",
+  "author": "mstcgalis",
+  "homepage": "https://github.com/mstcgalis/scratchpad-launcher",
+  "skills": []
+}
