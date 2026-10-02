@@ -7,11 +7,11 @@ Multi-agent (LangGraph + Claude) app that turns an earnings call into a source-a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [suhaas/earnings-edge](https://github.com/suhaas/earnings-edge).
+Original source: `AGENTS.md` in [suhaas/earnings-edge](https://github.com/suhaas/earnings-edge).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
