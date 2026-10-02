@@ -1,0 +1,9 @@
+{
+  "name": "suhaas--earnings-edge",
+  "displayName": "earnings-edge",
+  "description": "Multi-agent (LangGraph + Claude) app that turns an earnings call into a source-attributed analyst brief: ingest - FinBERT tone + KPI-vs-consensus - SurpriseSignal - grounding check - delivery.",
+  "version": "1.0.0",
+  "author": "suhaas",
+  "homepage": "https://github.com/suhaas/earnings-edge",
+  "skills": []
+}
