@@ -4,7 +4,7 @@
   "repo": "convoai-jev-vad",
   "description": "Jev VAD: client-side turn detection for Agora Conversational AI \u2014 manual SoS/EoS and semantic barge-in judged by TypeSafe Jev",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgoraIO-Community/convoai-jev-vad",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T10:25:14Z"
+  "distributed_at": "2026-10-02T14:15:29Z"
 }
