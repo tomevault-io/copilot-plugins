@@ -1,0 +1,9 @@
+{
+  "name": "yuanpingsong--embassy",
+  "displayName": "embassy",
+  "description": "Claude Code sessions and Codex CLI agents message one another by name, on one Mac or across your Macs over SSH. Native wake, receipts for every delivery.",
+  "version": "1.0.0",
+  "author": "YuanpingSong",
+  "homepage": "https://github.com/YuanpingSong/embassy",
+  "skills": []
+}
