@@ -4,7 +4,7 @@
   "repo": "trellis",
   "description": "Keep growing TypeScript codebases maintainable. Trellis measures complexity, duplication, and import cycles, pinpoints structural debt, and tracks regressions offline.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jayminwest/trellis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T08:30:27Z"
+  "distributed_at": "2026-10-02T12:48:19Z"
 }
