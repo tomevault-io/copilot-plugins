@@ -1,0 +1,9 @@
+{
+  "name": "foxrick--collie",
+  "displayName": "Collie",
+  "description": "Local-first, chat-first AI assistant for Windows.",
+  "version": "1.0.0",
+  "author": "FoxRick",
+  "homepage": "https://github.com/FoxRick/Collie",
+  "skills": []
+}
