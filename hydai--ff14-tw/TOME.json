@@ -1,0 +1,44 @@
+{
+  "name": "ff14.tw",
+  "owner": "hydai",
+  "repo": "ff14.tw",
+  "description": "\u7528\u4f86\u5b58\u653e ff14 \u76f8\u95dc\u5de5\u5177\u7684\u5730\u65b9",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hydai/ff14.tw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T16:37:33Z"
+}
