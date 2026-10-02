@@ -1,0 +1,9 @@
+{
+  "name": "telepath-computer--television",
+  "displayName": "television",
+  "description": "The missing GUI for personal agents. Television gives you and your agent a visual space for creating and working with artifacts. ",
+  "version": "1.0.0",
+  "author": "telepath-computer",
+  "homepage": "https://github.com/telepath-computer/television",
+  "skills": []
+}
