@@ -7,11 +7,11 @@ A monster editor for OpenTibia servers. Open a workspace, pick a monster, edit, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Coldensjo/MONx](https://github.com/Coldensjo/MONx).
+Original source: `CLAUDE.md` in [Coldensjo/MONx](https://github.com/Coldensjo/MONx).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
