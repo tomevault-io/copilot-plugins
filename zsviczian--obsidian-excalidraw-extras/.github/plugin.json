@@ -1,0 +1,9 @@
+{
+  "name": "zsviczian--obsidian-excalidraw-extras",
+  "displayName": "obsidian-excalidraw-extras",
+  "description": "Companion Obsidian.md plugin hosting extra add-on optional features for the main Excalidraw-Obsidian plugin",
+  "version": "1.0.0",
+  "author": "zsviczian",
+  "homepage": "https://github.com/zsviczian/obsidian-excalidraw-extras",
+  "skills": []
+}
