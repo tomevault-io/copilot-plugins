@@ -1,0 +1,9 @@
+{
+  "name": "mateodevv--shellhound",
+  "displayName": "Shellhound",
+  "description": "DFIR Tool for analysing compromised CMS-Systems / Webserver",
+  "version": "1.0.0",
+  "author": "Mateodevv",
+  "homepage": "https://github.com/Mateodevv/Shellhound",
+  "skills": []
+}
