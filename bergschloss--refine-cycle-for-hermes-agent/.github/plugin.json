@@ -1,0 +1,9 @@
+{
+  "name": "bergschloss--refine-cycle-for-hermes-agent",
+  "displayName": "Refine-Cycle-for-Hermes-Agent",
+  "description": "Self-improvement loop for Hermes Agent: reads its own trajectory, proposes and applies the smallest skill/memory edit (create/patch), journaled with rollback. /refine command, refine_run tool, on_sess",
+  "version": "1.0.0",
+  "author": "Bergschloss",
+  "homepage": "https://github.com/Bergschloss/Refine-Cycle-for-Hermes-Agent",
+  "skills": []
+}
