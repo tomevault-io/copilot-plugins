@@ -1,0 +1,9 @@
+{
+  "name": "elflare--elbot",
+  "displayName": "elbot",
+  "description": "\"Let ElBot Feel Everything.\" ElBot is a lightweight Agent/Chatbot framework written in  Go, it's token-efficient, easy to manage, and capable of perceiving the world.",
+  "version": "1.0.0",
+  "author": "Elflare",
+  "homepage": "https://github.com/Elflare/elbot",
+  "skills": []
+}
