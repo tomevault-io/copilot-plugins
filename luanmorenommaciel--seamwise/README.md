@@ -7,11 +7,11 @@ A seam-first planning system that transforms project intent into explicit swim l
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [luanmorenommaciel/seamwise](https://github.com/luanmorenommaciel/seamwise).
+Original source: `CLAUDE.md` in [luanmorenommaciel/seamwise](https://github.com/luanmorenommaciel/seamwise).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
