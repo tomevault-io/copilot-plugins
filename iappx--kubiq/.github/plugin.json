@@ -1,0 +1,9 @@
+{
+  "name": "iappx--kubiq",
+  "displayName": "kubiq",
+  "description": "Desktop Kubernetes console - dense live tables, logs, shells, port forwards, Helm and Argo CD in one native window. Built with Wails 3, Go and Vue 3.",
+  "version": "1.0.0",
+  "author": "iappx",
+  "homepage": "https://github.com/iappx/kubiq",
+  "skills": []
+}
