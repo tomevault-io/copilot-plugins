@@ -1,0 +1,9 @@
+{
+  "name": "gilf--prompt-chain",
+  "displayName": "prompt-chain",
+  "description": "Browser-native AI agent runner. Leverages Prompt API for local, private inference and modular skills.",
+  "version": "1.0.0",
+  "author": "gilf",
+  "homepage": "https://github.com/gilf/prompt-chain",
+  "skills": []
+}
