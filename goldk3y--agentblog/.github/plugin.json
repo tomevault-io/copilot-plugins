@@ -1,0 +1,9 @@
+{
+  "name": "goldk3y--agentblog",
+  "displayName": "agentblog",
+  "description": "A production blog for Next.js that AI search engines can actually read. Installed with one command, with an agent layer that knows how to write for it.",
+  "version": "1.0.0",
+  "author": "goldk3y",
+  "homepage": "https://github.com/goldk3y/agentblog",
+  "skills": []
+}
