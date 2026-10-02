@@ -1,0 +1,9 @@
+{
+  "name": "karuhun-developer--ecommerce",
+  "displayName": "ecommerce",
+  "description": "A modern, multi-shop e-commerce platform built with Laravel 13, Livewire 4, and Flux UI. Includes integrated Midtrans payments and Biteship shipping.",
+  "version": "1.0.0",
+  "author": "karuhun-developer",
+  "homepage": "https://github.com/karuhun-developer/ecommerce",
+  "skills": []
+}
