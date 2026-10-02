@@ -1,0 +1,9 @@
+{
+  "name": "lazarusa--octant",
+  "displayName": "octant",
+  "description": "An interactive viewer for n-dimensional datasets with native support for local and cloud object storage, Zarr, and Icechunk. Built in Rust with GPU-accelerated rendering. \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "lazarusA",
+  "homepage": "https://github.com/lazarusA/octant",
+  "skills": []
+}
