@@ -1,0 +1,9 @@
+{
+  "name": "fran0220--gpui-box",
+  "displayName": "gpui-box",
+  "description": "Independent GPUI framework distribution and product-neutral component kit for native and browser Rust interfaces",
+  "version": "1.0.0",
+  "author": "fran0220",
+  "homepage": "https://github.com/fran0220/gpui-box",
+  "skills": []
+}
