@@ -1,0 +1,9 @@
+{
+  "name": "feplus2--books-converter",
+  "displayName": "Books_Converter",
+  "description": "Turn scanned book PDFs into real ebooks: nested TOC, clickable footnotes, MathML formulas, optional full-book translation (cloud OCR, no GPU needed)",
+  "version": "1.0.0",
+  "author": "Feplus2",
+  "homepage": "https://github.com/Feplus2/Books_Converter",
+  "skills": []
+}
