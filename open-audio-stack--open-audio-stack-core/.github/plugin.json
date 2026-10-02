@@ -1,0 +1,9 @@
+{
+  "name": "open-audio-stack--open-audio-stack-core",
+  "displayName": "open-audio-stack-core",
+  "description": "Common package shared across Open Audio Stack compatible registries, command-line tools, apps and websites for handling installing DAW VST plugin dependencies.",
+  "version": "1.0.0",
+  "author": "open-audio-stack",
+  "homepage": "https://github.com/open-audio-stack/open-audio-stack-core",
+  "skills": []
+}
