@@ -1,0 +1,9 @@
+{
+  "name": "moda-labs--bobi-agent",
+  "displayName": "bobi-agent",
+  "description": "Event-driven AI agent framework",
+  "version": "1.0.0",
+  "author": "moda-labs",
+  "homepage": "https://github.com/moda-labs/bobi-agent",
+  "skills": []
+}
