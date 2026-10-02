@@ -4,7 +4,7 @@
   "repo": "lantern",
   "description": " A terminal board for the conversations your coding agents leave behind \u2014 Claude Code and five more \u2014 grouped by what they are about, not by the folder they ran in. Resume any of them in place.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WildChildForLife/lantern",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-02T02:28:27Z"
+  "distributed_at": "2026-10-02T02:30:48Z"
 }
