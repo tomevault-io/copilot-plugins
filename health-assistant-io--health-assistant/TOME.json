@@ -1,0 +1,44 @@
+{
+  "name": "health-assistant",
+  "owner": "health-assistant-io",
+  "repo": "health-assistant",
+  "description": "Self-hosted, privacy-first health records. Bring labs, visits, medications, and wearable data into one place you control \u2014 with biomarker trends, an AI assistant that proposes but never writes, and privacy by default. Apache 2.0, Beta.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/health-assistant-io/health-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T13:54:05Z"
+}
