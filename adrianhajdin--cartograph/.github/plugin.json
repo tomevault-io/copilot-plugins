@@ -1,0 +1,9 @@
+{
+  "name": "adrianhajdin--cartograph",
+  "displayName": "cartograph",
+  "description": "Cartograph turns any GitHub repo into an interactive dependency map by parsing real code to analyze structure, trace imports, calculate blast radius, and explain modules without AI guessing edges.",
+  "version": "1.0.0",
+  "author": "adrianhajdin",
+  "homepage": "https://github.com/adrianhajdin/cartograph",
+  "skills": []
+}
