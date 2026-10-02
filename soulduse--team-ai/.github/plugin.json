@@ -1,0 +1,9 @@
+{
+  "name": "soulduse--team-ai",
+  "displayName": "team-ai",
+  "description": "Multi-account relay and TUI for Claude Code and Codex CLI",
+  "version": "1.0.0",
+  "author": "soulduse",
+  "homepage": "https://github.com/soulduse/team-ai",
+  "skills": []
+}
