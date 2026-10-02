@@ -1,0 +1,44 @@
+{
+  "name": "telegram-cloud-control",
+  "owner": "DuanNaiSheQu",
+  "repo": "telegram-cloud-control",
+  "description": "Telegram \u591a\u8d26\u53f7\u4e91\u63a7\u5e73\u53f0\uff1aFastAPI API + Worker \u79df\u7ea6\u8c03\u5ea6 + React \u63a7\u5236\u53f0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DuanNaiSheQu/telegram-cloud-control",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T15:39:02Z"
+}
