@@ -1,0 +1,9 @@
+{
+  "name": "etkramer--bmeditor",
+  "displayName": "BmEditor",
+  "description": "Custom UE3-based editor for Rocksteady's Arkham City",
+  "version": "1.0.0",
+  "author": "etkramer",
+  "homepage": "https://github.com/etkramer/BmEditor",
+  "skills": []
+}
