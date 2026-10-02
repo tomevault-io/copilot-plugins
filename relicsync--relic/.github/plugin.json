@@ -1,0 +1,9 @@
+{
+  "name": "relicsync--relic",
+  "displayName": "relic",
+  "description": "Relic is the open-source, end-to-end encrypted clipboard manager. Everything you ever copy, indexed by local AI, synced across Windows, macOS, Linux, Android, and iPhone, and searchable forever. Self-",
+  "version": "1.0.0",
+  "author": "RelicSync",
+  "homepage": "https://github.com/RelicSync/relic",
+  "skills": []
+}
