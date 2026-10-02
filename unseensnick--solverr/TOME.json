@@ -1,0 +1,44 @@
+{
+  "name": "Solverr",
+  "owner": "unseensnick",
+  "repo": "Solverr",
+  "description": "Cloudflare & DDoS-GUARD bypass proxy that fuses FlareSolverr's Chrome engine with Byparr's Camoufox engine, adding automatic fallback and idle-session cleanup. Speaks the FlareSolverr /v1 API.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/unseensnick/Solverr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-02T03:39:35Z"
+}
