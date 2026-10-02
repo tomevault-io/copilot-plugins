@@ -7,11 +7,11 @@ DesktopPet with custom VRM support and compatible with Openai Response api.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yw0nam/YUI](https://github.com/yw0nam/YUI).
+Original source: `AGENTS.md` in [yw0nam/YUI](https://github.com/yw0nam/YUI).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
