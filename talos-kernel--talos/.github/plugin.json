@@ -1,0 +1,9 @@
+{
+  "name": "talos-kernel--talos",
+  "displayName": "Talos",
+  "description": "Open-source, self-hosted AI agent for terminal and Telegram. Ollama local models, Claude/Codex workers, a deterministic permission kernel, scoped approvals and an audit trail.",
+  "version": "1.0.0",
+  "author": "talos-kernel",
+  "homepage": "https://github.com/talos-kernel/Talos",
+  "skills": []
+}
