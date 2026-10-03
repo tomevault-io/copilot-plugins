@@ -7,11 +7,11 @@ A Three.js (TSL / WebGPU) port of OpenDLSS-NR, the open-source reimplementation 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bhouston/three-dlss-nr](https://github.com/bhouston/three-dlss-nr).
+Original source: `CLAUDE.md` in [bhouston/three-dlss-nr](https://github.com/bhouston/three-dlss-nr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
