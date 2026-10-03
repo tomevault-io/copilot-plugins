@@ -1,0 +1,9 @@
+{
+  "name": "mateovalle--agent-campus",
+  "displayName": "agent-campus",
+  "description": "A pixel-art mission control for your Claude Code agents \u2014 every project is an office, every agent is a character",
+  "version": "1.0.0",
+  "author": "mateovalle",
+  "homepage": "https://github.com/mateovalle/agent-campus",
+  "skills": []
+}
