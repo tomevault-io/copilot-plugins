@@ -4,7 +4,7 @@
   "repo": "uxml-preview",
   "description": "Preview Unity UI Toolkit UXML/USS without the Editor. Yoga: 660/676 coords match Unity 6. Renders Template/Instance screens and flags element-name typos Unity ignores. Byte-exact round trips.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ReuHomi/uxml-preview",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T01:53:46Z"
+  "distributed_at": "2026-10-03T03:01:43Z"
 }
