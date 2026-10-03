@@ -1,0 +1,9 @@
+{
+  "name": "christopherowen--dgx-spark-memory-saver",
+  "displayName": "dgx-spark-memory-saver",
+  "description": "Recover usable memory on DGX Spark with a 64 KiB kernel: an opt-in NVIDIA UVM page-table packing patch, build tools, and measured validation.",
+  "version": "1.0.0",
+  "author": "christopherowen",
+  "homepage": "https://github.com/christopherowen/dgx-spark-memory-saver",
+  "skills": []
+}
