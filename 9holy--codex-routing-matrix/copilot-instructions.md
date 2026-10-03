@@ -1,0 +1,18 @@
+## codex-routing-matrix
+
+> - Routing decisions live in `plugins/codex-routing-matrix/references/ROUTING_MATRIX.md`; the skill specifies invocation and `routing-policy.json` specifies mechanical contracts. Keep each concern in one place.
+
+# Codex Routing Matrix Maintenance
+
+- Routing decisions live in `plugins/codex-routing-matrix/references/ROUTING_MATRIX.md`; the skill specifies invocation and `routing-policy.json` specifies mechanical contracts. Keep each concern in one place.
+- Use `gpt-6-astra`, `gpt-6-sol`, `gpt-6.1-sol`, and `gpt-6-luna`. Keep the current Lead and its chosen effort. New Sol worker and Reviewer runs use `gpt-6.1-sol`; preserve an already-running `gpt-6-sol` Lead. Luna uses Max; `sol_medium_worker` keeps its compatible name and explicitly selects High by default, Medium for bounded light work, XHigh for complex independent work, or Max only for difficult bounded work expected to exceed XHigh and worth delegating; Astra Low is selective; Sol Reviewer stays read-only XHigh.
+- Write concise outcome and boundary instructions. Read relevant context and run sufficient checks without forcing unrelated reads or tests.
+- Preserve quality-first, minimum-total-cost routing: reuse capable agents with relevant context; Luna Max for bounded work it can reliably complete, including analysis, implementation, debugging, and tests. Never use Luna as a trial or rely on Lead to rescue poor fit. Use Sol High by default, Medium for bounded light work, or XHigh for complex independent work. Choose Sol Max upfront only when a difficult bounded unit is expected to exceed XHigh and delegation has net value; if XHigh is capable, do not use Max. Select Astra Low only for a clear quality or total-cost benefit, not by assuming it is stronger than Sol XHigh. Never build an automatic effort ladder.
+- Keep normal delegation proportional to useful independent work. Preserve Super mode's four levels, 25-child ceiling, capacity continuation and installation recovery.
+- Run focused checks after edits. For release, run `scripts/package.ps1` under the plugin once; it already verifies source and extracted archive. Do not precede it with the same full suite.
+- Treat static prompt checks as contract checks, not proof of model quality or real dispatch. Report runtime checks separately.
+- Do not edit plugin caches directly or stage local marketplace installation metadata. Install from the updated source using the supported plugin workflow.
+
+---
+> Source: [9holy/codex-routing-matrix](https://github.com/9holy/codex-routing-matrix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-02 -->
