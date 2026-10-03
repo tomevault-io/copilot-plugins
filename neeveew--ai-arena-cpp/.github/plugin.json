@@ -1,0 +1,9 @@
+{
+  "name": "neeveew--ai-arena-cpp",
+  "displayName": "AI-Arena-CPP",
+  "description": "Native Windows app for conversations with local and external AI models. C++ 0.0.5 alpha.",
+  "version": "1.0.0",
+  "author": "neeveew",
+  "homepage": "https://github.com/neeveew/AI-Arena-CPP",
+  "skills": []
+}
