@@ -1,0 +1,9 @@
+{
+  "name": "nathan-poncet--herdr-fingers",
+  "displayName": "herdr-fingers",
+  "description": "\ud83d\udc49 tmux-fingers for Herdr \u2014 type a short hint to copy, paste or open any path, URL, hash or number on screen. Rust, Clean Architecture.",
+  "version": "1.0.0",
+  "author": "nathan-poncet",
+  "homepage": "https://github.com/nathan-poncet/herdr-fingers",
+  "skills": []
+}
