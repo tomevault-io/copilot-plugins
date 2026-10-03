@@ -1,33 +1,93 @@
-## bakable-and-layeredfs
+## clock-confirm-ui-localization
 
-> Bake/CIA is the ship path (first). Azahar LayeredFS is the emulator mirror (second). Both required; never Azahar-only.
+> Session notes for clock confirm UI, Options chrome, and related softkeys. Read before retrying related patches.
 
 
-# Bake first, then LayeredFS
+# Clock confirm + Options UI localization
 
-Gold bake / Drop CIA is the **ship path**. Azahar LayeredFS is the emulator test mirror. Do **both**, in that order. A playable patch is unfinished if it only lands in one.
+Goal: localize NLPP (`00040000000F4E00`) chrome that stayed Japanese while TRB EN worked.
 
-| Path | What “done” means |
-|------|-------------------|
-| **Bake / CIA (first)** | Drop CIA injects it. `code.bin` → `deploy_name_input_en.py` → `release/name_input_code.bin`. `img.bin` chrome → `tools/deploy_*_en.py` hooked from `rebuild_bake_img.py`. TRB → `release/textresource/` + `release/romfs_overlay/` via `rebuild_main_trb` / `sync_trb_overlay`. Copying a TRB into Azahar mods is **not** a bake. |
-| **LayeredFS (second)** | Apply to live Azahar mods (`%AppData%\Azahar\load\mods\00040000000F4E00\` or `NLPP_AZAHAR_USER_DIR`). `exefs/code.bin` and/or `romfs/img.bin` as appropriate. `--deploy-azahar` or the feature `deploy_*` script. Backup `*.bak_pre_<feature>`. |
+Chosen approach: **targeted RE / romhack** (not custom Azahar textures as the long-term fix).
 
-## Do
+## Paths
 
-- Land the change on the **current CIA branch** (`translations.json`, overlay TRB, bake hook) **before** (or with) the Azahar copy. Do not leave a fix only on another ticket branch.
-- Hook bake **and** offer a LayeredFS deploy in the same change (Message Speed: `patch_message_speed.py` in `deploy_name_input_en.py` **and** `--deploy-azahar`).
-- If LayeredFS `code.bin` / `img.bin` is missing, say so; still wire the bake. Do not skip bake because Azahar is unset.
-- After `code.bin` edits: rebuild `name_input_code.bin` (`rebuild_bake_img.py --skip-pack` is enough when the bake stamp already matches).
-- After TRB edits: rebuild overlay (`deploy_name_kanji_trb.py` → `release/textresource/` + `sync_trb_overlay`). The next Drop CIA is what hardware sees.
+| Role | Path |
+|------|------|
+| Game dump | `New Love Plus Plus` (this repo) |
+| EngPatcher | `../NewLovePlusPlusEngPatcher` |
+| Azahar mods | `%AppData%\Azahar\load\mods\00040000000F4E00\` |
+| Texture dumps | `%AppData%\Azahar\dump\textures\00040000000F4E00\` |
+| Ghidra | `code.bin`, image base `0`; runtime VA ≈ file + `0x100000` |
+| MCP | `user-ghidra` |
 
-## Don’t
+**Critical:** never full-rewrite `img.bin`. Same-offset splice only. Never splice with bak as img base (wipes live EN) — see `img-exact-zlib-deploy`.
 
-- Azahar-only LayeredFS as the ship path (no CIA inject) — banned; see `from-scratch-bake`.
-- Stop after `--deploy-azahar` / instance A copy and call the patch baked.
-- Bake-only with no LayeredFS apply path (untestable in the emulator loop).
-- Assume an existing `release/name_input_code.bin` already contains a new `code.bin` patch — bake **deletes and rewrites** it from vanilla.
+## Verified softkeys @ NCommonIcon **5238**
 
-Details: `docs/technical.md` §15.5 (bake) and §21 (Message Speed example).
+| UI | BCLIM | EN |
+|----|--------|-----|
+| Back `戻る` | `Com_btn_m01_b` (+ ON) | Back |
+| Next `次へ` | `Com_btn_t01_b` (+ ON) | Next |
+| Confirm `決定` | `Com_btn_k01_b` (+ ON) | OK |
+| Quit `やめる` | `Com_btn_y01_b` (+ ON) | Quit |
+| Restore Default `初期設定` | `Com_btn_sy01_b` / `_a` | Restore Default |
+
+ETC1A4. Shared across screens. Deploy Confirm: `tools/deploy_confirm_btn_en.py`. Deploy Quit: `tools/deploy_softkey_quit_en.py`. Deploy Defaults chip: `tools/deploy_softkey_defaults_en.py` (Zhoumaru; last-writer on **5238**).
+
+## Options + clock title @ NCommonMSel **5245** (A8)
+
+**Not DrawText. Not MyroomHeader `optn_tex_*`.**
+
+| Asset | EN |
+|-------|-----|
+| `Plate_Text03_00_00` | Options |
+| `Btn/Plate_Text03_01` | Display Settings |
+| `Btn/Plate_Text03_02` | Sound Settings |
+| `Btn_Text04_04` / `Btn_Text03_05` | Network / Password |
+| `Plate_Text03_06_00` / `_01` | 3DS System Clock |
+
+Ghidra: `OptionMenu_BindBtnTextures` `001eb3dc`, `BindMSelBtnIconAndText` `0020ad74`, `OptionMenu_BindPlateTextures` `0020bcc0` (slot 6 = clock).
+
+Deploy: `tools/deploy_msel_options_en.py` (splice into **live** MOD).
+
+In-room overlay `オプションメニュー` (girl’s room, gear header + Display/Sound pills) is **not** this list. That chrome is ETC1A4 `optn_tex_*` @ Myroom **5380** + MyroomHeader **5575** — Zhoumaru; `tools/deploy_myroom_options_en.py`.
+
+## Password entry window @ **5251** (ETC1A4)
+
+**Not DrawText. Not TRB.** `Lyt_Pass_Info_Display` / `Pts_Pass_Display` are pic panes only.
+
+| Asset | EN |
+|-------|-----|
+| `Pass_Win01` | Password (Zhoumaru; baked into the window) |
+| MultiWin `Text03_05_00` @ **5237** | Password Input (Zhoumaru; `FUN_00255a18` idx 0x1f — not the Options password screen) |
+| `Plate_Text03_05_00` @ **5245** | Password Input (Zhoumaru A8; Options `パスワード入力` header) |
+
+Deploy: `tools/deploy_optionpassword_en.py` (vanilla extract → exact-zlib → splice live) plus `deploy_msel_options_en.py` for the header. Options list row remains **5245** `Btn_Text03_05`.
+
+## Option panels @ **5247**
+
+| Asset | EN |
+|-------|-----|
+| `Opt_TxtItem_Help` / `Message` | Help Display / Message Speed |
+| `Opt_HelpBtn_A_*` / `B_*` | Every Time / Once (**not** Defaults) |
+| `Opt_txtItem_{SE,VOICE,MIC}` | SE / Voice / Mic Sensitivity |
+
+Deploy: `tools/deploy_display_settings_en.py`. Floating `初期設定` is **5238** `Com_btn_sy01` (Zhoumaru Restore Default).
+
+## Do not repeat
+
+1. OptionClock / SysPopup for square Back/Next.
+2. TRB-only for confirm/Options chrome.
+3. Contiguous string hunt for `３ＤＳ本体時計`.
+4. Global MakeStr / `pe` grow / NUL-pad zlib / bak→MOD wipe.
+5. EN over JP without full A8 canvas clear.
+6. Per-byte zopfli fine-tune loops on large ARCs (hang).
+7. Labeling `Opt_HelpBtn_*` as Defaults.
+
+## Open
+
+1. Shorten overflowing To-Do TRB titles (STRI 2837 etc.).
+2. Bake verified LayeredFS into CIA.
 
 ---
 > Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
