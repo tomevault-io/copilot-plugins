@@ -1,41 +1,60 @@
-## read-docs-first
+## ui-localization-method
 
-> Always read existing NLPP RE docs/rules before rediscovering; prevents starting from scratch.
+> How to localize NLPP UI chrome — texture vs TRB vs DrawText decision tree.
 
 
-# Read existing work first
+# UI localization method
 
-Before reverse-engineering UI, patching `img.bin`/`code.bin`/TRB, or “searching for the Japanese string again”:
+When a screen stays Japanese despite EN TRB:
 
-1. Read **`docs/technical.md`** (this repo and/or `../NewLovePlusPlusEngPatcher/docs/technical.md`) — addresses, BCLIM quirks, TRB/INDX, softkeys, dead ends, §13.3 third-party stack.
-2. Skim Cursor rules:
-   - `nlpp-repo-workflow` — how to pack/deploy/address-convert; **gold bake / Drop CIA (§15.5)**
-   - `from-scratch-bake` — real-3DS ship path: Drop CIA / `rebuild_bake_img.py --rom`; name-input caves in `.text`
-   - `bakable-and-layeredfs` — every playable patch: gold bake/CIA **and** Azahar LayeredFS deploy
-   - `clock-confirm-ui-localization` — clock + Options + Confirm softkeys (5245 / 5238 / 5247 / 5248)
-   - `ui-localization-method` — texture vs TRB vs DrawText decision tree
-   - `zhoumaru-ui-pack` — Zhoumaru community EN UI PNGs (`*.check/timg`); **CESA is not in that pack**
-   - `azahar-test-workflow` — a/b instances; **OpenLinkFile** Communications load hang + Game Start parent-archive hang (`docs/technical.md` §10.1–§10.2)
-   - `img-exact-zlib-deploy` — exact-length zlib/zopfli splice; **never bak→MOD wipe**
-   - `ghidra-mcp` — Ghidra usage + Options bind APIs
-   - `patch-safety` — hard bans
-3. Check `out/msel5245_en/`, `out/confirm_btn_en/`, `out/options_tex_extract/`, `out/clock_recheck/`, and `assets/images/*.check/` before re-extracting packages.
+## Decision tree
 
-**Do not** re-run full romfs string hunts for `３ＤＳ本体時計` / `本体時計` — absent as text; title is A8 BCLIM @ pkg **5245** (see `docs/technical.md` §§9, 12.4–12.5).
+1. **GPU-dump the visible chrome** (Azahar texture dump). Note W×H and whether RGB is empty (alpha text) vs full color (baked button).
+2. **If opaque/colored control (softkey, icon label):** pixel-match BCLIM in `img.bin` packages → EngPatcher PNG → same-size splice. TRB edits won’t change it.
+3. **If alpha-only text that survives a DrawText nuclear remap:** still a **BCLIM** (often A8 `Com_M_Sel_*_Text*`). Trace filename in Ghidra → bind fn → package. Do **not** assume DrawText.
+4. **If true runtime DrawText** (help/error, some titles): `DrawTextToPane` / MakeStr. Nuclear test: force all DrawText → if chrome stays JP, it’s textures.
+5. **If list/quest titles already EN but overflow the capsule:** TRB string too long — **shorten the EN string** (pane font size is global). Example: To-Do STRI **2837** `Girlfriend's Personal Photographer` → shorter synonym (`Personal Photographer`). Pack `0x0600` slot 22; `translations.json` + `patch_textresource.py`.
+6. **If TRB already EN for the same words:** wrong path (different asset or runtime buffer). Stop re-translating those keys.
+7. **If `translations.json` has EN but the screen is still the full JP sentence:** dump vanilla TRB and compare keys. A truncated JSON key (cut mid-phrase, e.g. `…デートを作` vs `…デートを作成してください。`) never matches, so rebuild keeps JP. Fix the **full** codebook string, then `deploy_name_kanji_trb.py`. Example: Anywhere Date empty list STRI **25183**.
+8. **If an ETC1A4 MultiWin 192×16 bar looks fried / pixel-y:** it is a **BCLIM**, not TRB. Zhoumaru stem may be the wrong file (Network) or an 8px strip. Full EN that is 2× Communication’s width cannot keep ~13px cores — shorten the **bar** copy (Girlfriend Comm. → **Heart to Heart**, `docs/technical.md` §12.4.1). Do not LANCZOS-fill a plate onto this bar.
+9. **If the Main Menu hub header is colorful tiled noise** (rows still EN): BCLIM `Title_menu_word` @ **5261** `Pts_Title_menu`, not TRB. Zhoumaru `.check` dump had swizzled RGB (alpha still “Main Menu”). Encode gray “Main Menu” with the hub-label RGBA4444 path. Split RGB vs alpha before packing GPU dumps. `docs/technical.md` **§15.1.1**.
+10. **If RGB565 yellow-key labels look deep-fried next to an A8 header / RGBA4444 button:** not word count. Vanilla uses chroma ramps (~17 colors). 1-bit crush is the fry. 2× Heisei, lerp plate→ink, quantize to the JP palette — **§12.4.4**.
 
-**Do not** treat RomFS `textresource_resident_jpn.trb` as a runtime TextResource — unused leftover; live TOP blob is **img.bin pkg 5508** (`nlpp-repo-workflow` TextResource section). Pending collaborator notes (pre-merged / ~30k→45–50k / ID→text table) live there as **unverified** — don’t promote to fact until checked.
+## Verify identity before patching
 
-**Do not** rediscover NCommonIcon `Com_btn_m01_b` / `t01_b` as the clock Back/Next source — already verified EN (pkg 5238).
+- Prefer MAD≈0 against dumps over filename similarity (`OptionClock` ≠ confirm softkeys).
+- Confirm package with `image_map.py` + `ie`/`pe` unpack; check fmt via `bclimutil.parse_bclim`.
+- Shared softkeys (`Com_btn_*` in pkg **5238**) affect **all** screens — intentional for EN.
+- Prefer Ghidra ascii anchors (`OptionMenu_BindBtnTextures`, `Com_M_Sel_Btn_Text03_*`) over guessing MyroomHeader `optn_tex_*`.
 
-**Do not** treat MyroomHeader `optn_tex_*` or DrawText as Options/clock menu chrome — wrong path.
+## Exact-zlib splice
 
-**Do not** treat a Communications loading spinner as broken extra data `00000F4E` or a bad pkg **5237** — Azahar `OpenLinkFile` must clone the subfile handle (`docs/technical.md` §10.1).
+See rule `img-exact-zlib-deploy`. Never grow PACK / NUL-pad short zlib / splice from bak over live.
 
-**Do not** treat an intermittent **Game Start** freeze (reset continues) as a CIA / `img.bin` / hardware bug — Azahar `OpenLinkFile` of the **parent** extra-data archive reports ~1.62 GiB quota (`subfile=false`); same `0x33373338` smash. Clone patch does not help. `docs/technical.md` **§10.2**.
+## Chrome status (2026-07-20)
 
-Prefer extending documented next steps over opening a fresh “find the string” investigation.
+| Screen | Pkg | Status |
+|--------|-----|--------|
+| Options + clock title | **5245** A8 | EN |
+| Password entry window | **5251** ETC1A4 | EN (`deploy_optionpassword_en.py`, Zhoumaru `Pass_Win01`) |
+| Password entry header | **5245** | EN (`Password Input` plate `Text03_05`) |
+| Display/Sound settings panels | **5247** RGBA4444 | EN (`deploy_display_settings_en.py`) |
+| Back/Next/Confirm/Quit | **5238** ETC1A4 | EN (`OK` for 決定, `Quit` for やめる) |
+| Gallery / Comm / Data MSel | 5244/5241/5242 | EN (GF Comm./Intro/Date rows `Btn_Text04_01_04..10` @ **5241**) |
+| Girlfriend Comm. white header `カノジョ通信` | **5237** ETC1A4 192×16 | **Heart to Heart** (`deploy_multiwin_headers_en.py`; skip Zhoumaru 8px strip). Full “Girlfriend Communication” fries this bar — **§12.4.1**. |
+| Myroom / My Data / Schedule hdr | **5380** / **5575** | EN |
+| Profile labels | 5246 + **5252** | EN header **Profile** is Heisei W5 16px strip like Heart to Heart (`deploy_profile_en.py`, **§12.4.2**). Call01/atlas labels are Heisei size 15 **2× AA** quantized to vanilla RGB565 chroma ramps (not 1-bit) — **§12.4.4**. Hometown chips `Profile_Btn_Com02_Text01..08` stay Zhoumaru, contain-fit to a 6px pill inset (**§12.4.3**). |
+| Profile Called list (`Win_Call01/02`) | `code.bin` | Leftover `づ` was pack **0x7000** slot `0x40` after a `*3` kana walk past ASCII NUL — not a label to translate. ASCII Called names draw the typed string (`patch_input_call_romaji.py`, **§17.8**). |
+| Status stats | **5501** / **5255** | EN |
+| To-Do chrome | 5575 / **5253** | EN; long TRB titles → shorten |
+| Floating `初期設定` Defaults | ETC1A4 `Com_btn_sy01_{a,b}` @ **5238** | EN (`Restore Default`) — Zhoumaru; `deploy_softkey_defaults_en.py` |
+| Message-speed sample line | `code.bin` `0x005D1928` | EN (`This is a text-speed test.`) + Options **14/8/2/0** + TalkWindow **10/18/22/28** + voice/script cap (`patch_message_speed.py`, §21) |
+| Extra-data recreate warning body | TRB STRI **4429** DrawText (`Tex_Sentence`) | EN in `translations.json` (not pkg **5237** `Com_Win_Warning` chrome) |
+| Anywhere Date empty list | TRB STRI **25183** DrawText (`Lyt_De0200` Opt_Win) | EN — full JP key; truncated `…デートを作` never matched |
+| Main Menu **header** `メインメニュー` | **5261** `Title_menu_word` RGBA4444 (`Pts_Title_menu`) | Render gray EN + RGBA4444 encode; Zhoumaru RGB dump garbled first hub show (**§15.1.1**) |
+| In-room Options overlay `オプションメニュー` | **5380** + **5575** ETC1A4 `optn_tex_*` | EN (`deploy_myroom_options_en.py`, Zhoumaru). Distinct from hub Options **5245**. |
 
-**Gold bake / Drop CIA (2026-09):** read `docs/technical.md` **§15.5–15.6** before diagnosing “names EN, menus JP” on a clean clone. `release/bake_img.bin` is **gitignored** — not in clone. Run `python -m pytest tests/ -v` after changing fetch/bat/inject logic.
+Details: `docs/technical.md` §12.4–12.6.
 
 ---
 > Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
