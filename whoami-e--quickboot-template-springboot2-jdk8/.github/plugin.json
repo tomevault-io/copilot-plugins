@@ -1,0 +1,9 @@
+{
+  "name": "whoami-e--quickboot-template-springboot2-jdk8",
+  "displayName": "quickboot-template-springboot2-jdk8",
+  "description": "QuickBoot \u2014\u2014 Spring Boot 2 + JDK8 \u591a\u6a21\u5757\u5feb\u901f\u5f00\u53d1\u811a\u624b\u67b6",
+  "version": "1.0.0",
+  "author": "Whoami-e",
+  "homepage": "https://github.com/Whoami-e/quickboot-template-springboot2-jdk8",
+  "skills": []
+}
