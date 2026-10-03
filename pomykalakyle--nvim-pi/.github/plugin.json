@@ -1,0 +1,9 @@
+{
+  "name": "pomykalakyle--nvim-pi",
+  "displayName": "nvim-pi",
+  "description": "Personal Neovim environment for the Pi coding agent",
+  "version": "1.0.0",
+  "author": "pomykalakyle",
+  "homepage": "https://github.com/pomykalakyle/nvim-pi",
+  "skills": []
+}
