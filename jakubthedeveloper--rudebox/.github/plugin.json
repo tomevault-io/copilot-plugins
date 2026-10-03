@@ -1,0 +1,9 @@
+{
+  "name": "jakubthedeveloper--rudebox",
+  "displayName": "RudeBox",
+  "description": "Single voice drum synthesizer, played with an external pad. Based on ESP32.",
+  "version": "1.0.0",
+  "author": "jakubthedeveloper",
+  "homepage": "https://github.com/jakubthedeveloper/RudeBox",
+  "skills": []
+}
