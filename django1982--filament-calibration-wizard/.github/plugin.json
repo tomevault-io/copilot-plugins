@@ -1,0 +1,9 @@
+{
+  "name": "django1982--filament-calibration-wizard",
+  "displayName": "Filament_Calibration_Wizard",
+  "description": "A tool to calibrate filaments in both Orca Slicer and Bambu Studios. For beginners to experts.",
+  "version": "1.0.0",
+  "author": "Django1982",
+  "homepage": "https://github.com/Django1982/Filament_Calibration_Wizard",
+  "skills": []
+}
