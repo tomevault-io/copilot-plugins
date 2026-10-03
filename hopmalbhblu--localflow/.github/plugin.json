@@ -1,0 +1,9 @@
+{
+  "name": "hopmalbhblu--localflow",
+  "displayName": "LocalFlow",
+  "description": "Automate your Windows and Mac PC with small Lua scripts: schedules, hotkeys, file and app triggers, Telegram remote control, AI and a gaming helper. Everything runs locally.",
+  "version": "1.0.0",
+  "author": "HoPMaLbHblu",
+  "homepage": "https://github.com/HoPMaLbHblu/LocalFlow",
+  "skills": []
+}
