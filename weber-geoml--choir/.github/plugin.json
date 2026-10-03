@@ -1,0 +1,9 @@
+{
+  "name": "weber-geoml--choir",
+  "displayName": "Choir",
+  "description": "An open protocol for distributed multi-agent autoformalization.",
+  "version": "1.0.0",
+  "author": "Weber-GeoML",
+  "homepage": "https://github.com/Weber-GeoML/Choir",
+  "skills": []
+}
