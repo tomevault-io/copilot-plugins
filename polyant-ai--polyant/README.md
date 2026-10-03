@@ -7,11 +7,11 @@ Open-source platform for building AI agents with long-term memory, multi-channel
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [polyant-ai/polyant](https://github.com/polyant-ai/polyant).
+Original source: `AGENTS.md` in [polyant-ai/polyant](https://github.com/polyant-ai/polyant).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
