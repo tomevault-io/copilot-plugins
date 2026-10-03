@@ -1,0 +1,9 @@
+{
+  "name": "jarocki--pivotglass",
+  "displayName": "pivotglass",
+  "description": "Pivotglass is an AI-augmented framework for hunting, pivoting, and discovering adversary infrastructure, indicators, and TTPs.",
+  "version": "1.0.0",
+  "author": "jarocki",
+  "homepage": "https://github.com/jarocki/pivotglass",
+  "skills": []
+}
