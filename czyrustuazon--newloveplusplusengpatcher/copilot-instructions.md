@@ -1,52 +1,54 @@
-## ghidra-mcp
+## img-exact-zlib-deploy
 
-> How to use user-ghidra MCP on NLPP code.bin without wasting turns.
+> Exact-length zlib/zopfli ARC splice rules for LayeredFS img.bin package deploys.
 
 
-# Ghidra MCP (`user-ghidra`)
+# Exact-zlib img.bin package deploy
 
-## Setup
+Same-offset package splice only. Compressed ARC `cmp_len` must stay fixed; stream length == slot with `unused_data == 0`.
 
-1. `GetDynamicTools` (`namespace: "user-ghidra"`) for schema before calling tools (`CallDynamicTool`).
-2. `list_open_programs` / `list_instances` + `connect_instance` if needed.
-3. Prefer current program `code.bin` (image base **0**).
+## Critical: never wipe live patches
 
-Headless and new projects use repo-root `ghidra_nlpp/` (`nlpp_paths.GHIDRA_PROJECT`). Do not pass `out/ghidra_nlpp`. Drop CIA deletes `out/`, and nothing in the patcher recreates a project there.
+```python
+# ❌ BAD — copies entire bak over LayeredFS img.bin (wipes later EN pkgs)
+splice_packages_into_img(bak_pre_msel5245, img_data, [5245], MOD_IMG)
 
-## Addresses
+# ✅ GOOD — patch ARC from vanilla pkg extract; splice into *live* MOD
+splice_packages_into_img(MOD_IMG, img_data, [5245], MOD_IMG)
+```
 
-- Ghidra file address ≈ offset in `extracted/exefs/code.bin`.
-- Runtime pointer in memory/data = **file + `0x100000`**.
-- When searching for pointer xrefs to a string at file `0x006c3ea4`, also try LE bytes of `0x007c3ea4` (VA).
-- String search in Ghidra often misses UTF-8 Japanese — use Python over `code.bin` / TRB for JP text.
+`splice_packages_into_img(src, …, dst)` **copies `src` → `dst` when paths differ**, then overlays packages. Vanilla bak is only for *extracting* a clean package blob, not as the splice base.
 
-## Efficient RE
+## Compression playbook (fast → slow)
 
-- Start from **ascii anchors** (`OptionAdjustTimeUIOperator`, `Lyt_Clock*`, `Pos_Com_btn_*`) → `get_xrefs_to` → decompile callers.
-- Use `search_byte_patterns` for LE pointer pools when `get_xrefs_to` on the string address is empty.
-- `batch_decompile` / `analyze_function_complete` need the param names from the tool schema (`functions` / `name`), not ad-hoc keys.
-- Softkey Pos names are duplicated (`Pos_Com_Btn_m` vs `Pos_com_btn_m`) — different UI families; confirm which table a function’s DAT points at.
+| Priority | Situation | Strategy |
+|----------|-----------|----------|
+| 1 | zlib SYNC_FLUSH body fits slot | `compress_exact_empty_blocks` (**before** zopfli) |
+| 2 | Fits but length congruence miss | Gap-salt + empty-block (still zlib-speed) |
+| 3 | Large ARC; prior urandom bloated body | **Zero inter-file pads first**, then empty-block |
+| 4 | zlib body already > slot | Zopfli; binary-search gap salt / near-miss. **No** per-byte fine loop |
+| — | Shared header ARC (**5575**) | Rebuild **all** known EN toptex from vanilla together |
 
-## Known good APIs (don’t re-derive)
+Cold pack also parallelizes packages via `pack_images --pkg-workers` (see `docs/technical.md` §12.5.3).
 
-| Role | Address / name |
-|------|----------------|
-| TextResource pack+slot | `FUN_005c0e7c` → `FUN_0056ed00` |
-| MakeStr | `FUN_005a1ec8` @ `005A1EC8` |
-| DrawTextToPane | `FUN_0054b880` |
-| Header pane draw | `FUN_0024842c` |
-| Softkey m / o / t enable | `FUN_001d2498` / `001d1c70` / `001d2080` |
-| Options button BCLIM bind | `OptionMenu_BindBtnTextures` @ `001eb3dc` |
-| MSel icon+text bind | `BindMSelBtnIconAndText` @ `0020ad74` |
-| Options/clock plate bind | `OptionMenu_BindPlateTextures` @ `0020bcc0` (slot 6 = clock title) |
-| MultiWin white-bar bind | `FUN_00255a18` @ `00255a18` (table ~`0x6c3f9c`; GF Comm = `Text04_01_00`) |
-| Message Speed delay table | `FUN_005d1e18` @ `005D1E18` (Options preview 18/12/6/0 → 14/8/2/0) |
-| Message Speed typewriter tick | `FUN_002d544c` @ `002D544C` (Options widget `+0x24` delay, `0` = instant) |
-| TalkWindow delay table | `0x006E3024` (40/70/90/110/220 → 10/18/22/28/55; index via `FUN_002d8874`) |
-| TalkWindow delay setter | `FUN_0013f260` @ `0013F260` (`+0xd9c`, stores if index `< 5`) |
-| TalkWindow tick cap | `0x0013B718` → cave `0x0068F800` (`min(r2, table[+0xd9c])`; +0xd5c / +0xd60) |
+Never: short zlib + trailing NUL; shrink `cmp_len`; `pe` repack that grows PACK.
 
-Options/clock **menu chrome** = A8 BCLIM names under `Com_M_Sel_*_Text*` in pkg **5245**, not DrawText and not `optn_tex_*`.
+## Deploy scripts (EngPatcher `tools/`)
+
+| Script | Pkg(s) |
+|--------|--------|
+| `deploy_msel_options_en.py` | **5245** Options/clock plates |
+| `deploy_msel_menus_en.py` | 5244/5241/5242 (+ GF Comm./Intro/Date rows `Btn_Text04_01_04..10`) |
+| `deploy_confirm_btn_en.py` | **5238** Confirm `OK` |
+| `deploy_softkey_quit_en.py` | **5238** Quit `やめる` → `Quit` |
+| `deploy_softkey_defaults_en.py` | **5238** Restore Default `初期設定` `Com_btn_sy01` (live ARC; after Quit) |
+| `deploy_display_settings_en.py` | **5247** Help/Message/Sound labels |
+| `deploy_optionpassword_en.py` | **5251** Password window `Pass_Win01` |
+| `deploy_myroom_main_en.py` / `deploy_mydata_en.py` | **5380** |
+| `deploy_myroom_options_en.py` | **5380** + **5575** in-room Options `optn_tex_*` (live; after shared-ARC writers) |
+| `deploy_schedule_header_en.py` / profile/todo/mail/… | **5575** + others |
+
+Rollback: `img.bin.bak_pre_<feature>` next to LayeredFS `romfs/img.bin`. Fully quit Azahar after deploy.
 
 ---
 > Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
