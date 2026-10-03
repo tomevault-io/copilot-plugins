@@ -1,41 +1,33 @@
-## azahar-test-workflow
+## bakable-and-layeredfs
 
-> Full workflow for agents: **`ab_test/README.md`**.
+> Bake/CIA is the ship path (first). Azahar LayeredFS is the emulator mirror (second). Both required; never Azahar-only.
 
-# Azahar a/b testing
 
-Full workflow for agents: **`ab_test/README.md`**.
+# Bake first, then LayeredFS
 
-## Hard prefs
+Gold bake / Drop CIA is the **ship path**. Azahar LayeredFS is the emulator test mirror. Do **both**, in that order. A playable patch is unfinished if it only lands in one.
 
-- **Never** tell the user to “fully quit Azahar” between tests — they already do.
-- Do not put quit/restart Azahar in checklists unless diagnosing a proven LayeredFS reload failure.
+| Path | What “done” means |
+|------|-------------------|
+| **Bake / CIA (first)** | Drop CIA injects it. `code.bin` → `deploy_name_input_en.py` → `release/name_input_code.bin`. `img.bin` chrome → `tools/deploy_*_en.py` hooked from `rebuild_bake_img.py`. TRB → `release/textresource/` + `release/romfs_overlay/` via `rebuild_main_trb` / `sync_trb_overlay`. Copying a TRB into Azahar mods is **not** a bake. |
+| **LayeredFS (second)** | Apply to live Azahar mods (`%AppData%\Azahar\load\mods\00040000000F4E00\` or `NLPP_AZAHAR_USER_DIR`). `exefs/code.bin` and/or `romfs/img.bin` as appropriate. `--deploy-azahar` or the feature `deploy_*` script. Backup `*.bak_pre_<feature>`. |
 
-## Quick commands
+## Do
 
-```powershell
-.\ab_test\make.ps1 instances
-.\ab_test\make.ps1 deploy-a    # existing post-bake LayeredFS → instance A
-.\ab_test\make.ps1 launch-a
-.\ab_test\make.ps1 restore-a
-```
+- Land the change on the **current CIA branch** (`translations.json`, overlay TRB, bake hook) **before** (or with) the Azahar copy. Do not leave a fix only on another ticket branch.
+- Hook bake **and** offer a LayeredFS deploy in the same change (Message Speed: `patch_message_speed.py` in `deploy_name_input_en.py` **and** `--deploy-azahar`).
+- If LayeredFS `code.bin` / `img.bin` is missing, say so; still wire the bake. Do not skip bake because Azahar is unset.
+- After `code.bin` edits: rebuild `name_input_code.bin` (`rebuild_bake_img.py --skip-pack` is enough when the bake stamp already matches).
+- After TRB edits: rebuild overlay (`deploy_name_kanji_trb.py` → `release/textresource/` + `sync_trb_overlay`). The next Drop CIA is what hardware sees.
 
-`deploy-a` / `seed-a` copy `release/bake_img.bin`, `release/name_input_code.bin`, and `release/romfs_overlay/` into the instance, then overlay English `.dbin2` dialog with the same inject the CIA uses (`src/script_inject.py --layeredfs`). They do not seed vanilla `img.bin` and they do not start a bake. If those release files are missing, the command prompts that a bake should be done first and exits. Japanese script slots are left on the ROM.
+## Don’t
 
-Instance roots: `ab_test/azahar_instances/{a,b}/user` (`NLPP_AZAHAR_USER_DIR`). Drop CIA wipes `out/`; these copies stay.
-Scripts: `ab_test/`. Feature details: `docs/technical.md`.
+- Azahar-only LayeredFS as the ship path (no CIA inject) — banned; see `from-scratch-bake`.
+- Stop after `--deploy-azahar` / instance A copy and call the patch baked.
+- Bake-only with no LayeredFS apply path (untestable in the emulator loop).
+- Assume an existing `release/name_input_code.bin` already contains a new `code.bin` patch — bake **deletes and rewrites** it from vanilla.
 
-## Communications stuck on loading
-
-That spinner is Azahar **`OpenLinkFile`**, not extra data `00000F4E` and not pkg **5237**. Stock HLE cloned the handle as the **full** extra-data blob (`offset=0`, `subfile=false`). NLPP `GetSize`s that clone after `OpenSubFile` and heap-smashes (`Write32 0x33373338`). Closing the shared backend while the clone is still live brings the same spinner back. Fix is in local Azahar `src/core/hle/service/fs/file.cpp`: snapshot `priority` / `offset` / `size` / `subfile`, and skip `backend->Close()` until the last session. Patch: `ab_test/patches/azahar-openlinkfile.patch`. `.\ab_test\make.ps1 build-azahar` applies it and copies `azahar.exe` into `ab_test/azahar_instances/{a,b}/`. Details: `docs/technical.md` **§10.1**.
-
-Do **not** restore extra data or re-splice Communication packages for this hang. Still move LayeredFS `*.bak*` out of `romfs/` (`launch-a` already does).
-
-## Game Start sometimes hangs (reset continues)
-
-Same extra-data smash as Communications (`Write32 0x33373338` @ `PC 0x0011531C`), triggered from **Game Start**, not the Communication spinner. Instance A log: `OpenLinkFile` of the **parent** extra-data archive (`clone offset=0x0 size=0x65a13720 subfile=false` ≈ 1.62 GiB quota). The clone patch is already in that `azahar.exe` and **cannot shrink** a source handle that was never an `OpenSubFile` window. GPU `1x1` spam continues with dump off, so it looks frozen; reset kills process 11 and the next boot can continue.
-
-**Not hardware. Not bake / `img.bin` / `code.bin`.** Do not restore extra data. Details: `docs/technical.md` **§10.2**.
+Details: `docs/technical.md` §15.5 (bake) and §21 (Message Speed example).
 
 ---
 > Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
