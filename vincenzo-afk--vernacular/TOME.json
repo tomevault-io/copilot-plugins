@@ -4,7 +4,7 @@
   "repo": "Vernacular",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vincenzo-afk/Vernacular",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T12:32:58Z"
+  "distributed_at": "2026-10-03T12:37:11Z"
 }
