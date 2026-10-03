@@ -1,0 +1,9 @@
+{
+  "name": "pi-pod--pipod",
+  "displayName": "pipod",
+  "description": "pi pod: run pi coding-agent sessions in remote sandboxes, on a server you run yourself",
+  "version": "1.0.0",
+  "author": "pi-pod",
+  "homepage": "https://github.com/pi-pod/pipod",
+  "skills": []
+}
