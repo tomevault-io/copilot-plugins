@@ -1,0 +1,9 @@
+{
+  "name": "zidane-sc--atlas",
+  "displayName": "Atlas",
+  "description": "A personal, gamified task manager with a retro pixel-RPG interface \u2014 turn your work into quests, XP, and levels. Built with Next.js, Prisma & PostgreSQL.",
+  "version": "1.0.0",
+  "author": "zidane-sc",
+  "homepage": "https://github.com/zidane-sc/Atlas",
+  "skills": []
+}
