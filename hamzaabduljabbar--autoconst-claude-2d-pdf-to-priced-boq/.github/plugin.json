@@ -1,0 +1,9 @@
+{
+  "name": "hamzaabduljabbar--autoconst-claude-2d-pdf-to-priced-boq",
+  "displayName": "autoconst-claude-2d-pdf-to-priced-boq",
+  "description": "Turn a flat 2D construction PDF into a priced Bill of Quantities in Excel. Two-witness cross-check between schedule and plans, per-line HIGH/MEDIUM/LOW confidence, unit-aware pricing (SF/CY/LF/m2/m3/e",
+  "version": "1.0.0",
+  "author": "hamzaabduljabbar",
+  "homepage": "https://github.com/hamzaabduljabbar/autoconst-claude-2d-pdf-to-priced-boq",
+  "skills": []
+}
