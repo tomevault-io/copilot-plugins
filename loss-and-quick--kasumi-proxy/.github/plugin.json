@@ -1,0 +1,9 @@
+{
+  "name": "loss-and-quick--kasumi-proxy",
+  "displayName": "Kasumi-Proxy",
+  "description": "System-level transparent proxy for rooted Android (Magisk/KernelSU/APatch module) and Linux/Windows desktop (Tauri 2) \u2014 Xray-core and sing-box driven by one shared Rust backend and a React UI.",
+  "version": "1.0.0",
+  "author": "loss-and-quick",
+  "homepage": "https://github.com/loss-and-quick/Kasumi-Proxy",
+  "skills": []
+}
