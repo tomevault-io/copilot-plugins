@@ -1,0 +1,9 @@
+{
+  "name": "unvalley--agent-config",
+  "displayName": "agent-config",
+  "description": "agent-config",
+  "version": "1.0.0",
+  "author": "unvalley",
+  "homepage": "https://github.com/unvalley/agent-config",
+  "skills": []
+}
