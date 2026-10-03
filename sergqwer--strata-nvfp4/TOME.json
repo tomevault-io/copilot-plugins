@@ -1,0 +1,44 @@
+{
+  "name": "strata-nvfp4",
+  "owner": "sergqwer",
+  "repo": "strata-nvfp4",
+  "description": "Strata fork: Qwen3.8-Flash-Next 125B MoE in ModelOpt NVFP4 on one RTX 20/30/40/50 card (12 GB+, measured on an RTX 5090) + 64 GB of RAM or more. W4A8 prompt path, AVX-512 CPU experts, a low-RAM tier, pictures on the CPU, Cyrillic MTP drafts. Windows / CUDA 13.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sergqwer/strata-nvfp4",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T14:33:51Z"
+}
