@@ -1,0 +1,9 @@
+{
+  "name": "fazt--whatsapp-insforge",
+  "displayName": "whatsapp-insforge",
+  "description": "WhatsApp-style messaging app built with Next.js and InsForge",
+  "version": "1.0.0",
+  "author": "fazt",
+  "homepage": "https://github.com/fazt/whatsapp-insforge",
+  "skills": []
+}
