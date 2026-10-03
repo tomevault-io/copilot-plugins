@@ -1,24 +1,33 @@
-## project-conventions
+## threejs-scene-modules
 
-> 中国古文物数字博物馆项目核心约定（Vue3 + Pinia + Element Plus + Three.js）
+> 博物馆 Three 展厅（museumScene）dispose 与 composable 协作约定
 
 
-# 项目核心约定
+# 博物馆 Three 展厅规范
 
-- 技术栈：Vue 3 + Vite + TypeScript + Pinia + Element Plus + Three.js；包管理用 `pnpm`
-- 路径别名：始终用 `@/` 指向 `src`
-- Vue：优先 `<script setup lang="ts">`；组件目录用 `index.vue`（可配 `index.scss` / `config.ts`）
-- UI 文案：中文（枚举标签、提示、loading 文案等）
-- 全局：Element Plus `size: 'small'`；图标走 `globalComponent`；loading 指令 `v-zLoading`
-- 展厅 Three 逻辑放在 `src/utils/museumScene.ts`、`src/composables/useMuseumHall.ts`，不要塞进 SFC 模板逻辑
-- 内容数据优先改 `src/data/museumArtifacts.ts` / `museumHotspots.ts`
-- 提交信息：Conventional Commits（`feat` / `fix` / …），遵循 `.commitlintrc.cjs`
-- 格式：Prettier（单引号、semi、width 80）+ ESLint + Stylelint
+## 架构
 
-## 样式优先级
+- 场景宿主：`MuseumScene`（`src/utils/museumScene.ts`）— camera / renderer / scene / controls / loaders / rAF
+- 页面生命周期：`useMuseumHall`（PC / 移动共用），在 composable 内用 plain `let` 持有实例
+- 热点：`artifactHotspots.ts` + `museumHotspots.ts`
+- 资源释放：`src/utils/utils.ts` 的 `disposeMaterial` / `disposeScene` / `disposeTextures`
 
-**新写或改动的页面/组件样式默认用 Tailwind CSS utility。**  
-仅在以下情况保留/新增 SCSS：全局 reset、复杂动画关键帧、Element Plus 深度覆盖、遗留文件渐进迁移。
+## 硬性要求
+
+- 传给 Three API 的对象先 `toRaw()`，避免 Vue Proxy
+- 卸载 / 路由离开时必须调用场景 `dispose`，移除事件监听与 rAF
+- 用户可见错误用 `ElMessage`（中文）
+- 改光、环陈半径、漫游位姿等集中在 `museumScene.ts`；文案与分类改 `museumArtifacts.ts`
+
+## 导入
+
+```ts
+import * as THREE from 'three';
+import { toRaw } from 'vue';
+import MuseumScene from '@/utils/museumScene';
+```
+
+addons：`three/addons/...`（本仓库现用 WebGLRenderer，非 WebGPU/TSL，除非任务明确要求）。
 
 ---
 > Source: [zhangbo126/cultural-relics-museum](https://github.com/zhangbo126/cultural-relics-museum) — distributed by [TomeVault](https://tomevault.io).
