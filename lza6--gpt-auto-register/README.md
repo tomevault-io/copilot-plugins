@@ -7,14 +7,14 @@ GPT的自动注册，微软无限邮箱+CF人机挑战+GPT网页的账号密码�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [lza6/GPT-Auto-Register](https://github.com/lza6/GPT-Auto-Register).
+Original source: `CLAUDE.md` in [lza6/GPT-Auto-Register](https://github.com/lza6/GPT-Auto-Register).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/lza6/GPT-Auto-Register](https://github.com/lza6/GPT-Auto-Register)
