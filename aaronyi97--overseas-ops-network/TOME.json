@@ -1,0 +1,44 @@
+{
+  "name": "overseas-ops-network",
+  "owner": "aaronyi97",
+  "repo": "overseas-ops-network",
+  "description": "\u6bcf\u6708\u7ea6100\u5143\u7684\u4e2a\u4eba\u7ea7\u6d77\u5916\u8fd0\u8425\u7f51\u7edc\u73af\u5883\uff1a\u8def\u7531\u5668\u900f\u660e\u63a5\u7ba1 + \u81ea\u5efaVPS\u96a7\u9053(VLESS+Reality) + \u72ec\u4eab\u4f4f\u5b85IP + \u53cc\u5c42fail-closed\u3002\u628a\u4ed3\u5e93\u53d1\u7ed9\u4f60\u7684AI\u52a9\u624b\uff0c\u5168\u7a0b\u81ea\u52a8\u642d\u5efa\uff0c\u9ad8\u5371\u6b65\u9aa4\u4e3b\u52a8\u5239\u8f66\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aaronyi97/overseas-ops-network",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T22:41:00Z"
+}
