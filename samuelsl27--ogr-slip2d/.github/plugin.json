@@ -1,0 +1,9 @@
+{
+  "name": "samuelsl27--ogr-slip2d",
+  "displayName": "OGR-Slip2D",
+  "description": "Open-source geotechnical software: 2D slope stability (7 validated limit-equilibrium methods), finite-element groundwater seepage and probabilistic analysis, in Python.",
+  "version": "1.0.0",
+  "author": "samuelsl27",
+  "homepage": "https://github.com/samuelsl27/OGR-Slip2D",
+  "skills": []
+}
