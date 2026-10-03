@@ -1,36 +1,35 @@
-## llm-prompt-authoring
+## maven-build
 
-> 编写/修改 LLM 提示词时：正向规格优先、少写「不要旧形态」、system vs user 分工。触发：改 templates/prompts、*-schema.json，或讨论 prompt/system/user。
+> 终端 / Agent 执行 Maven 时必须使用 backend 模块与 Temurin 21，禁止在仓库根直接裸 mvn。
 
 
-# LLM 提示词编写
+# Maven 构建（khan_kiddo_v2 / backend）
 
-适用于 `backend/src/main/resources/templates/prompts/` 下各阶段（如 phrase-card-review、grammar-analysis、conversation-separation、educational-summary、growth-card-mint 等）及其配套 `schemas/`。
+前后端分离：Java 代码与 `pom.xml` 在 **`backend/`**。使用 **Java 21**（Temurin）。
 
-## 正向规格优先
+## 必须遵守
 
-- 先写**该产出什么**（字段含义、`kind` 映射、长度/对齐、保留条件）。
-- 改产品语义时：只更新正向映射与正例；**不要**默认同堆「不要旧形态 A」。
+1. 在仓库根目录使用根级包装脚本（推荐）：
 
-## 负向仅实证
+```bash
+cd /Users/oddity/workspace/khan_kiddo_v2
+./mvn.sh -q compile
+./mvn.sh -q test
+./mvn.sh -q package -DskipTests
+```
 
-- 负向规则只留给：**正向说不清**且会**反复踩**的坑。
-- **禁止**因「刚从形态 A 改成 B」就写「不要 A」——正向已定义 B 即可。
+2. 或在 `backend/` 下：
 
-## system vs user
+```bash
+cd /Users/oddity/workspace/khan_kiddo_v2/backend
+./mvn.sh -q compile
+```
 
-**system（稳定契约）**
+3. **不要**在仓库根对不存在的根 `pom.xml` 执行 `mvn`，也不要不设置 `JAVA_HOME` 直接调用系统 `mvn`。
 
-- 角色与边界
-- 字段 / `kind` → 输出字段的稳定映射
-- 场级去重、不可积累则跳过
-- 输出契约（合法 JSON / schema 一致；跳过的 index 不出现）
+## 验证
 
-**user（本场实例）**
-
-- 本场任务说明 + 占位符（如 `{items}`）+ 少量正例
-- 去重 / 跳过等策略**不要全文再抄**；一句「遵守 system」即可
-- 可选保留**一条**已证实会踩的防坑（例如禁止 `How do you say ...?` 类提问句）
+`./mvn.sh -version` 中 `Java version` 应为 **21.x**。
 
 ---
 > Source: [oddity123/khan_kiddo_v2](https://github.com/oddity123/khan_kiddo_v2) — distributed by [TomeVault](https://tomevault.io).
