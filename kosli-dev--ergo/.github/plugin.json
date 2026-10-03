@@ -1,0 +1,9 @@
+{
+  "name": "kosli-dev--ergo",
+  "displayName": "ergo",
+  "description": "Define what compliance means in plain data, and get a report of every check that passed or failed. A lightweight library for OPA.",
+  "version": "1.0.0",
+  "author": "kosli-dev",
+  "homepage": "https://github.com/kosli-dev/ergo",
+  "skills": []
+}
