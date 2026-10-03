@@ -4,7 +4,7 @@
   "repo": "Stella_project",
   "description": "A cost-efficient, model-agnostic QQ-group AI agent built around an ~8K-token context window. Powered by NoneBot 2 + OneBot V11, it supports both local and online LLMs through a unified integration layer and extends its capabilities through compatibility with the AstrBot plugin ecosystem.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Eternal-Wanderer-Vegetable/Stella_project",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T02:31:17Z"
+  "distributed_at": "2026-10-03T03:06:23Z"
 }
