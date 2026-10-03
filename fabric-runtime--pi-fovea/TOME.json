@@ -1,0 +1,44 @@
+{
+  "name": "pi-fovea",
+  "owner": "fabric-runtime",
+  "repo": "pi-fovea",
+  "description": "Token-budgeted codebase discovery for agent shells and Pi: cross-language maps, focused navigation, and impact analysis.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fabric-runtime/pi-fovea",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T22:42:39Z"
+}
