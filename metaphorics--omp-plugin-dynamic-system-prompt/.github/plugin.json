@@ -1,0 +1,9 @@
+{
+  "name": "metaphorics--omp-plugin-dynamic-system-prompt",
+  "displayName": "omp-plugin-dynamic-system-prompt",
+  "description": "Scales system-prompt guidance to the model reading it: an oh-my-pi plugin that appends a capability-tuned directive block chosen by model family, version, and tier.",
+  "version": "1.0.0",
+  "author": "metaphorics",
+  "homepage": "https://github.com/metaphorics/omp-plugin-dynamic-system-prompt",
+  "skills": []
+}
