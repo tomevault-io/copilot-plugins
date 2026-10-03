@@ -1,0 +1,9 @@
+{
+  "name": "syngnat--lumina-euicc",
+  "displayName": "lumina-euicc",
+  "description": "Flutter UI for EasyEUICC-aligned eUICC / eSIM profile management (Lumina eUICC)",
+  "version": "1.0.0",
+  "author": "Syngnat",
+  "homepage": "https://github.com/Syngnat/lumina-euicc",
+  "skills": []
+}
