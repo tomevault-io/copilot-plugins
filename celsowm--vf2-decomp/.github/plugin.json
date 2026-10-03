@@ -1,0 +1,9 @@
+{
+  "name": "celsowm--vf2-decomp",
+  "displayName": "vf2-decomp",
+  "description": "Clean-room, non-matching C decompilation project for Virtua Fighter 2 Version 2.1 (Sega Model 2 / i960)",
+  "version": "1.0.0",
+  "author": "celsowm",
+  "homepage": "https://github.com/celsowm/vf2-decomp",
+  "skills": []
+}
