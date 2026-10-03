@@ -1,0 +1,9 @@
+{
+  "name": "k8s-1--bashls",
+  "displayName": "bashls",
+  "description": "Bash language server (LSP) written in Rust",
+  "version": "1.0.0",
+  "author": "k8s-1",
+  "homepage": "https://github.com/k8s-1/bashls",
+  "skills": []
+}
