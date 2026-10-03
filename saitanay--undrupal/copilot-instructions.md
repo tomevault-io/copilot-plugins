@@ -1,7 +1,6 @@
-## drupal-migrate
+## undrupal
 
-> Drupal migration and content export skills
-
+> These skills help you plan and execute a migration off Drupal (D7 through D11). Load the relevant skill file from `skills/` and follow its instructions.
 
 # UnDrupal: AI Agent Skills
 
