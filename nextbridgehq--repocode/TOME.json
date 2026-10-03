@@ -4,7 +4,7 @@
   "repo": "repocode",
   "description": "AI codebase context tool that analyzes, ranks, and compresses repositories into optimized context files for LLMs, AI coding assistants, and MCP workflows.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nextbridgehq/repocode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T01:27:46Z"
+  "distributed_at": "2026-10-03T01:41:50Z"
 }
