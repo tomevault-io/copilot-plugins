@@ -1,0 +1,9 @@
+{
+  "name": "devhxj--jazor",
+  "displayName": "Jazor",
+  "description": "C# to Javascript Compiler implemented via Roslyn",
+  "version": "1.0.0",
+  "author": "devhxj",
+  "homepage": "https://github.com/devhxj/Jazor",
+  "skills": []
+}
