@@ -1,0 +1,9 @@
+{
+  "name": "weihubeats--rustfox",
+  "displayName": "RustFox",
+  "description": "A high-performance, local-first API client & Postman alternative built with Rust, Tauri 2, and Vue 3.\u9ad8\u6027\u80fd\u3001\u672c\u5730\u4f18\u5148\u7684 API \u8c03\u8bd5\u4e0e\u6d4b\u8bd5\u5ba2\u6237\u7aef (Postman/Insomnia/ApiFox \u66ff\u4ee3\u54c1)\uff0c\u57fa\u4e8e Rust + Tauri 2 + Vue 3 \u6253\u9020\u3002",
+  "version": "1.0.0",
+  "author": "weihubeats",
+  "homepage": "https://github.com/weihubeats/RustFox",
+  "skills": []
+}
