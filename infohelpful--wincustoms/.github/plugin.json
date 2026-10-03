@@ -1,0 +1,9 @@
+{
+  "name": "infohelpful--wincustoms",
+  "displayName": "WinCustoms",
+  "description": "Windows 11 optimization and tweak utility. WinUI 3 + .NET 9 + Native AOT, portable, every tweak is reversible.",
+  "version": "1.0.0",
+  "author": "infohelpful",
+  "homepage": "https://github.com/infohelpful/WinCustoms",
+  "skills": []
+}
