@@ -1,0 +1,34 @@
+## steamlink-patches
+
+> Kotlin morphe-patcher patch library targeting exact `(versionName, versionCode)` Steam Link bases:
+
+# steamlink-patches — Copilot context
+
+Kotlin morphe-patcher patch library targeting exact `(versionName, versionCode)` Steam Link bases:
+2.0.20/5001712, 2.0.22/5002244, and 2.0.23/5002363. Read repository-root `AGENTS.md` first.
+
+## Patch authoring rules
+
+- No inline smali injection (`addInstructions(index, "smali string")`). Crashes in morphe-patcher 1.7.0.
+- Typed dexlib2 bytecode edits and exact class/method lookups are allowed when validated against every declared base.
+- Use `rawResourcePatch` for raw APK files (lib/, assets/, .so binaries).
+- Use `resourcePatch` with `finalize {}` for AndroidManifest.xml / XML edits.
+- Every top-level patch: `@Suppress("unused")` plus the appropriate exact compatibility list from `shared/Constants.kt`.
+- Preserve every existing version adaptation, global default, and build-aware dependency guard when adding a base.
+
+## Extension DEX (smali)
+
+- Sources: `patches/src/main/resources/steamlink/androidxr/smali/`
+- Built by `assembleExtension` task; output: `patches/build/generated/extension-resources/extensions/extension.mpe`
+- **Smali assembler flag: `-a 33`** — NEVER `-a 35` (produces DEX 040/041 container format; dexlib2 crashes).
+
+## Build
+
+```powershell
+.\gradlew.bat build
+.\gradlew.bat assembleExtension   # rebuild extension DEX only
+```
+
+---
+> Source: [AngelDark92/steamlink-patches](https://github.com/AngelDark92/steamlink-patches) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-02 -->
