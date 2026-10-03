@@ -1,0 +1,44 @@
+{
+  "name": "autoconst-claude-2d-pdf-to-priced-boq",
+  "owner": "hamzaabduljabbar",
+  "repo": "autoconst-claude-2d-pdf-to-priced-boq",
+  "description": "Turn a flat 2D construction PDF into a priced Bill of Quantities in Excel. Two-witness cross-check between schedule and plans, per-line HIGH/MEDIUM/LOW confidence, unit-aware pricing (SF/CY/LF/m2/m3/ea). Standalone Claude Code skill \u2014 no vision, no OCR, bring your own rates.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hamzaabduljabbar/autoconst-claude-2d-pdf-to-priced-boq",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T01:50:34Z"
+}
