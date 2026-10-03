@@ -1,0 +1,9 @@
+{
+  "name": "kamikitsune420--bgt-decomp-tools",
+  "displayName": "bgt-decomp-tools",
+  "description": "Toolkit for recovering the AngelScript code and assets from games built with BGT (BlastBay Gaming Toolkit). Noncommercial license; no warranty.",
+  "version": "1.0.0",
+  "author": "KamiKitsune420",
+  "homepage": "https://github.com/KamiKitsune420/bgt-decomp-tools",
+  "skills": []
+}
