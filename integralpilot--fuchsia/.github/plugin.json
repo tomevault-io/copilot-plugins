@@ -1,0 +1,9 @@
+{
+  "name": "integralpilot--fuchsia",
+  "displayName": "fuchsia",
+  "description": "Experimental Apple T8122 bringup for Fuchsia",
+  "version": "1.0.0",
+  "author": "IntegralPilot",
+  "homepage": "https://github.com/IntegralPilot/fuchsia",
+  "skills": []
+}
