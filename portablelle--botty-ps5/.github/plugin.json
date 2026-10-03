@@ -1,0 +1,9 @@
+{
+  "name": "portablelle--botty-ps5",
+  "displayName": "botty-ps5",
+  "description": "Botty+ is a native, controller-driven download and library manager for PS5 homebrew. It combines a browser launch portal, a background rTorrent daemon and a RAR extraction service.",
+  "version": "1.0.0",
+  "author": "Portablelle",
+  "homepage": "https://github.com/Portablelle/botty-ps5",
+  "skills": []
+}
