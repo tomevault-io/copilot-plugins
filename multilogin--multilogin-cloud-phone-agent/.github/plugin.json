@@ -1,0 +1,9 @@
+{
+  "name": "multilogin--multilogin-cloud-phone-agent",
+  "displayName": "multilogin-cloud-phone-agent",
+  "description": "Agent-agnostic example: AI-driven automation of a Multilogin cloud phone over ADB (start \u2192 boot \u2192 ADB \u2192 actions \u2192 always-stop).",
+  "version": "1.0.0",
+  "author": "multilogin",
+  "homepage": "https://github.com/multilogin/multilogin-cloud-phone-agent",
+  "skills": []
+}
