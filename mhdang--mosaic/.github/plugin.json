@@ -1,0 +1,9 @@
+{
+  "name": "mhdang--mosaic",
+  "displayName": "mosaic",
+  "description": "Constrained Decoding for Diffusion Language Models via Efficient Inference over Finite Automata (NeurIPS 2026)",
+  "version": "1.0.0",
+  "author": "MhDang",
+  "homepage": "https://github.com/MhDang/mosaic",
+  "skills": []
+}
