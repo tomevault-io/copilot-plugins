@@ -7,11 +7,11 @@ ADLC — the agentic development life cycle. A spec-driven automated delivery wh
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [raunakkathuria/adlc](https://github.com/raunakkathuria/adlc).
+Original source: `AGENTS.md` in [raunakkathuria/adlc](https://github.com/raunakkathuria/adlc).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
