@@ -1,0 +1,9 @@
+{
+  "name": "eternal-wanderer-vegetable--stella-project",
+  "displayName": "Stella_project",
+  "description": "A cost-efficient, model-agnostic QQ-group AI agent built around an ~8K-token context window. Powered by NoneBot 2 + OneBot V11, it supports both local and online LLMs through a unified integration lay",
+  "version": "1.0.0",
+  "author": "Eternal-Wanderer-Vegetable",
+  "homepage": "https://github.com/Eternal-Wanderer-Vegetable/Stella_project",
+  "skills": []
+}
