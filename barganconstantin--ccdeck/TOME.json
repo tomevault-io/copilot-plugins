@@ -1,0 +1,44 @@
+{
+  "name": "ccdeck",
+  "owner": "BarganConstantin",
+  "repo": "ccdeck",
+  "description": "Local dashboard for Claude Code and Codex CLI: which Claude Code session needs input, every tool call and Claude Code subagent live, cost and quota, several Claude accounts. npx ccdeck or the desktop app. Free, open source.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BarganConstantin/ccdeck",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T00:51:32Z"
+}
