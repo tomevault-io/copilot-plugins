@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--tau-agent",
+  "displayName": "tau-agent",
+  "description": "A coding agent demo using https://github.com/vercel-labs/ai-python",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/tau-agent",
+  "skills": []
+}
