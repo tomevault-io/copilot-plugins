@@ -1,0 +1,9 @@
+{
+  "name": "viticci--muse-pocket",
+  "displayName": "muse-pocket",
+  "description": "An e-paper Muse companion for the Xteink X4 Pro: character, status, settings and recoverable SD firmware updates.",
+  "version": "1.0.0",
+  "author": "viticci",
+  "homepage": "https://github.com/viticci/muse-pocket",
+  "skills": []
+}
