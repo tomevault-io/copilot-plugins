@@ -1,0 +1,9 @@
+{
+  "name": "bang404--openagent",
+  "displayName": "openagent",
+  "description": "A modern, multi-agent desktop AI client built with Tauri, SvelteKit, and Rust.",
+  "version": "1.0.0",
+  "author": "BANG404",
+  "homepage": "https://github.com/BANG404/openagent",
+  "skills": []
+}
