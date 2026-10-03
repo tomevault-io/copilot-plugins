@@ -1,0 +1,44 @@
+{
+  "name": "entire-brain",
+  "owner": "entireio",
+  "repo": "entire-brain",
+  "description": "\ud83e\udde0 The memory layer for your Git repository. Turn retained agent sessions, checkpoint history, docs, code structure, and durable facts into something you and your coding agents can actually query.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/entireio/entire-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T08:31:18Z"
+}
