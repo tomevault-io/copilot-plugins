@@ -4,7 +4,7 @@
   "repo": "entire-brain",
   "description": "\ud83e\udde0 The memory layer for your Git repository. Turn retained agent sessions, checkpoint history, docs, code structure, and durable facts into something you and your coding agents can actually query.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/entireio/entire-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T08:31:18Z"
+  "distributed_at": "2026-10-03T08:33:06Z"
 }
