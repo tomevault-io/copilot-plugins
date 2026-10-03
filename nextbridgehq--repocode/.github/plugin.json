@@ -1,0 +1,9 @@
+{
+  "name": "nextbridgehq--repocode",
+  "displayName": "repocode",
+  "description": "AI codebase context tool that analyzes, ranks, and compresses repositories into optimized context files for LLMs, AI coding assistants, and MCP workflows.",
+  "version": "1.0.0",
+  "author": "nextbridgehq",
+  "homepage": "https://github.com/nextbridgehq/repocode",
+  "skills": []
+}
