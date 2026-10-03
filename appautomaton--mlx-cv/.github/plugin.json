@@ -1,0 +1,9 @@
+{
+  "name": "appautomaton--mlx-cv",
+  "displayName": "mlx-cv",
+  "description": "MLX-native computer vision for Apple Silicon: open-vocabulary grounding, object detection, depth and camera geometry, segmentation, and video object tracking.",
+  "version": "1.0.0",
+  "author": "appautomaton",
+  "homepage": "https://github.com/appautomaton/mlx-cv",
+  "skills": []
+}
