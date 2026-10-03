@@ -1,20 +1,12 @@
-## state-and-forms
+## contently
 
-> TanStack Query, Zustand user store, nuqs, RHF+Zod, dayjs
+> <!-- BEGIN:nextjs-agent-rules -->
 
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
 
-# State & forms
-
-- **TanStack Query**: server/async data and mutations (via Orval hooks).
-- **Zustand**: shell prefs + **panel current user** (`/me`) — not theme.
-- **nuqs**: filters and URL-serializable UI state.
-- **Theme**: `next-themes` only.
-- **Dates**: dayjs + locales.
-- Do not mirror arbitrary Query data into Zustand; user session is the allowed exception.
-- Load `/me` only inside the panel private shell into the user store.
-- Forms: React Hook Form + Zod; inline field errors; use `toast` from `@/components/ui/toast` for global feedback.
-- Logout: `useUserStore.logout(queryClient)` — `POST /auth/logout` then clear cookie + user + Query cache (even if API fails).
-- Navigation: typed `routes.*()` helpers only.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [soheilhasanjani/contently](https://github.com/soheilhasanjani/contently) — distributed by [TomeVault](https://tomevault.io).
