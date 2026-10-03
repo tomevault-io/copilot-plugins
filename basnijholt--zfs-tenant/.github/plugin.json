@@ -1,0 +1,9 @@
+{
+  "name": "basnijholt--zfs-tenant",
+  "displayName": "zfs-tenant",
+  "description": "Give a friend a quota-capped corner of your ZFS pool for raw encrypted backups, without giving them a shell",
+  "version": "1.0.0",
+  "author": "basnijholt",
+  "homepage": "https://github.com/basnijholt/zfs-tenant",
+  "skills": []
+}
