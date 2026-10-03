@@ -1,0 +1,9 @@
+{
+  "name": "carakadev--caraka",
+  "displayName": "caraka",
+  "description": "Send the task. Caraka runs it. \u2014 a thin bridge from Telegram to the coding agent already installed on your machine.",
+  "version": "1.0.0",
+  "author": "CarakaDev",
+  "homepage": "https://github.com/CarakaDev/caraka",
+  "skills": []
+}
