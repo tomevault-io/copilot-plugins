@@ -1,0 +1,9 @@
+{
+  "name": "polyant-ai--polyant",
+  "displayName": "polyant",
+  "description": "Open-source platform for building AI agents with long-term memory, multi-channel support (Telegram, Slack, WhatsApp) and an OpenAI-compatible API",
+  "version": "1.0.0",
+  "author": "polyant-ai",
+  "homepage": "https://github.com/polyant-ai/polyant",
+  "skills": []
+}
