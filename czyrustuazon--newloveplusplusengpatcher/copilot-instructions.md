@@ -1,28 +1,43 @@
-## no-git-stash
+## patch-safety
 
-> Never git stash; preserve WIP with commits instead
+> Hard safety bans for NLPP img.bin / code.bin / Azahar patches.
 
 
-# No git stash — commit instead
+# Patch safety (hard bans)
 
 ## Never
 
-- `git stash`, `git stash push`, `git stash pop`, `git stash apply`, `git stash drop`
-- Stashing to “clean the tree”, switch branches, or park unfinished EngPatch / name-input / bake work
-- Advising the user to stash as the default way to save progress
+- Full-rebuild `img.bin` with `Image.write()` or `pack_images --full-repack` (black-screen boot).
+- Redeploy `EngPatcher/src/patch_clock_text.py` global MakeStr hook as-is (crashes or blanks all text). Prefer `code.bin.bak_clocktext` restore if that lands again.
+- Same-size BCLIM violations — if encode changes length/format, keep the original entry.
+- Broad `--only`-less image packs that skip-fail half of NCommonIcon; scope keys (`--only ncommonicon`) and only replace intended PNGs.
+- Shipping Azahar **custom texture** packs (`use_new_hash`) as the real fix — OK for RE, unstable in play.
+- **`pe` repack that grows a PACK slot**, or selective `ie` full rewrite to absorb growth (prefer exact same package length).
+- **Short zlib into a compressed ARC/TEX slot with trailing NUL**, or **shrinking entry `cmp_len`** — freezes/crashes (Options, CESA). Stream length must equal the slot with `unused_data == 0`.
+- Treat MyroomHeader `optn_tex_optionmenu_*` as Options/**clock** titles (wrong for hub Options; use NCommonMSel **5245**). The in-room overlay `オプションメニュー` *does* use those stems + Myroom **5380** (`deploy_myroom_options_en.py`).
+- **`splice_packages_into_img(bak, …, MOD_IMG)`** when `bak != MOD` — copies the whole bak over live and **wipes later EN packages**. Splice into live `MOD_IMG`; extract vanilla packages from bak only.
+- **Patch CIA with UI on the normal Drop CIA path without `release/bake_img.bin`** — causes English dialog/names but **Japanese menus** (menu chrome is bake-only). Bat must hard-stop if bake missing after fetch + rebuild.
+- **Grow a PACK header `dec_len` without updating img.bin's idx-table size for that package** — pkg **90** CESA companion wrote past a 1182976 arena (idx still vanilla) and heap-smashed boot. Inner PACK header and idx `dec_len` must match.
 
 ## Always
 
-- **Commit** unfinished or experimental work on the current branch (e.g. a ticket branch) so it stays in history and is recoverable
-- If commit permission is unclear, **ask to commit** rather than stashing
-- Use a normal commit message that marks WIP when needed (e.g. `WIP: title EngPatch badge — black-screen bisect`)
-- Prefer a branch or WIP commit over stash when switching tasks
+- Splice packages at the **same offset/length** (`splice_packages_into_img`).
+- For zlib-compressed ARC replaces: exact-length stream; see rule `img-exact-zlib-deploy` (zopfli gap-salt **or** SYNC_FLUSH empty-blocks; zero gaps first on large ARCs if needed).
+- Backup before code hooks; test one change at a time in LayeredFS (`img.bin.bak_pre_<feature>` or `code.bin.bak_pre_<feature>`).
+- Playable patches must be **bakable and LayeredFS-deployable** (rule `bakable-and-layeredfs`): hook `rebuild_bake_img.py` / `name_input_code.bin` **and** apply to live Azahar mods.
+- When deploying images, prefer splicing onto the current Azahar mod `img.bin` if it already has other patches (CESA, etc.), not only vanilla.
+- Treat dump `extracted/` as mostly read-only; write patches through EngPatcher → Azahar mods.
+- Fully quit Azahar after `img.bin` changes so LayeredFS reloads.
+- On **Drop CIA** normal path: prefer `release/bake_img.bin`; if absent, poll CI (`fetch_release_bake.py --best-effort`) then `rebuild_bake_img.py --rom` — see `nlpp-repo-workflow` gold bake section.
 
-## Why
+## LayeredFS layout
 
-Stashed EngPatch / name-menu work (`deploy_title_engpatch_*`, `Eng_Patch.png`) was orphaned off Bleeding-Edge and missing from gold bake. Commits keep WIP on the branch.
-
-Still follow the user’s commit gate: only create commits when they ask or when they explicitly want WIP preserved this way — never stash as a substitute.
+```
+%AppData%\Azahar\load\mods\00040000000F4E00\
+  romfs\img.bin
+  romfs\SystemData\TextResource\...
+  exefs\code.bin
+```
 
 ---
 > Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
