@@ -1,0 +1,44 @@
+{
+  "name": "jinky_eindex",
+  "owner": "jersoncaibog",
+  "repo": "jinky_eindex",
+  "description": "A project for my beloved, Jinky. An RFID-based records tracking web app for teachers to record their students data on quizzes, activities, and exams.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jersoncaibog/jinky_eindex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T20:35:21Z"
+}
