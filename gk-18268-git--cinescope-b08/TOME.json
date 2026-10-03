@@ -1,0 +1,44 @@
+{
+  "name": "cinescope-b08",
+  "owner": "GK-18268-GIT",
+  "repo": "cinescope-b08",
+  "description": "EpicLearn - React.js and Next.js Master Course - Batch 08",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/GK-18268-GIT/cinescope-b08",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T03:28:25Z"
+}
