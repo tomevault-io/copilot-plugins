@@ -1,0 +1,9 @@
+{
+  "name": "sergqwer--strata-nvfp4",
+  "displayName": "strata-nvfp4",
+  "description": "Strata fork: Qwen3.8-Flash-Next 125B MoE in ModelOpt NVFP4 on one RTX 20/30/40/50 card (12 GB+, measured on an RTX 5090) + 64 GB of RAM or more. W4A8 prompt path, AVX-512 CPU experts, a low-RAM tier, ",
+  "version": "1.0.0",
+  "author": "sergqwer",
+  "homepage": "https://github.com/sergqwer/strata-nvfp4",
+  "skills": []
+}
