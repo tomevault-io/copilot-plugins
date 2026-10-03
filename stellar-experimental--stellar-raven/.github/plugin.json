@@ -1,0 +1,9 @@
+{
+  "name": "stellar-experimental--stellar-raven",
+  "displayName": "stellar-raven",
+  "description": "Stellar MCP server for AI agents: one authenticated gateway to official docs, live ecosystem data, community intel, and tested playbooks.",
+  "version": "1.0.0",
+  "author": "stellar-experimental",
+  "homepage": "https://github.com/stellar-experimental/stellar-raven",
+  "skills": []
+}
