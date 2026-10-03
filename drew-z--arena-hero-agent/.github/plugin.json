@@ -1,0 +1,9 @@
+{
+  "name": "drew-z--arena-hero-agent",
+  "displayName": "arena-hero-agent",
+  "description": "Deterministic, resource-first Arena Hero agent with hierarchical threat response, safe unattended deployment, and optional offline AI review",
+  "version": "1.0.0",
+  "author": "Drew-Z",
+  "homepage": "https://github.com/Drew-Z/arena-hero-agent",
+  "skills": []
+}
