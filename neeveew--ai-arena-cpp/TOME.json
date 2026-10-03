@@ -1,0 +1,44 @@
+{
+  "name": "AI-Arena-CPP",
+  "owner": "neeveew",
+  "repo": "AI-Arena-CPP",
+  "description": "Native Windows app for conversations with local and external AI models. C++ 0.0.5 alpha.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/neeveew/AI-Arena-CPP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T03:30:11Z"
+}
