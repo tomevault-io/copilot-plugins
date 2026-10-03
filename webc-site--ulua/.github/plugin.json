@@ -1,0 +1,9 @@
+{
+  "name": "webc-site--ulua",
+  "displayName": "ulua",
+  "description": "Pure Rust Luau compiler, register VM, and type checker",
+  "version": "1.0.0",
+  "author": "webc-site",
+  "homepage": "https://github.com/webc-site/ulua",
+  "skills": []
+}
