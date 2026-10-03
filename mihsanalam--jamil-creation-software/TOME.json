@@ -4,7 +4,7 @@
   "repo": "Jamil-creation-software",
   "description": "Internal production tracking and point-of-sale system for a garment factory \u2014 tracks fabric intake through production phases to finished goods, plus wholesale/retail sales with credit tracking.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mihsanalam/Jamil-creation-software",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T22:41:47Z"
+  "distributed_at": "2026-10-03T22:52:20Z"
 }
