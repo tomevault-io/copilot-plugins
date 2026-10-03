@@ -1,0 +1,9 @@
+{
+  "name": "bhouston--three-dlss-nr",
+  "displayName": "three-dlss-nr",
+  "description": "A Three.js (TSL / WebGPU) port of OpenDLSS-NR, the open-source reimplementation of NVIDIA's DLSS 5 neural rendering network",
+  "version": "1.0.0",
+  "author": "bhouston",
+  "homepage": "https://github.com/bhouston/three-dlss-nr",
+  "skills": []
+}
