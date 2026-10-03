@@ -1,0 +1,9 @@
+{
+  "name": "casualoffice--opencalc",
+  "displayName": "opencalc",
+  "description": "A spreadsheet engine you can put anywhere \u2014 a deterministic, embeddable Rust engine that reads and writes .xlsx (plus CSV/TSV/PSV) with a WASM canvas editor. Correctness, determinism, and fidelity bef",
+  "version": "1.0.0",
+  "author": "CasualOffice",
+  "homepage": "https://github.com/CasualOffice/opencalc",
+  "skills": []
+}
