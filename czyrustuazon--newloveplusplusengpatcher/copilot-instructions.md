@@ -1,60 +1,44 @@
-## ui-localization-method
+## zhoumaru-ui-pack
 
-> How to localize NLPP UI chrome — texture vs TRB vs DrawText decision tree.
+> Zhoumaru community English UI PNG pack — what it is, where it lives, and what it does not include (CESA).
 
 
-# UI localization method
+# Zhoumaru UI pack
 
-When a screen stays Japanese despite EN TRB:
+**Zhoumaru UI pack** = Zhoumaru’s community English UI PNG masters (`output_PNG`). Imported `7ce3dd3` (2026-09-07) into `assets/images/<Folder>.check/timg/<stem>.png`. Painted BCLIM chrome that matches game art. Prefer these over font-rendered labels (`find_ui_png` in `tools/deploy_common.py`).
 
-## Decision tree
+Gold bake: `pack_images` (`.check` wins) + ordered `deploy_*_en.py` chrome. Canvas-fit / skip-fix: `1082419`.
 
-1. **GPU-dump the visible chrome** (Azahar texture dump). Note W×H and whether RGB is empty (alpha text) vs full color (baked button).
-2. **If opaque/colored control (softkey, icon label):** pixel-match BCLIM in `img.bin` packages → EngPatcher PNG → same-size splice. TRB edits won’t change it.
-3. **If alpha-only text that survives a DrawText nuclear remap:** still a **BCLIM** (often A8 `Com_M_Sel_*_Text*`). Trace filename in Ghidra → bind fn → package. Do **not** assume DrawText.
-4. **If true runtime DrawText** (help/error, some titles): `DrawTextToPane` / MakeStr. Nuclear test: force all DrawText → if chrome stays JP, it’s textures.
-5. **If list/quest titles already EN but overflow the capsule:** TRB string too long — **shorten the EN string** (pane font size is global). Example: To-Do STRI **2837** `Girlfriend's Personal Photographer` → shorter synonym (`Personal Photographer`). Pack `0x0600` slot 22; `translations.json` + `patch_textresource.py`.
-6. **If TRB already EN for the same words:** wrong path (different asset or runtime buffer). Stop re-translating those keys.
-7. **If `translations.json` has EN but the screen is still the full JP sentence:** dump vanilla TRB and compare keys. A truncated JSON key (cut mid-phrase, e.g. `…デートを作` vs `…デートを作成してください。`) never matches, so rebuild keeps JP. Fix the **full** codebook string, then `deploy_name_kanji_trb.py`. Example: Anywhere Date empty list STRI **25183**.
-8. **If an ETC1A4 MultiWin 192×16 bar looks fried / pixel-y:** it is a **BCLIM**, not TRB. Zhoumaru stem may be the wrong file (Network) or an 8px strip. Full EN that is 2× Communication’s width cannot keep ~13px cores — shorten the **bar** copy (Girlfriend Comm. → **Heart to Heart**, `docs/technical.md` §12.4.1). Do not LANCZOS-fill a plate onto this bar.
-9. **If the Main Menu hub header is colorful tiled noise** (rows still EN): BCLIM `Title_menu_word` @ **5261** `Pts_Title_menu`, not TRB. Zhoumaru `.check` dump had swizzled RGB (alpha still “Main Menu”). Encode gray “Main Menu” with the hub-label RGBA4444 path. Split RGB vs alpha before packing GPU dumps. `docs/technical.md` **§15.1.1**.
-10. **If RGB565 yellow-key labels look deep-fried next to an A8 header / RGBA4444 button:** not word count. Vanilla uses chroma ramps (~17 colors). 1-bit crush is the fry. 2× Heisei, lerp plate→ink, quantize to the JP palette — **§12.4.4**.
+Not NLPPCTR Citra hashes, not the UI Buttons zip (lolipop221), not TRB/scripts.
 
-## Verify identity before patching
+## CESA is not in this pack
 
-- Prefer MAD≈0 against dumps over filename similarity (`OptionClock` ≠ confirm softkeys).
-- Confirm package with `image_map.py` + `ie`/`pe` unpack; check fmt via `bclimutil.parse_bclim`.
-- Shared softkeys (`Com_btn_*` in pkg **5238**) affect **all** screens — intentional for EN.
-- Prefer Ghidra ascii anchors (`OptionMenu_BindBtnTextures`, `Com_M_Sel_Btn_Text03_*`) over guessing MyroomHeader `optn_tex_*`.
+| | Zhoumaru UI pack | CESA |
+|--|------------------|------|
+| Asset | `*.check/timg/*.png` | `assets/images/cesa/CESA_240X400.png` + `Bottom_Thank.png` |
+| Format | BCLIM in IMAGE_MAP ARCs | TEXI `CESA_240X400.texi` / `Bottom_Thank.texi` |
+| Package | menus / chrome ARCs | **90** (not in `image_map.py`) |
+| Origin | Zhoumaru `7ce3dd3` (did not touch CESA) | EngPatcher `6fc8658` (2026-07-20), earlier |
+| Deploy | PNG pack + chrome `deploy_*` | `deploy_cesa_en.py` / `--only cesa` only |
 
-## Exact-zlib splice
+CESA is a separate EngPatcher boot-warning texture (not Zhoumaru paint). English master is rendered with NLPPPATCH Heisei Gothic (`tools/render_cesa_en.py`) to match vanilla layout. Gold bake still injects it at the **tail** of `rebuild_bake_img.py`.
 
-See rule `img-exact-zlib-deploy`. Never grow PACK / NUL-pad short zlib / splice from bak over live.
+## When a screen is still JP
 
-## Chrome status (2026-07-20)
+1. Look for a Zhoumaru `.check` PNG first.
+2. If missing, it is not “Zhoumaru forgot CESA-class extras” unless the asset is actually a mapped BCLIM folder.
+3. CESA questions → `patch_cesa.py` / `deploy_cesa_en.py`, not the Zhoumaru tree.
 
-| Screen | Pkg | Status |
-|--------|-----|--------|
-| Options + clock title | **5245** A8 | EN |
-| Password entry window | **5251** ETC1A4 | EN (`deploy_optionpassword_en.py`, Zhoumaru `Pass_Win01`) |
-| Password entry header | **5245** | EN (`Password Input` plate `Text03_05`) |
-| Display/Sound settings panels | **5247** RGBA4444 | EN (`deploy_display_settings_en.py`) |
-| Back/Next/Confirm/Quit | **5238** ETC1A4 | EN (`OK` for 決定, `Quit` for やめる) |
-| Gallery / Comm / Data MSel | 5244/5241/5242 | EN (GF Comm./Intro/Date rows `Btn_Text04_01_04..10` @ **5241**) |
-| Girlfriend Comm. white header `カノジョ通信` | **5237** ETC1A4 192×16 | **Heart to Heart** (`deploy_multiwin_headers_en.py`; skip Zhoumaru 8px strip). Full “Girlfriend Communication” fries this bar — **§12.4.1**. |
-| Myroom / My Data / Schedule hdr | **5380** / **5575** | EN |
-| Profile labels | 5246 + **5252** | EN header **Profile** is Heisei W5 16px strip like Heart to Heart (`deploy_profile_en.py`, **§12.4.2**). Call01/atlas labels are Heisei size 15 **2× AA** quantized to vanilla RGB565 chroma ramps (not 1-bit) — **§12.4.4**. Hometown chips `Profile_Btn_Com02_Text01..08` stay Zhoumaru, contain-fit to a 6px pill inset (**§12.4.3**). |
-| Profile Called list (`Win_Call01/02`) | `code.bin` | Leftover `づ` was pack **0x7000** slot `0x40` after a `*3` kana walk past ASCII NUL — not a label to translate. ASCII Called names draw the typed string (`patch_input_call_romaji.py`, **§17.8**). |
-| Status stats | **5501** / **5255** | EN |
-| To-Do chrome | 5575 / **5253** | EN; long TRB titles → shorten |
-| Floating `初期設定` Defaults | ETC1A4 `Com_btn_sy01_{a,b}` @ **5238** | EN (`Restore Default`) — Zhoumaru; `deploy_softkey_defaults_en.py` |
-| Message-speed sample line | `code.bin` `0x005D1928` | EN (`This is a text-speed test.`) + Options **14/8/2/0** + TalkWindow **10/18/22/28** + voice/script cap (`patch_message_speed.py`, §21) |
-| Extra-data recreate warning body | TRB STRI **4429** DrawText (`Tex_Sentence`) | EN in `translations.json` (not pkg **5237** `Com_Win_Warning` chrome) |
-| Anywhere Date empty list | TRB STRI **25183** DrawText (`Lyt_De0200` Opt_Win) | EN — full JP key; truncated `…デートを作` never matched |
-| Main Menu **header** `メインメニュー` | **5261** `Title_menu_word` RGBA4444 (`Pts_Title_menu`) | Render gray EN + RGBA4444 encode; Zhoumaru RGB dump garbled first hub show (**§15.1.1**) |
-| In-room Options overlay `オプションメニュー` | **5380** + **5575** ETC1A4 `optn_tex_*` | EN (`deploy_myroom_options_en.py`, Zhoumaru). Distinct from hub Options **5245**. |
+## Known-bad dumps (do not pack as-is)
 
-Details: `docs/technical.md` §12.4–12.6.
+Azahar/Citra texture dumps can store **correct alpha glyphs** and **swizzled/garbage RGB**. Offline decode + alpha-composite on gray looks like a clean EN label; in-game the pic pane shows the RGB noise.
+
+| Dump | Pkg | Why skip / replace |
+|------|-----|--------------------|
+| `Title.check/timg/Title_menu_word.png` | **5261** `Pts_Title_menu` | Re-render gray `(51,51,51)` “Main Menu” and RGBA4444-encode. Zhoumaru RGB was swizzle trash → colorful hub header on first boot. Magenta probe confirmed this pane. `docs/technical.md` **§15.1.1**. |
+| `Myroom.check/timg/optn_tex_optionkabegami_RGBA4.png` | **5380** Wallpaper row | Opaque RGB is all `(0,0,0)` (filled slab). Re-render **Wallpaper**; other in-room `optn_tex_*` gray masters are good. `deploy_myroom_options_en.py`. |
+
+Before packing a `.check` A8/RGBA4444 text strip: split RGB vs alpha. If alpha looks like text and opaque RGB is noisy (high chroma, or only `(0,0,0)`/`(255,255,255)` while glyphs are not a designed 1-bit), re-render RGB from alpha (or skip the dump). Do not use `bak_pre_*` copied from packed MOD as a Title ARC source — `deploy_title_engpatch_en.py` extracts **vanilla** and RGBA4444-encodes `Title_menu_word`.
 
 ---
 > Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
