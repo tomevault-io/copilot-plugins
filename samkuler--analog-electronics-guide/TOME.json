@@ -1,0 +1,44 @@
+{
+  "name": "analog-electronics-guide",
+  "owner": "SamKuler",
+  "repo": "analog-electronics-guide",
+  "description": "\u4ece\u7535\u8def\u57fa\u7840\u5230\u9762\u8bd5\u8868\u8fbe\u7684 30 \u5929\u53cc\u8f68\u6a21\u62df\u7535\u5b50\u6280\u672f\u81ea\u5b66\u6307\u5357",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SamKuler/analog-electronics-guide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T02:32:57Z"
+}
