@@ -1,0 +1,9 @@
+{
+  "name": "eltavine--sereingram",
+  "displayName": "SereinGram",
+  "description": "SereinGram is an open-source Telegram client inspired by Nagram and AyuGram, designed for desktop platforms with support for macOS, Windows, and major Linux distributions.",
+  "version": "1.0.0",
+  "author": "eltavine",
+  "homepage": "https://github.com/eltavine/SereinGram",
+  "skills": []
+}
