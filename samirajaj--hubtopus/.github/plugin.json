@@ -1,0 +1,9 @@
+{
+  "name": "samirajaj--hubtopus",
+  "displayName": "hubtopus",
+  "description": "Next.js project utilizing GitHub REST API endpoints to fetch and display developer data.",
+  "version": "1.0.0",
+  "author": "samirajaj",
+  "homepage": "https://github.com/samirajaj/hubtopus",
+  "skills": []
+}
