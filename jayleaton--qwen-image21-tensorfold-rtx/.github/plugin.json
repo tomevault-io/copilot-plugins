@@ -1,0 +1,9 @@
+{
+  "name": "jayleaton--qwen-image21-tensorfold-rtx",
+  "displayName": "qwen-image21-tensorfold-rtx",
+  "description": "Qwen-Image 2.1 on TensorFold's NVFP4 kernels: a drop-in ComfyUI loader, 4x faster than the GGUF path on one RTX 5070 Ti (native Windows). Work in progress.",
+  "version": "1.0.0",
+  "author": "jayleaton",
+  "homepage": "https://github.com/jayleaton/qwen-image21-tensorfold-rtx",
+  "skills": []
+}
