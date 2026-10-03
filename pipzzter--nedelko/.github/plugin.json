@@ -1,0 +1,9 @@
+{
+  "name": "pipzzter--nedelko",
+  "displayName": "nedelko",
+  "description": "AI weekly planner for kindergarten teachers: bilingual lessons, air-quality-aware outdoor time, and parent notices. Hackathon project built with Node.js, Preact, and SQLite.",
+  "version": "1.0.0",
+  "author": "Pipzzter",
+  "homepage": "https://github.com/Pipzzter/nedelko",
+  "skills": []
+}
