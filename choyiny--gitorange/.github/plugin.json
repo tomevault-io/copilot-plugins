@@ -1,0 +1,9 @@
+{
+  "name": "choyiny--gitorange",
+  "displayName": "gitorange",
+  "description": "A self-hosted GitHub for your team, with no servers to run. Single-tenant git hosting with pull requests, built on Cloudflare Workers, D1, and Artifacts.",
+  "version": "1.0.0",
+  "author": "choyiny",
+  "homepage": "https://github.com/choyiny/gitorange",
+  "skills": []
+}
