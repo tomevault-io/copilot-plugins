@@ -1,0 +1,9 @@
+{
+  "name": "nodelike--sikemux",
+  "displayName": "sikemux",
+  "description": "The IDE for you and your coding agents. Run Claude Code, Codex and other agents next to your code, terminals, Git and a real browser, all in one Mac window. Built with Tauri, Rust and React.",
+  "version": "1.0.0",
+  "author": "nodelike",
+  "homepage": "https://github.com/nodelike/sikemux",
+  "skills": []
+}
