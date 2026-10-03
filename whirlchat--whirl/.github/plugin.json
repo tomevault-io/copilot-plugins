@@ -1,0 +1,9 @@
+{
+  "name": "whirlchat--whirl",
+  "displayName": "whirl",
+  "description": "The AI chat app that sweats the details. Every top model, real memory, living documents, and your own tools.",
+  "version": "1.0.0",
+  "author": "whirlchat",
+  "homepage": "https://github.com/whirlchat/whirl",
+  "skills": []
+}
