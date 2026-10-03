@@ -1,0 +1,9 @@
+{
+  "name": "androidengineers--android-ai-cookbook",
+  "displayName": "android-ai-cookbook",
+  "description": "Six runnable Android + AI recipes in Kotlin and Compose: streaming, Firebase setup, cancellation, validation, retries, and ADK tools. Fixture-tested.",
+  "version": "1.0.0",
+  "author": "AndroidEngineers",
+  "homepage": "https://github.com/AndroidEngineers/android-ai-cookbook",
+  "skills": []
+}
