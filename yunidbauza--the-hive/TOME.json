@@ -4,7 +4,7 @@
   "repo": "the-hive",
   "description": "A claude code command center",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yunidbauza/the-hive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T01:57:11Z"
+  "distributed_at": "2026-10-03T03:04:51Z"
 }
