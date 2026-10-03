@@ -1,0 +1,44 @@
+{
+  "name": "JARVIS-AI-OS",
+  "owner": "Vishwajeetsrk",
+  "repo": "JARVIS-AI-OS",
+  "description": "Jarvis AI OS - one brain, many shells. Landing, console, agent marketplace, plugin SDK, and desktop shell (Tauri).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Vishwajeetsrk/JARVIS-AI-OS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T01:17:24Z"
+}
