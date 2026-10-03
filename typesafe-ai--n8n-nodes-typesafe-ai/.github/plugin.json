@@ -1,0 +1,9 @@
+{
+  "name": "typesafe-ai--n8n-nodes-typesafe-ai",
+  "displayName": "n8n-nodes-typesafe-ai",
+  "description": "n8n-nodes-typesafe-ai",
+  "version": "1.0.0",
+  "author": "typesafe-ai",
+  "homepage": "https://github.com/typesafe-ai/n8n-nodes-typesafe-ai",
+  "skills": []
+}
