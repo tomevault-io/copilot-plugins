@@ -1,0 +1,9 @@
+{
+  "name": "entireio--entire-brain",
+  "displayName": "entire-brain",
+  "description": "\ud83e\udde0 The memory layer for your Git repository. Turn retained agent sessions, checkpoint history, docs, code structure, and durable facts into something you and your coding agents can actually query.",
+  "version": "1.0.0",
+  "author": "entireio",
+  "homepage": "https://github.com/entireio/entire-brain",
+  "skills": []
+}
