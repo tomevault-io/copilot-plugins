@@ -1,0 +1,9 @@
+{
+  "name": "eugene-panin--dataharbor",
+  "displayName": "DataHarbor",
+  "description": "Open-core data platform with self-healing web scrapers \u2014 AI agents diagnose and patch broken extractors automatically (ClickHouse, Dagster, Qdrant)",
+  "version": "1.0.0",
+  "author": "eugene-panin",
+  "homepage": "https://github.com/eugene-panin/DataHarbor",
+  "skills": []
+}
