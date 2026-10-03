@@ -1,0 +1,44 @@
+{
+  "name": "qwen-image21-tensorfold-rtx",
+  "owner": "jayleaton",
+  "repo": "qwen-image21-tensorfold-rtx",
+  "description": "Qwen-Image 2.1 on TensorFold's NVFP4 kernels: a drop-in ComfyUI loader, 4x faster than the GGUF path on one RTX 5070 Ti (native Windows). Work in progress.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jayleaton/qwen-image21-tensorfold-rtx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T12:33:52Z"
+}
