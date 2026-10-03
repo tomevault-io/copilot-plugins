@@ -1,0 +1,9 @@
+{
+  "name": "kirich1409--maven-mcp",
+  "displayName": "maven-mcp",
+  "description": "Maven dependency intelligence MCP server and Claude Code / Grok Build plugin",
+  "version": "1.0.0",
+  "author": "kirich1409",
+  "homepage": "https://github.com/kirich1409/maven-mcp",
+  "skills": []
+}
