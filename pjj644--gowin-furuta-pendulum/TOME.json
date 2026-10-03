@@ -1,0 +1,44 @@
+{
+  "name": "gowin-furuta-pendulum",
+  "owner": "pjj644",
+  "repo": "gowin-furuta-pendulum",
+  "description": "\u57fa\u4e8e\u9ad8\u4e91 FPGA (GW2A-55C) \u7684\u65cb\u8f6c\u5012\u7acb\u6446\u59ff\u6001\u63a7\u5236\u7cfb\u7edf\uff082026\u96c6\u521b\u8d5bFPGA\u8d5b\u9053\u9009\u9898\u4e00\uff0cLQI\u5168\u72b6\u6001\u53cd\u9988/\u80fd\u91cf\u6cf5\u8d77\u6446/\u56db\u9636\u8f6f\u542f\u52a8/HIL\u95ed\u73af\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pjj644/gowin-furuta-pendulum",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T06:41:44Z"
+}
