@@ -7,14 +7,14 @@ The structurally-verified context layer for AI coding agents. Cut 50-90% of your
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [rynald0cst0ltziam/Warden-AI](https://github.com/rynald0cst0ltziam/Warden-AI).
+Original source: `GEMINI.md` in [rynald0cst0ltziam/Warden-AI](https://github.com/rynald0cst0ltziam/Warden-AI).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/rynald0cst0ltziam/Warden-AI](https://github.com/rynald0cst0ltziam/Warden-AI)
