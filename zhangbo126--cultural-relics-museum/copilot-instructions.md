@@ -1,33 +1,40 @@
-## threejs-scene-modules
+## vue-tailwind-ui
 
-> 博物馆 Three 展厅（museumScene）dispose 与 composable 协作约定
+> Vue 页面与组件样式使用 Tailwind CSS（v4）实现
 
 
-# 博物馆 Three 展厅规范
+# Vue + Tailwind 样式规范
 
-## 架构
+## 必须
 
-- 场景宿主：`MuseumScene`（`src/utils/museumScene.ts`）— camera / renderer / scene / controls / loaders / rAF
-- 页面生命周期：`useMuseumHall`（PC / 移动共用），在 composable 内用 plain `let` 持有实例
-- 热点：`artifactHotspots.ts` + `museumHotspots.ts`
-- 资源释放：`src/utils/utils.ts` 的 `disposeMaterial` / `disposeScene` / `disposeTextures`
+- 新 UI 用 Tailwind utility 写在 template `class` 上；不要新建同目录 `index.scss` 做布局/颜色/间距
+- Tailwind 已通过 `@tailwindcss/vite` + `src/style/tailwind.css`（`@import 'tailwindcss'`）接入
+- 动态样式（如进度条宽度）用 `:style` 绑定，其余用 class
+- 与 Element Plus 共存：表单/弹层优先 Element 组件；外层布局、间距、颜色用 Tailwind
 
-## 硬性要求
+## 推荐写法
 
-- 传给 Three API 的对象先 `toRaw()`，避免 Vue Proxy
-- 卸载 / 路由离开时必须调用场景 `dispose`，移除事件监听与 rAF
-- 用户可见错误用 `ElMessage`（中文）
-- 改光、环陈半径、漫游位姿等集中在 `museumScene.ts`；文案与分类改 `museumArtifacts.ts`
+```vue
+<template>
+  <div class="fixed inset-0 z-[2000] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <p class="text-sm text-white/70">加载中...</p>
+  </div>
+</template>
 
-## 导入
-
-```ts
-import * as THREE from 'three';
-import { toRaw } from 'vue';
-import MuseumScene from '@/utils/museumScene';
+<script setup lang="ts">
+// ...
+</script>
 ```
 
-addons：`three/addons/...`（本仓库现用 WebGLRenderer，非 WebGPU/TSL，除非任务明确要求）。
+## 避免
+
+- 为简单布局再写嵌套 SCSS（`#root { .box { .txt } }`）
+- 在组件里重复引入 Tailwind（全局已在 `main.ts` 引入）
+- 用 Tailwind 硬覆盖 Element 内部复杂结构时，改用少量 scoped CSS / `:deep()`
+
+## 迁移
+
+改动已有 SCSS 组件时，优先把改动部分迁到 Tailwind；整文件可删则删掉对应 `index.scss` 与 `<style src>`。
 
 ---
 > Source: [zhangbo126/cultural-relics-museum](https://github.com/zhangbo126/cultural-relics-museum) — distributed by [TomeVault](https://tomevault.io).
