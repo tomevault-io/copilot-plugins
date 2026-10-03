@@ -1,0 +1,9 @@
+{
+  "name": "vincentqyw--vscode-colmap-viewer",
+  "displayName": "vscode-colmap-viewer",
+  "description": "Visualize COLMAP sparse reconstructions  inside VS Code",
+  "version": "1.0.0",
+  "author": "Vincentqyw",
+  "homepage": "https://github.com/Vincentqyw/vscode-colmap-viewer",
+  "skills": []
+}
