@@ -1,0 +1,44 @@
+{
+  "name": "cultural-relics-museum",
+  "owner": "zhangbo126",
+  "repo": "cultural-relics-museum",
+  "description": "\u7eafvibecoding\u7684\u4e00\u4e2a\u4e2d\u56fd\u53e4\u6587\u7269\u535a\u7269\u9986\u9879\u76ee",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhangbo126/cultural-relics-museum",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T22:35:55Z"
+}
