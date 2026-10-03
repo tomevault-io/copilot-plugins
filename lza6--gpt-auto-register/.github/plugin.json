@@ -1,0 +1,9 @@
+{
+  "name": "lza6--gpt-auto-register",
+  "displayName": "GPT-Auto-Register",
+  "description": "GPT\u7684\u81ea\u52a8\u6ce8\u518c\uff0c\u5fae\u8f6f\u65e0\u9650\u90ae\u7bb1+CF\u4eba\u673a\u6311\u6218+GPT\u7f51\u9875\u7684\u8d26\u53f7\u5bc6\u7801\u7684\u81ea\u52a8\u8bbe\u7f6e\u3001\u53ef\u4e00\u952e\u5bfc\u51fa\u8d26\u53f7\u5bc6\u7801\u65b9\u4fbf\u4f7f\u7528",
+  "version": "1.0.0",
+  "author": "lza6",
+  "homepage": "https://github.com/lza6/GPT-Auto-Register",
+  "skills": []
+}
