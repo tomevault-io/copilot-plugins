@@ -1,0 +1,9 @@
+{
+  "name": "romm-streaming--romm-broker",
+  "displayName": "romm-broker",
+  "description": "integrating lsio/webstation and rommapp/romm",
+  "version": "1.0.0",
+  "author": "romm-streaming",
+  "homepage": "https://github.com/romm-streaming/romm-broker",
+  "skills": []
+}
