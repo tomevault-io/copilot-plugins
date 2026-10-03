@@ -1,0 +1,9 @@
+{
+  "name": "pleiondev--flutter3d",
+  "displayName": "flutter3d",
+  "description": "An independent implementation of a 3D engine on Flutter GPU, a game engine on top of it",
+  "version": "1.0.0",
+  "author": "pleiondev",
+  "homepage": "https://github.com/pleiondev/flutter3d",
+  "skills": []
+}
