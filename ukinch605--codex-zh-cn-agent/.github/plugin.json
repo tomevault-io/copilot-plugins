@@ -1,0 +1,9 @@
+{
+  "name": "ukinch605--codex-zh-cn-agent",
+  "displayName": "codex-zh-cn-agent",
+  "description": "One-sentence Chinese localization launcher for Codex Desktop (zh-CN agent installer)",
+  "version": "1.0.0",
+  "author": "ukinch605",
+  "homepage": "https://github.com/ukinch605/codex-zh-cn-agent",
+  "skills": []
+}
