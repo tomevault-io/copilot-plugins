@@ -1,19 +1,20 @@
-## naming-and-routes
+## state-and-forms
 
-> Naming, imports, typed routes, AppProviders
+> TanStack Query, Zustand user store, nuqs, RHF+Zod, dayjs
 
 
-# Naming, imports, routes
+# State & forms
 
-- Files: **kebab-case**. Feature pages: `sth-page.tsx` exporting `SthPage`.
-- Shared imports: `@/components`, `@/lib`, `@/messages`, ….
-- Same-feature imports: **relative**.
-- Navigation/redirects/Links: only via generated `routes.*()` from `src/lib/routes.ts`.
-- **Do not edit `src/lib/routes.ts`** — it is gitignored; regenerate via `npm run routes:generate` / watch on `npm run dev`.
-- Config aliases/extras: `scripts/routes.config.mjs`. See `docs/routes.md`.
-- Post-login `next`: panel allowlist only; else dashboard.
-- Client providers: one `AppProviders` module; document order in-file.
-- `cn`: from shadcn CLI.
+- **TanStack Query**: server/async data and mutations (via Orval hooks).
+- **Zustand**: shell prefs + **panel current user** (`/me`) — not theme.
+- **nuqs**: filters and URL-serializable UI state.
+- **Theme**: `next-themes` only.
+- **Dates**: dayjs + locales.
+- Do not mirror arbitrary Query data into Zustand; user session is the allowed exception.
+- Load `/me` only inside the panel private shell into the user store.
+- Forms: React Hook Form + Zod; inline field errors; use `toast` from `@/components/ui/toast` for global feedback.
+- Logout: `useUserStore.logout(queryClient)` — `POST /auth/logout` then clear cookie + user + Query cache (even if API fails).
+- Navigation: typed `routes.*()` helpers only.
 
 ---
 > Source: [soheilhasanjani/contently](https://github.com/soheilhasanjani/contently) — distributed by [TomeVault](https://tomevault.io).
