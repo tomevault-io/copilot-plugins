@@ -1,0 +1,9 @@
+{
+  "name": "frangelbarrera--agentic-harness",
+  "displayName": "agentic-harness",
+  "description": "Open-source Python agent harness for auditable, cost-controlled LLM workflows with YAML playbooks and MCP server support.",
+  "version": "1.0.0",
+  "author": "frangelbarrera",
+  "homepage": "https://github.com/frangelbarrera/agentic-harness",
+  "skills": []
+}
