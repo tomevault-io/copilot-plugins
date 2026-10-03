@@ -4,7 +4,7 @@
   "repo": "stellar-raven",
   "description": "Stellar MCP server for AI agents: one authenticated gateway to official docs, live ecosystem data, community intel, and tested playbooks.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stellar-experimental/stellar-raven",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T01:23:07Z"
+  "distributed_at": "2026-10-03T01:37:14Z"
 }
