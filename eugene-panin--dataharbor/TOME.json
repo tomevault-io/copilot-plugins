@@ -4,7 +4,7 @@
   "repo": "DataHarbor",
   "description": "Open-core data platform with self-healing web scrapers \u2014 AI agents diagnose and patch broken extractors automatically (ClickHouse, Dagster, Qdrant)",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eugene-panin/DataHarbor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T00:41:39Z"
+  "distributed_at": "2026-10-03T01:08:36Z"
 }
