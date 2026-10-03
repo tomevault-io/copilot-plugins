@@ -1,0 +1,9 @@
+{
+  "name": "gonzaroman--ihmt-memory",
+  "displayName": "IHMT-MEMORY",
+  "description": "Long-term memory for AI coding agents (Claude Code, Codex, opencode) as a tree of plain files",
+  "version": "1.0.0",
+  "author": "gonzaroman",
+  "homepage": "https://github.com/gonzaroman/IHMT-MEMORY",
+  "skills": []
+}
