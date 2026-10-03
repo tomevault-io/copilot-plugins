@@ -1,0 +1,9 @@
+{
+  "name": "weileyao2005--cnki-deepsearch",
+  "displayName": "cnki-deepsearch",
+  "description": "CNKI DeepSearch \u2014 \u77e5\u7f51\u6df1\u641c MCP \u5de5\u5177\u3002\u62e6\u622a\u77e5\u7f51\u5185\u90e8 REST API\uff0c\u4e00\u6b21\u9875\u9762\u8bbf\u95ee\u83b7\u53d6\u6458\u8981+\u53c2\u8003\u6587\u732e+\u5f15\u8bc1\u6587\u732e+\u76f8\u4f3c\u8bba\u6587+\u5173\u952e\u8bcd\u6743\u91cd\u4e03\u7ef4\u6570\u636e\u3002\u652f\u6301\u77e5\u8bc6\u56fe\u8c31\u94fe\u6761\u63a8\u6f14\u3002",
+  "version": "1.0.0",
+  "author": "weileyao2005",
+  "homepage": "https://github.com/weileyao2005/cnki-deepsearch",
+  "skills": []
+}
