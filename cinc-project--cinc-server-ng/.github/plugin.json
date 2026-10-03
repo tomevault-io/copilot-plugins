@@ -1,0 +1,9 @@
+{
+  "name": "cinc-project--cinc-server-ng",
+  "displayName": "cinc-server-ng",
+  "description": "Fully in-memory Chef Infra Server in Go for test pipelines \u2014 real Mixlib auth, Policyfiles & policy groups first-class",
+  "version": "1.0.0",
+  "author": "cinc-project",
+  "homepage": "https://github.com/cinc-project/cinc-server-ng",
+  "skills": []
+}
