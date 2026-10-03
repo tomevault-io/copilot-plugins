@@ -1,0 +1,9 @@
+{
+  "name": "igor-alexandrov--tabletist",
+  "displayName": "tabletist",
+  "description": "A fast, native database client for PostgreSQL, MySQL and SQLite. Written in Rust with egui; runs on Linux, macOS and Windows.",
+  "version": "1.0.0",
+  "author": "igor-alexandrov",
+  "homepage": "https://github.com/igor-alexandrov/tabletist",
+  "skills": []
+}
