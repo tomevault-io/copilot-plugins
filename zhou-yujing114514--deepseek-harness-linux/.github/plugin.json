@@ -1,0 +1,9 @@
+{
+  "name": "zhou-yujing114514--deepseek-harness-linux",
+  "displayName": "deepseek-harness-linux",
+  "description": "First-class Linux packaging for DeepSeek Harness desktop \u2014 AppImage, .deb, .tar.gz for x64/arm64, built by native CI.",
+  "version": "1.0.0",
+  "author": "Zhou-Yujing114514",
+  "homepage": "https://github.com/Zhou-Yujing114514/deepseek-harness-linux",
+  "skills": []
+}
