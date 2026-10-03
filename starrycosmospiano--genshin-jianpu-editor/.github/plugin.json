@@ -1,0 +1,9 @@
+{
+  "name": "starrycosmospiano--genshin-jianpu-editor",
+  "displayName": "genshin-jianpu-editor",
+  "description": "\u539f\u7434\u7b80\u8c31\u7f16\u8f91\u5668\uff1a\u9762\u5411\u539f\u795e\u7434\u8c31\u5236\u4f5c\u7684 MIDI \u8f6c\u7b80\u8c31\u3001\u952e\u76d8\u8c31\u4e0e SVG \u6392\u7248\u5de5\u5177 \u00b7 Genshin jianpu editor and MIDI converter",
+  "version": "1.0.0",
+  "author": "StarryCosmosPiano",
+  "homepage": "https://github.com/StarryCosmosPiano/genshin-jianpu-editor",
+  "skills": []
+}
