@@ -1,0 +1,44 @@
+{
+  "name": "omp-plugin-dynamic-system-prompt",
+  "owner": "metaphorics",
+  "repo": "omp-plugin-dynamic-system-prompt",
+  "description": "Scales system-prompt guidance to the model reading it: an oh-my-pi plugin that appends a capability-tuned directive block chosen by model family, version, and tier.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/metaphorics/omp-plugin-dynamic-system-prompt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T02:41:18Z"
+}
