@@ -1,0 +1,44 @@
+{
+  "name": "doumcp",
+  "owner": "yfishyon",
+  "repo": "doumcp",
+  "description": "DouMCP\uff08\u6296M\uff09- MCP-enabled LSPosed module for Douyin | \u8ba9 AI \u901a\u8fc7 MCP \u534f\u8bae\u64cd\u63a7\u6296\u97f3",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yfishyon/doumcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T04:37:20Z"
+}
