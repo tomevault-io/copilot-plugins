@@ -1,0 +1,44 @@
+{
+  "name": "opencatz-ai",
+  "owner": "dizcorvus",
+  "repo": "opencatz-ai",
+  "description": "\ud83d\udc3e Autonomous Multi-Agent Crypto Intelligence Swarm. 15 AI Scouts monitoring Solana, Robinhood Chain, Base, ETH, Ink & Hyperliquid 24/7.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dizcorvus/opencatz-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T01:04:15Z"
+}
