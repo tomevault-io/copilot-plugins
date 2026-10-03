@@ -1,0 +1,9 @@
+{
+  "name": "baketnk--frame-yap",
+  "displayName": "frame-yap",
+  "description": "On-device voice typing for Steam Frame: hold a button, speak, review, type. Local speech recognition, no cloud.",
+  "version": "1.0.0",
+  "author": "baketnk",
+  "homepage": "https://github.com/baketnk/frame-yap",
+  "skills": []
+}
