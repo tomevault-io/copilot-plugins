@@ -1,0 +1,9 @@
+{
+  "name": "atlas-vtt--atlas-vtt",
+  "displayName": "atlas-vtt",
+  "description": "Offline virtual tabletop for Obsidian: battle maps, tokens, fog of war, dice, initiative and a separate player view.",
+  "version": "1.0.0",
+  "author": "atlas-vtt",
+  "homepage": "https://github.com/atlas-vtt/atlas-vtt",
+  "skills": []
+}
