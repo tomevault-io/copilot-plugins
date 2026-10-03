@@ -1,0 +1,44 @@
+{
+  "name": "Curio",
+  "owner": "firefly-sylestia",
+  "repo": "Curio",
+  "description": "A discovery roulette deck + offline personal library for the things you notice. Privacy-first, beautifully designed, built with Kotlin & Compose. All topics are sourced from Wikipedia or other platforms with the help of AI. And the app itself is 80% made with the help of AI",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/firefly-sylestia/Curio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T03:13:29Z"
+}
