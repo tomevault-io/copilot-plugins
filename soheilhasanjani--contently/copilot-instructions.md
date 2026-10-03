@@ -1,28 +1,19 @@
-## i18n-and-theme
+## naming-and-routes
 
-> next-intl routing, fa default, next-themes
+> Naming, imports, typed routes, AppProviders
 
 
-# i18n & dark mode
+# Naming, imports, routes
 
-## i18n (`next-intl`)
-
-- Locales: `en` (LTR), `fa` (RTL). Routes: `/en/...`, `/fa/...`.
-- Messages: `messages/en.json`, `messages/fa.json`.
-- No hardcoded user-facing strings.
-- Full RTL for `fa`: `dir="rtl"`, logical CSS, mirrored layout.
-- Locale layout is the main shell: `RootProvider` (`html`/`body` + fonts + `NextIntlClientProvider`) + `AppProviders` (Direction → Query → Theme → Nuqs).
-- Root `app/layout.tsx` is pass-through only.
-- Fonts: **Inter** (`en`) + **Vazirmatn** (`fa`) via `next/font`, switched by locale.
-- `/` resolution: `NEXT_LOCALE` cookie → `Accept-Language` → default **`fa`**.
-- `NEXT_LOCALE` written via **next-intl** middleware/helpers.
-
-## Theme (`next-themes`)
-
-- `attribute="class"` (`dark` on `<html>`).
-- Default: **system**. User override → browser storage.
-- Do not store theme in Zustand.
-- Avoid flash: ThemeProvider + `suppressHydrationWarning` when needed.
+- Files: **kebab-case**. Feature pages: `sth-page.tsx` exporting `SthPage`.
+- Shared imports: `@/components`, `@/lib`, `@/messages`, ….
+- Same-feature imports: **relative**.
+- Navigation/redirects/Links: only via generated `routes.*()` from `src/lib/routes.ts`.
+- **Do not edit `src/lib/routes.ts`** — it is gitignored; regenerate via `npm run routes:generate` / watch on `npm run dev`.
+- Config aliases/extras: `scripts/routes.config.mjs`. See `docs/routes.md`.
+- Post-login `next`: panel allowlist only; else dashboard.
+- Client providers: one `AppProviders` module; document order in-file.
+- `cn`: from shadcn CLI.
 
 ---
 > Source: [soheilhasanjani/contently](https://github.com/soheilhasanjani/contently) — distributed by [TomeVault](https://tomevault.io).
