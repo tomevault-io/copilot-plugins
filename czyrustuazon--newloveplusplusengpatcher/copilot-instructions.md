@@ -1,0 +1,42 @@
+## azahar-test-workflow
+
+> Full workflow for agents: **`ab_test/README.md`**.
+
+# Azahar a/b testing
+
+Full workflow for agents: **`ab_test/README.md`**.
+
+## Hard prefs
+
+- **Never** tell the user to “fully quit Azahar” between tests — they already do.
+- Do not put quit/restart Azahar in checklists unless diagnosing a proven LayeredFS reload failure.
+
+## Quick commands
+
+```powershell
+.\ab_test\make.ps1 instances
+.\ab_test\make.ps1 deploy-a    # existing post-bake LayeredFS → instance A
+.\ab_test\make.ps1 launch-a
+.\ab_test\make.ps1 restore-a
+```
+
+`deploy-a` / `seed-a` copy `release/bake_img.bin`, `release/name_input_code.bin`, and `release/romfs_overlay/` into the instance, then overlay English `.dbin2` dialog with the same inject the CIA uses (`src/script_inject.py --layeredfs`). They do not seed vanilla `img.bin` and they do not start a bake. If those release files are missing, the command prompts that a bake should be done first and exits. Japanese script slots are left on the ROM.
+
+Instance roots: `ab_test/azahar_instances/{a,b}/user` (`NLPP_AZAHAR_USER_DIR`). Drop CIA wipes `out/`; these copies stay.
+Scripts: `ab_test/`. Feature details: `docs/technical.md`.
+
+## Communications stuck on loading
+
+That spinner is Azahar **`OpenLinkFile`**, not extra data `00000F4E` and not pkg **5237**. Stock HLE cloned the handle as the **full** extra-data blob (`offset=0`, `subfile=false`). NLPP `GetSize`s that clone after `OpenSubFile` and heap-smashes (`Write32 0x33373338`). Closing the shared backend while the clone is still live brings the same spinner back. Fix is in local Azahar `src/core/hle/service/fs/file.cpp`: snapshot `priority` / `offset` / `size` / `subfile`, and skip `backend->Close()` until the last session. Patch: `ab_test/patches/azahar-openlinkfile.patch`. `.\ab_test\make.ps1 build-azahar` applies it and copies `azahar.exe` into `ab_test/azahar_instances/{a,b}/`. Details: `docs/technical.md` **§10.1**.
+
+Do **not** restore extra data or re-splice Communication packages for this hang. Still move LayeredFS `*.bak*` out of `romfs/` (`launch-a` already does).
+
+## Game Start sometimes hangs (reset continues)
+
+Same extra-data smash as Communications (`Write32 0x33373338` @ `PC 0x0011531C`), triggered from **Game Start**, not the Communication spinner. Instance A log: `OpenLinkFile` of the **parent** extra-data archive (`clone offset=0x0 size=0x65a13720 subfile=false` ≈ 1.62 GiB quota). The clone patch is already in that `azahar.exe` and **cannot shrink** a source handle that was never an `OpenSubFile` window. GPU `1x1` spam continues with dump off, so it looks frozen; reset kills process 11 and the next boot can continue.
+
+**Not hardware. Not bake / `img.bin` / `code.bin`.** Do not restore extra data. Details: `docs/technical.md` **§10.2**.
+
+---
+> Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-03 -->
