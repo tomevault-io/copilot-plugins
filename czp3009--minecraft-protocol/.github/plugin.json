@@ -1,0 +1,9 @@
+{
+  "name": "czp3009--minecraft-protocol",
+  "displayName": "minecraft-protocol",
+  "description": "A Kotlin Multiplatform library for the Minecraft Java Edition protocol and world storage, including NBT, packet codecs, networking, file IO",
+  "version": "1.0.0",
+  "author": "czp3009",
+  "homepage": "https://github.com/czp3009/minecraft-protocol",
+  "skills": []
+}
