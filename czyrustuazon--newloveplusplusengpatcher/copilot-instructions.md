@@ -1,43 +1,41 @@
-## patch-safety
+## read-docs-first
 
-> Hard safety bans for NLPP img.bin / code.bin / Azahar patches.
+> Always read existing NLPP RE docs/rules before rediscovering; prevents starting from scratch.
 
 
-# Patch safety (hard bans)
+# Read existing work first
 
-## Never
+Before reverse-engineering UI, patching `img.bin`/`code.bin`/TRB, or “searching for the Japanese string again”:
 
-- Full-rebuild `img.bin` with `Image.write()` or `pack_images --full-repack` (black-screen boot).
-- Redeploy `EngPatcher/src/patch_clock_text.py` global MakeStr hook as-is (crashes or blanks all text). Prefer `code.bin.bak_clocktext` restore if that lands again.
-- Same-size BCLIM violations — if encode changes length/format, keep the original entry.
-- Broad `--only`-less image packs that skip-fail half of NCommonIcon; scope keys (`--only ncommonicon`) and only replace intended PNGs.
-- Shipping Azahar **custom texture** packs (`use_new_hash`) as the real fix — OK for RE, unstable in play.
-- **`pe` repack that grows a PACK slot**, or selective `ie` full rewrite to absorb growth (prefer exact same package length).
-- **Short zlib into a compressed ARC/TEX slot with trailing NUL**, or **shrinking entry `cmp_len`** — freezes/crashes (Options, CESA). Stream length must equal the slot with `unused_data == 0`.
-- Treat MyroomHeader `optn_tex_optionmenu_*` as Options/**clock** titles (wrong for hub Options; use NCommonMSel **5245**). The in-room overlay `オプションメニュー` *does* use those stems + Myroom **5380** (`deploy_myroom_options_en.py`).
-- **`splice_packages_into_img(bak, …, MOD_IMG)`** when `bak != MOD` — copies the whole bak over live and **wipes later EN packages**. Splice into live `MOD_IMG`; extract vanilla packages from bak only.
-- **Patch CIA with UI on the normal Drop CIA path without `release/bake_img.bin`** — causes English dialog/names but **Japanese menus** (menu chrome is bake-only). Bat must hard-stop if bake missing after fetch + rebuild.
-- **Grow a PACK header `dec_len` without updating img.bin's idx-table size for that package** — pkg **90** CESA companion wrote past a 1182976 arena (idx still vanilla) and heap-smashed boot. Inner PACK header and idx `dec_len` must match.
+1. Read **`docs/technical.md`** (this repo and/or `../NewLovePlusPlusEngPatcher/docs/technical.md`) — addresses, BCLIM quirks, TRB/INDX, softkeys, dead ends, §13.3 third-party stack.
+2. Skim Cursor rules:
+   - `nlpp-repo-workflow` — how to pack/deploy/address-convert; **gold bake / Drop CIA (§15.5)**
+   - `from-scratch-bake` — real-3DS ship path: Drop CIA / `rebuild_bake_img.py --rom`; name-input caves in `.text`
+   - `bakable-and-layeredfs` — every playable patch: gold bake/CIA **and** Azahar LayeredFS deploy
+   - `clock-confirm-ui-localization` — clock + Options + Confirm softkeys (5245 / 5238 / 5247 / 5248)
+   - `ui-localization-method` — texture vs TRB vs DrawText decision tree
+   - `zhoumaru-ui-pack` — Zhoumaru community EN UI PNGs (`*.check/timg`); **CESA is not in that pack**
+   - `azahar-test-workflow` — a/b instances; **OpenLinkFile** Communications load hang + Game Start parent-archive hang (`docs/technical.md` §10.1–§10.2)
+   - `img-exact-zlib-deploy` — exact-length zlib/zopfli splice; **never bak→MOD wipe**
+   - `ghidra-mcp` — Ghidra usage + Options bind APIs
+   - `patch-safety` — hard bans
+3. Check `out/msel5245_en/`, `out/confirm_btn_en/`, `out/options_tex_extract/`, `out/clock_recheck/`, and `assets/images/*.check/` before re-extracting packages.
 
-## Always
+**Do not** re-run full romfs string hunts for `３ＤＳ本体時計` / `本体時計` — absent as text; title is A8 BCLIM @ pkg **5245** (see `docs/technical.md` §§9, 12.4–12.5).
 
-- Splice packages at the **same offset/length** (`splice_packages_into_img`).
-- For zlib-compressed ARC replaces: exact-length stream; see rule `img-exact-zlib-deploy` (zopfli gap-salt **or** SYNC_FLUSH empty-blocks; zero gaps first on large ARCs if needed).
-- Backup before code hooks; test one change at a time in LayeredFS (`img.bin.bak_pre_<feature>` or `code.bin.bak_pre_<feature>`).
-- Playable patches must be **bakable and LayeredFS-deployable** (rule `bakable-and-layeredfs`): hook `rebuild_bake_img.py` / `name_input_code.bin` **and** apply to live Azahar mods.
-- When deploying images, prefer splicing onto the current Azahar mod `img.bin` if it already has other patches (CESA, etc.), not only vanilla.
-- Treat dump `extracted/` as mostly read-only; write patches through EngPatcher → Azahar mods.
-- Fully quit Azahar after `img.bin` changes so LayeredFS reloads.
-- On **Drop CIA** normal path: prefer `release/bake_img.bin`; if absent, poll CI (`fetch_release_bake.py --best-effort`) then `rebuild_bake_img.py --rom` — see `nlpp-repo-workflow` gold bake section.
+**Do not** treat RomFS `textresource_resident_jpn.trb` as a runtime TextResource — unused leftover; live TOP blob is **img.bin pkg 5508** (`nlpp-repo-workflow` TextResource section). Pending collaborator notes (pre-merged / ~30k→45–50k / ID→text table) live there as **unverified** — don’t promote to fact until checked.
 
-## LayeredFS layout
+**Do not** rediscover NCommonIcon `Com_btn_m01_b` / `t01_b` as the clock Back/Next source — already verified EN (pkg 5238).
 
-```
-%AppData%\Azahar\load\mods\00040000000F4E00\
-  romfs\img.bin
-  romfs\SystemData\TextResource\...
-  exefs\code.bin
-```
+**Do not** treat MyroomHeader `optn_tex_*` or DrawText as Options/clock menu chrome — wrong path.
+
+**Do not** treat a Communications loading spinner as broken extra data `00000F4E` or a bad pkg **5237** — Azahar `OpenLinkFile` must clone the subfile handle (`docs/technical.md` §10.1).
+
+**Do not** treat an intermittent **Game Start** freeze (reset continues) as a CIA / `img.bin` / hardware bug — Azahar `OpenLinkFile` of the **parent** extra-data archive reports ~1.62 GiB quota (`subfile=false`); same `0x33373338` smash. Clone patch does not help. `docs/technical.md` **§10.2**.
+
+Prefer extending documented next steps over opening a fresh “find the string” investigation.
+
+**Gold bake / Drop CIA (2026-09):** read `docs/technical.md` **§15.5–15.6** before diagnosing “names EN, menus JP” on a clean clone. `release/bake_img.bin` is **gitignored** — not in clone. Run `python -m pytest tests/ -v` after changing fetch/bat/inject logic.
 
 ---
 > Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
