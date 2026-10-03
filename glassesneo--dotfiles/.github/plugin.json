@@ -1,0 +1,30 @@
+{
+  "name": "glassesneo--dotfiles",
+  "displayName": "dotfiles",
+  "description": "My dotfiles",
+  "version": "1.0.0",
+  "author": "glassesneo",
+  "homepage": "https://github.com/glassesneo/dotfiles",
+  "skills": [
+    {
+      "name": "ai-first-doccomments",
+      "description": ""
+    },
+    {
+      "name": "architecture-planning-perspective",
+      "description": ""
+    },
+    {
+      "name": "hierarchical-claude-md",
+      "description": ""
+    },
+    {
+      "name": "performance-planning-perspective",
+      "description": ""
+    },
+    {
+      "name": "tmux-runner",
+      "description": ""
+    }
+  ]
+}
