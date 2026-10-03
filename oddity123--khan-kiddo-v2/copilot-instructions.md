@@ -1,72 +1,36 @@
-## frontend-dev
+## llm-prompt-authoring
 
-> 前端开发在 frontend/ 目录执行 npm，API 开发代理到 backend:8080。
+> 编写/修改 LLM 提示词时：正向规格优先、少写「不要旧形态」、system vs user 分工。触发：改 templates/prompts、*-schema.json，或讨论 prompt/system/user。
 
 
-# 前端（frontend/）
+# LLM 提示词编写
 
-技术栈：Vue 3、Vite、TypeScript、Pinia、Vue Router、Element Plus。
+适用于 `backend/src/main/resources/templates/prompts/` 下各阶段（如 phrase-card-review、grammar-analysis、conversation-separation、educational-summary、growth-card-mint 等）及其配套 `schemas/`。
 
-## 命令
+## 正向规格优先
 
-```bash
-cd /Users/oddity/workspace/khan_kiddo_v2/frontend
-npm install
-npm run dev      # http://localhost:5173
-npm run build
-```
+- 先写**该产出什么**（字段含义、`kind` 映射、长度/对齐、保留条件）。
+- 改产品语义时：只更新正向映射与正例；**不要**默认同堆「不要旧形态 A」。
 
-## API
+## 负向仅实证
 
-- 开发环境 `VITE_API_BASE_URL` 为空，请求 `/api/*` 由 Vite 代理到 `http://localhost:8080`
-- 先启动 backend：`cd .. && ./mvn.sh spring-boot:run` 或在 IDEA 运行 `KhanKiddoLearningApplication`
+- 负向规则只留给：**正向说不清**且会**反复踩**的坑。
+- **禁止**因「刚从形态 A 改成 B」就写「不要 A」——正向已定义 B 即可。
 
-## 设计与样式（Editorial Calm）
+## system vs user
 
-设计基调：**沉静、专业、编辑感** — 海军蓝主色 + 克制暖金点缀，灰蓝雾面背景。禁止黄绿高饱和渐变、Inter/Roboto、紫色 SaaS 风。
+**system（稳定契约）**
 
-### Token 与样式入口
+- 角色与边界
+- 字段 / `kind` → 输出字段的稳定映射
+- 场级去重、不可积累则跳过
+- 输出契约（合法 JSON / schema 一致；跳过的 index 不出现）
 
-- 全站 design tokens 定义在 `frontend/src/styles/tokens.css`（`--kk-*` 前缀）
-- 全局样式唯一入口：`frontend/src/styles/index.css`（已在 `main.ts` 引入）
-- 布局工具类在 `frontend/src/styles/theme.css`（`.kk-page-bg`、`.kk-page-shell`、`.kk-glass*`）
-- 毛玻璃数值在 `tokens.css` 的 `--kk-glass-*`；**禁止**在组件 scoped 中写 `backdrop-filter` 或复制半透明玻璃背景
-- **禁止**在组件内重复定义 `:root` token，**禁止**硬编码品牌色（如 `#0b1a7d`、`#3498db`）
+**user（本场实例）**
 
-### 毛玻璃（Liquid Glass）
-
-| 类名 | 用途 |
-|------|------|
-| `.kk-glass` | 默认浮层（demo 窗口、小卡片） |
-| `.kk-glass--panel` | 页面主内容块（与 `.kk-glass` 叠用） |
-| `.kk-glass--nav` | 顶部导航栏（与 `.kk-glass` 叠用） |
-| `.kk-nav-dropdown` | 导航 `el-dropdown` 的 `popper-class`（挂 body，样式在 `theme.css`） |
-
-嵌套内层、hover 等交互态引用 `--kk-glass-inner-*`、`--kk-glass-hover-*`，勿写裸 `rgba(255,255,255,…)`。
-
-### 布局
-
-- 页面必须走 `AppLayout`（含顶部导航 + 内容区）
-- 内容宽度使用 `.kk-page-shell`（桌面 80%，移动端 94%），与导航栏对齐
-- 导航栏为 fixed 浮动 Liquid Glass（`.kk-glass.kk-glass--nav`），非全宽贴边白条
-- 页面背景由 `AppLayout` 的 `.kk-page-bg` 提供，子页面不要再铺全屏背景色
-
-### 字体
-
-- 标题 / 数据：`var(--kk-font-display)`（Fraunces）
-- 正文 / 导航：`var(--kk-font-body)`（DM Sans）
-- 英文例句 / 代码：`var(--kk-font-mono)`（IBM Plex Mono）
-
-### Element Plus
-
-- 主色已通过 token 桥接（`--el-color-primary`），优先使用 EP 组件 + `var(--kk-*)` 定制
-- 新增页面样式应消费 token，而非复制 HomeView 里的一次性色值
-
-### 新增页面 checklist
-
-1. 路由注册在 `src/router/index.ts`
-2. API 封装在 `src/api/`，类型在 `src/types/`
-3. 颜色 / 圆角 / 阴影引用 `--kk-*`，不新增平行色板
+- 本场任务说明 + 占位符（如 `{items}`）+ 少量正例
+- 去重 / 跳过等策略**不要全文再抄**；一句「遵守 system」即可
+- 可选保留**一条**已证实会踩的防坑（例如禁止 `How do you say ...?` 类提问句）
 
 ---
 > Source: [oddity123/khan_kiddo_v2](https://github.com/oddity123/khan_kiddo_v2) — distributed by [TomeVault](https://tomevault.io).
