@@ -1,0 +1,44 @@
+{
+  "name": "ai-money-maker-handbook-site",
+  "owner": "LGXfufile",
+  "repo": "ai-money-maker-handbook-site",
+  "description": "AI \u526f\u4e1a\u65b9\u6848\u535a\u7269\u9986\uff1a500+ \u53ef\u641c\u7d22\u7684 AI \u8d5a\u94b1\u5b9e\u6218\u65b9\u6848",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LGXfufile/ai-money-maker-handbook-site",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T01:05:06Z"
+}
