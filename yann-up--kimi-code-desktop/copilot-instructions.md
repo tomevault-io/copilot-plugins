@@ -1,0 +1,95 @@
+## kimi-code-desktop
+
+> 本文件为 AI 编码代理提供本仓库的工作指引。
+
+# AGENTS.md
+
+本文件为 AI 编码代理提供本仓库的工作指引。
+
+## 项目简介
+
+Kimi Code Desktop:基于 [Kimi Code CLI](https://github.com/moonshotai/kimi-code) 的桌面客户端壳(Tauri v2 + React + TypeScript)。对话界面通过 iframe 内嵌官方 `kimi web` Web UI,壳自身提供用量统计、额度条、桌面通知、设置、托盘等能力。后端 `kimi web` 可运行在本机 / WSL / SSH 远端。
+
+## 技术栈
+
+- 前端:React 19 + TypeScript 6 + Vite 8 + Tailwind CSS 4 + zustand + lucide-react + @xterm/xterm(内嵌终端渲染)
+- 后端:Rust(edition 2021, rust-version 1.77)+ Tauri v2 + tokio + reqwest(rustls)+ tokio-tungstenite + russh + keyring + portable-pty(内嵌终端 PTY)
+- 主题:亮暗双主题,跟随官方 web UI(data-theme 属性切换,见下「约定」);色值全面对齐官方实测(浅色白底 + 官方蓝 #1783ff,深色纯中性灰 #121212 系 + #1a88ff)
+- 字体:官方同款可变字体内嵌(src/assets/fonts,Schibsted Grotesk Variable 拉丁 + Noto Sans SC Variable 中文,均为 OFL 开源;栈与渲染参数见 theme.css;行标题 13px/475 对齐官方 .rlabel)
+
+## 目录结构
+
+```
+src/                    渲染进程(React)
+  components/           壳组件:ShellHome(视图容器,导航在标题栏;WebFrame 启动自动拉起——通道列表就绪后对激活通道自动 startChannel,每次启动一次、切通道不自动拉,本机缺 CLI 走既有 installConfirm 确认框(含「重新检测」按钮,覆盖自行 npm/brew 安装),开关在 设置→常规→本地服务,存 localStorage kimi.autoStartService 默认开,设置页停止服务仅当次会话有效;拉起决定时同步切 starting 防占位页按钮闪帧,取消安装落回 off;启动中界面为 BootTerminal 启动终端(server:launch 事件在 bootstrap 开始即下发将执行的命令行+注入 env[target.rs web_launch_display 与 web_command 同源,首选端口,无 token],打字动画与实际启动并行;动画收尾且 server:ready 后才切 iframe,RC 收养/设置页重启等无 starting 态场景不受门控直接切))/ TitleBar(铺平用量条(QuotaStrip)+ 对话/终端/统计/检查更新/主题切换/设置图标导航(官方同款黑底 tooltip,设置固定最右)+ 多通道切换器 + 窗口控制;主题切换经 pushThemeToFrames 反推官方 iframe,官方 MutationObserver 监听 data-color-scheme 无刷新跟随;检查更新按钮常驻,点击=手动检查,有新版出红点,点开 UpdateDialog(发现新版本/忽略此版本/下载安装))/ QuotaStrip(标题栏铺平式用量直显:实时指标胶囊 + 各窗口迷你额度计 + 钱包;纯展示,服务启停不在此——启动默认自动拉起/对话页占位图手动启动、启停走 设置→常规,评审结论:标题栏常驻开关的价值与显眼度不匹配)/ SkinStandee(实验性皮肤立绘,设置/统计/主页透出) / settings/ / pet/(桌宠窗口 PetWindow + 悬浮菜单 PetMenu)
+  components/ui/        官方 kimi web 自研 ui-* 组件库(Vue)的 React 复刻:Select(fixed+portal 毛玻璃弹层、行首蓝对勾)、Switch(36×20)、Segmented(分段选择器,2-4 个短选项用;透明槽(不加背景色)+ 细边,elevated 选中面;白底页面上使用需经 className 补 bg-surface-tertiary 槽色)、Input/Textarea(inputCls/textareaCls 类串 + 组件;md 38px/sm 32px,0.5px border-strong 边,input-bg 底[浅纯白/深 10% 白]+ shadow-xs,focus = accent 边 + 3px accent-soft 环,hover 无变化);样式值实测自 CLI dist-web,新增表单控件一律用这套,不用原生 <select>/自绘开关/手写 input 类串。另有非复刻的自研组件:TomlHighlight(config.toml 源文件查看态的 TOML 语法高亮 + 行号,零依赖行级 tokenizer,编辑态仍为纯 textarea)。设置页卡片为官方填充式灰面板(components/settings/common.tsx 的 Card = surface-tertiary 无底边),面板内徽章/控件槽用 bg-fill、按钮/选中项用 bg-elevated;图表/明细表等数据可视化用 SurfaceCard(白底细边,灰面板会让图表发闷、热力图无色档融底)
+  pages/                Onboarding / Settings(设置页「CLI 配置」组含远程协作分区 RemoteControlSettings:Remote Control 开关 + 访问链接/二维码面板,0.42 起 CLI 常驻解锁、从原 CLI 实验性分区拆出,开关存 desktop-config.json 的 remote_control 字段;「资源」组含插件分区 PluginsSettings:经 kimi web REST /api/v1/plugins* 管理插件,与 TUI /plugins 等效,安装/启停/移除均由 CLI 自身落盘;老版本 CLI 无此路由时提示升级)/ stats / terminal(内嵌终端 TUI 工作区:TerminalPage 网格容器 + TerminalPane xterm 封装 + workspace.ts 布局模型;无工具栏——新建经空槽内嵌项目选择面板(ProjectPicker,CLI workspaces.json 注册表,点击在该槽启动,默认目录降级幽灵行),布局经标题栏右键菜单(拆分/最大化/移入后台/布局模板/关闭;终端内容区右键还给 xterm/TUI,壳不占用)+ Ctrl+Shift+D/S 快捷键 + 拖拽(标题栏为 DnD source,落点中央=交换、30% 边缘带=移动到该侧 splitAt 插入——只重排不新建进程,拖到自身=回原位,预览为半槽高亮;拆分新建只经标题栏按钮/右键菜单/快捷键;拖拽幻影为小标签防「拖出应用」感);固定网格槽位 1–6 可见、总窗格 ≤12 超出进后台栏;关闭窗格自动 shrinkEmptyTracks 收缩全空行/列(拆分遗留空位自动去掉,至少 1×1;手动切模板的全空布局不动);右侧指令参考抽屉(CommandDrawer.tsx,推开式 300px,新手向官方斜杠命令/快捷键速查——按 CLI 0.42 官方文档静态精选,命令条目点击经窗格 onSessionChange 上报的会话映射 terminalWrite 插入当前活动终端[onActivate 记最近交互窗格],首次默认展开、记忆 kimi.termHelpOpen,入口=右缘把手/标题栏右键菜单);所有窗格恒定渲染在同一绝对定位层 key=paneId,交换/最大化只改 style 不卸载 xterm;输出经 tauri Channel<Vec<u8>> 二进制直发,布局持久化 kimi.termWorkspace、结构持久进程不持久,重启后可见窗格自动 respawn、后台惰性启动;xterm 配色固定深色)
+  platform/kimi-api.ts  壳与渲染层的 API 契约(window.kimiApi)
+  platform/tauri.ts     契约的 Tauri 实现(invoke / 事件监听)
+  platform/os.ts        运行平台判定(IS_MAC/IS_WINDOWS,UA 方式;WSL 入口仅 Windows、协议 URL 分叉用)
+  platform/protocol.ts  pet:// skin:// 自定义协议供图 URL 的平台分叉(Windows/Linux 为 http://<scheme>.localhost,mac 为 <scheme>://localhost;Rust handler 按 path 解析不受形态影响,CSP 两种形态均已放行)
+  stores/ui.ts          界面状态(zustand)
+src-tauri/src/          Rust 后端
+  lib.rs                Tauri 入口与命令注册
+  server.rs             spawn/管理 `kimi web` 进程,解析地址与 token;首选端口按构建类型分叉(release 58666 / dev 58766);
+                        RC 开启时启动前做单例预检 rc_precheck(本机/WSL/SSH 通用;rc.json 持有者:健康则收养为后端[ServiceHandle::Adopted,
+                        退出监控改 healthz 探活]、半死僵尸核验进程身份[basename 白名单 kimi/node,node 需命令行佐证]后按 pid 强杀、活但不可用出结构化冲突错误 RC_CONFLICT|,
+                        前端"结束旧实例并重试"走 rc_kill_holder 命令);退出监控后移到服务就绪后启动(避免与早退探针竞报丢 stderr 尾部)
+  rest.rs / ws.rs       REST 客户端与 WS 通知订阅器(/api/v1/*)
+  cli.rs                CLI 自检测 / 安装 / 升级
+  ssh.rs                进程内 SSH 客户端与端口转发
+  config.rs / local_store.rs / target.rs   配置、本地数据直读、运行目标(本机/WSL/SSH);target.rs 另有功能开关注入:EXPERIMENTAL_FLAG_TABLE(对齐 CLI 0.42.0 FlagResolver 注册表,0.42 已删 SECONDARY_MODEL/REMOTE_CONTROL 实验 env)+ RUNTIME_SWITCH_TABLE(0.42 起常驻化的 search worker / minidb 读模型,对应官方 [database] 配置节),只注入与 CLI 默认不一致的项;启动时清理由 CLI 移除的旧 key 并把旧 RC env 迁移到 desktop-config.json 的 remote_control 独立字段(0.42 起 RC 常驻解锁,开启即启动 kimi web 附加 --remote-control,命令 remote_control_get/set)
+  terminal.rs           内嵌终端(TUI)PTY 会话管理:portable-pty openpty + spawn `kimi` 交互终端(.cmd/.bat 经 cmd.exe /c 包装;env 注入 KIMI_CODE_HOME=cli::kimi_home(),并注入 TERM=xterm-256color/COLORTERM=truecolor、env_remove NO_COLOR——受限父环境如 CI/agent 的 TERM=dumb、NO_COLOR=1 继承会让 TUI 判定无颜色输出纯文本;实验开关 experimental_envs 与 web 同源注入;cwd 取前端 opts.cwd 且须已存在,无效/空则用户主目录[cfg 分叉:Windows USERPROFILE/Unix HOME]);reader/wait 各一条 std::thread(同步 API 不占 tokio worker;wait 轮询 try_wait——持锁阻塞 wait 会与 close/kill_all 死锁),输出经 tauri::ipc::Channel<Vec<u8>> 直发前端(不落日志;send 失败=前端已断开,reader 线程主动 kill 子进程防残留),退出 emit terminal:exit {sessionId, code};spawn 后 clone_reader/take_writer 失败先 kill 防孤儿;会话退出惰性清理(has_sessions/close 时 try_wait);terminal_open/write/resize/close 四命令;ExitRequested 与 updater 安装前 kill_all(app.exit 不杀子进程,防 PTY 孤儿),关窗确认 any_backend_running 扩展含终端会话;xterm 配色固定深色不跟随壳主题(TUI 程序颜色输出假设深色背景,亮色会洗白);项目选择数据源 = local_store::local_workspaces(直读 <kimi_home>/workspaces.json,排除 deleted 与目录不存在项,按 last_opened_at 倒序,local_workspaces 命令);首版本机,架构预留 WSL(ConPTY 跑 wsl.exe)/ SSH(russh request_pty 模式见 ssh.rs)。macOS 兼容(源码级评估,未实测):PTY 全链路/HOME 回退/TERM 注入/workspaces.json/install.sh 版 kimi_bin 解析确认可用;风险:① npm 全局安装的 kimi 在 Finder/Dock 启动(launchd 精简 PATH,不 source .zshrc)下 resolve_on_path 可能解析失败(home 安装不受影响),需登录 shell 探测兜底时再做;② Unix kill() 是 SIGHUP 且只打直接子进程,TUI 退出与孙进程收割行为需实测
+  skin.rs               用户自选皮肤(实验性):扫描 <config_dir>/skins 下的 png/webp/jpg,经 skin:// 自定义协议供图;内置皮肤注册表在前端(src/components/skins.ts,构建时扫描 src/assets/skins);开关与选中存 desktop-config.json 的 skin_enabled/skin_slug,立绘渲染见 SkinStandee;对话页内透出(skin_in_chat):主窗口 initialization_script_for_all_frames 注入 assets/chat_skin_inject.js(仅回环源子框架生效,内含 origin 守卫),壳侧桥接见 src/components/chatSkinBridge.ts(postMessage 协议:ready/cfg,素材经壳 fetch 转 dataURL 投递),不碰 dist-web、官方升级零影响。同一注入脚本尾部还有 prefs 模块:上报官方 web UI 的主题/语言(读 kimi-web.color-scheme/kimi-locale,hook localStorage 写入实现同帧低延迟同步,MutationObserver/matchMedia/轮询兜底;加载 3s 后健康自检上报,官方改版契约失效时降级可见),壳侧桥接 src/components/chatPrefsBridge.ts → stores/ui.ts 的 theme/locale(持久化 kimi.theme/kimi.locale,同源桌宠窗经 storage 事件跟随);上行消息统一经 src/components/bridgeGuard.ts 三重校验(origin + 来源 iframe + name 下发的 nonce);桥接健康状态在 设置→桌面·实验性「页面桥接」可见;反推通道 set 消息(theme/locale 均可选):theme 三态 light/dark/system(壳 ShellTheme 同三态,stores/ui.ts resolveTheme 经 matchMedia 解析落地 data-theme + 系统明暗监听;上报带 themePref 原始偏好防 system 被解析值覆盖)写存储+DOM 官方无刷新跟随(标题栏/设置页共用 pushThemeToFrames),locale 只写 kimi-locale 存储、下次加载生效(pushLocaleToFrames,设置→常规「界面」卡的主题/语言/字号三行)。已知限制:官方设置页主题选择器是挂载时读存储的 React 态(无 storage 监听),壳侧改写后其选中显示要刷新页面才同步(CSS 本身即时生效)
+  pet.rs                桌宠悬浮窗(实验性):透明置顶小窗 + 状态机(ws.rs 事件驱动);内置宠物注册表 builtin_pets()(素材 src/assets/pets/<slug>/),并扫描 <config_dir>/pets(custom,导入落点,与 skins 同级;后续"自定义存储路径"随 config::config_dir 一并切换)、<kimi_home>/pets(兼容旧布局)与 ~/.petdex/pets(兼容 kimi-pet.v0/petdex 布局),外部精灵图经 pet:// 自定义协议供图;右键唤前端自绘菜单(换宠物悬停子菜单/点击穿透/隐藏,PetWindow 内渲染,动作直调 petSet* 命令,失焦/Esc 关闭);支持设置页导入 zip 宠物包(pet::import_zip 解压校验到 <config_dir>/pets);开关存 desktop-config.json 的 pet_enabled/pet_slug/pet_click_through(穿透开启后窗口忽略鼠标,只能到设置页关闭);M5+M6 扩展:pet-menu 悬浮菜单窗(label pet-menu,失焦 hide 收起;单击开关菜单、双击唤回主窗 pet_restore_main)、pet:bubble/pet:minions/pet:menu-visible 事件(turn 概要/审批详情/配额提醒、活跃子代理计数、菜单开着压制气泡)、tired/sleep 时长显示态、闲置散步(pet_wander 配置 + pet_nudge 挪窗)、pet_menu_* 系列命令(钉选存 menu_pinned_sessions)
+  updater.rs            应用自动更新(tauri-plugin-updater + 静态 latest.json,minisign 签名校验):app_update_check/app_update_install 命令 + 启动延迟静默自检(dev 跳过,dev 下由 TitleBar 挂载时静默检查兜底);发现新版时标题栏常驻更新按钮出红点(ArrowDownToLine + bg-danger 圆点;点击=手动检查,有新版直接开弹窗,无新版出「已是最新」瞬时反馈;「忽略此版本」持久化 localStorage kimi.appUpdateIgnored),点开 UpdateDialog(版本说明/取消/忽略/打开下载页/下载并安装,进度走全局 store appInstalling/appProgress);下载与安装分两步,安装前先 stop_all_backends 关停所有通道 kimi web(插件 install 是 ShellExecute 拉起 NSIS 后 std::process::exit,不触发 ExitRequested,不停则服务变孤儿占住首选端口、重启后端口顺延);双下载源按序回退——CNB 镜像优先(cnb.cool 仓 updater 分支的 latest.json raw 链接)、GitHub Releases 兜底,check 外包 15s tokio 超时(不能用 UpdaterBuilder::timeout,它会同时掐断 download);签名公钥在 tauri.conf.json plugins.updater.pubkey,私钥 ~/.tauri/kimi-desktop.key 不入库(CI 走 TAURI_SIGNING_PRIVATE_KEY secret);发版见 .github/workflows/release.yml(push v* tag → 草稿 Release;release-windows 出 NSIS + 便携 zip,release-macos 串行跟跑、出未签名的 Apple Silicon dmg 并合并双平台 latest.json——并行会互相覆盖丢平台;两个 job 均有产物校验[数量/签名/arm64 架构];mac 产物无 Developer ID 签名,首次打开需在 系统设置→隐私与安全性 允许(或 xattr -d com.apple.quarantine)),正式发布(published)后 .github/workflows/sync-cnb.yml 自动把 tag 与 CNB 版 latest.json 同步到 CNB 镜像仓(CNB 仓 .cnb.yml 流水线建 Release 并回传安装器附件 setup.exe + msi,仅 Windows;darwin 平台 URL 在 CNB 版 latest.json 中保持 GitHub 直链;需 CNB_TOKEN secret,权限 repo-code 读写)
+build/                  图标等资源;design/ 设计稿;docs/ 评审与跟踪文档;out/renderer 前端构建产物
+```
+
+## 常用命令
+
+```bash
+npm install
+npm run tauri:dev        # 开发(vite dev 5188 + cargo 增量编译);合并 src-tauri/tauri.dev.conf.json
+                         # (独立 identifier → 单实例锁/配置目录/WebView2 profile 与正式版隔离,可并存)
+npm run typecheck        # 渲染层与 vite 配置的 TS 检查(提交前必过)
+npm run build:renderer   # 仅构建前端 → out/renderer
+npm run tauri:build      # 打包当前平台安装包(产物在 src-tauri/target/release/bundle/);
+                         # 已开启 updater 产物,需先 export TAURI_SIGNING_PRIVATE_KEY_PATH=~/.tauri/kimi-desktop.key
+cd src-tauri && cargo check   # Rust 侧检查(提交前必过)
+```
+
+## 约定
+
+- **API 契约先行**:渲染层不直接 invoke;新增壳能力时先扩展 `platform/kimi-api.ts` 接口,再在 `platform/tauri.ts` 实现,Rust 侧在 `lib.rs` 注册命令,三处保持同步。
+- **本地数据直读 kimi_home 目录**(技能/子代理/mcp.json/usage 聚合);配额、统计等走 REST(Bearer 认证)。
+  ⚠️ kimi_home **不一定是 `~/.kimi-code`**:`cli::kimi_home()` 的解析顺序是 用户自定义(desktop-config.json 的 kimi_home)> `KIMI_CODE_HOME` 环境变量 > 默认 `~/.kimi-code`。任何读写 kimi-code 数据目录的代码都必须走 `cli::kimi_home()`,严禁硬编码 `~/.kimi-code`(M3 实测:本机设了 `KIMI_CODE_HOME=D:\Administrator\kimi-code`,写默认目录会导致功能静默失效)。
+- **配置原子写**:`desktop-config.json` / `mcp.json` 先写临时文件再替换;mcp.json 写盘前留 `.kimi-desktop-bak` 备份。
+- **主题双态**:组件一律用 `bg-surface`/`text-text` 等令牌类(theme.css `@theme`),禁止硬编码色值;暗色经 `[data-theme='dark']` 覆盖同名变量生效,新增颜色要亮暗各给一值;确需主题无关的固定色(如 QR 白底、深色 toast)须注释说明。
+- **i18n 已全量落地**(语言跟随官方 UI,经 chatPrefsBridge 写入 store):`src/i18n/index.ts` 导出 `useT()`(组件内,响应式)/`t()`(非组件上下文,常别名 tStatic 用于持久事件回调防闭包钉住旧 locale);词条按模块放 `src/i18n/messages/<area>.ts`(zh/en 必须成对,点分键,{name} 插值,zh 为源)。新增用户可见文案一律进字典,禁止在组件里写死中文;代码注释保持中文不进字典。
+- **config.toml 合并写用 `toml_edit`** 以保留注释/格式;只读解析用 `toml`。
+- **本机 CLI 双候选选新**(`cli::ensure_local_bin_pick`):数据目录/bin 与 PATH 同时存在 kimi 且非同一文件时,启动后首次检测按 `--version` 选较新的生效(平局/探测失败维持 home 优先;custom/KIMI_CODE_BIN 覆盖绝对优先),避免数据目录残留旧版静默遮蔽 npm 全局新版;每次运行只比较一次,set_cli_bin/set_kimi_home 后失效重估。升级通道按生效来源分叉:home=native staged 自更新(`kimi __update_download <latest> --manual`,非交互;`kimi upgrade` 是交互命令、非 TTY 下只打印手动命令就退出,不可用;0.37 前旧版无此子命令时回退重跑官方安装脚本),其余=`npm update -g`。PATH 解析(`resolve_on_path`):Windows 走 where.exe;非 Windows 在 which 失败后还有兜底(`resolve_unix_fallback`,参考 kickside)——常见安装位置(/opt/homebrew/bin、/usr/local/bin、~/.local/bin)+ 登录 shell `$SHELL -lc 'command -v'`(3s 超时,按 name 缓存),兜住 mac GUI 应用窄 PATH 找不到 homebrew/npm 全局 kimi 的场景。
+- 注释和文档用中文;README 双语分文件——README.md 为英文(GitHub 默认展示),README.zh-CN.md 为中文,顶部互链,改动需两边同步。代码标识符用英文。
+- 日期/统计口径依赖**本地时区日历日**(chrono,不用 UTC)。
+
+## 安全红线(勿破坏)
+
+- Bearer token 不出本机:REST/WS/iframe 只连 `127.0.0.1`;日志需按 "token" 关键字过滤。
+- SSH host key 采用 TOFU:指纹存 `known_hosts`,变更即拒绝连接;SSH 密码只存系统凭据管理器(keyring),不落明文。
+- 聊天外链一律转系统浏览器打开(仅 http/https),webview 不导航离开应用。
+- iframe 直嵌依赖 loopback 下官方服务端不发 CSP frame-ancestors / X-Frame-Options,不要引入破坏该前提的反向代理。
+
+## 注意事项
+
+- 无测试套件;本地验证手段是 `npm run typecheck` + `cargo check` + 手动 `tauri:dev`;日常 CI 见 .github/workflows/ci.yml(push main / PR 触发:typecheck + windows/macos 双平台 cargo check + macos-15 未签名 .app 打包冒烟,产物 zip 留存 artifact——没有 mac 实机,这是 macOS 代码路径唯一的持续验证,本地 Windows 的 cargo check 覆盖不到 mac 专属路径)。
+- **dev 与正式版并存设计**:`tauri:dev` 合并 `tauri.dev.conf.json`(identifier `...-dev`)→ 单实例锁、`app_data_dir`(desktop-config.json/logs/自定义 skins/pets)、WebView2 用户数据目录全部随 identifier 隔离;`server::START_PORT` 按 `cfg!(debug_assertions)` 分叉(dev 58766 / release 58666,顺延窗口互不重叠),reclaim 各管各的首选端口、互不回收;窗口标题/托盘 tooltip dev 加 `[dev]` 后缀(lib.rs `APP_DISPLAY_NAME`)。kimi_home 默认仍共享(真实会话/配额/token,CLI 注册表天然支持多实例);需要隔离数据时设 `KIMI_CODE_HOME=<scratch>` 再启动 dev 即可。
+- 仅 Windows(NSIS)实机验证过;macOS(Apple Silicon dmg,未签名,minimumSystemVersion 13.3)已随 release.yml 出包并做了平台分叉适配(CLI 安装/升级走 install.sh/bash -lc、协议 URL 形态、桥接 origin 白名单补 tauri://localhost、非 Windows 隐藏 WSL 入口、Dock Reopen 唤回主窗),但未经真机实测——WKWebView 下 `tauri://localhost` 的 isSecureContext、iframe 嵌 127.0.0.1 的 localStorage 分区行为是首要验证项。改动尽量保持跨平台可行,但不要为未测试平台做投机性适配。
+- 许可证 MIT,引入运行时依赖时注意许可证兼容(勿引入 copyleft 组件)。
+- `token 时序竞争`、`崩溃自愈(server:exited)` 等时序逻辑见 docs/implementation-notes.md,改动前先读。
+- **运行期建窗/关窗的命令必须是 async**:同步命令占住主线程,`WebviewWindowBuilder::build()` 等事件循环初始化 WebView2 会死锁(桌宠 M1 实测踩过,见 docs/desktop-pet-design.md)。
+- **关窗语义**:点 X 一律 `prevent_close` + emit `app:close-requested`(payload=是否有后端在跑),前端弹"是否关闭进程"确认框——"退出程序"走 `confirm_close`(app.exit),"进入托盘"走 `hide_main_to_tray`(必须是 async 命令);最小化按钮 − 只是普通任务栏最小化,不进托盘。托盘图标 `include_bytes!` 内嵌(不依赖 resource_dir/cwd);托盘唤回统一走 `restore_main`(unminimize+show+focus,托盘左键/菜单/单实例复用;macOS 另有 Dock 点图标的 `RunEvent::Reopen` 同路唤回)。
+- **主窗装饰全平台 `decorations(false)`**(lib.rs 建窗处):标题栏全自绘——Windows 最小化/最大化/关闭在 TitleBar 右侧;macOS 自绘交通灯在 TitleBar 左侧(关闭/最小化/全屏,三色固定 #ff5f57/#febc2e/#28c840 不随主题变,灯组 hover 同显 glyph,窗口失焦置灰[亮 #d6d6d6/暗 #55565a,经 `onWindowFocusChanged` 契约],绿灯走 `windowControl('fullscreen')` 进出原生全屏;经 `platform/os.ts` 的 IS_MAC 判定)。曾用 `title_bar_style(Overlay)` 保留原生交通灯,但灯位由 AppKit 按 28pt 标准栏定位、与 48px 自绘栏垂直不对中,`traffic_light_position` 偏移语义依赖按钮 frame 内部值、无 Mac 实机难校准,故弃用。
+
+---
+> Source: [Yann-Up/kimi-code-desktop](https://github.com/Yann-Up/kimi-code-desktop) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-02 -->
