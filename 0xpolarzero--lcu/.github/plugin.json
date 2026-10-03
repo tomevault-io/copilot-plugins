@@ -1,0 +1,9 @@
+{
+  "name": "0xpolarzero--lcu",
+  "displayName": "lcu",
+  "description": "Codex computer use, decoupled from the app, for usage inside any harness.",
+  "version": "1.0.0",
+  "author": "0xpolarzero",
+  "homepage": "https://github.com/0xpolarzero/lcu",
+  "skills": []
+}
