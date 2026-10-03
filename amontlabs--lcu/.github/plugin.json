@@ -1,0 +1,9 @@
+{
+  "name": "amontlabs--lcu",
+  "displayName": "lcu",
+  "description": "Codex computer use, decoupled from the app, for usage inside any harness.",
+  "version": "1.0.0",
+  "author": "amontlabs",
+  "homepage": "https://github.com/amontlabs/lcu",
+  "skills": []
+}
