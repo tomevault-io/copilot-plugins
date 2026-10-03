@@ -1,0 +1,9 @@
+{
+  "name": "phloem-ai--coordinator",
+  "displayName": "Coordinator",
+  "description": "AI Agent Interoperability Layer",
+  "version": "1.0.0",
+  "author": "Phloem-AI",
+  "homepage": "https://github.com/Phloem-AI/Coordinator",
+  "skills": []
+}
