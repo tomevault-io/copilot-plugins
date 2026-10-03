@@ -1,0 +1,9 @@
+{
+  "name": "fabric-runtime--pi-fovea",
+  "displayName": "pi-fovea",
+  "description": "Token-budgeted codebase discovery for agent shells and Pi: cross-language maps, focused navigation, and impact analysis.",
+  "version": "1.0.0",
+  "author": "fabric-runtime",
+  "homepage": "https://github.com/fabric-runtime/pi-fovea",
+  "skills": []
+}
