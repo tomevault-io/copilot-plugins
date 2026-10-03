@@ -1,0 +1,9 @@
+{
+  "name": "thordursk--gauge-ui",
+  "displayName": "gauge-ui",
+  "description": "Composable SVG gauges for React, distributed as a shadcn registry.",
+  "version": "1.0.0",
+  "author": "thordursk",
+  "homepage": "https://github.com/thordursk/gauge-ui",
+  "skills": []
+}
