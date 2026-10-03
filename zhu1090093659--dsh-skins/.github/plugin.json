@@ -1,0 +1,9 @@
+{
+  "name": "zhu1090093659--dsh-skins",
+  "displayName": "dsh-skins",
+  "description": "Skin center plugin and built-in skins for the DSH Web GUI: skins are pure asset directories, loaded and rendered by the skin center, and installed on demand from dsh-market.com.",
+  "version": "1.0.0",
+  "author": "zhu1090093659",
+  "homepage": "https://github.com/zhu1090093659/dsh-skins",
+  "skills": []
+}
