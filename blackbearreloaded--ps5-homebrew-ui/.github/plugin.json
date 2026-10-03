@@ -1,0 +1,9 @@
+{
+  "name": "blackbearreloaded--ps5-homebrew-ui",
+  "displayName": "ps5-homebrew-ui",
+  "description": "Reference for building polished, console-grade PS5 homebrew interfaces with OpenGL",
+  "version": "1.0.0",
+  "author": "blackbearreloaded",
+  "homepage": "https://github.com/blackbearreloaded/ps5-homebrew-ui",
+  "skills": []
+}
