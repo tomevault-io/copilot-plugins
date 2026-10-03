@@ -1,93 +1,47 @@
-## clock-confirm-ui-localization
+## from-scratch-bake
 
-> Session notes for clock confirm UI, Options chrome, and related softkeys. Read before retrying related patches.
+> From-scratch gold bake + Drop CIA is the real-3DS ship path after code.bin or UI changes.
 
 
-# Clock confirm + Options UI localization
+# From-scratch bake (real 3DS ship path)
 
-Goal: localize NLPP (`00040000000F4E00`) chrome that stayed Japanese while TRB EN worked.
+This is the workflow. Do not invent a side path (`--skip-pack` “just to test hardware”, PNG scratch `cache/new_img.bin`, **Azahar-only** LayeredFS with no CIA inject).
 
-Chosen approach: **targeted RE / romhack** (not custom Azahar textures as the long-term fix).
+Azahar LayeredFS is still **required for emulator testing** — see `bakable-and-layeredfs`. Bake without a LayeredFS deploy, or LayeredFS without bake, is incomplete.
 
-## Paths
+## What to run
 
-| Role | Path |
-|------|------|
-| Game dump | `New Love Plus Plus` (this repo) |
-| EngPatcher | `../NewLovePlusPlusEngPatcher` |
-| Azahar mods | `%AppData%\Azahar\load\mods\00040000000F4E00\` |
-| Texture dumps | `%AppData%\Azahar\dump\textures\00040000000F4E00\` |
-| Ghidra | `code.bin`, image base `0`; runtime VA ≈ file + `0x100000` |
-| MCP | `user-ghidra` |
+Drop a decrypted `.cia` / `.3ds` on **`Drop CIA or 3DS Here to Patch.bat`**.
 
-**Critical:** never full-rewrite `img.bin`. Same-offset splice only. Never splice with bak as img base (wipes live EN) — see `img-exact-zlib-deploy`.
+If `release/bake_img.bin` is missing **or** `release/bake_stamp.txt` ≠ `PATCHER_RELEASE` (currently `v1.0.0-rc4` on main), the bat runs:
 
-## Verified softkeys @ NCommonIcon **5238**
+```bash
+python tools/rebuild_bake_img.py --rom <dropped ROM>
+```
 
-| UI | BCLIM | EN |
-|----|--------|-----|
-| Back `戻る` | `Com_btn_m01_b` (+ ON) | Back |
-| Next `次へ` | `Com_btn_t01_b` (+ ON) | Next |
-| Confirm `決定` | `Com_btn_k01_b` (+ ON) | OK |
-| Quit `やめる` | `Com_btn_y01_b` (+ ON) | Quit |
-| Restore Default `初期設定` | `Com_btn_sy01_b` / `_a` | Restore Default |
+That **will bake**: PNG pack → chrome deploys → TRB overlay → **always** rebuilds `release/name_input_code.bin` from vanilla (`code.bin.bak` preferred) via `deploy_name_input_en.py`. Then `patch_cia.py` injects bake + overlay + name-input.
 
-ETC1A4. Shared across screens. Deploy Confirm: `tools/deploy_confirm_btn_en.py`. Deploy Quit: `tools/deploy_softkey_quit_en.py`. Deploy Defaults chip: `tools/deploy_softkey_defaults_en.py` (Zhoumaru; last-writer on **5238**).
+## `cache/` is deleted on every from-scratch build
 
-## Options + clock title @ NCommonMSel **5245** (A8)
+Drop and `rebuild_bake_img.py --rom` (no `--skip-pack`) delete the **entire** `cache/` folder, then extract a full RomFS from the dropped ROM (`ensure_vanilla_from_rom(..., force=True, slim=False)`). The CIA `--romfs` template is that new tree, and only if `cache/vanilla_from_rom/romfs/Plus` exists. A slim tree (`img.bin` + scripts, no `Plus/`) must not be packed.
 
-**Not DrawText. Not MyroomHeader `optn_tex_*`.**
+Do not undo this. Do not reuse `cache/vanilla_from_rom`, `cache/img_pack`, or `NLPP_USE_PACK_CACHE` across a from-scratch run. Do not point `--romfs` at `script\bin\script` alone. `--skip-pack` and `--reseed-from-pack` leave `cache/` in place; they are not from-scratch.
 
-| Asset | EN |
-|-------|-----|
-| `Plate_Text03_00_00` | Options |
-| `Btn/Plate_Text03_01` | Display Settings |
-| `Btn/Plate_Text03_02` | Sound Settings |
-| `Btn_Text04_04` / `Btn_Text03_05` | Network / Password |
-| `Plate_Text03_06_00` / `_01` | 3DS System Clock |
+PNG pack is the long part (roughly 40 minutes to 2 hours cold, depending on hardware). Name-input rebuild is seconds. Watch `[timer]` lines.
 
-Ghidra: `OptionMenu_BindBtnTextures` `001eb3dc`, `BindMSelBtnIconAndText` `0020ad74`, `OptionMenu_BindPlateTextures` `0020bcc0` (slot 6 = clock).
+## After name-input / cave changes
 
-Deploy: `tools/deploy_msel_options_en.py` (splice into **live** MOD).
+Caves must stay in **`.text` RX** (`src/patch_input_cave_map.py`: shared `0x0068F800`, romaji `0x0068F900`). Pads in `.rodata` (`0x006E6A38`, `0x006FBB08`) work in Azahar and **prefetch-abort on hardware**.
 
-In-room overlay `オプションメニュー` (girl’s room, gear header + Display/Sound pills) is **not** this list. That chrome is ETC1A4 `optn_tex_*` @ Myroom **5380** + MyroomHeader **5575** — Zhoumaru; `tools/deploy_myroom_options_en.py`.
+Ground-up Drop picks that up because bake **deletes and rewrites** `name_input_code.bin`. Install the new CIA; remove any old Luma `exefs/code.bin` overlay.
 
-## Password entry window @ **5251** (ETC1A4)
+If only `code.bin` changed and bake stamp already matches: Drop can inject the rebuilt `name_input_code.bin` in minutes **without** re-packing PNGs. Full from-scratch is still correct when menus/assets changed or leftover bake is stale.
 
-**Not DrawText. Not TRB.** `Lyt_Pass_Info_Display` / `Pts_Pass_Display` are pic panes only.
+## Don’t
 
-| Asset | EN |
-|-------|-----|
-| `Pass_Win01` | Password (Zhoumaru; baked into the window) |
-| MultiWin `Text03_05_00` @ **5237** | Password Input (Zhoumaru; `FUN_00255a18` idx 0x1f — not the Options password screen) |
-| `Plate_Text03_05_00` @ **5245** | Password Input (Zhoumaru A8; Options `パスワード入力` header) |
-
-Deploy: `tools/deploy_optionpassword_en.py` (vanilla extract → exact-zlib → splice live) plus `deploy_msel_options_en.py` for the header. Options list row remains **5245** `Btn_Text03_05`.
-
-## Option panels @ **5247**
-
-| Asset | EN |
-|-------|-----|
-| `Opt_TxtItem_Help` / `Message` | Help Display / Message Speed |
-| `Opt_HelpBtn_A_*` / `B_*` | Every Time / Once (**not** Defaults) |
-| `Opt_txtItem_{SE,VOICE,MIC}` | SE / Voice / Mic Sensitivity |
-
-Deploy: `tools/deploy_display_settings_en.py`. Floating `初期設定` is **5238** `Com_btn_sy01` (Zhoumaru Restore Default).
-
-## Do not repeat
-
-1. OptionClock / SysPopup for square Back/Next.
-2. TRB-only for confirm/Options chrome.
-3. Contiguous string hunt for `３ＤＳ本体時計`.
-4. Global MakeStr / `pe` grow / NUL-pad zlib / bak→MOD wipe.
-5. EN over JP without full A8 canvas clear.
-6. Per-byte zopfli fine-tune loops on large ARCs (hang).
-7. Labeling `Opt_HelpBtn_*` as Defaults.
-
-## Open
-
-1. Shorten overflowing To-Do TRB titles (STRI 2837 etc.).
-2. Bake verified LayeredFS into CIA.
+- `--skip-pack` to skip a required from-scratch pack (keeps old `bake_img.bin`)
+- `NLPP_WITH_IMAGES=0` (Drop forbids incomplete CIAs)
+- Patch already-patched `extracted/exefs/code.bin` — vanilla is `code.bin.bak` / ROM extract
 
 ---
 > Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
