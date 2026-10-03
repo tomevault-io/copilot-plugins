@@ -1,0 +1,9 @@
+{
+  "name": "dvarahq--evals4j",
+  "displayName": "evals4j",
+  "description": "LLM evaluation for Java \u2014 LLM-as-judge, RAG, agent-trajectory and structured-output evaluators for Spring AI and LangChain4j. A Java port of LangChain's OpenEvals.",
+  "version": "1.0.0",
+  "author": "dvarahq",
+  "homepage": "https://github.com/dvarahq/evals4j",
+  "skills": []
+}
