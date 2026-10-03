@@ -1,0 +1,44 @@
+{
+  "name": "OmniSIM",
+  "owner": "mibgb65-cloud",
+  "repo": "OmniSIM",
+  "description": "\u672c\u5730\u4f18\u5148\u7684 SIM \u4e0e eSIM \u7eed\u8d39\u7ba1\u7406\u5668 \u00b7 A local-first SIM & eSIM renewal manager for Android.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mibgb65-cloud/OmniSIM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T22:44:22Z"
+}
