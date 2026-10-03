@@ -1,0 +1,9 @@
+{
+  "name": "maxwellvolz--hn-whos-hiring",
+  "displayName": "hn_whos_hiring",
+  "description": "Rank every HN 'Who is hiring?' post against your resume, then draft emails and prefill applications from a local dashboard. Runs on Claude Code.",
+  "version": "1.0.0",
+  "author": "MaxwellVolz",
+  "homepage": "https://github.com/MaxwellVolz/hn_whos_hiring",
+  "skills": []
+}
