@@ -7,11 +7,11 @@ Analyze Once, Reuse Context Everywhere — For Developers and AI Agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [itsflaid/devmap](https://github.com/itsflaid/devmap).
+Original source: `AGENTS.md` in [itsflaid/devmap](https://github.com/itsflaid/devmap).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
