@@ -4,7 +4,7 @@
   "repo": "Pacify-X",
   "description": "Model-agnostic, fail-closed engineering bootstrap and capability orchestrator",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mountain-Nomad-BC/Pacify-X",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T00:45:00Z"
+  "distributed_at": "2026-10-03T01:21:42Z"
 }
