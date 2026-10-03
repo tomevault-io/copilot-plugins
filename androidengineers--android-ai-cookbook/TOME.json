@@ -1,0 +1,44 @@
+{
+  "name": "android-ai-cookbook",
+  "owner": "AndroidEngineers",
+  "repo": "android-ai-cookbook",
+  "description": "Six runnable Android + AI recipes in Kotlin and Compose: streaming, Firebase setup, cancellation, validation, retries, and ADK tools. Fixture-tested.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AndroidEngineers/android-ai-cookbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T22:59:26Z"
+}
