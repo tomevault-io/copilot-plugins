@@ -1,0 +1,9 @@
+{
+  "name": "shep-pm--shep",
+  "displayName": "shep",
+  "description": "A process manager written in Rust, and a pm2 alternative: one supervisor daemon keeps a flock of long-running processes alive on Linux, macOS and Windows",
+  "version": "1.0.0",
+  "author": "shep-pm",
+  "homepage": "https://github.com/shep-pm/shep",
+  "skills": []
+}
