@@ -1,47 +1,52 @@
-## from-scratch-bake
+## ghidra-mcp
 
-> From-scratch gold bake + Drop CIA is the real-3DS ship path after code.bin or UI changes.
+> How to use user-ghidra MCP on NLPP code.bin without wasting turns.
 
 
-# From-scratch bake (real 3DS ship path)
+# Ghidra MCP (`user-ghidra`)
 
-This is the workflow. Do not invent a side path (`--skip-pack` “just to test hardware”, PNG scratch `cache/new_img.bin`, **Azahar-only** LayeredFS with no CIA inject).
+## Setup
 
-Azahar LayeredFS is still **required for emulator testing** — see `bakable-and-layeredfs`. Bake without a LayeredFS deploy, or LayeredFS without bake, is incomplete.
+1. `GetDynamicTools` (`namespace: "user-ghidra"`) for schema before calling tools (`CallDynamicTool`).
+2. `list_open_programs` / `list_instances` + `connect_instance` if needed.
+3. Prefer current program `code.bin` (image base **0**).
 
-## What to run
+Headless and new projects use repo-root `ghidra_nlpp/` (`nlpp_paths.GHIDRA_PROJECT`). Do not pass `out/ghidra_nlpp`. Drop CIA deletes `out/`, and nothing in the patcher recreates a project there.
 
-Drop a decrypted `.cia` / `.3ds` on **`Drop CIA or 3DS Here to Patch.bat`**.
+## Addresses
 
-If `release/bake_img.bin` is missing **or** `release/bake_stamp.txt` ≠ `PATCHER_RELEASE` (currently `v1.0.0-rc4` on main), the bat runs:
+- Ghidra file address ≈ offset in `extracted/exefs/code.bin`.
+- Runtime pointer in memory/data = **file + `0x100000`**.
+- When searching for pointer xrefs to a string at file `0x006c3ea4`, also try LE bytes of `0x007c3ea4` (VA).
+- String search in Ghidra often misses UTF-8 Japanese — use Python over `code.bin` / TRB for JP text.
 
-```bash
-python tools/rebuild_bake_img.py --rom <dropped ROM>
-```
+## Efficient RE
 
-That **will bake**: PNG pack → chrome deploys → TRB overlay → **always** rebuilds `release/name_input_code.bin` from vanilla (`code.bin.bak` preferred) via `deploy_name_input_en.py`. Then `patch_cia.py` injects bake + overlay + name-input.
+- Start from **ascii anchors** (`OptionAdjustTimeUIOperator`, `Lyt_Clock*`, `Pos_Com_btn_*`) → `get_xrefs_to` → decompile callers.
+- Use `search_byte_patterns` for LE pointer pools when `get_xrefs_to` on the string address is empty.
+- `batch_decompile` / `analyze_function_complete` need the param names from the tool schema (`functions` / `name`), not ad-hoc keys.
+- Softkey Pos names are duplicated (`Pos_Com_Btn_m` vs `Pos_com_btn_m`) — different UI families; confirm which table a function’s DAT points at.
 
-## `cache/` is deleted on every from-scratch build
+## Known good APIs (don’t re-derive)
 
-Drop and `rebuild_bake_img.py --rom` (no `--skip-pack`) delete the **entire** `cache/` folder, then extract a full RomFS from the dropped ROM (`ensure_vanilla_from_rom(..., force=True, slim=False)`). The CIA `--romfs` template is that new tree, and only if `cache/vanilla_from_rom/romfs/Plus` exists. A slim tree (`img.bin` + scripts, no `Plus/`) must not be packed.
+| Role | Address / name |
+|------|----------------|
+| TextResource pack+slot | `FUN_005c0e7c` → `FUN_0056ed00` |
+| MakeStr | `FUN_005a1ec8` @ `005A1EC8` |
+| DrawTextToPane | `FUN_0054b880` |
+| Header pane draw | `FUN_0024842c` |
+| Softkey m / o / t enable | `FUN_001d2498` / `001d1c70` / `001d2080` |
+| Options button BCLIM bind | `OptionMenu_BindBtnTextures` @ `001eb3dc` |
+| MSel icon+text bind | `BindMSelBtnIconAndText` @ `0020ad74` |
+| Options/clock plate bind | `OptionMenu_BindPlateTextures` @ `0020bcc0` (slot 6 = clock title) |
+| MultiWin white-bar bind | `FUN_00255a18` @ `00255a18` (table ~`0x6c3f9c`; GF Comm = `Text04_01_00`) |
+| Message Speed delay table | `FUN_005d1e18` @ `005D1E18` (Options preview 18/12/6/0 → 14/8/2/0) |
+| Message Speed typewriter tick | `FUN_002d544c` @ `002D544C` (Options widget `+0x24` delay, `0` = instant) |
+| TalkWindow delay table | `0x006E3024` (40/70/90/110/220 → 10/18/22/28/55; index via `FUN_002d8874`) |
+| TalkWindow delay setter | `FUN_0013f260` @ `0013F260` (`+0xd9c`, stores if index `< 5`) |
+| TalkWindow tick cap | `0x0013B718` → cave `0x0068F800` (`min(r2, table[+0xd9c])`; +0xd5c / +0xd60) |
 
-Do not undo this. Do not reuse `cache/vanilla_from_rom`, `cache/img_pack`, or `NLPP_USE_PACK_CACHE` across a from-scratch run. Do not point `--romfs` at `script\bin\script` alone. `--skip-pack` and `--reseed-from-pack` leave `cache/` in place; they are not from-scratch.
-
-PNG pack is the long part (roughly 40 minutes to 2 hours cold, depending on hardware). Name-input rebuild is seconds. Watch `[timer]` lines.
-
-## After name-input / cave changes
-
-Caves must stay in **`.text` RX** (`src/patch_input_cave_map.py`: shared `0x0068F800`, romaji `0x0068F900`). Pads in `.rodata` (`0x006E6A38`, `0x006FBB08`) work in Azahar and **prefetch-abort on hardware**.
-
-Ground-up Drop picks that up because bake **deletes and rewrites** `name_input_code.bin`. Install the new CIA; remove any old Luma `exefs/code.bin` overlay.
-
-If only `code.bin` changed and bake stamp already matches: Drop can inject the rebuilt `name_input_code.bin` in minutes **without** re-packing PNGs. Full from-scratch is still correct when menus/assets changed or leftover bake is stale.
-
-## Don’t
-
-- `--skip-pack` to skip a required from-scratch pack (keeps old `bake_img.bin`)
-- `NLPP_WITH_IMAGES=0` (Drop forbids incomplete CIAs)
-- Patch already-patched `extracted/exefs/code.bin` — vanilla is `code.bin.bak` / ROM extract
+Options/clock **menu chrome** = A8 BCLIM names under `Com_M_Sel_*_Text*` in pkg **5245**, not DrawText and not `optn_tex_*`.
 
 ---
 > Source: [czyrustuazon/NewLovePlusPlusEngPatcher](https://github.com/czyrustuazon/NewLovePlusPlusEngPatcher) — distributed by [TomeVault](https://tomevault.io).
