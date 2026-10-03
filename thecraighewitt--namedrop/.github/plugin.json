@@ -1,0 +1,9 @@
+{
+  "name": "thecraighewitt--namedrop",
+  "displayName": "namedrop",
+  "description": "Does ChatGPT name-drop you? Self-hosted tracker for brand mentions in ChatGPT, Perplexity and Gemini answers \u2014 a Cloudflare Worker alternative to hosted AEO trackers",
+  "version": "1.0.0",
+  "author": "TheCraigHewitt",
+  "homepage": "https://github.com/TheCraigHewitt/namedrop",
+  "skills": []
+}
