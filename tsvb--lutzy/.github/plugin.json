@@ -1,0 +1,9 @@
+{
+  "name": "tsvb--lutzy",
+  "displayName": "lutzy",
+  "description": "Native macOS app for color-grading RAW/DNG photos with .cube LUTs \u2014 and reverse-engineering a camera's JPEG look back into one. SwiftUI + Core Image, zero dependencies.",
+  "version": "1.0.0",
+  "author": "tsvb",
+  "homepage": "https://github.com/tsvb/lutzy",
+  "skills": []
+}
