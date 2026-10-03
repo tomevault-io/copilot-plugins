@@ -1,0 +1,111 @@
+## lutzy
+
+> LUTzy is a native **macOS 26+** app (**Swift 6 language mode**, SwiftUI + Core Image, **zero third-party dependencies**) that applies `.cube` 3D LUTs to RAW/DNG and standard images, and can derive a `.cube` LUT from a (RAW, JPG) pair.
+
+# CLAUDE.md — project guidance for AI agents
+
+LUTzy is a native **macOS 26+** app (**Swift 6 language mode**, SwiftUI + Core Image, **zero third-party dependencies**) that applies `.cube` 3D LUTs to RAW/DNG and standard images, and can derive a `.cube` LUT from a (RAW, JPG) pair.
+
+## Build / run / test
+
+- Build: `swift build`
+- Run (fast iteration; no sandbox/icon): `swift run`
+- In Xcode (better debugger, same executable): open `Package.swift` and Run. **This does not produce
+  an icon or a sandboxed app** — `Package.swift` excludes `Assets.xcassets` and `LUTzy.entitlements`
+  from the target, the appiconset holds no images, and there is no `Info.plist` or bundle identifier,
+  so both paths build a bare SwiftPM executable. Security-scoped bookmark persistence is therefore
+  inactive in both. Wiring it up needs an Xcode app target that does not exist yet.
+- Tests: `swift test`. CI runs debug build → tests → release build.
+
+**SDK and deployment target are different things — don't conflate them.** CI runs on GitHub's
+`xcode-27` label (Xcode 27, macOS 27 SDK); `Package.swift` deploys to **macOS 26**. Building against
+a current SDK while deploying one release back is the normal Apple model and is the *stricter*
+arrangement: the compiler refuses any API newer than the deployment target unless it is
+`#available`-guarded, so the guard is enforced rather than remembered. macOS 26 API — Liquid Glass,
+`ToolbarSpacer`, `CIRAWFilter`'s highlight-recovery pair — is used unguarded; macOS 27 API goes behind
+`#available(macOS 27, *)` with a macOS 26 fallback. Use newer API behind `#available` — don't avoid it.
+
+**Requires Xcode 27 or newer to build.** That is the cost of the above: a macOS 27 symbol has to be in
+the SDK before it can be referenced, guarded or not — `#available` gates a call at runtime; it cannot
+conjure a symbol the SDK never declared. The `macos-26` runner images ship Xcode 26.x and cannot
+compile the package. (The same distinction cost a red build in Phase 2 Step 2, when CI ran `macos-14`
+and the highlight-recovery reference built clean locally.) `RAWDevelopSettingsTests` pins that the
+highlight-recovery write no longer carries an `#available` guard: with a 26 floor that check is
+always true and the compiler flags it as unnecessary.
+
+## Swift 6 language mode is on, for every target
+
+`Package.swift` is a 6.0 tools version and declares `.swiftLanguageMode(.v6)` on `LUTzyKit`, `LUTzy`
+and `LUTzyKitTests`. Data-race safety is **errors, not warnings** — Phase 2 Step 8 turned it on after
+Steps 4–7 removed the last shared mutable state, and the module compiles with **zero** diagnostics
+and **zero** escape hatches: no `@unchecked Sendable`, no `nonisolated(unsafe)`, no
+`@preconcurrency`. `PackageSettingsTests` fails if any of that changes **under `Sources/`**, because none of it is
+observable at runtime. Note the scope: the scanner enumerates `Sources/` only, so a hatch added in
+`Tests/LUTzyKitTests` — also `.swiftLanguageMode(.v6)` — would pass unnoticed. That is not a simple
+oversight to fix: `PackageSettingsTests.swift` names all three hatch strings in its own code, so a
+test-target-inclusive scanner would flag itself and needs a self-exemption. Zero hatches exist
+anywhere at HEAD.
+
+Practical consequences when writing code here:
+
+- **`deinit` is `nonisolated`.** It can run on any thread, so it may not touch non-`Sendable` stored
+  state even on a `@MainActor` class. Teardown that needs the main actor belongs in an explicit
+  method the owner calls. `ImageCollection.deinit` shows the other half: it reads `scopedURL`, so that
+  property is `@ObservationIgnored` — a tracked property would be a `@MainActor` accessor it cannot call.
+- **Closures handed to an unstructured `Task` must be `@Sendable`.** Mark the parameter rather than
+  reaching for an opt-out.
+- **`CIImage`, `CIFilter` and `CIContext` are not `Sendable`** and must stay inside `RenderEngine`.
+  Only values cross the boundary — `EditDocument`, `ImageSource`, `CubeLUT`, `WorkingSpace`,
+  `RenderScale` — plus a `sending CGImage?` or `Data` on the way out.
+- If something genuinely cannot be expressed safely, raise it rather than silencing it. The zero-opt-out
+  property is what makes "Swift 6 mode is on" mean anything; the mode is trivially satisfiable file
+  by file otherwise.
+
+## Layout
+
+The package is split so the app's code is testable (`@testable` can't import an executable target):
+
+- `Sources/LUTzyKit/` — everything of substance (Models, ViewModels, Views). Only `ContentView` and
+  `LUTzyCommands` are `public`; keep the rest internal.
+- `Sources/LUTzy/` — the `@main` entry point, `AppDelegate`, and the asset catalog. Nothing else belongs here.
+- `Tests/LUTzyKitTests/` — XCTest. **Fixtures are generated, never committed** (`Fixtures.swift` builds
+  `.cube` files and orientation-tagged JPEGs into a temp dir); LUTzy's real inputs are tens of MB.
+
+When a test needs something currently `private`, widen it to internal with a comment saying why —
+`RecipeExtractor.buildCube` and `workingSize` are the precedent.
+
+Constraints that must hold: **macOS 26 minimum**, **zero third-party dependencies** (Apple frameworks only). Don't introduce SPM/CocoaPods/Carthage deps.
+
+## Agent & workflow safety (READ THIS)
+
+A prior multi-agent **spec/analysis** run was meant to be read-only but a sub-agent edited tracked source as a side effect. Those edits had to be reverted and re-introduced deliberately as a reviewed PR. To prevent a repeat, these rules are binding for any agent or multi-agent workflow operating in this repo:
+
+1. **Analysis/spec/review runs are read-only w.r.t. tracked source.** Fan-out sub-agents must NOT `Edit`/`Write`/`NotebookEdit` files under version control. They return their findings/spec **as text**; the orchestrator (main session) makes any file changes on the main tree after reviewing that text.
+2. **Enforce read-only mechanically, don't just ask.** Prefer one of:
+   - spawn sub-agents with a read-only agent type (e.g. `Plan`, `Explore`) — they cannot write; or
+   - in a `Workflow`, restrict sub-agents to read-only tools; or
+   - if a sub-agent genuinely must edit, give it **worktree isolation** (`isolation: "worktree"`, or the helper below) so it operates on a throwaway copy, never the main tree.
+3. **Verify the tree after any agent run.** `git status --porcelain` must be empty (aside from intended outputs). If unexpected changes appear, stash + revert them and surface to the user rather than committing.
+4. **Code changes land via the normal flow** — a branch + reviewed PR — not as a silent side effect of an analysis task. Repo-meta docs (README, LICENSE, specs, this file) may be committed directly to `main`.
+5. **Don't run destructive git** (history rewrite, force-push, `stash drop/clear`, branch `-D`) without explicit user approval.
+
+### Throwaway worktree helper
+
+For any agent run that needs a scratch checkout it can't pollute the main tree with:
+
+```bash
+DIR=$(scripts/agent-worktree.sh create)   # prints a temp worktree path on the current HEAD
+# ... point the agent/workflow at "$DIR" ...
+scripts/agent-worktree.sh remove "$DIR"   # clean up when done
+```
+
+## Repo conventions
+
+- Default branch `main`; commit messages end with the `Co-Authored-By: Claude …` trailer.
+- Build artifacts (`.build/`, ~hundreds of MB), `.DS_Store`, and `.claude/` are gitignored. `.claude/` is ignored, so **shared agent guidance belongs here in `CLAUDE.md`**, not under `.claude/`.
+- `docs/PHASE2_SPEC.md` is the implementation plan for the non-destructive render pipeline + RAW develop controls. It is a distillation — keep it that way; per-component transcripts belong in the PR that implements the step, not in the spec.
+- `docs/CODE_REVIEW.md` records the standing review findings: what was fixed, and what is still open.
+
+---
+> Source: [tsvb/lutzy](https://github.com/tsvb/lutzy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-03 -->
