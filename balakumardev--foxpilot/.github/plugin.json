@@ -1,0 +1,9 @@
+{
+  "name": "balakumardev--foxpilot",
+  "displayName": "foxpilot",
+  "description": "FoxPilot \u2014 AI browser automation for Firefox via MCP (Firefox extension + MCP server)",
+  "version": "1.0.0",
+  "author": "balakumardev",
+  "homepage": "https://github.com/balakumardev/foxpilot",
+  "skills": []
+}
