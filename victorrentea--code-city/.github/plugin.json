@@ -1,0 +1,9 @@
+{
+  "name": "victorrentea--code-city",
+  "displayName": "code-city",
+  "description": "Turn any folder of Java sources into a 3-D Code City: a self-contained HTML page, a building per file, districts per package.",
+  "version": "1.0.0",
+  "author": "victorrentea",
+  "homepage": "https://github.com/victorrentea/code-city",
+  "skills": []
+}
