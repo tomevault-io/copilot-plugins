@@ -7,11 +7,11 @@ A spreadsheet engine you can put anywhere — a deterministic, embeddable Rust e
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [CasualOffice/opencalc](https://github.com/CasualOffice/opencalc).
+Original source: `AGENTS.md` in [CasualOffice/opencalc](https://github.com/CasualOffice/opencalc).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
