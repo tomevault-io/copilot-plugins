@@ -4,7 +4,7 @@
   "repo": "sample-agentcore-launchpad",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aws-samples/sample-agentcore-launchpad",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T01:30:56Z"
+  "distributed_at": "2026-10-03T01:45:00Z"
 }
