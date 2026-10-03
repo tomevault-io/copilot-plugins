@@ -1,27 +1,28 @@
-## folder-structure
+## i18n-and-theme
 
-> Folder structure, aliases, auth vs panel routes
+> next-intl routing, fa default, next-themes
 
 
-# Folder structure & routes
+# i18n & dark mode
 
-```text
-src/app/[locale]/page.tsx              → auth / login
-src/app/[locale]/(panel)/**           → private app (route group; URLs without "(panel)")
-src/app/[locale]/(panel)/home         → app home
-src/app/[locale]/unauthorized         → 401 + login button
-src/app/[locale]/access-denied        → 403
-src/api/generated/                    → Orval output (gitignored; codegen on build/dev)
-src/features/<feature>/pages|components|hooks/
-src/components/ui|common/
-src/messages/en.json|fa.json
-src/lib/api/client.ts
-src/stores/                           → Zustand (incl. panel user)
-```
+## i18n (`next-intl`)
 
-- No feature barrels — import pages by path.
-- Aliases: `@/*`, `@/features/*`, `@/components/*`, `@/lib/*`, `@/messages/*`.
-- Panel layout loads `/me` into Zustand user store.
+- Locales: `en` (LTR), `fa` (RTL). Routes: `/en/...`, `/fa/...`.
+- Messages: `messages/en.json`, `messages/fa.json`.
+- No hardcoded user-facing strings.
+- Full RTL for `fa`: `dir="rtl"`, logical CSS, mirrored layout.
+- Locale layout is the main shell: `RootProvider` (`html`/`body` + fonts + `NextIntlClientProvider`) + `AppProviders` (Direction → Query → Theme → Nuqs).
+- Root `app/layout.tsx` is pass-through only.
+- Fonts: **Inter** (`en`) + **Vazirmatn** (`fa`) via `next/font`, switched by locale.
+- `/` resolution: `NEXT_LOCALE` cookie → `Accept-Language` → default **`fa`**.
+- `NEXT_LOCALE` written via **next-intl** middleware/helpers.
+
+## Theme (`next-themes`)
+
+- `attribute="class"` (`dark` on `<html>`).
+- Default: **system**. User override → browser storage.
+- Do not store theme in Zustand.
+- Avoid flash: ThemeProvider + `suppressHydrationWarning` when needed.
 
 ---
 > Source: [soheilhasanjani/contently](https://github.com/soheilhasanjani/contently) — distributed by [TomeVault](https://tomevault.io).
