@@ -1,0 +1,9 @@
+{
+  "name": "yann-up--kimi-code-desktop",
+  "displayName": "kimi-code-desktop",
+  "description": "Desktop client for Kimi Code CLI \u2014 official Web UI in a native window, plus usage stats, quota strip, desktop pet & self-update (Tauri + React) | Kimi Code CLI \u684c\u9762\u5ba2\u6237\u7aef:\u5185\u5d4c\u5b98\u65b9 Web UI,\u9644\u5e26\u7528\u91cf\u7edf\u8ba1\u3001\u989d\u5ea6\u6761\u3001\u684c\u5ba0\u4e0e\u81ea\u52a8\u66f4\u65b0",
+  "version": "1.0.0",
+  "author": "Yann-Up",
+  "homepage": "https://github.com/Yann-Up/kimi-code-desktop",
+  "skills": []
+}
