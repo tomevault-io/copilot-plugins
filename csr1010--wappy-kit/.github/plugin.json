@@ -1,0 +1,9 @@
+{
+  "name": "csr1010--wappy-kit",
+  "displayName": "wappy-kit",
+  "description": "Wappy: the open-source AI agent SDK for WhatsApp. Bring your own model, your own number, your own data. Local-first, no forced cloud, no vendor lock-in.",
+  "version": "1.0.0",
+  "author": "csr1010",
+  "homepage": "https://github.com/csr1010/wappy-kit",
+  "skills": []
+}
