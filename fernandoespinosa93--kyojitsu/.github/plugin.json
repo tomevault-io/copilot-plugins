@@ -1,0 +1,9 @@
+{
+  "name": "fernandoespinosa93--kyojitsu",
+  "displayName": "Kyojitsu",
+  "description": "Framework de Red Team para LLMs basado en fuzzing adversarial y un ciclo generador-discriminador inspirado en GANs y algoritmos evolutivos",
+  "version": "1.0.0",
+  "author": "fernandoespinosa93",
+  "homepage": "https://github.com/fernandoespinosa93/Kyojitsu",
+  "skills": []
+}
