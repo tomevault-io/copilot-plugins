@@ -1,0 +1,9 @@
+{
+  "name": "lightningpixel--orvix",
+  "displayName": "orvix",
+  "description": "A token-saving CLI for AI coding agents: query symbols and call graphs instead of grepping and reading files",
+  "version": "1.0.0",
+  "author": "lightningpixel",
+  "homepage": "https://github.com/lightningpixel/orvix",
+  "skills": []
+}
