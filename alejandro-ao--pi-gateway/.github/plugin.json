@@ -1,0 +1,9 @@
+{
+  "name": "alejandro-ao--pi-gateway",
+  "displayName": "pi-gateway",
+  "description": "Run Pi on a VPS as a background process and chat with it on Telegram",
+  "version": "1.0.0",
+  "author": "alejandro-ao",
+  "homepage": "https://github.com/alejandro-ao/pi-gateway",
+  "skills": []
+}
