@@ -1,0 +1,9 @@
+{
+  "name": "ekmett--hide",
+  "displayName": "hide",
+  "description": "The Turbo Haskell IDE",
+  "version": "1.0.0",
+  "author": "ekmett",
+  "homepage": "https://github.com/ekmett/hide",
+  "skills": []
+}
