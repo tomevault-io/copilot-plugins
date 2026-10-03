@@ -1,0 +1,180 @@
+## sample-agentcore-launchpad
+
+> AgentCore Launchpad is a production-grade sample asset: one React console over one
+
+## What this is
+
+AgentCore Launchpad is a production-grade sample asset: one React console over one
+FastAPI backend that wires the real Amazon Bedrock AgentCore services (Runtime,
+Harness, Memory, Gateway, Identity, Registry, Policy/Cedar, Evaluation, Observability)
+into a unified **create → deploy → invoke → observe** experience. Everything targets a
+real AWS account in `us-west-2`; there is no mock plane. Read
+[docs/architecture.md](docs/architecture.md) first — it is the authoritative,
+up-to-date map of how each console feature backs onto an AgentCore service and resource.
+
+## Commands
+
+All Python is managed by **uv** — run backend/infra commands from their own directory
+with `uv run`, never bare `python`/`pip`.
+
+**Before starting/stopping/updating the running stack**, read the agent runbooks:
+[docs/agent-runbook-dev.md](docs/agent-runbook-dev.md) (local dev) /
+[docs/agent-runbook-prod.md](docs/agent-runbook-prod.md) (prod, systemd) — they carry
+the precondition probes and restart side-effect traps the table below does not.
+
+| Task | Command |
+|---|---|
+| Full verify gate (**run before reporting done**) | `make verify` |
+| Run local stack (backend :8000, frontend :5173) | `make dev` |
+| One-time infra + AgentCore bootstrap (idempotent) | `make bootstrap` |
+| Backend only / frontend only | `make backend` / `make frontend` |
+| Backend lint + tests (parallel, as the gate runs them) | `cd backend && uv run ruff check . && uv run pytest -q -n auto` |
+| Single backend test (serial — omit `-n`) | `cd backend && uv run pytest tests/test_agents_api.py::test_name -q` |
+| Frontend lint / typecheck / build | `cd frontend && npm run lint && npx tsc --noEmit && npm run build` |
+| i18n key parity (en ↔ zh-CN) | `python3 scripts/i18n_check.py` |
+| zh-CN full-width punctuation (`--fix` to convert) | `python3 scripts/i18n_zh_punct.py --check` |
+
+`scripts/verify.sh` (= `make verify`) is the canonical gate: backend ruff+pytest, infra
+ruff+pytest, frontend eslint+tsc+vite-build, i18n parity, and zh-CN full-width
+punctuation. It must pass before any change is considered complete. The gate runs the
+backend suite in parallel via `pytest-xdist` (`-n auto`, ~1 min on 8 cores instead of
+~6.4 min); `-n` is deliberately **not** in `addopts`, so one named test stays serial.
+
+**`backend/tests/` vs `backend/scripts/e2e_*.py`:** `tests/` are hermetic unit tests
+(SQLite is redirected to a temp DB in `conftest.py`; AWS is stubbed) and run in
+`make verify`. The `e2e_*.py` scripts hit **real AWS** and require `make bootstrap` +
+credentials — they are not part of the verify gate.
+
+## Repo layout
+
+`backend/` FastAPI control plane · `frontend/` React (Vite) console · `infra/` CDK app
+(`launchpad-base` stack) · `apps/studio/` vendored Strands Studio sub-app (方式C) ·
+`scripts/` bootstrap/teardown/dev/verify · `config/` generated `launchpad.yaml` ·
+`docs/` architecture/api/setup/troubleshooting (all bilingual). See the table in
+[README.md](README.md#repo-layout).
+
+## Architecture — the load-bearing patterns
+
+These are the abstractions that span many files; understanding them is what makes you
+productive here. The per-feature detail lives in `docs/architecture.md` and the specs
+under `.trellis/spec/launchpad/`.
+
+- **Four creation methods, one pipeline.** 方式A (Claude Agent SDK → ARM64 container),
+  方式B (managed Harness, no build), 方式C (Strands Studio canvas), `byoc` (member-
+  uploaded code zip / Dockerfile context / existing ECR image), plus `zip_runtime`,
+  all converge into the ordered stages `generate → package → provision → deploy →
+  register` in `backend/app/deployer/pipeline.py`. Each method registers one callable
+  per stage (or omits it) via `register_method()`; the method modules
+  (`deployer/harness.py`, `zip_runtime.py`, `container.py`, `byoc.py`) are imported
+  **for their side effects** in `app/main.py`, so a new method must be imported there
+  to exist.
+
+- **Deploy is an async, resumable job.** `POST /api/agents` returns `202` with a
+  `job_id`; the job runs on a background thread, persisting per-stage status onto the
+  `Deployment` row and JSONL events onto `Job.log`. `resume_pending_jobs()` runs on
+  startup and re-runs interrupted jobs from the first non-succeeded stage — so stages
+  should be idempotent.
+
+- **One invoke chain for both entrances.** The Chat console (`/api/chat/{id}`) and the
+  public `/v1` API share the single entry point `app.services.invoke.invoke_agent_text`
+  (+ `app.services.chat.chat_stream` for SSE). `/v1` only adds `X-Api-Key` auth
+  (sha256-hashed); everything downstream of method dispatch is identical. Change invoke
+  behavior in one place, not per-router.
+
+- **AWS is the source of truth; the SQLite ledger holds only identifiers + derived
+  progress.** The ledger (`data/launchpad.db`, models in `app/models/ledger.py` plus the
+  evaluation/optimization models) stores agents, deployments, jobs, chat sessions, api
+  keys, policy decisions, eval datasets/runs, and experiments. Authoritative resource
+  state (runtime status, registry record status, traces, eval results) is always read
+  back from AWS.
+
+- **All boto3 clients are built in exactly one place.** `app/services/aws_clients.py`
+  constructs every AWS client/session, keyed by a `WorkspaceContext` (account, region,
+  future assume-role) from `app/services/workspace.py`; a hermetic guard test
+  (`tests/test_client_funnel.py`) fails on construction anywhere else. AgentCore client
+  *names* stay in `app/services/agentcore/client.py`, and preview-API drift is contained
+  there and in the sibling wrapper modules (`runtime.py`, `harness.py`, `registry.py`,
+  `codebuild.py`). Everything else receives clients explicitly so tests can inject stubs
+  — follow this; do not call `boto3.client(...)` elsewhere.
+
+- **Config precedence:** defaults < `config/launchpad.yaml` < `LAUNCHPAD_`-prefixed env
+  < init kwargs (`app/core/config.py`). `launchpad.yaml` is written by `make bootstrap`
+  and is gitignored; before bootstrap the defaults keep the app importable/testable, but
+  real AWS calls will fail.
+
+- **Per-agent memory scoping.** One shared `launchpad_memory` singleton; the AgentCore
+  namespace is keyed only on `{actorId}`, so the platform folds the agent id into the
+  actor (`scoped_actor(agent_id, human)` → `<agent>__<human>`) to partition both
+  short-term events and long-term facts per agent. The ledger still stores the bare
+  human actor for display.
+
+- **System-managed presets are server-owned.** `Agent.system_key` (never settable via
+  `AgentSpec`) marks a platform preset (`backend/app/system_agents/`); the ordinary
+  redeploy/delete/convert routes refuse such rows before any AWS call, and admins
+  install/repair/uninstall only through `/api/system-agents`. Nothing installs on
+  startup or on a read. Preset skills upload to the versioned
+  `system-skills/<name>/<version>/` S3 prefix, disjoint from member-writable prefixes.
+
+## Frontend conventions
+
+React + Vite + `react-router-dom`, TypeScript strict. Top-level routes are in
+`src/App.tsx` (Overview, Create incl. `create/studio`, Registry, Knowledge Bases, Memory,
+Chat, Observability, Evaluation, Skill Lab, Governance, Users, Workspaces). Complex pages
+expose **sub-pages via a `?view=` query param** (e.g. Evaluation's
+`?view=experiment|evaluators|datasets`, Registry's register/edit) rather than nested
+routes — follow that pattern for new sub-surfaces. `src/lib/api.ts`
+is the single typed client for the backend; keep its interfaces in sync with the FastAPI
+schemas. All user-facing strings are i18n keys with **en + zh-CN parity enforced** by
+`scripts/i18n_check.py`. Chinese copy uses **full-width punctuation** (`，：；？！（）`)
+wherever a mark touches CJK text; `scripts/i18n_zh_punct.py --check` gates it and `--fix`
+converts mechanically (placeholders, backticks, URLs, ARNs and Latin-only fragments are
+never touched).
+
+## Demo video production
+
+Before recording, editing, generating narration for, or publishing demo videos, read
+[Demo video production](docs/demo-video-production.md) for the requirements and
+lessons learned. Load this guide only when working on videos.
+
+## Conventions & gotchas
+
+- **All documentation is written in English** (per the launchpad spec index), even
+  though the product UI and top-level docs are bilingual.
+- **`AGENTS.md` mirrors this file's body** (everything below the title, above its Trellis
+  block) for non-Claude agents — update both in the same commit;
+  `backend/tests/test_agents_md_mirror.py` fails on drift.
+- Python: ruff (line length 100, target py312, rules `E,F,I,W,UP,B`); FastAPI routers
+  live in `app/routers/` (console `/api`) and `app/routers/public_api.py` (public `/v1`);
+  errors go through `app/core/errors.register_error_handlers`.
+- `bedrock-agentcore` is a **preview SDK pinned to `1.17.*`** — treat API shapes as
+  volatile and keep the volatility inside the `agentcore/` wrappers.
+- `apps/studio/`, `vendor-src/*`, and `backend/samples/frontdesk_agent` are vendored /
+  demo assets with their **own `CLAUDE.md` and conventions** — don't apply this file's
+  rules to them blindly, and prefer editing the platform-side integration over the
+  vendored code.
+
+<!-- TRELLIS:START -->
+# Trellis Instructions
+
+These instructions are for AI assistants working in this project.
+
+This project is managed by Trellis. The working knowledge you need lives under `.trellis/`:
+
+- `.trellis/workflow.md` — development phases, when to create tasks, skill routing
+- `.trellis/spec/` — package- and layer-scoped coding guidelines (read before writing code in a given layer)
+- `.trellis/workspace/` — per-developer journals and session traces
+- `.trellis/tasks/` — active and archived tasks (PRDs, research, jsonl context)
+
+If a Trellis command is available on your platform (e.g. `/trellis:finish-work`, `/trellis:continue`), prefer it over manual steps. Not every platform exposes every command.
+
+If you're using Codex or another agent-capable tool, additional project-scoped helpers may live in:
+- `.agents/skills/` — reusable Trellis skills
+- `.codex/agents/` — optional custom subagents
+
+Managed by Trellis. Edits outside this block are preserved; edits inside may be overwritten by a future `trellis update`.
+
+<!-- TRELLIS:END -->
+
+---
+> Source: [aws-samples/sample-agentcore-launchpad](https://github.com/aws-samples/sample-agentcore-launchpad) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-02 -->
