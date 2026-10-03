@@ -1,0 +1,9 @@
+{
+  "name": "mariposa-floa--digital-human-workbench",
+  "displayName": "digital-human-workbench",
+  "description": "Noncommercial digital human production workbench with Rachel Skill, MCP, Agent orchestration, and safe provider gates.",
+  "version": "1.0.0",
+  "author": "Mariposa-FLOA",
+  "homepage": "https://github.com/Mariposa-FLOA/digital-human-workbench",
+  "skills": []
+}
