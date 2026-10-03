@@ -1,0 +1,9 @@
+{
+  "name": "sindresorhus--eslint-cssicorn",
+  "displayName": "eslint-cssicorn",
+  "description": "Powerful ESLint rules for CSS",
+  "version": "1.0.0",
+  "author": "sindresorhus",
+  "homepage": "https://github.com/sindresorhus/eslint-cssicorn",
+  "skills": []
+}
