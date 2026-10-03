@@ -1,0 +1,9 @@
+{
+  "name": "regenrek--farcall-mcp",
+  "displayName": "farcall-mcp",
+  "description": "Let Claude Code call Codex, or Codex call Claude Code, through one pending MCP call",
+  "version": "1.0.0",
+  "author": "regenrek",
+  "homepage": "https://github.com/regenrek/farcall-mcp",
+  "skills": []
+}
