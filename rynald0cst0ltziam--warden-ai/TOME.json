@@ -4,7 +4,7 @@
   "repo": "Warden-AI",
   "description": "The structurally-verified context layer for AI coding agents. Cut 50-90% of your agent's token spend.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rynald0cst0ltziam/Warden-AI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T00:33:57Z"
+  "distributed_at": "2026-10-03T00:46:44Z"
 }
