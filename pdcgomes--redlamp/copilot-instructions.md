@@ -1,43 +1,38 @@
-## landing-page
+## tracker-issues
 
-> Keep the redlamp.app landing page (web/) in step with the README whenever work lands
+> The research tracker is where the roadmap is planned; GitHub issues mirror its work items. Sync after tracker changes, and bring issues people file into the tracker.
 
 
-# Keep the landing page current
+# Roadmap: the tracker and GitHub issues
 
-The README is the status page, and `web/` (redlamp.app) presents it. When you update the README for something that landed, check the site in the same change.
+`docs/research/research-tracker.md` is where the roadmap is planned. Every open work item in it has a GitHub issue, mirrored by `scripts/tracker-issues.py`, so the roadmap can be followed, discussed and picked up on GitHub.
 
-## Updates itself (don't duplicate)
+## Plan in the tracker
 
-- **Roadmap** and **Everything that works today** are parsed from the README at build time by `web/lib/readme.ts`.
-- **Screenshots, film icons, sample sheets and logos** are copied from `docs/` by `web/scripts/sync-assets.mjs`.
-- **The download button**, the version in the hero's status pill and the Homebrew "(with the first release)" note follow the latest GitHub release (`web/lib/github.ts`).
+- Add, split, reprioritise and finish work in the tracker first, by its own rules: new IDs in the right section, never reused; `Status` names the commit.
+- The sync owns each issue's title, the block between `<!-- tracker:begin -->` and `<!-- tracker:end -->`, its open or closed state, its milestone, and the `tracker`, `area:`, `size:`, `kind:`, `decision:` and `status:` labels. Don't edit those on GitHub: the next sync overwrites them. Everything else is free to use: comments, assignees, text above the block, and labels such as `help wanted` or `good first issue`.
+- Each README roadmap phase (`### Phase N: Title *(status)*`) is a milestone of that title, closed once the README marks it *(done)*; an issue goes in its row's earliest phase. Renaming a phase in the README renames its milestone on the next sync.
+- Decision rows (`DEC-`) and recorded skips (`SKIP-`) stay in the tracker only.
 
-Keep the shapes the parser relies on, or update `web/lib/readme.ts` with them:
-- `## Roadmap` with `### Phase N: Title *(status)*` sections and `- [x]` / `- [ ]` items (`### Later` uses plain `-` items).
-- `### What works today` with `**Group title**` lines, each followed by `- [x]` items.
+## Sync after a tracker change
 
-## Edit by hand when the README changes
-
-| README change | Update |
-| --- | --- |
-| A headline feature lands, or a feature row's claims change | The matching entry in `web/content/features.ts` (title, body, points, screenshot) |
-| The command palette's keys or behaviour change | `commandPalette` and `paletteSteps` in `web/content/features.ts`, and its close-ups (`palette-*` in `scripts/capture-screenshots.sh`) |
-| Measured performance numbers change | `performance` in `web/content/features.ts`, and the speed feature's points |
-| A film stock is added, renamed or re-tuned | `web/content/films.ts` (with its icon and `look-<id>.jpg` in `docs/images/film/`) |
-| Goals change | `principles` in `web/content/features.ts` |
-| Status changes (alpha, beta, iPad/iPhone) | `status`, `stage` (the status badge) and `homebrew` in `web/lib/site.ts`, and the hero copy in `web/components/sections/Hero.tsx`. A new stage also changes the version suffix in `Version.xcconfig` (`-prealpha`, `-alpha`, `-beta`) |
-| A new screenshot is added to `docs/images` | Use it in a feature row or add it to `gallery` in `web/content/features.ts` |
-
-Write site copy in the brand voice from `docs/brand/README.md`: calm, plain and precise, with no exclamation marks or superlatives, and only claims the README makes.
-
-## Check
+Whenever a change touches the tracker, sync as part of the same work, once it is committed:
 
 ```bash
-cd web && npm run typecheck && npm run build
+scripts/tracker-issues.py          # dry run: read what it will do
+scripts/tracker-issues.py --apply
 ```
 
-The build fails if the README sections the parser needs are missing.
+A row that becomes `Done` closes its issue as completed; `Not needed` or `Rejected` closes it as not planned; a row moving back reopens it. When work lands for a tracked item, name its issue in the commit message (`Refine Edge brush (MSK-07, #12)`).
+
+## Issues people file
+
+The sync lists open issues without a tracker ID as untriaged. For each:
+
+- **Bug:** fix it and close it as usual. Bugs don't need a tracker row unless fixing one is a piece of planned work.
+- **Feature request or idea:** if it belongs on the roadmap, add a tracker row (Decision `Proposed`, Source linking the issue), then start the issue's title with the new ID (`MSK-18: …`). The next sync adopts it and keeps the reporter's text above the mirrored block. Only the owner moves a row to `Accepted`.
+- **Already tracked:** close it as a duplicate of the tracker item's issue.
+- **Declined:** close it with the reason; add a `SKIP-` row when the reason is worth keeping.
 
 ---
 > Source: [pdcgomes/redlamp](https://github.com/pdcgomes/redlamp) — distributed by [TomeVault](https://tomevault.io).
