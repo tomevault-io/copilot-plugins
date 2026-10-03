@@ -1,0 +1,9 @@
+{
+  "name": "joshuaswarren--coreglass",
+  "displayName": "coreglass",
+  "description": "See where local inference loses speed on Apple Silicon under Linux",
+  "version": "1.0.0",
+  "author": "joshuaswarren",
+  "homepage": "https://github.com/joshuaswarren/coreglass",
+  "skills": []
+}
