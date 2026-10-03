@@ -1,0 +1,9 @@
+{
+  "name": "techprogabe--opencrossing-anbernic",
+  "displayName": "OpenCrossing-Anbernic",
+  "description": "OpenCrossing: Animal Crossing running natively at ~60 fps on Anbernic handhelds \u2014 no emulator. GameCube decomp port for the H700 family (RG-34XX/35XX/28XX) via PortMaster (muOS, Knulli).",
+  "version": "1.0.0",
+  "author": "TechProGabe",
+  "homepage": "https://github.com/TechProGabe/OpenCrossing-Anbernic",
+  "skills": []
+}
