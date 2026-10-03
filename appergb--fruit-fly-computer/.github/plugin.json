@@ -1,0 +1,9 @@
+{
+  "name": "appergb--fruit-fly-computer",
+  "displayName": "fruit-fly-computer",
+  "description": "Experimental connectome computer: tested sparse neural foundations on Mac, targeting DGX Spark",
+  "version": "1.0.0",
+  "author": "appergb",
+  "homepage": "https://github.com/appergb/fruit-fly-computer",
+  "skills": []
+}
