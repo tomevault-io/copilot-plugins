@@ -1,0 +1,9 @@
+{
+  "name": "tongducthanhnam--cici-api",
+  "displayName": "cici-api",
+  "description": "REST API + CLI wrapper for Cici/Dola Browser (ByteDance) \u2014 gen \u1ea3nh/video qua code via CDP automation. Producer/consumer queue + sync CLI.",
+  "version": "1.0.0",
+  "author": "TongDucThanhNam",
+  "homepage": "https://github.com/TongDucThanhNam/cici-api",
+  "skills": []
+}
