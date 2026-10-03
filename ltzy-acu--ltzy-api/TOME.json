@@ -1,0 +1,44 @@
+{
+  "name": "LTZY-API",
+  "owner": "LTZY-ACU",
+  "repo": "LTZY-API",
+  "description": "LTZY-API \u00b7 Self-hosted LLM gateway & OpenAI-compatible API \u7f51\u5173\uff1a\u7edf\u4e00\u63a5\u5165\u81ea\u6709\u6a21\u578b\u6e20\u9053\uff0c\u667a\u80fd\u8def\u7531\u3001\u7cbe\u786e\u8ba1\u8d39\u3001\u989d\u5ea6\u4e0e\u5206\u7ec4\u3001\u8fd0\u8425\u540e\u53f0\uff1b\u4e0b\u6e38 OpenAI / Anthropic / Gemini \u4e09\u534f\u8bae\uff0c\u4e0a\u6e38 80 \u79cd\u6e20\u9053\u7c7b\u578b\uff0c\u5355\u4e8c\u8fdb\u5236\u96f6 CGO\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LTZY-ACU/LTZY-API",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T11:33:38Z"
+}
