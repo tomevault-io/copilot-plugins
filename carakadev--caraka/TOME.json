@@ -4,7 +4,7 @@
   "repo": "caraka",
   "description": "Send the task. Caraka runs it. \u2014 a thin bridge from Telegram to the coding agent already installed on your machine.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CarakaDev/caraka",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T01:09:44Z"
+  "distributed_at": "2026-10-03T01:10:40Z"
 }
