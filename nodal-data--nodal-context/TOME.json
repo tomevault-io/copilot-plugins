@@ -4,7 +4,7 @@
   "repo": "nodal-context",
   "description": "Nodal Context Repo - Open source business context for your data analytics",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nodal-data/nodal-context",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-03T00:53:27Z"
+  "distributed_at": "2026-10-03T00:54:21Z"
 }
