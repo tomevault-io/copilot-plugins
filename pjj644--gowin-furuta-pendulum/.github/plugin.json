@@ -1,0 +1,9 @@
+{
+  "name": "pjj644--gowin-furuta-pendulum",
+  "displayName": "gowin-furuta-pendulum",
+  "description": "\u57fa\u4e8e\u9ad8\u4e91 FPGA (GW2A-55C) \u7684\u65cb\u8f6c\u5012\u7acb\u6446\u59ff\u6001\u63a7\u5236\u7cfb\u7edf\uff082026\u96c6\u521b\u8d5bFPGA\u8d5b\u9053\u9009\u9898\u4e00\uff0cLQI\u5168\u72b6\u6001\u53cd\u9988/\u80fd\u91cf\u6cf5\u8d77\u6446/\u56db\u9636\u8f6f\u542f\u52a8/HIL\u95ed\u73af\uff09",
+  "version": "1.0.0",
+  "author": "pjj644",
+  "homepage": "https://github.com/pjj644/gowin-furuta-pendulum",
+  "skills": []
+}
