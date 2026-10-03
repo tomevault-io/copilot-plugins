@@ -1,0 +1,9 @@
+{
+  "name": "st0nie--deepin-liferaft",
+  "displayName": "deepin-liferaft",
+  "description": "macOS-style application memory pressure liferaft for Deepin",
+  "version": "1.0.0",
+  "author": "st0nie",
+  "homepage": "https://github.com/st0nie/deepin-liferaft",
+  "skills": []
+}
