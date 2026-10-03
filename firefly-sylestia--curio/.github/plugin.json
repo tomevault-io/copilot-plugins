@@ -1,0 +1,9 @@
+{
+  "name": "firefly-sylestia--curio",
+  "displayName": "Curio",
+  "description": "A discovery roulette deck + offline personal library for the things you notice. Privacy-first, beautifully designed, built with Kotlin & Compose. All topics are sourced from Wikipedia or other platfor",
+  "version": "1.0.0",
+  "author": "firefly-sylestia",
+  "homepage": "https://github.com/firefly-sylestia/Curio",
+  "skills": []
+}
