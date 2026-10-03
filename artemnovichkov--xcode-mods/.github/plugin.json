@@ -1,0 +1,9 @@
+{
+  "name": "artemnovichkov--xcode-mods",
+  "displayName": "xcode-mods",
+  "description": "Xcode's build, tests, console and SwiftUI previews inside Claude Code",
+  "version": "1.0.0",
+  "author": "artemnovichkov",
+  "homepage": "https://github.com/artemnovichkov/xcode-mods",
+  "skills": []
+}
