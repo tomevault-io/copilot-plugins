@@ -1,0 +1,9 @@
+{
+  "name": "aimalygin--xray-rust-mobile",
+  "displayName": "xray-rust-mobile",
+  "description": "Prebuilt iOS, tvOS, macOS, and Android SDK packages for xray-rust with SwiftPM, XCFramework, AAR, and native tunnel adapters.",
+  "version": "1.0.0",
+  "author": "aimalygin",
+  "homepage": "https://github.com/aimalygin/xray-rust-mobile",
+  "skills": []
+}
