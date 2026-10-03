@@ -1,0 +1,9 @@
+{
+  "name": "robotdisco--adhd-skills",
+  "displayName": "adhd-skills",
+  "description": "Personal Claude skills for ADHD self-management. Not a general-purpose toolkit.",
+  "version": "1.0.0",
+  "author": "RobotDisco",
+  "homepage": "https://github.com/RobotDisco/adhd-skills",
+  "skills": []
+}
