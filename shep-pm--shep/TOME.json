@@ -1,0 +1,44 @@
+{
+  "name": "shep",
+  "owner": "shep-pm",
+  "repo": "shep",
+  "description": "A process manager written in Rust, and a pm2 alternative: one supervisor daemon keeps a flock of long-running processes alive on Linux, macOS and Windows",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shep-pm/shep",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-03T22:43:27Z"
+}
