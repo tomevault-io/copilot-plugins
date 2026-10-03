@@ -1,0 +1,9 @@
+{
+  "name": "pab1it0--polymarket-mcp",
+  "displayName": "polymarket-mcp",
+  "description": "A Model Context Protocol (MCP) server for Polymarket's Gamma Markets API.",
+  "version": "1.0.0",
+  "author": "pab1it0",
+  "homepage": "https://github.com/pab1it0/polymarket-mcp",
+  "skills": []
+}
