@@ -1,0 +1,9 @@
+{
+  "name": "reuhomi--uxml-preview",
+  "displayName": "uxml-preview",
+  "description": "Preview Unity UI Toolkit UXML/USS without the Editor. Yoga: 660/676 coords match Unity 6. Renders Template/Instance screens and flags element-name typos Unity ignores. Byte-exact round trips.",
+  "version": "1.0.0",
+  "author": "ReuHomi",
+  "homepage": "https://github.com/ReuHomi/uxml-preview",
+  "skills": []
+}
