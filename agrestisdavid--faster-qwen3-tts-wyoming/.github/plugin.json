@@ -1,0 +1,9 @@
+{
+  "name": "agrestisdavid--faster-qwen3-tts-wyoming",
+  "displayName": "faster-qwen3-tts-wyoming",
+  "description": "GPU-accelerated Qwen3-TTS WebUI and OpenAI-compatible API with integrated Wyoming TTS for Docker and Unraid",
+  "version": "1.0.0",
+  "author": "agrestisdavid",
+  "homepage": "https://github.com/agrestisdavid/faster-qwen3-tts-wyoming",
+  "skills": []
+}
