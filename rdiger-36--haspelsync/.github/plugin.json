@@ -1,0 +1,9 @@
+{
+  "name": "rdiger-36--haspelsync",
+  "displayName": "HaspelSync",
+  "description": "This project lets you track your filament consumption from your Bambu Lab printer in Spoolman very accurately (down to 0.1 g) and supports all spools from any manufacturer.",
+  "version": "1.0.0",
+  "author": "Rdiger-36",
+  "homepage": "https://github.com/Rdiger-36/HaspelSync",
+  "skills": []
+}
