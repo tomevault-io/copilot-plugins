@@ -1,0 +1,9 @@
+{
+  "name": "trainwithshubham--tws-labs",
+  "displayName": "tws-labs",
+  "description": "Hands-on DevOps, Cloud and AI labs in a real Linux terminal, graded on real machine state. Run locally with one command.",
+  "version": "1.0.0",
+  "author": "TrainWithShubham",
+  "homepage": "https://github.com/TrainWithShubham/tws-labs",
+  "skills": []
+}
