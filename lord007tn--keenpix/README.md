@@ -7,11 +7,11 @@ Image optimization CDN with managed cloud and a self-hosted transform engine.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lord007tn/keenpix](https://github.com/lord007tn/keenpix).
+Original source: `AGENTS.md` in [lord007tn/keenpix](https://github.com/lord007tn/keenpix).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
