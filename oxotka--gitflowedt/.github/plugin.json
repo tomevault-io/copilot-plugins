@@ -1,0 +1,9 @@
+{
+  "name": "oxotka--gitflowedt",
+  "displayName": "GitFlowEDT",
+  "description": "\u041f\u043b\u0430\u0433\u0438\u043d \u0434\u043b\u044f \u0443\u0434\u043e\u0431\u043d\u043e\u0439 \u0440\u0430\u0431\u043e\u0442\u044b \u0441 git \u0434\u043b\u044f 1C:EDT. \u0421\u0434\u0435\u043b\u0430\u043d\u043e \u043f\u043e \u0441\u043e\u0432\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u043c \u043f\u0440\u0430\u043a\u0442\u0438\u043a\u0430\u043c \u0432 VSCode",
+  "version": "1.0.0",
+  "author": "Oxotka",
+  "homepage": "https://github.com/Oxotka/GitFlowEDT",
+  "skills": []
+}
