@@ -7,13 +7,13 @@ Standard rule set builder for projects to govern the AI-DLC workflow at 99x
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [99x-Projects/ai-dlc-base](https://github.com/99x-Projects/ai-dlc-base).
+Original source: `CLAUDE.md` in [99x-Projects/ai-dlc-base](https://github.com/99x-Projects/ai-dlc-base).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
