@@ -1,0 +1,9 @@
+{
+  "name": "jyje--hermes-agent-helm",
+  "displayName": "hermes-agent-helm",
+  "description": "\ud83d\udc69\ud83c\udffb\u200d\ud83d\udcbb Hermes Agent on Kubernetes - sign in with Codex/Copilot, run agent teams, stay lightweight.",
+  "version": "1.0.0",
+  "author": "jyje",
+  "homepage": "https://github.com/jyje/hermes-agent-helm",
+  "skills": []
+}
