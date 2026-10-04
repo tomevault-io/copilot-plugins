@@ -1,0 +1,93 @@
+{
+  "name": "PicQuery",
+  "owner": "greyovo",
+  "repo": "PicQuery",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PicQuery",
+      "path": ".agents/skills/get-it-expert/SKILL.md",
+      "github_url": "https://github.com/greyovo/PicQuery/tree/main/.agents/skills/get-it-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PicQuery",
+      "path": ".agents/skills/watch-it-expert/SKILL.md",
+      "github_url": "https://github.com/greyovo/PicQuery/tree/main/.agents/skills/watch-it-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PicQuery",
+      "path": ".agents/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/greyovo/PicQuery/tree/main/.agents/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PicQuery",
+      "path": ".agents/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/greyovo/PicQuery/tree/main/.agents/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PicQuery",
+      "path": ".agents/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/greyovo/PicQuery/tree/main/.agents/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PicQuery",
+      "path": ".agents/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/greyovo/PicQuery/tree/main/.agents/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PicQuery",
+      "path": ".agents/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/greyovo/PicQuery/tree/main/.agents/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PicQuery",
+      "path": ".agents/skills/flutter-architecture-expert/SKILL.md",
+      "github_url": "https://github.com/greyovo/PicQuery/tree/main/.agents/skills/flutter-architecture-expert/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/greyovo/PicQuery",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T07:37:29Z"
+}
