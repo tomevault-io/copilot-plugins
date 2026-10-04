@@ -1,0 +1,9 @@
+{
+  "name": "mkaflowski--ppsspp-duo",
+  "displayName": "PPSSPP-Duo",
+  "description": "Dual screen implementation of PPSSPP",
+  "version": "1.0.0",
+  "author": "mkaflowski",
+  "homepage": "https://github.com/mkaflowski/PPSSPP-Duo",
+  "skills": []
+}
