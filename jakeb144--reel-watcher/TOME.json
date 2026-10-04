@@ -4,7 +4,7 @@
   "repo": "reel-watcher",
   "description": "AI watches your saved Instagram reels locally and turns them into a playbook",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jakeb144/reel-watcher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T10:30:24Z"
+  "distributed_at": "2026-10-04T10:32:58Z"
 }
