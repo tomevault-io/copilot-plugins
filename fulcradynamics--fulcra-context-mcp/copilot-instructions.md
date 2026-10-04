@@ -1,0 +1,226 @@
+## fulcra-context-mcp
+
+> > Fulcra - bridging the gap between agents, other agents, and humans. A context lake for all your data.
+
+# AGENTS.md - Fulcra
+
+> Fulcra - bridging the gap between agents, other agents, and humans. A context lake for all your data.
+
+## About
+
+[Fulcra](https://fulcradynamics.com/) is a personal data platform that gives humans and their agents a place to collect, store, and share real-world personal data - calendars, location, files, records that people and agents write, and data from phones, wearables, and other connected devices. Hundreds of data sources and types are supported.
+Users and agents can also record new data of their own - events, measurements, notes, and progress toward a goal - and define their own data types for it.
+
+Data is primarily collected through the human's phone; the human installs [Context by Fulcra](https://apps.apple.com/us/app/context-by-fulcra-health-hub/id1633037434) and lets the app sync their data to their account.
+
+
+### Interactive Access to the User's Data
+The human user gets to investigate their data interactively using beautiful mobile and [web apps](https://context.fulcradynamics.com/).
+
+### Agentic/Programmatic Access To the User's Data
+* [Main Developer Docs](https://docs.fulcradynamics.com/)
+* [OpenAPI spec](https://api.fulcradynamics.com/openapi.json)
+* [Python client library and CLI](https://fulcradynamics.github.io/fulcra-api-python/) (`pip install fulcra-api`): For an easy way to use the client library. Handles authentication for you. It also includes the `fulcra` CLI, which gives command-line access to the full platform — data queries, the data type catalog, tags, user-defined data types, and file storage. Sub-commands emit JSON lines for piping into tools like `jq`; run `fulcra --help` for the command list.
+* [MCP server](https://mcp.fulcradynamics.com): The endpoint to the public MCP server. The server uses Streamable HTTP transport with OAuth2 authorization. Context users can use this server with their own account to securely access their data.
+* [MCP server source code](https://github.com/fulcradynamics/fulcra-context-mcp): The open-source repository for the MCP server. Useful for inspecting available tools, running locally, or contributing.
+
+### For Agents and LLMs: Authorization Tips
+
+#### Code-first agents
+
+If you can run shell commands, try the `fulcra` CLI first; it ships as part of the `fulcra-api` client library (`pip install fulcra-api`). Authenticate once with:
+
+```
+fulcra auth login
+```
+
+This uses the OAuth2 Device Authorization Flow: it prints a URL for the operator (the user) to open in a browser, polls until they approve, and persists credentials (including a refresh token) at `~/.config/fulcra/credentials.json`, so subsequent commands need no re-authentication.
+
+If you can't keep a process alive while the user completes the browser flow, use the split, non-interactive variant:
+
+```
+fulcra auth login --get-auth-url          # prints the auth URL and a device code; send the URL to the user
+fulcra auth login --device-code <CODE>    # run after the user finishes the browser flow
+```
+
+To make direct REST API calls, `fulcra auth print-access-token` prints a bearer token, e.g.:
+
+```
+curl --oauth2-bearer "$(fulcra auth print-access-token)" 'https://api.fulcradynamics.com/user/v1alpha1/info'
+```
+
+If you're writing Python code, the same flow is available on the `fulcra-api` module. When calling `.authorize()`, the output will include a URL that you can send to the operator; the call polls while the user completes it in a browser. If the call times out, call `authorize()` again to get a new URL.
+
+```
+>>> from fulcra_api.core import FulcraAPI
+>>> fulcra = FulcraAPI()
+>>> fulcra.authorize()
+
+            Use your browser to log in to Fulcra.  If the tab does not open
+            automatically, visit this URL to authenticate: https://fulcra.us.auth0.com/activate?user_code=DBNV-DBQV
+```
+
+#### Text-first agents
+
+For agents without the ability to run shell commands or Python code, use the [MCP server](https://mcp.fulcradynamics.com). This server includes tools that can access the same data sources that the API can.
+
+The user can either use the public MCP server instance at `https://mcp.fulcradynamics.com`, or run it locally. It is published as the `fulcra-context-mcp` PyPI module.
+
+You can run it locally (stdio transport) with `uvx fulcra-context-mcp@latest`. See the [PyPI page](https://pypi.org/project/fulcra-context-mcp/) for more docs.
+
+**A CLI login is not a hosted MCP login.** The hosted server at `https://mcp.fulcradynamics.com` runs its own OAuth2 service and only accepts access tokens it issued itself through that flow; it does not accept the access token that `fulcra auth login` (or `fulcra auth print-access-token`) writes to `~/.config/fulcra/credentials.json` — presenting that token as a bearer to the hosted server fails with a 401 `invalid_token`. If an agent has already authenticated via the CLI, running the MCP server locally (previous paragraph) picks up those same credentials automatically. To use the hosted server instead, the MCP client must complete its own OAuth2 authorization with `https://mcp.fulcradynamics.com` (a separate browser login), which is independent of any prior CLI login.
+
+#### MCP Client Configuration Examples
+
+Remote connection using proxy (for clients like Claude for Desktop that only support stdio):
+```json
+{
+    "mcpServers": {
+        "fulcra_context": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "mcp-remote",
+                "https://mcp.fulcradynamics.com/"
+            ]
+        }
+    }
+}
+```
+
+Local connection using `uvx`:
+```json
+{
+    "mcpServers": {
+        "fulcra_context": {
+            "command": "uvx",
+            "args": [
+                "fulcra-context-mcp@latest"
+            ]
+        }
+    }
+}
+```
+
+## MCP tools and tips
+
+There are MCP tools available to both get general information about the user and specific data. Start with the former, with calls like `get_user_info`, `get_data_catalog`, and `annotations_catalog`, to get a sense of what the user has chosen to record. Then use the other tools (e.g. `get_time_series`, `get_records`, `get_sleep`, etc.) to get the data for specific time range(s).
+
+`get_data_catalog` returns every available data type grouped by the tools that can read it — only use a data type with the tools named in its group. `get_records` retrieves raw records for any data type in the catalog (including user-defined ones); `get_time_series` computes per-interval values and only supports the types listed under it.
+
+All time parameters must include time zones (ISO 8601 format). Always translate result timestamps to the user's local time zone when known.
+
+### Measuring tool context cost (for contributors)
+
+Tool definitions (descriptions + schemas) are loaded into every MCP client
+conversation, so their size matters. To measure the current cost per tool and
+in total, run this from the repo root:
+
+```sh
+uv run python scripts/measure_tools.py
+```
+
+Pass another checkout's path as an argument to compare versions (e.g. `uv run
+python scripts/measure_tools.py ../main-checkout`). Treat it as a regression
+check when adding or editing tools: a change that adds hundreds of tokens of
+definitions should be earning them.
+
+## Available Data
+
+### Location & Calendar
+Real-time and historical location data, plus calendar events and meeting schedules synced from the user's device calendars (Apple Calendar, including any subscribed Google or other calendars). The location tools return a fused interpretation of where the user was at a given time, combining whatever underlying data sources are available rather than exposing raw per-source samples.
+
+### User-Defined Data Types & Annotations
+Events, measurements, and notes that users and agents record themselves, in data types they define - anything from project milestones and habits to device usage. Users (and agents, via the CLI's `data-type` and `tag` commands, or the `create_data_type` and `record_data` MCP tools) can define new data types to track; `get_records` reads them back.
+
+### Files
+Users can upload arbitrary files to their account for storage alongside their data. The CLI's `file` sub-commands support list, stat, upload, download, delete, and version restore.
+
+### Sharing and agent-to-agent coordination
+
+A user can share files, calendars, and data types with other Fulcra users, or with every member of a *group*, through *datashares*. Sharing is always **read-only**: a recipient can list and read what was shared but can never write into another account. There is no lookup of users by email or name, so people exchange Fulcra user IDs themselves (`get_user_info` and `list_shares` report the caller's own ID; the CLI has `fulcra user-info`).
+
+MCP tools: `create_share`, `list_shares`, `delete_share`, `get_groups`, `join_group`, `leave_group`, `create_group`, `delete_group`, plus a `fulcra_userid` parameter on `list_files`, `read_file`, `get_data_updates`, `get_records`, `get_time_series`, `get_workouts`, `get_calendars`, and `get_calendar_events` for reading what another user shares. `get_data_updates(include_shared=true)` checks every user who shares with the caller in one call. CLI equivalents: `fulcra share ...`, `fulcra group ...`, `fulcra file share`, `fulcra file list --user-id`, `fulcra file download --user-id`.
+
+Patterns for agents coordinating on behalf of different users:
+
+1. **Mailbox per peer (two people).** Each side shares a folder such as `/shared/trip-2026/` with the other via `create_share(file_paths=[...], with_user_ids=[<id>])`. Each agent writes only to its own account with `write_file` and reads the peer's copy with `list_files`/`read_file` passing the peer's `fulcra_userid`. The share must exist in both directions.
+2. **Group bulletin board (several people).** One person runs `create_group` with no data types (joining then shares nothing), **everyone including the creator** runs `join_group` by ID (creating a group does not make you a member), and everyone shares their folder with `with_group_ids=[<group-id>]`. Members discover each other **by sharing**: `list_shares(direction="incoming")` lists every peer who has shared to the group, with their user ID and name.
+3. **Manifest plus append-only messages.** In each writer's folder keep a small `manifest.json` (current state, schema version, last update) and dated notes under `messages/<timestamp>-<agent>.md`. Nobody can overwrite another account's files; do not rely on write order across accounts.
+4. **Proposal and acknowledgement by version.** One side writes `proposal-v<N>.json`; the other answers with `ack-v<N>.json` or `counter-v<N+1>.json`. Reconcile by version number, not timestamp.
+5. **Polling.** `get_data_updates(start, end, fulcra_userid=<peer>)` reports a peer's shared file changes; `include_shared=true` does this for all peers at once. The window filters on upload time. A chat session cannot wait, so put the poll in a scheduled agent that records its last poll time in its own account.
+6. **Retraction.** `delete_file` is a soft delete that hides the file from every current-version share immediately; use it to withdraw a proposal. Avoid `include_file_history` on coordination folders, since history shares keep old versions visible.
+7. **Availability.** Share `calendar_events` with `time_start`/`time_end` in a *separate* share (file shares cannot be time-bounded); peers read it with `get_calendar_events(..., fulcra_userid=<id>)`.
+8. **Several agents per user.** They are indistinguishable at the API; put the agent name in the path (`/shared/<topic>/<agent>/...`) or in the manifest.
+
+Caveats: anyone who learns a group's ID can join it, and the owner cannot remove members, only delete the group, so treat a group ID like a password. A group that lists data types is a *collecting* group: joining shares those types with its owner, so show the user the group's details before joining. `leave_group` withdraws the user from a group, which also stops what a collecting group gathers. Only create shares or groups the user has asked for, and never use `share_all_data` unless they explicitly want their entire account shared.
+
+### Device and Sensor Data
+
+Data synced from phones, wearables, and other connected devices (via Apple Health and similar sources), such as activity, workouts, and sleep. `get_data_catalog` lists exactly which types a user has; numeric ones (e.g. `StepCount`) can be read as time series with `get_time_series`.
+
+## Best Practices for Agents
+
+- **Use appropriate sample rates.** When querying time series data, choose a `sample_rate` that balances resolution with performance. For daily overviews, 3600 seconds (hourly) works well. For detailed analysis, 60-300 seconds.
+- **Correlate across domains.** The real power of Fulcra is combining data streams - location with calendar events, the user's own records with what their devices measured, one person's shared data with another's. Look for patterns across domains.
+- **Records can span midnight.** Duration records (calendar events, sleep sessions, workouts) can start on day N and end on day N+1; extend your date range to catch them.
+
+### Example: Querying Data with the CLI
+
+```sh
+# Discover available data types (supports --name, --category, and --data-type filters)
+fulcra catalog --category user_configured
+
+# Calendar events for a day
+fulcra calendar-events "2025-01-01T00:00:00-08:00" "2025-01-02T00:00:00-08:00"
+
+# Where the user was at a given time
+fulcra location-at-time "2025-01-01T12:00:00-08:00"
+
+# Raw records for any catalog data type; time ranges can also be relative
+fulcra get-records StepCount "1 day"
+```
+
+The `related_cli_commands` property on each `fulcra catalog` entry lists the sub-commands that work with that data type.
+
+### Example: Querying Data with the Python Client
+
+```python
+from fulcra_api.core import FulcraAPI
+
+fulcra = FulcraAPI()
+fulcra.authorize()
+
+# Discover available data types (metrics, events, annotations)
+catalog = fulcra.v1_catalog()
+
+# Calendar events for a day
+events = fulcra.calendar_events(
+    start_time="2025-01-01T00:00:00-08:00",
+    end_time="2025-01-02T00:00:00-08:00",
+)
+
+# Where the user was at a given time
+location = fulcra.location_at_time(time="2025-01-01T12:00:00-08:00")
+```
+
+### Jupyter Notebook Demos
+
+Ready-to-run demo notebooks are available at the [Fulcra demos repository](https://github.com/fulcradynamics/demos). These notebooks walk through common use cases like querying and visualizing data and correlating it across domains. They can also be opened directly in [Google Colab](https://colab.research.google.com/) for one-click, zero-install demos.
+
+## Support
+
+- **Email:** support@fulcradynamics.com
+- **Discord:** [Context Social Discord](https://discord.gg/fulcra)
+- **GitHub:** [github.com/fulcradynamics](https://github.com/fulcradynamics)
+- **Live Web Chat:** Available on fulcradynamics.com
+
+## Official domains
+* fulcradynamics.com
+* context.fulcradynamics.com
+* mcp.fulcradynamics.com
+* fulcra.ai
+
+---
+> Source: [fulcradynamics/fulcra-context-mcp](https://github.com/fulcradynamics/fulcra-context-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-04 -->
