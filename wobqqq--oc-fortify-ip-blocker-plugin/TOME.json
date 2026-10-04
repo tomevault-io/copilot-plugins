@@ -1,0 +1,129 @@
+{
+  "name": "oc-fortify-ip-blocker-plugin",
+  "owner": "wobqqq",
+  "repo": "oc-fortify-ip-blocker-plugin",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/events/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/events/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/validation/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/error-handling/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/plugin-testing/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/plugin-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/plugin-upgrades/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/plugin-upgrades/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/fortify-security/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/fortify-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/application-layer/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/application-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/plugin-boundaries/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/plugin-boundaries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/domain-layer-cqrs/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/domain-layer-cqrs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/testing-architecture/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/testing-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/dependency-injection/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/dependency-injection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/testing-best-practices/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/testing-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/octobercms-plugin-development/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/octobercms-plugin-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oc-fortify-ip-blocker-plugin",
+      "path": ".claude/skills/octobercms-backend-controllers/SKILL.md",
+      "github_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin/tree/main/.claude/skills/octobercms-backend-controllers/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wobqqq/oc-fortify-ip-blocker-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T07:40:07Z"
+}
