@@ -7,11 +7,11 @@ AI watches your saved Instagram reels locally and turns them into a playbook
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jakeb144/reel-watcher](https://github.com/jakeb144/reel-watcher).
+Original source: `CLAUDE.md` in [jakeb144/reel-watcher](https://github.com/jakeb144/reel-watcher).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
