@@ -1,0 +1,9 @@
+{
+  "name": "dongnguyenvie--bashcut",
+  "displayName": "BashCut",
+  "description": "Native macOS video editor that coding agents can drive: everything the UI does, Claude Code and Codex can do through the bashcut CLI or MCP server. Layered timeline, captions, voiceover, plugins.",
+  "version": "1.0.0",
+  "author": "dongnguyenvie",
+  "homepage": "https://github.com/dongnguyenvie/BashCut",
+  "skills": []
+}
