@@ -4,7 +4,7 @@
   "repo": "betteropensource",
   "description": "The website should help users discover the best open-source alternatives for popular tools, apps, and software.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jasminbhesaniyajb/betteropensource",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T04:39:39Z"
+  "distributed_at": "2026-10-04T04:48:43Z"
 }
