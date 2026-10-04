@@ -1,0 +1,9 @@
+{
+  "name": "ojuri-io--ojuri",
+  "displayName": "ojuri",
+  "description": "Open source, self-hosted, multi-agent fraud detection. Real-time XGBoost decisions, drift-aware retraining, plain-language LLM investigations.",
+  "version": "1.0.0",
+  "author": "ojuri-io",
+  "homepage": "https://github.com/ojuri-io/ojuri",
+  "skills": []
+}
