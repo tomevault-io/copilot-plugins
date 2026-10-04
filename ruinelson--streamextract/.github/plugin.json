@@ -1,0 +1,9 @@
+{
+  "name": "ruinelson--streamextract",
+  "displayName": "StreamExtract",
+  "description": "Save time, battery and disk space by uploading files from RAR, ZIP, 7z, exFAT, and other archive formats directly to an FTP server without extracting them to disk first.",
+  "version": "1.0.0",
+  "author": "RuiNelson",
+  "homepage": "https://github.com/RuiNelson/StreamExtract",
+  "skills": []
+}
