@@ -3,7 +3,7 @@
   "displayName": "Agentic-Bug-Hunter",
   "description": "AI-powered bug bounty hunting toolkit that works with or without subscription.",
   "version": "1.0.0",
-  "author": "Awarexone",
-  "homepage": "https://github.com/Awarexone/Agentic-Bug-Hunter",
+  "author": "awarexone",
+  "homepage": "https://github.com/awarexone/Agentic-Bug-Hunter",
   "skills": []
 }
