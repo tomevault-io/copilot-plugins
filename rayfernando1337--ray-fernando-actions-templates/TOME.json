@@ -1,0 +1,44 @@
+{
+  "name": "ray-fernando-actions-templates",
+  "owner": "RayFernando1337",
+  "repo": "ray-fernando-actions-templates",
+  "description": "Reusable GitHub Actions workflow templates: self-hosted macOS verify gate, Cursor review pipeline, React Doctor, and queue-stall alarm. Agent-adoptable via AGENTS.md.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RayFernando1337/ray-fernando-actions-templates",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T22:45:37Z"
+}
