@@ -1,103 +1,20 @@
-## corefileawareness
+## ecosystemref
 
-> This rule enforces strict awareness of essential project files. Cursor AI **must always consider, reference, and respect** these files during any form of generation, edits, deployments, or config updates.
+> Always make use of sesh-tracker.com, kush.observer, and my-cannabis-tracker.com to effectively navigate and manage the three integral components of our ecosystem. You'll find information about each aspect of the ecosystem below:
 
-# 🧠 Cursor Rule: Core File Awareness (Sesh-Tracker.com)
+Always make use of sesh-tracker.com, kush.observer, and my-cannabis-tracker.com to effectively navigate and manage the three integral components of our ecosystem. You'll find information about each aspect of the ecosystem below: 
 
-This rule enforces strict awareness of essential project files. Cursor AI **must always consider, reference, and respect** these files during any form of generation, edits, deployments, or config updates.
+----------------------------------------------------
 
----
+Each of these platforms serves a specific purpose: 
 
-## ⚙️ 1. Project Configuration
+- **sesh-tracker.com** is the main user interface. Users will log in to this app to help log and monitor their sessions, inventory, providing insights into their stock and consumption patterns. Users will initially interact with a landing page with a guided tour of some sort, they can sign in or login, which afterwards brings them to their personalized dashboard, something that will be configurable with a drag and drop dashboard. My vision for this is that information entered will be captured, tracked, and made reportable through an extensive report builder. All data entered by users will ultimately be stored on a D1 Database tied directly to the Cloudflare worker. Users can then use these attributes, fileds, and data to create those reports, custom dashboards, and gain all sorts of insights from inventory, consumption, and so much more. 
 
-| File                  | Purpose                                                      |
-|-----------------------|--------------------------------------------------------------|
-| `package.json`        | Declares dependencies, scripts, project metadata             |
-| `package-lock.json`   | Ensures consistent dependency resolution                     |
-| `tsconfig.json`       | Base TypeScript configuration                                |
-| `tsconfig.app.json`   | App-specific TS overrides (if present)                       |
-| `tsconfig.node.json`  | Vite + Node-specific configuration                           |
-| `tsconfig.worker.json`| Cloudflare Worker-specific TS rules                         |
-| `vite.config.ts`      | Vite bundler configuration                                   |
-| `postcss.config.js`   | Tailwind/PostCSS plugin configuration                        |
-| `eslint.config.js`    | ESLint rules for consistent linting                          |
-| `wrangler.json`       | Cloudflare Worker + D1 database configuration                |
-| `worker-configuration.d.ts` | Type definitions for Worker environment               |
+- **kush.observer** is strictly the authenciation portal for **sesh-tracker.com** and **my-cannabis-tracker.com**. App users will interface primarily with **sesh-tracker.com**, with the account, authentication, and token system occuring with **kush.observer**. RBAC will primarily be housed here, with the admin dashboard mentioned next being the interface for admins to manmage those permissions and controls. This user information, preferences, subscription tiers, status, emails, usernames, display names, and so one will all be stored in a D1 database directly tied to the worker in Cloudflare. 
 
----
+- **my-cannabis-tracker.com** will act as the backend technician/admin dashboard. Customer/subscription management will take place here as a nice and simple interface to ultize for managing and making those changes. 
 
-## 🧩 2. Source Entry Points
-
-| File/Folder          | Purpose                                               |
-|----------------------|-------------------------------------------------------|
-| `src/api/index.ts`   | Cloudflare Worker API entrypoint via Hono            |
-| `src/api/routes/`    | Session/inventory endpoint definitions                |
-| `src/api/middleware/`| Auth validation, error handling, logging              |
-| `src/api/kush-proxy/`| Proxies for Kush.Observer endpoints                   |
-| `src/react-app/`     | SPA React application (Vite-based)                    |
-| `src/config/`        | App-wide environment and endpoint constants           |
-| `src/lib/`           | Shared backend logic and helpers                      |
-| `src/types/`         | Central TS types for data models                      |
-
----
-
-## 🎨 3. App Layer (React SPA)
-
-| Folder                   | Purpose                                |
-|--------------------------|----------------------------------------|
-| `src/react-app/components/` | UI + feature components              |
-| `src/react-app/hooks/`      | Shared React hooks (`useAuth`, etc.)|
-| `src/react-app/pages/`      | Top-level routed pages              |
-| `src/react-app/styles/`     | CSS tokens, themes, reset            |
-| `src/react-app/contexts/`   | Context providers                    |
-| `src/react-app/utils/`      | Utility functions for UI             |
-
----
-
-## 🧪 4. Testing + Fixtures
-
-| Folder             | Purpose                                  |
-|--------------------|------------------------------------------|
-| `tests/unit/`      | Component and function unit tests        |
-| `tests/integration/` | Hono route handler tests               |
-| `tests/e2e/`       | Full-stack UI tests (e.g. Playwright)    |
-| `tests/_fixtures/` | Predefined test data (sessions, inventory) |
-
----
-
-## 📄 5. Documentation + Operational State
-
-| File/Folder                                  | Purpose                                              |
-|----------------------------------------------|------------------------------------------------------|
-| `README.md`                                  | Canonical project overview and onboarding guide      |
-| `docs/architecture/SeshTracker_Architecture_and_Integration.md` | System architecture |
-| `docs/testing/integration-kushobserver-verify.md`               | Auth API validation tests |
-| `.internal/responses/response-to-kushobserver.md`               | Auth provider communication |
-| `.cursor/RULES.md`                            | Enforced Cursor generation rules (this file)         |
-
----
-
-## ❗ Enforcement Notes
-
-- These files **must not be renamed, moved, or overwritten** without explicit team action
-- Cursor must **never ignore** these paths when:
-  - Generating new routes, types, hooks, or styles
-  - Updating configuration or scripts
-  - Running deployment or build tasks
-- If any critical file is absent or malformed, Cursor should stop execution and prompt for user guidance
-
----
-
-## ✅ Compliance Expectations
-
-Cursor must:
-- Inject all new logic into an approved folder from the lists above
-- Log any changes to tracked config files
-- Suggest updates to architectural docs if modifying integration, routes, or platform logic
-
----
-
-_Last synced with `seshtrackerdev/sesh-tracker.com` on: {{INSERT_DATE_HERE}}_
+In addition to these dedicated resources, don’t forget to leverage the worker page URLs that may already be present in the codebase. These links can offer additional functionalities and support, further enhancing your ability to manage and engage with our ecosystem.
 
 ---
 > Source: [seshtrackerdev/sesh-trackeroldKUSH](https://github.com/seshtrackerdev/sesh-trackeroldKUSH) — distributed by [TomeVault](https://tomevault.io).
