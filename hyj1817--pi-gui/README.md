@@ -1,0 +1,30 @@
+# pi-gui
+
+> Source: [HYJ1817/pi-gui](https://github.com/HYJ1817/pi-gui). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+给 pi 套一个本地桌面界面：选文件夹当项目，文件改动与命令执行实时可见
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [HYJ1817/pi-gui](https://github.com/HYJ1817/pi-gui).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [HYJ1817/pi-gui](https://github.com/HYJ1817/pi-gui) — a repo with 22+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install HYJ1817/pi-gui
+```
+Source: [github.com/HYJ1817/pi-gui](https://github.com/HYJ1817/pi-gui).
+
+<!-- genome:d-i-s -->
