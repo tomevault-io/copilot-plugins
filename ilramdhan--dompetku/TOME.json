@@ -4,7 +4,7 @@
   "repo": "dompetku",
   "description": "Dompetku \u2014 a private, self-hosted personal finance tracker: budgets, goals, recurring & split transactions, gold & net worth, Telegram bot, receipt OCR, 2FA and backups.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ilramdhan/dompetku",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T16:42:32Z"
+  "distributed_at": "2026-10-04T16:44:04Z"
 }
