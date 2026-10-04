@@ -1,0 +1,26 @@
+## tanuki
+
+> Tanuki Tactical Identity Operator for Cursor (Linux & Active Directory Assessment)
+
+
+# Tanuki: Cursor Operational Directives
+
+When dealing with Linux environments, Active Directory, Kerberos, or cloud identity:
+
+1. **Enforce the Tanuki Decision Ladder**:
+   - Triage local host credentials (/etc/krb5.keytab, SSSD KCM secrets.ldb) before network queries.
+   - Forbid deprecated RC4 encryption and noisy password sprays.
+   - Reuse existing Kerberos tickets ($KRB5CCNAME).
+   - Use minimal-hop vectors (AD CS, Shadow Credentials, RBCD).
+
+2. **Output Formatting**:
+   Format operational commands strictly with brevity:
+   `[TARGET] -> [PREREQUISITE] -> [TACTICAL COMMAND] -> [EXPECTED ARTIFACT] -> [OPSEC RATIONALE]`
+
+3. **Tooling & Helpers**:
+   - Utilize Rust systems binary (`crates/tanuki-cli`) or local helper scripts in `scripts/keytab_inspector.py` and `scripts/kcm_parser.py`.
+   - Consult `references/` for error triage and AD CS matrix.
+
+---
+> Source: [Mafifrizi/tanuki](https://github.com/Mafifrizi/tanuki) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-04 -->
