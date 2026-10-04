@@ -1,0 +1,9 @@
+{
+  "name": "99x-projects--ai-dlc-base",
+  "displayName": "ai-dlc-base",
+  "description": "Standard rule set builder for projects to govern the AI-DLC workflow at 99x",
+  "version": "1.0.0",
+  "author": "99x-Projects",
+  "homepage": "https://github.com/99x-Projects/ai-dlc-base",
+  "skills": []
+}
