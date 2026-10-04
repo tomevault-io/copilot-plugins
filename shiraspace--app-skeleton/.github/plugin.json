@@ -1,0 +1,9 @@
+{
+  "name": "shiraspace--app-skeleton",
+  "displayName": "app-skeleton",
+  "description": "Next.js 16 App Router starter with TypeScript, Jest, ESLint, and Prettier \u2014 opinionated scaffold for interview/take-home projects",
+  "version": "1.0.0",
+  "author": "ShiraSpace",
+  "homepage": "https://github.com/ShiraSpace/app-skeleton",
+  "skills": []
+}
