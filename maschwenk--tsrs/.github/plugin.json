@@ -1,0 +1,9 @@
+{
+  "name": "maschwenk--tsrs",
+  "displayName": "tsrs",
+  "description": "Rust port of the TypeScript 7 type checker",
+  "version": "1.0.0",
+  "author": "maschwenk",
+  "homepage": "https://github.com/maschwenk/tsrs",
+  "skills": []
+}
