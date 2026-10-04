@@ -4,7 +4,7 @@
   "repo": "app-skeleton",
   "description": "Next.js 16 App Router starter with TypeScript, Jest, ESLint, and Prettier \u2014 opinionated scaffold for interview/take-home projects",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ShiraSpace/app-skeleton",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T04:47:50Z"
+  "distributed_at": "2026-10-04T04:53:02Z"
 }
