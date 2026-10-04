@@ -1,51 +1,46 @@
-## named-nested-structs
+## typed-errors
 
-> Nested JSON/API structs must be named types, never anonymous inline structs
+> Handler and usecase errors must be typed or wrapped with a reason
 
 
-# Named nested structs
+# Typed and wrapped errors
 
-Never declare anonymous nested `struct { ... }` fields (or slice element types). Each shape is a separate named type; parents reference those types by name.
+Never return a bare `err` across package boundaries without context — handlers, usecase, integration.
+
+## Required
+
+- Prefer package-level sentinel errors (`var ErrInvalidID = errors.New(...)`).
+- Otherwise wrap with `github.com/pkg/errors`: `errors.Wrap(err, "get task")` / `errors.Wrapf(...)`.
+- Handlers map via `respondError` (or equivalent), not `return err` after `parseID`.
 
 ## Bad
 
 ```go
-type confluencePageDoc struct {
-	ID    string `json:"id"`
-	Space struct {
-		Key string `json:"key"`
-	} `json:"space"`
-	Body struct {
-		Storage struct {
-			Value string `json:"value"`
-		} `json:"storage"`
-	} `json:"body"`
+payload, _ := json.Marshal(body)
+```
+
+```go
+key, err := ParseJiraIssue(issue)
+if err != nil {
+  return "", err
 }
 ```
 
 ## Good
 
 ```go
-type confluenceSpaceRef struct {
-	Key string `json:"key"`
-}
-
-type confluenceStorageBody struct {
-	Value string `json:"value"`
-}
-
-type confluencePageBody struct {
-	Storage confluenceStorageBody `json:"storage"`
-}
-
-type confluencePageDoc struct {
-	ID    string               `json:"id"`
-	Space confluenceSpaceRef   `json:"space"`
-	Body  confluencePageBody   `json:"body"`
+payload, err := json.Marshal(body)
+if err != nil {
+  return "", errors.Wrap(err, "marshal jira comment")
 }
 ```
 
-Same rule for `[]struct { ... }` — extract an element type (`type chatJSONChoice struct { ... }`, then `Choices []chatJSONChoice`).
+```go
+key, err := ParseJiraIssue(issue)
+if err != nil {
+  return "", errors.Wrap(err, "parse jira issue")
+}
+```
 
 ---
 > Source: [gonnafaraway/kaiban](https://github.com/gonnafaraway/kaiban) — distributed by [TomeVault](https://tomevault.io).
