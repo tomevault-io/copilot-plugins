@@ -1,0 +1,14 @@
+{
+  "name": "nurriyad--nuxt-blog",
+  "displayName": "nuxt-blog",
+  "description": "nuxt-blog",
+  "version": "1.0.0",
+  "author": "nurRiyad",
+  "homepage": "https://github.com/nurRiyad/nuxt-blog",
+  "skills": [
+    {
+      "name": "nuxt-blog",
+      "description": ""
+    }
+  ]
+}
