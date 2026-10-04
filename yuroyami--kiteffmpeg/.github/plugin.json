@@ -1,0 +1,9 @@
+{
+  "name": "yuroyami--kiteffmpeg",
+  "displayName": "KiteFFmpeg",
+  "description": "FFmpeg for KMP (Android, iOS, macOS, Linux, Windows, JVM, Wasm). Kotlin-first coroutine-first API with a prebuilt FFmpeg core (one implementation line, nobrainer setup). Demux, decode, filter, encode,",
+  "version": "1.0.0",
+  "author": "yuroyami",
+  "homepage": "https://github.com/yuroyami/KiteFFmpeg",
+  "skills": []
+}
