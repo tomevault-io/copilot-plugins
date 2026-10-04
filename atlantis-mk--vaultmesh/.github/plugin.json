@@ -1,0 +1,9 @@
+{
+  "name": "atlantis-mk--vaultmesh",
+  "displayName": "VaultMesh",
+  "description": "Source-available, noncommercial local-first password manager built with Rust, Tauri 2, and Chromium MV3",
+  "version": "1.0.0",
+  "author": "atlantis-mk",
+  "homepage": "https://github.com/atlantis-mk/VaultMesh",
+  "skills": []
+}
