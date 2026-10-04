@@ -1,0 +1,44 @@
+{
+  "name": "HaloCE-Quest-VR",
+  "owner": "moistman42069",
+  "repo": "HaloCE-Quest-VR",
+  "description": "Standalone Halo CE Quest VR and flat Android. Full-body IK, controller fingers, native-port multiplayer and experimental co-op. Community builds and source.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/moistman42069/HaloCE-Quest-VR",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T18:36:25Z"
+}
