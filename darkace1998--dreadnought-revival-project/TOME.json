@@ -4,7 +4,7 @@
   "repo": "Dreadnought-Revival-project",
   "description": "A community-operated private server for the discontinued game Dreadnought. The goal is to run the unmodified game client against our own backend: everything is emulated server-side, and the only thing a player installs is a replacement launcher.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/darkace1998/Dreadnought-Revival-project",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T04:44:39Z"
+  "distributed_at": "2026-10-04T04:52:26Z"
 }
