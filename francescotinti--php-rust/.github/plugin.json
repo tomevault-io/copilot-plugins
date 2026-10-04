@@ -1,0 +1,9 @@
+{
+  "name": "francescotinti--php-rust",
+  "displayName": "php-rust",
+  "description": "PHP 8.5 reimplemented from scratch in Rust: bytecode VM, cycle-collecting GC, native mysqli/PDO. Runs the full WordPress core test suite at oracle parity on real MySQL, plus Composer, PHPUnit, Doctrin",
+  "version": "1.0.0",
+  "author": "francescotinti",
+  "homepage": "https://github.com/francescotinti/php-rust",
+  "skills": []
+}
