@@ -1,0 +1,9 @@
+{
+  "name": "denniswjpg--padkit",
+  "displayName": "padkit",
+  "description": "Open-source firmware + tooling to turn a cheap 6-key + rotary-knob CH552 macropad into a fully programmable controller: flash it, bind keys anywhere, configure LEDs/keymap from your browser (WebHID), ",
+  "version": "1.0.0",
+  "author": "denniswjpg",
+  "homepage": "https://github.com/denniswjpg/padkit",
+  "skills": []
+}
