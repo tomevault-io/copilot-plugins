@@ -1,0 +1,117 @@
+{
+  "name": "Study-Mate",
+  "owner": "Miaotofu01",
+  "repo": "Study-Mate",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/local-qa/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/local-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/image-scout/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/image-scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/lesson-design/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/lesson-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/record-keeping/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/record-keeping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/learning-coach/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/learning-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/resource-scout/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/resource-scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/evidence-check/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/evidence-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/learning-system/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/learning-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/layered-practice/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/layered-practice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/practice-evaluator/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/practice-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/learning-discovery/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/learning-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Study-Mate",
+      "path": ".dsh/skills/curriculum-designer/SKILL.md",
+      "github_url": "https://github.com/Miaotofu01/Study-Mate/tree/main/.dsh/skills/curriculum-designer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Miaotofu01/Study-Mate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T07:36:08Z"
+}
