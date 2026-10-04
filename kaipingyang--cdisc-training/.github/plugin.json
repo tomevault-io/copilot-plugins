@@ -1,0 +1,9 @@
+{
+  "name": "kaipingyang--cdisc-training",
+  "displayName": "CDISC_training",
+  "description": "CDISC SDTM/ADaM \u6570\u636e\u96c6\u751f\u6210\u57f9\u8bad \u2014 \u57fa\u4e8e pharmaverse (sdtm.oak + admiral) \u7684 Claude Code skill \u6559\u5b66\u9879\u76ee",
+  "version": "1.0.0",
+  "author": "kaipingyang",
+  "homepage": "https://github.com/kaipingyang/CDISC_training",
+  "skills": []
+}
