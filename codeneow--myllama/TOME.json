@@ -1,0 +1,44 @@
+{
+  "name": "MyLlama",
+  "owner": "CodeNeow",
+  "repo": "MyLlama",
+  "description": "\u57fa\u4e8e llama.cpp \u7684\u8de8\u5e73\u53f0\u672c\u5730\u5927\u6a21\u578b\u5ba2\u6237\u7aef\uff1a\u4e00\u952e\u8c03\u4f18 GGUF \u6a21\u578b\uff0c\u591a\u6a21\u578b\u5171\u4eab\u4e00\u4e2a OpenAI \u517c\u5bb9\u7aef\u70b9\uff0c\u5185\u7f6e\u6a21\u578b\u4e0b\u8f7d\u3001\u672c\u5730\u804a\u5929\u4e0e\u5b9e\u65f6\u76d1\u63a7\u3002Windows / Linux / Android\u3002| A friendly cross-platform local-LLM client powered by llama.cpp \u2014 one-click GGUF auto-tuning, all your models behind one OpenAI-compatible endpoint, with built-in downloads, local chat and live monitoring. Windows / Linux / Android.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CodeNeow/MyLlama",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T22:52:46Z"
+}
