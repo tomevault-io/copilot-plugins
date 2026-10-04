@@ -4,7 +4,7 @@
   "repo": "keenpix",
   "description": "Image optimization CDN with managed cloud and a self-hosted transform engine.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lord007tn/keenpix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T04:43:01Z"
+  "distributed_at": "2026-10-04T04:50:11Z"
 }
