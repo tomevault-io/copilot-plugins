@@ -1,0 +1,9 @@
+{
+  "name": "regiellis--comfy-chair-go",
+  "displayName": "comfy-chair-go",
+  "description": "Comfy Chair is a simple CLI tool written in go to make working on custom nodes for ComfyUI easier",
+  "version": "1.0.0",
+  "author": "regiellis",
+  "homepage": "https://github.com/regiellis/comfy-chair-go",
+  "skills": []
+}
