@@ -1,0 +1,9 @@
+{
+  "name": "nguyenhuugiatri--iphone-wedding-invitation",
+  "displayName": "iphone-wedding-invitation",
+  "description": "\ud83d\udcf1 A wedding invitation website that looks like an iPhone. Guests unlock it and open apps: RSVP in Safari, the date in Calendar, the venue in Maps, the album in Photos. React + Vite, deploys to Vercel ",
+  "version": "1.0.0",
+  "author": "nguyenhuugiatri",
+  "homepage": "https://github.com/nguyenhuugiatri/iphone-wedding-invitation",
+  "skills": []
+}
