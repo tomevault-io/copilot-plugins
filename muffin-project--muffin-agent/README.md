@@ -7,11 +7,11 @@ Muffin — one owner-run personal agent: continuity of memory, work and authorit
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [muffin-project/muffin-agent](https://github.com/muffin-project/muffin-agent).
+Original source: `CLAUDE.md` in [muffin-project/muffin-agent](https://github.com/muffin-project/muffin-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
