@@ -1,0 +1,9 @@
+{
+  "name": "vitaly-zdanevich--youta",
+  "displayName": "youta",
+  "description": "Low-resource TUI audio player for YouTube (also Music) through yt-dlp, Bandcamp, Apple Podcasts and RSS, with local subscriptions and persistent listening progress, playing through headless mpv. With ",
+  "version": "1.0.0",
+  "author": "vitaly-zdanevich",
+  "homepage": "https://github.com/vitaly-zdanevich/youta",
+  "skills": []
+}
