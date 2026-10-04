@@ -1,0 +1,44 @@
+{
+  "name": "keys-Mac-TensorFold-MiniMax-H3-MLX",
+  "owner": "drowzeys",
+  "repo": "keys-Mac-TensorFold-MiniMax-H3-MLX",
+  "description": "MiniMax H3 (video + audio) on TensorFold 0.6.5 with an H3 family, Mac Studio M5 Ultra: 5 s 864x480 clip in ~50 s, 40 s at 768x448 \u2014 the fastest H3 we have measured on Apple Silicon; int8 tensor-unit kernels + Turbo adapter; one-shot + GHCR carrier",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/drowzeys/keys-Mac-TensorFold-MiniMax-H3-MLX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T18:30:24Z"
+}
