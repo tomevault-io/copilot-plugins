@@ -4,7 +4,7 @@
   "repo": "AI-SKILLS",
   "description": "Plug-and-play skills and prompts for every AI coding agent",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Amey-Thakur/AI-SKILLS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T02:35:54Z"
+  "distributed_at": "2026-10-04T02:41:49Z"
 }
