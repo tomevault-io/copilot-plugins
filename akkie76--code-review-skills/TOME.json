@@ -1,0 +1,57 @@
+{
+  "name": "code-review-skills",
+  "owner": "akkie76",
+  "repo": "code-review-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review-skills",
+      "path": "dist/codex/evidence-code-review/SKILL.md",
+      "github_url": "https://github.com/akkie76/code-review-skills/tree/main/dist/codex/evidence-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-review-skills",
+      "path": "dist/claude-code/evidence-code-review/SKILL.md",
+      "github_url": "https://github.com/akkie76/code-review-skills/tree/main/dist/claude-code/evidence-code-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/akkie76/code-review-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T07:45:18Z"
+}
