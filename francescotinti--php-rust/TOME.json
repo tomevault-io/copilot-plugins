@@ -4,7 +4,7 @@
   "repo": "php-rust",
   "description": "PHP 8.5 reimplemented from scratch in Rust: bytecode VM, cycle-collecting GC, native mysqli/PDO. Runs the full WordPress core test suite at oracle parity on real MySQL, plus Composer, PHPUnit, Doctrine, Symfony. Current front: performance (WP suite ~1.77x the reference CPU).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/francescotinti/php-rust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T00:42:38Z"
+  "distributed_at": "2026-10-04T00:46:53Z"
 }
