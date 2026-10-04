@@ -7,11 +7,11 @@ An outdoor sensor array for recording ecological activity with an indoor display
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [simonjgreen/OpenObservatory](https://github.com/simonjgreen/OpenObservatory).
+Original source: `AGENTS.md` in [simonjgreen/OpenObservatory](https://github.com/simonjgreen/OpenObservatory).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
