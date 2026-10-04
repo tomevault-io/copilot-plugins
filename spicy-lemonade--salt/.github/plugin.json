@@ -1,0 +1,9 @@
+{
+  "name": "spicy-lemonade--salt",
+  "displayName": "salt",
+  "description": "Salt encrypts your agent's files and database memories before they leave your machine.",
+  "version": "1.0.0",
+  "author": "spicy-lemonade",
+  "homepage": "https://github.com/spicy-lemonade/salt",
+  "skills": []
+}
