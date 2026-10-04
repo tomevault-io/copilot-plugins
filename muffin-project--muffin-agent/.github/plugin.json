@@ -1,0 +1,9 @@
+{
+  "name": "muffin-project--muffin-agent",
+  "displayName": "muffin-agent",
+  "description": "Muffin \u2014 one owner-run personal agent: continuity of memory, work and authority across models, tools and surfaces.",
+  "version": "1.0.0",
+  "author": "muffin-project",
+  "homepage": "https://github.com/muffin-project/muffin-agent",
+  "skills": []
+}
