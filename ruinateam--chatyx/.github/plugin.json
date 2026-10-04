@@ -1,0 +1,9 @@
+{
+  "name": "ruinateam--chatyx",
+  "displayName": "ChatYX",
+  "description": "A fast, customizable Twitch chat overlay for OBS with 7TV, BTTV, FFZ, Twitch badges, paints, emotes, real-time updates, and a built-in setup/preview page.",
+  "version": "1.0.0",
+  "author": "ruinateam",
+  "homepage": "https://github.com/ruinateam/ChatYX",
+  "skills": []
+}
