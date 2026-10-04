@@ -7,11 +7,11 @@ Next.js 16 App Router starter with TypeScript, Jest, ESLint, and Prettier — op
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ShiraSpace/app-skeleton](https://github.com/ShiraSpace/app-skeleton).
+Original source: `AGENTS.md` in [ShiraSpace/app-skeleton](https://github.com/ShiraSpace/app-skeleton).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
