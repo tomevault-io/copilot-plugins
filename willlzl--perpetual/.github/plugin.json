@@ -1,0 +1,9 @@
+{
+  "name": "willlzl--perpetual",
+  "displayName": "Perpetual",
+  "description": "Rebuild a local twin of your app on every push, replay approved business journeys, and report a GitHub check.",
+  "version": "1.0.0",
+  "author": "willlzl",
+  "homepage": "https://github.com/willlzl/Perpetual",
+  "skills": []
+}
