@@ -1,25 +1,51 @@
-## human-readable
+## named-nested-structs
 
-> Always write for humans — clear prose, no AI filler, in chat and in repo docs
+> Nested JSON/API structs must be named types, never anonymous inline structs
 
 
-# Human-readable output
+# Named nested structs
 
-Apply the personal skill `clear-prose` to every reply, canvas, README, prompt, and comment you write in this project.
+Never declare anonymous nested `struct { ... }` fields (or slice element types). Each shape is a separate named type; parents reference those types by name.
 
-For git commit messages, apply `conventional-commits`: Conventional Commits, lowercase subject.
+## Bad
 
-## Hard rules
+```go
+type confluencePageDoc struct {
+	ID    string `json:"id"`
+	Space struct {
+		Key string `json:"key"`
+	} `json:"space"`
+	Body struct {
+		Storage struct {
+			Value string `json:"value"`
+		} `json:"storage"`
+	} `json:"body"`
+}
+```
 
-- Answer first. No warm-up essay.
-- Short sentences. Concrete words. Cut filler.
-- Ban neuro-slop: «инсайт», «фреймворк ценности», «трансформационный», «unlock», «leverage», «в современном мире», «комплексный подход», лишние англицизмы там, где есть нормальное русское слово.
-- Do not restate the user question. Do not end with a duplicate «итог» block if the opening already said it.
-- Reports and canvases: readable essay or short sections — not buzzword dashboards.
+## Good
 
-## When editing Kaiban agent prompts
+```go
+type confluenceSpaceRef struct {
+	Key string `json:"key"`
+}
 
-Agent system prompts must tell the model to write reports a human can approve in two minutes: clear headings, bullets, no fluff, locale from user context.
+type confluenceStorageBody struct {
+	Value string `json:"value"`
+}
+
+type confluencePageBody struct {
+	Storage confluenceStorageBody `json:"storage"`
+}
+
+type confluencePageDoc struct {
+	ID    string               `json:"id"`
+	Space confluenceSpaceRef   `json:"space"`
+	Body  confluencePageBody   `json:"body"`
+}
+```
+
+Same rule for `[]struct { ... }` — extract an element type (`type chatJSONChoice struct { ... }`, then `Choices []chatJSONChoice`).
 
 ---
 > Source: [gonnafaraway/kaiban](https://github.com/gonnafaraway/kaiban) — distributed by [TomeVault](https://tomevault.io).
