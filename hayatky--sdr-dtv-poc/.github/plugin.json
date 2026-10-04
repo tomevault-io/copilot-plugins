@@ -1,0 +1,9 @@
+{
+  "name": "hayatky--sdr-dtv-poc",
+  "displayName": "sdr-dtv-poc",
+  "description": "Experimental SDR digital TV receiver PoC with a web UI for channel scanning, viewing, and short TS recordings.",
+  "version": "1.0.0",
+  "author": "hayatky",
+  "homepage": "https://github.com/hayatky/sdr-dtv-poc",
+  "skills": []
+}
