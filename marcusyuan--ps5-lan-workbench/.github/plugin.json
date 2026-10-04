@@ -1,0 +1,9 @@
+{
+  "name": "marcusyuan--ps5-lan-workbench",
+  "displayName": "ps5-lan-workbench",
+  "description": "PS5 LAN workbench for local DNS/HTTPS hosting, component loading, and PKG management.",
+  "version": "1.0.0",
+  "author": "MarcusYuan",
+  "homepage": "https://github.com/MarcusYuan/ps5-lan-workbench",
+  "skills": []
+}
