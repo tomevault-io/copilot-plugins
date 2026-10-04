@@ -1,0 +1,44 @@
+{
+  "name": "rw_analysis",
+  "owner": "skywater275",
+  "repo": "rw_analysis",
+  "description": "Rusted Warfare(\u94c1\u9508\u6218\u4e89)  1.15 \u7684\u6e38\u620f\u9006\u5411\u9879\u76ee\u3002\u6b64\u9879\u76ee\u975e\u5b98\u65b9\uff0c\u4e0d\u8981\u7528\u4e8e\u4efb\u4f55\u7684\u5546\u4e1a\u7528\u9014\u3002\u5982\u679c\u5b98\u65b9\u6709\u8981\u6c42\uff0c\u4f1a\u7acb\u523b\u7684\u5220\u9664\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/skywater275/rw_analysis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T00:34:25Z"
+}
