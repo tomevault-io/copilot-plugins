@@ -1,0 +1,9 @@
+{
+  "name": "jingbanz--jarvis",
+  "displayName": "jarvis",
+  "description": "Voice-driven macOS coaching agent for technical conversations.",
+  "version": "1.0.0",
+  "author": "JINGBANZ",
+  "homepage": "https://github.com/JINGBANZ/jarvis",
+  "skills": []
+}
