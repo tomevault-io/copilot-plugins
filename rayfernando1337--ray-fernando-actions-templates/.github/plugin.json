@@ -1,0 +1,9 @@
+{
+  "name": "rayfernando1337--ray-fernando-actions-templates",
+  "displayName": "ray-fernando-actions-templates",
+  "description": "Reusable GitHub Actions workflow templates: self-hosted macOS verify gate, Cursor review pipeline, React Doctor, and queue-stall alarm. Agent-adoptable via AGENTS.md.",
+  "version": "1.0.0",
+  "author": "RayFernando1337",
+  "homepage": "https://github.com/RayFernando1337/ray-fernando-actions-templates",
+  "skills": []
+}
