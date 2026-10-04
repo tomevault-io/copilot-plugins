@@ -1,0 +1,44 @@
+{
+  "name": "control",
+  "owner": "guardana",
+  "repo": "control",
+  "description": "Watch what your AI agents do, decide before they act, step in only where you allow it. Today: an MCP gateway with signed policies, approvals, pause and an evidence trail. Open source, Go.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/guardana/control",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T19:30:27Z"
+}
