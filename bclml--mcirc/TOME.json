@@ -4,7 +4,7 @@
   "repo": "mcIRC",
   "description": "mIRC-style chat client for MeshCore LoRa mesh nodes: channels, direct messages, node map, node settings, and installable addons (BC traffic bot, Auto reply)",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bclml/mcIRC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T22:33:06Z"
+  "distributed_at": "2026-10-04T22:33:51Z"
 }
