@@ -1,0 +1,9 @@
+{
+  "name": "heartstatnet--ha-disasterinformation",
+  "displayName": "ha-disasterinformation",
+  "description": " Home Assistant integration for Japan Meteorological Agency disaster information - \u6c17\u8c61\u5e81\u9632\u707d\u60c5\u5831\u3092Home Assistant\u3067\u5229\u7528\u3067\u304d\u308b\u30ab\u30b9\u30bf\u30e0\u30a4\u30f3\u30c6\u30b0\u30ec\u30fc\u30b7\u30e7\u30f3",
+  "version": "1.0.0",
+  "author": "heartstatnet",
+  "homepage": "https://github.com/heartstatnet/ha-disasterinformation",
+  "skills": []
+}
