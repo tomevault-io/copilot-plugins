@@ -1,0 +1,44 @@
+{
+  "name": "BearAgent",
+  "owner": "CherryYang05",
+  "repo": "BearAgent",
+  "description": "\u4e00\u4e2a\u53ef\u68c0\u67e5\u3001\u53ef\u6062\u590d\u3001\u6743\u9650\u5916\u7f6e\u7684\u672c\u5730\u4f18\u5148Agent Runtime\uff0c\u63a2\u7d22\u53ef\u9760\u7684 Agent \u5de5\u5177\u6267\u884c\u4e0e\u8fd0\u884c\u65f6\u673a\u5236\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CherryYang05/BearAgent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T22:51:01Z"
+}
