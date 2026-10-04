@@ -1,20 +1,117 @@
-## ecosystemref
+## issue-documentation
 
-> Always make use of sesh-tracker.com, kush.observer, and my-cannabis-tracker.com to effectively navigate and manage the three integral components of our ecosystem. You'll find information about each aspect of the ecosystem below:
+> Description: Rule to ensure proper issue documentation and reference to existing fixes
 
-Always make use of sesh-tracker.com, kush.observer, and my-cannabis-tracker.com to effectively navigate and manage the three integral components of our ecosystem. You'll find information about each aspect of the ecosystem below: 
+---
+Description: Rule to ensure proper issue documentation and reference to existing fixes
+---
+# 🔍 Cursor Rule: Issue Resolution Documentation
 
-----------------------------------------------------
+This rule establishes a systematic approach for handling and documenting technical issues encountered during development. Cursor AI **must follow this workflow** when addressing major bugs, errors, or technical challenges.
 
-Each of these platforms serves a specific purpose: 
+---
 
-- **sesh-tracker.com** is the main user interface. Users will log in to this app to help log and monitor their sessions, inventory, providing insights into their stock and consumption patterns. Users will initially interact with a landing page with a guided tour of some sort, they can sign in or login, which afterwards brings them to their personalized dashboard, something that will be configurable with a drag and drop dashboard. My vision for this is that information entered will be captured, tracked, and made reportable through an extensive report builder. All data entered by users will ultimately be stored on a D1 Database tied directly to the Cloudflare worker. Users can then use these attributes, fileds, and data to create those reports, custom dashboards, and gain all sorts of insights from inventory, consumption, and so much more. 
+## 📋 Issue Resolution Process
 
-- **kush.observer** is strictly the authenciation portal for **sesh-tracker.com** and **my-cannabis-tracker.com**. App users will interface primarily with **sesh-tracker.com**, with the account, authentication, and token system occuring with **kush.observer**. RBAC will primarily be housed here, with the admin dashboard mentioned next being the interface for admins to manmage those permissions and controls. This user information, preferences, subscription tiers, status, emails, usernames, display names, and so one will all be stored in a D1 database directly tied to the worker in Cloudflare. 
+### Step 1: Check Existing Fixes
 
-- **my-cannabis-tracker.com** will act as the backend technician/admin dashboard. Customer/subscription management will take place here as a nice and simple interface to ultize for managing and making those changes. 
+**BEFORE** attempting to solve any major technical issue, Cursor must:
 
-In addition to these dedicated resources, don’t forget to leverage the worker page URLs that may already be present in the codebase. These links can offer additional functionalities and support, further enhancing your ability to manage and engage with our ecosystem.
+1. Check the `.docs/fixes/` directory to determine if a similar issue has been previously documented and resolved
+2. Search for relevant keywords from the error message or problem description
+3. Review any matching documentation to understand previous approaches
+
+```javascript
+// Example approach pseudocode
+if (majorIssueDetected) {
+  firstCheckDirectory('.docs/fixes/');
+  searchForSimilarIssues(errorKeywords);
+  if (existingFixFound) {
+    suggestExistingApproach();
+  } else {
+    proceedToDocumentNewFix();
+  }
+}
+```
+
+### Step 2: Document Resolution Process
+
+When solving a previously undocumented issue, Cursor must **create documentation** following this structure:
+
+| Section | Content Requirements |
+|---------|---------------------|
+| **Issue Description** | • Clear statement of the error/problem<br>• Error messages (if applicable)<br>• Context in which the issue occurred |
+| **Root Cause Analysis** | • Identification of the underlying problem<br>• Explanation of why the issue occurred<br>• Any architectural or dependency concerns |
+| **Investigation Steps** | • Chronological documentation of debugging process<br>• Files examined and their relevant content<br>• Tests/validations performed |
+| **Solution** | • Specific code changes made<br>• Before/after comparisons<br>• Explanation of why the solution works |
+| **Guidelines** | • Recommendations to prevent similar issues<br>• Best practices derived from the fix |
+| **Verification** | • Evidence that the solution resolved the issue<br>• Any additional validation steps |
+
+### Step 3: Save Documentation
+
+The fix documentation must be:
+
+1. Saved in `.docs/fixes/` directory
+2. Named descriptively (e.g., `resolve-circular-imports-in-dashboard-widgets.md`)
+3. Formatted in Markdown for readability
+4. Referenced in subsequent responses when similar issues arise
+
+---
+
+## ⚠️ Issue Severity Classification
+
+Cursor should apply this documentation process for issues that meet any of the following criteria:
+
+| Severity | Characteristics |
+|----------|-----------------|
+| **Critical** | • Application crashes or fails to start<br>• Security vulnerabilities<br>• Data loss or corruption |
+| **Major** | • Features completely non-functional<br>• Blocking development progress<br>• Complex runtime errors<br>• Build or deployment failures |
+| **Notable** | • Non-trivial bugs requiring significant debugging<br>• Issues that took multiple attempts to resolve<br>• Problems that reveal architectural weaknesses |
+
+Simple bugs, typos, or straightforward fixes do not require detailed documentation.
+
+---
+
+## 📚 Example Documentation Structure
+
+```markdown
+# Fix: [Concise Issue Title]
+
+## Issue Description
+[Error message and context]
+
+## Root Cause Analysis
+[Explanation of the underlying problem]
+
+## Investigation Steps
+1. [First action taken]
+2. [Observations]
+3. [Next steps]
+...
+
+## Solution
+[Detailed explanation with code examples]
+
+## General Guidelines for Avoiding Similar Issues
+1. [First recommendation]
+2. [Second recommendation]
+...
+
+## Verification
+[How the fix was tested/validated]
+```
+
+---
+
+## 🔄 Documentation Maintenance
+
+- When documentation in `.docs/fixes/` exceeds 20 files, suggest categorizing by issue type
+- Reference relevant fixes by linking directly to the markdown file when providing solutions
+- Maintain a consistent documentation style across all fix files
+
+---
+
+_Last updated: April 8, 2024_
 
 ---
 > Source: [seshtrackerdev/sesh-trackeroldKUSH](https://github.com/seshtrackerdev/sesh-trackeroldKUSH) — distributed by [TomeVault](https://tomevault.io).
