@@ -4,7 +4,7 @@
   "repo": "inazuma-eleven-123-spanish",
   "description": "Traduccion al espanol (fan-project) de Inazuma Eleven 1-2-3 Endou Mamoru Densetsu (3DS). Solo parche + herramientas, sin ROMs.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/luishidalgoa/inazuma-eleven-123-spanish",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T00:36:07Z"
+  "distributed_at": "2026-10-04T00:38:42Z"
 }
