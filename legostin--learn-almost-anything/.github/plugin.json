@@ -1,0 +1,9 @@
+{
+  "name": "legostin--learn-almost-anything",
+  "displayName": "learn-almost-anything",
+  "description": "Local desktop AI tutor: designs personalized courses on any topic with articles, interactive widgets, comprehension tests, homework review, and TTS lectures. Free \u2014 uses your Claude Pro/Max or ChatGPT",
+  "version": "1.0.0",
+  "author": "legostin",
+  "homepage": "https://github.com/legostin/learn-almost-anything",
+  "skills": []
+}
