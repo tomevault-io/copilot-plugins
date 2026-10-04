@@ -1,0 +1,9 @@
+{
+  "name": "victorserpa--objection",
+  "displayName": "objection",
+  "description": "OBJECTION! A skill and plugin for AI coding agents (Claude Code, Codex, Cursor, Gemini): accusers, a defender and a judge review the PR, and a gate blocks it until APPROVED.",
+  "version": "1.0.0",
+  "author": "victorserpa",
+  "homepage": "https://github.com/victorserpa/objection",
+  "skills": []
+}
