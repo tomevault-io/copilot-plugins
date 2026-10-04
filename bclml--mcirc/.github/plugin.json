@@ -1,0 +1,9 @@
+{
+  "name": "bclml--mcirc",
+  "displayName": "mcIRC",
+  "description": "mIRC-style chat client for MeshCore LoRa mesh nodes: channels, direct messages, node map, node settings, and installable addons (BC traffic bot, Auto reply)",
+  "version": "1.0.0",
+  "author": "bclml",
+  "homepage": "https://github.com/bclml/mcIRC",
+  "skills": []
+}
