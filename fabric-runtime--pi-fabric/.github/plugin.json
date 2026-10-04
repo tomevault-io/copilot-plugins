@@ -1,0 +1,9 @@
+{
+  "name": "fabric-runtime--pi-fabric",
+  "displayName": "pi-fabric",
+  "description": "A programmable tool and agent runtime for Pi",
+  "version": "1.0.0",
+  "author": "fabric-runtime",
+  "homepage": "https://github.com/fabric-runtime/pi-fabric",
+  "skills": []
+}
