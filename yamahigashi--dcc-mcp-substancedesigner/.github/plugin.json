@@ -1,0 +1,9 @@
+{
+  "name": "yamahigashi--dcc-mcp-substancedesigner",
+  "displayName": "dcc-mcp-substancedesigner",
+  "description": "Adobe Substance 3D Designer adapter for the DCC Model Context Protocol",
+  "version": "1.0.0",
+  "author": "yamahigashi",
+  "homepage": "https://github.com/yamahigashi/dcc-mcp-substancedesigner",
+  "skills": []
+}
