@@ -1,0 +1,9 @@
+{
+  "name": "hilmifawwazsaad--go-boilerplate",
+  "displayName": "Go-Boilerplate",
+  "description": "Go REST API starter with layered architecture, golangci-lint, Lefthook git hooks, conventional commits, and AI agent skill files.",
+  "version": "1.0.0",
+  "author": "hilmifawwazsaad",
+  "homepage": "https://github.com/hilmifawwazsaad/Go-Boilerplate",
+  "skills": []
+}
