@@ -1,0 +1,9 @@
+{
+  "name": "drowzeys--keys-mac-tensorfold-minimax-h3-mlx",
+  "displayName": "keys-Mac-TensorFold-MiniMax-H3-MLX",
+  "description": "MiniMax H3 (video + audio) on TensorFold 0.6.5 with an H3 family, Mac Studio M5 Ultra: 5 s 864x480 clip in ~50 s, 40 s at 768x448 \u2014 the fastest H3 we have measured on Apple Silicon; int8 tensor-unit k",
+  "version": "1.0.0",
+  "author": "drowzeys",
+  "homepage": "https://github.com/drowzeys/keys-Mac-TensorFold-MiniMax-H3-MLX",
+  "skills": []
+}
