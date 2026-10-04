@@ -1,0 +1,9 @@
+{
+  "name": "inditextech--redkey-robin",
+  "displayName": "redkey-robin",
+  "description": "Redkey Operator companion. Manage your Redis/Valkey clusters seamlessly.",
+  "version": "1.0.0",
+  "author": "InditexTech",
+  "homepage": "https://github.com/InditexTech/redkey-robin",
+  "skills": []
+}
