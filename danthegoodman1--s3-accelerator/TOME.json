@@ -4,7 +4,7 @@
   "repo": "s3-accelerator",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danthegoodman1/s3-accelerator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T14:32:43Z"
+  "distributed_at": "2026-10-04T14:38:06Z"
 }
