@@ -1,0 +1,9 @@
+{
+  "name": "prefect12--codex-token-meter",
+  "displayName": "codex-token-meter",
+  "description": "Native macOS menu bar apps for tracking Codex and Claude Code token usage, quota, cache efficiency, cost, and active tasks.",
+  "version": "1.0.0",
+  "author": "prefect12",
+  "homepage": "https://github.com/prefect12/codex-token-meter",
+  "skills": []
+}
