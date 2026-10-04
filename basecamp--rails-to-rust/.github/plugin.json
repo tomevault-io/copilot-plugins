@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--rails-to-rust",
+  "displayName": "rails-to-rust",
+  "description": "Skills and generators for agents converting Rails applications to compatible Rust applications.",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/rails-to-rust",
+  "skills": []
+}
