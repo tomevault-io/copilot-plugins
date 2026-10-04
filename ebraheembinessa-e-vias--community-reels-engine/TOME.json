@@ -1,0 +1,44 @@
+{
+  "name": "community-reels-engine",
+  "owner": "ebraheembinessa-E-vias",
+  "repo": "community-reels-engine",
+  "description": "Make a reel with your own AI assistant (Claude Code or Codex). Designed by E.B.E - powered by E-VIAS. CC0.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ebraheembinessa-E-vias/community-reels-engine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T14:34:27Z"
+}
