@@ -1,0 +1,9 @@
+{
+  "name": "bluboks--scan-sim",
+  "displayName": "scan-sim",
+  "description": "Office laser-print + MFP-scan simulator for OCR test data (physical chain, no generative models)",
+  "version": "1.0.0",
+  "author": "Bluboks",
+  "homepage": "https://github.com/Bluboks/scan-sim",
+  "skills": []
+}
