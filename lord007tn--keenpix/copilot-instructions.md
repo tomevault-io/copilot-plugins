@@ -1,0 +1,28 @@
+## keenpix
+
+> - Prefer TypeScript inference across product code. Avoid explicit return annotations, variable annotations, explicit generic arguments, and casts unless the boundary genuinely needs it, a third-party API cannot infer it, or narrowing cannot express the type. Keep required boundary types close to the boundary and do not add explicit types by habit.
+
+# Agent Notes
+
+- Prefer TypeScript inference across product code. Avoid explicit return annotations, variable annotations, explicit generic arguments, and casts unless the boundary genuinely needs it, a third-party API cannot infer it, or narrowing cannot express the type. Keep required boundary types close to the boundary and do not add explicit types by habit.
+- Use verb names that describe the operation exactly: `getProject` gets one project by an identifier such as id or slug; `listProjects` gets a collection; use clear verbs such as `create`, `update`, `delete`, `verify`, `enable`, `disable`, `add`, and `remove` for mutations and checks.
+- Keep layer responsibilities strict:
+  - `data-access/` talks directly to the database and returns deterministic results for the requested DB operation. It should not orchestrate cross-domain workflows, send email, call external APIs, perform auth checks, or route requests.
+  - `actions/` combine data-access, helpers, utils, integrations, and lib code to achieve a use case. Fat actions are normal when the workflow is real.
+  - `functions/` are the first entry and last exit for server calls. They own input validation, auth/permission checks, request/response shaping when needed, and call actions for the actual work.
+  - `routes/` files hold only the route definition and its single page or layout component. Move any other component into `features/<domain>/` (domain UI) or `components/app/` (shared app UI); never define a reusable component inside a route file. Route-local, single-use helpers and constants may stay.
+  - UI/layout/features/components/integrations/lib/schemas keep their existing ownership boundaries and should not bypass actions/functions to reach into data-access from user-facing entry points.
+- Default to writing logic inline. Filtering, mapping, and formatting belong at the call site, not in a wrapper function — readable inline code beats a function call you have to jump to, and helpers are easy to overuse. Do not add trivial wrappers: `fmt*`/`format*` formatters, `to*` mappers, or one-liners that just filter, map, or return an object literal, even when the shape repeats. Extract a helper only when the same logic appears in more than one place *and* carries real logic or validation edge cases; when one is genuinely justified, give it a descriptive domain name, never an abbreviated `fmt*`/`format*`/`to*` name.
+- Use `dayjs` for all date parsing, formatting, comparison, and arithmetic. Do not hand-roll date formatting with `new Date`, `toLocaleDateString`, or `Intl.DateTimeFormat`, and do not introduce other date libraries. Keep the formatting inline at the call site (e.g. `dayjs(value).format("MMM D, YYYY")`) rather than wrapping it in a `fmtDate`-style helper.
+- Enforce helper and util folder boundaries strictly:
+  - `helpers/<domain>/` folders contain pure, domain-specific composition or data-shaping helpers for the nearest owning layer. They may know domain names such as projects, staff, API keys, or analytics, but they must not perform database queries, network calls, auth checks, routing, rendering, or environment access.
+  - `utils/<primitive>/` folders contain pure, generic primitives for the nearest owning layer. They must not know product/domain concepts, import app services, or shape API/UI responses.
+  - Do not add flat `*-helpers.ts`, `*-utils.ts`, `helpers/admin.ts`, or other broad catch-all helper files. Create a domain or primitive folder and name files by the specific behavior they hold.
+  - Keep one-off route handlers, component view assembly, and single-use transformations in the owning module until there is real reuse or a clear validation edge case.
+- Function complexity and lines-per-function lint rules are intentionally disabled. Prefer readable local control flow over splitting code only to satisfy complexity metrics.
+- Use normal top-level imports. Do not use dynamic `import()` unless the runtime boundary specifically requires lazy loading.
+- Keep styling on the shadcn token set. Prefer existing semantic tokens such as `primary`, `secondary`, `muted`, `accent`, and `destructive` before adding custom color declarations.
+
+---
+> Source: [lord007tn/keenpix](https://github.com/lord007tn/keenpix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-04 -->
