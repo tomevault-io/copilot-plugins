@@ -1,0 +1,9 @@
+{
+  "name": "bgolski--resume",
+  "displayName": "resume",
+  "description": "Professional Resume Builder using LaTeX",
+  "version": "1.0.0",
+  "author": "bgolski",
+  "homepage": "https://github.com/bgolski/resume",
+  "skills": []
+}
