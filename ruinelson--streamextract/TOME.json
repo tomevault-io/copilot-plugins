@@ -4,7 +4,7 @@
   "repo": "StreamExtract",
   "description": "Save time, battery and disk space by uploading files from RAR, ZIP, 7z, exFAT, and other archive formats directly to an FTP server without extracting them to disk first.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RuiNelson/StreamExtract",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T15:30:25Z"
+  "distributed_at": "2026-10-04T15:33:02Z"
 }
