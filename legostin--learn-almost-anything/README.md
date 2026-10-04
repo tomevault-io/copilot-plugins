@@ -7,11 +7,11 @@ Local desktop AI tutor: designs personalized courses on any topic with articles,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [legostin/learn-almost-anything](https://github.com/legostin/learn-almost-anything).
+Original source: `AGENTS.md` in [legostin/learn-almost-anything](https://github.com/legostin/learn-almost-anything).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
