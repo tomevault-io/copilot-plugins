@@ -1,0 +1,59 @@
+## choochootracker
+
+> - Windows: run from `tracker` with MSYS2 UCRT64: `make -j4 windows`.
+
+# ChooChooTracker agent notes
+
+## Builds
+
+- Windows: run from `tracker` with MSYS2 UCRT64: `make -j4 windows`.
+- From PowerShell, invoke MSYS2 Bash and escape the workspace spaces; set
+  `HOME` and `TMPDIR` inside the workspace because the sandbox may block
+  MSYS2's default locations:
+
+  ```powershell
+  & 'C:\msys64\usr\bin\bash.exe' -lc 'export PATH=/ucrt64/bin:/usr/bin; cd /c/Users/surga/Desktop/projects\ code/choochootracker/tracker; mkdir -p build/msys-home build/msys-tmp; export HOME="$(pwd)/build/msys-home"; export TMPDIR="$(pwd)/build/msys-tmp"; make -j4 windows'
+  ```
+- Windows releases must ship as a complete package: include the executable,
+  required DLLs, and all runtime assets/dependencies, like the PortMaster
+  package.
+- PortMaster: use the existing WSL2 ARM64 toolchain: `make -j4 PortMaster`.
+- For a PortMaster release, run `make -j4 -f Makefile.portmaster PortMaster-deploy`.
+  It writes `releases/choochootracker.zip`; validate it with
+  `unzip -t releases/choochootracker.zip`. Final releases still require a
+  hardware check on the target console.
+- Linux AppImage: run `make -j4 -f Makefile.linux appimage` from `tracker`.
+  Writes `releases/ChooChooTracker-<date>-<version>-x86_64.AppImage`. See
+  `docs/build-notes.md` for what it bundles and why.
+- Web: Emscripten is already installed at `.tmp/emsdk`. Use PowerShell, not
+  MSYS2 Bash. The SDK requires its bundled Python:
+
+  ```powershell
+  Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+  . .\.tmp\emsdk\emsdk_env.ps1
+  $env:PATH += ';C:\msys64\usr\bin;C:\msys64\ucrt64\bin'
+  Set-Location tracker
+  & 'C:\msys64\usr\bin\make.exe' -j8 -f Makefile.web web-deploy `
+    'COMMON_CFLAGS=-std=c++17 -Wall -g -Os -DTEST' `
+    "EMXX=$env:EMSDK_PYTHON $env:EMSDK\upstream\emscripten\em++.py"
+  ```
+
+- If web reports `clang++.exe: permission denied`, repair the execution
+  permission/security block on `.tmp/emsdk/upstream/bin/clang++.exe`; do not
+  install another Emscripten SDK.
+- `web-deploy` updates the checked-in `web/dist/` bundle. Regenerate and
+  commit it after WebAssembly source changes; Vercel serves that bundle
+  directly and does not build Emscripten itself.
+- `docs/build-notes.md` is the canonical human-readable build reference; keep
+  commands here synchronized with it.
+
+## Verification and commits
+
+- Run `make -f Makefile.test -j4` from `tracker` after engine changes.
+- Before an alpha commit, update `docs/USER_MANUAL.md`. Never update in-app help.
+- The worktree can contain user changes and deletions. Stage only files that
+  belong to the current task; never include unrelated deletions in a commit.
+
+---
+> Source: [paiheulevrai/Choochootracker](https://github.com/paiheulevrai/Choochootracker) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-04 -->
