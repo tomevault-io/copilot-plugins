@@ -1,0 +1,9 @@
+{
+  "name": "deprivedpeasant--spartacuslegends-preservation",
+  "displayName": "SpartacusLegends-Preservation",
+  "description": "Local server and RPCS3 compatibility patch preserving Spartacus Legends on PS3.",
+  "version": "1.0.0",
+  "author": "DeprivedPeasant",
+  "homepage": "https://github.com/DeprivedPeasant/SpartacusLegends-Preservation",
+  "skills": []
+}
