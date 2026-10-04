@@ -1,6 +1,6 @@
 {
   "name": "Agentic-Bug-Hunter",
-  "owner": "Awarexone",
+  "owner": "awarexone",
   "repo": "Agentic-Bug-Hunter",
   "description": "AI-powered bug bounty hunting toolkit that works with or without subscription.",
   "type": "config",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/Awarexone/Agentic-Bug-Hunter",
+  "source_url": "https://github.com/awarexone/Agentic-Bug-Hunter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-09-14T03:30:22Z"
+  "distributed_at": "2026-10-04T23:30:24Z"
 }
