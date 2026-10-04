@@ -1,20 +1,25 @@
-## conventional-commits
+## human-readable
 
-> Commit messages must use Conventional Commits with lowercase subjects
+> Always write for humans — clear prose, no AI filler, in chat and in repo docs
 
 
-# Conventional commits
+# Human-readable output
 
-When writing any git commit message (or commit title for the user):
+Apply the personal skill `clear-prose` to every reply, canvas, README, prompt, and comment you write in this project.
 
-- Use [Conventional Commits](https://www.conventionalcommits.org/): `<type>(optional-scope): <subject>`
-- Entire subject (and scope) in **lowercase**
-- Imperative, no trailing period, ≤ ~72 chars
-- Types: `feat` `fix` `refactor` `perf` `test` `docs` `style` `build` `ci` `chore` `revert`
+For git commit messages, apply `conventional-commits`: Conventional Commits, lowercase subject.
 
-Examples: `feat(api): add context pack`, `fix(jobs): renew lease heartbeat`
+## Hard rules
 
-Apply the personal skill `conventional-commits` whenever you draft or run a commit.
+- Answer first. No warm-up essay.
+- Short sentences. Concrete words. Cut filler.
+- Ban neuro-slop: «инсайт», «фреймворк ценности», «трансформационный», «unlock», «leverage», «в современном мире», «комплексный подход», лишние англицизмы там, где есть нормальное русское слово.
+- Do not restate the user question. Do not end with a duplicate «итог» block if the opening already said it.
+- Reports and canvases: readable essay or short sections — not buzzword dashboards.
+
+## When editing Kaiban agent prompts
+
+Agent system prompts must tell the model to write reports a human can approve in two minutes: clear headings, bullets, no fluff, locale from user context.
 
 ---
 > Source: [gonnafaraway/kaiban](https://github.com/gonnafaraway/kaiban) — distributed by [TomeVault](https://tomevault.io).
