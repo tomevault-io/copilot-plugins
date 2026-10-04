@@ -1,0 +1,9 @@
+{
+  "name": "sheltercosmo--jev4pg",
+  "displayName": "jev4pg",
+  "description": "jev4pg brings JEV semantic operators and natural language to SQL to PostgreSQL (PG). Open-source text filtering, extraction, ranking, probability embeddings and reusable evidence.",
+  "version": "1.0.0",
+  "author": "Sheltercosmo",
+  "homepage": "https://github.com/Sheltercosmo/jev4pg",
+  "skills": []
+}
