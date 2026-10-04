@@ -1,0 +1,9 @@
+{
+  "name": "matthewpdingle--gtopen",
+  "displayName": "GTOpen",
+  "description": "GTOpen \u2014 open-source GTO poker solver: heads-up postflop CFR (CPU/CUDA), multiway Preflop Lab with limps & any sizings, player profiling & max-exploitation. Rust + zero-install web UI.",
+  "version": "1.0.0",
+  "author": "MatthewPDingle",
+  "homepage": "https://github.com/MatthewPDingle/GTOpen",
+  "skills": []
+}
