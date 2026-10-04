@@ -1,0 +1,9 @@
+{
+  "name": "tx-rx--tak-xvoice",
+  "displayName": "TAK-XVoice",
+  "description": "ATAK voice plugin \u2014 Mumble + multicast bridge with hardware PTT integration, Bluetooth audio routing, and emergency UX",
+  "version": "1.0.0",
+  "author": "TX-RX",
+  "homepage": "https://github.com/TX-RX/TAK-XVoice",
+  "skills": []
+}
