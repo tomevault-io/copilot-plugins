@@ -1,0 +1,9 @@
+{
+  "name": "stephenthecold--inv-keep",
+  "displayName": "inv-keep",
+  "description": "Self-hosted MSP inventory charge-out app \u2014 barcode scan, cart-based orders with auto-numbering, geo capture, embedded maps, monthly billing report",
+  "version": "1.0.0",
+  "author": "stephenthecold",
+  "homepage": "https://github.com/stephenthecold/inv-keep",
+  "skills": []
+}
