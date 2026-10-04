@@ -1,14 +1,14 @@
-## privacy-and-hooks-mdc
+## python-conventions-mdc
 
-> Privacy and hook hot-path constraints; apply when touching events, adapters or hooks
+> Python style and typing conventions for CursorFleet source and tests
 
 
-- Hook entrypoint code is **stdlib-only** with lazy imports and must always fail open (exit 0; print `{"permission":"allow"}` for permission hooks, `{}` for the rest).
-- Parse hook payloads through an allowlist at the boundary. Never persist prompts, thinking or response text, file contents, command output, env, `user_email` or `transcript_path`.
-- Do not register `beforeSubmitPrompt`, `afterAgentThought`, `afterAgentResponse` or `beforeReadFile` in v0.1; keep a test that generated hook config never contains them.
-- Hooks only append to per-session JSONL spools; only the indexer writes SQLite.
-- Runtime dir is `<git-common-dir>/cursorfleet/` with 0700 dirs and 0600 files.
-- No network calls anywhere in the hook path.
+- Python >=3.11, fully typed (`mypy --strict`), formatted/linted with ruff (line length 100).
+- Use `from __future__ import annotations` in new modules.
+- Subprocess calls: argv list, explicit `timeout=`, never `shell=True`.
+- Tests: no `time.sleep`; prefer deterministic fakes, `tmp_path`, and Textual `run_test()` for TUI.
+- Tests live in `tests/{unit,integration,tui,security}`; fixtures in `tests/fixtures/cursor` must be sanitized.
+- CLI command groups: one module per group in `src/cursorfleet/cli/commands/` exposing `register(app)`.
 
 ---
 > Source: [M9nx/cursorfleet](https://github.com/M9nx/cursorfleet) — distributed by [TomeVault](https://tomevault.io).
