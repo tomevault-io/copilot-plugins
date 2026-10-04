@@ -1,10 +1,10 @@
 ## hotpath-rs
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI agent when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI agent when working with code in this repository.
 
 ## Project Overview
 
@@ -65,6 +65,8 @@ Each subsystem has a dedicated background worker thread named `hp-<subsystem>`, 
 
 **Servers**: a localhost-only metrics HTTP server (tiny_http, port 6770) starts by default and feeds the TUI; the `Route` enum in `src/json.rs` is the route table - read it plus `metrics_server.rs` when modifying the API. An optional MCP server (`hotpath-mcp` feature, port 6771) lives in `mcp_server.rs`.
 
+**Histogram export**: with the `hotpath-cloud` feature and `HOTPATH_UPLOAD=1`, every hdrhistogram-backed entry in the final JSON report carries its raw histogram(s) as optional base64 HdrHistogram V2-deflate fields (`histogram`, `proc_histogram`, `wait_histogram`/`acquire_histogram`, `read_/write_` rw_lock variants; values in ns except `functions_alloc`, `None` when nothing was sampled). Never rendered on the live metrics-server path, so the TUI/MCP never see them. Encoder in `lib_on/histograms.rs`; per-section field list and gating details in `dev_docs/features.md`. The uploaded report also carries complete section lists (`HOTPATH_UPLOAD_LIMIT`, default unlimited, replaces every display limit on the cloud path), and every section list serializes `total_count` / `included_count` so consumers can detect truncation.
+
 **CPU sampling** (`hotpath-cpu`, macOS/Linux): an external `samply` worker records the host process; symbols are resolved from the binary and matched back to instrumented function names. Pitfall: bare `#[hotpath::measure]` on a method inside an `impl` block needs `impl_type = "TypeName"` for CPU attribution to match the demangled symbol (`#[measure_all]` on inherent impls auto-injects it; trait impl methods never match). Full internals in `dev_docs/architecture.md`.
 
 **Source tracking**: `lib_on/caller_stack.rs` maintains a per-thread stack of instrumented function names; SQL queries and HTTP requests record the innermost instrumented caller as their `source`.
@@ -94,6 +96,8 @@ Never use em dashes. Always use a regular hyphen (-) instead. This applies every
 
 NEVER use `mod.rs` files, so instead of `functions/mod.rs` use `functions.rs`.
 
+Read environment variables through a `static NAME: LazyLock<T>` evaluated once (see `ENTRIES_LIMIT` in `lib_on/hotpath_guard.rs`), not through a function that re-reads the env on every call. Exceptions are values the builder can override at guard creation, which are parsed in `HotpathGuardBuilder::build`.
+
 Every example in a test crate contains its exact cargo command in the top comment, usually as a `//! Run with:` header (a descriptive module doc may precede it).
 
 ## Other
@@ -106,4 +110,4 @@ NEVER run "just test_all" unless explicitly asked, it's slow.
 
 ---
 > Source: [pawurb/hotpath-rs](https://github.com/pawurb/hotpath-rs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-08 -->
