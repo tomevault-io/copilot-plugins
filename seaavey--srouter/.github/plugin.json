@@ -1,0 +1,9 @@
+{
+  "name": "seaavey--srouter",
+  "displayName": "SRouter",
+  "description": "Local-first AI Gateway: Connect Claude Code, Cursor, Windsurf, & Cline to Antigravity, OpenAI, Claude, & Gemini. One endpoint, OAuth auto-refresh, quota pooling & failover.",
+  "version": "1.0.0",
+  "author": "seaavey",
+  "homepage": "https://github.com/seaavey/SRouter",
+  "skills": []
+}
