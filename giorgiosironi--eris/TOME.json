@@ -1,0 +1,57 @@
+{
+  "name": "eris",
+  "owner": "giorgiosironi",
+  "repo": "eris",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "eris",
+      "path": ".agents/skills/check-ci/SKILL.md",
+      "github_url": "https://github.com/giorgiosironi/eris/tree/main/.agents/skills/check-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eris",
+      "path": ".agents/skills/read-issue/SKILL.md",
+      "github_url": "https://github.com/giorgiosironi/eris/tree/main/.agents/skills/read-issue/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/giorgiosironi/eris",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T07:44:10Z"
+}
