@@ -1,0 +1,44 @@
+{
+  "name": "learn-almost-anything",
+  "owner": "legostin",
+  "repo": "learn-almost-anything",
+  "description": "Local desktop AI tutor: designs personalized courses on any topic with articles, interactive widgets, comprehension tests, homework review, and TTS lectures. Free \u2014 uses your Claude Pro/Max or ChatGPT Plus/Pro subscription. Tauri + React + Claude Agent SDK / Codex SDK.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/legostin/learn-almost-anything",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T04:36:41Z"
+}
