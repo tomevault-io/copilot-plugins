@@ -1,0 +1,24 @@
+## fangcun
+
+> 本仓库主要交付 `.agents/skills/fangcun/`，不是旧演示成品的重命名。
+
+# 方寸 FANGCUN 项目
+
+本仓库主要交付 `.agents/skills/fangcun/`，不是旧演示成品的重命名。
+
+- 维护本 skill 和制作用户演示是两类任务；需求问卷仅在后一类使用。不得为 skill 作者自动打开测试 PPT；用户要背景时只给背景资源。
+
+- 制作方寸互动演示前读 `.agents/skills/fangcun/SKILL.md`；开工需求累计最多五题，已知项不重复问。
+- Logo、背景与粒子开场必须主动询问（用户已明确选择才免问），预留预算，不能以默认值代替问过。Logo 可只提供文字，由 agent 设计字标；粒子文字给 2–3 个内容候选及自定义入口。
+- 从内容挑选互动游戏/有趣玩法，具有选择后果、知识反馈和重玩；长培训稿适当分布不同机制，不以按钮切换或动画冒称完成互动。
+- 新稿放 `decks/<topic-slug>/`；成品在用户确认后以独立快照归档，不覆盖原稿。
+- skill、风格和代码以本仓库为可移植真源；无 D 盘绝对运行依赖。第三方 skill 只能项目内 vendoring，不安装到用户全局目录。
+- 通用实现规则统一用 skill 的 `references/code-reference.md` 编号。C23–C28 保留；新编号追加。
+- 有生成器就改源并重建。实际浏览器/截图 QA 必须说明已测与未测，不能把静态检查当验收。
+- 不默认 computer-use。优先文件、脚本、API、专用工具；确无替代时先解释原因并取得用户明确同意。
+- `decks/`、`成品/`、`.private-assets/`、用户文案和媒体不默认提交 Git；不得用 `git add -f` 绕过私有资源排除。
+- 用户只说准备上传时仅完成本地提交和发布准备；获得仓库归属、名称和可见性确认后再创建/推送。不要自行授予开源许可证。
+
+---
+> Source: [xiangshazaosha/fangcun](https://github.com/xiangshazaosha/fangcun) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-04 -->
