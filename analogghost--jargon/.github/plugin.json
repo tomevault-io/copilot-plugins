@@ -1,0 +1,9 @@
+{
+  "name": "analogghost--jargon",
+  "displayName": "jargon",
+  "description": "Free, open-source offline reader for the Jargon File, the original hacker culture dictionary. No Google, no tracking, no ads.",
+  "version": "1.0.0",
+  "author": "AnalogGhost",
+  "homepage": "https://github.com/AnalogGhost/jargon",
+  "skills": []
+}
