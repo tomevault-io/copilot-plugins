@@ -1,0 +1,44 @@
+{
+  "name": "game-panel-lite",
+  "owner": "smartcat999",
+  "repo": "game-panel-lite",
+  "description": "GamePanel Lite: self-hosted game server panel / \u8f7b\u91cf\u81ea\u6258\u7ba1\u6e38\u620f\u670d\u52a1\u5668\u9762\u677f for Steam, Terraria, \u9965\u8352\u8054\u673a\u7248 DST and \u5e7b\u517d\u5e15\u9c81 Palworld.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/smartcat999/game-panel-lite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T00:43:31Z"
+}
