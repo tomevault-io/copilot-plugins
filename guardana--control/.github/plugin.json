@@ -1,0 +1,9 @@
+{
+  "name": "guardana--control",
+  "displayName": "control",
+  "description": "Watch what your AI agents do, decide before they act, step in only where you allow it. Today: an MCP gateway with signed policies, approvals, pause and an evidence trail. Open source, Go.",
+  "version": "1.0.0",
+  "author": "guardana",
+  "homepage": "https://github.com/guardana/control",
+  "skills": []
+}
