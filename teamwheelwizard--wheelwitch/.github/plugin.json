@@ -1,0 +1,9 @@
+{
+  "name": "teamwheelwizard--wheelwitch",
+  "displayName": "WheelWitch",
+  "description": "Wheel Witch is an Android companion app for Retro Rewind. It downloads and incrementally updates the pack from the RWFC server, then launches Dolphin with the pack pre-loaded.",
+  "version": "1.0.0",
+  "author": "TeamWheelWizard",
+  "homepage": "https://github.com/TeamWheelWizard/WheelWitch",
+  "skills": []
+}
