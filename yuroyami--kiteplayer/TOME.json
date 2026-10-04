@@ -1,0 +1,44 @@
+{
+  "name": "KitePlayer",
+  "owner": "yuroyami",
+  "repo": "KitePlayer",
+  "description": "A native media playback library for Kotlin Multiplatform, Android, iOS, desktop (JVM) and web. As powerful as VLC and fine-tuned to perfection with Kotlin coroutine-first syntax. No expect/actual, no build scripts/NDK. It is 100% Kotlin core (no third-party players underneath). Can render directly into Compose multiplatform using Skiko API",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yuroyami/KitePlayer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T22:31:17Z"
+}
