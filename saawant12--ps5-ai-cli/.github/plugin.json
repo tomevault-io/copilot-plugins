@@ -1,0 +1,9 @@
+{
+  "name": "saawant12--ps5-ai-cli",
+  "displayName": "ps5-ai-cli",
+  "description": "Run OpenAI Codex on PS5 with controller text entry and a browser terminal for your phone or computer. Experimental homebrew.",
+  "version": "1.0.0",
+  "author": "saawant12",
+  "homepage": "https://github.com/saawant12/ps5-ai-cli",
+  "skills": []
+}
