@@ -1,0 +1,9 @@
+{
+  "name": "ig-labs--velociraptor-skills",
+  "displayName": "velociraptor-skills",
+  "description": "Velociraptor ai skills",
+  "version": "1.0.0",
+  "author": "ig-labs",
+  "homepage": "https://github.com/ig-labs/velociraptor-skills",
+  "skills": []
+}
