@@ -4,7 +4,7 @@
   "repo": "FluentAssertions.Web",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adrianiftode/FluentAssertions.Web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T08:05:52Z"
+  "distributed_at": "2026-10-04T08:14:01Z"
 }
