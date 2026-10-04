@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--logsmith",
+  "displayName": "logsmith",
+  "description": "\ud83d\udcdd Forge beautiful changelogs from your commits. ",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/logsmith",
+  "skills": []
+}
