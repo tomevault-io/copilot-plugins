@@ -1,0 +1,9 @@
+{
+  "name": "infectiousstupidity--ani2arr",
+  "displayName": "ani2arr",
+  "description": "Browser extension for adding AniList and AniChart entries to Sonarr, Radarr, or Seerr.",
+  "version": "1.0.0",
+  "author": "infectiousstupidity",
+  "homepage": "https://github.com/infectiousstupidity/ani2arr",
+  "skills": []
+}
