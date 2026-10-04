@@ -1,0 +1,9 @@
+{
+  "name": "wilfison--ai-usagebar",
+  "displayName": "ai-usagebar",
+  "description": "Gnome extension to monitor the status of Anthropic (Claude), OpenAI (Codex) and more",
+  "version": "1.0.0",
+  "author": "wilfison",
+  "homepage": "https://github.com/wilfison/ai-usagebar",
+  "skills": []
+}
