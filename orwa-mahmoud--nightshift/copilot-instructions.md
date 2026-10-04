@@ -1,24 +1,17 @@
 ## nightshift
 
-> AI-assisted contributions are welcome. The same correctness, security, licensing,
+> Frictionless permissions come from `$TASK_ROOT/.claude/settings.local.json` or
 
-# Agent contribution guide
+# Start on Claude Code
 
-AI-assisted contributions are welcome. The same correctness, security, licensing,
-testing, and quality standards apply regardless of which tools are used.
-
-- Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing the repository.
-- Use the [contribution map](docs/contribution-map.md) to choose an area, likely files, and focused
-  checks.
-- Work from an open issue for anything beyond a typo or small fix.
-- Keep Nightshift inside the native Codex and Claude Code plugin, skill, and hook
-  ecosystems; do not introduce another runtime or installation channel.
-- Keep each pull request focused on one concern.
-- Run the checks required by `CONTRIBUTING.md` and report their exact results.
-- Never claim that a check passed unless it was actually run successfully.
-- Treat generated work as untrusted until it has been reviewed for correctness,
-  security, licensing, and repository fit.
+Frictionless permissions come from `$TASK_ROOT/.claude/settings.local.json` or
+`$TASK_ROOT/.claude/settings.json` — a `bypassPermissions` default mode, or an allowlist covering
+the gates' commands. Settings on disk are what a headless revival inherits; a mode picked at launch
+dies with the process. A live conversation is handed back with `claude --resume <id>` for a
+terminal, or `vscode://anthropic.claude-code/open?session=<id>` for the IDE; `claude agents --json`
+lists ids. Claude Code records clean session ends and Esc, and its watchman stands down for either
+rather than resuming.
 
 ---
 > Source: [orwa-mahmoud/nightshift](https://github.com/orwa-mahmoud/nightshift) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-09-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-09-25 -->
