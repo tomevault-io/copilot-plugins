@@ -1,0 +1,9 @@
+{
+  "name": "yuroyami--kiteplayer",
+  "displayName": "KitePlayer",
+  "description": "A native media playback library for Kotlin Multiplatform, Android, iOS, desktop (JVM) and web. As powerful as VLC and fine-tuned to perfection with Kotlin coroutine-first syntax. No expect/actual, no ",
+  "version": "1.0.0",
+  "author": "yuroyami",
+  "homepage": "https://github.com/yuroyami/KitePlayer",
+  "skills": []
+}
