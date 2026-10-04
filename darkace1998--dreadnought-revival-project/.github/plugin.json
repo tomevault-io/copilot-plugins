@@ -1,0 +1,9 @@
+{
+  "name": "darkace1998--dreadnought-revival-project",
+  "displayName": "Dreadnought-Revival-project",
+  "description": "A community-operated private server for the discontinued game Dreadnought. The goal is to run the unmodified game client against our own backend: everything is emulated server-side, and the only thing",
+  "version": "1.0.0",
+  "author": "darkace1998",
+  "homepage": "https://github.com/darkace1998/Dreadnought-Revival-project",
+  "skills": []
+}
