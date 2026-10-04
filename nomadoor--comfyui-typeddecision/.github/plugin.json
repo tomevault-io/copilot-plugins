@@ -1,0 +1,9 @@
+{
+  "name": "nomadoor--comfyui-typeddecision",
+  "displayName": "ComfyUI-TypedDecision",
+  "description": "Typed decisions (noul / choice / score) with calibrated probabilities in ComfyUI, on the text-encoder engine. Currently imajev.",
+  "version": "1.0.0",
+  "author": "nomadoor",
+  "homepage": "https://github.com/nomadoor/ComfyUI-TypedDecision",
+  "skills": []
+}
