@@ -1,0 +1,9 @@
+{
+  "name": "grearl--microgpt-lesson",
+  "displayName": "microgpt-lesson",
+  "description": "\u9ad8\u6821\u751f\u5411\u3051LLM\u6559\u6750: Karpathy microgpt\u30d9\u30fc\u30b9\uff0cGoogle Colab\u7528",
+  "version": "1.0.0",
+  "author": "GrEarl",
+  "homepage": "https://github.com/GrEarl/microgpt-lesson",
+  "skills": []
+}
