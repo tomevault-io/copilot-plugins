@@ -1,0 +1,9 @@
+{
+  "name": "edlitmus--halite",
+  "displayName": "halite",
+  "description": "Salt Project replacement written in Go",
+  "version": "1.0.0",
+  "author": "edlitmus",
+  "homepage": "https://github.com/edlitmus/halite",
+  "skills": []
+}
