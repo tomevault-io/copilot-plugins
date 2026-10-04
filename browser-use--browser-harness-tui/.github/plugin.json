@@ -1,0 +1,9 @@
+{
+  "name": "browser-use--browser-harness-tui",
+  "displayName": "browser-harness-tui",
+  "description": "Browser Harness Agent \u2014 OpenAI Codex forked and embedded as Browser Use's built-in browser agent, with a Terminal-style TUI and native browser-harness tool integration.",
+  "version": "1.0.0",
+  "author": "browser-use",
+  "homepage": "https://github.com/browser-use/browser-harness-tui",
+  "skills": []
+}
