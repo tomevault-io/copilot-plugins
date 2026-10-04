@@ -1,0 +1,44 @@
+{
+  "name": "m45-imf-analysis",
+  "owner": "helmet-png",
+  "repo": "m45-imf-analysis",
+  "description": "M45 (Pleiades) \u758f\u6563\u661f\u5718\u8cea\u91cf\u51fd\u6578\u7684\u5206\u6790\u9078\u64c7\u8aa4\u5dee\u9810\u7b97 \u2014 Gaia DR3 + \u524d\u5411\u6a21\u578b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/helmet-png/m45-imf-analysis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T22:48:09Z"
+}
