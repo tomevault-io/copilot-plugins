@@ -1,0 +1,9 @@
+{
+  "name": "rapoii--mimo-farmer",
+  "displayName": "mimo-farmer",
+  "description": "Automated Xiaomi MiMo account creation CLI with reCAPTCHA v2 audio bypass",
+  "version": "1.0.0",
+  "author": "rapoii",
+  "homepage": "https://github.com/rapoii/mimo-farmer",
+  "skills": []
+}
