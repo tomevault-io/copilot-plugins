@@ -1,0 +1,9 @@
+{
+  "name": "cth9191--morning-intel",
+  "displayName": "morning-intel",
+  "description": "The morning brief on steroids \u2014 self-installing Claude Code skill pack: AI news, X, HN, YouTube + GitHub trending, Gmail triage, and a 'So What' action plan",
+  "version": "1.0.0",
+  "author": "cth9191",
+  "homepage": "https://github.com/cth9191/morning-intel",
+  "skills": []
+}
