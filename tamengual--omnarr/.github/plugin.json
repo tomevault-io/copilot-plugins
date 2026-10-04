@@ -1,0 +1,9 @@
+{
+  "name": "tamengual--omnarr",
+  "displayName": "omnarr",
+  "description": "One front end to search, browse, request and play everything on your self-hosted media server (Calibre, Audiobookshelf, Jellyfin, Sonarr, Radarr, Komga, RomM\u2026)",
+  "version": "1.0.0",
+  "author": "tamengual",
+  "homepage": "https://github.com/tamengual/omnarr",
+  "skills": []
+}
