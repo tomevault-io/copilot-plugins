@@ -1,0 +1,9 @@
+{
+  "name": "vodongha--claude-desktop-clone",
+  "displayName": "claude-desktop-clone",
+  "description": "Run multiple isolated Claude Desktop instances on Windows, one per account (via Chromium --user-data-dir).",
+  "version": "1.0.0",
+  "author": "vodongha",
+  "homepage": "https://github.com/vodongha/claude-desktop-clone",
+  "skills": []
+}
