@@ -1,0 +1,588 @@
+## kiteplayer
+
+> One Kotlin engine: an actor loop, worker lanes, a quiesce handshake, a sync law and a seek
+
+# KitePlayer, for whoever works in this tree
+
+One Kotlin engine: an actor loop, worker lanes, a quiesce handshake, a sync law and a seek
+machine. Containers, codecs and platform output all arrive through the service interface in
+`kiteplayer-core`'s `spi` package. The media library lives in the sibling checkout,
+`../KiteFFmpeg`, and is its own repository with its own issue tracker.
+
+`CONTRIBUTING.md` has the ground rules, the gate and the build prerequisites. This file has only
+what reading the code or running the gate would not teach you.
+
+## How work happens here
+
+- Future audioviz pattern revamp specs, analyses and implementation plans live only in
+  `audioviz-revamp/`; start with its `README.md`. That folder is not tracked, because its evidence
+  is device video and stills, so it exists only on the owner's machine. Revamp patterns
+  individually on the accepted technical base. Keep documentation of implemented public contracts
+  in `docs/`.
+- Work on `main`. Never create a branch without asking. Commit locally, never push. The owner
+  pushes, publishes and cuts every release.
+- Commit subject is one imperative sentence about the outcome. Short prose body. No trailers.
+- Every commit is authored and committed as `yuroyami <youcefsidena@gmail.com>`, whatever git
+  identity the machine came with. A cloud container can arrive set to Claude, so check
+  `git config user.name` before the first commit. Never name Claude in a commit: not as author,
+  not as committer, and no `Co-Authored-By` or session line.
+- Every change starts with an issue, and the commit that closes one says `Fixes #n` in its body.
+- Talk to the owner in plain words. No internal codes, no jargon walls. Say what a thing means,
+  not what it is. A question must be answerable by someone who has read nothing.
+
+## Gotchas
+
+Each line is something that bit someone. Delete a line when it stops being true.
+
+### The gate and the tools around it
+
+- `run-c-tests.sh` never builds anything, so on its own it proves nothing about a source change;
+  run the variant's build script first, every time.
+- A Gradle compile task with no sources prints `NO-SOURCE` and exits zero, so "the target compiles
+  now" can mean "there was never anything there to compile". Grep the log for that word against the
+  exact task name, or check that the run reports a test count rather than a build result.
+- A Kotlin/Native test report gives every test a time near zero, so a test that returned early
+  because it found no fixture reads exactly like one that ran. To prove a native test reads its
+  media, hide the fixture once and watch it fail.
+- `./gradlew ... | tail` reports the exit code of `tail`. A background build once reported success
+  with BUILD FAILED sitting in its own log.
+- Moving or renaming the checkout breaks the prebuilt C test binaries: they carry an absolute path
+  to their interpose library from link time, so every suite aborts naming the old path, which reads
+  like a broken test and is a stale binary. Rebuild them; a directory move counts as a C change.
+- Adding a dependency can poison Kotlin's incremental-compilation cache, and the failure names a
+  standard library function and reads like a compiler bug in your own code. Delete the module's
+  `build/kotlin` and build again. The same failure on the web target wants
+  `build/classes/kotlin/wasmJs` deleted and a rerun with tasks forced. A large edit across many
+  files in one module does the same in a second shape: the run fails with `NoClassDefFoundError`
+  for one of our own classes, usually a companion, because that class file was never written.
+  Delete `build/kotlin` and `build/classes/kotlin/jvm`.
+- A Gradle test run that is killed part way leaves its results directory unusable, and the next run
+  fails before any test with `NoSuchFileException ... in-progress-results-generic.bin`. Delete
+  `build/test-results/<task>` and run again.
+- The js browser tests cannot run in a checkout whose path contains `#`, such as one under `#Kite`.
+  Kotlin/JS serves each test file as `/absolute/<path>`, the browser cuts that URL at the `#`, and
+  the task fails with two 404 lines and no test result. The wasmJs browser tests and both Node
+  runners are unaffected, and CI's path has no `#`.
+- `audiovizSurvey` takes its classpath from `jvmTest`, so it depends on it: one red fast test stops
+  the whole survey before it draws anything. The XML you then read is the previous run's, with the
+  previous numbers. Compare the file's timestamp with the source you edited before you believe it.
+- The survey takes tens of minutes and holds a test worker of its own. A second Gradle build in
+  this checkout while it runs rewrites the classes under it, and the survey dies part way with a
+  socket timeout or a missing class. Wait for it, or run the second build somewhere else.
+- Scraping every Gradle configuration gives a load-dependent answer, because which configurations
+  are realised depends on the rest of the task graph. The publication readiness check passed alone
+  and failed inside a full gate run, reporting that a publishing module depended on the sample,
+  which no build file says. Only `api`, `implementation`, `compileOnly` and `runtimeOnly` can reach
+  a POM.
+- A dependency bump that changes a JavaScript package, such as Ktor's, needs `./gradlew
+  kotlinUpgradeYarnLock` in the same commit. Without it every local web test run ends in `BUILD
+  FAILED` at `:kotlinStoreYarnLock` after the tests passed, and no CI job runs that check (#150).
+- The local Maven repository is opt-in here, behind a flag, and the build says so when it is on.
+  Never re-enable it unconditionally: the same version string with different bytes is
+  indistinguishable from the published one.
+- Neither `ci.yml` nor `publish.yml` passes that flag, so both resolve kiteffmpeg from Maven
+  Central only. Raising the catalog's kiteffmpeg version to one Central does not serve yet turns
+  CI red on the next push and makes the publish fail. The sibling reaches Central first, then this
+  repository is pushed and published.
+- The five Actions secrets are set, so `publish.yml` can upload. Dispatch it with the version as
+  an input; it is compared against `VERSION` in `gradle.properties` and a mismatch fails before any
+  work. It then runs the whole of `ci.yml` on the same commit, and the upload waits for it, so a
+  release run takes as long as CI plus the upload and one flaky test stops a release. Leave the
+  `release` input off to land the deployment as USER_MANAGED and press Publish on the portal
+  yourself. Publishing from the maintainer's machine still works the same way, with the same five
+  credentials read from `~/.gradle/gradle.properties`, and runs no tests.
+
+- A published module needs at least one source file in `commonMain`. A target with no source makes
+  no klib, and its publication then fails with `FileNotFoundException` naming the missing klib.
+  Compiling and testing never notice, so only a publish finds it.
+- A test task that finds test classes but no test to run fails the build ("did not discover any
+  tests"), on the Android host and on a native target alike. A module whose common tests are only
+  abstract contract classes therefore breaks `./gradlew macosArm64Test` for the whole repository.
+  Keep one concrete test in `commonTest`.
+- `updateKotlinAbi` is per module, and the module you edited is often not the only one that moved.
+  Adding a member to an interface in one module changes the dump of every published module that
+  implements it, because the override joins their public surface too. The host gate catches it, one
+  commit later than the change.
+- One unresolved KDoc link fails the macOS CI job, because the publication build runs Dokka with
+  warnings as errors, and it stops the job before its size and conformance steps. A link to a type
+  in another package needs an import or the full name, even in an internal class. Run
+  `./gradlew :<module>:dokkaGeneratePublicationHtml` locally; it takes about a minute.
+
+### Tests that fail for reasons that are not bugs
+
+- A visualiser fixture must outlast its render. The player hears three seconds before the first
+  frame, so a six second run needs at least nine seconds of audio. A shorter fixture ends inside
+  the run, every drawing answers the music stopping, and the held-tone check reports an invented
+  beat in six drawings at once. The giveaway is that every drawing spikes on the same frame.
+- The real-media suites fail under load with messages that read like correctness bugs, for example
+  a seek landing 170 milliseconds off, or a status being Buffering when Playing was expected. They
+  drive real files and wait on real time, so a busy machine samples the player before it settles.
+  Two giveaways: the error changes between runs even though the seed is fixed, and a different test
+  in the class fails each time. Re-run the suite alone on an idle machine before chasing one. It
+  has come back green every time.
+- The browser half dies under concurrent load and reports that the test process exited
+  unexpectedly, naming whichever test was in flight, which reads like that test crashed. Same rule:
+  re-run it alone first.
+- A browser test that runs longer than two seconds is killed rather than failed, because the test
+  runner's per-test default is 2000 ms and Kotlin does not raise it. Every module that runs browser
+  tests needs a timeout config file; copy the one that has it. Wiring a module's browser half into
+  CI without it is how a green suite becomes an intermittent red.
+- A no-replay shared flow drops what it emits before anyone subscribes. Every renderer's event flow
+  is one, so a test that launches a collector and then makes the renderer emit is racing its own
+  subscription: it passes on a quiet machine and times out under a full suite. Wait for the
+  subscription to complete before triggering the emit, and collect into a channel rather than a
+  list two threads share.
+- A test whose name contains a comma compiles on the JVM and breaks every Kotlin/Native target.
+  Tier 1 compiles only the JVM half, so the comma ships and the host gate finds it a commit later.
+  No commas in test names.
+- A test name with a space stops an Android device test APK at the dex step, because D8 takes a
+  space in a method name only from minimum SDK 30. Every module with a device test puts
+  `commonTest` into it, and the host tests and CI never dex, so nothing else goes red. Name the
+  shared tests of those modules in camel case (#154).
+- The scripted test device pulled 512 frames per wait of 10 ms, truncated from 10.67 ms, so its
+  audio clock ran 6.7 percent fast and every audio-video harness test saw a sawtooth drift of up to
+  40 ms. It now pulls on an exact running total. A test that needs an underrun must stall decoding
+  (`stallAudioDecodeReceive`): with an honest device a slow reader makes the engine buffer while the
+  ring still holds sound (#373).
+- A fake audio device pumped by the same loop that feeds the ring deadlocks when one buffer
+  releases more audio than the ring has room for, and runTest then reports a test that never
+  finished. After a change from 2x to 0.5x the tempo stage releases about 120 ms at once, the
+  lookahead it gathered for 2x, so `AudioPlaybackSpeedTest` uses a 500 ms ring.
+- A live stream that stops growing blocks `readPacket` for ever rather than failing, so a live test
+  whose fix is broken hangs instead of going red. Give it a watchdog that calls the source's
+  `interrupt()` at its deadline, as the multi-Period live test does.
+- A state flow's `first { }` samples the current element before it waits, so a test that seeks and
+  then waits for "the position advanced" can match the reading from before the seek and return
+  instantly, proving nothing. Wait for a reading that reflects the new position first.
+- The iOS simulator run of `kiteplayer-ffmpeg` fails every test that drives the whole player, and
+  the VideoToolbox test. These are artifacts of how the simulator spawns a process, not bugs: the
+  CoreAudio output unit does not initialise, and VideoToolbox gives no hardware frame. That was
+  eight tests on 2026-09-23 (#155).
+- Television simulator tests cannot run on a developer Mac at all, for a missing runtime rather
+  than a missing SDK, so the aggregate all-tests task can never pass there. Name targets
+  explicitly.
+- Kotlin/Native creates and then permanently disables the Linux test tasks on a macOS host, so
+  naming them is green by definition. Linux evidence is the container script or the CI Linux job.
+  Windows native evidence on a Mac is a link claim only.
+- The audioviz render harness hands frames straight to a drawing. The surface first slows the
+  reading down with `CalmReading`, so a reduced-motion test must wrap its source in it. Without
+  that, the drawings that read smooth values look undamped and the test measures nothing.
+- A test that pauses a drawing must feed it `withPulseHeld()` and then `withEvents(held = true)`.
+  Repeating the last playing frame keeps its events, so the drawing sees a kick on every frame.
+- The flash guard has two doors. `limit` answers a light and `allowance` answers a ratio that cannot
+  go above 1, and the surface calls `allowance`. The old guard answered a light above the one asked
+  for when it held a fall, so a test that read `limit` passed while the surface let the flash
+  through. Test the guard through `allowance` (#357).
+- An RTSP client lines up its streams only from the RTCP sender reports or the RTP-Info of PLAY;
+  until one arrives each stream's timestamps start at zero on their own. The `ffmpeg` command
+  line's RTP muxer sends a report only every 5 seconds, so a test relay must hand a joining player
+  each stream's latest report at PLAY, as a camera does. Without that, RTSP over UDP played 300 ms
+  out of sync, which reads like an engine bug (#395).
+- The `ffmpeg` 6.1 command line's `-sdp_file` holds only the first stream of an RTP output with
+  two. It prints a description to standard output as each stream starts, and only the last one
+  names both, so a test takes that one (#395).
+- The `ffmpeg` command line's RTSP publisher packs about 0.7 s of AAC into each RTP packet, so its
+  audio arrives twice a second, up to 0.65 s after the media it carries, and the start of each
+  session arrives in one burst, late by as long as the relay took to accept it. Audio arrivals
+  therefore measure the packing, not the network. Date the sender's line on the earliest audio
+  arrival and measure lateness on the video arrivals after play starts, which come one picture at
+  a time within 20 ms (#395).
+- The loopback sync readings step by about 30 ms from one run to the next, and now and then within
+  a run, and the step is in the engine's clock against the sound actually heard: the test renderer
+  is handed each picture within 2 ms of the time that clock gives it. Raw UDP and TCP read 18 ms
+  early or 14 ms late, RTSP over UDP 7 ms early or 34 ms late, RTSP over TCP 7 or 38 ms early, and
+  the file, steady at 6 ms early, read 28 ms early in three runs of four once the test renderer did
+  a little more work per picture. RTSP over TCP's second reading sits on the 40 ms edge of the
+  window, so that test can fail on it with no catch-up running at all; the catch-up adds only about
+  10 ms of the tempo stage's own spread while it runs (#395).
+
+### Language and toolchain
+
+- A property named `field` is unreachable by that name inside any accessor of the same class,
+  because `field` is the backing-field keyword there. The compiler then reports "Property must be
+  initialized" on a completely different property.
+- The atomicfu Gradle plugin is banned in every module: its bytecode transform registers a task
+  depending on a class-compilation task the Android plugin's multiplatform library variant does not
+  create. The library dependency itself is fine. This is the trap most likely to be re-triggered by
+  tidying a build file.
+- The one remaining Gradle deprecation here belongs to Dokka 2.2.0: its dependency manager calls
+  `Configuration.setVisible`, which Gradle 11 removes. The Kotlin plugin's old one
+  (`getTaskDependencyFromProjectDependency`, from its web target wiring) is gone on Kotlin 2.4.20.
+  Measured with `--warning-mode all --stacktrace` on Gradle 9.8.0 with AGP 9.4.1; `help` alone
+  shows nothing, a wasmJs task must be in the graph. Nothing here is workable. Re-measure at the
+  next Dokka bump.
+- From Kotlin 2.4.20, ABI validation also writes an Android dump for each module, under
+  `api/android/`, so the Android public API is guarded too. A Kotlin bump can add lines to every
+  dump at once: 2.4.20 adds a no-argument JVM constructor to each class whose parameters all have
+  defaults. Run `./gradlew updateKotlinAbi` and read the diff before you commit it.
+
+- An Objective-C category member is not on the Kotlin class: it is a package-level extension and
+  needs its own import. `AVSampleBufferDisplayLayer.enqueueSampleBuffer`, its `status` and `error`,
+  and `AVPictureInPictureControllerContentSource.create` all read as unresolved until imported by
+  name, which looks like the binding missing the API rather than an import missing.
+- A Kotlin class that extends an Objective-C type cannot hold constants in its companion: that
+  companion maps onto the Objective-C metaclass, which has no storage for them. The compiler says
+  "Fields are not supported for Companion of subclass of ObjC type". Put them at file scope.
+- Apple notification names and userInfo keys arrive as `String?`, not `String`. Keep the
+  nullability rather than asserting it away; the interop calls that take them accept null too.
+- ExplicitBackingFields only buys something when the field's TYPE differs from the property's, as
+  with a `MutableList` behind a `List`. For a Boolean or a Float there is no such pair, and a
+  private var with a `get()` is the honest form.
+- Trigonometry inside a runtime shader's fold steps costs two to four times the frame on a phone.
+  Pass cosine and sine pairs and unit normals from the host instead (#147).
+- A depth pass that reads its step budget from `uFinish.w` renders black when that uniform is
+  unset, which reads like a broken field rather than a missing budget (#147).
+- Compose has no slider role, so `Role.Slider` does not compile. A custom slider gets
+  `progressBarRangeInfo` and a `setProgress` action instead (#326).
+
+### Engine invariants, each of which caused a real bug when violated
+
+- **The audio submit call bypasses the whole pipeline. The decoded-submit call is the real door.**
+  Submit writes its floats straight to the ring: no channel mix, no resample, no tempo. A caller who
+  reaches for it because the format already matches gets audio that skipped every stage. The first
+  version of the volume latency test used it, set a volume, and measured nothing at all.
+- **Volume and mute belong to the ring, not to the pipeline.** A gain applied as samples are
+  written cannot reach audio that is already buffered, so a change stays inaudible for the ring's
+  whole depth: at least 200 ms, and twice the AudioTrack buffer on Android (240 ms on the ASUS; it
+  was 960 ms before #375). Measured at 174 ms of lag on a 171 ms ring. Moving the gain back into the
+  pipeline would be a regression that looks like a simplification.
+- **Three things stop a paused player aging: the freeze at pause, the re-anchor at resume, and
+  the anchor floor at resume.** The ring keeps its last anchor through a pause. Applied after play,
+  that anchor counts the whole pause as played time: on real macOS output a two second pause read
+  two seconds ahead for about 30 ms after play (#153). So `AudioPlayback` ignores every anchor that
+  is not newer than the one the ring held at play, and the re-anchored frozen clock carries the
+  position until the device reports again. Neuter the freeze and a one-minute pause moves the
+  position from 1.3 seconds to one minute 1.3. The ring's anchor is the authority while the device
+  runs, and the frozen clock is the authority when it does not. Do not simplify any of the three on
+  the reasoning that another covers it.
+- **A speed change never seeks, and the ring never carries a speed.** `AudioPlayback` writes one
+  timestamp into the ring per epoch and dates the rest by counting frames. Each speed change, each
+  gap in the decoder's timestamps and each gapless join is a line in its playout timeline, placed at
+  the output frame where the tempo stage reaches it. Flushing on a speed change brings back the 60
+  to 110 ms silence and the Buffering blink that a half-percent sync nudge caused (#373).
+- The tempo stage reports the ideal line the speed asks for, not where each block came from. Blocks
+  lead or lag that line by up to 20 ms, and by about 60 ms at most while a splice waits for an attack
+  to pass. Dating the clock from block positions would make it jump at every splice (#373).
+- A parked video lane is not a selected queue. Its packets are thrown away as they arrive, so its
+  queue is always empty; counted, it made the open wait 10 s for a picture and the interleaving
+  relief cut the audio until the end of the file (#374).
+- All session mutation happens on the actor, in a command execution or a pass handler. Never mutate
+  session fields from another coroutine.
+- A decoder belongs to its worker's dispatcher. Park the worker, mutate, release. A refusal to park
+  means fall back, never force.
+- Never wait on a drawing thread's dispatcher from Android's main thread. A channel's `receive`
+  returns without suspending when a signal is already waiting, so a worker that is behind never
+  gives its thread back, and a task queued behind it waits for as long as frames keep coming. The
+  Android surface renderer did that in `surfaceChanged` and froze an app past the 5 second limit.
+  The fence for a destroyed Surface is a lock held only from canvas lock to post, with a time limit.
+- Epochs: an in-place track swap does not bump the epoch, because video work must stay valid. A
+  fresh queue is flushed to the current epoch or the demux worker's offers are rejected. A fresh
+  component is aligned to the epoch the world is already at. Missing one of those resets is why
+  every open after the first once sat dead for ten seconds.
+- Any path that retires subtitle state must withdraw the drawn overlay itself, by publishing an
+  empty overlay with a bumped generation. The renderer is shared across sessions and the "did I
+  publish" key is per session, so the last text otherwise stays on screen forever.
+- Every command reply completes exactly once, as applied, discarded or superseded. A track
+  selection can sit held while a seek runs and execute a pass later; never assume same-pass
+  execution.
+- Frames and packets are closeable, closed exactly once, on the worker that owns them. The ring is
+  freed only after the feeder is joined, and a flush needs both ring sides quiescent. A leaked
+  1080p frame is 3.11 MB; a 4K one is 24.9 MB.
+- The cue alpha contract is premultiplied end to end. Both platform rasterizers produce it
+  naturally and consumers upload it unconverted. Premultiplying twice renders white text grey.
+- The packet queue's trim-before call trims by a packet's end and stops at a packet with no
+  timestamps, with callers passing an assumed duration for that case. That single behaviour is the
+  whole reason a long cue survives a track switch. Do not optimise it away.
+- Interleaving relief runs only while some selected queue is held under readiness by the budget,
+  and it cuts the fattest inactive lane first. Cutting on any over-budget state eats the switch
+  caches of every healthy paused session, which broke five tests the first time.
+- The downmix normalize policy is off by default, matching FFmpeg and other players: merged
+  surrounds sum without normalising unless a caller asks. Tested both ways. Do not flip the
+  default.
+- Pause consumes the final device anchor before freezing clocks, so a late callback cannot
+  re-anchor a frozen clock, and resume re-arms a timestamp floor so a pre-pause device timestamp
+  can never anchor the clock afterwards.
+- The C real-time island stays C. The device callback has no allocator, lock, log or framework
+  call, proven by disassembly through the render check script, and nothing managed ever runs on the
+  device thread. The Kotlin ring is the C ring's differential oracle; never delete the portable
+  implementation.
+- The JVM and native `BlockingMediaIo` reader's use of a blocking call is safe only because close
+  never queues behind the demux lane. That reasoning is load bearing; re-check it before touching
+  either side. The web reader refuses instead of blocking.
+- libass' change detection compares against the last frame it drew for a track WITH events. A
+  track flushed to no events skips that bookkeeping, so the first render after events come back
+  reports "unchanged" against the picture from before the flush. The C driver tracks what it last
+  emitted itself; do not trust the verdict alone.
+- The typesetter's "unchanged" answer is null, and null means "what it was". A caller that treats
+  null as "nothing" draws blank frames; the engine's lane and the corpus test both carry the last
+  picture forward.
+- Every typesetter call happens on the raster lane, including close, and requests coalesce: the
+  actor posts the newest and a CAS on the lane's running flag decides who renders it. Bypassing
+  that to call libass from the actor is a data race with the render in flight.
+- Overlay pixels cross into the web renderer as one Latin-1 string per image, never one byte per
+  JavaScript call. The per-byte form cost more than the video once typesetting redrew every frame.
+- A held frame, which is a paused player, keeps its levels and its pulses. Anything in a drawing
+  that runs on wall time or draws random motion must multiply by `frame.audible` or check
+  `frame.held`, or the picture moves under a pause. The trail feedback, the camera shake and the
+  cycle clocks each did that (#321). `PausedPictureTest` renders all 24 drawings through a pause.
+- Every drawing multiplies its light by `VizRenderState.lightScale`, because the flash guard cannot
+  dim a finished frame. Bars and Alchemy did not, and the guard could not touch them (#313).
+  `FlashGuardReachTest` renders every drawing at half the allowed light.
+- The Skia triangle call needs arrays as long as the corners they hold. `TriangleMesh` therefore
+  draws from copies padded to a power of two, one array per size. The extra corners sit on corner
+  zero and the extra triangles are `0, 0, 0`, so they draw nothing. Exact copies allocated 598 KiB
+  a frame in Fracture, because it flushes several batches of different sizes (#331).
+- Each reader of `AudioVizState` takes its frames through its own `frameSource()`. The event cursor
+  hands an event to its caller once, so a surface capped below the display rate would lose the
+  events of the display frames it skips if it read `state.frame` (#312).
+- Compare `VizRenderState.instant`, a Double, to tell one display step from the next, never
+  `timeSeconds`. A Float clock stops adding a frame to itself after about 36 hours at 144 Hz, and
+  every drawing then stands still (#349).
+- `Spring` and `Envelope` carry the Euler step that the drawings were tuned with at 60 Hz over to any
+  step length, as a power of its 2 by 2 map. The textbook solution of a spring would raise every
+  punch by about a quarter at 60 Hz, so do not swap it in as a simplification (#361).
+- The spectrum histories take 60 rows for each heard second, not one row for each display step. A
+  row per step shortens the span on a fast screen and keeps writing under a pause (#355).
+- FFmpeg's HLS demuxer seeks backward to the start of the segment that holds the target, so a
+  keyframe seek lands up to one segment early and a precise seek decodes forward from there. It
+  reads a run of byte-range fragments of one file through one reader, so playing from the start
+  asks for that file from byte 0 only, and a range request appears only after a seek (#209).
+- FFmpeg's MP4 reader keeps the first `moov` it sees and skips every later one, and a decoder keeps
+  the last H.264 or HEVC parameter sets it was given. So every fMP4 segment of a joined DASH
+  presentation carries its own Period's parameter sets in band, even a Period whose
+  initialization is the stream's own: without them a third Period decoded with the second's
+  picture size (#403).
+- Each live protocol in FFmpeg takes its read timeout under its own name, and without one it
+  waits for a silent sender for ever: http, tcp and rtmp take `rw_timeout`, udp takes its own
+  `timeout`, and rtsp takes the demuxer's `timeout`. The rtp reader waits for its first packet
+  through a protocol it opens from the address alone, so no option reaches it and the timeout goes
+  in the address as `?timeout=`, in microseconds. Over a TCP connection a silent sender takes two
+  timeouts to fail a read once playing, because FFmpeg waits again after the first; the command
+  line does the same (#395).
+- FFmpeg lets an input opened through `file` reach only `file`, `crypto` and `data`, so an SDP file
+  on disk opens and then fails to reach the RTP session it describes, until the open names `udp`
+  and `rtp` in `protocol_whitelist` (#395).
+
+### The web target
+
+- Kotlin/Wasm has no bulk typed-array bridge: naive per-byte crossings run at roughly 96,000 calls
+  per second of audio and killed the first web input path. Cross per chunk, with the tight loop
+  living in JavaScript.
+- The latin1 pack trick corrupts bytes over 0x7F if anything encodes the string as UTF-8 in
+  transit. The 0 to 255 ramp test exists for exactly that and must never be weakened to ASCII.
+- Building a raster image from a Kotlin byte array costs 107 to 153 ms per 1080p frame, which is 55
+  to 85 MB per second across the managed heap boundary. The web renderer therefore keeps pixels in
+  the codec module and draws through the canvas image call, at 2.5 to 2.9 ms. Never route web video
+  pixels through the Kotlin heap.
+- A per-pixel conversion loop on the web is about 5 times slower than the same loop in JavaScript
+  and about 10 times slower than the media library's own scaler inside the module. Convert in C,
+  beside the decoder.
+- A 64-bit integer across a JavaScript function boundary needs the big-integer build flag and
+  arrives as a JavaScript big integer. The convenience call helper has no type spelling for it, so
+  call the export directly; a silent truncation there corrupts every timestamp.
+- Without cross-origin isolation headers, importing the threaded artifact hangs rather than
+  erroring. Feature-detect isolation before the import. The default artifact stays single-threaded
+  for exactly this reason.
+- Every browser audio context starts suspended until a user gesture: the queue fills, the feeder
+  backs off, and the audio-mastered clock sits at zero. That is correct behaviour, not a hang, and
+  an embedder has to know it.
+- A hidden browser tab never fires its frame callback and suspends audio under the autoplay policy,
+  so a frame-rate readout from a hidden tab means nothing. Measure per-frame cost spans instead.
+- C struct fields are read from JavaScript by byte offset, and those offsets come only from the
+  committed generated layout file. A wrong offset reads the neighbouring field and answers
+  something plausible.
+- The web worker's protocol copies every field of the snapshot, a track, an item and each warning
+  by hand, and its decoders fill a missing field from the default, so a new member that skips it
+  reads on the page as "nothing" and only a new warning breaks the build. Add each new member both
+  ways and set it off its default in `WorkerProtocolTest`; three fields and a warning went missing
+  this way at once (#517).
+- `runBlocking` does not exist on the web target because there is no thread to block, so a shared
+  test written with it will not compile there. The fix is the test-coroutine builder, not moving the
+  test into a narrower source set: narrowing silently removes it from every target that no longer
+  sees it. Moving two files out of the common test set here would have dropped 32 tests from the
+  Android host run with nothing going red to say so. Count tests per target before and after any
+  source-set move.
+
+### Platform truths, measured on real hardware
+
+- Android's filter quality setting above none collapses to one boolean flag, so the drawing step
+  cannot resample better than bilinear no matter what it is asked. Scaling quality on Android can
+  only live in the GL blit. Device proven.
+- On a low-end phone chip, per 1080p draw over a 6.83 ms plain blit: dither costs 1.30 ms,
+  debanding costs 7.72 ms, and a better scaling kernel costs 22.01 ms. Dither is affordable on floor
+  hardware; the kernel is not a default there.
+- Render passes have a characteristic failure: a pass that compiles, costs every tap, and does
+  nothing. Three of four findings in that area were exactly that. A test that only asks whether the
+  code ran cannot catch it; golden-image deltas can.
+- An Apple display reports its current HDR headroom as 1.0 until some layer asks for extended range,
+  and only then rises, to 2.0 on a MacBook Air M2 and 8.0 on an iPhone 16. Decide on extended range
+  with the potential headroom and tone map to the current one, or nothing ever switches (#68). Another
+  process can read the current value while a clip plays, which is the cheapest proof that it did.
+- A developer Mac with an older Apple chip has no AV1 silicon, so it can only ever prove the AV1
+  hardware refusal path. Positive proof needs newer silicon.
+- Feel-testing on iPhone is release-build only: a debug shared framework collapses the software
+  frame path by roughly 30 times and invalidates any judgment about responsiveness.
+- The proven device-debug workflow is to reproduce the device bug in the virtual-time harness on
+  the JVM first. Every real device bug of the past sessions reproduced there before it was fixed.
+  The exposing fixture class is a long-GOP animation file with a dense subtitle track of roughly
+  70,000 cues; short clean files hide these bugs.
+- The player's own counters cannot see judder, so measure Android video cadence with
+  `adb shell dumpsys SurfaceFlinger --latency '<layer>'`, whose rows hold each frame's requested and
+  real on-screen time for the last 127 frames (#137). Two traps in using it: `dumpsys SurfaceFlinger
+  --list` prints each name wrapped in `RequestedLayerState{...}`, so a bare-name grep finds
+  nothing, and the layer id changes when the surface is recreated, so re-read it for every sample.
+- `dumpsys gfxinfo` and the compositor disagree on purpose, and only the compositor answers the
+  question a viewer asks. On one visualiser run gfxinfo reported 21 to 41 percent janky frames
+  while the compositor showed not one dropped frame over four samples. gfxinfo counts a frame's
+  whole duration against a deadline, and the render pipeline is two to three frames deep, so a
+  14 ms frame still presents on every 8.33 ms refresh. A gfxinfo window also covers surface
+  recreations and screen transitions, which a per-layer latency sample does not.
+- A debug install is `run-from-apk`, with no ahead-of-time code, so a hot Kotlin loop starts
+  interpreted and stays slow until the just-in-time compiler catches up. It made the visualiser's
+  song scan three times slower than the same code in a release build. Debug-build timing is not
+  release-build timing; check `dumpsys package <pkg> | grep -A3 'Dexopt state'` before believing a
+  measurement, and force the comparison with `cmd package compile -m speed -f <pkg>`.
+- `/proc/<pid>/fd` belongs to the application's own user, so `ls` from `adb shell` is denied and
+  `grep -c` on the denial counts zero, which reads exactly like "nothing is open". Use
+  `run-as <pkg>`, which needs a debuggable build; on a release install, measure the application's
+  processor time from `/proc/<pid>/stat` instead, which anyone may read.
+- Android's `date` has no `%N`, so nanosecond timing in a device shell loop silently produces
+  garbage and the arithmetic overflows into negative numbers. Use `date +%s` and second resolution.
+- A processor-time reading means nothing without the screen state: on a dozing screen the
+  visualiser stops drawing and the application's use falls to about half a core from audio alone.
+  Check `dumpsys power | grep mWakefulness` first, and hold the screen awake with
+  `adb shell input keyevent 0` during a long measurement (#138).
+- One Matroska timestamp gap misstates a frame rate by up to 2 percent, because Matroska rounds to
+  whole milliseconds, and a phone asked for 24.39 fps instead of 23.976 picked a 48 Hz mode that
+  put a third of the frames on the wrong refresh (#137).
+- Since Android 14 MediaCodec promises a rendered callback for every shown frame, but on an ASUS ROG
+  Phone 9 it also reported frames that SurfaceFlinger never showed, so the lost-frame count catches
+  only part of the losses (#139).
+- The sample app holds no keep-screen-on and its Compose screens are not exported, so a device
+  measurement longer than five minutes needs `adb shell input keyevent 0` now and then, and the
+  Compose screen opens from the launcher's button (#138).
+
+## Decisions already made
+
+Do not reopen these without new evidence.
+
+- FFmpeg is the one media truth. No platform demuxers or decoders as a source of truth; hardware
+  acceleration only as decoders and acceleration paths inside it, with software fallback.
+- No new mandatory native libraries. Kotlin, or shader source we author, first. A native library
+  only as an optional module when no Kotlin path can exist, or when correctness parity demands it.
+  Verdicts already given: an XML library never, because manifests parse in Kotlin; a TLS library
+  and an HTTP library rejected, because vendored crypto is a recurring security duty and TLS comes
+  from the operating system through the HTTP client's engines; a GPU video processing library
+  rejected as a dependency, because its viewer-visible value is roughly 150 lines of shader we can
+  author, its correctness core already ships, and it cannot follow the engine to the web.
+- Native Linux and Windows have no https and no output backend, and both are decisions rather than
+  gaps. Those targets have no operating-system TLS to delegate to, and writing native sinks for
+  them would duplicate what the JVM already does: desktop rides the JVM, which has an audio device,
+  a video view, https, and the whole conformance matrix passing. The targets stay declared and
+  empty so the real-media tests resolve on Linux and so a native consumer has the common types to
+  implement the output SPI against.
+- Every Android ABI stays supported, and the minimum SDK stays where it is. "The minimum SDK
+  excludes 32-bit" is true for phones and false for television: the common streaming sticks are
+  32-bit only and budget boxes ship a 32-bit userspace.
+- Both Compose video paths are permanent by design. The interop platform view is the sustained
+  playback default, because the system compositor presents and the GPU idles. The Compose-native
+  primitive is what allows clipping, alpha and shared-element transitions. Neither replaces the
+  other, and the trade is stated in KDoc rather than fought: platform-view video takes no clip,
+  alpha or shader.
+- Subtitle overlays composite in output space on every renderer, not in fitted-video space.
+- The Core Graphics renderer is the permanent correctness reference. Metal is the qualifying
+  renderer.
+- The browser's own media source extension with a video element was rejected for the web: it cannot
+  serve the format matrix and it surrenders frame-level control. The plan is a hybrid, where
+  demuxing stays in the media library compiled to the web and decoding goes to the browser's codec
+  API where allowed, with the library as the fallback, chosen per stream behind the decoder
+  interface.
+- The default web artifact is single-threaded, with no vector instructions and no cross-origin
+  isolation, because a player that hangs on an embedder's site is worse than one three times
+  slower.
+- 4K is a hardware question, permanently. Software 4K is a non-goal by decision, and the 4K verdict
+  is an exit criterion of the hardware decode work, decided on a measured clip.
+- Digital rights management is out of scope until a product decision, and reports a typed
+  unsupported error. Casting is a remote-target abstraction for a later horizon. Optical disc menus
+  are out entirely.
+- The animation upscaler ships as a curated built-in port with two quality tiers. Compatibility
+  with that upscaler's wider ecosystem of user shaders is explicitly out of scope.
+- A descriptor-backed source gets positional reads, not documentation and not an engine-side
+  duplicate. A duplicate shares the file offset, which is the bug itself.
+- A composite Gradle build was declined. The twin repositories resolve through published pins, or
+  through an explicit opt-in to the local Maven repository.
+- Gradle artifact checksum verification is off, and the reason is measured rather than assumed.
+  Generating the metadata recorded 486 components from one JVM compile and the next task failed on
+  a detached configuration that Kotlin/Native and the Node setup resolve through and the generator
+  never sees. CI also runs on three operating systems, each resolving its own toolchain artifacts,
+  so a file written on one host cannot carry the other two. A dependency hygiene script guards what
+  can be guarded instead.
+
+## Facts about the pair of repositories
+
+- One product, two repositories. The media library is `../KiteFFmpeg`. Each has its own issue
+  tracker and neither has a private planning file.
+- The media library's artifact was renamed, and its version went backwards on purpose: a new
+  artifact id is a new artifact to the public repository, so the line restarted with the name. The
+  new number is strictly newer than the old line's. Never "fix" it by bumping past the old line.
+- The reader primitive in the media library that reselects streams has no caller here on purpose:
+  the engine's all-lanes subtitle cache made the interface member unnecessary and it was deleted.
+  Do not re-add the interface half without its caller.
+- The consumer application pins this project in its own version catalog, adapts it in one file, and
+  offers it on a home-screen selector; another engine is its default on Android.
+- Pulling logs off an iPhone for that application uses the device control command with the
+  application data container domain, and an in-room setting adds one statistics line per tick.
+
+## The 0.0.23 module boundary
+
+The agreed entry-point and automatic-transport contract is in `docs/module-contract.md`.
+`kiteplayer` owns default construction. The complete Compose
+entry point is `kiteplayer-compose`; `kiteplayer-compose-ui` only supplies presentation.
+FFmpeg/native view adapters live in `kiteplayer-view-bindings`, below both construction and
+Compose. Their existing package names stay compatible.
+
+Network provider discovery lives below direct core creation. Explicit item IO and configured
+resolvers win, including a configured resolver that returns null. `NetworkConfig.autoResolve`
+turns automatic discovery off. The automatic provider uses reader-owned clients; merely creating
+a player allocates no HTTP client. Native/web eager registration is toolchain-sensitive, so test
+optimized consumers that reference no network symbol.
+
+`kiteplayer-libass` rides `kiteplayer` the same way and is discovered the same way, through
+`SubtitleTypesetterProvider`. The engine typesets only the primary ASS/SSA track, on the raster
+lane, at video frame cadence, and publishes only when libass reports a change. On the web the
+engine is a separate `kiteass.mjs` module the page hosts (delivered as the `web` zip on the wasmJs
+publication; a browser distribution does not inherit library resources); the first ASS track loads
+it from `./kiteass.mjs` and the typesetter stays pending, keeping current state rather than a log
+of calls, until it lands. A load that fails or takes more than ten seconds, or more than 64 MB of
+waiting data, hands the track to the built-in styling.
+
+## The libass chain
+
+- The chain (libass, HarfBuzz, FreeType, FriBidi) is cross-built in the sibling and found in this
+  order: `-Pkiteplayer.libass.root`, then `../KiteFFmpeg/native-libs/deps`, then a download from the
+  KiteFFmpeg release pinned in `kiteplayer-libass/ass-chain.sha256`. CI and a fresh clone take the
+  third road, so the release asset must exist before either can build the module. Package the
+  assets with the sibling's `scripts/package-ass-chain.sh` and re-pin after every chain rebuild.
+- The four archives are merged into one `libkiteass.a` per target before cinterop embeds it. Four
+  archives embedded separately depend on the consumer's link order; one archive does not.
+- The desktop JVM adapter is linked from the same chain, so the Linux and Windows chains must be
+  built with `-fPIC`. libass builds through autotools, which adds none; the sibling's chain task
+  now passes it, and a chain built before that refuses to enter a shared object with "relocation
+  cannot be used against symbol 'font_constructors'". Rebuild the chain, do not patch the link.
+- Cross-linking a Linux shared object with konan's clang needs the gcc runtime directory passed
+  with `-B` as well as `-L`, or lld cannot find `crtbeginS.o`.
+- The publish path must pass `-Pkiteplayer.libass.requireAllHostJni=true`, which turns a desktop
+  adapter this machine cannot link, or a web module this machine cannot link (no `emcc`), into a
+  failure. Without it the artifact quietly ships without that half and the player there warns
+  `TypesetterUnavailable` and keeps the Kotlin tier.
+- The wasm32 chain is built by the sibling's `buildAssChainForWasm32` with emscripten. HarfBuzz
+  promotes warnings to errors through pragmas in `hb.hh`, which no `-Wno-` flag and no
+  `-Dwerror=false` can undo; `-DHB_NO_PRAGMA_GCC_DIAGNOSTIC_ERROR` is its own switch for that, and
+  emscripten's newer clang needs it. Times cross the module boundary as doubles, never 64-bit
+  integers, so the big-integer flag is not needed; keep it that way.
+- A `which` at Gradle configuration time breaks the configuration cache. Probe a tool through
+  `providers.exec` instead.
+
+---
+> Source: [yuroyami/KitePlayer](https://github.com/yuroyami/KitePlayer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-04 -->
