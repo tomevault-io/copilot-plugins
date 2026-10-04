@@ -1,0 +1,9 @@
+{
+  "name": "mortyeriksen--c64ready",
+  "displayName": "c64ready",
+  "description": "A cycle-exact Commodore 64 that runs entirely in your browser. Serious emulation, retro vibes.",
+  "version": "1.0.0",
+  "author": "mortyeriksen",
+  "homepage": "https://github.com/mortyeriksen/c64ready",
+  "skills": []
+}
