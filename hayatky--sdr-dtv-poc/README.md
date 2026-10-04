@@ -7,11 +7,11 @@ Experimental SDR digital TV receiver PoC with a web UI for channel scanning, vie
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hayatky/sdr-dtv-poc](https://github.com/hayatky/sdr-dtv-poc).
+Original source: `AGENTS.md` in [hayatky/sdr-dtv-poc](https://github.com/hayatky/sdr-dtv-poc).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
