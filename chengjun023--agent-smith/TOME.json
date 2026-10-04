@@ -1,0 +1,44 @@
+{
+  "name": "agent-smith",
+  "owner": "Chengjun023",
+  "repo": "agent-smith",
+  "description": "Token \u8d85\u652f\uff1f\u5feb\u7ed9\u53f2\u5bc6\u65af\u6253\u7535\u8bdd\uff01 Better Call Smith. Adaptive model routing, a glassy Codex usage monitor, and reproducible benchmarks with receipts.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Chengjun023/agent-smith",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T06:32:54Z"
+}
