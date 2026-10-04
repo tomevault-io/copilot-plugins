@@ -1,0 +1,9 @@
+{
+  "name": "helmet-png--m45-imf-analysis",
+  "displayName": "m45-imf-analysis",
+  "description": "M45 (Pleiades) \u758f\u6563\u661f\u5718\u8cea\u91cf\u51fd\u6578\u7684\u5206\u6790\u9078\u64c7\u8aa4\u5dee\u9810\u7b97 \u2014 Gaia DR3 + \u524d\u5411\u6a21\u578b",
+  "version": "1.0.0",
+  "author": "helmet-png",
+  "homepage": "https://github.com/helmet-png/m45-imf-analysis",
+  "skills": []
+}
