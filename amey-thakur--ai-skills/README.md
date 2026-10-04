@@ -7,13 +7,13 @@ Plug-and-play skills and prompts for every AI coding agent
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Amey-Thakur/AI-SKILLS](https://github.com/Amey-Thakur/AI-SKILLS).
+Original source: `.cursor/rules/*.mdc` in [Amey-Thakur/AI-SKILLS](https://github.com/Amey-Thakur/AI-SKILLS).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
