@@ -1,0 +1,9 @@
+{
+  "name": "jayleaton--minimax-h3-tensorfold-rtx",
+  "displayName": "minimax-h3-tensorfold-rtx",
+  "description": "MiniMax H3 audio-video model on TensorFold NVFP4 kernels: a faster ComfyUI loader for one RTX 50-series GPU (2.3x stock at 20 steps, 81 s per 5 s 1344x768 video with Turbo + sparse attention on an RTX",
+  "version": "1.0.0",
+  "author": "jayleaton",
+  "homepage": "https://github.com/jayleaton/minimax-h3-tensorfold-rtx",
+  "skills": []
+}
