@@ -1,0 +1,9 @@
+{
+  "name": "tinyplex--tinyjoin",
+  "displayName": "tinyjoin",
+  "description": "A tiny, worker-first relational database for browser apps.",
+  "version": "1.0.0",
+  "author": "tinyplex",
+  "homepage": "https://github.com/tinyplex/tinyjoin",
+  "skills": []
+}
