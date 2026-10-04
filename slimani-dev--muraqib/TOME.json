@@ -1,0 +1,123 @@
+{
+  "name": "muraqib",
+  "owner": "slimani-dev",
+  "repo": "muraqib",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "muraqib",
+      "path": ".gemini/skills/pest-testing/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.gemini/skills/pest-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".agents/skills/infer-conventions/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.agents/skills/infer-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".agents/skills/fortify-development/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.agents/skills/fortify-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".gemini/skills/wayfinder-development/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.gemini/skills/wayfinder-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".agents/skills/wayfinder-development/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.agents/skills/wayfinder-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".agents/skills/testing-best-practices/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.agents/skills/testing-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".agents/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.agents/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".agents/skills/inertia-vue-development/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.agents/skills/inertia-vue-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".gemini/skills/inertia-vue-development/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.gemini/skills/inertia-vue-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".gemini/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.gemini/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".gemini/skills/developing-with-fortify/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.gemini/skills/developing-with-fortify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "muraqib",
+      "path": ".agents/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/slimani-dev/muraqib/tree/main/.agents/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/slimani-dev/muraqib",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T07:30:25Z"
+}
