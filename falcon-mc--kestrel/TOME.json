@@ -4,7 +4,7 @@
   "repo": "Kestrel",
   "description": "Unofficial Minecraft: Bedrock Edition client written in C++20, not affiliated with Mojang AB",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Falcon-MC/Kestrel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-04T23:31:16Z"
+  "distributed_at": "2026-10-04T23:32:08Z"
 }
