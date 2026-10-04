@@ -1,0 +1,9 @@
+{
+  "name": "camilogiraldor--claude-project-template",
+  "displayName": "claude-project-template",
+  "description": "Proyecto fullstack template (Java Spring Boot + Angular + PostgreSQL) con harness de Claude Code",
+  "version": "1.0.0",
+  "author": "camiloGiraldoR",
+  "homepage": "https://github.com/camiloGiraldoR/claude-project-template",
+  "skills": []
+}
