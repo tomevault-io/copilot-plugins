@@ -1,0 +1,44 @@
+{
+  "name": "Honor-of-Kings-Match-Dashboard",
+  "owner": "lizupingsama",
+  "repo": "Honor-of-Kings-Match-Dashboard",
+  "description": "\u6309\u738b\u8005\u8425\u5730 ID\u67e5\u8be2\u73a9\u5bb6\u6218\u7ee9\u3001\u6bb5\u4f4d\u66f2\u7ebf\u4e0e\u7ad9\u5185\u6392\u884c\u699c\u7684\u81ea\u6258\u7ba1\u770b\u677f\u3002\u8bbf\u5ba2\u65e0\u9700\u6ce8\u518c\u767b\u5f55\uff1b\u7ba1\u7406\u5458\u901a\u8fc7\u5fae\u4fe1\u626b\u7801\u767b\u5f55\u738b\u8005\u8425\u5730\u540e\u5373\u53ef\u540c\u6b65\u5b98\u65b9\u6570\u636e\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lizupingsama/Honor-of-Kings-Match-Dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T02:37:48Z"
+}
