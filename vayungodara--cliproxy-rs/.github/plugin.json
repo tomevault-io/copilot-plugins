@@ -1,0 +1,9 @@
+{
+  "name": "vayungodara--cliproxy-rs",
+  "displayName": "cliproxy-rs",
+  "description": "Rust rewrite of CLIProxyAPI: drop-in compatible proxy for Claude, Codex, Gemini and OpenAI-compatible providers",
+  "version": "1.0.0",
+  "author": "vayungodara",
+  "homepage": "https://github.com/vayungodara/cliproxy-rs",
+  "skills": []
+}
