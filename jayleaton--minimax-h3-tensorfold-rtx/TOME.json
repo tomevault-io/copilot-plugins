@@ -1,0 +1,44 @@
+{
+  "name": "minimax-h3-tensorfold-rtx",
+  "owner": "jayleaton",
+  "repo": "minimax-h3-tensorfold-rtx",
+  "description": "MiniMax H3 audio-video model on TensorFold NVFP4 kernels: a faster ComfyUI loader for one RTX 50-series GPU (2.3x stock at 20 steps, 81 s per 5 s 1344x768 video with Turbo + sparse attention on an RTX 5070 Ti)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jayleaton/minimax-h3-tensorfold-rtx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-04T14:35:22Z"
+}
