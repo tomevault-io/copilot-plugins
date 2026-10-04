@@ -1,0 +1,9 @@
+{
+  "name": "softoft-orga--open-ticket-ai",
+  "displayName": "open-ticket-ai",
+  "description": "Open Ticket AI is an open-source, on-premise automation engine that connects to ticket systems and uses AI to classify, route, and process tickets through flexible, plugin-based pipelines.",
+  "version": "1.0.0",
+  "author": "Softoft-Orga",
+  "homepage": "https://github.com/Softoft-Orga/open-ticket-ai",
+  "skills": []
+}
