@@ -1,0 +1,9 @@
+{
+  "name": "s2-streamstore--tailsurf",
+  "displayName": "tailsurf",
+  "description": "Streaming gists for live work, build output, and agent conversations.",
+  "version": "1.0.0",
+  "author": "s2-streamstore",
+  "homepage": "https://github.com/s2-streamstore/tailsurf",
+  "skills": []
+}
