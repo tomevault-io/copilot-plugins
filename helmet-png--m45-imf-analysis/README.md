@@ -7,11 +7,11 @@ M45 (Pleiades) 疏散星團質量函數的分析選擇誤差預算 — Gaia DR3 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [helmet-png/m45-imf-analysis](https://github.com/helmet-png/m45-imf-analysis).
+Original source: `AGENTS.md` in [helmet-png/m45-imf-analysis](https://github.com/helmet-png/m45-imf-analysis).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
