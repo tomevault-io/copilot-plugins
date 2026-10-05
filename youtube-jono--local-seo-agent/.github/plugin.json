@@ -1,0 +1,9 @@
+{
+  "name": "youtube-jono--local-seo-agent",
+  "displayName": "local-seo-agent",
+  "description": "Eleven Claude Code commands that take a local business from an empty Google Business Profile to a live website, ranked pages and scheduled social posts. Free.",
+  "version": "1.0.0",
+  "author": "youtube-jono",
+  "homepage": "https://github.com/youtube-jono/local-seo-agent",
+  "skills": []
+}
