@@ -4,7 +4,7 @@
   "repo": "batchin-public",
   "description": "\u26a1 Ultra-Reliable AI Inference Gateway & Verifiable Agent Control Plane. Dual-Dispatch, Zero-Token JSON Auto-Healer, VaaS On-Chain Attestation, FastMCP & Vercel AI SDK.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aw3703/batchin-public",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T12:32:32Z"
+  "distributed_at": "2026-10-05T12:33:13Z"
 }
