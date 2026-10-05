@@ -1,0 +1,9 @@
+{
+  "name": "47vigen--catherd",
+  "displayName": "catherd",
+  "description": "Herds coding agents: autopilot builds from your own Claude Code session \u2014 Claude plans and verifies, Codex and opencode write the code, Jev picks the model.",
+  "version": "1.0.0",
+  "author": "47vigen",
+  "homepage": "https://github.com/47vigen/catherd",
+  "skills": []
+}
