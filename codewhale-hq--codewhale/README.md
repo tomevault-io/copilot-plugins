@@ -7,11 +7,11 @@ Open-source coding agent for your terminal, built in Rust and on a journey of co
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [codewhale-hq/Codewhale](https://github.com/codewhale-hq/Codewhale).
+Original source: `CLAUDE.md` in [codewhale-hq/Codewhale](https://github.com/codewhale-hq/Codewhale).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
