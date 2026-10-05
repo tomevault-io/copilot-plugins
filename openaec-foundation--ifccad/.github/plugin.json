@@ -1,0 +1,9 @@
+{
+  "name": "openaec-foundation--ifccad",
+  "displayName": "ifccad",
+  "description": "Parallel development of OCDraw and IFCX-CAD: open CAD drawing models, format contracts, Rust implementations, and DXF/DWG conversion.",
+  "version": "1.0.0",
+  "author": "OpenAEC-Foundation",
+  "homepage": "https://github.com/OpenAEC-Foundation/ifccad",
+  "skills": []
+}
