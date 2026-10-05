@@ -1,0 +1,9 @@
+{
+  "name": "atgreen--evergreen",
+  "displayName": "evergreen",
+  "description": "Evergreen Common Lisp",
+  "version": "1.0.0",
+  "author": "atgreen",
+  "homepage": "https://github.com/atgreen/evergreen",
+  "skills": []
+}
