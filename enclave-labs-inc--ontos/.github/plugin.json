@@ -1,0 +1,9 @@
+{
+  "name": "enclave-labs-inc--ontos",
+  "displayName": "Ontos",
+  "description": "Audit-first, in-VPC knowledge-graph runtime with permission-aware traversal and per-fact provenance. Agent-native (MCP). Subset of Enclave.",
+  "version": "1.0.0",
+  "author": "Enclave-Labs-Inc",
+  "homepage": "https://github.com/Enclave-Labs-Inc/Ontos",
+  "skills": []
+}
