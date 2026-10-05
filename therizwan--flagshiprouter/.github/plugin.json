@@ -1,0 +1,9 @@
+{
+  "name": "therizwan--flagshiprouter",
+  "displayName": "FlagshipRouter",
+  "description": "Free AI models for every coding tool \u2014 a local OpenAI-compatible gateway for Claude Code, Codex, Cursor, Cline and OpenCode. Based on 9router (MIT).",
+  "version": "1.0.0",
+  "author": "theRizwan",
+  "homepage": "https://github.com/theRizwan/FlagshipRouter",
+  "skills": []
+}
