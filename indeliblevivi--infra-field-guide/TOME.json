@@ -1,0 +1,44 @@
+{
+  "name": "infra-field-guide",
+  "owner": "IndelibleVivi",
+  "repo": "infra-field-guide",
+  "description": "\u7ed9\u4eba\u548c agent \u7684 VPS\u3001\u7f51\u7edc\u4e0e\u8fc1\u79fb\u73b0\u573a\u624b\u518c\uff1a\u4ece\u7b2c\u4e00\u53f0\u670d\u52a1\u5668\u5230\u53ef\u6062\u590d\u7684\u4e2a\u4eba\u57fa\u7840\u8bbe\u65bd\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/IndelibleVivi/infra-field-guide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T14:34:42Z"
+}
