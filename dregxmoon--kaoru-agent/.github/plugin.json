@@ -1,0 +1,9 @@
+{
+  "name": "dregxmoon--kaoru-agent",
+  "displayName": "Kaoru-Agent",
+  "description": "Desktop AI companion with local memory, a Live2D avatar and permission-gated actions. It proposes first, acts only with your permission.",
+  "version": "1.0.0",
+  "author": "Dregxmoon",
+  "homepage": "https://github.com/Dregxmoon/Kaoru-Agent",
+  "skills": []
+}
