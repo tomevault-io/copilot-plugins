@@ -1,0 +1,9 @@
+{
+  "name": "zenspc--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "Pi coding agent extensions",
+  "version": "1.0.0",
+  "author": "zenspc",
+  "homepage": "https://github.com/zenspc/pi-extensions",
+  "skills": []
+}
