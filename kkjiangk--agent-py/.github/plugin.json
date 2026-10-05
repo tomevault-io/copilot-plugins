@@ -1,0 +1,9 @@
+{
+  "name": "kkjiangk--agent-py",
+  "displayName": "agent-py",
+  "description": "Personal AIOps engineering project with durable workflows, scoped hybrid retrieval, reliable event delivery, and verified API/browser contracts.",
+  "version": "1.0.0",
+  "author": "kkjiangk",
+  "homepage": "https://github.com/kkjiangk/agent-py",
+  "skills": []
+}
