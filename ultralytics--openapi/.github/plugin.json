@@ -1,0 +1,9 @@
+{
+  "name": "ultralytics--openapi",
+  "displayName": "openapi",
+  "description": "Generate interactive API documentation and typed Python SDKs from any OpenAPI specification",
+  "version": "1.0.0",
+  "author": "ultralytics",
+  "homepage": "https://github.com/ultralytics/openapi",
+  "skills": []
+}
