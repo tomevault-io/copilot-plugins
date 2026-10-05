@@ -1,0 +1,9 @@
+{
+  "name": "functy23--dsh-mcp-studio",
+  "displayName": "dsh-mcp-studio",
+  "description": "DeepSeek Harness \u7684 MCP \u670d\u52a1\u4e0e Skills \u7ba1\u7406\u5668\uff1a\u9762\u677f\u91cc\u589e\u5220\u6539 MCP \u884c\u3001\u626b\u63cf\u5bfc\u5165\u5176\u4ed6 Agent \u914d\u7f6e\u3001\u7ba1\u7406 Skills\uff08DSH Web \u63d2\u4ef6\uff09",
+  "version": "1.0.0",
+  "author": "functy23",
+  "homepage": "https://github.com/functy23/dsh-mcp-studio",
+  "skills": []
+}
