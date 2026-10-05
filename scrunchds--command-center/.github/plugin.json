@@ -1,0 +1,9 @@
+{
+  "name": "scrunchds--command-center",
+  "displayName": "Command-Center",
+  "description": "A personal operational OS and AI multi-agent orchestration plugin for Obsidian. Features interview-driven onboarding, multi-provider model routing, local Pi ReAct engine, hybrid vault RAG, persistent ",
+  "version": "1.0.0",
+  "author": "scrunchds",
+  "homepage": "https://github.com/scrunchds/Command-Center",
+  "skills": []
+}
