@@ -1,0 +1,9 @@
+{
+  "name": "corfirean--coa-server-manager",
+  "displayName": "coa-server-manager",
+  "description": "Desktop manager for Conquest of Azeroth (AzerothCore) servers: install, update, back up, bots, friends",
+  "version": "1.0.0",
+  "author": "Corfirean",
+  "homepage": "https://github.com/Corfirean/coa-server-manager",
+  "skills": []
+}
