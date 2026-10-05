@@ -4,7 +4,7 @@
   "repo": "amdgpu-wddm",
   "description": "Open Windows (WDDM) driver stack for AMD GPUs, developed first on the ASRock BC-250 (gfx1013). Not affiliated with AMD, ASRock or Microsoft.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/D-Ogi/amdgpu-wddm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T14:32:38Z"
+  "distributed_at": "2026-10-05T14:35:41Z"
 }
