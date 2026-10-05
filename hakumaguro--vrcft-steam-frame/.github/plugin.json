@@ -1,0 +1,9 @@
+{
+  "name": "hakumaguro--vrcft-steam-frame",
+  "displayName": "vrcft-steam-frame",
+  "description": "Eye tracking for Steam Frame in VRChat: VRCFaceTracking module, guided tuning tool and headset setup scripts (unofficial)",
+  "version": "1.0.0",
+  "author": "hakumaguro",
+  "homepage": "https://github.com/hakumaguro/vrcft-steam-frame",
+  "skills": []
+}
