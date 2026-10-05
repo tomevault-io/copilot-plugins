@@ -1,0 +1,9 @@
+{
+  "name": "shiaho777--revx",
+  "displayName": "revx",
+  "description": "Rust reverse-engineering toolkit with CLI and local MCP server.",
+  "version": "1.0.0",
+  "author": "shiaho777",
+  "homepage": "https://github.com/shiaho777/revx",
+  "skills": []
+}
