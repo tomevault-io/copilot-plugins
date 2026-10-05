@@ -16,7 +16,7 @@ Original source: `` in [orziz/odai](https://github.com/orziz/odai).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [orziz/odai](https://github.com/orziz/odai) — a repo with 95+ stars on GitHub.
+From [orziz/odai](https://github.com/orziz/odai) — a repo with 118+ stars on GitHub.
 
 ---
 
