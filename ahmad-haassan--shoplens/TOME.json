@@ -1,0 +1,44 @@
+{
+  "name": "shoplens",
+  "owner": "Ahmad-Haassan",
+  "repo": "shoplens",
+  "description": "AI-powered price comparison platform that helps users find the best deals across multiple online stores. Simply paste a product link to compare prices, view AI-generated review summaries, and discover the best value based on price, ratings, and overall quality.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ahmad-Haassan/shoplens",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-10-05T03:01:12Z"
+}
