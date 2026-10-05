@@ -1,0 +1,9 @@
+{
+  "name": "simonliu-ai-product--open-dashboard",
+  "displayName": "open-dashboard",
+  "description": "Describe the dashboard you want. Your coding agent builds it \u2014 live, over your own database.",
+  "version": "1.0.0",
+  "author": "simonliu-ai-product",
+  "homepage": "https://github.com/simonliu-ai-product/open-dashboard",
+  "skills": []
+}
