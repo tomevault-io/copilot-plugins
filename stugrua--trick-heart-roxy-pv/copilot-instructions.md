@@ -1,0 +1,22 @@
+## trick-heart-roxy-pv
+
+> 本项目是《トリックハート》洛琪希视觉二创的可复现工程。中文说明使用简体中文。
+
+# 项目协作约定
+
+本项目是《トリックハート》洛琪希视觉二创的可复现工程。中文说明使用简体中文。
+
+制作下一支有限差分PV或复用本工程前，先读docs/production-guide.md与templates/pv-planning/README.md；具体经验见docs/v4-revision.md的案例与证据。模板用于规划，不能直接当成本片渲染配置。
+
+- 原曲、帧数、时间线及用户确认的两个造型保持不变；角色原画由图像模型制作，程序负责跟踪、遮罩、姿态切换与合成。
+- 当前公开v2.0.0对应内部v4，中文字幕为独立v4-zh版本；首版v1.0.0对应v3。构建当前版本须显式传--version v4，省略时保留历史v3行为。两处英文视觉署名保留，不增加字幕署名。
+- 修改前读取README.md、docs/pipeline.md和相关工具；仅改变满足请求的范围。
+- 所有路径相对于仓库根目录；原作输入位于research，帧缓存位于frames，输出位于deliverables，审阅证据位于review。禁止向仓库父目录写运行产物。
+- public-files.json是可公开文件白名单。原画PNG、译文文本、原曲、原PV、输出、缓存与环境不得意外进入代码发布包；资源包另有明确的授权边界。
+- 代码MIT，字体保留OFL许可，角色/音乐/PV/译文/原画不自动获得MIT许可。
+- 改动后运行相关验证；移动目录或清理缓存前，验证输入、资产及交付哈希并保留可恢复的必要记录。
+- 不读取凭证。不自动提交、添加远端、推送或发布。
+
+---
+> Source: [StuGRua/trick-heart-roxy-pv](https://github.com/StuGRua/trick-heart-roxy-pv) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-10-05 -->
