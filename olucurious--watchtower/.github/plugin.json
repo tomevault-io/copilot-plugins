@@ -1,0 +1,9 @@
+{
+  "name": "olucurious--watchtower",
+  "displayName": "watchtower",
+  "description": "Self-hosted error tracking. A drop-in for Sentry and AppSignal SDKs: one Go binary and Postgres, with Slack, Linear, email and an MCP server for coding agents.",
+  "version": "1.0.0",
+  "author": "olucurious",
+  "homepage": "https://github.com/olucurious/watchtower",
+  "skills": []
+}
