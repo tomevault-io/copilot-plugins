@@ -1,57 +1,120 @@
-## prisma
+## unit-tests
 
-> Prisma schema and database conventions for core-api
+> Unit test patterns, conventions and commands for core-api
 
 
-# Prisma & Database Conventions
+# Unit Test Conventions — Vela
 
-## Schema Conventions
+Tests use **Jest 30** with **@nestjs/testing**. Co-located next to their source files.
 
-- Table names use `@@map("snake_case")` — Prisma models use PascalCase
-- UUIDs for all primary keys: `@id @default(uuid()) @db.Uuid`
-- Always add `created_at` and `updated_at` timestamps
-- Use enums for finite states: `ProjectStatus`, `ApplicationStatus`, `TierLevel`, etc.
-- Use `BigInt` for GitHub IDs (`github_repo_id`, `github_issue_id`, `github_pr_id`)
+## Useful Commands
 
-## Relations & Cascade
+Run all commands from the root directory:
 
-- `onDelete: Cascade` for child records that shouldn't exist without parent (IssueApplication → Issue, Issue → Repository)
-- `onDelete: SetNull` for optional associations (Issue → Campaign)
-- Always add `@@index` on FK columns and frequently queried fields
-- Use `@@unique` for composite natural keys (e.g. `[repository_id, github_issue_number]`)
+```bash
+# Run ALL unit tests
+npx jest
 
-## Prisma Usage in Services
+# Run tests for a specific module
+npx jest --testPathPatterns users
+npx jest --testPathPatterns bounties
+npx jest --testPathPatterns auth/guards
+
+# Run a single test file
+npx jest --testPathPatterns users.service.spec
+
+# Run tests in watch mode (re-run on file changes)
+npx jest --watch
+
+# Run tests with coverage report
+npx jest --coverage
+
+# Run coverage for a single module
+npx jest --coverage --testPathPatterns users
+
+# Run tests matching a specific test name
+npx jest -t "should throw NotFoundException"
+```
+
+Or use the standard npm scripts:
+
+```bash
+npm run test
+npm run test:cov
+```
+
+## Coverage Configuration
+
+Configured in `package.json` under `jest`:
+
+- **Thresholds**: 75% statements, 75% lines, 75% functions, 70% branches
+- **Collected from**: `*.service.ts`, `*.controller.ts`, `*.guard.ts`, `*.interceptor.ts`, `*.pipe.ts`, `*.filter.ts`
+- **Excluded**: `*.spec.ts`, `*.e2e-spec.ts`, `auth/strategies/**` (Supabase strategy depends on external SDK)
+
+When adding a new module, ensure tests meet the global thresholds before pushing.
+
+## File Location & Naming
+
+Tests live **next to** the file they test:
+
+```
+modules/users/
+├── users.service.ts
+├── users.service.spec.ts
+├── users.controller.ts
+├── users.controller.spec.ts
+```
+
+## Test Structure
 
 ```typescript
-// Transactions for multi-step writes
-await this.prisma.$transaction(async (tx) => {
-  await tx.model.create({ data: { ... } });
-  await tx.otherModel.update({ where: { ... }, data: { ... } });
-});
+describe('FeatureService', () => {
+  let service: FeatureService;
 
-// Use updateMany when the record might not exist (avoids throwing)
-await this.prisma.issue.updateMany({
-  where: { repository_id: repoId, github_issue_number: issueNum },
-  data: { state: 'closed' },
-});
+  const mockPrismaService = {
+    model: { findUnique: jest.fn(), create: jest.fn(), update: jest.fn() },
+  };
+  const mockEventEmitter = { emit: jest.fn() };
 
-// Use deleteMany for safe deletes (no throw if not found)
-await this.prisma.issue.deleteMany({
-  where: { repository_id: repoId, github_issue_number: issueNum },
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        FeatureService,
+        { provide: PrismaService, useValue: mockPrismaService },
+        { provide: EventEmitter2, useValue: mockEventEmitter },
+      ],
+    }).compile();
+
+    service = module.get<FeatureService>(FeatureService);
+  });
+
+  afterEach(() => jest.clearAllMocks());
 });
 ```
 
-## Commands
+## Controller Tests vs Service Tests
 
-| Command | Use |
-|---------|-----|
-| `npm run prisma:generate` | After schema changes |
-| `npm run prisma:migrate` | Create migration (production) |
-| `npm run prisma:push` | Push schema (dev only) |
-| `npm run prisma:studio` | Visual DB browser |
-| `npm run prisma:seed` | Seed data (TierDefinitions, categories) |
+- **Controller tests**: verify delegation to service, correct param passing, no business logic duplication. Mock the entire service.
+- **Service tests**: verify full business logic — happy path + every exception path. Mock Prisma and EventEmitter.
 
-See `docs/DATABASE.md` for full setup guide.
+## Key Patterns
+
+- Mock ALL dependencies — never use real DB or external services
+- Test every exception: `NotFoundException`, `ForbiddenException`, `BadRequestException`, `ConflictException`
+- Verify `eventEmitter.emit` calls with correct event name and payload
+- Verify Prisma methods called with correct `where`/`data`/`include`
+- Use `mockResolvedValue` / `mockRejectedValue` for async mocks
+- Test idempotency where applicable (e.g., duplicate role additions)
+- Use `expect.any(Array)` or `expect.objectContaining()` for flexible assertions
+
+## Naming Convention
+
+```typescript
+it('should throw NotFoundException when user does not exist', ...)
+it('should create application with AWAITING_ASSIGNMENT status', ...)
+it('should emit user.created event after creating user', ...)
+it('should return 403 when non-admin tries to add role', ...)
+```
 
 ---
 > Source: [VelaPayments/vela-server](https://github.com/VelaPayments/vela-server) — distributed by [TomeVault](https://tomevault.io).
