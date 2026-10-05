@@ -1,0 +1,9 @@
+{
+  "name": "owayo--noslop",
+  "displayName": "noslop",
+  "description": "\u65e5\u672c\u8a9e\u306e\u6587\u7ae0\u304b\u3089\u300cAI \u81ed\u3055\u300d\u3092\u6a5f\u68b0\u7684\u306b\u62fe\u3046 Rust \u88fd\u306e Linter",
+  "version": "1.0.0",
+  "author": "owayo",
+  "homepage": "https://github.com/owayo/noslop",
+  "skills": []
+}
