@@ -1,0 +1,9 @@
+{
+  "name": "christopherowen--dgx-spark-networking",
+  "displayName": "dgx-spark-networking",
+  "description": "Switchless RoCE collectives, NCCL profiles and fabric tooling for DGX Spark inference recipes",
+  "version": "1.0.0",
+  "author": "christopherowen",
+  "homepage": "https://github.com/christopherowen/dgx-spark-networking",
+  "skills": []
+}
