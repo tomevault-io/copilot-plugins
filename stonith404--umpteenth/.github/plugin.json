@@ -1,0 +1,9 @@
+{
+  "name": "stonith404--umpteenth",
+  "displayName": "umpteenth",
+  "description": "Self-hosted agent jobs that learn. Describe the task once, run it in a disposable sandbox and watch it turn into a script.",
+  "version": "1.0.0",
+  "author": "stonith404",
+  "homepage": "https://github.com/stonith404/umpteenth",
+  "skills": []
+}
