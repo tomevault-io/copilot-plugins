@@ -1,0 +1,9 @@
+{
+  "name": "spec-0--studio",
+  "displayName": "studio",
+  "description": "A desktop API client built around your OpenAPI spec. For macOS, Windows and Linux.",
+  "version": "1.0.0",
+  "author": "spec-0",
+  "homepage": "https://github.com/spec-0/studio",
+  "skills": []
+}
