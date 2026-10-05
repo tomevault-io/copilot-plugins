@@ -1,0 +1,9 @@
+{
+  "name": "lin-yang-2713--aiagent",
+  "displayName": "AIAgent",
+  "description": "AI-powered website builder that uses multi-agent orchestration to generate production-ready websites from natural language prompts.",
+  "version": "1.0.0",
+  "author": "lin-yang-2713",
+  "homepage": "https://github.com/lin-yang-2713/AIAgent",
+  "skills": []
+}
