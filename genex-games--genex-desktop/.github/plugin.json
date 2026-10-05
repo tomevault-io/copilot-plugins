@@ -1,0 +1,9 @@
+{
+  "name": "genex-games--genex-desktop",
+  "displayName": "genex-desktop",
+  "description": "Desktop app for game dev with AI. macOS and Linux, Windows soon.",
+  "version": "1.0.0",
+  "author": "genex-games",
+  "homepage": "https://github.com/genex-games/genex-desktop",
+  "skills": []
+}
