@@ -1,0 +1,9 @@
+{
+  "name": "songth1ef--watchdogs-motion",
+  "displayName": "watchdogs-motion",
+  "description": "Shot-by-shot recreation of two Watch Dogs trailers, rendered entirely in code (Canvas 2D + three.js). Fan-made study.",
+  "version": "1.0.0",
+  "author": "songth1ef",
+  "homepage": "https://github.com/songth1ef/watchdogs-motion",
+  "skills": []
+}
