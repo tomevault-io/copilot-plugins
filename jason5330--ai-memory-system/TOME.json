@@ -4,7 +4,7 @@
   "repo": "ai-memory-system",
   "description": "Self-evolving memory for Claude Code & Codex \u2014 two-layer (personal + per-project), reflects into doctrine, harvests repeated workflows into skills, hard-blocks broken tools.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jason5330/ai-memory-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-10-05T08:40:06Z"
+  "distributed_at": "2026-10-05T08:49:25Z"
 }
